@@ -4,6 +4,7 @@ var path = require('path');
 var router = require('koa-router')();
 var onerror = require('koa-onerror');
 var convert = require('koa-convert');
+var compress = require('koa-compress');
 var logger = require('koa-logger');
 var json = require('koa-json');
 var views = require("koa-views");
@@ -24,15 +25,12 @@ var compiler = webpack(webpackConfig);
 //webpackConfig.entry.index.unshift("webpack/hot/only-dev-server");
 
 
+
+app.use(compress());
+
 app.use(staticDir(path.join(__dirname,'static')));
 
-app.use(views(__dirname + '/views', {
-  map: {
-    html: 'dust'
-  }
-}));
 
-app.use(dust(path.join(__dirname,'views')));
 
 app.use(bodyparser());
 
@@ -50,9 +48,17 @@ app.use(function* (next){
 });
 
 
+app.use(views(__dirname + '/static', {
+	/*
+  map: {
+    html: 'dust'
+  }
+  */
+}));
 
-var routerConfig = require('./src/config/routes');
-	routerConfig(app);
+/*
+app.use(dust(path.join(__dirname,'views')));
+*/
 
 
 
@@ -66,6 +72,12 @@ app.use(convert(webpackDevMiddleware(compiler,{
 })));
 
 app.use(convert(webpackHotMiddleware(compiler)));
+
+
+var routerConfig = require('./src/config/routes');
+	routerConfig(app);
+
+
 
 app.on('error',function(err,ctx){
 	console.log('service error',err,ctx);

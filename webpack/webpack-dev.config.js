@@ -2,13 +2,13 @@ const webpack = require('webpack');
 const path = require('path');
 const buildPath = path.join(process.cwd(), '/static');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+var env = process.env.NODE_ENV;
 
 const config = {
   // 程序入口
-  entry:{
-	  index:[path.join(process.cwd(), '/src/container/index.js')],
-	  user:[path.join(process.cwd(), '/src/container/user.js')]
-  },
+  entry:path.join(process.cwd(), '/src/app.js'),
   // webpack 获取依赖配置
   resolve: {
     extensions: ['', '.js', '.md','.css'], // 加载这些类型的文件时不用加后缀
@@ -20,17 +20,29 @@ const config = {
   // 出口文件配置
   output: {
     path: buildPath,
-    filename: '[name].bundle.js'
+    filename: 'bundle.js'
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      inject: false,
-      template: path.join(process.cwd(), '/views/index.html'),
-    }),
+
     // 开发时热加载组件
     new webpack.HotModuleReplacementPlugin(),
+
     // 错误提示但是不阻断编译
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+
+	new webpack.DefinePlugin({
+		'process.env.NODE_ENV': JSON.stringify(env)
+	}),
+
+	new ExtractTextPlugin('app.css', { allChunks: true }),
+
+	new HtmlWebpackPlugin({
+		title: 'Redux React Router Async Example',
+		filename: 'index.html',
+		template: 'index.template.html',
+		inject:'body'
+	})
+
   ],
   module: {
 	  loaders: [
