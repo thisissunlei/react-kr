@@ -1,12 +1,12 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import GlobalHeader from '../components/global/header';
+
 ReactDOM.render(
+
 	<div>
-	hahahah
-	haha
-	我的世界
+		<GlobalHeader/>
 	</div>
 , document.getElementById('app'));
 
