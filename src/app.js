@@ -1,43 +1,34 @@
 import React from 'react';
-import { Router, Route, Link,IndexRoute,browserHistory} from 'react-router';
-
-import Home from './Components/Home';
-import About from './Components/About';
-
-import Header from './Components/Global/Header';
-
 import ReactDOM from 'react-dom';
+import { Router,browserHistory} from 'react-router';
 
-const App = React.createClass({
+import { createStore,combineReducers,applyMiddleware} from 'redux';
+import { Provider,connect } from 'react-redux';
+import thunkMiddleware from 'redux-thunk';
+import createLogger from 'redux-logger';
+import {fetchCompanys} from './Action';
 
-	render() {
 
-		return (
-			<div>
-				<Header/>
-				{this.props.children}
-			</div>
-		)
-	}
-})
+import * as reducers from './Reducers';
+import routes from './routes';
 
+import initState from './initState';
+
+
+const loggerMiddleware = createLogger();
+
+let store = createStore(combineReducers(reducers), initState, applyMiddleware(
+	thunkMiddleware, loggerMiddleware 
+));
+
+store.dispatch(fetchCompanys());
 
 ReactDOM.render((
 
-	<Router history={browserHistory} >
+	<Provider store={store} key="provider"> 
+	<Router history={browserHistory} routes={routes} />
+	</Provider>
 
-	<Route path="/" component={App}>
-
-	<IndexRoute component={Home}/>
-
-	<Route path="about" component={About}/>
-	<Route path="index" component={Home}/>
-
-
-
-	</Route>
-
-	</Router>
 ), document.getElementById('app'))
 
 
