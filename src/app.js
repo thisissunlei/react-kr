@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, Link,IndexRoute,useRouterHistory} from 'react-router';
+import { Router, Route, Link,IndexRoute,useRouterHistory,browserHistory} from 'react-router';
 import {createHashHistory} from 'history';
 
 import ReactDOM from 'react-dom';
@@ -45,7 +45,7 @@ const Message = React.createClass({
 
 ReactDOM.render((
  <Router 
-    history={useRouterHistory(createHashHistory)()}
+    history={browserHistory}
 	>
     <Route path="/" component={App}>
       <Route path="about" component={About} />
