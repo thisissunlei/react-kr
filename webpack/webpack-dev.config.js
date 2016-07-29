@@ -8,7 +8,9 @@ var env = process.env.NODE_ENV;
 
 const config = {
   // 程序入口
-  entry:path.join(process.cwd(), '/src/app.js'),
+  entry:{
+	  'app':[path.join(process.cwd(), '/src/app.js')]
+  },
   // webpack 获取依赖配置
   resolve: {
     extensions: ['', '.js', '.md','.css'], // 加载这些类型的文件时不用加后缀

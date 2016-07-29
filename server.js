@@ -10,7 +10,6 @@ var json = require('koa-json');
 var views = require("koa-views");
 var bodyparser = require('koa-bodyparser');
 var staticDir = require('koa-static');
-var dust = require('koa-dust');
 
 
 var webpack = require('webpack');
@@ -21,16 +20,11 @@ var config = require('./src/config/config');
 var webpackConfig = require('./webpack/webpack-dev.config');
 var compiler = webpack(webpackConfig);
 
-//webpackConfig.entry.index.unshift("webpack-dev-server/client?http://localhost:8001");  // 将执替换js内联进去
-//webpackConfig.entry.index.unshift("webpack/hot/only-dev-server");
-
 
 
 app.use(compress());
 
 app.use(staticDir(path.join(__dirname,'static')));
-
-
 
 app.use(bodyparser());
 
@@ -48,34 +42,22 @@ app.use(function* (next){
 });
 
 
-app.use(views(__dirname + '/static', {
-	/*
-  map: {
-    html: 'dust'
-  }
-  */
-}));
-
-/*
-app.use(dust(path.join(__dirname,'views')));
-*/
-
+app.use(views(__dirname + '/static'));
 
 
 app.use(convert(webpackDevMiddleware(compiler,{
-	hot:true,
-	noInfo:true,
-	stats: { 
-		colors: true  // 用颜色标识
-	},
+	hot: true,    
+	inline: true,
+	quiet: false,
+	noInfo: true,
+	stats: { colors: true },
 	publicPath:webpackConfig.output.publicPath
 })));
 
 app.use(convert(webpackHotMiddleware(compiler)));
 
-
-var routerConfig = require('./src/config/routes');
-	routerConfig(app);
+webpackConfig.entry.app.unshift("webpack-dev-server/client?http://localhost:"+config.app.port);  // 将执替换js内联进去
+webpackConfig.entry.app.unshift("webpack/hot/only-dev-server");
 
 
 
@@ -83,10 +65,7 @@ app.on('error',function(err,ctx){
 	console.log('service error',err,ctx);
 });
 
-
-app.listen(config.app.port,'127.0.0.1',function(err){
-
-});
+app.listen(config.app.port,'127.0.0.1');
 
 
 module.exports = app;

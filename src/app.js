@@ -1,7 +1,8 @@
 import React from 'react';
-import { Router, Route, Link,IndexRoute } from 'react-router'
+import { Router, Route, Link,IndexRoute,useRouterHistory} from 'react-router';
+import {createHashHistory} from 'history';
+
 import ReactDOM from 'react-dom';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
 
 const App = React.createClass({
   render() {
@@ -43,9 +44,10 @@ const Message = React.createClass({
 
 
 ReactDOM.render((
-  <Router>
+ <Router 
+    history={useRouterHistory(createHashHistory)()}
+	>
     <Route path="/" component={App}>
-		<IndexRoute component={About}/>
       <Route path="about" component={About} />
       <Route path="inbox" component={Inbox}>
         <Route path="messages/:id" component={Message} />
@@ -53,8 +55,6 @@ ReactDOM.render((
     </Route>
   </Router>
 ), document.getElementById('app'))
-
-
 
 
 
