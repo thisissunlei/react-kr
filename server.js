@@ -41,25 +41,27 @@ app.use(function* (next){
 	console.log('%s-%s-%s',this.mothed,this.url,ms);
 });
 
-
 app.use(views(__dirname + '/static'));
-
 
 app.use(convert(webpackDevMiddleware(compiler,{
 	hot: true,    
-	inline: true,
+	inline: false,
 	quiet: false,
 	noInfo: true,
-	stats: { colors: true },
-	publicPath:webpackConfig.output.publicPath
+	stats: { colors: true }
 })));
 
 app.use(convert(webpackHotMiddleware(compiler)));
 
-webpackConfig.entry.app.unshift("webpack-dev-server/client?http://localhost:"+config.app.port);  // 将执替换js内联进去
-webpackConfig.entry.app.unshift("webpack/hot/only-dev-server");
+webpackConfig.entry.unshift("webpack/hot/only-dev-server");
+webpackConfig.entry.unshift("webpack-dev-server/client?http://127.0.0.1:"+config.app.port);  
 
 
+var indexRouter = require('./src/config/routes');
+
+router.use('/',indexRouter.routes(),indexRouter.allowedMethods());
+
+app.use(router.routes());
 
 app.on('error',function(err,ctx){
 	console.log('service error',err,ctx);

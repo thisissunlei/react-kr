@@ -7,43 +7,40 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 var env = process.env.NODE_ENV;
 
 const config = {
-  // 程序入口
-  entry:{
-	  'app':[path.join(process.cwd(), '/src/app.js')]
-  },
-  // webpack 获取依赖配置
+  entry:[
+	  path.join(process.cwd(), '/static/components/normalize-css/normalize.css'),
+	  path.join(process.cwd(), '/src/app.js'),
+  ],
   resolve: {
-    extensions: ['', '.js', '.md','.css'], // 加载这些类型的文件时不用加后缀
+    extensions: ['', '.js', '.md','.css'], 
     alias: {
-      'kr-app': path.join(process.cwd(), '/src'), // kr-ui 相关组件从源代码目录加载
+      'kr-app': path.join(process.cwd(), '/src'), 
     },
   },
   devtool: 'eval',
-  // 出口文件配置
   output: {
-    path: buildPath,
-    filename: 'bundle.js'
+	  path: buildPath,
+	  filename: 'bundle.js',
+	  publicPath:"http://127.0.0.1:8001/static/"
   },
   plugins: [
 
-    // 开发时热加载组件
-    new webpack.HotModuleReplacementPlugin(),
+	  new webpack.HotModuleReplacementPlugin(),
 
-    // 错误提示但是不阻断编译
-    new webpack.NoErrorsPlugin(),
+	  new webpack.NoErrorsPlugin(),
 
-	new webpack.DefinePlugin({
-		'process.env.NODE_ENV': JSON.stringify(env)
-	}),
-
-	new ExtractTextPlugin('app.css', { allChunks: true }),
-
-	new HtmlWebpackPlugin({
-		title: 'Redux React Router Async Example',
-		filename: 'index.html',
-		template: 'index.template.html',
-		inject:'body'
-	})
+	  new webpack.DefinePlugin({
+		  'process.env.NODE_ENV': JSON.stringify(env)
+	  }),
+	  /*
+	  new ExtractTextPlugin('app.css', { allChunks: true }),
+	  new HtmlWebpackPlugin({
+		  title: 'Redux React Router Async Example',
+		  filename: 'index.html',
+		  template: 'index.template.html',
+		  inject:'body'
+	  })
+	  */
 
   ],
   module: {
