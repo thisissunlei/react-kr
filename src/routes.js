@@ -2,9 +2,6 @@ import React from 'react';
 
 import { Router, Route, Link,IndexRoute,browserHistory} from 'react-router';
 
-
-
-
 import Home from './Components/Home';
 import About from './Components/About';
 
@@ -23,9 +20,12 @@ const App = React.createClass({
 
 		return (
 			<div className="main-content">
-				<Header/>
-				{this.props.children}
-				<Footer/>
+			<Header/>
+
+
+
+
+			{this.props.children}
 			</div>
 		)
 	}
@@ -37,14 +37,14 @@ export default(
 
 	<Route path="/" component={App}>
 
-		<IndexRoute component={CompanyList}/>
+	<IndexRoute component={CompanyList}/>
 
-		<Route path="company" component={CompanyIndex}>
-			<Route path="list" component={CompanyList}/>
-		</Route>
+	<Route path="company" component={CompanyIndex}>
+	<Route path="list" component={CompanyList}/>
+	</Route>
 
-		<Route path="about" component={About}/>
-		<Route path="index" component={Home}/>
+	<Route path="about" component={About}/>
+	<Route path="index" component={Home}/>
 
 	</Route>
 

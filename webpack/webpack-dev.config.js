@@ -41,9 +41,11 @@ const config = {
 		  inject:'body'
 	  })
 	  */
-
+	  new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop')
   ],
   module: {
+	  exprContextRegExp: /$^/,
+	  exprContextCritical: false,
 	  loaders: [
 		  {
 			  test: /\.jsx?$/,
