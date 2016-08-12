@@ -3,7 +3,6 @@ import React from 'react';
 import { Router, Route, Link,IndexRoute,browserHistory} from 'react-router';
 
 import Home from './Components/Home';
-import About from './Components/About';
 
 
 import CompanyIndex from './Components/Company';
@@ -19,13 +18,16 @@ const App = React.createClass({
 	render() {
 
 		return (
-			<div className="main-content">
-			<Header/>
+			<div>
 
+				<Header/>
 
+				<div className="container">
+					{this.props.children}
+				</div>
 
+				<Footer/>
 
-			{this.props.children}
 			</div>
 		)
 	}
@@ -40,10 +42,9 @@ export default(
 	<IndexRoute component={CompanyList}/>
 
 	<Route path="company" component={CompanyIndex}>
-	<Route path="list" component={CompanyList}/>
+		<Route path="list" component={CompanyList}/>
 	</Route>
 
-	<Route path="about" component={About}/>
 	<Route path="index" component={Home}/>
 
 	</Route>

@@ -1,49 +1,91 @@
+import React,{Component} from 'react';
+import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
 import {Link} from 'react-router';
 
-import React, {Component, PropTypes} from 'react';
+import * as actionCreators from '../../../Action';
+
 
 import {
 	AppBar,
+	Menu,
 	MenuItem,
+	DropDownMenu,
 	IconMenu,
 	IconButton,
 	RaisedButton,
-	Drawer
+	Drawer,
+	Divider,
+	FontIcon,
+	FloatingActionButton
 } from 'material-ui';
+
+import {Popover, PopoverAnimationVertical} from 'material-ui/Popover';
+
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
+
+import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+
 
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
+import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 
 import './index.less';
 
 
-export default class Header extends Component {
+import SidebarNav from '../SidebarNav';
+
+
+class Header extends Component {
 
 
 	constructor(props,context){
 		super(props, context);
 
+		this.handleToggle = this.handleToggle.bind(this);
+		this.showBottomNav = this.showBottomNav.bind(this);
+		this.handleRequestClose = this.handleRequestClose.bind(this);
+
+
 		this.state = {
-			open:false
+			bottomNav:false,
 		}
 
 	}
 
 	handleToggle(){
-		console.log('----');
-		this.setState({open: !this.state.open});
+
+		var {actions,sidebar_nav} = this.props;
+		actions.switchSidebarNav(!!!sidebar_nav.switch_value);
 	}
+
+	showBottomNav(event){
+		event.preventDefault();
+
+		var {actions,bottom_nav} = this.props;
+		actions.switchBottomNav({switch_value:!!!bottom_nav.switch_value,anchor_el:event.currentTarget});
+
+
+	}
+
+	handleRequestClose(){
+		var {actions,bottom_nav} = this.props;
+		actions.switchBottomNav({switch_value:!!!bottom_nav.switch_value,anchor_el:event.currentTarget});
+	};
 
 	render() {
 
 
-
 		return (
-			<div>
+			<div >
 
 			<AppBar
 			title="36氪"
-			iconElementLeft={<IconButton onClick={this.handleToggle.bind(this)}><NavigationClose  /></IconButton>}
+			style={{paddingLeft:60,position:'fixed',top:0,left:0,right:0}}
+			iconElementLeft={<IconButton onClick={this.handleToggle}><NavigationMenu  /></IconButton>}
 			iconElementRight={
 				<IconMenu
 				iconButtonElement={
@@ -57,14 +99,96 @@ export default class Header extends Component {
 				<MenuItem primaryText="Sign out" />
 				</IconMenu>
 			}
+			children = {
+				<div>
+
+				<IconMenu
+				iconButtonElement={
+					<Menu>
+					<MenuItem
+					primaryText="菜单一"
+					/>
+					</Menu>
+				}
+				anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+				targetOrigin={{horizontal: 'left', vertical: 'top'}}
+				>
+				<MenuItem primaryText="Refresh" />
+				<MenuItem primaryText="Send feedback" />
+				<MenuItem primaryText="Settings" />
+				<MenuItem primaryText="Help" />
+				<MenuItem primaryText="Sign out" />
+				</IconMenu>
+				<IconMenu
+				iconButtonElement={
+					<Menu>
+					<MenuItem
+					primaryText="菜单一"
+					/>
+					</Menu>
+				}
+				anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+				targetOrigin={{horizontal: 'left', vertical: 'top'}}
+				>
+				<MenuItem primaryText="Refresh" />
+				<MenuItem primaryText="Send feedback" />
+				<MenuItem primaryText="Settings" />
+				<MenuItem primaryText="Help" />
+				<MenuItem primaryText="Sign out" />
+				</IconMenu>
+				<IconMenu
+				iconButtonElement={
+					<Menu>
+					<MenuItem
+					primaryText="菜单一"
+					/>
+					</Menu>
+				}
+				anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+				targetOrigin={{horizontal: 'left', vertical: 'top'}}
+				>
+				<MenuItem primaryText="Refresh" />
+				<MenuItem primaryText="Send feedback" />
+				<MenuItem primaryText="Settings" />
+				<MenuItem primaryText="Help" />
+				<MenuItem primaryText="Sign out" />
+				</IconMenu>
+
+				</div>
+			}
 			/>
 
+			<Drawer open={this.props.sidebar_nav.switch_value} width={85}>
 
+				<AppBar
+				iconElementLeft={<IconButton onClick={this.handleToggle}><NavigationClose  /></IconButton>}
+				/>
 
-			<Drawer open={this.state.open}>
-			<MenuItem>Menu Item</MenuItem>
-			<MenuItem>Menu Item 2</MenuItem>
+				<SidebarNav/>
+
 			</Drawer>
+
+
+
+			<FloatingActionButton onTouchTap={this.showBottomNav} style={{position:'fixed',bottom:20,right:10,zIndex:888}} secondary={true} >
+			<ContentAdd />
+			</FloatingActionButton>
+
+			<Popover
+			open={this.props.bottom_nav.switch_value}
+			anchorEl={this.props.bottom_nav.anchor_el}
+			anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+			targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
+			onRequestClose={this.handleRequestClose}
+			animation={PopoverAnimationVertical}
+			>
+			<Menu>
+			<MenuItem primaryText="Refresh" />
+			<MenuItem primaryText="Help &amp; feedback" />
+			<MenuItem primaryText="Settings" />
+			<MenuItem primaryText="Sign out" />
+			</Menu>
+			</Popover>
 
 			</div>
 		);
@@ -72,27 +196,22 @@ export default class Header extends Component {
 
 }
 
-/*
-   <div className="c-header">
-   <div className="container">
-   <ul className="navs">
-   <li><Link to="/"><img src="https://sta.36krcnd.com/common-module/common-header/images/logo.png" width="60" height="40"/></Link></li>
-
-   <li><Link to="/company/list">创投资讯</Link></li>
-   <li><Link to="/company/list">7*24h资讯</Link></li>
-   <li><Link to="/company/list">股权投资</Link></li>
-   <li><Link to="/company/list">融资</Link></li>
-   <li><Link to="/company/list">我是创业者</Link></li>
-   <li><Link to="/company/list">我是投资人</Link></li>
-   <li><Link to="/company/list">发现</Link></li>
-   </ul>
-
-   </div>
-   </div>
-
-
-*/
 
 
 
+function mapStateToProps(state){
+
+	return {
+		sidebar_nav:state.sidebar_nav,
+		bottom_nav:state.bottom_nav
+	};
+}
+
+function mapDispatchToProps(dispatch){
+	return {
+		actions:bindActionCreators(Object.assign({},actionCreators),dispatch)
+	};
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Header);
 

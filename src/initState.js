@@ -6,6 +6,13 @@ let initState = {
 	],
 	companys_fetch:{
 
+	},
+	sidebar_nav:{
+		switch_value:true,
+	},
+	bottom_nav:{
+		switch_value:false,
+		anchor_el:undefined
 	}
 
 
