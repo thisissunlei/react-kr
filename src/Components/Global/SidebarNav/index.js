@@ -26,7 +26,7 @@ import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 
-import SidebarNavMenuItems from '../../../config/sidebarNavs';
+import SidebarNavMenuItems from '../../../Configs/sidebarNavs';
 
 export default class SidebarNav extends Component {
 

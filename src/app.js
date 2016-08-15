@@ -8,18 +8,15 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 
 
+import typography from 'material-ui/styles/typography';
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import {cyan500, grey200, darkWhite} from 'material-ui/styles/colors';
 
-import { createStore,combineReducers,applyMiddleware} from 'redux';
 import { Provider,connect } from 'react-redux';
-import thunkMiddleware from 'redux-thunk';
-import createLogger from 'redux-logger';
-import {fetchCompanys} from './Action';
 
-
-import * as reducers from './Reducers';
 import routes from './routes';
 
-import initState from './initState';
+import configureStore from './Redux/Store';
 
 
 injectTapEventPlugin({
@@ -30,23 +27,15 @@ injectTapEventPlugin({
 	*/
 });
 
-const loggerMiddleware = createLogger();
 
-let store = createStore(combineReducers(reducers), initState, applyMiddleware(
-	thunkMiddleware, loggerMiddleware 
-));
-
-store.dispatch(fetchCompanys());
-
+let store = configureStore();
 
 ReactDOM.render((
-
 	<MuiThemeProvider>
-	<Provider store={store} key="provider"> 
-	<Router history={browserHistory} routes={routes} />
-	</Provider>
+		<Provider store={store} key="provider"> 
+			<Router history={browserHistory} routes={routes} />
+		</Provider>
 	</MuiThemeProvider>
-
-), document.getElementById('app'))
+), document.body)
 
 

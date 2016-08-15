@@ -2,48 +2,16 @@ import React from 'react';
 
 import { Router, Route, Link,IndexRoute,browserHistory} from 'react-router';
 
-import Home from './Components/Home';
 
+import {Home} from './Containers';
 
-import CompanyIndex from './Components/Company';
-import CompanyList from './Containers/CompanyList';
-
-
-import Header from './Components/Global/Header';
-import Footer from './Components/Global/Footer';
-
-
-const App = React.createClass({
-
-	render() {
-
-		return (
-			<div>
-
-				<Header/>
-
-				<div className="container">
-					{this.props.children}
-				</div>
-
-				<Footer/>
-
-			</div>
-		)
-	}
-})
-
-
+import Master from './master';
 
 export default(
 
-	<Route path="/" component={App}>
+	<Route path="/" component={Master}>
 
-	<IndexRoute component={CompanyList}/>
-
-	<Route path="company" component={CompanyIndex}>
-		<Route path="list" component={CompanyList}/>
-	</Route>
+	<IndexRoute component={Home}/>
 
 	<Route path="index" component={Home}/>
 

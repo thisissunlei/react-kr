@@ -12,10 +12,11 @@ var base = {
 };
 
 var specific = {
+
   development: {
     app: {
       port: 8001,
-      name: "Koa React Gulp Mongoose Mocha - Dev",
+      name: "",
       keys: [ "super-secret-hurr-durr" ],
     },
     mongo: {
@@ -24,8 +25,8 @@ var specific = {
   },
   test: {
     app: {
-      port: 3001,
-      name: "Koa React Gulp Mongoose Mocha - Test realm",
+      port: 8001,
+      name: "",
       keys: [ "super-secret-hurr-durr" ],
     },
     mongo: {

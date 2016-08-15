@@ -1,8 +1,9 @@
+
 import React,{Component} from 'react';
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 
-import * as actionCreators from '../../Action';
+import * as actionCreators from '../../Redux/Actions';
 
 
 import {List, ListItem} from 'material-ui/List';
@@ -35,7 +36,7 @@ import FlatButton from 'material-ui/FlatButton';
 
 import Loading from '../../Components/Loading';
 
-class CompanyList extends Component{
+class Home extends Component{
 
 
 	constructor(props,context){
@@ -91,8 +92,6 @@ class CompanyList extends Component{
       firstDayOfWeek={0}
 	  container="inline"
     />
-
-
 
 
 
@@ -273,5 +272,7 @@ function mapDispatchToProps(dispatch){
 	};
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(CompanyList);
+export default connect(mapStateToProps,mapDispatchToProps)(Home);
+
+
 

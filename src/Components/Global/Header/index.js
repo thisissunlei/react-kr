@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import {Link} from 'react-router';
 
-import * as actionCreators from '../../../Action';
+import * as actionCreators from '../../../Redux/Actions';
 
 
 import {

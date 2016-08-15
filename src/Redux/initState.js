@@ -1,3 +1,4 @@
+
 let initState = {
 
 	companys: [
@@ -18,4 +19,7 @@ let initState = {
 
 };
 
+
 module.exports = initState;
+
+

@@ -1,17 +1,6 @@
 import fetch from 'node-fetch';
 import param from 'jquery-param';
 
-/*
-export const SET_COMPANYS_FILTER = 'SET_COMPANYS_FILTER';
-export const SET_COMPANYS_DATA = 'SET_COMPANYS_DATE';
-export const SET_COMPANYS_ERROR = 'SET_COMPANYS_ERROR';
-export const SET_COMPANYS_SUCCESS = 'SET_COMPANYS_SUCCESS';
-export const SET_COMPANYS_FAILURE = 'SET_COMPANYS_FAILURE';
-
-export const OPEN_SIDEBAR_NAV = 'OPEN_SIDEBAR_NAV';
-*/
-
-
 
 export function switchSidebarNav(value){
 
@@ -118,6 +107,10 @@ export function fetchCompanys(request){
 	}
 
 }
+
+
+
+
 
 
 
