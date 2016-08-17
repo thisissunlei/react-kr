@@ -46,6 +46,8 @@ class Home extends Component{
 			open:false
 		}
 
+		var {actions} = this.props;
+		actions.loadCompanys();
 
 	}
 

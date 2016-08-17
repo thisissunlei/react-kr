@@ -81,7 +81,6 @@ class Header extends Component {
 
 		return (
 			<div >
-
 			<AppBar
 			title="36氪"
 			style={{paddingLeft:60,position:'fixed',top:0,left:0,right:0}}

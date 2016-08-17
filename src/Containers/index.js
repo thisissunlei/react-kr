@@ -1,5 +1,11 @@
-export { default as Home } from './Home'
-export { default as About } from './About'
+import { default as Home } from './Home';
+import { default as About } from './About';
+
+
+module.exports = {
+	Home,
+	About
+}
 
 
 

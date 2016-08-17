@@ -86,12 +86,23 @@ export function companys(state = [],action){
 		return action.data;
 	}
 
+	case 'LOAD_COMPANYS_REQUEST':{
+		console.log('------hahah');
+		return {...state};
+	}
 
-default:{
+	case 'LOAD_COMPANYS_SUCCESS':{
+		console.log('------response',action.response);
+		return {...state,...action.response};
+	}
 
-	return state;
+	case 'LOAD_COMPANYS_ERROR':{
+		return action.error;
+	}
 
-}
+	default:{
+		return state;
+	}
 
 	}
 }

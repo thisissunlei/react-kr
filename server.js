@@ -12,14 +12,19 @@ var bodyparser = require('koa-bodyparser');
 var staticDir = require('koa-static');
 var open = require('open');
 
-
 var webpack = require('webpack');
 var webpackDevMiddleware = require('koa-webpack-dev-middleware');
 var webpackHotMiddleware = require('koa-webpack-hot-middleware');
 
 var config = require('./configs/config');
-var webpackConfig = require('./webpack/webpack-dev.config');
+var webpackConfig = require('./webpack/webpack-'+process.env.NODE_ENV+'.config');
+
+webpackConfig.entry.unshift('webpack-hot-middleware/client?path=http://localhost:8001/__webpack_hmr');
+//webpackConfig.entry.unshift("webpack-dev-server/client?http://127.0.0.1:8001");  
+//webpackConfig.entry.unshift("webpack/hot/dev-server");
+
 var compiler = webpack(webpackConfig);
+
 
 
 
@@ -38,29 +43,50 @@ app.use(function* (next){
 	var start = new Date();
 	yield next;
 	var ms = new Date - start;
-
 	console.log('%s-%s-%s',this.mothed,this.url,ms);
 });
 
 app.use(views(__dirname + '/static'));
 
-app.use(convert(webpackDevMiddleware(compiler,{
+app.use(webpackDevMiddleware(compiler,{
 	hot: true,    
-	inline: false,
+	inline: true,
 	quiet: false,
 	noInfo: true,
-	stats: { colors: true }
-})));
+	watchDelay: 300,
+	host:'localhost',
+	headers: {
+		'Access-Control-Allow-Origin': '*',
+		'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+	},
+	contentBase:'./static/',
+	publicPath:webpackConfig.output.publicPath,
+	stats: {
+		colors: true,
+		hash: false,
+		version: false,
+		chunks: false,
+		children: false,
+	},
+}));
 
-app.use(convert(webpackHotMiddleware(compiler)));
+app.use(webpackHotMiddleware(compiler),{
+	log: console.log,
+	path: '/__webpack_hmr',
+	heartbeat: 10 * 1000
+});
 
-webpackConfig.entry.unshift("webpack/hot/only-dev-server");
-webpackConfig.entry.unshift("webpack-dev-server/client?http://127.0.0.1:"+config.app.port);  
+//var indexRouter = require('./configs/routes');
 
 
-var indexRouter = require('./configs/routes');
+var router = require('koa-router')();
 
-router.use('/',indexRouter.routes(),indexRouter.allowedMethods());
+router.get('*',function *(next){
+	console.log('-----0-0-');
+	yield this.render('index.html');
+});
+
+//router.use('/',indexRouter.routes(),indexRouter.allowedMethods());
 
 app.use(router.routes());
 
@@ -70,7 +96,7 @@ app.on('error',function(err,ctx){
 
 app.listen(config.app.port,'127.0.0.1',function(){
 	console.log('正在启动......');
-	open('http://localhost:' + config.app.port);
+	//open('http://localhost:' + config.app.port);
 });
 
 

@@ -35,7 +35,7 @@ var specific = {
   },
   production: {
     app: {
-      port: process.env.PORT || 3000,
+      port: process.env.PORT || 8001,
       name: "Koa React Gulp Mongoose Mocha",
     },
     mongo: {

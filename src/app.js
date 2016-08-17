@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router,browserHistory} from 'react-router';
+import { Router,browserHistory,hashHistory,useRouterHistory} from 'react-router';
+import {createHashHistory} from 'history';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -33,9 +34,18 @@ let store = configureStore();
 ReactDOM.render((
 	<MuiThemeProvider>
 		<Provider store={store} key="provider"> 
-			<Router history={browserHistory} routes={routes} />
+
+			<Router 
+				routes={routes} 
+				history={useRouterHistory(createHashHistory)({queryKey: false})} />
+			{/*
+
+			//<Router history={browserHistory} routes={routes} />
+
+			<Router routes={routes} history={hashHistory} />
+				*/}
 		</Provider>
 	</MuiThemeProvider>
-), document.body)
+), document.getElementById('app'))
 
 

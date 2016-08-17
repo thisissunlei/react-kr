@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development node server",
-    "dev": "webpack-dev-server --config webpack/webpack-dev.config.js --progress --colors --inline --history-api-fallback",
-    "browser:build": "NODE_ENV=docs-production webpack --config ./webpack/webpack-production.config.js --progress --colors --profile",
-    "build:test": "NODE_ENV=test webpack --config ./webpack/webpack-test.config.js --progress --colors --profile"
+    "start": "npm run dev",
+    "dev": "NODE_ENV=development nodemon ./server.js",
+    "build": "NODE_ENV=production webpack --config ./webpack/webpack-production.config.js --progress --colors --profile",
+    "test": "NODE_ENV=test webpack --config ./webpack/webpack-test.config.js --progress --colors --profile"
   },
   "author": "",
   "license": "ISC",
@@ -32,6 +32,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "history": "^2.0.0",
     "html-webpack-plugin": "^2.22.0",
+    "ip": "^1.1.3",
     "isomorphic-fetch": "^2.2.1",
     "jquery-param": "^0.2.0",
     "json-loader": "^0.5.4",
@@ -56,6 +57,7 @@
     "material-ui": "^0.15.4",
     "node-fetch": "^1.6.0",
     "node-noop": "^1.0.0",
+    "nodemon": "^1.10.0",
     "open": "0.0.5",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
@@ -66,9 +68,13 @@
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
     "simple-assign": "^0.1.0",
+    "sockjs": "^0.3.17",
     "style-loader": "^0.13.0",
     "stylus": "^0.53.0",
-    "webpack": "^1.12.11"
+    "transfer-webpack-plugin": "^0.1.4",
+    "webpack": "^1.12.12",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-hot-middleware": "^2.10.0"
   },
   "dependencies": {
     "babel-preset-react": "^6.3.13",
@@ -79,7 +85,6 @@
     "object-assign": "^4.1.0",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
-    "react-tap-event-plugin": "^0.2.2",
-    "webpack-dev-server": "^1.14.1"
+    "react-tap-event-plugin": "^0.2.2"
   }
 }
