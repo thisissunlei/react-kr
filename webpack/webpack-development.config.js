@@ -8,7 +8,7 @@ var env = process.env.NODE_ENV;
 
 const config = {
   entry:[
-	  path.join(process.cwd(), '/static/components/normalize-css/normalize.css'),
+	  path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js'),
 	  path.join(process.cwd(), '/src/app.js'),
   ],
   resolve: {
