@@ -7,6 +7,7 @@ import * as actionCreators from '../../Redux/Actions';
 
 
 import {List, ListItem} from 'material-ui/List';
+
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
 import ContentSend from 'material-ui/svg-icons/content/send';
@@ -14,11 +15,10 @@ import ContentDrafts from 'material-ui/svg-icons/content/drafts';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 
 
-import Section from '../../Components/Section';
+import Section from 'kr-ui/Section';
+import Calendar from 'kr-ui/Calendar';
 
 import './index.less';
-
-
 
 import {
 	AppBar,
@@ -35,7 +35,11 @@ import {
 	GridTile,
 	DatePicker
 } from 'material-ui';
+
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+
 
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
@@ -98,13 +102,20 @@ class Home extends Component{
 			<div className="main">
 				<div className="l-sidebar">
 
-					<Section title="日程管理" description="" rightElement = "" >
-						<DatePicker
-						  hintText="en-US locale"
-						  locale="en-US"
-						  firstDayOfWeek={0}
-						  container="inline"
-						/>
+					<Section title="日程管理" description="" 
+							rightMenu = {
+								<Menu>
+									  <MenuItem primaryText="写备忘" />
+									  <MenuItem primaryText="备忘列表" />
+									  <MenuItem primaryText="其他" />
+								</Menu>
+							} >
+
+							<Calendar />
+							<List>
+								<ListItem primaryText="出差办事" leftIcon={<ContentInbox />} />
+								<ListItem primaryText="国庆回家" leftIcon={<ContentInbox />} />
+							</List>
 					</Section>
 
 					<Section title="通知公告" description="" >

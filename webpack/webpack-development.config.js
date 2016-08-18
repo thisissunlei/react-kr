@@ -14,7 +14,7 @@ const config = {
   resolve: {
     extensions: ['', '.js', '.md','.css'], 
     alias: {
-      'kr-app': path.join(process.cwd(), '/src'), 
+      'kr-ui': path.join(process.cwd(), '/src/Components'), 
 	  'material-ui': path.resolve(__dirname, '../meterial-ui'),
     },
   },
