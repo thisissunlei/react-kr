@@ -10,6 +10,18 @@ const Calender = React.createClass({
         return {year, month, day, value, showYear: false, showMonth: false}
     },
 
+	componentWillReceiveProps(nextProps){
+        const {year, month, day} = dateStr2Obj(nextProps.value, this.dateParams());
+        const value = obj2DateStr(year, month, day);
+
+        this.setState({
+			year,
+			month,
+			day,
+			value
+		}); 
+	},
+
     initDate(date=this.props.value){
         const {year, month, day} = dateStr2Obj(date, this.dateParams());
         const value = obj2DateStr(year, month, day);

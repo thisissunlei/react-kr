@@ -53,12 +53,17 @@ class Home extends Component{
 	constructor(props,context){
 		super(props, context);
 
+		this.calendarChange = this.calendarChange.bind(this);
 		this.state = {
 			open:false
 		}
 
 		var {actions} = this.props;
-		actions.loadCompanys();
+		actions.setNowDate('2015-10-01');
+	}
+
+
+	componentDidMount() {
 
 	}
 
@@ -70,6 +75,11 @@ class Home extends Component{
 
 		actions.switchSidebarNav(!!!sidebar_nav.switch_value);
 
+	}
+
+	calendarChange(value){
+		var {actions} = this.props;
+		actions.setNowDate(value);
 	}
 
 	render() {
@@ -111,11 +121,15 @@ class Home extends Component{
 								</Menu>
 							} >
 
-							<Calendar />
+							<Calendar value={this.props.now_date} onChange={this.calendarChange} active={true} />
+
 							<List>
-								<ListItem primaryText="出差办事" leftIcon={<ContentInbox />} />
-								<ListItem primaryText="国庆回家" leftIcon={<ContentInbox />} />
+
+								{this.props.calendar.now_trip.map((item,index)=>{
+									return <ListItem primaryText={item.title} key={index} leftIcon={<ContentInbox />} />
+								})}
 							</List>
+
 					</Section>
 
 					<Section title="通知公告" description="" >
@@ -138,21 +152,27 @@ class Home extends Component{
 						</List>
 					</Section>
 
-					<Section title="我的备忘" description="" >
-						<List>
-						<ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
-						<ListItem primaryText="Drafts" leftIcon={<ContentDrafts />} />
-						<ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
-						</List>
-					</Section>
+					<div className="r-sidebar-body">
 
-					<Section title="待办事项" description="" >
-						<List>
-						<ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
-						<ListItem primaryText="Drafts" leftIcon={<ContentDrafts />} />
-						<ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
-						</List>
-					</Section>
+						<Section title="我的备忘" description="" >
+							<List>
+							<ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
+							<ListItem primaryText="Drafts" leftIcon={<ContentDrafts />} />
+							<ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
+							</List>
+						</Section>
+
+						<Section title="待办事项" description="" >
+							<List>
+							<ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
+							<ListItem primaryText="Drafts" leftIcon={<ContentDrafts />} />
+							<ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
+							</List>
+						</Section>
+
+					</div>
+
+					<div className="r-sidebar-body">
 
 					<Section title="社群活动" description="" >
 						<List>
@@ -169,6 +189,14 @@ class Home extends Component{
 						<ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
 						</List>
 					</Section>
+
+
+					</div>
+
+
+					
+
+					
 
 				</div>
 			</div>
@@ -194,7 +222,9 @@ function mapStateToProps(state){
 	return {
 		companys:state.companys,
 		companys_fetch:state.companys_fetch,
-		sidebar_nav:state.sidebar_nav
+		sidebar_nav:state.sidebar_nav,
+		calendar:state.calendar,
+		now_date:state.calendar.now_date
 	};
 }
 
