@@ -7,18 +7,20 @@ import './index.less';
 const Calender = React.createClass({
     getInitialState() {
         const {year, month, day, value} = this.initDate();
-        return {year, month, day, value, showYear: false, showMonth: false}
+        return {year, month, day, value, showYear: false, showMonth: false,items:this.props.items}
     },
 
 	componentWillReceiveProps(nextProps){
         const {year, month, day} = dateStr2Obj(nextProps.value, this.dateParams());
         const value = obj2DateStr(year, month, day);
+		const items = nextProps.items;
 
         this.setState({
 			year,
 			month,
 			day,
-			value
+			value,
+			items
 		}); 
 	},
 
@@ -185,7 +187,11 @@ const Calender = React.createClass({
         const dateCount = new Date(year, month, 0).getDate();
         const index = new Date(year, month - 1, 1).getDay();
         let matrixNodes = [[]];
-        let { begin, end } = this.props;
+        let { begin, end,items } = this.props;
+
+		items = items.map(function(item){
+			return +new Date(item.createAt);
+		});
 
         for(let i = 0; i < dateCount + index; i ++){
             if (i < index) {
@@ -202,7 +208,7 @@ const Calender = React.createClass({
                 matrixNodes[row].push(<td key={`canlender-col-${i}`}>
                                         <Calender.Item active={value == itemDateStr && !isDisabled} 
                                             disabled={isDisabled} isToday={TODAY == itemDateStr} 
-                                            onClick={this.handleClick} value={itemVal} label={_index}/>
+                                            onClick={this.handleClick} value={itemVal} label={_index} mark={items.indexOf(+new Date(itemVal.getTime()))!==-1}/>
                                       </td>)
             }
         }
@@ -262,17 +268,19 @@ const Calender = React.createClass({
 Calender.Item = React.createClass({
     propTypes: {
         onClick: React.PropTypes.func,
+		mark:React.PropTypes.bool
     },
     handleClick(value){
         if (!this.props.disabled) this.props.onClick(value);
     },
 
     render() {
-        let {value, disabled, active, isToday} = this.props;
+        let {value, disabled, active, isToday,mark} = this.props;
         let className = ['_day'];
         if (isToday) className.push('_today');
         if (disabled) className.push('_disabled');
         if (active) className.push('_active');
+        if (mark) className.push('_mark');
         className = className.join(' ');
         return (
             <a href="javascript:;" className={className} 

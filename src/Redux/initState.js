@@ -2,8 +2,6 @@
 let initState = {
 
 	companys: [
-		{},
-		{}
 	],
 	companys_fetch:{
 
@@ -15,7 +13,7 @@ let initState = {
 		switch_value:false,
 		anchor_el:undefined
 	},
-	calendar:{
+	plan:{
 		items:[
 			{
 				createAt:'2015-10-11',
@@ -30,15 +28,31 @@ let initState = {
 				title:'laal回家'
 			},
 			{
-				createAt:'2015-10-01',
-				title:'ahahalaal回家'
+				createAt:'2016-08-01',
+				title:'ahahal回家'
 			},
 			{
-				createAt:'2015-10-01',
+				createAt:'2016-08-27',
 				title:'ahahal回家'
-			}
+			},
+			{
+				createAt:'2016-08-25',
+				title:'氪空间重构'
+			},
+			{
+				createAt:'2016-08-25',
+				title:'融资小伙伴'
+			},
+			{
+				createAt:'2016-08-25',
+				title:'回家'
+			},
+			{
+				createAt:'2016-08-28',
+				title:'ahahal回家'
+			},
 		],
-		now_date:"2016-10-01",
+		now_date:+new Date(),
 		now_trip:[
 			{
 				createAt:'2015-10-11',

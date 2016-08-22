@@ -13,7 +13,7 @@ const config = {
     extensions: ['', '.js', '.md'], // 加载这些类型的文件时不用加后缀
     alias: {
       'kr-ui': path.join(process.cwd(), '/src/Components'), 
-	  'material-ui': path.resolve(__dirname, '../meterial-ui'),
+	 // 'material-ui': path.resolve(__dirname, '../meterial-ui'),
     },
   },
   // 出口文件配置
@@ -43,7 +43,7 @@ const config = {
 		publicPath: '/',
 		title: 'production',
 		filename: 'index.html',
-		template: 'index.template.html',
+		template: './src/index.template.html',
 		inject:'body'
 	}),
 	new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),

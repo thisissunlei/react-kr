@@ -49,7 +49,6 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
-
 import Loading from '../../Components/Loading';
 
 class Home extends Component{
@@ -163,8 +162,6 @@ function mapStateToProps(state){
 		companys:state.companys,
 		companys_fetch:state.companys_fetch,
 		sidebar_nav:state.sidebar_nav,
-		calendar:state.calendar,
-		now_date:state.calendar.now_date
 	};
 }
 

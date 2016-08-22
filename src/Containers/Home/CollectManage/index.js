@@ -36,6 +36,10 @@ class PlanManage extends Component{
 
 	componentDidMount() {
 
+		const {actions} = this.props;
+		actions.createPlan().then(function(response){
+			console.log('hahah<<<<');
+		});
 	}
 
 	render(){
@@ -63,15 +67,11 @@ class PlanManage extends Component{
 
 
 
-
-
-
-
 function mapStateToProps(state){
 
 	return {
-		calendar:state.calendar,
-		now_date:state.calendar.now_date
+		calendar:state.plan,
+		now_date:state.plan.now_date
 	};
 }
 

@@ -14,7 +14,8 @@ export function notify(state = [],action){
 		}
 
 		case Types.LOAD_DEMO_FAILURE:{
-			return action.error;
+			return {...state};
+			//return action.error;
 		}
 
 		default:{

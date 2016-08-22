@@ -32,19 +32,41 @@ function callAPIMiddleware({dispatch,getState}){
 			}));
 
 
-			return callAPI().then(
+			return new Promise((resolve, reject) => {
 
-				response=>dispatch(Object.assign({},payload,{
-					type:successType,
-					response:response
-				})),
+				callAPI().then(function(response){
 
-				error=>dispatch(Object.assign({},payload,{
-					type:failureType,
-					error:error
-				}))
+					dispatch(Object.assign({},payload,{
+						type:successType,
+						response:response
+					}));
 
-			);
+				}).then(function(err){
+
+					dispatch(Object.assign({},payload,{
+						type:failureType,
+						error:err
+					}))
+
+				});
+				/*
+				callAPI().then(
+
+					response=>dispatch(Object.assign({},payload,{
+						type:successType,
+						response:response
+					})),
+
+					error=>dispatch(Object.assign({},payload,{
+						type:failureType,
+						error:error
+					}))
+
+				);
+				*/
+
+			});
+
 
 
 		}

@@ -5,7 +5,8 @@ import { Router, Route, Link,IndexRoute,browserHistory} from 'react-router';
 
 import {
 	Home,
-	Notify
+	Notify,
+	Memo
 } from './Containers';
 
 import Master from './master';
@@ -17,6 +18,7 @@ export default(
 		<IndexRoute component={Home}/>
 		<Route path="index" component={Home}/>
 		<Route path="notify" component={Notify}/>
+		<Route path="memo" component={Memo}/>
 
 	</Route>
 

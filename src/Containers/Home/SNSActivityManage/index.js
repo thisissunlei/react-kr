@@ -75,8 +75,6 @@ class SNSActivityManage extends Component{
 function mapStateToProps(state){
 
 	return {
-		calendar:state.calendar,
-		now_date:state.calendar.now_date
 	};
 }
 

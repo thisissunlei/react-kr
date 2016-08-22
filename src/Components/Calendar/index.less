@@ -188,6 +188,20 @@
             color: #fff;
 			font-weight:100;
         }
+		._mark{
+			position:relative;
+			&::after{
+				content:'';
+				position:absolute;
+				width:4px;
+				height:4px;
+				background-color:red;
+				border-radius:5px;
+				bottom:1px;
+				transform:translateX(-50%);
+				left:50%;
+			}
+		}
     }
 }
 

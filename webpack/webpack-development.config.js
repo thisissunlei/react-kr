@@ -15,7 +15,7 @@ const config = {
     extensions: ['', '.js', '.md','.css'], 
     alias: {
       'kr-ui': path.join(process.cwd(), '/src/Components'), 
-	  'material-ui': path.resolve(__dirname, '../meterial-ui'),
+	 // 'material-ui': path.resolve(__dirname, '../meterial-ui'),
     },
   },
   /*
@@ -47,7 +47,7 @@ const config = {
 	  new HtmlWebpackPlugin({
 		  title: '36kr融资',
 		  filename: 'index.html',
-		  template: 'index.template.html',
+		  template: './src/index.template.html',
 		  inject:'body'
 	  }),
 	  new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop')

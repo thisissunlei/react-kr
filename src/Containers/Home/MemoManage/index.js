@@ -1,6 +1,7 @@
-import React,{Component} from 'react';
+import React,{Component,PropTypes} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
+import { browserHistory } from 'react-router';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
@@ -28,9 +29,15 @@ import './index.less';
 
 class MemoManage extends Component{
 
+    static contextTypes = {
+        router: PropTypes.object.isRequired
+    };
+
 	constructor(props,context){
 
 		super(props, context);
+
+		this.toMore = this.toMore.bind(this);
 
 
 	}
@@ -39,20 +46,23 @@ class MemoManage extends Component{
 
 	}
 
+	toMore(){
+		this.context.router.push('/notify');
+	}
 	render(){
 
 		return(
 						<Section title="我的备忘" description="" 
 							rightMenu = {
 								<Menu>
-									  <MenuItem primaryText="更多" />
+									  <MenuItem primaryText="更多" onTouchTap={this.toMore}/>
 								</Menu>
 							} >
 
 							<List>
-							<ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
-							<ListItem primaryText="Drafts" leftIcon={<ContentDrafts />} />
-							<ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
+								{this.props.items.map((item,index)=>{
+									return <ListItem primaryText={item.title} key={index} leftIcon={<ContentInbox />} />
+								})}
 							</List>
 						</Section>
 
@@ -67,7 +77,7 @@ class MemoManage extends Component{
 function mapStateToProps(state){
 
 	return {
-		now_date:state.calendar.now_date
+		items:state.plan.items
 	};
 }
 

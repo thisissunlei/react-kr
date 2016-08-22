@@ -1,8 +1,6 @@
-import React,{Component,PropTypes} from 'react';
+import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-
-import { Link } from 'react-router';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
@@ -23,42 +21,29 @@ import {
 	DatePicker
 } from 'material-ui';
 
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+
 import {List, ListItem} from 'material-ui/List';
 
 import './index.less';
 
-class PlanManage extends Component{
-
-
-    static contextTypes = {
-        router: PropTypes.object.isRequired
-    };
+class Memo extends Component{
 
 	constructor(props,context){
 
 		super(props, context);
-		this.toNotifyPage = this.toNotifyPage.bind(this);
 
 
 	}
 
 	componentDidMount() {
 
-		var {actions} = this.props;
-		actions.loadNotify();
-
 	}
-
-	toNotifyPage(){
-		this.context.router.push('/notify');
-	}
-
-
 
 	render(){
 
-
 		return(
+
 					<Section title="通知公告" description=""
 							rightMenu = {
 								<Menu>
@@ -66,16 +51,34 @@ class PlanManage extends Component{
 									  <MenuItem primaryText="更多" onTouchTap={this.toNotifyPage} />
 								</Menu>
 							} >
-							<List>
 
-								{this.props.items.map((item,index)=>{
-									return <ListItem primaryText={item.content} key={index} leftIcon={<ContentInbox />} />
-								})}
+								<Table>
 
-								<ListItem primaryText="查看更多" onTouchTap={this.toNotifyPage} />
+									<TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+									  <TableRow>
+										<TableHeaderColumn>公告标题</TableHeaderColumn>
+										<TableHeaderColumn>发布人</TableHeaderColumn>
+										<TableHeaderColumn>发布时间</TableHeaderColumn>
+									  </TableRow>
+									</TableHeader>
+									<TableBody displayRowCheckbox={false}>
 
-							</List>
+									{this.props.items.map((item,index)=>{
+
+										return (
+											<TableRow key={index}>
+												<TableRowColumn>{item.content}</TableRowColumn>
+												<TableRowColumn>{item.author}</TableRowColumn>
+												<TableRowColumn>{item.createAt}</TableRowColumn>
+											</TableRow>
+										);
+
+									})}
+									</TableBody>
+								  </Table>
 					</Section>
+
+				
 
 		);
 
@@ -86,14 +89,9 @@ class PlanManage extends Component{
 
 
 
-
-
-
 function mapStateToProps(state){
-
 	return {
-		notify:state.notify,
-		items:state.notify.items
+		items:state.memo.items
 	};
 }
 
@@ -103,10 +101,7 @@ function mapDispatchToProps(dispatch){
 	};
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(PlanManage);
-
-
-
+export default connect(mapStateToProps,mapDispatchToProps)(Memo);
 
 
 

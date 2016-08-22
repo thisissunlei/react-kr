@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run dev",
-    "dev": "NODE_ENV=development nodemon ./server.js",
-    "build": "NODE_ENV=production webpack --config ./webpack/webpack-production.config.js --progress --colors --profile",
-    "test": "NODE_ENV=test webpack --config ./webpack/webpack-test.config.js --progress --colors --profile"
+    "dev": "set NODE_ENV=development &&  nodemon ./server.js",
+    "build": "set NODE_ENV=production  &&  webpack --config ./webpack/webpack-production.config.js --progress --colors --profile",
+    "test": "set NODE_ENV=test && webpack --config ./webpack/webpack-test.config.js --progress --colors --profile"
   },
   "author": "",
   "license": "ISC",
@@ -74,6 +74,7 @@
     "style-loader": "^0.13.0",
     "stylus": "^0.53.0",
     "transfer-webpack-plugin": "^0.1.4",
+    "url-search-params": "^0.5.0",
     "webpack": "^1.12.12",
     "webpack-dev-server": "^1.14.1",
     "webpack-hot-middleware": "^2.10.0"
@@ -82,6 +83,8 @@
     "babel-preset-react": "^6.3.13",
     "babel-runtime": "^6.11.6",
     "babelify": "^7.2.0",
+    "formsy-material-ui": "^0.5.0",
+    "formsy-react": "^0.18.1",
     "node-fetch": "^1.5.3",
     "normalizr": "^2.2.1",
     "object-assign": "^4.1.0",
