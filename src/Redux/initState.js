@@ -55,9 +55,29 @@ let initState = {
 		],
 	},
 	notify:{
-		items:[],
+		items:[
+			{
+				content:'请注意，那里有人',
+				createAt:'',
+			},
+			{
+				content:'请注意，那里有人',
+				createAt:'',
+			},
+			{
+				content:'请注意，那里有人',
+				createAt:'',
+			},
+			{
+				content:'请注意，那里有人',
+				createAt:'',
+			},
+			{
+				content:'注意啦',
+				createAt:'',
+			}
+		],
 	}
-
 };
 
 

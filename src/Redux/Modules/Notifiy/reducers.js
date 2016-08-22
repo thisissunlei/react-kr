@@ -1,22 +1,25 @@
-export function demo(state = [],action){
+import * as Types from './types';
+
+
+export function notify(state = [],action){
 
 	switch(action.type){
 
-	case 'LOAD_DEMO_REQUEST':{
-		return {...state};
-	}
+		case Types.LOAD_DEMO_REQUEST:{
+			return {...state};
+		}
 
-	case 'LOAD_DEMO_SUCCESS':{
-		return {...state,...action.response};
-	}
+		case Types.LOAD_DEMO_SUCCESS:{
+			return {...state,...action.response};
+		}
 
-	case 'LOAD_DEMO_ERROR':{
-		return action.error;
-	}
+		case Types.LOAD_DEMO_FAILURE:{
+			return action.error;
+		}
 
-	default:{
-		return state;
-	}
+		default:{
+			return state;
+		}
 
 	}
 }

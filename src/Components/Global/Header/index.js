@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{Component,PropTypes} from 'react';
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import {Link} from 'react-router';
@@ -41,6 +41,9 @@ import SidebarNav from '../SidebarNav';
 
 class Header extends Component {
 
+    static contextTypes = {
+        router: PropTypes.object.isRequired
+    };
 
 	constructor(props,context){
 		super(props, context);
@@ -48,6 +51,7 @@ class Header extends Component {
 		this.handleToggle = this.handleToggle.bind(this);
 		this.showBottomNav = this.showBottomNav.bind(this);
 		this.handleRequestClose = this.handleRequestClose.bind(this);
+		this.touchTitle = this.touchTitle.bind(this);
 
 
 		this.state = {
@@ -76,6 +80,10 @@ class Header extends Component {
 		actions.switchBottomNav({switch_value:!!!bottom_nav.switch_value,anchor_el:event.currentTarget});
 	};
 
+	touchTitle(){
+		this.context.router.push('/');
+	}
+
 	render() {
 
 
@@ -83,6 +91,7 @@ class Header extends Component {
 			<div >
 			<AppBar
 			title="36氪"
+			onTitleTouchTap={this.touchTitle}
 			style={{paddingLeft:60,position:'fixed',top:0,left:0,right:0}}
 			iconElementLeft={<IconButton onClick={this.handleToggle}><NavigationMenu  /></IconButton>}
 			iconElementRight={

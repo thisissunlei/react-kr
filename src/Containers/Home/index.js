@@ -16,7 +16,12 @@ import ActionInfo from 'material-ui/svg-icons/action/info';
 
 
 import Section from 'kr-ui/Section';
-import Calendar from 'kr-ui/Calendar';
+import PlanManage from './PlanManage';
+import NotifyManage from './NotifyManage';
+import CollectManage from './CollectManage';
+import MemoManage from './MemoManage';
+import SNSActivityManage from './SNSActivityManage';
+import CompanyInstitutionManage from './CompanyInstitutionManage';
 
 import './index.less';
 
@@ -49,17 +54,12 @@ import Loading from '../../Components/Loading';
 
 class Home extends Component{
 
-
 	constructor(props,context){
 		super(props, context);
 
-		this.calendarChange = this.calendarChange.bind(this);
 		this.state = {
 			open:false
 		}
-
-		var {actions} = this.props;
-		actions.setNowDate('2015-10-01');
 	}
 
 
@@ -77,10 +77,6 @@ class Home extends Component{
 
 	}
 
-	calendarChange(value){
-		var {actions} = this.props;
-		actions.setNowDate(value);
-	}
 
 	render() {
 
@@ -112,55 +108,18 @@ class Home extends Component{
 			<div className="main">
 				<div className="l-sidebar">
 
-					<Section title="日程管理" description="" 
-							rightMenu = {
-								<Menu>
-									  <MenuItem primaryText="写备忘" />
-									  <MenuItem primaryText="备忘列表" />
-									  <MenuItem primaryText="其他" />
-								</Menu>
-							} >
-
-							<Calendar value={this.props.now_date} onChange={this.calendarChange} active={true} />
-
-							<List>
-
-								{this.props.calendar.now_trip.map((item,index)=>{
-									return <ListItem primaryText={item.title} key={index} leftIcon={<ContentInbox />} />
-								})}
-							</List>
-
-					</Section>
-
-					<Section title="通知公告" description="" >
-						 <DatePicker
-							  hintText="en-US locale"
-							  locale="en-US"
-							  firstDayOfWeek={0}
-							  container="inline"
-							/>
-					</Section>
+					<PlanManage/>
+					<NotifyManage/>
 
 				</div>
 
 				<div className="r-sidebar">
 
-					<Section title="我的常用" description="" >
-						<List>
-						<ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
-						<ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
-						</List>
-					</Section>
+					<CollectManage/>
 
 					<div className="r-sidebar-body">
 
-						<Section title="我的备忘" description="" >
-							<List>
-							<ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
-							<ListItem primaryText="Drafts" leftIcon={<ContentDrafts />} />
-							<ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
-							</List>
-						</Section>
+						<MemoManage/>
 
 						<Section title="待办事项" description="" >
 							<List>
@@ -174,29 +133,10 @@ class Home extends Component{
 
 					<div className="r-sidebar-body">
 
-					<Section title="社群活动" description="" >
-						<List>
-						<ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
-						<ListItem primaryText="Drafts" leftIcon={<ContentDrafts />} />
-						<ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
-						</List>
-					</Section>
-
-					<Section title="公司制度" description="" >
-						<List>
-						<ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
-						<ListItem primaryText="Drafts" leftIcon={<ContentDrafts />} />
-						<ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
-						</List>
-					</Section>
-
+						<SNSActivityManage/>
+						<CompanyInstitutionManage/>
 
 					</div>
-
-
-					
-
-					
 
 				</div>
 			</div>

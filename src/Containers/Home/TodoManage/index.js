@@ -1,6 +1,8 @@
-import React,{Component} from 'react';
+import React,{Component,PropTypes} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
+
+import { Link } from 'react-router';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
@@ -25,52 +27,53 @@ import {List, ListItem} from 'material-ui/List';
 
 import './index.less';
 
-class PlanManage extends Component{
+class TodoManage extends Component{
+
+
+    static contextTypes = {
+        router: PropTypes.object.isRequired
+    };
 
 	constructor(props,context){
 
 		super(props, context);
+		this.toNotifyPage = this.toNotifyPage.bind(this);
 
-		this.calendarChange = this.calendarChange.bind(this);
-
-		var {actions} = this.props;
-		actions.setNowDate('2015-10-01');
 
 	}
 
 	componentDidMount() {
 
-	}
-
-	calendarChange(value){
 		var {actions} = this.props;
-		actions.setNowDate(value);
+		actions.loadNotify();
+
 	}
 
+	toNotifyPage(){
+		this.context.router.push('/notify');
+	}
 
 	render(){
 
 		return(
-
-					<Section title="日程管理" description="" 
+					<Section title="通知公告" description=""
 							rightMenu = {
 								<Menu>
-									  <MenuItem primaryText="写备忘" />
-									  <MenuItem primaryText="备忘列表" />
-									  <MenuItem primaryText="其他" />
+									  <MenuItem primaryText="排序" />
+									  <MenuItem primaryText="更多" onTouchTap={this.toNotifyPage} />
 								</Menu>
 							} >
-
-							<Calendar value={this.props.now_date} onChange={this.calendarChange} active={true} />
-
 							<List>
 
-								{this.props.calendar.now_trip.map((item,index)=>{
-									return <ListItem primaryText={item.title} key={index} leftIcon={<ContentInbox />} />
+								{this.props.items.map((item,index)=>{
+									return <ListItem primaryText={item.content} key={index} leftIcon={<ContentInbox />} />
 								})}
-							</List>
 
+								<ListItem primaryText="查看更多" onTouchTap={this.toNotifyPage} />
+
+							</List>
 					</Section>
+
 		);
 
 	}
@@ -86,8 +89,8 @@ class PlanManage extends Component{
 function mapStateToProps(state){
 
 	return {
-		calendar:state.calendar,
-		now_date:state.calendar.now_date
+		notify:state.notify,
+		items:state.notify.items
 	};
 }
 
@@ -97,7 +100,10 @@ function mapDispatchToProps(dispatch){
 	};
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(PlanManage);
+export default connect(mapStateToProps,mapDispatchToProps)(TodoManage);
+
+
+
 
 
 
