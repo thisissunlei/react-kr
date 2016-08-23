@@ -10,6 +10,9 @@ import Section from 'kr-ui/Section';
 import Calendar from 'kr-ui/Calendar';
 
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
+import ActionSpeakerNotes from 'material-ui/svg-icons/action/speaker-notes';
+
+import {blue500, yellow600,red500,pink500,purple500} from 'material-ui/styles/colors';
 
 import {
 	Menu,
@@ -20,7 +23,8 @@ import {
 	RaisedButton,
 	Divider,
 	FontIcon,
-	DatePicker
+	DatePicker,
+	Avatar,
 } from 'material-ui';
 
 import {List, ListItem} from 'material-ui/List';
@@ -60,6 +64,9 @@ class PlanManage extends Component{
 
 		return(
 					<Section title="通知公告" description=""
+							leftIcon= {
+								<Avatar icon={<ActionSpeakerNotes />} backgroundColor={red500} size={25}/>
+							}
 							rightMenu = {
 								<Menu>
 									  <MenuItem primaryText="排序" />

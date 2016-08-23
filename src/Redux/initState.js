@@ -13,6 +13,55 @@ let initState = {
 		switch_value:false,
 		anchor_el:undefined
 	},
+	memo:{
+		items:[
+			{
+				createAt:'2015-10-11',
+				title:'出差办事',
+				author:'张屈',
+			},
+			{
+				createAt:'2016-10-01',
+				title:'国庆回家',
+				author:'张屈',
+			},
+			{
+				createAt:'2015-10-01',
+				title:'laal回家',
+				author:'张屈',
+			},
+			{
+				createAt:'2016-08-01',
+				title:'ahahal回家',
+				author:'张屈',
+			},
+			{
+				createAt:'2016-08-27',
+				title:'ahahal回家',
+				author:'张屈',
+			},
+			{
+				createAt:'2016-08-25',
+				title:'氪空间重构',
+				author:'张屈',
+			},
+			{
+				createAt:'2016-08-25',
+				title:'融资小伙伴',
+				author:'张屈',
+			},
+			{
+				createAt:'2016-08-25',
+				title:'回家',
+				author:'张屈',
+			},
+			{
+				createAt:'2016-08-28',
+				title:'ahahal回家',
+				author:'张屈',
+			},
+		],
+	},
 	plan:{
 		items:[
 			{
@@ -73,22 +122,27 @@ let initState = {
 			{
 				content:'请注意，那里有人',
 				createAt:'',
+				author:'张屈',
 			},
 			{
 				content:'请注意，那里有人',
 				createAt:'',
+				author:'张屈',
 			},
 			{
 				content:'请注意，那里有人',
 				createAt:'',
+				author:'张屈',
 			},
 			{
 				content:'请注意，那里有人',
 				createAt:'',
+				author:'张屈',
 			},
 			{
 				content:'注意啦',
 				createAt:'',
+				author:'张屈',
 			}
 		],
 	}

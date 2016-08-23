@@ -22,6 +22,7 @@ import CollectManage from './CollectManage';
 import MemoManage from './MemoManage';
 import SNSActivityManage from './SNSActivityManage';
 import CompanyInstitutionManage from './CompanyInstitutionManage';
+import TodoManage from './TodoManage';
 
 import './index.less';
 
@@ -117,26 +118,22 @@ class Home extends Component{
 					<CollectManage/>
 
 					<div className="r-sidebar-body">
-
-						<MemoManage/>
-
-						<Section title="待办事项" description="" >
-							<List>
-							<ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
-							<ListItem primaryText="Drafts" leftIcon={<ContentDrafts />} />
-							<ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
-							</List>
-						</Section>
-
+						<div className="body-item">
+							<MemoManage/>
+						</div>
+						<div className="body-item">
+							<TodoManage/>
+						</div>
 					</div>
 
 					<div className="r-sidebar-body">
-
-						<SNSActivityManage/>
-						<CompanyInstitutionManage/>
-
+						<div className="body-item">
+							<SNSActivityManage/>
+						</div>
+						<div className="body-item">
+							<CompanyInstitutionManage/>
+						</div>
 					</div>
-
 				</div>
 			</div>
 

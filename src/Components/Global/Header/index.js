@@ -5,7 +5,6 @@ import {Link} from 'react-router';
 
 import * as actionCreators from '../../../Redux/Actions';
 
-
 import {
 	AppBar,
 	Menu,
@@ -86,13 +85,26 @@ class Header extends Component {
 
 	render() {
 
+		var styles = {paddingLeft:30,position:'fixed',top:0,left:0,right:0};
+
+
+		var {switch_value} = this.props.sidebar_nav;
+
+
+		if(switch_value){
+			styles.paddingLeft = 60;
+		}
+
+		console.log("styles",styles);
 
 		return (
+
 			<div >
+
 			<AppBar
-			title="36氪"
+			title="氪空间"
 			onTitleTouchTap={this.touchTitle}
-			style={{paddingLeft:60,position:'fixed',top:0,left:0,right:0}}
+			style={styles}
 			iconElementLeft={<IconButton onClick={this.handleToggle}><NavigationMenu  /></IconButton>}
 			iconElementRight={
 				<IconMenu
@@ -102,19 +114,21 @@ class Header extends Component {
 				targetOrigin={{horizontal: 'right', vertical: 'top'}}
 				anchorOrigin={{horizontal: 'right', vertical: 'top'}}
 				>
-				<MenuItem primaryText="Refresh" style={{backgroundColor:'red'}} />
-				<MenuItem primaryText="Help" />
-				<MenuItem primaryText="Sign out" />
+				<MenuItem primaryText="个人中心" />
+				<MenuItem primaryText="帮助" onTouchTap={()=>{this.context.router.push('help')}} />
+				<MenuItem primaryText="注销"/>
 				</IconMenu>
 			}
 			children = {
-				<div>
 
+				<div >
+				{/*
 				<IconMenu
 				iconButtonElement={
 					<Menu>
 					<MenuItem
 					primaryText="菜单一"
+					style={{color:'#fff'}}
 					/>
 					</Menu>
 				}
@@ -127,40 +141,7 @@ class Header extends Component {
 				<MenuItem primaryText="Help" />
 				<MenuItem primaryText="Sign out" />
 				</IconMenu>
-				<IconMenu
-				iconButtonElement={
-					<Menu>
-					<MenuItem
-					primaryText="菜单一"
-					/>
-					</Menu>
-				}
-				anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-				targetOrigin={{horizontal: 'left', vertical: 'top'}}
-				>
-				<MenuItem primaryText="Refresh" />
-				<MenuItem primaryText="Send feedback" />
-				<MenuItem primaryText="Settings" />
-				<MenuItem primaryText="Help" />
-				<MenuItem primaryText="Sign out" />
-				</IconMenu>
-				<IconMenu
-				iconButtonElement={
-					<Menu>
-					<MenuItem
-					primaryText="菜单一"
-					/>
-					</Menu>
-				}
-				anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-				targetOrigin={{horizontal: 'left', vertical: 'top'}}
-				>
-				<MenuItem primaryText="Refresh" />
-				<MenuItem primaryText="Send feedback" />
-				<MenuItem primaryText="Settings" />
-				<MenuItem primaryText="Help" />
-				<MenuItem primaryText="Sign out" />
-				</IconMenu>
+					*/}
 
 				</div>
 			}

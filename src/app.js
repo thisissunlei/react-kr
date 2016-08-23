@@ -37,7 +37,9 @@ ReactDOM.render((
 
 			<Router 
 				routes={routes} 
-				history={useRouterHistory(createHashHistory)({queryKey: false})} />
+				history={useRouterHistory(createHashHistory)({queryKey: false})}
+				onUpdate={() => {window.scrollTo(0, 0)}}
+				/>
 			{/*
 
 			//<Router history={browserHistory} routes={routes} />

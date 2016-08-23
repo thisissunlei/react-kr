@@ -9,10 +9,18 @@ import Calendar from 'kr-ui/Calendar';
 
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
 
+import ActionDateRange from 'material-ui/svg-icons/action/date-range';
+
+import {blue500, yellow600,red500,pink500,purple500} from 'material-ui/styles/colors';
+
+import HardwarekeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
+import ActionAssignment from 'material-ui/svg-icons/action/assignment';
+
 
 import Formsy from 'formsy-react';
 import { FormsyCheckbox, FormsyDate, FormsyRadio, FormsyRadioGroup,
     FormsySelect, FormsyText, FormsyTime, FormsyToggle } from 'formsy-material-ui/lib';
+
 
 import {
 	Menu,
@@ -29,7 +37,9 @@ import {
 	TextField,
 	TimePicker,
 	SelectField,
-	Paper
+	Paper,
+	Avatar,
+	Subheader,
 } from 'material-ui';
 
 import {List, ListItem} from 'material-ui/List';
@@ -47,6 +57,8 @@ class PlanManage extends Component{
 		this.openDialog = this.openDialog.bind(this);
 		this.submitForm = this.submitForm.bind(this);
 		this.confirmSubmit = this.confirmSubmit.bind(this);
+
+		this.renderPlan = this.renderPlan.bind(this);
 
 		var {actions} = this.props;
 
@@ -92,7 +104,7 @@ class PlanManage extends Component{
 	openDialog(){
 
 		this.setState({
-			open:!this.state.open 
+			open:!this.state.open
 		});
 
 	}
@@ -123,6 +135,29 @@ class PlanManage extends Component{
 		this.setState({open: false});
 	}
 
+	renderPlan(){
+
+		if(!this.props.plan.now_trip.length){
+			return null;
+		}
+
+		return (
+			<Paper zDepth={1} style={{marginTop:20}}>
+				<List>
+					<Subheader>日程</Subheader>
+					<Divider />
+					{this.props.plan.now_trip.map((item,index)=>{
+						return <ListItem primaryText={item.title} key={index} 
+						leftIcon={
+							<Avatar icon={<ActionAssignment />} backgroundColor={yellow600}  color="#fff" size={25}/>
+						}
+						rightIcon={<HardwarekeyboardArrowDown />} 
+						/>
+					})}
+				</List>
+			</Paper>
+		);
+	}
 
 	render(){
 
@@ -146,23 +181,23 @@ class PlanManage extends Component{
 
 		return(
 			<div>
-			<Section title="日程管理" description="" 
-			rightMenu = {
-				<Menu>
-				<MenuItem primaryText="写备忘" onTouchTap={this.openDialog} />
-				<MenuItem primaryText="备忘列表" />
-				<MenuItem primaryText="其他" />
-				</Menu>
-			} >
+			<Section title="日程管理"
+				description=""
+				leftIcon= {
+					<Avatar icon={<ActionDateRange  />}  backgroundColor={purple500} size={25}/>
+				}
+				rightMenu = {
+					<Menu>
+					<MenuItem primaryText="写备忘" onTouchTap={this.openDialog} />
+					<MenuItem primaryText="其他" />
+					</Menu>
+				} >
 
 			<Calendar value={this.props.now_date} onChange={this.calendarChange} active={true} items={this.props.items} />
 
-			<List>
-
-			{this.props.plan.now_trip.map((item,index)=>{
-				return <ListItem primaryText={item.title} key={index} leftIcon={<ContentInbox />} />
-			})}
-			</List>
+			
+			{this.renderPlan()}
+			
 
 			</Section>
 
@@ -200,6 +235,8 @@ class PlanManage extends Component{
 						name="date"
 						required
 						hintText="日期"
+						okLabel="确定"
+						cancelLabel="取消"
 						/>
 				</div>
 
@@ -208,6 +245,8 @@ class PlanManage extends Component{
 					name="time"
 					hintText="时间"
 					required
+					okLabel="确定"
+					cancelLabel="取消"
 					/>
 				</div>
 
@@ -215,7 +254,7 @@ class PlanManage extends Component{
 
 				</Formsy.Form>
 			</div>
-			
+
 				</Dialog>
 
 				</div>

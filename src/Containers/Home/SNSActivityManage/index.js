@@ -11,6 +11,10 @@ import Calendar from 'kr-ui/Calendar';
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
 import ContentDrafts from 'material-ui/svg-icons/content/drafts';
 
+import ActionStars from 'material-ui/svg-icons/action/stars';
+
+import {indigo500,blue500, yellow600,red500,pink500,purple500} from 'material-ui/styles/colors';
+
 import {
 	Menu,
 	MenuItem,
@@ -20,7 +24,8 @@ import {
 	RaisedButton,
 	Divider,
 	FontIcon,
-	DatePicker
+	DatePicker,
+	Avatar,
 } from 'material-ui';
 
 import {List, ListItem} from 'material-ui/List';
@@ -44,6 +49,10 @@ class SNSActivityManage extends Component{
 
 		return(
 					<Section title="社群活动" description=""
+
+							leftIcon= {
+								<Avatar icon={<ActionStars />} backgroundColor={indigo500}size={25}/>
+							}
 							rightMenu = {
 								<Menu>
 									  <MenuItem primaryText="更多" />

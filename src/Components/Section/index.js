@@ -21,16 +21,33 @@ export default class Section extends Component {
 		children: PropTypes.node,
 		title:PropTypes.string.isRequired,
 		description: PropTypes.string,
+		leftIcon: PropTypes.node,
 		rightMenu: PropTypes.node,
+		height:PropTypes.number,
 	};
 
 	constructor(props){
 		super(props);
 
+		this.renderSectionTitle = this.renderSectionTitle.bind(this);
+		this.renderHeaderLeftIcon = this.renderHeaderLeftIcon.bind(this);
+		this.renderDescription = this.renderDescription.bind(this);
+
+		this.touchHeaderTitle = this.touchHeaderTitle.bind(this);
+
+		this.state = {
+			openBody:true
+		}
+
 	}
 
 
 	renderRightMenu(){
+
+		if(!this.props.rightMenu){
+			return null;
+		}
+
 		return(
 			<div className="right-menu">
 				<IconMenu
@@ -43,20 +60,83 @@ export default class Section extends Component {
 			</div>
 		);
 	}
+
+	renderHeaderLeftIcon(){
+
+		if(!this.props.leftIcon){
+			return null;
+		}
+
+		return (
+				<div className="left-icon">
+					{this.props.leftIcon}
+				</div>
+		);
+
+	}
+	touchHeaderTitle(){
+		this.setState({
+			openBody:!this.state.openBody
+		});
+		console.log('hh');
+	}
+
 	renderSectionTitle(){
+
+		if(!this.props.title){
+			return null;
+		}
 
 		return (
 				<div className="section-title">
-					<div className="title">
+
+					{this.renderHeaderLeftIcon()}
+
+					<div className="title" onTouchTap={this.touchHeaderTitle}>
 						{this.props.title}
 					</div>
-					<div className="right-element">
 
-						{this.props.rightMenu?this.renderRightMenu():null}
+					<div className="right-element">
+						{this.renderRightMenu()}
 					</div>
 
 				</div>
 		);
+	}
+
+	renderBody(){
+
+
+		if(!this.state.openBody){
+			return null;
+		}
+		const {height} = this.props;
+		const bodyStyles = {
+			height:'auto'
+		};
+
+		if(height){
+			bodyStyles.height = height+'px';
+			bodyStyles.overflowY = 'auto';
+		}
+
+		return (
+
+			  <div className="section-body" style={bodyStyles} >
+				  {this.props.children}
+			  </div>
+		);
+
+	}
+
+	renderDescription(){
+
+		return(
+			<div className="section-description">
+				{this.props.description}
+			</div>
+		);
+
 	}
 
 	  render() {
@@ -67,17 +147,11 @@ export default class Section extends Component {
 
 			  <div className="section-header">
 
-				  { this.props.title?this.renderSectionTitle():null }
-
-					<div className="section-description">
-						{this.props.description}
-					</div>
-
+				  {this.renderSectionTitle()}
+				  {this.renderDescription()}
 			  </div>
 
-			  <div className="section-body">
-				  {this.props.children}
-			  </div>
+			  {this.renderBody()}
 
 		  </div>
 

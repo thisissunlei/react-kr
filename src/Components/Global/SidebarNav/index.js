@@ -38,22 +38,27 @@ export default class SidebarNav extends Component {
 
 	renderMenuItem(item,index){
 
+		var styles = {};
+
+		if(item.active){
+			styles.borderLeft = '4px solid red';
+		}
 
 		if(item.menuItems && item.menuItems.length){
 			return (
 				<MenuItem 
 					key={index}
 					primaryText={item.primaryText} 
-					checked={item.checked} 
+					innerDivStyle={styles}
 					menuItems={ item.menuItems.map((it,ind)=>this.renderMenuItem(it,ind))} />
 			);
 		}
 		return (
 				<MenuItem 
 					primaryText={item.primaryText} 
-					checked={item.checked} 
 					key={index} 
-					insetChildren={!!item.insetChildren}
+					innerDivStyle={styles}
+					href={"/#/"+item.router}
 				/>
 		);
 

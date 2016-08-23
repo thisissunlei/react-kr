@@ -10,6 +10,9 @@ import Section from 'kr-ui/Section';
 import Calendar from 'kr-ui/Calendar';
 
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
+import ActionTimeLine from 'material-ui/svg-icons/action/timeline';
+
+import {blue500, yellow600,red500,pink500,purple500} from 'material-ui/styles/colors';
 
 import {
 	Menu,
@@ -20,7 +23,8 @@ import {
 	RaisedButton,
 	Divider,
 	FontIcon,
-	DatePicker
+	DatePicker,
+	Avatar,
 } from 'material-ui';
 
 import {List, ListItem} from 'material-ui/List';
@@ -56,7 +60,11 @@ class TodoManage extends Component{
 	render(){
 
 		return(
-					<Section title="通知公告" description=""
+					<Section title="待办事项" description=""
+
+							leftIcon= {
+								<Avatar icon={<ActionTimeLine />} backgroundColor={blue500} size={25}/>
+							}
 							rightMenu = {
 								<Menu>
 									  <MenuItem primaryText="排序" />

@@ -44,7 +44,7 @@ class Memo extends Component{
 
 		return(
 
-					<Section title="通知公告" description=""
+					<Section title="我的备忘" description=""
 							rightMenu = {
 								<Menu>
 									  <MenuItem primaryText="排序" />
@@ -67,7 +67,7 @@ class Memo extends Component{
 
 										return (
 											<TableRow key={index}>
-												<TableRowColumn>{item.content}</TableRowColumn>
+												<TableRowColumn>{item.title}</TableRowColumn>
 												<TableRowColumn>{item.author}</TableRowColumn>
 												<TableRowColumn>{item.createAt}</TableRowColumn>
 											</TableRow>
