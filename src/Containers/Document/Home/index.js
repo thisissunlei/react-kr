@@ -1,7 +1,8 @@
+
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 
-export default class Home extends Component {
+export default class Basic extends Component {
 
 	constructor(props,context){
 		super(props, context);
@@ -16,12 +17,11 @@ export default class Home extends Component {
 
     return (
       <div>
-			hahah
+			haha
       </div>
     );
   }
 }
-
 
 
 

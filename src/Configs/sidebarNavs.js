@@ -1,26 +1,58 @@
 var menu = [
 
 	{
-		primaryText:"点单",
+		primaryText:"权限管理",
 		rightIcon:"",
 		leftIcon:"",
 		router:'order',
 		menuItems:[],
 	},
 	{
-		primaryText:"OA",
+		primaryText:"OA办公",
+		rightIcon:"",
+		leftIcon:"",
+		menuItems:[],
+	},
+	{
+		primaryText:"知识中心",
+		rightIcon:"",
+		leftIcon:"",
+		menuItems:[],
+	},
+	{
+		primaryText:"商品零售",
 		rightIcon:"",
 		leftIcon:"",
 		menuItems:[],
 		active:true,
 	},
 	{
-		primaryText:"运营",
+		primaryText:"运营平台",
+		rightIcon:"",
+		leftIcon:"",
+		menuItems:[
+			{
+				primaryText:"社区管理",
+				rightIcon:"",
+				leftIcon:"",
+				insetChildren:true,
+			},
+			{
+				primaryText:"财务管理",
+				rightIcon:"",
+				leftIcon:"",
+				insetChildren:true,
+			},
+
+		]
+	},
+
+	{
+		primaryText:"会员中心",
 		rightIcon:"",
 		leftIcon:"",
 		menuItems:[]
 	},
-
 	{
 		primaryText:"招商",
 		rightIcon:"ArrowDropRight",
@@ -120,20 +152,6 @@ var menu = [
 			},
 		]
 	},
-	{
-		primaryText:"文档",
-		rightIcon:"",
-		leftIcon:"",
-		router:"docs",
-		menuItems:[]
-	},
-	{
-		primaryText:"营销",
-		rightIcon:"",
-		leftIcon:"",
-		menuItems:[]
-	},
-
 ]
 
 

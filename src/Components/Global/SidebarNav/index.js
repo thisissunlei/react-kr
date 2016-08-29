@@ -28,41 +28,76 @@ import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 
 import SidebarNavMenuItems from '../../../Configs/sidebarNavs';
 
+
+import {List, ListItem, MakeSelectable} from 'material-ui/List';
+import Avatar from 'material-ui/Avatar';
+import Subheader from 'material-ui/Subheader';
+
+let SelectableList = MakeSelectable(List);
+
+function wrapState(ComposedComponent) {
+  return class SelectableList extends Component {
+    static propTypes = {
+      children: PropTypes.node.isRequired,
+      defaultValue: PropTypes.number.isRequired,
+    };
+
+    componentWillMount() {
+      this.setState({
+        selectedIndex: this.props.defaultValue,
+      });
+    }
+
+    handleRequestChange = (event, index) => {
+      this.setState({
+        selectedIndex: index,
+      });
+    };
+
+    render() {
+      return (
+        <ComposedComponent
+          value={this.state.selectedIndex}
+          onChange={this.handleRequestChange}
+        >
+          {this.props.children}
+        </ComposedComponent>
+      );
+    }
+  };
+}
+
+SelectableList = wrapState(SelectableList);
+
 export default class SidebarNav extends Component {
 
 	constructor(props,context){
 		super(props, context);
-
 	}
 
 
-	renderMenuItem(item,index){
-
-		var styles = {};
-
-		if(item.active){
-			styles.borderLeft = '4px solid red';
-		}
+	renderMenuItem(item,index,parentIndex){
 
 		if(item.menuItems && item.menuItems.length){
 			return (
-				<MenuItem 
+				<ListItem 
 					key={index}
+					value={index}
 					primaryText={item.primaryText} 
-					innerDivStyle={styles}
-					menuItems={ item.menuItems.map((it,ind)=>this.renderMenuItem(it,ind))} />
+					nestedItems={ item.menuItems.map((it,ind)=>this.renderMenuItem(it,ind,index))} />
 			);
 		}
 		return (
-				<MenuItem 
+				<ListItem 
 					primaryText={item.primaryText} 
 					key={index} 
-					innerDivStyle={styles}
+					value={parentIndex+'-'+index}
 					href={"/#/"+item.router}
 				/>
 		);
 
 	}
+
 
 	render(){
 
@@ -70,20 +105,30 @@ export default class SidebarNav extends Component {
 	      margin:'20px 0 0 0 ',
 		  display: 'inline-block',
 		  boxShadow:' 0 0 0 0',
+		width:120,
 		};
 
 
 		return(
 
 			<div>
+						<SelectableList defaultValue={0}>
+				{/*
+				
+						  <ListItem
+							value={1}
+							primaryText="Brendan Lim"
+							nestedItems={[
+							  <ListItem
+								value={2}
+								primaryText="Grace Ng"
+							  />,
+							]}
+						  />
+				*/}
 
-
-			<Paper style={style}>
-				<Menu>
 					{SidebarNavMenuItems.map((item,index)=>this.renderMenuItem(item,index))}
-				</Menu>
-			</Paper>
-				 
+						</SelectableList>
 			</div>
 		);
 

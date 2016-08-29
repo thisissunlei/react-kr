@@ -1,4 +1,3 @@
-
 import React,{Component} from 'react';
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
@@ -16,14 +15,6 @@ import ActionInfo from 'material-ui/svg-icons/action/info';
 
 
 import Section from 'kr-ui/Section';
-import PlanManage from './PlanManage';
-import NotifyManage from './NotifyManage';
-import CollectManage from './CollectManage';
-import MemoManage from './MemoManage';
-import SNSActivityManage from './SNSActivityManage';
-import CompanyInstitutionManage from './CompanyInstitutionManage';
-import TodoManage from './TodoManage';
-
 import './index.less';
 
 import {
@@ -41,16 +32,6 @@ import {
 	GridTile,
 	DatePicker
 } from 'material-ui';
-
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
-
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-
-
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
-
-//import Loading from '../../../Components/Loading';
 
 class Home extends Component{
 
@@ -80,22 +61,6 @@ class Home extends Component{
 
 	render() {
 
-		const styles = {
-			root: {
-				display: 'flex',
-				flexWrap: 'wrap',
-				justifyContent: 'space-around',
-			},
-			gridList: {
-				overflowY: 'auto',
-				marginBottom: 24,
-				paddingLeft:30,
-				paddingRight:30,
-				marginLeft:'auto',
-				marginRight:'auto'
-			},
-		};
-
 		return (
 
 			<div>
@@ -103,50 +68,20 @@ class Home extends Component{
 
 			<div className="main">
 				<div className="l-sidebar">
-
-					<PlanManage/>
-					<NotifyManage/>
-
+				hahahahah
+			hhhhh
 				</div>
 
-				<div className="r-sidebar">
-
-					<CollectManage/>
-
-					<div className="r-sidebar-body">
-						<div className="body-item">
-							<MemoManage/>
-						</div>
-						<div className="body-item">
-							<TodoManage/>
-						</div>
-					</div>
-
-					<div className="r-sidebar-body">
-						<div className="body-item">
-							<SNSActivityManage/>
-						</div>
-						<div className="body-item">
-							<CompanyInstitutionManage/>
-						</div>
-					</div>
-				</div>
 			</div>
 
 
 			
-
-			
-
 			
 	</div> 
 
 		);
 	}
 }
-
-
-
 
 
 function mapStateToProps(state){
@@ -163,6 +98,9 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Home);
+
+
+
 
 
 

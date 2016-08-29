@@ -25,7 +25,7 @@ class Master extends Component {
 
 	if(switch_value){
 		styles = {
-			marginLeft:90,
+			marginLeft:150,
 		}
 	}
 

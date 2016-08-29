@@ -190,7 +190,9 @@ const Calender = React.createClass({
         let { begin, end,items } = this.props;
 
 		items = items.map(function(item){
-			return +new Date(item.createAt.split('-').join());
+				if(item.createAt){
+					return +new Date(item.createAt.split('-').join());
+			 	}
 		});
 
         for(let i = 0; i < dateCount + index; i ++){

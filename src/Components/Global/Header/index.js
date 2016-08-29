@@ -5,6 +5,8 @@ import {Link} from 'react-router';
 
 import * as actionCreators from '../../../Redux/Actions';
 
+import SidebarNavMenuItems from '../../../Configs/sidebarNavs';
+
 import {
 	AppBar,
 	Menu,
@@ -16,6 +18,7 @@ import {
 	Drawer,
 	Divider,
 	FontIcon,
+	FlatButton,
 	FloatingActionButton
 } from 'material-ui';
 
@@ -32,6 +35,7 @@ import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 
+import ActionPermIdentity from 'material-ui/svg-icons/action/perm-identity';
 import './index.less';
 
 
@@ -51,7 +55,6 @@ class Header extends Component {
 		this.showBottomNav = this.showBottomNav.bind(this);
 		this.handleRequestClose = this.handleRequestClose.bind(this);
 		this.touchTitle = this.touchTitle.bind(this);
-
 
 		this.state = {
 			bottomNav:false,
@@ -83,73 +86,46 @@ class Header extends Component {
 		this.context.router.push('/');
 	}
 
+	renderHeaderNav(item,index){
+
+		return (
+			 <FlatButton label={item.primaryText} key={index} style={{color:'#fff',height:67}} />
+		);
+
+	}
+
 	render() {
 
 		var styles = {paddingLeft:30,position:'fixed',top:0,left:0,right:0};
 
-
 		var {switch_value} = this.props.sidebar_nav;
 
-
 		if(switch_value){
-			styles.paddingLeft = 60;
+			//styles.paddingLeft = 50;
 		}
-
-		console.log("styles",styles);
 
 		return (
 
 			<div >
 
 			<AppBar
-			title="氪空间"
-			onTitleTouchTap={this.touchTitle}
 			style={styles}
-			iconElementLeft={<IconButton onClick={this.handleToggle}><NavigationMenu  /></IconButton>}
-			iconElementRight={
-				<IconMenu
-				iconButtonElement={
-					<IconButton><MoreVertIcon /></IconButton>
-				}
-				targetOrigin={{horizontal: 'right', vertical: 'top'}}
-				anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-				>
-				<MenuItem primaryText="个人中心" />
-				<MenuItem primaryText="帮助" onTouchTap={()=>{this.context.router.push('help')}} />
-				<MenuItem primaryText="注销"/>
-				</IconMenu>
-			}
-			children = {
+			onLeftIconButtonTouchTap={this.handleToggle}
+			iconStyleLeft={{marginTop:0}}
+	 iconElementLeft={
 
-				<div >
-				{/*
-				<IconMenu
-				iconButtonElement={
-					<Menu>
-					<MenuItem
-					primaryText="菜单一"
-					style={{color:'#fff'}}
-					/>
-					</Menu>
-				}
-				anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-				targetOrigin={{horizontal: 'left', vertical: 'top'}}
-				>
-				<MenuItem primaryText="Refresh" />
-				<MenuItem primaryText="Send feedback" />
-				<MenuItem primaryText="Settings" />
-				<MenuItem primaryText="Help" />
-				<MenuItem primaryText="Sign out" />
-				</IconMenu>
-					*/}
-
+			<div className="main-navs" >
+					 <FlatButton onTouchTap={this.touchTitle} label="氪空间" style={{color:'#fff',height:67,width:180}} labelStyle={{fontSize:25}} />
+					 <FlatButton onTouchTap={this.handleToggle} icon={<NavigationMenu  />} style={{color:'#fff',height:67}} />
+					{SidebarNavMenuItems.map((item,index)=>this.renderHeaderNav(item,index))}
 				</div>
-			}
+    }
 			/>
 
-			<Drawer open={this.props.sidebar_nav.switch_value} width={85}>
+			<Drawer open={this.props.sidebar_nav.switch_value} width={150}>
 
 				<AppBar
+				title="菜单"
 				iconElementLeft={<IconButton onClick={this.handleToggle}><NavigationClose  /></IconButton>}
 				/>
 
@@ -158,26 +134,6 @@ class Header extends Component {
 			</Drawer>
 
 
-
-			<FloatingActionButton onTouchTap={this.showBottomNav} style={{position:'fixed',bottom:20,right:10,zIndex:888}} secondary={true} >
-			<ContentAdd />
-			</FloatingActionButton>
-
-			<Popover
-			open={this.props.bottom_nav.switch_value}
-			anchorEl={this.props.bottom_nav.anchor_el}
-			anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-			targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
-			onRequestClose={this.handleRequestClose}
-			animation={PopoverAnimationVertical}
-			>
-			<Menu>
-			<MenuItem primaryText="Refresh" />
-			<MenuItem primaryText="Help &amp; feedback" />
-			<MenuItem primaryText="Settings" />
-			<MenuItem primaryText="Sign out" />
-			</Menu>
-			</Popover>
 
 			</div>
 		);
@@ -204,3 +160,25 @@ function mapDispatchToProps(dispatch){
 
 export default connect(mapStateToProps,mapDispatchToProps)(Header);
 
+/*
+			<FloatingActionButton onTouchTap={this.showBottomNav} style={{position:'fixed',bottom:20,right:10,zIndex:888}} secondary={true} >
+			<ContentAdd />
+			</FloatingActionButton>
+
+			<Popover
+			open={this.props.bottom_nav.switch_value}
+			anchorEl={this.props.bottom_nav.anchor_el}
+			anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+			targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
+			onRequestClose={this.handleRequestClose}
+			animation={PopoverAnimationVertical}
+			>
+			<Menu>
+			<MenuItem primaryText="Refresh" />
+			<MenuItem primaryText="Help &amp; feedback" />
+			<MenuItem primaryText="Settings" />
+			<MenuItem primaryText="Sign out" />
+			</Menu>
+			</Popover>
+
+*/

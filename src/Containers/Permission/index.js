@@ -1,5 +1,5 @@
 import { default as Home } from './Home';
-import { default as About } from './About';
+import { default as Basic } from './Basic';
 import { default as Notify } from './Notify';
 import { default as Collect } from './Collect';
 import { default as Todo } from './Todo';
@@ -12,7 +12,7 @@ import { default as SNSActivity } from './SNSActivity';
 
 module.exports = {
 	Home,
-	About,
+	Basic,
 	Notify,
 	Memo,
 	Todo,
