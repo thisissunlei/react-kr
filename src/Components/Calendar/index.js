@@ -190,7 +190,7 @@ const Calender = React.createClass({
         let { begin, end,items } = this.props;
 
 		items = items.map(function(item){
-			return +new Date(item.createAt);
+			return +new Date(item.createAt.split('-').join());
 		});
 
         for(let i = 0; i < dateCount + index; i ++){
@@ -203,9 +203,9 @@ const Calender = React.createClass({
                 if (!matrixNodes[row]) matrixNodes[row] = [];
                 
                 let isDisabled = itemDateStr < begin || itemDateStr > end;
-                const itemVal = new Date(itemDateStr);
+                const itemVal = new Date(itemDateStr.split('-').join(','));
 
-                matrixNodes[row].push(<td key={`canlender-col-${i}`}>
+                matrixNodes[row].push(<td key={`canlender-col-${i}`} data-value={value} data-item={itemDateStr}>
                                         <Calender.Item active={value == itemDateStr && !isDisabled} 
                                             disabled={isDisabled} isToday={TODAY == itemDateStr} 
                                             onClick={this.handleClick} value={itemVal} label={_index} mark={items.indexOf(+new Date(itemVal.getTime()))!==-1}/>
@@ -284,7 +284,7 @@ Calender.Item = React.createClass({
         className = className.join(' ');
         return (
             <a href="javascript:;" className={className} 
-                onClick={() => this.handleClick(value)}>
+                onClick={() => this.handleClick(value)}  data-value={this.props.value}>
                 {this.props.label}
             </a>
         );

@@ -3,13 +3,12 @@ import React from 'react';
 import { Router, Route, Link,IndexRoute,browserHistory} from 'react-router';
 
 
+
+
+import Permission from './Containers/Permission';
+
 import {
-	Home,
-	Notify,
-	Memo,
 	Help,
-	Docs,
-	Order,
 	Undefined
 } from './Containers';
 
@@ -18,14 +17,23 @@ import Master from './master';
 export default(
 
 	<Route path="/" component={Master}  >
-		<IndexRoute component={Home}/>
-		<Route path="index" component={Home}/>
-		<Route path="notify" component={Notify}/>
-		<Route path="memo" component={Memo}/>
+		<IndexRoute component={Permission.Home}/>
+		<Route path="index" component={Permission.Home}/>
+
+		<Route path="permission" component={Permission.Home}>
+			<Route path="notify" component={Permission.Notify}/>
+			<Route path="memo" component={Permission.Memo}/>
+			<Route path="docs" component={Permission.Docs}/>
+			<Route path="order" component={Permission.Order}/>
+		</Route>
+
+
+
 		<Route path="help" component={Help}/>
-		<Route path="docs" component={Docs}/>
-		<Route path="order" component={Order}/>
+
 		<Route path="undefined" component={Undefined}/>
+
+
 	</Route>
 
 );

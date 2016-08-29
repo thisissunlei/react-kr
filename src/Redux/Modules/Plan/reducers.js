@@ -13,7 +13,7 @@ export function plan(state = {},action){
 				return  item.createAt == nowDate;
 			});
 
-			return {...state,...{now_date:action.response,now_trip:nowTrip}};
+			return {...state,...{now_date:+new Date(action.response.split('-').join()),now_trip:nowTrip}};
 		}
 
 	case Types.LOAD_PLAN_REQUEST:{

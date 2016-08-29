@@ -98,6 +98,7 @@ class PlanManage extends Component{
 
 	calendarChange(value){
 		var {actions} = this.props;
+		console.log('--->>>',value);
 		actions.setNowDate(value);
 	}
 

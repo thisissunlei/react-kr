@@ -3,7 +3,7 @@ import React,{Component} from 'react';
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 
-import * as actionCreators from '../../Redux/Actions';
+import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 
 import {List, ListItem} from 'material-ui/List';
@@ -50,7 +50,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
-import Loading from '../../Components/Loading';
+//import Loading from '../../../Components/Loading';
 
 class Home extends Component{
 
@@ -96,9 +96,11 @@ class Home extends Component{
 			},
 		};
 
+		/*
 		if(this.props.companys_fetch.status == 'loading'){
 			return( <Loading/>); 
 		}
+		*/
 
 		return (
 
@@ -156,8 +158,10 @@ class Home extends Component{
 function mapStateToProps(state){
 
 	return {
+		/*
 		companys:state.companys,
 		companys_fetch:state.companys_fetch,
+		*/
 		sidebar_nav:state.sidebar_nav,
 	};
 }
