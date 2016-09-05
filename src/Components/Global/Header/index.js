@@ -89,7 +89,7 @@ class Header extends Component {
 	renderHeaderNav(item,index){
 
 		return (
-			 <FlatButton label={item.primaryText} key={index} style={{color:'#fff',height:67}} />
+			 <FlatButton label={item.primaryText} key={index} style={{color:'#fff',height:67}} href={"/#/"+item.router} labelStyle={{lineHeight:'67px'}} />
 		);
 
 	}
@@ -117,7 +117,7 @@ class Header extends Component {
 			<div className="main-navs" >
 					 <FlatButton onTouchTap={this.touchTitle} label="氪空间" style={{color:'#fff',height:67,width:180}} labelStyle={{fontSize:25}} />
 					 <FlatButton onTouchTap={this.handleToggle} icon={<NavigationMenu  />} style={{color:'#fff',height:67}} />
-					{SidebarNavMenuItems.map((item,index)=>this.renderHeaderNav(item,index))}
+					{this.props.navs_items.map((item,index)=>this.renderHeaderNav(item,index))}
 				</div>
     }
 			/>
@@ -129,7 +129,7 @@ class Header extends Component {
 				iconElementLeft={<IconButton onClick={this.handleToggle}><NavigationClose  /></IconButton>}
 				/>
 
-				<SidebarNav/>
+				<SidebarNav items={this.props.navs_current_items}/>
 
 			</Drawer>
 
@@ -148,6 +148,8 @@ function mapStateToProps(state){
 
 	return {
 		sidebar_nav:state.sidebar_nav,
+		navs_items:state.navs.items,
+		navs_current_items:state.navs.current_items,
 		bottom_nav:state.bottom_nav
 	};
 }

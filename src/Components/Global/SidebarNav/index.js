@@ -71,6 +71,9 @@ SelectableList = wrapState(SelectableList);
 
 export default class SidebarNav extends Component {
 
+	PropTypes={
+		items:PropTypes.isArray
+	}
 	constructor(props,context){
 		super(props, context);
 	}
@@ -83,6 +86,7 @@ export default class SidebarNav extends Component {
 				<ListItem 
 					key={index}
 					value={index}
+					autoGenerateNestedIndicator={false}
 					primaryText={item.primaryText} 
 					nestedItems={ item.menuItems.map((it,ind)=>this.renderMenuItem(it,ind,index))} />
 			);
@@ -95,6 +99,10 @@ export default class SidebarNav extends Component {
 					href={"/#/"+item.router}
 				/>
 		);
+
+	}
+
+	openUrl(){
 
 	}
 
@@ -127,7 +135,7 @@ export default class SidebarNav extends Component {
 						  />
 				*/}
 
-					{SidebarNavMenuItems.map((item,index)=>this.renderMenuItem(item,index))}
+					{this.props.items.map((item,index)=>this.renderMenuItem(item,index))}
 						</SelectableList>
 			</div>
 		);

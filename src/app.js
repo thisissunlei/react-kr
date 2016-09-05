@@ -29,7 +29,10 @@ injectTapEventPlugin({
 });
 
 
+import * as actionCreators from 'kr-ui/../Redux/Actions';
+
 let store = configureStore();
+
 
 ReactDOM.render((
 	<MuiThemeProvider>
@@ -38,7 +41,10 @@ ReactDOM.render((
 			<Router 
 				routes={routes} 
 				history={useRouterHistory(createHashHistory)({queryKey: false})}
-				onUpdate={() => {window.scrollTo(0, 0)}}
+				onUpdate={() => {
+					window.scrollTo(0, 0)
+					store.dispatch(actionCreators.setCurrentNav(window.location.hash));
+				}}
 				/>
 			{/*
 
