@@ -204,6 +204,7 @@ let initState = {
 				primaryText:"运营平台",
 				rightIcon:"",
 				leftIcon:"",
+				router:'operation',
 				menuItems:[
 					{
 						primaryText:"社区管理",
@@ -216,6 +217,7 @@ let initState = {
 						rightIcon:"",
 						leftIcon:"",
 						insetChildren:true,
+						router:'finance',
 					},
 
 				]

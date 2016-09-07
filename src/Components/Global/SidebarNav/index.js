@@ -96,7 +96,7 @@ export default class SidebarNav extends Component {
 					primaryText={item.primaryText} 
 					key={index} 
 					value={parentIndex+'-'+index}
-					href={"/#/"+item.router}
+					href={"/"+location.hash+"/"+item.router}
 				/>
 		);
 
