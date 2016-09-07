@@ -218,6 +218,23 @@ let initState = {
 						leftIcon:"",
 						insetChildren:true,
 						router:'finance',
+						menuItems:[
+							{
+								primaryText:"订单账号",
+								rightIcon:"",
+								leftIcon:"",
+								insetChildren:true,
+								router:'orderbill',
+							},
+							{
+								primaryText:"代码配置",
+								rightIcon:"",
+								leftIcon:"",
+								insetChildren:true,
+								
+							},
+
+						]
 					},
 
 				]

@@ -25,7 +25,12 @@ export default(
 		{/*运营管理*/}
 		<Route path="operation" component={Operation.Basic}>
 			<Route path="index" component={Operation.Home}/>
-			<Route path="finance" component={Operation.Finance}/>
+				<Route path="finance" component={Operation.Finance.Basic}>
+					<Route path="index" component={Operation.Finance.Home}/>
+					<Route path="orderbill" component={Operation.Finance.OrderBill.Basic}>
+						<IndexRoute component = {Operation.Finance.OrderBill.Home}/>
+					</Route>
+				</Route>
 		</Route>
 
 		{/*权限管理*/}
