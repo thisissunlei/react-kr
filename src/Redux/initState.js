@@ -174,16 +174,16 @@ let initState = {
 						primaryText:"合同信息",
 						menuItems:[
 							{
-								primaryText:"承租意向书",
-								router:'/operation/agreement/join',
+								primaryText:"入驻协议书",
+								router:'/operation/agreement/join/detail',
 							},
 							{
-								primaryText:"入驻协议书",
-								router:'/operation/agreement/join',
+								primaryText:"承租意向书",
+								router:'/operation/agreement/join/detail',
 							},
 							{
 								primaryText:"增租协议书",
-								router:'/operation/agreement/join',
+								router:'/operation/agreement/join/detail',
 							},
 							{
 								primaryText:"减租协议书",
