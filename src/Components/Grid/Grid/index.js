@@ -7,12 +7,12 @@ export default class Grid extends React.Component {
 
 	render() {
 
-		let {children,className} = this.props;
+		let {children,className,style} = this.props;
 
 
 		return (
 
-			<div className="grid"> 
+			<div className="grid" style={style}> 
 				{this.props.children}
 			</div>
 		);

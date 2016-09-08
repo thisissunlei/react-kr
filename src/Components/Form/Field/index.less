@@ -1,17 +1,12 @@
 
-
-
 .form-item{
 
 	display:flex;
 	flex-direcation:row;
 	position:relative;
 	width:100%;
-	margin-bottom:10px;
+	margin-bottom:15px;
 
-	.form-label,
-	.form-input{
-	}
 
 	.form-label{
 		height:35px;
@@ -19,10 +14,25 @@
 		width:100px;
 		text-align:center;
 	}
-	.form-input{
+
+	.require-label{
+		width:20px;
+		color:red;
+	}
+
+	.form-main{
 		position:relative;
 		flex:1;
+		flex-direcation:column;
+	}
+
+	.form-input-main{
 		flex-direcation:row;
+		width:100%;
+	}
+	.form-input{
+		position:relative;
+		flex:3;
 		input{
 			box-sizing:border-box;
 			width:100%;
@@ -37,6 +47,8 @@
 				border-color:green;
 			}
 		}
+
 	}
+
 
 }
