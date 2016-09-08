@@ -11,6 +11,7 @@ import {
 	Permission,
 	Document,
 	Operation,
+	Basic,
 } from './Containers';
 
 import Master from './master';
@@ -23,18 +24,63 @@ export default(
 
 
 		{/*运营管理*/}
-		<Route path="operation" component={Operation.Basic}>
-			<Route path="index" component={Operation.Home}/>
-				<Route path="finance" component={Operation.Finance.Basic}>
+		<Route path="operation" component={Basic}>
+				<Route path="index" component={Operation.Home}/>
+
+				{/*合同信息*/}
+				<Route path="agreement" component={Basic}>
+
+					{/*入驻协议书*/}
+					<Route path="join" component={Basic}>
+						<Route path="edit" component={Operation.Agreement.Join.Edit}/>
+						<Route path="detail" component={Operation.Agreement.Join.Detail}/>
+					</Route>
+
+					{/*承租意向书*/}
+					<Route path="admit" component={Basic}>
+						<Route path="edit" component={Operation.Agreement.Admit.Edit}/>
+						<Route path="detail" component={Operation.Agreement.Admit.Detail}/>
+					</Route>
+
+					{/*增租协议书*/}
+					<Route path="increase" component={Basic}>
+						<Route path="edit" component={Operation.Agreement.Renew.Edit}/>
+						<Route path="detail" component={Operation.Agreement.Renew.Detail}/>
+					</Route>
+
+					{/*续租协议书*/}
+					<Route path="renew" component={Basic}>
+						<Route path="edit" component={Operation.Agreement.Renew.Edit}/>
+						<Route path="detail" component={Operation.Agreement.Renew.Detail}/>
+					</Route>
+
+					{/*减租协议书*/}
+					<Route path="reduce" component={Basic}>
+						<Route path="edit" component={Operation.Agreement.Reduce.Edit}/>
+						<Route path="detail" component={Operation.Agreement.Reduce.Detail}/>
+					</Route>
+
+					{/*退租协议书*/}
+					<Route path="exit" component={Basic}>
+						<Route path="edit" component={Operation.Agreement.Exit.Edit}/>
+						<Route path="detail" component={Operation.Agreement.Exit.Detail}/>
+					</Route>
+
+
+				</Route>
+
+				{/*财务管理*/}
+				<Route path="finance" component={Basic}>
 					<Route path="index" component={Operation.Finance.Home}/>
 					<Route path="orderbill" component={Operation.Finance.OrderBill.Basic}>
 						<IndexRoute component = {Operation.Finance.OrderBill.Home}/>
 					</Route>
 				</Route>
+
 		</Route>
 
 		{/*权限管理*/}
-		<Route path="permission" component={Permission.Basic}>
+		<Route path="permission" component={Basic}>
 			<IndexRoute component = {Permission.Home}/>
 			<Route path="index" component={Permission.Home}/>
 			<Route path="notify" component={Permission.Notify}/>
@@ -45,7 +91,7 @@ export default(
 
 
 		{/*文档管理*/}
-		<Route path="document" component={Document.Basic}>
+		<Route path="document" component={Basic}>
 			<Route path="index" component={Document.Home}/>
 		</Route>
 

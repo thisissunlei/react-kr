@@ -32,10 +32,32 @@ import {
 	FontIcon,
 	GridList,
 	GridTile,
-	DatePicker
+	DatePicker,
+	Dialog,
+	SelectField
 } from 'material-ui';
+import FlatButton from 'material-ui/FlatButton';
+import Formsy from 'formsy-react';
+import { FormsyCheckbox, FormsyDate, FormsyRadio, FormsyRadioGroup,
+    FormsySelect, FormsyText, FormsyTime, FormsyToggle } from 'formsy-material-ui/lib';
 
-export default  class Home extends Component{
+
+	const style = {
+		FlatButton:{
+			width:30,
+			color:'#0099FF',
+			display:'block',
+			border:0,
+			lineHeight:'20px',
+			height:20,
+		}
+		
+	}
+
+
+class Home extends Component{
+
+	
 
 	constructor(props,context){
 		super(props, context);
@@ -43,11 +65,37 @@ export default  class Home extends Component{
 		this.state = {
 			open:false
 		};
-
+		this.renderSearchCard = this.renderSearchCard.bind(this);
 		this.title = ['系统运营','财务管理'];
 		this.tableHead = ['客户名称','订单类型','所在社区','计划入住日期','计划离开日期','收入总额','回款总额','余额','操作'];
+		this.tableHeadList = ['客户名称','订单类型','所在社区','计划入住日期','计划离开日期','收入总额','回款总额','余额'];
+		this.closeDialog = this.closeDialog.bind(this);
+		this.confirmSubmit = this.confirmSubmit.bind(this);
+		this.submitForm = this.submitForm.bind(this);
 
+		this.actions = [
+			<FlatButton
+			label="取消"
+			primary={true}
+			onTouchTap={this.closeDialog}
+			/>,
+			<FlatButton
+			label="提交"
+			primary={true}
+			keyboardFocused={true}
+			onTouchTap={this.confirmSubmit}
+			/>
+		];
 	}
+
+	confirmSubmit(){
+		var form = this.refs.myForm;
+		form.submit();
+	}
+	submitForm(form){
+		console.log(form);
+	}
+
 
 
 	componentDidMount() {
@@ -66,6 +114,18 @@ export default  class Home extends Component{
 	}
 
 
+	renderSearchCard(){
+		this.setState({open:true});
+		
+	}
+
+	closeDialog(){
+		this.setState({open: false});
+	}
+
+	handleChange = (event, index, value) => {this.setState({value});this.refs.myForm.area = value};
+
+
 
 	render() {
 
@@ -75,10 +135,18 @@ export default  class Home extends Component{
 		<div>
 
 
-			<div className="main">
 				<TitleList children={this.title}></TitleList>
 				<div className="order-table">
-				<Table>
+				<Section title="财务管理" description="">	
+					<div>
+						<span>收入总额：</span>
+						<span>收入总额：</span>
+						<span>余额：</span>
+						<div className="search-content">
+							<input type="text" placeholder="请输入客户名称" />
+						</div>
+					</div>
+				<Table className="table-content" >
 					<TableHeader>
 						<TableRow>
 							{this.tableHead.map((item)=>{
@@ -90,18 +158,69 @@ export default  class Home extends Component{
 					<TableBody>
 						{this.tableHead.map( (row, index) => (
 			              <TableRow key={index} selected={row.selected}>
-				              {this.tableHead.map((item)=>{
-									return <TableRowColumn key={item}>{item}</TableRowColumn>
+				              {this.tableHeadList.map((item)=>{
+									return <TableRowColumn key={item} >{item}</TableRowColumn>
 								})}
+
+								<TableRowColumn>
+								    <FlatButton label="查看" onTouchTap={this.renderSearchCard} style={style.FlatButton}/>
+									<FlatButton label="生成对账单" style={style.FlatButton}/>
+								</TableRowColumn>
 			              </TableRow>
 			              ))}
-
+						
 					</TableBody>
 				</Table>
+
+				</Section>
 				</div>
 				
 
+				<Dialog
+			modal={false}
+			open={this.state.open}
+			onRequestClose={this.closeDialog}
+			autoScrollBodyContent={true}
+			actions={this.actions}
+			>
+
+			<div className="form">
+
+			<Formsy.Form
+			onValidSubmit={this.submitForm}
+			ref="myForm"
+			>
+
+			<div className="form-group">
+				<label for="" className="label-control">客户名称</label>
+				<div className="form-control">
+					<FormsyText
+						name="content"
+						required
+						fullWidth
+						hintText="客户名称" />
+				</div>
 			</div>
+
+			<div className="form-group">
+				<label for="" className="label-control">所属社区</label>
+				<div className="form-control">
+					<SelectField value={this.state.value} onChange={this.handleChange} name="area">
+			          <MenuItem value={1} primaryText="Never" />
+			          <MenuItem value={2} primaryText="Every Night" />
+			          <MenuItem value={3} primaryText="Weeknights" />
+			          <MenuItem value={4} primaryText="Weekends" />
+			          <MenuItem value={5} primaryText="Weekly" />
+			        </SelectField>
+				</div>
+
+			</div>
+
+				</Formsy.Form>
+			</div>
+
+				</Dialog>
+
 
 
 			
@@ -111,6 +230,24 @@ export default  class Home extends Component{
 		);
 	}
 }
+
+
+function mapStateToProps(state){
+
+	return {
+		plan:state.plan,
+		items:state.plan.items,
+		now_date:state.plan.now_date
+	};
+}
+
+function mapDispatchToProps(dispatch){
+	return {
+		actions:bindActionCreators(Object.assign({},actionCreators),dispatch)
+	};
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Home);
 
 
 

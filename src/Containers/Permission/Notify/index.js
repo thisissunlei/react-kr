@@ -24,7 +24,6 @@ import {
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
 import {List, ListItem} from 'material-ui/List';
-
 import './index.less';
 
 class Notify extends Component{
