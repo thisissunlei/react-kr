@@ -1,0 +1,42 @@
+
+
+
+.form-item{
+
+	display:flex;
+	flex-direcation:row;
+	position:relative;
+	width:100%;
+	margin-bottom:10px;
+
+	.form-label,
+	.form-input{
+	}
+
+	.form-label{
+		height:35px;
+		line-height:35px;
+		width:100px;
+		text-align:center;
+	}
+	.form-input{
+		position:relative;
+		flex:1;
+		flex-direcation:row;
+		input{
+			box-sizing:border-box;
+			width:100%;
+			display:block;
+			height:40px;
+			padding-left:10px;
+			padding-right:10px;
+			border:1px solid #ddd;
+			border-radius:4px;
+			&:focus{
+				outline:none;
+				border-color:green;
+			}
+		}
+	}
+
+}
