@@ -10,8 +10,7 @@ export function navs(state = {},action){
 
 		case Types.SET_NAVS_CURRENT_ITEMS:{
 			const items = state.items;
-			var router = action.response.substring(2);
-			console.log('----->>>',router);
+			var router = action.response.substring(2).split('/').shift();
 
 			const currentItem = items.filter(function(item,index){
 				return item.router && item.router ==  router;
