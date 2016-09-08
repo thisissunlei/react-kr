@@ -35,7 +35,7 @@ import {
 	DatePicker
 } from 'material-ui';
 
-export default  class Finance extends Component{
+export default  class Home extends Component{
 
 	constructor(props,context){
 		super(props, context);
