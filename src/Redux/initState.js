@@ -175,7 +175,7 @@ let initState = {
 						menuItems:[
 							{
 								primaryText:"入驻协议书",
-								router:'/operation/agreement/join/detail',
+								router:'/operation/agreement/join/edit',
 							},
 							{
 								primaryText:"承租意向书",
