@@ -207,7 +207,7 @@ let initState = {
 								rightIcon:"",
 								leftIcon:"",
 								insetChildren:true,
-								router:'finance/orderbill',
+								router:'/operation/finance/orderbill',
 							},
 							{
 								primaryText:"代码配置",
