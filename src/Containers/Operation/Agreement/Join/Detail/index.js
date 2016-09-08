@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Section from 'kr-ui/Section';
 
-import {Row,Col} from 'kr-ui/Grid';
+import {Grid,Row,Col} from 'kr-ui/Grid';
 
 import {GridList, GridTile} from 'material-ui/GridList';
 
@@ -23,14 +23,16 @@ export default class Basic extends Component {
     return (
 
       <div>
-					<Section title="入驻协议书" description=""> 
+			<Section title="入驻协议书" description=""> 
 
-						<Row>
-							<Col>hahhaah</Col>
-							<Col>hahhaah</Col>
-						</Row>
+				<Grid>
+					<Row>
+						<Col md={5}>hahhaah</Col>
+						<Col md={7}>hahhaah</Col>
+					</Row>
+				</Grid>
 
-					</Section>
+			</Section>
 
       </div>
     );
