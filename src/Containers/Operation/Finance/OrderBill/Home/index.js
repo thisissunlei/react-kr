@@ -9,15 +9,16 @@ import './index.less';
 
 import {List, ListItem} from 'material-ui/List';
 import {Table, TableBody, TableHeader, TableFooter, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table'
-
+import DeviceLocationSearching from 'material-ui/svg-icons/device/location-searching';
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
 import ContentSend from 'material-ui/svg-icons/content/send';
 import ContentDrafts from 'material-ui/svg-icons/content/drafts';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import { Field, reduxForm } from 'redux-form';
-
+import SvgIcon from 'material-ui/SvgIcon';
 import Section from 'kr-ui/Section';
+import {KrField} from 'kr-ui/Form';
 
 import {
 	AppBar,
@@ -56,53 +57,72 @@ import { FormsyCheckbox, FormsyDate, FormsyRadio, FormsyRadioGroup,
 			color:'#fff',
 			background:'rgb(0,153,255)',
 			width:30,
+		},
+		inputStyle:{
+			height:20,
+			padding:5,
+			verticalAlign:"bottom",
+		},
+		iconSpan:{
+			display:'inline-block',
+			verticalAlign:'bottom',
 		}
 		
 	}
 
+
+	
+
+
+	const renderSelectField = ({ input, label, meta: { touched, error }, children }) => (
+	  <SelectField
+	    floatingLabelText={label}
+	    errorText={touched && error}
+	    {...input}
+	    onChange={(event, index, value) => input.onChange(value)}
+	    children={children}/>
+	)
+
+
 	var SearchForm = (props) => {
-	 var   {handleSubmit, pristine, reset, submitting, submit}= props ;
+	 var   {handleSubmit, pristine, reset, submitting, submit, cancle}= props ;
 	 
 	 return (
-	 	<form onsubmit={handleSubmit(submit)} >
+	 		<form onSubmit={handleSubmit(submit)} className='search-form'>
 	 		<div>
-	 			<label>客户名称</label>
-	 			<div>
-	 				<Field name='name' component='input' type='text'/>
-	 			</div>
+	 			<KrField name="username" type="text" label="客户名称：" />
 	 		</div>
 	 		<div>
-	 			<label>所属社区</label>
-	 			<div>
-	 				 <Field name="area" component="select">
-			            <option value="ff0000">Red</option>
-			            <option value="00ff00">Green</option>
-			            <option value="0000ff">Blue</option>
-			          </Field>
-	 			</div>
+	 			<label>所属社区：</label>
+			        <Field name="area" component={renderSelectField}>
+			          <MenuItem value={'ff0000'} primaryText="Red"/>
+			          <MenuItem value={'00ff00'} primaryText="Green"/>
+			          <MenuItem value={'0000ff'} primaryText="Blue"/>
+			        </Field>
 	 			
 	 		</div>
 	 		<div>
-	 			<label>订单类型</label>
-	 			<div>
-	 				 <Field name="ordertype" component="select">
-			            <option value="ff0000">Red</option>
-			            <option value="00ff00">Green</option>
-			            <option value="0000ff">Blue</option>
-			          </Field>
-	 			</div>
+	 				<label>订单类型：</label>
+			        <Field name="orderType" component={renderSelectField}>
+			          <MenuItem value={'ff0000'} primaryText="Red"/>
+			          <MenuItem value={'00ff00'} primaryText="Green"/>
+			          <MenuItem value={'0000ff'} primaryText="Blue"/>
+			        </Field>
 	 			
 	 		</div>
-	 		<div>
-	 			<label>查询区间</label>
-	 			<div>
-	 				<Field name="time" component="DatePicker">
-			             <DatePicker hintText="Portrait Dialog" />
-			          </Field>
-			       
-	 			</div>
-	 			
+	 		<div className="button">
+				<FlatButton
+				label="取消"
+				primary={true}
+				onTouchTap={cancle}
+				/>,
+				<FlatButton
+				label="提交"
+				primary={true}
+				type="submit"
+				/>
 	 		</div>
+	 		
 	 	</form>
 	 )
 }
@@ -127,25 +147,17 @@ class Home extends Component{
 		this.tableHead = ['客户名称','订单类型','所在社区','计划入住日期','计划离开日期','收入总额','回款总额','余额','操作'];
 		this.tableHeadList = ['客户名称','订单类型','所在社区','计划入住日期','计划离开日期','收入总额','回款总额','余额'];
 		this.closeDialog = this.closeDialog.bind(this);
-		this.confirmSubmit = this.confirmSubmit.bind(this);
-		this.submitForm = this.submitForm.bind(this);
 		this.doSubmit = this.doSubmit.bind(this);
 		
 	}
 
-	confirmSubmit(){
-		console.log('aaaa');
-		var form = this.refs.searchForm;
-		form.submit();
-	}
-	doSubmit(){
-		console.log('www');
+	doSubmit(values){
+		console.log(values);
+		this.setState({open: false});
 	}
 
 
-	submitForm(data){
-		console.log(data);
-	}
+	
 
 
 
@@ -189,20 +201,6 @@ class Home extends Component{
 
 	render() {
 
-		const actions = [
-			<FlatButton
-			label="取消"
-			primary={true}
-			onTouchTap={this.closeDialog}
-			/>,
-			<FlatButton
-			label="提交"
-			primary={true}
-			keyboardFocused={true}
-			onTouchTap={this.confirmSubmit}
-			/>
-		];
-
 		return (
 
 		<div>
@@ -216,7 +214,12 @@ class Home extends Component{
 						<span>收入总额：</span>
 						<span>余额：</span>
 						<div className="search-content">
-							<input type="text" placeholder="请输入客户名称" />
+							<input type="text" placeholder="请输入客户名称" style={style.inputStyle}/>
+							<FlatButton label="查询"/>
+							<span style={style.iconSpan} onTouchTap={this.renderSearchCard}>
+								<DeviceLocationSearching />
+							</span>
+							
 						</div>
 					</div>
 				<Table className="table-content" multiSelectable={true}>
@@ -236,7 +239,7 @@ class Home extends Component{
 								})}
 
 								<TableRowColumn>
-								    <FlatButton label="查看" onTouchTap={this.renderSearchCard} style={style.FlatButton}/>
+								    <FlatButton label="查看"  style={style.FlatButton}/>
 									<FlatButton label="生成对账单" style={style.FlatButton}/>
 								</TableRowColumn>
 			              </TableRow>
@@ -260,12 +263,11 @@ class Home extends Component{
 				</div>
 				
 				 <Dialog
-		          actions={actions}
 		          modal={false}
 		          open={this.state.open}
 		          onRequestClose={this.handleClose}
 		        >
-		        <SearchForm  ref='searchForm' submit={this.doSubmit}/>
+		        <SearchForm  ref='searchForm' submit={this.doSubmit} cancle={this.closeDialog}/>
 		         </Dialog>
 		        
 			
