@@ -160,6 +160,29 @@ let initState = {
 				primaryText:"运营平台",
 				router:'operation',
 				menuItems:[
+				{
+						primaryText:"客户管理",
+						router:'customerManage',
+						menuItems:[
+							{
+								primaryText:'客户列表',
+								router:'/operation/customerManage/list',
+							},
+							{
+								primaryText:'新增客户订单',
+								router:'/operation/customerManage/order/create',
+							},
+							{
+								primaryText:'编辑客户订单',
+								router:'/operation/customerManage/order/edit',
+							},
+							{
+								primaryText:'查看客户订单',
+								router:'/operation/customerManage/order/detail',
+							},
+							
+						]
+					},
 					{
 						primaryText:"入驻订单",
 						router:'joinOrder',

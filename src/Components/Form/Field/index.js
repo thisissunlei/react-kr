@@ -20,16 +20,17 @@ const renderFieldInput = ({ input, label, type, meta: { touched, error } ,requir
   </div>
 
 
-)
+);
 
-const renderFieldSelect = ({ input, label, type, meta: { touched, error } }) => (
+
+const renderFieldSelect = ({ input, label, type, meta: { touched, error },children}) => (
 
 
   <div className="form-item">
     <label className="form-label">{label}</label>
     <div className="form-input">
-		<select {...input}  type={type}>
-
+		<select {...input}  >
+		{children}
 		</select>
 		{touched && error && <span>{error}</span>}
     </div>
@@ -65,8 +66,8 @@ export default class KrField extends React.Component {
 		if(component == 'select'){
 
 			return (
-				<Field {...this.props} component="select">
-					{children}
+				<Field {...this.props} component={renderFieldSelect}>
+				{children}
 				</Field>
 			);
 
