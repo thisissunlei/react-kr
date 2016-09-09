@@ -26,74 +26,33 @@ var JoinForm = (props) => {
 				<Grid style={{marginTop:30}}>
 
 					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="出租方" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="地址" /> </Col>
+						<Col md={12} > <KrField name="username" type="text" label="客户名称" /> </Col>
 					</Row>
 
 					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="联系人" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="电话" /> </Col>
+						<Col md={12} > <KrField name="username" type="text" label="订单类型" /> </Col>
 					</Row>
 
 					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="承租方" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="地址" /> </Col>
+						<Col md={12} > <KrField name="username" type="text" label="所在社区" /> </Col>
 					</Row>
 
 					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="联系人" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="电话" /> </Col>
+						<Col md={12} > <KrField name="username" type="text" label="所在城市" /> </Col>
 					</Row>
 
 					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="所属社区" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="所在楼层" /> </Col>
+						<Col md={12} > <KrField name="username" type="text" label="订单名称" /> </Col>
 					</Row>
 
 					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="地址" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="合同编号" /> </Col>
+						<Col md={12} > <KrField name="username" type="text" label="订单编号" /> </Col>
 					</Row>
 
 					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="租赁期限"  requireLabel={true} /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="付款方式" /> </Col>
+						<Col md={12} > <KrField name="username" type="textarea" label="订单描述" /> </Col>
 					</Row>
 
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="支付方式" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="签署时间" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="首付款时间" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="工位" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="会议室" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={11}> <KrField name="username" type="text" label="租赁用途" placeholder="办公使用" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="租金总额" placeholder="" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="押金总额" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="合同附件" /> </Col>
-					</Row>
-
-		  {/*
-		  
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="" /> </Col>
-						<Col md={5}> <KrField name="username" type="text" label="" /> </Col>
-					</Row>
-		  */}
 
 
 				</Grid>
@@ -101,14 +60,11 @@ var JoinForm = (props) => {
 
 
 				<Grid style={{marginTop:30}}>
-
 					<Row>
-
-						<Col md={8}></Col>
-						<Col md={2}> <RaisedButton  label="确定" type="submit" primary={true} /> </Col>
-
+						<Col md={10}></Col>
+						<Col md={1}> <RaisedButton  label="确定" type="submit" primary={true} /> </Col>
+						<Col md={1}> <RaisedButton  label="取消" type="submit"  /> </Col>
 					</Row>
-
 				</Grid>
 
 
@@ -220,7 +176,7 @@ export default class JoinEdit extends Component {
     return (
 
       <div>
-			<Section title="入驻协议书" description=""> 
+			<Section title="客户信息编辑" description=""> 
 				<JoinForm  submit={this.confirmJoinSubmit}/>
 			</Section>
 

@@ -27,6 +27,15 @@ export default(
 		<Route path="operation" component={Basic}>
 				<Route path="index" component={Operation.Home}/>
 
+				{/*入驻订单*/}
+				<Route path="joinOrder" component={Basic}>
+					<Route path="list" component={Operation.JoinOrder.List}/>
+					<Route path="customer" component={Basic}>
+						<Route path="edit" component = {Operation.JoinOrder.Customer.Edit}/>
+						<Route path="detail" component = {Operation.JoinOrder.Customer.Detail}/>
+					</Route>
+				</Route>
+
 				{/*合同信息*/}
 				<Route path="agreement" component={Basic}>
 

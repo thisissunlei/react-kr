@@ -7,12 +7,12 @@ export default  class Row extends React.Component {
 
 	render() {
 
-		let {children} = this.props;
+		let {children,className,style} = this.props;
 
 		return (
 
 
-			<div className="row"> 
+			<div className="row" style={style}> 
 				{children}
 			</div>
 
