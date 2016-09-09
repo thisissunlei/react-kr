@@ -162,11 +162,27 @@ let initState = {
 				menuItems:[
 					{
 						primaryText:"入驻订单",
-						router:'finance',
+						router:'joinOrder',
 						menuItems:[
 							{
-								primaryText:"客户列表",
-								router:'orderbill',
+								primaryText:'客户列表',
+								router:'/operation/joinOrder/list',
+							},
+							{
+								primaryText:'客户编辑',
+								router:'/operation/joinOrder/customer/edit',
+							},
+							{
+								primaryText:'客户详情',
+								router:'/operation/joinOrder/customer/detail',
+							},
+							{
+								primaryText:'订单详情',
+								router:'/operation/joinOrder/customer/detail',
+							},
+							{
+								primaryText:'订单编辑',
+								router:'/operation/joinOrder/customer/detail',
 							},
 						]
 					},
