@@ -93,7 +93,10 @@ export default(
 					<Route path="index" component={Operation.Finance.Home}/>
 					<Route path="orderbill" component={Operation.Finance.OrderBill.Basic}>
 						<IndexRoute component = {Operation.Finance.OrderBill.Home}/>
+						<Route path="receipt" component={Operation.Finance.OrderBill.ReceiptList}/>
+						<Route path="orderlist" component={Operation.Finance.OrderBill.OrderList}/>
 					</Route>
+
 				</Route>
 
 		</Route>

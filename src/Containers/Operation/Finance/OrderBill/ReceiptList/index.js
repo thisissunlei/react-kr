@@ -6,9 +6,11 @@ import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 import TitleList from 'kr-ui/TitleList';
 import './index.less';
+import {KrField} from 'kr-ui/Form';
 
 import {List, ListItem} from 'material-ui/List';
 import {Table, TableBody, TableHeader, TableFooter, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table'
+import {blue500, yellow600,red500,pink500,purple500} from 'material-ui/styles/colors';
 
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
@@ -16,6 +18,7 @@ import ContentSend from 'material-ui/svg-icons/content/send';
 import ContentDrafts from 'material-ui/svg-icons/content/drafts';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import { Field, reduxForm } from 'redux-form';
+import ActionDateRange from 'material-ui/svg-icons/action/date-range';
 
 import Section from 'kr-ui/Section';
 
@@ -34,6 +37,7 @@ import {
 	GridTile,
 	DatePicker,
 	Dialog,
+	Avatar,
 	SelectField,
 } from 'material-ui';
 import FlatButton from 'material-ui/FlatButton';
@@ -60,50 +64,67 @@ import { FormsyCheckbox, FormsyDate, FormsyRadio, FormsyRadioGroup,
 		
 	}
 
+	const renderSelectField = ({ input, label, meta: { touched, error }, children }) => (
+	  <SelectField
+	    floatingLabelText={label}
+	    errorText={touched && error}
+	    {...input}
+	    onChange={(event, index, value) => input.onChange(value)}
+	    children={children}/>
+	)
+	const renderDate = ({input, label, meta: { touched, error }}) =>(
+		<DatePicker onChange={(event, value) => input.onChange(value)} />
+	)
+
 	
 
 	var SearchForm = (props) => {
-	 var   handleSubmit, pristine, reset, submitting ;
+	 const  { handleSubmit, pristine, reset, submitting ,submit,cancle} = props;
 	 return (
-	 	<form onsubmit={handleSubmit}>
+	 	<form onSubmit={handleSubmit(submit)} className='search-form'>
 	 		<div>
-	 			<label>客户名称</label>
-	 			<div>
-	 				<Field name='name' component='input' type='text'/>
-	 			</div>
+	 			<KrField name="username" type="text" label="客户名称：" />
 	 		</div>
 	 		<div>
-	 			<label>所属社区</label>
-	 			<div>
-	 				 <Field name="area" component="select">
-			            <option value="ff0000">Red</option>
-			            <option value="00ff00">Green</option>
-			            <option value="0000ff">Blue</option>
-			          </Field>
-	 			</div>
+	 			<label>所属社区：</label>
+			        <Field name="area" component={renderSelectField}>
+			          <MenuItem value={'ff0000'} primaryText="Red"/>
+			          <MenuItem value={'00ff00'} primaryText="Green"/>
+			          <MenuItem value={'0000ff'} primaryText="Blue"/>
+			        </Field>
 	 			
 	 		</div>
 	 		<div>
-	 			<label>订单类型</label>
-	 			<div>
-	 				 <Field name="ordertype" component="select">
-			            <option value="ff0000">Red</option>
-			            <option value="00ff00">Green</option>
-			            <option value="0000ff">Blue</option>
-			          </Field>
-	 			</div>
+	 				<label>订单类型：</label>
+			        <Field name="orderType" component={renderSelectField}>
+			          <MenuItem value={'ff0000'} primaryText="Red"/>
+			          <MenuItem value={'00ff00'} primaryText="Green"/>
+			          <MenuItem value={'0000ff'} primaryText="Blue"/>
+			        </Field>
 	 			
 	 		</div>
 	 		<div>
-	 			<label>查询区间</label>
-	 			<div>
-	 				<Field name="time" component="DatePicker">
-			             <DatePicker hintText="Portrait Dialog" />
-			          </Field>
+	 			<label>查询区间：</label>
+	 				<Avatar icon={<ActionDateRange  />}  size={25}/>
+	 				<Field name="time" component='DatePicker'>
+	 				</Field>
+			            
 			       
-	 			</div>
 	 			
 	 		</div>
+	 		<div className="button">
+				<FlatButton
+				label="取消"
+				primary={true}
+				onTouchTap={cancle}
+				/>,
+				<FlatButton
+				label="提交"
+				primary={true}
+				type="submit"
+				/>
+	 		</div>
+	 		
 	 	</form>
 	 )
 }
@@ -125,24 +146,16 @@ class Home extends Component{
 		};
 		this.renderSearchCard = this.renderSearchCard.bind(this);
 		this.title = ['系统运营','财务管理'];
-		this.tableHead = ['客户名称','订单类型','所在社区','计划入住日期','计划离开日期','收入总额','回款总额','余额','操作'];
-		this.tableHeadList = ['客户名称','订单类型','所在社区','计划入住日期','计划离开日期','收入总额','回款总额','余额'];
+		this.tableHead = ['票据类型','发票号码','开票金额','开票日期','操作人','备注','操作'];
+		this.tableHeadList = ['票据类型','发票号码','开票金额','开票日期','操作人','备注'];
 		this.closeDialog = this.closeDialog.bind(this);
-		this.confirmSubmit = this.confirmSubmit.bind(this);
 		this.submitForm = this.submitForm.bind(this);
 		
 	}
 
-	confirmSubmit(){
-		var form = this.simple;
-
-	}
-	submitForm(data){
-		console.log('simple',data);
+	submitForm(values){
 		this.setState({open: false});
-		const {actions} = this.props;
-
-		actions.createPlan(data);
+		console.log('ccccc',values);
 	}
 
 
@@ -184,21 +197,7 @@ class Home extends Component{
 	handleChange = (event, index, value) => {this.setState({value});};
 
 
-
 	render() {
-		const actions = [
-			<FlatButton
-			label="取消"
-			primary={true}
-			onTouchTap={this.closeDialog}
-			/>,
-			<FlatButton
-			label="提交"
-			primary={true}
-			keyboardFocused={true}
-			onTouchTap={this.submitForm}
-			/>
-		];
 
 		return (
 
@@ -213,7 +212,8 @@ class Home extends Component{
 						<span>收入总额：</span>
 						<span>余额：</span>
 						<div className="search-content">
-							<input type="text" placeholder="请输入客户名称" />
+							<input type="text" placeholder="请输入客户名称"  
+							icon={<FontIcon className="search" />}/>
 						</div>
 					</div>
 				<Table className="table-content" multiSelectable={true}>
@@ -234,7 +234,8 @@ class Home extends Component{
 
 								<TableRowColumn>
 								    <FlatButton label="查看" onTouchTap={this.renderSearchCard} style={style.FlatButton}/>
-									<FlatButton label="生成对账单" style={style.FlatButton}/>
+								    <FlatButton label="编辑" onTouchTap={this.renderSearchCard} style={style.FlatButton}/>
+									<FlatButton label="删除" style={style.FlatButton}/>
 								</TableRowColumn>
 			              </TableRow>
 			              ))}
@@ -257,12 +258,11 @@ class Home extends Component{
 				</div>
 				
 				 <Dialog
-		          actions={actions}
 		          modal={false}
 		          open={this.state.open}
 		          onRequestClose={this.handleClose}
 		        >
-		        <SearchForm handleSubmit={this.submitForm}/>
+		        <SearchForm submit={this.submitForm} ref="simple" cancle={this.closeDialog}/>
 		         </Dialog>
 			
 			
