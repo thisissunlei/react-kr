@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
-import TitleList from 'kr-ui/TitleList';
+import BreadCrumbs from 'kr-ui/BreadCrumbs';
 import './index.less';
 
 import {List, ListItem} from 'material-ui/List';
@@ -206,7 +206,8 @@ class Home extends Component{
 		<div>
 
 
-				<TitleList children={this.title}></TitleList>
+				<BreadCrumbs children={['系统运营','财务管理']}/>
+
 				<div className="order-table">
 				<Section title="财务管理" description="">	
 					<div>

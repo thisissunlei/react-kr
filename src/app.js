@@ -20,6 +20,7 @@ import routes from './routes';
 import configureStore from './Redux/Store';
 
 
+
 injectTapEventPlugin({
 	/*
 	shouldRejectClick: function (lastTouchEventTimestamp, clickEventTimestamp) {

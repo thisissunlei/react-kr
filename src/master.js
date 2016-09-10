@@ -40,7 +40,11 @@ class Master extends Component {
 				{/*
 
 				<Footer/>
+
+			
+
 					*/}
+
       </div>
     );
   }
