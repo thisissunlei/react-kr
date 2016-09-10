@@ -10,7 +10,7 @@ import {KrField} from 'kr-ui/Form';
 import {Grid,Row,Col} from 'kr-ui/Grid';
 
 import {GridList, GridTile} from 'material-ui/GridList';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'material-ui/Table';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Slider from 'material-ui/Slider';
 import {RaisedButton,Dialog,FlatButton} from 'material-ui';
@@ -116,8 +116,9 @@ export default class JoinOrderList extends Component {
 				 <Tabs >
 					<Tab label="招商线索"  >
 
-							<Table displayCheckbox={true}>
+							<Table style={{marginTop:20}}>
 								<TableHeader>
+								  <TableRow>
 									<TableHeaderColumn>ID</TableHeaderColumn>
 									<TableHeaderColumn>项目名称</TableHeaderColumn>
 									<TableHeaderColumn>公司名称</TableHeaderColumn>
@@ -128,62 +129,23 @@ export default class JoinOrderList extends Component {
 									<TableHeaderColumn>领取人</TableHeaderColumn>
 									<TableHeaderColumn>创建时间</TableHeaderColumn>
 									<TableHeaderColumn>操作</TableHeaderColumn>
-								</TableHeader>
-
-				<TableBody colSpan={10} insertElement={
-<Table>
-												<TableHeader>
-													<TableHeaderColumn>ID</TableHeaderColumn>
-													<TableHeaderColumn>Name</TableHeaderColumn>
-													<TableHeaderColumn>Status</TableHeaderColumn>
-												</TableHeader>
-												<TableBody>
-												  <TableRow>
-													<TableRowColumn>1</TableRowColumn>
-													<TableRowColumn>John Smith</TableRowColumn>
-													<TableRowColumn>Employed</TableRowColumn>
-												  </TableRow>
-												  <TableRow>
-													<TableRowColumn>2</TableRowColumn>
-													<TableRowColumn>Randal White</TableRowColumn>
-													<TableRowColumn>Unemployed</TableRowColumn>
-												  </TableRow>
-												  <TableRow>
-													<TableRowColumn>3</TableRowColumn>
-													<TableRowColumn>Stephanie Sanders</TableRowColumn>
-													<TableRowColumn>Employed</TableRowColumn>
-												  </TableRow>
-												  <TableRow>
-													<TableRowColumn>4</TableRowColumn>
-													<TableRowColumn>Steve Brown</TableRowColumn>
-													<TableRowColumn>Employed</TableRowColumn>
-												  </TableRow>
-												</TableBody>
-											  </Table>
-										}>
-
-							
-
-
-									<TableRow>
-									<TableRowColumn>4</TableRowColumn>
-									<TableRowColumn>4</TableRowColumn>
-									<TableRowColumn>4</TableRowColumn>
-									<TableRowColumn>4</TableRowColumn>
-									<TableRowColumn>4</TableRowColumn>
-									<TableRowColumn>4</TableRowColumn>
-										<TableRowColumn>4</TableRowColumn>
-											<TableRowColumn>4</TableRowColumn>
-									<TableRowColumn>Steve Brown</TableRowColumn>
-									<TableRowColumn><RaisedButton label="创建订单" href="/#/operation/customerManage/343/order/create" /></TableRowColumn>
 								  </TableRow>
-
-								</TableBody>
-
+								</TableHeader>
 
 								<TableBody>
 
-							
+								  <TableRow>
+									<TableRowColumn>4</TableRowColumn>
+									<TableRowColumn>4</TableRowColumn>
+									<TableRowColumn>4</TableRowColumn>
+									<TableRowColumn>4</TableRowColumn>
+									<TableRowColumn>4</TableRowColumn>
+									<TableRowColumn>4</TableRowColumn>
+										<TableRowColumn>4</TableRowColumn>
+											<TableRowColumn>4</TableRowColumn>
+									<TableRowColumn>Steve Brown</TableRowColumn>
+									<TableRowColumn><RaisedButton label="创建订单" href="/#/operation/customerManage/343/order/create" /></TableRowColumn>
+								  </TableRow>
 
 
 									<TableRow>
@@ -199,7 +161,50 @@ export default class JoinOrderList extends Component {
 									<TableRowColumn><RaisedButton label="创建订单" href="/#/operation/customerManage/343/order/create" /></TableRowColumn>
 								  </TableRow>
 
+									<TableRow>
+
+									<TableRowColumn colSpan="10"  className="ahahah-demo">
+			
+ <Table>
+    <TableHeader>
+      <TableRow>
+        <TableHeaderColumn>ID</TableHeaderColumn>
+        <TableHeaderColumn>Name</TableHeaderColumn>
+        <TableHeaderColumn>Status</TableHeaderColumn>
+      </TableRow>
+    </TableHeader>
+    <TableBody>
+      <TableRow>
+        <TableRowColumn>1</TableRowColumn>
+        <TableRowColumn>John Smith</TableRowColumn>
+        <TableRowColumn>Employed</TableRowColumn>
+      </TableRow>
+      <TableRow>
+        <TableRowColumn>2</TableRowColumn>
+        <TableRowColumn>Randal White</TableRowColumn>
+        <TableRowColumn>Unemployed</TableRowColumn>
+      </TableRow>
+      <TableRow>
+        <TableRowColumn>3</TableRowColumn>
+        <TableRowColumn>Stephanie Sanders</TableRowColumn>
+        <TableRowColumn>Employed</TableRowColumn>
+      </TableRow>
+      <TableRow>
+        <TableRowColumn>4</TableRowColumn>
+        <TableRowColumn>Steve Brown</TableRowColumn>
+        <TableRowColumn>Employed</TableRowColumn>
+      </TableRow>
+    </TableBody>
+  </Table>
+
+
+									</TableRowColumn>
+
+								  </TableRow>
+
 								</TableBody>
+
+
 
 
 							  </Table>
