@@ -1,5 +1,3 @@
-import http from '../Utils/fetch';
-
 function callAPIMiddleware({dispatch,getState}){
 
 	return function(next){
@@ -8,8 +6,8 @@ function callAPIMiddleware({dispatch,getState}){
 
 			const {
 				types,
-				apiName,
-				request,
+				callAPI,
+				shouldCallAPI = ()=>true,
 				payload= {}
 			} = action;
 
@@ -23,39 +21,53 @@ function callAPIMiddleware({dispatch,getState}){
 					throw new Error('参数有问题');
 			}
 
-			if(!apiName){
-				throw new Error('参数有问题');
+			if(!shouldCallAPI(getState())){
+				return ;
 			}
 
 			const [requestType,successType,failureType] = types;
 
-			//获取数据
-
 			dispatch(Object.assign({},payload,{
-				type:requestType,
-				name:apiName
+				type:requestType
 			}));
 
 
 			return new Promise((resolve, reject) => {
 
-				http.request(apiName,request,payload).then(function(response){
-					resolve(response);
+				callAPI().then(function(response){
+
 					dispatch(Object.assign({},payload,{
 						type:successType,
-						response:response,
-						name:apiName
+						response:response
 					}));
 
 				}).then(function(err){
-					reject(err);
+
 					dispatch(Object.assign({},payload,{
 						type:failureType,
-						error:err,
-						name:apiName
+						error:err
 					}))
+
 				});
+				/*
+				callAPI().then(
+
+					response=>dispatch(Object.assign({},payload,{
+						type:successType,
+						response:response
+					})),
+
+					error=>dispatch(Object.assign({},payload,{
+						type:failureType,
+						error:error
+					}))
+
+				);
+				*/
+
 			});
+
+
 
 		}
 
@@ -63,5 +75,8 @@ function callAPIMiddleware({dispatch,getState}){
 
 
 }
+
+
+
 
 module.exports = callAPIMiddleware;

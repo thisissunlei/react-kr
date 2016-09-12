@@ -7,7 +7,8 @@ export default class Table extends React.Component {
 	static PropTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
-		displayCheckbox: React.PropTypes.bool
+		displayCheckbox: React.PropTypes.bool,
+		style:React.PropTypes.object
 	}
 
 	 static childContextTypes = {
@@ -42,8 +43,6 @@ export default class Table extends React.Component {
 
     }
 
-
-	
     selectAll(){
     	console.log('----->>>');
     	this.setState({
@@ -52,14 +51,12 @@ export default class Table extends React.Component {
     }
 
    
-
-
 	render() {
 
-		let {className,children} = this.props;
+		let {className,children,style} = this.props;
 
 		return (
-			<table className={"table-bordered "+className}>
+			<table className={"table "+className} style={style}>
 				{children}	
 			</table>
 		);

@@ -1,5 +1,5 @@
 
-table{
+.table{
 	width:100%;
 	border-collapse:collapse;
 	border-radius:4px 4px 0 0;
@@ -23,13 +23,23 @@ table{
 		font-size:14px;
 		color:#333;
 		font-weight:100;
+		padding:0;
+	}
+
+	tr{
+		border:1px solid #ddd;
+		&:hover{
+			background-color:#eee;
+		}
 	}
 
 	&.table-bordered{
-
 		td{
 			border:1px solid #eaeaea;
 		}
+	}
+
+	&.table-striped{
 
 	}
 

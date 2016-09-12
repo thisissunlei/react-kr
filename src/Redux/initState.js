@@ -1,6 +1,8 @@
 
 let initState = {
+	common:{
 
+	},
 	companys: [
 	],
 	companys_fetch:{
@@ -213,9 +215,18 @@ let initState = {
 						primaryText:"合同信息",
 						menuItems:[
 							{
-								primaryText:"入驻协议书",
+								primaryText:"入驻协议书－创建",
+								router:'/operation/agreement/join/create',
+							},
+							{
+								primaryText:"入驻协议书-编辑",
 								router:'/operation/agreement/join/edit',
 							},
+							{
+								primaryText:"入驻协议书-查看",
+								router:'/operation/agreement/join/detail',
+							},
+
 							{
 								primaryText:"承租意向书",
 								router:'/operation/agreement/join/detail',

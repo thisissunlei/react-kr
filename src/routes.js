@@ -30,10 +30,10 @@ export default(
               {/*客户管理*/}
 				<Route path="customerManage" component={Basic}>
 					<Route path="List" component={Operation.CustomerManage.List}/>
-					<Route path=":id/Order" component={Basic}>
+					<Route path=":customerId/Order" component={Basic}>
 						<Route path="create" component = {Operation.CustomerManage.Order.Create}/>
-						<Route path="detail" component = {Operation.CustomerManage.Order.Detail}/>
-						<Route path="Edit" component = {Operation.CustomerManage.Order.Edit}/>
+						<Route path=":orderId/detail" component = {Operation.CustomerManage.Order.Detail}/>
+						<Route path=":oriderId/Edit" component = {Operation.CustomerManage.Order.Edit}/>
 					</Route>
 				</Route>
 
@@ -53,6 +53,7 @@ export default(
 					<Route path="join" component={Basic}>
 						<Route path="edit" component={Operation.Agreement.Join.Edit}/>
 						<Route path="detail" component={Operation.Agreement.Join.Detail}/>
+						<Route path="create" component={Operation.Agreement.Join.Create}/>
 					</Route>
 
 					{/*承租意向书*/}

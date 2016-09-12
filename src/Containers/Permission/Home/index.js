@@ -60,6 +60,12 @@ class Home extends Component{
 		this.state = {
 			open:false
 		}
+
+
+				var {actions} = this.props;
+
+		     actions.callAPI('demo',{},{});
+
 	}
 
 

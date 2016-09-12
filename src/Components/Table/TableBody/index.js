@@ -56,7 +56,6 @@ export default class TableBody extends React.Component {
 				{children}	
 				{this.renderInsertElement()}
 			</tbody>
-
 		);
 
 	}

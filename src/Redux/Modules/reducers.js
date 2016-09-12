@@ -4,6 +4,7 @@ import * as Memo from  './Memo/reducers';
 import * as Notifiy from  './Notifiy/reducers';
 import * as Plan from  './Plan/reducers';
 import * as Navs from  './Navs/reducers';
+import * as Common from  './Common/reducers';
 
 import { reducer as formReducer } from 'redux-form'
 
@@ -15,5 +16,6 @@ module.exports = {
 ...Notifiy,
 ...Plan,
 ...Navs,
+...Common,
  form: formReducer  
 };

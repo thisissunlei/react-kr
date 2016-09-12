@@ -3,6 +3,7 @@ import * as Memo from  './Memo/actions';
 import * as Notifiy from  './Notifiy/actions';
 import * as Plan from  './Plan/actions';
 import * as Navs from  './Navs/actions';
+import * as Common from  './Common/actions';
 
 
 
@@ -12,4 +13,5 @@ module.exports = {
 ...Notifiy,
 ...Plan,
 ...Navs,
+...Common,
 };

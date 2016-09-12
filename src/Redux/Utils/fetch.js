@@ -18,32 +18,32 @@ function getUrl(path, params = {},mode = false) {
         return false;
     }
 
-	if(Object.keys(params).length){
-		for (let item in params) {
-			if (params.hasOwnProperty(item)) {
-				server = server.replace('{' + item + '}', params[item]);
-				delete params[item];
-			}
-		}
-	}
+    if(Object.keys(params).length){
+        for (let item in params) {
+            if (params.hasOwnProperty(item)) {
+                server = server.replace('{' + item + '}', params[item]);
+                delete params[item];
+            }
+        }
+    }
 
-	if(!mode){
+    if(!mode){
 
-		var searchParams = new URLSearchParams();
+        var searchParams = new URLSearchParams();
 
-		for (let item in params) {
-			if (params.hasOwnProperty(item)) {
-				searchParams.set(item,params[item]);
-			}
-		}
+        for (let item in params) {
+            if (params.hasOwnProperty(item)) {
+                searchParams.set(item,params[item]);
+            }
+        }
 
-		if(server.indexOf('?') !== -1){
-			server +='&'+searchParams.toString();
-		}else{
-			server +='?'+searchParams.toString();
-		}
+        if(server.indexOf('?') !== -1){
+            server +='&'+searchParams.toString();
+        }else{
+            server +='?'+searchParams.toString();
+        }
 
-	}
+    }
 
     return server;
 }
@@ -60,6 +60,24 @@ function jsonParse(res) {
 }
 
 const http = {
+    request: (path, params) => new Promise((resolve, reject) => {
+        const url = getUrl(path, params);
+        if (!url) {
+            return;
+        }
+
+        return fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Accept': '*',
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                }
+            })
+            .then(check401)
+            .then(jsonParse)
+            .then(json => resolve(json))
+            .catch(err => reject(err))
+    }),
     get: (path, params) => new Promise((resolve, reject) => {
         const url = getUrl(path, params);
         if (!url) {
@@ -135,18 +153,6 @@ const http = {
 
 
 module.exports = http;
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

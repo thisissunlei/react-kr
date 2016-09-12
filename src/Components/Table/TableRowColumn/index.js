@@ -20,11 +20,11 @@ export default class TableRowColumn extends React.Component {
 
 		let {className,children,colSpan} = this.props;
 
-			return(
+		return(
 				<td className={className} colSpan={colSpan}>
 					{children}	
 				</td>
-			);
+		);
 
 
 	}

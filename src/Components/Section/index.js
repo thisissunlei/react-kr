@@ -34,6 +34,7 @@ export default class Section extends Component {
 		this.renderDescription = this.renderDescription.bind(this);
 
 		this.touchHeaderTitle = this.touchHeaderTitle.bind(this);
+		this.renderRightElement  = this.renderRightElement.bind(this);
 
 		this.state = {
 			openBody:true
@@ -42,6 +43,19 @@ export default class Section extends Component {
 	}
 
 
+	renderRightElement(){
+
+		if(!this.props.rightElement){
+			return null;
+		}
+
+		return(
+			<div className="right-element">
+					{this.props.rightMenu}
+			</div>
+		);
+
+	}
 	renderRightMenu(){
 
 		if(!this.props.rightMenu){
@@ -97,6 +111,10 @@ export default class Section extends Component {
 					</div>
 
 					<div className="right-element">
+						{this.renderRightElement()}
+					</div>
+
+					<div className="right-menu">
 						{this.renderRightMenu()}
 					</div>
 
