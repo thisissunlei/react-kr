@@ -167,21 +167,22 @@ let initState = {
 						router:'customerManage',
 						menuItems:[
 							{
+								primaryText:'查看客户订单',
+								router:'/operation/customerManage/34324/order/324324/detail',
+							},
+							{
 								primaryText:'客户列表',
 								router:'/operation/customerManage/list',
 							},
 							{
 								primaryText:'新增客户订单',
-								router:'/operation/customerManage/order/create',
+								router:'/operation/customerManage/23213/order/create',
 							},
 							{
 								primaryText:'编辑客户订单',
 								router:'/operation/customerManage/order/edit',
 							},
-							{
-								primaryText:'查看客户订单',
-								router:'/operation/customerManage/order/detail',
-							},
+							
 							
 						]
 					},

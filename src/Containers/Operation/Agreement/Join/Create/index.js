@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 
-import {reduxForm } from 'redux-form';
+import {reduxForm,submitForm} from 'redux-form';
 import Section from 'kr-ui/Section';
 import {KrField,LabelText} from 'kr-ui/Form';
 
@@ -237,6 +237,8 @@ export default class JoinEdit extends Component {
 		this.confirmSubmit = this.confirmSubmit.bind(this);
 		this.confirmJoinSubmit = this.confirmJoinSubmit.bind(this);
 
+		this.handleClick = this.handleClick.bind(this);
+
 		this.state = {
 			open:false,
 		}
@@ -258,6 +260,11 @@ export default class JoinEdit extends Component {
 	handleClose(values){
 		console.log('---',values);
 		this.setState({open: false});
+	}
+
+	handleClick(){
+		submitForm('PlanForm');
+		console.log('----');
 	}
 
   render() {
@@ -282,10 +289,9 @@ export default class JoinEdit extends Component {
 
 				<JoinForm  submit={this.confirmJoinSubmit}/>
 
-			</Section>
 
 
-			<Section title="租赁明细" description="" rightMenu = {
+				<Section title="租赁明细" description="" rightMenu = {
 								<Menu>
 									  <MenuItem primaryText="删除" />
 									  <MenuItem primaryText="分配"  onTouchTap={this.handleOpen} />
@@ -321,6 +327,8 @@ export default class JoinEdit extends Component {
 
 			</Section>
 
+			</Section>
+
 
 			<Dialog
 				title="平面图"
@@ -331,6 +339,8 @@ export default class JoinEdit extends Component {
 				<PlanForm ref="formdata" submit={this.confirmSubmit} cancel={this.handleClose}/>
 
 			</Dialog>
+
+			<RaisedButton  label="确定"  onTouchTap={this.handleClick} />
 
 
 

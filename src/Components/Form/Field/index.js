@@ -22,6 +22,25 @@ const renderFieldInput = ({ input, label, type, meta: { touched, error } ,requir
 
 );
 
+const renderFieldTextarea = ({ input, label, type, meta: { touched, error } ,requireLabel}) => (
+
+
+  <div className="form-item">
+    <label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
+    <div className="form-main">
+		<div className="form-input-main">
+			<div className="form-input">
+				<textarea {...input} placeholder={label}></textarea>
+			</div>
+		</div>
+
+      {touched && error && <span>{error}</span>}
+    </div>
+  </div>
+
+
+);
+
 
 const renderFieldSelect = ({ input, label, type, meta: { touched, error },children}) => (
 
@@ -54,16 +73,16 @@ export default class KrField extends React.Component {
 
 		let {className,children,component,type,requireLabel} = this.props;
 
-
-		if(!component || component == 'input'){
+		if(component === 'textarea' || type=='textarea'){
 
 			return (
-				<Field {...this.props} component={renderFieldInput}  />
-			);
+					<Field {...this.props} component={renderFieldTextarea}/>
+				);
 
 		}
 
-		if(component == 'select'){
+
+		if(component === 'select' || type=='select'){
 
 			return (
 				<Field {...this.props} component={renderFieldSelect}>
@@ -72,6 +91,25 @@ export default class KrField extends React.Component {
 			);
 
 		}
+
+		if(component === 'text' || type=='text'){
+
+			return (
+				<Field {...this.props} component={renderFieldInput}  />
+			);
+
+		}
+
+		if(!component || component === 'input'){
+
+			return (
+				<Field {...this.props} component={renderFieldInput}  />
+			);
+
+		}
+
+
+		
 
 
 		return null;

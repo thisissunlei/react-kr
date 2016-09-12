@@ -16,6 +16,14 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 
 
+import * as actionCreators from 'kr-ui/../Redux/Actions';
+
+
+
+
+
+
+
 var JoinForm = (props) => {
 
   const { error, handleSubmit, pristine, reset, submitting,submit} = props;
@@ -92,10 +100,8 @@ JoinForm = reduxForm({
   form: 'joinForm'  
 })(JoinForm);
 
-
-
-
-export default class OrderCreate extends Component {
+ 
+class OrderCreate extends Component {
 
 	constructor(props,context){
 		super(props, context);
@@ -151,6 +157,23 @@ export default class OrderCreate extends Component {
 	);
   }
 }
+
+
+
+function mapStateToProps(state){
+
+	return {
+		calendar:state.plan,
+	};
+}
+
+function mapDispatchToProps(dispatch){
+	return {
+		actions:bindActionCreators(Object.assign({},actionCreators),dispatch)
+	};
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(OrderCreate);
 
 
 
