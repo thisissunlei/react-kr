@@ -5,7 +5,7 @@ import APIS from '../apis';
 
 function getUrl(path, params = {},mode = false) {
 
-    let server = 'http://rong.36kr.com/api/';
+    let server = '';
 
     if (path.startsWith('http')) {
         return path;

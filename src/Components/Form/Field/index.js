@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 
 import './index.less';
 
-const renderFieldInput = ({ input, label, type, meta: { touched, error } ,requireLabel}) => (
+const renderFieldInput = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled}) => (
 
 
   <div className="form-item">
@@ -11,7 +11,7 @@ const renderFieldInput = ({ input, label, type, meta: { touched, error } ,requir
     <div className="form-main">
 		<div className="form-input-main">
 			<div className="form-input">
-				<input {...input} placeholder={label} type={type}/>
+				<input {...input} placeholder={label} type={type} disabled={disabled}/>
 			</div>
 		</div>
 
@@ -22,7 +22,7 @@ const renderFieldInput = ({ input, label, type, meta: { touched, error } ,requir
 
 );
 
-const renderFieldTextarea = ({ input, label, type, meta: { touched, error } ,requireLabel}) => (
+const renderFieldTextarea = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled}) => (
 
 
   <div className="form-item">
@@ -30,7 +30,7 @@ const renderFieldTextarea = ({ input, label, type, meta: { touched, error } ,req
     <div className="form-main">
 		<div className="form-input-main">
 			<div className="form-input">
-				<textarea {...input} placeholder={label}></textarea>
+				<textarea {...input} placeholder={label} disabled={disabled}></textarea>
 			</div>
 		</div>
 
@@ -42,13 +42,13 @@ const renderFieldTextarea = ({ input, label, type, meta: { touched, error } ,req
 );
 
 
-const renderFieldSelect = ({ input, label, type, meta: { touched, error },children}) => (
+const renderFieldSelect = ({ input, label, type, meta: { touched, error },children,disabled}) => (
 
 
   <div className="form-item">
     <label className="form-label">{label}</label>
     <div className="form-input">
-		<select {...input}  >
+		<select {...input}  disabled={disabled}>
 		{children}
 		</select>
 		{touched && error && <span>{error}</span>}
@@ -67,6 +67,7 @@ export default class KrField extends React.Component {
 		name: React.PropTypes.string,
 		label: React.PropTypes.string,
 		component: React.PropTypes.string,
+		disabled: React.PropTypes.bool,
 	};
 
 	render() {

@@ -1,9 +1,12 @@
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
+
+
 
 import {reduxForm } from 'redux-form';
 import Section from 'kr-ui/Section';
-import {KrField} from 'kr-ui/Form';
+import {KrField,LabelText} from 'kr-ui/Form';
 
 import BreadCrumbs from 'kr-ui/BreadCrumbs';
 
@@ -14,11 +17,7 @@ import {Dialog,Snackbar} from 'material-ui';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
-
-
 import * as actionCreators from 'kr-ui/../Redux/Actions';
-
-
 
 
 
@@ -26,7 +25,7 @@ import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 var JoinForm = (props) => {
 
-  const { error, handleSubmit, pristine, reset, submitting,submit} = props;
+  const { error, handleSubmit, pristine, reset, submitting,submit,communitys} = props;
 
   return (
 
@@ -41,11 +40,8 @@ var JoinForm = (props) => {
 
 					<Row>
 						<Col md={12} > 
-						 <KrField name="order_type" component="select" label="订单类型">
-							 <option>请选择订单类型</option>
-						            <option value="11">Red</option>
-						            <option value="00ff00">Green</option>
-						            <option value="0000ff">Blue</option>
+						 <KrField name="ordertype" component="select" label="订单类型">
+						     <option value="1">工位订单</option>
 						 </KrField>
 						 </Col>
 					</Row>
@@ -53,30 +49,28 @@ var JoinForm = (props) => {
 					<Row>
 						<Col md={12} > 
 
-                     <KrField name="customer_id" component="select" label="所在社区">
-							 <option>请选择社区</option>
-						            <option value="11">Red</option>
-						            <option value="00ff00">Green</option>
-						            <option value="0000ff">Blue</option>
+                     <KrField name="communityid" component="select" label="所在社区">
+                     		<option>请选择社区</option>
+                     		{communitys.map((item,index)=> <option value={item.communityid} key={index}>{item.communityName}</option>)}
 						 </KrField>
-						 
+		
 						    </Col>
 					</Row>
 
 					<Row>
-						<Col md={12} > <KrField name="city" type="text" label="所在城市" /> </Col>
+						<Col md={12} > <KrField name="city" label="所在城市" type="text"  disabled={true}/> </Col>
 					</Row>
 
 					<Row>
-						<Col md={12} > <KrField name="order_name" type="text" label="订单名称" /> </Col>
+						<Col md={12} > <KrField name="ordername" type="text" label="订单名称" disabled={true} /> </Col>
 					</Row>
 
 					<Row>
-						<Col md={12} > <KrField name="mainbill_dype" type="text" label="订单编号" /> </Col>
+						<Col md={12} > <KrField name="mainbilltype" type="text" label="订单编号"/> </Col>
 					</Row>
 
 					<Row>
-						<Col md={12} > <KrField name="mainbill_desc" type="textarea" label="订单描述" /> </Col>
+						<Col md={12} > <KrField name="mainbilldesc" type="textarea" label="订单描述" /> </Col>
 					</Row>
 
 					<Row style={{marginTop:30}}>
@@ -112,8 +106,29 @@ class OrderCreate extends Component {
 
 		this.state = {
 			open:false,
+			communitys:[]
 		}
 
+	
+
+
+		
+
+
+	}
+
+	componentDidMount(){
+			var {actions} = this.props;
+
+		var _this = this;
+		actions.callAPI('community_city_select',{},{}).then(function(response){
+			_this.setState({
+				communitys:response
+			});
+
+			console.log(response);
+
+		});
 	}
 
 	confirmSubmit(values){
@@ -142,17 +157,13 @@ class OrderCreate extends Component {
 			<BreadCrumbs children={['系统运营','财务管理']}/>
 
 			<Section title="客户信息编辑" description=""> 
-				<JoinForm  submit={this.confirmSubmit} cancel={this.back}/>
-
-
+				<JoinForm  submit={this.confirmSubmit} cancel={this.back} initialValues={{
+					username:'张山',
+					city:'aaa'
+				}} communitys={this.state.communitys}/>
 
 			</Section>
-				   <Snackbar
-          open={true}
-          message="dfdsf"
-          action="undo"
-          autoHideDuration={3000}
-        />
+			
 	 </div>
 	);
   }
@@ -160,10 +171,16 @@ class OrderCreate extends Component {
 
 
 
+
+
+
+
+
+
 function mapStateToProps(state){
 
 	return {
-		calendar:state.plan,
+		
 	};
 }
 
