@@ -48,6 +48,20 @@ function getUrl(path, params = {},mode = false) {
     return server;
 }
 
+
+
+function getMethod(path) {
+
+     const apiConfig = APIS[path];
+
+    return apiConfig.method;
+}
+
+
+
+
+
+
 function check401(res) {
     if (res.status === 401) {
         //browserHistory.replace('/login');
@@ -60,8 +74,37 @@ function jsonParse(res) {
 }
 
 const http = {
-    request: (path, params) => new Promise((resolve, reject) => {
+    request: (path, params,payload,method) => new Promise((resolve, reject) => {
+
         const url = getUrl(path, params);
+        method = method || getMethod(path);
+        var promise = '';
+
+        if (!url) {
+            return;
+        }
+
+        switch(method){
+            case 'get':{
+                promise = http.get(url,params);
+                break;
+            }
+            case 'post':{
+                    promise = http.post(url,params,payload);
+                break;
+            }
+            case 'delete':{
+                   promise = http.remove(url,params,payload);
+                break;
+            }
+            default:{
+                promise = http.get(url,params,payload);
+            }
+        }
+
+        return promise;
+    }),
+    get: (url, params) => new Promise((resolve, reject) => {
         if (!url) {
             return;
         }
@@ -78,28 +121,9 @@ const http = {
             .then(json => resolve(json))
             .catch(err => reject(err))
     }),
-    get: (path, params) => new Promise((resolve, reject) => {
-        const url = getUrl(path, params);
-        if (!url) {
-            return;
-        }
 
-        return fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Accept': '*',
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-                }
-            })
-            .then(check401)
-            .then(jsonParse)
-            .then(json => resolve(json))
-            .catch(err => reject(err))
-    }),
-
-    post: (path, params, payload) => new Promise((resolve, reject) => {
-        const searchParams = new URLSearchParams()
-        const url = getUrl(path, params)
+    post: (url, params, payload) => new Promise((resolve, reject) => {
+        const searchParams = new URLSearchParams();
 
         if (!url) {
             return
@@ -123,9 +147,8 @@ const http = {
             .catch(err => reject(err));
     }),
 
-    remove: (path, params, payload) => new Promise((resolve, reject) => {
-        const searchParams = new URLSearchParams()
-        const url = getUrl(path, params)
+    remove: (url, params, payload) => new Promise((resolve, reject) => {
+        const searchParams = new URLSearchParams();
 
         if (!url) {
             return

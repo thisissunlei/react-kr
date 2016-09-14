@@ -27,27 +27,97 @@ import {List, ListItem} from 'material-ui/List';
 
 import './index.less';
 
-class Help extends Component{
+
+import { Field, reduxForm,formValueSelector} from 'redux-form';
+
+
+class Undefined extends Component{
 
 	constructor(props,context){
 		super(props, context);
+    this.confirmSubmit =this.confirmSubmit.bind(this);
 	}
 
 	componentDidMount() {
 
 	}
 
+  confirmSubmit(values){
+    console.log('---',values);
+  }
+
 	render(){
+
+
+    const { handleSubmit, pristine, reset, submitting } =  this.props;
 
 		return(
 
 			<div>
 					<Section title="出错了" description="" >
-						页面没找到
-					</Section>
 
-			</div>
-				
+            <form onSubmit={handleSubmit(this.confirmSubmit)}>
+      <div>
+        <label>First Name</label>
+        <div>
+          <Field name="firstName" component="input" type="text" placeholder="First Name"/>
+        </div>
+      </div>
+
+       <div>
+        <label>First Name</label>
+        <div>
+          <Field name="firs" component="input" type="file" placeholder="First"/>
+        </div>
+      </div>
+      <div>
+        <label>Email</label>
+        <div>
+          <Field name="email" component="input" type="email" placeholder="Email"/>
+        </div>
+      </div>
+      <div>
+        <label>Sex</label>
+        <div>
+          <label><Field name="sex" component="input" type="radio" value="male"/> Male</label>
+          <label><Field name="sex" component="input" type="radio" value="female"/> Female</label>
+        </div>
+      </div>
+      <div>
+        <label>Favorite Color</label>
+        <div>
+          <Field name="favoriteColor" component="select">
+            {this.props.items.map((item,index)=>{
+                return  <option value={item.author} key={index}>{item.content}</option>;
+            })}
+          </Field>
+        </div>
+      </div>
+      <div>
+        <label htmlFor="employed">Employed</label>
+        <div>
+          <Field name="employed" id="employed" component="input" type="checkbox"/>
+        </div>
+      </div>
+      <div>
+        <label>Notes</label>
+        <div>
+          <Field name="notes" component="textarea"/>
+        </div>
+      </div>
+      <div>
+        <button type="submit" disabled={pristine || submitting}>Submit</button>
+        <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
+      </div>
+    </form>
+
+
+
+
+    {this.props.favoriteColorValue}
+
+					</Section>
+			</div>		
 
 		);
 
@@ -56,12 +126,22 @@ class Help extends Component{
 }
 
 
+Undefined= reduxForm({
+  form: 'simple',
+})(Undefined);
+
+
+const selector = formValueSelector('simple')
+
 
 
 function mapStateToProps(state){
+
+  const favoriteColorValue = selector(state, 'favoriteColor');
+
 	return {
-		notify:state.notify,
-		items:state.notify.items
+		items:state.notify.items,
+    favoriteColorValue:favoriteColorValue,
 	};
 }
 
@@ -71,6 +151,6 @@ function mapDispatchToProps(dispatch){
 	};
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Help);
+export default connect(mapStateToProps,mapDispatchToProps)(Undefined);
 
 

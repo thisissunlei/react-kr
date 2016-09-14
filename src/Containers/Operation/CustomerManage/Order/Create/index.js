@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 
-
-import {reduxForm } from 'redux-form';
 import Section from 'kr-ui/Section';
 import {KrField,LabelText} from 'kr-ui/Form';
+
+import {reduxForm,formValueSelector} from 'redux-form';
+
+
 
 import BreadCrumbs from 'kr-ui/BreadCrumbs';
 
@@ -20,16 +22,71 @@ import RaisedButton from 'material-ui/RaisedButton';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 
+ 
+class OrderCreate extends Component {
+
+	constructor(props,context){
+		super(props, context);
+
+		this.confirmSubmit = this.confirmSubmit.bind(this);
+		this.back = this.back.bind(this);
+
+		this.state = {
+			open:false,
+			communitys:[]
+		}
 
 
+		var {actions} = this.props;
+		var _this = this;
+		actions.callAPI('community-city-select',{},{}).then(function(response){
+			_this.setState({
+				communitys:response
+			});
+			console.log('---?response',response);
+		}).catch(function(err){
+				console.log('--err',err);
+		});
 
-var JoinForm = (props) => {
+	}
 
-  const { error, handleSubmit, pristine, reset, submitting,submit,communitys} = props;
+	componentDidMount(){
 
-  return (
+	}
 
-    <form onSubmit={handleSubmit(submit)}>
+	confirmSubmit(values){
+		console.log('--->>>>',values);	
+		var {actions} = this.props;
+
+		actions.callAPI('enter-order',{},values).then(function(response){
+			console.log('---?response',response);
+		}).catch(function(err){
+			console.log('--err',err);
+		});
+
+	}
+
+	back(){
+
+	}
+
+
+  render() {
+
+  	const { error, handleSubmit, pristine, reset, submitting} = this.props;
+
+  	const {communitys} = this.state;
+
+
+    return (
+
+      <div>
+
+			<BreadCrumbs children={['系统运营','财务管理']}/>
+
+			<Section title="客户信息编辑" description=""> 
+
+				 <form onSubmit={handleSubmit(this.confirmSubmit)}>
 
 
 				<Grid style={{marginTop:30}}>
@@ -51,7 +108,10 @@ var JoinForm = (props) => {
 
                      <KrField name="communityid" component="select" label="所在社区">
                      		<option>请选择社区</option>
-                     		{communitys.map((item,index)=> <option value={item.communityid} key={index}>{item.communityName}</option>)}
+                     		{/*
+								{communitys.map((item,index)=> <option value={item.communityid} key={index}>{item.communityName}</option>)}
+                     		*/}
+                     		
 						 </KrField>
 		
 						    </Col>
@@ -86,82 +146,6 @@ var JoinForm = (props) => {
 		  */}
 
     </form>
-
-  )
-}
-
-JoinForm = reduxForm({
-  form: 'joinForm'  
-})(JoinForm);
-
- 
-class OrderCreate extends Component {
-
-	constructor(props,context){
-		super(props, context);
-
-		this.confirmSubmit = this.confirmSubmit.bind(this);
-		this.back = this.back.bind(this);
-
-
-		this.state = {
-			open:false,
-			communitys:[]
-		}
-
-	
-
-
-		
-
-
-	}
-
-	componentDidMount(){
-			var {actions} = this.props;
-
-		var _this = this;
-		actions.callAPI('community_city_select',{},{}).then(function(response){
-			_this.setState({
-				communitys:response
-			});
-
-			console.log(response);
-
-		});
-	}
-
-	confirmSubmit(values){
-		console.log('--->>>>',values);
-
-		
-
-	}
-
-	back(){
-
-	}
-
-
-
-
-
-  render() {
-
-	
-
-    return (
-
-      <div>
-
-			<BreadCrumbs children={['系统运营','财务管理']}/>
-
-			<Section title="客户信息编辑" description=""> 
-				<JoinForm  submit={this.confirmSubmit} cancel={this.back} initialValues={{
-					username:'张山',
-					city:'aaa'
-				}} communitys={this.state.communitys}/>
-
 			</Section>
 			
 	 </div>
@@ -170,17 +154,21 @@ class OrderCreate extends Component {
 }
 
 
+OrderCreate= reduxForm({
+  form: 'orderCreateForm'
+})(OrderCreate);
 
 
-
-
-
+const selector = formValueSelector('orderCreateForm');
 
 
 function mapStateToProps(state){
 
+  const favoriteColorValue = selector(state, 'favoriteColor');
+
 	return {
-		
+		items:state.notify.items,
+    	favoriteColorValue:favoriteColorValue
 	};
 }
 
@@ -190,7 +178,10 @@ function mapDispatchToProps(dispatch){
 	};
 }
 
+
 export default connect(mapStateToProps,mapDispatchToProps)(OrderCreate);
+
+
 
 
 
