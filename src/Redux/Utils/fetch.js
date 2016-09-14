@@ -59,9 +59,6 @@ function getMethod(path) {
 
 
 
-
-
-
 function check401(res) {
     if (res.status === 401) {
         //browserHistory.replace('/login');
@@ -74,7 +71,7 @@ function jsonParse(res) {
 }
 
 const http = {
-    request: (path, params,payload,method) => new Promise((resolve, reject) => {
+    request:(path, params,payload,method)=>{
 
         const url = getUrl(path, params);
         method = method || getMethod(path);
@@ -99,17 +96,17 @@ const http = {
             }
             default:{
                 promise = http.get(url,params,payload);
+                break;
             }
         }
 
         return promise;
-    }),
+    },
     get: (url, params) => new Promise((resolve, reject) => {
         if (!url) {
             return;
         }
-
-        return fetch(url, {
+        fetch(url, {
                 method: 'GET',
                 headers: {
                     'Accept': '*',

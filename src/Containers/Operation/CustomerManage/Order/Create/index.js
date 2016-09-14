@@ -43,25 +43,21 @@ class OrderCreate extends Component {
 			_this.setState({
 				communitys:response
 			});
-			console.log('---?response',response);
 		}).catch(function(err){
-				console.log('--err',err);
+			console.log('--err',err);
 		});
 
 	}
 
-	componentDidMount(){
-
-	}
 
 	confirmSubmit(values){
 		console.log('--->>>>',values);	
 		var {actions} = this.props;
 
 		actions.callAPI('enter-order',{},values).then(function(response){
-			console.log('---?response',response);
+
 		}).catch(function(err){
-			console.log('--err',err);
+
 		});
 
 	}

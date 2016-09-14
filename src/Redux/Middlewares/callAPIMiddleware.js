@@ -29,6 +29,8 @@ function callAPIMiddleware({dispatch,getState}){
 
 			const [requestType,successType,failureType] = types;
 
+
+
 			//获取数据
 
 			dispatch(Object.assign({},payload,{
@@ -36,24 +38,27 @@ function callAPIMiddleware({dispatch,getState}){
 				name:apiName
 			}));
 
-
 			return new Promise((resolve, reject) => {
 
+
 				http.request(apiName,request,payload).then(function(response){
-					resolve(response);
+					
 					dispatch(Object.assign({},payload,{
 						type:successType,
 						response:response,
 						name:apiName
 					}));
 
+					resolve(response);
+
 				}).then(function(err){
-					reject(err);
 					dispatch(Object.assign({},payload,{
 						type:failureType,
 						error:err,
 						name:apiName
 					}))
+					
+					reject(err);
 				});
 			});
 

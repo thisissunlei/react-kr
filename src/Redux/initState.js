@@ -180,7 +180,7 @@ let initState = {
 							},
 							{
 								primaryText:'编辑客户订单',
-								router:'/operation/customerManage/order/edit',
+								router:'/operation/customerManage/3432/order/3432432/edit',
 							},
 							
 							

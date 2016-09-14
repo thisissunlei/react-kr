@@ -1,11 +1,15 @@
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as actionCreators from 'kr-ui/../Redux/Actions';
+
+
 
 import {reduxForm } from 'redux-form';
 import Section from 'kr-ui/Section';
 import {LabelText} from 'kr-ui/Form';
 
-import BreadCrumbs from 'kr-ui/BreadCrumbs';
+
 
 
 import {Grid,Row,Col} from 'kr-ui/Grid';
@@ -20,6 +24,11 @@ import {
   StepLabel,
 } from 'material-ui/Stepper';
 
+import {
+	BreadCrumbs,
+	Loading
+} from 'kr-ui';
+
 
 
 import {
@@ -32,14 +41,13 @@ import {
 } from 'material-ui';
 
 
-
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
 
 
 import {List, ListItem} from 'material-ui/List';
 
 
-export default class OrderDetail extends Component {
+class OrderDetail extends Component {
 
 	constructor(props,context){
 		super(props, context);
@@ -50,8 +58,35 @@ export default class OrderDetail extends Component {
 
 		this.state = {
 			open:false,
+			loading:true,
 		}
 
+	}
+
+	componentDidMount(){
+
+
+		var {actions} = this.props;
+		var _this = this;
+
+
+		console.log('00000');
+
+		actions.callAPI('get-order-detail',{
+			mainBillId:'343432'
+		},{}).then(function(response){
+
+			console.log('-resp3233onse',response);
+
+		}).then(function(err){
+			console.log('--333err',err);
+		});
+
+		setTimeout(function(){
+			_this.setState({
+				loading:false
+			});
+		},1000)
 	}
 
 	confirmSubmit(values){
@@ -65,6 +100,13 @@ export default class OrderDetail extends Component {
 
   render() {
 
+
+
+  	if(this.state.loading){
+  		return(<Loading/>);
+  	}
+
+
     return (
 
       <div>
@@ -72,15 +114,6 @@ export default class OrderDetail extends Component {
 			<BreadCrumbs children={['系统运营','财务管理']}/>
 
 			<Section title="客户订单详情" description="" style={{paddingLeft:50,paddingRight:50}}> 
-
-
-			 
-
-
-
-				
-
-
 
 
 
@@ -215,6 +248,22 @@ export default class OrderDetail extends Component {
   }
 }
 
+
+
+function mapStateToProps(state){
+	return  {
+		items:state.notify.items
+	};
+}
+
+function mapDispatchToProps(dispatch){
+	return {
+		actions:bindActionCreators(Object.assign({},actionCreators),dispatch)
+	};
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(OrderDetail);
 
 
 

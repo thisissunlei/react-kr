@@ -11,12 +11,13 @@ export function common(state = [],action){
 		}
 
 		case Types.LOAD_COMMON_SUCCESS:{
-			console.log('---','进来了');
+			console.log('0000000----success')
 			state[action.name] = action.response;
 			return {...state};
 		}
 
 		case Types.LOAD_COMMON_FAILURE:{
+			console.log('0000000----err')
 			return {...state};
 			//return action.error;
 		}
