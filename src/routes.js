@@ -19,8 +19,13 @@ import Master from './master';
 export default(
 
 	<Route path="/" component={Master}>
+
+	
 		<IndexRoute component={Permission.Home}/>
 		<Route path="index" component={Permission.Home}/>
+
+
+		＜Redirect from="messages/:id" to="/messages/:id" />
 
 
 		{/*运营管理*/}
@@ -48,6 +53,16 @@ export default(
 
 				{/*合同信息*/}
 				<Route path="agreement" component={Basic}>
+
+					{/*出租方管理*/}
+					<Route path="lessorManage" component={Basic}>
+						<Route path="list" component={Operation.Agreement.LessorManage.List}/>
+					</Route>
+					
+					{/*基础配置*/}
+					<Route path="setting" component={Basic}>
+						<Route path="list" component={Operation.Agreement.Setting.List}/>
+					</Route>
 
 					{/*入驻协议书*/}
 					<Route path="join" component={Basic}>

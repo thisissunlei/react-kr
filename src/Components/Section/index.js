@@ -24,6 +24,7 @@ export default class Section extends Component {
 		leftIcon: PropTypes.node,
 		rightMenu: PropTypes.node,
 		height:PropTypes.number,
+		style:PropTypes.object
 	};
 
 	constructor(props){
@@ -159,9 +160,11 @@ export default class Section extends Component {
 
 	  render() {
 
+	  	const {style} = this.props;
+
 		return (
 
-		  <div className="section">
+		  <div className="section" style={style}>
 
 			  <div className="section-header">
 

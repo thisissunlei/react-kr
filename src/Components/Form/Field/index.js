@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 
 import './index.less';
 
-const renderFieldInput = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled}) => (
+const renderFieldInput = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder}) => (
 
 
   <div className="form-item">
@@ -11,7 +11,7 @@ const renderFieldInput = ({ input, label, type, meta: { touched, error } ,requir
     <div className="form-main">
 		<div className="form-input-main">
 			<div className="form-input">
-				<input {...input} placeholder={label} type={type} disabled={disabled}/>
+				<input {...input} placeholder={placeholder|| label} type={type} disabled={disabled}/>
 			</div>
 		</div>
 
@@ -22,7 +22,7 @@ const renderFieldInput = ({ input, label, type, meta: { touched, error } ,requir
 
 );
 
-const renderFieldTextarea = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled}) => (
+const renderFieldTextarea = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,col,row}) => (
 
 
   <div className="form-item">
@@ -30,7 +30,7 @@ const renderFieldTextarea = ({ input, label, type, meta: { touched, error } ,req
     <div className="form-main">
 		<div className="form-input-main">
 			<div className="form-input">
-				<textarea {...input} placeholder={label} disabled={disabled}></textarea>
+				<textarea {...input} placeholder={placeholder|| label} disabled={disabled} col={col} row={row}></textarea>
 			</div>
 		</div>
 

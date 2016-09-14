@@ -4,6 +4,8 @@ import Increase from './Increase';
 import Exit from './Exit';
 import Join from './Join';
 import Reduce from './Reduce';
+import LessorManage from './LessorManage';
+import Setting from './Setting';
 
 
 module.exports = {
@@ -12,7 +14,9 @@ module.exports = {
 	Increase,
 	Exit,
 	Join,
-	Reduce
+	Reduce,
+	LessorManage,
+	Setting
 }
 
 

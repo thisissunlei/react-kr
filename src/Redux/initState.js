@@ -163,6 +163,48 @@ let initState = {
 				router:'operation',
 				menuItems:[
 				{
+						primaryText:"合同信息",
+						menuItems:[
+								{
+								primaryText:"出租方管理",
+								router:'/operation/agreement/lessorManage/list',
+							},
+							{
+								primaryText:"基础配置",
+								router:'/operation/agreement/setting/list',
+							},
+							{
+								primaryText:"入驻协议书－创建",
+								router:'/operation/agreement/join/create',
+							},
+							{
+								primaryText:"入驻协议书-编辑",
+								router:'/operation/agreement/join/edit',
+							},
+							{
+								primaryText:"入驻协议书-查看",
+								router:'/operation/agreement/join/detail',
+							},
+
+							{
+								primaryText:"承租意向书",
+								router:'/operation/agreement/join/detail',
+							},
+							{
+								primaryText:"增租协议书",
+								router:'/operation/agreement/join/detail',
+							},
+							{
+								primaryText:"减租协议书",
+								router:'/operation/agreement/join',
+							},
+							{
+								primaryText:"退租协议书",
+								router:'/operation/agreement/join',
+							},
+						]
+					},
+				{
 						primaryText:"客户管理",
 						router:'customerManage',
 						menuItems:[
@@ -212,40 +254,7 @@ let initState = {
 							},
 						]
 					},
-					{
-						primaryText:"合同信息",
-						menuItems:[
-							{
-								primaryText:"入驻协议书－创建",
-								router:'/operation/agreement/join/create',
-							},
-							{
-								primaryText:"入驻协议书-编辑",
-								router:'/operation/agreement/join/edit',
-							},
-							{
-								primaryText:"入驻协议书-查看",
-								router:'/operation/agreement/join/detail',
-							},
-
-							{
-								primaryText:"承租意向书",
-								router:'/operation/agreement/join/detail',
-							},
-							{
-								primaryText:"增租协议书",
-								router:'/operation/agreement/join/detail',
-							},
-							{
-								primaryText:"减租协议书",
-								router:'/operation/agreement/join',
-							},
-							{
-								primaryText:"退租协议书",
-								router:'/operation/agreement/join',
-							},
-						]
-					},
+					
 					{
 						primaryText:"财务管理",
 						rightIcon:"",
