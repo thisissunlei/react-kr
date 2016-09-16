@@ -6,73 +6,97 @@ export default class TableRow extends React.Component {
 	static PropTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
+		onCellClick: React.PropTypes.func,
+		onCellHover:React.PropTypes.func,
+		onCellHoverExit: React.PropTypes.func,
+		onRowClick:React.PropTypes.func,
+		onRowHover:React.PropTypes.func,
+		onRowHoverExit: React.PropTypes.func,
+		rowNumber: React.PropTypes.number,
+		selected: React.PropTypes.bool,
 	}
 
-	 static contextTypes = {
-         displayCheckbox: React.PropTypes.bool,
-         selectAllSelected:React.PropTypes.bool
-     }
-
-	
 	constructor(props){
 		super(props);
 
-		this.renderCheckbox = this.renderCheckbox.bind(this);
-		this.checkboxChange = this.checkboxChange.bind(this);
+		this.onCellClick = this.onCellClick.bind(this); 
+		this.onCellHover = this.onCellHover.bind(this);
+		this.onCellHoverExit = this.onCellHoverExit.bind(this);
+		this.onRowHover = this.onRowHover.bind(this);
+		this.onRowHoverExit = this.onRowHoverExit.bind(this);
+		this.onRowClick = this.onRowClick.bind(this);
+	}
 
+	onCellClick(event){
+		this.onRowClick(event);
+	}
 
-		this.checked = false;
-		this.state = {
-			checked:false,
-		}
+	onCellHover(){
 
 	}
 
+	onCellHoverExit(){
+
+	}
+
+	onRowHover(){
+
+	}
+
+	onRowHoverExit(){
+
+	}
+
+	onRowClick(event){
+		if (this.props.onRowClick) {
+			this.props.onRowClick(event, this.props.rowNumber);
+		}
+	}
+
+
 	componentWillReceiveProps(nextProps,nextContext){
-		console.log('----->>>',nextContext);
+
 	}
 
 	componentWillUpdate(nextProps,nextState,nextContext){
-	      console.log('-----',nextContext);
-		
-	}
-
-	checkboxChange(){
-
-		this.setState({
-			checked:!this.state.checked
-		})
 
 	}
 
-	renderCheckbox(){
-
-        let {checked} = this.state;
-		let {displayCheckbox,selectAllSelected} = this.context;
-
-	
-
-		if(!displayCheckbox){
-			return null;
-		}
-
-		return (
-				<td><input type="checkbox" checked={checked}  onChange={this.checkboxChange}/></td>
-			);
-
-	}
 
 	render() {
 
-		let {className,children} = this.props;
+		const {
+			className,
+			hovered, 
+			onCellClick,
+			onCellHover,
+			onCellHoverExit, 
+			onRowClick, 
+			onRowHover, 
+			onRowHoverExit, 
+			rowNumber,
+			selectable,
+			selected,
+			style,
+			...other,
+		} = this.props;
 
+		const rowColumns = React.Children.map(this.props.children, (child, columnNumber) => {
+			if (React.isValidElement(child)) {
+				return React.cloneElement(child, {
+					columnNumber: columnNumber,
+					hoverable: this.props.hoverable,
+					key: `${this.props.rowNumber}-${columnNumber}`,
+					onClick: this.onCellClick,
+					onHover: this.onCellHover,
+					onHoverExit: this.onCellHoverExit,
+				});
+			}
+		});
 
 		return (
-			<tr className={className}>
-
-			    {this.renderCheckbox()}
-
-				{children}	
+			<tr className={className} {...other}>
+			{rowColumns}
 			</tr>
 
 		);

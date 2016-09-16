@@ -96,7 +96,7 @@ class Header extends Component {
 
 	render() {
 
-		var styles = {paddingLeft:30,position:'fixed',top:0,left:0,right:0,zIndex:99};
+		var styles = {paddingLeft:0,position:'fixed',top:0,left:0,right:0,zIndex:99};
 
 		var {switch_value} = this.props.sidebar_nav;
 
@@ -122,10 +122,10 @@ class Header extends Component {
     }
 			/>
 
-			<Drawer open={this.props.sidebar_nav.switch_value} width={150}>
+			<Drawer open={this.props.sidebar_nav.switch_value} width={180}>
 
 				<AppBar
-				title="菜单"
+				title="氪空间"
 				iconElementLeft={<IconButton onClick={this.handleToggle}><NavigationClose  /></IconButton>}
 				/>
 

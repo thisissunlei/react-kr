@@ -36,7 +36,7 @@ var JoinForm = (props) => {
     <form onSubmit={handleSubmit(submit)}>
 
 
-				<Grid style={{marginTop:30}}>
+				<Grid style={{marginTop:30,paddingLeft:30,paddingRight:30}}>
 
 					<Row>
 						<Col md={5}>
@@ -47,27 +47,27 @@ var JoinForm = (props) => {
 						            <option value="0000ff">Blue</option>
 						 </KrField>
 						 </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="地址" /> </Col>
+						<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="地址" /> </Col>
 					</Row>
 
 					<Row>
 						<Col md={5}> <KrField name="username" type="text" label="联系人" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="电话" /> </Col>
+						<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="电话" /> </Col>
 					</Row>
 
 					<Row>
 						<Col md={5}> <KrField name="username" type="text" label="承租方" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="地址" /> </Col>
+						<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="地址" /> </Col>
 					</Row>
 
 					<Row>
 						<Col md={5}> <KrField name="username" type="text" label="联系人" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="电话" /> </Col>
+						<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="电话" /> </Col>
 					</Row>
 
 					<Row>
 						<Col md={5}> <KrField name="username" type="text" label="所属社区" /> </Col>
-						<Col md={5} mdOffset="1"> 
+						<Col md={5} mdOffset="2"> 
 <KrField name="order_type" component="select" label="所在楼层">
 							 <option>请选择订单类型</option>
 						            <option value="11">Red</option>
@@ -79,12 +79,12 @@ var JoinForm = (props) => {
 
 					<Row>
 						<Col md={5}> <KrField name="username" type="text" label="地址" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="合同编号" /> </Col>
+						<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="合同编号" /> </Col>
 					</Row>
 
 					<Row>
 						<Col md={5}> <KrField name="username" type="text" label="租赁期限"  requireLabel={true} /> </Col>
-						<Col md={5} mdOffset="1"> 
+						<Col md={5} mdOffset="2"> 
 						<KrField name="order_type" component="select" label="付款方式">
 							 <option>请选择订单类型</option>
 						            <option value="11">Red</option>
@@ -101,7 +101,7 @@ var JoinForm = (props) => {
 						            <option value="00ff00">Green</option>
 						            <option value="0000ff">Blue</option>
 						 </KrField>  </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="签署时间" /> </Col>
+						<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="签署时间" /> </Col>
 					</Row>
 
 					<Row>
@@ -110,7 +110,7 @@ var JoinForm = (props) => {
 
 					<Row>
 						<Col md={5}> <KrField name="username" type="text" label="工位" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="会议室" /> </Col>
+						<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="会议室" /> </Col>
 					</Row>
 
 					<Row>
@@ -119,7 +119,7 @@ var JoinForm = (props) => {
 
 					<Row>
 						<Col md={5}> <KrField name="username" type="text" label="租金总额" placeholder="" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="押金总额" /> </Col>
+						<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="押金总额" /> </Col>
 					</Row>
 
 					<Row>

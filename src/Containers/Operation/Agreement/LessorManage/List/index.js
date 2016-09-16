@@ -37,9 +37,6 @@ class OrderCreate extends Component {
     this.renderCustomerItem = this.renderCustomerItem.bind(this);
     this.renderOrderItem = this.renderOrderItem.bind(this);
 
-
-
-
     this.state = {
       open:false,
       openCreate:false,
@@ -74,7 +71,6 @@ class OrderCreate extends Component {
 
 
   renderCustomerItem(){
-
     return (
 
         <TableBody colSpan={10} insertElement={this.renderOrderItem()}>
@@ -93,7 +89,7 @@ class OrderCreate extends Component {
   }
 
 
-  renderOrderItem(item,customerId){
+  renderOrderItem(){
 
     return(
 
@@ -117,8 +113,6 @@ class OrderCreate extends Component {
             </TableRow>
            </TableBody>
        </Table>
-
-
     );
 
   }
@@ -139,9 +133,14 @@ class OrderCreate extends Component {
 
       <Section title="客户信息编辑" description=""> 
 
-
-          <RaisedButton label="新建" primary={true} onTouchTap={this.openCreateDialog} />
-
+			<Grid>
+					<Row>
+						<Col md={2}> <RaisedButton label="新建" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
+						<Col md={6}> </Col>
+						<Col md={2}> <KrField name="username" type="text" /></Col> 
+						<Col md={2}> <RaisedButton label="搜索" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
+					</Row>
+				</Grid>
 
             <Table displayCheckbox={true} style={{marginTop:20}}>
                 <TableHeader>
@@ -154,6 +153,8 @@ class OrderCreate extends Component {
                   <TableHeaderColumn>操作</TableHeaderColumn>
                 </TableHeader>
 
+                {this.renderCustomerItem()}
+                {this.renderCustomerItem()}
                 {this.renderCustomerItem()}
 
                 </Table>

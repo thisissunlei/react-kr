@@ -32,9 +32,7 @@ var SubmitValidationForm = (props) => {
 
 
 				<Grid style={{marginTop:30}}>
-
 					<Row>
-
 						<Col md={8}></Col>
 						<Col md={2}> <RaisedButton  label="确定" type="submit" primary={true} /> </Col>
 						<Col md={2}> <FlatButton label="取消"  onTouchTap={cancel} /> </Col>

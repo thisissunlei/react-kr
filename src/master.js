@@ -23,9 +23,11 @@ class Master extends Component {
 
 	var {switch_value} = this.props.sidebar_nav;
 
+	console.log('---switch_value',switch_value);
+
 	if(switch_value){
 		styles = {
-			marginLeft:150,
+			marginLeft:180,
 		}
 	}
 

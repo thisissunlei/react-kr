@@ -11,53 +11,129 @@ export default class Table extends React.Component {
 		style:React.PropTypes.object
 	}
 
-	 static childContextTypes = {
-         displayCheckbox: React.PropTypes.bool,
-         selectAllSelected: React.PropTypes.bool,
-         selectAll:React.PropTypes.func
-    }
 
 	constructor(props){
 		super(props);
 
-		this.selectAll = this.selectAll.bind(this);
+
+		this.createTableHeader = this.createTableHeader.bind(this);
+		this.createTableBody = this.createTableBody.bind(this);
+		this.createTableFooter = this.createTableFooter.bind(this);
+		this.setRowTotalCount = this.setRowTotalCount.bind(this);
+
+		this.onSelectAll = this.onSelectAll.bind(this);
+		this.onRowClick = this.onRowClick.bind(this);
 
 
+		this.totalRowCount = 0;
 		this.state = {
-			selectAllSelected:false,
+			allRowsSelected:false,
+			selectedRows:[],
+			totalRowCount:0
 		}
 
 	}
 
-	  getChildContext() {
+	setRowTotalCount(totalRowCount){
+		this.totalRowCount = totalRowCount;
+	}
 
-	 	let {displayCheckbox} = this.props;
-	 	let {selectAllSelected} = this.state;
-	 	let selectAll = this.selectAll;
+	onRowClick(event,rowNumber){
+		let {selectedRows} = this.state;
+		if(parseInt(selectedRows[rowNumber])){
+			selectedRows[rowNumber] = 0;
+		}else{
+			selectedRows[rowNumber] = 1;
+		}
 
-         return {
-             displayCheckbox: !!displayCheckbox,
-             selectAllSelected:!!selectAllSelected,
-             selectAll:selectAll
-         }
+		this.setState({
+			selectedRows:selectedRows
+		});
+	}
 
-    }
+	onSelectAll(){
 
-    selectAll(){
-    	console.log('----->>>');
+		let {allRowsSelected} = this.state;
+			allRowsSelected = !allRowsSelected;
+		var tmp = [];
+		if(allRowsSelected){
+			tmp = new Array(this.totalRowCount+1).join(1).split('');
+		}else{
+			tmp = new Array(this.totalRowCount+1).join(0).split('');
+		}
+
     	this.setState({
-    		selectAllSelected:!!!this.state.selectAllSelected
+    		allRowsSelected:!this.state.allRowsSelected,
+			selectedRows:tmp
     	});
-    }
 
-   
+		console.log('---tmp',this.state.selectedRows);
+	}
+
+	createTableHeader(base){
+
+		return React.cloneElement(
+			base,
+			{
+				displayCheckbox:this.props.displayCheckbox,
+				onSelectAll: this.onSelectAll,
+				allRowsSelected: this.state.allRowsSelected,
+			}
+		);
+
+
+	}
+
+	createTableBody(base){
+
+		return React.cloneElement(
+			base,
+			{
+				displayCheckbox:this.props.displayCheckbox,
+				allRowsSelected: this.state.allRowsSelected,
+				selectedRows:this.state.selectedRows,
+				onRowClick:this.onRowClick,
+				setRowTotalCount:this.setRowTotalCount
+			}
+		);
+
+	}
+
+	createTableFooter(base){
+		return React.cloneElement(
+			base,
+			{
+				displayCheckbox:this.props.displayCheckbox,
+				allRowsSelected: this.state.allRowsSelected,
+			}
+		);
+	}
+
 	render() {
 
 		let {className,children,style} = this.props;
 
+		let tHead;
+		let tBody = [];
+		let tFoot;
+
+		React.Children.forEach(children, (child) => {
+			if (!React.isValidElement(child)) return;
+			const {muiName,name} = child.type;
+			if (name === 'TableBody') {
+				tBody = this.createTableBody(child);
+			} else if (name === 'TableHeader') {
+				tHead = this.createTableHeader(child);
+			} else if (name === 'TableFooter') {
+				tFoot = this.createTableFooter(child);
+			}
+		});
+
 		return (
 			<table className={"table "+className} style={style}>
-				{children}	
+				{tHead}
+				{tBody}
+				{tFoot}
 			</table>
 		);
 
