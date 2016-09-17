@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import connect from 'kr/Redux/connect';
+import {connect} from 'kr/Redux';
 
 import Section from 'kr-ui/Section';
 import {KrField,LabelText} from 'kr-ui/Form';
