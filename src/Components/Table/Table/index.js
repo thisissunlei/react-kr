@@ -8,7 +8,8 @@ export default class Table extends React.Component {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
 		displayCheckbox: React.PropTypes.bool,
-		style:React.PropTypes.object
+		style:React.PropTypes.object,
+		toggleVisibility: React.PropTypes.string,
 	}
 
 
@@ -20,6 +21,7 @@ export default class Table extends React.Component {
 		this.createTableBody = this.createTableBody.bind(this);
 		this.createTableFooter = this.createTableFooter.bind(this);
 		this.setRowTotalCount = this.setRowTotalCount.bind(this);
+		this.setVisibilityRow = this.setVisibilityRow.bind(this);
 
 		this.onSelectAll = this.onSelectAll.bind(this);
 		this.onRowClick = this.onRowClick.bind(this);
@@ -29,9 +31,45 @@ export default class Table extends React.Component {
 		this.state = {
 			allRowsSelected:false,
 			selectedRows:[],
+			visibilityRows:[],
 			totalRowCount:0
 		}
 
+	}
+
+	componentDidMount(){
+		var visibilityRows = new Array(this.totalRowCount+1).join(1).split('');
+
+		//默认隐藏children
+		let visibilityType = this.props.toggleVisibility; 
+
+		if(visibilityType){
+			if(visibilityType === 'odd'){
+				visibilityRows.forEach(function(item,index){
+					if(index%2 !== 0){
+						visibilityRows[index] = 0;
+					}
+				});
+			}else{
+				visibilityRows.forEach(function(item,index){
+					if(index%2 == 0){
+						visibilityRows[index] = 0;
+					}
+				});
+			}
+		}
+
+		this.setState({
+			visibilityRows
+		});
+	}
+
+	setVisibilityRow(rowNumber){
+		var visibilityRows = this.state.visibilityRows;
+			visibilityRows[rowNumber] = new Number(!!!parseInt(visibilityRows[rowNumber]));
+			this.setState({
+				visibilityRows
+			});
 	}
 
 	setRowTotalCount(totalRowCount){
@@ -49,6 +87,25 @@ export default class Table extends React.Component {
 		this.setState({
 			selectedRows:selectedRows
 		});
+
+		if(event.target.nodeName.toLowerCase() == 'input'){
+			return ;
+		}
+		//显示子元素
+		var vitibilityType = this.props.toggleVisibility;
+		if(vitibilityType){
+			if(vitibilityType === 'odd'){
+				if(rowNumber%2 == 0){
+					this.setVisibilityRow(rowNumber+1);
+				}
+			}else{
+				if(rowNumber%2 != 0){
+					this.setVisibilityRow(rowNumber-1);
+				}
+
+			}
+		}
+
 	}
 
 	onSelectAll(){
@@ -92,8 +149,9 @@ export default class Table extends React.Component {
 				displayCheckbox:this.props.displayCheckbox,
 				allRowsSelected: this.state.allRowsSelected,
 				selectedRows:this.state.selectedRows,
+				visibilityRows:this.state.visibilityRows,
 				onRowClick:this.onRowClick,
-				setRowTotalCount:this.setRowTotalCount
+				setRowTotalCount:this.setRowTotalCount,
 			}
 		);
 

@@ -73,8 +73,7 @@ class OrderCreate extends Component {
   renderCustomerItem(){
     return (
 
-        <TableBody colSpan={10} insertElement={this.renderOrderItem()}>
-          <TableRow>
+          <TableRow  >
             <TableRowColumn>4</TableRowColumn>
             <TableRowColumn>4</TableRowColumn>
             <TableRowColumn>4</TableRowColumn>
@@ -83,7 +82,6 @@ class OrderCreate extends Component {
             <TableRowColumn>Steve Brown</TableRowColumn>
             <TableRowColumn><RaisedButton label="创建订单" href="/#/operation/customerManage/343/order/create" /></TableRowColumn>
          </TableRow>
-      </TableBody>
     );
 
   }
@@ -142,7 +140,7 @@ class OrderCreate extends Component {
 					</Row>
 				</Grid>
 
-            <Table displayCheckbox={true} style={{marginTop:20}}>
+            <Table displayCheckbox={true} style={{marginTop:20}}  toggleVisibility="odd">
                 <TableHeader>
                   <TableHeaderColumn>ID</TableHeaderColumn>
                   <TableHeaderColumn>出租方名称</TableHeaderColumn>
@@ -153,9 +151,21 @@ class OrderCreate extends Component {
                   <TableHeaderColumn>操作</TableHeaderColumn>
                 </TableHeader>
 
-                {this.renderCustomerItem()}
-                {this.renderCustomerItem()}
-                {this.renderCustomerItem()}
+				<TableBody>
+					{this.renderCustomerItem()}
+					<TableRow displayCheckbox={false} visibility={false}>
+						<TableRowColumn colSpan={10}>
+							{this.renderOrderItem()}
+						</TableRowColumn>
+					</TableRow>
+
+					{this.renderCustomerItem()}
+					<TableRow displayCheckbox={false}>
+						<TableRowColumn colSpan={10}>
+							{this.renderOrderItem()}
+						</TableRowColumn>
+					</TableRow>
+				</TableBody>
 
                 </Table>
 

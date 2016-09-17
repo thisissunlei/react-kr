@@ -14,6 +14,7 @@ export default class TableRow extends React.Component {
 		onRowHoverExit: React.PropTypes.func,
 		rowNumber: React.PropTypes.number,
 		selected: React.PropTypes.bool,
+		visibility: React.PropTypes.bool,
 	}
 
 	constructor(props){
@@ -77,6 +78,7 @@ export default class TableRow extends React.Component {
 			rowNumber,
 			selectable,
 			selected,
+			visibility,
 			style,
 			...other,
 		} = this.props;
@@ -94,12 +96,20 @@ export default class TableRow extends React.Component {
 			}
 		});
 
-		return (
-			<tr className={className} {...other}>
-			{rowColumns}
-			</tr>
+		if(visibility){
 
+			return (
+				<tr className={className} {...other}>
+				{rowColumns}
+				</tr>
+
+			);
+		}
+
+		return (
+				<tr> </tr>
 		);
+
 
 	}
 }
