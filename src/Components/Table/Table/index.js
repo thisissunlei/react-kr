@@ -32,7 +32,10 @@ export default class Table extends React.Component {
 			allRowsSelected:false,
 			selectedRows:[],
 			visibilityRows:[],
-			totalRowCount:0
+			totalRowCount:0,
+			defaultValue:{
+				checkboxWidth:40
+			}
 		}
 
 	}
@@ -134,7 +137,7 @@ export default class Table extends React.Component {
 			{
 				displayCheckbox:this.props.displayCheckbox,
 				onSelectAll: this.onSelectAll,
-				allRowsSelected: this.state.allRowsSelected,
+				defaultValue:this.state.defaultValue
 			}
 		);
 
@@ -152,6 +155,7 @@ export default class Table extends React.Component {
 				visibilityRows:this.state.visibilityRows,
 				onRowClick:this.onRowClick,
 				setRowTotalCount:this.setRowTotalCount,
+				defaultValue:this.state.defaultValue
 			}
 		);
 
@@ -162,7 +166,9 @@ export default class Table extends React.Component {
 			base,
 			{
 				displayCheckbox:this.props.displayCheckbox,
+				onSelectAll: this.onSelectAll,
 				allRowsSelected: this.state.allRowsSelected,
+				defaultValue:this.state.defaultValue
 			}
 		);
 	}
@@ -172,7 +178,7 @@ export default class Table extends React.Component {
 		let {className,children,style} = this.props;
 
 		let tHead;
-		let tBody = [];
+		let tBody;
 		let tFoot;
 
 		React.Children.forEach(children, (child) => {

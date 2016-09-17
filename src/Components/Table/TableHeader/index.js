@@ -8,7 +8,8 @@ export default class TableHeader extends React.Component {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
         onSelectAll:React.PropTypes.func,
-		displayCheckbox:React.PropTypes.bool
+		displayCheckbox:React.PropTypes.bool,
+		defaultValue:React.PropTypes.object
 	}
 
 
@@ -27,7 +28,8 @@ export default class TableHeader extends React.Component {
 			return null;
 		}
 
-		return ( <TableHeaderColumn><input type="checkbox" onTouchTap={onSelectAll}/> </TableHeaderColumn>);
+		return ( <TableHeaderColumn width={this.props.defaultValue.checkboxWidth}></TableHeaderColumn>);
+		//return ( <TableHeaderColumn width={this.props.defaultValue.checkboxWidth}><input type="checkbox" onTouchTap={onSelectAll}/> </TableHeaderColumn>);
 
 	}
 
@@ -35,7 +37,6 @@ export default class TableHeader extends React.Component {
 	render() {
 
 		let {className,children} = this.props;
-
 
 		return (
 			<thead className={className}>

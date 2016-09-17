@@ -14,7 +14,8 @@ export default class TableBody extends React.Component {
 		displayCheckbox:React.PropTypes.bool,
 		selectedRows:React.PropTypes.array,
 		visibilityRows:React.PropTypes.array,
-		setRowTotalCount:React.PropTypes.func
+		setRowTotalCount:React.PropTypes.func,
+		defaultValue:React.PropTypes.object
 	}
 
 	
@@ -113,9 +114,7 @@ export default class TableBody extends React.Component {
 			<TableRowColumn
 			key={key}
 			columnNumber={0}
-			style={{
-				width: 24,
-			}}
+			width={this.props.defaultValue.checkboxWidth}
 			>
 			{checkbox}
 			</TableRowColumn>

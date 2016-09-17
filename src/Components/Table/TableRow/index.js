@@ -29,7 +29,6 @@ export default class TableRow extends React.Component {
 	}
 
 	onCellClick(event){
-		console.log('---->>>>');
 		this.onRowClick(event);
 	}
 

@@ -27,7 +27,7 @@ export default class TableRowColumn extends React.Component {
 	}
 
 	onClick(event){
-		if(event.target.nodeName.toLowerCase() != 'td'){
+		if(event.target.nodeName.toLowerCase() != 'td' && event.target.nodeName.toLowerCase() != 'input'){
 			return null;
 		}
 		if (this.props.onCellClick) {
@@ -66,7 +66,7 @@ export default class TableRowColumn extends React.Component {
 
 
 		return(
-			<td className={className} {...handlers} {...other}>
+			<td className={className} style={style} {...handlers} {...other}>
 			{children}	
 			</td>
 		);

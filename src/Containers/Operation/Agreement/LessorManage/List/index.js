@@ -159,7 +159,24 @@ class OrderCreate extends Component {
 							{this.renderOrderItem()}
 						</TableRowColumn>
 					</TableRow>
+
+					{this.renderCustomerItem()}
+					<TableRow displayCheckbox={false}>
+						<TableRowColumn colSpan={10}>
+							{this.renderOrderItem()}
+						</TableRowColumn>
+					</TableRow>
+
+					{this.renderCustomerItem()}
+					<TableRow displayCheckbox={false}>
+						<TableRowColumn colSpan={10}>
+							{this.renderOrderItem()}
+						</TableRowColumn>
+					</TableRow>
+
 				</TableBody>
+
+				<TableFooter></TableFooter>
 
                 </Table>
 
