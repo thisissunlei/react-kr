@@ -1,7 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
-
+import connect from 'kr/Redux/connect';
 
 import Section from 'kr-ui/Section';
 import {KrField,LabelText} from 'kr-ui/Form';
@@ -21,10 +19,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
 
 
-import * as actionCreators from 'kr-ui/../Redux/Actions';
-
-
- 
 class OrderCreate extends Component {
 
   constructor(props,context){
@@ -246,21 +240,16 @@ OrderCreate= reduxForm({
 
 
 function mapStateToProps(state){
-
-
   return {
     items:state.notify.items,
   };
 }
 
-function mapDispatchToProps(dispatch){
+export default connect((state)=>{
   return {
-    actions:bindActionCreators(Object.assign({},actionCreators),dispatch)
+    items:state.notify.items,
   };
-}
-
-
-export default connect(mapStateToProps,mapDispatchToProps)(OrderCreate);
+})(OrderCreate);
 
 
 

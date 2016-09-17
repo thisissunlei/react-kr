@@ -13,6 +13,7 @@ const config = {
     extensions: ['', '.js', '.md'], // 加载这些类型的文件时不用加后缀
     alias: {
       'kr-ui': path.join(process.cwd(), '/src/Components'), 
+      'kr': path.join(process.cwd(), '/src'), 
 	 // 'material-ui': path.resolve(__dirname, '../meterial-ui'),
     },
   },
