@@ -173,8 +173,6 @@ export default class TableBody extends React.Component {
 			rows.push(this.createRowElement(child,rowNumber++)) ;
 		});
 
-
-		console.log('row length',rows.length);
 		return rows;
 
 	}

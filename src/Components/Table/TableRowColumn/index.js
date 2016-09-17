@@ -8,7 +8,7 @@ export default class TableRowColumn extends React.Component {
 		children: React.PropTypes.node,
 		columnNumber: React.PropTypes.number,
 		hoverable: React.PropTypes.bool,
-		onClick: React.PropTypes.func,
+		onCellClick: React.PropTypes.func,
 		onHover: React.PropTypes.func,
 		onHoverExit: React.PropTypes.func,
 		style: React.PropTypes.object,
@@ -27,8 +27,11 @@ export default class TableRowColumn extends React.Component {
 	}
 
 	onClick(event){
-		if (this.props.onClick) {
-			this.props.onClick(event, this.props.columnNumber);
+		if(event.target.nodeName.toLowerCase() != 'td'){
+			return null;
+		}
+		if (this.props.onCellClick) {
+			this.props.onCellClick(event, this.props.columnNumber);
 		}
 	}
 
@@ -71,9 +74,6 @@ export default class TableRowColumn extends React.Component {
 
 	}
 }
-
-
-
 
 
 

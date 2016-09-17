@@ -29,6 +29,7 @@ export default class TableRow extends React.Component {
 	}
 
 	onCellClick(event){
+		console.log('---->>>>');
 		this.onRowClick(event);
 	}
 
@@ -89,7 +90,7 @@ export default class TableRow extends React.Component {
 					columnNumber: columnNumber,
 					hoverable: this.props.hoverable,
 					key: `${this.props.rowNumber}-${columnNumber}`,
-					onClick: this.onCellClick,
+					onCellClick: this.onCellClick,
 					onHover: this.onCellHover,
 					onHoverExit: this.onCellHoverExit,
 				});
