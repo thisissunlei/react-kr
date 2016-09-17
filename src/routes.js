@@ -1,11 +1,10 @@
 import React from 'react';
 
-import { Router, Route, Link,IndexRoute,browserHistory} from 'react-router';
-
-
+import { Router, Route, Link,Redirect,IndexRoute,browserHistory} from 'react-router';
 
 
 import {
+	Welcome,
 	Help,
 	Undefined,
 	Permission,
@@ -21,11 +20,12 @@ export default(
 	<Route path="/" component={Master}>
 
 	
-		<IndexRoute component={Permission.Home}/>
-		<Route path="index" component={Permission.Home}/>
+		<IndexRoute component={Welcome}/>
+
+		<Route path="index" component={Welcome}/>
 
 
-		＜Redirect from="messages/:id" to="/messages/:id" />
+		<Redirect from="messages/:id" to="/messages/:id" />
 
 
 		{/*运营管理*/}

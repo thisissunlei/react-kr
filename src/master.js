@@ -9,47 +9,56 @@ import Footer from './Components/Global/Footer';
 
 class Master extends Component {
 
-  componentWillMount() {
+	constructor(props,context){
+		super(props, context);
 
-  }
-
-  componentWillReceiveProps(nextProps, nextContext) {
-
-  }
-
-  render() {
-
-	var styles = {};
-
-	var {switch_value} = this.props.sidebar_nav;
-
-	console.log('---switch_value',switch_value);
-
-	if(switch_value){
-		styles = {
-			marginLeft:180,
-		}
 	}
 
-    return (
-      <div>
-				<Header/>
+	componentWillMount() {
 
-				<div className="container" style={styles}>
-					{this.props.children}
-				</div>
 
-				{/*
+	}
+
+	componentDidMount(){
+	}
+
+	componentWillReceiveProps(nextProps, nextContext) {
+
+	}
+
+	render() {
+
+		var styles = {};
+
+		var {switch_value} = this.props.sidebar_nav;
+
+		console.log('---switch_value',switch_value);
+
+		if(switch_value){
+			styles = {
+				marginLeft:180,
+			}
+		}
+
+		return (
+			<div>
+			<Header/>
+
+			<div className="container" style={styles}>
+			{this.props.children}
+			</div>
+
+			{/*
 
 				<Footer/>
 
-			
 
-					*/}
 
-      </div>
-    );
-  }
+*/}
+
+			</div>
+		);
+	}
 }
 
 function mapStateToProps(state){
