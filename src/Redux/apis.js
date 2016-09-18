@@ -16,12 +16,9 @@ const APIS  = {
 	},
 	//订单详细信息
 	'get-order-detail':{
-		url:'/mockjsdata/3/krspace-finance-web/action/get-order-detail',
+		url:'/prod/krspace-finance-web/action/get-order-detail?mainBillId={mainBillId}',
 		method:'get'
 	},
-
-
-
 
 	'demo':{
 		url:'/mockjsdata/3/krspace-admin-web/community-city-selected',

@@ -77,20 +77,21 @@ class OrderDetail extends Component {
 		var _this = this;
 
 		actions.callAPI('get-order-detail',{
-			mainBillId:'343432'
+			mainBillId:'3'
 		},{}).then(function(response){
+
 			_this.setState({
-				response:response[0].data
-			})
+				response:response
+			});
+			setTimeout(function(){
+				_this.setState({
+					loading:false
+				});
+			},1000);
 		}).catch(function(err){
 			console.log('--333err',err);
 		});
 
-		setTimeout(function(){
-			_this.setState({
-				loading:false
-			});
-		},1000)
 	}
 
 	confirmSubmit(values){

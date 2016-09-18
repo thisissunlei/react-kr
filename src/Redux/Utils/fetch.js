@@ -115,7 +115,10 @@ const http = {
             })
             .then(check401)
             .then(jsonParse)
-            .then(json => resolve(json))
+            .then(json => {
+				//处理数据格式
+				resolve(json.data)
+			})
             .catch(err => reject(err))
     }),
 
