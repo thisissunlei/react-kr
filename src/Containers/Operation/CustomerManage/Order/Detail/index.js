@@ -11,7 +11,6 @@ import {LabelText} from 'kr-ui/Form';
 
 
 
-
 import {Grid,Row,Col} from 'kr-ui/Grid';
 
 import {Dialog,Snackbar} from 'material-ui';
@@ -26,9 +25,9 @@ import {
 
 import {
 	BreadCrumbs,
-	Loading
+	Loading,
+	Notify
 } from 'kr-ui';
-
 
 
 import {
@@ -89,8 +88,13 @@ class OrderDetail extends Component {
 				});
 			},1000);
 		}).catch(function(err){
-			console.log('--333err',err);
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
 		});
+
+
 
 	}
 

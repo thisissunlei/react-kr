@@ -48,12 +48,11 @@ class Master extends Component {
 			{this.props.children}
 			</div>
 
+			<div id="nowtify-wrapper"></div>
+
 			{/*
 
 				<Footer/>
-
-
-
 */}
 
 			</div>
