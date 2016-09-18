@@ -126,12 +126,14 @@ export default(
 
 		{/*权限管理*/}
 		<Route path="permission" component={Basic}>
-			<IndexRoute component = {Permission.Home}/>
+		
 			<Route path="index" component={Permission.Home}/>
 			<Route path="notify" component={Permission.Notify}/>
 			<Route path="memo" component={Permission.Memo}/>
 			<Route path="docs" component={Permission.Docs}/>
 			<Route path="order" component={Permission.Order}/>
+
+			<Redirect from="permission" to="permission/index" />
 		</Route>
 
 

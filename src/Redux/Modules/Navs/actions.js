@@ -18,23 +18,35 @@ function setNavsCurrentRoute(currentRoute){
 
 	return {
 		type:Types.SET_NAVS_CURRENT_ROUTE,
-		response:currentRoute
+		router:currentRoute
 	}
 
 }
 
-function setNavsCurrentItems(router){
+function setNavsCurrentItems(fatherRouter){
 	return {
 		type:Types.SET_NAVS_CURRENT_ITEMS,
-		response:router
+		router:fatherRouter
 	}
+}
+
+function setNavsActivity(fatherRouter){
+	return {
+		type:Types.SET_NAVS_ACTIVITY,
+		router:fatherRouter
+	}
+
 }
 
 export function setCurrentNav(router){
 
+	let fatherRouter = router.substring(2).split('/').shift();
+	let childRouter = '';
+
 	return function(dispatch){
 			dispatch(setNavsCurrentRoute(router));
-			dispatch(setNavsCurrentItems(router));
+			dispatch(setNavsCurrentItems(fatherRouter));
+			dispatch(setNavsActivity(fatherRouter));
 	}
 
 }

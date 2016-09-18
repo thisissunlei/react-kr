@@ -88,8 +88,17 @@ class Header extends Component {
 
 	renderHeaderNav(item,index){
 
+		let styles = {
+			color:'#fff',
+			height:67,
+		}
+
+		if(item.active){
+			styles.backgroundColor = "rgba(153,153,153,0.5)";
+		}
+
 		return (
-			 <FlatButton label={item.primaryText} key={index} style={{color:'#fff',height:67}} href={"/#/"+item.router} labelStyle={{lineHeight:'67px'}} />
+			 <FlatButton label={item.primaryText} key={index} style={styles} href={"/#/"+item.router} labelStyle={{lineHeight:'67px'}} />
 		);
 
 	}
