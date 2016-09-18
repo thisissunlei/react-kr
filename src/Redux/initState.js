@@ -70,7 +70,7 @@ let initState = {
 							},
 							{
 								primaryText:'新增客户订单',
-								router:'/operation/customerManage/23213/order/create',
+								router:'/operation/customerManage/1/order/create',
 							},
 							{
 								primaryText:'编辑客户订单',
@@ -116,7 +116,7 @@ let initState = {
 						menuItems:[
 							{
 								primaryText:"订单账号",
-								router:'/operation/finance/orderbill',
+								router:'/operation/finance/orderbill/receiptList',
 							},
 							{
 								primaryText:"科目配置",

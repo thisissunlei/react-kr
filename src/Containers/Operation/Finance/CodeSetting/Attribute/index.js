@@ -98,17 +98,7 @@ class OrderCreate extends Component {
             <TableRowColumn>4</TableRowColumn>
             <TableRowColumn>4</TableRowColumn>
             <TableRowColumn>Steve Brown</TableRowColumn>
-            <TableRowColumn><RaisedButton label="创建订单" href="/#/operation/customerManage/343/order/create" /></TableRowColumn>
-         </TableRow>
-          <TableRow  >
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>Steve Brown</TableRowColumn>
-            <TableRowColumn><RaisedButton label="创建订单" href="/#/operation/customerManage/343/order/create" /></TableRowColumn>
+            <TableRowColumn><FlatButton label="创建订单" primary={true} href="/#/operation/customerManage/343/order/create" /></TableRowColumn>
          </TableRow>
         </TableBody>
 

@@ -2,7 +2,7 @@ import React from 'react';
 import TableHeaderColumn from '../TableHeaderColumn';
 import TableRowColumn from '../TableRowColumn';
 
-import RaisedButton from 'material-ui/RaisedButton';
+import {Button} from 'kr-ui/Button';
 
 
 import './index.less';
@@ -46,7 +46,7 @@ export default class TableFooter extends React.Component {
 			<tfoot className="tfoot">
 				<tr>
                   {this.renderCheckbox()}
-				  <TableRowColumn style={{textAlign:'left'}}> <RaisedButton label="导出" primary={true} /> </TableRowColumn>
+				  <TableRowColumn style={{textAlign:'left'}}> <Button label="导出" primary={true}/> </TableRowColumn>
 				</tr>
 			</tfoot>
 		);

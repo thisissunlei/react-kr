@@ -1,8 +1,6 @@
 import React, {Component, PropTypes} from 'react';
-import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { connect } from 'kr/Redux';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
-
 
 
 import {reduxForm } from 'redux-form';
@@ -10,12 +8,11 @@ import Section from 'kr-ui/Section';
 import {LabelText} from 'kr-ui/Form';
 
 
-
 import {Grid,Row,Col} from 'kr-ui/Grid';
 
 import {Dialog,Snackbar} from 'material-ui';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+
+import { Button } from 'kr-ui/Button';
 
 import {
   Step,
@@ -128,7 +125,7 @@ class OrderDetail extends Component {
 
 			<Section title="客户订单详情" description=""> 
 
-			<RaisedButton label="新建合同"  onTouchTap={this.openCreateAgreementDialog}  primary={true}/>
+			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog}  primary={true}/>
 
 
 
@@ -235,8 +232,8 @@ class OrderDetail extends Component {
 							<TableRowColumn>{item.contractTotalamount}</TableRowColumn>
 							<TableRowColumn>{item.leaseBegindate}</TableRowColumn>
 							<TableRowColumn>{item.leaseEnddate}</TableRowColumn>
-							<TableRowColumn><RaisedButton label="查看" href={`/#/operation/customerManage/${item.customerid}/order/${item.mainbillid}/detail`} />
-							<RaisedButton label="编辑"  href={`/#/operation/customerManage/${item.customerid}/order/${item.mainbillid}/edit`} /></TableRowColumn>
+							<TableRowColumn><Button  type="link" label="查看" href={`/#/operation/customerManage/${item.customerid}/order/${item.mainbillid}/detail`} />
+							<Button type="link" label="编辑"  href={`/#/operation/customerManage/${item.customerid}/order/${item.mainbillid}/edit`} /></TableRowColumn>
 						   </TableRow>
 							);
 					})}
@@ -298,7 +295,7 @@ class OrderDetail extends Component {
 				title="新建合同"
 				modal={true}
 				actions={
-					<FlatButton label="取消" primary={true} onTouchTap={this.openCreateAgreementDialog} />
+					<Button label="取消" primary={true} onTouchTap={this.openCreateAgreementDialog} />
 				}
 				open={this.state.openCreateAgreement}
 			>
@@ -307,15 +304,15 @@ class OrderDetail extends Component {
 			<Grid>
 
 					<Row>
-						<Col md={4} ><RaisedButton label="承租意向书" href="/#/operation/agreement/join/create"/></Col>
-						<Col md={4} ><RaisedButton label="入驻协议书" href="/#/operation/agreement/join/create"/></Col>
-						<Col md={4} ><RaisedButton label="增租协议书" href="/#/operation/agreement/join/create"/></Col>
+						<Col md={4} ><Button label="承租意向书" href="/#/operation/agreement/join/create"/></Col>
+						<Col md={4} ><Button label="入驻协议书" href="/#/operation/agreement/join/create"/></Col>
+						<Col md={4} ><Button label="增租协议书" href="/#/operation/agreement/join/create"/></Col>
 					</Row>
 
 					<Row style={{marginTop:10}}>
-						<Col md={4} ><RaisedButton label="续租协议书" href="/#/operation/agreement/join/create"/></Col>
-						<Col md={4} ><RaisedButton label="减租协议书" href="/#/operation/agreement/join/create"/></Col>
-						<Col md={4} ><RaisedButton label="退租协议书" href="/#/operation/agreement/join/create"/></Col>
+						<Col md={4} ><Button label="续租协议书" href="/#/operation/agreement/join/create"/></Col>
+						<Col md={4} ><Button label="减租协议书" href="/#/operation/agreement/join/create"/></Col>
+						<Col md={4} ><Button label="退租协议书" href="/#/operation/agreement/join/create"/></Col>
 					</Row>
 			
 				</Grid>
@@ -337,14 +334,8 @@ function mapStateToProps(state){
 	};
 }
 
-function mapDispatchToProps(dispatch){
-	return {
-		actions:bindActionCreators(Object.assign({},actionCreators),dispatch)
-	};
-}
 
-
-export default connect(mapStateToProps,mapDispatchToProps)(OrderDetail);
+export default connect(mapStateToProps)(OrderDetail);
 
 
 

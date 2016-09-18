@@ -1,7 +1,7 @@
 const APIS  = {
 	
 	'community-city-select':{
-		url:'/mockjsdata/3/krspace-admin-web/community-city-selected',
+		url:'/prod/krspace-admin-web/community-city-selected',
 		method:'get'
 	},
 	//创建新的订单
@@ -24,9 +24,6 @@ const APIS  = {
 		url:'/mockjsdata/3/krspace-admin-web/community-city-selected',
 		method:'get'
 	}
-
-
-	 
 
 }
 

@@ -1,296 +1,197 @@
-import React,{Component} from 'react';
-import {bindActionCreators} from 'redux';
-import { connect } from 'react-redux';
-
-import * as actionCreators from 'kr-ui/../Redux/Actions';
-
-import TitleList from 'kr-ui/TitleList';
-import './index.less';
-import {KrField} from 'kr-ui/Form';
-
-import {List, ListItem} from 'material-ui/List';
-import {Table, TableBody, TableHeader, TableFooter, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table'
-import {blue500, yellow600,red500,pink500,purple500} from 'material-ui/styles/colors';
-
-import ContentInbox from 'material-ui/svg-icons/content/inbox';
-import ActionGrade from 'material-ui/svg-icons/action/grade';
-import ContentSend from 'material-ui/svg-icons/content/send';
-import ContentDrafts from 'material-ui/svg-icons/content/drafts';
-import ActionInfo from 'material-ui/svg-icons/action/info';
-import { Field, reduxForm } from 'redux-form';
-import ActionDateRange from 'material-ui/svg-icons/action/date-range';
+import React, {Component, PropTypes} from 'react';
+import {connect} from 'kr/Redux';
 
 import Section from 'kr-ui/Section';
+import {KrField,LabelText} from 'kr-ui/Form';
 
-import {
-	AppBar,
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	IconButton,
-	RaisedButton,
-	Drawer,
-	Divider,
-	FontIcon,
-	GridList,
-	GridTile,
-	DatePicker,
-	Dialog,
-	Avatar,
-	SelectField,
-} from 'material-ui';
-import FlatButton from 'material-ui/FlatButton';
-import Formsy from 'formsy-react';
-import Toggle from 'material-ui/Toggle';
-import { FormsyCheckbox, FormsyDate, FormsyRadio, FormsyRadioGroup,
-    FormsySelect, FormsyText, FormsyTime, FormsyToggle } from 'formsy-material-ui/lib';
+import {reduxForm,formValueSelector} from 'redux-form';
 
 
-	const style = {
-		FlatButton:{
-			width:30,
-			color:'#0099FF',
-			display:'block',
-			border:0,
-			lineHeight:'20px',
-			height:20,
-		},
-		derived:{
-			color:'#fff',
-			background:'rgb(0,153,255)',
-			width:30,
-		}
-		
-	}
+import BreadCrumbs from 'kr-ui/BreadCrumbs';
 
-	const renderSelectField = ({ input, label, meta: { touched, error }, children }) => (
-	  <SelectField
-	    floatingLabelText={label}
-	    errorText={touched && error}
-	    {...input}
-	    onChange={(event, index, value) => input.onChange(value)}
-	    children={children}/>
-	)
-	const renderDate = ({input, label, meta: { touched, error }}) =>(
-		<DatePicker onChange={(event, value) => input.onChange(value)} />
-	)
 
-	
+import {Grid,Row,Col} from 'kr-ui/Grid';
 
-	var SearchForm = (props) => {
-	 const  { handleSubmit, pristine, reset, submitting ,submit,cancle} = props;
-	 return (
-	 	<form onSubmit={handleSubmit(submit)} className='search-form'>
-	 		<div>
-	 			<KrField name="username" type="text" label="客户名称：" />
-	 		</div>
-	 		<div>
-	 			<label>所属社区：</label>
-			        <Field name="area" component={renderSelectField}>
-			          <MenuItem value={'ff0000'} primaryText="Red"/>
-			          <MenuItem value={'00ff00'} primaryText="Green"/>
-			          <MenuItem value={'0000ff'} primaryText="Blue"/>
-			        </Field>
-	 			
-	 		</div>
-	 		<div>
-	 				<label>订单类型：</label>
-			        <Field name="orderType" component={renderSelectField}>
-			          <MenuItem value={'ff0000'} primaryText="Red"/>
-			          <MenuItem value={'00ff00'} primaryText="Green"/>
-			          <MenuItem value={'0000ff'} primaryText="Blue"/>
-			        </Field>
-	 			
-	 		</div>
-	 		<div>
-	 			<label>查询区间：</label>
-	 				<Avatar icon={<ActionDateRange  />}  size={25}/>
-	 				<Field name="time" component='DatePicker'>
-	 				</Field>
-			            
-			       
-	 			
-	 		</div>
-	 		<div className="button">
-				<FlatButton
-				label="取消"
-				primary={true}
-				onTouchTap={cancle}
-				/>,
-				<FlatButton
-				label="提交"
-				primary={true}
-				type="submit"
-				/>
-	 		</div>
-	 		
-	 	</form>
-	 )
+import {Dialog,Snackbar} from 'material-ui';
+
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
+
+import { Button } from 'kr-ui/Button';
+
+
+class OrderCreate extends Component {
+
+  constructor(props,context){
+    super(props, context);
+
+    this.confirmSubmit = this.confirmSubmit.bind(this);
+
+    this.openCreateDialog = this.openCreateDialog.bind(this);
+    this.state = {
+      open:false,
+      openCreate:false,
+    }
+
+
+  }
+
+
+  confirmSubmit(values){
+    var {actions} = this.props;
+
+    actions.callAPI('enter-order',{},values).then(function(response){
+
+    }).catch(function(err){
+
+    });
+
+  }
+
+  openCreateDialog(){
+
+    this.setState({
+      openCreate:!this.state.openCreate
+    });
+
+  }
+
+  render() {
+
+    const { error, handleSubmit, pristine, reset, submitting} = this.props;
+
+    const {communitys} = this.state;
+
+
+    return (
+
+      <div>
+
+      <Section title="财务管理" description=""> 
+
+      <Grid>
+          <Row>
+            <Col md={2}> <Button label="新建属性" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
+            <Col md={6}> </Col>
+            <Col md={2}> <KrField name="username" type="text" /></Col> 
+            <Col md={2}> <Button label="搜索" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
+          </Row>
+        </Grid>
+
+            <Table displayCheckbox={true}>
+                <TableHeader>
+                  <TableHeaderColumn>票据类型</TableHeaderColumn>
+                  <TableHeaderColumn>发票号码</TableHeaderColumn>
+                  <TableHeaderColumn>开票金额</TableHeaderColumn>
+                  <TableHeaderColumn>开票日期</TableHeaderColumn>
+                  <TableHeaderColumn>操作人</TableHeaderColumn>
+                  <TableHeaderColumn>备注</TableHeaderColumn>
+                  <TableHeaderColumn>操作</TableHeaderColumn>
+                </TableHeader>
+        <TableBody>
+
+          <TableRow  >
+            <TableRowColumn>4</TableRowColumn>
+            <TableRowColumn>4</TableRowColumn>
+            <TableRowColumn>4</TableRowColumn>
+            <TableRowColumn>4</TableRowColumn>
+            <TableRowColumn>4</TableRowColumn>
+            <TableRowColumn>Steve Brown</TableRowColumn>
+            <TableRowColumn>
+				<Button type="link" label="查看" primary={true} href="/#/operation/customerManage/343/order/create" />
+				<Button type="link" label="编辑" primary={true} href="/#/operation/customerManage/343/order/create" />
+				<Button type="link" label="删除" primary={true} href="/#/operation/customerManage/343/order/create" />
+			</TableRowColumn>
+         </TableRow>
+
+        </TableBody>
+
+        <TableFooter></TableFooter>
+
+       </Table>
+
+      </Section>
+
+
+
+      <Dialog
+        title="新建"
+        modal={true}
+        open={this.state.openCreate}
+      >
+      
+
+        <form onSubmit={handleSubmit(this.confirmSubmit)}>
+
+
+        <Grid style={{marginTop:30}}>
+
+          <Row>
+            <Col md={12} > <KrField name="username" type="text" label="出租方名称" /> </Col>
+          </Row>
+
+          <Row>
+            <Col md={4} > 
+                <KrField name="city" label="是否启用" type="radio"/>
+             </Col>
+             <Col md={4} > 
+                <KrField name="city" label="是" type="radio" />
+             </Col>
+             <Col md={4} > 
+                <KrField name="city" label="否" type="radio" />
+             </Col>
+          </Row>
+
+          <Row>
+            <Col md={12} > <KrField name="ordername" type="text" label="详细地址"/> </Col>
+          </Row>
+
+          <Row>
+            <Col md={12} > <KrField name="mainbilldesc" type="textarea" label="备注"  placeholder="备注信息"/> </Col>
+          </Row>
+
+          <Row style={{marginTop:30}}>
+            <Col md={8}></Col>
+            <Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
+            <Col md={2}> <Button  label="取消" type="submit"  onTouchTap={this.openCreateDialog} /> </Col>
+          </Row>
+
+        </Grid>
+
+      {/*
+      <FlatButton label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
+      */}
+
+    </form>
+
+
+
+
+      </Dialog>
+
+      
+   </div>
+  );
+  }
 }
 
-	SearchForm = reduxForm({
-		  form: 'simple'
-		})(SearchForm);
 
+OrderCreate= reduxForm({
+  form: 'orderCreateForm'
+})(OrderCreate);
 
-class Home extends Component{
-
-	
-
-	constructor(props,context){
-		super(props, context);
-
-		this.state = {
-			open:false
-		};
-		this.renderSearchCard = this.renderSearchCard.bind(this);
-		this.title = ['系统运营','财务管理'];
-		this.tableHead = ['票据类型','发票号码','开票金额','开票日期','操作人','备注','操作'];
-		this.tableHeadList = ['票据类型','发票号码','开票金额','开票日期','操作人','备注'];
-		this.closeDialog = this.closeDialog.bind(this);
-		this.submitForm = this.submitForm.bind(this);
-		
-	}
-
-	submitForm(values){
-		this.setState({open: false});
-		console.log('ccccc',values);
-	}
-
-
-
-	componentDidMount() {
-
-
-	}
-
-	handleOpen = () => {
-	    this.setState({open: true});
-	  };
-
-	  handleClose = () => {
-	    this.setState({open: false});
-	  };
-
-
-	handleToggle(){
-
-		this.setState({open: !this.state.open});
-
-		var {actions,sidebar_nav} = this.props;
-
-		actions.switchSidebarNav(!!!sidebar_nav.switch_value);
-
-	}
-
-	
-	renderSearchCard(){
-		this.setState({open:true});
-		
-	}
-
-	closeDialog(){
-		this.setState({open: false});
-	}
-
-	handleChange = (event, index, value) => {this.setState({value});};
-
-
-	render() {
-
-		return (
-
-		<div>
-
-
-				<TitleList children={this.title}></TitleList>
-				<div className="order-table">
-				<Section title="财务管理" description="">	
-					<div>
-						<span>收入总额：</span>
-						<span>收入总额：</span>
-						<span>余额：</span>
-						<div className="search-content">
-							<input type="text" placeholder="请输入客户名称"  
-							icon={<FontIcon className="search" />}/>
-						</div>
-					</div>
-				<Table className="table-content" multiSelectable={true}>
-					<TableHeader>
-						<TableRow>
-							{this.tableHead.map((item)=>{
-								return <TableHeaderColumn key={item}>{item}</TableHeaderColumn>
-							})}
-						</TableRow>
-					</TableHeader>
-					
-					<TableBody>
-						{this.tableHead.map( (row, index) => (
-			              <TableRow key={index} selected={row.selected}>
-				              {this.tableHeadList.map((item)=>{
-									return <TableRowColumn key={item} >{item}</TableRowColumn>
-								})}
-
-								<TableRowColumn>
-								    <FlatButton label="查看" onTouchTap={this.renderSearchCard} style={style.FlatButton}/>
-								    <FlatButton label="编辑" onTouchTap={this.renderSearchCard} style={style.FlatButton}/>
-									<FlatButton label="删除" style={style.FlatButton}/>
-								</TableRowColumn>
-			              </TableRow>
-			              ))}
-
-			              
-						
-					</TableBody>
-			            
-			        <TableFooter>
-			        	<TableRow>
-			              <TableRowColumn colSpan="5"> 	
-							<RaisedButton label="导出"  primary={true}/>
-			              </TableRowColumn>
-			              <TableRowColumn colSpan="3">Status</TableRowColumn>
-			            </TableRow>
-			        </TableFooter>
-				</Table>
-
-				</Section>
-				</div>
-				
-				 <Dialog
-		          modal={false}
-		          open={this.state.open}
-		          onRequestClose={this.handleClose}
-		        >
-		        <SearchForm submit={this.submitForm} ref="simple" cancle={this.closeDialog}/>
-		         </Dialog>
-			
-			
-		</div> 
-
-		);
-	}
-}
 
 
 function mapStateToProps(state){
-
-	return {
-		plan:state.plan,
-		items:state.plan.items,
-		now_date:state.plan.now_date
-	};
+  return {
+    items:state.notify.items,
+  };
 }
 
-function mapDispatchToProps(dispatch){
-	return {
-		actions:bindActionCreators(Object.assign({},actionCreators),dispatch)
-	};
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(Home);
-
-
+export default connect((state)=>{
+  return {
+    items:state.notify.items,
+  };
+})(OrderCreate);
 
 
 

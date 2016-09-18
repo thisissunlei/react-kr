@@ -1,21 +1,22 @@
 import React, {Component, PropTypes} from 'react';
-import { connect } from 'react-redux';
+import { connect } from 'kr/Redux';
 
 import {reduxForm,submitForm} from 'redux-form';
+
 import Section from 'kr-ui/Section';
+
 import {KrField,LabelText} from 'kr-ui/Form';
 
 
 import {Grid,Row,Col} from 'kr-ui/Grid';
 
+import { Button } from 'kr-ui/Button';
+
 import {
 	Menu,
 	MenuItem,
 	DropDownMenu,
-	FlatButton,
 	IconMenu,
-	IconButton,
-	RaisedButton,
 	Divider,
 	FontIcon,
 	DatePicker,
@@ -27,145 +28,6 @@ import {
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
 
 
-var JoinForm = (props) => {
-
-  const { error, handleSubmit, pristine, reset, submitting,submit} = props;
-
-  return (
-
-    <form onSubmit={handleSubmit(submit)}>
-
-
-				<Grid style={{marginTop:30,paddingLeft:30,paddingRight:30}}>
-
-					<Row>
-						<Col md={5}>
-						  <KrField name="order_type" component="select" label="出租方">
-							 <option>请选择订单类型</option>
-						            <option value="11">Red</option>
-						            <option value="00ff00">Green</option>
-						            <option value="0000ff">Blue</option>
-						 </KrField>
-						 </Col>
-						<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="地址" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="联系人" /> </Col>
-						<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="电话" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="承租方" /> </Col>
-						<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="地址" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="联系人" /> </Col>
-						<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="电话" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="所属社区" /> </Col>
-						<Col md={5} mdOffset="2"> 
-<KrField name="order_type" component="select" label="所在楼层">
-							 <option>请选择订单类型</option>
-						            <option value="11">Red</option>
-						            <option value="00ff00">Green</option>
-						            <option value="0000ff">Blue</option>
-						 </KrField>
-						</Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="地址" /> </Col>
-						<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="合同编号" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="租赁期限"  requireLabel={true} /> </Col>
-						<Col md={5} mdOffset="2"> 
-						<KrField name="order_type" component="select" label="付款方式">
-							 <option>请选择订单类型</option>
-						            <option value="11">Red</option>
-						            <option value="00ff00">Green</option>
-						            <option value="0000ff">Blue</option>
-						 </KrField> 
-						 </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="order_type" component="select" label="支付方式">
-							 <option>请选择订单类型</option>
-						            <option value="11">Red</option>
-						            <option value="00ff00">Green</option>
-						            <option value="0000ff">Blue</option>
-						 </KrField>  </Col>
-						<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="签署时间" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="首付款时间" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="工位" /> </Col>
-						<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="会议室" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={11}> <KrField name="username" type="text" label="租赁用途" placeholder="办公使用" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="租金总额" placeholder="" /> </Col>
-						<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="押金总额" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="uname" type="file" label="合同附件" /> </Col>
-					</Row>
-
-		  {/*
-		  
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="" /> </Col>
-						<Col md={5}> <KrField name="username" type="text" label="" /> </Col>
-					</Row>
-		  */}
-
-
-				</Grid>
-
-
-
-
-
-
-				<Grid style={{marginTop:30}}>
-
-					<Row>
-
-						<Col md={10}></Col>
-						<Col md={2}> <RaisedButton  label="确定" type="submit" primary={true} /> </Col>
-
-					</Row>
-
-				</Grid>
-
-
-		  {/*
-			<FlatButton label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
-		  */}
-
-    </form>
-
-  )
-}
-
-JoinForm = reduxForm({
-  form: 'joinForm'  
-})(JoinForm);
 
 
 
@@ -206,14 +68,14 @@ var PlanForm = (props) => {
 
 					<Row>
 						<Col md={8}></Col>
-						<Col md={2}> <RaisedButton  label="确定" type="submit" primary={true} /> </Col>
-						<Col md={2}> <FlatButton label="取消"  onTouchTap={cancel} /> </Col>
+						<Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
+						<Col md={2}> <Button label="取消"  onTouchTap={cancel} /> </Col>
 
 					</Row>
 				</Grid>
 
 		  {/*
-			<FlatButton label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
+			<Button label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
 		  */}
 
     </form>
@@ -226,7 +88,9 @@ PlanForm = reduxForm({
 })(PlanForm);
 
 
-export default class JoinEdit extends Component {
+
+
+ class JoinEdit extends Component {
 
 	constructor(props,context){
 		super(props, context);
@@ -263,33 +127,137 @@ export default class JoinEdit extends Component {
 	}
 
 	handleClick(){
-		submitForm('PlanForm');
 		console.log('----');
 	}
 
   render() {
 
 			 const actions = [
-				  <FlatButton
+				  <Button
 					label="Cancel"
 					primary={true}
 					onTouchTap={this.handleClose}
 				  />,
-				  <FlatButton
+				  <Button
 					label="Submit"
 					primary={true}
 					onTouchTap={this.handleClose}
 				  />,
 				];
 
+
+  const { error, handleSubmit, pristine, reset, submitting,submit} = this.props;
+
     return (
 
       <div>
 			<Section title="创建入驻协议书" description=""> 
 
-				<JoinForm  submit={this.confirmJoinSubmit}/>
+	<form onSubmit={handleSubmit(this.confirmJoinSubmit)}>
 
 
+					<Grid style={{marginTop:30,paddingLeft:30,paddingRight:30}}>
+
+						<Row>
+							<Col md={5}>
+							  <KrField name="order_type" component="select" label="出租方">
+								 <option>请选择订单类型</option>
+										<option value="11">Red</option>
+										<option value="00ff00">Green</option>
+										<option value="0000ff">Blue</option>
+							 </KrField>
+							 </Col>
+							<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="地址" /> </Col>
+						</Row>
+
+						<Row>
+							<Col md={5}> <KrField name="username" type="text" label="联系人" /> </Col>
+							<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="电话" /> </Col>
+						</Row>
+
+						<Row>
+							<Col md={5}> <KrField name="username" type="text" label="承租方" /> </Col>
+							<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="地址" /> </Col>
+						</Row>
+
+						<Row>
+							<Col md={5}> <KrField name="username" type="text" label="联系人" /> </Col>
+							<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="电话" /> </Col>
+						</Row>
+
+						<Row>
+							<Col md={5}> <KrField name="username" type="text" label="所属社区" /> </Col>
+							<Col md={5} mdOffset="2"> 
+	<KrField name="order_type" component="select" label="所在楼层">
+								 <option>请选择订单类型</option>
+										<option value="11">Red</option>
+										<option value="00ff00">Green</option>
+										<option value="0000ff">Blue</option>
+							 </KrField>
+							</Col>
+						</Row>
+
+						<Row>
+							<Col md={5}> <KrField name="username" type="text" label="地址" /> </Col>
+							<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="合同编号" /> </Col>
+						</Row>
+
+						<Row>
+							<Col md={5}> <KrField name="username" type="text" label="租赁期限"  requireLabel={true} /> </Col>
+							<Col md={5} mdOffset="2"> 
+							<KrField name="order_type" component="select" label="付款方式">
+								 <option>请选择订单类型</option>
+										<option value="11">Red</option>
+										<option value="00ff00">Green</option>
+										<option value="0000ff">Blue</option>
+							 </KrField> 
+							 </Col>
+						</Row>
+
+						<Row>
+							<Col md={5}> <KrField name="order_type" component="select" label="支付方式">
+								 <option>请选择订单类型</option>
+										<option value="11">Red</option>
+										<option value="00ff00">Green</option>
+										<option value="0000ff">Blue</option>
+							 </KrField>  </Col>
+							<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="签署时间" /> </Col>
+						</Row>
+
+						<Row>
+							<Col md={5}> <KrField name="username" type="text" label="首付款时间" /> </Col>
+						</Row>
+
+						<Row>
+							<Col md={5}> <KrField name="username" type="text" label="工位" /> </Col>
+							<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="会议室" /> </Col>
+						</Row>
+
+						<Row>
+							<Col md={11}> <KrField name="username" type="text" label="租赁用途" placeholder="办公使用" /> </Col>
+						</Row>
+
+						<Row>
+							<Col md={5}> <KrField name="username" type="text" label="租金总额" placeholder="" /> </Col>
+							<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="押金总额" /> </Col>
+						</Row>
+
+						<Row>
+							<Col md={5}> <KrField name="uname" type="file" label="合同附件" /> </Col>
+						</Row>
+
+			  {/*
+			  
+						<Row>
+							<Col md={5}> <KrField name="username" type="text" label="" /> </Col>
+							<Col md={5}> <KrField name="username" type="text" label="" /> </Col>
+						</Row>
+			  */}
+					</Grid>
+
+			  {/*
+				<FlatButton label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
+			  */}
 
 				<Section title="租赁明细" description="" rightMenu = {
 								<Menu>
@@ -297,7 +265,6 @@ export default class JoinEdit extends Component {
 									  <MenuItem primaryText="分配"  onTouchTap={this.handleOpen} />
 								</Menu>
 				}> 
-
 
 			<Table  displayCheckbox={true}>
 					<TableHeader>
@@ -327,6 +294,14 @@ export default class JoinEdit extends Component {
 
 			</Section>
 
+
+
+			<Button  label="确定"  onTouchTap={this.handleClick} />
+
+		</form>
+
+
+
 			</Section>
 
 
@@ -340,12 +315,17 @@ export default class JoinEdit extends Component {
 
 			</Dialog>
 
-			<RaisedButton  label="确定"  onTouchTap={this.handleClick} />
-
-
 
 			</div>
 	);
   }
 }
 
+
+export default connect((state)=>{
+  return {
+    items:state.notify.items,
+  };
+})(reduxForm({
+  form: 'joinForm'  
+})(JoinEdit));

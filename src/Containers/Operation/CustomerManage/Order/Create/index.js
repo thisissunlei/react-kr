@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { connect } from 'kr/Redux';
 
 
 import Section from 'kr-ui/Section';
@@ -9,17 +8,13 @@ import {KrField,LabelText} from 'kr-ui/Form';
 import {reduxForm,formValueSelector} from 'redux-form';
 
 
-
 import BreadCrumbs from 'kr-ui/BreadCrumbs';
-
 
 import {Grid,Row,Col} from 'kr-ui/Grid';
 
 import {Dialog,Snackbar} from 'material-ui';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-
-import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 
  
@@ -36,10 +31,10 @@ class OrderCreate extends Component {
 			communitys:[]
 		}
 
-
 		var {actions} = this.props;
 		var _this = this;
 		actions.callAPI('community-city-select',{},{}).then(function(response){
+			console.log('rep',response);
 			_this.setState({
 				communitys:response
 			});
@@ -168,14 +163,8 @@ function mapStateToProps(state){
 	};
 }
 
-function mapDispatchToProps(dispatch){
-	return {
-		actions:bindActionCreators(Object.assign({},actionCreators),dispatch)
-	};
-}
 
-
-export default connect(mapStateToProps,mapDispatchToProps)(OrderCreate);
+export default connect(mapStateToProps)(OrderCreate);
 
 
 

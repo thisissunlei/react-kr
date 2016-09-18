@@ -8,14 +8,13 @@ import {KrField,LabelText} from 'kr-ui/Form';
 
 import {Grid,Row,Col} from 'kr-ui/Grid';
 
+import { Button } from 'kr-ui/Button';
+
 import {
 	Menu,
 	MenuItem,
 	DropDownMenu,
-	FlatButton,
 	IconMenu,
-	IconButton,
-	RaisedButton,
 	Divider,
 	FontIcon,
 	DatePicker,
@@ -129,7 +128,7 @@ var JoinForm = (props) => {
 					<Row>
 
 						<Col md={10}></Col>
-						<Col md={2}> <RaisedButton  label="确定" type="submit" primary={true} /> </Col>
+						<Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
 
 					</Row>
 
@@ -137,7 +136,7 @@ var JoinForm = (props) => {
 
 
 		  {/*
-			<FlatButton label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
+			<Button label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
 		  */}
 
     </form>
@@ -188,14 +187,14 @@ var PlanForm = (props) => {
 
 					<Row>
 						<Col md={8}></Col>
-						<Col md={2}> <RaisedButton  label="确定" type="submit" primary={true} /> </Col>
-						<Col md={2}> <FlatButton label="取消"  onTouchTap={cancel} /> </Col>
+						<Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
+						<Col md={2}> <Button label="取消"  onTouchTap={cancel} /> </Col>
 
 					</Row>
 				</Grid>
 
 		  {/*
-			<FlatButton label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
+			<Button label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
 		  */}
 
     </form>
@@ -252,12 +251,12 @@ export default class JoinEdit extends Component {
   render() {
 
 			 const actions = [
-				  <FlatButton
+				  <Button
 					label="Cancel"
 					primary={true}
 					onTouchTap={this.handleClose}
 				  />,
-				  <FlatButton
+				  <Button
 					label="Submit"
 					primary={true}
 					onTouchTap={this.handleClose}
@@ -322,7 +321,7 @@ export default class JoinEdit extends Component {
 
 			</Dialog>
 
-			<RaisedButton  label="确定"  onTouchTap={this.handleClick} />
+			<Button  label="确定"  onTouchTap={this.handleClick} />
 
 
 
