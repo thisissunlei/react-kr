@@ -55,7 +55,6 @@ class OrderDetail extends Component {
 		this.back = this.back.bind(this);
 		this.openCreateAgreementDialog = this.openCreateAgreementDialog.bind(this);
 
-
 		this.state = {
 			open:false,
 			loading:true,
@@ -76,7 +75,7 @@ class OrderDetail extends Component {
 		var _this = this;
 
 		actions.callAPI('get-order-detail',{
-			mainBillId:'3'
+			mainBillId:this.props.params.orderId
 		},{}).then(function(response){
 
 			_this.setState({
