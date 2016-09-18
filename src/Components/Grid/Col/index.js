@@ -53,7 +53,7 @@ export default class Col extends React.Component {
 			lgPull: 'lg-pull',
 		};
 
-		let {children,className} = this.props;
+		let {children,className,style={},align} = this.props;
 
 		let keys = Object.keys(this.props);
 		let props = this.props;
@@ -66,10 +66,15 @@ export default class Col extends React.Component {
 			}
 		});
 
+		if(align){
+			style.textAlign = align;
+		}
+
+		
 
 		return (
 
-			<div className={className}> 
+			<div className={className} style={style}> 
 				{this.props.children}
 				</div>
 		);

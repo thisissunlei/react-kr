@@ -160,9 +160,6 @@ var PlanForm = (props) => {
     <form onSubmit={handleSubmit(submit)}>
 
        
-
-
-
 				<Grid style={{marginTop:30}}>
 					<Row>
 						<Col md={2}>

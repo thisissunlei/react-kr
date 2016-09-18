@@ -304,15 +304,15 @@ class OrderDetail extends Component {
 			<Grid>
 
 					<Row>
-						<Col md={4} ><Button label="承租意向书" href="/#/operation/agreement/join/create"/></Col>
-						<Col md={4} ><Button label="入驻协议书" href="/#/operation/agreement/join/create"/></Col>
-						<Col md={4} ><Button label="增租协议书" href="/#/operation/agreement/join/create"/></Col>
+						<Col md={4} align="center"><Button label="承租意向书" href="/#/operation/agreement/join/create"/></Col>
+						<Col md={4} align="center"><Button label="入驻协议书" href="/#/operation/agreement/join/create"/></Col>
+						<Col md={4} align="center"><Button label="增租协议书" href="/#/operation/agreement/join/create"/></Col>
 					</Row>
 
 					<Row style={{marginTop:10}}>
-						<Col md={4} ><Button label="续租协议书" href="/#/operation/agreement/join/create"/></Col>
-						<Col md={4} ><Button label="减租协议书" href="/#/operation/agreement/join/create"/></Col>
-						<Col md={4} ><Button label="退租协议书" href="/#/operation/agreement/join/create"/></Col>
+						<Col md={4} align="center" ><Button label="续租协议书" href="/#/operation/agreement/join/create"/></Col>
+						<Col md={4} align="center"><Button label="减租协议书" href="/#/operation/agreement/join/create"/></Col>
+						<Col md={4} align="center"><Button label="退租协议书" href="/#/operation/agreement/join/create"/></Col>
 					</Row>
 			
 				</Grid>
