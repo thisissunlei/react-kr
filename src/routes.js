@@ -113,6 +113,13 @@ export default(
 						<Route path="orderlist" component={Operation.Finance.OrderBill.OrderList}/>
 					</Route>
 
+					{/*代码配置*/}
+					<Route path="codeSetting" component={Basic}>
+						<Route path="attribute" component={Operation.Finance.CodeSetting.Attribute}/>
+						<Route path="subject" component={Operation.Finance.CodeSetting.Subject}/>
+					</Route>
+
+
 				</Route>
 
 		</Route>
