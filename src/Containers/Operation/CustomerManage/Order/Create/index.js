@@ -47,9 +47,6 @@ class OrderCreate extends Component {
 		var _this = this;
 
 		actions.callAPI('community-city-select',{},{}).then(function(response){
-			_this.setState({
-				communitys:response
-			});
 		}).catch(function(err){
 			console.log('--err',err);
 		});
@@ -57,8 +54,7 @@ class OrderCreate extends Component {
 		actions.callAPI('get-customName-orderName',{
 			customerId:this.props.params.customerId
 		},{}).then(function(response){
-			_this.props.initialValues.customerName = response.customerName;
-			_this.props.initialValues.mainbillname = response.mainbillname;
+
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -100,9 +96,7 @@ class OrderCreate extends Component {
   render() {
 
 
-  	const { error, handleSubmit, pristine, reset, submitting} = this.props;
-
-  	const {communitys} = this.state;
+  	const { error, handleSubmit, pristine, reset, submitting,communitys} = this.props;
 
     return (
 
@@ -165,8 +159,25 @@ class OrderCreate extends Component {
 }
 
 
+const validate = values => {
+
+	console.log('----haha');
+	  const errors = {};
+
+	  if (!values.username) {
+		errors.username = 'Required';
+	  }
+
+	  if (!values.password) {
+		  errors.password = 'Required';
+	  }
+
+	  return errors
+}
+
 OrderCreate= reduxForm({
-  form: 'orderCreateForm'
+  form: 'orderCreateForm',
+validate
 })(OrderCreate);
 
 
@@ -174,8 +185,9 @@ const selector = formValueSelector('orderCreateForm');
 
 function mapStateToProps(state){
 
-  const communityid = selector(state, 'communityid')
+  const communityid = selector(state, 'communityid');
   const communitys = state.common['community-city-select']||[];
+	const initialValues = state.common['get-customName-orderName'];
 
 	let cityName;
 	communitys.map(function(item){
@@ -185,11 +197,11 @@ function mapStateToProps(state){
 	});
 
 	return {
-		communityid,
 		cityName,
-		initialValues:{
-		}
+		communitys,
+		initialValues
 	};
+
 }
 
 

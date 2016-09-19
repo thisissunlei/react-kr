@@ -14,10 +14,34 @@ let initState = {
 				primaryText:"运营平台",
 				router:'operation',
 				menuItems:[
-				{
+					{
+						primaryText:"客户管理",
+						router:'customerManage',
+						menuItems:[
+							{
+								primaryText:'查看客户订单',
+								router:'/operation/customerManage/34324/order/3/detail',
+							},
+							{
+								primaryText:'客户列表',
+								router:'/operation/customerManage/list',
+							},
+							{
+								primaryText:'新增客户订单',
+								router:'/operation/customerManage/1/order/create',
+							},
+							{
+								primaryText:'编辑客户订单',
+								router:'/operation/customerManage/3432/order/3432432/edit',
+							},
+
+
+						]
+					},
+					{
 						primaryText:"合同信息",
 						menuItems:[
-								{
+							{
 								primaryText:"出租方管理",
 								router:'/operation/agreement/lessorManage/list',
 							},
@@ -56,30 +80,6 @@ let initState = {
 							},
 						]
 					},
-				{
-						primaryText:"客户管理",
-						router:'customerManage',
-						menuItems:[
-							{
-								primaryText:'查看客户订单',
-								router:'/operation/customerManage/34324/order/3/detail',
-							},
-							{
-								primaryText:'客户列表',
-								router:'/operation/customerManage/list',
-							},
-							{
-								primaryText:'新增客户订单',
-								router:'/operation/customerManage/1/order/create',
-							},
-							{
-								primaryText:'编辑客户订单',
-								router:'/operation/customerManage/3432/order/3432432/edit',
-							},
-							
-							
-						]
-					},
 					{
 						primaryText:"入驻订单",
 						router:'joinOrder',
@@ -106,7 +106,7 @@ let initState = {
 							},
 						]
 					},
-					
+
 					{
 						primaryText:"财务管理",
 						rightIcon:"",
@@ -288,7 +288,7 @@ let initState = {
 			}
 		],
 	},
-	
+
 
 };
 

@@ -55,11 +55,10 @@ class OrderCreate extends Component {
 			console.log('--err',err);
 		});
 
-		actions.callAPI('get-customName-orderName',{
+		actions.callAPI('get-simple-order',{
 			customerId:this.props.params.customerId
 		},{}).then(function(response){
-			_this.props.initialValues.customerName = response.customerName;
-			_this.props.initialValues.mainbillname = response.mainbillname;
+
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -175,8 +174,10 @@ const selector = formValueSelector('orderCreateForm');
 
 function mapStateToProps(state){
 
-  const communityid = selector(state, 'communityid')
-  const communitys = state.common['community-city-select']||[];
+  const communityid = selector(state, 'communityid');
+
+	const initialValues = state.common['get-simple-order'] ||[];
+	const communitys = state.common['community-city-select'] || [];
 
 	let cityName;
 	communitys.map(function(item){
@@ -188,8 +189,7 @@ function mapStateToProps(state){
 	return {
 		communityid,
 		cityName,
-		initialValues:{
-		}
+		initialValues
 	};
 }
 
