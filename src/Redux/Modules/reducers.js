@@ -18,4 +18,5 @@ module.exports = {
 ...Navs,
 ...Common,
  form: formReducer  
+
 };

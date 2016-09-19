@@ -37,7 +37,6 @@ class OrderCreate extends Component {
 
 		this.state = {
 			open:false,
-			communitys:[]
 		}
 
 	}
@@ -48,16 +47,15 @@ class OrderCreate extends Component {
 		var _this = this;
 
 		actions.callAPI('community-city-select',{},{}).then(function(response){
-			_this.setState({
-				communitys:response
-			});
 		}).catch(function(err){
 			console.log('--err',err);
 		});
 
 		actions.callAPI('get-simple-order',{
-			customerId:this.props.params.customerId
+			mainBillId:this.props.params.oriderId
 		},{}).then(function(response){
+
+			console.log('----response----',response);
 
 		}).catch(function(err){
 			Notify.show([{
@@ -100,9 +98,9 @@ class OrderCreate extends Component {
   render() {
 
 
-  	const { error, handleSubmit, pristine, reset, submitting} = this.props;
+  	const { error, handleSubmit, pristine, reset, submitting,communitys} = this.props;
 
-  	const {communitys} = this.state;
+	  console.log('----initialValues',this.props.initialValues);
 
     return (
 
@@ -165,18 +163,13 @@ class OrderCreate extends Component {
 }
 
 
-OrderCreate= reduxForm({
-  form: 'orderCreateForm'
-})(OrderCreate);
 
-
-const selector = formValueSelector('orderCreateForm');
+const selector = formValueSelector('orderEditForm');
 
 function mapStateToProps(state){
 
   const communityid = selector(state, 'communityid');
-
-	const initialValues = state.common['get-simple-order'] ||[];
+	const initialValues = state.common['get-simple-order'] ||{};
 	const communitys = state.common['community-city-select'] || [];
 
 	let cityName;
@@ -188,13 +181,16 @@ function mapStateToProps(state){
 
 	return {
 		communityid,
+		communitys,
 		cityName,
 		initialValues
 	};
 }
 
 
-export default connect(mapStateToProps)(OrderCreate);
+export default connect(mapStateToProps)( reduxForm({
+  form: 'orderEditForm'
+})(OrderCreate));
 
 
 

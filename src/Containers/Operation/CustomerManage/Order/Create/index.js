@@ -4,7 +4,7 @@ import { connect } from 'kr/Redux';
 import Section from 'kr-ui/Section';
 import {KrField,LabelText} from 'kr-ui/Form';
 
-import {reduxForm,formValueSelector} from 'redux-form';
+import {reduxForm,formValueSelector,Field} from 'redux-form';
 
 
 import BreadCrumbs from 'kr-ui/BreadCrumbs';
@@ -22,6 +22,18 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 
 import * as actionCreators from 'kr/Redux/Actions';
+
+
+const renderField = ({ input, label, type, meta: { touched, error } }) => (
+  <div>
+    <label>{label}</label>
+    <div>
+      <input {...input} placeholder={label} type={type}/>
+      {touched && error && <span>{error}</span>}
+    </div>
+  </div>
+)
+
 
  
 class OrderCreate extends Component {
@@ -70,6 +82,7 @@ class OrderCreate extends Component {
 
 	confirmSubmit(values){
 
+
 		var {actions} = this.props;
 
 		values.customerid = this.props.customerId;
@@ -108,7 +121,7 @@ class OrderCreate extends Component {
 
 				 <form onSubmit={handleSubmit(this.confirmSubmit)}>
 
-				<Grid style={{marginTop:30}}>
+<Grid style={{marginTop:30}}>
 
 					<Row>
 						<Col md={12} > <KrField name="customerName" type="text" label="客户名称"  disabled={true}/> </Col>
@@ -146,10 +159,12 @@ class OrderCreate extends Component {
 
 					<Row style={{marginTop:30}}>
 						<Col md={10}></Col>
-						<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} /> </Col>
+						<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} disabled={submitting} /> </Col>
 					</Row>
 
 				</Grid>
+
+				
     </form>
 			</Section>
 			
@@ -158,26 +173,8 @@ class OrderCreate extends Component {
   }
 }
 
-
-const validate = values => {
-
-	console.log('----haha');
-	  const errors = {};
-
-	  if (!values.username) {
-		errors.username = 'Required';
-	  }
-
-	  if (!values.password) {
-		  errors.password = 'Required';
-	  }
-
-	  return errors
-}
-
 OrderCreate= reduxForm({
   form: 'orderCreateForm',
-validate
 })(OrderCreate);
 
 
@@ -186,7 +183,7 @@ const selector = formValueSelector('orderCreateForm');
 function mapStateToProps(state){
 
   const communityid = selector(state, 'communityid');
-  const communitys = state.common['community-city-select']||[];
+  const communitys = [] || state.common['community-city-select']||[];
 	const initialValues = state.common['get-customName-orderName'];
 
 	let cityName;
@@ -209,3 +206,8 @@ export default connect(mapStateToProps)(OrderCreate);
 
 
 
+/*
+ 
+
+
+*/
