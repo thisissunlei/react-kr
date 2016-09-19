@@ -12,6 +12,11 @@ import BreadCrumbs from 'kr-ui/BreadCrumbs';
 
 import {Grid,Row,Col} from 'kr-ui/Grid';
 
+import {Button} from 'kr-ui/Button';
+import {Notify} from 'kr-ui';
+
+
+
 import {Dialog,Snackbar} from 'material-ui';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -31,10 +36,16 @@ class OrderCreate extends Component {
 			communitys:[]
 		}
 
+
+	}
+
+	componentDidMount(){
+
+
 		var {actions} = this.props;
 		var _this = this;
+
 		actions.callAPI('community-city-select',{},{}).then(function(response){
-			console.log('rep',response);
 			_this.setState({
 				communitys:response
 			});
@@ -44,15 +55,22 @@ class OrderCreate extends Component {
 
 	}
 
-
 	confirmSubmit(values){
-		console.log('--->>>>',values);	
+
 		var {actions} = this.props;
 
+		values.customerid = this.props.customerId;
+
 		actions.callAPI('enter-order',{},values).then(function(response){
-
+			Notify.show([{
+				message:'创建成功',
+				type: 'success',
+			}]);
 		}).catch(function(err){
-
+			Notify.show([{
+				message:'创建失败',
+				type: 'danger',
+			}]);
 		});
 
 	}
@@ -68,7 +86,6 @@ class OrderCreate extends Component {
 
   	const {communitys} = this.state;
 
-
     return (
 
       <div>
@@ -78,7 +95,6 @@ class OrderCreate extends Component {
 			<Section title="客户信息编辑" description=""> 
 
 				 <form onSubmit={handleSubmit(this.confirmSubmit)}>
-
 
 				<Grid style={{marginTop:30}}>
 
@@ -96,24 +112,19 @@ class OrderCreate extends Component {
 
 					<Row>
 						<Col md={12} > 
-
-                     <KrField name="communityid" component="select" label="所在社区">
-                     		<option>请选择社区</option>
-                     		{/*
-								{communitys.map((item,index)=> <option value={item.communityid} key={index}>{item.communityName}</option>)}
-                     		*/}
-                     		
-						 </KrField>
-		
+								 <KrField name="communityid" component="select" label="所在社区">
+										<option>请选择社区</option>
+											{communitys.map((item,index)=> <option value={item.communityid} key={index}>{item.communityName}</option>)}
+								 </KrField>
 						    </Col>
 					</Row>
 
 					<Row>
-						<Col md={12} > <KrField name="city" label="所在城市" type="text"  disabled={true}/> </Col>
+						<Col md={12} > <KrField name="city" label="所在城市" type="text"  disabled={true} placeholder="dfsfsd"/> </Col>
 					</Row>
 
 					<Row>
-						<Col md={12} > <KrField name="ordername" type="text" label="订单名称" disabled={true} /> </Col>
+						<Col md={12} > <KrField name="ordername" type="text" label="订单名称" disabled={true} placeholder={this.props.userName} /> </Col>
 					</Row>
 
 					<Row>
@@ -126,16 +137,11 @@ class OrderCreate extends Component {
 
 					<Row style={{marginTop:30}}>
 						<Col md={10}></Col>
-						<Col md={1}> <RaisedButton  label="确定" type="submit" primary={true} /> </Col>
-						<Col md={1}> <RaisedButton  label="取消" type="submit"  /> </Col>
+						<Col md={1}> <Button  label="确定" type="submit" primary={true} /> </Col>
+						<Col md={1}> <Button  label="取消" type="submit"  /> </Col>
 					</Row>
 
 				</Grid>
-
-		  {/*
-			<FlatButton label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
-		  */}
-
     </form>
 			</Section>
 			
@@ -155,19 +161,17 @@ const selector = formValueSelector('orderCreateForm');
 
 function mapStateToProps(state){
 
-  const favoriteColorValue = selector(state, 'favoriteColor');
+  const communityid = selector(state, 'communityid');
+  const userName = selector(state, 'userName');
 
 	return {
-		items:state.notify.items,
-    	favoriteColorValue:favoriteColorValue
+		communityid,
+		userName
 	};
 }
 
 
 export default connect(mapStateToProps)(OrderCreate);
-
-
-
 
 
 

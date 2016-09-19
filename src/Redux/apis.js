@@ -1,7 +1,14 @@
 const APIS  = {
 	
+
+	//demo
+	'demo':{
+		url:'/mockjsdata/3/krspace-admin-web/community-city-selected',
+		method:'get'
+	},
+
 	'community-city-select':{
-		url:'/prod/krspace-admin-web/community-city-selected',
+		url:'/prod/krspace-finance-web/action/community-city-selected',
 		method:'get'
 	},
 	//创建新的订单
@@ -20,10 +27,23 @@ const APIS  = {
 		method:'get'
 	},
 
-	'demo':{
-		url:'/mockjsdata/3/krspace-admin-web/community-city-selected',
+	//财务管理－属性配置－列表
+	'viewFinaFinaflowProperty':{
+		url:'/krspace-finance-web/finaccount/property/viewFinaFinaflowProperty',
 		method:'get'
-	}
+	},
+
+	//财务管理－属性配置-新增(编辑)
+	'addFinaFinaflowProperty':{
+		url:'/krspace-finance-web/finaccount/property/addFinaFinaflowProperty',
+		method:'get'
+	},
+
+	//财务管理－属性配置-查看
+	'viewFinaFinaflowProperty':{
+		url:'/krspace-finance-web/finaccount/property/viewFinaFinaflowProperty',
+		method:'get'
+	},
 
 }
 

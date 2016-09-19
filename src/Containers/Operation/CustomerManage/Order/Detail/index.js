@@ -83,14 +83,13 @@ class OrderDetail extends Component {
 					loading:false
 				});
 			},1000);
+
 		}).catch(function(err){
 			Notify.show([{
 				message:'报错了',
 				type: 'danger',
 			}]);
 		});
-
-
 
 	}
 

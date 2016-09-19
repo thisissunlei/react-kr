@@ -71,6 +71,7 @@ function jsonParse(res) {
 }
 
 const http = {
+
     request:(path, params,payload,method)=>{
 
         const url = getUrl(path, params);
@@ -102,6 +103,9 @@ const http = {
 
         return promise;
     },
+	transformResponse:function(response){
+		return response.data;
+	},
     get: (url, params) => new Promise((resolve, reject) => {
         if (!url) {
             return;
@@ -117,7 +121,7 @@ const http = {
             .then(jsonParse)
             .then(json => {
 				//处理数据格式
-				resolve(json.data)
+				resolve(http.transformResponse(json))
 			})
             .catch(err => reject(err))
     }),
@@ -143,7 +147,10 @@ const http = {
             })
             .then(check401)
             .then(jsonParse)
-            .then(json => resolve(json))
+            .then(json => {
+				//处理数据格式
+				resolve(http.transformResponse(json))
+			})
             .catch(err => reject(err));
     }),
 
@@ -168,7 +175,10 @@ const http = {
             })
             .then(check401)
             .then(jsonParse)
-            .then(json => resolve(json))
+            .then(json => {
+				//处理数据格式
+				resolve(http.transformResponse(json))
+			})
             .catch(err => reject(err));
     }),
 }

@@ -105,7 +105,7 @@ class Header extends Component {
 
 	render() {
 
-		var styles = {paddingLeft:0,position:'fixed',top:0,left:0,right:0,zIndex:99};
+		var styles = {paddingLeft:0,position:'fixed',top:0,left:0,right:0,zIndex:9};
 
 		var {switch_value} = this.props.sidebar_nav;
 
