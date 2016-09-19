@@ -11,6 +11,11 @@ const APIS  = {
 		url:'/prod/krspace-finance-web/action/community-city-selected',
 		method:'get'
 	},
+	//订单基本信息
+	'get-customName-orderName':{
+		url:'/prod/krspace-finance-web/action/get-customName-orderName?customerId={customerId}',
+		method:'get'
+	},
 	//创建新的订单
 	'enter-order':{
 		url:'/mockjsdata/3/krspace-finance-web/action/enter-order',

@@ -106,81 +106,122 @@ const http = {
 	transformResponse:function(response){
 		return response.data;
 	},
-    get: (url, params) => new Promise((resolve, reject) => {
+    syncGet: (url, params) => new Promise((resolve, reject) => {
+
         if (!url) {
             return;
         }
-        fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Accept': '*',
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-                }
-            })
-            .then(check401)
-            .then(jsonParse)
-            .then(json => {
-				//处理数据格式
-				resolve(http.transformResponse(json))
+
+		var xhr = new XMLHttpRequest();
+
+		// 指定通信过程中状态改变时的回调函数
+		xhr.onreadystatechange = function(){
+			// 通信成功时，状态值为4
+			if (xhr.readyState === 4){
+				if (xhr.status === 200){
+					resolve(xhr.response.data);
+				} else {
+					reject(xhr.statusText);
+				}
+			}
+		};
+
+		xhr.onerror = function (e) {
+			console.error(xhr.statusText);
+		};
+
+		xhr.responseType = 'json';
+
+		xhr.open('GET', url);
+		xhr.send(null);
+	}),
+	get: (url, params) => new Promise((resolve, reject) => {
+		if (!url) {
+			return;
+		}
+		fetch(url, {
+			method: 'GET',
+			headers: {
+				'Accept': '*',
+				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+			}
+		})
+			.then(check401)
+			.then(jsonParse)
+			.then(json => {
+				if(parseInt(json.code)>0){
+					//处理数据格式
+					resolve(http.transformResponse(json))
+				}else{
+					reject(json)
+				}
 			})
-            .catch(err => reject(err))
-    }),
+			.catch(err => reject(err))
+	}),
 
-    post: (url, params, payload) => new Promise((resolve, reject) => {
-        const searchParams = new URLSearchParams();
+	post: (url, params, payload) => new Promise((resolve, reject) => {
+		const searchParams = new URLSearchParams();
 
-        if (!url) {
-            return
-        }
+		if (!url) {
+			return
+		}
 
-        for (const prop in payload) {
-            searchParams.set(prop, payload[prop])
-        }
+		for (const prop in payload) {
+			searchParams.set(prop, payload[prop])
+		}
 
-        return fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Accept': '*',
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-                },
-                body: searchParams
-            })
-            .then(check401)
-            .then(jsonParse)
-            .then(json => {
-				//处理数据格式
-				resolve(http.transformResponse(json))
+		return fetch(url, {
+			method: 'POST',
+			headers: {
+				'Accept': '*',
+				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+			},
+			body: searchParams
+		})
+			.then(check401)
+			.then(jsonParse)
+			.then(json => {
+				if(parseInt(json.code)>0){
+					//处理数据格式
+					resolve(http.transformResponse(json))
+				}else{
+					reject(json)
+				}
 			})
-            .catch(err => reject(err));
-    }),
+			.catch(err => reject(err));
+	}),
 
-    remove: (url, params, payload) => new Promise((resolve, reject) => {
-        const searchParams = new URLSearchParams();
+	remove: (url, params, payload) => new Promise((resolve, reject) => {
+		const searchParams = new URLSearchParams();
 
-        if (!url) {
-            return
-        }
+		if (!url) {
+			return
+		}
 
-        for (const prop in payload) {
-            searchParams.set(prop, payload[prop])
-        }
+		for (const prop in payload) {
+			searchParams.set(prop, payload[prop])
+		}
 
-        return fetch(url, {
-                method: 'DELETE',
-                headers: {
-                    'Accept': '*',
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-                },
-                body: searchParams
-            })
-            .then(check401)
-            .then(jsonParse)
-            .then(json => {
-				//处理数据格式
-				resolve(http.transformResponse(json))
+		return fetch(url, {
+			method: 'DELETE',
+			headers: {
+				'Accept': '*',
+				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+			},
+			body: searchParams
+		})
+			.then(check401)
+			.then(jsonParse)
+			.then(json => {
+				if(parseInt(json.code)>0){
+					//处理数据格式
+					resolve(http.transformResponse(json))
+				}else{
+					reject(json)
+				}
 			})
-            .catch(err => reject(err));
-    }),
+			.catch(err => reject(err));
+	}),
 }
 
 
