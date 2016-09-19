@@ -20,13 +20,12 @@ export default(
 	<Route path="/" component={Master}>
 
 	
-		<IndexRoute component={Welcome}/>
+		<IndexRoute component={Permission.Home}/>
 
 		<Route path="index" component={Welcome}/>
 
 
 		<Redirect from="messages/:id" to="/messages/:id" />
-
 
 		{/*运营管理*/}
 		<Route path="operation" component={Basic}>

@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'kr/Redux';
 
-
 import Section from 'kr-ui/Section';
 import {KrField,LabelText} from 'kr-ui/Form';
 
@@ -22,6 +21,9 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
 
+import * as actionCreators from 'kr/Redux/Actions';
+
+
  
 class OrderCreate extends Component {
 
@@ -31,16 +33,16 @@ class OrderCreate extends Component {
 		this.confirmSubmit = this.confirmSubmit.bind(this);
 		this.back = this.back.bind(this);
 
+		console.log('this',props);
+
 		this.state = {
 			open:false,
 			communitys:[]
 		}
 
-
 	}
 
 	componentDidMount(){
-
 
 		var {actions} = this.props;
 		var _this = this;
@@ -53,6 +55,22 @@ class OrderCreate extends Component {
 			console.log('--err',err);
 		});
 
+		actions.callAPI('get-customName-orderName',{
+			customerId:this.props.params.customerId
+		},{}).then(function(response){
+			_this.props.initialValues.customerName = response.customerName;
+			_this.props.initialValues.mainbillname = response.mainbillname;
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+		});
+
+	}
+
+	componentWillReceiveProps(nextProps){
+		console.log('nextProps',nextProps);
 	}
 
 	confirmSubmit(values){
@@ -82,6 +100,7 @@ class OrderCreate extends Component {
 
   render() {
 
+
   	const { error, handleSubmit, pristine, reset, submitting} = this.props;
 
   	const {communitys} = this.state;
@@ -99,12 +118,13 @@ class OrderCreate extends Component {
 				<Grid style={{marginTop:30}}>
 
 					<Row>
-						<Col md={12} > <KrField name="username" type="text" label="客户名称" /> </Col>
+						<Col md={12} > <KrField name="customerName" type="text" label="客户名称"  disabled={true}/> </Col>
 					</Row>
 
 					<Row>
 						<Col md={12} > 
 						 <KrField name="ordertype" component="select" label="订单类型">
+						     <option>请选择类型</option>
 						     <option value="1">工位订单</option>
 						 </KrField>
 						 </Col>
@@ -114,21 +134,17 @@ class OrderCreate extends Component {
 						<Col md={12} > 
 								 <KrField name="communityid" component="select" label="所在社区">
 										<option>请选择社区</option>
-											{communitys.map((item,index)=> <option value={item.communityid} key={index}>{item.communityName}</option>)}
+											{communitys.map((item,index)=> <option value={item.communityId} key={index}>{item.communityName}</option>)}
 								 </KrField>
 						    </Col>
 					</Row>
 
 					<Row>
-						<Col md={12} > <KrField name="city" label="所在城市" type="text"  disabled={true} placeholder="dfsfsd"/> </Col>
+						<Col md={12} > <LabelText label="所在城市" text={this.props.cityName||'空'}/> </Col>
 					</Row>
 
 					<Row>
-						<Col md={12} > <KrField name="ordername" type="text" label="订单名称" disabled={true} placeholder={this.props.userName} /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={12} > <KrField name="mainbilltype" type="text" label="订单编号"/> </Col>
+						<Col md={12} > <KrField name="mainbillname" type="text" label="订单名称" /> </Col>
 					</Row>
 
 					<Row>
@@ -137,7 +153,7 @@ class OrderCreate extends Component {
 
 					<Row style={{marginTop:30}}>
 						<Col md={10}></Col>
-						<Col md={1}> <Button  label="确定" type="submit" primary={true} /> </Col>
+						<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} /> </Col>
 					</Row>
 
 				</Grid>
@@ -157,17 +173,24 @@ OrderCreate= reduxForm({
 
 const selector = formValueSelector('orderCreateForm');
 
-
 function mapStateToProps(state){
 
-  const communityid = selector(state, 'communityid');
-  const userName = selector(state, 'userName');
+  const communityid = selector(state, 'communityid')
+  const communitys = state.common['community-city-select']||[];
+
+	let cityName;
+	communitys.map(function(item){
+		if(item.communityId == communityid){
+			cityName = item.cityName;
+		}
+	});
 
 	return {
 		communityid,
-		userName
+		cityName,
+		initialValues:{
+		}
 	};
-
 }
 
 

@@ -132,10 +132,12 @@ let initState = {
 
 				]
 			},
+			/*
 			{
 				primaryText:"权限管理",
 				router:'permission',
 			},
+			*/
 		]
 	},
 	common:{
