@@ -40,8 +40,6 @@ class OrderCreate extends Component {
 			communitys:[]
 		}
 
-
-
 	}
 
 	componentDidMount(){
@@ -57,23 +55,21 @@ class OrderCreate extends Component {
 			console.log('--err',err);
 		});
 
-
-
 		actions.callAPI('get-customName-orderName',{
 			customerId:this.props.params.customerId
 		},{}).then(function(response){
 			_this.props.initialValues.customerName = response.customerName;
 			_this.props.initialValues.mainbillname = response.mainbillname;
 		}).catch(function(err){
-			console.log('--err',err);
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
 		});
 
 	}
 
 	componentWillReceiveProps(nextProps){
-
-
-
 		console.log('nextProps',nextProps);
 	}
 
@@ -144,7 +140,7 @@ class OrderCreate extends Component {
 					</Row>
 
 					<Row>
-						<Col md={12} > <KrField name="cityName" label="所在城市" type="text"  disabled={true}/> </Col>
+						<Col md={12} > <LabelText label="所在城市" text={this.props.cityName||'空'}/> </Col>
 					</Row>
 
 					<Row>
@@ -179,12 +175,20 @@ const selector = formValueSelector('orderCreateForm');
 
 function mapStateToProps(state){
 
-  const communityid = selector(state, 'communityid');
+  const communityid = selector(state, 'communityid')
+  const communitys = state.common['community-city-select']||[];
+
+	let cityName;
+	communitys.map(function(item){
+		if(item.communityId == communityid){
+			cityName = item.cityName;
+		}
+	});
 
 	return {
 		communityid,
+		cityName,
 		initialValues:{
-			customerName:'haahah'
 		}
 	};
 }
