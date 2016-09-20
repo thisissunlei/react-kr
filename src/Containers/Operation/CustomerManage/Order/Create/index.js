@@ -82,6 +82,8 @@ class OrderCreate extends Component {
 
 	confirmSubmit(values){
 
+		console.log('---->>>',values);
+
 
 		var {actions} = this.props;
 

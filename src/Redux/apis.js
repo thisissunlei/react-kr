@@ -3,7 +3,7 @@ const APIS  = {
 
 	//demo
 	'demo':{
-		url:'/mockjsdata/3/krspace-admin-web/community-city-selected',
+		url:'/prod/krspace-finance-web/action/community-city-selected',
 		method:'get'
 	},
 
