@@ -1,5 +1,5 @@
 import http from '../Utils/fetch';
- import Promise from 'Promise';
+import Promise from 'promise-polyfill';
 
 
 function callAPIMiddleware({dispatch,getState}){

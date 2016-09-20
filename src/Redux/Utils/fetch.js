@@ -1,4 +1,4 @@
- import Promise from 'Promise';
+ import Promise from 'promise-polyfill';
 import fetch from 'isomorphic-fetch';
 import URLSearchParams from 'url-search-params';
 import { browserHistory } from 'react-router';
