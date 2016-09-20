@@ -55,8 +55,9 @@ class OrderCreate extends Component {
 			mainBillId:this.props.params.oriderId
 		},{}).then(function(response){
 
-			console.log('----response----',response);
+			this.props.initialize();  
 
+			console.log('----response----',response);
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -169,9 +170,7 @@ const selector = formValueSelector('orderEditForm');
 function mapStateToProps(state){
 
   const communityid = selector(state, 'communityid');
-	const initialValues = state.common['get-simple-order'] ||{};
 	const communitys = state.common['community-city-select'] || [];
-
 	let cityName;
 	communitys.map(function(item){
 		if(item.communityId == communityid){
@@ -183,7 +182,6 @@ function mapStateToProps(state){
 		communityid,
 		communitys,
 		cityName,
-		initialValues
 	};
 }
 
