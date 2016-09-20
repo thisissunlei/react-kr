@@ -61,6 +61,7 @@
     "node-noop": "^1.0.0",
     "nodemon": "^1.10.0",
     "open": "0.0.5",
+    "promise-polyfill": "^6.0.2",
     "react": "^0.14.6",
     "react-docgen": "^2.9.1",
     "react-dom": "^0.14.6",
