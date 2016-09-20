@@ -1,5 +1,6 @@
 import http from '../Utils/fetch';
-import Promise from 'promise-polyfill';
+ import Promise from 'Promise';
+
 
 function callAPIMiddleware({dispatch,getState}){
 
@@ -52,13 +53,12 @@ function callAPIMiddleware({dispatch,getState}){
 
 					resolve(response);
 
-				}).then(function(err){
+				}).catch(function(err){
 					dispatch(Object.assign({},payload,{
 						type:failureType,
 						error:err,
 						name:apiName
 					}))
-					
 					reject(err);
 				});
 			});

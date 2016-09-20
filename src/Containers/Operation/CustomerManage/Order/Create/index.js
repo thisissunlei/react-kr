@@ -4,7 +4,7 @@ import { connect } from 'kr/Redux';
 import Section from 'kr-ui/Section';
 import {KrField,LabelText} from 'kr-ui/Form';
 
-import {reduxForm,formValueSelector,Field} from 'redux-form';
+import {reduxForm,formValueSelector} from 'redux-form';
 
 
 import BreadCrumbs from 'kr-ui/BreadCrumbs';
@@ -17,23 +17,6 @@ import {Notify} from 'kr-ui';
 
 
 import {Dialog,Snackbar} from 'material-ui';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-
-
-import * as actionCreators from 'kr/Redux/Actions';
-
-
-const renderField = ({ input, label, type, meta: { touched, error } }) => (
-  <div>
-    <label>{label}</label>
-    <div>
-      <input {...input} placeholder={label} type={type}/>
-      {touched && error && <span>{error}</span>}
-    </div>
-  </div>
-)
-
 
  
 class OrderCreate extends Component {
@@ -48,7 +31,6 @@ class OrderCreate extends Component {
 
 		this.state = {
 			open:false,
-			communitys:[]
 		}
 
 	}
@@ -77,17 +59,13 @@ class OrderCreate extends Component {
 	}
 
 	componentWillReceiveProps(nextProps){
-		console.log('nextProps',nextProps);
 	}
 
 	confirmSubmit(values){
 
-		console.log('---->>>',values);
-
-
 		var {actions} = this.props;
 
-		values.customerid = this.props.customerId;
+		values.customerid = this.props.params.customerId;
 
 		actions.callAPI('enter-order',{},values).then(function(response){
 			Notify.show([{
@@ -96,9 +74,10 @@ class OrderCreate extends Component {
 			}]);
 		}).catch(function(err){
 			Notify.show([{
-				message:'创建失败',
+				message:err.message,
 				type: 'danger',
 			}]);
+
 		});
 
 	}
@@ -185,7 +164,7 @@ const selector = formValueSelector('orderCreateForm');
 function mapStateToProps(state){
 
   const communityid = selector(state, 'communityid');
-  const communitys = [] || state.common['community-city-select']||[];
+  const communitys = state.common['community-city-select']||[];
 	const initialValues = state.common['get-customName-orderName'];
 
 	let cityName;

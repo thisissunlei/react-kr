@@ -1,4 +1,4 @@
-import Promise from 'promise-polyfill';
+ import Promise from 'Promise';
 import fetch from 'isomorphic-fetch';
 import URLSearchParams from 'url-search-params';
 import { browserHistory } from 'react-router';
@@ -43,9 +43,7 @@ function getUrl(path, params = {},mode = false) {
         }else{
             server +='?'+searchParams.toString();
         }
-
     }
-
     return server;
 }
 
@@ -54,11 +52,8 @@ function getUrl(path, params = {},mode = false) {
 function getMethod(path) {
 
      const apiConfig = APIS[path];
-
     return apiConfig.method;
 }
-
-
 
 function check401(res) {
     if (res.status === 401) {
@@ -107,35 +102,6 @@ const http = {
 	transformResponse:function(response){
 		return response.data;
 	},
-    syncGet: (url, params) => new Promise((resolve, reject) => {
-
-        if (!url) {
-            return;
-        }
-
-		var xhr = new XMLHttpRequest();
-
-		// 指定通信过程中状态改变时的回调函数
-		xhr.onreadystatechange = function(){
-			// 通信成功时，状态值为4
-			if (xhr.readyState === 4){
-				if (xhr.status === 200){
-					resolve(xhr.response.data);
-				} else {
-					reject(xhr.statusText);
-				}
-			}
-		};
-
-		xhr.onerror = function (e) {
-			console.error(xhr.statusText);
-		};
-
-		xhr.responseType = 'json';
-
-		xhr.open('GET', url);
-		xhr.send(null);
-	}),
 	get: (url, params) => new Promise((resolve, reject) => {
 		if (!url) {
 			return;
@@ -171,7 +137,7 @@ const http = {
 			searchParams.set(prop, payload[prop])
 		}
 
-		return fetch(url, {
+		fetch(url, {
 			method: 'POST',
 			headers: {
 				'Accept': '*',
@@ -184,9 +150,9 @@ const http = {
 			.then(json => {
 				if(parseInt(json.code)>0){
 					//处理数据格式
-					resolve(http.transformResponse(json))
+					resolve(http.transformResponse(json));
 				}else{
-					reject(json)
+					reject(err);
 				}
 			})
 			.catch(err => reject(err));
