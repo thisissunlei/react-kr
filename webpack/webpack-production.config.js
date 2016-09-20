@@ -73,8 +73,8 @@ const config = {
 			  loader: 'raw-loader',
 		  },
 		  {
-			  test: /\.less$/, 
-			  loader: 'style!css!less'
+			  test: /\.less$/,
+			  loader: "style-loader!css-loader!less-loader"
 		  },
 		  {
 			  test: /\.css$/, 
