@@ -110,9 +110,9 @@ class OrderCreate extends Component {
 
 					<Row>
 						<Col md={12} > 
-						 <KrField name="ordertype" component="select" label="订单类型">
+						 <KrField name="mainbilltype" component="select" label="订单类型">
 						     <option>请选择类型</option>
-						     <option value="1">工位订单</option>
+						     <option value="STATION">工位订单</option>
 						 </KrField>
 						 </Col>
 					</Row>
