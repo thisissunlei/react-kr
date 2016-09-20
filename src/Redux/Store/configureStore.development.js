@@ -1,4 +1,4 @@
-import { createStore,combineReducers,applyMiddleware} from 'redux';
+import { createStore,combineReducers,applyMiddleware,compose} from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 
@@ -14,8 +14,10 @@ const loggerMiddleware = createLogger();
 
 module.exports = function configureStore(initialState) {
 
-	let store = createStore(combineReducers(Reducers), initState, applyMiddleware(
-		thunkMiddleware, loggerMiddleware ,callAPIMiddleware
+	let store = createStore(combineReducers(Reducers), initState, compose(applyMiddleware(
+			thunkMiddleware, loggerMiddleware ,callAPIMiddleware
+		),
+		typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : f => f
 	));
 
     return store
