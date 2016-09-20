@@ -1,4 +1,4 @@
- import Promise from 'Promise';
+ import Promise from 'promise-polyfill';
 import fetch from 'isomorphic-fetch';
 import URLSearchParams from 'url-search-params';
 import { browserHistory } from 'react-router';
@@ -152,7 +152,7 @@ const http = {
 					//处理数据格式
 					resolve(http.transformResponse(json));
 				}else{
-					reject(err);
+					reject(json);
 				}
 			})
 			.catch(err => reject(err));
