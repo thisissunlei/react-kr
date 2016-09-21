@@ -23,10 +23,6 @@ let initState = {
 								router:'/operation/customerManage/34324/order/3/detail',
 							},
 							{
-								primaryText:'客户列表',
-								router:'/operation/customerManage/list',
-							},
-							{
 								primaryText:'新增客户订单',
 								router:'/operation/customerManage/108/order/create',
 							},
@@ -49,64 +45,8 @@ let initState = {
 								primaryText:"基础配置",
 								router:'/operation/agreement/setting/list',
 							},
-							{
-								primaryText:"入驻协议书－创建",
-								router:'/operation/agreement/join/create',
-							},
-							{
-								primaryText:"入驻协议书-编辑",
-								router:'/operation/agreement/join/edit',
-							},
-							{
-								primaryText:"入驻协议书-查看",
-								router:'/operation/agreement/join/detail',
-							},
-
-							{
-								primaryText:"承租意向书",
-								router:'/operation/agreement/join/detail',
-							},
-							{
-								primaryText:"增租协议书",
-								router:'/operation/agreement/join/detail',
-							},
-							{
-								primaryText:"减租协议书",
-								router:'/operation/agreement/join',
-							},
-							{
-								primaryText:"退租协议书",
-								router:'/operation/agreement/join',
-							},
 						]
 					},
-					{
-						primaryText:"入驻订单",
-						router:'joinOrder',
-						menuItems:[
-							{
-								primaryText:'客户列表',
-								router:'/operation/joinOrder/list',
-							},
-							{
-								primaryText:'客户编辑',
-								router:'/operation/joinOrder/customer/edit',
-							},
-							{
-								primaryText:'客户详情',
-								router:'/operation/joinOrder/customer/detail',
-							},
-							{
-								primaryText:'订单详情',
-								router:'/operation/joinOrder/customer/detail',
-							},
-							{
-								primaryText:'订单编辑',
-								router:'/operation/joinOrder/customer/detail',
-							},
-						]
-					},
-
 					{
 						primaryText:"财务管理",
 						rightIcon:"",
