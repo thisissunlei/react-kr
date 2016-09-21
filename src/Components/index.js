@@ -9,7 +9,7 @@ export Pagination from './Pagination';
 export Notify from './Notify';
 export Button from './Button';
 export MyForm from './MyForm';
-
+export Dialog from './Dialog';
 
 
 
