@@ -7,8 +7,6 @@ import ReactDOM from 'react-dom';
 import NowtifyItem from './NowtifyItem';
 
 
-
-
 const defaultConfig = {
   localPath: '/node_modules/react-nowtify/',
   containerID: 'nowtify-wrapper',
