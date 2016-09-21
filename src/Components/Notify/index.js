@@ -1,7 +1,3 @@
-/**
- * React-Nowtify 
- * Notification Box (Notifications container) 
-*/
 import React from 'react';
 import ReactDOM from 'react-dom';
 import NowtifyItem from './NowtifyItem';

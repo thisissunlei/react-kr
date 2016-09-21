@@ -11,9 +11,7 @@ export Button from './Button';
 export MyForm from './MyForm';
 export Dialog from './Dialog';
 
-
-
-
+export Notify from './Notify';
 
 
 
