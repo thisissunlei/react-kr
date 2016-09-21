@@ -22,6 +22,8 @@ import {
 	FloatingActionButton
 } from 'material-ui';
 
+import ActionHome from 'material-ui/svg-icons/action/home';
+
 import {Popover, PopoverAnimationVertical} from 'material-ui/Popover';
 
 import ContentAdd from 'material-ui/svg-icons/content/add';
@@ -127,6 +129,20 @@ class Header extends Component {
 						 <FlatButton onTouchTap={this.handleToggle} icon={<NavigationMenu  />} style={{color:'#fff',height:67}} />
 						{this.props.navs_items.map((item,index)=>this.renderHeaderNav(item,index))}
 					</div>
+		}
+
+		iconElementRight={
+			 <IconMenu
+				iconButtonElement={
+				  <IconButton><MoreVertIcon /></IconButton>
+				}
+				targetOrigin={{horizontal: 'right', vertical: 'top'}}
+				anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+			  >
+				<MenuItem primaryText="返回" />
+				<MenuItem primaryText="个人中心" />
+				<MenuItem primaryText="退出" />
+			  </IconMenu>
 		}
 				/>
 			);
