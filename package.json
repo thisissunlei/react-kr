@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run dev",
-    "dev": "set NODE_ENV=development &&  ./node_modules/nodemon/bin/nodemon.js ./server.js",
+    "dev": "set NODE_ENV=development &&  nodemon ./server.js",
     "build": "set NODE_ENV=production  &&  webpack --config ./webpack/webpack-production.config.js --progress --colors --profile",
     "test": "set NODE_ENV=test && webpack --config ./webpack/webpack-test.config.js --progress --colors --profile"
   },
