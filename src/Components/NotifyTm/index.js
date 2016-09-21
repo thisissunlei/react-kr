@@ -5,7 +5,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import NowtifyItem from './NowtifyItem';
-import { defaultConfig, defaultNotificationSound } from './const';
+
+
+
+
+const defaultConfig = {
+  localPath: '/node_modules/react-nowtify/',
+  containerID: 'nowtify-wrapper',
+  displayTimeout: 4000,
+  transition: 'growl',
+  sound: true,
+  dismissible: true,
+  keepHistory: false,
+};
+
+const defaultNotificationSound = require('file!./notification-sound.mp3');
+
 import './index.less';
 
 
