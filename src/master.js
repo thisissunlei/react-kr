@@ -40,6 +40,10 @@ class Master extends Component {
 			}
 		}
 
+		if(!this.props.header_nav.switch_value){
+			styles.marginTop = 0;
+		}
+
 		return (
 			<div>
 			<Header/>
@@ -62,6 +66,7 @@ class Master extends Component {
 
 function mapStateToProps(state){
 	return {
+		header_nav:state.header_nav,
 		sidebar_nav:state.sidebar_nav
 	};
 }

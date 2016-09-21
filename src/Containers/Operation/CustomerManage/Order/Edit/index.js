@@ -46,6 +46,13 @@ class OrderCreate extends Component {
 		var {actions} = this.props;
 		var _this = this;
 
+		const closeAll = this.props.location.query.closeAll;
+
+		if(closeAll){
+			actions.switchSidebarNav(false);
+			actions.switchHeaderNav(false);
+		}
+
 		actions.callAPI('community-city-select',{},{}).then(function(response){
 		}).catch(function(err){
 			console.log('--err',err);
@@ -55,9 +62,6 @@ class OrderCreate extends Component {
 			mainBillId:this.props.params.oriderId
 		},{}).then(function(response){
 
-			this.props.initialize();  
-
-			console.log('----response----',response);
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -101,15 +105,14 @@ class OrderCreate extends Component {
 
   	const { error, handleSubmit, pristine, reset, submitting,communitys} = this.props;
 
-	  console.log('----initialValues',this.props.initialValues);
 
     return (
 
       <div>
 
-			<BreadCrumbs children={['运营平台','财务管理','编辑客户订单']}/>
+				<BreadCrumbs children={['运营平台','财务管理','编辑客户订单']} hide={!!this.props.location.query.closeAll}/>
 
-			<Section title="编辑客户订单" description=""> 
+				<Section title="编辑客户订单" description="" hide={!!this.props.location.query.closeAll}> 
 
 				 <form onSubmit={handleSubmit(this.confirmSubmit)}>
 
@@ -157,6 +160,8 @@ class OrderCreate extends Component {
 				</Grid>
     </form>
 			</Section>
+				 
+			
 			
 	 </div>
 	);

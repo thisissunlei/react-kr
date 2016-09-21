@@ -19,16 +19,22 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 export default class TitleList extends Component {
 
 	static propTypes = {
-		children: PropTypes.node.isRequired,
+		children: React.PropTypes.node.isRequired,
+		hide:React.PropTypes.boll
 	};
 
 	constructor(props){
 		super(props);
-
 	}
 
 
 	  render() {
+
+		  const {hide} = this.props;
+
+		  if(hide){
+			  return null;
+		  }
 
 		return (
 

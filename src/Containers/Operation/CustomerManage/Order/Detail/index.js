@@ -78,6 +78,7 @@ class OrderDetail extends Component {
 			_this.setState({
 				response:response
 			});
+
 			setTimeout(function(){
 				_this.setState({
 					loading:false

@@ -113,23 +113,30 @@ class Header extends Component {
 			//styles.paddingLeft = 50;
 		}
 
+
+		const Header = (props) =>{
+			return (
+				<AppBar
+				style={styles}
+				onLeftIconButtonTouchTap={this.handleToggle}
+				iconStyleLeft={{marginTop:0}}
+		 iconElementLeft={
+
+				<div className="main-navs" >
+						 <FlatButton onTouchTap={this.touchTitle} label="氪空间" style={{color:'#fff',height:67,width:180}} labelStyle={{fontSize:25}} />
+						 <FlatButton onTouchTap={this.handleToggle} icon={<NavigationMenu  />} style={{color:'#fff',height:67}} />
+						{this.props.navs_items.map((item,index)=>this.renderHeaderNav(item,index))}
+					</div>
+		}
+				/>
+			);
+		}
+
 		return (
 
 			<div >
 
-			<AppBar
-			style={styles}
-			onLeftIconButtonTouchTap={this.handleToggle}
-			iconStyleLeft={{marginTop:0}}
-	 iconElementLeft={
-
-			<div className="main-navs" >
-					 <FlatButton onTouchTap={this.touchTitle} label="氪空间" style={{color:'#fff',height:67,width:180}} labelStyle={{fontSize:25}} />
-					 <FlatButton onTouchTap={this.handleToggle} icon={<NavigationMenu  />} style={{color:'#fff',height:67}} />
-					{this.props.navs_items.map((item,index)=>this.renderHeaderNav(item,index))}
-				</div>
-    }
-			/>
+				{this.props.header_nav.switch_value && <Header/>}
 
 			<Drawer open={this.props.sidebar_nav.switch_value} width={180}>
 
@@ -156,6 +163,7 @@ class Header extends Component {
 function mapStateToProps(state){
 
 	return {
+		header_nav:state.header_nav,
 		sidebar_nav:state.sidebar_nav,
 		navs_items:state.navs.items,
 		navs_current_items:state.navs.current_items,

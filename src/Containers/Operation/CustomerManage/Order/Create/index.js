@@ -37,8 +37,17 @@ class OrderCreate extends Component {
 
 	componentDidMount(){
 
+
 		var {actions} = this.props;
 		var _this = this;
+
+		const closeAll = this.props.location.query.closeAll;
+
+		if(closeAll){
+			actions.switchSidebarNav(false);
+			actions.switchHeaderNav(false);
+		}
+
 
 		actions.callAPI('community-city-select',{},{}).then(function(response){
 		}).catch(function(err){
@@ -96,9 +105,9 @@ class OrderCreate extends Component {
 
       <div>
 
-			<BreadCrumbs children={['运营平台','财务管理','新增客户订单']}/>
+			<BreadCrumbs children={['运营平台','财务管理','新增客户订单']} hide={!!this.props.location.query.closeAll}/>
 
-			<Section title="新增客户订单" description=""> 
+			<Section title="新增客户订单" description="" hide={!!this.props.location.query.closeAll}> 
 
 				 <form onSubmit={handleSubmit(this.confirmSubmit)}>
 

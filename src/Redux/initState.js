@@ -28,11 +28,11 @@ let initState = {
 							},
 							{
 								primaryText:'新增客户订单',
-								router:'/operation/customerManage/1/order/create',
+								router:'/operation/customerManage/108/order/create',
 							},
 							{
 								primaryText:'编辑客户订单',
-								router:'/operation/customerManage/3432/order/3432432/edit',
+								router:'/operation/customerManage/108/order/3432432/edit',
 							},
 
 
@@ -143,10 +143,8 @@ let initState = {
 	common:{
 
 	},
-	companys: [
-	],
-	companys_fetch:{
-
+	header_nav:{
+		switch_value:true,
 	},
 	sidebar_nav:{
 		switch_value:true,

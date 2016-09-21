@@ -18,13 +18,14 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 export default class Section extends Component {
 
 	static propTypes = {
-		children: PropTypes.node,
-		title:PropTypes.string.isRequired,
-		description: PropTypes.string,
-		leftIcon: PropTypes.node,
-		rightMenu: PropTypes.node,
-		height:PropTypes.number,
-		style:PropTypes.object
+		children: React.PropTypes.node,
+		title:React.PropTypes.string.isRequired,
+		description: React.PropTypes.string,
+		leftIcon: React.PropTypes.node,
+		rightMenu: React.PropTypes.node,
+		height:React.PropTypes.number,
+		style:React.PropTypes.object,
+		hide:React.PropTypes.bool
 	};
 
 	constructor(props){
@@ -125,6 +126,7 @@ export default class Section extends Component {
 
 	renderBody(){
 
+		const {hide,children} = this.props;
 
 		if(!this.state.openBody){
 			return null;
@@ -160,7 +162,18 @@ export default class Section extends Component {
 
 	  render() {
 
-	  	const {style} = this.props;
+	  	const {style,hide,children} = this.props;
+
+
+		  if(hide){
+			  return (
+				  <div>
+					  {children}
+				  </div>
+			  );
+		  }
+		
+
 
 		return (
 
