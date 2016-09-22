@@ -126,7 +126,7 @@ export default class Section extends Component {
 
 	renderBody(){
 
-		const {hide,children} = this.props;
+		const {children} = this.props;
 
 		if(!this.state.openBody){
 			return null;

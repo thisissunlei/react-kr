@@ -6,7 +6,7 @@ import * as Plan from  './Plan/reducers';
 import * as Navs from  './Navs/reducers';
 import * as Common from  './Common/reducers';
 
-import { reducer as formReducer } from 'redux-form'
+import { reducer as form } from 'redux-form'
 
 
 module.exports = {
@@ -17,6 +17,5 @@ module.exports = {
 ...Plan,
 ...Navs,
 ...Common,
- form: formReducer  
-
+ form  
 };

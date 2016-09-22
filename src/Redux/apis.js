@@ -7,7 +7,7 @@ const APIS  = {
 		method:'get'
 	},
 
-	'community-city-select':{
+	'community-city-selected':{
 		url:'/api/krspace-finance-web/action/community-city-selected',
 		method:'get'
 	},
@@ -20,6 +20,10 @@ const APIS  = {
 	'enter-order':{
 		url:'/api/krspace-finance-web/action/enter-order',
 		method:'post'
+	},
+	'edit-order':{
+		url:'/api/krspace-finance-web/action/edit-order',
+		method:'put'
 	},
 	//订单基本信息
 	'get-simple-order':{

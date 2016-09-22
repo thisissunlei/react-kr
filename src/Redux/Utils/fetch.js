@@ -87,6 +87,11 @@ const http = {
                     promise = http.post(url,params,payload);
                 break;
             }
+
+            case 'put':{
+                    promise = http.update(url,params,payload);
+                break;
+            }
             case 'delete':{
                    promise = http.remove(url,params,payload);
                 break;
@@ -139,6 +144,38 @@ const http = {
 
 		fetch(url, {
 			method: 'POST',
+			headers: {
+				'Accept': '*',
+				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+			},
+			body: searchParams
+		})
+			.then(check401)
+			.then(jsonParse)
+			.then(json => {
+				if(parseInt(json.code)>0){
+					//处理数据格式
+					resolve(http.transformResponse(json));
+				}else{
+					reject(json);
+				}
+			})
+			.catch(err => reject(err));
+	}),
+
+	update: (url, params, payload) => new Promise((resolve, reject) => {
+		const searchParams = new URLSearchParams();
+
+		if (!url) {
+			return
+		}
+
+		for (const prop in payload) {
+			searchParams.set(prop, payload[prop])
+		}
+
+		fetch(url, {
+			method: 'PUT',
 			headers: {
 				'Accept': '*',
 				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',

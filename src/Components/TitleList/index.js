@@ -19,6 +19,7 @@ export default class TitleList extends Component {
 
 	static propTypes = {
 		children: PropTypes.node.isRequired,
+		hide:React.PropTypes.bool
 	};
 
 	constructor(props){
