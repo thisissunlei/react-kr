@@ -100,7 +100,7 @@ class Header extends Component {
 		}
 
 		return (
-			 <FlatButton label={item.primaryText} key={index} style={styles} href={"/#/"+item.router} labelStyle={{lineHeight:'67px'}} />
+			 <FlatButton label={item.primaryText} key={index} style={styles} href={'./#/'+item.router} labelStyle={{lineHeight:'67px'}} />
 		);
 
 	}
