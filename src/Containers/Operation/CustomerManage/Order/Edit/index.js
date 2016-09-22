@@ -125,7 +125,7 @@ class OrderCreate extends Component {
 
 		var {actions} = this.props;
 
-		values.customerid = this.props.customerId;
+		values.customerid = this.props.params.customerId;
 
 		actions.callAPI('edit-order',{},values).then(function(response){
 			Notify.show([{
@@ -155,7 +155,7 @@ class OrderCreate extends Component {
 				<BreadCrumbs children={['运营平台','财务管理','编辑客户订单']} hide={!!this.props.location.query.closeAll}/>
 
 				<Section title="编辑客户订单" description="" hide={!!this.props.location.query.closeAll}> 
-					<OrderEditForm onSubmit={this.confirmSubmit} communitys={this.props.communitys} cityName="hfhf" initialValues={this.props.initialValues}/>
+					<OrderEditForm onSubmit={this.confirmSubmit} communitys={this.props.communitys} cityName={this.props.cityName} initialValues={this.props.initialValues}/>
 				</Section>
 			
 	 </div>
@@ -164,6 +164,7 @@ class OrderCreate extends Component {
 }
 
 
+const selector = formValueSelector('orderEditForm');
 
 function mapStateToProps(state){
 
@@ -173,9 +174,17 @@ function mapStateToProps(state){
 		communitys = [];
 	}
 
-	console.log('----communitys',communitys);
+	const communityid = selector(state, 'communityid');
+
+	let cityName = '';
+	communitys.map(function(item){
+		if(item.communityId == communityid){
+			cityName = item.cityName;
+		}
+	});
 
 	return {
+		cityName,
 		initialValues:state.common['get-simple-order'],
 		communitys,
    	};
