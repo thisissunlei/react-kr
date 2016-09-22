@@ -49,7 +49,7 @@ class OrderCreate extends Component {
 		}
 
 
-		actions.callAPI('community-city-select',{},{}).then(function(response){
+		actions.callAPI('community-city-selected',{},{}).then(function(response){
 		}).catch(function(err){
 			console.log('--err',err);
 		});
