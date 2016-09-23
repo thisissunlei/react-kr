@@ -22,22 +22,22 @@ export default(
 	
 		<IndexRoute component={Permission.Home}/>
 
-		<Route path="index" component={Welcome}/>
+		<Route path="index" component={Welcome} name="welcome"/>
 
 
 		<Redirect from="messages/:id" to="/messages/:id" />
 
 		{/*运营管理*/}
 		<Route path="operation" component={Basic}>
-				<Route path="index" component={Operation.Home}/>
+				<Route path="index" component={Operation.Home} name="operation_home"/>
 
               {/*客户管理*/}
 				<Route path="customerManage" component={Basic}>
-					<Route path="List" component={Operation.CustomerManage.List}/>
-					<Route path=":customerId/Order" component={Basic}>
-						<Route path="create" component = {Operation.CustomerManage.Order.Create}/>
-						<Route path=":orderId/detail" component = {Operation.CustomerManage.Order.Detail}/>
-						<Route path=":oriderId/Edit" component = {Operation.CustomerManage.Order.Edit}/>
+					<Route path="List" component={Operation.CustomerManage.List} name="customerManage_list"/>
+					<Route path=":customerId/Order" component={Basic} >
+						<Route path="create" component = {Operation.CustomerManage.Order.Create} name="customerManage_order_create"/>
+						<Route path=":orderId/detail" component = {Operation.CustomerManage.Order.Detail} name="customerManage_order_detail"/>
+						<Route path=":oriderId/Edit" component = {Operation.CustomerManage.Order.Edit} name="customerManage_order_edit"/>
 					</Route>
 				</Route>
 

@@ -13,6 +13,7 @@ import {Grid,Row,Col} from 'kr-ui/Grid';
 import {Dialog,Snackbar} from 'material-ui';
 
 import { Button } from 'kr-ui/Button';
+import Date from 'kr-ui/Date';
 
 import {
   Step,
@@ -131,22 +132,22 @@ class OrderDetail extends Component {
 
 <Stepper activeStep={1}>
 		          <Step>
-		            <StepLabel>承租意向书({contractStatusCount.intentionComplete}/{contractStatusCount.intentionTotoal})</StepLabel>
+		            <StepLabel>承租意向书({contractStatusCount.intentionComplete}-{contractStatusCount.intentionTotoal})</StepLabel>
 		          </Step>
 		          <Step>
-		            <StepLabel>入驻协议书({contractStatusCount.enterComplete}/{contractStatusCount.enterTotoal})</StepLabel>
+		            <StepLabel>入驻协议书({contractStatusCount.enterComplete}-{contractStatusCount.enterTotoal})</StepLabel>
 		          </Step>
 		          <Step>
-		            <StepLabel>增租协议书({contractStatusCount.addRentComplete}/{contractStatusCount.addRentTotoal})</StepLabel>
+		            <StepLabel>增租协议书({contractStatusCount.addRentComplete}-{contractStatusCount.addRentTotoal})</StepLabel>
 		          </Step>
 		          <Step>
-		            <StepLabel>续租协议书({contractStatusCount.renewComplete}/{contractStatusCount.renewComplete})</StepLabel>
+		            <StepLabel>续租协议书({contractStatusCount.renewComplete}-{contractStatusCount.renewComplete})</StepLabel>
 		          </Step>
 		          <Step>
-		            <StepLabel>减租协议书({contractStatusCount.lessRentComplete}/{contractStatusCount.lessRentComplete})</StepLabel>
+		            <StepLabel>减租协议书({contractStatusCount.lessRentComplete}-{contractStatusCount.lessRentComplete})</StepLabel>
 		          </Step>
 		          <Step>
-		            <StepLabel>退租协议书({contractStatusCount.quitRentComplete}/{contractStatusCount.quitRentTotoal})</StepLabel>
+		            <StepLabel>退租协议书({contractStatusCount.quitRentComplete}-{contractStatusCount.quitRentTotoal})</StepLabel>
 		         </Step>
 
         </Stepper>
@@ -164,11 +165,11 @@ class OrderDetail extends Component {
 					<Row>
 						<Col md={4} ><LabelText label="当前工位数" text={orderBaseInfo.stationnum}/></Col>
 						<Col md={4} ><LabelText label="订单编号" text={orderBaseInfo.mainbillcode}/></Col>
-						<Col md={4} ><LabelText label="起始日期" text={orderBaseInfo.contractEntrydate}/></Col>
+						<Col md={4} ><LabelText label="起始日期" text={orderBaseInfo.contractEntrydate} type="date"/></Col>
 					</Row>
 					<Row>
-						<Col md={4} ><LabelText label="结束日期" text={orderBaseInfo.contractLeavedate}/></Col>
-						<Col md={4} ><LabelText label="撤场日期" text={orderBaseInfo.actualLeavedate}/></Col>
+						<Col md={4} ><LabelText label="结束日期" text={orderBaseInfo.contractLeavedate} type="date"/></Col>
+						<Col md={4} ><LabelText label="撤场日期" text={orderBaseInfo.actualLeavedate} type="date"/></Col>
 						<Col md={4} ><LabelText label="订单总额" text={orderBaseInfo.contractTotalamount} /></Col>
 					</Row>
 
@@ -229,9 +230,9 @@ class OrderDetail extends Component {
 									{item.contracttype == 6 && ':增值服务合同'}
 
 							</TableRowColumn>
-							<TableRowColumn>{item.contractTotalamount}</TableRowColumn>
-							<TableRowColumn>{item.leaseBegindate}</TableRowColumn>
-							<TableRowColumn>{item.leaseEnddate}</TableRowColumn>
+							<TableRowColumn><Date.Format value={item.contractTotalamount}/></TableRowColumn>
+							<TableRowColumn><Date.Format value={item.leaseBegindate}/></TableRowColumn>
+							<TableRowColumn> <Date.Format value={item.leaseEnddate}/></TableRowColumn>
 							<TableRowColumn><Button  type="link" label="查看" href={`/#/operation/customerManage/${item.customerid}/order/${item.mainbillid}/detail`} />
 							<Button type="link" label="编辑"  href={`/#/operation/customerManage/${item.customerid}/order/${item.mainbillid}/edit`} /></TableRowColumn>
 						   </TableRow>

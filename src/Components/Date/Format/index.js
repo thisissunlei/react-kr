@@ -1,21 +1,25 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
+import dateFormat from 'dateformat';
+
 
 export default class Format extends React.Component {
 
 
 	static PropTypes = {
-		timestamp:React.PropTypes.string
+		value:React.PropTypes.string,
+		format:React.PropTypes.string
 	};
 
 	render() {
 
-		let {className,timestamp} = this.props;
+		let {className,value,format="yyyy-mm-dd"} = this.props;
 
+		const result =  dateFormat(value,format);
 
 		return (
-			<span>{timestamp}</span>
+			<span>{result}</span>
 		);
 
 

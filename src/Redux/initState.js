@@ -20,7 +20,7 @@ let initState = {
 						menuItems:[
 							{
 								primaryText:'查看客户订单',
-								router:'/operation/customerManage/108/order/49/detail',
+								router:'/operation/customerManage/108/order/3/detail',
 							},
 							{
 								primaryText:'新增客户订单',
