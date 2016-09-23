@@ -22,7 +22,7 @@ export default(
 	
 		<IndexRoute component={Permission.Home}/>
 
-		<Route path="index" component={Welcome} name="welcome"/>
+		<Route path="index" component={Permission.Home} name="welcome"/>
 
 
 		<Redirect from="messages/:id" to="/messages/:id" />

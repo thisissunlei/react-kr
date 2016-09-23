@@ -11,6 +11,10 @@ let initState = {
 		],
 		items:[
 			{
+				primaryText:"首页",
+				router:'index',
+			},
+			{
 				primaryText:"运营平台",
 				router:'operation',
 				menuItems:[
