@@ -4,6 +4,8 @@ import {connect} from 'kr/Redux';
 import Section from 'kr-ui/Section';
 import {KrField,LabelText} from 'kr-ui/Form';
 
+import {Button} from 'kr-ui/Button';
+
 import {reduxForm,formValueSelector} from 'redux-form';
 
 
@@ -13,8 +15,6 @@ import BreadCrumbs from 'kr-ui/BreadCrumbs';
 import {Grid,Row,Col} from 'kr-ui/Grid';
 
 import {Dialog,Snackbar} from 'material-ui';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
 
@@ -74,7 +74,7 @@ class OrderCreate extends Component {
             <TableRowColumn>4</TableRowColumn>
             <TableRowColumn>4</TableRowColumn>
             <TableRowColumn>Steve Brown</TableRowColumn>
-            <TableRowColumn><RaisedButton label="创建订单" href="/#/operation/customerManage/343/order/create" /></TableRowColumn>
+            <TableRowColumn><Button label="创建订单"  type="link" href="/#/operation/customerManage/343/order/create" /></TableRowColumn>
          </TableRow>
     );
 
@@ -101,7 +101,7 @@ class OrderCreate extends Component {
              <TableRow>
               <TableRowColumn>1</TableRowColumn>
               <TableRowColumn>John Smith</TableRowColumn>
-              <TableRowColumn><RaisedButton label="创建订单" href="/#/operation/customerManage/343/order/34324/detail" /></TableRowColumn>
+              <TableRowColumn><Button label="创建订单" type="link" href="/#/operation/customerManage/343/order/34324/detail" /></TableRowColumn>
             </TableRow>
            </TableBody>
        </Table>
@@ -127,14 +127,19 @@ class OrderCreate extends Component {
 
 			<Grid>
 					<Row>
-						<Col md={2}> <RaisedButton label="新建" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
-						<Col md={6}> </Col>
-						<Col md={2}> <KrField name="username" type="text" /></Col> 
-						<Col md={2}> <RaisedButton label="搜索" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
+						<Col md={8}> <Button label="新建" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
+						<Col md={4} align="right"> 
+							<Row>
+								<Col md={10}>
+									<KrField name="username" type="text" placeholder="搜索关键词"/>
+								</Col>
+								<Col md={2} align="right" > <Button label="搜索" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
+							</Row>
+						</Col> 
 					</Row>
 				</Grid>
 
-            <Table displayCheckbox={true} style={{marginTop:20}}  toggleVisibility="odd">
+            <Table displayCheckbox={true} style={{marginTop:10}}  toggleVisibility="odd">
                 <TableHeader>
                   <TableHeaderColumn>ID</TableHeaderColumn>
                   <TableHeaderColumn>出租方名称</TableHeaderColumn>
@@ -226,14 +231,14 @@ class OrderCreate extends Component {
 
           <Row style={{marginTop:30}}>
             <Col md={8}></Col>
-            <Col md={2}> <RaisedButton  label="确定" type="submit" primary={true} /> </Col>
-            <Col md={2}> <RaisedButton  label="取消" type="submit"  onTouchTap={this.openCreateDialog} /> </Col>
+            <Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
+            <Col md={2}> <Button  label="取消" type="submit"  onTouchTap={this.openCreateDialog} /> </Col>
           </Row>
 
         </Grid>
 
       {/*
-      <FlatButton label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
+      <Button label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
       */}
 
     </form>

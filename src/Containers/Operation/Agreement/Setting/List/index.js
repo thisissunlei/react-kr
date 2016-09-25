@@ -24,6 +24,60 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 
+
+let SettingCreateForm = function(props){
+
+  	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,cityName} = props;
+
+	return (
+
+<form onSubmit={handleSubmit(onSubmit)}>
+        <Grid style={{marginTop:30}}>
+
+          <Row>
+            <Col md={12} > <KrField name="username" type="text" label="字段编码" /> </Col>
+          </Row>
+
+          <Row>
+            <Col md={12} > <KrField name="username" type="text" label="字段名称" /> </Col>
+          </Row>
+          <Row>
+            <Col md={4} > 
+                <KrField name="city" label="是否有效" type="radio" value="1"/>
+             </Col>
+             <Col md={4} > 
+                <KrField name="city" label="是" type="radio" value="2"/>
+             </Col>
+
+             <Col md={4} > 
+                <KrField name="city" label="否" type="radio" value="3" />
+             </Col>
+          </Row>
+
+          <Row>
+            <Col md={12} > <KrField name="mainbilldesc" type="textarea" label="备注"  placeholder="备注信息"/> </Col>
+          </Row>
+
+          <Row style={{marginTop:30}}>
+            <Col md={8}></Col>
+            <Col md={2}> <RaisedButton  label="确定" type="submit" primary={true} /> </Col>
+            <Col md={2}> <RaisedButton  label="取消" type="submit" /> </Col>
+          </Row>
+
+        </Grid>
+
+				
+    </form>
+	);
+
+}
+
+SettingCreateForm= reduxForm({
+  form: 'settingCreateForm',
+})(SettingCreateForm);
+
+
+
  
 class OrderCreate extends Component {
 
@@ -36,8 +90,6 @@ class OrderCreate extends Component {
     this.openCreateDialog = this.openCreateDialog.bind(this);
     this.renderCustomerItem = this.renderCustomerItem.bind(this);
     this.renderOrderItem = this.renderOrderItem.bind(this);
-
-
 
 
     this.state = {
@@ -118,8 +170,6 @@ class OrderCreate extends Component {
             </TableRow>
            </TableBody>
        </Table>
-
-
     );
 
   }
@@ -127,10 +177,7 @@ class OrderCreate extends Component {
 
   render() {
 
-    const { error, handleSubmit, pristine, reset, submitting} = this.props;
-
     const {communitys} = this.state;
-
 
     return (
 
@@ -160,9 +207,6 @@ class OrderCreate extends Component {
 
                 </Table>
 
-        
-
-
 
       </Section>
 
@@ -173,53 +217,8 @@ class OrderCreate extends Component {
         modal={true}
         open={this.state.openCreate}
       >
-      
 
-        <form onSubmit={handleSubmit(this.confirmSubmit)}>
-
-
-        <Grid style={{marginTop:30}}>
-
-          <Row>
-            <Col md={12} > <KrField name="username" type="text" label="字段编码" /> </Col>
-          </Row>
-
-          <Row>
-            <Col md={12} > <KrField name="username" type="text" label="字段名称" /> </Col>
-          </Row>
-
-          <Row>
-            <Col md={4} > 
-                <KrField name="city" label="是否有效" type="radio"/>
-             </Col>
-             <Col md={4} > 
-                <KrField name="city" label="是" type="radio" />
-             </Col>
-             <Col md={4} > 
-                <KrField name="city" label="否" type="radio" />
-             </Col>
-          </Row>
-
-          <Row>
-            <Col md={12} > <KrField name="mainbilldesc" type="textarea" label="备注"  placeholder="备注信息"/> </Col>
-          </Row>
-
-          <Row style={{marginTop:30}}>
-            <Col md={8}></Col>
-            <Col md={2}> <RaisedButton  label="确定" type="submit" primary={true} /> </Col>
-            <Col md={2}> <RaisedButton  label="取消" type="submit"  onTouchTap={this.openCreateDialog} /> </Col>
-          </Row>
-
-        </Grid>
-
-      {/*
-      <FlatButton label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
-      */}
-
-    </form>
-
-
-
+        <SettingCreateForm onSubmit={this.confirmSubmit}/>
 
       </Dialog>
 
@@ -228,11 +227,6 @@ class OrderCreate extends Component {
   );
   }
 }
-
-
-OrderCreate= reduxForm({
-  form: 'orderCreateForm'
-})(OrderCreate);
 
 
 

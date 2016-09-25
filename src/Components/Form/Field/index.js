@@ -3,8 +3,9 @@ import { Field, reduxForm } from 'redux-form';
 
 import './index.less';
 
-const renderFieldInput = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder}) => (
 
+
+const renderFieldRadio = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder}) => (
 
   <div className="form-item">
     <label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
@@ -19,6 +20,23 @@ const renderFieldInput = ({ input, label, type, meta: { touched, error } ,requir
     </div>
   </div>
 
+);
+
+
+const renderFieldInput = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder}) => (
+
+  <div className="form-item">
+    <label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
+    <div className="form-main">
+		<div className="form-input-main">
+			<div className="form-input">
+				<input {...input} placeholder={placeholder|| label} type={type} disabled={disabled}/>
+			</div>
+		</div>
+
+      {touched && error && <span>{error}</span>}
+    </div>
+  </div>
 
 );
 
@@ -110,8 +128,13 @@ export default class KrField extends React.Component {
 		}
 
 
-		
+		if(component === 'radio' || type=='radio'){
 
+			return (
+				<Field {...this.props} component={renderFieldRadio}  />
+			);
+
+		}
 
 		return null;
 

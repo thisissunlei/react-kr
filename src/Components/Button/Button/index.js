@@ -23,8 +23,8 @@ export default class Button extends Component{
 
 
 		const labelStyles ={
-			paddingLeft:8,
-			paddingRight:8,
+			paddingLeft:13,
+			paddingRight:13,
 		}
 
 		if(type == 'link'){
