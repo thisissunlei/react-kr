@@ -1,9 +1,27 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
+import DatePicker from 'material-ui/DatePicker';
+
 import './index.less';
 
 
+
+
+const renderFieldDate = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder}) => (
+  <div className="form-item">
+    <label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
+    <div className="form-main">
+		<div className="form-input-main">
+			<div className="form-input">
+				 <DatePicker hintText={placeholder} />
+			</div>
+		</div>
+
+      {touched && error && <span>{error}</span>}
+    </div>
+  </div>
+);
 
 const renderFieldRadio = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder}) => (
 
@@ -119,14 +137,6 @@ export default class KrField extends React.Component {
 
 		}
 
-		if(!component || component === 'input'){
-
-			return (
-				<Field {...this.props} component={renderFieldInput}  />
-			);
-
-		}
-
 
 		if(component === 'radio' || type=='radio'){
 
@@ -135,6 +145,23 @@ export default class KrField extends React.Component {
 			);
 
 		}
+
+		if(component === 'date' || type=='date'){
+
+			return (
+				<Field {...this.props} component={renderFieldDate}  />
+			);
+
+		}
+
+		if(!component || component === 'input'){
+
+			return (
+				<Field {...this.props} component={renderFieldInput}  />
+			);
+
+		}
+
 
 		return null;
 

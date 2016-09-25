@@ -29,131 +29,13 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 
 
 
+var JoinCreateForm = (props) => {
 
-
-
-var PlanForm = (props) => {
-
-  const { error, handleSubmit, pristine, reset, submitting,submit,cancel } = props;
+  const { error, handleSubmit, pristine, reset, submitting,submit,cancel ,onSubmit,handleOpen,handleClick} = props;
 
   return (
 
-    <form onSubmit={handleSubmit(submit)}>
-
-       
-
-
-
-				<Grid style={{marginTop:30}}>
-					<Row>
-						<Col md={2}>
-						  <LabelText label="社区名称" text="氪空间"/>
-						</Col>
-						<Col md={2}>
-						  <LabelText label="所属楼层" text="200个"/>
-						</Col>
-						<Col md={2}>
-						  <LabelText label="可租赁工位" text="200个"/>
-						</Col>
-						<Col md={1}>
-						  <LabelText label="选择工位" text=""/>
-						</Col>
-						<Col md={1}>
-						 <KrField name="username" type="text" />
-						</Col>
-						<Col md={1}>
-						       <KrField name="name" type="text" />
-						</Col>
-					</Row>
-
-					<Row>
-						<Col md={8}></Col>
-						<Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
-						<Col md={2}> <Button label="取消"  onTouchTap={cancel} /> </Col>
-
-					</Row>
-				</Grid>
-
-		  {/*
-			<Button label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
-		  */}
-
-    </form>
-
-  )
-}
-
-PlanForm = reduxForm({
-  form: 'submitValidation'  
-})(PlanForm);
-
-
-
-
- class JoinEdit extends Component {
-
-	constructor(props,context){
-		super(props, context);
-
-
-		this.handleOpen = this.handleOpen.bind(this);
-		this.handleClose = this.handleClose.bind(this);
-		this.confirmSubmit = this.confirmSubmit.bind(this);
-		this.confirmJoinSubmit = this.confirmJoinSubmit.bind(this);
-
-		this.handleClick = this.handleClick.bind(this);
-
-		this.state = {
-			open:false,
-		}
-
-	}
-
-	confirmJoinSubmit(values){
-		console.log('---',values);
-	}
-
-	confirmSubmit(values){
-		console.log('---',values);
-		this.setState({open: false});
-	}
-	handleOpen(){
-		this.setState({open: true});
-	}
-
-	handleClose(values){
-		console.log('---',values);
-		this.setState({open: false});
-	}
-
-	handleClick(){
-		console.log('----');
-	}
-
-  render() {
-
-			 const actions = [
-				  <Button
-					label="Cancel"
-					primary={true}
-					onTouchTap={this.handleClose}
-				  />,
-				  <Button
-					label="Submit"
-					primary={true}
-					onTouchTap={this.handleClose}
-				  />,
-				];
-
-
-  const { error, handleSubmit, pristine, reset, submitting,submit} = this.props;
-
-    return (
-
-      <div>
-			<Section title="创建入驻协议书" description=""> 
-
-	<form onSubmit={handleSubmit(this.confirmJoinSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
 
 
 					<Grid style={{marginTop:30,paddingLeft:30,paddingRight:30}}>
@@ -221,7 +103,7 @@ PlanForm = reduxForm({
 										<option value="00ff00">Green</option>
 										<option value="0000ff">Blue</option>
 							 </KrField>  </Col>
-							<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="签署时间" /> </Col>
+							<Col md={5} mdOffset="2"> <KrField name="rname" type="date" label="签署时间" /> </Col>
 						</Row>
 
 						<Row>
@@ -246,23 +128,12 @@ PlanForm = reduxForm({
 							<Col md={5}> <KrField name="uname" type="file" label="合同附件" /> </Col>
 						</Row>
 
-			  {/*
-			  
-						<Row>
-							<Col md={5}> <KrField name="username" type="text" label="" /> </Col>
-							<Col md={5}> <KrField name="username" type="text" label="" /> </Col>
-						</Row>
-			  */}
 					</Grid>
-
-			  {/*
-				<FlatButton label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
-			  */}
 
 				<Section title="租赁明细" description="" rightMenu = {
 								<Menu>
 									  <MenuItem primaryText="删除" />
-									  <MenuItem primaryText="分配"  onTouchTap={this.handleOpen} />
+									  <MenuItem primaryText="分配"  onTouchTap={handleOpen} />
 								</Menu>
 				}> 
 
@@ -294,16 +165,133 @@ PlanForm = reduxForm({
 
 			</Section>
 
-
-
-			<Button  label="确定"  onTouchTap={this.handleClick} />
+			<Button  label="确定"  type="submit" primary={true}/>
 
 		</form>
 
+  )
+}
+
+JoinCreateForm = reduxForm({
+  form: 'joinCreateForm'  
+})(JoinCreateForm);
+
+var PlanForm = (props) => {
+  const { error, handleSubmit, pristine, reset, submitting,submit,cancel } = props;
+  return (
+    <form onSubmit={handleSubmit(submit)}>
+
+				<Grid style={{marginTop:30}}>
+					<Row>
+						<Col md={2}>
+						  <LabelText label="社区名称" text="氪空间"/>
+						</Col>
+						<Col md={2}>
+						  <LabelText label="所属楼层" text="200个"/>
+						</Col>
+						<Col md={2}>
+						  <LabelText label="可租赁工位" text="200个"/>
+						</Col>
+						<Col md={1}>
+						  <LabelText label="选择工位" text=""/>
+						</Col>
+						<Col md={1}>
+						 <KrField name="username" type="text" />
+						</Col>
+						<Col md={1}>
+						       <KrField name="name" type="text" />
+						</Col>
+					</Row>
+
+					<Row>
+						<Col md={8}></Col>
+						<Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
+						<Col md={2}> <Button label="取消"  onTouchTap={cancel} /> </Col>
+
+					</Row>
+				</Grid>
+
+		  {/*
+			<Button label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
+		  */}
+
+    </form>
+
+  )
+}
+
+PlanForm = reduxForm({
+  form: 'submitValidation'  
+})(PlanForm);
 
 
+
+ class JoinEdit extends Component {
+
+	constructor(props,context){
+		super(props, context);
+
+
+		this.handleOpen = this.handleOpen.bind(this);
+		this.handleClose = this.handleClose.bind(this);
+		this.confirmSubmit = this.confirmSubmit.bind(this);
+		this.confirmJoinSubmit = this.confirmJoinSubmit.bind(this);
+
+		this.handleClick = this.handleClick.bind(this);
+
+		this.state = {
+			open:false,
+		}
+
+	}
+
+	confirmJoinSubmit(values){
+		console.log('---',values);
+	}
+
+	confirmSubmit(values){
+		console.log('---',values);
+		this.setState({open: false});
+	}
+	handleOpen(){
+		this.setState({open: true});
+	}
+
+	handleClose(values){
+		console.log('---',values);
+		this.setState({open: false});
+	}
+
+	handleClick(){
+		console.log('----');
+	}
+
+  render() {
+
+			 const actions = [
+				  <Button
+					label="Cancel"
+					primary={true}
+					onTouchTap={this.handleClose}
+				  />,
+				  <Button
+					label="Submit"
+					primary={true}
+					onTouchTap={this.handleClose}
+				  />,
+				];
+
+
+  const { error, handleSubmit, pristine, reset, submitting,submit} = this.props;
+
+    return (
+
+      <div>
+			<Section title="创建入驻协议书" description=""> 
+
+				<JoinCreateForm onSubmit={this.confirmJoinSubmit} handleOpen={this.handleOpen} handleClick={this.handleClick}/>
+	
 			</Section>
-
 
 			<Dialog
 				title="平面图"
