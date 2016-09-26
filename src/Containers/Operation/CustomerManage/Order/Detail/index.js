@@ -68,7 +68,16 @@ class OrderDetail extends Component {
 	}
 
 	componentDidMount(){
+
 		var {actions} = this.props;
+
+		const closeAll = this.props.location.query.closeAll;
+
+		if(closeAll){
+			actions.switchSidebarNav(false);
+			actions.switchHeaderNav(false);
+		}
+
 		var _this = this;
 
 		actions.callAPI('get-order-detail',{
@@ -121,9 +130,9 @@ class OrderDetail extends Component {
 
       <div>
 
-			<BreadCrumbs children={['系统运营','财务管理']}/>
+			<BreadCrumbs children={['系统运营','财务管理']} hide={!!this.props.location.query.closeAll}/>
 
-			<Section title="客户订单详情" description=""> 
+			<Section title="客户订单详情" description="" hide={!!this.props.location.query.closeAll}> 
 
 			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog}  primary={true}/>
 
