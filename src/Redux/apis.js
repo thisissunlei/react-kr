@@ -1,6 +1,28 @@
 const APIS  = {
-	
 
+
+	//合同-出租方管理-基本信息
+	'getFnaCorporation':{
+		url:'/mockjsdata/3/krspace-finance-web/getFnaCorporation',
+		method:'get'
+	},
+
+	//合同-出租方管理-编辑
+	'editFnaCorporation':{
+		url:'/mockjsdata/3/krspace-finance-web/editFnaCorporation',
+		method:'post'
+	},
+
+	//合同-出租方管理-新增
+	'addFnaCorporation':{
+		url:'/mockjsdata/3/krspace-finance-web/addFnaCorporation',
+		method:'post'
+	},
+	//合同-出租方管理-list
+	'fnaCorporationList':{
+		url:'/mockjsdata/3/krspace-finance-web/fnaCorporationList?corporationName={corporationName}&page={page}&pageSize={pageSize}',
+		method:'post'
+	},
 	//demo
 	'demo':{
 		url:'/api/krspace-finance-web/action/community-city-selected',

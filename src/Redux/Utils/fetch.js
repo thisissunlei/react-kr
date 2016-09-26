@@ -104,6 +104,14 @@ const http = {
 
         return promise;
     },
+	transformPreResponse(response){
+		var data = null;
+		//处理mock 数据
+		if(Object.prototype.toString.call(response) === '[object Array]'){
+			data = response.pop();
+		}
+		return data;
+	},
 	transformResponse:function(response){
 		return response.data;
 	},
@@ -120,6 +128,7 @@ const http = {
 		})
 			.then(check401)
 			.then(jsonParse)
+			.then(http.transformPreResponse)
 			.then(json => {
 				if(parseInt(json.code)>0){
 					//处理数据格式
@@ -152,6 +161,7 @@ const http = {
 		})
 			.then(check401)
 			.then(jsonParse)
+			.then(http.transformPreResponse)
 			.then(json => {
 				if(parseInt(json.code)>0){
 					//处理数据格式
@@ -184,6 +194,7 @@ const http = {
 		})
 			.then(check401)
 			.then(jsonParse)
+			.then(http.transformPreResponse)
 			.then(json => {
 				if(parseInt(json.code)>0){
 					//处理数据格式
@@ -216,6 +227,7 @@ const http = {
 		})
 			.then(check401)
 			.then(jsonParse)
+			.then(http.transformPreResponse)
 			.then(json => {
 				if(parseInt(json.code)>0){
 					//处理数据格式

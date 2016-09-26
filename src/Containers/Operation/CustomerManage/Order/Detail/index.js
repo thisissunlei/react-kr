@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'kr/Redux';
-import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 
 import {reduxForm } from 'redux-form';

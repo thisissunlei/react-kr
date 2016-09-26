@@ -8,8 +8,11 @@ import {Button} from 'kr-ui/Button';
 
 import {reduxForm,formValueSelector} from 'redux-form';
 
-
-import BreadCrumbs from 'kr-ui/BreadCrumbs';
+import {
+	BreadCrumbs,
+	Loading,
+	Notify
+} from 'kr-ui';
 
 
 import {Grid,Row,Col} from 'kr-ui/Grid';
@@ -110,170 +113,175 @@ class OrderCreate extends Component {
   }
 
 
-  render() {
+	componentDidMount(){
 
-    const { error, handleSubmit, pristine, reset, submitting} = this.props;
+		var {actions} = this.props;
+		var _this = this;
 
-    const {communitys} = this.state;
+		actions.callAPI('fnaCorporationList',{
+			corporationName:'',
+			page:'',
+			pageSize:''
+		},{}).then(function(){ }).catch(function(err){
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		});
+
+	}
+
+	render() {
+
+		const { error, handleSubmit, pristine, reset, submitting} = this.props;
+
+		const {communitys} = this.state;
 
 
-    return (
+		return (
 
-      <div>
+			<div>
 
-      <BreadCrumbs children={['系统运营','财务管理']}/>
+				<BreadCrumbs children={['系统运营','财务管理']}/>
 
-      <Section title="客户信息编辑" description=""> 
+				<Section title="客户信息编辑" description=""> 
 
-			<Grid>
-					<Row>
-						<Col md={8}> <Button label="新建" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
-						<Col md={4} align="right"> 
-							<Row>
-								<Col md={10}>
-									<KrField name="username" type="text" placeholder="搜索关键词"/>
-								</Col>
-								<Col md={2} align="right" > <Button label="搜索" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
-							</Row>
-						</Col> 
-					</Row>
+				<Grid>
+				<Row>
+				<Col md={8}> <Button label="新建" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
+				<Col md={4} align="right"> 
+				<Row>
+				<Col md={10}>
+				<KrField name="username" type="text" placeholder="搜索关键词"/>
+				</Col>
+				<Col md={2} align="right" > <Button label="搜索" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
+				</Row>
+				</Col> 
+				</Row>
 				</Grid>
 
-            <Table displayCheckbox={true} style={{marginTop:10}}  toggleVisibility="odd">
-                <TableHeader>
-                  <TableHeaderColumn>ID</TableHeaderColumn>
-                  <TableHeaderColumn>出租方名称</TableHeaderColumn>
-                  <TableHeaderColumn>是否启用</TableHeaderColumn>
-                  <TableHeaderColumn>地址</TableHeaderColumn>
-                  <TableHeaderColumn>创建人</TableHeaderColumn>
-                  <TableHeaderColumn>创建时间</TableHeaderColumn>
-                  <TableHeaderColumn>操作</TableHeaderColumn>
-                </TableHeader>
+				<Table displayCheckbox={true} style={{marginTop:10}}  toggleVisibility="odd">
+				<TableHeader>
+				<TableHeaderColumn>ID</TableHeaderColumn>
+				<TableHeaderColumn>出租方名称</TableHeaderColumn>
+				<TableHeaderColumn>是否启用</TableHeaderColumn>
+				<TableHeaderColumn>地址</TableHeaderColumn>
+				<TableHeaderColumn>创建人</TableHeaderColumn>
+				<TableHeaderColumn>创建时间</TableHeaderColumn>
+				<TableHeaderColumn>操作</TableHeaderColumn>
+				</TableHeader>
 
 				<TableBody>
-					{this.renderCustomerItem()}
-					<TableRow displayCheckbox={false} visibility={false}>
-						<TableRowColumn colSpan={10}>
-							{this.renderOrderItem()}
-						</TableRowColumn>
-					</TableRow>
+				{this.renderCustomerItem()}
+				<TableRow displayCheckbox={false} visibility={false}>
+				<TableRowColumn colSpan={10}>
+				{this.renderOrderItem()}
+				</TableRowColumn>
+				</TableRow>
 
-					{this.renderCustomerItem()}
-					<TableRow displayCheckbox={false}>
-						<TableRowColumn colSpan={10}>
-							{this.renderOrderItem()}
-						</TableRowColumn>
-					</TableRow>
+				{this.renderCustomerItem()}
+				<TableRow displayCheckbox={false}>
+				<TableRowColumn colSpan={10}>
+				{this.renderOrderItem()}
+				</TableRowColumn>
+				</TableRow>
 
-					{this.renderCustomerItem()}
-					<TableRow displayCheckbox={false}>
-						<TableRowColumn colSpan={10}>
-							{this.renderOrderItem()}
-						</TableRowColumn>
-					</TableRow>
+				{this.renderCustomerItem()}
+				<TableRow displayCheckbox={false}>
+				<TableRowColumn colSpan={10}>
+				{this.renderOrderItem()}
+				</TableRowColumn>
+				</TableRow>
 
-					{this.renderCustomerItem()}
-					<TableRow displayCheckbox={false}>
-						<TableRowColumn colSpan={10}>
-							{this.renderOrderItem()}
-						</TableRowColumn>
-					</TableRow>
+				{this.renderCustomerItem()}
+				<TableRow displayCheckbox={false}>
+				<TableRowColumn colSpan={10}>
+				{this.renderOrderItem()}
+				</TableRowColumn>
+				</TableRow>
 
 				</TableBody>
 
 				<TableFooter></TableFooter>
 
-                </Table>
-
-        
-
-
-
-      </Section>
-
-
-
-      <Dialog
-        title="新建"
-        modal={true}
-        open={this.state.openCreate}
-      >
-      
-
-        <form onSubmit={handleSubmit(this.confirmSubmit)}>
-
-
-        <Grid style={{marginTop:30}}>
-
-          <Row>
-            <Col md={12} > <KrField name="username" type="text" label="出租方名称" /> </Col>
-          </Row>
-
-          <Row>
-            <Col md={4} > 
-                <KrField name="city" label="是否启用" type="radio"/>
-             </Col>
-             <Col md={4} > 
-                <KrField name="city" label="是" type="radio" />
-             </Col>
-             <Col md={4} > 
-                <KrField name="city" label="否" type="radio" />
-             </Col>
-          </Row>
-
-          <Row>
-            <Col md={12} > <KrField name="ordername" type="text" label="详细地址"/> </Col>
-          </Row>
-
-          <Row>
-            <Col md={12} > <KrField name="mainbilldesc" type="textarea" label="备注"  placeholder="备注信息"/> </Col>
-          </Row>
-
-          <Row style={{marginTop:30}}>
-            <Col md={8}></Col>
-            <Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
-            <Col md={2}> <Button  label="取消" type="submit"  onTouchTap={this.openCreateDialog} /> </Col>
-          </Row>
-
-        </Grid>
-
-      {/*
-      <Button label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
-      */}
-
-    </form>
+				</Table>
 
 
 
 
-      </Dialog>
 
-      
+				</Section>
+
+
+
+				<Dialog
+			title="新建"
+			modal={true}
+			open={this.state.openCreate}
+				>
+
+
+				<form onSubmit={handleSubmit(this.confirmSubmit)}>
+
+
+				<Grid style={{marginTop:30}}>
+
+				<Row>
+				<Col md={12} > <KrField name="username" type="text" label="出租方名称" /> </Col>
+				</Row>
+
+				<Row>
+				<Col md={4} > 
+				<KrField name="city" label="是否启用" type="radio"/>
+				</Col>
+				<Col md={4} > 
+				<KrField name="city" label="是" type="radio" />
+				</Col>
+				<Col md={4} > 
+				<KrField name="city" label="否" type="radio" />
+				</Col>
+				</Row>
+
+				<Row>
+				<Col md={12} > <KrField name="ordername" type="text" label="详细地址"/> </Col>
+				</Row>
+
+				<Row>
+				<Col md={12} > <KrField name="mainbilldesc" type="textarea" label="备注"  placeholder="备注信息"/> </Col>
+				</Row>
+
+				<Row style={{marginTop:30}}>
+				<Col md={8}></Col>
+				<Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
+				<Col md={2}> <Button  label="取消" type="submit"  onTouchTap={this.openCreateDialog} /> </Col>
+				</Row>
+
+				</Grid>
+
+				{/*
+	  <Button label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
+	  */}
+
+	</form>
+
+	  </Dialog>
+
+
    </div>
   );
   }
 }
-
 
 OrderCreate= reduxForm({
   form: 'orderCreateForm'
 })(OrderCreate);
 
 
-
-function mapStateToProps(state){
-  return {
-    items:state.notify.items,
-  };
-}
-
 export default connect((state)=>{
   return {
-    items:state.notify.items,
+	items:state.notify.items,
   };
 })(OrderCreate);
-
-
 
 
 
