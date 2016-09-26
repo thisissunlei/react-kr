@@ -140,6 +140,7 @@ class OrderCreate extends Component {
 				message:'创建成功',
 				type: 'success',
 			}]);
+			window.top.location.reload();
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,

@@ -105,7 +105,7 @@ const http = {
         return promise;
     },
 	transformPreResponse(response){
-		var data = null;
+		var data = response;
 		//处理mock 数据
 		if(Object.prototype.toString.call(response) === '[object Array]'){
 			data = response.pop();
