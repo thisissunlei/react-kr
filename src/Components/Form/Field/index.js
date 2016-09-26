@@ -26,16 +26,16 @@ const renderFieldDate = ({ input, label, type, meta: { touched, error } ,require
 const renderFieldRadio = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder}) => (
 
   <div className="form-item">
-    <label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
     <div className="form-main">
 		<div className="form-input-main">
 			<div className="form-input">
 				<input {...input} placeholder={placeholder|| label} type={type} disabled={disabled}/>
 			</div>
 		</div>
-
       {touched && error && <span>{error}</span>}
     </div>
+    <label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
+
   </div>
 
 );

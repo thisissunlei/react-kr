@@ -1,7 +1,14 @@
-
 import * as Types from './types';
 
-export function common(state = [],action){
+const initState = {
+
+	fnaCorporationList:{
+		items:[],
+		page:'',
+		pageSize:''
+	}
+}
+export function common(state = initState,action){
 
 	switch(action.type){
 
@@ -11,15 +18,13 @@ export function common(state = [],action){
 		}
 
 		case Types.LOAD_COMMON_SUCCESS:{
-			console.log('0000000----success')
+
 			state[action.name] = action.response;
-			return {...state};
+			return Object.assign({},state);
 		}
 
 		case Types.LOAD_COMMON_FAILURE:{
-			console.log('0000000----err')
 			return {...state};
-			//return action.error;
 		}
 
 		default:{

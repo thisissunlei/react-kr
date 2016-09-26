@@ -24,6 +24,13 @@ import SNSActivityManage from './SNSActivityManage';
 import CompanyInstitutionManage from './CompanyInstitutionManage';
 import TodoManage from './TodoManage';
 
+
+
+import {
+	Notify,
+	Loading,
+} from 'kr-ui';
+
 import './index.less';
 
 import {
@@ -58,19 +65,27 @@ class Home extends Component{
 		super(props, context);
 
 		this.state = {
-			open:false
+			open:false,
+			loading:true,
 		}
 
 
-				var {actions} = this.props;
+		var {actions} = this.props;
 
-		     actions.callAPI('demo',{},{});
+		actions.callAPI('demo',{},{});
 
 	}
 
 
 	componentDidMount() {
 
+		var _this = this;
+
+		setTimeout(function(){
+			_this.setState({
+				loading:false
+			});
+		},1000);
 	}
 
 	handleToggle(){
@@ -85,6 +100,12 @@ class Home extends Component{
 
 
 	render() {
+
+
+
+		if(this.state.loading){
+			return(<Loading/>);
+		}
 
 		const styles = {
 			root: {

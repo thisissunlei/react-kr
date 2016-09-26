@@ -54,6 +54,7 @@ function callAPIMiddleware({dispatch,getState}){
 					resolve(response);
 
 				}).catch(function(err){
+
 					dispatch(Object.assign({},payload,{
 						type:failureType,
 						error:err,

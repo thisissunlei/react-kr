@@ -1,4 +1,3 @@
-
 let initState = {
 	navs:{
 		current_route:'',
@@ -83,9 +82,6 @@ let initState = {
 			},
 			*/
 		]
-	},
-	common:{
-
 	},
 	header_nav:{
 		switch_value:true,

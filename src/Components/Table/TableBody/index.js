@@ -133,8 +133,13 @@ export default class TableBody extends React.Component {
 			onRowClick: this.onRowClick,
 		};
 
+		let displayCheckbox = false;
+		if(child.props && child.props.hasOwnProperty('displayCheckbox')){
+			displayCheckbox = child.props.displayCheckbox;
+		}
+
 		let props = {
-			displayCheckbox:(child.props.displayCheckbox === false ? false:true),
+			displayCheckbox:(displayCheckbox? true:false),
 			key:rowNumber,
 			rowNumber: rowNumber,
 			selected: this.isRowSelected(rowNumber),

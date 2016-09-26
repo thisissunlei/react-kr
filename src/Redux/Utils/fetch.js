@@ -113,6 +113,7 @@ const http = {
 		return data;
 	},
 	transformResponse:function(response){
+
 		return response.data;
 	},
 	get: (url, params) => new Promise((resolve, reject) => {
@@ -163,6 +164,7 @@ const http = {
 			.then(jsonParse)
 			.then(http.transformPreResponse)
 			.then(json => {
+
 				if(parseInt(json.code)>0){
 					//处理数据格式
 					resolve(http.transformResponse(json));
