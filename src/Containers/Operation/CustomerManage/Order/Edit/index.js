@@ -12,7 +12,10 @@ import BreadCrumbs from 'kr-ui/BreadCrumbs';
 import {Grid,Row,Col} from 'kr-ui/Grid';
 
 import {Button} from 'kr-ui/Button';
-import {Notify} from 'kr-ui';
+import {
+	Notify,
+	Loading
+} from 'kr-ui';
 
 
 
@@ -87,6 +90,7 @@ class OrderCreate extends Component {
 
 		this.state = {
 			open:false,
+			loading:true,
 		}
 
 	}
@@ -114,6 +118,12 @@ class OrderCreate extends Component {
 				type: 'danger',
 			}]);
 		});
+
+		setTimeout(function(){
+			_this.setState({
+				loading:false
+			});
+		},1000);
 
 	}
 
@@ -147,6 +157,12 @@ class OrderCreate extends Component {
 
 
   render() {
+
+
+  	if(this.state.loading){
+  		return(<Loading/>);
+  	}
+
 
     return (
 
