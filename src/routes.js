@@ -72,6 +72,7 @@ export default(
 
 					{/*承租意向书*/}
 					<Route path="admit" component={Basic}>
+						<Route path="create" component={Operation.Agreement.Admit.Create}/>
 						<Route path="edit" component={Operation.Agreement.Admit.Edit}/>
 						<Route path="detail" component={Operation.Agreement.Admit.Detail}/>
 					</Route>

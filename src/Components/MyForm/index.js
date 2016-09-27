@@ -1,10 +1,10 @@
-import Form from './Form';
 import Field from './Field';
+import LabelText from './LabelText';
 
 
 module.exports = {
-	Form,
-	Field
+	Field,
+	LabelText
 }
 
 
