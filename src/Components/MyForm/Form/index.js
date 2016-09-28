@@ -14,6 +14,11 @@ export default class Form extends React.Component {
 
 	render() {
 
+
+		React.Children.map(this.props.children, (child) => {
+			rows.push(this.createRowElement(child,rowNumber++)) ;
+		});
+
 		return (
 
 			 <div className="label-item">
