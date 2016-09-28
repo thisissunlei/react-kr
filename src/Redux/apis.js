@@ -1,6 +1,9 @@
 const APIS  = {
 
-
+	'showFinaContractIntentletter':{
+		url:'/mockjsdata/3/krspace-finance-web/finaContractDetail/showFinaContractIntentletter',
+		method:'get'
+	},
 	//合同-出租方管理-基本信息
 	'getFnaCorporation':{
 		url:'/mockjsdata/3/krspace-finance-web/getFnaCorporation',

@@ -6,9 +6,10 @@ class AdmitDetailStore {
   @observable csrfToken = null;
   @observable presInfo = asReference({});
   @observable fid = null;
+  @observable basic = asReference({});
+
 
   constructor() {
-
 	  this.user = 'hahah===>>>>';
   }
 

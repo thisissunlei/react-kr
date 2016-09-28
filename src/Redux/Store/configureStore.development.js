@@ -12,7 +12,7 @@ import  callAPIMiddleware from '../Middlewares/callAPIMiddleware';
 const loggerMiddleware = createLogger();
 
 
-module.exports = function configureStore(initialState) {
+function configureStore(initialState) {
 
 	let store = createStore(combineReducers(Reducers), initState, compose(applyMiddleware(
 			thunkMiddleware, loggerMiddleware ,callAPIMiddleware
@@ -22,4 +22,6 @@ module.exports = function configureStore(initialState) {
 
     return store
 }
+
+module.exports = configureStore(initState);
 

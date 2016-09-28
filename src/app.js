@@ -17,8 +17,7 @@ import { Provider,connect } from 'react-redux';
 
 import routes from './routes';
 
-import configureStore from './Redux/Store';
-
+import store from './Redux/Store';
 
 
 injectTapEventPlugin({
@@ -32,7 +31,6 @@ injectTapEventPlugin({
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
-let store = configureStore();
 
 
 ReactDOM.render((

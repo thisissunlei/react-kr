@@ -8,12 +8,16 @@ import {
 	Section
 } from 'kr-ui';
 
+import { Button } from 'kr-ui/Button';
+import {Actions,Store} from 'kr/Redux';
+
 import {Grid,Row,Col} from 'kr-ui/Grid';
 import {KrField,LabelText} from 'kr-ui/Form';
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
 
 import store from './store';
+
 
 @observer
 
@@ -22,10 +26,31 @@ export default  class AdmitDetail extends Component {
 
 	constructor(props,context){
 		super(props, context);
-	}
-	  componentWillMount() {
 
-	  }
+
+		this.state = {
+			basic:{
+				payment:{
+				},
+				stationList:[]
+			}
+		}
+
+		var _this = this;
+
+		Store.dispatch(Actions.callAPI('showFinaContractIntentletter')).then(function(response){
+			console.log('---',response);
+			_this.setState({
+				basic:response
+			});
+		});
+
+	}
+
+	componentWillMount(){
+
+	}
+
 
   render() {
 
@@ -33,6 +58,8 @@ export default  class AdmitDetail extends Component {
 	 const orderBaseInfo = {};
 	 const contractList = [];
 
+
+	  const {basic} = this.state;
 
 	  const BasicRender = (props)=>{
 
@@ -43,70 +70,67 @@ export default  class AdmitDetail extends Component {
 
 											
 												<Row>
-													<Col md={6} ><LabelText label="出租方" text=""/></Col>
-													<Col md={6} ><LabelText label="地址" text=""/></Col>
+													<Col md={6} ><LabelText label="出租方" text={basic.leaseName}/></Col>
+													<Col md={6} ><LabelText label="地址" text={basic.lessorAddress}/></Col>
+												</Row>
+												<Row>
+													<Col md={6} ><LabelText label="联系人" text={basic.lessorContactName}/></Col>
+													<Col md={6} ><LabelText label="电话" text={basic.lessorContacttel}/></Col>
 												</Row>
 
 											
 												<Row>
-													<Col md={6} ><LabelText label="联系人" text=""/></Col>
-													<Col md={6} ><LabelText label="电话" text=""/></Col>
+													<Col md={6} ><LabelText label="承租方" text={basic.leaseName}/></Col>
+													<Col md={6} ><LabelText label="地址" text={basic.leaseAddress}/></Col>
 												</Row>
-
-											
 												<Row>
-													<Col md={6} ><LabelText label="承租方" text=""/></Col>
-													<Col md={6} ><LabelText label="地址" text=""/></Col>
-												</Row>
-
-											
-												<Row>
-													<Col md={6} ><LabelText label="联系人" text=""/></Col>
-													<Col md={6} ><LabelText label="电话" text=""/></Col>
+													<Col md={6} ><LabelText label="联系人" text={basic.leaseContact}/></Col>
+													<Col md={6} ><LabelText label="电话" text={basic.leaseContacttel}/></Col>
 												</Row>
 
 												<Row>
-													<Col md={6} ><LabelText label="所属社区" text=""/></Col>
-													<Col md={6} ><LabelText label="所属楼层" text=""/></Col>
+													<Col md={6} ><LabelText label="所属社区" text={basic.wherefloor}/></Col>
+													<Col md={6} ><LabelText label="所属楼层" text={basic.wherefloor}/></Col>
 												</Row>
 
 												<Row>
-													<Col md={6} ><LabelText label="地址" text=""/></Col>
-													<Col md={6} ><LabelText label="合同编号" text=""/></Col>
-												</Row>
-
-												<Row>
-													<Col md={6} ><LabelText label="支付方式" text=""/></Col>
-													<Col md={6} ><LabelText label="租赁期限" text=""/></Col>
-												</Row>
-
-												<Row>
-													<Col md={6} ><LabelText label="首付款时间" text=""/></Col>
-												</Row>
-
-												<Row>
+													<Col md={6} ><LabelText label="定金总额" text=""/></Col>
 													<Col md={6} ><LabelText label="签署日期" text=""/></Col>
 												</Row>
 
 												<Row>
-													<Col md={6} ><LabelText label="租赁项目" text=""/></Col>
+													<Col md={6} ><LabelText label="合同编号" text={basic.contractcode}/></Col>
+													<Col md={6} ><LabelText label="付款方式" text={basic.payment.dicName}/></Col>
+												</Row>
+
+
+												<Row>
+													<Col md={6} ><LabelText label="租赁项目" /></Col>
 												</Row>
 
 												<Row>
-													<Col md={6} ><LabelText label="租赁用途" text=""/></Col>
+													<Col md={6} ><LabelText label="工位" text={basic.stationnum}/></Col>
+													<Col md={6} ><LabelText label="会议室" text=""/></Col>
 												</Row>
 
 												<Row>
-													<Col md={6} ><LabelText label="租赁总额" text=""/></Col>
-													<Col md={6} ><LabelText label="押金总额" text=""/></Col>
+													<Col md={6} ><LabelText label="租赁期限" text=""/></Col>
 												</Row>
 
 												<Row>
-													<Col md={6} ><LabelText label="备注" text=""/></Col>
+													<Col md={6} ><LabelText label="保留天数" text={basic.templockday}/></Col>
 												</Row>
 
 												<Row>
-													<Col md={6} ><LabelText label="上传附件" text=""/></Col>
+													<Col md={6} ><LabelText label="租赁用途" text={basic.rentaluse}/></Col>
+												</Row>
+
+												<Row>
+													<Col md={6} ><LabelText label="备注" text={basic.contractmark}/></Col>
+												</Row>
+
+												<Row>
+													<Col md={6} ><LabelText label="上传附件" text={basic.contractmark}/></Col>
 												</Row>
 
 											</Grid>
@@ -122,31 +146,25 @@ export default  class AdmitDetail extends Component {
 												</TableHeader>
 												<TableBody>
 
-												{contractList.map((item,index)=>{
+												{basic.stationList.length && basic.stationList.map((item,index)=>{
 													return (
 														 <TableRow key={index}>
-														<TableRowColumn>{item.contractcode}</TableRowColumn>
+														<TableRowColumn>{item.stationType}</TableRowColumn>
 														<TableRowColumn>
-
-																{item.contracttype == 1 && '意向书'}
-																{item.contracttype == 2 && '入住协议'}
-																{item.contracttype == 3 && ':增续租协议'}
-																{item.contracttype == 4 && ':减租协议'}
-																{item.contracttype == 5 && ':退租协议'}
-																{item.contracttype == 6 && ':增值服务合同'}
-
+															{item.stationId}
 														</TableRowColumn>
-														<TableRowColumn><Date.Format value={item.contractTotalamount}/></TableRowColumn>
-														<TableRowColumn><Date.Format value={item.leaseBegindate}/></TableRowColumn>
-														<TableRowColumn> <Date.Format value={item.leaseEnddate}/></TableRowColumn>
-														<TableRowColumn><Button  type="link" label="查看" href={`/#/operation/customerManage/${item.customerid}/order/${item.mainbillid}/detail`} />
-														<Button type="link" label="编辑"  href={`/#/operation/customerManage/${item.customerid}/order/${item.mainbillid}/edit`} /></TableRowColumn>
+														<TableRowColumn><Date.Format value={item.leaseBeginDate}/></TableRowColumn>
+														<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
 													   </TableRow>
 														);
 												})}
 													
 											   </TableBody>
 										 </Table>		
+
+
+
+			  
 
 								  </Section>
 				  </div>
@@ -161,8 +179,16 @@ export default  class AdmitDetail extends Component {
 			<BreadCrumbs children={['社区运营',,'合同详情']}/>
 
 			<Section title="承租合同" description=""> 
-
 				<BasicRender store={store}/>
+
+<Grid style={{marginTop:30}}>
+				  <Row>
+					  <Col md={4} align="center"></Col>
+					  <Col md={2} align="center"> <Button  label="编辑"  type="submit" primary={true}/> </Col>
+					  <Col md={2} align="center"> <Button  label="创建"  type="submit" primary={true}/> </Col>
+					  <Col md={4} align="center"></Col>
+				  </Row>
+			  </Grid>
 
 			</Section>
       </div>
