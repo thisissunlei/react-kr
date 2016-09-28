@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import { observer } from 'mobx-react';
 
 import {
 	BreadCrumbs,
@@ -15,11 +14,6 @@ import {Grid,Row,Col} from 'kr-ui/Grid';
 import {KrField,LabelText} from 'kr-ui/Form';
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
-
-import store from './store';
-
-
-@observer
 
 export default  class AdmitDetail extends Component {
 
@@ -39,7 +33,6 @@ export default  class AdmitDetail extends Component {
 		var _this = this;
 
 		Store.dispatch(Actions.callAPI('showFinaContractIntentletter')).then(function(response){
-			console.log('---',response);
 			_this.setState({
 				basic:response
 			});
@@ -179,7 +172,7 @@ export default  class AdmitDetail extends Component {
 			<BreadCrumbs children={['社区运营',,'合同详情']}/>
 
 			<Section title="承租合同" description=""> 
-				<BasicRender store={store}/>
+				<BasicRender/>
 
 <Grid style={{marginTop:30}}>
 				  <Row>

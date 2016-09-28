@@ -1,7 +1,29 @@
 const APIS  = {
 
+	//合同－入驻合同－查看
+	'show-checkin-agreement':{
+		url:'/mockjsdata/3/krspace-finance-web/checkinagreement/show-checkin-agreement',
+		method:'get'
+	},
+	//合同－承租合同－查看
 	'showFinaContractIntentletter':{
 		url:'/mockjsdata/3/krspace-finance-web/finaContractDetail/showFinaContractIntentletter',
+		method:'get'
+	},
+
+	//合同－承租合同－新建
+	'addFinaContractIntentletter':{
+		url:'/mockjsdata/3/krspace-finance-web/finaContractDetail/addFinaContractIntentletter',
+		method:'post'
+	},
+	//合同－承租合同－编辑
+	'updateFinaContractIntentletter':{
+		url:'/mockjsdata/3/krspace-finance-web/finaContractDetail/updateFinaContractIntentletter',
+		method:'put'
+	},
+
+	'finaContractIntention':{
+		url:'/mockjsdata/3/krspace-finance-web/finaContractDetail/finaContractIntention?communityId={communityId}&customerId={customerId}',
 		method:'get'
 	},
 	//合同-出租方管理-基本信息
