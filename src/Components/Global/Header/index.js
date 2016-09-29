@@ -96,7 +96,9 @@ class Header extends Component {
 		}
 
 		if(item.active){
-			styles.backgroundColor = "rgba(153,153,153,0.5)";
+			styles.borderTop = '2px solid #fff';
+			styles.borderLeft = '1px solid #3F93CA';
+			styles.borderRight = '1px solid #3F93CA';
 		}
 
 		return (
@@ -107,7 +109,7 @@ class Header extends Component {
 
 	render() {
 
-		var styles = {paddingLeft:0,position:'fixed',top:0,left:0,right:0,zIndex:9};
+		var styles = {paddingLeft:0,position:'fixed',top:0,left:0,right:0,zIndex:9,backgroundColor:'#328ECC'};
 
 		var {switch_value} = this.props.sidebar_nav;
 
@@ -158,16 +160,17 @@ class Header extends Component {
 
 				<AppBar
 				title="氪空间"
+				style={{backgroundColor:'#328ECC'}}
 				iconElementLeft={<IconButton onClick={this.handleToggle}><NavigationClose  /></IconButton>}
 				/>
 
 				<SidebarNav items={this.props.navs_current_items}/>
 
-			</Drawer>
+				</Drawer>
 
 
 
-			</div>
+				</div>
 		);
 	}
 
@@ -195,7 +198,7 @@ function mapDispatchToProps(dispatch){
 
 export default connect(mapStateToProps,mapDispatchToProps)(Header);
 
-/*
+	/*
 			<FloatingActionButton onTouchTap={this.showBottomNav} style={{position:'fixed',bottom:20,right:10,zIndex:888}} secondary={true} >
 			<ContentAdd />
 			</FloatingActionButton>

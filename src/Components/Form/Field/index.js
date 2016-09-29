@@ -68,25 +68,33 @@ const renderFieldRadio = ({ input, label, type, meta: { touched, error } ,requir
 );
 
 
-const renderFieldInput = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,style}) => (
+const renderFieldInput = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,style}) =>{
 
-
-	<div className="form-item-wrap" style={style}>
-  <div className="form-item">
-    <label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
-    <div className="form-main">
-		<div className="form-input-main">
-			<div className="form-input">
-				<input {...input} placeholder={placeholder|| label} type={type} disabled={disabled}/>
+	if(type === 'hidden'){
+		return (
+			<div>
+				<input {...input} placeholder={placeholder|| label} type="hidden"/>
 			</div>
+		);
+	}
+
+	return (
+			<div className="form-item-wrap" style={style}>
+		  <div className="form-item">
+			<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
+			<div className="form-main">
+				<div className="form-input-main">
+					<div className="form-input">
+						<input {...input} placeholder={placeholder|| label} type={type} disabled={disabled}/>
+					</div>
+				</div>
+
+			  {touched && error && <span>{error}</span>}
+			</div>
+		  </div>
 		</div>
-
-      {touched && error && <span>{error}</span>}
-    </div>
-  </div>
-</div>
-
-);
+	);
+}
 
 const renderFieldTextarea = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,col,row,style}) => (
 
@@ -146,10 +154,15 @@ export default class KrField extends React.Component {
 		}
 
 
+		if(component === 'text'){
+			return (
+				<Field {...this.props} component={renderFieldInput}  style={WrapStyles}/>
+			);
+		}
+
 		if(component === 'labelText' || type=='labelText'){
 			return (
 					<div>
-
 						 <div className="label-item">
 							<label className="form-label">{label}:</label>
 							<div className="form-main">
@@ -181,11 +194,6 @@ export default class KrField extends React.Component {
 			);
 		}
 
-		if(component === 'text' || type=='text'){
-			return (
-				<Field {...this.props} component={renderFieldInput}  style={WrapStyles}/>
-			);
-		}
 
 
 		if(component === 'radio' || type=='radio'){
@@ -202,6 +210,26 @@ export default class KrField extends React.Component {
 
 		}
 
+		if(component === 'group' || type=='group'){
+
+			return (
+					<div className="form-item-wrap">
+								<div className="form-item">
+								<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
+								<div className="form-main">
+								<div className="form-input-main">
+								<div className="form-input">
+									{children}
+								</div>
+								</div>
+								</div>
+							</div>	
+						</div>
+				);
+
+
+		}
+
 		if(!component || component === 'input'){
 
 			return (
@@ -209,6 +237,7 @@ export default class KrField extends React.Component {
 			);
 
 		}
+
 		return null;
 	}
 

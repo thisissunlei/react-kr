@@ -42,11 +42,11 @@ let initState = {
 						menuItems:[
 							{
 								primaryText:"出租方管理",
-								router:'/operation/agreement/lessorManage/list',
+								router:'/operation/customerManage/agreement/lessorManage/list',
 							},
 							{
 								primaryText:"基础配置",
-								router:'/operation/agreement/setting/list',
+								router:'/operation/customerManage/agreement/setting/list',
 							},
 						]
 					},

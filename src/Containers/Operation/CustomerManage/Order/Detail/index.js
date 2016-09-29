@@ -229,20 +229,18 @@ class OrderDetail extends Component {
 							 <TableRow key={index}>
 							<TableRowColumn>{item.contractcode}</TableRowColumn>
 							<TableRowColumn>
-
-									{item.contracttype == 1 && '意向书'}
-									{item.contracttype == 2 && '入住协议'}
-									{item.contracttype == 3 && ':增续租协议'}
-									{item.contracttype == 4 && ':减租协议'}
-									{item.contracttype == 5 && ':退租协议'}
-									{item.contracttype == 6 && ':增值服务合同'}
-
+								{item.contracttype == 1 && '意向书'}
+								{item.contracttype == 2 && '入住协议'}
+								{item.contracttype == 3 && ':增续租协议'}
+								{item.contracttype == 4 && ':减租协议'}
+								{item.contracttype == 5 && ':退租协议'}
+								{item.contracttype == 6 && ':增值服务合同'}
 							</TableRowColumn>
 							<TableRowColumn><Date.Format value={item.contractTotalamount}/></TableRowColumn>
 							<TableRowColumn><Date.Format value={item.leaseBegindate}/></TableRowColumn>
 							<TableRowColumn> <Date.Format value={item.leaseEnddate}/></TableRowColumn>
-							<TableRowColumn><Button  type="link" label="查看" href={`/#/operation/customerManage/${item.customerid}/order/${item.mainbillid}/detail`} />
-							<Button type="link" label="编辑"  href={`/#/operation/customerManage/${item.customerid}/order/${item.mainbillid}/edit`} /></TableRowColumn>
+							<TableRowColumn><Button  type="link" label="查看" href={"/#/operation/customerManage/"+item.customerid+"/agreement/admit/"+item.id+"/detail"}/>
+							<Button type="link" label="编辑"  href={"/#/operation/customerManage/"+item.customerid+"/agreement/admit/"+item.id+"/edit"}/></TableRowColumn>
 						   </TableRow>
 							);
 					})}
@@ -257,9 +255,7 @@ class OrderDetail extends Component {
 
 
 			 	<Table >
-
 					<TableBody>
-
 					 {antecedent.map((item,index)=>{
 						return (
 							 <TableRow key={index}>
@@ -286,19 +282,9 @@ class OrderDetail extends Component {
 				   </TableBody>
 			 </Table>
 
-
-
-
 			</Section>
 
-
 			</Section>
-
-
-
-
-
-
 
 			<Dialog
 				title="新建合同"
@@ -313,15 +299,15 @@ class OrderDetail extends Component {
 			<Grid>
 
 					<Row>
-						<Col md={4} align="center"><Button label="承租意向书" href="/#/operation/agreement/join/create"/></Col>
-						<Col md={4} align="center"><Button label="入驻协议书" href="/#/operation/agreement/join/create"/></Col>
-						<Col md={4} align="center"><Button label="增租协议书" href="/#/operation/agreement/join/create"/></Col>
+						<Col md={4} align="center"><Button label="承租意向书" href={"/#/operation/customerManage/"+this.props.params.orderId+"/agreement/admit/create"}/></Col>
+						<Col md={4} align="center"><Button label="入驻协议书" href={"/#/operation/customerManage/"+this.props.params.orderId+"/agreement/admit/create"}/></Col>
+						<Col md={4} align="center"><Button label="增租协议书" href={"/#/operation/customerManage/"+this.props.params.orderId+"/agreement/admit/create"}/></Col>
 					</Row>
 
 					<Row style={{marginTop:10}}>
-						<Col md={4} align="center" ><Button label="续租协议书" href="/#/operation/agreement/join/create"/></Col>
-						<Col md={4} align="center"><Button label="减租协议书" href="/#/operation/agreement/join/create"/></Col>
-						<Col md={4} align="center"><Button label="退租协议书" href="/#/operation/agreement/join/create"/></Col>
+						<Col md={4} align="center" ><Button label="续租协议书" href={"/#/operation/customerManage/"+this.props.params.orderId+"/agreement/admit/create"}/></Col>
+						<Col md={4} align="center"><Button label="减租协议书" href={"/#/operation/customerManage/"+this.props.params.orderId+"/agreement/admit/create"}/></Col>
+						<Col md={4} align="center"><Button label="退租协议书" href={"/#/operation/customerManage/"+this.props.params.orderId+"/agreement/admit/create"}/></Col>
 					</Row>
 			
 				</Grid>

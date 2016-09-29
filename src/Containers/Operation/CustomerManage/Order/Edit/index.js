@@ -43,10 +43,10 @@ let OrderEditForm = function (props){
 				 <option value="STATION">工位订单</option>
 			 </KrField>
 
-									 <KrField name="communityid" component="select" label="所在社区">
-											<option>请选择社区</option>
-												{communitys.map((item,index)=> <option value={item.communityId} key={index}>{item.communityName}</option>)}
-									 </KrField>
+				 <KrField name="communityid" component="select" label="所在社区">
+						<option>请选择社区</option>
+							{communitys.map((item,index)=> <option value={item.communityId} key={index}>{item.communityName}</option>)}
+				 </KrField>
 					<KrField type="labelText" label="所在城市" value={cityName||'空'} /> 
 					 <KrField name="mainbillname" type="text" label="订单名称" /> 
 					 <KrField name="mainbilldesc" type="textarea" label="订单描述" /> 
@@ -76,8 +76,8 @@ class OrderCreate extends Component {
 			loading:true,
 		}
 
-
 		const {initialValues} = this.props;
+
 		OrderEditForm = reduxForm({
 			form: 'orderEditForm',
 			initialValues

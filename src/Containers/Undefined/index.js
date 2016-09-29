@@ -56,15 +56,8 @@ class Undefined extends Component{
 			<div>
 					<Section title="出错了" description="" >
 
-							<Form className="form" submit={this.submit} get={this.state.get}>
-								<Field name="userName" type="text"/>
-								<Field name="email" type="text"/>
-								<Field name="age" type="text"/>
-								<Field name="filename" type="file"/>
-							</Form> 
 
-
-				<button onClick={this.setGet}>hahahah</button>
+dfdsfds
 				
 
 					</Section>

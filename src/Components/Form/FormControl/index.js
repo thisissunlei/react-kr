@@ -25,13 +25,11 @@ export default class FormControl extends React.Component {
 
 		this.renderInputText = this.renderInputText.bind(this);
 		this.renderSelect = this.renderSelect.bind(this);
-
 		this.onChange = this.onChange.bind(this);
 
 		this.state = {
 			value:''
 		}
-
 	}
 
 	onChange(event){
@@ -49,7 +47,6 @@ export default class FormControl extends React.Component {
 	}
 
 	renderSelect(name,children){
-
 		return (
 			<div>
 				<select name={name} onChange={this.onChange} >

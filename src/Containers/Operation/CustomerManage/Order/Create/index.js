@@ -27,26 +27,19 @@ let OrderCreateForm = function(props){
 
   	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,cityName} = props;
 
-	console.log('---->>>',props.initialValues);
-
 	return (
 			<form onSubmit={handleSubmit(onSubmit)}>
 
 				<KrField name="customerName" type="text" label="客户名称"  disabled={true}/> 
-
-
 				 <KrField name="mainbilltype" component="select" label="订单类型">
 					 <option>请选择类型</option>
 					 <option value="STATION">工位订单</option>
 				 </KrField>
-
 				 <KrField name="communityid" component="select" label="所在社区">
 						<option>请选择社区</option>
 						{communitys.map((item,index)=> <option value={item.communityId} key={index}>{item.communityName}</option>)}
 				 </KrField>
-
 				<KrField type="labelText" label="所在城市" value={cityName||'空'} /> 
-
 			 	<KrField name="mainbillname" type="text" label="订单名称" /> 
 			    <KrField name="mainbilldesc" type="textarea" label="订单描述" /> 
 
@@ -56,6 +49,7 @@ let OrderCreateForm = function(props){
 						<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} disabled={submitting} /> </Col>
 					</Row>
 				</Grid>
+
 		</form>
 	);
 

@@ -51,7 +51,6 @@ export default  class AdmitDetail extends Component {
 	 const orderBaseInfo = {};
 	 const contractList = [];
 
-
 	  const {basic} = this.state;
 
 	  const BasicRender = (props)=>{

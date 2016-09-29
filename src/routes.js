@@ -34,11 +34,70 @@ export default(
               {/*客户管理*/}
 				<Route path="customerManage" component={Basic}>
 					<Route path="List" component={Operation.CustomerManage.List} name="customerManage_list"/>
+
+					{/*订单*/}
 					<Route path=":customerId/Order" component={Basic} >
 						<Route path="create" component = {Operation.CustomerManage.Order.Create} name="customerManage_order_create"/>
 						<Route path=":orderId/detail" component = {Operation.CustomerManage.Order.Detail} name="customerManage_order_detail"/>
 						<Route path=":oriderId/Edit" component = {Operation.CustomerManage.Order.Edit} name="customerManage_order_edit"/>
 					</Route>
+
+					{/*合同配置*/}
+					<Route path="agreement" component={Basic} >
+
+							{/*出租方管理*/}
+							<Route path="lessorManage" component={Basic}>
+								<Route path="list" component={Operation.CustomerManage.Agreement.LessorManage.List}/>
+							</Route>
+
+							{/*基础配置*/}
+							<Route path="setting" component={Basic}>
+								<Route path="list" component={Operation.CustomerManage.Agreement.Setting.List}/>
+							</Route>
+					</Route>
+
+
+					{/*合同信息*/}
+					<Route path=":customerId/agreement" component={Basic}>
+
+					{/*入驻协议书*/}
+					<Route path="join" component={Basic}>
+						<Route path="edit" component={Operation.CustomerManage.Agreement.Join.Edit}/>
+						<Route path="detail" component={Operation.CustomerManage.Agreement.Join.Detail}/>
+						<Route path="create" component={Operation.CustomerManage.Agreement.Join.Create}/>
+					</Route>
+
+					{/*承租意向书*/}
+					<Route path="admit" component={Basic}>
+						<Route path="create" component={Operation.CustomerManage.Agreement.Admit.Create}/>
+						<Route path=":id/edit" component={Operation.CustomerManage.Agreement.Admit.Edit}/>
+						<Route path=":id/detail" component={Operation.CustomerManage.Agreement.Admit.Detail}/>
+					</Route>
+
+					{/*增租协议书*/}
+					<Route path="increase" component={Basic}>
+						<Route path="edit" component={Operation.CustomerManage.Agreement.Renew.Edit}/>
+						<Route path="detail" component={Operation.CustomerManage.Agreement.Renew.Detail}/>
+					</Route>
+
+					{/*续租协议书*/}
+					<Route path="renew" component={Basic}>
+						<Route path="edit" component={Operation.CustomerManage.Agreement.Renew.Edit}/>
+						<Route path="detail" component={Operation.CustomerManage.Agreement.Renew.Detail}/>
+					</Route>
+
+					{/*减租协议书*/}
+					<Route path="reduce" component={Basic}>
+						<Route path="edit" component={Operation.CustomerManage.Agreement.Reduce.Edit}/>
+						<Route path="detail" component={Operation.CustomerManage.Agreement.Reduce.Detail}/>
+					</Route>
+
+					{/*退租协议书*/}
+					<Route path="exit" component={Basic}>
+						<Route path="edit" component={Operation.CustomerManage.Agreement.Exit.Edit}/>
+						<Route path="detail" component={Operation.CustomerManage.Agreement.Exit.Detail}/>
+					</Route>
+				</Route>
 				</Route>
 
 				{/*入驻订单*/}
@@ -48,60 +107,6 @@ export default(
 						<Route path="edit" component = {Operation.JoinOrder.Customer.Edit}/>
 						<Route path="detail" component = {Operation.JoinOrder.Customer.Detail}/>
 					</Route>
-				</Route>
-
-				{/*合同信息*/}
-				<Route path="agreement" component={Basic}>
-
-					{/*出租方管理*/}
-					<Route path="lessorManage" component={Basic}>
-						<Route path="list" component={Operation.Agreement.LessorManage.List}/>
-					</Route>
-					
-					{/*基础配置*/}
-					<Route path="setting" component={Basic}>
-						<Route path="list" component={Operation.Agreement.Setting.List}/>
-					</Route>
-
-					{/*入驻协议书*/}
-					<Route path="join" component={Basic}>
-						<Route path="edit" component={Operation.Agreement.Join.Edit}/>
-						<Route path="detail" component={Operation.Agreement.Join.Detail}/>
-						<Route path="create" component={Operation.Agreement.Join.Create}/>
-					</Route>
-
-					{/*承租意向书*/}
-					<Route path="admit" component={Basic}>
-						<Route path="create" component={Operation.Agreement.Admit.Create}/>
-						<Route path="edit" component={Operation.Agreement.Admit.Edit}/>
-						<Route path="detail" component={Operation.Agreement.Admit.Detail}/>
-					</Route>
-
-					{/*增租协议书*/}
-					<Route path="increase" component={Basic}>
-						<Route path="edit" component={Operation.Agreement.Renew.Edit}/>
-						<Route path="detail" component={Operation.Agreement.Renew.Detail}/>
-					</Route>
-
-					{/*续租协议书*/}
-					<Route path="renew" component={Basic}>
-						<Route path="edit" component={Operation.Agreement.Renew.Edit}/>
-						<Route path="detail" component={Operation.Agreement.Renew.Detail}/>
-					</Route>
-
-					{/*减租协议书*/}
-					<Route path="reduce" component={Basic}>
-						<Route path="edit" component={Operation.Agreement.Reduce.Edit}/>
-						<Route path="detail" component={Operation.Agreement.Reduce.Detail}/>
-					</Route>
-
-					{/*退租协议书*/}
-					<Route path="exit" component={Basic}>
-						<Route path="edit" component={Operation.Agreement.Exit.Edit}/>
-						<Route path="detail" component={Operation.Agreement.Exit.Detail}/>
-					</Route>
-
-
 				</Route>
 
 				{/*财务管理*/}

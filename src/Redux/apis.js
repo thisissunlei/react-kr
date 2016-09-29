@@ -2,28 +2,28 @@ const APIS  = {
 
 	//合同－入驻合同－查看
 	'show-checkin-agreement':{
-		url:'/mockjsdata/3/krspace-finance-web/checkinagreement/show-checkin-agreement',
+		url:'/mockjsdata/3/krspace-finance-web/checkinagreement/checkin-agreement/actions/show',
 		method:'get'
 	},
 	//合同－承租合同－查看
 	'showFinaContractIntentletter':{
-		url:'/mockjsdata/3/krspace-finance-web/finaContractDetail/showFinaContractIntentletter',
+		url:'/mockjsdata/3/krspace-finance-web/finacontractdetail/fina-contract-intentletter/acitions/show',
 		method:'get'
 	},
 
 	//合同－承租合同－新建
 	'addFinaContractIntentletter':{
-		url:'/mockjsdata/3/krspace-finance-web/finaContractDetail/addFinaContractIntentletter',
+		url:'/mockjsdata/3/krspace-finance-web/finacontractdetail/fina-contract-intentletter/actions/save',
 		method:'post'
 	},
 	//合同－承租合同－编辑
 	'updateFinaContractIntentletter':{
-		url:'/mockjsdata/3/krspace-finance-web/finaContractDetail/updateFinaContractIntentletter',
+		url:'/mockjsdata/3/krspace-finance-web/finacontractdetail/fina-contract-intentletter/actions/update',
 		method:'put'
 	},
-
+	//合同－创建基础数据
 	'finaContractIntention':{
-		url:'/mockjsdata/3/krspace-finance-web/finaContractDetail/finaContractIntention?communityId={communityId}&customerId={customerId}',
+		url:'/mockjsdata/3/krspace-finance-web/finacontractdetail/fina-contract-intention?communityId={communityId}&customerId={customerId}',
 		method:'get'
 	},
 	//合同-出租方管理-基本信息

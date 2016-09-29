@@ -287,6 +287,7 @@ PlanForm = reduxForm({
     return (
 
       <div>
+
 			<Section title="创建入驻协议书" description=""> 
 
 				<JoinCreateForm onSubmit={this.confirmJoinSubmit} handleOpen={this.handleOpen} handleClick={this.handleClick}/>
