@@ -13,7 +13,6 @@ class AdmitDetailStore {
 	  this.user = 'hahah===>>>>';
   }
 
-
 }
 
 module.exports = new AdmitDetailStore();

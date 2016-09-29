@@ -29,54 +29,32 @@ let OrderCreateForm = function(props){
 
 	return (
 
-<form onSubmit={handleSubmit(onSubmit)}>
+			<form onSubmit={handleSubmit(onSubmit)}>
 
+				<KrField name="customerName" type="text" label="客户名称"  disabled={true}/> 
 
-<Grid style={{marginTop:30}}>
+				 <KrField name="mainbilltype" component="select" label="订单类型">
+					 <option>请选择类型</option>
+					 <option value="STATION">工位订单</option>
+				 </KrField>
 
-					<Row>
-						<Col md={12} > <KrField name="customerName" type="text" label="客户名称"  disabled={true}/> </Col>
-					</Row>
+				 <KrField name="communityid" component="select" label="所在社区">
+						<option>请选择社区</option>
+						{communitys.map((item,index)=> <option value={item.communityId} key={index}>{item.communityName}</option>)}
+				 </KrField>
 
-					<Row>
-						<Col md={12} > 
-						 <KrField name="mainbilltype" component="select" label="订单类型">
-						     <option>请选择类型</option>
-						     <option value="STATION">工位订单</option>
-						 </KrField>
-						 </Col>
-					</Row>
+				<KrField type="labelText" label="所在城市" value={cityName||'空'} /> 
 
-					<Row>
-						<Col md={12} > 
-								 <KrField name="communityid" component="select" label="所在社区">
-										<option>请选择社区</option>
-											{communitys.map((item,index)=> <option value={item.communityId} key={index}>{item.communityName}</option>)}
-								 </KrField>
-						    </Col>
-					</Row>
+			 	<KrField name="mainbillname" type="text" label="订单名称" /> 
+			    <KrField name="mainbilldesc" type="textarea" label="订单描述" /> 
 
-					<Row>
-						<Col md={12} > <LabelText label="所在城市" text={cityName||'空'}/> </Col>
-					</Row>
-
-					<Row>
-						<Col md={12} > <KrField name="mainbillname" type="text" label="订单名称" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={12} > <KrField name="mainbilldesc" type="textarea" label="订单描述" /> </Col>
-					</Row>
-
+				<Grid>
 					<Row style={{marginTop:30}}>
 						<Col md={10}></Col>
 						<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} disabled={submitting} /> </Col>
 					</Row>
-
 				</Grid>
-
-				
-    </form>
+		</form>
 	);
 
 }

@@ -70,6 +70,7 @@
     "react": "^0.14.6",
     "react-docgen": "^2.9.1",
     "react-dom": "^0.14.6",
+    "react-form": "0.0.2",
     "react-hot-loader": "^1.3.0",
     "react-materialui-notifications": "^0.4.1",
     "react-redux": "^4.4.5",
@@ -106,6 +107,8 @@
     "object-assign": "^4.1.0",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
+    "react-form": "0.0.2",
+    "react-form-inputs": "0.0.1",
     "react-tap-event-plugin": "^0.2.2",
     "redux-form": "^6.0.2"
   }
