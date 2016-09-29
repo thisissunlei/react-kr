@@ -27,11 +27,13 @@ let OrderCreateForm = function(props){
 
   	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,cityName} = props;
 
-	return (
+	console.log('---->>>',props.initialValues);
 
+	return (
 			<form onSubmit={handleSubmit(onSubmit)}>
 
 				<KrField name="customerName" type="text" label="客户名称"  disabled={true}/> 
+
 
 				 <KrField name="mainbilltype" component="select" label="订单类型">
 					 <option>请选择类型</option>
@@ -59,9 +61,6 @@ let OrderCreateForm = function(props){
 
 }
 
-OrderCreateForm= reduxForm({
-  form: 'orderCreateForm',
-})(OrderCreateForm);
 
 class OrderCreate extends Component {
 
@@ -75,6 +74,13 @@ class OrderCreate extends Component {
 			open:false,
 			loading:true,
 		}
+
+
+		const {initialValues} =this.props; 
+		OrderCreateForm= reduxForm({
+		  form: 'orderCreateForm',
+			initialValues
+		})(OrderCreateForm);
 
 	}
 
@@ -161,7 +167,7 @@ class OrderCreate extends Component {
 			<BreadCrumbs children={['运营平台','财务管理','新增客户订单']} hide={!!this.props.location.query.closeAll}/>
 
 			<Section title="新增客户订单" description="" hide={!!this.props.location.query.closeAll}> 
-				<OrderCreateForm onSubmit={this.confirmSubmit} communitys={this.props.communitys} cityName={this.props.cityName}/>
+				<OrderCreateForm onSubmit={this.confirmSubmit} communitys={this.props.communitys} cityName={this.props.cityName} initialValues={this.props.initialValues}/>
 			</Section>
 			
 	 </div>
@@ -190,9 +196,13 @@ function mapStateToProps(state){
 		}
 	});
 
+	let customerName = initialValues && initialValues.customerName;
+
+
 	return {
 		cityName,
 		communitys,
+		customerName,
 		initialValues
 	};
 

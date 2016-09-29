@@ -84,7 +84,6 @@ class OrderCreate extends Component {
 		super(props, context);
 
 		this.confirmSubmit = this.confirmSubmit.bind(this);
-		this.back = this.back.bind(this);
 
 		console.log('this',props);
 
@@ -128,7 +127,6 @@ class OrderCreate extends Component {
 	}
 
 	componentWillReceiveProps(nextProps){
-		console.log('nextProps',nextProps);
 	}
 
 	confirmSubmit(values){
@@ -139,22 +137,20 @@ class OrderCreate extends Component {
 
 		actions.callAPI('edit-order',{},values).then(function(response){
 			Notify.show([{
-				message:'创建成功',
+				message:'更新成功',
 				type: 'success',
 			}]);
+			window.setTimeout(function(){
+				window.top.location.reload();
+			},1000);
 		}).catch(function(err){
 			Notify.show([{
-				message:'创建失败',
+				message:'更新失败',
 				type: 'danger',
 			}]);
 		});
 
 	}
-
-	back(){
-
-	}
-
 
   render() {
 
@@ -169,7 +165,6 @@ class OrderCreate extends Component {
       <div>
 
 				<BreadCrumbs children={['运营平台','财务管理','编辑客户订单']} hide={!!this.props.location.query.closeAll}/>
-
 				<Section title="编辑客户订单" description="" hide={!!this.props.location.query.closeAll}> 
 					<OrderEditForm onSubmit={this.confirmSubmit} communitys={this.props.communitys} cityName={this.props.cityName} initialValues={this.props.initialValues}/>
 				</Section>
