@@ -35,35 +35,23 @@ let OrderEditForm = function (props){
 	return (
 
 	<form onSubmit={handleSubmit(onSubmit)}>
-					<Grid style={{marginTop:30}}>
-						<Row>
-							<Col md={12} > <KrField name="customerName" type="text" label="客户名称"  disabled={true}/> </Col>
-						</Row>
-						<Row>
-							<Col md={12} > 
-							 <KrField name="mainbilltype" component="select" label="订单类型">
-								 <option>请选择类型</option>
-								 <option value="STATION">工位订单</option>
-							 </KrField>
-							 </Col>
-						</Row>
-						<Row>
-							<Col md={12} > 
+
+			<KrField name="customerName" type="text" label="客户名称"  disabled={true}/> 
+
+			 <KrField name="mainbilltype" component="select" label="订单类型">
+				 <option>请选择类型</option>
+				 <option value="STATION">工位订单</option>
+			 </KrField>
+
 									 <KrField name="communityid" component="select" label="所在社区">
 											<option>请选择社区</option>
 												{communitys.map((item,index)=> <option value={item.communityId} key={index}>{item.communityName}</option>)}
 									 </KrField>
-								</Col>
-						</Row>
-						<Row>
-							<Col md={12} > <LabelText label="所在城市" text={cityName||'空'}/> </Col>
-						</Row>
-						<Row>
-							<Col md={12} > <KrField name="mainbillname" type="text" label="订单名称" /> </Col>
-						</Row>
-						<Row>
-							<Col md={12} > <KrField name="mainbilldesc" type="textarea" label="订单描述" /> </Col>
-						</Row>
+					<KrField type="labelText" label="所在城市" value={cityName||'空'} /> 
+					 <KrField name="mainbillname" type="text" label="订单名称" /> 
+					 <KrField name="mainbilldesc" type="textarea" label="订单描述" /> 
+
+					<Grid >
 						<Row style={{marginTop:30}}>
 							<Col md={10}></Col>
 							<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} /> </Col>
@@ -72,10 +60,6 @@ let OrderEditForm = function (props){
 			</form>
 	);
 }
-
-OrderEditForm = reduxForm({
-  form: 'orderEditForm'
-})(OrderEditForm);
 
  
 class OrderCreate extends Component {
@@ -91,6 +75,13 @@ class OrderCreate extends Component {
 			open:false,
 			loading:true,
 		}
+
+
+		const {initialValues} = this.props;
+		OrderEditForm = reduxForm({
+			form: 'orderEditForm',
+			initialValues
+		})(OrderEditForm);
 
 	}
 
@@ -140,9 +131,11 @@ class OrderCreate extends Component {
 				message:'更新成功',
 				type: 'success',
 			}]);
+
 			window.setTimeout(function(){
 				window.top.location.reload();
 			},1000);
+
 		}).catch(function(err){
 			Notify.show([{
 				message:'更新失败',
