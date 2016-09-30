@@ -135,30 +135,26 @@ class OrderCreate extends Component {
 		var _this = this;
 
 		actions.callAPI('enter-order',{},values).then(function(response){
+
 			Notify.show([{
 				message:'创建成功',
 				type: 'success',
 			}]);
 
-	window.setTimeout(function(){
-		_this.isOk = false;
-	},1000);
-
-			/*
 			window.setTimeout(function(){
 				window.top.location.reload();
+				_this.isOk = false;
 			},1000);
-			*/
+
 
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
 				type: 'danger',
 			}]);
-
-	window.setTimeout(function(){
-		_this.isOk = false;
-	},1000);
+			window.setTimeout(function(){
+				_this.isOk = false;
+			},1000);
 		});
 
 

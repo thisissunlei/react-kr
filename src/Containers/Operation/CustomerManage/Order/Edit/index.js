@@ -134,6 +134,8 @@ class OrderCreate extends Component {
 
 		values.customerid = this.props.params.customerId;
 
+		var _this = this;
+
 		actions.callAPI('edit-order',{},values).then(function(response){
 			Notify.show([{
 				message:'更新成功',
@@ -142,19 +144,22 @@ class OrderCreate extends Component {
 
 			window.setTimeout(function(){
 				window.top.location.reload();
+				_this.isOk = false;
 			},1000);
 
 		}).catch(function(err){
+
 			Notify.show([{
 				message:'更新失败',
 				type: 'danger',
 			}]);
+
+			window.setTimeout(function(){
+				_this.isOk = false;
+			},300);
+
 		});
 
-		var _this = this;
-		window.setTimeout(function(){
-			_this.isOk = false;
-		},1000);
 
 	}
 
