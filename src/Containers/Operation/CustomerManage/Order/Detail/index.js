@@ -299,8 +299,8 @@ class OrderDetail extends Component {
 			<Grid>
 
 					<Row>
+						<Col md={4} align="center"><Button label="入驻协议书" href={"/#/operation/customerManage/"+this.props.params.orderId+"/agreement/join/create"}/></Col>
 						<Col md={4} align="center"><Button label="承租意向书" href={"/#/operation/customerManage/"+this.props.params.orderId+"/agreement/admit/create"}/></Col>
-						<Col md={4} align="center"><Button label="入驻协议书" href={"/#/operation/customerManage/"+this.props.params.orderId+"/agreement/admit/create"}/></Col>
 						<Col md={4} align="center"><Button label="增租协议书" href={"/#/operation/customerManage/"+this.props.params.orderId+"/agreement/admit/create"}/></Col>
 					</Row>
 

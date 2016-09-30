@@ -38,19 +38,18 @@ let OrderEditForm = function (props){
 
 			<KrField name="customerName" type="text" label="客户名称"  disabled={true}/> 
 
-			 <KrField name="mainbilltype" component="select" label="订单类型">
+			 <KrField name="mainbilltype" component="select" label="订单类型" requireLabel={true}>
 				 <option>请选择类型</option>
 				 <option value="STATION">工位订单</option>
 			 </KrField>
 
-				 <KrField name="communityid" component="select" label="所在社区">
+				 <KrField name="communityid" component="select" label="所在社区" requireLabel={true}>
 						<option>请选择社区</option>
 							{communitys.map((item,index)=> <option value={item.communityId} key={index}>{item.communityName}</option>)}
 				 </KrField>
-					<KrField type="labelText" label="所在城市" value={cityName||'空'} /> 
-					 <KrField name="mainbillname" type="text" label="订单名称" /> 
-					 <KrField name="mainbilldesc" type="textarea" label="订单描述" /> 
-
+					<KrField label="所在城市" value={cityName||'无'} component="labelText" /> 
+					 <KrField name="mainbillname" type="text" label="订单名称" requireLabel={true} component="text" /> 
+					 <KrField name="mainbilldesc" type="textarea" label="订单描述" component="textarea" /> 
 					<Grid >
 						<Row style={{marginTop:30}}>
 							<Col md={10}></Col>
@@ -69,7 +68,8 @@ class OrderCreate extends Component {
 
 		this.confirmSubmit = this.confirmSubmit.bind(this);
 
-		console.log('this',props);
+
+		this.isOk = false;
 
 		this.state = {
 			open:false,
@@ -122,6 +122,14 @@ class OrderCreate extends Component {
 
 	confirmSubmit(values){
 
+
+
+		if(this.isOk){
+			return false;
+		}
+
+		this.isOk = true;
+
 		var {actions} = this.props;
 
 		values.customerid = this.props.params.customerId;
@@ -142,6 +150,11 @@ class OrderCreate extends Component {
 				type: 'danger',
 			}]);
 		});
+
+		var _this = this;
+		window.setTimeout(function(){
+			_this.isOk = false;
+		},1000);
 
 	}
 

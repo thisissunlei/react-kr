@@ -55,40 +55,25 @@ let OrderCreateForm = function(props){
 
 <form onSubmit={handleSubmit(onSubmit)}>
 
+
+				<KrField name="corporationName" type="text" label="出租方名称" /> 
+
+				<KrField name="enableflag" component="group" label="是否启用">
+					<KrField name="enableflag" label="是" type="radio" value="2"/>
+					<KrField name="enableflag" label="否" type="radio" value="3" />
+				</KrField>
+				
+				<KrField name="corporationAddress" component="text" type="text" label="详细地址"/> 
+				 <KrField name="corporationDesc" component="textarea" label="备注"  placeholder="备注信息"/> 
+
+
 				<Grid style={{marginTop:30}}>
-
-				<Row>
-					<Col md={12} > <KrField name="corporationName" type="text" label="出租方名称" /> </Col>
-				</Row>
-
-				<Row>
-					<Col md={4} > 
-						<LabelText label="是否启用" />
-					</Col>
-					<Col md={4} > 
-						<KrField name="enableflag" label="是" type="radio" value="2"/>
-					</Col>
-					<Col md={4} > 
-						<KrField name="enableflag" label="否" type="radio" value="3" />
-					</Col>
-				</Row>
-
-				<Row>
-				<Col md={12} > <KrField name="corporationAddress" type="text" label="详细地址"/> </Col>
-				</Row>
-
-				<Row>
-				<Col md={12} > <KrField name="corporationDesc" type="textarea" label="备注"  placeholder="备注信息"/> </Col>
-				</Row>
-
-				<Row style={{marginTop:30}}>
-				<Col md={8}></Col>
-				<Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
-				<Col md={2}> <Button  label="取消" type="button"  onTouchTap={onCancel} /> </Col>
-				</Row>
-
+					<Row style={{marginTop:30}}>
+					<Col md={8}></Col>
+					<Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
+					<Col md={2}> <Button  label="取消" type="button"  onTouchTap={onCancel} /> </Col>
+					</Row>
 				</Grid>
-
 	</form>
 
 	);
@@ -98,7 +83,6 @@ let OrderCreateForm = function(props){
 OrderCreateForm= reduxForm({
   form: 'orderCreateForm',
 })(OrderCreateForm);
-
 
 class OrderCreate extends Component {
 
@@ -110,14 +94,20 @@ class OrderCreate extends Component {
     this.openCreateDialog = this.openCreateDialog.bind(this);
 	 this.searchParams = this.searchParams.bind(this);
 
-    this.state = {
-      open:false,
-      openCreate:false,
-    }
+	  this.getListData = this.getListData.bind(this);
+
+		this.state = {
+		  open:false,
+		  openCreate:false,
+		}
 
   }
 
 	componentDidMount(){
+		this.getListData();
+	}
+
+	getListData(){
 
 		var {actions} = this.props;
 		var _this = this;
@@ -139,12 +129,13 @@ class OrderCreate extends Component {
 	}
 
 
+
+
   confirmCreateSubmit(values){
 
 
 		var {actions} = this.props;
 		var _this = this;
-
 
 		actions.callAPI('addFnaCorporation',{ },values).then(function(response){
 			Notify.show([{
@@ -160,7 +151,32 @@ class OrderCreate extends Component {
 
 		this.openCreateDialog();
 
-  }
+	  window.setTimeout(function(){
+		  window.location.reload();
+	  },1000);
+
+	}
+
+	getListData(){
+
+		var {actions} = this.props;
+		var _this = this;
+
+		actions.callAPI('fnaCorporationList',{
+			corporationName:'',
+			page:'',
+			pageSize:''
+		},{}).then(function(response){
+
+	   	}).catch(function(err){
+			console.log('err',err);
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		});
+
+	}
 
   openCreateDialog(){
     this.setState({

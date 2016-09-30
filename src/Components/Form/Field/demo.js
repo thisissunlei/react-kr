@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
@@ -115,17 +116,16 @@ const renderFieldTextarea = ({ input, label, type, meta: { touched, error } ,req
 const renderFieldSelect = ({ input, label, type, meta: { touched, error },children,disabled,style,requireLabel}) => (
 
 	<div className="form-item-wrap" style={style}>
-			<div className="form-item">
-		<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
-				<div className="form-main">
-				<div className="form-input">
-					<select {...input}  disabled={disabled}>
-					{children}
-					</select>
-					{touched && error && <span>{error}</span>}
-				</div>
-			  </div>
-					</div>
+<div className="form-item">
+    <label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
+    <div className="form-main">
+    <div className="form-input">
+		<select {...input}  disabled={disabled}>
+		{children}
+		</select>
+		{touched && error && <span>{error}</span>}
+    </div>
+  </div>
 		</div>
 
 )
@@ -177,7 +177,7 @@ export default class KrField extends React.Component {
 				);
 		}
 
-		if(component === 'textarea'){
+		if(component === 'textarea' || type=='textarea'){
 			return (
 					<Field {...this.props} component={renderFieldTextarea} style={WrapStyles}/>
 				);

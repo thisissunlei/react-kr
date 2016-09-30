@@ -62,8 +62,8 @@ export default(
 
 					{/*入驻协议书*/}
 					<Route path="join" component={Basic}>
-						<Route path="edit" component={Operation.CustomerManage.Agreement.Join.Edit}/>
-						<Route path="detail" component={Operation.CustomerManage.Agreement.Join.Detail}/>
+						<Route path=":id/edit" component={Operation.CustomerManage.Agreement.Join.Edit}/>
+						<Route path=":id/detail" component={Operation.CustomerManage.Agreement.Join.Detail}/>
 						<Route path="create" component={Operation.CustomerManage.Agreement.Join.Create}/>
 					</Route>
 
@@ -76,14 +76,14 @@ export default(
 
 					{/*增租协议书*/}
 					<Route path="increase" component={Basic}>
-						<Route path="edit" component={Operation.CustomerManage.Agreement.Renew.Edit}/>
-						<Route path="detail" component={Operation.CustomerManage.Agreement.Renew.Detail}/>
+						<Route path=":id/edit" component={Operation.CustomerManage.Agreement.Renew.Edit}/>
+						<Route path=":id/detail" component={Operation.CustomerManage.Agreement.Renew.Detail}/>
 					</Route>
 
 					{/*续租协议书*/}
 					<Route path="renew" component={Basic}>
-						<Route path="edit" component={Operation.CustomerManage.Agreement.Renew.Edit}/>
-						<Route path="detail" component={Operation.CustomerManage.Agreement.Renew.Detail}/>
+						<Route path=":id/edit" component={Operation.CustomerManage.Agreement.Renew.Edit}/>
+						<Route path=":id/detail" component={Operation.CustomerManage.Agreement.Renew.Detail}/>
 					</Route>
 
 					{/*减租协议书*/}

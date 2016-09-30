@@ -1,6 +1,12 @@
 const APIS  = {
 
-	//合同－入驻合同－查看
+
+	//合同－承租合同－查看
+	'show-fina-contract-intentletter':{
+		url:'/mockjsdata/3/krspace-finance-web/finacontractdetail/fina-contract-intentletter/acitions/show',
+		method:'get'
+	},
+	//合同－(入驻合同、增租、续租)－查看
 	'show-checkin-agreement':{
 		url:'/mockjsdata/3/krspace-finance-web/checkinagreement/checkin-agreement/actions/show',
 		method:'get'
@@ -40,12 +46,12 @@ const APIS  = {
 
 	//合同-出租方管理-新增
 	'addFnaCorporation':{
-		url:'/mockjsdata/3/krspace-finance-web/addFnaCorporation',
+		url:'/api/krspace-finance-web/addFnaCorporation',
 		method:'post'
 	},
 	//合同-出租方管理-list
 	'fnaCorporationList':{
-		url:'/mockjsdata/3/krspace-finance-web/fnaCorporationList?corporationName={corporationName}&page={page}&pageSize={pageSize}',
+		url:'api/krspace-finance-web/fnaCorporationList?corporationName={corporationName}&page={page}&pageSize={pageSize}',
 		method:'post'
 	},
 	//demo

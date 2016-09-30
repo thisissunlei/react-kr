@@ -30,18 +30,18 @@ let OrderCreateForm = function(props){
 	return (
 			<form onSubmit={handleSubmit(onSubmit)}>
 
-				<KrField name="customerName" type="text" label="客户名称"  disabled={true}/> 
-				 <KrField name="mainbilltype" component="select" label="订单类型">
+				<KrField name="customerName" component="text" type="text" label="客户名称"  disabled={true} /> 
+				 <KrField name="mainbilltype" component="select" label="订单类型" requireLabel={true}>
 					 <option>请选择类型</option>
 					 <option value="STATION">工位订单</option>
 				 </KrField>
-				 <KrField name="communityid" component="select" label="所在社区">
+				 <KrField name="communityid" component="select" label="所在社区" requireLabel={true}>
 						<option>请选择社区</option>
 						{communitys.map((item,index)=> <option value={item.communityId} key={index}>{item.communityName}</option>)}
 				 </KrField>
-				<KrField type="labelText" label="所在城市" value={cityName||'空'} /> 
-			 	<KrField name="mainbillname" type="text" label="订单名称" /> 
-			    <KrField name="mainbilldesc" type="textarea" label="订单描述" /> 
+				<KrField type="labelText" label="所在城市" component="LabelText" value={cityName||'无'}  /> 
+			 	<KrField name="mainbillname" type="text" component="text" label="订单名称" requireLabel={true} /> 
+			    <KrField name="mainbilldesc" component="textarea" label="订单描述" /> 
 
 				<Grid>
 					<Row style={{marginTop:30}}>
@@ -63,6 +63,9 @@ class OrderCreate extends Component {
 
 		this.confirmSubmit = this.confirmSubmit.bind(this);
 		this.back = this.back.bind(this);
+
+
+		this.isOk = false;
 
 		this.state = {
 			open:false,
@@ -110,7 +113,7 @@ class OrderCreate extends Component {
 			_this.setState({
 				loading:false
 			});
-		},1000);
+		},2000);
 
 	}
 
@@ -120,8 +123,13 @@ class OrderCreate extends Component {
 	confirmSubmit(values){
 
 		var {actions} = this.props;
-
 		values.customerid = this.props.params.customerId;
+
+		if(this.isOk){
+			return false;
+		}
+
+		this.isOk = true;
 
 		actions.callAPI('enter-order',{},values).then(function(response){
 			Notify.show([{
@@ -139,6 +147,11 @@ class OrderCreate extends Component {
 				type: 'danger',
 			}]);
 		});
+
+		var _this = this;
+		window.setTimeout(function(){
+			_this.isOk = false;
+		},1000);
 
 	}
 

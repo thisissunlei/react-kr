@@ -6,6 +6,8 @@ import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 import Section from 'kr-ui/Section';
 
+import LocationMap from 'kr-ui/Global/LocationMap';
+
 
 
 
@@ -55,11 +57,7 @@ class Undefined extends Component{
 
 			<div>
 					<Section title="出错了" description="" >
-
-
-dfdsfds
-				
-
+						<LocationMap />
 					</Section>
 			</div>		
 
