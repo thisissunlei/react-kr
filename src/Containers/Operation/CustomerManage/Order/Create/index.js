@@ -32,11 +32,11 @@ let OrderCreateForm = function(props){
 
 				<KrField name="customerName" component="text" type="text" label="客户名称"  disabled={true} /> 
 				 <KrField name="mainbilltype" component="select" label="订单类型" requireLabel={true}>
-					 <option>请选择类型</option>
+					 <option value="">请选择类型</option>
 					 <option value="STATION">工位订单</option>
 				 </KrField>
 				 <KrField name="communityid" component="select" label="所在社区" requireLabel={true}>
-						<option>请选择社区</option>
+						<option value="0">请选择社区</option>
 						{communitys.map((item,index)=> <option value={item.communityId} key={index}>{item.communityName}</option>)}
 				 </KrField>
 				<KrField type="labelText" label="所在城市" component="LabelText" value={cityName||'无'}  /> 
