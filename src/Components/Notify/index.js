@@ -6,7 +6,7 @@ import NowtifyItem from './NowtifyItem';
 const defaultConfig = {
   localPath: '/node_modules/react-nowtify/',
   containerID: 'nowtify-wrapper',
-  displayTimeout: 4000,
+  displayTimeout: 2000,
   transition: 'growl',
   sound: true,
   dismissible: true,
