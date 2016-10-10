@@ -55,8 +55,8 @@ const APIS  = {
 	},
 	//合同-出租方管理-list
 	'fnaCorporationList':{
-		url:'api/krspace-finance-web/fnaCorporationList?corporationName={corporationName}&page={page}&pageSize={pageSize}',
-		method:'post'
+		url:'/api/krspace-finance-web/fnaCorporationList?corporationName={corporationName}&page={page}&pageSize={pageSize}',
+		method:'get'
 	},
 	//demo
 	'demo':{

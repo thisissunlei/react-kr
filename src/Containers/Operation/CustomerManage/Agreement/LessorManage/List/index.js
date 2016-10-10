@@ -31,12 +31,12 @@ let OrderSearchForm = function(props){
   	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,cityName} = props;
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} method="POST">
+		<form onSubmit={handleSubmit(onSubmit)} >
 					<Row>
 					<Col md={10}>
-						<KrField name="username" type="text" placeholder="搜索关键词"/>
+						<KrField name="corporationName" type="text"  component="input" placeholder="搜索关键词"/>
 					</Col>
-					<Col md={2} align="right" > <Button label="搜索" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
+					<Col md={2} align="right" > <Button label="搜索"  type="submit" primary={true}/> </Col>
 					</Row>
 		</form>
 	);
@@ -185,8 +185,25 @@ class OrderCreate extends Component {
   }
 
 
-	searchParams(){
+	searchParams(values){
+		values.corporationName = values.corporationName || ' ';
+		values.page = 1;
+		values.pageSize = 10;
+		console.log('---',values);
+		var {actions} = this.props;
+		var _this = this;
 
+		actions.callAPI('fnaCorporationList',values,{}).then(function(response){
+			Notify.show([{
+				message:'创建成功!',
+				type: 'success',
+			}]);
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+		});	
 	}
 
 	render() {
