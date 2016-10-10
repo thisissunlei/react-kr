@@ -1,6 +1,10 @@
 const APIS  = {
 
-
+	//合同－退租合同－查看
+	'getFnaContractWithdrawalById':{
+		url:'/mockjsdata/3/krspace-finance-web/fnaContractWithdrawalController/getFnaContractWithdrawalById',
+		method:'get'
+	},
 	//合同－承租合同－查看
 	'show-fina-contract-intentletter':{
 		url:'/mockjsdata/3/krspace-finance-web/finacontractdetail/fina-contract-intentletter/acitions/show',

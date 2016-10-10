@@ -301,13 +301,13 @@ class OrderDetail extends Component {
 					<Row>
 						<Col md={4} align="center"><Button label="入驻协议书" href={"/#/operation/customerManage/"+this.props.params.orderId+"/agreement/join/create"}/></Col>
 						<Col md={4} align="center"><Button label="承租意向书" href={"/#/operation/customerManage/"+this.props.params.orderId+"/agreement/admit/create"}/></Col>
-						<Col md={4} align="center"><Button label="增租协议书" href={"/#/operation/customerManage/"+this.props.params.orderId+"/agreement/admit/create"}/></Col>
+						<Col md={4} align="center"><Button label="增租协议书" href={"/#/operation/customerManage/"+this.props.params.orderId+"/agreement/increase/create"}/></Col>
 					</Row>
 
 					<Row style={{marginTop:10}}>
-						<Col md={4} align="center" ><Button label="续租协议书" href={"/#/operation/customerManage/"+this.props.params.orderId+"/agreement/admit/create"}/></Col>
+						<Col md={4} align="center" ><Button label="续租协议书" href={"/#/operation/customerManage/"+this.props.params.orderId+"/agreement/renew/create"}/></Col>
 						<Col md={4} align="center"><Button label="减租协议书" href={"/#/operation/customerManage/"+this.props.params.orderId+"/agreement/admit/create"}/></Col>
-						<Col md={4} align="center"><Button label="退租协议书" href={"/#/operation/customerManage/"+this.props.params.orderId+"/agreement/admit/create"}/></Col>
+						<Col md={4} align="center"><Button label="退租协议书" href={"/#/operation/customerManage/"+this.props.params.orderId+"/agreement/exit/create"}/></Col>
 					</Row>
 			
 				</Grid>
