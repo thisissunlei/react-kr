@@ -74,6 +74,7 @@ let OrderCreateForm = function(props){
 					<Col md={2}> <Button  label="取消" type="button"  onTouchTap={onCancel} /> </Col>
 					</Row>
 				</Grid>
+
 	</form>
 
 	);
@@ -186,19 +187,15 @@ class OrderCreate extends Component {
 
 
 	searchParams(values){
+
 		values.corporationName = values.corporationName || ' ';
 		values.page = 1;
 		values.pageSize = 10;
-		console.log('---',values);
+
 		var {actions} = this.props;
 		var _this = this;
 
-		actions.callAPI('fnaCorporationList',values,{}).then(function(response){
-			Notify.show([{
-				message:'创建成功!',
-				type: 'success',
-			}]);
-		}).catch(function(err){
+		actions.callAPI('fnaCorporationList',values,{}).then(function(response){ }).catch(function(err){
 			Notify.show([{
 				message:err.message,
 				type: 'danger',
