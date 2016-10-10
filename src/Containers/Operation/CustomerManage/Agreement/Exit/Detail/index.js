@@ -17,7 +17,7 @@ import {Grid,Row,Col} from 'kr-ui/Grid';
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
 
-export default  class JoinDetail extends Component {
+export default  class ExitDetail extends Component {
 
 
 	constructor(props,context){
@@ -104,24 +104,13 @@ export default  class JoinDetail extends Component {
 
     return (
 
-      <div>
+		  <div>
+				<BreadCrumbs children={['社区运营',,'合同详情','退租合同查看']}/>
+				<Section title="退租合同(查看)" description=""> 
+					<BasicRender/>
+				</Section>
 
-			<BreadCrumbs children={['社区运营',,'合同详情','入驻合同查看']}/>
-
-			<Section title="入驻合同(查看)" description=""> 
-				<BasicRender/>
-
-<Grid style={{marginTop:30}}>
-				  <Row>
-					  <Col md={4} align="center"></Col>
-					  <Col md={2} align="center"> <Button  label="编辑"  type="submit" primary={true}/> </Col>
-					  <Col md={2} align="center"> <Button  label="创建"  type="submit" primary={true}/> </Col>
-					  <Col md={4} align="center"></Col>
-				  </Row>
-			  </Grid>
-
-			</Section>
-      </div>
+		  </div>
 
     );
   }
