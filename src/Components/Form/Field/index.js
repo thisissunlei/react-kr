@@ -28,24 +28,29 @@ const InputWrap = (props)=>{
 }
 
 
-const renderFieldDate = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,style}) => (
+const renderFieldDate = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,style}) =>{
 
+	return (
 	<div className="form-item-wrap" style={style}>
 	<div className="form-item">
     <label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
     <div className="form-main">
 		<div className="form-input-main">
 			<div className="form-input">
-				 <DatePicker hintText={placeholder} />
+				 <DatePicker hintText={placeholder}  name={input.name}
+				 onChange={function (event,value){
+						 input.onChange(value);
+				}} 
+		  	/>
 			</div>
 		</div>
       {touched && error && <span>{error}</span>}
     </div>
   </div>	
 		</div>
-  
-);
-
+	);
+}
+   
 const renderFieldRadio = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,style}) => {
 
 	const Styles = Object.assign(style,{
@@ -61,6 +66,33 @@ const renderFieldRadio = ({ input, label, type, meta: { touched, error } ,requir
 
 }
 
+
+//renderText
+const renderFieldRenderText = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,style}) =>{
+
+	if(type === 'hidden'){
+		return (
+			<div>
+				<input {...input} placeholder={placeholder|| label} type="hidden"/>
+			</div>
+		);
+	}
+
+	return (
+			<div className="form-item-wrap" style={style}>
+		  <div className="form-item">
+			<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
+			<div className="form-main">
+				<div className="form-input-main">
+					<div className="form-input">
+						<input {...input} placeholder={placeholder} type="text" disabled={disabled} className="render-text"/>
+					</div>
+				</div>
+			</div>
+		  </div>
+		</div>
+	)
+}
 
 const renderFieldInput = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,style}) =>{
 
@@ -156,6 +188,15 @@ export default class KrField extends React.Component {
 				<Field {...this.props} component={renderFieldInput}  style={WrapStyles}/>
 			);
 		}
+
+
+		if(component ==='renderText'){
+			return (
+				<Field {...this.props} component={renderText}  style={WrapStyles}/>
+			);
+		}
+
+
 
 		if(component === 'labelText' || type=='labelText'){
 

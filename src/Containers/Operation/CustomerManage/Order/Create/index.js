@@ -17,8 +17,6 @@ import {
 	Loading,
 } from 'kr-ui';
 
-
-
 import {Dialog,Snackbar} from 'material-ui';
 
 

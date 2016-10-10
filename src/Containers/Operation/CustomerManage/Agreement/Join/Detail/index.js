@@ -32,22 +32,23 @@ export default  class JoinDetail extends Component {
 			}
 		}
 
-		
-
-
 	}
 
 	componentDidMount(){
 
 		var _this = this;
-
 		Store.dispatch(Actions.callAPI('show-checkin-agreement',{id:this.props.params.id})).then(function(response){
 			_this.setState({
 				basic:response,
 				loading:false
 			});
-
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
 		});
+
 	}
 
 	componentWillMount(){

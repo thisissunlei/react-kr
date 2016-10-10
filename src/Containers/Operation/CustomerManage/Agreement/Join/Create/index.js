@@ -36,99 +36,65 @@ var JoinCreateForm = (props) => {
   return (
 
     <form onSubmit={handleSubmit(onSubmit)}>
+						
+							<KrField name="order_type"  grid={1/2} component="select" label="出租方">
+									 <option>请选择订单类型</option>
+									<option value="11">Red</option>
+									<option value="00ff00">Green</option>
+							   		<option value="0000ff">Blue</option>
+							 </KrField>
 
+							 <KrField grid={1/2}  name="username" type="text" component="input" label="地址" /> 
 
-					<Grid style={{marginTop:30,paddingLeft:30,paddingRight:30}}>
+							 <KrField grid={1/2}  name="username" type="text" component="input" label="联系人" /> 
+							 <KrField grid={1/2}  name="username" type="text" component="input" label="电话" /> 
 
-						<Row>
-							<Col md={5}>
-							  <KrField name="order_type" component="select" label="出租方">
-								 <option>请选择订单类型</option>
+							 <KrField grid={1/2}  name="username" type="text" component="input" label="承租方" /> 
+							 <KrField grid={1/2}  name="username" type="text" component="input" label="地址" /> 
+
+							 <KrField grid={1/2}  name="username" type="text" component="input" label="联系人" /> 
+							 <KrField grid={1/2}  name="username" type="text" component="input" label="电话" /> 
+
+							 <KrField grid={1/2}  name="username" type="text" component="input" label="所属社区" /> 
+							<KrField name="order_type"  grid={1/2} component="select" label="所在楼层">
+									 <option>请选择订单类型</option>
+											<option value="11">Red</option>
+											<option value="00ff00">Green</option>
+											<option value="0000ff">Blue</option>
+								 </KrField>
+
+							 <KrField grid={1/2}  name="username" type="text" component="input" label="地址" /> 
+							 <KrField grid={1/2}  name="username" type="text" component="input" label="合同编号" /> 
+
+							 <KrField grid={1/2}  name="username" type="text" component="input" component="input" label="租赁期限"  requireLabel={true} /> 
+							<KrField name="order_type"  grid={1/2} component="select" label="付款方式">
+										<option>请选择订单类型</option>
 										<option value="11">Red</option>
 										<option value="00ff00">Green</option>
 										<option value="0000ff">Blue</option>
 							 </KrField>
-							 </Col>
-							<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="地址" /> </Col>
-						</Row>
-
-						<Row>
-							<Col md={5}> <KrField name="username" type="text" label="联系人" /> </Col>
-							<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="电话" /> </Col>
-						</Row>
-
-						<Row>
-							<Col md={5}> <KrField name="username" type="text" label="承租方" /> </Col>
-							<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="地址" /> </Col>
-						</Row>
-
-						<Row>
-							<Col md={5}> <KrField name="username" type="text" label="联系人" /> </Col>
-							<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="电话" /> </Col>
-						</Row>
-
-						<Row>
-							<Col md={5}> <KrField name="username" type="text" label="所属社区" /> </Col>
-							<Col md={5} mdOffset="2"> 
-	<KrField name="order_type" component="select" label="所在楼层">
+						
+							<KrField name="order_type"  grid={1/2} component="select" label="支付方式">
 								 <option>请选择订单类型</option>
-										<option value="11">Red</option>
-										<option value="00ff00">Green</option>
-										<option value="0000ff">Blue</option>
-							 </KrField>
-							</Col>
-						</Row>
+							 	<option value="11">Red</option>
+								<option value="00ff00">Green</option>
+								<option value="0000ff">Blue</option>
+						 </KrField>
 
-						<Row>
-							<Col md={5}> <KrField name="username" type="text" label="地址" /> </Col>
-							<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="合同编号" /> </Col>
-						</Row>
+						 <KrField grid={1/2}  name="rname"  component="date" grid={1/2} label="签署时间" /> 
 
-						<Row>
-							<Col md={5}> <KrField name="username" type="text" label="租赁期限"  requireLabel={true} /> </Col>
-							<Col md={5} mdOffset="2"> 
-							<KrField name="order_type" component="select" label="付款方式">
-								 <option>请选择订单类型</option>
-										<option value="11">Red</option>
-										<option value="00ff00">Green</option>
-										<option value="0000ff">Blue</option>
-							 </KrField> 
-							 </Col>
-						</Row>
 
-						<Row>
-							<Col md={5}> <KrField name="order_type" component="select" label="支付方式">
-								 <option>请选择订单类型</option>
-										<option value="11">Red</option>
-										<option value="00ff00">Green</option>
-										<option value="0000ff">Blue</option>
-							 </KrField>  </Col>
-							<Col md={5} mdOffset="2"> <KrField name="rname" type="date" label="签署时间" /> </Col>
-						</Row>
+						 <KrField name="username" type="text" component="input" label="首付款时间" /> 
+						 <KrField grid={1/2}  name="username" type="text" component="input" label="工位" /> 
+						 <KrField grid={1/2}  name="username" type="text" component="input" label="会议室" /> 
 
-						<Row>
-							<Col md={5}> <KrField name="username" type="text" label="首付款时间" /> </Col>
-						</Row>
+						 <KrField grid={1/2}  name="username" type="text" component="input" label="租赁用途" placeholder="办公使用" /> 
 
-						<Row>
-							<Col md={5}> <KrField name="username" type="text" label="工位" /> </Col>
-							<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="会议室" /> </Col>
-						</Row>
+						 <KrField grid={1/2}  name="username" type="text" component="input" label="租金总额" placeholder="" /> 
+						 <KrField grid={1/2}  name="username" type="text" component="input" label="押金总额" /> 
 
-						<Row>
-							<Col md={11}> <KrField name="username" type="text" label="租赁用途" placeholder="办公使用" /> </Col>
-						</Row>
+						 <KrField grid={1/2}  name="uname" type="file" label="合同附件" /> 
 
-						<Row>
-							<Col md={5}> <KrField name="username" type="text" label="租金总额" placeholder="" /> </Col>
-							<Col md={5} mdOffset="2"> <KrField name="username" type="text" label="押金总额" /> </Col>
-						</Row>
-
-						<Row>
-							<Col md={5}> <KrField name="uname" type="file" label="合同附件" /> </Col>
-						</Row>
-
-					</Grid>
 
 				<Section title="租赁明细" description="" rightMenu = {
 								<Menu>
@@ -137,30 +103,30 @@ var JoinCreateForm = (props) => {
 								</Menu>
 				}> 
 
-			<Table  displayCheckbox={true}>
-					<TableHeader>
-							<TableHeaderColumn>类别</TableHeaderColumn>
-							<TableHeaderColumn>编号／名称</TableHeaderColumn>
-							<TableHeaderColumn>租赁开始时间</TableHeaderColumn>
-							<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
-					</TableHeader>
-					<TableBody>
-						 <TableRow>
-							<TableRowColumn>1</TableRowColumn>
-							<TableRowColumn>John Smith</TableRowColumn>
-							<TableRowColumn>Employed</TableRowColumn>
-								<TableRowColumn>John Smith</TableRowColumn>
-						</TableRow>
+						<Table  displayCheckbox={true}>
+								<TableHeader>
+										<TableHeaderColumn>类别</TableHeaderColumn>
+										<TableHeaderColumn>编号／名称</TableHeaderColumn>
+										<TableHeaderColumn>租赁开始时间</TableHeaderColumn>
+										<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
+								</TableHeader>
+								<TableBody>
+									 <TableRow>
+										<TableRowColumn>1</TableRowColumn>
+										<TableRowColumn>John Smith</TableRowColumn>
+										<TableRowColumn>Employed</TableRowColumn>
+											<TableRowColumn>John Smith</TableRowColumn>
+									</TableRow>
 
-						 <TableRow>
-							<TableRowColumn>1</TableRowColumn>
-							<TableRowColumn>John Smith</TableRowColumn>
-							<TableRowColumn>Employed</TableRowColumn>
-								<TableRowColumn>John Smith</TableRowColumn>
-						</TableRow>
+									 <TableRow>
+										<TableRowColumn>1</TableRowColumn>
+										<TableRowColumn>John Smith</TableRowColumn>
+										<TableRowColumn>Employed</TableRowColumn>
+											<TableRowColumn>John Smith</TableRowColumn>
+									</TableRow>
 
-				   </TableBody>
-			 </Table>
+							   </TableBody>
+						 </Table>
 
 
 			</Section>
@@ -196,10 +162,10 @@ var PlanForm = (props) => {
 						  <LabelText label="选择工位" text=""/>
 						</Col>
 						<Col md={1}>
-						 <KrField name="username" type="text" />
+						 <KrField grid={1}  name="username" type="text" component="input" />
 						</Col>
 						<Col md={1}>
-						       <KrField name="name" type="text" />
+						       <KrField grid={1}  name="name" type="text" component="input" />
 						</Col>
 					</Row>
 

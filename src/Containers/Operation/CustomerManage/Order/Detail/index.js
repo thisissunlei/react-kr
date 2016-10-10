@@ -240,19 +240,18 @@ class OrderDetail extends Component {
 							<TableRowColumn><Date.Format value={item.leaseBegindate}/></TableRowColumn>
 							<TableRowColumn> <Date.Format value={item.leaseEnddate}/></TableRowColumn>
 							<TableRowColumn><Button  type="link" label="查看" href={"/#/operation/customerManage/"+item.customerid+"/agreement/admit/"+item.id+"/detail"}/>
-							<Button type="link" label="编辑"  href={"/#/operation/customerManage/"+item.customerid+"/agreement/admit/"+item.id+"/edit"}/></TableRowColumn>
+								{/*
+							<Button type="link" label="编辑"  href={"/#/operation/customerManage/"+item.customerid+"/agreement/admit/"+item.id+"/edit"}/>
+								*/}
+							</TableRowColumn>
 						   </TableRow>
 							);
 					})}
 						
 				   </TableBody>
 			 </Table>
-	
-
-
 
 		<Section title="分期计划" description="" style={{marginTop:20}}> 
-
 
 			 	<Table >
 					<TableBody>
