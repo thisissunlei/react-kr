@@ -151,7 +151,7 @@ export default class KrField extends React.Component {
 			width:(grid*100)+'%'
 		}
 
-		if(component === 'text'){
+		if(component ==='input' || component === 'text'){
 			return (
 				<Field {...this.props} component={renderFieldInput}  style={WrapStyles}/>
 			);
@@ -180,9 +180,8 @@ export default class KrField extends React.Component {
 		if(component === 'textarea'){
 			return (
 					<Field {...this.props} component={renderFieldTextarea} style={WrapStyles}/>
-				);
+			);
 		}
-
 
 		if(component === 'select' || type=='select'){
 			return (

@@ -58,74 +58,45 @@ export default  class AdmitDetail extends Component {
 		  return (
 				  <div>
 
-<Grid style={{marginTop:30}}>
 
-											
-												<Row>
-													<Col md={6} ><LabelText label="出租方" text={basic.leaseName}/></Col>
-													<Col md={6} ><LabelText label="地址" text={basic.lessorAddress}/></Col>
-												</Row>
-												<Row>
-													<Col md={6} ><LabelText label="联系人" text={basic.lessorContactName}/></Col>
-													<Col md={6} ><LabelText label="电话" text={basic.lessorContacttel}/></Col>
-												</Row>
+			<KrField component="labelText" grid={1/2} label="出租方" value={basic.leaseName}/>
+		<KrField component="labelText" grid={1/2} label="地址" value={basic.lessorAddress}/>
 
-											
-												<Row>
-													<Col md={6} ><LabelText label="承租方" text={basic.leaseName}/></Col>
-													<Col md={6} ><LabelText label="地址" text={basic.leaseAddress}/></Col>
-												</Row>
-												<Row>
-													<Col md={6} ><LabelText label="联系人" text={basic.leaseContact}/></Col>
-													<Col md={6} ><LabelText label="电话" text={basic.leaseContacttel}/></Col>
-												</Row>
+<KrField label="联系人"   grid={1/2} component="labelText" value={basic.lessorContactName}/>
+<KrField label="电话"   grid={1/2} component="labelText" value={basic.lessorContacttel}/>
 
-												<Row>
-													<Col md={6} ><LabelText label="所属社区" text={basic.wherefloor}/></Col>
-													<Col md={6} ><LabelText label="所属楼层" text={basic.wherefloor}/></Col>
-												</Row>
+											<KrField label="承租方"   grid={1/2} component="labelText" value={basic.leaseName}/>
+<KrField label="地址"   grid={1/2} component="labelText" value={basic.leaseAddress}/>
 
-												<Row>
-													<Col md={6} ><LabelText label="定金总额" text=""/></Col>
-													<Col md={6} ><LabelText label="签署日期" text=""/></Col>
-												</Row>
+<KrField label="联系人"   grid={1/2} component="labelText" value={basic.leaseContact}/>
+<KrField label="电话"   grid={1/2} component="labelText" value={basic.leaseContacttel}/>
 
-												<Row>
-													<Col md={6} ><LabelText label="合同编号" text={basic.contractcode}/></Col>
-													<Col md={6} ><LabelText label="付款方式" text={basic.payment.dicName}/></Col>
-												</Row>
+<KrField label="所属社区"   grid={1/2} component="labelText" value={basic.wherefloor}/>
+<KrField label="所属楼层"   grid={1/2} component="labelText" value={basic.wherefloor}/>
+
+<KrField label="定金总额"   grid={1/2} component="labelText" value=""/>
+<KrField label="签署日期"   grid={1/2} component="labelText" value=""/>
+
+<KrField label="合同编号"   grid={1/2} component="labelText" value={basic.contractcode}/>
+<KrField label="付款方式"   grid={1/2} component="labelText" value={basic.payment.dicName}/>
 
 
-												<Row>
-													<Col md={6} ><LabelText label="租赁项目" /></Col>
-												</Row>
+<KrField label="租赁项目" component="group">
+	<KrField label="工位"   grid={1/1} component="labelText" value={basic.stationnum}/>
+	<KrField label="会议室"   grid={1/1} component="labelText" value=""/>
+  </KrField>
 
-												<Row>
-													<Col md={6} ><LabelText label="工位" text={basic.stationnum}/></Col>
-													<Col md={6} ><LabelText label="会议室" text=""/></Col>
-												</Row>
+<KrField label="租赁期限"   grid={1/1} component="labelText" value=""/>
 
-												<Row>
-													<Col md={6} ><LabelText label="租赁期限" text=""/></Col>
-												</Row>
+<KrField label="保留天数"   grid={1/2} component="labelText" value={basic.templockday}/>
 
-												<Row>
-													<Col md={6} ><LabelText label="保留天数" text={basic.templockday}/></Col>
-												</Row>
+<KrField label="租赁用途"   grid={1/2} component="labelText" value={basic.rentaluse}/>
 
-												<Row>
-													<Col md={6} ><LabelText label="租赁用途" text={basic.rentaluse}/></Col>
-												</Row>
+<KrField label="备注"   grid={1/2} component="labelText" value={basic.contractmark}/>
 
-												<Row>
-													<Col md={6} ><LabelText label="备注" text={basic.contractmark}/></Col>
-												</Row>
+<KrField label="上传附件"   grid={1/2} component="labelText" value={basic.contractmark}/>
 
-												<Row>
-													<Col md={6} ><LabelText label="上传附件" text={basic.contractmark}/></Col>
-												</Row>
 
-											</Grid>
 <Section title="租赁明细" description=""> 
 
 								<Table>
@@ -172,6 +143,7 @@ export default  class AdmitDetail extends Component {
 
 			<Section title="承租合同" description=""> 
 				<BasicRender/>
+
 
 <Grid style={{marginTop:30}}>
 				  <Row>
