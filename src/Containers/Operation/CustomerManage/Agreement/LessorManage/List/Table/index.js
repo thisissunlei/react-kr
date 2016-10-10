@@ -1,13 +1,59 @@
 import React, {Component, PropTypes} from 'react';
+import {connect} from 'kr/Redux';
+import {reduxForm,formValueSelector} from 'redux-form';
 
 import {KrField,LabelText} from 'kr-ui/Form';
 
 import {Button} from 'kr-ui/Button';
 
+import {
+	Notify
+} from 'kr-ui';
+
+import {Grid,Row,Col} from 'kr-ui/Grid';
+
 import {Dialog,Snackbar} from 'material-ui';
 
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
+
+
+
+
+let LessorUpdateForm = function(props){
+
+  	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
+
+	return (
+
+			<form onSubmit={handleSubmit(onSubmit)}>
+
+
+							<KrField name="corporationName" type="text" label="出租方名称" /> 
+
+							<KrField name="enableflag" component="group" label="是否启用">
+								<KrField name="enableflag" label="是" type="radio" value="1"/>
+								<KrField name="enableflag" label="否" type="radio" value="0" />
+							</KrField>
+							
+							<KrField name="corporationAddress" component="text" type="text" label="详细地址"/> 
+							 <KrField name="corporationDesc" component="textarea" label="备注"  placeholder="备注信息"/> 
+
+
+							<Grid style={{marginTop:30}}>
+								<Row style={{marginTop:30}}>
+								<Col md={8}></Col>
+								<Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
+								<Col md={2}> <Button  label="取消" type="button"  onTouchTap={onCancel} /> </Col>
+								</Row>
+							</Grid>
+
+				</form>
+
+	);
+
+}
+
 
 
 const ViewHtml = (props)=>{
@@ -25,20 +71,86 @@ const ViewHtml = (props)=>{
 }
 
 
-export default class RenderTable extends Component {
+ class RenderTable extends Component {
 
   constructor(props,context){
     super(props, context);
 
+	  this.confirmUpdateSubmit = this.confirmUpdateSubmit.bind(this);
+	  this.cancelUpdateSubmit = this.cancelUpdateSubmit.bind(this);
 
 	  this.state = {
 		  openView:false,
+		  openUpdate:false,
 		  item:{}
 	  }
 
   }
 
+  confirmCreateSubmit(values){
+
+		var {actions} = this.props;
+		var _this = this;
+
+		actions.callAPI('addFnaCorporation',{ },values).then(function(response){ }).catch(function(err){ });
+
+	}
+
+	 confirmUpdateSubmit(values){
+
+		var {actions} = this.props;
+		var _this = this;
+
+		actions.callAPI('editFnaCorporation',{ },values).then(function(response){ 
+
+			Notify.show([{
+				message:'更新成功',
+				type: 'success',
+			}]);
+
+
+		}).catch(function(err){ 
+
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+
+		});
+
+
+	 this.openUpdateDialog();
+
+	 }
+
+
+	 cancelUpdateSubmit(){
+
+		this.setState({
+			openUpdate:!this.state.openUpdate
+		});
+	 }
+	openUpdateDialog(index){
+
+	  const list = this.props.items;
+
+		this.setState({
+			openUpdate:!this.state.openUpdate
+		});
+
+
+		console.log('item---',list[index]);
+
+		LessorUpdateForm= reduxForm({
+		  form: 'orderUpdateForm',
+			initialValues:list[index]
+		})(LessorUpdateForm);
+
+	}
+
+
   openViewDialog(index){
+
 
 	  const list = this.props.items;
 	  console.log('item',list[index]);
@@ -122,7 +234,7 @@ export default class RenderTable extends Component {
 							<TableRowColumn>Steve Brown</TableRowColumn>
 							<TableRowColumn>
 								  <Button label="查看"  type="link" onClick={this.openViewDialog.bind(this,index)}/>
-								  <Button label="编辑"  type="link" onTouchTap={this.openViewDialog} />
+								  <Button label="编辑"  type="link" onClick={this.openUpdateDialog.bind(this,index)} />
 							 </TableRowColumn>
 						 </TableRow>
 
@@ -142,13 +254,24 @@ export default class RenderTable extends Component {
 				>
 				<ViewHtml item={this.state.item}/>
 			  </Dialog>
+
+				<Dialog
+			title="编辑"
+			modal={true}
+			open={this.state.openUpdate}
+				>
+				<LessorUpdateForm onSubmit={this.confirmUpdateSubmit} onCancel={this.cancelUpdateSubmit}/>
+	  </Dialog>
+
    </div>
   );
   }
 }
 
 
-
-
-
-
+export default connect((state)=>{
+	const name = '';
+	return {
+		name
+	}
+})(RenderTable );
