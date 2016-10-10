@@ -25,7 +25,7 @@ const APIS  = {
 	},
 	//合同－(入驻合同、增租、续租)－查看
 	'show-checkin-agreement':{
-		url:'/mockjsdata/3/krspace-finance-web/checkinagreement/checkin-agreement/actions/show',
+		url:'/api/krspace-finance-web/checkinagreement/checkin-agreement/actions/show?id={id}',
 		method:'get'
 	},
 

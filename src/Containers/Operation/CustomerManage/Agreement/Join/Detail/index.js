@@ -29,26 +29,25 @@ export default  class JoinDetail extends Component {
 			basic:{
 				payment:{
 				},
-				stationList:[]
 			}
 		}
 
+		
+
+
+	}
+
+	componentDidMount(){
+
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('show-checkin-agreement')).then(function(response){
+		Store.dispatch(Actions.callAPI('show-checkin-agreement',{id:this.props.params.id})).then(function(response){
 			_this.setState({
-				basic:response
+				basic:response,
+				loading:false
 			});
 
 		});
-
-		setTimeout(function(){
-			_this.setState({
-				loading:false
-			});
-		},2000);
-
-
 	}
 
 	componentWillMount(){
@@ -92,7 +91,7 @@ export default  class JoinDetail extends Component {
 								<KrField component="labelText" grid={1/2} label="合同编号" value={basic.contractcode}/>
 
 								<KrField component="labelText" grid={1/2} label="支付方式" value={basic.payType && basic.payType.dicName}/>
-								<KrField component="labelText" grid={1/2} label="租赁期限" value={basic.leaseBegindate + '-' + basic.leaseEnddate}/>
+								<KrField component="labelText" grid={1/2} label="租赁期限" value={basic.leaseBeginDate + '-' + basic.leaseEndDate}/>
 
 								<KrField component="labelText" grid={1/2} label="首付款时间" value={basic.firstpaydate}/>
 								<KrField component="labelText" grid={1/2} label="付款方式" value={basic.payment.dicName}/>
@@ -126,7 +125,8 @@ export default  class JoinDetail extends Component {
 															</TableHeader>
 															<TableBody>
 
-															{basic.stationList.length && basic.stationList.map((item,index)=>{
+															{basic.stationList && basic.stationList.map((item,index)=>{
+
 																return (
 																	 <TableRow key={index}>
 																	<TableRowColumn>{item.stationType}</TableRowColumn>
