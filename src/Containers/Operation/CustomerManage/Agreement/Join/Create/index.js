@@ -37,7 +37,10 @@ var JoinCreateForm = (props) => {
 
     <form onSubmit={handleSubmit(onSubmit)}>
 						
-							<KrField name="order_type"  grid={1/2} component="select" label="出租方">
+							<KrField name="order_type"  grid={1/2} component="select" label="出租方" options={
+								[ { value: 'one', label: 'One' },
+								{ value: 'two', label: 'Two' }]
+							}>
 									 <option>请选择订单类型</option>
 									<option value="11">Red</option>
 									<option value="00ff00">Green</option>

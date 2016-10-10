@@ -3,6 +3,9 @@ import { Field, reduxForm } from 'redux-form';
 
 import DatePicker from 'material-ui/DatePicker';
 
+import ReactSelect from 'react-select';
+import 'react-select/dist/react-select.css';
+
 import './index.less';
 
 
@@ -141,26 +144,48 @@ const renderFieldTextarea = ({ input, label, type, meta: { touched, error } ,req
   </div>
 		</div>
 	)
-
 }
 
-const renderFieldSelect = ({ input, label, type, meta: { touched, error },children,disabled,style,requireLabel}) => (
+const renderFieldSelect = ({ input, label, type, meta: { touched, error },children,disabled,style,requireLabel,options}) =>{
 
-	<div className="form-item-wrap" style={style}>
-			<div className="form-item">
-		<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
-				<div className="form-main">
-				<div className="form-input">
-					<select {...input}  disabled={disabled}>
-					{children}
-					</select>
-					{touched && error && <span>{error}</span>}
+
+	function changeValue(item){
+		input.onChange(item.value);
+	}
+
+	if(options){
+		return (
+				<div className="form-item-wrap" style={style}>
+				<div className="form-item">
+				<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
+						<div className="form-main">
+						<div className="form-input">
+						<ReactSelect name={input.name} value={input.value} clearable={false} options={options} onChange={changeValue} placeholder="请选择..."/>
+							{touched && error && <span>{error}</span>}
+						</div>
+					  </div>
 				</div>
-			  </div>
-					</div>
 		</div>
+		);
 
-)
+	}
+
+	return (
+		<div className="form-item-wrap" style={style}>
+				<div className="form-item">
+				<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
+						<div className="form-main">
+						<div className="form-input">
+							<select {...input}  disabled={disabled}>
+							{children}
+							</select>
+							{touched && error && <span>{error}</span>}
+						</div>
+					  </div>
+				</div>
+		</div>
+	);
+}
 
 
 export default class KrField extends React.Component {
