@@ -4,9 +4,15 @@ import URLSearchParams from 'url-search-params';
 import { browserHistory } from 'react-router';
 import APIS from '../apis';
 
+var env = process.env.NODE_ENV;
+
 function getUrl(path, params = {},mode = false) {
 
     let server = '';
+
+	if(env ==='test'){
+		server = 'optest.krspace.cn';
+	}
 
     if (path.startsWith('http')) {
         return path;
