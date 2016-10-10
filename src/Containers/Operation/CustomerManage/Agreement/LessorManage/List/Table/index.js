@@ -18,7 +18,39 @@ export default class RenderTable extends Component {
 	render() {
 
 		if(!this.props.items.length){
-			return null;
+			return (
+
+
+			<div>
+				<Table  style={{marginTop:10}} displayCheckbox={true}>
+					<TableHeader>
+					<TableHeaderColumn>ID</TableHeaderColumn>
+					<TableHeaderColumn>出租方名称</TableHeaderColumn>
+					<TableHeaderColumn>是否启用</TableHeaderColumn>
+					<TableHeaderColumn>地址</TableHeaderColumn>
+					<TableHeaderColumn>创建人</TableHeaderColumn>
+					<TableHeaderColumn>创建时间</TableHeaderColumn>
+					<TableHeaderColumn>操作</TableHeaderColumn>
+				</TableHeader>
+
+
+				
+
+				<TableBody style={{paddingTop:10}}>
+					<TableRow displayCheckbox={false}>
+								<TableRowColumn colSpan={8} >
+									<div style={{textAlign:'center',paddingTop:50,paddingBottom:50}}>
+									暂无数据
+									</div>
+								</TableRowColumn>
+					</TableRow>
+				</TableBody>
+
+			
+
+				</Table>
+   			</div>
+				);
 		}
 
 		return (
