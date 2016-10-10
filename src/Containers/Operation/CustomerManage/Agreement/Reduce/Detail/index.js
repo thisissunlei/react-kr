@@ -94,7 +94,7 @@ export default  class ReduceDetail extends Component {
 								<KrField component="labelText" grid={1/2} label="地址" value={basic.communityAddress}/>
 
 								<KrField component="labelText" grid={1/2} label="合同编号" value={basic.contractcode}/>
-								<KrField component="labelText" grid={1/2} label="减租金额" value={basic.contractcode}/>
+								<KrField component="labelText" grid={1/2} label="减租金额" value={basic.rentamount}/>
 
 								<KrField component="labelText" label="签署日期" value={basic.signdate}/>
 
@@ -118,15 +118,15 @@ export default  class ReduceDetail extends Component {
 															{basic.list && basic.list.map((item,index)=>{
 																return (
 																	 <TableRow key={index}>
-																	<TableRowColumn>{item.stationType}</TableRowColumn>
+																	<TableRowColumn>{item.stationtype}</TableRowColumn>
 																	<TableRowColumn>
-																		{item.stationId}
+																		{item.stationid}
 																	</TableRowColumn>
 																	<TableRowColumn>
 																		{item.unitprice}
 																	</TableRowColumn>
-																	<TableRowColumn><Date.Format value={item.leaseBeginDate}/></TableRowColumn>
-																	<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
+																	<TableRowColumn><Date.Format value={item.leaseBegindate}/></TableRowColumn>
+																	<TableRowColumn><Date.Format value={item.leaseEnddate}/></TableRowColumn>
 																   </TableRow>
 																	);
 															})}
