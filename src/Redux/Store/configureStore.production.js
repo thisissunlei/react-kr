@@ -15,9 +15,8 @@ const loggerMiddleware = createLogger();
 function configureStore(initialState) {
 
 	let store = createStore(combineReducers(Reducers), initState, compose(applyMiddleware(
-			thunkMiddleware, loggerMiddleware ,callAPIMiddleware
-		),
-		typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : f => f
+			thunkMiddleware,callAPIMiddleware
+		)
 	));
 
 
