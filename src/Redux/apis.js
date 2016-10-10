@@ -10,14 +10,22 @@ const APIS  = {
 		url:'/mockjsdata/3/krspace-finance-web/finacontractdetail/fina-contract-intentletter/acitions/show',
 		method:'get'
 	},
-	//合同－(入驻合同、增租、续租)－查看
-	'show-checkin-agreement':{
-		url:'/mockjsdata/3/krspace-finance-web/checkinagreement/checkin-agreement/actions/show',
-		method:'get'
-	},
+
 	//合同－承租合同－查看
 	'showFinaContractIntentletter':{
 		url:'/mockjsdata/3/krspace-finance-web/finacontractdetail/fina-contract-intentletter/acitions/show',
+		method:'get'
+	},
+
+
+	//合同－减租合同－查看
+	'showFnaContractRentController':{
+		url:'/mockjsdata/3/krspace-finance-web/fnaContractRentController/getFnaContractRentById',
+		method:'get'
+	},
+	//合同－(入驻合同、增租、续租)－查看
+	'show-checkin-agreement':{
+		url:'/mockjsdata/3/krspace-finance-web/checkinagreement/checkin-agreement/actions/show',
 		method:'get'
 	},
 

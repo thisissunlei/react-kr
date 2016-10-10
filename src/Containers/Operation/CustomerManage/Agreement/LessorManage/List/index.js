@@ -102,6 +102,10 @@ class OrderCreate extends Component {
 		  openCreate:false,
 		}
 
+
+
+
+
   }
 
 	componentDidMount(){
@@ -116,9 +120,9 @@ class OrderCreate extends Component {
 		actions.callAPI('fnaCorporationList',{
 			corporationName:'',
 			page:'',
-			pageSize:''
+			pageSize:20
 		},{}).then(function(response){
-
+			console.log('----->>>>re',response);
 	   	}).catch(function(err){
 			console.log('err',err);
 			Notify.show([{
@@ -127,13 +131,11 @@ class OrderCreate extends Component {
 			}]);
 		});
 
-	}
 
-
+}
 
 
   confirmCreateSubmit(values){
-
 
 		var {actions} = this.props;
 		var _this = this;

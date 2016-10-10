@@ -85,7 +85,14 @@ const ViewHtml = (props)=>{
 		  item:{}
 	  }
 
+
+
   }
+
+	 componentWillReceiveProps(nextProps){
+
+
+	 }
 
   confirmCreateSubmit(values){
 
@@ -164,6 +171,8 @@ const ViewHtml = (props)=>{
 
 
 	render() {
+
+		 console.log('9tem',this.props.items);
 
 		 const actions = [
 			  <Button
