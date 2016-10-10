@@ -27,6 +27,7 @@ let OrderCreateForm = function(props){
 
   	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,cityName} = props;
 
+
 	return (
 			<form onSubmit={handleSubmit(onSubmit)}>
 
@@ -39,7 +40,7 @@ let OrderCreateForm = function(props){
 						<option value="0">请选择社区</option>
 						{communitys.map((item,index)=> <option value={item.communityId} key={index}>{item.communityName}</option>)}
 				 </KrField>
-				<KrField type="labelText" label="所在城市" component="LabelText" value={cityName||'无'}  /> 
+				<KrField  label="所在城市" component="labelText" value={cityName||'无'}  /> 
 			 	<KrField name="mainbillname" type="text" component="text" label="订单名称" requireLabel={true} /> 
 			    <KrField name="mainbilldesc" component="textarea" label="订单描述" /> 
 
