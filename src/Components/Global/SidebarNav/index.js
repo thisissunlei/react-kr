@@ -87,6 +87,7 @@ export default class SidebarNav extends Component {
 					key={index}
 					value={index}
 					primaryText={item.primaryText} 
+					primaryTogglesNestedList={true}
 					nestedItems={ item.menuItems.map((it,ind)=>this.renderMenuItem(it,ind,index))} />
 			);
 		}

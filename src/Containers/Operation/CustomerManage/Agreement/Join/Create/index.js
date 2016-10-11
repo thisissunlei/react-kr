@@ -3,6 +3,8 @@ import { connect } from 'kr/Redux';
 
 import {reduxForm,submitForm} from 'redux-form';
 
+import {Actions,Store} from 'kr/Redux';
+
 import Section from 'kr-ui/Section';
 
 import {KrField,LabelText} from 'kr-ui/Form';
@@ -208,8 +210,18 @@ PlanForm = reduxForm({
 		console.log('---',values);
 		this.setState({open: false});
 	}
+
+	 componentDidMount(){
+
+	 }
+
 	handleOpen(){
-		this.setState({open: true});
+
+		//window.showModalDialog('http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel');
+
+		//this.setState({open: true});
+		var value = Actions.showModalDialog('http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel');
+		 console.log('---value',value);
 	}
 
 	handleClose(values){

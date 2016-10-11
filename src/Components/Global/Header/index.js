@@ -127,8 +127,8 @@ class Header extends Component {
 		 iconElementLeft={
 
 				<div className="main-navs" >
+						 <FlatButton onTouchTap={this.handleToggle} icon={<NavigationMenu  />} style={{color:'#fff',height:67,width:200}} />
 						 <FlatButton onTouchTap={this.touchTitle} label="氪空间" style={{color:'#fff',height:67,width:180}} labelStyle={{fontSize:25}} />
-						 <FlatButton onTouchTap={this.handleToggle} icon={<NavigationMenu  />} style={{color:'#fff',height:67}} />
 						{this.props.navs_items.map((item,index)=>this.renderHeaderNav(item,index))}
 					</div>
 		}
@@ -156,13 +156,14 @@ class Header extends Component {
 
 				{this.props.header_nav.switch_value && <Header/>}
 
-			<Drawer open={this.props.sidebar_nav.switch_value} width={180}>
+			<Drawer open={this.props.sidebar_nav.switch_value} width={180} containerStyle={{marginTop:68,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)'}}>
 
+				{/*
 				<AppBar
-				title="氪空间"
 				style={{backgroundColor:'#328ECC'}}
 				iconElementLeft={<IconButton onClick={this.handleToggle}><NavigationClose  /></IconButton>}
 				/>
+				*/}
 
 				<SidebarNav items={this.props.navs_current_items}/>
 
