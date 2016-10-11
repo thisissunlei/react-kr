@@ -59,23 +59,23 @@ export default  class AdmitDetail extends Component {
 				  <div>
 
 
-			<KrField component="labelText" grid={1/2} label="出租方" value={basic.leaseName}/>
+			<KrField component="labelText" grid={1/2} label="出租方" value={basic.leasorName}/>
 		<KrField component="labelText" grid={1/2} label="地址" value={basic.lessorAddress}/>
 
 <KrField label="联系人"   grid={1/2} component="labelText" value={basic.lessorContactName}/>
 <KrField label="电话"   grid={1/2} component="labelText" value={basic.lessorContacttel}/>
 
-											<KrField label="承租方"   grid={1/2} component="labelText" value={basic.leaseName}/>
+											<KrField label="承租方"   grid={1/2} component="labelText" value={basic.customerName}/>
 <KrField label="地址"   grid={1/2} component="labelText" value={basic.leaseAddress}/>
 
 <KrField label="联系人"   grid={1/2} component="labelText" value={basic.leaseContact}/>
 <KrField label="电话"   grid={1/2} component="labelText" value={basic.leaseContacttel}/>
 
-<KrField label="所属社区"   grid={1/2} component="labelText" value={basic.wherefloor}/>
+<KrField label="所属社区"   grid={1/2} component="labelText" value={basic.communityName}/>
 <KrField label="所属楼层"   grid={1/2} component="labelText" value={basic.wherefloor}/>
 
-<KrField label="定金总额"   grid={1/2} component="labelText" value=""/>
-<KrField label="签署日期"   grid={1/2} component="labelText" value=""/>
+<KrField label="定金总额"   grid={1/2} component="labelText" value={basic.totaldownpayment}/>
+<KrField label="签署日期"   grid={1/2} component="labelText" value={basic.signdate}/>
 
 <KrField label="合同编号"   grid={1/2} component="labelText" value={basic.contractcode}/>
 <KrField label="付款方式"   grid={1/2} component="labelText" value={basic.payment.dicName}/>
@@ -83,18 +83,16 @@ export default  class AdmitDetail extends Component {
 
 <KrField label="租赁项目" component="group">
 	<KrField label="工位"   grid={1/1} component="labelText" value={basic.stationnum}/>
-	<KrField label="会议室"   grid={1/1} component="labelText" value=""/>
+	<KrField label="会议室"   grid={1/1} component="labelText" value={basic.boardroomnum}/>
   </KrField>
 
-<KrField label="租赁期限"   grid={1/1} component="labelText" value=""/>
+<KrField label="租赁期限"   grid={1/1} component="labelText" value={basic.leaseBegindate + '-' + basic.leaseEnddate}/>
 
 <KrField label="保留天数"   grid={1/2} component="labelText" value={basic.templockday}/>
 
-<KrField label="租赁用途"   grid={1/2} component="labelText" value={basic.rentaluse}/>
+<KrField label="备注"   grid={1/1} component="labelText" value={basic.contractmark}/>
 
-<KrField label="备注"   grid={1/2} component="labelText" value={basic.contractmark}/>
-
-<KrField label="上传附件"   grid={1/2} component="labelText" value={basic.contractmark}/>
+<KrField label="上传附件"   grid={1/1} component="labelText" value={basic.contractfile}/>
 
 
 <Section title="租赁明细" description=""> 
@@ -103,7 +101,6 @@ export default  class AdmitDetail extends Component {
 												<TableHeader>
 														<TableHeaderColumn>类别</TableHeaderColumn>
 														<TableHeaderColumn>编号／名称</TableHeaderColumn>
-														<TableHeaderColumn>单价（元／月）</TableHeaderColumn>
 														<TableHeaderColumn>起始日期</TableHeaderColumn>
 														<TableHeaderColumn>结束日期</TableHeaderColumn>
 												</TableHeader>
