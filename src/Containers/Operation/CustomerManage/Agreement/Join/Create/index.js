@@ -7,7 +7,6 @@ import Section from 'kr-ui/Section';
 
 import {KrField,LabelText} from 'kr-ui/Form';
 
-
 import {Grid,Row,Col} from 'kr-ui/Grid';
 
 import { Button } from 'kr-ui/Button';
@@ -49,7 +48,7 @@ var JoinCreateForm = (props) => {
 
 							 <KrField grid={1/2}  name="username" type="text" component="input" label="地址" /> 
 
-							 <KrField grid={1/2}  name="username" type="text" component="input" label="联系人" /> 
+							 <KrField grid={1/2}  name="username" component="search" label="联系人" /> 
 							 <KrField grid={1/2}  name="username" type="text" component="input" label="电话" /> 
 
 							 <KrField grid={1/2}  name="username" type="text" component="input" label="承租方" /> 
@@ -59,30 +58,26 @@ var JoinCreateForm = (props) => {
 							 <KrField grid={1/2}  name="username" type="text" component="input" label="电话" /> 
 
 							 <KrField grid={1/2}  name="username" type="text" component="input" label="所属社区" /> 
-							<KrField name="order_type"  grid={1/2} component="select" label="所在楼层">
-									 <option>请选择订单类型</option>
-											<option value="11">Red</option>
-											<option value="00ff00">Green</option>
-											<option value="0000ff">Blue</option>
-								 </KrField>
+							<KrField name="order_type"  grid={1/2} component="select" label="所在楼层" options={[
+								{value:'1',label:'1'},
+								{value:'2',label:'2'}
+							]}/>
 
 							 <KrField grid={1/2}  name="username" type="text" component="input" label="地址" /> 
 							 <KrField grid={1/2}  name="username" type="text" component="input" label="合同编号" /> 
 
 							 <KrField grid={1/2}  name="username" type="text" component="input" component="input" label="租赁期限"  requireLabel={true} /> 
-							<KrField name="order_type"  grid={1/2} component="select" label="付款方式">
-										<option>请选择订单类型</option>
-										<option value="11">Red</option>
-										<option value="00ff00">Green</option>
-										<option value="0000ff">Blue</option>
-							 </KrField>
+
+							<KrField name="order_type"  grid={1/2} component="select" label="付款方式" options={[
+								{value:'1',label:'1'},
+								{value:'2',label:'2'}
+							]}/>
 						
-							<KrField name="order_type"  grid={1/2} component="select" label="支付方式">
-								 <option>请选择订单类型</option>
-							 	<option value="11">Red</option>
-								<option value="00ff00">Green</option>
-								<option value="0000ff">Blue</option>
-						 </KrField>
+
+							<KrField name="order_type"  grid={1/2} component="select" label="支付方式" options={[
+								{value:'1',label:'1'},
+								{value:'2',label:'2'}
+							]}/>
 
 						 <KrField grid={1/2}  name="rname"  component="date" grid={1/2} label="签署时间" /> 
 
@@ -96,7 +91,7 @@ var JoinCreateForm = (props) => {
 						 <KrField grid={1/2}  name="username" type="text" component="input" label="租金总额" placeholder="" /> 
 						 <KrField grid={1/2}  name="username" type="text" component="input" label="押金总额" /> 
 
-						 <KrField grid={1/2}  name="uname" type="file" label="合同附件" /> 
+						 <KrField grid={1/2}  name="uname" component="file" label="合同附件" /> 
 
 
 				<Section title="租赁明细" description="" rightMenu = {
@@ -106,7 +101,7 @@ var JoinCreateForm = (props) => {
 								</Menu>
 				}> 
 
-						<Table  displayCheckbox={true}>
+						<Table  displayCheckbox={false}>
 								<TableHeader>
 										<TableHeaderColumn>类别</TableHeaderColumn>
 										<TableHeaderColumn>编号／名称</TableHeaderColumn>
@@ -118,19 +113,10 @@ var JoinCreateForm = (props) => {
 										<TableRowColumn>1</TableRowColumn>
 										<TableRowColumn>John Smith</TableRowColumn>
 										<TableRowColumn>Employed</TableRowColumn>
-											<TableRowColumn>John Smith</TableRowColumn>
-									</TableRow>
-
-									 <TableRow>
-										<TableRowColumn>1</TableRowColumn>
 										<TableRowColumn>John Smith</TableRowColumn>
-										<TableRowColumn>Employed</TableRowColumn>
-											<TableRowColumn>John Smith</TableRowColumn>
 									</TableRow>
-
 							   </TableBody>
 						 </Table>
-
 
 			</Section>
 

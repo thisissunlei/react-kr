@@ -1,5 +1,12 @@
 const APIS  = {
 
+	//根据人员姓名获取人员基本信息
+	'getHrmResourceExtListByLastname':{
+		url:'/mockjsdata/9/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
+		rap:'/mockjsdata/9/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
+		method:'get'
+	},
+
 	//合同－退租合同－查看
 	'getFnaContractWithdrawalById':{
 		url:'/mockjsdata/3/krspace-finance-web/fnaContractWithdrawalController/getFnaContractWithdrawalById',

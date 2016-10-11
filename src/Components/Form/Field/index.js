@@ -3,6 +3,10 @@ import { Field, reduxForm } from 'redux-form';
 
 import DatePicker from 'material-ui/DatePicker';
 
+import {Actions,Store} from 'kr/Redux';
+
+import Promise from 'promise-polyfill';
+
 import ReactSelect from 'react-select';
 import 'react-select/dist/react-select.css';
 
@@ -146,6 +150,83 @@ const renderFieldTextarea = ({ input, label, type, meta: { touched, error } ,req
 	)
 }
 
+
+//file
+const renderFieldFile = ({ input, label, type, meta: { touched, error },children,disabled,style,requireLabel,options}) =>{
+
+	function changeValue(item){
+		input.onChange(item);
+	}
+
+	return (
+		<div className="form-item-wrap" style={style}>
+				<div className="form-item">
+				<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
+						<div className="form-main">
+						<div className="form-input">
+							<input type="file" onChange={changeValue} name={input.name} value={input.value}/>
+						</div>
+					  </div>
+				</div>
+		</div>
+	);
+}
+
+
+//search
+const renderFieldSearch = ({ input, label, type, meta: { touched, error },children,disabled,style,requireLabel}) =>{
+
+
+	var isLoading = false;
+	var changeValue = function(item){
+		input.onChange(item.value);
+	}
+
+	var getOptions = function(lastname){
+
+			isLoading = true;
+
+			return new Promise((resolve, reject) => {
+
+				Store.dispatch(Actions.callAPI('getHrmResourceExtListByLastname',{
+					lastname:lastname
+				},{})).then(function(response){
+					response.forEach(function(item,index){
+						item.value = item.id;
+						item.label = item.lastname;
+					});
+					resolve({options:response});
+					isLoading = false;
+				}).catch(function(err){
+					reject(err);
+					isLoading = false;
+				});
+			});
+	}
+
+		return (
+
+				<div className="form-item-wrap" style={style}>
+				<div className="form-item">
+				<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
+						<div className="form-main">
+						<div className="form-input">
+						<ReactSelect.Async 
+								name={input.name} 
+								isLoading={isLoading}
+								value={input.value}
+								loadOptions={getOptions}
+								clearable={true}
+								onChange={changeValue} 
+								placeholder="请选择..." />
+						</div>
+					  </div>
+				</div>
+				</div>
+		);
+}
+
+//select
 const renderFieldSelect = ({ input, label, type, meta: { touched, error },children,disabled,style,requireLabel,options}) =>{
 
 
@@ -160,7 +241,7 @@ const renderFieldSelect = ({ input, label, type, meta: { touched, error },childr
 				<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
 						<div className="form-main">
 						<div className="form-input">
-						<ReactSelect name={input.name} value={input.value} clearable={false} options={options} onChange={changeValue} placeholder="请选择..."/>
+						<ReactSelect name={input.name} searchable={false} value={input.value} clearable={false} options={options} onChange={changeValue} placeholder="请选择..."/>
 							{touched && error && <span>{error}</span>}
 						</div>
 					  </div>
@@ -215,13 +296,23 @@ export default class KrField extends React.Component {
 		}
 
 
+		if(component ==='file'){
+			return (
+				<Field {...this.props} component={renderFieldFile}  style={WrapStyles}/>
+			);
+		}
+
+		if(component ==='search'){
+			return (
+				<Field {...this.props} component={renderFieldSearch}  style={WrapStyles}/>
+			);
+		}
+
 		if(component ==='renderText'){
 			return (
 				<Field {...this.props} component={renderText}  style={WrapStyles}/>
 			);
 		}
-
-
 
 		if(component === 'labelText' || type=='labelText'){
 
@@ -245,7 +336,7 @@ export default class KrField extends React.Component {
 
 		if(component === 'textarea'){
 			return (
-					<Field {...this.props} component={renderFieldTextarea} style={WrapStyles}/>
+				<Field {...this.props} component={renderFieldTextarea} style={WrapStyles}/>
 			);
 		}
 
