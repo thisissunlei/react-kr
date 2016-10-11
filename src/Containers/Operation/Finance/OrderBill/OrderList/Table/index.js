@@ -22,29 +22,28 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 
 let LessorUpdateForm = function(props){
 
+    //生成对账单
   	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
 
 	return (
 
 			<form onSubmit={handleSubmit(onSubmit)}>
 
-
-							<KrField name="corporationName" type="text" label="出租方名称" /> 
-
-							<KrField name="enableflag" component="group" label="是否启用">
-								<KrField name="enableflag" label="是" type="radio" value="1"/>
-								<KrField name="enableflag" label="否" type="radio" value="0" />
-							</KrField>
+                            
 							
-							<KrField name="corporationAddress" component="text" type="text" label="详细地址"/> 
-							 <KrField name="corporationDesc" component="textarea" label="备注"  placeholder="备注信息"/> 
+
+							<KrField component="group" label="对账期间:">
+								<KrField name="startDate" label="起始日期" type="Date" />
+								<KrField name="endDate" label="结束日期" type="Date" />
+							</KrField>
+	
 
 
 							<Grid style={{marginTop:30}}>
 								<Row style={{marginTop:30}}>
 								<Col md={8}></Col>
-								<Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
-								<Col md={2}> <Button  label="取消" type="button"  onTouchTap={onCancel} /> </Col>
+								<Col md={2}><Button  label="确定" type="submit" primary={true} /> </Col>
+								<Col md={2}><Button  label="取消" type="button"  onTouchTap={onCancel} /> </Col>
 								</Row>
 							</Grid>
 
@@ -56,6 +55,7 @@ let LessorUpdateForm = function(props){
 
 
 
+//查看部分
 const ViewHtml = (props)=>{
 
 	return (
@@ -72,7 +72,6 @@ const ViewHtml = (props)=>{
 
 
  class RenderTable extends Component {
-
   constructor(props,context){
     super(props, context);
 
@@ -86,7 +85,6 @@ const ViewHtml = (props)=>{
 	  }
 
 
-
   }
 
 	 componentWillReceiveProps(nextProps){
@@ -94,8 +92,7 @@ const ViewHtml = (props)=>{
 
 	 }
 
-  confirmCreateSubmit(values){
-
+    confirmCreateSubmit(values){
 		var {actions} = this.props;
 		var _this = this;
 
@@ -124,8 +121,6 @@ const ViewHtml = (props)=>{
 			}]);
 
 		});
-
-
 	 this.openUpdateDialog();
 
 	 }
@@ -183,19 +178,21 @@ const ViewHtml = (props)=>{
 			  />,
 			];
 
-		if(!this.props.items.length){
+		if(!this.props.length){
 			return (
 
 
 			<div>
 				<Table  style={{marginTop:10}} displayCheckbox={true}>
 					<TableHeader>
-					<TableHeaderColumn>ID</TableHeaderColumn>
-					<TableHeaderColumn>出租方名称</TableHeaderColumn>
-					<TableHeaderColumn>是否启用</TableHeaderColumn>
-					<TableHeaderColumn>地址</TableHeaderColumn>
-					<TableHeaderColumn>创建人</TableHeaderColumn>
-					<TableHeaderColumn>创建时间</TableHeaderColumn>
+					<TableHeaderColumn>公司名称</TableHeaderColumn>
+					<TableHeaderColumn>订单类型</TableHeaderColumn>
+					<TableHeaderColumn>所在社区</TableHeaderColumn>
+					<TableHeaderColumn>起始日期</TableHeaderColumn>
+					<TableHeaderColumn>结束日期</TableHeaderColumn>
+					<TableHeaderColumn>收入总额</TableHeaderColumn>
+					<TableHeaderColumn>回款总额</TableHeaderColumn>
+					<TableHeaderColumn>余额</TableHeaderColumn>
 					<TableHeaderColumn>操作</TableHeaderColumn>
 				</TableHeader>
 
@@ -224,26 +221,30 @@ const ViewHtml = (props)=>{
 			<div>
 				<Table  style={{marginTop:10}} displayCheckbox={true}>
 					<TableHeader>
-					<TableHeaderColumn>ID</TableHeaderColumn>
-					<TableHeaderColumn>出租方名称</TableHeaderColumn>
-					<TableHeaderColumn>是否启用</TableHeaderColumn>
-					<TableHeaderColumn>地址</TableHeaderColumn>
-					<TableHeaderColumn>创建人</TableHeaderColumn>
-					<TableHeaderColumn>创建时间</TableHeaderColumn>
+					<TableHeaderColumn>公司名称</TableHeaderColumn>
+					<TableHeaderColumn>订单类型</TableHeaderColumn>
+					<TableHeaderColumn>所在社区</TableHeaderColumn>
+					<TableHeaderColumn>起始日期</TableHeaderColumn>
+					<TableHeaderColumn>结束日期</TableHeaderColumn>
+					<TableHeaderColumn>收入总额</TableHeaderColumn>
+					<TableHeaderColumn>回款总额</TableHeaderColumn>
+					<TableHeaderColumn>余额</TableHeaderColumn>
 					<TableHeaderColumn>操作</TableHeaderColumn>
 				</TableHeader>
 
 				<TableBody>
 					  {this.props.items.map((item,index)=> <TableRow key={index} displayCheckbox={true}>
-							<TableRowColumn >{item.corporationName}</TableRowColumn>
-							<TableRowColumn>{item.enableflag}</TableRowColumn>
-							<TableRowColumn>{item.corporationAddress}</TableRowColumn>
-							<TableRowColumn>{item.creater}</TableRowColumn>
-							<TableRowColumn>{item.createdate}</TableRowColumn>
-							<TableRowColumn>Steve Brown</TableRowColumn>
+							<TableRowColumn>{item.customername}</TableRowColumn>
+							<TableRowColumn>{item.mainbilltype}</TableRowColumn>
+							<TableRowColumn>{item.community}</TableRowColumn>
+							<TableRowColumn>{item.actualEntrydate}</TableRowColumn>
+							<TableRowColumn>{item.actualLeavedate}</TableRowColumn>
+							<TableRowColumn>{item.come}</TableRowColumn>
+							<TableRowColumn>{item.backMount}</TableRowColumn>
+							<TableRowColumn>{item.mount}</TableRowColumn>
 							<TableRowColumn>
 								  <Button label="查看"  type="link" onClick={this.openViewDialog.bind(this,index)}/>
-								  <Button label="编辑"  type="link" onClick={this.openUpdateDialog.bind(this,index)} />
+								  <Button label="生成对账单"  type="link" onClick={this.openUpdateDialog.bind(this,index)} />
 							 </TableRowColumn>
 						 </TableRow>
 
@@ -265,7 +266,7 @@ const ViewHtml = (props)=>{
 			  </Dialog>
 
 				<Dialog
-			title="编辑"
+			title="生成对账单"
 			modal={true}
 			open={this.state.openUpdate}
 				>

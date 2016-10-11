@@ -25,7 +25,7 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import RenderTable from './Table';
 
 
-
+//搜索模块
 let OrderSearchForm = function(props){
 
   	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,cityName} = props;
@@ -33,10 +33,11 @@ let OrderSearchForm = function(props){
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} >
 					<Row>
-					<Col md={10}>
+					<Col md={6}>
 						<KrField name="corporationName" type="text"  component="input" placeholder="搜索关键词"/>
 					</Col>
 					<Col md={2} align="right" > <Button label="搜索"  type="submit" primary={true}/> </Col>
+					<Col md={2} align="right" > <Button  primary={true} label="高级查询" type="link"/> </Col>
 					</Row>
 		</form>
 	);
@@ -47,6 +48,8 @@ OrderSearchForm= reduxForm({
 })(OrderSearchForm);
 
 
+
+//新增按钮模块
 let OrderCreateForm = function(props){
 
   	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
@@ -85,13 +88,14 @@ OrderCreateForm= reduxForm({
   form: 'orderCreateForm',
 })(OrderCreateForm);
 
+
+
+
+//绑定一些已经弄好的组件方法
 class OrderCreate extends Component {
 
   constructor(props,context){
     super(props, context);
-
-    this.confirmCreateSubmit = this.confirmCreateSubmit.bind(this);
-
     this.openCreateDialog = this.openCreateDialog.bind(this);
 	 this.searchParams = this.searchParams.bind(this);
 
@@ -101,23 +105,22 @@ class OrderCreate extends Component {
 		  open:false,
 		  openCreate:false,
 		}
-
-
-
-
-
   }
+   
 
+   //渲染完之前调用getListData函数
 	componentDidMount(){
 		this.getListData();
 	}
 
+
+    
 	getListData(){
 
 		var {actions} = this.props;
 		var _this = this;
 
-		actions.callAPI('fnaCorporationList',{
+		actions.callAPI('getFinaDataByList',{
 			corporationName:'',
 			page:'',
 			pageSize:20
@@ -130,56 +133,12 @@ class OrderCreate extends Component {
 				type: 'danger',
 			}]);
 		});
+     }
 
 
-}
+ 
 
-
-  confirmCreateSubmit(values){
-
-		var {actions} = this.props;
-		var _this = this;
-
-		actions.callAPI('addFnaCorporation',{ },values).then(function(response){
-			Notify.show([{
-				message:'创建成功!',
-				type: 'success',
-			}]);
-		}).catch(function(err){
-			Notify.show([{
-				message:err.message,
-				type: 'danger',
-			}]);
-		});
-
-		this.openCreateDialog();
-
-	  window.setTimeout(function(){
-		  window.location.reload();
-	  },1000);
-
-	}
-
-	getListData(){
-
-		var {actions} = this.props;
-		var _this = this;
-
-		actions.callAPI('fnaCorporationList',{
-			corporationName:'',
-			page:'',
-			pageSize:''
-		},{}).then(function(response){
-
-	   	}).catch(function(err){
-			console.log('err',err);
-			Notify.show([{
-				message:'报错了',
-				type: 'danger',
-			}]);
-		});
-
-	}
+	
 
   openCreateDialog(){
     this.setState({
@@ -197,7 +156,7 @@ class OrderCreate extends Component {
 		var {actions} = this.props;
 		var _this = this;
 
-		actions.callAPI('fnaCorporationList',values,{}).then(function(response){ }).catch(function(err){
+		actions.callAPI('getFinaDataByList',values,{}).then(function(response){ }).catch(function(err){
 			Notify.show([{
 				message:err.message,
 				type: 'danger',
@@ -217,13 +176,26 @@ class OrderCreate extends Component {
 
 			<div>
 
-				<BreadCrumbs children={['系统运营','财务管理','合作方管理']}/>
+				<BreadCrumbs children={['系统运营','财务管理']}/>
 
-				<Section title="合作方管理" description=""> 
+				<Section title="财务管理" description=""> 
 
 					<Grid>
 					<Row>
-					<Col md={8}> <Button label="新建" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
+					<Col md={8}>
+                      <Col md={2}>
+					    <Button label="收入总额:" primary={true} type='link'/> 
+					    <Button label="1" primary={true} type='link' />
+					  </Col> 
+					  <Col md={2}>  
+					   <Button label="回款总额:" primary={true} type='link'/>
+					   <Button label="￥" primary={true} type='link'/>  
+					  </Col> 
+					  <Col md={2}>  
+					   <Button label="余额:" primary={true} type='link'/>
+					   <Button label="￥" primary={true} type='link'/> 
+					  </Col>  
+					</Col>
 					<Col md={4} align="right"> 
 						<OrderSearchForm onSubmit={this.searchParams}/>
 					</Col> 
@@ -237,16 +209,7 @@ class OrderCreate extends Component {
 
 
 
-				<Dialog
-			title="新建"
-			modal={true}
-			open={this.state.openCreate}
-				>
-
-				<OrderCreateForm onSubmit={this.confirmCreateSubmit} onCancel={this.openCreateDialog}/>
 				
-
-	  </Dialog>
 
 
    </div>
@@ -257,6 +220,6 @@ class OrderCreate extends Component {
 
 export default connect((state)=>{
 	return {
-		items:state.common.fnaCorporationList.items
+		items:state.common.getFinaDataByList
 	}
 })(OrderCreate);
