@@ -2,7 +2,7 @@ const APIS  = {
 
 	//根据人员姓名获取人员基本信息
 	'getHrmResourceExtListByLastname':{
-		url:'/api/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
+		url:'/api-old/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
 		rap:'/mockjsdata/9/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
 		method:'get'
 	},

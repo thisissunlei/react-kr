@@ -203,6 +203,8 @@ const renderFieldSearch = ({ input, label, type, meta: { touched, error },childr
 					isLoading = false;
 				});
 			});
+
+				isLoading = false;
 	}
 
 		return (

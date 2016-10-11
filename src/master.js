@@ -20,6 +20,7 @@ class Master extends Component {
 	}
 
 	componentDidMount(){
+		//document.cookie = 'isso_pctoken=tnlm3/aWyzliiKcR++3mmFJgRw4DZlFU0+DgzXk3D9p2nkba1dplzw=='
 	}
 
 	componentWillReceiveProps(nextProps, nextContext) {

@@ -13,6 +13,8 @@ import {Grid,Row,Col} from 'kr-ui/Grid';
 
 import { Button } from 'kr-ui/Button';
 
+import http from 'kr/Redux/Utils/fetch';
+
 import {
 	Menu,
 	MenuItem,
@@ -29,7 +31,6 @@ import {
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
 
 
-
 var JoinCreateForm = (props) => {
 
   const { error, handleSubmit, pristine, reset, submitting,submit,cancel ,onSubmit,handleOpen,handleClick} = props;
@@ -41,12 +42,7 @@ var JoinCreateForm = (props) => {
 							<KrField name="order_type"  grid={1/2} component="select" label="出租方" options={
 								[ { value: 'one', label: 'One' },
 								{ value: 'two', label: 'Two' }]
-							}>
-									 <option>请选择订单类型</option>
-									<option value="11">Red</option>
-									<option value="00ff00">Green</option>
-							   		<option value="0000ff">Blue</option>
-							 </KrField>
+							} />
 
 							 <KrField grid={1/2}  name="username" type="text" component="input" label="地址" /> 
 
@@ -213,19 +209,27 @@ PlanForm = reduxForm({
 
 	 componentDidMount(){
 
+		 http.get('http://optest.krspace.cn/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname=zhang',{},{}).then(function(response){
+			 console.log('success----',response);
+		 }).catch(function(err){
+			 console.log('err----',err);
+		 });
+
+		 http.get('http://optest.krspace.cn/api/krspace-finance-web/action/community-city-selected',{},{}).then(function(response){
+			 console.log('api----success----',response);
+		 }).catch(function(err){
+			 console.log('api----err----',err);
+		 });
+
 	 }
 
 	handleOpen(){
-
-		//window.showModalDialog('http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel');
-
+		var value = Actions.showModalDialog('http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId=42&floors=3&goalStationNum=1&goalBoardroomNum=1&selectedObjs=[{type:1,id:883},{type:2,id:2}]',900,800);
+		console.log('---value',value);
 		//this.setState({open: true});
-	//	var value = Actions.showModalDialog('http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel');
-	//	 console.log('---value',value);
 	}
 
 	handleClose(values){
-		console.log('---',values);
 		this.setState({open: false});
 	}
 
