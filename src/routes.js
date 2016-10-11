@@ -115,10 +115,7 @@ export default(
 
 				{/*财务管理*/}
 				<Route path="finance" component={Basic}>
-		{/*
-
 					<Route path="index" component={Operation.Finance.Home}/>
-		*/}
 					<Route path="orderbill" component={Basic}>
 						<Route path="receiptList" component={Operation.Finance.OrderBill.ReceiptList}/>
 						<Route path="orderList" component={Operation.Finance.OrderBill.OrderList}/>
