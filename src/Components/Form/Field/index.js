@@ -179,7 +179,8 @@ const renderFieldSearch = ({ input, label, type, meta: { touched, error },childr
 
 	var isLoading = false;
 	var changeValue = function(item){
-		input.onChange(item.value);
+		var value = (item && item.value) || '';
+		input.onChange(value);
 	}
 
 	var getOptions = function(lastname){
@@ -217,6 +218,7 @@ const renderFieldSearch = ({ input, label, type, meta: { touched, error },childr
 								value={input.value}
 								loadOptions={getOptions}
 								clearable={true}
+								clearAllText="清除"
 								onChange={changeValue} 
 								placeholder="请选择..." />
 						</div>
@@ -231,7 +233,8 @@ const renderFieldSelect = ({ input, label, type, meta: { touched, error },childr
 
 
 	function changeValue(item){
-		input.onChange(item.value);
+		var value = (item && item.value) || '';
+		input.onChange(value);
 	}
 
 	if(options){
@@ -241,8 +244,15 @@ const renderFieldSelect = ({ input, label, type, meta: { touched, error },childr
 				<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
 						<div className="form-main">
 						<div className="form-input">
-						<ReactSelect name={input.name} searchable={false} value={input.value} clearable={false} options={options} onChange={changeValue} placeholder="请选择..."/>
-							{touched && error && <span>{error}</span>}
+						<ReactSelect 
+								name={input.name}
+		   						searchable={false}
+		   						value={input.value} 
+								clearable={true}
+		   						options={options}
+		   						onChange={changeValue} 
+								placeholder="请选择..."/>
+								{touched && error && <span>{error}</span>}
 						</div>
 					  </div>
 				</div>
