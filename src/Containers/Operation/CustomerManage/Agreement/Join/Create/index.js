@@ -220,8 +220,8 @@ PlanForm = reduxForm({
 		//window.showModalDialog('http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel');
 
 		//this.setState({open: true});
-		var value = Actions.showModalDialog('http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel');
-		 console.log('---value',value);
+	//	var value = Actions.showModalDialog('http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel');
+	//	 console.log('---value',value);
 	}
 
 	handleClose(values){

@@ -2,7 +2,7 @@ const APIS  = {
 
 	//根据人员姓名获取人员基本信息
 	'getHrmResourceExtListByLastname':{
-		url:'/mockjsdata/9/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
+		url:'/api/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
 		rap:'/mockjsdata/9/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
 		method:'get'
 	},
@@ -32,7 +32,7 @@ const APIS  = {
 	},
 	//合同－(入驻合同、增租、续租)－查看
 	'show-checkin-agreement':{
-		url:'/mockjsdata/3/krspace-finance-web/checkinagreement/checkin-agreement/actions/show?id={id}',
+		url:'/api/krspace-finance-web/checkinagreement/checkin-agreement/actions/show?id={id}',
 		method:'get'
 	},
 

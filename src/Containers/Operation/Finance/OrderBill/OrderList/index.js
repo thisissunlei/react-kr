@@ -1,205 +1,262 @@
-import React,{Component} from 'react';
-import {bindActionCreators} from 'redux';
-import { connect } from 'react-redux';
+import React, {Component, PropTypes} from 'react';
+import {connect} from 'kr/Redux';
 
-import * as actionCreators from 'kr-ui/../Redux/Actions';
+import Section from 'kr-ui/Section';
+import {KrField,LabelText} from 'kr-ui/Form';
 
-import TitleList from 'kr-ui/TitleList';
-import './index.less';
-import {KrField} from 'kr-ui/Form';
+import {Button} from 'kr-ui/Button';
 
-import {List, ListItem} from 'material-ui/List';
-import {Table, TableBody, TableHeader, TableFooter, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table'
-import {blue500, yellow600,red500,pink500,purple500} from 'material-ui/styles/colors';
+import {reduxForm,formValueSelector} from 'redux-form';
+
+import {
+	BreadCrumbs,
+	Loading,
+	Notify
+} from 'kr-ui';
+
 
 import {Grid,Row,Col} from 'kr-ui/Grid';
 
-import ContentInbox from 'material-ui/svg-icons/content/inbox';
-import ActionGrade from 'material-ui/svg-icons/action/grade';
-import ContentSend from 'material-ui/svg-icons/content/send';
-import ContentDrafts from 'material-ui/svg-icons/content/drafts';
-import ActionInfo from 'material-ui/svg-icons/action/info';
-import { Field, reduxForm } from 'redux-form';
-import ActionDateRange from 'material-ui/svg-icons/action/date-range';
+import {Dialog,Snackbar} from 'material-ui';
 
-import Section from 'kr-ui/Section';
-
-import {
-	AppBar,
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	IconButton,
-	RaisedButton,
-	Drawer,
-	Divider,
-	FontIcon,
-	GridList,
-	GridTile,
-	DatePicker,
-	Dialog,
-	Avatar,
-	SelectField,
-} from 'material-ui';
-import FlatButton from 'material-ui/FlatButton';
-import Formsy from 'formsy-react';
-import Toggle from 'material-ui/Toggle';
-import { FormsyCheckbox, FormsyDate, FormsyRadio, FormsyRadioGroup,
-    FormsySelect, FormsyText, FormsyTime, FormsyToggle } from 'formsy-material-ui/lib';
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
 
 
-	const renderSelectField = ({ input, label, meta: { touched, error }, children }) => (
-	  <SelectField
-	    floatingLabelText={label}
-	    errorText={touched && error}
-	    {...input}
-	    onChange={(event, index, value) => input.onChange(value)}
-	    children={children}/>
-	)
-	
+import RenderTable from './Table';
 
-	var SearchForm = (props) => {
-	 const  { handleSubmit, pristine, reset, submitting ,submit,cancle} = props;
-	 return (
-	 	<form onSubmit={handleSubmit(submit)} className='search-form'>
-	 		<div>
-	 			<KrField name="username" type="text" label="客户名称：" />
-	 		</div>
-	 		<div>
-	 			<label>所属社区：</label>
-			        <Field name="area" component={renderSelectField}>
-			          <MenuItem value={'ff0000'} primaryText="Red"/>
-			          <MenuItem value={'00ff00'} primaryText="Green"/>
-			          <MenuItem value={'0000ff'} primaryText="Blue"/>
-			        </Field>
-	 			
-	 		</div>
-	 		<div>
-	 				<label>订单类型：</label>
-			        <Field name="orderType" component={renderSelectField}>
-			          <MenuItem value={'ff0000'} primaryText="Red"/>
-			          <MenuItem value={'00ff00'} primaryText="Green"/>
-			          <MenuItem value={'0000ff'} primaryText="Blue"/>
-			        </Field>
-	 			
-	 		</div>
-	 		<div>
-	 			<label>查询区间：</label>
-	 				<Avatar icon={<ActionDateRange  />}  size={25}/>
-	 				<Field name="time" component='DatePicker'>
-	 				</Field>
-			            
-			       
-	 			
-	 		</div>
-	 		<div className="button">
-				<FlatButton
-				label="取消"
-				primary={true}
-				onTouchTap={cancle}
-				/>,
-				<FlatButton
-				label="提交"
-				primary={true}
-				type="submit"
-				/>
-	 		</div>
-	 		
-	 	</form>
-	 )
+
+
+let OrderSearchForm = function(props){
+
+  	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,cityName} = props;
+
+	return (
+		<form onSubmit={handleSubmit(onSubmit)} >
+					<Row>
+					<Col md={10}>
+						<KrField name="corporationName" type="text"  component="input" placeholder="搜索关键词"/>
+					</Col>
+					<Col md={2} align="right" > <Button label="搜索"  type="submit" primary={true}/> </Col>
+					</Row>
+		</form>
+	);
 }
 
-	SearchForm = reduxForm({
-		  form: 'simple'
-		})(SearchForm);
+OrderSearchForm= reduxForm({
+  form: 'orderSearchForm',
+})(OrderSearchForm);
 
 
-class OrderList extends Component{
+let OrderCreateForm = function(props){
 
-	
+  	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
 
-	constructor(props,context){
-		super(props, context);
+	return (
 
-		this.state = {
-			open:false
-		};
-		this.title = ['系统运营','财务管理'];
-		this.tableHead = ['票据类型','发票号码','开票金额','开票日期','操作人','备注','操作'];
-		this.tableHeadList = ['票据类型','发票号码','开票金额','开票日期','操作人','备注'];
-		this.companyInfo = this.companyInfo.bind(this);
-	}
-
-	submitForm(values){
-		this.setState({open: false});
-		console.log('ccccc',values);
-	}
+<form onSubmit={handleSubmit(onSubmit)}>
 
 
+				<KrField name="corporationName" type="text" label="出租方名称" /> 
 
-	componentDidMount() {
+				<KrField name="enableflag" component="group" label="是否启用">
+					<KrField name="enableflag" label="是" type="radio" value="2"/>
+					<KrField name="enableflag" label="否" type="radio" value="3" />
+				</KrField>
+				
+				<KrField name="corporationAddress" component="text" type="text" label="详细地址"/> 
+				 <KrField name="corporationDesc" component="textarea" label="备注"  placeholder="备注信息"/> 
 
 
-	}
-	companyInfo(){
-		return (
-				<Grid style={{marginTop:20}}>
-					<Row>
-						<Col md={3}>hahhaah</Col>
-						<Col md={3}>hahhaah</Col>
-						<Col md={3}>hahhaah</Col>
-						<Col md={3}>hahhaah</Col>
+				<Grid style={{marginTop:30}}>
+					<Row style={{marginTop:30}}>
+					<Col md={8}></Col>
+					<Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
+					<Col md={2}> <Button  label="取消" type="button"  onTouchTap={onCancel} /> </Col>
 					</Row>
 				</Grid>
-		)
+
+	</form>
+
+	);
+
+}
+
+OrderCreateForm= reduxForm({
+  form: 'orderCreateForm',
+})(OrderCreateForm);
+
+class OrderCreate extends Component {
+
+  constructor(props,context){
+    super(props, context);
+
+    this.confirmCreateSubmit = this.confirmCreateSubmit.bind(this);
+
+    this.openCreateDialog = this.openCreateDialog.bind(this);
+	 this.searchParams = this.searchParams.bind(this);
+
+	  this.getListData = this.getListData.bind(this);
+
+		this.state = {
+		  open:false,
+		  openCreate:false,
+		}
+
+
+
+
+
+  }
+
+	componentDidMount(){
+		this.getListData();
 	}
 
+	getListData(){
 
+		var {actions} = this.props;
+		var _this = this;
+
+		actions.callAPI('fnaCorporationList',{
+			corporationName:'',
+			page:'',
+			pageSize:20
+		},{}).then(function(response){
+			console.log('----->>>>re',response);
+	   	}).catch(function(err){
+			console.log('err',err);
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		});
+
+
+}
+
+
+  confirmCreateSubmit(values){
+
+		var {actions} = this.props;
+		var _this = this;
+
+		actions.callAPI('addFnaCorporation',{ },values).then(function(response){
+			Notify.show([{
+				message:'创建成功!',
+				type: 'success',
+			}]);
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+		});
+
+		this.openCreateDialog();
+
+	  window.setTimeout(function(){
+		  window.location.reload();
+	  },1000);
+
+	}
+
+	getListData(){
+
+		var {actions} = this.props;
+		var _this = this;
+
+		actions.callAPI('fnaCorporationList',{
+			corporationName:'',
+			page:'',
+			pageSize:''
+		},{}).then(function(response){
+
+	   	}).catch(function(err){
+			console.log('err',err);
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		});
+
+	}
+
+  openCreateDialog(){
+    this.setState({
+		  openCreate:!this.state.openCreate
+    });
+  }
+
+
+	searchParams(values){
+
+		values.corporationName = values.corporationName || ' ';
+		values.page = 1;
+		values.pageSize = 10;
+
+		var {actions} = this.props;
+		var _this = this;
+
+		actions.callAPI('fnaCorporationList',values,{}).then(function(response){ }).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+		});	
+	}
 
 	render() {
 
+		const { error, handleSubmit, pristine, reset, submitting} = this.props;
+
+
+		const {communitys} = this.state;
+
+
 		return (
+
 			<div>
-				<div>
-					<TitleList children={this.title}></TitleList>
-				</div>
-				<div>
-					<Section title="财务管理" description=""> 
-						{this.companyInfo()}
-					</Section>
-					<div className="container">
-						<div className="billlist">
-						</div>
-					</div>
-				</div>
-			</div>
-		);
+
+				<BreadCrumbs children={['系统运营','财务管理','合作方管理']}/>
+
+				<Section title="合作方管理" description=""> 
+
+					<Grid>
+					<Row>
+					<Col md={8}> <Button label="新建" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
+					<Col md={4} align="right"> 
+						<OrderSearchForm onSubmit={this.searchParams}/>
+					</Col> 
+					</Row>
+					</Grid>
+
+
+				<RenderTable items={this.props.items}/>
+
+				</Section>
+
+
+
+				<Dialog
+			title="新建"
+			modal={true}
+			open={this.state.openCreate}
+				>
+
+				<OrderCreateForm onSubmit={this.confirmCreateSubmit} onCancel={this.openCreateDialog}/>
+				
+
+	  </Dialog>
+
+
+   </div>
+  );
+  }
+}
+
+
+export default connect((state)=>{
+	return {
+		items:state.common.fnaCorporationList.items
 	}
-}
-
-
-function mapStateToProps(state){
-
-	return {
-		plan:state.plan,
-		items:state.plan.items,
-		now_date:state.plan.now_date
-	};
-}
-
-function mapDispatchToProps(dispatch){
-	return {
-		actions:bindActionCreators(Object.assign({},actionCreators),dispatch)
-	};
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(OrderList);
-
-
-
-
-
-
-
-
+})(OrderCreate);
