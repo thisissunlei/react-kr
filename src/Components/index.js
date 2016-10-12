@@ -10,6 +10,7 @@ import Pagination from './Pagination';
 import Button from './Button';
 import MyForm from './MyForm';
 import Notify from './Notify';
+import {Grid,Row,Col} from './Grid';
 
 //materal-ui
 import {
@@ -23,7 +24,9 @@ import {
 	Paper,
 	Avatar,
 	Dialog,
+	Snackbar,
 } from 'material-ui';
+
 
 module.exports = {
 
@@ -35,6 +38,9 @@ module.exports = {
 	Loading,
 	Pagination,
 	Notify,
+	Grid,
+	Row,
+	Col,
 	...Form,
 	...Table,
 	...Button,
@@ -49,5 +55,6 @@ module.exports = {
 	DatePicker,
 	Paper,
 	Avatar,
-	Dialog
+	Dialog,
+	Snackbar,
 }
