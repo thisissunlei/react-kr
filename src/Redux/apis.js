@@ -66,6 +66,11 @@ const APIS  = {
 		url:'/api/krspace-finance-web/fnaCorporationList?corporationName={corporationName}&page={page}&pageSize={pageSize}',
 		method:'get'
 	},
+	//合同-基础配置
+	'addSysDicPayment':{
+		url:'/mockjsdata/3/krspace-finance-web/addSysDicPayment',
+		method:'post'
+	},
 	//demo
 	'demo':{
 		url:'/api/krspace-finance-web/action/community-city-selected',

@@ -235,12 +235,12 @@ const ViewHtml = (props)=>{
 
 				<TableBody>
 					  {this.props.items.map((item,index)=> <TableRow key={index} displayCheckbox={true}>
-							<TableRowColumn >{item.corporationName}</TableRowColumn>
+							<TableRowColumn >{item.id}</TableRowColumn>
+							<TableRowColumn>{item.corporationName}</TableRowColumn>
 							<TableRowColumn>{item.enableflag}</TableRowColumn>
 							<TableRowColumn>{item.corporationAddress}</TableRowColumn>
 							<TableRowColumn>{item.creater}</TableRowColumn>
 							<TableRowColumn>{item.createdate}</TableRowColumn>
-							<TableRowColumn>Steve Brown</TableRowColumn>
 							<TableRowColumn>
 								  <Button label="查看"  type="link" onClick={this.openViewDialog.bind(this,index)}/>
 								  <Button label="编辑"  type="link" onClick={this.openUpdateDialog.bind(this,index)} />
