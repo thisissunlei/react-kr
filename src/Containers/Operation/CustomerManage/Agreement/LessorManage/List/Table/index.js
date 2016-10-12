@@ -78,6 +78,7 @@ const ViewHtml = (props)=>{
 
 	  this.confirmUpdateSubmit = this.confirmUpdateSubmit.bind(this);
 	  this.cancelUpdateSubmit = this.cancelUpdateSubmit.bind(this);
+	  this.renderTableBody = this.renderTableBody.bind(this);
 
 	  this.state = {
 		  openView:false,
@@ -162,6 +163,7 @@ const ViewHtml = (props)=>{
 	  const list = this.props.items;
 	  console.log('item',list[index]);
 
+
 		this.setState({
 			item:list[index],
 			openView:!this.state.openView
@@ -170,9 +172,11 @@ const ViewHtml = (props)=>{
   }
 
 
-	render() {
+	renderTableBody(){
 
-		 console.log('9tem',this.props.items);
+	 }
+
+	render() {
 
 		 const actions = [
 			  <Button
@@ -199,9 +203,6 @@ const ViewHtml = (props)=>{
 					<TableHeaderColumn>操作</TableHeaderColumn>
 				</TableHeader>
 
-
-				
-
 				<TableBody style={{paddingTop:10}}>
 					<TableRow displayCheckbox={false}>
 								<TableRowColumn colSpan={8} >
@@ -211,8 +212,6 @@ const ViewHtml = (props)=>{
 								</TableRowColumn>
 					</TableRow>
 				</TableBody>
-
-			
 
 				</Table>
    			</div>
@@ -234,19 +233,25 @@ const ViewHtml = (props)=>{
 				</TableHeader>
 
 				<TableBody>
-					  {this.props.items.map((item,index)=> <TableRow key={index} displayCheckbox={true}>
-							<TableRowColumn >{item.corporationName}</TableRowColumn>
-							<TableRowColumn>{item.enableflag}</TableRowColumn>
-							<TableRowColumn>{item.corporationAddress}</TableRowColumn>
-							<TableRowColumn>{item.creater}</TableRowColumn>
-							<TableRowColumn>{item.createdate}</TableRowColumn>
-							<TableRowColumn>Steve Brown</TableRowColumn>
-							<TableRowColumn>
-								  <Button label="查看"  type="link" onClick={this.openViewDialog.bind(this,index)}/>
-								  <Button label="编辑"  type="link" onClick={this.openUpdateDialog.bind(this,index)} />
-							 </TableRowColumn>
-						 </TableRow>
+					  {this.props.items && this.props.items.length && this.props.items.map((item,index)=>{
 
+						  console.log('item',item);
+
+						  return (
+							  <TableRow key={index} displayCheckbox={true}>
+									<TableRowColumn >{item.corporationName}</TableRowColumn>
+									<TableRowColumn>{item.enableflag}</TableRowColumn>
+									<TableRowColumn>{item.corporationAddress}</TableRowColumn>
+									<TableRowColumn>{item.creater}</TableRowColumn>
+									<TableRowColumn>{item.createdate}</TableRowColumn>
+									<TableRowColumn>Steve Brown</TableRowColumn>
+									<TableRowColumn>
+										  <Button label="查看"  type="link" onClick={this.openViewDialog.bind(this,index)}/>
+										  <Button label="编辑"  type="link" onClick={this.openUpdateDialog.bind(this,index)} />
+									 </TableRowColumn>
+							 </TableRow>
+						  );
+					  } 
 				  )}
 				</TableBody>
 

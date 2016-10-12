@@ -77,6 +77,7 @@ const http = {
     request:(path, params,payload,method)=>{
 
         const url = getUrl(path, params);
+
         method = method || getMethod(path);
         var promise = '';
 

@@ -176,7 +176,6 @@ const renderFieldFile = ({ input, label, type, meta: { touched, error },children
 //search
 const renderFieldSearch = ({ input, label, type, meta: { touched, error },children,disabled,style,requireLabel}) =>{
 
-
 	var isLoading = false;
 	var changeValue = function(item){
 		var value = (item && item.value) || '';

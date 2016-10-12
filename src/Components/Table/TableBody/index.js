@@ -124,6 +124,7 @@ export default class TableBody extends React.Component {
 
 	createRowElement(child,rowNumber){
 
+
 		const handlers = {
 			onCellClick: this.onCellClick,
 			onCellHover: this.onCellHover,
@@ -151,14 +152,13 @@ export default class TableBody extends React.Component {
 		];
 
 		if (React.isValidElement(child)) {
-
 			React.Children.forEach(child.props.children, (child) => {
 				children.push(child);
 			});
-
-			return React.cloneElement(child, {...props, ...handlers}, children);
+			return React.cloneElement(child, {...props, ...handlers},children);
 		}
 
+		console.log('0000');
 		return null;
 	}
 	createRows() {
@@ -171,7 +171,6 @@ export default class TableBody extends React.Component {
 		let rowNumber = 0;
 
 		let rows = [];
-
 
 		React.Children.map(this.props.children, (child) => {
 			rows.push(this.createRowElement(child,rowNumber++)) ;
