@@ -2,25 +2,11 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {bindActionCreators} from 'redux';
 
-
-import {Button} from 'kr-ui/Button';
-
-import Section from 'kr-ui/Section';
-import {KrField,LabelText} from 'kr-ui/Form';
-
 import {reduxForm,formValueSelector} from 'redux-form';
-
-
-
-import {Grid,Row,Col} from 'kr-ui/Grid';
 
 import {Dialog,Snackbar} from 'material-ui';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
-
-
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 import {
@@ -28,6 +14,25 @@ import {
   Loading,
   Notify
 } from 'kr-ui';
+
+import {
+  Table, 
+  TableBody, 
+  TableHeader, 
+  TableHeaderColumn, 
+  TableRow, 
+  TableRowColumn,
+  TableFooter,
+  Section,
+  KrField,
+  LabelText,
+  Grid,
+  Row,
+  Col,
+  Button,
+} from 'kr-ui';
+
+
 
 let SettingCreateForm = function(props){
 
@@ -75,7 +80,7 @@ let SettingCreateForm = function(props){
 
 
 
-let SettingUpdateForm = function(props){
+/*let SettingUpdateForm = function(props){
 
     const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
 
@@ -124,7 +129,7 @@ const SettingViewForm  = (props)=>{
   </div>
   );
 }
-
+*/
 
  SettingCreateForm= reduxForm({
   form: 'settingCreateForm',
@@ -376,7 +381,7 @@ class OrderCreate extends Component {
         modal={true}
         open={this.state.openView}
       >
-      <SettingViewForm onSubmit={this.confirmSubmit} onCancel={this.openCreateDialog}/>
+     /* <SettingViewForm onSubmit={this.confirmSubmit} onCancel={this.openCreateDialog}/>*/
       </Dialog>
 
        <Dialog
@@ -384,7 +389,7 @@ class OrderCreate extends Component {
         modal={true}
         open={this.state.openUpdate}
       >
-      <SettingUpdateForm onSubmit={this.confirmSubmit} onCancel={this.openCreateDialog}/>
+      /*<SettingUpdateForm onSubmit={this.confirmSubmit} onCancel={this.openCreateDialog}/>*/
       </Dialog>
    </div>
   );
