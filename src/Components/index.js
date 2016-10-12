@@ -22,7 +22,7 @@ import {
 	DatePicker,
 	Paper,
 	Avatar,
-	Dialog
+	Dialog,
 } from 'material-ui';
 
 module.exports = {

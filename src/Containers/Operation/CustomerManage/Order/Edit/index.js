@@ -53,7 +53,7 @@ let OrderEditForm = function (props){
 					<Grid >
 						<Row style={{marginTop:30}}>
 							<Col md={10}></Col>
-							<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} /> </Col>
+							<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} disabled={submitting} /> </Col>
 						</Row>
 					</Grid>
 			</form>
@@ -78,9 +78,26 @@ class OrderCreate extends Component {
 
 		const {initialValues} = this.props;
 
+
+		const validate = values =>{
+
+			 const errors = {}
+
+			if(!values.mainbilltype){
+				errors.mainbilltype = '请选择订单类型';
+			  }else if (!values.communityid) {
+				errors.communityid = '请选择所在社区';
+			  }else if(!values.mainbillname){
+				errors.mainbillname = '订单名称不能为空';
+			  }
+
+			  return errors
+		}
+
 		OrderEditForm = reduxForm({
 			form: 'orderEditForm',
-			initialValues
+			initialValues,
+			validate
 		})(OrderEditForm);
 
 	}
