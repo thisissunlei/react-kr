@@ -127,7 +127,7 @@ const APIS  = {
 	},
 	//财务管理－订单账单列表-分页获取订单
 	'getFinaDataByList':{
-		url:'/mockjsdata/3/krspace-finance-web/finaccount/data/getFinaDataByAjax',		
+		url:'/mockjsdata/3/krspace-finance-web/finaccount/data/getFinaDataByAjax?page={page}&pageSize={pageSize}',		
 		method:'get'
 	},
     //财务管理－订单账单列表-生成对账单

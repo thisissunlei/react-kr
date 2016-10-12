@@ -15,6 +15,7 @@ import {
 } from 'kr-ui';
 
 
+
 import {Grid,Row,Col} from 'kr-ui/Grid';
 
 import {Dialog,Snackbar} from 'material-ui';
@@ -28,7 +29,7 @@ import RenderTable from './Table';
 //搜索模块
 let OrderSearchForm = function(props){
 
-  	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,cityName} = props;
+	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,cityName} = props;
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} >
@@ -52,7 +53,7 @@ OrderSearchForm= reduxForm({
 //新增按钮模块
 let OrderCreateForm = function(props){
 
-  	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
+	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
 
 	return (
 
@@ -95,26 +96,30 @@ OrderCreateForm= reduxForm({
 class OrderCreate extends Component {
 
   constructor(props,context){
-    super(props, context);
-    this.openCreateDialog = this.openCreateDialog.bind(this);
+	super(props, context);
+	this.openCreateDialog = this.openCreateDialog.bind(this);
 	 this.searchParams = this.searchParams.bind(this);
-
 	  this.getListData = this.getListData.bind(this);
 
 		this.state = {
 		  open:false,
 		  openCreate:false,
 		}
+
+		
+
+		
   }
    
 
    //渲染完之前调用getListData函数
 	componentDidMount(){
 		this.getListData();
+		console.log('---------------------',this.props.items);
 	}
 
 
-    
+	
 	getListData(){
 
 		var {actions} = this.props;
@@ -125,15 +130,15 @@ class OrderCreate extends Component {
 			page:'',
 			pageSize:20
 		},{}).then(function(response){
-			console.log('----->>>>re',response);
-	   	}).catch(function(err){
-			console.log('err',err);
+			
+		}).catch(function(err){
+			
 			Notify.show([{
 				message:'报错了',
 				type: 'danger',
 			}]);
 		});
-     }
+	 }
 
 
  
@@ -141,13 +146,14 @@ class OrderCreate extends Component {
 	
 
   openCreateDialog(){
-    this.setState({
+	this.setState({
 		  openCreate:!this.state.openCreate
-    });
+	});
   }
 
 
 	searchParams(values){
+   
 
 		values.corporationName = values.corporationName || ' ';
 		values.page = 1;
@@ -183,9 +189,9 @@ class OrderCreate extends Component {
 					<Grid>
 					<Row>
 					<Col md={8}>
-                      <Col md={2}>
-					    <Button label="收入总额:" primary={true} type='link'/> 
-					    <Button label="1" primary={true} type='link' />
+					  <Col md={2}>
+						<Button label="收入总额:" primary={true} type='link'/> 
+						<Button label="1" primary={true} type='link' />
 					  </Col> 
 					  <Col md={2}>  
 					   <Button label="回款总额:" primary={true} type='link'/>
@@ -217,7 +223,7 @@ class OrderCreate extends Component {
   }
 }
 
-
+//与redux连接起来
 export default connect((state)=>{
 	return {
 		items:state.common.getFinaDataByList
