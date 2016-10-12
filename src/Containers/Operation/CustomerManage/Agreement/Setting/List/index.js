@@ -1,20 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {bindActionCreators} from 'redux';
-
 import {reduxForm,formValueSelector} from 'redux-form';
-
 import {Dialog,Snackbar} from 'material-ui';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
-
-import {
-  BreadCrumbs,
-  Loading,
-  Notify
-} from 'kr-ui';
-
 import {
   Table, 
   TableBody, 
@@ -30,8 +21,10 @@ import {
   Row,
   Col,
   Button,
+  BreadCrumbs,
+  Loading,
+  Notify
 } from 'kr-ui';
-
 
 
 let SettingCreateForm = function(props){
@@ -42,11 +35,6 @@ let SettingCreateForm = function(props){
 
 <form onSubmit={handleSubmit(onSubmit)}>
         <Grid style={{marginTop:30}}>
-
-          <Row>
-            <Col md={12} > <KrField name="id" type="text" label="字段编码" /> </Col>
-          </Row>
-
           <Row>
             <Col md={12} > <KrField name="dicName" type="text" label="字段名称" /> </Col>
           </Row>
@@ -76,11 +64,29 @@ let SettingCreateForm = function(props){
 
 }
 
+SettingCreateForm= reduxForm({
+  form: 'settingCreateForm',
+})(SettingCreateForm);
+
+const SettingViewForm = (props)=>{
+  const prop=props.items
+  console.log(props)
+  return (
+    <div>
+        <KrField component="labelText" label="字段名称" value={prop.dicName} /> 
+        <KrField name="corporationName" component="labelText"  label="支付方式" value={prop.dicName}/> 
+        <KrField name="enableflag" component="labelText"  label="是否有效" value={prop.enableFlag?'是':'否'}/> 
+        <KrField name="corporationDesc" component="labelText" label="备注" value={prop.remark}/> 
+
+  </div>
+  );
+}
+
+ 
 
 
 
-
-/*let SettingUpdateForm = function(props){
+let SettingUpdateForm = function(props){
 
     const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
 
@@ -113,27 +119,10 @@ let SettingCreateForm = function(props){
   );
 
 }
-
-
-
-const SettingViewForm  = (props)=>{
-
-  return (
-    <div>
-        <KrField component="labelText" label="出租方名称" value={props.item.corporationName} /> 
-        <KrField name="enableflag" component="labelText"  label="是否启用" value={props.item.enableflag?'是':'否'} /> 
-        <KrField name="corporationName" component="labelText"  label="出租方名称" value={props.item.corporationName} /> 
-        <KrField name="corporationAddress" component="labelText" type="text" label="详细地址"  value={props.item.corporationAddress}/> 
-        <KrField name="corporationDesc" component="labelText" label="备注"  placeholder="备注信息" value={props.item.corporationDesc}/> 
-
-  </div>
-  );
-}
-*/
-
- SettingCreateForm= reduxForm({
-  form: 'settingCreateForm',
-})(SettingCreateForm);
+ 
+ SettingUpdateForm= reduxForm({
+  form: 'settingUpdateForm',
+})(SettingUpdateForm);
 
 class OrderCreate extends Component {
 
@@ -169,10 +158,8 @@ class OrderCreate extends Component {
     var {actions} = this.props;
     var _this = this;
 
-    actions.callAPI('fnaCorporationList',{
-      corporationName:'',
-      page:'',
-      pageSize:20
+    actions.callAPI('getSysDicPayment',{
+      id:'',
     },{}).then(function(response){
       }).catch(function(err){
       console.log('err',err);
@@ -220,14 +207,7 @@ class OrderCreate extends Component {
 
  openViewDialog(index){
 
-
-    //const list = this.props.items;
-    //console.log('item',list[index]);
-
-    console.log('000000');
-
     this.setState({
-      //item:list[index],
       openView:!this.state.openView
     });
 
@@ -235,19 +215,9 @@ class OrderCreate extends Component {
 
   openUpdateDialog(index){
 
-    //const list = this.props.items;
-
     this.setState({
       openUpdate:!this.state.openUpdate
     });
-
-
-    //console.log('item---',list[index]);
-
-    /*LessorUpdateForm= reduxForm({
-      form: 'orderUpdateForm',
-      initialValues:list[index]
-    })(LessorUpdateForm);*/
 
   }
 
@@ -255,24 +225,38 @@ class OrderCreate extends Component {
   renderCustomerItem(){
     var index='sd';
 
+
+  let items = this.props.items || [];
+
+
+
+
+
+
     return (
 
         <TableBody colSpan={10} insertElement={this.renderOrderItem()}>
-          <TableRow>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>Steve Brown</TableRowColumn>
-            <TableRowColumn>备注备注备注备注备</TableRowColumn>
+
+          {items.map((item,index)=>{
+
+            return (
+                 <TableRow key={index}>
+                 <TableHeaderColumn></TableHeaderColumn>
+            <TableRowColumn>{item.dicName}</TableRowColumn>
+            <TableRowColumn>{item.enableFlag}</TableRowColumn>
+            <TableRowColumn>{item.creater}</TableRowColumn>
+            <TableRowColumn>{item.createTime}</TableRowColumn>
+            <TableRowColumn>{item.remark}</TableRowColumn>
             <TableRowColumn>
-              <Button label="查看" type="link"  onClick={this.openViewDialog.bind(this)}/>
+              <Button label="查看" type="link"  onClick={this.openViewDialog.bind(this,index)}/>
               <Button label="编辑" type="link"  onClick={this.openUpdateDialog.bind(this,index)}/>
               <Button label="添加子项" type="link"  />
             </TableRowColumn>
          </TableRow>
+              );
+
+          })}
+         
           <TableRow>
             <TableRowColumn>4</TableRowColumn>
             <TableRowColumn>4</TableRowColumn>
@@ -331,6 +315,14 @@ class OrderCreate extends Component {
   render() {
 
     const {communitys} = this.state;
+    const actions = [
+        <Button
+        label="关闭"
+        primary={true}
+         style={{marginLeft:10}}
+        onTouchTap={this.openViewDialog.bind(this)}
+        />,
+      ];
 
     return (
 
@@ -346,8 +338,6 @@ class OrderCreate extends Component {
 
             <Table displayCheckbox={true} style={{marginTop:20}} toggleVisibility="odd">
                 <TableHeader>
-                  <TableHeaderColumn>ID</TableHeaderColumn>
-                  <TableHeaderColumn>字段编码</TableHeaderColumn>
                   <TableHeaderColumn>字段名称</TableHeaderColumn>
                   <TableHeaderColumn>是否有效</TableHeaderColumn>
                   <TableHeaderColumn>创建人</TableHeaderColumn>
@@ -379,17 +369,19 @@ class OrderCreate extends Component {
       <Dialog
         title="查看"
         modal={true}
+        actions={actions}
         open={this.state.openView}
       >
-     /* <SettingViewForm onSubmit={this.confirmSubmit} onCancel={this.openCreateDialog}/>*/
+      <SettingViewForm items={this.state.items}/>
+      
       </Dialog>
 
        <Dialog
         title="编辑"
         modal={true}
         open={this.state.openUpdate}
-      >
-      /*<SettingUpdateForm onSubmit={this.confirmSubmit} onCancel={this.openCreateDialog}/>*/
+     >
+      {/*<SettingUpdateForm />*/}
       </Dialog>
    </div>
   );
@@ -405,7 +397,7 @@ class OrderCreate extends Component {
 
 export default connect((state)=>{
   return {
-    items:state.common.fnaCorporationList.items
+    items:state.common.getSysDicPayment
   }
 })(OrderCreate);
 

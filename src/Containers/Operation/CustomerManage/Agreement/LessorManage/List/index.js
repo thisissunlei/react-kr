@@ -156,6 +156,7 @@ class OrderCreate extends Component {
 
 	  window.setTimeout(function(){
 		  window.location.reload();
+
 	  },1000);
 
 	}
@@ -168,9 +169,9 @@ class OrderCreate extends Component {
 		actions.callAPI('fnaCorporationList',{
 			corporationName:'',
 			page:'',
-			pageSize:''
+			pageSize:20
 		},{}).then(function(response){
-
+			console.log('----->>>>re',response);
 	   	}).catch(function(err){
 			console.log('err',err);
 			Notify.show([{
@@ -179,7 +180,8 @@ class OrderCreate extends Component {
 			}]);
 		});
 
-	}
+
+}
 
   openCreateDialog(){
     this.setState({

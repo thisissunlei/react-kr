@@ -1,4 +1,4 @@
-import http from '../Utils/fetch';
+import http from 'kr/Redux/Utils/fetch';
 import Promise from 'promise-polyfill';
 
 

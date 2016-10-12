@@ -77,7 +77,6 @@ const http = {
     request:(path, params,payload,method)=>{
 
         const url = getUrl(path, params);
-
         method = method || getMethod(path);
         var promise = '';
 
@@ -122,7 +121,7 @@ const http = {
 	transformResponse:function(response){
 		return response.data;
 	},
-	getdemo: (url, params) => new Promise((resolve, reject) => {
+	get: (url, params) => new Promise((resolve, reject) => {
 
 		if (!url) {
 			return;
@@ -149,35 +148,6 @@ const http = {
 				}
 			})
 			.catch(err => reject(err))
-	}),
-
-	get: (url, params) => new Promise((resolve, reject) => {
-
-		if (!url) {
-			return;
-		}
-
-		var xhr = new XMLHttpRequest();
-
-		xhr.withCredentials = true;
-		xhr.open('GET', url, true);
-		xhr.responseType = 'json';
-		xhr.onload = function(e) {
-		  if (this.status >= 200 || this.status <300 ) {
-			  var json = http.transformPreResponse(xhr.response);
-				if(json && json.code && parseInt(json.code)>0){
-					//处理数据格式
-					resolve(http.transformResponse(json))
-				}else{
-					reject(json)
-				}
-		  }else{
-				reject(xhr.response);
-		  }
-		};
-
-		xhr.send();
-
 	}),
 
 	post: (url, params, payload) => new Promise((resolve, reject) => {

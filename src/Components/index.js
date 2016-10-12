@@ -1,19 +1,30 @@
-export Calendar from './Calendar';
-export Section from './Section';
-export Form from './Form/index';
-export BreadCrumbs from './BreadCrumbs';
-export Table from './Table/index';
-export Date from './Date';
-export Loading from './Loading';
-export Pagination from './Pagination';
+import Calendar from './Calendar';
+import Section from './Section';
+import Form from './Form/index';
+import BreadCrumbs from './BreadCrumbs';
 
-export Button from './Button';
-export MyForm from './MyForm';
-export Dialog from './Dialog';
+import Table from './Table/index';
 
-export Notify from './Notify';
+import Date from './Date';
+import Loading from './Loading';
+import Pagination from './Pagination';
 
+import Button from './Button';
+import MyForm from './MyForm';
+import Dialog from './Dialog';
 
+import Notify from './Notify';
 
-
-
+module.exports = {
+	Calendar,
+	Section,
+	BreadCrumbs,
+	Date,
+	Loading,
+	Pagination,
+	Dialog,
+	Notify,
+	...Form,
+	...Table,
+	...Button,
+}

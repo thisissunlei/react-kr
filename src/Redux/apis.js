@@ -2,7 +2,7 @@ const APIS  = {
 
 	//根据人员姓名获取人员基本信息
 	'getHrmResourceExtListByLastname':{
-		url:'/api/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
+		url:'/api-old/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
 		rap:'/mockjsdata/9/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
 		method:'get'
 	},
@@ -53,13 +53,13 @@ const APIS  = {
 	},
 	//合同-出租方管理-基本信息
 	'getFnaCorporation':{
-		url:'/mockjsdata/3/krspace-finance-web/getFnaCorporation',
+		url:'/api/krspace-finance-web/getFnaCorporation?id={id}',
 		method:'get'
 	},
 
 	//合同-出租方管理-编辑
 	'editFnaCorporation':{
-		url:'/mockjsdata/3/krspace-finance-web/editFnaCorporation',
+		url:'/api/krspace-finance-web/editFnaCorporation',
 		method:'post'
 	},
 
@@ -73,10 +73,20 @@ const APIS  = {
 		url:'/api/krspace-finance-web/fnaCorporationList?corporationName={corporationName}&page={page}&pageSize={pageSize}',
 		method:'get'
 	},
-	//合同-基础配置
+	//合同-基础配置-新增
 	'addSysDicPayment':{
 		url:'/mockjsdata/3/krspace-finance-web/addSysDicPayment',
 		method:'post'
+	},
+	//合同-基础配置-编辑
+	'editSysDicPayment':{
+		url:'/mockjsdata/3/krspace-finance-web/editSysDicPayment',
+		method:'post'
+	},
+	//合同-基础配置-获取基本信息
+	'getSysDicPayment':{
+		url:'/mockjsdata/3/krspace-finance-web/getSysDicPayment?id={id}',
+		method:'get'
 	},
 	//demo
 	'demo':{
