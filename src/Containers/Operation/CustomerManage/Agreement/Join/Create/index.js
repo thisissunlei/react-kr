@@ -17,11 +17,8 @@ import {
 	DatePicker,
 	Paper,
 	Avatar,
-	Dialog
-} from 'material-ui';
+	Dialog,
 
-
-import {
 	Table, 
 	TableBody, 
 	TableHeader, 
@@ -37,7 +34,6 @@ import {
 	Col,
 	Button,
 } from 'kr-ui';
-
 
 
 var JoinCreateForm = (props) => {
@@ -163,11 +159,9 @@ var JoinCreateForm = (props) => {
 	}
 
 	confirmJoinSubmit(values){
-		console.log('---',values);
 	}
 
 	confirmSubmit(values){
-		console.log('---',values);
 		this.setState({open: false});
 	}
 	 componentDidMount(){
@@ -175,7 +169,7 @@ var JoinCreateForm = (props) => {
 	 }
 
 	handleOpen(){
-		var value = Actions.showModalDialog('http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId=42&floors=3&goalStationNum=1&goalBoardroomNum=1&selectedObjs=[{type:1,id:883},{type:2,id:2}]',900,800);
+		var value = Actions.showModalDialog('http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId=42&floors=3&goalStationNum=1&goalBoardroomNum=0&selectedObjs=[{type:1,id:883},{type:2,id:2}]',900,800);
 		console.log('---value',value);
 		//this.setState({open: true});
 	}

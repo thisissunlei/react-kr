@@ -1,45 +1,40 @@
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'kr/Redux';
 
-import Section from 'kr-ui/Section';
-import {KrField,LabelText} from 'kr-ui/Form';
-
 import {reduxForm,formValueSelector} from 'redux-form';
 
-
-import BreadCrumbs from 'kr-ui/BreadCrumbs';
-
-import {Grid,Row,Col} from 'kr-ui/Grid';
-
-import {Button} from 'kr-ui/Button';
 import {
+	KrField,
+	LabelText,
+	Section,
+	BreadCrumbs,
+	Grid,
+	Row,
+	Col,
 	Notify,
 	Loading,
+	Button,
+	Dialog,
+	Snackbar,
 } from 'kr-ui';
-
-import {Dialog,Snackbar} from 'material-ui';
-
-
 
 let OrderCreateForm = function(props){
 
-  	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,cityName} = props;
-
+  	const { error, handleSubmit, pristine, reset, submitting,communitys,cityName,onSubmit} = props;
 
 	return (
 			<form onSubmit={handleSubmit(onSubmit)}>
-
-				<KrField name="customerName" component="text" type="text" label="客户名称"  disabled={true} /> 
+				<KrField name="customerName" component="input" type="text" label="客户名称"  disabled={true} /> 
 				 <KrField name="mainbilltype" component="select" label="订单类型" requireLabel={true}>
 					 <option value="">请选择类型</option>
 					 <option value="STATION">工位订单</option>
 				 </KrField>
 				 <KrField name="communityid" component="select" label="所在社区" requireLabel={true}>
-						<option value="0">请选择社区</option>
+						<option value="">请选择社区</option>
 						{communitys.map((item,index)=> <option value={item.communityId} key={index}>{item.communityName}</option>)}
 				 </KrField>
 				<KrField  label="所在城市" component="labelText" value={cityName||'无'}  /> 
-			 	<KrField name="mainbillname" type="text" component="text" label="订单名称" requireLabel={true} /> 
+			 	<KrField name="mainbillname" type="text" component="input" label="订单名称" requireLabel={true} /> 
 			    <KrField name="mainbilldesc" component="textarea" label="订单描述" /> 
 
 				<Grid>
@@ -72,10 +67,25 @@ class OrderCreate extends Component {
 		}
 
 
+		const validate = values =>{
+			 const errors = {}
+
+			if(!values.mainbilltype){
+				errors.mainbilltype = '请选择订单类型';
+			  }else if (!values.communityid) {
+				errors.communityid = '请选择所在社区';
+			  }else if(!values.mainbillname){
+				errors.mainbillname = '订单名称不能为空';
+			  }
+			  return errors
+		}
+
 		const {initialValues} =this.props; 
+
 		OrderCreateForm= reduxForm({
-		  form: 'orderCreateForm',
-			initialValues
+			form: 'orderCreateForm',
+			initialValues,
+			validate,
 		})(OrderCreateForm);
 
 	}

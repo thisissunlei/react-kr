@@ -51,7 +51,7 @@ const renderFieldDate = ({ input, label, type, meta: { touched, error } ,require
 		  	/>
 			</div>
 		</div>
-      {touched && error && <span>{error}</span>}
+		{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
     </div>
   </div>	
 		</div>
@@ -121,8 +121,7 @@ const renderFieldInput = ({ input, label, type, meta: { touched, error } ,requir
 						<input {...input} placeholder={placeholder|| label} type={type} disabled={disabled}/>
 					</div>
 				</div>
-
-			  {touched && error && <span>{error}</span>}
+				{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 			</div>
 		  </div>
 		</div>
@@ -143,7 +142,7 @@ const renderFieldTextarea = ({ input, label, type, meta: { touched, error } ,req
 			</div>
 		</div>
 
-      {touched && error && <span>{error}</span>}
+		{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
     </div>
   </div>
 		</div>
@@ -166,6 +165,7 @@ const renderFieldFile = ({ input, label, type, meta: { touched, error },children
 						<div className="form-input">
 							<input type="file" onChange={changeValue} name={input.name} value={input.value}/>
 						</div>
+		{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 					  </div>
 				</div>
 		</div>
@@ -202,27 +202,26 @@ const renderFieldSearch = ({ input, label, type, meta: { touched, error },childr
 					isLoading = false;
 				});
 			});
-
-				isLoading = false;
+			isLoading = false;
 	}
 
 		return (
-
 				<div className="form-item-wrap" style={style}>
 				<div className="form-item">
 				<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
 						<div className="form-main">
-						<div className="form-input">
-						<ReactSelect.Async 
-								name={input.name} 
-								isLoading={isLoading}
-								value={input.value}
-								loadOptions={getOptions}
-								clearable={true}
-								clearAllText="清除"
-								onChange={changeValue} 
-								placeholder="请选择..." />
-						</div>
+							<div className="form-input">
+								<ReactSelect.Async 
+										name={input.name} 
+										isLoading={isLoading}
+										value={input.value}
+										loadOptions={getOptions}
+										clearable={true}
+										clearAllText="清除"
+										onChange={changeValue} 
+										placeholder="请选择..." />
+							</div>
+		{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 					  </div>
 				</div>
 				</div>
@@ -253,8 +252,8 @@ const renderFieldSelect = ({ input, label, type, meta: { touched, error },childr
 		   						options={options}
 		   						onChange={changeValue} 
 								placeholder="请选择..."/>
-								{touched && error && <span>{error}</span>}
 						</div>
+						{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 					  </div>
 				</div>
 		</div>
@@ -267,12 +266,13 @@ const renderFieldSelect = ({ input, label, type, meta: { touched, error },childr
 				<div className="form-item">
 				<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
 						<div className="form-main">
-						<div className="form-input">
-							<select {...input}  disabled={disabled}>
-							{children}
-							</select>
-							{touched && error && <span>{error}</span>}
-						</div>
+
+							<div className="form-input">
+								<select {...input}  disabled={disabled}>
+								{children}
+								</select>
+							</div>
+							{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 					  </div>
 				</div>
 		</div>
