@@ -19,12 +19,9 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 
 
 
-
-let LessorUpdateForm = function(props){
-
-    //生成对账单
+  //生成对账单
+let LessorUpdateForm= function(props){  
   	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
-
 	return (
 
 			<form onSubmit={handleSubmit(onSubmit)}>
@@ -71,7 +68,9 @@ const ViewHtml = (props)=>{
 }
 
 
+
  class RenderTable extends Component {
+
   constructor(props,context){
     super(props, context);
 
@@ -82,30 +81,22 @@ const ViewHtml = (props)=>{
 		  openView:false,
 		  openUpdate:false,
 		  item:{}
-	  }
-
-
+	  }   
   }
 
+
 	 componentWillReceiveProps(nextProps){
-
-
 	 }
 
-    confirmCreateSubmit(values){
-		var {actions} = this.props;
-		var _this = this;
 
-		actions.callAPI('addFnaCorporation',{ },values).then(function(response){ }).catch(function(err){ });
-
-	}
+    
 
 	 confirmUpdateSubmit(values){
 
 		var {actions} = this.props;
 		var _this = this;
 
-		actions.callAPI('editFnaCorporation',{ },values).then(function(response){ 
+		actions.callAPI('getFinaDataDetailAdd',{ },values).then(function(response){ 
 
 			Notify.show([{
 				message:'更新成功',
@@ -122,7 +113,7 @@ const ViewHtml = (props)=>{
 
 		});
 	 this.openUpdateDialog();
-
+      
 	 }
 
 
@@ -134,14 +125,14 @@ const ViewHtml = (props)=>{
 	 }
 	openUpdateDialog(index){
 
-	  const list = this.props.items;
+	    const list = this.props.items;
 
 		this.setState({
 			openUpdate:!this.state.openUpdate
 		});
 
 
-		console.log('item---',list[index]);
+		
 
 		LessorUpdateForm= reduxForm({
 		  form: 'orderUpdateForm',
@@ -151,24 +142,19 @@ const ViewHtml = (props)=>{
 	}
 
 
-  openViewDialog(index){
-
-
-	  const list = this.props.items;
-	  console.log('item',list[index]);
-
+       openViewDialog(index){
+	     const list = this.props.items;
 		this.setState({
 			item:list[index],
 			openView:!this.state.openView
 		});
 
-  }
+    }
 
 
 	render() {
 
-		 console.log('9tem',this.props.items);
-
+	
 		 const actions = [
 			  <Button
 				label="关闭"
@@ -178,7 +164,7 @@ const ViewHtml = (props)=>{
 			  />,
 			];
 
-		if(!this.props.length){
+		if(!this.props.length){  
 			return (
 
 
@@ -233,7 +219,7 @@ const ViewHtml = (props)=>{
 				</TableHeader>
 
 				<TableBody>
-					  {this.props.items.map((item,index)=> <TableRow key={index} displayCheckbox={true}>
+					  {this.props.map((item,index)=> <TableRow key={index} displayCheckbox={true}>
 							<TableRowColumn>{item.customername}</TableRowColumn>
 							<TableRowColumn>{item.mainbilltype}</TableRowColumn>
 							<TableRowColumn>{item.community}</TableRowColumn>
@@ -275,7 +261,7 @@ const ViewHtml = (props)=>{
 
    </div>
   );
-  }
+ }
 }
 
 
@@ -284,4 +270,4 @@ export default connect((state)=>{
 	return {
 		name
 	}
-})(RenderTable );
+})(RenderTable);
