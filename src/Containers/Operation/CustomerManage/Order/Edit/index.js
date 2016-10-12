@@ -44,8 +44,8 @@ let OrderEditForm = function (props){
 			 </KrField>
 
 				 <KrField name="communityid" component="select" label="所在社区" requireLabel={true}>
-						<option value="0">请选择社区</option>
-							{communitys.map((item,index)=> <option value={item.communityId} key={index}>{item.communityName}</option>)}
+						<option value="">请选择社区</option>
+						{communitys.map((item,index)=> <option value={item.communityId} key={index}>{item.communityName}</option>)}
 				 </KrField>
 					<KrField label="所在城市" value={cityName||'无'} component="labelText" /> 
 					 <KrField name="mainbillname" type="text" label="订单名称" requireLabel={true} component="text" /> 
@@ -53,7 +53,7 @@ let OrderEditForm = function (props){
 					<Grid >
 						<Row style={{marginTop:30}}>
 							<Col md={10}></Col>
-							<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} /> </Col>
+							<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} disabled={submitting} /> </Col>
 						</Row>
 					</Grid>
 			</form>
@@ -78,9 +78,26 @@ class OrderCreate extends Component {
 
 		const {initialValues} = this.props;
 
+
+		const validate = values =>{
+
+			 const errors = {}
+
+			if(!values.mainbilltype){
+				errors.mainbilltype = '请选择订单类型';
+			  }else if (!values.communityid) {
+				errors.communityid = '请选择所在社区';
+			  }else if(!values.mainbillname){
+				errors.mainbillname = '订单名称不能为空';
+			  }
+
+			  return errors
+		}
+
 		OrderEditForm = reduxForm({
 			form: 'orderEditForm',
-			initialValues
+			initialValues,
+			validate
 		})(OrderEditForm);
 
 	}
