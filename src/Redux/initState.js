@@ -58,6 +58,10 @@ let initState = {
 						router:'finance',
 						menuItems:[
 							{
+								primaryText:"订单账单",
+								router:'/operation/finance/orderbill/orderList',
+							},
+							{
 								primaryText:"订单账号",
 								router:'/operation/finance/orderbill/receiptList',
 							},

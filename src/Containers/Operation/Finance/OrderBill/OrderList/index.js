@@ -1,205 +1,231 @@
-import React,{Component} from 'react';
-import {bindActionCreators} from 'redux';
-import { connect } from 'react-redux';
+import React, {Component, PropTypes} from 'react';
+import {connect} from 'kr/Redux';
 
-import * as actionCreators from 'kr-ui/../Redux/Actions';
+import Section from 'kr-ui/Section';
+import {KrField,LabelText} from 'kr-ui/Form';
 
-import TitleList from 'kr-ui/TitleList';
-import './index.less';
-import {KrField} from 'kr-ui/Form';
+import {Button} from 'kr-ui/Button';
 
-import {List, ListItem} from 'material-ui/List';
-import {Table, TableBody, TableHeader, TableFooter, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table'
-import {blue500, yellow600,red500,pink500,purple500} from 'material-ui/styles/colors';
+import {reduxForm,formValueSelector} from 'redux-form';
+
+import {
+	BreadCrumbs,
+	Loading,
+	Notify
+} from 'kr-ui';
+
+
 
 import {Grid,Row,Col} from 'kr-ui/Grid';
 
-import ContentInbox from 'material-ui/svg-icons/content/inbox';
-import ActionGrade from 'material-ui/svg-icons/action/grade';
-import ContentSend from 'material-ui/svg-icons/content/send';
-import ContentDrafts from 'material-ui/svg-icons/content/drafts';
-import ActionInfo from 'material-ui/svg-icons/action/info';
-import { Field, reduxForm } from 'redux-form';
-import ActionDateRange from 'material-ui/svg-icons/action/date-range';
+import {Dialog,Snackbar} from 'material-ui';
 
-import Section from 'kr-ui/Section';
-
-import {
-	AppBar,
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	IconButton,
-	RaisedButton,
-	Drawer,
-	Divider,
-	FontIcon,
-	GridList,
-	GridTile,
-	DatePicker,
-	Dialog,
-	Avatar,
-	SelectField,
-} from 'material-ui';
-import FlatButton from 'material-ui/FlatButton';
-import Formsy from 'formsy-react';
-import Toggle from 'material-ui/Toggle';
-import { FormsyCheckbox, FormsyDate, FormsyRadio, FormsyRadioGroup,
-    FormsySelect, FormsyText, FormsyTime, FormsyToggle } from 'formsy-material-ui/lib';
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
 
 
-	const renderSelectField = ({ input, label, meta: { touched, error }, children }) => (
-	  <SelectField
-	    floatingLabelText={label}
-	    errorText={touched && error}
-	    {...input}
-	    onChange={(event, index, value) => input.onChange(value)}
-	    children={children}/>
-	)
-	
+import RenderTable from './Table';
 
-	var SearchForm = (props) => {
-	 const  { handleSubmit, pristine, reset, submitting ,submit,cancle} = props;
-	 return (
-	 	<form onSubmit={handleSubmit(submit)} className='search-form'>
-	 		<div>
-	 			<KrField name="username" type="text" label="客户名称：" />
-	 		</div>
-	 		<div>
-	 			<label>所属社区：</label>
-			        <Field name="area" component={renderSelectField}>
-			          <MenuItem value={'ff0000'} primaryText="Red"/>
-			          <MenuItem value={'00ff00'} primaryText="Green"/>
-			          <MenuItem value={'0000ff'} primaryText="Blue"/>
-			        </Field>
-	 			
-	 		</div>
-	 		<div>
-	 				<label>订单类型：</label>
-			        <Field name="orderType" component={renderSelectField}>
-			          <MenuItem value={'ff0000'} primaryText="Red"/>
-			          <MenuItem value={'00ff00'} primaryText="Green"/>
-			          <MenuItem value={'0000ff'} primaryText="Blue"/>
-			        </Field>
-	 			
-	 		</div>
-	 		<div>
-	 			<label>查询区间：</label>
-	 				<Avatar icon={<ActionDateRange  />}  size={25}/>
-	 				<Field name="time" component='DatePicker'>
-	 				</Field>
-			            
-			       
-	 			
-	 		</div>
-	 		<div className="button">
-				<FlatButton
-				label="取消"
-				primary={true}
-				onTouchTap={cancle}
-				/>,
-				<FlatButton
-				label="提交"
-				primary={true}
-				type="submit"
-				/>
-	 		</div>
-	 		
-	 	</form>
-	 )
+
+//搜索模块
+let OrderSearchForm = function(props){
+
+	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,cityName} = props;
+
+	return (
+		<form onSubmit={handleSubmit(onSubmit)} >
+					<Row>
+					<Col md={6}>
+						<KrField name="corporationName" type="text"  component="input" placeholder="搜索关键词"/>
+					</Col>
+					<Col md={2} align="right" > <Button label="搜索"  type="submit" primary={true}/> </Col>
+					<Col md={2} align="right" > <Button  primary={true} label="高级查询" type="link"/> </Col>
+					</Row>
+		</form>
+	);
 }
 
-	SearchForm = reduxForm({
-		  form: 'simple'
-		})(SearchForm);
+OrderSearchForm= reduxForm({
+  form: 'orderSearchForm',
+})(OrderSearchForm);
 
 
-class OrderList extends Component{
+
+//新增按钮模块
+let OrderCreateForm = function(props){
+
+	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
+
+	return (
+
+<form onSubmit={handleSubmit(onSubmit)}>
+
+
+				<KrField name="corporationName" type="text" label="出租方名称" /> 
+
+				<KrField name="enableflag" component="group" label="是否启用">
+					<KrField name="enableflag" label="是" type="radio" value="2"/>
+					<KrField name="enableflag" label="否" type="radio" value="3" />
+				</KrField>
+				
+				<KrField name="corporationAddress" component="text" type="text" label="详细地址"/> 
+				 <KrField name="corporationDesc" component="textarea" label="备注"  placeholder="备注信息"/> 
+
+
+				<Grid style={{marginTop:30}}>
+					<Row style={{marginTop:30}}>
+					<Col md={8}></Col>
+					<Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
+					<Col md={2}> <Button  label="取消" type="button"  onTouchTap={onCancel} /> </Col>
+					</Row>
+				</Grid>
+
+	</form>
+
+	);
+
+}
+
+OrderCreateForm= reduxForm({
+  form: 'orderCreateForm',
+})(OrderCreateForm);
+
+
+
+
+//绑定一些已经弄好的组件方法
+class OrderCreate extends Component {
+
+  constructor(props,context){
+	super(props, context);
+	this.openCreateDialog = this.openCreateDialog.bind(this);
+	 this.searchParams = this.searchParams.bind(this);
+	  this.getListData = this.getListData.bind(this);
+
+		this.state = {
+		  open:false,
+		  openCreate:false,
+		}
+
+		
+
+		
+  }
+   
+
+   //渲染完之前调用getListData函数
+	componentDidMount(){
+		this.getListData();
+		console.log('---------------------',this.props.items);
+	}
+
+
+	
+	getListData(){
+
+		var {actions} = this.props;
+		var _this = this;
+
+		actions.callAPI('getFinaDataByList',{
+			corporationName:'',
+			page:'',
+			pageSize:20
+		},{}).then(function(response){
+			
+		}).catch(function(err){
+			
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		});
+	 }
+
+
+ 
 
 	
 
-	constructor(props,context){
-		super(props, context);
+  openCreateDialog(){
+	this.setState({
+		  openCreate:!this.state.openCreate
+	});
+  }
 
-		this.state = {
-			open:false
-		};
-		this.title = ['系统运营','财务管理'];
-		this.tableHead = ['票据类型','发票号码','开票金额','开票日期','操作人','备注','操作'];
-		this.tableHeadList = ['票据类型','发票号码','开票金额','开票日期','操作人','备注'];
-		this.companyInfo = this.companyInfo.bind(this);
+
+	searchParams(values){
+   
+
+		values.corporationName = values.corporationName || ' ';
+		values.page = 1;
+		values.pageSize = 10;
+
+		var {actions} = this.props;
+		var _this = this;
+
+		actions.callAPI('getFinaDataByList',values,{}).then(function(response){ }).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+		});	
 	}
-
-	submitForm(values){
-		this.setState({open: false});
-		console.log('ccccc',values);
-	}
-
-
-
-	componentDidMount() {
-
-
-	}
-	companyInfo(){
-		return (
-				<Grid style={{marginTop:20}}>
-					<Row>
-						<Col md={3}>hahhaah</Col>
-						<Col md={3}>hahhaah</Col>
-						<Col md={3}>hahhaah</Col>
-						<Col md={3}>hahhaah</Col>
-					</Row>
-				</Grid>
-		)
-	}
-
-
 
 	render() {
 
+		const { error, handleSubmit, pristine, reset, submitting} = this.props;
+
+
+		const {communitys} = this.state;
+
+
 		return (
+
 			<div>
-				<div>
-					<TitleList children={this.title}></TitleList>
-				</div>
-				<div>
-					<Section title="财务管理" description=""> 
-						{this.companyInfo()}
-					</Section>
-					<div className="container">
-						<div className="billlist">
-						</div>
-					</div>
-				</div>
-			</div>
-		);
+
+				<BreadCrumbs children={['系统运营','财务管理']}/>
+
+				<Section title="财务管理" description=""> 
+
+					<Grid>
+					<Row>
+					<Col md={8}>
+					  <Col md={2}>
+						<Button label="收入总额:" primary={true} type='link'/> 
+						<Button label="1" primary={true} type='link' />
+					  </Col> 
+					  <Col md={2}>  
+					   <Button label="回款总额:" primary={true} type='link'/>
+					   <Button label="￥" primary={true} type='link'/>  
+					  </Col> 
+					  <Col md={2}>  
+					   <Button label="余额:" primary={true} type='link'/>
+					   <Button label="￥" primary={true} type='link'/> 
+					  </Col>  
+					</Col>
+					<Col md={4} align="right"> 
+						<OrderSearchForm onSubmit={this.searchParams}/>
+					</Col> 
+					</Row>
+					</Grid>
+
+
+				<RenderTable items={this.props.items}/>
+
+				</Section>
+
+
+
+				
+
+
+   </div>
+  );
+  }
+}
+
+//与redux连接起来
+export default connect((state)=>{
+	return {
+		items:state.common.getFinaDataByList
 	}
-}
-
-
-function mapStateToProps(state){
-
-	return {
-		plan:state.plan,
-		items:state.plan.items,
-		now_date:state.plan.now_date
-	};
-}
-
-function mapDispatchToProps(dispatch){
-	return {
-		actions:bindActionCreators(Object.assign({},actionCreators),dispatch)
-	};
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(OrderList);
-
-
-
-
-
-
-
-
+})(OrderCreate);

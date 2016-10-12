@@ -131,6 +131,8 @@ const http = {
 			headers: {
 				'Accept': '*',
 				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+				'cache':false,
+				withCredentials:true,
 			}
 		})
 			.then(check401)

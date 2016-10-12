@@ -1,5 +1,12 @@
 const APIS  = {
 
+	//根据人员姓名获取人员基本信息
+	'getHrmResourceExtListByLastname':{
+		url:'/api/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
+		rap:'/mockjsdata/9/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
+		method:'get'
+	},
+
 	//合同－退租合同－查看
 	'getFnaContractWithdrawalById':{
 		url:'/mockjsdata/3/krspace-finance-web/fnaContractWithdrawalController/getFnaContractWithdrawalById',
@@ -25,7 +32,7 @@ const APIS  = {
 	},
 	//合同－(入驻合同、增租、续租)－查看
 	'show-checkin-agreement':{
-		url:'/mockjsdata/3/krspace-finance-web/checkinagreement/checkin-agreement/actions/show?id={id}',
+		url:'/api/krspace-finance-web/checkinagreement/checkin-agreement/actions/show?id={id}',
 		method:'get'
 	},
 
@@ -123,7 +130,16 @@ const APIS  = {
 		url:'/krspace-finance-web/finaccount/property/viewFinaFinaflowProperty',
 		method:'get'
 	},
-
+	//财务管理－订单账单列表-分页获取订单
+	'getFinaDataByList':{
+		url:'/mockjsdata/3/krspace-finance-web/finaccount/data/getFinaDataByAjax?page={page}&pageSize={pageSize}',		
+		method:'get'
+	},
+    //财务管理－订单账单列表-生成对账单
+	'getFinaDataDetailAdd':{
+		url:'/mockjsdata/3/krspace-finance-web/finaccount/data/getFinaDataDetailById',		
+		method:'get'
+	},
 }
 
 module.exports =  APIS;
