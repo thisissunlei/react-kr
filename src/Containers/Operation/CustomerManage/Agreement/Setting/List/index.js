@@ -328,7 +328,7 @@ class OrderCreate extends Component {
 
       <div>
 
-      <BreadCrumbs children={['系统运营','财务管理']}/>
+      <BreadCrumbs children={['系统运营','合同信息','基础配置']}/>
 
       <Section title="客户信息编辑" description=""> 
 
