@@ -161,11 +161,12 @@ class OrderCreate extends Component {
 				message:err.message,
 				type: 'danger',
 			}]);
+
 			window.setTimeout(function(){
 				_this.isOk = false;
 			},1000);
-		});
 
+		});
 
 	}
 

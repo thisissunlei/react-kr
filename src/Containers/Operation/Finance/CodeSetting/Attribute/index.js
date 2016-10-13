@@ -43,6 +43,21 @@ class OrderCreate extends Component {
 
   }
 
+	componentDidMount(){
+
+		const {actions} = this.props;
+
+		actions.callAPI('findFinaFinaflowPropertyList',{}).then(function(response){ }).catch(function(err){
+		  Notify.show([{
+			message:err.message,
+			type: 'danger',
+		  }]);
+		});
+
+
+	}
+
+
 
   confirmSubmit(values){
     var {actions} = this.props;
@@ -250,14 +265,12 @@ OrderCreate= reduxForm({
 })(OrderCreate);
 
 
-
-
-
 export default connect((state)=>{
-  console.log('============',state.common.findFinaFinaflowPropertyList)
+
   return {
     items:state.common.findFinaFinaflowPropertyList,
   };
+
 })(OrderCreate);
 
 
