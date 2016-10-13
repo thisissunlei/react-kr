@@ -2,40 +2,41 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector} from 'redux-form';
 
-import {KrField,LabelText} from 'kr-ui/Form';
-
-import {Button} from 'kr-ui/Button';
-
 import {
-	Notify
+	Dialog,
+	Table, 
+	TableBody, 
+	TableHeader, 
+	TableHeaderColumn, 
+	TableRow, 
+	TableRowColumn,
+	TableFooter,
+	Section,
+	KrField,
+	LabelText,
+	Grid,
+	Row,
+	Col,
+	Button,
+	Notify,
+	BreadCrumbs,
 } from 'kr-ui';
-
-import {Grid,Row,Col} from 'kr-ui/Grid';
-
-import {Dialog,Snackbar} from 'material-ui';
-
-
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
-
 
 
   //生成对账单
 let LessorUpdateForm= function(props){  
+
   	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
+
 	return (
 
 			<form onSubmit={handleSubmit(onSubmit)}>
-
-                            
-							
 
 							<KrField component="group" label="对账期间:">
 								<KrField name="startDate" label="起始日期" type="Date" />
 								<KrField name="endDate" label="结束日期" type="Date" />
 							</KrField>
 	
-
-
 							<Grid style={{marginTop:30}}>
 								<Row style={{marginTop:30}}>
 								<Col md={8}></Col>
@@ -43,8 +44,7 @@ let LessorUpdateForm= function(props){
 								<Col md={2}><Button  label="取消" type="button"  onTouchTap={onCancel} /> </Col>
 								</Row>
 							</Grid>
-
-				</form>
+			</form>
 
 	);
 
@@ -69,7 +69,7 @@ const ViewHtml = (props)=>{
 
 
 
- class RenderTable extends Component {
+ export default class RenderTable extends Component {
 
   constructor(props,context){
     super(props, context);
@@ -77,15 +77,15 @@ const ViewHtml = (props)=>{
 	  this.confirmUpdateSubmit = this.confirmUpdateSubmit.bind(this);
 	  this.cancelUpdateSubmit = this.cancelUpdateSubmit.bind(this);
 
+
 	  this.state = {
 		  openView:false,
 		  openUpdate:false,
-		  item:{}
 	  }   
   }
 
-
 	 componentWillReceiveProps(nextProps){
+
 	 }
 
 
@@ -143,6 +143,7 @@ const ViewHtml = (props)=>{
 
 
        openViewDialog(index){
+
 	     const list = this.props.items;
 		this.setState({
 			item:list[index],
@@ -154,7 +155,8 @@ const ViewHtml = (props)=>{
 
 	render() {
 
-	
+		let items = this.props.items || [];
+
 		 const actions = [
 			  <Button
 				label="关闭"
@@ -164,9 +166,8 @@ const ViewHtml = (props)=>{
 			  />,
 			];
 
-		if(!this.props.length){  
+		if(!items.length){  
 			return (
-
 
 			<div>
 				<Table  style={{marginTop:10}} displayCheckbox={true}>
@@ -183,8 +184,6 @@ const ViewHtml = (props)=>{
 				</TableHeader>
 
 
-				
-
 				<TableBody style={{paddingTop:10}}>
 					<TableRow displayCheckbox={false}>
 								<TableRowColumn colSpan={8} >
@@ -194,8 +193,6 @@ const ViewHtml = (props)=>{
 								</TableRowColumn>
 					</TableRow>
 				</TableBody>
-
-			
 
 				</Table>
    			</div>
@@ -219,7 +216,7 @@ const ViewHtml = (props)=>{
 				</TableHeader>
 
 				<TableBody>
-					  {this.props.map((item,index)=> <TableRow key={index} displayCheckbox={true}>
+					  {this.props.items.map((item,index)=> <TableRow key={index} displayCheckbox={true}>
 							<TableRowColumn>{item.customername}</TableRowColumn>
 							<TableRowColumn>{item.mainbilltype}</TableRowColumn>
 							<TableRowColumn>{item.community}</TableRowColumn>
@@ -264,10 +261,3 @@ const ViewHtml = (props)=>{
  }
 }
 
-
-export default connect((state)=>{
-	const name = '';
-	return {
-		name
-	}
-})(RenderTable);

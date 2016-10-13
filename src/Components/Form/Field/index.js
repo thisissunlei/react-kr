@@ -103,12 +103,17 @@ const renderFieldRenderText = ({ input, label, type, meta: { touched, error } ,r
 
 const renderFieldInput = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,style}) =>{
 
+
 	if(type === 'hidden'){
 		return (
 			<div>
 				<input {...input} placeholder={placeholder|| label} type="hidden"/>
 			</div>
 		);
+	}
+
+	var changeValue = function(){
+
 	}
 
 	return (
@@ -118,7 +123,7 @@ const renderFieldInput = ({ input, label, type, meta: { touched, error } ,requir
 			<div className="form-main">
 				<div className="form-input-main">
 					<div className="form-input">
-						<input {...input} placeholder={placeholder|| label} type={type} disabled={disabled}/>
+						<input {...input} placeholder={placeholder|| label} type={type} disabled={disabled}  />
 					</div>
 				</div>
 				{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
@@ -231,7 +236,6 @@ const renderFieldSearch = ({ input, label, type, meta: { touched, error },childr
 //select
 const renderFieldSelect = ({ input, label, type, meta: { touched, error },children,disabled,style,requireLabel,options}) =>{
 
-
 	function changeValue(item){
 		var value = (item && item.value) || '';
 		input.onChange(value);
@@ -272,6 +276,7 @@ const renderFieldSelect = ({ input, label, type, meta: { touched, error },childr
 								{children}
 								</select>
 							</div>
+
 							{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 					  </div>
 				</div>
