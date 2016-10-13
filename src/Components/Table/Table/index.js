@@ -12,10 +12,8 @@ export default class Table extends React.Component {
 		toggleVisibility: React.PropTypes.string,
 	}
 
-
 	constructor(props){
 		super(props);
-
 
 		this.createTableHeader = this.createTableHeader.bind(this);
 		this.createTableBody = this.createTableBody.bind(this);
@@ -26,13 +24,12 @@ export default class Table extends React.Component {
 		this.onSelectAll = this.onSelectAll.bind(this);
 		this.onRowClick = this.onRowClick.bind(this);
 
+		this.totalRowCount = 200;
 
-		this.totalRowCount = 0;
 		this.state = {
 			allRowsSelected:false,
 			selectedRows:[],
 			visibilityRows:[],
-			totalRowCount:0,
 			defaultValue:{
 				checkboxWidth:40
 			}
@@ -41,30 +38,43 @@ export default class Table extends React.Component {
 	}
 
 	componentDidMount(){
+
 		var visibilityRows = new Array(this.totalRowCount+1).join(1).split('');
 
 		//默认隐藏children
-		let visibilityType = this.props.toggleVisibility; 
+		let visibilityType = this.props.toggleVisibility||''; 
 
-		if(visibilityType){
-			if(visibilityType === 'odd'){
+		switch(visibilityType){
+			case 'odd':{
 				visibilityRows.forEach(function(item,index){
 					if(index%2 !== 0){
 						visibilityRows[index] = 0;
 					}
 				});
-			}else{
+				break;
+			}
+
+			case 'event':{
 				visibilityRows.forEach(function(item,index){
 					if(index%2 == 0){
 						visibilityRows[index] = 0;
 					}
 				});
+				break;
+			}
+
+			default:{
+				visibilityRows.forEach(function(item,index){
+					visibilityRows[index] = 1;
+				});
+				break;
 			}
 		}
 
 		this.setState({
 			visibilityRows
 		});
+
 	}
 
 	setVisibilityRow(rowNumber){
@@ -193,6 +203,9 @@ export default class Table extends React.Component {
 			}
 		});
 
+		let numChildren = React.Children.count(tBody);
+		console.log('--nuj',numChildren);
+
 		return (
 			<table className={"table "+className} style={style}>
 				{tHead}
@@ -205,8 +218,6 @@ export default class Table extends React.Component {
 
 
 }
-
-
 
 
 

@@ -192,7 +192,7 @@ const ViewHtml = (props)=>{
 
 
 			<div>
-				<Table  style={{marginTop:10}} displayCheckbox={true}>
+				<Table  style={{marginTop:10}} displayCheckbox={true} >
 					<TableHeader>
 					<TableHeaderColumn>ID</TableHeaderColumn>
 					<TableHeaderColumn>出租方名称</TableHeaderColumn>

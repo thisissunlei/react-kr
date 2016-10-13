@@ -68,7 +68,7 @@ export default class TableBody extends React.Component {
 	}
 
 	onCellClick(){
-		console.log('----');
+
 	}
 
 	onCellHover(){
@@ -88,9 +88,11 @@ export default class TableBody extends React.Component {
 	}
 
 	onRowClick(event,rowNumber){
+
 		if (this.props.onRowClick) {
 			this.props.onRowClick(event, rowNumber);
 		}
+
 		this.toggleInsertElement(event);
 	}
 
@@ -104,13 +106,14 @@ export default class TableBody extends React.Component {
 			return null;
 		}
 
-		const key = `${rowProps.rowNumber}-cb`;
-		const disabled = !this.props.selectable;
-		const checkbox = (
+		let key = `${rowProps.rowNumber}-cb`;
+		let disabled = !this.props.selectable;
+		let checkbox = (
 			<input type="checkbox" checked={rowProps.selected} />
 		);
 
 		return (
+
 			<TableRowColumn
 			key={key}
 			columnNumber={0}
@@ -123,7 +126,6 @@ export default class TableBody extends React.Component {
 
 
 	createRowElement(child,rowNumber){
-
 
 		const handlers = {
 			onCellClick: this.onCellClick,
@@ -158,15 +160,16 @@ export default class TableBody extends React.Component {
 			return React.cloneElement(child, {...props, ...handlers},children);
 		}
 
-		console.log('0000');
 		return null;
 	}
+
 	createRows() {
 
-		const numChildren = React.Children.count(this.props.children);
+		let numChildren = React.Children.count(this.props.children);
 
 		let {displayCheckbox,setRowTotalCount} = this.props;
-		setRowTotalCount(numChildren);
+
+		//this.props.setRowTotalCount(numChildren);
 
 		let rowNumber = 0;
 
@@ -182,9 +185,11 @@ export default class TableBody extends React.Component {
 
 
 	isRowVisibility(rowNumber) {
+
 		if(parseInt(this.props.visibilityRows[rowNumber])){
 			return true;
 		}
+
 		return false;
 	}
 
