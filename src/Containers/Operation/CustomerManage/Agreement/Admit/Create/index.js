@@ -51,19 +51,19 @@ var CreateForm = (props) => {
 							 </KrField>
 
 							 <KrField grid={1/2} name="lessorAddress" type="text" component="text" label="地址"/> 
-							 <KrField grid={1/2} name="lessorId" component="text" label="联系人id" type="hidden"/> 
+							 <KrField grid={1/2} name="lessorContactid" component="text" label="联系人id" type="hidden"/> 
 							 <KrField grid={1/2} name="lessorname" type="text" component="text" label="联系人"/> 
 							 <KrField grid={1/2} name="lessorContacttel" type="text" component="text" label="电话"/> 
 
-							 <KrField grid={1/2} name="leaseContact" type="text" component="text" label="承租方"/> 
+							 <KrField grid={1/2} name="" type="text" component="text" label="承租方" value=""/> 
 							 <KrField grid={1/2} name="leaseAddress" type="text" component="text" label="地址"/> 
 
-							 <KrField grid={1/2} name="lessorContactName" type="text" component="text" label="联系人"/> 
+							 <KrField grid={1/2} name="leaseContact" type="text" component="text" label="联系人"/> 
 							 <KrField grid={1/2} name="leaseContacttel" type="text" component="text" label="电话"/> 
 
 							 <KrField grid={1/2} name="communityName" type="text" component="text" label="所属社区" /> 
 
-							<KrField grid={1/2} name="wherefloor" component="select" label="所在楼层">
+							<KrField grid={1/2} name="whereFloor" component="select" label="所在楼层">
 								 <option>请选择订单类型</option>
 								<option value="11">Red</option>
 								<option value="00ff00">Green</option>
@@ -71,6 +71,7 @@ var CreateForm = (props) => {
 							 </KrField>
 
 						<KrField grid={1/2} name="signdate" type="text" component="text" label="签署日期" />
+						<KrField grid={1/2} name="contractcode" type="text" component="text" label="合同编号" />
 						<KrField grid={1/2} name="totaldownpayment" type="text" component="text" label="定金总额" /> 
 						<KrField grid={1/2} name="paymentId" component="select" label="付款方式">
 							<option>请选择订单类型</option>
@@ -78,23 +79,23 @@ var CreateForm = (props) => {
 							<option value="00ff00">Green</option>
 							<option value="0000ff">Blue</option>
 						 </KrField>
-					 <KrField grid={1/2} name="leaseBegindate"  component="date" label="租赁期限" /> 
+					 <KrField grid={1/2} name="leaseBeginDate"  component="date" label="租赁期限" /> 
 					 <KrField grid={1/2} name="leaseEndDate"  component="date" label="租赁期限" /> 
-					 <KrField grid={1/2} name="templockday" component="date" label="保留天数" /> 
-					 <KrField grid={1/2} name="username" component="date" label="租赁项目" /> 
+					 <KrField grid={1} name="templockday" component="date" label="保留天数" /> 
+					 
 
 					 <KrField grid={1} name="uname" type="group" component="group" label="租赁项目"> 
 						 <KrField grid={1} name="stationnum" type="text" label="工位"/> 
-						 <KrField grid={1} name="username" type="text" label="会议室"/> 
+						 <KrField grid={1} name="boardroomnum" type="text" label="会议室"/> 
 		  			</KrField>
-
-					 <KrField grid={1/2} name="uname" type="file" component="file" label="合同附件"/ > 
-					 <KrField grid={1} name="contractmark" component="textarea" label="备注" /> 
+					<KrField grid={1} name="contractmark" component="textarea" label="备注" /> 
+					 <KrField grid={1/2} name="contractfile" type="file" component="file" label="合同附件"/ > 
+					 
 
 				<Section title="租赁明细" description="" rightMenu = {
 								<Menu>
 									  <MenuItem primaryText="删除" />
-									  <MenuItem primaryText="分配"  onTouchTap={handleOpen} />
+									  <MenuItem primaryText="租赁"  onTouchTap={handleOpen} />
 								</Menu>
 				}> 
 
@@ -102,8 +103,8 @@ var CreateForm = (props) => {
 					<TableHeader>
 							<TableHeaderColumn>类别</TableHeaderColumn>
 							<TableHeaderColumn>编号／名称</TableHeaderColumn>
-							<TableHeaderColumn>租赁开始时间</TableHeaderColumn>
-							<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
+							<TableHeaderColumn>开始时间</TableHeaderColumn>
+							<TableHeaderColumn>结束时间</TableHeaderColumn>
 					</TableHeader>
 					<TableBody>
 						 <TableRow>
