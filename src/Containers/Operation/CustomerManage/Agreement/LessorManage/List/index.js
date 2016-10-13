@@ -219,7 +219,7 @@ class OrderCreate extends Component {
 
 			<div>
 
-				<BreadCrumbs children={['系统运营','财务管理','合作方管理']}/>
+				<BreadCrumbs children={['系统运营','合同信息','出租方管理']}/>
 
 				<Section title="合作方管理" description=""> 
 
@@ -258,6 +258,7 @@ class OrderCreate extends Component {
 
 
 export default connect((state)=>{
+	const items = " ";
 	return {
 		items:state.common.fnaCorporationList.items
 	}

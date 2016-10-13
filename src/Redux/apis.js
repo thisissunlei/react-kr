@@ -102,8 +102,8 @@ const APIS  = {
 	},
 	//合同－属性配置－搜索（list）
 	'findFinaFinaflowPropertyList':{
-		url:'/mockjsdata/3/krspace-finance-web/finaccount/property/findFinaFinaflowPropertyList?currentPage={currentPage}&pageSize={pageSize}&searchParam={searchParam}',
-		method:'get'
+		url:'/mockjsdata/3/krspace-finance-web/finaccount/property/findFinaFinaflowPropertyList',
+		method:'post'
 	},
 	//合同－属性配置－新建
 	'addFinaFinaflowProperty':{

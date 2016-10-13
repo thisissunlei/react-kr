@@ -1,25 +1,28 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
-
-import Section from 'kr-ui/Section';
-import {KrField,LabelText} from 'kr-ui/Form';
-
 import {reduxForm,formValueSelector} from 'redux-form';
-
-
-import BreadCrumbs from 'kr-ui/BreadCrumbs';
-
-
-import {Grid,Row,Col} from 'kr-ui/Grid';
-
 import {Dialog,Snackbar} from 'material-ui';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
 import {
- Notify
+  Table, 
+  TableBody, 
+  TableHeader, 
+  TableHeaderColumn, 
+  TableRow, 
+  TableRowColumn,
+  TableFooter,
+  Section,
+  KrField,
+  LabelText,
+  Grid,
+  Row,
+  Col,
+  Button,
+  Notify,
+  BreadCrumbs
 } from 'kr-ui';
+
 
 
 class OrderCreate extends Component {
@@ -30,6 +33,8 @@ class OrderCreate extends Component {
     this.confirmSubmit = this.confirmSubmit.bind(this);
 
     this.openCreateDialog = this.openCreateDialog.bind(this);
+    this.searchParams = this.searchParams.bind(this);
+    this.getListData=this.getListData.bind(this);
     this.state = {
       open:false,
       openCreate:false,
@@ -64,6 +69,44 @@ class OrderCreate extends Component {
 
   }
 
+    getListData(){
+
+    var {actions} = this.props;
+    var _this = this;
+
+    actions.callAPI('findFinaFinaflowPropertyList',{
+      currentPage:'',
+      pageSize:10,
+      searchParam:''
+    },{}).then(function(response){
+      console.log('----->>>>re',response);
+      }).catch(function(err){
+      console.log('err',err);
+      Notify.show([{
+        message:'报错了',
+        type: 'danger',
+      }]);
+    });
+
+
+}
+searchParams(values){
+
+    values.corporationName = values.corporationName || ' ';
+    values.page = 1;
+    values.pageSize = 10;
+
+    var {actions} = this.props;
+    var _this = this;
+
+    actions.callAPI('fnaCorporationList',values,{}).then(function(response){ }).catch(function(err){
+      Notify.show([{
+        message:err.message,
+        type: 'danger',
+      }]);
+    }); 
+  }
+
   openCreateDialog(){
 
     this.setState({
@@ -74,11 +117,11 @@ class OrderCreate extends Component {
 
   render() {
 
-    const { error, handleSubmit, pristine, reset, submitting} = this.props;
+    const { error, handleSubmit, pristine, reset, submitting,onSubmit} = this.props;
 
     const {communitys} = this.state;
-
-
+   
+    
     return (
 
       <div>
@@ -86,12 +129,14 @@ class OrderCreate extends Component {
       <Section title="财务管理" description=""> 
 
       <Grid>
+        
           <Row>
             <Col md={2}> <RaisedButton label="新建属性" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
             <Col md={6}> </Col>
-            <Col md={2}> <KrField name="username" type="text" /></Col> 
-            <Col md={2}> <RaisedButton label="搜索" primary={true} primary={true} /> </Col>
+            <Col md={2}> <KrField name="searchParam" type="text" /></Col> 
+            <Col md={2}> <Button label="搜索"  primary={true}  /> </Col>
           </Row>
+        
         </Grid>
 
             <Table displayCheckbox={true} style={{marginTop:20}}  toggleVisibility="odd">
@@ -108,14 +153,16 @@ class OrderCreate extends Component {
         <TableBody>
 
           <TableRow  >
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>Steve Brown</TableRowColumn>
-            <TableRowColumn><FlatButton label="创建订单" primary={true} href="/#/operation/customerManage/343/order/create" /></TableRowColumn>
+            <TableRowColumn></TableRowColumn>
+            <TableRowColumn>{/*{items.propdesc}*/}</TableRowColumn>
+            <TableRowColumn>{/*{items.propname}*/}</TableRowColumn>
+            <TableRowColumn>{/*{items.enableflag}*/}</TableRowColumn>
+            <TableRowColumn>{/*{items.proptype}*/}</TableRowColumn>
+            <TableRowColumn>{/*{items.ordernum}*/}</TableRowColumn>
+            <TableRowColumn>{/*{items.creatername}*/}</TableRowColumn>
+            <TableRowColumn>{/*{items.createdate}*/}</TableRowColumn>
+            <TableRowColumn></TableRowColumn>
+
          </TableRow>
         </TableBody>
 
@@ -204,15 +251,12 @@ OrderCreate= reduxForm({
 
 
 
-function mapStateToProps(state){
-  return {
-    items:state.notify.items,
-  };
-}
+
 
 export default connect((state)=>{
+  console.log('============',state.common.findFinaFinaflowPropertyList)
   return {
-    items:state.notify.items,
+    items:state.common.findFinaFinaflowPropertyList,
   };
 })(OrderCreate);
 
