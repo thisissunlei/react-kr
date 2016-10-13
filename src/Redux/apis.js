@@ -1,9 +1,9 @@
 const APIS  = {
 
-	//创建合同时初始化数据
+	//创建入驻协议的新增和编辑
 	'addOrEditEnterContract':{
 		url:'/api/krspace-finance-web/checkinagreement/addOrEditEnterContract',
-		method:'get'
+		method:'post'
 	},
 
 	//创建合同时初始化数据

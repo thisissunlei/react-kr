@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'kr/Redux';
 
-import {reduxForm,submitForm} from 'redux-form';
+import {reduxForm,submitForm,change,reset} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
 
@@ -41,7 +41,6 @@ class JoinCreateForm  extends Component{
 
 	constructor(props,context){
 		super(props, context);
-
 	}
 
 	render(){
@@ -95,7 +94,6 @@ class JoinCreateForm  extends Component{
 								  </KrField>
 
 								<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={paymentList}/> 
-
 								<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={payTypeList}/>
 
 							 <KrField grid={1/2}  name="rname"  component="date" grid={1/2} label="签署时间" /> 
@@ -128,7 +126,6 @@ class JoinCreateForm  extends Component{
 											<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
 									</TableHeader>
 									<TableBody>
-
 										{this.props.billList.map((item,index)=>{
 											return (
 												<TableRow key={index}>
@@ -139,7 +136,6 @@ class JoinCreateForm  extends Component{
 												</TableRow>
 											);
 										})}
-
 								   </TableBody>
 							 </Table>
 
@@ -204,13 +200,12 @@ class JoinCreateForm  extends Component{
 		JoinCreateForm = reduxForm({
 			form: 'joinCreateForm',
 			validate,
-			initialValues:{
-				leaseAddress:'haha'
-			}
 		})(JoinCreateForm);
+
 	}
 
 	 openConfirmCreateDialog(){
+
 		 this.setState({
 			 openConfirmCreate:!this.state.openConfirmCreate
 		 });
@@ -219,14 +214,22 @@ class JoinCreateForm  extends Component{
 	 componentDidMount(){
 
 		var _this = this;
+		const {params} = this.props;
 
-		 const {params} = this.props;
 
 		Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
+
 			_this.setState({
 				init:response
 			});
+
+			Store.dispatch(change('joinCreateForm','leaseAddress',response.customer.customerAddress));
+
+			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）	
+			Store.dispatch(change('joinCreateForm','contracttype','2'));
+
 		}).catch(function(err){
+
 			/*
 			Notify.show([{
 				message:err.message,
@@ -237,9 +240,10 @@ class JoinCreateForm  extends Component{
 	 }
 
 	 onSubmit(form){
+
 		 const {params} = this.props;
 
-		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{customerId:params.customerId,mainBillId:params.orderId})).then(function(response){
+		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{customerId:params.customerId,mainBillId:params.orderId},form)).then(function(response){
 
 		}).catch(function(err){
 			/*
@@ -252,6 +256,7 @@ class JoinCreateForm  extends Component{
 	 }
 
 	handleOpen(){
+
 		Actions.showModalDialog('http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId=42&floors=3&goalStationNum=1&goalBoardroomNum=0&selectedObjs=[{type:1,id:883},{type:2,id:2}]',900,800);
 
 		var _this = this;
