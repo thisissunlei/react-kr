@@ -221,7 +221,7 @@ class OrderCreate extends Component {
 
 				<BreadCrumbs children={['系统运营','合同信息','出租方管理']}/>
 
-				<Section title="合作方管理" description=""> 
+				<Section title="出租方管理" description=""> 
 
 					<Grid>
 					<Row>
