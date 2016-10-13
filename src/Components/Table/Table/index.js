@@ -4,12 +4,17 @@ import './index.less';
 
 export default class Table extends React.Component {
 
+	static defaultProps = {
+		totalCount:100
+	}
+
 	static PropTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
 		displayCheckbox: React.PropTypes.bool,
 		style:React.PropTypes.object,
 		toggleVisibility: React.PropTypes.string,
+		totalCount:React.PropTypes.number
 	}
 
 	constructor(props){
@@ -18,13 +23,11 @@ export default class Table extends React.Component {
 		this.createTableHeader = this.createTableHeader.bind(this);
 		this.createTableBody = this.createTableBody.bind(this);
 		this.createTableFooter = this.createTableFooter.bind(this);
-		this.setRowTotalCount = this.setRowTotalCount.bind(this);
 		this.setVisibilityRow = this.setVisibilityRow.bind(this);
 
 		this.onSelectAll = this.onSelectAll.bind(this);
 		this.onRowClick = this.onRowClick.bind(this);
-
-		this.totalRowCount = 200;
+		this.onExport = this.onExport.bind(this);
 
 		this.state = {
 			allRowsSelected:false,
@@ -37,9 +40,25 @@ export default class Table extends React.Component {
 
 	}
 
+	onExport(){
+		let {selectedRows,visibilityRows}  = this.state;
+
+		//console.log('selectedRows',this.state.selectedRows,'visibilityRows',this.state.visibilityRows);
+		var result = [];
+
+		visibilityRows.forEach(function(item,index){
+			if(item && selectedRows[index]){
+				result.push(index);
+			}
+		});
+
+		console.log(result);
+
+	}
+
 	componentDidMount(){
 
-		var visibilityRows = new Array(this.totalRowCount+1).join(1).split('');
+		var visibilityRows = new Array(this.props.totalCount+1).join(1).split('');
 
 		//默认隐藏children
 		let visibilityType = this.props.toggleVisibility||''; 
@@ -85,12 +104,11 @@ export default class Table extends React.Component {
 			});
 	}
 
-	setRowTotalCount(totalRowCount){
-		this.totalRowCount = totalRowCount;
-	}
 
 	onRowClick(event,rowNumber){
+
 		let {selectedRows} = this.state;
+
 		if(parseInt(selectedRows[rowNumber])){
 			selectedRows[rowNumber] = 0;
 		}else{
@@ -127,9 +145,9 @@ export default class Table extends React.Component {
 			allRowsSelected = !allRowsSelected;
 		var tmp = [];
 		if(allRowsSelected){
-			tmp = new Array(this.totalRowCount+1).join(1).split('');
+			tmp = new Array(this.props.totalCount+1).join(1).split('');
 		}else{
-			tmp = new Array(this.totalRowCount+1).join(0).split('');
+			tmp = new Array(this.props.totalCount+1).join(0).split('');
 		}
 
     	this.setState({
@@ -137,7 +155,6 @@ export default class Table extends React.Component {
 			selectedRows:tmp
     	});
 
-		console.log('---tmp',this.state.selectedRows);
 	}
 
 	createTableHeader(base){
@@ -164,7 +181,6 @@ export default class Table extends React.Component {
 				selectedRows:this.state.selectedRows,
 				visibilityRows:this.state.visibilityRows,
 				onRowClick:this.onRowClick,
-				setRowTotalCount:this.setRowTotalCount,
 				defaultValue:this.state.defaultValue
 			}
 		);
@@ -178,7 +194,8 @@ export default class Table extends React.Component {
 				displayCheckbox:this.props.displayCheckbox,
 				onSelectAll: this.onSelectAll,
 				allRowsSelected: this.state.allRowsSelected,
-				defaultValue:this.state.defaultValue
+				defaultValue:this.state.defaultValue,
+				onExport:this.onExport
 			}
 		);
 	}
@@ -204,7 +221,6 @@ export default class Table extends React.Component {
 		});
 
 		let numChildren = React.Children.count(tBody);
-		console.log('--nuj',numChildren);
 
 		return (
 			<table className={"table "+className} style={style}>

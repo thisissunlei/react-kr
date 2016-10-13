@@ -14,7 +14,8 @@ export default class TableFooter extends React.Component {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
         onSelectAll:React.PropTypes.func,
-		displayCheckbox:React.PropTypes.bool
+		displayCheckbox:React.PropTypes.bool,
+		onExport:React.PropTypes.func
 	}
 
 
@@ -22,6 +23,12 @@ export default class TableFooter extends React.Component {
 		super(props);
 
 		this.renderCheckbox = this.renderCheckbox.bind(this);
+		this.onExport = this.onExport.bind(this);
+	}
+
+	onExport(){
+		const {onExport} = this.props;
+		onExport && onExport();
 	}
 
 
@@ -38,6 +45,7 @@ export default class TableFooter extends React.Component {
 	}
 
 
+
 	render() {
 
 		let {className,children} = this.props;
@@ -46,7 +54,7 @@ export default class TableFooter extends React.Component {
 			<tfoot className="tfoot">
 				<tr>
                   {this.renderCheckbox()}
-				  <TableRowColumn style={{textAlign:'left'}}> <Button label="导出" primary={true}/> </TableRowColumn>
+				  <TableRowColumn style={{textAlign:'left'}}> <Button label="导出" primary={true} type="button" onTouchTap={this.onExport}/> </TableRowColumn>
 				</tr>
 			</tfoot>
 		);

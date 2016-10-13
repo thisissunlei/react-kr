@@ -169,6 +169,7 @@ export default class TableBody extends React.Component {
 
 		let {displayCheckbox,setRowTotalCount} = this.props;
 
+
 		//this.props.setRowTotalCount(numChildren);
 
 		let rowNumber = 0;
