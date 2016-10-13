@@ -37,9 +37,8 @@ let SettingCreateForm = function(props){
 
 <form onSubmit={handleSubmit(onSubmit)}>
 
-			<KrField name="dicName" type="text" label="字段名称" /> 
-			 <KrField name="dicName" type="text" label="字段名称" /> 
-              <KrField name="enableFlag" component="group" label="是否有效">
+			<KrField name="dicName" type="text" component="input" label="字段名称" />  
+       <KrField name="enableFlag" component="group" label="是否有效">
 					<KrField name="enableFlag" label="是" type="radio" value="2"/>
 					<KrField name="enableFlag" label="否" type="radio" value="3" />
               </KrField>
@@ -85,18 +84,18 @@ let SettingUpdateForm = function(props){
   return (
 
       <form onSubmit={handleSubmit(onSubmit)}>
-              <KrField name="corporationName" type="text" label="出租方名称" /> 
-              <KrField name="enableflag" component="group" label="是否启用">
+              <KrField name="dicName" type="hidden" label="id"  value={props.id}/> 
+              <KrField name="dicName" type="text" label="字段名称"  value={props.dicName}/> 
+              <KrField name="enableflag" component="group" label="是否有效">
                 <KrField name="enableflag" label="是" type="radio" value="1"/>
                 <KrField name="enableflag" label="否" type="radio" value="0" />
               </KrField>
-              <KrField name="corporationAddress" component="text" type="text" label="详细地址"/> 
-               <KrField name="corporationDesc" component="textarea" label="备注"  placeholder="备注信息"/> 
+               <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息"/> 
               <Grid style={{marginTop:30}}>
                 <Row style={{marginTop:30}}>
                 <Col md={8}></Col>
                 <Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
-                <Col md={2}> <Button  label="取消" type="button"  onTouchTap={onCancel} /> </Col>
+                <Col md={2}> <Button  label="取消" type="button"  onTouchTap={onCancel}  /> </Col>
                 </Row>
               </Grid>
         </form>
@@ -113,12 +112,12 @@ export default class SettingList extends Component {
     super(props, context);
 
     this.confirmSubmit = this.confirmSubmit.bind(this);
-
+    
+    this.confirmUpdateSubmit=this.confirmUpdateSubmit.bind(this);
     this.openCreateDialog = this.openCreateDialog.bind(this);
     this.renderCustomerItem = this.renderCustomerItem.bind(this);
     this.renderOrderItem = this.renderOrderItem.bind(this);
-
-
+    this.openUpdateDialog = this.openUpdateDialog.bind(this);
     this.getListData = this.getListData.bind(this);
 
 
@@ -126,7 +125,7 @@ export default class SettingList extends Component {
       open:false,
       openCreate:false,
       openView:false,
-		openUpdate:false,
+		  openUpdate:false,
       items:[]
     }
 
@@ -161,9 +160,10 @@ export default class SettingList extends Component {
 
 
   confirmSubmit(values){
-    var {actions} = this.props;
 
-    actions.callAPI('addSysDicPayment',{},values).then(function(response){
+    console.log('----');
+
+    Store.dispatch(Actions.callAPI('addSysDicPayment',{},values)).then(function(response){
        Notify.show([{
         message:'创建成功!',
         type: 'success',
@@ -173,12 +173,42 @@ export default class SettingList extends Component {
         message:err.message,
         type: 'danger',
       }]);
-    });
+    })
+
+ 
+
+
     this.openCreateDialog();
 
       window.setTimeout(function(){
         window.location.reload();
       },1000);
+
+
+  }
+
+  confirmUpdateSubmit(values){
+
+    Store.dispatch(Actions.callAPI('editSysDicPayment',{},values)).then(function(response){
+       Notify.show([{
+        message:'编辑成功!',
+        type: 'success',
+      }]);
+    }).catch(function(err){
+        Notify.show([{
+        message:err.message,
+        type: 'danger',
+      }]);
+    });
+
+    this.openUpdateDialog();
+
+/*
+window.setTimeout(function(){
+        window.location.reload();
+      },1000);
+*/
+      
 
   }
 
@@ -198,13 +228,14 @@ export default class SettingList extends Component {
 
   }
 
-  openUpdateDialog(index){
+  openUpdateDialog(){
 
     this.setState({
       openUpdate:!this.state.openUpdate
     });
 
   }
+  
 
   renderCustomerItem(){
 
@@ -341,7 +372,7 @@ export default class SettingList extends Component {
         modal={true}
         open={this.state.openUpdate}
      >
-      {/*<SettingUpdateForm />*/}
+      <SettingUpdateForm  onSubmit={this.confirmUpdateSubmit} onCancel={this.openUpdateDialog}/>
       </Dialog>
    </div>
   );
