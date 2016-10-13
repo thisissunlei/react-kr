@@ -33,209 +33,117 @@ import {
 	Row,
 	Col,
 	Button,
+	Notify,
 } from 'kr-ui';
 
 
+class JoinCreateForm  extends Component{
 
-var JoinConfirmForm = (props) => {
+	constructor(props,context){
+		super(props, context);
 
-  let { error, handleSubmit, pristine, reset, submitting,submit,cancel ,onSubmit,handleOpen,customerList} = props;
+	}
 
-	customerList = customerList.map(function(item,index){
+	render(){
 
+		let { error, handleSubmit, pristine, reset, submitting,submit,cancel ,onSubmit,handleOpen,fnaCorporation,paymentList,payTypeList,floorList,customer} = this.props;
 
-	});
+		console.log('----orip',this.props);
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+		fnaCorporation.map(function(item,index){
+			item.value = item.id;
+			item.label = item.corporationName;
+		});
 
-							<KrField name="lessorId"  grid={1/2} component="select" label="出租方" options={customerList} /> 
-							 <KrField grid={1/2}  name="lessorAddress" type="text" component="input" label="地址" /> 
+		paymentList.map(function(item,index){
+			item.value = item.id;
+			item.label = item.dicName;
+		});
 
-							 <KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" /> 
-							 <KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
+		payTypeList.map(function(item,index){
+			item.value = item.id;
+			item.label = item.dicName;
+		});
 
-							 <KrField grid={1/2}  name="leaseId" type="text" component="input" label="承租方" /> 
-							 <KrField grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" /> 
+	  return (
 
-							 <KrField grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" /> 
-							 <KrField grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话" /> 
+		<form onSubmit={handleSubmit(onSubmit)}>
 
-							 <KrField grid={1/2}  name="communityid" type="text" component="input" label="所属社区" /> 
-							<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={[
-								{value:'1',label:'1'},
-								{value:'2',label:'2'}
-							]}/>
+								<KrField name="lessorId"  grid={1/2} component="select" label="出租方" options={fnaCorporation} />
 
-							 <KrField grid={1/2}  name="username" type="text" component="input" label="地址" /> 
-							 <KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号" /> 
+								 <KrField grid={1/2}  name="lessorAddress" type="text" component="input" label="地址" /> 
 
-							 <KrField grid={1}  name="leaseDate" component="group" label="租赁期限"> 
-									  <KrField grid={1/2}  name="leaseBeginDate"  component="date"  /> 
-									  <KrField grid={1/2}  name="leaseEndDate" component="date"/> 
-							  </KrField>
+								 <KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" /> 
+								 <KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 
-							<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={[
-								{value:'1',label:'银行转账'},
-								{value:'2',label:'支付宝'},
-								{value:'3',label:'微信支付'},
-								{value:'4',label:'POS机'},
-							]}/>
-						
+								 <KrField grid={1/2}  name="leaseId" component="labelText" label="承租方" value={customer.customerName}/> 
+								 <KrField grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" /> 
 
-							<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={[
-								{value:'1',label:'月度付'},
-								{value:'2',label:'季度付'},
-								{value:'3',label:'半年付'},
-								{value:'4',label:'年付'},
-							]}/>
+								 <KrField grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" /> 
+								 <KrField grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话" /> 
 
-						 <KrField grid={1}  name="signdate"  component="date" grid={1/2} label="签署时间" /> 
-						 <KrField name="firstpaydate" grid={1/1} component="date" label="首付款时间" /> 
+								 <KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={customer.communityName} /> 
 
-						 <KrField grid={1/2}  name="stationnum" type="text" component="input" label="工位" /> 
-						 <KrField grid={1/2}  name="boardroomnum" type="text" component="input" label="会议室" /> 
+								<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={floorList}/>
 
-						 <KrField grid={1/2}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用" /> 
+								 <KrField grid={1/2}  name="username" type="text" component="input" label="地址" /> 
+								 <KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号" /> 
 
-						 <KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="租金总额" placeholder="" /> 
-						 <KrField grid={1/2}  name="totalrent" type="text" component="input" label="押金总额" /> 
+								 <KrField grid={1}  name="username" component="group" label="租赁期限"> 
+										  <KrField grid={1/2}  name="leaseBeginDate"  component="date"  /> 
+										  <KrField grid={1/2}  name="leaseEndDate" component="date"/> 
+								  </KrField>
 
-						 <KrField grid={1/2}  name="fileIdList" component="file" label="合同附件" /> 
+								<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={paymentList}/> 
 
+								<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={payTypeList}/>
 
-				<Section title="租赁明细" description="" rightMenu = {
-								<Menu>
-									  <MenuItem primaryText="删除" />
-									  <MenuItem primaryText="分配"  onTouchTap={handleOpen} />
-								</Menu>
-				}> 
+							 <KrField grid={1/2}  name="rname"  component="date" grid={1/2} label="签署时间" /> 
 
-						<Table  displayCheckbox={false}>
-								<TableHeader>
-										<TableHeaderColumn>类别</TableHeaderColumn>
-										<TableHeaderColumn>编号／名称</TableHeaderColumn>
-										<TableHeaderColumn>租赁开始时间</TableHeaderColumn>
-										<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
-								</TableHeader>
-								<TableBody>
-									 <TableRow>
-										<TableRowColumn>1</TableRowColumn>
-										<TableRowColumn>John Smith</TableRowColumn>
-										<TableRowColumn>Employed</TableRowColumn>
-										<TableRowColumn>John Smith</TableRowColumn>
-									</TableRow>
-							   </TableBody>
-						 </Table>
+							 <KrField name="signdate" component="date" label="首付款时间" /> 
 
-			</Section>
+							 <KrField grid={1/2}  name="stationnum" type="text" component="input" label="工位" /> 
+							 <KrField grid={1/2}  name="boardroomnum" type="text" component="input" label="会议室" /> 
+
+							 <KrField grid={1/2}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用" /> 
+
+							 <KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="租金总额" placeholder="" /> 
+							 <KrField grid={1/2}  name="totalrent" type="text" component="input" label="押金总额" /> 
+
+							 <KrField grid={1/2}  name="fileIdList" component="file" label="合同附件" /> 
 
 
+					<Section title="租赁明细" description="" rightMenu = {
+									<Menu>
+										  <MenuItem primaryText="删除" />
+										  <MenuItem primaryText="分配"  onTouchTap={handleOpen} />
+									</Menu>
+					}> 
 
-				<Grid>
-					<Row style={{marginTop:30}}>
-						<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} disabled={submitting} /> </Col>
-					  <Col md={2} align="right"> <Button  label="取消" type="button" /> </Col> </Row>
-				</Grid>
+							<Table  displayCheckbox={false}>
+									<TableHeader>
+											<TableHeaderColumn>类别</TableHeaderColumn>
+											<TableHeaderColumn>编号／名称</TableHeaderColumn>
+											<TableHeaderColumn>租赁开始时间</TableHeaderColumn>
+											<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
+									</TableHeader>
+									<TableBody>
 
-		</form>
+										{this.props.billList.map((item,index)=>{
+											return (
+												<TableRow key={index}>
+													<TableRowColumn>{item.type}</TableRowColumn>
+													<TableRowColumn>{item.name}</TableRowColumn>
+													<TableRowColumn>Employed</TableRowColumn>
+													<TableRowColumn>John Smith</TableRowColumn>
+												</TableRow>
+											);
+										})}
 
-  )
-}
-var JoinCreateForm = (props) => {
+								   </TableBody>
+							 </Table>
 
-  const { error, handleSubmit, pristine, reset, submitting,submit,cancel ,onSubmit,handleOpen} = props;
-
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-
-							<KrField name="lessorId"  grid={1/2} component="select" label="出租方" options={
-								[ { value: 'one', label: 'One' },
-								{ value: 'two', label: 'Two' }]
-							} />
-
-							 <KrField grid={1/2}  name="lessorAddress" type="text" component="input" label="地址" /> 
-
-							 <KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" /> 
-							 <KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
-
-							 <KrField grid={1/2}  name="leaseId" type="text" component="input" label="承租方" /> 
-							 <KrField grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" /> 
-
-							 <KrField grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" /> 
-							 <KrField grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话" /> 
-
-							 <KrField grid={1/2}  name="communityid" type="text" component="input" label="所属社区" /> 
-							<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={[
-								{value:'1',label:'1'},
-								{value:'2',label:'2'}
-							]}/>
-
-							 <KrField grid={1/2}  name="username" type="text" component="input" label="地址" /> 
-							 <KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号" /> 
-
-							 <KrField grid={1}  name="username" component="group" label="租赁期限"> 
-									  <KrField grid={1/2}  name="leaseBeginDate"  component="date"  /> 
-									  <KrField grid={1/2}  name="leaseEndDate" component="date"/> 
-							  </KrField>
-
-							<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={[
-								{value:'1',label:'银行转账'},
-								{value:'2',label:'支付宝'},
-								{value:'3',label:'微信支付'},
-								{value:'4',label:'POS机'},
-							]}/>
-						
-
-							<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={[
-								{value:'1',label:'月度付'},
-								{value:'2',label:'季度付'},
-								{value:'3',label:'半年付'},
-								{value:'4',label:'年付'},
-							]}/>
-
-						 <KrField grid={1/2}  name="rname"  component="date" grid={1/2} label="签署时间" /> 
-
-
-						 <KrField name="username" component="date" label="首付款时间" /> 
-						 <KrField grid={1/2}  name="username" type="text" component="input" label="工位" /> 
-						 <KrField grid={1/2}  name="username" type="text" component="input" label="会议室" /> 
-
-						 <KrField grid={1/2}  name="username" type="text" component="input" label="租赁用途" placeholder="办公使用" /> 
-
-						 <KrField grid={1/2}  name="username" type="text" component="input" label="租金总额" placeholder="" /> 
-						 <KrField grid={1/2}  name="username" type="text" component="input" label="押金总额" /> 
-
-						 <KrField grid={1/2}  name="uname" component="file" label="合同附件" /> 
-
-
-				<Section title="租赁明细" description="" rightMenu = {
-								<Menu>
-									  <MenuItem primaryText="删除" />
-									  <MenuItem primaryText="分配"  onTouchTap={handleOpen} />
-								</Menu>
-				}> 
-
-						<Table  displayCheckbox={false}>
-								<TableHeader>
-										<TableHeaderColumn>类别</TableHeaderColumn>
-										<TableHeaderColumn>编号／名称</TableHeaderColumn>
-										<TableHeaderColumn>租赁开始时间</TableHeaderColumn>
-										<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
-								</TableHeader>
-								<TableBody>
-									 <TableRow>
-										<TableRowColumn>1</TableRowColumn>
-										<TableRowColumn>John Smith</TableRowColumn>
-										<TableRowColumn>Employed</TableRowColumn>
-										<TableRowColumn>John Smith</TableRowColumn>
-									</TableRow>
-							   </TableBody>
-						 </Table>
-
-			</Section>
-
-
+				</Section>
 
 				<Grid>
 					<Row style={{marginTop:30}}>
@@ -243,9 +151,9 @@ var JoinCreateForm = (props) => {
 					  <Col md={2} align="right"> <Button  label="取消" type="button" /> </Col> </Row>
 				</Grid>
 
-		</form>
-
-  )
+			</form>
+			 );
+	}
 }
 
 
@@ -261,6 +169,24 @@ var JoinCreateForm = (props) => {
 		this.state = {
 			open:false,
 			openConfirmCreate:false,
+			billList:[
+				{
+					id:883,
+					name:'23432',
+					type:1
+				},
+				{
+					id:883,
+					name:'23432',
+					type:1
+				},
+			],
+			init:{
+				customer:{},
+				fnaCorporation:[],
+				payType:[],
+				payment:[]
+			}
 		}
 
 		const validate = values =>{
@@ -277,9 +203,11 @@ var JoinCreateForm = (props) => {
 
 		JoinCreateForm = reduxForm({
 			form: 'joinCreateForm',
-			validate
+			validate,
+			initialValues:{
+				leaseAddress:'haha'
+			}
 		})(JoinCreateForm);
-
 	}
 
 	 openConfirmCreateDialog(){
@@ -288,59 +216,83 @@ var JoinCreateForm = (props) => {
 		 });
 	 }
 
-
 	 componentDidMount(){
 
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention',{id:this.props.params.id})).then(function(response){
+		 const {params} = this.props;
+
+		Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
 			_this.setState({
 				init:response
 			});
 		}).catch(function(err){
+			/*
 			Notify.show([{
 				message:err.message,
 				type: 'danger',
 			}]);
+			*/
 		});
 	 }
 
 	 onSubmit(form){
-		 console.log('---form',form);
-		 // this.openConfirmCreateDialog();
+		 const {params} = this.props;
+
+		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{customerId:params.customerId,mainBillId:params.orderId})).then(function(response){
+
+		}).catch(function(err){
+			/*
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+			*/
+		});
 	 }
 
 	handleOpen(){
 		Actions.showModalDialog('http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId=42&floors=3&goalStationNum=1&goalBoardroomNum=0&selectedObjs=[{type:1,id:883},{type:2,id:2}]',900,800);
+
+		var _this = this;
+
+		window.setReturnValue = function(value){
+			console.log('valu',value);
+			_this.setState({
+				billList:value.data
+			});
+		};
+
 	}
 
 	handleClose(values){
 		this.setState({open: false});
 	}
 
-
   render() {
 
+
+	  let {fnaCorporation,payType,payment,customer} = this.state.init;
+
     return (
+
 		 <div>
 			<Section title="创建入驻协议书" description=""> 
-				<JoinCreateForm onSubmit={this.onSubmit} handleOpen={this.handleOpen} customerList={[]} />
+			
+					<JoinCreateForm onSubmit={this.onSubmit} handleOpen={this.handleOpen} fnaCorporation={fnaCorporation} paymentList={payment} payTypeList={payType} floorList={customer.floor} billList={this.state.billList} customer={customer}/>
 			</Section>
 
-				<Dialog
-					title="确定新建"
-					modal={true}
-					open={this.state.openConfirmCreate} >
+			<Dialog
+				title="确定新建"
+				modal={true}
+				open={this.state.openConfirmCreate} >
 
 			  </Dialog>
 		</div>
 	);
+
   }
 }
 
 
-export default connect((state)=>{
-  return {
-    items:state.notify.items,
-  };
-})(JoinCreate);
+export default connect()(JoinCreate);

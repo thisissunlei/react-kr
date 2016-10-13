@@ -1,8 +1,14 @@
 const APIS  = {
 
 	//创建合同时初始化数据
+	'addOrEditEnterContract':{
+		url:'/api/krspace-finance-web/checkinagreement/addOrEditEnterContract',
+		method:'get'
+	},
+
+	//创建合同时初始化数据
 	'fina-contract-intention':{
-		url:'/mockjsdata/3/krspace-finance-web/finacontractdetail/fina-contract-intention?customerId={customerId}&mainBillId={mainBillId}',
+		url:'/api/krspace-finance-web/finacontractdetail/fina-contract-intention?customerId={customerId}&mainBillId={mainBillId}',
 		method:'get'
 	},
 	
@@ -18,6 +24,7 @@ const APIS  = {
 		url:'/mockjsdata/3/krspace-finance-web/fnaContractWithdrawalController/getFnaContractWithdrawalById',
 		method:'get'
 	},
+
 	//合同－承租合同－查看
 	'show-fina-contract-intentletter':{
 		url:'/mockjsdata/3/krspace-finance-web/finacontractdetail/fina-contract-intentletter/acitions/show',
@@ -29,7 +36,6 @@ const APIS  = {
 		url:'/mockjsdata/3/krspace-finance-web/finacontractdetail/fina-contract-intentletter/acitions/show',
 		method:'get'
 	},
-
 
 	//合同－减租合同－查看
 	'showFnaContractRentController':{
