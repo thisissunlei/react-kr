@@ -73,7 +73,7 @@ class OrderCreate extends Component {
             <Col md={2}> <RaisedButton label="新建属性" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
             <Col md={6}> </Col>
             <Col md={2}> <KrField name="username" type="text" /></Col> 
-            <Col md={2}> <RaisedButton label="搜索" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
+            <Col md={2}> <RaisedButton label="搜索" primary={true} primary={true} /> </Col>
           </Row>
         </Grid>
 
@@ -123,9 +123,24 @@ class OrderCreate extends Component {
         <Grid style={{marginTop:30}}>
 
           <Row>
-            <Col md={12} > <KrField name="username" type="text" label="出租方名称" /> </Col>
+            <Col md={12} > <KrField name="username" type="text" label="属性编码" /> </Col>
           </Row>
-
+           <Row>
+            <Col md={12} > <KrField name="username" type="text" label="属性名称" /> </Col>
+          </Row>
+          <Row>
+            <Col md={12} > 
+              <KrField name="username" type="select" label="属性类别" > 
+                 <option>请选择类别</option>
+                <option value="11">Red</option>
+                <option value="00ff00">Green</option>
+                <option value="0000ff">Blue</option>
+              </KrField>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={12} > <KrField name="username" type="text" label="排序号" /> </Col>
+          </Row>
           <Row>
             <Col md={4} > 
                 <KrField name="city" label="是否启用" type="radio"/>
@@ -137,13 +152,8 @@ class OrderCreate extends Component {
                 <KrField name="city" label="否" type="radio" />
              </Col>
           </Row>
-
           <Row>
-            <Col md={12} > <KrField name="ordername" type="text" label="详细地址"/> </Col>
-          </Row>
-
-          <Row>
-            <Col md={12} > <KrField name="mainbilldesc" type="textarea" label="备注"  placeholder="备注信息"/> </Col>
+            <Col md={12} > <KrField name="mainbilldesc" type="textarea" label="描述"  placeholder="备注信息"/> </Col>
           </Row>
 
           <Row style={{marginTop:30}}>

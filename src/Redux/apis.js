@@ -88,6 +88,16 @@ const APIS  = {
 		url:'/mockjsdata/3/krspace-finance-web/getSysDicPayment?id={id}',
 		method:'get'
 	},
+	//合同－属性配置－搜索（list）
+	'findFinaFinaflowPropertyList':{
+		url:'/mockjsdata/3/krspace-finance-web/finaccount/property/findFinaFinaflowPropertyList?currentPage={currentPage}&pageSize={pageSize}&searchParam={searchParam}',
+		method:'get'
+	},
+	//合同－属性配置－新建
+	'addFinaFinaflowProperty':{
+		url:'/mockjsdata/3/krspace-finance-web/finaccount/property/addFinaFinaflowProperty?ordernum={ordernum}&propcode={propcode}&id={id}&enableflag={enableflag}&propname={propname}&propdesc={propdesc}&proptype={proptype}',
+		method:'get'
+	},
 	//demo
 	'demo':{
 		url:'/api/krspace-finance-web/action/community-city-selected',

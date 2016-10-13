@@ -110,11 +110,11 @@ const ViewHtml = (props)=>{
 		var _this = this;
 
 		actions.callAPI('editFnaCorporation',{ },values).then(function(response){ 
-
-			Notify.show([{
+			console.log('------*******',response)
+			/*Notify.show([{
 				message:'更新成功',
 				type: 'success',
-			}]);
+			}]);*/
 
 
 		}).catch(function(err){ 
