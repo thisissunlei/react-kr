@@ -41,7 +41,6 @@ class JoinCreateForm  extends Component{
 
 	constructor(props,context){
 		super(props, context);
-
 	}
 
 	render(){
@@ -95,7 +94,6 @@ class JoinCreateForm  extends Component{
 								  </KrField>
 
 								<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={paymentList}/> 
-
 								<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={payTypeList}/>
 
 							 <KrField grid={1/2}  name="rname"  component="date" grid={1/2} label="签署时间" /> 

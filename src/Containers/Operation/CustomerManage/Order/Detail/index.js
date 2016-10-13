@@ -48,8 +48,6 @@ class OrderDetail extends Component {
 	constructor(props,context){
 		super(props, context);
 
-		this.confirmSubmit = this.confirmSubmit.bind(this);
-		this.back = this.back.bind(this);
 		this.openCreateAgreementDialog = this.openCreateAgreementDialog.bind(this);
 
 		this.state = {
@@ -60,8 +58,8 @@ class OrderDetail extends Component {
 				orderBaseInfo:{},
 				installment:{},
 				earnest:{},
-				contractList:{},
-				antecedent:{}
+				contractList:[],
+				antecedent:[]
 			}
 		}
 
@@ -84,6 +82,8 @@ class OrderDetail extends Component {
 			mainBillId:this.props.params.orderId
 		},{}).then(function(response){
 
+			console.log('----',response);
+
 			_this.setState({
 				response:response
 			});
@@ -99,15 +99,8 @@ class OrderDetail extends Component {
 				message:'报错了',
 				type: 'danger',
 			}]);
+
 		});
-
-	}
-
-	confirmSubmit(values){
-		console.log('--->>>>',values);
-	}
-
-	back(){
 
 	}
 
@@ -251,7 +244,8 @@ class OrderDetail extends Component {
 				   </TableBody>
 			 </Table>
 
-		<Section title="分期计划" description="" style={{marginTop:20}}> 
+		  {/*
+<Section title="分期计划" description="" style={{marginTop:20}}> 
 
 			 	<Table >
 					<TableBody>
@@ -282,6 +276,8 @@ class OrderDetail extends Component {
 			 </Table>
 
 			</Section>
+		  */}
+		
 
 			</Section>
 
