@@ -32,7 +32,9 @@ export function showModalDialog(url, width, height,param,windowname) {
 	if (typeof(height) != "undefined") {
 		dialogHeight = height;
 	}
+
 	var result ;
+
 	if(window.showModalDialog){
 		result = window.parent.showModalDialog(url,param, "status:Modeless;edge:raised;unadorned:no;scroll=no;resizable:yes;center=yes;help:no;dialogwidth:" + dialogWidth + ";dialogheight:" + dialogHeight);
 	}else {
@@ -40,6 +42,7 @@ export function showModalDialog(url, width, height,param,windowname) {
 		result =  window.open(url,windowname?windowname:'_blank', winOption);
 		var loop = window.setInterval(function() {     
 			if(result.closed) {    
+
 				window.clearInterval(loop);    		  
 			}    
 		}, 50);

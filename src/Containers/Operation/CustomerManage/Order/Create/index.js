@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'kr/Redux';
-
 import {reduxForm,formValueSelector} from 'redux-form';
 
 import {
@@ -43,6 +42,7 @@ let OrderCreateForm = function(props){
 						<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} disabled={submitting} /> </Col>
 					</Row>
 				</Grid>
+
 
 		</form>
 	);

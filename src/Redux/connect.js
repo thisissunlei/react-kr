@@ -11,6 +11,11 @@ function mapDispatchToProps(dispatch){
 }
 
 module.exports = function(mapStateToProps){
+
+	mapStateToProps = mapStateToProps || function(state){
+		return state;
+	}
+
 	return connect(mapStateToProps,mapDispatchToProps);
 }
 

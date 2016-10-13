@@ -1,5 +1,11 @@
 const APIS  = {
 
+	//创建合同时初始化数据
+	'fina-contract-intention':{
+		url:'/mockjsdata/3/krspace-finance-web/finacontractdetail/fina-contract-intention?customerId={customerId}&mainBillId={mainBillId}',
+		method:'get'
+	},
+	
 	//根据人员姓名获取人员基本信息
 	'getHrmResourceExtListByLastname':{
 		url:'/api-old/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
