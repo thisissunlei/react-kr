@@ -21,6 +21,7 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 
   //生成对账单
 let LessorUpdateForm= function(props){  
+
   	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
 	return (
 
@@ -69,7 +70,7 @@ const ViewHtml = (props)=>{
 
 
 
- class RenderTable extends Component {
+ export default class RenderTable extends Component {
 
   constructor(props,context){
     super(props, context);
@@ -261,10 +262,3 @@ const ViewHtml = (props)=>{
  }
 }
 
-
-export default connect((state)=>{
-	const name = '';
-	return {
-		name
-	}
-})(RenderTable);
