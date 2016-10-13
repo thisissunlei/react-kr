@@ -2,41 +2,41 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector} from 'redux-form';
 
-import {KrField,LabelText} from 'kr-ui/Form';
-
-import {Button} from 'kr-ui/Button';
-
 import {
-	Notify
+	Dialog,
+	Table, 
+	TableBody, 
+	TableHeader, 
+	TableHeaderColumn, 
+	TableRow, 
+	TableRowColumn,
+	TableFooter,
+	Section,
+	KrField,
+	LabelText,
+	Grid,
+	Row,
+	Col,
+	Button,
+	Notify,
+	BreadCrumbs,
 } from 'kr-ui';
-
-import {Grid,Row,Col} from 'kr-ui/Grid';
-
-import {Dialog,Snackbar} from 'material-ui';
-
-
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
-
 
 
   //生成对账单
 let LessorUpdateForm= function(props){  
 
   	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
+
 	return (
 
 			<form onSubmit={handleSubmit(onSubmit)}>
-
-                            
-							
 
 							<KrField component="group" label="对账期间:">
 								<KrField name="startDate" label="起始日期" type="Date" />
 								<KrField name="endDate" label="结束日期" type="Date" />
 							</KrField>
 	
-
-
 							<Grid style={{marginTop:30}}>
 								<Row style={{marginTop:30}}>
 								<Col md={8}></Col>
@@ -44,8 +44,7 @@ let LessorUpdateForm= function(props){
 								<Col md={2}><Button  label="取消" type="button"  onTouchTap={onCancel} /> </Col>
 								</Row>
 							</Grid>
-
-				</form>
+			</form>
 
 	);
 
