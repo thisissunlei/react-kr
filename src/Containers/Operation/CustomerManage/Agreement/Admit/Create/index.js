@@ -3,19 +3,6 @@ import { connect } from 'kr/Redux';
 
 import {reduxForm,submitForm} from 'redux-form';
 
-import {
-	BreadCrumbs,
-	Loading,
-	Notify,
-	Section
-} from 'kr-ui';
-
-import {KrField,LabelText} from 'kr-ui/Form';
-
-
-import {Grid,Row,Col} from 'kr-ui/Grid';
-
-import { Button } from 'kr-ui/Button';
 
 import {
 	Menu,
@@ -27,10 +14,25 @@ import {
 	DatePicker,
 	Paper,
 	Avatar,
-	Dialog
-} from 'material-ui';
+	Dialog,
 
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
+	Table, 
+	TableBody, 
+	TableHeader, 
+	TableHeaderColumn, 
+	TableRow, 
+	TableRowColumn,
+	TableFooter,
+	Section,
+	KrField,
+	LabelText,
+	Grid,
+	Row,
+	Col,
+	Button,
+	Notify,
+	BreadCrumbs,
+} from 'kr-ui';
 
 
 var CreateForm = (props) => {
@@ -104,7 +106,6 @@ var CreateForm = (props) => {
 							<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
 					</TableHeader>
 					<TableBody>
-
 						 <TableRow>
 							<TableRowColumn>1</TableRowColumn>
 							<TableRowColumn>John Smith</TableRowColumn>
@@ -112,7 +113,6 @@ var CreateForm = (props) => {
 							<TableRowColumn>John Smith</TableRowColumn>
 							<TableRowColumn>John Smith</TableRowColumn>
 						</TableRow>
-
 						 <TableRow>
 							<TableRowColumn>1</TableRowColumn>
 							<TableRowColumn>John Smith</TableRowColumn>
@@ -120,68 +120,16 @@ var CreateForm = (props) => {
 							<TableRowColumn>John Smith</TableRowColumn>
 							<TableRowColumn>John Smith</TableRowColumn>
 						</TableRow>
-
 				   </TableBody>
 			 </Table>
-
 
 			</Section>
 
 			<Button  label="确定"  type="button" onTouchTap={openConfirmDialog} primary={true}/>
 
 		</form>
-
   )
 }
-
-var PlanForm = (props) => {
-  const { error, handleSubmit, pristine, reset, submitting,submit,cancel } = props;
-  return (
-    <form onSubmit={handleSubmit(submit)}>
-
-				<Grid style={{marginTop:30}}>
-					<Row>
-						<Col md={2}>
-						  <LabelText label="社区名称" text="氪空间"/>
-						</Col>
-						<Col md={2}>
-						  <LabelText label="所属楼层" text="200个"/>
-						</Col>
-						<Col md={2}>
-						  <LabelText label="可租赁工位" text="200个"/>
-						</Col>
-						<Col md={1}>
-						  <LabelText label="选择工位" text=""/>
-						</Col>
-						<Col md={1}>
-						 <KrField name="username" type="text" />
-						</Col>
-						<Col md={1}>
-						       <KrField name="name" type="text" />
-						</Col>
-					</Row>
-
-					<Row>
-						<Col md={8}></Col>
-						<Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
-						<Col md={2}> <Button label="取消"  onTouchTap={cancel} /> </Col>
-
-					</Row>
-				</Grid>
-
-		  {/*
-			<Button label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
-		  */}
-
-    </form>
-
-  )
-}
-
-PlanForm = reduxForm({
-  form: 'submitValidation'  
-})(PlanForm);
-
 
 
  class JoinEdit extends Component {
