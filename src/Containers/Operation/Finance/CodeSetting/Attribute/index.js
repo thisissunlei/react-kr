@@ -17,6 +17,9 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
+import {
+ Notify
+} from 'kr-ui';
 
 
 class OrderCreate extends Component {
@@ -39,11 +42,25 @@ class OrderCreate extends Component {
   confirmSubmit(values){
     var {actions} = this.props;
 
-    actions.callAPI('enter-order',{},values).then(function(response){
+    actions.callAPI('addFinaFinaflowProperty',{},values).then(function(response){
+        Notify.show([{
+        message:'创建成功',
+        type: 'success',
+      }]);
+
 
     }).catch(function(err){
-
+      Notify.show([{
+        message:err.message,
+        type: 'danger',
+      }]);
     });
+    this.openCreateDialog();
+
+    window.setTimeout(function(){
+      window.location.reload();
+
+    },1000);
 
   }
 
@@ -123,43 +140,42 @@ class OrderCreate extends Component {
         <Grid style={{marginTop:30}}>
 
           <Row>
-            <Col md={12} > <KrField name="username" type="text" label="属性编码" /> </Col>
+            <Col md={12} > <KrField name="propcode" type="text" label="属性编码" /> </Col>
           </Row>
            <Row>
-            <Col md={12} > <KrField name="username" type="text" label="属性名称" /> </Col>
+            <Col md={12} > <KrField name="propname" type="text" label="属性名称" /> </Col>
           </Row>
           <Row>
             <Col md={12} > 
-              <KrField name="username" type="select" label="属性类别" > 
+              <KrField name="proptype" type="select" label="属性类别" > 
                  <option>请选择类别</option>
-                <option value="11">Red</option>
-                <option value="00ff00">Green</option>
-                <option value="0000ff">Blue</option>
+                <option value="PAYMENT ">回款</option>
+                <option value="INCOME">收入</option>
               </KrField>
             </Col>
           </Row>
           <Row>
-            <Col md={12} > <KrField name="username" type="text" label="排序号" /> </Col>
+            <Col md={12} > <KrField name="ordernum" type="text" label="排序号" /> </Col>
           </Row>
           <Row>
             <Col md={4} > 
-                <KrField name="city" label="是否启用" type="radio"/>
+                <KrField name="enableflag" label="是否启用" type="radio"/>
              </Col>
              <Col md={4} > 
-                <KrField name="city" label="是" type="radio" />
+                <KrField name="enableflag" label="是" type="radio"  value="ENABLE"/>
              </Col>
              <Col md={4} > 
-                <KrField name="city" label="否" type="radio" />
+                <KrField name="enableflag" label="否" type="radio" value="DISENABLE"/>
              </Col>
           </Row>
           <Row>
-            <Col md={12} > <KrField name="mainbilldesc" type="textarea" label="描述"  placeholder="备注信息"/> </Col>
+            <Col md={12} > <KrField name="propdesc" type="textarea" label="描述"  placeholder="备注信息"/> </Col>
           </Row>
 
           <Row style={{marginTop:30}}>
             <Col md={8}></Col>
             <Col md={2}> <RaisedButton  label="确定" type="submit" primary={true} /> </Col>
-            <Col md={2}> <RaisedButton  label="取消" type="submit"  onTouchTap={this.openCreateDialog} /> </Col>
+            <Col md={2}> <RaisedButton  label="取消" type="button"  onTouchTap={this.openCreateDialog} /> </Col>
           </Row>
 
         </Grid>

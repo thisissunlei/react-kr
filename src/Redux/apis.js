@@ -1,5 +1,11 @@
 const APIS  = {
 
+	//创建合同时初始化数据
+	'fina-contract-intention':{
+		url:'/mockjsdata/3/krspace-finance-web/finacontractdetail/fina-contract-intention?customerId={customerId}&mainBillId={mainBillId}',
+		method:'get'
+	},
+	
 	//根据人员姓名获取人员基本信息
 	'getHrmResourceExtListByLastname':{
 		url:'/api-old/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
@@ -95,8 +101,8 @@ const APIS  = {
 	},
 	//合同－属性配置－新建
 	'addFinaFinaflowProperty':{
-		url:'/mockjsdata/3/krspace-finance-web/finaccount/property/addFinaFinaflowProperty?ordernum={ordernum}&propcode={propcode}&id={id}&enableflag={enableflag}&propname={propname}&propdesc={propdesc}&proptype={proptype}',
-		method:'get'
+		url:'/mockjsdata/3/krspace-finance-web/finaccount/property/addFinaFinaflowProperty',
+		method:'post'
 	},
 	//demo
 	'demo':{
@@ -136,12 +142,6 @@ const APIS  = {
 	//财务管理－属性配置－列表
 	'viewFinaFinaflowProperty':{
 		url:'/krspace-finance-web/finaccount/property/viewFinaFinaflowProperty',
-		method:'get'
-	},
-
-	//财务管理－属性配置-新增(编辑)
-	'addFinaFinaflowProperty':{
-		url:'/krspace-finance-web/finaccount/property/addFinaFinaflowProperty',
 		method:'get'
 	},
 
