@@ -5,7 +5,9 @@ import './index.less';
 export default class Table extends React.Component {
 
 	static defaultProps = {
-		totalCount:100
+		page:1,
+		pageSize:10,
+		totalCount:100,
 	}
 
 	static PropTypes = {
@@ -14,10 +16,19 @@ export default class Table extends React.Component {
 		displayCheckbox: React.PropTypes.bool,
 		style:React.PropTypes.object,
 		toggleVisibility: React.PropTypes.string,
-		totalCount:React.PropTypes.number
+		page:React.PropTypes.number,
+		pageSize:React.PropTypes.number,
+		totalCount:React.PropTypes.number,
+
+		//事件
+		onExport:React.PropTypes.func,
+		onSelectAll:React.PropTypes.func,
+		onCellClick:React.PropTypes.func,
+		onRowClick:React.PropTypes.func,
 	}
 
 	constructor(props){
+
 		super(props);
 
 		this.createTableHeader = this.createTableHeader.bind(this);
@@ -28,6 +39,7 @@ export default class Table extends React.Component {
 		this.onSelectAll = this.onSelectAll.bind(this);
 		this.onRowClick = this.onRowClick.bind(this);
 		this.onExport = this.onExport.bind(this);
+		this.onCellClick = this.onCellClick.bind(this);
 
 		this.state = {
 			allRowsSelected:false,
@@ -40,7 +52,12 @@ export default class Table extends React.Component {
 
 	}
 
+	onCellClick(){
+
+	}
+
 	onExport(){
+
 		let {selectedRows,visibilityRows}  = this.state;
 
 		//console.log('selectedRows',this.state.selectedRows,'visibilityRows',this.state.visibilityRows);
@@ -58,7 +75,7 @@ export default class Table extends React.Component {
 
 	componentDidMount(){
 
-		var visibilityRows = new Array(this.props.totalCount+1).join(1).split('');
+		var visibilityRows = new Array(this.props.pageSize+1).join(1).split('');
 
 		//默认隐藏children
 		let visibilityType = this.props.toggleVisibility||''; 
@@ -145,9 +162,9 @@ export default class Table extends React.Component {
 			allRowsSelected = !allRowsSelected;
 		var tmp = [];
 		if(allRowsSelected){
-			tmp = new Array(this.props.totalCount+1).join(1).split('');
+			tmp = new Array(this.props.pageSize+1).join(1).split('');
 		}else{
-			tmp = new Array(this.props.totalCount+1).join(0).split('');
+			tmp = new Array(this.props.pageSize+1).join(0).split('');
 		}
 
     	this.setState({
@@ -188,14 +205,26 @@ export default class Table extends React.Component {
 	}
 
 	createTableFooter(base){
+
+		let props = {
+				displayCheckbox:this.props.displayCheckbox,
+				allRowsSelected: this.state.allRowsSelected,
+				defaultValue:this.state.defaultValue,
+				page:this.props.page,
+				pageSize:this.props.pageSize,
+				totalCount:this.props.totalCount,
+		}
+
+		let handlers = {
+				onSelectAll: this.onSelectAll,
+				onExport:this.onExport
+		}
+
 		return React.cloneElement(
 			base,
 			{
-				displayCheckbox:this.props.displayCheckbox,
-				onSelectAll: this.onSelectAll,
-				allRowsSelected: this.state.allRowsSelected,
-				defaultValue:this.state.defaultValue,
-				onExport:this.onExport
+				...props,
+				...handlers
 			}
 		);
 	}
