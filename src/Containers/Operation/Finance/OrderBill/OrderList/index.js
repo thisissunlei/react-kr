@@ -1,26 +1,39 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
-import Section from 'kr-ui/Section';
-import {KrField,LabelText} from 'kr-ui/Form';
-
-import {Button} from 'kr-ui/Button';
-
 import {reduxForm,formValueSelector} from 'redux-form';
 
+import {Actions,Store} from 'kr/Redux';
+
 import {
+	Menu,
+	MenuItem,
+	DropDownMenu,
+	IconMenu,
+	Divider,
+	FontIcon,
+	DatePicker,
+	Paper,
+	Avatar,
+	Dialog,
+
+	Table, 
+	TableBody, 
+	TableHeader, 
+	TableHeaderColumn, 
+	TableRow, 
+	TableRowColumn,
+	TableFooter,
+	Section,
+	KrField,
+	LabelText,
+	Grid,
+	Row,
+	Col,
+	Button,
+	Notify,
 	BreadCrumbs,
-	Loading,
-	Notify
 } from 'kr-ui';
-
-
-
-import {Grid,Row,Col} from 'kr-ui/Grid';
-
-import {Dialog,Snackbar} from 'material-ui';
-
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
 
 
 import RenderTable from './Table';
@@ -47,7 +60,6 @@ let OrderSearchForm = function(props){
 OrderSearchForm= reduxForm({
   form: 'orderSearchForm',
 })(OrderSearchForm);
-
 
 
 //新增按钮模块
@@ -90,60 +102,42 @@ OrderCreateForm= reduxForm({
 })(OrderCreateForm);
 
 
-
-
-//绑定一些已经弄好的组件方法
-class OrderCreate extends Component {
+export default class OrderCreate extends Component {
 
   constructor(props,context){
 	super(props, context);
-	this.openCreateDialog = this.openCreateDialog.bind(this);
-	 this.searchParams = this.searchParams.bind(this);
-	  this.getListData = this.getListData.bind(this);
+
+		this.openCreateDialog = this.openCreateDialog.bind(this);
+	  	this.searchParams = this.searchParams.bind(this);
 
 		this.state = {
 		  open:false,
 		  openCreate:false,
+		basic:{}
 		}
-
-		
-
-		
   }
    
-
-   //渲染完之前调用getListData函数
 	componentDidMount(){
-		this.getListData();
-		console.log('---------------------',this.props.items);
-	}
 
-
-	
-	getListData(){
-
-		var {actions} = this.props;
 		var _this = this;
 
-		actions.callAPI('getFinaDataByList',{
+		Store.dispatch(Actions.callAPI('getFinaDataByList',{
 			corporationName:'',
 			page:'',
 			pageSize:20
-		},{}).then(function(response){
-			
+		})).then(function(response){
+			_this.setState({
+				basic:response
+			});
 		}).catch(function(err){
-			
 			Notify.show([{
 				message:'报错了',
 				type: 'danger',
 			}]);
 		});
-	 }
 
+	}
 
- 
-
-	
 
   openCreateDialog(){
 	this.setState({
@@ -172,11 +166,7 @@ class OrderCreate extends Component {
 
 	render() {
 
-		const { error, handleSubmit, pristine, reset, submitting} = this.props;
-
-
-		const {communitys} = this.state;
-
+		console.log('---->>>',this.state.basic);
 
 		return (
 
@@ -208,24 +198,11 @@ class OrderCreate extends Component {
 					</Row>
 					</Grid>
 
-
-				<RenderTable items={this.props.items}/>
+					<RenderTable items={this.state.basic.finaContractMainbillVOList}/>
 
 				</Section>
-
-
-
-				
-
 
    </div>
   );
   }
 }
-
-//与redux连接起来
-export default connect((state)=>{
-	return {
-		items:state.common.getFinaDataByList
-	}
-})(OrderCreate);

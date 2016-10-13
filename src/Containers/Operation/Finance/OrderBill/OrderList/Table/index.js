@@ -77,15 +77,15 @@ const ViewHtml = (props)=>{
 	  this.confirmUpdateSubmit = this.confirmUpdateSubmit.bind(this);
 	  this.cancelUpdateSubmit = this.cancelUpdateSubmit.bind(this);
 
+
 	  this.state = {
 		  openView:false,
 		  openUpdate:false,
-		  item:{}
 	  }   
   }
 
-
 	 componentWillReceiveProps(nextProps){
+
 	 }
 
 
@@ -143,6 +143,7 @@ const ViewHtml = (props)=>{
 
 
        openViewDialog(index){
+
 	     const list = this.props.items;
 		this.setState({
 			item:list[index],
@@ -154,7 +155,8 @@ const ViewHtml = (props)=>{
 
 	render() {
 
-	
+		let items = this.props.items || [];
+
 		 const actions = [
 			  <Button
 				label="关闭"
@@ -164,9 +166,8 @@ const ViewHtml = (props)=>{
 			  />,
 			];
 
-		if(!this.props.length){  
+		if(!items.length){  
 			return (
-
 
 			<div>
 				<Table  style={{marginTop:10}} displayCheckbox={true}>
@@ -183,8 +184,6 @@ const ViewHtml = (props)=>{
 				</TableHeader>
 
 
-				
-
 				<TableBody style={{paddingTop:10}}>
 					<TableRow displayCheckbox={false}>
 								<TableRowColumn colSpan={8} >
@@ -194,8 +193,6 @@ const ViewHtml = (props)=>{
 								</TableRowColumn>
 					</TableRow>
 				</TableBody>
-
-			
 
 				</Table>
    			</div>
@@ -219,7 +216,7 @@ const ViewHtml = (props)=>{
 				</TableHeader>
 
 				<TableBody>
-					  {this.props.map((item,index)=> <TableRow key={index} displayCheckbox={true}>
+					  {this.props.items.map((item,index)=> <TableRow key={index} displayCheckbox={true}>
 							<TableRowColumn>{item.customername}</TableRowColumn>
 							<TableRowColumn>{item.mainbilltype}</TableRowColumn>
 							<TableRowColumn>{item.community}</TableRowColumn>
