@@ -78,17 +78,17 @@ const SettingViewForm = (props)=>{
 let SettingUpdateForm = function(props){
     
     const { items,error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
-  console.log('-------',items)
+  console.log('-------sd',items.sp)
   return (
 
       <form onSubmit={handleSubmit(onSubmit)}>
-              <KrField name="" type="hidden" label="id"  value=''/> 
-              <KrField name="dicName" type="text" label="字段名称"  value=items.dicName}/> 
+              <KrField name="" type="hidden" label="id"  value={items.sp.id}/> 
+              <KrField name="dicName" type="text" label="字段名称"  value={items.sp.dicName}/> 
               <KrField name="enableflag" component="group" label="是否有效">
                 <KrField name="enableflag" label="是" type="radio" value="1"/>
                 <KrField name="enableflag" label="否" type="radio" value="0" />
               </KrField>
-               <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息"/> 
+               <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息" value={items.sp.remark}/> 
               <Grid style={{marginTop:30}}>
                 <Row style={{marginTop:30}}>
                 <Col md={8}></Col>
