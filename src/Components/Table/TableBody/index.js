@@ -15,7 +15,8 @@ export default class TableBody extends React.Component {
 		selectedRows:React.PropTypes.array,
 		visibilityRows:React.PropTypes.array,
 		setRowTotalCount:React.PropTypes.func,
-		defaultValue:React.PropTypes.object
+		defaultValue:React.PropTypes.object,
+		listData:React.PropTypes.listData,
 	}
 
 	
@@ -25,7 +26,7 @@ export default class TableBody extends React.Component {
 		this.toggleInsertElement = this.toggleInsertElement.bind(this);
 		this.createRowElement = this.createRowElement.bind(this);
 
-		this.createRows = this.createRows.bind(this);
+		this.renderRows = this.renderRows.bind(this);
 		this.onCellClick = this.onCellClick.bind(this); 
 		this.onCellHover = this.onCellHover.bind(this);
 		this.onCellHoverExit = this.onCellHoverExit.bind(this);
@@ -35,10 +36,12 @@ export default class TableBody extends React.Component {
 
 		this.createRowCheckboxColumn = this.createRowCheckboxColumn.bind(this);
 
+		this.createAjaxRow  = this.createAjaxRow.bind(this);
+		this.createNormalRow = this.createNormalRow.bind(this);
+
 		this.state = {
 			showInsertElement:false,
 		}
-
 	}
 
 	toggleInsertElement(event){
@@ -141,12 +144,15 @@ export default class TableBody extends React.Component {
 			displayCheckbox = child.props.displayCheckbox;
 		}
 
+		let itemData = this.props.listData[rowNumber];
+
 		let props = {
 			displayCheckbox:(displayCheckbox? true:false),
 			key:rowNumber,
 			rowNumber: rowNumber,
 			selected: this.isRowSelected(rowNumber),
-			visibility:this.isRowVisibility(rowNumber)
+			visibility:this.isRowVisibility(rowNumber),
+			itemData,
 		};
 
 		let children = [
@@ -163,25 +169,52 @@ export default class TableBody extends React.Component {
 		return null;
 	}
 
-	createRows() {
 
-		let numChildren = React.Children.count(this.props.children);
+	createAjaxRow(){
 
-		let {displayCheckbox,setRowTotalCount} = this.props;
+		let {listData,ajax} = this.props;
 
 
-		//this.props.setRowTotalCount(numChildren);
+		let cloneElement; 
 
-		let rowNumber = 0;
+		React.Children.map(this.props.children, (child) => {
+			cloneElement = child;
+		});
 
 		let rows = [];
 
+		for(var i = 0 ;i<listData.length;i++){
+			let element = React.cloneElement(cloneElement, {key:i});
+			rows.push(this.createRowElement(element,i)) ;
+		}
+
+		return rows;
+	}
+
+	createNormalRow(){
+		let rows = [];
+		let numChildren = React.Children.count(this.props.children);
+		let {displayCheckbox,setRowTotalCount} = this.props;
+		let rowNumber = 0;
 		React.Children.map(this.props.children, (child) => {
 			rows.push(this.createRowElement(child,rowNumber++)) ;
 		});
+		return rows;
+	}
+
+	renderRows() {
+
+		let {listData,ajax} = this.props;
+
+		let rows = [];
+		//如果为ajax请求
+		if(ajax){
+			rows = this.createAjaxRow();
+		}else{
+			rows = this.createNormalRow();
+		}
 
 		return rows;
-
 	}
 
 
@@ -201,13 +234,14 @@ export default class TableBody extends React.Component {
 		return false;
 	}
 
+
 	render() {
 
 		let {className} = this.props;
 
 		return (
 			<tbody className={className}>
-			{this.createRows()}
+			{this.renderRows()}
 			{this.renderInsertElement()}
 			</tbody>
 		);

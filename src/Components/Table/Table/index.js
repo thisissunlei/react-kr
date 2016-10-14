@@ -1,4 +1,6 @@
 import React from 'react';
+import Loading from '../../Loading';
+import http from  'kr/Redux/Utils/fetch';
 
 import './index.less';
 
@@ -8,6 +10,8 @@ export default class Table extends React.Component {
 		page:1,
 		pageSize:10,
 		totalCount:100,
+		loading:false,
+		ajax:false,
 	}
 
 	static PropTypes = {
@@ -19,6 +23,10 @@ export default class Table extends React.Component {
 		page:React.PropTypes.number,
 		pageSize:React.PropTypes.number,
 		totalCount:React.PropTypes.number,
+		loading:React.PropTypes.bool,
+		ajax:React.PropTypes.bool,
+		ajaxUrlName:React.PropTypes.string,
+		ajaxParams:React.PropTypes.object,
 
 		//事件
 		onExport:React.PropTypes.func,
@@ -43,7 +51,11 @@ export default class Table extends React.Component {
 		this.onCellClick = this.onCellClick.bind(this);
 		this.onPageChange = this.onPageChange.bind(this);
 
+		this.onLoadData  = this.onLoadData.bind(this);
+
 		this.state = {
+			listData:[],
+			loading:false,
 			allRowsSelected:false,
 			selectedRows:[],
 			visibilityRows:[],
@@ -51,7 +63,6 @@ export default class Table extends React.Component {
 				checkboxWidth:40
 			}
 		}
-
 	}
 
 	onPageChange(page){
@@ -80,7 +91,41 @@ export default class Table extends React.Component {
 
 	}
 
+
+	onLoadData(){
+
+		if(!this.props.ajax){
+			return ;
+		}
+
+		this.setState({
+			loading:true
+		});
+
+		var {ajaxUrlName,ajaxParams} = this.props;
+
+		var _this = this;
+
+		http.request(ajaxUrlName,ajaxParams).then(function(response){
+			_this.setState({
+				loading:false,
+				listData:response.items
+			});
+		}).catch(function(err){
+			_this.setState({
+				loading:true
+			});
+		});
+		/*
+		this.setState({
+		  loading:true
+		});
+		*/
+	}
+
 	componentDidMount(){
+
+		this.onLoadData();
 
 		var visibilityRows = new Array(this.props.pageSize+1).join(1).split('');
 
@@ -205,7 +250,9 @@ export default class Table extends React.Component {
 				selectedRows:this.state.selectedRows,
 				visibilityRows:this.state.visibilityRows,
 				onRowClick:this.onRowClick,
-				defaultValue:this.state.defaultValue
+				defaultValue:this.state.defaultValue,
+				listData:this.state.listData,
+				ajax:this.props.ajax
 			}
 		);
 
@@ -239,6 +286,13 @@ export default class Table extends React.Component {
 
 	render() {
 
+
+		if(this.state.loading){
+			return(
+				<Loading />
+			);
+		}
+
 		let {className,children,style} = this.props;
 
 		let tHead;
@@ -258,6 +312,7 @@ export default class Table extends React.Component {
 		});
 
 		let numChildren = React.Children.count(tBody);
+
 
 		return (
 			<table className={"table "+className} style={style}>
