@@ -6,9 +6,9 @@ export default class Pagination extends Component {
 
 	static propTypes = {
 		children: PropTypes.node,
-		page:React.PropTypes.number,
-		pageSize:React.PropTypes.number,
-		totalCount:React.PropTypes.number,
+		page: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
+		pageSize: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
+		totalCount: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
 		onPageChange:React.PropTypes.func
 	};
 
@@ -77,16 +77,18 @@ export default class Pagination extends Component {
 
 		let pageBody = [];
 
-		let props = {
-			className:'item'
-		}
+		let props = { };
 
 		const handlers = {
 			onClick:this.onJumpPage
 		}
 
-		for(var i = 1;i<totalCount/pageSize;i++){
+		for(var i = 1;i<=Math.ceil(totalCount/pageSize);i++){
 			props.key = i;
+			props.className = 'item';
+			if(page == i){
+				props.className+=' active';
+			}
 			let element = React.createElement('a', {...props,...handlers},i);
 			pageBody.push(element);
 		}
