@@ -81,8 +81,9 @@ export default class TableRow extends React.Component {
 			selected,
 			visibility,
 			style,
-			...other,
 			itemData,
+			...other,
+			
 		} = this.props;
 
 		const rowColumns = React.Children.map(this.props.children, (child, columnNumber) => {
