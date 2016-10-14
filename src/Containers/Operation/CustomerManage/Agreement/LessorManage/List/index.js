@@ -25,7 +25,6 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import RenderTable from './Table';
 
 
-
 let OrderSearchForm = function(props){
 
   	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,cityName} = props;
@@ -213,7 +212,6 @@ class OrderCreate extends Component {
 
 
 		const {communitys} = this.state;
-
 
 		return (
 

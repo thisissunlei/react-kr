@@ -22,7 +22,7 @@ export default class TableFooter extends React.Component {
 
         onSelectAll:React.PropTypes.func,
 		onExport:React.PropTypes.func,
-
+		onPageChange:React.PropTypes.func,
 	}
 
 
@@ -31,11 +31,18 @@ export default class TableFooter extends React.Component {
 
 		this.renderCheckbox = this.renderCheckbox.bind(this);
 		this.onExport = this.onExport.bind(this);
+		this.onPageChange = this.onPageChange.bind(this);
+
 	}
 
 	onExport(){
 		const {onExport} = this.props;
 		onExport && onExport();
+	}
+
+	onPageChange(page){
+		const {onPageChange} = this.props;
+		onPageChange && onPageChange(page);
 	}
 
 
@@ -65,7 +72,7 @@ export default class TableFooter extends React.Component {
 				*/}
 				  <TableRowColumn style={{textAlign:'left'}} colSpan={2}> <Button label="导出" primary={true} type="button" onTouchTap={this.onExport}/> </TableRowColumn>
 				<TableRowColumn style={{textAlign:'left'}} colSpan={5}>
-						<Pagination totalCount={totalCount} page={page} pageSize={pageSize}/>
+						<Pagination totalCount={totalCount} page={page} pageSize={pageSize} onPageChange={this.onPageChange}/>
 					</TableRowColumn>
 				</tr>
 			</tfoot>

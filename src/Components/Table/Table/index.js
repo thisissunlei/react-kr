@@ -25,6 +25,7 @@ export default class Table extends React.Component {
 		onSelectAll:React.PropTypes.func,
 		onCellClick:React.PropTypes.func,
 		onRowClick:React.PropTypes.func,
+		onPageChange:React.PropTypes.func,
 	}
 
 	constructor(props){
@@ -40,6 +41,7 @@ export default class Table extends React.Component {
 		this.onRowClick = this.onRowClick.bind(this);
 		this.onExport = this.onExport.bind(this);
 		this.onCellClick = this.onCellClick.bind(this);
+		this.onPageChange = this.onPageChange.bind(this);
 
 		this.state = {
 			allRowsSelected:false,
@@ -50,6 +52,11 @@ export default class Table extends React.Component {
 			}
 		}
 
+	}
+
+	onPageChange(page){
+		const {onPageChange} = this.props;
+		onPageChange && onPageChange(page);
 	}
 
 	onCellClick(){
@@ -213,6 +220,7 @@ export default class Table extends React.Component {
 				page:this.props.page,
 				pageSize:this.props.pageSize,
 				totalCount:this.props.totalCount,
+				onPageChange:this.onPageChange,
 		}
 
 		let handlers = {
