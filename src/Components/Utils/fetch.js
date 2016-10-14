@@ -1,8 +1,8 @@
- import Promise from 'promise-polyfill';
+import Promise from 'promise-polyfill';
 import fetch from 'isomorphic-fetch';
 import URLSearchParams from 'url-search-params';
 import { browserHistory } from 'react-router';
-import APIS from '../apis';
+import APIS from 'kr/Redux/apis';
 
 var env = process.env.NODE_ENV;
 
@@ -34,7 +34,6 @@ function getUrl(path, params = {},mode = false) {
         }
     }
 
-
     if(!mode){
 
         var searchParams = new URLSearchParams();
@@ -51,10 +50,6 @@ function getUrl(path, params = {},mode = false) {
             server +='?'+searchParams.toString();
         }
     }
-
-	//去除多余参数
-	server = server.replace(/={.*?}/gi,'=');
-
     return server;
 }
 

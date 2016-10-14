@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector} from 'redux-form';
-
+import {Actions,Store} from 'kr/Redux';
 import {
 	Dialog,
 	Table, 
@@ -31,7 +31,7 @@ let LessorUpdateForm= function(props){
 	return (
 
 			<form onSubmit={handleSubmit(onSubmit)}>
-
+                             
 							<KrField component="group" label="对账期间:">
 								<KrField name="startDate" label="起始日期" type="Date" />
 								<KrField name="endDate" label="结束日期" type="Date" />
@@ -39,33 +39,48 @@ let LessorUpdateForm= function(props){
 	
 							<Grid style={{marginTop:30}}>
 								<Row style={{marginTop:30}}>
-								<Col md={8}></Col>
-								<Col md={2}><Button  label="确定" type="submit" primary={true} /> </Col>
-								<Col md={2}><Button  label="取消" type="button"  onTouchTap={onCancel} /> </Col>
+									<Col md={8}></Col>
+									<Col md={2}><Button  label="确定" type="submit" primary={true} /> </Col>
+									<Col md={2}><Button  label="取消" type="button"  onTouchTap={onCancel} /> </Col>
 								</Row>
 							</Grid>
 			</form>
-
 	);
-
 }
 
 
 
-//查看部分
-const ViewHtml = (props)=>{
+//账单确定页
+let SureWatchForm= function(props){  
 
+  	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
+    let {basic} = this.state.sureWatch;
 	return (
-		<div>
-				<KrField component="labelText" label="出租方名称" value={props.item.corporationName} /> 
-				<KrField name="enableflag" component="labelText"  label="是否启用" value={props.item.enableflag?'是':'否'} /> 
-				<KrField name="corporationName" component="labelText"  label="出租方名称" value={props.item.corporationName} /> 
-				<KrField name="corporationAddress" component="labelText" type="text" label="详细地址"  value={props.item.corporationAddress}/> 
-				<KrField name="corporationDesc" component="labelText" label="备注"  placeholder="备注信息" value={props.item.corporationDesc}/> 
+            
+			<form onSubmit={handleSubmit(onSubmit)}>
 
-	</div>
-	);
-}
+                            <Section></Section>
+                            
+
+							<KrField component="group" label="期间:">
+								<KrField name="startDate" label="起始日期" type="Date" />
+								<KrField name="endDate" label="结束日期" type="Date" />
+							</KrField>
+	
+							<Grid style={{marginTop:30}}>
+								<Row style={{marginTop:30}}>
+									<Col md={8}></Col>
+									<Col md={2}><Button  label="确定" type="submit" primary={true}/> </Col>
+									<Col md={2}><Button  label="取消" type="button"  onTouchTap={onCancel} /> </Col>
+								</Row>
+							</Grid>
+			</form>
+	 );
+  }
+
+
+
+
 
 
 
@@ -76,11 +91,12 @@ const ViewHtml = (props)=>{
 
 	  this.confirmUpdateSubmit = this.confirmUpdateSubmit.bind(this);
 	  this.cancelUpdateSubmit = this.cancelUpdateSubmit.bind(this);
-
+      this.cancelViewSubmit=this.cancelViewSubmit.bind(this);
 
 	  this.state = {
-		  openView:false,
+		  openView:false,  //先要初始化定义弹窗们
 		  openUpdate:false,
+		  sureWatch:''
 	  }   
   }
 
@@ -92,41 +108,48 @@ const ViewHtml = (props)=>{
     
 
 	 confirmUpdateSubmit(values){
-
-		var {actions} = this.props;
-		var _this = this;
-
-		actions.callAPI('getFinaDataDetailAdd',{ },values).then(function(response){ 
-
+        var _this = this;
+		Store.dispatch(Actions.callAPI('getFinaDataDetailAdd',{ 
+			  endDate:'',
+			  id:'',
+			  startDate:''
+		})).then(function(response){
+			  console.log(response);
+			_this.setState({
+				sureWatch:response
+			})
+            
+			  
+		}).catch(function(err){
 			Notify.show([{
-				message:'更新成功',
-				type: 'success',
-			}]);
-
-
-		}).catch(function(err){ 
-
-			Notify.show([{
-				message:err.message,
+				message:'报错了',
 				type: 'danger',
 			}]);
-
 		});
-	 this.openUpdateDialog();
-      
+		this.openUpdateDialog() //先把生成对账单的弹窗关掉
+		this.setState({   
+			openView:!this.state.openView //通过此参数就可以控制对应弹窗的开启
+		  });
+		
 	 }
+
+
 
 
 	 cancelUpdateSubmit(){
-
 		this.setState({
 			openUpdate:!this.state.openUpdate
 		});
-	 }
-	openUpdateDialog(index){
+	  }
 
+	  cancelViewSubmit(){
+		this.setState({
+			openView:!this.state.openView
+		});
+	  }
+
+	  openUpdateDialog(index){ 
 	    const list = this.props.items;
-
 		this.setState({
 			openUpdate:!this.state.openUpdate
 		});
@@ -139,13 +162,19 @@ const ViewHtml = (props)=>{
 			initialValues:list[index]
 		})(LessorUpdateForm);
 
+
+
+		SureWatchForm= reduxForm({
+		  form: 'orderUpdateForm',    //?
+			initialValues:list[index]
+		})(SureWatchForm);
+
 	}
 
 
-       openViewDialog(index){
-
-	     const list = this.props.items;
-		this.setState({
+       openViewDialog(index){          
+	     const list = this.props.items; //?
+		 this.setState({
 			item:list[index],
 			openView:!this.state.openView
 		});
@@ -239,22 +268,25 @@ const ViewHtml = (props)=>{
 				</Table>
 
 
-				<Dialog
-			title="查看"
-			modal={true}
-			actions={actions}
-			open={this.state.openView}
-				>
-				<ViewHtml item={this.state.item}/>
-			  </Dialog>
+				
 
 				<Dialog
 			title="生成对账单"
 			modal={true}
-			open={this.state.openUpdate}
+			open={this.state.openUpdate} //通过不同弹窗来区分
 				>
 				<LessorUpdateForm onSubmit={this.confirmUpdateSubmit} onCancel={this.cancelUpdateSubmit}/>
-	  </Dialog>
+	      </Dialog>
+			<Dialog
+			title=""
+			modal={true}
+			open={this.state.openView} //通过不同弹窗来区分
+				>				
+				<SureWatchForm onSubmit={this.confirmUpdateSubmit} onCancel={this.cancelViewSubmit}/>
+	      </Dialog>
+          
+           
+
 
    </div>
   );

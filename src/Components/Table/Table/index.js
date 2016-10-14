@@ -1,8 +1,18 @@
 import React from 'react';
+import Loading from '../../Loading';
+import http from  'kr/Redux/Utils/fetch';
 
 import './index.less';
 
 export default class Table extends React.Component {
+
+	static defaultProps = {
+		page:1,
+		pageSize:10,
+		totalCount:100,
+		loading:false,
+		ajax:false,
+	}
 
 	static PropTypes = {
 		className: React.PropTypes.string,
@@ -10,61 +20,164 @@ export default class Table extends React.Component {
 		displayCheckbox: React.PropTypes.bool,
 		style:React.PropTypes.object,
 		toggleVisibility: React.PropTypes.string,
+		page:React.PropTypes.number,
+		pageSize:React.PropTypes.number,
+		totalCount:React.PropTypes.number,
+		loading:React.PropTypes.bool,
+		ajax:React.PropTypes.bool,
+		ajaxUrlName:React.PropTypes.string,
+		ajaxParams:React.PropTypes.object,
+
+		//事件
+		onExport:React.PropTypes.func,
+		onSelectAll:React.PropTypes.func,
+		onCellClick:React.PropTypes.func,
+		onRowClick:React.PropTypes.func,
+		onPageChange:React.PropTypes.func,
 	}
 
-
 	constructor(props){
-		super(props);
 
+		super(props);
 
 		this.createTableHeader = this.createTableHeader.bind(this);
 		this.createTableBody = this.createTableBody.bind(this);
 		this.createTableFooter = this.createTableFooter.bind(this);
-		this.setRowTotalCount = this.setRowTotalCount.bind(this);
 		this.setVisibilityRow = this.setVisibilityRow.bind(this);
 
 		this.onSelectAll = this.onSelectAll.bind(this);
 		this.onRowClick = this.onRowClick.bind(this);
+		this.onExport = this.onExport.bind(this);
+		this.onCellClick = this.onCellClick.bind(this);
+		this.onPageChange = this.onPageChange.bind(this);
 
+		this.onLoadData  = this.onLoadData.bind(this);
 
-		this.totalRowCount = 0;
 		this.state = {
+			page:1,
+			pageSize:this.props.pageSize,
+			totalCount:0,
+			listData:[],
+			loading:false,
 			allRowsSelected:false,
 			selectedRows:[],
 			visibilityRows:[],
-			totalRowCount:0,
 			defaultValue:{
 				checkboxWidth:40
 			}
 		}
+	}
+
+	onPageChange(page){
+		console.log(page);
+
+		const {onPageChange} = this.props;
+
+		this.setState({page});
+
+		onPageChange && onPageChange(page);
+		this.onLoadData();
+	}
+
+	onCellClick(){
 
 	}
 
+	onExport(){
+
+		let {selectedRows,visibilityRows}  = this.state;
+
+		//console.log('selectedRows',this.state.selectedRows,'visibilityRows',this.state.visibilityRows);
+		var result = [];
+
+		visibilityRows.forEach(function(item,index){
+			if(item && selectedRows[index]){
+				result.push(index);
+			}
+		});
+
+		console.log(result);
+
+	}
+
+
+	onLoadData(){
+
+		if(!this.props.ajax){
+			return ;
+		}
+
+		this.setState({
+			loading:true
+		});
+
+		var {ajaxUrlName,ajaxParams} = this.props;
+
+		ajaxParams.page = this.state.page;
+
+
+		var _this = this;
+
+		http.request(ajaxUrlName,ajaxParams).then(function(response){
+			_this.setState({
+				loading:false,
+				listData:response.items,
+				page:response.page,
+				pageSize:response.pageSize,
+				totalCount:response.totalCount
+			});
+		}).catch(function(err){
+			_this.setState({
+				loading:true
+			});
+		});
+		/*
+		this.setState({
+		  loading:true
+		});
+		*/
+	}
+
 	componentDidMount(){
-		var visibilityRows = new Array(this.totalRowCount+1).join(1).split('');
+
+		this.onLoadData();
+
+		var visibilityRows = new Array(this.state.pageSize+1).join(1).split('');
 
 		//默认隐藏children
-		let visibilityType = this.props.toggleVisibility; 
+		let visibilityType = this.props.toggleVisibility||''; 
 
-		if(visibilityType){
-			if(visibilityType === 'odd'){
+		switch(visibilityType){
+			case 'odd':{
 				visibilityRows.forEach(function(item,index){
 					if(index%2 !== 0){
 						visibilityRows[index] = 0;
 					}
 				});
-			}else{
+				break;
+			}
+
+			case 'event':{
 				visibilityRows.forEach(function(item,index){
 					if(index%2 == 0){
 						visibilityRows[index] = 0;
 					}
 				});
+				break;
+			}
+
+			default:{
+				visibilityRows.forEach(function(item,index){
+					visibilityRows[index] = 1;
+				});
+				break;
 			}
 		}
 
 		this.setState({
 			visibilityRows
 		});
+
 	}
 
 	setVisibilityRow(rowNumber){
@@ -75,12 +188,11 @@ export default class Table extends React.Component {
 			});
 	}
 
-	setRowTotalCount(totalRowCount){
-		this.totalRowCount = totalRowCount;
-	}
 
 	onRowClick(event,rowNumber){
+
 		let {selectedRows} = this.state;
+
 		if(parseInt(selectedRows[rowNumber])){
 			selectedRows[rowNumber] = 0;
 		}else{
@@ -117,9 +229,9 @@ export default class Table extends React.Component {
 			allRowsSelected = !allRowsSelected;
 		var tmp = [];
 		if(allRowsSelected){
-			tmp = new Array(this.totalRowCount+1).join(1).split('');
+			tmp = new Array(this.state.pageSize+1).join(1).split('');
 		}else{
-			tmp = new Array(this.totalRowCount+1).join(0).split('');
+			tmp = new Array(this.state.pageSize+1).join(0).split('');
 		}
 
     	this.setState({
@@ -127,7 +239,6 @@ export default class Table extends React.Component {
 			selectedRows:tmp
     	});
 
-		console.log('---tmp',this.state.selectedRows);
 	}
 
 	createTableHeader(base){
@@ -154,26 +265,48 @@ export default class Table extends React.Component {
 				selectedRows:this.state.selectedRows,
 				visibilityRows:this.state.visibilityRows,
 				onRowClick:this.onRowClick,
-				setRowTotalCount:this.setRowTotalCount,
-				defaultValue:this.state.defaultValue
+				defaultValue:this.state.defaultValue,
+				listData:this.state.listData,
+				ajax:this.props.ajax
 			}
 		);
 
 	}
 
 	createTableFooter(base){
+
+		let props = {
+				displayCheckbox:this.props.displayCheckbox,
+				allRowsSelected: this.state.allRowsSelected,
+				defaultValue:this.state.defaultValue,
+				page:this.state.page,
+				pageSize:this.state.pageSize,
+				totalCount:this.state.totalCount,
+				onPageChange:this.onPageChange,
+		}
+
+		let handlers = {
+				onSelectAll: this.onSelectAll,
+				onExport:this.onExport
+		}
+
 		return React.cloneElement(
 			base,
 			{
-				displayCheckbox:this.props.displayCheckbox,
-				onSelectAll: this.onSelectAll,
-				allRowsSelected: this.state.allRowsSelected,
-				defaultValue:this.state.defaultValue
+				...props,
+				...handlers
 			}
 		);
 	}
 
 	render() {
+
+
+		if(this.state.loading){
+			return(
+				<Loading />
+			);
+		}
 
 		let {className,children,style} = this.props;
 
@@ -193,6 +326,9 @@ export default class Table extends React.Component {
 			}
 		});
 
+		let numChildren = React.Children.count(tBody);
+
+
 		return (
 			<table className={"table "+className} style={style}>
 				{tHead}
@@ -205,8 +341,6 @@ export default class Table extends React.Component {
 
 
 }
-
-
 
 
 

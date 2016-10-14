@@ -4,6 +4,10 @@ import {bindActionCreators} from 'redux';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter,
+	Button,
+} from 'kr-ui';
+
 import Section from 'kr-ui/Section';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
@@ -57,7 +61,41 @@ class Undefined extends Component{
 
 			<div>
 					<Section title="出错了" description="" >
-						<LocationMap />
+
+				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='fnaCorporationList' ajaxParams={{
+					corporationName:'',
+					page:'',
+					pageSize:''
+				}} >
+					<TableHeader>
+					<TableHeaderColumn>ID</TableHeaderColumn>
+					<TableHeaderColumn>出租方名称</TableHeaderColumn>
+					<TableHeaderColumn>是否启用</TableHeaderColumn>
+					<TableHeaderColumn>地址</TableHeaderColumn>
+					<TableHeaderColumn>创建人</TableHeaderColumn>
+					<TableHeaderColumn>创建时间</TableHeaderColumn>
+					<TableHeaderColumn>操作</TableHeaderColumn>
+				</TableHeader>
+
+				<TableBody>
+						  <TableRow displayCheckbox={true}>
+							<TableRowColumn name="id" ></TableRowColumn>
+							<TableRowColumn name="corporationName"></TableRowColumn>
+							<TableRowColumn name="enableflag"></TableRowColumn>
+							<TableRowColumn name="corporationAddress"></TableRowColumn>
+							<TableRowColumn name="creater"></TableRowColumn>
+							<TableRowColumn name="createdate"></TableRowColumn>
+							<TableRowColumn>
+								  <Button label="查看"  type="link" />
+								  <Button label="编辑"  type="link" />
+							 </TableRowColumn>
+						 </TableRow>
+				</TableBody>
+
+				<TableFooter></TableFooter>
+
+				</Table>
+
 					</Section>
 			</div>		
 

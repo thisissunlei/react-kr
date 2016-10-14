@@ -172,6 +172,11 @@ const APIS  = {
 		url:'/mockjsdata/3/krspace-finance-web/finaccount/data/getFinaDataDetailById',		
 		method:'get'
 	},
+	//财务管理－订单账单列表-高级查询
+	'getFinaDataCommunityAndMainBillType':{
+		url:'/mockjsdata/3/krspace-finance-web/finaccount/data/getFinaDataCommunityAndMainBillType',		
+		method:'get'
+	},
 }
 
 module.exports =  APIS;

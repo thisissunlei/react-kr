@@ -12,7 +12,8 @@ export default class TableRowColumn extends React.Component {
 		onHover: React.PropTypes.func,
 		onHoverExit: React.PropTypes.func,
 		style: React.PropTypes.object,
-
+		name:React.PropTypes.string,
+		value:React.PropTypes.string
 	}
 
 
@@ -27,6 +28,7 @@ export default class TableRowColumn extends React.Component {
 	}
 
 	onClick(event){
+
 		if(event.target.nodeName.toLowerCase() != 'td' && event.target.nodeName.toLowerCase() != 'input'){
 			return null;
 		}
@@ -55,6 +57,8 @@ export default class TableRowColumn extends React.Component {
 			className,
 			columnNumber, 
 			style,
+			name,
+			value,
 			...other,
 		} = this.props;
 
@@ -64,6 +68,13 @@ export default class TableRowColumn extends React.Component {
 			onMouseLeave: this.onMouseLeave,
 		};
 
+		if(name){
+			return(
+				<td className={className} style={style} {...handlers} {...other}>
+						{value}
+				</td>
+			);
+		}
 
 		return(
 			<td className={className} style={style} {...handlers} {...other}>

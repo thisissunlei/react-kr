@@ -25,7 +25,6 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import RenderTable from './Table';
 
 
-
 let OrderSearchForm = function(props){
 
   	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,cityName} = props;
@@ -101,11 +100,6 @@ class OrderCreate extends Component {
 		  open:false,
 		  openCreate:false,
 		}
-
-
-
-
-
   }
 
 	componentDidMount(){
@@ -122,7 +116,7 @@ class OrderCreate extends Component {
 			page:'',
 			pageSize:20
 		},{}).then(function(response){
-			console.log('----->>>>re',response);
+
 	   	}).catch(function(err){
 			console.log('err',err);
 			Notify.show([{
@@ -163,17 +157,20 @@ class OrderCreate extends Component {
 
 	getListData(){
 
-		var {actions} = this.props;
-		var _this = this;
-
-		actions.callAPI('fnaCorporationList',{
+		Store.dispatch(Actions.callAPI('getFinaDataByList',{
 			corporationName:'',
 			page:'',
-			pageSize:20
-		},{}).then(function(response){
-			console.log('----->>>>re',response);
-	   	}).catch(function(err){
-			console.log('err',err);
+			pageSize:20,
+			mainbilltype:'',
+			communityid:'',
+			customername:'',
+			endDate:'',
+		})).then(function(response){
+			_this.setState({
+				basic:response
+
+			});
+		}).catch(function(err){
 			Notify.show([{
 				message:'报错了',
 				type: 'danger',
@@ -213,7 +210,6 @@ class OrderCreate extends Component {
 
 		const {communitys} = this.state;
 
-
 		return (
 
 			<div>
@@ -232,7 +228,7 @@ class OrderCreate extends Component {
 					</Grid>
 
 
-				<RenderTable items={this.props.items}/>
+						<RenderTable items={this.props.items}/>
 
 				</Section>
 
@@ -257,7 +253,6 @@ class OrderCreate extends Component {
 
 
 export default connect((state)=>{
-	const items = " ";
 	return {
 		items:state.common.fnaCorporationList.items
 	}

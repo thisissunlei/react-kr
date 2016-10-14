@@ -28,8 +28,8 @@ export default class TableHeader extends React.Component {
 			return null;
 		}
 
-		return ( <TableHeaderColumn width={this.props.defaultValue.checkboxWidth}></TableHeaderColumn>);
-		//return ( <TableHeaderColumn width={this.props.defaultValue.checkboxWidth}><input type="checkbox" onTouchTap={onSelectAll}/> </TableHeaderColumn>);
+		//return ( <TableHeaderColumn width={this.props.defaultValue.checkboxWidth}></TableHeaderColumn>);
+		return ( <TableHeaderColumn width={this.props.defaultValue.checkboxWidth}><input type="checkbox" onTouchTap={onSelectAll}/> </TableHeaderColumn>);
 
 	}
 
