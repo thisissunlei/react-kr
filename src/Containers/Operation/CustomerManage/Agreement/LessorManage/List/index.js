@@ -157,17 +157,20 @@ class OrderCreate extends Component {
 
 	getListData(){
 
-		var {actions} = this.props;
-		var _this = this;
-
-		actions.callAPI('fnaCorporationList',{
+		Store.dispatch(Actions.callAPI('getFinaDataByList',{
 			corporationName:'',
 			page:'',
-			pageSize:20
-		},{}).then(function(response){
-			console.log('----->>>>re',response);
-	   	}).catch(function(err){
-			console.log('err',err);
+			pageSize:20,
+			mainbilltype:'',
+			communityid:'',
+			customername:'',
+			endDate:'',
+		})).then(function(response){
+			_this.setState({
+				basic:response
+
+			});
+		}).catch(function(err){
 			Notify.show([{
 				message:'报错了',
 				type: 'danger',
