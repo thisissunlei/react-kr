@@ -100,11 +100,6 @@ class OrderCreate extends Component {
 		  open:false,
 		  openCreate:false,
 		}
-
-
-
-
-
   }
 
 	componentDidMount(){
@@ -121,7 +116,7 @@ class OrderCreate extends Component {
 			page:'',
 			pageSize:20
 		},{}).then(function(response){
-			console.log('----->>>>re',response);
+
 	   	}).catch(function(err){
 			console.log('err',err);
 			Notify.show([{
@@ -231,7 +226,7 @@ class OrderCreate extends Component {
 					</Grid>
 
 
-				<RenderTable items={this.props.items}/>
+						<RenderTable items={this.props.items}/>
 
 				</Section>
 
@@ -256,7 +251,6 @@ class OrderCreate extends Component {
 
 
 export default connect((state)=>{
-	const items = " ";
 	return {
 		items:state.common.fnaCorporationList.items
 	}

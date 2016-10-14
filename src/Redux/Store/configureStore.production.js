@@ -16,7 +16,8 @@ function configureStore(initialState) {
 
 	let store = createStore(combineReducers(Reducers), initState, compose(applyMiddleware(
 			thunkMiddleware,callAPIMiddleware
-		)
+		),
+		 typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : f => f
 	));
 
 
