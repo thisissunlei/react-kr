@@ -15,6 +15,7 @@ export default class TableRow extends React.Component {
 		rowNumber: React.PropTypes.number,
 		selected: React.PropTypes.bool,
 		visibility: React.PropTypes.bool,
+		itemData:React.PropTypes.object,
 	}
 
 	constructor(props){
@@ -81,10 +82,18 @@ export default class TableRow extends React.Component {
 			visibility,
 			style,
 			...other,
+			itemData,
 		} = this.props;
 
 		const rowColumns = React.Children.map(this.props.children, (child, columnNumber) => {
 			if (React.isValidElement(child)) {
+				let {name} = child.props;
+				let value = '';
+
+				if(name && itemData && itemData.hasOwnProperty(name)){
+					value = itemData[name];
+				}
+
 				return React.cloneElement(child, {
 					columnNumber: columnNumber,
 					hoverable: this.props.hoverable,
@@ -92,6 +101,7 @@ export default class TableRow extends React.Component {
 					onCellClick: this.onCellClick,
 					onHover: this.onCellHover,
 					onHoverExit: this.onCellHoverExit,
+					value,
 				});
 			}
 		});

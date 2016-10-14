@@ -90,6 +90,10 @@ const ViewHtml = (props)=>{
 
   }
 
+	 componentDidMount(){
+		 console.log("---->>>",this.props.items);
+	 }
+
 	 componentWillReceiveProps(nextProps){
 
 
