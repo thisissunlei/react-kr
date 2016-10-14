@@ -204,17 +204,9 @@ export default class TableBody extends React.Component {
 
 	renderRows() {
 
-		let {listData,ajax} = this.props;
+		let {ajax} = this.props;
 
-		let rows = [];
-		//如果为ajax请求
-		if(ajax){
-			rows = this.createAjaxRow();
-		}else{
-			rows = this.createNormalRow();
-		}
-
-		return rows;
+		return ajax?this.createAjaxRow():this.createNormalRow();
 	}
 
 

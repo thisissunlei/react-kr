@@ -54,6 +54,9 @@ export default class Table extends React.Component {
 		this.onLoadData  = this.onLoadData.bind(this);
 
 		this.state = {
+			page:1,
+			pageSize:this.props.pageSize,
+			totalCount:0,
 			listData:[],
 			loading:false,
 			allRowsSelected:false,
@@ -66,8 +69,14 @@ export default class Table extends React.Component {
 	}
 
 	onPageChange(page){
+		console.log(page);
+
 		const {onPageChange} = this.props;
+
+		this.setState({page});
+
 		onPageChange && onPageChange(page);
+		this.onLoadData();
 	}
 
 	onCellClick(){
@@ -104,12 +113,18 @@ export default class Table extends React.Component {
 
 		var {ajaxUrlName,ajaxParams} = this.props;
 
+		ajaxParams.page = this.state.page;
+
+
 		var _this = this;
 
 		http.request(ajaxUrlName,ajaxParams).then(function(response){
 			_this.setState({
 				loading:false,
-				listData:response.items
+				listData:response.items,
+				page:response.page,
+				pageSize:response.pageSize,
+				totalCount:response.totalCount
 			});
 		}).catch(function(err){
 			_this.setState({
@@ -127,7 +142,7 @@ export default class Table extends React.Component {
 
 		this.onLoadData();
 
-		var visibilityRows = new Array(this.props.pageSize+1).join(1).split('');
+		var visibilityRows = new Array(this.state.pageSize+1).join(1).split('');
 
 		//默认隐藏children
 		let visibilityType = this.props.toggleVisibility||''; 
@@ -214,9 +229,9 @@ export default class Table extends React.Component {
 			allRowsSelected = !allRowsSelected;
 		var tmp = [];
 		if(allRowsSelected){
-			tmp = new Array(this.props.pageSize+1).join(1).split('');
+			tmp = new Array(this.state.pageSize+1).join(1).split('');
 		}else{
-			tmp = new Array(this.props.pageSize+1).join(0).split('');
+			tmp = new Array(this.state.pageSize+1).join(0).split('');
 		}
 
     	this.setState({
@@ -264,9 +279,9 @@ export default class Table extends React.Component {
 				displayCheckbox:this.props.displayCheckbox,
 				allRowsSelected: this.state.allRowsSelected,
 				defaultValue:this.state.defaultValue,
-				page:this.props.page,
-				pageSize:this.props.pageSize,
-				totalCount:this.props.totalCount,
+				page:this.state.page,
+				pageSize:this.state.pageSize,
+				totalCount:this.state.totalCount,
 				onPageChange:this.onPageChange,
 		}
 

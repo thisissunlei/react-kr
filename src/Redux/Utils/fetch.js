@@ -34,6 +34,7 @@ function getUrl(path, params = {},mode = false) {
         }
     }
 
+
     if(!mode){
 
         var searchParams = new URLSearchParams();
@@ -50,6 +51,10 @@ function getUrl(path, params = {},mode = false) {
             server +='?'+searchParams.toString();
         }
     }
+
+	//去除多余参数
+	server = server.replace(/={.*?}/gi,'=');
+
     return server;
 }
 
