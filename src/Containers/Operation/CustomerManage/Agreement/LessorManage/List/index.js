@@ -186,7 +186,6 @@ class OrderCreate extends Component {
 
 
 	searchParams(values){
-
 		values.corporationName = values.corporationName || ' ';
 		values.page = 1;
 		values.pageSize = 10;

@@ -39,8 +39,8 @@ let SettingCreateForm = function(props){
 
 			<KrField name="dicName" type="text" component="input" label="字段名称" />  
        <KrField name="enableFlag" component="group" label="是否有效">
-					<KrField name="enableFlag" label="是" type="radio" value="2"/>
-					<KrField name="enableFlag" label="否" type="radio" value="3" />
+					<KrField name="enableFlag" label="是" type="radio" value="1"/>
+					<KrField name="enableFlag" label="否" type="radio" value="0" />
               </KrField>
 		 <KrField name="remark" type="textarea" label="备注"  placeholder="备注信息"/> 
 
@@ -60,15 +60,13 @@ SettingCreateForm= reduxForm({
 })(SettingCreateForm);
 
 const SettingViewForm = (props)=>{
-
 	const {items} = props;
-
   return (
     <div>
-        <KrField component="labelText" label="字段名称" value={items.dicName} /> 
-        <KrField name="corporationName" component="labelText"  label="支付方式" value={items.dicName}/> 
-        <KrField name="enableflag" component="labelText"  label="是否有效" value={items.enableFlag?'是':'否'}/> 
-        <KrField name="corporationDesc" component="labelText" label="备注" value={items.remark}/> 
+        
+        <KrField name="corporationName" component="labelText"  label="字段名称" value={items.sp.dicName}/> 
+        <KrField name="enableflag" component="labelText"  label="是否有效" value={items.sp.enableFlag?'是':'否'}/> 
+        <KrField name="corporationDesc" component="labelText" label="备注" value={items.sp.remark}/> 
   </div>
   );
 }
@@ -78,14 +76,45 @@ const SettingViewForm = (props)=>{
 
 
 let SettingUpdateForm = function(props){
+    
+    const { items,error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
+  console.log('-------sd',items.sp)
+  return (
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+              <KrField name="" type="hidden" label="id"  value={items.sp.id}/> 
+              <KrField name="dicName" type="text" label="字段名称"  value={items.sp.dicName}/> 
+              <KrField name="enableflag" component="group" label="是否有效">
+                <KrField name="enableflag" label="是" type="radio" value="1"/>
+                <KrField name="enableflag" label="否" type="radio" value="0" />
+              </KrField>
+               <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息" value={items.sp.remark}/> 
+              <Grid style={{marginTop:30}}>
+                <Row style={{marginTop:30}}>
+                <Col md={8}></Col>
+                <Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
+                <Col md={2}> <Button  label="取消" type="button"  onTouchTap={onCancel}  /> </Col>
+                </Row>
+              </Grid>
+        </form>
+  );
+}
+ 
+ SettingUpdateForm= reduxForm({
+  form: 'settingUpdateForm',
+})(SettingUpdateForm);
+
+let SettingAddForm = function(props){
 
     const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
 
   return (
 
       <form onSubmit={handleSubmit(onSubmit)}>
-              <KrField name="dicName" type="hidden" label="id"  value={props.id}/> 
-              <KrField name="dicName" type="text" label="字段名称"  value={props.dicName}/> 
+              <KrField name="id" type="hidden" label="id"  /> 
+              <KrField name="dicName" type="text" label="子项名称"  />
+              <KrField name="dicName" type="text" label="字段名称"  />
+              <KrField name="round" type="text" label="拆分周期"  /> 
               <KrField name="enableflag" component="group" label="是否有效">
                 <KrField name="enableflag" label="是" type="radio" value="1"/>
                 <KrField name="enableflag" label="否" type="radio" value="0" />
@@ -102,9 +131,14 @@ let SettingUpdateForm = function(props){
   );
 }
  
- SettingUpdateForm= reduxForm({
-  form: 'settingUpdateForm',
-})(SettingUpdateForm);
+ SettingAddForm= reduxForm({
+  form: 'settingAddForm',
+})(SettingAddForm);
+
+
+
+
+
 
 export default class SettingList extends Component {
 
@@ -119,14 +153,15 @@ export default class SettingList extends Component {
     this.renderOrderItem = this.renderOrderItem.bind(this);
     this.openUpdateDialog = this.openUpdateDialog.bind(this);
     this.getListData = this.getListData.bind(this);
-
-
+    this.openAddDialog=this.openAddDialog.bind(this);
+    this.openViewDialog=this.openViewDialog.bind(this);
     this.state = {
       open:false,
       openCreate:false,
       openView:false,
 		  openUpdate:false,
-      items:[]
+      openAdddate:false,
+      
     }
 
     this.getListData();
@@ -137,9 +172,8 @@ export default class SettingList extends Component {
 
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('getSysDicPayment',{ 
-			 id:'',
-		})).then(function(response){
+		Store.dispatch(Actions.callAPI('sysDicPaymentList')).then(function(response){
+        console.log('-----response----',response)
 			_this.setState({
 				items:response
 			});
@@ -161,8 +195,6 @@ export default class SettingList extends Component {
 
   confirmSubmit(values){
 
-    console.log('----');
-
     Store.dispatch(Actions.callAPI('addSysDicPayment',{},values)).then(function(response){
        Notify.show([{
         message:'创建成功!',
@@ -173,16 +205,13 @@ export default class SettingList extends Component {
         message:err.message,
         type: 'danger',
       }]);
+      console.log(err.message)
     })
-
- 
-
-
     this.openCreateDialog();
-
-      window.setTimeout(function(){
+    
+     /* window.setTimeout(function(){
         window.location.reload();
-      },1000);
+      },1000);*/
 
 
   }
@@ -203,15 +232,22 @@ export default class SettingList extends Component {
 
     this.openUpdateDialog();
 
-/*
-window.setTimeout(function(){
+
+    window.setTimeout(function(){
         window.location.reload();
       },1000);
-*/
+
       
 
   }
 
+  openAddDialog(){
+      this.setState({
+      openCreate:!this.state.openCreate
+    });
+
+  }
+  
   openCreateDialog(){
 
     this.setState({
@@ -221,18 +257,25 @@ window.setTimeout(function(){
   }
 
  openViewDialog(index){
-
+    const list=this.state.items;
     this.setState({
+      item:list[index],
       openView:!this.state.openView
     });
 
   }
 
-  openUpdateDialog(){
-
+  openUpdateDialog(index){
+    const list=this.state.items;
+    console.log('-----eidt---',list)
     this.setState({
+      item:list[index],
       openUpdate:!this.state.openUpdate
     });
+  
+
+   
+
 
   }
   
@@ -240,44 +283,45 @@ window.setTimeout(function(){
   renderCustomerItem(){
 
   	let items = this.state.items || [];
+  if(!items.length){
+    return(
+        <TableBody style={{paddingTop:10}}>
+                <TableRow displayCheckbox={false}>
+                      <TableRowColumn colSpan={8} >
+                        <div style={{textAlign:'center',paddingTop:50,paddingBottom:50}}>
+                        暂无数据
+                        </div>
+                      </TableRowColumn>
+                </TableRow>
+              </TableBody>
 
+      )
+      
+  }
     return (
         <TableBody colSpan={10} insertElement={this.renderOrderItem()}>
 
           {items.map((item,index)=>{
+            const flag=item.sp.enableFlag?'是':'否';
             return (
              <TableRow key={index}>
 					 <TableHeaderColumn></TableHeaderColumn>
-					<TableRowColumn>{item.dicName}</TableRowColumn>
-						<TableRowColumn>{item.enableFlag}</TableRowColumn>
-						<TableRowColumn>{item.creater}</TableRowColumn>
-						<TableRowColumn>{item.createTime}</TableRowColumn>
-						<TableRowColumn>{item.remark}</TableRowColumn>
+					<TableRowColumn>{item.sp.dicName}</TableRowColumn>
+						<TableRowColumn>{flag}</TableRowColumn>
+						<TableRowColumn>{item.sp.creater}</TableRowColumn>
+						<TableRowColumn>{item.sp.createTime}</TableRowColumn>
+						<TableRowColumn>{item.sp.remark}</TableRowColumn>
 						<TableRowColumn>
 					  <Button label="查看" type="link"  onClick={this.openViewDialog.bind(this,index)}/>
 					  <Button label="编辑" type="link"  onClick={this.openUpdateDialog.bind(this,index)}/>
-					  <Button label="添加子项" type="link"  />
+					  <Button label="添加子项" type="link"   onClick={this.openAddDialog.bind(this)}/>
 					</TableRowColumn>
 				 </TableRow>
               );
 
           })}
+          
          
-          <TableRow>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>Steve Brown</TableRowColumn>
-            <TableRowColumn>备注备注备注备注备</TableRowColumn>
-            <TableRowColumn>
-              <Button label="查看" type="link"  onClick={this.openViewDialog.bind(this)}/>
-              <Button label="编辑" type="link"  onClick={this.openUpdateDialog.bind(this)}/>
-              <Button label="添加子项" type="link"  />
-            </TableRowColumn>
-         </TableRow>
       </TableBody>
     );
 
@@ -315,7 +359,7 @@ window.setTimeout(function(){
   render() {
 
     const {communitys} = this.state;
-
+    console.log('this.items',this.state.item)
     const actions = [
         <Button
         label="关闭"
@@ -363,7 +407,7 @@ window.setTimeout(function(){
         open={this.state.openView}
       >
 
-      <SettingViewForm items={this.state.items}/>
+      <SettingViewForm items={this.state.item}/>
 
       </Dialog>
 
@@ -372,8 +416,17 @@ window.setTimeout(function(){
         modal={true}
         open={this.state.openUpdate}
      >
-      <SettingUpdateForm  onSubmit={this.confirmUpdateSubmit} onCancel={this.openUpdateDialog}/>
+      <SettingUpdateForm items={this.state.item} onSubmit={this.confirmUpdateSubmit} onCancel={this.openUpdateDialog} />
       </Dialog>
+
+      <Dialog
+        title="添加子项"
+        modal={true}
+        open={this.state.openAdddate}
+     >
+      <SettingAddForm  onSubmit={this.confirmAddSubmit} onCancel={this.openUpdateDialog}/>
+      </Dialog>
+      
    </div>
   );
   }
