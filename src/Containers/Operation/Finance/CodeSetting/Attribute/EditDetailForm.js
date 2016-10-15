@@ -63,10 +63,10 @@ import {
 		return (
 
 			<form onSubmit={handleSubmit(this.onSubmit)}>
-
-				<KrField name="propcode" type="text" label="属性编码"/> 
-				<KrField name="propname" type="text" label="属性名称" /> 
-				<KrField name="proptype" type="select" label="属性类别" options={[
+				<KrField name="id" type="hidden" label="id"/>
+				<KrField name="propcode" type="text" label="科目编码"/> 
+				<KrField name="propname" type="text" label="科目名称" /> 
+				<KrField name="proptype" type="select" label="科目类别" options={[
 						{value:'PAYMENT',label:'回款'},
 					   {value:'INCOME',label:'收入'},
 				]} >
