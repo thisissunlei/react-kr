@@ -104,9 +104,10 @@ export default class TableRow extends React.Component {
 					});
 				}
 				return React.cloneElement(child);
+			}else{
+				return child;
 			}
 		});
-
 
 		return React.cloneElement(basic, {
 			columnNumber: columnNumber,
