@@ -52,16 +52,17 @@ let LessorUpdateForm= function(props){
 
 //账单确定页
 let SureWatchForm= function(props){  
-
-  	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
-    let {basic} = this.state.sureWatch;
+    
+  	const { list,error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
+  	let listB=list;
+  	console.log("***++",listB);
 	return (
             
 			<form onSubmit={handleSubmit(onSubmit)}>
 
-                            <Section></Section>
-                            
-
+                          
+                            <KrField label="公司名称" component="labelText" value={listB.finaContractMainbillVOMap.corporationName}/>
+                         
 							<KrField component="group" label="期间:">
 								<KrField name="startDate" label="起始日期" type="Date" />
 								<KrField name="endDate" label="结束日期" type="Date" />
@@ -96,7 +97,7 @@ let SureWatchForm= function(props){
 	  this.state = {
 		  openView:false,  //先要初始化定义弹窗们
 		  openUpdate:false,
-		  sureWatch:''
+		  sureWatch:{}
 	  }   
   }
 
@@ -117,9 +118,7 @@ let SureWatchForm= function(props){
 			  console.log(response);
 			_this.setState({
 				sureWatch:response
-			})
-            
-			  
+			})           			  
 		}).catch(function(err){
 			Notify.show([{
 				message:'报错了',
@@ -183,7 +182,8 @@ let SureWatchForm= function(props){
 
 
 	render() {
-
+		console.log("vvvvvv",this.state.sureWatch);
+        
 		let items = this.props.items || [];
 
 		 const actions = [
@@ -282,7 +282,7 @@ let SureWatchForm= function(props){
 			modal={true}
 			open={this.state.openView} //通过不同弹窗来区分
 				>				
-				<SureWatchForm onSubmit={this.confirmUpdateSubmit} onCancel={this.cancelViewSubmit}/>
+				<SureWatchForm onSubmit={this.confirmUpdateSubmit} onCancel={this.cancelViewSubmit} list={this.state.sureWatch}/>
 	      </Dialog>
           
            
