@@ -10,6 +10,8 @@ import Pagination from './Pagination';
 import Button from './Button';
 import MyForm from './MyForm';
 import Notify from './Notify';
+import Tabs from './Tabs/index';
+import PageHeader from './PageHeader';
 import {Grid,Row,Col} from './Grid';
 
 //materal-ui
@@ -26,7 +28,6 @@ import {
 	Dialog,
 	Snackbar,
 } from 'material-ui';
-
 
 module.exports = {
 
@@ -57,4 +58,7 @@ module.exports = {
 	Avatar,
 	Dialog,
 	Snackbar,
+	Tabs,
+	TabItem,
+	PageHeader,
 }
