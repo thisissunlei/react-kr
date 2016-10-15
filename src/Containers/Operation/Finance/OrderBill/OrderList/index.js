@@ -64,7 +64,7 @@ export default class AttributeSetting  extends Component{
 	}
 
 	onLoaded(response){
-     let 
+    
 	 console.log('re',response);
 
 	}

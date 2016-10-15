@@ -57,15 +57,17 @@ import {
 		return (
 
 			<form onSubmit={handleSubmit(this.onSubmit)}>
-
-				<KrField name="propcode" type="text" label="属性编码" /> 
-				<KrField name="propname" type="text" label="属性名称" /> 
-				<KrField name="proptype" type="select" label="属性类别" options={[
+				<KrField name="propname" type="text" label="客户名称" /> 
+				<KrField name="proptype" type="select" label="所属社区" options={[
 						{value:'PAYMENT',label:'回款'},
 					   {value:'INCOME',label:'收入'},
 				]} >
 				</KrField>
-				<KrField name="ordernum" type="text" label="排序号" /> 
+				<KrField name="proptype" type="select" label="订单类型" options={[
+						{value:'PAYMENT',label:'回款'},
+					   {value:'INCOME',label:'收入'},
+				]} >
+				</KrField>
 				<KrField name="enableflag" component="group" label="是否启用">
                 <KrField name="enableflag" label="是" type="radio" value="1"/>
                 <KrField name="enableflag" label="否" type="radio" value="0" />
