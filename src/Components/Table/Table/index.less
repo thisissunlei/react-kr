@@ -1,5 +1,6 @@
 
 .table{
+
 	width:100%;
 	border-collapse:collapse;
 	border-radius:4px 4px 0 0;
@@ -28,6 +29,11 @@
 
 	tr{
 		border:1px solid #ddd;
+		border-left:none;
+		border-right:none;
+		&:last-of-type{
+			border:none;
+		}
 	}
 
 	&.table-bordered{

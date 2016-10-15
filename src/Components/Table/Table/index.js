@@ -2,6 +2,10 @@ import React from 'react';
 import Loading from '../../Loading';
 import http from  'kr/Redux/Utils/fetch';
 
+import TableBody from '../TableBody';
+import TableRow from '../TableRow';
+import TableRowColumn from '../TableRowColumn';
+
 import './index.less';
 
 export default class Table extends React.Component {
@@ -9,7 +13,7 @@ export default class Table extends React.Component {
 	static defaultProps = {
 		page:1,
 		pageSize:10,
-		totalCount:100,
+		totalCount:20,
 		loading:false,
 		ajax:false,
 	}
@@ -20,9 +24,9 @@ export default class Table extends React.Component {
 		displayCheckbox: React.PropTypes.bool,
 		style:React.PropTypes.object,
 		toggleVisibility: React.PropTypes.string,
-		page:React.PropTypes.number,
-		pageSize:React.PropTypes.number,
-		totalCount:React.PropTypes.number,
+		page: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
+		pageSize: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
+		totalCount: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
 		loading:React.PropTypes.bool,
 		ajax:React.PropTypes.bool,
 		ajaxUrlName:React.PropTypes.string,
@@ -53,7 +57,16 @@ export default class Table extends React.Component {
 
 		this.onLoadData  = this.onLoadData.bind(this);
 
+
+		this.renderTableHeader = this.renderTableHeader.bind(this);
+		this.renderTableBody = this.renderTableBody.bind(this);
+		this.renderTableFooter = this.renderTableFooter.bind(this);
+		this.renderLoading = this.renderLoading.bind(this);
+
 		this.state = {
+			page:this.props.page,
+			pageSize:this.props.pageSize,
+			totalCount:this.props.totalCount,
 			listData:[],
 			loading:false,
 			allRowsSelected:false,
@@ -66,8 +79,11 @@ export default class Table extends React.Component {
 	}
 
 	onPageChange(page){
+
 		const {onPageChange} = this.props;
+
 		onPageChange && onPageChange(page);
+		this.onLoadData(page);
 	}
 
 	onCellClick(){
@@ -92,7 +108,7 @@ export default class Table extends React.Component {
 	}
 
 
-	onLoadData(){
+	onLoadData(page=1){
 
 		if(!this.props.ajax){
 			return ;
@@ -102,32 +118,39 @@ export default class Table extends React.Component {
 			loading:true
 		});
 
+
 		var {ajaxUrlName,ajaxParams} = this.props;
+
+		ajaxParams.page = page;
 
 		var _this = this;
 
 		http.request(ajaxUrlName,ajaxParams).then(function(response){
 			_this.setState({
-				loading:false,
-				listData:response.items
+				listData:response.items,
+				page:response.page,
+				pageSize:response.pageSize,
+				totalCount:response.totalCount
 			});
 		}).catch(function(err){
 			_this.setState({
 				loading:true
 			});
 		});
-		/*
-		this.setState({
-		  loading:true
-		});
-		*/
+
+		window.setTimeout(function(){
+			_this.setState({
+				loading:false
+			});
+		},2000);
+
 	}
 
 	componentDidMount(){
 
 		this.onLoadData();
 
-		var visibilityRows = new Array(this.props.pageSize+1).join(1).split('');
+		var visibilityRows = new Array(this.state.pageSize+1).join(1).split('');
 
 		//默认隐藏children
 		let visibilityType = this.props.toggleVisibility||''; 
@@ -214,9 +237,9 @@ export default class Table extends React.Component {
 			allRowsSelected = !allRowsSelected;
 		var tmp = [];
 		if(allRowsSelected){
-			tmp = new Array(this.props.pageSize+1).join(1).split('');
+			tmp = new Array(this.state.pageSize+1).join(1).split('');
 		}else{
-			tmp = new Array(this.props.pageSize+1).join(0).split('');
+			tmp = new Array(this.state.pageSize+1).join(0).split('');
 		}
 
     	this.setState({
@@ -242,6 +265,8 @@ export default class Table extends React.Component {
 
 	createTableBody(base){
 
+		console.log('---',this.state.listData);
+
 		return React.cloneElement(
 			base,
 			{
@@ -264,9 +289,9 @@ export default class Table extends React.Component {
 				displayCheckbox:this.props.displayCheckbox,
 				allRowsSelected: this.state.allRowsSelected,
 				defaultValue:this.state.defaultValue,
-				page:this.props.page,
-				pageSize:this.props.pageSize,
-				totalCount:this.props.totalCount,
+				page:this.state.page,
+				pageSize:this.state.pageSize,
+				totalCount:this.state.totalCount,
 				onPageChange:this.onPageChange,
 		}
 
@@ -284,41 +309,91 @@ export default class Table extends React.Component {
 		);
 	}
 
-	render() {
+
+	renderTableHeader(){
+		let {className,children,style} = this.props;
+		let tHead;
+		React.Children.forEach(children, (child) => {
+			if (!React.isValidElement(child)) return;
+			const {muiName,name} = child.type;
+			if (name === 'TableHeader') {
+				tHead = this.createTableHeader(child);
+			} 
+		});
+
+		return tHead;
+	}
 
 
-		if(this.state.loading){
-			return(
-				<Loading />
-			);
-		}
+	renderTableBody(){
 
 		let {className,children,style} = this.props;
 
-		let tHead;
 		let tBody;
-		let tFoot;
 
 		React.Children.forEach(children, (child) => {
 			if (!React.isValidElement(child)) return;
 			const {muiName,name} = child.type;
 			if (name === 'TableBody') {
 				tBody = this.createTableBody(child);
-			} else if (name === 'TableHeader') {
-				tHead = this.createTableHeader(child);
-			} else if (name === 'TableFooter') {
+			} 
+		});
+
+		return tBody;
+	}
+
+	renderTableFooter(){
+
+		let {className,children,style} = this.props;
+		let tFoot;
+
+		React.Children.forEach(children, (child) => {
+			if (!React.isValidElement(child)) return;
+			const {muiName,name} = child.type;
+			if (name === 'TableFooter') {
 				tFoot = this.createTableFooter(child);
 			}
 		});
 
-		let numChildren = React.Children.count(tBody);
+		return tFoot;
+
+	}
+
+	renderLoading(){
+		let {className,children,style} = this.props;
+
+		return(
+			<table className={"table "+className} style={style}>
+				{this.renderTableHeader()}
+				<tbody>
+					<tr>
+						<TableRowColumn colSpan={8} >
+							<div style={{textAlign:'center',paddingTop:50,paddingBottom:50}}>
+									<Loading />
+							</div>
+						</TableRowColumn>
+					</tr>
+				</tbody>
+				{this.renderTableFooter()}
+			</table>
+		);
+	}
+
+	render() {
+
+
+		if(this.state.loading){
+			return this.renderLoading();
+		}
+
+		let {className,children,style} = this.props;
 
 
 		return (
 			<table className={"table "+className} style={style}>
-				{tHead}
-				{tBody}
-				{tFoot}
+				{this.renderTableHeader()}
+				{this.renderTableBody()}
+				{this.renderTableFooter()}
 			</table>
 		);
 

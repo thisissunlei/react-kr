@@ -1,280 +1,146 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-import {reduxForm,formValueSelector} from 'redux-form';
-import {Dialog,Snackbar} from 'material-ui';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import React,{Component} from 'react';
+import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
+
+import * as actionCreators from 'kr-ui/../Redux/Actions';
+
 import {
-  Table, 
-  TableBody, 
-  TableHeader, 
-  TableHeaderColumn, 
-  TableRow, 
-  TableRowColumn,
-  TableFooter,
-  Section,
-  KrField,
-  LabelText,
-  Grid,
-  Row,
-  Col,
-  Button,
-  Notify,
-  BreadCrumbs
+	Table,
+	TableBody, 
+	TableHeader, 
+	TableHeaderColumn, 
+	TableRow, 
+	TableRowColumn,
+	TableFooter,
+	Button,
+	Section,
+	Grid,
+	Row,
+	Col,
+		Dialog,
 } from 'kr-ui';
 
 
-
-class OrderCreate extends Component {
-
-  constructor(props,context){
-    super(props, context);
-
-    this.confirmSubmit = this.confirmSubmit.bind(this);
-
-    this.openCreateDialog = this.openCreateDialog.bind(this);
-    this.searchParams = this.searchParams.bind(this);
-    this.getListData=this.getListData.bind(this);
-    this.state = {
-      open:false,
-      openCreate:false,
-    }
+import NewCreateForm from './NewCreateForm';
+import SearchForm from './SearchForm';
 
 
-  }
+export default class AttributeSetting  extends Component{
 
-	componentDidMount(){
+	constructor(props,context){
+		super(props, context);
 
-		const {actions} = this.props;
+		this.onNewCreateSubmit = this.onNewCreateSubmit.bind(this);
+		this.onNewCreateCancel = this.onNewCreateCancel.bind(this);
 
-		actions.callAPI('findFinaFinaflowPropertyList',{}).then(function(response){ }).catch(function(err){
-		  Notify.show([{
-			message:err.message,
-			type: 'danger',
-		  }]);
-		});
+		this.onSearchSubmit = this.onSearchSubmit.bind(this);
+		this.onSearchCancel = this.onSearchCancel.bind(this);
 
+
+		this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
+
+		this.state = {
+			openNewCreate:false,
+		}
+	}
+
+	componentDidMount() {
 
 	}
 
 
+	//搜索
+	onSearchSubmit(){
 
-  confirmSubmit(values){
-    var {actions} = this.props;
+	}
 
-    actions.callAPI('addFinaFinaflowProperty',{},values).then(function(response){
-        Notify.show([{
-        message:'创建成功',
-        type: 'success',
-      }]);
+	onSearchCancel(){
+
+	}
 
 
-    }).catch(function(err){
-      Notify.show([{
-        message:err.message,
-        type: 'danger',
-      }]);
-    });
-    this.openCreateDialog();
+	//新建
+	openNewCreateDialog(){
+		this.setState({
+			openNewCreate:!this.state.openNewCreate
+		});
+	}
 
-    window.setTimeout(function(){
-      window.location.reload();
+	onNewCreateSubmit(form){
+		console.log('---',form);
+	}
 
-    },1000);
+	onNewCreateCancel(){
+		this.openNewCreateDialog();
+	}
 
-  }
+	render(){
 
-    getListData(){
+		return(
 
-    var {actions} = this.props;
-    var _this = this;
+			<div>
+					<Section title="属性配置" description="" >
 
-    actions.callAPI('findFinaFinaflowPropertyList',{
-      currentPage:'',
-      pageSize:10,
-      searchParam:''
-    },{}).then(function(response){
-      console.log('----->>>>re',response);
-      }).catch(function(err){
-      console.log('err',err);
-      Notify.show([{
-        message:'报错了',
-        type: 'danger',
-      }]);
-    });
+					<Grid>
+						<Row>
+							<Col md={8}> <Button label="新建" primary={true} onTouchTap={this.openNewCreateDialog} /> </Col>
+							<Col md={4} align="right"> 
+									<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
+							</Col> 
+						</Row>
+					</Grid>
 
+
+				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='findFinaFinaflowPropertyList' ajaxParams={{
+					page:'',
+					pageSize:''
+				}} >
+					<TableHeader>
+					<TableHeaderColumn>属性编码</TableHeaderColumn>
+					<TableHeaderColumn>属性名称</TableHeaderColumn>
+					<TableHeaderColumn>是否启用</TableHeaderColumn>
+					<TableHeaderColumn>属性类别</TableHeaderColumn>
+					<TableHeaderColumn>排序号</TableHeaderColumn>
+					<TableHeaderColumn>创建人</TableHeaderColumn>
+					<TableHeaderColumn>创建时间</TableHeaderColumn>
+					<TableHeaderColumn>操作</TableHeaderColumn>
+				</TableHeader>
+
+				<TableBody>
+						 <TableRow displayCheckbox={true}>
+						<TableRowColumn name="propdesc" ></TableRowColumn>
+						<TableRowColumn name="propname" ></TableRowColumn>
+						<TableRowColumn name="enableflag"></TableRowColumn>
+						<TableRowColumn name="proptype"></TableRowColumn>
+						<TableRowColumn name="ordernum"></TableRowColumn>
+						<TableRowColumn name="creatername"></TableRowColumn>
+						<TableRowColumn name="createdate"></TableRowColumn>
+						<TableRowColumn>
+							  <Button label="查看"  type="link" />
+							  <Button label="编辑"  type="link" />
+						 </TableRowColumn>
+					 </TableRow>
+				</TableBody>
+
+				<TableFooter></TableFooter>
+
+				</Table>
+
+					</Section>
+
+					<Dialog
+						title="新建"
+						modal={true}
+						open={this.state.openNewCreate}
+					>
+						<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.onNewCreateCancel} />
+
+				  </Dialog>
+			</div>		
+
+		);
+
+	}
 
 }
-searchParams(values){
-
-    values.corporationName = values.corporationName || ' ';
-    values.page = 1;
-    values.pageSize = 10;
-
-    var {actions} = this.props;
-    var _this = this;
-
-    actions.callAPI('fnaCorporationList',values,{}).then(function(response){ }).catch(function(err){
-      Notify.show([{
-        message:err.message,
-        type: 'danger',
-      }]);
-    }); 
-  }
-
-  openCreateDialog(){
-
-    this.setState({
-      openCreate:!this.state.openCreate
-    });
-
-  }
-
-  render() {
-
-    const { error, handleSubmit, pristine, reset, submitting,onSubmit} = this.props;
-
-    const {communitys} = this.state;
-   
-    
-    return (
-
-      <div>
-
-      <Section title="财务管理" description=""> 
-
-      <Grid>
-        
-          <Row>
-            <Col md={2}> <RaisedButton label="新建属性" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
-            <Col md={6}> </Col>
-            <Col md={2}> <KrField name="searchParam" type="text" /></Col> 
-            <Col md={2}> <Button label="搜索"  primary={true}  /> </Col>
-          </Row>
-        
-        </Grid>
-
-            <Table displayCheckbox={true} style={{marginTop:20}}  toggleVisibility="odd">
-                <TableHeader>
-                  <TableHeaderColumn>属性编码</TableHeaderColumn>
-                  <TableHeaderColumn>属性名称</TableHeaderColumn>
-                  <TableHeaderColumn>是否启用</TableHeaderColumn>
-                  <TableHeaderColumn>属性类型</TableHeaderColumn>
-                  <TableHeaderColumn>排序号</TableHeaderColumn>
-                  <TableHeaderColumn>创建人</TableHeaderColumn>
-                  <TableHeaderColumn>创建时间</TableHeaderColumn>
-                  <TableHeaderColumn>操作</TableHeaderColumn>
-                </TableHeader>
-        <TableBody>
-
-          <TableRow  >
-            <TableRowColumn></TableRowColumn>
-            <TableRowColumn>{/*{items.propdesc}*/}</TableRowColumn>
-            <TableRowColumn>{/*{items.propname}*/}</TableRowColumn>
-            <TableRowColumn>{/*{items.enableflag}*/}</TableRowColumn>
-            <TableRowColumn>{/*{items.proptype}*/}</TableRowColumn>
-            <TableRowColumn>{/*{items.ordernum}*/}</TableRowColumn>
-            <TableRowColumn>{/*{items.creatername}*/}</TableRowColumn>
-            <TableRowColumn>{/*{items.createdate}*/}</TableRowColumn>
-            <TableRowColumn></TableRowColumn>
-
-         </TableRow>
-        </TableBody>
-
-        <TableFooter></TableFooter>
-
-       </Table>
-
-      </Section>
-
-
-
-      <Dialog
-        title="新建"
-        modal={true}
-        open={this.state.openCreate}
-      >
-      
-
-        <form onSubmit={handleSubmit(this.confirmSubmit)}>
-
-
-        <Grid style={{marginTop:30}}>
-
-          <Row>
-            <Col md={12} > <KrField name="propcode" type="text" label="属性编码" /> </Col>
-          </Row>
-           <Row>
-            <Col md={12} > <KrField name="propname" type="text" label="属性名称" /> </Col>
-          </Row>
-          <Row>
-            <Col md={12} > 
-              <KrField name="proptype" type="select" label="属性类别" > 
-                 <option>请选择类别</option>
-                <option value="PAYMENT ">回款</option>
-                <option value="INCOME">收入</option>
-              </KrField>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={12} > <KrField name="ordernum" type="text" label="排序号" /> </Col>
-          </Row>
-          <Row>
-            <Col md={4} > 
-                <KrField name="enableflag" label="是否启用" type="radio"/>
-             </Col>
-             <Col md={4} > 
-                <KrField name="enableflag" label="是" type="radio"  value="ENABLE"/>
-             </Col>
-             <Col md={4} > 
-                <KrField name="enableflag" label="否" type="radio" value="DISENABLE"/>
-             </Col>
-          </Row>
-          <Row>
-            <Col md={12} > <KrField name="propdesc" type="textarea" label="描述"  placeholder="备注信息"/> </Col>
-          </Row>
-
-          <Row style={{marginTop:30}}>
-            <Col md={8}></Col>
-            <Col md={2}> <RaisedButton  label="确定" type="submit" primary={true} /> </Col>
-            <Col md={2}> <RaisedButton  label="取消" type="button"  onTouchTap={this.openCreateDialog} /> </Col>
-          </Row>
-
-        </Grid>
-
-      {/*
-      <FlatButton label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
-      */}
-
-    </form>
-
-
-
-
-      </Dialog>
-
-      
-   </div>
-  );
-  }
-}
-
-
-OrderCreate= reduxForm({
-  form: 'orderCreateForm'
-})(OrderCreate);
-
-
-export default connect((state)=>{
-
-  return {
-    items:state.common.findFinaFinaflowPropertyList,
-  };
-
-})(OrderCreate);
-
-
-
-
-
 

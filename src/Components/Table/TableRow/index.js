@@ -83,7 +83,6 @@ export default class TableRow extends React.Component {
 			style,
 			itemData,
 			...other,
-			
 		} = this.props;
 
 		const rowColumns = React.Children.map(this.props.children, (child, columnNumber) => {
@@ -93,6 +92,7 @@ export default class TableRow extends React.Component {
 
 				if(name && itemData && itemData.hasOwnProperty(name)){
 					value = itemData[name];
+					value = value.toString();
 				}
 
 				return React.cloneElement(child, {
@@ -118,7 +118,7 @@ export default class TableRow extends React.Component {
 		}
 
 		return (
-				<tr> </tr>
+			<tr> </tr>
 		);
 
 

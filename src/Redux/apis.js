@@ -87,27 +87,33 @@ const APIS  = {
 	},
 	//合同-基础配置-新增
 	'addSysDicPayment':{
-		url:'/mockjsdata/3/krspace-finance-web/addSysDicPayment',
+		url:'/api/krspace-finance-web/addSysDicPayment',
 		method:'post'
 	},
 	//合同-基础配置-编辑
 	'editSysDicPayment':{
-		url:'/mockjsdata/3/krspace-finance-web/editSysDicPayment',
+		url:'/api/krspace-finance-web/editSysDicPayment',
 		method:'post'
 	},
-	//合同-基础配置-获取基本信息
+	//合同-基础配置-查看
 	'getSysDicPayment':{
-		url:'/mockjsdata/3/krspace-finance-web/getSysDicPayment?id={id}',
+		url:'/api/krspace-finance-web/getSysDicPayment?id={id}',
 		method:'get'
 	},
+	//合同-基础配置-获取基本信息
+	'sysDicPaymentList':{
+		url:'/api/krspace-finance-web/sysDicPaymentList',
+		method:'get'
+	},
+	
 	//合同－属性配置－搜索（list）
 	'findFinaFinaflowPropertyList':{
-		url:'/mockjsdata/3/krspace-finance-web/finaccount/property/findFinaFinaflowPropertyList',
-		method:'post'
+		url:'/api/krspace-finance-web/finaccount/property/findFinaFinaflowPropertyList?page={currentPage}&pageSize={pageSize}&searchParam={searchParam}',
+		method:'get'
 	},
 	//合同－属性配置－新建
 	'addFinaFinaflowProperty':{
-		url:'/mockjsdata/3/krspace-finance-web/finaccount/property/addFinaFinaflowProperty',
+		url:'/api/krspace-finance-web/finaccount/property/addFinaFinaflowProperty',
 		method:'post'
 	},
 	//demo
@@ -171,6 +177,17 @@ const APIS  = {
 		url:'/mockjsdata/3/krspace-finance-web/finaccount/data/getFinaDataCommunityAndMainBillType',		
 		method:'get'
 	},
+	//财务管理－科目配置－新建(修改)
+	'saveFinaFinaflowAccountModel':{
+		url:'/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/saveFinaFinaflowAccountModel',		
+		method:'post'
+	},
+	//财务管理－科目配置－搜索(list)
+	'getFinaFinaflowAccountModelByAjax':{
+		url:'/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/getFinaFinaflowAccountModelByAjax',		
+		method:'get'
+	},
+	
 }
 
 module.exports =  APIS;
