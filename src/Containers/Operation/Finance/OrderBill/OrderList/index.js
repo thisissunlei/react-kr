@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-
+import {Actions,Store} from 'kr/Redux';
 import {
 	KrField,
 	Table,
@@ -45,13 +45,14 @@ export default class AttributeSetting  extends Component{
 		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
 		this.onOperation = this.onOperation.bind(this);
 
-		this.onLoaded = this.onLoaded.bind(this);
+		
 
 		this.state = {
 			openNewCreate:false,
 			openView:false,
 			openEditDetail:false,
 			itemDetail:{},
+			item:{},
 			searchParams:{
 				page:1,
 				pageSize:20
@@ -60,14 +61,21 @@ export default class AttributeSetting  extends Component{
 	}
 
 	componentDidMount() {
-
+       var _this = this;
+		Store.dispatch(Actions.callAPI('getFinaDataByList')).then(function(response){
+			_this.setState({
+				item:response,
+				loading:false
+			});
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+		});
 	}
 
-	onLoaded(response){
-    
-	 console.log('re',response);
-
-	}
+	
 
 	//操作相关
 	onOperation(type,itemDetail){
@@ -133,7 +141,9 @@ export default class AttributeSetting  extends Component{
 	}
 
 	render(){
-
+        
+        console.log("nnnn",this.state.item);
+        
 		return(
 
 			<div>
@@ -161,7 +171,7 @@ export default class AttributeSetting  extends Component{
 					</Grid>
 
 
-				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true} onLoaded={this.onLoaded} ajaxFieldListName="finaContractMainbillVOList" ajaxUrlName='getFinaDataByList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} >
+				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxFieldListName="finaContractMainbillVOList" ajaxUrlName='getFinaDataByList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} >
 					<TableHeader>
 					<TableHeaderColumn>公司名称</TableHeaderColumn>
 					<TableHeaderColumn>订单类型</TableHeaderColumn>
