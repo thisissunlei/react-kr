@@ -151,11 +151,11 @@ export default class AttributeSetting  extends Component{
 
 					<Grid>
 						<Row>
-							<Col md={3}> 
+							<Col md={2}> 
 							    <KrField label="收入总额" component="labelText" primary={true} />
 							</Col>
                             
-							<Col md={3}> 
+							<Col md={2}> 
 							    <KrField label="回款总额" component="labelText" primary={true}/>
 							</Col>
 							<Col md={2}> 
@@ -164,7 +164,7 @@ export default class AttributeSetting  extends Component{
 							<Col md={4} align="right"> 
 									<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
 							</Col> 
-							<Col md={4} align="right"> 
+							<Col md={2} align="right"> 
 									<Button onTouchTap={this.openNewCreateDialog} label="查询"/>
 							</Col> 
 						</Row>
