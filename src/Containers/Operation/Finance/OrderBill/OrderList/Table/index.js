@@ -54,24 +54,52 @@ let LessorUpdateForm= function(props){
 let SureWatchForm= function(props){  
     
   	const { list,error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
-  	let listB=list;
+  	let listB=list.finaContractMainbillVOMap;
   	console.log("***++",listB);
+  	if(!listB){  
+			return (
+
+			<div>
+				<Table  style={{marginTop:10}} displayCheckbox={true}>
+					<TableHeader>
+					<TableHeaderColumn>公司名称</TableHeaderColumn>
+					<TableHeaderColumn>订单类型</TableHeaderColumn>
+					<TableHeaderColumn>所在社区</TableHeaderColumn>
+				</TableHeader>
+
+
+				<TableBody style={{paddingTop:10}}>
+					<TableRow displayCheckbox={false}>
+								<TableRowColumn colSpan={8} >
+									<div style={{textAlign:'center',paddingTop:50,paddingBottom:50}}>
+									暂无数据
+									</div>
+								</TableRowColumn>
+					</TableRow>
+				</TableBody>
+
+				</Table>
+   			</div>
+				);
+		}
+
 	return (
             
-			<form onSubmit={handleSubmit(onSubmit)}>
+			<form >
 
                           
-                            <KrField label="公司名称" component="labelText" value={listB.finaContractMainbillVOMap.corporationName}/>
+                            <KrField label="公司名称" component="labelText" value={listB.corporationName}/>
                          
 							<KrField component="group" label="期间:">
 								<KrField name="startDate" label="起始日期" type="Date" />
 								<KrField name="endDate" label="结束日期" type="Date" />
 							</KrField>
-	
+	                        
+                            
+
 							<Grid style={{marginTop:30}}>
 								<Row style={{marginTop:30}}>
 									<Col md={8}></Col>
-									<Col md={2}><Button  label="确定" type="submit" primary={true}/> </Col>
 									<Col md={2}><Button  label="取消" type="button"  onTouchTap={onCancel} /> </Col>
 								</Row>
 							</Grid>
@@ -93,8 +121,9 @@ let SureWatchForm= function(props){
 	  this.confirmUpdateSubmit = this.confirmUpdateSubmit.bind(this);
 	  this.cancelUpdateSubmit = this.cancelUpdateSubmit.bind(this);
       this.cancelViewSubmit=this.cancelViewSubmit.bind(this);
-
+      
 	  this.state = {
+	  	  openOutView:false,
 		  openView:false,  //先要初始化定义弹窗们
 		  openUpdate:false,
 		  sureWatch:{}
@@ -135,7 +164,7 @@ let SureWatchForm= function(props){
 
 
 
-	 cancelUpdateSubmit(){
+	  cancelUpdateSubmit(){
 		this.setState({
 			openUpdate:!this.state.openUpdate
 		});
@@ -175,7 +204,7 @@ let SureWatchForm= function(props){
 	     const list = this.props.items; //?
 		 this.setState({
 			item:list[index],
-			openView:!this.state.openView
+			openOutView:!this.state.openOutView
 		});
 
     }
@@ -282,7 +311,7 @@ let SureWatchForm= function(props){
 			modal={true}
 			open={this.state.openView} //通过不同弹窗来区分
 				>				
-				<SureWatchForm onSubmit={this.confirmUpdateSubmit} onCancel={this.cancelViewSubmit} list={this.state.sureWatch}/>
+				<SureWatchForm  onCancel={this.cancelViewSubmit} list={this.state.sureWatch}/>
 	      </Dialog>
           
            
