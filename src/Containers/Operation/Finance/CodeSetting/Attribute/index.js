@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import {
 	Table,
@@ -32,12 +33,11 @@ export default class AttributeSetting  extends Component{
 	constructor(props,context){
 		super(props, context);
 
+		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+
 		this.onNewCreateSubmit = this.onNewCreateSubmit.bind(this);
-
 		this.onSearchSubmit = this.onSearchSubmit.bind(this);
-
 		this.onEditSubmit = this.onEditSubmit.bind(this);
-
 
 		this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
 		this.openViewDialog = this.openViewDialog.bind(this);
@@ -62,9 +62,13 @@ export default class AttributeSetting  extends Component{
 
 	//操作相关
 	onOperation(type,itemDetail){
+
+		console.log("-000");
+
 		this.setState({
 			itemDetail
 		});
+
 		if(type == 'view'){
 			this.openViewDialog();
 		}else if(type == 'edit'){
@@ -81,6 +85,7 @@ export default class AttributeSetting  extends Component{
 
 	onEditSubmit(){
 		this.openEditDetailDialog();
+		window.location.reload();
 	}
 
 	//查看
@@ -93,6 +98,7 @@ export default class AttributeSetting  extends Component{
 
 	//搜索
 	onSearchSubmit(searchParams){
+		console.log('------');
 		this.setState({
 			searchParams
 		});
@@ -127,9 +133,7 @@ export default class AttributeSetting  extends Component{
 
 					<Grid>
 						<Row>
-							<Col md={3}> <Button label="新建" primary={true} onTouchTap={this.openNewCreateDialog} /> </Col>
-							<Col md={3}> <Button label="编辑" primary={true} onTouchTap={this.openEditDetailDialog} /> </Col>
-							<Col md={3}> <Button label="查看" primary={true} onTouchTap={this.openViewDialog} /> </Col>
+							<Col md={8}> <Button label="新建" primary={true} onTouchTap={this.openNewCreateDialog} /> </Col>
 							<Col md={4} align="right"> 
 									<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
 							</Col> 

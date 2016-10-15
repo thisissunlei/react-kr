@@ -1,6 +1,7 @@
 import React from 'react';
 import Loading from '../../Loading';
 import http from  'kr/Redux/Utils/fetch';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import TableBody from '../TableBody';
 import TableRow from '../TableRow';
@@ -45,6 +46,8 @@ export default class Table extends React.Component {
 
 		super(props);
 
+		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+
 		this.createTableHeader = this.createTableHeader.bind(this);
 		this.createTableBody = this.createTableBody.bind(this);
 		this.createTableFooter = this.createTableFooter.bind(this);
@@ -80,11 +83,20 @@ export default class Table extends React.Component {
 		}
 	}
 
+	componentDidMount(){
 
+	}
+
+
+	componentWillReceiveProps(nextProps){
+		this.onLoadData();
+	}
+
+	shouldComponentUpdate(nextProps,nextState){
+	}
 	onOperation(type,itemData){
 		const {onOperation}  = this.props;
 		onOperation && onOperation(type,itemData);
-		console.log('type',type,itemData);
 	}
 
 	onPageChange(page){
@@ -382,7 +394,9 @@ export default class Table extends React.Component {
 						</TableRowColumn>
 					</tr>
 				</tbody>
+				{/*
 				{this.renderTableFooter()}
+				*/}
 			</table>
 		);
 	}

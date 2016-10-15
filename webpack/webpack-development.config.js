@@ -40,7 +40,14 @@ const config = {
 		new webpack.optimize.OccurenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoErrorsPlugin(),
-
+		new webpack.optimize.UglifyJsPlugin({
+			compress: {
+				warnings: false,
+			},
+			output: {
+				comments: false,
+			},
+		}),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(env)
 		}),

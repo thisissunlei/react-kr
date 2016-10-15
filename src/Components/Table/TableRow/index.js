@@ -98,7 +98,7 @@ export default class TableRow extends React.Component {
 				let {operation} = child.props;
 				if(operation){
 					return React.cloneElement(child,{
-						onTouchTap:_this.onOperation,
+						onClick:_this.onOperation,
 						'data-operation':operation,
 						'data-row':rowNumber
 					});

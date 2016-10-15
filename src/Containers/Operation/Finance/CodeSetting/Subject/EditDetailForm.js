@@ -9,6 +9,7 @@ import {
 	Row,
 	Col,
 	Button,
+	Notify,
 } from 'kr-ui';
 
 
@@ -18,7 +19,6 @@ import {
 		 onSubmit:React.PropTypes.func,
 		 onCancel:React.PropTypes.func,
 		 detail:React.PropTypes.object,
-
 	 }
 
 	constructor(props){
@@ -26,42 +26,37 @@ import {
 
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
-		const detail=props.detail;
-		
-		
-		Store.dispatch(initialize('newCreateForm',detail));
-
-		
-
-
 	}
 
+	 componentDidMount(){
+		const {detail}= this.props;
+		Store.dispatch(initialize('newCreateForm',detail));
+	 }
+
 	 onSubmit(values){
+
 		var _this = this;
-		Store.dispatch(Actions.callAPI('saveFinaFinaflowAccountModel',{},values)).then(function(response){
-		}).catch(function(err){
+
+		Store.dispatch(Actions.callAPI('saveFinaFinaflowAccountModel',{},values)).then(function(response){ }).catch(function(err){
 			Notify.show([{
 				message:'报错了',
 				type: 'danger',
 			}]);
 		});
+
  		const {onSubmit} = this.props;
 		 onSubmit && onSubmit();
-
 	 }
 
 	 onCancel(){
 		 const {onCancel} = this.props;
 		onCancel && onCancel();
-		 
 	 }
 
 	render(){
 
 		const { error, handleSubmit, pristine, reset} = this.props;
-
 		return (
-
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 				<KrField name="id" type="hidden" label="id"/> 
 				<KrField name="accountcode" type="text" label="属性编码"/> 
@@ -90,8 +85,4 @@ import {
 	}
 }
 
-
-export default reduxForm({ form: 'newCreateForm',
-	enableReinitialize:true,
-	keepDirtyOnReinitialize:true
-})(NewCreateForm);
+export default reduxForm({ form: 'newCreateForm', enableReinitialize:true, keepDirtyOnReinitialize:true })(NewCreateForm);

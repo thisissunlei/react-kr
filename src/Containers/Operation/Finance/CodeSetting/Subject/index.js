@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
@@ -32,16 +33,16 @@ export default class AttributeSetting  extends Component{
 	constructor(props,context){
 		super(props, context);
 
+		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+
 		this.onNewCreateSubmit = this.onNewCreateSubmit.bind(this);
-
 		this.onSearchSubmit = this.onSearchSubmit.bind(this);
-
 		this.onEditSubmit = this.onEditSubmit.bind(this);
-
 
 		this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
 		this.openViewDialog = this.openViewDialog.bind(this);
 		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
+		this.onOperation = this.onOperation.bind(this);
 
 		this.state = {
 			openNewCreate:false,
@@ -57,6 +58,18 @@ export default class AttributeSetting  extends Component{
 
 	componentDidMount() {
 
+	}
+
+	onOperation(type,itemDetail){
+
+		this.setState({
+			itemDetail
+		});
+		if(type == 'view'){
+			this.openViewDialog();
+		}else if(type == 'edit'){
+			this.openEditDetailDialog();
+		}
 	}
 
 	//编辑
@@ -77,9 +90,9 @@ export default class AttributeSetting  extends Component{
 		});
 	}
 
-
 	//搜索
 	onSearchSubmit(searchParams){
+		console.log('----')
 		this.setState({
 			searchParams
 		});
@@ -115,28 +128,22 @@ export default class AttributeSetting  extends Component{
 					<Grid>
 						<Row>
 							<Col md={3}> <Button label="新建" primary={true} onTouchTap={this.openNewCreateDialog} /> </Col>
-							<Col md={3}> <Button label="编辑" primary={true} onTouchTap={this.openEditDetailDialog} /> </Col>
-							<Col md={3}> <Button label="查看" primary={true} onTouchTap={this.openViewDialog} /> </Col>
 							<Col md={4} align="right"> 
 									<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
 							</Col> 
 						</Row>
 					</Grid>
 
-				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='getFinaFinaflowAccountModelByAjax' ajaxParams={{
-          accountname:'',
-          currentPage:1,
-          pageSize:10
-        }} >
-          <TableHeader>
-          <TableHeaderColumn>科目编码</TableHeaderColumn>
-          <TableHeaderColumn>科目名称</TableHeaderColumn>
-          <TableHeaderColumn>科目类别</TableHeaderColumn>
-          <TableHeaderColumn>是否启用</TableHeaderColumn>
-          <TableHeaderColumn>排序号</TableHeaderColumn>
-          <TableHeaderColumn>描述</TableHeaderColumn>
-          <TableHeaderColumn>操作</TableHeaderColumn>
-        </TableHeader>
+				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='getFinaFinaflowAccountModelByAjax' ajaxParams={this.state.searchParams} onOperation={this.onOperation} >
+					<TableHeader>
+					  <TableHeaderColumn>科目编码</TableHeaderColumn>
+					  <TableHeaderColumn>科目名称</TableHeaderColumn>
+					  <TableHeaderColumn>科目类别</TableHeaderColumn>
+					  <TableHeaderColumn>是否启用</TableHeaderColumn>
+					  <TableHeaderColumn>排序号</TableHeaderColumn>
+					  <TableHeaderColumn>描述</TableHeaderColumn>
+				  <TableHeaderColumn>操作</TableHeaderColumn>
+				 </TableHeader>
 
 				<TableBody>
 						 <TableRow displayCheckbox={true}>
