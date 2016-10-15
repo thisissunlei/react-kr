@@ -25,16 +25,21 @@ import {
 
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
+		
 	}
 
 	 onSubmit(){
 		 const {onSubmit} = this.props;
+		 
 		 onSubmit && onSubmit();
+
 	 }
 
 	 onCancel(){
 		 const {onCancel} = this.props;
+		
 		 onCancel && onCancel();
+		 
 	 }
 
 	render(){
@@ -45,10 +50,19 @@ import {
 
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
-				<KrField name="corporationName" type="text" label="出租方名称" /> 
-
-				<KrField name="corporationAddress" component="text" type="text" label="详细地址"/> 
-				<KrField name="corporationDesc" component="textarea" label="备注"  placeholder="备注信息"/> 
+				<KrField name="propcode" type="text" label="属性编码" /> 
+				<KrField name="propname" type="text" label="属性名称" /> 
+				<KrField name="proptype" type="select" label="属性类别" options={[
+						{value:'PAYMENT',label:'回款'},
+					   {value:'INCOME',label:'收入'},
+				]} >
+				</KrField>
+				<KrField name="ordernum" type="text" label="排序号" /> 
+				<KrField name="enableflag" component="group" label="是否启用">
+                <KrField name="enableflag" label="是" type="radio" value="1"/>
+                <KrField name="enableflag" label="否" type="radio" value="0" />
+              </KrField> 
+				<KrField name="propdesc" component="textarea" label="描述"  /> 
 
 				<Grid style={{marginTop:30}}>
 					<Row>
