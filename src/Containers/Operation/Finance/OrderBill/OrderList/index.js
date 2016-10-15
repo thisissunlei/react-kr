@@ -115,9 +115,11 @@ export default class OrderCreate extends Component {
 		this.openSearchDialog = this.openSearchDialog.bind(this);
         this.confirmSubmit=this.confirmSubmit.bind(this);
 	  	this.onSearch = this.onSearch.bind(this);
-
+		this.openCreateDialog=this.openCreateDialog.bind(this)
 		this.state = {
 		  open:false,
+		  openSearch:false,
+		  openCreate:false,
 		  basic:{}		  
 		}
 
@@ -163,7 +165,11 @@ export default class OrderCreate extends Component {
 			  openSearch:!this.state.openSearch //没有openSearch?
 		});
 	}
-
+	openCreateDialog(){
+		this.setState({
+			  openCreate:!this.state.openCreate //没有openSearch?
+		});
+	}
 
 	onSearch(params){
 		params.corporationName = params.corporationName || ' ';
@@ -224,3 +230,7 @@ export default class OrderCreate extends Component {
    );
   }
 }
+
+
+
+
