@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {bindActionCreators} from 'redux';
-import {reduxForm,formValueSelector} from 'redux-form';
+import {reduxForm,formValueSelector,change} from 'redux-form';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 import {Actions,Store} from 'kr/Redux';
@@ -82,13 +82,13 @@ let SettingUpdateForm = function(props){
   return (
 
       <form onSubmit={handleSubmit(onSubmit)}>
-              <KrField name="" type="hidden" label="id"  value={items.sp.id}/> 
-              <KrField name="dicName" type="text" label="字段名称"  value={items.sp.dicName}/> 
+              <KrField name="id" type="hidden" label="id"  /> 
+              <KrField name="dicName" type="text" label="字段名称"  /> 
               <KrField name="enableflag" component="group" label="是否有效">
                 <KrField name="enableflag" label="是" type="radio" value="1"/>
                 <KrField name="enableflag" label="否" type="radio" value="0" />
               </KrField>
-               <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息" value={items.sp.remark}/> 
+               <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息"/> 
               <Grid style={{marginTop:30}}>
                 <Row style={{marginTop:30}}>
                 <Col md={8}></Col>
@@ -112,7 +112,6 @@ let SettingAddForm = function(props){
 
       <form onSubmit={handleSubmit(onSubmit)}>
               <KrField name="id" type="hidden" label="id"  /> 
-              <KrField name="dicName" type="text" label="子项名称"  />
               <KrField name="dicName" type="text" label="字段名称"  />
               <KrField name="round" type="text" label="拆分周期"  /> 
               <KrField name="enableflag" component="group" label="是否有效">
@@ -177,6 +176,7 @@ export default class SettingList extends Component {
 			_this.setState({
 				items:response
 			});
+
 		}).catch(function(err){
 			Notify.show([{
 				message:'报错了',
@@ -209,9 +209,9 @@ export default class SettingList extends Component {
     })
     this.openCreateDialog();
     
-     /* window.setTimeout(function(){
+      window.setTimeout(function(){
         window.location.reload();
-      },1000);*/
+      },1000);
 
 
   }
@@ -243,7 +243,7 @@ export default class SettingList extends Component {
 
   openAddDialog(){
       this.setState({
-      openCreate:!this.state.openCreate
+      openAdddate:!this.state.openAdddate
     });
 
   }
@@ -267,14 +267,15 @@ export default class SettingList extends Component {
 
   openUpdateDialog(index){
     const list=this.state.items;
-    console.log('-----eidt---',list)
+   
     this.setState({
       item:list[index],
       openUpdate:!this.state.openUpdate
     });
-  
 
-   
+      Store.dispatch(change('settingUpdateForm','dicName',list[index].sp.dicName));
+      Store.dispatch(change('settingUpdateForm','enableflag',list[index].sp.enableflag));
+      Store.dispatch(change('settingUpdateForm','remark',list[index].sp.remark));
 
 
   }
@@ -424,7 +425,7 @@ export default class SettingList extends Component {
         modal={true}
         open={this.state.openAdddate}
      >
-      <SettingAddForm  onSubmit={this.confirmAddSubmit} onCancel={this.openUpdateDialog}/>
+      <SettingAddForm  onSubmit={this.confirmSubmit} onCancel={this.openAddDialog}/>
       </Dialog>
       
    </div>
