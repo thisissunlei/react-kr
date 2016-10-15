@@ -23,6 +23,7 @@ import {
 
 import NewCreateForm from './NewCreateForm';
 import SearchForm from './SearchForm';
+import ItemDetail from './ItemDetail';
 
 
 export default class AttributeSetting  extends Component{
@@ -38,9 +39,16 @@ export default class AttributeSetting  extends Component{
 
 
 		this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
+		this.openViewDialog = this.openViewDialog.bind(this);
 
 		this.state = {
 			openNewCreate:false,
+			openView:false,
+			itemDetail:{},
+			searchParams:{
+				page:1,
+				pageSize:20
+			}
 		}
 	}
 
@@ -48,10 +56,19 @@ export default class AttributeSetting  extends Component{
 
 	}
 
+	//查看
+	openViewDialog(){
+		this.setState({
+			openView:!this.state.openView
+		});
+	}
+
 
 	//搜索
-	onSearchSubmit(){
-
+	onSearchSubmit(searchParams){
+		this.setState({
+			searchParams
+		});
 	}
 
 	onSearchCancel(){
@@ -68,6 +85,7 @@ export default class AttributeSetting  extends Component{
 
 	onNewCreateSubmit(form){
 		console.log('---',form);
+		window.location.reload();
 	}
 
 	onNewCreateCancel(){
@@ -83,18 +101,15 @@ export default class AttributeSetting  extends Component{
 
 					<Grid>
 						<Row>
-							<Col md={8}> <Button label="新建" primary={true} onTouchTap={this.openNewCreateDialog} /> </Col>
+							<Col md={4}> <Button label="新建" primary={true} onTouchTap={this.openNewCreateDialog} /> </Col>
+							<Col md={4}> <Button label="查看" primary={true} onTouchTap={this.openViewDialog} /> </Col>
 							<Col md={4} align="right"> 
 									<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
 							</Col> 
 						</Row>
 					</Grid>
 
-
-				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='findFinaFinaflowPropertyList' ajaxParams={{
-					page:'',
-					pageSize:''
-				}} >
+				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='findFinaFinaflowPropertyList' ajaxParams={this.state.searchParams} >
 					<TableHeader>
 					<TableHeaderColumn>属性编码</TableHeaderColumn>
 					<TableHeaderColumn>属性名称</TableHeaderColumn>
@@ -136,6 +151,18 @@ export default class AttributeSetting  extends Component{
 						<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.onNewCreateCancel} />
 
 				  </Dialog>
+
+
+
+					<Dialog
+						title="查看"
+						modal={true}
+						open={this.state.openView}
+					>
+						<ItemDetail  detail={this.state.itemDetail} onCancel={this.openViewDialog} />
+				  </Dialog>
+
+
 			</div>		
 
 		);

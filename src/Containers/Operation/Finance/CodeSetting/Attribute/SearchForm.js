@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector} from 'redux-form';
+import {Actions,Store} from 'kr/Redux';
 
 import {
 	KrField,
@@ -26,9 +27,14 @@ import {
 		this.onCancel = this.onCancel.bind(this);
 	}
 
-	 onSubmit(){
-		 const {onSubmit} = this.props;
-		 onSubmit && onSubmit();
+	 onSubmit(form){
+
+	 	form.pageSize = 20;
+	 	form.page = 1;
+
+	 	
+		const {onSubmit} = this.props;
+	    onSubmit && onSubmit(form);
 	 }
 
 	 onCancel(){
@@ -44,18 +50,14 @@ import {
 
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
-				<KrField name="corporationName" type="text" label="出租方名称" /> 
 
-				<KrField name="corporationAddress" component="text" type="text" label="详细地址"/> 
-				<KrField name="corporationDesc" component="textarea" label="备注"  placeholder="备注信息"/> 
-
-				<Grid style={{marginTop:30}}>
-					<Row>
-						<Col md={8}></Col>
-						<Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
-						<Col md={2}> <Button  label="取消" type="button"  onTouchTap={this.onCancel} /> </Col>
-					</Row>
-				</Grid>
+              <Row>
+				<Col md={8}><KrField name="searchParam" type="text"  /></Col>
+				<Col md={4}><Button  label="查询" type="submit" primary={true} /></Col>
+              </Row>
+				
+			   
+					
 				</form>
 		);
 	}
