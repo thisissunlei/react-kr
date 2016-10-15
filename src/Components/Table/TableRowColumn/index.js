@@ -71,7 +71,7 @@ export default class TableRowColumn extends React.Component {
 		if(name){
 			return(
 				<td className={className} style={style} {...handlers} {...other}>
-						{value}
+					{value.toString()}
 				</td>
 			);
 		}

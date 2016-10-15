@@ -108,8 +108,8 @@ const APIS  = {
 	
 	//合同－属性配置－搜索（list）
 	'findFinaFinaflowPropertyList':{
-		url:'/api/krspace-finance-web/finaccount/property/findFinaFinaflowPropertyList',
-		method:'post'
+		url:'/api/krspace-finance-web/finaccount/property/findFinaFinaflowPropertyList?page={currentPage}&pageSize={pageSize}&searchParam={searchParam}',
+		method:'get'
 	},
 	//合同－属性配置－新建
 	'addFinaFinaflowProperty':{

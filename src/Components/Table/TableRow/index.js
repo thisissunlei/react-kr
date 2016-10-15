@@ -92,6 +92,7 @@ export default class TableRow extends React.Component {
 
 				if(name && itemData && itemData.hasOwnProperty(name)){
 					value = itemData[name];
+					value = value.toString();
 				}
 
 				return React.cloneElement(child, {

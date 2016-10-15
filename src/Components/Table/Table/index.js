@@ -64,9 +64,9 @@ export default class Table extends React.Component {
 		this.renderLoading = this.renderLoading.bind(this);
 
 		this.state = {
-			page:this.props.be,
+			page:this.props.page,
 			pageSize:this.props.pageSize,
-			totalCount:0,
+			totalCount:this.props.totalCount,
 			listData:[],
 			loading:false,
 			allRowsSelected:false,
@@ -264,6 +264,8 @@ export default class Table extends React.Component {
 	}
 
 	createTableBody(base){
+
+		console.log('---',this.state.listData);
 
 		return React.cloneElement(
 			base,
