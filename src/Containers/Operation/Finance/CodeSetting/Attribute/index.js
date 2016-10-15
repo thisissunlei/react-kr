@@ -22,6 +22,7 @@ import {
 
 
 import NewCreateForm from './NewCreateForm';
+import SearchForm from './SearchForm';
 
 
 export default class AttributeSetting  extends Component{
@@ -29,10 +30,14 @@ export default class AttributeSetting  extends Component{
 	constructor(props,context){
 		super(props, context);
 
-		this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
 		this.onNewCreateSubmit = this.onNewCreateSubmit.bind(this);
 		this.onNewCreateCancel = this.onNewCreateCancel.bind(this);
 
+		this.onSearchSubmit = this.onSearchSubmit.bind(this);
+		this.onSearchCancel = this.onSearchCancel.bind(this);
+
+
+		this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
 
 		this.state = {
 			openNewCreate:false,
@@ -43,14 +48,30 @@ export default class AttributeSetting  extends Component{
 
 	}
 
+
+	//搜索
+	onSearchSubmit(){
+
+	}
+
+	onSearchCancel(){
+
+	}
+
+
+	//新建
 	openNewCreateDialog(){
 		this.setState({
 			openNewCreate:!this.state.openNewCreate
 		});
 	}
 
-	onSubmit(form){
+	onNewCreateSubmit(form){
 		console.log('---',form);
+	}
+
+	onNewCreateCancel(){
+		this.openNewCreateDialog();
 	}
 
 	render(){
@@ -62,8 +83,9 @@ export default class AttributeSetting  extends Component{
 
 					<Grid>
 						<Row>
-							<Col md={8}> <Button label="新建" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
+							<Col md={8}> <Button label="新建" primary={true} onTouchTap={this.openNewCreateDialog} /> </Col>
 							<Col md={4} align="right"> 
+									<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
 							</Col> 
 						</Row>
 					</Grid>
