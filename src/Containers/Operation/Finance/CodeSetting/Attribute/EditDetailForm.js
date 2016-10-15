@@ -1,9 +1,8 @@
-
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+
 import {
 	KrField,
 	Grid,
@@ -28,17 +27,9 @@ import {
 		
 	}
 
-	 onSubmit(values){
-		 var _this = this;
-		Store.dispatch(Actions.callAPI('addFinaFinaflowProperty',{},values)).then(function(response){
-			
- 			}).catch(function(err){
-			Notify.show([{
-				message:'报错了',
-				type: 'danger',
-			}]);
-		});
+	 onSubmit(){
 		 const {onSubmit} = this.props;
+		 
 		 onSubmit && onSubmit();
 
 	 }
