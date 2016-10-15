@@ -110,7 +110,7 @@ export default class AttributeSetting  extends Component{
 		return(
 
 			<div>
-					<Section title="属性配置" description="" >
+					<Section title="科目配置" description="" >
 
 					<Grid>
 						<Row>
@@ -123,27 +123,29 @@ export default class AttributeSetting  extends Component{
 						</Row>
 					</Grid>
 
-				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='findFinaFinaflowPropertyList' ajaxParams={this.state.searchParams} >
-					<TableHeader>
-					<TableHeaderColumn>属性编码</TableHeaderColumn>
-					<TableHeaderColumn>属性名称</TableHeaderColumn>
-					<TableHeaderColumn>是否启用</TableHeaderColumn>
-					<TableHeaderColumn>属性类别</TableHeaderColumn>
-					<TableHeaderColumn>排序号</TableHeaderColumn>
-					<TableHeaderColumn>创建人</TableHeaderColumn>
-					<TableHeaderColumn>创建时间</TableHeaderColumn>
-					<TableHeaderColumn>操作</TableHeaderColumn>
-				</TableHeader>
+				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='getFinaFinaflowAccountModelByAjax' ajaxParams={{
+          accountname:'',
+          currentPage:1,
+          pageSize:10
+        }} >
+          <TableHeader>
+          <TableHeaderColumn>科目编码</TableHeaderColumn>
+          <TableHeaderColumn>科目名称</TableHeaderColumn>
+          <TableHeaderColumn>科目类别</TableHeaderColumn>
+          <TableHeaderColumn>是否启用</TableHeaderColumn>
+          <TableHeaderColumn>排序号</TableHeaderColumn>
+          <TableHeaderColumn>描述</TableHeaderColumn>
+          <TableHeaderColumn>操作</TableHeaderColumn>
+        </TableHeader>
 
 				<TableBody>
 						 <TableRow displayCheckbox={true}>
-						<TableRowColumn name="propdesc" ></TableRowColumn>
-						<TableRowColumn name="propname" ></TableRowColumn>
-						<TableRowColumn name="enableflag"></TableRowColumn>
-						<TableRowColumn name="proptype"></TableRowColumn>
-						<TableRowColumn name="ordernum"></TableRowColumn>
-						<TableRowColumn name="creatername"></TableRowColumn>
-						<TableRowColumn name="createdate"></TableRowColumn>
+						<TableRowColumn name="accountcode" ></TableRowColumn>
+              <TableRowColumn name="accountname"></TableRowColumn>
+              <TableRowColumn name="accounttype"></TableRowColumn>
+              <TableRowColumn name="enableflag"></TableRowColumn>
+              <TableRowColumn name="ordernum"></TableRowColumn>
+              <TableRowColumn name="accountdesc"></TableRowColumn>
 						<TableRowColumn actions={[
 							{
 								label:'查看',
