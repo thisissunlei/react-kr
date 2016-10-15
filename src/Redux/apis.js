@@ -177,6 +177,17 @@ const APIS  = {
 		url:'/mockjsdata/3/krspace-finance-web/finaccount/data/getFinaDataCommunityAndMainBillType',		
 		method:'get'
 	},
+	//财务管理－科目配置－新建(修改)
+	'saveFinaFinaflowAccountModel':{
+		url:'/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/saveFinaFinaflowAccountModel',		
+		method:'post'
+	},
+	//财务管理－科目配置－搜索(list)
+	'getFinaFinaflowAccountModelByAjax':{
+		url:'/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/getFinaFinaflowAccountModelByAjax',		
+		method:'get'
+	},
+	
 }
 
 module.exports =  APIS;
