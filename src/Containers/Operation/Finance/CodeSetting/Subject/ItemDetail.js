@@ -33,40 +33,42 @@ export default  class ItemDetail extends Component{
 	render(){
 
         let detail=this.props.detail;
-
-        /*
-        let detail={
-            propcode:"shenghuoxiaofeihuikuan" ,
-            propname:"生活消费类回款",
-            proptype:"INCOME",
-            ordernum:77,
-            propdesc:"aaaaaaaaaa",
-            enableflag:"ENABLE"
+         
+        
+        /*let detail={
+            accountcode:"feihuikuan" ,
+            accountname:"niaho",
+            accounttype:1,
+            ordernum:66,
+            accountdesc:"ttttt",
+            enableflag:1
          }
-         */
-         if(detail.enableflag=="ENABLE"){
+        */
+         if(detail.enableflag=="0"){
          	detail.enableflag="启用"
-         }else if(detail.enableflag=="DISENABLE"){
+         }else if(detail.enableflag=="1"){
          	detail.enableflag="不启用"
          }
         
-         if(detail.proptype=="INCOME"){
-         	detail.proptype="收入"
-         }else if(detail.proptype=="PAYMENT"){
-         	detail.proptype="回款"
+         if(detail.accounttype=="1"){
+         	detail.accounttype="收入"
+         }else if(detail.accounttype=="2"){
+         	detail.accounttype="回款"
          }
 
 		return (
 
 			<div>
-               <KrField component="labelText" label="属性编码" value={detail.propcode}/>
-               <KrField component="labelText" label="属性名称" value={detail.propname}/>
-               <KrField component="labelText" label="属性类别" value={detail.proptype}/>
+               <KrField component="labelText" label="科目编码" value={detail.accountcode}/>
+               <KrField component="labelText" label="科目名称" value={detail.accountname}/>
+               <KrField component="labelText" label="科目类别" value={detail.accounttype}/>
                <KrField component="labelText" label="排序号" value={detail.ordernum}/>
                
                <KrField component="labelText" label="是否启用"  value={detail.enableflag}/>
              
-               <KrField component="labelText" label="描述" value={detail.propdesc}/>
+               <KrField component="labelText" label="描述" value={detail.accountdesc}/>
+
+               <Button  label="取消" type="button"  onTouchTap={this.props.onCancel} />
 			</div>
 			
 		);
