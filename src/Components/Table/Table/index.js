@@ -67,6 +67,7 @@ export default class Table extends React.Component {
 		this.renderTableBody = this.renderTableBody.bind(this);
 		this.renderTableFooter = this.renderTableFooter.bind(this);
 		this.renderLoading = this.renderLoading.bind(this);
+		this.renderNotListData = this.renderNotListData.bind(this);
 
 		this.state = {
 			page:this.props.page,
@@ -345,6 +346,27 @@ export default class Table extends React.Component {
 	}
 
 
+	renderNotListData(){
+
+		let {className,children,style} = this.props;
+
+		return(
+			<table className={"table "+className} style={style}>
+				{this.renderTableHeader()}
+				<tbody>
+					<tr>
+						<TableRowColumn colSpan={100} >
+							<div style={{textAlign:'center',paddingTop:100,paddingBottom:100}}>
+								暂无数据
+							</div>
+						</TableRowColumn>
+					</tr>
+				</tbody>
+			</table>
+		);
+
+	}
+
 	renderTableBody(){
 
 		let {className,children,style} = this.props;
@@ -387,7 +409,7 @@ export default class Table extends React.Component {
 				{this.renderTableHeader()}
 				<tbody>
 					<tr>
-						<TableRowColumn colSpan={8} >
+						<TableRowColumn colSpan={100} >
 							<div style={{textAlign:'center',paddingTop:50,paddingBottom:50}}>
 									<Loading />
 							</div>
@@ -403,12 +425,17 @@ export default class Table extends React.Component {
 
 	render() {
 
+		let {className,children,style,ajax} = this.props;
+		let {listData} = this.state;
 
 		if(this.state.loading){
 			return this.renderLoading();
 		}
 
-		let {className,children,style} = this.props;
+		if(ajax && !listData.length){
+			return this.renderNotListData();
+		}
+
 
 
 		return (
