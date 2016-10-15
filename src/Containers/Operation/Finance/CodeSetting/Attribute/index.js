@@ -23,6 +23,7 @@ import {
 
 import NewCreateForm from './NewCreateForm';
 import SearchForm from './SearchForm';
+import ItemDetail from './ItemDetail';
 
 
 export default class AttributeSetting  extends Component{
@@ -38,9 +39,12 @@ export default class AttributeSetting  extends Component{
 
 
 		this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
+		this.openViewDialog = this.openViewDialog.bind(this);
 
 		this.state = {
 			openNewCreate:false,
+			openView:false,
+			itemDetail:{},
 			searchParams:{
 				page:1,
 				pageSize:20
@@ -50,6 +54,13 @@ export default class AttributeSetting  extends Component{
 
 	componentDidMount() {
 
+	}
+
+	//查看
+	openViewDialog(){
+		this.setState({
+			openView:!this.state.openView
+		});
 	}
 
 
@@ -90,7 +101,8 @@ export default class AttributeSetting  extends Component{
 
 					<Grid>
 						<Row>
-							<Col md={8}> <Button label="新建" primary={true} onTouchTap={this.openNewCreateDialog} /> </Col>
+							<Col md={4}> <Button label="新建" primary={true} onTouchTap={this.openNewCreateDialog} /> </Col>
+							<Col md={4}> <Button label="查看" primary={true} onTouchTap={this.openViewDialog} /> </Col>
 							<Col md={4} align="right"> 
 									<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
 							</Col> 
@@ -139,6 +151,18 @@ export default class AttributeSetting  extends Component{
 						<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.onNewCreateCancel} />
 
 				  </Dialog>
+
+
+
+					<Dialog
+						title="查看"
+						modal={true}
+						open={this.state.openView}
+					>
+						<ItemDetail  detail={this.state.itemDetail} onCancel={this.openViewDialog} />
+				  </Dialog>
+
+
 			</div>		
 
 		);
