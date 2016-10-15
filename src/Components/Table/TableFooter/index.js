@@ -15,9 +15,9 @@ export default class TableFooter extends React.Component {
 	static PropTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
-		page:React.PropTypes.number,
-		pageSize:React.PropTypes.number,
-		totalCount:React.PropTypes.number,
+		page: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
+		pageSize: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
+		totalCount: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
 		displayCheckbox:React.PropTypes.bool,
 
         onSelectAll:React.PropTypes.func,
@@ -63,6 +63,7 @@ export default class TableFooter extends React.Component {
 	render() {
 
 		let {className,children,totalCount,page,pageSize} = this.props;
+
 
 		return (
 			<tfoot className="tfoot">

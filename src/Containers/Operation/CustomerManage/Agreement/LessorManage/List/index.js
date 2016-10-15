@@ -63,8 +63,7 @@ let OrderCreateForm = function(props){
 				</KrField>
 				
 				<KrField name="corporationAddress" component="text" type="text" label="详细地址"/> 
-				 <KrField name="corporationDesc" component="textarea" label="备注"  placeholder="备注信息"/> 
-
+				<KrField name="corporationDesc" component="textarea" label="备注"  placeholder="备注信息"/> 
 
 				<Grid style={{marginTop:30}}>
 					<Row style={{marginTop:30}}>
@@ -150,7 +149,6 @@ class OrderCreate extends Component {
 
 	  window.setTimeout(function(){
 		  window.location.reload();
-
 	  },1000);
 
 	}
