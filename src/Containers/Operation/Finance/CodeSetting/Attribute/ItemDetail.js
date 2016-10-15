@@ -67,6 +67,9 @@ export default  class ItemDetail extends Component{
                <KrField component="labelText" label="是否启用"  value={detail.enableflag}/>
              
                <KrField component="labelText" label="描述" value={detail.propdesc}/>
+
+
+               <Button  label="取消" type="button"  onTouchTap={this.props.onCancel} /> 
 			</div>
 			
 		);
