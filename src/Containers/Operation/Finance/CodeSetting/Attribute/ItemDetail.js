@@ -22,9 +22,7 @@ export default  class ItemDetail extends Component{
     
 	constructor(props){
 		super(props);
-
 		this.onCancel = this.onCancel.bind(this);
-		
 	}
 
 	 onCancel(){

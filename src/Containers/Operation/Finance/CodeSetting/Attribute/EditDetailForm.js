@@ -1,8 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
-import {reduxForm,formValueSelector} from 'redux-form';
-
+import {reduxForm,formValueSelector,initialize} from 'redux-form';
+import {Actions,Store} from 'kr/Redux';
 import {
 	KrField,
 	Grid,
@@ -17,6 +17,8 @@ import {
 	 static PropTypes = {
 		 onSubmit:React.PropTypes.func,
 		 onCancel:React.PropTypes.func,
+		 detail:React.PropTypes.object,
+
 	 }
 
 	constructor(props){
@@ -24,20 +26,33 @@ import {
 
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
+		const detail=props.detail;
 		
+		
+		Store.dispatch(initialize('newCreateForm',detail));
+
+		
+
+
 	}
 
-	 onSubmit(){
-		 const {onSubmit} = this.props;
-		 
+	 onSubmit(values){
+		var _this = this;
+		Store.dispatch(Actions.callAPI('addFinaFinaflowProperty',{},values)).then(function(response){
+		}).catch(function(err){
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		});
+ 		const {onSubmit} = this.props;
 		 onSubmit && onSubmit();
 
 	 }
 
 	 onCancel(){
 		 const {onCancel} = this.props;
-		
-		 onCancel && onCancel();
+		onCancel && onCancel();
 		 
 	 }
 
@@ -49,7 +64,7 @@ import {
 
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
-				<KrField name="propcode" type="text" label="属性编码" /> 
+				<KrField name="propcode" type="text" label="属性编码"/> 
 				<KrField name="propname" type="text" label="属性名称" /> 
 				<KrField name="proptype" type="select" label="属性类别" options={[
 						{value:'PAYMENT',label:'回款'},
@@ -76,4 +91,7 @@ import {
 }
 
 
-export default reduxForm({ form: 'newCreateForm'})(NewCreateForm);
+export default reduxForm({ form: 'newCreateForm',
+	enableReinitialize:true,
+	keepDirtyOnReinitialize:true
+})(NewCreateForm);

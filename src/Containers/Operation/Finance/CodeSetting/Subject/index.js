@@ -150,7 +150,7 @@ class OrderCreate extends Component {
                 <Row style={{marginTop:30}}>
                 <Col md={8}></Col>
                 <Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
-                <Col md={2}> <Button  label="取消" type="button"  onTouchTap={onCancel} /> </Col>
+                <Col md={2}> <Button  label="取消" type="button" /> </Col>
                 </Row>
               </Grid>
 
