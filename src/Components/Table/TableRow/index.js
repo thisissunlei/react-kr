@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../../Button';
 
 export default class TableRow extends React.Component {
 
@@ -16,6 +17,7 @@ export default class TableRow extends React.Component {
 		selected: React.PropTypes.bool,
 		visibility: React.PropTypes.bool,
 		itemData:React.PropTypes.object,
+		onOperation:React.PropTypes.func
 	}
 
 	constructor(props){
@@ -27,6 +29,7 @@ export default class TableRow extends React.Component {
 		this.onRowHover = this.onRowHover.bind(this);
 		this.onRowHoverExit = this.onRowHoverExit.bind(this);
 		this.onRowClick = this.onRowClick.bind(this);
+		this.onOperation = this.onOperation.bind(this);
 
 		this.renderRow = this.renderRow.bind(this);
 		this.createRowColumn = this.createRowColumn.bind(this);
@@ -38,6 +41,18 @@ export default class TableRow extends React.Component {
 
 	onCellHover(){
 
+	}
+
+	onOperation(event){
+		const {onOperation}  = this.props;
+		let type = '';
+
+		try{
+		   type = event.target.getAttribute('data-operation');
+		}catch(err){
+			console.log("file:TableRow/index.js 53行 浏览器不支持getAttribute DOM方法")
+		}
+		onOperation && onOperation(type,this.props.itemData);
 	}
 
 	onCellHoverExit(){
@@ -67,16 +82,31 @@ export default class TableRow extends React.Component {
 
 	}
 
-	createRowColumn(basic,columnNumber){
+	createRowColumn(basic,columnNumber,rowNumber){
 
 		const {itemData} = this.props; 
-		let {name} = basic.props;
+		let {name,actions} = basic.props;
 		let value = '';
 
 		if(name && itemData && itemData.hasOwnProperty(name)){
 			value = itemData[name];
 			value = value.toString();
 		}
+		var _this = this;
+		let children = React.Children.map(basic.props.children,function(child,index){
+			if (React.isValidElement(child)) {
+				let {operation} = child.props;
+				if(operation){
+					return React.cloneElement(child,{
+						onTouchTap:_this.onOperation,
+						'data-operation':operation,
+						'data-row':rowNumber
+					});
+				}
+				return React.cloneElement(child);
+			}
+		});
+
 
 		return React.cloneElement(basic, {
 			columnNumber: columnNumber,
@@ -86,7 +116,7 @@ export default class TableRow extends React.Component {
 			onHover: this.onCellHover,
 			onHoverExit: this.onCellHoverExit,
 			value,
-		});
+		},children);
 	}
 
 	renderRow(){
@@ -110,7 +140,7 @@ export default class TableRow extends React.Component {
 
 		let rowColumns = React.Children.map(this.props.children, (child, columnNumber) => {
 			if (React.isValidElement(child)) {
-				return this.createRowColumn(child,columnNumber);
+				return this.createRowColumn(child,columnNumber,rowNumber);
 			}
 		});
 

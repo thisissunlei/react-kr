@@ -38,6 +38,7 @@ export default class Table extends React.Component {
 		onCellClick:React.PropTypes.func,
 		onRowClick:React.PropTypes.func,
 		onPageChange:React.PropTypes.func,
+		onOperation:React.PropTypes.func,
 	}
 
 	constructor(props){
@@ -54,6 +55,7 @@ export default class Table extends React.Component {
 		this.onExport = this.onExport.bind(this);
 		this.onCellClick = this.onCellClick.bind(this);
 		this.onPageChange = this.onPageChange.bind(this);
+		this.onOperation = this.onOperation.bind(this);
 
 		this.onLoadData  = this.onLoadData.bind(this);
 
@@ -76,6 +78,13 @@ export default class Table extends React.Component {
 				checkboxWidth:40
 			}
 		}
+	}
+
+
+	onOperation(type,itemData){
+		const {onOperation}  = this.props;
+		onOperation && onOperation(type,itemData);
+		console.log('type',type,itemData);
 	}
 
 	onPageChange(page){
@@ -265,8 +274,6 @@ export default class Table extends React.Component {
 
 	createTableBody(base){
 
-		console.log('---',this.state.listData);
-
 		return React.cloneElement(
 			base,
 			{
@@ -275,9 +282,10 @@ export default class Table extends React.Component {
 				selectedRows:this.state.selectedRows,
 				visibilityRows:this.state.visibilityRows,
 				onRowClick:this.onRowClick,
+				onOperation:this.onOperation,
 				defaultValue:this.state.defaultValue,
 				listData:this.state.listData,
-				ajax:this.props.ajax
+				ajax:this.props.ajax,
 			}
 		);
 

@@ -17,6 +17,7 @@ export default class TableBody extends React.Component {
 		setRowTotalCount:React.PropTypes.func,
 		defaultValue:React.PropTypes.object,
 		listData:React.PropTypes.listData,
+		onOperation:React.PropTypes.func,
 	}
 
 	
@@ -33,6 +34,7 @@ export default class TableBody extends React.Component {
 		this.onRowHover = this.onRowHover.bind(this);
 		this.onRowHoverExit = this.onRowHoverExit.bind(this);
 		this.onRowClick = this.onRowClick.bind(this);
+		this.onOperation = this.onOperation.bind(this);
 
 		this.createRowCheckboxColumn = this.createRowCheckboxColumn.bind(this);
 
@@ -68,6 +70,11 @@ export default class TableBody extends React.Component {
 				<TableRowColumn colSpan={colSpan}> {insertElement} </TableRowColumn>
 			</TableRow>
 		)
+	}
+
+	onOperation(type,itemData){
+		const {onOperation}  = this.props;
+		onOperation && onOperation(type,itemData);
 	}
 
 	onCellClick(){
@@ -139,6 +146,7 @@ export default class TableBody extends React.Component {
 			onRowHover: this.onRowHover,
 			onRowHoverExit: this.onRowHoverExit,
 			onRowClick: this.onRowClick,
+			onOperation:this.onOperation,
 		};
 
 		let displayCheckbox = false;

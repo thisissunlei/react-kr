@@ -39,6 +39,13 @@ export default class Button extends Component{
 			);
 		}
 
+
+		if(type == 'operation'){
+			return (
+				<span {...other}>{label}</span>
+			);
+		}
+
 		if(type == 'submit'){
 			return (
 				<RaisedButton label={label} style={{minWidth:30}} type="submit" labelStyle={labelStyles} {...other} />

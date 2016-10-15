@@ -144,16 +144,9 @@ export default class AttributeSetting  extends Component{
 						<TableRowColumn name="ordernum"></TableRowColumn>
 						<TableRowColumn name="creatername"></TableRowColumn>
 						<TableRowColumn name="createdate"></TableRowColumn>
-						<TableRowColumn actions={[
-							{
-								label:'查看',
-							},
-							{
-								label:'编辑',
-							}
-						]}>
-							  <Button label="查看"  type="link" />
-							  <Button label="编辑"  type="link" />
+						<TableRowColumn>
+							  <Button label="查看"  type="operation" operation="view"/>
+							  <Button label="编辑"  type="operation" operation="edit"/>
 						 </TableRowColumn>
 					 </TableRow>
 				</TableBody>

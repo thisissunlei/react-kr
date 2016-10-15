@@ -42,6 +42,7 @@ export default class AttributeSetting  extends Component{
 		this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
 		this.openViewDialog = this.openViewDialog.bind(this);
 		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
+		this.onOperation = this.onOperation.bind(this);
 
 		this.state = {
 			openNewCreate:false,
@@ -59,6 +60,18 @@ export default class AttributeSetting  extends Component{
 
 	}
 
+	//操作相关
+	onOperation(type,itemDetail){
+		this.setState({
+			itemDetail
+		});
+		if(type == 'view'){
+			this.openViewDialog();
+		}else if(type == 'edit'){
+			this.openEditDetailDialog();
+		}
+	}
+
 	//编辑
 	openEditDetailDialog(){
 		this.setState({
@@ -67,7 +80,7 @@ export default class AttributeSetting  extends Component{
 	}
 
 	onEditSubmit(){
-
+		this.openEditDetailDialog();
 	}
 
 	//查看
@@ -123,7 +136,8 @@ export default class AttributeSetting  extends Component{
 						</Row>
 					</Grid>
 
-				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='findFinaFinaflowPropertyList' ajaxParams={this.state.searchParams} >
+
+				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='findFinaFinaflowPropertyList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} >
 					<TableHeader>
 					<TableHeaderColumn>属性编码</TableHeaderColumn>
 					<TableHeaderColumn>属性名称</TableHeaderColumn>
@@ -144,16 +158,9 @@ export default class AttributeSetting  extends Component{
 						<TableRowColumn name="ordernum"></TableRowColumn>
 						<TableRowColumn name="creatername"></TableRowColumn>
 						<TableRowColumn name="createdate"></TableRowColumn>
-						<TableRowColumn actions={[
-							{
-								label:'查看',
-							},
-							{
-								label:'编辑',
-							}
-						]}>
-							  <Button label="查看"  type="link" />
-							  <Button label="编辑"  type="link" />
+						<TableRowColumn>
+							  <Button label="查看"  type="operation" operation="view"/>
+							  <Button label="编辑"  type="operation" operation="edit"/>
 						 </TableRowColumn>
 					 </TableRow>
 				</TableBody>
