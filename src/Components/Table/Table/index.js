@@ -6,6 +6,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import TableBody from '../TableBody';
 import TableRow from '../TableRow';
 import TableRowColumn from '../TableRowColumn';
+import Notify from '../../Notify';
 
 import './index.less';
 
@@ -40,6 +41,7 @@ export default class Table extends React.Component {
 		onRowClick:React.PropTypes.func,
 		onPageChange:React.PropTypes.func,
 		onOperation:React.PropTypes.func,
+		onLoaded:React.PropTypes.func,
 	}
 
 	constructor(props){
@@ -59,6 +61,7 @@ export default class Table extends React.Component {
 		this.onCellClick = this.onCellClick.bind(this);
 		this.onPageChange = this.onPageChange.bind(this);
 		this.onOperation = this.onOperation.bind(this);
+		this.onLoaded = this.onLoaded.bind(this);
 
 		this.onLoadData  = this.onLoadData.bind(this);
 
@@ -70,6 +73,7 @@ export default class Table extends React.Component {
 		this.renderNotListData = this.renderNotListData.bind(this);
 
 		this.state = {
+			response:{},
 			page:this.props.page,
 			pageSize:this.props.pageSize,
 			totalCount:this.props.totalCount,
@@ -95,6 +99,14 @@ export default class Table extends React.Component {
 
 	shouldComponentUpdate(nextProps,nextState){
 	}
+
+	onLoaded(){
+		const {onLoaded} = this.props;
+		onLoaded && onLoaded(this.state.response);
+	}
+
+
+
 	onOperation(type,itemData){
 		const {onOperation}  = this.props;
 		onOperation && onOperation(type,itemData);
@@ -149,15 +161,17 @@ export default class Table extends React.Component {
 
 		http.request(ajaxUrlName,ajaxParams).then(function(response){
 			_this.setState({
+				response:response,
 				listData:response.items,
 				page:response.page,
 				pageSize:response.pageSize,
 				totalCount:response.totalCount
 			});
 		}).catch(function(err){
-			_this.setState({
-				loading:true
-			});
+			Notify.show([{
+				message:err.message,
+				type: 'error',
+			}]);
 		});
 
 		window.setTimeout(function(){
