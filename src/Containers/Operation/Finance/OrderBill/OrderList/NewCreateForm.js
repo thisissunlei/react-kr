@@ -25,12 +25,47 @@ import {
 
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
+
+		this.state={
+			communityList:[]
+		}
 		
 	}
+	componentDidMount() {
 
+		var _this = this;
+		Store.dispatch(Actions.callAPI('getFinaDataCommunityAndMainBillType')).then(function(response){
+			console.log(response.communityAndMainBillTypeMap)
+			const communityList=response.communityAndMainBillTypeMap.communityList
+			const mainbilltypeList=response.communityAndMainBillTypeMap.mainbilltypeList
+			communityList.map(function(item,index){
+				 item.label = item.communityname;
+				 item.value=item.id
+				return item;
+			});
+
+			_this.setState({
+				communityList
+			});
+
+
+			/*mainbilltypeList.map(function(item,index){
+				 item.label = item.communityId;
+				return item;
+			});*/
+
+		}).catch(function(err){
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		});
+
+		
+	}
 	 onSubmit(values){
 		 var _this = this;
-		Store.dispatch(Actions.callAPI('addFinaFinaflowProperty',{},values)).then(function(response){
+		Store.dispatch(Actions.callAPI('getFinaDataCommunityAndMainBillType',{},values)).then(function(response){
 			
  			}).catch(function(err){
 			Notify.show([{
@@ -38,8 +73,8 @@ import {
 				type: 'danger',
 			}]);
 		});
-		 const {onSubmit} = this.props;
-		 onSubmit && onSubmit();
+		// const {onSubmit} = this.props;
+		// onSubmit && onSubmit();
 
 	 }
 
@@ -57,22 +92,18 @@ import {
 		return (
 
 			<form onSubmit={handleSubmit(this.onSubmit)}>
-				<KrField name="propname" type="text" label="客户名称" /> 
-				<KrField name="proptype" type="select" label="所属社区" options={[
+				<KrField name="customername" type="text" label="客户名称" /> 
+				<KrField name="communityid" type="select" label="所属社区" options={this.state.communityList} >
+				</KrField>
+				<KrField name="mainbilltype" type="select" label="订单类型" options={[
 						{value:'PAYMENT',label:'回款'},
 					   {value:'INCOME',label:'收入'},
 				]} >
 				</KrField>
-				<KrField name="proptype" type="select" label="订单类型" options={[
-						{value:'PAYMENT',label:'回款'},
-					   {value:'INCOME',label:'收入'},
-				]} >
-				</KrField>
-				<KrField name="enableflag" component="group" label="是否启用">
-                <KrField name="enableflag" label="是" type="radio" value="1"/>
-                <KrField name="enableflag" label="否" type="radio" value="0" />
-              </KrField> 
-				<KrField name="propdesc" component="textarea" label="描述"  /> 
+				<KrField  name="startDate" component="date" label="起始时间"/>
+				<KrField name="endDate" component="date" label="结束时间"/>
+             
+				
 
 				<Grid style={{marginTop:30}}>
 					<Row>
