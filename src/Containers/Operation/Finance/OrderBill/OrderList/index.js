@@ -150,7 +150,7 @@ export default class AttributeSetting  extends Component{
 					</Grid>
 
 
-				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='getFinaDataByList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} >
+				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true} ajaxFieldListName="finaContractMainbillVOList" ajaxUrlName='getFinaDataByList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} >
 					<TableHeader>
 					<TableHeaderColumn>公司名称</TableHeaderColumn>
 					<TableHeaderColumn>订单类型</TableHeaderColumn>
