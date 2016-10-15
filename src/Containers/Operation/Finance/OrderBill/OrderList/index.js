@@ -45,6 +45,8 @@ export default class AttributeSetting  extends Component{
 		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
 		this.onOperation = this.onOperation.bind(this);
 
+		this.onLoaded = this.onLoaded.bind(this);
+
 		this.state = {
 			openNewCreate:false,
 			openView:false,
@@ -61,10 +63,15 @@ export default class AttributeSetting  extends Component{
 
 	}
 
+	onLoaded(response){
+     let 
+	 console.log('re',response);
+
+	}
+
 	//操作相关
 	onOperation(type,itemDetail){
 
-		console.log("-000");
 
 		this.setState({
 			itemDetail
@@ -99,7 +106,7 @@ export default class AttributeSetting  extends Component{
 
 	//搜索
 	onSearchSubmit(searchParams){
-		console.log('------');
+		
 		this.setState({
 			searchParams
 		});
@@ -135,8 +142,9 @@ export default class AttributeSetting  extends Component{
 					<Grid>
 						<Row>
 							<Col md={3}> 
-							    <KrField label="收入总额" component="labelText" primary={true}/>
+							    <KrField label="收入总额" component="labelText" primary={true} />
 							</Col>
+                            
 							<Col md={3}> 
 							    <KrField label="回款总额" component="labelText" primary={true}/>
 							</Col>
@@ -146,11 +154,14 @@ export default class AttributeSetting  extends Component{
 							<Col md={4} align="right"> 
 									<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
 							</Col> 
+							<Col md={4} align="right"> 
+									<Button onTouchTap={this.openNewCreateDialog} label="查询"/>
+							</Col> 
 						</Row>
 					</Grid>
 
 
-				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true} ajaxFieldListName="finaContractMainbillVOList" ajaxUrlName='getFinaDataByList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} >
+				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true} onLoaded={this.onLoaded} ajaxFieldListName="finaContractMainbillVOList" ajaxUrlName='getFinaDataByList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} >
 					<TableHeader>
 					<TableHeaderColumn>公司名称</TableHeaderColumn>
 					<TableHeaderColumn>订单类型</TableHeaderColumn>

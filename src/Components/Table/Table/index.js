@@ -169,7 +169,9 @@ export default class Table extends React.Component {
 				pageSize:response.pageSize,
 				totalCount:response.totalCount
 			});
+			_this.onLoaded();
 		}).catch(function(err){
+			_this.onLoaded();
 			Notify.show([{
 				message:err.message,
 				type: 'error',
