@@ -24,6 +24,7 @@ import {
 import NewCreateForm from './NewCreateForm';
 import SearchForm from './SearchForm';
 import ItemDetail from './ItemDetail';
+import EditDetailForm from './EditDetailForm';
 
 
 export default class AttributeSetting  extends Component{
@@ -32,18 +33,20 @@ export default class AttributeSetting  extends Component{
 		super(props, context);
 
 		this.onNewCreateSubmit = this.onNewCreateSubmit.bind(this);
-		this.onNewCreateCancel = this.onNewCreateCancel.bind(this);
 
 		this.onSearchSubmit = this.onSearchSubmit.bind(this);
-		this.onSearchCancel = this.onSearchCancel.bind(this);
+
+		this.onEditSubmit = this.onEditSubmit.bind(this);
 
 
 		this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
 		this.openViewDialog = this.openViewDialog.bind(this);
+		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
 
 		this.state = {
 			openNewCreate:false,
 			openView:false,
+			openEditDetail:false,
 			itemDetail:{},
 			searchParams:{
 				page:1,
@@ -53,6 +56,17 @@ export default class AttributeSetting  extends Component{
 	}
 
 	componentDidMount() {
+
+	}
+
+	//编辑
+	openEditDetailDialog(){
+		this.setState({
+			openEditDetail:!this.state.openEditDetail
+		});
+	}
+
+	onEditSubmit(){
 
 	}
 
@@ -101,8 +115,9 @@ export default class AttributeSetting  extends Component{
 
 					<Grid>
 						<Row>
-							<Col md={4}> <Button label="新建" primary={true} onTouchTap={this.openNewCreateDialog} /> </Col>
-							<Col md={4}> <Button label="查看" primary={true} onTouchTap={this.openViewDialog} /> </Col>
+							<Col md={3}> <Button label="新建" primary={true} onTouchTap={this.openNewCreateDialog} /> </Col>
+							<Col md={3}> <Button label="编辑" primary={true} onTouchTap={this.openEditDetailDialog} /> </Col>
+							<Col md={3}> <Button label="查看" primary={true} onTouchTap={this.openViewDialog} /> </Col>
 							<Col md={4} align="right"> 
 									<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
 							</Col> 
@@ -148,11 +163,18 @@ export default class AttributeSetting  extends Component{
 						modal={true}
 						open={this.state.openNewCreate}
 					>
-						<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.onNewCreateCancel} />
+						<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 
 				  </Dialog>
 
 
+					<Dialog
+						title="编辑"
+						modal={true}
+						open={this.state.openEditDetail}
+					>
+						<EditDetailForm  detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog} />
+				  </Dialog>
 
 					<Dialog
 						title="查看"
