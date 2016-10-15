@@ -41,6 +41,10 @@ export default class AttributeSetting  extends Component{
 
 		this.state = {
 			openNewCreate:false,
+			searchParams:{
+				page:1,
+				pageSize:20
+			}
 		}
 	}
 
@@ -50,8 +54,10 @@ export default class AttributeSetting  extends Component{
 
 
 	//搜索
-	onSearchSubmit(){
-
+	onSearchSubmit(searchParams){
+		this.setState({
+			searchParams
+		});
 	}
 
 	onSearchCancel(){
@@ -68,6 +74,7 @@ export default class AttributeSetting  extends Component{
 
 	onNewCreateSubmit(form){
 		console.log('---',form);
+		window.location.reload();
 	}
 
 	onNewCreateCancel(){
@@ -90,11 +97,7 @@ export default class AttributeSetting  extends Component{
 						</Row>
 					</Grid>
 
-
-				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='findFinaFinaflowPropertyList' ajaxParams={{
-					page:'',
-					pageSize:''
-				}} >
+				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='findFinaFinaflowPropertyList' ajaxParams={this.state.searchParams} >
 					<TableHeader>
 					<TableHeaderColumn>属性编码</TableHeaderColumn>
 					<TableHeaderColumn>属性名称</TableHeaderColumn>
