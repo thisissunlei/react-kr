@@ -38,7 +38,7 @@ import {
 
 	 onSubmit(values){
 		var _this = this;
-		Store.dispatch(Actions.callAPI('addFinaFinaflowProperty',{},values)).then(function(response){
+		Store.dispatch(Actions.callAPI('saveFinaFinaflowAccountModel',{},values)).then(function(response){
 		}).catch(function(err){
 			Notify.show([{
 				message:'报错了',
@@ -63,10 +63,10 @@ import {
 		return (
 
 			<form onSubmit={handleSubmit(this.onSubmit)}>
-
-				<KrField name="propcode" type="text" label="属性编码"/> 
-				<KrField name="propname" type="text" label="属性名称" /> 
-				<KrField name="proptype" type="select" label="属性类别" options={[
+				<KrField name="id" type="hidden" label="id"/> 
+				<KrField name="accountcode" type="text" label="属性编码"/> 
+				<KrField name="accountname" type="text" label="属性名称" /> 
+				<KrField name="accounttype" type="select" label="属性类别" options={[
 						{value:'PAYMENT',label:'回款'},
 					   {value:'INCOME',label:'收入'},
 				]} >
@@ -76,7 +76,7 @@ import {
                 <KrField name="enableflag" label="是" type="radio" value="1"/>
                 <KrField name="enableflag" label="否" type="radio" value="0" />
               </KrField> 
-				<KrField name="propdesc" component="textarea" label="描述"  /> 
+				<KrField name="accountdesc" component="textarea" label="描述"  /> 
 
 				<Grid style={{marginTop:30}}>
 					<Row>
