@@ -154,7 +154,6 @@ export default class AttributeSetting  extends Component{
 					<TableHeader>
 					<TableHeaderColumn>公司名称</TableHeaderColumn>
 					<TableHeaderColumn>订单类型</TableHeaderColumn>
-					<TableHeaderColumn>是否启用</TableHeaderColumn>
 					<TableHeaderColumn>所在社区</TableHeaderColumn>
 					<TableHeaderColumn>起始日期</TableHeaderColumn>
 					<TableHeaderColumn>结束日期</TableHeaderColumn>
@@ -168,13 +167,12 @@ export default class AttributeSetting  extends Component{
 						 <TableRow displayCheckbox={true}>
 						<TableRowColumn name="customername" ></TableRowColumn>
 						<TableRowColumn name="mainbilltype" ></TableRowColumn>
-						<TableRowColumn name="enableflag"></TableRowColumn>
-						<TableRowColumn name="proptype"></TableRowColumn>
-						<TableRowColumn name="ordernum"></TableRowColumn>
-						<TableRowColumn name="creatername"></TableRowColumn>
-						<TableRowColumn name="createdate"></TableRowColumn>
-						<TableRowColumn name="creatername"></TableRowColumn>
-						<TableRowColumn name="createdate"></TableRowColumn>
+						<TableRowColumn name="community"></TableRowColumn>
+						<TableRowColumn name="actualEntrydate"></TableRowColumn>
+						<TableRowColumn name="actualLeavedate"></TableRowColumn>
+						<TableRowColumn name="come"></TableRowColumn>
+						<TableRowColumn name="backMount"></TableRowColumn>
+						<TableRowColumn name="mount"></TableRowColumn>
 						<TableRowColumn>
 							  <Button label="查看"  type="operation" operation="view"/>
 							  <Button label="生成对账单"  type="operation" operation="edit"/>
