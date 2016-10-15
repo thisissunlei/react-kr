@@ -18,6 +18,7 @@ export default class Table extends React.Component {
 		totalCount:20,
 		loading:false,
 		ajax:false,
+		ajaxFieldListName:'items',
 	}
 
 	static PropTypes = {
@@ -33,6 +34,7 @@ export default class Table extends React.Component {
 		ajax:React.PropTypes.bool,
 		ajaxUrlName:React.PropTypes.string,
 		ajaxParams:React.PropTypes.object,
+		ajaxFieldListName:React.PropTypes.string,
 
 		//事件
 		onExport:React.PropTypes.func,
@@ -162,7 +164,7 @@ export default class Table extends React.Component {
 		http.request(ajaxUrlName,ajaxParams).then(function(response){
 			_this.setState({
 				response:response,
-				listData:response.items,
+				listData:response[_this.props.ajaxFieldListName],
 				page:response.page,
 				pageSize:response.pageSize,
 				totalCount:response.totalCount

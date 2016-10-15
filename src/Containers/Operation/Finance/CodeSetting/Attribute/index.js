@@ -63,8 +63,6 @@ export default class AttributeSetting  extends Component{
 	//操作相关
 	onOperation(type,itemDetail){
 
-		console.log("-000");
-
 		this.setState({
 			itemDetail
 		});
