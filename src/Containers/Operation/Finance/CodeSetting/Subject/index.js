@@ -1,22 +1,28 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
-
-import Section from 'kr-ui/Section';
-import {KrField,LabelText} from 'kr-ui/Form';
-
 import {reduxForm,formValueSelector} from 'redux-form';
-
-
-import BreadCrumbs from 'kr-ui/BreadCrumbs';
-
-
-import {Grid,Row,Col} from 'kr-ui/Grid';
-
 import {Dialog,Snackbar} from 'material-ui';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import {
+  Table, 
+  TableBody,
+  TableHeader, 
+  TableHeaderColumn, 
+  TableRow, 
+  TableRowColumn,
+  TableFooter,
+  Grid,
+  Row,
+  Col,
+  BreadCrumbs,
+  Section,
+  KrField,
+  LabelText,
+  Button,
+}from 'kr-ui';
 
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
+
 
 
 class OrderCreate extends Component {
@@ -34,6 +40,10 @@ class OrderCreate extends Component {
 
 
   }
+  componentDidMount() {
+
+  }
+
 
 
   confirmSubmit(values){
@@ -73,45 +83,43 @@ class OrderCreate extends Component {
             <Col md={2}> <RaisedButton label="新建代码" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
             <Col md={6}> </Col>
             <Col md={2}> <KrField name="username" type="text" /></Col> 
-            <Col md={2}> <RaisedButton label="搜索" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
+            <Col md={2}> <RaisedButton label="搜索" primary={true}  /> </Col>
           </Row>
         </Grid>
+        <Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='getFinaFinaflowAccountModelByAjax' ajaxParams={{
+          accountname:'',
+          currentPage:1,
+          pageSize:10
+        }} >
+          <TableHeader>
+          <TableHeaderColumn>科目编码</TableHeaderColumn>
+          <TableHeaderColumn>科目名称</TableHeaderColumn>
+          <TableHeaderColumn>科目类别</TableHeaderColumn>
+          <TableHeaderColumn>是否启用</TableHeaderColumn>
+          <TableHeaderColumn>排序号</TableHeaderColumn>
+          <TableHeaderColumn>描述</TableHeaderColumn>
+          <TableHeaderColumn>操作</TableHeaderColumn>
+        </TableHeader>
 
-            <Table displayCheckbox={true} style={{marginTop:20}}  toggleVisibility="odd">
-                <TableHeader>
-                  <TableHeaderColumn>科目编码</TableHeaderColumn>
-                  <TableHeaderColumn>科目名称</TableHeaderColumn>
-                  <TableHeaderColumn>科目类型</TableHeaderColumn>
-                  <TableHeaderColumn>是否启用</TableHeaderColumn>
-                  <TableHeaderColumn>排序号</TableHeaderColumn>
-                  <TableHeaderColumn>描述</TableHeaderColumn>
-                  <TableHeaderColumn>操作</TableHeaderColumn>
-                </TableHeader>
         <TableBody>
-
-          <TableRow  >
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>Steve Brown</TableRowColumn>
-            <TableRowColumn><RaisedButton label="创建订单" href="/#/operation/customerManage/343/order/create" /></TableRowColumn>
-         </TableRow>
-          <TableRow  >
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>4</TableRowColumn>
-            <TableRowColumn>Steve Brown</TableRowColumn>
-            <TableRowColumn><RaisedButton label="创建订单" href="/#/operation/customerManage/343/order/create" /></TableRowColumn>
-         </TableRow>
+              <TableRow displayCheckbox={true}>
+              <TableRowColumn name="accountcode" ></TableRowColumn>
+              <TableRowColumn name="accountname"></TableRowColumn>
+              <TableRowColumn name="accounttype"></TableRowColumn>
+              <TableRowColumn name="enableflag"></TableRowColumn>
+              <TableRowColumn name="ordernum"></TableRowColumn>
+              <TableRowColumn name="accountdesc"></TableRowColumn>
+              <TableRowColumn>
+                  <Button label="查看"  type="link" />
+                  <Button label="编辑"  type="link" />
+               </TableRowColumn>
+             </TableRow>
         </TableBody>
 
         <TableFooter></TableFooter>
 
-       </Table>
+        </Table>
+           
 
       </Section>
 
@@ -127,43 +135,24 @@ class OrderCreate extends Component {
         <form onSubmit={handleSubmit(this.confirmSubmit)}>
 
 
-        <Grid style={{marginTop:30}}>
-
-          <Row>
-            <Col md={12} > <KrField name="username" type="text" label="出租方名称" /> </Col>
-          </Row>
-
-          <Row>
-            <Col md={4} > 
-                <KrField name="city" label="是否启用" type="radio"/>
-             </Col>
-             <Col md={4} > 
-                <KrField name="city" label="是" type="radio" />
-             </Col>
-             <Col md={4} > 
-                <KrField name="city" label="否" type="radio" />
-             </Col>
-          </Row>
-
-          <Row>
-            <Col md={12} > <KrField name="ordername" type="text" label="详细地址"/> </Col>
-          </Row>
-
-          <Row>
-            <Col md={12} > <KrField name="mainbilldesc" type="textarea" label="备注"  placeholder="备注信息"/> </Col>
-          </Row>
-
-          <Row style={{marginTop:30}}>
-            <Col md={8}></Col>
-            <Col md={2}> <RaisedButton  label="确定" type="submit" primary={true} /> </Col>
-            <Col md={2}> <RaisedButton  label="取消" type="submit"  onTouchTap={this.openCreateDialog} /> </Col>
-          </Row>
-
-        </Grid>
-
-      {/*
-      <FlatButton label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
-      */}
+            <KrField name="corporationName" type="text" label="科目编码" /> 
+            <KrField name="corporationName" type="text" label="科目名称" /> 
+            <KrField name="corporationName" type="text" label="科目类别" >
+              <option>123</option>
+            </KrField>
+            <KrField name="corporationAddress" component="text" type="text" label="排序号"/> 
+              <KrField name="enableflag" component="group" label="是否启用">
+                <KrField name="enableflag" label="是" type="radio" value="1"/>
+                <KrField name="enableflag" label="否" type="radio" value="0" />
+              </KrField>
+               <KrField name="corporationDesc" component="textarea" label="备注"  placeholder="备注信息"/> 
+              <Grid style={{marginTop:30}}>
+                <Row style={{marginTop:30}}>
+                <Col md={8}></Col>
+                <Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
+                <Col md={2}> <Button  label="取消" type="button"  onTouchTap={onCancel} /> </Col>
+                </Row>
+              </Grid>
 
     </form>
 
