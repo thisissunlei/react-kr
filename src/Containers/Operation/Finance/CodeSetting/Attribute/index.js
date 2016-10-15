@@ -21,7 +21,7 @@ import {
 } from 'kr-ui';
 
 
-
+import NewCreateForm from './NewCreateForm';
 
 
 export default class AttributeSetting  extends Component{
@@ -29,6 +29,7 @@ export default class AttributeSetting  extends Component{
 	constructor(props,context){
 		super(props, context);
 		this.openCreateDialog = this.openCreateDialog.bind(this);
+		this.onSubmit = this.onSubmit.bind(this);
 
 
 		this.state = {
@@ -44,6 +45,10 @@ export default class AttributeSetting  extends Component{
 		this.setState({
 			openCreate:!this.state.openCreate
 		});
+	}
+
+	onSubmit(form){
+		console.log('---',form);
 	}
 
 	render(){
@@ -104,6 +109,7 @@ export default class AttributeSetting  extends Component{
 						modal={true}
 						open={this.state.openCreate}
 					>
+						<NewCreateForm onSubmit={this.onSubmit} />
 
 				  </Dialog>
 			</div>		
