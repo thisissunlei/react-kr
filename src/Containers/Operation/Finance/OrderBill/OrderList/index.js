@@ -6,6 +6,7 @@ import * as actionCreators from 'kr-ui/../Redux/Actions';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import {
+	KrField,
 	Table,
 	TableBody, 
 	TableHeader, 
@@ -133,7 +134,15 @@ export default class AttributeSetting  extends Component{
 
 					<Grid>
 						<Row>
-							<Col md={8}> <Button label="新建" primary={true} onTouchTap={this.openNewCreateDialog} /> </Col>
+							<Col md={3}> 
+							    <KrField label="收入总额" component="labelText" primary={true}/>
+							</Col>
+							<Col md={3}> 
+							    <KrField label="回款总额" component="labelText" primary={true}/>
+							</Col>
+							<Col md={2}> 
+							    <KrField label="余额" component="labelText" primary={true}/>
+							</Col>
 							<Col md={4} align="right"> 
 									<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
 							</Col> 
@@ -141,30 +150,34 @@ export default class AttributeSetting  extends Component{
 					</Grid>
 
 
-				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='findFinaFinaflowPropertyList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} >
+				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='getFinaDataByList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} >
 					<TableHeader>
-					<TableHeaderColumn>属性编码</TableHeaderColumn>
-					<TableHeaderColumn>属性名称</TableHeaderColumn>
+					<TableHeaderColumn>公司名称</TableHeaderColumn>
+					<TableHeaderColumn>订单类型</TableHeaderColumn>
 					<TableHeaderColumn>是否启用</TableHeaderColumn>
-					<TableHeaderColumn>属性类别</TableHeaderColumn>
-					<TableHeaderColumn>排序号</TableHeaderColumn>
-					<TableHeaderColumn>创建人</TableHeaderColumn>
-					<TableHeaderColumn>创建时间</TableHeaderColumn>
+					<TableHeaderColumn>所在社区</TableHeaderColumn>
+					<TableHeaderColumn>起始日期</TableHeaderColumn>
+					<TableHeaderColumn>结束日期</TableHeaderColumn>
+					<TableHeaderColumn>收入总额</TableHeaderColumn>
+					<TableHeaderColumn>回款总额</TableHeaderColumn>
+					<TableHeaderColumn>余额</TableHeaderColumn>
 					<TableHeaderColumn>操作</TableHeaderColumn>
 				</TableHeader>
 
 				<TableBody>
 						 <TableRow displayCheckbox={true}>
-						<TableRowColumn name="propdesc" ></TableRowColumn>
-						<TableRowColumn name="propname" ></TableRowColumn>
+						<TableRowColumn name="customername" ></TableRowColumn>
+						<TableRowColumn name="mainbilltype" ></TableRowColumn>
 						<TableRowColumn name="enableflag"></TableRowColumn>
 						<TableRowColumn name="proptype"></TableRowColumn>
 						<TableRowColumn name="ordernum"></TableRowColumn>
 						<TableRowColumn name="creatername"></TableRowColumn>
 						<TableRowColumn name="createdate"></TableRowColumn>
+						<TableRowColumn name="creatername"></TableRowColumn>
+						<TableRowColumn name="createdate"></TableRowColumn>
 						<TableRowColumn>
 							  <Button label="查看"  type="operation" operation="view"/>
-							  <Button label="编辑"  type="operation" operation="edit"/>
+							  <Button label="生成对账单"  type="operation" operation="edit"/>
 						 </TableRowColumn>
 					 </TableRow>
 				</TableBody>
