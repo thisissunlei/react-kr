@@ -162,6 +162,7 @@ const APIS  = {
 		url:'/krspace-finance-web/finaccount/property/viewFinaFinaflowProperty',
 		method:'get'
 	},
+	
 	//财务管理－订单账单列表-分页获取订单
 	'getFinaDataByList':{
 		url:'/mockjsdata/3/krspace-finance-web/finaccount/data/getFinaDataByAjax?page={page}&pageSize={pageSize}&customername={customername}&endDate={endDate}&mainbilltype={mainbilltype}&communityid={communityid}',		
