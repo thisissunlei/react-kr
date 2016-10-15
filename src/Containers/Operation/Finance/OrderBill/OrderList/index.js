@@ -1,236 +1,212 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
+import React,{Component} from 'react';
+import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
 
-import {reduxForm,formValueSelector} from 'redux-form';
-
-import {Actions,Store} from 'kr/Redux';
+import * as actionCreators from 'kr-ui/../Redux/Actions';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	Divider,
-	FontIcon,
-	DatePicker,
-	Paper,
-	Avatar,
-	Dialog,
-
-	Table, 
+	Table,
 	TableBody, 
 	TableHeader, 
 	TableHeaderColumn, 
 	TableRow, 
 	TableRowColumn,
 	TableFooter,
+	Button,
 	Section,
-	KrField,
-	LabelText,
 	Grid,
 	Row,
 	Col,
-	Button,
-	Notify,
-	BreadCrumbs,
+		Dialog,
 } from 'kr-ui';
 
 
-import RenderTable from './Table';
+import NewCreateForm from './NewCreateForm';
+import SearchForm from './SearchForm';
+import ItemDetail from './ItemDetail';
+import EditDetailForm from './EditDetailForm';
 
 
-//搜索模块
-let OrderSearchForm = function(props){
+export default class AttributeSetting  extends Component{
 
-	const { error,handleSubmit, pristine, reset, submitting,communitys,onSubmit,openSearchDialog} = props;
-
-	return (
-		<form onSubmit={handleSubmit(onSubmit)} >
-				<Row>
-				<Col md={7}>
-					<KrField name="customername" type="text"  component="input" placeholder="请输入客户名称"/>
-				</Col>
-				<Col md={2} align="right" > <Button label="搜索"  type="submit" primary={true} /> </Col>
-				<Col md={3} align="right" > <Button  primary={true} label="高级查询" type="link" onTouchTap={openSearchDialog}/> </Col>
-				</Row>
-		</form>
-	);
-}
-
-OrderSearchForm= reduxForm({
-  form: 'orderSearchForm',
-})(OrderSearchForm);
-
-
-let SearchUpForm = function(props){
-
-  	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
-    
-	return (
-     
-       <form onSubmit={handleSubmit(onSubmit)}>
-
-				 <KrField name="customername" type="text" label="客户名称" /> 
-				
-				 <KrField name="communityid" component="select"  label="所属社区">
-                    <option></option>
-				 </KrField>
-				 <KrField name="mainbilltype" component="select"  label="订单类型">
-                    <option></option>
-				 </KrField>
-				<KrField component="group" label="查询期间:">
-					<KrField name="startDate" label="起始日期" type="Date"/>
-					<KrField name="endDate" label="结束日期" type="Date" />
-				</KrField>
-
-
-				<Grid style={{marginTop:30}}>
-					<Row style={{marginTop:30}}>
-					<Col md={8}></Col>
-					<Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
-					<Col md={2}> <Button  label="取消" type="button"  onTouchTap={onCancel} /> </Col>
-					</Row>
-				</Grid>
-
-	   </form>
-
-	);
-
-}
-
-//这一部分有什么用?
-SearchUpForm= reduxForm({
-  form: 'SearchUpForm',
-})(SearchUpForm);
-
-
-
-
-
-export default class OrderCreate extends Component {
-
-  constructor(props,context){
+	constructor(props,context){
 		super(props, context);
 
-		this.openSearchDialog = this.openSearchDialog.bind(this);
-        this.confirmSubmit=this.confirmSubmit.bind(this);
-	  	this.onSearch = this.onSearch.bind(this);
-		this.openCreateDialog=this.openCreateDialog.bind(this)
+		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+
+		this.onNewCreateSubmit = this.onNewCreateSubmit.bind(this);
+		this.onSearchSubmit = this.onSearchSubmit.bind(this);
+		this.onEditSubmit = this.onEditSubmit.bind(this);
+
+		this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
+		this.openViewDialog = this.openViewDialog.bind(this);
+		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
+		this.onOperation = this.onOperation.bind(this);
+
 		this.state = {
-		  open:false,
-		  openSearch:false,
-		  openCreate:false,
-		  basic:{}		  
+			openNewCreate:false,
+			openView:false,
+			openEditDetail:false,
+			itemDetail:{},
+			searchParams:{
+				page:1,
+				pageSize:20
+			}
 		}
-
-  }
-
-	componentDidMount(){
-		var _this = this; 
-		Store.dispatch(Actions.callAPI('getFinaDataByList',{
-			corporationName:'',
-			page:'',
-			pageSize:20,
-			mainbilltype:'',
-			communityid:'',
-			customername:'',
-			endDate:'',
-		})).then(function(response){
-			_this.setState({
-				basic:response
-			});
-		}).catch(function(err){
-			Notify.show([{
-				message:'报错了',
-				type: 'danger',
-			}]);
-		});
-       
 	}
 
+	componentDidMount() {
 
-   confirmSubmit(values){
-    var {actions} = this.props;
-    actions.callAPI('getFinaDataCommunityAndMainBillType',{},values).then(function(response){
-      console.log(response)
-    }).catch(function(err){
+	}
 
-    });
-  }
+	//操作相关
+	onOperation(type,itemDetail){
 
+		console.log("-000");
 
- 
-	openSearchDialog(){
 		this.setState({
-			  openSearch:!this.state.openSearch //没有openSearch?
+			itemDetail
 		});
+
+		if(type == 'view'){
+			this.openViewDialog();
+		}else if(type == 'edit'){
+			this.openEditDetailDialog();
+		}
 	}
-	openCreateDialog(){
+
+	//编辑
+	openEditDetailDialog(){
 		this.setState({
-			  openCreate:!this.state.openCreate //没有openSearch?
+			openEditDetail:!this.state.openEditDetail
 		});
 	}
 
-	onSearch(params){
-		params.corporationName = params.corporationName || ' ';
-		params.customername = '';
-		params.endDate = '';
-		params.mainbilltype = '';
-		params.communityid = '';
-		params.page = 1;
-		params.pageSize = 10;
+	onEditSubmit(){
+		this.openEditDetailDialog();
+		window.location.reload();
+	}
 
-		var {actions} = this.props;
-		var _this = this;
-
-
-		Store.dispatch(Actions.callAPI('getFinaDataByList',params)).then(function(response){
-			_this.setState({
-				basic:response
-			});
-		}).catch(function(err){
-			Notify.show([{
-				message:'报错了',
-				type: 'danger',
-			}]);
+	//查看
+	openViewDialog(){
+		this.setState({
+			openView:!this.state.openView
 		});
 	}
 
-	render() {
-		let {basic} = this.state;      
-		return (
+
+	//搜索
+	onSearchSubmit(searchParams){
+		console.log('------');
+		this.setState({
+			searchParams
+		});
+	}
+
+	onSearchCancel(){
+
+	}
+
+
+	//新建
+	openNewCreateDialog(){
+		this.setState({
+			openNewCreate:!this.state.openNewCreate
+		});
+	}
+
+	onNewCreateSubmit(form){
+		window.location.reload();
+	}
+
+	onNewCreateCancel(){
+		this.openNewCreateDialog();
+	}
+
+	render(){
+
+		return(
+
 			<div>
-				<BreadCrumbs children={['运营系统','财务管理']}/>
-				<Section title="财务管理" description=""> 
+					<Section title="属性配置" description="" >
+
 					<Grid>
 						<Row>
-						<Col md={9}>
-							<KrField grid={1/3} label="收入总额：" component="labelText" value={basic.sumCome}/>
-							<KrField grid={1/3} label="回款总额：" component="labelText" value={basic.sumAmount}/>
-							<KrField grid={1/3} label="余额:" component="labelText" value={basic.sumMount}/>
-						</Col>
-						<Col md={3} align="right"> 
-							<OrderSearchForm onSubmit={this.onSearch} openSearchDialog={this.openSearchDialog}/>
-						</Col> 
+							<Col md={8}> <Button label="新建" primary={true} onTouchTap={this.openNewCreateDialog} /> </Col>
+							<Col md={4} align="right"> 
+									<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
+							</Col> 
 						</Row>
 					</Grid>
-					<RenderTable items={this.state.basic.finaContractMainbillVOList}/>
-				</Section>
 
 
-				<Dialog
-					title="高级搜索"
-					open={this.state.openSearch}
-				>
-                    <SearchUpForm  onSubmit={this.confirmSubmit} onCancel={this.openCreateDialog}/>
-			  </Dialog>
+				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='findFinaFinaflowPropertyList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} >
+					<TableHeader>
+					<TableHeaderColumn>属性编码</TableHeaderColumn>
+					<TableHeaderColumn>属性名称</TableHeaderColumn>
+					<TableHeaderColumn>是否启用</TableHeaderColumn>
+					<TableHeaderColumn>属性类别</TableHeaderColumn>
+					<TableHeaderColumn>排序号</TableHeaderColumn>
+					<TableHeaderColumn>创建人</TableHeaderColumn>
+					<TableHeaderColumn>创建时间</TableHeaderColumn>
+					<TableHeaderColumn>操作</TableHeaderColumn>
+				</TableHeader>
+
+				<TableBody>
+						 <TableRow displayCheckbox={true}>
+						<TableRowColumn name="propdesc" ></TableRowColumn>
+						<TableRowColumn name="propname" ></TableRowColumn>
+						<TableRowColumn name="enableflag"></TableRowColumn>
+						<TableRowColumn name="proptype"></TableRowColumn>
+						<TableRowColumn name="ordernum"></TableRowColumn>
+						<TableRowColumn name="creatername"></TableRowColumn>
+						<TableRowColumn name="createdate"></TableRowColumn>
+						<TableRowColumn>
+							  <Button label="查看"  type="operation" operation="view"/>
+							  <Button label="编辑"  type="operation" operation="edit"/>
+						 </TableRowColumn>
+					 </TableRow>
+				</TableBody>
+
+				<TableFooter></TableFooter>
+
+				</Table>
+
+					</Section>
+
+					<Dialog
+						title="新建"
+						modal={true}
+						open={this.state.openNewCreate}
+					>
+						<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
+
+				  </Dialog>
 
 
-    </div>
-   );
-  }
+					<Dialog
+						title="编辑"
+						modal={true}
+						open={this.state.openEditDetail}
+					>
+						<EditDetailForm  detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog} />
+				  </Dialog>
+
+					<Dialog
+						title="查看"
+						modal={true}
+						open={this.state.openView}
+					>
+						<ItemDetail  detail={this.state.itemDetail} onCancel={this.openViewDialog} />
+				  </Dialog>
+
+
+			</div>		
+
+		);
+
+	}
+
 }
-
-
-
 
