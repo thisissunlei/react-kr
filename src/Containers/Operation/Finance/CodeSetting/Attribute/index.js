@@ -28,12 +28,14 @@ export default class AttributeSetting  extends Component{
 
 	constructor(props,context){
 		super(props, context);
-		this.openCreateDialog = this.openCreateDialog.bind(this);
-		this.onSubmit = this.onSubmit.bind(this);
+
+		this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
+		this.onNewCreateSubmit = this.onNewCreateSubmit.bind(this);
+		this.onNewCreateCancel = this.onNewCreateCancel.bind(this);
 
 
 		this.state = {
-			openCreate:false,
+			openNewCreate:false,
 		}
 	}
 
@@ -41,9 +43,9 @@ export default class AttributeSetting  extends Component{
 
 	}
 
-	openCreateDialog(){
+	openNewCreateDialog(){
 		this.setState({
-			openCreate:!this.state.openCreate
+			openNewCreate:!this.state.openNewCreate
 		});
 	}
 
@@ -107,9 +109,9 @@ export default class AttributeSetting  extends Component{
 					<Dialog
 						title="新建"
 						modal={true}
-						open={this.state.openCreate}
+						open={this.state.openNewCreate}
 					>
-						<NewCreateForm onSubmit={this.onSubmit} />
+						<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.onNewCreateCancel} />
 
 				  </Dialog>
 			</div>		
