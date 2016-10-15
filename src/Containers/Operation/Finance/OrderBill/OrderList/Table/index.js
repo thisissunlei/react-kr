@@ -54,20 +54,49 @@ let LessorUpdateForm= function(props){
 let SureWatchForm= function(props){  
     
   	const { list,error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
-  	let listB=list;
+  	let listB=list.finaContractMainbillVOMap;
   	console.log("***++",listB);
+  	if(!listB){  
+			return (
+
+			<div>
+				<Table  style={{marginTop:10}} displayCheckbox={true}>
+					<TableHeader>
+					<TableHeaderColumn>公司名称</TableHeaderColumn>
+					<TableHeaderColumn>订单类型</TableHeaderColumn>
+					<TableHeaderColumn>所在社区</TableHeaderColumn>
+				</TableHeader>
+
+
+				<TableBody style={{paddingTop:10}}>
+					<TableRow displayCheckbox={false}>
+								<TableRowColumn colSpan={8} >
+									<div style={{textAlign:'center',paddingTop:50,paddingBottom:50}}>
+									暂无数据
+									</div>
+								</TableRowColumn>
+					</TableRow>
+				</TableBody>
+
+				</Table>
+   			</div>
+				);
+		}
+
 	return (
             
 			<form onSubmit={handleSubmit(onSubmit)}>
 
                           
-                            <KrField label="公司名称" component="labelText" value={listB.finaContractMainbillVOMap.corporationName}/>
+                            <KrField label="公司名称" component="labelText" value={listB.corporationName}/>
                          
 							<KrField component="group" label="期间:">
 								<KrField name="startDate" label="起始日期" type="Date" />
 								<KrField name="endDate" label="结束日期" type="Date" />
 							</KrField>
-	
+	                        
+                            
+
 							<Grid style={{marginTop:30}}>
 								<Row style={{marginTop:30}}>
 									<Col md={8}></Col>
