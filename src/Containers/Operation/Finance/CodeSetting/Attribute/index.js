@@ -98,7 +98,6 @@ export default class AttributeSetting  extends Component{
 	}
 
 	onNewCreateSubmit(form){
-		console.log('---',form);
 		window.location.reload();
 	}
 
@@ -145,7 +144,14 @@ export default class AttributeSetting  extends Component{
 						<TableRowColumn name="ordernum"></TableRowColumn>
 						<TableRowColumn name="creatername"></TableRowColumn>
 						<TableRowColumn name="createdate"></TableRowColumn>
-						<TableRowColumn>
+						<TableRowColumn actions={[
+							{
+								label:'查看',
+							},
+							{
+								label:'编辑',
+							}
+						]}>
 							  <Button label="查看"  type="link" />
 							  <Button label="编辑"  type="link" />
 						 </TableRowColumn>

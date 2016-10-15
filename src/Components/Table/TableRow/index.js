@@ -27,6 +27,9 @@ export default class TableRow extends React.Component {
 		this.onRowHover = this.onRowHover.bind(this);
 		this.onRowHoverExit = this.onRowHoverExit.bind(this);
 		this.onRowClick = this.onRowClick.bind(this);
+
+		this.renderRow = this.renderRow.bind(this);
+		this.createRowColumn = this.createRowColumn.bind(this);
 	}
 
 	onCellClick(event){
@@ -64,9 +67,29 @@ export default class TableRow extends React.Component {
 
 	}
 
+	createRowColumn(basic,columnNumber){
 
-	render() {
+		const {itemData} = this.props; 
+		let {name} = basic.props;
+		let value = '';
 
+		if(name && itemData && itemData.hasOwnProperty(name)){
+			value = itemData[name];
+			value = value.toString();
+		}
+
+		return React.cloneElement(basic, {
+			columnNumber: columnNumber,
+			hoverable: this.props.hoverable,
+			key: `${this.props.rowNumber}-${columnNumber}`,
+			onCellClick: this.onCellClick,
+			onHover: this.onCellHover,
+			onHoverExit: this.onCellHoverExit,
+			value,
+		});
+	}
+
+	renderRow(){
 		const {
 			className,
 			hovered, 
@@ -85,40 +108,34 @@ export default class TableRow extends React.Component {
 			...other,
 		} = this.props;
 
-		const rowColumns = React.Children.map(this.props.children, (child, columnNumber) => {
+		let rowColumns = React.Children.map(this.props.children, (child, columnNumber) => {
 			if (React.isValidElement(child)) {
-				let {name} = child.props;
-				let value = '';
-
-				if(name && itemData && itemData.hasOwnProperty(name)){
-					value = itemData[name];
-					value = value.toString();
-				}
-
-				return React.cloneElement(child, {
-					columnNumber: columnNumber,
-					hoverable: this.props.hoverable,
-					key: `${this.props.rowNumber}-${columnNumber}`,
-					onCellClick: this.onCellClick,
-					onHover: this.onCellHover,
-					onHoverExit: this.onCellHoverExit,
-					value,
-				});
+				return this.createRowColumn(child,columnNumber);
 			}
 		});
 
-		if(visibility){
+		return rowColumns;
+	}
 
+
+	render() {
+
+		const {
+			className,
+			visibility,
+			...other,
+		} = this.props;
+
+		if(visibility){
 			return (
 				<tr className={className} {...other}>
-				{rowColumns}
+					{this.renderRow()}
 				</tr>
-
 			);
 		}
 
 		return (
-			<tr> </tr>
+			<tr></tr>
 		);
 
 
