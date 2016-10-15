@@ -1,25 +1,28 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
-import Section from 'kr-ui/Section';
-import {KrField,LabelText} from 'kr-ui/Form';
-
-import {Button} from 'kr-ui/Button';
-
 import {reduxForm,formValueSelector} from 'redux-form';
 
 import {
+	Section,
+	KrField,
+	LabelText,
+	Button,
 	BreadCrumbs,
 	Loading,
-	Notify
+	Notify,
+	Grid,Row,Col,
+	Dialog,
+	Snackbar,
+	Table,
+	TableBody,
+ 	TableHeader, 
+	TableHeaderColumn, 
+	TableRow, 
+	TableRowColumn,
+	TableFooter
 } from 'kr-ui';
 
-
-import {Grid,Row,Col} from 'kr-ui/Grid';
-
-import {Dialog,Snackbar} from 'material-ui';
-
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
 
 
 import RenderTable from './Table';
@@ -153,31 +156,6 @@ class OrderCreate extends Component {
 
 	}
 
-	getListData(){
-
-		Store.dispatch(Actions.callAPI('getFinaDataByList',{
-			corporationName:'',
-			page:'',
-			pageSize:20,
-			mainbilltype:'',
-			communityid:'',
-			customername:'',
-			endDate:'',
-		})).then(function(response){
-			_this.setState({
-				basic:response
-
-			});
-		}).catch(function(err){
-			Notify.show([{
-				message:'报错了',
-				type: 'danger',
-			}]);
-		});
-
-
-}
-
   openCreateDialog(){
     this.setState({
 		  openCreate:!this.state.openCreate
@@ -224,7 +202,6 @@ class OrderCreate extends Component {
 					</Col> 
 					</Row>
 					</Grid>
-
 
 						<RenderTable items={this.props.items}/>
 

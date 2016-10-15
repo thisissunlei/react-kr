@@ -130,6 +130,8 @@ export default class TableBody extends React.Component {
 
 	createRowElement(child,rowNumber){
 
+		let {listData} = this.props;
+
 		const handlers = {
 			onCellClick: this.onCellClick,
 			onCellHover: this.onCellHover,
@@ -144,7 +146,7 @@ export default class TableBody extends React.Component {
 			displayCheckbox = child.props.displayCheckbox;
 		}
 
-		let itemData = this.props.listData[rowNumber];
+		let itemData = listData[rowNumber] || {};
 
 		let props = {
 			displayCheckbox:(displayCheckbox? true:false),
