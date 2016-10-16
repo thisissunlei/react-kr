@@ -48,8 +48,6 @@ export default class AttributeSetting  extends Component{
 
 		this.openConfirmBillDetailDialog = this.openConfirmBillDetailDialog.bind(this);
 
-		
-
 		this.state = {
 			openNewCreate:false,
 			openView:false,
@@ -161,7 +159,7 @@ export default class AttributeSetting  extends Component{
 		return(
 
 			<div>
-					<Section title="属性配置" description="" >
+					<Section title="订单账单列表" description="" >
 
 					<Grid>
 						<Row>
