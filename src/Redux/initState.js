@@ -62,10 +62,6 @@ let initState = {
 								router:'/operation/finance/orderbill/orderList',
 							},
 							{
-								primaryText:"订单账号",
-								router:'/operation/finance/orderbill/receiptList',
-							},
-							{
 								primaryText:"科目配置",
 								router:'/operation/finance/codeSetting/subject',
 							},
