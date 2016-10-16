@@ -33,7 +33,10 @@ class NewCreateForm  extends Component{
 
 	static DefaultPropTypes = {
 		initialValues:{
-			customerName:'hha'
+			customerName:'hha',
+			communityName:'sdf',
+			customerAddress:'dsc',
+			leaseAddress:'sdf'
 		}
 	}
 
@@ -77,39 +80,18 @@ class NewCreateForm  extends Component{
 	render(){
 
 		let { error, handleSubmit, pristine, reset, submitting,fnaCorporation,paymentList,payTypeList,floorList,customer,initialValues} = this.props;
-
-		fnaCorporation.map(function(item,index){
-			item.value = item.id;
-			item.label = item.corporationName;
-			return item;
-		});
-
-		paymentList.map(function(item,index){
-			item.value = item.id;
-			item.label = item.dicName;
-			return item;
-		});
-
-		payTypeList.map(function(item,index){
-			item.value = item.id;
-			item.label = item.dicName;
-			return item;
-		});
-
 		initialValues = {};
-
-
-	initialValues.customerName = 'jjjdf';
-	initialValues.communityName = 'jjjdf';
-	initialValues.customerAddress = 'jjjdf';
-
+		initialValues.customerName = 'jjjdf';
+		initialValues.communityName = 'jjjdf';
+		initialValues.customerAddress = 'jjjdf';
+		initialValues.leaseAddress="dsf"
 	  return (
 
 		<form onSubmit={handleSubmit(this.onSubmit)}>
 								
 								<KrField name="lessorId"  grid={1/2} component="select" label="出租方" options={fnaCorporation}  />
 
-								 <KrField grid={1/2}  name="lessorAddress" type="text" component="input" label="地址" /> 
+								 <KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={initialValues.leaseAddress} /> 
 
 								 <KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" /> 
 								 <KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
@@ -124,7 +106,7 @@ class NewCreateForm  extends Component{
 								 <KrField grid={1/2}  name="customerAddress" type="text" component="labelText" label="地址" value={initialValues.customerAddress} /> 
 								 <KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  /> 
 								 <KrField grid={1/2}  name="affixdate"  component="date" grid={1/2} label="签署时间" /> 
-								 <KrField grid={1}  name="totalrent" type="labelText"  label="减租金额"  /> //减租金额没有
+								 <KrField grid={1}  name="totalrent" type="labelText"  label="减租金额"  /> {/*减租金额没有*/}
 								 <KrField grid={1/2}  name="contractmark" type="textarea" component="textarea" label="备注" /> 
 								 <KrField grid={1}  name="fileIdList" component="file" label="上传附件" /> 
 
@@ -186,4 +168,4 @@ const validate = values =>{
 	return errors
 }
 
-export default reduxForm({ form: 'joinCreateForm'})(NewCreateForm);
+export default reduxForm({ form: 'reduceCreateForm'})(NewCreateForm);
