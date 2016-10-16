@@ -58,7 +58,7 @@ module.exports = {
 	Avatar,
 	Dialog,
 	Snackbar,
-	Tabs,
-	TabItem,
+	...Tabs,
+	
 	PageHeader,
 }
