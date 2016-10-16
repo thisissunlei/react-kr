@@ -19,13 +19,11 @@ var webpackHotMiddleware = require('koa-webpack-hot-middleware');
 var config = require('./configs/config');
 var webpackConfig = require('./webpack/webpack-'+process.env.NODE_ENV+'.config');
 
-webpackConfig.entry.unshift('webpack-hot-middleware/client?path=http://localhost:8001/__webpack_hmr');
+webpackConfig.entry.unshift("webpack/hot/dev-server");
+webpackConfig.entry.unshift('webpack-hot-middleware/client?path=/__webpack_hmr');
 //webpackConfig.entry.unshift("webpack-dev-server/client?http://127.0.0.1:8001");  
-//webpackConfig.entry.unshift("webpack/hot/dev-server");
 
 var compiler = webpack(webpackConfig);
-
-
 
 
 app.use(compress());
@@ -59,6 +57,9 @@ app.use(webpackDevMiddleware(compiler,{
 		'Access-Control-Allow-Origin': '*',
 		'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
 	},
+	proxy: {
+      '*': 'http://localhost:8001/'
+    },
 	contentBase:'./static/',
 	publicPath:webpackConfig.output.publicPath,
 	stats: {

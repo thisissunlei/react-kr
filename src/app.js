@@ -46,13 +46,9 @@ ReactDOM.render((
 				}}
 				/>
 			{/*
-
 			//<Router history={browserHistory} routes={routes} />
-
 			<Router routes={routes} history={hashHistory} />
 				*/}
 		</Provider>
 	</MuiThemeProvider>
 ), document.getElementById('app'))
-
-
