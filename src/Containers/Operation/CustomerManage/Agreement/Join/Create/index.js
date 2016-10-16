@@ -52,7 +52,7 @@ export default  class JoinCreate extends Component {
 	}
 
 	onCancel(){
-
+		window.history.back();
 	}
 	 openConfirmCreateDialog(){
 		 this.setState({
@@ -108,7 +108,7 @@ export default  class JoinCreate extends Component {
 		 <div>
 		 	<BreadCrumbs children={['系统运营','客户管理','入驻协议']}/>
 			<Section title="创建入驻协议书" description=""> 
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues}/>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel}/>
 			</Section>
 
 			<Dialog

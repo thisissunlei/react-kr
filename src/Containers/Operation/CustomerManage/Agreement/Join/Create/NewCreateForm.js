@@ -105,12 +105,12 @@ class NewCreateForm  extends Component{
 
 								 <KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={initialValues.communityName} /> 
 
-								<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={initialValues.floorList} />
+								<KrField name="whereFloor"  grid={1/2} component="select" label="所在楼层" options={initialValues.floorList} />
 
 								 <KrField grid={1/2}  name="username" type="text" component="input" label="地址"  /> 
 								 <KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  /> 
 
-								 <KrField grid={1}  name="username" component="group" label="租赁期限"> 
+								 <KrField grid={1}  name="" component="group" label="租赁期限"> 
 										  <KrField grid={1/2}  name="leaseBeginDate"  component="date"  /> 
 										  <KrField grid={1/2}  name="leaseEndDate" component="date" /> 
 								  </KrField>
@@ -118,17 +118,17 @@ class NewCreateForm  extends Component{
 								<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={initialValues.paymentList} /> 
 								<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={initialValues.payTypeList} />
 
-							 <KrField grid={1/2}  name="rname"  component="date" grid={1/2} label="签署时间" /> 
+							 <KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" /> 
 
-							 <KrField name="signdate" component="date" label="首付款时间"  /> 
+							 <KrField name="firstpaydate" component="date" label="首付款时间"  /> 
 							 <KrField name="" component="labelText" label=" 租赁项目"  /> 
 							 <KrField grid={1}  name="stationnum" type="text" component="input" label="工位" /> 
 							 <KrField grid={1}  name="boardroomnum" type="text" component="input" label="会议室" /> 
 
 							 <KrField grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"  /> 
 
-							 <KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="租金总额" placeholder="" /> 
-							 <KrField grid={1/2}  name="totalrent" type="text" component="input" label="押金总额" /> 
+							 <KrField grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" placeholder="" /> 
+							 <KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" /> 
 							 <KrField grid={1/2}  name="contractmark" component="textarea" label="备注" /> 
 							 <KrField grid={1}  name="fileIdList" component="file" label="合同附件" /> 
 

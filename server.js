@@ -50,16 +50,13 @@ app.use(webpackDevMiddleware(compiler,{
 	hot: true,    
 	inline: true,
 	quiet: false,
-	noInfo: true,
+	noInfo: false,
 	watchDelay: 300,
 	host:'localhost',
 	headers: {
 		'Access-Control-Allow-Origin': '*',
 		'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
 	},
-	proxy: {
-      '*': 'http://localhost:8001/'
-    },
 	contentBase:'./static/',
 	publicPath:webpackConfig.output.publicPath,
 	stats: {

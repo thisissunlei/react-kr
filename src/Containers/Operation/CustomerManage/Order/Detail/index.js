@@ -49,6 +49,8 @@ class OrderDetail extends Component {
 		super(props, context);
 
 		this.openCreateAgreementDialog = this.openCreateAgreementDialog.bind(this);
+		this.getAgrementDetailUrl = this.getAgrementDetailUrl.bind(this);
+		this.getAgrementEditUrl = this.getAgrementEditUrl.bind(this);
 
 		this.state = {
 			open:false,
@@ -106,6 +108,46 @@ class OrderDetail extends Component {
 			openCreateAgreement:!this.state.openCreateAgreement
 		});
 	}
+
+	getAgrementEditUrl(customerId,orderId,typeId,agreementId){
+		console.log(customerId,orderId,typeId,agreementId);
+
+		var typeArray = [
+			{label:'意向书',value:'admit'},
+			{label:'入住协议',value:'join'},
+			{label:'续租协议',value:'renew'},
+			{label:'减租协议',value:'reduce'},
+			{label:'退租协议',value:'exit'},
+			{label:'增租协议',value:'increase'},
+		];
+		var typeValue = '';
+		try{
+		  typeValue = typeArray[typeId].value;
+		}catch(err){
+			typeValue = 'join';
+		}
+		return '/#/operation/customerManage/'+customerId+'/order/'+orderId+'/agreement/'+typeValue+'/'+agreementId+'/edit';
+	}
+	getAgrementDetailUrl(customerId,orderId,typeId,agreementId){
+
+		console.log(customerId,orderId,typeId,agreementId);
+		var typeArray = [
+			{label:'意向书',value:'admit'},
+			{label:'入住协议',value:'join'},
+			{label:'续租协议',value:'renew'},
+			{label:'减租协议',value:'reduce'},
+			{label:'退租协议',value:'exit'},
+			{label:'增租协议',value:'increase'},
+		];
+		var typeValue = '';
+		try{
+		  typeValue = typeArray[typeId].value;
+		}catch(err){
+			typeValue = 'join';
+		}
+		return '/#/operation/customerManage/'+customerId+'/order/'+orderId+'/agreement/'+typeValue+'/'+agreementId+'/detail';
+	}
+
   render() {
 
   	const {orderBaseInfo,installment,earnest,contractList,antecedent,contractStatusCount} = this.state.response;
@@ -229,10 +271,9 @@ class OrderDetail extends Component {
 							<TableRowColumn><Date.Format value={item.contractTotalamount}/></TableRowColumn>
 							<TableRowColumn><Date.Format value={item.leaseBegindate}/></TableRowColumn>
 							<TableRowColumn> <Date.Format value={item.leaseEnddate}/></TableRowColumn>
-							<TableRowColumn><Button  type="link" label="查看" href={"/#/operation/customerManage/"+item.customerid+"/agreement/admit/"+item.id+"/detail"}/>
-								{/*
-							<Button type="link" label="编辑"  href={"/#/operation/customerManage/"+item.customerid+"/agreement/admit/"+item.id+"/edit"}/>
-								*/}
+							<TableRowColumn>
+								<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)}/>
+								<Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)}/>
 							</TableRowColumn>
 						   </TableRow>
 							);
