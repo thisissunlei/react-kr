@@ -38,6 +38,7 @@ class NewCreateForm  extends Component{
 			fnaCorporationList:[],
 			floorList:[],
 			lessorAdress:"",
+			buyType:[]
 			
 		}
 	}
