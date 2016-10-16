@@ -38,7 +38,8 @@ class NewCreateForm  extends Component{
 			fnaCorporationList:[],
 			floorList:[],
 			lessorAdress:"",
-			buyType:[]
+			buyType:[],
+			billList:[]
 			
 		}
 	}
@@ -104,6 +105,9 @@ class NewCreateForm  extends Component{
     initialValues.buyType=[
      {value:'ahah',label:'yayay'}
     ]
+    initialValues.billList=[
+      {stationType:'ahah',stationId:'yayay','leaseBeginDate':'123','leaseEndDate':'345'}
+    ]
 	  return (
 
 		<form onSubmit={handleSubmit(this.onSubmit)}>
@@ -165,7 +169,7 @@ class NewCreateForm  extends Component{
 											<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
 									</TableHeader>
 									<TableBody>
-										{this.props.billList.map((item,index)=>{
+										{initialValues.billList.map((item,index)=>{
 											return (
 												<TableRow key={index}>
 													<TableRowColumn>{item.stationType}</TableRowColumn>
