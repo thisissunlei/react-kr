@@ -42,8 +42,9 @@ import {
 		values.id = detail.id; //get请求
 
 		Store.dispatch(Actions.callAPI('getFinaDataDetailAdd',values)).then(function(response){
+			
 		}).catch(function(err){
-			console.log("vvvvv",response);
+			
 			Notify.show([{
 				message:'报错了',
 				type: 'danger',
@@ -71,7 +72,7 @@ import {
 
 				<KrField name="id" type="hidden" label="id"/>
                 <Row>
-					<Col md={2}> <KrField  label="对账期间" type="labelText" /> </Col>
+					<Col md={2}> <KrField  label="对账期间" type="labelText"/> </Col>
                     <Col md={2}> <KrField  label="起始日期" type="labelText" /> </Col> 
 					<Col md={2}> <KrField  component="Date"  name="startDate" type="date"/> </Col>
 					<Col md={2}> <KrField  label="结束日期" type="labelText" /> </Col> 

@@ -95,11 +95,12 @@ export default  class ConfirmBillDetail extends Component{
               <Col md={4}><KrField label="金额" component="labelText"/></Col>
                         </Row>  
                  {listC.map((item,index)=>      
-                          <Row>    
-              <Col md={4}><KrField  component="labelText" value={listC.propcode}/></Col>
-              <Col md={4}><KrField  component="labelText" value={item.propname}/></Col>
-              <Col md={4}><KrField  component="labelText" value={item.finaflowAmount}/></Col>
-                        </Row>                            
+
+                        <div>
+                          <KrField  grid={1/3} component="labelText" value={listC.propcode}/>
+                          <KrField grid={1/3} component="labelText" value={item.propname}/>
+                          <KrField  grid={1/3} component="labelText" value={item.finaflowAmount}/>
+                        </div>                        
                       
                  )}       
                           <Row style={{marginTop:30}}>    
