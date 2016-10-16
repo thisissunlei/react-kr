@@ -67,7 +67,7 @@ class NewCreateForm  extends Component{
 	onSubmit(form){
 		console.log("fo",form);
 
-		this.props.onCreateSubmit('hahaha');
+		this.props.onSubmit('hahaha');
 	}
 
 	onCancel(){
