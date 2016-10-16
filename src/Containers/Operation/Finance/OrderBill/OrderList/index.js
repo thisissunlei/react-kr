@@ -26,7 +26,8 @@ import {
 import NewCreateForm from './NewCreateForm';
 import SearchForm from './SearchForm';
 import ItemDetail from './ItemDetail';
-import EditDetailForm from './EditDetailForm';
+import CompareBillForm from './CompareBillForm';
+import ConfirmBillDetail from './ConfirmBillDetail';
 
 
 export default class AttributeSetting  extends Component{
@@ -45,12 +46,15 @@ export default class AttributeSetting  extends Component{
 		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
 		this.onOperation = this.onOperation.bind(this);
 
+		this.openConfirmBillDetailDialog = this.openConfirmBillDetailDialog.bind(this);
+
 		
 
 		this.state = {
 			openNewCreate:false,
 			openView:false,
 			openEditDetail:false,
+			openConfirmBillDetail:false,
 			itemDetail:{},
 			item:{},
 			searchParams:{
@@ -80,7 +84,7 @@ export default class AttributeSetting  extends Component{
 	//操作相关
 	onOperation(type,itemDetail){
 
-
+        
 		this.setState({
 			itemDetail
 		});
@@ -99,9 +103,19 @@ export default class AttributeSetting  extends Component{
 		});
 	}
 
+	//对账单的确定操作
 	onEditSubmit(){
 		this.openEditDetailDialog();
-		window.location.reload();
+		this.openConfirmBillDetailDialog();
+	}
+
+	//对账单查看详情
+	openConfirmBillDetailDialog(){
+
+		this.setState({
+			openConfirmBillDetail:!this.state.openConfirmBillDetail
+		});		
+
 	}
 
 	//查看
@@ -142,7 +156,7 @@ export default class AttributeSetting  extends Component{
 
 	render(){
         
-        console.log("nnnn",this.state.item);
+      
         
 		return(
 
@@ -218,11 +232,19 @@ export default class AttributeSetting  extends Component{
 
 
 					<Dialog
-						title="编辑"
+						title="生成对账单"
 						modal={true}
 						open={this.state.openEditDetail}
 					>
-						<EditDetailForm  detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog} />
+						<CompareBillForm  detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog} />
+				  </Dialog>
+
+				  <Dialog
+						title="对账单详情确认"
+						modal={true}
+						open={this.state.openConfirmBillDetail}
+					>
+						<ConfirmBillDetail  detail={this.state.itemDetail} onCancel={this.openConfirmBillDetailDialog} />
 				  </Dialog>
 
 					<Dialog
