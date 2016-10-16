@@ -1,263 +1,116 @@
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'kr/Redux';
-
-import {reduxForm,submitForm} from 'redux-form';
-
+import {reduxForm,submitForm,change,reset} from 'redux-form';
+import {Actions,Store} from 'kr/Redux';
+import http from 'kr/Redux/Utils/fetch';
 
 import {
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	Divider,
-	FontIcon,
-	DatePicker,
-	Paper,
-	Avatar,
 	Dialog,
-
-	Table, 
-	TableBody, 
-	TableHeader, 
-	TableHeaderColumn, 
-	TableRow, 
-	TableRowColumn,
-	TableFooter,
 	Section,
-	KrField,
-	LabelText,
 	Grid,
-	Row,
-	Col,
-	Button,
 	Notify,
-	BreadCrumbs,
 } from 'kr-ui';
 
-
-var CreateForm = (props) => {
-
-  const { error, handleSubmit, pristine, reset, submitting,submit,cancel ,onSubmit,handleOpen,handleClick,openConfirmDialog} = props;
-
-  return (
-
-    <form onSubmit={handleSubmit(onSubmit)}>
-
-							<KrField  grid={1/2} name="leaseId" component="select" label="出租方">
-								 <option>请选择订单类型</option>
-								<option value="11">Red</option>
-								<option value="00ff00">Green</option>
-								<option value="0000ff">Blue</option>
-							 </KrField>
-
-							 <KrField grid={1/2} name="lessorAddress" type="text" component="text" label="地址"/> 
-							 <KrField grid={1/2} name="lessorContactid" component="text" label="联系人id" type="hidden"/> 
-							 <KrField grid={1/2} name="lessorname" type="text" component="text" label="联系人"/> 
-							 <KrField grid={1/2} name="lessorContacttel" type="text" component="text" label="电话"/> 
-
-							 <KrField grid={1/2} name="" type="text" component="text" label="承租方" value=""/> 
-							 <KrField grid={1/2} name="leaseAddress" type="text" component="text" label="地址"/> 
-
-							 <KrField grid={1/2} name="leaseContact" type="text" component="text" label="联系人"/> 
-							 <KrField grid={1/2} name="leaseContacttel" type="text" component="text" label="电话"/> 
-
-							 <KrField grid={1/2} name="communityName" type="text" component="text" label="所属社区" /> 
-
-							<KrField grid={1/2} name="whereFloor" component="select" label="所在楼层">
-								 <option>请选择订单类型</option>
-								<option value="11">Red</option>
-								<option value="00ff00">Green</option>
-								<option value="0000ff">Blue</option>
-							 </KrField>
-
-						<KrField grid={1/2} name="signdate" type="text" component="text" label="签署日期" />
-						<KrField grid={1/2} name="contractcode" type="text" component="text" label="合同编号" />
-						<KrField grid={1/2} name="totaldownpayment" type="text" component="text" label="定金总额" /> 
-						<KrField grid={1/2} name="paymentId" component="select" label="付款方式">
-							<option>请选择订单类型</option>
-					 		<option value="11">Red</option>
-							<option value="00ff00">Green</option>
-							<option value="0000ff">Blue</option>
-						 </KrField>
-					 <KrField grid={1/2} name="leaseBeginDate"  component="date" label="租赁期限" /> 
-					 <KrField grid={1/2} name="leaseEndDate"  component="date" label="租赁期限" /> 
-					 <KrField grid={1} name="templockday" component="date" label="保留天数" /> 
-					 
-
-					 <KrField grid={1} name="uname" type="group" component="group" label="租赁项目"> 
-						 <KrField grid={1} name="stationnum" type="text" label="工位"/> 
-						 <KrField grid={1} name="boardroomnum" type="text" label="会议室"/> 
-		  			</KrField>
-					<KrField grid={1} name="contractmark" component="textarea" label="备注" /> 
-					 <KrField grid={1/2} name="contractfile" type="file" component="file" label="合同附件"/ > 
-					 
-
-				<Section title="租赁明细" description="" rightMenu = {
-								<Menu>
-									  <MenuItem primaryText="删除" />
-									  <MenuItem primaryText="租赁"  onTouchTap={handleOpen} />
-								</Menu>
-				}> 
-
-			<Table  displayCheckbox={true}>
-					<TableHeader>
-							<TableHeaderColumn>类别</TableHeaderColumn>
-							<TableHeaderColumn>编号／名称</TableHeaderColumn>
-							<TableHeaderColumn>开始时间</TableHeaderColumn>
-							<TableHeaderColumn>结束时间</TableHeaderColumn>
-					</TableHeader>
-					<TableBody>
-						 <TableRow>
-							<TableRowColumn>1</TableRowColumn>
-							<TableRowColumn>John Smith</TableRowColumn>
-							<TableRowColumn>Employed</TableRowColumn>
-							<TableRowColumn>John Smith</TableRowColumn>
-							<TableRowColumn>John Smith</TableRowColumn>
-						</TableRow>
-						 <TableRow>
-							<TableRowColumn>1</TableRowColumn>
-							<TableRowColumn>John Smith</TableRowColumn>
-							<TableRowColumn>Employed</TableRowColumn>
-							<TableRowColumn>John Smith</TableRowColumn>
-							<TableRowColumn>John Smith</TableRowColumn>
-						</TableRow>
-				   </TableBody>
-			 </Table>
-
-			</Section>
-
-			<Button  label="确定"  type="button" onTouchTap={openConfirmDialog} primary={true}/>
-
-		</form>
-  )
-}
+import NewCreateForm from './NewCreateForm';
 
 
- class JoinEdit extends Component {
+export default  class JoinCreate extends Component {
 
 	constructor(props,context){
 		super(props, context);
 
-
 		this.handleOpen = this.handleOpen.bind(this);
-		this.handleClose = this.handleClose.bind(this);
-		this.confirmSubmit = this.confirmSubmit.bind(this);
-		this.confirmJoinSubmit = this.confirmJoinSubmit.bind(this);
-
-		this.openConfirmDialog = this.openConfirmDialog.bind(this);
-
-		this.handleClick = this.handleClick.bind(this);
+		this.openConfirmCreateDialog = this.openConfirmCreateDialog.bind(this);
+		this.onSubmit = this.onSubmit.bind(this);
 
 		this.state = {
+			initialValues:{},
 			open:false,
-			confirmDialog:false
+			openConfirmCreate:false,
+			billList:[
+				{
+					id:883,
+					name:'23432',
+					type:1
+				},
+				{
+					id:883,
+					name:'23432',
+					type:1
+				},
+			],
+			init:{
+				customer:{},
+				fnaCorporation:[],
+				payType:[],
+				payment:[]
+			}
 		}
-
-
-		CreateForm = reduxForm({
-			  form: 'admitCreateForm'  
-		})(CreateForm);
-
-
-
 	}
 
-	confirmJoinSubmit(values){
+	 openConfirmCreateDialog(){
+		 this.setState({
+			 openConfirmCreate:!this.state.openConfirmCreate
+		 });
+	 }
 
-		var {actions} = this.props;
-		values.customerid = this.props.params.customerId;
+	 componentDidMount(){
+		var _this = this;
+		const {params} = this.props;
+		let initialValues = {};
+		Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
+			initialValues.leaseAddress = response.customer.customerAddress;
+			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）	
+			initialValues.contracttype = 2;
+			_this.setState({
+				init:response,
+				initialValues
+			});
+		}).catch(function(err){ });
 
-		actions.callAPI('addFinaContractIntentletter',{},values).then(function(response){
-			Notify.show([{
-				message:'创建成功',
-				type: 'success',
-			}]);
-		}).catch(function(err){
-			Notify.show([{
-				message:err.message,
-				type: 'danger',
-			}]);
-		});
-	}
-	
-	openConfirmDialog(){
+	 }
+	 onSubmit(form){
+		 console.log("---form",提交);
+		 //const {params} = this.props;
+		// Store.dispatch(Actions.callAPI('addOrEditEnterContract',{customerId:params.customerId,mainBillId:params.orderId},form)).then(function(response){ }).catch(function(err){ });
+	 }
 
-		this.setState({
-			confirmDialog:!this.state.confirmDialog
-		});
-
-	}
-
-
-
-
-	confirmSubmit(values){
-		console.log('---',values);
-		this.setState({open: false});
-	}
 	handleOpen(){
-		this.setState({open: true});
+		Actions.showModalDialog('http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId=42&floors=3&goalStationNum=1&goalBoardroomNum=0&selectedObjs=[{type:1,id:883},{type:2,id:2}]',900,800);
+		var _this = this;
+		window.setReturnValue = function(value){
+			_this.setState({
+				billList:value.data
+			});
+		};
 	}
 
-	handleClose(values){
-		console.log('---',values);
-		this.setState({open: false});
+	onSubmit(){
+
 	}
 
-	handleClick(){
-		console.log('----');
+	onCancel(){
+
 	}
 
   render() {
 
-		 const actions = [
-			  <Button
-				label="确认"
-				primary={true}
-				onTouchTap={this.handleClose}
-			  />,
-			  <Button
-				label="取消"
-				primary={true}
-				 style={{marginLeft:10}}
-				onTouchTap={this.openConfirmDialog}
-			  />,
-			];
-
-		  const { error, handleSubmit, pristine, reset, submitting,submit} = this.props;
+	  let {fnaCorporation,payType,payment,customer,initialValues} = this.state.init;
 
     return (
 
-      <div>
-
-			<BreadCrumbs children={['社区运营',,'合同','承租协议','新增']}/>
-
-			<Section title="承租协议书(新增)" description=""> 
-				<CreateForm onSubmit={this.confirmJoinSubmit} handleOpen={this.handleOpen} handleClick={this.handleClick} openConfirmDialog={this.openConfirmDialog}/>
+		 <div>
+			<Section title="创建入驻协议书" description=""> 
+					<NewCreateForm onSubmit={this.onSubmit} fnaCorporation={fnaCorporation} paymentList={payment} payTypeList={payType} floorList={customer.floor} billList={this.state.billList} customer={customer} initialValues={initialValues}/>
 			</Section>
 
 			<Dialog
-				title="确认"
+				title="确定新建"
 				modal={true}
-				actions={actions}
-				autoScrollBodyContent={true}
-				 contentStyle={{width: '90%',maxWidth: 'none'}}
-				open={this.state.confirmDialog}>
+				open={this.state.openConfirmCreate} >
+			  </Dialog>
 
-				<CreateForm onSubmit={this.confirmJoinSubmit} handleOpen={this.handleOpen} handleClick={this.handleClick} openConfirmDialog={this.openConfirmDialog}/>
-
-			</Dialog>
-
-			</div>
+		</div>
 	);
   }
 }
-
-
-export default connect((state)=>{
-  return {
-    items:state.notify.items,
-  };
-})(reduxForm({
-  form: 'joinForm'  
-})(JoinEdit));
