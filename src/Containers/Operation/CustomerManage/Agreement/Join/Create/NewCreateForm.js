@@ -32,7 +32,9 @@ class NewCreateForm  extends Component{
 
 	static DefaultPropTypes = {
 		initialValues:{
-			customerName:'hha'
+			customerName:'hha',
+			communityName:'ds',
+			lessorAddress:'sdf'
 		}
 	}
 
@@ -90,8 +92,8 @@ class NewCreateForm  extends Component{
 		<form onSubmit={handleSubmit(this.onSubmit)}>
 								
 								<KrField name="lessorId"  grid={1/2} component="select" label="出租方" options={initialValues.fnaCorporationList}  />
-								 <KrField grid={1/2}  name="lessorAddress" type="text" component="input" label="地址" /> 
 
+								 <KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={initialValues.lessorAddress}/> 
 								 <KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" /> 
 								 <KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 
