@@ -57,9 +57,8 @@ export default  class JoinCreate extends Component {
 	 componentDidMount(){
 		var _this = this;
 		const {params} = this.props;
-		let initialValues = {}; //post写法
-		Store.dispatch(Actions.callAPI('addFinaContractIntentletter',{},)).then(function(response){
-			console.log("ffff",response)
+		let initialValues = {};
+		Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
 			initialValues.leaseAddress = response.customer.customerAddress;
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）	
 			initialValues.contracttype = 2;
