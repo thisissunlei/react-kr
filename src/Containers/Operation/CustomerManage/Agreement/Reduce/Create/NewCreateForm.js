@@ -84,12 +84,24 @@ class NewCreateForm  extends Component{
 		initialValues.customerName = 'jjjdf';
 		initialValues.communityName = 'jjjdf';
 		initialValues.customerAddress = 'jjjdf';
-		initialValues.leaseAddress="dsf"
+		initialValues.leaseAddress="dsf";
+		initialValues.fnaCorporationList=[
+			{
+				value:'sad',
+				label:'sad'
+			}
+		];
+		initialValues.billList=[
+			{
+				value:'sad',
+				label:'sad'
+			}
+		];
 	  return (
 
 		<form onSubmit={handleSubmit(this.onSubmit)}>
 								
-								<KrField name="lessorId"  grid={1/2} component="select" label="出租方" options={fnaCorporation}  />
+								<KrField name="lessorId"  grid={1/2} component="select" label="出租方" options={initialValues.fnaCorporationList}  />
 
 								 <KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={initialValues.leaseAddress} /> 
 
@@ -126,7 +138,7 @@ class NewCreateForm  extends Component{
 											<TableHeaderColumn>减租开始时间</TableHeaderColumn>
 									</TableHeader>
 									<TableBody>
-										{this.props.billList.map((item,index)=>{
+										{initialValues.billList.map((item,index)=>{
 											return (
 												<TableRow key={index}>
 													<TableRowColumn>{item.type}</TableRowColumn>
