@@ -36,7 +36,10 @@ class NewCreateForm  extends Component{
 			customerName:'hha',
 			communityName:'dfg',
 			lessorAddress:'xcv',
-			customerAddress:'fv'
+			customerAddress:'fv',
+			fnaCorporationList:[
+				{value:'sdf',label:'sdf'}
+			]
 		}
 	}
 
@@ -84,13 +87,17 @@ class NewCreateForm  extends Component{
 		initialValues = {};
 		initialValues.customerName = 'jjjdf';
 		initialValues.communityName = 'jjjdf';
-		initialValues.lessorAddress='dfdf'
-		initialValues.customerAddress="sfd"
+		initialValues.lessorAddress='dfdf';
+		initialValues.customerAddress="sfd";
+		initialValues.fnaCorporationList=[
+			{value:'sdf',label:'sfcsd'},
+			{value:'sdf',label:'ssdfc'}
+		]
 	  return (
 
 		<form onSubmit={handleSubmit(this.onSubmit)}>
 								
-								<KrField name="lessorId"  grid={1/2} component="select" label="出租方" options={fnaCorporation}  />
+								<KrField name="lessorId"  grid={1/2} component="select" label="出租方" options={initialValues.fnaCorporationList}  />
 
 								 <KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={initialValues.lessorAddress}/> 
 
