@@ -30,7 +30,6 @@ import {
 
 class NewCreateForm  extends Component{
 
-
 	static DefaultPropTypes = {
 		initialValues:{
 			customerName:'hha'
@@ -41,19 +40,16 @@ class NewCreateForm  extends Component{
 		initialValues:React.PropTypes.object,
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
-		paymentList:React.PropTypes.array,
-		payTypeList:React.PropTypes.array,
-		floorList:React.PropTypes.array,
 	}
 
 	constructor(props,context){
 		super(props, context);
 
-		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel  = this.onCancel.bind(this);
+		this.onSubmit = this.onSubmit.bind(this);
 
-		this.onDistributionDialog = this.onDistributionDialog;
-		
+		this.onDistributionDialog = this.onDistributionDialog.bind(this);
+
 	}
 
 	componentDidMount(){
@@ -61,12 +57,15 @@ class NewCreateForm  extends Component{
 		Store.dispatch(initialize('newCreateForm',detail));
 	}
 
+	onDistributionDialog(){
+		//Actions.showModalDialog('http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId=42&floors=3&goalStationNum=1&goalBoardroomNum=0&selectedObjs=[{type:1,id:883},{type:2,id:2}]',900,800);
+	}
 
 
 	onSubmit(form){
-		const {onSubmit} = this.props;
+		console.log("fo",form);
 
-		onSubmit && onSubmit(form);
+		this.props.onCreateSubmit('hahaha');
 	}
 
 	onCancel(){
@@ -76,38 +75,21 @@ class NewCreateForm  extends Component{
 
 	render(){
 
-		let { error, handleSubmit, pristine, reset, submitting,fnaCorporation,paymentList,payTypeList,floorList,customer,initialValues} = this.props;
+		let { error, handleSubmit, pristine, reset, submitting} = this.props;
 
-		fnaCorporation.map(function(item,index){
-			item.value = item.id;
-			item.label = item.corporationName;
-			return item;
-		});
-
-		paymentList.map(function(item,index){
-			item.value = item.id;
-			item.label = item.dicName;
-			return item;
-		});
-
-		payTypeList.map(function(item,index){
-			item.value = item.id;
-			item.label = item.dicName;
-			return item;
-		});
-
-		initialValues = {};
-
-
-	initialValues.customerName = 'jjjdf';
-	initialValues.communityName = 'jjjdf';
+		let initialValues = {};
+		initialValues.customerName = 'ayaya';
+		initialValues.communityName = 'yayay';
+		initialValues.billList = [];
+		initialValues.fnaCorporationList = [
+			{label:'',value:''}
+		];
 
 	  return (
 
 		<form onSubmit={handleSubmit(this.onSubmit)}>
 								
-								<KrField name="lessorId"  grid={1/2} component="select" label="出租方" options={fnaCorporation}  />
-
+								<KrField name="lessorId"  grid={1/2} component="select" label="出租方" options={initialValues.fnaCorporationList}  />
 								 <KrField grid={1/2}  name="lessorAddress" type="text" component="input" label="地址" /> 
 
 								 <KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" /> 
@@ -121,7 +103,7 @@ class NewCreateForm  extends Component{
 
 								 <KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={initialValues.communityName} /> 
 
-								<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={floorList} />
+								<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={initialValues.floorList} />
 
 								 <KrField grid={1/2}  name="username" type="text" component="input" label="地址"  /> 
 								 <KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  /> 
@@ -131,8 +113,8 @@ class NewCreateForm  extends Component{
 										  <KrField grid={1/2}  name="leaseEndDate" component="date" /> 
 								  </KrField>
 
-								<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={paymentList} /> 
-								<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={payTypeList} />
+								<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={initialValues.paymentList} /> 
+								<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={initialValues.payTypeList} />
 
 							 <KrField grid={1/2}  name="rname"  component="date" grid={1/2} label="签署时间" /> 
 
@@ -145,7 +127,7 @@ class NewCreateForm  extends Component{
 
 							 <KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="租金总额" placeholder="" /> 
 							 <KrField grid={1/2}  name="totalrent" type="text" component="input" label="押金总额" /> 
-							 <KrField grid={1/2}  name="fileIdList" type="textarea" component="textarea" label="备注" /> 
+							 <KrField grid={1/2}  name="contractmark" component="textarea" label="备注" /> 
 							 <KrField grid={1}  name="fileIdList" component="file" label="合同附件" /> 
 
 
@@ -165,7 +147,7 @@ class NewCreateForm  extends Component{
 											<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
 									</TableHeader>
 									<TableBody>
-										{this.props.billList.map((item,index)=>{
+										{initialValues.billList.map((item,index)=>{
 											return (
 												<TableRow key={index}>
 													<TableRowColumn>{item.type}</TableRowColumn>
@@ -183,7 +165,7 @@ class NewCreateForm  extends Component{
 
 				<Grid>
 					<Row style={{marginTop:30}}>
-						<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} disabled={submitting} /> </Col>
+						<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} /> </Col>
 					  <Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
 				</Grid>
 
@@ -193,7 +175,6 @@ class NewCreateForm  extends Component{
 }
 
 const validate = values =>{
-
 	const errors = {}
 
 	if(!values.mainbilltype){

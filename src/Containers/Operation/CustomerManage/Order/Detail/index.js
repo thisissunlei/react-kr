@@ -81,9 +81,6 @@ class OrderDetail extends Component {
 		actions.callAPI('get-order-detail',{
 			mainBillId:this.props.params.orderId
 		},{}).then(function(response){
-
-			console.log('----',response);
-
 			_this.setState({
 				response:response
 			});
