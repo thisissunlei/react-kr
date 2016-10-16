@@ -88,6 +88,7 @@ export default(
 																		<Route path=":id/edit" component={Operation.CustomerManage.Agreement.Exit.Edit}/>
 																		<Route path=":id/detail" component={Operation.CustomerManage.Agreement.Exit.Detail}/>
 																	</Route>
+
 																</Route>
 							   </Route>
 
