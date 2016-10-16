@@ -39,7 +39,14 @@ class NewCreateForm  extends Component{
 			customerAddress:'fv',
 			fnaCorporationList:[
 				{value:'sdf',label:'sdf'}
-			]
+			],
+			whereFloor:[
+				{value:'sdf',label:'sdf'}
+			],
+			paytype:'sdf',
+			paymodel:[
+				{value:'sdf',label:'sdf'}
+			],
 		}
 	}
 
@@ -92,7 +99,16 @@ class NewCreateForm  extends Component{
 		initialValues.fnaCorporationList=[
 			{value:'sdf',label:'sfcsd'},
 			{value:'sdf',label:'ssdfc'}
-		]
+		];
+		initialValues.whereFloor=[
+			{value:'sdf',label:'sfcsd'},
+			{value:'sdf',label:'ssdfc'}
+		];
+		initialValues.paytype='nnn';
+		initialValues.paymodel=[
+			{value:'sdf',label:'sfcsd'},
+			{value:'sdf',label:'ssdfc'}
+		];
 	  return (
 
 		<form onSubmit={handleSubmit(this.onSubmit)}>
@@ -112,17 +128,17 @@ class NewCreateForm  extends Component{
 
 								 <KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={initialValues.communityName} /> 
 
-								<KrField name="whereFloor"  grid={1/2} component="select" label="所在楼层" options={floorList} />
+								<KrField name="whereFloor"  grid={1/2} component="select" label="所在楼层" options={initialValues.whereFloor}/>
 
 								 <KrField grid={1/2}  name="communityName" type="text" component="labelText" label="地址" value={initialValues.customerAddress} /> 
 								 <KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  /> 
-								<KrField name="paytype"  grid={1/2} component="labelText" label="支付方式" options={payTypeList} />
+								<KrField name="paytype"  grid={1/2} component="labelText" label="支付方式" value={initialValues.paytype}/>
 								<KrField grid={1}  name="username" component="group" label="租赁期限"> 
 										  <KrField grid={1/2}  name="leaseBeginDate"  component="date"  /> 
 										  <KrField grid={1/2}  name="leaseEndDate" component="date" /> 
 								  </KrField>
 								  <KrField grid={1/2}  name="firstpaydate"  component="date" label="首付款时间" /> 
-								  <KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={paymentList} /> 
+								  <KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={initialValues.paymodel} /> 
 							 <KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" /> 
 							 <KrField name="" component="labelText" label=" 租赁项目"  /> 
 							 <KrField grid={1}  name="stationnum" type="text" component="input" label="工位" /> 
