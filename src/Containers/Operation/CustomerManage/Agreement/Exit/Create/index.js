@@ -13,6 +13,7 @@ import {
 } from 'kr-ui';
 
 import NewCreateForm from './NewCreateForm';
+import ConfirmFormDetail from './ConfirmFormDetail';
 
 
 export default  class JoinCreate extends Component {
@@ -20,35 +21,39 @@ export default  class JoinCreate extends Component {
 	constructor(props,context){
 		super(props, context);
 
-		this.handleOpen = this.handleOpen.bind(this);
 		this.openConfirmCreateDialog = this.openConfirmCreateDialog.bind(this);
-		this.onSubmit = this.onSubmit.bind(this);
+		this.onCreateSubmit = this.onCreateSubmit.bind(this);
+		this.onCancel = this.onCancel.bind(this);
+		this.onConfrimSubmit  = this.onConfrimSubmit.bind(this);
+
 
 		this.state = {
 			initialValues:{},
-			open:false,
-			openConfirmCreate:false,
-			billList:[
-				{
-					id:883,
-					name:'23432',
-					type:1
-				},
-				{
-					id:883,
-					name:'23432',
-					type:1
-				},
-			],
-			init:{
-				customer:{},
-				fnaCorporation:[],
-				payType:[],
-				payment:[]
-			}
+			formValues:{},
+			openConfirmCreate:false
 		}
+
 	}
 
+
+	 onCreateSubmit(formValues){
+
+		 console.log("yayaya---form");
+
+		 this.setState({
+			 formValues
+		 });
+
+		 this.openConfirmCreateDialog();
+	 }
+
+	 onConfrimSubmit(){
+		 this.openConfirmCreateDialog();
+	}
+
+	onCancel(){
+
+	}
 	 openConfirmCreateDialog(){
 		 this.setState({
 			 openConfirmCreate:!this.state.openConfirmCreate
@@ -56,62 +61,64 @@ export default  class JoinCreate extends Component {
 	 }
 
 	 componentDidMount(){
+
 		var _this = this;
 		const {params} = this.props;
 		let initialValues = {};
 		Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
+
 			initialValues.leaseAddress = response.customer.customerAddress;
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）	
 			initialValues.contracttype = 2;
+			initialValues.fnaCorporationList = response.fnaCorporation.map(function(item,index){
+				item.value = item.id;
+				item.label = item.corporationName;
+				return item;
+			});
+			initialValues.paymentList = response.payment.map(function(item,index){
+				item.value = item.id;
+				item.label = item.dicName;
+				return item;
+			});
+			initialValues.payTypeList = response.payType.map(function(item,index){
+				item.value = item.id;
+				item.label = item.dicName;
+				return item;
+			});
+
 			_this.setState({
-				init:response,
 				initialValues
 			});
-		}).catch(function(err){ });
 
+		}).catch(function(err){
+			Notify.show([{
+				message:'后台出错请联系管理员',
+				type: 'danger',
+			}]);
+	   	});
 	 }
-	 onSubmit(form){
-		 console.log("---form",提交);
-		 //const {params} = this.props;
-		// Store.dispatch(Actions.callAPI('addOrEditEnterContract',{customerId:params.customerId,mainBillId:params.orderId},form)).then(function(response){ }).catch(function(err){ });
-	 }
 
-	handleOpen(){
-		Actions.showModalDialog('http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId=42&floors=3&goalStationNum=1&goalBoardroomNum=0&selectedObjs=[{type:1,id:883},{type:2,id:2}]',900,800);
-		var _this = this;
-		window.setReturnValue = function(value){
-			_this.setState({
-				billList:value.data
-			});
-		};
-	}
-
-	onSubmit(){
-
-	}
-
-	onCancel(){
-
-	}
 
   render() {
 
-	  let {fnaCorporation,payType,payment,customer,initialValues} = this.state.init;
+	  let {initialValues} = this.state;
 
     return (
 
 		 <div>
 		 	<BreadCrumbs children={['系统运营','客户管理','退租协议']}/>
-			<Section title="创建入驻协议书" description=""> 
-					<NewCreateForm onSubmit={this.onSubmit} fnaCorporation={fnaCorporation} paymentList={payment} payTypeList={payType} floorList={customer.floor} billList={this.state.billList} customer={customer} initialValues={initialValues}/>
+			<Section title="创建退租协议书" description=""> 
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues}/>
 			</Section>
 
 			<Dialog
 				title="确定新建"
 				modal={true}
+				autoScrollBodyContent={true}
+				autoDetectWindowHeight={true}
 				open={this.state.openConfirmCreate} >
+						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} />
 			  </Dialog>
-
 		</div>
 	);
   }

@@ -108,7 +108,7 @@ export default  class AdmitCreate extends Component {
 		 <div>
 		 	<BreadCrumbs children={['系统运营','客户管理','承租协议']}/>
 			<Section title="承租协议书" description=""> 
-					<NewCreateForm onCreateSubmit={this.onCreateSubmit} initialValues={initialValues}/>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues}/>
 			</Section>
 
 			<Dialog
