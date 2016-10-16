@@ -161,8 +161,8 @@ class NewCreateForm  extends Component{
 										{this.props.billList.map((item,index)=>{
 											return (
 												<TableRow key={index}>
-													<TableRowColumn>{item.type}</TableRowColumn>
-													<TableRowColumn>{item.name}</TableRowColumn>
+													<TableRowColumn>{item.stationType}</TableRowColumn>
+													<TableRowColumn>{item.stationId}</TableRowColumn>
 													<TableRowColumn>{item.unitprice}</TableRowColumn>
 													<TableRowColumn>{item.leaseBeginDate}</TableRowColumn>
 													<TableRowColumn>{item.leaseEndDate}</TableRowColumn>

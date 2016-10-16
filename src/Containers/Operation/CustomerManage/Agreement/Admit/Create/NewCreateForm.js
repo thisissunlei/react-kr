@@ -37,7 +37,9 @@ class NewCreateForm  extends Component{
 			communityName:'',
 			fnaCorporationList:[],
 			floorList:[],
-			paymentList:[]
+			lessorAdress:"",
+			buyType:[]
+			
 		}
 	}
 
@@ -91,6 +93,7 @@ class NewCreateForm  extends Component{
 
 	initialValues.customerName = 'yyy';
 	initialValues.communityName = 'mmm';
+	initialValues.lessorAdress="大街";
 	initialValues.fnaCorporationList =[ //此处犯错
 	 {value:'ahah',label:'123'}, 
      {value:'77',label:'yayay'}
@@ -98,19 +101,18 @@ class NewCreateForm  extends Component{
     initialValues.floorList=[
      {value:'ahah',label:'yayay'}
     ];
-    initialValues.paymentList=[
+    initialValues.buyType=[
      {value:'ahah',label:'yayay'}
     ]
-    
 	  return (
 
 		<form onSubmit={handleSubmit(this.onSubmit)}>
 								
 								 <KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={initialValues.fnaCorporationList} />
 
-								 <KrField grid={1/2}  name="lessorAddress" type="text" component="input" label="地址" /> 
+								 <KrField grid={1/2}  type="text" component="labelText" label="地址" value={initialValues.lessorAdress}/> 
 
-								 <KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" /> 
+								 <KrField grid={1/2}  name="lessorContactid" component="input" type="text" label="联系人" /> 
 								 <KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 
 								 <KrField grid={1/2}  component="labelText" label="承租方" value={initialValues.customerName}/> 
@@ -121,20 +123,20 @@ class NewCreateForm  extends Component{
 
 								 <KrField grid={1/2}  component="labelText" label="所属社区" value={initialValues.communityName} /> 
 
-								<KrField name="wherefloor"  grid={1/2} component="select" label="所属楼层" options={initialValues.floorList} />
+								 <KrField name="wherefloor"  grid={1/2} component="select" label="所属楼层" options={initialValues.floorList} />
 
 								
-								 <KrField grid={1/2}  name="signdate" type="text" component="input" label="签署日期"  /> 
+								 <KrField grid={1/2}  name="signdate"  component="date" label="签署日期"  /> 
 								 <KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  /> 
 
                                  <KrField grid={1/2}  name="totaldownpayment" type="text" component="input" label="定金总额"  /> 
-								 <KrField grid={1/2}  name="paymentId" type="text" component="select" label="付款方式"  />
+								 <KrField grid={1/2}  name="paymentId" type="text" component="select" label="付款方式" options={initialValues.buyType} />
                                      
 								 <KrField grid={1/2}  name="" component="group" label="租赁期限"> 
 										  <KrField grid={1/2}  name="leaseBegindate"  component="date"  /> 
 										  <KrField grid={1/2}  name="leaseEnddate" component="date" /> 
 								  </KrField>
-                                  <KrField name="templockday"  grid={1/2} component="select" label="保留天数" options={initialValues.paymentList} /> 
+                                  <KrField name="templockday"  grid={1/2} component="input" type="text" label="保留天数" /> 
 
 
 								
@@ -159,7 +161,6 @@ class NewCreateForm  extends Component{
 									<TableHeader>
 											<TableHeaderColumn>类别</TableHeaderColumn>
 											<TableHeaderColumn>编号／名称</TableHeaderColumn>
-											<TableHeaderColumn>单价(元/月)</TableHeaderColumn>
 											<TableHeaderColumn>租赁开始时间</TableHeaderColumn>
 											<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
 									</TableHeader>
@@ -169,7 +170,6 @@ class NewCreateForm  extends Component{
 												<TableRow key={index}>
 													<TableRowColumn>{item.stationType}</TableRowColumn>
 													<TableRowColumn>{item.stationId}</TableRowColumn>
-													<TableRowColumn>{item.unitprice}</TableRowColumn>
 													<TableRowColumn>{item.leaseBeginDate}</TableRowColumn>
 													<TableRowColumn>{item.leaseEndDate}</TableRowColumn>
 												</TableRow>
