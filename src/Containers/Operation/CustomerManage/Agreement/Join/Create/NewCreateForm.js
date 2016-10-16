@@ -33,7 +33,9 @@ class NewCreateForm  extends Component{
 
 	static DefaultPropTypes = {
 		initialValues:{
-			customerName:'hha'
+			customerName:'hha',
+			communityName:'ds',
+			lessorAddress:'sdf'
 		}
 	}
 
@@ -78,37 +80,17 @@ class NewCreateForm  extends Component{
 
 		let { error, handleSubmit, pristine, reset, submitting,fnaCorporation,paymentList,payTypeList,floorList,customer,initialValues} = this.props;
 
-		fnaCorporation.map(function(item,index){
-			item.value = item.id;
-			item.label = item.corporationName;
-			return item;
-		});
-
-		paymentList.map(function(item,index){
-			item.value = item.id;
-			item.label = item.dicName;
-			return item;
-		});
-
-		payTypeList.map(function(item,index){
-			item.value = item.id;
-			item.label = item.dicName;
-			return item;
-		});
-
-		initialValues = {};
-
-
+	initialValues = {};
 	initialValues.customerName = 'jjjdf';
 	initialValues.communityName = 'jjjdf';
-
+	initialValues.lessorAddress ="sdf"
 	  return (
 
 		<form onSubmit={handleSubmit(this.onSubmit)}>
 								
 								<KrField name="lessorId"  grid={1/2} component="select" label="出租方" options={fnaCorporation}  />
 
-								 <KrField grid={1/2}  name="lessorAddress" type="text" component="input" label="地址" /> 
+								 <KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={initialValues.lessorAddress}/> 
 
 								 <KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" /> 
 								 <KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
