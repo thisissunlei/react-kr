@@ -58,21 +58,21 @@ export default class ConfirmFormDetail  extends Component{
 
 		  <div>					
 		  							
-								<KrField name="lessorId"  grid={1/2} component="labelText" label="出租方" value="ahah " />
-								 <KrField grid={1/2}  name="lessorAddress"  component="labelText" label="地址" /> 
-								 <KrField grid={1/2}  name="lessorContactid" component="labelText" label="联系人" /> 
-								 <KrField grid={1/2}  name="lessorContacttel"  component="labelText" label="电话" /> 
-								 <KrField grid={1/2}  name="leaseId" component="labelText" label="承租方" /> 
-								 <KrField grid={1/2}  name="leaseAddress"  component="labelText" label="地址" />
-								 <KrField grid={1/2}  name="leaseContact" component="labelText" label="联系人" /> 
-								 <KrField grid={1/2}  name="leaseContacttel" component="labelText" label="电话" /> 
-								 <KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" /> 
-								 <KrField grid={1/2}  name="customerAddress"  component="labelText" label="地址"  /> 
-								 <KrField grid={1/2}  name="contractcode" component="labelText" label="合同编号"  /> 
-								<KrField grid={1/2}  name="affixdate"  component="labelText"  label="签署时间" /> 
-								 <KrField grid={1}  name="totalrent"  component='labelText' label="减租金额"  /> 
-								 <KrField grid={1/2}  name="contractmark" component="labelText" label="备注" /> 
-								 <KrField grid={1}  name="fileIdList" component="labelText" label="上传附件" /> 
+								<KrField name="leasorName"  grid={1/2} component="labelText" label="出租方" value={detail.leasorName} />
+								 <KrField grid={1/2}  name="lessorAddress"  component="labelText" label="地址" value={detail.lessorAddress}/> 
+								 <KrField grid={1/2}  name="lessorContactid" component="labelText" label="联系人" value={detail.lessorContactName}/> 
+								 <KrField grid={1/2}  name="lessorContacttel"  component="labelText" label="电话" value={detail.lessorContacttel} /> 
+								 <KrField grid={1/2}  name="leaseId" component="labelText" label="承租方" value={detail.customerName} /> 
+								 <KrField grid={1/2}  name="leaseAddress"  component="labelText" label="地址" value={detail.leaseAddress}/>
+								 <KrField grid={1/2}  name="leaseContact" component="labelText" label="联系人" value={detail.leaseContact}/> 
+								 <KrField grid={1/2}  name="leaseContacttel" component="labelText" label="电话" value={detail.leaseContacttel}/> 
+								 <KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={detail.communityName}/> 
+								 <KrField grid={1/2}  name="customerAddress"  component="labelText" label="地址" value={detail.customerAddress} /> 
+								 <KrField grid={1/2}  name="contractcode" component="labelText" label="合同编号" value={detail.contractcode} /> 
+								 <KrField grid={1/2}  name="affixdate"  component="labelText"  label="签署时间" value={detail.affixdate}/> 
+								 <KrField grid={1}  name="totalrent"  component='labelText' label="减租金额"  value={detail.rentamount}/> 
+								 <KrField grid={1/2}  name="contractmark" component="labelText" label="备注" value={detail.contractmark}/> 
+								 <KrField grid={1}  name="fileIdList" component="labelText" label="上传附件" value={detail.contractfile}/> 
 
 								 
 
