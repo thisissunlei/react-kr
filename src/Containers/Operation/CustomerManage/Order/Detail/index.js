@@ -293,7 +293,7 @@ class OrderDetail extends Component {
 							</Row>
 
 							<Row style={{marginTop:10}}>
-								<Col md={4} align="center" ><Button label="续租协议书" type="link" href={"/#/operation/customerManage/"+this.props.params.customerId+"/order"+this.props.params.orderId+"/agreement/renew/create"}/></Col>
+								<Col md={4} align="center" ><Button label="续租协议书" type="link" href={"/#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/renew/create"}/></Col>
 								<Col md={4} align="center"><Button label="减租协议书" type="link" href={"/#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/reduce/create"}/></Col>
 								<Col md={4} align="center"><Button label="退租协议书" type="link" href={"/#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/exit/create"}/></Col>
 							</Row>
