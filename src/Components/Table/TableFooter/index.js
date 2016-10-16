@@ -19,6 +19,7 @@ export default class TableFooter extends React.Component {
 		pageSize: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
 		totalCount: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
 		displayCheckbox:React.PropTypes.bool,
+		pagination:React.PropTypes.bool,
 
         onSelectAll:React.PropTypes.func,
 		onExport:React.PropTypes.func,
@@ -29,9 +30,11 @@ export default class TableFooter extends React.Component {
 	constructor(props){
 		super(props);
 
-		this.renderCheckbox = this.renderCheckbox.bind(this);
 		this.onExport = this.onExport.bind(this);
 		this.onPageChange = this.onPageChange.bind(this);
+
+		this.renderCheckbox = this.renderCheckbox.bind(this);
+		this.renderPagination = this.renderPagination.bind(this);
 
 	}
 
@@ -59,11 +62,21 @@ export default class TableFooter extends React.Component {
 	}
 
 
+	renderPagination(){
+
+		let {pagination,totalCount,page,pageSize} = this.props;
+
+		if(!pagination){
+			return null;
+		}
+		return (
+			<Pagination totalCount={totalCount} page={page} pageSize={pageSize} onPageChange={this.onPageChange}/>
+		);
+	}
 
 	render() {
 
 		let {className,children,totalCount,page,pageSize} = this.props;
-
 
 		return (
 			<tfoot className="tfoot">
@@ -73,7 +86,7 @@ export default class TableFooter extends React.Component {
 				*/}
 				  <TableRowColumn style={{textAlign:'left'}} colSpan={2}> <Button label="导出" primary={true} type="button" onTouchTap={this.onExport}/> </TableRowColumn>
 				<TableRowColumn style={{textAlign:'left'}} colSpan={5}>
-						<Pagination totalCount={totalCount} page={page} pageSize={pageSize} onPageChange={this.onPageChange}/>
+						{this.renderPagination()}
 					</TableRowColumn>
 				</tr>
 			</tfoot>

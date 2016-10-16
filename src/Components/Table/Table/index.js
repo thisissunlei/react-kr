@@ -16,6 +16,7 @@ export default class Table extends React.Component {
 		page:1,
 		pageSize:10,
 		totalCount:20,
+		pagination:true,
 		loading:false,
 		ajax:false,
 		ajaxFieldListName:'items',
@@ -29,6 +30,7 @@ export default class Table extends React.Component {
 		toggleVisibility: React.PropTypes.string,
 		page: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
 		pageSize: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
+		pagination:React.PropTypes.bool,
 		totalCount: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
 		loading:React.PropTypes.bool,
 		ajax:React.PropTypes.bool,
@@ -330,6 +332,7 @@ export default class Table extends React.Component {
 				defaultValue:this.state.defaultValue,
 				page:this.state.page,
 				pageSize:this.state.pageSize,
+				pagination:this.props.pagination,
 				totalCount:this.state.totalCount,
 				onPageChange:this.onPageChange,
 		}
