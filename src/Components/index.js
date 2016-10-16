@@ -1,5 +1,6 @@
 //Components
 import Calendar from './Calendar';
+import Dialog from './Dialog';
 import Section from './Section';
 import Form from './Form/index';
 import BreadCrumbs from './BreadCrumbs';
@@ -25,7 +26,6 @@ import {
 	DatePicker,
 	Paper,
 	Avatar,
-	Dialog,
 	Snackbar,
 } from 'material-ui';
 
@@ -42,6 +42,7 @@ module.exports = {
 	Grid,
 	Row,
 	Col,
+	Dialog,
 	...Form,
 	...Table,
 	...Button,

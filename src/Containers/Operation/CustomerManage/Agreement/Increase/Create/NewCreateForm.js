@@ -109,6 +109,10 @@ class NewCreateForm  extends Component{
 			{value:'sdf',label:'sfcsd'},
 			{value:'sdf',label:'ssdfc'}
 		];
+		initialValues.billList=[
+			{value:'sdf',label:'sfcsd'},
+			{value:'sdf',label:'ssdfc'}
+		];
 	  return (
 
 		<form onSubmit={handleSubmit(this.onSubmit)}>
@@ -169,7 +173,7 @@ class NewCreateForm  extends Component{
 											<TableHeaderColumn>结束时间</TableHeaderColumn>
 									</TableHeader>
 									<TableBody>
-										{this.props.billList.map((item,index)=>{
+										{initialValues.billList.map((item,index)=>{
 											return (
 												<TableRow key={index}>
 													<TableRowColumn>{item.stationType}</TableRowColumn>
