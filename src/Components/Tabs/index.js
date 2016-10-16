@@ -1,4 +1,4 @@
-import Tabs from './Tab';
+import Tabs from './Tabs';
 import TabItem from './TabItem';
 
 
