@@ -29,7 +29,7 @@ const config = {
 	  stats: 'normal',
   },
   */
-	devtool: 'eval-source-map',
+	//devtool: 'eval-source-map',
 	output: {
 		path: buildPath,
 		filename: 'bundle.js',
