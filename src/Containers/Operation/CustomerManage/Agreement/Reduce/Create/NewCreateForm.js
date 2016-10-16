@@ -75,7 +75,7 @@ class NewCreateForm  extends Component{
 	}
 
 	render(){
-        console.log("-----",this.props.initialValues);
+
 		let { error, handleSubmit, pristine, reset, submitting,fnaCorporation,paymentList,payTypeList,floorList,customer,initialValues} = this.props;
 
 		fnaCorporation.map(function(item,index){
@@ -101,12 +101,13 @@ class NewCreateForm  extends Component{
 
 	initialValues.customerName = 'jjjdf';
 	initialValues.communityName = 'jjjdf';
+	initialValues.customerAddress = 'jjjdf';
 
 	  return (
 
 		<form onSubmit={handleSubmit(this.onSubmit)}>
 								
-								 <KrField name="lessorId"  grid={1/2} component="select" label="出租方" options={fnaCorporation}  />
+								<KrField name="lessorId"  grid={1/2} component="select" label="出租方" options={fnaCorporation}  />
 
 								 <KrField grid={1/2}  name="lessorAddress" type="text" component="input" label="地址" /> 
 
@@ -120,48 +121,27 @@ class NewCreateForm  extends Component{
 								 <KrField grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话" /> 
 
 								 <KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={initialValues.communityName} /> 
-
-								<KrField name="wherefloor"  grid={1/2} component="select" label="所属楼层" options={floorList} />
-
-								
-								 <KrField grid={1/2}  name="username" type="text" component="input" label="签署日期"  /> 
+								 <KrField grid={1/2}  name="customerAddress" type="text" component="labelText" label="地址" value={initialValues.customerAddress} /> 
 								 <KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  /> 
-
-                                 <KrField grid={1/2}  name="username" type="text" component="input" label="定金总额"  /> 
-								 <KrField grid={1/2}  name="contractcode" type="text" component="select" label="付款方式"  />
-                                     
-								 <KrField grid={1/2}  name="username" component="group" label="租赁期限"> 
-										  <KrField grid={1/2}  name="leaseBeginDate"  component="date"  /> 
-										  <KrField grid={1/2}  name="leaseEndDate" component="date" /> 
-								  </KrField>
-                                  <KrField name="paymodel"  grid={1/2} component="select" label="保留天数" options={paymentList} /> 
+								 <KrField grid={1/2}  name="affixdate"  component="date" grid={1/2} label="签署时间" /> 
+								 <KrField grid={1}  name="totalrent" type="labelText"  label="减租金额"  /> //减租金额没有
+								 <KrField grid={1/2}  name="contractmark" type="textarea" component="textarea" label="备注" /> 
+								 <KrField grid={1}  name="fileIdList" component="file" label="上传附件" /> 
 
 
-								
-							
-							 <KrField grid={1} name="" component="labelText" label=" 租赁项目"  /> 
-							 <KrField grid={1}  name="stationnum" type="text" component="input" label="工位" /> 
-							 <KrField grid={1}  name="boardroomnum" type="text" component="input" label="会议室" /> 
-
-							
-							 <KrField grid={1}  name="fileIdList" type="textarea" component="textarea" label="备注" /> 
-							 <KrField grid={1}  name="fileIdList" component="file" label="上传附件" /> 
-
-
-					    <Section title="租赁明细" description="" rightMenu = {
+					<Section title="租赁明细" description="" rightMenu = {
 									<Menu>
-										  <MenuItem primaryText="删除" />
-										  <MenuItem primaryText="租赁"  onTouchTap={this.onDistributionDialog} />
+										  <MenuItem primaryText="减租"  onTouchTap={this.onDistributionDialog} />
 									</Menu>
-					        }> 
+					}> 
 
 							<Table  displayCheckbox={false}>
 									<TableHeader>
 											<TableHeaderColumn>类别</TableHeaderColumn>
 											<TableHeaderColumn>编号／名称</TableHeaderColumn>
 											<TableHeaderColumn>单价(元/月)</TableHeaderColumn>
-											<TableHeaderColumn>租赁开始时间</TableHeaderColumn>
-											<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
+											<TableHeaderColumn>起始时间</TableHeaderColumn>
+											<TableHeaderColumn>减租开始时间</TableHeaderColumn>
 									</TableHeader>
 									<TableBody>
 										{this.props.billList.map((item,index)=>{
