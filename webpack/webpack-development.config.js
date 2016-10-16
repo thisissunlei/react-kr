@@ -4,7 +4,7 @@ const buildPath = path.join(process.cwd(), '/static');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var env = process.env.NODE_ENV;
+var env = process.env.NODE_ENV || 'development';
 
 const config = {
 	entry:[
@@ -16,7 +16,6 @@ const config = {
 		alias: {
 			'kr-ui': path.join(process.cwd(), '/src/Components'), 
 			'kr': path.join(process.cwd(), '/src'), 
-			// 'material-ui': path.resolve(__dirname, '../meterial-ui'),
 		},
 	},
 	/*
@@ -33,13 +32,13 @@ const config = {
 	output: {
 		path: buildPath,
 		filename: 'bundle.js',
-		publicPath:"http://127.0.0.1:8001/"
+		publicPath:"/"
 	},
 	plugins: [
-
-		new webpack.optimize.OccurenceOrderPlugin(),
+	//	new webpack.optimize.OccurenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoErrorsPlugin(),
+		/*
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
 				warnings: false,
@@ -48,10 +47,11 @@ const config = {
 				comments: false,
 			},
 		}),
+		*/
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(env)
 		}),
-		new ExtractTextPlugin('app.css', { allChunks: true }),
+		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
 			title: '36kr融资',
 			filename: 'index.html',
@@ -109,9 +109,11 @@ const config = {
 			}
 		],
 	},
+	/*
 	eslint: {
 		configFile: '../.eslintrc',
 	},
+	*/
 };
 
 module.exports = config;

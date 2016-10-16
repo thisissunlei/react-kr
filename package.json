@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/selenium-webdriver": "^2.44.26",
     "Promise": "^1.0.5",
     "babel-cli": "^6.7.7",
     "babel-core": "^6.7.7",
@@ -32,7 +33,7 @@
     "co-views": "^2.1.0",
     "css-loader": "^0.23.1",
     "dateformat": "^1.0.12",
-    "extract-text-webpack-plugin": "^1.0.1",
+    "extract-text-webpack-plugin": "^2.0.0-beta.4",
     "fetch-sync": "^2.0.0",
     "file-loader": "^0.8.5",
     "history": "^2.0.0",
@@ -78,6 +79,7 @@
     "react-router": "^2.6.0",
     "react-s-alert": "^1.1.4",
     "react-select": "^1.0.0-rc.1",
+    "react-tap-event-plugin": "^0.2.2",
     "react-title-component": "^1.0.1",
     "redux": "^3.5.2",
     "redux-form": "^6.0.2",
@@ -91,7 +93,7 @@
     "transfer-webpack-plugin": "^0.1.4",
     "url-search-params": "^0.5.0",
     "validatorjs": "^3.7.0",
-    "webpack": "^1.12.12",
+    "webpack": "^2.1.0-beta.21",
     "webpack-dev-server": "^1.14.1",
     "webpack-hot-middleware": "^2.10.0"
   },

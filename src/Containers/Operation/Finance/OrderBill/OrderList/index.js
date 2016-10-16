@@ -222,7 +222,7 @@ export default class AttributeSetting  extends Component{
 					</Section>
 
 					<Dialog
-						title="新建"
+						title="查询"
 						modal={true}
 						open={this.state.openNewCreate}
 					>
