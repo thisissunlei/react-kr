@@ -40,7 +40,8 @@ class NewCreateForm  extends Component{
             payType:"",
             lessorAdress:"",
             buyType:[],
-            sumRent:""
+            sumRent:"",
+            billList:[]
 		}
 	}
 
@@ -104,7 +105,10 @@ class NewCreateForm  extends Component{
       {value:'123',label:'季度'}, 
       {value:'123',label:'月度'}, 
    ]
-   initialValues.sumRent="123"
+   initialValues.sumRent="123";
+   initialValues.billList=[
+      {stationType:'ahah',stationId:'yayay','unitprice':'345','leaseBeginDate':'123','leaseEndDate':'345'}
+    ]
 	  return (
 
 		<form onSubmit={handleSubmit(this.onSubmit)}>
@@ -158,7 +162,7 @@ class NewCreateForm  extends Component{
 											<TableHeaderColumn>减租开始时间</TableHeaderColumn>
 									</TableHeader>
 									<TableBody>
-										{this.props.billList.map((item,index)=>{
+										{initialValues.billList.map((item,index)=>{
 											return (
 												<TableRow key={index}>
 													<TableRowColumn>{item.stationType}</TableRowColumn>
