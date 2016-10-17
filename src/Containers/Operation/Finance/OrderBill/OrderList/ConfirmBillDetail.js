@@ -72,27 +72,31 @@ export default  class ConfirmBillDetail extends Component{
         }
 
         var myDate = new Date();
-        let year=myDate.getYear();
-        let month=myDate.getMonth();
-         if(month<10){
+        let year=myDate.getFullYear();
 
+        let month=myDate.getMonth()+1;
+         if(month<10){
+            month='0'+month;
          }
         let day=myDate.getDate();  
+          if(day<10){
+            day='0'+day;
+          }
 
 		return (
 
 			<div>
-               <KrField grid={1} label="对账单" component="labelText" value={list.corporationName}/>
+            <KrField grid={1} label="对账单" component="labelText" value={list.corporationName}/>
                 
               
-               <KrField grid={1/2} label="公司名称" component="labelText" value={list.customername}/>
-               <KrField grid={1/2} label="操作日期" component="labelText" />
+            <KrField grid={1/2} label="公司名称" component="labelText" value={list.customername}/>
+            <KrField grid={1/2} label="操作日期" component="labelText" value={year+'年'+month+'月'+day+'日'}/>
                
 
-        <KrField grid={1/2} label="对账期间" component="group">
-						<KrField  grid={1/2} label="起始日期" type="labelText" /> 
-						<KrField  grid={1/2} label="结束日期" type="labelText" /> 
-				</KrField>
+           <KrField grid={1/2} label="对账期间" component="group">
+  						<KrField  grid={1/2} label="起始日期" type="labelText" /> 
+  						<KrField  grid={1/2} label="结束日期" type="labelText" /> 
+				  </KrField>
 
 				<KrField grid={1/2} label="订单编号" component="labelText" value={list.mainbillcode}/>
 
@@ -101,14 +105,14 @@ export default  class ConfirmBillDetail extends Component{
 				<KrField label="金额" component="labelText" grid={1/3}/>
 
                  {listC.map((item,index)=>{
-					 return (
+					   return (
                         <div>
                           <KrField  grid={1/3} component="labelText" value={listC.propcode}/>
-                          <KrField grid={1/3} component="labelText" value={item.propname}/>
+                          <KrField  grid={1/3} component="labelText" value={item.propname}/>
                           <KrField  grid={1/3} component="labelText" value={item.finaflowAmount}/>
                         </div>                        
-					 );
-				 })}       
+					   );
+				   })}       
                <Row style={{marginTop:30}}>    
 					  <Col md={4}><KrField  label="其他缴费" component="labelText"/></Col>
 					  <Col md={4}>

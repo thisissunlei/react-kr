@@ -202,7 +202,7 @@ export default class AttributeSetting  extends Component{
 				<TableBody>
 						 <TableRow displayCheckbox={true}>
 						<TableRowColumn name="customername" ></TableRowColumn>
-						<TableRowColumn name="mainbilltype" ></TableRowColumn>
+						<TableRowColumn name="mainbilltype" options={[{label:'工位入驻订单',value:'STATION'}]}></TableRowColumn>
 						<TableRowColumn name="community"></TableRowColumn>
 						<TableRowColumn name="actualEntrydate"></TableRowColumn>
 						<TableRowColumn name="actualLeavedate"></TableRowColumn>
