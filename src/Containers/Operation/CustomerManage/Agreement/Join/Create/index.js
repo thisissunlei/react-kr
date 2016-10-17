@@ -38,8 +38,6 @@ export default  class JoinCreate extends Component {
 
 	 onCreateSubmit(formValues){
 
-		 console.log("yayaya---form");
-
 		 this.setState({
 			 formValues
 		 });
@@ -86,9 +84,16 @@ export default  class JoinCreate extends Component {
 				return item;
 			});
 
+			initialValues.floorList = response.customer.floor;
+			initialValues.customerName = response.customer.customerName;
+			initialValues.leaseAddress = response.customer.customerAddress;
+			initialValues.communityName = response.customer.communityName;
+
 			_this.setState({
 				initialValues
 			});
+
+			console.log("0000",initialValues);
 
 		}).catch(function(err){
 			Notify.show([{
