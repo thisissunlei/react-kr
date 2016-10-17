@@ -31,6 +31,12 @@ export default(
 		<Route path="operation" component={Basic}>
 				<Route path="index" component={Operation.Home} name="operation_home"/>
 
+
+				{/*社区管理*/}
+				<Route path="communityManage" component={Basic}>
+					<Route path="schedule" component={Operation.CommunityManage.Schedule} name="schedule"/>
+				</Route>
+
               {/*客户管理*/}
 				<Route path="customerManage" component={Basic}>
 					<Route path="List" component={Operation.CustomerManage.List} name="customerManage_list"/>
