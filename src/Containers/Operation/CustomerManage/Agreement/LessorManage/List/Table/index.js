@@ -225,7 +225,7 @@ const ViewHtml = (props)=>{
 		return (
 
 			<div>
-				<Table  style={{marginTop:10}} displayCheckbox={true}>
+				<Table  style={{marginTop:10}} >
 					<TableHeader>
 					<TableHeaderColumn>ID</TableHeaderColumn>
 					<TableHeaderColumn>出租方名称</TableHeaderColumn>
@@ -237,8 +237,7 @@ const ViewHtml = (props)=>{
 				</TableHeader>
 
 				<TableBody>
-
-					  {this.props.items && this.props.items.length && this.props.items.map((item,index)=> <TableRow key={index} displayCheckbox={true}>
+					  {this.props.items && this.props.items.length && this.props.items.map((item,index)=> <TableRow key={index}>
 							<TableRowColumn >{item.id}</TableRowColumn>
 							<TableRowColumn>{item.corporationName}</TableRowColumn>
 							<TableRowColumn>{item.enableflag}</TableRowColumn>
@@ -250,8 +249,6 @@ const ViewHtml = (props)=>{
 								  <Button label="编辑"  type="link" onClick={this.openUpdateDialog.bind(this,index)} />
 							 </TableRowColumn>
 						 </TableRow>
-
-
 				  )}
 				</TableBody>
 

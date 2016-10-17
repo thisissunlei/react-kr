@@ -287,7 +287,7 @@ export default class SettingList extends Component {
   if(!items.length){
     return(
         <TableBody style={{paddingTop:10}}>
-                <TableRow displayCheckbox={false}>
+                <TableRow displayCheckbox={false} >
                       <TableRowColumn colSpan={8} >
                         <div style={{textAlign:'center',paddingTop:50,paddingBottom:50}}>
                         暂无数据
@@ -306,7 +306,6 @@ export default class SettingList extends Component {
             const flag=item.sp.enableFlag?'是':'否';
             return (
              <TableRow key={index}>
-					 <TableHeaderColumn></TableHeaderColumn>
 					<TableRowColumn>{item.sp.dicName}</TableRowColumn>
 						<TableRowColumn>{flag}</TableRowColumn>
 						<TableRowColumn>{item.sp.creater}</TableRowColumn>

@@ -137,7 +137,7 @@ export default class TableBody extends React.Component {
 
 	createRowElement(child,rowNumber){
 
-		let {listData} = this.props;
+		let {listData,displayCheckbox} = this.props;
 
 		const handlers = {
 			onCellClick: this.onCellClick,
@@ -149,15 +149,17 @@ export default class TableBody extends React.Component {
 			onOperation:this.onOperation,
 		};
 
-		let displayCheckbox = false;
+		/*
+		let displayCheckbox = true;
 		if(child.props && child.props.hasOwnProperty('displayCheckbox')){
 			displayCheckbox = child.props.displayCheckbox;
 		}
+		*/
 
 		let itemData = listData[rowNumber] || {};
 
 		let props = {
-			displayCheckbox:(displayCheckbox? true:false),
+			displayCheckbox:displayCheckbox,
 			key:rowNumber,
 			rowNumber: rowNumber,
 			selected: this.isRowSelected(rowNumber),
