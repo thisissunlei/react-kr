@@ -1,5 +1,23 @@
 const APIS  = {
 
+	//获取文件列表
+	'findFileList':{
+		url:'/krspace_knowledge_wap/doc/docFile/findFileList?sourceservicetoken={sourceservicetoken}&fileIds={fileIds}&jsoncallback={jsoncallback}&operater={operater}',
+		method:'get'
+	},
+
+	//文件预览
+	'viewFile':{
+		url:' /krspace_knowledge_wap/doc/docFile/viewFile?operater={operater}&sourceservicetoken={sourceservicetoken}&fileId={fileId}',
+		method:'get'
+	},
+
+	// 上传文件
+	'uploadSingleFile':{
+		url:'/api-old/krspace_knowledge_wap/doc/docFile/uploadSingleFile?operater={operater}&sourceservicetoken={sourceservicetoken}&docTypeCode={docTypeCode}',
+		method:'post'
+	},
+
 	//创建入驻协议的新增和编辑
 	'addOrEditEnterContract':{
 		url:'/api/krspace-finance-web/checkinagreement/addOrEditEnterContract',

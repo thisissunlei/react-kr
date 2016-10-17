@@ -61,6 +61,7 @@ export default class Table extends React.Component {
 		this.createTableFooter = this.createTableFooter.bind(this);
 		this.setVisibilityRow = this.setVisibilityRow.bind(this);
 
+		this.onSort = this.onSort.bind(this);
 		this.onSelectAll = this.onSelectAll.bind(this);
 		this.onRowClick = this.onRowClick.bind(this);
 		this.onExport = this.onExport.bind(this);
@@ -117,6 +118,32 @@ export default class Table extends React.Component {
 			return true;
 		}
 		return false;
+	}
+
+	onSort(name){
+
+
+		if(!name){
+			return ;
+		}
+
+		let {listData} = this.state;
+
+		//console.log("---->>>",listData);
+
+
+		//listData = listData.splice(1,3);
+
+		this.setState({
+			listData
+		});
+
+		/*
+		listData.sort(function(a,b){
+			return a>b;
+		});
+		*/
+
 	}
 
 	onLoaded(){
@@ -317,7 +344,8 @@ export default class Table extends React.Component {
 			{
 				displayCheckbox:this.props.displayCheckbox,
 				onSelectAll: this.onSelectAll,
-				defaultValue:this.state.defaultValue
+				defaultValue:this.state.defaultValue,
+				onSort:this.onSort
 			}
 		);
 
