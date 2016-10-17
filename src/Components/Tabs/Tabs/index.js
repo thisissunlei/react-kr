@@ -19,7 +19,7 @@ export default class Tabs extends React.Component {
 		const {children}  = this.props;
 
 		return(
-			<div>
+			<div className="ui-tab">
 				{children}
 			</div>
 		);

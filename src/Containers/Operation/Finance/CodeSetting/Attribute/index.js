@@ -155,7 +155,7 @@ export default class AttributeSetting  extends Component{
 						 <TableRow displayCheckbox={true}>
 						<TableRowColumn name="propdesc" ></TableRowColumn>
 						<TableRowColumn name="propname" ></TableRowColumn>
-						<TableRowColumn name="enableflag"></TableRowColumn>
+						<TableRowColumn name="enableflag" options={[{label:'否',value:'ENABLE'}]}></TableRowColumn>
 						<TableRowColumn name="proptype"></TableRowColumn>
 						<TableRowColumn name="ordernum"></TableRowColumn>
 						<TableRowColumn name="creatername"></TableRowColumn>

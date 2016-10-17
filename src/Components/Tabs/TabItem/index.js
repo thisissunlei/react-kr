@@ -15,8 +15,11 @@ export default class TabItem extends React.Component {
 
 
 	render() {
+		const {children} = this.props;
 		return(
-			<div></div>
+			<div className="tab-item">
+				{children}
+			</div>
 		);
 	}
 
