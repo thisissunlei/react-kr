@@ -75,6 +75,7 @@ export default  class AdmitCreate extends Component {
 				item.label = item.corporationName;
 				return item;
 			});
+			console.log('initialValues.fnaCorporationList',initialValues.fnaCorporationList)
 			initialValues.paymentList = response.payment.map(function(item,index){
 				item.value = item.id;
 				item.label = item.dicName;
