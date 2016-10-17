@@ -13,7 +13,8 @@ export default class TableRowColumn extends React.Component {
 		onHoverExit: React.PropTypes.func,
 		style: React.PropTypes.object,
 		name:React.PropTypes.string,
-		value:React.PropTypes.string
+		value:React.PropTypes.string,
+		options:React.PropTypes.array
 	}
 
 
@@ -52,13 +53,14 @@ export default class TableRowColumn extends React.Component {
 
 	render() {
 
-		const {
+		let {
 			children,
 			className,
 			columnNumber, 
 			style,
 			name,
 			value,
+			options,
 			...other,
 		} = this.props;
 
@@ -67,6 +69,14 @@ export default class TableRowColumn extends React.Component {
 			onMouseEnter: this.onMouseEnter,
 			onMouseLeave: this.onMouseLeave,
 		};
+
+		if(options && options.length){
+			options.map(function(item,index){
+				if(item.value == value){
+					value = item.label;
+				}
+			});
+		}
 
 		if(name){
 			return(

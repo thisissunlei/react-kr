@@ -18,7 +18,8 @@ import {
 	Grid,
 	Row,
 	Col,
-		Dialog,
+	Dialog,
+	BreadCrumbs
 } from 'kr-ui';
 
 
@@ -127,6 +128,7 @@ export default class AttributeSetting  extends Component{
 		return(
 
 			<div>
+					<BreadCrumbs children={['系统运营','客户管理','属性配置']}/>
 					<Section title="属性配置" description="" >
 
 					<Grid>
@@ -155,8 +157,8 @@ export default class AttributeSetting  extends Component{
 						 <TableRow displayCheckbox={true}>
 						<TableRowColumn name="propcode" ></TableRowColumn>
 						<TableRowColumn name="propname" ></TableRowColumn>
-						<TableRowColumn name="enableflag"></TableRowColumn>
-						<TableRowColumn name="proptype"></TableRowColumn>
+						<TableRowColumn name="enableflag" options={[{label:'否',value:'ENABLE'},{label:'是',value:'DISENABLE'}]}></TableRowColumn>
+						<TableRowColumn name="proptype" options={[{label:'收入',value:'INCOME'},{label:'回款',value:'PAYMENT'}]}></TableRowColumn>
 						<TableRowColumn name="ordernum"></TableRowColumn>
 						<TableRowColumn name="creatername"></TableRowColumn>
 						<TableRowColumn name="createdate"></TableRowColumn>
