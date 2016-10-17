@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import { connect } from 'kr/Redux';
 import {reduxForm,submitForm,change,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
@@ -96,6 +95,7 @@ export default  class JoinCreate extends Component {
 			console.log("0000",initialValues);
 
 		}).catch(function(err){
+			console.log('err',err);
 			Notify.show([{
 				message:'后台出错请联系管理员',
 				type: 'danger',

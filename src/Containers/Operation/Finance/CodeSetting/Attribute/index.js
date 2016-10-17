@@ -143,14 +143,14 @@ export default class AttributeSetting  extends Component{
 
 				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='findFinaFinaflowPropertyList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} >
 					<TableHeader>
-					<TableHeaderColumn>属性编码</TableHeaderColumn>
-					<TableHeaderColumn>属性名称</TableHeaderColumn>
-					<TableHeaderColumn>是否启用</TableHeaderColumn>
-					<TableHeaderColumn>属性类别</TableHeaderColumn>
-					<TableHeaderColumn>排序号</TableHeaderColumn>
-					<TableHeaderColumn>创建人</TableHeaderColumn>
-					<TableHeaderColumn>创建时间</TableHeaderColumn>
-					<TableHeaderColumn>操作</TableHeaderColumn>
+						<TableHeaderColumn name="propcode">属性编码</TableHeaderColumn>
+						<TableHeaderColumn>属性名称</TableHeaderColumn>
+						<TableHeaderColumn>是否启用</TableHeaderColumn>
+						<TableHeaderColumn>属性类别</TableHeaderColumn>
+						<TableHeaderColumn>排序号</TableHeaderColumn>
+						<TableHeaderColumn>创建人</TableHeaderColumn>
+						<TableHeaderColumn>创建时间</TableHeaderColumn>
+						<TableHeaderColumn>操作</TableHeaderColumn>
 				</TableHeader>
 
 				<TableBody>

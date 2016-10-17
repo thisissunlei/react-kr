@@ -65,6 +65,12 @@ class NewCreateForm  extends Component{
 	componentDidMount(){
 		const {initialValues}= this.props;
 		Store.dispatch(initialize('joinCreateForm',initialValues));
+				//{this.props.changeValues.lessorId}
+
+	}
+
+	componentWillReceiveProps(nextProps){
+		console.log("---",nextProps.initialValues);
 	}
 
 	onDistributionDialog(){
@@ -86,15 +92,16 @@ class NewCreateForm  extends Component{
 		let { error, handleSubmit, pristine, reset, submitting,initialValues} = this.props;
 
 
-		let {billList} = this.state;
+		let {billList,lessorAddress} = this.state;
 
 		return (
 
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
+
 				<KrField name="lessorId"  grid={1/2} component="select" label="出租方" options={initialValues.fnaCorporationList}  />
 
-				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={initialValues.lessorAddress}/> 
+				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={lessorAddress}/> 
 				<KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" /> 
 				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 
@@ -191,4 +198,17 @@ class NewCreateForm  extends Component{
 		return errors
 	}
 
-	export default reduxForm({ form: 'joinCreateForm',enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
+const selector = formValueSelector('joinCreateForm');
+
+NewCreateForm = reduxForm({ form: 'joinCreateForm',enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
+
+export default connect((state)=>{
+
+	let changeValues = {};
+
+	changeValues.lessorId = selector(state,'lessorId');
+
+	return {
+		changeValues
+	}
+})(NewCreateForm);
