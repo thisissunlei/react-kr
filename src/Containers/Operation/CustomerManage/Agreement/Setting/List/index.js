@@ -303,10 +303,11 @@ export default class SettingList extends Component {
         type: 'danger',
       }]);
     });
-    this.openUpdateChildDialog();
     window.setTimeout(function(){
         window.location.reload();
       },1000);
+    this.openUpdateChildDialog();
+    
   }
 
 
