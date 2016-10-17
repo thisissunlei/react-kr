@@ -27,7 +27,8 @@ import {
 		this.onCancel = this.onCancel.bind(this);
 
 		this.state={
-			communityList:[]
+			communityList:[],
+			mainbilltypeList:[]
 		}
 		
 	}
@@ -35,25 +36,28 @@ import {
 
 		var _this = this;
 		Store.dispatch(Actions.callAPI('getFinaDataCommunityAndMainBillType')).then(function(response){
-			console.log(response.communityAndMainBillTypeMap)
+			//console.log("88888",response.communityAndMainBillTypeMap)
 			const communityList=response.communityAndMainBillTypeMap.communityList
 			const mainbilltypeList=response.communityAndMainBillTypeMap.mainbilltypeList
 			communityList.map(function(item,index){
 				 item.label = item.communityname;
 				 item.value=item.id
+				 return item;
+			});
+             
+            mainbilltypeList.map(function(item,index){
+				 item.label = item.mainBillTypeDesc;
+                 item.value=item.mainBillTypeValue;
 				return item;
 			});
 
 			_this.setState({
-				communityList
+				communityList,
+				mainbilltypeList
 			});
 
 
-			/*mainbilltypeList.map(function(item,index){
-				 item.label = item.communityId;
-				return item;
-			});*/
-
+			
 		}).catch(function(err){
 			Notify.show([{
 				message:'报错了',
@@ -73,8 +77,8 @@ import {
 				type: 'danger',
 			}]);
 		});
-		// const {onSubmit} = this.props;
-		// onSubmit && onSubmit();
+		 const {onSubmit} = this.props;
+		 onSubmit && onSubmit();
 
 	 }
 
@@ -95,10 +99,7 @@ import {
 				<KrField name="customername" type="text" label="客户名称" /> 
 				<KrField name="communityid" type="select" label="所属社区" options={this.state.communityList} >
 				</KrField>
-				<KrField name="mainbilltype" type="select" label="订单类型" options={[
-						{value:'PAYMENT',label:'回款'},
-					   {value:'INCOME',label:'收入'},
-				]} >
+				<KrField name="mainbilltype" type="select" label="订单类型" options={this.state.mainbilltypeList}>
 				</KrField>
 				<KrField  name="startDate" component="date" label="起始时间"/>
 				<KrField name="endDate" component="date" label="结束时间"/>

@@ -50,7 +50,7 @@ import {
 				type: 'danger',
 			}]);
 		});
- 		const {onSubmit} = this.props;
+ 		 const {onSubmit} = this.props;
 		 onSubmit && onSubmit();
         
 
@@ -65,6 +65,7 @@ import {
 	render(){
 
 		const { error, handleSubmit, pristine, reset} = this.props;
+        
 		
 		return (
 
@@ -92,6 +93,7 @@ import {
 
 
 		);
+
 	}
 }
 
