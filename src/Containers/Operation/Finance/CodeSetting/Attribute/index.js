@@ -157,11 +157,11 @@ export default class AttributeSetting  extends Component{
 						 <TableRow displayCheckbox={true}>
 						<TableRowColumn name="propcode" ></TableRowColumn>
 						<TableRowColumn name="propname" ></TableRowColumn>
-						<TableRowColumn name="enableflag" options={[{label:'否',value:'ENABLE'},{label:'是',value:'DISENABLE'}]}></TableRowColumn>
+						<TableRowColumn name="enableflag" options={[{label:'是',value:'ENABLE'},{label:'否',value:'DISENABLE'}]}></TableRowColumn>
 						<TableRowColumn name="proptype" options={[{label:'收入',value:'INCOME'},{label:'回款',value:'PAYMENT'}]}></TableRowColumn>
 						<TableRowColumn name="ordernum"></TableRowColumn>
 						<TableRowColumn name="creatername"></TableRowColumn>
-						<TableRowColumn name="createdate"></TableRowColumn>
+						<TableRowColumn name="createdate" type="date"></TableRowColumn>
 						<TableRowColumn>
 							  <Button label="查看"  type="operation" operation="view"/>
 							  <Button label="编辑"  type="operation" operation="edit"/>
