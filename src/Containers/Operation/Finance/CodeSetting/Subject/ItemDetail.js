@@ -50,9 +50,9 @@ export default  class ItemDetail extends Component{
          	detail.enableflag="不启用"
          }
         
-         if(detail.accounttype=="1"){
+         if(detail.accounttype=="INCOME"){
          	detail.accounttype="收入"
-         }else if(detail.accounttype=="2"){
+         }else if(detail.accounttype=="PAYMENT"){
          	detail.accounttype="回款"
          }
 
