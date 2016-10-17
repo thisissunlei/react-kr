@@ -29,7 +29,7 @@ export default class DialogComponent extends Component{
 
 	render(){
 
-		const {title,modal,open,autoDetectWindowHeight,autoScrollBodyContent,children} = this.props;
+		const {title,modal,open,autoDetectWindowHeight,autoScrollBodyContent,children,...other} = this.props;
 
 		return (
 			<div>
@@ -38,7 +38,8 @@ export default class DialogComponent extends Component{
 					modal={modal}
 					autoScrollBodyContent={autoScrollBodyContent}
 					autoDetectWindowHeight={autoDetectWindowHeight}
-					open={open} >
+					open={open} 
+					{...other}>
 						{children}
 				  </Dialog>
 			</div>
