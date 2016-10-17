@@ -154,7 +154,10 @@ export default class AttributeSetting  extends Component{
 
 	render(){
         
-      
+      let items=this.state.item;
+      console.log("yyyy",items);
+
+     
         
 		return(
 
