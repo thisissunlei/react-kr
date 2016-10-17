@@ -106,7 +106,7 @@ export default class Table extends React.Component {
 			this.setState({
 				isLoaded:false
 			});
-			this.onLoadData();
+			this.onLoadData(1,nextProps.ajaxParams);
 		}
 
 	}
@@ -136,7 +136,7 @@ export default class Table extends React.Component {
 		const {onPageChange} = this.props;
 
 		onPageChange && onPageChange(page);
-		this.onLoadData(page);
+		this.onLoadData(page,params);
 	}
 
 	onCellClick(){
@@ -161,13 +161,7 @@ export default class Table extends React.Component {
 	}
 
 
-	onLoadData(page=1){
-
-		/*
-		if(!this.props.ajax || this.state.isLoaded){
-			return ;
-		}
-		*/
+	onLoadData(page=1,ajaxParams=this.props.ajaxParams){
 
 		if(!this.props.ajax){
 			return ;
@@ -178,7 +172,7 @@ export default class Table extends React.Component {
 		});
 
 
-		var {ajaxUrlName,ajaxParams} = this.props;
+		var {ajaxUrlName} = this.props;
 
 		ajaxParams.page = page;
 
