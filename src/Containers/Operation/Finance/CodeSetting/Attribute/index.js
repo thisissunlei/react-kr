@@ -157,8 +157,8 @@ export default class AttributeSetting  extends Component{
 						 <TableRow displayCheckbox={true}>
 						<TableRowColumn name="propcode" ></TableRowColumn>
 						<TableRowColumn name="propname" ></TableRowColumn>
-						<TableRowColumn name="enableflag" options={[{label:'否',value:'ENABLE'}]}></TableRowColumn>
-						<TableRowColumn name="proptype"></TableRowColumn>
+						<TableRowColumn name="enableflag" options={[{label:'否',value:'ENABLE'},{label:'是',value:'DISENABLE'}]}></TableRowColumn>
+						<TableRowColumn name="proptype" options={[{label:'收入',value:'INCOME'},{label:'回款',value:'PAYMENT'}]}></TableRowColumn>
 						<TableRowColumn name="ordernum"></TableRowColumn>
 						<TableRowColumn name="creatername"></TableRowColumn>
 						<TableRowColumn name="createdate"></TableRowColumn>
