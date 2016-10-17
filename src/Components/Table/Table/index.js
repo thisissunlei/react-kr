@@ -2,6 +2,7 @@ import React from 'react';
 import Loading from '../../Loading';
 import http from  'kr/Redux/Utils/fetch';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
+import _ from 'lodash';
 
 import TableBody from '../TableBody';
 import TableRow from '../TableRow';
@@ -20,6 +21,7 @@ export default class Table extends React.Component {
 		loading:false,
 		ajax:false,
 		ajaxFieldListName:'items',
+		displayCheckbox:true,
 	}
 
 	static PropTypes = {
@@ -52,7 +54,7 @@ export default class Table extends React.Component {
 
 		super(props);
 
-		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+	   this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 
 		this.createTableHeader = this.createTableHeader.bind(this);
 		this.createTableBody = this.createTableBody.bind(this);
@@ -83,6 +85,7 @@ export default class Table extends React.Component {
 			totalCount:this.props.totalCount,
 			listData:[],
 			loading:false,
+			isLoaded:false,
 			allRowsSelected:false,
 			selectedRows:[],
 			visibilityRows:[],
@@ -98,10 +101,22 @@ export default class Table extends React.Component {
 
 
 	componentWillReceiveProps(nextProps){
-		this.onLoadData();
+
+		if(!_.isEqual(this.props.ajaxParams,nextProps.ajaxParams)){
+			this.setState({
+				isLoaded:false
+			});
+			this.onLoadData();
+		}
+
 	}
 
 	shouldComponentUpdate(nextProps,nextState){
+
+		if(!_.isEqual(this.props.ajaxParams,nextProps.ajaxParams)){
+			return true;
+		}
+		return false;
 	}
 
 	onLoaded(){
@@ -148,6 +163,12 @@ export default class Table extends React.Component {
 
 	onLoadData(page=1){
 
+		/*
+		if(!this.props.ajax || this.state.isLoaded){
+			return ;
+		}
+		*/
+
 		if(!this.props.ajax){
 			return ;
 		}
@@ -169,11 +190,15 @@ export default class Table extends React.Component {
 				listData:response[_this.props.ajaxFieldListName],
 				page:response.page,
 				pageSize:response.pageSize,
-				totalCount:response.totalCount
+				totalCount:response.totalCount,
+				isLoaded:true,
 			});
 			_this.onLoaded();
 		}).catch(function(err){
 			_this.onLoaded();
+			_this.setState({
+				isLoaded:true
+			});
 			Notify.show([{
 				message:err.message,
 				type: 'error',

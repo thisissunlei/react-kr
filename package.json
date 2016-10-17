@@ -59,7 +59,7 @@
     "koa-webpack-hot-middleware": "^1.0.3",
     "less": "^2.5.3",
     "less-loader": "^2.2.2",
-    "lodash": "^4.14.1",
+    "lodash": "^4.16.4",
     "lodash.assign": "^4.1.0",
     "material-ui": "^0.15.4",
     "mobx-react-form": "^1.11.12",

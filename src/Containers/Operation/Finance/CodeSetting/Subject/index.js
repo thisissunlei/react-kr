@@ -92,7 +92,7 @@ export default class AttributeSetting  extends Component{
 
 	//搜索
 	onSearchSubmit(searchParams){
-		console.log('----')
+		console.log('000',searchParams);
 		this.setState({
 			searchParams
 		});
