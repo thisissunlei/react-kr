@@ -18,7 +18,8 @@ import {
 	Grid,
 	Row,
 	Col,
-		Dialog,
+	Dialog,
+	BreadCrumbs
 } from 'kr-ui';
 
 
@@ -127,6 +128,7 @@ export default class AttributeSetting  extends Component{
 		return(
 
 			<div>
+					<BreadCrumbs children={['系统运营','客户管理','属性配置']}/>
 					<Section title="属性配置" description="" >
 
 					<Grid>
