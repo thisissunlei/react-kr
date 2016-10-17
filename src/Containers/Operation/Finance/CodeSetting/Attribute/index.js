@@ -96,7 +96,7 @@ export default class AttributeSetting  extends Component{
 
 	//搜索
 	onSearchSubmit(searchParams){
-		console.log('------');
+		console.log('searchParams',searchParams);
 		this.setState({
 			searchParams
 		});
@@ -153,7 +153,7 @@ export default class AttributeSetting  extends Component{
 
 				<TableBody>
 						 <TableRow displayCheckbox={true}>
-						<TableRowColumn name="propdesc" ></TableRowColumn>
+						<TableRowColumn name="propcode" ></TableRowColumn>
 						<TableRowColumn name="propname" ></TableRowColumn>
 						<TableRowColumn name="enableflag"></TableRowColumn>
 						<TableRowColumn name="proptype"></TableRowColumn>
