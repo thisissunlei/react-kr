@@ -30,6 +30,7 @@ import {
 
 	 componentDidMount(){
 		const {detail}= this.props;
+		console.log('dfa---',detail)
 		Store.dispatch(initialize('newCreateForm',detail));
 	 }
 
@@ -56,6 +57,7 @@ import {
 	render(){
 
 		const { error, handleSubmit, pristine, reset} = this.props;
+
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 				<KrField name="id" type="hidden" label="id"/> 

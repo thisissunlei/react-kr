@@ -152,7 +152,7 @@ export default class AttributeSetting  extends Component{
 						<TableRowColumn name="accountcode" ></TableRowColumn>
 						 <TableRowColumn name="accountname"></TableRowColumn>
 						 <TableRowColumn name="accounttype" options={[{label:'收入',value:'INCOME'},{label:'回款',value:'PAYMENT'}]}></TableRowColumn>
-						 <TableRowColumn name="enableflag" options={[{label:'否',value:'ENABLE'},{label:'是',value:'DISENABLE'}]}></TableRowColumn>
+						 <TableRowColumn name="enableflag" options={[{label:'是',value:'ENABLE'},{label:'否',value:'DISENABLE'}]}></TableRowColumn>
 						 <TableRowColumn name="ordernum"></TableRowColumn>
 						 <TableRowColumn name="accountdesc"></TableRowColumn>
 						<TableRowColumn>

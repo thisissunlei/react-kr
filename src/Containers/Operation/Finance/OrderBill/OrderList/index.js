@@ -144,8 +144,12 @@ export default class AttributeSetting  extends Component{
 		});
 	}
 
-	onNewCreateSubmit(form){
-		window.location.reload();
+	onNewCreateSubmit(searchParams){
+
+		this.setState({
+			searchParams,
+			openNewCreate:!this.state.openNewCreate
+		});
 	}
 
 	onNewCreateCancel(){
@@ -180,7 +184,7 @@ export default class AttributeSetting  extends Component{
 									<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
 							</Col> 
 							<Col md={2} align="right"> 
-									<Button onTouchTap={this.openNewCreateDialog} label="查询"/>
+									<Button onTouchTap={this.openNewCreateDialog} label="高级查询"/>
 							</Col> 
 						</Row>
 					</Grid>
@@ -204,8 +208,8 @@ export default class AttributeSetting  extends Component{
 						<TableRowColumn name="customername" ></TableRowColumn>
 						<TableRowColumn name="mainbilltype" options={[{label:'工位入驻订单',value:'STATION'}]}></TableRowColumn>
 						<TableRowColumn name="community"></TableRowColumn>
-						<TableRowColumn name="actualEntrydate"></TableRowColumn>
-						<TableRowColumn name="actualLeavedate"></TableRowColumn>
+						<TableRowColumn name="actualEntrydate" type="date"></TableRowColumn>
+						<TableRowColumn name="actualLeavedate" type="date"></TableRowColumn>
 						<TableRowColumn name="come"></TableRowColumn>
 						<TableRowColumn name="backMount"></TableRowColumn>
 						<TableRowColumn name="mount"></TableRowColumn>
@@ -223,7 +227,7 @@ export default class AttributeSetting  extends Component{
 					</Section>
 
 					<Dialog
-						title="查询"
+						title="高级查询"
 						modal={true}
 						open={this.state.openNewCreate}
 					>
