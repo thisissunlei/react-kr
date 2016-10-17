@@ -25,6 +25,10 @@ let initState = {
 								primaryText:'计划表',
 								router:'/operation/communityManage/schedule',
 							},
+							{
+								primaryText:'访客记录',
+								router:'',
+							},
 						]
 					},
 					{
@@ -43,6 +47,59 @@ let initState = {
 								primaryText:'编辑客户订单',
 								router:'/operation/customerManage/108/order/49/edit',
 							},
+
+
+						]
+					},
+					{
+						primaryText:"社区配置",
+						router:'',
+						menuItems:[
+							{
+								primaryText:'社区列表',
+								router:'',
+							},
+							{
+								primaryText:'会议室列表',
+								router:'',
+							},
+							{
+								primaryText:'设备列表',
+								router:'',
+							},
+							{
+								primaryText:'工位列表',
+								router:'',
+							},
+							{
+								primaryText:'平面图配置',
+								router:'',
+							}
+
+
+						]
+					},
+
+					{
+						primaryText:"基础配置",
+						router:'',
+						menuItems:[
+							{
+								primaryText:'参数配置',
+								router:'',
+							},
+							{
+								primaryText:'代码分类',
+								router:'',
+							},
+							{
+								primaryText:'商圈列表',
+								router:'',
+							},
+							{
+								primaryText:'设备定义',
+								router:'',
+							}
 
 
 						]
@@ -85,12 +142,268 @@ let initState = {
 
 				]
 			},
-			/*
+			{
+				primaryText:"会员中心",
+				router:'',
+				menuItems:[
+					{
+						primaryText:'会员管理',
+						router:'',
+					}
+				]
+			},
+			{
+				primaryText:"商品零售",
+				router:'',
+				menuItems:[
+					{
+						primaryText:'零售看板',
+						router:'',
+					},
+					{
+						primaryText:'商品管理',
+						router:'',
+						menuItems:[
+							{
+								primaryText:'商品品牌',
+								router:'',	
+							},
+							{
+								primaryText:'商品类别',
+								router:'',	
+							},
+							{
+								primaryText:'中心商品',
+								router:'',	
+							},
+							{
+								primaryText:'社区商品',
+								router:'',	
+							},
+
+						]
+					},
+					{
+						primaryText:'订单管理',
+						router:'',
+						menuItems:[
+							{
+								primaryText:'全部订单',
+								router:'',	
+							},
+							{
+								primaryText:'社区订单',
+								router:'',	
+							}
+
+						]
+					},
+					{
+						primaryText:'系统信息',
+						router:'',
+						menuItems:[
+							{
+								primaryText:'反馈信息',
+								router:'',	
+							},
+							{
+								primaryText:'推送人员',
+								router:'',	
+							},
+							{
+								primaryText:'系统社区',
+								router:'',	
+							},
+							{
+								primaryText:'参数配置',
+								router:'',	
+							},
+
+						]
+					}
+				]
+			},
+			{
+				primaryText:"OA办公",
+				router:'',
+				menuItems:[
+							{
+								primaryText:'组织架构',
+								router:'',	
+							},
+							{
+								primaryText:'基础配置',
+								router:'',	
+								menuItems:[
+										{
+											primaryText:'参数配置',
+											router:'',	
+										},
+										{
+											primaryText:'职务类型',
+											router:'',	
+										},
+										{
+											primaryText:'职务管理',
+											router:'',	
+										},
+										{
+											primaryText:'职级管理',
+											router:'',	
+										},
+
+									]
+							},
+							{
+								primaryText:'人员管理',
+								router:'',
+								menuItems:[
+										{
+											primaryText:'在职列表',
+											router:'',	
+										},
+										{
+											primaryText:'离职列表',
+											router:'',	
+										},
+								]	
+							},
+				]
+			},
+			{
+				primaryText:"知识中心",
+				router:'',
+				menuItems:[
+						{
+							primaryText:'系统管理',
+							router:'',	
+						},
+						{
+							primaryText:'文档管理',
+							router:'',	
+						},
+				]	
+			},
 			{
 				primaryText:"权限管理",
 				router:'permission',
+				menuItems:[
+						{
+							primaryText:'系统管理',
+							router:'',
+							menuItems:[
+										{
+											primaryText:'参数配置',
+											router:'',	
+										},
+										{
+											primaryText:'系统新闻',
+											router:'',	
+										},
+										{
+											primaryText:'系统缓存',
+											router:'',	
+										},
+										{
+											primaryText:'待办事项',
+											router:'',	
+										},
+,
+										{
+											primaryText:'常用列表',
+											router:'',	
+										},
+										{
+											primaryText:'系统日常',
+											router:'',	
+										},
+
+									]
+
+						},
+						{
+							primaryText:'权限管理',
+							router:'',
+							menuItems:[
+										{
+											primaryText:'未注册列表',
+											router:'',	
+										},
+										{
+											primaryText:'注册管理',
+											router:'',	
+										},
+										{
+											primaryText:'权限类型',
+											router:'',	
+										},
+										{
+											primaryText:'权限项列表',
+											router:'',	
+										},
+,
+										{
+											primaryText:'角色类型',
+											router:'',	
+										},
+										{
+											primaryText:'功能角色',
+											router:'',	
+										},
+										{
+											primaryText:'菜单管理',
+											router:'',	
+										},
+
+									]	
+						},
+						{
+							primaryText:'账户管理',
+							router:'',
+							menuItems:[
+										{
+											primaryText:'账户列表',
+											router:'',	
+										},
+										{
+											primaryText:'变更日志',
+											router:'',	
+										},
+										{
+											primaryText:'登录日志',
+											router:'',	
+										},
+
+									]	
+						},
+						{
+							primaryText:'单点管理',
+							router:'',	
+							menuItems:[
+										{
+											primaryText:'单点服务',
+											router:'',	
+										},
+										{
+											primaryText:'单点日志',
+											router:'',	
+										},
+									]
+						},
+						{
+							primaryText:'系统监控',
+							router:'',
+							menuItems:[
+										{
+											primaryText:'用户监测',
+											router:'',	
+										},
+									]	
+						},
+				]	
 			},
-			*/
+			
+			
 		]
 	},
 	header_nav:{
