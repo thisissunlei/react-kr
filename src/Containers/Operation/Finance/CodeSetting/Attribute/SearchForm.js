@@ -32,7 +32,7 @@ import {
 	 	form.pageSize = 20;
 	 	form.page = 1;
 
-	 	
+	 	console.log('--------',form)
 		const {onSubmit} = this.props;
 	    onSubmit && onSubmit(form);
 	 }

@@ -67,8 +67,8 @@ import {
 				</KrField>
 				<KrField name="ordernum" type="text" label="排序号" /> 
 				<KrField name="enableflag" component="group" label="是否启用">
-                <KrField name="enableflag" label="是" type="radio" value="1"/>
-                <KrField name="enableflag" label="否" type="radio" value="0" />
+                <KrField name="enableflag" label="是" type="radio" value="ENABLE"/>
+                <KrField name="enableflag" label="否" type="radio" value="DISENABLE" />
               </KrField> 
 				<KrField name="propdesc" component="textarea" label="描述"  /> 
 
