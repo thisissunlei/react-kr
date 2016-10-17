@@ -144,7 +144,7 @@ let initState = {
 			},
 			{
 				primaryText:"会员中心",
-				router:'',
+				router:'member',
 				menuItems:[
 					{
 						primaryText:'会员管理',
@@ -154,7 +154,7 @@ let initState = {
 			},
 			{
 				primaryText:"商品零售",
-				router:'',
+				router:'retail',
 				menuItems:[
 					{
 						primaryText:'零售看板',
@@ -225,7 +225,7 @@ let initState = {
 			},
 			{
 				primaryText:"OA办公",
-				router:'',
+				router:'oa',
 				menuItems:[
 							{
 								primaryText:'组织架构',
@@ -272,7 +272,7 @@ let initState = {
 			},
 			{
 				primaryText:"知识中心",
-				router:'',
+				router:'document',
 				menuItems:[
 						{
 							primaryText:'系统管理',
