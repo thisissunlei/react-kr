@@ -44,27 +44,28 @@ export default  class ItemDetail extends Component{
             enableflag:1
          }
         */
-         if(detail.enableflag=="0"){
-         	detail.enableflag="启用"
-         }else if(detail.enableflag=="1"){
-         	detail.enableflag="不启用"
+        console.log('detail.enableflag',detail.enableflag)
+         if(detail.enableflag == "ENABLE"){
+         	detail.flag="启用"
+         }else if(detail.enableflag == "DISENABLE"){
+         	detail.flag="不启用"
          }
-        
+         console.log('detail.accounttype',detail.accounttype)
          if(detail.accounttype=="INCOME"){
-         	detail.accounttype="收入"
+         	detail.type="收入"
          }else if(detail.accounttype=="PAYMENT"){
-         	detail.accounttype="回款"
-         }
+         	detail.type="回款"
+         } 
 
 		return (
 
 			<div>
                <KrField component="labelText" label="科目编码" value={detail.accountcode}/>
                <KrField component="labelText" label="科目名称" value={detail.accountname}/>
-               <KrField component="labelText" label="科目类别" value={detail.accounttype}/>
+               <KrField component="labelText" label="科目类别" value={detail.type}/>
                <KrField component="labelText" label="排序号" value={detail.ordernum}/>
                
-               <KrField component="labelText" label="是否启用"  value={detail.enableflag}/>
+               <KrField component="labelText" label="是否启用"  value={detail.flag}/>
              
                <KrField component="labelText" label="描述" value={detail.accountdesc}/>
 

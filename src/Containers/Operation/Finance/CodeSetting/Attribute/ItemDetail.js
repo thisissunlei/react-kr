@@ -45,15 +45,15 @@ export default  class ItemDetail extends Component{
          }
          */
          if(detail.enableflag=="ENABLE"){
-         	detail.enableflag="启用"
+         	detail.flag="启用"
          }else if(detail.enableflag=="DISENABLE"){
-         	detail.enableflag="不启用"
+         	detail.flag="不启用"
          }
         
          if(detail.proptype=="INCOME"){
-         	detail.proptype="收入"
+         	detail.type="收入"
          }else if(detail.proptype=="PAYMENT"){
-         	detail.proptype="回款"
+         	detail.type="回款"
          }
 
 		return (
@@ -61,10 +61,10 @@ export default  class ItemDetail extends Component{
 			<div>
                <KrField component="labelText" label="属性编码" value={detail.propcode}/>
                <KrField component="labelText" label="属性名称" value={detail.propname}/>
-               <KrField component="labelText" label="属性类别" value={detail.proptype}/>
+               <KrField component="labelText" label="属性类别" value={detail.type}/>
                <KrField component="labelText" label="排序号" value={detail.ordernum}/>
                
-               <KrField component="labelText" label="是否启用"  value={detail.enableflag}/>
+               <KrField component="labelText" label="是否启用"  value={detail.flag}/>
              
                <KrField component="labelText" label="描述" value={detail.propdesc}/>
 
