@@ -41,7 +41,7 @@ export default class Button extends Component{
 
 		if(type == 'operation'){
 			return (
-				<span {...other} style={{color:'#00BCD4',marginLeft:'5px'}}>{label}</span>
+				<span {...other} style={{color:'#00BCD4',marginLeft:'5px',cursor:'pointer'}}>{label}</span>
 			);
 		}
 
