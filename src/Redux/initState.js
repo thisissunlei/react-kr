@@ -18,6 +18,16 @@ let initState = {
 				router:'operation',
 				menuItems:[
 					{
+						primaryText:"社区管理",
+						router:'communityManage',
+						menuItems:[
+							{
+								primaryText:'计划表',
+								router:'/operation/communityManage/schedule',
+							},
+						]
+					},
+					{
 						primaryText:"客户管理",
 						router:'customerManage',
 						menuItems:[
