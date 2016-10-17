@@ -33,8 +33,9 @@ export default  class ConfirmBillDetail extends Component{
      //发送获取基本信息的请求
       var _this = this;
     Store.dispatch(Actions.callAPI('getFinaDataDetailAdd')).then(function(response){
+      console.log("5555",response);
       _this.setState({
-        items:response,
+        
         item:response.finaContractMainbillVOMap,
         loading:false
       });
@@ -54,7 +55,7 @@ export default  class ConfirmBillDetail extends Component{
 	render(){
 
         let list=this.state.item;
-        let lists=this.state.items;
+
 
         
         let listC=list.finaFinaflowModelVOLists;
