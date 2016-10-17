@@ -136,7 +136,7 @@ export default class Table extends React.Component {
 		const {onPageChange} = this.props;
 
 		onPageChange && onPageChange(page);
-		this.onLoadData(page,params);
+		this.onLoadData(page);
 	}
 
 	onCellClick(){

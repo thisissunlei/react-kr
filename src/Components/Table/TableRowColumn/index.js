@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Date from '../../Date';
+
 export default class TableRowColumn extends React.Component {
 
 
@@ -14,7 +16,9 @@ export default class TableRowColumn extends React.Component {
 		style: React.PropTypes.object,
 		name:React.PropTypes.string,
 		value:React.PropTypes.string,
-		options:React.PropTypes.array
+		options:React.PropTypes.array,
+		type:React.PropTypes.string,
+		format:React.PropTypes.string,
 	}
 
 
@@ -60,7 +64,9 @@ export default class TableRowColumn extends React.Component {
 			style,
 			name,
 			value,
+			type,
 			options,
+			format,
 			...other,
 		} = this.props;
 
@@ -78,17 +84,28 @@ export default class TableRowColumn extends React.Component {
 			});
 		}
 
+
 		if(name){
+
+			if(type === 'date'){
+				return(
+					<td className={className} style={style} {...handlers} {...other}>
+						<Date.Format value={value} format={format} />
+					</td>
+				);
+			}
+
 			return(
 				<td className={className} style={style} {...handlers} {...other}>
-					{value.toString()}
+					{value}
 				</td>
 			);
 		}
 
+
 		return(
 			<td className={className} style={style} {...handlers} {...other}>
-			{children}	
+				{children}	
 			</td>
 		);
 
