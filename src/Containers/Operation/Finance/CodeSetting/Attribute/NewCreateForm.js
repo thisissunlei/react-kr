@@ -39,7 +39,7 @@ import {
 			}]);
 		});
 		 const {onSubmit} = this.props;
-		 onSubmit && onSubmit();
+		onSubmit && onSubmit();
 
 	 }
 
