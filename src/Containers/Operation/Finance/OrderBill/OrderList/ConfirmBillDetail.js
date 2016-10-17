@@ -34,6 +34,7 @@ export default  class ConfirmBillDetail extends Component{
       var _this = this;
     Store.dispatch(Actions.callAPI('getFinaDataDetailAdd')).then(function(response){
       _this.setState({
+        items:response,
         item:response.finaContractMainbillVOMap,
         loading:false
       });
@@ -53,7 +54,9 @@ export default  class ConfirmBillDetail extends Component{
 	render(){
 
         let list=this.state.item;
-      
+        let lists=this.state.items;
+
+        
         let listC=list.finaFinaflowModelVOLists;
         if(!listC){
            listC=[];
@@ -68,27 +71,34 @@ export default  class ConfirmBillDetail extends Component{
            listC.propcode='出错'
         }
 
+        var myDate = new Date();
+        let year=myDate.getYear();
+        let month=myDate.getMonth();
+         if(month<10){
+
+         }
+        let day=myDate.getDate();  
+
 		return (
 
 			<div>
-                <Row> 
-                    <Col><KrField label="对账单" component="labelText" value={list.corporationName}/></Col>
-                </Row> 
-                <Row style={{marginTop:30}}>    
-              <Col md={6}><KrField label="公司名称" component="labelText" value={list.customername}/></Col>
-              <Col md={6}><KrField label="操作日期" component="labelText" /></Col>
-                </Row>
+               <KrField grid={1} label="对账单" component="labelText" value={list.corporationName}/>
+                
+              
+               <KrField grid={1/2} label="公司名称" component="labelText" value={list.customername}/>
+               <KrField grid={1/2} label="操作日期" component="labelText" />
+               
 
-                 <KrField grid={1/2} label="对账期间" component="group">
+        <KrField grid={1/2} label="对账期间" component="group">
 						<KrField  grid={1/2} label="起始日期" type="labelText" /> 
 						<KrField  grid={1/2} label="结束日期" type="labelText" /> 
 				</KrField>
 
 				<KrField grid={1/2} label="订单编号" component="labelText" value={list.mainbillcode}/>
-				<KrField label="类别" component="labelText" />
-				<KrField label="款项" component="labelText"/>
 
-				<KrField label="金额" component="labelText"/>
+				<KrField label="类别" component="labelText" grid={1/3}/>
+				<KrField label="款项" component="labelText" grid={1/3}/>
+				<KrField label="金额" component="labelText" grid={1/3}/>
 
                  {listC.map((item,index)=>{
 					 return (
