@@ -28,12 +28,9 @@ import {
 	}
 
 	 onSubmit(form){
-	 	
-	 	Store.dispatch(Actions.callAPI('getFinaDataByList',form)).then(function(response){
-			
-		})
-		const {onSubmit} = this.props;
-	   onSubmit && onSubmit(form);
+	 	console.log('---yayay',form);
+	 	const {onSubmit} = this.props;
+	    onSubmit && onSubmit(form);
 	 }
 
 	 onCancel(){
@@ -51,13 +48,13 @@ import {
 
 
               <Row>
-				<Col md={8}><KrField name="customername" type="text"  /></Col>
+				<Col md={8}><KrField name="customername" type="text"  placeholder="请输入公司名称"/></Col>
 				<Col md={4}><Button  label="查询" type="submit" primary={true} /></Col>
               </Row>
 				
 			   
 					
-				</form>
+		  </form>
 		);
 	}
 }

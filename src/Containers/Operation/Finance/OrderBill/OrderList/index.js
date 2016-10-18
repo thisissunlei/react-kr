@@ -27,7 +27,7 @@ import NewCreateForm from './NewCreateForm';
 import SearchForm from './SearchForm';
 import ItemDetail from './ItemDetail';
 import CompareBillForm from './CompareBillForm';
-import ConfirmBillDetail from './ConfirmBillDetail';
+
 
 
 export default class AttributeSetting  extends Component{
@@ -46,13 +46,11 @@ export default class AttributeSetting  extends Component{
 		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
 		this.onOperation = this.onOperation.bind(this);
 
-		this.openConfirmBillDetailDialog = this.openConfirmBillDetailDialog.bind(this);
 
 		this.state = {
 			openNewCreate:false,
 			openView:false,
 			openEditDetail:false,
-			openConfirmBillDetail:false,
 			itemDetail:{},
 			item:{},
 			searchParams:{
@@ -107,15 +105,6 @@ export default class AttributeSetting  extends Component{
 		this.openConfirmBillDetailDialog();
 	}
 
-	//对账单查看详情
-	openConfirmBillDetailDialog(){
-
-		this.setState({
-			openConfirmBillDetail:!this.state.openConfirmBillDetail
-		});		
-
-	}
-
 	//查看
 	openViewDialog(){
 		this.setState({
@@ -126,6 +115,8 @@ export default class AttributeSetting  extends Component{
 
 	//搜索
 	onSearchSubmit(searchParams){
+
+		console.log('---',searchParams);
 		
 		this.setState({
 			searchParams
@@ -159,7 +150,7 @@ export default class AttributeSetting  extends Component{
 	render(){
         
       let items=this.state.item;
-      console.log("yyyy",items);
+
 
      
         
@@ -171,14 +162,14 @@ export default class AttributeSetting  extends Component{
 					<Grid>
 						<Row>
 							<Col md={2}> 
-							    <KrField label="收入总额" component="labelText" primary={true} />
+							    <KrField label="收入总额" component="labelText" primary={true} value={items.sumcome}/>
 							</Col>
                             
 							<Col md={2}> 
-							    <KrField label="回款总额" component="labelText" primary={true}/>
+							    <KrField label="回款总额" component="labelText" primary={true} value={items.sumbackmount}/>
 							</Col>
 							<Col md={2}> 
-							    <KrField label="余额" component="labelText" primary={true}/>
+							    <KrField label="余额" component="labelText" primary={true} value={items.summount}/>
 							</Col>
 							<Col md={4} align="right"> 
 									<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
@@ -242,14 +233,6 @@ export default class AttributeSetting  extends Component{
 						open={this.state.openEditDetail}
 					>
 						<CompareBillForm  detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog} />
-				  </Dialog>
-
-				  <Dialog
-						title="对账单详情确认"
-						modal={true}
-						open={this.state.openConfirmBillDetail}
-					>
-						<ConfirmBillDetail  detail={this.state.itemDetail} onCancel={this.openConfirmBillDetailDialog} />
 				  </Dialog>
 
 					<Dialog
