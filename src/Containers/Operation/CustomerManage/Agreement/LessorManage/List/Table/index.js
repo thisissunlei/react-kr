@@ -21,7 +21,7 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 
 
 let LessorUpdateForm = function(props){
-
+	console.log('props',props)
   	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
 
 	return (
@@ -32,8 +32,8 @@ let LessorUpdateForm = function(props){
 							<KrField name="corporationName" type="text" label="出租方名称" /> 
 
 							<KrField name="enableflag" component="group" label="是否启用">
-								<KrField name="enableflag" label="是" type="radio" value="1"/>
-								<KrField name="enableflag" label="否" type="radio" value="0" />
+								<KrField name="enableflag" label="是" component="radio" type="radio" value={1}/>
+								<KrField name="enableflag" label="否" component="radio" type="radio" value={0} />
 							</KrField>
 							
 							<KrField name="corporationAddress" component="text" type="text" label="详细地址"/> 
@@ -132,6 +132,7 @@ const ViewHtml = (props)=>{
 
 
 	 this.openUpdateDialog();
+	 window.location.reload();
 
 	 }
 
@@ -149,9 +150,6 @@ const ViewHtml = (props)=>{
 		this.setState({
 			openUpdate:!this.state.openUpdate
 		});
-
-
-		console.log('item---',list[index]);
 
 		LessorUpdateForm= reduxForm({
 		  form: 'orderUpdateForm',
@@ -240,7 +238,7 @@ const ViewHtml = (props)=>{
 					  {this.props.items && this.props.items.length && this.props.items.map((item,index)=> <TableRow key={index}>
 							<TableRowColumn >{item.id}</TableRowColumn>
 							<TableRowColumn>{item.corporationName}</TableRowColumn>
-							<TableRowColumn>{item.enableflag}</TableRowColumn>
+							<TableRowColumn>{item.enableflag?'是':'否'}</TableRowColumn>
 							<TableRowColumn>{item.corporationAddress}</TableRowColumn>
 							<TableRowColumn>{item.creater}</TableRowColumn>
 							<TableRowColumn>{item.createdate}</TableRowColumn>
