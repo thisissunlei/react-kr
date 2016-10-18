@@ -38,8 +38,8 @@ import {
 				type: 'danger',
 			}]);
 		});
-		 const {onSubmit} = this.props;
-		 onSubmit && onSubmit();
+		const {onSubmit} = this.props;
+		onSubmit && onSubmit();
 
 	 }
 
@@ -61,14 +61,14 @@ import {
 				<KrField name="accountcode" type="text" label="科目编码" /> 
 				<KrField name="accountname" type="text" label="科目名称" /> 
 				<KrField name="accounttype" type="select" label="科目类别" options={[
-						{value:'1',label:'收入'},
-						{value:'2',label:'回款'},
+						{value:'INCOME',label:'收入'},
+						{value:'PAYMENT ',label:'回款'},
 				]} >
 				</KrField>
 				<KrField name="ordernum" type="text" label="排序号" /> 
 				<KrField name="enableflag" component="group" label="是否启用">
-                <KrField name="enableflag" label="是" type="radio" value="1"/>
-                <KrField name="enableflag" label="否" type="radio" value="0" />
+                <KrField name="enableflag" label="是" type="radio" value="ENABLE"/>
+                <KrField name="enableflag" label="否" type="radio" value="DISENABLE" />
               </KrField> 
 				<KrField name="accountdesc" component="textarea" label="描述"  /> 
 
