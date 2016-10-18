@@ -96,7 +96,7 @@ class Header extends Component {
 		}
 
 		if(item.active){
-			styles.borderTop = '2px solid #fff';
+			styles.borderBottom = '2px solid #fff';
 			styles.borderLeft = '1px solid #3F93CA';
 			styles.borderRight = '1px solid #3F93CA';
 		}
