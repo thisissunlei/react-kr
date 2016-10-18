@@ -10,6 +10,8 @@ import {
 	Col,
 	Button,
 } from 'kr-ui';
+import ConfirmBillDetail from './ConfirmBillDetail';
+
 
 
  class NewCreateForm extends Component{
@@ -26,71 +28,92 @@ import {
         
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
-		const detail=props.detail;
+
+		const detail = this.props.detail;
 		
 		
 		Store.dispatch(initialize('newCreateForm',detail));
+
+
+
+
+		this.state = {  //提交params
+			params:{
+				startDate:'',
+				endDate:'',
+				id:detail.id
+			}
+		}
 
 		
 
 
 	}
+	componentDidMount(){
+	}
 
-	 onSubmit(values){
-		var _this = this;
-		const {detail} = this.props;
-		values.id = detail.id; //get请求
+	 onSubmit(params){  //获取提交时的params
 
-		Store.dispatch(Actions.callAPI('getFinaDataDetailAdd',values)).then(function(response){
-			
-		}).catch(function(err){
-			
-			Notify.show([{
-				message:'报错了',
-				type: 'danger',
-			}]);
+ 		
+ 		 const {detail} = this.props;
+
+  
+ 		 params.id = detail.id;  
+
+         		  
+
+		 this.setState({  
+			params
 		});
- 		 const {onSubmit} = this.props;
-		 onSubmit && onSubmit();
-        
 
+
+
+
+		
 	 }
 
 	 onCancel(){
 		 const {onCancel} = this.props;
-		onCancel && onCancel();
+		 onCancel && onCancel();
 		 
 	 }
 
 	render(){
 
 		const { error, handleSubmit, pristine, reset} = this.props;
-        
+
 		
+        
 		return (
+
+
+			<div>
 
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
 				<KrField name="id" type="hidden" label="id"/>
                 <Row>
-					<Col md={2}> <KrField  label="对账期间" type="labelText"/> </Col>
-                    <Col md={2}> <KrField  label="起始日期" type="labelText" /> </Col> 
-					<Col md={2}> <KrField  component="Date"  name="startDate" type="date"/> </Col>
-					<Col md={2}> <KrField  label="结束日期" type="labelText" /> </Col> 
-					<Col md={2}> <KrField  component="Date"  name="endDate" type="date"/> </Col>
+					<KrField  label="对账期间" type="labelText" grid={1/3}/>
+                
+					<KrField  component="Date"  name="startDate" type="date" grid={1/3}/>
+				
+					<KrField  component="Date"  name="endDate" type="date" grid={1/3}/>
 			     </Row>
 				
 				
-				<Grid style={{marginTop:30}}>
+				<Grid style={{marginTop:10}}>
 					<Row>
 						<Col md={8}></Col>
 						<Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
-						<Col md={2}> <Button  label="取消" type="button"  onTouchTap={this.onCancel} /> </Col>
 					</Row>
 				</Grid>
 				</form>
 
 
+				<ConfirmBillDetail  params={this.state.params} onCancel={this.onCancel}/>
+
+			
+			</div>
 
 		);
 
