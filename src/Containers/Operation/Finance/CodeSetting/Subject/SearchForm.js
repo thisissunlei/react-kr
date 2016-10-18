@@ -31,8 +31,6 @@ import {
 
 	 	form.pageSize = 10;
 	 	form.page = 1;
-
-	 	console.log('----form----',form)
 		const {onSubmit} = this.props;
 	    onSubmit && onSubmit(form);
 	 }
