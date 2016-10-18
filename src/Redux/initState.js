@@ -1,6 +1,8 @@
 let initState = {
 	navs:{
-		current_route:'',
+		current_parent:'',
+		current_child:'',
+		current_router:'',
 		current_items:[
 			{
 				primaryText:"权限管理",

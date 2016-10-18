@@ -36,10 +36,13 @@ import Subheader from 'material-ui/Subheader';
 let SelectableList = MakeSelectable(List);
 
 function wrapState(ComposedComponent) {
+
   return class SelectableList extends Component {
+
     static propTypes = {
       children: PropTypes.node.isRequired,
       defaultValue: PropTypes.number.isRequired,
+		selectedItemStyle: PropTypes.object,
     };
 
     componentWillMount() {
@@ -59,6 +62,10 @@ function wrapState(ComposedComponent) {
         <ComposedComponent
           value={this.state.selectedIndex}
           onChange={this.handleRequestChange}
+		  selectedItemStyle={{
+			  backgroundColor:'#328ECC',
+			  color:'#fff'
+		  }}
         >
           {this.props.children}
         </ComposedComponent>
@@ -72,8 +79,11 @@ SelectableList = wrapState(SelectableList);
 export default class SidebarNav extends Component {
 
 	PropTypes={
-		items:PropTypes.isArray
+		items:React.PropTypes.isArray,
+		current_parent:React.PropTypes.string,
+		current_child:React.PropTypes.string,
 	}
+
 	constructor(props,context){
 		super(props, context);
 	}
@@ -81,10 +91,33 @@ export default class SidebarNav extends Component {
 
 	renderMenuItem(item,index,parentIndex){
 
+		let {current_router,current_child} = this.props;
+		var childStyles = {};
+		let initiallyOpen = false;
+		let parentStyles = {};
+
+		var styles = {};
+
+		if(item.router === current_router){
+			childStyles.backgroundColor = '#328ECC';
+			childStyles.color = '#fff';
+		}
+
+		if(item.router === current_child){
+			/*
+			parentStyles.backgroundColor = '#328ECC';
+			parentStyles.color = '#fff';
+			*/
+			initiallyOpen = true;
+		}
+
+
 		if(item.menuItems && item.menuItems.length){
 			return (
 				<ListItem 
 					key={index}
+					style={parentStyles}
+					initiallyOpen={initiallyOpen}
 					value={index}
 					primaryText={item.primaryText} 
 					primaryTogglesNestedList={true}
@@ -97,7 +130,8 @@ export default class SidebarNav extends Component {
 					key={index} 
 					value={parentIndex+'-'+index}
 					href={"./#"+item.router}
-				/>
+					style={childStyles}
+			   	/>
 		);
 
 	}
@@ -120,7 +154,7 @@ export default class SidebarNav extends Component {
 		return(
 
 			<div>
-						<SelectableList defaultValue={0}>
+						<SelectableList defaultValue={1000}>
 				{/*
 				
 						  <ListItem
@@ -141,10 +175,10 @@ export default class SidebarNav extends Component {
 		);
 
 	}
-
-
-
 }
+
+
+
 
 /*
 

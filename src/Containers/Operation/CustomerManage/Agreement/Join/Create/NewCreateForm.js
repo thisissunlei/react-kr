@@ -80,53 +80,16 @@ class NewCreateForm  extends Component{
 	}
 
 
-	onSubmit(){
+	onSubmit(form){
 
-		/*
-		var form = {
-			leaseId:108,
-			mainbillid:3,
-			contractstate:1,
-				lessorAddress:'aahahaha',
-				leaseAddress:"海淀区创业大街2",
-				contracttype:"ENTER",
-				communityName:"test2",
-				lessorId:2,
-				lessorContacttel:"343242",
-				lessorContactid:5,
-			leaseid:1,
-lessorContactid:1,
-				leaseContact:3,
-				leaseContacttel:18674761885,
-				lessorContacttel:"3423423",
-				wherefloor:2,
-				username:"324324",
-				contractcode:"23423432",
-				leaseBegindate:"2016-10-20 11:34:22",
-				leaseEnddate:"2016-10-20 11:34:22",
-				paymodel:5,
-				paytype:8,
-				signdate:"2016-10-20 11:34:22",
-				firstpaydate:"2016-10-20 11:34:22",
-				stationnum:1,
-				boardroomnum:0,
-				rentaluse:"32423423423423yayayayyayayyayayayayayayayaayyayaayyayaayyaayyaayayay",
-				totalrent:324324,
-				totaldeposit:23432423,
-			paymodel:1,
-fielIdList:1,
-		}
-		*/
-		/*
 		delete form.floorList;
 		delete form.customerName;
 		delete form.payTypeList;
 		delete form.paymentList;
 		delete form.fnaCorporationList;
-		*/
 
 
-
+		/*
 		var form = {
 					mainbillid:3,
 					contractcode:"22222222",
@@ -134,9 +97,7 @@ fielIdList:1,
 					lessorAddress:"大街",
 					lessorContactid:2,
 					lessorContacttel:"18652536394",
-
 					leaseAddress:"街里面",
-
 					leaseContact:1212,
 					leaseContacttel:"18698522963",
 					signdate:"2018-10-15 15:45:17",
@@ -146,7 +107,6 @@ fielIdList:1,
 					totalrent:8666,
 					stationnum:1,
 					templockday:10,
-
 					paymentId:1,
 					contracttype:"ENTER",
 					contractstate:"EXECUTE",
@@ -157,10 +117,11 @@ fielIdList:1,
 					paymodel:2,
 					rentaluse:"测试入驻",
 		};
+		*/
 		form.stationVos = [
 			{
-				leaseBeginDate:+new Date,
-				leaseEndDate:+new Date,
+				leaseBeginDate:'2016年11月11日 11:11:11',
+				leaseEndDate:'2016年11月11日 11:11:11',
 				stationId:1,
 				stationType:1,
 				unitprice:1111,
@@ -216,8 +177,8 @@ fielIdList:1,
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  /> 
 
 				<KrField grid={1}  name="" component="group" label="租赁期限"> 
-				<KrField grid={1/2}  name="leaseBeginDate"  component="date"  /> 
-				<KrField grid={1/2}  name="leaseEndDate" component="date" /> 
+				<KrField grid={1/2}  name="leaseBegindate"  component="date"  /> 
+				<KrField grid={1/2}  name="leaseEnddate" component="date" /> 
 				</KrField>
 
 				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={initialValues.paymentList} /> 

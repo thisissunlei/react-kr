@@ -4,10 +4,25 @@ import * as Types from './types';
 function setNavsCurrentRoute(currentRoute){
 
 	return {
-		type:Types.SET_NAVS_CURRENT_ROUTE,
+		type:Types.SET_NAVS_CURRENT_ROUTER,
 		router:currentRoute
 	}
 
+}
+
+function setRouterParent(parentRouter){
+	return {
+		type:Types.SET_NAVS_CURRENT_PARENT_ROUTER,
+		router:parentRouter
+	}
+}
+
+
+function setRouterChild(childRouter){
+	return {
+		type:Types.SET_NAVS_CURRENT_CHILD_ROUTER,
+		router:childRouter
+	}
 }
 
 function setNavsCurrentItems(fatherRouter){
@@ -28,10 +43,14 @@ function setNavsActivity(fatherRouter){
 export function setCurrentNav(router){
 
 	let fatherRouter = router.substring(2).split('/').shift();
-	let childRouter = '';
+	let childRouter = router.substring(2).split('/')[1];
 
 	return function(dispatch){
-			dispatch(setNavsCurrentRoute(router));
+
+			dispatch(setRouterParent(fatherRouter));
+			dispatch(setRouterChild(childRouter));
+
+			dispatch(setNavsCurrentRoute(router.substr(1)));
 			dispatch(setNavsCurrentItems(fatherRouter));
 			dispatch(setNavsActivity(fatherRouter));
 	}

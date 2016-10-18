@@ -165,7 +165,7 @@ class Header extends Component {
 				/>
 				*/}
 
-				<SidebarNav items={this.props.navs_current_items}/>
+				<SidebarNav items={this.props.navs_current_items} current_router={this.props.current_router} current_parent={this.props.current_parent} current_child={this.props.current_child}/>
 
 				</Drawer>
 
@@ -187,7 +187,10 @@ function mapStateToProps(state){
 		sidebar_nav:state.sidebar_nav,
 		navs_items:state.navs.items,
 		navs_current_items:state.navs.current_items,
-		bottom_nav:state.bottom_nav
+		bottom_nav:state.bottom_nav,
+		current_router:state.navs.current_router,
+		current_parent:state.navs.current_parent,
+		current_child:state.navs.current_child
 	};
 }
 
