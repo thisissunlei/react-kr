@@ -49,7 +49,9 @@ class Master extends Component {
 			<div className="container" style={styles}>
 			{this.props.children}
 			</div>
-			<Footer/>
+				{/*
+					<Footer/>
+				*/}
 			<div id="nowtify-wrapper"></div>
 
 			</div>
