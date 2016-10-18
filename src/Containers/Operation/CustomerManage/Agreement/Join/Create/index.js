@@ -51,6 +51,7 @@ export default  class JoinCreate extends Component {
 	onCancel(){
 		window.history.back();
 	}
+
 	 openConfirmCreateDialog(){
 		 this.setState({
 			 openConfirmCreate:!this.state.openConfirmCreate
@@ -62,6 +63,7 @@ export default  class JoinCreate extends Component {
 		var _this = this;
 		const {params} = this.props;
 		let initialValues = {};
+
 		Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
 
 			initialValues.leaseAddress = response.customer.customerAddress;
@@ -91,9 +93,7 @@ export default  class JoinCreate extends Component {
 			_this.setState({
 				initialValues
 			});
-
 			console.log("0000",initialValues);
-
 		}).catch(function(err){
 			console.log('err',err);
 			Notify.show([{

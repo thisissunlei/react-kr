@@ -1,5 +1,10 @@
 const APIS  = {
 
+	//获取文件token
+	'getSourceServiceToken':{
+		url:'/api/krspace-finance-web/finacontractdetail/getSourceServiceToken',
+		method:'get'
+	},
 	//获取文件列表
 	'findFileList':{
 		url:'/krspace_knowledge_wap/doc/docFile/findFileList?sourceservicetoken={sourceservicetoken}&fileIds={fileIds}&jsoncallback={jsoncallback}&operater={operater}',
