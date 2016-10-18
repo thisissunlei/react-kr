@@ -50,11 +50,9 @@ export default class AttributeSetting  extends Component{
 			openView:false,
 			openEditDetail:false,
 			itemDetail:{},
-			accountname:{
-				page:1,
-				pageSize:20
-			}
+			accountname:{}
 		}
+		console.log('state',this.state.accountname)
 	}
 
 	componentDidMount() {
@@ -100,6 +98,7 @@ export default class AttributeSetting  extends Component{
 		this.setState({
 			accountname
 		});
+
 	}
 
 	onSearchCancel(){
@@ -123,7 +122,7 @@ export default class AttributeSetting  extends Component{
 	}
 
 	render(){
-
+		console.log('.........',this.state.accountname)
 		return(
 
 			<div>
