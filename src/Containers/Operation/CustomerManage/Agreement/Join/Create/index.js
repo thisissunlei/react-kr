@@ -33,14 +33,10 @@ export default  class JoinCreate extends Component {
 		}
 
 	}
-
-
 	 onCreateSubmit(formValues){
-
 		 this.setState({
 			 formValues
 		 });
-
 		 this.openConfirmCreateDialog();
 	 }
 
@@ -53,9 +49,23 @@ export default  class JoinCreate extends Component {
 	}
 
 	 openConfirmCreateDialog(){
+
+		 let {formValues} = this.state;
+
+		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
+			console.log("response",response);
+		}).catch(function(err){
+			Notify.show([{
+				message:'后台出错请联系管理员',
+				type: 'danger',
+			}]);
+	   	});
+
+		 /*
 		 this.setState({
 			 openConfirmCreate:!this.state.openConfirmCreate
 		 });
+		 */
 	 }
 
 	 componentDidMount(){
@@ -68,7 +78,7 @@ export default  class JoinCreate extends Component {
 
 			initialValues.leaseAddress = response.customer.customerAddress;
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）	
-			initialValues.contracttype = 2;
+			initialValues.contracttype = 'ENTER';
 			initialValues.fnaCorporationList = response.fnaCorporation.map(function(item,index){
 				item.value = item.id;
 				item.label = item.corporationName;
@@ -93,9 +103,7 @@ export default  class JoinCreate extends Component {
 			_this.setState({
 				initialValues
 			});
-			console.log("0000",initialValues);
 		}).catch(function(err){
-			console.log('err',err);
 			Notify.show([{
 				message:'后台出错请联系管理员',
 				type: 'danger',

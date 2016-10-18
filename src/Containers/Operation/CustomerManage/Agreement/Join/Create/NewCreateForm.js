@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
+import Param from 'jquery-param';
 
 import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert} from 'redux-form';
 
@@ -63,14 +64,15 @@ class NewCreateForm  extends Component{
 	}
 
 	componentDidMount(){
-		const {initialValues}= this.props;
+		let {initialValues}= this.props;
+
+
 		Store.dispatch(initialize('joinCreateForm',initialValues));
-				//{this.props.changeValues.lessorId}
+		//{this.props.changeValues.lessorId}
 
 	}
 
 	componentWillReceiveProps(nextProps){
-		console.log("---",nextProps.initialValues);
 	}
 
 	onDistributionDialog(){
@@ -78,8 +80,103 @@ class NewCreateForm  extends Component{
 	}
 
 
-	onSubmit(form){
-		this.props.onSubmit(form);
+	onSubmit(){
+
+		/*
+		var form = {
+			leaseId:108,
+			mainbillid:3,
+			contractstate:1,
+				lessorAddress:'aahahaha',
+				leaseAddress:"海淀区创业大街2",
+				contracttype:"ENTER",
+				communityName:"test2",
+				lessorId:2,
+				lessorContacttel:"343242",
+				lessorContactid:5,
+			leaseid:1,
+lessorContactid:1,
+				leaseContact:3,
+				leaseContacttel:18674761885,
+				lessorContacttel:"3423423",
+				wherefloor:2,
+				username:"324324",
+				contractcode:"23423432",
+				leaseBegindate:"2016-10-20 11:34:22",
+				leaseEnddate:"2016-10-20 11:34:22",
+				paymodel:5,
+				paytype:8,
+				signdate:"2016-10-20 11:34:22",
+				firstpaydate:"2016-10-20 11:34:22",
+				stationnum:1,
+				boardroomnum:0,
+				rentaluse:"32423423423423yayayayyayayyayayayayayayayaayyayaayyayaayyaayyaayayay",
+				totalrent:324324,
+				totaldeposit:23432423,
+			paymodel:1,
+fielIdList:1,
+		}
+		*/
+		/*
+		delete form.floorList;
+		delete form.customerName;
+		delete form.payTypeList;
+		delete form.paymentList;
+		delete form.fnaCorporationList;
+		*/
+
+
+
+		var form = {
+					mainbillid:3,
+					contractcode:"22222222",
+					leaseId:1,
+					lessorAddress:"大街",
+					lessorContactid:2,
+					lessorContacttel:"18652536394",
+
+					leaseAddress:"街里面",
+
+					leaseContact:1212,
+					leaseContacttel:"18698522963",
+					signdate:"2018-10-15 15:45:17",
+					leaseBegindate:+new Date,
+					leaseEnddate:"2019-12-25 15:45:17",
+					wherefloor:"3",
+					totalrent:8666,
+					stationnum:1,
+					templockday:10,
+
+					paymentId:1,
+					contracttype:"ENTER",
+					contractstate:"EXECUTE",
+					fileIdList:"1,2,3",
+					totaldeposit:5555,
+					firstpaydate:"2016-10-14 15:45:17",
+					paytype:8 ,
+					paymodel:2,
+					rentaluse:"测试入驻",
+		};
+		form.stationVos = [
+			{
+				leaseBeginDate:+new Date,
+				leaseEndDate:+new Date,
+				stationId:1,
+				stationType:1,
+				unitprice:1111,
+				whereFloor:1
+			}
+		];
+
+		form.stationVos = JSON.stringify(form.stationVos) ;
+
+
+		console.log('---',form);
+		//form = Param(form);
+
+		const {onSubmit} = this.props;
+
+		onSubmit && onSubmit(form);
 	}
 
 	onCancel(){
@@ -184,6 +281,7 @@ class NewCreateForm  extends Component{
 	}
 	}
 
+	/*
 	const validate = values =>{
 		const errors = {}
 
@@ -197,6 +295,7 @@ class NewCreateForm  extends Component{
 
 		return errors
 	}
+	*/
 
 const selector = formValueSelector('joinCreateForm');
 
