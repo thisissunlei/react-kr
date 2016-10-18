@@ -11,6 +11,7 @@ import {
 	Document,
 	Operation,
 	Basic,
+	Initialize,
 } from './Containers';
 
 import Master from './master';
@@ -19,13 +20,11 @@ export default(
 
 	<Route path="/" component={Master}>
 
-	
 		<IndexRoute component={Permission.Home}/>
-
 		<Route path="index" component={Permission.Home} name="welcome"/>
-
-
 		<Redirect from="messages/:id" to="/messages/:id" />
+
+		<Route path="initialize" component={Initialize} name="initialize"/>
 
 		{/*运营管理*/}
 		<Route path="operation" component={Basic}>
@@ -98,10 +97,6 @@ export default(
 																</Route>
 							   </Route>
 
-								
-
-
-
 					</Route>
 
 					{/*合同配置*/}
@@ -136,7 +131,12 @@ export default(
 					<Route path="index" component={Operation.Finance.Home}/>
 					<Route path="orderbill" component={Basic}>
 						<Route path="receiptList" component={Operation.Finance.OrderBill.ReceiptList}/>
+
+						{/*订单账单*/}
 						<Route path="orderList" component={Operation.Finance.OrderBill.OrderList}/>
+						{/*订单账单明细*/}
+						<Route path="detail" component={Operation.Finance.OrderBill.OrderBillDetail}/>
+
 					</Route>
 
 					{/*代码配置*/}

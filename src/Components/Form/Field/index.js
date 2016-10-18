@@ -37,16 +37,23 @@ const InputWrap = (props)=>{
 
 const renderFieldDate = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,style}) =>{
 
+	const styles ={
+		border:'1px solid #ddd',
+		height:40,
+		borderRadius:'4px',
+		paddingLeft:10
+	}
+
 	return (
-	<div className="form-item-wrap" style={style}>
-	<div className="form-item">
+	<div className="form-item-wrap " style={style}>
+	<div className="form-item date">
     <label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
     <div className="form-main">
 		<div className="form-input-main">
 			<div className="form-input">
-				 <DatePicker hintText={placeholder}  name={input.name}
+				 <DatePicker hintText={placeholder||'日期'}  textFieldStyle={styles} name={input.name}
 				 onChange={function (event,value){
-						 input.onChange(value);
+					input.onChange(+(new Date(value)));
 				}} 
 		  	/>
 			</div>
@@ -413,11 +420,6 @@ export default class KrField extends React.Component {
 
 	}
 }
-
-
-
-
-
 
 
 

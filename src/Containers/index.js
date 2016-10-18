@@ -5,6 +5,7 @@ import Undefined from './Undefined';
 import Document from './Document';
 import Operation from './Operation';
 import Basic from './Basic';
+import Initialize from './Initialize';
 
 
 module.exports = {
@@ -14,7 +15,8 @@ module.exports = {
 	Undefined,
 	Help,
 	Operation,
-	Basic
+	Basic,
+	Initialize
 }
 
 
