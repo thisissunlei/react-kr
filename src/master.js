@@ -20,7 +20,6 @@ class Master extends Component {
 	}
 
 	componentDidMount(){
-		//document.cookie = 'isso_pctoken=tnlm3/aWyzliiKcR++3mmFJgRw4DZlFU0+DgzXk3D9p2nkba1dplzw=='
 	}
 
 	componentWillReceiveProps(nextProps, nextContext) {
@@ -32,8 +31,6 @@ class Master extends Component {
 		var styles = {};
 
 		var {switch_value} = this.props.sidebar_nav;
-
-		console.log('---switch_value',switch_value);
 
 		if(switch_value){
 			styles = {
@@ -52,13 +49,8 @@ class Master extends Component {
 			<div className="container" style={styles}>
 			{this.props.children}
 			</div>
-
+			<Footer/>
 			<div id="nowtify-wrapper"></div>
-
-			{/*
-
-				<Footer/>
-*/}
 
 			</div>
 		);

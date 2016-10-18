@@ -36,10 +36,7 @@ export default class Footer extends Component{
 
 		return (
 			<div className="g-footer">
-					<Paper style={style} zDepth={1} circle={true}  >
-						<span className="logo" backgroundColor={red500}> 氪空间 </span>
-					</Paper>
-					<p>联合办公空间·创业服务平台</p>
+				<p>联合办公空间·创业服务平台</p>
 			</div>
 		);
 

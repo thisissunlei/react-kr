@@ -47,7 +47,7 @@ const renderFieldDate = ({ input, label, type, meta: { touched, error } ,require
 	return (
 	<div className="form-item-wrap " style={style}>
 	<div className="form-item date">
-    <label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
+	{label &&<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label> }
     <div className="form-main">
 		<div className="form-input-main">
 			<div className="form-input">
