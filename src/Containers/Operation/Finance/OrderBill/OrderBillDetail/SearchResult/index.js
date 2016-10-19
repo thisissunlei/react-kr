@@ -46,7 +46,7 @@ export default class SearchResult extends Component{
 			items=[];
 		}
 
-		console.log("kkkkk",items);
+		//console.log("kkkkk",items);
 
 		return(
 
