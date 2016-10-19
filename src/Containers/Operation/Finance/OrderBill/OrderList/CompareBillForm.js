@@ -59,14 +59,14 @@ import ConfirmBillDetail from './ConfirmBillDetail';
 
   
  		 params.id = detail.id;  
-
+         params.startDate=detail.actualEntrydate;
          		  
 
 		 this.setState({  
 			params
 		});
 
-
+       console.log("dffd",detail)
 
 
 		
@@ -95,7 +95,7 @@ import ConfirmBillDetail from './ConfirmBillDetail';
                 <Row>
 					<KrField  label="对账期间" type="labelText" grid={1/3}/>
                 
-					<KrField  component="Date"  name="startDate" type="date" grid={1/3}/>
+					<KrField   name="startDate" type="labelText" grid={1/3} value={this.props.detail.actualEntrydate}/>
 				
 					<KrField  component="Date"  name="endDate" type="date" grid={1/3}/>
 			     </Row>
@@ -104,7 +104,7 @@ import ConfirmBillDetail from './ConfirmBillDetail';
 				<Grid style={{marginTop:10}}>
 					<Row>
 						<Col md={8}></Col>
-						<Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
+						<Col md={2}> <Button  label="确定" type="submit" primary={true} /></Col>
 					</Row>
 				</Grid>
 				</form>

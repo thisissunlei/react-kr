@@ -206,6 +206,16 @@ const APIS  = {
 		url:'/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/getFinaFinaflowAccountModelByAjax',		
 		method:'get'
 	},
+	//财务管理－订单明细账-分页获得财务流水
+	'getAccountFlow':{
+		url:'/api/krspace-finance-web/finaccount/data/getAccountFlow',		
+		method:'get'
+	},
+	//财务管理－订单明细账-订单明细页首次加载
+	'getAccountFlow':{
+		url:'/api/krspace-finance-web/finaccount/data/getFinaContractBillDataById?accountType={accountType}&mainbillid={mainbillid}&pageNum={pageNum}&pageSize={pageSize}',		
+		method:'get'
+	},
 	
 }
 

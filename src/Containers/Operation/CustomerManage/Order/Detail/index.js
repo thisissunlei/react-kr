@@ -245,7 +245,7 @@ class OrderDetail extends Component {
 				</Grid>
 
 			       
-<Table>
+            <Table>
 					<TableHeader>
 							<TableHeaderColumn>合同编号</TableHeaderColumn>
 							<TableHeaderColumn>合同类型</TableHeaderColumn>
