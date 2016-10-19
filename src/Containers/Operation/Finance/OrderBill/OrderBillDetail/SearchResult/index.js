@@ -14,23 +14,20 @@ import {
 	TableFooter,
 	Button,
 	Section,
+	Grid,
+	Row,
+	Col,
+	Notify,
+	List,
+ 	ListItem,
+	LabelText,
 } from 'kr-ui';
 
-import LocationMap from 'kr-ui/Global/LocationMap';
 
-import {List, ListItem} from 'material-ui/List';
-
-import './index.less';
-
-export default class Undefined extends Component{
-
-	static defaultProps = {
-		page:1,
-	}
+export default class SearchResult extends Component{
 
 	static PropTypes = {
-		className: React.PropTypes.string,
-		children: React.PropTypes.node,
+		type:React.PropTypes.string
 	}
 
 	constructor(props,context){
@@ -46,9 +43,8 @@ export default class Undefined extends Component{
 		return(
 
 			<div>
-					<Section title="出错了" description="" >
-
-					</Section>
+				
+						搜索结果
 			</div>		
 
 		);
@@ -56,5 +52,10 @@ export default class Undefined extends Component{
 	}
 
 }
+
+
+
+
+
 
 

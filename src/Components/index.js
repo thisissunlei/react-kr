@@ -15,6 +15,8 @@ import Tabs from './Tabs/index';
 import PageHeader from './PageHeader';
 import {Grid,Row,Col} from './Grid';
 
+
+
 //materal-ui
 import {
 	Menu,
@@ -28,6 +30,8 @@ import {
 	Avatar,
 	Snackbar,
 } from 'material-ui';
+
+import {List, ListItem} from 'material-ui/List';
 
 module.exports = {
 
@@ -43,6 +47,8 @@ module.exports = {
 	Row,
 	Col,
 	Dialog,
+	List,
+	ListItem,
 	...Form,
 	...Table,
 	...Button,
