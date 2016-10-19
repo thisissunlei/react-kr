@@ -76,7 +76,11 @@ export default class TableFooter extends React.Component {
 
 	render() {
 
-		let {className,children,totalCount,page,pageSize} = this.props;
+		let {className,children,totalCount,page,pageSize,footer} = this.props;
+
+		if(!footer){
+			return null;
+		}
 
 		return (
 			<tfoot className="tfoot">
