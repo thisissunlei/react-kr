@@ -23,61 +23,57 @@ import {
 	LabelText,
 } from 'kr-ui';
 
-import Received from './Received';
-import Income from './Income';
 
-
-export default class SearchResult extends Component{
+export default class BusinessIncome extends Component{
 
 	static PropTypes = {
-		detailResult:React.PropTypes.object,
-		params:React.PropTypes.object
+		detailResult:React.PropTypes.object
 	}
 
 	constructor(props,context){
 		super(props, context);
-	}
 
+		this.state = {			
+			item:{}
+		}
+	}
 
 	componentDidMount() {
-
-
-	   const {params} = this.props;
-
-
-
+         var _this = this;
+		Store.dispatch(Actions.callAPI('getPageAccountFlow',{
+			accountType:'PAYMENT',
+			orderId:'3',
+            propertyId:'5'
+		})).then(function(response){
+            _this.setState({
+            	item:response
+            })	
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+		});
 	}
-
-
 
 	render(){
 		const {detailResult}=this.props;
-		let items=detailResult.items;
-
-		if(!items){
-			items=[];
-		}
+	    let  items=this.state.item.items;
 
 		//console.log("kkkkk",items);
-
+        console.log(";;;;",items);
 		return(
-
+      
 			 <div>
-
-			        <Received params={this.props.params} type="RECEIVED"/>
-                   <Income params={this.props.params} type="INCOME"/>
-
-				
-
-              {/*
-
-  <Row>
+				  <Row>
 					<Col md={2}><Button label="回款" primary={true}/></Col>
-					<Col md={2}><Button label="退款" primary={true}/></Col>
+					<Col md={2}><Button label="开票" primary={true}/></Col>
                   </Row>
-       
+
+                  
                   <Table displayCheckbox={false}>
 			          <TableHeader>
+			          <TableHeaderColumn></TableHeaderColumn>
 			          <TableHeaderColumn>序号</TableHeaderColumn>
 			          <TableHeaderColumn>交易日期</TableHeaderColumn>
 			          <TableHeaderColumn>代码</TableHeaderColumn>
@@ -90,11 +86,12 @@ export default class SearchResult extends Component{
 			         <TableBody>        
           
 			         {items.map((item,index)=><TableRow key={index}>
+			              <TableRowColumn type="hidden" value={item.id}></TableRowColumn>
 			              <TableRowColumn>{index+1}</TableRowColumn>
-			              <TableRowColumn>{item.occurday}</TableRowColumn>
-			              <TableRowColumn>{item.accountname}</TableRowColumn>
-			              <TableRowColumn>{item.proptypename}</TableRowColumn>
-			              <TableRowColumn>{item.propname}</TableRowColumn>
+			              <TableRowColumn>{item.occuryear}</TableRowColumn>
+			              <TableRowColumn>{item.accountName}</TableRowColumn>
+			              <TableRowColumn>{item.recordType}</TableRowColumn>
+			              <TableRowColumn>{item.propertyName}</TableRowColumn>
 			              <TableRowColumn>{item.finaflowAmount}</TableRowColumn>
 			               <TableRowColumn>{item.finaflowdesc}</TableRowColumn>
 			              <TableRowColumn>
@@ -107,12 +104,6 @@ export default class SearchResult extends Component{
        </Table> 
 
 
-
-              */}
-
-           
-
-      
 
 				  
 			</div>		

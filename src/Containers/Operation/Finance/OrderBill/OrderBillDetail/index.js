@@ -29,20 +29,33 @@ import BasicInfo from './BasicInfo';
 import SearchParam from './SearchParam';
 import SearchResult from './SearchResult';
 
+
 export default class AttributeSetting  extends Component{
 
 	constructor(props,context){
 		super(props, context);
+
+
+		this.onSearch = this.onSearch.bind(this);
 		
 
 		this.state = {			
 			item:{},
+			searchParam:{
+				type:'RECEIVED',
+				childType:'basic',
+				id:''
+			},
 			detailT:{},
 			detailPayment:[],
 			detailIncome:[],
 			detailBalance:'',	
 			detailResult:{}		
 		}
+	}
+
+	onSearch(searchParam){
+	  this.setState({searchParam});
 	}
 
 	componentDidMount() {
@@ -82,10 +95,10 @@ export default class AttributeSetting  extends Component{
 
 							<Row>
 							<Col md={5} >
-								<SearchParam detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance}/>
+								<SearchParam onSearch={this.onSearch} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance}/>
 							</Col>
 							<Col md={5} >
-								<SearchResult detailResult={this.state.detailResult}/>
+								<SearchResult detailResult={this.state.detailResult} params={this.state.searchParam}/>
 							</Col>
 						</Row>
 

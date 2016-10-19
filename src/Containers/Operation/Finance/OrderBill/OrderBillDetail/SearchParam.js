@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
-
+import {Actions,Store} from 'kr/Redux';
 import {
 	Table,
  	TableBody,
@@ -35,30 +35,54 @@ export default class SearchParam extends Component{
 	static PropTypes = {
 		detailPayment:React.PropTypes.object,
 		detailIncome:React.PropTypes.object,
-		detailBalance:React.PropTypes.object
-
+		detailBalance:React.PropTypes.object,
 	}
-
+     
 	constructor(props,context){
 		super(props, context);
+
+		this.onSearch = this.onSearch.bind(this);
+
 	}
 
 	componentDidMount() {
+       
+	}
+
+	onSearch(type,childType,id){
+
+
+		const {onSearch} = this.props;
+
+		var searchParam = {};
+
+		searchParam.type = type;
+		searchParam.childType = childType;
+		searchParam.id = id;
+
+		console.log(type,childType,id);
+
+
+		onSearch && onSearch(searchParam);
+
 
 	}
 
 	render(){
-       
+        
          const {detailPayment,detailIncome,detailBalance}=this.props;
 
 		//console.log("jjj",this.props.detailPayment);
-		//console.log("uuu",this.props.detailIncome);
+		console.log("uuu",this.props.detailIncome);
 		//console.log("ooo",this.props.detailBalance);
+        
+       
+
 
 		return(
 
 			<div>
-
+              
              <Row>                  
                 <Col md={4} >
                         
@@ -66,12 +90,16 @@ export default class SearchParam extends Component{
 						<Table  style={{marginTop:10}} displayCheckbox={false}>
 						  <TableHeader>
 							<TableHeaderColumn></TableHeaderColumn>
+							<TableHeaderColumn></TableHeaderColumn>
+							<TableHeaderColumn></TableHeaderColumn>
 							<TableHeaderColumn>回款</TableHeaderColumn>
 						   </TableHeader>
 
 						 <TableBody>
-						     {detailPayment.map((item,index)=><TableRow key={index}>						
-								<TableRowColumn>{item.propname}</TableRowColumn>
+						     {detailPayment.map((item,index)=><TableRow key={index}>
+						 
+											
+								<TableRowColumn onTouchTap={this.onSearch.bind(this,'RECEIVED',item.propcode,item.id)}>{item.propname}</TableRowColumn>
 								<TableRowColumn>{item.propamount}</TableRowColumn>					
 							 </TableRow>
 							  )}
@@ -79,13 +107,17 @@ export default class SearchParam extends Component{
 						</Table>
 
 						<Table  style={{marginTop:10}} displayCheckbox={false}>
-						  <TableHeader>
+						   <TableHeader>
+							<TableHeaderColumn></TableHeaderColumn>
+							<TableHeaderColumn></TableHeaderColumn>
 							<TableHeaderColumn></TableHeaderColumn>
 							<TableHeaderColumn>收入</TableHeaderColumn>
 						   </TableHeader>
 
 						<TableBody>
-						     {detailIncome.map((item,index)=><TableRow key={index}>						
+						     {detailIncome.map((item,index)=><TableRow key={index}>
+						        <TableRowColumn type="hidden" value={item.id}></TableRowColumn>
+						        <TableRowColumn type="hidden" value={item.propcode}></TableRowColumn>							
 								<TableRowColumn>{item.propname}</TableRowColumn>
 								<TableRowColumn>{item.propamount}</TableRowColumn>					
 							 </TableRow>
