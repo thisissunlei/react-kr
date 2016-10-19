@@ -40,7 +40,8 @@ export default class AttributeSetting  extends Component{
 			detailT:{},
 			detailPayment:[],
 			detailIncome:[],
-			detailBalance:'',			
+			detailBalance:'',	
+			detailResult:{}		
 		}
 	}
 
@@ -57,6 +58,7 @@ export default class AttributeSetting  extends Component{
 				detailPayment:response.paymentdata,
 				detailIncome:response.incomedata,
 				detailBalance:response.balance,
+				detailResult:response.pagedata,
 				loading:false
 
 			});
@@ -83,7 +85,7 @@ export default class AttributeSetting  extends Component{
 								<SearchParam detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance}/>
 							</Col>
 							<Col md={5} >
-								<SearchResult />
+								<SearchResult detailResult={this.state.detailResult}/>
 							</Col>
 						</Row>
 
