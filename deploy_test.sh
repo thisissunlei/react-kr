@@ -2,5 +2,7 @@
 
 npm run build
 
-rsync -cza --delete-before  -e 'ssh -p 9830'  ./build/* krspace01:/data/work/kr-admin >/dev/null
+target_site=www@10.1.60.201
+
+rsync -cza --delete-before  -e 'ssh -p 9830'  ./build/* ${target_site}:/data/work/frontend/kr-admin/ >/dev/null
 
