@@ -1,5 +1,10 @@
 const APIS  = {
 
+	//获取文件token
+	'getSourceServiceToken':{
+		url:'/api/krspace-finance-web/finacontractdetail/getSourceServiceToken',
+		method:'get'
+	},
 	//获取文件列表
 	'findFileList':{
 		url:'/krspace_knowledge_wap/doc/docFile/findFileList?sourceservicetoken={sourceservicetoken}&fileIds={fileIds}&jsoncallback={jsoncallback}&operater={operater}',
@@ -203,7 +208,7 @@ const APIS  = {
 	},
 	//财务管理－科目配置－搜索(list)
 	'getFinaFinaflowAccountModelByAjax':{
-		url:'/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/getFinaFinaflowAccountModelByAjax',		
+		url:'/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/getFinaFinaflowAccountModelByAjax?accountname={accountname}&currentPage={currentPage}&pageSize={pageSize}',		
 		method:'get'
 	},
 	//财务管理－订单明细账-分页获得财务流水

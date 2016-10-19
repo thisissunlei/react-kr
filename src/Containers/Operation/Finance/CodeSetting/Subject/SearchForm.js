@@ -29,10 +29,8 @@ import {
 
 	 onSubmit(form){
 
-	 	form.pageSize = 20;
+	 	form.pageSize = 10;
 	 	form.page = 1;
-
-	 	
 		const {onSubmit} = this.props;
 	    onSubmit && onSubmit(form);
 	 }
@@ -52,7 +50,7 @@ import {
 
 
               <Row>
-				<Col md={8}><KrField name="searchParam" type="text"  /></Col>
+				<Col md={8}><KrField name="accountname" type="text"  /></Col>
 				<Col md={4}><Button  label="查询" type="submit" primary={true} /></Col>
               </Row>
 				

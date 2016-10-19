@@ -2,6 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 import DatePicker from 'material-ui/DatePicker';
+import Notify from '../../Notify';
 
 import {Actions,Store} from 'kr/Redux';
 
@@ -47,7 +48,7 @@ const renderFieldDate = ({ input, label, type, meta: { touched, error } ,require
 	return (
 	<div className="form-item-wrap " style={style}>
 	<div className="form-item date">
-    <label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
+	{label &&<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label> }
     <div className="form-main">
 		<div className="form-input-main">
 			<div className="form-input">
@@ -166,7 +167,30 @@ const renderFieldTextarea = ({ input, label, type, meta: { touched, error } ,req
 const renderFieldFile = ({ input, label, type, meta: { touched, error },children,disabled,style,requireLabel,options}) =>{
 
 	function changeValue(item){
-		input.onChange(item);
+
+		var form = new FormData();
+		var token = '';
+
+		form.append('docTypeCode',item);
+
+		Store.dispatch(Actions.callAPI('getSourceServiceToken')).then(function(response){
+			form.append('token',response);
+			Store.dispatch(Actions.callAPI('uploadSingleFile',{},form)).then(function(response){
+				console.log("response",response);
+			}).catch(function(err){
+				Notify.show([{
+					message:err.message,
+					type: 'danger',
+				}]);
+		   	});
+		}).catch(function(err){
+			Notify.show([{
+				message:'后台出错了，获取token失败!',
+				type: 'danger',
+			}]);
+		});
+
+		input.onChange('1');
 	}
 
 	return (
@@ -175,7 +199,7 @@ const renderFieldFile = ({ input, label, type, meta: { touched, error },children
 				<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
 						<div className="form-main">
 						<div className="form-input">
-							<input type="file" onChange={changeValue} name={input.name} value={input.value}/>
+							<input type="file" onChange={changeValue} name={input.name}/>
 						</div>
 		{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 					  </div>

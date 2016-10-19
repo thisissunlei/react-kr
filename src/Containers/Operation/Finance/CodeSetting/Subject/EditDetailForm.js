@@ -30,15 +30,29 @@ import {
 
 	 componentDidMount(){
 		const {detail}= this.props;
-		console.log('dfa---',detail)
 		Store.dispatch(initialize('newCreateForm',detail));
 	 }
 
 	 onSubmit(values){
 
 		var _this = this;
-
-		Store.dispatch(Actions.callAPI('saveFinaFinaflowAccountModel',{},values)).then(function(response){ }).catch(function(err){
+		const accountcode=values.accountcode;
+		const accountdesc=values.accountdesc;
+		const accountname=values.accountname;
+		const accounttype=values.accounttype;
+		const enableflag=values.enableflag;
+		const ordernum=values.ordernum;
+		const id=values.id;
+		
+		Store.dispatch(Actions.callAPI('saveFinaFinaflowAccountModel',{},{
+			accountcode:accountcode,
+			accountdesc:accountdesc,
+			accountname:accountname,
+			accounttype:accounttype,
+			enableflag:enableflag,
+			ordernum:ordernum,
+			id:id
+		})).then(function(response){ }).catch(function(err){
 			Notify.show([{
 				message:'报错了',
 				type: 'danger',

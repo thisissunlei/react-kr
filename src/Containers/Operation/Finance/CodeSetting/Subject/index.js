@@ -50,11 +50,9 @@ export default class AttributeSetting  extends Component{
 			openView:false,
 			openEditDetail:false,
 			itemDetail:{},
-			searchParams:{
-				page:1,
-				pageSize:20
-			}
+			accountname:{}
 		}
+		console.log('state',this.state.accountname)
 	}
 
 	componentDidMount() {
@@ -81,7 +79,10 @@ export default class AttributeSetting  extends Component{
 	}
 
 	onEditSubmit(){
-
+		this.setState({
+			openEditDetail:!this.state.openEditDetail
+		});
+		window.location.reload();
 	}
 
 	//查看
@@ -92,11 +93,12 @@ export default class AttributeSetting  extends Component{
 	}
 
 	//搜索
-	onSearchSubmit(searchParams){
-		console.log('000',searchParams);
+	onSearchSubmit(accountname){
+		console.log('000',accountname);
 		this.setState({
-			searchParams
+			accountname
 		});
+
 	}
 
 	onSearchCancel(){
@@ -120,7 +122,7 @@ export default class AttributeSetting  extends Component{
 	}
 
 	render(){
-
+		console.log('.........',this.state.accountname)
 		return(
 
 			<div>
@@ -136,7 +138,7 @@ export default class AttributeSetting  extends Component{
 						</Row>
 					</Grid>
 
-				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='getFinaFinaflowAccountModelByAjax' ajaxParams={this.state.searchParams} onOperation={this.onOperation} >
+				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='getFinaFinaflowAccountModelByAjax' ajaxParams={this.state.accountname} onOperation={this.onOperation} >
 					<TableHeader>
 					  <TableHeaderColumn>科目编码</TableHeaderColumn>
 					  <TableHeaderColumn>科目名称</TableHeaderColumn>
