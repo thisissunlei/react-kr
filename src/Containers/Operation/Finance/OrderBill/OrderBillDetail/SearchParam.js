@@ -33,7 +33,10 @@ export default class SearchParam extends Component{
 	}
 
 	static PropTypes = {
-		detail:React.PropTypes.object
+		detailPayment:React.PropTypes.object,
+		detailIncome:React.PropTypes.object,
+		detailBalance:React.PropTypes.object
+
 	}
 
 	constructor(props,context){
@@ -46,11 +49,15 @@ export default class SearchParam extends Component{
 
 	render(){
 
+		console.log("jjj",this.props.detailPayment);
+		console.log("uuu",this.props.detailIncome);
+		console.log("ooo",this.props.detailBalance);
+
 		return(
 
 			<div>
 
-<Row>                  
+             <Row>                  
                 <Col md={4} >
                         
                        
@@ -96,18 +103,8 @@ export default class SearchParam extends Component{
 						</TableBody>
 						</Table>
                      </Col> 
-
-                   
-
-                      <Col md={8}>
-
-
-							
-
-                         
-                      </Col> 	 
-                  
-                    </Row>
+                     
+                  </Row>
 				
 			</div>		
 

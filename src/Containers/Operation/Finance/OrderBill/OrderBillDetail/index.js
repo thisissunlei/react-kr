@@ -23,9 +23,7 @@ import {
 	Dialog,
 } from 'kr-ui';
 
-import ReceivedPayment from './ReceivedPayment';
-import IncomePayment from './IncomePayment';
-import CatchPayment from './CatchPayment';
+
 import BasicInfo from './BasicInfo';
 
 import SearchParam from './SearchParam';
@@ -38,16 +36,27 @@ export default class AttributeSetting  extends Component{
 		
 
 		this.state = {			
-			item:{}			
+			item:{},
+			detailT:{},
+			detailPayment:[],
+			detailIncome:[],
+			detailBalance:'',			
 		}
 	}
 
 	componentDidMount() {
        var _this = this;
-		Store.dispatch(Actions.callAPI('getAccountFlow')).then(function(response){
-         
+		Store.dispatch(Actions.callAPI('getAccountFlow',{
+			accountType:'PAYMENT',
+			mainbillid:'3'
+		})).then(function(response){
+                
 			_this.setState({
 				item:response,
+				detailT:response.topdata,
+				detailPayment:response.paymentdata,
+				detailIncome:response.incomedata,
+				detailBalance:response.balance,
 				loading:false
 
 			});
@@ -61,17 +70,17 @@ export default class AttributeSetting  extends Component{
     
 	render(){
         
-        console.log("vvv",this.state.item)
+        console.log("vvv",this.state.item);
 		return(
 
 			<div>
 					<Section title="订单明细账" description="" > 
 
-						<BasicInfo />
+						   <BasicInfo detail={this.state.detailT}/>
 
 							<Row>
 							<Col md={5} >
-								<SearchParam/>
+								<SearchParam detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance}/>
 							</Col>
 							<Col md={5} >
 								<SearchResult />

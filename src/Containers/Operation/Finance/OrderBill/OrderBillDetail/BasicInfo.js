@@ -20,6 +20,7 @@ import {
 	Notify,
 	List,
  	ListItem,
+ 	KrField,
 	LabelText,
 } from 'kr-ui';
 
@@ -41,59 +42,48 @@ export default class BasicInfo extends Component{
 	}
 
 	componentDidMount() {
-
+        
 	}
 
 	render(){
+          
+         const {detail} =this.props;
+		 
 
 		return(
 
-			<div>
+			<div>   
 
-					<Row>
-						<Col md={4} ><LabelText label="社区名称" /></Col>
-						<Col md={4} ><LabelText label="客户名称" /></Col>
-						<Col md={4} ><LabelText label="订单名称"/></Col>
-					</Row>
+			           <KrField grid={1/3} label="社区名称" component="labelText" value={detail.communityname}/>
+			           <KrField grid={1/3} label="客户名称" component="labelText" value={detail.customername}/>
+			           <KrField grid={1/3} label="订单名称" component="labelText" value={detail.mainbillname}/>
 
-					<Row>
-						<Col md={4} ><LabelText label="当前工位数" /></Col>
-						<Col md={4} ><LabelText label="起始日期" /></Col>
-						<Col md={4} ><LabelText label="结束日期"  type="date"/></Col>
-					</Row>
-					<Row>
-						<Col md={4} ><LabelText label="撤场日期" type="date"/></Col>
-						<Col md={4} ><LabelText label="订单总额" type="date"/></Col>
-						<Col md={4} ><LabelText label="回款总额"  /></Col>
-					</Row>
+                        <KrField grid={1/3} label="当前工位数" component="labelText" value={detail.totalstationnum}/>
+			           <KrField grid={1/3} label="起始日期" component="labelText" value={detail.startdate}/>
+			           <KrField grid={1/3} label="结束日期" component="labelText" value={detail.enddate}/>
 
-					<Row>
-						<Col md={4} ><LabelText label="未回款额" /></Col>
-						<Col md={4} ><LabelText label="工位回款" /></Col>
-						<Col md={4} ><LabelText label="实收押金" /></Col>
-					</Row>
+			            <KrField grid={1/3} label="撤场日期" component="labelText" value={detail.leavedate}/>
+			           <KrField grid={1/3} label="订单总额" component="labelText" value={detail.totalamount}/>
+			           <KrField grid={1/3} label="回款总额" component="labelText" value={detail.totalPayment}/>
 
-					<Row>
-						<Col md={4} ><LabelText label="实收定金" /></Col>
-						<Col md={4} ><LabelText label="其他回款" /></Col>
-						<Col md={4} ><LabelText label="营业外收入汇款" /></Col>		
-					</Row>
+			            <KrField grid={1/3} label="未回款额" component="labelText" value={detail.notPaymentAmount}/>
+			           <KrField grid={1/3} label="工位回款" component="labelText" value={detail.gonweihuikuan}/>
+			           <KrField grid={1/3} label="实收押金" component="labelText" value={detail.yajin}/>
 
-					<Row>
-						<Col md={4} ><LabelText label="生活消费收入回款"  width={150}/></Col>
-						<Col md={4} ><LabelText label="工位收入"  width={160}/></Col>
-						<Col md={4} ><LabelText label="其他收入" /></Col>
-					</Row>
 
-					<Row>
+			            <KrField grid={1/3} label="实收定金" component="labelText" value={detail.dinjin}/>
+			           <KrField grid={1/3} label="其他回款" component="labelText" value={detail.qitahuikuan}/>
+			           <KrField grid={1/3} label="营业外收入汇款" component="labelText" value={detail.yingshouhuikuan}/>
 
-						<Col md={4} ><LabelText label="营业外收入" /></Col>
-						<Col md={4} ><LabelText label="生活消费收入" /></Col>
-						<Col md={4} ></Col>
-					</Row>
-					<Row>						
-						<Col md={4} ><LabelText label="订单描述" /></Col>
-					</Row>
+
+			            <KrField grid={1/3} label="生活消费收入回款" component="labelText" value={detail.shenghuoxiaofeihuikuan}/>
+			           <KrField grid={1/3} label="工位收入" component="labelText" value={detail.gonweishouru}/>
+			           <KrField grid={1/3} label="其他收入" component="labelText" value={detail.qitashouru}/>
+
+			            <KrField grid={1/2} label="营业外收入" component="labelText" value={detail.yingshoushouru}/>
+			           <KrField grid={1/2} label="生活消费收入" component="labelText" value={detail.shenghuoxiaofeishouru}/>
+			           <KrField grid={1} label="订单描述" component="labelText" value={detail.mainbilldesc}/>
+		
 			</div>		
 
 		);
