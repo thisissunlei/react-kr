@@ -35,10 +35,9 @@ const config = {
 		publicPath:"/"
 	},
 	plugins: [
-	//	new webpack.optimize.OccurenceOrderPlugin(),
+		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoErrorsPlugin(),
-		/*
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
 				warnings: false,
@@ -47,7 +46,6 @@ const config = {
 				comments: false,
 			},
 		}),
-		*/
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(env)
 		}),

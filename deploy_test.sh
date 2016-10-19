@@ -1,14 +1,8 @@
 #!/bin/bash
-target=${1:7}
 
-npm run  build:$target
+npm run build
 
-if [ $target = 'test' ] || [ $target = 'test4' ]; then
-  server='03'
-elif [ $target = 'test2' ] || [ $target = 'test3' ]; then
-  server='02'
-elif [ $target = 'dev' ]; then
-  server='04'
-fi
+target_site=www@10.1.60.201
 
-# rsync -rvltOD ./dist/* "dev$server:/data/work/frontend/$target/36kr/space/dist"
+rsync -cza --delete-before  -e 'ssh -p 9830'  ./build/* ${target_site}:/data/work/frontend/kr-node-proxy/static/ >/dev/null
+
