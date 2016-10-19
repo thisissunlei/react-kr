@@ -85,6 +85,7 @@ const ViewHtml = (props)=>{
 		  openView:false,
 		  openUpdate:false,
 		  page:1,
+		  loading:false,
 		  item:{}
 	  }
 
@@ -93,20 +94,39 @@ const ViewHtml = (props)=>{
   }
 
   onPageChange(page){
-  		console.log('----',page);
-		console.log('----',this.state.items);
-  		this.setState({page});
+  		this.setState({
+  			page:page,
+  			loading:!this.state.loading
+  		});
+
   		var {actions} = this.props;
   		var _this = this;
 		actions.callAPI('fnaCorporationList',{ 
 			page:page,
 
-		},page).then(function(response){ }).catch(function(err){ });
+		},page).then(function(response){ 
+			
+		}).catch(function(err){ });
+
+		var _this = this;
+		window.setTimeout(function(){
+			_this.setState({
+  			loading:!_this.state.loading
+  		   });
+		},1000);
 
   }
 
 	 componentDidMount(){
-		 console.log("---->>>",this.props.items);
+		 this.setState({
+  			loading:!this.state.loading
+  		});
+		 var _this = this;
+		window.setTimeout(function(){
+			_this.setState({
+  			loading:!_this.state.loading
+  		   });
+		},1000);
 	 }
 
 	 componentWillReceiveProps(nextProps){
