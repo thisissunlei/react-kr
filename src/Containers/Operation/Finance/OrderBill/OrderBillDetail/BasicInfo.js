@@ -80,8 +80,9 @@ export default class BasicInfo extends Component{
 			           <KrField grid={1/3} label="工位收入" component="labelText" value={detail.gonweishouru}/>
 			           <KrField grid={1/3} label="其他收入" component="labelText" value={detail.qitashouru}/>
 
-			            <KrField grid={1/2} label="营业外收入" component="labelText" value={detail.yingshoushouru}/>
-			           <KrField grid={1/2} label="生活消费收入" component="labelText" value={detail.shenghuoxiaofeishouru}/>
+			            <KrField grid={1/3} label="营业外收入" component="labelText" value={detail.yingshoushouru}/>
+			           <KrField grid={1/3} label="生活消费收入" component="labelText" value={detail.shenghuoxiaofeishouru}/>
+			           <KrField grid={1/3} component="labelText"/>
 			           <KrField grid={1} label="订单描述" component="labelText" value={detail.mainbilldesc}/>
 		
 			</div>		

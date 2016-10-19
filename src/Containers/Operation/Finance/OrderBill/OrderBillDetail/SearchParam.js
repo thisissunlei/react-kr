@@ -48,10 +48,12 @@ export default class SearchParam extends Component{
 	}
 
 	render(){
+       
+         const {detailPayment,detailIncome,detailBalance}=this.props;
 
-		console.log("jjj",this.props.detailPayment);
-		console.log("uuu",this.props.detailIncome);
-		console.log("ooo",this.props.detailBalance);
+		//console.log("jjj",this.props.detailPayment);
+		//console.log("uuu",this.props.detailIncome);
+		//console.log("ooo",this.props.detailBalance);
 
 		return(
 
@@ -68,10 +70,11 @@ export default class SearchParam extends Component{
 						   </TableHeader>
 
 						 <TableBody>
-						      <TableRow displayCheckbox={false}>						
-								<TableRowColumn>押金</TableRowColumn>
-								<TableRowColumn>123</TableRowColumn>					
+						     {detailPayment.map((item,index)=><TableRow key={index}>						
+								<TableRowColumn>{item.propname}</TableRowColumn>
+								<TableRowColumn>{item.propamount}</TableRowColumn>					
 							 </TableRow>
+							  )}
 						</TableBody>
 						</Table>
 
@@ -81,11 +84,12 @@ export default class SearchParam extends Component{
 							<TableHeaderColumn>收入</TableHeaderColumn>
 						   </TableHeader>
 
-						 <TableBody>
-						      <TableRow displayCheckbox={false}>						
-								<TableRowColumn>押金</TableRowColumn>
-								<TableRowColumn>123</TableRowColumn>					
+						<TableBody>
+						     {detailIncome.map((item,index)=><TableRow key={index}>						
+								<TableRowColumn>{item.propname}</TableRowColumn>
+								<TableRowColumn>{item.propamount}</TableRowColumn>					
 							 </TableRow>
+							  )}
 						</TableBody>
 						</Table>
 
@@ -97,8 +101,8 @@ export default class SearchParam extends Component{
 
 						 <TableBody>
 						      <TableRow displayCheckbox={false}>						
-								<TableRowColumn>押金</TableRowColumn>
-								<TableRowColumn>123</TableRowColumn>					
+								<TableRowColumn>余额</TableRowColumn>
+								<TableRowColumn>{detailBalance}</TableRowColumn>					
 							 </TableRow>
 						</TableBody>
 						</Table>
