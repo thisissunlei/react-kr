@@ -79,10 +79,13 @@ const ViewHtml = (props)=>{
 	  this.confirmUpdateSubmit = this.confirmUpdateSubmit.bind(this);
 	  this.cancelUpdateSubmit = this.cancelUpdateSubmit.bind(this);
 	  this.renderTableBody = this.renderTableBody.bind(this);
+	  this.onPageChange = this.onPageChange.bind(this);
 
 	  this.state = {
 		  openView:false,
 		  openUpdate:false,
+		  page:1,
+		  loading:false,
 		  item:{}
 	  }
 
@@ -90,8 +93,40 @@ const ViewHtml = (props)=>{
 
   }
 
+  onPageChange(page){
+  		this.setState({
+  			page:page,
+  			loading:!this.state.loading
+  		});
+
+  		var {actions} = this.props;
+  		var _this = this;
+		actions.callAPI('fnaCorporationList',{ 
+			page:page,
+
+		},page).then(function(response){ 
+			
+		}).catch(function(err){ });
+
+		var _this = this;
+		window.setTimeout(function(){
+			_this.setState({
+  			loading:!_this.state.loading
+  		   });
+		},1000);
+
+  }
+
 	 componentDidMount(){
-		 console.log("---->>>",this.props.items);
+		 this.setState({
+  			loading:!this.state.loading
+  		});
+		 var _this = this;
+		window.setTimeout(function(){
+			_this.setState({
+  			loading:!_this.state.loading
+  		   });
+		},1000);
 	 }
 
 	 componentWillReceiveProps(nextProps){
@@ -194,7 +229,7 @@ const ViewHtml = (props)=>{
 
 
 			<div>
-				<Table  style={{marginTop:10}} displayCheckbox={true} >
+				<Table  style={{marginTop:10}} displayCheckbox={true} loading={this.state.loading}>
 					<TableHeader>
 					<TableHeaderColumn>ID</TableHeaderColumn>
 					<TableHeaderColumn>出租方名称</TableHeaderColumn>
@@ -223,7 +258,7 @@ const ViewHtml = (props)=>{
 		return (
 
 			<div>
-				<Table  style={{marginTop:10}} >
+				<Table  style={{marginTop:10}} onPageChange={this.onPageChange} page={this.state.page} loading={this.state.loading} >
 					<TableHeader>
 					<TableHeaderColumn>ID</TableHeaderColumn>
 					<TableHeaderColumn>出租方名称</TableHeaderColumn>
@@ -278,9 +313,4 @@ const ViewHtml = (props)=>{
 }
 
 
-export default connect((state)=>{
-	const name = '';
-	return {
-		name
-	}
-})(RenderTable );
+export default connect()(RenderTable );

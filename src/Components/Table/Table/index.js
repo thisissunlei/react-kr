@@ -85,7 +85,7 @@ export default class Table extends React.Component {
 			pageSize:this.props.pageSize,
 			totalCount:this.props.totalCount,
 			listData:[],
-			loading:false,
+			loading:this.props.loading,
 			isLoaded:false,
 			allRowsSelected:false,
 			selectedRows:[],
@@ -110,11 +110,29 @@ export default class Table extends React.Component {
 			this.onLoadData(1,nextProps.ajaxParams);
 		}
 
+		if(nextProps.page != this.props.page){
+			this.setState({
+				page:nextProps.page
+			});
+		}
+
+		if(nextProps.loading != this.props.loading){
+			this.setState({
+				loading:nextProps.loading
+			});
+		}
+
 	}
 
 	shouldComponentUpdate(nextProps,nextState){
 
 		if(!_.isEqual(this.props.ajaxParams,nextProps.ajaxParams)){
+			return true;
+		}
+		if(nextProps.page != this.props.page){
+			return true;
+		}
+		if(nextProps.loading != this.props.loading){
 			return true;
 		}
 		return false;
@@ -494,9 +512,9 @@ export default class Table extends React.Component {
 	render() {
 
 		let {className,children,style,ajax} = this.props;
-		let {listData} = this.state;
+		let {listData,loading} = this.state;
 
-		if(this.state.loading){
+		if(loading){
 			return this.renderLoading();
 		}
 
