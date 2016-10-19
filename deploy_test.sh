@@ -2,5 +2,5 @@
 
 npm run build
 
-rsync -rvltOD ./build/* krspace01:/data/work/kr-admin
+rsync -cza --delete-before  -e 'ssh -p 9830'  ./build/* krspace01:/data/work/kr-admin >/dev/null
 
