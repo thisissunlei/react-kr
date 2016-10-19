@@ -110,11 +110,20 @@ export default class Table extends React.Component {
 			this.onLoadData(1,nextProps.ajaxParams);
 		}
 
+		if(nextProps.page != this.props.page){
+			this.setState({
+				page:nextProps.page
+			});
+		}
+
 	}
 
 	shouldComponentUpdate(nextProps,nextState){
 
 		if(!_.isEqual(this.props.ajaxParams,nextProps.ajaxParams)){
+			return true;
+		}
+		if(nextProps.page != this.props.page){
 			return true;
 		}
 		return false;
