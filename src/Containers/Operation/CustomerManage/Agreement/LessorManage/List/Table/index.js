@@ -79,14 +79,29 @@ const ViewHtml = (props)=>{
 	  this.confirmUpdateSubmit = this.confirmUpdateSubmit.bind(this);
 	  this.cancelUpdateSubmit = this.cancelUpdateSubmit.bind(this);
 	  this.renderTableBody = this.renderTableBody.bind(this);
+	  this.onPageChange = this.onPageChange.bind(this);
 
 	  this.state = {
 		  openView:false,
 		  openUpdate:false,
+		  page:1,
 		  item:{}
 	  }
 
 
+
+  }
+
+  onPageChange(page){
+  		console.log('----',page);
+		console.log('----',this.state.items);
+  		this.setState({page});
+  		var {actions} = this.props;
+  		var _this = this;
+		actions.callAPI('fnaCorporationList',{ 
+			page:page,
+
+		},page).then(function(response){ }).catch(function(err){ });
 
   }
 
@@ -194,7 +209,7 @@ const ViewHtml = (props)=>{
 
 
 			<div>
-				<Table  style={{marginTop:10}} displayCheckbox={true} >
+				<Table  style={{marginTop:10}} displayCheckbox={true} loading={this.state.loading}>
 					<TableHeader>
 					<TableHeaderColumn>ID</TableHeaderColumn>
 					<TableHeaderColumn>出租方名称</TableHeaderColumn>
@@ -223,7 +238,7 @@ const ViewHtml = (props)=>{
 		return (
 
 			<div>
-				<Table  style={{marginTop:10}} >
+				<Table  style={{marginTop:10}} onPageChange={this.onPageChange} page={this.state.page} loading={this.state.loading} >
 					<TableHeader>
 					<TableHeaderColumn>ID</TableHeaderColumn>
 					<TableHeaderColumn>出租方名称</TableHeaderColumn>
@@ -278,9 +293,4 @@ const ViewHtml = (props)=>{
 }
 
 
-export default connect((state)=>{
-	const name = '';
-	return {
-		name
-	}
-})(RenderTable );
+export default connect()(RenderTable );
