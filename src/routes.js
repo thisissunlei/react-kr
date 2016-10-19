@@ -158,7 +158,6 @@ export default(
 			<Route path="memo" component={Permission.Memo}/>
 			<Route path="docs" component={Permission.Docs}/>
 			<Route path="order" component={Permission.Order}/>
-
 			<Redirect from="permission" to="permission/index" />
 		</Route>
 

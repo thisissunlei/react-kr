@@ -94,8 +94,15 @@ const ViewHtml = (props)=>{
 
   onPageChange(page){
   		console.log('----',page);
-
+		console.log('----',this.state.items);
   		this.setState({page});
+  		var {actions} = this.props;
+  		var _this = this;
+		actions.callAPI('fnaCorporationList',{ 
+			page:page,
+
+		},page).then(function(response){ }).catch(function(err){ });
+
   }
 
 	 componentDidMount(){
@@ -202,7 +209,7 @@ const ViewHtml = (props)=>{
 
 
 			<div>
-				<Table  style={{marginTop:10}} displayCheckbox={true} >
+				<Table  style={{marginTop:10}} displayCheckbox={true} loading={this.state.loading}>
 					<TableHeader>
 					<TableHeaderColumn>ID</TableHeaderColumn>
 					<TableHeaderColumn>出租方名称</TableHeaderColumn>
@@ -231,7 +238,7 @@ const ViewHtml = (props)=>{
 		return (
 
 			<div>
-				<Table  style={{marginTop:10}} onPageChange={this.onPageChange} page={this.state.page}>
+				<Table  style={{marginTop:10}} onPageChange={this.onPageChange} page={this.state.page} loading={this.state.loading} >
 					<TableHeader>
 					<TableHeaderColumn>ID</TableHeaderColumn>
 					<TableHeaderColumn>出租方名称</TableHeaderColumn>
