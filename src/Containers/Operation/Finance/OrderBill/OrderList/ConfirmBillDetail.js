@@ -9,9 +9,22 @@ import {
 	Row,
 	Col,
 	Button,
-  Loading
+  Loading,
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableRowColumn,
+  TableHeaderColumn
 } from 'kr-ui';
 
+ 
+ 
+ 
+ 
+ var list1=[];
+var list2=[];
+var list3=[];
 
 export default  class ConfirmBillDetail extends Component{
 
@@ -26,42 +39,72 @@ export default  class ConfirmBillDetail extends Component{
     this.getData = this.getData.bind(this);
     this.state={
       detail:{},
-      isLoading:true,  
+      basic:{},
+      isLoading:true, 
     }
    
 	}
 
   componentDidMount(){
-     this.getData(); 
+     //this.getData(); 
   }
 
   componentWillReceiveProps(nextProps){
     this.getData(nextProps.params); 
-   
+  
   }
 
 
   getData(params = this.props.params){ 
     
-     if(!params.startDate){
-       params.startDate=''
-     }
-     if(!params.endDate){
-       params.endDate=''
-     }
-      
-     
-      console.log("ccc",params) 
     
      //发送获取基本信息的请求
       var _this = this;
      
-      Store.dispatch(Actions.callAPI('getFinaDataDetailAdd',params)).then(function(response){
+      Store.dispatch(Actions.callAPI('getFinaDataDetailAdd',this.props.params)).then(function(response){ //?为神魔加this.props就可以获取到
       
       let data = response.finaContractMainbillVOMap;
+      
+  
+      data.income.items.map(function(item,index){
+          var arr1=[];
+          var obj = {};
+           obj.type="消费";
+           obj.name=item.finaflowAmount;
+           obj.money=item.propname;          
+           arr1.push(obj); 
 
+           list1=arr1;
+                 
+      })
+         
+        
+      data.payment.items.map(function(item,index){
+          var arr2=[];
+          var obj = {};
+           obj.type= "缴费";
+           obj.name=item.finaflowAmount;
+           obj.money=item.propname;
+           arr2.push(obj);
+
+           list2=arr2;
+      })
+       data.otherPay.items.map(function(item,index){
+          var arr3=[];
+          var obj = {};
+           obj.type= "其他费用";
+           obj.name=item.finaflowAmount;
+           obj.money=item.propname;
+           arr3.push(obj);
+
+           list3=arr3;
+      })
+     
+
+     
       _this.setState({
           detail:data,
+          basic:data.basic,       
           isLoading:false,
       });
 
@@ -85,93 +128,104 @@ export default  class ConfirmBillDetail extends Component{
 		 onCancel && onCancel();
 	 }
 
+
+   IncomeRender(){
+
+   }
+
 	render(){
 
-       
-
+      
+       console.log("111",list1);   
+           
        const {params}  = this.props;
-        
+      
+       //console.log("111",params);
        
 
-       let {detail,isLoading}  = this.state;
+       let {detail,basic,isLoading}  = this.state;
         
-        
+       
+      
+      
+       //console.log("hhh111",detail);
+      
         /*if(isLoading){
           return <Loading/>
         }*/
-        
+         
+
+
+     
+
+     
+    
+     
+     
        
-        
-        
-        let listC=detail.finaFinaflowModelVOLists;
-        if(!listC){
-           listC=[];
-        }
-       
-        
-        if(listC.propcode=="1"){
-           listC.propcode="收入"
-        }else if(listC.propcode=="2"){
-           listC.propcode="回款"
-        }else{
-           listC.propcode='出错'
-        }
-
-        var myDate = new Date();
-        let year=myDate.getFullYear();
-
-        let month=myDate.getMonth()+1;
-         if(month<10){
-            month='0'+month;
-         }
-        let day=myDate.getDate();  
-          if(day<10){
-            day='0'+day;
-          }
-
+ 
+  
+ 
 		return (
 
 			<div>
             <Grid style={{marginTop:30}}>
+
               <KrField grid={1/3} component="labelText" type="text"/>
-              <KrField grid={1/3} label="对账单" component="labelText" value={detail.corporationName} />
+              <KrField grid={1/3} label="对账单" component="labelText" value={basic.corporationName} />
               <KrField grid={1/3} component="labelText" type="text"/>
             </Grid>  
-              
-            <KrField grid={1/2} label="公司名称" component="labelText" value={detail.customername}/>
-            <KrField grid={1/2} label="操作日期" component="labelText" value={year+'年'+month+'月'+day+'日'}/>
+           
+            <KrField grid={1/2} label="公司名称" component="labelText" value={basic.customername} />
+            <KrField grid={1/2} label="操作日期" component="labelText" value={detail.actualDate} />
                
 
-           <KrField grid={1/2} label="对账期间" component="group">
-  						<KrField  grid={1/2}  type="labelText" value={params.startDate}/> 
-  						<KrField  grid={1/2}  type="labelText" value={params.endDate}/> 
-				  </KrField>
+             <KrField grid={1/2} label="对账期间" component="group">
+  						 <KrField  grid={1/2}  type="labelText" value={params.startDate}/> 
+  						 <KrField  grid={1/2}  type="labelText" value={params.endDate}/> 
+				     </KrField>
 
-				<KrField grid={1/2} label="订单编号" component="labelText" value={detail.mainbillcode}/>
+				    <KrField grid={1/2} label="订单编号" component="labelText" value={basic.mainbillcode}/>
 
-				<KrField label="类别" component="labelText" grid={1/3}/>
-				<KrField label="款项" component="labelText" grid={1/3}/>
-				<KrField label="金额" component="labelText" grid={1/3}/>
+   
 
-                 {listC.map((item,index)=>{
-					   return (
-                        <div>
-                          <KrField  grid={1/3} component="labelText" value={listC.propcode}/>
-                          <KrField  grid={1/3} component="labelText" value={item.propname}/>
-                          <KrField  grid={1/3} component="labelText" value={item.finaflowAmount}/>
-                        </div>                        
-					   );
-				   })}       
-               <Row style={{marginTop:30}}>    
-					  <Col md={4}><KrField  label="其他缴费" component="labelText"/></Col>
-					  <Col md={4}>
-						  <KrField  label="定金" component="labelText" />
-						  <KrField  label="押金" component="labelText" />
-					  </Col>
-						<Col md={4}>
-						  <KrField  component="labelText" value={detail.paidrent}/>
-						  <KrField  component="labelText" value={detail.realdeposit}/>
-						</Col>
+         <Table displayCheckbox={false}>
+          <TableHeader>
+          <TableHeaderColumn>类别</TableHeaderColumn>
+          <TableHeaderColumn>款项</TableHeaderColumn>
+          <TableHeaderColumn>金额</TableHeaderColumn>
+         </TableHeader>
+         <TableBody>
+
+          
+          
+          {list1.map((item,index)=><TableRow key={index}>
+              <TableRowColumn>{item.type}</TableRowColumn>
+              <TableRowColumn>{item.money}</TableRowColumn>
+              <TableRowColumn>{item.name}</TableRowColumn>
+            </TableRow>
+         )}
+         {list2.map((item,index)=><TableRow key={index}>
+              <TableRowColumn>{item.type}</TableRowColumn>
+              <TableRowColumn>{item.money}</TableRowColumn>
+              <TableRowColumn>{item.name}</TableRowColumn>
+            </TableRow>
+         )}
+         {list3.map((item,index)=><TableRow key={index}>
+              <TableRowColumn>{item.type}</TableRowColumn>
+              <TableRowColumn>{item.money}</TableRowColumn>
+              <TableRowColumn>{item.name}</TableRowColumn>
+            </TableRow>
+         )}
+         
+
+             
+           </TableBody>
+       </Table>
+			
+
+                 
+          <Row style={{marginTop:30}}>    
 						<Col><KrField label="余额" component="labelText" value={detail.mount}/></Col>
                 </Row> 
 
@@ -186,6 +240,6 @@ export default  class ConfirmBillDetail extends Component{
               </Grid>
 			</div>
 			
-		);
-	}
+		  ); 
+	 }
 }

@@ -166,7 +166,7 @@ export default class AttributeSetting  extends Component{
 							</Col>
                             
 							<Col md={2}> 
-							    <KrField label="回款总额" component="labelText" primary={true} value={items.sumbackmount}/>
+							    <KrField label="回款总额" component="labelText" primary={true} value={items.sumAmount}/>
 							</Col>
 							<Col md={2}> 
 							    <KrField label="余额" component="labelText" primary={true} value={items.summount}/>
