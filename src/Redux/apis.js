@@ -222,8 +222,13 @@ const APIS  = {
 		method:'get'
 	},
 	//财务管理－订单明细账-回款
-	'getAccountFlow':{
-		url:'/api/finaccount/opt/receiveMoney',		
+	'receiveMoney':{
+		url:'/api/krspace-finance-web/finaccount/opt/receiveMoney',		
+		method:'post'
+	},
+	//财务管理－订单明细账-退款
+	'payBack':{
+		url:'/api/krspace-finance-web/finaccount/opt/payBack',		
 		method:'post'
 	},
 	
