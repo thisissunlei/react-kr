@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-
+import {Actions,Store} from 'kr/Redux';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import {reduxForm,formValueSelector,initialize} from 'redux-form';
 import {
@@ -37,10 +37,13 @@ class Basic extends Component{
 	constructor(props,context){
 		super(props, context);
 		this.ReceivedMoney = this.ReceivedMoney.bind(this);
+		this.QuitMoney = this.QuitMoney.bind(this);
         this.onCancel = this.onCancel.bind(this);
+        this.onCancelQ = this.onCancelQ.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
 		  this.state = {
 			openReceive:false,
-			
+			openQuit:false,
 	     }
    }
 
@@ -53,22 +56,59 @@ class Basic extends Component{
 			openReceive:!this.state.openReceive
 		});
     }
+
+     QuitMoney(){
+        this.setState({
+			openQuit:!this.state.openQuit
+		});
+    }
     
      onCancel(){
 		this.setState({
-			openReceive:!this.state.openReceive
+			openReceive:!this.state.openReceive,
+			
 		});	 
 	 }
 
-	  onSubmit(params){  //获取提交时的params
- 		 const {detail} = this.props;
- 		 params.id = detail.id;  
-         params.startDate=detail.actualEntrydate;
-         this.setState({  
-			params
-		});
+	 onCancelQ(){
+		this.setState({	    
+			openQuit:!this.state.openQuit,
+		});	 
 	 }
 
+
+	  onSubmit(params){  //获取提交时的params
+	  	  console.log("gggg",params)
+		  var _this = this;
+	      Store.dispatch(Actions.callAPI('receiveMoney',{},params)).then(function(response){  //post请求   
+ 		  
+ 		}).catch(function(err){
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		 });
+
+	    _this.setState({
+			openReceive:!this.state.openReceive
+		});	  
+    }
+
+    onSubmitQ(params){  //获取提交时的params
+	  	  console.log("gggg",params)
+		  var _this = this;
+	      Store.dispatch(Actions.callAPI('payBack',{},params)).then(function(response){  //post请求   
+ 		  }).catch(function(err){
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		 });
+
+	    _this.setState({
+			openQuit:!this.state.openQuit
+		});	  
+    }
 
 	render(){
 
@@ -84,15 +124,15 @@ class Basic extends Component{
 			items=[];
 		}
 
-		
+
         
-        console.log(",,,,,",detailResult.items);
+        //console.log(",,,,,",detailResult.items);
 		return(
 
 			 <div>
                   <Row>
 					<Col md={2}><Button label="回款" primary={true} onTouchTap={this.ReceivedMoney}/></Col>
-					<Col md={2}><Button label="退款" primary={true}/></Col>
+					<Col md={2}><Button label="退款" primary={true} onTouchTap={this.QuitMoney}/></Col>
                   </Row>
        
                   <Table displayCheckbox={false}>
@@ -130,7 +170,8 @@ class Basic extends Component{
 					>
 					   <div>
 					      <form onSubmit={handleSubmit(this.onSubmit)}>
- 
+					        <KrField  name="finaflowProp" type="hidden"/> 
+                            <KrField  name="mainbillid" type="hidden"/>
 						    <KrField type="select" label="代码名称" name="accountId"/>
 						    <KrField type="date" label="回款日期" name="receiveDate"/>
 						    <KrField label="交易编号" name="dealCode" />
@@ -143,7 +184,7 @@ class Basic extends Component{
 			                </KrField>
                             <KrField label="金额（元）" name="sum" />
                             <KrField label="备注" name="remark" />
-                            <KrField label="上传附件" name="fileids" />
+                            <KrField label="上传附件" name="fileids" type="file" />
 
 						    <Row>
 								<Col md={6}> <Button  label="确定" type="submit" primary={true} /> </Col>
@@ -155,7 +196,31 @@ class Basic extends Component{
 
 				  </Dialog>
 
+                   
 
+                   <Dialog
+						title='退款'
+						modal={true}
+						open={this.state.openQuit}
+					>
+					   <div>
+					      <form onSubmit={handleSubmit(this.onSubmitQ)}>
+ 
+						    <KrField  name="id" type="hidden"/>
+                            <KrField label="金额（元）" name="finaflowamount" />
+                            <KrField type="date" label="退款日期" name="receiveDate"/>
+                            <KrField label="备注" name="finaflowdesc" />
+                            <KrField label="上传附件" name="fileids" type="file"/>
+
+						    <Row>
+								<Col md={6}> <Button  label="确定" type="submit" primary={true} /> </Col>
+								<Col md={6}> <Button  label="取消" type="button"  onTouchTap={this.onCancelQ} /> </Col>
+						   </Row> 
+					   
+                         </form>
+					  </div>
+
+				  </Dialog>
 
 			</div>		
 
@@ -166,7 +231,7 @@ class Basic extends Component{
 }
 
 
-export default reduxForm({ form:'Basic'})(Basic);
+export default reduxForm({form:'Basic'})(Basic);
 
 
 
