@@ -32,8 +32,8 @@ let LessorUpdateForm = function(props){
 							<KrField name="corporationName" type="text" label="出租方名称" /> 
 
 							<KrField name="enableflag" component="group" label="是否启用">
-								<KrField name="enableflag" label="是" component="radio" type="radio" value="1"/>
-								<KrField name="enableflag" label="否" component="radio" type="radio" value="0" />
+								<KrField name="enableflag" label="是" component="radio" type="radio" value={1}/>
+								<KrField name="enableflag" label="否" component="radio" type="radio" value={0} />
 							</KrField>
 							
 							<KrField name="corporationAddress" component="text" type="text" label="详细地址"/> 
@@ -86,7 +86,8 @@ const ViewHtml = (props)=>{
 		  openUpdate:false,
 		  page:1,
 		  loading:false,
-		  item:{}
+		  item:{},
+		  pageSize:10
 	  }
 
 
@@ -104,6 +105,7 @@ const ViewHtml = (props)=>{
   		var _this = this;
 		actions.callAPI('fnaCorporationList',{ 
 			page:page,
+			pageSize:_this.state.pageSize
 
 		},page).then(function(response){ 
 			
@@ -259,7 +261,7 @@ const ViewHtml = (props)=>{
 		return (
 
 			<div>
-				<Table  style={{marginTop:10}} onPageChange={this.onPageChange} page={this.state.page} loading={this.state.loading} >
+				<Table  style={{marginTop:10}} onPageChange={this.onPageChange} page={this.state.page} pageSize={this.state.pageSize}  loading={this.state.loading} >
 					<TableHeader>
 					<TableHeaderColumn>ID</TableHeaderColumn>
 					<TableHeaderColumn>出租方名称</TableHeaderColumn>

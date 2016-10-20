@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
-
+import {reduxForm,formValueSelector,initialize} from 'redux-form';
 import {
 	Table,
  	TableBody,
@@ -26,7 +26,7 @@ import {
 } from 'kr-ui';
 
 
-export default class Basic extends Component{
+class Basic extends Component{
 
 	static PropTypes = {
 		params:React.PropTypes.object,
@@ -60,9 +60,19 @@ export default class Basic extends Component{
 		});	 
 	 }
 
+	  onSubmit(params){  //获取提交时的params
+ 		 const {detail} = this.props;
+ 		 params.id = detail.id;  
+         params.startDate=detail.actualEntrydate;
+         this.setState({  
+			params
+		});
+	 }
+
+
 	render(){
 
-		let {params,type,detailResult} = this.props;
+		let {params,type,detailResult,handleSubmit} = this.props;
 
 		let items=detailResult.items;
 
@@ -73,6 +83,8 @@ export default class Basic extends Component{
 		if(!items){
 			items=[];
 		}
+
+		
         
         console.log(",,,,,",detailResult.items);
 		return(
@@ -117,15 +129,28 @@ export default class Basic extends Component{
 						open={this.state.openReceive}
 					>
 					   <div>
-					     
-						    <KrField type="select" label="代码名称" />
+					      <form onSubmit={handleSubmit(this.onSubmit)}>
+ 
+						    <KrField type="select" label="代码名称" name="accountId"/>
+						    <KrField type="date" label="回款日期" name="receiveDate"/>
+						    <KrField label="交易编号" name="dealCode" />
+						    <KrField label="是否自动拆分" name="autoSplit" type="select" options={
+						    	[{label:"是",value:"1"},{label:"不是",value:"0"}]
+						    }/>
+                            <KrField name="sumSign" component="group" label="金额正负" >
+				                <KrField name="sumSign" label="正" component="radio" type="radio" value="0"/>
+				                <KrField name="sumSign" label="负" component="radio" type="radio" value="1" />
+			                </KrField>
+                            <KrField label="金额（元）" name="sum" />
+                            <KrField label="备注" name="remark" />
+                            <KrField label="上传附件" name="fileids" />
 
 						    <Row>
 								<Col md={6}> <Button  label="确定" type="submit" primary={true} /> </Col>
 								<Col md={6}> <Button  label="取消" type="button"  onTouchTap={this.onCancel} /> </Col>
 						   </Row> 
 					   
-					      
+                         </form>
 					  </div>
 
 				  </Dialog>
@@ -141,7 +166,7 @@ export default class Basic extends Component{
 }
 
 
-
+export default reduxForm({ form:'Basic'})(Basic);
 
 
 

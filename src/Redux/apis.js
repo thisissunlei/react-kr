@@ -221,6 +221,11 @@ const APIS  = {
 		url:'/api/krspace-finance-web/finaccount/data/getFinaContractBillDataById?accountType={accountType}&mainbillid={mainbillid}&pageNum={pageNum}&pageSize={pageSize}',		
 		method:'get'
 	},
+	//财务管理－订单明细账-回款
+	'getAccountFlow':{
+		url:'/api/finaccount/opt/receiveMoney',		
+		method:'post'
+	},
 	
 }
 

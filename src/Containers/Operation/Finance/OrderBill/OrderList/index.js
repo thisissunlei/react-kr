@@ -55,8 +55,9 @@ export default class AttributeSetting  extends Component{
 			item:{},
 			searchParams:{
 				page:1,
-				pageSize:20
+				pageSize:10
 			}
+			
 		}
 	}
 

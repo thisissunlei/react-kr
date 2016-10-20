@@ -25,6 +25,7 @@ import {
 	Loading,
 	Notify
 } from 'kr-ui';
+import Circle from './Circle';
 
 
 import {
@@ -148,10 +149,10 @@ class OrderDetail extends Component {
 		return './#/operation/customerManage/'+customerId+'/order/'+orderId+'/agreement/'+typeValue+'/'+agreementId+'/detail';
 	}
 
+
   render() {
 
-  	const {orderBaseInfo,installment,earnest,contractList,installmentPlan,contractStatusCount} = this.state.response;
-
+  	const {orderBaseInfo,earnest,contractList,installmentPlan,contractStatusCount} = this.state.response;
 
   	if(this.state.loading){
   		return(<Loading/>);
@@ -291,12 +292,44 @@ class OrderDetail extends Component {
 						   	<Row>
 								<Col md={12} align="left">{item.detailName}</Col>
 							</Row>
-							<Row>
-								<Col md={3} align="left">款项：{item.installmentName}</Col>
-								<Col md={3} align="left">计划付款日期：{item.installmentReminddate}</Col>
-								<Col md={3} align="left">计划付款金额：{item.installmentAmount}</Col>
-								<Col md={3} align="left">实际付款金额：{item.installmentBackamount}</Col>
-							</Row>
+
+							{
+								item.antecedent && item.antecedent.map((list,index)=>{
+									return (
+										<Row>
+											<Col md={3} align="left"><Circle type={list.payStatus}></Circle>款项：押金</Col>
+											<Col md={3} align="left">计划付款日期：{list.installmentReminddate}</Col>
+											<Col md={3} align="left">计划付款金额：{list.installmentAmount}</Col>
+											<Col md={3} align="left">实际付款金额：{list.installmentBackamount}</Col>
+										</Row>
+									)
+								}),
+							
+								item.earnest && item.earnest.map((list,index)=>{
+									return (
+										<Row>
+											<Col md={3} align="left"><Circle type={list.payStatus}></Circle>款项：定金</Col>
+											<Col md={3} align="left">计划付款日期：{list.installmentReminddate}</Col>
+											<Col md={3} align="left">计划付款金额：{list.installmentAmount}</Col>
+											<Col md={3} align="left">实际付款金额：{list.installmentBackamount}</Col>
+										</Row>
+									)
+								}),
+							
+								item.installment && item.installment.map((list,index)=>{
+										return (
+											<Row key={index}>
+												<Col md={3} align="left"><Circle type={list.payStatus}></Circle>款项：{list.installmentName}</Col>
+												<Col md={3} align="left">计划付款日期：{list.installmentReminddate}</Col>
+												<Col md={3} align="left">计划付款金额：{list.installmentAmount}</Col>
+												<Col md={3} align="left">实际付款金额：{list.installmentBackamount}</Col>
+											</Row>
+										)
+									})
+			
+								
+							}
+							
 						</Grid>
 							);
 					})}
