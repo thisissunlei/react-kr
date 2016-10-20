@@ -34,12 +34,24 @@ export default class Basic extends Component{
 
 	constructor(props,context){
 		super(props, context);
-	}
+		this.ReceivedMoney = this.ReceivedMoney.bind(this);
 
+		  this.state = {
+			openReceive:false,
+			
+	     }
+   }
 
 	componentDidMount() {
 
 	}
+    
+    ReceivedMoney(){
+        this.setState({
+			openReceive:!this.state.openReceive
+		});
+    }
+
 
 	render(){
 
@@ -60,7 +72,7 @@ export default class Basic extends Component{
 
 			 <div>
                   <Row>
-					<Col md={2}><Button label="回款" primary={true}/></Col>
+					<Col md={2}><Button label="回款" primary={true} onTouchTap={this.ReceivedMoney}/></Col>
 					<Col md={2}><Button label="退款" primary={true}/></Col>
                   </Row>
        
@@ -91,6 +103,18 @@ export default class Basic extends Component{
 			         )}
            </TableBody>
        </Table> 
+
+                 <Dialog
+						title='回款'
+						modal={true}
+						open={this.state.openReceive}
+					>
+					   <NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
+
+				  </Dialog>
+
+
+
 			</div>		
 
 		);
