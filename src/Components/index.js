@@ -11,7 +11,7 @@ import Pagination from './Pagination';
 import Button from './Button';
 import MyForm from './MyForm';
 import Notify from './Notify';
-import Tabs from './Tabs/index';
+//import Tabs from './Tabs/index';
 import PageHeader from './PageHeader';
 import {Grid,Row,Col} from './Grid';
 
@@ -32,6 +32,7 @@ import {
 } from 'material-ui';
 
 import {List, ListItem} from 'material-ui/List';
+import {Tabs, Tab} from 'material-ui/Tabs';
 
 module.exports = {
 
@@ -65,7 +66,8 @@ module.exports = {
 	Avatar,
 	Dialog,
 	Snackbar,
-	...Tabs,
-	
+	Tabs,
+	Tab,
+	//...Tabs,
 	PageHeader,
 }

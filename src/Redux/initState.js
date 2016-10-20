@@ -24,12 +24,8 @@ let initState = {
 						router:'communityManage',
 						menuItems:[
 							{
-								primaryText:'计划表',
-								router:'/operation/communityManage/schedule',
-							},
-							{
-								primaryText:'访客记录',
-								router:'',
+								primaryText:'基本信息',
+								router:'/operation/communityManage/detail',
 							},
 						]
 					},

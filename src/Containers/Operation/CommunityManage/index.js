@@ -1,10 +1,5 @@
-import { default as Schedule} from './Schedule';
+import { default as Detail } from './Detail';
 
 module.exports = {
-	Schedule
+	Detail
 }
-
-
-
-
-

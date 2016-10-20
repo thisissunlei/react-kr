@@ -22,6 +22,7 @@ export default class Table extends React.Component {
 		ajax:false,
 		ajaxFieldListName:'items',
 		displayCheckbox:true,
+		footer:false,
 	}
 
 	static PropTypes = {
@@ -39,6 +40,8 @@ export default class Table extends React.Component {
 		ajaxUrlName:React.PropTypes.string,
 		ajaxParams:React.PropTypes.object,
 		ajaxFieldListName:React.PropTypes.string,
+		//tfoot
+		footer:React.PropTypes.bool,
 
 		//事件
 		onExport:React.PropTypes.func,
@@ -391,6 +394,12 @@ export default class Table extends React.Component {
 
 	createTableFooter(base){
 
+		let {pagination,footer} = this.props;
+
+		if(pagination || footer){
+			footer = true;
+		}
+
 		let props = {
 				displayCheckbox:this.props.displayCheckbox,
 				allRowsSelected: this.state.allRowsSelected,
@@ -400,6 +409,7 @@ export default class Table extends React.Component {
 				pagination:this.props.pagination,
 				totalCount:this.state.totalCount,
 				onPageChange:this.onPageChange,
+				footer:footer
 		}
 
 		let handlers = {

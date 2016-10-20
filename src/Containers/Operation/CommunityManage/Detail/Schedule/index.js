@@ -12,12 +12,12 @@ import {
 	BreadCrumbs,
 } from 'kr-ui';
 
+import BasicTable from './BasicTable';
 
-export default  class FloorPlan extends Component {
+export default  class Schedule extends Component {
 
 	constructor(props,context){
 		super(props, context);
-
 	}
 
 	 componentDidMount(){
@@ -28,13 +28,16 @@ export default  class FloorPlan extends Component {
   render() {
 
     return (
-
 		 <div>
-
+			<BasicTable/>
 		</div>
 	);
+
   }
+
 }
+
+
 
 
 

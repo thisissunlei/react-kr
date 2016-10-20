@@ -33,7 +33,7 @@ export default(
 
 				{/*社区管理*/}
 				<Route path="communityManage" component={Basic}>
-					<Route path="schedule" component={Operation.CommunityManage.Schedule} name="schedule"/>
+					<Route path="detail" component={Operation.CommunityManage.Detail}/>
 				</Route>
 
               {/*客户管理*/}
