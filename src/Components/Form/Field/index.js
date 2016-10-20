@@ -55,7 +55,7 @@ const renderFieldDate = ({ input, label, type, meta: { touched, error } ,require
 				 <DatePicker hintText={placeholder||'日期'}  textFieldStyle={styles} name={input.name}
 				 onChange={function (event,value){
 					 var dt = new Date(value);
-					 var result =  dt.getFullYear()+'年'+(1+dt.getMonth())+'月'+dt.getDay()+'日 '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds();
+					 var result =  dt.getFullYear()+'-'+(1+dt.getMonth())+'-'+dt.getDay()+'- '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds();
 					input.onChange(result);
 				}} 
 		  	/>
