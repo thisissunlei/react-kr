@@ -108,7 +108,7 @@ export default class SearchParam extends Component{
 							
 							
 							<TableHeaderColumn onTouchTap={this.onSearch.bind(this,'INCOME','basic','')}>收入</TableHeaderColumn>
-						   </TableHeader>
+						    </TableHeader>
 
 						<TableBody>
 						     {detailIncome.map((item,index)=><TableRow key={index}>						

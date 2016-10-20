@@ -151,7 +151,15 @@ export default class AttributeSetting  extends Component{
         
       let items=this.state.item;
 
-
+      if(!items.sumcome){
+      	  items.sumcome=0;
+      }
+      if(!items.sumAmount){
+      	  items.sumAmount=0;
+      }
+      if(!items.summount){
+      	  items.summount=0;
+      }
      
         
 		return(

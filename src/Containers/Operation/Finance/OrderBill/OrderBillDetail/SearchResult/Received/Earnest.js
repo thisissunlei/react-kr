@@ -78,7 +78,6 @@ export default class Earnest extends Component{
 					<Col md={2}><Button label="回款" primary={true}/></Col>
 					<Col md={2}><Button label="转押金" primary={true}/></Col>
 					<Col md={2}><Button label="转营业外收入" primary={true}/></Col>
-					<Col md={2}><Button label="退款" primary={true}/></Col>
                   </Row>
 
                   

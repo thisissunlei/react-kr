@@ -117,7 +117,6 @@ let SettingUpdateForm = function(props){
 })(SettingUpdateForm);
 
 let SettingChildUpdateForm = function(props){
-    console.log(props)
     const { items,error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
   
   return (
@@ -146,13 +145,13 @@ let SettingChildUpdateForm = function(props){
 })(SettingChildUpdateForm);
 
 let SettingAddForm = function(props){
-
-    const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
+  
+    const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel,id} = props;
 
   return (
 
       <form onSubmit={handleSubmit(onSubmit)}>
-              <KrField name="id" type="hidden" label="id"  /> 
+              <KrField name="id" type="hidden" component="input" label="id"/> 
               <KrField name="dicName" type="text" label="字段名称"  />
               <KrField name="round" type="text" label="拆分周期"  /> 
               <KrField name="enableflag" component="group" label="是否有效">
@@ -211,6 +210,7 @@ export default class SettingList extends Component {
       openChildView:false,
       openChildUpdate:false,
       openAdddate:false,
+      id:"",
       
     }
 
@@ -247,7 +247,7 @@ export default class SettingList extends Component {
 
 
   confirmSubmit(values){
-
+    console.log('添加子项',values)
     Store.dispatch(Actions.callAPI('addSysDicPayment',{},values)).then(function(response){
        Notify.show([{
         message:'创建成功!',
@@ -326,6 +326,8 @@ export default class SettingList extends Component {
     this.setState({
       openChildUpdate:!this.state.openChildUpdate
     });
+
+
    
       Store.dispatch(change('settingChildUpdateForm','id',item.id));
       Store.dispatch(change('settingChildUpdateForm','dicName',item.dicName));
@@ -333,11 +335,13 @@ export default class SettingList extends Component {
       Store.dispatch(change('settingChildUpdateForm','remark',item.remark));
 
 }
-  openAddDialog(){
+  openAddDialog(item){ 
       this.setState({
-      openAdddate:!this.state.openAdddate
+       
+        openAdddate:!this.state.openAdddate
     });
-
+      
+     Store.dispatch(change('settingAddForm','id',item.id)); 
   }
   
   openCreateDialog(){
@@ -373,7 +377,7 @@ export default class SettingList extends Component {
  
   renderItem(item,index){
            return (
-             <TableRow key={index}>
+             <TableRow key={index} >
           <TableRowColumn>{item.sp.dicName}</TableRowColumn>
             <TableRowColumn>{item.sp.enableFlag?'是':'否'}</TableRowColumn>
             <TableRowColumn>{item.sp.creater}</TableRowColumn>
@@ -382,7 +386,7 @@ export default class SettingList extends Component {
             <TableRowColumn>
             <Button label="查看" type="link"  onClick={this.openViewDialog.bind(this,index)}/>
             <Button label="编辑" type="link"  onClick={this.openUpdateDialog.bind(this,index)}/>
-            <Button label="添加子项" type="link"   onClick={this.openAddDialog.bind(this)}/>
+            <Button label="添加子项" type="link" id={this.state.id}  onClick={this.openAddDialog.bind(this,item)}/>
           </TableRowColumn>
          </TableRow>
          );
@@ -570,7 +574,7 @@ export default class SettingList extends Component {
         modal={true}
         open={this.state.openAdddate}
      >
-      <SettingAddForm  onSubmit={this.confirmSubmit} onCancel={this.openAddDialog}/>
+      <SettingAddForm id={this.state.id} onSubmit={this.confirmSubmit} onCancel={this.openAddDialog}/>
       </Dialog>
       
    </div>

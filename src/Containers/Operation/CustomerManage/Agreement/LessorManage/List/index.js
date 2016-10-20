@@ -76,8 +76,8 @@ class OrderCreateForm extends Component{
 				<KrField name="corporationName" type="text" label="出租方名称" /> 
 
 				<KrField name="enableflag" component="group" label="是否启用">
-				<KrField name="enableflag" label="是" type="radio" value="2"/>
-				<KrField name="enableflag" label="否" type="radio" value="3" />
+				<KrField name="enableflag" label="是" type="radio" value={1}/>
+				<KrField name="enableflag" label="否" type="radio" value={2}/>
 				</KrField>
 
 				<KrField name="corporationAddress" component="text" type="text" label="详细地址"/> 
