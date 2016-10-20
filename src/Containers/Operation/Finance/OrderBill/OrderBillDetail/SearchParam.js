@@ -73,7 +73,7 @@ export default class SearchParam extends Component{
          const {detailPayment,detailIncome,detailBalance}=this.props;
 
 		//console.log("jjj",this.props.detailPayment);
-		console.log("uuu",this.props.detailIncome);
+		//console.log("uuu",this.props.detailIncome);
 		//console.log("ooo",this.props.detailBalance);
         
        
@@ -89,16 +89,13 @@ export default class SearchParam extends Component{
                        
 						<Table  style={{marginTop:10}} displayCheckbox={false}>
 						  <TableHeader>
-							<TableHeaderColumn></TableHeaderColumn>
-							<TableHeaderColumn></TableHeaderColumn>
-							<TableHeaderColumn></TableHeaderColumn>
-							<TableHeaderColumn>回款</TableHeaderColumn>
-						   </TableHeader>
+							
+							
+							<TableHeaderColumn onTouchTap={this.onSearch.bind(this,'RECEIVED','basic','')}>回款</TableHeaderColumn>
+						    </TableHeader>
 
 						 <TableBody>
-						     {detailPayment.map((item,index)=><TableRow key={index}>
-						 
-											
+						     {detailPayment.map((item,index)=><TableRow key={index}>			
 								<TableRowColumn onTouchTap={this.onSearch.bind(this,'RECEIVED',item.propcode,item.id)}>{item.propname}</TableRowColumn>
 								<TableRowColumn>{item.propamount}</TableRowColumn>					
 							 </TableRow>
@@ -108,17 +105,14 @@ export default class SearchParam extends Component{
 
 						<Table  style={{marginTop:10}} displayCheckbox={false}>
 						   <TableHeader>
-							<TableHeaderColumn></TableHeaderColumn>
-							<TableHeaderColumn></TableHeaderColumn>
-							<TableHeaderColumn></TableHeaderColumn>
-							<TableHeaderColumn>收入</TableHeaderColumn>
+							
+							
+							<TableHeaderColumn onTouchTap={this.onSearch.bind(this,'INCOME','basic','')}>收入</TableHeaderColumn>
 						   </TableHeader>
 
 						<TableBody>
-						     {detailIncome.map((item,index)=><TableRow key={index}>
-						        <TableRowColumn type="hidden" value={item.id}></TableRowColumn>
-						        <TableRowColumn type="hidden" value={item.propcode}></TableRowColumn>							
-								<TableRowColumn>{item.propname}</TableRowColumn>
+						     {detailIncome.map((item,index)=><TableRow key={index}>						
+								<TableRowColumn onTouchTap={this.onSearch.bind(this,'INCOME',item.propcode,item.id)}>{item.propname}</TableRowColumn>
 								<TableRowColumn>{item.propamount}</TableRowColumn>					
 							 </TableRow>
 							  )}
@@ -127,7 +121,7 @@ export default class SearchParam extends Component{
 
 						<Table  style={{marginTop:10}} displayCheckbox={false}>
 						  <TableHeader>
-							<TableHeaderColumn></TableHeaderColumn>
+							
 							<TableHeaderColumn>余额</TableHeaderColumn>
 						   </TableHeader>
 

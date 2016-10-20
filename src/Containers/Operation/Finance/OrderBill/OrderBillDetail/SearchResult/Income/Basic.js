@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
-
+import {Actions,Store} from 'kr/Redux';
 import {
 	Table,
  	TableBody,
@@ -24,42 +24,64 @@ import {
 } from 'kr-ui';
 
 
-export default class Earnest extends Component{
+export default class Basic extends Component{
 
 	static PropTypes = {
-		detailResult:React.PropTypes.object
+		params:React.PropTypes.object,
+		type:React.PropTypes.string
 	}
 
 	constructor(props,context){
 		super(props, context);
+
+		this.state={
+           item:{}
+		}
 	}
 
-	componentDidMount() {
 
+	componentDidMount() {
+         var _this = this;
+		Store.dispatch(Actions.callAPI('getPageAccountFlow',{
+			accountType:'INCOME'
+		})).then(function(response){      
+			_this.setState({
+				item:response
+			});
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+		});
 	}
 
 	render(){
-		const {detailResult}=this.props;
-		let items=detailResult.items;
 
-		if(!items){
-			items=[];
+	   let {params,type} = this.props;
+
+	   let items=this.state.item.items;
+
+	   
+	    if(!items){
+	    	items=[];
+	    }
+
+		if(params.childType != type){
+			return  null;
 		}
-
-		//console.log("kkkkk",items);
 
 		return(
 
 			 <div>
-				  <Row>
-					<Col md={2}><Button label="回款" primary={true}/></Col>
-					<Col md={2}><Button label="转押金" primary={true}/></Col>
-					<Col md={2}><Button label="转营业外收入" primary={true}/></Col>
+                   <Row>
+					<Col md={2}><Button label="挂账" primary={true}/></Col>
                   </Row>
 
                   
                   <Table displayCheckbox={false}>
 			          <TableHeader>
+			          <TableHeaderColumn></TableHeaderColumn>
 			          <TableHeaderColumn>序号</TableHeaderColumn>
 			          <TableHeaderColumn>交易日期</TableHeaderColumn>
 			          <TableHeaderColumn>代码</TableHeaderColumn>
@@ -70,13 +92,14 @@ export default class Earnest extends Component{
 			           <TableHeaderColumn>操作</TableHeaderColumn>
 			         </TableHeader>
 			         <TableBody>        
-          
-			         {items.map((item,index)=><TableRow key={index}>
+                 
+                     
+			           {items.map((item,index)=><TableRow key={index}>
 			              <TableRowColumn>{index+1}</TableRowColumn>
-			              <TableRowColumn>{item.occurday}</TableRowColumn>
-			              <TableRowColumn>{item.accountname}</TableRowColumn>
-			              <TableRowColumn>{item.proptypename}</TableRowColumn>
-			              <TableRowColumn>{item.propname}</TableRowColumn>
+			              <TableRowColumn>{item.occuryear}</TableRowColumn>
+			              <TableRowColumn>{item.accountName}</TableRowColumn>
+			              <TableRowColumn>{item.recordType}</TableRowColumn>
+			              <TableRowColumn>{item.propertyName}</TableRowColumn>
 			              <TableRowColumn>{item.finaflowAmount}</TableRowColumn>
 			               <TableRowColumn>{item.finaflowdesc}</TableRowColumn>
 			              <TableRowColumn>
@@ -84,13 +107,9 @@ export default class Earnest extends Component{
 						 </TableRowColumn>
 			            </TableRow>
 			         )}
-
            </TableBody>
        </Table> 
 
-
-
-				  
 			</div>		
 
 		);

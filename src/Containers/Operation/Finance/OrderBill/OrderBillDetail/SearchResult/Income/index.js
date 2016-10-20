@@ -24,19 +24,27 @@ import {
 } from 'kr-ui';
 
 
+import BusinessIncome from './BusinessIncome';
+import LivePaymentIncome from './LivePaymentIncome';
+import Other from './Other';
+import StationIncome from './StationIncome';
+import Basic from './Basic';
+
+
 
 
 export default class Income extends Component{
 
 	static PropTypes = {
+		params:React.PropTypes.object,
 		type:React.PropTypes.string,
-		id:React.PropTypes.number
+		detailResult:React.PropTypes.object,
 	}
 
 	constructor(props,context){
 		super(props, context);
 
-
+		
 	}
 
 
@@ -50,18 +58,21 @@ export default class Income extends Component{
 
 	render(){
 
-
-		let {params,type} = this.props;
-
+		let {params,type,detailResult} = this.props;
 
 		if(params.type != type){
-			return null;
+			return  null;
 		}
+        
 
 		return(
 
 			 <div>
-	            Icome
+			   <BusinessIncome type="yingshoushouru" params={this.props.params} />
+			   <LivePaymentIncome  type="shenghuoxiaofeishouru" params={this.props.params} />
+			   <Other type="qitashouru" params={this.props.params}/>
+			   <StationIncome type="gonweishouru" params={this.props.params}/>
+               <Basic type="basic" params={this.props.params}/>
 			</div>		
 
 		);

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
-
+import {Actions,Store} from 'kr/Redux';
 import {
 	Table,
  	TableBody,
@@ -24,30 +24,28 @@ import {
 } from 'kr-ui';
 
 
-export default class BusinessIncome extends Component{
+export default class Other extends Component{
 
 	static PropTypes = {
-		detailResult:React.PropTypes.object
+		params:React.PropTypes.object,
+		type:React.PropTypes.string
 	}
 
 	constructor(props,context){
 		super(props, context);
 
-		this.state = {			
-			item:{}
+		this.state={
+           item:{}
 		}
 	}
 
+
 	componentDidMount() {
          var _this = this;
-		Store.dispatch(Actions.callAPI('getPageAccountFlow',{
-			accountType:'PAYMENT',
-			orderId:'3',
-            propertyId:'5'
-		})).then(function(response){
-            _this.setState({
-            	item:response
-            })	
+		Store.dispatch(Actions.callAPI('getPageAccountFlow')).then(function(response){      
+			_this.setState({
+				item:response
+			});
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -57,17 +55,25 @@ export default class BusinessIncome extends Component{
 	}
 
 	render(){
-		const {detailResult}=this.props;
-	    let  items=this.state.item.items;
 
-		//console.log("kkkkk",items);
-        console.log(";;;;",items);
+	   let {params,type} = this.props;
+
+	   let items=this.state.item.items;
+
+	   
+	    if(!items){
+	    	items=[];
+	    }
+
+		if(params.childType != type){
+			return  null;
+		}
+
 		return(
-      
+
 			 <div>
-				  <Row>
-					<Col md={2}><Button label="回款" primary={true}/></Col>
-					<Col md={2}><Button label="开票" primary={true}/></Col>
+                   <Row>
+					<Col md={2}><Button label="挂账" primary={true}/></Col>
                   </Row>
 
                   
@@ -84,9 +90,9 @@ export default class BusinessIncome extends Component{
 			           <TableHeaderColumn>操作</TableHeaderColumn>
 			         </TableHeader>
 			         <TableBody>        
-          
-			         {items.map((item,index)=><TableRow key={index}>
-			              <TableRowColumn type="hidden" value={item.id}></TableRowColumn>
+                 
+                     
+			           {items.map((item,index)=><TableRow key={index}>
 			              <TableRowColumn>{index+1}</TableRowColumn>
 			              <TableRowColumn>{item.occuryear}</TableRowColumn>
 			              <TableRowColumn>{item.accountName}</TableRowColumn>
@@ -99,13 +105,9 @@ export default class BusinessIncome extends Component{
 						 </TableRowColumn>
 			            </TableRow>
 			         )}
-
            </TableBody>
        </Table> 
 
-
-
-				  
 			</div>		
 
 		);

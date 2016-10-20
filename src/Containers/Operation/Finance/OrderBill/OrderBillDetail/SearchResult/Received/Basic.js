@@ -28,7 +28,8 @@ export default class Basic extends Component{
 
 	static PropTypes = {
 		params:React.PropTypes.object,
-		type:React.PropTypes.string
+		type:React.PropTypes.string,
+		detailResult:React.PropTypes.object
 	}
 
 	constructor(props,context){
@@ -42,16 +43,54 @@ export default class Basic extends Component{
 
 	render(){
 
-		let {params,type} = this.props;
+		let {params,type,detailResult} = this.props;
+
+		let items=detailResult.items;
 
 		if(params.childType != type){
 			return  null;
 		}
 
+		if(!items){
+			items=[];
+		}
+        
+        console.log(",,,,,",detailResult.items);
 		return(
 
 			 <div>
-                  basic
+                  <Row>
+					<Col md={2}><Button label="回款" primary={true}/></Col>
+					<Col md={2}><Button label="退款" primary={true}/></Col>
+                  </Row>
+       
+                  <Table displayCheckbox={false}>
+			          <TableHeader>
+			          <TableHeaderColumn>序号</TableHeaderColumn>
+			          <TableHeaderColumn>交易日期</TableHeaderColumn>
+			          <TableHeaderColumn>代码</TableHeaderColumn>
+			           <TableHeaderColumn>类别</TableHeaderColumn>
+			          <TableHeaderColumn>款项</TableHeaderColumn>
+			          <TableHeaderColumn>金额</TableHeaderColumn>
+			           <TableHeaderColumn>备注</TableHeaderColumn>
+			           <TableHeaderColumn>操作</TableHeaderColumn>
+			         </TableHeader>
+			         <TableBody>        
+                       {items.map((item,index)=><TableRow key={index}>
+			              <TableRowColumn>{index+1}</TableRowColumn>
+			              <TableRowColumn>{item.occurday}</TableRowColumn>
+			              <TableRowColumn>{item.accountname}</TableRowColumn>
+			              <TableRowColumn>{item.proptypename}</TableRowColumn>
+			              <TableRowColumn>{item.propname}</TableRowColumn>
+			              <TableRowColumn>{item.finaflowAmount}</TableRowColumn>
+			               <TableRowColumn>{item.finaflowdesc}</TableRowColumn>
+			              <TableRowColumn>
+							  <Button label="查看" component="labelText" type="link"/>
+						 </TableRowColumn>
+			            </TableRow>
+			         )}
+           </TableBody>
+       </Table> 
 			</div>		
 
 		);

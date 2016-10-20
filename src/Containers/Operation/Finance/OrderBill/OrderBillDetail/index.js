@@ -25,12 +25,11 @@ import {
 
 
 import BasicInfo from './BasicInfo';
-
 import SearchParam from './SearchParam';
 import SearchResult from './SearchResult';
 
 
-export default class AttributeSetting  extends Component{
+export default class AttributeSetting  extends Component{ 
 
 	constructor(props,context){
 		super(props, context);
@@ -59,7 +58,7 @@ export default class AttributeSetting  extends Component{
 	}
 
 	componentDidMount() {
-       var _this = this;
+        var _this = this;
 		Store.dispatch(Actions.callAPI('getAccountFlow',{
 			accountType:'PAYMENT',
 			mainbillid:'3'
@@ -86,6 +85,7 @@ export default class AttributeSetting  extends Component{
 	render(){
         
         console.log("vvv",this.state.item);
+        //console.log("oooo",this.state.searchParam);
 		return(
 
 			<div>
