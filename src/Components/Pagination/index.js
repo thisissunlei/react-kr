@@ -44,7 +44,7 @@ export default class Pagination extends Component {
 	onNext(){
 		var page = this.props.page;
 		if(page>0){
-			page+1;
+			page++;
 		}
 		this.onPageChange(page);
 	}

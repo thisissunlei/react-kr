@@ -133,7 +133,7 @@ class OrderCreate extends Component {
 		actions.callAPI('fnaCorporationList',{
 			corporationName:'',
 			page:'',
-			pageSize:20
+			pageSize:10
 		},{}).then(function(response){
 
 	   	}).catch(function(err){
