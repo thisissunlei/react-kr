@@ -10,9 +10,11 @@ function getUrl(path, params = {},mode = false) {
 
     let server = '';
 
+	/*
 	if(env ==='test'){
 		server = 'optest.krspace.cn';
 	}
+	*/
 
     if (path.startsWith('http')) {
         return path;

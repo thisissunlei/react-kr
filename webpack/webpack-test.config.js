@@ -4,7 +4,7 @@ const buildPath = path.join(process.cwd(), '/test');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var env = process.env.NODE_ENV || 'development';
+var env = process.env.NODE_ENV || 'test';
 
 const config = {
 	entry:[
@@ -18,23 +18,14 @@ const config = {
 			'kr': path.join(process.cwd(), '/src'), 
 		},
 	},
-	/*
-  devServer: {
-	  contentBase: "./static",
-	  port: 8001,
-	  inline: true,
-	  historyApiFallback: true,
-	  colors: true,
-	  stats: 'normal',
-  },
-  */
-	devtool: 'eval-source-map',
+	//devtool: 'eval-source-map',
 	output: {
 		path: buildPath,
 		filename: 'bundle.js',
 		publicPath:"/"
 	},
 	plugins: [
+		/*
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoErrorsPlugin(),
@@ -46,6 +37,7 @@ const config = {
 				comments: false,
 			},
 		}),
+		*/
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(env)
 		}),
