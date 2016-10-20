@@ -52,7 +52,7 @@ class OrderDetail extends Component {
 		this.openCreateAgreementDialog = this.openCreateAgreementDialog.bind(this);
 		this.getAgrementDetailUrl = this.getAgrementDetailUrl.bind(this);
 		this.getAgrementEditUrl = this.getAgrementEditUrl.bind(this);
-
+		this.renderTableItem = this.renderTableItem.bind(this);
 		this.state = {
 			open:false,
 			loading:true,
@@ -149,6 +149,22 @@ class OrderDetail extends Component {
 		return './#/operation/customerManage/'+customerId+'/order/'+orderId+'/agreement/'+typeValue+'/'+agreementId+'/detail';
 	}
 
+  	renderTableItem(item){
+  		if(item){
+  			return (
+  				<Row>
+					<Col md={3} align="left"><Circle type={item.payStatus}></Circle>款项：押金</Col>
+					<Col md={3} align="left">计划付款日期：{item.installmentReminddate}</Col>
+					<Col md={3} align="left">计划付款金额：{item.installmentAmount}</Col>
+					<Col md={3} align="left">实际付款金额：{item.installmentBackamount}</Col>
+				</Row>
+  			)
+  		}
+
+  		return null;
+
+
+  	}
 
   render() {
 
@@ -157,6 +173,9 @@ class OrderDetail extends Component {
   	if(this.state.loading){
   		return(<Loading/>);
   	}
+
+
+
 
 
     return (
@@ -292,29 +311,9 @@ class OrderDetail extends Component {
 						   	<Row>
 								<Col md={12} align="left">{item.detailName}</Col>
 							</Row>
-
+							{this.renderTableItem(item.antecedent)}
+							{this.renderTableItem(item.earnest)}
 							{
-								item.antecedent && item.antecedent.map((list,index)=>{
-									return (
-										<Row>
-											<Col md={3} align="left"><Circle type={list.payStatus}></Circle>款项：押金</Col>
-											<Col md={3} align="left">计划付款日期：{list.installmentReminddate}</Col>
-											<Col md={3} align="left">计划付款金额：{list.installmentAmount}</Col>
-											<Col md={3} align="left">实际付款金额：{list.installmentBackamount}</Col>
-										</Row>
-									)
-								}),
-							
-								item.earnest && item.earnest.map((list,index)=>{
-									return (
-										<Row>
-											<Col md={3} align="left"><Circle type={list.payStatus}></Circle>款项：定金</Col>
-											<Col md={3} align="left">计划付款日期：{list.installmentReminddate}</Col>
-											<Col md={3} align="left">计划付款金额：{list.installmentAmount}</Col>
-											<Col md={3} align="left">实际付款金额：{list.installmentBackamount}</Col>
-										</Row>
-									)
-								}),
 							
 								item.installment && item.installment.map((list,index)=>{
 										return (
