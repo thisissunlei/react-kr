@@ -4,7 +4,7 @@ const buildPath = path.join(process.cwd(), '/test');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var env = process.env.NODE_ENV || 'development';
+var env = process.env.NODE_ENV || 'test';
 
 const config = {
 	entry:[
@@ -25,6 +25,7 @@ const config = {
 		publicPath:"/"
 	},
 	plugins: [
+		/*
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoErrorsPlugin(),
@@ -36,6 +37,7 @@ const config = {
 				comments: false,
 			},
 		}),
+		*/
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(env)
 		}),
