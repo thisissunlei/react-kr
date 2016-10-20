@@ -149,6 +149,17 @@ class NewCreateForm  extends Component{
 
 		let { error, handleSubmit, pristine, reset, submitting,initialValues} = this.props;
 
+		console.log('---',initialValues.fnaCorporationList)
+		/*
+		initialValues && initialValues.fnaCorporationList.length && initialValues.fnaCorporationList.map(function(item,index){
+
+			if(lessorId == item.id){
+					initialValues.lessorAddress =  item.corporationAddress;
+			}
+
+		});
+		*/
+
 
 		let {billList,lessorAddress} = this.state;
 
@@ -157,13 +168,19 @@ class NewCreateForm  extends Component{
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
 
-				<KrField name="lessorId"  grid={1/2} component="select" label="出租方" options={initialValues.fnaCorporationList}  />
+				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" /> 
+				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" /> 
+				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" /> 
 
-				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={lessorAddress}/> 
+				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={initialValues.fnaCorporationList}  />
+
+				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={initialValues.lessorAddress}/> 
 				<KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" /> 
 				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 
+				{/*
 				<KrField grid={1/2}  name="leaseId" component="labelText" label="承租方" value={initialValues.customerName}/> 
+				*/}
 				<KrField grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" /> 
 
 				<KrField grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" /> 
@@ -171,9 +188,9 @@ class NewCreateForm  extends Component{
 
 				<KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={initialValues.communityName} /> 
 
-				<KrField name="whereFloor"  grid={1/2} component="select" label="所在楼层" options={initialValues.floorList} />
+				<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={initialValues.floorList} />
 
-				<KrField grid={1/2}  name="username" type="text" component="input" label="地址"  /> 
+				<KrField grid={1/2}  name="communityAddress" component="labelText" label="地址" value={initialValues.communityAddress} /> 
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  /> 
 
 				<KrField grid={1}  name="" component="group" label="租赁期限"> 
