@@ -94,6 +94,7 @@ const ViewHtml = (props)=>{
   }
 
   onPageChange(page){
+  	console.log('page----',page)
   		this.setState({
   			page:page,
   			loading:!this.state.loading
@@ -167,7 +168,7 @@ const ViewHtml = (props)=>{
 
 
 	 this.openUpdateDialog();
-	 window.location.reload();
+	 	window.location.reload();
 
 	 }
 
@@ -229,7 +230,7 @@ const ViewHtml = (props)=>{
 
 
 			<div>
-				<Table  style={{marginTop:10}} displayCheckbox={true} loading={this.state.loading}>
+				<Table  style={{marginTop:10}} displayCheckbox={true}  page={this.state.page} loading={this.state.loading}>
 					<TableHeader>
 					<TableHeaderColumn>ID</TableHeaderColumn>
 					<TableHeaderColumn>出租方名称</TableHeaderColumn>
