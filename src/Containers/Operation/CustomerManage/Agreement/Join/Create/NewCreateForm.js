@@ -167,7 +167,6 @@ class NewCreateForm  extends Component{
 
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
-
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" /> 
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" /> 
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" /> 
