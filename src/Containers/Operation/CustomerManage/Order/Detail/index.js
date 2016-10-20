@@ -150,7 +150,7 @@ class OrderDetail extends Component {
 
   render() {
 
-  	const {orderBaseInfo,installment,earnest,contractList,antecedent,contractStatusCount} = this.state.response;
+  	const {orderBaseInfo,installment,earnest,contractList,installmentPlan,contractStatusCount} = this.state.response;
 
 
   	if(this.state.loading){
@@ -282,39 +282,27 @@ class OrderDetail extends Component {
 				   </TableBody>
 			 </Table>
 
-		  {/*
+		 
 <Section title="分期计划" description="" style={{marginTop:20}}> 
 
-			 	<Table >
-					<TableBody>
-					 {antecedent.map((item,index)=>{
+					 {installmentPlan.map((item,index)=>{
 						return (
-							 <TableRow key={index}>
-							
-							 	<TableRowColumn>
-								款项：{item.installmentName}
-							</TableRowColumn>
-							
-							<TableRowColumn>
-								计划付款日期：{item.installmentReminddate}
-							</TableRowColumn>
-
-							<TableRowColumn>
-								计划付款金额：{item.installmentAmount}
-							</TableRowColumn>
-
-							<TableRowColumn>
-								实际付款金额：{item.installmentBackamount}
-							</TableRowColumn>
-
-						   </TableRow>
+						   <Grid key={index}>
+						   	<Row>
+								<Col md={12} align="left">{item.detailName}</Col>
+							</Row>
+							<Row>
+								<Col md={3} align="left">款项：{item.installmentName}</Col>
+								<Col md={3} align="left">计划付款日期：{item.installmentReminddate}</Col>
+								<Col md={3} align="left">计划付款金额：{item.installmentAmount}</Col>
+								<Col md={3} align="left">实际付款金额：{item.installmentBackamount}</Col>
+							</Row>
+						</Grid>
 							);
 					})}
-				   </TableBody>
-			 </Table>
 
 			</Section>
-		  */}
+		 
 		
 
 			</Section>
