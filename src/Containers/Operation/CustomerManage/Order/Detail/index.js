@@ -126,7 +126,7 @@ class OrderDetail extends Component {
 		}catch(err){
 			typeValue = 'join';
 		}
-		return '/#/operation/customerManage/'+customerId+'/order/'+orderId+'/agreement/'+typeValue+'/'+agreementId+'/edit';
+		return './#/operation/customerManage/'+customerId+'/order/'+orderId+'/agreement/'+typeValue+'/'+agreementId+'/edit';
 	}
 	getAgrementDetailUrl(customerId,orderId,typeId,agreementId){
 
@@ -145,12 +145,12 @@ class OrderDetail extends Component {
 		}catch(err){
 			typeValue = 'join';
 		}
-		return '/#/operation/customerManage/'+customerId+'/order/'+orderId+'/agreement/'+typeValue+'/'+agreementId+'/detail';
+		return './#/operation/customerManage/'+customerId+'/order/'+orderId+'/agreement/'+typeValue+'/'+agreementId+'/detail';
 	}
 
   render() {
 
-  	const {orderBaseInfo,installment,earnest,contractList,antecedent,contractStatusCount} = this.state.response;
+  	const {orderBaseInfo,installment,earnest,contractList,installmentPlan,contractStatusCount} = this.state.response;
 
 
   	if(this.state.loading){
@@ -282,39 +282,27 @@ class OrderDetail extends Component {
 				   </TableBody>
 			 </Table>
 
-		  {/*
+		 
 <Section title="分期计划" description="" style={{marginTop:20}}> 
 
-			 	<Table >
-					<TableBody>
-					 {antecedent.map((item,index)=>{
+					 {installmentPlan.map((item,index)=>{
 						return (
-							 <TableRow key={index}>
-							
-							 	<TableRowColumn>
-								款项：{item.installmentName}
-							</TableRowColumn>
-							
-							<TableRowColumn>
-								计划付款日期：{item.installmentReminddate}
-							</TableRowColumn>
-
-							<TableRowColumn>
-								计划付款金额：{item.installmentAmount}
-							</TableRowColumn>
-
-							<TableRowColumn>
-								实际付款金额：{item.installmentBackamount}
-							</TableRowColumn>
-
-						   </TableRow>
+						   <Grid key={index}>
+						   	<Row>
+								<Col md={12} align="left">{item.detailName}</Col>
+							</Row>
+							<Row>
+								<Col md={3} align="left">款项：{item.installmentName}</Col>
+								<Col md={3} align="left">计划付款日期：{item.installmentReminddate}</Col>
+								<Col md={3} align="left">计划付款金额：{item.installmentAmount}</Col>
+								<Col md={3} align="left">实际付款金额：{item.installmentBackamount}</Col>
+							</Row>
+						</Grid>
 							);
 					})}
-				   </TableBody>
-			 </Table>
 
 			</Section>
-		  */}
+		 
 		
 
 			</Section>
@@ -328,15 +316,15 @@ class OrderDetail extends Component {
 
 					<Grid>
 							<Row>
-								<Col md={4} align="center"><Button label="入驻协议书" type="link" href={"/#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/join/create"}/></Col>
-								<Col md={4} align="center"><Button label="承租意向书" type="link" href={"/#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/admit/create"}/></Col>
-								<Col md={4} align="center"><Button label="增租协议书" type="link" href={"/#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/increase/create"}/></Col>
+								<Col md={4} align="center"><Button label="入驻协议书" type="link" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/join/create"}/></Col>
+								<Col md={4} align="center"><Button label="承租意向书" type="link" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/admit/create"}/></Col>
+								<Col md={4} align="center"><Button label="增租协议书" type="link" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/increase/create"}/></Col>
 							</Row>
 
 							<Row style={{marginTop:10}}>
-								<Col md={4} align="center" ><Button label="续租协议书" type="link" href={"/#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/renew/create"}/></Col>
-								<Col md={4} align="center"><Button label="减租协议书" type="link" href={"/#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/reduce/create"}/></Col>
-								<Col md={4} align="center"><Button label="退租协议书" type="link" href={"/#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/exit/create"}/></Col>
+								<Col md={4} align="center" ><Button label="续租协议书" type="link" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/renew/create"}/></Col>
+								<Col md={4} align="center"><Button label="减租协议书" type="link" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/reduce/create"}/></Col>
+								<Col md={4} align="center"><Button label="退租协议书" type="link" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/exit/create"}/></Col>
 							</Row>
 					
 						</Grid>

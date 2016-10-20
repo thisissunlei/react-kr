@@ -21,6 +21,8 @@ import {
 	List,
  	ListItem,
 	LabelText,
+	Dialog,
+	KrField
 } from 'kr-ui';
 
 
@@ -35,7 +37,7 @@ export default class Basic extends Component{
 	constructor(props,context){
 		super(props, context);
 		this.ReceivedMoney = this.ReceivedMoney.bind(this);
-
+        this.onCancel = this.onCancel.bind(this);
 		  this.state = {
 			openReceive:false,
 			
@@ -51,7 +53,12 @@ export default class Basic extends Component{
 			openReceive:!this.state.openReceive
 		});
     }
-
+    
+     onCancel(){
+		this.setState({
+			openReceive:!this.state.openReceive
+		});	 
+	 }
 
 	render(){
 
@@ -105,11 +112,21 @@ export default class Basic extends Component{
        </Table> 
 
                  <Dialog
-						title='回款'
+						title='添加回款'
 						modal={true}
 						open={this.state.openReceive}
 					>
-					   <NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
+					   <div>
+					     
+						    <KrField type="select" label="代码名称" />
+
+						    <Row>
+								<Col md={6}> <Button  label="确定" type="submit" primary={true} /> </Col>
+								<Col md={6}> <Button  label="取消" type="button"  onTouchTap={this.onCancel} /> </Col>
+						   </Row> 
+					   
+					      
+					  </div>
 
 				  </Dialog>
 
