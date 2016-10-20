@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
-import {Actions,Store} from 'kr/Redux';
+
 import {
 	Table,
  	TableBody,
@@ -23,8 +23,9 @@ import {
 	LabelText,
 } from 'kr-ui';
 
+import {Actions,Store} from 'kr/Redux';
 
-export default class BusinessIncome extends Component{
+export default class Deposit extends Component{
 
 	static PropTypes = {
 		params:React.PropTypes.object,
@@ -41,7 +42,7 @@ export default class BusinessIncome extends Component{
 
 
 	componentDidMount() {
-         var _this = this;
+        var _this = this;
 		Store.dispatch(Actions.callAPI('getPageAccountFlow')).then(function(response){      
 			_this.setState({
 				item:response
@@ -56,31 +57,34 @@ export default class BusinessIncome extends Component{
 
 	render(){
 
-	   let {params,type} = this.props;
+		let {params,type} = this.props;
 
-	   let items=this.state.item.items;
+		if(params.childType != type){
+			return  null;
+		}
+
+        let items=this.state.item.items;
 
 	   
 	    if(!items){
 	    	items=[];
 	    }
 
-		if(params.childType != type){
-			return  null;
-		}
+	    //console.log("dedede",this.state.item)
+
 
 		return(
 
 			 <div>
-                   <Row>
+               <Row>
 					<Col md={2}><Button label="回款" primary={true}/></Col>
-					<Col md={2}><Button label="开票" primary={true}/></Col>
+					<Col md={2}><Button label="转押金" primary={true}/></Col>
+					<Col md={2}><Button label="转营业外收入" primary={true}/></Col>
                   </Row>
 
                   
                   <Table displayCheckbox={false}>
 			          <TableHeader>
-			          <TableHeaderColumn></TableHeaderColumn>
 			          <TableHeaderColumn>序号</TableHeaderColumn>
 			          <TableHeaderColumn>交易日期</TableHeaderColumn>
 			          <TableHeaderColumn>代码</TableHeaderColumn>
@@ -91,9 +95,8 @@ export default class BusinessIncome extends Component{
 			           <TableHeaderColumn>操作</TableHeaderColumn>
 			         </TableHeader>
 			         <TableBody>        
-                 
-                     
-			           {items.map((item,index)=><TableRow key={index}>
+                        
+                         {items.map((item,index)=><TableRow key={index}>
 			              <TableRowColumn>{index+1}</TableRowColumn>
 			              <TableRowColumn>{item.occuryear}</TableRowColumn>
 			              <TableRowColumn>{item.accountName}</TableRowColumn>
@@ -106,9 +109,10 @@ export default class BusinessIncome extends Component{
 						 </TableRowColumn>
 			            </TableRow>
 			         )}
+			         
+
            </TableBody>
        </Table> 
-
 			</div>		
 
 		);

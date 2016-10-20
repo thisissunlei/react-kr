@@ -42,7 +42,7 @@ export default class SearchResult extends Component{
 	componentDidMount() {
 
 
-	   const {params} = this.props;
+	   const {params,detailResult} = this.props;
 
 
 
@@ -51,68 +51,15 @@ export default class SearchResult extends Component{
 
 
 	render(){
-		const {detailResult}=this.props;
-		let items=detailResult.items;
-
-		if(!items){
-			items=[];
-		}
-
-		//console.log("kkkkk",items);
+		
+		
 
 		return(
 
 			 <div>
 
-			        <Received params={this.props.params} type="RECEIVED"/>
-                   <Income params={this.props.params} type="INCOME"/>
-
-				
-
-              {/*
-
-  <Row>
-					<Col md={2}><Button label="回款" primary={true}/></Col>
-					<Col md={2}><Button label="退款" primary={true}/></Col>
-                  </Row>
-       
-                  <Table displayCheckbox={false}>
-			          <TableHeader>
-			          <TableHeaderColumn>序号</TableHeaderColumn>
-			          <TableHeaderColumn>交易日期</TableHeaderColumn>
-			          <TableHeaderColumn>代码</TableHeaderColumn>
-			           <TableHeaderColumn>类别</TableHeaderColumn>
-			          <TableHeaderColumn>款项</TableHeaderColumn>
-			          <TableHeaderColumn>金额</TableHeaderColumn>
-			           <TableHeaderColumn>备注</TableHeaderColumn>
-			           <TableHeaderColumn>操作</TableHeaderColumn>
-			         </TableHeader>
-			         <TableBody>        
-          
-			         {items.map((item,index)=><TableRow key={index}>
-			              <TableRowColumn>{index+1}</TableRowColumn>
-			              <TableRowColumn>{item.occurday}</TableRowColumn>
-			              <TableRowColumn>{item.accountname}</TableRowColumn>
-			              <TableRowColumn>{item.proptypename}</TableRowColumn>
-			              <TableRowColumn>{item.propname}</TableRowColumn>
-			              <TableRowColumn>{item.finaflowAmount}</TableRowColumn>
-			               <TableRowColumn>{item.finaflowdesc}</TableRowColumn>
-			              <TableRowColumn>
-							  <Button label="查看" component="labelText" type="link"/>
-						 </TableRowColumn>
-			            </TableRow>
-			         )}
-
-           </TableBody>
-       </Table> 
-
-
-
-              */}
-
-           
-
-      
+			        <Received params={this.props.params} type="RECEIVED" detailResult={this.props.detailResult}/>
+                    <Income params={this.props.params} type="INCOME"/>
 
 				  
 			</div>		

@@ -24,7 +24,7 @@ import {
 } from 'kr-ui';
 
 
-export default class BusinessIncome extends Component{
+export default class LivePaymentIncome extends Component{
 
 	static PropTypes = {
 		params:React.PropTypes.object,
@@ -73,8 +73,8 @@ export default class BusinessIncome extends Component{
 
 			 <div>
                    <Row>
-					<Col md={2}><Button label="回款" primary={true}/></Col>
-					<Col md={2}><Button label="开票" primary={true}/></Col>
+					<Col md={2}><Button label="挂账" primary={true}/></Col>
+					
                   </Row>
 
                   
