@@ -168,15 +168,22 @@ const renderFieldTextarea = ({ input, label, type, meta: { touched, error } ,req
 //file
 const renderFieldFile = ({ input, label, type, meta: { touched, error },children,disabled,style,requireLabel,options}) =>{
 
+	var form = {
+		sourceservicetoken:'',
+		docTypeCode:''
+	};
+	var token = '';
+
 	function changeValue(item){
 
-		var form = new FormData();
-		var token = '';
+		window.item = item;
+		form.docTypeCode = item;
 
-		form.append('docTypeCode',item);
+		console.log(item);
 
 		Store.dispatch(Actions.callAPI('getSourceServiceToken')).then(function(response){
-			form.append('token',response);
+			form.sourceservicetoken = response;
+			console.log('--form',form,response);
 			Store.dispatch(Actions.callAPI('uploadSingleFile',{},form)).then(function(response){
 				console.log("response",response);
 			}).catch(function(err){
