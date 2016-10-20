@@ -437,10 +437,8 @@ export default class Table extends React.Component {
 				tHead = this.createTableHeader(child);
 			} 
 		});
-
 		return tHead;
 	}
-
 
 	renderNotListData(){
 
@@ -460,7 +458,6 @@ export default class Table extends React.Component {
 				</tbody>
 			</table>
 		);
-
 	}
 
 	renderTableBody(){
