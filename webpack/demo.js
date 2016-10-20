@@ -18,7 +18,17 @@ const config = {
 			'kr': path.join(process.cwd(), '/src'), 
 		},
 	},
-	//devtool: 'eval-source-map',
+	/*
+  devServer: {
+	  contentBase: "./static",
+	  port: 8001,
+	  inline: true,
+	  historyApiFallback: true,
+	  colors: true,
+	  stats: 'normal',
+  },
+  */
+	devtool: 'eval-source-map',
 	output: {
 		path: buildPath,
 		filename: 'bundle.js',
