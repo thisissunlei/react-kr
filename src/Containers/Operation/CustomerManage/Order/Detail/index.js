@@ -126,7 +126,7 @@ class OrderDetail extends Component {
 		}catch(err){
 			typeValue = 'join';
 		}
-		return '/#/operation/customerManage/'+customerId+'/order/'+orderId+'/agreement/'+typeValue+'/'+agreementId+'/edit';
+		return './#/operation/customerManage/'+customerId+'/order/'+orderId+'/agreement/'+typeValue+'/'+agreementId+'/edit';
 	}
 	getAgrementDetailUrl(customerId,orderId,typeId,agreementId){
 
@@ -145,7 +145,7 @@ class OrderDetail extends Component {
 		}catch(err){
 			typeValue = 'join';
 		}
-		return '/#/operation/customerManage/'+customerId+'/order/'+orderId+'/agreement/'+typeValue+'/'+agreementId+'/detail';
+		return './#/operation/customerManage/'+customerId+'/order/'+orderId+'/agreement/'+typeValue+'/'+agreementId+'/detail';
 	}
 
   render() {
