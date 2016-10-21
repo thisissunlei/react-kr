@@ -35,6 +35,7 @@ export default  class BasicTable extends Component {
 		this.state = {
 			currentYear:'2016',
 			dismantling:false,
+			formValues:{},
 		}
 
 	}
@@ -50,7 +51,23 @@ export default  class BasicTable extends Component {
 	onCancel(){
 
 	}
-	onConfrimSubmit(){
+	onConfrimSubmit(formValues){
+		console.log('formValues',formValues)
+		/*Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
+			console.log("response",response);
+
+			Notify.show([{
+				message:'创建成功',
+				type: 'danger',
+			}]);
+
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+	   	});*/
+
 
 	}
 	
@@ -132,15 +149,14 @@ export default  class BasicTable extends Component {
 					<ItemTable onDismantling={this.onDismantling}/>
 				</tbody>
 			</table>
-
 			<Dialog
 				title="撤场日期"
 				modal={true}
-				autoScrollBodyContent={true}
-				autoDetectWindowHeight={true}
+				
 				open={this.state.dismantling} >
-					<DismantlingForm detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openDismantlingDialog} />
+				<DismantlingForm detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openDismantlingDialog} />
 			  </Dialog>
+			
 		</div>
 	);
   }

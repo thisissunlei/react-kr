@@ -73,8 +73,8 @@ class DismantlingForm  extends Component{
 	return (
 
 		<form onSubmit={handleSubmit(this.onSubmit)}> 
-			<KrField component="labelText" grid={1} label="XX公司合同到期时间为2017.9.1" value=""/>
-			<KrField component="select" grid={1} label="实际的撤场时间为" value=""/>
+			<KrField name="ds" type="labelText"  grid={1} label="" value="XX公司合同到期时间为2017.9.1"/>
+			<KrField name="sdf"component="select" grid={1} label="实际的撤场时间为" value=""/>
 			<Grid>
 				<Row style={{marginTop:30}}>
 				<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} /> </Col>
@@ -87,5 +87,5 @@ class DismantlingForm  extends Component{
 	}
 }
 
-
+export default reduxForm({form:'DismantlingForm'})(DismantlingForm);
 
