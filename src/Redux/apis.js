@@ -236,6 +236,16 @@ const APIS  = {
 		url:'/api/krspace-finance-web/finaccount/data/findAccountList?accountType={accountType}',		
 		method:'get'
 	},
+	//财务管理－订单明细账-转押金
+	'transToDeposit':{
+		url:'/api/krspace-finance-web/finaccount/opt/transToDeposit',		
+		method:'post'
+	},
+	//财务管理－订单明细账-转押金按钮查询合同编号
+	'findContractListById':{
+		url:'/api/krspace-finance-web/finaccount/opt/findContractListById?id={id}',		
+		method:'get'
+	},
 	
 }
 
