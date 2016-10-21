@@ -32,10 +32,16 @@ export default class TableFooter extends React.Component {
 
 		this.onExport = this.onExport.bind(this);
 		this.onPageChange = this.onPageChange.bind(this);
+		this.onSelectAll = this.onSelectAll.bind(this);
 
 		this.renderCheckbox = this.renderCheckbox.bind(this);
 		this.renderPagination = this.renderPagination.bind(this);
 
+	}
+
+	onSelectAll(){
+		const {onSelectAll} = this.props;
+		onSelectAll && onSelectAll();
 	}
 
 	onExport(){
@@ -51,13 +57,13 @@ export default class TableFooter extends React.Component {
 
 	renderCheckbox(){
 
-		let {onSelectAll,displayCheckbox} = this.props;
+		let {displayCheckbox} = this.props;
 
 		if(!displayCheckbox){
 			return null;
 		}
 
-		return ( <TableRowColumn width={this.props.defaultValue.checkboxWidth}><input type="checkbox" onTouchTap={onSelectAll}/></TableRowColumn>);
+		return ( <TableRowColumn width={this.props.defaultValue.checkboxWidth}><input type="checkbox" onTouchTap={this.onSelectAll}/></TableRowColumn>);
 
 	}
 

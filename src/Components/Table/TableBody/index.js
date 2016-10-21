@@ -18,6 +18,7 @@ export default class TableBody extends React.Component {
 		defaultValue:React.PropTypes.object,
 		listData:React.PropTypes.listData,
 		onOperation:React.PropTypes.func,
+		onSelect:React.PropTypes.func,
 	}
 
 	
@@ -35,6 +36,7 @@ export default class TableBody extends React.Component {
 		this.onRowHoverExit = this.onRowHoverExit.bind(this);
 		this.onRowClick = this.onRowClick.bind(this);
 		this.onOperation = this.onOperation.bind(this);
+		this.onSelect = this.onSelect.bind(this);
 
 		this.createRowCheckboxColumn = this.createRowCheckboxColumn.bind(this);
 
@@ -77,6 +79,11 @@ export default class TableBody extends React.Component {
 		onOperation && onOperation(type,itemData);
 	}
 
+	onSelect(){
+		const {onSelect} = this.props;
+		onSelect && onSelect();
+	}
+
 	onCellClick(){
 
 	}
@@ -99,10 +106,11 @@ export default class TableBody extends React.Component {
 
 	onRowClick(event,rowNumber){
 
-		if (this.props.onRowClick) {
-			this.props.onRowClick(event, rowNumber);
-		}
+		const {onRowClick} = this.props;
 
+		onRowClick && onRowClick(event,rowNumber);
+
+		this.onSelect();
 		this.toggleInsertElement(event);
 	}
 

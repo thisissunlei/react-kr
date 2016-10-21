@@ -1,8 +1,10 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import Param from 'jquery-param';
+import { Fields } from 'redux-form'; 
+import {Binder} from 'react-binding';
 
-import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert} from 'redux-form';
+import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
 
@@ -54,19 +56,50 @@ class NewCreateForm  extends Component{
 	constructor(props,context){
 		super(props, context);
 
+
+		//stationsRefs表单
+		this.stationRefs = {};
+
 		this.onCancel  = this.onCancel.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
+		this.onStationDelete = this.onStationDelete.bind(this);
+		this.onStationSelect = this.onStationSelect.bind(this);
 
 		this.getStationUrl = this.getStationUrl.bind(this);
 		this.onIframeClose = this.onIframeClose.bind(this);
 		this.openStationDialog = this.openStationDialog.bind(this);
+		this.getDateFormat = this.getDateFormat.bind(this);
 
 		this.state = {
+			selectedStation:[],
 			billList:[],
-			openStation:false
+			openStation:false,
+			stationForm:{}
 		}
+	}
 
 
+	//删除工位
+	onStationDelete(){
+
+		let {selectedStation,billList} = this.state;
+		billList = billList.filter(function(item,index){
+
+			if(selectedStation.indexOf(index) != -1){
+				return false;
+			}
+			return true;
+		});
+		console.log('---->>>>>aaaa>',billList);
+		this.setState({
+			billList
+		});
+	}
+
+	onStationSelect(selectedStation){
+		this.setState({
+			selectedStation
+		})
 	}
 
 	openStationDialog(){
@@ -84,7 +117,18 @@ class NewCreateForm  extends Component{
 
 	}
 
+	getDateFormat(value,format){
+
+		var result = '';
+		var dt = new Date(value);
+		var result =  dt.getFullYear()+'-'+(1+dt.getMonth())+'-'+dt.getDay()+' '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds();
+
+		return result;
+	}
+
 	onSubmit(form){
+
+		//console.log("this",this.state.stationForm);
 
 		delete form.floorList;
 		delete form.customerName;
@@ -92,44 +136,51 @@ class NewCreateForm  extends Component{
 		delete form.paymentList;
 		delete form.fnaCorporationList;
 
-
-		//处理billList
 		let {billList} = this.state;
+
 		let {changeValues} = this.props;
+
+        form.lessorAddress = changeValues.lessorAddress;
 
 		let stationVos = [];
 
-		console.log('---biliiList',billList);
+
+		var _this = this;
 		billList.map(function(item,index){
 				var obj = {};
-				//item.leaseBeginDate = changeValues.leaseBegindate;
-				//item.leaseEndDate = changeValues.leaseEnddate;
-				obj.leaseBeginDate = '2016-11-19 12:12:11';
-				obj.leaseEndDate = '2016-11-19 12:12:11';
+			/*
+				obj.leaseBeginDate = _this.getDateFormat(changeValues.leaseBegindate);
+				obj.leaseEndDate = _this.getDateFormat(changeValues.leaseEnddate);
+			*/
 				obj.stationId = item.id;
 				obj.stationType = item.type;
-				obj.unitprice = '111';
+				obj.unitprice = '';
 				obj.whereFloor =  item.wherefloor;
 				stationVos.push(obj);
 		});
+
+
 		form.stationVos =  stationVos;
 
+		let {stationForm} = this.state;
 		/*
-		  [
-			{
-				leaseBeginDate:'2016年11月11日 11:11:11',
-				leaseEndDate:'2016年11月11日 11:11:11',
-				stationId:1,
-				stationType:1,
-				unitprice:1111,
-				whereFloor:1
+
+		for(var i in stationForm){
+			if(stationForm.hasOwnProperty(i)){
+				stationVos[i.split('-').pop()];
 			}
-		];
+		}
 		*/
-		console.log('----',form);
+
+
 		form.stationVos = JSON.stringify(form.stationVos);
+
+
+		console.log('00000',form);
+
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
+
 	}
 
 	onCancel(){
@@ -180,29 +231,16 @@ class NewCreateForm  extends Component{
 
 	render(){
 
-		let { error, handleSubmit, pristine, reset, submitting,initialValues} = this.props;
+		let { error, handleSubmit, pristine, reset, submitting,initialValues,changeValues} = this.props;
 
-		/*
-		initialValues && initialValues.fnaCorporationList.length && initialValues.fnaCorporationList.map(function(item,index){
-			if(lessorId == item.id){
-				initialValues.lessorAddress =  item.corporationAddress;
+		let {fnaCorporationList} = initialValues;
+
+		fnaCorporationList && fnaCorporationList.map(function(item,index){
+			if(changeValues.leaseId  == item.id){
+				changeValues.lessorAddress = item.corporationAddress;
 			}
 		});
-		*/
 
-
-		  const actions = [
-			  <Button
-				label="取消"
-				primary={true}
-			  />,
-			  <Button
-				label="保存"
-				primary={true}
-			  />,
-			];
-
-				//onTouchTap={this.handleClose}
 		let {billList} = this.state;
 
 		return (
@@ -218,13 +256,12 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" /> 
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={initialValues.fnaCorporationList}  />
-				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={initialValues.lessorAddress}/> 
+				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/> 
 				<KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" /> 
 				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 
-				{/*
-				<KrField grid={1/2}  name="leaseId" component="labelText" label="承租方" value={initialValues.customerName}/> 
-				*/}
+				<KrField grid={1/2}  component="labelText" label="承租方" value={initialValues.customerName}/> 
+
 				<KrField grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" /> 
 
 				<KrField grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" /> 
@@ -261,12 +298,13 @@ class NewCreateForm  extends Component{
 
 				<Section title="租赁明细" description="" rightMenu = {
 					<Menu>
-						<MenuItem primaryText="删除" />
-						<MenuItem primaryText="分配"  onTouchTap={this.openStationDialog} />
+						<MenuItem primaryText="录入单价" />
+						<MenuItem primaryText="删除" onTouchTap={this.onStationDelete} />
+						<MenuItem primaryText="租赁"  onTouchTap={this.openStationDialog} />
 					</Menu>
 				}> 
 
-				<Table  displayCheckbox={false}>
+				<Table  displayCheckbox={true} onSelect={this.onStationSelect}>
 				<TableHeader>
 				<TableHeaderColumn>类别</TableHeaderColumn>
 				<TableHeaderColumn>编号／名称</TableHeaderColumn>
@@ -278,10 +316,10 @@ class NewCreateForm  extends Component{
 						{billList.map((item,index)=>{
 							return (
 								<TableRow key={index}>
-									<TableRowColumn>{item.type}</TableRowColumn>
+									<TableRowColumn>{(item.type == 1) ?'工位':'会议室'}</TableRowColumn>
 									<TableRowColumn>{item.name}</TableRowColumn>
 									<TableRowColumn>
-										<input type="text" name="hah" />
+											<input type="text" name="age"  valueLink={Binder.bindToState(this,"stationForm",`station-${index}`)} />
 									</TableRowColumn>
 									<TableRowColumn> <Date.Format value={initialValues.leaseBegindate}/></TableRowColumn>
 									<TableRowColumn><Date.Format value={initialValues.leaseEnddate}/></TableRowColumn>
@@ -340,6 +378,7 @@ export default connect((state)=>{
 	let changeValues = {};
 
 	changeValues.lessorId = selector(state,'lessorId');
+	changeValues.leaseId = selector(state,'leaseId');
 	changeValues.stationnum = selector(state,'stationnum') || 0;
 	changeValues.boardroomnum = selector(state,'boardroomnum') || 0;
 	changeValues.leaseBegindate = selector(state,'leaseBegindate') || 0;
@@ -350,3 +389,4 @@ export default connect((state)=>{
 	}
 
 })(NewCreateForm);
+

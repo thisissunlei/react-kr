@@ -51,6 +51,7 @@ export default class Table extends React.Component {
 		onPageChange:React.PropTypes.func,
 		onOperation:React.PropTypes.func,
 		onLoaded:React.PropTypes.func,
+		onSelecte:React.PropTypes.func,
 	}
 
 	constructor(props){
@@ -66,6 +67,7 @@ export default class Table extends React.Component {
 
 		this.onSort = this.onSort.bind(this);
 		this.onSelectAll = this.onSelectAll.bind(this);
+		this.onSelect = this.onSelect.bind(this);
 		this.onRowClick = this.onRowClick.bind(this);
 		this.onExport = this.onExport.bind(this);
 		this.onCellClick = this.onCellClick.bind(this);
@@ -199,7 +201,7 @@ export default class Table extends React.Component {
 		var result = [];
 
 		visibilityRows.forEach(function(item,index){
-			if(item && selectedRows[index]){
+			if(item && parseInt(selectedRows[index])){
 				result.push(index);
 			}
 		});
@@ -334,10 +336,22 @@ export default class Table extends React.Component {
 				if(rowNumber%2 != 0){
 					this.setVisibilityRow(rowNumber-1);
 				}
-
 			}
 		}
+	}
 
+	onSelect(){
+		let {selectedRows,visibilityRows}  = this.state;
+
+		var result = [];
+		visibilityRows.forEach(function(item,index){
+			if(item && parseInt(selectedRows[index])){
+				result.push(index);
+			}
+		});
+
+		const {onSelect} = this.props;
+		onSelect && onSelect(result);
 	}
 
 	onSelectAll(){
@@ -356,6 +370,10 @@ export default class Table extends React.Component {
 			selectedRows:tmp
     	});
 
+		var _this = this;
+		window.setTimeout(function(){
+			_this.onSelect();
+		},1000);
 	}
 
 	createTableHeader(base){
@@ -366,7 +384,7 @@ export default class Table extends React.Component {
 				displayCheckbox:this.props.displayCheckbox,
 				onSelectAll: this.onSelectAll,
 				defaultValue:this.state.defaultValue,
-				onSort:this.onSort
+				onSort:this.onSort,
 			}
 		);
 
@@ -387,6 +405,7 @@ export default class Table extends React.Component {
 				defaultValue:this.state.defaultValue,
 				listData:this.state.listData,
 				ajax:this.props.ajax,
+				onSelect:this.onSelect,
 			}
 		);
 
@@ -409,7 +428,7 @@ export default class Table extends React.Component {
 				pagination:this.props.pagination,
 				totalCount:this.state.totalCount,
 				onPageChange:this.onPageChange,
-				footer:footer
+				footer:footer,
 		}
 
 		let handlers = {

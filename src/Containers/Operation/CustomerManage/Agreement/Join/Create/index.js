@@ -34,10 +34,27 @@ export default  class JoinCreate extends Component {
 
 	}
 	 onCreateSubmit(formValues){
+
+		console.log('----',formValues);
+
+		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(){
+			Notify.show([{
+				message:'创建成功',
+				type: 'danger',
+			}]);
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+	   	});
+
+		 /*
 		 this.setState({
 			 formValues
 		 });
 		 this.openConfirmCreateDialog();
+		 */
 	 }
 
 	 onConfrimSubmit(){
@@ -83,7 +100,6 @@ export default  class JoinCreate extends Component {
 		Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
 
 			initialValues.communityAddress = response.customer.communityAddress; 
-			initialValues.lessorAddress = 'hahah';
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid =  params.orderId;
 			initialValues.leaseAddress = response.customer.customerAddress;
