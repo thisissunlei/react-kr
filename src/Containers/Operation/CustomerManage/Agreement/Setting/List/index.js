@@ -152,7 +152,8 @@ let SettingAddForm = function(props){
 
           <form onSubmit={handleSubmit(onSubmit)}>
                   <KrField name="id" type="hidden" component="input" label="id"/> 
-                  <KrField name="dicName" type="labelText" label="字段名称" value={props.dicName}/>
+                  <KrField name="dicName" type="text" label="子项名称" />
+                  <KrField  type="labelText" label="字段名称" value={props.dicName}/>
                  <KrField name="enableflag" component="group" label="是否有效">
                     <KrField name="enableflag" label="是" type="radio" value="1"/>
                     <KrField name="enableflag" label="否" type="radio" value="0" />
@@ -172,7 +173,8 @@ let SettingAddForm = function(props){
 
       <form onSubmit={handleSubmit(onSubmit)}>
               <KrField name="id" type="hidden" component="input" label="id"/> 
-              <KrField name="dicName" type="labelText" label="字段名称" value={props.dicName}/>
+              <KrField name="dicName" type="text" label="子项名称" />
+              <KrField  type="labelText" label="字段名称" value={props.dicName}/>
               <KrField name="round" type="text" label="拆分周期"  /> 
               <KrField name="enableflag" component="group" label="是否有效">
                 <KrField name="enableflag" label="是" type="radio" value="1"/>
