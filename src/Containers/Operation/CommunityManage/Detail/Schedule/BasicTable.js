@@ -18,7 +18,7 @@ import './index.less';
 
 import EmployessTable from './EmployessTable';
 import ItemTable from './ItemTable';
-
+import DismantlingForm from './DismantlingForm';
 
 export default  class BasicTable extends Component {
 
@@ -27,10 +27,15 @@ export default  class BasicTable extends Component {
 
 		this.onPreYear = this.onPreYear.bind(this);
 		this.onNextYear = this.onNextYear.bind(this);
-
+		this.onCancel =this.onCancel.bind(this);
+		this.onConfrimSubmit = this.onConfrimSubmit.bind(this);
+		this.openDismantlingDialog = this.openDismantlingDialog.bind(this);
+		this.onDismantling = this.onDismantling.bind(this);
 
 		this.state = {
 			currentYear:'2016',
+			dismantling:false,
+			formValues:{},
 		}
 
 	}
@@ -38,6 +43,40 @@ export default  class BasicTable extends Component {
 	componentDidMount(){
 
 	}
+	//撤场
+	onDismantling(){
+       this.openDismantlingDialog();
+	}
+	
+	onCancel(){
+
+	}
+	onConfrimSubmit(formValues){
+		console.log('formValues',formValues)
+		/*Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
+			console.log("response",response);
+
+			Notify.show([{
+				message:'创建成功',
+				type: 'danger',
+			}]);
+
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+	   	});*/
+
+
+	}
+	
+	openDismantlingDialog(){
+		this.setState({
+			dismantling:!this.state.dismantling
+		})
+	}
+
 
 	onPreYear(){
 		let {currentYear} = this.state;
@@ -61,6 +100,7 @@ export default  class BasicTable extends Component {
     return (
 
 		 <div>
+
 			<table className="basic-table">
 				<thead>
 					<tr>
@@ -106,9 +146,17 @@ export default  class BasicTable extends Component {
 						<td>40%</td>
 						<td>30%</td>
 					</tr>
-					<ItemTable />
+					<ItemTable onDismantling={this.onDismantling}/>
 				</tbody>
 			</table>
+			<Dialog
+				title="撤场日期"
+				modal={true}
+				
+				open={this.state.dismantling} >
+				<DismantlingForm detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openDismantlingDialog} />
+			  </Dialog>
+			
 		</div>
 	);
   }

@@ -146,13 +146,35 @@ let SettingChildUpdateForm = function(props){
 
 let SettingAddForm = function(props){
   
-    const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel,id} = props;
+    const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel,dicName} = props;
+   if(props.dicName=='付款方式') {
+        return (
 
-  return (
+          <form onSubmit={handleSubmit(onSubmit)}>
+                  <KrField name="id" type="hidden" component="input" label="id"/> 
+                  <KrField name="dicName" type="text" label="子项名称" />
+                  <KrField  type="labelText" label="字段名称" value={props.dicName}/>
+                 <KrField name="enableflag" component="group" label="是否有效">
+                    <KrField name="enableflag" label="是" type="radio" value="1"/>
+                    <KrField name="enableflag" label="否" type="radio" value="0" />
+                  </KrField>
+                   <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息"/> 
+                  <Grid style={{marginTop:30}}>
+                    <Row style={{marginTop:30}}>
+                    <Col md={8}></Col>
+                    <Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
+                    <Col md={2}> <Button  label="取消" type="button"  onTouchTap={onCancel}  /> </Col>
+                    </Row>
+                  </Grid>
+            </form>
+      );
+   }
+   return (
 
       <form onSubmit={handleSubmit(onSubmit)}>
               <KrField name="id" type="hidden" component="input" label="id"/> 
-              <KrField name="dicName" type="text" label="字段名称"  />
+              <KrField name="dicName" type="text" label="子项名称" />
+              <KrField  type="labelText" label="字段名称" value={props.dicName}/>
               <KrField name="round" type="text" label="拆分周期"  /> 
               <KrField name="enableflag" component="group" label="是否有效">
                 <KrField name="enableflag" label="是" type="radio" value="1"/>
@@ -168,6 +190,8 @@ let SettingAddForm = function(props){
               </Grid>
         </form>
   );
+
+  
 }
  
  SettingAddForm= reduxForm({
@@ -195,7 +219,7 @@ export default class SettingList extends Component {
     this.getListData = this.getListData.bind(this);
     this.openAddDialog=this.openAddDialog.bind(this);
     this.openViewDialog=this.openViewDialog.bind(this);
-
+    this.openAdd =this.openAdd.bind(this);
     this.renderItemChild = this.renderItemChild.bind(this);
     this.renderItem = this.renderItem.bind(this);
 
@@ -210,7 +234,7 @@ export default class SettingList extends Component {
       openChildView:false,
       openChildUpdate:false,
       openAdddate:false,
-      id:"",
+      dicName:'sss',
       
     }
 
@@ -337,11 +361,19 @@ export default class SettingList extends Component {
 }
   openAddDialog(item){ 
       this.setState({
-       
-        openAdddate:!this.state.openAdddate
+        openAdddate:!this.state.openAdddate,
+        dicName:item.sp.dicName
     });
       
-     Store.dispatch(change('settingAddForm','id',item.id)); 
+     Store.dispatch(change('settingAddForm','id',item.id));
+    
+     
+  }
+  openAdd(){
+    this.setState({
+        openAdddate:!this.state.openAdddate,
+        
+    });
   }
   
   openCreateDialog(){
@@ -574,7 +606,7 @@ export default class SettingList extends Component {
         modal={true}
         open={this.state.openAdddate}
      >
-      <SettingAddForm id={this.state.id} onSubmit={this.confirmSubmit} onCancel={this.openAddDialog}/>
+      <SettingAddForm id={this.state.id} dicName={this.state.dicName} onSubmit={this.confirmSubmit} onCancel={this.openAdd}/>
       </Dialog>
       
    </div>
