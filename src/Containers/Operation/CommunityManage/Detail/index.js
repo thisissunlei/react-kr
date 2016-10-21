@@ -11,6 +11,7 @@ import {
 	Section,
 	Grid,
 	Notify,
+	Button,
 	BreadCrumbs,
 } from 'kr-ui';
 
@@ -21,11 +22,16 @@ export default  class CommunityManage extends Component {
 
 	constructor(props,context){
 		super(props, context);
+		
+		
 	}
 
 	componentDidMount(){
 
 	}
+	
+
+	
 
 
   render() {
@@ -45,6 +51,9 @@ export default  class CommunityManage extends Component {
 			</Tabs>
 
 			</Section>
+			
+			
+			
 		</div>
 	);
   }
