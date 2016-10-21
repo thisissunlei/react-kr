@@ -40,11 +40,17 @@ export default  class JoinDetail extends Component {
 	componentDidMount(){
 
 		var _this = this;
-		Store.dispatch(Actions.callAPI('show-checkin-agreement',{id:this.props.params.id})).then(function(response){
+		Store.dispatch(Actions.callAPI('show-checkin-agreement',{id:this.props.params.id}))
+		.then(function(response){
 			_this.setState({
 				basic:response,
 				loading:false
 			});
+		}).catch(function(err){
+			Notify.show([{
+				message: err.message,
+				type: 'danger'
+			}]);
 		});
 
 	}
@@ -144,7 +150,7 @@ export default  class JoinDetail extends Component {
   	if(this.state.loading){
   		return(<Loading/>);
   	}
-
+	const params = this.props.params;
 	 const orderBaseInfo = {};
 	 const contractList = [];
 
@@ -152,8 +158,11 @@ export default  class JoinDetail extends Component {
 	  const {basic} = this.state;
 
 	function onCancel(){
-		console.log('sss');
 		window.history.back();
+	}
+
+	function editUrl(){
+		return "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/join/"+params.id+"/edit";
 	}
 
     return (
@@ -168,7 +177,7 @@ export default  class JoinDetail extends Component {
 			  <Grid style={{marginTop:30}}>
 				  <Row>
 					  <Col md={4} align="center"></Col>
-					  <Col md={2} align="center"> <RaisedButton  label="编辑"  type="submit" primary={true}/> </Col>
+					  <Col md={2} align="center"> <RaisedButton  label="编辑"  type="href" primary={true} href={editUrl()}/> </Col>
 					  <Col md={2} align="center"> <RaisedButton  label="确定"  type="submit" primary={true} onTouchTap={onCancel}/> </Col>
 					  <Col md={4} align="center"></Col>
 				  </Row>
