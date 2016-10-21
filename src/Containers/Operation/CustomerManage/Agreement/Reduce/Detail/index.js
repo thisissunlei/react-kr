@@ -15,6 +15,8 @@ import {
 
 import {KrField,LabelText} from 'kr-ui/Form';
 
+import Date from 'kr-ui/Date';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import { Button } from 'kr-ui/Button';
 import {Actions,Store} from 'kr/Redux';
@@ -69,8 +71,7 @@ export default  class ReduceDetail extends Component {
 
 	 const orderBaseInfo = {};
 	 const contractList = [];
-
-
+	
 	  const {basic} = this.state;
 
 	  const BasicRender = (props)=>{

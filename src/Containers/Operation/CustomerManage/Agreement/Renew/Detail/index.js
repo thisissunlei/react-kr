@@ -8,6 +8,8 @@ import {
 } from 'kr-ui';
 
 import {KrField,LabelText} from 'kr-ui/Form';
+import Date from 'kr-ui/Date';
+import RaisedButton from 'material-ui/RaisedButton';
 
 
 import { Button } from 'kr-ui/Button';
@@ -52,8 +54,15 @@ export default  class JoinDetail extends Component {
 
 	 const orderBaseInfo = {};
 	 const contractList = [];
+	
+	const params = this.props.params;
+	 function onCancel(){
+		window.history.back();
+	}
 
-
+	function editUrl(){
+		return "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/renew/"+params.id+"/edit";
+	}
 	  const {basic} = this.state;
 
 	  const BasicRender = (props)=>{
@@ -153,8 +162,8 @@ export default  class JoinDetail extends Component {
 <Grid style={{marginTop:30}}>
 				  <Row>
 					  <Col md={4} align="center"></Col>
-					  <Col md={2} align="center"> <Button  label="编辑"  type="submit" primary={true}/> </Col>
-					  <Col md={2} align="center"> <Button  label="创建"  type="submit" primary={true}/> </Col>
+					  <Col md={2} align="center"> <RaisedButton  label="编辑"  type="href" primary={true} href={editUrl()}/> </Col>
+					  <Col md={2} align="center"> <RaisedButton  label="确定"  type="submit" primary={true} onTouchTap={onCancel}/> </Col>
 					  <Col md={4} align="center"></Col>
 				  </Row>
 			  </Grid>
