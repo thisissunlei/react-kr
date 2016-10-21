@@ -11,6 +11,7 @@ import Pagination from './Pagination';
 import Button from './Button';
 import MyForm from './MyForm';
 import Notify from './Notify';
+import IframeContent from './IframeContent';
 //import Tabs from './Tabs/index';
 import PageHeader from './PageHeader';
 import {Grid,Row,Col} from './Grid';
@@ -35,8 +36,8 @@ import {List, ListItem} from 'material-ui/List';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
 module.exports = {
-
 	//Components
+	IframeContent,
 	Calendar,
 	Section,
 	BreadCrumbs,
