@@ -231,6 +231,11 @@ const APIS  = {
 		url:'/api/krspace-finance-web/finaccount/opt/payBack',		
 		method:'post'
 	},
+	//财务管理－订单明细账-查询代码列表
+	'findAccountList':{
+		url:'/api/krspace-finance-web/finaccount/data/findAccountList?accountType={accountType}',		
+		method:'get'
+	},
 	
 }
 

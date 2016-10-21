@@ -37,11 +37,11 @@ export default class TableHeaderColumn extends React.Component {
 
 	render() {
 
-		let {className,children} = this.props;
+		let {className,children,...other} = this.props;
 
 
 		return (
-			<th className={className} onClick={this.onCellClick}>
+			<th className={className} onClick={this.onCellClick} {...other}>
 				{children}	
 			</th>
 		);

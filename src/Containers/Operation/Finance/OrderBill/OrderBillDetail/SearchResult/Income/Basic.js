@@ -74,11 +74,7 @@ export default class Basic extends Component{
 		return(
 
 			 <div>
-                   <Row>
-					<Col md={2}><Button label="挂账" primary={true}/></Col>
-                  </Row>
-
-                  
+                                 
                   <Table displayCheckbox={false}>
 			          <TableHeader>
 			          <TableHeaderColumn></TableHeaderColumn>
