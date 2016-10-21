@@ -25,7 +25,7 @@ import {
 	Loading,
 	Notify
 } from 'kr-ui';
-import Circle from './Circle';
+import Circle from './circle';
 
 
 import {
