@@ -22,7 +22,7 @@ import {
  
  
  
- var list1=[];
+var list1=[];
 var list2=[];
 var list3=[];
 

@@ -90,7 +90,7 @@ import {
 	 }
 
 	render(){
-
+        //console.log(",,,,,,",this.state.mainbilltypeList)
 		const { error, handleSubmit, pristine, reset} = this.props;
 
 		return (
