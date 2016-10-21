@@ -51,7 +51,7 @@ export default class SearchParam extends Component{
 
 	onSearch(type,childType,id){
 
-
+        
 		const {onSearch} = this.props;
 
 		var searchParam = {};

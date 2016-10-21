@@ -36,7 +36,7 @@ class Basic extends Component{
 
 	constructor(props,context){
 		super(props, context);
-		this.ReceivedMoney = this.ReceivedMoney.bind(this);
+		this.ReceivedMoney = this.ReceivedMoney.bind(this);0
 		this.QuitMoney = this.QuitMoney.bind(this);
         this.onCancel = this.onCancel.bind(this);
         this.onCancelQ = this.onCancelQ.bind(this);
@@ -44,6 +44,7 @@ class Basic extends Component{
 		  this.state = {
 			openReceive:false,
 			openQuit:false,
+			accountname:''
 	     }
    }
 
@@ -52,6 +53,19 @@ class Basic extends Component{
 	}
     
     ReceivedMoney(){
+
+		  var _this = this;
+	      Store.dispatch(Actions.callAPI('findAccountList')).then(function(response){  //post请求   
+ 		  console.log("***",response)
+ 		  _this.setState({
+			accountname:response.accountname
+		});
+ 		}).catch(function(err){
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		 });
         this.setState({
 			openReceive:!this.state.openReceive
 		});
@@ -78,7 +92,9 @@ class Basic extends Component{
 
 
 	  onSubmit(params){  //获取提交时的params
-	  	  console.log("gggg",params)
+	  	  
+	  	  params.fileids=JSON.stringify(params.fileids);
+	  	  console.log("gggg",params);
 		  var _this = this;
 	      Store.dispatch(Actions.callAPI('receiveMoney',{},params)).then(function(response){  //post请求   
  		  
@@ -95,7 +111,7 @@ class Basic extends Component{
     }
 
     onSubmitQ(params){  //获取提交时的params
-	  	  console.log("gggg",params)
+	  	  console.log("gggg",params);
 		  var _this = this;
 	      Store.dispatch(Actions.callAPI('payBack',{},params)).then(function(response){  //post请求   
  		  }).catch(function(err){
@@ -126,7 +142,7 @@ class Basic extends Component{
 
 
         
-        //console.log(",,,,,",detailResult.items);
+        console.log(",,,,,",this.state.accountname);
 		return(
 
 			 <div>
@@ -170,21 +186,21 @@ class Basic extends Component{
 					>
 					   <div>
 					      <form onSubmit={handleSubmit(this.onSubmit)}>
-					        <KrField  name="finaflowProp" type="hidden"/> 
-                            <KrField  name="mainbillid" type="hidden"/>
-						    <KrField type="select" label="代码名称" name="accountId"/>
-						    <KrField type="date" label="回款日期" name="receiveDate"/>
-						    <KrField label="交易编号" name="dealCode" />
-						    <KrField label="是否自动拆分" name="autoSplit" type="select" options={
+					        <KrField  name="finaflowProp" type="hidden" component="input"/> 
+                            <KrField  name="mainbillid" type="hidden" component="input"/>
+						    <KrField component="select" label="代码名称" name="accountId"/>
+						    <KrField component="date" label="回款日期" name="receiveDate"/>
+						    <KrField label="交易编号" name="dealCode"  component="input" type="text"/>
+						    <KrField label="是否自动拆分" name="autoSplit" component="select" options={
 						    	[{label:"是",value:"1"},{label:"不是",value:"0"}]
 						    }/>
                             <KrField name="sumSign" component="group" label="金额正负" >
 				                <KrField name="sumSign" label="正" component="radio" type="radio" value="0"/>
 				                <KrField name="sumSign" label="负" component="radio" type="radio" value="1" />
 			                </KrField>
-                            <KrField label="金额（元）" name="sum" />
-                            <KrField label="备注" name="remark" />
-                            <KrField label="上传附件" name="fileids" type="file" />
+                            <KrField label="金额（元）" name="sum" component="input" type="text"/>
+                            <KrField label="备注" name="remark" component="input" type="text"/>
+                            <KrField label="上传附件" name="fileids" component="file" />
 
 						    <Row>
 								<Col md={6}> <Button  label="确定" type="submit" primary={true} /> </Col>

@@ -54,9 +54,15 @@ export default  class JoinCreate extends Component {
 
 		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
 			console.log("response",response);
+
+			Notify.show([{
+				message:'创建成功',
+				type: 'danger',
+			}]);
+
 		}).catch(function(err){
 			Notify.show([{
-				message:'后台出错请联系管理员',
+				message:err.message,
 				type: 'danger',
 			}]);
 	   	});
@@ -103,10 +109,12 @@ export default  class JoinCreate extends Component {
 			initialValues.customerName = response.customer.customerName;
 			initialValues.leaseAddress = response.customer.customerAddress;
 			initialValues.communityName = response.customer.communityName;
+			initialValues.communityId = response.customer.communityid ||1;
 
 			_this.setState({
 				initialValues
 			});
+
 		}).catch(function(err){
 			Notify.show([{
 				message:'后台出错请联系管理员',
