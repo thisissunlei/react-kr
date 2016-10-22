@@ -25,14 +25,13 @@ export default  class JoinCreate extends Component {
 		this.onCancel = this.onCancel.bind(this);
 		this.onConfrimSubmit  = this.onConfrimSubmit.bind(this);
 
-
 		this.state = {
 			initialValues:{},
 			formValues:{},
 			openConfirmCreate:false
 		}
-
 	}
+
 	 onCreateSubmit(formValues){
 
 		console.log('----',formValues);

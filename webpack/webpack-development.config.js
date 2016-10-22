@@ -35,6 +35,7 @@ const config = {
 		publicPath:"/"
 	},
 	plugins: [
+		new webpack.optimize.CommonsChunkPlugin({name:'common', filename:'common.js'}),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoErrorsPlugin(),
