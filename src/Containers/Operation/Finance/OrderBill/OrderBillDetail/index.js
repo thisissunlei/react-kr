@@ -43,7 +43,7 @@ export default class AttributeSetting  extends Component{
 			searchParam:{
 				type:'RECEIVED',
 				childType:'basic',
-				id:''
+				id:'',
 			},
 			detailT:{},
 			detailPayment:[],
@@ -84,8 +84,10 @@ export default class AttributeSetting  extends Component{
     
 	render(){
         
-        console.log("vvv",this.state.item);
-        console.log("oooo",this.state.searchParam);
+        let mainId=this.state.detailT.mainbillid
+
+        
+        
 		return(
 
 			<div>
@@ -95,10 +97,10 @@ export default class AttributeSetting  extends Component{
 
 							<Row>
 							<Col md={5} >
-								<SearchParam onSearch={this.onSearch} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance}/>
+								<SearchParam onSearch={this.onSearch} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance} />
 							</Col>
 							<Col md={5} >
-								<SearchResult detailResult={this.state.detailResult} params={this.state.searchParam}/>
+								<SearchResult detailResult={this.state.detailResult} params={this.state.searchParam} mainId={mainId}/>
 							</Col>
 						</Row>
 

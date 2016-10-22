@@ -113,6 +113,9 @@ export default  class Form  extends React.Component{
 
 	    FormComponent = reduxForm({ 
 			form: name,
+			shouldAsyncValidate:function(){
+					return false;
+			},
 			enableReinitialize:true,
 			keepDirtyOnReinitialize:true,
 			initialValues,

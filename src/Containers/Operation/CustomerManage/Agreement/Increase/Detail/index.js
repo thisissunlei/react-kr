@@ -8,6 +8,9 @@ import {
 } from 'kr-ui';
 
 import {KrField,LabelText} from 'kr-ui/Form';
+import Date from 'kr-ui/Date';
+import RaisedButton from 'material-ui/RaisedButton';
+
 
 
 import { Button } from 'kr-ui/Button';
@@ -29,13 +32,14 @@ export default  class IncreaseDetail extends Component {
 			basic:{
 				payment:{
 				},
-				stationList:[]
+				stationVos:[]
 			}
 		}
 
 		var _this = this;
-
-		Store.dispatch(Actions.callAPI('show-checkin-agreement')).then(function(response){
+		console.log(this.props.params.id);
+		Store.dispatch(Actions.callAPI('show-checkin-agreement',{id:_this.props.params.id}))
+		.then(function(response){
 			_this.setState({
 				basic:response
 			});
@@ -61,8 +65,14 @@ export default  class IncreaseDetail extends Component {
 
 	 const orderBaseInfo = {};
 	 const contractList = [];
+	 const params = this.props.params;
+	 function onCancel(){
+		window.history.back();
+	}
 
-
+	function editUrl(){
+		return "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/increase/"+params.id+"/edit";
+	}
 	  const {basic} = this.state;
 
 	  const BasicRender = (props)=>{
@@ -89,13 +99,22 @@ export default  class IncreaseDetail extends Component {
 								<KrField component="labelText" grid={1/2} label="合同编号" value={basic.contractcode}/>
 
 								<KrField component="labelText" grid={1/2} label="支付方式" value={basic.payType && basic.payType.dicName}/>
-								<KrField component="labelText" grid={1/2} label="租赁期限" value={basic.leaseBegindate + '-' + basic.leaseEnddate}/>
+								<KrField component="group" grid={1/2} label="租赁期限:">
+									<Row style={{marginTop:5}}>
+										<Date.Format value={basic.leaseBegindate}/>  ——  <Date.Format value={basic.leaseEnddate}/>
+									</Row>
+								</KrField>
+										
+							  <Grid>
+								  <Row style={{padding:10,marginBottom:15}}>
+									  <Col md={6} align="left" >首付款时间： <Date.Format value={basic.firstpaydate}/>  </Col>
+									  <Col md={5} align="left" style={{paddingLeft:10}}>付款方式：  {basic.payment && basic.payment.dicName}</Col>
+								  </Row>
+								  <Row style={{padding:10,marginBottom:15}}>
+									  <Col md={6} align="left" >签署日期： <Date.Format value={basic.signdate}/>  </Col>
 
-								<KrField component="labelText" grid={1/2} label="首付款时间" value={basic.firstpaydate}/>
-								<KrField component="labelText" grid={1/2} label="付款方式" value={basic.payment.dicName}/>
-
-								<KrField component="labelText" label="签署日期" value={basic.signdate}/>
-
+								  </Row>
+							  </Grid>
 								<KrField component="group" label="租赁项目">
 									<KrField component="labelText" label="工位" value={basic.stationnum}/>
 									<KrField component="labelText" label="会议室" value={basic.boardroomnum}/>
@@ -123,7 +142,7 @@ export default  class IncreaseDetail extends Component {
 															</TableHeader>
 															<TableBody>
 
-															{basic.stationList.length && basic.stationList.map((item,index)=>{
+															{basic.stationVos.length && basic.stationVos.map((item,index)=>{
 																return (
 																	 <TableRow key={index}>
 																	<TableRowColumn>{item.stationType}</TableRowColumn>
@@ -169,8 +188,8 @@ export default  class IncreaseDetail extends Component {
 <Grid style={{marginTop:30}}>
 				  <Row>
 					  <Col md={4} align="center"></Col>
-					  <Col md={2} align="center"> <Button  label="编辑"  type="submit" primary={true}/> </Col>
-					  <Col md={2} align="center"> <Button  label="创建"  type="submit" primary={true}/> </Col>
+					  <Col md={2} align="center"> <RaisedButton  label="编辑"  type="href" primary={true} href={editUrl()}/> </Col>
+					  <Col md={2} align="center"> <RaisedButton  label="确定"  type="submit" primary={true} onTouchTap={onCancel}/> </Col>
 					  <Col md={4} align="center"></Col>
 				  </Row>
 			  </Grid>
