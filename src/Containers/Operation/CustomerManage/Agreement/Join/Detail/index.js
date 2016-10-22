@@ -82,12 +82,22 @@ export default  class JoinDetail extends Component {
 					<KrField component="labelText" grid={1/2} label="合同编号" value={basic.contractcode}/>
 
 					<KrField component="labelText" grid={1/2} label="支付方式" value={basic.payType && basic.payType.dicName}/>
-								<KrField component="labelText" grid={1/2} label="租赁期限" value={basic.leaseBeginDate + '-' + basic.leaseEndDate}/>
+					<KrField component="group" grid={1/2} label="租赁期限:">
+						<Row style={{marginTop:5}}>
+						<Date.Format value={basic.leaseBegindate}/>  ——  <Date.Format value={basic.leaseEnddate}/>
+						</Row>
+					</KrField>
+						
+			  <Grid>
+				  <Row style={{padding:10,marginBottom:15}}>
+					  <Col md={6} align="left" >首付款时间： <Date.Format value={basic.firstpaydate}/>  </Col>
+					  <Col md={5} align="left" style={{paddingLeft:10}}>付款方式：  {basic.payment && basic.payment.dicName}</Col>
+				  </Row>
+				  <Row style={{padding:10,marginBottom:15}}>
+					  <Col md={6} align="left" >签署日期： <Date.Format value={basic.signdate}/>  </Col>
 
-					<KrField component="labelText" grid={1/2} label="首付款时间" value={basic.firstpaydate}/>
-					<KrField component="labelText" grid={1/2} label="付款方式" value={basic.payment && basic.payment.dicName}/>
-
-					<KrField component="labelText" label="签署日期" value={basic.signdate}/>
+				  </Row>
+			  </Grid>
 
 					<KrField component="group" label="租赁项目">
 									<KrField component="labelText" label="工位" value={basic.stationnum}/>
@@ -117,11 +127,11 @@ export default  class JoinDetail extends Component {
 							<TableBody>
 
 							{
-								basic.stationList && basic.stationList.map((item,index)=>{
+								basic.stationVos && basic.stationVos.map((item,index)=>{
 								
 								return (
 									<TableRow key={index}>
-										<TableRowColumn>工位:{item.stationType}</TableRowColumn>
+										<TableRowColumn>{item.stationType}</TableRowColumn>
 										<TableRowColumn>
 										{item.stationId}
 										</TableRowColumn>

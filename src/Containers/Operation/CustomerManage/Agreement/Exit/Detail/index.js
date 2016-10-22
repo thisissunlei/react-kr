@@ -9,6 +9,8 @@ import {
 
 import {KrField,LabelText} from 'kr-ui/Form';
 
+import Date from 'kr-ui/Date';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import { Button } from 'kr-ui/Button';
 import {Actions,Store} from 'kr/Redux';
@@ -29,13 +31,13 @@ export default  class ExitDetail extends Component {
 			basic:{
 				payment:{
 				},
-				stationList:[]
+				stationVos:[]
 			}
 		}
 
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('getFnaContractWithdrawalById')).then(function(response){
+		Store.dispatch(Actions.callAPI('getFnaContractWithdrawalById',{id:this.props.params.id})).then(function(response){
 			_this.setState({
 				basic:response
 			});
@@ -62,7 +64,14 @@ export default  class ExitDetail extends Component {
 
 	 const orderBaseInfo = {};
 	 const contractList = [];
+	 const params = this.props.params;
+	 function onCancel(){
+		window.history.back();
+	}
 
+	function editUrl(){
+		return "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/increase/"+params.id+"/edit";
+	}
 
 	  const {basic} = this.state;
 
@@ -108,6 +117,14 @@ export default  class ExitDetail extends Component {
 				<BreadCrumbs children={['社区运营',,'合同详情','退租合同查看']}/>
 				<Section title="退租合同(查看)" description=""> 
 					<BasicRender/>
+					<Grid style={{marginTop:30}}>
+				  <Row>
+					  <Col md={4} align="center"></Col>
+					  <Col md={2} align="center"> <RaisedButton  label="编辑"  type="href" primary={true} href={editUrl()}/> </Col>
+					  <Col md={2} align="center"> <RaisedButton  label="确定"  type="submit" primary={true} onTouchTap={onCancel}/> </Col>
+					  <Col md={4} align="center"></Col>
+				  </Row>
+			  </Grid>
 				</Section>
 
 		  </div>
