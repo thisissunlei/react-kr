@@ -50,7 +50,6 @@ export default  class Form  extends React.Component{
 
 		this.onSubmit  = this.onSubmit.bind(this);
 		this.onValidate = this.onValidate.bind(this);
-		this.onValidateDemo = this.onValidateDemo.bind(this);
 	}
 
 	onSubmit(values){
@@ -59,9 +58,12 @@ export default  class Form  extends React.Component{
 	}
 
 	onValidate(values){
-		console.log('----->>>',values);
 		const errors = {};
 	   	const {validations} = this.props;
+
+		if(!validations){
+			return errors;
+		}
 
 		var validateInfo = {};
 
@@ -104,14 +106,6 @@ export default  class Form  extends React.Component{
 
 	}
 
-	onValidateDemo(values){
-
-				  const errors = {}
-				  if (!values.age) {
-					errors.age = 'Required'
-				  }
-			  return errors
-	}
 
 	render(){
 
