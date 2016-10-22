@@ -31,13 +31,13 @@ export default  class ExitDetail extends Component {
 			basic:{
 				payment:{
 				},
-				stationList:[]
+				stationVos:[]
 			}
 		}
 
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('getFnaContractWithdrawalById')).then(function(response){
+		Store.dispatch(Actions.callAPI('getFnaContractWithdrawalById',{id:this.props.params.id})).then(function(response){
 			_this.setState({
 				basic:response
 			});

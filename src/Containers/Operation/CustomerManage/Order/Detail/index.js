@@ -111,7 +111,6 @@ class OrderDetail extends Component {
 	}
 
 	getAgrementEditUrl(customerId,orderId,typeId,agreementId){
-		console.log(customerId,orderId,typeId,agreementId);
 
 		var typeArray = [
 			{label:'意向书',value:'admit'},

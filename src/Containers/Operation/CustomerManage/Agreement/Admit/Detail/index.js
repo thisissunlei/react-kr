@@ -27,7 +27,7 @@ export default  class AdmitDetail extends Component {
 			basic:{
 				payment:{
 				},
-				stationList:[]
+				stationVos:[]
 			}
 		}
 
@@ -41,9 +41,8 @@ export default  class AdmitDetail extends Component {
 		// 	console.log(response);
 		// }))
 
-		Store.dispatch(Actions.callAPI('showFinaContractIntentletter'))
+		Store.dispatch(Actions.callAPI('showFinaContractIntentletter', {id:this.props.params.id}))
 		.then(function(response){
-			console.log(response);
 			_this.setState({
 				basic:response
 			});
@@ -68,7 +67,7 @@ export default  class AdmitDetail extends Component {
 	const params = this.props.params;
 
 	function editUrl(){
-		return "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/admin/"+params.id+"/edit";
+		return "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/admit/"+params.id+"/edit";
 	}
 	  const {basic} = this.state;
 
@@ -94,8 +93,11 @@ export default  class AdmitDetail extends Component {
 <KrField label="所属楼层"   grid={1/2} component="labelText" value={basic.wherefloor}/>
 
 <KrField label="定金总额"   grid={1/2} component="labelText" value={basic.totaldownpayment}/>
-<KrField label="签署日期"   grid={1/2} component="labelText" value={basic.signdate}/>
-
+<KrField component="group" grid={1/2} label="签署日期:">
+	<Row style={{marginTop:5}}>
+		<Date.Format value={basic.signdate}/>
+	</Row>
+</KrField>
 <KrField label="合同编号"   grid={1/2} component="labelText" value={basic.contractcode}/>
 <KrField label="付款方式"   grid={1/2} component="labelText" value={basic.payment.dicName}/>
 
@@ -104,9 +106,12 @@ export default  class AdmitDetail extends Component {
 	<KrField label="工位"   grid={1/1} component="labelText" value={basic.stationnum}/>
 	<KrField label="会议室"   grid={1/1} component="labelText" value={basic.boardroomnum}/>
   </KrField>
+ <Grid>
+	  <Row style={{padding:10,marginBottom:15}}>
+		  <Col md={6} align="left" >租赁期限： <Date.Format value={basic.leaseBegindate}/>  ——  <Date.Format value={basic.leaseEnddate}/>  </Col>
 
-<KrField label="租赁期限"   grid={1/1} component="labelText" value={basic.leaseBegindate + '-' + basic.leaseEnddate}/>
-
+	  </Row>
+</Grid>
 <KrField label="保留天数"   grid={1/2} component="labelText" value={basic.templockday}/>
 
 <KrField label="备注"   grid={1/1} component="labelText" value={basic.contractmark}/>
@@ -126,8 +131,8 @@ export default  class AdmitDetail extends Component {
 												<TableBody>
 
 												{
-													basic.stationList && basic.stationList.map((item,index)=>{
-													console.log(basic.stationList);
+													basic.stationVos && basic.stationVos.map((item,index)=>{
+													console.log(basic.stationVos);
 													return (
 														 <TableRow key={index}>
 														<TableRowColumn>工单：{item.stationType}</TableRowColumn>

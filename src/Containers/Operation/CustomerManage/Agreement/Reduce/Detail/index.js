@@ -37,13 +37,18 @@ export default  class ReduceDetail extends Component {
 			basic:{
 				payment:{
 				},
-				stationList:[]
+				stationVos:[]
 			}
 		}
 
 		var _this = this;
-
-		Store.dispatch(Actions.callAPI('showFnaContractRentController')).then(function(response){
+		console.log(this.props.params);
+		Store.dispatch(Actions.callAPI('showFnaContractRentController',
+			{
+				id:this.props.params.id,
+				communityId:this.props.params.orderId,
+				customerId:this.props.params.customerId
+			})).then(function(response){
 			_this.setState({
 				basic:response
 			});

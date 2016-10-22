@@ -30,7 +30,7 @@ export default  class JoinDetail extends Component {
 			basic:{
 				payment:{
 				},
-				stationList:[]
+				stationVos:[]
 			}
 		}
 
@@ -93,9 +93,12 @@ export default  class JoinDetail extends Component {
 								<KrField component="labelText" grid={1/2} label="付款方式" value={basic.payment.dicName}/>
 								
 
-								<KrField component="labelText" grid={1/2} label="首付款时间" value={basic.firstpaydate}/>
-								<KrField component="labelText" grid={1/2} label="签署日期" value={basic.signdate}/>
-
+								<Grid>
+								  <Row style={{padding:10,marginBottom:15}}>
+									  <Col md={6} align="left" >首付款时间： <Date.Format value={basic.firstpaydate}/>  </Col>
+									  <Col md={5} align="left" style={{paddingLeft:10}}>签署日期：<Date.Format value={basic.signdate}/></Col>
+								  </Row>
+							  </Grid>
 								
 
 								
@@ -122,7 +125,7 @@ export default  class JoinDetail extends Component {
 															</TableHeader>
 															<TableBody>
 
-															{basic.stationList.length && basic.stationList.map((item,index)=>{
+															{basic.stationVos.length && basic.stationVos.map((item,index)=>{
 																return (
 																	 <TableRow key={index}>
 																	<TableRowColumn>{item.stationType}</TableRowColumn>
