@@ -33,8 +33,18 @@ export default  class JoinCreate extends Component {
 	}
 
 	 onCreateSubmit(formValues){
+		 console.log("-00000",formValues);
+		 this.setState({
+			 formValues
+		 });
 
-		console.log('----',formValues);
+		 this.onConfrimSubmit();
+		// this.openConfirmCreateDialog();
+	 }
+
+	 onConfrimSubmit(){
+
+		let {formValues} = this.state;
 
 		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(){
 			Notify.show([{
@@ -48,16 +58,7 @@ export default  class JoinCreate extends Component {
 			}]);
 	   	});
 
-		 /*
-		 this.setState({
-			 formValues
-		 });
-		 this.openConfirmCreateDialog();
-		 */
-	 }
-
-	 onConfrimSubmit(){
-		 this.openConfirmCreateDialog();
+		 //this.openConfirmCreateDialog();
 	}
 
 	onCancel(){
@@ -65,29 +66,9 @@ export default  class JoinCreate extends Component {
 	}
 
 	 openConfirmCreateDialog(){
-
-		 let {formValues} = this.state;
-
-		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
-			console.log("response",response);
-
-			Notify.show([{
-				message:'创建成功',
-				type: 'danger',
-			}]);
-
-		}).catch(function(err){
-			Notify.show([{
-				message:err.message,
-				type: 'danger',
-			}]);
-	   	});
-
-		 /*
 		 this.setState({
 			 openConfirmCreate:!this.state.openConfirmCreate
 		 });
-		 */
 	 }
 
 	 componentDidMount(){

@@ -111,20 +111,17 @@ export default class ConfirmFormDetail  extends Component{
 											<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
 									</TableHeader>
 									<TableBody>
-													{/*
-													
-										{detail.billList.map((item,index)=>{
+										{detail && detail.stationVos && detail.stationVos.map((item,index)=>{
 											return (
 												<TableRow key={index}>
-													<TableRowColumn>{item.type}</TableRowColumn>
-													<TableRowColumn>{item.name}</TableRowColumn>
+													<TableRowColumn>{item.stationType}</TableRowColumn>
+													<TableRowColumn>{item.stationId}</TableRowColumn>
 													<TableRowColumn>{item.unitprice}</TableRowColumn>
 													<TableRowColumn>{item.leaseBeginDate}</TableRowColumn>
 													<TableRowColumn>{item.leaseEndDate}</TableRowColumn>
 												</TableRow>
 											);
 										})}
-													*/}
 								   </TableBody>
 							 </Table>
 
