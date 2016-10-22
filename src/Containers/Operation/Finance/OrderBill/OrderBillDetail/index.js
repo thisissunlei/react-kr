@@ -85,7 +85,7 @@ export default class AttributeSetting  extends Component{
 	render(){
         
         console.log("vvv",this.state.item);
-        //console.log("oooo",this.state.searchParam);
+        console.log("oooo",this.state.searchParam);
 		return(
 
 			<div>
