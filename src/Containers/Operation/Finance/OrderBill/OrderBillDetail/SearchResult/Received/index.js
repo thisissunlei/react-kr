@@ -27,7 +27,7 @@ import {
 import Earnest from './Earnest';
 import BusinessIncome from './BusinessIncome';
 import Other from './Other';
-import Basic from './Basic';
+import Basic from './Basic/index';
 import Station from './Station';
 import Deposit from './Deposit';
 import LivePayment from './LivePayment';

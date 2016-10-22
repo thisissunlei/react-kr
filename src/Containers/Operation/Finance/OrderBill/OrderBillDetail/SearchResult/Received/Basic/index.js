@@ -25,10 +25,11 @@ import {
 	KrField
 } from 'kr-ui';
 
-
+import ReceivedMoney from './ReceivedMoney';
+import QuitMoney from './QuitMoney';
 
 var arr=[];
-class Basic extends Component{
+export default class Basic extends Component{
 
 	static PropTypes = {
 		params:React.PropTypes.object,
@@ -38,15 +39,18 @@ class Basic extends Component{
 
 	constructor(props,context){
 		super(props, context);
-		this.ReceivedMoney = this.ReceivedMoney.bind(this);
-		this.QuitMoney = this.QuitMoney.bind(this);
-        this.onCancel = this.onCancel.bind(this);
-        this.onCancelQ = this.onCancelQ.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+		this.onAddReceivedSubmit=this.onAddReceivedSubmit.bind(this);
+		this.ReceivedDialog=this.ReceivedDialog.bind(this);
+		this.openReceivedDialog=this.openReceivedDialog.bind(this);
+		this.openQuitDialog=this.openQuitDialog.bind(this);
+		this.onQuitSubmit=this.onQuitSubmit.bind(this);
+		this.QuitMoneyDialog=this.QuitMoneyDialog.bind(this);
+        
 		  this.state = {
 			openReceive:false,
 			openQuit:false,
-			arr:[]
+			arr:[],
+			initialValues:{}
 	     }
    }
 
@@ -54,13 +58,12 @@ class Basic extends Component{
 
 	}
     
-    ReceivedMoney(){ 
-		  var _this = this;
+    openReceivedDialog(){
+    	 var _this = this;
 	      Store.dispatch(Actions.callAPI('findAccountList',{
 	      	
 	      })).then(function(response){  //post请求
-
-	          console.log("ttttt",response);
+	         
  		      response.map(function(item,index){ 
  		      	 var list ={}
  		      	 list.id=item.id;
@@ -86,29 +89,29 @@ class Basic extends Component{
 			openReceive:!this.state.openReceive
 		});
     }
-
-     QuitMoney(){
+   
+    ReceivedDialog(){
+   	  this.setState({
+		 openReceive:!this.state.openReceive,			
+		});	 
+   }
+   
+     openQuitDialog(){
         this.setState({
 			openQuit:!this.state.openQuit
 		});
     }
     
-     onCancel(){
-		this.setState({
-			openReceive:!this.state.openReceive,
-			
-		});	 
-	 }
+    
 
-	 onCancelQ(){
+	 QuitMoneyDialog(){
 		this.setState({	    
 			openQuit:!this.state.openQuit,
 		});	 
 	 }
 
 
-	  onSubmit(params){  //获取提交时的params
-	  	  
+	  onAddReceivedSubmit(params){  //获取提交时的params	  	  
 	  	  //params.fileids=JSON.stringify(params.fileids);
 	  	  console.log("gggg",params);
 		  var _this = this;
@@ -126,7 +129,7 @@ class Basic extends Component{
 		});	  
     }
 
-    onSubmitQ(params){  //获取提交时的params
+    onQuitSubmit(params){  //获取提交时的params
 	  	  //params.fileids=JSON.stringify(params.fileids);
 		  var _this = this;
 	      Store.dispatch(Actions.callAPI('payBack',{},params)).then(function(response){  //post请求   
@@ -145,31 +148,22 @@ class Basic extends Component{
 	render(){
 
 		let {params,type,detailResult,handleSubmit} = this.props;
-
 		let items=detailResult.items;
-
 		if(params.childType != type){
 			return  null;
 		}
-
 		if(!items){
 			items=[];
 		}
         
-        
-        
-        
-        
-       
-       
-        
-        
+        //console.log("nmnmnm",mainbillid);
+ 
 		return(
 
 			 <div>
                   <Row>
-					<Col md={2}><Button label="回款" primary={true} onTouchTap={this.ReceivedMoney}/></Col>
-					<Col md={2}><Button label="退款" primary={true} onTouchTap={this.QuitMoney}/></Col>
+					<Col md={2}><Button label="回款" primary={true} onTouchTap={this.openReceivedDialog}/></Col>
+					<Col md={2}><Button label="退款" primary={true} onTouchTap={this.openQuitDialog}/></Col>
                   </Row>
        
                   <Table displayCheckbox={false}>
@@ -205,30 +199,7 @@ class Basic extends Component{
 						modal={true}
 						open={this.state.openReceive}
 					>
-					   <div>
-					      <form onSubmit={handleSubmit(this.onSubmit)}>
-                            <KrField  name="mainbillid" type="hidden" component="input"/>
-						    <KrField  label="代码名称" name="accountId" type="select" options={this.state.arr}/>
-						    <KrField component="date" label="回款日期" name="receiveDate"/>
-						    <KrField label="交易编号" name="dealCode"  component="input" type="text"/>
-						    <KrField label="是否自动拆分" name="autoSplit" component="select" options={
-						    	[{label:"是",value:"1"},{label:"不是",value:"0"}]
-						    }/>
-                            <KrField name="sumSign" component="group" label="金额正负" >
-				                <KrField name="sumSign" label="正" component="radio" type="radio" value="0"/>
-				                <KrField name="sumSign" label="负" component="radio" type="radio" value="1" />
-			                </KrField>
-                            <KrField label="金额（元）" name="sum" component="input" type="text"/>
-                            <KrField label="备注" name="remark" component="input" type="text"/>
-                            <KrField label="上传附件" name="fileids" component="file" />
-
-						    <Row>
-								<Col md={6}> <Button  label="确定" type="submit" primary={true} /> </Col>
-								<Col md={6}> <Button  label="取消" type="button"  onTouchTap={this.onCancel} /> </Col>
-						   </Row> 
-					   
-                         </form>
-					  </div>
+					  <ReceivedMoney onSubmit={this.onAddReceivedSubmit} onCancel={this.ReceivedDialog} optionList={this.state.arr}/>
 
 				  </Dialog>
 
@@ -239,23 +210,7 @@ class Basic extends Component{
 						modal={true}
 						open={this.state.openQuit}
 					>
-					   <div>
-					      <form onSubmit={handleSubmit(this.onSubmitQ)}>
- 
-						    <KrField  name="id" type="hidden"/>
-                            <KrField label="金额（元）" name="finaflowamount" component="input" type="text"/>
-                            <KrField type="date" label="退款日期" name="receiveDate"/>
-                            <KrField label="备注" name="finaflowdesc" component="input" type="text"/>
-                            <KrField label="上传附件" name="fileids" component="file"/>
-
-						    <Row>
-								<Col md={6}> <Button  label="确定" type="submit" primary={true} /> </Col>
-								<Col md={6}> <Button  label="取消" type="button"  onTouchTap={this.onCancelQ} /> </Col>
-						   </Row> 
-					   
-                         </form>
-					  </div>
-
+					 <QuitMoney onSubmit={this.onQuitSubmit} onCancel={this.QuitMoneyDialog}/>  
 				  </Dialog>
 
 			</div>		
@@ -267,7 +222,7 @@ class Basic extends Component{
 }
 
 
-export default reduxForm({form:'Basic'})(Basic);
+
 
 
 

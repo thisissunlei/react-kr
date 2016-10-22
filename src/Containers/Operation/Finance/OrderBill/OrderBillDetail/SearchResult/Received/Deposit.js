@@ -39,14 +39,17 @@ class Deposit extends Component{
 		super(props, context);
 		this.ReceivedMoney = this.ReceivedMoney.bind(this);
 		this.SwitchMoney = this.SwitchMoney.bind(this);
+		this.BusinessMoney=this.BusinessMoney.bind(this);
         this.onCancel = this.onCancel.bind(this);
         this.onCancelS = this.onCancelS.bind(this);
+        this.onCancelB = this.onCancelB.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
 		this.state={
            item:{},
            openReceive:false,
            openSwitch:false,
+           openBusiness:false,
            arr:[],
            arr1:[]
 		}
@@ -91,8 +94,19 @@ class Deposit extends Component{
 			openSwitch:!this.state.openSwitch,
 		});	 
 	 }
-
-
+     
+     BusinessMoney(){ 
+        this.setState({
+			openBusiness:!this.state.openBusiness
+		});       
+    }
+     
+     onCancelB(){
+		this.setState({	    
+			openBusiness:!this.state.openBusiness,
+		});	 
+	 }
+     
      SwitchMoney(){ 
            var _this = this;
 	       Store.dispatch(Actions.callAPI('findContractListById',{
@@ -160,7 +174,6 @@ class Deposit extends Component{
     }
 
     onSubmitS(params){  //获取提交时的param
-
 		  var _this = this;
 	      Store.dispatch(Actions.callAPI('transToDeposit',{},params)).then(function(response){  //post请求   
  		  }).catch(function(err){
@@ -168,10 +181,24 @@ class Deposit extends Component{
 				message:'报错了',
 				type: 'danger',
 			}]);
-		 });
-        
+		 });       
 	    _this.setState({
 			openSwitch:!this.state.openSwitch
+		});	  
+    }
+
+    onSubmitB(params){  //获取提交时的param  	  
+		  var _this = this;
+	      Store.dispatch(Actions.callAPI('transToOperateIncome',{},params)).then(function(response){  //post请求   
+ 		  }).catch(function(err){
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		 });
+
+	    _this.setState({
+			openBusiness:!this.state.openBusiness
 		});	  
     }
 
@@ -200,7 +227,7 @@ class Deposit extends Component{
                <Row>
 					<Col md={2}><Button label="回款" primary={true} onTouchTap={this.ReceivedMoney}/></Col>
 					<Col md={2}><Button label="转押金" primary={true} onTouchTap={this.SwitchMoney}/></Col>
-					<Col md={2}><Button label="转营业外收入" primary={true}/></Col>
+					<Col md={2}><Button label="转营业外收入" primary={true} onTouchTap={this.BusinessMoney}/></Col>
 					<Col md={2}><Button label="退款" primary={true}/></Col>
                   </Row>
 
@@ -290,8 +317,30 @@ class Deposit extends Component{
 					  </div>
 				  </Dialog>
                     
-
                     
+                    <Dialog
+						title='转营业外收入'
+						modal={true}
+						open={this.state.openBusiness}
+					>
+					   <div>
+					      <form onSubmit={handleSubmit(this.onSubmitB)}>
+						    <KrField  name="id" type="hidden"/>
+                            <KrField label="款项金额" component="labelText" value={34}/>
+                            <KrField label="金额（元）" name="finaflowamount" component="input" type="text"/>
+                            <KrField label="备注" name="finaflowdesc" component="input" type="text"/>
+                            <KrField label="上传附件" name="fileids" component="file"/>
+
+						    <Row>
+								<Col md={6}> <Button  label="确定" type="submit" primary={true} /> </Col>
+								<Col md={6}> <Button  label="取消" type="button"  onTouchTap={this.onCancelB} /> </Col>
+						   </Row> 
+					   
+                         </form>
+					  </div>
+				  </Dialog>
+
+
                    
 			</div>		
 
