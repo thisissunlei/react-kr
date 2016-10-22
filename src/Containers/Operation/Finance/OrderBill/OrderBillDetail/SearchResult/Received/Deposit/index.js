@@ -28,7 +28,7 @@ var arr=[];
 var arr1=[];
 import {Actions,Store} from 'kr/Redux';
 
-class Deposit extends Component{
+export default class Deposit extends Component{
 
 	static PropTypes = {
 		params:React.PropTypes.object,
@@ -37,19 +37,29 @@ class Deposit extends Component{
 
 	constructor(props,context){
 		super(props, context);
-		this.ReceivedMoney = this.ReceivedMoney.bind(this);
-		this.SwitchMoney = this.SwitchMoney.bind(this);
-		this.BusinessMoney=this.BusinessMoney.bind(this);
-        this.onCancel = this.onCancel.bind(this);
-        this.onCancelS = this.onCancelS.bind(this);
-        this.onCancelB = this.onCancelB.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+		this.onAddReceivedSubmit=this.onAddReceivedSubmit.bind(this);
+		this.onSwitchSubmit=this.onSwitchSubmit.bind(this);
+		this.onQuitSubmit=this.onQuitSubmit.bind(this);
+		this.onBusinessSubmit=this.onBusinessSubmit.bind(this)
+
+		this.ReceivedDialog=this.ReceivedDialog.bind(this);
+        this.QuitMoneyDialog=this.QuitMoneyDialog.bind(this);
+        this.SwitchDialog=this.SwitchDialog.bind(this);
+        this.BusinessDialog=this.BusinessDialog.bind(this);
+
+		this.openReceivedDialog=this.openReceivedDialog.bind(this);
+		this.openQuitDialog=this.openQuitDialog.bind(this);
+		this.openSwitchDialog=this.openSwitchDialog.bind(this);
+		this.openBusinessDialog=this.openBusinessDialog.bind(this);
+		
+		
 
 		this.state={
            item:{},
            openReceive:false,
            openSwitch:false,
            openBusiness:false,
+           openQuit:false,
            arr:[],
            arr1:[]
 		}
@@ -87,25 +97,29 @@ class Deposit extends Component{
 			openReceive:!this.state.openReceive
 		});
     }
-      
 
-      onCancelS(){
-		this.setState({	    
-			openSwitch:!this.state.openSwitch,
-		});	 
-	 }
-     
-     BusinessMoney(){ 
-        this.setState({
-			openBusiness:!this.state.openBusiness
-		});       
+     onAddReceivedSubmit(params){  //获取提交时的params  	  
+	  	  //params.fileids=JSON.stringify(params.fileids);
+	  	  console.log("gggg",params);
+		  var _this = this;
+	      Store.dispatch(Actions.callAPI('receiveMoney',{},params)).then(function(response){  //post请求   		    
+ 		}).catch(function(err){
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		 });
+	    _this.setState({
+			openReceive:!this.state.openReceive
+		});	  
     }
-     
-     onCancelB(){
-		this.setState({	    
-			openBusiness:!this.state.openBusiness,
+ 
+    ReceivedDialog(){
+		this.setState({
+			openReceive:!this.state.openReceive,			
 		});	 
 	 }
+
      
      SwitchMoney(){ 
            var _this = this;
@@ -137,6 +151,89 @@ class Deposit extends Component{
 		});       
     }
 
+
+     onSwitchSubmit(params){  //获取提交时的param
+		  var _this = this;
+	      Store.dispatch(Actions.callAPI('transToDeposit',{},params)).then(function(response){  //post请求   
+ 		  }).catch(function(err){
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		 });       
+	    _this.setState({
+			openSwitch:!this.state.openSwitch
+		});	  
+    }
+      
+
+     SwitchDialog(){
+		this.setState({	    
+			openSwitch:!this.state.openSwitch,
+		});	 
+	 }
+
+
+     
+     BusinessMoney(){ 
+        this.setState({
+			openBusiness:!this.state.openBusiness
+		});       
+    }
+     
+     onBusinessSubmit(params){  //获取提交时的param  	  
+		  var _this = this;
+	      Store.dispatch(Actions.callAPI('transToOperateIncome',{},params)).then(function(response){  //post请求   
+ 		  }).catch(function(err){
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		 });
+
+	    _this.setState({
+			openBusiness:!this.state.openBusiness
+		});	  
+    }
+     
+
+     BusinessDialog(){
+		this.setState({	    
+			openBusiness:!this.state.openBusiness,
+		});	 
+	 }
+     
+     QuitMoneyDialog(){
+		this.setState({	    
+			openQuit:!this.state.openQuit,
+		});	 
+	 }
+    
+    onQuitSubmit(params){  //获取提交时的params
+	  	  //params.fileids=JSON.stringify(params.fileids);
+		  var _this = this;
+	      Store.dispatch(Actions.callAPI('payBack',{},params)).then(function(response){  //post请求   
+ 		  }).catch(function(err){
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		 });
+
+	    _this.setState({
+			openQuit:!this.state.openQuit
+		});	  
+    }
+    
+
+     QuitMoneyDialog(){
+		this.setState({	    
+			openQuit:!this.state.openQuit,
+		});	 
+	 }
+
+
+
 	componentDidMount() {
         var _this = this;
 		Store.dispatch(Actions.callAPI('getPageAccountFlow')).then(function(response){      
@@ -151,57 +248,13 @@ class Deposit extends Component{
 		});
 	}
     
-    onCancel(){
-		this.setState({
-			openReceive:!this.state.openReceive,			
-		});	 
-	 }
+    
+    
+    
 
-     onSubmit(params){  //获取提交时的params  	  
-	  	  //params.fileids=JSON.stringify(params.fileids);
-	  	  console.log("gggg",params);
-		  var _this = this;
-	      Store.dispatch(Actions.callAPI('receiveMoney',{},params)).then(function(response){  //post请求   		    
- 		}).catch(function(err){
-			Notify.show([{
-				message:'报错了',
-				type: 'danger',
-			}]);
-		 });
-	    _this.setState({
-			openReceive:!this.state.openReceive
-		});	  
-    }
+   
 
-    onSubmitS(params){  //获取提交时的param
-		  var _this = this;
-	      Store.dispatch(Actions.callAPI('transToDeposit',{},params)).then(function(response){  //post请求   
- 		  }).catch(function(err){
-			Notify.show([{
-				message:'报错了',
-				type: 'danger',
-			}]);
-		 });       
-	    _this.setState({
-			openSwitch:!this.state.openSwitch
-		});	  
-    }
-
-    onSubmitB(params){  //获取提交时的param  	  
-		  var _this = this;
-	      Store.dispatch(Actions.callAPI('transToOperateIncome',{},params)).then(function(response){  //post请求   
- 		  }).catch(function(err){
-			Notify.show([{
-				message:'报错了',
-				type: 'danger',
-			}]);
-		 });
-
-	    _this.setState({
-			openBusiness:!this.state.openBusiness
-		});	  
-    }
-
+    
 
 	render(){
 
@@ -225,10 +278,10 @@ class Deposit extends Component{
 
 			 <div>
                <Row>
-					<Col md={2}><Button label="回款" primary={true} onTouchTap={this.ReceivedMoney}/></Col>
-					<Col md={2}><Button label="转押金" primary={true} onTouchTap={this.SwitchMoney}/></Col>
-					<Col md={2}><Button label="转营业外收入" primary={true} onTouchTap={this.BusinessMoney}/></Col>
-					<Col md={2}><Button label="退款" primary={true}/></Col>
+					<Col md={2}><Button label="回款" primary={true} onTouchTap={this.openReceivedDialog}/></Col>
+					<Col md={2}><Button label="转押金" primary={true} onTouchTap={this.openSwitchDialog}/></Col>
+					<Col md={2}><Button label="转营业外收入" primary={true} onTouchTap={this.openBusinessDialog}/></Col>
+					<Col md={2}><Button label="退款" primary={true} onTouchTap={this.openQuitDialog}/></Col>
                   </Row>
 
                   
@@ -278,20 +331,7 @@ class Deposit extends Component{
 						modal={true}
 						open={this.state.openSwitch}
 					>
-					   <div>
-					      <form onSubmit={handleSubmit(this.onSubmitS)}>
-						    <KrField  name="id" type="hidden"/>
-                            <KrField label="合同编号" name="contractcode" type="select" options={this.state.arr1}/>
-                            <KrField label="备注" name="finaflowdesc" component="input" type="text"/>
-                            <KrField label="上传附件" name="fileids" component="file"/>
-
-						    <Row>
-								<Col md={6}> <Button  label="确定" type="submit" primary={true} /> </Col>
-								<Col md={6}> <Button  label="取消" type="button"  onTouchTap={this.onCancelS} /> </Col>
-						   </Row> 
-					   
-                         </form>
-					  </div>
+					 <SwitchMoney onSubmit={this.onSwitchSubmit} onCancel={this.SwitchDialog} optionList={this.state.arr1} initialValues={this.state.initialValues}/> 
 				  </Dialog>
                     
                     
@@ -300,23 +340,16 @@ class Deposit extends Component{
 						modal={true}
 						open={this.state.openBusiness}
 					>
-					   <div>
-					      <form onSubmit={handleSubmit(this.onSubmitB)}>
-						    <KrField  name="id" type="hidden"/>
-                            <KrField label="款项金额" component="labelText" value={34}/>
-                            <KrField label="金额（元）" name="finaflowamount" component="input" type="text"/>
-                            <KrField label="备注" name="finaflowdesc" component="input" type="text"/>
-                            <KrField label="上传附件" name="fileids" component="file"/>
-
-						    <Row>
-								<Col md={6}> <Button  label="确定" type="submit" primary={true} /> </Col>
-								<Col md={6}> <Button  label="取消" type="button"  onTouchTap={this.onCancelB} /> </Col>
-						   </Row> 
-					   
-                         </form>
-					  </div>
+					  <BusinessMoney onSubmit={this.onBusinessSubmit} onCancel={this.BusinessDialog} />  
 				  </Dialog>
 
+                  <Dialog
+						title='退款'
+						modal={true}
+						open={this.state.openQuit}
+					>
+					 <QuitMoney onSubmit={this.onQuitSubmit} onCancel={this.QuitMoneyDialog}/>  
+				  </Dialog>
 
                    
 			</div>		
@@ -327,7 +360,7 @@ class Deposit extends Component{
 
 }
 
-export default reduxForm({form:'Deposit'})(Deposit);
+
 
 
 
