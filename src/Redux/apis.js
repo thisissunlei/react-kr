@@ -246,6 +246,11 @@ const APIS  = {
 		url:'/api/krspace-finance-web/finaccount/opt/findContractListById?id={id}',		
 		method:'get'
 	},
+	//财务管理－订单明细账-转营收
+	'transToOperateIncome':{
+		url:'/api/krspace-finance-web//finaccount/opt/transToOperateIncome',		
+		method:'post'
+	},
 	
 }
 

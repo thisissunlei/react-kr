@@ -26,6 +26,7 @@ import {
 } from 'kr-ui';
 
 var arr=[];
+var arr1=[];
 import {Actions,Store} from 'kr/Redux';
 
 class Earnest extends Component{
@@ -40,17 +41,30 @@ class Earnest extends Component{
 		super(props, context);
         this.ReceivedMoney = this.ReceivedMoney.bind(this);
         this.SwitchMoney = this.SwitchMoney.bind(this);
+        this.BusinessMoney =this.BusinessMoney.bind(this);
         this.onCancel = this.onCancel.bind(this);
         this.onCancelQ = this.onCancelQ.bind(this);
+        this.onCancelB = this.onCancelB.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 		this.state={
            item:{},
            openReceive:false,
            openSwitch:false,
-           arr:[]
+           openBusiness:false,
+           arr:[],
+           arr1:[]
 		}
 	}
     
+    
+    BusinessMoney(){ 
+        this.setState({
+			openBusiness:!this.state.openBusiness
+		});       
+    }
+
+
+
     onSubmit(params){  //获取提交时的params
 	  	  console.log("gggg",params);
 		  var _this = this;
@@ -66,8 +80,8 @@ class Earnest extends Component{
 		});	  
     }
 
-
-    onCancel(){
+   
+     onCancel(){
 		this.setState({
 			openReceive:!this.state.openReceive,			
 		});	 
@@ -76,6 +90,12 @@ class Earnest extends Component{
 	 onCancelQ(){
 		this.setState({	    
 			openSwitch:!this.state.openSwitch,
+		});	 
+	 }
+
+	 onCancelB(){
+		this.setState({	    
+			openBusiness:!this.state.openBusiness,
 		});	 
 	 }
      
@@ -92,6 +112,22 @@ class Earnest extends Component{
 
 	    _this.setState({
 			openSwitch:!this.state.openSwitch
+		});	  
+    }
+
+
+    onSubmitB(params){  //获取提交时的param  	  
+		  var _this = this;
+	      Store.dispatch(Actions.callAPI('transToOperateIncome',{},params)).then(function(response){  //post请求   
+ 		  }).catch(function(err){
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		 });
+
+	    _this.setState({
+			openBusiness:!this.state.openBusiness
 		});	  
     }
 
@@ -130,12 +166,23 @@ class Earnest extends Component{
     SwitchMoney(){ 
            var _this = this;
 	       Store.dispatch(Actions.callAPI('findContractListById',{
-	       	  
+	       	  id:'1'
 	       })).then(function(response){ 
-	          
-	          console.log("44444",response); 
- 		         
- 		}).catch(function(err){
+               response.map(function(item,index){ 
+ 		      	 var list ={}
+ 		      	 list.id=item.id;
+ 		      	 list.accountname=item.contractcode;
+ 		      	 arr1.push(list);		      	 	      	                                            
+              })
+                arr1.map(function(item,index){
+				 item.label=item.contractcode;
+                 item.value=item.id;
+				 return item;
+			    });
+ 		        _this.setState({
+			      arr1:arr1
+		       });      
+ 		    }).catch(function(err){
 			Notify.show([{
 				message:'报错了',
 				type: 'danger',
@@ -145,7 +192,7 @@ class Earnest extends Component{
 			openSwitch:!this.state.openSwitch
 		});
    
-      console.log("mmmmmm",'33'); 
+       
     }
 
 	componentDidMount() {
@@ -164,14 +211,13 @@ class Earnest extends Component{
 
 	onSubmitQ(params){  //获取提交时的params	  	  
 		  var _this = this;
-	      Store.dispatch(Actions.callAPI('payBack',{},params)).then(function(response){  //post请求   
+	      Store.dispatch(Actions.callAPI('transToDeposit',{},params)).then(function(response){  //post请求   
  		  }).catch(function(err){
 			Notify.show([{
 				message:'报错了',
 				type: 'danger',
 			}]);
 		 });
-
 	    _this.setState({
 			openQuit:!this.state.openQuit
 		});	  
@@ -197,7 +243,7 @@ class Earnest extends Component{
                <Row>
 					<Col md={2}><Button label="回款" primary={true} onTouchTap={this.ReceivedMoney}/></Col>
 					<Col md={2}><Button label="转押金" primary={true} onTouchTap={this.SwitchMoney}/></Col>
-					<Col md={2}><Button label="转营业外收入" primary={true}/></Col>
+					<Col md={2}><Button label="转营业外收入" primary={true} onTouchTap={this.BusinessMoney}/></Col>
 					
                   </Row>
 
@@ -274,16 +320,37 @@ class Earnest extends Component{
 					>
 					   <div>
 					      <form onSubmit={handleSubmit(this.onSubmitQ)}>
- 
 						    <KrField  name="id" type="hidden"/>
-                            <KrField label="合同编号" name="contractcode" type="select" />
-  			
+                            <KrField label="合同编号" name="contractcode" type="select" options={this.state.arr1}/>
                             <KrField label="备注" name="finaflowdesc" component="input" type="text"/>
                             <KrField label="上传附件" name="fileids" component="file"/>
 
 						    <Row>
 								<Col md={6}> <Button  label="确定" type="submit" primary={true} /> </Col>
 								<Col md={6}> <Button  label="取消" type="button"  onTouchTap={this.onCancelQ} /> </Col>
+						   </Row> 
+					   
+                         </form>
+					  </div>
+				  </Dialog>
+
+
+                  <Dialog
+						title='转营业外收入'
+						modal={true}
+						open={this.state.openBusiness}
+					>
+					   <div>
+					      <form onSubmit={handleSubmit(this.onSubmitB)}>
+						    <KrField  name="id" type="hidden"/>
+                            <KrField label="款项金额" component="labelText" value={34}/>
+                            <KrField label="金额（元）" name="finaflowamount" component="input" type="text"/>
+                            <KrField label="备注" name="finaflowdesc" component="input" type="text"/>
+                            <KrField label="上传附件" name="fileids" component="file"/>
+
+						    <Row>
+								<Col md={6}> <Button  label="确定" type="submit" primary={true} /> </Col>
+								<Col md={6}> <Button  label="取消" type="button"  onTouchTap={this.onCancelB} /> </Col>
 						   </Row> 
 					   
                          </form>
