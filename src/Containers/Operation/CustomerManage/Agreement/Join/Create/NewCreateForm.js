@@ -209,7 +209,6 @@ class NewCreateForm  extends Component{
 		form.stationVos = JSON.stringify(form.stationVos);
 
 		console.log('00000',form);
-
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 
@@ -222,21 +221,21 @@ class NewCreateForm  extends Component{
 
 	getStationUrl(){
 
-		let {changeValues} = this.props;
-
-	//let url = "http://local.krspace.cn/#/operation/customerManage/108/order/3/agreement/join/create";
 	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}";
-		let {initialValues}  = this.props;
+
+		let {changeValues,initialValues} = this.props;
+
 		let params = {
 			//communityId:initialValues.communityId,
 			communityId:1,
-			floors:3,
+			floors:changeValues.wherefloor,
 			//工位
 			goalStationNum:changeValues.stationnum,
 			//会议室
 			goalBoardroomNum:changeValues.boardroomnum,
 			selectedObjs:"[{type:1,id:883}]"
 		};
+
 		if(Object.keys(params).length){
 			for (let item in params) {
 				if (params.hasOwnProperty(item)) {
@@ -245,6 +244,7 @@ class NewCreateForm  extends Component{
 				}
 			}
 		}
+
 		return url ;
 	}
 
@@ -422,6 +422,7 @@ export default connect((state)=>{
 	changeValues.boardroomnum = selector(state,'boardroomnum') || 0;
 	changeValues.leaseBegindate = selector(state,'leaseBegindate') || 0;
 	changeValues.leaseEnddate = selector(state,'leaseEnddate') || 0;
+	changeValues.wherefloor = selector(state,'wherefloor') || 0;
 
 	return {
 		changeValues
