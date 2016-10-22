@@ -39,6 +39,7 @@ export default class Income extends Component{
 		params:React.PropTypes.object,
 		type:React.PropTypes.string,
 		detailResult:React.PropTypes.object,
+		mainId:React.PropTypes.number,
 	}
 
 	constructor(props,context){

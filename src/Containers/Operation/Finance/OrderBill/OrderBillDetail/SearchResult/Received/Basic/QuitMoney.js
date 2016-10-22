@@ -46,8 +46,8 @@ class QuitMoney extends Component{
    }
 
 	componentDidMount() {
-        let {initialValues}= this.props;
-		Store.dispatch(initialize('QuitMoney',initialValues));
+        //let {initialValues}= this.props;
+		//Store.dispatch(initialize('QuitMoney',initialValues));
 	}
     
    
@@ -76,9 +76,9 @@ class QuitMoney extends Component{
 
 			    <div>
                  
-					     <form onSubmit={handleSubmit(this.onSubmitQ)}>
+					     <form onSubmit={handleSubmit(this.onSubmit)}>
  
-						    <KrField  name="id" type="hidden"/>
+						    <KrField name="id" type="hidden"/>
                             <KrField label="金额（元）" name="finaflowamount" component="input" type="text"/>
                             <KrField type="date" label="退款日期" name="receiveDate"/>
                             <KrField label="备注" name="finaflowdesc" component="input" type="text"/>
@@ -86,7 +86,7 @@ class QuitMoney extends Component{
 
 						    <Row>
 								<Col md={6}> <Button  label="确定" type="submit" primary={true} /> </Col>
-								<Col md={6}> <Button  label="取消" type="button"  onTouchTap={this.onCancelQ} /> </Col>
+								<Col md={6}> <Button  label="取消" type="button"  onTouchTap={this.onCancel} /> </Col>
 						   </Row> 
 					   
                          </form>

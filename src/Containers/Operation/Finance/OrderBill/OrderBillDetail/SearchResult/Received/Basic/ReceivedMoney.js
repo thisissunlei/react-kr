@@ -29,26 +29,13 @@ import {
 
 var arr=[];
 class ReceivedMoney extends Component{
-    
-    static DefaultPropTypes = {
-		initialValues:{
-			accountId:'',
-			autoSplit:'',
-			dealCode:'',
-			fileids:[],
-			mainbillid:'',
-			receiveDate:'',
-			remark:'',
-			sum:'',
-			sumSign:''
-		}
-	}
 
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
 		optionList:React.PropTypes.object,
-	}
+		initialValues:React.PropTypes.object,
+  }
 
 	constructor(props,context){
 		super(props, context);
@@ -61,8 +48,9 @@ class ReceivedMoney extends Component{
 
 	componentDidMount() {
 
-		let {initialValues}= this.props;
-		Store.dispatch(initialize('ReceivedMoney',initialValues));
+      let {initialValues}= this.props;
+	   Store.dispatch(initialize('ReceivedMoney',initialValues));
+		
 	}
     
    
@@ -89,7 +77,7 @@ class ReceivedMoney extends Component{
         const { error, handleSubmit, pristine, reset,optionList} = this.props;
 		
 
-		
+		console.log("vbvbvb",this.props.initialValues)
         
  
 		return(
