@@ -133,6 +133,20 @@ class NewCreateForm  extends Component{
 	}
 
 	openStationDialog(){
+
+		let {changeValues} = this.props;
+
+
+		let {wherefloor} = changeValues;
+
+		if(!wherefloor){
+			Notify.show([{
+				message:'请先选择楼层',
+				type: 'danger',
+			}]);
+			return ;
+		}
+
 		this.setState({
 			openStation:!this.state.openStation
 		});
@@ -226,8 +240,7 @@ class NewCreateForm  extends Component{
 		let {changeValues,initialValues} = this.props;
 
 		let params = {
-			//communityId:initialValues.communityId,
-			communityId:1,
+			communityId:initialValues.mainbillCommunityId,
 			floors:changeValues.wherefloor,
 			//工位
 			goalStationNum:changeValues.stationnum,
@@ -248,16 +261,19 @@ class NewCreateForm  extends Component{
 		return url ;
 	}
 
-	onIframeClose(data){
+	onIframeClose(billList){
+
 		this.openStationDialog();
 
-		let billList = data;
+		console.log('data',billList);
+
+		if(!billList){
+			return ;
+		}
 
 		this.setState({
 			billList
 		});
-
-		console.log(data);
 	}
 
 
@@ -423,6 +439,8 @@ export default connect((state)=>{
 	changeValues.leaseBegindate = selector(state,'leaseBegindate') || 0;
 	changeValues.leaseEnddate = selector(state,'leaseEnddate') || 0;
 	changeValues.wherefloor = selector(state,'wherefloor') || 0;
+
+	console.log("0000chann",changeValues);
 
 	return {
 		changeValues
