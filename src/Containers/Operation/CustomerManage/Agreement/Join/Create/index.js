@@ -124,7 +124,8 @@ export default  class JoinCreate extends Component {
 			initialValues.customerName = response.customer.customerName;
 			initialValues.leaseAddress = response.customer.customerAddress;
 			initialValues.communityName = response.customer.communityName;
-			initialValues.communityId = response.customer.communityid ||1;
+			initialValues.communityId = response.customer.communityid;
+			initialValues.mainbillCommunityId =  response.mainbillCommunityId||1;
 
 			_this.setState({
 				initialValues
