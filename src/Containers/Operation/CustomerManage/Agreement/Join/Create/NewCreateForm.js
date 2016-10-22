@@ -8,6 +8,8 @@ import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray}
 
 import {Actions,Store} from 'kr/Redux';
 
+import UnitPriceForm from './UnitPriceForm';
+
 import {
 	Menu,
 	MenuItem,
@@ -69,15 +71,43 @@ class NewCreateForm  extends Component{
 		this.onIframeClose = this.onIframeClose.bind(this);
 		this.openStationDialog = this.openStationDialog.bind(this);
 		this.getDateFormat = this.getDateFormat.bind(this);
+		this.onStationUnitPrice = this.onStationUnitPrice.bind(this);
+		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
 
 		this.state = {
 			selectedStation:[],
 			billList:[],
 			openStation:false,
+			openStationUnitPrice:false,
 			stationForm:{}
 		}
 	}
 
+	//录入单价dialog
+	openStationUnitPriceDialog(){
+		this.setState({
+			openStationUnitPrice:!this.state.openStationUnitPrice
+		});
+	}
+
+	//录入单价
+	onStationUnitPrice(form){
+
+		var value = form.price;
+		let {stationForm,billList,selectedStation} = this.state;
+
+		billList.map(function(item,index){
+			if(selectedStation.indexOf(index) != -1){
+				stationForm['station-'+index] = value;
+			}
+		});
+
+		this.setState({
+			stationForm
+		});
+
+		this.openStationUnitPriceDialog();
+	}
 
 	//删除工位
 	onStationDelete(){
@@ -128,8 +158,6 @@ class NewCreateForm  extends Component{
 
 	onSubmit(form){
 
-		//console.log("this",this.state.stationForm);
-
 		delete form.floorList;
 		delete form.customerName;
 		delete form.payTypeList;
@@ -146,38 +174,41 @@ class NewCreateForm  extends Component{
 
 
 		var _this = this;
-		billList.map(function(item,index){
-				var obj = {};
-			/*
-				obj.leaseBeginDate = _this.getDateFormat(changeValues.leaseBegindate);
-				obj.leaseEndDate = _this.getDateFormat(changeValues.leaseEnddate);
-			*/
-				obj.stationId = item.id;
-				obj.stationType = item.type;
-				obj.unitprice = '';
-				obj.whereFloor =  item.wherefloor;
-				stationVos.push(obj);
-		});
 
+		try{
+			billList.map(function(item,index){
+					var obj = {};
+				/*
+					obj.leaseBeginDate = _this.getDateFormat(changeValues.leaseBegindate);
+					obj.leaseEndDate = _this.getDateFormat(changeValues.leaseEnddate);
+				*/
+					obj.stationId = item.id;
+					obj.stationType = item.type;
+					obj.unitprice = '';
+					obj.whereFloor =  item.wherefloor;
+					stationVos.push(obj);
+			});
+
+		}catch(err){
+			console.log('billList 租赁明细工位列表为空');
+		}
 
 		form.stationVos =  stationVos;
 
 		let {stationForm} = this.state;
-		/*
-
 		for(var i in stationForm){
 			if(stationForm.hasOwnProperty(i)){
-				stationVos[i.split('-').pop()];
+				var value = stationForm[i];
+				var index = i.split('-').pop();
+				var obj = stationVos[index];
+				obj.unitprice = value; 
+				stationVos[index] = obj;
 			}
 		}
-		*/
-
 
 		form.stationVos = JSON.stringify(form.stationVos);
 
-
 		console.log('00000',form);
-
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 
@@ -190,21 +221,21 @@ class NewCreateForm  extends Component{
 
 	getStationUrl(){
 
-		let {changeValues} = this.props;
-
-	//let url = "http://local.krspace.cn/#/operation/customerManage/108/order/3/agreement/join/create";
 	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}";
-		let {initialValues}  = this.props;
+
+		let {changeValues,initialValues} = this.props;
+
 		let params = {
 			//communityId:initialValues.communityId,
 			communityId:1,
-			floors:3,
+			floors:changeValues.wherefloor,
 			//工位
 			goalStationNum:changeValues.stationnum,
 			//会议室
 			goalBoardroomNum:changeValues.boardroomnum,
 			selectedObjs:"[{type:1,id:883}]"
 		};
+
 		if(Object.keys(params).length){
 			for (let item in params) {
 				if (params.hasOwnProperty(item)) {
@@ -213,6 +244,7 @@ class NewCreateForm  extends Component{
 				}
 			}
 		}
+
 		return url ;
 	}
 
@@ -298,7 +330,7 @@ class NewCreateForm  extends Component{
 
 				<Section title="租赁明细" description="" rightMenu = {
 					<Menu>
-						<MenuItem primaryText="录入单价" />
+						<MenuItem primaryText="录入单价"  onTouchTap={this.openStationUnitPriceDialog}/>
 						<MenuItem primaryText="删除" onTouchTap={this.onStationDelete} />
 						<MenuItem primaryText="租赁"  onTouchTap={this.openStationDialog} />
 					</Menu>
@@ -349,6 +381,13 @@ class NewCreateForm  extends Component{
 							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
 
+					<Dialog
+						title="录入单价"
+						autoScrollBodyContent={true}
+						open={this.state.openStationUnitPrice} >
+								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
+					  </Dialog>
+
 			</div>);
 	}
 	}
@@ -383,6 +422,7 @@ export default connect((state)=>{
 	changeValues.boardroomnum = selector(state,'boardroomnum') || 0;
 	changeValues.leaseBegindate = selector(state,'leaseBegindate') || 0;
 	changeValues.leaseEnddate = selector(state,'leaseEnddate') || 0;
+	changeValues.wherefloor = selector(state,'wherefloor') || 0;
 
 	return {
 		changeValues
