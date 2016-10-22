@@ -64,7 +64,14 @@ export default  class ExitDetail extends Component {
 
 	 const orderBaseInfo = {};
 	 const contractList = [];
+	 const params = this.props.params;
+	 function onCancel(){
+		window.history.back();
+	}
 
+	function editUrl(){
+		return "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/increase/"+params.id+"/edit";
+	}
 
 	  const {basic} = this.state;
 
@@ -110,6 +117,14 @@ export default  class ExitDetail extends Component {
 				<BreadCrumbs children={['社区运营',,'合同详情','退租合同查看']}/>
 				<Section title="退租合同(查看)" description=""> 
 					<BasicRender/>
+					<Grid style={{marginTop:30}}>
+				  <Row>
+					  <Col md={4} align="center"></Col>
+					  <Col md={2} align="center"> <RaisedButton  label="编辑"  type="href" primary={true} href={editUrl()}/> </Col>
+					  <Col md={2} align="center"> <RaisedButton  label="确定"  type="submit" primary={true} onTouchTap={onCancel}/> </Col>
+					  <Col md={4} align="center"></Col>
+				  </Row>
+			  </Grid>
 				</Section>
 
 		  </div>

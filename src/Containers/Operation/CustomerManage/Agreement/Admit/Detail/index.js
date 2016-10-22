@@ -33,10 +33,21 @@ export default  class AdmitDetail extends Component {
 
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('showFinaContractIntentletter')).then(function(response){
+		// Store.dispatch(Actions.callAPI('showFinaContractIntentletter')
+		// .then(function(response){
+		// 	_this.setState({
+		// 		basic:response
+		// 	});
+		// 	console.log(response);
+		// }))
+
+		Store.dispatch(Actions.callAPI('showFinaContractIntentletter'))
+		.then(function(response){
+			console.log(response);
 			_this.setState({
 				basic:response
 			});
+
 		});
 
 	}
@@ -114,10 +125,12 @@ export default  class AdmitDetail extends Component {
 												</TableHeader>
 												<TableBody>
 
-												{basic.stationList.length && basic.stationList.map((item,index)=>{
+												{
+													basic.stationList && basic.stationList.map((item,index)=>{
+													console.log(basic.stationList);
 													return (
 														 <TableRow key={index}>
-														<TableRowColumn>{item.stationType}</TableRowColumn>
+														<TableRowColumn>工单：{item.stationType}</TableRowColumn>
 														<TableRowColumn>
 															{item.stationId}
 														</TableRowColumn>

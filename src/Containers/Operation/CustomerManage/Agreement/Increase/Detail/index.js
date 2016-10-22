@@ -37,8 +37,9 @@ export default  class IncreaseDetail extends Component {
 		}
 
 		var _this = this;
-
-		Store.dispatch(Actions.callAPI('show-checkin-agreement')).then(function(response){
+		console.log(this.props.params.id);
+		Store.dispatch(Actions.callAPI('show-checkin-agreement',{id:_this.props.params.id}))
+		.then(function(response){
 			_this.setState({
 				basic:response
 			});

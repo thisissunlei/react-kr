@@ -153,10 +153,10 @@ class OrderDetail extends Component {
   		if(item){
   			return (
   				<Row>
-					<Col md={3} align="left"><Circle type={item.payStatus}></Circle>款项：押金</Col>
-					<Col md={3} align="left">计划付款日期：{item.installmentReminddate}</Col>
-					<Col md={3} align="left">计划付款金额：{item.installmentAmount}</Col>
-					<Col md={3} align="left">实际付款金额：{item.installmentBackamount}</Col>
+					<Col md={3} align="left" className="ContractName"><Circle type={item.payStatus}></Circle>款项：押金</Col>
+					<Col md={3} align="left" className="ContractName">计划付款日期：<Date.Format value={item.installmentReminddate}/></Col>
+					<Col md={3} align="left" className="ContractName">计划付款金额：{item.installmentAmount}</Col>
+					<Col md={3} align="left" className="ContractName">实际付款金额：{item.installmentBackamount}</Col>
 				</Row>
   			)
   		}
@@ -309,7 +309,7 @@ class OrderDetail extends Component {
 						return (
 						   <Grid key={index}>
 						   	<Row>
-								<Col md={12} align="left">{item.detailName}</Col>
+								<Col md={12} align="left" className="ContractName">{item.detailName}</Col>
 							</Row>
 							{this.renderTableItem(item.antecedent)}
 							{this.renderTableItem(item.earnest)}
@@ -317,11 +317,11 @@ class OrderDetail extends Component {
 							
 								item.installment && item.installment.map((list,index)=>{
 										return (
-											<Row key={index}>
-												<Col md={3} align="left"><Circle type={list.payStatus}></Circle>款项：{list.installmentName}</Col>
-												<Col md={3} align="left">计划付款日期：{list.installmentReminddate}</Col>
-												<Col md={3} align="left">计划付款金额：{list.installmentAmount}</Col>
-												<Col md={3} align="left">实际付款金额：{list.installmentBackamount}</Col>
+											<Row key={index} >
+												<Col md={3} align="left" className="ContractName"><Circle type={list.payStatus}></Circle>款项：{list.installmentName}</Col>
+												<Col md={3} align="left" className="ContractName">计划付款日期：<Date.Format value={list.installmentReminddate}/></Col>
+												<Col md={3} align="left" className="ContractName">计划付款金额：{list.installmentAmount}</Col>
+												<Col md={3} align="left" className="ContractName">实际付款金额：{list.installmentBackamount}</Col>
 											</Row>
 										)
 									})

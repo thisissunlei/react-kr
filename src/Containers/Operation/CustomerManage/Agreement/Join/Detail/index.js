@@ -82,12 +82,12 @@ export default  class JoinDetail extends Component {
 					<KrField component="labelText" grid={1/2} label="合同编号" value={basic.contractcode}/>
 
 					<KrField component="labelText" grid={1/2} label="支付方式" value={basic.payType && basic.payType.dicName}/>
-								<KrField component="labelText" grid={1/2} label="租赁期限" value={basic.leaseBeginDate + '-' + basic.leaseEndDate}/>
+					<KrField component="labelText" grid={1/2} label="租赁期限" value={basic.leaseBegindate + '-' + basic.leaseEnddate}/>
 
-					<KrField component="labelText" grid={1/2} label="首付款时间" value={basic.firstpaydate}/>
+					<KrField type="date" component="labelText" grid={1/2} label="首付款时间" value={basic.firstpaydate} />
 					<KrField component="labelText" grid={1/2} label="付款方式" value={basic.payment && basic.payment.dicName}/>
 
-					<KrField component="labelText" label="签署日期" value={basic.signdate}/>
+					<KrField component="labelText" label="签署日期" value={basic.signdate} type="date"/>
 
 					<KrField component="group" label="租赁项目">
 									<KrField component="labelText" label="工位" value={basic.stationnum}/>
@@ -121,7 +121,7 @@ export default  class JoinDetail extends Component {
 								
 								return (
 									<TableRow key={index}>
-										<TableRowColumn>工位:{item.stationType}</TableRowColumn>
+										<TableRowColumn>{item.stationType}</TableRowColumn>
 										<TableRowColumn>
 										{item.stationId}
 										</TableRowColumn>

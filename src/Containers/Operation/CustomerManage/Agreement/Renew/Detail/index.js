@@ -36,7 +36,8 @@ export default  class JoinDetail extends Component {
 
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('show-checkin-agreement')).then(function(response){
+		Store.dispatch(Actions.callAPI('show-checkin-agreement', {id:_this.props.params.id}))
+		.then(function(response){
 			_this.setState({
 				basic:response
 			});
