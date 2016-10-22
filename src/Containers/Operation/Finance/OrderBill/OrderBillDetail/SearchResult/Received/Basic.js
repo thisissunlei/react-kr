@@ -127,7 +127,7 @@ class Basic extends Component{
     }
 
     onSubmitQ(params){  //获取提交时的params
-	  	  
+	  	  //params.fileids=JSON.stringify(params.fileids);
 		  var _this = this;
 	      Store.dispatch(Actions.callAPI('payBack',{},params)).then(function(response){  //post请求   
  		  }).catch(function(err){
