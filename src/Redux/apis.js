@@ -213,7 +213,7 @@ const APIS  = {
 	},
 	//财务管理－订单明细账-分页获得财务流水
 	'getPageAccountFlow':{
-		url:'/api/krspace-finance-web/finaccount/data/getAccountFlow?accountId={accountId}&accountType={accountType}&orderId={orderId}&endTime={endTime}&pageNum={pageNum}&pageSize={pageSize}&propertyId={propertyId}&startTime={startTime}',		
+		url:'/mockjsdata/3/krspace-finance-web/finaccount/data/getAccountFlow?accountId={accountId}&accountType={accountType}&orderId={orderId}&endTime={endTime}&pageNum={pageNum}&pageSize={pageSize}&propertyId={propertyId}&startTime={startTime}',		
 		method:'get'
 	},
 	//财务管理－订单明细账-订单明细页首次加载
