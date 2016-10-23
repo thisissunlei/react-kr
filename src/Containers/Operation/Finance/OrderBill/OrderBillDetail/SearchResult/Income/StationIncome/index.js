@@ -50,6 +50,49 @@ class ViewForm extends Component{
 	}
 
 }
+
+class SupplementForm extends Component{
+	static PropTypes = {
+		onSubmit:React.PropTypes.func,
+		onCancel:React.PropTypes.func,
+	}
+	constructor(props,context){
+		super(props,context);
+		this.onCancel=this.onCancel.bind(this);
+		this.onSubmit=this.onSubmit.bind(this);
+		this.state={
+          supplement:false,
+
+		}
+	};
+	onCancel(){
+		const {onCancel} = this.props;
+		onCancel && onCancel();
+	};
+	onSubmit(){
+		const {onSubmit} = this.props;
+		onSubmit && onSubmit();
+	}
+
+	render(){
+		
+		return(
+				
+				<div>
+					<p>是否确定补挂延期收入？</p>
+					<Button  label="确定" type="button"  onTouchTap={this.onSubmit}/> 
+					<Button  label="取消" type="button" onTouchTap={this.onCancel} /> 
+				</div>
+					
+					
+				
+			);
+	}
+	
+}
+
+
+
 class ChangeAccountForm extends Component{
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
@@ -74,8 +117,7 @@ class ChangeAccountForm extends Component{
 	}
 	
 	render(){
-		let detail=this.props.detail;
-		console.log('detail',detail)
+		
 		return(
 				<Form name="jyayayoinForm"  onSubmit={this.onSubmit} >
 					
@@ -111,11 +153,13 @@ export default class StationIncome extends Component{
 		this.onOperation=this.onOperation.bind(this);
 		this.openAddaccount=this.openAddaccount.bind(this);
 		this.onConfrimSubmit=this.onConfrimSubmit.bind(this);
+		this.openSupplement=this.openSupplement.bind(this);
 		this.state={
            item:{},
            Params:{},
            openview:false,
           Addaccount:false,
+          supplement:false,
 		}
 	}
 
@@ -162,6 +206,29 @@ export default class StationIncome extends Component{
 			Addaccount:!this.state.Addaccount
 		})
 	}
+	//补收入
+	openSupplement(){
+		this.setState({
+			supplement:!this.state.supplement
+		})
+	}
+	onSupplementSubmit(){
+		/*Store.dispatch(Actions.callAPI('addIncome')).then(function(){
+			Notify.show([{
+				message:'创建成功',
+				type: 'danger',
+			}]);
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+	   	});*/
+		/*this.setState({
+			Addaccount:!this.state.Addaccount
+		})*/
+	}
+
 
 	render(){
 
@@ -190,7 +257,7 @@ export default class StationIncome extends Component{
 			 <div>
                    <Row>
 					<Col md={2}><Button label="挂账" onTouchTap={this.openAddaccount}/></Col>
-					<Col md={2}><Button label="补收入" primary={true}/></Col>
+					<Col md={2}><Button label="补收入" primary={true} onTouchTap={this.openSupplement}/></Col>
                   </Row>
 
                    <Table style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getPageAccountFlow'  ajaxParams={this.state.Params} onOperation={this.onOperation} >
@@ -236,6 +303,14 @@ export default class StationIncome extends Component{
 				>
 					
 					<ChangeAccountForm onSubmit={this.onConfrimSubmit}  onCancel={this.openAddaccount}  />
+			  	</Dialog>
+			  	<Dialog
+				title="补收入"
+				modal={true}
+				open={this.state.supplement}
+				>
+					
+					<SupplementForm onSubmit={this.onSupplementSubmit}  onCancel={this.openSupplement}  />
 			  	</Dialog>
 			</div>		
 

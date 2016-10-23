@@ -256,6 +256,11 @@ const APIS  = {
 		url:'/mockjsdata/3/krspace-finance-web//finaccount/opt/supplementIncome',		
 		method:'post'
 	},
+	//财务管理－订单明细账-补收入
+	'addIncome':{
+		url:'/mockjsdata/3/krspace_finance_web/finaccount/opt/addIncome',		
+		method:'post'
+	},
 	//财务管理－开票列表-list
 	'getFnaInvoiceModelListByAjax':{
 		url:'/mockjsdata/3/krspace-finance-web/finaccount/fnaInvoiceModel/getFnaInvoiceModelListByAjax?pageSize={pageSize}&operatedate={operatedate}&page={page}&operateName={operateName}&invoiceType={invoiceType}&creater={creater}',		
