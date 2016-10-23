@@ -129,6 +129,7 @@ export default(
 				{/*财务管理*/}
 				<Route path="finance" component={Basic}>
 					<Route path="index" component={Operation.Finance.Home}/>
+
 					<Route path="orderbill" component={Basic}>
 						<Route path="receiptList" component={Operation.Finance.OrderBill.ReceiptList}/>
 
@@ -137,6 +138,12 @@ export default(
 						{/*订单账单明细*/}
 						<Route path="detail" component={Operation.Finance.OrderBill.OrderBillDetail}/>
 
+
+					</Route>
+
+					{/*开票列表*/}
+					<Route path="invoice" component={Basic}>
+						<Route path="list" component={Operation.Finance.Invoice}/>
 					</Route>
 
 					{/*代码配置*/}
