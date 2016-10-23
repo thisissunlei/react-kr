@@ -22,6 +22,7 @@ export default class DateComponent extends React.Component{
 			return ;
 		}
 		let {input} = this.props;
+		console.log('------;',value);
 		/*
 		var dt = new Date(value);
 		var result =  dt.getFullYear()+'-'+(1+dt.getMonth())+'-'+dt.getDate()+' '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds();
