@@ -57,6 +57,7 @@ class ChangeAccountForm extends Component{
 	constructor(props,context){
 		super(props,context);
 		this.onCancel=this.onCancel.bind(this);
+		this.onSubmit=this.onSubmit.bind(this);
 		this.state={
           Addaccount:false,
 
@@ -66,11 +67,16 @@ class ChangeAccountForm extends Component{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
+	onSubmit(form){
+		console.log('11111')
+		const {onSubmit} = this.props;
+		onSubmit && onSubmit(form);
+	}
 	
 	render(){
 		console.log(this.props)
 		return(
-				<Form name="jyayayoinForm"  onSubmit={this.onSubmit} >
+				<Form name="ChangeAccountForm"  onSubmit={this.onSubmit} >
 					
 					<KrField grid={1} name="accountid" component="select" label="代码名称" /> 
 					<KrField grid={1} name="operatedate" type="date" component="date" label="付款日期" /> 
@@ -103,7 +109,7 @@ export default class LivePaymentIncome extends Component{
 		this.openViewDialog=this.openViewDialog.bind(this);
 		this.onOperation=this.onOperation.bind(this);
 		this.openAddaccount=this.openAddaccount.bind(this);
-
+		this.onConfrimSubmit=this.onConfrimSubmit.bind(this);
 		this.state={
            item:{},
            Params:{},
@@ -135,13 +141,28 @@ export default class LivePaymentIncome extends Component{
 	}
 	
 	openAddaccount(){
-		console.log('12345')
+		
 		this.setState({
 			Addaccount:!this.state.Addaccount
 		})
 	}
 
-
+	onConfrimSubmit(formValues){
+		Store.dispatch(Actions.callAPI('supplementIncome',{},formValues)).then(function(){
+			Notify.show([{
+				message:'创建成功',
+				type: 'danger',
+			}]);
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+	   	});
+		this.setState({
+			Addaccount:!this.state.Addaccount
+		})
+	}
 
 	render(){
 
@@ -216,7 +237,7 @@ export default class LivePaymentIncome extends Component{
 				open={this.state.Addaccount}
 				>
 					
-					<ChangeAccountForm  onCancel={this.openAddaccount} />
+					<ChangeAccountForm detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openAddaccount} />
 			  	</Dialog>
 			  	
 			</div>		

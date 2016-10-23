@@ -59,6 +59,7 @@ class ChangeAccountForm extends Component{
 	constructor(props,context){
 		super(props,context);
 		this.onCancel=this.onCancel.bind(this);
+		this.onSubmit=this.onSubmit.bind(this);
 		this.state={
           Addaccount:false,
 
@@ -68,7 +69,10 @@ class ChangeAccountForm extends Component{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
-	
+	onSubmit(){
+		const {onSubmit} = this.props;
+		onSubmit && onSubmit();
+	}
 	render(){
 		let detail=this.props.detail;
 		console.log('detail',detail)
@@ -106,6 +110,7 @@ export default class Other extends Component{
 		this.openViewDialog=this.openViewDialog.bind(this);
 		this.onOperation=this.onOperation.bind(this);
 		this.openAddaccount=this.openAddaccount.bind(this);
+		this.onConfrimSubmit=this.onConfrimSubmit.bind(this);
 		this.state={
            item:{},
            Params:{},
@@ -140,7 +145,22 @@ export default class Other extends Component{
 			Addaccount:!this.state.Addaccount
 		})
 	}
-
+	onConfrimSubmit(formValues){
+		Store.dispatch(Actions.callAPI('supplementIncome',{},formValues)).then(function(){
+			Notify.show([{
+				message:'创建成功',
+				type: 'danger',
+			}]);
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+	   	});
+		this.setState({
+			Addaccount:!this.state.Addaccount
+		})
+	}
 	render(){
 
 	   let {params,type} = this.props;
@@ -209,7 +229,7 @@ export default class Other extends Component{
 				open={this.state.Addaccount}
 				>
 					
-					<ChangeAccountForm  onCancel={this.openAddaccount}  />
+					<ChangeAccountForm onSubmit={this.onConfrimSubmit} onCancel={this.openAddaccount}  />
 			  	</Dialog>
 
 			</div>		
