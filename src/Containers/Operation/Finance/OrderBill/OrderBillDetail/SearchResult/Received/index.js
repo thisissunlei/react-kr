@@ -28,7 +28,7 @@ import Earnest from './Earnest';
 import BusinessIncome from './BusinessIncome';
 import Other from './Other';
 import Basic from './Basic/index';
-import Station from './Station';
+import Station from './Station/index';
 import Deposit from './Deposit';
 import LivePayment from './LivePayment';
 
