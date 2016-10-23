@@ -44,25 +44,25 @@ const APIS  = {
 
 	//合同－退租合同－查看
 	'getFnaContractWithdrawalById':{
-		url:'/mockjsdata/3/krspace-finance-web/fnaContractWithdrawalController/getFnaContractWithdrawalById',
+		url:'/mockjsdata/3/krspace-finance-web/fnaContractWithdrawalController/getFnaContractWithdrawalById?id={id}',
 		method:'get'
 	},
 
 	//合同－承租合同－查看
 	'show-fina-contract-intentletter':{
-		url:'/mockjsdata/3/krspace-finance-web/finacontractdetail/fina-contract-intentletter/acitions/show',
+		url:'/api/3/krspace-finance-web/finacontractdetail/fina-contract-intentletter/acitions/show',
 		method:'get'
 	},
 
 	//合同－承租合同－查看
 	'showFinaContractIntentletter':{
-		url:'/mockjsdata/3/krspace-finance-web/finacontractdetail/fina-contract-intentletter/acitions/show',
+		url:'/api/krspace-finance-web/finacontractdetail/fina-contract-intentletter/acitions/show?id={id}',
 		method:'get'
 	},
 
 	//合同－减租合同－查看
 	'showFnaContractRentController':{
-		url:'/mockjsdata/3/krspace-finance-web/fnaContractRentController/getFnaContractRentById',
+		url:'/api/krspace-finance-web/fnaContractRentController/getFnaContractRentById?communityId={communityId}&customerId={customerId}&id={id}',
 		method:'get'
 	},
 	//合同－(入驻合同、增租、续租)－查看

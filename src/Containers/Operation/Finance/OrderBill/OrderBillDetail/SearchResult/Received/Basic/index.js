@@ -34,7 +34,7 @@ export default class Basic extends Component{
 	static PropTypes = {
 		params:React.PropTypes.object,
 		type:React.PropTypes.string,
-		detailResult:React.PropTypes.object
+		detailResult:React.PropTypes.object,
 	}
 
 	constructor(props,context){
@@ -47,14 +47,32 @@ export default class Basic extends Component{
 		this.QuitMoneyDialog=this.QuitMoneyDialog.bind(this);
         
 		  this.state = {
+		  	initialValues:{},
 			openReceive:false,
 			openQuit:false,
 			arr:[],
-			initialValues:{}
+			
 	     }
    }
 
 	componentDidMount() {
+
+        var _this = this;
+        let initialValues = {};
+		Store.dispatch(Actions.callAPI('getAccountFlow',{
+			accountType:'PAYMENT',
+			mainbillid:'3'
+		})).then(function(response){
+             initialValues.mainbillid =response.topdata.mainbillid;  
+			_this.setState({
+				initialValues
+			});
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+		});
 
 	}
     
@@ -156,8 +174,9 @@ export default class Basic extends Component{
 			items=[];
 		}
         
-        //console.log("nmnmnm",mainbillid);
- 
+
+
+	 
 		return(
 
 			 <div>
@@ -166,7 +185,7 @@ export default class Basic extends Component{
 					<Col md={2}><Button label="退款" primary={true} onTouchTap={this.openQuitDialog}/></Col>
                   </Row>
        
-                  <Table displayCheckbox={false}>
+                  <Table displayCheckbox={true}>
 			          <TableHeader>
 			          <TableHeaderColumn>序号</TableHeaderColumn>
 			          <TableHeaderColumn>交易日期</TableHeaderColumn>
@@ -199,7 +218,7 @@ export default class Basic extends Component{
 						modal={true}
 						open={this.state.openReceive}
 					>
-					  <ReceivedMoney onSubmit={this.onAddReceivedSubmit} onCancel={this.ReceivedDialog} optionList={this.state.arr}/>
+					  <ReceivedMoney onSubmit={this.onAddReceivedSubmit} onCancel={this.ReceivedDialog} optionList={this.state.arr} initialValues={this.state.initialValues} />
 
 				  </Dialog>
 

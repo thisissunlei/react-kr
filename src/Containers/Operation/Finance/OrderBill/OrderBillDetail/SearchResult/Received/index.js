@@ -41,6 +41,7 @@ export default class Received extends Component{
 		params:React.PropTypes.object,
 		type:React.PropTypes.string,
 		detailResult:React.PropTypes.object,
+		mainId:React.PropTypes.number,
 	}
 
 	constructor(props,context){
@@ -51,7 +52,7 @@ export default class Received extends Component{
 
 
 	componentDidMount() {
-
+       
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -73,11 +74,11 @@ export default class Received extends Component{
 
 			 <div>
 
-			   <Earnest type="dinjin" params={this.props.params} />
+			   <Earnest type="dinjin" params={this.props.params} mainId={this.props.mainId}/>
 			   <BusinessIncome  type="yingshouhuikuan" params={this.props.params} />
 			   <Other type="qitahuikuan" params={this.props.params}/>
-			   <Basic type="basic" params={this.props.params} detailResult={this.props.detailResult}/>
-			   <Station type="gonweihuikuan" params={this.props.params} />
+			   <Basic type="basic" params={this.props.params} detailResult={this.props.detailResult} />
+			   <Station type="gonweihuikuan" params={this.props.params}/>
 			   <Deposit type="yajin" params={this.props.params} />
 			   <LivePayment type="shenghuoxiaofeihuikuan" params={this.props.params} />
 

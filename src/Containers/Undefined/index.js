@@ -5,6 +5,7 @@ import {bindActionCreators} from 'redux';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 import {
+DatePicker,
 	Form,
 	KrField,
 	Table,
@@ -44,9 +45,9 @@ export default class Undefined extends Component{
 	componentDidMount() {
 
 	}
+
 	onSubmit(values){
 		console.log('--values',values);
-
 	}
 
 	render(){
@@ -56,18 +57,41 @@ export default class Undefined extends Component{
 			age:1,
 		}
 
+		let validations = {
+			age:{
+				minLength:{
+					value:5,
+					message:'最小长度'
+				},
+			},
+			lessorContacttel:{
+				minLength:{
+					value:1,
+					message:'最小长度'
+				},
+				maxLength:{
+					value:2,
+					message:'最大长度为2'
+				}
+			}
+
+	   	};
+
 		return(
 
 			<div>
 					<Section title="出错了" description="" >
 
-						<Form name="jyayayoinForm" initialValues={initialValues} onSubmit={this.onSubmit}>
+
+
+		   	<Form name="jyayayoinForm" initialValues={initialValues} onSubmit={this.onSubmit} validations={validations}>
 								<KrField grid={1/2}  name="age" type="text" component="input" label="age" /> 
 								<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 								<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 								<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 								<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 								<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
+								<KrField grid={1/2}  name="lessorContacttel" component="date" label="电话" /> 
 
 								 <Button  label="确定" type="submit" primary={true} /> 
 

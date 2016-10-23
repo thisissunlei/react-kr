@@ -15,6 +15,8 @@ import {
 
 import {KrField,LabelText} from 'kr-ui/Form';
 
+import Date from 'kr-ui/Date';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import { Button } from 'kr-ui/Button';
 import {Actions,Store} from 'kr/Redux';
@@ -35,13 +37,18 @@ export default  class ReduceDetail extends Component {
 			basic:{
 				payment:{
 				},
-				stationList:[]
+				stationVos:[]
 			}
 		}
 
 		var _this = this;
-
-		Store.dispatch(Actions.callAPI('showFnaContractRentController')).then(function(response){
+		console.log(this.props.params);
+		Store.dispatch(Actions.callAPI('showFnaContractRentController',
+			{
+				id:this.props.params.id,
+				communityId:this.props.params.orderId,
+				customerId:this.props.params.customerId
+			})).then(function(response){
 			_this.setState({
 				basic:response
 			});
@@ -69,9 +76,16 @@ export default  class ReduceDetail extends Component {
 
 	 const orderBaseInfo = {};
 	 const contractList = [];
-
-
+	
 	  const {basic} = this.state;
+	  const params = this.props.params;
+	 function onCancel(){
+		window.history.back();
+	}
+
+	function editUrl(){
+		return "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/increase/"+params.id+"/edit";
+	}
 
 	  const BasicRender = (props)=>{
 
@@ -148,10 +162,18 @@ export default  class ReduceDetail extends Component {
 
       <div>
 
-			<BreadCrumbs children={['社区运营',,'合同详情','入驻合同查看']}/>
+			<BreadCrumbs children={['社区运营',,'合同详情','减租合同查看']}/>
 
-			<Section title="入驻合同(查看)" description=""> 
+			<Section title="减租合同(查看)" description=""> 
 				<BasicRender/>
+				<Grid style={{marginTop:30}}>
+				  <Row>
+					  <Col md={4} align="center"></Col>
+					  <Col md={2} align="center"> <RaisedButton  label="编辑"  type="href" primary={true} href={editUrl()}/> </Col>
+					  <Col md={2} align="center"> <RaisedButton  label="确定"  type="submit" primary={true} onTouchTap={onCancel}/> </Col>
+					  <Col md={4} align="center"></Col>
+				  </Row>
+			  </Grid>
 			</Section>
 
       </div>

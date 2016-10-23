@@ -12,6 +12,7 @@ import {Actions,Store} from 'kr/Redux';
 
 import {Grid,Row,Col} from 'kr-ui/Grid';
 import {KrField,LabelText} from 'kr-ui/Form';
+import Date from 'kr-ui/Date';
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
 
@@ -26,16 +27,26 @@ export default  class AdmitDetail extends Component {
 			basic:{
 				payment:{
 				},
-				stationList:[]
+				stationVos:[]
 			}
 		}
 
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('showFinaContractIntentletter')).then(function(response){
+		// Store.dispatch(Actions.callAPI('showFinaContractIntentletter')
+		// .then(function(response){
+		// 	_this.setState({
+		// 		basic:response
+		// 	});
+		// 	console.log(response);
+		// }))
+
+		Store.dispatch(Actions.callAPI('showFinaContractIntentletter', {id:this.props.params.id}))
+		.then(function(response){
 			_this.setState({
 				basic:response
 			});
+
 		});
 
 	}
@@ -50,7 +61,14 @@ export default  class AdmitDetail extends Component {
 
 	 const orderBaseInfo = {};
 	 const contractList = [];
+	 function onCancel(){
+		window.history.back();
+	}
+	const params = this.props.params;
 
+	function editUrl(){
+		return "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/admit/"+params.id+"/edit";
+	}
 	  const {basic} = this.state;
 
 	  const BasicRender = (props)=>{
@@ -75,8 +93,11 @@ export default  class AdmitDetail extends Component {
 <KrField label="所属楼层"   grid={1/2} component="labelText" value={basic.wherefloor}/>
 
 <KrField label="定金总额"   grid={1/2} component="labelText" value={basic.totaldownpayment}/>
-<KrField label="签署日期"   grid={1/2} component="labelText" value={basic.signdate}/>
-
+<KrField component="group" grid={1/2} label="签署日期:">
+	<Row style={{marginTop:5}}>
+		<Date.Format value={basic.signdate}/>
+	</Row>
+</KrField>
 <KrField label="合同编号"   grid={1/2} component="labelText" value={basic.contractcode}/>
 <KrField label="付款方式"   grid={1/2} component="labelText" value={basic.payment.dicName}/>
 
@@ -85,9 +106,12 @@ export default  class AdmitDetail extends Component {
 	<KrField label="工位"   grid={1/1} component="labelText" value={basic.stationnum}/>
 	<KrField label="会议室"   grid={1/1} component="labelText" value={basic.boardroomnum}/>
   </KrField>
+ <Grid>
+	  <Row style={{padding:10,marginBottom:15}}>
+		  <Col md={6} align="left" >租赁期限： <Date.Format value={basic.leaseBegindate}/>  ——  <Date.Format value={basic.leaseEnddate}/>  </Col>
 
-<KrField label="租赁期限"   grid={1/1} component="labelText" value={basic.leaseBegindate + '-' + basic.leaseEnddate}/>
-
+	  </Row>
+</Grid>
 <KrField label="保留天数"   grid={1/2} component="labelText" value={basic.templockday}/>
 
 <KrField label="备注"   grid={1/1} component="labelText" value={basic.contractmark}/>
@@ -106,10 +130,12 @@ export default  class AdmitDetail extends Component {
 												</TableHeader>
 												<TableBody>
 
-												{basic.stationList.length && basic.stationList.map((item,index)=>{
+												{
+													basic.stationVos && basic.stationVos.map((item,index)=>{
+													console.log(basic.stationVos);
 													return (
 														 <TableRow key={index}>
-														<TableRowColumn>{item.stationType}</TableRowColumn>
+														<TableRowColumn>工单：{item.stationType}</TableRowColumn>
 														<TableRowColumn>
 															{item.stationId}
 														</TableRowColumn>
@@ -145,8 +171,8 @@ export default  class AdmitDetail extends Component {
 <Grid style={{marginTop:30}}>
 				  <Row>
 					  <Col md={4} align="center"></Col>
-					  <Col md={2} align="center"> <Button  label="编辑"  type="submit" primary={true}/> </Col>
-					  <Col md={2} align="center"> <Button  label="创建"  type="submit" primary={true}/> </Col>
+					  <Col md={2} align="center"> <Button  label="编辑"  type="href" primary={true} href={editUrl()}/> </Col>
+					  <Col md={2} align="center"> <Button  label="确定"  type="submit" primary={true} onTouchTap={onCancel}/> </Col>
 					  <Col md={4} align="center"></Col>
 				  </Row>
 			  </Grid>
