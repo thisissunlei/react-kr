@@ -327,7 +327,7 @@ class NewCreateForm  extends Component{
 				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} /> 
 				<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} />
 
-				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" /> 
+				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" defaultValue={initialValues.signdate} /> 
 
 				<KrField name="firstpaydate" component="date" label="首付款时间"  /> 
 				<KrField grid={1/1} component="group" label=" 租赁项目"> 

@@ -5,6 +5,7 @@ import {bindActionCreators} from 'redux';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 import {
+DatePicker,
 	Form,
 	KrField,
 	Table,
@@ -81,13 +82,16 @@ export default class Undefined extends Component{
 			<div>
 					<Section title="出错了" description="" >
 
-						<Form name="jyayayoinForm" initialValues={initialValues} onSubmit={this.onSubmit} validations={validations}>
+
+
+		   	<Form name="jyayayoinForm" initialValues={initialValues} onSubmit={this.onSubmit} validations={validations}>
 								<KrField grid={1/2}  name="age" type="text" component="input" label="age" /> 
 								<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 								<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 								<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 								<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 								<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
+								<KrField grid={1/2}  name="lessorContacttel" component="date" label="电话" /> 
 
 								 <Button  label="确定" type="submit" primary={true} /> 
 
