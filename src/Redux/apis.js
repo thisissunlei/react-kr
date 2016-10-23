@@ -23,7 +23,13 @@ const APIS  = {
 		method:'post'
 	},
 
-	//创建入驻协议的新增和编辑
+	//增租协议-创建-编辑
+	'addOrEditIncreaseContract':{
+		url:'/api/krspace-finance-web/checkinagreement/addOrEditIncreaseContract',
+		method:'post'
+	},
+
+	//入驻协议-新增-编辑
 	'addOrEditEnterContract':{
 		url:'/api/krspace-finance-web/checkinagreement/addOrEditEnterContract',
 		method:'post'
