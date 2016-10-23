@@ -28,7 +28,7 @@ var arr=[];
 var arr1=[];
 import {Actions,Store} from 'kr/Redux';
 
-class Deposit extends Component{
+class BusinessMoney extends Component{
 
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
@@ -249,7 +249,7 @@ class Deposit extends Component{
 
 }
 
-export default reduxForm({form:'Deposit'})(Deposit);
+export default reduxForm({form:'BusinessMoney'})(BusinessMoney);
 
 
 
