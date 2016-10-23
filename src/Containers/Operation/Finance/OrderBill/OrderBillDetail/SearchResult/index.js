@@ -53,7 +53,10 @@ export default class SearchResult extends Component{
 
 	render(){
 		
-		console.log("fgfg",this.props.detailResult)
+		console.log("fgfg",this.props.detailResult);
+
+
+
 
 		return(
 

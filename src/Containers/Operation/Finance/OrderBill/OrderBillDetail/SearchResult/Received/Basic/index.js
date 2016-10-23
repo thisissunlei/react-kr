@@ -175,7 +175,8 @@ export default class Basic extends Component{
 		}
         
 
-
+        console.log("cvcv",params.childType);
+        console.log("cvcv",type);
 	 
 		return(
 

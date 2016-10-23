@@ -22,11 +22,11 @@ function callAPIMiddleware({dispatch,getState}){
 			if(!Array.isArray(types) ||
 				types.length !==3 ||
 				!types.every(type => typeof type === 'string')){
-					throw new Error('参数有问题');
+					//throw new Error('参数有问题');
 			}
 
 			if(!apiName){
-				throw new Error('参数有问题');
+				//throw new Error('参数有问题');
 			}
 
 			const [requestType,successType,failureType] = types;
