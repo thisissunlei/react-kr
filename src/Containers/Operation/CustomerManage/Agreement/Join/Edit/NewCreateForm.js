@@ -77,12 +77,30 @@ class NewCreateForm  extends Component{
 
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 
+		console.log('yayayaysta',this.props);
+
 		this.state = {
-			stationVos:[],
+			stationVos:this.props.stationVos,
 			selectedStation:[],
 			openStation:false,
 			openStationUnitPrice:false,
 		}
+	}
+
+	componentDidMount(){
+		let {initialValues}= this.props;
+		Store.dispatch(initialize('joinCreateForm',initialValues));
+	}
+
+	componentWillReceiveProps(nextProps){
+
+		if(nextProps.stationVos.length){
+			let stationVos = nextProps.stationVos;
+			this.setState({
+				stationVos
+			});
+		}
+
 	}
 
 	onStationVosChange(index,value){
@@ -179,14 +197,7 @@ class NewCreateForm  extends Component{
 		});
 	}
 
-	componentDidMount(){
-		let {initialValues}= this.props;
-		Store.dispatch(initialize('joinCreateForm',initialValues));
-	}
 
-	componentWillReceiveProps(nextProps){
-
-	}
 
 	onSubmit(form){
 
