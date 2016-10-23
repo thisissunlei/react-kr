@@ -95,7 +95,7 @@ export default class Other extends Component{
 			         <TableBody>        
                         
                          {items.map((item,index)=><TableRow key={index}>
-			              <TableRowColumn>{index+1}</TableRowColumn>
+			              <TableRowColumn>{item.id}</TableRowColumn>
 			              <TableRowColumn>{item.occuryear}</TableRowColumn>
 			              <TableRowColumn>{item.accountName}</TableRowColumn>
 			              <TableRowColumn>{item.recordType}</TableRowColumn>

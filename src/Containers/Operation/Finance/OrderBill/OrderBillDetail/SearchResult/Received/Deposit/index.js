@@ -72,79 +72,13 @@ export default class Deposit extends Component{
 	}
 
 	openBusinessDialog(){
-		
+		this.setState({
+			openBusiness:!this.state.openBusiness
+		});   
 	}
 
 	openSwitchDialog(){
-
-	}
-
-	openQuitDialog(){
-
-	}
-
-	openReceivedDialog(){
-		
-	}
-
-     ReceivedMoney(){ 
-		  var _this = this;
-	      Store.dispatch(Actions.callAPI('findAccountList',{
-	      	
-	      })).then(function(response){  //post请求
-
-	          console.log("ttttt",response);
- 		      response.map(function(item,index){ 
- 		      	 var list ={}
- 		      	 list.id=item.id;
- 		      	 list.accountname=item.accountname;
- 		      	 arr.push(list);		      	 	      	                                            
-              })
-              arr.map(function(item,index){
-				 item.label=item.accountname;
-                 item.value=item.id;
-				 return item;
-			    });
-
- 		        _this.setState({
-			      arr:arr
-		       });             		   
- 		}).catch(function(err){
-			Notify.show([{
-				message:'报错了',
-				type: 'danger',
-			}]);
-		 });
-        this.setState({
-			openReceive:!this.state.openReceive
-		});
-    }
-
-     onAddReceivedSubmit(params){  //获取提交时的params  	  
-	  	  //params.fileids=JSON.stringify(params.fileids);
-	  	  console.log("gggg",params);
-		  var _this = this;
-	      Store.dispatch(Actions.callAPI('receiveMoney',{},params)).then(function(response){  //post请求   		    
- 		}).catch(function(err){
-			Notify.show([{
-				message:'报错了',
-				type: 'danger',
-			}]);
-		 });
-	    _this.setState({
-			openReceive:!this.state.openReceive
-		});	  
-    }
- 
-    ReceivedDialog(){
-		this.setState({
-			openReceive:!this.state.openReceive,			
-		});	 
-	 }
-
-     
-     SwitchMoney(){ 
-           var _this = this;
+       var _this = this;
 	       Store.dispatch(Actions.callAPI('findContractListById',{
 	       	  id:'1'
 	       })).then(function(response){ 
@@ -171,7 +105,70 @@ export default class Deposit extends Component{
         this.setState({
 			openSwitch:!this.state.openSwitch
 		});       
+	}
+
+	openQuitDialog(){
+       this.setState({	    
+			openQuit:!this.state.openQuit,
+		});	 
+	}
+
+	openReceivedDialog(){
+		var _this = this;
+	      Store.dispatch(Actions.callAPI('findAccountList',{	      	
+	      })).then(function(response){  //post请求
+ 		      response.map(function(item,index){ 
+ 		      	 var list ={}
+ 		      	 list.id=item.id;
+ 		      	 list.accountname=item.accountname;
+ 		      	 arr.push(list);		      	 	      	                                            
+              })
+              arr.map(function(item,index){
+				 item.label=item.accountname;
+                 item.value=item.id;
+				 return item;
+			    });
+
+ 		        _this.setState({
+			      arr:arr
+		       });             		   
+ 		}).catch(function(err){
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		 });
+        this.setState({
+			openReceive:!this.state.openReceive
+		});
+	}
+
+   
+
+     onAddReceivedSubmit(params){  //获取提交时的params  	  
+	  	  //params.fileids=JSON.stringify(params.fileids);
+	  	  console.log("gggg",params);
+		  var _this = this;
+	      Store.dispatch(Actions.callAPI('receiveMoney',{},params)).then(function(response){  //post请求   		    
+ 		}).catch(function(err){
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		 });
+	    _this.setState({
+			openReceive:!this.state.openReceive
+		});	  
     }
+ 
+    ReceivedDialog(){
+		this.setState({
+			openReceive:!this.state.openReceive,			
+		});	 
+	 }
+
+     
+    
 
 
      onSwitchSubmit(params){  //获取提交时的param
@@ -197,12 +194,7 @@ export default class Deposit extends Component{
 
 
      
-     BusinessMoney(){ 
-        this.setState({
-			openBusiness:!this.state.openBusiness
-		});       
-    }
-     
+    
      onBusinessSubmit(params){  //获取提交时的param  	  
 		  var _this = this;
 	      Store.dispatch(Actions.callAPI('transToOperateIncome',{},params)).then(function(response){  //post请求   
@@ -224,12 +216,7 @@ export default class Deposit extends Component{
 			openBusiness:!this.state.openBusiness,
 		});	 
 	 }
-     
-     QuitMoneyDialog(){
-		this.setState({	    
-			openQuit:!this.state.openQuit,
-		});	 
-	 }
+   
     
     onQuitSubmit(params){  //获取提交时的params
 	  	  //params.fileids=JSON.stringify(params.fileids);
@@ -294,7 +281,11 @@ export default class Deposit extends Component{
 	    }
 
 	    //console.log("dedede",this.state.item)
-        
+       var url=window.location.href;
+       var url_arr=url.split('/');
+       let initialValues = {
+			mainbillid:url_arr[url_arr.length-2],
+		}
 
 		return(
 
@@ -321,7 +312,7 @@ export default class Deposit extends Component{
 			         <TableBody>        
                         
                          {items.map((item,index)=><TableRow key={index}>
-			              <TableRowColumn>{index+1}</TableRowColumn>
+			              <TableRowColumn>{item.id}</TableRowColumn>
 			              <TableRowColumn>{item.occuryear}</TableRowColumn>
 			              <TableRowColumn>{item.accountName}</TableRowColumn>
 			              <TableRowColumn>{item.recordType}</TableRowColumn>

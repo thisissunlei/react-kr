@@ -35,7 +35,7 @@ export default class Earnest extends Component{
 	static PropTypes = {
 		params:React.PropTypes.object,
 		type:React.PropTypes.string,
-        mainId:React.PropTypes.number,
+       
 	}
 
 	constructor(props,context){
@@ -234,10 +234,13 @@ export default class Earnest extends Component{
 	    if(!items){
 	    	items=[];
 	    }
+        
 
 
+       var url=window.location.href;
+       var url_arr=url.split('/');
        let initialValues = {
-			mainbillid:mainId,
+			mainbillid:url_arr[url_arr.length-2],
 		}
         
 
@@ -268,7 +271,7 @@ export default class Earnest extends Component{
 			         <TableBody>        
                         
                          {items.map((item,index)=><TableRow key={index}>
-			              <TableRowColumn>{index+1}</TableRowColumn>
+			              <TableRowColumn>{item.id}</TableRowColumn>
 			              <TableRowColumn>{item.occuryear}</TableRowColumn>
 			              <TableRowColumn>{item.accountName}</TableRowColumn>
 			              <TableRowColumn>{item.recordType}</TableRowColumn>

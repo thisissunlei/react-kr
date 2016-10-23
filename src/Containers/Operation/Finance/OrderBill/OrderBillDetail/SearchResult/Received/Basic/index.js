@@ -175,7 +175,8 @@ export default class Basic extends Component{
 		}
         
 
-
+        console.log("cvcv",params.childType);
+        console.log("cvcv",type);
 	 
 		return(
 
@@ -198,7 +199,7 @@ export default class Basic extends Component{
 			         </TableHeader>
 			         <TableBody>        
                        {items.map((item,index)=><TableRow key={index}>
-			              <TableRowColumn>{index+1}</TableRowColumn>
+			              <TableRowColumn>{item.id}</TableRowColumn>
 			              <TableRowColumn>{item.occurday}</TableRowColumn>
 			              <TableRowColumn>{item.accountname}</TableRowColumn>
 			              <TableRowColumn>{item.proptypename}</TableRowColumn>

@@ -35,25 +35,16 @@ export default class Basic extends Component{
 		super(props, context);
 
 		this.state={
-           item:{}
+           item:{},
+           Params:{
+           	accountType:'INCOME',
+           }
 		}
 	}
 
 
 	componentDidMount() {
-         var _this = this;
-		Store.dispatch(Actions.callAPI('getPageAccountFlow',{
-			accountType:'INCOME'
-		})).then(function(response){      
-			_this.setState({
-				item:response
-			});
-		}).catch(function(err){
-			Notify.show([{
-				message:err.message,
-				type: 'danger',
-			}]);
-		});
+        
 	}
 
 	render(){
@@ -61,7 +52,7 @@ export default class Basic extends Component{
 	   let {params,type} = this.props;
 
 	   let items=this.state.item.items;
-
+		console.log('state',this.state.Params)	
 	   
 	    if(!items){
 	    	items=[];
@@ -74,37 +65,32 @@ export default class Basic extends Component{
 		return(
 
 			 <div>
-                                 
-                  <Table displayCheckbox={false}>
-			          <TableHeader>
-			          <TableHeaderColumn></TableHeaderColumn>
-			          <TableHeaderColumn>序号</TableHeaderColumn>
-			          <TableHeaderColumn>交易日期</TableHeaderColumn>
-			          <TableHeaderColumn>代码</TableHeaderColumn>
-			           <TableHeaderColumn>类别</TableHeaderColumn>
-			          <TableHeaderColumn>款项</TableHeaderColumn>
-			          <TableHeaderColumn>金额</TableHeaderColumn>
-			           <TableHeaderColumn>备注</TableHeaderColumn>
-			           <TableHeaderColumn>操作</TableHeaderColumn>
-			         </TableHeader>
-			         <TableBody>        
-                 
-                     
-			           {items.map((item,index)=><TableRow key={index}>
-			              <TableRowColumn>{index+1}</TableRowColumn>
-			              <TableRowColumn>{item.occuryear}</TableRowColumn>
-			              <TableRowColumn>{item.accountName}</TableRowColumn>
-			              <TableRowColumn>{item.recordType}</TableRowColumn>
-			              <TableRowColumn>{item.propertyName}</TableRowColumn>
-			              <TableRowColumn>{item.finaflowAmount}</TableRowColumn>
-			               <TableRowColumn>{item.finaflowdesc}</TableRowColumn>
-			              <TableRowColumn>
-							  <Button label="查看" component="labelText" type="link"/>
-						 </TableRowColumn>
-			            </TableRow>
-			         )}
-           </TableBody>
-       </Table> 
+            <Table style={{marginTop:10}} ajax={true}  ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.Params}  >
+	              <TableHeader>
+				          <TableHeaderColumn>序号</TableHeaderColumn>
+				          <TableHeaderColumn>交易日期</TableHeaderColumn>
+				          <TableHeaderColumn>代码</TableHeaderColumn>
+				           <TableHeaderColumn>类别</TableHeaderColumn>
+				          <TableHeaderColumn>款项</TableHeaderColumn>
+				          <TableHeaderColumn>金额</TableHeaderColumn>
+				           <TableHeaderColumn>备注</TableHeaderColumn>
+				           <TableHeaderColumn>操作</TableHeaderColumn>
+	              </TableHeader>
+	              <TableBody>
+	                <TableRow>
+	                	<TableRowColumn name="id"></TableRowColumn>
+	                    <TableRowColumn name="occuryear"></TableRowColumn>
+	                    <TableRowColumn name="accountName"></TableRowColumn>
+	                    <TableRowColumn name="recordType"></TableRowColumn>
+	                    <TableRowColumn name="propertyName"></TableRowColumn>
+	                    <TableRowColumn name="finaflowAmount"></TableRowColumn>
+	                    <TableRowColumn name="finaflowdesc"></TableRowColumn>
+	                    <TableRowColumn>
+	                        <Button label="查看"  type="link" primary={true} />
+	                    </TableRowColumn>
+	                  </TableRow>
+	              </TableBody>
+            </Table>
 
 			</div>		
 

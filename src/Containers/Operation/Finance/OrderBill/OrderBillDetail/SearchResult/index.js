@@ -32,7 +32,7 @@ export default class SearchResult extends Component{
 	static PropTypes = {
 		detailResult:React.PropTypes.object,
 		params:React.PropTypes.object,
-		mainId:React.PropTypes.number,
+		
 	}
 
 	constructor(props,context){
@@ -53,13 +53,16 @@ export default class SearchResult extends Component{
 
 	render(){
 		
-		console.log("fgfg",this.props.detailResult)
+		console.log("fgfg",this.props.detailResult);
+
+
+
 
 		return(
 
 			 <div>
 
-			        <Received params={this.props.params} type="RECEIVED" detailResult={this.props.detailResult} mainId={this.props.mainId}/>
+			        <Received params={this.props.params} type="RECEIVED" detailResult={this.props.detailResult} />
                     <Income params={this.props.params} type="INCOME" />
 
 				  

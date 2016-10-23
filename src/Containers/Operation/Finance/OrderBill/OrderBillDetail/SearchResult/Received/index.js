@@ -74,7 +74,7 @@ export default class Received extends Component{
 
 			 <div>
 
-			   <Earnest type="dinjin" params={this.props.params} mainId={this.props.mainId}/>
+			   <Earnest type="dinjin" params={this.props.params}/>
 			   <BusinessIncome  type="yingshouhuikuan" params={this.props.params} />
 			   <Other type="qitahuikuan" params={this.props.params}/>
 			   <Basic type="basic" params={this.props.params} detailResult={this.props.detailResult} />
