@@ -4,6 +4,7 @@ import Param from 'jquery-param';
 import { Fields } from 'redux-form'; 
 import {Binder} from 'react-binding';
 import ReactMixin from "react-mixin";
+import dateFormat from 'dateformat';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 
 import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
@@ -197,16 +198,12 @@ class NewCreateForm  extends Component{
 		});
 	}
 
-
-
 	onSubmit(form){
 
+		form = Object.assign({},form);
 
 		let {stationVos} = this.state;
-
-
 		let {billList} = this.state;
-
 		let {changeValues} = this.props;
 
         form.lessorAddress = changeValues.lessorAddress;
@@ -216,6 +213,13 @@ class NewCreateForm  extends Component{
 		form.stationVos =  stationVos;
 
 		form.stationVos = JSON.stringify(form.stationVos);
+				
+		form.firstpaydate = dateFormat(form.firstpaydate,"yyyy-mm-dd h:MM:ss");
+		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd h:MM:ss");
+		form.leaseBegindate = dateFormat(form.leaseBegindate,"yyyy-mm-dd h:MM:ss");
+		form.leaseEnddate = dateFormat(form.leaseEnddate,"yyyy-mm-dd h:MM:ss");
+
+		console.log('form',form);
 
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
@@ -434,23 +438,7 @@ class NewCreateForm  extends Component{
 
 			</div>);
 	}
-	}
-
-	/*
-	const validate = values =>{
-		const errors = {}
-
-		if(!values.mainbilltype){
-			errors.mainbilltype = '请选择订单类型';
-		}else if (!values.communityid) {
-			errors.communityid = '请选择所在社区';
-		}else if(!values.mainbillname){
-			errors.mainbillname = '订单名称不能为空';
-		}
-
-		return errors
-	}
-	*/
+}
 
 const selector = formValueSelector('joinCreateForm');
 

@@ -120,7 +120,6 @@ export default  class JoinCreate extends Component {
 
 					initialValues.id = response.id;
 			   		initialValues.leaseId = response.leaseId;
-			   		initialValues.firstpaydate = response.firstpaydate;
 			   		initialValues.contractcode = response.contractcode;
 			   		initialValues.leaseAddress = response.leaseAddress;
 			   		initialValues.lessorContactName = response.lessorContactName;
@@ -134,6 +133,14 @@ export default  class JoinCreate extends Component {
 					initialValues.contractmark = response.contractmark;
 					initialValues.totalrent = response.totalrent;
 					initialValues.totaldeposit = response.totaldeposit;
+
+					//时间
+			   		initialValues.firstpaydate = new Date(response.firstpaydate);
+					initialValues.signdate = new Date(response.signdate);
+					initialValues.leaseBegindate = new Date(response.leaseBegindate);
+					initialValues.leaseEnddate = new Date(response.leaseEnddate);
+
+					console.log('时间',initialValues);
 
 
 					//处理stationvos
