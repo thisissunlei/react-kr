@@ -434,23 +434,7 @@ class NewCreateForm  extends Component{
 
 			</div>);
 	}
-	}
-
-	/*
-	const validate = values =>{
-		const errors = {}
-
-		if(!values.mainbilltype){
-			errors.mainbilltype = '请选择订单类型';
-		}else if (!values.communityid) {
-			errors.communityid = '请选择所在社区';
-		}else if(!values.mainbillname){
-			errors.mainbillname = '订单名称不能为空';
-		}
-
-		return errors
-	}
-	*/
+}
 
 const selector = formValueSelector('joinCreateForm');
 
