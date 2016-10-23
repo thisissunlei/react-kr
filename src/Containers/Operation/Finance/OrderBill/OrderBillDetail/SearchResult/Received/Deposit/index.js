@@ -71,6 +71,22 @@ export default class Deposit extends Component{
 		}
 	}
 
+	openBusinessDialog(){
+		
+	}
+
+	openSwitchDialog(){
+
+	}
+
+	openQuitDialog(){
+
+	}
+
+	openReceivedDialog(){
+		
+	}
+
      ReceivedMoney(){ 
 		  var _this = this;
 	      Store.dispatch(Actions.callAPI('findAccountList',{
