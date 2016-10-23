@@ -70,7 +70,6 @@ class NewCreateForm  extends Component{
 		this.getStationUrl = this.getStationUrl.bind(this);
 		this.onIframeClose = this.onIframeClose.bind(this);
 		this.openStationDialog = this.openStationDialog.bind(this);
-		this.getDateFormat = this.getDateFormat.bind(this);
 		this.onStationUnitPrice = this.onStationUnitPrice.bind(this);
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
 
@@ -136,12 +135,28 @@ class NewCreateForm  extends Component{
 
 		let {changeValues} = this.props;
 
+		let {wherefloor,leaseBegindate,leaseEnddate} = changeValues;
 
-		let {wherefloor} = changeValues;
 
 		if(!wherefloor){
 			Notify.show([{
 				message:'请先选择楼层',
+				type: 'danger',
+			}]);
+			return ;
+		}
+
+		if(!leaseBegindate){
+			Notify.show([{
+				message:'请选择租赁开始时间',
+				type: 'danger',
+			}]);
+			return ;
+		}
+
+		if(!leaseEnddate){
+			Notify.show([{
+				message:'请选择租赁结束时间',
 				type: 'danger',
 			}]);
 			return ;
@@ -161,22 +176,7 @@ class NewCreateForm  extends Component{
 
 	}
 
-	getDateFormat(value,format){
-
-		var result = '';
-		var dt = new Date(value);
-		var result =  dt.getFullYear()+'-'+(1+dt.getMonth())+'-'+dt.getDay()+' '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds();
-
-		return result;
-	}
-
 	onSubmit(form){
-
-		delete form.floorList;
-		delete form.customerName;
-		delete form.payTypeList;
-		delete form.paymentList;
-		delete form.fnaCorporationList;
 
 		let {billList} = this.state;
 
@@ -192,10 +192,8 @@ class NewCreateForm  extends Component{
 		try{
 			billList.map(function(item,index){
 					var obj = {};
-				/*
-					obj.leaseBeginDate = _this.getDateFormat(changeValues.leaseBegindate);
-					obj.leaseEndDate = _this.getDateFormat(changeValues.leaseEnddate);
-				*/
+					obj.leaseBeginDate = changeValues.leaseBegindate;
+					obj.leaseEndDate = changeValues.leaseEnddate;
 					obj.stationId = item.id;
 					obj.stationType = item.type;
 					obj.unitprice = '';
@@ -220,12 +218,10 @@ class NewCreateForm  extends Component{
 			}
 		}
 
-		form.stationVos = JSON.stringify(form.stationVos);
+		//form.stationVos = JSON.stringify(form.stationVos);
 
-		console.log('00000',form);
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
-
 	}
 
 	onCancel(){
@@ -237,16 +233,17 @@ class NewCreateForm  extends Component{
 
 	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}";
 
-		let {changeValues,initialValues} = this.props;
+		let {changeValues,initialValues,optionValues} = this.props;
+		let {billList} = this.state;
 
 		let params = {
-			communityId:initialValues.mainbillCommunityId,
+			communityId:optionValues.mainbillCommunityId,
 			floors:changeValues.wherefloor,
 			//工位
 			goalStationNum:changeValues.stationnum,
 			//会议室
 			goalBoardroomNum:changeValues.boardroomnum,
-			selectedObjs:"[{type:1,id:883}]"
+			selectedObjs:JSON.stringify(billList)
 		};
 
 		if(Object.keys(params).length){
@@ -279,9 +276,9 @@ class NewCreateForm  extends Component{
 
 	render(){
 
-		let { error, handleSubmit, pristine, reset, submitting,initialValues,changeValues} = this.props;
+		let { error, handleSubmit, pristine, reset, submitting,initialValues,changeValues,optionValues} = this.props;
 
-		let {fnaCorporationList} = initialValues;
+		let {fnaCorporationList} = optionValues;
 
 		fnaCorporationList && fnaCorporationList.map(function(item,index){
 			if(changeValues.leaseId  == item.id){
@@ -303,39 +300,40 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" /> 
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" /> 
 
-				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={initialValues.fnaCorporationList}  />
+				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}  />
 				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/> 
 				<KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" /> 
 				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 
-				<KrField grid={1/2}  component="labelText" label="承租方" value={initialValues.customerName}/> 
+				<KrField grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/> 
 
 				<KrField grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" /> 
 
 				<KrField grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" /> 
 				<KrField grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话" /> 
 
-				<KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={initialValues.communityName} /> 
+				<KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={optionValues.communityName} /> 
 
-				<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={initialValues.floorList} />
+				<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} />
 
-				<KrField grid={1/2}  name="communityAddress" component="labelText" label="地址" value={initialValues.communityAddress} /> 
+				<KrField grid={1/2}  name="communityAddress" component="labelText" label="地址" value={optionValues.communityAddress} /> 
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  /> 
 
-				<KrField grid={1}  name="" component="group" label="租赁期限"> 
-				<KrField grid={1/2}  name="leaseBegindate"  component="date"  /> 
-				<KrField grid={1/2}  name="leaseEnddate" component="date" /> 
+				<KrField grid={1/1}  component="group" label="租赁期限"> 
+					<KrField grid={1/2}  name="leaseBegindate"  component="date" /> 
+					<KrField grid={1/2}  name="leaseEnddate" component="date" /> 
 				</KrField>
 
-				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={initialValues.paymentList} /> 
-				<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={initialValues.payTypeList} />
+				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} /> 
+				<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} />
 
-				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" /> 
+				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" defaultValue={initialValues.signdate} /> 
 
 				<KrField name="firstpaydate" component="date" label="首付款时间"  /> 
-				<KrField name="" component="labelText" label=" 租赁项目"  /> 
-				<KrField grid={1}  name="stationnum" type="text" component="input" label="工位" /> 
-				<KrField grid={1}  name="boardroomnum" type="text" component="input" label="会议室" /> 
+				<KrField grid={1/1} component="group" label=" 租赁项目"> 
+					<KrField grid={1}  name="stationnum" type="text" component="input" label="工位" /> 
+					<KrField grid={1}  name="boardroomnum" type="text" component="input" label="会议室" /> 
+				</KrField>
 
 				<KrField grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"  /> 
 
@@ -369,8 +367,8 @@ class NewCreateForm  extends Component{
 									<TableRowColumn>
 											<input type="text" name="age"  valueLink={Binder.bindToState(this,"stationForm",`station-${index}`)} />
 									</TableRowColumn>
-									<TableRowColumn> <Date.Format value={initialValues.leaseBegindate}/></TableRowColumn>
-									<TableRowColumn><Date.Format value={initialValues.leaseEnddate}/></TableRowColumn>
+									<TableRowColumn> <Date.Format value={changeValues.leaseBegindate}/></TableRowColumn>
+									<TableRowColumn><Date.Format value={changeValues.leaseEnddate}/></TableRowColumn>
 
 									</TableRow>
 							);
@@ -440,7 +438,6 @@ export default connect((state)=>{
 	changeValues.leaseEnddate = selector(state,'leaseEnddate') || 0;
 	changeValues.wherefloor = selector(state,'wherefloor') || 0;
 
-	console.log("0000chann",changeValues);
 
 	return {
 		changeValues

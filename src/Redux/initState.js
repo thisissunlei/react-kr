@@ -138,6 +138,10 @@ let initState = {
 								primaryText:"属性配置",
 								router:'/operation/finance/codeSetting/attribute',
 							},
+							{
+								primaryText:"开票列表",
+								router:'/operation/finance/invoice/list',
+							}
 
 						]
 					},

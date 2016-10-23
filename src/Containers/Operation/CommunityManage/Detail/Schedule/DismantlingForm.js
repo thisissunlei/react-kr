@@ -68,11 +68,7 @@ class DismantlingForm  extends Component{
 
 		let { error, handleSubmit, pristine, reset, submitting,initialValues} = this.props;
 
-	/*	
-		var style={
-			textAlign:"center",
-			marginBottom:'20px'
-		}*/
+	
 	return (
 
 		<form onSubmit={handleSubmit(this.onSubmit)}> 
