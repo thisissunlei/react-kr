@@ -35,7 +35,6 @@ const config = {
 		publicPath:"/"
 	},
 	plugins: [
-		new webpack.optimize.CommonsChunkPlugin({name:'common', filename:'common.js'}),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoErrorsPlugin(),
@@ -50,6 +49,7 @@ const config = {
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(env)
 		}),
+		new webpack.optimize.CommonsChunkPlugin({name:'common', filename:'common.js'}),
 		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
 			title: '36kr融资',

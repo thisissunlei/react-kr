@@ -1,402 +1,25 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-import DatePicker from 'material-ui/DatePicker';
 import Notify from '../../Notify';
 
-import {Actions,Store} from 'kr/Redux';
 
 import Promise from 'promise-polyfill';
 
 import ReactSelect from 'react-select';
 import 'react-select/dist/react-select.css';
 
+import InputComponent from './InputComponent';
+import DateComponent from './DateComponent';
+import RadioComponent from './RadioComponent';
+import SelectComponent from './SelectComponent';
+import TextareaComponent from './TextareaComponent';
+import FileUploadComponent from './FileUploadComponent';
+import SearchPersonelComponent from './SearchPersonelComponent';
+import LabelTextComponent from './LabelTextComponent';
+import GroupComponent from './GroupComponent';
+
 import './index.less';
-
-
-const InputWrap = (props)=>{
-
-	const {requireLabel,label,main,error} = props;
-
-	return (
-		<div className="form-item-wrap">
-			<div className="form-item">
-			<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
-			<div className="form-main">
-			<div className="form-input-main">
-			<div className="form-input">
-				{main}
-			</div>
-			</div>
-				{error}
-			</div>
-		</div>	
-	</div>
-	)
-}
-
-
-class renderFieldDate extends React.Component{
-
-	static PropTypes = {
-		defaultValue:React.PropTypes.string,
-	}
-
-	constructor(props){
-		super(props)
-
-		this.onChange = this.onChange.bind(this);
-		this.renderDateComponent = this.renderDateComponent.bind(this);
-
-		this.state = {
-			value: new Date()
-		}
-
-	}
-	componentWillReceiveProps(nextProps){
-		let {input} = this.props;
-		if(this.props.defaultValue !=nextProps.defaultValue){
-			this.onChange('hah',nextProps.defaultValue);
-		}
-	}
-
-	onChange(event,value){
-
-		if(!value){
-			return ;
-		}
-		let {input} = this.props;
-
-		console.log("in",input);
-
-		var dt = new Date(value);
-		var result =  dt.getFullYear()+'-'+(1+dt.getMonth())+'-'+dt.getDate()+' '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds();
-
-		this.setState({
-			value:new Date(value)
-		});
-
-		input.onChange(result);
-	}
-
-	renderDateComponent(){
-
-		console.log('000yaya-----')
-		let {placeholder,input} = this.props;
-
-		const styles ={
-			border:'1px solid #ddd',
-			height:40,
-			borderRadius:'4px',
-			paddingLeft:10
-		}
-
-		return (
-			 <DatePicker hintText={placeholder||'日期'} textFieldStyle={styles} name={input.name} onChange={this.onChange} />
-		);
-
-	}
-
-	render(){
-
-	let{ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,style,defaultValue} = this.props;
-	return (
-				<div className="form-item-wrap " style={style}>
-				<div className="form-item date">
-				{label &&<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label> }
-				<div className="form-main">
-					<div className="form-input-main">
-						<div className="form-input">
-								 {this.renderDateComponent()} 
-						</div>
-					</div>
-					{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
-				</div>
-			  </div>	
-					</div>
-				);
-	}
-
-}
-   
-class renderFieldRadio  extends React.Component{
-
-	constructor(props){
-		super(props)
-	}
-
-	render(){
-
-		let { input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,style} = this.props; 
-
-		const Styles = Object.assign(style,{
-			paddingRight:10,
-		});
-
-		return (
-			<span style={Styles}>
-					<input {...input} placeholder={placeholder|| label} type={type} disabled={disabled}/>
-					<span style={{paddingLeft:5}}>{label}</span>
-			</span>	
-		)
-
-	}
-
-} 
-
-class renderFieldRenderText extends React.Component{
-
-	constructor(props){
-		super(props)
-	}
-
-	render(){
-		let { input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,style} = this.props;
-		if(type === 'hidden'){
-			return (
-				<div>
-					<input {...input} placeholder={placeholder|| label} type="hidden"/>
-				</div>
-			);
-		}
-
-		return (
-				<div className="form-item-wrap" style={style}>
-			  <div className="form-item">
-				<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
-				<div className="form-main">
-					<div className="form-input-main">
-						<div className="form-input">
-							<input {...input} placeholder={placeholder} type="text" disabled={disabled} className="render-text"/>
-						</div>
-					</div>
-				</div>
-			  </div>
-			</div>
-		)
-	}
-}
-
-class renderFieldInput extends React.Component{
-
-	constructor(props){
-		super(props)
-	}
-	render(){
-
-		let { input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,style} = this.props;
-
-			if(type === 'hidden'){
-				return (
-					<div>
-						<input {...input} placeholder={placeholder|| label} type="hidden"/>
-					</div>
-				);
-			}
-
-			var changeValue = function(){
-
-			}
-
-			return (
-					<div className="form-item-wrap" style={style}>
-				  <div className="form-item">
-					<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
-					<div className="form-main">
-						<div className="form-input-main">
-							<div className="form-input">
-								<input {...input} placeholder={placeholder|| label} type={type} disabled={disabled}  />
-							</div>
-						</div>
-						{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
-					</div>
-				  </div>
-				</div>
-			)
-	}
-
-}
-
-const renderFieldTextarea = ({ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,col,row,style}) => {
-
-	return (
-	
-	<div className="form-item-wrap" style={style}>
-  <div className="form-item">
-    <label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
-    <div className="form-main">
-		<div className="form-input-main">
-			<div className="form-input">
-				<textarea {...input} placeholder={placeholder|| label} disabled={disabled} col={col} row={row}></textarea>
-			</div>
-		</div>
-
-		{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
-    </div>
-  </div>
-		</div>
-	)
-}
-
-
-//file
-const renderFieldFile = ({ input, label, type, meta: { touched, error },children,disabled,style,requireLabel,options}) =>{
-
-	var form = {
-		sourceservicetoken:'',
-		docTypeCode:''
-	};
-	var token = '';
-
-	function changeValue(item){
-
-		window.item = item;
-		form.docTypeCode = item;
-
-		console.log(item);
-
-		Store.dispatch(Actions.callAPI('getSourceServiceToken')).then(function(response){
-			form.sourceservicetoken = response;
-			console.log('--form',form,response);
-			Store.dispatch(Actions.callAPI('uploadSingleFile',{},form)).then(function(response){
-				console.log("response",response);
-			}).catch(function(err){
-				Notify.show([{
-					message:err.message,
-					type: 'danger',
-				}]);
-		   	});
-		}).catch(function(err){
-			Notify.show([{
-				message:'后台出错了，获取token失败!',
-				type: 'danger',
-			}]);
-		});
-
-		input.onChange('1');
-	}
-
-	return (
-		<div className="form-item-wrap" style={style}>
-				<div className="form-item">
-				<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
-						<div className="form-main">
-						<div className="form-input">
-							<input type="file" onChange={changeValue} name={input.name}/>
-						</div>
-		{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
-					  </div>
-				</div>
-		</div>
-	);
-}
-
-
-//search
-const renderFieldSearch = ({ input, label, type, meta: { touched, error },children,disabled,style,requireLabel}) =>{
-
-	var isLoading = false;
-	var changeValue = function(item){
-		var value = (item && item.value) || '';
-		input.onChange(value);
-	}
-
-	var getOptions = function(lastname){
-
-			isLoading = true;
-
-			return new Promise((resolve, reject) => {
-
-				Store.dispatch(Actions.callAPI('getHrmResourceExtListByLastname',{
-					lastname:lastname
-				},{})).then(function(response){
-					response.forEach(function(item,index){
-						item.value = item.id;
-						item.label = item.lastname;
-					});
-					resolve({options:response});
-					isLoading = false;
-				}).catch(function(err){
-					reject(err);
-					isLoading = false;
-				});
-			});
-			isLoading = false;
-	}
-
-		return (
-				<div className="form-item-wrap" style={style}>
-				<div className="form-item">
-				<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
-						<div className="form-main">
-							<div className="form-input">
-								<ReactSelect.Async 
-										name={input.name} 
-										isLoading={isLoading}
-										value={input.value}
-										loadOptions={getOptions}
-										clearable={true}
-										clearAllText="清除"
-										onChange={changeValue} 
-										placeholder="请选择..." />
-							</div>
-		{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
-					  </div>
-				</div>
-				</div>
-		);
-}
-
-//select
-const renderFieldSelect = ({ input, label, type, meta: { touched, error },children,disabled,style,requireLabel,options}) =>{
-
-	function changeValue(item){
-		var value = (item && item.value) || '';
-		input.onChange(value);
-	}
-
-	if(options){
-		return (
-				<div className="form-item-wrap" style={style}>
-				<div className="form-item">
-				<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
-						<div className="form-main">
-						<div className="form-input">
-						<ReactSelect 
-								name={input.name}
-		   						searchable={false}
-		   						value={input.value} 
-								clearable={true}
-		   						options={options}
-		   						onChange={changeValue} 
-								placeholder="请选择..."/>
-						</div>
-						{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
-					  </div>
-				</div>
-		</div>
-		);
-
-	}
-
-	return (
-		<div className="form-item-wrap" style={style}>
-				<div className="form-item">
-				<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
-						<div className="form-main">
-
-							<div className="form-input">
-								<select {...input}  disabled={disabled}>
-								{children}
-								</select>
-							</div>
-
-							{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
-					  </div>
-				</div>
-		</div>
-	);
-}
 
 
 export default class KrField extends React.Component {
@@ -421,58 +44,38 @@ export default class KrField extends React.Component {
 
 		if(component ==='input' || component === 'text'){
 			return (
-				<Field {...this.props} component={renderFieldInput}  style={WrapStyles}/>
+				<Field {...this.props} component={InputComponent}  style={WrapStyles}/>
 			);
 		}
 
-
 		if(component ==='file'){
 			return (
-				<Field {...this.props} component={renderFieldFile}  style={WrapStyles}/>
+				<Field {...this.props} component={FileUploadComponent}  style={WrapStyles}/>
 			);
 		}
 
 		if(component ==='search'){
 			return (
-				<Field {...this.props} component={renderFieldSearch}  style={WrapStyles}/>
-			);
-		}
-
-		if(component ==='renderText'){
-			return (
-				<Field {...this.props} component={renderText}  style={WrapStyles}/>
+				<Field {...this.props} component={SearchPersonelComponent}  style={WrapStyles}/>
 			);
 		}
 
 		if(component === 'labelText' || type=='labelText'){
 
 			return (
-			<div className="form-item-wrap" style={WrapStyles}>
-						 <div className="label-item">
-							<label className="form-label">{label}:</label>
-							<div className="form-main">
-								<div className="form-input-main">
-									<div className="form-input">
-										<span className="text" >
-											{value}
-										</span>
-									</div>
-								</div>
-							</div>
-						  </div>
-					</div>
-				);
+				<LabelTextComponent {...this.props} style={WrapStyles}/>
+			);
 		}
 
 		if(component === 'textarea'){
 			return (
-				<Field {...this.props} component={renderFieldTextarea} style={WrapStyles}/>
+				<Field {...this.props} component={TextareaComponent} style={WrapStyles}/>
 			);
 		}
 
 		if(component === 'select' || type=='select'){
 			return (
-				<Field {...this.props} component={renderFieldSelect} style={WrapStyles}>
+				<Field {...this.props} component={SelectComponent} style={WrapStyles}>
 				{children}
 				</Field>
 			);
@@ -482,47 +85,32 @@ export default class KrField extends React.Component {
 
 		if(component === 'radio' || type=='radio'){
 			return (
-				<Field {...this.props} component={renderFieldRadio}  style={WrapStyles}/>
+				<Field {...this.props} component={RadioComponent}  style={WrapStyles}/>
 			);
 		}
 
 		if(component === 'date' || type=='date'){
 
 			return (
-				<Field {...this.props} component={renderFieldDate}  style={WrapStyles}/>
+				<Field {...this.props} component={DateComponent}  style={WrapStyles}/>
 			);
 
 		}
 
 		if(component === 'group' || type=='group'){
-
 			return (
-					<div className="form-item-wrap">
-								<div className="form-item">
-								<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
-								<div className="form-main">
-								<div className="form-input-main">
-								<div className="form-input">
-									{children}
-								</div>
-								</div>
-								</div>
-							</div>	
-						</div>
-				);
-
+				<GroupComponent {...this.props}/>
+			);
 		}
 
 		if(!component || component === 'input'){
-
 			return (
-				<Field {...this.props} component={renderFieldInput}  style={WrapStyles}/>
+				<Field {...this.props} component={InputComponent}  style={WrapStyles}/>
 			);
-
 		}
 
 		return (
-			<Field {...this.props} component={renderFieldInput}  style={WrapStyles}/>
+			<Field {...this.props} component={InputComponent}  style={WrapStyles}/>
 		);
 
 	}
