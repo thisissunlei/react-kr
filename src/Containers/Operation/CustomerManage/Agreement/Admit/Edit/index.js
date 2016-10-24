@@ -45,9 +45,10 @@ export default  class JoinCreate extends Component {
 
 	 onConfrimSubmit(){
 
+
 		let {formValues} = this.state;
 
-		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(){
+		Store.dispatch(Actions.callAPI('updateFinaContractIntentletter',{},formValues)).then(function(){
 			Notify.show([{
 				message:'创建成功',
 				type: 'danger',
@@ -75,13 +76,12 @@ export default  class JoinCreate extends Component {
 	 componentDidMount(){
 
 		var _this = this;
-		const {params} = this.props;
+		const {params} = this.props
 		let initialValues = {};
 		let optionValues = {};
 		 let stationVos = [];
 
-		Store.dispatch(Actions.callAPI('showFinaContractIntentletter',{id:params.id})).then(function(response){
-			console.log(response);
+		Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid =  params.orderId;
 
@@ -90,7 +90,7 @@ export default  class JoinCreate extends Component {
 			optionValues.communityAddress = response.customer.communityAddress; 
 			optionValues.leaseAddress = response.customer.customerAddress;
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）	
-			initialValues.contracttype = 'ENTER';
+			initialValues.contracttype = 'INTENTION';
 
 			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item,index){
 				item.value = item.id;
@@ -115,38 +115,41 @@ export default  class JoinCreate extends Component {
 			optionValues.communityId = response.customer.communityid;
 			optionValues.mainbillCommunityId =  response.mainbillCommunityId||1;
 
-
-			   	Store.dispatch(Actions.callAPI('show-checkin-agreement',{id:params.id})).then(function(response){
+			   	Store.dispatch(Actions.callAPI('showFinaContractIntentletter',{id:params.id})).then(function(response){
 
 					initialValues.id = response.id;
 			   		initialValues.leaseId = response.leaseId;
 			   		initialValues.contractcode = response.contractcode;
+			   		initialValues.lessorContactid = 112;
+			   		initialValues.templockday = response.templockday;
+			   		// initialValues.lessorContactid = response.lessorContactid;
 			   		initialValues.leaseAddress = response.leaseAddress;
 			   		initialValues.lessorContactName = response.lessorContactName;
 					initialValues.leaseContact = response.leaseContact;
 					initialValues.leaseContacttel = response.leaseContacttel;
-					initialValues.paytype = response.payType.id;
-					initialValues.paymodel = response.payment.id;
+					if(response.payType){
+						initialValues.paytype = response.payType.id;
+
+					}
+					if(response.payment){
+						initialValues.paymodel = response.payment.id;
+
+					}
 					initialValues.stationnum = response.stationnum;
 					initialValues.wherefloor = response.wherefloor;
-					initialValues.rentaluse = response.rentaluse;
 					initialValues.contractmark = response.contractmark;
-					initialValues.totalrent = response.totalrent;
-					initialValues.totaldeposit = response.totaldeposit;
 
 					//时间
-			   		initialValues.firstpaydate = new Date(response.firstpaydate);
-					initialValues.signdate = new Date(response.signdate);
 					initialValues.leaseBegindate = new Date(response.leaseBegindate);
 					initialValues.leaseEnddate = new Date(response.leaseEnddate);
-
+					initialValues.stationVos = response.stationVos;
 					console.log('时间',initialValues);
 
 
 					//处理stationvos
 					stationVos = response.stationVos;
 
-			   		console.log(stationVos,'---->>>>',response);
+			   		console.log(stationVos,'---->>>>',response.stationVos);
 
 					_this.setState({
 						initialValues,
@@ -155,6 +158,7 @@ export default  class JoinCreate extends Component {
 					});
 
 				}).catch(function(err){
+					console.log(err);
 					Notify.show([{
 						message:'后台出错请联系管理员',
 						type: 'danger',
@@ -175,6 +179,7 @@ export default  class JoinCreate extends Component {
   render() {
 
 	  let {initialValues,optionValues,stationVos} = this.state;
+	  console.log('index', this.state);
 
     return (
 

@@ -5,7 +5,7 @@ import { Fields } from 'redux-form';
 import {Binder} from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-
+import dateFormat from 'dateformat';
 import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
@@ -34,8 +34,8 @@ import {
 	Button,
 	Notify,
 	IframeContent,
-	Date,
 } from 'kr-ui';
+import Date from 'kr-ui/Date';
 
 @ReactMixin.decorate(LinkedStateMixin)
 class NewCreateForm  extends Component{
@@ -60,7 +60,6 @@ class NewCreateForm  extends Component{
 	constructor(props,context){
 		super(props, context);
 
-
 		//stationsRefs表单
 		this.stationRefs = {};
 
@@ -76,13 +75,14 @@ class NewCreateForm  extends Component{
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
 
 		this.onStationVosChange = this.onStationVosChange.bind(this);
-
+		console.log('------props',props);
 		this.state = {
-			stationVos:[],
+			stationVos:this.props.stationVos,
 			selectedStation:[],
 			openStation:false,
 			openStationUnitPrice:false,
 		}
+		console.log(this.props);
 	}
 
 	onStationVosChange(index,value){
@@ -123,11 +123,11 @@ class NewCreateForm  extends Component{
 	//删除工位
 	onStationDelete(){
 
-		let {selectedStation,stationVos} = this.state;
+		let {stationVos} = this.props;
+		let {selectedStation} = this.state;
 		stationVos = stationVos.filter(function(item,index){
-
 			if(selectedStation.indexOf(index) != -1){
-				return false;
+			return false;
 			}
 			return true;
 		});
@@ -185,11 +185,16 @@ class NewCreateForm  extends Component{
 	}
 
 	componentWillReceiveProps(nextProps){
-
+		if(nextProps.stationVos.length){
+			let stationVos = nextProps.stationVos;
+			this.setState({
+				stationVos
+			});
+		}
 	}
 
 	onSubmit(form){
-
+		form = Object.assign({},form);
 
 		let {stationVos} = this.state;
 
@@ -205,6 +210,10 @@ class NewCreateForm  extends Component{
 		form.stationVos =  stationVos;
 
 		form.stationVos = JSON.stringify(form.stationVos);
+		form.leaseBegindate = dateFormat(form.leaseBegindate,"yyyy-mm-dd h:MM:ss");
+		form.leaseEnddate = dateFormat(form.leaseEnddate,"yyyy-mm-dd h:MM:ss");
+		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd h:MM:ss");
+		console.log('form', form);
 
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
@@ -247,7 +256,6 @@ class NewCreateForm  extends Component{
 				}
 			}
 		}
-
 		return url ;
 	}
 
@@ -301,8 +309,9 @@ class NewCreateForm  extends Component{
 				changeValues.lessorAddress = item.corporationAddress;
 			}
 		});
+		
 
-		let {billList,stationVos} = this.state;
+		let {stationVos} = this.state;
 
 		return (
 
@@ -330,36 +339,26 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={optionValues.communityName} /> 
 
 				<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} />
+                <KrField grid={1/2}  name="totaldownpayment" type="text" component="input" label="定金总额"  /> 
+				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} /> 
 
-				<KrField grid={1/2}  name="communityAddress" component="labelText" label="地址" value={optionValues.communityAddress} /> 
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  /> 
 
-				<KrField grid={1/1}  component="group" label="租赁期限"> 
-					<KrField grid={1/2}  name="leaseBegindate"  component="date" /> 
-					<KrField grid={1/2}  name="leaseEnddate" component="date" /> 
-				</KrField>
-
-				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} /> 
-				<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} />
-
-				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" defaultValue={initialValues.signdate} /> 
-
-				<KrField name="firstpaydate" component="date" label="首付款时间"  /> 
 				<KrField grid={1/1} component="group" label=" 租赁项目"> 
 					<KrField grid={1}  name="stationnum" type="text" component="input" label="工位" /> 
 					<KrField grid={1}  name="boardroomnum" type="text" component="input" label="会议室" /> 
 				</KrField>
+				<KrField grid={1/1}  component="group" label="租赁期限"> 
+					<KrField grid={1/2}  name="leaseBegindate"  component="date" /> 
+					<KrField grid={1/2}  name="leaseEnddate" component="date" /> 
+				</KrField>
+				<KrField name="templockday"  grid={1} component="input" type="text" label="保留天数"/> 
+				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" /> 
+							 <KrField grid={1}  name="fileIdList" component="file" label="上传附件" /> 
 
-				<KrField grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"  /> 
-
-				<KrField grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" placeholder="" /> 
-				<KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" /> 
-				<KrField grid={1/2}  name="contractmark" component="textarea" label="备注" /> 
-				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" /> 
 
 				<Section title="租赁明细" description="" rightMenu = {
 					<Menu>
-						<MenuItem primaryText="录入单价"  onTouchTap={this.openStationUnitPriceDialog}/>
 						<MenuItem primaryText="删除" onTouchTap={this.onStationDelete} />
 						<MenuItem primaryText="租赁"  onTouchTap={this.openStationDialog} />
 					</Menu>
@@ -369,23 +368,16 @@ class NewCreateForm  extends Component{
 				<TableHeader>
 				<TableHeaderColumn>类别</TableHeaderColumn>
 				<TableHeaderColumn>编号／名称</TableHeaderColumn>
-				<TableHeaderColumn>单价(元/月)</TableHeaderColumn>
 					<TableHeaderColumn>租赁开始时间</TableHeaderColumn>
 						<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
 						</TableHeader>
 						<TableBody>
-						{stationVos.map((item,index)=>{
-							var typeLink = {
-								value: this.state.stationVos[index].unitprice,
-								requestChange: this.onStationVosChange.bind(null, index)
-							}
+						{
+							stationVos.map((item,index)=>{
 							return (
 								<TableRow key={index}>
 									<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
-									<TableRowColumn>{item.stationName}</TableRowColumn>
-									<TableRowColumn>
-											<input type="text" name="age"  valueLink={typeLink} />
-									</TableRowColumn>
+									<TableRowColumn>{item.stationId}</TableRowColumn>
 									<TableRowColumn> <Date.Format value={item.leaseBeginDate}/></TableRowColumn>
 									<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
 

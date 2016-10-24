@@ -307,6 +307,12 @@ class NewCreateForm  extends Component{
 		});
 
 		let {billList,stationVos} = this.state;
+		const payList = [
+			{value:1,label:'银行转账'},
+			{value:2,label:'支付宝'},
+			{value:3,label:'微信支付'},
+			{value:4,label:'POS机'},
+		]
 
 		return (
 
@@ -336,8 +342,7 @@ class NewCreateForm  extends Component{
 								 <KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  /> 
 
                                  <KrField grid={1/2}  name="totaldownpayment" type="text" component="input" label="定金总额"  /> 
-								 <KrField grid={1/2}  name="paymentId" type="text" component="select" label="付款方式" >
-								 </KrField>
+								 <KrField grid={1/2}  name="paymentId" type="text" component="select" label="付款方式" options={payList}/>
                                      
 								 <KrField grid={1/2}  name="" component="group" label="租赁期限"> 
 										  <KrField grid={1/2}  name="leaseBegindate"  component="date"  /> 
@@ -354,7 +359,7 @@ class NewCreateForm  extends Component{
 
 							
 							 <KrField grid={1}  name="contractmark" type="textarea" component="textarea" label="备注" /> 
-							 <KrField grid={1}  name="contractfile" component="file" label="上传附件" /> 
+							 <KrField grid={1}  name="fileIdList" component="file" label="上传附件" /> 
 
 
 					    <Section title="租赁明细" description="" rightMenu = {
@@ -372,13 +377,14 @@ class NewCreateForm  extends Component{
 											<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
 									</TableHeader>
 									<TableBody>
-										{initialValues.billList && initialValues.billList.map((item,index)=>{
+										{
+											stationVos && stationVos.map((item,index)=>{
 											return (
 												<TableRow key={index}>
 													<TableRowColumn>{item.stationType}</TableRowColumn>
 													<TableRowColumn>{item.stationId}</TableRowColumn>
-													<TableRowColumn>{item.leaseBeginDate}</TableRowColumn>
-													<TableRowColumn>{item.leaseEndDate}</TableRowColumn>
+													<TableRowColumn> <Date.Format value={item.leaseBeginDate}/></TableRowColumn>
+													<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
 												</TableRow>
 											);
 										})}
