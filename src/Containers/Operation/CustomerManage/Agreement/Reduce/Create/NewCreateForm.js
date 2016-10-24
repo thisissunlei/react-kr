@@ -79,19 +79,20 @@ class NewCreateForm  extends Component{
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 
 		this.state = {
-			stationVos:[],
+			stationVos:[
+				{id:122},
+				{id:12},
+				{id:1232},
+			],
 			selectedStation:[],
 			openStation:false,
 			openStationUnitPrice:false,
 		}
-
 	}
 
 	onStationVosChange(index,value){
-
 		let {stationVos} = this.state;
 		 stationVos[index].unitprice = value;
-
 	 	this.setState({stationVos});
 	}
 
@@ -133,15 +134,13 @@ class NewCreateForm  extends Component{
 		let  result = stationVos;
 
 		stationVos.forEach(function(item,index){
-
 			selectedList.forEach(function(selected,i){
-
 				if (item.id !=selected.id) {
 						result.push(selected);
 				}
 			});
 		});
-
+		console.log("0000",result);
 		this.setState({
 				stationVos:result
 		});
@@ -208,8 +207,6 @@ class NewCreateForm  extends Component{
 		onCancel && onCancel();
 	}
 
-
-
 	render(){
 
 		let { error, handleSubmit, pristine, reset, submitting,initialValues,changeValues,optionValues} = this.props;
@@ -225,9 +222,7 @@ class NewCreateForm  extends Component{
 		let {stationVos} = this.state;
 
 		return (
-
-
-			<div>
+	<div>
 
 <form onSubmit={handleSubmit(this.onSubmit)}>
 
@@ -252,12 +247,11 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="communityAddress" component="labelText" label="地址" value={optionValues.communityAddress} />
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  />
 
-				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" defaultValue={initialValues.signdate} />
+				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间"/>
 				<KrField grid={1}  name="totalrent" type="labelText"  label="减租金额"  /> {/*减租金额没有*/}
 
 				<KrField grid={1/2}  name="contractmark" component="textarea" label="备注" />
 				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" />
-
 
 				<Section title="租赁明细" description="" rightMenu = {
 					<Menu>

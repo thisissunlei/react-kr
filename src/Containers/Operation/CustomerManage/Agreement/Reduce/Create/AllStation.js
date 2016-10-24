@@ -1,12 +1,13 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {Binder} from 'react-binding';
-
+import dateFormat from 'dateformat';
 import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
 
 import {
+  Form,
   Table,
 	TableBody,
 	TableHeader,
@@ -22,11 +23,7 @@ import {
 	Notify,
 } from 'kr-ui';
 
-export default class AllStation  extends Component{
-
-  static DefaultPropTypes = {
-
-  }
+class SelectStationForm  extends Component{
 
 	static PropTypes = {
     searchParams:React.PropTypes.object,
@@ -41,17 +38,32 @@ export default class AllStation  extends Component{
 		this.onCancel = this.onCancel.bind(this);
 
     this.onSelect = this.onSelect.bind(this);
-
+    this.getLoadData = this.getLoadData.bind(this);
 
     this.state = {
-      searchParams:{
-        mainbillid:3
-    }
+      stationVos:[
+        {id:1},
+        {id:3},
+        {id:2},
+        {id:5},
+      ]
     }
 
 	}
 
-
+  getLoadData(){
+    var _this  = this;
+		Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
+			_this.setState({
+        stationVos:response
+			});
+		}).catch(function(err){
+			Notify.show([{
+				message:'后台出错请联系管理员',
+				type: 'danger',
+			}]);
+	   	});
+  }
 
   onSelect(selected){
 
@@ -66,6 +78,7 @@ export default class AllStation  extends Component{
     ];
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(stationVos);
+
 	}
 
 	onCancel(){
@@ -75,15 +88,21 @@ export default class AllStation  extends Component{
 
 	render(){
 
-		let { error, handleSubmit, pristine, reset, submitting} = this.props;
+		let { error, handleSubmit, pristine, reset, submitting,changeValues} = this.props;
+    let {stationVos} = this.state;
+
+    console.log('0000',this.props.changeValues);
+
 
 		return (
 			<div>
 
+<form onSubmit={handleSubmit(this.onSubmit)}>
+							<KrField grid={1/1}  name="startDate" component="date" label="减租开始时间" />
         {/*
       <Table ajax={true}  ajaxUrlName='getStationOrSettingList' ajaxParams={this.state.searchParams} onSelect={this.onSelect}>
           */}
-      <Table ajax={true}  ajaxUrlName='getFinaDataByList' ajaxFieldListName = "finaContractMainbillVOList" ajaxParams={this.state.searchParams} onSelect={this.onSelect}>
+      <Table>
         <TableHeader>
           <TableHeaderColumn>类别</TableHeaderColumn>
           <TableHeaderColumn>编号／名称</TableHeaderColumn>
@@ -93,27 +112,38 @@ export default class AllStation  extends Component{
           <TableHeaderColumn>结束日期</TableHeaderColumn>
           <TableHeaderColumn>减租开始日期</TableHeaderColumn>
       </TableHeader>
-
       <TableBody>
-          <TableRow>
+      {stationVos && stationVos.map((item,index)=>{
+        return (
+          <TableRow key={index}>
           <TableRowColumn name="stationType" options={[{label:'工位',value:'1'},{label:'会议室',value:'2'}]} ></TableRowColumn>
           <TableRowColumn name="stationId" ></TableRowColumn>
           <TableRowColumn name="whereFloor" ></TableRowColumn>
           <TableRowColumn name="unitprice" ></TableRowColumn>
           <TableRowColumn name="leaseBeginDate" type="date" ></TableRowColumn>
           <TableRowColumn name="leaseEndDate" type="date"></TableRowColumn>
-          <TableRowColumn>yahaha</TableRowColumn>
+          <TableRowColumn>{item.tartDate}</TableRowColumn>
          </TableRow>
+        );
+      })}
       </TableBody>
-
       </Table>
-
       <Grid>
       <Row style={{marginTop:30}}>
-      <Col md={2} align="right"> <Button  label="确定" type="button" primary={true} onTouchTap={this.onSubmit}/> </Col>
+      <Col md={2} align="right"> <Button  label="确定" type="submit" primary={true}/> </Col>
       <Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
       </Grid>
-
+</form>
 			</div>);
 	}
 }
+
+const selector = formValueSelector('selectStationForm');
+export default connect((state)=>{
+	let changeValues = {};
+	changeValues.startDate = selector(state,'startDate');
+	return {
+		changeValues
+	}
+
+})(reduxForm({ form: 'selectStationForm',enableReinitialize:true,keepDirtyOnReinitialize:true})(SelectStationForm));
