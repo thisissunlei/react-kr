@@ -69,6 +69,7 @@ export default class SearchResult extends Component{
         this.state={
         	searchParams:{},
         	openSearch:false,
+        	
         	arr:[],
         	arr1:[]
         }
@@ -81,14 +82,7 @@ export default class SearchResult extends Component{
 	      Store.dispatch(Actions.callAPI('findAccountAndPropList',{
 	      	accountType:selectType
 	      })).then(function(response){
-            
-             console.log("22222",response.account)
-             if(!response.account){
-             	response.account=[];
-             }
-             if(!response.property){
-             	response.property=[];
-             }
+                 
              response.account.map(function(item,index){ 
  		      	 var list ={}
  		      	 list.id=item.id;
@@ -114,10 +108,7 @@ export default class SearchResult extends Component{
  		        _this.setState({
 			      arr1:arr1,
 			      arr:arr
-		       });             	           		 
-		    
-		   
- 		    
+		       });             	           		   
  		}).catch(function(err){
 			Notify.show([{
 				message:'报错了',
@@ -140,6 +131,14 @@ export default class SearchResult extends Component{
 		});
 	}
 	onSearch(forms){
+		var _this = this;
+	      Store.dispatch(Actions.callAPI('getPageAccountFlow',forms)).then(function(response){ 
+ 		}).catch(function(err){
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		 });
         
 		this.onSearchSuccess(forms);
 	    this.openSearchDialog();
@@ -168,7 +167,8 @@ export default class SearchResult extends Component{
 
 	   const {params,detailResult} = this.props;
 
-
+       
+       
 
 	}
 
@@ -176,8 +176,12 @@ export default class SearchResult extends Component{
 
 	render(){
 		
-		console.log("fgfg",this.state.arr);
-
+		 //console.log("fgfg",this.state.arr);
+		 
+         //console.log("333333",selectType)
+       
+        
+         
        
 
 
@@ -195,7 +199,7 @@ export default class SearchResult extends Component{
 					title="高级查询"
 					open={this.state.openSearch}
 					>
-						<SearchForm onSubmit={this.onSearch} onCancel={this.onCancel} optionList={this.state.arr} propList={this.state.arr1}/>
+						<SearchForm onSubmit={this.onSearch} onCancel={this.onCancel} optionList={this.state.arr} propList={this.state.arr1} select={selectType}/>
 		  	       </Dialog>
 
 

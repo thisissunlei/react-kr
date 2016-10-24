@@ -82,12 +82,12 @@ export default class Basic extends Component{
 
 	}
 	 onSearchSuccess(){
-		console.log('-----');
+		
    }
 
 
    openSearchDialog(){
-   	 this.context.onInitSearchDialog(this.onSearchSuccess);
+   	 this.context.onInitSearchDialog(this.onSearchSuccess,'INCOME');
    }
 
 	//操作相关

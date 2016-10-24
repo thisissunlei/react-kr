@@ -90,7 +90,7 @@ export default class LivePaymentIncome extends Component{
 
 
    openSearchDialog(){
-   	 this.context.onInitSearchDialog(this.onSearchSuccess);
+   	 this.context.onInitSearchDialog(this.onSearchSuccess,'INCOME');
    }
 	//操作相关
 	onOperation(type,itemDetail){

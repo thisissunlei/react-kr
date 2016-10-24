@@ -91,7 +91,7 @@ export default class BusinessIncome extends Component{
 
 
    openSearchDialog(){
-   	 this.context.onInitSearchDialog(this.onSearchSuccess);
+   	 this.context.onInitSearchDialog(this.onSearchSuccess,'INCOME');
    }
 
 	//操作相关

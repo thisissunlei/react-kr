@@ -35,6 +35,7 @@ export default class SearchForm extends Component{
 		onCancel:React.PropTypes.func,
 		optionList:React.PropTypes.arr,
 		propList:React.PropTypes.arr,
+		select:React.PropTypes.string
 	}
 	constructor(props,context){
 		super(props,context);
@@ -57,11 +58,20 @@ export default class SearchForm extends Component{
 	render(){
 		
 		let detail=this.props.detail;
-		let {optionList,propList}=this.props;
-		console.log('detail',optionList)
+		let {optionList,propList,select}=this.props;
+
+		//console.log('detail',select)
+        
+        var url=window.location.href;
+        var url_arr=url.split('/');
+        let initialValues = {
+			orderId:url_arr[url_arr.length-2],
+            accountType:select
+		}
+
 		return(
 
-				<Form name="SearchForm"  onSubmit={this.onSubmit} >
+				<Form name="SearchForm" initialValues={initialValues} onSubmit={this.onSubmit} >
 					
 					<KrField grid={1} name="orderId" type="hidden"/>
 					<KrField grid={1} name="accountType" type="hidden"/>
