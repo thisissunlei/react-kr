@@ -148,7 +148,6 @@ class NewCreateForm  extends Component{
 
 		let {wherefloor,leaseBegindate,leaseEnddate} = changeValues;
 
-		/*
 		if(!wherefloor){
 			Notify.show([{
 				message:'请先选择楼层',
@@ -172,7 +171,7 @@ class NewCreateForm  extends Component{
 			}]);
 			return ;
 		}
-		*/
+		
 
 		this.setState({
 			openStation:!this.state.openStation

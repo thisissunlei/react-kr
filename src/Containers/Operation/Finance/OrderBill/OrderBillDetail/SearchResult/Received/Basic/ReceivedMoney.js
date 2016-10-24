@@ -35,6 +35,7 @@ class ReceivedMoney extends Component{
 		onCancel:React.PropTypes.func,
 		optionList:React.PropTypes.object,
 		initialValues:React.PropTypes.object,
+		
   }
 
 	constructor(props,context){

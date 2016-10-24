@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-
+import {Actions,Store} from 'kr/Redux';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 import {
@@ -21,10 +21,14 @@ import {
 	List,
  	ListItem,
 	LabelText,
+	Dialog
 } from 'kr-ui';
 
 import Received from './Received';
 import Income from './Income';
+
+import SearchForm from './SearchForm';
+
 
 
 
@@ -36,10 +40,89 @@ export default class SearchResult extends Component{
 		
 	}
 
+	static childContextTypes =  {
+        onInitSearchDialog: React.PropTypes.func,
+    }
+
+	getChildContext() {
+    	return {onInitSearchDialog: this.onInitSearchDialog};
+ 	}
+
 	constructor(props,context){
 		super(props, context);
+		this.urlFunctionRetuen=this.urlFunctionRetuen.bind(this);
+		this.openSearchDialog=this.openSearchDialog.bind(this);
+		this.closeSearchDialog=this.closeSearchDialog.bind(this);
+
+
+		this.onInitSearchDialog = this.onInitSearchDialog.bind(this);
+		this.openSearchDialog = this.openSearchDialog.bind(this);
+		this.onSearch = this.onSearch.bind(this);
+		this.onCancel = this.onCancel.bind(this);
+
+		this.onSearchSuccess = '';
+
+        this.state={
+        	searchParams:{},
+        	openSearch:false,
+        	item:{}
+        }
+
 	}
 
+    urlFunctionRetuen(){
+
+         var _this = this;
+	      Store.dispatch(Actions.callAPI('findAccountList',{
+	      	accountType:'PAYMENT'
+	      })).then(function(response){
+
+		     _this.setState({
+				item:response
+			});     
+ 		    
+ 		}).catch(function(err){
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		 });
+    
+       console.log("hjhjhjhj",this.state.item)
+    }
+	onInitSearchDialog(onSuccess){
+
+		console.log("aaaa");
+		this.urlFunctionRetuen();
+		this.onSearchSuccess = onSuccess;
+
+		this.openSearchDialog();
+	}
+
+	openSearchDialog(){
+        
+		this.setState({
+			openSearch:!this.state.openSearch
+		});
+	}
+	onSearch(forms){
+
+		this.onSearchSuccess(forms);
+	    this.openSearchDialog();
+
+	}
+
+
+	onCancel(){	
+       this.openSearchDialog();
+	}
+
+
+	closeSearchDialog(){
+		this.setState({
+			openSearch:!this.state.openSearch
+		}) 
+	}
 
 	componentDidMount() {
 
@@ -50,11 +133,11 @@ export default class SearchResult extends Component{
 
 	}
 
-
+  
 
 	render(){
 		
-		console.log("fgfg",this.props.detailResult);
+		//console.log("fgfg",this.props.detailResult);
 
 
 
@@ -62,15 +145,22 @@ export default class SearchResult extends Component{
 		return(
 
 			 <div>
-			      <Row>
-			        <Col md={8}></Col>
-                    <Col md={4}></Col>
-                  </Row>
+			      
                   <Row>
 			        <Received params={this.props.params} type="RECEIVED" detailResult={this.props.detailResult} />
                     <Income params={this.props.params} type="INCOME" />
                   </Row>
-				   
+
+
+                  	<Dialog
+					title="高级查询"
+					open={this.state.openSearch}
+					>
+						<SearchForm onSubmit={this.onSearch} onCancel={this.onCancel}/>
+		  	       </Dialog>
+
+
+                   
 			</div>		
 
 		);

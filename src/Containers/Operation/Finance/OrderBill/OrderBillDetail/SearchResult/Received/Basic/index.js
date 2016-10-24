@@ -30,6 +30,7 @@ import QuitMoney from './QuitMoney';
 
 var arr=[];
 class ViewForm extends Component{
+
 	constructor(props,context){
 		super(props,context);
 	}
@@ -56,6 +57,10 @@ class ViewForm extends Component{
 }
 export default class Basic extends Component{
 
+	static contextTypes =  {
+        onInitSearchDialog: React.PropTypes.func,
+    }
+
 	static PropTypes = {
 		params:React.PropTypes.object,
 		type:React.PropTypes.string,
@@ -72,6 +77,10 @@ export default class Basic extends Component{
 		this.QuitMoneyDialog=this.QuitMoneyDialog.bind(this);
 		this.openViewDialog=this.openViewDialog.bind(this);
 		this.onOperation = this.onOperation.bind(this);
+
+		this.openSearchDialog = this.openSearchDialog.bind(this);
+
+		this.onSearchSuccess = this.onSearchSuccess.bind(this);
 
 
 		this.onLoaded = this.onLoaded.bind(this);
@@ -92,6 +101,15 @@ export default class Basic extends Component{
 			}
 			
 	     }
+   }
+
+   onSearchSuccess(){
+		console.log('-----');
+   }
+
+
+   openSearchDialog(){
+   	 this.context.onInitSearchDialog(this.onSearchSuccess);
    }
     
    
@@ -156,9 +174,25 @@ export default class Basic extends Component{
    }
    
      openQuitDialog(){
-        this.setState({
+        
+        console.log("cvcvcv",this.state.selectedList.length);
+        console.log("cv",this.state.selectedList);
+        console.log("c",this.state.selectedList.constructor==Array);
+        
+
+     	if(this.state.selectedList.length==0){
+             alert("请选择一条回款数据进行退款");  
+                  
+        }else if(this.state.selectedList.length>1){
+        	 alert("只能选择一条");
+
+        }else{
+        	this.setState({
 			openQuit:!this.state.openQuit
-		});
+		  });
+        }
+
+        
     }
     
     
@@ -205,14 +239,14 @@ export default class Basic extends Component{
     }
 
     onSelect(values){
-         console.log("rrrrr",this.state.selectedList)
+        
 
     	let {list,selectedList} = this.state;
     	selectedList = list.map(function(item,index){            
 				if(values.indexOf(index)){
-					return item;
+					return false;
 				}
-				return false;
+				return item;
     	});
 
     	this.setState({
@@ -248,7 +282,7 @@ export default class Basic extends Component{
 		}
         
        
-     
+       
        
 
        var url=window.location.href;
@@ -270,9 +304,12 @@ export default class Basic extends Component{
 		return(
 
 			 <div>
+
+
                   <Row>
 					<Col md={2}><Button label="回款" primary={true} onTouchTap={this.openReceivedDialog}/></Col>
 					<Col md={2}><Button label="退款" primary={true} onTouchTap={this.openQuitDialog}/></Col>
+					<Col><Button label="高级查询"  type="button" onTouchTap={this.openSearchDialog}/></Col>
                   </Row>
        
                
@@ -311,7 +348,7 @@ export default class Basic extends Component{
 						modal={true}
 						open={this.state.openReceive}
 					>
-					  <ReceivedMoney onSubmit={this.onAddReceivedSubmit} onCancel={this.ReceivedDialog} optionList={this.state.arr}/>
+					  <ReceivedMoney onSubmit={this.onAddReceivedSubmit} initialValues={initialValues} onCancel={this.ReceivedDialog} optionList={this.state.arr}/>
 
 				  </Dialog>
 
@@ -336,6 +373,9 @@ export default class Basic extends Component{
 
 						<ViewForm detail={this.state.itemDetail} onCancel={this.openViewDialog} />
 					 </Dialog>
+
+	
+				   
 
 			</div>		
 

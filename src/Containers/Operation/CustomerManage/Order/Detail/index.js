@@ -53,6 +53,7 @@ class OrderDetail extends Component {
 		this.getAgrementDetailUrl = this.getAgrementDetailUrl.bind(this);
 		this.getAgrementEditUrl = this.getAgrementEditUrl.bind(this);
 		this.renderTableItem = this.renderTableItem.bind(this);
+		this.getAgrementType = this.getAgrementType.bind(this);
 		this.state = {
 			open:false,
 			loading:true,
@@ -113,39 +114,57 @@ class OrderDetail extends Component {
 	getAgrementEditUrl(customerId,orderId,typeId,agreementId){
 
 		var typeArray = [
-			{label:'意向书',value:'admit'},
-			{label:'入住协议',value:'join'},
-			{label:'续租协议',value:'renew'},
-			{label:'减租协议',value:'reduce'},
-			{label:'退租协议',value:'exit'},
-			{label:'增租协议',value:'increase'},
+			{label:'INTENTION',value:'admit'},
+			{label:'ENTER',value:'join'},
+			{label:'RENEW',value:'renew'},
+			{label:'LESSRENT',value:'reduce'},
+			{label:'QUITRENT',value:'exit'},
+			{label:'ADDRENT',value:'increase'},
 		];
 		var typeValue = '';
-		try{
-		  typeValue = typeArray[typeId].value;
-		}catch(err){
-			typeValue = 'join';
-		}
+		typeArray.map((value)=>{
+			if(typeId === value.label){
+				typeValue = value.value;
+			}
+		});
 		return './#/operation/customerManage/'+customerId+'/order/'+orderId+'/agreement/'+typeValue+'/'+agreementId+'/edit';
 	}
 	getAgrementDetailUrl(customerId,orderId,typeId,agreementId){
-
-		console.log(customerId,orderId,typeId,agreementId);
 		var typeArray = [
-			{label:'意向书',value:'admit'},
-			{label:'入住协议',value:'join'},
-			{label:'续租协议',value:'renew'},
-			{label:'减租协议',value:'reduce'},
-			{label:'退租协议',value:'exit'},
-			{label:'增租协议',value:'increase'},
+			{label:'INTENTION',value:'admit'},
+			{label:'ENTER',value:'join'},
+			{label:'RENEW',value:'renew'},
+			{label:'LESSRENT',value:'reduce'},
+			{label:'QUITRENT',value:'exit'},
+			{label:'ADDRENT',value:'increase'},
 		];
 		var typeValue = '';
-		try{
-		  typeValue = typeArray[typeId].value;
-		}catch(err){
-			typeValue = 'join';
-		}
+		typeArray.map((value)=>{
+			if(typeId === value.label){
+				typeValue = value.value;
+			}
+		});
 		return './#/operation/customerManage/'+customerId+'/order/'+orderId+'/agreement/'+typeValue+'/'+agreementId+'/detail';
+	}
+
+	getAgrementType(type){
+		var typeList = [
+			{name:'INTENTION',value:'意向书'},
+			{name:'ENTER',value:'入住协议'},
+			{name:'ADDRENT',value:'增租协议'},
+			{name:'LESSRENT',value:'减租协议'},
+			{name:'QUITRENT',value:'退租协议'},
+			{name:'RENEW',value:'续租协议'}
+		];
+		let name = ''
+		typeList.map(function(value){
+			if(value.name === type){
+				name = value.value;
+			}
+		});
+		return(
+			<TableRowColumn>{name}</TableRowColumn>
+		)
 	}
 
   	renderTableItem(item){
@@ -279,14 +298,8 @@ class OrderDetail extends Component {
 						return (
 							 <TableRow key={index}>
 							<TableRowColumn>{item.contractcode}</TableRowColumn>
-							<TableRowColumn>
-								{item.contracttype == 1 && '意向书'}
-								{item.contracttype == 2 && '入住协议'}
-								{item.contracttype == 3 && ':增续租协议'}
-								{item.contracttype == 4 && ':减租协议'}
-								{item.contracttype == 5 && ':退租协议'}
-								{item.contracttype == 6 && ':增值服务合同'}
-							</TableRowColumn>
+								{this.getAgrementType(item.contracttype)}
+							
 							<TableRowColumn><Date.Format value={item.contractTotalamount}/></TableRowColumn>
 							<TableRowColumn><Date.Format value={item.leaseBegindate}/></TableRowColumn>
 							<TableRowColumn> <Date.Format value={item.leaseEnddate}/></TableRowColumn>
