@@ -51,13 +51,13 @@ export default class SearchResult extends Component{
 	constructor(props,context){
 		super(props, context);
 		this.openSearchDialog=this.openSearchDialog.bind(this);
-		this.onSubmit=this.onSubmit.bind(this);
 		this.closeSearchDialog=this.closeSearchDialog.bind(this);
 
 
 		this.onInitSearchDialog = this.onInitSearchDialog.bind(this);
 		this.openSearchDialog = this.openSearchDialog.bind(this);
 		this.onSearch = this.onSearch.bind(this);
+		this.onCancel = this.onCancel.bind(this);
 
 		this.onSearchSuccess = '';
 
@@ -90,9 +90,10 @@ export default class SearchResult extends Component{
 	}
 
 
-	onSubmit(){
-
+	onCancel(){	
+       this.openSearchDialog();
 	}
+
 
 	closeSearchDialog(){
 		this.setState({
@@ -113,7 +114,7 @@ export default class SearchResult extends Component{
 
 	render(){
 		
-		console.log("fgfg",this.props.detailResult);
+		//console.log("fgfg",this.props.detailResult);
 
 
 
@@ -132,7 +133,7 @@ export default class SearchResult extends Component{
 					title="高级查询"
 					open={this.state.openSearch}
 					>
-						<SearchForm onSubmit={this.onSearch}/>
+						<SearchForm onSubmit={this.onSearch} onCancel={this.onCancel}/>
 		  	       </Dialog>
 
 
