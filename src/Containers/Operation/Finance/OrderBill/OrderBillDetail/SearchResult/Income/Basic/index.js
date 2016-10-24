@@ -123,7 +123,7 @@ export default class Basic extends Component{
 		return(
 
 			 <div>
-			 	<Button label="高级查询"  type="link" onTouchTap={this.openSearchDialog}/>
+			 	<Button label="高级查询"  type="link" />
             <Table style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.Params} onOperation={this.onOperation} >
 	              <TableHeader>
 				          <TableHeaderColumn>序号</TableHeaderColumn>
