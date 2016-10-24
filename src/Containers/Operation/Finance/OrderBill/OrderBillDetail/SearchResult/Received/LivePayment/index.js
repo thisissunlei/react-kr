@@ -55,7 +55,10 @@ class ViewForm extends Component{
 	 }
 }
 export default class Basic extends Component{
-
+   static contextTypes =  {
+        onInitSearchDialog: React.PropTypes.func,
+    }
+    
 	static PropTypes = {
 		params:React.PropTypes.object,
 		type:React.PropTypes.string,
@@ -72,6 +75,9 @@ export default class Basic extends Component{
 		this.QuitMoneyDialog=this.QuitMoneyDialog.bind(this);
 		this.openViewDialog=this.openViewDialog.bind(this);
 		this.onOperation = this.onOperation.bind(this);
+
+		this.openSearchDialog = this.openSearchDialog.bind(this);
+		this.onSearchSuccess = this.onSearchSuccess.bind(this);
         
 		  this.state = {
 		  	initialValues:{},
@@ -85,6 +91,18 @@ export default class Basic extends Component{
 			}
 			
 	     }
+   } 
+
+
+   onSearchSuccess(){
+		
+   }
+
+
+   openSearchDialog(){
+
+   	  
+   	  this.context.onInitSearchDialog(this.onSearchSuccess,'PAYMENT');
    }
     //操作相关
 	onOperation(type,itemDetail){
@@ -227,6 +245,7 @@ export default class Basic extends Component{
 					<Col md={2}><Button label="回款" primary={true} onTouchTap={this.openReceivedDialog}/></Col>
 					<Col md={2}><Button label="开票" primary={true}/></Col>
 					<Col md={2}><Button label="退款" primary={true} onTouchTap={this.openQuitDialog}/></Col>
+                    <Col><Button label="高级查询"  type="button"  onTouchTap={this.openSearchDialog}/></Col>
                   </Row>
        
                

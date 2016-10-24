@@ -59,7 +59,10 @@ class ViewForm extends Component{
 	 }
 }
 export default class Deposit extends Component{
-
+     static contextTypes =  {
+        onInitSearchDialog: React.PropTypes.func,
+    }
+    
 	static PropTypes = {
 		params:React.PropTypes.object,
 		type:React.PropTypes.string
@@ -84,6 +87,9 @@ export default class Deposit extends Component{
 
 		this.openViewDialog=this.openViewDialog.bind(this);
 		this.onOperation = this.onOperation.bind(this);
+
+		this.openSearchDialog = this.openSearchDialog.bind(this);
+		this.onSearchSuccess = this.onSearchSuccess.bind(this);
 		
 		
 
@@ -102,7 +108,17 @@ export default class Deposit extends Component{
 			}
 		}
 	}
+     
+   onSearchSuccess(){
+		
+   }
 
+
+   openSearchDialog(){
+
+   	  
+   	  this.context.onInitSearchDialog(this.onSearchSuccess,'PAYMENT');
+   }
 	//操作相关
 	onOperation(type,itemDetail){
 
@@ -343,6 +359,7 @@ export default class Deposit extends Component{
 					<Col md={2}><Button label="转押金" primary={true} onTouchTap={this.openSwitchDialog}/></Col>
 					<Col md={2}><Button label="转营业外收入" primary={true} onTouchTap={this.openBusinessDialog}/></Col>
 					<Col md={2}><Button label="退款" primary={true} onTouchTap={this.openQuitDialog}/></Col>
+                    <Col><Button label="高级查询"  type="button"  onTouchTap={this.openSearchDialog}/></Col>
                   </Row>
 
                   

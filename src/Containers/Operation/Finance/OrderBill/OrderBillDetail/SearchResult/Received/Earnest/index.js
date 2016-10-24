@@ -55,7 +55,9 @@ class ViewForm extends Component{
 	 }
 }
 export default class Earnest extends Component{
-
+     static contextTypes =  {
+        onInitSearchDialog: React.PropTypes.func,
+    }
 	static PropTypes = {
 		params:React.PropTypes.object,
 		type:React.PropTypes.string,
@@ -75,6 +77,9 @@ export default class Earnest extends Component{
         this.openViewDialog=this.openViewDialog.bind(this);
 		this.onOperation = this.onOperation.bind(this);
 
+		this.openSearchDialog = this.openSearchDialog.bind(this);
+		this.onSearchSuccess = this.onSearchSuccess.bind(this);
+
 		this.state={
            item:{},
            openView:false,
@@ -90,7 +95,16 @@ export default class Earnest extends Component{
 		}
 	}
     
-    
+    onSearchSuccess(){
+		
+   }
+
+
+   openSearchDialog(){
+
+   	  
+   	  this.context.onInitSearchDialog(this.onSearchSuccess,'PAYMENT');
+   }
 
      //操作相关
 	onOperation(type,itemDetail){
@@ -312,7 +326,7 @@ export default class Earnest extends Component{
 					<Col md={2}><Button label="回款" primary={true} onTouchTap={this.ReceivedMoney}/></Col>
 					<Col md={2}><Button label="转押金" primary={true} onTouchTap={this.SwitchMoney}/></Col>
 					<Col md={2}><Button label="转营业外收入" primary={true} onTouchTap={this.BusinessMoney}/></Col>
-					
+					<Col><Button label="高级查询"  type="button"  onTouchTap={this.openSearchDialog}/></Col>
                   </Row>
 
                   
