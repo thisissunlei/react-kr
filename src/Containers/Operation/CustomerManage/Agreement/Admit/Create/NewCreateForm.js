@@ -337,10 +337,6 @@ class NewCreateForm  extends Component{
 
                                  <KrField grid={1/2}  name="totaldownpayment" type="text" component="input" label="定金总额"  /> 
 								 <KrField grid={1/2}  name="paymentId" type="text" component="select" label="付款方式" >
-								 <option value='1'>银行转账<option>
-								 <option value='2'>支付宝<option>
-								 <option value='3'>微信支付<option>
-								 <option value='4'>POS机<option>
 								 </KrField>
                                      
 								 <KrField grid={1/2}  name="" component="group" label="租赁期限"> 
