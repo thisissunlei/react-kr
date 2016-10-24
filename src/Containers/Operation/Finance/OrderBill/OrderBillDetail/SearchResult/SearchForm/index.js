@@ -33,6 +33,8 @@ export default class SearchForm extends Component{
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
+		optionList:React.PropTypes.arr,
+		propList:React.PropTypes.arr,
 	}
 	constructor(props,context){
 		super(props,context);
@@ -53,14 +55,17 @@ export default class SearchForm extends Component{
 	}
 	
 	render(){
+		
 		let detail=this.props.detail;
-		console.log('detail',detail)
+		let {optionList,propList}=this.props;
+		console.log('detail',optionList)
 		return(
 
 				<Form name="SearchForm"  onSubmit={this.onSubmit} >
 					
-					<KrField grid={1} name="accountType" component="select" label="代码" /> 
-					<KrField grid={1} name="operatedate" type="select" component="date" label="款项" />
+					<KrField grid={1} name="orderId" type="hidden"/>
+					<KrField grid={1} name="accountId" component="select" label="代码" options={optionList}/> 
+					<KrField grid={1} name="propertyId" type="select" label="款项" options={propList}/>
 					<KrField grid={1/2} name="startTime" component="date" label="开始日期" />
 					<KrField grid={1/2} name="endTime" component="date" label="结束日期" />
 					<Button  label="确定" type="submit" primary={true} /> 
