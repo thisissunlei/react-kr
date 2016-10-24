@@ -5,7 +5,7 @@ import { Fields } from 'redux-form';
 import {Binder} from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-
+import dateFormat from 'dateformat';
 import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
@@ -191,7 +191,7 @@ class NewCreateForm  extends Component{
 
 	onSubmit(form){
 
-
+		form = Object.assign({},form);
 		let {stationVos} = this.state;
 
 
@@ -206,6 +206,10 @@ class NewCreateForm  extends Component{
 		form.stationVos =  stationVos;
 
 		form.stationVos = JSON.stringify(form.stationVos);
+		form.firstpaydate = dateFormat(form.firstpaydate,"yyyy-mm-dd h:MM:ss");
+		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd h:MM:ss");
+		form.leaseBegindate = dateFormat(form.leaseBegindate,"yyyy-mm-dd h:MM:ss");
+		form.leaseEnddate = dateFormat(form.leaseEnddate,"yyyy-mm-dd h:MM:ss");
 
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
@@ -332,7 +336,12 @@ class NewCreateForm  extends Component{
 								 <KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  /> 
 
                                  <KrField grid={1/2}  name="totaldownpayment" type="text" component="input" label="定金总额"  /> 
-								 <KrField grid={1/2}  name="paymentId" type="text" component="select" label="付款方式" options={initialValues.buyType} />
+								 <KrField grid={1/2}  name="paymentId" type="text" component="select" label="付款方式" >
+								 <option value='1'>银行转账<option>
+								 <option value='2'>支付宝<option>
+								 <option value='3'>微信支付<option>
+								 <option value='4'>POS机<option>
+								 </KrField>
                                      
 								 <KrField grid={1/2}  name="" component="group" label="租赁期限"> 
 										  <KrField grid={1/2}  name="leaseBegindate"  component="date"  /> 

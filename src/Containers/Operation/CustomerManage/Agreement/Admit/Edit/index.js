@@ -80,8 +80,8 @@ export default  class JoinCreate extends Component {
 		let optionValues = {};
 		 let stationVos = [];
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
-
+		Store.dispatch(Actions.callAPI('showFinaContractIntentletter',{id:params.id})).then(function(response){
+			console.log(response);
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid =  params.orderId;
 
