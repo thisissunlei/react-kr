@@ -124,10 +124,27 @@ class NewCreateForm  extends Component{
 
 // station list
 	onStationCancel(){
-
+		this.openStationDialog();
 	}
 
-	onStationSubmit(){
+	onStationSubmit(selectedList){
+
+		let {stationVos} = this.state;
+		let  result = stationVos;
+
+		stationVos.forEach(function(item,index){
+
+			selectedList.forEach(function(selected,i){
+
+				if (item.id !=selected.id) {
+						result.push(selected);
+				}
+			});
+		});
+
+		this.setState({
+				stationVos:result
+		});
 		this.openStationDialog();
 	}
 
@@ -172,11 +189,6 @@ class NewCreateForm  extends Component{
 
 		form = Object.assign({},form);
 
-		let {stationVos} = this.state;
-
-
-		let {billList} = this.state;
-
 		let {changeValues} = this.props;
 
     form.lessorAddress = changeValues.lessorAddress;
@@ -210,7 +222,7 @@ class NewCreateForm  extends Component{
 			}
 		});
 
-		let {billList,stationVos} = this.state;
+		let {stationVos} = this.state;
 
 		return (
 
@@ -240,14 +252,11 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="communityAddress" component="labelText" label="地址" value={optionValues.communityAddress} />
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  />
 
-
-
 				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" defaultValue={initialValues.signdate} />
-				 <KrField grid={1}  name="totalrent" type="labelText"  label="减租金额"  /> {/*减租金额没有*/}
+				<KrField grid={1}  name="totalrent" type="labelText"  label="减租金额"  /> {/*减租金额没有*/}
 
 				<KrField grid={1/2}  name="contractmark" component="textarea" label="备注" />
 				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" />
-
 
 
 				<Section title="租赁明细" description="" rightMenu = {
@@ -267,16 +276,12 @@ class NewCreateForm  extends Component{
 						</TableHeader>
 						<TableBody>
 						{stationVos.map((item,index)=>{
-							var typeLink = {
-								value: this.state.stationVos[index].unitprice,
-								requestChange: this.onStationVosChange.bind(null, index)
-							}
 							return (
 								<TableRow key={index}>
 									<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
 									<TableRowColumn>{item.stationName}</TableRowColumn>
 									<TableRowColumn>
-											<input type="text" name="age"  valueLink={typeLink} />
+											{item.unitprice}
 									</TableRowColumn>
 									<TableRowColumn> <Date.Format value={item.leaseBeginDate}/></TableRowColumn>
 									<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
