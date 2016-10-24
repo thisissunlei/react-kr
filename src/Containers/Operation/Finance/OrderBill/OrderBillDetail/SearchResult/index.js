@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-
+import {Actions,Store} from 'kr/Redux';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 import {
@@ -50,6 +50,7 @@ export default class SearchResult extends Component{
 
 	constructor(props,context){
 		super(props, context);
+		this.urlFunctionRetuen=this.urlFunctionRetuen.bind(this);
 		this.openSearchDialog=this.openSearchDialog.bind(this);
 		this.closeSearchDialog=this.closeSearchDialog.bind(this);
 
@@ -64,20 +65,42 @@ export default class SearchResult extends Component{
         this.state={
         	searchParams:{},
         	openSearch:false,
+        	item:{}
         }
 
 	}
 
+    urlFunctionRetuen(){
 
+         var _this = this;
+	      Store.dispatch(Actions.callAPI('findAccountList',{
+	      	accountType:'PAYMENT'
+	      })).then(function(response){
+
+		     _this.setState({
+				item:response
+			});     
+ 		    
+ 		}).catch(function(err){
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		 });
+    
+       console.log("hjhjhjhj",this.state.item)
+    }
 	onInitSearchDialog(onSuccess){
 
 		console.log("aaaa");
+		this.urlFunctionRetuen();
 		this.onSearchSuccess = onSuccess;
 
 		this.openSearchDialog();
 	}
 
 	openSearchDialog(){
+        
 		this.setState({
 			openSearch:!this.state.openSearch
 		});
@@ -85,7 +108,7 @@ export default class SearchResult extends Component{
 	onSearch(forms){
 
 		this.onSearchSuccess(forms);
-	   this.openSearchDialog();
+	    this.openSearchDialog();
 
 	}
 

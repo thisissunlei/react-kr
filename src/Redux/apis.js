@@ -266,6 +266,11 @@ const APIS  = {
 		url:'/mockjsdata/3/krspace-finance-web/finaccount/fnaInvoiceModel/getFnaInvoiceModelListByAjax?pageSize={pageSize}&operatedate={operatedate}&page={page}&operateName={operateName}&invoiceType={invoiceType}&creater={creater}',		
 		method:'get'
 	},
+	//财务管理-订单明细账-款项查询
+	'getPropList':{
+		url:'/mockjsdata/3/krspace-finance-web/finaccount/data/getPropList?accountType={accountType}',		
+		method:'get'
+	},
 	
 }
 
