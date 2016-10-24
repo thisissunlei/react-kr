@@ -54,7 +54,8 @@ class ViewForm extends Component{
 class SupplementForm extends Component{
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
-		onCancel:React.PropTypes.func,
+		onCancel:React.PropTypes.func
+		
 	}
 	constructor(props,context){
 		super(props,context);
@@ -72,9 +73,12 @@ class SupplementForm extends Component{
 	onSubmit(){
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit();
+		this.setState({
+			supplement:!this.state.supplement,
+		})
 	}
-
-	render(){
+	
+	render(id){
 		
 		return(
 				
@@ -149,11 +153,13 @@ export default class StationIncome extends Component{
 
 	constructor(props,context){
 		super(props, context);
+		
 		this.openViewDialog=this.openViewDialog.bind(this);
 		this.onOperation=this.onOperation.bind(this);
 		this.openAddaccount=this.openAddaccount.bind(this);
 		this.onConfrimSubmit=this.onConfrimSubmit.bind(this);
 		this.openSupplement=this.openSupplement.bind(this);
+		this.onSupplementSubmit=this.onSupplementSubmit.bind(this);
 		this.state={
            item:{},
            Params:{},
@@ -161,6 +167,7 @@ export default class StationIncome extends Component{
           Addaccount:false,
           supplement:false,
 		}
+		
 	}
 
 
@@ -202,9 +209,7 @@ export default class StationIncome extends Component{
 				type: 'danger',
 			}]);
 	   	});
-		this.setState({
-			Addaccount:!this.state.Addaccount
-		})
+		this.openAddaccount()
 	}
 	//补收入
 	openSupplement(){
@@ -213,20 +218,26 @@ export default class StationIncome extends Component{
 		})
 	}
 	onSupplementSubmit(){
-		/*Store.dispatch(Actions.callAPI('addIncome')).then(function(){
+		var url=window.location.href;
+       var url_arr=url.split('/');
+		var _this=this;
+		 let initialValues = {
+			mainbillid:url_arr[url_arr.length-2],
+		}
+		Store.dispatch(Actions.callAPI('addIncome',initialValues)).then(function(response){
 			Notify.show([{
-				message:'创建成功',
-				type: 'danger',
+				message:'操作成功',
+				type: 'success',
 			}]);
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
 				type: 'danger',
 			}]);
-	   	});*/
-		/*this.setState({
-			Addaccount:!this.state.Addaccount
-		})*/
+	   	});
+	   	
+	   	this.openSupplement();
+		
 	}
 
 
@@ -236,7 +247,7 @@ export default class StationIncome extends Component{
 
 	   let items=this.state.item.items;
 
-	   
+	   	
 	    if(!items){
 	    	items=[];
 	    }
@@ -310,7 +321,7 @@ export default class StationIncome extends Component{
 				open={this.state.supplement}
 				>
 					
-					<SupplementForm onSubmit={this.onSupplementSubmit}  onCancel={this.openSupplement}  />
+					<SupplementForm onSubmit={this.onSupplementSubmit} id="{this.props.id}" onCancel={this.openSupplement}  />
 			  	</Dialog>
 			</div>		
 
