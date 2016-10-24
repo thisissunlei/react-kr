@@ -51,48 +51,6 @@ class ViewForm extends Component{
 	}
 
 }
-class SearchForm extends Component{
-	static PropTypes = {
-		onSubmit:React.PropTypes.func,
-		onCancel:React.PropTypes.func,
-	}
-	constructor(props,context){
-		super(props,context);
-		this.onCancel=this.onCancel.bind(this);
-		this.onSubmit=this.onSubmit.bind(this);
-		this.state={
-          openSearch:false,
-
-		}
-	};
-	onCancel(){
-		const {onCancel} = this.props;
-		onCancel && onCancel();
-	};
-	onSubmit(){
-		const {onSubmit} = this.props;
-		onSubmit && onSubmit();
-	}
-	
-	render(){
-		let detail=this.props.detail;
-		console.log('detail',detail)
-		return(
-				<Form name="SearchForm"  onSubmit={this.onSubmit} >
-					
-					<KrField grid={1} name="accountType" component="select" label="代码" /> 
-					<KrField grid={1} name="operatedate" type="select" component="date" label="款项" />
-					<KrField grid={1/2} name="startTime" component="date" label="开始日期" />
-					<KrField grid={1/2} name="endTime" component="date" label="结束日期" />
-					<Button  label="确定" type="submit" primary={true} /> 
-					<Button  label="取消" type="button" onTouchTap={this.onCancel} /> 
-				</Form>
-
-
-			);
-	}
-
-}
 
 export default class Basic extends Component{
 
@@ -105,8 +63,7 @@ export default class Basic extends Component{
 		super(props, context);
 		this.openViewDialog=this.openViewDialog.bind(this);
 		this.onOperation=this.onOperation.bind(this);
-		this.openSearchDialog=this.openSearchDialog.bind(this);
-		this.onSubmit=this.onSubmit.bind(this);
+		
 		this.state={
            item:{},
            Params:{
@@ -132,15 +89,7 @@ export default class Basic extends Component{
 			this.openViewDialog();
 		}
 	}
-	//高级搜索
-	openSearchDialog(){
-		this.setState({
-			openSearch:!this.state.openSearch
-		})
-	}
-	onSubmit(){
-
-	}
+	
 	//查看
 	openViewDialog(){
 		var _this=this;
@@ -210,15 +159,7 @@ export default class Basic extends Component{
 				
 			<ViewForm detail={this.state.itemDetail} onCancel={this.openViewDialog}  />
 		  	</Dialog>
-			<Dialog
-			title="高级查询"
-			modal={true}
-			open={this.state.openSearch}
-			>
-				
-			<SearchForm  onSubmit={this.onSubmit} onCancel={this.openSearchDialog}  />
-		  	</Dialog>
-		  	
+			
 
 			</div>		
 

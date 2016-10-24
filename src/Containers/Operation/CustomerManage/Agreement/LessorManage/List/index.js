@@ -42,7 +42,7 @@ class OrderSearchForm extends Component{
 				<form onSubmit={handleSubmit(onSubmit)} >
 							<Row>
 							<Col md={10}>
-								<KrField name="corporationName" type="text"  component="input" placeholder="搜索关键词"/>
+								<KrField name="corporationName" type="text"  component="input" placeholder="搜索关键词" />
 							</Col>
 							<Col md={2} align="right" > <Button label="搜索"  type="submit" primary={true}/> </Col>
 							</Row>
@@ -181,7 +181,7 @@ class OrderCreate extends Component {
 
 
 	searchParams(values){
-		values.corporationName = values.corporationName || ' ';
+		values.corporationName = values.corporationName || '';
 		values.page = 1;
 		values.pageSize = 10;
 

@@ -258,8 +258,8 @@ const APIS  = {
 	},
 	//财务管理－订单明细账-补收入
 	'addIncome':{
-		url:'/mockjsdata/3/krspace_finance_web/finaccount/opt/addIncome',		
-		method:'post'
+		url:'/mockjsdata/3/krspace_finance_web/finaccount/opt/addIncome?mainbillid={mainbillid}',		
+		method:'get'
 	},
 	//财务管理－开票列表-list
 	'getFnaInvoiceModelListByAjax':{

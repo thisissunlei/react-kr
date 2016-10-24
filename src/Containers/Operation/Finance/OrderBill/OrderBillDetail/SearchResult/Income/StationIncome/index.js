@@ -26,6 +26,9 @@ import {
 	Form
 } from 'kr-ui';
 
+
+import ChangeAccountForm from './ChangeAccountForm';
+
 class ViewForm extends Component{
 	constructor(props,context){
 		super(props,context);
@@ -54,7 +57,8 @@ class ViewForm extends Component{
 class SupplementForm extends Component{
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
-		onCancel:React.PropTypes.func,
+		onCancel:React.PropTypes.func
+		
 	}
 	constructor(props,context){
 		super(props,context);
@@ -72,9 +76,12 @@ class SupplementForm extends Component{
 	onSubmit(){
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit();
+		this.setState({
+			supplement:!this.state.supplement,
+		})
 	}
-
-	render(){
+	
+	render(id){
 		
 		return(
 				
@@ -93,52 +100,7 @@ class SupplementForm extends Component{
 
 
 
-class ChangeAccountForm extends Component{
-	static PropTypes = {
-		onSubmit:React.PropTypes.func,
-		onCancel:React.PropTypes.func,
-	}
-	constructor(props,context){
-		super(props,context);
-		this.onCancel=this.onCancel.bind(this);
-		this.onSubmit=this.onSubmit.bind(this);
-		this.state={
-          Addaccount:false,
 
-		}
-	};
-	onCancel(){
-		const {onCancel} = this.props;
-		onCancel && onCancel();
-	};
-	onSubmit(){
-		const {onSubmit} = this.props;
-		onSubmit && onSubmit();
-	}
-	
-	render(){
-		
-		return(
-				<Form name="jyayayoinForm"  onSubmit={this.onSubmit} >
-					
-					<KrField grid={1} name="accountid" component="select" label="代码名称" /> 
-					<KrField grid={1} name="operatedate" type="date" component="date" label="付款日期" /> 
-					<KrField name="preCode" component="group" label="金额正负">
-		                <KrField name="preCode" label="正" type="radio" value="0"/>
-		                <KrField name="preCode" label="负" type="radio" value="1" />
-		            </KrField> 
-					
-					<KrField grid={1} name="finaflowamount" type="text" component="input" label="金额（元）" /> 
-					<KrField grid={1} name="finaflowdesc" type="text" component="input" label="备注" /> 
-					<KrField grid={1} name="fileids" component="file" label="上传附件" />
-					<Button  label="确定" type="submit" primary={true} /> 
-					<Button  label="取消" type="button" onTouchTap={this.onCancel} /> 
-				</Form>
-
-			);
-	}
-
-}
 
 export default class StationIncome extends Component{
 
@@ -149,11 +111,13 @@ export default class StationIncome extends Component{
 
 	constructor(props,context){
 		super(props, context);
+		
 		this.openViewDialog=this.openViewDialog.bind(this);
 		this.onOperation=this.onOperation.bind(this);
 		this.openAddaccount=this.openAddaccount.bind(this);
 		this.onConfrimSubmit=this.onConfrimSubmit.bind(this);
 		this.openSupplement=this.openSupplement.bind(this);
+		this.onSupplementSubmit=this.onSupplementSubmit.bind(this);
 		this.state={
            item:{},
            Params:{},
@@ -161,6 +125,7 @@ export default class StationIncome extends Component{
           Addaccount:false,
           supplement:false,
 		}
+		
 	}
 
 
@@ -202,9 +167,7 @@ export default class StationIncome extends Component{
 				type: 'danger',
 			}]);
 	   	});
-		this.setState({
-			Addaccount:!this.state.Addaccount
-		})
+		this.openAddaccount()
 	}
 	//补收入
 	openSupplement(){
@@ -213,20 +176,26 @@ export default class StationIncome extends Component{
 		})
 	}
 	onSupplementSubmit(){
-		/*Store.dispatch(Actions.callAPI('addIncome')).then(function(){
+		var url=window.location.href;
+       var url_arr=url.split('/');
+		var _this=this;
+		 let initialValues = {
+			mainbillid:url_arr[url_arr.length-2],
+		}
+		Store.dispatch(Actions.callAPI('addIncome',initialValues)).then(function(response){
 			Notify.show([{
-				message:'创建成功',
-				type: 'danger',
+				message:'操作成功',
+				type: 'success',
 			}]);
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
 				type: 'danger',
 			}]);
-	   	});*/
-		/*this.setState({
-			Addaccount:!this.state.Addaccount
-		})*/
+	   	});
+	   	
+	   	this.openSupplement();
+		
 	}
 
 
@@ -236,7 +205,7 @@ export default class StationIncome extends Component{
 
 	   let items=this.state.item.items;
 
-	   
+	   	
 	    if(!items){
 	    	items=[];
 	    }
@@ -310,7 +279,7 @@ export default class StationIncome extends Component{
 				open={this.state.supplement}
 				>
 					
-					<SupplementForm onSubmit={this.onSupplementSubmit}  onCancel={this.openSupplement}  />
+					<SupplementForm onSubmit={this.onSupplementSubmit} id="{this.props.id}" onCancel={this.openSupplement}  />
 			  	</Dialog>
 			</div>		
 
