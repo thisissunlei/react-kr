@@ -39,24 +39,51 @@ class SelectStationForm  extends Component{
 
     this.onSelect = this.onSelect.bind(this);
     this.getLoadData = this.getLoadData.bind(this);
+    this.setReduceStartDate = this.setReduceStartDate.bind(this);
 
     this.state = {
-      stationVos:[
-        {id:1},
-        {id:3},
-        {id:2},
-        {id:5},
-      ]
+      stationVos:[],
+      selected:[]
+    }
+	}
+
+  componentDidMount(){
+    
+    this.getLoadData();
+  }
+
+  setReduceStartDate(dateValue){
+		dateValue = dateFormat(dateValue,"yyyy-mm-dd h:MM:ss");
+
+    let {stationVos} = this.state;
+
+    stationVos = stationVos.map(function(item,index){
+        item.startDate = dateValue;
+        return item;
+    });
+    this.setState({
+        stationVos
+    });
+
+  }
+
+	componentWillReceiveProps(nextProps){
+
+    if(nextProps.changeValues && nextProps.changeValues.startDate){
+        this.setReduceStartDate(nextProps.changeValues.startDate);
     }
 
 	}
 
   getLoadData(){
     var _this  = this;
-		Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
-			_this.setState({
-        stationVos:response
-			});
+    //let {params} = this.props;
+    let params = {};
+    params.orderId = 3;
+		Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainbillid:params.orderId})).then(function(response){
+      _this.setState({
+        stationVos:response.items
+      });
 		}).catch(function(err){
 			Notify.show([{
 				message:'后台出错请联系管理员',
@@ -66,16 +93,21 @@ class SelectStationForm  extends Component{
   }
 
   onSelect(selected){
-
+    this.setState({
+      selected
+    });
   }
 
-	onSubmit(form){
+	onSubmit(){
 
-    let stationVos = [
-        {id:1},
-        {id:2},
-        {id:3},
-    ];
+    let {stationVos,selected} = this.state;
+    stationVos = stationVos.filter(function(item,index){
+        if(selected.indexOf(index) !==-1){
+            return true;
+        }
+        return false;
+    });
+
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(stationVos);
 
@@ -91,18 +123,13 @@ class SelectStationForm  extends Component{
 		let { error, handleSubmit, pristine, reset, submitting,changeValues} = this.props;
     let {stationVos} = this.state;
 
-    console.log('0000',this.props.changeValues);
-
+    console.log('---va',stationVos);
 
 		return (
 			<div>
-
 <form onSubmit={handleSubmit(this.onSubmit)}>
-							<KrField grid={1/1}  name="startDate" component="date" label="减租开始时间" />
-        {/*
-      <Table ajax={true}  ajaxUrlName='getStationOrSettingList' ajaxParams={this.state.searchParams} onSelect={this.onSelect}>
-          */}
-      <Table>
+			<KrField grid={1/1}  name="startDate" component="date" label="减租开始时间" />
+      <Table onSelect={this.onSelect}>
         <TableHeader>
           <TableHeaderColumn>类别</TableHeaderColumn>
           <TableHeaderColumn>编号／名称</TableHeaderColumn>
@@ -116,13 +143,13 @@ class SelectStationForm  extends Component{
       {stationVos && stationVos.map((item,index)=>{
         return (
           <TableRow key={index}>
-          <TableRowColumn name="stationType" options={[{label:'工位',value:'1'},{label:'会议室',value:'2'}]} ></TableRowColumn>
-          <TableRowColumn name="stationId" ></TableRowColumn>
-          <TableRowColumn name="whereFloor" ></TableRowColumn>
-          <TableRowColumn name="unitprice" ></TableRowColumn>
-          <TableRowColumn name="leaseBeginDate" type="date" ></TableRowColumn>
-          <TableRowColumn name="leaseEndDate" type="date"></TableRowColumn>
-          <TableRowColumn>{item.tartDate}</TableRowColumn>
+          <TableRowColumn >{item.stationType}</TableRowColumn>
+          <TableRowColumn >{item.stationId}</TableRowColumn>
+          <TableRowColumn >{item.whereFloor}</TableRowColumn>
+          <TableRowColumn >{item.unitprice}</TableRowColumn>
+          <TableRowColumn >{item.leaseBeginDate}</TableRowColumn>
+          <TableRowColumn >{item.leaseEndDate}</TableRowColumn>
+          <TableRowColumn>{item.startDate}</TableRowColumn>
          </TableRow>
         );
       })}
