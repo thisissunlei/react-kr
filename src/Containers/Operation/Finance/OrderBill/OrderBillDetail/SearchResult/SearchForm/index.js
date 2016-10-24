@@ -64,6 +64,7 @@ export default class SearchForm extends Component{
 				<Form name="SearchForm"  onSubmit={this.onSubmit} >
 					
 					<KrField grid={1} name="orderId" type="hidden"/>
+					<KrField grid={1} name="accountType" type="hidden"/>
 					<KrField grid={1} name="accountId" component="select" label="代码" options={optionList}/> 
 					<KrField grid={1} name="propertyId" type="select" label="款项" options={propList}/>
 					<KrField grid={1/2} name="startTime" component="date" label="开始日期" />

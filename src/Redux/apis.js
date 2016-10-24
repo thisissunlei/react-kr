@@ -288,6 +288,11 @@ const APIS  = {
 		url:'/mockjsdata/3/krspace-finance-web/finaccount/data/getPropList?accountType={accountType}',		
 		method:'get'
 	},
+	//财务管理-订单明细账-款项和代码列表
+	'findAccountAndPropList':{
+		url:'/mockjsdata/3/krspace-finance-web/finaccount/data/findAccountAndPropList?accountType={accountType}',		
+		method:'get'
+	},
 	
 }
 

@@ -98,18 +98,21 @@ export default class Basic extends Component{
 			Params:{
 				accountType:'PAYMENT',
 				mainbillid:'3'
-			}
+			},
+
 			
 	     }
    }
-
+   
    onSearchSuccess(){
-		console.log('-----');
+		
    }
 
 
    openSearchDialog(){
-   	 this.context.onInitSearchDialog(this.onSearchSuccess);
+
+   	  
+   	  this.context.onInitSearchDialog(this.onSearchSuccess,'PAYMENT');
    }
     
    
@@ -175,12 +178,11 @@ export default class Basic extends Component{
    
      openQuitDialog(){
         
-        console.log("cvcvcv",this.state.selectedList.length);
-        console.log("cv",this.state.selectedList);
-        console.log("c",this.state.selectedList.constructor==Array);
+       
+        console.log("c",this.state.selectedList[0]);
         
 
-     	if(this.state.selectedList.length==0){
+     	if(this.state.selectedList.length==0||this.state.selectedList[0]=='false'){
              alert("请选择一条回款数据进行退款");  
                   
         }else if(this.state.selectedList.length>1){
@@ -281,8 +283,8 @@ export default class Basic extends Component{
 			items=[];
 		}
         
-       
-       
+        
+       console.log("334333",this.state.Params.accountType)
        
 
        var url=window.location.href;
@@ -309,7 +311,7 @@ export default class Basic extends Component{
                   <Row>
 					<Col md={2}><Button label="回款" primary={true} onTouchTap={this.openReceivedDialog}/></Col>
 					<Col md={2}><Button label="退款" primary={true} onTouchTap={this.openQuitDialog}/></Col>
-					<Col><Button label="高级查询"  type="button" onTouchTap={this.openSearchDialog}/></Col>
+					<Col><Button label="高级查询"  type="button"  onTouchTap={this.openSearchDialog}/></Col>
                   </Row>
        
                

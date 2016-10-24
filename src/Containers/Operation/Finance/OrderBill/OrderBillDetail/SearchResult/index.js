@@ -32,6 +32,7 @@ import SearchForm from './SearchForm';
 
 
 var arr=[];
+var selectType='';
 var arr1=[];
 export default class SearchResult extends Component{
 
@@ -43,6 +44,7 @@ export default class SearchResult extends Component{
 
 	static childContextTypes =  {
         onInitSearchDialog: React.PropTypes.func,
+        accountType:React.PropTypes.string,
     }
 
 	getChildContext() {
@@ -52,7 +54,7 @@ export default class SearchResult extends Component{
 	constructor(props,context){
 		super(props, context);
 		this.urlFunctionAccount=this.urlFunctionAccount.bind(this);
-		this.urlFunctionProp=this.urlFunctionProp.bind(this);
+		
 		this.openSearchDialog=this.openSearchDialog.bind(this);
 		this.closeSearchDialog=this.closeSearchDialog.bind(this);
 
@@ -72,14 +74,22 @@ export default class SearchResult extends Component{
         }
 
 	}
+    
 
     urlFunctionAccount(){
-         var _this = this;
-	      Store.dispatch(Actions.callAPI('findAccountList',{
-	      	accountType:'PAYMENT'
+         var _this = this;      
+	      Store.dispatch(Actions.callAPI('findAccountAndPropList',{
+	      	accountType:selectType
 	      })).then(function(response){
-
-            response.map(function(item,index){ 
+            
+             console.log("22222",response.account)
+             if(!response.account){
+             	response.account=[];
+             }
+             if(!response.property){
+             	response.property=[];
+             }
+             response.account.map(function(item,index){ 
  		      	 var list ={}
  		      	 list.id=item.id;
  		      	 list.accountname=item.accountname;
@@ -90,25 +100,7 @@ export default class SearchResult extends Component{
                  item.value=item.id;
 				 return item;
 			    });
- 		        _this.setState({
-			      arr:arr
-		       });             		 
-		    
- 		    
- 		}).catch(function(err){
-			Notify.show([{
-				message:'报错了',
-				type: 'danger',
-			}]);
-		 });
-    }
-    urlFunctionProp(){
-         var _this = this;
-	      Store.dispatch(Actions.callAPI('getPropList',{
-	      	accountType:'PAYMENT'
-	      })).then(function(response){
-
-            response.map(function(item,index){ 
+		      response.property.map(function(item,index){ 
  		      	 var list ={}
  		      	 list.id=item.id;
  		      	 list.propname=item.propname;
@@ -120,9 +112,11 @@ export default class SearchResult extends Component{
 				 return item;
 			    });
  		        _this.setState({
-			      arr1:arr1
-		       });             		 
+			      arr1:arr1,
+			      arr:arr
+		       });             	           		 
 		    
+		   
  		    
  		}).catch(function(err){
 			Notify.show([{
@@ -131,11 +125,10 @@ export default class SearchResult extends Component{
 			}]);
 		 });
     }
-	onInitSearchDialog(onSuccess){
-
-		console.log("aaaa");
+    
+	onInitSearchDialog(onSuccess,type){
+		selectType=type;
 		this.urlFunctionAccount();
-	    this.urlFunctionProp()
 		this.onSearchSuccess = onSuccess;
 		this.openSearchDialog();
 	}
@@ -147,15 +140,20 @@ export default class SearchResult extends Component{
 		});
 	}
 	onSearch(forms){
-
+        
 		this.onSearchSuccess(forms);
 	    this.openSearchDialog();
+
+	   arr=[];
+       arr1=[];
 
 	}
 
 
 	onCancel(){	
        this.openSearchDialog();
+       arr=[];
+       arr1=[];
 	}
 
 
