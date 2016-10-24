@@ -33,7 +33,31 @@ import QuitMoney from './QuitMoney';
 import SwitchMoney from './SwitchMoney';
 import BusinessMoney from './BusinessMoney';
 
+class ViewForm extends Component{
+	constructor(props,context){
+		super(props,context);
+	}
+	
+	render(){
+      
+       let items=this.props.detail
+	   //console.log("5555",items)
+        
 
+		return(
+				<div>					
+					<KrField grid={1}  component="labelText" label="代码名称" value={items.accountName}/> 
+					<KrField grid={1}  component="labelText" label="付款日期" value={items.occuryear}/> 
+					<KrField grid={1}  component="labelText" label="交易编号" value={items.accountName}/> 
+					<KrField grid={1}  component="labelText" label="金额（元）" value={items.finaflowAmount}/> 
+					<KrField grid={1}  component="labelText" label="备注" value={items.finaflowdesc}/> 
+					<KrField grid={1}  component="labelText" label="上传附件" value={items.accountName}/>
+				</div>	
+
+
+			);
+	 }
+}
 export default class Deposit extends Component{
 
 	static PropTypes = {
@@ -57,6 +81,9 @@ export default class Deposit extends Component{
 		this.openQuitDialog=this.openQuitDialog.bind(this);
 		this.openSwitchDialog=this.openSwitchDialog.bind(this);
 		this.openBusinessDialog=this.openBusinessDialog.bind(this);
+
+		this.openViewDialog=this.openViewDialog.bind(this);
+		this.onOperation = this.onOperation.bind(this);
 		
 		
 
@@ -66,9 +93,33 @@ export default class Deposit extends Component{
            openSwitch:false,
            openBusiness:false,
            openQuit:false,
+           itemDetail:{},
+           openView:false,
            arr:[],
-           arr1:[]
+           arr1:[],
+           Params:{
+				
+			}
 		}
+	}
+     
+
+     //操作相关
+	onOperation(type,itemDetail){
+
+		this.setState({
+			itemDetail
+		});
+
+		if(type == 'view'){
+			this.openViewDialog();
+		}
+	}
+
+	openViewDialog(){
+		this.setState({
+			openView:!this.state.openView
+		});
 	}
 
 	openBusinessDialog(){
@@ -244,17 +295,7 @@ export default class Deposit extends Component{
 
 
 	componentDidMount() {
-        var _this = this;
-		Store.dispatch(Actions.callAPI('getPageAccountFlow')).then(function(response){      
-			_this.setState({
-				item:response
-			});
-		}).catch(function(err){
-			Notify.show([{
-				message:err.message,
-				type: 'danger',
-			}]);
-		});
+       
 	}
     
     
@@ -273,12 +314,18 @@ export default class Deposit extends Component{
 			return  null;
 		}
 
-        let items=this.state.item.items;
+       
+       const close=[
+        <Button
+        label="关闭"
+        primary={true}
+         style={{marginLeft:10}}
+        onTouchTap={this.openViewDialog}
+        />
+      ]
 
 	   
-	    if(!items){
-	    	items=[];
-	    }
+	   
 
 	    //console.log("dedede",this.state.item)
        var url=window.location.href;
@@ -298,36 +345,32 @@ export default class Deposit extends Component{
                   </Row>
 
                   
-                  <Table displayCheckbox={false}>
-			          <TableHeader>
-			          <TableHeaderColumn>序号</TableHeaderColumn>
-			          <TableHeaderColumn>交易日期</TableHeaderColumn>
-			          <TableHeaderColumn>代码</TableHeaderColumn>
-			           <TableHeaderColumn>类别</TableHeaderColumn>
-			          <TableHeaderColumn>款项</TableHeaderColumn>
-			          <TableHeaderColumn>金额</TableHeaderColumn>
-			           <TableHeaderColumn>备注</TableHeaderColumn>
-			           <TableHeaderColumn>操作</TableHeaderColumn>
-			         </TableHeader>
-			         <TableBody>        
-                        
-                         {items.map((item,index)=><TableRow key={index}>
-			              <TableRowColumn>{item.id}</TableRowColumn>
-			              <TableRowColumn>{item.occuryear}</TableRowColumn>
-			              <TableRowColumn>{item.accountName}</TableRowColumn>
-			              <TableRowColumn>{item.recordType}</TableRowColumn>
-			              <TableRowColumn>{item.propertyName}</TableRowColumn>
-			              <TableRowColumn>{item.finaflowAmount}</TableRowColumn>
-			               <TableRowColumn>{item.finaflowdesc}</TableRowColumn>
-			              <TableRowColumn>
-							  <Button label="查看" component="labelText" type="link"/>
-						 </TableRowColumn>
-			            </TableRow>
-			         )}
-			         
-
-           </TableBody>
-       </Table> 
+                <Table style={{marginTop:10}} ajax={true}  ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.Params} onOperation={this.onOperation}>
+	              <TableHeader>
+				          <TableHeaderColumn>序号</TableHeaderColumn>
+				          <TableHeaderColumn>交易日期</TableHeaderColumn>
+				          <TableHeaderColumn>代码</TableHeaderColumn>
+				           <TableHeaderColumn>类别</TableHeaderColumn>
+				          <TableHeaderColumn>款项</TableHeaderColumn>
+				          <TableHeaderColumn>金额</TableHeaderColumn>
+				           <TableHeaderColumn>备注</TableHeaderColumn>
+				           <TableHeaderColumn>操作</TableHeaderColumn>
+	              </TableHeader>
+	              <TableBody>
+	                <TableRow>
+	                	<TableRowColumn name="id"></TableRowColumn>
+	                    <TableRowColumn name="occuryear"></TableRowColumn>
+	                    <TableRowColumn name="accountName"></TableRowColumn>
+	                    <TableRowColumn name="recordType"></TableRowColumn>
+	                    <TableRowColumn name="propertyName"></TableRowColumn>
+	                    <TableRowColumn name="finaflowAmount"></TableRowColumn>
+	                    <TableRowColumn name="finaflowdesc"></TableRowColumn>
+	                    <TableRowColumn>
+	                        <Button label="查看"  type="operation" operation="view" />
+	                    </TableRowColumn>
+	                  </TableRow>
+	              </TableBody>
+              </Table>
 
 
               <Dialog
@@ -335,7 +378,7 @@ export default class Deposit extends Component{
 						modal={true}
 						open={this.state.openReceive}
 					>
-					  <ReceivedMoney onSubmit={this.onAddReceivedSubmit} onCancel={this.ReceivedDialog} optionList={this.state.arr} initialValues={this.state.initialValues} />
+					  <ReceivedMoney onSubmit={this.onAddReceivedSubmit} onCancel={this.ReceivedDialog} optionList={this.state.arr} initialValues={initialValues} />
 
 				  </Dialog>
                    
@@ -344,7 +387,7 @@ export default class Deposit extends Component{
 						modal={true}
 						open={this.state.openSwitch}
 					>
-					 <SwitchMoney onSubmit={this.onSwitchSubmit} onCancel={this.SwitchDialog} optionList={this.state.arr1} initialValues={this.state.initialValues}/> 
+					 <SwitchMoney onSubmit={this.onSwitchSubmit} onCancel={this.SwitchDialog} optionList={this.state.arr1} initialValues={initialValues}/> 
 				  </Dialog>
                     
                     
@@ -364,7 +407,14 @@ export default class Deposit extends Component{
 					 <QuitMoney onSubmit={this.onQuitSubmit} onCancel={this.QuitMoneyDialog}/>  
 				  </Dialog>
 
-                   
+                  <Dialog
+						title="查看"
+						modal={true}
+						open={this.state.openView}
+						actions={close}
+						>							
+						<ViewForm detail={this.state.itemDetail} onCancel={this.openViewDialog} />
+					 </Dialog> 
 			</div>		
 
 		);

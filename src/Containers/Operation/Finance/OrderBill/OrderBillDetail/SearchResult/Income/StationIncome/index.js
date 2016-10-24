@@ -26,6 +26,9 @@ import {
 	Form
 } from 'kr-ui';
 
+
+import ChangeAccountForm from './ChangeAccountForm';
+
 class ViewForm extends Component{
 	constructor(props,context){
 		super(props,context);
@@ -50,17 +53,19 @@ class ViewForm extends Component{
 	}
 
 }
-class ChangeAccountForm extends Component{
+
+class SupplementForm extends Component{
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
-		onCancel:React.PropTypes.func,
+		onCancel:React.PropTypes.func
+		
 	}
 	constructor(props,context){
 		super(props,context);
 		this.onCancel=this.onCancel.bind(this);
 		this.onSubmit=this.onSubmit.bind(this);
 		this.state={
-          Addaccount:false,
+          supplement:false,
 
 		}
 	};
@@ -71,32 +76,31 @@ class ChangeAccountForm extends Component{
 	onSubmit(){
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit();
+		this.setState({
+			supplement:!this.state.supplement,
+		})
 	}
 	
-	render(){
-		let detail=this.props.detail;
-		console.log('detail',detail)
+	render(id){
+		
 		return(
-				<Form name="jyayayoinForm"  onSubmit={this.onSubmit} >
-					
-					<KrField grid={1} name="accountid" component="select" label="代码名称" /> 
-					<KrField grid={1} name="operatedate" type="date" component="date" label="付款日期" /> 
-					<KrField name="preCode" component="group" label="金额正负">
-		                <KrField name="preCode" label="正" type="radio" value="0"/>
-		                <KrField name="preCode" label="负" type="radio" value="1" />
-		            </KrField> 
-					
-					<KrField grid={1} name="finaflowamount" type="text" component="input" label="金额（元）" /> 
-					<KrField grid={1} name="finaflowdesc" type="text" component="input" label="备注" /> 
-					<KrField grid={1} name="fileids" component="file" label="上传附件" />
-					<Button  label="确定" type="submit" primary={true} /> 
+				
+				<div>
+					<p>是否确定补挂延期收入？</p>
+					<Button  label="确定" type="button"  onTouchTap={this.onSubmit}/> 
 					<Button  label="取消" type="button" onTouchTap={this.onCancel} /> 
-				</Form>
-
+				</div>
+					
+					
+				
 			);
 	}
-
+	
 }
+
+
+
+
 
 export default class StationIncome extends Component{
 
@@ -107,16 +111,21 @@ export default class StationIncome extends Component{
 
 	constructor(props,context){
 		super(props, context);
+		
 		this.openViewDialog=this.openViewDialog.bind(this);
 		this.onOperation=this.onOperation.bind(this);
 		this.openAddaccount=this.openAddaccount.bind(this);
 		this.onConfrimSubmit=this.onConfrimSubmit.bind(this);
+		this.openSupplement=this.openSupplement.bind(this);
+		this.onSupplementSubmit=this.onSupplementSubmit.bind(this);
 		this.state={
            item:{},
            Params:{},
            openview:false,
           Addaccount:false,
+          supplement:false,
 		}
+		
 	}
 
 
@@ -158,10 +167,37 @@ export default class StationIncome extends Component{
 				type: 'danger',
 			}]);
 	   	});
+		this.openAddaccount()
+	}
+	//补收入
+	openSupplement(){
 		this.setState({
-			Addaccount:!this.state.Addaccount
+			supplement:!this.state.supplement
 		})
 	}
+	onSupplementSubmit(){
+		var url=window.location.href;
+       var url_arr=url.split('/');
+		var _this=this;
+		 let initialValues = {
+			mainbillid:url_arr[url_arr.length-2],
+		}
+		Store.dispatch(Actions.callAPI('addIncome',initialValues)).then(function(response){
+			Notify.show([{
+				message:'操作成功',
+				type: 'success',
+			}]);
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+	   	});
+	   	
+	   	this.openSupplement();
+		
+	}
+
 
 	render(){
 
@@ -169,7 +205,7 @@ export default class StationIncome extends Component{
 
 	   let items=this.state.item.items;
 
-	   
+	   	
 	    if(!items){
 	    	items=[];
 	    }
@@ -190,7 +226,7 @@ export default class StationIncome extends Component{
 			 <div>
                    <Row>
 					<Col md={2}><Button label="挂账" onTouchTap={this.openAddaccount}/></Col>
-					<Col md={2}><Button label="补收入" primary={true}/></Col>
+					<Col md={2}><Button label="补收入" primary={true} onTouchTap={this.openSupplement}/></Col>
                   </Row>
 
                    <Table style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getPageAccountFlow'  ajaxParams={this.state.Params} onOperation={this.onOperation} >
@@ -236,6 +272,14 @@ export default class StationIncome extends Component{
 				>
 					
 					<ChangeAccountForm onSubmit={this.onConfrimSubmit}  onCancel={this.openAddaccount}  />
+			  	</Dialog>
+			  	<Dialog
+				title="补收入"
+				modal={true}
+				open={this.state.supplement}
+				>
+					
+					<SupplementForm onSubmit={this.onSupplementSubmit} id="{this.props.id}" onCancel={this.openSupplement}  />
 			  	</Dialog>
 			</div>		
 

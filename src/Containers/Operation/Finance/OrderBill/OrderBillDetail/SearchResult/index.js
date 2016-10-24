@@ -21,10 +21,15 @@ import {
 	List,
  	ListItem,
 	LabelText,
+	Dialog
 } from 'kr-ui';
 
 import Received from './Received';
 import Income from './Income';
+
+import SearchForm from './SearchForm';
+
+
 
 
 export default class SearchResult extends Component{
@@ -35,10 +40,65 @@ export default class SearchResult extends Component{
 		
 	}
 
+	static childContextTypes =  {
+        onInitSearchDialog: React.PropTypes.func,
+    }
+
+	getChildContext() {
+    	return {onInitSearchDialog: this.onInitSearchDialog};
+ 	}
+
 	constructor(props,context){
 		super(props, context);
+		this.openSearchDialog=this.openSearchDialog.bind(this);
+		this.onSubmit=this.onSubmit.bind(this);
+		this.closeSearchDialog=this.closeSearchDialog.bind(this);
+
+
+		this.onInitSearchDialog = this.onInitSearchDialog.bind(this);
+		this.openSearchDialog = this.openSearchDialog.bind(this);
+		this.onSearch = this.onSearch.bind(this);
+
+		this.onSearchSuccess = '';
+
+        this.state={
+        	searchParams:{},
+        	openSearch:false,
+        }
+
 	}
 
+
+	onInitSearchDialog(onSuccess){
+
+		console.log("aaaa");
+		this.onSearchSuccess = onSuccess;
+
+		this.openSearchDialog();
+	}
+
+	openSearchDialog(){
+		this.setState({
+			openSearch:!this.state.openSearch
+		});
+	}
+	onSearch(forms){
+
+		this.onSearchSuccess(forms);
+	   this.openSearchDialog();
+
+	}
+
+
+	onSubmit(){
+
+	}
+
+	closeSearchDialog(){
+		this.setState({
+			openSearch:!this.state.openSearch
+		}) 
+	}
 
 	componentDidMount() {
 
@@ -49,7 +109,7 @@ export default class SearchResult extends Component{
 
 	}
 
-
+  
 
 	render(){
 		
@@ -61,11 +121,22 @@ export default class SearchResult extends Component{
 		return(
 
 			 <div>
-
+			      
+                  <Row>
 			        <Received params={this.props.params} type="RECEIVED" detailResult={this.props.detailResult} />
                     <Income params={this.props.params} type="INCOME" />
+                  </Row>
 
-				  
+
+                  	<Dialog
+					title="高级查询"
+					open={this.state.openSearch}
+					>
+						<SearchForm onSubmit={this.onSearch}/>
+		  	       </Dialog>
+
+
+                   
 			</div>		
 
 		);

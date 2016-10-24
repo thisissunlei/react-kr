@@ -63,15 +63,20 @@ export default class Basic extends Component{
 		super(props, context);
 		this.openViewDialog=this.openViewDialog.bind(this);
 		this.onOperation=this.onOperation.bind(this);
+		
 		this.state={
            item:{},
            Params:{
            	accountType:'INCOME',
            },
            openview:false,
+           openSearch:false
 		}
 	}
+	componentDidMount() {
+      
 
+	}
 
 	//操作相关
 	onOperation(type,itemDetail){
@@ -84,13 +89,8 @@ export default class Basic extends Component{
 			this.openViewDialog();
 		}
 	}
-
-
-	componentDidMount() {
-      
-
-	}
-
+	
+	//查看
 	openViewDialog(){
 		var _this=this;
 		this.setState({
@@ -123,6 +123,7 @@ export default class Basic extends Component{
 		return(
 
 			 <div>
+			 	<Button label="高级查询"  type="link" onTouchTap={this.openSearchDialog}/>
             <Table style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.Params} onOperation={this.onOperation} >
 	              <TableHeader>
 				          <TableHeaderColumn>序号</TableHeaderColumn>
@@ -158,6 +159,7 @@ export default class Basic extends Component{
 				
 			<ViewForm detail={this.state.itemDetail} onCancel={this.openViewDialog}  />
 		  	</Dialog>
+			
 
 			</div>		
 

@@ -90,7 +90,7 @@ const APIS  = {
 
 	//合同－承租合同－新建
 	'addFinaContractIntentletter':{
-		url:'/mockjsdata/3/krspace-finance-web/finacontractdetail/fina-contract-intentletter/actions/save',
+		url:'/api/krspace-finance-web/finacontractdetail/fina-contract-intentletter/actions/save',
 		method:'post'
 	},
 	//合同－承租合同－编辑
@@ -272,6 +272,11 @@ const APIS  = {
 	'supplementIncome':{
 		url:'/mockjsdata/3/krspace-finance-web//finaccount/opt/supplementIncome',
 		method:'post'
+	},
+	//财务管理－订单明细账-补收入
+	'addIncome':{
+		url:'/mockjsdata/3/krspace_finance_web/finaccount/opt/addIncome?mainbillid={mainbillid}',		
+		method:'get'
 	},
 	//财务管理－开票列表-list
 	'getFnaInvoiceModelListByAjax':{

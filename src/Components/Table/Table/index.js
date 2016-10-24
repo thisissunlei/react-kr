@@ -51,7 +51,7 @@ export default class Table extends React.Component {
 		onPageChange:React.PropTypes.func,
 		onOperation:React.PropTypes.func,
 		onLoaded:React.PropTypes.func,
-		onSelecte:React.PropTypes.func,
+		onSelect:React.PropTypes.func,
 	}
 
 	constructor(props){

@@ -27,6 +27,7 @@ import {
 
 
 
+var arr=[];
 class ReceivedMoney extends Component{
 
 	static PropTypes = {
@@ -47,7 +48,7 @@ class ReceivedMoney extends Component{
 
 	componentDidMount() {
 
-       let {initialValues}= this.props;
+      let {initialValues}= this.props;
 	   Store.dispatch(initialize('ReceivedMoney',initialValues));
 		
 	}

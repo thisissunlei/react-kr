@@ -29,37 +29,13 @@ import {
 var arr=[];
 var arr1=[];
 import {Actions,Store} from 'kr/Redux';
-class ViewForm extends Component{
-	constructor(props,context){
-		super(props,context);
-	}
-	
-	render(){
-      
-       let items=this.props.detail
-	   //console.log("5555",items)
-        
 
-		return(
-				<div>					
-					<KrField grid={1}  component="labelText" label="代码名称" value={items.accountName}/> 
-					<KrField grid={1}  component="labelText" label="付款日期" value={items.occuryear}/> 
-					<KrField grid={1}  component="labelText" label="交易编号" value={items.accountName}/> 
-					<KrField grid={1}  component="labelText" label="金额（元）" value={items.finaflowAmount}/> 
-					<KrField grid={1}  component="labelText" label="备注" value={items.finaflowdesc}/> 
-					<KrField grid={1}  component="labelText" label="上传附件" value={items.accountName}/>
-				</div>	
-
-
-			);
-	 }
-}
 export default class Earnest extends Component{
 
 	static PropTypes = {
 		params:React.PropTypes.object,
 		type:React.PropTypes.string,
-       
+        mainId:React.PropTypes.number,
 	}
 
 	constructor(props,context){
@@ -71,44 +47,16 @@ export default class Earnest extends Component{
         this.onCancelQ = this.onCancelQ.bind(this);
         this.onCancelB = this.onCancelB.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-
-        this.openViewDialog=this.openViewDialog.bind(this);
-		this.onOperation = this.onOperation.bind(this);
-
 		this.state={
            item:{},
-           openView:false,
-           itemDetail:{},
            openReceive:false,
            openSwitch:false,
            openBusiness:false,
            arr:[],
-           arr1:[],
-           Params:{
-				
-			}
+           arr1:[]
 		}
 	}
     
-    
-
-     //操作相关
-	onOperation(type,itemDetail){
-
-		this.setState({
-			itemDetail
-		});
-
-		if(type == 'view'){
-			this.openViewDialog();
-		}
-	}
-
-	openViewDialog(){
-		this.setState({
-			openView:!this.state.openView
-		});
-	}
     
     BusinessMoney(){ 
         this.setState({
@@ -286,23 +234,13 @@ export default class Earnest extends Component{
 	    if(!items){
 	    	items=[];
 	    }
-        
 
 
-       var url=window.location.href;
-       var url_arr=url.split('/');
        let initialValues = {
-			mainbillid:url_arr[url_arr.length-2],
+			mainbillid:mainId,
 		}
         
-      const close=[
-        <Button
-        label="关闭"
-        primary={true}
-         style={{marginLeft:10}}
-        onTouchTap={this.openViewDialog}
-        />
-      ]
+
        
 
 		return(
@@ -316,32 +254,36 @@ export default class Earnest extends Component{
                   </Row>
 
                   
-                  <Table style={{marginTop:10}} ajax={true}   ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.Params} onOperation={this.onOperation}>
-	              <TableHeader>
-				          <TableHeaderColumn>序号</TableHeaderColumn>
-				          <TableHeaderColumn>交易日期</TableHeaderColumn>
-				          <TableHeaderColumn>代码</TableHeaderColumn>
-				           <TableHeaderColumn>类别</TableHeaderColumn>
-				          <TableHeaderColumn>款项</TableHeaderColumn>
-				          <TableHeaderColumn>金额</TableHeaderColumn>
-				           <TableHeaderColumn>备注</TableHeaderColumn>
-				           <TableHeaderColumn>操作</TableHeaderColumn>
-	              </TableHeader>
-	              <TableBody>
-	                <TableRow>
-	                	<TableRowColumn name="id"></TableRowColumn>
-	                    <TableRowColumn name="occuryear"></TableRowColumn>
-	                    <TableRowColumn name="accountName"></TableRowColumn>
-	                    <TableRowColumn name="recordType"></TableRowColumn>
-	                    <TableRowColumn name="propertyName"></TableRowColumn>
-	                    <TableRowColumn name="finaflowAmount"></TableRowColumn>
-	                    <TableRowColumn name="finaflowdesc"></TableRowColumn>
-	                    <TableRowColumn>
-	                        <Button label="查看"  type="operation" operation="view"/>
-	                    </TableRowColumn>
-	                  </TableRow>
-	              </TableBody>
-              </Table>
+                  <Table displayCheckbox={false}>
+			          <TableHeader>
+			          <TableHeaderColumn>序号</TableHeaderColumn>
+			          <TableHeaderColumn>交易日期</TableHeaderColumn>
+			          <TableHeaderColumn>代码</TableHeaderColumn>
+			           <TableHeaderColumn>类别</TableHeaderColumn>
+			          <TableHeaderColumn>款项</TableHeaderColumn>
+			          <TableHeaderColumn>金额</TableHeaderColumn>
+			           <TableHeaderColumn>备注</TableHeaderColumn>
+			           <TableHeaderColumn>操作</TableHeaderColumn>
+			         </TableHeader>
+			         <TableBody>        
+                        
+                         {items.map((item,index)=><TableRow key={index}>
+			              <TableRowColumn>{index+1}</TableRowColumn>
+			              <TableRowColumn>{item.occuryear}</TableRowColumn>
+			              <TableRowColumn>{item.accountName}</TableRowColumn>
+			              <TableRowColumn>{item.recordType}</TableRowColumn>
+			              <TableRowColumn>{item.propertyName}</TableRowColumn>
+			              <TableRowColumn>{item.finaflowAmount}</TableRowColumn>
+			               <TableRowColumn>{item.finaflowdesc}</TableRowColumn>
+			              <TableRowColumn>
+							  <Button label="查看" component="labelText" type="link"/>
+						 </TableRowColumn>
+			            </TableRow>
+			         )}
+			         
+
+           </TableBody>
+       </Table> 
 
 
             <Dialog
@@ -421,17 +363,6 @@ export default class Earnest extends Component{
                          </Form>
 					  </div>
 				  </Dialog>
-
-				   <Dialog
-						title="查看"
-						modal={true}
-						open={this.state.openView}
-						actions={close}
-						>
-							
-
-						<ViewForm detail={this.state.itemDetail} onCancel={this.openViewDialog} />
-					 </Dialog>
 			</div>		
 
 		);

@@ -33,6 +33,7 @@ class QuitMoney extends Component{
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
+		items:React.PropTypes.object,
 	}
 
 	constructor(props,context){
@@ -69,8 +70,12 @@ class QuitMoney extends Component{
     
 
 	render(){
+       
 
-		const { error, handleSubmit, pristine, reset} = this.props;
+		const { error, handleSubmit, pristine, reset,items} = this.props;
+
+		
+        
 
 		return(
 
