@@ -73,7 +73,7 @@ const APIS  = {
 
 	//合同－承租合同－新建
 	'addFinaContractIntentletter':{
-		url:'/mockjsdata/3/krspace-finance-web/finacontractdetail/fina-contract-intentletter/actions/save',
+		url:'/api/krspace-finance-web/finacontractdetail/fina-contract-intentletter/actions/save',
 		method:'post'
 	},
 	//合同－承租合同－编辑
