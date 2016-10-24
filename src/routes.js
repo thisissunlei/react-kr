@@ -41,7 +41,7 @@ export default(
 					<Route path="List" component={Operation.CustomerManage.List} name="customerManage_list"/>
 
 					<Route path=":customerId/" component={Basic} >
-				
+
 								{/*订单*/}
 								<Route path="order" component={Basic}>
 									<Route path="create" component = {Operation.CustomerManage.Order.Create} name="customerManage_order_create"/>
@@ -114,7 +114,7 @@ export default(
 					</Route>
 
 
-					
+
 				</Route>
 
 				{/*入驻订单*/}
@@ -159,7 +159,7 @@ export default(
 
 		{/*权限管理*/}
 		<Route path="permission" component={Basic}>
-		
+
 			<Route path="index" component={Permission.Home}/>
 			<Route path="notify" component={Permission.Notify}/>
 			<Route path="memo" component={Permission.Memo}/>

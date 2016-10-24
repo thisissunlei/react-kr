@@ -44,7 +44,9 @@ export default class AllStation  extends Component{
 
 
     this.state = {
-      searchParams:this.props.searchParams
+      searchParams:{
+        mainbillid:3
+    }
     }
 
 	}
@@ -56,8 +58,14 @@ export default class AllStation  extends Component{
   }
 
 	onSubmit(form){
+
+    let stationVos = [
+        {id:1},
+        {id:2},
+        {id:3},
+    ];
 		const {onSubmit} = this.props;
-		onSubmit && onSubmit(form);
+		onSubmit && onSubmit(stationVos);
 	}
 
 	onCancel(){
@@ -72,35 +80,31 @@ export default class AllStation  extends Component{
 		return (
 			<div>
 
-      <Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='findFinaFinaflowPropertyList' ajaxParams={this.state.searchParams} onSelect={this.onSelect}>
+        {/*
+      <Table ajax={true}  ajaxUrlName='getStationOrSettingList' ajaxParams={this.state.searchParams} onSelect={this.onSelect}>
+          */}
+      <Table ajax={true}  ajaxUrlName='getFinaDataByList' ajaxFieldListName = "finaContractMainbillVOList" ajaxParams={this.state.searchParams} onSelect={this.onSelect}>
         <TableHeader>
-          <TableHeaderColumn name="propcode">属性编码</TableHeaderColumn>
-          <TableHeaderColumn>属性名称</TableHeaderColumn>
-          <TableHeaderColumn>是否启用</TableHeaderColumn>
-          <TableHeaderColumn>属性类别</TableHeaderColumn>
-          <TableHeaderColumn>排序号</TableHeaderColumn>
-          <TableHeaderColumn>创建人</TableHeaderColumn>
-          <TableHeaderColumn>创建时间</TableHeaderColumn>
-          <TableHeaderColumn>操作</TableHeaderColumn>
+          <TableHeaderColumn>类别</TableHeaderColumn>
+          <TableHeaderColumn>编号／名称</TableHeaderColumn>
+          <TableHeaderColumn>单价（元／月）</TableHeaderColumn>
+          <TableHeaderColumn>楼层</TableHeaderColumn>
+          <TableHeaderColumn>起始日期</TableHeaderColumn>
+          <TableHeaderColumn>结束日期</TableHeaderColumn>
+          <TableHeaderColumn>减租开始日期</TableHeaderColumn>
       </TableHeader>
 
       <TableBody>
-           <TableRow displayCheckbox={true}>
-          <TableRowColumn name="propcode" ></TableRowColumn>
-          <TableRowColumn name="propname" ></TableRowColumn>
-          <TableRowColumn name="enableflag" options={[{label:'是',value:'ENABLE'},{label:'否',value:'DISENABLE'}]}></TableRowColumn>
-          <TableRowColumn name="proptype" options={[{label:'收入',value:'INCOME'},{label:'回款',value:'PAYMENT'}]}></TableRowColumn>
-          <TableRowColumn name="ordernum"></TableRowColumn>
-          <TableRowColumn name="creatername"></TableRowColumn>
-          <TableRowColumn name="createdate" type="date"></TableRowColumn>
-          <TableRowColumn>
-              <Button label="查看"  type="operation" operation="view"/>
-              <Button label="编辑"  type="operation" operation="edit"/>
-           </TableRowColumn>
+          <TableRow>
+          <TableRowColumn name="stationType" options={[{label:'工位',value:'1'},{label:'会议室',value:'2'}]} ></TableRowColumn>
+          <TableRowColumn name="stationId" ></TableRowColumn>
+          <TableRowColumn name="whereFloor" ></TableRowColumn>
+          <TableRowColumn name="unitprice" ></TableRowColumn>
+          <TableRowColumn name="leaseBeginDate" type="date" ></TableRowColumn>
+          <TableRowColumn name="leaseEndDate" type="date"></TableRowColumn>
+          <TableRowColumn>yahaha</TableRowColumn>
          </TableRow>
       </TableBody>
-
-      <TableFooter></TableFooter>
 
       </Table>
 

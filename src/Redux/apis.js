@@ -1,8 +1,8 @@
 const APIS  = {
 
 //合同－工位信息
-	'addFnaContractWithdrawal':{
-		url:'/api/krspace-finance-web/finacontractdetail/contract-detail-station?contractId={contractId}',
+	'getStationOrSettingList':{
+		url:'/mockjsdata/3/krspace-finance-web/fnaContractRentController/getStationOrSettingList?mainbillid={mainbillid}',
 		method:'get'
 	},
 	//退租协议-新增-编辑
@@ -275,7 +275,7 @@ const APIS  = {
 	},
 	//财务管理－订单明细账-补收入
 	'addIncome':{
-		url:'/mockjsdata/3/krspace_finance_web/finaccount/opt/addIncome?mainbillid={mainbillid}',		
+		url:'/mockjsdata/3/krspace_finance_web/finaccount/opt/addIncome?mainbillid={mainbillid}',
 		method:'get'
 	},
 	//财务管理－开票列表-list

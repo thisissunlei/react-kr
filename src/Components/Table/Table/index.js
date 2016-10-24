@@ -23,6 +23,7 @@ export default class Table extends React.Component {
 		ajaxFieldListName:'items',
 		displayCheckbox:true,
 		footer:false,
+		exportSwitch:false,
 	}
 
 	static PropTypes = {
@@ -31,6 +32,7 @@ export default class Table extends React.Component {
 		displayCheckbox: React.PropTypes.bool,
 		style:React.PropTypes.object,
 		toggleVisibility: React.PropTypes.string,
+		exportSwitch:React.PropTypes.bool,
 		page: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
 		pageSize: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
 		pagination:React.PropTypes.bool,
@@ -264,7 +266,7 @@ export default class Table extends React.Component {
 		var visibilityRows = new Array(this.state.pageSize+1).join(1).split('');
 
 		//默认隐藏children
-		let visibilityType = this.props.toggleVisibility||''; 
+		let visibilityType = this.props.toggleVisibility||'';
 
 		switch(visibilityType){
 			case 'odd':{
@@ -428,6 +430,7 @@ export default class Table extends React.Component {
 				pagination:this.props.pagination,
 				totalCount:this.state.totalCount,
 				onPageChange:this.onPageChange,
+				exportSwitch:this.props.export,
 				footer:footer,
 		}
 
@@ -454,7 +457,7 @@ export default class Table extends React.Component {
 			const {muiName,name} = child.type;
 			if (name === 'TableHeader') {
 				tHead = this.createTableHeader(child);
-			} 
+			}
 		});
 		return tHead;
 	}
@@ -490,7 +493,7 @@ export default class Table extends React.Component {
 			const {muiName,name} = child.type;
 			if (name === 'TableBody') {
 				tBody = this.createTableBody(child);
-			} 
+			}
 		});
 
 		return tBody;
@@ -562,8 +565,3 @@ export default class Table extends React.Component {
 
 
 }
-
-
-
-
-
