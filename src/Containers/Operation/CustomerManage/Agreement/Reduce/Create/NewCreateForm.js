@@ -255,7 +255,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" defaultValue={initialValues.signdate} />
 				<KrField grid={1}  name="totalrent" type="labelText"  label="减租金额"  /> {/*减租金额没有*/}
 
-				<KrField grid={1/2}  name="contractmark" component="textarea" label="备注" />
+				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" />
 				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" />
 
 
