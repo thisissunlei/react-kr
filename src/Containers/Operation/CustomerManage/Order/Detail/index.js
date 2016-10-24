@@ -129,8 +129,6 @@ class OrderDetail extends Component {
 		return './#/operation/customerManage/'+customerId+'/order/'+orderId+'/agreement/'+typeValue+'/'+agreementId+'/edit';
 	}
 	getAgrementDetailUrl(customerId,orderId,typeId,agreementId){
-
-		console.log(customerId,orderId,typeId,agreementId);
 		var typeArray = [
 			{label:'意向书',value:'admit'},
 			{label:'入住协议',value:'join'},
