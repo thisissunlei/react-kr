@@ -55,6 +55,7 @@ class ViewForm extends Component{
 }
 
 class SupplementForm extends Component{
+	
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func
@@ -103,7 +104,9 @@ class SupplementForm extends Component{
 
 
 export default class StationIncome extends Component{
-
+	static contextTypes =  {
+        onInitSearchDialog: React.PropTypes.func,
+    }
 	static PropTypes = {
 		params:React.PropTypes.object,
 		type:React.PropTypes.string
@@ -118,6 +121,9 @@ export default class StationIncome extends Component{
 		this.onConfrimSubmit=this.onConfrimSubmit.bind(this);
 		this.openSupplement=this.openSupplement.bind(this);
 		this.onSupplementSubmit=this.onSupplementSubmit.bind(this);
+
+		this.openSearchDialog = this.openSearchDialog.bind(this);
+		this.onSearchSuccess = this.onSearchSuccess.bind(this);
 		this.state={
            item:{},
            Params:{},
@@ -132,7 +138,14 @@ export default class StationIncome extends Component{
 	componentDidMount() {
         
 	}
+	onSearchSuccess(){
+		console.log('-----');
+   }
 
+
+   openSearchDialog(){
+   	 this.context.onInitSearchDialog(this.onSearchSuccess);
+   }
 	//操作相关
 	onOperation(type,itemDetail){
 
@@ -227,6 +240,7 @@ export default class StationIncome extends Component{
                    <Row>
 					<Col md={2}><Button label="挂账" onTouchTap={this.openAddaccount}/></Col>
 					<Col md={2}><Button label="补收入" primary={true} onTouchTap={this.openSupplement}/></Col>
+					<Col md={3}><Button label="高级查询"  type="button" onTouchTap={this.openSearchDialog}/></Col>
                   </Row>
 
                    <Table style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getPageAccountFlow'  ajaxParams={this.state.Params} onOperation={this.onOperation} >

@@ -67,7 +67,6 @@ export default class Basic extends Component{
 		this.openViewDialog=this.openViewDialog.bind(this);
 		this.onOperation=this.onOperation.bind(this);
 		this.openSearchDialog = this.openSearchDialog.bind(this);
-
 		this.onSearchSuccess = this.onSearchSuccess.bind(this);
 		this.state={
            item:{},
