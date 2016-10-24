@@ -1,6 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import DatePicker from 'material-ui/DatePicker';
+import dateFormat from 'dateformat';
 
 export default class DateComponent extends React.Component{
 
@@ -17,12 +18,10 @@ export default class DateComponent extends React.Component{
 
 
 	onChange(event,value){
-
 		if(!value){
 			return ;
 		}
 		let {input} = this.props;
-		console.log('------;',value);
 		/*
 		var dt = new Date(value);
 		var result =  dt.getFullYear()+'-'+(1+dt.getMonth())+'-'+dt.getDate()+' '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds();
@@ -45,6 +44,11 @@ export default class DateComponent extends React.Component{
 			borderRadius:'4px',
 			paddingLeft:10
 		}
+		let dateValue = input.value || new Date;
+		if(input.value && typeof input.value == 'string'){
+			 console.log("intp",input.value)
+			 dateValue = Date.parse(input.value);
+		}
 
 		return (
 					<div className="form-item-wrap " style={style}>
@@ -53,15 +57,15 @@ export default class DateComponent extends React.Component{
 					<div className="form-main">
 						<div className="form-input-main">
 							<div className="form-input">
-								 <DatePicker 
+								 <DatePicker
 									hintText={placeholder||'日期'}
-									value={input.value}
-		   							textFieldStyle={styles} 
-									name={input.name}
+									 value={dateValue}
+		   						textFieldStyle={styles}
+										name={input.name}
 		  						 	onChange={this.onChange}
-		   							formatDate={function(obj){
-										var dt = new Date(obj);
-										var result =  dt.getFullYear()+'-'+(1+dt.getMonth())+'-'+dt.getDate()+' '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds();
+										formatDate={function(obj){
+										    var dt = new Date(obj);
+										    var result =  dt.getFullYear()+'-'+(1+dt.getMonth())+'-'+dt.getDate()+' '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds();
 										return result;
 									}}
 		  					 	/>
@@ -76,7 +80,7 @@ export default class DateComponent extends React.Component{
 						</div>
 						{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 					</div>
-				  </div>	
+				  </div>
 						</div>
 					);
 	}
