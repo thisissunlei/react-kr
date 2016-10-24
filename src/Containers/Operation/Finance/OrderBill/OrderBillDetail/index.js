@@ -84,7 +84,7 @@ export default class AttributeSetting  extends Component{
     
 	render(){
         
-        let mainId=this.state.detailT.mainbillid
+        
 
         
         
@@ -100,7 +100,7 @@ export default class AttributeSetting  extends Component{
 								<SearchParam onSearch={this.onSearch} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance} />
 							</Col>
 							<Col md={5} >
-								<SearchResult detailResult={this.state.detailResult} params={this.state.searchParam} mainId={mainId}/>
+								<SearchResult detailResult={this.state.detailResult} params={this.state.searchParam} />
 							</Col>
 						</Row>
 
