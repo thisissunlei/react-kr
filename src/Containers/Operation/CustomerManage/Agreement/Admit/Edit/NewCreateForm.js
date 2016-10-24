@@ -277,22 +277,20 @@ class NewCreateForm  extends Component{
 
 		try{
 			billList.map(function(item,index){
-					var obj = {};
-					obj.leaseBeginDate = changeValues.leaseBegindate;
-					obj.leaseEndDate = changeValues.leaseEnddate;
-					obj.stationId = item.id;
-					obj.stationType = item.type;
-					obj.unitprice = '';
-					obj.whereFloor =  item.wherefloor;
-					stationVos.push(obj);
+					item.leaseBeginDate = changeValues.leaseBegindate;
+					item.leaseEndDate = changeValues.leaseEnddate;
+					item.stationId = item.id;
+					item.stationType = item.type;
+					item.unitprice = '';
+					item.whereFloor =  item.wherefloor;
 			});
+			
 		}catch(err){
 			console.log('billList 租赁明细工位列表为空');
 		}
 
-		console.log('---->>>',stationVos);
 		this.setState({
-			stationVos
+			stationVos:billList
 		});
 
 	}
