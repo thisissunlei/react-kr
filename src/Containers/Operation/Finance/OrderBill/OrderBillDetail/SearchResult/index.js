@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-
+import {Actions,Store} from 'kr/Redux';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 import {
@@ -31,7 +31,8 @@ import SearchForm from './SearchForm';
 
 
 
-
+var arr=[];
+var arr1=[];
 export default class SearchResult extends Component{
 
 	static PropTypes = {
@@ -50,34 +51,97 @@ export default class SearchResult extends Component{
 
 	constructor(props,context){
 		super(props, context);
+		this.urlFunctionAccount=this.urlFunctionAccount.bind(this);
+		this.urlFunctionProp=this.urlFunctionProp.bind(this);
 		this.openSearchDialog=this.openSearchDialog.bind(this);
-		this.onSubmit=this.onSubmit.bind(this);
 		this.closeSearchDialog=this.closeSearchDialog.bind(this);
 
 
 		this.onInitSearchDialog = this.onInitSearchDialog.bind(this);
 		this.openSearchDialog = this.openSearchDialog.bind(this);
 		this.onSearch = this.onSearch.bind(this);
+		this.onCancel = this.onCancel.bind(this);
 
 		this.onSearchSuccess = '';
 
         this.state={
         	searchParams:{},
         	openSearch:false,
+        	arr:[],
+        	arr1:[]
         }
 
 	}
 
+    urlFunctionAccount(){
+         var _this = this;
+	      Store.dispatch(Actions.callAPI('findAccountList',{
+	      	accountType:'PAYMENT'
+	      })).then(function(response){
 
+            response.map(function(item,index){ 
+ 		      	 var list ={}
+ 		      	 list.id=item.id;
+ 		      	 list.accountname=item.accountname;
+ 		      	 arr.push(list);		      	 	      	                                            
+              })
+              arr.map(function(item,index){
+				 item.label=item.accountname;
+                 item.value=item.id;
+				 return item;
+			    });
+ 		        _this.setState({
+			      arr:arr
+		       });             		 
+		    
+ 		    
+ 		}).catch(function(err){
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		 });
+    }
+    urlFunctionProp(){
+         var _this = this;
+	      Store.dispatch(Actions.callAPI('getPropList',{
+	      	accountType:'PAYMENT'
+	      })).then(function(response){
+
+            response.map(function(item,index){ 
+ 		      	 var list ={}
+ 		      	 list.id=item.id;
+ 		      	 list.propname=item.propname;
+ 		      	 arr1.push(list);		      	 	      	                                            
+              })
+              arr1.map(function(item,index){
+				 item.label=item.propname;
+                 item.value=item.id;
+				 return item;
+			    });
+ 		        _this.setState({
+			      arr1:arr1
+		       });             		 
+		    
+ 		    
+ 		}).catch(function(err){
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		 });
+    }
 	onInitSearchDialog(onSuccess){
 
 		console.log("aaaa");
+		this.urlFunctionAccount();
+	    this.urlFunctionProp()
 		this.onSearchSuccess = onSuccess;
-
 		this.openSearchDialog();
 	}
 
 	openSearchDialog(){
+        
 		this.setState({
 			openSearch:!this.state.openSearch
 		});
@@ -85,14 +149,15 @@ export default class SearchResult extends Component{
 	onSearch(forms){
 
 		this.onSearchSuccess(forms);
-	   this.openSearchDialog();
+	    this.openSearchDialog();
 
 	}
 
 
-	onSubmit(){
-
+	onCancel(){	
+       this.openSearchDialog();
 	}
+
 
 	closeSearchDialog(){
 		this.setState({
@@ -113,9 +178,9 @@ export default class SearchResult extends Component{
 
 	render(){
 		
-		console.log("fgfg",this.props.detailResult);
+		console.log("fgfg",this.state.arr);
 
-
+       
 
 
 		return(
@@ -132,7 +197,7 @@ export default class SearchResult extends Component{
 					title="高级查询"
 					open={this.state.openSearch}
 					>
-						<SearchForm onSubmit={this.onSearch}/>
+						<SearchForm onSubmit={this.onSearch} onCancel={this.onCancel} optionList={this.state.arr} propList={this.state.arr1}/>
 		  	       </Dialog>
 
 

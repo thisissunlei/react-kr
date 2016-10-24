@@ -53,6 +53,9 @@ class ViewForm extends Component{
 }
 
 export default class Basic extends Component{
+	static contextTypes =  {
+        onInitSearchDialog: React.PropTypes.func,
+    }
 
 	static PropTypes = {
 		params:React.PropTypes.object,
@@ -63,7 +66,8 @@ export default class Basic extends Component{
 		super(props, context);
 		this.openViewDialog=this.openViewDialog.bind(this);
 		this.onOperation=this.onOperation.bind(this);
-		
+		this.openSearchDialog = this.openSearchDialog.bind(this);
+		this.onSearchSuccess = this.onSearchSuccess.bind(this);
 		this.state={
            item:{},
            Params:{
@@ -77,6 +81,14 @@ export default class Basic extends Component{
       
 
 	}
+	 onSearchSuccess(){
+		console.log('-----');
+   }
+
+
+   openSearchDialog(){
+   	 this.context.onInitSearchDialog(this.onSearchSuccess);
+   }
 
 	//操作相关
 	onOperation(type,itemDetail){
@@ -123,7 +135,7 @@ export default class Basic extends Component{
 		return(
 
 			 <div>
-			 	<Button label="高级查询"  type="link" onTouchTap={this.openSearchDialog}/>
+			 	<Button label="高级查询"  type="button" onTouchTap={this.openSearchDialog}/>
             <Table style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.Params} onOperation={this.onOperation} >
 	              <TableHeader>
 				          <TableHeaderColumn>序号</TableHeaderColumn>

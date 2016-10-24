@@ -54,7 +54,9 @@ class ViewForm extends Component{
 
 
 export default class LivePaymentIncome extends Component{
-
+	static contextTypes =  {
+        onInitSearchDialog: React.PropTypes.func,
+    }
 	static PropTypes = {
 		params:React.PropTypes.object,
 		type:React.PropTypes.string
@@ -66,6 +68,9 @@ export default class LivePaymentIncome extends Component{
 		this.onOperation=this.onOperation.bind(this);
 		this.openAddaccount=this.openAddaccount.bind(this);
 		this.onConfrimSubmit=this.onConfrimSubmit.bind(this);
+
+		this.openSearchDialog = this.openSearchDialog.bind(this);
+		this.onSearchSuccess = this.onSearchSuccess.bind(this);
 		this.state={
            item:{},
            Params:{},
@@ -78,6 +83,15 @@ export default class LivePaymentIncome extends Component{
 	componentDidMount() {
        
 	}
+
+	 onSearchSuccess(){
+		console.log('-----');
+   }
+
+
+   openSearchDialog(){
+   	 this.context.onInitSearchDialog(this.onSearchSuccess);
+   }
 	//操作相关
 	onOperation(type,itemDetail){
 
@@ -148,6 +162,7 @@ export default class LivePaymentIncome extends Component{
 			 <div>
                    <Row>
 					<Col md={2}><Button label="挂账" onTouchTap={this.openAddaccount} /></Col>
+					<Col md={3}><Button label="高级查询"  type="button" onTouchTap={this.openSearchDialog}/></Col>
 					
                   </Row>
 

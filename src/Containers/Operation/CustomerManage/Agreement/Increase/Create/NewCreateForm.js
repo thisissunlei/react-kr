@@ -221,7 +221,7 @@ class NewCreateForm  extends Component{
 
 		let {changeValues,initialValues,optionValues} = this.props;
 		let {stationVos} = this.state;
-
+		// console.log(optionValues)
 		stationVos = stationVos.map(function(item){
 			var obj = {};
 			obj.id = item.stationId;
@@ -241,7 +241,7 @@ class NewCreateForm  extends Component{
 
 		if(Object.keys(params).length){
 			for (let item in params) {
-				if (params.hasOwnProperty(item)) {
+				if (params.hasOwnProperty(itemstationVos)) {
 					url = url.replace('{' + item + '}', params[item]);
 					delete params[item];
 				}
@@ -320,7 +320,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" /> 
 				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 
-				<KrField grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/> 
+				<KrField grid={1/2} name="customerName"  component="labelText" label="承租方" value={optionValues.customerName}/> 
 
 				<KrField grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" /> 
 
@@ -334,18 +334,20 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="communityAddress" component="labelText" label="地址" value={optionValues.communityAddress} /> 
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  /> 
 
-				<KrField grid={1/1}  component="group" label="租赁期限"> 
+				<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} />
+				<KrField grid={1/2} name="username" component="group" label="租赁期限"> 
 					<KrField grid={1/2}  name="leaseBegindate"  component="date" /> 
 					<KrField grid={1/2}  name="leaseEnddate" component="date" /> 
 				</KrField>
 
+				<KrField grid={1/2} name="firstpaydate" component="date" label="首付款时间"  /> 
 				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} /> 
-				<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} />
+				
 
-				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" defaultValue={initialValues.signdate} /> 
+				<KrField   name="signdate"  component="date" label="签署时间" defaultValue={initialValues.signdate} /> 
 
-				<KrField name="firstpaydate" component="date" label="首付款时间"  /> 
-				<KrField grid={1/1} component="group" label=" 租赁项目"> 
+				
+				<KrField grid={1/1} name="" component="group" label=" 租赁项目"> 
 					<KrField grid={1}  name="stationnum" type="text" component="input" label="工位" /> 
 					<KrField grid={1}  name="boardroomnum" type="text" component="input" label="会议室" /> 
 				</KrField>
