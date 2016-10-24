@@ -1,8 +1,17 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
+import Param from 'jquery-param';
+import { Fields } from 'redux-form';
+import {Binder} from 'react-binding';
+import ReactMixin from "react-mixin";
+import LinkedStateMixin from 'react-addons-linked-state-mixin';
+import dateFormat from 'dateformat';
 
-import {reduxForm,formValueSelector,initialize} from 'redux-form';
+import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
+
 import {Actions,Store} from 'kr/Redux';
+
+import UnitPriceForm from './UnitPriceForm';
 
 import {
 	Menu,
@@ -11,11 +20,11 @@ import {
 	IconMenu,
 	Dialog,
 
-	Table, 
-	TableBody, 
-	TableHeader, 
-	TableHeaderColumn, 
-	TableRow, 
+	Table,
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
 	TableRowColumn,
 	TableFooter,
 	Section,
@@ -25,17 +34,21 @@ import {
 	Col,
 	Button,
 	Notify,
+	IframeContent,
+	Date,
 } from 'kr-ui';
 
-
+@ReactMixin.decorate(LinkedStateMixin)
 class NewCreateForm  extends Component{
-
 
 	static DefaultPropTypes = {
 		initialValues:{
-			customerName:'hha',
-			communityName:'sdcc',
-			lessorAddress:'sd'
+			customerName:'',
+			communityName:'',
+			lessorAddress:'',
+			payTypeList:[],
+			paymentList:[],
+			fnaCorporationList:[],
 		}
 	}
 
@@ -43,31 +56,36 @@ class NewCreateForm  extends Component{
 		initialValues:React.PropTypes.object,
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
-		paymentList:React.PropTypes.array,
-		payTypeList:React.PropTypes.array,
-		floorList:React.PropTypes.array,
 	}
 
 	constructor(props,context){
 		super(props, context);
 
-		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel  = this.onCancel.bind(this);
-
-		this.onDistributionDialog = this.onDistributionDialog;
-		
+		this.onSubmit = this.onSubmit.bind(this);
 	}
+
 
 	componentDidMount(){
-		const {detail}= this.props;
-		Store.dispatch(initialize('newCreateForm',detail));
+		let {initialValues}= this.props;
+		Store.dispatch(initialize('joinCreateForm',initialValues));
 	}
-
 
 
 	onSubmit(form){
-		const {onSubmit} = this.props;
 
+		let {changeValues} = this.props;
+
+		form = Object.assign({},form);
+
+    form.lessorAddress = changeValues.lessorAddress;
+		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd h:MM:ss");
+    form.leaseBegindate = dateFormat(form.leaseBegindate,"yyyy-mm-dd h:MM:ss");
+		form.leaseEnddate = dateFormat(form.leaseEnddate,"yyyy-mm-dd h:MM:ss");
+
+		console.log('---form',form);
+
+		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}
 
@@ -76,64 +94,136 @@ class NewCreateForm  extends Component{
 		onCancel && onCancel();
 	}
 
+	getStationUrl(){
+
+	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}";
+
+		let {changeValues,initialValues,optionValues} = this.props;
+		let {stationVos} = this.state;
+
+		stationVos = stationVos.map(function(item){
+			var obj = {};
+			obj.id = item.stationId;
+			obj.type = item.stationType;
+			return obj;
+		});
+
+		let params = {
+			communityId:optionValues.mainbillCommunityId,
+			floors:changeValues.wherefloor,
+			//工位
+			goalStationNum:changeValues.stationnum,
+			//会议室
+			goalBoardroomNum:changeValues.boardroomnum,
+			selectedObjs:JSON.stringify(stationVos)
+		};
+
+		if(Object.keys(params).length){
+			for (let item in params) {
+				if (params.hasOwnProperty(item)) {
+					url = url.replace('{' + item + '}', params[item]);
+					delete params[item];
+				}
+			}
+		}
+
+		return url ;
+	}
+
+
+
+
 	render(){
 
-		let { error, handleSubmit, pristine, reset, submitting,fnaCorporation,paymentList,payTypeList,floorList,customer,initialValues} = this.props;
+		let { error, handleSubmit, pristine, reset, submitting,initialValues,changeValues,optionValues} = this.props;
 
-	initialValues = {};
-	initialValues.customerName = 'jjjdf';
-	initialValues.communityName = 'jjjdf';
-	initialValues.lessorAddress="jjj"
-	  return (
+		let {fnaCorporationList} = optionValues;
 
-		<form onSubmit={handleSubmit(this.onSubmit)}>
-								
-								<KrField name="lessorId"  grid={1/2} component="select" label="出租方" options={fnaCorporation}  />
+		fnaCorporationList && fnaCorporationList.map(function(item,index){
+			if(changeValues.leaseId  == item.id){
+				changeValues.lessorAddress = item.corporationAddress;
+			}
+		});
 
-								 <KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={initialValues.lessorAddress}/> 
 
-								 <KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" /> 
-								 <KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
+		return (
 
-								 <KrField grid={1/2}  name="leaseId" component="labelText" label="承租方" value={initialValues.customerName}/> 
-								 <KrField grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" /> 
 
-								 <KrField grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" /> 
-								 <KrField grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话" /> 
+			<div>
 
-								 <KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={initialValues.communityName} /> 
-								 <KrField grid={1/2}  name="customerAddress" type="labelText" component="labelText" label="地址"  /> 
-								 <KrField grid={1}  name="contractcode" type="text" component="input" label="合同编号"  /> 
-								 <KrField name="totalreturn"  grid={1/2} type="text" component="input" label="退租金总额" /> 
-								<KrField name="depositamount"  grid={1/2} type="text" component="input" label="退押金总额"  />
-								 <KrField grid={1/2}  name="withdrawdate" component="date" label="撤场日期"/> 
-							 <KrField grid={1/2}  name="rname"  component="date" grid={1/2} label="签署时间" />  {/*签署日期字段没有*/}
-							 <KrField grid={1}  name="contractmark	" type="textarea" component="textarea" label="备注" /> 
-							 <KrField grid={1}  name="fileIdList" component="file" label="合同附件" /> 
+<form onSubmit={handleSubmit(this.onSubmit)}>
+
+				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
+				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
+				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
+
+				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}  />
+				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/>
+				<KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" />
+				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" />
+
+				<KrField grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/>
+
+				<KrField grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" />
+
+				<KrField grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" />
+				<KrField grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话" />
+
+				<KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={optionValues.communityName} />
+
+				<KrField grid={1/2}  name="communityAddress" component="labelText" label="地址" value={optionValues.communityAddress} />
+				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  />
+
+				<KrField grid={1/1}  component="group" label="租赁期限">
+					<KrField grid={1/2}  name="leaseBegindate"  component="date" />
+					<KrField grid={1/2}  name="leaseEnddate" component="date" />
+				</KrField>
+
+				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} />
+				<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} />
+
+				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间"/>
+				<KrField name="totalreturn"  grid={1/2} type="text" component="input" label="退租金总额" />
+
+
+				<KrField name="depositamount"  grid={1/2} type="text" component="input" label="退押金总额"  />
+        <KrField grid={1/2}  name="withdrawdate" component="labelText" label="撤场日期"/>
+
+				<KrField grid={1/2}  name="contractmark" component="textarea" label="备注" />
+				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" />
+
 						<Grid>
-							<Row style={{marginTop:30}}>
-								<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} disabled={submitting} /> </Col>
-							  <Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
+						<Row style={{marginTop:30}}>
+						<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} /> </Col>
+						<Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
 						</Grid>
 
-			</form>
-			 );
+						</form>
+
+			</div>);
 	}
 }
 
-const validate = values =>{
 
-	const errors = {}
+const selector = formValueSelector('joinCreateForm');
 
-	if(!values.mainbilltype){
-		errors.mainbilltype = '请选择订单类型';
-	}else if (!values.communityid) {
-		errors.communityid = '请选择所在社区';
-	}else if(!values.mainbillname){
-		errors.mainbillname = '订单名称不能为空';
+NewCreateForm = reduxForm({ form: 'joinCreateForm',enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
+
+export default connect((state)=>{
+
+	let changeValues = {};
+
+	changeValues.lessorId = selector(state,'lessorId');
+	changeValues.leaseId = selector(state,'leaseId');
+	changeValues.stationnum = selector(state,'stationnum') || 0;
+	changeValues.boardroomnum = selector(state,'boardroomnum') || 0;
+	changeValues.leaseBegindate = selector(state,'leaseBegindate') || 0;
+	changeValues.leaseEnddate = selector(state,'leaseEnddate') || 0;
+	changeValues.wherefloor = selector(state,'wherefloor') || 0;
+
+
+	return {
+		changeValues
 	}
 
-	return errors
-}
-
-export default reduxForm({ form: 'exitCreateForm'})(NewCreateForm);
+})(NewCreateForm);
