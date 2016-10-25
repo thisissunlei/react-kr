@@ -53,7 +53,7 @@ export default class Undefined extends Component{
 	render(){
 
 		let initialValues = {
-			age:'2015-11-11 11:11:11'
+			age:''
 		}
 
 		return(

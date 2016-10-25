@@ -25,9 +25,17 @@ export default class DateComponent extends React.Component{
 
 	setDefaultDate(){
 		var {input} = this.props;
+		var value = '';
 		if(!(input.value instanceof Date)){
+
+			if(!input.value){
+				value = new Date();
+			}else{
+				value = new Date(Date.parse(input.value));
+			}
+
 			this.setState({
-				value:new Date(Date.parse(input.value))
+				value
 			});
 		}
 	}
