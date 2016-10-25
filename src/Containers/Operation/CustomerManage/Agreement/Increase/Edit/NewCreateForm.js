@@ -4,11 +4,10 @@ import Param from 'jquery-param';
 import { Fields } from 'redux-form'; 
 import {Binder} from 'react-binding';
 import ReactMixin from "react-mixin";
-import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import dateFormat from 'dateformat';
+import LinkedStateMixin from 'react-addons-linked-state-mixin';
 
-
-import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
+import {reduxForm,formValueSelector,initialize,change,arrayPush,arrayInsert,FieldArray} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
 
@@ -80,15 +79,32 @@ class NewCreateForm  extends Component{
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 
+
 		this.onChangeLeaseBeginDate = this.onChangeLeaseBeginDate.bind(this);
 		this.onChangeLeaseEndDate = this.onChangeLeaseEndDate.bind(this);
 
 		this.state = {
-			stationVos:[],
+			stationVos:this.props.stationVos,
 			selectedStation:[],
 			openStation:false,
 			openStationUnitPrice:false,
 		}
+	}
+
+	componentDidMount(){
+		let {initialValues}= this.props;
+		Store.dispatch(initialize('joinCreateForm',initialValues));
+	}
+
+	componentWillReceiveProps(nextProps){
+
+		if(nextProps.stationVos.length){
+			let stationVos = nextProps.stationVos;
+			this.setState({
+				stationVos
+			});
+		}
+
 	}
 
 	//修改租赁期限－开始时间
@@ -124,6 +140,11 @@ class NewCreateForm  extends Component{
 			stationVos
 		});
 	}
+
+	onChangeSearchPersonel(personel){
+		Store.dispatch(change('joinCreateForm','lessorContacttel',personel.mobile));
+	}
+
 
 	onStationVosChange(index,value){
 
@@ -164,16 +185,18 @@ class NewCreateForm  extends Component{
 	onStationDelete(){
 
 		let {selectedStation,stationVos} = this.state;
-		stationVos = stationVos.filter(function(item,index){
 
+		stationVos = stationVos.filter(function(item,index){
 			if(selectedStation.indexOf(index) != -1){
 				return false;
 			}
 			return true;
 		});
+
 		this.setState({
 			stationVos
 		});
+
 	}
 
 	onStationSelect(selectedStation){
@@ -211,45 +234,35 @@ class NewCreateForm  extends Component{
 			}]);
 			return ;
 		}
-		
+
 
 		this.setState({
 			openStation:!this.state.openStation
 		});
 	}
 
-	componentDidMount(){
-		let {initialValues}= this.props;
-		Store.dispatch(initialize('joinCreateForm',initialValues));
-	}
-
-	componentWillReceiveProps(nextProps){
-
-	}
-
 	onSubmit(form){
 
+		form = Object.assign({},form);
 
 		let {stationVos} = this.state;
-
-
 		let {billList} = this.state;
-
 		let {changeValues} = this.props;
 
         form.lessorAddress = changeValues.lessorAddress;
-
-		form.firstpaydate = dateFormat(form.firstpaydate,"yyyy-mm-dd hh:MM:ss");
-		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd hh:MM:ss");
-		form.leaseBegindate = dateFormat(form.leaseBegindate,"yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(form.leaseEnddate,"yyyy-mm-dd hh:MM:ss");
-
 
 		var _this = this;
 
 		form.stationVos =  stationVos;
 
 		form.stationVos = JSON.stringify(form.stationVos);
+				
+		form.firstpaydate = dateFormat(form.firstpaydate,"yyyy-mm-dd h:MM:ss");
+		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd h:MM:ss");
+		form.leaseBegindate = dateFormat(form.leaseBegindate,"yyyy-mm-dd h:MM:ss");
+		form.leaseEnddate = dateFormat(form.leaseEnddate,"yyyy-mm-dd h:MM:ss");
+
+		console.log('form',form);
 
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
@@ -265,6 +278,7 @@ class NewCreateForm  extends Component{
 	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}";
 
 		let {changeValues,initialValues,optionValues} = this.props;
+		
 		let {stationVos} = this.state;
 
 		stationVos = stationVos.map(function(item){
@@ -327,14 +341,11 @@ class NewCreateForm  extends Component{
 			console.log('billList 租赁明细工位列表为空');
 		}
 
+		console.log('---->>>',stationVos);
 		this.setState({
 			stationVos
 		});
 
-	}
-
-	onChangeSearchPersonel(personel){
-		Store.dispatch(change('joinCreateForm','lessorContacttel',personel.mobile));
 	}
 
 
@@ -357,7 +368,7 @@ class NewCreateForm  extends Component{
 
 			<div>
 
-<form onSubmit={handleSubmit(this.onSubmit)} enctype="multipart/form-data">
+<form onSubmit={handleSubmit(this.onSubmit)}>
 
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" /> 
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" /> 
@@ -365,7 +376,8 @@ class NewCreateForm  extends Component{
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}  />
 				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/> 
-				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} /> 
+				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} placeholder={optionValues.lessorContactName} /> 
+
 				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 
 				<KrField grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/> 
@@ -377,7 +389,7 @@ class NewCreateForm  extends Component{
 
 				<KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={optionValues.communityName} /> 
 
-				<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true}/>
+				<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} />
 
 				<KrField grid={1/2}  name="communityAddress" component="labelText" label="地址" value={optionValues.communityAddress} /> 
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  /> 
@@ -418,8 +430,8 @@ class NewCreateForm  extends Component{
 				<TableHeaderColumn>类别</TableHeaderColumn>
 				<TableHeaderColumn>编号／名称</TableHeaderColumn>
 				<TableHeaderColumn>单价(元/月)</TableHeaderColumn>
-					<TableHeaderColumn>开始时间</TableHeaderColumn>
-						<TableHeaderColumn>结束时间</TableHeaderColumn>
+					<TableHeaderColumn>租赁开始时间</TableHeaderColumn>
+						<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
 						</TableHeader>
 						<TableBody>
 						{stationVos.map((item,index)=>{
@@ -471,23 +483,7 @@ class NewCreateForm  extends Component{
 
 			</div>);
 	}
-	}
-
-	/*
-	const validate = values =>{
-		const errors = {}
-
-		if(!values.mainbilltype){
-			errors.mainbilltype = '请选择订单类型';
-		}else if (!values.communityid) {
-			errors.communityid = '请选择所在社区';
-		}else if(!values.mainbillname){
-			errors.mainbillname = '订单名称不能为空';
-		}
-
-		return errors
-	}
-	*/
+}
 
 const selector = formValueSelector('joinCreateForm');
 
@@ -504,6 +500,7 @@ export default connect((state)=>{
 	changeValues.leaseBegindate = selector(state,'leaseBegindate') || 0;
 	changeValues.leaseEnddate = selector(state,'leaseEnddate') || 0;
 	changeValues.wherefloor = selector(state,'wherefloor') || 0;
+
 
 	return {
 		changeValues

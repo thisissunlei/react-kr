@@ -96,7 +96,6 @@ export default  class JoinCreate extends Component {
 				item.label = item.corporationName;
 				return item;
 			});
-			
 			optionValues.paymentList = response.payment.map(function(item,index){
 				item.value = item.id;
 				item.label = item.dicName;
