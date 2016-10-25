@@ -117,7 +117,7 @@ export default  class EditCreate extends Component {
       optionValues.communityId = response.customer.communityid;
       optionValues.mainbillCommunityId =  response.mainbillCommunityId||1;
 
-          Store.dispatch(Actions.callAPI('show-checkin-agreement',{id:params.id})).then(function(response){
+      Store.dispatch(Actions.callAPI('show-checkin-agreement',{id:params.id})).then(function(response){
             console.log('退租',response)
           initialValues.id = response.id;
             initialValues.leaseId = response.leaseId;

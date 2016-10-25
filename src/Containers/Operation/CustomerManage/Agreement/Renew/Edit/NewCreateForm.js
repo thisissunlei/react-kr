@@ -190,7 +190,12 @@ class NewCreateForm  extends Component{
 
 		let {changeValues} = this.props;
 
-    form.lessorAddress = changeValues.lessorAddress;
+    	form.lessorAddress = changeValues.lessorAddress;
+		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd h:MM:ss");
+		form.withdrawdate = dateFormat(form.withdrawdate,"yyyy-mm-dd h:MM:ss");
+		form.firstpaydate=dateFormat(form.firstpaydate,"yyyy-mm-dd h:MM:ss");
+		form.leaseBegindate=dateFormat(form.leaseBegindate,"yyyy-mm-dd h:MM:ss");
+		form.leaseEnddate=dateFormat(form.leaseEnddate,"yyyy-mm-dd h:MM:ss");
 
 		var _this = this;
 
@@ -201,6 +206,7 @@ class NewCreateForm  extends Component{
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}
+	s
 
 	onCancel(){
 		const {onCancel} = this.props;
