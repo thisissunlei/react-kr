@@ -118,13 +118,15 @@ export default  class EditCreate extends Component {
       optionValues.mainbillCommunityId =  response.mainbillCommunityId||1;
 
       Store.dispatch(Actions.callAPI('show-checkin-agreement',{id:params.id})).then(function(response){
-            
+          optionValues.lessorContactName = response.lessorContactName;  
+          
           initialValues.id = response.id;
             initialValues.leaseId = response.leaseId;
             initialValues.contractcode = response.contractcode;
             initialValues.leaseAddress = response.leaseAddress;
             initialValues.lessorContactName = response.lessorContactName;
           initialValues.leaseContact = response.leaseContact;
+          initialValues.lessorContacttel = response.lessorContacttel;
           initialValues.leaseContacttel = response.leaseContacttel;
           initialValues.paytype = response.payType.id;
           initialValues.paymodel = response.payment.id;
@@ -135,6 +137,8 @@ export default  class EditCreate extends Component {
           initialValues.totalrent = response.totalrent;
           initialValues.totaldeposit = response.totaldeposit;
           initialValues.lessorContactid = response.lessorContactid;
+          initialValues.depositamount=response.depositamount;
+          initialValues.totalreturn=response.totalreturn;
           //时间
            
           initialValues.signdate = new Date(response.signdate);

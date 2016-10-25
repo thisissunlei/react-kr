@@ -63,6 +63,8 @@ class NewCreateForm  extends Component{
 
 		this.onCancel  = this.onCancel.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
+		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
+
 	}
 
 
@@ -71,6 +73,9 @@ class NewCreateForm  extends Component{
 		Store.dispatch(initialize('joinCreateForm',initialValues));
 	}
 
+	onChangeSearchPersonel(personel){
+		Store.dispatch(change('joinCreateForm','lessorContacttel',personel.mobile));
+	}
 
 	onSubmit(form){
 
@@ -145,7 +150,7 @@ class NewCreateForm  extends Component{
 			}
 		});
 
-
+		console.log('.....',optionValues.lessorContactName)
 		return (
 
 
@@ -159,7 +164,7 @@ class NewCreateForm  extends Component{
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}  />
 				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/>
-				<KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" />
+				<KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" onChange={this.onChangeSearchPersonel}  placeholder={optionValues.lessorContactName}/>
 				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" />
 
 				<KrField grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/>
