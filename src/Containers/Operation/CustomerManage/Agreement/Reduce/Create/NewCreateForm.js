@@ -34,7 +34,7 @@ import {
 	Col,
 	Button,
 	Notify,
-	Date,
+	KrDate,
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -78,16 +78,13 @@ class NewCreateForm  extends Component{
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
 
 		this.onStationVosChange = this.onStationVosChange.bind(this);
-
+		this.reduceMoney = this.reduceMoney.bind(this);
 		this.state = {
-			stationVos:[
-				{id:122},
-				{id:12},
-				{id:1232},
-			],
+			stationVos:[],
 			selectedStation:[],
 			openStation:false,
 			openStationUnitPrice:false,
+			rentamount:0,
 		}
 	}
 
@@ -133,19 +130,65 @@ class NewCreateForm  extends Component{
 
 		let {stationVos} = this.state;
 		let  result = stationVos;
+		console.log(selectedList, stationVos);
 
-		stationVos.forEach(function(item,index){
-			selectedList.forEach(function(selected,i){
-				if (item.id !=selected.id) {
-						result.push(selected);
-				}
+		if(!stationVos.length){
+			result = selectedList;
+		}else{
+			stationVos.forEach(function(item,index){
+				selectedList.forEach(function(selected,i){
+					if (item.id !=selected.id) {
+							result.push(selected);
+					}
+				});
 			});
-		});
+		}
+
+		result.map((item)=>{
+			item.leaseBeginDate = dateFormat(item.leaseBeginDate,"yyyy-mm-dd hh:MM:ss");
+			item.leaseEndDate = dateFormat(item.leaseEndDate,"yyyy-mm-dd hh:MM:ss");
+		})
 		console.log("0000",result);
 		this.setState({
 				stationVos:result
 		});
 		this.openStationDialog();
+		this.reduceMoney(selectedList, 'add');
+	}
+
+	// 计算减租金额
+	reduceMoney(selectedList,from){
+		console.log(selectedList);
+		
+		if(from === 'add'){
+			var {rentamount} = this.state;
+		}else{
+			var rentamount = 0;
+		}
+		console.log('result', rentamount);
+		var sum  = rentamount;
+		selectedList.forEach(function(value){
+			
+			try{
+				var price = parseFloat((value.unitprice*12/365).toFixed(2));
+				var start = Date.parse(value.leaseBeginDate);
+				var  end= Date.parse(value.leaseEndDate);
+				var num =  Math.floor((end-start)/(3600*24*1000));
+				sum += num*price;
+				return parseFloat(sum).toFixed(2);
+
+
+			}catch(err){
+				console.log(err,'err');
+			}
+
+			
+		});
+		console.log(sum);
+		this.setState({
+			rentamount:sum
+		});
+
 	}
 
 	//删除工位
@@ -159,6 +202,7 @@ class NewCreateForm  extends Component{
 			}
 			return true;
 		});
+		this.reduceMoney(stationVos, 'less');
 		this.setState({
 			stationVos
 		});
@@ -186,20 +230,21 @@ class NewCreateForm  extends Component{
 	}
 
 	onSubmit(form){
-		console.log('ddd');
 
 		form = Object.assign({},form);
 
 		let {changeValues} = this.props;
 		let {stationVos} = this.state;
-		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd h:MM:ss");
-
+		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd hh:MM:ss");
+		form.lessorAddress = changeValues.lessorAddress;
+		// form.lessorContactid = 111;
+		form.rentamount= this.state.rentamount;
 		var _this = this;
 
 		form.stationVos =  stationVos;
 
 		form.stationVos = JSON.stringify(form.stationVos);
-		console.log('form');
+		console.log('form111', form);
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}
@@ -221,7 +266,7 @@ class NewCreateForm  extends Component{
 			}
 		});
 
-		let {stationVos} = this.state;
+		let {stationVos, rentamount} = this.state;
 
 		return (
 	<div>
@@ -250,7 +295,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  />
 
 				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间"/>
-				<KrField grid={1}  name="totalrent" type="labelText"  label="减租金额"  /> {/*减租金额没有*/}
+				<KrField grid={1}  name="rentamount" type="labelText"  label="减租金额"  value={rentamount}/> {/*减租金额没有*/}
 
 				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" />
 				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" />
@@ -268,7 +313,7 @@ class NewCreateForm  extends Component{
 				<TableHeaderColumn>编号／名称</TableHeaderColumn>
 				<TableHeaderColumn>单价(元/月)</TableHeaderColumn>
 					<TableHeaderColumn>租赁开始时间</TableHeaderColumn>
-						<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
+						<TableHeaderColumn>减租开始日期</TableHeaderColumn>
 						</TableHeader>
 						<TableBody>
 						{stationVos.map((item,index)=>{
@@ -279,8 +324,8 @@ class NewCreateForm  extends Component{
 									<TableRowColumn>
 											{item.unitprice}
 									</TableRowColumn>
-									<TableRowColumn> <Date.Format value={item.leaseBeginDate}/></TableRowColumn>
-									<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
+									<TableRowColumn> <KrDate.Format value={item.leaseBeginDate}/></TableRowColumn>
+									<TableRowColumn><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
 
 									</TableRow>
 							);

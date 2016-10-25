@@ -208,11 +208,11 @@ class NewCreateForm  extends Component{
 		form.stationVos =  stationVos;
 
 		form.stationVos = JSON.stringify(form.stationVos);
-		form.firstpaydate = dateFormat(form.firstpaydate,"yyyy-mm-dd h:MM:ss");
+
 		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd h:MM:ss");
 		form.leaseBegindate = dateFormat(form.leaseBegindate,"yyyy-mm-dd h:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate,"yyyy-mm-dd h:MM:ss");
-
+		console.log(form,'form');
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}
@@ -277,8 +277,8 @@ class NewCreateForm  extends Component{
 		try{
 			billList.map(function(item,index){
 					var obj = {};
-					obj.leaseBeginDate = changeValues.leaseBegindate;
-					obj.leaseEndDate = changeValues.leaseEnddate;
+					obj.leaseBeginDate = dateFormat(changeValues.leaseBegindate,"yyyy-mm-dd h:MM:ss");
+					obj.leaseEndDate = dateFormat(changeValues.leaseEnddate,"yyyy-mm-dd h:MM:ss");
 					obj.stationId = item.id;
 					obj.stationType = item.type;
 					obj.unitprice = '';
@@ -327,8 +327,8 @@ class NewCreateForm  extends Component{
 								 <KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} />
 
 								 <KrField grid={1/2}  type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/> 
-								
 								 <KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} /> 
+
 								 <KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 
 								 <KrField grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/> 

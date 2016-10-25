@@ -21,6 +21,7 @@ import {
 	Col,
 	Button,
 	Notify,
+  Date,
 } from 'kr-ui';
 
 class SelectStationForm  extends Component{
@@ -82,7 +83,7 @@ class SelectStationForm  extends Component{
     params.orderId = 3;
 		Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainbillid:params.orderId})).then(function(response){
       _this.setState({
-        stationVos:response.items
+        stationVos:response
       });
 		}).catch(function(err){
 			Notify.show([{
@@ -101,13 +102,15 @@ class SelectStationForm  extends Component{
 	onSubmit(){
 
     let {stationVos,selected} = this.state;
+    let {changeValues} = this.props;
     stationVos = stationVos.filter(function(item,index){
+        // var time = new Date(item.startDate);
+        item.leaseEndDate = item.startDate;
         if(selected.indexOf(index) !==-1){
-            return true;
+          return true;
         }
         return false;
     });
-
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(stationVos);
 
@@ -122,8 +125,6 @@ class SelectStationForm  extends Component{
 
 		let { error, handleSubmit, pristine, reset, submitting,changeValues} = this.props;
     let {stationVos} = this.state;
-
-    console.log('---va',stationVos);
 
 		return (
 			<div>
@@ -145,10 +146,10 @@ class SelectStationForm  extends Component{
           <TableRow key={index}>
           <TableRowColumn >{item.stationType}</TableRowColumn>
           <TableRowColumn >{item.stationId}</TableRowColumn>
-          <TableRowColumn >{item.whereFloor}</TableRowColumn>
           <TableRowColumn >{item.unitprice}</TableRowColumn>
-          <TableRowColumn >{item.leaseBeginDate}</TableRowColumn>
-          <TableRowColumn >{item.leaseEndDate}</TableRowColumn>
+          <TableRowColumn >{item.whereFloor}</TableRowColumn>
+          <TableRowColumn ><Date.Format value={item.leaseBeginDate}/></TableRowColumn>
+          <TableRowColumn ><Date.Format value={item.leaseEndDate}/></TableRowColumn>
           <TableRowColumn>{item.startDate}</TableRowColumn>
          </TableRow>
         );
