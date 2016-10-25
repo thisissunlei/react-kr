@@ -57,6 +57,7 @@ export default class FileUploadComponent extends React.Component{
 		files.forEach(function(item,index){
 			fileIds.push(item.id);
 		});
+		console.log('-----',fileIds);
 		input.onChange(fileIds.toString());
 	}
 
@@ -84,9 +85,11 @@ export default class FileUploadComponent extends React.Component{
 
 	onSuccess(response){
 		response = Object.assign({},response);
+
+		console.log("---",response);
 		let {form} = this.state;
 
-		let fileUrl = `/doc/docFile/viewFile?sourceservicetoken=${form.sourceservicetoken}&operater=${form.operater}&fileId=${response.id}`;
+		let fileUrl = `http://optest.krspace.cn/krspace_knowledge_wap/doc/docFile/viewFile?sourceservicetoken=${form.sourceservicetoken}&operater=${form.operater}&fileId=${response.id}`;
 
 		response.fileUrl = fileUrl;
 		response.fileName = response.filename;
@@ -96,6 +99,7 @@ export default class FileUploadComponent extends React.Component{
 
 		files.unshift(response);
 
+		console.log('files',files);
 		this.setState({
 			files
 		});
@@ -171,12 +175,12 @@ export default class FileUploadComponent extends React.Component{
 								var fileResponse = xhrfile.response;
 								if (xhrfile.status === 200){
 									if(fileResponse && fileResponse.code>0){
-										_this.onSuccess(fileResponse);
+										_this.onSuccess(fileResponse.data);
 									}else{
 										_this.onError('后台报错,请联系管理员');
 									}
 								} else {
-									_this.onError(xhrfile.message);
+									_this.onError(xhrfile.msg);
 								}
 							  }
 							};
@@ -236,10 +240,10 @@ export default class FileUploadComponent extends React.Component{
 			<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
 			<div className="form-main">
 			<div className="form-input">
-				<ul>
+				<ul className="file-list">
 					{files && files.map((item,index)=>{
 						return (
-							<li key={index}><a src={item.fileUrl}>{item.fileName}</a></li>
+							<li key={index}><a href={item.fileUrl} target="_blank">{item.fileName}</a></li>
 						);
 					})}
 				</ul>

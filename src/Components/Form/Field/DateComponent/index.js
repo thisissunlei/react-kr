@@ -7,12 +7,16 @@ export default class DateComponent extends React.Component{
 
 	static PropTypes = {
 		defaultValue:React.PropTypes.string,
+		onChange:React.PropTypes.func,
 	}
 
 	constructor(props){
 		super(props)
-
 		this.onChange = this.onChange.bind(this);
+
+	}
+
+	componentDidMount(){
 
 	}
 
@@ -21,14 +25,9 @@ export default class DateComponent extends React.Component{
 		if(!value){
 			return ;
 		}
-		let {input} = this.props;
-		/*
-		var dt = new Date(value);
-		var result =  dt.getFullYear()+'-'+(1+dt.getMonth())+'-'+dt.getDate()+' '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds();
-
-		input.onChange(result);
-		*/
+		let {input,onChange} = this.props;
 		input.onChange(value);
+		onChange && onChange(value);
 	}
 
 
@@ -37,14 +36,15 @@ export default class DateComponent extends React.Component{
 
 		let{ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,style,defaultValue} = this.props;
 
-
 		const styles ={
 			border:'1px solid #ddd',
 			height:40,
 			borderRadius:'4px',
 			paddingLeft:10
 		}
+
 		let dateValue = input.value || new Date;
+
 		if(input.value && typeof input.value == 'string'){
 			 console.log("intp",input.value)
 			 dateValue = Date.parse(input.value);

@@ -79,7 +79,9 @@ class NewCreateForm  extends Component{
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 
-		console.log('yayayaysta',this.props);
+
+		this.onChangeLeaseBeginDate = this.onChangeLeaseBeginDate.bind(this);
+		this.onChangeLeaseEndDate = this.onChangeLeaseEndDate.bind(this);
 
 		this.state = {
 			stationVos:this.props.stationVos,
@@ -103,6 +105,40 @@ class NewCreateForm  extends Component{
 			});
 		}
 
+	}
+
+	//修改租赁期限－开始时间
+	onChangeLeaseBeginDate(value){
+
+		value = dateFormat(value,"yyyy-mm-dd hh:MM:ss");
+
+		let {stationVos} = this.state;
+
+		if(!stationVos.length){
+			return ;
+		}
+		stationVos.forEach(function(item,index){
+			item.leaseBeginDate = value;
+		});
+		this.setState({
+			stationVos
+		});
+	}
+
+	//修改租赁期限-结束时间
+	onChangeLeaseEndDate(value){
+		value = dateFormat(value,"yyyy-mm-dd hh:MM:ss");
+		let {stationVos} = this.state;
+
+		if(!stationVos.length){
+			return ;
+		}
+		stationVos.forEach(function(item,index){
+			item.leaseEndDate = value;
+		});
+		this.setState({
+			stationVos
+		});
 	}
 
 	onChangeSearchPersonel(personel){
@@ -357,8 +393,8 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  /> 
 
 				<KrField grid={1/1}  component="group" label="租赁期限"> 
-					<KrField grid={1/2}  name="leaseBegindate"  component="date" /> 
-					<KrField grid={1/2}  name="leaseEnddate" component="date" /> 
+					<KrField grid={1/2}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate}/> 
+					<KrField grid={1/2}  name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} /> 
 				</KrField>
 
 				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} /> 
