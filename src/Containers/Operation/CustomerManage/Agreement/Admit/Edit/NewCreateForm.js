@@ -6,7 +6,7 @@ import {Binder} from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import dateFormat from 'dateformat';
-import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
+import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
 
@@ -73,6 +73,7 @@ class NewCreateForm  extends Component{
 		this.openStationDialog = this.openStationDialog.bind(this);
 		this.onStationUnitPrice = this.onStationUnitPrice.bind(this);
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
+		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 		console.log('------props',props);
@@ -181,7 +182,7 @@ class NewCreateForm  extends Component{
 
 	componentDidMount(){
 		let {initialValues}= this.props;
-		Store.dispatch(initialize('joinCreateForm',initialValues));
+		Store.dispatch(initialize('admitCreateForm',initialValues));
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -294,7 +295,10 @@ class NewCreateForm  extends Component{
 		});
 
 	}
-
+	onChangeSearchPersonel(personel){
+		console.log('personel',personel)
+		Store.dispatch(change('admitCreateForm','lessorContacttel',personel.mobile));
+	}
 
 	render(){
 
@@ -324,7 +328,7 @@ class NewCreateForm  extends Component{
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}  />
 				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/> 
-				<KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" /> 
+				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} />
 				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 
 				<KrField grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/> 
@@ -431,9 +435,9 @@ class NewCreateForm  extends Component{
 	}
 	*/
 
-const selector = formValueSelector('joinCreateForm');
+const selector = formValueSelector('admitCreateForm');
 
-NewCreateForm = reduxForm({ form: 'joinCreateForm',enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
+NewCreateForm = reduxForm({ form: 'admitCreateForm',enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
 
 export default connect((state)=>{
 
