@@ -76,7 +76,7 @@ class NewCreateForm  extends Component{
 		this.openStationDialog = this.openStationDialog.bind(this);
 		this.onStationUnitPrice = this.onStationUnitPrice.bind(this);
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
-this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
+		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 		this.reduceMoney = this.reduceMoney.bind(this);
 		this.state = {
@@ -119,6 +119,9 @@ this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		});
 
 		this.openStationUnitPriceDialog();
+	}
+	onChangeSearchPersonel(personel){
+		Store.dispatch(change('reduceCreateForm','lessorContacttel',personel.mobile));
 	}
 
 // station list
