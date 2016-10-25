@@ -44,8 +44,9 @@ export default  class JoinCreate extends Component {
 	 }
 
 	 onConfrimSubmit(){
+	 	console.log(this.props, this.props.params);
 
-
+	 	let params = this.props.params;
 		let {formValues} = this.state;
 
 		Store.dispatch(Actions.callAPI('updateFinaContractIntentletter',{},formValues)).then(function(){
@@ -53,6 +54,8 @@ export default  class JoinCreate extends Component {
 				message:'创建成功',
 				type: 'danger',
 			}]);
+			location.href = "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/admit/"+params.id+"/detail";
+
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,

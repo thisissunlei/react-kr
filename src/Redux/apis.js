@@ -2,7 +2,7 @@ const APIS  = {
 
 //合同－工位信息
 	'getStationOrSettingList':{
-		url:'/mockjsdata/3/krspace-finance-web/fnaContractRentController/getStationOrSettingList?mainbillid={mainbillid}',
+		url:'/api/krspace-finance-web/fnaContractRentController/getStationOrSettingList?mainbillId={mainbillid}',
 		method:'get'
 	},
 	//退租协议-新增-编辑
@@ -79,7 +79,7 @@ const APIS  = {
 
 	//合同－减租合同－查看
 	'showFnaContractRentController':{
-		url:'/api/krspace-finance-web/fnaContractRentController/getFnaContractRentById?communityId={communityId}&customerId={customerId}&id={id}',
+		url:'/api/krspace-finance-web/fnaContractRentController/getFnaContractRentById?id={id}',
 		method:'get'
 	},
 	//合同－减租合同－新建或编辑

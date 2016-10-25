@@ -47,7 +47,7 @@ export default  class JoinCreate extends Component {
 
 		let {formValues} = this.state;
 
-		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(){
+		Store.dispatch(Actions.callAPI('getFnaContractRentController',{},formValues)).then(function(){
 			Notify.show([{
 				message:'创建成功',
 				type: 'danger',
@@ -76,6 +76,7 @@ export default  class JoinCreate extends Component {
 
 		var _this = this;
 		const {params} = this.props;
+		console.log(params);
 		let initialValues = {};
 		let optionValues = {};
 
@@ -89,7 +90,7 @@ export default  class JoinCreate extends Component {
 			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
-			initialValues.contracttype = 'ENTER';
+			initialValues.contracttype = 'LESSRENT';
 
 			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item,index){
 				item.value = item.id;
@@ -118,8 +119,56 @@ export default  class JoinCreate extends Component {
 				initialValues,
 				optionValues
 			});
+			console.log('id', params.id);
+
+			Store.dispatch(Actions.callAPI('showFnaContractRentController',{id:params.id})).then(function(response){
+
+					initialValues.id = response.id;
+			   		initialValues.leaseId = response.leaseId;
+			   		initialValues.communityid = response.communityid;
+			   		initialValues.customerName	 = response.customerName;
+			   		initialValues.contractcode = response.contractcode;
+					initialValues.leaseAddress = response.leaseAddress;
+					initialValues.leaseContacttel = response.leaseContacttel;
+					initialValues.leaseContact = response.leaseContact;
+					initialValues.lessorAddress = response.lessorAddress;
+					initialValues.lessorContactName = response.lessorContactName;
+					initialValues.rentamount = response.rentamount;
+					// initialValues.rentaluse = response.rentaluse;
+					// initialValues.contractmark = response.contractmark;
+					// initialValues.totalrent = response.totalrent;
+					// initialValues.totaldeposit = response.totaldeposit;
+
+					//时间
+			  //  		initialValues.firstpaydate = new Date(response.firstpaydate);
+					initialValues.signdate = new Date(response.signdate);
+					// initialValues.leaseBegindate = new Date(response.leaseBegindate);
+					// initialValues.leaseEnddate = new Date(response.leaseEnddate);
+
+					// console.log('时间',initialValues);
+
+
+					// //处理stationvos
+					initialValues.stationVos = response.stationVos;
+
+			   		console.log('---->>>>',response);
+
+					_this.setState({
+						initialValues,
+						optionValues,
+						stationVos:initialValues.stationVos
+					});
+
+				}).catch(function(err){
+					console.log(err);
+					Notify.show([{
+						message:'后台出错请联系管理员',
+						type: 'danger',
+					}]);
+			   	});
 
 		}).catch(function(err){
+			console.log('err',err);
 			Notify.show([{
 				message:'后台出错请联系管理员',
 				type: 'danger',
