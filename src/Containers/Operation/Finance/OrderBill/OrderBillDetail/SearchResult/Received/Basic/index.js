@@ -317,8 +317,10 @@ export default class Basic extends Component{
 
        
        let initialValues = {
-			mainbillid:url_arr[url_arr.length-2],
 			id:fiItem.id
+		}
+		let initialValue = {
+			mainbillid:url_arr[url_arr.length-2],
 		}
 	    
        
@@ -381,7 +383,7 @@ export default class Basic extends Component{
 						modal={true}
 						open={this.state.openReceive}
 					>
-					  <ReceivedMoney onSubmit={this.onAddReceivedSubmit} initialValues={initialValues} onCancel={this.receivedDialog} optionList={this.state.receivedList}/>
+					  <ReceivedMoney onSubmit={this.onAddReceivedSubmit} initialValues={initialValue} onCancel={this.receivedDialog} optionList={this.state.receivedList}/>
 
 				  </Dialog>
 
