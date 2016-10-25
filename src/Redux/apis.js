@@ -82,6 +82,11 @@ const APIS  = {
 		url:'/api/krspace-finance-web/fnaContractRentController/getFnaContractRentById?communityId={communityId}&customerId={customerId}&id={id}',
 		method:'get'
 	},
+	//合同－减租合同－新建或编辑
+	'getFnaContractRentController':{
+		url:'/api/krspace-finance-web/fnaContractRentController/saveFnaContractRent',
+		method:'post'
+	},
 	//合同－(入驻合同、增租、续租)－查看
 	'show-checkin-agreement':{
 		url:'/api/krspace-finance-web/checkinagreement/checkin-agreement/actions/show?id={id}',

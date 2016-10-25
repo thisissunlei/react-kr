@@ -39,7 +39,11 @@ import {
 
 @ReactMixin.decorate(LinkedStateMixin)
 class NewCreateForm  extends Component{
-
+	static PropTypes = {
+		initialValues:React.PropTypes.object,
+		onSubmit:React.PropTypes.func,
+		onCancel:React.PropTypes.func,
+	}
 	static DefaultPropTypes = {
 		initialValues:{
 			customerName:'',
@@ -51,11 +55,7 @@ class NewCreateForm  extends Component{
 		}
 	}
 
-	static PropTypes = {
-		initialValues:React.PropTypes.object,
-		onSubmit:React.PropTypes.func,
-		onCancel:React.PropTypes.func,
-	}
+	
 
 	constructor(props,context){
 		super(props, context);
@@ -178,7 +178,7 @@ class NewCreateForm  extends Component{
 
 	componentDidMount(){
 		let {initialValues}= this.props;
-		Store.dispatch(initialize('reduceCreateForm',initialValues));
+		Store.dispatch(initialize('joinCreateForm',initialValues));
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -186,23 +186,23 @@ class NewCreateForm  extends Component{
 	}
 
 	onSubmit(form){
-		console.log('ddd');
-
+		
 		form = Object.assign({},form);
-
 		let {changeValues} = this.props;
-		let {stationVos} = this.state;
+    	form.lessorAddress = changeValues.lessorAddress;
+		console.log('444444')
 		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd h:MM:ss");
-
-		var _this = this;
-
-		form.stationVos =  stationVos;
-
-		form.stationVos = JSON.stringify(form.stationVos);
-		console.log('form');
+		form.firstpaydate=dateFormat(form.firstpaydate,"yyyy-mm-dd h:MM:ss");
+		form.leaseBegindate=dateFormat(form.leaseBegindate,"yyyy-mm-dd h:MM:ss");
+		form.leaseEnddate=dateFormat(form.leaseEnddate,"yyyy-mm-dd h:MM:ss");
+		console.log('333333')
+		
+		
+		
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}
+	s
 
 	onCancel(){
 		const {onCancel} = this.props;
@@ -248,17 +248,21 @@ class NewCreateForm  extends Component{
 
 				<KrField grid={1/2}  name="communityAddress" component="labelText" label="地址" value={optionValues.communityAddress} />
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  />
-
-				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间"/>
-				<KrField grid={1}  name="totalrent" type="labelText"  label="减租金额"  /> {/*减租金额没有*/}
+				<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} />
+				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} /> 
+				<KrField name="firstpaydate" component="date" label="首付款时间" value={optionValues.firstpaydate} /> 
+				 <KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间"value={optionValues.signdate}/> 
+				<KrField grid={1/1}  name="rentaluse" type="text" component="input" label="租赁用途" />
+				<KrField grid={1/2}  name="totalrent"  component="labelText" label="租金总额" />
+				<KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" />
+				
 
 				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" />
 				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" />
 
 				<Section title="租赁明细" description="" rightMenu = {
 					<Menu>
-						<MenuItem primaryText="删除" onTouchTap={this.onStationDelete} />
-						<MenuItem primaryText="减租"  onTouchTap={this.openStationDialog} />
+						<MenuItem primaryText="续租"  onTouchTap={this.openStationDialog} />
 					</Menu>
 				}>
 
@@ -267,8 +271,8 @@ class NewCreateForm  extends Component{
 				<TableHeaderColumn>类别</TableHeaderColumn>
 				<TableHeaderColumn>编号／名称</TableHeaderColumn>
 				<TableHeaderColumn>单价(元/月)</TableHeaderColumn>
-					<TableHeaderColumn>租赁开始时间</TableHeaderColumn>
-						<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
+					<TableHeaderColumn>开始时间</TableHeaderColumn>
+						<TableHeaderColumn>结束时间</TableHeaderColumn>
 						</TableHeader>
 						<TableBody>
 						{stationVos.map((item,index)=>{
@@ -309,9 +313,9 @@ class NewCreateForm  extends Component{
 			</div>);
 	}
 	}
-const selector = formValueSelector('reduceCreateForm');
+const selector = formValueSelector('joinCreateForm');
 
-NewCreateForm = reduxForm({ form: 'reduceCreateForm',enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
+NewCreateForm = reduxForm({ form: 'joinCreateForm',enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
 
 export default connect((state)=>{
 

@@ -193,7 +193,7 @@ class NewCreateForm  extends Component{
 		let {changeValues} = this.props;
 		let {stationVos} = this.state;
 		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd h:MM:ss");
-
+		form.lessorContactid = 111;
 		var _this = this;
 
 		form.stationVos =  stationVos;
