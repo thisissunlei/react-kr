@@ -7,7 +7,7 @@ import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import dateFormat from 'dateformat';
 
-import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
+import {reduxForm,formValueSelector,initialize,change,arrayPush,arrayInsert,FieldArray} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
 
@@ -63,6 +63,8 @@ class NewCreateForm  extends Component{
 
 		this.onCancel  = this.onCancel.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
+
+		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 	}
 
 
@@ -70,7 +72,7 @@ class NewCreateForm  extends Component{
 		let {initialValues}= this.props;
 		Store.dispatch(initialize('joinCreateForm',initialValues));
 	}
-
+	
 
 	onSubmit(form){
 
@@ -130,7 +132,10 @@ class NewCreateForm  extends Component{
 		return url ;
 	}
 
-
+	onChangeSearchPersonel(personel){
+		console.log('personel',personel)
+		Store.dispatch(change('joinCreateForm','lessorContacttel',personel.mobile));
+	}
 
 
 	render(){
@@ -151,7 +156,7 @@ class NewCreateForm  extends Component{
 
 			<div>
 
-<form onSubmit={handleSubmit(this.onSubmit)}>
+<form onSubmit={handleSubmit(this.onSubmit)} >
 
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
@@ -159,8 +164,10 @@ class NewCreateForm  extends Component{
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}  />
 				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/>
-				<KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" />
-				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" />
+				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} /> 
+				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
+
+				
 
 				<KrField grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/>
 
