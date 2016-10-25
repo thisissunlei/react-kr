@@ -38,13 +38,13 @@ export default  class JoinCreate extends Component {
 			 formValues
 		 });
 
-		 this.onConfrimSubmit();
+		 this.onConfrimSubmit(formValues);
 		// this.openConfirmCreateDialog();
 	 }
 
-	 onConfrimSubmit(){
+	 onConfrimSubmit(formValues){
 
-		let {formValues} = this.state;
+		//let {formValues} = this.state;
 
 		Store.dispatch(Actions.callAPI('addFnaContractWithdrawal',{},formValues)).then(function(){
 			Notify.show([{
@@ -114,7 +114,7 @@ export default  class JoinCreate extends Component {
 			optionValues.communityName = response.customer.communityName;
 			optionValues.communityId = response.customer.communityid;
 			optionValues.mainbillCommunityId =  response.mainbillCommunityId||1;
-
+			optionValues.withdrawdate = response.withdrawdate || ''
 			_this.setState({
 				initialValues,
 				optionValues
