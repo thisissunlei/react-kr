@@ -17,9 +17,10 @@ export default class  SearchPersonelComponent extends React.Component {
 	}
 
 	onChange(item){
-		let {input} = this.props;
+		let {input,onChange} = this.props;
 		var value = (item && item.value) || '';
 		input.onChange(value);
+		onChange && onChange(item);
 	}
 
 	getOptions(lastname){
@@ -54,7 +55,6 @@ export default class  SearchPersonelComponent extends React.Component {
 					clearAllText="清除"
 					onChange={this.onChange}
 					placeholder="请选择..."
-					{...other}
 			/>
 			</div>
 			{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }

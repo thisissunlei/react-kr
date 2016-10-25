@@ -7,15 +7,19 @@ export default class SelectComponent extends React.Component{
 
 	constructor(props){
 		super(props)
+
+		this.onChange = this.onChange.bind(this);
+	}
+
+	onChange(item){
+		let {input} = this.props;
+		var value = (item && item.value) || '';
+		input.onChange(value);
 	}
 
 	render(){
 
 		let { input, label, type, meta: { touched, error },children,disabled,style,requireLabel,options,...other} = this.props;
-		function changeValue(item){
-			var value = (item && item.value) || '';
-			input.onChange(value);
-		}
 
 		if(options){
 			return (
@@ -30,7 +34,7 @@ export default class SelectComponent extends React.Component{
 									value={input.value} 
 									clearable={true}
 									options={options}
-									onChange={changeValue} 
+									onChange={this.onChange} 
 									placeholder="请选择..."
 								/>
 							</div>
