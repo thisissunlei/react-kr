@@ -49,7 +49,7 @@ export default  class JoinCreate extends Component {
 
 		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(){
 			Notify.show([{
-				message:'创建成功',
+				message:'更新成功',
 				type: 'danger',
 			}]);
 		}).catch(function(err){
@@ -120,13 +120,17 @@ export default  class JoinCreate extends Component {
 
 
 					optionValues.lessorContactName = response.lessorContactName;
+					optionValues.contractFileList = response.contractFileList;
 
 
 					initialValues.id = response.id;
 			   		initialValues.leaseId = response.leaseId;
 			   		initialValues.contractcode = response.contractcode;
 			   		initialValues.leaseAddress = response.leaseAddress;
+					initialValues.lessorContactid = response.lessorContactid;
 			   		initialValues.lessorContactName = response.lessorContactName;
+					initialValues.lessorContacttel = response.lessorContacttel;
+
 					initialValues.leaseContact = response.leaseContact;
 					initialValues.leaseContacttel = response.leaseContacttel;
 					initialValues.paytype = response.payType.id;
@@ -137,10 +141,9 @@ export default  class JoinCreate extends Component {
 					initialValues.contractmark = response.contractmark;
 					initialValues.totalrent = response.totalrent;
 					initialValues.totaldeposit = response.totaldeposit;
-					initialValues.lessorContacttel = response.lessorContacttel;
 
 					//时间
-			   		initialValues.firstpaydate = new Date(response.firstpaydate);
+			   		initialValues.firstpaydate = response.firstpaydate;
 					initialValues.signdate = new Date(response.signdate);
 					initialValues.leaseBegindate = new Date(response.leaseBegindate);
 					initialValues.leaseEnddate = new Date(response.leaseEnddate);

@@ -50,7 +50,7 @@ export default class KrField extends React.Component {
 
 		if(component ==='file'){
 			return (
-				<Field {...this.props} component={FileUploadComponent}  style={WrapStyles}/>
+				<Field {...this.props} component={FileUploadComponent}  style={WrapStyles} {...other}/>
 			);
 		}
 

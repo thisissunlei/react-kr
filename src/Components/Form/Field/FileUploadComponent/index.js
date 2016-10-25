@@ -27,12 +27,13 @@ export default class FileUploadComponent extends React.Component{
 		this.onTokenSuccess = this.onTokenSuccess.bind(this);
 		this.onTokenError = this.onTokenError.bind(this);
 
-		this.onDelete = this.onDelete.bind(this);
 		this.onSetInputValue = this.onSetInputValue.bind(this);
+		this.setInitValue = this.setInitValue.bind(this);
 
 		let {defaultValue} = this.props;
 
 		this.state = {
+			isInit:true,
 			form:{},
 			files:defaultValue,
 			isUploading:false,
@@ -42,11 +43,33 @@ export default class FileUploadComponent extends React.Component{
 	}
 
 	componentDidMount(){
-
+		let {defaultValue} = this.props;
+		console.log('---defaultValue',defaultValue);
 	}
 
-	componentWillReceiveProps(nextProps){
 
+	componentWillReceiveProps(nextProps){
+		this.setInitValue(nextProps.defaultValue);
+	}
+
+	setInitValue(defaultValue){
+		let {files,isInit} = this.state;
+		if(!isInit){
+			return ;
+		}
+		if(!defaultValue.length){
+			return ;
+		}
+		files = defaultValue;
+		this.setState({
+			files,
+			isInit:false
+		});
+
+		var _this = this;
+		window.setTimeout(function(){
+			_this.onSetInputValue();
+		},1000);
 	}
 
 	onSetInputValue(){
@@ -57,11 +80,10 @@ export default class FileUploadComponent extends React.Component{
 		files.forEach(function(item,index){
 			fileIds.push(item.id);
 		});
-		console.log('-----',fileIds);
 		input.onChange(fileIds.toString());
 	}
 
-	onDelete(index){
+	onFileDelete(index){
 		let {files} = this.state;
 		let {input} = this.props;
 
@@ -243,7 +265,10 @@ export default class FileUploadComponent extends React.Component{
 				<ul className="file-list">
 					{files && files.map((item,index)=>{
 						return (
-							<li key={index}><a href={item.fileUrl} target="_blank">{item.fileName}</a></li>
+							<li key={index}>
+								<a href={item.fileUrl} target="_blank">{item.fileName}</a>
+								<span className="del" onTouchTap={this.onFileDelete.bind(this,index)}>x</span>
+							</li>
 						);
 					})}
 				</ul>
