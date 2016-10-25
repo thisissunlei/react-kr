@@ -37,7 +37,7 @@ var arr1=[];
 export default class SearchResult extends Component{
 
 	static PropTypes = {
-		detailResult:React.PropTypes.object,
+		
 		params:React.PropTypes.object,
 		
 	}
@@ -68,8 +68,7 @@ export default class SearchResult extends Component{
 
         this.state={
         	searchParams:{},
-        	openSearch:false,
-        	
+        	openSearch:false,     	
         	arr:[],
         	arr1:[]
         }
@@ -143,8 +142,8 @@ export default class SearchResult extends Component{
 		this.onSearchSuccess(forms);
 	    this.openSearchDialog();
 
-	   arr=[];
-       arr1=[];
+		 arr=[];
+	     arr1=[];
 
 	}
 
@@ -176,7 +175,7 @@ export default class SearchResult extends Component{
 
 	render(){
 		
-		 //console.log("fgfg",this.state.arr);
+		 console.log("fgfg",this.state.arr);
 		 
          //console.log("333333",selectType)
        
@@ -190,7 +189,7 @@ export default class SearchResult extends Component{
 			 <div>
 			      
                   <Row>
-			        <Received params={this.props.params} type="RECEIVED" detailResult={this.props.detailResult} />
+			        <Received params={this.props.params} type="RECEIVED" />
                     <Income params={this.props.params} type="INCOME" />
                   </Row>
 

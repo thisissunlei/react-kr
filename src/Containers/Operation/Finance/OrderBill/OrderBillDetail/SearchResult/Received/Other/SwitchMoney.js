@@ -48,8 +48,8 @@ class SwitchMoney extends Component{
 
 	componentDidMount() {
 
-       //let {initialValues}= this.props;
-	   //Store.dispatch(initialize('SwitchMoney',initialValues));
+       let {initialValues}= this.props;
+	   Store.dispatch(initialize('SwitchMoney',initialValues));
 		
 	}
     
@@ -85,7 +85,7 @@ class SwitchMoney extends Component{
 			    <div>                 
 					      <form onSubmit={handleSubmit(this.onSubmit)}>                           
 						    <KrField  name="id" type="hidden"/>
-                            <KrField label="合同编号" name="contractcode" type="select" options={optionList}/>
+                            <KrField label="合同编号" name="contractcodeId" type="select" options={optionList}/>
                             <KrField label="备注" name="finaflowdesc" component="input" type="text"/>
                             <KrField label="上传附件" name="fileids" component="file"/>
 

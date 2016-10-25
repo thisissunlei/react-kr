@@ -26,7 +26,8 @@ import {
 	KrField,
 } from 'kr-ui';
 
-
+var url=window.location.href;
+var url_arr=url.split('/');
 class ViewForm extends Component{
 	constructor(props,context){
 		super(props,context);
@@ -72,6 +73,9 @@ export default class Basic extends Component{
            item:{},
            Params:{
            	accountType:'INCOME',
+           	orderId:url_arr[url_arr.length-2],
+		    pageNum:1,
+		    pageSize:20,
            },
            openview:false,
            openSearch:false
@@ -80,10 +84,11 @@ export default class Basic extends Component{
 	componentDidMount() {
       
 
+
 	}
-	 onSearchSuccess(){
+	onSearchSuccess(){
 		
-   }
+    }
 
 
    openSearchDialog(){
@@ -152,7 +157,7 @@ export default class Basic extends Component{
 	                	<TableRowColumn name="id"></TableRowColumn>
 	                    <TableRowColumn name="occuryear"></TableRowColumn>
 	                    <TableRowColumn name="accountName"></TableRowColumn>
-	                    <TableRowColumn name="recordType"></TableRowColumn>
+	                    <TableRowColumn name="typeName"></TableRowColumn>
 	                    <TableRowColumn name="propertyName"></TableRowColumn>
 	                    <TableRowColumn name="finaflowAmount"></TableRowColumn>
 	                    <TableRowColumn name="finaflowdesc"></TableRowColumn>
@@ -161,6 +166,7 @@ export default class Basic extends Component{
 	                    </TableRowColumn>
 	                  </TableRow>
 	              </TableBody>
+	              <TableFooter></TableFooter>
             </Table>
 			<Dialog
 			title="查看"

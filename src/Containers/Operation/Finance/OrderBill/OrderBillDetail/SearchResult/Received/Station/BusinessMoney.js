@@ -33,6 +33,7 @@ class BusinessMoney extends Component{
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
 		initialValues:React.PropTypes.object,
+		fiMoney:React.PropTypes.number,
   }
 
 	constructor(props,context){
@@ -46,8 +47,8 @@ class BusinessMoney extends Component{
 
 	componentDidMount() {
 
-       //let {initialValues}= this.props;
-	   //Store.dispatch(initialize('BusinessMoney',initialValues));
+       let {initialValues}= this.props;
+	   Store.dispatch(initialize('BusinessMoney',initialValues));
 		
 	}
     
@@ -72,7 +73,7 @@ class BusinessMoney extends Component{
 
 	
 
-        const { error, handleSubmit, pristine, reset,optionList} = this.props;
+        const { error, handleSubmit, pristine, reset,optionList,fiMoney} = this.props;
 		
 
 		//console.log("vbvbvb",this.props.initialValues)
@@ -84,7 +85,7 @@ class BusinessMoney extends Component{
                  
 					      <form onSubmit={handleSubmit(this.onSubmit)}>
                              <KrField  name="id" type="hidden"/>
-                            <KrField label="款项金额" component="labelText" value={34}/>
+                            <KrField label="款项金额" component="labelText" value={fiMoney}/>
                             <KrField label="金额（元）" name="finaflowamount" component="input" type="text"/>
                             <KrField label="备注" name="finaflowdesc" component="input" type="text"/>
                             <KrField label="上传附件" name="fileids" component="file"/>

@@ -215,6 +215,8 @@ export default class Table extends React.Component {
 
 	onLoadData(page=1,ajaxParams=this.props.ajaxParams){
 
+		ajaxParams = Object.assign({},ajaxParams);
+
 		if(!this.props.ajax){
 			return ;
 		}

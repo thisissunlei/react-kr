@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {reduxForm,formValueSelector,initialize} from 'redux-form';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
-
+import dateFormat from 'dateformat';
 import {
 	Table,
  	TableBody,
@@ -24,8 +24,12 @@ import {
 	Dialog,
 	KrField
 } from 'kr-ui';
+var fiMoney='';
+var fiItem={};
 var arr=[];
 var arr1=[];
+var url=window.location.href;
+ var url_arr=url.split('/');
 import {Actions,Store} from 'kr/Redux';
 
 import ReceivedMoney from './ReceivedMoney';
@@ -87,6 +91,8 @@ export default class Deposit extends Component{
 
 		this.openViewDialog=this.openViewDialog.bind(this);
 		this.onOperation = this.onOperation.bind(this);
+		this.onLoaded = this.onLoaded.bind(this);
+		this.onSelect = this.onSelect.bind(this);
 
 		this.openSearchDialog = this.openSearchDialog.bind(this);
 		this.onSearchSuccess = this.onSearchSuccess.bind(this);
@@ -94,6 +100,10 @@ export default class Deposit extends Component{
 		
 
 		this.state={
+			list:[],
+            selectedList:[],
+            listValues:[],
+
            item:{},
            openReceive:false,
            openSwitch:false,
@@ -103,9 +113,7 @@ export default class Deposit extends Component{
            openView:false,
            arr:[],
            arr1:[],
-           Params:{
-				
-			}
+           
 		}
 	}
      
@@ -131,7 +139,33 @@ export default class Deposit extends Component{
 		}
 	}
 
-	
+	onSelect(values){
+        console.log("111111",values)
+
+        //此处反着？
+    	let {list,selectedList} = this.state;
+    	selectedList = list.map(function(item,index){            
+				if(values.indexOf(index)){
+					return false;
+				}
+				return item;			           
+    	});
+
+    	this.setState({
+    		selectedList,
+    		listValues:values
+    	});
+
+
+      
+    }
+
+    onLoaded(response){
+    	let list = response.items;    
+    	this.setState({
+    		list
+    	})
+    }
    
 	openViewDialog(){
 		this.setState({
@@ -140,13 +174,51 @@ export default class Deposit extends Component{
 	}
 
 	openBusinessDialog(){
-		this.setState({
-			openBusiness:!this.state.openBusiness
-		});   
+		let items=this.state.selectedList
+           var _this=this;          
+           items.map(function(item,index){
+             if(typeof(item.finaflowAmount)=='number'){
+                 fiMoney=item.finaflowAmount;
+                 fiItem=item;
+              }
+           })
+
+           if(this.state.listValues.length==0){
+           	 alert('请选择一条回款数据进行退款');
+           }else if(this.state.listValues.length>1){
+           	  alert('只能选择一条数据');
+           }else if(fiMoney>=0){
+              alert('金额必须为负且存在可用金额');
+           }else{
+           	 this.setState({
+			  openBusiness:!this.state.openBusiness
+		      });
+            }
+		 
 	}
 
 	openSwitchDialog(){
-       var _this = this;
+		let items=this.state.selectedList
+           var _this=this;          
+           items.map(function(item,index){
+             if(typeof(item.finaflowAmount)=='number'){
+                 fiMoney=item.finaflowAmount;
+                 fiItem=item;                
+              }
+           })
+
+           if(this.state.listValues.length==0){
+           	 alert('请选择一条回款数据进行退款');
+           }else if(this.state.listValues.length>1){
+           	  alert('只能选择一条数据');
+           }else if(fiMoney>=0){
+              alert('金额必须为负且存在可用金额');
+           }else{
+           	 this.setState({
+			  openSwitch:!this.state.openSwitch
+		      });
+            
+      
 	       Store.dispatch(Actions.callAPI('findContractListById',{
 	       	  id:'1'
 	       })).then(function(response){ 
@@ -170,15 +242,30 @@ export default class Deposit extends Component{
 				type: 'danger',
 			}]);
 		 });
-        this.setState({
-			openSwitch:!this.state.openSwitch
-		});       
+       }      
 	}
 
 	openQuitDialog(){
-       this.setState({	    
-			openQuit:!this.state.openQuit,
-		});	 
+		let items=this.state.selectedList
+           var _this=this;          
+           items.map(function(item,index){
+             if(typeof(item.finaflowAmount)=='number'){
+                 fiMoney=item.finaflowAmount;
+                 fiItem=item;                
+              }
+           })
+
+           if(this.state.listValues.length==0){
+           	 alert('请选择一条回款数据进行退款');
+           }else if(this.state.listValues.length>1){
+           	  alert('只能选择一条数据');
+           }else if(fiMoney>=0){
+              alert('金额必须为负且存在可用金额');
+           }else{
+           	 this.setState({
+			  openQuit:!this.state.openQuit
+		      });
+          }
 	}
 
 	openReceivedDialog(){
@@ -212,9 +299,11 @@ export default class Deposit extends Component{
 	}
 
    
-
-     onAddReceivedSubmit(params){  //获取提交时的params  	  
+      //获取提交时的params 
+     onAddReceivedSubmit(params){  	  
 	  	  //params.fileids=JSON.stringify(params.fileids);
+	  	  params= Object.assign({},params);
+	  	  params.receiveDate=dateFormat(params.receiveDate,"yyyy-mm-dd h:MM:ss");
 	  	  console.log("gggg",params);
 		  var _this = this;
 	      Store.dispatch(Actions.callAPI('receiveMoney',{},params)).then(function(response){  //post请求   		    
@@ -255,8 +344,8 @@ export default class Deposit extends Component{
       
 
      SwitchDialog(){
-		this.setState({	    
-			openSwitch:!this.state.openSwitch,
+     	this.setState({
+			openSwitch:!this.state.openSwitch,			
 		});	 
 	 }
 
@@ -280,14 +369,17 @@ export default class Deposit extends Component{
      
 
      BusinessDialog(){
-		this.setState({	    
-			openBusiness:!this.state.openBusiness,
-		});	 
+     	 this.setState({
+			openBusiness:!this.state.openBusiness
+		});	
+		 
 	 }
    
     
     onQuitSubmit(params){  //获取提交时的params
 	  	  //params.fileids=JSON.stringify(params.fileids);
+	  	  params= Object.assign({},params);
+	  	  params.operatedate=dateFormat(params.operatedate,"yyyy-mm-dd h:MM:ss");
 		  var _this = this;
 	      Store.dispatch(Actions.callAPI('payBack',{},params)).then(function(response){  //post请求   
  		  }).catch(function(err){
@@ -304,9 +396,10 @@ export default class Deposit extends Component{
     
 
      QuitMoneyDialog(){
-		this.setState({	    
-			openQuit:!this.state.openQuit,
-		});	 
+     	 this.setState({
+			openQuit:!this.state.openQuit
+		});
+		 
 	 }
 
 
@@ -330,8 +423,16 @@ export default class Deposit extends Component{
 		if(params.childType != type){
 			return  null;
 		}
-
+        
+        let Params={
+                orderId:url_arr[url_arr.length-2],
+				accountType:'PAYMENT',
+				pageNum:1,
+				pageSize:20,
+				propertyId:params.id
+	   }
        
+
        const close=[
         <Button
         label="关闭"
@@ -344,9 +445,11 @@ export default class Deposit extends Component{
 	   
 
 	    //console.log("dedede",this.state.item)
-       var url=window.location.href;
-       var url_arr=url.split('/');
+       
        let initialValues = {
+			id:fiItem.id
+		}
+		let initialValue = {
 			mainbillid:url_arr[url_arr.length-2],
 		}
 
@@ -363,7 +466,7 @@ export default class Deposit extends Component{
                   </Row>
 
                   
-                <Table style={{marginTop:10}} ajax={true}  ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.Params} onOperation={this.onOperation}>
+                <Table style={{marginTop:10}} ajax={true} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={Params} onOperation={this.onOperation}>
 	              <TableHeader>
 				          <TableHeaderColumn>序号</TableHeaderColumn>
 				          <TableHeaderColumn>交易日期</TableHeaderColumn>
@@ -379,7 +482,7 @@ export default class Deposit extends Component{
 	                	<TableRowColumn name="id"></TableRowColumn>
 	                    <TableRowColumn name="occuryear"></TableRowColumn>
 	                    <TableRowColumn name="accountName"></TableRowColumn>
-	                    <TableRowColumn name="recordType"></TableRowColumn>
+	                    <TableRowColumn name="typeName"></TableRowColumn>
 	                    <TableRowColumn name="propertyName"></TableRowColumn>
 	                    <TableRowColumn name="finaflowAmount"></TableRowColumn>
 	                    <TableRowColumn name="finaflowdesc"></TableRowColumn>
@@ -388,6 +491,7 @@ export default class Deposit extends Component{
 	                    </TableRowColumn>
 	                  </TableRow>
 	              </TableBody>
+	              <TableFooter></TableFooter>
               </Table>
 
 
@@ -396,7 +500,7 @@ export default class Deposit extends Component{
 						modal={true}
 						open={this.state.openReceive}
 					>
-					  <ReceivedMoney onSubmit={this.onAddReceivedSubmit} onCancel={this.ReceivedDialog} optionList={this.state.arr} initialValues={initialValues} />
+					  <ReceivedMoney onSubmit={this.onAddReceivedSubmit} onCancel={this.ReceivedDialog} optionList={this.state.arr} initialValues={initialValue} />
 
 				  </Dialog>
                    
@@ -414,7 +518,7 @@ export default class Deposit extends Component{
 						modal={true}
 						open={this.state.openBusiness}
 					>
-					  <BusinessMoney onSubmit={this.onBusinessSubmit} onCancel={this.BusinessDialog} />  
+					  <BusinessMoney onSubmit={this.onBusinessSubmit} onCancel={this.BusinessDialog} fiMoney={fiMoney} initialValues={initialValues}/>  
 				  </Dialog>
 
                   <Dialog
@@ -422,7 +526,7 @@ export default class Deposit extends Component{
 						modal={true}
 						open={this.state.openQuit}
 					>
-					 <QuitMoney onSubmit={this.onQuitSubmit} onCancel={this.QuitMoneyDialog}/>  
+					 <QuitMoney onSubmit={this.onQuitSubmit} onCancel={this.QuitMoneyDialog} initialValues={initialValues}/>  
 				  </Dialog>
 
                   <Dialog

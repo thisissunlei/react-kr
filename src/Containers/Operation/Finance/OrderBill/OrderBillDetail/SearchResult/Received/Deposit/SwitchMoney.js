@@ -48,8 +48,8 @@ class SwitchMoney extends Component{
 
 	componentDidMount() {
 
-       //let {initialValues}= this.props;
-	   //Store.dispatch(initialize('SwitchMoney',initialValues));
+       let {initialValues}= this.props;
+	   Store.dispatch(initialize('SwitchMoney',initialValues));
 		
 	}
     

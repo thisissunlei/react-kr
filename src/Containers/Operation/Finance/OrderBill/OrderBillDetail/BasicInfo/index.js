@@ -34,7 +34,9 @@ export default class BasicInfo extends Component{
 	}
 
 	static PropTypes = {
-		detail:React.PropTypes.object
+		detail:React.PropTypes.object,
+		detailPayment:React.PropTypes.object,
+		detailIncome:React.PropTypes.object,
 	}
 
 	constructor(props,context){
@@ -47,8 +49,12 @@ export default class BasicInfo extends Component{
 
 	render(){
           
-         const {detail} =this.props;
-		 
+         const {detail,detailPayment,detailIncome} =this.props;
+
+        
+        
+        
+
 
 		return(
 
@@ -67,22 +73,15 @@ export default class BasicInfo extends Component{
 			           <KrField grid={1/3} label="回款总额" component="labelText" value={detail.totalPayment}/>
 
 			            <KrField grid={1/3} label="未回款额" component="labelText" value={detail.notPaymentAmount}/>
-			           <KrField grid={1/3} label="工位回款" component="labelText" value={detail.gonweihuikuan}/>
-			           <KrField grid={1/3} label="实收押金" component="labelText" value={detail.yajin}/>
-
-
-			            <KrField grid={1/3} label="实收定金" component="labelText" value={detail.dinjin}/>
-			           <KrField grid={1/3} label="其他回款" component="labelText" value={detail.qitahuikuan}/>
-			           <KrField grid={1/3} label="营业外收入汇款" component="labelText" value={detail.yingshouhuikuan}/>
-
-
-			            <KrField grid={1/3} label="生活消费收入回款" component="labelText" value={detail.shenghuoxiaofeihuikuan}/>
-			           <KrField grid={1/3} label="工位收入" component="labelText" value={detail.gonweishouru}/>
-			           <KrField grid={1/3} label="其他收入" component="labelText" value={detail.qitashouru}/>
-
-			            <KrField grid={1/3} label="营业外收入" component="labelText" value={detail.yingshoushouru}/>
-			           <KrField grid={1/3} label="生活消费收入" component="labelText" value={detail.shenghuoxiaofeishouru}/>
-			           <KrField grid={1/3} component="labelText"/>
+			            {detailPayment.map((item,index)=>						
+						    <KrField key={index} grid={1/3} label={item.propname} component="labelText" value={item.propamount}/>						 
+						 )}
+						 {detailIncome.map((item,index)=>						
+						    <KrField key={index} grid={1/3} label={item.propname} component="labelText" value={item.propamount}/>						 
+						 )}
+			          
+			           
+			 
 			           <KrField grid={1} label="订单描述" component="labelText" value={detail.mainbilldesc}/>
 		
 			</div>		

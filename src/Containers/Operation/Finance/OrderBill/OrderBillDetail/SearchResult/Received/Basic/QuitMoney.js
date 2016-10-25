@@ -34,6 +34,7 @@ class QuitMoney extends Component{
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
 		items:React.PropTypes.object,
+		initialValues:React.PropTypes.object,
 	}
 
 	constructor(props,context){
@@ -47,8 +48,8 @@ class QuitMoney extends Component{
    }
 
 	componentDidMount() {
-        //let {initialValues}= this.props;
-		//Store.dispatch(initialize('QuitMoney',initialValues));
+        let {initialValues}= this.props;
+	    Store.dispatch(initialize('QuitMoney',initialValues));
 	}
     
    
@@ -74,7 +75,7 @@ class QuitMoney extends Component{
 
 		const { error, handleSubmit, pristine, reset,items} = this.props;
 
-		
+		console.log("1112",this.props.initialValues)
         
 
 		return(
@@ -85,7 +86,7 @@ class QuitMoney extends Component{
  
 						    <KrField name="id" type="hidden"/>
                             <KrField label="金额（元）" name="finaflowamount" component="input" type="text"/>
-                            <KrField type="date" label="退款日期" name="receiveDate"/>
+                            <KrField type="date" label="退款日期" name="operatedate"/>
                             <KrField label="备注" name="finaflowdesc" component="input" type="text"/>
                             <KrField label="上传附件" name="fileids" component="file"/>
 

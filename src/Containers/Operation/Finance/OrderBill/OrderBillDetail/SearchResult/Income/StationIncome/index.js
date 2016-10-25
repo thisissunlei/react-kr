@@ -28,7 +28,8 @@ import {
 
 
 import ChangeAccountForm from './ChangeAccountForm';
-
+var url=window.location.href;
+var url_arr=url.split('/');
 class ViewForm extends Component{
 	constructor(props,context){
 		super(props,context);
@@ -126,7 +127,7 @@ export default class StationIncome extends Component{
 		this.onSearchSuccess = this.onSearchSuccess.bind(this);
 		this.state={
            item:{},
-           Params:{},
+           
            openview:false,
           Addaccount:false,
           supplement:false,
@@ -210,14 +211,22 @@ export default class StationIncome extends Component{
 	   	this.openSupplement();
 		
 	}
-
+     
 
 	render(){
 
 	   let {params,type} = this.props;
 
 	   let items=this.state.item.items;
-
+       
+       let Params={
+                orderId:url_arr[url_arr.length-2],
+				accountType:'INCOME',
+				pageNum:1,
+				pageSize:20,
+				propertyId:params.id
+	   }
+	   
 	   	
 	    if(!items){
 	    	items=[];
@@ -243,7 +252,7 @@ export default class StationIncome extends Component{
 					<Col md={3}><Button label="高级查询"  type="button" onTouchTap={this.openSearchDialog}/></Col>
                   </Row>
 
-                   <Table style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getPageAccountFlow'  ajaxParams={this.state.Params} onOperation={this.onOperation} >
+                   <Table style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getPageAccountFlow'  ajaxParams={Params} onOperation={this.onOperation} >
 	              <TableHeader>
 				          <TableHeaderColumn>序号</TableHeaderColumn>
 				          <TableHeaderColumn>交易日期</TableHeaderColumn>
@@ -259,7 +268,7 @@ export default class StationIncome extends Component{
 	                	<TableRowColumn name="id"></TableRowColumn>
 	                    <TableRowColumn name="occuryear"></TableRowColumn>
 	                    <TableRowColumn name="accountName"></TableRowColumn>
-	                    <TableRowColumn name="recordType"></TableRowColumn>
+	                    <TableRowColumn name="typeName"></TableRowColumn>
 	                    <TableRowColumn name="propertyName"></TableRowColumn>
 	                    <TableRowColumn name="finaflowAmount"></TableRowColumn>
 	                    <TableRowColumn name="finaflowdesc"></TableRowColumn>
@@ -268,6 +277,7 @@ export default class StationIncome extends Component{
 	                    </TableRowColumn>
 	                  </TableRow>
 	              </TableBody>
+	              <TableFooter></TableFooter>
             	</Table>
 				 <Dialog
 				title="查看"

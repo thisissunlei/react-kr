@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Actions,Store} from 'kr/Redux';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
+import dateFormat from 'dateformat';
 import {reduxForm,formValueSelector,initialize} from 'redux-form';
 import {
 	Table,
@@ -29,6 +30,8 @@ import ReceivedMoney from './ReceivedMoney';
 
 
 var arr=[];
+var url=window.location.href;
+var url_arr=url.split('/');
 class ViewForm extends Component{
 	constructor(props,context){
 		super(props,context);
@@ -44,7 +47,7 @@ class ViewForm extends Component{
 				<div>					
 					<KrField grid={1}  component="labelText" label="代码名称" value={items.accountName}/> 
 					<KrField grid={1}  component="labelText" label="付款日期" value={items.occuryear}/> 
-					<KrField grid={1}  component="labelText" label="交易编号" value={items.accountName}/> 
+					<KrField grid={1}  component="labelText" label="交易编号" value={items.tradingCode}/> 
 					<KrField grid={1}  component="labelText" label="金额（元）" value={items.finaflowAmount}/> 
 					<KrField grid={1}  component="labelText" label="备注" value={items.finaflowdesc}/> 
 					<KrField grid={1}  component="labelText" label="上传附件" value={items.accountName}/>
@@ -64,7 +67,7 @@ export default class Basic extends Component{
 	static PropTypes = {
 		params:React.PropTypes.object,
 		type:React.PropTypes.string,
-		detailResult:React.PropTypes.object,
+		
 	}
 
 	constructor(props,context){
@@ -77,6 +80,8 @@ export default class Basic extends Component{
 		
 		this.openSearchDialog = this.openSearchDialog.bind(this);
 		this.onSearchSuccess = this.onSearchSuccess.bind(this);
+
+
         
 		  this.state = {
 		  	initialValues:{},
@@ -84,9 +89,7 @@ export default class Basic extends Component{
 			openView:false,
 			itemDetail:{},
 			arr:[],
-			Params:{
-				
-			}
+			
 			
 	     }
    }
@@ -122,6 +125,7 @@ export default class Basic extends Component{
 	}
 
 	componentDidMount() {
+       
         
 	}
     
@@ -148,7 +152,7 @@ export default class Basic extends Component{
 		       });             		   
  		}).catch(function(err){
 			Notify.show([{
-				message:'报错了',
+				message:message,
 				type: 'danger',
 			}]);
 		 });
@@ -169,15 +173,16 @@ export default class Basic extends Component{
 
 
 
-	  onAddReceivedSubmit(params){  //获取提交时的params	  	  
+	  onAddReceivedSubmit(params){  	  	  
 	  	  //params.fileids=JSON.stringify(params.fileids);
-	  	  console.log("gggg",params);
+	  	  params= Object.assign({},params);
+	  	  params.receiveDate=dateFormat(params.receiveDate,"yyyy-mm-dd h:MM:ss");
 		  var _this = this;
-	      Store.dispatch(Actions.callAPI('receiveMoney',{},params)).then(function(response){  //post请求   
+	      Store.dispatch(Actions.callAPI('receiveMoney',{},params)).then(function(response){  
  		    
  		}).catch(function(err){
 			Notify.show([{
-				message:'报错了',
+				message:message,
 				type: 'danger',
 			}]);
 		 });
@@ -197,6 +202,15 @@ export default class Basic extends Component{
 			return  null;
 		}
 		
+		let Params={
+                orderId:url_arr[url_arr.length-2],
+				accountType:'PAYMENT',
+				pageNum:1,
+				pageSize:20,
+				propertyId:params.id
+	   }
+      
+
        const close=[
         <Button
         label="关闭"
@@ -207,8 +221,7 @@ export default class Basic extends Component{
       ]
     
 
-       var url=window.location.href;
-       var url_arr=url.split('/');
+       
        let initialValues = {
 			mainbillid:url_arr[url_arr.length-2],
 		}
@@ -223,7 +236,7 @@ export default class Basic extends Component{
                   </Row>
        
                
-               <Table displayCheckbox={false} style={{marginTop:10}} ajax={true}  ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.Params} onOperation={this.onOperation}>
+               <Table displayCheckbox={false} style={{marginTop:10}} ajax={true}  ajaxUrlName='getPageAccountFlow' ajaxParams={Params} onOperation={this.onOperation}>
 	              <TableHeader>
 				          <TableHeaderColumn>序号</TableHeaderColumn>
 				          <TableHeaderColumn>交易日期</TableHeaderColumn>
@@ -239,7 +252,7 @@ export default class Basic extends Component{
 	                	<TableRowColumn name="id"></TableRowColumn>
 	                    <TableRowColumn name="occuryear"></TableRowColumn>
 	                    <TableRowColumn name="accountName"></TableRowColumn>
-	                    <TableRowColumn name="recordType"></TableRowColumn>
+	                    <TableRowColumn name="typeName"></TableRowColumn>
 	                    <TableRowColumn name="propertyName"></TableRowColumn>
 	                    <TableRowColumn name="finaflowAmount"></TableRowColumn>
 	                    <TableRowColumn name="finaflowdesc"></TableRowColumn>
@@ -248,6 +261,7 @@ export default class Basic extends Component{
 	                    </TableRowColumn>
 	                  </TableRow>
 	              </TableBody>
+	              <TableFooter></TableFooter>
               </Table>
 
 			

@@ -40,7 +40,6 @@ export default class Received extends Component{
 	static PropTypes = {
 		params:React.PropTypes.object,
 		type:React.PropTypes.string,
-		detailResult:React.PropTypes.object,
 		mainId:React.PropTypes.number,
 	}
 
@@ -77,7 +76,7 @@ export default class Received extends Component{
 			   <Earnest type="dinjin" params={this.props.params}/>
 			   <BusinessIncome  type="yingshouhuikuan" params={this.props.params} />
 			   <Other type="qitahuikuan" params={this.props.params}/>
-			   <Basic type="basic" params={this.props.params} detailResult={this.props.detailResult} />
+			   <Basic type="basic" params={this.props.params}  />
 			   <Station type="gongweihuikuan" params={this.props.params}/>
 			   <Deposit type="yajin" params={this.props.params} />
 			   <LivePayment type="shenghuoxiaofeihuikuan" params={this.props.params} />

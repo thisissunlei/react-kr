@@ -49,7 +49,6 @@ export default class AttributeSetting  extends Component{
 			detailPayment:[],
 			detailIncome:[],
 			detailBalance:'',	
-			detailResult:{}		
 		}
 	}
 
@@ -60,8 +59,8 @@ export default class AttributeSetting  extends Component{
 	componentDidMount() {
         var _this = this;
 		Store.dispatch(Actions.callAPI('getAccountFlow',{
-			accountType:'PAYMENT',
-			mainbillid:'3'
+			mainbillid:'3',
+			accountType:'INCOME'
 		})).then(function(response){
                 
 			_this.setState({
@@ -70,7 +69,6 @@ export default class AttributeSetting  extends Component{
 				detailPayment:response.paymentdata,
 				detailIncome:response.incomedata,
 				detailBalance:response.balance,
-				detailResult:response.pagedata,
 				loading:false
 
 			});
@@ -85,7 +83,7 @@ export default class AttributeSetting  extends Component{
 	render(){
         
         
-
+       //console.log("saasaasa",this.state.item)
         
         
 		return(
@@ -93,14 +91,14 @@ export default class AttributeSetting  extends Component{
 			<div>
 					<Section title="订单明细账" description="" > 
 
-						   <BasicInfo detail={this.state.detailT}/>
+						   <BasicInfo detail={this.state.detailT} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome}/>
 
 							<Row>
 							<Col md={5} >
 								<SearchParam onSearch={this.onSearch} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance} />
 							</Col>
 							<Col md={5} >
-								<SearchResult detailResult={this.state.detailResult} params={this.state.searchParam} />
+								<SearchResult  params={this.state.searchParam} />
 							</Col>
 						</Row>
 

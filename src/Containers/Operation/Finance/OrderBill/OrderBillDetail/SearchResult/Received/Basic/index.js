@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Actions,Store} from 'kr/Redux';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
+import dateFormat from 'dateformat';
 import {reduxForm,formValueSelector,initialize} from 'redux-form';
 import {
 	Table,
@@ -28,7 +29,11 @@ import {
 import ReceivedMoney from './ReceivedMoney';
 import QuitMoney from './QuitMoney';
 
-var arr=[];
+var fiMoney='';
+var fiItem={};
+var receivedList=[];
+var url=window.location.href;
+var url_arr=url.split('/');
 class ViewForm extends Component{
 
 	constructor(props,context){
@@ -38,17 +43,20 @@ class ViewForm extends Component{
 	render(){
       
        let items=this.props.detail
-	   console.log("5555",items)
-        
+
+	   console.log("5555",items);
+	  
+	   
+
 
 		return(
 				<div>					
 					<KrField grid={1}  component="labelText" label="代码名称" value={items.accountName}/> 
 					<KrField grid={1}  component="labelText" label="付款日期" value={items.occuryear}/> 
-					<KrField grid={1}  component="labelText" label="交易编号" value={items.accountName}/> 
+					<KrField grid={1}  component="labelText" label="交易编号" value={items.tradingCode}/> 
 					<KrField grid={1}  component="labelText" label="金额（元）" value={items.finaflowAmount}/> 
 					<KrField grid={1}  component="labelText" label="备注" value={items.finaflowdesc}/> 
-					<KrField grid={1}  component="labelText" label="上传附件" value={items.accountName}/>
+					<KrField grid={1}  component="labelText" label="上传附件" />
 				</div>	
 
 
@@ -64,54 +72,63 @@ export default class Basic extends Component{
 	static PropTypes = {
 		params:React.PropTypes.object,
 		type:React.PropTypes.string,
-		detailResult:React.PropTypes.object,
+
 	}
 
 	constructor(props,context){
 		super(props, context);
-		this.onAddReceivedSubmit=this.onAddReceivedSubmit.bind(this);
-		this.ReceivedDialog=this.ReceivedDialog.bind(this);
+		
+		
 		this.openReceivedDialog=this.openReceivedDialog.bind(this);
 		this.openQuitDialog=this.openQuitDialog.bind(this);
-		this.onQuitSubmit=this.onQuitSubmit.bind(this);
-		this.QuitMoneyDialog=this.QuitMoneyDialog.bind(this);
-		this.openViewDialog=this.openViewDialog.bind(this);
-		this.onOperation = this.onOperation.bind(this);
-
 		this.openSearchDialog = this.openSearchDialog.bind(this);
-
+		this.openViewDialog=this.openViewDialog.bind(this);
+		
+		this.quitMoneyDialog=this.quitMoneyDialog.bind(this);		
+		this.receivedDialog=this.receivedDialog.bind(this);
+	
+		
+		this.onAddReceivedSubmit=this.onAddReceivedSubmit.bind(this);
+		this.onQuitSubmit=this.onQuitSubmit.bind(this);
+		this.onOperation = this.onOperation.bind(this);
 		this.onSearchSuccess = this.onSearchSuccess.bind(this);
-
-
 		this.onLoaded = this.onLoaded.bind(this);
 		this.onSelect = this.onSelect.bind(this);
 		
         
 		  this.state = {
+
             list:[],
             selectedList:[],
+            listValues:[],
+
+
             itemDetail:{},
+
 			openReceive:false,
 			openQuit:false,
 			openView:false,
-			arr:[],
-			Params:{
-				accountType:'PAYMENT',
-				mainbillid:'3'
-			},
 
-			
+			isLoading:false,
+
+			receivedList:[],
+
+			listParams:{
+				orderId:url_arr[url_arr.length-2],
+				pageNum:1,
+				pageSize:20,
+				accountType:'PAYMENT'
+			},
 	     }
    }
    
+
    onSearchSuccess(){
 		
    }
 
 
    openSearchDialog(){
-
-   	  
    	  this.context.onInitSearchDialog(this.onSearchSuccess,'PAYMENT');
    }
     
@@ -129,7 +146,7 @@ export default class Basic extends Component{
 	}
 
 	componentDidMount() {
-      
+       
 	}
    
 	openViewDialog(){
@@ -143,25 +160,25 @@ export default class Basic extends Component{
 	      Store.dispatch(Actions.callAPI('findAccountList',{
 	      	
 	      })).then(function(response){  //post请求
-	         
+              	         
  		      response.map(function(item,index){ 
  		      	 var list ={}
  		      	 list.id=item.id;
  		      	 list.accountname=item.accountname;
- 		      	 arr.push(list);		      	 	      	                                            
+ 		      	 receivedList.push(list);		      	 	      	                                            
               })
-              arr.map(function(item,index){
+              receivedList.map(function(item,index){
 				 item.label=item.accountname;
                  item.value=item.id;
 				 return item;
 			    });
 
  		        _this.setState({
-			      arr:arr
+			      receivedList:receivedList
 		       });             		   
  		}).catch(function(err){
 			Notify.show([{
-				message:'报错了',
+				message:message,
 				type: 'danger',
 			}]);
 		 });
@@ -170,36 +187,39 @@ export default class Basic extends Component{
 		});
     }
    
-    ReceivedDialog(){
+    receivedDialog(){
    	  this.setState({
 		 openReceive:!this.state.openReceive,			
 		});	 
    }
    
      openQuitDialog(){
-        
-       
-        console.log("c",this.state.selectedList[0]);
-        
+           let items=this.state.selectedList
+           var _this=this;          
+           items.map(function(item,index){
+             if(typeof(item.finaflowAmount)=='number'){
+                 fiMoney=item.finaflowAmount;
+                 fiItem=item                 
+              }
+           })
 
-     	if(this.state.selectedList.length==0||this.state.selectedList[0]=='false'){
-             alert("请选择一条回款数据进行退款");  
-                  
-        }else if(this.state.selectedList.length>1){
-        	 alert("只能选择一条");
-
-        }else{
-        	this.setState({
-			openQuit:!this.state.openQuit
-		  });
-        }
-
-        
-    }
+           if(this.state.listValues.length==0){
+           	 alert('请选择一条回款数据进行退款');
+           }else if(this.state.listValues.length>1){
+           	  alert('只能选择一条数据');
+           }else if(fiMoney>=0){
+              alert('金额必须为负且存在可用金额');
+           }else{
+           	 this.setState({
+			  openQuit:!this.state.openQuit
+		      });
+            }
+         }
+           
     
     
 
-	 QuitMoneyDialog(){
+	 quitMoneyDialog(){
 		this.setState({	    
 			openQuit:!this.state.openQuit,
 		});	 
@@ -207,30 +227,37 @@ export default class Basic extends Component{
 
 
 	  onAddReceivedSubmit(params){  //获取提交时的params	  	  
-	  	  //params.fileids=JSON.stringify(params.fileids);
-	  	  console.log("gggg",params);
+	  	  params= Object.assign({},params);
+	  	  params.receiveDate=dateFormat(params.receiveDate,"yyyy-mm-dd h:MM:ss");
 		  var _this = this;
-	      Store.dispatch(Actions.callAPI('receiveMoney',{},params)).then(function(response){  //post请求   
+	      Store.dispatch(Actions.callAPI('receiveMoney',{},params)).then(function(response){    
  		    
  		}).catch(function(err){
 			Notify.show([{
-				message:'报错了',
+				message:message,
 				type: 'danger',
 			}]);
 		 });
 
 	    _this.setState({
-			openReceive:!this.state.openReceive
-		});	  
-    }
+			openReceive:!this.state.openReceive,
+			isLoading:true
+		});	 
 
-    onQuitSubmit(params){  //获取提交时的params
+		receivedList=[]; 
+
+    }
+    
+    //获取提交时的params
+    onQuitSubmit(params){ 
+    	  params= Object.assign({},params);
 	  	  //params.fileids=JSON.stringify(params.fileids);
 		  var _this = this;
+		  params.operatedate=dateFormat(params.operatedate,"yyyy-mm-dd h:MM:ss");
 	      Store.dispatch(Actions.callAPI('payBack',{},params)).then(function(response){  //post请求   
  		  }).catch(function(err){
 			Notify.show([{
-				message:'报错了',
+				message:message,
 				type: 'danger',
 			}]);
 		 });
@@ -238,35 +265,35 @@ export default class Basic extends Component{
 	    _this.setState({
 			openQuit:!this.state.openQuit
 		});	  
+
+
     }
 
-    onSelect(values){
-        
 
+
+    onSelect(values){
+        console.log("111111",values)
+
+        //此处反着？
     	let {list,selectedList} = this.state;
     	selectedList = list.map(function(item,index){            
 				if(values.indexOf(index)){
 					return false;
 				}
-				return item;
+				return item;			           
     	});
 
     	this.setState({
-    		selectedList
+    		selectedList,
+    		listValues:values
     	});
-      
-   
+
 
       
     }
 
     onLoaded(response){
-
-    	
-
-    	let list = response.items;
-
-     
+    	let list = response.items;    
     	this.setState({
     		list
     	})
@@ -274,26 +301,27 @@ export default class Basic extends Component{
 
 	render(){
 
-		let {params,type,detailResult,handleSubmit} = this.props;
-		let items=detailResult.items;
+		let {params,type,handleSubmit} = this.props;
+		
 		if(params.childType != type){
 			return  null;
 		}
-		if(!items){
-			items=[];
-		}
+		
+
+		
+        console.log("asasaaaa",fiItem)
         
         
-       console.log("334333",this.state.Params.accountType)
+        
        
 
-       var url=window.location.href;
-       var url_arr=url.split('/');
+       
        let initialValues = {
 			mainbillid:url_arr[url_arr.length-2],
+			id:fiItem.id
 		}
 	    
-
+       
 	   const close=[
         <Button
         label="关闭"
@@ -315,7 +343,7 @@ export default class Basic extends Component{
                   </Row>
        
                
-               <Table style={{marginTop:10}} ajax={true} onSelect={this.onSelect} onLoaded={this.onLoaded}  ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.Params} onOperation={this.onOperation}>
+               <Table style={{marginTop:10}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded}  ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.listParams} onOperation={this.onOperation}>
 	              <TableHeader>
 				          <TableHeaderColumn>序号</TableHeaderColumn>
 				          <TableHeaderColumn>交易日期</TableHeaderColumn>
@@ -331,7 +359,7 @@ export default class Basic extends Component{
 	                	<TableRowColumn name="id"></TableRowColumn>
 	                    <TableRowColumn name="occuryear"></TableRowColumn>
 	                    <TableRowColumn name="accountName"></TableRowColumn>
-	                    <TableRowColumn name="recordType"></TableRowColumn>
+	                    <TableRowColumn name="typeName"></TableRowColumn>
 	                    <TableRowColumn name="propertyName"></TableRowColumn>
 	                    <TableRowColumn name="finaflowAmount"></TableRowColumn>
 	                    <TableRowColumn name="finaflowdesc"></TableRowColumn>
@@ -340,6 +368,9 @@ export default class Basic extends Component{
 	                    </TableRowColumn>
 	                  </TableRow>
 	              </TableBody>
+
+	              <TableFooter></TableFooter>
+
               </Table>
 
 			
@@ -350,7 +381,7 @@ export default class Basic extends Component{
 						modal={true}
 						open={this.state.openReceive}
 					>
-					  <ReceivedMoney onSubmit={this.onAddReceivedSubmit} initialValues={initialValues} onCancel={this.ReceivedDialog} optionList={this.state.arr}/>
+					  <ReceivedMoney onSubmit={this.onAddReceivedSubmit} initialValues={initialValues} onCancel={this.receivedDialog} optionList={this.state.receivedList}/>
 
 				  </Dialog>
 
@@ -361,7 +392,7 @@ export default class Basic extends Component{
 						modal={true}
 						open={this.state.openQuit}
 					>
-					 <QuitMoney onSubmit={this.onQuitSubmit} onCancel={this.QuitMoneyDialog} items={this.state.selectedList}/>  
+					 <QuitMoney onSubmit={this.onQuitSubmit} onCancel={this.quitMoneyDialog} items={this.state.selectedList} initialValues={initialValues}/>  
 				  </Dialog>
 
 

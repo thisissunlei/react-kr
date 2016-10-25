@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-
+import dateFormat from 'dateformat';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import {reduxForm,formValueSelector,initialize} from 'redux-form';
 import {
@@ -26,8 +26,12 @@ import {
 	KrField
 } from 'kr-ui';
 
+var fiMoney='';
+var fiItem={};
 var arr=[];
 var arr1=[];
+var url=window.location.href;
+var url_arr=url.split('/');
 import {Actions,Store} from 'kr/Redux';
 class ViewForm extends Component{
 	constructor(props,context){
@@ -37,7 +41,7 @@ class ViewForm extends Component{
 	render(){
       
        let items=this.props.detail
-	   //console.log("5555",items)
+	   console.log("5555",items)
         
 
 		return(
@@ -73,6 +77,8 @@ export default class Earnest extends Component{
         this.onCancelQ = this.onCancelQ.bind(this);
         this.onCancelB = this.onCancelB.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onLoaded = this.onLoaded.bind(this);
+		this.onSelect = this.onSelect.bind(this);
 
         this.openViewDialog=this.openViewDialog.bind(this);
 		this.onOperation = this.onOperation.bind(this);
@@ -81,6 +87,11 @@ export default class Earnest extends Component{
 		this.onSearchSuccess = this.onSearchSuccess.bind(this);
 
 		this.state={
+           list:[],
+           selectedList:[],
+           listValues:[],
+
+
            item:{},
            openView:false,
            itemDetail:{},
@@ -89,9 +100,7 @@ export default class Earnest extends Component{
            openBusiness:false,
            arr:[],
            arr1:[],
-           Params:{
-				
-			}
+          
 		}
 	}
     
@@ -125,15 +134,34 @@ export default class Earnest extends Component{
 	}
     
     BusinessMoney(){ 
-        this.setState({
-			openBusiness:!this.state.openBusiness
-		});       
+    	 let items=this.state.selectedList
+           var _this=this;          
+           items.map(function(item,index){
+             if(typeof(item.finaflowAmount)=='number'){
+                 fiMoney=item.finaflowAmount;
+                 fiItem=item                 
+              }
+           })
+
+           if(this.state.listValues.length==0){
+           	 alert('请选择一条回款数据进行退款');
+           }else if(this.state.listValues.length>1){
+           	  alert('只能选择一条数据');
+           }else if(fiMoney>=0){
+              alert('金额必须为负且存在可用金额');
+           }else{
+           	 this.setState({
+			  openBusiness:!this.state.openBusiness
+		      });
+            }    
     }
 
 
 
     onSubmit(params){  //获取提交时的params
 	  	  console.log("gggg",params);
+	  	  params= Object.assign({},params);
+	  	  params.receiveDate=dateFormat(params.receiveDate,"yyyy-mm-dd h:MM:ss");
 		  var _this = this;
 	      Store.dispatch(Actions.callAPI('receiveMoney',{},params)).then(function(response){ //post请求    
  		}).catch(function(err){
@@ -166,8 +194,8 @@ export default class Earnest extends Component{
 		});	 
 	 }
      
-
-     onSubmitQ(params){  //获取提交时的param  	  
+     //获取提交时的param 
+     onSubmitQ(params){   	  
 		  var _this = this;
 	      Store.dispatch(Actions.callAPI('transToDeposit',{},params)).then(function(response){  //post请求   
  		  }).catch(function(err){
@@ -182,8 +210,8 @@ export default class Earnest extends Component{
 		});	  
     }
 
-
-    onSubmitB(params){  //获取提交时的param  	  
+    //获取提交时的param  
+    onSubmitB(params){  	  
 		  var _this = this;
 	      Store.dispatch(Actions.callAPI('transToOperateIncome',{},params)).then(function(response){  //post请求   
  		  }).catch(function(err){
@@ -197,7 +225,29 @@ export default class Earnest extends Component{
 			openBusiness:!this.state.openBusiness
 		});	  
     }
+    
+    onSelect(values){      
+        //此处反着？
+    	let {list,selectedList} = this.state;
+    	selectedList = list.map(function(item,index){            
+				if(values.indexOf(index)){
+					return false;
+				}
+				return item;			           
+    	});
+    	this.setState({
+    		selectedList,
+    		listValues:values
+    	});     
+    }
 
+
+    onLoaded(response){
+    	let list = response.items;    
+    	this.setState({
+    		list
+    	})
+    }
 
 
     ReceivedMoney(){ 
@@ -228,10 +278,30 @@ export default class Earnest extends Component{
          this.setState({
 			openReceive:!this.state.openReceive
 		 });
-    }
+      }
+      
 
     SwitchMoney(){ 
-           var _this = this;
+    	   let items=this.state.selectedList;
+    	   var _this = this;         
+           items.map(function(item,index){
+             if(typeof(item.finaflowAmount)=='number'){
+                 fiMoney=item.finaflowAmount;
+                 fiItem=item                 
+              }
+           })
+
+           if(this.state.listValues.length==0){
+           	 alert('请选择一条回款数据进行退款');
+           }else if(this.state.listValues.length>1){
+           	  alert('只能选择一条数据');
+           }else if(fiMoney>=0){
+              alert('金额必须为负且存在可用金额');
+           }else{
+           	 this.setState({
+			  openSwitch:!this.state.openSwitch
+		      }); 
+
 	       Store.dispatch(Actions.callAPI('findContractListById',{
 	       	  id:'1'
 	       })).then(function(response){ 
@@ -255,10 +325,8 @@ export default class Earnest extends Component{
 				type: 'danger',
 			}]);
 		 });
-        this.setState({
-			openSwitch:!this.state.openSwitch
-		});
-   
+
+        }   
        
     }
 
@@ -286,7 +354,7 @@ export default class Earnest extends Component{
 			}]);
 		 });
 	    _this.setState({
-			openQuit:!this.state.openQuit
+			openSwitch:!this.state.openSwitch
 		});	  
     }
 
@@ -303,12 +371,24 @@ export default class Earnest extends Component{
         
 
 
-       var url=window.location.href;
-       var url_arr=url.split('/');
+       
        let initialValues = {
+			
+			id:fiItem.id
+		}
+		let initialValue={
 			mainbillid:url_arr[url_arr.length-2],
 		}
-        
+       
+       let Params={
+                orderId:url_arr[url_arr.length-2],
+				accountType:'PAYMENT',
+				pageNum:1,
+				pageSize:20,
+				propertyId:params.id
+	   }  
+
+
       const close=[
         <Button
         label="关闭"
@@ -330,7 +410,7 @@ export default class Earnest extends Component{
                   </Row>
 
                   
-                  <Table style={{marginTop:10}} ajax={true}   ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.Params} onOperation={this.onOperation}>
+                  <Table style={{marginTop:10}} ajax={true}  onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={Params} onOperation={this.onOperation}>
 	              <TableHeader>
 				          <TableHeaderColumn>序号</TableHeaderColumn>
 				          <TableHeaderColumn>交易日期</TableHeaderColumn>
@@ -346,7 +426,7 @@ export default class Earnest extends Component{
 	                	<TableRowColumn name="id"></TableRowColumn>
 	                    <TableRowColumn name="occuryear"></TableRowColumn>
 	                    <TableRowColumn name="accountName"></TableRowColumn>
-	                    <TableRowColumn name="recordType"></TableRowColumn>
+	                    <TableRowColumn name="typeName"></TableRowColumn>
 	                    <TableRowColumn name="propertyName"></TableRowColumn>
 	                    <TableRowColumn name="finaflowAmount"></TableRowColumn>
 	                    <TableRowColumn name="finaflowdesc"></TableRowColumn>
@@ -355,6 +435,7 @@ export default class Earnest extends Component{
 	                    </TableRowColumn>
 	                  </TableRow>
 	              </TableBody>
+	              <TableFooter></TableFooter>
               </Table>
 
 
@@ -364,7 +445,7 @@ export default class Earnest extends Component{
 						open={this.state.openReceive}
 					>
 					   <div>
-					     <Form name="ReceivedMoney" initialValues={initialValues} onSubmit={this.onSubmit}>
+					     <Form name="ReceivedMoney" initialValues={initialValue} onSubmit={this.onSubmit}>
 							<KrField  name="mainbillid" type="hidden" component="input"/>
 						    <KrField  label="代码名称" name="accountId" type="select" options={this.state.arr}/>
 						    <KrField component="date" label="回款日期" name="receiveDate"/>
@@ -422,7 +503,7 @@ export default class Earnest extends Component{
 					   <div>
 					      <Form name="BusinessMoney" initialValues={initialValues} onSubmit={this.onSubmitB}>
 						    <KrField  name="id" type="hidden"/>
-                            <KrField label="款项金额" component="labelText" value={34}/>
+                            <KrField label="款项金额" component="labelText" value={fiMoney}/>
                             <KrField label="金额（元）" name="finaflowamount" component="input" type="text"/>
                             <KrField label="备注" name="finaflowdesc" component="input" type="text"/>
                             <KrField label="上传附件" name="fileids" component="file"/>

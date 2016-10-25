@@ -33,6 +33,7 @@ class QuitMoney extends Component{
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
+		initialValues:React.PropTypes.object,
 	}
 
 	constructor(props,context){
@@ -46,8 +47,8 @@ class QuitMoney extends Component{
    }
 
 	componentDidMount() {
-        //let {initialValues}= this.props;
-		//Store.dispatch(initialize('QuitMoney',initialValues));
+        let {initialValues}= this.props;
+		Store.dispatch(initialize('QuitMoney',initialValues));
 	}
     
    

@@ -71,8 +71,8 @@ export default class SearchParam extends Component{
 	render(){
         
          const {detailPayment,detailIncome,detailBalance}=this.props;
-
-		//console.log("jjj",this.props.detailPayment);
+         
+		 console.log("jjj",this.props.detailPayment);
 		//console.log("uuu",this.props.detailIncome);
 		//console.log("ooo",this.props.detailBalance);
         
