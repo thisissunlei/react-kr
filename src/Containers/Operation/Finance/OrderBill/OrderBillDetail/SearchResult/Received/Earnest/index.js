@@ -373,7 +373,6 @@ export default class Earnest extends Component{
 
        
        let initialValues = {
-			
 			id:fiItem.id
 		}
 		let initialValue={

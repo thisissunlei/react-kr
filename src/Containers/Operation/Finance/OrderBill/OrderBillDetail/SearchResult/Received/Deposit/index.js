@@ -437,8 +437,10 @@ export default class Deposit extends Component{
 
        
        let initialValues = {
-			mainbillid:url_arr[url_arr.length-2],
 			id:fiItem.id
+		}
+		let initialValue = {
+			mainbillid:url_arr[url_arr.length-2],
 		}
         
         console.log("123",initialValues)
@@ -498,7 +500,7 @@ export default class Deposit extends Component{
 						modal={true}
 						open={this.state.openReceive}
 					>
-					  <ReceivedMoney onSubmit={this.onAddReceivedSubmit} onCancel={this.ReceivedDialog} optionList={this.state.arr} initialValues={initialValues} />
+					  <ReceivedMoney onSubmit={this.onAddReceivedSubmit} onCancel={this.ReceivedDialog} optionList={this.state.arr} initialValues={initialValue} />
 
 				  </Dialog>
                    
