@@ -123,7 +123,7 @@ export default  class JoinCreate extends Component {
 					initialValues.id = response.id;
 			   		initialValues.leaseId = response.leaseId;
 			   		initialValues.contractcode = response.contractcode;
-			   		initialValues.lessorContactid = 112;
+			   		initialValues.lessorContactid = response.lessorContactid;
 			   		initialValues.templockday = response.templockday;
 			   		// initialValues.lessorContactid = response.lessorContactid;
 			   		initialValues.leaseAddress = response.leaseAddress;
