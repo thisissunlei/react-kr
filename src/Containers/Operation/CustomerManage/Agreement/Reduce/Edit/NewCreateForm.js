@@ -76,7 +76,7 @@ class NewCreateForm  extends Component{
 		this.openStationDialog = this.openStationDialog.bind(this);
 		this.onStationUnitPrice = this.onStationUnitPrice.bind(this);
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
-
+		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 		this.reduceMoney = this.reduceMoney.bind(this);
 		this.state = {
@@ -121,6 +121,10 @@ class NewCreateForm  extends Component{
 		this.openStationUnitPriceDialog();
 	}
 
+	onChangeSearchPersonel(personel){
+		Store.dispatch(change('reduceCreateForm','lessorContacttel',personel.mobile));
+	}
+
 // station list
 	onStationCancel(){
 		this.openStationDialog();
@@ -130,17 +134,27 @@ class NewCreateForm  extends Component{
 
 		let {stationVos} = this.state;
 		let  result = stationVos;
-
+		console.log('stationVos',stationVos, selectedList);
+		var same = false;
 		if(!stationVos.length){
 			result = selectedList;
 		}else{
-			stationVos.forEach(function(item,index){
-				selectedList.forEach(function(selected,i){
-					if (item.id !=selected.id) {
-							result.push(selected);
+			selectedList.forEach(function(item,index){
+				stationVos.forEach(function(selected,i){
+					if (item.id ==selected.id) {
+							selected = item;
+							same = true;
+							stationVos.slice(index);
+
 					}
 				});
 			});
+			if(!same){
+				selectedList.forEach(function(item){
+					stationVos.push(item);
+				})
+			}
+			
 		}
 
 		result.map((item)=>{
@@ -267,7 +281,7 @@ class NewCreateForm  extends Component{
 		});
 
 		let {stationVos, rentamount} = this.state;
-		console.log(optionValues, initialValues, changeValues, this.props);
+		
 
 		return (
 	<div>
@@ -280,7 +294,8 @@ class NewCreateForm  extends Component{
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}  />
 				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/>
-				<KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" />
+				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} placeholder={optionValues.lessorContactName} /> 
+
 				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" />
 
 				<KrField grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/>

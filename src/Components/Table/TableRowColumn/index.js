@@ -34,9 +34,10 @@ export default class TableRowColumn extends React.Component {
 
 	onClick(event){
 
-		if(event.target.nodeName.toLowerCase() != 'td' && event.target.nodeName.toLowerCase() != 'input'){
+		if(event.target.nodeName.toLowerCase() != 'td' || event.target.nodeName.toLowerCase() == 'input'){
 			return null;
 		}
+
 		if (this.props.onCellClick) {
 			this.props.onCellClick(event, this.props.columnNumber);
 		}

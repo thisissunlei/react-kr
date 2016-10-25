@@ -415,7 +415,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" placeholder="" /> 
 				<KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" /> 
 				<KrField grid={1/2}  name="contractmark" component="textarea" label="备注" /> 
-				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" /> 
+				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} /> 
 
 				<Section title="租赁明细" description="" rightMenu = {
 					<Menu>
