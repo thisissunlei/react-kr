@@ -172,7 +172,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={optionValues.communityName} />
 
 				<KrField grid={1/2}  name="communityAddress" component="labelText" label="地址" value={optionValues.communityAddress} />
-				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  />
+				<KrField grid={1}  name="contractcode" type="text" component="input" label="合同编号"  />
 				<KrField name="totalreturn"  grid={1/2} type="text" component="input" label="退租金总额" />
 				<KrField name="depositamount"  grid={1/2} type="text" component="input" label="退押金总额"  />
 
@@ -180,7 +180,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间"/>
         
 
-				<KrField grid={1/2}  name="contractmark" component="textarea" label="备注" />
+				<KrField grid={1}  name="contractmark" component="textarea" label="备注" />
 				<KrField grid={1}  name="fileIdList" component="file" label="上传附件" />
 
 						<Grid>
