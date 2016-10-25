@@ -308,7 +308,7 @@ class NewCreateForm  extends Component{
 
 			<div>
 
-<form onSubmit={handleSubmit(this.onSubmit)}>
+<form onSubmit={handleSubmit(this.onSubmit)} enctype="multipart/form-data">
 
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" /> 
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" /> 
@@ -316,7 +316,9 @@ class NewCreateForm  extends Component{
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}  />
 				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/> 
-				<KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" /> 
+				<KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" selectValue={function(item){
+					console.log('item',item);
+				}} /> 
 				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 
 				<KrField grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/> 
@@ -328,7 +330,7 @@ class NewCreateForm  extends Component{
 
 				<KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={optionValues.communityName} /> 
 
-				<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} />
+				<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true}/>
 
 				<KrField grid={1/2}  name="communityAddress" component="labelText" label="地址" value={optionValues.communityAddress} /> 
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  /> 

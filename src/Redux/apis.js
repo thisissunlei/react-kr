@@ -30,7 +30,7 @@ const APIS  = {
 
 	// 上传文件
 	'uploadSingleFile':{
-		url:'/api-old/krspace_knowledge_wap/doc/docFile/uploadSingleFile?operater={operater}&sourceservicetoken={sourceservicetoken}&docTypeCode={docTypeCode}',
+		url:'/api-old/krspace_knowledge_wap/doc/docFile/uploadSingleFile',
 		method:'post'
 	},
 

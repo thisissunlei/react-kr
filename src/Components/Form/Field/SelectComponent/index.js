@@ -11,7 +11,7 @@ export default class SelectComponent extends React.Component{
 
 	render(){
 
-		let { input, label, type, meta: { touched, error },children,disabled,style,requireLabel,options} = this.props;
+		let { input, label, type, meta: { touched, error },children,disabled,style,requireLabel,options,...other} = this.props;
 		function changeValue(item){
 			var value = (item && item.value) || '';
 			input.onChange(value);
@@ -31,7 +31,8 @@ export default class SelectComponent extends React.Component{
 									clearable={true}
 									options={options}
 									onChange={changeValue} 
-									placeholder="请选择..."/>
+									placeholder="请选择..."
+								/>
 							</div>
 							{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 						  </div>

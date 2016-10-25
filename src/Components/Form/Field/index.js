@@ -36,7 +36,7 @@ export default class KrField extends React.Component {
 
 	render() {
 
-		let {grid=1,className,children,component,type,requireLabel,label,value} = this.props;
+		let {grid=1,className,children,component,type,requireLabel,label,value,...other} = this.props;
 
 		let WrapStyles = {
 			width:(grid*100)+'%'
@@ -54,9 +54,15 @@ export default class KrField extends React.Component {
 			);
 		}
 
+		if(component ==='searchPersonel'){
+			return (
+				<Field {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+
 		if(component ==='search'){
 			return (
-				<Field {...this.props} component={SearchPersonelComponent}  style={WrapStyles}/>
+				<Field {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
 			);
 		}
 

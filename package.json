@@ -76,6 +76,7 @@
     "react-binding": "^0.7.5",
     "react-docgen": "^2.9.1",
     "react-dom": "^0.14.6",
+    "react-file-reader-input": "^1.1.0",
     "react-form": "0.0.2",
     "react-hot-loader": "^3.0.0-beta.6",
     "react-link-state": "^0.1.2",
@@ -104,6 +105,7 @@
     "webpack-hot-middleware": "^2.10.0"
   },
   "dependencies": {
+    "@ranyefet/react-file-input": "^1.0.1",
     "babel-preset-react": "^6.3.13",
     "babel-runtime": "^6.11.6",
     "babelify": "^7.2.0",

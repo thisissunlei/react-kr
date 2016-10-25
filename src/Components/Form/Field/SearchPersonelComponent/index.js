@@ -7,40 +7,38 @@ export default class  SearchPersonelComponent extends React.Component {
 
 	constructor(props){
 		super(props)
+
+		this.onChange = this.onChange.bind(this);
+		this.getOptions = this.getOptions.bind(this);
+	}
+
+	componentDidMount(){
+
+	}
+
+	onChange(item){
+		let {input} = this.props;
+		var value = (item && item.value) || '';
+		input.onChange(value);
+	}
+
+	getOptions(lastname){
+		return new Promise((resolve, reject) => {
+			Store.dispatch(Actions.callAPI('getHrmResourceExtListByLastname',{ lastname:lastname })).then(function(response){
+				response.forEach(function(item,index){
+					item.value = item.id;
+					item.label = item.lastname;
+				});
+				resolve({options:response});
+			}).catch(function(err){
+				reject(err);
+			});
+		});
 	}
 
 	render(){
 
-		let { input, label, type, meta: { touched, error },children,disabled,style,requireLabel} = this.props;
-
-		var isLoading = false;
-		var changeValue = function(item){
-			var value = (item && item.value) || '';
-			input.onChange(value);
-		}
-
-		var getOptions = function(lastname){
-
-			isLoading = true;
-
-			return new Promise((resolve, reject) => {
-
-				Store.dispatch(Actions.callAPI('getHrmResourceExtListByLastname',{
-					lastname:lastname
-				},{})).then(function(response){
-					response.forEach(function(item,index){
-						item.value = item.id;
-						item.label = item.lastname;
-					});
-					resolve({options:response});
-					isLoading = false;
-				}).catch(function(err){
-					reject(err);
-					isLoading = false;
-				});
-			});
-			isLoading = false;
-		}
+		let { input, label, type, meta: { touched, error },children,disabled,style,requireLabel,...other} = this.props;
 
 		return (
 			<div className="form-item-wrap" style={style}>
@@ -48,15 +46,16 @@ export default class  SearchPersonelComponent extends React.Component {
 			<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
 			<div className="form-main">
 			<div className="form-input">
-			<ReactSelect.Async 
-			name={input.name} 
-			isLoading={isLoading}
-			value={input.value}
-			loadOptions={getOptions}
-			clearable={true}
-			clearAllText="清除"
-			onChange={changeValue} 
-			placeholder="请选择..." />
+				<ReactSelect.Async
+					name={input.name}
+					value={input.value}
+					loadOptions={this.getOptions}
+					clearable={true}
+					clearAllText="清除"
+					onChange={this.onChange}
+					placeholder="请选择..."
+					{...other}
+			/>
 			</div>
 			{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 			</div>
