@@ -239,15 +239,6 @@ class NewCreateForm  extends Component{
 			selectedObjs:JSON.stringify(stationVos)
 		};
 
-		if(Object.keys(params).length){
-			for (let item in params) {
-				if (params.hasOwnProperty(itemstationVos)) {
-					url = url.replace('{' + item + '}', params[item]);
-					delete params[item];
-				}
-			}
-		}
-
 		return url ;
 	}
 
