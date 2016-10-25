@@ -118,7 +118,7 @@ export default  class EditCreate extends Component {
       optionValues.mainbillCommunityId =  response.mainbillCommunityId||1;
 
       Store.dispatch(Actions.callAPI('show-checkin-agreement',{id:params.id})).then(function(response){
-            console.log('退租',response)
+            
           initialValues.id = response.id;
             initialValues.leaseId = response.leaseId;
             initialValues.contractcode = response.contractcode;
@@ -176,7 +176,7 @@ export default  class EditCreate extends Component {
   render() {
 
     let {initialValues,optionValues,stationVos} = this.state;
-
+    console.log('stationVos',stationVos)
     return (
 
      <div>

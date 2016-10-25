@@ -234,6 +234,7 @@ class NewCreateForm  extends Component{
 	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}";
 
 		let {changeValues,initialValues,optionValues} = this.props;
+		
 		let {stationVos} = this.state;
 
 		stationVos = stationVos.map(function(item){

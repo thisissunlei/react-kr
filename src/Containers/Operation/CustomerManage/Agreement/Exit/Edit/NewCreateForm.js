@@ -78,12 +78,11 @@ class NewCreateForm  extends Component{
 
 		form = Object.assign({},form);
 
-    	form.lessorAddress = changeValues.lessorAddress;
+    form.lessorAddress = changeValues.lessorAddress;
 		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd h:MM:ss");
-		form.withdrawdate = dateFormat(form.withdrawdate,"yyyy-mm-dd h:MM:ss");
-		form.firstpaydate=dateFormat(form.firstpaydate,"yyyy-mm-dd h:MM:ss");
-		form.leaseBegindate=dateFormat(form.leaseBegindate,"yyyy-mm-dd h:MM:ss");
-		form.leaseEnddate=dateFormat(form.leaseEnddate,"yyyy-mm-dd h:MM:ss");
+    form.leaseBegindate = dateFormat(form.leaseBegindate,"yyyy-mm-dd h:MM:ss");
+		form.leaseEnddate = dateFormat(form.leaseEnddate,"yyyy-mm-dd h:MM:ss");
+
 		console.log('---form',form);
 
 		const {onSubmit} = this.props;
@@ -146,10 +145,11 @@ class NewCreateForm  extends Component{
 			}
 		});
 
-		let {stationVos} = this.state;
 
 		return (
-	<div>
+
+
+			<div>
 
 <form onSubmit={handleSubmit(this.onSubmit)}>
 
@@ -173,51 +173,15 @@ class NewCreateForm  extends Component{
 
 				<KrField grid={1/2}  name="communityAddress" component="labelText" label="地址" value={optionValues.communityAddress} />
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  />
-				<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} />
-				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} /> 
-				<KrField name="firstpaydate" component="date" label="首付款时间" value={optionValues.firstpaydate} /> 
-				 <KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间"value={optionValues.signdate}/> 
-				<KrField grid={1/1}  name="rentaluse" type="text" component="input" label="租赁用途" />
-				<KrField grid={1/2}  name="totalrent"  component="labelText" label="租金总额" />
-				<KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" />
-				
+				<KrField name="totalreturn"  grid={1/2} type="text" component="input" label="退租金总额" />
+				<KrField name="depositamount"  grid={1/2} type="text" component="input" label="退押金总额"  />
 
-				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" />
-				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" />
+				<KrField grid={1/2}  name="withdrawdate" component="labelText" label="撤场日期"/>
+				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间"/>
+        
 
-				<Section title="租赁明细" description="" rightMenu = {
-					<Menu>
-						<MenuItem primaryText="续租"  onTouchTap={this.openStationDialog} />
-					</Menu>
-				}>
-
-				<Table  displayCheckbox={true} onSelect={this.onStationSelect}>
-				<TableHeader>
-				<TableHeaderColumn>类别</TableHeaderColumn>
-				<TableHeaderColumn>编号／名称</TableHeaderColumn>
-				<TableHeaderColumn>单价(元/月)</TableHeaderColumn>
-					<TableHeaderColumn>开始时间</TableHeaderColumn>
-						<TableHeaderColumn>结束时间</TableHeaderColumn>
-						</TableHeader>
-						<TableBody>
-						{stationVos.map((item,index)=>{
-							return (
-								<TableRow key={index}>
-									<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
-									<TableRowColumn>{item.stationName}</TableRowColumn>
-									<TableRowColumn>
-											{item.unitprice}
-									</TableRowColumn>
-									<TableRowColumn> <Date.Format value={item.leaseBeginDate}/></TableRowColumn>
-									<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
-
-									</TableRow>
-							);
-						})}
-						</TableBody>
-						</Table>
-
-						</Section>
+				<KrField grid={1/2}  name="contractmark" component="textarea" label="备注" />
+				<KrField grid={1}  name="fileIdList" component="file" label="上传附件" />
 
 						<Grid>
 						<Row style={{marginTop:30}}>
@@ -226,14 +190,6 @@ class NewCreateForm  extends Component{
 						</Grid>
 
 						</form>
-
-
-					<Dialog
-						title="分配工位"
-						open={this.state.openStation} >
-								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel}/>
-					  </Dialog>
-
 
 			</div>);
 	}
