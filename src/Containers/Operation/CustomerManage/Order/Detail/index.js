@@ -187,7 +187,6 @@ class OrderDetail extends Component {
   render() {
 
   	const {orderBaseInfo,earnest,contractList,installmentPlan,contractStatusCount} = this.state.response;
-
   	if(this.state.loading){
   		return(<Loading/>);
   	}
@@ -283,7 +282,7 @@ class OrderDetail extends Component {
 				</Grid>
 
 			       
-            <Table>
+            <Table pageSize={contractList.length}>
 					<TableHeader>
 							<TableHeaderColumn>合同编号</TableHeaderColumn>
 							<TableHeaderColumn>合同类型</TableHeaderColumn>
@@ -300,7 +299,7 @@ class OrderDetail extends Component {
 							<TableRowColumn>{item.contractcode}</TableRowColumn>
 								{this.getAgrementType(item.contracttype)}
 							
-							<TableRowColumn><Date.Format value={item.contractTotalamount}/></TableRowColumn>
+							<TableRowColumn>{item.contractTotalamount}</TableRowColumn>
 							<TableRowColumn><Date.Format value={item.leaseBegindate}/></TableRowColumn>
 							<TableRowColumn> <Date.Format value={item.leaseEnddate}/></TableRowColumn>
 							<TableRowColumn>
