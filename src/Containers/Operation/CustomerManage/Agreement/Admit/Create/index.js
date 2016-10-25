@@ -47,7 +47,7 @@ export default  class JoinCreate extends Component {
 
 		let {formValues} = this.state;
 
-		Store.dispatch(Actions.callAPI('addFinaContractIntentletter',{},formValues)).then(function(){
+		Store.dispatch(Actions.callAPI('updateFinaContractIntentletter',{},formValues)).then(function(){
 			Notify.show([{
 				message:'创建成功',
 				type: 'danger',
