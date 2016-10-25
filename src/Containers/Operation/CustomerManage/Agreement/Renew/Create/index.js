@@ -117,51 +117,12 @@ export default  class JoinCreate extends Component {
       optionValues.communityId = response.customer.communityid;
       optionValues.mainbillCommunityId =  response.mainbillCommunityId||1;
 
-      Store.dispatch(Actions.callAPI('show-checkin-agreement',{id:params.id})).then(function(response){
-            console.log('退租',response)
-          initialValues.id = response.id;
-            initialValues.leaseId = response.leaseId;
-            initialValues.contractcode = response.contractcode;
-            initialValues.leaseAddress = response.leaseAddress;
-            initialValues.lessorContactName = response.lessorContactName;
-          initialValues.leaseContact = response.leaseContact;
-          initialValues.leaseContacttel = response.leaseContacttel;
-          initialValues.paytype = response.payType.id;
-          initialValues.paymodel = response.payment.id;
-          initialValues.stationnum = response.stationnum;
-          initialValues.wherefloor = response.wherefloor;
-          initialValues.rentaluse = response.rentaluse;
-          initialValues.contractmark = response.contractmark;
-          initialValues.totalrent = response.totalrent;
-          initialValues.totaldeposit = response.totaldeposit;
-          initialValues.lessorContactid = response.lessorContactid;
-          //时间
-            initialValues.firstpaydate = new Date(response.firstpaydate);
-          initialValues.signdate = new Date(response.signdate);
-          initialValues.leaseBegindate = new Date(response.leaseBegindate);
-          initialValues.leaseEnddate = new Date(response.leaseEnddate);
-          initialValues.withdrawdate =new Date(response.withdrawdate);
-          console.log('时间',initialValues);
-
-
-          //处理stationvos
-          stationVos = response.stationVos;
-
-            console.log(stationVos,'---->>>>',response);
-
-          _this.setState({
+      
+      _this.setState({
             initialValues,
             optionValues,
             stationVos
           });
-
-        }).catch(function(err){
-          Notify.show([{
-            message:'后台出错请联系管理员',
-            type: 'danger',
-          }]);
-          });
-
 
     }).catch(function(err){
       Notify.show([{

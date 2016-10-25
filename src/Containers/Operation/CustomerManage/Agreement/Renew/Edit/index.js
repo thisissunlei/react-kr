@@ -114,7 +114,7 @@ export default  class JoinCreate extends Component {
         optionValues
       });
        Store.dispatch(Actions.callAPI('show-checkin-agreement',{id:params.id})).then(function(response){
-            console.log('续租',response)
+           
           initialValues.id = response.id;
             initialValues.leaseId = response.leaseId;
             initialValues.contractcode = response.contractcode;
@@ -137,7 +137,7 @@ export default  class JoinCreate extends Component {
           initialValues.leaseBegindate = new Date(response.leaseBegindate);
           initialValues.leaseEnddate = new Date(response.leaseEnddate);
           initialValues.withdrawdate =new Date(response.withdrawdate);
-          console.log('时间',initialValues);
+          
 
 
           //处理stationvos
