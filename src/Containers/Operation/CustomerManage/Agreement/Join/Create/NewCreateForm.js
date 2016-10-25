@@ -76,6 +76,7 @@ class NewCreateForm  extends Component{
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
 
 		this.onStationVosChange = this.onStationVosChange.bind(this);
+		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 
 		this.state = {
 			stationVos:[],

@@ -5,6 +5,15 @@ import {Actions,Store} from 'kr/Redux';
 
 export default class  SearchPersonelComponent extends React.Component {
 
+
+	static defaultProps = {
+		placeholder:'请选择...'
+	}
+
+	static PropTypes = {
+		placeholder:React.PropTypes.string
+	}
+
 	constructor(props){
 		super(props)
 
@@ -13,7 +22,7 @@ export default class  SearchPersonelComponent extends React.Component {
 	}
 
 	componentDidMount(){
-
+		let {input} = this.props;
 	}
 
 	onChange(item){
@@ -39,7 +48,7 @@ export default class  SearchPersonelComponent extends React.Component {
 
 	render(){
 
-		let { input, label, type, meta: { touched, error },children,disabled,style,requireLabel,...other} = this.props;
+		let { input, label, type, meta: { touched, error },placeholder,children,disabled,style,requireLabel,...other} = this.props;
 
 		return (
 			<div className="form-item-wrap" style={style}>
@@ -54,7 +63,7 @@ export default class  SearchPersonelComponent extends React.Component {
 					clearable={true}
 					clearAllText="清除"
 					onChange={this.onChange}
-					placeholder="请选择..."
+					placeholder={placeholder}
 			/>
 			</div>
 			{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }

@@ -118,6 +118,10 @@ export default  class JoinCreate extends Component {
 
 			   	Store.dispatch(Actions.callAPI('show-checkin-agreement',{id:params.id})).then(function(response){
 
+
+					optionValues.lessorContactName = response.lessorContactName;
+
+
 					initialValues.id = response.id;
 			   		initialValues.leaseId = response.leaseId;
 			   		initialValues.contractcode = response.contractcode;
@@ -133,6 +137,7 @@ export default  class JoinCreate extends Component {
 					initialValues.contractmark = response.contractmark;
 					initialValues.totalrent = response.totalrent;
 					initialValues.totaldeposit = response.totaldeposit;
+					initialValues.lessorContacttel = response.lessorContacttel;
 
 					//时间
 			   		initialValues.firstpaydate = new Date(response.firstpaydate);
