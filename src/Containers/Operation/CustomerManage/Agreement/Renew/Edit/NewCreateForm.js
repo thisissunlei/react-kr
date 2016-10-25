@@ -5,6 +5,7 @@ import { Fields } from 'redux-form';
 import {Binder} from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
+import dateFormat from 'dateformat';
 
 import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
 
@@ -38,7 +39,11 @@ import {
 
 @ReactMixin.decorate(LinkedStateMixin)
 class NewCreateForm  extends Component{
-
+	static PropTypes = {
+		initialValues:React.PropTypes.object,
+		onSubmit:React.PropTypes.func,
+		onCancel:React.PropTypes.func,
+	}
 	static DefaultPropTypes = {
 		initialValues:{
 			customerName:'',
@@ -50,11 +55,7 @@ class NewCreateForm  extends Component{
 		}
 	}
 
-	static PropTypes = {
-		initialValues:React.PropTypes.object,
-		onSubmit:React.PropTypes.func,
-		onCancel:React.PropTypes.func,
-	}
+	
 
 	constructor(props,context){
 		super(props, context);
@@ -185,24 +186,19 @@ class NewCreateForm  extends Component{
 	}
 
 	onSubmit(form){
-
+		
 		form = Object.assign({},form);
-
 		let {changeValues} = this.props;
-
     	form.lessorAddress = changeValues.lessorAddress;
+		console.log('444444')
 		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd h:MM:ss");
-		form.withdrawdate = dateFormat(form.withdrawdate,"yyyy-mm-dd h:MM:ss");
 		form.firstpaydate=dateFormat(form.firstpaydate,"yyyy-mm-dd h:MM:ss");
 		form.leaseBegindate=dateFormat(form.leaseBegindate,"yyyy-mm-dd h:MM:ss");
 		form.leaseEnddate=dateFormat(form.leaseEnddate,"yyyy-mm-dd h:MM:ss");
-
-		var _this = this;
-
-		form.stationVos =  stationVos;
-
-		form.stationVos = JSON.stringify(form.stationVos);
-
+		console.log('333333')
+		
+		
+		
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}

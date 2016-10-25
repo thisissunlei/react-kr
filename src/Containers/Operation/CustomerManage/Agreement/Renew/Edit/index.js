@@ -34,19 +34,14 @@ export default  class JoinCreate extends Component {
   }
 
    onCreateSubmit(formValues){
-     console.log("-00000",formValues);
-     this.setState({
-       formValues
-     });
-
-     this.onConfrimSubmit();
-    // this.openConfirmCreateDialog();
+     this.onConfrimSubmit(formValues);
+    
+    console.log(formValues)
    }
 
-   onConfrimSubmit(){
-
-    let {formValues} = this.state;
-
+   onConfrimSubmit(formValues){
+ 
+    console.log("-formValues",formValues);
     Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(){
       Notify.show([{
         message:'创建成功',
