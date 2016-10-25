@@ -63,8 +63,8 @@ class NewCreateForm  extends Component{
 
 		this.onCancel  = this.onCancel.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
-
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
+
 	}
 
 
@@ -72,7 +72,10 @@ class NewCreateForm  extends Component{
 		let {initialValues}= this.props;
 		Store.dispatch(initialize('joinCreateForm',initialValues));
 	}
-	
+
+	onChangeSearchPersonel(personel){
+		Store.dispatch(change('joinCreateForm','lessorContacttel',personel.mobile));
+	}
 
 	onSubmit(form){
 
@@ -80,9 +83,9 @@ class NewCreateForm  extends Component{
 
 		form = Object.assign({},form);
 
-    	form.lessorAddress = changeValues.lessorAddress;
+    form.lessorAddress = changeValues.lessorAddress;
 		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd h:MM:ss");
-    	form.leaseBegindate = dateFormat(form.leaseBegindate,"yyyy-mm-dd h:MM:ss");
+    form.leaseBegindate = dateFormat(form.leaseBegindate,"yyyy-mm-dd h:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate,"yyyy-mm-dd h:MM:ss");
 
 		console.log('---form',form);
@@ -132,10 +135,7 @@ class NewCreateForm  extends Component{
 		return url ;
 	}
 
-	onChangeSearchPersonel(personel){
-		console.log('personel',personel)
-		Store.dispatch(change('joinCreateForm','lessorContacttel',personel.mobile));
-	}
+
 
 
 	render(){
@@ -150,13 +150,13 @@ class NewCreateForm  extends Component{
 			}
 		});
 
-
+		console.log('.....',optionValues.lessorContactName)
 		return (
 
 
 			<div>
 
-<form onSubmit={handleSubmit(this.onSubmit)} >
+<form onSubmit={handleSubmit(this.onSubmit)}>
 
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
@@ -164,10 +164,8 @@ class NewCreateForm  extends Component{
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}  />
 				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/>
-				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} /> 
-				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
-
-				
+				<KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" onChange={this.onChangeSearchPersonel}  placeholder={optionValues.lessorContactName}/>
+				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" />
 
 				<KrField grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/>
 
@@ -183,7 +181,7 @@ class NewCreateForm  extends Component{
 				<KrField name="totalreturn"  grid={1/2} type="text" component="input" label="退租金总额" />
 				<KrField name="depositamount"  grid={1/2} type="text" component="input" label="退押金总额"  />
 
-				<KrField grid={1/2}  name="withdrawdate" component="labelText" label="撤场日期" value={optionValues.withdrawdate}/>
+				<KrField grid={1/2}  name="withdrawdate" component="labelText" label="撤场日期"/>
 				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间"/>
         
 

@@ -1,35 +1,76 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import DatePicker from 'material-ui/DatePicker';
+import dateFormat from 'dateformat';
 
 export default class DateComponent extends React.Component{
 
 	static PropTypes = {
 		defaultValue:React.PropTypes.string,
+		onChange:React.PropTypes.func,
 	}
 
 	constructor(props){
 		super(props)
-
 		this.onChange = this.onChange.bind(this);
+		this.setDefaultDate = this.setDefaultDate.bind(this);
+
+		this.supplementZero = this.supplementZero.bind(this);
+
+		this.state = {
+			value:new Date()
+		}
 
 	}
 
+	setDefaultDate(){
+		var {input} = this.props;
+		var value = '';
+		if(!(input.value instanceof Date)){
 
+			if(!input.value){
+				value = new Date();
+			}else{
+				value = new Date(Date.parse(input.value));
+			}
+
+			this.setState({
+				value
+			});
+		}
+	}
+
+	componentDidMount(){
+		this.setDefaultDate();
+	}
+
+	supplementZero(value){
+		if(value<10){
+			value = '0'+value;
+		}
+		return value 
+	}
 	onChange(event,value){
-
 		if(!value){
 			return ;
 		}
-		let {input} = this.props;
-		console.log('------;',value);
-		/*
-		var dt = new Date(value);
-		var result =  dt.getFullYear()+'-'+(1+dt.getMonth())+'-'+dt.getDate()+' '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds();
+		this.setState({
+			value
+		});
 
+		let {input,onChange} = this.props;
+
+		var dt = new Date(value);
+		var year = dt.getFullYear();
+		var month = this.supplementZero(1+ dt.getMonth());
+		var date = this.supplementZero(dt.getDate());
+		var hours = this.supplementZero(dt.getHours());
+		var minutes = this.supplementZero(dt.getMinutes());
+		var seconds = this.supplementZero(dt.getSeconds());
+
+		var result = `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`;
 		input.onChange(result);
-		*/
-		input.onChange(value);
+		onChange && onChange(result);
 	}
 
 
@@ -37,7 +78,6 @@ export default class DateComponent extends React.Component{
 
 
 		let{ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,style,defaultValue} = this.props;
-
 
 		const styles ={
 			border:'1px solid #ddd',
@@ -53,30 +93,17 @@ export default class DateComponent extends React.Component{
 					<div className="form-main">
 						<div className="form-input-main">
 							<div className="form-input">
-								 <DatePicker 
+								 <DatePicker
 									hintText={placeholder||'日期'}
-									value={input.value}
-		   							textFieldStyle={styles} 
-									name={input.name}
-		  						 	onChange={this.onChange}
-		   							formatDate={function(obj){
-										var dt = new Date(obj);
-										var result =  dt.getFullYear()+'-'+(1+dt.getMonth())+'-'+dt.getDate()+' '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds();
-										return result;
-									}}
-		  					 	/>
-			{/*
-		   							formatDate={function(obj){
-										var dt = new Date(obj);
-										var result =  dt.getFullYear()+'-'+(1+dt.getMonth())+'-'+dt.getDate()+' '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds();
-										return result;
-									}}
-				*/}
+									 value={this.state.value}
+										textFieldStyle={styles}
+										name={input.name}
+										onChange={this.onChange}/>
 							</div>
 						</div>
 						{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 					</div>
-				  </div>	
+				  </div>
 						</div>
 					);
 	}

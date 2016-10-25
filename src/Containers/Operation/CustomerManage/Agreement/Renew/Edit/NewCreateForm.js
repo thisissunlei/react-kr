@@ -5,6 +5,7 @@ import { Fields } from 'redux-form';
 import {Binder} from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
+import dateFormat from 'dateformat';
 
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
 
@@ -38,7 +39,11 @@ import {
 
 @ReactMixin.decorate(LinkedStateMixin)
 class NewCreateForm  extends Component{
-
+	static PropTypes = {
+		initialValues:React.PropTypes.object,
+		onSubmit:React.PropTypes.func,
+		onCancel:React.PropTypes.func,
+	}
 	static DefaultPropTypes = {
 		initialValues:{
 			customerName:'',
@@ -50,11 +55,7 @@ class NewCreateForm  extends Component{
 		}
 	}
 
-	static PropTypes = {
-		initialValues:React.PropTypes.object,
-		onSubmit:React.PropTypes.func,
-		onCancel:React.PropTypes.func,
-	}
+	
 
 	constructor(props,context){
 		super(props, context);
@@ -185,34 +186,33 @@ class NewCreateForm  extends Component{
 	}
 
 	onSubmit(form){
-
-
+		
 		form = Object.assign({},form);
-		console.log('18911374700',form);
-		
 		let {changeValues} = this.props;
-
-		let {stationVos} = this.state;
-		
-		console.log('sdh',stationVos);
-		
     	form.lessorAddress = changeValues.lessorAddress;
-		form.stationVos =  stationVos;
-		console.log('dddddddd',changeValues)
-		form.stationVos = JSON.stringify(form.stationVos);
-
+		console.log('444444')
+		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd h:MM:ss");
+		form.firstpaydate=dateFormat(form.firstpaydate,"yyyy-mm-dd h:MM:ss");
+		form.leaseBegindate=dateFormat(form.leaseBegindate,"yyyy-mm-dd h:MM:ss");
+		form.leaseEnddate=dateFormat(form.leaseEnddate,"yyyy-mm-dd h:MM:ss");
+		console.log('333333')
+		
+		
+		
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}
+	s
 
 	onCancel(){
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
+
 	onChangeSearchPersonel(personel){
-		console.log('personel',personel)
 		Store.dispatch(change('joinCreateForm','lessorContacttel',personel.mobile));
 	}
+
 	render(){
 
 		let { error, handleSubmit, pristine, reset, submitting,initialValues,changeValues,optionValues} = this.props;

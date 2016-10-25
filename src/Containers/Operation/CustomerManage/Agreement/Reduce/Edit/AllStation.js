@@ -9,34 +9,34 @@ import {Actions,Store} from 'kr/Redux';
 import {
   Form,
   Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
-	Notify,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+  TableFooter,
+  KrField,
+  Grid,
+  Row,
+  Col,
+  Button,
+  Notify,
   Date,
 } from 'kr-ui';
 
 class SelectStationForm  extends Component{
 
-	static PropTypes = {
+  static PropTypes = {
     searchParams:React.PropTypes.object,
-		onSubmit:React.PropTypes.func,
-		onCancel:React.PropTypes.func,
-	}
+    onSubmit:React.PropTypes.func,
+    onCancel:React.PropTypes.func,
+  }
 
-	constructor(props,context){
-		super(props, context);
+  constructor(props,context){
+    super(props, context);
 
-		this.onSubmit = this.onSubmit.bind(this);
-		this.onCancel = this.onCancel.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onCancel = this.onCancel.bind(this);
 
     this.onSelect = this.onSelect.bind(this);
     this.getLoadData = this.getLoadData.bind(this);
@@ -46,7 +46,7 @@ class SelectStationForm  extends Component{
       stationVos:[],
       selected:[]
     }
-	}
+  }
 
   componentDidMount(){
     
@@ -54,7 +54,7 @@ class SelectStationForm  extends Component{
   }
 
   setReduceStartDate(dateValue){
-		dateValue = dateFormat(dateValue,"yyyy-mm-dd h:MM:ss");
+    dateValue = dateFormat(dateValue,"yyyy-mm-dd h:MM:ss");
 
     let {stationVos} = this.state;
 
@@ -68,29 +68,29 @@ class SelectStationForm  extends Component{
 
   }
 
-	componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps){
 
     if(nextProps.changeValues && nextProps.changeValues.startDate){
         this.setReduceStartDate(nextProps.changeValues.startDate);
     }
 
-	}
+  }
 
   getLoadData(){
     var _this  = this;
     //let {params} = this.props;
     let params = {};
     params.orderId = 3;
-		Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainbillid:params.orderId})).then(function(response){
+    Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainbillid:params.orderId})).then(function(response){
       _this.setState({
         stationVos:response
       });
-		}).catch(function(err){
-			Notify.show([{
-				message:'后台出错请联系管理员',
-				type: 'danger',
-			}]);
-	   	});
+    }).catch(function(err){
+      Notify.show([{
+        message:'后台出错请联系管理员',
+        type: 'danger',
+      }]);
+      });
   }
 
   onSelect(selected){
@@ -99,7 +99,7 @@ class SelectStationForm  extends Component{
     });
   }
 
-	  onSubmit(){
+  onSubmit(){
     var commen = this.deleteCommen();
     console.log(this.state, commen);
     let {stationVos,selected} = this.state;
@@ -146,20 +146,21 @@ class SelectStationForm  extends Component{
        });
        return commen;
     }
-	onCancel(){
-		const {onCancel} = this.props;
-		onCancel  && onCancel();
-	}
 
-	render(){
+  onCancel(){
+    const {onCancel} = this.props;
+    onCancel  && onCancel();
+  }
 
-		let { error, handleSubmit, pristine, reset, submitting,changeValues} = this.props;
+  render(){
+
+    let { error, handleSubmit, pristine, reset, submitting,changeValues} = this.props;
     let {stationVos} = this.state;
 
-		return (
-			<div>
+    return (
+      <div>
 <form onSubmit={handleSubmit(this.onSubmit)}>
-			<KrField grid={1/1}  name="startDate" component="date" label="减租开始时间" />
+      <KrField grid={1/1}  name="startDate" component="date" label="减租开始时间" />
       <Table onSelect={this.onSelect}>
         <TableHeader>
           <TableHeaderColumn>类别</TableHeaderColumn>
@@ -192,16 +193,16 @@ class SelectStationForm  extends Component{
       <Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
       </Grid>
 </form>
-			</div>);
-	}
+      </div>);
+  }
 }
 
 const selector = formValueSelector('selectStationForm');
 export default connect((state)=>{
-	let changeValues = {};
-	changeValues.startDate = selector(state,'startDate');
-	return {
-		changeValues
-	}
+  let changeValues = {};
+  changeValues.startDate = selector(state,'startDate');
+  return {
+    changeValues
+  }
 
 })(reduxForm({ form: 'selectStationForm',enableReinitialize:true,keepDirtyOnReinitialize:true})(SelectStationForm));

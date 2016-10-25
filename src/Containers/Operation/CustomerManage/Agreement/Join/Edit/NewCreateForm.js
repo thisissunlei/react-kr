@@ -7,7 +7,7 @@ import ReactMixin from "react-mixin";
 import dateFormat from 'dateformat';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 
-import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
+import {reduxForm,formValueSelector,initialize,change,arrayPush,arrayInsert,FieldArray} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
 
@@ -77,8 +77,11 @@ class NewCreateForm  extends Component{
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
 
 		this.onStationVosChange = this.onStationVosChange.bind(this);
+		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 
-		console.log('yayayaysta',this.props);
+
+		this.onChangeLeaseBeginDate = this.onChangeLeaseBeginDate.bind(this);
+		this.onChangeLeaseEndDate = this.onChangeLeaseEndDate.bind(this);
 
 		this.state = {
 			stationVos:this.props.stationVos,
@@ -103,6 +106,45 @@ class NewCreateForm  extends Component{
 		}
 
 	}
+
+	//修改租赁期限－开始时间
+	onChangeLeaseBeginDate(value){
+
+		value = dateFormat(value,"yyyy-mm-dd hh:MM:ss");
+
+		let {stationVos} = this.state;
+
+		if(!stationVos.length){
+			return ;
+		}
+		stationVos.forEach(function(item,index){
+			item.leaseBeginDate = value;
+		});
+		this.setState({
+			stationVos
+		});
+	}
+
+	//修改租赁期限-结束时间
+	onChangeLeaseEndDate(value){
+		value = dateFormat(value,"yyyy-mm-dd hh:MM:ss");
+		let {stationVos} = this.state;
+
+		if(!stationVos.length){
+			return ;
+		}
+		stationVos.forEach(function(item,index){
+			item.leaseEndDate = value;
+		});
+		this.setState({
+			stationVos
+		});
+	}
+
+	onChangeSearchPersonel(personel){
+		Store.dispatch(change('joinCreateForm','lessorContacttel',personel.mobile));
+	}
+
 
 	onStationVosChange(index,value){
 
@@ -143,16 +185,18 @@ class NewCreateForm  extends Component{
 	onStationDelete(){
 
 		let {selectedStation,stationVos} = this.state;
-		stationVos = stationVos.filter(function(item,index){
 
+		stationVos = stationVos.filter(function(item,index){
 			if(selectedStation.indexOf(index) != -1){
 				return false;
 			}
 			return true;
 		});
+
 		this.setState({
 			stationVos
 		});
+
 	}
 
 	onStationSelect(selectedStation){
@@ -234,6 +278,7 @@ class NewCreateForm  extends Component{
 	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}";
 
 		let {changeValues,initialValues,optionValues} = this.props;
+		
 		let {stationVos} = this.state;
 
 		stationVos = stationVos.map(function(item){
@@ -331,7 +376,8 @@ class NewCreateForm  extends Component{
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}  />
 				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/> 
-				<KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" /> 
+				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} placeholder={optionValues.lessorContactName} /> 
+
 				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 
 				<KrField grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/> 
@@ -349,8 +395,8 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  /> 
 
 				<KrField grid={1/1}  component="group" label="租赁期限"> 
-					<KrField grid={1/2}  name="leaseBegindate"  component="date" /> 
-					<KrField grid={1/2}  name="leaseEnddate" component="date" /> 
+					<KrField grid={1/2}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate}/> 
+					<KrField grid={1/2}  name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} /> 
 				</KrField>
 
 				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} /> 
@@ -369,7 +415,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" placeholder="" /> 
 				<KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" /> 
 				<KrField grid={1/2}  name="contractmark" component="textarea" label="备注" /> 
-				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" /> 
+				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} /> 
 
 				<Section title="租赁明细" description="" rightMenu = {
 					<Menu>

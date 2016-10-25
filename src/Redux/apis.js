@@ -2,7 +2,7 @@ const APIS  = {
 
 //合同－工位信息
 	'getStationOrSettingList':{
-		url:'/mockjsdata/3/krspace-finance-web/fnaContractRentController/getStationOrSettingList?mainbillid={mainbillid}',
+		url:'/api/krspace-finance-web/fnaContractRentController/getStationOrSettingList?mainbillId={mainbillid}',
 		method:'get'
 	},
 	//退租协议-新增-编辑
@@ -30,7 +30,7 @@ const APIS  = {
 
 	// 上传文件
 	'uploadSingleFile':{
-		url:'/api-old/krspace_knowledge_wap/doc/docFile/uploadSingleFile?operater={operater}&sourceservicetoken={sourceservicetoken}&docTypeCode={docTypeCode}',
+		url:'/api-old/krspace_knowledge_wap/doc/docFile/uploadSingleFile',
 		method:'post'
 	},
 
@@ -79,8 +79,13 @@ const APIS  = {
 
 	//合同－减租合同－查看
 	'showFnaContractRentController':{
-		url:'/api/krspace-finance-web/fnaContractRentController/getFnaContractRentById?communityId={communityId}&customerId={customerId}&id={id}',
+		url:'/api/krspace-finance-web/fnaContractRentController/getFnaContractRentById?id={id}',
 		method:'get'
+	},
+	//合同－减租合同－新建或编辑
+	'getFnaContractRentController':{
+		url:'/api/krspace-finance-web/fnaContractRentController/saveFnaContractRent',
+		method:'post'
 	},
 	//合同－(入驻合同、增租、续租)－查看
 	'show-checkin-agreement':{

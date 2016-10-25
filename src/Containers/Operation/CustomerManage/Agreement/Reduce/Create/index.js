@@ -46,8 +46,9 @@ export default  class JoinCreate extends Component {
 	 onConfrimSubmit(){
 
 		let {formValues} = this.state;
+		console.log('ss');
 
-		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(){
+		Store.dispatch(Actions.callAPI('getFnaContractRentController',{},formValues)).then(function(){
 			Notify.show([{
 				message:'创建成功',
 				type: 'danger',
@@ -89,7 +90,7 @@ export default  class JoinCreate extends Component {
 			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
-			initialValues.contracttype = 'ENTER';
+			initialValues.contracttype = 'LESSRENT';
 
 			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item,index){
 				item.value = item.id;

@@ -6,6 +6,7 @@ import Form from './Form/index';
 import BreadCrumbs from './BreadCrumbs';
 import Table from './Table/index';
 import Date from './Date';
+import KrDate from './Date';
 import Loading from './Loading';
 import Pagination from './Pagination';
 import Button from './Button';
@@ -69,6 +70,7 @@ module.exports = {
 	Snackbar,
 	Tabs,
 	Tab,
+	KrDate,
 	//...Tabs,
 	PageHeader,
 }

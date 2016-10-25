@@ -16,6 +16,7 @@ import { Button } from 'kr-ui/Button';
 import {Actions,Store} from 'kr/Redux';
 
 import {Grid,Row,Col} from 'kr-ui/Grid';
+import dateFormat from 'dateformat';
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
 
@@ -74,7 +75,8 @@ export default  class ExitDetail extends Component {
 	}
 
 	  const {basic} = this.state;
-
+	  basic.firstpaydate = dateFormat(basic.firstpaydate,"yyyy-mm-dd h:MM:ss");
+	  basic.signdate = dateFormat(basic.signdate,"yyyy-mm-dd h:MM:ss");
 	  const BasicRender = (props)=>{
 
 		  return (
@@ -95,13 +97,13 @@ export default  class ExitDetail extends Component {
 								<KrField component="labelText" grid={1/2} label="所属社区" value={basic.communityName}/>
 								<KrField component="labelText" grid={1/2} label="地址" value={basic.communityAddress}/>
 
-								<KrField component="labelText" grid={1/2} label="合同编号" value={basic.contractcode}/>
+								<KrField component="labelText" grid={1} label="合同编号" value={basic.contractcode}/>
 
 								<KrField component="labelText" grid={1/2} label="退租金总额" value={basic.totalreturn}/>
 								<KrField component="labelText" grid={1/2} label="退租押金总额" value={basic.depositamount}/>
 
 								<KrField component="labelText" grid={1/2} label="撤场日期" value={basic.firstpaydate}/>
-								<KrField component="labelText" label="签署日期" value={basic.signdate}/>
+								<KrField component="labelText" grid={1/2} label="签署日期" value={basic.signdate}/>
 
 								<KrField component="labelText"  label="备注" value={basic.contractmark}/>
 								<KrField component="labelText" label="上传附件" value={basic.contractfile}/>

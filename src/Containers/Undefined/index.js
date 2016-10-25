@@ -11,7 +11,7 @@ DatePicker,
 	Table,
  	TableBody,
 	TableHeader,
-	TableHeaderColumn, 
+	TableHeaderColumn,
 	TableRow,
 	TableRowColumn,
 	TableFooter,
@@ -53,7 +53,7 @@ export default class Undefined extends Component{
 	render(){
 
 		let initialValues = {
-			age:new Date(1476431117000),
+			age:''
 		}
 
 		return(
@@ -62,18 +62,15 @@ export default class Undefined extends Component{
 					<Section title="出错了" description="" >
 
 						<Form name="jyayayoinForm" initialValues={initialValues} onSubmit={this.onSubmit}>
-							<KrField grid={1/1}  name="age" component="date" label="电话" /> 
-							<Button  label="确定" type="submit" primary={true} /> 
-
+							<KrField grid={1/1}  name="age" component="date" label="电话" />
+							<Button  label="确定" type="submit" primary={true} />
 						</Form>
 
 					</Section>
-			</div>		
+			</div>
 
 		);
 
 	}
 
 }
-
-
