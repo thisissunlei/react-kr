@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import Param from 'jquery-param';
-import { Fields } from 'redux-form'; 
+import { Fields,change} from 'redux-form'; 
 import {Binder} from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
@@ -75,7 +75,7 @@ class NewCreateForm  extends Component{
 		this.openStationDialog = this.openStationDialog.bind(this);
 		this.onStationUnitPrice = this.onStationUnitPrice.bind(this);
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
-
+		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 
 		this.state = {
@@ -184,6 +184,8 @@ class NewCreateForm  extends Component{
 		let {initialValues}= this.props;
 		Store.dispatch(initialize('admitCreateForm',initialValues));
 	}
+
+
 
 	componentWillReceiveProps(nextProps){
 
@@ -294,7 +296,9 @@ class NewCreateForm  extends Component{
 
 	}
 
-
+	onChangeSearchPersonel(personel){
+		Store.dispatch(change('admitCreateForm','lessorContacttel',personel.mobile));
+	}
 	render(){
 		let { error, handleSubmit, pristine, reset, submitting,initialValues,changeValues,optionValues} = this.props;
 
@@ -323,8 +327,8 @@ class NewCreateForm  extends Component{
 								 <KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} />
 
 								 <KrField grid={1/2}  type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/> 
-
-								 <KrField grid={1/2}  name="lessorContactid" component="input" type="text" label="联系人" /> 
+								
+								 <KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} /> 
 								 <KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 
 								 <KrField grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/> 

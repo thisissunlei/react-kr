@@ -137,8 +137,8 @@ export default  class EditCreate extends Component {
           initialValues.totalrent = response.totalrent;
           initialValues.totaldeposit = response.totaldeposit;
           initialValues.lessorContactid = response.lessorContactid;
-          initialValues.depositamount=response.depositamount;
-          initialValues.totalreturn=response.totalreturn;
+          initialValues.depositamount = response.depositamount;
+          initialValues.totalreturn = response.totalreturn;
           //时间
            
           initialValues.signdate = new Date(response.signdate);

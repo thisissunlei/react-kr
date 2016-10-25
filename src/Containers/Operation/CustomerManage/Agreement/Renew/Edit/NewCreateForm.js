@@ -7,7 +7,7 @@ import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import dateFormat from 'dateformat';
 
-import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
+import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
 
@@ -76,7 +76,7 @@ class NewCreateForm  extends Component{
 		this.openStationDialog = this.openStationDialog.bind(this);
 		this.onStationUnitPrice = this.onStationUnitPrice.bind(this);
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
-
+		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 
 		this.state = {
@@ -209,6 +209,10 @@ class NewCreateForm  extends Component{
 		onCancel && onCancel();
 	}
 
+	onChangeSearchPersonel(personel){
+		Store.dispatch(change('joinCreateForm','lessorContacttel',personel.mobile));
+	}
+
 	render(){
 
 		let { error, handleSubmit, pristine, reset, submitting,initialValues,changeValues,optionValues} = this.props;
@@ -234,7 +238,7 @@ class NewCreateForm  extends Component{
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}  />
 				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/>
-				<KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" />
+				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} />
 				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" />
 
 				<KrField grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/>
