@@ -16,6 +16,7 @@ import { Button } from 'kr-ui/Button';
 import {Actions,Store} from 'kr/Redux';
 
 import {Grid,Row,Col} from 'kr-ui/Grid';
+import dateFormat from 'dateformat';
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
 
@@ -74,7 +75,8 @@ export default  class ExitDetail extends Component {
 	}
 
 	  const {basic} = this.state;
-
+	  basic.firstpaydate = dateFormat(basic.firstpaydate,"yyyy-mm-dd h:MM:ss");
+	  basic.signdate = dateFormat(basic.signdate,"yyyy-mm-dd h:MM:ss");
 	  const BasicRender = (props)=>{
 
 		  return (
