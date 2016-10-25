@@ -5,6 +5,7 @@ import { Fields } from 'redux-form';
 import {Binder} from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
+import dateFormat from 'dateformat';
 
 import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
 
@@ -177,7 +178,7 @@ class NewCreateForm  extends Component{
 
 	componentDidMount(){
 		let {initialValues}= this.props;
-		Store.dispatch(initialize('joinCreateForm',initialValues));
+		Store.dispatch(initialize('reduceCreateForm',initialValues));
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -185,19 +186,20 @@ class NewCreateForm  extends Component{
 	}
 
 	onSubmit(form){
+		console.log('ddd');
 
 		form = Object.assign({},form);
 
 		let {changeValues} = this.props;
-
-    form.lessorAddress = changeValues.lessorAddress;
-
+		let {stationVos} = this.state;
+		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd h:MM:ss");
+		form.lessorContactid = 111;
 		var _this = this;
 
 		form.stationVos =  stationVos;
 
 		form.stationVos = JSON.stringify(form.stationVos);
-
+		console.log('form');
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}
@@ -307,9 +309,9 @@ class NewCreateForm  extends Component{
 			</div>);
 	}
 	}
-const selector = formValueSelector('joinCreateForm');
+const selector = formValueSelector('reduceCreateForm');
 
-NewCreateForm = reduxForm({ form: 'joinCreateForm',enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
+NewCreateForm = reduxForm({ form: 'reduceCreateForm',enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
 
 export default connect((state)=>{
 
