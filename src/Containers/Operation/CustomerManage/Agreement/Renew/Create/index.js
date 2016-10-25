@@ -35,17 +35,17 @@ export default  class JoinCreate extends Component {
 
 	 onCreateSubmit(formValues){
 		 console.log("-00000",formValues);
-		 this.setState({
+		/* this.setState({
 			 formValues
-		 });
+		 });*/
 
-		 this.onConfrimSubmit();
+		 this.onConfrimSubmit(formValues);
 		// this.openConfirmCreateDialog();
 	 }
 
-	 onConfrimSubmit(){
+	 onConfrimSubmit(formValues){
 
-		let {formValues} = this.state;
+		//let {formValues} = this.state;
 
 		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(){
 			Notify.show([{

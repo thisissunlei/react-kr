@@ -186,16 +186,19 @@ class NewCreateForm  extends Component{
 
 	onSubmit(form){
 
-		form = Object.assign({},form);
 
+		form = Object.assign({},form);
+		console.log('18911374700',form);
+		
 		let {changeValues} = this.props;
 
-    form.lessorAddress = changeValues.lessorAddress;
-
-		var _this = this;
-
+		let {stationVos} = this.state;
+		
+		console.log('sdh',stationVos);
+		
+    	form.lessorAddress = changeValues.lessorAddress;
 		form.stationVos =  stationVos;
-
+		console.log('dddddddd',changeValues)
 		form.stationVos = JSON.stringify(form.stationVos);
 
 		const {onSubmit} = this.props;
