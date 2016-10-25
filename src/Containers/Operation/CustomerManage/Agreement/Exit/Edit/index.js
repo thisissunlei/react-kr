@@ -35,17 +35,17 @@ export default  class EditCreate extends Component {
   }
 
    onCreateSubmit(formValues){
-     this.setState({
+     /*this.setState({
        formValues
-     });
+     });*/
 
-     this.onConfrimSubmit();
+     this.onConfrimSubmit(formValues);
     // this.openConfirmCreateDialog();
    }
 
-   onConfrimSubmit(){
+   onConfrimSubmit(formValues){
 
-    let {formValues} = this.state;
+    //let {formValues} = this.state;
 
     Store.dispatch(Actions.callAPI('addFnaContractWithdrawal',{},formValues)).then(function(){
       Notify.show([{
@@ -136,7 +136,7 @@ export default  class EditCreate extends Component {
           initialValues.totaldeposit = response.totaldeposit;
           initialValues.lessorContactid = response.lessorContactid;
           //时间
-            initialValues.firstpaydate = new Date(response.firstpaydate);
+           
           initialValues.signdate = new Date(response.signdate);
           initialValues.leaseBegindate = new Date(response.leaseBegindate);
           initialValues.leaseEnddate = new Date(response.leaseEnddate);
