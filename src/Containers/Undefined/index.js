@@ -53,7 +53,7 @@ export default class Undefined extends Component{
 	render(){
 
 		let initialValues = {
-			age:''
+			age:'2015-11-11 11:11:11'
 		}
 
 		return(
@@ -64,7 +64,6 @@ export default class Undefined extends Component{
 						<Form name="jyayayoinForm" initialValues={initialValues} onSubmit={this.onSubmit}>
 							<KrField grid={1/1}  name="age" component="date" label="电话" />
 							<Button  label="确定" type="submit" primary={true} />
-
 						</Form>
 
 					</Section>

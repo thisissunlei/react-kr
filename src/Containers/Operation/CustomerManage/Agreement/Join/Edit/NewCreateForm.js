@@ -185,16 +185,18 @@ class NewCreateForm  extends Component{
 	onStationDelete(){
 
 		let {selectedStation,stationVos} = this.state;
-		stationVos = stationVos.filter(function(item,index){
 
+		stationVos = stationVos.filter(function(item,index){
 			if(selectedStation.indexOf(index) != -1){
 				return false;
 			}
 			return true;
 		});
+
 		this.setState({
 			stationVos
 		});
+
 	}
 
 	onStationSelect(selectedStation){

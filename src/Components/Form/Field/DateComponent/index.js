@@ -13,21 +13,56 @@ export default class DateComponent extends React.Component{
 	constructor(props){
 		super(props)
 		this.onChange = this.onChange.bind(this);
+		this.setDefaultDate = this.setDefaultDate.bind(this);
 
+		this.supplementZero = this.supplementZero.bind(this);
+
+		this.state = {
+			value:new Date()
+		}
+
+	}
+
+	setDefaultDate(){
+		var {input} = this.props;
+		if(!(input.value instanceof Date)){
+			this.setState({
+				value:new Date(Date.parse(input.value))
+			});
+		}
 	}
 
 	componentDidMount(){
-
+		this.setDefaultDate();
 	}
 
-
+	supplementZero(value){
+		if(value<10){
+			value = '0'+value;
+		}
+		return value 
+	}
 	onChange(event,value){
 		if(!value){
 			return ;
 		}
+		this.setState({
+			value
+		});
+
 		let {input,onChange} = this.props;
-		input.onChange(value);
-		onChange && onChange(value);
+
+		var dt = new Date(value);
+		var year = dt.getFullYear();
+		var month = this.supplementZero(1+ dt.getMonth());
+		var date = this.supplementZero(dt.getDate());
+		var hours = this.supplementZero(dt.getHours());
+		var minutes = this.supplementZero(dt.getMinutes());
+		var seconds = this.supplementZero(dt.getSeconds());
+
+		var result = `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`;
+		input.onChange(result);
+		onChange && onChange(result);
 	}
 
 
@@ -43,13 +78,6 @@ export default class DateComponent extends React.Component{
 			paddingLeft:10
 		}
 
-		let dateValue = input.value || new Date;
-
-		if(input.value && typeof input.value == 'string'){
-			 console.log("intp",input.value)
-			 dateValue = Date.parse(input.value);
-		}
-
 		return (
 					<div className="form-item-wrap " style={style}>
 					<div className="form-item date">
@@ -59,23 +87,10 @@ export default class DateComponent extends React.Component{
 							<div className="form-input">
 								 <DatePicker
 									hintText={placeholder||'日期'}
-									 value={dateValue}
-		   						textFieldStyle={styles}
+									 value={this.state.value}
+										textFieldStyle={styles}
 										name={input.name}
-		  						 	onChange={this.onChange}
-										formatDate={function(obj){
-										    var dt = new Date(obj);
-										    var result =  dt.getFullYear()+'-'+(1+dt.getMonth())+'-'+dt.getDate()+' '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds();
-										return result;
-									}}
-		  					 	/>
-			{/*
-		   							formatDate={function(obj){
-										var dt = new Date(obj);
-										var result =  dt.getFullYear()+'-'+(1+dt.getMonth())+'-'+dt.getDate()+' '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds();
-										return result;
-									}}
-				*/}
+										onChange={this.onChange}/>
 							</div>
 						</div>
 						{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
