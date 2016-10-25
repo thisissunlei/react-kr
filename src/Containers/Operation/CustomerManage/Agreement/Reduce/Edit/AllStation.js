@@ -41,7 +41,7 @@ class SelectStationForm  extends Component{
     this.onSelect = this.onSelect.bind(this);
     this.getLoadData = this.getLoadData.bind(this);
     this.setReduceStartDate = this.setReduceStartDate.bind(this);
-
+    this.deleteCommen = this.deleteCommen.bind(this);
     this.state = {
       stationVos:[],
       selected:[]
@@ -100,22 +100,25 @@ class SelectStationForm  extends Component{
   }
 
   onSubmit(){
-
+    var commen = this.deleteCommen();
+    console.log(this.state, commen);
     let {stationVos,selected} = this.state;
     let {changeValues} = this.props;
-    let date = stationVos[0].leaseEndDate;
-    stationVos.forEach(function(value){
-      console.log(value.leaseEndDate);
-      if(value.leaseEndDate !== date){
+    stationVos = stationVos.filter(function(item,index){
+      if(!item.startDate){
         Notify.show([{
-            message:'请选择结束日期相同的合同',
+            message:'请选择减租开始时间',
             type: 'danger',
           }]);
-        return false;
+          return false;
       }
-    })
-    stationVos = stationVos.filter(function(item,index){
-        // var time = new Date(item.startDate);
+      if(commen === 'false'){
+        Notify.show([{
+            message:'请选择相同日期',
+            type: 'danger',
+          }]);
+          return false;
+      }
         item.leaseEndDate = item.startDate;
         if(selected.indexOf(index) !==-1){
           return true;
@@ -126,6 +129,23 @@ class SelectStationForm  extends Component{
     onSubmit && onSubmit(stationVos);
 
   }
+    deleteCommen(){
+      var commen;
+      let {stationVos,selected} = this.state;
+     var item = stationVos.filter(function(item,index){
+        if(selected.indexOf(index) !==-1){
+          return true;
+        }
+        return false;
+      });
+     var date = item[0].leaseEndDate;
+       item.map(function(value){
+        if(value.leaseEndDate !== date){
+          commen =  'false';
+        }
+       });
+       return commen;
+    }
 
   onCancel(){
     const {onCancel} = this.props;
