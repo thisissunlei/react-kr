@@ -34,6 +34,7 @@ export default class ChangeAccountForm extends Component{
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
+		optionList:React.PropTypes.object,
 	}
 	constructor(props,context){
 		super(props,context);
@@ -54,11 +55,13 @@ export default class ChangeAccountForm extends Component{
 	}
 	
 	render(){
+		const {optionList} = this.props;
 		
+
 		return(
 				<Form name="jyayayoinForm"  onSubmit={this.onSubmit} >
 					
-					<KrField grid={1} name="accountid" component="select" label="代码名称" /> 
+					<KrField grid={1} name="accountid" component="select" label="代码名称" options={optionList}/> 
 					<KrField grid={1} name="operatedate" type="date" component="date" label="付款日期" /> 
 					<KrField name="preCode" component="group" label="金额正负">
 		                <KrField name="preCode" label="正" type="radio" value="0"/>

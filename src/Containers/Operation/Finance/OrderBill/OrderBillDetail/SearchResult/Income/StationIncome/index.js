@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-
+import dateFormat from 'dateformat';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import {Actions,Store} from 'kr/Redux';
 import {
@@ -28,6 +28,7 @@ import {
 
 
 import ChangeAccountForm from './ChangeAccountForm';
+var receivedList=[];
 var url=window.location.href;
 var url_arr=url.split('/');
 class ViewForm extends Component{
@@ -125,12 +126,18 @@ export default class StationIncome extends Component{
 
 		this.openSearchDialog = this.openSearchDialog.bind(this);
 		this.onSearchSuccess = this.onSearchSuccess.bind(this);
+
+		this.closeAddaccount=this.closeAddaccount.bind(this);
 		this.state={
            item:{},
            
            openview:false,
           Addaccount:false,
           supplement:false,
+
+          isLoading:false,
+
+          receivedList:[]
 		}
 		
 	}
@@ -165,11 +172,48 @@ export default class StationIncome extends Component{
 		})
 	}
 	openAddaccount(){
+		var _this = this;
+	      Store.dispatch(Actions.callAPI('findAccountList',{
+	      	accountType:'INCOME'
+	      })).then(function(response){  
+              	         
+ 		      response.map(function(item,index){ 
+ 		      	 var list ={}
+ 		      	 list.id=item.id;
+ 		      	 list.accountname=item.accountname;
+ 		      	 receivedList.push(list);		      	 	      	                                            
+              })
+              receivedList.map(function(item,index){
+				 item.label=item.accountname;
+                 item.value=item.id;
+				 return item;
+			    });
+
+ 		        _this.setState({
+			      receivedList:receivedList
+		       });             		   
+ 		}).catch(function(err){
+			Notify.show([{
+				message:message,
+				type: 'danger',
+			}]);
+		 });
 		this.setState({
 			Addaccount:!this.state.Addaccount
 		})
 	}
+
+	closeAddaccount(){
+       this.setState({
+			Addaccount:!this.state.Addaccount
+		})
+
+		receivedList=[];
+	}
+
 	onConfrimSubmit(formValues){
+		formValues= Object.assign({},formValues);
+	  	formValues.operatedate=dateFormat(formValues.operatedate,"yyyy-mm-dd h:MM:ss");
 		Store.dispatch(Actions.callAPI('supplementIncome',{},formValues)).then(function(){
 			Notify.show([{
 				message:'创建成功',
@@ -182,11 +226,17 @@ export default class StationIncome extends Component{
 			}]);
 	   	});
 		this.openAddaccount()
+		this.setState({
+			isLoading:true
+		})
+
+		receivedList=[]; 
 	}
 	//补收入
 	openSupplement(){
 		this.setState({
-			supplement:!this.state.supplement
+			supplement:!this.state.supplement,
+			
 		})
 	}
 	onSupplementSubmit(){
@@ -209,7 +259,9 @@ export default class StationIncome extends Component{
 	   	});
 	   	
 	   	this.openSupplement();
-		
+		this.setState({
+			isLoading:true
+		})
 	}
      
 
@@ -252,7 +304,7 @@ export default class StationIncome extends Component{
 					<Col md={3}><Button label="高级查询"  type="button" onTouchTap={this.openSearchDialog}/></Col>
                   </Row>
 
-                   <Table style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getPageAccountFlow'  ajaxParams={Params} onOperation={this.onOperation} >
+                   <Table style={{marginTop:10}} displayCheckbox={false} loading={this.state.isLoading} ajax={true}  ajaxUrlName='getPageAccountFlow'  ajaxParams={Params} onOperation={this.onOperation} >
 	              <TableHeader>
 				          <TableHeaderColumn>序号</TableHeaderColumn>
 				          <TableHeaderColumn>交易日期</TableHeaderColumn>
@@ -295,7 +347,7 @@ export default class StationIncome extends Component{
 				open={this.state.Addaccount}
 				>
 					
-					<ChangeAccountForm onSubmit={this.onConfrimSubmit}  onCancel={this.openAddaccount}  />
+					<ChangeAccountForm onSubmit={this.onConfrimSubmit}  onCancel={this.closeAddaccount}  optionList={this.state.receivedList}/>
 			  	</Dialog>
 			  	<Dialog
 				title="补收入"

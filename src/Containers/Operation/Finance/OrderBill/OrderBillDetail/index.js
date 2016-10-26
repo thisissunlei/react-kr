@@ -36,41 +36,44 @@ export default class AttributeSetting  extends Component{
 
 
 		this.onSearch = this.onSearch.bind(this);
-		
 
+		this.initBasicInfo = this.initBasicInfo.bind(this);
+		
 		this.state = {			
 			item:{},
-			searchParam:{
+			params:{
 				type:'RECEIVED',
 				childType:'basic',
 				id:'',
+				orderId:this.props.params.orderId
 			},
-			detailT:{},
+			basicInfo:{},
 			detailPayment:[],
 			detailIncome:[],
 			detailBalance:'',	
 		}
 	}
 
-	onSearch(searchParam){
-	  this.setState({searchParam});
+	onSearch(params){
+	  this.setState({params});
 	}
 
-	componentDidMount() {
-        var _this = this;
+
+	initBasicInfo(){
+
+		 var _this = this;
+		let {params} = this.props;
+
 		Store.dispatch(Actions.callAPI('getAccountFlow',{
-			mainbillid:'3',
+			mainbillid:params.orderId,
 			accountType:'INCOME'
 		})).then(function(response){
-                
 			_this.setState({
 				item:response,
-				detailT:response.topdata,
+				basicInfo:response.topdata,
 				detailPayment:response.paymentdata,
 				detailIncome:response.incomedata,
 				detailBalance:response.balance,
-				loading:false
-
 			});
 		}).catch(function(err){
 			Notify.show([{
@@ -79,26 +82,25 @@ export default class AttributeSetting  extends Component{
 			}]);
 		});
 	}
+
+	componentDidMount() {
+     	this.initBasicInfo();
+	}
     
 	render(){
-        
-        
-       //console.log("saasaasa",this.state.item)
-        
-        
 		return(
 
 			<div>
 					<Section title="订单明细账" description="" > 
 
-						   <BasicInfo detail={this.state.detailT} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome}/>
+						   <BasicInfo detail={this.state.basicInfo} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome}/>
 
 							<Row>
 							<Col md={5} >
-								<SearchParam onSearch={this.onSearch} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance} />
+								<SearchParam onSearch={this.onSearch} params={this.state.params} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance} />
 							</Col>
 							<Col md={5} >
-								<SearchResult  params={this.state.searchParam} />
+								<SearchResult  params={this.state.params} />
 							</Col>
 						</Row>
 

@@ -91,6 +91,7 @@ export default class Basic extends Component{
 			openView:false,
 			arr:[],
 			
+			isLoading:false,
 			
 	     }
    } 
@@ -161,7 +162,7 @@ export default class Basic extends Component{
     openReceivedDialog(){
     	 var _this = this;
 	      Store.dispatch(Actions.callAPI('findAccountList',{
-	      	
+	      	accountType:'PAYMENT'
 	      })).then(function(response){  //post请求
 	         
  		      response.map(function(item,index){ 
@@ -245,7 +246,8 @@ export default class Basic extends Component{
 		 });
 
 	    _this.setState({
-			openReceive:!this.state.openReceive
+			openReceive:!this.state.openReceive,
+			isLoading:true
 		});	  
     }
 
@@ -263,7 +265,8 @@ export default class Basic extends Component{
 		 });
 
 	    _this.setState({
-			openQuit:!this.state.openQuit
+			openQuit:!this.state.openQuit,
+			isLoading:true
 		});	  
     }
 
@@ -311,7 +314,7 @@ export default class Basic extends Component{
                   </Row>
        
                
-               <Table displayCheckbox={false} style={{marginTop:10}} ajax={true}  ajaxUrlName='getPageAccountFlow' ajaxParams={Params} onOperation={this.onOperation}>
+               <Table displayCheckbox={false} style={{marginTop:10}} loading={this.state.isLoading} ajax={true}  ajaxUrlName='getPageAccountFlow' ajaxParams={Params} onOperation={this.onOperation}>
 	              <TableHeader>
 				          <TableHeaderColumn>序号</TableHeaderColumn>
 				          <TableHeaderColumn>交易日期</TableHeaderColumn>

@@ -15,6 +15,17 @@ const APIS  = {
 		url:'/api/krspace-finance-web/fnaContractWithdrawalController/addFnaContractWithdrawal',
 		method:'post'
 	},
+	//续租协议-新增-编辑
+	'addOrEditContinueContract':{
+		url:'/api/krspace-finance-web/checkinagreement/addOrEditContinueContract',
+		method:'post'
+	},
+	//续租协议-查看
+	'renewshow':{
+		url:'/api/krspace-finance-web/checkinagreement/checkin-agreement/actions/show?id={id}',
+		method:'get'
+	},
+	
 
 	//获取文件token
 	'getSourceServiceToken':{

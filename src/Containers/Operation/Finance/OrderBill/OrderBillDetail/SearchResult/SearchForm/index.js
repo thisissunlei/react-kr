@@ -51,6 +51,8 @@ export default class SearchForm extends Component{
 		onCancel && onCancel();
 	};
 	onSubmit(forms){
+
+		console.log('-->>>>>>>',forms);
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(forms);
 	}

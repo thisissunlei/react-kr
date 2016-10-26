@@ -26,6 +26,7 @@ import {
 	Form
 } from 'kr-ui';
 import ChangeAccountForm from './ChangeAccountForm';
+var receivedList=[];
 var url=window.location.href;
 var url_arr=url.split('/');
 class ViewForm extends Component{
@@ -74,10 +75,13 @@ export default class BusinessIncome extends Component{
 
 		this.openSearchDialog = this.openSearchDialog.bind(this);
 		this.onSearchSuccess = this.onSearchSuccess.bind(this);
+
+		this.closeAddaccount=this.closeAddaccount.bind(this);
 		this.state={
            item:{},
            openview:false,
           Addaccount:false,
+          receivedList:[]
 		}
 	}
 
@@ -111,8 +115,40 @@ export default class BusinessIncome extends Component{
 			openview:!this.state.openview
 		})
 	}
+   closeAddaccount(){
+       this.setState({
+			Addaccount:!this.state.Addaccount
+		})
 
+		receivedList=[];
+	}
 	openAddaccount(){
+		var _this = this;
+	      Store.dispatch(Actions.callAPI('findAccountList',{
+	      	accountType:'INCOME'
+	      })).then(function(response){  
+              	         
+ 		      response.map(function(item,index){ 
+ 		      	 var list ={}
+ 		      	 list.id=item.id;
+ 		      	 list.accountname=item.accountname;
+ 		      	 receivedList.push(list);		      	 	      	                                            
+              })
+              receivedList.map(function(item,index){
+				 item.label=item.accountname;
+                 item.value=item.id;
+				 return item;
+			    });
+
+ 		        _this.setState({
+			      receivedList:receivedList
+		       });             		   
+ 		}).catch(function(err){
+			Notify.show([{
+				message:message,
+				type: 'danger',
+			}]);
+		 });
 		this.setState({
 			Addaccount:!this.state.Addaccount
 		})
@@ -132,6 +168,7 @@ export default class BusinessIncome extends Component{
 		this.setState({
 			Addaccount:!this.state.Addaccount
 		})
+		receivedList=[];
 	}
 
 
@@ -216,7 +253,7 @@ export default class BusinessIncome extends Component{
 				open={this.state.Addaccount}
 				>
 					
-					<ChangeAccountForm onSubmit={this.onConfrimSubmit}  onCancel={this.openAddaccount}  />
+					<ChangeAccountForm onSubmit={this.onConfrimSubmit}  onCancel={this.closeAddaccount}  optionList={this.state.receivedList}/>
 			  	</Dialog>
 
 			</div>		

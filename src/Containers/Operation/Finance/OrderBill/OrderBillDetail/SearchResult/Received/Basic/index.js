@@ -124,8 +124,12 @@ export default class Basic extends Component{
    }
    
 
-   onSearchSuccess(){
-		
+   onSearchSuccess(form){
+   		let {listParams} = this.state;
+   		listParams = form;
+	    this.setState({
+			listParams	
+	    });
    }
 
 
@@ -159,8 +163,8 @@ export default class Basic extends Component{
     openReceivedDialog(){
     	 var _this = this;
 	      Store.dispatch(Actions.callAPI('findAccountList',{
-	      	
-	      })).then(function(response){  //post请求
+	      	accountType:'PAYMENT'
+	      })).then(function(response){  
               	         
  		      response.map(function(item,index){ 
  		      	 var list ={}
@@ -192,6 +196,7 @@ export default class Basic extends Component{
    	  this.setState({
 		 openReceive:!this.state.openReceive,			
 		});	 
+		receivedList=[]; 
    }
    
      openQuitDialog(){
@@ -265,7 +270,8 @@ export default class Basic extends Component{
 		 });
 
 	    _this.setState({
-			openQuit:!this.state.openQuit
+			openQuit:!this.state.openQuit,
+			isLoading:true
 		});	  
 
 

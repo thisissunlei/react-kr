@@ -73,6 +73,10 @@ export default class SearchResult extends Component{
         	arr1:[]
         }
 
+
+
+        console.log('---->>>',this.props.params);
+
 	}
     
 
@@ -81,7 +85,9 @@ export default class SearchResult extends Component{
 	      Store.dispatch(Actions.callAPI('findAccountAndPropList',{
 	      	accountType:selectType
 	      })).then(function(response){
-                 
+             
+             //console.log("dddd",response)
+
              response.account.map(function(item,index){ 
  		      	 var list ={}
  		      	 list.id=item.id;
@@ -131,14 +137,6 @@ export default class SearchResult extends Component{
 	}
 	onSearch(forms){
 		var _this = this;
-	      Store.dispatch(Actions.callAPI('getPageAccountFlow',forms)).then(function(response){ 
- 		}).catch(function(err){
-			Notify.show([{
-				message:'报错了',
-				type: 'danger',
-			}]);
-		 });
-        
 		this.onSearchSuccess(forms);
 	    this.openSearchDialog();
 
@@ -175,14 +173,6 @@ export default class SearchResult extends Component{
 
 	render(){
 		
-		 console.log("fgfg",this.state.arr);
-		 
-         //console.log("333333",selectType)
-       
-        
-         
-       
-
 
 		return(
 

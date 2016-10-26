@@ -136,7 +136,7 @@ export default(
 						{/*订单账单*/}
 						<Route path="orderList" component={Operation.Finance.OrderBill.OrderList}/>
 						{/*订单账单明细*/}
-						<Route path=":id/detail" component={Operation.Finance.OrderBill.OrderBillDetail}/>
+						<Route path=":orderId/detail" component={Operation.Finance.OrderBill.OrderBillDetail}/>
 
 
 					</Route>
