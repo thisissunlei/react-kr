@@ -26,6 +26,7 @@ export default  class JoinCreate extends Component {
     this.onConfrimSubmit  = this.onConfrimSubmit.bind(this);
 
     this.state = {
+      stationVos:[],
       initialValues:{},
       optionValues:{},
       formValues:{},
@@ -34,15 +35,19 @@ export default  class JoinCreate extends Component {
   }
 
    onCreateSubmit(formValues){
-     this.onConfrimSubmit(formValues);
-    
-    console.log(formValues)
+     this.setState({
+       formValues
+     });
+
+     this.onConfrimSubmit();
+    // this.openConfirmCreateDialog();
    }
 
-   onConfrimSubmit(formValues){
- 
-    console.log("-formValues",formValues);
-    Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(){
+   onConfrimSubmit(){
+
+    let {formValues} = this.state;
+
+    Store.dispatch(Actions.callAPI('getFnaContractRentController',{},formValues)).then(function(){
       Notify.show([{
         message:'创建成功',
         type: 'danger',
@@ -73,6 +78,7 @@ export default  class JoinCreate extends Component {
     const {params} = this.props;
     let initialValues = {};
     let optionValues = {};
+     let stationVos = [];
 
     Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
 
@@ -81,10 +87,10 @@ export default  class JoinCreate extends Component {
 
       initialValues.signdate = +new Date((new Date()).getTime() - 24*60*60*1000);
 
-      optionValues.communityAddress = response.customer.communityAddress;
+      optionValues.communityAddress = response.customer.communityAddress; 
       optionValues.leaseAddress = response.customer.customerAddress;
-      //合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
-      initialValues.contracttype = 'ENTER';
+      //合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）  
+      initialValues.contracttype = 'LESSRENT';
 
       optionValues.fnaCorporationList = response.fnaCorporation.map(function(item,index){
         item.value = item.id;
@@ -109,35 +115,45 @@ export default  class JoinCreate extends Component {
       optionValues.communityId = response.customer.communityid;
       optionValues.mainbillCommunityId =  response.mainbillCommunityId||1;
 
-      _this.setState({
-        initialValues,
-        optionValues
-      });
-       Store.dispatch(Actions.callAPI('show-checkin-agreement',{id:params.id})).then(function(response){
-           
-          initialValues.id = response.id;
+      console.log(params.id);
+          Store.dispatch(Actions.callAPI('showFnaContractRentController',{id:params.id})).then(function(response){
+
+
+          optionValues.lessorContactName = response.lessorContactName;
+
+
+           initialValues.id = response.id;
             initialValues.leaseId = response.leaseId;
             initialValues.contractcode = response.contractcode;
             initialValues.leaseAddress = response.leaseAddress;
             initialValues.lessorContactName = response.lessorContactName;
           initialValues.leaseContact = response.leaseContact;
           initialValues.leaseContacttel = response.leaseContacttel;
-          initialValues.paytype = response.payType.id;
-          initialValues.paymodel = response.payment.id;
-          initialValues.stationnum = response.stationnum;
-          initialValues.wherefloor = response.wherefloor;
-          initialValues.rentaluse = response.rentaluse;
-          initialValues.contractmark = response.contractmark;
-          initialValues.totalrent = response.totalrent;
-          initialValues.totaldeposit = response.totaldeposit;
           initialValues.lessorContactid = response.lessorContactid;
-          //时间
-            initialValues.firstpaydate = new Date(response.firstpaydate);
-          initialValues.signdate = new Date(response.signdate);
-          initialValues.leaseBegindate = new Date(response.leaseBegindate);
-          initialValues.leaseEnddate = new Date(response.leaseEnddate);
-          initialValues.withdrawdate =new Date(response.withdrawdate);
+
           
+           //initialValues.paymodel =  response.payment || response.payment.id ;
+
+
+           initialValues.rentaluse = response.rentaluse;
+           initialValues.contractmark = response.contractmark;
+           initialValues.totalrent = response.totalrent;
+          if(response.rentamount){
+            rentamount = response.rentamount ;
+            _this.setState({
+              rentamount
+            });
+
+          }
+          initialValues.lessorContacttel = response.lessorContacttel;
+
+          //时间
+             initialValues.firstpaydate = new Date(response.firstpaydate);
+          initialValues.signdate = new Date(response.signdate);
+           initialValues.leaseBegindate = new Date(response.leaseBegindate);
+           initialValues.leaseEnddate = new Date(response.leaseEnddate);
+
+          console.log('时间',initialValues);
 
 
           //处理stationvos
@@ -148,10 +164,11 @@ export default  class JoinCreate extends Component {
           _this.setState({
             initialValues,
             optionValues,
-            stationVos
+            stationVos,
           });
 
         }).catch(function(err){
+          console.log(err);
           Notify.show([{
             message:'后台出错请联系管理员',
             type: 'danger',
@@ -159,27 +176,27 @@ export default  class JoinCreate extends Component {
           });
 
 
-
-
     }).catch(function(err){
+      console.log('------',err);
       Notify.show([{
         message:'后台出错请联系管理员',
         type: 'danger',
       }]);
       });
+
    }
 
 
   render() {
 
-    let {initialValues,optionValues} = this.state;
+    let {initialValues,optionValues,stationVos} = this.state;
 
     return (
 
      <div>
-      <BreadCrumbs children={['系统运营','客户管理','续租协议书']}/>
-      <Section title="续租协议书" description="">
-          <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues}/>
+      <BreadCrumbs children={['系统运营','客户管理','续租协议']}/>
+      <Section title="编辑续租协议书" description=""> 
+          <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
       </Section>
 
       <Dialog
