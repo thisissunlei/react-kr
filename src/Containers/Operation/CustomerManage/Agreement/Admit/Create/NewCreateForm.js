@@ -176,6 +176,14 @@ class NewCreateForm  extends Component{
 		}
 		*/
 
+		if(!wherefloor){
+			Notify.show([{
+				message:'请先选择楼层',
+				type: 'danger',
+			}]);
+			return ;
+		}
+
 		this.setState({
 			openStation:!this.state.openStation
 		});
@@ -310,14 +318,12 @@ class NewCreateForm  extends Component{
 
 		try{
 			billList.map(function(item,index){
-					var obj = {};
-					obj.leaseBeginDate = dateFormat(changeValues.leaseBegindate,"yyyy-mm-dd h:MM:ss");
-					obj.leaseEndDate = dateFormat(changeValues.leaseEnddate,"yyyy-mm-dd h:MM:ss");
-					obj.stationId = item.id;
-					obj.stationType = item.type;
-					obj.unitprice = '';
-					obj.whereFloor =  item.wherefloor;
-					stationVos.push(obj);
+					item.leaseBeginDate = changeValues.leaseBegindate;
+					item.leaseEndDate = changeValues.leaseEnddate;
+					item.stationId = item.id;
+					item.stationType = item.type;
+					item.unitprice = '';
+					item.whereFloor =  item.wherefloor;
 			});
 		}catch(err){
 			console.log('billList 租赁明细工位列表为空');
@@ -325,7 +331,7 @@ class NewCreateForm  extends Component{
 
 		console.log('---->>>',stationVos);
 		this.setState({
-			stationVos
+			stationVos:billList
 		});
 
 	}

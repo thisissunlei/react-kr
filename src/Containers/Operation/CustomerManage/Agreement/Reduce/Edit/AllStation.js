@@ -21,7 +21,7 @@ import {
   Col,
   Button,
   Notify,
-  Date,
+  KrDate,
 } from 'kr-ui';
 
 class SelectStationForm  extends Component{
@@ -119,10 +119,23 @@ class SelectStationForm  extends Component{
           }]);
           return false;
       }
-        item.leaseEndDate = item.startDate;
+        
         if(selected.indexOf(index) !==-1){
-          return true;
-        }
+            console.log(index, stationVos[index]);
+            var end = stationVos[index].leaseEndDate;
+            var start  = Date.parse(item.startDate);
+
+            if(end <= start){
+              console.log('big');
+              Notify.show([{
+                  message:'减租开始日期不能大于租赁结束时间',
+                  type: 'danger',
+                }]);
+                return false;
+            }
+            item.leaseEndDate = item.startDate;
+            return true;
+          }
         return false;
     });
     const {onSubmit} = this.props;
@@ -156,12 +169,15 @@ class SelectStationForm  extends Component{
 
     let { error, handleSubmit, pristine, reset, submitting,changeValues} = this.props;
     let {stationVos} = this.state;
-
+    const overfolw = {
+      'overflow':'auto',
+      maxHeight:510,
+    }
     return (
-      <div>
+      <div style={{height:667}}>
 <form onSubmit={handleSubmit(this.onSubmit)}>
       <KrField grid={1/1}  name="startDate" component="date" label="减租开始时间" />
-      <Table onSelect={this.onSelect}>
+      <Table onSelect={this.onSelect} style={overfolw}>
         <TableHeader>
           <TableHeaderColumn>类别</TableHeaderColumn>
           <TableHeaderColumn>编号／名称</TableHeaderColumn>
@@ -179,8 +195,8 @@ class SelectStationForm  extends Component{
           <TableRowColumn >{item.stationId}</TableRowColumn>
           <TableRowColumn >{item.unitprice}</TableRowColumn>
           <TableRowColumn >{item.whereFloor}</TableRowColumn>
-          <TableRowColumn ><Date.Format value={item.leaseBeginDate}/></TableRowColumn>
-          <TableRowColumn ><Date.Format value={item.leaseEndDate}/></TableRowColumn>
+          <TableRowColumn ><KrDate.Format value={item.leaseBeginDate}/></TableRowColumn>
+          <TableRowColumn ><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
           <TableRowColumn>{item.startDate}</TableRowColumn>
          </TableRow>
         );

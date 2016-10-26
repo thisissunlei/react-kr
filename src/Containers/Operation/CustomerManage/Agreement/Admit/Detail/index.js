@@ -62,7 +62,7 @@ export default  class AdmitDetail extends Component {
 	 const orderBaseInfo = {};
 	 const contractList = [];
 	 function onCancel(){
-		window.history.back();
+		location.href="/#/operation/customerManage/"+params.customerId+ "/order/"+params.orderId+"/detail"
 	}
 	const params = this.props.params;
 
@@ -71,6 +71,12 @@ export default  class AdmitDetail extends Component {
 	}
 	  const {basic} = this.state;
 	  console.log('basic', basic);
+	  let dicName;
+	  if(basic.payment)  {
+	  	dicName = basic.payment.dicName;
+	  }else{
+	  	dicName = '';
+	  }
 
 	  const BasicRender = (props)=>{
 
@@ -100,7 +106,7 @@ export default  class AdmitDetail extends Component {
 	</Row>
 </KrField>
 			<KrField label="合同编号"   grid={1/2} component="labelText" value={basic.contractcode}/>
-			<KrField label="付款方式"   grid={1/2} component="labelText" value={basic.payment.dicName}/>
+			<KrField label="付款方式"   grid={1/2} component="labelText" value={dicName}/>
 <KrField label="租赁项目" component="group">
 	<KrField label="工位"   grid={1/1} component="labelText" value={basic.stationnum}/>
 	<KrField label="会议室"   grid={1/1} component="labelText" value={basic.boardroomnum}/>
@@ -120,7 +126,7 @@ export default  class AdmitDetail extends Component {
 
 <Section title="租赁明细" description=""> 
 
-								<Table>
+								<Table displayCheckbox={false}>
 												<TableHeader>
 														<TableHeaderColumn>类别</TableHeaderColumn>
 														<TableHeaderColumn>编号／名称</TableHeaderColumn>
