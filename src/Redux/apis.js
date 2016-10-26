@@ -1,6 +1,11 @@
 const APIS  = {
 
-//合同－工位信息
+	//获取全局导航
+	'getSelfMenuInfo':{
+		url:'/api-old/sys/sysfunrights/sysMenu/getSelfMenuInfo',
+		method:'get'
+	},
+	//合同－工位信息
 	'getStationOrSettingList':{
 		url:'/api/krspace-finance-web/fnaContractRentController/getStationOrSettingList?mainbillId={mainbillid}',
 		method:'get'
@@ -213,7 +218,7 @@ const APIS  = {
 		url:'/api/krspace-finance-web/finaccount/data/getFinaDataByAjax?page={page}&pageSize={pageSize}&customername={customername}&endDate={endDate}&mainbilltype={mainbilltype}&communityid={communityid}',
 		method:'get'
 	},
-    //财务管理－订单账单列表-生成对账单
+	//财务管理－订单账单列表-生成对账单
 	'getFinaDataDetailAdd':{
 		url:'/mockjsdata/3/krspace-finance-web/finaccount/data/getFinaDataDetailById?id={id}&startDate={startDate}&endDate={endDate}',
 		method:'get'
@@ -303,7 +308,7 @@ const APIS  = {
 		url:'/api/krspace-finance-web/finaccount/data/getAccountFlowDetail?id={id}',		
 		method:'get'
 	},
-	
+
 }
 
 module.exports =  APIS;
