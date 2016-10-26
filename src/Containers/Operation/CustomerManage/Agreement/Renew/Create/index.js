@@ -48,7 +48,7 @@ export default  class JoinCreate extends Component {
 		let {formValues} = this.state;
 		console.log('ss');
 
-		Store.dispatch(Actions.callAPI('getFnaContractRentController',{},formValues)).then(function(){
+		Store.dispatch(Actions.callAPI('addOrEditContinueContract',{},formValues)).then(function(){
 			Notify.show([{
 				message:'创建成功',
 				type: 'danger',
