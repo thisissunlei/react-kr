@@ -346,7 +346,6 @@ class NewCreateForm  extends Component{
 
 						</form>
 
-
 					<Dialog
 						title="分配工位"
 						open={this.state.openStation} >
