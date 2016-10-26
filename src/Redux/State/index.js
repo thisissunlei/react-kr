@@ -10,11 +10,10 @@ import plan from './Plan';
 import notify from './Notify';
 
 module.exports = {
-
 	navs,
 	plan,
 	memo,
-
+	notify,
 	header_nav:{
 		switch_value:true,
 	},

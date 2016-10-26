@@ -4,8 +4,8 @@
  *
  */
 
-
 module.exports = {
+
 	current_parent:'',
 	current_child:'',
 	current_router:'',
