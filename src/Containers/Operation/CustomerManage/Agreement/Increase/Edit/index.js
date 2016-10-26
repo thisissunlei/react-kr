@@ -93,7 +93,7 @@ export default  class JoinCreate extends Component {
 			optionValues.mainbillCommunityId =  response.mainbillCommunityId||1;
 
 
-			   	Store.dispatch(Actions.callAPI('show-checkin-agreement',{id:params.id})).then(function(response){
+	   	Store.dispatch(Actions.callAPI('show-checkin-agreement',{id:params.id})).then(function(response){
 
 
 					optionValues.lessorContactName = response.lessorContactName;

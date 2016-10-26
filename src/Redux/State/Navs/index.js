@@ -133,10 +133,12 @@ module.exports = {
 							primaryText:"订单账单",
 							router:'/operation/finance/orderbill/orderList',
 						},
+						/*
 						{
 							primaryText:"订单明细账",
 							router:'/operation/finance/orderbill/detail',
 						},
+						*/
 						{
 							primaryText:"科目配置",
 							router:'/operation/finance/codeSetting/subject',

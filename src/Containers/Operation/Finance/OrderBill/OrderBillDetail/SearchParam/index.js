@@ -66,67 +66,52 @@ export default class SearchParam extends Component{
 
 		return(
 
-			<div>
-              
-             <Row>                  
-                <Col md={4} >
-                        
-                       
-						<Table  style={{marginTop:10}} displayCheckbox={false}>
-						  <TableHeader>
-							
-							
-							<TableHeaderColumn onTouchTap={this.onSearch.bind(this,'RECEIVED','basic','')}>回款</TableHeaderColumn>
-						    </TableHeader>
+		<div>
+					<Table  style={{marginTop:10}} displayCheckbox={false}>
+					  <TableHeader>
+						<TableHeaderColumn onTouchTap={this.onSearch.bind(this,'RECEIVED','basic','')} colSpan={2}>回款</TableHeaderColumn>
+					  </TableHeader>
 
-						 <TableBody>
-						     {detailPayment.map((item,index)=><TableRow key={index}>			
-								<TableRowColumn onTouchTap={this.onSearch.bind(this,'RECEIVED',item.propcode,item.id)}>{item.propname}</TableRowColumn>
-								<TableRowColumn>{item.propamount}</TableRowColumn>					
-							 </TableRow>
-							  )}
-						</TableBody>
-						</Table>
+					 <TableBody>
+						 {detailPayment.map((item,index)=><TableRow key={index}>			
+							<TableRowColumn onTouchTap={this.onSearch.bind(this,'RECEIVED',item.propcode,item.id)}>{item.propname}</TableRowColumn>
+							<TableRowColumn>{item.propamount}</TableRowColumn>					
+						 </TableRow>
+						  )}
+					</TableBody>
+					</Table>
 
-						<Table  style={{marginTop:10}} displayCheckbox={false}>
-						   <TableHeader>
-							
-							
-							<TableHeaderColumn onTouchTap={this.onSearch.bind(this,'INCOME','basic','')}>收入</TableHeaderColumn>
-						    </TableHeader>
+					<Table  style={{marginTop:10}} displayCheckbox={false}>
+					   <TableHeader>
+						<TableHeaderColumn onTouchTap={this.onSearch.bind(this,'INCOME','basic','')} colSpan={2}>收入</TableHeaderColumn>
+						</TableHeader>
 
-						<TableBody>
-						     {detailIncome.map((item,index)=><TableRow key={index}>						
-								<TableRowColumn onTouchTap={this.onSearch.bind(this,'INCOME',item.propcode,item.id)}>{item.propname}</TableRowColumn>
-								<TableRowColumn>{item.propamount}</TableRowColumn>					
-							 </TableRow>
-							  )}
-						</TableBody>
-						</Table>
+					<TableBody>
+						 {detailIncome.map((item,index)=><TableRow key={index}>						
+							<TableRowColumn onTouchTap={this.onSearch.bind(this,'INCOME',item.propcode,item.id)}>{item.propname}</TableRowColumn>
+							<TableRowColumn>{item.propamount}</TableRowColumn>					
+						 </TableRow>
+						  )}
+					</TableBody>
+					</Table>
 
-						<Table  style={{marginTop:10}} displayCheckbox={false}>
-						  <TableHeader>
-							
-							<TableHeaderColumn>余额</TableHeaderColumn>
-						   </TableHeader>
-
-						 <TableBody>
-						      <TableRow displayCheckbox={false}>						
-								<TableRowColumn>余额</TableRowColumn>
-								<TableRowColumn>{detailBalance}</TableRowColumn>					
-							 </TableRow>
-						</TableBody>
-						</Table>
-                     </Col> 
-                     
-                  </Row>
-				
-			</div>		
+					<Table  style={{marginTop:10}} displayCheckbox={false}>
+					  <TableHeader>
+						<TableHeaderColumn colSpan={2}>余额</TableHeaderColumn>
+					   </TableHeader>
+					 <TableBody>
+						  <TableRow displayCheckbox={false}>						
+							<TableRowColumn>余额</TableRowColumn>
+							<TableRowColumn>{detailBalance}</TableRowColumn>					
+						 </TableRow>
+					</TableBody>
+					</Table>
+			
+		</div>		
 
 		);
 
 	}
-
 }
 
 

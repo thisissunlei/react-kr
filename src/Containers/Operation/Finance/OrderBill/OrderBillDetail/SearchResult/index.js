@@ -152,7 +152,6 @@ export default class SearchResult extends Component{
        arr1=[];
 	}
 
-
 	closeSearchDialog(){
 		this.setState({
 			openSearch:!this.state.openSearch
@@ -160,50 +159,29 @@ export default class SearchResult extends Component{
 	}
 
 	componentDidMount() {
-
-
 	   const {params,detailResult} = this.props;
-
-       
-       
-
 	}
 
-  
 
 	render(){
-		
 
 		return(
 
-			 <div>
-			      
-                  <Row>
-			        <Received params={this.props.params} type="RECEIVED" />
-                    <Income params={this.props.params} type="INCOME" />
-                  </Row>
+			 <div style={{paddingLeft:15,paddingTop:10}}>
 
+				<Received params={this.props.params} type="RECEIVED" />
+				<Income params={this.props.params} type="INCOME" />
 
-                  	<Dialog
-					title="高级查询"
-					open={this.state.openSearch}
-					>
-						<SearchForm onSubmit={this.onSearch} onCancel={this.onCancel} optionList={this.state.arr} propList={this.state.arr1} select={selectType}/>
-		  	       </Dialog>
-
-
-                   
+				<Dialog
+				title="高级查询"
+				open={this.state.openSearch}
+				>
+					<SearchForm onSubmit={this.onSearch} onCancel={this.onCancel} optionList={this.state.arr} propList={this.state.arr1} select={selectType}/>
+			   </Dialog>
 			</div>		
-
 		);
-
 	}
-
 }
-
-
-
-
 
 
 

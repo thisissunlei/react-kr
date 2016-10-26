@@ -89,28 +89,23 @@ export default class AttributeSetting  extends Component{
     
 	render(){
 		return(
-
 			<div>
 					<Section title="订单明细账" description="" > 
-
 						   <BasicInfo detail={this.state.basicInfo} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome}/>
-
 							<Row>
-							<Col md={5} >
+							<Col md={2} >
 								<SearchParam onSearch={this.onSearch} params={this.state.params} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance} />
 							</Col>
-							<Col md={5} >
-								<SearchResult  params={this.state.params} />
+							<Col md={10}>
+								<SearchResult  params={this.state.params}/>
 							</Col>
 						</Row>
 
 				</Section>
 			</div>		
-
-		);
+	);
 
 	}
-
 }
 
 
