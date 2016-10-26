@@ -37,12 +37,12 @@ let SettingCreateForm = function(props){
 
 <form onSubmit={handleSubmit(onSubmit)}>
 
-			<KrField name="dicName" type="text" component="input" label="字段名称" />  
-       <KrField name="enableFlag" component="group" label="是否有效">
-					<KrField name="enableFlag" label="是" type="radio" value="1"/>
-					<KrField name="enableFlag" label="否" type="radio" value="0" />
+			<KrField name="dicName" type="text" component="input" label="字段名称" requireLabel={true}/>  
+       <KrField name="enableFlag" component="group" label="是否有效" requireLabel={true} >
+					<KrField name="enableFlag" label="是" type="radio" value="1" requireLabel={true}/>
+					<KrField name="enableFlag" label="否" type="radio" value="0" requireLabel={true} />
               </KrField>
-		 <KrField name="remark" type="textarea" label="备注"  placeholder="备注信息"/> 
+		 <KrField name="remark" type="textarea" component="textarea" label="备注"  placeholder="备注信息" requireLabel={true}/> 
 
         <Grid style={{marginTop:30}}>
           <Row>
@@ -534,12 +534,11 @@ export default class SettingList extends Component {
 
       <BreadCrumbs children={['系统运营','合同信息','基础配置']}/>
 
-      <Section title="客户信息编辑" description=""> 
+      <Section title="基础配置" description=""> 
 
           <Button label="新建" primary={true} onTouchTap={this.openCreateDialog} />
-
-            <Table style={{marginTop:20}} toggleVisibility="odd" displayCheckbox={false}>
-                <TableHeader>
+          <Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='fnaCorporationList' ajaxParams={this.state.params} onOperation={this.onOperation} >
+              <TableHeader>
                   <TableHeaderColumn>字段名称</TableHeaderColumn>
                   <TableHeaderColumn>是否有效</TableHeaderColumn>
                   <TableHeaderColumn>创建人</TableHeaderColumn>
@@ -547,6 +546,33 @@ export default class SettingList extends Component {
                   <TableHeaderColumn>备注</TableHeaderColumn>
                   <TableHeaderColumn>操作</TableHeaderColumn>
                 </TableHeader>
+
+            <TableBody>
+               <TableRow displayCheckbox={true}>
+              <TableRowColumn  name="id"></TableRowColumn>
+              <TableRowColumn name="corporationName"></TableRowColumn>
+              <TableRowColumn name="enableflag"></TableRowColumn>
+              <TableRowColumn name="corporationAddress"></TableRowColumn>
+              <TableRowColumn name="creater"></TableRowColumn>
+              <TableRowColumn name="createdate" type="date"></TableRowColumn>
+              <TableRowColumn>
+                   <Button label="查看"  type="operation" operation="view"/>
+                <Button label="编辑"  type="operation" operation="edit"/>
+               </TableRowColumn>
+             </TableRow>
+            </TableBody>
+            
+            <TableFooter></TableFooter>
+
+          </Table>
+          
+
+
+
+
+
+            <Table style={{marginTop:20}} toggleVisibility="odd" displayCheckbox={false}>
+               
                 {this.renderCustomerItem()}
              </Table>
       </Section>

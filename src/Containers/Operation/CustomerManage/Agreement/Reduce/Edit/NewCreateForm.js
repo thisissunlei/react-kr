@@ -182,7 +182,7 @@ class NewCreateForm  extends Component{
 			try{
 				var price = parseFloat((value.unitprice*12/365).toFixed(2));
 				var start = Date.parse(value.leaseBeginDate);
-				var  end= Date.parse(value.leaseEndDate);
+				var  end= Date.parse(value.startDate);
 				var num =  Math.floor((end-start)/(3600*24*1000));
 				sum += num*price;
 				return parseFloat(sum).toFixed(2);
@@ -314,8 +314,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1}  name="rentamount" type="labelText"  label="减租金额"  value={rentamount}/> {/*减租金额没有*/}
 
 				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" />
-				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" />
-
+				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} /> 
 				<Section title="租赁明细" description="" rightMenu = {
 					<Menu>
 						<MenuItem primaryText="删除" onTouchTap={this.onStationDelete} />

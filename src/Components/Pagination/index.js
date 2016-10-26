@@ -42,10 +42,13 @@ export default class Pagination extends Component {
 	}
 
 	onNext(){
-		var page = this.props.page;
-		if(page>0){
+
+		let {page,pageSize,totalCount} = this.props;
+
+		if(page>0 && page<Math.ceil(totalCount/pageSize)){
 			page++;
 		}
+		
 		this.onPageChange(page);
 	}
 

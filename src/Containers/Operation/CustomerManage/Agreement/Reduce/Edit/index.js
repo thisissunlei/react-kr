@@ -50,11 +50,11 @@ export default  class JoinCreate extends Component {
 	 onConfrimSubmit(){
 
 		let {formValues} = this.state;
-
+		let {params} = this.props;
 		Store.dispatch(Actions.callAPI('getFnaContractRentController',{},formValues)).then(function(){
 			Notify.show([{
 				message:'更新成功',
-				type: 'danger',
+				type: 'success',
 			}]);
 			location.href = "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/reduce/"+params.id+"/detail";
 
@@ -126,7 +126,7 @@ export default  class JoinCreate extends Component {
 
 
 					optionValues.lessorContactName = response.lessorContactName;
-
+					optionValues.contractFileList = response.contractFileList;
 
 					// initialValues.id = response.id;
 			   		initialValues.leaseId = response.leaseId;
