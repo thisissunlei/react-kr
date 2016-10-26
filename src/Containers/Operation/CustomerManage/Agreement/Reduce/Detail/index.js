@@ -80,11 +80,12 @@ export default  class ReduceDetail extends Component {
 	  const {basic} = this.state;
 	  const params = this.props.params;
 	 function onCancel(){
-		window.history.back();
+		// window.history.back();
+		location.href="/#/operation/customerManage/"+params.customerId+ "/order/"+params.orderId+"/detail"
 	}
 
 	function editUrl(){
-		return "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/increase/"+params.id+"/edit";
+		return "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/reduce/"+params.id+"/edit";
 	}
 
 	  const BasicRender = (props)=>{
@@ -129,12 +130,12 @@ export default  class ReduceDetail extends Component {
 															</TableHeader>
 															<TableBody>
 
-															{basic.list && basic.list.map((item,index)=>{
+															{basic.stationVos && basic.stationVos.map((item,index)=>{
 																return (
 																	 <TableRow key={index}>
-																	<TableRowColumn>{item.stationtype}</TableRowColumn>
+																	<TableRowColumn>{item.stationType}</TableRowColumn>
 																	<TableRowColumn>
-																		{item.stationid}
+																		{item.stationName}
 																	</TableRowColumn>
 																	<TableRowColumn>
 																		{item.unitprice}
