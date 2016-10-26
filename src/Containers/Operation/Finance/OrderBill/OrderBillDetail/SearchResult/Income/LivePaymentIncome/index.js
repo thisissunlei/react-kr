@@ -26,6 +26,7 @@ import {
 	Form
 } from 'kr-ui';
 import ChangeAccountForm from './ChangeAccountForm';
+var receivedList=[];
 var url=window.location.href;
 var url_arr=url.split('/');
 class ViewForm extends Component{
@@ -72,9 +73,11 @@ export default class LivePaymentIncome extends Component{
 
 		this.openSearchDialog = this.openSearchDialog.bind(this);
 		this.onSearchSuccess = this.onSearchSuccess.bind(this);
+
+		this.closeAddaccount=this.closeAddaccount.bind(this);
 		this.state={
            item:{},
-           
+           receivedList:[],
            openview:false,
           Addaccount:false,
 		}
@@ -112,11 +115,45 @@ export default class LivePaymentIncome extends Component{
 	}
 	
 	openAddaccount(){
-		
+		var _this = this;
+	      Store.dispatch(Actions.callAPI('findAccountList',{
+	      	accountType:'INCOME'
+	      })).then(function(response){  
+              	         
+ 		      response.map(function(item,index){ 
+ 		      	 var list ={}
+ 		      	 list.id=item.id;
+ 		      	 list.accountname=item.accountname;
+ 		      	 receivedList.push(list);		      	 	      	                                            
+              })
+              receivedList.map(function(item,index){
+				 item.label=item.accountname;
+                 item.value=item.id;
+				 return item;
+			    });
+
+ 		        _this.setState({
+			      receivedList:receivedList
+		       });             		   
+ 		}).catch(function(err){
+			Notify.show([{
+				message:message,
+				type: 'danger',
+			}]);
+		 });
 		this.setState({
 			Addaccount:!this.state.Addaccount
 		})
 	}
+
+	closeAddaccount(){
+       this.setState({
+			Addaccount:!this.state.Addaccount
+		})
+
+		receivedList=[];
+	}
+
 
 	onConfrimSubmit(formValues){
 		Store.dispatch(Actions.callAPI('supplementIncome',{},formValues)).then(function(){
@@ -133,6 +170,8 @@ export default class LivePaymentIncome extends Component{
 		this.setState({
 			Addaccount:!this.state.Addaccount
 		})
+
+		receivedList=[];
 	}
 
 	render(){
@@ -219,7 +258,7 @@ export default class LivePaymentIncome extends Component{
 				open={this.state.Addaccount}
 				>
 					
-					<ChangeAccountForm detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openAddaccount} />
+					<ChangeAccountForm detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.closeAddaccount} optionList={this.state.receivedList}/>
 			  	</Dialog>
 			  	
 			</div>		

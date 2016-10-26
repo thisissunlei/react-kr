@@ -49,35 +49,20 @@ export default class SearchParam extends Component{
        
 	}
 
-	onSearch(type,childType,id){
-
-        
-		const {onSearch} = this.props;
+	onSearch(type,childType,id){    
+		const {onSearch,params} = this.props;
 
 		var searchParam = {};
 
 		searchParam.type = type;
 		searchParam.childType = childType;
 		searchParam.id = id;
-
-		console.log(type,childType,id);
-
-
+		searchParam.orderId = params.orderId;
 		onSearch && onSearch(searchParam);
-
-
 	}
 
 	render(){
-        
          const {detailPayment,detailIncome,detailBalance}=this.props;
-         
-		 console.log("jjj",this.props.detailPayment);
-		//console.log("uuu",this.props.detailIncome);
-		//console.log("ooo",this.props.detailBalance);
-        
-       
-
 
 		return(
 
