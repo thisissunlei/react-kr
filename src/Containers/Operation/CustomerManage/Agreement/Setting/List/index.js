@@ -537,9 +537,8 @@ export default class SettingList extends Component {
       <Section title="基础配置" description=""> 
 
           <Button label="新建" primary={true} onTouchTap={this.openCreateDialog} />
-
-            <Table style={{marginTop:20}} toggleVisibility="odd" displayCheckbox={false}>
-                <TableHeader>
+          <Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='fnaCorporationList' ajaxParams={this.state.params} onOperation={this.onOperation} >
+              <TableHeader>
                   <TableHeaderColumn>字段名称</TableHeaderColumn>
                   <TableHeaderColumn>是否有效</TableHeaderColumn>
                   <TableHeaderColumn>创建人</TableHeaderColumn>
@@ -547,6 +546,33 @@ export default class SettingList extends Component {
                   <TableHeaderColumn>备注</TableHeaderColumn>
                   <TableHeaderColumn>操作</TableHeaderColumn>
                 </TableHeader>
+
+            <TableBody>
+               <TableRow displayCheckbox={true}>
+              <TableRowColumn  name="id"></TableRowColumn>
+              <TableRowColumn name="corporationName"></TableRowColumn>
+              <TableRowColumn name="enableflag"></TableRowColumn>
+              <TableRowColumn name="corporationAddress"></TableRowColumn>
+              <TableRowColumn name="creater"></TableRowColumn>
+              <TableRowColumn name="createdate" type="date"></TableRowColumn>
+              <TableRowColumn>
+                   <Button label="查看"  type="operation" operation="view"/>
+                <Button label="编辑"  type="operation" operation="edit"/>
+               </TableRowColumn>
+             </TableRow>
+            </TableBody>
+            
+            <TableFooter></TableFooter>
+
+          </Table>
+          
+
+
+
+
+
+            <Table style={{marginTop:20}} toggleVisibility="odd" displayCheckbox={false}>
+               
                 {this.renderCustomerItem()}
              </Table>
       </Section>

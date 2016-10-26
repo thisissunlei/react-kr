@@ -30,10 +30,14 @@ import {
 
 	componentDidMount(){
 		let {detail} = this.props;
+		detail.enableflag = detail.enableflag.toString();
 		Store.dispatch(initialize('newCreateForm',detail));
 	}
 
 	 onSubmit(values){
+
+	 	values = Object.assign({},values);
+	 	values.enableflag = Boolean(values.enableflag)?1:0;
 
 	 	values = Object.assign({},values);
 		var _this = this;
@@ -43,8 +47,10 @@ import {
 					message:'编辑成功！',
 					type: 'success',
 				}]);
+
 				const {onSubmit} = _this.props;
 				onSubmit && onSubmit();
+			
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -63,15 +69,18 @@ import {
 
 	render(){
 
-		const { error, handleSubmit, pristine, reset} = this.props;
+		const { error, handleSubmit, pristine, reset,detail} = this.props;
+
+
+		console.log('detail',detail);
 
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 							<KrField name="corporationName" type="text" label="出租方名称" /> 
 
 							<KrField name="enableflag" component="group" label="是否启用">
-								<KrField name="enableflag" label="是" component="radio" type="radio" value='1'/>
-								<KrField name="enableflag" label="否" component="radio" type="radio" value='0' />
+								<KrField name="enableflag" label="是" component="radio" type="radio" value="true"/>
+								<KrField name="enableflag" label="否" component="radio" type="radio" value="false" />
 							</KrField>
 							
 							<KrField name="corporationAddress" component="text" type="text" label="详细地址"/> 

@@ -35,9 +35,9 @@ export default  class ItemDetail extends Component{
         let detail=this.props.detail;
           console.log('detail',detail)
       
-         if(detail.enableflag=="1"){
+         if(detail.enableflag==true){
          	detail.flag="启用"
-         }else if(detail.enableflag=="0"){
+         }else if(detail.enableflag==false){
          	detail.flag="不启用"
          }
         

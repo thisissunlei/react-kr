@@ -87,7 +87,11 @@ export default class LessorManageList  extends Component{
 
 	onEditSubmit(){
 		this.openEditDetailDialog();
-		window.location.reload();
+
+		window.setTimeout(function(){
+			window.location.reload();
+		},2000);
+		
 	}
 
 	//查看
@@ -152,9 +156,9 @@ export default class LessorManageList  extends Component{
 							 <TableRow displayCheckbox={true}>
 							<TableRowColumn  name="id"></TableRowColumn>
 							<TableRowColumn name="corporationName"></TableRowColumn>
-							<TableRowColumn name="enableflag"></TableRowColumn>
+							<TableRowColumn name="enableflag" options={[{value:'true',label:'是'},{value:'false',label:'否'}]}></TableRowColumn>
 							<TableRowColumn name="corporationAddress"></TableRowColumn>
-							<TableRowColumn name="creater"></TableRowColumn>
+							<TableRowColumn name="createName"></TableRowColumn>
 							<TableRowColumn name="createdate" type="date"></TableRowColumn>
 							<TableRowColumn>
 								   <Button label="查看"  type="operation" operation="view"/>
