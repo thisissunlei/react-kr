@@ -79,9 +79,9 @@ const SettingChildViewForm = (props)=>{
   return (
     <div>
         
-        <KrField name="corporationName" component="labelText"  label="字段名称" value={items.dicName}/> 
-        <KrField name="enableflag" component="labelText"  label="是否有效" value={items.enableFlag?'是':'否'}/> 
-        <KrField name="corporationDesc" component="labelText" label="备注" value={items.remark}/> 
+        <KrField name="corporationName" component="labelText"  label="字段名称" value={items.dicName} requireLabel={true}/> 
+        <KrField name="enableflag" component="labelText"  label="是否有效" value={items.enableFlag?'是':'否'} requireLabel={true}/> 
+        <KrField name="corporationDesc" component="labelText" label="备注" value={items.remark} requireLabel={true}/> 
   </div>
   );
 } 
@@ -124,12 +124,12 @@ let SettingChildUpdateForm = function(props){
 
       <form onSubmit={handleSubmit(onSubmit)}>
               <KrField name="id" type="hidden" label="id"  /> 
-              <KrField name="dicName" type="text" component="input" label="字段名称"  /> 
-              <KrField name="enableflag" component="group" label="是否有效">
-                <KrField name="enableflag" label="是" component="radio" type='radio' value={true}/>
-                <KrField name="enableflag" label="否" component="radio"  type='radio'  value={false} />
+              <KrField name="dicName" type="text" component="input" label="字段名称" requireLabel={true} /> 
+              <KrField name="enableflag" component="group" label="是否有效" requireLabel={true}>
+                <KrField name="enableflag" label="是" component="radio" type='radio' value={true} requireLabel={true}/>
+                <KrField name="enableflag" label="否" component="radio"  type='radio'  value={false} requireLabel={true}/>
               </KrField>
-               <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息"/> 
+               <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息" requireLabel={true}/> 
               <Grid style={{marginTop:30}}>
                 <Row style={{marginTop:30}}>
                 <Col md={8}></Col>
@@ -153,13 +153,13 @@ let SettingAddForm = function(props){
 
           <form onSubmit={handleSubmit(onSubmit)}>
                   <KrField name="id" type="hidden" component="input" label="id"/> 
-                  <KrField name="dicName" type="text" label="子项名称" />
-                  <KrField  type="labelText" label="字段名称" value={props.dicName}/>
-                 <KrField name="enableflag" component="group" label="是否有效">
+                  <KrField name="dicName" type="text" label="子项名称" requireLabel={true}/>
+                  <KrField  type="labelText" label="字段名称" value={props.dicName} requireLabel={true}/>
+                 <KrField name="enableflag" component="group" label="是否有效" requireLabel={true}>
                     <KrField name="enableflag" label="是" type="radio" value="1"/>
                     <KrField name="enableflag" label="否" type="radio" value="0" />
                   </KrField>
-                   <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息"/> 
+                   <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息" requireLabel={true}/> 
                   <Grid style={{marginTop:30}}>
                     <Row style={{marginTop:30}}>
                     <Col md={8}></Col>
@@ -174,14 +174,14 @@ let SettingAddForm = function(props){
 
       <form onSubmit={handleSubmit(onSubmit)}>
               <KrField name="id" type="hidden" component="input" label="id"/> 
-              <KrField name="dicName" type="text" label="子项名称" />
-              <KrField  type="labelText" label="字段名称" value={props.dicName}/>
-              <KrField name="round" type="text" label="拆分周期"  /> 
-              <KrField name="enableflag" component="group" label="是否有效">
+              <KrField name="dicName" type="text" label="子项名称" requireLabel={true}/>
+              <KrField  type="labelText" label="字段名称" value={props.dicName} requireLabel={true}/>
+              <KrField name="round" type="text" label="拆分周期" requireLabel={true} /> 
+              <KrField name="enableflag" component="group" label="是否有效" requireLabel={true}>
                 <KrField name="enableflag" label="是" type="radio" value="1"/>
                 <KrField name="enableflag" label="否" type="radio" value="0" />
               </KrField>
-               <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息"/> 
+               <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息" requireLabel={true}/> 
               <Grid style={{marginTop:30}}>
                 <Row style={{marginTop:30}}>
                 <Col md={8}></Col>
