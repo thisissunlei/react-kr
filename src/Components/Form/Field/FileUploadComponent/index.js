@@ -225,28 +225,6 @@ export default class FileUploadComponent extends React.Component{
 			xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
 			xhr.responseType = 'json';
 			xhr.send(null);
-
-		/*
-		Store.dispatch(Actions.callAPI('getSourceServiceToken')).then(function(response){
-				form.sourceservicetoken = response.token;
-				form.operater = response.userId;
-				Store.dispatch(Actions.callAPI('uploadSingleFile',{},form)).then(function(response){
-						console.log("response",response);
-				}).catch(function(err){
-					Notify.show([{
-						message:err.message,
-						type: 'danger',
-						}]);
-					});
-				});
-		}).catch(function(err){
-			Notify.show([{
-				message:'后台出错了，获取token失败!',
-				type: 'danger',
-			}]);
-		});
-*/
-
 	}
 
 	render(){

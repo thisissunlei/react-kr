@@ -83,8 +83,10 @@ export default  class JoinCreate extends Component {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid =  params.orderId;
 
-		  initialValues.leaseBegindate = new Date;
-		  initialValues.leaseEnddate = new Date;
+			initialValues.leaseBegindate = new Date;
+			initialValues.leaseEnddate = new Date;
+
+			initialValues.withdrawdate = response.withdrawdate;
 
 
 			optionValues.communityAddress = response.customer.communityAddress;
@@ -114,7 +116,9 @@ export default  class JoinCreate extends Component {
 			optionValues.communityName = response.customer.communityName;
 			optionValues.communityId = response.customer.communityid;
 			optionValues.mainbillCommunityId =  response.mainbillCommunityId||1;
-			optionValues.withdrawdate = response.withdrawdate || ''
+
+
+
 			_this.setState({
 				initialValues,
 				optionValues
