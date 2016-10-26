@@ -67,7 +67,7 @@ export default class Received extends Component{
 		}
 
         
-        //console.log("oooo",params);
+        console.log("oooo",params);
 
 		return(
 

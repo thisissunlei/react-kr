@@ -87,7 +87,8 @@ export default class AttributeSetting  extends Component{
 		});
 
 		if(type == 'view'){
-			this.openViewDialog();
+			let orderId=itemDetail.id
+			window.location.href=`./#/operation/finance/orderbill/${orderId}/detail`;
 		}else if(type == 'edit'){
 			this.openEditDetailDialog();
 		}
@@ -162,6 +163,7 @@ export default class AttributeSetting  extends Component{
       	  items.summount=0;
       }
      
+    
         
 		return(
 
