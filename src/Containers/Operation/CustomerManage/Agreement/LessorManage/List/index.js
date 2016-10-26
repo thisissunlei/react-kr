@@ -131,7 +131,7 @@ export default class LessorManageList  extends Component{
 
 					<Grid>
 						<Row>
-							<Col md={8}> <Button label="新建" primary={true} onTouchTap={this.openNewCreateDialog} /> </Col>
+							<Col md={8}> <Button label="新建出租方" primary={true} onTouchTap={this.openNewCreateDialog} /> </Col>
 							<Col md={4} align="right"> 
 									<SearchForm onSubmit={this.onSearchSubmit} />
 							</Col> 
@@ -148,7 +148,7 @@ export default class LessorManageList  extends Component{
 							<TableHeaderColumn>操作</TableHeaderColumn>
 						</TableHeader>
 
-					<TableBody>
+						<TableBody>
 							 <TableRow displayCheckbox={true}>
 							<TableRowColumn  name="id"></TableRowColumn>
 							<TableRowColumn name="corporationName"></TableRowColumn>
@@ -162,10 +162,11 @@ export default class LessorManageList  extends Component{
 							 </TableRowColumn>
 						 </TableRow>
 						</TableBody>
-
+						
 						<TableFooter></TableFooter>
 
 					</Table>
+
 
 					</Section>
 
