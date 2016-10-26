@@ -75,9 +75,9 @@ import {
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 				<KrField name="id" type="hidden" label="id"/> 
-				<KrField name="accountcode" type="text" label="属性编码"/> 
-				<KrField name="accountname" type="text" label="属性名称" /> 
-				<KrField name="accounttype" type="select" label="属性类别" options={[
+				<KrField name="accountcode" type="text" label="科目编码"/> 
+				<KrField name="accountname" type="text" label="科目名称" /> 
+				<KrField name="accounttype" type="select" label="科目类别" options={[
 						{value:'PAYMENT',label:'回款'},
 					   {value:'INCOME',label:'收入'},
 				]} >
@@ -97,6 +97,8 @@ import {
 					</Row>
 				</Grid>
 				</form>
+			
+			
 		);
 	}
 }

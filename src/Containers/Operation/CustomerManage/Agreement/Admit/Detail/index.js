@@ -70,27 +70,28 @@ export default  class AdmitDetail extends Component {
 		return "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/admit/"+params.id+"/edit";
 	}
 	  const {basic} = this.state;
+	  console.log('basic', basic);
 
 	  const BasicRender = (props)=>{
 
 		  return (
 				  <div>
 
+<KrField component="labelText" grid={1/2} label="出租方" value={basic.lessorName}/>
+					<KrField component="labelText" grid={1/2} label="地址" value={basic.lessorAddress}/>
 
-			<KrField component="labelText" grid={1/2} label="出租方" value={basic.leasorName}/>
-		<KrField component="labelText" grid={1/2} label="地址" value={basic.lessorAddress}/>
+					<KrField component="labelText" grid={1/2} label="联系人" value={basic.lessorContactName}/>
+					<KrField component="labelText" grid={1/2} label="电话" value={basic.lessorContacttel}/>
 
-<KrField label="联系人"   grid={1/2} component="labelText" value={basic.lessorContactName}/>
-<KrField label="电话"   grid={1/2} component="labelText" value={basic.lessorContacttel}/>
+					<KrField component="labelText" grid={1/2} label="承租方" value={basic.customerName}/>
+					<KrField component="labelText" grid={1/2} label="地址" value={basic.leaseAddress}/>
 
-											<KrField label="承租方"   grid={1/2} component="labelText" value={basic.customerName}/>
-<KrField label="地址"   grid={1/2} component="labelText" value={basic.leaseAddress}/>
+					<KrField component="labelText" grid={1/2} label="联系人" value={basic.leaseContact}/>
+					<KrField component="labelText" grid={1/2} label="电话" value={basic.leaseContacttel}/>
 
-<KrField label="联系人"   grid={1/2} component="labelText" value={basic.leaseContact}/>
-<KrField label="电话"   grid={1/2} component="labelText" value={basic.leaseContacttel}/>
+					<KrField component="labelText" grid={1/2} label="所属社区" value={basic.communityName}/>
+					<KrField component="labelText" grid={1/2} label="所属楼层" value={basic.wherefloor}/>
 
-<KrField label="所属社区"   grid={1/2} component="labelText" value={basic.communityName}/>
-<KrField label="所属楼层"   grid={1/2} component="labelText" value={basic.wherefloor}/>
 
 <KrField label="定金总额"   grid={1/2} component="labelText" value={basic.totaldownpayment}/>
 <KrField component="group" grid={1/2} label="签署日期:">
@@ -98,10 +99,8 @@ export default  class AdmitDetail extends Component {
 		<Date.Format value={basic.signdate}/>
 	</Row>
 </KrField>
-<KrField label="合同编号"   grid={1/2} component="labelText" value={basic.contractcode}/>
-<KrField label="付款方式"   grid={1/2} component="labelText" value={basic.payment.dicName}/>
-
-
+			<KrField label="合同编号"   grid={1/2} component="labelText" value={basic.contractcode}/>
+			<KrField label="付款方式"   grid={1/2} component="labelText" value={basic.payment.dicName}/>
 <KrField label="租赁项目" component="group">
 	<KrField label="工位"   grid={1/1} component="labelText" value={basic.stationnum}/>
 	<KrField label="会议室"   grid={1/1} component="labelText" value={basic.boardroomnum}/>

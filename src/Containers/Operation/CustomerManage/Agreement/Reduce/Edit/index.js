@@ -39,7 +39,11 @@ export default  class JoinCreate extends Component {
 			 formValues
 		 });
 
-		 this.onConfrimSubmit();
+		 var _this = this;
+
+		 setTimeout(function(){
+		 	_this.onConfrimSubmit();
+		 },500);
 		// this.openConfirmCreateDialog();
 	 }
 
@@ -49,9 +53,11 @@ export default  class JoinCreate extends Component {
 
 		Store.dispatch(Actions.callAPI('getFnaContractRentController',{},formValues)).then(function(){
 			Notify.show([{
-				message:'创建成功',
+				message:'更新成功',
 				type: 'danger',
 			}]);
+			location.href = "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/reduce/"+params.id+"/detail";
+
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,

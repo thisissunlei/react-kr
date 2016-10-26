@@ -4,7 +4,7 @@ import createLogger from 'redux-logger';
 
 import {Reducers} from '../Modules';
 
-import initState from '../initState';
+import initState from '../State';
 
 import  callAPIMiddleware from '../Middlewares/callAPIMiddleware';
 

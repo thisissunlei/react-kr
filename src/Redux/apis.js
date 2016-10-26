@@ -1,6 +1,11 @@
 const APIS  = {
 
-//合同－工位信息
+	//获取全局导航
+	'getSelfMenuInfo':{
+		url:'/api-old/sys/sysfunrights/sysMenu/getSelfMenuInfo',
+		method:'get'
+	},
+	//合同－工位信息
 	'getStationOrSettingList':{
 		url:'/api/krspace-finance-web/fnaContractRentController/getStationOrSettingList?mainbillId={mainbillid}',
 		method:'get'
@@ -10,6 +15,17 @@ const APIS  = {
 		url:'/api/krspace-finance-web/fnaContractWithdrawalController/addFnaContractWithdrawal',
 		method:'post'
 	},
+	//续租协议-新增-编辑
+	'addOrEditContinueContract':{
+		url:'/api/krspace-finance-web/checkinagreement/addOrEditContinueContract',
+		method:'post'
+	},
+	//续租协议-查看
+	'renewshow':{
+		url:'/api/krspace-finance-web/checkinagreement/checkin-agreement/actions/show?id={id}',
+		method:'get'
+	},
+	
 
 	//获取文件token
 	'getSourceServiceToken':{
@@ -100,7 +116,7 @@ const APIS  = {
 	},
 	//合同－承租合同－编辑
 	'updateFinaContractIntentletter':{
-		url:'/mockjsdata/3/krspace-finance-web/finacontractdetail/fina-contract-intentletter/actions/update',
+		url:'/api/krspace-finance-web/finacontractdetail/fina-contract-intentletter/actions/update',
 		method:'put'
 	},
 	//合同－创建基础数据
@@ -213,7 +229,7 @@ const APIS  = {
 		url:'/api/krspace-finance-web/finaccount/data/getFinaDataByAjax?page={page}&pageSize={pageSize}&customername={customername}&endDate={endDate}&mainbilltype={mainbilltype}&communityid={communityid}',
 		method:'get'
 	},
-    //财务管理－订单账单列表-生成对账单
+	//财务管理－订单账单列表-生成对账单
 	'getFinaDataDetailAdd':{
 		url:'/mockjsdata/3/krspace-finance-web/finaccount/data/getFinaDataDetailById?id={id}&startDate={startDate}&endDate={endDate}',
 		method:'get'
@@ -303,7 +319,7 @@ const APIS  = {
 		url:'/api/krspace-finance-web/finaccount/data/getAccountFlowDetail?id={id}',		
 		method:'get'
 	},
-	
+
 }
 
 module.exports =  APIS;

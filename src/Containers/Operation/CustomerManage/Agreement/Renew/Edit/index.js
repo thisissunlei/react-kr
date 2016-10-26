@@ -47,10 +47,10 @@ export default  class JoinCreate extends Component {
 
     let {formValues} = this.state;
 
-    Store.dispatch(Actions.callAPI('getFnaContractRentController',{},formValues)).then(function(){
+    Store.dispatch(Actions.callAPI('addOrEditContinueContract',{},formValues)).then(function(){
       Notify.show([{
         message:'创建成功',
-        type: 'danger',
+        type: 'success',
       }]);
     }).catch(function(err){
       Notify.show([{
@@ -90,7 +90,7 @@ export default  class JoinCreate extends Component {
       optionValues.communityAddress = response.customer.communityAddress; 
       optionValues.leaseAddress = response.customer.customerAddress;
       //合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）  
-      initialValues.contracttype = 'LESSRENT';
+      initialValues.contracttype = 'RENEW';
 
       optionValues.fnaCorporationList = response.fnaCorporation.map(function(item,index){
         item.value = item.id;
@@ -116,7 +116,7 @@ export default  class JoinCreate extends Component {
       optionValues.mainbillCommunityId =  response.mainbillCommunityId||1;
 
       console.log(params.id);
-          Store.dispatch(Actions.callAPI('showFnaContractRentController',{id:params.id})).then(function(response){
+          Store.dispatch(Actions.callAPI('renewshow',{id:params.id})).then(function(response){
 
 
           optionValues.lessorContactName = response.lessorContactName;
@@ -130,9 +130,9 @@ export default  class JoinCreate extends Component {
           initialValues.leaseContact = response.leaseContact;
           initialValues.leaseContacttel = response.leaseContacttel;
           initialValues.lessorContactid = response.lessorContactid;
-
-          
-           //initialValues.paymodel =  response.payment || response.payment.id ;
+          initialValues.firstpaydate =response.firstpaydate;
+          initialValues.payType=response.payType.id
+           initialValues.paymodel = response.payment.id ;
 
 
            initialValues.rentaluse = response.rentaluse;

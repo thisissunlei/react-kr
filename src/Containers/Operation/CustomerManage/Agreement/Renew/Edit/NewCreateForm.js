@@ -7,7 +7,7 @@ import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import dateFormat from 'dateformat';
 
-import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
+import {reduxForm,formValueSelector,initialize,change,arrayPush,arrayInsert,FieldArray} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
 
@@ -250,17 +250,21 @@ class NewCreateForm  extends Component{
 		let {changeValues} = this.props;
 		let {stationVos} = this.state;
 		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = dateFormat(form.leaseBegindate,"yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = dateFormat(form.leaseEnddate,"yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
-		// form.lessorContactid = 111;
+		form.firstpaydate =dateFormat(form.firstpaydate,"yyyy-mm-dd hh:MM:ss");
+		form.lessorContactid = form.lessorContactid;
+		
 		form.rentamount= this.state.rentamount;
 		var _this = this;
-
+		var wherefloor=[];
 		form.stationVos =  stationVos;
-
 		form.stationVos = JSON.stringify(form.stationVos);
-		console.log('form111', form);
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
+		
+		
 	}
 
 	onCancel(){
@@ -294,7 +298,7 @@ class NewCreateForm  extends Component{
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}  />
 				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/>
-				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel}/>
+				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} placeholder={optionValues.lessorContactName}/>
 				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" />
 
 				<KrField grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/>
@@ -387,7 +391,6 @@ export default connect((state)=>{
 	changeValues.boardroomnum = selector(state,'boardroomnum') || 0;
 	changeValues.leaseBegindate = selector(state,'leaseBegindate') || 0;
 	changeValues.leaseEnddate = selector(state,'leaseEnddate') || 0;
-	changeValues.wherefloor = selector(state,'wherefloor') || 0;
 
 
 	return {

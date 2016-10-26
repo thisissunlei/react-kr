@@ -39,18 +39,18 @@ export default  class JoinCreate extends Component {
 			 formValues
 		 });
 
-		 this.onConfrimSubmit();
+		 this.onConfrimSubmit(formValues);
 		// this.openConfirmCreateDialog();
 	 }
 
-	 onConfrimSubmit(){
+	 onConfrimSubmit(formValues){
 
-		let {formValues} = this.state;
-
-		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(){
+		/*let {formValues} = this.state;
+		console.log(formValues)*/
+		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract',{},formValues)).then(function(){
 			Notify.show([{
 				message:'创建成功',
-				type: 'danger',
+				type: 'success',
 			}]);
 		}).catch(function(err){
 			Notify.show([{
@@ -89,7 +89,7 @@ export default  class JoinCreate extends Component {
 			optionValues.communityAddress = response.customer.communityAddress; 
 			optionValues.leaseAddress = response.customer.customerAddress;
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）	
-			initialValues.contracttype = 'ENTER';
+			initialValues.contracttype = 'ADDRENT';
 
 			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item,index){
 				item.value = item.id;

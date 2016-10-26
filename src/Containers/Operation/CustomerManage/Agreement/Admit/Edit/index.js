@@ -39,7 +39,11 @@ export default  class JoinCreate extends Component {
 			 formValues
 		 });
 
-		 this.onConfrimSubmit();
+		 var _this = this;
+
+		 setTimeout(function(){
+		 	_this.onConfrimSubmit();
+		 },500);
 		// this.openConfirmCreateDialog();
 	 }
 
@@ -51,7 +55,7 @@ export default  class JoinCreate extends Component {
 
 		Store.dispatch(Actions.callAPI('updateFinaContractIntentletter',{},formValues)).then(function(){
 			Notify.show([{
-				message:'创建成功',
+				message:'更新成功',
 				type: 'danger',
 			}]);
 			location.href = "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/admit/"+params.id+"/detail";
@@ -135,13 +139,19 @@ export default  class JoinCreate extends Component {
 
 					}
 					if(response.payment){
-						initialValues.paymodel = response.payment.id;
+						initialValues.payment = response.payment;
+						initialValues.paymentId = response.payment.id;
 
+					}
+					if(response.boardroomnum){
+						initialValues.boardroomnum = response.boardroomnum;
 					}
 					initialValues.stationnum = response.stationnum;
 					initialValues.wherefloor = response.wherefloor;
 					initialValues.contractmark = response.contractmark;
-
+					optionValues.lessorContactName = response.lessorContactName;
+					initialValues.lessorContacttel = response.lessorContacttel;
+					initialValues.totaldownpayment = response.totaldownpayment;
 					//时间
 					initialValues.leaseBegindate = new Date(response.leaseBegindate);
 					initialValues.leaseEnddate = new Date(response.leaseEnddate);
