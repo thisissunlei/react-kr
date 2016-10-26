@@ -26,7 +26,7 @@ Snackbar,
   BreadCrumbs,
   Loading,
   Notify,
-  krDate
+  KrDate
 } from 'kr-ui';
 
 
@@ -421,7 +421,9 @@ export default class SettingList extends Component {
           <TableRowColumn>{item.sp.dicName}</TableRowColumn>
             <TableRowColumn>{item.sp.enableFlag?'是':'否'}</TableRowColumn>
             <TableRowColumn>{item.sp.creater}</TableRowColumn>
-            <TableRowColumn value={item.sp.createTime} type="date"></TableRowColumn>
+            <TableRowColumn type="date">
+                 <KrDate.Format value={item.sp.createTime}/>
+            </TableRowColumn>
             <TableRowColumn>{item.sp.remark}</TableRowColumn>
             <TableRowColumn>
             <Button label="查看" type="link"  onClick={this.openViewDialog.bind(this,index)}/>
@@ -453,8 +455,8 @@ export default class SettingList extends Component {
               <TableRowColumn>{item.dicName}</TableRowColumn>
               <TableRowColumn>{item.enableFlag?'是':'否'}</TableRowColumn>
               <TableRowColumn>{item.creater}</TableRowColumn>
-              <TableRowColumn value={item.createTime} type="date">
-              
+              <TableRowColumn>
+                  <KrDate.Format value={item.createTime}/>
               </TableRowColumn>
               <TableRowColumn>{item.remark}</TableRowColumn>
               <TableRowColumn>

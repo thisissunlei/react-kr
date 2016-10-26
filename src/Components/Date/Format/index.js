@@ -20,6 +20,9 @@ export default class Format extends React.Component {
 
 		let {className,value,format,time} = this.props;
 
+
+		console.log('---date',value);
+
 		let result = '';
 
 		try{
