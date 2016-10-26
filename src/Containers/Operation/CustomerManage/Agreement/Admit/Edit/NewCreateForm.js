@@ -362,7 +362,8 @@ class NewCreateForm  extends Component{
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}  />
 				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/> 
-				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} />
+				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} placeholder={optionValues.lessorContactName} /> 
+
 				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
 
 				<KrField grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/> 
@@ -376,7 +377,7 @@ class NewCreateForm  extends Component{
 
 				<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} />
                 <KrField grid={1/2}  name="totaldownpayment" type="text" component="input" label="定金总额"  /> 
-				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} /> 
+				<KrField name="paymentId"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList}/> 
 
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  /> 
 

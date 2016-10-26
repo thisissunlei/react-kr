@@ -38,20 +38,29 @@ export default  class JoinCreate extends Component {
 		 this.setState({
 			 formValues
 		 });
+		 var _this = this;
 
-		 this.onConfrimSubmit();
+		 setTimeout(function(){
+		 	_this.onConfrimSubmit();
+		 },500);
+
+		 
 		// this.openConfirmCreateDialog();
 	 }
 
 	 onConfrimSubmit(){
+	 	console.log('onConfrimSubmit');
 
 		let {formValues} = this.state;
+		console.log('formValues', formValues);
 
-		Store.dispatch(Actions.callAPI('updateFinaContractIntentletter',{},formValues)).then(function(){
+		Store.dispatch(Actions.callAPI('addFinaContractIntentletter',{},formValues)).then(function(){
 			Notify.show([{
 				message:'创建成功',
 				type: 'danger',
 			}]);
+			location.href = "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/admit/"+params.id+"/detail";
+			
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,

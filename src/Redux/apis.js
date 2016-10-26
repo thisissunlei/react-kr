@@ -116,7 +116,7 @@ const APIS  = {
 	},
 	//合同－承租合同－编辑
 	'updateFinaContractIntentletter':{
-		url:'/mockjsdata/3/krspace-finance-web/finacontractdetail/fina-contract-intentletter/actions/update',
+		url:'/api/krspace-finance-web/finacontractdetail/fina-contract-intentletter/actions/update',
 		method:'put'
 	},
 	//合同－创建基础数据
