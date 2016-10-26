@@ -52,15 +52,21 @@ import {
 			enableflag:enableflag,
 			ordernum:ordernum,
 			id:id
-		})).then(function(response){ }).catch(function(err){
+		})).then(function(response){ 
 			Notify.show([{
-				message:'报错了',
+				message:'操作成功！',
+				type: 'success',
+			}]);
+			const {onSubmit} = _this.props;
+		 	onSubmit && onSubmit();
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
 				type: 'danger',
 			}]);
 		});
 
- 		const {onSubmit} = this.props;
-		 onSubmit && onSubmit();
+ 		
 	 }
 
 	 onCancel(){
@@ -97,7 +103,7 @@ import {
 					</Row>
 				</Grid>
 				</form>
-			
+
 			
 		);
 	}
