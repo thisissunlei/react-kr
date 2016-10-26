@@ -62,7 +62,6 @@ class NewCreateForm  extends Component{
 	constructor(props,context){
 		super(props, context);
 
-
 		//stationsRefs表单
 		this.stationRefs = {};
 

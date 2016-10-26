@@ -83,8 +83,11 @@ class NewCreateForm  extends Component{
 		this.onChangeLeaseBeginDate = this.onChangeLeaseBeginDate.bind(this);
 		this.onChangeLeaseEndDate = this.onChangeLeaseEndDate.bind(this);
 
+		this.calcStationNum = this.calcStationNum.bind(this);
+
 		this.state = {
 			stationVos:this.props.stationVos,
+			delStationVos:[],
 			selectedStation:[],
 			openStation:false,
 			openStationUnitPrice:false,
@@ -98,13 +101,33 @@ class NewCreateForm  extends Component{
 
 	componentWillReceiveProps(nextProps){
 
-		if(nextProps.stationVos.length){
+		if(!this.isInit && nextProps.stationVos.length){
 			let stationVos = nextProps.stationVos;
-			this.setState({
-				stationVos
+			this.setState({stationVos},function(){
+				this.calcStationNum();
 			});
+			this.isInit = true;
 		}
 
+	}
+
+	calcStationNum(){
+
+		let {stationVos} = this.state;
+
+		var stationnum = 0;
+		var boardroomnum = 0;
+
+		stationVos.forEach(function(item,index){
+			if(item.stationType == 1){
+				stationnum++;
+			}else{
+				boardroomnum++;
+			}
+		});
+
+		Store.dispatch(change('joinCreateForm','stationnum',stationnum));
+		Store.dispatch(change('joinCreateForm','boardroomnum',boardroomnum));
 	}
 
 	//修改租赁期限－开始时间
@@ -184,17 +207,21 @@ class NewCreateForm  extends Component{
 	//删除工位
 	onStationDelete(){
 
-		let {selectedStation,stationVos} = this.state;
+		let {selectedStation,stationVos,delStationVos} = this.state;
 
 		stationVos = stationVos.filter(function(item,index){
 			if(selectedStation.indexOf(index) != -1){
+				delStationVos.push(item);
 				return false;
 			}
 			return true;
 		});
 
 		this.setState({
-			stationVos
+			stationVos,
+			delStationVos
+		},function(){
+			this.calcStationNum();
 		});
 
 	}
@@ -245,7 +272,7 @@ class NewCreateForm  extends Component{
 
 		form = Object.assign({},form);
 
-		let {stationVos} = this.state;
+		let {stationVos,delStationVos} = this.state;
 		let {billList} = this.state;
 		let {changeValues} = this.props;
 
@@ -253,9 +280,8 @@ class NewCreateForm  extends Component{
 
 		var _this = this;
 
-		form.stationVos =  stationVos;
-
-		form.stationVos = JSON.stringify(form.stationVos);
+		form.stationVos = JSON.stringify(stationVos);
+		form.delStationVos = JSON.stringify(delStationVos);
 				
 		form.firstpaydate = dateFormat(form.firstpaydate,"yyyy-mm-dd h:MM:ss");
 		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd h:MM:ss");
@@ -311,21 +337,13 @@ class NewCreateForm  extends Component{
 	}
 
 	onIframeClose(billList){
-
 		this.openStationDialog();
-
-		console.log('data',billList);
-
 		if(!billList){
 			return ;
 		}
-
 		var _this = this;
-
 		let {changeValues} = this.props;
-
 		let {stationVos} = this.state;
-
 		try{
 			billList.map(function(item,index){
 					var obj = {};
@@ -340,12 +358,9 @@ class NewCreateForm  extends Component{
 		}catch(err){
 			console.log('billList 租赁明细工位列表为空');
 		}
-
-		console.log('---->>>',stationVos);
-		this.setState({
-			stationVos
-		});
-
+		this.setState({stationVos},function(){
+			this.calcStationNum();
+		}); 
 	}
 
 
@@ -373,6 +388,8 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" /> 
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" /> 
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" /> 
+				<KrField grid={1}  name="stationnum" type="hidden" component="input" label="工位"/> 
+				<KrField grid={1}  name="boardroomnum" type="hidden" component="input" label="会议室"/> 
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}  />
 				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/> 
@@ -405,10 +422,6 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" defaultValue={initialValues.signdate} /> 
 
 				<KrField name="firstpaydate" component="date" label="首付款时间"  /> 
-				<KrField grid={1/1} component="group" label=" 租赁项目"> 
-					<KrField grid={1}  name="stationnum" type="text" component="input" label="工位" /> 
-					<KrField grid={1}  name="boardroomnum" type="text" component="input" label="会议室" /> 
-				</KrField>
 
 				<KrField grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"  /> 
 
@@ -416,6 +429,11 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" /> 
 				<KrField grid={1/2}  name="contractmark" component="textarea" label="备注" /> 
 				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} /> 
+
+				<KrField grid={1/1} component="group" label="租赁项目"> 
+					<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} /> 
+					<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.station} /> 
+				</KrField>
 
 				<Section title="租赁明细" description="" rightMenu = {
 					<Menu>

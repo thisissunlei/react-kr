@@ -12,7 +12,6 @@ import {
 } from 'kr-ui';
 
 import NewCreateForm from './NewCreateForm';
-import ConfirmFormDetail from './ConfirmFormDetail';
 
 
 export default  class JoinCreate extends Component {
@@ -20,36 +19,22 @@ export default  class JoinCreate extends Component {
 	constructor(props,context){
 		super(props, context);
 
-		this.openConfirmCreateDialog = this.openConfirmCreateDialog.bind(this);
 		this.onCreateSubmit = this.onCreateSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
-		this.onConfrimSubmit  = this.onConfrimSubmit.bind(this);
 
 		this.state = {
 			stationVos:[],
 			initialValues:{},
 			optionValues:{},
 			formValues:{},
-			openConfirmCreate:false
 		}
 	}
 
 	 onCreateSubmit(formValues){
-		/* this.setState({
-			 formValues
-		 });*/
-
-		 this.onConfrimSubmit(formValues);
-		// this.openConfirmCreateDialog();
-	 }
-
-	 onConfrimSubmit(formValues){
-
-		//let {formValues} = this.state;
-
+		formValues = Object.assign({},formValues);
 		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract',{},formValues)).then(function(){
 			Notify.show([{
-				message:'创建成功',
+				message:'更新成功',
 				type: 'success',
 			}]);
 		}).catch(function(err){
@@ -58,19 +43,11 @@ export default  class JoinCreate extends Component {
 				type: 'danger',
 			}]);
 	   	});
-
-		 //this.openConfirmCreateDialog();
-	}
+	 }
 
 	onCancel(){
 		window.history.back();
 	}
-
-	 openConfirmCreateDialog(){
-		 this.setState({
-			 openConfirmCreate:!this.state.openConfirmCreate
-		 });
-	 }
 
 	 componentDidMount(){
 
@@ -121,6 +98,7 @@ export default  class JoinCreate extends Component {
 
 					optionValues.lessorContactName = response.lessorContactName;
 
+					optionValues.contractFileList = response.contractFileList;
 
 					initialValues.id = response.id;
 			   		initialValues.leaseId = response.leaseId;
@@ -194,14 +172,6 @@ export default  class JoinCreate extends Component {
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
 			</Section>
 
-			<Dialog
-				title="确定新建"
-				modal={true}
-				autoScrollBodyContent={true}
-				autoDetectWindowHeight={true}
-				open={this.state.openConfirmCreate} >
-						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} />
-			  </Dialog>
 		</div>
 	);
   }

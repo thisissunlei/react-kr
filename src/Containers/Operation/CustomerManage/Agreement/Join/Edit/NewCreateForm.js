@@ -314,21 +314,13 @@ class NewCreateForm  extends Component{
 	}
 
 	onIframeClose(billList){
-
 		this.openStationDialog();
-
-		console.log('data',billList);
-
 		if(!billList){
 			return ;
 		}
-
 		var _this = this;
-
 		let {changeValues} = this.props;
-
 		let {stationVos} = this.state;
-
 		try{
 			billList.map(function(item,index){
 					var obj = {};
@@ -343,14 +335,9 @@ class NewCreateForm  extends Component{
 		}catch(err){
 			console.log('billList 租赁明细工位列表为空');
 		}
-
-		console.log('---->>>',stationVos);
-
-
-		this.setState({
-			stationVos
-		});
-
+		this.setState({stationVos},function(){
+			this.calcStationNum();
+		}); 
 	}
 
 	calcStationNum(){
