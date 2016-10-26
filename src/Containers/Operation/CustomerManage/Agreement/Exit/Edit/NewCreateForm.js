@@ -131,12 +131,8 @@ class NewCreateForm  extends Component{
 				}
 			}
 		}
-
 		return url ;
 	}
-
-
-
 
 	render(){
 
@@ -216,7 +212,6 @@ export default connect((state)=>{
 	changeValues.leaseBegindate = selector(state,'leaseBegindate') || 0;
 	changeValues.leaseEnddate = selector(state,'leaseEnddate') || 0;
 	changeValues.wherefloor = selector(state,'wherefloor') || 0;
-
 
 	return {
 		changeValues
