@@ -29,7 +29,10 @@ var fiItem={};
 var arr=[];
 var arr1=[];
 var url=window.location.href;
- var url_arr=url.split('/');
+
+
+
+
 import {Actions,Store} from 'kr/Redux';
 
 import ReceivedMoney from './ReceivedMoney';
@@ -74,6 +77,7 @@ export default class Deposit extends Component{
 
 	constructor(props,context){
 		super(props, context);
+
 		this.onAddReceivedSubmit=this.onAddReceivedSubmit.bind(this);
 		this.onSwitchSubmit=this.onSwitchSubmit.bind(this);
 		this.onQuitSubmit=this.onQuitSubmit.bind(this);
@@ -103,6 +107,8 @@ export default class Deposit extends Component{
 			list:[],
             selectedList:[],
             listValues:[],
+
+            isLoading:false,
 
            item:{},
            openReceive:false,
@@ -270,8 +276,9 @@ export default class Deposit extends Component{
 
 	openReceivedDialog(){
 		var _this = this;
-	      Store.dispatch(Actions.callAPI('findAccountList',{	      	
-	      })).then(function(response){  //post请求
+	      Store.dispatch(Actions.callAPI('findAccountList',{
+	         accountType:'PAYMENT'	      	
+	      })).then(function(response){  
  		      response.map(function(item,index){ 
  		      	 var list ={}
  		      	 list.id=item.id;
@@ -314,7 +321,8 @@ export default class Deposit extends Component{
 			}]);
 		 });
 	    _this.setState({
-			openReceive:!this.state.openReceive
+			openReceive:!this.state.openReceive,
+			isLoading:true
 		});	  
     }
  
@@ -338,7 +346,8 @@ export default class Deposit extends Component{
 			}]);
 		 });       
 	    _this.setState({
-			openSwitch:!this.state.openSwitch
+			openSwitch:!this.state.openSwitch,
+			isLoading:true
 		});	  
     }
       
@@ -363,7 +372,8 @@ export default class Deposit extends Component{
 		 });
 
 	    _this.setState({
-			openBusiness:!this.state.openBusiness
+			openBusiness:!this.state.openBusiness,
+			isLoading:true
 		});	  
     }
      
@@ -390,7 +400,8 @@ export default class Deposit extends Component{
 		 });
 
 	    _this.setState({
-			openQuit:!this.state.openQuit
+			openQuit:!this.state.openQuit,
+			isLoading:true
 		});	  
     }
     
@@ -408,13 +419,6 @@ export default class Deposit extends Component{
        
 	}
     
-    
-    
-    
-
-   
-
-    
 
 	render(){
 
@@ -423,14 +427,25 @@ export default class Deposit extends Component{
 		if(params.childType != type){
 			return  null;
 		}
+
         
         let Params={
-                orderId:url_arr[url_arr.length-2],
+                orderId:params.orderId,
 				accountType:'PAYMENT',
 				pageNum:1,
 				pageSize:20,
 				propertyId:params.id
 	   }
+	
+       
+       let initialValues = {
+			id:fiItem.id
+		}
+
+		let initialValue = {
+			mainbillid:this.props.orderId,
+		}
+
        
 
        const close=[
@@ -440,19 +455,8 @@ export default class Deposit extends Component{
          style={{marginLeft:10}}
         onTouchTap={this.openViewDialog}
         />
-      ]
+      ];
 	   
-	   
-
-	    //console.log("dedede",this.state.item)
-       
-       let initialValues = {
-			id:fiItem.id
-		}
-		let initialValue = {
-			mainbillid:url_arr[url_arr.length-2],
-		}
-
 		return(
 
 			 <div>
@@ -466,7 +470,7 @@ export default class Deposit extends Component{
                   </Row>
 
                   
-                <Table style={{marginTop:10}} ajax={true} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={Params} onOperation={this.onOperation}>
+                <Table style={{marginTop:10}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={Params} onOperation={this.onOperation}>
 	              <TableHeader>
 				          <TableHeaderColumn>序号</TableHeaderColumn>
 				          <TableHeaderColumn>交易日期</TableHeaderColumn>
@@ -535,8 +539,7 @@ export default class Deposit extends Component{
 						open={this.state.openView}
 						actions={close}
 						>
-							
-
+						
 						<ViewForm detail={this.state.itemDetail} onCancel={this.openViewDialog} />
 					 </Dialog>  
 			</div>		

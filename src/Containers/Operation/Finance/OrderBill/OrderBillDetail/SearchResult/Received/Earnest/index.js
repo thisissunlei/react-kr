@@ -91,6 +91,7 @@ export default class Earnest extends Component{
            selectedList:[],
            listValues:[],
 
+           isLoading:false,
 
            item:{},
            openView:false,
@@ -171,7 +172,8 @@ export default class Earnest extends Component{
 			}]);
 		 });
 	    _this.setState({
-			openReceive:!this.state.openReceive
+			openReceive:!this.state.openReceive,
+			isLoading:true
 		});	  
     }
 
@@ -197,7 +199,7 @@ export default class Earnest extends Component{
      //获取提交时的param 
      onSubmitQ(params){   	  
 		  var _this = this;
-	      Store.dispatch(Actions.callAPI('transToDeposit',{},params)).then(function(response){  //post请求   
+	      Store.dispatch(Actions.callAPI('transToDeposit',{},params)).then(function(response){  
  		  }).catch(function(err){
 			Notify.show([{
 				message:'报错了',
@@ -206,7 +208,8 @@ export default class Earnest extends Component{
 		 });
 
 	    _this.setState({
-			openSwitch:!this.state.openSwitch
+			openSwitch:!this.state.openSwitch,
+			isLoading:true
 		});	  
     }
 
@@ -222,7 +225,8 @@ export default class Earnest extends Component{
 		 });
 
 	    _this.setState({
-			openBusiness:!this.state.openBusiness
+			openBusiness:!this.state.openBusiness,
+			isLoading:true
 		});	  
     }
     
@@ -252,8 +256,9 @@ export default class Earnest extends Component{
 
     ReceivedMoney(){ 
     	  var _this = this;
-	      Store.dispatch(Actions.callAPI('findAccountList',{	      	
-	      })).then(function(response){  //post请求
+	      Store.dispatch(Actions.callAPI('findAccountList',{
+	       accountType:'PAYMENT'	      	
+	      })).then(function(response){  
 	        console.log("nnnn",response); 	          
  		      response.map(function(item,index){ 
  		      	 var list ={}
@@ -344,19 +349,6 @@ export default class Earnest extends Component{
 		});
 	}
 
-	onSubmitQ(params){  //获取提交时的params	  	  
-		  var _this = this;
-	      Store.dispatch(Actions.callAPI('transToDeposit',{},params)).then(function(response){  //post请求   
- 		  }).catch(function(err){
-			Notify.show([{
-				message:'报错了',
-				type: 'danger',
-			}]);
-		 });
-	    _this.setState({
-			openSwitch:!this.state.openSwitch
-		});	  
-    }
 
 	render(){
 
@@ -409,7 +401,7 @@ export default class Earnest extends Component{
                   </Row>
 
                   
-                  <Table style={{marginTop:10}} ajax={true}  onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={Params} onOperation={this.onOperation}>
+                  <Table style={{marginTop:10}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={Params} onOperation={this.onOperation}>
 	              <TableHeader>
 				          <TableHeaderColumn>序号</TableHeaderColumn>
 				          <TableHeaderColumn>交易日期</TableHeaderColumn>
@@ -480,7 +472,7 @@ export default class Earnest extends Component{
 					   <div>
 					      <Form name="SwitchMoney" initialValues={initialValues} onSubmit={this.onSubmitQ}>
 						    <KrField  name="id" type="hidden"/>
-                            <KrField label="合同编号" name="contractcode" type="select" options={this.state.arr1}/>
+                            <KrField label="合同编号" name="contractcodeId" type="select" options={this.state.arr1}/>
                             <KrField label="备注" name="finaflowdesc" component="input" type="text"/>
                             <KrField label="上传附件" name="fileids" component="file"/>
 

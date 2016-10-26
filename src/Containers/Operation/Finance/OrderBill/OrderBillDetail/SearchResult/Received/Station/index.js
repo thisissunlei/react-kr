@@ -99,7 +99,8 @@ export default class Station extends Component{
 			list:[],
             selectedList:[],
             listValues:[],
-
+            
+            isLoading:false,
 
            item:{},
            itemDetail:{},
@@ -223,8 +224,9 @@ export default class Station extends Component{
 
 	openReceivedDialog(){
 		var _this = this;
-	      Store.dispatch(Actions.callAPI('findAccountList',{	      	
-	      })).then(function(response){  //post请求
+	      Store.dispatch(Actions.callAPI('findAccountList',{
+	       accountType:'PAYMENT'	      	
+	      })).then(function(response){  
  		      response.map(function(item,index){ 
  		      	 var list ={}
  		      	 list.id=item.id;
@@ -267,7 +269,8 @@ export default class Station extends Component{
 			}]);
 		 });
 	    _this.setState({
-			openReceive:!this.state.openReceive
+			openReceive:!this.state.openReceive,
+			isLoading:true
 		});	  
     }
  
@@ -297,7 +300,8 @@ export default class Station extends Component{
 		 });
 
 	    _this.setState({
-			openBusiness:!this.state.openBusiness
+			openBusiness:!this.state.openBusiness,
+			isLoading:true
 		});	  
     }
      
@@ -323,7 +327,8 @@ export default class Station extends Component{
 		 });
 
 	    _this.setState({
-			openQuit:!this.state.openQuit
+			openQuit:!this.state.openQuit,
+			isLoading:true
 		});	  
     }
     
@@ -396,7 +401,7 @@ export default class Station extends Component{
                   </Row>
 
                   
-                <Table style={{marginTop:10}} ajax={true} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={Params} onOperation={this.onOperation}>
+                <Table style={{marginTop:10}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={Params} onOperation={this.onOperation}>
 	              <TableHeader>
 				          <TableHeaderColumn>序号</TableHeaderColumn>
 				          <TableHeaderColumn>交易日期</TableHeaderColumn>
