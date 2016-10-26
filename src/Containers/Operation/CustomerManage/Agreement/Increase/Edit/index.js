@@ -35,17 +35,17 @@ export default  class JoinCreate extends Component {
 	}
 
 	 onCreateSubmit(formValues){
-		 this.setState({
+		/* this.setState({
 			 formValues
-		 });
+		 });*/
 
-		 this.onConfrimSubmit();
+		 this.onConfrimSubmit(formValues);
 		// this.openConfirmCreateDialog();
 	 }
 
-	 onConfrimSubmit(){
+	 onConfrimSubmit(formValues){
 
-		let {formValues} = this.state;
+		//let {formValues} = this.state;
 
 		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract',{},formValues)).then(function(){
 			Notify.show([{
