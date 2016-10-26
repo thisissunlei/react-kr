@@ -560,7 +560,6 @@ export default class SettingList extends Component {
                   <TableHeaderColumn>操作</TableHeaderColumn>
                 </TableHeader>
                 {this.renderCustomerItem()}
-                <TableFooter></TableFooter>
              </Table>
       </Section>
 
