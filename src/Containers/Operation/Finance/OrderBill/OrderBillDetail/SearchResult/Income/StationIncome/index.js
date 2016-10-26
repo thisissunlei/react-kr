@@ -29,8 +29,6 @@ import {
 
 import ChangeAccountForm from './ChangeAccountForm';
 var receivedList=[];
-var url=window.location.href;
-var url_arr=url.split('/');
 class ViewForm extends Component{
 	constructor(props,context){
 		super(props,context);
@@ -69,7 +67,12 @@ class SupplementForm extends Component{
 		this.onSubmit=this.onSubmit.bind(this);
 		this.state={
           supplement:false,
-
+          Params:{
+           	accountType:'INCOME',
+           	orderId:this.props.params.orderId,
+		    page:1,
+		    pageSize:20,
+           },
 		}
 	};
 	onCancel(){
@@ -146,8 +149,12 @@ export default class StationIncome extends Component{
 	componentDidMount() {
         
 	}
-	onSearchSuccess(){
-		console.log('-----');
+	onSearchSuccess(form){
+		let {Params} = this.state;
+   		Params = form;
+	    this.setState({
+			Params	
+	    });
    }
 
 
@@ -271,13 +278,7 @@ export default class StationIncome extends Component{
 
 	   let items=this.state.item.items;
        
-       let Params={
-                orderId:url_arr[url_arr.length-2],
-				accountType:'INCOME',
-				pageNum:1,
-				pageSize:20,
-				propertyId:params.id
-	   }
+       
 	   
 	   	
 	    if(!items){
@@ -304,7 +305,7 @@ export default class StationIncome extends Component{
 					<Col md={3}><Button label="高级查询"  type="button" onTouchTap={this.openSearchDialog}/></Col>
                   </Row>
 
-                   <Table style={{marginTop:10}} displayCheckbox={false} loading={this.state.isLoading} ajax={true}  ajaxUrlName='getPageAccountFlow'  ajaxParams={Params} onOperation={this.onOperation} >
+                   <Table style={{marginTop:10}} displayCheckbox={false} loading={this.state.isLoading} ajax={true}  ajaxUrlName='getPageAccountFlow'  ajaxParams={this.state.Params} onOperation={this.onOperation} >
 	              <TableHeader>
 				          <TableHeaderColumn>序号</TableHeaderColumn>
 				          <TableHeaderColumn>交易日期</TableHeaderColumn>

@@ -28,8 +28,6 @@ var fiMoney='';
 var fiItem={};
 var arr=[];
 var arr1=[];
-var url=window.location.href;
-var url_arr=url.split('/');
 import {Actions,Store} from 'kr/Redux';
 
 import ReceivedMoney from './ReceivedMoney';
@@ -118,12 +116,24 @@ export default class Deposit extends Component{
            itemDetail:{},
            openView:false,
            arr:[],
-           arr1:[],      
+           arr1:[], 
+
+           Params:{
+                orderId:this.props.params.orderId,
+				accountType:'PAYMENT',
+				page:1,
+				pageSize:20,
+				propertyId:this.props.params.id
+	         }     
 		}
 	}
      
-    onSearchSuccess(){
-		
+    onSearchSuccess(form){
+		let {Params} = this.state;
+   		Params = form;
+	    this.setState({
+			Params	
+	    });
    }
     onSelect(values){
         console.log("111111",values)
@@ -221,13 +231,14 @@ export default class Deposit extends Component{
 		      });
            
 	       Store.dispatch(Actions.callAPI('findContractListById',{
-	       	  id:'1'
+	       	  id:fiItem.id
 	       })).then(function(response){ 
                response.map(function(item,index){ 
  		      	 var list ={}
  		      	 list.id=item.id;
  		      	 list.accountname=item.contractcode;
- 		      	 arr1.push(list);		      	 	      	                                            
+ 		      	 arr1.push(list);
+ 		      	 console.log("----0",arr1)  		      	 	      	                                            
               })
                 arr1.map(function(item,index){
 				 item.label=item.contractcode;
@@ -236,7 +247,9 @@ export default class Deposit extends Component{
 			    });
  		        _this.setState({
 			      arr1:arr1
-		       });      
+		       });    
+
+		       
  		    }).catch(function(err){
 			Notify.show([{
 				message:'报错了',
@@ -447,18 +460,12 @@ export default class Deposit extends Component{
 			id:fiItem.id
 		}
 		let initialValue = {
-			mainbillid:url_arr[url_arr.length-2],
+			mainbillid:params.orderId,
 		}
         
-        console.log("123",initialValues)
-
-	   let Params={
-                orderId:url_arr[url_arr.length-2],
-				accountType:'PAYMENT',
-				pageNum:1,
-				pageSize:20,
-				propertyId:params.id
-	   }
+        
+      console.log("-----34",this.state.arr1)
+	   
 
 
 		return(
@@ -473,7 +480,7 @@ export default class Deposit extends Component{
                   </Row>
 
                   
-                <Table style={{marginTop:10}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={Params} onOperation={this.onOperation}>
+                <Table style={{marginTop:10}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.Params} onOperation={this.onOperation}>
 	              <TableHeader>
 				          <TableHeaderColumn>序号</TableHeaderColumn>
 				          <TableHeaderColumn>交易日期</TableHeaderColumn>
