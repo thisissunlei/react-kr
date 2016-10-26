@@ -52,9 +52,9 @@ export default class LessorManageList  extends Component{
 			itemDetail:{},
 			params:{
 				page:1,
-				pageSize:10
+				pageSize:15
 			},
-			pageSize:10,
+			pageSize:15,
 			page:1,
 			totalCount:1,
 		}
