@@ -65,13 +65,13 @@ export default class Income extends Component{
 			return  null;
 		}
         
-        
+        console.log("oooo",params);
 
 
 		return(
 
 			 <div>
-			   <BusinessIncome type="yingshoushouru" params={this.props.params} />
+			   <BusinessIncome type="yingyewaishouru" params={this.props.params} />
 			   <LivePaymentIncome  type="shenghuoxiaofeishouru" params={this.props.params} />
 			   <Other type="qitashouru" params={this.props.params}/>
 			   <StationIncome type="gonweishouru" params={this.props.params}/>

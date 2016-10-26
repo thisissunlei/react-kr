@@ -58,7 +58,7 @@ class SupplementForm extends Component{
 	
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
-		onCancel:React.PropTypes.func
+		onCancel:React.PropTypes.func,
 		
 	}
 	constructor(props,context){
@@ -67,12 +67,7 @@ class SupplementForm extends Component{
 		this.onSubmit=this.onSubmit.bind(this);
 		this.state={
           supplement:false,
-          Params:{
-           	accountType:'INCOME',
-           	orderId:this.props.params.orderId,
-		    page:1,
-		    pageSize:20,
-           },
+          
 		}
 	};
 	onCancel(){
@@ -88,6 +83,8 @@ class SupplementForm extends Component{
 	}
 	
 	render(id){
+
+		
 		
 		return(
 				
@@ -140,7 +137,14 @@ export default class StationIncome extends Component{
 
           isLoading:false,
 
-          receivedList:[]
+          receivedList:[],
+
+          Params:{
+           	accountType:'INCOME',
+           	orderId:this.props.params.orderId,
+		    page:1,
+		    pageSize:20,
+           },
 		}
 		
 	}
@@ -248,7 +252,7 @@ export default class StationIncome extends Component{
 	}
 	onSupplementSubmit(){
 		var url=window.location.href;
-       var url_arr=url.split('/');
+        var url_arr=url.split('/');
 		var _this=this;
 		 let initialValues = {
 			mainbillid:url_arr[url_arr.length-2],
@@ -278,8 +282,10 @@ export default class StationIncome extends Component{
 
 	   let items=this.state.item.items;
        
-       
-	   
+       let initialValues = {
+			mainbillid:params.orderId,
+		}
+	  
 	   	
 	    if(!items){
 	    	items=[];
@@ -348,7 +354,7 @@ export default class StationIncome extends Component{
 				open={this.state.Addaccount}
 				>
 					
-					<ChangeAccountForm onSubmit={this.onConfrimSubmit}  onCancel={this.closeAddaccount}  optionList={this.state.receivedList}/>
+					<ChangeAccountForm onSubmit={this.onConfrimSubmit}  onCancel={this.closeAddaccount}  optionList={this.state.receivedList} initialValues={initialValues}/>
 			  	</Dialog>
 			  	<Dialog
 				title="补收入"

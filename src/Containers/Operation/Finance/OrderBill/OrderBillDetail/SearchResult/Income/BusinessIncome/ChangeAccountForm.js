@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-
+import {reduxForm,formValueSelector,initialize} from 'redux-form';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import {Actions,Store} from 'kr/Redux';
 import {
@@ -35,6 +35,7 @@ export default class ChangeAccountForm extends Component{
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
 		optionList:React.PropTypes.object,
+		initialValues:React.PropTypes.object,
 	}
 	constructor(props,context){
 		super(props,context);
@@ -49,17 +50,17 @@ export default class ChangeAccountForm extends Component{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	};
-	onSubmit(){
+	onSubmit(values){
 		const {onSubmit} = this.props;
-		onSubmit && onSubmit();
+		onSubmit && onSubmit(values);
 	}
 	
 	render(){
-		const {optionList} = this.props;
+		const {optionList,initialValues} = this.props;
 		
 
 		return(
-				<Form name="jyayayoinForm"  onSubmit={this.onSubmit} >
+				<Form name="jyayayoinForm"  onSubmit={this.onSubmit} initialValues={initialValues}>
 					
 					<KrField grid={1} name="accountid" component="select" label="代码名称" options={optionList}/> 
 					<KrField grid={1} name="operatedate" type="date" component="date" label="付款日期" /> 

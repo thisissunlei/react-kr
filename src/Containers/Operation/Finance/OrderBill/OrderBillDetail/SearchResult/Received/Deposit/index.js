@@ -235,16 +235,17 @@ export default class Deposit extends Component{
 	       })).then(function(response){ 
                response.map(function(item,index){ 
  		      	 var list ={}
+ 		      	 console.log("ffff",item)
  		      	 list.id=item.id;
- 		      	 list.accountname=item.contractcode;
- 		      	 arr1.push(list);
- 		      	 console.log("----0",arr1)  		      	 	      	                                            
+ 		      	 list.contractcode=item.contractcode;
+ 		      	 arr1.push(list);	      	 	      	                                            
               })
                 arr1.map(function(item,index){
 				 item.label=item.contractcode;
                  item.value=item.id;
 				 return item;
 			    });
+
  		        _this.setState({
 			      arr1:arr1
 		       });    
@@ -330,13 +331,16 @@ export default class Deposit extends Component{
 	    _this.setState({
 			openReceive:!this.state.openReceive,
 			isLoading:true
-		});	  
+		});	 
+
+		 arr=[] 
     }
  
     ReceivedDialog(){
 		this.setState({
 			openReceive:!this.state.openReceive,			
 		});	 
+		arr=[] 
 	 }
 
      
@@ -355,7 +359,8 @@ export default class Deposit extends Component{
 	    _this.setState({
 			openSwitch:!this.state.openSwitch,
 			isLoading:true
-		});	  
+		});	 
+		 arr1=[] 
     }
       
 
@@ -363,6 +368,8 @@ export default class Deposit extends Component{
 		this.setState({	    
 			openSwitch:!this.state.openSwitch,
 		});	 
+		arr1=[] 
+       
 	 }
 
 
@@ -438,6 +445,7 @@ export default class Deposit extends Component{
 		if(params.childType != type){
 			return  null;
 		}
+       
 
        
        const close=[
@@ -464,7 +472,7 @@ export default class Deposit extends Component{
 		}
         
         
-      console.log("-----34",this.state.arr1)
+      
 	   
 
 

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Actions,Store} from 'kr/Redux';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
-import {reduxForm,formValueSelector,initialize} from 'redux-form';
+import {reduxForm,formValueSelector,initialize,change,arrayPush,arrayInsert,FieldArray} from 'redux-form';
 import {
 	Table,
  	TableBody,
@@ -73,7 +73,7 @@ class ReceivedMoney extends Component{
 
 	
 
-        const { error, handleSubmit, pristine, reset,optionList} = this.props;
+        const { error, handleSubmit, pristine, reset,optionList,changeValues} = this.props;
 		
 
 		console.log("vbvbvb",this.props.initialValues)
@@ -95,7 +95,15 @@ class ReceivedMoney extends Component{
 				                <KrField name="sumSign" label="正" component="radio" type="radio" value="0"/>
 				                <KrField name="sumSign" label="负" component="radio" type="radio" value="1" />
 			                </KrField>
-                            <KrField label="金额（元）" name="sum" component="input" type="text"/>
+                           {parseInt(changeValues.autoSplit)?<div>
+						    	<KrField label="金额（元）" name="sum" component="input" type="text"/>
+						    </div>:<div>
+						      <KrField label="定金" name='dinjin' component="input" type="text"/>
+						      <KrField label="押金" name='yajin' component="input" type="text"/>
+						      <KrField label="租金" name='gongweihuikuan'  component="input" type="text"/>
+						      <KrField label="其他" name='qitahuikuan'  component="input" type="text"/>
+                              
+						    </div>}
                             <KrField label="备注" name="remark" component="input" type="text"/>
                             <KrField label="上传附件" name="fileids" component="file" />
 
@@ -114,7 +122,22 @@ class ReceivedMoney extends Component{
 }
 
 
-export default reduxForm({form:'ReceivedMoney'})(ReceivedMoney);
+const selector = formValueSelector('ReceivedMoney');
+
+ReceivedMoney = reduxForm({ form: 'ReceivedMoney',enableReinitialize:true,keepDirtyOnReinitialize:true})(ReceivedMoney);
+
+export default connect((state)=>{
+
+	let changeValues = {};
+
+	changeValues.autoSplit = selector(state,'autoSplit');
+
+	return {
+		changeValues
+	}
+
+})(ReceivedMoney);
+
 
 
 

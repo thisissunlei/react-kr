@@ -259,6 +259,7 @@ export default class Basic extends Component{
 			openReceive:!this.state.openReceive,
 			isLoading:true
 		});	  
+		arr=[];
     }
 
     onQuitSubmit(params){  //获取提交时的params

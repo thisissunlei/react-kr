@@ -185,7 +185,9 @@ export default class Other extends Component{
 
 	   let items=this.state.item.items;
        
-       
+        let initialValues = {
+			mainbillid:params.orderId,
+		}
 	   
 	    if(!items){
 	    	items=[];
@@ -250,7 +252,7 @@ export default class Other extends Component{
 				open={this.state.Addaccount}
 				>
 					
-					<ChangeAccountForm onSubmit={this.onConfrimSubmit} onCancel={this.closeAddaccount}  optionList={this.state.receivedList}/>
+					<ChangeAccountForm onSubmit={this.onConfrimSubmit} onCancel={this.closeAddaccount}  optionList={this.state.receivedList} initialValues={initialValues}/>
 			  	</Dialog>
 
 			</div>		

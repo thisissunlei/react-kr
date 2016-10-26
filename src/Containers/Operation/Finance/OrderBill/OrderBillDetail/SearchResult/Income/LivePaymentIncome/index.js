@@ -189,7 +189,9 @@ export default class LivePaymentIncome extends Component{
 
 	   let items=this.state.item.items;
        
-      
+       let initialValues = {
+			mainbillid:params.orderId,
+		}
 	   
 	    if(!items){
 	    	items=[];
@@ -261,7 +263,7 @@ export default class LivePaymentIncome extends Component{
 				open={this.state.Addaccount}
 				>
 					
-					<ChangeAccountForm detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.closeAddaccount} optionList={this.state.receivedList}/>
+					<ChangeAccountForm detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.closeAddaccount} optionList={this.state.receivedList} initialValues={initialValues}/>
 			  	</Dialog>
 			  	
 			</div>		

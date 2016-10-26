@@ -180,7 +180,8 @@ export default class Basic extends Component{
     ReceivedDialog(){
    	  this.setState({
 		 openReceive:!this.state.openReceive,			
-		});	 
+		});	
+		arr=[]; 
    }
    
    
@@ -205,7 +206,8 @@ export default class Basic extends Component{
 	    _this.setState({
 			openReceive:!this.state.openReceive,
 			isLoading:true
-		});	  
+		});	
+		arr=[];  
     }
 
    

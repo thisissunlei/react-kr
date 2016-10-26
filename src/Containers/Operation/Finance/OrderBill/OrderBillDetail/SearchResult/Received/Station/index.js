@@ -281,13 +281,15 @@ export default class Station extends Component{
 	    _this.setState({
 			openReceive:!this.state.openReceive,
 			isLoading:true
-		});	  
+		});
+		arr=[];  
     }
  
     ReceivedDialog(){
 		this.setState({
 			openReceive:!this.state.openReceive,			
-		});	 
+		});
+		arr=[];	 
 	 }
 
      

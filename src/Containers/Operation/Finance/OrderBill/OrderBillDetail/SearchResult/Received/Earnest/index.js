@@ -74,6 +74,8 @@ export default class Earnest extends Component{
         this.onCancel = this.onCancel.bind(this);
         this.onCancelQ = this.onCancelQ.bind(this);
         this.onCancelB = this.onCancelB.bind(this);
+        this.onSubmitQ = this.onSubmitQ.bind(this);
+        this.onSubmitB = this.onSubmitB.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onLoaded = this.onLoaded.bind(this);
 		this.onSelect = this.onSelect.bind(this);
@@ -184,20 +186,23 @@ export default class Earnest extends Component{
 	    _this.setState({
 			openReceive:!this.state.openReceive,
 			isLoading:true
-		});	  
+		});
+		arr=[];	  
     }
 
    
      onCancel(){
 		this.setState({
 			openReceive:!this.state.openReceive,			
-		});	 
+		});	
+		arr=[]; 
 	 }
 
 	 onCancelQ(){
 		this.setState({	    
 			openSwitch:!this.state.openSwitch,
-		});	 
+		});	
+		arr1=[]; 
 	 }
 
 	 onCancelB(){
@@ -217,10 +222,11 @@ export default class Earnest extends Component{
 			}]);
 		 });
 
-	    _this.setState({
+	    this.setState({
 			openSwitch:!this.state.openSwitch,
 			isLoading:true
 		});	  
+		arr1=[];
     }
 
     //获取提交时的param  
@@ -234,7 +240,7 @@ export default class Earnest extends Component{
 			}]);
 		 });
 
-	    _this.setState({
+	    this.setState({
 			openBusiness:!this.state.openBusiness,
 			isLoading:true
 		});	  
@@ -323,7 +329,7 @@ export default class Earnest extends Component{
                response.map(function(item,index){ 
  		      	 var list ={}
  		      	 list.id=item.id;
- 		      	 list.accountname=item.contractcode;
+ 		      	 list.contractcode=item.contractcode;
  		      	 arr1.push(list);		      	 	      	                                            
               })
                 arr1.map(function(item,index){
@@ -371,7 +377,7 @@ export default class Earnest extends Component{
 	    	items=[];
 	    }
         
-
+       
 
        
        let initialValues = {

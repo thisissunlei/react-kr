@@ -206,7 +206,6 @@ export default class Basic extends Component{
                  fiItem=item                 
               }
            })
-
            if(this.state.listValues.length==0){
            	 alert('请选择一条回款数据进行退款');
            }else if(this.state.listValues.length>1){
@@ -322,7 +321,7 @@ export default class Basic extends Component{
        
 
        
-       let initialValues = {
+        let initialValues = {
 			id:fiItem.id
 		}
 		let initialValue = {
