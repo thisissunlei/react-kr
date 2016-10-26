@@ -111,8 +111,11 @@ export default  class ReduceDetail extends Component {
 								<KrField component="labelText" grid={1/2} label="合同编号" value={basic.contractcode}/>
 								<KrField component="labelText" grid={1/2} label="减租金额" value={basic.rentamount}/>
 
-								<KrField component="labelText" label="签署日期" value={basic.signdate}/>
-
+								<KrField component="group" grid={1/1} label="签署日期:">
+									<Row style={{marginTop:5}}>
+										<Date.Format value={basic.signdate}/>
+									</Row>
+								</KrField>
 								<KrField component="labelText"  label="备注" value={basic.contractmark}/>
 
 								<KrField component="labelText" label="上传附件" value={basic.contractfile}/>
@@ -120,7 +123,7 @@ export default  class ReduceDetail extends Component {
 											
 			<Section title="租赁明细" description=""> 
 
-											<Table>
+											<Table displayCheckbox={false}>
 															<TableHeader>
 																	<TableHeaderColumn>类别</TableHeaderColumn>
 																	<TableHeaderColumn>编号／名称</TableHeaderColumn>
