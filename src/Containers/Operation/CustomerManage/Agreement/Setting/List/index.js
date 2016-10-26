@@ -3,7 +3,7 @@ import {connect} from 'kr/Redux';
 import {bindActionCreators} from 'redux';
 import {reduxForm,formValueSelector,change} from 'redux-form';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
-
+import dateFormat from 'dateformat';
 import {Actions,Store} from 'kr/Redux';
 
 import {
@@ -25,24 +25,25 @@ Snackbar,
   Button,
   BreadCrumbs,
   Loading,
-  Notify
+  Notify,
+  krDate
 } from 'kr-ui';
 
 
 let SettingCreateForm = function(props){
 
-  	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,cityName,onCancel} = props;
+    const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,cityName,onCancel} = props;
 
-	return (
+  return (
 
 <form onSubmit={handleSubmit(onSubmit)}>
 
-			<KrField name="dicName" type="text" component="input" label="字段名称" requireLabel={true}/>  
+      <KrField name="dicName" type="text" component="input" label="字段名称" requireLabel={true}/>  
        <KrField name="enableFlag" component="group" label="是否有效" requireLabel={true} >
-					<KrField name="enableFlag" label="是" type="radio" value="1" requireLabel={true}/>
-					<KrField name="enableFlag" label="否" type="radio" value="0" requireLabel={true} />
+          <KrField name="enableFlag" label="是" type="radio" value="1" requireLabel={true}/>
+          <KrField name="enableFlag" label="否" type="radio" value="0" requireLabel={true} />
               </KrField>
-		 <KrField name="remark" type="textarea" component="textarea" label="备注"  placeholder="备注信息" requireLabel={true}/> 
+     <KrField name="remark" type="textarea" component="textarea" label="备注"  placeholder="备注信息" requireLabel={true}/> 
 
         <Grid style={{marginTop:30}}>
           <Row>
@@ -52,7 +53,7 @@ let SettingCreateForm = function(props){
           </Row>
         </Grid>
     </form>
-	);
+  );
 }
 
 SettingCreateForm= reduxForm({
@@ -62,7 +63,7 @@ SettingCreateForm= reduxForm({
 
 
 const SettingViewForm = (props)=>{
-	const {items} = props;
+  const {items} = props;
   return (
     <div>
         
@@ -235,6 +236,9 @@ export default class SettingList extends Component {
       openChildUpdate:false,
       openAdddate:false,
       dicName:'sss',
+      pageSize:15,
+      page:1,
+      totalCount:1,
       
     }
 
@@ -242,26 +246,30 @@ export default class SettingList extends Component {
 
   }
 
-	componentDidMount(){
+  componentDidMount(){
 
-		var _this = this;
+    var _this = this;
 
-		Store.dispatch(Actions.callAPI('sysDicPaymentList')).then(function(response){
+    Store.dispatch(Actions.callAPI('sysDicPaymentList',{
+      page:_this.state.page,
+      pageSize:_this.state.pageSize,
+      totalCount:_this.state.totalCount
+    })).then(function(response){
         console.log('-----response----',response)
-			_this.setState({
-				items:response
-			});
+      _this.setState({
+        items:response
+      });
 
-		}).catch(function(err){
+    }).catch(function(err){
 
       console.log('---err',err);
-			Notify.show([{
-				message:'报错了',
-				type: 'danger',
-			}]);
-		});
+      Notify.show([{
+        message:'报错了',
+        type: 'danger',
+      }]);
+    });
 
-	}
+  }
 
 
   getListData(){
@@ -413,7 +421,7 @@ export default class SettingList extends Component {
           <TableRowColumn>{item.sp.dicName}</TableRowColumn>
             <TableRowColumn>{item.sp.enableFlag?'是':'否'}</TableRowColumn>
             <TableRowColumn>{item.sp.creater}</TableRowColumn>
-            <TableRowColumn>{item.sp.createTime}</TableRowColumn>
+            <TableRowColumn value={item.sp.createTime} type="date"></TableRowColumn>
             <TableRowColumn>{item.sp.remark}</TableRowColumn>
             <TableRowColumn>
             <Button label="查看" type="link"  onClick={this.openViewDialog.bind(this,index)}/>
@@ -445,7 +453,9 @@ export default class SettingList extends Component {
               <TableRowColumn>{item.dicName}</TableRowColumn>
               <TableRowColumn>{item.enableFlag?'是':'否'}</TableRowColumn>
               <TableRowColumn>{item.creater}</TableRowColumn>
-              <TableRowColumn>{item.createTime}</TableRowColumn>
+              <TableRowColumn value={item.createTime} type="date">
+              
+              </TableRowColumn>
               <TableRowColumn>{item.remark}</TableRowColumn>
               <TableRowColumn>
                 <Button label="查看" type="link"  onClick={this.openViewChildDialog.bind(this,item)}/>
@@ -468,7 +478,7 @@ export default class SettingList extends Component {
   }
   renderCustomerItem(){
 
-  	let items = this.state.items || [];
+    let items = this.state.items || [];
 
   if(!items.length){
     return(
@@ -537,8 +547,9 @@ export default class SettingList extends Component {
       <Section title="基础配置" description=""> 
 
           <Button label="新建" primary={true} onTouchTap={this.openCreateDialog} />
-          <Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='fnaCorporationList' ajaxParams={this.state.params} onOperation={this.onOperation} >
-              <TableHeader>
+
+            <Table style={{marginTop:20}} toggleVisibility="odd" displayCheckbox={false} page={this.state.page} pageSize={this.state.pageSize} totalCount={this.state.totalCount}>
+                <TableHeader>
                   <TableHeaderColumn>字段名称</TableHeaderColumn>
                   <TableHeaderColumn>是否有效</TableHeaderColumn>
                   <TableHeaderColumn>创建人</TableHeaderColumn>
@@ -546,34 +557,8 @@ export default class SettingList extends Component {
                   <TableHeaderColumn>备注</TableHeaderColumn>
                   <TableHeaderColumn>操作</TableHeaderColumn>
                 </TableHeader>
-
-            <TableBody>
-               <TableRow displayCheckbox={true}>
-              <TableRowColumn  name="id"></TableRowColumn>
-              <TableRowColumn name="corporationName"></TableRowColumn>
-              <TableRowColumn name="enableflag"></TableRowColumn>
-              <TableRowColumn name="corporationAddress"></TableRowColumn>
-              <TableRowColumn name="creater"></TableRowColumn>
-              <TableRowColumn name="createdate" type="date"></TableRowColumn>
-              <TableRowColumn>
-                   <Button label="查看"  type="operation" operation="view"/>
-                <Button label="编辑"  type="operation" operation="edit"/>
-               </TableRowColumn>
-             </TableRow>
-            </TableBody>
-            
-            <TableFooter></TableFooter>
-
-          </Table>
-          
-
-
-
-
-
-            <Table style={{marginTop:20}} toggleVisibility="odd" displayCheckbox={false}>
-               
                 {this.renderCustomerItem()}
+                <TableFooter></TableFooter>
              </Table>
       </Section>
 
