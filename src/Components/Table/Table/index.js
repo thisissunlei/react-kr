@@ -127,6 +127,7 @@ export default class Table extends React.Component {
 			this.setState({
 				loading:nextProps.loading
 			});
+			this.onLoadData(1,nextProps.ajaxParams);
 		}
 
 	}

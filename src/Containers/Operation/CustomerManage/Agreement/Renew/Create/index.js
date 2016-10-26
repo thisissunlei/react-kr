@@ -35,19 +35,20 @@ export default  class JoinCreate extends Component {
 
 	 onCreateSubmit(formValues){
 		 console.log("-00000",formValues);
-		/* this.setState({
+		 this.setState({
 			 formValues
-		 });*/
+		 });
 
-		 this.onConfrimSubmit(formValues);
+		 this.onConfrimSubmit();
 		// this.openConfirmCreateDialog();
 	 }
 
-	 onConfrimSubmit(formValues){
+	 onConfrimSubmit(){
 
-		//let {formValues} = this.state;
+		let {formValues} = this.state;
+		console.log('ss');
 
-		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(){
+		Store.dispatch(Actions.callAPI('getFnaContractRentController',{},formValues)).then(function(){
 			Notify.show([{
 				message:'创建成功',
 				type: 'danger',
@@ -74,64 +75,58 @@ export default  class JoinCreate extends Component {
 
 	 componentDidMount(){
 
-    var _this = this;
-    const {params} = this.props;
-    let initialValues = {};
-    let optionValues = {};
-     let stationVos = [];
+		var _this = this;
+		const {params} = this.props;
+		let initialValues = {};
+		let optionValues = {};
 
-    Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
-      
-      initialValues.ContractStateType = 'EXECUTE';
-      initialValues.mainbillid =  params.orderId;
+		Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
 
-      initialValues.leaseBegindate = new Date;
-      initialValues.leaseEnddate = new Date;
+			initialValues.contractstate = 'UNSTART';
+			initialValues.mainbillid =  params.orderId;
 
+			initialValues.signdate = +new Date((new Date()).getTime() - 24*60*60*1000);
 
-      optionValues.communityAddress = response.customer.communityAddress;
-      optionValues.leaseAddress = response.customer.customerAddress;
-      //合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
-      initialValues.contracttype = 'QUITRENT';
+			optionValues.communityAddress = response.customer.communityAddress;
+			optionValues.leaseAddress = response.customer.customerAddress;
+			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
+			initialValues.contracttype = 'LESSRENT';
 
-      optionValues.fnaCorporationList = response.fnaCorporation.map(function(item,index){
-        item.value = item.id;
-        item.label = item.corporationName;
-        return item;
-      });
-      optionValues.paymentList = response.payment.map(function(item,index){
-        item.value = item.id;
-        item.label = item.dicName;
-        return item;
-      });
-      optionValues.payTypeList = response.payType.map(function(item,index){
-        item.value = item.id;
-        item.label = item.dicName;
-        return item;
-      });
+			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item,index){
+				item.value = item.id;
+				item.label = item.corporationName;
+				return item;
+			});
+			optionValues.paymentList = response.payment.map(function(item,index){
+				item.value = item.id;
+				item.label = item.dicName;
+				return item;
+			});
+			optionValues.payTypeList = response.payType.map(function(item,index){
+				item.value = item.id;
+				item.label = item.dicName;
+				return item;
+			});
 
-      optionValues.floorList = response.customer.floor;
-      optionValues.customerName = response.customer.customerName;
-      optionValues.leaseAddress = response.customer.customerAddress;
-      optionValues.communityName = response.customer.communityName;
-      optionValues.communityId = response.customer.communityid;
-      optionValues.mainbillCommunityId =  response.mainbillCommunityId||1;
+			optionValues.floorList = response.customer.floor;
+			optionValues.customerName = response.customer.customerName;
+			optionValues.leaseAddress = response.customer.customerAddress;
+			optionValues.communityName = response.customer.communityName;
+			optionValues.communityId = response.customer.communityid;
+			optionValues.mainbillCommunityId =  response.mainbillCommunityId||1;
 
-      
-      _this.setState({
-            initialValues,
-            optionValues,
-            stationVos
-          });
+			_this.setState({
+				initialValues,
+				optionValues
+			});
 
-    }).catch(function(err){
-      Notify.show([{
-        message:'后台出错请联系管理员',
-        type: 'danger',
-      }]);
-      });
-
-   }
+		}).catch(function(err){
+			Notify.show([{
+				message:'后台出错请联系管理员',
+				type: 'danger',
+			}]);
+	   	});
+	 }
 
 
   render() {

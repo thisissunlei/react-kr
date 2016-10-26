@@ -103,6 +103,7 @@ export default class Basic extends Component{
             listValues:[],
 
 
+
             itemDetail:{},
 
 			openReceive:false,
@@ -238,6 +239,7 @@ export default class Basic extends Component{
 				type: 'danger',
 			}]);
 		 });
+
 
 	    _this.setState({
 			openReceive:!this.state.openReceive,
