@@ -10,6 +10,7 @@ import {
 	Row,
 	Col,
 	Button,
+	Notify
 } from 'kr-ui';
 
 
@@ -31,15 +32,19 @@ import {
 	 onSubmit(values){
 		 var _this = this;
 		Store.dispatch(Actions.callAPI('addFinaFinaflowProperty',{},values)).then(function(response){
-			
+				Notify.show([{
+					message:'新建成功！',
+					type: 'success',
+				}]);
+				 const {onSubmit} = _this.props;
+				 onSubmit && onSubmit();
  			}).catch(function(err){
 			Notify.show([{
-				message:'报错了',
+				message:err.message,
 				type: 'danger',
 			}]);
 		});
-		 const {onSubmit} = this.props;
-		onSubmit && onSubmit();
+		
 
 	 }
 
