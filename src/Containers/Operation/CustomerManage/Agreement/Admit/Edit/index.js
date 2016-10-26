@@ -56,7 +56,7 @@ export default  class JoinCreate extends Component {
 		Store.dispatch(Actions.callAPI('updateFinaContractIntentletter',{},formValues)).then(function(){
 			Notify.show([{
 				message:'更新成功',
-				type: 'danger',
+				type: 'success',
 			}]);
 			location.href = "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/admit/"+params.id+"/detail";
 
@@ -129,17 +129,19 @@ export default  class JoinCreate extends Component {
 			   		initialValues.contractcode = response.contractcode;
 			   		initialValues.lessorContactid = response.lessorContactid;
 			   		initialValues.templockday = response.templockday;
+			   		optionValues.contractFileList = response.contractFileList;
 			   		// initialValues.lessorContactid = response.lessorContactid;
 			   		initialValues.leaseAddress = response.leaseAddress;
 			   		initialValues.lessorContactName = response.lessorContactName;
 					initialValues.leaseContact = response.leaseContact;
 					initialValues.leaseContacttel = response.leaseContacttel;
+					initialValues.signdate = response.signdate;
 					if(response.payType){
 						initialValues.paytype = response.payType.id;
 
 					}
 					if(response.payment){
-						initialValues.payment = response.payment;
+						optionValues.payment = response.payment;
 						initialValues.paymentId = response.payment.id;
 
 					}
@@ -148,21 +150,18 @@ export default  class JoinCreate extends Component {
 					}
 					initialValues.stationnum = response.stationnum;
 					initialValues.wherefloor = response.wherefloor;
-					initialValues.contractmark = response.contractmark;
+					initialValues.contractmark = response.contractmark || '';
 					optionValues.lessorContactName = response.lessorContactName;
 					initialValues.lessorContacttel = response.lessorContacttel;
 					initialValues.totaldownpayment = response.totaldownpayment;
+
 					//时间
 					initialValues.leaseBegindate = new Date(response.leaseBegindate);
 					initialValues.leaseEnddate = new Date(response.leaseEnddate);
 					initialValues.stationVos = response.stationVos;
-					console.log('时间',initialValues);
-
 
 					//处理stationvos
 					stationVos = response.stationVos;
-
-			   		console.log(stationVos,'---->>>>',response.stationVos);
 
 					_this.setState({
 						initialValues,

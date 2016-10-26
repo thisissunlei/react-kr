@@ -80,11 +80,12 @@ export default  class ReduceDetail extends Component {
 	  const {basic} = this.state;
 	  const params = this.props.params;
 	 function onCancel(){
-		window.history.back();
+		// window.history.back();
+		location.href="/#/operation/customerManage/"+params.customerId+ "/order/"+params.orderId+"/detail"
 	}
 
 	function editUrl(){
-		return "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/increase/"+params.id+"/edit";
+		return "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/reduce/"+params.id+"/edit";
 	}
 
 	  const BasicRender = (props)=>{
@@ -110,8 +111,11 @@ export default  class ReduceDetail extends Component {
 								<KrField component="labelText" grid={1/2} label="合同编号" value={basic.contractcode}/>
 								<KrField component="labelText" grid={1/2} label="减租金额" value={basic.rentamount}/>
 
-								<KrField component="labelText" label="签署日期" value={basic.signdate}/>
-
+								<KrField component="group" grid={1/1} label="签署日期:">
+									<Row style={{marginTop:5}}>
+										<Date.Format value={basic.signdate}/>
+									</Row>
+								</KrField>
 								<KrField component="labelText"  label="备注" value={basic.contractmark}/>
 
 								<KrField component="labelText" label="上传附件" value={basic.contractfile}/>
@@ -119,7 +123,7 @@ export default  class ReduceDetail extends Component {
 											
 			<Section title="租赁明细" description=""> 
 
-											<Table>
+											<Table displayCheckbox={false}>
 															<TableHeader>
 																	<TableHeaderColumn>类别</TableHeaderColumn>
 																	<TableHeaderColumn>编号／名称</TableHeaderColumn>
@@ -129,12 +133,12 @@ export default  class ReduceDetail extends Component {
 															</TableHeader>
 															<TableBody>
 
-															{basic.list && basic.list.map((item,index)=>{
+															{basic.stationVos && basic.stationVos.map((item,index)=>{
 																return (
 																	 <TableRow key={index}>
-																	<TableRowColumn>{item.stationtype}</TableRowColumn>
+																	<TableRowColumn>{item.stationType}</TableRowColumn>
 																	<TableRowColumn>
-																		{item.stationid}
+																		{item.stationName}
 																	</TableRowColumn>
 																	<TableRowColumn>
 																		{item.unitprice}

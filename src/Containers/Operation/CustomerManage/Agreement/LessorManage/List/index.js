@@ -1,251 +1,211 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
+import React,{Component} from 'react';
+import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
 
-import {reduxForm,formValueSelector} from 'redux-form';
+import * as actionCreators from 'kr-ui/../Redux/Actions';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import {
-	Section,
-	KrField,
-	LabelText,
-	Button,
-	BreadCrumbs,
-	Loading,
-	Notify,
-	Grid,Row,Col,
-	Dialog,
-	Snackbar,
 	Table,
-	TableBody,
- 	TableHeader, 
+	TableBody, 
+	TableHeader, 
 	TableHeaderColumn, 
 	TableRow, 
 	TableRowColumn,
-	TableFooter
+	TableFooter,
+	Button,
+	Section,
+	Grid,
+	Row,
+	Col,
+	Dialog,
+	BreadCrumbs
 } from 'kr-ui';
 
 
+import NewCreateForm from './NewCreateForm';
+import SearchForm from './SearchForm';
+import ItemDetail from './ItemDetail';
+import EditDetailForm from './EditDetailForm';
 
-import RenderTable from './Table';
 
+export default class LessorManageList  extends Component{
 
+	constructor(props,context){
+		super(props, context);
 
+		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 
-class OrderSearchForm extends Component{
+		this.onNewCreateSubmit = this.onNewCreateSubmit.bind(this);
+		this.onSearchSubmit = this.onSearchSubmit.bind(this);
+		this.onEditSubmit = this.onEditSubmit.bind(this);
 
-		constructor(props){
-			super(props);
+		this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
+		this.openViewDialog = this.openViewDialog.bind(this);
+		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
+		this.onOperation = this.onOperation.bind(this);
+
+		this.state = {
+			openNewCreate:false,
+			openView:false,
+			openEditDetail:false,
+			itemDetail:{},
+			params:{
+				page:1,
+				pageSize:15
+			},
+			pageSize:15,
+			page:1,
+			totalCount:1,
 		}
+	}
 
-		render (){
-			const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,cityName} = this.props;
-			return (
-				<form onSubmit={handleSubmit(onSubmit)} >
-							<Row>
-							<Col md={10}>
-								<KrField name="corporationName" type="text"  component="input" placeholder="搜索关键词" />
-							</Col>
-							<Col md={2} align="right" > <Button label="搜索"  type="submit" primary={true}/> </Col>
-							</Row>
-				</form>
-			);
+	componentDidMount() {
+
+	}
+
+	//操作相关
+	onOperation(type,itemDetail){
+
+		this.setState({
+			itemDetail
+		});
+
+		if(type == 'view'){
+			this.openViewDialog();
+		}else if(type == 'edit'){
+			this.openEditDetailDialog();
 		}
-} 
+	}
 
-OrderSearchForm= reduxForm({
-  form: 'orderSearchForm',
-})(OrderSearchForm);
+	//编辑
+	openEditDetailDialog(){
+		this.setState({
+			openEditDetail:!this.state.openEditDetail
+		});
+	}
+
+	onEditSubmit(){
+		this.openEditDetailDialog();
+
+		window.setTimeout(function(){
+			window.location.reload();
+		},2000);
+		
+	}
+
+	//查看
+	openViewDialog(){
+		this.setState({
+			openView:!this.state.openView
+		});
+	}
 
 
+	//搜索
+	onSearchSubmit(params){
+		params = Object.assign({},params);
+		this.setState({
+			params
+		});
+	}
 
-class OrderCreateForm extends Component{
+	//新建
+	openNewCreateDialog(){
+		this.setState({
+			openNewCreate:!this.state.openNewCreate
+		});
+	}
 
+	onNewCreateSubmit(form){
+		window.location.reload();
+	}
 
-	constructor(props){
-			super(props);
+	onNewCreateCancel(){
+		this.openNewCreateDialog();
 	}
 
 	render(){
 
-		const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = this.props;
+		return(
 
-		return (
+			<div>
+					<BreadCrumbs children={['系统运营','合同信息','出租方管理']}/>
+					<Section title="出租方管理" description="" >
 
-			<form onSubmit={handleSubmit(onSubmit)}>
+					<Grid>
+						<Row>
+							<Col md={8}> <Button label="新建出租方" primary={true} onTouchTap={this.openNewCreateDialog} /> </Col>
+							<Col md={4} align="right"> 
+									<SearchForm onSubmit={this.onSearchSubmit} />
+							</Col> 
+						</Row>
+					</Grid>
+				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='fnaCorporationList' ajaxParams={this.state.params} onOperation={this.onOperation} >
+						<TableHeader>
+							<TableHeaderColumn>ID</TableHeaderColumn>
+							<TableHeaderColumn>出租方名称</TableHeaderColumn>
+							<TableHeaderColumn>是否启用</TableHeaderColumn>
+							<TableHeaderColumn>地址</TableHeaderColumn>
+							<TableHeaderColumn>创建人</TableHeaderColumn>
+							<TableHeaderColumn>创建时间</TableHeaderColumn>
+							<TableHeaderColumn>操作</TableHeaderColumn>
+						</TableHeader>
+
+						<TableBody>
+							 <TableRow displayCheckbox={true}>
+							<TableRowColumn  name="id"></TableRowColumn>
+							<TableRowColumn name="corporationName"></TableRowColumn>
+							<TableRowColumn name="enableflag" options={[{value:'true',label:'是'},{value:'false',label:'否'}]}></TableRowColumn>
+							<TableRowColumn name="corporationAddress"></TableRowColumn>
+							<TableRowColumn name="createName"></TableRowColumn>
+							<TableRowColumn name="createdate" type="date"></TableRowColumn>
+							<TableRowColumn>
+								   <Button label="查看"  type="operation" operation="view"/>
+							  <Button label="编辑"  type="operation" operation="edit"/>
+							 </TableRowColumn>
+						 </TableRow>
+						</TableBody>
+						
+						<TableFooter></TableFooter>
+
+					</Table>
 
 
-				<KrField name="corporationName" type="text" label="出租方名称" /> 
+					</Section>
 
-				<KrField name="enableflag" component="group" label="是否启用">
-				<KrField name="enableflag" label="是" type="radio" value={1}/>
-				<KrField name="enableflag" label="否" type="radio" value={2}/>
-				</KrField>
+					<Dialog
+						title="新建"
+						modal={true}
+						open={this.state.openNewCreate}
+					>
+						<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 
-				<KrField name="corporationAddress" component="text" type="text" label="详细地址"/> 
-				<KrField name="corporationDesc" component="textarea" label="备注"  placeholder="备注信息"/> 
+				  </Dialog>
 
-				<Grid style={{marginTop:30}}>
-				<Row style={{marginTop:30}}>
-				<Col md={8}></Col>
-				<Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
-				<Col md={2}> <Button  label="取消" type="button"  onTouchTap={onCancel} /> </Col>
-				</Row>
-				</Grid>
 
-				</form>
+					<Dialog
+						title="编辑"
+						modal={true}
+						open={this.state.openEditDetail}
+					>
+						<EditDetailForm  detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog} />
+				  </Dialog>
+
+					<Dialog
+						title="查看"
+						modal={true}
+						open={this.state.openView}
+					>
+						<ItemDetail  detail={this.state.itemDetail} onCancel={this.openViewDialog} />
+				  </Dialog>
+
+
+			</div>		
 
 		);
 
 	}
 
-
-} 
-OrderCreateForm= reduxForm({
-  form: 'orderCreateForm',
-})(OrderCreateForm);
-
-class OrderCreate extends Component {
-
-  constructor(props,context){
-    super(props, context);
-
-    this.confirmCreateSubmit = this.confirmCreateSubmit.bind(this);
-
-    this.openCreateDialog = this.openCreateDialog.bind(this);
-	 this.searchParams = this.searchParams.bind(this);
-
-	  this.getListData = this.getListData.bind(this);
-
-		this.state = {
-		  open:false,
-		  openCreate:false,
-		}
-  }
-
-	componentDidMount(){
-		this.getListData();
-	}
-
-	getListData(){
-
-		var {actions} = this.props;
-		var _this = this;
-
-		actions.callAPI('fnaCorporationList',{
-			corporationName:'',
-			page:'',
-			pageSize:10
-		},{}).then(function(response){
-
-	   	}).catch(function(err){
-			console.log('err',err);
-			Notify.show([{
-				message:'报错了',
-				type: 'danger',
-			}]);
-		});
-
-
 }
 
-
-  confirmCreateSubmit(values){
-
-		var {actions} = this.props;
-		var _this = this;
-
-		actions.callAPI('addFnaCorporation',{ },values).then(function(response){
-			Notify.show([{
-				message:'创建成功!',
-				type: 'success',
-			}]);
-		}).catch(function(err){
-			Notify.show([{
-				message:err.message,
-				type: 'danger',
-			}]);
-		});
-
-		this.openCreateDialog();
-
-	  window.setTimeout(function(){
-		  window.location.reload();
-	  },1000);
-
-	}
-
-  openCreateDialog(){
-    this.setState({
-		  openCreate:!this.state.openCreate
-    });
-  }
-
-
-	searchParams(values){
-		values.corporationName = values.corporationName || '';
-		values.page = 1;
-		values.pageSize = 10;
-
-		var {actions} = this.props;
-		var _this = this;
-
-		actions.callAPI('fnaCorporationList',values,{}).then(function(response){ }).catch(function(err){
-			Notify.show([{
-				message:err.message,
-				type: 'danger',
-			}]);
-		});	
-	}
-
-	render() {
-
-		const { error, handleSubmit, pristine, reset, submitting} = this.props;
-
-
-		const {communitys} = this.state;
-
-		return (
-
-			<div>
-
-				<BreadCrumbs children={['系统运营','合同信息','出租方管理']}/>
-
-				<Section title="出租方管理" description=""> 
-
-					<Grid>
-					<Row>
-					<Col md={8}> <Button label="新建" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
-					<Col md={4} align="right"> 
-						<OrderSearchForm onSubmit={this.searchParams}/>
-					</Col> 
-					</Row>
-					</Grid>
-
-						<RenderTable items={this.props.items}/>
-
-				</Section>
-
-
-
-				<Dialog
-			title="新建"
-			modal={true}
-			open={this.state.openCreate}
-				>
-
-				<OrderCreateForm onSubmit={this.confirmCreateSubmit} onCancel={this.openCreateDialog}/>
-				
-
-	  </Dialog>
-
-
-   </div>
-  );
-  }
-}
-
-
-export default connect((state)=>{
-	return {
-		items:state.common.fnaCorporationList.items
-	}
-})(OrderCreate);

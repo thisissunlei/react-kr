@@ -225,28 +225,6 @@ export default class FileUploadComponent extends React.Component{
 			xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
 			xhr.responseType = 'json';
 			xhr.send(null);
-
-		/*
-		Store.dispatch(Actions.callAPI('getSourceServiceToken')).then(function(response){
-				form.sourceservicetoken = response.token;
-				form.operater = response.userId;
-				Store.dispatch(Actions.callAPI('uploadSingleFile',{},form)).then(function(response){
-						console.log("response",response);
-				}).catch(function(err){
-					Notify.show([{
-						message:err.message,
-						type: 'danger',
-						}]);
-					});
-				});
-		}).catch(function(err){
-			Notify.show([{
-				message:'后台出错了，获取token失败!',
-				type: 'danger',
-			}]);
-		});
-*/
-
 	}
 
 	render(){
@@ -262,6 +240,11 @@ export default class FileUploadComponent extends React.Component{
 			<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
 			<div className="form-main">
 			<div className="form-input">
+				<div className="file-button">
+					<input type="file" name="file" onChange={this.onChange}  multiple={multiple?'multiple':null} accept={accept} />
+					上传文件
+					{isUploading && <span className="progress" style={{width:progress}}></span>}
+				</div>
 				<ul className="file-list">
 					{files && files.map((item,index)=>{
 						return (
@@ -272,11 +255,6 @@ export default class FileUploadComponent extends React.Component{
 						);
 					})}
 				</ul>
-				<div className="file-button">
-					<input type="file" name="file" onChange={this.onChange}  multiple={multiple?'multiple':null} accept={accept} />
-					上传文件
-					{isUploading && <span className="progress" style={{width:progress}}></span>}
-				</div>
 			</div>
 			{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 			</div>

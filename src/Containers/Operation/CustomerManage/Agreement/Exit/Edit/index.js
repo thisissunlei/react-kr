@@ -12,7 +12,6 @@ import {
 } from 'kr-ui';
 
 import NewCreateForm from './NewCreateForm';
-import ConfirmFormDetail from './ConfirmFormDetail';
 
 
 export default  class EditCreate extends Component {
@@ -20,10 +19,8 @@ export default  class EditCreate extends Component {
   constructor(props,context){
     super(props, context);
 
-    this.openConfirmCreateDialog = this.openConfirmCreateDialog.bind(this);
     this.onCreateSubmit = this.onCreateSubmit.bind(this);
     this.onCancel = this.onCancel.bind(this);
-    this.onConfrimSubmit  = this.onConfrimSubmit.bind(this);
 
     this.state = {
       stationVos:[],
@@ -35,17 +32,6 @@ export default  class EditCreate extends Component {
   }
 
    onCreateSubmit(formValues){
-     /*this.setState({
-       formValues
-     });*/
-
-     this.onConfrimSubmit(formValues);
-    // this.openConfirmCreateDialog();
-   }
-
-   onConfrimSubmit(formValues){
-
-    //let {formValues} = this.state;
 
     Store.dispatch(Actions.callAPI('addFnaContractWithdrawal',{},formValues)).then(function(){
       Notify.show([{
@@ -58,19 +44,11 @@ export default  class EditCreate extends Component {
         type: 'danger',
       }]);
       });
-
-     //this.openConfirmCreateDialog();
-  }
+   }
 
   onCancel(){
     window.history.back();
   }
-
-   openConfirmCreateDialog(){
-     this.setState({
-       openConfirmCreate:!this.state.openConfirmCreate
-     });
-   }
 
    componentDidMount(){
 
@@ -188,15 +166,6 @@ export default  class EditCreate extends Component {
       <Section title="编辑退租协议书" description=""> 
           <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
       </Section>
-      <Dialog
-        title="确定新建"
-        modal={true}
-        autoScrollBodyContent={true}
-        autoDetectWindowHeight={true}
-        open={this.state.openConfirmCreate} >
-            <ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} />
-        </Dialog>
-     
     </div>
   );
   }

@@ -208,6 +208,13 @@ class NewCreateForm  extends Component{
 			return ;
 		}
 		*/
+		if(!wherefloor){
+			Notify.show([{
+				message:'请先选择楼层',
+				type: 'danger',
+			}]);
+			return ;
+		}
 
 		this.setState({
 			openStation:!this.state.openStation
@@ -380,7 +387,7 @@ class NewCreateForm  extends Component{
 				<KrField name="paymentId"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList}/> 
 
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  /> 
-
+				<KrField grid={1/2}  name="signdate"  component="date" label="签署日期"  /> 
 				<KrField grid={1/1} component="group" label=" 租赁项目"> 
 					<KrField grid={1}  name="stationnum" type="text" component="input" label="工位" /> 
 					<KrField grid={1}  name="boardroomnum" type="text" component="input" label="会议室" /> 
@@ -391,8 +398,8 @@ class NewCreateForm  extends Component{
 				</KrField>
 				<KrField name="templockday"  grid={1} component="input" type="text" label="保留天数"/> 
 				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" /> 
-							 <KrField grid={1}  name="fileIdList" component="file" label="上传附件" /> 
 
+				<KrField grid={1}  name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList} /> 
 
 				<Section title="租赁明细" description="" rightMenu = {
 					<Menu>
