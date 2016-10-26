@@ -27,8 +27,6 @@ import {
 } from 'kr-ui';
 import ChangeAccountForm from './ChangeAccountForm';
 var receivedList=[];
-var url=window.location.href;
-var url_arr=url.split('/');
 class ViewForm extends Component{
 	constructor(props,context){
 		super(props,context);
@@ -80,6 +78,12 @@ export default class Other extends Component{
            receivedList:[],
            openview:false,
           Addaccount:false,
+          Params:{
+           	accountType:'INCOME',
+           	orderId:this.props.params.orderId,
+		    page:1,
+		    pageSize:20,
+           },
 		}
 	}
 
@@ -87,8 +91,12 @@ export default class Other extends Component{
 	componentDidMount() {
         
 	}
-	onSearchSuccess(){
-		console.log('-----');
+	onSearchSuccess(form){
+		let {Params} = this.state;
+   		Params = form;
+	    this.setState({
+			Params	
+	    });
    }
 
 
@@ -165,7 +173,8 @@ export default class Other extends Component{
 			}]);
 	   	});
 		this.setState({
-			Addaccount:!this.state.Addaccount
+			Addaccount:!this.state.Addaccount,
+			isLoading:true
 		})
 
 		receivedList=[];
@@ -176,13 +185,7 @@ export default class Other extends Component{
 
 	   let items=this.state.item.items;
        
-       let Params={
-                orderId:url_arr[url_arr.length-2],
-				accountType:'INCOME',
-				pageNum:1,
-				pageSize:20,
-				propertyId:params.id
-	   }
+       
 	   
 	    if(!items){
 	    	items=[];
@@ -205,7 +208,7 @@ export default class Other extends Component{
 					<Col md={2}><Button label="挂账" onTouchTap={this.openAddaccount}/></Col>
 					<Col md={3}><Button label="高级查询"  type="button" onTouchTap={this.openSearchDialog}/></Col>
                   </Row>
-			 <Table style={{marginTop:10}} ajax={true} displayCheckbox={false}  ajaxUrlName='getPageAccountFlow' ajaxParams={Params} onOperation={this.onOperation} >
+			 <Table style={{marginTop:10}} ajax={true} displayCheckbox={false} loading={this.state.isLoading} ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.Params} onOperation={this.onOperation} >
 	              <TableHeader>
 				          <TableHeaderColumn>序号</TableHeaderColumn>
 				          <TableHeaderColumn>交易日期</TableHeaderColumn>

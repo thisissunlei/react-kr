@@ -28,8 +28,6 @@ var fiMoney='';
 var fiItem={};
 var arr=[];
 var arr1=[];
-var url=window.location.href;
-var url_arr=url.split('/');
 import {Actions,Store} from 'kr/Redux';
 
 import ReceivedMoney from './ReceivedMoney';
@@ -111,12 +109,24 @@ export default class Station extends Component{
            openView:false,
            arr:[],
            arr1:[],
+
+           Params:{
+                orderId:this.props.params.orderId,
+				accountType:'PAYMENT',
+				page:1,
+				pageSize:20,
+				propertyId:this.props.params.id
+	         }   
           
 		}
 	}
 
-	onSearchSuccess(){
-		
+	onSearchSuccess(form){
+		let {Params} = this.state;
+   		Params = form;
+	    this.setState({
+			Params	
+	    });	
    }
 
 
@@ -371,13 +381,7 @@ export default class Station extends Component{
         />
       ]
 	   
-	   let Params={
-                orderId:url_arr[url_arr.length-2],
-				accountType:'PAYMENT',
-				pageNum:1,
-				pageSize:20,
-				propertyId:params.id
-	   }
+	   
 
 	   
       
@@ -385,7 +389,7 @@ export default class Station extends Component{
 			id:fiItem.id
 		}
 		let initialValue = {
-			mainbillid:url_arr[url_arr.length-2],
+			mainbillid:params.orderId,
 		}
 
 
@@ -401,7 +405,7 @@ export default class Station extends Component{
                   </Row>
 
                   
-                <Table style={{marginTop:10}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={Params} onOperation={this.onOperation}>
+                <Table style={{marginTop:10}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.Params} onOperation={this.onOperation}>
 	              <TableHeader>
 				          <TableHeaderColumn>序号</TableHeaderColumn>
 				          <TableHeaderColumn>交易日期</TableHeaderColumn>

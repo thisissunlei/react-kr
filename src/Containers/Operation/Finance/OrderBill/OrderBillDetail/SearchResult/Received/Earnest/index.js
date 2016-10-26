@@ -30,8 +30,6 @@ var fiMoney='';
 var fiItem={};
 var arr=[];
 var arr1=[];
-var url=window.location.href;
-var url_arr=url.split('/');
 import {Actions,Store} from 'kr/Redux';
 class ViewForm extends Component{
 	constructor(props,context){
@@ -101,12 +99,24 @@ export default class Earnest extends Component{
            openBusiness:false,
            arr:[],
            arr1:[],
+
+           Params:{
+                orderId:this.props.params.orderId,
+				accountType:'PAYMENT',
+				page:1,
+				pageSize:20,
+				propertyId:this.props.params.id
+	         }
           
 		}
 	}
     
-    onSearchSuccess(){
-		
+    onSearchSuccess(form){
+		let {Params} = this.state;
+   		Params = form;
+	    this.setState({
+			Params	
+	    });
    }
 
 
@@ -308,7 +318,7 @@ export default class Earnest extends Component{
 		      }); 
 
 	       Store.dispatch(Actions.callAPI('findContractListById',{
-	       	  id:'1'
+	       	  id:fiItem.id
 	       })).then(function(response){ 
                response.map(function(item,index){ 
  		      	 var list ={}
@@ -368,16 +378,10 @@ export default class Earnest extends Component{
 			id:fiItem.id
 		}
 		let initialValue={
-			mainbillid:url_arr[url_arr.length-2],
+			mainbillid:params.orderId,
 		}
        
-       let Params={
-                orderId:url_arr[url_arr.length-2],
-				accountType:'PAYMENT',
-				pageNum:1,
-				pageSize:20,
-				propertyId:params.id
-	   }  
+      
 
 
       const close=[
@@ -401,7 +405,7 @@ export default class Earnest extends Component{
                   </Row>
 
                   
-                  <Table style={{marginTop:10}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={Params} onOperation={this.onOperation}>
+                  <Table style={{marginTop:10}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.Params} onOperation={this.onOperation}>
 	              <TableHeader>
 				          <TableHeaderColumn>序号</TableHeaderColumn>
 				          <TableHeaderColumn>交易日期</TableHeaderColumn>

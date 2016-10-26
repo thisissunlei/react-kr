@@ -31,8 +31,6 @@ import QuitMoney from './QuitMoney';
 var fiItem={};
 var fiMoney='';
 var arr=[];
-var url=window.location.href;
-var url_arr=url.split('/');
 class ViewForm extends Component{
 	constructor(props,context){
 		super(props,context);
@@ -92,13 +90,25 @@ export default class Basic extends Component{
 			arr:[],
 			
 			isLoading:false,
+
+			Params:{
+                orderId:this.props.params.orderId,
+				accountType:'PAYMENT',
+				page:1,
+				pageSize:20,
+				propertyId:this.props.params.id
+	         }   
 			
 	     }
    } 
 
 
-   onSearchSuccess(){
-		
+   onSearchSuccess(form){
+	  let {Params} = this.state;
+   		Params = form;
+	    this.setState({
+			Params	
+	    });	
    }
 
 
@@ -278,13 +288,7 @@ export default class Basic extends Component{
 			return  null;
 		}
 
-		let Params={
-                orderId:url_arr[url_arr.length-2],
-				accountType:'PAYMENT',
-				pageNum:1,
-				pageSize:20,
-				propertyId:params.id
-	   }
+		
 		
         const close=[
         <Button
@@ -300,7 +304,7 @@ export default class Basic extends Component{
 			id:fiItem.id
 		}
 		let initialValue = {
-			mainbillid:url_arr[url_arr.length-2],
+			mainbillid:params.orderId,
 		}
 	 
 		return(
@@ -314,7 +318,7 @@ export default class Basic extends Component{
                   </Row>
        
                
-               <Table displayCheckbox={false} style={{marginTop:10}} loading={this.state.isLoading} ajax={true}  ajaxUrlName='getPageAccountFlow' ajaxParams={Params} onOperation={this.onOperation}>
+               <Table displayCheckbox={false} style={{marginTop:10}} loading={this.state.isLoading} ajax={true}  ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.Params} onOperation={this.onOperation}>
 	              <TableHeader>
 				          <TableHeaderColumn>序号</TableHeaderColumn>
 				          <TableHeaderColumn>交易日期</TableHeaderColumn>

@@ -27,8 +27,6 @@ import {
 } from 'kr-ui';
 import ChangeAccountForm from './ChangeAccountForm';
 var receivedList=[];
-var url=window.location.href;
-var url_arr=url.split('/');
 class ViewForm extends Component{
 	constructor(props,context){
 		super(props,context);
@@ -81,7 +79,15 @@ export default class BusinessIncome extends Component{
            item:{},
            openview:false,
           Addaccount:false,
-          receivedList:[]
+          receivedList:[],
+          
+          Params:{
+           	accountType:'INCOME',
+           	orderId:this.props.params.orderId,
+		    page:1,
+		    pageSize:20,
+           },
+
 		}
 	}
 
@@ -89,8 +95,12 @@ export default class BusinessIncome extends Component{
 	componentDidMount() {
        
 	}
-	 onSearchSuccess(){
-		console.log('-----');
+	 onSearchSuccess(form){
+		let {Params} = this.state;
+   		Params = form;
+	    this.setState({
+			Params	
+	    });
    }
 
 
@@ -166,7 +176,8 @@ export default class BusinessIncome extends Component{
 			}]);
 	   	});
 		this.setState({
-			Addaccount:!this.state.Addaccount
+			Addaccount:!this.state.Addaccount,
+			isLoading:true
 		})
 		receivedList=[];
 	}
@@ -178,14 +189,7 @@ export default class BusinessIncome extends Component{
 
 	   let items=this.state.item.items;
        
-       let Params={
-                orderId:url_arr[url_arr.length-2],
-				accountType:'INCOME',
-				pageNum:1,
-				pageSize:20,
-				propertyId:params.id
-	   }
-
+       
 	   
 	    if(!items){
 	    	items=[];
@@ -211,7 +215,7 @@ export default class BusinessIncome extends Component{
                   </Row>
 
                   
-                   <Table style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getPageAccountFlow' ajaxParams={Params} onOperation={this.onOperation} >
+                   <Table style={{marginTop:10}} loading={this.state.isLoading} displayCheckbox={false} ajax={true}  ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.Params} onOperation={this.onOperation} >
 	              <TableHeader>
 				          <TableHeaderColumn>序号23</TableHeaderColumn>
 				          <TableHeaderColumn>交易日期</TableHeaderColumn>

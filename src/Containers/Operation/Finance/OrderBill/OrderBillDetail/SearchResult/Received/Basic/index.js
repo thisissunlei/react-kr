@@ -32,8 +32,6 @@ import QuitMoney from './QuitMoney';
 var fiMoney='';
 var fiItem={};
 var receivedList=[];
-var url=window.location.href;
-var url_arr=url.split('/');
 class ViewForm extends Component{
 
 	constructor(props,context){
@@ -47,7 +45,7 @@ class ViewForm extends Component{
 	   console.log("5555",items);
 	  
 	   
-
+       
 
 		return(
 				<div>					
@@ -115,8 +113,8 @@ export default class Basic extends Component{
 			receivedList:[],
 
 			listParams:{
-				orderId:url_arr[url_arr.length-2],
-				pageNum:1,
+				orderId:this.props.params.orderId,
+				page:1,
 				pageSize:20,
 				accountType:'PAYMENT'
 			},
@@ -328,7 +326,7 @@ export default class Basic extends Component{
 			id:fiItem.id
 		}
 		let initialValue = {
-			mainbillid:url_arr[url_arr.length-2],
+			mainbillid:params.orderId,
 		}
 	    
        

@@ -28,9 +28,6 @@ var fiMoney='';
 var fiItem={};
 var arr=[];
 var arr1=[];
-var url=window.location.href;
-
-
 
 
 import {Actions,Store} from 'kr/Redux';
@@ -119,12 +116,25 @@ export default class Deposit extends Component{
            openView:false,
            arr:[],
            arr1:[],
+
+           Params:{
+                orderId:this.props.params.orderId,
+				accountType:'PAYMENT',
+				page:1,
+				pageSize:20,
+				propertyId:this.props.params.id
+	         }   
+			
            
 		}
 	}
      
-   onSearchSuccess(){
-		
+   onSearchSuccess(form){
+		let {Params} = this.state;
+   		Params = form;
+	    this.setState({
+			Params	
+	    });	
    }
 
 
@@ -226,7 +236,7 @@ export default class Deposit extends Component{
             
       
 	       Store.dispatch(Actions.callAPI('findContractListById',{
-	       	  id:'1'
+	       	  id:fiItem.id
 	       })).then(function(response){ 
                response.map(function(item,index){ 
  		      	 var list ={}
@@ -429,21 +439,14 @@ export default class Deposit extends Component{
 		}
 
         
-        let Params={
-                orderId:params.orderId,
-				accountType:'PAYMENT',
-				pageNum:1,
-				pageSize:20,
-				propertyId:params.id
-	   }
-	
        
-       let initialValues = {
+       
+        let initialValues = {
 			id:fiItem.id
 		}
 
 		let initialValue = {
-			mainbillid:this.props.orderId,
+			mainbillid:params.orderId,
 		}
 
        
@@ -470,7 +473,7 @@ export default class Deposit extends Component{
                   </Row>
 
                   
-                <Table style={{marginTop:10}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={Params} onOperation={this.onOperation}>
+                <Table style={{marginTop:10}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.Params} onOperation={this.onOperation}>
 	              <TableHeader>
 				          <TableHeaderColumn>序号</TableHeaderColumn>
 				          <TableHeaderColumn>交易日期</TableHeaderColumn>

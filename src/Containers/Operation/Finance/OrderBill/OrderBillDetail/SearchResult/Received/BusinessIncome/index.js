@@ -30,8 +30,6 @@ import ReceivedMoney from './ReceivedMoney';
 
 
 var arr=[];
-var url=window.location.href;
-var url_arr=url.split('/');
 class ViewForm extends Component{
 	constructor(props,context){
 		super(props,context);
@@ -91,13 +89,28 @@ export default class Basic extends Component{
 			arr:[],
 
 			isLoading:false,
+
+			Params:{
+                orderId:this.props.params.orderId,
+				accountType:'PAYMENT',
+				page:1,
+				pageSize:20,
+				propertyId:this.props.params.id
+	         }
 			
 			
 	     }
    }
 
-    onSearchSuccess(){
+    onSearchSuccess(form){
 		
+   		let {Params} = this.state;
+   		Params = form;
+	    this.setState({
+			Params	
+	    });
+
+	    
    }
 
 
@@ -200,19 +213,21 @@ export default class Basic extends Component{
 	render(){
 
 		let {params,type,handleSubmit} = this.props;
+
+		
 		
 		if(params.childType != type){
 			return  null;
 		}
 		
-		let Params={
-                orderId:url_arr[url_arr.length-2],
-				accountType:'PAYMENT',
-				pageNum:1,
-				pageSize:20,
-				propertyId:params.id
-	   }
-      
+		
+       
+
+       let initialValues = {
+			mainbillid:params.orderId,
+		}
+	 
+	  console.log("aaax7777",this.state.Params)
 
        const close=[
         <Button
@@ -225,10 +240,6 @@ export default class Basic extends Component{
     
 
        
-       let initialValues = {
-			mainbillid:url_arr[url_arr.length-2],
-		}
-	 
 		return(
 
 			 <div>
@@ -239,7 +250,7 @@ export default class Basic extends Component{
                   </Row>
        
                
-               <Table displayCheckbox={false} style={{marginTop:10}} loading={this.state.isLoading} ajax={true}  ajaxUrlName='getPageAccountFlow' ajaxParams={Params} onOperation={this.onOperation}>
+               <Table displayCheckbox={false} style={{marginTop:10}} loading={this.state.isLoading} ajax={true}  ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.Params} onOperation={this.onOperation}>
 	              <TableHeader>
 				          <TableHeaderColumn>序号</TableHeaderColumn>
 				          <TableHeaderColumn>交易日期</TableHeaderColumn>
