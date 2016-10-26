@@ -12,18 +12,14 @@ import {
 } from 'kr-ui';
 
 import NewCreateForm from './NewCreateForm';
-import ConfirmFormDetail from './ConfirmFormDetail';
-
 
 export default  class JoinCreate extends Component {
 
 	constructor(props,context){
 		super(props, context);
 
-		this.openConfirmCreateDialog = this.openConfirmCreateDialog.bind(this);
 		this.onCreateSubmit = this.onCreateSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
-		this.onConfrimSubmit  = this.onConfrimSubmit.bind(this);
 
 		this.state = {
 			stationVos:[],
@@ -35,17 +31,6 @@ export default  class JoinCreate extends Component {
 	}
 
 	 onCreateSubmit(formValues){
-		 this.setState({
-			 formValues
-		 });
-
-		 this.onConfrimSubmit();
-		// this.openConfirmCreateDialog();
-	 }
-
-	 onConfrimSubmit(){
-
-		let {formValues} = this.state;
 
 		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(){
 			Notify.show([{
@@ -58,19 +43,12 @@ export default  class JoinCreate extends Component {
 				type: 'danger',
 			}]);
 	   	});
+	 }
 
-		 //this.openConfirmCreateDialog();
-	}
 
 	onCancel(){
 		window.history.back();
 	}
-
-	 openConfirmCreateDialog(){
-		 this.setState({
-			 openConfirmCreate:!this.state.openConfirmCreate
-		 });
-	 }
 
 	 componentDidMount(){
 
@@ -78,14 +56,12 @@ export default  class JoinCreate extends Component {
 		const {params} = this.props;
 		let initialValues = {};
 		let optionValues = {};
-		 let stationVos = [];
+		let stationVos = [];
 
 		Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
 
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid =  params.orderId;
-
-			initialValues.signdate = +new Date((new Date()).getTime() - 24*60*60*1000);
 
 			optionValues.communityAddress = response.customer.communityAddress; 
 			optionValues.leaseAddress = response.customer.customerAddress;
@@ -97,11 +73,13 @@ export default  class JoinCreate extends Component {
 				item.label = item.corporationName;
 				return item;
 			});
+
 			optionValues.paymentList = response.payment.map(function(item,index){
 				item.value = item.id;
 				item.label = item.dicName;
 				return item;
 			});
+
 			optionValues.payTypeList = response.payType.map(function(item,index){
 				item.value = item.id;
 				item.label = item.dicName;
@@ -116,12 +94,10 @@ export default  class JoinCreate extends Component {
 			optionValues.mainbillCommunityId =  response.mainbillCommunityId||1;
 
 
-			   	Store.dispatch(Actions.callAPI('show-checkin-agreement',{id:params.id})).then(function(response){
-
+		   	Store.dispatch(Actions.callAPI('show-checkin-agreement',{id:params.id})).then(function(response){
 
 					optionValues.lessorContactName = response.lessorContactName;
 					optionValues.contractFileList = response.contractFileList;
-
 
 					initialValues.id = response.id;
 			   		initialValues.leaseId = response.leaseId;
@@ -135,7 +111,9 @@ export default  class JoinCreate extends Component {
 					initialValues.leaseContacttel = response.leaseContacttel;
 					initialValues.paytype = response.payType.id;
 					initialValues.paymodel = response.payment.id;
+
 					initialValues.stationnum = response.stationnum;
+					initialValues.boardroomnum = response.boardroomnum;
 					initialValues.wherefloor = response.wherefloor;
 					initialValues.rentaluse = response.rentaluse;
 					initialValues.contractmark = response.contractmark;
@@ -144,17 +122,12 @@ export default  class JoinCreate extends Component {
 
 					//时间
 			   		initialValues.firstpaydate = response.firstpaydate;
-					initialValues.signdate = new Date(response.signdate);
-					initialValues.leaseBegindate = new Date(response.leaseBegindate);
-					initialValues.leaseEnddate = new Date(response.leaseEnddate);
-
-					console.log('时间',initialValues);
-
+					initialValues.signdate = response.signdate;
+					initialValues.leaseBegindate = response.leaseBegindate;
+					initialValues.leaseEnddate = response.leaseEnddate;
 
 					//处理stationvos
 					stationVos = response.stationVos;
-
-			   		console.log(stationVos,'---->>>>',response);
 
 					_this.setState({
 						initialValues,
@@ -176,13 +149,12 @@ export default  class JoinCreate extends Component {
 				type: 'danger',
 			}]);
 	   	});
-
 	 }
 
 
   render() {
 
-	  let {initialValues,optionValues,stationVos} = this.state;
+  let {initialValues,optionValues,stationVos} = this.state;
 
     return (
 
@@ -191,15 +163,6 @@ export default  class JoinCreate extends Component {
 			<Section title="编辑入驻协议书" description=""> 
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
 			</Section>
-
-			<Dialog
-				title="确定新建"
-				modal={true}
-				autoScrollBodyContent={true}
-				autoDetectWindowHeight={true}
-				open={this.state.openConfirmCreate} >
-						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} />
-			  </Dialog>
 		</div>
 	);
   }

@@ -152,17 +152,14 @@ export default  class JoinCreate extends Component {
 					optionValues.lessorContactName = response.lessorContactName;
 					initialValues.lessorContacttel = response.lessorContacttel;
 					initialValues.totaldownpayment = response.totaldownpayment;
+
 					//时间
 					initialValues.leaseBegindate = new Date(response.leaseBegindate);
 					initialValues.leaseEnddate = new Date(response.leaseEnddate);
 					initialValues.stationVos = response.stationVos;
-					console.log('时间',initialValues);
-
 
 					//处理stationvos
 					stationVos = response.stationVos;
-
-			   		console.log(stationVos,'---->>>>',response.stationVos);
 
 					_this.setState({
 						initialValues,
