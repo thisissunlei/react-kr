@@ -1,6 +1,7 @@
 import React from 'react';
-
 import { Router, Route, Link,Redirect,IndexRoute,browserHistory} from 'react-router';
+
+import {Actions,Store} from 'kr/Redux';
 
 
 import {
@@ -20,8 +21,18 @@ export default(
 
 	<Route path="/" component={Master}>
 
-		<IndexRoute component={Permission.Home}/>
-		<Route path="index" component={Permission.Home} name="welcome"/>
+		<IndexRoute component={Permission.Home}  onEnter={({params}, replace) =>{
+			Store.dispatch(Actions.switchSidebarNav(false));
+		}} onLeave={({params},replace)=>{
+			Store.dispatch(Actions.switchSidebarNav(true));
+		}}/>
+
+		<Route path="index" component={Permission.Home}  onEnter={({params}, replace) =>{
+			Store.dispatch(Actions.switchSidebarNav(false));
+		}} onLeave={({params},replace)=>{
+			Store.dispatch(Actions.switchSidebarNav(true));
+		}}/>
+
 		<Redirect from="messages/:id" to="/messages/:id" />
 
 		<Route path="initialize" component={Initialize} name="initialize"/>
@@ -29,8 +40,6 @@ export default(
 		{/*运营管理*/}
 		<Route path="operation" component={Basic}>
 				<Route path="index" component={Operation.Home} name="operation_home"/>
-
-
 				{/*社区管理*/}
 				<Route path="communityManage" component={Basic}>
 					<Route path="detail" component={Operation.CommunityManage.Detail}/>
