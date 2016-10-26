@@ -14,26 +14,23 @@ export default class DateComponent extends React.Component{
 		super(props)
 		this.onChange = this.onChange.bind(this);
 		this.setDefaultDate = this.setDefaultDate.bind(this);
-
 		this.supplementZero = this.supplementZero.bind(this);
-
 		this.state = {
 			value:new Date()
 		}
-
 	}
 
 	setDefaultDate(){
 		var {input} = this.props;
 		var value = '';
 		if(!(input.value instanceof Date)){
-
 			if(!input.value){
 				value = new Date();
-			}else{
+			}else if(isNaN(input.value)){
 				value = new Date(Date.parse(input.value));
+			}else{
+				value = new Date(input.value);
 			}
-
 			this.setState({
 				value
 			});
