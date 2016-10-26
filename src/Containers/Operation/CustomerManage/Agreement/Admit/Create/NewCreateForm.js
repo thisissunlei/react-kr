@@ -345,12 +345,6 @@ class NewCreateForm  extends Component{
 		});
 
 		let {billList,stationVos} = this.state;
-		const payList = [
-			{value:1,label:'银行转账'},
-			{value:2,label:'支付宝'},
-			{value:3,label:'微信支付'},
-			{value:4,label:'POS机'},
-		]
 
 		return (
 
@@ -380,7 +374,7 @@ class NewCreateForm  extends Component{
 								 <KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  /> 
 
                                  <KrField grid={1/2}  name="totaldownpayment" type="text" component="input" label="定金总额"  /> 
-								 <KrField grid={1/2}  name="paymentId" type="text" component="select" label="付款方式" options={payList}/>
+								 <KrField grid={1/2}  name="paymentId" type="text" component="select" label="付款方式" options={optionValues.paymentList}/>
                                      
 								 <KrField grid={1/1}  component="group" label="租赁期限"> 
 					<KrField grid={1/2}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate}/> 

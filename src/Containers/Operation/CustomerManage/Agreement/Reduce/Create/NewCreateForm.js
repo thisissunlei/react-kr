@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import Param from 'jquery-param';
-import { Fields } from 'redux-form';
+import { Fields , change} from 'redux-form';
 import {Binder} from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
@@ -78,6 +78,7 @@ class NewCreateForm  extends Component{
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
+
 		this.reduceMoney = this.reduceMoney.bind(this);
 		this.state = {
 			stationVos:[],
@@ -92,6 +93,10 @@ class NewCreateForm  extends Component{
 		let {stationVos} = this.state;
 		 stationVos[index].unitprice = value;
 	 	this.setState({stationVos});
+	}
+
+	onChangeSearchPersonel(personel){
+		Store.dispatch(change('reduceCreateForm','lessorContacttel',personel.mobile));
 	}
 
 	//录入单价dialog
