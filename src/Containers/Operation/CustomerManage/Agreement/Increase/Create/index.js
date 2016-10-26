@@ -47,10 +47,10 @@ export default  class JoinCreate extends Component {
 
 		let {formValues} = this.state;
 
-		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(){
+		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract',{},formValues)).then(function(){
 			Notify.show([{
 				message:'创建成功',
-				type: 'danger',
+				type: 'success',
 			}]);
 		}).catch(function(err){
 			Notify.show([{
