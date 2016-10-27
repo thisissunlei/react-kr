@@ -39,20 +39,24 @@ export default  class JoinCreate extends Component {
 		 },function(){
 			 this.openConfirmCreateDialog();
 		 });
-
-		// this.onConfrimSubmit();
 	 }
 
 	 onConfrimSubmit(){
 
 		let {formValues} = this.state;
-		console.log('formValues',formValues)
 
-		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(){
+		 formValues.stationVos = JSON.stringify(formValues.stationVos);
+
+		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
 			Notify.show([{
 				message:'创建成功',
 				type: 'danger',
 			}]);
+
+		window.setTimeout(function(){
+			window.location.href =  "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/join/"+response.contractId+"/detail";
+		},2000);
+
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
