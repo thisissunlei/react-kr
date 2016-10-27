@@ -571,11 +571,6 @@ class NewCreateForm  extends Component{
 			errors.signleaseBegindatedate = '请填写签署时间';
 		}
 
-				<KrField gleaseBegindaterid={1/1}  component="group" label="租赁期限" requireLabel={true}> 
-					<KrField leaseBegindategrid={1/2}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate}/> 
-					<KrField grid={1/2}  name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} /> 
-				</KrField>
-
 		if (!values.stationnum && !values.boardroomnum) {
 			errors.stationnum = '租赁项目必须填写一项';
 		}

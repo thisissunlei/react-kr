@@ -15,30 +15,48 @@ export default class DateComponent extends React.Component{
 		this.onChange = this.onChange.bind(this);
 		this.setDefaultDate = this.setDefaultDate.bind(this);
 		this.supplementZero = this.supplementZero.bind(this);
+
+		this.formatDate = this.formatDate.bind(this);
+
+		this.isInit = false;
 		this.state = {
 			value:new Date()
 		}
+
 	}
 
-	setDefaultDate(){
-		var {input} = this.props;
-		var value = '';
-		if(!(input.value instanceof Date)){
-			if(!input.value){
-				value = new Date();
-			}else if(isNaN(input.value)){
-				value = new Date(Date.parse(input.value));
-			}else{
-				value = new Date(input.value);
-			}
-			this.setState({
-				value
-			});
+	setDefaultDate(value){
+		let {input} = this.props;
+		if(!value){
+			return ;
 		}
+
+		if(!(value instanceof Date)){
+			if(!value){
+				value = new Date();
+			}else if(isNaN(value)){
+				value = new Date(Date.parse(value));
+			}else{
+				value = new Date(value);
+			}
+		}
+
+		this.setState({
+			value
+		});
+
+		this.isInit = true;
+		input.onChange(value);
 	}
 
 	componentDidMount(){
-		this.setDefaultDate();
+		this.setDefaultDate(this.props.input.value);
+	}
+
+	componentWillReceiveProps(nextProps){
+		if(!this.isInit && nextProps.input.value){
+			this.setDefaultDate(nextProps.input.value);
+		}
 	}
 
 	supplementZero(value){
@@ -47,15 +65,8 @@ export default class DateComponent extends React.Component{
 		}
 		return value 
 	}
-	onChange(event,value){
-		if(!value){
-			return ;
-		}
-		this.setState({
-			value
-		});
 
-		let {input,onChange} = this.props;
+	formatDate(value=+new Date){
 
 		var dt = new Date(value);
 		var year = dt.getFullYear();
@@ -66,10 +77,22 @@ export default class DateComponent extends React.Component{
 		var seconds = this.supplementZero(dt.getSeconds());
 
 		var result = `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`;
+
+		return result;
+	}
+
+	onChange(event,value){
+		if(!value){
+			return ;
+		}
+		this.setState({
+			value
+		});
+		let {input,onChange} = this.props;
+		var result = this.formatDate(value);
 		input.onChange(result);
 		onChange && onChange(result);
 	}
-
 
 	render(){
 

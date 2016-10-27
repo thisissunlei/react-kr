@@ -85,11 +85,13 @@ export default  class JoinCreate extends Component {
 		let optionValues = {};
 
 		Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
-			console.log('----response',response)
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid =  params.orderId;
 
-			initialValues.signdate = +new Date((new Date()).getTime() - 24*60*60*1000);
+			initialValues.signdate = +new Date();
+
+			initialValues.leaseBegindate = +new Date();
+			initialValues.leaseEnddate = +new Date();
 
 			optionValues.communityAddress = response.customer.communityAddress; 
 			optionValues.leaseAddress = response.customer.customerAddress;

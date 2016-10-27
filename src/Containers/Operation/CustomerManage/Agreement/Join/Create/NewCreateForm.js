@@ -254,7 +254,6 @@ class NewCreateForm  extends Component{
 
 		
 		form.stationVos = stationVos;
-		console.log('form',form);
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}
@@ -545,11 +544,11 @@ class NewCreateForm  extends Component{
 		}
 
 		if (!values.leaseEnddate) {
-			errors.leaseBegindate = '请填写租赁结束时间';
+			errors.leaseEnddate = '请填写租赁结束时间';
 		}
 
 		if (!values.stationnum && !values.boardroomnum) {
-			errors.leaseBegindate = '租赁项目必须填写一项';
+			errors.stationnum = '租赁项目必须填写一项';
 		}
 
 		return errors
