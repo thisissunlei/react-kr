@@ -34,13 +34,13 @@ export default  class JoinCreate extends Component {
 	}
 
 	 onCreateSubmit(formValues){
-		 console.log("-00000",formValues);
 		 this.setState({
 			 formValues
+		 },function(){
+			 this.openConfirmCreateDialog();
 		 });
 
-		 this.onConfrimSubmit();
-		// this.openConfirmCreateDialog();
+		// this.onConfrimSubmit();
 	 }
 
 	 onConfrimSubmit(){
@@ -59,7 +59,7 @@ export default  class JoinCreate extends Component {
 			}]);
 	   	});
 
-		 //this.openConfirmCreateDialog();
+		 this.openConfirmCreateDialog();
 	}
 
 	onCancel(){
