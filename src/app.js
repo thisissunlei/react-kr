@@ -19,6 +19,7 @@ import routes from './routes';
 
 import store from './Redux/Store';
 
+document.domain = "krspace.cn";
 
 injectTapEventPlugin({
 	/*
