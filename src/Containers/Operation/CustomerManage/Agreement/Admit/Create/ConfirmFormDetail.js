@@ -56,7 +56,7 @@ export default class ConfirmFormDetail  extends Component{
         var leasorName ;
         optionValues.fnaCorporationList.map((item)=>{
         	if(item.value === detail.leaseId){
-        		return leasorName = item.corporationAddress;
+        		return leasorName = item.corporationName;
         	}
         });
         var payment;

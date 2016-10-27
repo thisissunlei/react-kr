@@ -57,7 +57,7 @@ export default class ConfirmFormDetail  extends Component{
 		 var leasorName ;
 	        optionValues.fnaCorporationList.map((item)=>{
 	        	if(item.value === detail.leaseId){
-	        		return leasorName = item.corporationAddress;
+	        		return leasorName = item.label;
 	        	}
 	        });
 	        var payment;
@@ -96,10 +96,10 @@ export default class ConfirmFormDetail  extends Component{
 
 								 <KrField grid={1/2}  name="lessorAddress"  component="labelText" label="地址" value={detail.lessorAddress}/> 
 
-								 <KrField grid={1/2}  name="lessorContactid" component="labelText" label="联系人" value={detail.lessorContactid} /> 
+								 <KrField grid={1/2}  name="lessorContactid" component="labelText" label="联系人" value={detail.lessorContactName} /> 
 								 <KrField grid={1/2}  name="lessorContacttel"  component="labelText" label="电话" value={detail.lessorContacttel}/> 
 
-								 <KrField grid={1/2}  name="leaseId" component="labelText" label="承租方" value={detail.leaseId}/> 
+								 <KrField grid={1/2}  name="leaseId" component="labelText" label="承租方" value={optionValues.customerName}/> 
 								 <KrField grid={1/2}  name="leaseAddress"  component="labelText" label="地址" value={detail.leaseAddress} /> 
 
 								 <KrField grid={1/2}  name="leaseContact"  component="labelText" label="联系人" value={detail.leaseContact}/> 
