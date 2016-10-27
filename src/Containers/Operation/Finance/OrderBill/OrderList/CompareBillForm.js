@@ -64,9 +64,9 @@ import ConfirmBillDetail from './ConfirmBillDetail';
 
 		 this.setState({  
 			params
-		});
+		 });
 
-       console.log("dffd",detail)
+         
 
 
 		

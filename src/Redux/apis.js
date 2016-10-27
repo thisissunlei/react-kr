@@ -231,12 +231,12 @@ const APIS  = {
 	},
 	//财务管理－订单账单列表-生成对账单
 	'getFinaDataDetailAdd':{
-		url:'/mockjsdata/3/krspace-finance-web/finaccount/data/getFinaDataDetailById?id={id}&startDate={startDate}&endDate={endDate}',
+		url:'/api/krspace-finance-web/finaccount/data/getFinaDataDetailById?id={id}&startDate={startDate}&endDate={endDate}',
 		method:'get'
 	},
 	//财务管理－订单账单列表-高级查询
 	'getFinaDataCommunityAndMainBillType':{
-		url:'/mockjsdata/3/krspace-finance-web/finaccount/data/getFinaDataCommunityAndMainBillType',
+		url:'/api/krspace-finance-web/finaccount/data/getFinaDataCommunityAndMainBillType',
 		method:'get'
 	},
 	//财务管理－科目配置－新建(修改)
