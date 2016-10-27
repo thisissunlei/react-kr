@@ -82,20 +82,21 @@ export default  class JoinCreate extends Component {
 		let optionValues = {};
 
 		Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
-
+			console.log(response)
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid =  params.orderId;
 
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
 			initialValues.signdate = +new Date();
-			initialValues.paytype = response.defaultPayType.id;
+			initialValues.firstpaydate = +new Date();
+			
 			initialValues.leaseAddress = response.customer.customerAddress;
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
 			optionValues.communityAddress = response.customer.communityAddress; 
 			optionValues.leaseAddress = response.customer.customerAddress;
-			initialValues.paytype = response.defaultPayType.id;
+			
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
 			initialValues.contracttype = 'ADDRENT';
 
@@ -128,6 +129,7 @@ export default  class JoinCreate extends Component {
 			});
 
 		}).catch(function(err){
+			console.log(err)
 			Notify.show([{
 				message:'后台出错请联系管理员',
 				type: 'danger',

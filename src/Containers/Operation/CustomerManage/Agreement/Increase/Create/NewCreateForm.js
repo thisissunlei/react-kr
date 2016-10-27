@@ -239,6 +239,13 @@ class NewCreateForm  extends Component{
 
 
 		let {stationVos} = this.state;
+		if(!stationVos.length){
+			Notify.show([{
+				message:'请选择工位',
+				type: 'danger',
+			}]);
+			return ;
+		}
 
 
 		let {billList} = this.state;
@@ -270,7 +277,7 @@ class NewCreateForm  extends Component{
 
 	getStationUrl(){
 
-	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}";
+	     let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
 
 		let {changeValues,initialValues,optionValues} = this.props;
 		let {stationVos} = this.state;
@@ -289,7 +296,13 @@ class NewCreateForm  extends Component{
 			goalStationNum:changeValues.stationnum,
 			//会议室
 			goalBoardroomNum:changeValues.boardroomnum,
-			selectedObjs:JSON.stringify(stationVos)
+			selectedObjs:JSON.stringify(stationVos),
+			/*
+			startDate:"2016-10-19",
+			endDate:"2016-10-25"
+			*/
+			startDate:dateFormat(changeValues.leaseBegindate,"yyyy-mm-dd"),
+			endDate:dateFormat(changeValues.leaseEnddate,"yyyy-mm-dd")
 		};
 
 		if(Object.keys(params).length){
@@ -400,9 +413,9 @@ class NewCreateForm  extends Component{
 				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true} />
 				<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} requireLabel={true} />
 
-				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" defaultValue={initialValues.signdate} requireLabel={true} />
+				<KrField grid={1/2}  name="signdate"  component="date" grid={1/1} label="签署时间" defaultValue={initialValues.signdate} requireLabel={true} />
+				<KrField grid={1/2}  name="firstpaydate"  component="date" grid={1/1} label="首付款时间" requireLabel={true} />
 
-				<KrField name="firstpaydate" component="date" label="首付款时间"   requireLabel={true} />
 				<KrField grid={1/1} component="group" label=" 租赁项目">
 					<KrField grid={1}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} />
 					<KrField grid={1}  name="boardroomnum" type="text" type="text" component="labelText" label="会议室" value={changeValues.station}/>

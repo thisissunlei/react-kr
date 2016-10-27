@@ -251,6 +251,8 @@ class NewCreateForm  extends Component{
 
 		let {changeValues} = this.props;
 		let {stationVos} = this.state;
+		form.leaseBegindate = stationVos[0].leaseBeginDate;
+		form.leaseEnddate = stationVos[0].leaseEndDate;
 		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
 		// form.lessorContactid = 111;
@@ -294,6 +296,8 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
 				<KrField grid={1/2}  name="rentamount" type="hidden" component="input" />
+				<KrField grid={1/2}  name="leaseEnddate" type="hidden" component="input" />
+				<KrField grid={1/2}  name="leaseBegindate" type="hidden" component="input" />
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true} />
 				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/>

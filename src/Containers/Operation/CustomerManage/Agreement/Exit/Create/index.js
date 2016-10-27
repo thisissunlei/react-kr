@@ -87,7 +87,7 @@ export default  class JoinCreate extends Component {
 			initialValues.leaseBegindate = new Date;
 			initialValues.leaseEnddate = new Date;
 
-			initialValues.withdrawdate = +new Date(response.withdrawdate);
+			initialValues.withdrawdate = +new Date();
 			initialValues.signdate = +new Date();
 
 			initialValues.leaseContact = response.customer.customerMember;

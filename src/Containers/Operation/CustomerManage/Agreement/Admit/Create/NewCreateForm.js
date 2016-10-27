@@ -293,7 +293,7 @@ class NewCreateForm  extends Component{
 
 	getStationUrl(){
 
-	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}";
+	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
 
 		let {changeValues,initialValues,optionValues} = this.props;
 		let {stationVos} = this.state;
@@ -312,7 +312,13 @@ class NewCreateForm  extends Component{
 			goalStationNum:changeValues.stationnum,
 			//会议室
 			goalBoardroomNum:changeValues.boardroomnum,
-			selectedObjs:JSON.stringify(stationVos)
+			selectedObjs:JSON.stringify(stationVos),
+			/*
+			startDate:"2016-10-19",
+			endDate:"2016-10-25"
+			*/
+			startDate:dateFormat(changeValues.leaseBegindate,"yyyy-mm-dd"),
+			endDate:dateFormat(changeValues.leaseEnddate,"yyyy-mm-dd")
 		};
 
 		if(Object.keys(params).length){
@@ -326,6 +332,7 @@ class NewCreateForm  extends Component{
 
 		return url ;
 	}
+
 
 	onIframeClose(billList){
 
@@ -417,17 +424,13 @@ class NewCreateForm  extends Component{
 				</KrField>
                                   <KrField name="templockday"  grid={1/2} component="input" type="text" label="保留天数" requireLabel={true}/> 
 
+							 <KrField grid={1}  name="contractmark" type="textarea" component="textarea" label="备注" /> 
+							 <KrField grid={1}  name="fileIdList" component="file" label="上传附件" requireLabel={true}/> 
 
-								
-							
 							 <KrField grid={1/1} component="group" label="租赁项目" requireLabel={true}> 
 								<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} /> 
 								<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.station} /> 
 							</KrField>
-							
-							 <KrField grid={1}  name="contractmark" type="textarea" component="textarea" label="备注" /> 
-							 <KrField grid={1}  name="fileIdList" component="file" label="上传附件" requireLabel={true}/> 
-
 
 					    <Section title="租赁明细" description="" rightMenu = {
 									<Menu>
