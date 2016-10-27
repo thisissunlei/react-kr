@@ -49,7 +49,7 @@ export default  class JoinCreate extends Component {
 		Store.dispatch(Actions.callAPI('addFnaContractWithdrawal',{},formValues)).then(function(response){
 			Notify.show([{
 				message:'创建成功',
-				type: 'danger',
+				type: 'success',
 			}]);
 		location.href =  "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/exit/"+response.contractId+"/detail";
 
