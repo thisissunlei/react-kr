@@ -246,11 +246,12 @@ class NewCreateForm  extends Component{
 	}
 
 	componentWillReceiveProps(nextProps){
-		if(nextProps.stationVos.length){
+		if(!this.isInit && nextProps.stationVos.length){
 			let stationVos = nextProps.stationVos;
-			this.setState({
-				stationVos
+			this.setState({stationVos},function(){
+				this.calcStationNum();
 			});
+			this.isInit = true;
 		}
 	}
 
@@ -349,10 +350,11 @@ class NewCreateForm  extends Component{
 			console.log('billList 租赁明细工位列表为空');
 		}
 
-		console.log('---->>>',stationVos);
+		
 		this.setState({stationVos:billList},function(){
 			this.calcStationNum();
-		}); 
+		});  
+		console.log('---->>>',stationVos);
 
 	}
 	onChangeSearchPersonel(personel){
@@ -374,6 +376,7 @@ class NewCreateForm  extends Component{
 		
 
 		let {stationVos} = this.state;
+		console.log(stationVos);
 
 		return (
 
@@ -427,7 +430,7 @@ class NewCreateForm  extends Component{
 					</Menu>
 				}> 
 
-				<Table  displayCheckbox={true} onSelect={this.onStationSelect}>
+				<Table onSelect={this.onStationSelect}>
 				<TableHeader>
 				<TableHeaderColumn>类别</TableHeaderColumn>
 				<TableHeaderColumn>编号／名称</TableHeaderColumn>
