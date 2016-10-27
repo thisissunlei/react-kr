@@ -54,12 +54,45 @@ export default class ConfirmFormDetail  extends Component{
 		let {detail,optionValues} = this.props;
 		console.log('detail',detail)
 		console.log('optionValues',optionValues)
+		 var leasorName ;
+	        optionValues.fnaCorporationList.map((item)=>{
+	        	if(item.value === detail.leaseId){
+	        		return leasorName = item.corporationAddress;
+	        	}
+	        });
+	        var payment;
+	        optionValues.paymentList.map((item)=>{
+	        	if(item.id = detail.paymodel){
+	        		return payment = item.dicName;
+	        	}
 
+	        })
+	        var paytypes;
+	        optionValues.payTypeList.map((item)=>{
+	        	if(item.id = detail.paytype){
+	        		return paytypes = item.dicName;
+	        	}
+
+	        })
+	        var paytypes;
+	        optionValues.payTypeList.map((item)=>{
+	        	if(item.id = detail.paytype){
+	        		return paytypes = item.dicName;
+	        	}
+
+	        })
+	       /*  var lessorContactName;
+	        optionValues.payTypeList.map((item)=>{
+	        	if(item.lessorContactid = detail.lessorContactid){
+	        		return lessorContactName = item.dicName;
+	        	}
+
+	        })*/
 
 	  return (
 
 		  <div>
-								<KrField name="leaseId"  grid={1/2} component="labelText" label="出租方" value={detail.leaseId} />
+								<KrField name="leaseId"  grid={1/2} component="labelText" label="出租方" value={leasorName} />
 
 								 <KrField grid={1/2}  name="lessorAddress"  component="labelText" label="地址" value={detail.lessorAddress}/> 
 
@@ -84,8 +117,8 @@ export default class ConfirmFormDetail  extends Component{
 										  <KrField grid={1/2}  name="leaseEndDate" component="labelText" value={detail.leaseEnddate} /> 
 								  </KrField>
 
-								<KrField name="paymodel"  grid={1/2} component="labelText" label="付款方式" value={detail.paymodel}/> 
-								<KrField name="paytype"  grid={1/2} component="labelText" label="支付方式" value={detail.paytype}/>
+								<KrField name="paymodel"  grid={1/2} component="labelText" label="付款方式" value={payment}/> 
+								<KrField name="paytype"  grid={1/2} component="labelText" label="支付方式" value={paytypes}/>
 
 							 <KrField grid={1/2}  name="signdate"  component="labelText" grid={1/2} label="签署时间"value={detail.signdate}/> 
 
