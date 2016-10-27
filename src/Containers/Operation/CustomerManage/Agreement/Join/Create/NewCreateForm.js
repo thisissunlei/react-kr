@@ -285,8 +285,13 @@ class NewCreateForm  extends Component{
 			//会议室
 			goalBoardroomNum:changeValues.boardroomnum,
 			selectedObjs:JSON.stringify(stationVos),
+			/*
 			startDate:"2016-10-19",
 			endDate:"2016-10-25"
+			*/
+			startDate:dateFormat(changeValues.leaseBegindate,"yyyy-mm-dd"),
+			endDate:dateFormat(changeValues.leaseEnddate,"yyyy-mm-dd")
+
 		};
 
 		if(Object.keys(params).length){
