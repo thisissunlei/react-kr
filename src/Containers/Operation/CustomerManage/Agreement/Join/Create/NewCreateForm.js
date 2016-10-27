@@ -482,27 +482,27 @@ class NewCreateForm  extends Component{
 		}
 
 		if (!values.lessorContactid) {
-			errors.lessorContactid = '请出租方联系人';
+			errors.lessorContactid = '请填写出租方联系人';
 		}
 
 		if (!values.lessorContacttel) {
-			errors.lessorContacttel = '请出租方联系电话';
+			errors.lessorContacttel = '请填写出租方联系电话';
 		}
 
 		if (!values.leaseContact) {
-			errors.leaseContact = '请承租方联系人';
+			errors.leaseContact = '请填写承租方联系人';
 		}
 
 		if (!values.leaseContacttel) {
-			errors.leaseContacttel = '请承租方联系人';
+			errors.leaseContacttel = '请填写承租方联系人';
 		}
 
 		if (!values.contractcode) {
-			errors.leaseContacttel = '请承租方联系人';
+			errors.leaseContacttel = '请填写承租方联系人';
 		}
 
 		if (!values.leaseAddress) {
-			errors.leaseAddress = '请承租方电话';
+			errors.leaseAddress = '请填写承租方电话';
 		}
 
 		if (!values.fileIdList) {
@@ -535,7 +535,6 @@ class NewCreateForm  extends Component{
 		if (!values.stationnum && !values.boardroomnum) {
 			errors.stationnum = '租赁项目必须填写一项';
 		}
-
 
 		return errors
 	}
