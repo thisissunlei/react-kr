@@ -84,7 +84,7 @@ export default class ConfirmFormDetail  extends Component{
 
 								 <KrField grid={1/2}   component="labelText" label="所属社区" value={optionValues.communityName} /> 
 
-								<KrField   grid={1/2} component="labelText" label="地址" value={detail.communityAddress}/>
+								<KrField   grid={1/2} component="labelText" label="地址" value={optionValues.communityAddress}/>
 								
 								<KrField name="paymodel"  grid={1/2} component="labelText" label="合同编号" value={detail.contractcode}/> 
 								 <KrField grid={1/2}    component="labelText" label="签署日期"  value={detail.signdate}/> 
