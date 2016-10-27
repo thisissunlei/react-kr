@@ -62,7 +62,7 @@ export default  class AdmitDetail extends Component {
 	 const orderBaseInfo = {};
 	 const contractList = [];
 	 function onCancel(){
-		location.href="/#/operation/customerManage/"+params.customerId+ "/order/"+params.orderId+"/detail"
+		location.href="/#/operation/customerManage/"+params.customerId+ "/order/"+params.orderId+"/detail";
 	}
 	const params = this.props.params;
 

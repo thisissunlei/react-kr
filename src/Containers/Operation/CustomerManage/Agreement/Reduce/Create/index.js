@@ -39,25 +39,23 @@ export default  class JoinCreate extends Component {
 			 formValues
 		 });
 
-		 var _this = this;
 
-		 setTimeout(function(){
-		 	_this.onConfrimSubmit();
-		 },500);
-		// this.openConfirmCreateDialog();
+		 // setTimeout(function(){
+		 // 	_this.onConfrimSubmit();
+		 // },500);
+		this.openConfirmCreateDialog();
 	 }
 
 	 onConfrimSubmit(){
 
 		let {formValues} = this.state;
-		console.log('ss');
-
+		let {params} = this.props;
 		Store.dispatch(Actions.callAPI('getFnaContractRentController',{},formValues)).then(function(){
 			Notify.show([{
 				message:'创建成功',
 				type: 'success',
 			}]);
-			location.href = "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/reduce/"+params.id+"/detail";
+			location.href = "/#/operation/customerManage/"+params.customerId+ "/order/"+params.orderId+"/detail";
 
 		}).catch(function(err){
 			Notify.show([{
@@ -153,7 +151,7 @@ export default  class JoinCreate extends Component {
 				autoScrollBodyContent={true}
 				autoDetectWindowHeight={true}
 				open={this.state.openConfirmCreate} >
-						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} />
+						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} optionValues={optionValues}/>
 			  </Dialog>
 		</div>
 	);

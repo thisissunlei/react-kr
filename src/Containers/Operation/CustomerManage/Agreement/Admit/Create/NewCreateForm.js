@@ -204,6 +204,8 @@ class NewCreateForm  extends Component{
 
 		form = Object.assign({},form);
 		let {stationVos} = this.state;
+		form.list = stationVos;
+		form.stationVos = JSON.stringify(stationVos);
 
 
 		let {billList} = this.state;
@@ -214,9 +216,15 @@ class NewCreateForm  extends Component{
 
 		var _this = this;
 
-		form.stationVos =  stationVos;
+		// form.stationVos =  stationVos;
+		if(!stationVos.length){
+			Notify.show([{
+				message:'请选择工位',
+				type: 'danger',
+			}]);
+		}
 
-		form.stationVos = JSON.stringify(form.stationVos);
+		// form.stationVos = JSON.stringify(form.stationVos);
 
 		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd hh:MM:ss");
 		form.leaseBegindate = dateFormat(form.leaseBegindate,"yyyy-mm-dd hh:MM:ss");
@@ -338,6 +346,7 @@ class NewCreateForm  extends Component{
 
 	onChangeSearchPersonel(personel){
 		Store.dispatch(change('admitCreateForm','lessorContacttel',personel.mobile));
+		Store.dispatch(change('admitCreateForm','lessorContactName',personel.lastname));
 	}
 	render(){
 		let { error, handleSubmit, pristine, reset, submitting,initialValues,changeValues,optionValues} = this.props;
@@ -407,7 +416,7 @@ class NewCreateForm  extends Component{
 									</Menu>
 					        }> 
 
-							<Table  displayCheckbox={false}>
+							<Table>
 									<TableHeader>
 											<TableHeaderColumn>类别</TableHeaderColumn>
 											<TableHeaderColumn>编号／名称</TableHeaderColumn>
