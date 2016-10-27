@@ -46,6 +46,7 @@ export default  class JoinCreate extends Component {
 	 onConfrimSubmit(){
 
 		let {formValues} = this.state;
+		let {params} = this.props;
 		console.log('ss');
 
 		Store.dispatch(Actions.callAPI('addOrEditContinueContract',{},formValues)).then(function(response){

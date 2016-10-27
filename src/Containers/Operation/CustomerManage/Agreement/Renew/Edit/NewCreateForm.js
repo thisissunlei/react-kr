@@ -369,7 +369,10 @@ class NewCreateForm  extends Component{
 
 					<Dialog
 						title="分配工位"
-						open={this.state.openStation} >
+						open={this.state.openStation} 
+						modal={true}
+						autoScrollBodyContent={true}
+						autoDetectWindowHeight={true}>
 								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel}/>
 					  </Dialog>
 

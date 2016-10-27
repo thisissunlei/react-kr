@@ -131,9 +131,8 @@ export default class ConfirmFormDetail  extends Component{
 											<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
 									</TableHeader>
 									<TableBody>
-													{/*
 													
-										{detail.billList.map((item,index)=>{
+										{detail.list.map((item,index)=>{
 											return (
 												<TableRow key={index}>
 													<TableRowColumn>{item.stationType}</TableRowColumn>
@@ -144,7 +143,6 @@ export default class ConfirmFormDetail  extends Component{
 												</TableRow>
 											);
 										})}
-													*/}
 								   </TableBody>
 							 </Table>
 

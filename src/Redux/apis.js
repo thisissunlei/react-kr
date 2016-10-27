@@ -7,7 +7,7 @@ const APIS  = {
 	},
 	//合同－工位信息
 	'getStationOrSettingList':{
-		url:'/api/krspace-finance-web/finacontractdetail/contract-detail-station?mainbillId={mainbillid}&page={page}&pageSize={pagesize}',
+		url:'/api/krspace-finance-web/finacontractdetail/contract-detail-station?mainBillId={mainBillid}&page={page}&pageSize={pageSize}',
 		method:'get'
 	},
 	//退租协议-新增-编辑
