@@ -500,14 +500,6 @@ class NewCreateForm  extends Component{
 			errors.leaseContact = '请填写承租方联系人';
 		}
 
-		if (!values.leaseContacttel) {
-			errors.leaseContacttel = '请填写承租方联系人';
-		}
-
-		if (!values.contractcode) {
-			errors.leaseContacttel = '请填写承租方联系人';
-		}
-
 		if (!values.leaseAddress) {
 			errors.leaseAddress = '请填写承租方电话';
 		}
