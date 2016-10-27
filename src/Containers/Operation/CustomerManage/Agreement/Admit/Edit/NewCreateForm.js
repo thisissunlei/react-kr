@@ -77,6 +77,7 @@ class NewCreateForm  extends Component{
 		this.onChangeLeaseBeginDate = this.onChangeLeaseBeginDate.bind(this);
 		this.onChangeLeaseEndDate = this.onChangeLeaseEndDate.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
+		this.calcStationNum = this.calcStationNum.bind(this);
 		console.log('------props',props);
 		this.state = {
 			stationVos:this.props.stationVos,
@@ -85,6 +86,23 @@ class NewCreateForm  extends Component{
 			openStationUnitPrice:false,
 		}
 		console.log(this.props);
+	}
+	calcStationNum(){
+		let {stationVos} = this.state;
+
+		var stationnum = 0;
+		var boardroomnum = 0;
+
+		stationVos.forEach(function(item,index){
+			if(item.stationType == 1){
+				stationnum++;
+			}else{
+				boardroomnum++;
+			}
+		});
+
+		Store.dispatch(change('admitCreateForm','stationnum',stationnum));
+		Store.dispatch(change('admitCreateForm','boardroomnum',boardroomnum));
 	}
 
 	onStationVosChange(index,value){
@@ -158,8 +176,7 @@ class NewCreateForm  extends Component{
 	//删除工位
 	onStationDelete(){
 
-		let {stationVos} = this.props;
-		let {selectedStation} = this.state;
+		let {selectedStation, stationVos} = this.state;
 		stationVos = stationVos.filter(function(item,index){
 			if(selectedStation.indexOf(index) != -1){
 			return false;
@@ -168,6 +185,8 @@ class NewCreateForm  extends Component{
 		});
 		this.setState({
 			stationVos
+		},function(){
+			this.calcStationNum();
 		});
 	}
 
@@ -305,7 +324,7 @@ class NewCreateForm  extends Component{
 
 		this.openStationDialog();
 
-		console.log('data',billList);
+		console.log('billList',billList);
 
 		if(!billList){
 			return ;
@@ -326,14 +345,14 @@ class NewCreateForm  extends Component{
 					item.unitprice = '';
 					item.whereFloor =  item.wherefloor;
 			});
-			
 		}catch(err){
 			console.log('billList 租赁明细工位列表为空');
 		}
 
-		this.setState({
-			stationVos:billList
-		});
+		console.log('---->>>',stationVos);
+		this.setState({stationVos:billList},function(){
+			this.calcStationNum();
+		}); 
 
 	}
 	onChangeSearchPersonel(personel){
@@ -388,10 +407,10 @@ class NewCreateForm  extends Component{
 
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号" requireLabel={true} /> 
 				<KrField grid={1/2}  name="signdate"  component="date" label="签署日期"  /> 
-				<KrField grid={1/1} component="group" label=" 租赁项目"> 
-					<KrField grid={1}  name="stationnum" type="text" component="input" label="工位" /> 
-					<KrField grid={1}  name="boardroomnum" type="text" component="input" label="会议室" /> 
-				</KrField>
+				<KrField grid={1/1} component="group" label="租赁项目" requireLabel={true}> 
+								<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} /> 
+								<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.station} /> 
+							</KrField>
 				<KrField grid={1/1}  component="group" label="租赁期限" requireLabel={true}> 
 					<KrField grid={1/2}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate}/> 
 					<KrField grid={1/2}  name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} /> 

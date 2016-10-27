@@ -79,6 +79,7 @@ class NewCreateForm  extends Component{
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 		this.onChangeLeaseBeginDate = this.onChangeLeaseBeginDate.bind(this);
 		this.onChangeLeaseEndDate = this.onChangeLeaseEndDate.bind(this);
+		this.calcStationNum = this.calcStationNum.bind(this);
 		this.state = {
 			stationVos:[],
 			selectedStation:[],
@@ -127,17 +128,18 @@ class NewCreateForm  extends Component{
 
 		let {selectedStation,stationVos} = this.state;
 		stationVos = stationVos.filter(function(item,index){
-
 			if(selectedStation.indexOf(index) != -1){
 				return false;
 			}
 			return true;
 		});
+		console.log('delete', selectedStation,stationVos);
 		this.setState({
-			stationVos
+			stationVos,
+		},function(){
+			this.calcStationNum();
 		});
 	}
-
 	onStationSelect(selectedStation){
 		this.setState({
 			selectedStation
@@ -232,6 +234,23 @@ class NewCreateForm  extends Component{
 		console.log(form,'form');
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
+	}
+	calcStationNum(){
+		let {stationVos} = this.state;
+
+		var stationnum = 0;
+		var boardroomnum = 0;
+
+		stationVos.forEach(function(item,index){
+			if(item.stationType == 1){
+				stationnum++;
+			}else{
+				boardroomnum++;
+			}
+		});
+
+		Store.dispatch(change('admitCreateForm','stationnum',stationnum));
+		Store.dispatch(change('admitCreateForm','boardroomnum',boardroomnum));
 	}
 
 	onCancel(){
@@ -338,9 +357,9 @@ class NewCreateForm  extends Component{
 		}
 
 		console.log('---->>>',stationVos);
-		this.setState({
-			stationVos:billList
-		});
+		this.setState({stationVos:billList},function(){
+			this.calcStationNum();
+		}); 
 
 	}
 
@@ -360,6 +379,7 @@ class NewCreateForm  extends Component{
 		});
 
 		let {billList,stationVos} = this.state;
+		console.log('changeValues', changeValues);
 
 		return (
 
@@ -400,10 +420,10 @@ class NewCreateForm  extends Component{
 
 								
 							
-							 <KrField grid={1} name="" component="labelText" label=" 租赁项目"  /> 
-							 <KrField grid={1}  name="stationnum" type="text" component="input" label="工位" /> 
-							 <KrField grid={1}  name="boardroomnum" type="text" component="input" label="会议室" /> 
-
+							 <KrField grid={1/1} component="group" label="租赁项目" requireLabel={true}> 
+								<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} /> 
+								<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.station} /> 
+							</KrField>
 							
 							 <KrField grid={1}  name="contractmark" type="textarea" component="textarea" label="备注" /> 
 							 <KrField grid={1}  name="fileIdList" component="file" label="上传附件" requireLabel={true}/> 
@@ -416,7 +436,7 @@ class NewCreateForm  extends Component{
 									</Menu>
 					        }> 
 
-							<Table>
+							<Table onSelect={this.onStationSelect}>
 									<TableHeader>
 											<TableHeaderColumn>类别</TableHeaderColumn>
 											<TableHeaderColumn>编号／名称</TableHeaderColumn>
