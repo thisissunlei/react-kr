@@ -81,7 +81,7 @@ class SelectStationForm  extends Component{
     //let {params} = this.props;
     let params = {};
     params.orderId = 3;
-		Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainbillid:params.orderId})).then(function(response){
+		Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainbillid:params.orderId,page:1,pagesize:100})).then(function(response){
       _this.setState({
         stationVos:response
       });
