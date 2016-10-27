@@ -417,17 +417,13 @@ class NewCreateForm  extends Component{
 				</KrField>
                                   <KrField name="templockday"  grid={1/2} component="input" type="text" label="保留天数" requireLabel={true}/> 
 
+							 <KrField grid={1}  name="contractmark" type="textarea" component="textarea" label="备注" /> 
+							 <KrField grid={1}  name="fileIdList" component="file" label="上传附件" requireLabel={true}/> 
 
-								
-							
 							 <KrField grid={1/1} component="group" label="租赁项目" requireLabel={true}> 
 								<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} /> 
 								<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.station} /> 
 							</KrField>
-							
-							 <KrField grid={1}  name="contractmark" type="textarea" component="textarea" label="备注" /> 
-							 <KrField grid={1}  name="fileIdList" component="file" label="上传附件" requireLabel={true}/> 
-
 
 					    <Section title="租赁明细" description="" rightMenu = {
 									<Menu>
