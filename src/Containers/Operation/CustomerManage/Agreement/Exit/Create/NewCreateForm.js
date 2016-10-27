@@ -228,9 +228,7 @@ const validate = values =>{
 		if (!values.leaseContacttel) {
 			errors.leaseContacttel = '请填写承租方联系电话';
 		}
-		if (!values.leaseContacttel) {
-			errors.leaseContacttel = '请填写承租方联系电话';
-		}
+		
 		if (!values.contractcode) {
 			errors.contractcode = '请填写合同编号';
 		}
