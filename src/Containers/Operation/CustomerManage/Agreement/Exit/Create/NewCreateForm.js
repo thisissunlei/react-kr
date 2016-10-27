@@ -157,7 +157,7 @@ class NewCreateForm  extends Component{
 
 			<div>
 
-<form onSubmit={handleSubmit(this.onSubmit)} >
+<form onSubmit={handleSubmit(this.onSubmit)} enctype="multipart/form-data">
 
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
@@ -202,11 +202,67 @@ class NewCreateForm  extends Component{
 			</div>);
 	}
 }
+const validate = values =>{
 
+		const errors = {}
+
+		if(!values.leaseId){
+			errors.leaseId = '请填写出租方';
+		}
+
+		if (!values.lessorContactid) {
+			errors.lessorContactid = '请填写出租方联系人';
+		}
+
+		if (!values.lessorContacttel) {
+			errors.lessorContacttel = '请填写出租方联系电话';
+		}
+		if (!values.leaseAddress) {
+			errors.leaseAddress = '请填写承租方地址';
+		}
+
+		if (!values.leaseContact) {
+			errors.leaseContact = '请填写承租方联系人';
+		}
+
+		if (!values.leaseContacttel) {
+			errors.leaseContacttel = '请填写承租方联系电话';
+		}
+		if (!values.leaseContacttel) {
+			errors.leaseContacttel = '请填写承租方联系电话';
+		}
+		if (!values.contractcode) {
+			errors.contractcode = '请填写合同编号';
+		}
+
+		if (!values.totalreturn) {
+			errors.totalreturn = '请填写退租金总额';
+		}
+
+		if (!values.depositamount) {
+			errors.depositamount = '请填写退押金总额';
+		}
+
+		if (!values.withdrawdate) {
+			errors.withdrawdate = '请填写撤场日期';
+		}
+
+		if (!values.signdate) {
+			errors.signdate = '请填写签署时间';
+		}
+
+		if (!values.fileIdList) {
+			errors.fileIdList = '请填写合同附件';
+		}
+
+		
+
+		return errors
+	}
 
 const selector = formValueSelector('joinCreateForm');
 
-NewCreateForm = reduxForm({ form: 'joinCreateForm',enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
+NewCreateForm = reduxForm({ form: 'joinCreateForm',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
 
 export default connect((state)=>{
 
