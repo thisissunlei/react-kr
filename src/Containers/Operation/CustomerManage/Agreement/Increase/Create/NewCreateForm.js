@@ -239,6 +239,13 @@ class NewCreateForm  extends Component{
 
 
 		let {stationVos} = this.state;
+		if(!stationVos.length){
+			Notify.show([{
+				message:'请选择工位',
+				type: 'danger',
+			}]);
+			return ;
+		}
 
 
 		let {billList} = this.state;
@@ -400,9 +407,9 @@ class NewCreateForm  extends Component{
 				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true} />
 				<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} requireLabel={true} />
 
-				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" defaultValue={initialValues.signdate} requireLabel={true} />
+				<KrField grid={1/2}  name="signdate"  component="date" grid={1/1} label="签署时间" defaultValue={initialValues.signdate} requireLabel={true} />
+				<KrField grid={1/2}  name="firstpaydate"  component="date" grid={1/1} label="首付款时间" requireLabel={true} />
 
-				<KrField name="firstpaydate" component="date" label="首付款时间"   requireLabel={true} />
 				<KrField grid={1/1} component="group" label=" 租赁项目">
 					<KrField grid={1}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} />
 					<KrField grid={1}  name="boardroomnum" type="text" type="text" component="labelText" label="会议室" value={changeValues.station}/>
