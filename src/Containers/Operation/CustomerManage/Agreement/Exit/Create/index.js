@@ -79,7 +79,7 @@ export default  class JoinCreate extends Component {
 		let optionValues = {};
 
 		Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
-
+			console.log('response----',response)
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid =  params.orderId;
 
@@ -98,16 +98,7 @@ export default  class JoinCreate extends Component {
 				item.label = item.corporationName;
 				return item;
 			});
-			optionValues.paymentList = response.payment.map(function(item,index){
-				item.value = item.id;
-				item.label = item.dicName;
-				return item;
-			});
-			optionValues.payTypeList = response.payType.map(function(item,index){
-				item.value = item.id;
-				item.label = item.dicName;
-				return item;
-			});
+		
 
 			optionValues.floorList = response.customer.floor;
 			optionValues.customerName = response.customer.customerName;
@@ -150,7 +141,7 @@ export default  class JoinCreate extends Component {
 				autoScrollBodyContent={true}
 				autoDetectWindowHeight={true}
 				open={this.state.openConfirmCreate} >
-						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} />
+						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} optionValues={optionValues}/>
 			  </Dialog>
 		</div>
 	);
