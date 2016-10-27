@@ -34,7 +34,7 @@ export default  class JoinCreate extends Component {
 
 		let {params} = this.props;
 
-		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(){
+		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
 			Notify.show([{
 				message:'更新成功',
 				type: 'danger',
