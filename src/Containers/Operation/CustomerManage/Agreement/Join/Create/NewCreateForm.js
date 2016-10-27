@@ -485,8 +485,16 @@ class NewCreateForm  extends Component{
 			errors.lessorContactid = '请填写出租方联系人';
 		}
 
+		if (!values.wherefloor) {
+			errors.wherefloor = '请填写';
+		}
+
 		if (!values.lessorContacttel) {
 			errors.lessorContacttel = '请填写出租方联系电话';
+		}
+
+		if (!values.contractcode) {
+			errors.contractcode = '请填写合同编号';
 		}
 
 		if (!values.leaseContact) {
