@@ -540,8 +540,16 @@ class NewCreateForm  extends Component{
 			errors.signdate = '请填写签署时间';
 		}
 
+		if (!values.leaseBegindate) {
+			errors.leaseBegindate = '请填写租赁开始时间';
+		}
+
+		if (!values.leaseEnddate) {
+			errors.leaseBegindate = '请填写租赁结束时间';
+		}
+
 		if (!values.stationnum && !values.boardroomnum) {
-			errors.stationnum = '租赁项目必须填写一项';
+			errors.leaseBegindate = '租赁项目必须填写一项';
 		}
 
 		return errors
@@ -559,8 +567,8 @@ class NewCreateForm  extends Component{
 		changeValues.leaseId = selector(state,'leaseId');
 		changeValues.stationnum = selector(state,'stationnum') || 0;
 		changeValues.boardroomnum = selector(state,'boardroomnum') || 0;
-		changeValues.leaseBegindate = selector(state,'leaseBegindate') || 0;
-		changeValues.leaseEnddate = selector(state,'leaseEnddate') || 0;
+		changeValues.leaseBegindate = selector(state,'leaseBegindate');
+		changeValues.leaseEnddate = selector(state,'leaseEnddate');
 		changeValues.wherefloor = selector(state,'wherefloor') || 0;
 
 		return {

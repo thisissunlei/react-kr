@@ -320,6 +320,7 @@ class NewCreateForm  extends Component{
 		}
 		var _this = this;
 		let {changeValues} = this.props;
+		console.log('----',changeValues);
 		let {stationVos} = this.state;
 		try{
 			billList.map(function(item,index){
@@ -561,9 +562,19 @@ class NewCreateForm  extends Component{
 			errors.paytype = '请填写支付方式';
 		}
 
+
 		if (!values.signdate) {
 			errors.signdate = '请填写签署时间';
 		}
+
+		if (!values.leaseBegindatesigndate) {
+			errors.signleaseBegindatedate = '请填写签署时间';
+		}
+
+				<KrField gleaseBegindaterid={1/1}  component="group" label="租赁期限" requireLabel={true}> 
+					<KrField leaseBegindategrid={1/2}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate}/> 
+					<KrField grid={1/2}  name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} /> 
+				</KrField>
 
 		if (!values.stationnum && !values.boardroomnum) {
 			errors.stationnum = '租赁项目必须填写一项';
@@ -584,9 +595,9 @@ export default connect((state)=>{
 	changeValues.leaseId = selector(state,'leaseId');
 	changeValues.stationnum = selector(state,'stationnum') || 0;
 	changeValues.boardroomnum = selector(state,'boardroomnum') || 0;
-	changeValues.leaseBegindate = selector(state,'leaseBegindate') || 0;
-	changeValues.leaseEnddate = selector(state,'leaseEnddate') || 0;
-	changeValues.wherefloor = selector(state,'wherefloor') || 0;
+	changeValues.leaseBegindate = selector(state,'leaseBegindate');
+	changeValues.leaseEnddate = selector(state,'leaseEnddate');
+	changeValues.wherefloor = selector(state,'wherefloor');
 
 
 	return {
