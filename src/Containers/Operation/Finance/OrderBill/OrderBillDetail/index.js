@@ -51,14 +51,21 @@ class ViewForm extends Component{
 	}
 	render(){
 		let items=this.props.detail
+	    if(!items.fileList){
+	    	items.fileList=[]
+	    }
 		return(
 				<div>					
 					<KrField grid={1}  component="labelText" label="代码名称" value={items.accountName}/> 
 					<KrField grid={1}  component="labelText" label="付款日期" value={items.occuryear}/> 
 					<KrField grid={1}  component="labelText" label="交易编号" value={items.accountName}/> 
 					<KrField grid={1}  component="labelText" label="金额（元）" value={items.finaflowAmount}/> 
-					<KrField grid={1}  component="labelText" label="备注" value={items.finaflowdesc}/> 
-					<KrField grid={1}  component="labelText" label="上传附件" value={items.accountName}/>
+					<KrField grid={1}  component="labelText" label="备注" value={items.finaflowdesc}/>
+					<KrField grid={1}  component="group" label="上传附件"> 
+			         {items.fileList.map((item,index)=>						
+						  <KrField key={index} grid={1/3} component="labelText" value={item.fileName}/>						 
+					  )}
+					</KrField>   
 				</div>	
 
 
@@ -635,7 +642,8 @@ export default class AttributeSetting  extends Component{
 							<Col md={2} >
 								<SearchParam onSearch={this.onSearch} params={this.state.params} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance} />
 							</Col>
-							<Col md={10}>
+							<Col md={1}></Col>
+							<Col md={9}>
 							     <div>
 							        {buttonArr}     							       
 							        <Button label="高级查询"  type="button"  onTouchTap={this.openSearchDialog}/>

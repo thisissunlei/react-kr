@@ -103,8 +103,7 @@ class ReceivedBtnForm extends Component{
 						      <KrField label="定金" name='dinjin' component="input" type="text"/>
 						      <KrField label="押金" name='yajin' component="input" type="text"/>
 						      <KrField label="租金" name='gongweihuikuan'  component="input" type="text"/>
-						      <KrField label="其他" name='qitahuikuan'  component="input" type="text"/>
-                              
+						      <KrField label="其他" name='qitahuikuan'  component="input" type="text"/>                              
 						    </div>}
 
                             <KrField name="sumSign" component="group" label="金额正负" >
