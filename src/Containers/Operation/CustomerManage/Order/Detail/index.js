@@ -282,7 +282,7 @@ class OrderDetail extends Component {
 				</Grid>
 
 			       
-            <Table pageSize={contractList.length}>
+            <Table pageSize={contractList.length} displayCheckbox={false}>
 					<TableHeader>
 							<TableHeaderColumn>合同编号</TableHeaderColumn>
 							<TableHeaderColumn>合同类型</TableHeaderColumn>

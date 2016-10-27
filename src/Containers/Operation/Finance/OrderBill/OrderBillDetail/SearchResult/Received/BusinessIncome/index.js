@@ -92,10 +92,10 @@ export default class Basic extends Component{
 
 			Params:{
                 orderId:this.props.params.orderId,
+                propertyId:this.props.params.id,
 				accountType:'PAYMENT',
 				page:1,
-				pageSize:20,
-				propertyId:this.props.params.id
+				pageSize:20				
 	         }
 			
 			
@@ -216,20 +216,17 @@ export default class Basic extends Component{
 
 		let {params,type,handleSubmit} = this.props;
 
-		
-		
 		if(params.childType != type){
 			return  null;
 		}
 		
-		
-       
+	       let initialValues = {
+				mainbillid:params.orderId,
+			}
+	    
+	   
 
-       let initialValues = {
-			mainbillid:params.orderId,
-		}
-	 
-	  console.log("aaax7777",this.state.Params)
+	  
 
        const close=[
         <Button
@@ -303,7 +300,7 @@ export default class Basic extends Component{
 						<ViewForm detail={this.state.itemDetail} onCancel={this.openViewDialog} />
 					 </Dialog>   
 
-                  
+                    
 
 			</div>		
 

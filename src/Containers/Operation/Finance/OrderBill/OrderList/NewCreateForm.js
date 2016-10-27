@@ -37,8 +37,12 @@ import {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('getFinaDataCommunityAndMainBillType')).then(function(response){
 			//console.log("88888",response.communityAndMainBillTypeMap)
-			const communityList=response.communityAndMainBillTypeMap.communityList
-			const mainbilltypeList=response.communityAndMainBillTypeMap.mainbilltypeList
+			
+			const communityList=response.communityList
+			const mainbilltypeList=response.mainbilltypeList
+
+			
+
 			communityList.map(function(item,index){
 				 item.label = item.communityname;
 				 item.value=item.id
@@ -90,7 +94,10 @@ import {
 	 }
 
 	render(){
-        //console.log(",,,,,,",this.state.mainbilltypeList)
+
+
+        
+       
 		const { error, handleSubmit, pristine, reset} = this.props;
 
 		return (
