@@ -70,7 +70,7 @@ class NewCreateForm  extends Component{
 
 	componentDidMount(){
 		let {initialValues}= this.props;
-		Store.dispatch(initialize('joinCreateForm',initialValues));
+		Store.dispatch(initialize('exitCreateForm',initialValues));
 	}
 	
 
@@ -134,8 +134,8 @@ class NewCreateForm  extends Component{
 
 	onChangeSearchPersonel(personel){
 		console.log('personel',personel)
-		Store.dispatch(change('joinCreateForm','lessorContacttel',personel.mobile));
-		Store.dispatch(change('joinCreateForm','lessorContactName',personel.lastname));
+		Store.dispatch(change('exitCreateForm','lessorContacttel',personel.mobile));
+		Store.dispatch(change('exitCreateForm','lessorContactName',personel.lastname));
 	}
 
 
@@ -258,9 +258,9 @@ const validate = values =>{
 		return errors
 	}
 
-const selector = formValueSelector('joinCreateForm');
+const selector = formValueSelector('exitCreateForm');
 
-NewCreateForm = reduxForm({ form: 'joinCreateForm',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
+NewCreateForm = reduxForm({ form: 'exitCreateForm',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
 
 export default connect((state)=>{
 

@@ -263,6 +263,8 @@ class NewCreateForm  extends Component{
 		form.list = stationVos;
 		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
+		form.leaseBegindate = stationVos[0].leaseBeginDate;
+		form.leaseEnddate = stationVos[0].leaseEndDate;
 		// form.lessorContactid = 111;
 		form.rentamount= this.state.rentamount;
 		var _this = this;
@@ -302,7 +304,8 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
-
+				<KrField grid={1/2}  name="leaseEnddate" type="hidden" component="input" />
+				<KrField grid={1/2}  name="leaseBegindate" type="hidden" component="input" />
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true} />
 				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/>
 				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}/>
