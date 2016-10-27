@@ -46,7 +46,7 @@ export default class DateComponent extends React.Component{
 		});
 
 		this.isInit = true;
-		input.onChange(value);
+		input.onChange(this.formatDate(value));
 	}
 
 	componentDidMount(){
