@@ -31,6 +31,9 @@ import SearchForm from './SearchForm';
 import ReceivedBtnForm from './ReceivedBtnForm';
 import QuitBtnForm from './QuitBtnForm';
 import SwitchBtnForm from './SwitchBtnForm';
+import BusinessBtnForm from './BusinessBtnForm';
+import AccountBtnForm from './AccountBtnForm';
+import SupplementBtnForm from './SupplementBtnForm';
 
 //代码列表
 var codeList=[];
@@ -38,6 +41,30 @@ var codeList=[];
 var typeList=[];
 //回款的代码列表,合同的合同编号
 var receivedList=[];
+//获取单条的金额
+var fiMoney='';
+//得到单条数据
+var fiItem={};
+class ViewForm extends Component{
+	constructor(props,context){
+		super(props,context);
+	}
+	render(){
+		let items=this.props.detail
+		return(
+				<div>					
+					<KrField grid={1}  component="labelText" label="代码名称" value={items.accountName}/> 
+					<KrField grid={1}  component="labelText" label="付款日期" value={items.occuryear}/> 
+					<KrField grid={1}  component="labelText" label="交易编号" value={items.accountName}/> 
+					<KrField grid={1}  component="labelText" label="金额（元）" value={items.finaflowAmount}/> 
+					<KrField grid={1}  component="labelText" label="备注" value={items.finaflowdesc}/> 
+					<KrField grid={1}  component="labelText" label="上传附件" value={items.accountName}/>
+				</div>	
+
+
+			);
+	 }
+}
 export default class AttributeSetting  extends Component{ 
 
 	constructor(props,context){
@@ -47,6 +74,10 @@ export default class AttributeSetting  extends Component{
 		this.onAddReceivedSubmit=this.onAddReceivedSubmit.bind(this);
 		this.onQuitSubmit=this.onQuitSubmit.bind(this);
 		this.onSwitchSubmit=this.onSwitchSubmit.bind(this);
+		this.onBusinessSubmit=this.onBusinessSubmit.bind(this);
+		this.onConfrimSubmit=this.onConfrimSubmit.bind(this);
+		this.onSupplementSubmit=this.onSupplementSubmit.bind(this);
+		this.onOperation=this.onOperation.bind(this);
 		this.onLoaded = this.onLoaded.bind(this);
 		this.onSelect = this.onSelect.bind(this);
 		
@@ -55,10 +86,17 @@ export default class AttributeSetting  extends Component{
 		this.openReceivedBtn=this.openReceivedBtn.bind(this);
 		this.openQuitBtn=this.openQuitBtn.bind(this);
 		this.openSwitchBtn=this.openSwitchBtn.bind(this);
+		this.openBusinessBtn=this.openBusinessBtn.bind(this);
+		this.openAccountBtn=this.openAccountBtn.bind(this);
+		this.openSupplementBtn=this.openSupplementBtn.bind(this);
+		this.openViewDialog=this.openViewDialog.bind(this);
 
 		this.closeSearchDialog=this.closeSearchDialog.bind(this);
 		this.closeReceivedDialog=this.closeReceivedDialog.bind(this);
 		this.closeSwitchBtn=this.closeSwitchBtn.bind(this);
+		this.closeQuitBtn=this.closeQuitBtn.bind(this);
+		this.closeBusinessBtn=this.closeBusinessBtn.bind(this);
+		this.closeAddaccount=this.closeAddaccount.bind(this);
 
 		this.initBasicInfo = this.initBasicInfo.bind(this);
 		this.searchUpperFun=this.searchUpperFun.bind(this);
@@ -72,6 +110,7 @@ export default class AttributeSetting  extends Component{
 				page:1,
 				pageSize:20
 			 },
+			 itemDetail:{},
 			//为了判断和获取选中的条的id
 			fiMoney:'',
 			fiItem:'',
@@ -94,7 +133,11 @@ export default class AttributeSetting  extends Component{
 			openReceivedBtn:false,
             openQuitBtn:false,
             openSwitchBtn:false,
+            openBusinessBtn:false,
+            openAddaccountBtn:false,
+            openSupplementBtn:false,
             isLoading:false,
+            openView:false
 
 		}
 	}
@@ -135,18 +178,17 @@ export default class AttributeSetting  extends Component{
     	 let items=this.state.selectedList
          var _this=this;          
            items.map(function(item,index){
-             if(typeof(item.finaflowAmount)=='number'){
-             	_this.setState({
-			       fiMoney:item.finaflowAmount,
-			       fiItem:item
-	             })                   
+             if(typeof(item.finaflowAmount)=='number'){             	
+			       fiMoney=item.finaflowAmount;
+			       fiItem=item;			       	                            
               }
            })
            if(this.state.listValues.length==0){
            	 alert('请选择一条回款数据进行退款');
            }else if(this.state.listValues.length>1){
            	  alert('只能选择一条数据');
-           }else if(_this.state.fiMoney>=0){
+           }else if(fiMoney>=0){
+           	  
               alert('金额必须为负且存在可用金额');
            }else{
            	 this.setState({
@@ -160,17 +202,16 @@ export default class AttributeSetting  extends Component{
         var _this=this;          
            items.map(function(item,index){
              if(typeof(item.finaflowAmount)=='number'){
-             	_this.setState({
-			       fiMoney:item.finaflowAmount,
-			       fiItem:item
-	             })                   
+             	  fiMoney=item.finaflowAmount;
+             	  fiItem=item;		              
               }
            })
            if(this.state.listValues.length==0){
-           	 alert('请选择一条回款数据进行退款');
+           	 alert('请选择一条回款数据进行转押金');
            }else if(this.state.listValues.length>1){
            	  alert('只能选择一条数据');
-           }else if(_this.state.fiMoney>=0){
+           }else if(fiMoney>=0){
+           	 
               alert('金额必须为负且存在可用金额');
            }else{
            	 this.setState({
@@ -179,7 +220,7 @@ export default class AttributeSetting  extends Component{
             
            
 	       Store.dispatch(Actions.callAPI('findContractListById',{
-	       	  id:_this.state.fiItem.id
+	       	  id:fiItem.id
 	       })).then(function(response){ 
                response.map(function(item,index){ 
  		      	 var list ={}
@@ -198,9 +239,63 @@ export default class AttributeSetting  extends Component{
 		  });
          }     
       }
-   
+   openBusinessBtn(){
+   	 let items=this.state.selectedList
+         var _this=this;          
+           items.map(function(item,index){
+             if(typeof(item.finaflowAmount)=='number'){
+             	  fiMoney=item.finaflowAmount;
+             	  fiItem=item;		                
+              }
+           })
+           if(this.state.listValues.length==0){
+           	 alert('请选择一条回款数据进行转营收');
+           }else if(this.state.listValues.length>1){
+           	  alert('只能选择一条数据');
+           }else if(fiMoney>=0){
+              alert('金额必须为负且存在可用金额');
+           }else{
+           	 this.setState({
+			    openBusinessBtn:!this.state.openBusinessBtn	
+	         }); 
+            }
+   }
 
-
+    openAccountBtn(){
+     var _this = this;
+	      Store.dispatch(Actions.callAPI('findAccountList',{
+	      	accountType:'INCOME'
+	      })).then(function(response){             	         
+ 		      response.map(function(item,index){ 
+ 		      	 var list ={}
+ 		      	 list.value=item.id;
+ 		      	 list.label=item.accountname;
+ 		      	 receivedList.push(list);		      	 	      	                                            
+              })
+ 		        _this.setState({
+			      receivedList:receivedList
+		       });             		   
+ 		}).catch(function(err){
+			Notify.show([{
+				message:message,
+				type: 'danger',
+			}]);
+		 });
+		this.setState({
+			openAddaccountBtn:!this.state.openAddaccountBtn
+		})
+    }
+    openSupplementBtn(){
+       this.setState({
+			openSupplementBtn:!this.state.openSupplementBtn
+		})
+    }
+    openViewDialog(){
+		this.setState({
+			openView:!this.state.openView
+		});
+	}
+    
      //关闭遮罩层区域  
     closeReceivedDialog(){
    	  this.setState({
@@ -223,6 +318,23 @@ export default class AttributeSetting  extends Component{
 		});	 
 		receivedList=[]; 
     }
+    closeBusinessBtn(){
+    	this.setState({	    
+			openBusinessBtn:!this.state.openBusinessBtn,
+		});	  
+    }
+    closeQuitBtn(){
+    	this.setState({	    
+			openQuitBtn:!this.state.openQuitBtn,
+		});	 
+    }
+    closeAddaccount(){
+       this.setState({
+			openAddaccountBtn:!this.state.openAddaccountBtn
+		})
+
+		receivedList=[];
+	}
 
 //确定提交区域
     //切换
@@ -305,6 +417,69 @@ export default class AttributeSetting  extends Component{
 		});	 
 		receivedList=[]; 
     }
+    onBusinessSubmit(params){ 	  
+		  var _this = this;
+	      Store.dispatch(Actions.callAPI('transToOperateIncome',{},params)).then(function(response){ 
+ 		  }).catch(function(err){
+			Notify.show([{
+				message:'报错了',
+				type: 'danger',
+			}]);
+		 });
+
+	    _this.setState({
+			openBusinessBtn:!this.state.openBusinessBtn,
+			isLoading:true
+		});	  
+    }
+    onConfrimSubmit(formValues){
+		Store.dispatch(Actions.callAPI('supplementIncome',{},formValues)).then(function(){
+			Notify.show([{
+				message:'创建成功',
+				type: 'danger',
+			}]);
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+	   	});
+		this.setState({
+			openAddaccountBtn:!this.state.openAddaccountBtn,
+			isLoading:true
+		})
+		receivedList=[];
+	}
+	onSupplementSubmit(){
+		var _this=this;
+		Store.dispatch(Actions.callAPI('addIncome',{
+			mainbillid:_this.props.params.orderId
+		})).then(function(response){
+			Notify.show([{
+				message:'操作成功',
+				type: 'success',
+			}]);
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+	   	});
+		_this.setState({
+			openSupplementBtn:!this.state.openSupplementBtn,
+			isLoading:true
+		})
+	}
+    //操作相关
+	onOperation(type,itemDetail){
+		this.setState({
+			itemDetail
+		});
+		if(type == 'view'){
+			this.openViewDialog();
+		}
+	}
+
     //
 	initBasicInfo(){
 		var _this = this;
@@ -363,7 +538,7 @@ export default class AttributeSetting  extends Component{
 	}
     
 	render(){
-	   let {params,fiItem}=this.state
+	   let {params}=this.state
 	   //判断按钮出现与隐藏
        let childBtn=params.childType; 
        let parentBtn=params.accountType;
@@ -373,70 +548,83 @@ export default class AttributeSetting  extends Component{
        } 
        //退款等要操作的id
        let initialValuesId={
-       	   mainbillid:fiItem.id,
+       	   id:fiItem.id
        } 
-
+       //挂账按钮操作
+       let propId={
+       	   propid:params.propertyId,
+       	   mainbillid:params.orderId
+       } 
+       
+       console.log("----4444-",fiItem)
        var buttonArr = [];
        if(parentBtn=='PAYMENT'&&childBtn==''){
        	   buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
        	   	  ,<Button label="退款"  type="submit" primary={true} onTouchTap={this.openQuitBtn}/>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='dingjin'){
-       	   buttonArr.push(<Button label="回款"  type="submit" primary={true}/>
+       	   buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
        	   	  ,<Button label="转押金"  type="submit"  primary={true} onTouchTap={this.openSwitchBtn}/>
-       	   	  ,<Button label="转营收"  type="submit" primary={true} />);
+       	   	  ,<Button label="转营收"  type="submit" primary={true} onTouchTap={this.openBusinessBtn}/>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='yajin'){
-       	   buttonArr.push(<Button label="回款"  type="submit" primary={true}/>
-       	   	  ,<Button label="转押金"  type="submit"  primary={true}/>
-       	   	  ,<Button label="转营收"  type="submit"  primary={true}/>
-       	   	  ,<Button label="退款"  type="submit"  primary={true}/>);
+       	   buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
+       	   	  ,<Button label="转押金"  type="submit"  primary={true} onTouchTap={this.openSwitchBtn}/>
+       	   	  ,<Button label="转营收"  type="submit"  primary={true} onTouchTap={this.openBusinessBtn}/>
+       	   	  ,<Button label="退款"  type="submit"  primary={true} onTouchTap={this.openQuitBtn}/>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='gongweihuikuan'){
-       	   buttonArr.push(<Button label="回款"  type="submit" primary={true}/>
+       	   buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
        	   	  ,<Button label="开票"  type="submit"  primary={true}/>
-       	   	  ,<Button label="转营收"  type="submit"  primary={true}/>
-       	   	  ,<Button label="退款"  type="submit"  primary={true}/>);
+       	   	  ,<Button label="转营收"  type="submit"  primary={true} onTouchTap={this.openBusinessBtn}/>
+       	   	  ,<Button label="退款"  type="submit"  primary={true} onTouchTap={this.openQuitBtn}/>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='qitahuikuan'){
-       	   buttonArr.push(<Button label="回款"  type="submit" primary={true}/>
+       	   buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
        	   	  ,<Button label="开票"  type="submit"  primary={true}/>
-       	   	  ,<Button label="转押金"  type="submit"  primary={true}/>
-       	   	  ,<Button label="转营收"  type="submit" primary={true} />
-       	   	  ,<Button label="退款"  type="submit"  primary={true}/>);
+       	   	  ,<Button label="转押金"  type="submit"  primary={true} onTouchTap={this.openSwitchBtn}/>
+       	   	  ,<Button label="转营收"  type="submit" primary={true} onTouchTap={this.openBusinessBtn}/>
+       	   	  ,<Button label="退款"  type="submit"  primary={true} onTouchTap={this.openQuitBtn}/>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='yingshouhuikuan'){
-       	   buttonArr.push(<Button label="回款"  type="submit" primary={true}/>
+       	   buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
        	   	  ,<Button label="开票"  type="submit" primary={true} />
        	   	  );
        }
         if(parentBtn=='PAYMENT'&&childBtn=='shenghuoxiaofeihuikuan'){
-       	   buttonArr.push(<Button label="回款"  type="submit" primary={true}/>
+       	   buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
        	   	  ,<Button label="开票"  type="submit"  primary={true}/>
-       	   	  ,<Button label="退款"  type="submit" primary={true} />);
+       	   	  ,<Button label="退款"  type="submit" primary={true} onTouchTap={this.openQuitBtn}/>);
        }
        if(parentBtn=='INCOME'&&childBtn==''){
        	   
        }
        if(parentBtn=='INCOME'&&childBtn=='gongweishouru'){
-       	  buttonArr.push(<Button label="挂账"  type="submit" primary={true}/>
-       	   	  ,<Button label="补收入"  type="submit" primary={true} />
+       	  buttonArr.push(<Button label="挂账"  type="submit" primary={true} onTouchTap={this.openAccountBtn}/>
+       	   	  ,<Button label="补收入"  type="submit" primary={true} onTouchTap={this.openSupplementBtn}/>
        	   	  ); 
        }
        if(parentBtn=='INCOME'&&childBtn=='qitashouru'){
-       	  buttonArr.push(<Button label="挂账"  type="submit" primary={true}/>
+       	  buttonArr.push(<Button label="挂账"  type="submit" primary={true} onTouchTap={this.openAccountBtn}/>
        	   	  ); 
        }
        if(parentBtn=='INCOME'&&childBtn=='yingyewaishouru'){
-       	  buttonArr.push(<Button label="挂账"  type="submit" primary={true}/>
+       	  buttonArr.push(<Button label="挂账"  type="submit" primary={true} onTouchTap={this.openAccountBtn}/>
        	   	  ); 
        }
        if(parentBtn=='INCOME'&&childBtn=='shenghuoxiaofeishouru'){
-       	  buttonArr.push(<Button label="挂账"  type="submit" primary={true}/>
+       	  buttonArr.push(<Button label="挂账"  type="submit" primary={true} onTouchTap={this.openAccountBtn}/>
        	   	  ); 
        }
        
-
+       const close=[
+        <Button
+        label="关闭"
+        primary={true}
+         style={{marginLeft:10}}
+        onTouchTap={this.openViewDialog}
+        />
+      ]
 
 		
 		return(
@@ -503,17 +691,46 @@ export default class AttributeSetting  extends Component{
 
 					 <Dialog
 						title="退款"
-						open={this.state.openSwitchBtn}
+						open={this.state.openQuitBtn}
 						>							
-					   <QuitBtnForm  onSubmit={this.onQuitSubmit} onCancel={this.openQuitBtn}  initialValues={initialValuesId}/>
+					   <QuitBtnForm  onSubmit={this.onQuitSubmit} onCancel={this.closeQuitBtn}  initialValues={initialValuesId}/>
 					 </Dialog>
 
 					 <Dialog
 						title="转押金"
-						open={this.state.openQuitBtn}
+						open={this.state.openSwitchBtn}
 						>							
 					   <SwitchBtnForm  onSubmit={this.onSwitchSubmit} onCancel={this.closeSwitchBtn} optionList={this.state.receivedList} initialValues={initialValuesId}/>
 					 </Dialog>
+
+					 <Dialog
+						title="转营收"
+						open={this.state.openBusinessBtn}
+						>							
+					   <BusinessBtnForm  onSubmit={this.onBusinessSubmit} onCancel={this.closeBusinessBtn} fiMoney={fiMoney} initialValues={initialValuesId}/>
+					 </Dialog>
+
+					 <Dialog
+						title="挂账"
+						open={this.state.openAddaccountBtn}
+						>							
+					   <AccountBtnForm  onSubmit={this.onConfrimSubmit}  onCancel={this.closeAddaccount}  optionList={this.state.receivedList} initialValues={propId}/>
+					 </Dialog>
+
+					 <Dialog
+						title="补收入"
+						open={this.state.openSupplementBtn}
+						>							
+					   <SupplementBtnForm  onSubmit={this.onSupplementSubmit} mainbillid="{params.orderId}" onCancel={this.openSupplementBtn} />
+					 </Dialog>
+
+					  <Dialog
+						title="查看"
+						open={this.state.openView}
+						actions={close}
+						>							
+						<ViewForm detail={this.state.itemDetail} onCancel={this.openViewDialog} />
+					 </Dialog> 
 
 			</div>		
 	    );
