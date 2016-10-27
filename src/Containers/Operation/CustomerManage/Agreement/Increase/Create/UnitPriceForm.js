@@ -31,6 +31,7 @@ class UnitPriceForm  extends Component{
 	}
 
 	onSubmit(form){
+		console.log('form----',form)
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}

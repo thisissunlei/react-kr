@@ -81,7 +81,7 @@ class NewCreateForm  extends Component{
 
 		this.onChangeLeaseBeginDate = this.onChangeLeaseBeginDate.bind(this);
 		this.onChangeLeaseEndDate = this.onChangeLeaseEndDate.bind(this);
-
+		this.calcStationNum = this.calcStationNum.bind(this);
 		this.state = {
 			stationVos:[],
 			selectedStation:[],
@@ -89,6 +89,26 @@ class NewCreateForm  extends Component{
 			openStationUnitPrice:false,
 		}
 	}
+	
+
+	calcStationNum(){
+		let {stationVos} = this.state;
+
+		var stationnum = 0;
+		var boardroomnum = 0;
+
+		stationVos.forEach(function(item,index){
+			if(item.stationType == 1){
+				stationnum++;
+			}else{
+				boardroomnum++;
+			}
+		});
+
+		Store.dispatch(change('joinCreateForm','stationnum',stationnum));
+		Store.dispatch(change('joinCreateForm','boardroomnum',boardroomnum));
+	}
+
 
 	//修改租赁期限－开始时间
 	onChangeLeaseBeginDate(value){
@@ -171,8 +191,11 @@ class NewCreateForm  extends Component{
 			return true;
 		});
 		this.setState({
-			stationVos
+			stationVos,
+		},function(){
+			this.calcStationNum();
 		});
+
 	}
 
 	onStationSelect(selectedStation){
@@ -195,21 +218,7 @@ class NewCreateForm  extends Component{
 			return ;
 		}
 
-		if(!leaseBegindate){
-			Notify.show([{
-				message:'请选择租赁开始时间',
-				type: 'danger',
-			}]);
-			return ;
-		}
-
-		if(!leaseEnddate){
-			Notify.show([{
-				message:'请选择租赁结束时间',
-				type: 'danger',
-			}]);
-			return ;
-		}
+		
 		
 
 		this.setState({
@@ -326,9 +335,9 @@ class NewCreateForm  extends Component{
 			console.log('billList 租赁明细工位列表为空');
 		}
 
-		this.setState({
-			stationVos
-		});
+		this.setState({stationVos},function(){
+			this.calcStationNum();
+		}); 
 
 	}
 
@@ -395,8 +404,8 @@ class NewCreateForm  extends Component{
 
 				<KrField name="firstpaydate" component="date" label="首付款时间"   requireLabel={true} /> 
 				<KrField grid={1/1} component="group" label=" 租赁项目"> 
-					<KrField grid={1}  name="stationnum" type="text" component="input" label="工位" /> 
-					<KrField grid={1}  name="boardroomnum" type="text" component="input" label="会议室" /> 
+					<KrField grid={1}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} /> 
+					<KrField grid={1}  name="boardroomnum" type="text" type="text" component="labelText" label="会议室" value={changeValues.station}/> 
 				</KrField>
 
 				<KrField grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用" requireLabel={true}  /> 

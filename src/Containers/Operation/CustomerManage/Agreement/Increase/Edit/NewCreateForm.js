@@ -246,22 +246,7 @@ class NewCreateForm  extends Component{
 			return ;
 		}
 
-		if(!leaseBegindate){
-			Notify.show([{
-				message:'请选择租赁开始时间',
-				type: 'danger',
-			}]);
-			return ;
-		}
-
-		if(!leaseEnddate){
-			Notify.show([{
-				message:'请选择租赁结束时间',
-				type: 'danger',
-			}]);
-			return ;
-		}
-
+		
 
 		this.setState({
 			openStation:!this.state.openStation
