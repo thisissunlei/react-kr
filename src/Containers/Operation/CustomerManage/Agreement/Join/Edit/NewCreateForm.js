@@ -498,9 +498,76 @@ class NewCreateForm  extends Component{
 	}
 }
 
+	const validate = values =>{
+
+		const errors = {}
+
+		if(!values.leaseId){
+			errors.leaseId = '请填写出租方';
+		}
+
+		if (!values.lessorContactid) {
+			errors.lessorContactid = '请出租方联系人';
+		}
+
+		if (!values.lessorContacttel) {
+			errors.lessorContacttel = '请出租方联系电话';
+		}
+
+		if (!values.leaseContact) {
+			errors.leaseContact = '请承租方联系人';
+		}
+
+		if (!values.leaseContacttel) {
+			errors.leaseContacttel = '请承租方联系人';
+		}
+
+		if (!values.contractcode) {
+			errors.leaseContacttel = '请承租方联系人';
+		}
+
+		if (!values.leaseAddress) {
+			errors.leaseAddress = '请承租方电话';
+		}
+
+		if (!values.fileIdList) {
+			errors.fileIdList = '请填写合同附件';
+		}
+
+		if (!values.rentaluse) {
+			errors.rentaluse = '请填写租赁用途';
+		}
+		if (!values.totalrent) {
+			errors.totalrent = '请填写租金总额';
+		}
+
+		if (!values.totaldeposit) {
+			errors.totaldeposit = '请填写租金总额';
+		}
+
+		if (!values.paymodel) {
+			errors.paymodel = '请填写付款方式';
+		}
+
+		if (!values.paytype) {
+			errors.paytype = '请填写支付方式';
+		}
+
+		if (!values.signdate) {
+			errors.signdate = '请填写签署时间';
+		}
+
+		if (!values.stationnum && !values.boardroomnum) {
+			errors.stationnum = '租赁项目必须填写一项';
+		}
+
+
+		return errors
+	}
+
 const selector = formValueSelector('joinCreateForm');
 
-NewCreateForm = reduxForm({ form: 'joinCreateForm',enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
+NewCreateForm = reduxForm({ form: 'joinCreateForm',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
 
 export default connect((state)=>{
 
