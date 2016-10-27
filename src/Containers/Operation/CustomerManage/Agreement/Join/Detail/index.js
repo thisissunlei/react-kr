@@ -116,7 +116,7 @@ export default  class JoinDetail extends Component {
 											
 					<Section title="租赁明细" description=""> 
 
-						<Table>
+						<Table displayCheckbox={false}>
 							<TableHeader>
 									<TableHeaderColumn>类别</TableHeaderColumn>
 									<TableHeaderColumn>编号／名称</TableHeaderColumn>
