@@ -181,6 +181,13 @@ class NewCreateForm  extends Component{
 		selectedList.forEach(function(value){
 			
 			try{
+				if(!value.unitprice){
+					Notify.show([{
+						message:'单价为空',
+						type: 'danger',
+					}]);
+					return false;
+				}
 				var price = parseFloat((value.unitprice*12/365).toFixed(2));
 				var start = Date.parse(value.leaseBeginDate);
 				var  end= Date.parse(value.startDate);

@@ -240,10 +240,13 @@ class NewCreateForm  extends Component{
 
 		let {changeValues} = this.props;
 		let {stationVos} = this.state;
+		form.list = stationVos;
 		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
 		// form.lessorContactid = 111;
 		form.rentamount= this.state.rentamount;
+		form.leaseBegindate = stationVos[0].leaseBeginDate;
+		form.leaseEnddate = stationVos[0].leaseEndDate;
 		var _this = this;
 
 		form.stationVos =  stationVos;
@@ -356,7 +359,10 @@ class NewCreateForm  extends Component{
 
 					<Dialog
 						title="分配工位"
-						open={this.state.openStation} >
+						open={this.state.openStation}
+						modal={true}
+						autoScrollBodyContent={true}
+						autoDetectWindowHeight={true} >
 								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel}/>
 					  </Dialog>
 
