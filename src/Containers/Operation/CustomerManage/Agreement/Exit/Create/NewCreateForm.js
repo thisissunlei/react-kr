@@ -135,6 +135,7 @@ class NewCreateForm  extends Component{
 	onChangeSearchPersonel(personel){
 		console.log('personel',personel)
 		Store.dispatch(change('joinCreateForm','lessorContacttel',personel.mobile));
+		Store.dispatch(change('joinCreateForm','lessorContactName',personel.lastname));
 	}
 
 
@@ -156,39 +157,39 @@ class NewCreateForm  extends Component{
 
 			<div>
 
-<form onSubmit={handleSubmit(this.onSubmit)} >
+<form onSubmit={handleSubmit(this.onSubmit)} enctype="multipart/form-data">
 
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
 
-				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}  />
-				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/>
-				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} /> 
-				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
+				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true} />
+				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress} />
+				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}/> 
+				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}/> 
 
 				
 
 				<KrField grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/>
 
-				<KrField grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" />
+				<KrField grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" requireLabel={true} />
 
-				<KrField grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" />
-				<KrField grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话" />
+				<KrField grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" requireLabel={true}/>
+				<KrField grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话"  requireLabel={true}/>
 
 				<KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={optionValues.communityName} />
 
 				<KrField grid={1/2}  name="communityAddress" component="labelText" label="地址" value={optionValues.communityAddress} />
-				<KrField grid={1}  name="contractcode" type="text" component="input" label="合同编号"  />
-				<KrField name="totalreturn"  grid={1/2} type="text" component="input" label="退租金总额" />
-				<KrField name="depositamount"  grid={1/2} type="text" component="input" label="退押金总额"  />
+				<KrField grid={1}  name="contractcode" type="text" component="input" label="合同编号" requireLabel={true} />
+				<KrField name="totalreturn"  grid={1/2} type="text" component="input" label="退租金总额" requireLabel={true}/>
+				<KrField name="depositamount"  grid={1/2} type="text" component="input" label="退押金总额"  requireLabel={true}/>
 
-				<KrField grid={1/2}  name="withdrawdate" component="date" label="撤场日期" />
-				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间"/>
+				<KrField grid={1/2}  name="withdrawdate" component="date" label="撤场日期" requireLabel={true}/>
+				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
         
 
 				<KrField grid={1}  name="contractmark" component="textarea" label="备注" />
-				<KrField grid={1}  name="fileIdList" component="file" label="上传附件" />
+				<KrField grid={1}  name="fileIdList" component="file" label="上传附件" requireLabel={true}/>
 
 						<Grid>
 						<Row style={{marginTop:30}}>
@@ -201,11 +202,65 @@ class NewCreateForm  extends Component{
 			</div>);
 	}
 }
+const validate = values =>{
 
+		const errors = {}
+
+		if(!values.leaseId){
+			errors.leaseId = '请填写出租方';
+		}
+
+		if (!values.lessorContactid) {
+			errors.lessorContactid = '请填写出租方联系人';
+		}
+
+		if (!values.lessorContacttel) {
+			errors.lessorContacttel = '请填写出租方联系电话';
+		}
+		if (!values.leaseAddress) {
+			errors.leaseAddress = '请填写承租方地址';
+		}
+
+		if (!values.leaseContact) {
+			errors.leaseContact = '请填写承租方联系人';
+		}
+
+		if (!values.leaseContacttel) {
+			errors.leaseContacttel = '请填写承租方联系电话';
+		}
+		
+		if (!values.contractcode) {
+			errors.contractcode = '请填写合同编号';
+		}
+
+		if (!values.totalreturn) {
+			errors.totalreturn = '请填写退租金总额';
+		}
+
+		if (!values.depositamount) {
+			errors.depositamount = '请填写退押金总额';
+		}
+
+		if (!values.withdrawdate) {
+			errors.withdrawdate = '请填写撤场日期';
+		}
+
+		if (!values.signdate) {
+			errors.signdate = '请填写签署时间';
+		}
+
+		if (!values.fileIdList) {
+			errors.fileIdList = '请填写合同附件';
+		}
+
+		
+
+		return errors
+	}
 
 const selector = formValueSelector('joinCreateForm');
 
-NewCreateForm = reduxForm({ form: 'joinCreateForm',enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
+NewCreateForm = reduxForm({ form: 'joinCreateForm',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
 
 export default connect((state)=>{
 

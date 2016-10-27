@@ -39,20 +39,23 @@ export default  class JoinCreate extends Component {
 			 formValues
 		 });
 
-		 this.onConfrimSubmit();
-		// this.openConfirmCreateDialog();
+		 // this.onConfrimSubmit();
+		this.openConfirmCreateDialog();
 	 }
 
 	 onConfrimSubmit(){
 
 		let {formValues} = this.state;
+		let {params} = this.props;
 		console.log('ss');
 
-		Store.dispatch(Actions.callAPI('addOrEditContinueContract',{},formValues)).then(function(){
+		Store.dispatch(Actions.callAPI('addOrEditContinueContract',{},formValues)).then(function(response){
 			Notify.show([{
 				message:'创建成功',
-				type: 'danger',
+				type: 'success',
 			}]);
+		location.href =  "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/renew/"+response.contractId+"/detail";
+
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -147,7 +150,7 @@ export default  class JoinCreate extends Component {
 				autoScrollBodyContent={true}
 				autoDetectWindowHeight={true}
 				open={this.state.openConfirmCreate} >
-						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} />
+						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} optionValues={optionValues}/>
 			  </Dialog>
 		</div>
 	);

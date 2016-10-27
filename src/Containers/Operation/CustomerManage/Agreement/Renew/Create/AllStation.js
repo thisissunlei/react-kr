@@ -80,12 +80,14 @@ class SelectStationForm  extends Component{
     var _this  = this;
     //let {params} = this.props;
     let params = {};
-    params.orderId = 3;
-    Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainbillid:params.orderId})).then(function(response){
+    console.log('order',this.props);
+    params.orderId = 235;
+    Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainBillid:params.orderId,page:1,pageSize:100})).then(function(response){
       _this.setState({
-        stationVos:response
+        stationVos:response.items
       });
     }).catch(function(err){
+      console.log(err);
       Notify.show([{
         message:'后台出错请联系管理员',
         type: 'danger',
@@ -157,7 +159,7 @@ class SelectStationForm  extends Component{
     let {stationVos} = this.state;
 
     return (
-      <div>
+      <div style={{height:667}}>
 <form onSubmit={handleSubmit(this.onSubmit)}>
       <KrField grid={1/1}  name="startDate" component="date" label="续租结束时间" />
       <Table onSelect={this.onSelect}>

@@ -36,6 +36,8 @@ module.exports = {
 						},
 					]
 				},
+				
+				/*
 				{
 					primaryText:"客户管理",
 					router:'customerManage',
@@ -56,6 +58,8 @@ module.exports = {
 
 					]
 				},
+				*/
+				
 				{
 					primaryText:"社区配置",
 					router:'',
@@ -147,11 +151,12 @@ module.exports = {
 							primaryText:"属性配置",
 							router:'/operation/finance/codeSetting/attribute',
 						},
+						/*
 						{
 							primaryText:"开票列表",
 							router:'/operation/finance/invoice/list',
 						}
-
+						*/
 					]
 				},
 

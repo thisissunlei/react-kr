@@ -27,6 +27,8 @@ export default class ConfirmFormDetail  extends Component{
 		detail:React.PropTypes.object,
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
+		optionValues:React.PropTypes.object,
+
 	}
 
 	constructor(props,context){
@@ -51,39 +53,54 @@ export default class ConfirmFormDetail  extends Component{
 
 	render(){
 
-		let {detail} = this.props;
+		let {detail, optionValues} = this.props;
+        console.log("----------",detail, optionValues);
+        var leasorName ;
+        optionValues.fnaCorporationList.map((item)=>{
+        	if(item.value === detail.leaseId){
+        		return leasorName = item.corporationAddress;
+        	}
+        });
+        var payment, payType;
+        optionValues.paymentList.map((item)=>{
+        	if(item.id = detail.paymodel){
+        		return payment = item.dicName;
+        	}
+        });
+         optionValues.payTypeList.map((item)=>{
+        	if(item.id = detail.paytype){
+        		return payType = item.dicName;
+        	}
+        })
 
 
 	  return (
 
 		  <div>
-								<KrField name="lessorId"  grid={1/2} component="labelText" label="出租方" value={detail.lessorId} />
+								<KrField name="lessorId"  grid={1/2} component="labelText" label="出租方" value={leasorName} />
 
 								 <KrField grid={1/2}  name="lessorAddress"  component="labelText" label="地址" value={detail.lessorAddress}/> 
 
 								 <KrField grid={1/2}  name="lessorContactid" component="labelText" label="联系人" value={detail.lessorContactid} /> 
 								 <KrField grid={1/2}  name="lessorContacttel"  component="labelText" label="电话" value={detail.lessorContacttel}/> 
 
-								 <KrField grid={1/2}  name="leaseId" component="labelText" label="承租方" value={detail.leaseId}/> 
+								 <KrField grid={1/2}  name="leaseId" component="labelText" label="承租方" value={optionValues.customerName}/> 
 								 <KrField grid={1/2}  name="leaseAddress"  component="labelText" label="地址" value={detail.leaseAddress} /> 
 
 								 <KrField grid={1/2}  name="leaseContact"  component="labelText" label="联系人" value={detail.leaseContact}/> 
 								 <KrField grid={1/2}  name="leaseContacttel"  component="labelText" label="电话" value={detail.leaseContacttel}/> 
 
-								 <KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={detail.communityid} /> 
+								 <KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={optionValues.communityName} /> 
+								 <KrField grid={1/2}  name=""  component="labelText" label="地址"  value={optionValues.communityAddress}/> 
 
-								<KrField name="whereFloor"  grid={1/2} component="labelText" label="所在楼层" value={detail.whereFloor}/>
+								<KrField name="whereFloor"  grid={1/2} component="labelText" label="所在楼层" value={detail.wherefloor}/>
 
-								 <KrField grid={1/2}  name=""  component="labelText" label="地址"  value=''/> 
 								 <KrField grid={1/2}  name="contractcode"  component="labelText" label="合同编号" value={detail.contractcode} /> 
 
-								 <KrField grid={1}  name="username" component="group" label="租赁期限"> 
-										  <KrField grid={1/2}  name="leaseBeginDate"  component="labelText" value={detail.leaseBeginDate} /> 
-										  <KrField grid={1/2}  name="leaseEndDate" component="labelText" value={detail.leaseEndDate} /> 
-								  </KrField>
+								 <KrField grid={1}  name="username" component="labelText" label="租赁期限" value={`${detail.leaseBegindate}--${detail.leaseEnddate}`}/> 
 
-								<KrField name="paymodel"  grid={1/2} component="labelText" label="付款方式" value={detail.paymodel}/> 
-								<KrField name="paytype"  grid={1/2} component="labelText" label="支付方式" value={detail.paytype}/>
+								<KrField name="paymodel"  grid={1/2} component="labelText" label="付款方式" value={payment}/> 
+								<KrField name="paytype"  grid={1/2} component="labelText" label="支付方式" value={payType}/>
 
 							 <KrField grid={1/2}  name="signdate"  component="labelText" grid={1/2} label="签署时间"value={detail.signdate}/> 
 
@@ -111,7 +128,7 @@ export default class ConfirmFormDetail  extends Component{
 											<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
 									</TableHeader>
 									<TableBody>
-										{detail && detail.stationVos && detail.stationVos.map((item,index)=>{
+										{detail && detail.list && detail.list.map((item,index)=>{
 											return (
 												<TableRow key={index}>
 													<TableRowColumn>{item.stationType}</TableRowColumn>

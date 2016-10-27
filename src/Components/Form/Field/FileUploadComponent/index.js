@@ -103,6 +103,11 @@ export default class FileUploadComponent extends React.Component{
 			message:message,
 			type: 'danger',
 		}]);
+
+		this.setState({
+			progress:0,
+			isUploading:false
+		});
 	}
 
 	onSuccess(response){
@@ -123,7 +128,9 @@ export default class FileUploadComponent extends React.Component{
 
 		console.log('files',files);
 		this.setState({
-			files
+			files,
+			progress:0,
+			isUploading:false
 		});
 
 		this.onSetInputValue();
@@ -199,10 +206,10 @@ export default class FileUploadComponent extends React.Component{
 									if(fileResponse && fileResponse.code>0){
 										_this.onSuccess(fileResponse.data);
 									}else{
-										_this.onError('后台报错,请联系管理员');
+										_this.onError(fileResponse.msg);
 									}
 								} else {
-									_this.onError(xhrfile.msg);
+									_this.onError('后台报错,请联系管理员');
 								}
 							  }
 							};

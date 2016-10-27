@@ -39,20 +39,25 @@ export default  class JoinCreate extends Component {
 		 },function(){
 			 this.openConfirmCreateDialog();
 		 });
-
-		// this.onConfrimSubmit();
 	 }
 
 	 onConfrimSubmit(){
 
 		let {formValues} = this.state;
-		console.log('formValues',formValues)
+		let {params} = this.props;
 
-		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(){
+		 formValues.stationVos = JSON.stringify(formValues.stationVos);
+
+		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
 			Notify.show([{
 				message:'创建成功',
 				type: 'danger',
 			}]);
+
+			window.setTimeout(function(){
+				window.location.href =  "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/join/"+response.contractId+"/detail";
+			},2000);
+
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -81,11 +86,19 @@ export default  class JoinCreate extends Component {
 		let optionValues = {};
 
 		Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
-			console.log('----response',response)
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid =  params.orderId;
 
-			initialValues.signdate = +new Date((new Date()).getTime() - 24*60*60*1000);
+
+			initialValues.leaseContact = response.customer.customerMember;
+			initialValues.leaseContacttel = response.customer.customerPhone;
+
+			initialValues.signdate = +new Date();
+
+			initialValues.leaseBegindate = +new Date();
+			initialValues.leaseEnddate = +new Date();
+			initialValues.leaseAddress = response.customer.customerAddress;
+
 
 			optionValues.communityAddress = response.customer.communityAddress; 
 			optionValues.leaseAddress = response.customer.customerAddress;
@@ -117,7 +130,7 @@ export default  class JoinCreate extends Component {
 
 			_this.setState({
 				initialValues,
-				optionValues
+				optionValues,
 			});
 
 		}).catch(function(err){
@@ -132,6 +145,7 @@ export default  class JoinCreate extends Component {
   render() {
 
 	  let {initialValues,optionValues} = this.state;
+
 
     return (
 

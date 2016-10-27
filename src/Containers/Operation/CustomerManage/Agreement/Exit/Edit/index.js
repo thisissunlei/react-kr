@@ -33,11 +33,13 @@ export default  class EditCreate extends Component {
 
    onCreateSubmit(formValues){
 
-    Store.dispatch(Actions.callAPI('addFnaContractWithdrawal',{},formValues)).then(function(){
+    Store.dispatch(Actions.callAPI('addFnaContractWithdrawal',{},formValues)).then(function(response){
       Notify.show([{
         message:'编辑成功',
         type: 'success',
       }]);
+    location.href =  "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/exit/"+response.contractId+"/detail";
+      
     }).catch(function(err){
       Notify.show([{
         message:err.message,

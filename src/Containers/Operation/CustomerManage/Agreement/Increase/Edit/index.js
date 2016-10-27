@@ -32,11 +32,13 @@ export default  class JoinCreate extends Component {
 
 	 onCreateSubmit(formValues){
 		formValues = Object.assign({},formValues);
-		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract',{},formValues)).then(function(){
+		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract',{},formValues)).then(function(response){
 			Notify.show([{
 				message:'更新成功',
 				type: 'success',
 			}]);
+		location.href =  "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/increase/"+response.contractId+"/detail";
+
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -61,7 +63,8 @@ export default  class JoinCreate extends Component {
 
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid =  params.orderId;
-
+			initialValues.leaseContact = response.customer.customerMember;
+			initialValues.leaseContacttel = response.customer.customerPhone;
 			initialValues.signdate = +new Date((new Date()).getTime() - 24*60*60*1000);
 
 			optionValues.communityAddress = response.customer.communityAddress; 

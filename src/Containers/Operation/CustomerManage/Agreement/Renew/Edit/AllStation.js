@@ -81,9 +81,9 @@ class SelectStationForm  extends Component{
     //let {params} = this.props;
     let params = {};
     params.orderId = 3;
-    Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainbillid:params.orderId})).then(function(response){
+    Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainBillid:params.orderId})).then(function(response){
       _this.setState({
-        stationVos:response
+        stationVos:response.items
       });
     }).catch(function(err){
       Notify.show([{
@@ -158,7 +158,7 @@ class SelectStationForm  extends Component{
     let {stationVos} = this.state;
 
     return (
-      <div>
+      <div style={{height:667}}>
 <form onSubmit={handleSubmit(this.onSubmit)}>
       <KrField grid={1/1}  name="startDate" component="date" label="续租结束日期" />
       <Table onSelect={this.onSelect}>

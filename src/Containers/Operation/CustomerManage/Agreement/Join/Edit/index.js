@@ -32,11 +32,18 @@ export default  class JoinCreate extends Component {
 
 	 onCreateSubmit(formValues){
 
+		let {params} = this.props;
+
 		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(){
 			Notify.show([{
 				message:'更新成功',
 				type: 'danger',
 			}]);
+
+			window.setTimeout(function(){
+				window.location.href =  "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/join/"+response.contractId+"/detail";
+			},2000);
+
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,

@@ -38,19 +38,21 @@ export default  class JoinCreate extends Component {
 			 formValues
 		 });
 
-		 this.onConfrimSubmit(formValues);
-		// this.openConfirmCreateDialog();
+		 // this.onConfrimSubmit(formValues);
+		this.openConfirmCreateDialog();
 	 }
 
-	 onConfrimSubmit(formValues){
+	 onConfrimSubmit(){
 
-		//let {formValues} = this.state;
-
-		Store.dispatch(Actions.callAPI('addFnaContractWithdrawal',{},formValues)).then(function(){
+		let {formValues} = this.state;
+		let {params} = this.props;
+		Store.dispatch(Actions.callAPI('addFnaContractWithdrawal',{},formValues)).then(function(response){
 			Notify.show([{
 				message:'创建成功',
-				type: 'danger',
+				type: 'success',
 			}]);
+		location.href =  "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/exit/"+response.contractId+"/detail";
+
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -58,7 +60,7 @@ export default  class JoinCreate extends Component {
 			}]);
 	   	});
 
-		 //this.openConfirmCreateDialog();
+		 this.openConfirmCreateDialog();
 	}
 
 	onCancel(){
@@ -79,7 +81,7 @@ export default  class JoinCreate extends Component {
 		let optionValues = {};
 
 		Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
-
+			console.log('response----',response)
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid =  params.orderId;
 
@@ -98,16 +100,7 @@ export default  class JoinCreate extends Component {
 				item.label = item.corporationName;
 				return item;
 			});
-			optionValues.paymentList = response.payment.map(function(item,index){
-				item.value = item.id;
-				item.label = item.dicName;
-				return item;
-			});
-			optionValues.payTypeList = response.payType.map(function(item,index){
-				item.value = item.id;
-				item.label = item.dicName;
-				return item;
-			});
+		
 
 			optionValues.floorList = response.customer.floor;
 			optionValues.customerName = response.customer.customerName;
@@ -139,7 +132,7 @@ export default  class JoinCreate extends Component {
     return (
 
 		 <div>
-		 	<BreadCrumbs children={['系统运营','客户管理','入驻协议']}/>
+		 	<BreadCrumbs children={['系统运营','客户管理','退租协议']}/>
 			<Section title="创建退租协议书" description="">
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues}/>
 			</Section>
@@ -150,7 +143,7 @@ export default  class JoinCreate extends Component {
 				autoScrollBodyContent={true}
 				autoDetectWindowHeight={true}
 				open={this.state.openConfirmCreate} >
-						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} />
+						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} optionValues={optionValues}/>
 			  </Dialog>
 		</div>
 	);

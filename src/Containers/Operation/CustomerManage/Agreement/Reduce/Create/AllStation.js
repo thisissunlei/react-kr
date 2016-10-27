@@ -80,10 +80,10 @@ class SelectStationForm  extends Component{
     var _this  = this;
     //let {params} = this.props;
     let params = {};
-    params.orderId = 3;
-		Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainbillid:params.orderId})).then(function(response){
+    params.orderId = 235;
+		Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainBillid:params.orderId,page:1,pagesize:100})).then(function(response){
       _this.setState({
-        stationVos:response
+        stationVos:response.items
       });
 		}).catch(function(err){
 			Notify.show([{

@@ -52,10 +52,6 @@ export default class ConfirmFormDetail  extends Component{
 	render(){
 
 		let {detail,optionValues} = this.props;
-		console.log('detail',detail)
-		console.log('optionValues',optionValues)
-		console.log('stationVos',detail.stationVos)
-		
 		 var leasorName ;
 	        optionValues.fnaCorporationList.map((item)=>{
 	        	if(item.value === detail.leaseId){
@@ -64,7 +60,7 @@ export default class ConfirmFormDetail  extends Component{
 	        });
 	        var payment;
 	        optionValues.paymentList.map((item)=>{
-	        	if(item.id = detail.paymodel){
+	        	if(item.value = detail.paymodel){
 	        		return payment = item.dicName;
 	        	}
 
@@ -76,20 +72,7 @@ export default class ConfirmFormDetail  extends Component{
 	        	}
 
 	        })
-	        var paytypes;
-	        optionValues.payTypeList.map((item)=>{
-	        	if(item.id = detail.paytype){
-	        		return paytypes = item.dicName;
-	        	}
-
-	        })
-	       /*  var lessorContactName;
-	        optionValues.payTypeList.map((item)=>{
-	        	if(item.lessorContactid = detail.lessorContactid){
-	        		return lessorContactName = item.dicName;
-	        	}
-
-	        })*/
+	      
 
 	  return (
 
