@@ -32,7 +32,6 @@ injectTapEventPlugin({
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 
-document.domain = "krspace.cn";
 
 ReactDOM.render((
 	<MuiThemeProvider>
