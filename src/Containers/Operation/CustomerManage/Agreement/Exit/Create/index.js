@@ -38,19 +38,21 @@ export default  class JoinCreate extends Component {
 			 formValues
 		 });
 
-		 this.onConfrimSubmit(formValues);
-		// this.openConfirmCreateDialog();
+		 // this.onConfrimSubmit(formValues);
+		this.openConfirmCreateDialog();
 	 }
 
-	 onConfrimSubmit(formValues){
+	 onConfrimSubmit(){
 
-		//let {formValues} = this.state;
-
-		Store.dispatch(Actions.callAPI('addFnaContractWithdrawal',{},formValues)).then(function(){
+		let {formValues} = this.state;
+		let {params} = this.props;
+		Store.dispatch(Actions.callAPI('addFnaContractWithdrawal',{},formValues)).then(function(response){
 			Notify.show([{
 				message:'创建成功',
-				type: 'danger',
+				type: 'success',
 			}]);
+		location.href =  "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/exit/"+response.contractId+"/detail";
+
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,

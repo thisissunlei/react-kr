@@ -47,11 +47,13 @@ export default  class JoinCreate extends Component {
 
     let {formValues} = this.state;
 
-    Store.dispatch(Actions.callAPI('addOrEditContinueContract',{},formValues)).then(function(){
+    Store.dispatch(Actions.callAPI('addOrEditContinueContract',{},formValues)).then(function(response){
       Notify.show([{
         message:'创建成功',
         type: 'success',
       }]);
+      location.href = "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/renew/"+response.contractId+"/detail";
+
     }).catch(function(err){
       Notify.show([{
         message:err.message,

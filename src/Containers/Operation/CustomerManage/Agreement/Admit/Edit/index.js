@@ -53,12 +53,12 @@ export default  class JoinCreate extends Component {
 	 	let params = this.props.params;
 		let {formValues} = this.state;
 
-		Store.dispatch(Actions.callAPI('updateFinaContractIntentletter',{},formValues)).then(function(){
+		Store.dispatch(Actions.callAPI('updateFinaContractIntentletter',{},formValues)).then(function(response){
 			Notify.show([{
 				message:'更新成功',
 				type: 'success',
 			}]);
-			location.href = "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/admit/"+params.id+"/detail";
+			location.href = "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/admit/"+response.contractId+"/detail";
 
 		}).catch(function(err){
 			Notify.show([{

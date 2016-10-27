@@ -51,12 +51,12 @@ export default  class JoinCreate extends Component {
 
 		let {formValues} = this.state;
 		let {params} = this.props;
-		Store.dispatch(Actions.callAPI('getFnaContractRentController',{},formValues)).then(function(){
+		Store.dispatch(Actions.callAPI('getFnaContractRentController',{},formValues)).then(function(response){
 			Notify.show([{
 				message:'更新成功',
 				type: 'success',
 			}]);
-			location.href = "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/reduce/"+params.id+"/detail";
+			location.href = "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/reduce/"+response.contractId+"/detail";
 
 		}).catch(function(err){
 			Notify.show([{

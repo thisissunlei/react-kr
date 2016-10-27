@@ -367,35 +367,35 @@ class NewCreateForm  extends Component{
 			<div>
 <form onSubmit={handleSubmit(this.onSubmit)}>
 								
-								 <KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} />
+								 <KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}/>
 
 								 <KrField grid={1/2}  type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/> 
-								 <KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} /> 
+								 <KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}/> 
 
-								 <KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" /> 
+								 <KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}/> 
 
 								 <KrField grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/> 
-								 <KrField grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" /> 
+								 <KrField grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" requireLabel={true}/> 
 
-								 <KrField grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" /> 
-								 <KrField grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话" /> 
+								 <KrField grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" requireLabel={true}/> 
+								 <KrField grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话" requireLabel={true}/> 
 
 								 <KrField grid={1/2}  component="labelText" label="所属社区" value={optionValues.communityName} /> 
 
-								 <KrField name="wherefloor"  grid={1/2} component="select" label="所属楼层" options={optionValues.floorList} />
+								 <KrField name="wherefloor"  grid={1/2} component="select" label="所属楼层" options={optionValues.floorList} requireLabel={true}/>
 
 								
-								 <KrField grid={1/2}  name="signdate"  component="date" label="签署日期"  /> 
-								 <KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  /> 
+								 <KrField grid={1/2}  name="signdate"  component="date" label="签署日期"  requireLabel={true}/> 
+								 <KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}/> 
 
-                                 <KrField grid={1/2}  name="totaldownpayment" type="text" component="input" label="定金总额"  /> 
-								 <KrField grid={1/2}  name="paymentId" type="text" component="select" label="付款方式" options={optionValues.paymentList}/>
+                                 <KrField grid={1/2}  name="totaldownpayment" type="text" component="input" label="定金总额"  requireLabel={true}/> 
+								 <KrField grid={1/2}  name="paymentId" type="text" component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/>
                                      
-								 <KrField grid={1/1}  component="group" label="租赁期限"> 
+								 <KrField grid={1/1}  component="group" label="租赁期限"requireLabel={true}> 
 					<KrField grid={1/2}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate}/> 
 					<KrField grid={1/2}  name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} /> 
 				</KrField>
-                                  <KrField name="templockday"  grid={1/2} component="input" type="text" label="保留天数" /> 
+                                  <KrField name="templockday"  grid={1/2} component="input" type="text" label="保留天数" requireLabel={true}/> 
 
 
 								
@@ -406,7 +406,7 @@ class NewCreateForm  extends Component{
 
 							
 							 <KrField grid={1}  name="contractmark" type="textarea" component="textarea" label="备注" /> 
-							 <KrField grid={1}  name="fileIdList" component="file" label="上传附件" /> 
+							 <KrField grid={1}  name="fileIdList" component="file" label="上传附件" requireLabel={true}/> 
 
 
 					    <Section title="租赁明细" description="" rightMenu = {
@@ -468,25 +468,81 @@ class NewCreateForm  extends Component{
 	}
 	}
 
-	/*
+	
 	const validate = values =>{
+
 		const errors = {}
 
-		if(!values.mainbilltype){
-			errors.mainbilltype = '请选择订单类型';
-		}else if (!values.communityid) {
-			errors.communityid = '请选择所在社区';
-		}else if(!values.mainbillname){
-			errors.mainbillname = '订单名称不能为空';
+		if(!values.leaseId){
+			errors.leaseId = '请填写出租方';
 		}
+
+		if (!values.lessorContactid) {
+			errors.lessorContactid = '请填写出租方联系人';
+		}
+
+		if (!values.lessorContacttel) {
+			errors.lessorContacttel = '请填写出租方联系电话';
+		}
+
+		if (!values.leaseAddress) {
+			errors.leaseAddress = '请填写承租方地址';
+		}
+		if (!values.wherefloor) {
+			errors.wherefloor = '请先选择楼层';
+		}
+
+		if (!values.leaseContacttel) {
+			errors.leaseContacttel = '请填写承租方电话';
+		}
+
+		if (!values.leaseAddress) {
+			errors.leaseAddress = '请填写承租方地址';
+		}
+		if (!values.leaseContact) {
+			errors.leaseContact = '请填写承租方联系人';
+		}
+
+		if (!values.fileIdList) {
+			errors.fileIdList = '请填写合同附件';
+		}
+
+		if (!values.paymodel) {
+			errors.paymodel = '请填写付款方式';
+		}
+
+
+		if (!values.signdate) {
+			errors.signdate = '请填写签署时间';
+		}
+		if (!values.templockday) {
+			errors.templockday = '请填写保留天数';
+		}
+		if (!values.stationnum && !values.boardroomnum) {
+			errors.stationnum = '租赁项目必须填写一项';
+		}
+
+		if (!values.contractcode) {
+			errors.contractcode = '请填写合同编号';
+		}
+
+		if (!values.paymentId) {
+			errors.paymentId = '请填写付款方式';
+		}
+
+		if (!values.totaldownpayment) {
+			errors.totaldownpayment = '请填写定金总额';
+		}
+
+
+
 
 		return errors
 	}
-	*/
 
 const selector = formValueSelector('admitCreateForm');
 
-NewCreateForm = reduxForm({ form: 'admitCreateForm',enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
+NewCreateForm = reduxForm({ form: 'admitCreateForm',validate, enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
 
 export default connect((state)=>{
 
