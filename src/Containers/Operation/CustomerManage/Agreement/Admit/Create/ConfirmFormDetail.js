@@ -96,9 +96,11 @@ export default class ConfirmFormDetail  extends Component{
 								<KrField name="paytype"  grid={1/2} component="labelText" label="付款方式" value={payment}/>
 
 							
-							 <KrField name="" component="labelText" label=" 租赁项目"  /> 
-							 <KrField grid={1}  name="stationnum"  component="labelText" label="工位" value={detail.stationnum}/> 
-							 <KrField grid={1}  name="boardroomnum"  component="labelText" label="会议室" value={detail.boardroomnum}/> 
+							 <KrField name="" component="group" label=" 租赁项目"> 
+								 <KrField grid={1}  name="stationnum"  component="labelText" label="工位" value={detail.stationnum}/> 
+								 <KrField grid={1}  name="boardroomnum"  component="labelText" label="会议室" value={detail.boardroomnum}/> 
+		  					</KrField>
+
 
 							  <KrField grid={1/1}  name="username" component="labelText" label="租赁期限" value={`${detail.leaseBegindate}--${detail.leaseEnddate}`}/> 
 							 <KrField grid={1/2}  name="rentaluse"  component="labelText" label="保留天数" value={detail.templockday}/> 
