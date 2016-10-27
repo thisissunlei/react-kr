@@ -248,9 +248,9 @@ class NewCreateForm  extends Component{
 
 		var _this = this;
 
-		form.stationVos = JSON.stringify(form.stationVos);
-		form.stationVos = form.stationVos;
-		console.log('form',)
+		
+		form.stationVos = stationVos;
+		console.log('form',form);
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}

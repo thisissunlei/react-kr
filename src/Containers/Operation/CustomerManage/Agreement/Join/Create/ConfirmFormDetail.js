@@ -54,6 +54,8 @@ export default class ConfirmFormDetail  extends Component{
 		let {detail,optionValues} = this.props;
 		console.log('detail',detail)
 		console.log('optionValues',optionValues)
+		console.log('stationVos',detail.stationVos)
+		
 		 var leasorName ;
 	        optionValues.fnaCorporationList.map((item)=>{
 	        	if(item.value === detail.leaseId){
