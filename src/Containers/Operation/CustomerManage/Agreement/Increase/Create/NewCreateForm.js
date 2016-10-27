@@ -257,7 +257,7 @@ class NewCreateForm  extends Component{
 
 		form.stationVos =  stationVos;
 
-		form.stationVos = JSON.stringify(form.stationVos);
+		//form.stationVos = JSON.stringify(form.stationVos);
 
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
