@@ -277,7 +277,7 @@ class NewCreateForm  extends Component{
 
 	getStationUrl(){
 
-	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}";
+	     let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
 
 		let {changeValues,initialValues,optionValues} = this.props;
 		let {stationVos} = this.state;
@@ -296,7 +296,13 @@ class NewCreateForm  extends Component{
 			goalStationNum:changeValues.stationnum,
 			//会议室
 			goalBoardroomNum:changeValues.boardroomnum,
-			selectedObjs:JSON.stringify(stationVos)
+			selectedObjs:JSON.stringify(stationVos),
+			/*
+			startDate:"2016-10-19",
+			endDate:"2016-10-25"
+			*/
+			startDate:dateFormat(changeValues.leaseBegindate,"yyyy-mm-dd"),
+			endDate:dateFormat(changeValues.leaseEnddate,"yyyy-mm-dd")
 		};
 
 		if(Object.keys(params).length){
