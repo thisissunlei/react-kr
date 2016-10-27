@@ -31,9 +31,12 @@ class SelectStationForm  extends Component{
     onSubmit:React.PropTypes.func,
     onCancel:React.PropTypes.func,
   }
-
+  static contextTypes = {
+	 params: React.PropTypes.object.isRequired
+ }
   constructor(props,context){
     super(props, context);
+
 
     this.onSubmit = this.onSubmit.bind(this);
     this.onCancel = this.onCancel.bind(this);
@@ -49,7 +52,7 @@ class SelectStationForm  extends Component{
   }
 
   componentDidMount(){
-    
+
     this.getLoadData();
   }
 
@@ -78,9 +81,7 @@ class SelectStationForm  extends Component{
 
   getLoadData(){
     var _this  = this;
-    //let {params} = this.props;
-    let params = {};
-    params.orderId = 243;
+    let {params} = this.context;
     Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainBillid:params.orderId})).then(function(response){
       _this.setState({
         stationVos:response.items
@@ -119,7 +120,7 @@ class SelectStationForm  extends Component{
           }]);
           return false;
       }
-        
+
         if(selected.indexOf(index) !==-1){
             console.log(index, stationVos[index]);
             var end = stationVos[index].leaseEndDate;

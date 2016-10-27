@@ -88,7 +88,8 @@ export default  class JoinCreate extends Component {
 			initialValues.leaseBegindate = new Date;
 			initialValues.leaseEnddate = new Date;
 
-			initialValues.withdrawdate = response.withdrawdate;
+			initialValues.withdrawdate = +new Date(response.withdrawdate);
+			initialValues.signdate = +new Date();
 
 			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
@@ -100,7 +101,7 @@ export default  class JoinCreate extends Component {
 				item.label = item.corporationName;
 				return item;
 			});
-		
+
 
 			optionValues.floorList = response.customer.floor;
 			optionValues.customerName = response.customer.customerName;

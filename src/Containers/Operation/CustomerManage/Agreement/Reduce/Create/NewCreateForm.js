@@ -56,8 +56,18 @@ class NewCreateForm  extends Component{
 		onCancel:React.PropTypes.func,
 	}
 
+	static contextTypes = {
+	 params: React.PropTypes.object.isRequired
+ }
+
 	constructor(props,context){
 		super(props, context);
+
+
+		console.log("----thisconte",this.context);
+
+
+
 
 
 		//stationsRefs表单
@@ -167,7 +177,7 @@ class NewCreateForm  extends Component{
 	// 计算减租金额
 	reduceMoney(selectedList,from){
 		console.log(selectedList);
-		
+
 		if(from === 'add'){
 			var {rentamount} = this.state;
 		}else{
@@ -176,7 +186,7 @@ class NewCreateForm  extends Component{
 		console.log('result', rentamount);
 		var sum  = rentamount;
 		selectedList.forEach(function(value){
-			
+
 			try{
 				if(!value.unitprice){
 					Notify.show([{
@@ -197,7 +207,7 @@ class NewCreateForm  extends Component{
 				console.log(err,'err');
 			}
 
-			
+
 		});
 		console.log('sum', sum);
 		this.setState({
@@ -365,7 +375,7 @@ class NewCreateForm  extends Component{
 						modal={true}
 						autoScrollBodyContent={true}
 						autoDetectWindowHeight={true}>
-								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel}/>
+								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel}    params= {this.props.params}/>
 					  </Dialog>
 
 
@@ -411,7 +421,7 @@ const validate = values =>{
 			errors.fileIdList = '请填写合同附件';
 		}
 
-		
+
 
 
 		if (!values.signdate) {

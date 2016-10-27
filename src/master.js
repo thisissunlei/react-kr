@@ -9,6 +9,18 @@ import Footer from './Components/Global/Footer';
 
 class Master extends Component {
 
+
+	static childContextTypes =  {
+          params: React.PropTypes.object.isRequired
+  }
+
+	getChildContext() {
+				return {
+					params:this.props.params
+				};
+	 }
+
+
 	constructor(props,context){
 		super(props, context);
 
