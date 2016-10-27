@@ -168,7 +168,7 @@ class SelectStationForm  extends Component{
 		let { error, handleSubmit, pristine, reset, submitting,changeValues} = this.props;
     let {stationVos} = this.state;
     const overfolw = {
-      'overflow':'auto',
+      'overflow':'hidden',
       maxHeight:510,
     }
 		return (

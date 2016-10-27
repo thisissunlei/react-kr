@@ -7,7 +7,7 @@ import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import dateFormat from 'dateformat';
 
-import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
+import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray, change} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
 
@@ -123,6 +123,7 @@ class NewCreateForm  extends Component{
 
 	onChangeSearchPersonel(personel){
 		Store.dispatch(change('reduceCreateForm','lessorContacttel',personel.mobile));
+		
 	}
 
 // station list
@@ -361,7 +362,10 @@ class NewCreateForm  extends Component{
 
 					<Dialog
 						title="分配工位"
-						open={this.state.openStation} >
+						open={this.state.openStation} 
+						modal={true}
+						autoScrollBodyContent={true}
+						autoDetectWindowHeight={true}>
 								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel}/>
 					  </Dialog>
 

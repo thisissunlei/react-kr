@@ -82,6 +82,7 @@ class NewCreateForm  extends Component{
 
 		this.onChangeLeaseBeginDate = this.onChangeLeaseBeginDate.bind(this);
 		this.onChangeLeaseEndDate = this.onChangeLeaseEndDate.bind(this);
+		
 
 		this.state = {
 			stationVos:[],
@@ -247,9 +248,9 @@ class NewCreateForm  extends Component{
 
 		var _this = this;
 
-		//form.stationVos = JSON.stringify(form.stationVos);
-		form.stationVos = form.stationVos;
-
+		
+		form.stationVos = stationVos;
+		console.log('form',form);
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}
@@ -334,8 +335,9 @@ class NewCreateForm  extends Component{
 
 	onChangeSearchPersonel(personel){
 		Store.dispatch(change('joinCreateForm','lessorContacttel',personel.mobile));
+		Store.dispatch(change('joinCreateForm','lessorContactName',personel.lastname));
 	}
-
+	
 
 	render(){
 
