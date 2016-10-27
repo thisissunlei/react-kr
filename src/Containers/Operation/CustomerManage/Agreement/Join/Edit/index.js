@@ -37,7 +37,7 @@ export default  class JoinCreate extends Component {
 		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
 			Notify.show([{
 				message:'更新成功',
-				type: 'danger',
+				type: 'success',
 			}]);
 
 			window.setTimeout(function(){
