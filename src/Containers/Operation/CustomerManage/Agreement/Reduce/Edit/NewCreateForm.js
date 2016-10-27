@@ -242,7 +242,7 @@ class NewCreateForm  extends Component{
 			let stationVos = nextProps.stationVos;
 			this.setState({stationVos});
 			this.isInit = true;
-		}
+		};
 	}
 
 	onSubmit(form){
@@ -281,7 +281,8 @@ class NewCreateForm  extends Component{
 			}
 		});
 
-		let {stationVos, rentamount} = this.state;
+		let {stationVos, rentamount, params} = this.state;
+		console.log(params);
 		
 
 		return (
@@ -367,7 +368,7 @@ class NewCreateForm  extends Component{
 						modal={true}
 						autoScrollBodyContent={true}
 						autoDetectWindowHeight={true}>
-								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel}/>
+								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} />
 					  </Dialog>
 
 

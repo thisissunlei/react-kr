@@ -190,7 +190,7 @@ export default  class JoinCreate extends Component {
 
   render() {
 
-	  let {initialValues,optionValues,stationVos} = this.state;
+	  let {initialValues,optionValues,stationVos, params} = this.state;
 
     return (
 
