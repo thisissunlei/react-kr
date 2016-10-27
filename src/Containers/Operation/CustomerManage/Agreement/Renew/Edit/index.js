@@ -46,6 +46,7 @@ export default  class JoinCreate extends Component {
    onConfrimSubmit(){
 
     let {formValues} = this.state;
+    let {params} = this.props;
 
     Store.dispatch(Actions.callAPI('addOrEditContinueContract',{},formValues)).then(function(response){
       Notify.show([{
@@ -135,8 +136,8 @@ export default  class JoinCreate extends Component {
           initialValues.firstpaydate =response.firstpaydate;
           initialValues.payType=response.payType.id
            initialValues.paymodel = response.payment.id ;
-
-
+            initialValues.totaldeposit = response.totaldeposit;
+              initialValues.paytype = response.payType.id;
            initialValues.rentaluse = response.rentaluse;
            initialValues.contractmark = response.contractmark;
            initialValues.totalrent = response.totalrent;
