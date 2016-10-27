@@ -44,6 +44,7 @@ export default  class JoinCreate extends Component {
 	 onConfrimSubmit(){
 
 		let {formValues} = this.state;
+		let {params} = this.props;
 
 		 formValues.stationVos = JSON.stringify(formValues.stationVos);
 
@@ -53,9 +54,9 @@ export default  class JoinCreate extends Component {
 				type: 'danger',
 			}]);
 
-		window.setTimeout(function(){
-			window.location.href =  "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/join/"+response.contractId+"/detail";
-		},2000);
+			window.setTimeout(function(){
+				window.location.href =  "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/join/"+response.contractId+"/detail";
+			},2000);
 
 		}).catch(function(err){
 			Notify.show([{
@@ -90,11 +91,14 @@ export default  class JoinCreate extends Component {
 
 
 			initialValues.leaseContact = response.customer.customerMember;
+			initialValues.leaseContacttel = response.customer.customerPhone;
 
 			initialValues.signdate = +new Date();
 
 			initialValues.leaseBegindate = +new Date();
 			initialValues.leaseEnddate = +new Date();
+			initialValues.leaseAddress = response.customer.customerAddress;
+
 
 			optionValues.communityAddress = response.customer.communityAddress; 
 			optionValues.leaseAddress = response.customer.customerAddress;
@@ -126,7 +130,7 @@ export default  class JoinCreate extends Component {
 
 			_this.setState({
 				initialValues,
-				optionValues
+				optionValues,
 			});
 
 		}).catch(function(err){
@@ -141,6 +145,7 @@ export default  class JoinCreate extends Component {
   render() {
 
 	  let {initialValues,optionValues} = this.state;
+
 
     return (
 

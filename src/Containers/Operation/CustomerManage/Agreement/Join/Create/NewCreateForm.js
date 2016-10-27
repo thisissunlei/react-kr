@@ -477,70 +477,70 @@ class NewCreateForm  extends Component{
 		const errors = {}
 
 		if(!values.leaseId){
-			errors.leaseId = '请填写出租方';
+			errors.leaseId = '请输入出租方';
 		}
 
 		if (!values.lessorContactid) {
-			errors.lessorContactid = '请填写出租方联系人';
+			errors.lessorContactid = '请输入出租方联系人';
 		}
 
 		if (!values.wherefloor) {
-			errors.wherefloor = '请填写';
+			errors.wherefloor = '请输入所在楼层';
 		}
 
 		if (!values.lessorContacttel) {
-			errors.lessorContacttel = '请填写出租方联系电话';
+			errors.lessorContacttel = '请输入出租方联系电话';
 		}
 
 		if (!values.contractcode) {
-			errors.contractcode = '请填写合同编号';
+			errors.contractcode = '请输入合同编号';
 		}
 
 		if (!values.leaseContact) {
-			errors.leaseContact = '请填写承租方联系人';
+			errors.leaseContact = '请输入承租方联系人';
 		}
 
 		if (!values.leaseAddress) {
-			errors.leaseAddress = '请填写承租方电话';
+			errors.leaseAddress = '请输入承租方电话';
 		}
 
 		if (!values.fileIdList) {
-			errors.fileIdList = '请填写合同附件';
+			errors.fileIdList = '请输入合同附件';
 		}
 
 		if (!values.rentaluse) {
-			errors.rentaluse = '请填写租赁用途';
+			errors.rentaluse = '请输入租赁用途';
 		}
 		if (!values.totalrent) {
-			errors.totalrent = '请填写租金总额';
+			errors.totalrent = '请输入租金总额';
 		}
 
 		if (!values.totaldeposit) {
-			errors.totaldeposit = '请填写租金总额';
+			errors.totaldeposit = '请输入租金总额';
 		}
 
 		if (!values.paymodel) {
-			errors.paymodel = '请填写付款方式';
+			errors.paymodel = '请输入付款方式';
 		}
 
 		if (!values.paytype) {
-			errors.paytype = '请填写支付方式';
+			errors.paytype = '请输入支付方式';
 		}
 
 		if (!values.signdate) {
-			errors.signdate = '请填写签署时间';
+			errors.signdate = '请输入签署时间';
 		}
 
 		if (!values.leaseBegindate) {
-			errors.leaseBegindate = '请填写租赁开始时间';
+			errors.leaseBegindate = '请输入租赁开始时间';
 		}
 
 		if (!values.leaseEnddate) {
-			errors.leaseEnddate = '请填写租赁结束时间';
+			errors.leaseEnddate = '请输入租赁结束时间';
 		}
 
 		if (!values.stationnum && !values.boardroomnum) {
-			errors.stationnum = '租赁项目必须填写一项';
+			errors.stationnum = '租赁项目必须输入一项';
 		}
 
 		return errors
