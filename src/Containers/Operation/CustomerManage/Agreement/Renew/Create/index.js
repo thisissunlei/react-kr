@@ -88,7 +88,7 @@ export default  class JoinCreate extends Component {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid =  params.orderId;
 
-			initialValues.signdate = +new Date((new Date()).getTime() - 24*60*60*1000);
+			initialValues.signdate = +new Date();
 
 			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
