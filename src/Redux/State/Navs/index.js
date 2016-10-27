@@ -36,7 +36,7 @@ module.exports = {
 						},
 					]
 				},
-				/*
+				
 				{
 					primaryText:"客户管理",
 					router:'customerManage',
@@ -57,7 +57,7 @@ module.exports = {
 
 					]
 				},
-				*/
+				
 				{
 					primaryText:"社区配置",
 					router:'',
