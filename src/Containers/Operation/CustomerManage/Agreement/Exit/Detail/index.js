@@ -67,11 +67,11 @@ export default  class ExitDetail extends Component {
 	 const contractList = [];
 	 const params = this.props.params;
 	 function onCancel(){
-		window.history.back();
+		location.href="/#/operation/customerManage/"+params.customerId+ "/order/"+params.orderId+"/detail"
 	}
 
 	function editUrl(){
-		return "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/increase/"+params.id+"/edit";
+		return "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/exit/"+params.id+"/edit";
 	}
 
 	  const {basic} = this.state;

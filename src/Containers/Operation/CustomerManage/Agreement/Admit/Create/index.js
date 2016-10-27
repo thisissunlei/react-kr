@@ -97,6 +97,8 @@ export default  class JoinCreate extends Component {
 			initialValues.leaseContacttel = response.customer.customerPhone;
 			optionValues.communityAddress = response.customer.communityAddress; 
 			optionValues.leaseAddress = response.customer.customerAddress;
+			initialValues.leaseAddress = response.customer.customerAddress;
+
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）	
 			initialValues.contracttype = 'INTENTION';
 

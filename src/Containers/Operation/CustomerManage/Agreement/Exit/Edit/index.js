@@ -97,7 +97,7 @@ export default  class EditCreate extends Component {
       optionValues.communityId = response.customer.communityid;
       optionValues.mainbillCommunityId =  response.mainbillCommunityId||1;
 
-      Store.dispatch(Actions.callAPI('show-checkin-agreement',{id:params.id})).then(function(response){
+      Store.dispatch(Actions.callAPI('getFnaContractWithdrawalById',{id:params.id})).then(function(response){
           optionValues.lessorContactName = response.lessorContactName;  
           
           initialValues.id = response.id;
@@ -108,8 +108,14 @@ export default  class EditCreate extends Component {
           initialValues.leaseContact = response.leaseContact;
           initialValues.lessorContacttel = response.lessorContacttel;
           initialValues.leaseContacttel = response.leaseContacttel;
+          if(response.payType){
           initialValues.paytype = response.payType.id;
+
+          }
+          if(response.payment){
           initialValues.paymodel = response.payment.id;
+            
+          }
           initialValues.stationnum = response.stationnum;
           initialValues.wherefloor = response.wherefloor;
           initialValues.rentaluse = response.rentaluse;

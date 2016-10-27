@@ -85,6 +85,7 @@ export default  class JoinCreate extends Component {
 		let initialValues = {};
 		let optionValues = {};
 		 let stationVos = [];
+		 let rentamount = 0 ;
 
 		Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
 
@@ -143,7 +144,7 @@ export default  class JoinCreate extends Component {
 					// initialValues.contractmark = response.contractmark;
 					// initialValues.totalrent = response.totalrent;
 					if(response.rentamount){
-						optionValues.rentamount = response.rentamount ;
+						initialValues.rentamount = response.rentamount ;
 					}
 					initialValues.lessorContacttel = response.lessorContacttel;
 
@@ -151,7 +152,7 @@ export default  class JoinCreate extends Component {
 			   		// initialValues.firstpaydate = new Date(response.firstpaydate);
 					initialValues.signdate = new Date(response.signdate);
 					// initialValues.leaseBegindate = new Date(response.leaseBegindate);
-					// initialValues.leaseEnddate = new Date(response.leaseEnddate);
+					initialValues.rentamount = response.rentamount;
 
 					console.log('时间',initialValues);
 
@@ -189,7 +190,7 @@ export default  class JoinCreate extends Component {
 
   render() {
 
-	  let {initialValues,optionValues,stationVos} = this.state;
+	  let {initialValues,optionValues,stationVos, params} = this.state;
 
     return (
 

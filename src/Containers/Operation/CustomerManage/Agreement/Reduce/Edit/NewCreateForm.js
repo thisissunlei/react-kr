@@ -84,6 +84,7 @@ class NewCreateForm  extends Component{
 			selectedStation:[],
 			openStation:false,
 			openStationUnitPrice:false,
+			rentamount:0,
 		}
 	}
 
@@ -170,11 +171,9 @@ class NewCreateForm  extends Component{
 
 	// 计算减租金额
 	reduceMoney(selectedList,from){
-		var {rentamount} = this.state;
-		if(!rentamount){
-			rentamount = optionValues.rentamount;
-		}
-		var sum  = rentamount;
+		var {changeValues} = this.props;
+
+		var sum  = changeValues.rentamount;
 		selectedList.forEach(function(value){
 			
 			try{
@@ -199,9 +198,8 @@ class NewCreateForm  extends Component{
 
 			
 		});
-		this.setState({
-			rentamount:sum
-		});
+
+		Store.dispatch(change('reduceCreateForm','rentamount',sum));
 
 	}
 
@@ -240,12 +238,11 @@ class NewCreateForm  extends Component{
 	}
 
 	componentWillReceiveProps(nextProps){
-		if(nextProps.stationVos.length){
+		if(!this.isInit && nextProps.stationVos.length){
 			let stationVos = nextProps.stationVos;
-			this.setState({
-				stationVos
-			});
-		}
+			this.setState({stationVos});
+			this.isInit = true;
+		};
 	}
 
 	onSubmit(form){
@@ -274,7 +271,6 @@ class NewCreateForm  extends Component{
 	}
 
 	render(){
-
 		let { error, handleSubmit, pristine, reset, submitting,initialValues,changeValues,optionValues} = this.props;
 
 		let {fnaCorporationList} = optionValues;
@@ -285,7 +281,8 @@ class NewCreateForm  extends Component{
 			}
 		});
 
-		let {stationVos, rentamount} = this.state;
+		let {stationVos, rentamount, params} = this.state;
+		console.log(params);
 		
 
 		return (
@@ -296,6 +293,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
+				<KrField grid={1/2}  name="rentamount" type="hidden" component="input" />
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true} />
 				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/>
@@ -316,7 +314,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}/>
 
 				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
-				<KrField grid={1}  name="rentamount" type="labelText"  label="减租金额"  value={optionValues.rentamount}/> {/*减租金额没有*/}
+				<KrField grid={1}  name="rentamount" type="labelText"  label="减租金额"  value={changeValues.rentamount}/> {/*减租金额没有*/}
 
 				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" />
 				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} requireLabel={true}/> 
@@ -370,7 +368,7 @@ class NewCreateForm  extends Component{
 						modal={true}
 						autoScrollBodyContent={true}
 						autoDetectWindowHeight={true}>
-								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel}/>
+								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} />
 					  </Dialog>
 
 
@@ -441,9 +439,10 @@ export default connect((state)=>{
 	changeValues.leaseId = selector(state,'leaseId');
 	changeValues.stationnum = selector(state,'stationnum') || 0;
 	changeValues.boardroomnum = selector(state,'boardroomnum') || 0;
-	changeValues.leaseBegindate = selector(state,'leaseBegindate') || 0;
-	changeValues.leaseEnddate = selector(state,'leaseEnddate') || 0;
+	changeValues.leaseBegindate = selector(state,'leaseBegindate');
+	changeValues.leaseEnddate = selector(state,'leaseEnddate');
 	changeValues.wherefloor = selector(state,'wherefloor') || 0;
+	changeValues.rentamount = selector(state,'rentamount') || 0;
 
 
 	return {

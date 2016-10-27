@@ -133,10 +133,11 @@ module.exports = {
 					insetChildren:true,
 					router:'finance',
 					menuItems:[
-						/*{
+						{
 							primaryText:"订单账单",
 							router:'/operation/finance/orderbill/orderList',
 						},
+						/*
 						
 						{
 							primaryText:"订单明细账",

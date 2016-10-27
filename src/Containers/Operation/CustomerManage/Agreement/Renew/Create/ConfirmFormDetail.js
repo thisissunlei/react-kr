@@ -63,12 +63,12 @@ export default class ConfirmFormDetail  extends Component{
         });
         var payment, payType;
         optionValues.paymentList.map((item)=>{
-        	if(item.id = detail.paymodel){
+        	if(item.id === detail.paymodel){
         		return payment = item.dicName;
         	}
         });
          optionValues.payTypeList.map((item)=>{
-        	if(item.id = detail.paytype){
+        	if(item.id === detail.paytype){
         		return payType = item.dicName;
         	}
         })
