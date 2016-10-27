@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import Param from 'jquery-param';
-import { Fields } from 'redux-form'; 
+import { Fields } from 'redux-form';
 import {Binder} from 'react-binding';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
@@ -21,11 +21,11 @@ import {
 	IconMenu,
 	Dialog,
 
-	Table, 
-	TableBody, 
-	TableHeader, 
-	TableHeaderColumn, 
-	TableRow, 
+	Table,
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
 	TableRowColumn,
 	TableFooter,
 	Section,
@@ -89,7 +89,7 @@ class NewCreateForm  extends Component{
 			openStationUnitPrice:false,
 		}
 	}
-	
+
 
 	calcStationNum(){
 		let {stationVos} = this.state;
@@ -218,8 +218,8 @@ class NewCreateForm  extends Component{
 			return ;
 		}
 
-		
-		
+
+
 
 		this.setState({
 			openStation:!this.state.openStation
@@ -337,7 +337,7 @@ class NewCreateForm  extends Component{
 
 		this.setState({stationVos},function(){
 			this.calcStationNum();
-		}); 
+		});
 
 	}
 
@@ -369,51 +369,51 @@ class NewCreateForm  extends Component{
 
 <form onSubmit={handleSubmit(this.onSubmit)} enctype="multipart/form-data">
 
-				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" /> 
-				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" /> 
-				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" /> 
+				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
+				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
+				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}  />
-				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/> 
-				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} /> 
-				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}  /> 
+				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/>
+				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} />
+				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}  />
 
-				<KrField grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/> 
+				<KrField grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/>
 
-				<KrField grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" requireLabel={true} /> 
+				<KrField grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" requireLabel={true} />
 
-				<KrField grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" requireLabel={true} /> 
-				<KrField grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话" requireLabel={true} /> 
+				<KrField grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" requireLabel={true} />
+				<KrField grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话" requireLabel={true} />
 
-				<KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={optionValues.communityName} /> 
+				<KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={optionValues.communityName} />
 
 				<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} />
 
-				<KrField grid={1/2}  name="communityAddress" component="labelText" label="地址" value={optionValues.communityAddress} /> 
-				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号" requireLabel={true}  /> 
+				<KrField grid={1/2}  name="communityAddress" component="labelText" label="地址" value={optionValues.communityAddress} />
+				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号" requireLabel={true}  />
 
-				<KrField grid={1/1}  component="group" label="租赁期限" requireLabel={true} > 
-					<KrField grid={1/2}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} /> 
-					<KrField grid={1/2}  name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} /> 
+				<KrField grid={1/1}  component="group" label="租赁期限" requireLabel={true} >
+					<KrField grid={1/2}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} />
+					<KrField grid={1/2}  name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} />
 				</KrField>
 
-				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true} /> 
+				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true} />
 				<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} requireLabel={true} />
 
-				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" defaultValue={initialValues.signdate} requireLabel={true} /> 
+				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" defaultValue={initialValues.signdate} requireLabel={true} />
 
-				<KrField name="firstpaydate" component="date" label="首付款时间"   requireLabel={true} /> 
-				<KrField grid={1/1} component="group" label=" 租赁项目"> 
-					<KrField grid={1}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} /> 
-					<KrField grid={1}  name="boardroomnum" type="text" type="text" component="labelText" label="会议室" value={changeValues.station}/> 
+				<KrField name="firstpaydate" component="date" label="首付款时间"   requireLabel={true} />
+				<KrField grid={1/1} component="group" label=" 租赁项目">
+					<KrField grid={1}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} />
+					<KrField grid={1}  name="boardroomnum" type="text" type="text" component="labelText" label="会议室" value={changeValues.station}/>
 				</KrField>
 
-				<KrField grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用" requireLabel={true}  /> 
+				<KrField grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用" requireLabel={true}  />
 
-				<KrField grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true} /> 
-				<KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true} /> 
-				<KrField grid={1/2}  name="contractmark" component="textarea" label="备注" /> 
-				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} /> 
+				<KrField grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true} />
+				<KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true} />
+				<KrField grid={1/2}  name="contractmark" component="textarea" label="备注" />
+				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} />
 
 				<Section title="租赁明细" description="" rightMenu = {
 					<Menu>
@@ -421,7 +421,7 @@ class NewCreateForm  extends Component{
 						<MenuItem primaryText="删除" onTouchTap={this.onStationDelete} />
 						<MenuItem primaryText="增租"  onTouchTap={this.openStationDialog} />
 					</Menu>
-				}> 
+				}>
 
 				<Table  displayCheckbox={true} onSelect={this.onStationSelect}>
 				<TableHeader>
@@ -483,7 +483,7 @@ class NewCreateForm  extends Component{
 	}
 	}
 
-	
+
 	const validate = values =>{
 
 		const errors = {}
@@ -554,11 +554,11 @@ class NewCreateForm  extends Component{
 		if (!values.wherefloor) {
 			errors.wherefloor = '请填写所属楼层';
 		}
-		
+
 
 		return errors
 	}
-	
+
 
 const selector = formValueSelector('joinCreateForm');
 
@@ -581,4 +581,3 @@ export default connect((state)=>{
 	}
 
 })(NewCreateForm);
-
