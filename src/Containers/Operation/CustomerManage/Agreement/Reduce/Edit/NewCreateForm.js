@@ -84,7 +84,6 @@ class NewCreateForm  extends Component{
 			selectedStation:[],
 			openStation:false,
 			openStationUnitPrice:false,
-			rentamount:0,
 		}
 	}
 
@@ -171,11 +170,9 @@ class NewCreateForm  extends Component{
 
 	// 计算减租金额
 	reduceMoney(selectedList,from){
-		
-		if(from === 'add'){
-			var {rentamount} = this.state;
-		}else{
-			var rentamount = 0;
+		var {rentamount} = this.state;
+		if(!rentamount){
+			rentamount = optionValues.rentamount;
 		}
 		var sum  = rentamount;
 		selectedList.forEach(function(value){
@@ -319,7 +316,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}/>
 
 				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
-				<KrField grid={1}  name="rentamount" type="labelText"  label="减租金额"  value={rentamount}/> {/*减租金额没有*/}
+				<KrField grid={1}  name="rentamount" type="labelText"  label="减租金额"  value={optionValues.rentamount}/> {/*减租金额没有*/}
 
 				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" />
 				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} requireLabel={true}/> 

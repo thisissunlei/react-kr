@@ -143,11 +143,7 @@ export default  class JoinCreate extends Component {
 					// initialValues.contractmark = response.contractmark;
 					// initialValues.totalrent = response.totalrent;
 					if(response.rentamount){
-						rentamount = response.rentamount ;
-						_this.setState({
-							rentamount
-						});
-
+						optionValues.rentamount = response.rentamount ;
 					}
 					initialValues.lessorContacttel = response.lessorContacttel;
 
