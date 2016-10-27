@@ -57,15 +57,14 @@ export default  class ConfirmBillDetail extends Component{
 
   getData(params = this.props.params){ 
     
-    
+      
      //发送获取基本信息的请求
       var _this = this;
      
-      Store.dispatch(Actions.callAPI('getFinaDataDetailAdd',this.props.params)).then(function(response){ //?为神魔加this.props就可以获取到
+      Store.dispatch(Actions.callAPI('getFinaDataDetailAdd',params)).then(function(response){ //?为神魔加this.props就可以获取到
       
-      let data = response.finaContractMainbillVOMap;
-      
-  
+      let data = response;
+        
       data.income.items.map(function(item,index){
           var arr1=[];
           var obj = {};
@@ -73,7 +72,6 @@ export default  class ConfirmBillDetail extends Component{
            obj.name=item.finaflowAmount;
            obj.money=item.propname;          
            arr1.push(obj); 
-
            list1=arr1;
                  
       })
@@ -86,7 +84,6 @@ export default  class ConfirmBillDetail extends Component{
            obj.name=item.finaflowAmount;
            obj.money=item.propname;
            arr2.push(obj);
-
            list2=arr2;
       })
        data.otherPay.items.map(function(item,index){
@@ -96,11 +93,10 @@ export default  class ConfirmBillDetail extends Component{
            obj.name=item.finaflowAmount;
            obj.money=item.propname;
            arr3.push(obj);
-
            list3=arr3;
       })
      
-
+     
      
       _this.setState({
           detail:data,
@@ -140,7 +136,7 @@ export default  class ConfirmBillDetail extends Component{
            
        const {params}  = this.props;
       
-       //console.log("111",params);
+       
        
 
        let {detail,basic,isLoading}  = this.state;
@@ -148,7 +144,7 @@ export default  class ConfirmBillDetail extends Component{
        
       
       
-       //console.log("hhh111",detail);
+       
       
         /*if(isLoading){
           return <Loading/>
@@ -171,9 +167,9 @@ export default  class ConfirmBillDetail extends Component{
 			<div>
             <Grid style={{marginTop:30}}>
 
-              <KrField grid={1/3} component="labelText" type="text"/>
-              <KrField grid={1/3} label="对账单" component="labelText" value={basic.corporationName} />
-              <KrField grid={1/3} component="labelText" type="text"/>
+              
+              <KrField grid={1} label="对账单" component="labelText" value={basic.corporationName} />
+              
             </Grid>  
            
             <KrField grid={1/2} label="公司名称" component="labelText" value={basic.customername} />

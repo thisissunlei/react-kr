@@ -9,6 +9,7 @@ import {
 	Row,
 	Col,
 	Button,
+	KrDate
 } from 'kr-ui';
 import ConfirmBillDetail from './ConfirmBillDetail';
 
@@ -36,8 +37,8 @@ import ConfirmBillDetail from './ConfirmBillDetail';
 
 
 
-
-		this.state = {  //提交params
+        //提交params
+		this.state = {  
 			params:{
 				startDate:'',
 				endDate:'',
@@ -51,8 +52,9 @@ import ConfirmBillDetail from './ConfirmBillDetail';
 	}
 	componentDidMount(){
 	}
-
-	 onSubmit(params){  //获取提交时的params
+     
+     //获取提交时的params
+	 onSubmit(params){  
 
  		
  		 const {detail} = this.props;
@@ -91,16 +93,13 @@ import ConfirmBillDetail from './ConfirmBillDetail';
 
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
-				<KrField name="id" type="hidden" label="id"/>
-                <Row>
-					<KrField  label="对账期间" type="labelText" grid={1/3}/>
-                
-					<KrField   name="startDate" type="labelText" grid={1/3} value={this.props.detail.actualEntrydate}/>
-				
-					<KrField  component="Date"  name="endDate" type="date" grid={1/3}/>
-			     </Row>
-				
-				
+				    <KrField name="id" type="hidden" label="id"/>
+               
+                    <KrField grid={1/2} label="对账期间" component="group">
+                        <KrDate.Format value={this.props.detail.actualEntrydate}/>  					
+  						<KrField  component="Date"  name="endDate" type="date" grid={1/2}/>
+				     </KrField>
+		
 				<Grid style={{marginTop:10}}>
 					<Row>
 						<Col md={8}></Col>

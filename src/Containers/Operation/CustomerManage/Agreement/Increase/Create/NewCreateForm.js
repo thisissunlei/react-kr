@@ -237,7 +237,7 @@ class NewCreateForm  extends Component{
 		let {changeValues} = this.props;
 
         form.lessorAddress = changeValues.lessorAddress;
-
+		form.list = stationVos;
 		form.firstpaydate = dateFormat(form.firstpaydate,"yyyy-mm-dd hh:MM:ss");
 		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd hh:MM:ss");
 		form.leaseBegindate = dateFormat(form.leaseBegindate,"yyyy-mm-dd hh:MM:ss");
@@ -334,6 +334,8 @@ class NewCreateForm  extends Component{
 
 	onChangeSearchPersonel(personel){
 		Store.dispatch(change('joinCreateForm','lessorContacttel',personel.mobile));
+		Store.dispatch(change('joinCreateForm','lessorContactName',personel.lastname));
+
 	}
 
 
