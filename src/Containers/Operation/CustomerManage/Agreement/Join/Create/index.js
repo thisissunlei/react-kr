@@ -46,6 +46,7 @@ export default  class JoinCreate extends Component {
 	 onConfrimSubmit(){
 
 		let {formValues} = this.state;
+		console.log('formValues',formValues)
 
 		Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(){
 			Notify.show([{
@@ -146,7 +147,7 @@ export default  class JoinCreate extends Component {
 				autoScrollBodyContent={true}
 				autoDetectWindowHeight={true}
 				open={this.state.openConfirmCreate} >
-						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} />
+						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} optionValues={optionValues}/>
 			  </Dialog>
 		</div>
 	);

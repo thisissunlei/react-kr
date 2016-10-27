@@ -51,13 +51,15 @@ export default class ConfirmFormDetail  extends Component{
 
 	render(){
 
-		let {detail} = this.props;
+		let {detail,optionValues} = this.props;
+		console.log('detail',detail)
+		console.log('optionValues',optionValues)
 
 
 	  return (
 
 		  <div>
-								<KrField name="lessorId"  grid={1/2} component="labelText" label="出租方" value={detail.lessorId} />
+								<KrField name="leaseId"  grid={1/2} component="labelText" label="出租方" value={detail.leaseId} />
 
 								 <KrField grid={1/2}  name="lessorAddress"  component="labelText" label="地址" value={detail.lessorAddress}/> 
 
@@ -70,16 +72,16 @@ export default class ConfirmFormDetail  extends Component{
 								 <KrField grid={1/2}  name="leaseContact"  component="labelText" label="联系人" value={detail.leaseContact}/> 
 								 <KrField grid={1/2}  name="leaseContacttel"  component="labelText" label="电话" value={detail.leaseContacttel}/> 
 
-								 <KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={detail.communityid} /> 
+								 <KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={optionValues.communityName} /> 
 
-								<KrField name="whereFloor"  grid={1/2} component="labelText" label="所在楼层" value={detail.whereFloor}/>
+								<KrField name="whereFloor"  grid={1/2} component="labelText" label="所在楼层" value={detail.wherefloor}/>
 
-								 <KrField grid={1/2}  name=""  component="labelText" label="地址"  value=''/> 
+								 <KrField grid={1/2}  name=""  component="labelText" label="地址"  value={optionValues.communityAddress}/> 
 								 <KrField grid={1/2}  name="contractcode"  component="labelText" label="合同编号" value={detail.contractcode} /> 
 
 								 <KrField grid={1}  name="username" component="group" label="租赁期限"> 
-										  <KrField grid={1/2}  name="leaseBeginDate"  component="labelText" value={detail.leaseBeginDate} /> 
-										  <KrField grid={1/2}  name="leaseEndDate" component="labelText" value={detail.leaseEndDate} /> 
+										  <KrField grid={1/2}  name="leaseBeginDate"  component="labelText" value={detail.leaseBegindate} /> 
+										  <KrField grid={1/2}  name="leaseEndDate" component="labelText" value={detail.leaseEnddate} /> 
 								  </KrField>
 
 								<KrField name="paymodel"  grid={1/2} component="labelText" label="付款方式" value={detail.paymodel}/> 
