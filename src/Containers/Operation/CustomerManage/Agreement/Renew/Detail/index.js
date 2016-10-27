@@ -58,7 +58,7 @@ export default  class JoinDetail extends Component {
 	
 	const params = this.props.params;
 	 function onCancel(){
-		window.history.back();
+		location.href="/#/operation/customerManage/"+params.customerId+ "/order/"+params.orderId+"/detail";
 	}
 
 	function editUrl(){
