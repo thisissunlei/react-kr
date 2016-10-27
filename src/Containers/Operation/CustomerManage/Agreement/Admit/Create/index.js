@@ -93,7 +93,8 @@ export default  class JoinCreate extends Component {
 			initialValues.mainbillid =  params.orderId;
 
 			initialValues.signdate = +new Date((new Date()).getTime() - 24*60*60*1000);
-
+			initialValues.leaseContact = response.customer.customerMember;
+			initialValues.leaseContacttel = response.customer.customerPhone;
 			optionValues.communityAddress = response.customer.communityAddress; 
 			optionValues.leaseAddress = response.customer.customerAddress;
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）	
@@ -109,6 +110,7 @@ export default  class JoinCreate extends Component {
 				item.label = item.dicName;
 				return item;
 			});
+
 			optionValues.payTypeList = response.payType.map(function(item,index){
 				item.value = item.id;
 				item.label = item.dicName;
