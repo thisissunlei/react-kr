@@ -135,6 +135,7 @@ class NewCreateForm  extends Component{
 	onChangeSearchPersonel(personel){
 		console.log('personel',personel)
 		Store.dispatch(change('joinCreateForm','lessorContacttel',personel.mobile));
+		Store.dispatch(change('joinCreateForm','lessorContactName',personel.lastname));
 	}
 
 

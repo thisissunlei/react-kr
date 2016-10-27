@@ -58,7 +58,7 @@ export default  class JoinCreate extends Component {
 			}]);
 	   	});
 
-		 //this.openConfirmCreateDialog();
+		 this.openConfirmCreateDialog();
 	}
 
 	onCancel(){
@@ -139,7 +139,7 @@ export default  class JoinCreate extends Component {
     return (
 
 		 <div>
-		 	<BreadCrumbs children={['系统运营','客户管理','入驻协议']}/>
+		 	<BreadCrumbs children={['系统运营','客户管理','退租协议']}/>
 			<Section title="创建退租协议书" description="">
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues}/>
 			</Section>

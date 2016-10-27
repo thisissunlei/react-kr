@@ -52,10 +52,6 @@ export default class ConfirmFormDetail  extends Component{
 	render(){
 
 		let {detail,optionValues} = this.props;
-		console.log('detail',detail)
-		console.log('optionValues',optionValues)
-		console.log('stationVos',detail.stationVos)
-		
 		 var leasorName ;
 	        optionValues.fnaCorporationList.map((item)=>{
 	        	if(item.value === detail.leaseId){
@@ -83,13 +79,7 @@ export default class ConfirmFormDetail  extends Component{
 	        	}
 
 	        })
-	       /*  var lessorContactName;
-	        optionValues.payTypeList.map((item)=>{
-	        	if(item.lessorContactid = detail.lessorContactid){
-	        		return lessorContactName = item.dicName;
-	        	}
-
-	        })*/
+	      
 
 	  return (
 

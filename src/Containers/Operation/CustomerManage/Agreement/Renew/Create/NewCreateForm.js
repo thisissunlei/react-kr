@@ -122,6 +122,8 @@ class NewCreateForm  extends Component{
 	}
 	onChangeSearchPersonel(personel){
 		Store.dispatch(change('reduceCreateForm','lessorContacttel',personel.mobile));
+		Store.dispatch(change('reduceCreateForm','lessorContactName',personel.lastname));
+		
 	}
 
 // station list

@@ -171,7 +171,7 @@ class OrderDetail extends Component {
   		if(item){
   			return (
   				<Row>
-					<Col md={3} align="left" className="ContractName"><Circle type={item.payStatus}></Circle>款项：押金</Col>
+					<Col md={3} align="left" className="ContractName"><Circle type={item.payStatus}></Circle>款项：{item.installmentName}</Col>
 					<Col md={3} align="left" className="ContractName">计划付款日期：<Date.Format value={item.installmentReminddate}/></Col>
 					<Col md={3} align="left" className="ContractName">计划付款金额：{item.installmentAmount}</Col>
 					<Col md={3} align="left" className="ContractName">实际付款金额：{item.installmentBackamount}</Col>
