@@ -28,17 +28,17 @@ import {
 
 
 
-class SwitchMoney extends Component{
+class QuitBtnForm extends Component{
 
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
-		optionList:React.PropTypes.object,
 		initialValues:React.PropTypes.object,
-  }
+	}
 
 	constructor(props,context){
 		super(props, context);
+		
         this.onCancel = this.onCancel.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 		  this.state = {
@@ -47,14 +47,16 @@ class SwitchMoney extends Component{
    }
 
 	componentDidMount() {
-
-       let {initialValues}= this.props;
-	   Store.dispatch(initialize('SwitchMoney',initialValues));
-		
+        let {initialValues}= this.props;
+	    Store.dispatch(initialize('QuitBtnForm',initialValues));
 	}
     
    
-    onSubmit(values){
+
+   
+    
+	
+   onSubmit(values){
 		 const {onSubmit} = this.props;
 		 onSubmit && onSubmit(values);
 
@@ -65,27 +67,25 @@ class SwitchMoney extends Component{
 		 onCancel && onCancel();		 
 	 }
 	
-
-	  
-
     
 
 	render(){
+       
 
-	
+		const { error, handleSubmit, pristine, reset} = this.props;
 
-        const { error, handleSubmit, pristine, reset,optionList} = this.props;
 		
-
-		console.log("vbvbvb",optionList)
         
- 
+
 		return(
 
-			    <div>                 
-					      <form onSubmit={handleSubmit(this.onSubmit)}>                           
-						    <KrField  name="id" type="hidden"/>
-                            <KrField label="合同编号" name="contractcodeId" type="select" options={optionList}/>
+			    <div>
+                 
+					     <form onSubmit={handleSubmit(this.onSubmit)}>
+ 
+						    <KrField name="id" type="hidden"/>
+                            <KrField label="金额（元）" name="finaflowamount" component="input" type="text"/>
+                            <KrField type="date" label="退款日期" name="operatedate"/>
                             <KrField label="备注" name="finaflowdesc" component="input" type="text"/>
                             <KrField label="上传附件" name="fileids" component="file"/>
 
@@ -93,7 +93,7 @@ class SwitchMoney extends Component{
 								<Col md={6}> <Button  label="确定" type="submit" primary={true} /> </Col>
 								<Col md={6}> <Button  label="取消" type="button"  onTouchTap={this.onCancel} /> </Col>
 						   </Row> 
-		   
+					   
                          </form>
 			</div>		
 
@@ -104,7 +104,7 @@ class SwitchMoney extends Component{
 }
 
 
-export default reduxForm({form:'SwitchMoney'})(SwitchMoney);
+export default reduxForm({form:'QuitBtnForm'})(QuitBtnForm);
 
 
 

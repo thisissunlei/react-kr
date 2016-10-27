@@ -28,7 +28,7 @@ import {
 
 
 
-class SwitchMoney extends Component{
+class SwitchBtnForm extends Component{
 
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
@@ -49,7 +49,7 @@ class SwitchMoney extends Component{
 	componentDidMount() {
 
        let {initialValues}= this.props;
-	   Store.dispatch(initialize('SwitchMoney',initialValues));
+	   Store.dispatch(initialize('SwitchBtnForm',initialValues));
 		
 	}
     
@@ -77,7 +77,6 @@ class SwitchMoney extends Component{
         const { error, handleSubmit, pristine, reset,optionList} = this.props;
 		
 
-		console.log("vbvbvb",optionList)
         
  
 		return(
@@ -104,7 +103,7 @@ class SwitchMoney extends Component{
 }
 
 
-export default reduxForm({form:'SwitchMoney'})(SwitchMoney);
+export default reduxForm({form:'SwitchBtnForm'})(SwitchBtnForm);
 
 
 

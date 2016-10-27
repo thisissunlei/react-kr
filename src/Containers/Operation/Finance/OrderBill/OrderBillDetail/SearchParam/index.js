@@ -36,6 +36,7 @@ export default class SearchParam extends Component{
 		detailPayment:React.PropTypes.object,
 		detailIncome:React.PropTypes.object,
 		detailBalance:React.PropTypes.object,
+		params:React.PropTypes.object
 	}
      
 	constructor(props,context){
@@ -54,9 +55,9 @@ export default class SearchParam extends Component{
 
 		var searchParam = {};
 
-		searchParam.type = type;
+		searchParam.accountType = type;
 		searchParam.childType = childType;
-		searchParam.id = id;
+		searchParam.propertyId = id;
 		searchParam.orderId = params.orderId;
 		onSearch && onSearch(searchParam);
 	}
@@ -69,12 +70,12 @@ export default class SearchParam extends Component{
 		<div>
 					<Table  style={{marginTop:10}} displayCheckbox={false}>
 					  <TableHeader>
-						<TableHeaderColumn onTouchTap={this.onSearch.bind(this,'RECEIVED','basic','')} colSpan={2}>回款</TableHeaderColumn>
+						<TableHeaderColumn onTouchTap={this.onSearch.bind(this,'PAYMENT','basic','')} colSpan={2}>回款</TableHeaderColumn>
 					  </TableHeader>
 
 					 <TableBody>
 						 {detailPayment.map((item,index)=><TableRow key={index}>			
-							<TableRowColumn onTouchTap={this.onSearch.bind(this,'RECEIVED',item.propcode,item.id)}>{item.propname}</TableRowColumn>
+							<TableRowColumn onTouchTap={this.onSearch.bind(this,'PAYMENT',item.propcode,item.id)}>{item.propname}</TableRowColumn>
 							<TableRowColumn>{item.propamount}</TableRowColumn>					
 						 </TableRow>
 						  )}

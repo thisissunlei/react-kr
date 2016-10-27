@@ -237,11 +237,11 @@ export default class Deposit extends Component{
  		      	 var list ={}
  		      	 console.log("ffff",item)
  		      	 list.id=item.id;
- 		      	 list.contractcode=item.contractcode;
+ 		      	 list.contractcodeId=item.contractcodeId;
  		      	 arr1.push(list);	      	 	      	                                            
               })
                 arr1.map(function(item,index){
-				 item.label=item.contractcode;
+				 item.label=item.contractcodeId;
                  item.value=item.id;
 				 return item;
 			    });

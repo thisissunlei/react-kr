@@ -89,10 +89,11 @@ export default class Basic extends Component{
 			arr:[],
 
 			isLoading:false,
+            
 
 			Params:{
                 orderId:this.props.params.orderId,
-                propertyId:this.props.params.id,
+                propertyId:this.props.params.propertyId,
 				accountType:'PAYMENT',
 				page:1,
 				pageSize:20				
@@ -220,12 +221,12 @@ export default class Basic extends Component{
 			return  null;
 		}
 		
-	       let initialValues = {
+	     let initialValues = {
 				mainbillid:params.orderId,
-			}
+		}
 	    
-	   
-
+	    
+       
 	  
 
        const close=[

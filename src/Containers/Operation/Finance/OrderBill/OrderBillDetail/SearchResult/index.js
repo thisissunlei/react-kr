@@ -26,14 +26,13 @@ import {
 
 import Received from './Received';
 import Income from './Income';
-
 import SearchForm from './SearchForm';
 
 
 
-var arr=[];
-var selectType='';
-var arr1=[];
+
+
+
 export default class SearchResult extends Component{
 
 	static PropTypes = {
@@ -80,47 +79,6 @@ export default class SearchResult extends Component{
 	}
     
 
-    urlFunctionAccount(){
-         var _this = this;      
-	      Store.dispatch(Actions.callAPI('findAccountAndPropList',{
-	      	accountType:selectType
-	      })).then(function(response){
-             
-             //console.log("dddd",response)
-
-             response.account.map(function(item,index){ 
- 		      	 var list ={}
- 		      	 list.id=item.id;
- 		      	 list.accountname=item.accountname;
- 		      	 arr.push(list);		      	 	      	                                            
-              })
-              arr.map(function(item,index){
-				 item.label=item.accountname;
-                 item.value=item.id;
-				 return item;
-			    });
-		      response.property.map(function(item,index){ 
- 		      	 var list ={}
- 		      	 list.id=item.id;
- 		      	 list.propname=item.propname;
- 		      	 arr1.push(list);		      	 	      	                                            
-              })
-              arr1.map(function(item,index){
-				 item.label=item.propname;
-                 item.value=item.id;
-				 return item;
-			    });
- 		        _this.setState({
-			      arr1:arr1,
-			      arr:arr
-		       });             	           		   
- 		}).catch(function(err){
-			Notify.show([{
-				message:'报错了',
-				type: 'danger',
-			}]);
-		 });
-    }
     
 	onInitSearchDialog(onSuccess,type){
 		selectType=type;
@@ -164,14 +122,13 @@ export default class SearchResult extends Component{
 
 
 	render(){
+        
 
 		return(
 
 			 <div style={{paddingLeft:15,paddingTop:10}}>
-
-				<Received params={this.props.params} type="RECEIVED" />
-				<Income params={this.props.params} type="INCOME" />
-
+				<Received params={this.props.params} type="RECEIVED"/>
+				<Income params={this.props.params} type="INCOME"/>
 				<Dialog
 				title="高级查询"
 				open={this.state.openSearch}
