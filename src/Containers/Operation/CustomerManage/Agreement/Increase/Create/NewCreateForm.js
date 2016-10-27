@@ -389,11 +389,11 @@ class NewCreateForm  extends Component{
 				</KrField>
 
 				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true} /> 
-				<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} />
+				<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} requireLabel={true} />
 
-				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" defaultValue={initialValues.signdate} /> 
+				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" defaultValue={initialValues.signdate} requireLabel={true} /> 
 
-				<KrField name="firstpaydate" component="date" label="首付款时间"  requireLabel={true} /> 
+				<KrField name="firstpaydate" component="date" label="首付款时间"   requireLabel={true} /> 
 				<KrField grid={1/1} component="group" label=" 租赁项目"> 
 					<KrField grid={1}  name="stationnum" type="text" component="input" label="工位" /> 
 					<KrField grid={1}  name="boardroomnum" type="text" component="input" label="会议室" /> 
@@ -476,15 +476,76 @@ class NewCreateForm  extends Component{
 
 	
 	const validate = values =>{
+
 		const errors = {}
 
-		if(!values.mainbilltype){
-			errors.mainbilltype = '请选择订单类型';
-		}else if (!values.communityid) {
-			errors.communityid = '请选择所在社区';
-		}else if(!values.mainbillname){
-			errors.mainbillname = '订单名称不能为空';
+		if(!values.leaseId){
+			errors.leaseId = '请填写出租方';
 		}
+
+		if (!values.lessorContactid) {
+			errors.lessorContactid = '请填写出租方联系人';
+		}
+
+		if (!values.lessorContacttel) {
+			errors.lessorContacttel = '请填写出租方联系电话';
+		}
+		if (!values.leaseAddress) {
+			errors.leaseAddress = '请填写承租方地址';
+		}
+
+		if (!values.leaseContact) {
+			errors.leaseContact = '请填写承租方联系人';
+		}
+
+		if (!values.leaseContacttel) {
+			errors.leaseContacttel = '请填写承租方联系电话';
+		}
+		if (!values.whereFloor) {
+			errors.whereFloor = '请填写所属楼层';
+		}
+		if (!values.contractcode) {
+			errors.contractcode = '请填写合同编号';
+		}
+
+		if (!values.leaseBeginDate) {
+			errors.leaseBeginDate = '请填写租赁期限';
+		}
+		if (!values.leaseEndDate) {
+			errors.leaseEndDate = '请填写租赁期限';
+		}
+
+		if (!values.firstpaydate) {
+			errors.firstpaydate = '请填写首付款时间';
+		}
+
+		if (!values.paymodel) {
+			errors.paymodel = '请填写付款方式';
+		}
+		if (!values.paytype) {
+			errors.paytype = '请填写支付方式';
+		}
+
+		if (!values.signdate) {
+			errors.signdate = '请填写签署时间';
+		}
+
+		if (!values.totalrent) {
+			errors.totalrent = '请填写租金总额';
+		}
+		if (!values.totaldeposit) {
+			errors.totaldeposit = '请填写押金总额';
+		}
+		if (!values.fileIdList) {
+			errors.fileIdList = '请填写合同附件';
+		}
+		if (!values.rentaluse) {
+			errors.rentaluse = '请填写租赁用途';
+		}
+		if (!values.wherefloor) {
+			errors.wherefloor = '请填写所属楼层';
+		}
+		
 
 		return errors
 	}
