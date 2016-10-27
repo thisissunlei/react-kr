@@ -245,6 +245,8 @@ class NewCreateForm  extends Component{
 		form.lessorAddress = changeValues.lessorAddress;
 		// form.lessorContactid = 111;
 		form.rentamount= this.state.rentamount;
+		form.leaseBegindate = stationVos[0].leaseBeginDate;
+		form.leaseEnddate = stationVos[0].leaseEndDate;
 		var _this = this;
 
 		form.stationVos =  stationVos;
