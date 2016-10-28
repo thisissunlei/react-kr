@@ -69,8 +69,8 @@ function getMethod(path) {
 }
 
 function check401(res) {
-    if (res.status === 401) {
-        //browserHistory.replace('/login');
+    if (res.status ==200 && res.code ===-4011) {
+		window.location.href = '/';
     }
     return res;
 }
