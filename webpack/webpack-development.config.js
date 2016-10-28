@@ -7,10 +7,11 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 var env = process.env.NODE_ENV || 'development';
 
 const config = {
-	entry:[
-		path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js'),
-		path.join(process.cwd(), '/src/app.js'),
-	],
+	entry:{
+		app:path.join(process.cwd(), '/src/app.js'),
+		vender:[path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js')],	
+		development:[]
+	},
 	resolve: {
 		root:path.join(process.cwd(), '/src'),
 		extensions: ['', '.js','.less'], 
@@ -26,7 +27,7 @@ const config = {
 	devtool: 'eval-source-map',
 	output: {
 		path: buildPath,
-		filename: 'bundle.js',
+		filename: '[name].js',
 		publicPath:"/"
 	},
 	noParse: ['/node_modules/'],

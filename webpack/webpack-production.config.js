@@ -6,10 +6,11 @@ const TransferWebpackPlugin = require('transfer-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = {
-	entry: [
-		path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js'),
-		path.join(process.cwd(), '/src/app.js'),
-	],
+	entry:{
+		app:path.join(process.cwd(), '/src/app.js'),
+		vender:[path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js')],	
+		development:[]
+	},
 	resolve: {
 		extensions: ['', '.js', '.md'], // 加载这些类型的文件时不用加后缀
 		alias: {
@@ -18,10 +19,14 @@ const config = {
 			// 'material-ui': path.resolve(__dirname, '../meterial-ui'),
 		},
 	},
+
 	// 出口文件配置
 	output: {
 		path: buildPath,
-		filename: 'app.js',
+		filename: '[name].js',
+	},
+	externals: { 
+		React:true
 	},
 	plugins: [
 		new webpack.optimize.OccurrenceOrderPlugin(),

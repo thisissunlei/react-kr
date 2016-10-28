@@ -7,10 +7,10 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 var env = process.env.NODE_ENV || 'test';
 
 const config = {
-	entry:[
-		path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js'),
-		path.join(process.cwd(), '/src/app.js'),
-	],
+	entry:{
+		app:path.join(process.cwd(), '/src/app.js'),
+		vender:[path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js')],	
+	},
 	resolve: {
 		extensions: ['', '.js', '.md','.css'], 
 		alias: {
@@ -18,11 +18,14 @@ const config = {
 			'kr': path.join(process.cwd(), '/src'), 
 		},
 	},
+	externals: { 
+		React:true
+	}, 
 	//devtool: 'eval-source-map',
 	output: {
 		path: buildPath,
-		filename: 'bundle.js',
-		publicPath:"/"
+		filename: '[name].js',
+		publicPath:"./"
 	},
 	plugins: [
 		/*
@@ -46,7 +49,10 @@ const config = {
 			title: '氪空间',
 			filename: 'index.html',
 			template: './src/index.template.html',
-			inject:'body'
+			inject:'body',
+			hash:true,
+			cache:true,
+			showErrors:true
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop')
 	],
