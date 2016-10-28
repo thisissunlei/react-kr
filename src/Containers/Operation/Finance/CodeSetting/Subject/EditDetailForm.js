@@ -53,12 +53,19 @@ import {
 			ordernum:ordernum,
 			id:id
 		})).then(function(response){ 
-			Notify.show([{
-				message:'操作成功！',
-				type: 'success',
-			}]);
-			const {onSubmit} = _this.props;
-		 	onSubmit && onSubmit();
+			if(response.code==1){
+					Notify.show([{
+						message:'新建成功！',
+						type: 'success',
+					}]);
+					 const {onSubmit} = _this.props;
+					 onSubmit && onSubmit();
+				}else{
+					Notify.show([{
+						message:response.message,
+						type: 'danger',
+					}]);
+				}
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
