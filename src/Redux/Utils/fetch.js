@@ -200,6 +200,7 @@ const http = {
 
 		fetch(url, {
 			method: 'POST',
+			credentials: 'same-origin',
 			headers: {
 				'Accept': '*',
 				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
@@ -234,6 +235,7 @@ const http = {
 
 		fetch(url, {
 			method: 'PUT',
+			credentials: 'same-origin',
 			headers: {
 				'Accept': '*',
 				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
@@ -267,6 +269,7 @@ const http = {
 
 		return fetch(url, {
 			method: 'DELETE',
+			credentials: 'same-origin',
 			headers: {
 				'Accept': '*',
 				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
