@@ -217,7 +217,7 @@ export default class AttributeSetting  extends Component{
 						<TableRowColumn name="mount"></TableRowColumn>
 						<TableRowColumn>
 							  <Button label="查看"  type="operation" operation="view"/>
-							  <Button label="生成对账单"  type="operation" operation="edit"/>
+							  {/*<Button label="生成对账单"  type="operation" operation="edit"/>*/}
 						 </TableRowColumn>
 					 </TableRow>
 				</TableBody>
