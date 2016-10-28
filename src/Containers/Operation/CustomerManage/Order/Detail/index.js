@@ -304,7 +304,7 @@ class OrderDetail extends Component {
 							<TableRowColumn> <Date.Format value={item.leaseEnddate}/></TableRowColumn>
 							<TableRowColumn>
 								<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)}/>
-								<Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)}/>
+								<Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/>
 							</TableRowColumn>
 						   </TableRow>
 							);

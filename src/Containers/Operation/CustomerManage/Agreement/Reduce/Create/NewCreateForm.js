@@ -139,7 +139,6 @@ class NewCreateForm  extends Component{
 		Store.dispatch(change('reduceCreateForm','lessorContactName',personel.lastname));
 	}
 
-// station list
 	onStationCancel(){
 		this.openStationDialog();
 	}
