@@ -9,7 +9,7 @@ export default class  LabelTextComponent extends React.Component {
 
 	render(){
 
-		let {className,label,value,style} = this.props;
+		let {className,label,value,style,defaultValue} = this.props;
 
 			return (
 
@@ -20,7 +20,7 @@ export default class  LabelTextComponent extends React.Component {
 						<div className="form-input-main">
 						<div className="form-input">
 						<span className="text" >
-									{value}
+									{(value || defaultValue && defaultValue)}
 											</span>
 										</div>
 									</div>
