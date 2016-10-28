@@ -169,6 +169,7 @@ const http = {
 		xhr.withCredentials = true;
 		xhr.open('GET', url, true);
 		xhr.responseType = 'json';
+		xhr.setRequestHeader('crossDomain', true);
 		xhr.onload = function(e) {
 		  if (this.status >= 200 || this.status <300 ) {
 			  var json = http.transformPreResponse(xhr.response);
