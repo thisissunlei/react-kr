@@ -50,7 +50,7 @@ export default class SearchParam extends Component{
        
 	}
 
-	onSearch(type,childType,id){    
+	onSearch(type,childType,id,propInfo){    
 		const {onSearch,params} = this.props;
 
 		var searchParam = {};
@@ -58,6 +58,7 @@ export default class SearchParam extends Component{
 		searchParam.accountType = type;
 		searchParam.childType = childType;
 		searchParam.propertyId = id;
+		searchParam.propInfo=propInfo;
 		searchParam.orderId = params.orderId;
 		onSearch && onSearch(searchParam);
 	}
@@ -70,12 +71,12 @@ export default class SearchParam extends Component{
 		<div>
 					<Table  style={{marginTop:10}} displayCheckbox={false}>
 					  <TableHeader>
-						<TableHeaderColumn onTouchTap={this.onSearch.bind(this,'PAYMENT','basic','')} colSpan={2}>回款</TableHeaderColumn>
+						<TableHeaderColumn onTouchTap={this.onSearch.bind(this,'PAYMENT','basic','','SETTLED')} colSpan={2}>回款</TableHeaderColumn>
 					  </TableHeader>
 
 					 <TableBody>
 						 {detailPayment.map((item,index)=><TableRow key={index}>			
-							<TableRowColumn onTouchTap={this.onSearch.bind(this,'PAYMENT',item.propcode,item.id)}>{item.propname}</TableRowColumn>
+							<TableRowColumn onTouchTap={this.onSearch.bind(this,'PAYMENT',item.propcode,item.id,item.propInfo)}>{item.propname}</TableRowColumn>
 							<TableRowColumn>{item.propamount}</TableRowColumn>					
 						 </TableRow>
 						  )}
@@ -84,12 +85,12 @@ export default class SearchParam extends Component{
 
 					<Table  style={{marginTop:10}} displayCheckbox={false}>
 					   <TableHeader>
-						<TableHeaderColumn onTouchTap={this.onSearch.bind(this,'INCOME','basic','')} colSpan={2}>收入</TableHeaderColumn>
+						<TableHeaderColumn onTouchTap={this.onSearch.bind(this,'INCOME','basic','','SETTLED')} colSpan={2}>收入</TableHeaderColumn>
 						</TableHeader>
 
 					<TableBody>
 						 {detailIncome.map((item,index)=><TableRow key={index}>						
-							<TableRowColumn onTouchTap={this.onSearch.bind(this,'INCOME',item.propcode,item.id)}>{item.propname}</TableRowColumn>
+							<TableRowColumn onTouchTap={this.onSearch.bind(this,'INCOME',item.propcode,item.id,item.propInfo)}>{item.propname}</TableRowColumn>
 							<TableRowColumn>{item.propamount}</TableRowColumn>					
 						 </TableRow>
 						  )}
