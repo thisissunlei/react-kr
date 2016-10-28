@@ -262,7 +262,7 @@ class NewCreateForm  extends Component{
 	}
 
 	onSubmit(form){
-		console.log('form',form);
+	
 
 
 		let {stationVos} = this.state;
@@ -287,7 +287,7 @@ class NewCreateForm  extends Component{
 
 
 		var _this = this;
-
+	console.log('form',form);
 		
 		form.stationVos = stationVos;
 		const {onSubmit} = this.props;
