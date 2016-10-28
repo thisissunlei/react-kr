@@ -276,7 +276,6 @@ class NewCreateForm  extends Component{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
-
 	getStationUrl(){
 
 	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
@@ -299,8 +298,12 @@ class NewCreateForm  extends Component{
 			//会议室
 			goalBoardroomNum:changeValues.boardroomnum,
 			selectedObjs:JSON.stringify(stationVos),
+			/*
 			startDate:"2016-10-19",
 			endDate:"2016-10-25"
+			*/
+			startDate:dateFormat(changeValues.leaseBegindate,"yyyy-mm-dd"),
+			endDate:dateFormat(changeValues.leaseEnddate,"yyyy-mm-dd")
 		};
 
 		if(Object.keys(params).length){
@@ -314,6 +317,7 @@ class NewCreateForm  extends Component{
 
 		return url ;
 	}
+
 
 
 	onIframeClose(billList){

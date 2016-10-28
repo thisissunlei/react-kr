@@ -351,9 +351,10 @@ class NewCreateForm  extends Component{
 
 		try{
 			billList.map(function(item,index){
-					item.leaseBeginDate = changeValues.leaseBegindate;
-					item.leaseEndDate = changeValues.leaseEnddate;
+					item.leaseBeginDate = dateFormat(changeValues.leaseBegindate,"yyyy-mm-dd");
+					item.leaseEndDate = dateFormat(changeValues.leaseEnddate ,"yyyy-mm-dd");
 					item.stationId = item.id;
+					item.stationName = item.name;
 					item.stationType = item.type;
 					item.unitprice = '';
 					item.whereFloor =  item.wherefloor;
@@ -428,7 +429,7 @@ class NewCreateForm  extends Component{
 
 							 <KrField grid={1/1} component="group" label="租赁项目" requireLabel={true}> 
 								<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} /> 
-								<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.station} /> 
+								<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum} /> 
 							</KrField>
 
 					    <Section title="租赁明细" description="" rightMenu = {

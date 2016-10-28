@@ -54,7 +54,7 @@ class SelectStationForm  extends Component{
   }
 
   setReduceStartDate(dateValue){
-    dateValue = dateFormat(dateValue,"yyyy-mm-dd h:MM:ss");
+    dateValue = dateFormat(dateValue,"yyyy-mm-dd");
 
     let {stationVos} = this.state;
 
