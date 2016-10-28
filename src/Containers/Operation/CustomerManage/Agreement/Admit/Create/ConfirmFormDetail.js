@@ -20,7 +20,7 @@ import {
 	KrDate
 } from 'kr-ui';
 
-
+import dateFormat from 'dateformat';
 export default class ConfirmFormDetail  extends Component{
 
 
