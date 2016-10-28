@@ -118,7 +118,6 @@ export default class AttributeSetting  extends Component{
 	//搜索
 	onSearchSubmit(searchParams){
 
-		console.log('---',searchParams);
 		
 		this.setState({
 			searchParams
@@ -186,7 +185,7 @@ export default class AttributeSetting  extends Component{
 									<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
 							</Col> 
 							<Col md={2} align="right"> 
-									<Button onTouchTap={this.openNewCreateDialog} label="高级查询"/>
+									<Button onTouchTap={this.openNewCreateDialog} label="高级查询" />
 							</Col> 
 						</Row>
 					</Grid>
@@ -210,8 +209,8 @@ export default class AttributeSetting  extends Component{
 						<TableRowColumn name="customername" ></TableRowColumn>
 						<TableRowColumn name="mainbilltype" options={[{label:'工位入驻订单',value:'STATION'}]}></TableRowColumn>
 						<TableRowColumn name="community"></TableRowColumn>
-						<TableRowColumn name="actualEntrydate" type="date"></TableRowColumn>
-						<TableRowColumn name="actualLeavedate" type="date"></TableRowColumn>
+						<TableRowColumn name="actualEntrydate" type="date" format="yyyy-mm-dd"></TableRowColumn>
+						<TableRowColumn name="actualLeavedate" type="date" format="yyyy-mm-dd"></TableRowColumn>
 						<TableRowColumn name="come"></TableRowColumn>
 						<TableRowColumn name="backMount"></TableRowColumn>
 						<TableRowColumn name="mount"></TableRowColumn>

@@ -96,7 +96,7 @@ import ConfirmBillDetail from './ConfirmBillDetail';
 				    <KrField name="id" type="hidden" label="id"/>
                
                     <KrField grid={1/2} label="对账期间" component="group">
-                        <KrDate.Format value={this.props.detail.actualEntrydate}/>  					
+                        <KrDate.Format value={this.props.detail.actualEntrydate} format="yyyy-mm-dd"/>  					
   						<KrField  component="Date"  name="endDate" type="date" grid={1/2}/>
 				     </KrField>
 		
