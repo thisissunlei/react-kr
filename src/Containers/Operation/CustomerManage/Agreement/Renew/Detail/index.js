@@ -106,8 +106,8 @@ export default  class JoinDetail extends Component {
 
 								<KrField component="labelText" label="租赁用途" value={basic.rentaluse}/>
 
-								<KrField component="labelText" grid={1/2}  label="租金总额" value={basic.totalrent}/>
-								<KrField component="labelText" grid={1/2} label="押金总额" value={basic.totaldeposit}/>
+								<KrField component="labelText" grid={1/2}  label="租金总额" value={basic.totalrent} defaultValue="0"/>
+								<KrField component="labelText" grid={1/2} label="押金总额" value={basic.totaldeposit} defaultValue="0"/>
 
 								<KrField component="labelText"  label="备注" value={basic.contractmark}/>
 
@@ -129,7 +129,7 @@ export default  class JoinDetail extends Component {
 															{basic.stationVos.length && basic.stationVos.map((item,index)=>{
 																return (
 																	 <TableRow key={index}>
-																	<TableRowColumn>{item.stationType}</TableRowColumn>
+																	<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
 																	<TableRowColumn>
 																		{item.stationName}
 																	</TableRowColumn>
