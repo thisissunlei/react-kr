@@ -57,8 +57,10 @@ const config = {
 			cache:true,
 			showErrors:true
 		}),
-		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop')
+		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
 	],
+	watch: true,
+    keepalive: true,
 	module: {
 		exprContextRegExp: /$^/,
 		exprContextCritical: false,

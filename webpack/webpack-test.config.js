@@ -28,22 +28,7 @@ const config = {
 		publicPath:"./"
 	},
 	plugins: [
-		/*
-		new webpack.optimize.OccurrenceOrderPlugin(),
-		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NoErrorsPlugin(),
-		new webpack.optimize.UglifyJsPlugin({
-			compress: {
-				warnings: false,
-			},
-			output: {
-				comments: false,
-			},
-		}),
-		*/
-		new webpack.DefinePlugin({
-			'process.env.NODE_ENV': JSON.stringify(env)
-		}),
+
 		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
 			title: '氪空间',

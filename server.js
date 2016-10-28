@@ -71,7 +71,7 @@ app.use(webpackDevMiddleware(compiler,{
 app.use(webpackHotMiddleware(compiler),{
 	log: console.log,
 	path: '/__webpack_hmr',
-	heartbeat: 10 * 300
+	heartbeat: 10 * 1000
 });
 
 //var indexRouter = require('./configs/routes');
