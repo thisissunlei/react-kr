@@ -47,7 +47,11 @@ const config = {
 			title: '氪空间',
 			filename: 'index.html',
 			template: './src/index.template.html',
-			inject:'body'
+			inject:'body',
+			inject:'body',
+			hash:true,
+			cache:true,
+			showErrors:false
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
 		new webpack.NoErrorsPlugin(),

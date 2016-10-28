@@ -26,13 +26,13 @@ webpackConfig.entry.unshift('webpack-hot-middleware/client?path=/__webpack_hmr')
 var compiler = webpack(webpackConfig);
 
 
-app.use(compress());
+app.use(convert(compress()));
 
 app.use(staticDir(path.join(__dirname,'static')));
 
-app.use(bodyparser());
+app.use(convert(bodyparser()));
 
-app.use(json());
+app.use(convert(json()));
 
 app.use(logger());
 
