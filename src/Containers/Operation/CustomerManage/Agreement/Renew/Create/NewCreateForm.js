@@ -152,6 +152,7 @@ class NewCreateForm  extends Component{
 		result.map((item)=>{
 			item.leaseBeginDate = dateFormat(item.leaseBeginDate,"yyyy-mm-dd hh:MM:ss");
 			item.leaseEndDate = dateFormat(item.leaseEndDate,"yyyy-mm-dd hh:MM:ss");
+			item.stationName = item.stationId;
 		})
 		console.log("0000",result);
 		this.setState({

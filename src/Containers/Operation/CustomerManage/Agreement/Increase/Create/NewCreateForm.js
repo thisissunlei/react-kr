@@ -352,6 +352,7 @@ class NewCreateForm  extends Component{
 					obj.leaseBeginDate = changeValues.leaseBegindate;
 					obj.leaseEndDate = changeValues.leaseEnddate;
 					obj.stationId = item.id;
+					obj.stationName = item.name;
 					obj.stationType = item.type;
 					obj.unitprice = '';
 					obj.whereFloor =  item.wherefloor;

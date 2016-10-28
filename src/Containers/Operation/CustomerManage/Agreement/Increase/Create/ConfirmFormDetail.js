@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 
 import {Actions,Store} from 'kr/Redux';
+import dateFormat from 'dateformat';
 
 import {
 	Table, 
@@ -17,6 +18,7 @@ import {
 	Col,
 	Button,
 	Notify,
+	KrDate
 } from 'kr-ui';
 
 
@@ -72,7 +74,10 @@ export default class ConfirmFormDetail  extends Component{
         		return payType = item.dicName;
         	}
         })
-
+          detail.leaseBegindate=dateFormat(detail.leaseBegindate,"yyyy-mm-dd ");
+	        detail.leaseEnddate=dateFormat(detail.leaseEnddate,"yyyy-mm-dd ");
+	        detail.firstpaydate=dateFormat(detail.firstpaydate,"yyyy-mm-dd ");
+	        detail.signdate=dateFormat(detail.signdate,"yyyy-mm-dd ");
 
 	  return (
 
@@ -134,8 +139,12 @@ export default class ConfirmFormDetail  extends Component{
 													<TableRowColumn>{item.stationType}</TableRowColumn>
 													<TableRowColumn>{item.stationId}</TableRowColumn>
 													<TableRowColumn>{item.unitprice}</TableRowColumn>
-													<TableRowColumn>{item.leaseBeginDate}</TableRowColumn>
-													<TableRowColumn>{item.leaseEndDate}</TableRowColumn>
+													<TableRowColumn>
+														<KrDate.Format value={item.leaseBeginDate} format="yyyy-mm-dd"/>
+													</TableRowColumn>
+													<TableRowColumn>
+														<KrDate.Format value={item.leaseEndDate} format="yyyy-mm-dd"/>
+													</TableRowColumn>
 												</TableRow>
 											);
 										})}

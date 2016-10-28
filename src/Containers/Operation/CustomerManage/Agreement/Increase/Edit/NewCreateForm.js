@@ -350,6 +350,7 @@ class NewCreateForm  extends Component{
 					obj.leaseEndDate = changeValues.leaseEnddate;
 					obj.stationId = item.id;
 					obj.stationType = item.type;
+					obj.stationName = item.name;
 					obj.unitprice = '';
 					obj.whereFloor =  item.wherefloor;
 					stationVos.push(obj);
@@ -431,7 +432,7 @@ class NewCreateForm  extends Component{
 
 				<KrField grid={1/1} component="group" label="租赁项目"> 
 					<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} /> 
-					<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.station} /> 
+					<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum} /> 
 				</KrField>
 
 				<Section title="租赁明细" description="" rightMenu = {

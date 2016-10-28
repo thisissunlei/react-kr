@@ -276,7 +276,6 @@ class NewCreateForm  extends Component{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
-
 	getStationUrl(){
 
 	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
@@ -299,8 +298,12 @@ class NewCreateForm  extends Component{
 			//会议室
 			goalBoardroomNum:changeValues.boardroomnum,
 			selectedObjs:JSON.stringify(stationVos),
+			/*
 			startDate:"2016-10-19",
 			endDate:"2016-10-25"
+			*/
+			startDate:dateFormat(changeValues.leaseBegindate,"yyyy-mm-dd"),
+			endDate:dateFormat(changeValues.leaseEnddate,"yyyy-mm-dd")
 		};
 
 		if(Object.keys(params).length){
@@ -314,6 +317,7 @@ class NewCreateForm  extends Component{
 
 		return url ;
 	}
+
 
 
 	onIframeClose(billList){
@@ -338,6 +342,7 @@ class NewCreateForm  extends Component{
 					item.leaseEndDate = changeValues.leaseEnddate;
 					item.stationId = item.id;
 					item.stationType = item.type;
+					item.stationName = item.name;
 					item.unitprice = '';
 					item.whereFloor =  item.wherefloor;
 			});
@@ -407,7 +412,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="signdate"  component="date" label="签署日期"  /> 
 				<KrField grid={1/1} component="group" label="租赁项目" requireLabel={true}> 
 								<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} /> 
-								<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.station} /> 
+								<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum} /> 
 							</KrField>
 				<KrField grid={1/1}  component="group" label="租赁期限" requireLabel={true}> 
 					<KrField grid={1/2}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate}/> 
@@ -438,7 +443,7 @@ class NewCreateForm  extends Component{
 							return (
 								<TableRow key={index}>
 									<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
-									<TableRowColumn>{item.stationId}</TableRowColumn>
+									<TableRowColumn>{item.stationName}</TableRowColumn>
 									<TableRowColumn> <Date.Format value={item.leaseBeginDate}/></TableRowColumn>
 									<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
 
