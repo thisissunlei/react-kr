@@ -360,6 +360,7 @@ class NewCreateForm  extends Component{
 					item.leaseEndDate = changeValues.leaseEnddate;
 					item.stationId = item.id;
 					item.stationType = item.type;
+					item.stationName = item.name;
 					item.unitprice = '';
 					item.whereFloor =  item.wherefloor;
 			});
