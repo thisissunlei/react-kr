@@ -1,0 +1,165 @@
+{
+  "code": 1,
+  "data": {
+    "rate": [
+      "0%",
+      "0%",
+      "0%",
+      "0%",
+      "0%",
+      "0%",
+      "0%",
+      "0%",
+      "0%",
+      "0.00%",
+      "0%",
+      "0%"
+    ],
+    "vo": [
+      {
+        "billId": 246,
+        "billName": "跪求不要在此订单随意新增删除东西",
+        "contractInstallmentplanVo": [
+          {
+            "installmentAmount": 3000,
+            "installmentBegindate": 1451620800000,
+            "installmentEnddate": 1459483200000,
+            "name": "唐朝",
+            "phone": "13317199888",
+            "stationnum": 5
+          },
+          {
+            "installmentAmount": 3000,
+            "installmentBegindate": 1459483200000,
+            "installmentEnddate": 1467345600000,
+            "name": "唐朝",
+            "phone": "13317199888",
+            "stationnum": 10
+          },
+          {
+            "installmentAmount": 3000,
+            "installmentBegindate": 1467345600000,
+            "installmentEnddate": 1475294400000,
+            "name": "唐朝",
+            "phone": "13317199888",
+            "stationnum": 10
+          },
+          {
+            "installmentAmount": 3000,
+            "installmentBegindate": 1475294400000,
+            "installmentEnddate": 1483156800000,
+            "name": "唐朝",
+            "phone": "13317199888",
+            "stationnum": 10
+          },
+          {
+            "installmentAmount": 2000,
+            "installmentBegindate": 1477568289000,
+            "installmentEnddate": 1477568289000,
+            "name": "唐朝",
+            "phone": "123465789",
+            "stationnum": 10
+          }
+        ],
+        "contractTypeVo": [
+          {
+            "contractCount": 1,
+            "contractName": "入驻意向书",
+            "contractTime": 1477557209000,
+            "contractType": 1,
+            "id": 0
+          },
+          {
+            "contractCount": 1,
+            "contractName": "入住协议书",
+            "contractTime": 1477568288000,
+            "contractType": 2,
+            "id": 0
+          },
+          {
+            "contractCount": 1,
+            "contractName": "增租协议书",
+            "contractTime": 1477568858000,
+            "contractType": 3,
+            "id": 0
+          },
+          {
+            "contractCount": 1,
+            "contractName": "续租协议书",
+            "contractTime": 1477572574000,
+            "contractType": 4,
+            "id": 0
+          },
+          {
+            "contractCount": 0,
+            "contractName": "减租协议书",
+            "contractType": 5,
+            "id": 0
+          },
+          {
+            "contractCount": 0,
+            "contractName": "退租协议书",
+            "contractType": 6,
+            "id": 0
+          }
+        ],
+        "endTime": 1490932800000,
+        "finaBluePointVo": [
+          {
+            "finaName": "入驻意向书",
+            "pointDate": 1477557209000
+          },
+          {
+            "finaName": "入住协议书",
+            "pointDate": 1477568288000
+          },
+          {
+            "finaName": "增租协议书",
+            "pointDate": 1477568858000
+          },
+          {
+            "finaName": "续租协议书",
+            "pointDate": 1477572574000
+          }
+        ],
+        "finaRedPointVo": [
+          {
+            "pointDate": 1477568292000
+          },
+          {
+            "pointDate": 1451620800000
+          },
+          {
+            "pointDate": 1458187200000
+          },
+          {
+            "pointDate": 1466049600000
+          },
+          {
+            "pointDate": 1473998400000
+          },
+          {
+            "pointDate": 1477568862000
+          },
+          {
+            "pointDate": 1477572578000
+          },
+          {
+            "pointDate": 1477454400000
+          },
+          {
+            "pointDate": 1458187200000
+          },
+          {
+            "pointDate": 1466049600000
+          },
+          {
+            "pointDate": 1473998400000
+          }
+        ],
+        "startTime": 1451577600000
+      }
+    ]
+  },
+  "message": "ok"
+}
