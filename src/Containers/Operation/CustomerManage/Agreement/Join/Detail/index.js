@@ -133,7 +133,7 @@ export default  class JoinDetail extends Component {
 									<TableRow key={index}>
 										<TableRowColumn>{item.stationType}</TableRowColumn>
 										<TableRowColumn>
-										{item.stationId}
+										{item.stationName}
 										</TableRowColumn>
 										<TableRowColumn>
 											{item.unitprice}
@@ -171,8 +171,8 @@ export default  class JoinDetail extends Component {
 		window.history.back();
 	}
 
-	function editUrl(){
-		return "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/join/"+params.id+"/edit";
+	function getOrderUrl(){
+		return `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
 	}
 
     return (
@@ -187,8 +187,7 @@ export default  class JoinDetail extends Component {
 			  <Grid style={{marginTop:30}}>
 				  <Row>
 					  <Col md={4} align="center"></Col>
-					  <Col md={2} align="center"> <RaisedButton  label="编辑"  type="href" primary={true} href={editUrl()}/> </Col>
-					  <Col md={2} align="center"> <RaisedButton  label="确定"  type="submit" primary={true} onTouchTap={onCancel}/> </Col>
+					  <Col md={2} align="center"> <RaisedButton  label="返回"  type="href" primary={true} href={getOrderUrl()}/> </Col>
 					  <Col md={4} align="center"></Col>
 				  </Row>
 			  </Grid>
