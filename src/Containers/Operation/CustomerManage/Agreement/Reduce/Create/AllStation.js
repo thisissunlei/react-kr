@@ -57,7 +57,7 @@ class SelectStationForm  extends Component{
   }
 
   setReduceStartDate(dateValue){
-		dateValue = dateFormat(dateValue,"yyyy-mm-dd hh:MM:ss");
+		dateValue = dateFormat(dateValue,"yyyy-mm-dd");
 
     let {stationVos} = this.state;
 
@@ -134,6 +134,7 @@ class SelectStationForm  extends Component{
                 return false;
             }
             item.leaseEndDate = item.startDate;
+            item.stationName = item.stationId;
             return true;
           }
         return false;
@@ -171,6 +172,10 @@ class SelectStationForm  extends Component{
     const overfolw = {
       'overflow':'hidden',
       maxHeight:510,
+    }
+    const height = {
+      height:stationVos.length*45,
+      maxHeight:667,
     }
 		return (
 			<div style={{height:667}}>

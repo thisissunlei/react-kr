@@ -262,6 +262,7 @@ class NewCreateForm  extends Component{
 	}
 
 	onSubmit(form){
+		console.log('form',form);
 
 
 		let {stationVos} = this.state;
@@ -270,7 +271,13 @@ class NewCreateForm  extends Component{
 		let {billList} = this.state;
 
 		let {changeValues} = this.props;
-
+		if(!changeValues.length){
+			Notify.show([{
+				message:"请选择工位",
+				type: 'danger',
+			}]);
+			return ;
+		};
         form.lessorAddress = changeValues.lessorAddress;
 
 		form.firstpaydate = dateFormat(form.firstpaydate,"yyyy-mm-dd hh:MM:ss");
@@ -575,10 +582,6 @@ class NewCreateForm  extends Component{
 
 		if (!values.leaseEnddate) {
 			errors.leaseEnddate = '请输入租赁结束时间';
-		}
-
-		if (!values.stationnum && !values.boardroomnum) {
-			errors.stationnum = '租赁项目必须输入一项';
 		}
 
 		return errors

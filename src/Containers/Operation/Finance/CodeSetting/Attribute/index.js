@@ -116,7 +116,7 @@ export default class AttributeSetting  extends Component{
 	}
 
 	onNewCreateSubmit(form){
-		window.location.reload();
+			window.location.reload();
 	}
 
 	onNewCreateCancel(){

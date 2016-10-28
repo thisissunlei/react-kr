@@ -158,6 +158,7 @@ class NewCreateForm  extends Component{
 		}
 
 		result.map((item)=>{
+			item.stationName = item.stationId;
 			item.leaseBeginDate = dateFormat(item.leaseBeginDate,"yyyy-mm-dd hh:MM:ss");
 			item.leaseEndDate = dateFormat(item.leaseEndDate,"yyyy-mm-dd hh:MM:ss");
 		})
@@ -203,7 +204,7 @@ class NewCreateForm  extends Component{
 	//删除工位
 	onStationDelete(){
 
-		let {selectedStation,stationVos} = this.state;
+		let {selectedsStation,stationVos} = this.state;
 		stationVos = stationVos.filter(function(item,index){
 
 			if(selectedStation.indexOf(index) != -1){
