@@ -122,12 +122,18 @@ class NewCreateForm  extends Component{
 		if(!stationVos.length){
 			return ;
 		}
+
+		this.setState({
+			stationVos:[]
+		});
+		/*
 		stationVos.forEach(function(item,index){
 			item.leaseBeginDate = value;
 		});
 		this.setState({
 			stationVos
 		});
+		*/
 	}
 
 	//修改租赁期限-结束时间
@@ -138,12 +144,19 @@ class NewCreateForm  extends Component{
 		if(!stationVos.length){
 			return ;
 		}
+
+		this.setState({
+			stationVos:[]
+		});
+
+		/*
 		stationVos.forEach(function(item,index){
 			item.leaseEndDate = value;
 		});
 		this.setState({
 			stationVos
 		});
+		*/
 	}
 
 	onStationVosChange(index,value){
@@ -213,6 +226,22 @@ class NewCreateForm  extends Component{
 		if(!wherefloor){
 			Notify.show([{
 				message:'请先选择楼层',
+				type: 'danger',
+			}]);
+			return ;
+		}
+
+		if(!leaseBegindate){
+			Notify.show([{
+				message:'请选择租赁开始时间',
+				type: 'danger',
+			}]);
+			return ;
+		}
+
+		if(!leaseEnddate){
+			Notify.show([{
+				message:'请选择租赁结束时间',
 				type: 'danger',
 			}]);
 			return ;
