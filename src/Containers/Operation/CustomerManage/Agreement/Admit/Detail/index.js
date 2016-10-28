@@ -20,7 +20,7 @@ import {
 	Row,
 	Col,
 } from 'kr-ui';
- import RaisedButton from 'material-ui/RaisedButton';
+
 
 import {Actions,Store} from 'kr/Redux';
 
@@ -33,6 +33,7 @@ export default  class AdmitDetail extends Component {
 
 
 		this.state = {
+			isLoading:true,
 			basic:{
 				payment:{
 				},
@@ -42,20 +43,19 @@ export default  class AdmitDetail extends Component {
 
 		var _this = this;
 
-		// Store.dispatch(Actions.callAPI('showFinaContractIntentletter')
-		// .then(function(response){
-		// 	_this.setState({
-		// 		basic:response
-		// 	});
-		// 	console.log(response);
-		// }))
+
 
 		Store.dispatch(Actions.callAPI('showFinaContractIntentletter', {id:this.props.params.id}))
 		.then(function(response){
 			_this.setState({
-				basic:response
+				basic:response,
+				isLoading:false
 			});
-
+		}).catch(function(err){
+			Notify.show([{
+				message: err.message,
+				type: 'danger'
+			}]);
 		});
 
 	}
@@ -66,6 +66,12 @@ export default  class AdmitDetail extends Component {
 
 
   render() {
+
+  	let {isLoading} = this.state;
+
+  	if(isLoading){
+  		return <Loading />
+  	}
 
 
 	 const orderBaseInfo = {};
@@ -185,7 +191,7 @@ export default  class AdmitDetail extends Component {
 <Grid style={{marginTop:30}}>
 				  <Row>
 					  <Col md={4} align="center"></Col>
-					  <Col md={2} align="center"> <RaisedButton  label="返回"  type="href" primary={true} href={getOrderUrl()}/> </Col>
+					  <Col md={2} align="center"> <Button  label="返回"  type="href" primary={true} href={getOrderUrl()}/> </Col>
 					  <Col md={4} align="center"></Col>
 				  </Row>
 			  </Grid>
