@@ -111,8 +111,9 @@ export default class AttributeSetting  extends Component{
 		this.state = {			
 		    params:{
 				accountType:'PAYMENT',
-				childType:'',
+				childType:'basic',
 				propertyId:'',
+				propInfo:'SETTLED',
 				orderId:this.props.params.orderId,
 				page:1,
 				pageSize:20
@@ -549,6 +550,7 @@ export default class AttributeSetting  extends Component{
 	   //判断按钮出现与隐藏
        let childBtn=params.childType; 
        let parentBtn=params.accountType;
+       let propInfo=params.propInfo;
        //回款传订单id
        let initialValues={
        	   mainbillid:params.orderId,
@@ -563,9 +565,9 @@ export default class AttributeSetting  extends Component{
        	   mainbillid:params.orderId
        } 
        
-       console.log("----4444-",fiItem)
+       
        var buttonArr = [];
-       if(parentBtn=='PAYMENT'&&childBtn==''){
+       if(parentBtn=='PAYMENT'&&childBtn=='basic'){
        	   buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
        	   	  ,<Button label="退款"  type="submit" primary={true} onTouchTap={this.openQuitBtn}/>);
        }
@@ -603,7 +605,7 @@ export default class AttributeSetting  extends Component{
        	   	  ,<Button label="开票"  type="submit"  primary={true}/>
        	   	  ,<Button label="退款"  type="submit" primary={true} onTouchTap={this.openQuitBtn}/>);
        }
-       if(parentBtn=='INCOME'&&childBtn==''){
+       if(parentBtn=='INCOME'&&childBtn=='basic'){
        	   
        }
        if(parentBtn=='INCOME'&&childBtn=='gongweishouru'){
@@ -622,6 +624,13 @@ export default class AttributeSetting  extends Component{
        if(parentBtn=='INCOME'&&childBtn=='shenghuoxiaofeishouru'){
        	  buttonArr.push(<Button label="挂账"  type="submit" primary={true} onTouchTap={this.openAccountBtn}/>
        	   	  ); 
+       }
+       if(parentBtn=='PAYMENT'&&propInfo=='NEW'){
+       	 buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
+       	   	  ,<Button label="退款"  type="submit" primary={true} onTouchTap={this.openQuitBtn}/>);
+       }
+       if(parentBtn=='INCOME'&&propInfo=='NEW'){
+       	   
        }
        
        const close=[

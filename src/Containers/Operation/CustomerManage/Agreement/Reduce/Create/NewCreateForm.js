@@ -260,6 +260,13 @@ class NewCreateForm  extends Component{
 
 		let {changeValues} = this.props;
 		let {stationVos} = this.state;
+		if(!stationVos.length){
+			Notify.show([{
+				message:'请选择工位',
+				type: 'danger',
+			}]);
+			return ;
+		}
 		form.list = stationVos;
 		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
@@ -448,8 +455,8 @@ export default connect((state)=>{
 	changeValues.leaseId = selector(state,'leaseId');
 	changeValues.stationnum = selector(state,'stationnum') || 0;
 	changeValues.boardroomnum = selector(state,'boardroomnum') || 0;
-	changeValues.leaseBegindate = selector(state,'leaseBegindate') || 0;
-	changeValues.leaseEnddate = selector(state,'leaseEnddate') || 0;
+	changeValues.leaseBegindate = selector(state,'leaseBegindate');
+	changeValues.leaseEnddate = selector(state,'leaseEnddate');
 	changeValues.wherefloor = selector(state,'wherefloor') || 0;
 
 
