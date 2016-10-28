@@ -135,6 +135,7 @@ class SelectStationForm  extends Component{
                 return false;
             }
             item.leaseEndDate = item.startDate;
+            item.stationName = item.stationId;
             return true;
           }
         return false;
