@@ -66,9 +66,10 @@ export default  class AdmitDetail extends Component {
 	}
 	const params = this.props.params;
 
-	function editUrl(){
-		return "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/admit/"+params.id+"/edit";
+	function getOrderUrl(){
+		return `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
 	}
+
 	  const {basic} = this.state;
 	  console.log('basic', basic);
 	  let dicName;
@@ -142,7 +143,7 @@ export default  class AdmitDetail extends Component {
 														 <TableRow key={index}>
 														<TableRowColumn>工单：{item.stationType}</TableRowColumn>
 														<TableRowColumn>
-															{item.stationId}
+															{item.stationName}
 														</TableRowColumn>
 														<TableRowColumn><Date.Format value={item.leaseBeginDate}/></TableRowColumn>
 														<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
@@ -176,8 +177,7 @@ export default  class AdmitDetail extends Component {
 <Grid style={{marginTop:30}}>
 				  <Row>
 					  <Col md={4} align="center"></Col>
-					  <Col md={2} align="center"> <Button  label="编辑"  type="href" primary={true} href={editUrl()}/> </Col>
-					  <Col md={2} align="center"> <Button  label="确定"  type="submit" primary={true} onTouchTap={onCancel}/> </Col>
+					  <Col md={2} align="center"> <RaisedButton  label="返回"  type="href" primary={true} href={getOrderUrl()}/> </Col>
 					  <Col md={4} align="center"></Col>
 				  </Row>
 			  </Grid>
