@@ -228,12 +228,12 @@ export default class AttributeSetting  extends Component{
             
            
 	       Store.dispatch(Actions.callAPI('findContractListById',{
-	       	  id:fiItem.id
+	       	    id:fiItem.id
 	       })).then(function(response){ 
                response.map(function(item,index){ 
  		      	 var list ={}
  		      	 list.value=item.id;
- 		      	 list.label=item.contractcodeId;
+ 		      	 list.label=item.contractcode;
  		      	 receivedList.push(list);	      	 	      	                                            
               })
  		        _this.setState({
