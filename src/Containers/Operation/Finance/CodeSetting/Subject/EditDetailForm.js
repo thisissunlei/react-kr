@@ -81,15 +81,15 @@ import {
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 				<KrField name="id" type="hidden" label="id"/> 
-				<KrField name="accountcode" type="text" label="科目编码"/> 
-				<KrField name="accountname" type="text" label="科目名称" /> 
+				<KrField name="accountcode" type="text" label="科目编码" requireLabel={true}/> 
+				<KrField name="accountname" type="text" label="科目名称" requireLabel={true}/> 
 				<KrField name="accounttype" type="select" label="科目类别" options={[
 						{value:'PAYMENT',label:'回款'},
 					   {value:'INCOME',label:'收入'},
-				]} >
+				]} requireLabel={true}>
 				</KrField>
-				<KrField name="ordernum" type="text" label="排序号" /> 
-				<KrField name="enableflag" component="group" label="是否启用">
+				<KrField name="ordernum" type="text" label="排序号" requireLabel={true}/> 
+				<KrField name="enableflag" component="group" label="是否启用" requireLabel={true}>
                 <KrField name="enableflag" label="是" type="radio" value="ENABLE"/>
                 <KrField name="enableflag" label="否" type="radio" value="DISENABLE" />
               </KrField> 
@@ -108,5 +108,34 @@ import {
 		);
 	}
 }
+const validate = values =>{
+
+		const errors = {}
+
+		if(!values.accountcode){
+			errors.accountcode = '请填写科目编码';
+		}
+
+		if (!values.accountname) {
+			errors.accountname = '请填写科目名称';
+		}
+
+		if (!values.accounttype) {
+			errors.accounttype = '请填写科目类别';
+		}
+
+		if (!values.ordernum) {
+			errors.ordernum = '请填写排序号';
+		}
+		if (!values.enableflag) {
+			errors.enableflag = '请先选择是否启用';
+		}
+
+
+		return errors
+	}
+const selector = formValueSelector('newCreateForm');
+
+NewCreateForm = reduxForm({ form: 'newCreateForm',validate, enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
 
 export default reduxForm({ form: 'newCreateForm', enableReinitialize:true, keepDirtyOnReinitialize:true })(NewCreateForm);
