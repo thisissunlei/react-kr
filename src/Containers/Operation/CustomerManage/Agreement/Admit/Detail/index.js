@@ -71,8 +71,8 @@ export default  class AdmitDetail extends Component {
 	}
 
 	  const {basic} = this.state;
-	  console.log('basic', basic);
 	  let dicName;
+
 	  if(basic.payment)  {
 	  	dicName = basic.payment.dicName;
 	  }else{

@@ -11,7 +11,7 @@ import {KrField,LabelText} from 'kr-ui/Form';
 import Date from 'kr-ui/Date';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import { Button } from 'kr-ui/Button';
+import { Button } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 
 import {Grid,Row,Col} from 'kr-ui/Grid';
@@ -187,7 +187,7 @@ export default  class JoinDetail extends Component {
 			  <Grid style={{marginTop:30}}>
 				  <Row>
 					  <Col md={4} align="center"></Col>
-					  <Col md={2} align="center"> <RaisedButton  label="返回"  type="href" primary={true} href={getOrderUrl()}/> </Col>
+					  <Col md={2} align="center"> <Button  label="返回"  type="href" primary={true} href={getOrderUrl()}/> </Col>
 					  <Col md={4} align="center"></Col>
 				  </Row>
 			  </Grid>

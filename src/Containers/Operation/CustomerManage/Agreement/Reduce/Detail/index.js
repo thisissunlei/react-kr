@@ -18,7 +18,7 @@ import {KrField,LabelText} from 'kr-ui/Form';
 import Date from 'kr-ui/Date';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import { Button } from 'kr-ui/Button';
+import { Button } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 
 import {Grid,Row,Col} from 'kr-ui/Grid';
@@ -84,9 +84,10 @@ export default  class ReduceDetail extends Component {
 		location.href="/#/operation/customerManage/"+params.customerId+ "/order/"+params.orderId+"/detail"
 	}
 
-	function editUrl(){
-		return "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/reduce/"+params.id+"/edit";
-	}
+function getOrderUrl(){
+	return `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
+}
+
 
 	  const BasicRender = (props)=>{
 
@@ -173,8 +174,7 @@ export default  class ReduceDetail extends Component {
 				<Grid style={{marginTop:30}}>
 				  <Row>
 					  <Col md={4} align="center"></Col>
-					  <Col md={2} align="center"> <RaisedButton  label="编辑"  type="href" primary={true} href={editUrl()}/> </Col>
-					  <Col md={2} align="center"> <RaisedButton  label="确定"  type="submit" primary={true} onTouchTap={onCancel}/> </Col>
+					  <Col md={2} align="center"> <Button  label="返回"  type="href" primary={true} href={getOrderUrl()}/> </Col>
 					  <Col md={4} align="center"></Col>
 				  </Row>
 			  </Grid>
