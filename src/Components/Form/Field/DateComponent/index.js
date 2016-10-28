@@ -118,6 +118,7 @@ export default class DateComponent extends React.Component{
 									 value={this.state.value}
 										textFieldStyle={styles}
 										name={input.name}
+										container="inline" 
 										onChange={this.onChange}/>
 							</div>
 						</div>
