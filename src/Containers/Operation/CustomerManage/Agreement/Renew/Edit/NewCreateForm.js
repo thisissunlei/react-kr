@@ -249,8 +249,8 @@ class NewCreateForm  extends Component{
 
 		let {changeValues} = this.props;
 		let {stationVos} = this.state;
-		form.leaseBegindate = stationVos[0].leaseBeginDate;
-		form.leaseEnddate = stationVos[0].leaseEndDate;
+		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate,"yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate,"yyyy-mm-dd hh:MM:ss");
 		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
 		form.firstpaydate =dateFormat(form.firstpaydate,"yyyy-mm-dd hh:MM:ss");
