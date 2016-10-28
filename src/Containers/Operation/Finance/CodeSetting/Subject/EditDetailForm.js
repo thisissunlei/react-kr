@@ -143,6 +143,6 @@ const validate = values =>{
 	}
 const selector = formValueSelector('newCreateForm');
 
-NewCreateForm = reduxForm({ form: 'newCreateForm',validate, enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
 
-export default reduxForm({ form: 'newCreateForm', enableReinitialize:true, keepDirtyOnReinitialize:true })(NewCreateForm);
+
+export default reduxForm({ form: 'newCreateForm', validate,enableReinitialize:true, keepDirtyOnReinitialize:true })(NewCreateForm);
