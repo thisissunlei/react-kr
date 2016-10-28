@@ -19,6 +19,7 @@ import {
 	Grid,
 	Row,
 	Col,
+	RaisedButton,
 } from 'kr-ui';
 
 import {Actions,Store} from 'kr/Redux';
