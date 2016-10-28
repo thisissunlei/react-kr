@@ -44,7 +44,7 @@ const config = {
 		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
 			publicPath: '/',
-			title: 'production',
+			title: '氪空间',
 			filename: 'index.html',
 			template: './src/index.template.html',
 			inject:'body'

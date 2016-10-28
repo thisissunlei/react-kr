@@ -224,6 +224,7 @@ class NewCreateForm  extends Component{
 				message:'请选择工位',
 				type: 'danger',
 			}]);
+			return ;
 		}
 
 		// form.stationVos = JSON.stringify(form.stationVos);
@@ -452,7 +453,7 @@ class NewCreateForm  extends Component{
 											return (
 												<TableRow key={index}>
 													<TableRowColumn>{item.stationType}</TableRowColumn>
-													<TableRowColumn>{item.stationId}</TableRowColumn>
+													<TableRowColumn>{item.stationName}</TableRowColumn>
 													<TableRowColumn> <Date.Format value={item.leaseBeginDate}/></TableRowColumn>
 													<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
 												</TableRow>

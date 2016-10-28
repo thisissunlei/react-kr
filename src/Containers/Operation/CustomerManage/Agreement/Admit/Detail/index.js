@@ -4,17 +4,25 @@ import {
 	BreadCrumbs,
 	Loading,
 	Notify,
-	Section
+	Section,
+	Button,
+	KrField,
+	LabelText,
+	KrDate,
+	Table,
+   	TableBody, 
+	TableHeader, 
+	TableHeaderColumn, 
+	TableRow, 
+	TableRowColumn,
+	TableFooter,
+	Grid,
+	Row,
+	Col,
 } from 'kr-ui';
 
-import { Button } from 'kr-ui/Button';
 import {Actions,Store} from 'kr/Redux';
 
-import {Grid,Row,Col} from 'kr-ui/Grid';
-import {KrField,LabelText} from 'kr-ui/Form';
-import Date from 'kr-ui/Date';
-
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
 
 export default  class AdmitDetail extends Component {
 
@@ -66,12 +74,13 @@ export default  class AdmitDetail extends Component {
 	}
 	const params = this.props.params;
 
-	function editUrl(){
-		return "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/admit/"+params.id+"/edit";
+	function getOrderUrl(){
+		return `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
 	}
+
 	  const {basic} = this.state;
-	  console.log('basic', basic);
 	  let dicName;
+
 	  if(basic.payment)  {
 	  	dicName = basic.payment.dicName;
 	  }else{
@@ -102,19 +111,18 @@ export default  class AdmitDetail extends Component {
 <KrField label="定金总额"   grid={1/2} component="labelText" value={basic.totaldownpayment}/>
 <KrField component="group" grid={1/2} label="签署日期:">
 	<Row style={{marginTop:5}}>
-		<Date.Format value={basic.signdate}/>
+		<KrDate.Format value={basic.signdate}/>
 	</Row>
 </KrField>
 			<KrField label="合同编号"   grid={1/2} component="labelText" value={basic.contractcode}/>
 			<KrField label="付款方式"   grid={1/2} component="labelText" value={dicName}/>
-<KrField label="租赁项目" component="group">
-	<KrField label="工位"   grid={1/1} component="labelText" value={basic.stationnum}/>
-	<KrField label="会议室"   grid={1/1} component="labelText" value={basic.boardroomnum}/>
-  </KrField>
+			<KrField label="租赁项目" component="group">
+				<KrField label="工位"   grid={1/1} component="labelText" value={basic.stationnum}/>
+					<KrField label="会议室"   grid={1/1} component="labelText" value={basic.boardroomnum}/>
+				  </KrField>
  <Grid>
 	  <Row style={{padding:10,marginBottom:15}}>
-		  <Col md={6} align="left" >租赁期限： <Date.Format value={basic.leaseBegindate}/>  ——  <Date.Format value={basic.leaseEnddate}/>  </Col>
-
+		  <Col md={6} align="left" >租赁期限： <KrDate.Format value={basic.leaseBegindate}/>  ——  <KrDate.Format value={basic.leaseEnddate}/>  </Col>
 	  </Row>
 </Grid>
 <KrField label="保留天数"   grid={1/2} component="labelText" value={basic.templockday}/>
@@ -142,10 +150,10 @@ export default  class AdmitDetail extends Component {
 														 <TableRow key={index}>
 														<TableRowColumn>工单：{item.stationType}</TableRowColumn>
 														<TableRowColumn>
-															{item.stationId}
+															{item.stationName}
 														</TableRowColumn>
-														<TableRowColumn><Date.Format value={item.leaseBeginDate}/></TableRowColumn>
-														<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
+														<TableRowColumn><KrDate.Format value={item.leaseBeginDate}/></TableRowColumn>
+														<TableRowColumn><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
 													   </TableRow>
 														);
 												})}
@@ -176,8 +184,7 @@ export default  class AdmitDetail extends Component {
 <Grid style={{marginTop:30}}>
 				  <Row>
 					  <Col md={4} align="center"></Col>
-					  <Col md={2} align="center"> <Button  label="编辑"  type="href" primary={true} href={editUrl()}/> </Col>
-					  <Col md={2} align="center"> <Button  label="确定"  type="submit" primary={true} onTouchTap={onCancel}/> </Col>
+					  <Col md={2} align="center"> <RaisedButton  label="返回"  type="href" primary={true} href={getOrderUrl()}/> </Col>
 					  <Col md={4} align="center"></Col>
 				  </Row>
 			  </Grid>

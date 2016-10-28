@@ -303,31 +303,37 @@ class NewCreateForm  extends Component{
 	}
 
 	onIframeClose(billList){
+
 		this.openStationDialog();
+
+		console.log('data',billList);
+
 		if(!billList){
 			return ;
 		}
+
 		var _this = this;
+
 		let {changeValues} = this.props;
+
 		let {stationVos} = this.state;
+
 		try{
 			billList.map(function(item,index){
-					var obj = {};
-					obj.leaseBeginDate = changeValues.leaseBegindate;
-					obj.leaseEndDate = changeValues.leaseEnddate;
-					obj.stationId = item.id;
-					obj.stationType = item.type;
-					obj.unitprice = '';
-					obj.whereFloor =  item.wherefloor;
-					stationVos.push(obj);
+					item.leaseBeginDate = changeValues.leaseBegindate;
+					item.leaseEndDate = changeValues.leaseEnddate;
+					item.stationId = item.id;
+					item.stationType = item.type;
+					item.unitprice = '';
+					item.whereFloor =  item.wherefloor;
 			});
 		}catch(err){
 			console.log('billList 租赁明细工位列表为空');
 		}
-		this.setState({stationVos},function(){
+
+		this.setState({stationVos:billList},function(){
 			this.calcStationNum();
 		}); 
-
 	}
 
 	onChangeSearchPersonel(personel){
