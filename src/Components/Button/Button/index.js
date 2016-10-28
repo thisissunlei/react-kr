@@ -14,12 +14,13 @@ export default class Button extends Component{
 		style:React.PropTypes.object,
 		type:React.PropTypes.string,
 		label:React.PropTypes.string,
+		disabled:React.PropTypes.bool,
 	}
 
 
 	render(){
 
-		const {type,label,...other} = this.props;
+		const {type,label,disabled,...other} = this.props;
 
 
 		const labelStyles ={
@@ -28,6 +29,11 @@ export default class Button extends Component{
 		}
 
 		if(type == 'link'){
+
+			if(disabled){
+				delete  other.href;
+			}
+
 			return (
 				<FlatButton label={label} primary={true} style={{minWidth:30}}  labelStyle={labelStyles} {...other} />
 			);
