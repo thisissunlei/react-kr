@@ -224,6 +224,7 @@ class NewCreateForm  extends Component{
 				message:'请选择工位',
 				type: 'danger',
 			}]);
+			return ;
 		}
 
 		// form.stationVos = JSON.stringify(form.stationVos);
