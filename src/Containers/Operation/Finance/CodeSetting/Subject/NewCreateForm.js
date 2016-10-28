@@ -32,6 +32,8 @@ import {
 	 onSubmit(values){
 		 var _this = this;
 		Store.dispatch(Actions.callAPI('saveFinaFinaflowAccountModel',{},values)).then(function(response){
+			console.log('gggggg....',response)
+			console.log('gggggg....',response.code)
 			if(response.code==1){
 					Notify.show([{
 						message:'新建成功！',
@@ -40,6 +42,7 @@ import {
 					 const {onSubmit} = _this.props;
 					 onSubmit && onSubmit();
 				}else{
+					console.log(response.message)
 					Notify.show([{
 						message:response.message,
 						type: 'danger',

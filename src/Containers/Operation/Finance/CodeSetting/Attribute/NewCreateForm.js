@@ -32,6 +32,8 @@ import {
 	 onSubmit(values){
 		 var _this = this;
 		Store.dispatch(Actions.callAPI('addFinaFinaflowProperty',{},values)).then(function(response){
+				console.log('gg....',response)
+				console.log('gg....yyy',response.code)
 				if(response.code==1){
 					Notify.show([{
 						message:'新建成功！',
@@ -40,6 +42,7 @@ import {
 					 const {onSubmit} = _this.props;
 					 onSubmit && onSubmit();
 				}else{
+					
 					Notify.show([{
 						message:response.message,
 						type: 'danger',
@@ -47,6 +50,7 @@ import {
 				}
 				
  			}).catch(function(err){
+ 				
 			Notify.show([{
 				message:err.message,
 				type: 'danger',
