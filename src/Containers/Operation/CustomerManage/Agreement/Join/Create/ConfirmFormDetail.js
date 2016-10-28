@@ -135,7 +135,7 @@ export default class ConfirmFormDetail  extends Component{
 											return (
 												<TableRow key={index}>
 													<TableRowColumn>{item.stationType}</TableRowColumn>
-													<TableRowColumn>{item.stationId}</TableRowColumn>
+													<TableRowColumn>{item.stationName}</TableRowColumn>
 													<TableRowColumn>{item.unitprice}</TableRowColumn>
 													<TableRowColumn>{item.leaseBeginDate}</TableRowColumn>
 													<TableRowColumn>{item.leaseEndDate}</TableRowColumn>
