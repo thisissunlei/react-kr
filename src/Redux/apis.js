@@ -291,12 +291,12 @@ const APIS  = {
 	},
 	//财务管理－订单明细账-添加挂账
 	'supplementIncome':{
-		url:'/api/krspace-finance-web//finaccount/opt/supplementIncome',
+		url:'/api/krspace-finance-web//finaccount/opt/onAccount',
 		method:'post'
 	},
 	//财务管理－订单明细账-补收入
 	'addIncome':{
-		url:'/api/krspace_finance_web/finaccount/opt/addIncome?mainbillid={mainbillid}',
+		url:'/api/krspace-finance-web/finaccount/opt/supplementIncome?mainbillid={mainbillid}',
 		method:'get'
 	},
 	//财务管理－开票列表-list

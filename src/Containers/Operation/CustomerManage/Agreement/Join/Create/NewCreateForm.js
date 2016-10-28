@@ -122,12 +122,18 @@ class NewCreateForm  extends Component{
 		if(!stationVos.length){
 			return ;
 		}
+
+		this.setState({
+			stationVos:[]
+		});
+		/*
 		stationVos.forEach(function(item,index){
 			item.leaseBeginDate = value;
 		});
 		this.setState({
 			stationVos
 		});
+		*/
 	}
 
 	//修改租赁期限-结束时间
@@ -138,12 +144,19 @@ class NewCreateForm  extends Component{
 		if(!stationVos.length){
 			return ;
 		}
+
+		this.setState({
+			stationVos:[]
+		});
+
+		/*
 		stationVos.forEach(function(item,index){
 			item.leaseEndDate = value;
 		});
 		this.setState({
 			stationVos
 		});
+		*/
 	}
 
 	onStationVosChange(index,value){
@@ -218,6 +231,22 @@ class NewCreateForm  extends Component{
 			return ;
 		}
 
+		if(!leaseBegindate){
+			Notify.show([{
+				message:'请选择租赁开始时间',
+				type: 'danger',
+			}]);
+			return ;
+		}
+
+		if(!leaseEnddate){
+			Notify.show([{
+				message:'请选择租赁结束时间',
+				type: 'danger',
+			}]);
+			return ;
+		}
+
 		this.setState({
 			openStation:!this.state.openStation
 		});
@@ -233,6 +262,7 @@ class NewCreateForm  extends Component{
 	}
 
 	onSubmit(form){
+		console.log('form',form);
 
 
 		let {stationVos} = this.state;
@@ -241,7 +271,13 @@ class NewCreateForm  extends Component{
 		let {billList} = this.state;
 
 		let {changeValues} = this.props;
-
+		if(!changeValues.length){
+			Notify.show([{
+				message:"请选择工位",
+				type: 'danger',
+			}]);
+			return ;
+		};
         form.lessorAddress = changeValues.lessorAddress;
 
 		form.firstpaydate = dateFormat(form.firstpaydate,"yyyy-mm-dd hh:MM:ss");
@@ -303,31 +339,37 @@ class NewCreateForm  extends Component{
 	}
 
 	onIframeClose(billList){
+
 		this.openStationDialog();
+
+		console.log('data',billList);
+
 		if(!billList){
 			return ;
 		}
+
 		var _this = this;
+
 		let {changeValues} = this.props;
+
 		let {stationVos} = this.state;
+
 		try{
 			billList.map(function(item,index){
-					var obj = {};
-					obj.leaseBeginDate = changeValues.leaseBegindate;
-					obj.leaseEndDate = changeValues.leaseEnddate;
-					obj.stationId = item.id;
-					obj.stationType = item.type;
-					obj.unitprice = '';
-					obj.whereFloor =  item.wherefloor;
-					stationVos.push(obj);
+					item.leaseBeginDate = changeValues.leaseBegindate;
+					item.leaseEndDate = changeValues.leaseEnddate;
+					item.stationId = item.id;
+					item.stationType = item.type;
+					item.unitprice = '';
+					item.whereFloor =  item.wherefloor;
 			});
 		}catch(err){
 			console.log('billList 租赁明细工位列表为空');
 		}
-		this.setState({stationVos},function(){
+
+		this.setState({stationVos:billList},function(){
 			this.calcStationNum();
 		}); 
-
 	}
 
 	onChangeSearchPersonel(personel){
@@ -540,10 +582,6 @@ class NewCreateForm  extends Component{
 
 		if (!values.leaseEnddate) {
 			errors.leaseEnddate = '请输入租赁结束时间';
-		}
-
-		if (!values.stationnum && !values.boardroomnum) {
-			errors.stationnum = '租赁项目必须输入一项';
 		}
 
 		return errors

@@ -253,19 +253,19 @@ class OrderDetail extends Component {
 					<Row>
 						<Col md={4} ><LabelText label="回款总额" text={orderBaseInfo.contractBackamount}/></Col>
 						<Col md={4} ><LabelText label="未回款额" text={orderBaseInfo.unBackamount}/></Col>
-						<Col md={4} ><LabelText label="工位回款" text={orderBaseInfo.accruedrent}/></Col>
+						<Col md={4} ><LabelText label="工位回款" text={orderBaseInfo.accruedrent || 0} /></Col>
 					</Row>
 
 					<Row>
 						<Col md={4} ><LabelText label="实收押金" text={orderBaseInfo.realdeposit}/></Col>
-						<Col md={4} ><LabelText label="应收定金" text={orderBaseInfo.realdownpayment}/></Col>
+						<Col md={4} ><LabelText label="应收定金" text={orderBaseInfo.realdownpayment || 0}/></Col>
 						<Col md={4} ><LabelText label="其他回款" text={orderBaseInfo.refundamount}/></Col>		
 					</Row>
 
 					<Row>
-						<Col md={4} ><LabelText label="营业外收入汇款" text={orderBaseInfo.nonbusinessincomeBackamount} width={150}/></Col>
+						<Col md={4} ><LabelText label="营业外收入汇款" text={orderBaseInfo.nonbusinessincomeBackamount || 0} width={150}/></Col>
 						<Col md={4} ><LabelText label="生活消费收入回款" text={orderBaseInfo.liveincomeBackamount} width={160}/></Col>
-						<Col md={4} ><LabelText label="工位收入" text={orderBaseInfo.accruedrent}/></Col>
+						<Col md={4} ><LabelText label="工位收入" text={orderBaseInfo.accruedrent || 0}/></Col>
 					</Row>
 
 					<Row>
@@ -304,7 +304,7 @@ class OrderDetail extends Component {
 							<TableRowColumn> <Date.Format value={item.leaseEnddate}/></TableRowColumn>
 							<TableRowColumn>
 								<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)}/>
-								<Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)}/>
+								<Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/>
 							</TableRowColumn>
 						   </TableRow>
 							);
@@ -359,8 +359,8 @@ class OrderDetail extends Component {
 
 					<Grid>
 							<Row>
-								<Col md={4} align="center"><Button label="入驻协议书" type="link" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/join/create"}/></Col>
 								<Col md={4} align="center"><Button label="承租意向书" type="link" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/admit/create"}/></Col>
+								<Col md={4} align="center"><Button label="入驻协议书" type="link" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/join/create"}/></Col>
 								<Col md={4} align="center"><Button label="增租协议书" type="link" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/increase/create"}/></Col>
 							</Row>
 

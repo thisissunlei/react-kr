@@ -133,7 +133,7 @@ export default  class JoinDetail extends Component {
 									<TableRow key={index}>
 										<TableRowColumn>{item.stationType}</TableRowColumn>
 										<TableRowColumn>
-										{item.stationId}
+										{item.stationName}
 										</TableRowColumn>
 										<TableRowColumn>
 											{item.unitprice}

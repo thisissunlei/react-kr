@@ -105,8 +105,8 @@ class NewCreateForm  extends Component{
 			}
 		});
 
-		Store.dispatch(change('joinCreateForm','stationnum',stationnum));
-		Store.dispatch(change('joinCreateForm','boardroomnum',boardroomnum));
+		Store.dispatch(change('increaseCreateForm','stationnum',stationnum));
+		Store.dispatch(change('increaseCreateForm','boardroomnum',boardroomnum));
 	}
 
 
@@ -218,8 +218,21 @@ class NewCreateForm  extends Component{
 			return ;
 		}
 
+		if(!leaseBegindate){
+			Notify.show([{
+				message:'请选择租赁开始时间',
+				type: 'danger',
+			}]);
+			return ;
+		}
 
-
+		if(!leaseEnddate){
+			Notify.show([{
+				message:'请选择租赁结束时间',
+				type: 'danger',
+			}]);
+			return ;
+		}
 
 		this.setState({
 			openStation:!this.state.openStation
@@ -228,7 +241,7 @@ class NewCreateForm  extends Component{
 
 	componentDidMount(){
 		let {initialValues}= this.props;
-		Store.dispatch(initialize('joinCreateForm',initialValues));
+		Store.dispatch(initialize('increaseCreateForm',initialValues));
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -355,8 +368,8 @@ class NewCreateForm  extends Component{
 	}
 
 	onChangeSearchPersonel(personel){
-		Store.dispatch(change('joinCreateForm','lessorContacttel',personel.mobile));
-		Store.dispatch(change('joinCreateForm','lessorContactName',personel.lastname));
+		Store.dispatch(change('increaseCreateForm','lessorContacttel',personel.mobile));
+		Store.dispatch(change('increaseCreateForm','lessorContactName',personel.lastname));
 
 	}
 
@@ -573,9 +586,9 @@ class NewCreateForm  extends Component{
 	}
 
 
-const selector = formValueSelector('joinCreateForm');
+const selector = formValueSelector('increaseCreateForm');
 
-NewCreateForm = reduxForm({ form: 'joinCreateForm',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
+NewCreateForm = reduxForm({ form: 'increaseCreateForm',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
 
 export default connect((state)=>{
 

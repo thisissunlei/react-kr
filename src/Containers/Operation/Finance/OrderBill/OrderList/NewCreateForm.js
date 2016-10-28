@@ -40,7 +40,7 @@ import {
 			
 			const communityList=response.communityList
 			const mainbilltypeList=response.mainbilltypeList
-
+           
 			
 
 			communityList.map(function(item,index){
@@ -51,7 +51,7 @@ import {
              
             mainbilltypeList.map(function(item,index){
 				 item.label = item.mainBillTypeDesc;
-                 item.value=item.mainBillTypeValue;
+                 item.value=item.mainBillType;
 				return item;
 			});
 
@@ -96,17 +96,18 @@ import {
 	render(){
 
 
-        
+        console.log("-----sssss",this.state.mainbilltypeList)
        
 		const { error, handleSubmit, pristine, reset} = this.props;
 
 		return (
 
 			<form onSubmit={handleSubmit(this.onSubmit)}>
+			   
 				<KrField name="customername" type="text" label="客户名称" /> 
 				<KrField name="communityid" type="select" label="所属社区" options={this.state.communityList} >
 				</KrField>
-				<KrField name="mainbilltype" type="select" label="订单类型" options={this.state.mainbilltypeList}>
+				<KrField name='mainBillType' type="select" label="订单类型" options={this.state.mainbilltypeList}>
 				</KrField>
 				<KrField  name="startDate" component="date" label="起始时间"/>
 				<KrField name="endDate" component="date" label="结束时间"/>
@@ -120,7 +121,7 @@ import {
 						<Col md={2}> <Button  label="取消" type="button"  onTouchTap={this.onCancel} /> </Col>
 					</Row>
 				</Grid>
-				</form>
+			</form>
 		);
 	}
 }
