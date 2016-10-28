@@ -6,6 +6,7 @@ import Document from './Document';
 import Operation from './Operation';
 import Basic from './Basic';
 import Initialize from './Initialize';
+import Demo from './Demo';
 
 
 module.exports = {
@@ -16,7 +17,8 @@ module.exports = {
 	Help,
 	Operation,
 	Basic,
-	Initialize
+	Initialize,
+	Demo
 }
 
 

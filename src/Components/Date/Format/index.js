@@ -27,7 +27,7 @@ export default class Format extends React.Component {
 			result =  dateFormat(value,format);
 		}catch(err){
 			let time=new Date(value*1)
-			result = dateFormat(time,"yyyy-mm-dd hh:MM:ss");
+			result = dateFormat(time,"yyyy-mm-dd");
 		}
 
 		return (
