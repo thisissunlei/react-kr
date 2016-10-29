@@ -388,10 +388,13 @@ export default class AttributeSetting  extends Component{
 	}
 	 //高级查询
     onSubmit(params){
-      this.setState({
+         //为了让其保持params原有的参数，同时将自己的参数传过去
+    	params = Object.assign({},this.state.params,params);
+        this.setState({
       	    params,
 			openSearch:!this.state.openSearch	
 	    });  
+	    console.log('8888888')
     }
     onSelect(values){
         //此处反着？
@@ -588,8 +591,9 @@ export default class AttributeSetting  extends Component{
 	}
     
 	render(){
-	   let {params}=this.state
+	   let {params}=this.state;
        
+       console.log("--888888---",params)
       
 	   //判断按钮出现与隐藏
        let childBtn=params.childType; 
