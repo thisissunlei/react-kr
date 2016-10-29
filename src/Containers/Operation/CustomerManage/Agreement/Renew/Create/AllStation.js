@@ -26,11 +26,18 @@ import {
 
 class SelectStationForm  extends Component{
 
+
+static contextTypes = {
+   params: React.PropTypes.object.isRequired
+ }
+ 
   static PropTypes = {
     searchParams:React.PropTypes.object,
     onSubmit:React.PropTypes.func,
     onCancel:React.PropTypes.func,
   }
+
+  
 
   constructor(props,context){
     super(props, context);
@@ -78,10 +85,9 @@ class SelectStationForm  extends Component{
 
   getLoadData(){
     var _this  = this;
-    //let {params} = this.props;
-    let params = {};
-    console.log('order',this.props);
-    params.orderId = 235;
+
+    let {params} = this.context;
+
     Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainBillid:params.orderId,page:1,pageSize:100})).then(function(response){
       _this.setState({
         stationVos:response.items
