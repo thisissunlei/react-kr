@@ -5,7 +5,6 @@ import {Actions,Store} from 'kr/Redux';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import {reduxForm,formValueSelector,initialize,change,arrayPush,arrayInsert,FieldArray} from 'redux-form';
 
-
 import {
 	Table,
  	TableBody,
@@ -81,7 +80,7 @@ class ReceivedBtnForm extends Component{
         const { error, handleSubmit, pristine, reset,optionList,changeValues,typeList} = this.props;
 		
 
-		console.log("====999",typeList)
+		//console.log("====999",typeList)
         
 
  
@@ -91,6 +90,7 @@ class ReceivedBtnForm extends Component{
                  
 					      <form onSubmit={handleSubmit(this.onSubmit)}>
                             <KrField  name="mainbillid" type="hidden" component="input"/>
+                            <KrField  name="jsonStr"  type="hidden" value={123}/>
 						    <KrField  label="代码名称" name="accountId" type="select" options={optionList}/>
 						    <KrField component="date" label="回款日期" name="receiveDate"/>
 						    <KrField label="交易编号" name="dealCode"  component="input" type="text"/>
@@ -99,13 +99,13 @@ class ReceivedBtnForm extends Component{
 						    }/>
 
 						    {parseInt(changeValues.autoSplit)?<div>
-						    	<KrField label="金额（元）" name="sum" component="input" type="text"/>
+						    	 <KrField label="金额（元）" name="sum" component="input" type="text"/>
 						    </div>:<div>
 						      {typeList.map((item,index)=>						
 						         <KrField key={index} grid={1} label={item.label} component="input" name={item.value} type="text"/>						 
 						       )}                           
 						    </div>}
-
+                            
                             <KrField name="sumSign" component="group" label="金额正负" >
 				                <KrField name="sumSign" label="正" component="radio" type="radio" value="0"/>
 				                <KrField name="sumSign" label="负" component="radio" type="radio" value="1" />

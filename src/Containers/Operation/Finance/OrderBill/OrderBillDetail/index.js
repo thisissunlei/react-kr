@@ -184,8 +184,7 @@ export default class AttributeSetting  extends Component{
  		      	 list.label=item.propname;
  		      	 typeList.push(list);		      	 	      	                                            
               })
-
- 		        _this.setState({
+		        _this.setState({
 			      receivedList:receivedList,
 			      typeList:typeList
 		       });             		   
@@ -342,6 +341,7 @@ export default class AttributeSetting  extends Component{
 		 openReceivedBtn:!this.state.openReceivedBtn,			
 		});	 
 		receivedList=[]; 
+		typeList=[];
     }
 
 	closeSearchDialog(){
@@ -414,7 +414,8 @@ export default class AttributeSetting  extends Component{
     	})
     }
     //回款提交
-    onAddReceivedSubmit(params){  	  
+    onAddReceivedSubmit(params){ 
+          console.log('--44444---------',params); 	  
 	  	  params= Object.assign({},params);
 	  	  params.receiveDate=dateFormat(params.receiveDate,"yyyy-mm-dd h:MM:ss");
 		  var _this = this;
@@ -429,7 +430,8 @@ export default class AttributeSetting  extends Component{
 			openReceivedBtn:!this.state.openReceivedBtn,
 			isLoading:true
 		});	 
-		receivedList=[]; 
+		receivedList=[];
+		typeList=[]; 
     }
     onQuitSubmit(params){ 
     	  var _this = this;
@@ -447,7 +449,7 @@ export default class AttributeSetting  extends Component{
 			isLoading:true
 		});	  
     }
-    onSwitchSubmit(params){  
+    onSwitchSubmit(params){ 
 		  var _this = this;
 	      Store.dispatch(Actions.callAPI('transToDeposit',{},params)).then(function(response){    
  		  }).catch(function(err){
@@ -582,7 +584,7 @@ export default class AttributeSetting  extends Component{
 	render(){
 	   let {params}=this.state
 
-
+       console.log('--0000000000',typeList)
 	   //判断按钮出现与隐藏
        let childBtn=params.childType; 
        let parentBtn=params.accountType;
@@ -590,6 +592,7 @@ export default class AttributeSetting  extends Component{
        //回款传订单id
        let initialValues={
        	   mainbillid:params.orderId,
+
        } 
        //退款等要操作的id
        let initialValuesId={
@@ -624,7 +627,6 @@ export default class AttributeSetting  extends Component{
        }
        if(parentBtn=='PAYMENT'&&childBtn=='gongweihuikuan'){
        	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
-       	   	  
        	   	  ,<Button label="转营收" className="lineBtn" type="submit"  primary={true} onTouchTap={this.openBusinessBtn}/>
        	   	  ,<Button label="退款" className="lineBtn" type="submit"  primary={true} onTouchTap={this.openQuitBtn}/>);
        }
