@@ -71,7 +71,7 @@ class NewCreateForm  extends Component{
 		this.getStationUrl = this.getStationUrl.bind(this);
 		this.onIframeClose = this.onIframeClose.bind(this);
 		this.openStationDialog = this.openStationDialog.bind(this);
-		this.onStationUnitPrice = this.onStationUnitPrice.bind(this);
+
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.onChangeLeaseBeginDate = this.onChangeLeaseBeginDate.bind(this);
@@ -120,25 +120,6 @@ class NewCreateForm  extends Component{
 		});
 	}
 
-	//录入单价
-	onStationUnitPrice(form){
-
-		var value = form.price;
-		let {stationVos,selectedStation} = this.state;
-
-		stationVos = stationVos.map(function(item,index){
-			if(selectedStation.indexOf(index) != -1){
-				item.unitprice= value;
-			}
-			return item;
-		});
-
-		this.setState({
-			stationVos
-		});
-
-		this.openStationUnitPriceDialog();
-	}
 	//修改租赁期限－开始时间
 	onChangeLeaseBeginDate(value){
 
@@ -472,12 +453,6 @@ class NewCreateForm  extends Component{
 							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
 
-					<Dialog
-						title="录入单价"
-						autoScrollBodyContent={true}
-						open={this.state.openStationUnitPrice} >
-								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
-					  </Dialog>
 
 			</div>);
 	}
