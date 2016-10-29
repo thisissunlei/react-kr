@@ -257,7 +257,7 @@ export default class AttributeSetting  extends Component{
 		       });    	       
  		    }).catch(function(err){
 			Notify.show([{
-				message:'报错了',
+				message:message,
 				type: 'danger',
 			}]);
 		  });
@@ -432,6 +432,7 @@ export default class AttributeSetting  extends Component{
 		});	 
 		receivedList=[];
 		typeList=[]; 
+		window.location.reload();
     }
     onQuitSubmit(params){ 
     	  var _this = this;
@@ -447,14 +448,15 @@ export default class AttributeSetting  extends Component{
 	    _this.setState({
 			openQuitBtn:!this.state.openQuitBtn,
 			isLoading:true
-		});	  
+		});
+		window.location.reload();	  
     }
     onSwitchSubmit(params){ 
 		  var _this = this;
 	      Store.dispatch(Actions.callAPI('transToDeposit',{},params)).then(function(response){    
  		  }).catch(function(err){
 			Notify.show([{
-				message:'报错了',
+				message:message,
 				type: 'danger',
 			}]);
 		 });       
@@ -462,7 +464,8 @@ export default class AttributeSetting  extends Component{
 			openSwitchBtn:!this.state.openSwitchBtn,
 			isLoading:true
 		});	 
-		receivedList=[]; 
+		receivedList=[];
+		window.location.reload(); 
     }
     onBusinessSubmit(params){ 	  
 		  var _this = this;
@@ -477,7 +480,8 @@ export default class AttributeSetting  extends Component{
 	    _this.setState({
 			openBusinessBtn:!this.state.openBusinessBtn,
 			isLoading:true
-		});	  
+		});	
+		window.location.reload();  
     }
     onConfrimSubmit(formValues){
 		Store.dispatch(Actions.callAPI('supplementIncome',{},formValues)).then(function(){
@@ -496,6 +500,7 @@ export default class AttributeSetting  extends Component{
 			isLoading:true
 		})
 		receivedList=[];
+		window.location.reload();
 	}
 	onSupplementSubmit(){
 		var _this=this;
@@ -516,6 +521,7 @@ export default class AttributeSetting  extends Component{
 			openSupplementBtn:!this.state.openSupplementBtn,
 			isLoading:true
 		})
+		window.location.reload();
 	}
     //操作相关
 	onOperation(type,itemDetail){
@@ -583,8 +589,8 @@ export default class AttributeSetting  extends Component{
     
 	render(){
 	   let {params}=this.state
-
-       console.log('--0000000000',typeList)
+       
+      
 	   //判断按钮出现与隐藏
        let childBtn=params.childType; 
        let parentBtn=params.accountType;

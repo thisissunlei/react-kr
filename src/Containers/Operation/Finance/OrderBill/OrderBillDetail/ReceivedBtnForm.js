@@ -90,7 +90,6 @@ class ReceivedBtnForm extends Component{
                  
 					      <form onSubmit={handleSubmit(this.onSubmit)}>
                             <KrField  name="mainbillid" type="hidden" component="input"/>
-                            <KrField  name="jsonStr"  type="hidden" value={123}/>
 						    <KrField  label="代码名称" name="accountId" type="select" options={optionList}/>
 						    <KrField component="date" label="回款日期" name="receiveDate"/>
 						    <KrField label="交易编号" name="dealCode"  component="input" type="text"/>
