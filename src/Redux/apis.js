@@ -323,7 +323,12 @@ const APIS  = {
 	'getStation':{
 		url:'/api/3/krspace-finance-web/find-contract-station/station?communityIds={communityIds}&mainBillId={mainBillId}',
 		method:'get'
-	}
+	},
+	//客户管理-计划表-撤场日期修改
+	'updateLeaveDate':{
+		url:'/api/3/krspace-finance-web/fina-contract-mainbill/action/update-leaveDate',
+		method:'post'
+	},
 }
 
 module.exports =  APIS;

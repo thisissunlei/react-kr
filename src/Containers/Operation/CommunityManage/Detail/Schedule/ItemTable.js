@@ -22,11 +22,11 @@ import DismantlingForm from './DismantlingForm';
 
 
 export default  class ItemTable extends Component {
-
+	
 	static PropTypes ={
 		onDismantling:React.PropTypes.func,
 	}
-
+ 
 	constructor(props,context){
 		super(props, context);
 
