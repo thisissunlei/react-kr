@@ -132,7 +132,7 @@ export default  class EmployessTable extends Component {
 	 static defaultProps = {
 		 activity:false,
 		 params:{
-		 	mainBillId:1,
+		 	mainBillId:246,
 		 	communityIds:1
 		}
 		
@@ -207,7 +207,7 @@ export default  class EmployessTable extends Component {
     return (
 
 		 <div className="employees-content">
-		 	<Table  style={{marginTop:10}} displayCheckbox={false} ajax={false}  ajaxUrlName='getStation' ajaxParams={this.props.params} pagination={false} >
+		 	<Table  style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getStation' ajaxParams={this.props.params} pagination={false} >
 				<TableHeader>
 						<TableHeaderColumn>工位编号</TableHeaderColumn>
 						<TableHeaderColumn>租赁起始时间</TableHeaderColumn>

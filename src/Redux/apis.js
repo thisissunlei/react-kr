@@ -326,7 +326,7 @@ const APIS  = {
 	},
 	//客户管理-计划表-撤场日期修改
 	'updateLeaveDate':{
-		url:'/api/3/krspace-finance-web/fina-contract-mainbill/action/update-leaveDate',
+		url:'/api/krspace-finance-web/fina-contract-mainbill/action/update-leaveDate',
 		method:'post'
 	},
 }
