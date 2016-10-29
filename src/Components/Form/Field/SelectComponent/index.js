@@ -11,9 +11,34 @@ export default class SelectComponent extends React.Component{
 		this.onChange = this.onChange.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 
+		this.setInitValue = this.setInitValue.bind(this);
+
+		this.isInit = false;
+
 		this.state = {
 			value:[]
 		}
+	}
+
+	componentDidMount(){
+		this.setInitValue(this.props.input.value);
+	}
+
+
+	componentWillReceiveProps(nextProps){
+		if(!this.isInit && nextProps.input.value){
+			this.setInitValue(nextProps.input.value);
+		}
+	}
+
+	setInitValue(value){
+		
+		if(!value){
+			return ;
+		}
+
+		this.setState({value});
+		this.isInit = true;
 	}
 
 	handleChange(value){
