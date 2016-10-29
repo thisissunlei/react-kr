@@ -23,8 +23,15 @@ import {
 
 export default  class D3Content extends Component {
 
+	 static defaultProps = {
+		 detail:{
+
+		 }
+	 }
+
 	 static PropTypes = {
 		 params:React.PropTypes.object,
+		 detail:React.PropTypes.object
 	 }
 
 	constructor(props,context){
@@ -36,6 +43,8 @@ export default  class D3Content extends Component {
 	}
 
   render() {
+
+  	let {detail} = this.props;
 
     return (
 		<div className="d3-content">显示数据</div>

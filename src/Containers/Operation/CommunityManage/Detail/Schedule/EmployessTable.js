@@ -29,7 +29,7 @@ export default  class EmployessTable extends Component {
 
 	 static PropTypes = {
 		 params:React.PropTypes.object,
-		 activity:React.PropTypes.bool
+		 activity:React.PropTypes.bool,
 	 }
 
 	constructor(props,context){

@@ -146,9 +146,11 @@ export default  class BasicTable extends Component {
 						<td>40%</td>
 						<td>30%</td>
 					</tr>
-					<ItemTable onDismantling={this.onDismantling}/>
+					<ItemTable onDismantling={this.onDismantling} item={{name:'ddd'}}/>
 				</tbody>
 			</table>
+
+
 			<Dialog
 				title="撤场日期"
 				modal={true}
