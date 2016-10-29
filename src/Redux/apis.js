@@ -319,7 +319,11 @@ const APIS  = {
 		url:'/api/krspace-finance-web/finaccount/data/getAccountFlowDetail?id={id}',		
 		method:'get'
 	},
-
+	//客户管理-计划表-分配工位-list
+	'getStation':{
+		url:'/api/3/krspace-finance-web/find-contract-station/station?communityIds={communityIds}&mainBillId={mainBillId}',
+		method:'get'
+	}
 }
 
 module.exports =  APIS;
