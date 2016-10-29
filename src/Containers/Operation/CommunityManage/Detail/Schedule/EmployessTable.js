@@ -58,13 +58,12 @@ export default  class EmployessTable extends Component {
 
 				<Table  style={{marginTop:10}} displayCheckbox={false} ajax={false}  ajaxUrlName='findFinaFinaflowPropertyList' pagination={false} >
 					<TableHeader>
-						<TableHeaderColumn name="propcode">属性编码</TableHeaderColumn>
-						<TableHeaderColumn>属性名称</TableHeaderColumn>
-						<TableHeaderColumn>是否启用</TableHeaderColumn>
-						<TableHeaderColumn>属性类别</TableHeaderColumn>
-						<TableHeaderColumn>排序号</TableHeaderColumn>
-						<TableHeaderColumn>创建人</TableHeaderColumn>
-						<TableHeaderColumn>创建时间</TableHeaderColumn>
+						<TableHeaderColumn name="propcode">工位编号</TableHeaderColumn>
+						<TableHeaderColumn>租赁起始时间</TableHeaderColumn>
+						<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
+						<TableHeaderColumn>员工</TableHeaderColumn>
+						<TableHeaderColumn>电话</TableHeaderColumn>
+						<TableHeaderColumn>状态</TableHeaderColumn>
 						<TableHeaderColumn>操作</TableHeaderColumn>
 				</TableHeader>
 
@@ -73,7 +72,6 @@ export default  class EmployessTable extends Component {
 						<TableRowColumn name="propcode" ></TableRowColumn>
 						<TableRowColumn name="propname" ></TableRowColumn>
 						<TableRowColumn name="enableflag" options={[{label:'是',value:'ENABLE'},{label:'否',value:'DISENABLE'}]}></TableRowColumn>
-						<TableRowColumn name="proptype" options={[{label:'收入',value:'INCOME'},{label:'回款',value:'PAYMENT'}]}></TableRowColumn>
 						<TableRowColumn name="ordernum"></TableRowColumn>
 						<TableRowColumn name="creatername"></TableRowColumn>
 						<TableRowColumn name="createdate" type="date"></TableRowColumn>
