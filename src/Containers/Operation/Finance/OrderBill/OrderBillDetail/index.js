@@ -23,7 +23,8 @@ import {
 	Notify,
 	Dialog,
 	KrDate,
-	autoScrollBodyContent
+	autoScrollBodyContent,
+    autoDetectWindowHeight
 } from 'kr-ui';
 
 
@@ -740,7 +741,8 @@ export default class AttributeSetting  extends Component{
 					 <Dialog
 						title="添加回款"
 						open={this.state.openReceivedBtn}
-						autoScrollBodyContent={autoScrollBodyContent}
+						autoScrollBodyContent={true}
+				        autoDetectWindowHeight={true}
 						>							
 					   <ReceivedBtnForm onSubmit={this.onAddReceivedSubmit} initialValues={initialValues} onCancel={this.closeReceivedDialog} optionList={this.state.receivedList} typeList={this.state.typeList}/>
 					 </Dialog>
@@ -748,6 +750,8 @@ export default class AttributeSetting  extends Component{
 					 <Dialog
 						title="退款"
 						open={this.state.openQuitBtn}
+						autoScrollBodyContent={true}
+				        autoDetectWindowHeight={true}
 						>							
 					   <QuitBtnForm  onSubmit={this.onQuitSubmit} onCancel={this.closeQuitBtn}  initialValues={initialValuesId}/>
 					 </Dialog>
