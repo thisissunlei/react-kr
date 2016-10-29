@@ -103,16 +103,16 @@ export default class ConfirmFormDetail  extends Component{
 
 							
 							 <KrField name="" component="group" label=" 租赁项目"> 
-								 <KrField grid={1}  name="stationnum"  component="labelText" label="工位" value={detail.stationnum}/> 
-								 <KrField grid={1}  name="boardroomnum"  component="labelText" label="会议室" value={detail.boardroomnum}/> 
+								 <KrField grid={1}  name="stationnum"  component="labelText" label="工位" value={detail.stationnum} defaultValue="0"/> 
+								 <KrField grid={1}  name="boardroomnum"  component="labelText" label="会议室" value={detail.boardroomnum} defaultValue="0"/> 
 		  					</KrField>
 
 
-							  <KrField grid={1/1}  name="username" component="labelText" label="租赁期限" value={`${detail.leaseBegindate}--${detail.leaseEnddate}`}/> 
-							 <KrField grid={1/2}  name="rentaluse"  component="labelText" label="保留天数" value={detail.templockday}/> 
+							  <KrField grid={1/1}  name="username" component="labelText" label="租赁期限" value={`${detail.leaseBegindate}--${detail.leaseEnddate}`} defaultValue="0"/> 
+							 <KrField grid={1/2}  name="rentaluse"  component="labelText" label="保留天数" value={detail.templockday} defaultValue="0" /> 
 
 							 
-							 <KrField grid={1/2}  name="fileIdList" component="labelText" label="备注" value={detail.contractmark}/> 
+							 <KrField grid={1/2}  name="fileIdList" component="labelText" label="备注" value={detail.contractmark} defaultValue="无"/> 
 							 <KrField grid={1}  name="fileIdList" component="labelText" label="上传附件" value={detail.fileIdList}/> 
 
 
@@ -130,7 +130,7 @@ export default class ConfirmFormDetail  extends Component{
 										{detail.list.map((item,index)=>{
 											return (
 												<TableRow key={index}>
-													<TableRowColumn>{item.stationType}</TableRowColumn>
+													<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
 													<TableRowColumn>{item.stationId}</TableRowColumn>
 												
 												<TableRowColumn>
