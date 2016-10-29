@@ -174,7 +174,7 @@ export default class AttributeSetting  extends Component{
       	  list.summount=0;
       }
      
-     //console.log("-----------",list.sumcome);
+     console.log("-----------",list.sumcome);
         
 		return(
 

@@ -22,7 +22,8 @@ import {
 	Col,
 	Notify,
 	Dialog,
-	KrDate
+	KrDate,
+	autoScrollBodyContent
 } from 'kr-ui';
 
 
@@ -38,7 +39,7 @@ import SupplementBtnForm from './SupplementBtnForm';
 
 //代码列表
 var codeList=[];
-//款项列表
+//款项列表和分拆金额
 var typeList=[];
 //回款的代码列表,合同的合同编号
 var receivedList=[];
@@ -166,17 +167,25 @@ export default class AttributeSetting  extends Component{
 	}
 	openReceivedBtn(){
     	 var _this = this;
-	      Store.dispatch(Actions.callAPI('findAccountList',{
+	      Store.dispatch(Actions.callAPI('findAccountAndPropList',{
 	      	accountType:'PAYMENT'
-	      })).then(function(response){          	         
- 		      response.map(function(item,index){ 
+	      })).then(function(response){       	         
+ 		      response.account.map(function(item,index){ 
  		      	 var list ={}
  		      	 list.value=item.id;
  		      	 list.label=item.accountname;
  		      	 receivedList.push(list);		      	 	      	                                            
               })
+              response.property.map(function(item,index){ 
+ 		      	 var list ={}
+ 		      	 list.value=item.propcode;
+ 		      	 list.label=item.propname;
+ 		      	 typeList.push(list);		      	 	      	                                            
+              })
+
  		        _this.setState({
-			      receivedList:receivedList
+			      receivedList:receivedList,
+			      typeList:typeList
 		       });             		   
  		}).catch(function(err){
 			Notify.show([{
@@ -731,8 +740,9 @@ export default class AttributeSetting  extends Component{
 					 <Dialog
 						title="添加回款"
 						open={this.state.openReceivedBtn}
+						autoScrollBodyContent={autoScrollBodyContent}
 						>							
-					   <ReceivedBtnForm onSubmit={this.onAddReceivedSubmit} initialValues={initialValues} onCancel={this.closeReceivedDialog} optionList={this.state.receivedList}/>
+					   <ReceivedBtnForm onSubmit={this.onAddReceivedSubmit} initialValues={initialValues} onCancel={this.closeReceivedDialog} optionList={this.state.receivedList} typeList={this.state.typeList}/>
 					 </Dialog>
 
 					 <Dialog
