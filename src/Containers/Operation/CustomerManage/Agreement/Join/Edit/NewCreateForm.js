@@ -103,7 +103,7 @@ class NewCreateForm  extends Component{
 
 	componentDidMount(){
 		let {initialValues}= this.props;
-		Store.dispatch(initialize('joinCreateForm',initialValues));
+		Store.dispatch(initialize('joinEditForm',initialValues));
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -165,7 +165,7 @@ class NewCreateForm  extends Component{
 	}
 
 	onChangeSearchPersonel(personel){
-		Store.dispatch(change('joinCreateForm','lessorContacttel',personel.mobile));
+		Store.dispatch(change('joinEditForm','lessorContacttel',personel.mobile));
 	}
 
 
@@ -389,8 +389,8 @@ class NewCreateForm  extends Component{
 			}
 		});
 
-		Store.dispatch(change('joinCreateForm','stationnum',stationnum));
-		Store.dispatch(change('joinCreateForm','boardroomnum',boardroomnum));
+		Store.dispatch(change('joinEditForm','stationnum',stationnum));
+		Store.dispatch(change('joinEditForm','boardroomnum',boardroomnum));
 	}
 
 	render(){
@@ -612,9 +612,9 @@ class NewCreateForm  extends Component{
 		return errors
 	}
 
-const selector = formValueSelector('joinCreateForm');
+const selector = formValueSelector('joinEditForm');
 
-NewCreateForm = reduxForm({ form: 'joinCreateForm',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
+NewCreateForm = reduxForm({ form: 'joinEditForm',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
 
 export default connect((state)=>{
 

@@ -29,6 +29,8 @@ export default  class EditCreate extends Component {
       formValues:{},
       openConfirmCreate:false
     }
+    
+    Store.dispatch(reset('exitEditForm'));
   }
 
    onCreateSubmit(formValues){
