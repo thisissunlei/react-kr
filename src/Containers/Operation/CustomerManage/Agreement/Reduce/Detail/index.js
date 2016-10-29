@@ -110,7 +110,7 @@ function getOrderUrl(){
 								<KrField component="labelText" grid={1/2} label="地址" value={basic.communityAddress}/>
 
 								<KrField component="labelText" grid={1/2} label="合同编号" value={basic.contractcode}/>
-								<KrField component="labelText" grid={1/2} label="减租金额" value={basic.rentamount}/>
+								<KrField component="labelText" grid={1/2} label="减租金额" value={basic.rentamount} defaultValue="0"/>
 
 								<KrField component="group" grid={1/1} label="签署日期:">
 									<Row style={{marginTop:5}}>
@@ -137,7 +137,7 @@ function getOrderUrl(){
 															{basic.stationVos && basic.stationVos.map((item,index)=>{
 																return (
 																	 <TableRow key={index}>
-																	<TableRowColumn>{item.stationType}</TableRowColumn>
+																	<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
 																	<TableRowColumn>
 																		{item.stationName}
 																	</TableRowColumn>

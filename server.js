@@ -19,20 +19,20 @@ var webpackHotMiddleware = require('koa-webpack-hot-middleware');
 var config = require('./configs/config');
 var webpackConfig = require('./webpack/webpack-'+process.env.NODE_ENV+'.config');
 
-webpackConfig.entry.unshift("webpack/hot/dev-server");
-webpackConfig.entry.unshift('webpack-hot-middleware/client?path=/__webpack_hmr');
+webpackConfig.entry.development.unshift("webpack/hot/dev-server");
+webpackConfig.entry.development.unshift('webpack-hot-middleware/client?path=/__webpack_hmr');
 //webpackConfig.entry.unshift("webpack-dev-server/client?http://127.0.0.1:8001");  
 
 var compiler = webpack(webpackConfig);
 
 
-app.use(compress());
+app.use(convert(compress()));
 
 app.use(staticDir(path.join(__dirname,'static')));
 
-app.use(bodyparser());
+app.use(convert(bodyparser()));
 
-app.use(json());
+app.use(convert(json()));
 
 app.use(logger());
 
@@ -76,11 +76,9 @@ app.use(webpackHotMiddleware(compiler),{
 
 //var indexRouter = require('./configs/routes');
 
-
 var router = require('koa-router')();
 
 router.get('*',function *(next){
-	console.log('-----0-0-');
 	yield this.render('index.html');
 });
 

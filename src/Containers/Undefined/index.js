@@ -47,7 +47,7 @@ export default class Undefined extends Component{
 	}
 
 	onSubmit(values){
-		console.log('--values',values);
+
 	}
 
 	render(){
@@ -60,12 +60,10 @@ export default class Undefined extends Component{
 
 			<div>
 					<Section title="出错了" description="" >
-
 						<Form name="jyayayoinForm" initialValues={initialValues} onSubmit={this.onSubmit}>
 							<KrField grid={1/1}  name="age" component="date" label="电话" />
 							<Button  label="确定" type="submit" primary={true} />
 						</Form>
-
 					</Section>
 			</div>
 

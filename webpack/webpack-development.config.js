@@ -7,33 +7,30 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 var env = process.env.NODE_ENV || 'development';
 
 const config = {
-	entry:[
-		path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js'),
-		path.join(process.cwd(), '/src/app.js'),
-	],
+	entry:{
+		app:path.join(process.cwd(), '/src/app.js'),
+		vender:[path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js')],	
+		development:[]
+	},
 	resolve: {
-		extensions: ['', '.js', '.md','.css'], 
+		root:path.join(process.cwd(), '/src'),
+		extensions: ['', '.js','.less'], 
 		alias: {
 			'kr-ui': path.join(process.cwd(), '/src/Components'), 
 			'kr': path.join(process.cwd(), '/src'), 
 		},
 	},
-	/*
-  devServer: {
-	  contentBase: "./static",
-	  port: 8001,
-	  inline: true,
-	  historyApiFallback: true,
-	  colors: true,
-	  stats: 'normal',
-  },
-  */
+
+	externals: { 
+		React:true
+	}, 
 	devtool: 'eval-source-map',
 	output: {
 		path: buildPath,
-		filename: 'bundle.js',
+		filename: '[name].js',
 		publicPath:"/"
 	},
+	noParse: ['/node_modules/'],
 	plugins: [
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
@@ -55,10 +52,15 @@ const config = {
 			title: '氪空间',
 			filename: 'index.html',
 			template: './src/index.template.html',
-			inject:'body'
+			inject:'body',
+			hash:true,
+			cache:true,
+			showErrors:true
 		}),
-		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop')
+		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
 	],
+	watch: true,
+    keepalive: true,
 	module: {
 		exprContextRegExp: /$^/,
 		exprContextCritical: false,
@@ -68,7 +70,7 @@ const config = {
 				loaders: [
 					'babel-loader',
 				],
-				exclude: /(node_modules|bower_components)/
+				exclude: /(node_modules|bower_components|static|test|build|configs)/
 			},
 			{
 				test: /\.json$/,

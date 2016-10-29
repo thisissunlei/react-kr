@@ -20,7 +20,7 @@ import {
 	Row,
 	Col,
 } from 'kr-ui';
- import RaisedButton from 'material-ui/RaisedButton';
+
 
 import {Actions,Store} from 'kr/Redux';
 
@@ -33,6 +33,7 @@ export default  class AdmitDetail extends Component {
 
 
 		this.state = {
+			isLoading:true,
 			basic:{
 				payment:{
 				},
@@ -42,20 +43,19 @@ export default  class AdmitDetail extends Component {
 
 		var _this = this;
 
-		// Store.dispatch(Actions.callAPI('showFinaContractIntentletter')
-		// .then(function(response){
-		// 	_this.setState({
-		// 		basic:response
-		// 	});
-		// 	console.log(response);
-		// }))
+
 
 		Store.dispatch(Actions.callAPI('showFinaContractIntentletter', {id:this.props.params.id}))
 		.then(function(response){
 			_this.setState({
-				basic:response
+				basic:response,
+				isLoading:false
 			});
-
+		}).catch(function(err){
+			Notify.show([{
+				message: err.message,
+				type: 'danger'
+			}]);
 		});
 
 	}
@@ -66,6 +66,12 @@ export default  class AdmitDetail extends Component {
 
 
   render() {
+
+  	let {isLoading} = this.state;
+
+  	if(isLoading){
+  		return <Loading />
+  	}
 
 
 	 const orderBaseInfo = {};
@@ -109,7 +115,7 @@ export default  class AdmitDetail extends Component {
 					<KrField component="labelText" grid={1/2} label="所属楼层" value={basic.wherefloor}/>
 
 
-<KrField label="定金总额"   grid={1/2} component="labelText" value={basic.totaldownpayment}/>
+<KrField label="定金总额"   grid={1/2} component="labelText" value={basic.totaldownpayment} defaultValue="0"/>
 <KrField component="group" grid={1/2} label="签署日期:">
 	<Row style={{marginTop:5}}>
 		<KrDate.Format value={basic.signdate}/>
@@ -118,15 +124,15 @@ export default  class AdmitDetail extends Component {
 			<KrField label="合同编号"   grid={1/2} component="labelText" value={basic.contractcode}/>
 			<KrField label="付款方式"   grid={1/2} component="labelText" value={dicName}/>
 			<KrField label="租赁项目" component="group">
-				<KrField label="工位"   grid={1/1} component="labelText" value={basic.stationnum}/>
-					<KrField label="会议室"   grid={1/1} component="labelText" value={basic.boardroomnum}/>
+				<KrField label="工位"   grid={1/1} component="labelText" value={basic.stationnum} defaultValue="0"/>
+					<KrField label="会议室"   grid={1/1} component="labelText" value={basic.boardroomnum} defaultValue="0"/>
 				  </KrField>
  <Grid>
 	  <Row style={{padding:10,marginBottom:15}}>
 		  <Col md={6} align="left" >租赁期限： <KrDate.Format value={basic.leaseBegindate}/>  ——  <KrDate.Format value={basic.leaseEnddate}/>  </Col>
 	  </Row>
 </Grid>
-<KrField label="保留天数"   grid={1/2} component="labelText" value={basic.templockday}/>
+<KrField label="保留天数"   grid={1/2} component="labelText" value={basic.templockday} defaultValue="0"/>
 
 <KrField label="备注"   grid={1/1} component="labelText" value={basic.contractmark}/>
 
@@ -185,7 +191,7 @@ export default  class AdmitDetail extends Component {
 <Grid style={{marginTop:30}}>
 				  <Row>
 					  <Col md={4} align="center"></Col>
-					  <Col md={2} align="center"> <RaisedButton  label="返回"  type="href" primary={true} href={getOrderUrl()}/> </Col>
+					  <Col md={2} align="center"> <Button  label="返回"  type="href" primary={true} href={getOrderUrl()}/> </Col>
 					  <Col md={4} align="center"></Col>
 				  </Row>
 			  </Grid>

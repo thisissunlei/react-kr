@@ -262,7 +262,7 @@ class NewCreateForm  extends Component{
 	}
 
 	onSubmit(form){
-		console.log('form',form);
+	
 
 
 		let {stationVos} = this.state;
@@ -271,7 +271,7 @@ class NewCreateForm  extends Component{
 		let {billList} = this.state;
 
 		let {changeValues} = this.props;
-		if(!changeValues.length){
+		if(!stationVos.length){
 			Notify.show([{
 				message:"请选择工位",
 				type: 'danger',
@@ -287,7 +287,7 @@ class NewCreateForm  extends Component{
 
 
 		var _this = this;
-
+	console.log('form',form);
 		
 		form.stationVos = stationVos;
 		const {onSubmit} = this.props;
@@ -360,6 +360,7 @@ class NewCreateForm  extends Component{
 					item.leaseEndDate = changeValues.leaseEnddate;
 					item.stationId = item.id;
 					item.stationType = item.type;
+					item.stationName = item.name;
 					item.unitprice = '';
 					item.whereFloor =  item.wherefloor;
 			});
@@ -445,8 +446,8 @@ class NewCreateForm  extends Component{
 				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} /> 
 
 				<KrField grid={1/1} component="group" label="租赁项目" requireLabel={true}> 
-					<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} /> 
-					<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.station} /> 
+					<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} defaultValue="0"/> 
+					<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.station} defaultValue="0"/> 
 				</KrField>
 
 				<Section title="租赁明细" description="" rightMenu = {

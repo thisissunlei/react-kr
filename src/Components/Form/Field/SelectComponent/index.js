@@ -9,6 +9,18 @@ export default class SelectComponent extends React.Component{
 		super(props)
 
 		this.onChange = this.onChange.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+
+		this.state = {
+			value:[]
+		}
+	}
+
+	handleChange(value){
+
+		let {input} = this.props;
+		this.setState({value});
+		input.onChange(value);
 	}
 
 	onChange(item){
@@ -19,8 +31,33 @@ export default class SelectComponent extends React.Component{
 
 	render(){
 
-		let { input, label, type, meta: { touched, error },children,disabled,style,requireLabel,options,...other} = this.props;
+		let { input, label, type, meta: { touched, error },children,disabled,style,requireLabel,options,multi,...other} = this.props;
 
+		if(multi){
+			return (
+					<div className="form-item-wrap" style={style}>
+					<div className="form-item">
+					<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
+							<div className="form-main">
+							<div className="form-input">
+							<ReactSelect 
+									multi
+									simpleValue
+									name={input.name}
+									value={this.state.value} 
+									clearable={true}
+									options={options}
+									onChange={this.handleChange} 
+									placeholder="请选择..."
+								/>
+							</div>
+							{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
+						  </div>
+					</div>
+			</div>
+			);
+
+		}
 		if(options){
 			return (
 					<div className="form-item-wrap" style={style}>

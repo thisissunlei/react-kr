@@ -10,7 +10,6 @@ import KrDate from './Date';
 import Loading from './Loading';
 import Pagination from './Pagination';
 import Button from './Button';
-import MyForm from './MyForm';
 import Notify from './Notify';
 import IframeContent from './IframeContent';
 //import Tabs from './Tabs/index';

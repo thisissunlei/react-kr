@@ -53,7 +53,6 @@ export default  class CommunityManage extends Component {
 			</Section>
 			
 			
-			
 		</div>
 	);
   }
