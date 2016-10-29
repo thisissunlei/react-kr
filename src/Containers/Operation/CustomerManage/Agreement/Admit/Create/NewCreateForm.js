@@ -409,7 +409,7 @@ class NewCreateForm  extends Component{
 
 								 <KrField grid={1/2}  component="labelText" label="所属社区" value={optionValues.communityName} /> 
 
-								 <KrField name="wherefloor"  grid={1/2} component="select" label="所属楼层" options={optionValues.floorList} requireLabel={true}/>
+								 <KrField name="wherefloor"  grid={1/2} component="select" label="所属楼层" options={optionValues.floorList} multi={true}  requireLabel={true}/>
 
 								
 								 <KrField grid={1/2}  name="signdate"  component="date" label="签署日期"  requireLabel={true}/> 

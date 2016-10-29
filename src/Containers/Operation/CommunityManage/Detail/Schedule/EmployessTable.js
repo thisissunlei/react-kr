@@ -24,12 +24,16 @@ import {
 export default  class EmployessTable extends Component {
 
 	 static defaultProps = {
-		 activity:false
+		 activity:false,
+		 params:{
+		 	mainBillId:1,
+		 	communityId:1
+		 }
 	 }
 
 	 static PropTypes = {
 		 params:React.PropTypes.object,
-		 activity:React.PropTypes.bool
+		 activity:React.PropTypes.bool,
 	 }
 
 	constructor(props,context){

@@ -78,8 +78,8 @@ export default  class ItemTable extends Component {
 							<div className="company-name"> 诚意有限公司 </div>
 						</td>
 						<td colSpan="12">
-							<D3Content />
-							<EmployessTable activity={activity} />
+							<D3Content/>
+							<EmployessTable activity={activity} params={{id:'1'}}/>
 						</td>
 						<td>
 							<Button type="link" primary={true} label="分配工位" onTouchTap={this.onStation}/>
