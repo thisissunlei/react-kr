@@ -22,6 +22,7 @@ import {
 	Col,
 	Notify,
 	Dialog,
+	KrDate
 } from 'kr-ui';
 
 
@@ -54,10 +55,14 @@ class ViewForm extends Component{
 	    if(!items.fileList){
 	    	items.fileList=[]
 	    }
+
+	    console.log("666999",items)
 		return(
 				<div>					
-					<KrField grid={1}  component="labelText" label="代码名称" value={items.accountName}/> 
-					<KrField grid={1}  component="labelText" label="付款日期" value={items.occuryear}/> 
+					<KrField grid={1}  component="labelText" label="代码名称" value={items.accountName}/>
+					<KrField grid={1/2} label="付款日期" component="group">
+					   <KrDate.Format value={items.occuryear} format="yyyy-mm-dd"  component="labelText"/>   
+					</KrField>
 					<KrField grid={1}  component="labelText" label="交易编号" value={items.accountName}/> 
 					<KrField grid={1}  component="labelText" label="金额（元）" value={items.finaflowAmount}/> 
 					<KrField grid={1}  component="labelText" label="备注" value={items.finaflowdesc}/>
@@ -104,6 +109,7 @@ export default class AttributeSetting  extends Component{
 		this.closeQuitBtn=this.closeQuitBtn.bind(this);
 		this.closeBusinessBtn=this.closeBusinessBtn.bind(this);
 		this.closeAddaccount=this.closeAddaccount.bind(this);
+		this.closeViewDialog=this.closeViewDialog.bind(this);
 
 		this.initBasicInfo = this.initBasicInfo.bind(this);
 		this.searchUpperFun=this.searchUpperFun.bind(this);
@@ -270,7 +276,7 @@ export default class AttributeSetting  extends Component{
    }
 
     openAccountBtn(){
-     var _this = this;
+         var _this = this;
 	      Store.dispatch(Actions.callAPI('findAccountList',{
 	      	accountType:'INCOME'
 	      })).then(function(response){             	         
@@ -298,7 +304,22 @@ export default class AttributeSetting  extends Component{
 			openSupplementBtn:!this.state.openSupplementBtn
 		})
     }
-    openViewDialog(){
+    openViewDialog(itemDetail){
+          var _this = this;
+          let id=itemDetail.id
+	      Store.dispatch(Actions.callAPI('getAccountFlowDetail',{
+	      	id:id
+	      })).then(function(response){             	         
+ 		    _this.setState({
+			 itemDetail:response
+		   });  
+ 		      	 
+ 		}).catch(function(err){
+			Notify.show([{
+				message:message,
+				type: 'danger',
+			}]);
+		 });
 		this.setState({
 			openView:!this.state.openView
 		});
@@ -343,6 +364,11 @@ export default class AttributeSetting  extends Component{
 
 		receivedList=[];
 	}
+	closeViewDialog(){
+		this.setState({	    
+			openView:!this.state.openView,
+		});
+	}
 
 //确定提交区域
     //切换
@@ -354,7 +380,7 @@ export default class AttributeSetting  extends Component{
       this.setState({
       	    params,
 			openSearch:!this.state.openSearch	
-	    });   
+	    });  
     }
     onSelect(values){
         //此处反着？
@@ -480,11 +506,8 @@ export default class AttributeSetting  extends Component{
 	}
     //操作相关
 	onOperation(type,itemDetail){
-		this.setState({
-			itemDetail
-		});
-		if(type == 'view'){
-			this.openViewDialog();
+		if(type == 'view'){		
+			this.openViewDialog(itemDetail);
 		}
 	}
 
@@ -547,6 +570,8 @@ export default class AttributeSetting  extends Component{
     
 	render(){
 	   let {params}=this.state
+
+
 	   //判断按钮出现与隐藏
        let childBtn=params.childType; 
        let parentBtn=params.accountType;
@@ -564,7 +589,11 @@ export default class AttributeSetting  extends Component{
        	   propid:params.propertyId,
        	   mainbillid:params.orderId
        } 
-       
+       //高级查询
+       let searchValue={
+       	   accountType:params.accountType,
+       	   orderId:params.orderId
+       } 
        
        var buttonArr = [];
        if(parentBtn=='PAYMENT'&&childBtn=='basic'){
@@ -638,7 +667,7 @@ export default class AttributeSetting  extends Component{
         label="关闭"
         primary={true}
          style={{marginLeft:10}}
-        onTouchTap={this.openViewDialog}
+        onTouchTap={this.closeViewDialog}
         />
       ]
 
@@ -672,7 +701,7 @@ export default class AttributeSetting  extends Component{
 						              <TableBody>
 						                <TableRow>
 						                	<TableRowColumn name="id"></TableRowColumn>
-						                    <TableRowColumn name="occuryear"></TableRowColumn>
+						                    <TableRowColumn name="occuryear" type="date" format="yyyy-mm-dd"></TableRowColumn>
 						                    <TableRowColumn name="accountName"></TableRowColumn>
 						                    <TableRowColumn name="typeName"></TableRowColumn>
 						                    <TableRowColumn name="propertyName"></TableRowColumn>
@@ -696,7 +725,7 @@ export default class AttributeSetting  extends Component{
 						title="高级查询"
 						open={this.state.openSearch}
 						>							
-					   <SearchForm  onCancel={this.closeSearchDialog} codeList={this.state.codeList} typeList={this.state.typeList} onSubmit={this.onSubmit}/>
+					   <SearchForm onCancel={this.closeSearchDialog} initialValues={searchValue} codeList={this.state.codeList} typeList={this.state.typeList} onSubmit={this.onSubmit}/>
 					 </Dialog>
 
 					 <Dialog
@@ -746,7 +775,7 @@ export default class AttributeSetting  extends Component{
 						open={this.state.openView}
 						actions={close}
 						>							
-						<ViewForm detail={this.state.itemDetail} onCancel={this.openViewDialog} />
+						<ViewForm detail={this.state.itemDetail}  />
 					 </Dialog> 
 
 			</div>		

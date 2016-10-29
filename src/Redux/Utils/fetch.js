@@ -69,8 +69,8 @@ function getMethod(path) {
 }
 
 function check401(res) {
-    if (res.status === 401) {
-        //browserHistory.replace('/login');
+    if (res.status ==200 && res.code ===-4011) {
+		window.location.href = '/';
     }
     return res;
 }
@@ -169,6 +169,7 @@ const http = {
 		xhr.withCredentials = true;
 		xhr.open('GET', url, true);
 		xhr.responseType = 'json';
+		xhr.setRequestHeader('crossDomain', true);
 		xhr.onload = function(e) {
 		  if (this.status >= 200 || this.status <300 ) {
 			  var json = http.transformPreResponse(xhr.response);
@@ -204,6 +205,7 @@ const http = {
 			headers: {
 				'Accept': '*',
 				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+				"Cookie": document.cookie 
 			},
 			body: searchParams
 		})

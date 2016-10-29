@@ -43,19 +43,12 @@ import {
 		var _this = this;
 
 		Store.dispatch(Actions.callAPI('addFinaFinaflowProperty',{},values)).then(function(response){
-				if(response.code==1){
+				
 					Notify.show([{
 						message:'新建成功！',
 						type: 'success',
 					}]);
-					 const {onSubmit} = _this.props;
-					 onSubmit && onSubmit();
-				}else{
-					Notify.show([{
-						message:response.message,
-						type: 'danger',
-					}]);
-				}
+					
 		}).catch(function(err){
 			console.log('000e',err);
 			Notify.show([{
@@ -63,7 +56,9 @@ import {
 				type: 'danger',
 			}]);
 		});
-		
+		 const {onSubmit} = _this.props;
+		 onSubmit && onSubmit();
+				
 
 	 }
 
@@ -135,8 +130,9 @@ const validate = values =>{
 	}
 const selector = formValueSelector('newCreateForm');
 
-NewCreateForm = reduxForm({ form: 'newCreateForm',validate, enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
+
 export default reduxForm({ form: 'newCreateForm',
+	validate,
 	enableReinitialize:true,
 	keepDirtyOnReinitialize:true
 })(NewCreateForm);
