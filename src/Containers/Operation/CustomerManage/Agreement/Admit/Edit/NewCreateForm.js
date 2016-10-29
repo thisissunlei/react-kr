@@ -404,7 +404,7 @@ class NewCreateForm  extends Component{
 
 				<KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={optionValues.communityName} /> 
 
-				<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} requireLabel={true}/>
+				<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} requireLabel={true} multi={true} />
                 <KrField grid={1/2}  name="totaldownpayment" type="text" component="input" label="定金总额" requireLabel={true} /> 
 				<KrField name="paymentId"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/> 
 
