@@ -73,8 +73,8 @@ class NewCreateForm  extends Component{
 		this.getStationUrl = this.getStationUrl.bind(this);
 		this.onIframeClose = this.onIframeClose.bind(this);
 		this.openStationDialog = this.openStationDialog.bind(this);
-		this.onStationUnitPrice = this.onStationUnitPrice.bind(this);
-		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
+
+
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 		this.onChangeLeaseBeginDate = this.onChangeLeaseBeginDate.bind(this);
@@ -96,32 +96,6 @@ class NewCreateForm  extends Component{
 	 	this.setState({stationVos});
 	}
 
-	//录入单价dialog
-	openStationUnitPriceDialog(){
-		this.setState({
-			openStationUnitPrice:!this.state.openStationUnitPrice
-		});
-	}
-
-	//录入单价
-	onStationUnitPrice(form){
-
-		var value = form.price;
-		let {stationVos,selectedStation} = this.state;
-
-		stationVos = stationVos.map(function(item,index){
-			if(selectedStation.indexOf(index) != -1){
-				item.unitprice= value;
-			}
-			return item;
-		});
-
-		this.setState({
-			stationVos
-		});
-
-		this.openStationUnitPriceDialog();
-	}
 
 	//删除工位
 	onStationDelete(){
@@ -478,13 +452,6 @@ class NewCreateForm  extends Component{
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
 						open={this.state.openStation} >
 							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
-					  </Dialog>
-
-					<Dialog
-						title="录入单价"
-						autoScrollBodyContent={true}
-						open={this.state.openStationUnitPrice} >
-								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
 
 			</div>);

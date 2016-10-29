@@ -42,6 +42,10 @@ import {
 @ReactMixin.decorate(LinkedStateMixin)
 class NewCreateForm  extends Component{
 
+	 static contextTypes = {
+	  	params: React.PropTypes.object.isRequired
+    }
+
 	static DefaultPropTypes = {
 		initialValues:{
 			customerName:'',
@@ -76,6 +80,7 @@ class NewCreateForm  extends Component{
 		this.openStationDialog = this.openStationDialog.bind(this);
 		this.onStationUnitPrice = this.onStationUnitPrice.bind(this);
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
+		this.openPreStationUnitPriceDialog = this.openPreStationUnitPriceDialog.bind(this);
 
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
@@ -166,6 +171,18 @@ class NewCreateForm  extends Component{
 
 	 	this.setState({stationVos});
 	}
+
+	openPreStationUnitPriceDialog(){
+		let {selectedStation}  = this.state;
+		if(!selectedStation.length){
+			Notify.show([{
+				message:'请先选择要录入单价的工位',
+				type: 'danger',
+			}]);
+		}
+		this.openStationUnitPriceDialog();
+	}
+
 
 	//录入单价dialog
 	openStationUnitPriceDialog(){
@@ -301,7 +318,7 @@ class NewCreateForm  extends Component{
 
 	getStationUrl(){
 
-	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
+	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
 
 		let {changeValues,initialValues,optionValues} = this.props;
 		let {stationVos} = this.state;
@@ -314,6 +331,7 @@ class NewCreateForm  extends Component{
 		});
 
 		let params = {
+			mainbillId:this.context.params.orderId,
 			communityId:optionValues.mainbillCommunityId,
 			floors:changeValues.wherefloor,
 			//工位
@@ -325,6 +343,7 @@ class NewCreateForm  extends Component{
 			endDate:dateFormat(changeValues.leaseEnddate,"yyyy-mm-dd")
 
 		};
+
 
 		if(Object.keys(params).length){
 			for (let item in params) {
@@ -452,7 +471,7 @@ class NewCreateForm  extends Component{
 
 				<Section title="租赁明细" description="" rightMenu = {
 					<Menu>
-						<MenuItem primaryText="录入单价"  onTouchTap={this.openStationUnitPriceDialog}/>
+						<MenuItem primaryText="录入单价"  onTouchTap={this.openPreStationUnitPriceDialog}/>
 						<MenuItem primaryText="删除" onTouchTap={this.onStationDelete} />
 						<MenuItem primaryText="租赁"  onTouchTap={this.openStationDialog} />
 					</Menu>

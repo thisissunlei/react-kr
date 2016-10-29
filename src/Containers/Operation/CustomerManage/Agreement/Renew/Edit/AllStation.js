@@ -26,6 +26,11 @@ import {
 
 class SelectStationForm  extends Component{
 
+
+  static contextTypes = {
+   params: React.PropTypes.object.isRequired
+ }
+
   static PropTypes = {
     searchParams:React.PropTypes.object,
     onSubmit:React.PropTypes.func,
@@ -78,9 +83,8 @@ class SelectStationForm  extends Component{
 
   getLoadData(){
     var _this  = this;
-    //let {params} = this.props;
-    let params = {};
-    params.orderId = 3;
+
+    let {params} = this.context;
     Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainBillid:params.orderId})).then(function(response){
       _this.setState({
         stationVos:response.items
