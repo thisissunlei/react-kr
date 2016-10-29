@@ -56,7 +56,7 @@ export default class DateComponent extends React.Component{
 
 	setInputValue(value){
 		let {input}  = this.props;		
-		value = dateFormat(value,'yyyy-mm-dd');
+		value = dateFormat(value,"yyyy-mm-dd hh:MM:ss");
 		input.onChange(value);
 	}
 
@@ -135,7 +135,7 @@ export default class DateComponent extends React.Component{
 							<div className="form-input">
 
 								<div className="date-component">
-									<span className="date-input"> {input.value || placeholder ||'日期'}</span>
+									<span className="date-input"> {dateFormat(input.value,"yyyy-mm-dd hh:MM:ss") || placeholder ||'日期'}</span>
 									<span className="date-operation">
 											<DatePicker
 								 				value = {this.state.value}
@@ -147,10 +147,6 @@ export default class DateComponent extends React.Component{
 									</span>
 								</div>
 								
-							{/*
-								 
-
-							*/}
 							</div>
 						</div>
 						{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }

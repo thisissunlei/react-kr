@@ -46,8 +46,6 @@ class StationForm  extends Component{
 
 	//删除工位
 	onStationDelete(){
-
-
 		let {selectedStation,billList} = this.state;
 		billList = billList.filter(function(item,index){
 
