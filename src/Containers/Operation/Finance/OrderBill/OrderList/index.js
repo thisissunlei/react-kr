@@ -154,6 +154,7 @@ export default class AttributeSetting  extends Component{
 	}
 
 	onLoaded(response){
+		console.log("----rrr",response)
     	let list = response;    
     	this.setState({
     		list
@@ -184,14 +185,14 @@ export default class AttributeSetting  extends Component{
 					<Grid>
 						<Row>
 							<Col md={2}> 
-							    <KrField label="收入总额" component="labelText" primary={true} value={list.sumcome}/>
+							    <KrField label="收入总额" component="labelText" primary={true} value={list.sumcome} defaultValue="0"/>
 							</Col>
                             
 							<Col md={2}> 
-							    <KrField label="回款总额" component="labelText" primary={true} value={list.sumAmount}/>
+							    <KrField label="回款总额" component="labelText" primary={true} value={list.sumAmount} defaultValue="0"/>
 							</Col>
 							<Col md={2}> 
-							    <KrField label="余额" component="labelText" primary={true} value={list.summount}/>
+							    <KrField label="余额" component="labelText" primary={true} value={list.summount} defaultValue="0"/>
 							</Col>
 							<Col md={4} align="right"> 
 									<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
