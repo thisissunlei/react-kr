@@ -22,7 +22,11 @@ import DismantlingForm from './DismantlingForm';
 
 
 export default  class ItemTable extends Component {
-	
+	 static defaultProps = {
+        companyId:1,
+        communityId:1
+   }
+
 	static PropTypes ={
 		onDismantling:React.PropTypes.func,
 	}
@@ -33,6 +37,7 @@ export default  class ItemTable extends Component {
 		 this.onStation = this.onStation.bind(this);
 		 this.onDismantlingDialog =this.onDismantlingDialog.bind(this);
 		 this.onDismantling = this.onDismantling.bind(this);
+     this.onhref = this.onhref.bind(this);
 
 		this.state = {
 			activity:false,
@@ -64,6 +69,13 @@ export default  class ItemTable extends Component {
 		})
 
 	}
+
+  //查看员工跳转地址
+  onhref(){
+
+    location.href="http://op.krspace.cn/krspace_member_web/member/companyMembers?companyId="+this.props.companyId+"&communityId="+this.props.communityId;
+  }
+  //http://op.krspace.cn/krspace_member_web/member/companyMembers?companyId=1&communityId=11
 	
   render() {
 
@@ -171,7 +183,7 @@ export default  class ItemTable extends Component {
 						<td>
 							<Button type="link" primary={true} label="分配工位" onTouchTap={this.onStation}/>
 							<Button type="link" primary={true} label="撤场" 	onTouchTap={this.onDismantling}/>
-							<Button type="link" primary={true} label="员工"/>
+							<Button type="link" primary={true} label="员工" onTouchTap={this.onhref}/>
 						</td>
 					</tr>
 				

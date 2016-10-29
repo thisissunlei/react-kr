@@ -320,7 +320,7 @@ const APIS  = {
 	},
 	//客户管理-计划表-分配工位-list
 	'getStation':{
-		url:'/api/3/krspace-finance-web/find-contract-station/station?communityIds={communityIds}&mainBillId={mainBillId}',
+		url:'/api/krspace-finance-web/find-contract-station/station?communityIds={communityIds}&mainBillId={mainBillId}',
 		method:'get'
 	},
 	//客户管理-计划表-撤场日期修改
