@@ -19,7 +19,10 @@ import {Grid,Row,Col} from 'kr-ui/Grid';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
 
 export default  class JoinDetail extends Component {
-
+   
+	 static contextTypes = {
+	  	params: React.PropTypes.object.isRequired
+    }
 
 	constructor(props,context){
 		super(props, context);
@@ -167,9 +170,6 @@ export default  class JoinDetail extends Component {
 
 	  const {basic} = this.state;
 
-	function onCancel(){
-		window.history.back();
-	}
 
 	function getOrderUrl(){
 		return `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;

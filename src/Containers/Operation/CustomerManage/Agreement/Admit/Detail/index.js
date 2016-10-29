@@ -155,7 +155,7 @@ export default  class AdmitDetail extends Component {
 													console.log(basic.stationVos);
 													return (
 														 <TableRow key={index}>
-														<TableRowColumn>工单：{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
+														<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
 														<TableRowColumn>
 															{item.stationName}
 														</TableRowColumn>
