@@ -102,7 +102,7 @@ class ReceivedBtnForm extends Component{
 						    	<KrField label="金额（元）" name="sum" component="input" type="text"/>
 						    </div>:<div>
 						      {typeList.map((item,index)=>						
-						         <KrField key={index} grid={1} label={item.label} component="input" name={item.value}/>						 
+						         <KrField key={index} grid={1} label={item.label} component="input" name={item.value} type="text"/>						 
 						       )}                           
 						    </div>}
 
