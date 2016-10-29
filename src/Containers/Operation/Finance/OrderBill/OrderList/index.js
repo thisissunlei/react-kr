@@ -40,6 +40,7 @@ export default class AttributeSetting  extends Component{
 		this.onNewCreateSubmit = this.onNewCreateSubmit.bind(this);
 		this.onSearchSubmit = this.onSearchSubmit.bind(this);
 		this.onEditSubmit = this.onEditSubmit.bind(this);
+		this.onLoaded=this.onLoaded.bind(this);
 
 		this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
 		this.openViewDialog = this.openViewDialog.bind(this);
@@ -53,6 +54,7 @@ export default class AttributeSetting  extends Component{
 			openEditDetail:false,
 			itemDetail:{},
 			item:{},
+			list:{},
 			searchParams:{
 				page:1,
 				pageSize:10
@@ -127,9 +129,23 @@ export default class AttributeSetting  extends Component{
 	}
 
 	onSearchCancel(){
-
+ 
 	}
-
+ 
+  componentWillUpdate(){
+     var _this = this;
+		Store.dispatch(Actions.callAPI('getFinaDataByList')).then(function(response){
+			_this.setState({
+				item:response,
+				loading:false
+			});
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+		});
+  }
 
 	//新建
 	openNewCreateDialog(){
@@ -150,21 +166,28 @@ export default class AttributeSetting  extends Component{
 		this.openNewCreateDialog();
 	}
 
+	onLoaded(response){
+    	let list = response;    
+    	this.setState({
+    		list
+    	})
+    }
+
 	render(){
         
-      let {item}=this.state;
+      let {list}=this.state;
 
-      if(!item.sumcome){
-      	  item.sumcome=0;
+      if(!list.sumcome){
+      	  list.sumcome=0;
       }
-      if(!item.sumAmount){
-      	  item.sumAmount=0;
+      if(!list.sumAmount){
+      	  list.sumAmount=0;
       }
-      if(!item.summount){
-      	  item.summount=0;
+      if(!list.summount){
+      	  list.summount=0;
       }
      
-    
+     console.log("-----------",list.sumcome);
         
 		return(
 
@@ -174,14 +197,14 @@ export default class AttributeSetting  extends Component{
 					<Grid>
 						<Row>
 							<Col md={2}> 
-							    <KrField label="收入总额" component="labelText" primary={true} value={item.sumcome}/>
+							    <KrField label="收入总额" component="labelText" primary={true} value={list.sumcome}/>
 							</Col>
                             
 							<Col md={2}> 
-							    <KrField label="回款总额" component="labelText" primary={true} value={item.sumAmount}/>
+							    <KrField label="回款总额" component="labelText" primary={true} value={list.sumAmount}/>
 							</Col>
 							<Col md={2}> 
-							    <KrField label="余额" component="labelText" primary={true} value={item.summount}/>
+							    <KrField label="余额" component="labelText" primary={true} value={list.summount}/>
 							</Col>
 							<Col md={4} align="right"> 
 									<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
@@ -193,7 +216,7 @@ export default class AttributeSetting  extends Component{
 					</Grid>
 
 
-				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxFieldListName="finaContractMainbillVOList" ajaxUrlName='getFinaDataByList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} >
+				<Table  style={{marginTop:10}} displayCheckbox={true} onLoaded={this.onLoaded}  ajax={true}  ajaxFieldListName="finaContractMainbillVOList" ajaxUrlName='getFinaDataByList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} >
 					<TableHeader>
 					<TableHeaderColumn>公司名称</TableHeaderColumn>
 					<TableHeaderColumn>订单类型</TableHeaderColumn>
