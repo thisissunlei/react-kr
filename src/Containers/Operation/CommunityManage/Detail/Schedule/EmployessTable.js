@@ -121,7 +121,7 @@ class NewAddmember extends Component{
 
 
 
-	
+
 }
 
 
@@ -242,6 +242,7 @@ export default  class EmployessTable extends Component {
 				modal={true}
 				open={this.state.openDistribution}
 			>
+				
 				<Distribution  onCancel={this.onDistributionCancel} onSubmit={this.onDistributionSubmit}/>	
 			</Dialog>
 			<Dialog
