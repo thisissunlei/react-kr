@@ -29,6 +29,9 @@ import {
 
 
 class DismantlingForm  extends Component{
+	static defaultProps = {
+		 mainBillId:1,
+	 }
 
 
 	constructor(props,context){
@@ -49,6 +52,24 @@ class DismantlingForm  extends Component{
 
 
 	onSubmit(form){
+		console.log('jjj',form)
+		console.log('fffff',this.props.mainBillId)
+		Store.dispatch(Actions.callAPI('updateLeaveDate',{},formValues)).then(function(response){
+			console.log("response",response);
+
+			Notify.show([{
+				message:'修改成功',
+				type: 'danger',
+			}]);
+
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+	   	});
+
+
 		const {onSubmit} = this.props;
 
 		onSubmit && onSubmit(form);
@@ -61,14 +82,15 @@ class DismantlingForm  extends Component{
 
 	render(){
 
-		let { error, handleSubmit, pristine, reset, submitting,initialValues} = this.props;
+		let { error, handleSubmit, pristine, reset, submitting,initialValues,mainBillId} = this.props;
 
 	
 	return (
 
 		<form onSubmit={handleSubmit(this.onSubmit)}> 
 			<div style={{textAlign:"center",marginBottom:'20px'}}>XX公司合同到期时间为2017.9.1</div>
-			<KrField name="sdf"component="select" grid={1} label="实际的撤场时间为" value=""/>
+			<KrField name="mainBillId" type="hidden"  grid={1}  value={this.props.mainBillId}/>
+			<KrField name="actualLeaveDate" component="date" grid={1} label="实际的撤场时间为" value=""/>
 			<Grid>
 				<Row style={{marginTop:30}}>
 				<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} /> </Col>
