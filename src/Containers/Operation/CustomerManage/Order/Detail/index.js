@@ -23,7 +23,7 @@ import {
 } from 'kr-ui';
 
 import Circle from './circle';
-
+import  './active.less';
 
 import {
 	Menu,
@@ -201,8 +201,16 @@ export default class OrderDetail extends React.Component {
 
 
 			<Grid style={{marginTop:50}}>
-			<Row>
-				<Col md={2} > 承租意向书({contractStatusCount.intentionComplete}-{contractStatusCount.intentionTotoal}) </Col>
+			<Row className="upBook">
+			    <Col md={2}></Col>
+				<Col md={2} ></Col>
+				<Col md={2} ></Col>
+				<Col md={2} ></Col>
+				<Col md={2} ></Col>
+				<Col md={2} ></Col>
+			</Row>
+			<Row className="downBook">
+				<Col md={2} >承租意向书({contractStatusCount.intentionComplete}-{contractStatusCount.intentionTotoal}) </Col>
 				<Col md={2} > 入驻协议书({contractStatusCount.enterComplete}-{contractStatusCount.enterTotoal}) </Col>
 				<Col md={2} > 增租协议书({contractStatusCount.addRentComplete}-{contractStatusCount.addRentTotoal}) </Col>
 				<Col md={2} > 续租协议书({contractStatusCount.renewComplete}-{contractStatusCount.renewComplete}) </Col>

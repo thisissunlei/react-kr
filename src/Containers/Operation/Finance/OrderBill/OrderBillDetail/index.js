@@ -37,6 +37,7 @@ import SwitchBtnForm from './SwitchBtnForm';
 import BusinessBtnForm from './BusinessBtnForm';
 import AccountBtnForm from './AccountBtnForm';
 import SupplementBtnForm from './SupplementBtnForm';
+import './index.less'
 
 //代码列表
 var codeList=[];
@@ -607,66 +608,66 @@ export default class AttributeSetting  extends Component{
        
        var buttonArr = [];
        if(parentBtn=='PAYMENT'&&childBtn=='basic'){
-       	   buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="退款"  type="submit" primary={true} onTouchTap={this.openQuitBtn}/>);
+       	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
+       	   	  ,<Button label="退款"  className="lineBtn" type="submit" primary={true} onTouchTap={this.openQuitBtn}/>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='dingjin'){
-       	   buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="转押金"  type="submit"  primary={true} onTouchTap={this.openSwitchBtn}/>
-       	   	  ,<Button label="转营收"  type="submit" primary={true} onTouchTap={this.openBusinessBtn}/>);
+       	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
+       	   	  ,<Button label="转押金" className="lineBtn" type="submit"  primary={true} onTouchTap={this.openSwitchBtn}/>
+       	   	  ,<Button label="转营收"  className="lineBtn" type="submit" primary={true} onTouchTap={this.openBusinessBtn}/>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='yajin'){
-       	   buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="转押金"  type="submit"  primary={true} onTouchTap={this.openSwitchBtn}/>
-       	   	  ,<Button label="转营收"  type="submit"  primary={true} onTouchTap={this.openBusinessBtn}/>
-       	   	  ,<Button label="退款"  type="submit"  primary={true} onTouchTap={this.openQuitBtn}/>);
+       	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
+       	   	  ,<Button label="转押金" className="lineBtn" type="submit"  primary={true} onTouchTap={this.openSwitchBtn}/>
+       	   	  ,<Button label="转营收" className="lineBtn" type="submit"  primary={true} onTouchTap={this.openBusinessBtn}/>
+       	   	  ,<Button label="退款" className="lineBtn" type="submit"  primary={true} onTouchTap={this.openQuitBtn}/>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='gongweihuikuan'){
-       	   buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="开票"  type="submit"  primary={true}/>
-       	   	  ,<Button label="转营收"  type="submit"  primary={true} onTouchTap={this.openBusinessBtn}/>
-       	   	  ,<Button label="退款"  type="submit"  primary={true} onTouchTap={this.openQuitBtn}/>);
+       	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
+       	   	  ,<Button label="开票" className="lineBtn" type="submit"  primary={true}/>
+       	   	  ,<Button label="转营收" className="lineBtn" type="submit"  primary={true} onTouchTap={this.openBusinessBtn}/>
+       	   	  ,<Button label="退款" className="lineBtn" type="submit"  primary={true} onTouchTap={this.openQuitBtn}/>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='qitahuikuan'){
-       	   buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="开票"  type="submit"  primary={true}/>
-       	   	  ,<Button label="转押金"  type="submit"  primary={true} onTouchTap={this.openSwitchBtn}/>
-       	   	  ,<Button label="转营收"  type="submit" primary={true} onTouchTap={this.openBusinessBtn}/>
-       	   	  ,<Button label="退款"  type="submit"  primary={true} onTouchTap={this.openQuitBtn}/>);
+       	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
+       	   	  ,<Button label="开票" className="lineBtn" type="submit"  primary={true}/>
+       	   	  ,<Button label="转押金" className="lineBtn" type="submit"  primary={true} onTouchTap={this.openSwitchBtn}/>
+       	   	  ,<Button label="转营收" className="lineBtn" type="submit" primary={true} onTouchTap={this.openBusinessBtn}/>
+       	   	  ,<Button label="退款" className="lineBtn" type="submit"  primary={true} onTouchTap={this.openQuitBtn}/>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='yingshouhuikuan'){
-       	   buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="开票"  type="submit" primary={true} />
+       	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
+       	   	  ,<Button label="开票" className="lineBtn" type="submit" primary={true} />
        	   	  );
        }
         if(parentBtn=='PAYMENT'&&childBtn=='shenghuoxiaofeihuikuan'){
-       	   buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="开票"  type="submit"  primary={true}/>
-       	   	  ,<Button label="退款"  type="submit" primary={true} onTouchTap={this.openQuitBtn}/>);
+       	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
+       	   	  ,<Button label="开票" className="lineBtn" type="submit"  primary={true}/>
+       	   	  ,<Button label="退款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openQuitBtn}/>);
        }
        if(parentBtn=='INCOME'&&childBtn=='basic'){
        	   
        }
        if(parentBtn=='INCOME'&&childBtn=='gongweishouru'){
-       	  buttonArr.push(<Button label="挂账"  type="submit" primary={true} onTouchTap={this.openAccountBtn}/>
-       	   	  ,<Button label="补收入"  type="submit" primary={true} onTouchTap={this.openSupplementBtn}/>
+       	  buttonArr.push(<Button label="挂账" className="lineBtn" type="submit" primary={true} onTouchTap={this.openAccountBtn}/>
+       	   	  ,<Button label="补收入" className="lineBtn" type="submit" primary={true} onTouchTap={this.openSupplementBtn}/>
        	   	  ); 
        }
        if(parentBtn=='INCOME'&&childBtn=='qitashouru'){
-       	  buttonArr.push(<Button label="挂账"  type="submit" primary={true} onTouchTap={this.openAccountBtn}/>
+       	  buttonArr.push(<Button label="挂账" className="lineBtn" type="submit" primary={true} onTouchTap={this.openAccountBtn}/>
        	   	  ); 
        }
        if(parentBtn=='INCOME'&&childBtn=='yingyewaishouru'){
-       	  buttonArr.push(<Button label="挂账"  type="submit" primary={true} onTouchTap={this.openAccountBtn}/>
+       	  buttonArr.push(<Button label="挂账" className="lineBtn" type="submit" primary={true} onTouchTap={this.openAccountBtn}/>
        	   	  ); 
        }
        if(parentBtn=='INCOME'&&childBtn=='shenghuoxiaofeishouru'){
-       	  buttonArr.push(<Button label="挂账"  type="submit" primary={true} onTouchTap={this.openAccountBtn}/>
+       	  buttonArr.push(<Button label="挂账" className="lineBtn" type="submit" primary={true} onTouchTap={this.openAccountBtn}/>
        	   	  ); 
        }
        if(parentBtn=='PAYMENT'&&propInfo=='NEW'){
-       	 buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="退款"  type="submit" primary={true} onTouchTap={this.openQuitBtn}/>);
+       	 buttonArr.push(<Button label="回款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
+       	   	  ,<Button label="退款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openQuitBtn}/>);
        }
        if(parentBtn=='INCOME'&&propInfo=='NEW'){
        	   
