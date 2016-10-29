@@ -70,6 +70,7 @@ export default class OrderDetail extends React.Component {
 	}
 
 	componentDidMount(){
+		console.log('000000');
 
 		const closeAll = this.props.location.query.closeAll;
 
@@ -92,6 +93,7 @@ export default class OrderDetail extends React.Component {
 			},1000);
 
 		}).catch(function(err){
+			console.log('---err',err);
 			Notify.show([{
 				message:'报错了',
 				type: 'danger',

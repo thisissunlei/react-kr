@@ -132,20 +132,7 @@ export default class AttributeSetting  extends Component{
  
 	}
  
-  componentWillUpdate(){
-     var _this = this;
-		Store.dispatch(Actions.callAPI('getFinaDataByList')).then(function(response){
-			_this.setState({
-				item:response,
-				loading:false
-			});
-		}).catch(function(err){
-			Notify.show([{
-				message:err.message,
-				type: 'danger',
-			}]);
-		});
-  }
+  
 
 	//新建
 	openNewCreateDialog(){
@@ -187,7 +174,7 @@ export default class AttributeSetting  extends Component{
       	  list.summount=0;
       }
      
-     console.log("-----------",list.sumcome);
+     //console.log("-----------",list.sumcome);
         
 		return(
 
