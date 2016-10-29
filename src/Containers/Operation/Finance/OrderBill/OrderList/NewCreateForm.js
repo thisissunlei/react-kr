@@ -51,7 +51,7 @@ import {
              
             mainbilltypeList.map(function(item,index){
 				 item.label = item.mainBillTypeDesc;
-                 item.value=item.mainBillType;
+                 item.value=item.mainbilltype;
 				return item;
 			});
 
@@ -107,7 +107,7 @@ import {
 				<KrField name="customername" type="text" label="客户名称" /> 
 				<KrField name="communityid"  type="select" label="所属社区" options={this.state.communityList} >
 				</KrField>
-				<KrField name="mainBillType" type="select" label="订单类型" options={this.state.mainbilltypeList}>
+				<KrField  name="mainbilltype" type="select" label="订单类型" options={this.state.mainbilltypeList}>
 				</KrField>
 				<KrField  name="startDate" component="date" label="起始时间"/>
 				<KrField name="endDate" component="date" label="结束时间"/>

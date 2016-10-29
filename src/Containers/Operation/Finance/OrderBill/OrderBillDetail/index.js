@@ -380,7 +380,7 @@ export default class AttributeSetting  extends Component{
       this.setState({
       	    params,
 			openSearch:!this.state.openSearch	
-	    });   
+	    });  
     }
     onSelect(values){
         //此处反着？
@@ -570,6 +570,8 @@ export default class AttributeSetting  extends Component{
     
 	render(){
 	   let {params}=this.state
+
+
 	   //判断按钮出现与隐藏
        let childBtn=params.childType; 
        let parentBtn=params.accountType;
@@ -587,7 +589,11 @@ export default class AttributeSetting  extends Component{
        	   propid:params.propertyId,
        	   mainbillid:params.orderId
        } 
-       
+       //高级查询
+       let searchValue={
+       	   accountType:params.accountType,
+       	   orderId:params.orderId
+       } 
        
        var buttonArr = [];
        if(parentBtn=='PAYMENT'&&childBtn=='basic'){
@@ -719,7 +725,7 @@ export default class AttributeSetting  extends Component{
 						title="高级查询"
 						open={this.state.openSearch}
 						>							
-					   <SearchForm  onCancel={this.closeSearchDialog} codeList={this.state.codeList} typeList={this.state.typeList} onSubmit={this.onSubmit}/>
+					   <SearchForm onCancel={this.closeSearchDialog} initialValues={searchValue} codeList={this.state.codeList} typeList={this.state.typeList} onSubmit={this.onSubmit}/>
 					 </Dialog>
 
 					 <Dialog

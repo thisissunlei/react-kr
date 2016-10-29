@@ -60,6 +60,9 @@ export default class AttributeSetting  extends Component{
 			
 		}
 	}
+     
+
+
 
 	componentDidMount() {
        var _this = this;
@@ -116,9 +119,8 @@ export default class AttributeSetting  extends Component{
 
 
 	//搜索
-	onSearchSubmit(searchParams){
+	onSearchSubmit(searchParams){	
 
-		
 		this.setState({
 			searchParams
 		});
@@ -137,11 +139,11 @@ export default class AttributeSetting  extends Component{
 	}
 
 	onNewCreateSubmit(searchParams){
-
 		this.setState({
 			searchParams,
 			openNewCreate:!this.state.openNewCreate
 		});
+
 	}
 
 	onNewCreateCancel(){
@@ -150,16 +152,16 @@ export default class AttributeSetting  extends Component{
 
 	render(){
         
-      let items=this.state.item;
+      let {item}=this.state;
 
-      if(!items.sumcome){
-      	  items.sumcome=0;
+      if(!item.sumcome){
+      	  item.sumcome=0;
       }
-      if(!items.sumAmount){
-      	  items.sumAmount=0;
+      if(!item.sumAmount){
+      	  item.sumAmount=0;
       }
-      if(!items.summount){
-      	  items.summount=0;
+      if(!item.summount){
+      	  item.summount=0;
       }
      
     
@@ -172,14 +174,14 @@ export default class AttributeSetting  extends Component{
 					<Grid>
 						<Row>
 							<Col md={2}> 
-							    <KrField label="收入总额" component="labelText" primary={true} value={items.sumcome}/>
+							    <KrField label="收入总额" component="labelText" primary={true} value={item.sumcome}/>
 							</Col>
                             
 							<Col md={2}> 
-							    <KrField label="回款总额" component="labelText" primary={true} value={items.sumAmount}/>
+							    <KrField label="回款总额" component="labelText" primary={true} value={item.sumAmount}/>
 							</Col>
 							<Col md={2}> 
-							    <KrField label="余额" component="labelText" primary={true} value={items.summount}/>
+							    <KrField label="余额" component="labelText" primary={true} value={item.summount}/>
 							</Col>
 							<Col md={4} align="right"> 
 									<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
