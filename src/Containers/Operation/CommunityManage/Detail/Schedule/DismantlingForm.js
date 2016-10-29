@@ -68,7 +68,7 @@ class DismantlingForm  extends Component{
 
 		<form onSubmit={handleSubmit(this.onSubmit)}> 
 			<div style={{textAlign:"center",marginBottom:'20px'}}>XX公司合同到期时间为2017.9.1</div>
-			<KrField name="sdf"component="select" grid={1} label="实际的撤场时间为" value=""/>
+			<KrField name="sdf"component="date" grid={1} label="实际的撤场时间为" value=""/>
 			<Grid>
 				<Row style={{marginTop:30}}>
 				<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} /> </Col>
