@@ -47,7 +47,7 @@ class UnitPriceForm  extends Component{
 
 		return (
 			<div>
-				<form onSubmit={handleSubmit(this.onSubmit)}>
+				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:20}}>
 					<KrField grid={1}  name="price" component="input" type="text" label="单价"/> 
 					<Grid>
 						<Row style={{marginTop:30}}>
