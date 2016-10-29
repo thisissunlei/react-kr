@@ -112,12 +112,8 @@ function getOrderUrl(){
 								<KrField component="labelText" grid={1/2} label="合同编号" value={basic.contractcode}/>
 								<KrField component="labelText" grid={1/2} label="减租金额" value={basic.rentamount} defaultValue="0"/>
 
-								<KrField component="group" grid={1/1} label="签署日期:">
-									<Row style={{marginTop:5}}>
-										<Date.Format value={basic.signdate}/>
-									</Row>
-								</KrField>
-								<KrField component="labelText"  label="备注" value={basic.contractmark}/>
+								<KrField component="labelText"	 grid={1/1} label="签署日期:" value={basic.signdate} type="date" defaultValue="无"/>
+								<KrField component="labelText"  label="备注" value={basic.contractmark} defaultValue="无"/>
 
 								<KrField component="labelText" label="上传附件" value={basic.contractfile}/>
 

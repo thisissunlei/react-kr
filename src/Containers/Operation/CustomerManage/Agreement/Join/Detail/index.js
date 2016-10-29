@@ -109,7 +109,7 @@ export default  class JoinDetail extends Component {
 					<KrField component="labelText" grid={1/2}  label="租金总额" value={basic.totalrent} defaultValue="0"/>
 					<KrField component="labelText" grid={1/2} label="押金总额" value={basic.totaldeposit} defaultValue="0"/>
 
-					<KrField component="labelText"  label="备注" value={basic.contractmark}/>
+					<KrField component="labelText"  label="备注" value={basic.contractmark} defaultValue="无"/>
 
 					<KrField component="labelText" label="上传附件" value={basic.contractfile}/>
 
