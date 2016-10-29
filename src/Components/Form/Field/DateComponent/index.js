@@ -3,6 +3,9 @@ import { Field, reduxForm } from 'redux-form';
 import DatePicker from 'material-ui/DatePicker';
 import dateFormat from 'dateformat';
 
+
+import './index.less';
+
 export default class DateComponent extends React.Component{
 
 	static PropTypes = {
@@ -117,22 +120,37 @@ export default class DateComponent extends React.Component{
 			border:'1px solid #ddd',
 			height:40,
 			borderRadius:'4px',
-			paddingLeft:10
+			paddingLeft:10,
+			color:'#fff',
+			backgroundColor:'transparent',
+			opacity:0
 		}
 
 		return (
 					<div className="form-item-wrap " style={style}>
-					<div className="form-item date">
+					<div className="form-item">
 					{label &&<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label> }
 					<div className="form-main">
 						<div className="form-input-main">
 							<div className="form-input">
-								 <DatePicker
-									hintText={placeholder||'日期'}
+
+								<div className="date-component">
+									<span className="date-input"> {input.value || placeholder ||'日期'}</span>
+									<span className="date-operation">
+											<DatePicker
+								 				value = {this.state.value}
+												hintText={placeholder||'日期'}
 										textFieldStyle={styles}
 										name={input.name}
 										container="inline" 
 										onChange={this.onChange}/>
+									</span>
+								</div>
+								
+							{/*
+								 
+
+							*/}
 							</div>
 						</div>
 						{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
