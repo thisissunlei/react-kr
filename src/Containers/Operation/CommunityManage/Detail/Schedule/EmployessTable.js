@@ -24,7 +24,11 @@ import {
 export default  class EmployessTable extends Component {
 
 	 static defaultProps = {
-		 activity:false
+		 activity:false,
+		 params:{
+		 	mainBillId:1,
+		 	communityId:1
+		 }
 	 }
 
 	 static PropTypes = {
