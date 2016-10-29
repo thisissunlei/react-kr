@@ -15,10 +15,14 @@ function getUrl(path, params = {},mode = false) {
 		server = 'optest.krspace.cn';
 	}
 	*/
+console.log('----->>>');
 
-    if (path.startsWith('http')) {
+	/*
+    if (path.match(/^http/) != 'null') {
         return path;
     }
+    */
+
 
     try {
         server += APIS[path].url;
@@ -83,6 +87,8 @@ const http = {
 
     request:(path, params,payload,method)=>{
 
+
+
         const url = getUrl(path, params);
 
         method = method || getMethod(path);
@@ -94,6 +100,7 @@ const http = {
 
         switch(method){
             case 'get':{
+
                 promise = http.get(url,params);
                 break;
             }
@@ -160,6 +167,7 @@ const http = {
 
 	get: (url, params) => new Promise((resolve, reject) => {
 
+
 		if (!url) {
 			return;
 		}
@@ -174,6 +182,7 @@ const http = {
 		  if (this.status >= 200 || this.status <300 ) {
 			  var json = http.transformPreResponse(xhr.response);
 				if(json && json.code && parseInt(json.code)>0){
+
 					//处理数据格式
 					resolve(http.transformResponse(json))
 				}else{

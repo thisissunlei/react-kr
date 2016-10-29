@@ -22,7 +22,9 @@ import {
 	Col,
 	Notify,
 	Dialog,
-	KrDate
+	KrDate,
+	autoScrollBodyContent,
+    autoDetectWindowHeight
 } from 'kr-ui';
 
 
@@ -35,10 +37,11 @@ import SwitchBtnForm from './SwitchBtnForm';
 import BusinessBtnForm from './BusinessBtnForm';
 import AccountBtnForm from './AccountBtnForm';
 import SupplementBtnForm from './SupplementBtnForm';
+import './index.less'
 
 //代码列表
 var codeList=[];
-//款项列表
+//款项列表和分拆金额
 var typeList=[];
 //回款的代码列表,合同的合同编号
 var receivedList=[];
@@ -166,17 +169,25 @@ export default class AttributeSetting  extends Component{
 	}
 	openReceivedBtn(){
     	 var _this = this;
-	      Store.dispatch(Actions.callAPI('findAccountList',{
+	      Store.dispatch(Actions.callAPI('findAccountAndPropList',{
 	      	accountType:'PAYMENT'
-	      })).then(function(response){          	         
- 		      response.map(function(item,index){ 
+	      })).then(function(response){       	         
+ 		      response.account.map(function(item,index){ 
  		      	 var list ={}
  		      	 list.value=item.id;
  		      	 list.label=item.accountname;
  		      	 receivedList.push(list);		      	 	      	                                            
               })
+              response.property.map(function(item,index){ 
+ 		      	 var list ={}
+ 		      	 list.value=item.propcode;
+ 		      	 list.label=item.propname;
+ 		      	 typeList.push(list);		      	 	      	                                            
+              })
+
  		        _this.setState({
-			      receivedList:receivedList
+			      receivedList:receivedList,
+			      typeList:typeList
 		       });             		   
  		}).catch(function(err){
 			Notify.show([{
@@ -597,66 +608,66 @@ export default class AttributeSetting  extends Component{
        
        var buttonArr = [];
        if(parentBtn=='PAYMENT'&&childBtn=='basic'){
-       	   buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="退款"  type="submit" primary={true} onTouchTap={this.openQuitBtn}/>);
+       	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
+       	   	  ,<Button label="退款"  className="lineBtn" type="submit" primary={true} onTouchTap={this.openQuitBtn}/>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='dingjin'){
-       	   buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="转押金"  type="submit"  primary={true} onTouchTap={this.openSwitchBtn}/>
-       	   	  ,<Button label="转营收"  type="submit" primary={true} onTouchTap={this.openBusinessBtn}/>);
+       	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
+       	   	  ,<Button label="转押金" className="lineBtn" type="submit"  primary={true} onTouchTap={this.openSwitchBtn}/>
+       	   	  ,<Button label="转营收"  className="lineBtn" type="submit" primary={true} onTouchTap={this.openBusinessBtn}/>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='yajin'){
-       	   buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="转押金"  type="submit"  primary={true} onTouchTap={this.openSwitchBtn}/>
-       	   	  ,<Button label="转营收"  type="submit"  primary={true} onTouchTap={this.openBusinessBtn}/>
-       	   	  ,<Button label="退款"  type="submit"  primary={true} onTouchTap={this.openQuitBtn}/>);
+       	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
+       	   	  ,<Button label="转押金" className="lineBtn" type="submit"  primary={true} onTouchTap={this.openSwitchBtn}/>
+       	   	  ,<Button label="转营收" className="lineBtn" type="submit"  primary={true} onTouchTap={this.openBusinessBtn}/>
+       	   	  ,<Button label="退款" className="lineBtn" type="submit"  primary={true} onTouchTap={this.openQuitBtn}/>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='gongweihuikuan'){
-       	   buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="开票"  type="submit"  primary={true}/>
-       	   	  ,<Button label="转营收"  type="submit"  primary={true} onTouchTap={this.openBusinessBtn}/>
-       	   	  ,<Button label="退款"  type="submit"  primary={true} onTouchTap={this.openQuitBtn}/>);
+       	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
+       	   	  ,<Button label="开票" className="lineBtn" type="submit"  primary={true}/>
+       	   	  ,<Button label="转营收" className="lineBtn" type="submit"  primary={true} onTouchTap={this.openBusinessBtn}/>
+       	   	  ,<Button label="退款" className="lineBtn" type="submit"  primary={true} onTouchTap={this.openQuitBtn}/>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='qitahuikuan'){
-       	   buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="开票"  type="submit"  primary={true}/>
-       	   	  ,<Button label="转押金"  type="submit"  primary={true} onTouchTap={this.openSwitchBtn}/>
-       	   	  ,<Button label="转营收"  type="submit" primary={true} onTouchTap={this.openBusinessBtn}/>
-       	   	  ,<Button label="退款"  type="submit"  primary={true} onTouchTap={this.openQuitBtn}/>);
+       	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
+       	   	  ,<Button label="开票" className="lineBtn" type="submit"  primary={true}/>
+       	   	  ,<Button label="转押金" className="lineBtn" type="submit"  primary={true} onTouchTap={this.openSwitchBtn}/>
+       	   	  ,<Button label="转营收" className="lineBtn" type="submit" primary={true} onTouchTap={this.openBusinessBtn}/>
+       	   	  ,<Button label="退款" className="lineBtn" type="submit"  primary={true} onTouchTap={this.openQuitBtn}/>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='yingshouhuikuan'){
-       	   buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="开票"  type="submit" primary={true} />
+       	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
+       	   	  ,<Button label="开票" className="lineBtn" type="submit" primary={true} />
        	   	  );
        }
         if(parentBtn=='PAYMENT'&&childBtn=='shenghuoxiaofeihuikuan'){
-       	   buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="开票"  type="submit"  primary={true}/>
-       	   	  ,<Button label="退款"  type="submit" primary={true} onTouchTap={this.openQuitBtn}/>);
+       	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
+       	   	  ,<Button label="开票" className="lineBtn" type="submit"  primary={true}/>
+       	   	  ,<Button label="退款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openQuitBtn}/>);
        }
        if(parentBtn=='INCOME'&&childBtn=='basic'){
        	   
        }
        if(parentBtn=='INCOME'&&childBtn=='gongweishouru'){
-       	  buttonArr.push(<Button label="挂账"  type="submit" primary={true} onTouchTap={this.openAccountBtn}/>
-       	   	  ,<Button label="补收入"  type="submit" primary={true} onTouchTap={this.openSupplementBtn}/>
+       	  buttonArr.push(<Button label="挂账" className="lineBtn" type="submit" primary={true} onTouchTap={this.openAccountBtn}/>
+       	   	  ,<Button label="补收入" className="lineBtn" type="submit" primary={true} onTouchTap={this.openSupplementBtn}/>
        	   	  ); 
        }
        if(parentBtn=='INCOME'&&childBtn=='qitashouru'){
-       	  buttonArr.push(<Button label="挂账"  type="submit" primary={true} onTouchTap={this.openAccountBtn}/>
+       	  buttonArr.push(<Button label="挂账" className="lineBtn" type="submit" primary={true} onTouchTap={this.openAccountBtn}/>
        	   	  ); 
        }
        if(parentBtn=='INCOME'&&childBtn=='yingyewaishouru'){
-       	  buttonArr.push(<Button label="挂账"  type="submit" primary={true} onTouchTap={this.openAccountBtn}/>
+       	  buttonArr.push(<Button label="挂账" className="lineBtn" type="submit" primary={true} onTouchTap={this.openAccountBtn}/>
        	   	  ); 
        }
        if(parentBtn=='INCOME'&&childBtn=='shenghuoxiaofeishouru'){
-       	  buttonArr.push(<Button label="挂账"  type="submit" primary={true} onTouchTap={this.openAccountBtn}/>
+       	  buttonArr.push(<Button label="挂账" className="lineBtn" type="submit" primary={true} onTouchTap={this.openAccountBtn}/>
        	   	  ); 
        }
        if(parentBtn=='PAYMENT'&&propInfo=='NEW'){
-       	 buttonArr.push(<Button label="回款"  type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="退款"  type="submit" primary={true} onTouchTap={this.openQuitBtn}/>);
+       	 buttonArr.push(<Button label="回款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
+       	   	  ,<Button label="退款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openQuitBtn}/>);
        }
        if(parentBtn=='INCOME'&&propInfo=='NEW'){
        	   
@@ -731,13 +742,17 @@ export default class AttributeSetting  extends Component{
 					 <Dialog
 						title="添加回款"
 						open={this.state.openReceivedBtn}
+						autoScrollBodyContent={true}
+				        autoDetectWindowHeight={true}
 						>							
-					   <ReceivedBtnForm onSubmit={this.onAddReceivedSubmit} initialValues={initialValues} onCancel={this.closeReceivedDialog} optionList={this.state.receivedList}/>
+					   <ReceivedBtnForm onSubmit={this.onAddReceivedSubmit} initialValues={initialValues} onCancel={this.closeReceivedDialog} optionList={this.state.receivedList} typeList={this.state.typeList}/>
 					 </Dialog>
 
 					 <Dialog
 						title="退款"
 						open={this.state.openQuitBtn}
+						autoScrollBodyContent={true}
+				        autoDetectWindowHeight={true}
 						>							
 					   <QuitBtnForm  onSubmit={this.onQuitSubmit} onCancel={this.closeQuitBtn}  initialValues={initialValuesId}/>
 					 </Dialog>

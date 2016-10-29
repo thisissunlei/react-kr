@@ -8,9 +8,8 @@ var env = process.env.NODE_ENV || 'development';
 
 const config = {
 	entry:{
-		app:path.join(process.cwd(), '/src/app.js'),
 		vender:[path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js')],	
-		development:[]
+		app:path.join(process.cwd(), '/src/app.js')
 	},
 	resolve: {
 		root:path.join(process.cwd(), '/src'),

@@ -409,7 +409,7 @@ class NewCreateForm  extends Component{
 
 								 <KrField grid={1/2}  component="labelText" label="所属社区" value={optionValues.communityName} /> 
 
-								 <KrField name="wherefloor"  grid={1/2} component="select" label="所属楼层" options={optionValues.floorList} requireLabel={true}/>
+								 <KrField name="wherefloor"  grid={1/2} component="select" label="所属楼层" options={optionValues.floorList} multi={true}  requireLabel={true}/>
 
 								
 								 <KrField grid={1/2}  name="signdate"  component="date" label="签署日期"  requireLabel={true}/> 
@@ -428,8 +428,8 @@ class NewCreateForm  extends Component{
 							 <KrField grid={1}  name="fileIdList" component="file" label="上传附件" requireLabel={true}/> 
 
 							 <KrField grid={1/1} component="group" label="租赁项目" requireLabel={true}> 
-								<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} /> 
-								<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum} /> 
+								<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} defaultValue="0" /> 
+								<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum} defaultValue="0" /> 
 							</KrField>
 
 					    <Section title="租赁明细" description="" rightMenu = {

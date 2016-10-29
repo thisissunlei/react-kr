@@ -43,13 +43,9 @@ export default class BasicInfo extends Component{
 
 	constructor(props,context){
 		super(props, context);
-		this.mainBillLink=this.mainBillLink.bind(this);
 	}
     
-    mainBillLink(){
-      window.location.href=`./#/operation/customerManage/${this.props.detail.customerid}/order/${this.context.params.orderId}/detail`;
-    }
-
+  
 	componentDidMount() {
         
 	}
@@ -69,11 +65,11 @@ export default class BasicInfo extends Component{
 
 			<div>   
 
-			           <KrField grid={1/3} label="社区名称" component="labelText" value={detail.communityname}/>
-			           <KrField grid={1/3} label="客户名称" component="labelText" value={detail.customername}/>
-			           <KrField grid={1/3} label="订单名称" component="group">
-			              <Button  label={detail.mainbillname} type='link'/>
-                       </KrField>
+			           <KrField grid={1/4} label="社区名称" component="labelText" value={detail.communityname}/>
+			           <KrField grid={1/4} label="客户名称" component="labelText" value={detail.customername}/>
+			           <KrField grid={1/4} label="订单名称" component="labelText"/>
+			           <a  href={`./#/operation/customerManage/${this.props.detail.customerid}/order/${this.context.params.orderId}/detail`}>{detail.mainbillname}</a>
+			           
                        <KrField grid={1/3} label="当前工位数" component="labelText" value={detail.totalstationnum}/>
 			           <KrField grid={1/3} label="起始日期" component="labelText" value={detail.startdate}/>
 			           <KrField grid={1/3} label="结束日期" component="labelText" value={detail.enddate}/>

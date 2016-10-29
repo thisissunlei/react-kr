@@ -18,7 +18,7 @@ var webpackHotMiddleware = require('koa-webpack-hot-middleware');
 
 var config = require('./configs/config');
 var webpackConfig = require('./webpack/webpack-'+process.env.NODE_ENV+'.config');
-
+webpackConfig.entry.development = [];
 webpackConfig.entry.development.unshift("webpack/hot/dev-server");
 webpackConfig.entry.development.unshift('webpack-hot-middleware/client?path=/__webpack_hmr');
 //webpackConfig.entry.unshift("webpack-dev-server/client?http://127.0.0.1:8001");  

@@ -37,6 +37,7 @@ class ReceivedBtnForm extends Component{
 		onCancel:React.PropTypes.func,
 		optionList:React.PropTypes.object,
 		initialValues:React.PropTypes.object,
+		typeList:React.PropTypes.object,
 		
   }
 
@@ -77,10 +78,10 @@ class ReceivedBtnForm extends Component{
 
 	
 
-        const { error, handleSubmit, pristine, reset,optionList,changeValues} = this.props;
+        const { error, handleSubmit, pristine, reset,optionList,changeValues,typeList} = this.props;
 		
 
-		
+		console.log("====999",typeList)
         
 
  
@@ -94,16 +95,15 @@ class ReceivedBtnForm extends Component{
 						    <KrField component="date" label="回款日期" name="receiveDate"/>
 						    <KrField label="交易编号" name="dealCode"  component="input" type="text"/>
 						    <KrField label="是否自动拆分" name="autoSplit" component="select" options={
-						    	[{label:"是",value:"1"},{label:"不是",value:"0"}]
+						    	[{label:"是",value:"1"},{label:"否",value:"0"}]
 						    }/>
 
 						    {parseInt(changeValues.autoSplit)?<div>
 						    	<KrField label="金额（元）" name="sum" component="input" type="text"/>
 						    </div>:<div>
-						      <KrField label="定金" name='dinjin' component="input" type="text"/>
-						      <KrField label="押金" name='yajin' component="input" type="text"/>
-						      <KrField label="租金" name='gongweihuikuan'  component="input" type="text"/>
-						      <KrField label="其他" name='qitahuikuan'  component="input" type="text"/>                              
+						      {typeList.map((item,index)=>						
+						         <KrField key={index} grid={1} label={item.label} component="input" name={item.value} type="text"/>						 
+						       )}                           
 						    </div>}
 
                             <KrField name="sumSign" component="group" label="金额正负" >
