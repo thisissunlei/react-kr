@@ -624,25 +624,25 @@ export default class AttributeSetting  extends Component{
        }
        if(parentBtn=='PAYMENT'&&childBtn=='gongweihuikuan'){
        	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="开票" className="lineBtn" type="submit"  primary={true}/>
+       	   	  
        	   	  ,<Button label="转营收" className="lineBtn" type="submit"  primary={true} onTouchTap={this.openBusinessBtn}/>
        	   	  ,<Button label="退款" className="lineBtn" type="submit"  primary={true} onTouchTap={this.openQuitBtn}/>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='qitahuikuan'){
        	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="开票" className="lineBtn" type="submit"  primary={true}/>
+       	   	  
        	   	  ,<Button label="转押金" className="lineBtn" type="submit"  primary={true} onTouchTap={this.openSwitchBtn}/>
        	   	  ,<Button label="转营收" className="lineBtn" type="submit" primary={true} onTouchTap={this.openBusinessBtn}/>
        	   	  ,<Button label="退款" className="lineBtn" type="submit"  primary={true} onTouchTap={this.openQuitBtn}/>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='yingshouhuikuan'){
        	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="开票" className="lineBtn" type="submit" primary={true} />
+       	   	  
        	   	  );
        }
         if(parentBtn=='PAYMENT'&&childBtn=='shenghuoxiaofeihuikuan'){
        	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="开票" className="lineBtn" type="submit"  primary={true}/>
+       	   	  
        	   	  ,<Button label="退款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openQuitBtn}/>);
        }
        if(parentBtn=='INCOME'&&childBtn=='basic'){
