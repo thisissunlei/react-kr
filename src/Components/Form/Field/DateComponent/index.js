@@ -17,36 +17,44 @@ export default class DateComponent extends React.Component{
 		this.supplementZero = this.supplementZero.bind(this);
 
 		this.formatDate = this.formatDate.bind(this);
+		this.setInputValue = this.setInputValue.bind(this);
 
 		this.isInit = false;
 		this.state = {
-			value:new Date()
+			value:''
 		}
 
 	}
 
 	setDefaultDate(value){
-		let {input} = this.props;
+
 		if(!value){
 			return ;
 		}
 
-		if(!(value instanceof Date)){
-			if(!value){
-				value = new Date();
-			}else if(isNaN(value)){
-				value = new Date(Date.parse(value));
-			}else{
-				value = new Date(value);
-			}
+	
+
+		if(typeof value === 'string'){
+			value = new Date(Date.parse(value));
+			this.setInputValue(value);
+		}
+
+		if(typeof value === 'number'){
+			this.setInputValue(value);
+			value = new Date(value);
 		}
 
 		this.setState({
 			value
 		});
 
-		this.isInit = true;
-		input.onChange(this.formatDate(value));
+		this.isInit = true;	
+	}
+
+	setInputValue(value){
+		let {input}  = this.props;		
+		value = dateFormat(value,'yyyy-mm-dd');
+		input.onChange(value);
 	}
 
 	componentDidMount(){
@@ -66,7 +74,7 @@ export default class DateComponent extends React.Component{
 		return value 
 	}
 
-	formatDate(value=+new Date){
+	formatDate(value){
 
 		var dt = new Date(value);
 		var year = dt.getFullYear();
@@ -82,15 +90,21 @@ export default class DateComponent extends React.Component{
 	}
 
 	onChange(event,value){
+
 		if(!value){
 			return ;
 		}
+
 		this.setState({
 			value
 		});
+
 		let {input,onChange} = this.props;
+
 		var result = this.formatDate(value);
-		input.onChange(result);
+
+		this.setInputValue(result);
+	
 		onChange && onChange(result);
 	}
 
@@ -115,7 +129,6 @@ export default class DateComponent extends React.Component{
 							<div className="form-input">
 								 <DatePicker
 									hintText={placeholder||'日期'}
-									 value={this.state.value}
 										textFieldStyle={styles}
 										name={input.name}
 										container="inline" 

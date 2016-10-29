@@ -93,10 +93,7 @@ export default  class JoinCreate extends Component {
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
 
-			initialValues.signdate = +new Date();
-
-			initialValues.leaseBegindate = +new Date();
-			initialValues.leaseEnddate = +new Date();
+			
 			initialValues.leaseAddress = response.customer.customerAddress;
 
 
