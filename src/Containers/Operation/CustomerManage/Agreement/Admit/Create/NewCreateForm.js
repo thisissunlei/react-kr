@@ -425,7 +425,7 @@ class NewCreateForm  extends Component{
 											stationVos && stationVos.map((item,index)=>{
 											return (
 												<TableRow key={index}>
-													<TableRowColumn>{item.stationType}</TableRowColumn>
+													<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
 													<TableRowColumn>{item.stationName}</TableRowColumn>
 													<TableRowColumn> <Date.Format value={item.leaseBeginDate}/></TableRowColumn>
 													<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
