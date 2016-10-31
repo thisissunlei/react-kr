@@ -87,4 +87,6 @@ import {
 }
 
 
-export default reduxForm({ form: 'newCreateForm'})(NewCreateForm);
+export default reduxForm({ form: 'newCreateForm',initialValues:{
+	enableflag:true
+}})(NewCreateForm);
