@@ -66,28 +66,28 @@ export default  class JoinDetail extends Component {
 		  return (
 				  <div>
 
-					<KrField component="labelText" grid={1/2} label="出租方" value={basic.lessorName}/>
-					<KrField component="labelText" grid={1/2} label="地址" value={basic.lessorAddress}/>
+					<KrField component="labelText" grid={1/2} label="出租方" value={basic.lessorName} defaultValue="无"/>
+					<KrField component="labelText" grid={1/2} label="地址" value={basic.lessorAddress} defaultValue="无"/>
 
-					<KrField component="labelText" grid={1/2} label="联系人" value={basic.lessorContactName}/>
-					<KrField component="labelText" grid={1/2} label="电话" value={basic.lessorContacttel}/>
+					<KrField component="labelText" grid={1/2} label="联系人" value={basic.lessorContactName} defaultValue="无"/>
+					<KrField component="labelText" grid={1/2} label="电话" value={basic.lessorContacttel} defaultValue="无"/>
 
-					<KrField component="labelText" grid={1/2} label="承租方" value={basic.customerName}/>
-					<KrField component="labelText" grid={1/2} label="地址" value={basic.leaseAddress}/>
+					<KrField component="labelText" grid={1/2} label="承租方" value={basic.customerName} defaultValue="无"/>
+					<KrField component="labelText" grid={1/2} label="地址" value={basic.leaseAddress} defaultValue="无"/>
 
-					<KrField component="labelText" grid={1/2} label="联系人" value={basic.leaseContact}/>
-					<KrField component="labelText" grid={1/2} label="电话" value={basic.leaseContacttel}/>
+					<KrField component="labelText" grid={1/2} label="联系人" value={basic.leaseContact} defaultValue="无"/>
+					<KrField component="labelText" grid={1/2} label="电话" value={basic.leaseContacttel} defaultValue="无"/>
 
-					<KrField component="labelText" grid={1/2} label="所属社区" value={basic.communityName}/>
-					<KrField component="labelText" grid={1/2} label="所属楼层" value={basic.wherefloor}/>
+					<KrField component="labelText" grid={1/2} label="所属社区" value={basic.communityName} defaultValue="无"/>
+					<KrField component="labelText" grid={1/2} label="所属楼层" value={basic.wherefloor} defaultValue="无"/>
 
-					<KrField component="labelText" grid={1/2} label="地址" value={basic.communityAddress}/>
-					<KrField component="labelText" grid={1/2} label="合同编号" value={basic.contractcode}/>
+					<KrField component="labelText" grid={1/2} label="地址" value={basic.communityAddress} defaultValue="无"/>
+					<KrField component="labelText" grid={1/2} label="合同编号" value={basic.contractcode} defaultValue="无"/>
 
-					<KrField component="labelText" grid={1/2} label="支付方式" value={basic.payType && basic.payType.dicName}/>
+					<KrField component="labelText" grid={1/2} label="支付方式" value={basic.payType && basic.payType.dicName} defaultValue="无"/>
 					<KrField component="group" grid={1/2} label="租赁期限:">
 						<Row style={{marginTop:5}}>
-						<Date.Format value={basic.leaseBegindate}/>  ——  <Date.Format value={basic.leaseEnddate}/>
+						<Date.Format value={basic.leaseBegindate} />  ——  <Date.Format value={basic.leaseEnddate}/>
 						</Row>
 					</KrField>
 						
