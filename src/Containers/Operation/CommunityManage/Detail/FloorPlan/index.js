@@ -14,6 +14,8 @@ import {
 	BreadCrumbs,
 	IframeContent,
 	Button,
+	Row,
+	Col,
 } from 'kr-ui';
 import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
 
@@ -21,7 +23,7 @@ import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray}
 export default  class FloorPlan extends Component {
 	static defaultProps = {
 		 tab:'',
-		 community:'',
+		 communityId:'',
 		 communityInfoFloorList:[]
 	 }
 
@@ -31,29 +33,40 @@ export default  class FloorPlan extends Component {
 		this.onSubmit = this.onSubmit.bind(this);
 		this.scrollLoad = this.scrollLoad.bind(this);
 		this.onLoad = this.onLoad.bind(this);
-
+		console.log('this.props',this.props,'props', props);
 		this.iframeWindow = null;
 		// this.setIframeWidth = this.setIframeWidth.bind(this);
 		this.state = {
 			url:this.getStationUrl(),
-			community:this.props.community,
+			communityId:this.props.communityId,
 			form:{
 			}
 		}
+
+	}
+	componentWillReceiveProps(nextProps){
+
+		if(nextProps.communityId != this.props.communityId){
+			this.setState({
+				communityId:nextProps.communityId
+			});
+		}
+
+		
 
 	}
 
 	onLoad(iframeWindow){
 
 		this.iframeWindow = iframeWindow;
-		console.log('iframeWindow', iframeWindow);
+		console.log('-----------load', iframeWindow.document.body.scrollHeight);
+
 
 	}
 
 	
 
 	 componentDidMount(){
-	 	let {community} = this.props;
 	 	
 
 
@@ -67,18 +80,18 @@ export default  class FloorPlan extends Component {
 
 		var formList = form || {};
 		// let {community} = this.state;
-		if(form){
-			this.setState({
-				form:formList
-			});
-		};
+		// if(form){
+		// 	this.setState({
+		// 		form:formList
+		// 	});
+		// };
 		let params;
 		console.log('formList', formList);
 		params = {
 			communityId:'',
-			wherefloor:formList.floor || '',
-			date: dateFormat(formList.start,"yyyy.mm.dd") || dateFormat(new Date(),"yyyy.mm.dd"),
-			dateend: dateFormat(formList.end,"yyyy.mm.dd")|| dateFormat(new Date(),"yyyy.mm.dd"),
+			wherefloor:'',
+			date: dateFormat(new Date(),"yyyy.mm.dd"),
+			dateend:dateFormat(new Date(),"yyyy.mm.dd"),
 		};
 
 		if(Object.keys(params).length){
@@ -94,22 +107,20 @@ export default  class FloorPlan extends Component {
 	}
 	onSubmit(form){
 		form = Object.assign({},form);
-		console.log('form', form);
 		var that = this;
-		setTimeout(function(){
-			that.setState({
-				url:that.getStationUrl(form)
-			});
-		},100);
+		var params = {
+			communityId:this.state.communityId || '',
+			wherefloor:form.floor || '',
+			date: dateFormat(form.start,"yyyy.mm.dd") || dateFormat(new Date(),"yyyy.mm.dd"),
+			dateend: dateFormat(form.end,"yyyy.mm.dd")|| dateFormat(new Date(),"yyyy.mm.dd"),
+		};
+		console.log(params, that.iframeWindow);
+		that.iframeWindow.query(params);
 		
 	}
 	// 监听滚动事件
 	scrollLoad(){
-		let {form} = this.state;
 		var that = this;
-		console.log(this.iframeWindow);
-
-
 		$(window).bind('scroll',function(){
 			var top = $(window).scrollTop() || 0;
             var height = $(window).height() || 0;
@@ -117,7 +128,6 @@ export default  class FloorPlan extends Component {
             var isOutBoundary =  scrollBottom >= 1;
             console.log(isOutBoundary, scrollBottom >= 1);
             if (!isOutBoundary) {
-            	console.log('load');
             	that.iframeWindow.pagequery();
             }
 		})
@@ -127,12 +137,14 @@ export default  class FloorPlan extends Component {
 	
 
   render() {
-  	const {url} = this.state;
+  	const {url, height} = this.state;
   	let {tab} = this.props;
-		let {community} = this.state;
+		let {communityId} = this.state;
 		let {communityInfoFloorList} = this.props;
 
-  	console.log(this.state, url, 'url', community);
+		// console.log('-----------load', this.iframeWindow.document.body.scrollHeight);
+
+  	console.log('url', this.state);
   	if(tab === 'floorplan'){
   			this.scrollLoad();
   	}else{
@@ -141,13 +153,13 @@ export default  class FloorPlan extends Component {
     return (
 
 		 <div id="planTable">
-		 	<Form name="planTable" onSubmit={this.onSubmit} >
-				<KrField name="floor"  grid={1/1} component="select" label="楼层" options={communityInfoFloorList}/>
-				<KrField grid={1/1}  name="start" component="date" label="注册时间" />
-				<KrField grid={1/1}  name="end" component="date"  label="至" />
-				<Button  label="确定" type="submit" primary={true} />
+		 	<Form name="planTable" onSubmit={this.onSubmit} className="form-list">
+				<KrField name="floor"  grid={1/4} component="select" label="楼层" options={communityInfoFloorList}/>
+				<KrField grid={1/4}  name="start" component="date" label="注册时间" />
+				<KrField grid={1/4}  name="end" component="date"  label="至" />
+				<Button  label="确定" type="submit" primary={true} style={{marginLeft:100}}/>
 			</Form>
-			<IframeContent src={url} onClose={this.onIframeClose} id="floorIframe" onLoad={this.onLoad}/>
+			<IframeContent src={url} onClose={this.onIframeClose} className="floorIframe" onLoad={this.onLoad} width={900}/>
 
 		</div>
 	);
