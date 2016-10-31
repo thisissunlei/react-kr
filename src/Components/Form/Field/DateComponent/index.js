@@ -144,7 +144,6 @@ export default class DateComponent extends React.Component{
 										onChange={this.onChange}/>
 									</span>
 								</div>
-								
 							</div>
 						</div>
 						{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }

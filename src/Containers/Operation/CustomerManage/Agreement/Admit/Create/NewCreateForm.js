@@ -370,7 +370,7 @@ class NewCreateForm  extends Component{
 								
 								 <KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}/>
 
-								 <KrField grid={1/2}  type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/> 
+								 <KrField grid={1/2}  type="text" component="labelText" label="地址" value={changeValues.lessorAddress} defaultValue="无"/> 
 								 <KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}/> 
 
 								 <KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}/> 
@@ -505,6 +505,15 @@ class NewCreateForm  extends Component{
 		if (!values.signdate) {
 			errors.signdate = '请填写签署时间';
 		}
+
+		if (!values.leaseBegindate) {
+			errors.leaseBegindate = '请填写租赁期限开始时间';
+		}
+
+		if (!values.leaseEnddate) {
+			errors.leaseEnddate = '请填写租赁期限结束时间';
+		}
+
 		if (!values.templockday) {
 			errors.templockday = '请填写保留天数';
 		}
