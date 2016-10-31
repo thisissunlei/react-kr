@@ -136,8 +136,27 @@ export default class AttributeSetting  extends Component{
 		});
 	}
 
-	onNewCreateSubmit(form){
-			window.location.reload();
+	onNewCreateSubmit(values){
+
+		this.openNewCreateDialog();
+
+		Store.dispatch(Actions.callAPI('addFinaFinaflowProperty',{},values)).then(function(response){
+				Notify.show([{
+					message:'新建成功！',
+					type: 'success',
+				}]);
+
+				window.setTimeout(function(){
+					window.location.reload();
+				},1000);
+				
+ 			}).catch(function(err){
+ 				
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+		});
 	}
 
 	onNewCreateCancel(){

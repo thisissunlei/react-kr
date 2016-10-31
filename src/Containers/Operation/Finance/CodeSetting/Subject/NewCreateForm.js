@@ -2,7 +2,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
-import {reduxForm,formValueSelector} from 'redux-form';
+import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	KrField,
@@ -26,27 +26,16 @@ import {
 
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
+
+
+		Store.dispatch(reset('newCreateForm'));
+		Store.dispatch(change('newCreateForm','enableflag','ENABLE'));
 		
 	}
 
 	 onSubmit(values){
-		 var _this = this;
-		Store.dispatch(Actions.callAPI('saveFinaFinaflowAccountModel',{},values)).then(function(response){
-				Notify.show([{
-						message:'新建成功！',
-						type: 'success',
-					}]);
-					
-				
- 			}).catch(function(err){
-				Notify.show([{
-					message:err.message,
-					type: 'danger',
-				}]);
-		});
-		 const {onSubmit} = _this.props;
-		onSubmit && onSubmit();
-
+		 const {onSubmit} = this.props;
+		 onSubmit && onSubmit(values);
 	 }
 
 	 onCancel(){
@@ -73,8 +62,8 @@ import {
 				</KrField>
 				<KrField name="ordernum" type="text" label="排序号" requireLabel={true}/> 
 				<KrField name="enableflag" component="group" label="是否启用" requireLabel={true}>
-                <KrField name="enableflag" label="是" type="radio" value="ENABLE" checked={true}/>
-                <KrField name="enableflag" label="否" type="radio" value="DISENABLE" />
+						<KrField name="enableflag" grid={1/2} label="是" type="radio" value="ENABLE"/>
+						<KrField name="enableflag" grid={1/2} label="否" type="radio" value="DISENABLE" />
               </KrField> 
 				<KrField name="accountdesc" component="textarea" label="描述"  /> 
 
@@ -108,12 +97,7 @@ const validate = values =>{
 		if (!values.ordernum) {
 			errors.ordernum = '请填写排序号';
 		}
-		if (!values.enableflag) {
-			errors.enableflag = '请先选择是否启用';
-		}
-
 
 		return errors
 	}
-const selector = formValueSelector('newCreateForm');
 export default reduxForm({ form: 'newCreateForm',validate, enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);

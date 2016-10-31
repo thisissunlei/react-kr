@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
-import {reduxForm,formValueSelector,initialize} from 'redux-form';
+import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	KrField,
@@ -29,44 +29,27 @@ import {
 	}
 
 	 componentDidMount(){
+
 		const {detail}= this.props;
-		Store.dispatch(initialize('newCreateForm',detail));
+
+		let initialValues = {};
+		 initialValues.id = detail.id;
+		 initialValues.accountcode = detail.accountcode;
+		 initialValues.accountname = detail.accountname;
+		 initialValues.accounttype = detail.accounttype;
+		 initialValues.enableflag  = detail.enableflag;
+		 initialValues.ordernum = detail.ordernum;
+		 initialValues.accountdesc = detail.accountdesc;
+
+		 console.log('---',initialValues);
+
+		Store.dispatch(initialize('newCreateForm',initialValues));
+		Store.dispatch(change('newCreateForm','enableflag','ENABLE'));
 	 }
 
 	 onSubmit(values){
-
-		var _this = this;
-		const accountcode=values.accountcode;
-		const accountdesc=values.accountdesc;
-		const accountname=values.accountname;
-		const accounttype=values.accounttype;
-		const enableflag=values.enableflag;
-		const ordernum=values.ordernum;
-		const id=values.id;
-		
-		Store.dispatch(Actions.callAPI('saveFinaFinaflowAccountModel',{},{
-			accountcode:accountcode,
-			accountdesc:accountdesc,
-			accountname:accountname,
-			accounttype:accounttype,
-			enableflag:enableflag,
-			ordernum:ordernum,
-			id:id
-		})).then(function(response){ 
-			
-			Notify.show([{
-				message:'新建成功！',
-				type: 'success',
-			}]);
-		}).catch(function(err){
-			Notify.show([{
-				message:err.message,
-				type: 'danger',
-			}]);
-		});
-		const {onSubmit} = _this.props;
-		onSubmit && onSubmit();
- 		
+		const {onSubmit} = this.props;
+		onSubmit && onSubmit(values);
 	 }
 
 	 onCancel(){
@@ -80,20 +63,18 @@ import {
 
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)}>
+
 				<KrField name="id" type="hidden" label="id"/> 
 				<KrField name="accountcode" type="text" label="科目编码" requireLabel={true}/> 
 				<KrField name="accountname" type="text" label="科目名称" requireLabel={true}/> 
-				<KrField name="accounttype" type="select" label="科目类别" options={[
-						{value:'PAYMENT',label:'回款'},
-					   {value:'INCOME',label:'收入'},
-				]} requireLabel={true}>
-				</KrField>
+				<KrField name="accounttype" type="select" label="科目类别" options={[ {value:'PAYMENT',label:'回款'}, {value:'INCOME',label:'收入'}, ]} requireLabel={true} />
 				<KrField name="ordernum" type="text" label="排序号" requireLabel={true}/> 
 				<KrField name="enableflag" component="group" label="是否启用" requireLabel={true}>
-                <KrField name="enableflag" label="是" type="radio" value="ENABLE"/>
-                <KrField name="enableflag" label="否" type="radio" value="DISENABLE" />
-              </KrField> 
-				<KrField name="accountdesc" component="textarea" label="描述"  /> 
+						<KrField name="enableflag" label="是" component="radio" type="radio" value="ENABLE"/>
+						<KrField name="enableflag" label="否"  component="radio"  type="radio" value="DISENABLE" />
+			  </KrField> 
+
+			<KrField name="accountdesc" component="textarea" label="描述"  /> 
 
 				<Grid style={{marginTop:30}}>
 					<Row>
@@ -102,9 +83,7 @@ import {
 						<Col md={2}> <Button  label="取消" type="button"  onTouchTap={this.onCancel} /> </Col>
 					</Row>
 				</Grid>
-				</form>
-
-			
+		</form>
 		);
 	}
 }
