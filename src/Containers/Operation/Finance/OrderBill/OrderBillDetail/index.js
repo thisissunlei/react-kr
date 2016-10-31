@@ -528,13 +528,12 @@ export default class AttributeSetting  extends Component{
 	onSupplementSubmit(){
 		var _this=this;
 		Store.dispatch(Actions.callAPI('addIncome',{
-			mainbillid:_this.props.params.orderId;
-			window.location.reload();
-		})).then(function(response){
+			mainbillid:_this.props.params.orderId})).then(function(response){
 			Notify.show([{
 				message:'操作成功',
 				type: 'success',
 			}]);
+			 window.location.reload();
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,

@@ -380,7 +380,12 @@ class NewCreateForm  extends Component{
 
 			<div>
 <form onSubmit={handleSubmit(this.onSubmit)}>
-								
+
+
+
+								<KrField grid={1/2}  name="stationnum" type="hidden" component="input" /> 
+								<KrField grid={1/2}  name="boardroomnum" type="hidden" component="input" /> 
+
 								 <KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}/>
 
 								 <KrField grid={1/2}  type="text" component="labelText" label="地址" value={changeValues.lessorAddress} defaultValue="无"/> 
