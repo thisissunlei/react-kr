@@ -188,36 +188,7 @@ export default class OrderDetail extends React.Component {
 		if(this.state.loading){
 			return(<Loading/>);
 		}
-        if(contractStatusCount.intentionComplete!=0){
-        	
-        }else{
-
-        }
-        if(contractStatusCount.enterComplete!=0){
-        	
-        }else{
-
-        }
-        if(contractStatusCount.addRentComplete!=0){
-        	
-        }else{
-
-        }
-        if(contractStatusCount.renewComplete!=0){
-        	
-        }else{
-
-        }
-        if(contractStatusCount.lessRentComplete!=0){
-        	
-        }else{
-
-        }
-        if(contractStatusCount.quitRentComplete!=0){
-        	
-        }else{
-
-        }
+       
        
 		return (
        <div>
@@ -231,12 +202,12 @@ export default class OrderDetail extends React.Component {
 
 			<Grid style={{marginTop:50}}>
 			<ul className='ui-adminBook'>
-              <li><span className='ui-adminBook-admin'></span></li>
-              <li><span className='ui-adminBook-live'></span></li>
-              <li><span className='ui-adminBook-add'></span></li>
-              <li><span className='ui-adminBook-renew'></span></li>
-              <li><span className='ui-adminBook-minus'></span></li>
-              <li><span className='ui-adminBook-quit'></span></li>
+              <li><span className={contractStatusCount.intentionComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
+              <li><span className={contractStatusCount.enterComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
+              <li><span className={contractStatusCount.addRentComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
+              <li><span className={contractStatusCount.renewComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
+              <li><span className={contractStatusCount.lessRentComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
+              <li><span className={contractStatusCount.quitRentComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
 			</ul>
 			<Row>
 				<Col md={2} >承租意向书({contractStatusCount.intentionComplete}-{contractStatusCount.intentionTotoal}) </Col>
