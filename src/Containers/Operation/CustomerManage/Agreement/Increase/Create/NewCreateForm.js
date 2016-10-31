@@ -416,6 +416,8 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
+				<KrField grid={1/2}  name="paymodelName" type="hidden" component="input" />
+				<KrField grid={1/2}  name="paytypeName" type="hidden" component="input" />
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}  />
 				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}  defaultValue="无"/>
@@ -441,8 +443,13 @@ class NewCreateForm  extends Component{
 					<KrField grid={1/2}  name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} />
 				</KrField>
 
-				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true} />
-				<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} requireLabel={true} />
+				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true} onChange={(item)=>{
+						Store.dispatch(change('increaseCreateForm','paymodelName',item.label));
+				}} />
+
+				<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} requireLabel={true} onChange={(item)=>{
+						Store.dispatch(change('increaseCreateForm','paytypeName',item.label));
+				}} />
 
 				<KrField grid={1/2}  name="signdate"  component="date" grid={1/1} label="签署时间" defaultValue={initialValues.signdate} requireLabel={true} />
 				<KrField grid={1/2}  name="firstpaydate"  component="date" grid={1/1} label="首付款时间" requireLabel={true} />

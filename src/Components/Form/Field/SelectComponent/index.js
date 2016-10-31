@@ -5,6 +5,10 @@ import 'react-select/dist/react-select.css';
 
 export default class SelectComponent extends React.Component{
 
+	static PropTypes = {
+		onChange:React.PropTypes.func
+	}
+
 	constructor(props){
 		super(props)
 
@@ -49,9 +53,11 @@ export default class SelectComponent extends React.Component{
 	}
 
 	onChange(item){
-		let {input} = this.props;
+		let {input,onChange} = this.props;
 		var value = (item && item.value) || '';
 		input.onChange(value);
+
+		onChange && onChange(item);
 	}
 
 	render(){
