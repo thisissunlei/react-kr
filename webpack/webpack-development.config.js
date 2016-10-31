@@ -48,7 +48,7 @@ const config = {
 		//new webpack.optimize.CommonsChunkPlugin({name:'common', filename:'common.js'}),
 		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
-			title: '氪空间',
+			title: '财务管理',
 			filename: 'index.html',
 			template: './src/index.template.html',
 			inject:'body',
