@@ -14,6 +14,7 @@ export default class IframeContent extends React.Component {
 		width: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
 		height: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
 		onClose:React.PropTypes.func,
+		onLoad:React.PropTypes.func,
 	}
 
 	constructor(props){
@@ -54,16 +55,16 @@ export default class IframeContent extends React.Component {
 	onLoad(){
 
 		const _this = this;
-		const {width,height} = this.props;
+		const {width,height,onLoad} = this.props;
 		let iframeElement = this.iframeElement;
 
 		iframeElement.width = width;
 		iframeElement.height = height;
-
-		window.setTimeout(function(){
-			_this.iframeWindow =  iframeElement.contentWindow;
+		_this.iframeWindow =  iframeElement.contentWindow;
 			window.ele = _this.iframeWindow;
-		},2000);
+
+			console.log('iframe',iframeElement.contentWindow);
+		onLoad && onLoad(iframeElement.contentWindow);
 
 	}
 

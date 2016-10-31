@@ -16,9 +16,12 @@ function getUrl(path, params = {},mode = false) {
 	}
 	*/
 
-    if (path.startsWith('http')) {
+	/*
+    if (path.match(/^http/) != 'null') {
         return path;
     }
+    */
+
 
     try {
         server += APIS[path].url;
@@ -81,7 +84,9 @@ function jsonParse(res) {
 
 const http = {
 
-    request:(path, params,payload,method)=>{
+    request:(path='demo', params,payload,method)=>{
+
+
 
         const url = getUrl(path, params);
 
@@ -94,6 +99,7 @@ const http = {
 
         switch(method){
             case 'get':{
+
                 promise = http.get(url,params);
                 break;
             }
@@ -129,7 +135,7 @@ const http = {
 	transformResponse:function(response){
 		return response.data;
 	},
-	getdemo: (url, params) => new Promise((resolve, reject) => {
+	get: (url, params) => new Promise((resolve, reject) => {
 
 		if (!url) {
 			return;
@@ -137,6 +143,7 @@ const http = {
 
 		fetch(url, {
 			method: 'GET',
+			credentials: 'same-origin',
 			headers: {
 				'Accept': '*',
 				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
@@ -150,15 +157,16 @@ const http = {
 			.then(json => {
 				if(parseInt(json.code)>0){
 					//处理数据格式
-					resolve(http.transformResponse(json))
+					resolve(http.transformResponse(json));
 				}else{
-					reject(json)
+					reject(json);
 				}
 			})
-			.catch(err => reject(err))
+			.catch(err => reject(err));
 	}),
 
-	get: (url, params) => new Promise((resolve, reject) => {
+	getdemo: (url, params) => new Promise((resolve, reject) => {
+
 
 		if (!url) {
 			return;
@@ -173,10 +181,13 @@ const http = {
 		xhr.onload = function(e) {
 		  if (this.status >= 200 || this.status <300 ) {
 			  var json = http.transformPreResponse(xhr.response);
+			   console.log('fgfgfg',typeof json);
 				if(json && json.code && parseInt(json.code)>0){
+                   console.log('00456',json);
 					//处理数据格式
 					resolve(http.transformResponse(json))
 				}else{
+					console.log('0000----',json);
 					reject(json)
 				}
 		  }else{

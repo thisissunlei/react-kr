@@ -29,6 +29,8 @@ export default  class CommunityManage extends Component {
 		this.Floorplan = this.Floorplan.bind(this);
 		this.selectCommunity = this.selectCommunity.bind(this);
 		this.getCommunity = this.getCommunity.bind(this);
+		this.getCommunityFloors = this.getCommunityFloors.bind(this);
+
 		this.state = {
 			tab:'plan',
 			communityInfoList:[],
@@ -58,8 +60,9 @@ export default  class CommunityManage extends Component {
 		});
 	}
 	selectCommunity(personel){
-		console.log('change',personel.id);
-		// Store.dispatch(change('selectCommunityForm','community',personel.id));
+		console.log('change',personel);
+		Store.dispatch(change('selectCommunityForm','community',personel.label));
+		this.getCommunityFloors(personel.id);
 		this.setState({
 			community:personel.id
 		})
@@ -86,7 +89,29 @@ export default  class CommunityManage extends Component {
 	   	});
 
 	}
-	
+	getCommunityFloors(id){
+		console.log('floors',id);
+		let communityid = {communityid:id};
+		var communityInfoFloorList;
+		var that = this;
+	 	Store.dispatch(Actions.callAPI('getCommunityFloors', communityid)).then(function(response){
+			
+			communityInfoFloorList = response.floors.map(function(item,index){
+				item.value = item.id;
+				item.label = item.name;
+				return item;
+			});
+			that.setState({
+				communityInfoFloorList
+			});
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+	   	});
+	 }
+
 	
 
 	
@@ -94,7 +119,7 @@ export default  class CommunityManage extends Component {
 
   render() {
   	let {tab} = this.state;
-  	var {communityInfoList} = this.state;
+  	var {communityInfoList, communityInfoFloorList} = this.state;
   	console.log(communityInfoList);
   	// let sectionTitle;
   	let {community} = this.state;
@@ -113,7 +138,7 @@ export default  class CommunityManage extends Component {
 			
 			<Section title="计划表" description=""> 
 				<Form name="selectCommunityForm" >
-				<KrField name="leaseId"  grid={1/1} component="select" label="社区" onChange={this.selectCommunity} options={communityInfoList}/>
+				<KrField name="community"  grid={1/1} component="select" label="社区" onChange={this.selectCommunity} options={communityInfoList}/>
 
 			</Form>
 				 <Tabs>
@@ -121,7 +146,7 @@ export default  class CommunityManage extends Component {
 						<Schedule />
 					</Tab>
 					<Tab label="平面图"  onActive={this.Floorplan} >
-					   <FloorPlan community={community} tab={tab}/>
+					   <FloorPlan community={community} tab={tab} communityInfoFloorList={communityInfoFloorList}/>
 					</Tab>
 			</Tabs>
 

@@ -72,18 +72,8 @@ import {
 		
 	}
 	 onSubmit(values){
-		 /*var _this = this;
-		Store.dispatch(Actions.callAPI('getFinaDataCommunityAndMainBillType',{},values)).then(function(response){
-			
- 			}).catch(function(err){
-			Notify.show([{
-				message:'报错了',
-				type: 'danger',
-			}]);
-		});*/
 		 const {onSubmit} = this.props;
 		 onSubmit && onSubmit(values);
-
 	 }
 
 	 onCancel(){

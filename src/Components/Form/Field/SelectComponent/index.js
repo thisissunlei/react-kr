@@ -5,15 +5,44 @@ import 'react-select/dist/react-select.css';
 
 export default class SelectComponent extends React.Component{
 
+	static PropTypes = {
+		onChange:React.PropTypes.func
+	}
+
 	constructor(props){
 		super(props)
 
 		this.onChange = this.onChange.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 
+		this.setInitValue = this.setInitValue.bind(this);
+
+		this.isInit = false;
+
 		this.state = {
 			value:[]
 		}
+	}
+
+	componentDidMount(){
+		this.setInitValue(this.props.input.value);
+	}
+
+
+	componentWillReceiveProps(nextProps){
+		if(!this.isInit && nextProps.input.value){
+			this.setInitValue(nextProps.input.value);
+		}
+	}
+
+	setInitValue(value){
+		
+		if(!value){
+			return ;
+		}
+
+		this.setState({value});
+		this.isInit = true;
 	}
 
 	handleChange(value){
@@ -24,9 +53,11 @@ export default class SelectComponent extends React.Component{
 	}
 
 	onChange(item){
-		let {input} = this.props;
+		let {input,onChange} = this.props;
 		var value = (item && item.value) || '';
 		input.onChange(value);
+
+		onChange && onChange(item);
 	}
 
 	render(){

@@ -226,7 +226,7 @@ const APIS  = {
 
 	//财务管理－订单账单列表-分页获取订单
 	'getFinaDataByList':{
-		url:'/api/krspace-finance-web/finaccount/data/getFinaDataByAjax?page={page}&pageSize={pageSize}&customername={customername}&endDate={endDate}&mainbilltype={mainbilltype}&communityid={communityid}',
+		url:'/api/krspace-finance-web/finaccount/data/getFinaDataByAjax?page={page}&pageSize={pageSize}&customername={customername}&startDate={startDate}&endDate={endDate}&mainbilltype={mainbilltype}&communityid={communityid}',
 		method:'get'
 	},
 	//财务管理－订单账单列表-生成对账单
@@ -342,6 +342,11 @@ const APIS  = {
 	// 获取社区数据
 	'getCommunity':{
 		url:'/api-old/sys/sysdatarights/sysDatarights/getSelfDatarights',
+		method:'get'
+	},
+	// 获取社区楼层数据
+	'getCommunityFloors':{
+		url:'/api-old/krspace_operate_web/commnuity/communityBase/getCommunityFloors?communityid={communityid}',
 		method:'get'
 	},
 }

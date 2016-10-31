@@ -41,6 +41,10 @@ import {
 @ReactMixin.decorate(LinkedStateMixin)
 class NewCreateForm  extends Component{
 
+	static contextTypes = {
+	  	params: React.PropTypes.object.isRequired
+    }
+    
 	static DefaultPropTypes = {
 		initialValues:{
 			customerName:'',
@@ -300,10 +304,9 @@ class NewCreateForm  extends Component{
 
 	getStationUrl(){
 
-	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}";
+	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
 
 		let {changeValues,initialValues,optionValues} = this.props;
-		
 		let {stationVos} = this.state;
 
 		stationVos = stationVos.map(function(item){
@@ -314,14 +317,19 @@ class NewCreateForm  extends Component{
 		});
 
 		let params = {
+			mainBillId:this.context.params.orderId,
 			communityId:optionValues.mainbillCommunityId,
 			floors:changeValues.wherefloor,
 			//工位
 			goalStationNum:changeValues.stationnum,
 			//会议室
 			goalBoardroomNum:changeValues.boardroomnum,
-			selectedObjs:JSON.stringify(stationVos)
+			selectedObjs:JSON.stringify(stationVos),
+			startDate:dateFormat(changeValues.leaseBegindate,"yyyy-mm-dd"),
+			endDate:dateFormat(changeValues.leaseEnddate,"yyyy-mm-dd")
+
 		};
+
 
 		if(Object.keys(params).length){
 			for (let item in params) {

@@ -31,6 +31,9 @@ export default  class JoinCreate extends Component {
 			formValues:{},
 			openConfirmCreate:false
 		}
+
+		Store.dispatch(reset('exitCreateForm'));
+
 	}
 
 	 onCreateSubmit(formValues){

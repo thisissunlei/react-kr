@@ -40,6 +40,12 @@ import Date from 'kr-ui/Date';
 @ReactMixin.decorate(LinkedStateMixin)
 class NewCreateForm  extends Component{
 
+
+
+	static contextTypes = {
+	  	params: React.PropTypes.object.isRequired
+    }
+
 	static DefaultPropTypes = {
 		initialValues:{
 			customerName:'',
@@ -71,7 +77,7 @@ class NewCreateForm  extends Component{
 		this.getStationUrl = this.getStationUrl.bind(this);
 		this.onIframeClose = this.onIframeClose.bind(this);
 		this.openStationDialog = this.openStationDialog.bind(this);
-		this.onStationUnitPrice = this.onStationUnitPrice.bind(this);
+
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.onChangeLeaseBeginDate = this.onChangeLeaseBeginDate.bind(this);
@@ -120,25 +126,6 @@ class NewCreateForm  extends Component{
 		});
 	}
 
-	//录入单价
-	onStationUnitPrice(form){
-
-		var value = form.price;
-		let {stationVos,selectedStation} = this.state;
-
-		stationVos = stationVos.map(function(item,index){
-			if(selectedStation.indexOf(index) != -1){
-				item.unitprice= value;
-			}
-			return item;
-		});
-
-		this.setState({
-			stationVos
-		});
-
-		this.openStationUnitPriceDialog();
-	}
 	//修改租赁期限－开始时间
 	onChangeLeaseBeginDate(value){
 
@@ -276,9 +263,10 @@ class NewCreateForm  extends Component{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
+
 	getStationUrl(){
 
-	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
+	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
 
 		let {changeValues,initialValues,optionValues} = this.props;
 		let {stationVos} = this.state;
@@ -291,6 +279,7 @@ class NewCreateForm  extends Component{
 		});
 
 		let params = {
+			mainBillId:this.context.params.orderId,
 			communityId:optionValues.mainbillCommunityId,
 			floors:changeValues.wherefloor,
 			//工位
@@ -298,13 +287,11 @@ class NewCreateForm  extends Component{
 			//会议室
 			goalBoardroomNum:changeValues.boardroomnum,
 			selectedObjs:JSON.stringify(stationVos),
-			/*
-			startDate:"2016-10-19",
-			endDate:"2016-10-25"
-			*/
 			startDate:dateFormat(changeValues.leaseBegindate,"yyyy-mm-dd"),
 			endDate:dateFormat(changeValues.leaseEnddate,"yyyy-mm-dd")
+
 		};
+
 
 		if(Object.keys(params).length){
 			for (let item in params) {
@@ -317,7 +304,6 @@ class NewCreateForm  extends Component{
 
 		return url ;
 	}
-
 
 
 	onIframeClose(billList){
@@ -404,7 +390,7 @@ class NewCreateForm  extends Component{
 
 				<KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={optionValues.communityName} /> 
 
-				<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} requireLabel={true}/>
+				<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} requireLabel={true} multi={true} />
                 <KrField grid={1/2}  name="totaldownpayment" type="text" component="input" label="定金总额" requireLabel={true} /> 
 				<KrField name="paymentId"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/> 
 
@@ -472,12 +458,6 @@ class NewCreateForm  extends Component{
 							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
 
-					<Dialog
-						title="录入单价"
-						autoScrollBodyContent={true}
-						open={this.state.openStationUnitPrice} >
-								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
-					  </Dialog>
 
 			</div>);
 	}

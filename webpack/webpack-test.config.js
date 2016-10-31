@@ -8,8 +8,8 @@ var env = process.env.NODE_ENV || 'test';
 
 const config = {
 	entry:{
-		app:path.join(process.cwd(), '/src/app.js'),
 		vender:[path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js')],	
+		app:path.join(process.cwd(), '/src/app.js'),
 	},
 	resolve: {
 		extensions: ['', '.js', '.md','.css'], 
@@ -37,7 +37,8 @@ const config = {
 			inject:'body',
 			hash:true,
 			cache:true,
-			showErrors:true
+			showErrors:true,
+			chunksSortMode:'none'
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop')
 	],
