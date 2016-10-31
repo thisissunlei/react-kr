@@ -284,7 +284,7 @@ export default class OrderDetail extends React.Component {
 			{contractList.map((item,index)=>{
 				return (
 					<TableRow key={index}>
-					<TableRowColumn>{item.contractcode}</TableRowColumn>
+					<TableRowColumn>{item.contractcode || '无'}</TableRowColumn>
 					{this.getAgrementType(item.contracttype)}
 
 					<TableRowColumn>{item.contractTotalamount}</TableRowColumn>
@@ -292,7 +292,7 @@ export default class OrderDetail extends React.Component {
 					<TableRowColumn> <KrDate.Format value={item.leaseEnddate}/></TableRowColumn>
 					<TableRowColumn>
 					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)}/>
-					<Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/>
+					{item.contractstate != 'EXECUTE'  && <Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
 					</TableRowColumn>
 					</TableRow>
 				);
