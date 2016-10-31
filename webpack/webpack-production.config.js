@@ -40,7 +40,7 @@ const config = {
 				comments: false,
 			},
 		}),
-		new webpack.optimize.CommonsChunkPlugin({name:'common', filename:'common.js'}),
+		//new webpack.optimize.CommonsChunkPlugin({name:'common', filename:'common.js'}),
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: JSON.stringify('production'),
