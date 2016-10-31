@@ -222,14 +222,14 @@ export default class OrderDetail extends React.Component {
 
 			<Grid style={{marginTop:50}}>
 				<Row>
-				<Col md={4} ><KrField label="社区名称" component="labelText" value={orderBaseInfo.communityName}/></Col>
+				<Col md={4} ><KrField label="社区名称" component="labelText" value={orderBaseInfo.communityName} defaultValue="无"/></Col>
 				<Col md={4} ><KrField label="客户名称" component="labelText" value={orderBaseInfo.customerName}/></Col>
 				<Col md={4} ><KrField label="订单名称" component="labelText" value={orderBaseInfo.mainbillname}/></Col>
 				</Row>
 
 				<Row>
-				<Col md={4} ><KrField label="当前工位数" component="labelText" value={orderBaseInfo.stationnum}/></Col>
-				<Col md={4} ><KrField label="订单编号"  component="labelText" value={orderBaseInfo.mainbillcode}/></Col>
+				<Col md={4} ><KrField label="当前工位数" component="labelText" value={orderBaseInfo.stationnum} defaultValue="0"/></Col>
+				<Col md={4} ><KrField label="订单编号"  component="labelText" value={orderBaseInfo.mainbillcode} defaultValue="无"/></Col>
 				<Col md={4} ><KrField label="起始日期" component="labelText" value={orderBaseInfo.contractEntrydate} type="date" defaultValue="无"/></Col>
 				</Row>
 				<Row>
@@ -263,7 +263,7 @@ export default class OrderDetail extends React.Component {
 				<Col md={4} ><KrField label="生活消费收入" component="labelText" value={orderBaseInfo.liveincome} width={120} defaultValue="0"/></Col>
 				</Row>
 				<Row>						
-				<Col md={4} ><KrField label="订单描述" component="labelText" value={orderBaseInfo.mainbilldesc}/></Col>
+				<Col md={4} ><KrField label="订单描述" component="labelText" value={orderBaseInfo.mainbilldesc} defaultValue="无"/></Col>
 				</Row>
 
 
