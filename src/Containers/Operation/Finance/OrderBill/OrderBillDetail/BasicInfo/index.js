@@ -22,6 +22,7 @@ import {
  	ListItem,
  	KrField,
 	LabelText,
+	KrDate
 } from 'kr-ui';
 
 
@@ -71,10 +72,19 @@ export default class BasicInfo extends Component{
 			           <a  href={`./#/operation/customerManage/${this.props.detail.customerid}/order/${this.context.params.orderId}/detail`}>{detail.mainbillname}</a>
 			           
                        <KrField grid={1/3} label="当前工位数" component="labelText" value={detail.totalstationnum}/>
-			           <KrField grid={1/3} label="起始日期" component="labelText" value={detail.startdate}/>
-			           <KrField grid={1/3} label="结束日期" component="labelText" value={detail.enddate}/>
-
-			            <KrField grid={1/3} label="撤场日期" component="labelText" value={detail.leavedate}/>
+			           <KrField grid={1/2} label="起始日期" component="group">
+				            <KrDate.Format value={detail.startdate} format="yyyy-mm-dd" component="labelText"/>
+				 
+			           </KrField>
+			           <KrField grid={1/2} label="结束日期" component="group">
+				          
+				            <KrDate.Format value={detail.enddate} format="yyyy-mm-dd" component="labelText"/>
+				           
+			           </KrField>
+			           <KrField grid={1/2} label="撤场日期" component="group">
+				           
+				            <KrDate.Format value={detail.leavedate} format="yyyy-mm-dd" component="labelText"/>
+			           </KrField>
 			            <KrField grid={1/3} label="订单总额" component="labelText" value={detail.totalamount}/>
 			            <KrField grid={1/3} label="回款总额" component="labelText" value={detail.totalPayment}/>
 

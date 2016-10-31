@@ -188,10 +188,10 @@ export default class OrderDetail extends React.Component {
 		if(this.state.loading){
 			return(<Loading/>);
 		}
-
-
+       
+       
 		return (
-<div>
+       <div>
 
 			<BreadCrumbs children={['系统运营','财务管理']} hide={!!this.props.location.query.closeAll}/>
 
@@ -201,15 +201,15 @@ export default class OrderDetail extends React.Component {
 
 
 			<Grid style={{marginTop:50}}>
-			<Row className="upBook">
-			    <Col md={2}></Col>
-				<Col md={2} ></Col>
-				<Col md={2} ></Col>
-				<Col md={2} ></Col>
-				<Col md={2} ></Col>
-				<Col md={2} ></Col>
-			</Row>
-			<Row className="downBook">
+			<ul className='ui-adminBook'>
+              <li><span className={contractStatusCount.intentionComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
+              <li><span className={contractStatusCount.enterComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
+              <li><span className={contractStatusCount.addRentComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
+              <li><span className={contractStatusCount.renewComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
+              <li><span className={contractStatusCount.lessRentComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
+              <li><span className={contractStatusCount.quitRentComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
+			</ul>
+			<Row>
 				<Col md={2} >承租意向书({contractStatusCount.intentionComplete}-{contractStatusCount.intentionTotoal}) </Col>
 				<Col md={2} > 入驻协议书({contractStatusCount.enterComplete}-{contractStatusCount.enterTotoal}) </Col>
 				<Col md={2} > 增租协议书({contractStatusCount.addRentComplete}-{contractStatusCount.addRentTotoal}) </Col>
@@ -243,10 +243,9 @@ export default class OrderDetail extends React.Component {
 				<Col md={4} ><KrField label="未回款额" component="labelText" value={orderBaseInfo.unBackamount} defaultValue="0"/></Col>
 				<Col md={4} ><KrField label="工位回款" component="labelText" value={orderBaseInfo.accruedrent} defaultValue="0"/></Col>
 				</Row>
-
-				<Row>
+			<Row>
 				<Col md={4} ><KrField label="实收押金" component="labelText" value={orderBaseInfo.realdeposit} defaultValue="0"/></Col>
-				<Col md={4} ><KrField label="应收定金" component="labelText" value={orderBaseInfo.realdownpayment} defaultValue="0"/></Col>
+				<Col md={4} ><KrField label="实收定金" component="labelText" value={orderBaseInfo.realdownpayment} defaultValue="0"/></Col>
 				<Col md={4} ><KrField label="其他回款" component="labelText" value={orderBaseInfo.refundamount} defaultValue="0"/></Col>		
 				</Row>
 
