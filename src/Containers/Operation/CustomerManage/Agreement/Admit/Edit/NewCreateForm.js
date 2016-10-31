@@ -136,11 +136,9 @@ class NewCreateForm  extends Component{
 		if(!stationVos.length){
 			return ;
 		}
-		stationVos.forEach(function(item,index){
-			item.leaseBeginDate = value;
-		});
+
 		this.setState({
-			stationVos
+			stationVos:[]
 		});
 	}
 
@@ -152,13 +150,12 @@ class NewCreateForm  extends Component{
 		if(!stationVos.length){
 			return ;
 		}
-		stationVos.forEach(function(item,index){
-			item.leaseEndDate = value;
-		});
+
 		this.setState({
-			stationVos
+			stationVos:[]
 		});
 	}
+
 
 	//删除工位
 	onStationDelete(){
