@@ -59,14 +59,14 @@ class ViewForm extends Component{
 	    	items.fileList=[]
 	    }
 
-	    console.log("666999",items)
+	    console.log("666999",items);
 		return(
 				<div>					
 					<KrField grid={1}  component="labelText" label="代码名称" value={items.accountName}/>
 					<KrField grid={1/2} label="付款日期" component="group">
 					   <KrDate.Format value={items.occuryear} format="yyyy-mm-dd"  component="labelText"/>   
 					</KrField>
-					<KrField grid={1}  component="labelText" label="交易编号" value={items.accountName}/> 
+					<KrField grid={1}  component="labelText" label="交易编号" value={items.tradingCode}/> 
 					<KrField grid={1}  component="labelText" label="金额（元）" value={items.finaflowAmount}/> 
 					<KrField grid={1}  component="labelText" label="备注" value={items.finaflowdesc}/>
 					<KrField grid={1}  component="group" label="上传附件"> 
