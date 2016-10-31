@@ -98,7 +98,7 @@ export default class Table extends React.Component {
 			selectedRows:[],
 			visibilityRows:[],
 			defaultValue:{
-				checkboxWidth:40
+				checkboxWidth:50
 			}
 		}
 	}
@@ -209,7 +209,6 @@ export default class Table extends React.Component {
 			}
 		});
 
-		console.log(result);
 
 	}
 
@@ -316,6 +315,8 @@ export default class Table extends React.Component {
 	onRowClick(event,rowNumber){
 
 		let {selectedRows} = this.state;
+
+		selectedRows = (new Array()).concat(selectedRows);
 
 		if(parseInt(selectedRows[rowNumber])){
 			selectedRows[rowNumber] = 0;
@@ -553,8 +554,6 @@ export default class Table extends React.Component {
 		if(ajax && !listData.length){
 			return this.renderNotListData();
 		}
-
-
 
 		return (
 			<table className={"table "+className} style={style}>

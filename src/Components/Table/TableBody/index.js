@@ -3,6 +3,9 @@ import React from 'react';
 import TableRow from '../TableRow';
 import TableRowColumn from '../TableRowColumn';
 
+import Checkbox from '../../Checkbox';
+
+
 export default class TableBody extends React.Component {
 
 
@@ -123,21 +126,13 @@ export default class TableBody extends React.Component {
 		if (!rowProps.displayCheckbox && this.props.displayCheckbox) {
 			return null;
 		}
-
-		let key = `${rowProps.rowNumber}-cb`;
-		let disabled = !this.props.selectable;
-		let checkbox = (
-			<input type="checkbox" checked={rowProps.selected} />
-		);
-
 		return (
-
 			<TableRowColumn
-			key={key}
 			columnNumber={0}
 			width={this.props.defaultValue.checkboxWidth}
+			{...rowProps}
 			>
-			{checkbox}
+			<Checkbox checked={rowProps.selected}  onCheck={function(event){ rowProps.onRowClick(event,rowProps.key); }} />
 			</TableRowColumn>
 		);
 	}
@@ -176,7 +171,7 @@ export default class TableBody extends React.Component {
 		};
 
 		let children = [
-			this.createRowCheckboxColumn(props),
+			this.createRowCheckboxColumn(Object.assign({},props,handlers)),
 		];
 
 		if (React.isValidElement(child)) {
