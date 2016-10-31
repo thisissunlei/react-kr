@@ -484,7 +484,7 @@ class NewCreateForm  extends Component{
 					<Menu>
 						<MenuItem primaryText="录入单价"  onTouchTap={this.openPreStationUnitPriceDialog}/>
 						<MenuItem primaryText="删除" onTouchTap={this.onStationDelete} />
-						<MenuItem primaryText="增租"  onTouchTap={this.openStationDialog} />
+						<MenuItem primaryText="选择工位"  onTouchTap={this.openStationDialog} />
 					</Menu>
 				}>
 
