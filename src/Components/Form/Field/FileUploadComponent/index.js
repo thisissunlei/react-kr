@@ -42,6 +42,12 @@ export default class FileUploadComponent extends React.Component{
 
 	}
 
+	componentWillUnmount(){
+		this.setState({
+			files:[]
+		});
+	}
+
 	componentDidMount(){
 		let {defaultValue} = this.props;
 		console.log('---defaultValue',defaultValue);

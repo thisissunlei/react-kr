@@ -97,7 +97,7 @@ export default class ConfirmFormDetail  extends Component{
 
 								<KrField name="paytype"  grid={1/1} component="labelText" label="减租金额" value={detail.rentamount}/>
 							 
-							 <KrField grid={1/1}  name="fileIdList" component="labelText" label="备注" value={detail.contractmark}/> 
+							 <KrField grid={1}  name="fileIdList" component="labelText" label="备注" value={detail.contractmark}/> 
 							 <KrField grid={1}  name="fileIdList" component="labelText" label="上传附件" value={detail.fileIdList}/> 
 
 

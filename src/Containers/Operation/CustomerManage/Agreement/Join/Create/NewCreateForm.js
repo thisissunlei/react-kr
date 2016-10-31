@@ -179,6 +179,7 @@ class NewCreateForm  extends Component{
 				message:'请先选择要录入单价的工位',
 				type: 'danger',
 			}]);
+			return ;
 		}
 		this.openStationUnitPriceDialog();
 	}
@@ -331,7 +332,7 @@ class NewCreateForm  extends Component{
 		});
 
 		let params = {
-			mainbillId:this.context.params.orderId,
+			mainBillId:this.context.params.orderId,
 			communityId:optionValues.mainbillCommunityId,
 			floors:changeValues.wherefloor,
 			//工位
@@ -427,7 +428,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1}  name="boardroomnum" type="hidden" component="input" label="会议室"/> 
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true} />
-				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/> 
+				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}  defaultValue="无"/> 
 				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} /> 
 				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true} /> 
 
@@ -462,7 +463,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true} /> 
 				<KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true} /> 
 				<KrField grid={1/2}  name="contractmark" component="textarea" label="备注" /> 
-				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} /> 
+				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} /> 
 
 				<KrField grid={1/1} component="group" label="租赁项目" requireLabel={true}> 
 					<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} defaultValue="0"/> 

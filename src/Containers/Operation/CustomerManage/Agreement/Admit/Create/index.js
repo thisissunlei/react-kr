@@ -33,34 +33,34 @@ export default  class JoinCreate extends Component {
 		}
 		 Store.dispatch(reset('admitCreateForm'));
 	}
+	componentWillUnmount(){
+		 Store.dispatch(reset('admitCreateForm'));
+	}
   
 	 onCreateSubmit(formValues){
-		 console.log("-00000",formValues);
 		 this.setState({
 			 formValues
 		 });
 		 var _this = this;
 
-		 // setTimeout(function(){
-		 // 	_this.onConfrimSubmit();
-		 // },500);
-
-		 
 		this.openConfirmCreateDialog();
 	 }
 
 	 onConfrimSubmit(){
-	 	console.log('onConfrimSubmit');
 
 		let {formValues} = this.state;
 		let {params} = this.props;
 		Store.dispatch(Actions.callAPI('addFinaContractIntentletter',{},formValues)).then(function(response){
+
 			Notify.show([{
 				message:'创建成功',
 				type: 'success',
 			}]);
-		location.href =  "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/admit/"+response.contractId+"/detail";
-			
+
+		  window.setTimeout(function(){
+			window.location.href =  "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/admit/"+response.contractId+"/detail";
+		  },1000);
+
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -93,7 +93,6 @@ export default  class JoinCreate extends Component {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid =  params.orderId;
 
-			initialValues.signdate = +new Date((new Date()).getTime() - 24*60*60*1000);
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
 			optionValues.communityAddress = response.customer.communityAddress; 

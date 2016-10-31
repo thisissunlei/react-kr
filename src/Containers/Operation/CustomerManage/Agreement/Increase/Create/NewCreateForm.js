@@ -165,6 +165,7 @@ class NewCreateForm  extends Component{
 				message:'请先选择要录入单价的工位',
 				type: 'danger',
 			}]);
+			return ;
 		}
 		this.openStationUnitPriceDialog();
 	}
@@ -320,7 +321,7 @@ class NewCreateForm  extends Component{
 		});
 
 		let params = {
-			mainbillId:this.context.params.orderId,
+			mainBillId:this.context.params.orderId,
 			communityId:optionValues.mainbillCommunityId,
 			floors:changeValues.wherefloor,
 			//工位
@@ -415,9 +416,11 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
+				<KrField grid={1/2}  name="paymodelName" type="hidden" component="input" />
+				<KrField grid={1/2}  name="paytypeName" type="hidden" component="input" />
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}  />
-				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/>
+				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}  defaultValue="无"/>
 				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} />
 				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}  />
 
@@ -440,8 +443,13 @@ class NewCreateForm  extends Component{
 					<KrField grid={1/2}  name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} />
 				</KrField>
 
-				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true} />
-				<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} requireLabel={true} />
+				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true} onChange={(item)=>{
+						Store.dispatch(change('increaseCreateForm','paymodelName',item.label));
+				}} />
+
+				<KrField name="paytype"  grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} requireLabel={true} onChange={(item)=>{
+						Store.dispatch(change('increaseCreateForm','paytypeName',item.label));
+				}} />
 
 				<KrField grid={1/2}  name="signdate"  component="date" grid={1/1} label="签署时间" defaultValue={initialValues.signdate} requireLabel={true} />
 				<KrField grid={1/2}  name="firstpaydate"  component="date" grid={1/1} label="首付款时间" requireLabel={true} />
@@ -582,6 +590,14 @@ class NewCreateForm  extends Component{
 
 		if (!values.signdate) {
 			errors.signdate = '请填写签署时间';
+		}
+
+		if (!values.leaseBegindate) {
+			errors.leaseBegindate = '请输入租赁开始时间';
+		}
+
+		if (!values.leaseEnddate) {
+			errors.leaseEnddate = '请输入租赁结束时间';
 		}
 
 		if (!values.totalrent) {

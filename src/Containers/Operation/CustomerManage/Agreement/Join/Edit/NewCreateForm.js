@@ -320,7 +320,7 @@ class NewCreateForm  extends Component{
 		});
 
 		let params = {
-			mainbillId:this.context.params.orderId,
+			mainBillId:this.context.params.orderId,
 			communityId:optionValues.mainbillCommunityId,
 			floors:changeValues.wherefloor,
 			//工位
@@ -422,7 +422,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1}  name="boardroomnum" type="hidden" component="input" label="会议室"/> 
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}   requireLabel={true} />
-				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/> 
+				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}  defaultValue="无"/> 
 				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} placeholder={optionValues.lessorContactName}  requireLabel={true}  /> 
 
 				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话"  requireLabel={true}  /> 

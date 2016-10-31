@@ -15,6 +15,7 @@ export default class DateComponent extends React.Component{
 
 	constructor(props){
 		super(props)
+
 		this.onChange = this.onChange.bind(this);
 		this.setDefaultDate = this.setDefaultDate.bind(this);
 		this.supplementZero = this.supplementZero.bind(this);
@@ -34,8 +35,6 @@ export default class DateComponent extends React.Component{
 		if(!value){
 			return ;
 		}
-
-	
 
 		if(typeof value === 'string'){
 			value = new Date(Date.parse(value));
@@ -135,7 +134,7 @@ export default class DateComponent extends React.Component{
 							<div className="form-input">
 
 								<div className="date-component">
-									<span className="date-input"> {dateFormat(input.value,"yyyy-mm-dd hh:MM:ss") || placeholder ||'日期'}</span>
+									<span className="date-input"> {(input.value && dateFormat(input.value,"yyyy-mm-dd")) || placeholder ||'日期'}</span>
 									<span className="date-operation">
 											<DatePicker
 								 				value = {this.state.value}
@@ -146,7 +145,6 @@ export default class DateComponent extends React.Component{
 										onChange={this.onChange}/>
 									</span>
 								</div>
-								
 							</div>
 						</div>
 						{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
