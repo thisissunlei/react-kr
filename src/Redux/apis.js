@@ -339,6 +339,11 @@ const APIS  = {
 		url:'/api/krspace-finance-web/find-contract-station/action/change-station',
 		method:'post'
 	},
+	// 获取社区数据
+	'getCommunity':{
+		url:'/api-old/sys/sysdatarights/sysDatarights/getSelfDatarights',
+		method:'get'
+	},
 }
 
 module.exports =  APIS;
