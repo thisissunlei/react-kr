@@ -143,7 +143,7 @@ export default  class CommunityManage extends Component {
 			</Form>
 				 <Tabs>
 					<Tab label="计划表" onActive={this.planTable}>
-						<Schedule />
+						<Schedule  community={community}/>
 					</Tab>
 					<Tab label="平面图"  onActive={this.Floorplan} >
 					   <FloorPlan community={community} tab={tab} communityInfoFloorList={communityInfoFloorList}/>

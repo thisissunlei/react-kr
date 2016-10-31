@@ -295,10 +295,22 @@ export default  class EmployessTable extends Component {
 		}
 
 	}
-	onIframeClose(){
-		this.setState({
-			openNewmeber:!this.state.openNewmeber
-		});
+
+	onIframeClose(response){
+		
+		// response.data == 'cancel'  ok
+		if(response.data == 'ok'){
+			this.setState({
+				openNewmeber:!this.state.openNewmeber
+			});
+			window.location.reload()
+		}else if(response.data == 'cancel'){
+			this.setState({
+				openNewmeber:!this.state.openNewmeber
+			});
+		}
+
+		
 	}
 
 	getStationUrl(){
@@ -425,7 +437,7 @@ export default  class EmployessTable extends Component {
 				open={this.state.openNewmeber}
 			>
 				
-				<IframeContent src={this.getStationUrl()}  onClose={this.onIframeClose} />	
+				<IframeContent src={this.getStationUrl()}  onClose={this.onIframeClose}  />	
 			</Dialog>
 
 		</div>
