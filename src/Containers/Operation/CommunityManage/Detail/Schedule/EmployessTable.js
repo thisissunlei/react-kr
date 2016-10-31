@@ -111,7 +111,7 @@ class ChangeStation extends Component{
 			<KrField name="id" type="hidden"  />
 			<KrField name="customerId" type="hidden"/>
 			<KrField name="communityId" type="hidden"/>
-			<div style={{textAlign:"center",marginBottom:100}}>
+			<div style={{textAlign:"center",marginBottom:150}}>
 				XX公司10001序号员工为XXX,变更为员工<KrField name="memberId"component="select" grid={2/3}  options={optionValues.members}/>
 			</div>	
 			<Grid>
@@ -292,17 +292,12 @@ export default  class EmployessTable extends Component {
 
 	onIframeClose(response){
 		
-		// response.data == 'cancel'  ok
-		if(response.data == 'ok'){
+		
 			this.setState({
 				openNewmeber:!this.state.openNewmeber
 			});
 			window.location.reload()
-		}else if(response.data == 'cancel'){
-			this.setState({
-				openNewmeber:!this.state.openNewmeber
-			});
-		}
+		
 
 		
 	}
