@@ -417,9 +417,9 @@ export default class AttributeSetting  extends Component{
     	})
     }
     //回款提交
-    onAddReceivedSubmit(params){ 
-          console.log('--44444---------',params); 	  
+    onAddReceivedSubmit(params){          
 	  	  params= Object.assign({},params);
+	  	 
 	  	  params.receiveDate=dateFormat(params.receiveDate,"yyyy-mm-dd h:MM:ss");
 		  var _this = this;
 	      Store.dispatch(Actions.callAPI('receiveMoney',{},params)).then(function(response){   		    
@@ -430,12 +430,12 @@ export default class AttributeSetting  extends Component{
 			}]);
 		 });
 	    this.setState({
-			openReceivedBtn:!this.state.openReceivedBtn,
-			isLoading:true
+			//openReceivedBtn:!this.state.openReceivedBtn,
+			//isLoading:true
 		});	 
 		receivedList=[];
 		typeList=[]; 
-		window.location.reload();
+		//window.location.reload();
     }
     onQuitSubmit(params){ 
     	  var _this = this;
