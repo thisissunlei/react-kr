@@ -54,7 +54,8 @@ const config = {
 			inject:'body',
 			hash:true,
 			cache:true,
-			showErrors:true
+			showErrors:true,
+			chunksSortMode:'none'
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
 	],

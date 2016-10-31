@@ -15,7 +15,6 @@ function getUrl(path, params = {},mode = false) {
 		server = 'optest.krspace.cn';
 	}
 	*/
-console.log('----->>>');
 
 	/*
     if (path.match(/^http/) != 'null') {
@@ -85,7 +84,7 @@ function jsonParse(res) {
 
 const http = {
 
-    request:(path, params,payload,method)=>{
+    request:(path='demo', params,payload,method)=>{
 
 
 
