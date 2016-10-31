@@ -88,13 +88,20 @@ export default class SidebarNav extends Component {
 		super(props, context);
 	}
 
-
 	renderMenuItem(item,index,parentIndex){
 
 		let {current_router,current_child} = this.props;
 		var childStyles = {};
 		let initiallyOpen = false;
 		let parentStyles = {};
+
+		let jumpUrl = '';
+
+		if(item.originUrl){
+			jumpUrl = item.originUrl;
+		}else{
+			jumpUrl = './#/'+item.router;
+		}
 
 		var styles = {};
 
@@ -129,7 +136,7 @@ export default class SidebarNav extends Component {
 					primaryText={item.primaryText} 
 					key={index} 
 					value={parentIndex+'-'+index}
-					href={"./#"+item.router}
+					href={jumpUrl}
 					style={childStyles}
 			   	/>
 		);
