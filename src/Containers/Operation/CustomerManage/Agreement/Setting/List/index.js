@@ -40,9 +40,9 @@ let SettingCreateForm = function(props){
 
       <KrField name="dicName" type="text" component="input" label="字段名称" requireLabel={true}/>  
        <KrField name="enableFlag" component="group" label="是否有效" requireLabel={true} >
-          <KrField name="enableFlag" label="是" type="radio" value="1" requireLabel={true} checked={true} />
-          <KrField name="enableFlag" label="否" type="radio" value="0" requireLabel={true} />
-              </KrField>
+          <KrField name="enableFlag" label="是" component="radio" type="radio" value="1"  />
+          <KrField name="enableFlag" label="否" component="radio"  type="radio" value="0"/>
+        </KrField>
      <KrField name="remark" type="textarea" component="textarea" label="备注"  placeholder="备注信息" /> 
 
         <Grid style={{marginTop:30}}>
@@ -56,8 +56,20 @@ let SettingCreateForm = function(props){
   );
 }
 
+const settingCreateFormValidate = values =>{
+	const errors = {}
+	if(!values.dicName){
+		errors.dicName = '请输入字段名称';
+	}
+	return errors
+}
+
 SettingCreateForm= reduxForm({
   form: 'settingCreateForm',
+	initialValues:{
+		enableFlag:'1'
+	},
+	validate:settingCreateFormValidate
 })(SettingCreateForm);
 
 
