@@ -419,7 +419,15 @@ export default class AttributeSetting  extends Component{
     //回款提交
     onAddReceivedSubmit(params){          
 	  	  params= Object.assign({},params);
-	  	 
+	  	  //console.log("---dddbbbb",params)
+	  	  params.jsonStr = {};
+	  	  
+	  	  params.jsonStr.yajin=params.yajin;
+	  	  params.jsonStr.yingshouhuikuan=params.yingshouhuikuan;
+	  	  params.jsonStr.shenghuoxiaofeihuikuan=params.shenghuoxiaofeihuikuan;
+	  	  params.jsonStr  = JSON.stringify(params.jsonStr);
+	  	  delete params.dingjin;
+	  	  delete params.yajing;
 	  	  params.receiveDate=dateFormat(params.receiveDate,"yyyy-mm-dd h:MM:ss");
 		  var _this = this;
 	      Store.dispatch(Actions.callAPI('receiveMoney',{},params)).then(function(response){   		    
