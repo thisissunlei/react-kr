@@ -49,38 +49,32 @@ class Distribution extends Component {
 		let { optionValues,stationId,customerId,communityId} = this.props;
 		console.log(this.props)
 		let initialValues = {};
-
-		/*if(){
-			return(
-				<div style={{textAlign:'center',marginBottom:20}}>
-					诚意公司当前没有员工，<span style={{color:'#499df1'}}>新建员工</span>
-					<Button  label="关闭" type="button"  onTouchTap={this.onCancel}/>
-				</div>
-
-				);
-		}*/
+			initialValues.stationId=stationId;
+			initialValues.customerId=customerId;
+			initialValues.communityId=communityId;
 		
-		initialValues.stationId=stationId;
-		initialValues.customerId=customerId;
-		initialValues.communityId=communityId;
-		return (
+		
+			return (
 
-		<Form name="jyayayoinForm"  initialValues={initialValues} onSubmit={this.onSubmit}>
-			<KrField name="id" type="hidden"/>
-			<KrField name="customerId" type="hidden"/>
-			<KrField name="communityId" type="hidden"/>
-			<div style={{textAlign:"center",marginBottom:'20px'}}>
-				XX公司10001序号员工为<KrField name="memberId"component="select" grid={2/3}  options={optionValues.member}/>
-			</div>	
-			<Grid>
-				<Row style={{marginTop:30,marginBottom:100}}>
-				<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true}  onSubmit={this.onSubmit}/> </Col>
-				<Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
-			</Grid>
-		</Form>
-								
-								
-		 );
+			<Form name="jyayayoinForm"  initialValues={initialValues} onSubmit={this.onSubmit}>
+				<KrField name="id" type="hidden"/>
+				<KrField name="customerId" type="hidden"/>
+				<KrField name="communityId" type="hidden"/>
+				<div style={{textAlign:"center",marginBottom:'20px'}}>
+					XX公司10001序号员工为<KrField name="memberId"component="select" grid={2/3}  options={optionValues.member}/>
+				</div>	
+				<Grid>
+					<Row style={{marginTop:30,marginBottom:100}}>
+					<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true}  onSubmit={this.onSubmit}/> </Col>
+					<Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
+				</Grid>
+			</Form>
+									
+									
+			 );
+		
+		
+		
 	}
 
 }
