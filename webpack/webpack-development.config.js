@@ -8,7 +8,7 @@ var env = process.env.NODE_ENV || 'development';
 
 const config = {
 	entry:{
-		vender:[path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js')],	
+		vender:path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js'),	
 		app:path.join(process.cwd(), '/src/app.js')
 	},
 	resolve: {
@@ -45,7 +45,7 @@ const config = {
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(env)
 		}),
-		new webpack.optimize.CommonsChunkPlugin({name:'common', filename:'common.js'}),
+		//new webpack.optimize.CommonsChunkPlugin({name:'common', filename:'common.js'}),
 		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
 			title: '氪空间',
@@ -54,7 +54,8 @@ const config = {
 			inject:'body',
 			hash:true,
 			cache:true,
-			showErrors:true
+			showErrors:true,
+			chunksSortMode:'none'
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
 	],

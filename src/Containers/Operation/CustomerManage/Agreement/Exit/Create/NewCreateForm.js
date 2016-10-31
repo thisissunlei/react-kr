@@ -85,8 +85,6 @@ class NewCreateForm  extends Component{
     	form.leaseBegindate = dateFormat(form.leaseBegindate,"yyyy-mm-dd h:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate,"yyyy-mm-dd h:MM:ss");
 
-		console.log('---form',form);
-
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}

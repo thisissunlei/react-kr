@@ -32,6 +32,8 @@ export default  class JoinCreate extends Component {
 			optionValues:{},
 			formValues:{},
 		}
+		
+		 Store.dispatch(reset('increaseCreateForm'));
 	}
 
 	 onCreateSubmit(formValues){
