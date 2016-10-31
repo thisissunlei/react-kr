@@ -419,7 +419,7 @@ export default class AttributeSetting  extends Component{
     //回款提交
     onAddReceivedSubmit(params){          
 	  	  params= Object.assign({},params);
-	  	 
+	  	  console.log('00000');
 	  	  params.receiveDate=dateFormat(params.receiveDate,"yyyy-mm-dd h:MM:ss");
 		  var _this = this;
 	      Store.dispatch(Actions.callAPI('receiveMoney',{},params)).then(function(response){   		    
