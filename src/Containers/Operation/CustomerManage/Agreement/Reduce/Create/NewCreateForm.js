@@ -83,7 +83,6 @@ class NewCreateForm  extends Component{
 		this.onStationSelect = this.onStationSelect.bind(this);
 
 		this.openStationDialog = this.openStationDialog.bind(this);
-		this.onStationUnitPrice = this.onStationUnitPrice.bind(this);
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
@@ -115,25 +114,6 @@ class NewCreateForm  extends Component{
 		});
 	}
 
-	//录入单价
-	onStationUnitPrice(form){
-
-		var value = form.price;
-		let {stationVos,selectedStation} = this.state;
-
-		stationVos = stationVos.map(function(item,index){
-			if(selectedStation.indexOf(index) != -1){
-				item.unitprice= value;
-			}
-			return item;
-		});
-
-		this.setState({
-			stationVos
-		});
-
-		this.openStationUnitPriceDialog();
-	}
 	onChangeSearchPersonel(personel){
 		Store.dispatch(change('reduceCreateForm','lessorContacttel',personel.mobile));
 		Store.dispatch(change('reduceCreateForm','lessorContactName',personel.lastname));
