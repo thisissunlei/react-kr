@@ -379,7 +379,11 @@ class NewCreateForm  extends Component{
 
 
 		if (!values.leaseAddress) {
-			errors.leaseAddress = '请填写承租方电话';
+			errors.leaseAddress = '请填写承租方地址';
+		}
+
+		if (values.leaseAddress && !isNaN(values.leaseAddress)) {
+			errors.leaseAddress = '承租方地址不能为数字';
 		}
 
 		if (!values.fileIdList) {

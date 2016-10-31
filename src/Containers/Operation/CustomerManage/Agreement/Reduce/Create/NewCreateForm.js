@@ -402,6 +402,11 @@ const validate = values =>{
 		if (!values.leaseAddress) {
 			errors.leaseAddress = '请填写承租方地址';
 		}
+
+		if (values.leaseAddress && !isNaN(values.leaseAddress)) {
+			errors.leaseAddress = '承租方地址不能为数字';
+		}
+
 		if (!values.leaseContact) {
 			errors.leaseContact = '请填写承租方联系人';
 		}
