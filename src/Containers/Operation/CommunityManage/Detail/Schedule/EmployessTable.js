@@ -19,7 +19,8 @@ import {
 	Dialog,
 	BreadCrumbs,
 	Form,
-	KrField
+	KrField,
+	IframeContent,
 } from 'kr-ui';
 
 class Distribution extends Component {
@@ -38,27 +39,15 @@ class Distribution extends Component {
 	}
 
 	onSubmit(form){
-		Store.dispatch(Actions.callAPI('changeStation',{},form)).then(function(response){
-			Notify.show([{
-				message:'操作成功！',
-				type: 'success',
-			}]);
-					
-		}).catch(function(err){
-			console.log('000e',err);
-			Notify.show([{
-				message:err.message,
-				type: 'danger',
-			}]);
-		});
+		
 		const {onSubmit} = this. props;
-		onSubmit && onSubmit();
+		onSubmit && onSubmit(form);
 	}
 
 	render(){
 
-		let { optionValues,stationId} = this.props;
-
+		let { optionValues,stationId,customerId,communityId} = this.props;
+		console.log(this.props)
 		let initialValues = {};
 
 		/*if(){
@@ -71,16 +60,20 @@ class Distribution extends Component {
 				);
 		}*/
 		
-		initialValues.stationId=stationId
+		initialValues.stationId=stationId;
+		initialValues.customerId=customerId;
+		initialValues.communityId=communityId;
 		return (
 
-		<Form name="jyayayoinForm" initialValues={initialValues} onSubmit={this.onSubmit}>
-			<KrField name="stationId" type="hidden"/>
+		<Form name="jyayayoinForm"  initialValues={initialValues} onSubmit={this.onSubmit}>
+			<KrField name="id" type="hidden"/>
+			<KrField name="customerId" type="hidden"/>
+			<KrField name="communityId" type="hidden"/>
 			<div style={{textAlign:"center",marginBottom:'20px'}}>
 				XX公司10001序号员工为<KrField name="memberId"component="select" grid={2/3}  options={optionValues.member}/>
 			</div>	
 			<Grid>
-				<Row style={{marginTop:30}}>
+				<Row style={{marginTop:30,marginBottom:100}}>
 				<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true}  onSubmit={this.onSubmit}/> </Col>
 				<Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
 			</Grid>
@@ -106,33 +99,25 @@ class ChangeStation extends Component{
 	}
 
 	onSubmit(form){
-		Store.dispatch(Actions.callAPI('changeStation',{},form)).then(function(response){
-			Notify.show([{
-				message:'操作成功！',
-				type: 'success',
-			}]);
-					
-		}).catch(function(err){
-			console.log('000e',err);
-			Notify.show([{
-				message:err.message,
-				type: 'danger',
-			}]);
-		});
 		const {onSubmit} = this. props;
-		onSubmit && onSubmit();
+		onSubmit && onSubmit(form);
 	}
 
 	render(){
-		let { optionValues,stationId} = this.props;
+		let { optionValues,stationId,customerId,communityId} = this.props;
 		let initialValues = {};
-			initialValues.stationId=stationId
+			initialValues.stationId=stationId;
+
+		initialValues.customerId=customerId;
+		initialValues.communityId=communityId;
 		
 	return (
 
 		<Form name="jyayayoinForm" initialValues={initialValues} onSubmit={this.onSubmit}>
-			<KrField name="stationId" type="hidden" value={stationId} />
-			<div style={{textAlign:"center",marginBottom:'20px'}}>
+			<KrField name="id" type="hidden"  />
+			<KrField name="customerId" type="hidden"/>
+			<KrField name="communityId" type="hidden"/>
+			<div style={{textAlign:"center",marginBottom:100}}>
 				XX公司10001序号员工为XXX,变更为员工<KrField name="memberId"component="select" grid={2/3}  options={optionValues.members}/>
 			</div>	
 			<Grid>
@@ -150,12 +135,6 @@ class ChangeStation extends Component{
 
 }
 
-class NewAddmember extends Component{
-
-
-
-
-}
 
 
 
@@ -165,7 +144,7 @@ export default  class EmployessTable extends Component {
 	 static defaultProps = {
 		 activity:false,
 		 params:{
-		 	mainBillId:246,
+		 	mainBillId:290,
 		 	communityIds:1,
 		 	customerId:97
 		},
@@ -184,16 +163,21 @@ export default  class EmployessTable extends Component {
 		this.openDistributionStation = this.openDistributionStation.bind(this);
 		this.onChangeCancel = this.onChangeCancel.bind(this);
 		this.onDistributionCancel = this.onDistributionCancel.bind(this);
-		this.onChangeSubmit = this.onChangeSubmit.bind(this);
 		this.onDistributionSubmit = this.onDistributionSubmit.bind(this);
+		this.onChangeSubmit = this.onChangeSubmit.bind(this);
 		this.onOperation = this.onOperation.bind(this);
-
+		this.onIframeClose = this.onIframeClose.bind(this);
+		
 		this.state={
 			openChangeStation:false,
 			openDistribution:false,
  			optionValues:{},
  			itemDetail:{},
  			stationId:1,
+ 			openNewmeber:false,
+ 			customerId:1,
+ 			communityId:1,
+
 		}
 
 	}
@@ -207,7 +191,9 @@ export default  class EmployessTable extends Component {
 		var _this=this;
 		this.setState({
 			openChangeStation:!this.state.openChangeStation,
-			stationId:itemDetail.stationId
+			stationId:itemDetail.stationId,
+			customerId:itemDetail.customerId,
+			communityId:itemDetail.communityId
 		})
 		let optionValues = {};
 		console.log('itemDetail',itemDetail)
@@ -236,10 +222,13 @@ export default  class EmployessTable extends Component {
 	}
 
 	openDistributionStation(itemDetail){
+		console.log('itemDetail',itemDetail)
 		var _this=this;
 		this.setState({
 			openDistribution:!this.state.openDistribution,
-			stationId:itemDetail.stationId
+			stationId:itemDetail.stationId,
+			customerId:itemDetail.customerId,
+			communityId:itemDetail.communityId
 		})
 		let optionValues = {};
 		const formValue={
@@ -279,13 +268,78 @@ export default  class EmployessTable extends Component {
 		})
 	}
 
-	onChangeSubmit(){
+	onChangeSubmit(form){
+		
+		if(form.memberId==-1){
+			this.setState({
+				openNewmeber:!this.state.openNewmeber
+			});
+
+			console.log('nnnnn',from)
+			this.onChangeCancel();
+		}else{
+
+			Store.dispatch(Actions.callAPI('changeStation',{},form)).then(function(response){
+				Notify.show([{
+					message:'操作成功！',
+					type: 'success',
+				}]);
+						
+			}).catch(function(err){
+				console.log('000e',err);
+				Notify.show([{
+					message:err.message,
+					type: 'danger',
+				}]);
+			});
+		}
+
+	}
+	onIframeClose(){
+		this.setState({
+			openNewmeber:!this.state.openNewmeber
+		});
+	}
+
+	getStationUrl(){
+		let {customerId,communityId}=this.state
+		console.log('customerId',customerId,'communityId',communityId)
+	    let url = `http://optest.krspace.cn/krspace_member_web/member/toAddMember?companyId=${customerId}&communityId=${communityId}`;
+	    console.log('url',url)
+		return url ;
+	}
+
+	
+
+
+
+	onDistributionSubmit(form){
+
+		if(form.memberId==-1){
+			this.setState({
+				openNewmeber:!this.state.openNewmeber,
+
+			});
+			this.onDistributionCancel()
+		}else{
+			Store.dispatch(Actions.callAPI('changeStation',{},form)).then(function(response){
+				Notify.show([{
+					message:'操作成功！',
+					type: 'success',
+				}]);
+						
+			}).catch(function(err){
+				console.log('000e',err);
+				Notify.show([{
+					message:err.message,
+					type: 'danger',
+				}]);
+			});
+		}
 
 	}
 	
-	onDistributionSubmit(){
-
-	}
+	
 
 	//操作相关
 	onOperation(type,itemDetail){
@@ -355,16 +409,25 @@ export default  class EmployessTable extends Component {
 				open={this.state.openDistribution}
 			>
 				
-				<Distribution  onCancel={this.onDistributionCancel} onSubmit={this.onDistributionSubmit} optionValues={optionValues} stationId={this.state.stationId} />	
+				<Distribution  onCancel={this.onDistributionCancel} onSubmit={this.onDistributionSubmit} optionValues={optionValues} stationId={this.state.stationId} customerId={this.state.customerId} communityId={this.state.communityId}/>	
 			</Dialog>
 			<Dialog
 				title="变更工位"
 				modal={true}
 				open={this.state.openChangeStation}
 			>
-				<ChangeStation  onCancel={this.onChangeCancel} onSubmit={this.onChangeSubmit}  optionValues={optionValues} stationId={this.state.stationId} />
+				<ChangeStation  onCancel={this.onChangeCancel} onSubmit={this.onChangeSubmit}  optionValues={optionValues} stationId={this.state.stationId} customerId={this.state.customerId} communityId={this.state.communityId}/>
 						
 			</Dialog>
+			<Dialog
+				title="新增员工"
+				modal={true}
+				open={this.state.openNewmeber}
+			>
+				
+				<IframeContent src={this.getStationUrl()}  onClose={this.onIframeClose} />	
+			</Dialog>
+
 		</div>
 	);
   }

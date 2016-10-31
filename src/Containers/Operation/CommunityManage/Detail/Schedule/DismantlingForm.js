@@ -31,7 +31,7 @@ import {
 
 class DismantlingForm  extends Component{
 	static defaultProps = {
-		 mainBillId:246,
+		 mainBillId:290,
 	 }
 
 
