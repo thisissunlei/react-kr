@@ -65,7 +65,7 @@ import {
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
 				<KrField name="id" type="hidden" label="id"/> 
-				<KrField name="accountcode" type="text" label="科目编码" requireLabel={true}/> 
+				<KrField name="accountcode" type="text" label="科目编码" requireLabel={true} disabled={true}/> 
 				<KrField name="accountname" type="text" label="科目名称" requireLabel={true}/> 
 				<KrField name="accounttype" type="select" label="科目类别" options={[ {value:'PAYMENT',label:'回款'}, {value:'INCOME',label:'收入'}, ]} requireLabel={true} />
 				<KrField name="ordernum" type="text" label="排序号" requireLabel={true}/> 
