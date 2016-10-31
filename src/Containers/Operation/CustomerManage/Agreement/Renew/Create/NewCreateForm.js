@@ -227,12 +227,15 @@ class NewCreateForm  extends Component{
 		form.rentamount= this.state.rentamount;
 		form.leaseBegindate = stationVos[0].leaseBeginDate;
 		form.leaseEnddate = stationVos[0].leaseEndDate;
+
+		form.firstpaydate = dateFormat(form.firstpaydate,"yyyy-mm-dd hh:MM:ss");
+
 		var _this = this;
 
 		form.stationVos =  stationVos;
 
 		form.stationVos = JSON.stringify(form.stationVos);
-		console.log('form111', form);
+
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}

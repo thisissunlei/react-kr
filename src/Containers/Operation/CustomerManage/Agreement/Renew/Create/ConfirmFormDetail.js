@@ -139,8 +139,8 @@ export default class ConfirmFormDetail  extends Component{
 										{detail.list.map((item,index)=>{
 											return (
 												<TableRow key={index}>
-													<TableRowColumn>{item.stationType}</TableRowColumn>
-													<TableRowColumn>{item.stationId}</TableRowColumn>
+													<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
+													<TableRowColumn>{item.stationName}</TableRowColumn>
 													<TableRowColumn>{item.unitprice}</TableRowColumn>
 													<TableRowColumn>
 														<KrDate.Format value={item.leaseBeginDate} format="yyyy-mm-dd"/>
