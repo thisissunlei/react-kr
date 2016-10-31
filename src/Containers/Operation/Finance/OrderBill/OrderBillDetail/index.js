@@ -777,7 +777,7 @@ export default class AttributeSetting  extends Component{
 						autoScrollBodyContent={true}
 				        autoDetectWindowHeight={true}
 						>							
-					   <ReceivedBtnForm onSubmit={this.onAddReceivedSubmit} initialValues={initialValues} onCancel={this.closeReceivedDialog} optionList={this.state.receivedList} typeList={this.state.typeList}/>
+					   <ReceivedBtnForm onSubmit={this.onAddReceivedSubmit}  onCancel={this.closeReceivedDialog} optionList={this.state.receivedList} typeList={this.state.typeList}/>
 					 </Dialog>
 
 					 <Dialog
