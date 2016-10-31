@@ -57,7 +57,7 @@ export default class ConfirmFormDetail  extends Component{
 
 		let {detail, optionValues} = this.props;
 		
-			detail = Object.assign({},detail);
+		detail = Object.assign({},detail);
 
 
         var leasorName ;

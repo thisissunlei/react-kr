@@ -585,6 +585,14 @@ class NewCreateForm  extends Component{
 			errors.signdate = '请填写签署时间';
 		}
 
+		if (!values.leaseBegindate) {
+			errors.leaseBegindate = '请输入租赁开始时间';
+		}
+
+		if (!values.leaseEnddate) {
+			errors.leaseEnddate = '请输入租赁结束时间';
+		}
+
 		if (!values.totalrent) {
 			errors.totalrent = '请填写租金总额';
 		}
