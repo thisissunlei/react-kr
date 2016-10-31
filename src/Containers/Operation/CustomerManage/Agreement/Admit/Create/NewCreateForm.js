@@ -107,7 +107,6 @@ class NewCreateForm  extends Component{
 			}
 			return true;
 		});
-		console.log('delete', selectedStation,stationVos);
 		this.setState({
 			stationVos,
 		},function(){
@@ -204,7 +203,6 @@ class NewCreateForm  extends Component{
 		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd hh:MM:ss");
 		form.leaseBegindate = dateFormat(form.leaseBegindate,"yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate,"yyyy-mm-dd hh:MM:ss");
-		console.log(form,'form');
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}
@@ -311,7 +309,6 @@ class NewCreateForm  extends Component{
 
 		this.openStationDialog();
 
-		console.log('data',billList);
 
 		if(!billList){
 			return ;
@@ -337,7 +334,6 @@ class NewCreateForm  extends Component{
 			console.log('billList 租赁明细工位列表为空');
 		}
 
-		console.log('---->>>',stationVos);
 		this.setState({stationVos:billList},function(){
 			this.calcStationNum();
 		}); 
@@ -360,7 +356,6 @@ class NewCreateForm  extends Component{
 		});
 
 		let {billList,stationVos} = this.state;
-		console.log('changeValues', changeValues);
 
 		return (
 
@@ -399,7 +394,7 @@ class NewCreateForm  extends Component{
                                   <KrField name="templockday"  grid={1/2} component="input" type="text" label="保留天数" requireLabel={true}/> 
 
 							 <KrField grid={1}  name="contractmark" type="textarea" component="textarea" label="备注" /> 
-							 <KrField grid={1}  name="fileIdList" component="file" label="上传附件" requireLabel={true}/> 
+							 <KrField grid={1}  name="fileIdList" component="file" label="上传附件" requireLabel={true} defaultValue={[]}/> 
 
 							 <KrField grid={1/1} component="group" label="租赁项目" requireLabel={true}> 
 								<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} defaultValue="0" /> 

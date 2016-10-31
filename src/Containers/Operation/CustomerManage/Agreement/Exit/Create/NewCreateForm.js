@@ -187,7 +187,7 @@ class NewCreateForm  extends Component{
         
 
 				<KrField grid={1}  name="contractmark" component="textarea" label="备注" />
-				<KrField grid={1}  name="fileIdList" component="file" label="上传附件" requireLabel={true}/>
+				<KrField grid={1}  name="fileIdList" component="file" label="上传附件" requireLabel={true} defaultValue={[]}/>
 
 						<Grid>
 						<Row style={{marginTop:30}}>

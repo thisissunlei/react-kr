@@ -33,34 +33,34 @@ export default  class JoinCreate extends Component {
 		}
 		 Store.dispatch(reset('admitCreateForm'));
 	}
+	componentWillUnmount(){
+		 Store.dispatch(reset('admitCreateForm'));
+	}
   
 	 onCreateSubmit(formValues){
-		 console.log("-00000",formValues);
 		 this.setState({
 			 formValues
 		 });
 		 var _this = this;
 
-		 // setTimeout(function(){
-		 // 	_this.onConfrimSubmit();
-		 // },500);
-
-		 
 		this.openConfirmCreateDialog();
 	 }
 
 	 onConfrimSubmit(){
-	 	console.log('onConfrimSubmit');
 
 		let {formValues} = this.state;
 		let {params} = this.props;
 		Store.dispatch(Actions.callAPI('addFinaContractIntentletter',{},formValues)).then(function(response){
+
 			Notify.show([{
 				message:'创建成功',
 				type: 'success',
 			}]);
-		location.href =  "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/admit/"+response.contractId+"/detail";
-			
+
+		  window.setTimeout(function(){
+			window.location.href =  "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/admit/"+response.contractId+"/detail";
+		  },1000);
+
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
