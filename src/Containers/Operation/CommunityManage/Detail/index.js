@@ -58,8 +58,9 @@ export default  class CommunityManage extends Component {
 		});
 	}
 	selectCommunity(personel){
-		console.log('change',personel.id);
-		// Store.dispatch(change('selectCommunityForm','community',personel.id));
+
+		// Store.dispatch(change('selectCommunityForm','community',personel.label));
+		this.getCommunityFloors(personel.id);
 		this.setState({
 			community:personel.id
 		})
@@ -94,16 +95,10 @@ export default  class CommunityManage extends Component {
 
   render() {
   	let {tab} = this.state;
-  	var {communityInfoList} = this.state;
-  	console.log(communityInfoList);
-  	// let sectionTitle;
+
+  	var {communityInfoList, communityInfoFloorList} = this.state;
   	let {community} = this.state;
   	console.log('id', community);
-  	// if(tab === 'floorplan'){
-  	// 		sectionTitle = "平面图";
-  	// }else{
-  	// 	sectionTitle = "计划表";
-  	// }
 
   	
     return (
@@ -112,16 +107,19 @@ export default  class CommunityManage extends Component {
 		 	<BreadCrumbs children={['系统运营','社区管理','计划表']}/>
 			
 			<Section title="计划表" description=""> 
-				<Form name="selectCommunityForm" >
-				<KrField name="leaseId"  grid={1/1} component="select" label="社区" onChange={this.selectCommunity} options={communityInfoList}/>
 
-			</Form>
+				<Form name="selectCommunityForm" initialValues={{community:this.state.community}}>
+					<KrField name="community"  grid={1/3} component="select" label="社区" onChange={this.selectCommunity} options={communityInfoList}/>
+
+				</Form>
 				 <Tabs>
 					<Tab label="计划表" onActive={this.planTable}>
 						<Schedule  community={community}/>
 					</Tab>
 					<Tab label="平面图"  onActive={this.Floorplan} >
-					   <FloorPlan community={community} tab={tab}/>
+
+					   <FloorPlan communityId={community} tab={tab} communityInfoFloorList={communityInfoFloorList}/>
+
 					</Tab>
 			</Tabs>
 

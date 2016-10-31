@@ -60,10 +60,8 @@ export default class IframeContent extends React.Component {
 		iframeElement.width = width;
 		iframeElement.height = height;
 
-		window.setTimeout(function(){
-			_this.iframeWindow =  iframeElement.contentWindow;
-			window.ele = _this.iframeWindow;
-		},2000);
+
+		onLoad && onLoad(iframeElement.contentWindow);
 
 	}
 
