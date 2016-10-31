@@ -90,22 +90,22 @@ class ReceivedBtnForm extends Component{
                  
 					      <form onSubmit={handleSubmit(this.onSubmit)}>
                             <KrField  name="mainbillid" type="hidden" component="input"/>
-						    <KrField  label="代码名称" name="accountId" type="select" options={optionList}/>
-						    <KrField component="date" label="回款日期" name="receiveDate"/>
-						    <KrField label="交易编号" name="dealCode"  component="input" type="text"/>
+						    <KrField  label="代码名称" name="accountId" type="select" options={optionList} requireLabel={true}/>
+						    <KrField component="date" label="回款日期" name="receiveDate" requireLabel={true}/>
+						    <KrField label="交易编号" name="dealCode"  component="input" type="text" requireLabel={true}/>
 						    <KrField label="是否自动拆分" name="autoSplit" component="select" options={
 						    	[{label:"是",value:"1"},{label:"否",value:"0"}]
-						    }/>
+						    } requireLabel={true}/>
 
 						    {parseInt(changeValues.autoSplit)?<div>
-						    	 <KrField label="金额（元）" name="sum" component="input" type="text"/>
+						    	 <KrField label="金额（元）" name="sum" component="input" type="text" requireLabel={true}/>
 						    </div>:<div>
 						      {typeList.map((item,index)=>						
 						         <KrField key={index} grid={1} label={item.label} component="input" name={item.value} type="text"/>						 
 						       )}                           
 						    </div>}
                             
-                            <KrField name="sumSign" component="group" label="金额正负" >
+                            <KrField name="sumSign" component="group" label="金额正负" requireLabel={true}>
 				                <KrField name="sumSign" label="正" component="radio" type="radio" value="0"/>
 				                <KrField name="sumSign" label="负" component="radio" type="radio" value="1" />
 			                </KrField>
@@ -127,9 +127,35 @@ class ReceivedBtnForm extends Component{
 
 }
 
+const validate = values =>{
+
+		const errors = {}
+
+		if(!values.accountId){
+			errors.accountId = '请填写代码名称';
+		}
+
+		if (!values.receiveDate) {
+			errors.receiveDate = '请填写回款日期';
+		}
+
+		if (!values.dealCode) {
+			errors.dealCode = '请填写交易编号';
+		}
+
+		if (!values.sum) {
+			errors.sum = '请填写金额';
+		}
+		if (!values.sumSign) {
+			errors.sumSign = '请先选择金额正负';
+		}
+
+		return errors
+	}
+
 const selector = formValueSelector('ReceivedBtnForm');
 
-ReceivedBtnForm = reduxForm({ form: 'ReceivedBtnForm',enableReinitialize:true,keepDirtyOnReinitialize:true})(ReceivedBtnForm);
+ReceivedBtnForm = reduxForm({ form: 'ReceivedBtnForm',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(ReceivedBtnForm);
 
 export default connect((state)=>{
 
