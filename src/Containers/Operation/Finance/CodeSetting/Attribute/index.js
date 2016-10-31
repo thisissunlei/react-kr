@@ -5,6 +5,8 @@ import {bindActionCreators} from 'redux';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 
+import {Actions,Store} from 'kr/Redux';
+
 import {
 	Table,
 	TableBody, 
@@ -19,6 +21,7 @@ import {
 	Row,
 	Col,
 	Dialog,
+	Notify,
 	BreadCrumbs
 } from 'kr-ui';
 
@@ -82,9 +85,27 @@ export default class AttributeSetting  extends Component{
 		});
 	}
 
-	onEditSubmit(){
+	onEditSubmit(form){
+
+		form = Object.assign({},form);
+
+		Store.dispatch(Actions.callAPI('addFinaFinaflowProperty',{},form)).then(function(response){
+			Notify.show([{
+				message:'更新成功！',
+				type: 'success',
+			}]);
+
+			window.setTimeout(function(){
+				window.location.reload();
+			},1000);
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+		});
+
 		this.openEditDetailDialog();
-		window.location.reload();
 	}
 
 	//查看
@@ -115,8 +136,27 @@ export default class AttributeSetting  extends Component{
 		});
 	}
 
-	onNewCreateSubmit(form){
-			window.location.reload();
+	onNewCreateSubmit(values){
+
+		this.openNewCreateDialog();
+
+		Store.dispatch(Actions.callAPI('addFinaFinaflowProperty',{},values)).then(function(response){
+				Notify.show([{
+					message:'新建成功！',
+					type: 'success',
+				}]);
+
+				window.setTimeout(function(){
+					window.location.reload();
+				},1000);
+				
+ 			}).catch(function(err){
+ 				
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+		});
 	}
 
 	onNewCreateCancel(){
