@@ -13,6 +13,7 @@ import {
 	Operation,
 	Basic,
 	Initialize,
+	Demo,
 } from './Containers';
 
 import Master from './master';
@@ -36,6 +37,7 @@ export default(
 		<Redirect from="messages/:id" to="/messages/:id" />
 
 		<Route path="initialize" component={Initialize} name="initialize"/>
+		<Route path="demo" component={Demo} name="demo"/>
 
 		{/*运营管理*/}
 		<Route path="operation" component={Basic}>

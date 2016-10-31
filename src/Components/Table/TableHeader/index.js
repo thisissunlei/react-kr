@@ -1,5 +1,6 @@
 import React from 'react';
 import TableHeaderColumn from '../TableHeaderColumn';
+import Checkbox from '../../Checkbox';
 
 export default class TableHeader extends React.Component {
 
@@ -41,7 +42,7 @@ export default class TableHeader extends React.Component {
 		}
 
 		//return ( <TableHeaderColumn width={this.props.defaultValue.checkboxWidth}></TableHeaderColumn>);
-		return ( <TableHeaderColumn width={this.props.defaultValue.checkboxWidth}><input type="checkbox" onTouchTap={onSelectAll}/> </TableHeaderColumn>);
+		return ( <TableHeaderColumn width={this.props.defaultValue.checkboxWidth}> <Checkbox onCheck={onSelectAll} /> </TableHeaderColumn>);
 
 	}
 
