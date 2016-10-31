@@ -15,6 +15,7 @@ export default class DateComponent extends React.Component{
 
 	constructor(props){
 		super(props)
+
 		this.onChange = this.onChange.bind(this);
 		this.setDefaultDate = this.setDefaultDate.bind(this);
 		this.supplementZero = this.supplementZero.bind(this);

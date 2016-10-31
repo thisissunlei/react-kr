@@ -85,7 +85,15 @@ export default  class JoinDetail extends Component {
 					<KrField component="labelText" grid={1/2} label="合同编号" value={basic.contractcode} defaultValue="无"/>
 
 					<KrField component="labelText" grid={1/2} label="支付方式" value={basic.payType && basic.payType.dicName} defaultValue="无"/>
+
+			  {/*
 					<KrField component="group" grid={1/2} label="租赁期限:">
+							  <KrField component="labelText" grid={1/2} type="date" value={basic.contractcode} defaultValue="无"/>
+					</KrField>
+				  */}
+
+					<KrField component="group" grid={1/2} label="租赁期限:">
+
 						<Row style={{marginTop:5}}>
 						<Date.Format value={basic.leaseBegindate} />  ——  <Date.Format value={basic.leaseEnddate}/>
 						</Row>
