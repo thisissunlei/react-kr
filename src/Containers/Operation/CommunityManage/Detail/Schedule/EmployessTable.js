@@ -28,6 +28,8 @@ class Distribution extends Component {
 		super(props,context);
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel  = this.onCancel.bind(this);
+
+		
 	}
 
 	onCancel (){
@@ -36,13 +38,28 @@ class Distribution extends Component {
 	}
 
 	onSubmit(form){
+		Store.dispatch(Actions.callAPI('changeStation',{},form)).then(function(response){
+			Notify.show([{
+				message:'操作成功！',
+				type: 'success',
+			}]);
+					
+		}).catch(function(err){
+			console.log('000e',err);
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+		});
 		const {onSubmit} = this. props;
 		onSubmit && onSubmit();
 	}
 
 	render(){
 
-		let { error, handleSubmit, pristine, reset, submitting,initialValues} = this.props;
+		let { optionValues,stationId} = this.props;
+
+		let initialValues = {};
 
 		/*if(){
 			return(
@@ -53,14 +70,14 @@ class Distribution extends Component {
 
 				);
 		}*/
-
-
-
+		
+		initialValues.stationId=stationId
 		return (
 
 		<Form name="jyayayoinForm" initialValues={initialValues} onSubmit={this.onSubmit}>
+			<KrField name="stationId" type="hidden"/>
 			<div style={{textAlign:"center",marginBottom:'20px'}}>
-				XX公司10001序号员工为<KrField name="sdf"component="select" grid={2/3}  value=""/>
+				XX公司10001序号员工为<KrField name="memberId"component="select" grid={2/3}  options={optionValues.member}/>
 			</div>	
 			<Grid>
 				<Row style={{marginTop:30}}>
@@ -81,7 +98,7 @@ class ChangeStation extends Component{
 		super(props,context);
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel  = this.onCancel.bind(this);
-
+		
 	}
 	onCancel (){
 		const {onCancel} = this.props;
@@ -89,18 +106,34 @@ class ChangeStation extends Component{
 	}
 
 	onSubmit(form){
+		Store.dispatch(Actions.callAPI('changeStation',{},form)).then(function(response){
+			Notify.show([{
+				message:'操作成功！',
+				type: 'success',
+			}]);
+					
+		}).catch(function(err){
+			console.log('000e',err);
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+		});
 		const {onSubmit} = this. props;
 		onSubmit && onSubmit();
 	}
 
 	render(){
-		let { error, handleSubmit, pristine, reset, submitting,initialValues} = this.props;
+		let { optionValues,stationId} = this.props;
+		let initialValues = {};
+			initialValues.stationId=stationId
 		
 	return (
 
 		<Form name="jyayayoinForm" initialValues={initialValues} onSubmit={this.onSubmit}>
+			<KrField name="stationId" type="hidden" value={stationId} />
 			<div style={{textAlign:"center",marginBottom:'20px'}}>
-				XX公司10001序号员工为XXX,变更为员工<KrField name="memberId"component="select" grid={2/3}  value=""/>
+				XX公司10001序号员工为XXX,变更为员工<KrField name="memberId"component="select" grid={2/3}  options={optionValues.members}/>
 			</div>	
 			<Grid>
 				<Row style={{marginTop:30}}>
@@ -133,8 +166,10 @@ export default  class EmployessTable extends Component {
 		 activity:false,
 		 params:{
 		 	mainBillId:246,
-		 	communityIds:1
-		}
+		 	communityIds:1,
+		 	customerId:97
+		},
+		
 		
 	 }
 
@@ -151,12 +186,14 @@ export default  class EmployessTable extends Component {
 		this.onDistributionCancel = this.onDistributionCancel.bind(this);
 		this.onChangeSubmit = this.onChangeSubmit.bind(this);
 		this.onDistributionSubmit = this.onDistributionSubmit.bind(this);
-
+		this.onOperation = this.onOperation.bind(this);
 
 		this.state={
 			openChangeStation:false,
 			openDistribution:false,
- 			
+ 			optionValues:{},
+ 			itemDetail:{},
+ 			stationId:1,
 		}
 
 	}
@@ -166,24 +203,80 @@ export default  class EmployessTable extends Component {
 
 	}
 
-	openChangeStation(){
+	openChangeStation(itemDetail){
+		var _this=this;
 		this.setState({
-			openChangeStation:!this.state.openChangeStation
+			openChangeStation:!this.state.openChangeStation,
+			stationId:itemDetail.stationId
 		})
+		let optionValues = {};
+		console.log('itemDetail',itemDetail)
+		const formValues={
+			customerId:itemDetail.customerId,
+			communityId:itemDetail.communityId
+		}
+		Store.dispatch(Actions.callAPI('getmembers',{},formValues)).then(function(response){
+			
+			optionValues.members = response.map(function(item,index){
+				item.value = item.id;
+				item.label = item.memberName;
+				return item;
+			});
+			_this.setState({
+				optionValues
+			});
+
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+	   	});
+		
 	}
 
-	openDistributionStation(){
+	openDistributionStation(itemDetail){
+		var _this=this;
 		this.setState({
-			openDistribution:!this.state.openDistribution
+			openDistribution:!this.state.openDistribution,
+			stationId:itemDetail.stationId
 		})
+		let optionValues = {};
+		const formValue={
+			customerId:itemDetail.customerId,
+			communityId:itemDetail.communityId
+		}
+
+		Store.dispatch(Actions.callAPI('getmembers',{},formValue)).then(function(response){
+			
+			optionValues.member = response.map(function(item,index){
+				item.value = item.id;
+				item.label = item.memberName;
+				return item;
+			});
+			_this.setState({
+				optionValues
+			});
+
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+	   	});
 	}
 
 	onChangeCancel(){
-		this.openChangeStation()
+		this.setState({
+			openChangeStation:!this.state.openChangeStation
+		})
+		
 	}
 
 	onDistributionCancel(){
-		this.openDistributionStation()
+		this.setState({
+			openDistribution:!this.state.openDistribution
+		})
 	}
 
 	onChangeSubmit(){
@@ -192,6 +285,25 @@ export default  class EmployessTable extends Component {
 	
 	onDistributionSubmit(){
 
+	}
+
+	//操作相关
+	onOperation(type,itemDetail){
+		this.setState({
+			itemDetail
+		});
+
+		if(type == 'Distribution'){
+			this.setState({stationId:itemDetail.stationId},function(){
+				this.openDistributionStation(itemDetail)
+			})
+			
+		}else if(type == 'ChangeStation'){
+			this.setState({stationId:itemDetail.stationId},function(){
+				this.openChangeStation(itemDetail)
+			})
+			
+		}
 	}
 
 
@@ -203,11 +315,11 @@ export default  class EmployessTable extends Component {
 	  if(!activity){
 		  return null;
 	  }
-
+	let {optionValues} = this.state;
     return (
 
 		 <div className="employees-content">
-		 	<Table  style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getStation' ajaxParams={this.props.params} pagination={false} >
+		 	<Table  style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getStation' ajaxParams={this.props.params} pagination={false} onOperation={this.onOperation} >
 				<TableHeader>
 						<TableHeaderColumn>工位编号</TableHeaderColumn>
 						<TableHeaderColumn>租赁起始时间</TableHeaderColumn>
@@ -227,8 +339,8 @@ export default  class EmployessTable extends Component {
 						<TableRowColumn name="memberPhone" ></TableRowColumn>
 						<TableRowColumn name="status"></TableRowColumn>
 						<TableRowColumn>
-							  <Button label="分配"  type="link"  onTouchTap={this.openDistributionStation}   />
-							  <Button label="变更"  type="link" onTouchTap={this.openChangeStation} />
+							  <Button label="分配"  type="operation" operation="Distribution"   />
+							  <Button label="变更" type="operation" operation="ChangeStation"   />
 						 </TableRowColumn>
 					</TableRow>
 				</TableBody>
@@ -243,14 +355,14 @@ export default  class EmployessTable extends Component {
 				open={this.state.openDistribution}
 			>
 				
-				<Distribution  onCancel={this.onDistributionCancel} onSubmit={this.onDistributionSubmit}/>	
+				<Distribution  onCancel={this.onDistributionCancel} onSubmit={this.onDistributionSubmit} optionValues={optionValues} stationId={this.state.stationId} />	
 			</Dialog>
 			<Dialog
 				title="变更工位"
 				modal={true}
 				open={this.state.openChangeStation}
 			>
-				<ChangeStation  onCancel={this.onChangeCancel} onSubmit={this.onChangeSubmit} />
+				<ChangeStation  onCancel={this.onChangeCancel} onSubmit={this.onChangeSubmit}  optionValues={optionValues} stationId={this.state.stationId} />
 						
 			</Dialog>
 		</div>

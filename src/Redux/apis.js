@@ -329,6 +329,16 @@ const APIS  = {
 		url:'/api/krspace-finance-web/fina-contract-mainbill/action/update-leaveDate',
 		method:'post'
 	},
+	//客户管理-计划表-分配员工-获取所有客户
+	'getmembers':{
+		url:'/api/krspace-finance-web/fina-contract-mainbill/members?customerId=97&customerId=',
+		method:'get'
+	},
+	//客户管理-计划表-分配员工-获取所有客户
+	'changeStation':{
+		url:'/api/krspace-finance-web/find-contract-station/action/change-station',
+		method:'post'
+	},
 }
 
 module.exports =  APIS;
