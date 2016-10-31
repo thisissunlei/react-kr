@@ -146,7 +146,6 @@ export default class AttributeSetting  extends Component{
 			searchParams,
 			openNewCreate:!this.state.openNewCreate
 		});
-
 	}
 
 	onNewCreateCancel(){
