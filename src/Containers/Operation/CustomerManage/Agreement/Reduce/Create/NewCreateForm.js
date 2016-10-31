@@ -83,7 +83,6 @@ class NewCreateForm  extends Component{
 		this.onStationSelect = this.onStationSelect.bind(this);
 
 		this.openStationDialog = this.openStationDialog.bind(this);
-		this.onStationUnitPrice = this.onStationUnitPrice.bind(this);
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
@@ -115,25 +114,6 @@ class NewCreateForm  extends Component{
 		});
 	}
 
-	//录入单价
-	onStationUnitPrice(form){
-
-		var value = form.price;
-		let {stationVos,selectedStation} = this.state;
-
-		stationVos = stationVos.map(function(item,index){
-			if(selectedStation.indexOf(index) != -1){
-				item.unitprice= value;
-			}
-			return item;
-		});
-
-		this.setState({
-			stationVos
-		});
-
-		this.openStationUnitPriceDialog();
-	}
 	onChangeSearchPersonel(personel){
 		Store.dispatch(change('reduceCreateForm','lessorContacttel',personel.mobile));
 		Store.dispatch(change('reduceCreateForm','lessorContactName',personel.lastname));
@@ -333,7 +313,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1}  name="rentamount" type="labelText"  label="减租金额"  value={rentamount}/> {/*减租金额没有*/}
 
 				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" />
-				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true}/>
+				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]}/>
 
 				<Section title="租赁明细" description="" rightMenu = {
 					<Menu>
@@ -422,6 +402,11 @@ const validate = values =>{
 		if (!values.leaseAddress) {
 			errors.leaseAddress = '请填写承租方地址';
 		}
+
+		if (values.leaseAddress && !isNaN(values.leaseAddress)) {
+			errors.leaseAddress = '承租方地址不能为数字';
+		}
+
 		if (!values.leaseContact) {
 			errors.leaseContact = '请填写承租方联系人';
 		}

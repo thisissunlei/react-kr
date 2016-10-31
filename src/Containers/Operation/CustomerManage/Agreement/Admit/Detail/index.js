@@ -45,8 +45,7 @@ export default  class AdmitDetail extends Component {
 
 
 
-		Store.dispatch(Actions.callAPI('showFinaContractIntentletter', {id:this.props.params.id}))
-		.then(function(response){
+		Store.dispatch(Actions.callAPI('showFinaContractIntentletter', {id:this.props.params.id})).then(function(response){
 			_this.setState({
 				basic:response,
 				isLoading:false
@@ -63,7 +62,6 @@ export default  class AdmitDetail extends Component {
 	componentWillMount(){
 
 	}
-
 
   render() {
 

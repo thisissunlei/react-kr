@@ -179,6 +179,7 @@ class NewCreateForm  extends Component{
 				message:'请先选择要录入单价的工位',
 				type: 'danger',
 			}]);
+			return ;
 		}
 		this.openStationUnitPriceDialog();
 	}
@@ -331,7 +332,7 @@ class NewCreateForm  extends Component{
 		});
 
 		let params = {
-			mainbillId:this.context.params.orderId,
+			mainBillId:this.context.params.orderId,
 			communityId:optionValues.mainbillCommunityId,
 			floors:changeValues.wherefloor,
 			//工位
@@ -462,7 +463,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true} /> 
 				<KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true} /> 
 				<KrField grid={1/2}  name="contractmark" component="textarea" label="备注" /> 
-				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} /> 
+				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} /> 
 
 				<KrField grid={1/1} component="group" label="租赁项目" requireLabel={true}> 
 					<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} defaultValue="0"/> 
@@ -473,7 +474,7 @@ class NewCreateForm  extends Component{
 					<Menu>
 						<MenuItem primaryText="录入单价"  onTouchTap={this.openPreStationUnitPriceDialog}/>
 						<MenuItem primaryText="删除" onTouchTap={this.onStationDelete} />
-						<MenuItem primaryText="租赁"  onTouchTap={this.openStationDialog} />
+						<MenuItem primaryText="选择工位"  onTouchTap={this.openStationDialog} />
 					</Menu>
 				}> 
 
@@ -566,7 +567,11 @@ class NewCreateForm  extends Component{
 		}
 
 		if (!values.leaseAddress) {
-			errors.leaseAddress = '请输入承租方电话';
+			errors.leaseAddress = '请输入承租方地址';
+		}
+
+		if (values.leaseAddress && !isNaN(values.leaseAddress)) {
+			errors.leaseAddress = '承租方地址不能为数字';
 		}
 
 		if (!values.fileIdList) {

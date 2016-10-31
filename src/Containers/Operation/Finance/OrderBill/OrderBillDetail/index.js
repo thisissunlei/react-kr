@@ -419,10 +419,26 @@ export default class AttributeSetting  extends Component{
     //回款提交
     onAddReceivedSubmit(params){          
 	  	  params= Object.assign({},params);
-	  	  console.log('00000');
+        if(params.autoSplit==0){
+          params.jsonStr = {};
+	  	  params.jsonStr.yajin=params.yajin;
+	  	  params.jsonStr.yingshouhuikuan=params.yingshouhuikuan;
+	  	  params.jsonStr.shenghuoxiaofeihuikuan=params.shenghuoxiaofeihuikuan;
+	  	  params.jsonStr.gongweihuikuan=params.gongweihuikuan;
+	  	  params.jsonStr.qitahuikuan=params.qitahuikuan;
+	  	  params.jsonStr.dingjin=params.dingjin;
+	  	  params.jsonStr  = JSON.stringify(params.jsonStr);
+	  	  delete params.dingjin;
+	  	  delete params.yajin;
+	  	  delete params.yingshouhuikuan;
+	  	  delete params.shenghuoxiaofeihuikuan;
+	  	  delete params.gongweihuikuan;
+	  	  delete params.qitahuikuan;
+        }	  	  
 	  	  params.receiveDate=dateFormat(params.receiveDate,"yyyy-mm-dd h:MM:ss");
 		  var _this = this;
 	      Store.dispatch(Actions.callAPI('receiveMoney',{},params)).then(function(response){   		    
+ 		  window.location.reload();
  		}).catch(function(err){
 			Notify.show([{
 				message:message,
@@ -430,18 +446,19 @@ export default class AttributeSetting  extends Component{
 			}]);
 		 });
 	    this.setState({
-			//openReceivedBtn:!this.state.openReceivedBtn,
-			//isLoading:true
+			openReceivedBtn:!this.state.openReceivedBtn,
+			isLoading:true
 		});	 
 		receivedList=[];
 		typeList=[]; 
-		//window.location.reload();
+		
     }
     onQuitSubmit(params){ 
     	  var _this = this;
     	  params= Object.assign({},params);	 
 		  params.operatedate=dateFormat(params.operatedate,"yyyy-mm-dd h:MM:ss");
-	      Store.dispatch(Actions.callAPI('payBack',{},params)).then(function(response){  
+	      Store.dispatch(Actions.callAPI('payBack',{},params)).then(function(response){ 
+	        window.location.reload();	 
  		  }).catch(function(err){
 			Notify.show([{
 				message:message,
@@ -452,11 +469,12 @@ export default class AttributeSetting  extends Component{
 			openQuitBtn:!this.state.openQuitBtn,
 			isLoading:true
 		});
-		window.location.reload();	  
+		  
     }
     onSwitchSubmit(params){ 
 		  var _this = this;
-	      Store.dispatch(Actions.callAPI('transToDeposit',{},params)).then(function(response){    
+	      Store.dispatch(Actions.callAPI('transToDeposit',{},params)).then(function(response){  
+	       window.location.reload();   
  		  }).catch(function(err){
 			Notify.show([{
 				message:message,
@@ -468,11 +486,12 @@ export default class AttributeSetting  extends Component{
 			isLoading:true
 		});	 
 		receivedList=[];
-		window.location.reload(); 
+		
     }
     onBusinessSubmit(params){ 	  
 		  var _this = this;
 	      Store.dispatch(Actions.callAPI('transToOperateIncome',{},params)).then(function(response){ 
+ 		    window.location.reload(); 
  		  }).catch(function(err){
 			Notify.show([{
 				message:'报错了',
@@ -484,7 +503,7 @@ export default class AttributeSetting  extends Component{
 			openBusinessBtn:!this.state.openBusinessBtn,
 			isLoading:true
 		});	
-		window.location.reload();  
+		 
     }
     onConfrimSubmit(formValues){
 		Store.dispatch(Actions.callAPI('supplementIncome',{},formValues)).then(function(){
@@ -492,6 +511,7 @@ export default class AttributeSetting  extends Component{
 				message:'创建成功',
 				type: 'danger',
 			}]);
+			window.location.reload();
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -503,12 +523,13 @@ export default class AttributeSetting  extends Component{
 			isLoading:true
 		})
 		receivedList=[];
-		window.location.reload();
+		
 	}
 	onSupplementSubmit(){
 		var _this=this;
 		Store.dispatch(Actions.callAPI('addIncome',{
-			mainbillid:_this.props.params.orderId
+			mainbillid:_this.props.params.orderId;
+			window.location.reload();
 		})).then(function(response){
 			Notify.show([{
 				message:'操作成功',
@@ -524,7 +545,7 @@ export default class AttributeSetting  extends Component{
 			openSupplementBtn:!this.state.openSupplementBtn,
 			isLoading:true
 		})
-		window.location.reload();
+		
 	}
     //操作相关
 	onOperation(type,itemDetail){

@@ -112,7 +112,7 @@ export default class ConfirmFormDetail  extends Component{
 							 <KrField grid={1/2}  name="rentaluse"  component="labelText" label="保留天数" value={detail.templockday} defaultValue="0" /> 
 
 							 
-							 <KrField grid={1/2}  name="fileIdList" component="labelText" label="备注" value={detail.contractmark} defaultValue="无"/> 
+							 <KrField grid={1}  name="fileIdList" component="labelText" label="备注" value={detail.contractmark} defaultValue="无"/> 
 							 <KrField grid={1}  name="fileIdList" component="labelText" label="上传附件" value={detail.fileIdList}/> 
 
 

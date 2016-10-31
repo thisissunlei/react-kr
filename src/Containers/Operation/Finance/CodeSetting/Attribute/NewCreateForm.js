@@ -2,7 +2,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
-import {reduxForm,formValueSelector} from 'redux-form';
+import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	KrField,
@@ -28,32 +28,19 @@ import {
 		this.onCancel = this.onCancel.bind(this);
 		
 	}
+	 componentDidMount(){
+		Store.dispatch(change('newCreateForm','enableflag','ENABLE'));
+	 }
+
 
 	 onSubmit(values){
-		 var _this = this;
-		Store.dispatch(Actions.callAPI('addFinaFinaflowProperty',{},values)).then(function(response){
-					Notify.show([{
-						message:'新建成功！',
-						type: 'success',
-					}]);
-				
- 			}).catch(function(err){
- 				
-			Notify.show([{
-				message:err.message,
-				type: 'danger',
-			}]);
-		});
-		 const {onSubmit} = _this.props;
-		onSubmit && onSubmit();
-
+		 const {onSubmit} = this.props;
+		onSubmit && onSubmit(values);
 	 }
 
 	 onCancel(){
 		 const {onCancel} = this.props;
-		
 		 onCancel && onCancel();
-		 
 	 }
 
 	render(){
@@ -113,5 +100,4 @@ const validate = values =>{
 
 		return errors
 	}
-const selector = formValueSelector('newCreateForm');
 export default reduxForm({ form: 'newCreateForm',validate, enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);

@@ -320,7 +320,7 @@ class NewCreateForm  extends Component{
 		});
 
 		let params = {
-			mainbillId:this.context.params.orderId,
+			mainBillId:this.context.params.orderId,
 			communityId:optionValues.mainbillCommunityId,
 			floors:changeValues.wherefloor,
 			//工位
@@ -469,7 +469,7 @@ class NewCreateForm  extends Component{
 					<Menu>
 						<MenuItem primaryText="录入单价"  onTouchTap={this.openPreStationUnitPriceDialog}/>
 						<MenuItem primaryText="删除" onTouchTap={this.onStationDelete} />
-						<MenuItem primaryText="租赁"  onTouchTap={this.openStationDialog} />
+						<MenuItem primaryText="选择工位"  onTouchTap={this.openStationDialog} />
 					</Menu>
 				}> 
 
@@ -570,7 +570,11 @@ class NewCreateForm  extends Component{
 		}
 
 		if (!values.leaseAddress) {
-			errors.leaseAddress = '请填写承租方电话';
+			errors.leaseAddress = '请填写承租方地址';
+		}
+
+		if (values.leaseAddress && !isNaN(values.leaseAddress)) {
+			errors.leaseAddress = '承租方地址不能为数字';
 		}
 
 		if (!values.fileIdList) {

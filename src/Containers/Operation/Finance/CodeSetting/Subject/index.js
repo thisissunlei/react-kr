@@ -5,6 +5,8 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
+import {Actions,Store} from 'kr/Redux';
+
 import {
 	Table,
 	TableBody, 
@@ -19,6 +21,7 @@ import {
 	Row,
 	Col,
 	Dialog,
+	Notify,
 	BreadCrumbs
 } from 'kr-ui';
 
@@ -78,11 +81,26 @@ export default class AttributeSetting  extends Component{
 		});
 	}
 
-	onEditSubmit(){
-		this.setState({
-			openEditDetail:!this.state.openEditDetail
+	onEditSubmit(form){
+
+		this.openEditDetailDialog();
+
+		Store.dispatch(Actions.callAPI('saveFinaFinaflowAccountModel',{},form)).then(function(response){ 
+			Notify.show([{
+				message:'编辑成功！',
+				type: 'success',
+			}]);
+			window.setTimeout(function(){
+				window.location.reload();
+			},1000);
+
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
 		});
-		window.location.reload();
+
 	}
 
 	//查看
@@ -113,8 +131,24 @@ export default class AttributeSetting  extends Component{
 		});
 	}
 
-	onNewCreateSubmit(form){
-			window.location.reload();
+	onNewCreateSubmit(values){
+
+		Store.dispatch(Actions.callAPI('saveFinaFinaflowAccountModel',{},values)).then(function(response){
+				Notify.show([{
+						message:'新建成功！',
+						type: 'success',
+					}]);
+				window.setTimeout(function(){
+					window.location.reload();
+				},1000);
+				
+ 			}).catch(function(err){
+				Notify.show([{
+					message:err.message,
+					type: 'danger',
+				}]);
+		});
+		this.openNewCreateDialog();
 	}
 
 	onNewCreateCancel(){
@@ -122,7 +156,6 @@ export default class AttributeSetting  extends Component{
 	}
 
 	render(){
-		console.log('.........',this.state.accountname)
 		return(
 
 			<div>

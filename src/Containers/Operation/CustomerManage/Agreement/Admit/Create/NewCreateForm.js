@@ -40,6 +40,11 @@ import {
 @ReactMixin.decorate(LinkedStateMixin)
 class NewCreateForm  extends Component{
 
+
+	 static contextTypes = {
+	  	params: React.PropTypes.object.isRequired
+    }
+
 	static DefaultPropTypes = {
 		initialValues:{
 			customerName:'',
@@ -107,7 +112,6 @@ class NewCreateForm  extends Component{
 			}
 			return true;
 		});
-		console.log('delete', selectedStation,stationVos);
 		this.setState({
 			stationVos,
 		},function(){
@@ -204,7 +208,6 @@ class NewCreateForm  extends Component{
 		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd hh:MM:ss");
 		form.leaseBegindate = dateFormat(form.leaseBegindate,"yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate,"yyyy-mm-dd hh:MM:ss");
-		console.log(form,'form');
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}
@@ -230,6 +233,7 @@ class NewCreateForm  extends Component{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
+
 	//修改租赁期限－开始时间
 	onChangeLeaseBeginDate(value){
 
@@ -240,12 +244,19 @@ class NewCreateForm  extends Component{
 		if(!stationVos.length){
 			return ;
 		}
+
+		this.setState({
+			stationVos:[]
+		});
+		/*
+
 		stationVos.forEach(function(item,index){
 			item.leaseBeginDate = value;
 		});
 		this.setState({
 			stationVos
 		});
+		*/
 	}
 
 	//修改租赁期限-结束时间
@@ -256,17 +267,23 @@ class NewCreateForm  extends Component{
 		if(!stationVos.length){
 			return ;
 		}
+
+		this.setState({
+			stationVos:[]
+		});
+		/*
 		stationVos.forEach(function(item,index){
 			item.leaseEndDate = value;
 		});
 		this.setState({
 			stationVos
 		});
+		*/
 	}
 
 	getStationUrl(){
 
-	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
+	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
 
 		let {changeValues,initialValues,optionValues} = this.props;
 		let {stationVos} = this.state;
@@ -279,6 +296,7 @@ class NewCreateForm  extends Component{
 		});
 
 		let params = {
+			mainBillId:this.context.params.orderId,
 			communityId:optionValues.mainbillCommunityId,
 			floors:changeValues.wherefloor,
 			//工位
@@ -286,13 +304,11 @@ class NewCreateForm  extends Component{
 			//会议室
 			goalBoardroomNum:changeValues.boardroomnum,
 			selectedObjs:JSON.stringify(stationVos),
-			/*
-			startDate:"2016-10-19",
-			endDate:"2016-10-25"
-			*/
 			startDate:dateFormat(changeValues.leaseBegindate,"yyyy-mm-dd"),
 			endDate:dateFormat(changeValues.leaseEnddate,"yyyy-mm-dd")
+
 		};
+
 
 		if(Object.keys(params).length){
 			for (let item in params) {
@@ -311,7 +327,6 @@ class NewCreateForm  extends Component{
 
 		this.openStationDialog();
 
-		console.log('data',billList);
 
 		if(!billList){
 			return ;
@@ -337,7 +352,6 @@ class NewCreateForm  extends Component{
 			console.log('billList 租赁明细工位列表为空');
 		}
 
-		console.log('---->>>',stationVos);
 		this.setState({stationVos:billList},function(){
 			this.calcStationNum();
 		}); 
@@ -360,7 +374,6 @@ class NewCreateForm  extends Component{
 		});
 
 		let {billList,stationVos} = this.state;
-		console.log('changeValues', changeValues);
 
 		return (
 
@@ -399,7 +412,7 @@ class NewCreateForm  extends Component{
                                   <KrField name="templockday"  grid={1/2} component="input" type="text" label="保留天数" requireLabel={true}/> 
 
 							 <KrField grid={1}  name="contractmark" type="textarea" component="textarea" label="备注" /> 
-							 <KrField grid={1}  name="fileIdList" component="file" label="上传附件" requireLabel={true}/> 
+							 <KrField grid={1}  name="fileIdList" component="file" label="上传附件" requireLabel={true} defaultValue={[]}/> 
 
 							 <KrField grid={1/1} component="group" label="租赁项目" requireLabel={true}> 
 								<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} defaultValue="0" /> 
@@ -409,7 +422,7 @@ class NewCreateForm  extends Component{
 					    <Section title="租赁明细" description="" rightMenu = {
 									<Menu>
 										  <MenuItem primaryText="删除" onTouchTap={this.onStationDelete} />
-										  <MenuItem primaryText="租赁"  onTouchTap={this.openStationDialog} />
+										  <MenuItem primaryText="选择工位"  onTouchTap={this.openStationDialog} />
 									</Menu>
 					        }> 
 
@@ -489,6 +502,11 @@ class NewCreateForm  extends Component{
 		if (!values.leaseAddress) {
 			errors.leaseAddress = '请填写承租方地址';
 		}
+
+		if (values.leaseAddress && !isNaN(values.leaseAddress)) {
+			errors.leaseAddress = '承租方地址不能为数字';
+		}
+
 		if (!values.leaseContact) {
 			errors.leaseContact = '请填写承租方联系人';
 		}

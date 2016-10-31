@@ -187,7 +187,7 @@ class NewCreateForm  extends Component{
         
 
 				<KrField grid={1}  name="contractmark" component="textarea" label="备注" />
-				<KrField grid={1}  name="fileIdList" component="file" label="上传附件" requireLabel={true}/>
+				<KrField grid={1}  name="fileIdList" component="file" label="上传附件" requireLabel={true} defaultValue={[]}/>
 
 						<Grid>
 						<Row style={{marginTop:30}}>
@@ -218,6 +218,11 @@ const validate = values =>{
 		if (!values.leaseAddress) {
 			errors.leaseAddress = '请填写承租方地址';
 		}
+
+		if (values.leaseAddress && !isNaN(values.leaseAddress)) {
+			errors.leaseAddress = '承租方地址不能为数字';
+		}
+
 
 		if (!values.leaseContact) {
 			errors.leaseContact = '请填写承租方联系人';

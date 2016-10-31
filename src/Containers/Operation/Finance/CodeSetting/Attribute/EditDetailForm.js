@@ -28,38 +28,14 @@ import {
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
 		const detail=props.detail;
-		console.log('detail',detail)
-		
+
 		Store.dispatch(initialize('newCreateForm',detail));
-
-		
-
 
 	}
 
 	 onSubmit(values){
-
-	 	values = Object.assign({},values);
-		var _this = this;
-
-		Store.dispatch(Actions.callAPI('addFinaFinaflowProperty',{},values)).then(function(response){
-				
-					Notify.show([{
-						message:'新建成功！',
-						type: 'success',
-					}]);
-					
-		}).catch(function(err){
-			console.log('000e',err);
-			Notify.show([{
-				message:err.message,
-				type: 'danger',
-			}]);
-		});
-		 const {onSubmit} = _this.props;
-		 onSubmit && onSubmit();
-				
-
+		 const {onSubmit} = this.props;
+		 onSubmit && onSubmit(values);
 	 }
 
 	 onCancel(){
@@ -70,7 +46,7 @@ import {
 
 	render(){
 
-		const { error, handleSubmit, pristine, reset} = this.props;
+		const { error, handleSubmit, pristine, reset,detail} = this.props;
 
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)}>
@@ -83,9 +59,9 @@ import {
 				]} requireLabel={true} >
 				</KrField>
 				<KrField name="ordernum" type="text" label="排序号"  requireLabel={true}/> 
-				<KrField name="enableflag" component="group" label="是否启用" requireLabel={true}>
-                <KrField name="enableflag" label="是" type="radio" value="ENABLE"/>
-                <KrField name="enableflag" label="否" type="radio" value="DISENABLE" />
+				<KrField component="group" label="是否启用" requireLabel={true}>
+						<KrField name="enableflag" grid={1/2} label="是" component="radio" type="radio" value="ENABLE"/>
+						<KrField name="enableflag" grid={1/2} label="否" component="radio" type="radio"  value="DISENABLE"/>
               </KrField> 
 				<KrField name="propdesc" component="textarea" label="描述"  /> 
 
