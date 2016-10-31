@@ -2,7 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import { connect } from 'kr/Redux';
 import {Actions,Store} from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
-
+import $ from 'jquery';
+import dateFormat from 'dateformat';
 import {
 	Dialog,
 	Section,
@@ -23,6 +24,7 @@ export default  class FloorPlan extends Component {
 		super(props, context);
 		this.getStationUrl = this.getStationUrl.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
+		this.scrollLoad = this.scrollLoad.bind(this);
 
 		this.state = {
 			url:this.getStationUrl()
@@ -41,31 +43,14 @@ export default  class FloorPlan extends Component {
 
 	     let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanList?communityId={communityId}&wherefloor={wherefloor}&date={date}&dateend={dateend}";
 
-		// stationVos = stationVos.map(function(item){
-		// 	var obj = {};
-		// 	obj.id = item.stationId;
-		// 	obj.type = item.stationType;
-		// 	return obj;
-		// });
+		var formList = form || {};
 		let params;
-			
-			if(form){
-				console.log('formUrl',form, form.floor);
-				 params = {
-					communityId:1,
-					wherefloor:form.floor,
-					date:form.start,
-					dateend:form.end,
-				};
-			}else{
-				 params = {
-					communityId:1,
-					wherefloor:3,
-					date:'2016-10-10',
-					dateend:'2016-10-10',
-				};
-				console.log('formdsad');
-			}
+		params = {
+			communityId:'',
+			wherefloor:formList.floor || '',
+			date:formList.start || dateFormat(new Date(),"yyyy.mm.dd"),
+			dateend:formList.end || dateFormat(new Date(),"yyyy.mm.dd"),
+		};
 
 		if(Object.keys(params).length){
 			for (let item in params) {
@@ -85,14 +70,29 @@ export default  class FloorPlan extends Component {
 			url:this.getStationUrl(form)
 		});
 	}
+	// 监听滚动事件
+	scrollLoad(){
+		$(window).scroll(function(){
+			var top = $(window).scrollTop() || 0;
+            var height = $(window).height() || 0;
+            var scrollBottom = $('#planTable').offset().top - top - height;
+            var isOutBoundary =  scrollBottom >= 1;
+            console.log(isOutBoundary);
+            if (!isOutBoundary) {
+                console.log('dasdasd');
+            }
+		})
+
+	}
 
   render() {
   	const {url} = this.state;
   	console.log(this.state, url, 'url');
+  	this.scrollLoad();
     return (
 
-		 <div>
-		 	<Form name="planTable" onSubmit={this.onSubmit}>
+		 <div id="planTable">
+		 	<Form name="planTable" onSubmit={this.onSubmit} >
 				<KrField grid={1/5}  name="floor" component="input" label="楼层" />
 				<KrField grid={1/5}  name="start" component="date" label="注册时间" />
 				<KrField grid={1/5}  name="end" component="date"  label="至" />
