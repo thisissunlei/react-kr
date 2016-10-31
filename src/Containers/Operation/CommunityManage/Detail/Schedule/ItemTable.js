@@ -15,7 +15,8 @@ import {
 } from 'kr-ui';
 
 import './index.less';
-
+import {findDOMNode} from 'react-dom'
+import ReactTooltip from 'react-tooltip'
 import EmployessTable from './EmployessTable';
 import D3Content from './D3Content';
 import DismantlingForm from './DismantlingForm';
@@ -174,7 +175,9 @@ export default  class ItemTable extends Component {
 
 				<tr>
 						<td>
-							<div className="company-name"> 诚意有限公司 </div>
+							<div className="company-name" data-tip="hello world"> 诚意有限公司 
+							<ReactTooltip />
+							</div>
 						</td>
 						<td colSpan="12">
 							<D3Content detail={contractInstallmentplanVo} finaBluePointVo={finaBluePointVo} finaRedPointVo={finaRedPointVo}/>
