@@ -63,7 +63,6 @@ export default class IframeContent extends React.Component {
 		_this.iframeWindow =  iframeElement.contentWindow;
 			window.ele = _this.iframeWindow;
 
-			console.log('iframe',iframeElement.contentWindow);
 		onLoad && onLoad(iframeElement.contentWindow);
 
 	}
