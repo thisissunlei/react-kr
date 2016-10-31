@@ -111,18 +111,18 @@ export default class ConfirmFormDetail  extends Component{
 								<KrField name="paymodel"  grid={1/2} component="labelText" label="付款方式" value={payment}/> 
 								<KrField name="paytype"  grid={1/2} component="labelText" label="支付方式" value={paytypes}/>
 
-							 <KrField grid={1/2}  name="signdate"  component="labelText" grid={1/2} label="签署时间"value={detail.signdate}/> 
+							 <KrField grid={1/2}  name="signdate"  component="labelText" grid={1/2} label="签署时间" value={detail.signdate} defaultValue="无"/> 
 
-							 <KrField name="firstpaydate" component="labelText" label="首付款时间" value={detail.firstpaydate} /> 
+							 <KrField name="firstpaydate" component="labelText" label="首付款时间" value={detail.firstpaydate} defaultValue="无" /> 
 							 <KrField name="" component="labelText" label=" 租赁项目"  /> 
-							 <KrField grid={1}  name="stationnum"  component="labelText" label="工位" value={detail.stationnum}/> 
-							 <KrField grid={1}  name="boardroomnum"  component="labelText" label="会议室" value={detail.boardroomnum}/> 
+							 <KrField grid={1}  name="stationnum"  component="labelText" label="工位" value={detail.stationnum} defaultValue="0"/> 
+							 <KrField grid={1}  name="boardroomnum"  component="labelText" label="会议室" value={detail.boardroomnum} defaultValue="0"/> 
 
 							 <KrField grid={1}  name="rentaluse"  component="labelText" label="租赁用途" placeholder="办公使用" value={detail.rentaluse} /> 
 
-							 <KrField grid={1/2}  name="totalrent" component="labelText"  label="租金总额" placeholder="" value={detail.totalrent} /> 
-							 <KrField grid={1/2}  name="totaldeposit"  component="labelText" label="押金总额" value={detail.totaldeposit}/> 
-							 <KrField grid={1/2}  name="contractmark" component="labelText" label="备注" value={detail.contractmark}/> 
+							 <KrField grid={1/2}  name="totalrent" component="labelText"  label="租金总额" placeholder="" value={detail.totalrent}  defaultValue="0"/> 
+							 <KrField grid={1/2}  name="totaldeposit"  component="labelText" label="押金总额" value={detail.totaldeposit} defaultValue="0"/> 
+							 <KrField grid={1}  name="contractmark" component="labelText" label="备注" value={detail.contractmark} defaultValue="无"/> 
 							 <KrField grid={1}  name="fileIdList" component="labelText" label="合同附件" value={detail.fileIdList}/> 
 
 

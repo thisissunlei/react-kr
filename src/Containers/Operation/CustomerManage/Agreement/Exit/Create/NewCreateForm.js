@@ -85,8 +85,6 @@ class NewCreateForm  extends Component{
     	form.leaseBegindate = dateFormat(form.leaseBegindate,"yyyy-mm-dd h:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate,"yyyy-mm-dd h:MM:ss");
 
-		console.log('---form',form);
-
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}
@@ -164,7 +162,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true} />
-				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress} />
+				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress} defaultValue="无" />
 				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}/> 
 				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}/> 
 
@@ -189,7 +187,7 @@ class NewCreateForm  extends Component{
         
 
 				<KrField grid={1}  name="contractmark" component="textarea" label="备注" />
-				<KrField grid={1}  name="fileIdList" component="file" label="上传附件" requireLabel={true}/>
+				<KrField grid={1}  name="fileIdList" component="file" label="上传附件" requireLabel={true} defaultValue={[]}/>
 
 						<Grid>
 						<Row style={{marginTop:30}}>

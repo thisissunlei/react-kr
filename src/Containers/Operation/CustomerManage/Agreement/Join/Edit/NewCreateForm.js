@@ -41,6 +41,10 @@ import {
 
 @ReactMixin.decorate(LinkedStateMixin)
 class NewCreateForm  extends Component{
+	
+	 static contextTypes = {
+	  	params: React.PropTypes.object.isRequired
+    }
 
 	static DefaultPropTypes = {
 		initialValues:{
@@ -76,6 +80,7 @@ class NewCreateForm  extends Component{
 		this.openStationDialog = this.openStationDialog.bind(this);
 		this.onStationUnitPrice = this.onStationUnitPrice.bind(this);
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
+		this.openPreStationUnitPriceDialog = this.openPreStationUnitPriceDialog.bind(this);
 
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
@@ -98,7 +103,7 @@ class NewCreateForm  extends Component{
 
 	componentDidMount(){
 		let {initialValues}= this.props;
-		Store.dispatch(initialize('joinCreateForm',initialValues));
+		Store.dispatch(initialize('joinEditForm',initialValues));
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -160,7 +165,7 @@ class NewCreateForm  extends Component{
 	}
 
 	onChangeSearchPersonel(personel){
-		Store.dispatch(change('joinCreateForm','lessorContacttel',personel.mobile));
+		Store.dispatch(change('joinEditForm','lessorContacttel',personel.mobile));
 	}
 
 
@@ -170,6 +175,17 @@ class NewCreateForm  extends Component{
 		 stationVos[index].unitprice = value;
 
 	 	this.setState({stationVos});
+	}
+
+	openPreStationUnitPriceDialog(){
+		let {selectedStation}  = this.state;
+		if(!selectedStation.length){
+			Notify.show([{
+				message:'请先选择要录入单价的工位',
+				type: 'danger',
+			}]);
+		}
+		this.openStationUnitPriceDialog();
 	}
 
 	//录入单价dialog
@@ -291,10 +307,9 @@ class NewCreateForm  extends Component{
 
 	getStationUrl(){
 
-	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}";
+	    let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
 
 		let {changeValues,initialValues,optionValues} = this.props;
-		
 		let {stationVos} = this.state;
 
 		stationVos = stationVos.map(function(item){
@@ -305,14 +320,19 @@ class NewCreateForm  extends Component{
 		});
 
 		let params = {
+			mainBillId:this.context.params.orderId,
 			communityId:optionValues.mainbillCommunityId,
 			floors:changeValues.wherefloor,
 			//工位
 			goalStationNum:changeValues.stationnum,
 			//会议室
 			goalBoardroomNum:changeValues.boardroomnum,
-			selectedObjs:JSON.stringify(stationVos)
+			selectedObjs:JSON.stringify(stationVos),
+			startDate:dateFormat(changeValues.leaseBegindate,"yyyy-mm-dd"),
+			endDate:dateFormat(changeValues.leaseEnddate,"yyyy-mm-dd")
+
 		};
+
 
 		if(Object.keys(params).length){
 			for (let item in params) {
@@ -369,8 +389,8 @@ class NewCreateForm  extends Component{
 			}
 		});
 
-		Store.dispatch(change('joinCreateForm','stationnum',stationnum));
-		Store.dispatch(change('joinCreateForm','boardroomnum',boardroomnum));
+		Store.dispatch(change('joinEditForm','stationnum',stationnum));
+		Store.dispatch(change('joinEditForm','boardroomnum',boardroomnum));
 	}
 
 	render(){
@@ -402,7 +422,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1}  name="boardroomnum" type="hidden" component="input" label="会议室"/> 
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}   requireLabel={true} />
-				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/> 
+				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}  defaultValue="无"/> 
 				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} placeholder={optionValues.lessorContactName}  requireLabel={true}  /> 
 
 				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话"  requireLabel={true}  /> 
@@ -416,7 +436,7 @@ class NewCreateForm  extends Component{
 
 				<KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={optionValues.communityName}  requireLabel={true} /> 
 
-				<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} requireLabel={true} />
+				<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true}  requireLabel={true} />
 
 				<KrField grid={1/2}  name="communityAddress" component="labelText" label="地址" value={optionValues.communityAddress} /> 
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}/> 
@@ -447,7 +467,7 @@ class NewCreateForm  extends Component{
 
 				<Section title="租赁明细" description="" rightMenu = {
 					<Menu>
-						<MenuItem primaryText="录入单价"  onTouchTap={this.openStationUnitPriceDialog}/>
+						<MenuItem primaryText="录入单价"  onTouchTap={this.openPreStationUnitPriceDialog}/>
 						<MenuItem primaryText="删除" onTouchTap={this.onStationDelete} />
 						<MenuItem primaryText="租赁"  onTouchTap={this.openStationDialog} />
 					</Menu>
@@ -592,9 +612,9 @@ class NewCreateForm  extends Component{
 		return errors
 	}
 
-const selector = formValueSelector('joinCreateForm');
+const selector = formValueSelector('joinEditForm');
 
-NewCreateForm = reduxForm({ form: 'joinCreateForm',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
+NewCreateForm = reduxForm({ form: 'joinEditForm',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
 
 export default connect((state)=>{
 

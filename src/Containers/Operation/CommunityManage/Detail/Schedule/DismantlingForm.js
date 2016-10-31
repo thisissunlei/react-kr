@@ -3,7 +3,8 @@ import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
-
+import {findDOMNode} from 'react-dom'
+import ReactTooltip from 'react-tooltip'
 import {
 	Menu,
 	MenuItem,

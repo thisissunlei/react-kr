@@ -52,7 +52,7 @@ import {
 
 
               <Row>
-				<Col md={8}><KrField name="searchParam" type="text"  /></Col>
+				<Col md={8}><KrField name="searchParam" type="text"  placeholder='请输入科目名称'/></Col>
 				<Col md={4}><Button  label="查询" type="submit" primary={true} /></Col>
               </Row>
 				

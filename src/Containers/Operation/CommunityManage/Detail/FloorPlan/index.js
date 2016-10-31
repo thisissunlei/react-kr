@@ -2,7 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import { connect } from 'kr/Redux';
 import {Actions,Store} from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
-
+import $ from 'jquery';
+import dateFormat from 'dateformat';
 import {
 	Dialog,
 	Section,
@@ -18,54 +19,67 @@ import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray}
 
 
 export default  class FloorPlan extends Component {
+	static defaultProps = {
+		 tab:'',
+		 community:'',
+		 communityInfoFloorList:[]
+	 }
 
 	constructor(props,context){
 		super(props, context);
 		this.getStationUrl = this.getStationUrl.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
+		this.scrollLoad = this.scrollLoad.bind(this);
+		this.onLoad = this.onLoad.bind(this);
 
+		this.iframeWindow = null;
+		// this.setIframeWidth = this.setIframeWidth.bind(this);
 		this.state = {
-			url:this.getStationUrl()
+			url:this.getStationUrl(),
+			community:this.props.community,
+			form:{
+			}
 		}
+
+	}
+
+	onLoad(iframeWindow){
+
+		this.iframeWindow = iframeWindow;
+		console.log('iframeWindow', iframeWindow);
 
 	}
 
 	
 
 	 componentDidMount(){
+	 	let {community} = this.props;
+	 	
+
 
 	 }
+
 
 	 getStationUrl(form){
 
 
 	     let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanList?communityId={communityId}&wherefloor={wherefloor}&date={date}&dateend={dateend}";
 
-		// stationVos = stationVos.map(function(item){
-		// 	var obj = {};
-		// 	obj.id = item.stationId;
-		// 	obj.type = item.stationType;
-		// 	return obj;
-		// });
+		var formList = form || {};
+		// let {community} = this.state;
+		if(form){
+			this.setState({
+				form:formList
+			});
+		};
 		let params;
-			
-			if(form){
-				console.log('formUrl',form, form.floor);
-				 params = {
-					communityId:1,
-					wherefloor:form.floor,
-					date:form.start,
-					dateend:form.end,
-				};
-			}else{
-				 params = {
-					communityId:1,
-					wherefloor:3,
-					date:'2016-10-10',
-					dateend:'2016-10-10',
-				};
-				console.log('formdsad');
-			}
+		console.log('formList', formList);
+		params = {
+			communityId:'',
+			wherefloor:formList.floor || '',
+			date: dateFormat(formList.start,"yyyy.mm.dd") || dateFormat(new Date(),"yyyy.mm.dd"),
+			dateend: dateFormat(formList.end,"yyyy.mm.dd")|| dateFormat(new Date(),"yyyy.mm.dd"),
+		};
 
 		if(Object.keys(params).length){
 			for (let item in params) {
@@ -81,24 +95,59 @@ export default  class FloorPlan extends Component {
 	onSubmit(form){
 		form = Object.assign({},form);
 		console.log('form', form);
-		this.setState({
-			url:this.getStationUrl(form)
-		});
+		var that = this;
+		setTimeout(function(){
+			that.setState({
+				url:that.getStationUrl(form)
+			});
+		},100);
+		
 	}
+	// 监听滚动事件
+	scrollLoad(){
+		let {form} = this.state;
+		var that = this;
+		console.log(this.iframeWindow);
+
+
+		$(window).bind('scroll',function(){
+			var top = $(window).scrollTop() || 0;
+            var height = $(window).height() || 0;
+            var scrollBottom = $('#planTable').offset().top - top - height;
+            var isOutBoundary =  scrollBottom >= 1;
+            console.log(isOutBoundary, scrollBottom >= 1);
+            if (!isOutBoundary) {
+            	console.log('load');
+            	that.iframeWindow.pagequery();
+            }
+		})
+
+	}
+
+	
 
   render() {
   	const {url} = this.state;
-  	console.log(this.state, url, 'url');
+  	let {tab} = this.props;
+		let {community} = this.state;
+		let {communityInfoFloorList} = this.props;
+
+  	console.log(this.state, url, 'url', community);
+  	if(tab === 'floorplan'){
+  			this.scrollLoad();
+  	}else{
+  		$(window).unbind('scroll',this.scrollLoad());
+  	}
     return (
 
-		 <div>
-		 	<Form name="planTable" onSubmit={this.onSubmit}>
-				<KrField grid={1/5}  name="floor" component="input" label="楼层" />
-				<KrField grid={1/5}  name="start" component="date" label="注册时间" />
-				<KrField grid={1/5}  name="end" component="date"  label="至" />
+		 <div id="planTable">
+		 	<Form name="planTable" onSubmit={this.onSubmit} >
+				<KrField name="floor"  grid={1/1} component="select" label="楼层" options={communityInfoFloorList}/>
+				<KrField grid={1/1}  name="start" component="date" label="注册时间" />
+				<KrField grid={1/1}  name="end" component="date"  label="至" />
 				<Button  label="确定" type="submit" primary={true} />
 			</Form>
-			<IframeContent src={url} onClose={this.onIframeClose}/>
+			<IframeContent src={url} onClose={this.onIframeClose} id="floorIframe" onLoad={this.onLoad}/>
 
 		</div>
 	);

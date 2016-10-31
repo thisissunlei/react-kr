@@ -108,9 +108,7 @@ const validate = values =>{
 		if (!values.ordernum) {
 			errors.ordernum = '请填写排序号';
 		}
-		if (!values.enableflag) {
-			errors.enableflag = '请先选择是否启用';
-		}
+	
 
 
 		return errors

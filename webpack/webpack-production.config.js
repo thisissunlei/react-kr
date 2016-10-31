@@ -40,7 +40,7 @@ const config = {
 				comments: false,
 			},
 		}),
-		new webpack.optimize.CommonsChunkPlugin({name:'common', filename:'common.js'}),
+		//new webpack.optimize.CommonsChunkPlugin({name:'common', filename:'common.js'}),
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: JSON.stringify('production'),
@@ -56,7 +56,8 @@ const config = {
 			inject:'body',
 			hash:true,
 			cache:true,
-			showErrors:false
+			showErrors:false,
+			chunksSortMode:'none'
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
 		new webpack.NoErrorsPlugin(),

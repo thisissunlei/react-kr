@@ -70,11 +70,11 @@ class NewCreateForm  extends Component{
 
 	componentDidMount(){
 		let {initialValues}= this.props;
-		Store.dispatch(initialize('joinCreateForm',initialValues));
+		Store.dispatch(initialize('exitEditForm',initialValues));
 	}
 
 	onChangeSearchPersonel(personel){
-		Store.dispatch(change('joinCreateForm','lessorContacttel',personel.mobile));
+		Store.dispatch(change('exitEditForm','lessorContacttel',personel.mobile));
 	}
 
 	onSubmit(form){
@@ -83,12 +83,11 @@ class NewCreateForm  extends Component{
 
 		form = Object.assign({},form);
 
-    form.lessorAddress = changeValues.lessorAddress;
-		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd h:MM:ss");
-    form.leaseBegindate = dateFormat(form.leaseBegindate,"yyyy-mm-dd h:MM:ss");
-		form.leaseEnddate = dateFormat(form.leaseEnddate,"yyyy-mm-dd h:MM:ss");
-
-		console.log('---form',form);
+    	form.lessorAddress = changeValues.lessorAddress;
+		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd hh:MM:ss");
+    	form.leaseBegindate = dateFormat(form.leaseBegindate,"yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = dateFormat(form.leaseEnddate,"yyyy-mm-dd hh:MM:ss");
+		form.withdrawdate = dateFormat(form.withdrawdate,"yyyy-mm-dd hh:MM:ss");
 
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
@@ -159,7 +158,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}  requireLabel={true}/>
-				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/>
+				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}  defaultValue="无"/>
 				<KrField grid={1/2}  name="lessorContactid" component="search" label="联系人" onChange={this.onChangeSearchPersonel}  placeholder={optionValues.lessorContactName} requireLabel={true}/>
 				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}/>
 
@@ -253,9 +252,9 @@ const validate = values =>{
 		return errors
 	}
 
-const selector = formValueSelector('joinCreateForm');
+const selector = formValueSelector('exitEditForm');
 
-NewCreateForm = reduxForm({ form: 'joinCreateForm',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
+NewCreateForm = reduxForm({ form: 'exitEditForm',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
 
 export default connect((state)=>{
 

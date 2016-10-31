@@ -31,6 +31,7 @@ export default  class JoinCreate extends Component {
 			formValues:{},
 			openConfirmCreate:false
 		}
+		 Store.dispatch(reset('increaseCreateForm'));
 	}
 
 	 onCreateSubmit(formValues){
@@ -47,7 +48,8 @@ export default  class JoinCreate extends Component {
 
 		let {formValues} = this.state;
 		let {params} = this.props;
-		console.log(formValues)
+		formValues.stationVos = JSON.stringify(formValues.stationVos);
+
 		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract',{},formValues)).then(function(response){
 			Notify.show([{
 				message:'创建成功',

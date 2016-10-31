@@ -17,6 +17,10 @@ import ConfirmFormDetail from './ConfirmFormDetail';
 
 export default  class JoinCreate extends Component {
 
+  static contextTypes = {
+      params: React.PropTypes.object.isRequired
+  }
+
   constructor(props,context){
     super(props, context);
 
@@ -32,6 +36,9 @@ export default  class JoinCreate extends Component {
       formValues:{},
       openConfirmCreate:false
     }
+    
+     Store.dispatch(reset('reduceCreateForm'));
+
   }
 
    onCreateSubmit(formValues){
@@ -66,7 +73,8 @@ export default  class JoinCreate extends Component {
   }
 
   onCancel(){
-    window.history.back();
+    let {params} = this.context;
+    window.location.href =  `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
   }
 
    openConfirmCreateDialog(){
