@@ -239,7 +239,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="signdate"  component="date"  label="签署时间" requireLabel={true} />
 				<KrField grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"  requireLabel={true} /> 
 
-				<KrField grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" /> 
+				<KrField grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" requireLabel={true} /> 
 
 				<KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true}  />
 

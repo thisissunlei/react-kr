@@ -473,7 +473,13 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true} />
 				<KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true} />
 				<KrField grid={1/2}  name="contractmark" component="textarea" label="备注" />
-				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} />
+
+
+
+				<KrField grid={1}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
+				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
+					Store.dispatch(change('increaseCreateForm','contractFileList',files));
+				}} />
 
 				<KrField grid={1/1} component="group" label=" 租赁项目">
 					<KrField grid={1}  name="stationnum"  component="labelText" label="工位" value={changeValues.stationnum} defaultValue="0"/>

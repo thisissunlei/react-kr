@@ -123,7 +123,7 @@ export default class ConfirmFormDetail  extends Component{
 
 
 							 <KrField grid={1}   component="labelText" label="备注" value={detail.contractmark}/> 
-							 <KrField grid={1}   component="labelText" label="上传附件" value={detail.fileIdList} /> 
+					
 
 							<KrField component="group" label="上传附件">
 									{detail.contractFileList && detail.contractFileList.map((item,index)=>{

@@ -279,6 +279,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}/>
 
 				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
+
 				<KrField grid={1}  name="rentamount" type="text"  component="input" label="减租金额" /> 
 
 				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" />
