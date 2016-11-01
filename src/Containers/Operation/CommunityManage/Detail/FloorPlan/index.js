@@ -35,7 +35,6 @@ export default  class FloorPlan extends Component {
 		this.onLoad = this.onLoad.bind(this);
 		console.log('this.props',this.props,'props', props);
 		this.iframeWindow = null;
-		// this.setIframeWidth = this.setIframeWidth.bind(this);
 		this.state = {
 			url:this.getStationUrl(),
 			communityId:this.props.communityId,
@@ -59,7 +58,7 @@ export default  class FloorPlan extends Component {
 	onLoad(iframeWindow){
 
 		this.iframeWindow = iframeWindow;
-		console.log('-----------load', iframeWindow.document.body.scrollHeight);
+		console.log('-----------load', iframeWindow.document.body.scrollWidth);
 
 
 	}
@@ -79,14 +78,7 @@ export default  class FloorPlan extends Component {
 	     let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanList?communityId={communityId}&wherefloor={wherefloor}&date={date}&dateend={dateend}";
 
 		var formList = form || {};
-		// let {community} = this.state;
-		// if(form){
-		// 	this.setState({
-		// 		form:formList
-		// 	});
-		// };
 		let params;
-		console.log('formList', formList);
 		params = {
 			communityId:'',
 			wherefloor:'',
@@ -103,6 +95,8 @@ export default  class FloorPlan extends Component {
 			}
 		};
 
+  	console.log('url------width',$('#planTable'), $('#planTable').width());
+
 		return url ;
 	}
 	onSubmit(form){
@@ -114,7 +108,6 @@ export default  class FloorPlan extends Component {
 			date: dateFormat(form.start,"yyyy.mm.dd") || dateFormat(new Date(),"yyyy.mm.dd"),
 			dateend: dateFormat(form.end,"yyyy.mm.dd")|| dateFormat(new Date(),"yyyy.mm.dd"),
 		};
-		console.log(params, that.iframeWindow);
 		that.iframeWindow.query(params);
 		
 	}
@@ -126,7 +119,6 @@ export default  class FloorPlan extends Component {
             var height = $(window).height() || 0;
             var scrollBottom = $('#planTable').offset().top - top - height;
             var isOutBoundary =  scrollBottom >= 1;
-            console.log(isOutBoundary, scrollBottom >= 1);
             if (!isOutBoundary) {
             	that.iframeWindow.pagequery();
             }
@@ -141,15 +133,13 @@ export default  class FloorPlan extends Component {
   	let {tab} = this.props;
 		let {communityId} = this.state;
 		let {communityInfoFloorList} = this.props;
-
-		// console.log('-----------load', this.iframeWindow.document.body.scrollHeight);
-
-  	console.log('url', this.state);
   	if(tab === 'floorplan'){
   			this.scrollLoad();
   	}else{
   		$(window).unbind('scroll',this.scrollLoad());
   	}
+  	console.log('width',$('#planTable'), $('#planTable').width());
+  	const width = $('#planTable').width() || 900;
     return (
 
 		 <div id="planTable">
@@ -159,7 +149,7 @@ export default  class FloorPlan extends Component {
 				<KrField grid={1/4}  name="end" component="date"  label="至" />
 				<Button  label="确定" type="submit" primary={true} style={{marginLeft:100}}/>
 			</Form>
-			<IframeContent src={url} onClose={this.onIframeClose} className="floorIframe" onLoad={this.onLoad} width={900}/>
+			<IframeContent src={url} onClose={this.onIframeClose} className="floorIframe" onLoad={this.onLoad} width={width} scrolling="no"/>
 
 		</div>
 	);
