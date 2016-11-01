@@ -25,12 +25,17 @@ export default class Pagination extends Component {
 		this.renderLast = this.renderLast.bind(this);
 		this.renderBody = this.renderBody.bind(this);
 
-	}
 
+	}
 
 	onPrev(){
 
-		var page = this.props.page;
+		var {page} = this.props;
+
+		if(page == 1){
+			return ;
+		}
+
 		if(page>0){
 			page--;
 		}
@@ -45,6 +50,11 @@ export default class Pagination extends Component {
 
 		let {page,pageSize,totalCount} = this.props;
 
+		if(page == Math.ceil(totalCount/pageSize)){
+			return ;
+		}
+
+
 		if(page>0 && page<Math.ceil(totalCount/pageSize)){
 			page++;
 		}
@@ -57,6 +67,7 @@ export default class Pagination extends Component {
 	}
 
 	onPageChange(page){
+
 		const {onPageChange} = this.props;
 		onPageChange && onPageChange(page);
 	}

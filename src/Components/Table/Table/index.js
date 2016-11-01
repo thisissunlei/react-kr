@@ -197,7 +197,7 @@ export default class Table extends React.Component {
 
 	onExport(){
 
-		let {selectedRows,visibilityRows}  = this.state;
+		let {selectedRows,visibilityRows,listData}  = this.state;
 
 		//console.log('selectedRows',this.state.selectedRows,'visibilityRows',this.state.visibilityRows);
 		var result = [];
@@ -207,7 +207,6 @@ export default class Table extends React.Component {
 				result.push(index);
 			}
 		});
-
 
 	}
 
