@@ -32,7 +32,7 @@ export default  class CommunityManage extends Component {
 		this.state = {
 			tab:'plan',
 			communityInfoList:[],
-			community:''
+			community:'',
 		}
 		
 	}
@@ -88,6 +88,30 @@ export default  class CommunityManage extends Component {
 
 	}
 	
+
+	getCommunityFloors(id){
+		console.log('floors',id);
+		let communityid = {communityid:id};
+		var communityInfoFloorList;
+		var that = this;
+	 	Store.dispatch(Actions.callAPI('getCommunityFloors', communityid)).then(function(response){
+			
+			communityInfoFloorList = response.floors.map(function(item,index){
+				item.value = item.id;
+				item.label = item.name;
+				return item;
+			});
+			that.setState({
+				communityInfoFloorList
+			});
+		}).catch(function(err){
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+	   	});
+	 }
+
 	
 
 	
@@ -99,6 +123,7 @@ export default  class CommunityManage extends Component {
   	var {communityInfoList, communityInfoFloorList} = this.state;
   	let {community} = this.state;
   	console.log('id', community);
+
 
   	
     return (

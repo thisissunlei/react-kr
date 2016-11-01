@@ -48,6 +48,7 @@ export default class ItemTable extends Component {
     onDismantling: React.PropTypes.func,
   }
 
+
   constructor(props, context) {
     super(props, context);
 
@@ -127,112 +128,11 @@ export default class ItemTable extends Component {
   }
   render() {
 
-    let {
-      activity
-    } = this.state;
-    var contractInstallmentplanVo = [{
-      "installmentAmount": 3000,
-      "installmentBegindate": 1451620800000,
-      "installmentEnddate": 1459483200000,
-      "name": "唐朝",
-      "phone": "13317199888",
-      "stationnum": 5
-    }, {
-      "installmentAmount": 3000,
-      "installmentBegindate": 1459483200000,
-      "installmentEnddate": 1467345600000,
-      "name": "唐朝",
-      "phone": "13317199888",
-      "stationnum": 10
-    }, {
-      "installmentAmount": 3000,
-      "installmentBegindate": 1467345600000,
-      "installmentEnddate": 1475294400000,
-      "name": "唐朝",
-      "phone": "13317199888",
-      "stationnum": 10
-    }, {
-      "installmentAmount": 3000,
-      "installmentBegindate": 1475294400000,
-      "installmentEnddate": 1483156800000,
-      "name": "唐朝",
-      "phone": "13317199888",
-      "stationnum": 10
-    }, ];
-    var finaBluePointVo = [{
-      "finaName": "入驻意向书",
-      "pointDate": 1477557209000
-    }, {
-      "finaName": "入住协议书",
-      "pointDate": 1466049600000
-    }, {
-      "finaName": "增租协议书",
-      "pointDate": 1477568858000
-    }, {
-      "finaName": "续租协议书",
-      "pointDate": 1477572574000
-    }];
 
-    var finaRedPointVo = [{
-      "pointDate": 1477568292000
-    }, {
-      "pointDate": 1451620800000
-    }, {
-      "pointDate": 1458187200000
-    }, {
-      "pointDate": 1466049600000
-    }, {
-      "pointDate": 1473998400000
-    }, {
-      "pointDate": 1477568862000
-    }, {
-      "pointDate": 1477572578000
-    }, {
-      "pointDate": 1477454400000
-    }, {
-      "pointDate": 1458187200000
-    }, {
-      "pointDate": 1466049600000
-    }, {
-      "pointDate": 1473998400000
-    }];
-    var contractTypeVo = [{
-      "contractCount": 1,
-      "contractName": "入驻意向书",
-      "contractTime": 1477557209000,
-      "contractType": 1,
-      "id": 0
-    }, {
-      "contractCount": 1,
-      "contractName": "入住协议书",
-      "contractTime": 1477568288000,
-      "contractType": 2,
-      "id": 0
-    }, {
-      "contractCount": 1,
-      "contractName": "增租协议书",
-      "contractTime": 1477568858000,
-      "contractType": 3,
-      "id": 0
-    }, {
-      "contractCount": 3,
-      "contractName": "续租协议书",
-      "contractTime": 1477572574000,
-      "contractType": 4,
-      "id": 0
-    }, {
-      "contractCount": 0,
-      "contractName": "减租协议书",
-      "contractType": 5,
-      "id": 0
-    }, {
-      "contractCount": 0,
-      "contractName": "退租协议书",
-      "contractType": 6,
-      "id": 0
-    }];
-
-
+	  let {activity} = this.state;
+    let {detail} = this.props;
+        
+	 
     return (
 
       <tr className="last-td" >
@@ -241,14 +141,14 @@ export default class ItemTable extends Component {
 							<ReactTooltip place="right">
 								<ul>
 								{
-									this.renderOrder(contractTypeVo)
+									this.renderOrder(detail.contractTypeVo)
 								}
 								</ul>
 							</ReactTooltip>
 							</div>
 						</td>
 						<td colSpan="12">
-							<D3Content detail={contractInstallmentplanVo} finaBluePointVo={finaBluePointVo} finaRedPointVo={finaRedPointVo}/>
+							<D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo}/>
 							<EmployessTable activity={activity}/>
 						</td>
 						<td>

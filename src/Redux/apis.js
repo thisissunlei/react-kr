@@ -343,6 +343,16 @@ const APIS  = {
 		url:'/api-old/sys/sysdatarights/sysDatarights/getSelfDatarights',
 		method:'get'
 	},
+	// 获取社区楼层数据
+	'getCommunityFloors':{
+		url:'/api-old/krspace_operate_web/commnuity/communityBase/getCommunityFloors?communityid={communityid}',
+		method:'get'
+	},
+	// 计划表获取数据
+	'getInstallmentplan':{
+		url:'/api/krspace-finance-web/finacontractdetail/getInstallmentplan?year={year}&communityids={communityids}',
+		method:'get'
+	},
 }
 
 module.exports =  APIS;
