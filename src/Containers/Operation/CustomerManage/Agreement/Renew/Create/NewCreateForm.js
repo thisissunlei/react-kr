@@ -77,7 +77,6 @@ class NewCreateForm  extends Component{
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
-		this.reduceMoney = this.reduceMoney.bind(this);
 		this.state = {
 			stationVos:[],
 			selectedStation:[],
@@ -106,60 +105,18 @@ class NewCreateForm  extends Component{
 		
 	}
 
-// station list
 	onStationCancel(){
 		this.openStationDialog();
 	}
 
 	onStationSubmit(stationVos){
-
-		stationVos.map((item)=>{
-			item.leaseBeginDate = dateFormat(item.leaseBeginDate,"yyyy-mm-dd hh:MM:ss");
-			item.leaseEndDate = dateFormat(item.startDate,"yyyy-mm-dd hh:MM:ss");
-		});
-
 		this.setState({
 			stationVos
 		});
 
 		this.openStationDialog();
-		this.reduceMoney(stationVos, 'add');
 	}
 
-	// 计算减租金额
-	reduceMoney(selectedList,from){
-		console.log(selectedList);
-		
-		if(from === 'add'){
-			var {rentamount} = this.state;
-		}else{
-			var rentamount = 0;
-		}
-		console.log('result', rentamount);
-		var sum  = rentamount;
-		selectedList.forEach(function(value){
-			
-			try{
-				var price = parseFloat((value.unitprice*12/365).toFixed(2));
-				var start = Date.parse(value.leaseBeginDate);
-				var  end= Date.parse(value.leaseEndDate);
-				var num =  Math.floor((end-start)/(3600*24*1000));
-				sum += num*price;
-				return parseFloat(sum).toFixed(2);
-
-
-			}catch(err){
-				console.log(err,'err');
-			}
-
-			
-		});
-		console.log(sum);
-		this.setState({
-			rentamount:sum
-		});
-
-	}
 
 	//删除工位
 	onStationDelete(){
@@ -172,7 +129,6 @@ class NewCreateForm  extends Component{
 			}
 			return true;
 		});
-		this.reduceMoney(stationVos, 'less');
 		this.setState({
 			stationVos
 		});
@@ -285,7 +241,10 @@ class NewCreateForm  extends Component{
 
 				<KrField grid={1/2}  name="signdate"  component="date"  label="签署时间" requireLabel={true} />
 				<KrField grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"  requireLabel={true} /> 
-				<KrField grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true} /> 
+
+				<KrField grid={1/2}  name="totalrent" component="labelText" label="租金总额"  requireLabel={true} value={changeValues.totalrent} defaultValue="0" /> 
+				<KrField grid={1/2}  name="totalrent" type="hidden" component="input" label="租金总额" /> 
+
 				<KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true}  />
 
 				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" />
@@ -432,11 +391,13 @@ export default connect((state)=>{
 
 	changeValues.lessorId = selector(state,'lessorId');
 	changeValues.leaseId = selector(state,'leaseId');
-	changeValues.stationnum = selector(state,'stationnum') || 0;
-	changeValues.boardroomnum = selector(state,'boardroomnum') || 0;
-	changeValues.leaseBegindate = selector(state,'leaseBegindate') || 0;
-	changeValues.leaseEnddate = selector(state,'leaseEnddate') || 0;
-	changeValues.wherefloor = selector(state,'wherefloor') || 0;
+	changeValues.stationnum = selector(state,'stationnum');
+	changeValues.boardroomnum = selector(state,'boardroomnum');
+	changeValues.leaseBegindate = selector(state,'leaseBegindate');
+	changeValues.leaseEnddate = selector(state,'leaseEnddate');
+	changeValues.wherefloor = selector(state,'wherefloor');
+
+	changeValues.totalrent = selector(state,'totalrent');
 
 
 	return {

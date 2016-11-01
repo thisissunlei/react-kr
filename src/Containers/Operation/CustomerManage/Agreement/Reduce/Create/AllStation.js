@@ -158,28 +158,35 @@ onChangeRentBeginDate(value){
 		  }
 
 	  //修改日期
-	selectedStationVos.map(function(item,index){
-		item.leaseBeginDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
-		item.leaseEndDate = dateFormat(item.rentBeginDate,'yyyy-mm-dd');
-		return item;
+	var resultStationVos = [];
+	selectedStationVos.forEach(function(item,index){
+		var obj = {};
+		obj.id = item.id;
+		obj.stationId = item.stationId;
+		obj.stationName = item.stationName;
+		obj.unitprice = item.unitprice;
+		obj.leaseBeginDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
+		obj.leaseEndDate = item.rentBeginDate;
+		resultStationVos.push(obj);
 	});
+
+	selectedStationVos = resultStationVos;
 
 	let beginDate = Date.parse(selectedStationVos[0].leaseBeginDate);
 	let endDate = Date.parse(selectedStationVos[0].leaseEndDate);
 
 	 if(beginDate>= endDate){
 			Notify.show([{
-				message:'选择的工位租赁结束时间不能大于续租结束时间',
+				message:'选择的工位租赁结束时间不能大于减租结束时间',
 				type: 'danger',
 			  }]);
 			  return false;
 	  }
 
 	Store.dispatch(change('reduceCreateForm','leaseBegindate',selectedStationVos[0].leaseEndDate));
-
+	
 	const {onSubmit} = this.props;
 	onSubmit && onSubmit(selectedStationVos);
-
   }
 
 

@@ -119,7 +119,7 @@ export default class ConfirmFormDetail  extends Component{
 
 							 <KrField grid={1}   component="labelText" label="租赁用途" value={detail.rentaluse}/> 
 
-							 <KrField grid={1/2}   component="labelText"  label="租金总额" placeholder="" value={detail.totaldeposit}/> 
+							 <KrField grid={1/2}   component="labelText"  label="租金总额" placeholder="" value={detail.totalrent}/> 
 							 <KrField grid={1/2}    component="labelText" label="押金总额" value={detail.totaldeposit}/>
 
 
