@@ -1,8 +1,18 @@
 
 import React from 'react';
 
+import FormItem from './Item';
+import FormLabel from './Label';
+import FormController from './Controller';
+
 export default class  WrapComponent extends React.Component {
 
+	static PropTypes = {
+		label:React.PropTypes.string,
+		requireLabel:React.PropTypes.bool,
+		children:React.PropTypes.node,
+		wrapStyle:React.PropTypes.object,
+	}
 
 	constructor(props){
 		super(props)
@@ -10,24 +20,27 @@ export default class  WrapComponent extends React.Component {
 
 	render(){
 
-		let {requireLabel,label,children} = this.props;
+		let {requireLabel,label,children,wrapStyle,style} = this.props;
 
-			return (
-					<div className="form-item-wrap">
-								<div className="form-item">
-								<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
-								<div className="form-main">
-								<div className="form-input-main">
-								<div className="form-input">
-									{children}
-								</div>
-								</div>
-								</div>
-							</div>	
-					</div>
-				);
+		return (
+				<FormItem style={wrapStyle}>
+					<FormLabel label={label}  requireLabel={requireLabel}/>
+					<FormController style={style}>
+						{children}
+					</FormController>
+				</FormItem>
+			);
+
+
 	}
 }
+
+
+
+
+
+
+
 
 
 
