@@ -58,9 +58,11 @@ export default class ItemTable extends Component {
     this.renderOrder = this.renderOrder.bind(this);
     this.onhref = this.onhref.bind(this);
 
+
     this.state = {
       activity: false,
       Dismantling: false,
+      show: false,
     }
 
   }
@@ -90,6 +92,7 @@ export default class ItemTable extends Component {
     })
 
   }
+
 
   //查看员工跳转地址
   onhref() {
@@ -129,10 +132,14 @@ export default class ItemTable extends Component {
   render() {
 
 
-	  let {activity} = this.state;
-    let {detail} = this.props;
+    let {
+      activity
+    } = this.state;
+    let {
+      detail
+    } = this.props;
     let width = 700;
-	 
+
     return (
 
       <tr className="last-td" >
@@ -151,10 +158,21 @@ export default class ItemTable extends Component {
 							<D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} width={width}/>
 							<EmployessTable activity={activity}/>
 						</td>
-						<td>
-							<Button className="Station" type="link" primary={true} label="分配工位" onTouchTap={this.onStation}/>
-							<Button className="Dismantling" type="link" primary={true} label="撤场" 	onTouchTap={this.onDismantling}/>
-							<Button className="preson" type="link" primary={true} label="员工" onTouchTap={this.onhref}/>
+						<td className="btnlist">
+							<Button className="Station" type="link" primary={true} label="" onTouchTap={this.onStation} />
+                <div className="tip hide  hover">
+                   分配工位 < span className = "bArrow" > < /span>
+                </div>
+					    <Button className="Dismantling" type="link" primary={true} label="" 	onTouchTap={this.onDismantling}/>
+                  <div className="tip hide hover ">
+                       撤场日期 <span className = "bArrow"></span>
+                 </div>
+  						<Button className="preson" type="link" primary={true} label="" onTouchTap={this.onhref}/>
+                <div className="tip hide  hover">
+                      查看员工 <span className = "bArrow"></span>
+                </div>
+                
+
 						</td>
 					</tr>
 

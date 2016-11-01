@@ -25,6 +25,7 @@ import {
 	Button,
 	Notify,
 	BreadCrumbs,
+	KrField
 } from 'kr-ui';
 
 import './index.less';
@@ -32,6 +33,27 @@ import './index.less';
 import EmployessTable from './EmployessTable';
 import ItemTable from './ItemTable';
 import DismantlingForm from './DismantlingForm';
+
+/*class searchForm extends Component {
+	constructor(props, context);
+
+	super(props, context);
+
+	render() {
+
+		return (
+
+
+
+		);
+
+
+	}
+
+
+}*/
+
+
 
 export default class BasicTable extends Component {
 
@@ -44,14 +66,14 @@ export default class BasicTable extends Component {
 		this.onConfrimSubmit = this.onConfrimSubmit.bind(this);
 		this.openDismantlingDialog = this.openDismantlingDialog.bind(this);
 		this.onDismantling = this.onDismantling.bind(this);
-    this.getInstallmentplan = this.getInstallmentplan.bind(this);
+		this.getInstallmentplan = this.getInstallmentplan.bind(this);
 
 		this.state = {
-			currentYear:'2016',
-			dismantling:false,
-			formValues:{},
-			Installmentplan:[],
-			rate:[]
+			currentYear: '2016',
+			dismantling: false,
+			formValues: {},
+			Installmentplan: [],
+			rate: []
 		};
 		console.log('00000000000000');
 		this.getInstallmentplan();
@@ -117,28 +139,33 @@ export default class BasicTable extends Component {
 	}
 
 
-	 getInstallmentplan(){
-    var that = this;
-    var Installmentplan,rate;
-    Store.dispatch(Actions.callAPI('getInstallmentplan',{communityids:1})).then(function(response){
-      Installmentplan = response.vo;
-      rate = response.rate;
-      that.setState({
-        Installmentplan,
-        rate
-      });
-    }).catch(function(err){
-      Notify.show([{
-        message:err.message,
-        type: 'danger',
-      }]);
-      });
+	getInstallmentplan() {
+		var that = this;
+		var Installmentplan, rate;
+		Store.dispatch(Actions.callAPI('getInstallmentplan', {
+			communityids: 1
+		})).then(function(response) {
+			Installmentplan = response.vo;
+			rate = response.rate;
+			that.setState({
+				Installmentplan,
+				rate
+			});
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
 
-  }
+	}
 
-  render() {
+	render() {
 
-	let {currentYear, Installmentplan} = this.state;
+		let {
+			currentYear,
+			Installmentplan
+		} = this.state;
 
 		return (
 
@@ -167,7 +194,7 @@ export default class BasicTable extends Component {
 		 			</div>
 		 		</div>
 		 		<div className="search">
-					
+					{ /*<searchForm />*/ }
 		 		</div>
 		 	</div>
 		 	
@@ -175,7 +202,7 @@ export default class BasicTable extends Component {
 				<thead>
 					<tr>
 						<th onClick={this.onPreYear} className="pre-year">
-							{currentYear}年
+							{currentYear -1}年 <span className="prev"></span>
 						</th>
 						<th>1月</th>
 						<th>2月</th>
@@ -190,7 +217,7 @@ export default class BasicTable extends Component {
 						<th>11月</th>
 						<th>12月</th>
 						<th onClick={this.onNextYear} className="next-year">
-								{currentYear - 1}年
+								{currentYear*1+1}年 <span className="next"></span>
 						</th>
 					</tr>
 				</thead>
