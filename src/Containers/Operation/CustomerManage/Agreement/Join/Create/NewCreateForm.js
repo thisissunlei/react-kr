@@ -456,7 +456,7 @@ class NewCreateForm  extends Component{
 
 				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" defaultValue={initialValues.signdate} requireLabel={true}/> 
 
-				<KrField name="firstpaydate" component="date" label="首付款时间"  /> 
+				<KrField name="firstpaydate" component="date" label="首付款时间" requireLabel={true}  /> 
 
 				<KrField grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"   requireLabel={true}  /> 
 
