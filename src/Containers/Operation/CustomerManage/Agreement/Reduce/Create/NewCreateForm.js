@@ -92,7 +92,6 @@ class NewCreateForm  extends Component{
 			selectedStation:[],
 			openStation:false,
 			openStationUnitPrice:false,
-			rentamount:0,
 		}
 	}
 
@@ -183,10 +182,10 @@ class NewCreateForm  extends Component{
 		form.list = stationVos;
 		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
-		form.leaseBegindate = stationVos[0].leaseBeginDate;
-		form.leaseEnddate = stationVos[0].leaseEndDate;
-		// form.lessorContactid = 111;
-		form.rentamount= this.state.rentamount;
+
+		form.leaseBegindate  = dateFormat(stationVos[0].leaseBeginDate,"yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate,"yyyy-mm-dd hh:MM:ss");
+
 		var _this = this;
 
 		form.stationVos =  stationVos;
@@ -214,7 +213,7 @@ class NewCreateForm  extends Component{
 			}
 		});
 
-		let {stationVos, rentamount} = this.state;
+		let {stationVos} = this.state;
 
 		return (
 	<div>
@@ -244,7 +243,9 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号" requireLabel={true} />
 
 				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
-				<KrField grid={1}  name="rentamount" type="labelText"  label="减租金额"  value={rentamount}/> {/*减租金额没有*/}
+
+				<KrField grid={1}  name="rentamount" component="labelText"  label="减租金额"  value={changeValues.rentamount} defaultValue="0"/> 
+				<KrField grid={1}  name="rentamount" component="input" type="hidden" /> 
 
 				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" />
 				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]}/>
@@ -376,7 +377,7 @@ export default connect((state)=>{
 	changeValues.leaseBegindate = selector(state,'leaseBegindate');
 	changeValues.leaseEnddate = selector(state,'leaseEnddate');
 	changeValues.wherefloor = selector(state,'wherefloor') || 0;
-
+	changeValues.rentamount = selector(state,'rentamount');
 
 	return {
 		changeValues
