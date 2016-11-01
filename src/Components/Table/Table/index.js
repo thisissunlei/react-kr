@@ -155,7 +155,6 @@ export default class Table extends React.Component {
 
 		let {listData} = this.state;
 
-		//console.log("---->>>",listData);
 
 
 		//listData = listData.splice(1,3);
@@ -318,6 +317,7 @@ export default class Table extends React.Component {
 
 		selectedRows = (new Array()).concat(selectedRows);
 
+
 		if(parseInt(selectedRows[rowNumber])){
 			selectedRows[rowNumber] = 0;
 		}else{
@@ -326,6 +326,8 @@ export default class Table extends React.Component {
 
 		this.setState({
 			selectedRows:selectedRows
+		},function(){
+			this.onSelect();
 		});
 
 		if(event.target.nodeName.toLowerCase() == 'input'){
@@ -393,8 +395,6 @@ export default class Table extends React.Component {
 				onSort:this.onSort,
 			}
 		);
-
-
 	}
 
 	createTableBody(base){
@@ -411,7 +411,6 @@ export default class Table extends React.Component {
 				defaultValue:this.state.defaultValue,
 				listData:this.state.listData,
 				ajax:this.props.ajax,
-				onSelect:this.onSelect,
 			}
 		);
 

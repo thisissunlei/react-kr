@@ -93,6 +93,7 @@ class SelectStationForm  extends Component{
   }
 
   onSelect(selected){
+	  console.log("---",selected);
     this.setState({
       selected
     });
