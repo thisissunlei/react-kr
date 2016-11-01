@@ -76,9 +76,7 @@ export default class BasicInfo extends Component{
 				            <KrDate.Format grid={1/3} value={detail.startdate} format="yyyy-mm-dd" component="labelText"/>
 			           </KrField>
 			           <KrField grid={1/3} label="结束日期" component="group">
-				          
-				            <KrDate.Format grid={1/3} value={detail.enddate} format="yyyy-mm-dd" component="labelText"/>
-				           
+				            <KrDate.Format grid={1/3} value={detail.enddate} format="yyyy-mm-dd" component="labelText"/>				           
 			           </KrField>
 			           <KrField grid={1/3} label="撤场日期" component="group">
 				           

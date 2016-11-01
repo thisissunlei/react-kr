@@ -76,7 +76,7 @@ module.exports = {
 						{
 							primaryText:'基本信息',
 							router:'/operation/communityManage/detail',
-							originUrl:'/'
+						
 						},
 					]
 				},
