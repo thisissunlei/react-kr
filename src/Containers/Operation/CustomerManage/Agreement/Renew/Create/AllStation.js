@@ -129,6 +129,9 @@ class SelectStationForm  extends Component{
 		if(!item.startDate){
 			someStartDate = false;
 		}
+
+		item.leaseBeginDate =  dateFormat(item.leaseBeginDate,'yyyy-mm-dd hh:MM:ss');
+		item.leaseEndDate =  dateFormat(item.leaseEndDate,'yyyy-mm-dd hh:MM:ss');
 	});
 
 	  if(!someStartDate){
@@ -162,10 +165,10 @@ class SelectStationForm  extends Component{
 		}
 	}
 
-	let beginDate = selectStationVos[0].leaseEndDate;
-	let endDate = selectStationVos[0].leaseEndDate;
+	let beginDate = Date.parse(selectStationVos[0].leaseEndDate);
+	let endDate = Date.parse(selectStationVos[0].startDate);
 
-  if(Date.parse(beginDate)>= Date.parse(endDate)){
+  if(beginDate>= endDate){
 		Notify.show([{
 			message:'选择的工位租赁结束时间不能大于续租结束时间',
 			type: 'danger',
@@ -173,8 +176,7 @@ class SelectStationForm  extends Component{
 		  return false;
   }
 
-
-	Store.dispatch(change('reduceCreateForm','leaseBegindate',selectStationVos[0].leaseEndDate));
+Store.dispatch(change('reduceCreateForm','leaseBegindate',selectStationVos[0].leaseEndDate));
  const {onSubmit} = this.props;
    onSubmit && onSubmit(selectStationVos);
 
