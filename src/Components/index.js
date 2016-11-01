@@ -2,6 +2,7 @@
 import Calendar from './Calendar';
 import Dialog from './Dialog';
 import Section from './Section';
+import SelfAdaption from './SelfAdaption';
 import Form from './Form/index';
 import BreadCrumbs from './BreadCrumbs';
 import Table from './Table/index';
@@ -15,7 +16,11 @@ import Notify from './Notify';
 import IframeContent from './IframeContent';
 //import Tabs from './Tabs/index';
 import PageHeader from './PageHeader';
-import {Grid,Row,Col} from './Grid';
+import {
+	Grid,
+	Row,
+	Col
+} from './Grid';
 
 
 
@@ -33,8 +38,14 @@ import {
 	Snackbar,
 } from 'material-ui';
 
-import {List, ListItem} from 'material-ui/List';
-import {Tabs, Tab} from 'material-ui/Tabs';
+import {
+	List,
+	ListItem
+} from 'material-ui/List';
+import {
+	Tabs,
+	Tab
+} from 'material-ui/Tabs';
 
 module.exports = {
 	//Components
@@ -53,9 +64,11 @@ module.exports = {
 	List,
 	ListItem,
 	Checkbox,
+	SelfAdaption,
 	...Form,
 	...Table,
 	...Button,
+
 
 	//materal-ui
 	Menu,
