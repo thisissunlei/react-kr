@@ -47,7 +47,7 @@ class Distribution extends Component {
 	render(){
 
 		let { optionValues,stationId,customerId,communityId} = this.props;
-		console.log(this.props)
+		
 		let initialValues = {};
 			initialValues.stationId=stationId;
 			initialValues.customerId=customerId;
@@ -190,7 +190,7 @@ export default  class EmployessTable extends Component {
 			communityId:itemDetail.communityId
 		})
 		let optionValues = {};
-		console.log('itemDetail',itemDetail)
+		
 		const formValues={
 			customerId:itemDetail.customerId,
 			communityId:itemDetail.communityId
@@ -216,7 +216,7 @@ export default  class EmployessTable extends Component {
 	}
 
 	openDistributionStation(itemDetail){
-		console.log('itemDetail',itemDetail)
+		
 		var _this=this;
 		this.setState({
 			openDistribution:!this.state.openDistribution,
@@ -268,8 +268,6 @@ export default  class EmployessTable extends Component {
 			this.setState({
 				openNewmeber:!this.state.openNewmeber
 			});
-
-			console.log('nnnnn',from)
 			this.onChangeCancel();
 		}else{
 
@@ -302,10 +300,8 @@ export default  class EmployessTable extends Component {
 	}
 
 	getStationUrl(){
-		let {customerId,communityId}=this.state
-		console.log('customerId',customerId,'communityId',communityId)
+		let {customerId,communityId}=this.state;
 	    let url = `http://optest.krspace.cn/krspace_member_web/member/toAddMember?companyId=${customerId}&communityId=${communityId}`;
-	    console.log('url',url)
 		return url ;
 	}
 

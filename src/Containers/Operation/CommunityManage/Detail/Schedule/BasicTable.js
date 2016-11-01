@@ -1,7 +1,20 @@
-import React, {Component, PropTypes} from 'react';
-import { connect } from 'kr/Redux';
-import {reduxForm,submitForm,change,reset} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
+import {
+	connect
+} from 'kr/Redux';
+import {
+	reduxForm,
+	submitForm,
+	change,
+	reset
+} from 'redux-form';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 
 import {
 	Tabs,
@@ -20,40 +33,40 @@ import EmployessTable from './EmployessTable';
 import ItemTable from './ItemTable';
 import DismantlingForm from './DismantlingForm';
 
-export default  class BasicTable extends Component {
+export default class BasicTable extends Component {
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 
 		this.onPreYear = this.onPreYear.bind(this);
 		this.onNextYear = this.onNextYear.bind(this);
-		this.onCancel =this.onCancel.bind(this);
+		this.onCancel = this.onCancel.bind(this);
 		this.onConfrimSubmit = this.onConfrimSubmit.bind(this);
 		this.openDismantlingDialog = this.openDismantlingDialog.bind(this);
 		this.onDismantling = this.onDismantling.bind(this);
 
 		this.state = {
-			currentYear:'2016',
-			dismantling:false,
-			formValues:{},
+			currentYear: '2016',
+			dismantling: false,
+			formValues: {},
 		}
 
 	}
 
-	componentDidMount(){
+	componentDidMount() {
+
+		}
+		//撤场
+	onDismantling() {
+		this.openDismantlingDialog();
+	}
+
+	onCancel() {
 
 	}
-	//撤场
-	onDismantling(){
-       this.openDismantlingDialog();
-	}
-	
-	onCancel(){
-
-	}
-	onConfrimSubmit(formValues){
-		console.log('formValues',formValues)
-		/*Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
+	onConfrimSubmit(formValues) {
+		console.log('formValues', formValues)
+			/*Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
 			console.log("response",response);
 
 			Notify.show([{
@@ -70,38 +83,69 @@ export default  class BasicTable extends Component {
 
 
 	}
-	
-	openDismantlingDialog(){
+
+	openDismantlingDialog() {
 		this.setState({
-			dismantling:!this.state.dismantling
+			dismantling: !this.state.dismantling
 		})
 	}
 
 
-	onPreYear(){
-		let {currentYear} = this.state;
+	onPreYear() {
+		let {
+			currentYear
+		} = this.state;
 		currentYear--;
 		this.setState({
 			currentYear
 		});
 	}
 
-	onNextYear(){
-		let {currentYear} = this.state;
+	onNextYear() {
+		let {
+			currentYear
+		} = this.state;
 		currentYear++;
 		this.setState({
 			currentYear
 		});
 	}
 
-  render() {
+	render() {
 
-	let {currentYear} = this.state;
-    return (
+		let {
+			currentYear
+		} = this.state;
+		return (
 
-		 <div>
-
-			<table className="basic-table">
+			<div>
+		 	<div className="basic-con">
+		 		<div className="legend">
+		 			<div className="legend-left">
+		 				<p>
+		 					<span className="square bule"></span>
+		 					<span className="txt" >当前的分期时间</span>
+		 				</p>
+		 				<p>
+		 					<span className="square grey"></span>
+		 					<span className="txt">过去的分期时间</span>
+		 				</p>
+		 			</div>
+		 			<div className="legend-right">
+		 				<p>
+							<span className="circle red"></span>
+		 					<span className="txt" >催账时间</span>
+		 				</p>
+		 				<p>
+							<span className="circle green"></span>
+		 					<span className="txt" >工位变更</span>
+		 				</p>
+		 			</div>
+		 		</div>
+		 		<div className="search"></div>
+		 	</div>
+		 	
+			<table className="basic-table" >
 				<thead>
 					<tr>
 						<th onClick={this.onPreYear} className="pre-year">
@@ -126,11 +170,11 @@ export default  class BasicTable extends Component {
 				</thead>
 				<tbody>
 					{/*入住率*/}
-					<tr>
+					<tr className="header-td">
 						<td>
 							<div className="header-title">
-								<span>入驻率</span>
-								<span>订单名称</span>
+								<p className="title-right">入驻率</p>
+								<p  className="title-left">订单名称</p>
 							</div>
 						</td>
 						<td>35%</td>
@@ -145,6 +189,7 @@ export default  class BasicTable extends Component {
 						<td>35%</td>
 						<td>40%</td>
 						<td>30%</td>
+						<td></td>
 					</tr>
 					<ItemTable onDismantling={this.onDismantling} item={{name:'ddd'}}/>
 				</tbody>
@@ -160,11 +205,6 @@ export default  class BasicTable extends Component {
 			  </Dialog>
 			
 		</div>
-	);
-  }
+		);
+	}
 }
-
-
-
-
-

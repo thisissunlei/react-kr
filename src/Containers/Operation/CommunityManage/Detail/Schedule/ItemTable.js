@@ -245,7 +245,7 @@ export default  class ItemTable extends Component {
 	 
     return (
 
-				<tr>
+				<tr className="last-td" >
 						<td>
 							<div className="company-name" data-tip> 诚意有限公司 
 							<ReactTooltip place="right">
