@@ -1,6 +1,8 @@
 import React from 'react';
 import KrDate from '../../../Date';
 
+import './index.less';
+
 export default class  LabelTextComponent extends React.Component {
 
 
@@ -15,7 +17,7 @@ export default class  LabelTextComponent extends React.Component {
 			if(type == 'date'){
 					return (
 
-						<div className="form-item-wrap" style={style}>
+						<div className="ui-label-text" style={style}>
 							 <div className="label-item">
 								{label && <label className="form-label">{label}:</label> }
 								<div className="form-main">
@@ -36,7 +38,7 @@ export default class  LabelTextComponent extends React.Component {
 
 			return (
 
-				<div className="form-item-wrap" style={style}>
+				<div className="ui-label-text" style={style}>
 					 <div className="label-item">
 						<label className="form-label">{label}:</label>
 						<div className="form-main">
