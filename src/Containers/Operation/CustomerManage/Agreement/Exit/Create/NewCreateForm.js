@@ -185,17 +185,21 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="withdrawdate" component="date" label="撤场日期" requireLabel={true}/>
 				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
         
-
 				<KrField grid={1}  name="contractmark" component="textarea" label="备注" />
-				<KrField grid={1}  name="fileIdList" component="file" label="上传附件" requireLabel={true} defaultValue={[]}/>
 
-						<Grid>
-						<Row style={{marginTop:30}}>
-						<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} /> </Col>
-						<Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
-						</Grid>
+				<KrField grid={1}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
+				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
+					Store.dispatch(change('exitCreateForm','contractFileList',files));
+				}} />
 
-						</form>
+
+				<Grid>
+					<Row style={{marginTop:30}}>
+					<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} /> </Col>
+					<Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
+				</Grid>
+
+			</form>
 
 			</div>);
 	}

@@ -78,13 +78,11 @@ class NewCreateForm  extends Component{
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
-		this.reduceMoney = this.reduceMoney.bind(this);
 		this.state = {
 			stationVos:[],
 			selectedStation:[],
 			openStation:false,
 			openStationUnitPrice:false,
-			rentamount:0,
 		}
 	}
 
@@ -166,39 +164,6 @@ class NewCreateForm  extends Component{
 				stationVos:result
 		});
 		this.openStationDialog();
-		this.reduceMoney(selectedList, 'add');
-	}
-
-	// 计算减租金额
-	reduceMoney(selectedList,from){
-		
-		if(from === 'add'){
-			var {rentamount} = this.state;
-		}else{
-			var rentamount = 0;
-		}
-		var sum  = rentamount;
-		selectedList.forEach(function(value){
-			
-			try{
-				var price = parseFloat((value.unitprice*12/365).toFixed(2));
-				var start = Date.parse(value.leaseBeginDate);
-				var  end= Date.parse(value.leaseEndDate);
-				var num =  Math.floor((end-start)/(3600*24*1000));
-				sum += num*price;
-				return parseFloat(sum).toFixed(2);
-
-
-			}catch(err){
-				console.log(err,'err');
-			}
-
-			
-		});
-		this.setState({
-			rentamount:sum
-		});
-
 	}
 
 	//删除工位
@@ -212,7 +177,6 @@ class NewCreateForm  extends Component{
 			}
 			return true;
 		});
-		this.reduceMoney(stationVos, 'less');
 		this.setState({
 			stationVos
 		});
@@ -257,7 +221,6 @@ class NewCreateForm  extends Component{
 		form.firstpaydate =dateFormat(form.firstpaydate,"yyyy-mm-dd hh:MM:ss");
 		form.lessorContactid = form.lessorContactid;
 		
-		form.rentamount= this.state.rentamount;
 		var _this = this;
 		var wherefloor=[];
 		form.stationVos =  stationVos;
@@ -285,7 +248,7 @@ class NewCreateForm  extends Component{
 			}
 		});
 
-		let {stationVos, rentamount} = this.state;
+		let {stationVos} = this.state;
 		
 
 	return (
@@ -320,7 +283,7 @@ class NewCreateForm  extends Component{
 
 				<KrField grid={1/2}  name="signdate"  component="date"  label="签署时间" requireLabel={true}/>
 				<KrField grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"  /> 
-				<KrField grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" placeholder="" /> 
+				<KrField grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true} /> 
 				<KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true} />
 
 				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" />
