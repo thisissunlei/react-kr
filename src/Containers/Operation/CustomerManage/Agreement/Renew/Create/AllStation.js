@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {Binder} from 'react-binding';
 import dateFormat from 'dateformat';
-import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
+import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
 
@@ -103,6 +103,7 @@ class SelectStationForm  extends Component{
     let {stationVos,selected} = this.state;
 
     if(!selected.length){
+		console.log('---->>>');
        Notify.show([{
             message:'请选择工位',
             type: 'danger',
@@ -161,10 +162,21 @@ class SelectStationForm  extends Component{
 		}
 	}
 
+	let beginDate = selectStationVos[0].leaseEndDate;
+	let endDate = selectStationVos[0].leaseEndDate;
+
+  if(Date.parse(beginDate)>= Date.parse(endDate)){
+		Notify.show([{
+			message:'选择的工位租赁结束时间不能大于续租结束时间',
+			type: 'danger',
+		  }]);
+		  return false;
+  }
+
 
 	Store.dispatch(change('reduceCreateForm','leaseBegindate',selectStationVos[0].leaseEndDate));
-    const {onSubmit} = this.props;
-    onSubmit && onSubmit(selectStationVos);
+ const {onSubmit} = this.props;
+   onSubmit && onSubmit(selectStationVos);
 
   }
 

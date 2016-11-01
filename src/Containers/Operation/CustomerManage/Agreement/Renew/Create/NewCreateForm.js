@@ -118,14 +118,6 @@ class NewCreateForm  extends Component{
 		let  result = stationVos;
 
 		if(!stationVos.length){
-			Notify.show([{
-				message:"请选择工位",
-				type: 'danger',
-			}]);
-			return ;
-		};
-
-		if(!stationVos.length){
 			result = selectedList;
 		}else{
 			stationVos.forEach(function(item,index){
@@ -142,6 +134,7 @@ class NewCreateForm  extends Component{
 			item.leaseEndDate = dateFormat(item.leaseEndDate,"yyyy-mm-dd hh:MM:ss");
 			item.stationName = item.stationId;
 		})
+
 
 		this.setState({
 			stationVos:result
@@ -230,6 +223,15 @@ class NewCreateForm  extends Component{
 
 		let {changeValues} = this.props;
 		let {stationVos} = this.state;
+
+		if(!stationVos.length){
+			Notify.show([{
+				message:"请选择工位",
+				type: 'danger',
+			}]);
+			return ;
+		};
+
 		form.list = stationVos;
 		form.lessorAddress = changeValues.lessorAddress;
 		// form.lessorContactid = 111;
