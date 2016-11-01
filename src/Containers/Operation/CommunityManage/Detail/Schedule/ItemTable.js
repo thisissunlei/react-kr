@@ -152,9 +152,9 @@ export default class ItemTable extends Component {
 							<EmployessTable activity={activity}/>
 						</td>
 						<td>
-							<Button type="link" primary={true} label="分配工位" onTouchTap={this.onStation}/>
-							<Button type="link" primary={true} label="撤场" 	onTouchTap={this.onDismantling}/>
-							<Button type="link" primary={true} label="员工" onTouchTap={this.onhref}/>
+							<Button className="Station" type="link" primary={true} label="分配工位" onTouchTap={this.onStation}/>
+							<Button className="Dismantling" type="link" primary={true} label="撤场" 	onTouchTap={this.onDismantling}/>
+							<Button className="preson" type="link" primary={true} label="员工" onTouchTap={this.onhref}/>
 						</td>
 					</tr>
 
