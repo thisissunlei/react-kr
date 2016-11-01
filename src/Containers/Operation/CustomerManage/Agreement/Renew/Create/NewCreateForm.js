@@ -114,7 +114,16 @@ class NewCreateForm  extends Component{
 	onStationSubmit(selectedList){
 
 		let {stationVos} = this.state;
+
 		let  result = stationVos;
+
+		if(!stationVos.length){
+			Notify.show([{
+				message:"请选择工位",
+				type: 'danger',
+			}]);
+			return ;
+		};
 
 		if(!stationVos.length){
 			result = selectedList;
@@ -136,13 +145,12 @@ class NewCreateForm  extends Component{
 		})
 
 		this.setState({
-				stationVos:result
+			stationVos:result
 		});
 
 		if(result.length){
 			Store.dispatch(change('reduceCreateForm','leaseBegindate',result[0].leaseEndDate));
 		}
-
 		this.openStationDialog();
 		this.reduceMoney(selectedList, 'add');
 	}
