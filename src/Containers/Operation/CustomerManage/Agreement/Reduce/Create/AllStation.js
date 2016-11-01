@@ -209,7 +209,6 @@ onChangeRentBeginDate(value){
           <TableHeaderColumn>类别</TableHeaderColumn>
           <TableHeaderColumn>编号／名称</TableHeaderColumn>
           <TableHeaderColumn>单价（元／月）</TableHeaderColumn>
-          <TableHeaderColumn>楼层</TableHeaderColumn>
           <TableHeaderColumn>起始日期</TableHeaderColumn>
           <TableHeaderColumn>结束日期</TableHeaderColumn>
           <TableHeaderColumn>减租开始日期</TableHeaderColumn>
@@ -221,7 +220,6 @@ onChangeRentBeginDate(value){
           <TableRowColumn >{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
           <TableRowColumn >{item.stationName}</TableRowColumn>
           <TableRowColumn >{item.unitprice}</TableRowColumn>
-          <TableRowColumn >{item.whereFloor}</TableRowColumn>
           <TableRowColumn ><KrDate.Format value={item.leaseBeginDate}/></TableRowColumn>
           <TableRowColumn ><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
           <TableRowColumn>
