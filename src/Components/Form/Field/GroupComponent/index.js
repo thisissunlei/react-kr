@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './index.less';
+
 export default class  GroupComponent extends React.Component {
 
 
