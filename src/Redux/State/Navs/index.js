@@ -321,25 +321,25 @@ module.exports = {
 					menuItems:[
 						{
 							primaryText:'参数配置',
-							menuCode:'oa_sysparamadmin'
+							menuCode:'oa_sysparamadmin',
 							router:'oa_sysparamadmin',
 							originUrl:'/krspace_oa_web/sys/sysParam/toSysParamList?mid=30'	
 						},
 						{
 							primaryText:'职务类型',
-							menuCode:'dictJobType'
+							menuCode:'dictJobType',
 							router:'dictJobType',
 							originUrl:'/krspace_oa_web/dict/dictJobType/toDictJobTypeList?mid=38'
 						},
 						{
 							primaryText:'职务管理',
-							menuCode:'dictJob'
+							menuCode:'dictJob',
 							router:'dictJob',
 							originUrl:'/krspace_oa_web/dict/dictJob/toDictJobList?mid=37'	
 						},
 						{
 							primaryText:'职级管理',
-							menuCode:'dictJobLevel'
+							menuCode:'dictJobLevel',
 							router:'dictJobLevel',
 							originUrl:'/krspace_oa_web/dict/dictJobLevel/toEDictJobLevelList?mid=39'	
 						},
