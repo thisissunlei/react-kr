@@ -107,7 +107,6 @@ export default class BasicTable extends Component {
 			Installmentplan: [],
 			rate: []
 		};
-		console.log('00000000000000');
 		this.getInstallmentplan();
 
 	}
@@ -129,7 +128,6 @@ export default class BasicTable extends Component {
 
 	}
 	onConfrimSubmit(formValues) {
-		console.log('formValues', formValues)
 			/*Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
 			console.log("response",response);
 
