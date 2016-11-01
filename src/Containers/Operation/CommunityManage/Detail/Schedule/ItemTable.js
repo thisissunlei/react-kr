@@ -21,6 +21,7 @@ import EmployessTable from './EmployessTable';
 import D3Content from './D3Content';
 import DismantlingForm from './DismantlingForm';
 
+import dateFormat from 'dateformat';
 
 export default  class ItemTable extends Component {
 	 static defaultProps = {
@@ -38,6 +39,7 @@ export default  class ItemTable extends Component {
 		 this.onStation = this.onStation.bind(this);
 		 this.onDismantlingDialog =this.onDismantlingDialog.bind(this);
 		 this.onDismantling = this.onDismantling.bind(this);
+		 this.renderOrder = this.renderOrder.bind(this);
      this.onhref = this.onhref.bind(this);
 
 		this.state = {
@@ -76,8 +78,36 @@ export default  class ItemTable extends Component {
 
     location.href="http://optest.krspace.cn/krspace_member_web/member/companyMembers?companyId="+this.props.companyId+"&communityId="+this.props.communityId;
   }
+
   //http://op.krspace.cn/krspace_member_web/member/companyMembers?companyId=1&communityId=11
-	
+	renderOrder(contractTypeVo){
+        	contractTypeVo = contractTypeVo.map((item,index)=>{
+        		if(!item.contractCount){
+        			return (
+        				<li key={index} className="company-order-zero">
+							<p className="name">{item.contractName}</p>
+							<p>{dateFormat(item.contractTime,"yyyy.mm.dd")}</p>
+						</li>
+        			)
+        		}else if(item.contractCount === 1){
+        			return (
+						<li key={index} className="company-order">
+							<p className="name">{item.contractName}</p>
+							<p>{dateFormat(item.contractTime,"yyyy.mm.dd")}</p>
+						</li>
+        			)
+        		}else{
+        			return (
+						<li key={index} className="company-order">
+							<span className="count">({item.contractCount})</span>
+							<p className="name">{item.contractName}</p>
+							<p>{dateFormat(item.contractTime,"yyyy.mm.dd")}</p>
+						</li>
+        			)
+        		}
+        	})
+        return contractTypeVo;
+        }
   render() {
 
 	  let {activity} = this.state;
@@ -169,14 +199,62 @@ export default  class ItemTable extends Component {
             "pointDate": 1473998400000
           }
         ];
-
+        var contractTypeVo = [
+          {
+            "contractCount": 1,
+            "contractName": "入驻意向书",
+            "contractTime": 1477557209000,
+            "contractType": 1,
+            "id": 0
+          },
+          {
+            "contractCount": 1,
+            "contractName": "入住协议书",
+            "contractTime": 1477568288000,
+            "contractType": 2,
+            "id": 0
+          },
+          {
+            "contractCount": 1,
+            "contractName": "增租协议书",
+            "contractTime": 1477568858000,
+            "contractType": 3,
+            "id": 0
+          },
+          {
+            "contractCount": 3,
+            "contractName": "续租协议书",
+            "contractTime": 1477572574000,
+            "contractType": 4,
+            "id": 0
+          },
+          {
+            "contractCount": 0,
+            "contractName": "减租协议书",
+            "contractType": 5,
+            "id": 0
+          },
+          {
+            "contractCount": 0,
+            "contractName": "退租协议书",
+            "contractType": 6,
+            "id": 0
+          }
+        ];
+        
 	 
     return (
 
 				<tr className="last-td" >
 						<td>
-							<div className="company-name" data-tip="hello world"> 诚意有限公司 
-							<ReactTooltip />
+							<div className="company-name" data-tip> 诚意有限公司 
+							<ReactTooltip place="right">
+								<ul>
+								{
+									this.renderOrder(contractTypeVo)
+								}
+								</ul>
+							</ReactTooltip>
 							</div>
 						</td>
 						<td colSpan="12">
