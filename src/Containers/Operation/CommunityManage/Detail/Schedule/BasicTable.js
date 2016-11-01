@@ -25,7 +25,10 @@ import {
 	Button,
 	Notify,
 	BreadCrumbs,
-	KrField
+	KrField,
+	Form,
+	Row,
+	Col,
 } from 'kr-ui';
 
 import './index.less';
@@ -34,26 +37,55 @@ import EmployessTable from './EmployessTable';
 import ItemTable from './ItemTable';
 import DismantlingForm from './DismantlingForm';
 
-/*class searchForm extends Component {
-	constructor(props, context);
-
-	super(props, context);
-
-	render() {
-
-		return (
+class SearchForm extends Component {
 
 
 
-		);
+	constructor(props) {
+		super(props);
 
+		this.onSubmit = this.onSubmit.bind(this);
+	}
 
+	onSubmit(form) {
+
+		/*form.pageSize = 20;
+		form.page = 1;
+		const {
+			onSubmit
+		} = this.props;
+		onSubmit && onSubmit(form);*/
 	}
 
 
-}*/
 
+	render() {
 
+		const {
+			error,
+			handleSubmit,
+			pristine,
+			reset
+		} = this.props;
+
+		return (
+
+			<form onSubmit={handleSubmit(this.onSubmit)}>
+
+              <Row>
+              <Col md={5}><KrField name="type" type="select" component="select" options={[{label:'订单名称',value:1},{label:'员工姓名',value:2},{label:'手机号',value:3}]}/></Col>
+				<Col md={5}><KrField name="value" type="text" placeholder="搜索关键字" /></Col>
+				<Col md={2}><Button  label="查询" type="submit" primary={true} /></Col>
+              </Row>
+
+			</form>
+		);
+	}
+}
+
+SearchForm = reduxForm({
+	form: 'searchForm'
+})(SearchForm);
 
 export default class BasicTable extends Component {
 
@@ -67,7 +99,7 @@ export default class BasicTable extends Component {
 		this.openDismantlingDialog = this.openDismantlingDialog.bind(this);
 		this.onDismantling = this.onDismantling.bind(this);
 		this.getInstallmentplan = this.getInstallmentplan.bind(this);
-
+		this.onSubmit = this.onSubmit.bind(this);
 		this.state = {
 			currentYear: '2016',
 			dismantling: false,
@@ -88,6 +120,11 @@ export default class BasicTable extends Component {
 	}
 
 	onCancel() {
+
+	}
+
+
+	onSubmit() {
 
 	}
 	onConfrimSubmit(formValues) {
@@ -192,7 +229,7 @@ export default class BasicTable extends Component {
 		 			</div>
 		 		</div>
 		 		<div className="search">
-					{ /*<searchForm />*/ }
+					<SearchForm />	
 		 		</div>
 		 	</div>
 		 	
