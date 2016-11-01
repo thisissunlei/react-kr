@@ -292,7 +292,6 @@ export default  class EmployessTable extends Component {
 
 	onIframeClose(response){
 		
-		
 			this.setState({
 				openNewmeber:!this.state.openNewmeber
 			});
