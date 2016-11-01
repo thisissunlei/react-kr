@@ -90,7 +90,7 @@ SearchForm = reduxForm({
 	form: 'searchForm'
 })(SearchForm);
 
-export default class BasicTable extends Component {
+ export default class BasicTable extends Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -108,15 +108,27 @@ export default class BasicTable extends Component {
 			dismantling: false,
 			formValues: {},
 			Installmentplan: [],
-			rate: []
+			rate: [],
+			communityIdList:[]
 		};
-		this.getInstallmentplan();
 
 	}
 
 	componentDidMount() {
+		this.getInstallmentplan();
+	}
 
+	componentWillReceiveProps(nextProps){
+
+		if(nextProps.community !== this.props.community){
+			this.setState({
+				community:nextProps.community
+			});	
+			this.getInstallmentplan();
 		}
+
+	}
+
 		//撤场
 	onDismantling() {
 		this.openDismantlingDialog();
@@ -178,25 +190,50 @@ export default class BasicTable extends Component {
 
 
 	getInstallmentplan() {
-		var that = this;
-		var Installmentplan, rate;
-		Store.dispatch(Actions.callAPI('getInstallmentplan', {
-			communityids: 1
-		})).then(function(response) {
-			Installmentplan = response.vo;
-			rate = response.rate;
-			that.setState({
-				Installmentplan,
-				rate
+		// if(this.isInit){
+		// 	return ;
+		// }
+		var _this = this;
+		let {community} = this.props;
+		console.log('this.params', this.props, community);
+
+	
+		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response){
+
+			var communityIds = [];
+			response.communityInfoList.map((item)=>{
+				communityIds.push(item.id);
 			});
-		}).catch(function(err) {
+			var	content = community || communityIds;
+
+				
+			Store.dispatch(Actions.callAPI('getInstallmentplan', {communityids:content.toString()})).then(function(response) {
+					
+				_this.setState({
+					Installmentplan:response.vo,
+					rate:response.rate
+				});
+
+			}).catch(function(err) {
+				Notify.show([{
+					message: err.message,
+					type: 'danger',
+				}]);
+			});
+
+
+
+		}).catch(function(err){
+			console.log('err', err);
 			Notify.show([{
-				message: err.message,
+				message:err.message,
 				type: 'danger',
 			}]);
-		});
+	   	});
+		
 
 	}
+	
 
 	render() {
 
@@ -308,3 +345,15 @@ export default class BasicTable extends Component {
 		);
 	}
 }
+
+
+// export default connect((state)=>{
+// 	var communityList = [];
+// 	if(state.common && state.common.getCommunity){
+// 		console.log('***********');
+// 		communityList=state.common.getCommunity
+// 	}
+// 	return {
+// 		communityList
+// 	}
+// })(BasicTable)
