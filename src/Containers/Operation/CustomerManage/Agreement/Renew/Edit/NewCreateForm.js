@@ -204,7 +204,7 @@ class NewCreateForm  extends Component{
 	//删除工位
 	onStationDelete(){
 
-		let {selectedsStation,stationVos} = this.state;
+		let {selectedStation,stationVos} = this.state;
 		stationVos = stationVos.filter(function(item,index){
 
 			if(selectedStation.indexOf(index) != -1){
@@ -328,6 +328,7 @@ class NewCreateForm  extends Component{
 
 				<Section title="租赁明细" description="" rightMenu = {
 					<Menu>
+						<MenuItem primaryText="删除" onTouchTap={this.onStationDelete} />
 						<MenuItem primaryText="续租"  onTouchTap={this.openStationDialog} />
 					</Menu>
 				}>
