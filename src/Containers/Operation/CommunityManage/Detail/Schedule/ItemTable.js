@@ -131,7 +131,7 @@ export default class ItemTable extends Component {
 
 	  let {activity} = this.state;
     let {detail} = this.props;
-        
+    let width = 700;
 	 
     return (
 
@@ -148,7 +148,7 @@ export default class ItemTable extends Component {
 							</div>
 						</td>
 						<td colSpan="12">
-							<D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo}/>
+							<D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} width={width}/>
 							<EmployessTable activity={activity}/>
 						</td>
 						<td>
