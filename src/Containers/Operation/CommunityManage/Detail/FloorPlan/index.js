@@ -97,7 +97,6 @@ export default  class FloorPlan extends Component {
 			}
 		};
 
-  	console.log('url------width',$('#planTable'), $('#planTable').width());
 
 		return url ;
 	}
@@ -142,7 +141,6 @@ export default  class FloorPlan extends Component {
   	}else{
   		$(window).unbind('scroll',this.scrollLoad());
   	}
-  	console.log('width',$('#planTable'), $('#planTable').width());
   	const width = $('#planTable').width() || 900;
     return (
 

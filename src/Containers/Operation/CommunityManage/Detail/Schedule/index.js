@@ -23,13 +23,25 @@ export default  class Schedule extends Component {
 	 componentDidMount(){
 
 	 }
+	 componentWillReceiveProps(nextProps){
+
+		if(nextProps.community != this.props.community){
+			this.setState({
+				community:nextProps.community
+			});
+		}
+
+		
+
+	}
 
 
   render() {
-
+  	let {community} = this.props;
+  	console.log('======',community);
     return (
 		 <div>
-			<BasicTable/>
+			<BasicTable community={community}/>
 		</div>
 	);
 
