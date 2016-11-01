@@ -142,7 +142,9 @@ export default class BasicTable extends Component {
 		 				</p>
 		 			</div>
 		 		</div>
-		 		<div className="search"></div>
+		 		<div className="search">
+					
+		 		</div>
 		 	</div>
 		 	
 			<table className="basic-table" >
@@ -171,7 +173,7 @@ export default class BasicTable extends Component {
 				<tbody>
 					{/*入住率*/}
 					<tr className="header-td">
-						<td>
+						<td className='white'>
 							<div className="header-title">
 								<p className="title-right">入驻率</p>
 								<p  className="title-left">订单名称</p>
