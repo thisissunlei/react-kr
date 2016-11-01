@@ -176,7 +176,7 @@ class SelectStationForm  extends Component{
 		  return false;
   }
 
-Store.dispatch(change('reduceCreateForm','leaseBegindate',selectStationVos[0].leaseEndDate));
+	Store.dispatch(change('reduceCreateForm','leaseBegindate',selectStationVos[0].leaseEndDate));
  const {onSubmit} = this.props;
    onSubmit && onSubmit(selectStationVos);
 

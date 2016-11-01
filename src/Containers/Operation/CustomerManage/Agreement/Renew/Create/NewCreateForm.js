@@ -111,37 +111,19 @@ class NewCreateForm  extends Component{
 		this.openStationDialog();
 	}
 
-	onStationSubmit(selectedList){
+	onStationSubmit(stationVos){
 
-		let {stationVos} = this.state;
-
-		let  result = stationVos;
-
-		if(!stationVos.length){
-			result = selectedList;
-		}else{
-			stationVos.forEach(function(item,index){
-				selectedList.forEach(function(selected,i){
-					if (item.id !=selected.id) {
-							result.push(selected);
-					}
-				});
-			});
-		}
-
-		result.map((item)=>{
+		stationVos.map((item)=>{
 			item.leaseBeginDate = dateFormat(item.leaseBeginDate,"yyyy-mm-dd hh:MM:ss");
-			item.leaseEndDate = dateFormat(item.leaseEndDate,"yyyy-mm-dd hh:MM:ss");
-			item.stationName = item.stationId;
-		})
-
+			item.leaseEndDate = dateFormat(item.startDate,"yyyy-mm-dd hh:MM:ss");
+		});
 
 		this.setState({
-			stationVos:result
+			stationVos
 		});
 
 		this.openStationDialog();
-		this.reduceMoney(selectedList, 'add');
+		this.reduceMoney(stationVos, 'add');
 	}
 
 	// 计算减租金额
