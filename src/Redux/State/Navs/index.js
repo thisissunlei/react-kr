@@ -13,6 +13,7 @@ module.exports = {
 		{
 			primaryText:"权限管理",
 			router:'order',
+			menuCode:'rightadmin',
 			menuItems:[],
 		},
 	],
@@ -76,7 +77,7 @@ module.exports = {
 						{
 							primaryText:'基本信息',
 							router:'/operation/communityManage/detail',
-						
+					
 						},
 					]
 				},
