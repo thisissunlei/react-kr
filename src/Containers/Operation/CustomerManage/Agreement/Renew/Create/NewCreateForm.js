@@ -115,7 +115,6 @@ class NewCreateForm  extends Component{
 
 		let {stationVos} = this.state;
 		let  result = stationVos;
-		console.log(selectedList, stationVos);
 
 		if(!stationVos.length){
 			result = selectedList;
@@ -129,15 +128,21 @@ class NewCreateForm  extends Component{
 			});
 		}
 
+		var leaseBegindate  = ''; 
 		result.map((item)=>{
 			item.leaseBeginDate = dateFormat(item.leaseBeginDate,"yyyy-mm-dd hh:MM:ss");
 			item.leaseEndDate = dateFormat(item.leaseEndDate,"yyyy-mm-dd hh:MM:ss");
 			item.stationName = item.stationId;
 		})
-		console.log("0000",result);
+
 		this.setState({
 				stationVos:result
 		});
+
+		if(result.length){
+			Store.dispatch(change('reduceCreateForm','leaseBegindate',result[0].leaseEndDate));
+		}
+
 		this.openStationDialog();
 		this.reduceMoney(selectedList, 'add');
 	}
@@ -267,6 +272,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
+				<KrField grid={1/2}  name="leaseBegindate" type="hidden" component="input" />
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}  requireLabel={true} />
 				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}  defaultValue="无"/>

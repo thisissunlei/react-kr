@@ -161,7 +161,6 @@ class SelectStationForm  extends Component{
 		}
 	}
 
-		  console.log("---",selectStationVos);
     const {onSubmit} = this.props;
     onSubmit && onSubmit(selectStationVos);
 
