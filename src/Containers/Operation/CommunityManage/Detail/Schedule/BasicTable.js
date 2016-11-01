@@ -44,12 +44,17 @@ export default class BasicTable extends Component {
 		this.onConfrimSubmit = this.onConfrimSubmit.bind(this);
 		this.openDismantlingDialog = this.openDismantlingDialog.bind(this);
 		this.onDismantling = this.onDismantling.bind(this);
+    this.getInstallmentplan = this.getInstallmentplan.bind(this);
 
 		this.state = {
-			currentYear: '2016',
-			dismantling: false,
-			formValues: {},
-		}
+			currentYear:'2016',
+			dismantling:false,
+			formValues:{},
+			Installmentplan:[],
+			rate:[]
+		};
+		console.log('00000000000000');
+		this.getInstallmentplan();
 
 	}
 
@@ -111,11 +116,30 @@ export default class BasicTable extends Component {
 		});
 	}
 
-	render() {
 
-		let {
-			currentYear
-		} = this.state;
+	 getInstallmentplan(){
+    var that = this;
+    var Installmentplan,rate;
+    Store.dispatch(Actions.callAPI('getInstallmentplan',{communityids:1})).then(function(response){
+      Installmentplan = response.vo;
+      rate = response.rate;
+      that.setState({
+        Installmentplan,
+        rate
+      });
+    }).catch(function(err){
+      Notify.show([{
+        message:err.message,
+        type: 'danger',
+      }]);
+      });
+
+  }
+
+  render() {
+
+	let {currentYear, Installmentplan} = this.state;
+
 		return (
 
 			<div>
@@ -193,7 +217,16 @@ export default class BasicTable extends Component {
 						<td>30%</td>
 						<td></td>
 					</tr>
-					<ItemTable onDismantling={this.onDismantling} item={{name:'ddd'}}/>
+					{
+						Installmentplan.map((item,index)=>{
+							return (
+
+							<ItemTable onDismantling={this.onDismantling} item={{name:'ddd'}} detail={item} key={index}/>
+								
+							)
+
+						})
+					}
 				</tbody>
 			</table>
 

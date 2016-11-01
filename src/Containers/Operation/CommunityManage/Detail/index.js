@@ -34,7 +34,7 @@ export default  class CommunityManage extends Component {
 		this.state = {
 			tab:'plan',
 			communityInfoList:[],
-			community:''
+			community:'',
 		}
 		
 	}
@@ -89,6 +89,7 @@ export default  class CommunityManage extends Component {
 	   	});
 
 	}
+	
 	getCommunityFloors(id){
 		console.log('floors',id);
 		let communityid = {communityid:id};
@@ -122,6 +123,7 @@ export default  class CommunityManage extends Component {
   	var {communityInfoList, communityInfoFloorList} = this.state;
   	let {community} = this.state;
   	console.log('id', community);
+
 
   	
     return (
