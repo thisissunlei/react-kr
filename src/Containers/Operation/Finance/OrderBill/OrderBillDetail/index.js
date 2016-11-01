@@ -211,8 +211,7 @@ export default class AttributeSetting  extends Component{
            	 alert('请选择一条回款数据进行退款');
            }else if(this.state.listValues.length>1){
            	  alert('只能选择一条数据');
-           }else if(fiMoney>=0){
-           	  
+           }else if(fiMoney>=0){          	  
               alert('金额必须为负且存在可用金额');
            }else{
            	 this.setState({
@@ -777,7 +776,7 @@ export default class AttributeSetting  extends Component{
 						autoScrollBodyContent={true}
 				        autoDetectWindowHeight={true}
 						>							
-					   <ReceivedBtnForm onSubmit={this.onAddReceivedSubmit} initialValues={initialValues} onCancel={this.closeReceivedDialog} optionList={this.state.receivedList} typeList={this.state.typeList}/>
+					   <ReceivedBtnForm onSubmit={this.onAddReceivedSubmit}  onCancel={this.closeReceivedDialog} optionList={this.state.receivedList} typeList={this.state.typeList}/>
 					 </Dialog>
 
 					 <Dialog

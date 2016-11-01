@@ -30,12 +30,14 @@ import {
 
 var arr=[];
 class ReceivedBtnForm extends Component{
+	static contextTypes = {
+	  params: React.PropTypes.object.isRequired
+    }
 
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
 		optionList:React.PropTypes.object,
-		initialValues:React.PropTypes.object,
 		typeList:React.PropTypes.object,
 		
   }
@@ -51,7 +53,12 @@ class ReceivedBtnForm extends Component{
 
 	componentDidMount() {
 
-      let {initialValues}= this.props;
+    
+      let initialValues={
+       	 sumSign:'0',
+       	 autoSplit:'0',
+       	 mainbillid:this.context.params.orderId
+       }
 	   Store.dispatch(initialize('ReceivedBtnForm',initialValues));
 		
 	}
@@ -93,7 +100,7 @@ class ReceivedBtnForm extends Component{
 						    <KrField  label="代码名称" name="accountId" type="select" options={optionList} requireLabel={true}/>
 						    <KrField component="date" label="回款日期" name="receiveDate" requireLabel={true}/>
 						    <KrField label="交易编号" name="dealCode"  component="input" type="text" requireLabel={true}/>
-						    <KrField label="是否自动拆分" name="autoSplit" component="select" options={
+						    <KrField label="是否自动拆分"  name="autoSplit" component="select" options={
 						    	[{label:"是",value:"1"},{label:"否",value:"0"}]
 						    } requireLabel={true}/>
 
@@ -107,7 +114,7 @@ class ReceivedBtnForm extends Component{
                             
                             <KrField name="sumSign" component="group" label="金额正负" requireLabel={true}>
 				                <KrField name="sumSign" label="正" component="radio" type="radio" value="0"/>
-				                <KrField name="sumSign" label="负" component="radio" type="radio" value="1" />
+				                <KrField name="sumSign" label="负" component="radio" type="radio" value="1"/>
 			                </KrField>
                             
                             <KrField label="备注" name="remark" component="input" type="text"/>
@@ -145,10 +152,7 @@ const validate = values =>{
 
 		if (!values.sum) {
 			errors.sum = '请填写金额';
-		}
-		if (!values.sumSign) {
-			errors.sumSign = '请先选择金额正负';
-		}
+		}		
 
 		return errors
 	}
