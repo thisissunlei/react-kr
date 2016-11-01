@@ -299,6 +299,7 @@ class NewCreateForm  extends Component{
 
 				<Section title="租赁明细" description="" rightMenu = {
 					<Menu>
+						<MenuItem primaryText="删除" onTouchTap={this.onStationDelete} />
 						<MenuItem primaryText="续租"  onTouchTap={this.openStationDialog} />
 					</Menu>
 				}>
