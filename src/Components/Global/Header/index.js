@@ -7,6 +7,7 @@ import * as actionCreators from '../../../Redux/Actions';
 
 import SidebarNavMenuItems from '../../../Configs/sidebarNavs';
 
+
 import {
 	AppBar,
 	Menu,
@@ -141,9 +142,14 @@ class Header extends Component {
 				targetOrigin={{horizontal: 'right', vertical: 'top'}}
 				anchorOrigin={{horizontal: 'right', vertical: 'top'}}
 			  >
-				<MenuItem primaryText="返回" />
-				<MenuItem primaryText="个人中心" />
-				<MenuItem primaryText="退出" />
+				<MenuItem primaryText={this.props.user.nick} />
+				{/*
+				<MenuItem primaryText={this.props.user.email} />
+				<MenuItem primaryText={this.props.user.mobile} />
+					*/}
+				<MenuItem primaryText="退出" onTouchTap={(event)=>{
+					window.location.href = '/logout/logout';
+				}}/>
 			  </IconMenu>
 		}
 				/>
@@ -190,7 +196,8 @@ function mapStateToProps(state){
 		bottom_nav:state.bottom_nav,
 		current_router:state.navs.current_router,
 		current_parent:state.navs.current_parent,
-		current_child:state.navs.current_child
+		current_child:state.navs.current_child,
+		user:state.user
 	};
 }
 

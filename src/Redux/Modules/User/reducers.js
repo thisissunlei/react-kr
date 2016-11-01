@@ -1,6 +1,6 @@
 import * as Types from './types';
 
-export function plan(state = {},action){
+export function user(state = {},action){
 
 	switch(action.type){
 
