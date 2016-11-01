@@ -48,13 +48,16 @@ class SearchForm extends Component {
 	}
 
 	onSubmit(form) {
+		console.log('yyyyyyy', form)
+		/*Store.dispatch(Actions.callAPI('getInstallmentplan', {}, form)).then(function(response) {
+			console.log("response", response);
 
-		/*form.pageSize = 20;
-		form.page = 1;
-		const {
-			onSubmit
-		} = this.props;
-		onSubmit && onSubmit(form);*/
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});*/
 	}
 
 
@@ -128,7 +131,7 @@ export default class BasicTable extends Component {
 
 	}
 	onConfrimSubmit(formValues) {
-			/*Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
+		/*Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
 			console.log("response",response);
 
 			Notify.show([{
