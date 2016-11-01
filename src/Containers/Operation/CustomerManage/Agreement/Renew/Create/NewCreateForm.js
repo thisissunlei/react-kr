@@ -77,12 +77,14 @@ class NewCreateForm  extends Component{
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
+
+
+
 		this.state = {
 			stationVos:[],
 			selectedStation:[],
 			openStation:false,
 			openStationUnitPrice:false,
-			rentamount:0,
 		}
 	}
 
@@ -170,20 +172,15 @@ class NewCreateForm  extends Component{
 			return ;
 		};
 
-		form.list = stationVos;
+		form.stationVosList = stationVos;
 		form.lessorAddress = changeValues.lessorAddress;
-		// form.lessorContactid = 111;
-		form.rentamount= this.state.rentamount;
-		form.leaseBegindate = stationVos[0].leaseBeginDate;
-		form.leaseEnddate = stationVos[0].leaseEndDate;
+
+		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate,"yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate,"yyyy-mm-dd hh:MM:ss");
 
 		form.firstpaydate = dateFormat(form.firstpaydate,"yyyy-mm-dd hh:MM:ss");
 
-		var _this = this;
-
-		form.stationVos =  stationVos;
-
-		form.stationVos = JSON.stringify(form.stationVos);
+		form.stationVos = JSON.stringify(stationVos);
 
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
@@ -206,7 +203,7 @@ class NewCreateForm  extends Component{
 			}
 		});
 
-		let {stationVos, rentamount} = this.state;
+		let {stationVos} = this.state;
 
 		return (
 	<div>
@@ -242,13 +239,17 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="signdate"  component="date"  label="签署时间" requireLabel={true} />
 				<KrField grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"  requireLabel={true} /> 
 
-				<KrField grid={1/2}  name="totalrent" component="labelText" label="租金总额"  requireLabel={true} value={changeValues.totalrent} defaultValue="0" /> 
-				<KrField grid={1/2}  name="totalrent" type="hidden" component="input" label="租金总额" /> 
+				<KrField grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" /> 
 
 				<KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true}  />
 
 				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" />
-				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} />
+
+				<KrField grid={1}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
+				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
+					Store.dispatch(change('reduceCreateForm','contractFileList',files));
+				}} />
+
 
 				<Section title="租赁明细" description="" rightMenu = {
 					<Menu>
@@ -353,6 +354,7 @@ class NewCreateForm  extends Component{
 		if (!values.rentaluse) {
 			errors.rentaluse = '请填写租赁用途';
 		}
+
 		if (!values.totalrent) {
 			errors.totalrent = '请填写租金总额';
 		}
@@ -396,9 +398,6 @@ export default connect((state)=>{
 	changeValues.leaseBegindate = selector(state,'leaseBegindate');
 	changeValues.leaseEnddate = selector(state,'leaseEnddate');
 	changeValues.wherefloor = selector(state,'wherefloor');
-
-	changeValues.totalrent = selector(state,'totalrent');
-
 
 	return {
 		changeValues
