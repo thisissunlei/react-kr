@@ -175,9 +175,9 @@ onChangeRentBeginDate(value){
 	let beginDate = Date.parse(selectedStationVos[0].leaseBeginDate);
 	let endDate = Date.parse(selectedStationVos[0].leaseEndDate);
 
-	 if(beginDate>= endDate){
+	 if(beginDate<= endDate){
 			Notify.show([{
-				message:'选择的工位租赁结束时间不能大于减租结束时间',
+				message:'选择的工位租赁结束时间不能大于减租开始时间',
 				type: 'danger',
 			  }]);
 			  return false;
