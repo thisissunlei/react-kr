@@ -69,7 +69,7 @@ export default class BasicInfo extends Component{
 			           <KrField grid={1/3} label="社区名称" component="labelText" value={detail.communityname}/>
 			           <KrField grid={1/3} label="客户名称" component="labelText" value={detail.customername}/>
 			           <KrField grid={1/10} label="订单名称" component="labelText"/>
-			           <a  href={`./#/operation/customerManage/${this.props.detail.customerid}/order/${this.context.params.orderId}/detail`}>{detail.mainbillname}</a>
+			           <a  href={`./#/operation/customerManage/${this.props.detail.customerid}/order/${this.context.params.orderId}/detail`} target="view_window">{detail.mainbillname}</a>
 			           
                        <KrField grid={1/3} label="当前工位数" component="labelText" value={detail.totalstationnum}/>
 			           <KrField grid={1/3} label="起始日期" component="group">
@@ -86,13 +86,13 @@ export default class BasicInfo extends Component{
 			            <KrField grid={1/3} label="订单总额" component="labelText" value={detail.totalamount}/>
 			            <KrField grid={1/3} label="回款总额" component="labelText" value={detail.totalPayment}/>
 
-			            <KrField grid={1/3} label="未回款额" component="labelText" value={detail.notPaymentAmount}/>
-			            {detailPayment.map((item,index)=>						
+			            <KrField grid={1} label="未回款额" component="labelText" value={detail.notPaymentAmount}/>
+			            {/*{detailPayment.map((item,index)=>						
 						    <KrField key={index} grid={1/3} label={item.propname} component="labelText" value={item.propamount}/>						 
 						 )}
 						 {detailIncome.map((item,index)=>						
 						    <KrField key={index} grid={1/3} label={item.propname} component="labelText" value={item.propamount}/>						 
-						 )}
+						 )}*/}
 			  
 			           <KrField grid={1} label="订单描述" component="labelText" value={detail.mainbilldesc}/>
 		

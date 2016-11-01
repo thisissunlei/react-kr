@@ -208,7 +208,7 @@ export default class AttributeSetting  extends Component{
               }
            })
            if(this.state.listValues.length==0){
-           	 alert('请选择一条回款数据进行退款');
+           	  alert('请选择一条回款数据进行退款');
            }else if(this.state.listValues.length>1){
            	  alert('只能选择一条数据');
            }else if(fiMoney>=0){          	  
@@ -440,8 +440,9 @@ export default class AttributeSetting  extends Component{
  		  window.location.reload();
  		}).catch(function(err){
 			Notify.show([{
-				message:message,
-				type: 'danger',
+				message:err.message,
+				type:'danger',
+                
 			}]);
 		 });
 	    this.setState({
@@ -460,7 +461,7 @@ export default class AttributeSetting  extends Component{
 	        window.location.reload();	 
  		  }).catch(function(err){
 			Notify.show([{
-				message:message,
+				message:err.message,
 				type: 'danger',
 			}]);
 		 });
@@ -476,7 +477,7 @@ export default class AttributeSetting  extends Component{
 	       window.location.reload();   
  		  }).catch(function(err){
 			Notify.show([{
-				message:message,
+				message:err.message,
 				type: 'danger',
 			}]);
 		 });       
@@ -493,7 +494,7 @@ export default class AttributeSetting  extends Component{
  		    window.location.reload(); 
  		  }).catch(function(err){
 			Notify.show([{
-				message:'报错了',
+				message:err.message,
 				type: 'danger',
 			}]);
 		 });
@@ -701,7 +702,8 @@ export default class AttributeSetting  extends Component{
        	   	  ,<Button label="退款" className="lineBtn" type="submit" primary={true} onTouchTap={this.openQuitBtn}/>);
        }
        if(parentBtn=='INCOME'&&propInfo=='NEW'){
-       	   
+       	      buttonArr.push(<Button label="挂账" className="lineBtn" type="submit" primary={true} onTouchTap={this.openAccountBtn}/>
+       	   	  ); 
        }
        
        const close=[

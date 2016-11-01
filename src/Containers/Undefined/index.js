@@ -17,6 +17,9 @@ DatePicker,
 	TableFooter,
 	Button,
 	Section,
+	DotTitle,
+	BraceWidth,
+	
 } from 'kr-ui';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
@@ -65,6 +68,12 @@ export default class Undefined extends Component{
 							<Button  label="确定" type="submit" primary={true} />
 						</Form>
 					</Section>
+
+					<DotTitle title='你好' />
+					<BraceWidth contentL='yyyyyy' contentR='hhhhhhh'>
+					 <span>fjdgidftyfyy</span>
+					 <span>urtghirthgiurtih</span>
+					</BraceWidth>
 			</div>
 
 		);
