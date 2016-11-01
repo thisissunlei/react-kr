@@ -100,7 +100,7 @@ export default class SidebarNav extends Component {
 		if(item.originUrl){
 			jumpUrl = item.originUrl;
 		}else{
-			jumpUrl = './#/'+item.router;
+			jumpUrl = './#'+item.router;
 		}
 
 		var styles = {};
