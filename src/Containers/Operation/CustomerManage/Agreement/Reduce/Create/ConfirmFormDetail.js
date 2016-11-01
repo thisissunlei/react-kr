@@ -97,8 +97,13 @@ export default class ConfirmFormDetail  extends Component{
 
 								<KrField name="paytype"  grid={1/1} component="labelText" label="减租金额" value={detail.rentamount}/>
 							 
-							 <KrField grid={1}  name="fileIdList" component="labelText" label="备注" value={detail.contractmark}/> 
-							 <KrField grid={1}  name="fileIdList" component="labelText" label="上传附件" value={detail.fileIdList}/> 
+							 <KrField grid={1}  name="contractmark" component="labelText" label="备注" value={detail.contractmark}/> 
+				
+							 <KrField component="group" label="上传附件">
+									{detail.contractFileList && detail.contractFileList.map((item,index)=>{
+										return <Button label={item.fileName} type="link" href={item.fileUrl} key={index}/>
+									})}
+							</KrField>
 
 
 					<Section title="租赁明细" description=""> 
@@ -115,8 +120,8 @@ export default class ConfirmFormDetail  extends Component{
 										{detail.list.map((item,index)=>{
 											return (
 												<TableRow key={index}>
-													<TableRowColumn>{item.stationType}</TableRowColumn>
-													<TableRowColumn>{item.stationId}</TableRowColumn>
+													<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
+													<TableRowColumn>{item.stationName}</TableRowColumn>
 													<TableRowColumn>
 														<KrDate.Format value={item.leaseBeginDate} format="yyyy-mm-dd"/>
 													</TableRowColumn>

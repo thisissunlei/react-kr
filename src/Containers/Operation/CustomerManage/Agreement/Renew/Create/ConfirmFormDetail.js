@@ -38,7 +38,6 @@ export default class ConfirmFormDetail  extends Component{
 
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel  = this.onCancel.bind(this);
-		
 	}
 
 	onSubmit(form){
@@ -124,7 +123,13 @@ export default class ConfirmFormDetail  extends Component{
 
 
 							 <KrField grid={1}   component="labelText" label="备注" value={detail.contractmark}/> 
-							 <KrField grid={1}   component="labelText" label="上传附件" value={detail.fileIdList}/> 
+					
+
+							<KrField component="group" label="上传附件">
+									{detail.contractFileList && detail.contractFileList.map((item,index)=>{
+										return <Button label={item.fileName} type="link" href={item.fileUrl} key={index}/>
+									})}
+							</KrField>
 
 
 					<Section title="租赁明细" description=""> 
@@ -139,7 +144,7 @@ export default class ConfirmFormDetail  extends Component{
 									</TableHeader>
 									<TableBody>
 													
-										{detail.list.map((item,index)=>{
+										{detail.stationVosList.map((item,index)=>{
 											return (
 												<TableRow key={index}>
 													<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>

@@ -163,6 +163,7 @@ onChangeRentBeginDate(value){
 		var obj = {};
 		obj.id = item.id;
 		obj.stationId = item.stationId;
+		obj.stationType = item.stationType;
 		obj.stationName = item.stationName;
 		obj.unitprice = item.unitprice;
 		obj.leaseBeginDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
