@@ -248,7 +248,11 @@ class NewCreateForm  extends Component{
 				<KrField grid={1}  name="rentamount" component="input" type="text" requireLabel={true} label="减租金额" /> 
 
 				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" />
-				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]}/>
+			
+				<KrField grid={1}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
+				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
+					Store.dispatch(change('reduceCreateForm','contractFileList',files));
+				}} />
 
 				<Section title="租赁明细" description="" rightMenu = {
 					<Menu>
