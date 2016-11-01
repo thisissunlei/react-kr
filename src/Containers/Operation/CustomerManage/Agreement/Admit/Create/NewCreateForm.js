@@ -325,6 +325,8 @@ class NewCreateForm  extends Component{
 
 	onIframeClose(billList){
 
+		console.log('000',billList);
+
 		this.openStationDialog();
 
 

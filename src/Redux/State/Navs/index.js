@@ -27,16 +27,59 @@ module.exports = {
 			router:'operation',
 			menuItems:[
 				{
+					primaryText:"客户管理",
+					router:'communityManage',
+					menuItems:[
+						{
+							primaryText:'客户列表',
+							originUrl:'/krspace_operate_web/customerBase/toCoustomerInfoList?mid=103#share'
+						},
+					]
+				},
+				{
+					primaryText:"社区配置",
+					router:'communityManage',
+					menuItems:[
+						{
+							primaryText:'社区列表',
+							originUrl:'/krspace_operate_web/commnuity/communityBase/toCommunityBaseList'
+						},
+						{
+							primaryText:'会议室列表',
+							originUrl:'/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityBoardroom&mid=66'
+						},
+						{
+							primaryText:'设备列表',
+							originUrl:'/krspace_operate_web/community/device/toDeviceList?mid=75'
+						},
+						{
+							primaryText:'工位列表',
+							originUrl:'/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityStation&mid=83'
+						},
+						{
+							primaryText:'平面图配置',
+							originUrl:'/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityFloorPlan&mid=90'
+						},
+						{
+							primaryText:'访客记录',
+							originUrl:'/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=102'
+						},
+					]
+				},
+
+
+
+				{
 					primaryText:"社区管理",
 					router:'communityManage',
 					menuItems:[
 						{
 							primaryText:'基本信息',
 							router:'/operation/communityManage/detail',
+							originUrl:'/'
 						},
 					]
 				},
-				
 				
 				/*
 				{
@@ -60,36 +103,6 @@ module.exports = {
 					]
 				},
 				*/
-				
-				
-				{
-					primaryText:"社区配置",
-					router:'',
-					menuItems:[
-						{
-							primaryText:'社区列表',
-							router:'',
-						},
-						{
-							primaryText:'会议室列表',
-							router:'',
-						},
-						{
-							primaryText:'设备列表',
-							router:'',
-						},
-						{
-							primaryText:'工位列表',
-							router:'',
-						},
-						{
-							primaryText:'平面图配置',
-							router:'',
-						}
-
-
-					]
-				},
 
 				{
 					primaryText:"基础配置",

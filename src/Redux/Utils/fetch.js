@@ -4,6 +4,9 @@ import URLSearchParams from 'url-search-params';
 import { browserHistory } from 'react-router';
 import APIS from '../apis';
 
+import ES6Promise from 'es6-promise';
+ES6Promise.polyfill();
+
 var env = process.env.NODE_ENV;
 
 function getUrl(path, params = {},mode = false) {

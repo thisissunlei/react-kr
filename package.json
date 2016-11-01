@@ -33,6 +33,7 @@
     "co-views": "^2.1.0",
     "css-loader": "^0.23.1",
     "dateformat": "^1.0.12",
+    "es6-promise": "^4.0.5",
     "extract-text-webpack-plugin": "^2.0.0-beta.4",
     "fetch-sync": "^2.0.0",
     "file-loader": "^0.8.5",
