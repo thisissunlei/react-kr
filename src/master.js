@@ -1,8 +1,7 @@
 import React, {Component, PropTypes} from 'react';
-import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import * as actionCreators from 'kr-ui/../Redux/Actions';
+import {Actions,Store,connect} from 'kr/Redux';
 
 import Header from './Components/Global/Header';
 import Footer from './Components/Global/Footer';
@@ -24,6 +23,11 @@ class Master extends Component {
 	constructor(props,context){
 		super(props, context);
 
+		Store.dispatch(Actions.callAPI('getSelfMenuInfo',{})).then(function(response){
+			Store.dispatch(Actions.setUserNavs());
+		}).catch(function(err){
+
+	   	});
 	}
 
 	componentWillMount() {
@@ -71,17 +75,9 @@ class Master extends Component {
 	}
 }
 
-function mapStateToProps(state){
+export default connect((state)=>{
 	return {
 		header_nav:state.header_nav,
 		sidebar_nav:state.sidebar_nav
 	};
-}
-
-function mapDispatchToProps(dispatch){
-	return {
-		actions:bindActionCreators(Object.assign({},actionCreators),dispatch)
-	};
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(Master);
+})(Master);
