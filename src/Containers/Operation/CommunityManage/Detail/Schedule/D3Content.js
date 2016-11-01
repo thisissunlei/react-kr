@@ -120,12 +120,14 @@ export default  class D3Content extends Component {
 	// 插入催款信息
 	getRedInfo(list){
   		var {finaRedPointVo} = this.props;
+  		
   		list.map((item)=>{
   			item.red = [];
   			finaRedPointVo.map((value)=>{
   				if(item.installmentBegindate<=value.pointDate && item.installmentEnddate>=value.pointDate){
-  					value.pointDate = dateFormat(value.pointDate,"yyyy.mm.dd");
-  					item.red.push(value);
+  					var obj = {};
+  					obj.pointDate = dateFormat(value.pointDate,"yyyy.mm.dd");
+  					item.red.push(obj);
   				}
   			})
   		})

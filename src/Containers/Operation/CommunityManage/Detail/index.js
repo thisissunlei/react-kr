@@ -82,6 +82,7 @@ export default  class CommunityManage extends Component {
 				communityInfoList
 			});
 		}).catch(function(err){
+			console.log('err', err);
 			Notify.show([{
 				message:err.message,
 				type: 'danger',
