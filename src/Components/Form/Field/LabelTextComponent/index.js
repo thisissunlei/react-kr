@@ -23,7 +23,8 @@ export default class  LabelTextComponent extends React.Component {
 								{value && <KrDate.Format value={value} /> }
 								{!value && defaultValue}
 							</span>
-						</WrapComponent>);
+						</WrapComponent>
+						);
 			}
 
 			return (
