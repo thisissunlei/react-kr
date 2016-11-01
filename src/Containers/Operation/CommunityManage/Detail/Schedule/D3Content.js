@@ -50,6 +50,9 @@ export default  class D3Content extends Component {
 		this.renderBlueNode = this.renderBlueNode.bind(this);
 		this.getRedInfo = this.getRedInfo.bind(this);
 		this.renderRedNode = this.renderRedNode.bind(this);
+		this.state = {
+			width:this.props.width
+		}
 
 	}
 
@@ -68,7 +71,7 @@ export default  class D3Content extends Component {
 	dealTime(){
 		var {detail} = this.props;
 		var _this = this;
-		const width = 700;
+		const width = this.props.width ||700;
 		var timeList = detail.map(function(item){
         	item.start = _this.countDays(item.installmentBegindate);
         	item.end = _this.countDays(item.installmentEnddate);
@@ -82,7 +85,7 @@ export default  class D3Content extends Component {
 	// 获取分期前的空白时间段
 	getSpace(timeList){
 		let whiteLength;
-		const width = 700;
+		const width = this.props.width ||700;
 		var whiteWidth = parseInt((timeList[0].start-1)/365 * width);
 		var whiteNode = {
 			start:0,
@@ -95,6 +98,12 @@ export default  class D3Content extends Component {
 	appendDiv(list, time){
         	var nowNode;
         	list.map((item,index)=>{
+        		if(index === 0 && item.start> time){
+        			nowNode = 0;
+        		} 
+        		if(index === list.length-1 && item.end < time){
+        			nowNode = index +1;
+        		}
         		if(item.start<= time && item.end>=time){
         			nowNode = index;
         		}
@@ -103,7 +112,7 @@ export default  class D3Content extends Component {
 	}
 	// 催款时间和工位变更时间节点位置（px）
 	timeNode(date){
-		const width= 700;
+		const width= this.props.width ||700;
 		var days = this.countDays(date);
 		var marginLeft = parseInt(days/365 * width);
 		return marginLeft;
@@ -156,8 +165,9 @@ export default  class D3Content extends Component {
 					}
 				})
 			})
-			return finaBluePointVoList;
+			
 		}
+		return finaBluePointVoList;
 
 	}
 
@@ -176,8 +186,8 @@ export default  class D3Content extends Component {
 					}
 				})
 			})
-			return finaRedPointVoList;
 		}
+			return finaRedPointVoList;
 
 	}
 
@@ -197,7 +207,7 @@ export default  class D3Content extends Component {
 	var sameNode = this.getSameTime();
 	list= this.getRedInfo(list);
 	
-	const width = 700;
+	const width = this.props.width || 700;
 
     return (
 
@@ -251,21 +261,21 @@ export default  class D3Content extends Component {
 				{
 					blueNodeList && blueNodeList.map((item,index)=>{
 						return (
-							<span className='blue-node' key={index} style={{marginLeft:parseInt(item/365 * width)}}></span>
+							<span className='blue-node' key={index} style={{marginLeft:parseInt(item/365 * width)-5}}></span>
 						)
 					})
 				}
 				{
 					redNodeList && redNodeList.map((item,index)=>{
 						return (
-							<span className='red-node' key={index} style={{marginLeft:parseInt(item/365 * width)}}></span>
+							<span className='red-node' key={index} style={{marginLeft:parseInt(item/365 * width)-5}}></span>
 						)
 					})
 				}
 				{
 					sameNode && sameNode.map((item,index)=>{
 						return (
-							<span className='same-node' key={index} style={{marginLeft:parseInt(item/365 * width)}}></span>
+							<span className='same-node' key={index} style={{marginLeft:parseInt(item/365 * width)-5}}></span>
 						)
 					})
 				}
