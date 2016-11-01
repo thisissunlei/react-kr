@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {Binder} from 'react-binding';
 import dateFormat from 'dateformat';
-import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
+import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
 
@@ -159,14 +159,27 @@ onChangeRentBeginDate(value){
 
 	  //修改日期
 	selectedStationVos.map(function(item,index){
-		item.leaseBeginDate = item.leaseEndDate;
-		item.leaseEndDate = item.rentBeginDate;
+		item.leaseBeginDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
+		item.leaseEndDate = dateFormat(item.rentBeginDate,'yyyy-mm-dd');
 		return item;
 	});
 
+	let beginDate = Date.parse(selectedStationVos[0].leaseBeginDate);
+	let endDate = Date.parse(selectedStationVos[0].leaseEndDate);
 
-		const {onSubmit} = this.props;
-		onSubmit && onSubmit(selectedStationVos);
+	 if(beginDate>= endDate){
+			Notify.show([{
+				message:'选择的工位租赁结束时间不能大于续租结束时间',
+				type: 'danger',
+			  }]);
+			  return false;
+	  }
+
+	Store.dispatch(change('reduceCreateForm','leaseBegindate',selectedStationVos[0].leaseEndDate));
+
+	const {onSubmit} = this.props;
+	onSubmit && onSubmit(selectedStationVos);
+
   }
 
 
