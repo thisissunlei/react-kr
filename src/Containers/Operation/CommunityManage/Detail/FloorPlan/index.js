@@ -4,6 +4,7 @@ import {Actions,Store} from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
 import $ from 'jquery';
 import dateFormat from 'dateformat';
+import DatePicker from 'material-ui/DatePicker';
 import {
 	Dialog,
 	Section,
@@ -118,8 +119,9 @@ export default  class FloorPlan extends Component {
 		$(window).bind('scroll',function(){
 			var top = $(window).scrollTop() || 0;
             var height = $(window).height() || 0;
-            var scrollBottom = $('#planTable').offset().top - top - height;
-            var isOutBoundary =  scrollBottom >= 1;
+            // var scrollBottom = $('#planTable').offset().top +1000 - top - height;
+            var scrollBottom = height-top;
+            var isOutBoundary =  scrollBottom >= 100;
             if (!isOutBoundary) {
             	that.iframeWindow.pagequery();
             }
@@ -144,10 +146,10 @@ export default  class FloorPlan extends Component {
   	const width = $('#planTable').width() || 900;
     return (
 
-		 <div id="planTable">
+		 <div id="planTable" style={{paddingTop:20}}>
 		 	<Form name="planTable" onSubmit={this.onSubmit} className="form-list">
 				<KrField name="floor"  grid={1/4} component="select" label="楼层" options={communityInfoFloorList}/>
-				<KrField grid={1/4}  name="start" component="date" label="注册时间" />
+				<KrField grid={3/10}  name="start" component="date" label="注册时间" />
 				<KrField grid={1/4}  name="end" component="date"  label="至" />
 				<Button  label="确定" type="submit" primary={true} style={{marginLeft:100}}/>
 			</Form>
