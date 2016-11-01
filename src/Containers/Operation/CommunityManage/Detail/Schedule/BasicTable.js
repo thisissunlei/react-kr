@@ -112,7 +112,6 @@ export default class BasicTable extends Component {
 			dismantling: false,
 			formValues: {},
 			Installmentplan: [],
-
 			rate: [],
 			communityIdList: []
 		};
@@ -137,6 +136,7 @@ export default class BasicTable extends Component {
 
 
 	//撤场
+
 	onDismantling() {
 		this.openDismantlingDialog();
 	}
@@ -198,30 +198,25 @@ export default class BasicTable extends Component {
 
 
 	getInstallmentplan() {
-
 		var _this = this;
-		let {
-			community
-		} = this.props;
+		let {community} = this.props;
 		console.log('this.params', this.props, community);
 
-
-		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
+	
+		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response){
 
 			var communityIds = [];
-			response.communityInfoList.map((item) => {
+			response.communityInfoList.map((item)=>{
 				communityIds.push(item.id);
 			});
-			var content = community || communityIds;
+			var	content = community || communityIds;
 
-
-			Store.dispatch(Actions.callAPI('getInstallmentplan', {
-				communityids: content.toString()
-			})).then(function(response) {
-
+				
+			Store.dispatch(Actions.callAPI('getInstallmentplan', {communityids:content.toString()})).then(function(response) {
+					
 				_this.setState({
-					Installmentplan: response.vo,
-					rate: response.rate
+					Installmentplan:response.vo,
+					rate:response.rate
 				});
 
 			}).catch(function(err) {
@@ -233,15 +228,17 @@ export default class BasicTable extends Component {
 
 
 
-		}).catch(function(err) {
+		}).catch(function(err){
 			console.log('err', err);
 			Notify.show([{
-				message: err.message,
+				message:err.message,
 				type: 'danger',
 			}]);
-		});
+	   	});
+		
 
 	}
+	
 
 		render() {
 
@@ -368,3 +365,4 @@ export default class BasicTable extends Component {
 }
 
 }
+
