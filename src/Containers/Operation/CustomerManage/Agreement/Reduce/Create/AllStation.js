@@ -40,15 +40,15 @@ class SelectStationForm  extends Component{
 
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
-
-    this.onSelect = this.onSelect.bind(this);
-    this.getLoadData = this.getLoadData.bind(this);
-    this.setReduceStartDate = this.setReduceStartDate.bind(this);
+		this.onSelect = this.onSelect.bind(this);
+		this.getLoadData = this.getLoadData.bind(this);
+		this.onChangeRentBeginDate = this.onChangeRentBeginDate.bind(this);
 
     this.state = {
       stationVos:[],
-      selected:[]
+		selected:[],
     }
+
 	}
 
   componentDidMount(){
@@ -56,25 +56,24 @@ class SelectStationForm  extends Component{
   }
 
 
-  setReduceStartDate(dateValue){
+onChangeRentBeginDate(value){
+	value = dateFormat(value,'yyyy-mm-dd');
+	let {stationVos,selected} = this.state;
+	stationVos = [].concat(stationVos);
+	stationVos.map(function(item,index){
+		if(selected.indexOf(index) !==-1){
+			item.rentBeginDate = value;
+		}else{
+			item.rentBeginDate = '';
+		}
+		return item;
+	});
 
-    let {stationVos,selected} = this.state;
+	this.setState({
+		stationVos
+	});
 
-    var result = [];
-
-    stationVos.forEach(function(item,index){
-      var obj = Object.assign({},item);
-    
-        if(selected.indexOf(index) !==-1){
-            obj.startDate = dateValue;
-        }else{
-           obj.startDate = ''; 
-        }
-        result.push(obj);
-    });
-
-    this.setState({stationVos:result});
-  }
+}
 
 
   getLoadData(){
@@ -93,16 +92,27 @@ class SelectStationForm  extends Component{
   }
 
   onSelect(selected){
-    this.setState({
-      selected
-    });
+		this.setState({
+			selected
+		},function(){
+
+		});
   }
 
-	  onSubmit(){
+  onSubmit(){
 
     let {stationVos,selected} = this.state;
+	  let selectedStationVos = [];
 
-    if(!selected.length){
+	  selectedStationVos = stationVos.filter(function(item,index){
+		  if(selected.indexOf(index) !==-1){
+			  return true;
+		  }
+		  return false;
+	  });
+
+
+    if(!selectedStationVos.length){
        Notify.show([{
             message:'请选择工位',
             type: 'danger',
@@ -111,60 +121,52 @@ class SelectStationForm  extends Component{
 		return ;
     }
 
-	 //选择了哪些工位
-	let selectStationVos = [];
-
-	stationVos.forEach(function(item,index){
-		if(selected.indexOf(index) !== -1){
-			selectStationVos.push(item);
-		}
-	});
-
-
 	//选中的必须要有租赁结束日期
 	var someStartDate = true;
 
-	selectStationVos.forEach(function(item,index){
-		if(!item.startDate){
+	selectedStationVos.forEach(function(item,index){
+		if(!item.rentBeginDate){
 			someStartDate = false;
 		}
 	});
 
-	  if(!someStartDate){
-			Notify.show([{
-				message:'选择的工位必须要有租赁开始时间',
-				type: 'danger',
-			  }]);
-		  return ;
-	  }
-
-	 //工位结束时间相同
-
-	if(selectStationVos.length>1){
-
-		var some = true;
-		selectStationVos.sort(function(pre,next){
-			var preDate = dateFormat(pre.leaseEndDate,'yyyy-mm-dd');
-			var nextDate = dateFormat(next.leaseEndDate,'yyyy-mm-dd');
-			if(preDate != nextDate){
-			  some = false;
-			}
-			return -1;
-		});
-
-		if(!some){
-			Notify.show([{
-				message:'请选择相同日期',
-				type: 'danger',
-			  }]);
-			  return false;
-		}
+	if(!someStartDate){
+		Notify.show([{
+		message:'选择的工位必须要有租赁开始时间',
+			type: 'danger',
+		  }]);
+	  return ;
 	}
 
-		  console.log("---",selectStationVos);
-    const {onSubmit} = this.props;
-    onSubmit && onSubmit(selectStationVos);
+	  //工位结束时间相同
+	  var some = true;
+	  selectedStationVos.sort(function(pre,next){
+			  var preDate = dateFormat(pre.leaseEndDate,'yyyy-mm-dd');
+			  var nextDate = dateFormat(next.leaseEndDate,'yyyy-mm-dd');
+			  if(preDate != nextDate){
+				  some = false;
+			  }
+			  return -1;
+		  });
 
+		  if(!some){
+			  Notify.show([{
+				  message:'请选择相同日期',
+				  type: 'danger',
+			  }]);
+			  return false;
+		  }
+
+	  //修改日期
+	selectedStationVos.map(function(item,index){
+		item.leaseBeginDate = item.leaseEndDate;
+		item.leaseEndDate = item.rentBeginDate;
+		return item;
+	});
+
+
+		const {onSubmit} = this.props;
+		onSubmit && onSubmit(selectedStationVos);
   }
 
 
@@ -188,7 +190,7 @@ class SelectStationForm  extends Component{
 		return (
 			<div style={{height:667,marginTop:20}}>
 <form onSubmit={handleSubmit(this.onSubmit)}>
-			<KrField grid={1/1}  name="startDate" component="date" label="减租开始时间" onChange={this.setReduceStartDate}/>
+			<KrField grid={1/1}  name="rentBeginDate" component="date" label="减租开始时间" onChange={this.onChangeRentBeginDate}/>
       <Table onSelect={this.onSelect} style={overfolw}>
         <TableHeader>
           <TableHeaderColumn>类别</TableHeaderColumn>
@@ -210,7 +212,7 @@ class SelectStationForm  extends Component{
           <TableRowColumn ><KrDate.Format value={item.leaseBeginDate}/></TableRowColumn>
           <TableRowColumn ><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
           <TableRowColumn>
-				{item.startDate && dateFormat(item.startDate,'yyyy-mm-dd')}
+				{item.rentBeginDate&& dateFormat(item.rentBeginDate,'yyyy-mm-dd')}
           </TableRowColumn>
          </TableRow>
         );

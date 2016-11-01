@@ -87,7 +87,6 @@ class NewCreateForm  extends Component{
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 
-		this.reduceMoney = this.reduceMoney.bind(this);
 		this.state = {
 			stationVos:[],
 			selectedStation:[],
@@ -123,77 +122,13 @@ class NewCreateForm  extends Component{
 		this.openStationDialog();
 	}
 
-	onStationSubmit(selectedList){
-
-		let {stationVos} = this.state;
-		let  result = stationVos;
-		console.log(selectedList, stationVos);
-
-		if(!stationVos.length){
-			result = selectedList;
-		}else{
-			stationVos.forEach(function(item,index){
-				selectedList.forEach(function(selected,i){
-					if (item.id !=selected.id) {
-							result.push(selected);
-					}
-				});
-			});
-		}
-
-		result.map((item)=>{
-			item.leaseBeginDate = dateFormat(item.leaseBeginDate,"yyyy-mm-dd hh:MM:ss");
-			item.leaseEndDate = dateFormat(item.leaseEndDate,"yyyy-mm-dd hh:MM:ss");
-		})
-		console.log("0000",result);
+	onStationSubmit(stationVos){
 		this.setState({
-				stationVos:result
+			stationVos
 		});
 		this.openStationDialog();
-		this.reduceMoney(selectedList, 'add');
 	}
 
-	// 计算减租金额
-	reduceMoney(selectedList,from){
-		console.log(selectedList);
-
-		if(from === 'add'){
-			var {rentamount} = this.state;
-		}else{
-			var rentamount = 0;
-		}
-		console.log('result', rentamount);
-		var sum  = rentamount;
-		selectedList.forEach(function(value){
-
-			try{
-				if(!value.unitprice){
-					Notify.show([{
-						message:'单价为空',
-						type: 'danger',
-					}]);
-					return false;
-				}
-				var price = parseFloat((value.unitprice*12/365).toFixed(2));
-				var start = Date.parse(value.leaseBeginDate);
-				var  end= Date.parse(value.leaseEndDate);
-				var num =  Math.floor((end-start)/(3600*24*1000));
-				sum += num*price;
-				return sum = parseFloat(sum.toFixed(2));
-
-
-			}catch(err){
-				console.log(err,'err');
-			}
-
-
-		});
-		console.log('sum', sum);
-		this.setState({
-			rentamount:sum
-		});
-
-	}
 
 	//删除工位
 	onStationDelete(){
@@ -206,7 +141,6 @@ class NewCreateForm  extends Component{
 			}
 			return true;
 		});
-		this.reduceMoney(stationVos, 'less');
 		this.setState({
 			stationVos
 		});
