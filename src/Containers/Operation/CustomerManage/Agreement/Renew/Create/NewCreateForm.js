@@ -137,7 +137,6 @@ class NewCreateForm  extends Component{
 			});
 		}
 
-		var leaseBegindate  = ''; 
 		result.map((item)=>{
 			item.leaseBeginDate = dateFormat(item.leaseBeginDate,"yyyy-mm-dd hh:MM:ss");
 			item.leaseEndDate = dateFormat(item.leaseEndDate,"yyyy-mm-dd hh:MM:ss");
@@ -148,9 +147,6 @@ class NewCreateForm  extends Component{
 			stationVos:result
 		});
 
-		if(result.length){
-			Store.dispatch(change('reduceCreateForm','leaseBegindate',result[0].leaseEndDate));
-		}
 		this.openStationDialog();
 		this.reduceMoney(selectedList, 'add');
 	}

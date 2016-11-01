@@ -132,7 +132,7 @@ class SelectStationForm  extends Component{
 
 	  if(!someStartDate){
 			Notify.show([{
-				message:'选择的工位必须要有租赁开始时间',
+				message:'选择的工位必须要有租赁结束时间',
 				type: 'danger',
 			  }]);
 		  return ;
@@ -161,6 +161,8 @@ class SelectStationForm  extends Component{
 		}
 	}
 
+
+	Store.dispatch(change('reduceCreateForm','leaseBegindate',selectStationVos[0].leaseEndDate));
     const {onSubmit} = this.props;
     onSubmit && onSubmit(selectStationVos);
 
@@ -187,7 +189,7 @@ class SelectStationForm  extends Component{
 		return (
 			<div style={{height:667,marginTop:20}}>
 <form onSubmit={handleSubmit(this.onSubmit)}>
-			<KrField grid={1/1}  name="startDate" component="date" label="续租开始时间" onChange={this.setReduceStartDate}/>
+			<KrField grid={1/1}  name="startDate" component="date" label="续租结束时间" onChange={this.setReduceStartDate}/>
       <Table onSelect={this.onSelect} style={overfolw}>
         <TableHeader>
           <TableHeaderColumn>类别</TableHeaderColumn>
@@ -196,7 +198,7 @@ class SelectStationForm  extends Component{
           <TableHeaderColumn>楼层</TableHeaderColumn>
           <TableHeaderColumn>起始日期</TableHeaderColumn>
           <TableHeaderColumn>结束日期</TableHeaderColumn>
-          <TableHeaderColumn>续租开始日期</TableHeaderColumn>
+          <TableHeaderColumn>续租结束日期</TableHeaderColumn>
       </TableHeader>
       <TableBody>
       {stationVos && stationVos.map((item,index)=>{
