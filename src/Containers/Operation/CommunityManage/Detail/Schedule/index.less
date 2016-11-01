@@ -26,8 +26,71 @@
 
 	.company-name{
 		width:100px !important;
-		height:100px;
+		height:50px;
 		top:0;
+		ul{
+			margin:0;
+			padding: 5px;
+			list-style: none;
+			margin-left: 5px;
+			p{
+				margin:0;
+				// border-left:1px solid #999;
+				padding-bottom: 4px;
+
+			}
+			li{
+				border-left:1px solid #999;
+				padding-bottom: 10px;
+				padding-left: 10px;
+				position: relative;
+				.name{
+					float: left;
+				}
+				
+			}
+			.company-order-zero{
+				margin-top: 5px;
+				&:before{
+					content:'';
+					float: left;
+					border: 1px solid #999;
+					border-radius: 3px;
+					margin-left: -13px;
+					width: 4px;
+					height: 4px;
+					margin-top: -5px;
+				
+				}
+				.name{
+					margin-top: -9px;
+				}
+			}
+			.company-order{
+				// margin-top: -4px;
+				&:before{
+					content:'';
+					float: left;
+					border: 3px solid #999;
+					border-radius: 3px;
+					margin-left: -13px;
+
+				}
+				.name{
+					margin-top: -4px;
+				}
+				.count{
+					position: absolute;
+					top: -5px;
+					left: -23px;
+					font-size: 12px;	
+					color: #999;
+				}
+			}
+			li:last-child{
+				border-left: none;
+			}
+		}
 	}
 
 	.d3-content{
@@ -132,5 +195,11 @@
 			background-color: #fff;
 			height: 50px;
 		}
+.company-order{
+	ul{
+		margin:0;
+		padding-top:5px;
+	}
+}
 
 
