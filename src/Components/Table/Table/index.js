@@ -24,6 +24,7 @@ export default class Table extends React.Component {
 		displayCheckbox:true,
 		footer:false,
 		exportSwitch:false,
+		defaultSelectedRows:[],
 	}
 
 	static PropTypes = {
@@ -44,6 +45,7 @@ export default class Table extends React.Component {
 		ajaxFieldListName:React.PropTypes.string,
 		//tfoot
 		footer:React.PropTypes.bool,
+		defaultSelectedRows:React.PropTypes.array,
 
 		//事件
 		onExport:React.PropTypes.func,
@@ -78,6 +80,7 @@ export default class Table extends React.Component {
 		this.onLoaded = this.onLoaded.bind(this);
 
 		this.onLoadData  = this.onLoadData.bind(this);
+		this.onInitial = this.onInitial.bind(this);
 
 
 		this.renderTableHeader = this.renderTableHeader.bind(this);
@@ -106,7 +109,6 @@ export default class Table extends React.Component {
 	componentDidMount(){
 
 	}
-
 
 	componentWillReceiveProps(nextProps){
 
@@ -147,35 +149,29 @@ export default class Table extends React.Component {
 	}
 
 	onSort(name){
-
-
 		if(!name){
 			return ;
 		}
-
 		let {listData} = this.state;
-
-
-
-		//listData = listData.splice(1,3);
-
 		this.setState({
 			listData
 		});
+	}
 
-		/*
-		listData.sort(function(a,b){
-			return a>b;
+	onInitial(state){
+		let {defaultSelectedRows} = this.props;
+		state.selectedRows = defaultSelectedRows;
+		let {listData} = state;
+
+		this.setState(state,function(){
+			this.onLoaded();
 		});
-		*/
-
 	}
 
 	onLoaded(){
 		const {onLoaded} = this.props;
 		onLoaded && onLoaded(this.state.response);
 	}
-
 
 
 	onOperation(type,itemData){
@@ -231,7 +227,7 @@ export default class Table extends React.Component {
 		var _this = this;
 
 		http.request(ajaxUrlName,ajaxParams).then(function(response){
-			_this.setState({
+			_this.onInitial({
 				response:response,
 				listData:response[_this.props.ajaxFieldListName],
 				page:response.page,
@@ -239,12 +235,12 @@ export default class Table extends React.Component {
 				totalCount:response.totalCount,
 				isLoaded:true,
 			});
-			_this.onLoaded();
 		}).catch(function(err){
-			_this.onLoaded();
-			_this.setState({
+
+			_this.onInitial({
 				isLoaded:true
 			});
+
 			Notify.show([{
 				message:err.message,
 				type: 'error',
@@ -348,6 +344,7 @@ export default class Table extends React.Component {
 	}
 
 	onSelect(){
+
 		let {selectedRows,visibilityRows}  = this.state;
 
 		var result = [];

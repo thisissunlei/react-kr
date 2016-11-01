@@ -129,7 +129,6 @@ class SelectStationForm  extends Component{
 		if(!item.startDate){
 			someStartDate = false;
 		}
-
 		item.leaseBeginDate =  dateFormat(item.leaseBeginDate,'yyyy-mm-dd hh:MM:ss');
 		item.leaseEndDate =  dateFormat(item.leaseEndDate,'yyyy-mm-dd hh:MM:ss');
 	});

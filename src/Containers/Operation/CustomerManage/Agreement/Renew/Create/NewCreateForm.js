@@ -341,7 +341,7 @@ class NewCreateForm  extends Component{
 						modal={true}
 						autoScrollBodyContent={true}
 						autoDetectWindowHeight={true} >
-								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel}/>
+								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} selectedStationVos={this.state.stationVos}/>
 					  </Dialog>
 
 
