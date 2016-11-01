@@ -201,6 +201,7 @@ export default class OrderDetail extends React.Component {
 
 
 			<Grid style={{marginTop:50}}>
+			<span className='ui-remark'>注：如（1-0），1表示该类型合同总数，0表示执行完该类型合同数</span>
 			<ul className='ui-adminBook'>
               <li><span className={contractStatusCount.intentionComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
               <li><span className={contractStatusCount.enterComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
