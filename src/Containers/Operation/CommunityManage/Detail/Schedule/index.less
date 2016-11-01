@@ -1,27 +1,144 @@
-.basic-table{
-	width: 900px;
+.basic-con{
+	width:100%;
+	height:80px;
+}
+.legend{
+	width:300px;
+	height:80px;
+	font-size:14px;
+	color:#999999;
+	.legend-left{
+		float:left;
+		width:150px;
+		height:100%;
+		margin-right:50px;
+	}
+	.legend-right{
+		float:left;
+		width:100px;
+		height:100%;
+	}
+	.square{
+		width:30px;
+		height:20px;
+		display:inline-block;
+		border-radius:4px;
+		-webkit-border-radius:4px;
+		-moz-border-radius:4px;
+		-ms-border-radius:4px;
+		margin-right:10px;
+		marfin-top:5px;
+	}
+	.circle{
+		width:10px;
+		height:10px;
+		display:inline-block;
+		border-radius:100%;
+		-webkit-border-radius:100%;
+		-moz-border-radius:100%;
+		-ms-border-radius:100%;
+		margin-right:10px;
+	}
+	.red{
+		border:1px solid #ff5252;
+	}
+	.green{
+		border:1px solid #54c5a5;
+	}
+	.txt{
+		vertical-align:top;
+	}
+	.bule{
+		background:#499df1;
+	}
+	.grey{
+		background:#b7cad4;
+	}
+}
 
+
+
+.basic-table{
+	 width: 900;   
+	 border-spacing: initial;
+	 border:0;
+	 font-size:16px;
 	tr{
-		border:1px solid #dfdfdf;
+		border-bottom:1px solid #dfdfdf;
+	}
+	.header-td{
+		td{
+			height:80px;
+			line-height:80px;
+		}
 	}
 
 	td{
 		vertical-align:top;
+		height:60px;
+		line-height:60px;
+		text-align:center;
+		color:#333333;
+		.header-title{
+			height:60px;
+			width:100%;
+			line-height:60px;
+			position:relative;
+			margin:10px 0px;
+			background:#f8f9f9;
+		}
+		.title-right{
+			color:#666666;
+			position:absolute;
+			right:5px;
+			bottom:0
+		}
+		.title-left{
+			color:#666666;
+			position:absolute;
+			left:5px;
+			top:0;
+		}
+		&:first-child{
+			border-right:1px solid #dfdfdf;
+			color:#333333;
+			font-size:14px;
+		}
+		&:last-child{
+			border-left:1px solid #dfdfdf;
+			button{
+				width:40px;
+				height:40px !important;
+				float:left;
+			}
+		}
 	}
 	th{
 		width: 50px !important;
+		color:#499df1;
+		height:60px;
+		font-weight:100;
+		background:#f8f9f9;
+		border-bottom:1px solid #dfdfdf;
+		border-right:1px solid #ffffff;
+		&:last-child{
+			border-right:0px solid #fff;
+		}
 	}
+	
+	
 	.pre-year,
 	.next-year{
 		width:100px;
-		height:100px;
+		color:#666666;
 	}
 
 	.pre-year{
+		border-right:1px solid #dfdfdf;
 
 	}
 	.next-year{
-
+		border-left:1px solid #dfdfdf;
 	}
 
 	.company-name{
