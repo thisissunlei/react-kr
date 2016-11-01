@@ -95,7 +95,7 @@ class QuitBtnForm extends Component{
 						   </Row> 
 					   
                          </form>
-			</div>		
+			   </div>		
 
 		);
 

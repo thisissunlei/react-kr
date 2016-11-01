@@ -464,7 +464,7 @@ export default class AttributeSetting  extends Component{
 				type: 'danger',
 			}]);
 		 });
-	    _this.setState({
+	    this.setState({
 			openQuitBtn:!this.state.openQuitBtn,
 			isLoading:true
 		});
@@ -480,7 +480,7 @@ export default class AttributeSetting  extends Component{
 				type: 'danger',
 			}]);
 		 });       
-	    _this.setState({
+	    this.setState({
 			openSwitchBtn:!this.state.openSwitchBtn,
 			isLoading:true
 		});	 
@@ -498,7 +498,7 @@ export default class AttributeSetting  extends Component{
 			}]);
 		 });
 
-	    _this.setState({
+	    this.setState({
 			openBusinessBtn:!this.state.openBusinessBtn,
 			isLoading:true
 		});	

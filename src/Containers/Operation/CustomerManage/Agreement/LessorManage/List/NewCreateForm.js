@@ -99,7 +99,7 @@ const validate = values =>{
 			errors.corporationName = '请填写出租方名称';
 		}
 		if(!values.corporationAddress){
-			errors.corporationAddress = '请填写出租方名称';
+			errors.corporationAddress = '请填写详细地址';
 		}
 	
 		return errors

@@ -100,7 +100,9 @@ class SwitchBtnForm extends Component{
 
 	}
 
-}const validate = values =>{
+}
+
+const validate = values =>{
 
 		const errors = {}
 
