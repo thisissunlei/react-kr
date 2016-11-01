@@ -30,6 +30,11 @@ import {
 	}
 
 	 onSubmit(values){
+	 	 values = Object.assign({},values);
+	 	 values.enableflag = Boolean(values.enableflag)?1:0;
+
+	 	 values = Object.assign({},values);
+
 		 var _this = this;
 		Store.dispatch(Actions.callAPI('addFnaCorporation',{},values)).then(function(response){
 				Notify.show([{
@@ -66,7 +71,7 @@ import {
 
 							<KrField name="enableflag" component="group" label="是否启用" requireLabel={true}>
 								<KrField name="enableflag" label="是" component="radio" type="radio" value={true}/>
-								<KrField name="enableflag" label="否" component="radio" type="radio" value={false} />
+								<KrField name="enableflag" label="否" component="radio" type="radio" value={false}/>
 							</KrField>
 							
 							<KrField name="corporationAddress" component="text" type="text" label="详细地址" requireLabel={true}/> 
@@ -86,7 +91,20 @@ import {
 	}
 }
 
+const validate = values =>{
+
+		const errors = {}
+
+		if(!values.corporationName){
+			errors.corporationName = '请填写出租方名称';
+		}
+		if(!values.corporationAddress){
+			errors.corporationAddress = '请填写出租方名称';
+		}
+	
+		return errors
+	}
 
 export default reduxForm({ form: 'newCreateForm',initialValues:{
 	enableflag:true
-}})(NewCreateForm);
+},validate})(NewCreateForm);

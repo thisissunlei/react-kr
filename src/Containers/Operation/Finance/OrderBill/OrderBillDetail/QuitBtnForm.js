@@ -84,8 +84,8 @@ class QuitBtnForm extends Component{
 					     <form onSubmit={handleSubmit(this.onSubmit)}>
  
 						    <KrField name="id" type="hidden"/>
-                            <KrField label="金额（元）" name="finaflowamount" component="input" type="text"/>
-                            <KrField type="date" label="退款日期" name="operatedate"/>
+                            <KrField label="金额（元）" name="finaflowamount" component="input" type="text" requireLabel={true}/>
+                            <KrField type="date" label="退款日期" name="operatedate" requireLabel={true}/>
                             <KrField label="备注" name="finaflowdesc" component="input" type="text"/>
                             <KrField label="上传附件" name="fileids" component="file"/>
 
@@ -103,8 +103,20 @@ class QuitBtnForm extends Component{
 
 }
 
+const validate = values =>{
 
-export default reduxForm({form:'QuitBtnForm'})(QuitBtnForm);
+		const errors = {}
+
+		if(!values.finaflowamount){
+			errors.finaflowamount = '请填写金额';
+		}
+
+		if (!values.operatedate) {
+			errors.operatedate = '请填写退款日期';
+		}
+		return errors
+	}
+export default reduxForm({form:'QuitBtnForm',validate})(QuitBtnForm);
 
 
 
