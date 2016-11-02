@@ -77,7 +77,7 @@ class SearchForm extends Component {
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
               <Row>
-              <Col md={5}><KrField name="type" type="select" component="select" options={[{label:'订单名称',value:1},{label:'员工姓名',value:2},{label:'手机号',value:3}]}/></Col>
+              <Col md={5}><KrField name="type" type="select" component="select" options={[{label:'订单名称',value:'BILL'},{label:'员工姓名',value:'MEMBER'},{label:'手机号',value:'PHONE'}]}/></Col>
 				<Col md={5}><KrField name="value" type="text" placeholder="搜索关键字" /></Col>
 				<Col md={2}><Button  label="查询" type="submit" primary={true} /></Col>
               </Row>
