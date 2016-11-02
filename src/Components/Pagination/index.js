@@ -134,10 +134,14 @@ export default class Pagination extends Component {
 		const handlers = {
 			onClick: this.onJumpPage
 		}
+		let pageMin = 1;
 		let pageStart = page;
-		let pageEnd = page + 10;
-		let pageMax = Math.ceil(totalCount / pageSize)
-		if (pageEnd > pageMax) {
+		let pageJump = 5;
+		let pageEnd = pageStart+pageJump;
+		let pageMax = Math.ceil(totalCount/pageSize);
+		let element = null;
+
+		if(pageEnd>pageMax){
 			pageEnd = pageMax;
 		}
 
@@ -148,17 +152,31 @@ export default class Pagination extends Component {
 				props.className += ' active';
 			}
 
-			let element = React.createElement('a', {...props,
+			element = React.createElement('a', {...props,
 				...handlers,
 				'data-page': i
 			}, i);
 
-			if (i == (5 + pageStart)) {
-				element = this.createOther(i);
-			}
-
 			pageBody.push(element);
 		}
+
+		
+
+		if(pageEnd<pageMax){
+			element =this.createOther(pageEnd);
+			pageBody.push(element);
+
+			for(var j = pageMax;(j>(pageMax-pageJump))&& ((pageMax-pageJump)>pageEnd);j--){
+			props.key = j;
+			props.className = 'item';
+			element = React.createElement('a', {...props,
+				...handlers,
+				'data-page': j
+			},j);
+			pageBody.push(element);
+			}	
+		}
+		
 
 		return (
 			<div className="item-body">
