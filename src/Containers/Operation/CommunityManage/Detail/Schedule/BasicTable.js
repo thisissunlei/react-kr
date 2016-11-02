@@ -247,17 +247,16 @@ export default class BasicTable extends Component {
 
 		render() {
 
-			let {currentYear,Installmentplan} = this.state;
+			let {currentYear,Installmentplan,rate} = this.state;
 			var that = this;
 
-				var Installmentplan, rate; Store.dispatch(Actions.callAPI('getInstallmentplan', {
+				Store.dispatch(Actions.callAPI('getInstallmentplan', {
 					communityids: 1
 				})).then(function(response) {
-					Installmentplan = response.vo;
-					rate = response.rate;
+					
 					that.setState({
-						Installmentplan,
-						rate
+						Installmentplan:response.vo,
+						rate:response.rate
 					});
 				}).catch(function(err) {
 					Notify.show([{
@@ -373,16 +372,3 @@ export default class BasicTable extends Component {
 
 }
 
-
-// export default connect((state)=>{
-// 	var communityList = [];
-// 	if(state.common && state.common.getCommunity){
-// 		console.log('***********');
-// 		communityList=state.common.getCommunity
-// 	}
-// 	return {
-// 		communityList
-// 	}
-// })(BasicTable)
-
-}
