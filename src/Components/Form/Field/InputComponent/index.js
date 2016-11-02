@@ -1,5 +1,9 @@
 import React from 'react';
 
+import WrapComponent from '../WrapComponent';
+
+import './index.less';
+
 export default class InputComponent extends React.Component{
 
 	constructor(props){

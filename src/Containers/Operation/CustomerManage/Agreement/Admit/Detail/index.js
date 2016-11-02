@@ -134,7 +134,11 @@ export default  class AdmitDetail extends Component {
 
 <KrField label="备注"   grid={1/1} component="labelText" value={basic.contractmark} defaultValue="无"/>
 
-<KrField label="上传附件"   grid={1/1} component="labelText" value={basic.contractfile} defaultValue="无"/>
+					<KrField component="group" label="上传附件">
+							{basic.contractFileList && basic.contractFileList.map((item,index)=>{
+								return <Button label={item.fileName} type="link" href={item.fileUrl} key={index}/>
+							})}
+			  		</KrField>
 
 
 <Section title="租赁明细" description=""> 

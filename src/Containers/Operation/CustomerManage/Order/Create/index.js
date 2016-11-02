@@ -233,10 +233,3 @@ function mapStateToProps(state){
 
 export default connect(mapStateToProps)(OrderCreate);
 
-
-
-/*
- 
-
-
-*/

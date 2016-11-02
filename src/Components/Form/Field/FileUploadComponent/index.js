@@ -15,7 +15,8 @@ export default class FileUploadComponent extends React.Component{
 	static PropTypes = {
 		multiple:React.PropTypes.bool,
 		accept:React.PropTypes.string,
-		defaultValue:React.PropTypes.array
+		defaultValue:React.PropTypes.array,
+		onChange:React.PropTypes.func,
 	}
 
 	constructor(props){
@@ -127,7 +128,7 @@ export default class FileUploadComponent extends React.Component{
 		response.fileUrl = fileUrl;
 		response.fileName = response.filename;
 
-		let {input} = this.props;
+		let {input,onChange} = this.props;
 		let {files} = this.state;
 
 		files.unshift(response);
@@ -145,6 +146,7 @@ export default class FileUploadComponent extends React.Component{
 			message:'上传文件成功',
 			type: 'success',
 		}]);
+		onChange&& onChange(files);
 	}
 
 	onTokenSuccess(form){

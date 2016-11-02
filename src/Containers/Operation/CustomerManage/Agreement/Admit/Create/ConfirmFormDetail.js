@@ -112,8 +112,13 @@ export default class ConfirmFormDetail  extends Component{
 							 <KrField grid={1/2}  name="rentaluse"  component="labelText" label="保留天数" value={detail.templockday} defaultValue="0" /> 
 
 							 
-							 <KrField grid={1}  name="fileIdList" component="labelText" label="备注" value={detail.contractmark} defaultValue="无"/> 
-							 <KrField grid={1}  name="fileIdList" component="labelText" label="上传附件" value={detail.fileIdList}/> 
+							 <KrField grid={1}  name="contractmark" component="labelText" label="备注" value={detail.contractmark} defaultValue="无"/> 
+
+							 <KrField component="group" label="上传附件">
+									{detail.contractFileList && detail.contractFileList.map((item,index)=>{
+										return <Button label={item.fileName} type="link" href={item.fileUrl} key={index}/>
+									})}
+							</KrField>
 
 
 					<Section title="租赁明细" description=""> 

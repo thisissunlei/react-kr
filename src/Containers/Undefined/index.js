@@ -1,15 +1,21 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, {
+	Component
+} from 'react';
+import {
+	connect
+} from 'react-redux';
+import {
+	bindActionCreators
+} from 'redux';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 import {
-DatePicker,
+	DatePicker,
 	Form,
 	KrField,
 	Table,
- 	TableBody,
+	TableBody,
 	TableHeader,
 	TableHeaderColumn,
 	TableRow,
@@ -17,21 +23,28 @@ DatePicker,
 	TableFooter,
 	Button,
 	Section,
+<<<<<<< HEAD
 	DotTitle,
 	BraceWidth,
 	
+=======
+	SelfAdaption
+>>>>>>> 9d12ac9378dcd7cbe52904177270aec8d20ddf32
 } from 'kr-ui';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
 
-import {List, ListItem} from 'material-ui/List';
+import {
+	List,
+	ListItem
+} from 'material-ui/List';
 
 import './index.less';
 
-export default class Undefined extends Component{
+export default class Undefined extends Component {
 
 	static defaultProps = {
-		page:1,
+		page: 1,
 	}
 
 	static PropTypes = {
@@ -39,7 +52,7 @@ export default class Undefined extends Component{
 		children: React.PropTypes.node,
 	}
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 
 		this.onSubmit = this.onSubmit.bind(this);
@@ -49,25 +62,26 @@ export default class Undefined extends Component{
 
 	}
 
-	onSubmit(values){
+	onSubmit(values) {
 
 	}
 
-	render(){
+	render() {
 
 		let initialValues = {
-			age:''
+			age: ''
 		}
 
-		return(
+		return (
 
-			<div>
+			<SelfAdaption type='SelfAdaption'>
 					<Section title="出错了" description="" >
 						<Form name="jyayayoinForm" initialValues={initialValues} onSubmit={this.onSubmit}>
 							<KrField grid={1/1}  name="age" component="date" label="电话" />
 							<Button  label="确定" type="submit" primary={true} />
 						</Form>
 					</Section>
+<<<<<<< HEAD
 
 					<DotTitle title='你好' />
 					<BraceWidth contentL='yyyyyy' contentR='hhhhhhh'>
@@ -75,6 +89,9 @@ export default class Undefined extends Component{
 					 <span>urtghirthgiurtih</span>
 					</BraceWidth>
 			</div>
+=======
+			</SelfAdaption>
+>>>>>>> 9d12ac9378dcd7cbe52904177270aec8d20ddf32
 
 		);
 

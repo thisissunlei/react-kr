@@ -419,7 +419,11 @@ class NewCreateForm  extends Component{
                                   <KrField name="templockday"  grid={1/2} component="input" type="text" label="保留天数" requireLabel={true}/> 
 
 							 <KrField grid={1}  name="contractmark" type="textarea" component="textarea" label="备注" /> 
-							 <KrField grid={1}  name="fileIdList" component="file" label="上传附件" requireLabel={true} defaultValue={[]}/> 
+
+							 <KrField grid={1}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
+				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
+					Store.dispatch(change('admitCreateForm','contractFileList',files));
+				}} />
 
 							 <KrField grid={1/1} component="group" label="租赁项目" requireLabel={true}> 
 								<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} defaultValue="0" /> 

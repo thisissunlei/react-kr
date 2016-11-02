@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {Binder} from 'react-binding';
 import dateFormat from 'dateformat';
-import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
+import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
 
@@ -40,15 +40,15 @@ class SelectStationForm  extends Component{
 
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
-
-    this.onSelect = this.onSelect.bind(this);
-    this.getLoadData = this.getLoadData.bind(this);
-    this.setReduceStartDate = this.setReduceStartDate.bind(this);
+		this.onSelect = this.onSelect.bind(this);
+		this.getLoadData = this.getLoadData.bind(this);
+		this.onChangeRentBeginDate = this.onChangeRentBeginDate.bind(this);
 
     this.state = {
       stationVos:[],
-      selected:[]
+		selected:[],
     }
+
 	}
 
   componentDidMount(){
@@ -56,25 +56,24 @@ class SelectStationForm  extends Component{
   }
 
 
-  setReduceStartDate(dateValue){
+onChangeRentBeginDate(value){
+	value = dateFormat(value,'yyyy-mm-dd');
+	let {stationVos,selected} = this.state;
+	stationVos = [].concat(stationVos);
+	stationVos.map(function(item,index){
+		if(selected.indexOf(index) !==-1){
+			item.rentBeginDate = value;
+		}else{
+			item.rentBeginDate = '';
+		}
+		return item;
+	});
 
-    let {stationVos,selected} = this.state;
+	this.setState({
+		stationVos
+	});
 
-    var result = [];
-
-    stationVos.forEach(function(item,index){
-      var obj = Object.assign({},item);
-    
-        if(selected.indexOf(index) !==-1){
-            obj.startDate = dateValue;
-        }else{
-           obj.startDate = ''; 
-        }
-        result.push(obj);
-    });
-
-    this.setState({stationVos:result});
-  }
+}
 
 
   getLoadData(){
@@ -93,16 +92,27 @@ class SelectStationForm  extends Component{
   }
 
   onSelect(selected){
-    this.setState({
-      selected
-    });
+		this.setState({
+			selected
+		},function(){
+
+		});
   }
 
-	  onSubmit(){
+  onSubmit(){
 
     let {stationVos,selected} = this.state;
+	  let selectedStationVos = [];
 
-    if(!selected.length){
+	  selectedStationVos = stationVos.filter(function(item,index){
+		  if(selected.indexOf(index) !==-1){
+			  return true;
+		  }
+		  return false;
+	  });
+
+
+    if(!selectedStationVos.length){
        Notify.show([{
             message:'请选择工位',
             type: 'danger',
@@ -111,60 +121,73 @@ class SelectStationForm  extends Component{
 		return ;
     }
 
-	 //选择了哪些工位
-	let selectStationVos = [];
-
-	stationVos.forEach(function(item,index){
-		if(selected.indexOf(index) !== -1){
-			selectStationVos.push(item);
-		}
-	});
-
-
 	//选中的必须要有租赁结束日期
 	var someStartDate = true;
 
-	selectStationVos.forEach(function(item,index){
-		if(!item.startDate){
+	selectedStationVos.forEach(function(item,index){
+		if(!item.rentBeginDate){
 			someStartDate = false;
 		}
 	});
 
-	  if(!someStartDate){
-			Notify.show([{
-				message:'选择的工位必须要有租赁开始时间',
-				type: 'danger',
+	if(!someStartDate){
+		Notify.show([{
+		message:'选择的工位必须要有租赁开始时间',
+			type: 'danger',
+		  }]);
+	  return ;
+	}
+
+	  //工位结束时间相同
+	  var some = true;
+	  selectedStationVos.sort(function(pre,next){
+			  var preDate = dateFormat(pre.leaseEndDate,'yyyy-mm-dd');
+			  var nextDate = dateFormat(next.leaseEndDate,'yyyy-mm-dd');
+			  if(preDate != nextDate){
+				  some = false;
+			  }
+			  return -1;
+		  });
+
+		  if(!some){
+			  Notify.show([{
+				  message:'请选择相同日期',
+				  type: 'danger',
 			  }]);
-		  return ;
-	  }
+			  return false;
+		  }
 
-	 //工位结束时间相同
+	  //修改日期
+	var resultStationVos = [];
+	selectedStationVos.forEach(function(item,index){
+		var obj = {};
+		obj.id = item.id;
+		obj.stationId = item.stationId;
+		obj.stationName = item.stationName;
+		obj.unitprice = item.unitprice;
+		obj.stationType = item.stationType;
+		obj.leaseBeginDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
+		obj.leaseEndDate = item.rentBeginDate;
+		resultStationVos.push(obj);
+	});
 
-	if(selectStationVos.length>1){
+	selectedStationVos = resultStationVos;
 
-		var some = true;
-		selectStationVos.sort(function(pre,next){
-			var preDate = dateFormat(pre.leaseEndDate,'yyyy-mm-dd');
-			var nextDate = dateFormat(next.leaseEndDate,'yyyy-mm-dd');
-			if(preDate != nextDate){
-			  some = false;
-			}
-			return -1;
-		});
+	let beginDate = Date.parse(selectedStationVos[0].leaseBeginDate);
+	let endDate = Date.parse(selectedStationVos[0].leaseEndDate);
 
-		if(!some){
+	 if(beginDate<= endDate){
 			Notify.show([{
-				message:'请选择相同日期',
+				message:'选择的工位租赁结束时间不能大于减租开始时间',
 				type: 'danger',
 			  }]);
 			  return false;
-		}
-	}
+	  }
 
-		  console.log("---",selectStationVos);
-    const {onSubmit} = this.props;
-    onSubmit && onSubmit(selectStationVos);
-
+	Store.dispatch(change('reduceCreateForm','leaseBegindate',selectedStationVos[0].leaseEndDate));
+	
+	const {onSubmit} = this.props;
+	onSubmit && onSubmit(selectedStationVos);
   }
 
 
@@ -188,13 +211,12 @@ class SelectStationForm  extends Component{
 		return (
 			<div style={{height:667,marginTop:20}}>
 <form onSubmit={handleSubmit(this.onSubmit)}>
-			<KrField grid={1/1}  name="startDate" component="date" label="减租开始时间" onChange={this.setReduceStartDate}/>
+			<KrField grid={1/1}  name="rentBeginDate" component="date" label="减租开始时间" onChange={this.onChangeRentBeginDate}/>
       <Table onSelect={this.onSelect} style={overfolw}>
         <TableHeader>
           <TableHeaderColumn>类别</TableHeaderColumn>
           <TableHeaderColumn>编号／名称</TableHeaderColumn>
           <TableHeaderColumn>单价（元／月）</TableHeaderColumn>
-          <TableHeaderColumn>楼层</TableHeaderColumn>
           <TableHeaderColumn>起始日期</TableHeaderColumn>
           <TableHeaderColumn>结束日期</TableHeaderColumn>
           <TableHeaderColumn>减租开始日期</TableHeaderColumn>
@@ -206,11 +228,10 @@ class SelectStationForm  extends Component{
           <TableRowColumn >{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
           <TableRowColumn >{item.stationName}</TableRowColumn>
           <TableRowColumn >{item.unitprice}</TableRowColumn>
-          <TableRowColumn >{item.whereFloor}</TableRowColumn>
           <TableRowColumn ><KrDate.Format value={item.leaseBeginDate}/></TableRowColumn>
           <TableRowColumn ><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
           <TableRowColumn>
-				{item.startDate && dateFormat(item.startDate,'yyyy-mm-dd')}
+				{item.rentBeginDate&& dateFormat(item.rentBeginDate,'yyyy-mm-dd')}
           </TableRowColumn>
          </TableRow>
         );
