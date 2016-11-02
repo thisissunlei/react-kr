@@ -384,7 +384,7 @@ class NewCreateForm  extends Component{
 			<div>
 <form onSubmit={handleSubmit(this.onSubmit)}>
 
-	<Paper width={500}>
+	<Paper width={968}>
 	
 								<KrField grid={1/2}  name="stationnum" type="hidden" component="input" /> 
 								<KrField grid={1/2}  name="boardroomnum" type="hidden" component="input" /> 
@@ -430,9 +430,6 @@ class NewCreateForm  extends Component{
 								<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} defaultValue="0" /> 
 								<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum} defaultValue="0" /> 
 							</KrField>
-	
-	</Paper>
-
 
 
 
@@ -472,6 +469,16 @@ class NewCreateForm  extends Component{
 						<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} disabled={submitting} /> </Col>
 					  <Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
 				</Grid>
+
+
+
+
+
+	
+	</Paper>
+
+
+
 
 			</form>
 
