@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+const APIS = {
+>>>>>>> feature/计划表
 
 const APIS = {
 	//获取全局导航
