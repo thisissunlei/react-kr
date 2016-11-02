@@ -222,8 +222,8 @@ export default class AttributeSetting  extends Component{
 						<TableRowColumn name="customername" ></TableRowColumn>
 						<TableRowColumn name="mainbilltype" options={[{label:'工位入驻订单',value:'STATION'}]}></TableRowColumn>
 						<TableRowColumn name="community"></TableRowColumn>
-						<TableRowColumn name="actualEntrydate" type="date" format="yyyy-mm-dd"></TableRowColumn>
-						<TableRowColumn name="actualLeavedate" type="date" format="yyyy-mm-dd"></TableRowColumn>
+						<TableRowColumn name="contractEntrydate" type="date" format="yyyy-mm-dd"></TableRowColumn>
+						<TableRowColumn name="contractLeavedate" type="date" format="yyyy-mm-dd"></TableRowColumn>
 						<TableRowColumn name="come"></TableRowColumn>
 						<TableRowColumn name="backMount"></TableRowColumn>
 						<TableRowColumn name="mount"></TableRowColumn>
