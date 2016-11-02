@@ -124,7 +124,7 @@ export default class AttributeSetting  extends Component{
 		
 		this.state = {			
 		    params:{
-				accountType:'PAYMENT',
+				accountType:'PAYMENT',    
 				childType:'basic',
 				propertyId:'',
 				propInfo:'SETTLED',
@@ -759,6 +759,7 @@ export default class AttributeSetting  extends Component{
 					<Section title="订单明细账" description="" > 
 					       <DotTitle title='订单描述'/>
 						   <BasicInfo detail={this.state.basicInfo} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome}/>
+						   
 						   <DotTitle title='订单明细账'/>
 							<Row style={{marginTop:30}}>
 							<Col md={2} >

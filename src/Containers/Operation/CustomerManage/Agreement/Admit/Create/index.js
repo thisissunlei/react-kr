@@ -9,6 +9,7 @@ import {
 	Grid,
 	Notify,
 	BreadCrumbs,
+	DotTitle
 } from 'kr-ui';
 
 import NewCreateForm from './NewCreateForm';
@@ -146,12 +147,14 @@ export default  class JoinCreate extends Component {
 
     return (
 
+
 		<div>
+
 		 	<BreadCrumbs children={['系统运营','客户管理','承租协议']}/>
 			<Section title="承租协议书" description=""> 
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues}/>
 			</Section>
-
+            
 			<Dialog
 				title="新建"
 				modal={true}

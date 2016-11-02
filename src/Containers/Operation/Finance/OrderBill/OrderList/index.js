@@ -46,6 +46,7 @@ export default class AttributeSetting  extends Component{
 		this.openViewDialog = this.openViewDialog.bind(this);
 		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
 		this.onOperation = this.onOperation.bind(this);
+		this.onExport = this.onExport.bind(this);
 
 
 		this.state = {
@@ -63,9 +64,6 @@ export default class AttributeSetting  extends Component{
 		}
 	}
      
-
-
-
 	componentDidMount() {
        var _this = this;
 		Store.dispatch(Actions.callAPI('getFinaDataByList')).then(function(response){
@@ -81,7 +79,11 @@ export default class AttributeSetting  extends Component{
 		});
 	}
 
-	
+	onExport(result){
+
+		console.log('---',result);
+
+	}
 
 	//操作相关
 	onOperation(type,itemDetail){
@@ -204,7 +206,18 @@ export default class AttributeSetting  extends Component{
 					</Grid>
 
 
-				<Table  style={{marginTop:10}} displayCheckbox={true} onLoaded={this.onLoaded}  ajax={true}  ajaxFieldListName="finaContractMainbillVOList" ajaxUrlName='getFinaDataByList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} >
+				<Table  style={{marginTop:10}}
+						displayCheckbox={true} 
+						onLoaded={this.onLoaded} 
+						ajax={true} 
+						ajaxFieldListName="finaContractMainbillVOList" 
+						ajaxUrlName='getFinaDataByList' 
+						ajaxParams={this.state.searchParams} 
+						onOperation={this.onOperation}
+						exportSwitch={true}
+						onExport={this.onExport}
+						  >
+						
 					<TableHeader>
 					<TableHeaderColumn>公司名称</TableHeaderColumn>
 					<TableHeaderColumn>订单类型</TableHeaderColumn>
@@ -222,8 +235,8 @@ export default class AttributeSetting  extends Component{
 						<TableRowColumn name="customername" ></TableRowColumn>
 						<TableRowColumn name="mainbilltype" options={[{label:'工位入驻订单',value:'STATION'}]}></TableRowColumn>
 						<TableRowColumn name="community"></TableRowColumn>
-						<TableRowColumn name="actualEntrydate" type="date" format="yyyy-mm-dd"></TableRowColumn>
-						<TableRowColumn name="actualLeavedate" type="date" format="yyyy-mm-dd"></TableRowColumn>
+						<TableRowColumn name="contractEntrydate" type="date" format="yyyy-mm-dd"></TableRowColumn>
+						<TableRowColumn name="contractLeavedate" type="date" format="yyyy-mm-dd"></TableRowColumn>
 						<TableRowColumn name="come"></TableRowColumn>
 						<TableRowColumn name="backMount"></TableRowColumn>
 						<TableRowColumn name="mount"></TableRowColumn>

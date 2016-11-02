@@ -33,6 +33,7 @@ import {
 	Col,
 	Button,
 	Notify,
+	DotTitle,
 	KrDate,
 } from 'kr-ui';
 
@@ -253,7 +254,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
 					Store.dispatch(change('reduceCreateForm','contractFileList',files));
 				}} />
-
+              <DotTitle title='租赁明细'>
 				<Section title="租赁明细" description="" rightMenu = {
 					<Menu>
 						<MenuItem primaryText="删除" onTouchTap={this.onStationDelete} />
@@ -288,7 +289,7 @@ class NewCreateForm  extends Component{
 						</Table>
 
 						</Section>
-
+                     </DotTitle>
 						<Grid>
 						<Row style={{marginTop:30}}>
 						<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} /> </Col>

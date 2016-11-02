@@ -8,7 +8,8 @@ import Section from 'kr-ui/Section';
 import {
 	KrField,
 	KrDate,
-	Button
+	Button,
+	DotTitle
 } from 'kr-ui';
 
 
@@ -220,6 +221,7 @@ export default class OrderDetail extends React.Component {
 			</Row>
 		</Grid>
 
+            <DotTitle title='订单描述'/>
 
 			<Grid style={{marginTop:50}}>
 				<Row>
@@ -269,6 +271,7 @@ export default class OrderDetail extends React.Component {
 
 			</Grid>
 
+            <DotTitle title='合同列表'/>
 
 			<Table pageSize={contractList.length} displayCheckbox={false}>
 			<TableHeader>
@@ -301,8 +304,8 @@ export default class OrderDetail extends React.Component {
 			</TableBody>
 			</Table>
 
-
-			<Section title="分期计划" description="" style={{marginTop:20}}> 
+            <DotTitle title='分期计划'/>
+			<Section title="分期计划" description="" style={{marginTop:20}}>
 
 			{installmentPlan.map((item,index)=>{
 				return (
