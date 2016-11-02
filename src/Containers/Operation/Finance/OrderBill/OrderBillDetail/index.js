@@ -521,6 +521,10 @@ export default class AttributeSetting  extends Component{
     onBusinessSubmit(params){ 	  
 		  var _this = this;
 	      Store.dispatch(Actions.callAPI('transToOperateIncome',{},params)).then(function(response){ 
+ 		    Notify.show([{
+				message:'操作成功',
+				type: 'success',
+			}]);
  		    window.location.reload(); 
  		  }).catch(function(err){
 			Notify.show([{
@@ -538,7 +542,7 @@ export default class AttributeSetting  extends Component{
     onConfrimSubmit(formValues){
 		Store.dispatch(Actions.callAPI('supplementIncome',{},formValues)).then(function(){
 			Notify.show([{
-				message:'创建成功',
+				message:'操作成功',
 				type: 'danger',
 			}]);
 			window.location.reload();
