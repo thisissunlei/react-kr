@@ -22,6 +22,7 @@ static/components
 # misc / editors
 *~
 *#
+
 .DS_STORE
 
 # Test

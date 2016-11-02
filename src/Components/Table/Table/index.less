@@ -12,12 +12,13 @@
 		font-size:14px;
 		color:#333;
 		font-weight:100;
-		background-color:#e8e8e8;
+		// background-color:#e8e8e8;
 	}
 
 	thead{
 		border:1px solid #ddd;
-		width:100%;
+		border-left: none;
+		border-right: none;
 	}
 
 	td{
@@ -37,6 +38,18 @@
 			border:none;
 		}
 	}
+	tbody{
+		tr:nth-child(2n+1){
+			// border:1px solid #ddd;
+			border-left:none;
+			border-right:none;
+			 background-color:#e8e8e8;
+			&:last-of-type{
+				border:none;
+			}
+		}
+	}
+	
 
 	&.table-bordered{
 		td{
