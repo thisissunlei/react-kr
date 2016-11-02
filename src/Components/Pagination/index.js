@@ -3,8 +3,12 @@ import React, {
 	PropTypes
 } from 'react';
 
+import ReactMixin from "react-mixin";
+import LinkedStateMixin from 'react-addons-linked-state-mixin';
+
 import './index.less';
 
+@ReactMixin.decorate(LinkedStateMixin)
 export default class Pagination extends Component {
 
 	static propTypes = {
@@ -28,8 +32,32 @@ export default class Pagination extends Component {
 		this.renderLast = this.renderLast.bind(this);
 		this.renderBody = this.renderBody.bind(this);
 		this.createOther = this.createOther.bind(this);
+		this.renderJump = this.renderJump.bind(this);
+		this.onJump = this.onJump.bind(this);
+
+		this.state = {
+			jumpPageValue:''
+		}
 
 
+	}
+
+	onJump(){
+
+		let {jumpPageValue} = this.state;
+
+		let {pageSize,totalCount} = this.props;
+		let pageMax = Math.ceil(totalCount/pageSize);
+
+		if(jumpPageValue > pageMax){
+			jumpPageValue = pageMax;
+		}
+
+		if(jumpPageValue<1){
+			jumpPageValue = 1;
+		}
+
+		this.onPageChange(jumpPageValue);
 	}
 
 	onPrev() {
@@ -134,36 +162,54 @@ export default class Pagination extends Component {
 		const handlers = {
 			onClick: this.onJumpPage
 		}
+		let pageMin = 1;
 		let pageStart = page;
-		let pageEnd = page + 10;
-		let pageMax = Math.ceil(totalCount / pageSize)
-		if (pageEnd > pageMax) {
+		let pageJump = 5;
+		let pageEnd = pageStart+pageJump;
+		let pageMax = Math.ceil(totalCount/pageSize);
+		let element = null;
+
+		if(pageEnd>pageMax){
 			pageEnd = pageMax;
 		}
 
-		for (var i = pageStart; i < pageEnd; i++) {
+
+		for (var i = pageStart; i <pageEnd; i++) {
 			props.key = i;
 			props.className = 'item';
 			if (page == i) {
 				props.className += ' active';
 			}
 
-			let element = React.createElement('a', {...props,
+			element = React.createElement('a', {...props,
 				...handlers,
 				'data-page': i
 			}, i);
 
-			if (i == (5 + pageStart)) {
-				element = this.createOther(i);
-			}
-
 			pageBody.push(element);
 		}
+
+
+		if(pageEnd<pageMax){
+			element =this.createOther(pageEnd);
+			pageBody.push(element);
+
+			for(var j = pageMax;(j>(pageMax-pageJump))&& ((pageMax-pageJump)>pageEnd);j--){
+			props.key = j;
+			props.className = 'item';
+			element = React.createElement('a', {...props,
+				...handlers,
+				'data-page': j
+			},j);
+			pageBody.push(element);
+			}	
+		}
+		
 
 		return (
 			<div className="item-body">
 					{pageBody}
-				</div>
+			</div>
 		);
 	}
 
@@ -182,6 +228,23 @@ export default class Pagination extends Component {
 		);
 
 	}
+
+	renderJump(){
+
+		let {
+			page,
+			pageSize,
+			totalCount
+		} = this.props;
+
+		return (
+			<div className="item-jump">
+				<span>到</span>
+				<input type="text" name="age"  valueLink={this.linkState('jumpPageValue')} />
+				<a onClick={this.onJump}>跳转</a>
+			</div>
+		);
+	}
 	render() {
 
 		return (
@@ -190,6 +253,7 @@ export default class Pagination extends Component {
 					{this.renderFirst()}
 					{this.renderBody()}
 					{this.renderLast()}
+					{this.renderJump()}
 		  </div>
 
 		);
