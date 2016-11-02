@@ -69,7 +69,7 @@ export default class SelectComponent extends React.Component{
 
 		if(multi){
 			return (
-			<WrapComponent label={label} wrapStyle={style}>
+			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 						<ReactSelect 
 									multi
 									simpleValue
@@ -88,7 +88,7 @@ export default class SelectComponent extends React.Component{
 		if(options){
 			return (
 		
-			<WrapComponent label={label} wrapStyle={style}>
+			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 							<ReactSelect 
 									name={input.name}
 									searchable={false}
@@ -106,7 +106,7 @@ export default class SelectComponent extends React.Component{
 		}
 
 		return (
-			<WrapComponent label={label} wrapStyle={style}>
+			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<select {...input}  disabled={disabled}>
 									{children}
 					</select>

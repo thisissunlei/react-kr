@@ -15,7 +15,7 @@ export default class  GroupComponent extends React.Component {
 		let {requireLabel,label,children,style} = this.props;
 
 			return (
-				<WrapComponent label={label} wrapStyle={style}>
+				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					{children}
 				</WrapComponent>
 				);

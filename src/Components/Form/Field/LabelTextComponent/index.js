@@ -14,11 +14,11 @@ export default class  LabelTextComponent extends React.Component {
 
 	render(){
 
-		let {className,label,value,style,defaultValue,type} = this.props;
+		let {className,label,value,style,defaultValue,type,requireLabel} = this.props;
 
 			if(type == 'date'){
 					return (
-						<WrapComponent label={label} wrapStyle={style}>
+						<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 							<span className="text" >
 								{value && <KrDate.Format value={value} /> }
 								{!value && defaultValue}

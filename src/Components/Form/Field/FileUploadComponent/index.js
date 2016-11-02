@@ -253,7 +253,7 @@ export default class FileUploadComponent extends React.Component{
 		let fileBgStyles = {};
 
 		return (
-				<WrapComponent label={label} wrapStyle={style}>
+				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<div className="file-button">
 					<input type="file" name="file" onChange={this.onChange}  multiple={multiple?'multiple':null} accept={accept} />
 					上传文件

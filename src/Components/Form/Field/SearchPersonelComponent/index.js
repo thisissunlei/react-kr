@@ -54,7 +54,7 @@ export default class  SearchPersonelComponent extends React.Component {
 		let { input, label, type, meta: { touched, error },placeholder,children,disabled,style,requireLabel,...other} = this.props;
 
 		return (
-			<WrapComponent label={label} wrapStyle={style}>
+			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelect.Async
 					name={input.name}
 					value={input.value}

@@ -128,7 +128,7 @@ export default class DateComponent extends React.Component{
 
 		return (
 				
-				<WrapComponent label={label} wrapStyle={style}>
+				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<div className="date-component">
 							<span className="date-input"> {(input.value && dateFormat(input.value,"yyyy-mm-dd")) || placeholder ||'日期'}</span>
 									<span className="date-operation">
