@@ -136,22 +136,22 @@ export default class BasicTable extends Component {
 
 
 
-		//撤场
-		onDismantling() {
-			this.openDismantlingDialog();
-		}
+	//撤场
+	onDismantling() {
+		this.openDismantlingDialog();
+	}
 
-		onCancel() {
+	onCancel() {
 
-		}
+	}
 
 
-		onSubmit() {
+	onSubmit() {
 
-		}
+	}
 
-		onConfrimSubmit(formValues) {
-			/*Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
+	onConfrimSubmit(formValues) {
+		/*Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
 			console.log("response",response);
 
 			Notify.show([{
@@ -167,74 +167,64 @@ export default class BasicTable extends Component {
 	   	});*/
 
 
-		}
+	}
 
-		openDismantlingDialog() {
-			this.setState({
-				dismantling: !this.state.dismantling
-			})
-		}
+	openDismantlingDialog() {
+		this.setState({
+			dismantling: !this.state.dismantling
+		})
+	}
 
 
-		onPreYear() {
-			let {
-				currentYear
-			} = this.state;
-			currentYear--;
-			this.setState({
-				currentYear
+	onPreYear() {
+		let {
+			currentYear
+		} = this.state;
+		currentYear--;
+		this.setState({
+			currentYear
+		});
+	}
+
+	onNextYear() {
+		let {
+			currentYear
+		} = this.state;
+		currentYear++;
+		this.setState({
+			currentYear
+		});
+	}
+
+
+	getInstallmentplan() {
+
+		var _this = this;
+		let {
+			community
+		} = this.props;
+		console.log('this.params', this.props, community);
+
+
+		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
+
+			var communityIds = [];
+			response.communityInfoList.map((item) => {
+				communityIds.push(item.id);
 			});
-		}
-
-		onNextYear() {
-			let {
-				currentYear
-			} = this.state;
-			currentYear++;
-			this.setState({
-				currentYear
-			});
-		}
+			var content = community || communityIds;
 
 
-		getInstallmentplan() {
+			Store.dispatch(Actions.callAPI('getInstallmentplan', {
+				communityids: content.toString()
+			})).then(function(response) {
 
-			var _this = this;
-			let {
-				community
-			} = this.props;
-			console.log('this.params', this.props, community);
-
-
-			Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
-
-				var communityIds = [];
-				response.communityInfoList.map((item) => {
-					communityIds.push(item.id);
+				_this.setState({
+					Installmentplan: response.vo,
+					rate: response.rate
 				});
-				var content = community || communityIds;
-
-
-				Store.dispatch(Actions.callAPI('getInstallmentplan', {
-					communityids: content.toString()
-				})).then(function(response) {
-
-					_this.setState({
-						Installmentplan: response.vo,
-						rate: response.rate
-					});
-
-				}).catch(function(err) {
-					Notify.show([{
-						message: err.message,
-						type: 'danger',
-					}]);
-				});
-
-
 
 			}).catch(function(err) {
-				console.log('err', err);
 				Notify.show([{
 					message: err.message,
 					type: 'danger',
@@ -242,37 +232,46 @@ export default class BasicTable extends Component {
 			});
 
 
-		}
+
+		}).catch(function(err) {
+			console.log('err', err);
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
 
 
-		render() {
+	}
 
-			let {
-				currentYear,
-				Installmentplan
-			} = this.state;
 
-			return (
+	render() {
 
-				var that = this;
-				var Installmentplan, rate; Store.dispatch(Actions.callAPI('getInstallmentplan', {
-					communityids: 1
-				})).then(function(response) {
-					Installmentplan = response.vo;
-					rate = response.rate;
-					that.setState({
-						Installmentplan,
-						rate
-					});
-				}).catch(function(err) {
-					Notify.show([{
-						message: err.message,
-						type: 'danger',
-					}]);
-				});
+		let {
+			currentYear,
+			Installmentplan,
+			rate
+		} = this.state;
 
-			}
+		var that = this;
+		Store.dispatch(Actions.callAPI('getInstallmentplan', {
+			communityids: 1
+		})).then(function(response) {
+			Installmentplan = response.vo;
+			rate = response.rate;
+			that.setState({
+				Installmentplan,
+				rate
+			});
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
 
+
+		return (
 
 			<div>
 		 	<div className="basic-con">
@@ -369,7 +368,7 @@ export default class BasicTable extends Component {
 				
 				open={this.state.dismantling} >
 				<DismantlingForm detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openDismantlingDialog} />
-			  </Dialog>
+			 </Dialog>
 			
 		</div>
 		);
@@ -388,5 +387,3 @@ export default class BasicTable extends Component {
 // 		communityList
 // 	}
 // })(BasicTable)
-
-}
