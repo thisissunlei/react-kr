@@ -205,11 +205,7 @@ export default class Table extends React.Component {
 
 	onExport() {
 
-		let {
-			selectedRows,
-			visibilityRows,
-			listData,
-		} = this.state;
+		let {selectedRows,visibilityRows,listData,} = this.state;
 
 
 		let {onExport} = this.props;
@@ -227,6 +223,10 @@ export default class Table extends React.Component {
 		exportRows.forEach(function(item,index){
 			exportData.push(listData[item]);
 		});
+
+		if(!exportData.length){
+			exportData = listData;
+		}
 	
 		onExport && onExport(exportData,exportRows);
 
