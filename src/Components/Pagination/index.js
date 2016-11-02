@@ -1,4 +1,7 @@
-import React, {Component, PropTypes} from 'react';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
 
 import './index.less';
 
@@ -6,16 +9,16 @@ export default class Pagination extends Component {
 
 	static propTypes = {
 		children: React.PropTypes.node,
-		page: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
-		pageSize: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
-		totalCount: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
-		onPageChange:React.PropTypes.func
+		page: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+		pageSize: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+		totalCount: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+		onPageChange: React.PropTypes.func
 	};
 
-	constructor(props){
+	constructor(props) {
 		super(props);
 
-		this.onPrev =  this.onPrev.bind(this);
+		this.onPrev = this.onPrev.bind(this);
 		this.onNext = this.onNext.bind(this);
 		this.onFirst = this.onFirst.bind(this);
 		this.onPageChange = this.onPageChange.bind(this);
@@ -29,149 +32,167 @@ export default class Pagination extends Component {
 
 	}
 
-	onPrev(){
+	onPrev() {
 
-		var {page} = this.props;
+		var {
+			page
+		} = this.props;
 
-		if(page == 1){
-			return ;
+		if (page == 1) {
+			return;
 		}
 
-		if(page>0){
+		if (page > 0) {
 			page--;
 		}
 		this.onPageChange(page);
 	}
 
-	onFirst(){
+	onFirst() {
 		this.onPageChange(1);
 	}
 
-	onNext(){
+	onNext() {
 
-		let {page,pageSize,totalCount} = this.props;
+		let {
+			page,
+			pageSize,
+			totalCount
+		} = this.props;
 
-		if(page == Math.ceil(totalCount/pageSize)){
-			return ;
+		if (page == Math.ceil(totalCount / pageSize)) {
+			return;
 		}
 
 
-		if(page>0 && page<Math.ceil(totalCount/pageSize)){
+		if (page > 0 && page < Math.ceil(totalCount / pageSize)) {
 			page++;
 		}
-		
+
 		this.onPageChange(page);
 	}
 
-	onJumpPage(event){
+	onJumpPage(event) {
 		this.onPageChange(event.target.getAttribute('data-page'));
 	}
 
-	onPageChange(page){
+	onPageChange(page) {
 
-		const {onPageChange} = this.props;
+		const {
+			onPageChange
+		} = this.props;
 		onPageChange && onPageChange(page);
 	}
 
-	renderFirst(){
+	renderFirst() {
 
-		let {page,pageSize,totalCount} = this.props;
+		let {
+			page,
+			pageSize,
+			totalCount
+		} = this.props;
 
-		return(
+		return (
 			<div className="item-prev">
-				<a className="item" onClick={this.onPrev}>上一页</a>
+				<a className="item" onClick={this.onPrev}></a>
 			</div>
 		);
 
 	}
 
-	createOther(i){
+	createOther(i) {
 
-		let props = { 
-			className:'item',
-			key:i
+		let props = {
+			className: 'item',
+			key: i
 		};
 
 		const handlers = {
-			onClick:this.onJumpPage
+			onClick: this.onJumpPage
 		}
 
-		return React.createElement('a', {...props,...handlers,'data-page':i},'...')
+		return React.createElement('a', {...props,
+			...handlers,
+			'data-page': i
+		}, '...')
 
 	}
 
-	renderBody(){
+	renderBody() {
 
-		let {page,pageSize,totalCount} = this.props;
+		let {
+			page,
+			pageSize,
+			totalCount
+		} = this.props;
 
 
 		let pageBody = [];
 
-		let props = { };
+		let props = {};
 
 		const handlers = {
-			onClick:this.onJumpPage
+			onClick: this.onJumpPage
 		}
 		let pageStart = page;
-		let pageEnd = page+10;
-		let pageMax = Math.ceil(totalCount/pageSize)
-		if(pageEnd>pageMax){
+		let pageEnd = page + 10;
+		let pageMax = Math.ceil(totalCount / pageSize)
+		if (pageEnd > pageMax) {
 			pageEnd = pageMax;
 		}
 
-		for(var i = pageStart;i<pageEnd;i++){
+		for (var i = pageStart; i < pageEnd; i++) {
 			props.key = i;
 			props.className = 'item';
-			if(page == i){
-				props.className+=' active';
+			if (page == i) {
+				props.className += ' active';
 			}
 
-			let element = React.createElement('a', {...props,...handlers,'data-page':i},i);
+			let element = React.createElement('a', {...props,
+				...handlers,
+				'data-page': i
+			}, i);
 
-			if(i==(5+pageStart)){
+			if (i == (5 + pageStart)) {
 				element = this.createOther(i);
 			}
-			
+
 			pageBody.push(element);
 		}
 
-		return(
-				<div className="item-body">
+		return (
+			<div className="item-body">
 					{pageBody}
 				</div>
 		);
 	}
 
-	renderLast(){
+	renderLast() {
 
-		let {page,pageSize,totalCount} = this.props;
+		let {
+			page,
+			pageSize,
+			totalCount
+		} = this.props;
 
-		return(
+		return (
 			<div className="item-next">
-				<a className="item" onClick={this.onNext} page={page+1}>下一页</a>
+				<a className="item" onClick={this.onNext} page={page+1}></a>
 			</div>
 		);
 
 	}
-	  render() {
+	render() {
 
 		return (
 
-		  <div className="pagination">
+			<div className="ui-pagination">
 					{this.renderFirst()}
 					{this.renderBody()}
 					{this.renderLast()}
 		  </div>
 
 		);
-	  }
+	}
 
 }
-
-
-
-
-
-
-
-
