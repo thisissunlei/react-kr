@@ -1,6 +1,7 @@
 
-.pagination{
-
+.ui-pagination{
+	font-size:14px;
+	color:#666666;
 	.item-prev,
 	.item-body,
 	.item-next{
@@ -8,27 +9,40 @@
 	}
 
 	.item-prev{
-
+		.item{
+			border:1px solid #ddd;
+			border-radius:4px;
+			background:url('images/left2.png') no-repeat center center;
+		}
 	}
 
 	.item-body{
+		line-height:20px;
+		margin-top:2px;
 
 	}
 
 	.item-next{
-
+		.item{
+				border:1px solid #ddd;
+				border-radius:4px;
+				background:url('images/right2.png') no-repeat center center;
+			}
 	}
 
 	.item{
+		
 		display:inline-block;
-		padding:5px 10px;
-		border:1px solid #ddd;
-		border-radius:4px;
+		width:28px;
+		height:28px;
+		line-height:28px;
+		text-align:center;
 		margin-left:5px;
 		cursor:pointer;
+		color:#666666;
 		&.active{
-			background-color:#328ECC;
-			color:#fff;
+			
+			color:#499df1;
 		}
 	}
 
