@@ -238,6 +238,11 @@ const APIS = {
 		url: '/api/krspace-finance-web/finaccount/data/getFinaDataCommunityAndMainBillType',
 		method: 'get'
 	},
+	//财务管理－订单账单列表-导出
+	'finaExportExcel': {
+		url: '/api/krspace-finance-web/finaccount/data/exportExcel?communityid={communityid}&customername={customername}&endDate={endDate}&mainbilltype={mainbilltype}&page={page}&pageSize={pageSize}&startDate={startDate}',
+		method: 'get'
+	},
 	//财务管理－科目配置－新建(修改)
 	'saveFinaFinaflowAccountModel': {
 		url: '/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/saveFinaFinaflowAccountModel',
