@@ -601,7 +601,7 @@ export default class Table extends React.Component {
 
 	render() {
 
-		return this.renderNotListData();
+
 
 		let {
 			className,
