@@ -81,15 +81,20 @@ export default class AttributeSetting  extends Component{
 		});
 	}
 
-	onExport(values){
-		const idList = [];
-		values.map((item,value) => {
-			idList.push(item.id)
-			return idList;
+	onExport(idList){
+		var list=[];
+		idList.map(function(item,index){
+          var idList={};
+          idList.communityid=item.communityid;
+          idList.customername=item.customername;
+          idList.mainbilltype=item.mainbilltype;
+          idList.startDate=item.actualEntrydate;
+          idList.endDate=item.operatedate;
+          list.push(idList);
+          return list;
 		})
-		var url =｀http://optest.krspace.cn/api/krspace-finance-web/finaccount/data/exportExce?idList=${idList}‘
+		var url = `http://optest.krspace.cn/api/krspace-finance-web/finaccount/data/exportExcel?list=${list}`
 		window.location.href = url;
-
 	}
 
 	//操作相关
