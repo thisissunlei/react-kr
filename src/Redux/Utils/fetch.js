@@ -75,7 +75,7 @@ function getMethod(path) {
 }
 
 function check401(res) {
-    if (res.status ==200 && res.code ===-4011) {
+    if (res.code ===-4011) {
 		window.location.href = '/';
     }
     return res;
@@ -154,8 +154,8 @@ const http = {
 			},
 			withCredentials:true
 		})
-			.then(check401)
 			.then(jsonParse)
+			.then(check401)
 			.then(http.transformPreResponse)
 			.then(json => {
 				if(parseInt(json.code)>0){
@@ -223,8 +223,9 @@ const http = {
 			},
 			body: searchParams
 		})
-			.then(check401)
+			
 			.then(jsonParse)
+			.then(check401)
 			.then(http.transformPreResponse)
 			.then(json => {
 
@@ -258,8 +259,8 @@ const http = {
 			},
 			body: searchParams
 		})
-			.then(check401)
 			.then(jsonParse)
+			.then(check401)
 			.then(http.transformPreResponse)
 			.then(json => {
 				if(parseInt(json.code)>0){
@@ -292,8 +293,8 @@ const http = {
 			},
 			body: searchParams
 		})
-			.then(check401)
 			.then(jsonParse)
+			.then(check401)
 			.then(http.transformPreResponse)
 			.then(json => {
 				if(parseInt(json.code)>0){
