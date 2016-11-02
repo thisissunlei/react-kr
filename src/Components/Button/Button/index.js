@@ -46,7 +46,7 @@ export default class Button extends Component {
 
 			return (
 				<div className="ui-button">
-					<FlatButton label={label} primary={true} style={{minWidth:30}} backgroundColor={backgroundColor}   />
+					<FlatButton label={label} primary={true} style={{minWidth:30}} backgroundColor={backgroundColor} {...other}  />
 				</div>
 			);
 		}
@@ -55,7 +55,7 @@ export default class Button extends Component {
 
 			return (
 				<div className="ui-button">
-					<RaisedButton label={label} style={{minWidth:30}} backgroundColor={backgroundColor}  />
+					<RaisedButton label={label} style={{minWidth:30}} backgroundColor={backgroundColor} {...other} />
 				</div>
 			);
 		}
@@ -73,7 +73,7 @@ export default class Button extends Component {
 
 			return (
 				<div className="ui-button">
-					<RaisedButton label={label} style={{minWidth:30}} backgroundColor={backgroundColor} type="submit"  />
+					<RaisedButton label={label} style={{minWidth:30}} backgroundColor={backgroundColor} type="submit"  {...other}/>
 				</div>
 			);
 		}
@@ -82,7 +82,7 @@ export default class Button extends Component {
 
 		return (
 			<div className="ui-button">
-					<RaisedButton label={label} style={{minWidth:30}}    backgroundColor={backgroundColor}/>
+					<RaisedButton label={label} style={{minWidth:30}} backgroundColor={backgroundColor} {...other}/>
 			</div>
 
 		);
