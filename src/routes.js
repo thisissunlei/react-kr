@@ -1,7 +1,17 @@
 import React from 'react';
-import { Router, Route, Link,Redirect,IndexRoute,browserHistory} from 'react-router';
+import {
+	Router,
+	Route,
+	Link,
+	Redirect,
+	IndexRoute,
+	browserHistory
+} from 'react-router';
 
-import {Actions,Store} from 'kr/Redux';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 
 
 import {
@@ -18,7 +28,7 @@ import {
 
 import Master from './master';
 
-export default(
+export default (
 
 	<Route path="/" component={Master}>
 

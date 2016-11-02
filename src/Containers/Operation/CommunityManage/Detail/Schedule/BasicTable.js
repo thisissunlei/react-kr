@@ -49,15 +49,15 @@ class SearchForm extends Component {
 
 	onSubmit(form) {
 		console.log('yyyyyyy', form)
-		/*Store.dispatch(Actions.callAPI('getInstallmentplan', {}, form)).then(function(response) {
-			console.log("response", response);
+			/*Store.dispatch(Actions.callAPI('getInstallmentplan', {}, form)).then(function(response) {
+				console.log("response", response);
 
-		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});*/
+			}).catch(function(err) {
+				Notify.show([{
+					message: err.message,
+					type: 'danger',
+				}]);
+			});*/
 	}
 
 
@@ -71,12 +71,13 @@ class SearchForm extends Component {
 			reset
 		} = this.props;
 
+
 		return (
 
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
               <Row>
-              <Col md={5}><KrField name="type" type="select" component="select" options={[{label:'订单名称',value:1},{label:'员工姓名',value:2},{label:'手机号',value:3}]}/></Col>
+              <Col md={5}><KrField name="type" type="select" component="select" options={[{label:'订单名称',value:'BILL'},{label:'员工姓名',value:'MEMBER'},{label:'手机号',value:'PHONE'}]}/></Col>
 				<Col md={5}><KrField name="value" type="text" placeholder="搜索关键字" /></Col>
 				<Col md={2}><Button  label="查询" type="submit" primary={true} /></Col>
               </Row>
@@ -90,7 +91,10 @@ SearchForm = reduxForm({
 	form: 'searchForm'
 })(SearchForm);
 
- export default class BasicTable extends Component {
+
+export default class BasicTable extends Component {
+
+
 
 	constructor(props, context) {
 		super(props, context);
@@ -108,42 +112,45 @@ SearchForm = reduxForm({
 			dismantling: false,
 			formValues: {},
 			Installmentplan: [],
+
 			rate: [],
-			communityIdList:[]
+			communityIdList: []
 		};
 
 	}
+
 
 	componentDidMount() {
 		this.getInstallmentplan();
 	}
 
-	componentWillReceiveProps(nextProps){
+	componentWillReceiveProps(nextProps) {
 
-		if(nextProps.community !== this.props.community){
+		if (nextProps.community !== this.props.community) {
 			this.setState({
-				community:nextProps.community
-			});	
+				community: nextProps.community
+			});
 			this.getInstallmentplan();
 		}
 
-	}
+
 
 		//撤场
-	onDismantling() {
-		this.openDismantlingDialog();
-	}
+		onDismantling() {
+			this.openDismantlingDialog();
+		}
 
-	onCancel() {
+		onCancel() {
 
-	}
+		}
 
 
-	onSubmit() {
+		onSubmit() {
 
-	}
-	onConfrimSubmit(formValues) {
-		/*Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
+		}
+
+		onConfrimSubmit(formValues) {
+			/*Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
 			console.log("response",response);
 
 			Notify.show([{
@@ -159,59 +166,74 @@ SearchForm = reduxForm({
 	   	});*/
 
 
-	}
+		}
 
-	openDismantlingDialog() {
-		this.setState({
-			dismantling: !this.state.dismantling
-		})
-	}
-
-
-	onPreYear() {
-		let {
-			currentYear
-		} = this.state;
-		currentYear--;
-		this.setState({
-			currentYear
-		});
-	}
-
-	onNextYear() {
-		let {
-			currentYear
-		} = this.state;
-		currentYear++;
-		this.setState({
-			currentYear
-		});
-	}
+		openDismantlingDialog() {
+			this.setState({
+				dismantling: !this.state.dismantling
+			})
+		}
 
 
-	getInstallmentplan() {
-		var _this = this;
-		let {community} = this.props;
-		console.log('this.params', this.props, community);
-
-	
-		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response){
-
-			var communityIds = [];
-			response.communityInfoList.map((item)=>{
-				communityIds.push(item.id);
+		onPreYear() {
+			let {
+				currentYear
+			} = this.state;
+			currentYear--;
+			this.setState({
+				currentYear
 			});
-			var	content = community || communityIds;
+		}
 
-				
-			Store.dispatch(Actions.callAPI('getInstallmentplan', {communityids:content.toString()})).then(function(response) {
-					
-				_this.setState({
-					Installmentplan:response.vo,
-					rate:response.rate
+		onNextYear() {
+			let {
+				currentYear
+			} = this.state;
+			currentYear++;
+			this.setState({
+				currentYear
+			});
+		}
+
+
+		getInstallmentplan() {
+
+			var _this = this;
+			let {
+				community
+			} = this.props;
+			console.log('this.params', this.props, community);
+
+
+			Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
+
+				var communityIds = [];
+				response.communityInfoList.map((item) => {
+					communityIds.push(item.id);
+				});
+				var content = community || communityIds;
+
+
+				Store.dispatch(Actions.callAPI('getInstallmentplan', {
+					communityids: content.toString()
+				})).then(function(response) {
+
+					_this.setState({
+						Installmentplan: response.vo,
+						rate: response.rate
+					});
+
+				}).catch(function(err) {
+					Notify.show([{
+						message: err.message,
+						type: 'danger',
+					}]);
 				});
 
+
+
 			}).catch(function(err) {
+				console.log('err', err);
 				Notify.show([{
 					message: err.message,
 					type: 'danger',
@@ -219,27 +241,37 @@ SearchForm = reduxForm({
 			});
 
 
+		}
 
-		}).catch(function(err){
-			console.log('err', err);
-			Notify.show([{
-				message:err.message,
-				type: 'danger',
-			}]);
-	   	});
-		
 
-	}
-	
+		render() {
 
-	render() {
+			let {
+				currentYear,
+				Installmentplan
+			} = this.state;
 
-		let {
-			currentYear,
-			Installmentplan
-		} = this.state;
+			return (
 
-		return (
+				var that = this;
+				var Installmentplan, rate; Store.dispatch(Actions.callAPI('getInstallmentplan', {
+					communityids: 1
+				})).then(function(response) {
+					Installmentplan = response.vo;
+					rate = response.rate;
+					that.setState({
+						Installmentplan,
+						rate
+					});
+				}).catch(function(err) {
+					Notify.show([{
+						message: err.message,
+						type: 'danger',
+					}]);
+				});
+
+			}
+
 
 			<div>
 		 	<div className="basic-con">
@@ -341,6 +373,7 @@ SearchForm = reduxForm({
 		</div>
 		);
 	}
+
 }
 
 
@@ -354,3 +387,5 @@ SearchForm = reduxForm({
 // 		communityList
 // 	}
 // })(BasicTable)
+
+}

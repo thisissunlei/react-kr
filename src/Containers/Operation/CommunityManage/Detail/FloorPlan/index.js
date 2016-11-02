@@ -24,7 +24,10 @@ import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray}
 export default  class FloorPlan extends Component {
 	static defaultProps = {
 		 tab:'',
+<<<<<<< HEAD
 		 community:'',
+=======
+>>>>>>> feature/计划表
 		 communityId:'',
 		 communityInfoFloorList:[]
 	 }
@@ -35,14 +38,42 @@ export default  class FloorPlan extends Component {
 		this.onSubmit = this.onSubmit.bind(this);
 		this.scrollLoad = this.scrollLoad.bind(this);
 		this.onLoad = this.onLoad.bind(this);
+<<<<<<< HEAD
+=======
+		console.log('this.props',this.props,'props', props);
+>>>>>>> feature/计划表
 		this.iframeWindow = null;
 		this.state = {
 			url:this.getStationUrl(),
 			communityId:this.props.communityId,
 			form:{
+<<<<<<< HEAD
 				pageSize:2,
 			}
 		}
+=======
+			}
+		}
+
+	}
+	componentWillReceiveProps(nextProps){
+
+		if(nextProps.communityId != this.props.communityId){
+			this.setState({
+				communityId:nextProps.communityId
+			});
+		}
+
+		
+
+	}
+
+	onLoad(iframeWindow){
+
+		this.iframeWindow = iframeWindow;
+		console.log('-----------load', iframeWindow.document.body.scrollWidth);
+
+>>>>>>> feature/计划表
 
 	}
 	componentWillReceiveProps(nextProps){
@@ -68,12 +99,18 @@ export default  class FloorPlan extends Component {
 
 	
 
+	
+
 	 componentDidMount(){
 	 	
 
 
 	 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> feature/计划表
 	 getStationUrl(form){
 
 
@@ -97,6 +134,10 @@ export default  class FloorPlan extends Component {
 			}
 		};
 
+<<<<<<< HEAD
+=======
+  	console.log('url------width',$('#planTable'), $('#planTable').width());
+>>>>>>> feature/计划表
 
 		return url ;
 	}
@@ -125,13 +166,22 @@ export default  class FloorPlan extends Component {
             	that.iframeWindow.pagequery();
             }
 		})
+<<<<<<< HEAD
 
 	}
 
 	
+=======
 
+	}
+>>>>>>> feature/计划表
+
+	
+
+<<<<<<< HEAD
+=======
   render() {
-
+>>>>>>> feature/计划表
   	const {url, height} = this.state;
   	let {tab} = this.props;
 		let {communityId} = this.state;
@@ -141,6 +191,10 @@ export default  class FloorPlan extends Component {
   	}else{
   		$(window).unbind('scroll',this.scrollLoad());
   	}
+<<<<<<< HEAD
+=======
+  	console.log('width',$('#planTable'), $('#planTable').width());
+>>>>>>> feature/计划表
   	const width = $('#planTable').width() || 900;
     return (
 
