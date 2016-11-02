@@ -24,7 +24,8 @@ import {
 	Dialog,
 	KrDate,
 	autoScrollBodyContent,
-    autoDetectWindowHeight
+    autoDetectWindowHeight,
+    DotTitle
 } from 'kr-ui';
 
 
@@ -208,11 +209,22 @@ export default class AttributeSetting  extends Component{
               }
            })
            if(this.state.listValues.length==0){
-           	  alert('请选择一条回款数据进行退款');
+           	 
+           	  Notify.show([{
+				message:'请选择一条回款数据进行退款',
+				type: 'danger',
+			 }]);
+           	 
            }else if(this.state.listValues.length>1){
-           	  alert('只能选择一条数据');
-           }else if(fiMoney>=0){          	  
-              alert('金额必须为负且存在可用金额');
+           	   Notify.show([{
+				message:'只能选择一条数据',
+				type: 'danger',
+			 }]);
+           }else if(fiMoney>=0){  
+               Notify.show([{
+				message:'金额必须为负且存在可用金额',
+				type: 'danger',
+			 }]);       	  
            }else{
            	 this.setState({
 			    openQuitBtn:!this.state.openQuitBtn	
@@ -230,12 +242,20 @@ export default class AttributeSetting  extends Component{
               }
            })
            if(this.state.listValues.length==0){
-           	 alert('请选择一条回款数据进行转押金');
+           	  Notify.show([{
+				message:'请选择一条回款数据进行转押金',
+				type: 'danger',
+			 }]);
            }else if(this.state.listValues.length>1){
-           	  alert('只能选择一条数据');
-           }else if(fiMoney>=0){
-           	 
-              alert('金额必须为负且存在可用金额');
+           	 Notify.show([{
+				message:'只能选择一条数据',
+				type: 'danger',
+			 }]);
+           }else if(fiMoney>=0){   	 
+               Notify.show([{
+				message:'金额必须为负且存在可用金额',
+				type: 'danger',
+			  }]);   
            }else{
            	 this.setState({
 			    openSwitchBtn:!this.state.openSwitchBtn	
@@ -272,11 +292,21 @@ export default class AttributeSetting  extends Component{
               }
            })
            if(this.state.listValues.length==0){
-           	 alert('请选择一条回款数据进行转营收');
+           	Notify.show([{
+				message:'请选择一条回款数据进行转营收',
+				type: 'danger',
+			 }]);
+           	
            }else if(this.state.listValues.length>1){
-           	  alert('只能选择一条数据');
+           	  Notify.show([{
+				message:'只能选择一条数据',
+				type: 'danger',
+			 }]);
            }else if(fiMoney>=0){
-              alert('金额必须为负且存在可用金额');
+              Notify.show([{
+				message:'金额必须为负且存在可用金额',
+				type: 'danger',
+			  }]);  
            }else{
            	 this.setState({
 			    openBusinessBtn:!this.state.openBusinessBtn	
@@ -719,8 +749,10 @@ export default class AttributeSetting  extends Component{
 		return(
 			<div>
 					<Section title="订单明细账" description="" > 
+					       <DotTitle title='订单描述'/>
 						   <BasicInfo detail={this.state.basicInfo} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome}/>
-							<Row>
+						   <DotTitle title='订单明细账'/>
+							<Row style={{marginTop:30}}>
 							<Col md={2} >
 								<SearchParam onSearch={this.onSearch} params={this.state.params} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance} />
 							</Col>

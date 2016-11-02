@@ -22,7 +22,7 @@ import {
  	ListItem,
  	KrField,
 	LabelText,
-	KrDate
+	KrDate,
 } from 'kr-ui';
 
 
@@ -64,7 +64,7 @@ export default class BasicInfo extends Component{
 
 		return(
 
-			<div>   
+			<div style={{marginTop:30}}>   
 
 			           <KrField grid={1/3} label="社区名称" component="labelText" value={detail.communityname}/>
 			           <KrField grid={1/3} label="客户名称" component="labelText" value={detail.customername}/>

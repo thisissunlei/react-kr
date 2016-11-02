@@ -184,6 +184,7 @@ export default class AttributeSetting  extends Component{
 					<Grid>
 						<Row>
 							<Col md={2}> 
+							
 							    <KrField label="收入总额" component="labelText" primary={true} value={list.sumcome} defaultValue="0"/>
 							</Col>
                             
