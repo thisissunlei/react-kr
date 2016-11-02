@@ -36,6 +36,7 @@ import {
 	IframeContent,
 	Date,
 	Paper,
+	DotTitle
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -430,6 +431,9 @@ class NewCreateForm  extends Component{
 								<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} defaultValue="0" /> 
 								<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum} defaultValue="0" /> 
 							</KrField>
+
+
+							<DotTitle title='租赁明细' />
 
 
 
