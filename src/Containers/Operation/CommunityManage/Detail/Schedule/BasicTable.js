@@ -132,6 +132,7 @@ export default class BasicTable extends Component {
 			});
 			this.getInstallmentplan();
 		}
+	}
 
 
 
