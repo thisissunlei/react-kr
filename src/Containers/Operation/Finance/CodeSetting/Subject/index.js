@@ -65,7 +65,7 @@ export default class AttributeSetting extends Component {
 			itemDetail: {},
 			accountname: {}
 		}
-		console.log('state', this.state.accountname)
+
 	}
 
 	componentDidMount() {
@@ -73,8 +73,14 @@ export default class AttributeSetting extends Component {
 	}
 
 
-	onExport(value) {
-		console.log(value)
+	onExport(values) {
+		const idList = [];
+		values.map((item, value) => {
+			idList.push(item.id)
+			return idList;
+		})
+		var url = `http://optest.krspace.cn/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/exportExcel?idList=${idList}`
+		window.location.href = url;
 
 	}
 
@@ -128,7 +134,7 @@ export default class AttributeSetting extends Component {
 
 	//搜索
 	onSearchSubmit(accountname) {
-		console.log('000', accountname);
+
 		this.setState({
 			accountname
 		});
