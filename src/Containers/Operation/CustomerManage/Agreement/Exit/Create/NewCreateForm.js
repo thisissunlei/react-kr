@@ -34,6 +34,7 @@ import {
 	Col,
 	Button,
 	Notify,
+	DotTitle,
 	IframeContent,
 	Date,
 } from 'kr-ui';

@@ -17,8 +17,10 @@ export default class DotTitle extends Component{
 			 <span className='ui-title-mid'>{title}</span>
          </div>
 		 {children &&
-		  <div className='ui-body'>        
-		 	   {children}		 	  
+		  <div className='ui-body'> 
+		     <div className='ui-body-inner'>       
+		 	   {children}
+		 	 </div>  		 	  
 		  </div>}
 
 		</div>

@@ -35,6 +35,7 @@ import {
 	Button,
 	Notify,
 	KrDate,
+	DotTitle
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -250,7 +251,7 @@ class NewCreateForm  extends Component{
 					Store.dispatch(change('reduceCreateForm','contractFileList',files));
 				}} />
 
-
+             <DotTitle title='租赁明细'>
 				<Section title="租赁明细" description="" rightMenu = {
 					<Menu>
 						<MenuItem primaryText="删除" onTouchTap={this.onStationDelete} />
@@ -285,7 +286,7 @@ class NewCreateForm  extends Component{
 						</Table>
 
 						</Section>
-
+                     </DotTitle>
 						<Grid>
 						<Row style={{marginTop:30}}>
 						<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} /> </Col>
