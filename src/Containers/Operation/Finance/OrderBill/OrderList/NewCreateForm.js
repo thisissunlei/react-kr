@@ -94,7 +94,7 @@ import {
 
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 			   
-				<KrField name="customername" type="text" label="客户名称" /> 
+				<KrField name="customername" type="text" label="公司名称" /> 
 				<KrField name="communityid"  type="select" label="所属社区" options={this.state.communityList} >
 				</KrField>
 				<KrField  name="mainbilltype" type="select" label="订单类型" options={this.state.mainbilltypeList}>

@@ -63,7 +63,7 @@ export default class  SearchPersonelComponent extends React.Component {
 					clearAllText="清除"
 					onChange={this.onChange}
 					placeholder={placeholder}/>
-			<p>	{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }</p>
+			{touched && error && <p><div className="error-wrap"> <span>{error}</span> </div></p> }
 		</WrapComponent>
 		);
 	}

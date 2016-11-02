@@ -68,7 +68,7 @@ export default  class JoinDetail extends Component {
 		  return (
 				  <div>
 
-					<KrField component="labelText" grid={1/2} label="出租方" value={basic.lessorName} defaultValue="无"/>
+					<KrField component="labelText" grid={1/2} label="出租方" value={basic.lessorName} defaultValue="无" requireBlue={true}/>
 					<KrField component="labelText" grid={1/2} label="地址" value={basic.lessorAddress} defaultValue="无"/>
 
 					<KrField component="labelText" grid={1/2} label="联系人" value={basic.lessorContactName} defaultValue="无"/>
@@ -100,6 +100,7 @@ export default  class JoinDetail extends Component {
 						<Date.Format value={basic.leaseBegindate} />  ——  <Date.Format value={basic.leaseEnddate}/>
 						</Row>
 					</KrField>
+					
 						
 			  <Grid>
 				  <Row style={{padding:10,marginBottom:15}}>

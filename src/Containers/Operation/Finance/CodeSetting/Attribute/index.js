@@ -1,18 +1,27 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, {
+	Component
+} from 'react';
+import {
+	connect
+} from 'react-redux';
+import {
+	bindActionCreators
+} from 'redux';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 
-import {Actions,Store} from 'kr/Redux';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 
 import {
 	Table,
-	TableBody, 
-	TableHeader, 
-	TableHeaderColumn, 
-	TableRow, 
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
 	TableRowColumn,
 	TableFooter,
 	Button,
@@ -32,9 +41,9 @@ import ItemDetail from './ItemDetail';
 import EditDetailForm from './EditDetailForm';
 
 
-export default class AttributeSetting  extends Component{
+export default class AttributeSetting extends Component {
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -47,15 +56,15 @@ export default class AttributeSetting  extends Component{
 		this.openViewDialog = this.openViewDialog.bind(this);
 		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
 		this.onOperation = this.onOperation.bind(this);
-
+		this.onExport = this.onExport.bind(this);
 		this.state = {
-			openNewCreate:false,
-			openView:false,
-			openEditDetail:false,
-			itemDetail:{},
-			searchParams:{
-				page:1,
-				pageSize:20
+			openNewCreate: false,
+			openView: false,
+			openEditDetail: false,
+			itemDetail: {},
+			searchParams: {
+				page: 1,
+				pageSize: 20
 			}
 		}
 	}
@@ -65,42 +74,42 @@ export default class AttributeSetting  extends Component{
 	}
 
 	//操作相关
-	onOperation(type,itemDetail){
+	onOperation(type, itemDetail) {
 
 		this.setState({
 			itemDetail
 		});
 
-		if(type == 'view'){
+		if (type == 'view') {
 			this.openViewDialog();
-		}else if(type == 'edit'){
+		} else if (type == 'edit') {
 			this.openEditDetailDialog();
 		}
 	}
 
 	//编辑
-	openEditDetailDialog(){
+	openEditDetailDialog() {
 		this.setState({
-			openEditDetail:!this.state.openEditDetail
+			openEditDetail: !this.state.openEditDetail
 		});
 	}
 
-	onEditSubmit(form){
+	onEditSubmit(form) {
 
-		form = Object.assign({},form);
+		form = Object.assign({}, form);
 
-		Store.dispatch(Actions.callAPI('addFinaFinaflowProperty',{},form)).then(function(response){
+		Store.dispatch(Actions.callAPI('addFinaFinaflowProperty', {}, form)).then(function(response) {
 			Notify.show([{
-				message:'更新成功！',
+				message: '更新成功！',
 				type: 'success',
 			}]);
 
-			window.setTimeout(function(){
+			window.setTimeout(function() {
 				window.location.reload();
-			},1000);
-		}).catch(function(err){
+			}, 1000);
+		}).catch(function(err) {
 			Notify.show([{
-				message:err.message,
+				message: err.message,
 				type: 'danger',
 			}]);
 		});
@@ -109,63 +118,73 @@ export default class AttributeSetting  extends Component{
 	}
 
 	//查看
-	openViewDialog(){
+	openViewDialog() {
 		this.setState({
-			openView:!this.state.openView
+			openView: !this.state.openView
 		});
 	}
 
 
 	//搜索
-	onSearchSubmit(searchParams){
-		console.log('searchParams',searchParams);
+	onSearchSubmit(searchParams) {
+		console.log('searchParams', searchParams);
 		this.setState({
 			searchParams
 		});
 	}
 
-	onSearchCancel(){
+	onSearchCancel() {
 
 	}
 
+	onExport(values) {
+		const idList = [];
+		values.map((item, value) => {
+			idList.push(item.id)
+			return idList;
+		})
+		var url = `http://optest.krspace.cn/api/krspace-finance-web/finaccount/property/exportDatas?ids=${idList}`
+		window.location.href = url;
+
+	}
 
 	//新建
-	openNewCreateDialog(){
+	openNewCreateDialog() {
 		this.setState({
-			openNewCreate:!this.state.openNewCreate
+			openNewCreate: !this.state.openNewCreate
 		});
 	}
 
-	onNewCreateSubmit(values){
+	onNewCreateSubmit(values) {
 
 		this.openNewCreateDialog();
 
-		Store.dispatch(Actions.callAPI('addFinaFinaflowProperty',{},values)).then(function(response){
-				Notify.show([{
-					message:'新建成功！',
-					type: 'success',
-				}]);
-
-				window.setTimeout(function(){
-					window.location.reload();
-				},1000);
-				
- 			}).catch(function(err){
- 				
+		Store.dispatch(Actions.callAPI('addFinaFinaflowProperty', {}, values)).then(function(response) {
 			Notify.show([{
-				message:err.message,
+				message: '新建成功！',
+				type: 'success',
+			}]);
+
+			window.setTimeout(function() {
+				window.location.reload();
+			}, 1000);
+
+		}).catch(function(err) {
+
+			Notify.show([{
+				message: err.message,
 				type: 'danger',
 			}]);
 		});
 	}
 
-	onNewCreateCancel(){
+	onNewCreateCancel() {
 		this.openNewCreateDialog();
 	}
 
-	render(){
+	render() {
 
-		return(
+		return (
 
 			<div>
 					<BreadCrumbs children={['系统运营','客户管理','属性配置']}/>
@@ -181,7 +200,7 @@ export default class AttributeSetting  extends Component{
 					</Grid>
 
 
-				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='findFinaFinaflowPropertyList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} >
+				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='findFinaFinaflowPropertyList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} exportSwitch={true} onExport={this.onExport} >
 					<TableHeader>
 						<TableHeaderColumn>属性名称</TableHeaderColumn>
 						<TableHeaderColumn name="propcode">属性编码</TableHeaderColumn>
@@ -242,11 +261,10 @@ export default class AttributeSetting  extends Component{
 				  </Dialog>
 
 
-			</div>		
+			</div>
 
 		);
 
 	}
 
 }
-

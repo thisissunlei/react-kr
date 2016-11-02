@@ -8,8 +8,14 @@ import WrapComponent from '../WrapComponent';
 
 export default class SelectComponent extends React.Component{
 
+
+	static defaultProps = {
+		inline:false
+	}
+
 	static PropTypes = {
-		onChange:React.PropTypes.func
+		onChange:React.PropTypes.func,
+		inline:React.PropTypes.bool
 	}
 
 	constructor(props){
@@ -65,11 +71,11 @@ export default class SelectComponent extends React.Component{
 
 	render(){
 
-		let { input, label, type, meta: { touched, error },children,disabled,style,requireLabel,options,multi,...other} = this.props;
+		let { input, label,inline, type, meta: { touched, error },children,disabled,style,requireLabel,options,multi,...other} = this.props;
 
 		if(multi){
 			return (
-			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
+			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
 						<ReactSelect 
 									multi
 									simpleValue
@@ -80,7 +86,7 @@ export default class SelectComponent extends React.Component{
 									onChange={this.handleChange} 
 									placeholder="请选择..."
 								/>
-					<p>	{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }</p>
+						{touched && error && <p><div className="error-wrap"> <span>{error}</span> </div></p> }
 				</WrapComponent>
 			);
 
@@ -88,7 +94,7 @@ export default class SelectComponent extends React.Component{
 		if(options){
 			return (
 		
-			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
+			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
 							<ReactSelect 
 									name={input.name}
 									searchable={false}
@@ -98,7 +104,7 @@ export default class SelectComponent extends React.Component{
 									onChange={this.onChange} 
 									placeholder="请选择..."
 								/>
-				<p>	{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }</p>
+					{touched && error && <p><div className="error-wrap"> <span>{error}</span> </div></p> }
 		</WrapComponent>
 
 			);
@@ -106,11 +112,11 @@ export default class SelectComponent extends React.Component{
 		}
 
 		return (
-			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
+			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
 					<select {...input}  disabled={disabled}>
 									{children}
 					</select>
-					<p>	{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }</p>
+					{touched && error && <p><div className="error-wrap"> <span>{error}</span> </div></p> }
 			</WrapComponent>
 
 		);

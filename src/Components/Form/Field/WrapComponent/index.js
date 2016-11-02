@@ -19,7 +19,8 @@ export default class  WrapComponent extends React.Component {
 		requireLabel:React.PropTypes.bool,
 		children:React.PropTypes.node,
 		wrapStyle:React.PropTypes.object,
-		inline:React.PropTypes.bool
+		inline:React.PropTypes.bool,
+		requireBlue:React.PropTypes.bool
 	}
 
 	constructor(props){
@@ -28,11 +29,11 @@ export default class  WrapComponent extends React.Component {
 
 	render(){
 
-		let {requireLabel,label,children,wrapStyle,style,inline} = this.props;
+		let {requireLabel,label,children,wrapStyle,style,inline,requireBlue} = this.props;
 
 		return (
 				<FormItem style={wrapStyle}>
-					<FormLabel label={label}  requireLabel={requireLabel} inline={inline}/>
+					<FormLabel label={label}  requireLabel={requireLabel} inline={inline} requireBlue={requireBlue}/>
 					<FormController style={style} inline={inline}>
 						{children}
 					</FormController>

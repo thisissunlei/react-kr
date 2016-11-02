@@ -195,7 +195,7 @@ export default class CommunityManage extends Component {
 			<Section title="计划表" description=""> 
 
 				<Form name="selectCommunityForm" initialValues={{community:this.state.community}} >
-					<KrField name="community"  grid={1/3} component="select" label="社区" onChange={this.selectCommunity} options={communityInfoList}/>
+					<KrField name="community"  grid={1/2} component="select" label="社区" onChange={this.selectCommunity} options={communityInfoList} inline={true}/>
 
 				</Form>
 				 <Tabs className="tabs" tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={{backgroundColor:'#499df1'}}>

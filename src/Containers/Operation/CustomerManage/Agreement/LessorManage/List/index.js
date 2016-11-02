@@ -1,16 +1,22 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, {
+	Component
+} from 'react';
+import {
+	connect
+} from 'react-redux';
+import {
+	bindActionCreators
+} from 'redux';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import {
 	Table,
-	TableBody, 
-	TableHeader, 
-	TableHeaderColumn, 
-	TableRow, 
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
 	TableRowColumn,
 	TableFooter,
 	Button,
@@ -29,9 +35,9 @@ import ItemDetail from './ItemDetail';
 import EditDetailForm from './EditDetailForm';
 
 
-export default class LessorManageList  extends Component{
+export default class LessorManageList extends Component {
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -44,19 +50,19 @@ export default class LessorManageList  extends Component{
 		this.openViewDialog = this.openViewDialog.bind(this);
 		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
 		this.onOperation = this.onOperation.bind(this);
-
+		this.onExport = this.onExport.bind(this);
 		this.state = {
-			openNewCreate:false,
-			openView:false,
-			openEditDetail:false,
-			itemDetail:{},
-			params:{
-				page:1,
-				pageSize:15
+			openNewCreate: false,
+			openView: false,
+			openEditDetail: false,
+			itemDetail: {},
+			params: {
+				page: 1,
+				pageSize: 15
 			},
-			pageSize:15,
-			page:1,
-			totalCount:1,
+			pageSize: 15,
+			page: 1,
+			totalCount: 1,
 		}
 	}
 
@@ -64,70 +70,83 @@ export default class LessorManageList  extends Component{
 
 	}
 
+
+	onExport(values) {
+		const idList = [];
+		values.map((item, value) => {
+			idList.push(item.id)
+			return idList;
+		})
+		var url = `http://optest.krspace.cn/api/krspace-finance-web/fnacorporationDataExport?corporationIdList=${idList}`
+		window.location.href = url;
+
+	}
+
+
 	//操作相关
-	onOperation(type,itemDetail){
+	onOperation(type, itemDetail) {
 
 		this.setState({
 			itemDetail
 		});
 
-		if(type == 'view'){
+		if (type == 'view') {
 			this.openViewDialog();
-		}else if(type == 'edit'){
+		} else if (type == 'edit') {
 			this.openEditDetailDialog();
 		}
 	}
 
 	//编辑
-	openEditDetailDialog(){
+	openEditDetailDialog() {
 		this.setState({
-			openEditDetail:!this.state.openEditDetail
+			openEditDetail: !this.state.openEditDetail
 		});
 	}
 
-	onEditSubmit(){
+	onEditSubmit() {
 		this.openEditDetailDialog();
 
-		window.setTimeout(function(){
+		window.setTimeout(function() {
 			window.location.reload();
-		},2000);
-		
+		}, 2000);
+
 	}
 
 	//查看
-	openViewDialog(){
+	openViewDialog() {
 		this.setState({
-			openView:!this.state.openView
+			openView: !this.state.openView
 		});
 	}
 
 
 	//搜索
-	onSearchSubmit(params){
-		params = Object.assign({},params);
+	onSearchSubmit(params) {
+		params = Object.assign({}, params);
 		this.setState({
 			params
 		});
 	}
 
 	//新建
-	openNewCreateDialog(){
+	openNewCreateDialog() {
 		this.setState({
-			openNewCreate:!this.state.openNewCreate
+			openNewCreate: !this.state.openNewCreate
 		});
 	}
 
-	onNewCreateSubmit(form){
+	onNewCreateSubmit(form) {
 		window.location.reload();
 	}
 
-	onNewCreateCancel(){
+	onNewCreateCancel() {
 		this.openNewCreateDialog();
 	}
 
-	render(){
+	render() {
 
-		return(
+		return (
 
 			<div>
 					<BreadCrumbs children={['系统运营','合同信息','出租方管理']}/>
@@ -141,7 +160,7 @@ export default class LessorManageList  extends Component{
 							</Col> 
 						</Row>
 					</Grid>
-				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='fnaCorporationList' ajaxParams={this.state.params} onOperation={this.onOperation} >
+				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='fnaCorporationList' ajaxParams={this.state.params} onOperation={this.onOperation}  exportSwitch={true} onExport={this.onExport}>
 						<TableHeader>
 							<TableHeaderColumn>ID</TableHeaderColumn>
 							<TableHeaderColumn>出租方名称</TableHeaderColumn>
@@ -201,11 +220,10 @@ export default class LessorManageList  extends Component{
 				  </Dialog>
 
 
-			</div>		
+			</div>
 
 		);
 
 	}
 
 }
-
