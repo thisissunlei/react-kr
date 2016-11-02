@@ -7,7 +7,6 @@ import SelfAdaption from './SelfAdaption';
 import Form from './Form/index';
 import BreadCrumbs from './BreadCrumbs';
 import Table from './Table/index';
-import BraceWidth from './BraceWidth/BraceWidth/index.js';
 import Date from './Date';
 import KrDate from './Date';
 import Loading from './Loading';
@@ -66,7 +65,6 @@ module.exports = {
 	List,
 	DotTitle,
 	ListItem,
-	BraceWidth,
 	Checkbox,
 	SelfAdaption,
 	...Form,

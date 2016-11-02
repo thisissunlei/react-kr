@@ -69,13 +69,15 @@ export default class Undefined extends Component {
 
 		return (
 
-			    <div>
-					<Section title="出错了" description="" >
+			    <div className='ui-labelText'>
+					{/*<Section title="出错了" description="" >
 						<Form name="jyayayoinForm" initialValues={initialValues} onSubmit={this.onSubmit}>
 							<KrField grid={1/1}  name="age" component="date" label="电话" />
 							<Button  label="确定" type="submit" primary={true} />
 						</Form>
-					</Section>
+					</Section>*/}
+					<span className='ui-textLeft'></span>
+					<span className='ui-textRight'></span>
                 </div>
 
 		);
