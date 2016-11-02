@@ -7,6 +7,7 @@ export default class KrCheckbox extends React.Component{
 
 	static PropTypes = {
 		checked:React.PropTypes.bool,
+
 	}
 
 	render(){
@@ -14,7 +15,7 @@ export default class KrCheckbox extends React.Component{
 		let {checked} = this.props;
 
 		return (
-			<Checkbox {...this.props} />
+			<Checkbox {...this.props}/>
 		);
 	}
 }

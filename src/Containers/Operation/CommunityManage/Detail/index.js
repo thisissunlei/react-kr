@@ -35,6 +35,8 @@ import FloorPlan from './FloorPlan';
 import $ from 'jquery';
 
 import './index.less';
+import Checkbox from 'material-ui/Checkbox';
+
 
 
 export default class CommunityManage extends Component {
@@ -50,9 +52,9 @@ export default class CommunityManage extends Component {
 
 
 		this.state = {
-			tab: 'plan',
-			communityInfoList: [],
-			community: '',
+			tab:'table',
+			communityInfoList:[],
+			community:'',
 		}
 
 	}
@@ -61,21 +63,16 @@ export default class CommunityManage extends Component {
 		this.getCommunity();
 
 	}
-	Floorplan() {
-		console.log('plan');
-		let {
-			tab
-		} = this.state;
+
+	Floorplan(){
+		let {tab} = this.state;
 		tab = 'floorplan';
 		this.setState({
 			tab
 		});
 	}
-	planTable() {
-		console.log('jdadtable');
-		let {
-			tab
-		} = this.state;
+	planTable(){
+		let {tab} = this.state;
 		tab = 'table';
 		this.setState({
 			tab
@@ -95,21 +92,16 @@ export default class CommunityManage extends Component {
 	getCommunity() {
 		var that = this;
 
-		var {
-			communityInfoList,
-			community
-		} = this.state;
-
-		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
-
-			communityInfoList = response.communityInfoList.map(function(item, index) {
+		var {communityInfoList, community} = this.state;
+		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response){
+			
+			communityInfoList = response.communityInfoList.map(function(item,index){
 				item.value = item.id;
 				item.label = item.name;
 				return item;
 			});
 			that.setState({
 				communityInfoList
-
 			});
 		}).catch(function(err) {
 			console.log('err', err);
@@ -175,20 +167,23 @@ export default class CommunityManage extends Component {
 
 
 
-	render() {
-		let {
-			tab
-		} = this.state;
-
-
-		var {
-			communityInfoList,
-			communityInfoFloorList
-		} = this.state;
-		let {
-			community
-		} = this.state;
-		console.log('id', community, communityInfoList);
+	
+  render() {
+  	let {tab} = this.state;
+  	var {communityInfoList, communityInfoFloorList} = this.state;
+  	let {community} = this.state;
+  	console.log('id', community, communityInfoList);
+  	const activeTab = {
+  		color:'#000',
+  		backgroundColor:'#ecf5fe',
+  		borderBottom:"1px solid #eee"
+  	}
+  	const commenTab = {
+  		color:'#000',
+  		borderBottom:"1px solid #eee"
+  	}
+  	let tableStyle = (tab=='table')?activeTab:commenTab;
+  	let planStyle = (tab=='floorplan')?activeTab:commenTab;
 
 
 
@@ -199,16 +194,15 @@ export default class CommunityManage extends Component {
 			
 			<Section title="计划表" description=""> 
 
-				<Form name="selectCommunityForm" initialValues={{community:this.state.community}}>
+				<Form name="selectCommunityForm" initialValues={{community:this.state.community}} >
 					<KrField name="community"  grid={1/3} component="select" label="社区" onChange={this.selectCommunity} options={communityInfoList}/>
 
 				</Form>
-
-				 <Tabs className="tabs" tabItemContainerStyle={{background:'#FFF'}}>
-					<Tab label="计划表" onActive={this.planTable} style={{color:'#000',borderBottom:"1px solid #eee"}}>
+				 <Tabs className="tabs" tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={{backgroundColor:'#499df1'}}>
+					<Tab label="计划表" onActive={this.planTable} style={tableStyle}>
 						<Schedule  community={community}/>
 					</Tab>
-					<Tab label="平面图"  onActive={this.Floorplan} style={{color:'#000',borderBottom:"1px solid #eee"}}>
+					<Tab label="平面图"  onActive={this.Floorplan} style={planStyle}>
 
 					   <FloorPlan communityId={community} tab={tab} communityInfoFloorList={communityInfoFloorList}/>
 
