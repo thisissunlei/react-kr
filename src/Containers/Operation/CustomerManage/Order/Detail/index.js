@@ -201,14 +201,14 @@ export default class OrderDetail extends React.Component {
 
 
 			<Grid style={{marginTop:50}}>
-			<span className='ui-remark'>注：如（1-0），1表示该类型合同总数，0表示执行完该类型合同数</span>
+			<span className='ui-remark'>注：如（0-1），1表示该类型合同总数，0表示执行完该类型合同数</span>
 			<ul className='ui-adminBook'>
-              <li><span className={contractStatusCount.intentionComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
-              <li><span className={contractStatusCount.enterComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
-              <li><span className={contractStatusCount.addRentComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
+              <li><span className={contractStatusCount.intentionTotoal!=0?'ui-circle':'ui-circle-dot'}></span></li>
+              <li><span className={contractStatusCount.enterTotoal!=0?'ui-circle':'ui-circle-dot'}></span></li>
+              <li><span className={contractStatusCount.addRentTotoal!=0?'ui-circle':'ui-circle-dot'}></span></li>
               <li><span className={contractStatusCount.renewComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
               <li><span className={contractStatusCount.lessRentComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
-              <li><span className={contractStatusCount.quitRentComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
+              <li><span className={contractStatusCount.quitRentTotoal!=0?'ui-circle':'ui-circle-dot'}></span></li>
 			</ul>
 			<Row>
 				<Col md={2} align="center">承租意向书({contractStatusCount.intentionComplete}-{contractStatusCount.intentionTotoal}) </Col>

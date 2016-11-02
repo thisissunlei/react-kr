@@ -23,14 +23,7 @@ import {
 	TableFooter,
 	Button,
 	Section,
-<<<<<<< HEAD
-	DotTitle,
-	BraceWidth,
-	SelfAdaption,
-=======
-
-	
->>>>>>> 53537c361fbda9a9f183a8e2c93c87b302558dbf
+	DotTitle
 } from 'kr-ui';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
@@ -76,30 +69,21 @@ export default class Undefined extends Component {
 		return (
 
 			    <div className='ui-labelText'>
-					{/*<Section title="出错了" description="" >
+					<Section title="出错了" description="" >
 						<Form name="jyayayoinForm" initialValues={initialValues} onSubmit={this.onSubmit}>
 							<KrField grid={1/1}  name="age" component="date" label="电话" />
 							<Button  label="确定" type="submit" primary={true} />
 						</Form>
-<<<<<<< HEAD
-					</Section>*/}
-					<span className='ui-textLeft'></span>
-					<span className='ui-textRight'></span>
-=======
 					</Section>
-<<<<<<< HEAD
+					<span className='ui-textLeft'>1111111:</span>
+					<span className='ui-textRight'>3333333</span>
 
-					<DotTitle title='你好' />
-					<BraceWidth contentL='yyyyyy' contentR='hhhhhhh'>
-					 <span>fjdgidftyfyy</span>
-					 <span>urtghirthgiurtih</span>
-					</BraceWidth>
-			</SelfAdaption>
-=======
->>>>>>> 5e78e2d45ad6ddad27e75da3b270a6bb2a5985b4
-                </div>
->>>>>>> 53537c361fbda9a9f183a8e2c93c87b302558dbf
 
+					<DotTitle title='订单详情'>
+					 
+
+					</DotTitle>
+				</div>	
 		);
 
 	}
