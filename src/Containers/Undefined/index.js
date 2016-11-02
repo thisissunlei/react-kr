@@ -23,9 +23,14 @@ import {
 	TableFooter,
 	Button,
 	Section,
+<<<<<<< HEAD
 	DotTitle,
 	BraceWidth,
 	SelfAdaption,
+=======
+
+	
+>>>>>>> 53537c361fbda9a9f183a8e2c93c87b302558dbf
 } from 'kr-ui';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
@@ -70,13 +75,14 @@ export default class Undefined extends Component {
 
 		return (
 
-			<SelfAdaption type='SelfAdaption'>
+			    <div>
 					<Section title="出错了" description="" >
 						<Form name="jyayayoinForm" initialValues={initialValues} onSubmit={this.onSubmit}>
 							<KrField grid={1/1}  name="age" component="date" label="电话" />
 							<Button  label="确定" type="submit" primary={true} />
 						</Form>
 					</Section>
+<<<<<<< HEAD
 
 					<DotTitle title='你好' />
 					<BraceWidth contentL='yyyyyy' contentR='hhhhhhh'>
@@ -84,6 +90,9 @@ export default class Undefined extends Component {
 					 <span>urtghirthgiurtih</span>
 					</BraceWidth>
 			</SelfAdaption>
+=======
+                </div>
+>>>>>>> 53537c361fbda9a9f183a8e2c93c87b302558dbf
 
 		);
 
