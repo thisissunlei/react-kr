@@ -247,14 +247,9 @@ export default class BasicTable extends Component {
 
 		render() {
 
-			let {
-				currentYear,
-				Installmentplan
-			} = this.state;
+			let {currentYear,Installmentplan} = this.state;
+			var that = this;
 
-			return (
-
-				var that = this;
 				var Installmentplan, rate; Store.dispatch(Actions.callAPI('getInstallmentplan', {
 					communityids: 1
 				})).then(function(response) {
@@ -271,10 +266,8 @@ export default class BasicTable extends Component {
 					}]);
 				});
 
-			}
-
-
-			<div>
+			return (
+<div>
 		 	<div className="basic-con">
 		 		<div className="legend">
 		 			<div className="legend-left">
@@ -373,7 +366,10 @@ export default class BasicTable extends Component {
 			
 		</div>
 		);
-	}
+				
+
+}
+
 
 }
 
