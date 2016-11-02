@@ -35,6 +35,7 @@ import {
 	Notify,
 	IframeContent,
 	Date,
+	Paper,
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -383,8 +384,8 @@ class NewCreateForm  extends Component{
 			<div>
 <form onSubmit={handleSubmit(this.onSubmit)}>
 
-
-
+	<Paper width={500}>
+	
 								<KrField grid={1/2}  name="stationnum" type="hidden" component="input" /> 
 								<KrField grid={1/2}  name="boardroomnum" type="hidden" component="input" /> 
 
@@ -429,6 +430,11 @@ class NewCreateForm  extends Component{
 								<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} defaultValue="0" /> 
 								<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum} defaultValue="0" /> 
 							</KrField>
+	
+	</Paper>
+
+
+
 
 					    <Section title="租赁明细" description="" rightMenu = {
 									<Menu>
