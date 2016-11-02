@@ -84,7 +84,7 @@ class SwitchBtnForm extends Component{
 			    <div>                 
 					      <form onSubmit={handleSubmit(this.onSubmit)}>                           
 						    <KrField  name="id" type="hidden"/>
-                            <KrField label="合同编号" name="contractcodeId" type="select" options={optionList}/>
+                            <KrField label="合同编号" name="contractcodeId" type="select" options={optionList} requireLabel={true}/>
                             <KrField label="备注" name="finaflowdesc" component="input" type="text"/>
                             <KrField label="上传附件" name="fileids" component="file"/>
 
@@ -102,8 +102,19 @@ class SwitchBtnForm extends Component{
 
 }
 
+const validate = values =>{
 
-export default reduxForm({form:'SwitchBtnForm'})(SwitchBtnForm);
+		const errors = {}
+
+		if(!values.contractcodeId){
+			errors.contractcodeId = '请填写合同编号';
+		}
+	
+		return errors
+	}
+
+
+export default reduxForm({form:'SwitchBtnForm',validate})(SwitchBtnForm);
 
 
 

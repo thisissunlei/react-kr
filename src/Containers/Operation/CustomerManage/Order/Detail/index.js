@@ -201,6 +201,7 @@ export default class OrderDetail extends React.Component {
 
 
 			<Grid style={{marginTop:50}}>
+			<span className='ui-remark'>注：如（1-0），1表示该类型合同总数，0表示执行完该类型合同数</span>
 			<ul className='ui-adminBook'>
               <li><span className={contractStatusCount.intentionComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
               <li><span className={contractStatusCount.enterComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
@@ -210,12 +211,12 @@ export default class OrderDetail extends React.Component {
               <li><span className={contractStatusCount.quitRentComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
 			</ul>
 			<Row>
-				<Col md={2} >承租意向书({contractStatusCount.intentionComplete}-{contractStatusCount.intentionTotoal}) </Col>
-				<Col md={2} > 入驻协议书({contractStatusCount.enterComplete}-{contractStatusCount.enterTotoal}) </Col>
-				<Col md={2} > 增租协议书({contractStatusCount.addRentComplete}-{contractStatusCount.addRentTotoal}) </Col>
-				<Col md={2} > 续租协议书({contractStatusCount.renewComplete}-{contractStatusCount.renewComplete}) </Col>
-				<Col md={2} > 减租协议书({contractStatusCount.lessRentComplete}-{contractStatusCount.lessRentComplete}) </Col>
-				<Col md={2} > 退租协议书({contractStatusCount.quitRentComplete}-{contractStatusCount.quitRentTotoal}) </Col>
+				<Col md={2} align="center">承租意向书({contractStatusCount.intentionComplete}-{contractStatusCount.intentionTotoal}) </Col>
+				<Col md={2} align="center"> 入驻协议书({contractStatusCount.enterComplete}-{contractStatusCount.enterTotoal}) </Col>
+				<Col md={2} align="center"> 增租协议书({contractStatusCount.addRentComplete}-{contractStatusCount.addRentTotoal}) </Col>
+				<Col md={2} align="center"> 续租协议书({contractStatusCount.renewComplete}-{contractStatusCount.renewComplete}) </Col>
+				<Col md={2} align="center"> 减租协议书({contractStatusCount.lessRentComplete}-{contractStatusCount.lessRentComplete}) </Col>
+				<Col md={2} align="center"> 退租协议书({contractStatusCount.quitRentComplete}-{contractStatusCount.quitRentTotoal}) </Col>
 			</Row>
 		</Grid>
 

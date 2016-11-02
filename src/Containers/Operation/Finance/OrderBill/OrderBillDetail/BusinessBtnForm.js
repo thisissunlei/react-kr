@@ -85,7 +85,7 @@ class BusinessBtnForm extends Component{
 					      <form onSubmit={handleSubmit(this.onSubmit)}>
                              <KrField  name="id" type="hidden"/>
                             <KrField label="款项金额" component="labelText" value={fiMoney}/>
-                            <KrField label="金额（元）" name="finaflowamount" component="input" type="text"/>
+                            <KrField label="金额（元）" name="finaflowamount" component="input" type="text" requireLabel={true}/>
                             <KrField label="备注" name="finaflowdesc" component="input" type="text"/>
                             <KrField label="上传附件" name="fileids" component="file"/>
 
@@ -103,8 +103,18 @@ class BusinessBtnForm extends Component{
 
 }
 
+const validate = values =>{
 
-export default reduxForm({form:'BusinessBtnForm'})(BusinessBtnForm);
+		const errors = {}
+
+		if(!values.finaflowamount){
+			errors.finaflowamount = '请填写金额';
+		}
+	
+		return errors
+	}
+
+export default reduxForm({form:'BusinessBtnForm',validate})(BusinessBtnForm);
 
 
 

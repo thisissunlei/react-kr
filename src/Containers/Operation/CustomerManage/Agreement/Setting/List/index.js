@@ -428,11 +428,12 @@ export default class SettingList extends Component {
 
  
   renderItem(item,index){
+      
            return (
              <TableRow key={index} >
           <TableRowColumn>{item.sp.dicName}</TableRowColumn>
             <TableRowColumn>{item.sp.enableFlag?'是':'否'}</TableRowColumn>
-            <TableRowColumn>{item.sp.creater}</TableRowColumn>
+            <TableRowColumn>{item.sp.createName}</TableRowColumn>
             <TableRowColumn type="date">
                  <KrDate.Format value={item.sp.createTime}/>
             </TableRowColumn>
@@ -447,7 +448,7 @@ export default class SettingList extends Component {
   }
   
   renderItemChild(item,index){
-    
+   
    
     if(item.length>0){
         return (
@@ -466,7 +467,7 @@ export default class SettingList extends Component {
          {item.map((item,index)=><TableRow key={index}>
               <TableRowColumn>{item.dicName}</TableRowColumn>
               <TableRowColumn>{item.enableFlag?'是':'否'}</TableRowColumn>
-              <TableRowColumn>{item.creater}</TableRowColumn>
+              <TableRowColumn>{item.createName}</TableRowColumn>
               <TableRowColumn>
                   <KrDate.Format value={item.createTime}/>
               </TableRowColumn>
