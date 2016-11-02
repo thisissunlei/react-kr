@@ -106,7 +106,12 @@ export default  class ExitDetail extends Component {
 								<KrField component="labelText" grid={1/2} label="签署日期" value={basic.signdate}/>
 
 								<KrField component="labelText"  label="备注" value={basic.contractmark}/>
-								<KrField component="labelText" label="上传附件" value={basic.contractfile}/>
+
+					<KrField component="group" label="上传附件">
+							{basic.contractFileList && basic.contractFileList.map((item,index)=>{
+								return <Button label={item.fileName} type="link" href={item.fileUrl} key={index}/>
+							})}
+			  		</KrField>
 			
 				  </div>
 		  );

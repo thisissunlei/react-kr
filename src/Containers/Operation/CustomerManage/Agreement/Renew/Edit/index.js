@@ -126,12 +126,12 @@ export default  class JoinCreate extends Component {
       optionValues.communityId = response.customer.communityid;
       optionValues.mainbillCommunityId =  response.mainbillCommunityId||1;
 
-      console.log(params.id);
           Store.dispatch(Actions.callAPI('renewshow',{id:params.id})).then(function(response){
 
 
           optionValues.lessorContactName = response.lessorContactName;
 
+		optionValues.contractFileList = response.contractFileList;
 
            initialValues.id = response.id;
             initialValues.leaseId = response.leaseId;

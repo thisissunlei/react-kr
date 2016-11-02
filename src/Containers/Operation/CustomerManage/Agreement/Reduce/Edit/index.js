@@ -128,7 +128,6 @@ export default  class JoinCreate extends Component {
 			optionValues.communityId = response.customer.communityid;
 			optionValues.mainbillCommunityId =  response.mainbillCommunityId||1;
 
-			console.log(params.id);
 			   	Store.dispatch(Actions.callAPI('showFnaContractRentController',{id:params.id})).then(function(response){
 
 

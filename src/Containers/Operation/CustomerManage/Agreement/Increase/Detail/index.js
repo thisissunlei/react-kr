@@ -5,6 +5,7 @@ import {
 	Loading,
 	Notify,
 	Section,
+	KrDate,
 } from 'kr-ui';
 
 import {KrField,LabelText} from 'kr-ui/Form';
@@ -82,26 +83,19 @@ export default  class JoinDetail extends Component {
 					<KrField component="labelText" grid={1/2} label="合同编号" value={basic.contractcode} defaultValue="无"/>
 
 					<KrField component="labelText" grid={1/2} label="支付方式" value={basic.payType && basic.payType.dicName} defaultValue="无"/>
-					<KrField component="group" grid={1/2} label="租赁期限:">
-						<Row style={{marginTop:5}}>
-						<Date.Format value={basic.leaseBegindate}/>  ——  <Date.Format value={basic.leaseEnddate}/>
-						</Row>
+					<KrField component="group" grid={1/2} label="租赁期限">
+						<KrDate.Format value={basic.leaseBegindate}/>  ——  <KrDate.Format value={basic.leaseEnddate}/>
 					</KrField>
-						
-			  <Grid>
-				  <Row style={{padding:10,marginBottom:15}}>
-					  <Col md={6} align="left" >首付款时间： <Date.Format value={basic.firstpaydate}/>  </Col>
-					  <Col md={5} align="left" style={{paddingLeft:10}}>付款方式：  {basic.payment && basic.payment.dicName}</Col>
-				  </Row>
-				  <Row style={{padding:10,marginBottom:15}}>
-					  <Col md={6} align="left" >签署日期： <Date.Format value={basic.signdate}/>  </Col>
 
-				  </Row>
-			  </Grid>
+					<KrField component="labelText" grid={1/2} label="首付款时间" type="date" value={basic.firstpaydate} />
+					<KrField component="labelText" grid={1/2} label="付款方式："  value={basic.payment.dicName} defaultValue="无" />
+				
+					<KrField component="labelText" grid={1} label="签署日期" type="date" value={basic.signdate} defaultValue="无" />
 
-					<KrField component="group" label="租赁项目">
-									<KrField component="labelText" label="工位" value={basic.stationnum} defaultValue="0"/>
-									<KrField component="labelText" label="会议室" value={basic.boardroomnum} defaultValue="0"/>
+
+					<KrField component="group" grid={1} label="租赁项目">
+							<KrField component="labelText" label="工位" value={basic.stationnum} defaultValue="0"/>
+							<KrField component="labelText" label="会议室" value={basic.boardroomnum} defaultValue="0"/>
 						</KrField>
 
 					<KrField component="labelText" label="租赁用途" value={basic.rentaluse}/>
@@ -111,7 +105,11 @@ export default  class JoinDetail extends Component {
 
 					<KrField component="labelText"  label="备注" value={basic.contractmark} defaultValue="无"/>
 
-					<KrField component="labelText" label="上传附件" value={basic.contractfile} defaultValue="无"/>
+					<KrField component="group" label="上传附件">
+							{basic.contractFileList && basic.contractFileList.map((item,index)=>{
+								return <Button label={item.fileName} type="link" href={item.fileUrl} key={index}/>
+							})}
+			  		</KrField>
 
 											
 					<Section title="租赁明细" description=""> 

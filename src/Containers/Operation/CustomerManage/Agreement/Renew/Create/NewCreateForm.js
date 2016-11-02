@@ -77,13 +77,14 @@ class NewCreateForm  extends Component{
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
-		this.reduceMoney = this.reduceMoney.bind(this);
+
+
+
 		this.state = {
 			stationVos:[],
 			selectedStation:[],
 			openStation:false,
 			openStationUnitPrice:false,
-			rentamount:0,
 		}
 	}
 
@@ -106,76 +107,18 @@ class NewCreateForm  extends Component{
 		
 	}
 
-// station list
 	onStationCancel(){
 		this.openStationDialog();
 	}
 
-	onStationSubmit(selectedList){
-
-		let {stationVos} = this.state;
-		let  result = stationVos;
-		console.log(selectedList, stationVos);
-
-		if(!stationVos.length){
-			result = selectedList;
-		}else{
-			stationVos.forEach(function(item,index){
-				selectedList.forEach(function(selected,i){
-					if (item.id !=selected.id) {
-							result.push(selected);
-					}
-				});
-			});
-		}
-
-		result.map((item)=>{
-			item.leaseBeginDate = dateFormat(item.leaseBeginDate,"yyyy-mm-dd hh:MM:ss");
-			item.leaseEndDate = dateFormat(item.leaseEndDate,"yyyy-mm-dd hh:MM:ss");
-			item.stationName = item.stationId;
-		})
-		console.log("0000",result);
+	onStationSubmit(stationVos){
 		this.setState({
-				stationVos:result
+			stationVos
 		});
+
 		this.openStationDialog();
-		this.reduceMoney(selectedList, 'add');
 	}
 
-	// 计算减租金额
-	reduceMoney(selectedList,from){
-		console.log(selectedList);
-		
-		if(from === 'add'){
-			var {rentamount} = this.state;
-		}else{
-			var rentamount = 0;
-		}
-		console.log('result', rentamount);
-		var sum  = rentamount;
-		selectedList.forEach(function(value){
-			
-			try{
-				var price = parseFloat((value.unitprice*12/365).toFixed(2));
-				var start = Date.parse(value.leaseBeginDate);
-				var  end= Date.parse(value.leaseEndDate);
-				var num =  Math.floor((end-start)/(3600*24*1000));
-				sum += num*price;
-				return parseFloat(sum).toFixed(2);
-
-
-			}catch(err){
-				console.log(err,'err');
-			}
-
-			
-		});
-		console.log(sum);
-		this.setState({
-			rentamount:sum
-		});
-
-	}
 
 	//删除工位
 	onStationDelete(){
@@ -188,7 +131,6 @@ class NewCreateForm  extends Component{
 			}
 			return true;
 		});
-		this.reduceMoney(stationVos, 'less');
 		this.setState({
 			stationVos
 		});
@@ -221,20 +163,24 @@ class NewCreateForm  extends Component{
 
 		let {changeValues} = this.props;
 		let {stationVos} = this.state;
-		form.list = stationVos;
+
+		if(!stationVos.length){
+			Notify.show([{
+				message:"请选择工位",
+				type: 'danger',
+			}]);
+			return ;
+		};
+
+		form.stationVosList = stationVos;
 		form.lessorAddress = changeValues.lessorAddress;
-		// form.lessorContactid = 111;
-		form.rentamount= this.state.rentamount;
-		form.leaseBegindate = stationVos[0].leaseBeginDate;
-		form.leaseEnddate = stationVos[0].leaseEndDate;
+
+		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate,"yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate,"yyyy-mm-dd hh:MM:ss");
 
 		form.firstpaydate = dateFormat(form.firstpaydate,"yyyy-mm-dd hh:MM:ss");
 
-		var _this = this;
-
-		form.stationVos =  stationVos;
-
-		form.stationVos = JSON.stringify(form.stationVos);
+		form.stationVos = JSON.stringify(stationVos);
 
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
@@ -257,7 +203,7 @@ class NewCreateForm  extends Component{
 			}
 		});
 
-		let {stationVos, rentamount} = this.state;
+		let {stationVos} = this.state;
 
 		return (
 	<div>
@@ -267,6 +213,7 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
+				<KrField grid={1/2}  name="leaseBegindate" type="hidden" component="input" />
 
 				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}  requireLabel={true} />
 				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}  defaultValue="无"/>
@@ -291,14 +238,22 @@ class NewCreateForm  extends Component{
 
 				<KrField grid={1/2}  name="signdate"  component="date"  label="签署时间" requireLabel={true} />
 				<KrField grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"  requireLabel={true} /> 
-				<KrField grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true} /> 
+
+				<KrField grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" requireLabel={true} /> 
+
 				<KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true}  />
 
 				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" />
-				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} />
+
+				<KrField grid={1}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
+				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
+					Store.dispatch(change('reduceCreateForm','contractFileList',files));
+				}} />
+
 
 				<Section title="租赁明细" description="" rightMenu = {
 					<Menu>
+						<MenuItem primaryText="删除" onTouchTap={this.onStationDelete} />
 						<MenuItem primaryText="续租"  onTouchTap={this.openStationDialog} />
 					</Menu>
 				}>
@@ -346,7 +301,7 @@ class NewCreateForm  extends Component{
 						modal={true}
 						autoScrollBodyContent={true}
 						autoDetectWindowHeight={true} >
-								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel}/>
+								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} selectedStationVos={this.state.stationVos}/>
 					  </Dialog>
 
 
@@ -399,6 +354,7 @@ class NewCreateForm  extends Component{
 		if (!values.rentaluse) {
 			errors.rentaluse = '请填写租赁用途';
 		}
+
 		if (!values.totalrent) {
 			errors.totalrent = '请填写租金总额';
 		}
@@ -437,12 +393,11 @@ export default connect((state)=>{
 
 	changeValues.lessorId = selector(state,'lessorId');
 	changeValues.leaseId = selector(state,'leaseId');
-	changeValues.stationnum = selector(state,'stationnum') || 0;
-	changeValues.boardroomnum = selector(state,'boardroomnum') || 0;
-	changeValues.leaseBegindate = selector(state,'leaseBegindate') || 0;
-	changeValues.leaseEnddate = selector(state,'leaseEnddate') || 0;
-	changeValues.wherefloor = selector(state,'wherefloor') || 0;
-
+	changeValues.stationnum = selector(state,'stationnum');
+	changeValues.boardroomnum = selector(state,'boardroomnum');
+	changeValues.leaseBegindate = selector(state,'leaseBegindate');
+	changeValues.leaseEnddate = selector(state,'leaseEnddate');
+	changeValues.wherefloor = selector(state,'wherefloor');
 
 	return {
 		changeValues

@@ -111,7 +111,12 @@ export default  class JoinDetail extends Component {
 
 								<KrField component="labelText"  label="备注" value={basic.contractmark} defaultValue="无"/>
 
-								<KrField component="labelText" label="上传附件" value={basic.contractfile} defaultValue="无"/>
+					<KrField component="group" label="上传附件">
+							{basic.contractFileList && basic.contractFileList.map((item,index)=>{
+								return <Button label={item.fileName} type="link" href={item.fileUrl} key={index}/>
+							})}
+			  		</KrField>
+
 
 											
 			<Section title="租赁明细" description=""> 

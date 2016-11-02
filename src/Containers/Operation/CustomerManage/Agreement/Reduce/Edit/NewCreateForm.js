@@ -78,13 +78,11 @@ class NewCreateForm  extends Component{
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
-		this.reduceMoney = this.reduceMoney.bind(this);
 		this.state = {
 			stationVos:[],
 			selectedStation:[],
 			openStation:false,
 			openStationUnitPrice:false,
-			rentamount:0,
 		}
 	}
 
@@ -166,42 +164,8 @@ class NewCreateForm  extends Component{
 				stationVos:result
 		});
 		this.openStationDialog();
-		this.reduceMoney(selectedList, 'add');
 	}
 
-	// 计算减租金额
-	reduceMoney(selectedList,from){
-		var {changeValues} = this.props;
-
-		var sum  = changeValues.rentamount;
-		selectedList.forEach(function(value){
-			
-			try{
-				if(!value.unitprice){
-					Notify.show([{
-						message:'单价为空',
-						type: 'danger',
-					}]);
-					return false;
-				}
-				var price = parseFloat((value.unitprice*12/365).toFixed(2));
-				var start = Date.parse(value.leaseBeginDate);
-				var  end= Date.parse(value.startDate);
-				var num =  Math.floor((end-start)/(3600*24*1000));
-				sum += num*price;
-				return parseFloat(sum.toFixed(2));
-
-
-			}catch(err){
-				console.log(err,'err');
-			}
-
-			
-		});
-
-		Store.dispatch(change('reduceCreateForm','rentamount',sum));
-
-	}
 
 	//删除工位
 	onStationDelete(){
@@ -214,7 +178,6 @@ class NewCreateForm  extends Component{
 			}
 			return true;
 		});
-		this.reduceMoney(stationVos, 'less');
 		this.setState({
 			stationVos
 		});
@@ -251,12 +214,15 @@ class NewCreateForm  extends Component{
 
 		let {changeValues} = this.props;
 		let {stationVos} = this.state;
-		form.leaseBegindate = stationVos[0].leaseBeginDate;
-		form.leaseEnddate = stationVos[0].leaseEndDate;
+	
 		form.signdate = dateFormat(form.signdate,"yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
+
+		form.leaseBegindate  = dateFormat(stationVos[0].leaseBeginDate,"yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate,"yyyy-mm-dd hh:MM:ss");
+
+		form.lessorAddress = changeValues.lessorAddress;
 		// form.lessorContactid = 111;
-		form.rentamount= this.state.rentamount;
 		var _this = this;
 
 		form.stationVos =  stationVos;
@@ -283,7 +249,7 @@ class NewCreateForm  extends Component{
 			}
 		});
 
-		let {stationVos, rentamount, params} = this.state;
+		let {stationVos, params} = this.state;
 		console.log(params);
 		
 
@@ -295,7 +261,6 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
-				<KrField grid={1/2}  name="rentamount" type="hidden" component="input" />
 				<KrField grid={1/2}  name="leaseEnddate" type="hidden" component="input" />
 				<KrField grid={1/2}  name="leaseBegindate" type="hidden" component="input" />
 
@@ -318,7 +283,8 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}/>
 
 				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
-				<KrField grid={1}  name="rentamount" type="labelText"  label="减租金额"  value={changeValues.rentamount}/> {/*减租金额没有*/}
+
+				<KrField grid={1}  name="rentamount" type="text"  component="input" label="减租金额" /> 
 
 				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" />
 				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} requireLabel={true}/> 
@@ -451,7 +417,6 @@ export default connect((state)=>{
 	changeValues.leaseBegindate = selector(state,'leaseBegindate');
 	changeValues.leaseEnddate = selector(state,'leaseEnddate');
 	changeValues.wherefloor = selector(state,'wherefloor') || 0;
-	changeValues.rentamount = selector(state,'rentamount') || 0;
 
 
 	return {
