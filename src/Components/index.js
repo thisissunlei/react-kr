@@ -17,6 +17,8 @@ import Notify from './Notify';
 import IframeContent from './IframeContent';
 //import Tabs from './Tabs/index';
 import PageHeader from './PageHeader';
+import Paper from './Paper';
+
 import {
 	Grid,
 	Row,
@@ -34,7 +36,6 @@ import {
 	Divider,
 	FontIcon,
 	DatePicker,
-	Paper,
 	Avatar,
 	Snackbar,
 } from 'material-ui';
@@ -50,6 +51,7 @@ import {
 
 module.exports = {
 	//Components
+	Paper,
 	IframeContent,
 	Calendar,
 	Section,
@@ -80,7 +82,6 @@ module.exports = {
 	Divider,
 	FontIcon,
 	DatePicker,
-	Paper,
 	Avatar,
 	Dialog,
 	Snackbar,

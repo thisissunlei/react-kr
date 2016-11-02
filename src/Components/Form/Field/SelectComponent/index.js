@@ -3,6 +3,9 @@ import React from 'react';
 import ReactSelect from 'react-select';
 import 'react-select/dist/react-select.css';
 
+
+import WrapComponent from '../WrapComponent';
+
 export default class SelectComponent extends React.Component{
 
 	static PropTypes = {
@@ -66,12 +69,8 @@ export default class SelectComponent extends React.Component{
 
 		if(multi){
 			return (
-					<div className="form-item-wrap" style={style}>
-					<div className="form-item">
-					<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
-							<div className="form-main">
-							<div className="form-input">
-							<ReactSelect 
+			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
+						<ReactSelect 
 									multi
 									simpleValue
 									name={input.name}
@@ -81,21 +80,15 @@ export default class SelectComponent extends React.Component{
 									onChange={this.handleChange} 
 									placeholder="请选择..."
 								/>
-							</div>
-							{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
-						  </div>
-					</div>
-			</div>
+					<p>	{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }</p>
+				</WrapComponent>
 			);
 
 		}
 		if(options){
 			return (
-					<div className="form-item-wrap" style={style}>
-					<div className="form-item">
-					<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
-							<div className="form-main">
-							<div className="form-input">
+		
+			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 							<ReactSelect 
 									name={input.name}
 									searchable={false}
@@ -105,31 +98,21 @@ export default class SelectComponent extends React.Component{
 									onChange={this.onChange} 
 									placeholder="请选择..."
 								/>
-							</div>
-							{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
-						  </div>
-					</div>
-			</div>
+				<p>	{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }</p>
+		</WrapComponent>
+
 			);
 
 		}
 
 		return (
-			<div className="form-item-wrap" style={style}>
-					<div className="form-item">
-					<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
-							<div className="form-main">
-
-								<div className="form-input">
-									<select {...input}  disabled={disabled}>
+			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
+					<select {...input}  disabled={disabled}>
 									{children}
-									</select>
-								</div>
+					</select>
+					<p>	{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }</p>
+			</WrapComponent>
 
-								{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
-						  </div>
-					</div>
-			</div>
 		);
 
 	}

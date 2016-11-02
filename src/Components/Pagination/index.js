@@ -5,7 +5,7 @@ import './index.less';
 export default class Pagination extends Component {
 
 	static propTypes = {
-		children: PropTypes.node,
+		children: React.PropTypes.node,
 		page: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
 		pageSize: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
 		totalCount: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),

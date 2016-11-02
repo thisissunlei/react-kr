@@ -3,6 +3,9 @@ import Notify from '../../../Notify';
 import Promise from 'promise-polyfill';
 import {Actions,Store} from 'kr/Redux';
 
+
+import WrapComponent from '../WrapComponent';
+
 import './index.less';
 
 export default class FileUploadComponent extends React.Component{
@@ -250,12 +253,8 @@ export default class FileUploadComponent extends React.Component{
 		let fileBgStyles = {};
 
 		return (
-			<div className="form-item-wrap" style={style}>
-			<div className="form-item">
-			<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
-			<div className="form-main">
-			<div className="form-input">
-				<div className="file-button">
+				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
+					<div className="file-button">
 					<input type="file" name="file" onChange={this.onChange}  multiple={multiple?'multiple':null} accept={accept} />
 					上传文件
 					{isUploading && <span className="progress" style={{width:progress}}></span>}
@@ -270,11 +269,8 @@ export default class FileUploadComponent extends React.Component{
 						);
 					})}
 				</ul>
-			</div>
-			{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
-			</div>
-			</div>
-			</div>
+				<p>	{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }</p>
+				</WrapComponent>
 		);
 
 

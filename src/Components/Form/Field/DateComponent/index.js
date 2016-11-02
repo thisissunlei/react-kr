@@ -3,8 +3,9 @@ import { Field, reduxForm } from 'redux-form';
 import DatePicker from 'material-ui/DatePicker';
 import dateFormat from 'dateformat';
 
-
 import './index.less';
+
+import WrapComponent from '../WrapComponent';
 
 export default class DateComponent extends React.Component{
 
@@ -126,15 +127,10 @@ export default class DateComponent extends React.Component{
 		}
 
 		return (
-					<div className="form-item-wrap " style={style}>
-					<div className="form-item">
-					{label &&<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label> }
-					<div className="form-main">
-						<div className="form-input-main">
-							<div className="form-input">
-
-								<div className="date-component">
-									<span className="date-input"> {(input.value && dateFormat(input.value,"yyyy-mm-dd")) || placeholder ||'日期'}</span>
+				
+				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
+					<div className="date-component">
+							<span className="date-input"> {(input.value && dateFormat(input.value,"yyyy-mm-dd")) || placeholder ||'日期'}</span>
 									<span className="date-operation">
 											<DatePicker
 								 				value = {this.state.value}
@@ -143,14 +139,10 @@ export default class DateComponent extends React.Component{
 										name={input.name}
 										container="inline" 
 										onChange={this.onChange}/>
-									</span>
-								</div>
-							</div>
+								</span>
 						</div>
-						{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
-					</div>
-				  </div>
-						</div>
+					<p>	{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }</p>
+				</WrapComponent>
 					);
 	}
 
