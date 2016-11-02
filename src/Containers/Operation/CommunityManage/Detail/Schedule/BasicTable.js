@@ -241,6 +241,8 @@ export default class BasicTable extends Component {
 			}]);
 		});
 
+	}
+
 		render() {
 
 			let {currentYear,Installmentplan,rate} = this.state;
