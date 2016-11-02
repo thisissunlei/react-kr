@@ -34,7 +34,7 @@ import {
 	ListItem
 } from 'material-ui/List';
 
-import './index.less';
+import './date.less';
 
 export default class Date extends Component {
 
