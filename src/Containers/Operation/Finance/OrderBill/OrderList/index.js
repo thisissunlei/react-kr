@@ -46,6 +46,7 @@ export default class AttributeSetting  extends Component{
 		this.openViewDialog = this.openViewDialog.bind(this);
 		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
 		this.onOperation = this.onOperation.bind(this);
+		this.onExport=this.onExport.bind(this);
 
 
 		this.state = {
@@ -160,6 +161,10 @@ export default class AttributeSetting  extends Component{
     	})
     }
 
+    onExport(value){
+        console.log('ttrrrrrr',value);
+    }
+
 	render(){
         
       let {list}=this.state;
@@ -204,7 +209,7 @@ export default class AttributeSetting  extends Component{
 					</Grid>
 
 
-				<Table  style={{marginTop:10}} displayCheckbox={true} onLoaded={this.onLoaded}  ajax={true}  ajaxFieldListName="finaContractMainbillVOList" ajaxUrlName='getFinaDataByList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} >
+				<Table  style={{marginTop:10}} displayCheckbox={true} onLoaded={this.onLoaded}  ajax={true}  ajaxFieldListName="finaContractMainbillVOList" ajaxUrlName='getFinaDataByList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} exportSwitch={true} onExport={this.onExport}>
 					<TableHeader>
 					<TableHeaderColumn>公司名称</TableHeaderColumn>
 					<TableHeaderColumn>订单类型</TableHeaderColumn>
