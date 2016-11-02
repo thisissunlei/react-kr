@@ -23,7 +23,7 @@ export default class TableFooter extends React.Component {
 		totalCount: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
 		displayCheckbox:React.PropTypes.bool,
 		pagination:React.PropTypes.bool,
-    onSelectAll:React.PropTypes.func,
+    	onSelectAll:React.PropTypes.func,
 		onExport:React.PropTypes.func,
 		onPageChange:React.PropTypes.func,
 		exportSwitch:React.PropTypes.bool,
@@ -114,6 +114,9 @@ export default class TableFooter extends React.Component {
 				{/*
                   {this.renderCheckbox()}
 				*/}
+				
+                {this.renderExport()}
+
 				<TableRowColumn style={{textAlign:'left'}} colSpan={5}>
 						{this.renderPagination()}
 					</TableRowColumn>

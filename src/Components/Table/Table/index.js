@@ -205,20 +205,30 @@ export default class Table extends React.Component {
 
 	onExport() {
 
-		let {
-			selectedRows,
-			visibilityRows,
-			listData
-		} = this.state;
+		let {selectedRows,visibilityRows,listData,} = this.state;
 
-		//console.log('selectedRows',this.state.selectedRows,'visibilityRows',this.state.visibilityRows);
-		var result = [];
 
+		let {onExport} = this.props;
+
+		var exportRows = [];
+		var exportData = [];
+
+	
 		visibilityRows.forEach(function(item, index) {
 			if (item && parseInt(selectedRows[index])) {
-				result.push(index);
+				exportRows.push(index);
 			}
 		});
+
+		exportRows.forEach(function(item,index){
+			exportData.push(listData[item]);
+		});
+
+		if(!exportData.length){
+			exportData = listData;
+		}
+	
+		onExport && onExport(exportData,exportRows);
 
 	}
 
@@ -460,7 +470,7 @@ export default class Table extends React.Component {
 			pagination: this.props.pagination,
 			totalCount: this.state.totalCount,
 			onPageChange: this.onPageChange,
-			exportSwitch: this.props.export,
+			exportSwitch: this.props.exportSwitch,
 			footer: footer,
 		}
 
