@@ -19,8 +19,6 @@ import SearchPersonelComponent from './SearchPersonelComponent';
 import LabelTextComponent from './LabelTextComponent';
 import GroupComponent from './GroupComponent';
 
-import './index.less';
-
 
 export default class KrField extends React.Component {
 
@@ -68,7 +66,6 @@ export default class KrField extends React.Component {
 		}
 
 		if(component === 'labelText' || type=='labelText'){
-
 			return (
 				<LabelTextComponent {...this.props} style={WrapStyles}/>
 			);
@@ -88,8 +85,6 @@ export default class KrField extends React.Component {
 			);
 		}
 
-
-
 		if(component === 'radio' || type=='radio'){
 			return (
 				<Field {...this.props} component={RadioComponent}  style={WrapStyles}/>
@@ -97,11 +92,9 @@ export default class KrField extends React.Component {
 		}
 
 		if(component === 'date' || type=='date'){
-
 			return (
 				<Field {...this.props} component={DateComponent}  style={WrapStyles}/>
 			);
-
 		}
 
 		if(component === 'group' || type=='group'){
