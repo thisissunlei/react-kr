@@ -22,11 +22,11 @@ export default class Circle extends Component{
 
 	render(){
           
-		 if(this.type === 0){
+		 if(this.type === 1){
 		 	return(
 				<span className="circle-color over-circle"></span>
 		 	)
-		 }else if(this.type === 1){
+		 }else if(this.type === 0){
 		 	return (
 				<span className="circle-color section-circle"></span>	
 		 	)
