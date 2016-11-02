@@ -436,10 +436,18 @@ class NewCreateForm  extends Component{
 
 							<DotTitle title='租赁明细' />
 
-						<ButtonGroup>
-							<Button label="删除" primary={true} onTouchTap={this.onStationDelete} />
-							<Button label="选择工位" primary={true} onTouchTap={this.openStationDialog} />
-						</ButtonGroup>
+						
+
+						<Grid>
+							<Row>
+								<Col align="right">
+									<ButtonGroup>
+										<Button label="删除" primary={true} onTouchTap={this.onStationDelete} />
+										<Button label="选择工位" primary={true} onTouchTap={this.openStationDialog} />
+								</ButtonGroup>
+								</Col>
+							</Row>
+						</Grid>
 
 					    <Section title="租赁明细" description=""> 
 

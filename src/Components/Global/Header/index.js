@@ -5,9 +5,6 @@ import {Link} from 'react-router';
 
 import * as actionCreators from '../../../Redux/Actions';
 
-import SidebarNavMenuItems from '../../../Configs/sidebarNavs';
-
-
 import {
 	AppBar,
 	Menu,

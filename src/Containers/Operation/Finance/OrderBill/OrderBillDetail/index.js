@@ -67,7 +67,11 @@ class ViewForm extends Component{
 					<KrField grid={1/2} label="付款日期" component="group">
 					   <KrDate.Format value={items.occuryear} format="yyyy-mm-dd"  component="labelText"/>   
 					</KrField>
-					<KrField grid={1}  component="labelText" label="交易编号" value={items.tradingCode}/> 
+					<KrField grid={1/2} label="操作时间" component="group">
+					   <KrDate.Format value={items.operatedate} format="hh:mm:ss"  component="labelText"/>   
+					</KrField>
+					<KrField grid={1}  component="labelText" label="交易编号" value={items.tradingCode}/>
+					<KrField grid={1}  component="labelText" label="操作人名称" value={items.optUserName}/>  
 					<KrField grid={1}  component="labelText" label="金额（元）" value={items.finaflowAmount}/> 
 					<KrField grid={1}  component="labelText" label="备注" value={items.finaflowdesc}/>
 					<KrField grid={1}  component="group" label="上传附件"> 
