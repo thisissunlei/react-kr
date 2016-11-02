@@ -4,8 +4,10 @@
 	color:#666666;
 	.item-prev,
 	.item-body,
-	.item-next{
+	.item-next,
+	.item-jump{
 		display:inline-block;
+		vertical-align:top;
 	}
 
 	.item-prev{
@@ -13,6 +15,26 @@
 			border:1px solid #ddd;
 			border-radius:4px;
 			background:url('images/left2.png') no-repeat center center;
+		}
+	}
+	.item-jump{
+		padding-left:10px;
+		input{
+			display:inline-block;
+			width:30px;
+			height:30px;
+			border:1px solid #ddd;
+			border-radius:4px;
+			margin-left:10px;
+			margin-right:10px;
+			padding-left:5px;
+			padding-right:5px;
+			&:focus{
+				outline:none;
+			}
+		}
+		a{
+			cursor:pointer;
 		}
 	}
 

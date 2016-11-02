@@ -46,7 +46,9 @@ export default class AttributeSetting  extends Component{
 		this.openViewDialog = this.openViewDialog.bind(this);
 		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
 		this.onOperation = this.onOperation.bind(this);
+
 		this.onExport = this.onExport.bind(this);
+
 
 
 		this.state = {
@@ -79,10 +81,20 @@ export default class AttributeSetting  extends Component{
 		});
 	}
 
-	onExport(result){
-
-		console.log('---',result);
-
+	onExport(idList){
+		var list=[];
+		idList.map(function(item,index){
+          var idList={};
+          idList.communityid=item.communityid;
+          idList.customername=item.customername;
+          idList.mainbilltype=item.mainbilltype;
+          idList.startDate=item.actualEntrydate;
+          idList.endDate=item.operatedate;
+          list.push(idList);
+          return list;
+		})
+		var url = `http://optest.krspace.cn/api/krspace-finance-web/finaccount/data/exportExcel?list=${list}`
+		window.location.href = url;
 	}
 
 	//操作相关
@@ -155,12 +167,13 @@ export default class AttributeSetting  extends Component{
 	}
 
 	onLoaded(response){
-		console.log("----rrr",response)
+		
     	let list = response;    
     	this.setState({
     		list
     	})
     }
+
 
 	render(){
         
@@ -176,7 +189,7 @@ export default class AttributeSetting  extends Component{
       	  list.summount=0;
       }
      
-     console.log("-----------",list.sumcome);
+    
         
 		return(
 
@@ -204,6 +217,7 @@ export default class AttributeSetting  extends Component{
 							</Col> 
 						</Row>
 					</Grid>
+
 
 
 				<Table  style={{marginTop:10}}
