@@ -1,185 +1,181 @@
-import React, {Component, PropTypes} from 'react';
-import { connect } from 'kr/Redux';
-import {reduxForm,submitForm,change,reset} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import React, {
+  Component,
+  PropTypes
+} from 'react';
+import {
+  connect
+} from 'kr/Redux';
+import {
+  reduxForm,
+  submitForm,
+  change,
+  reset
+} from 'redux-form';
+import {
+  Actions,
+  Store
+} from 'kr/Redux';
 
 import {
-	Tabs,
-	Tab,
-	Dialog,
-	Section,
-	Grid,
-	Button,
-	Notify,
-	BreadCrumbs,
+  Tabs,
+  Tab,
+  Dialog,
+  Section,
+  Grid,
+  Button,
+  Notify,
+  BreadCrumbs,
 } from 'kr-ui';
 
 import './index.less';
-
+import {
+  findDOMNode
+} from 'react-dom'
+import ReactTooltip from 'react-tooltip'
 import EmployessTable from './EmployessTable';
 import D3Content from './D3Content';
 import DismantlingForm from './DismantlingForm';
 
+import dateFormat from 'dateformat';
 
-export default  class ItemTable extends Component {
-	
-	static PropTypes ={
-		onDismantling:React.PropTypes.func,
-	}
- 
-	constructor(props,context){
-		super(props, context);
+export default class ItemTable extends Component {
+  static defaultProps = {
+    companyId: 1,
+    communityId: 1
+  }
 
-		 this.onStation = this.onStation.bind(this);
-		 this.onDismantlingDialog =this.onDismantlingDialog.bind(this);
-		 this.onDismantling = this.onDismantling.bind(this);
+  static PropTypes = {
+    onDismantling: React.PropTypes.func,
+  }
 
-		this.state = {
-			activity:false,
-			Dismantling:false,
-		}
 
-	}
+  constructor(props, context) {
+    super(props, context);
 
-	componentDidMount(){
+    this.onStation = this.onStation.bind(this);
+    this.onDismantlingDialog = this.onDismantlingDialog.bind(this);
+    this.onDismantling = this.onDismantling.bind(this);
+    this.renderOrder = this.renderOrder.bind(this);
+    this.onhref = this.onhref.bind(this);
 
-	}
-	//撤场
-	onDismantling(){
 
-		const {onDismantling} = this.props;
+    this.state = {
+      activity: false,
+      Dismantling: false,
+      show: false,
+    }
 
-		onDismantling && onDismantling();
+  }
 
-	}
-	//分配工位
-	onStation(){
-		this.setState({
-			activity:!this.state.activity
-		});
-	}
-	onDismantlingDialog(){
-		this.setState({
-			Dismantling:!this.state.Dismantling
-		})
+  componentDidMount() {
 
-	}
-	
+    }
+    //撤场
+  onDismantling() {
+
+      const {
+        onDismantling
+      } = this.props;
+
+      onDismantling && onDismantling();
+
+    }
+    //分配工位
+  onStation() {
+    this.setState({
+      activity: !this.state.activity
+    });
+  }
+  onDismantlingDialog() {
+    this.setState({
+      Dismantling: !this.state.Dismantling
+    })
+
+  }
+
+
+  //查看员工跳转地址
+  onhref() {
+
+    location.href = "http://optest.krspace.cn/krspace_member_web/member/companyMembers?companyId=" + this.props.companyId + "&communityId=" + this.props.communityId;
+  }
+
+  //http://op.krspace.cn/krspace_member_web/member/companyMembers?companyId=1&communityId=11
+  renderOrder(contractTypeVo) {
+    contractTypeVo = contractTypeVo.map((item, index) => {
+      if (!item.contractCount) {
+        return (
+          <li key={index} className="company-order-zero">
+							<p className="name">{item.contractName}</p>
+							<p>{dateFormat(item.contractTime,"yyyy.mm.dd")}</p>
+						</li>
+        )
+      } else if (item.contractCount === 1) {
+        return (
+          <li key={index} className="company-order">
+							<p className="name">{item.contractName}</p>
+							<p>{dateFormat(item.contractTime,"yyyy.mm.dd")}</p>
+						</li>
+        )
+      } else {
+        return (
+          <li key={index} className="company-order">
+							<span className="count">({item.contractCount})</span>
+							<p className="name">{item.contractName}</p>
+							<p>{dateFormat(item.contractTime,"yyyy.mm.dd")}</p>
+						</li>
+        )
+      }
+    })
+    return contractTypeVo;
+  }
   render() {
 
-	  let {activity} = this.state;
-	  var contractInstallmentplanVo =  [
-          {
-            "installmentAmount": 3000,
-            "installmentBegindate": 1451620800000,
-            "installmentEnddate": 1459483200000,
-            "name": "唐朝",
-            "phone": "13317199888",
-            "stationnum": 5
-          },
-          {
-            "installmentAmount": 3000,
-            "installmentBegindate": 1459483200000,
-            "installmentEnddate": 1467345600000,
-            "name": "唐朝",
-            "phone": "13317199888",
-            "stationnum": 10
-          },
-          {
-            "installmentAmount": 3000,
-            "installmentBegindate": 1467345600000,
-            "installmentEnddate": 1475294400000,
-            "name": "唐朝",
-            "phone": "13317199888",
-            "stationnum": 10
-          },
-          {
-            "installmentAmount": 3000,
-            "installmentBegindate": 1475294400000,
-            "installmentEnddate": 1483156800000,
-            "name": "唐朝",
-            "phone": "13317199888",
-            "stationnum": 10
-          },
-        ];
-        var finaBluePointVo = [
-          {
-            "finaName": "入驻意向书",
-            "pointDate": 1477557209000
-          },
-          {
-            "finaName": "入住协议书",
-            "pointDate": 1466049600000
-          },
-          {
-            "finaName": "增租协议书",
-            "pointDate": 1477568858000
-          },
-          {
-            "finaName": "续租协议书",
-            "pointDate": 1477572574000
-          }
-        ];
 
-        var finaRedPointVo = [
-          {
-            "pointDate": 1477568292000
-          },
-          {
-            "pointDate": 1451620800000
-          },
-          {
-            "pointDate": 1458187200000
-          },
-          {
-            "pointDate": 1466049600000
-          },
-          {
-            "pointDate": 1473998400000
-          },
-          {
-            "pointDate": 1477568862000
-          },
-          {
-            "pointDate": 1477572578000
-          },
-          {
-            "pointDate": 1477454400000
-          },
-          {
-            "pointDate": 1458187200000
-          },
-          {
-            "pointDate": 1466049600000
-          },
-          {
-            "pointDate": 1473998400000
-          }
-        ];
+    let {
+      activity
+    } = this.state;
+    let {
+      detail
+    } = this.props;
+    let width = 700;
 
-	 
     return (
 
-				<tr>
-						<td>
-							<div className="company-name"> 诚意有限公司 </div>
+      <tr className="last-td" >
+						<td className="company-list">
+							<div className="company-name" data-tip> 诚意有限公司 
+							<ReactTooltip place="right">
+								<ul>
+								{
+									this.renderOrder(detail.contractTypeVo)
+								}
+								</ul>
+							</ReactTooltip>
+							</div>
 						</td>
 						<td colSpan="12">
-							<D3Content detail={contractInstallmentplanVo} finaBluePointVo={finaBluePointVo} finaRedPointVo={finaRedPointVo}/>
+							<D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} width={width}/>
 							<EmployessTable activity={activity}/>
 						</td>
-						<td>
-							<Button type="link" primary={true} label="分配工位" onTouchTap={this.onStation}/>
-							<Button type="link" primary={true} label="撤场" 	onTouchTap={this.onDismantling}/>
-							<Button type="link" primary={true} label="员工"/>
+						<td className="btnlist">
+							<Button className="Station" type="link" primary={true} label="" onTouchTap={this.onStation} />
+                <div className="tip hide  hover">
+                   分配工位 < span className = "bArrow" > < /span>
+                </div>
+					    <Button className="Dismantling" type="link" primary={true} label="" 	onTouchTap={this.onDismantling}/>
+                  <div className="tip hide hover ">
+                       撤场日期 <span className = "bArrow"></span>
+                 </div>
+  						<Button className="preson" type="link" primary={true} label="" onTouchTap={this.onhref}/>
+                <div className="tip hide  hover">
+                      查看员工 <span className = "bArrow"></span>
+                </div>
+                
+
 						</td>
 					</tr>
-				
-	);
+
+    );
   }
 }
-
-
-
-
-

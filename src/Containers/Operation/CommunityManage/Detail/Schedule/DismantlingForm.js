@@ -3,7 +3,8 @@ import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
-
+import {findDOMNode} from 'react-dom'
+import ReactTooltip from 'react-tooltip'
 import {
 	Menu,
 	MenuItem,
@@ -30,7 +31,7 @@ import {
 
 class DismantlingForm  extends Component{
 	static defaultProps = {
-		 mainBillId:1,
+		 mainBillId:290,
 	 }
 
 
@@ -52,14 +53,15 @@ class DismantlingForm  extends Component{
 
 
 	onSubmit(form){
-		console.log('jjj',form)
-		console.log('fffff',this.props.mainBillId)
+		const formValues={
+			actualLeaveDate:form.actualLeaveDate,
+			mainBillId:this.props.mainBillId
+		}
+		console.log('fffff',formValues)
 		Store.dispatch(Actions.callAPI('updateLeaveDate',{},formValues)).then(function(response){
-			console.log("response",response);
-
 			Notify.show([{
 				message:'修改成功',
-				type: 'danger',
+				type: 'success',
 			}]);
 
 		}).catch(function(err){
@@ -69,10 +71,11 @@ class DismantlingForm  extends Component{
 			}]);
 	   	});
 
-
-		const {onSubmit} = this.props;
-
-		onSubmit && onSubmit(form);
+		window.setTimeout(function(){
+			window.location.reload();
+		},2000);
+		//const {onSubmit} = this.props;
+		//onSubmit && onSubmit(form);
 	}
 
 	onCancel(){
@@ -82,15 +85,14 @@ class DismantlingForm  extends Component{
 
 	render(){
 
-		let { error, handleSubmit, pristine, reset, submitting,initialValues,mainBillId} = this.props;
+		let { error, handleSubmit, pristine, reset, submitting,initialValues} = this.props;
 
 	
 	return (
 
 		<form onSubmit={handleSubmit(this.onSubmit)}> 
 			<div style={{textAlign:"center",marginBottom:'20px'}}>XX公司合同到期时间为2017.9.1</div>
-			<KrField name="mainBillId" type="hidden"  grid={1}  value={this.props.mainBillId}/>
-			<KrField name="actualLeaveDate" component="date" grid={1} label="实际的撤场时间为" value=""/>
+			<KrField name="actualLeaveDate"component="date" grid={1} label="实际的撤场时间为" value=""/>
 			<Grid>
 				<Row style={{marginTop:30}}>
 				<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} /> </Col>

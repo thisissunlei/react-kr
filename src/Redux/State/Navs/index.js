@@ -76,8 +76,7 @@ module.exports = {
 					menuItems:[
 						{
 							primaryText:'基本信息',
-							router:'/operation/communityManage/detail',
-					
+							router:'/operation/communityManage/4/detail',
 						},
 					]
 				},
