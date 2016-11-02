@@ -1,18 +1,27 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, {
+	Component
+} from 'react';
+import {
+	connect
+} from 'react-redux';
+import {
+	bindActionCreators
+} from 'redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
-import {Actions,Store} from 'kr/Redux';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 
 import {
 	Table,
-	TableBody, 
-	TableHeader, 
-	TableHeaderColumn, 
-	TableRow, 
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
 	TableRowColumn,
 	TableFooter,
 	Button,
@@ -32,9 +41,9 @@ import ItemDetail from './ItemDetail';
 import EditDetailForm from './EditDetailForm';
 
 
-export default class AttributeSetting  extends Component{
+export default class AttributeSetting extends Component {
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -47,56 +56,63 @@ export default class AttributeSetting  extends Component{
 		this.openViewDialog = this.openViewDialog.bind(this);
 		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
 		this.onOperation = this.onOperation.bind(this);
+		this.onExport = this.onExport.bind(this);
 
 		this.state = {
-			openNewCreate:false,
-			openView:false,
-			openEditDetail:false,
-			itemDetail:{},
-			accountname:{}
+			openNewCreate: false,
+			openView: false,
+			openEditDetail: false,
+			itemDetail: {},
+			accountname: {}
 		}
-		console.log('state',this.state.accountname)
+		console.log('state', this.state.accountname)
 	}
 
 	componentDidMount() {
 
 	}
 
-	onOperation(type,itemDetail){
+
+	onExport(value) {
+		console.log(value)
+
+	}
+
+	onOperation(type, itemDetail) {
 
 		this.setState({
 			itemDetail
 		});
-		if(type == 'view'){
+		if (type == 'view') {
 			this.openViewDialog();
-		}else if(type == 'edit'){
+		} else if (type == 'edit') {
 			this.openEditDetailDialog();
 		}
 	}
 
 	//编辑
-	openEditDetailDialog(){
+	openEditDetailDialog() {
 		this.setState({
-			openEditDetail:!this.state.openEditDetail
+			openEditDetail: !this.state.openEditDetail
 		});
 	}
 
-	onEditSubmit(form){
+	onEditSubmit(form) {
 
 		this.openEditDetailDialog();
 
-		Store.dispatch(Actions.callAPI('saveFinaFinaflowAccountModel',{},form)).then(function(response){ 
+		Store.dispatch(Actions.callAPI('saveFinaFinaflowAccountModel', {}, form)).then(function(response) {
 			Notify.show([{
-				message:'编辑成功！',
+				message: '编辑成功！',
 				type: 'success',
 			}]);
-			window.setTimeout(function(){
+			window.setTimeout(function() {
 				window.location.reload();
-			},1000);
+			}, 1000);
 
-		}).catch(function(err){
+		}).catch(function(err) {
 			Notify.show([{
-				message:err.message,
+				message: err.message,
 				type: 'danger',
 			}]);
 		});
@@ -104,59 +120,59 @@ export default class AttributeSetting  extends Component{
 	}
 
 	//查看
-	openViewDialog(){
+	openViewDialog() {
 		this.setState({
-			openView:!this.state.openView
+			openView: !this.state.openView
 		});
 	}
 
 	//搜索
-	onSearchSubmit(accountname){
-		console.log('000',accountname);
+	onSearchSubmit(accountname) {
+		console.log('000', accountname);
 		this.setState({
 			accountname
 		});
 
 	}
 
-	onSearchCancel(){
+	onSearchCancel() {
 
 	}
 
 
 	//新建
-	openNewCreateDialog(){
+	openNewCreateDialog() {
 		this.setState({
-			openNewCreate:!this.state.openNewCreate
+			openNewCreate: !this.state.openNewCreate
 		});
 	}
 
-	onNewCreateSubmit(values){
+	onNewCreateSubmit(values) {
 
-		Store.dispatch(Actions.callAPI('saveFinaFinaflowAccountModel',{},values)).then(function(response){
-				Notify.show([{
-						message:'新建成功！',
-						type: 'success',
-					}]);
-				window.setTimeout(function(){
-					window.location.reload();
-				},1000);
-				
- 			}).catch(function(err){
-				Notify.show([{
-					message:err.message,
-					type: 'danger',
-				}]);
+		Store.dispatch(Actions.callAPI('saveFinaFinaflowAccountModel', {}, values)).then(function(response) {
+			Notify.show([{
+				message: '新建成功！',
+				type: 'success',
+			}]);
+			window.setTimeout(function() {
+				window.location.reload();
+			}, 1000);
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
 		});
 		this.openNewCreateDialog();
 	}
 
-	onNewCreateCancel(){
+	onNewCreateCancel() {
 		this.openNewCreateDialog();
 	}
 
-	render(){
-		return(
+	render() {
+		return (
 
 			<div>
 		 	<BreadCrumbs children={['系统运营','客户管理','科目配置']}/>
@@ -171,7 +187,7 @@ export default class AttributeSetting  extends Component{
 						</Row>
 					</Grid>
 
-				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='getFinaFinaflowAccountModelByAjax' ajaxParams={this.state.accountname} onOperation={this.onOperation} >
+				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='getFinaFinaflowAccountModelByAjax' ajaxParams={this.state.accountname} onOperation={this.onOperation}  exportSwitch={true} onExport={this.onExport}>
 					<TableHeader>
 					  <TableHeaderColumn>科目名称</TableHeaderColumn>
 					  <TableHeaderColumn>科目编码</TableHeaderColumn>
@@ -230,11 +246,10 @@ export default class AttributeSetting  extends Component{
 				  </Dialog>
 
 
-			</div>		
+			</div>
 
 		);
 
 	}
 
 }
-
