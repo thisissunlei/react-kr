@@ -19,7 +19,7 @@ export default class  LabelTextComponent extends React.Component {
 			if(type == 'date'){
 					return (
 						<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
-							<span className="text" >
+							<span className="ui-label-text" >
 								{value && <KrDate.Format value={value} /> }
 								{!value && defaultValue}
 							</span>
@@ -30,7 +30,7 @@ export default class  LabelTextComponent extends React.Component {
 			return (
 
 				<WrapComponent label={label} wrapStyle={style}>
-					<span className="text" > {value || defaultValue} </span>
+					<span className="ui-label-text" > {value || defaultValue} </span>
 				</WrapComponent>
 
 		);
