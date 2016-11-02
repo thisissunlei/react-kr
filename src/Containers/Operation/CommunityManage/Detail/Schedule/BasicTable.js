@@ -245,21 +245,6 @@ export default class BasicTable extends Component {
 			let {currentYear,Installmentplan,rate} = this.state;
 			var that = this;
 
-				Store.dispatch(Actions.callAPI('getInstallmentplan', {
-					communityids: 1
-				})).then(function(response) {
-					
-					that.setState({
-						Installmentplan:response.vo,
-						rate:response.rate
-					});
-				}).catch(function(err) {
-					Notify.show([{
-						message: err.message,
-						type: 'danger',
-					}]);
-				});
-
 			return (
 <div>
 		 	<div className="basic-con">

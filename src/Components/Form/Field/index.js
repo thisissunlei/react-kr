@@ -31,12 +31,13 @@ export default class KrField extends React.Component {
 		component: React.PropTypes.string,
 		disabled: React.PropTypes.bool,
 		grid:React.PropTypes.number,
-		value:React.PropTypes.value
+		value:React.PropTypes.value,
+		inline:React.PropTypes.bool
 	}
 
 	render() {
 
-		let {grid=1,className,children,component,type,requireLabel,label,value,...other} = this.props;
+		let {grid=1,className,children,inline,component,type,requireLabel,label,value,...other} = this.props;
 
 		let WrapStyles = {
 			width:(grid*100)+'%'

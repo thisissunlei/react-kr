@@ -270,7 +270,7 @@ export default class FileUploadComponent extends React.Component{
 						);
 					})}
 				</ul>
-				<p>	{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }</p>
+					{touched && error && <p><div className="error-wrap"> <span>{error}</span> </div></p> }
 				</WrapComponent>
 		);
 

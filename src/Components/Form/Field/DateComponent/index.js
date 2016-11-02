@@ -8,7 +8,9 @@ import './index.less';
 import WrapComponent from '../WrapComponent';
 
 export default class DateComponent extends React.Component{
-
+	static defaultProps = {
+		inline:false
+	}
 	static PropTypes = {
 		defaultValue:React.PropTypes.string,
 		onChange:React.PropTypes.func,
@@ -142,7 +144,7 @@ export default class DateComponent extends React.Component{
 										onChange={this.onChange}/>
 								</span>
 						</div>
-					<p>	{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }</p>
+					{touched && error && <p><div className="error-wrap"> <span>{error}</span> </div></p> }
 				</WrapComponent>
 					);
 	}

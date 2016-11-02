@@ -19,7 +19,7 @@ export default class TextareaComponent extends React.Component{
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
 				<textarea {...input} placeholder={placeholder|| label} disabled={disabled} col={col} row={row}></textarea>
-				<p>	{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }</p>
+				{touched && error && <p><div className="error-wrap"> <span>{error}</span> </div></p> }
 			</WrapComponent>
 		);
 
