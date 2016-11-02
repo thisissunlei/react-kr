@@ -24,6 +24,7 @@ export default class Pagination extends Component {
 		this.renderFirst = this.renderFirst.bind(this);
 		this.renderLast = this.renderLast.bind(this);
 		this.renderBody = this.renderBody.bind(this);
+		this.createOther = this.createOther.bind(this);
 
 
 	}
@@ -63,7 +64,7 @@ export default class Pagination extends Component {
 	}
 
 	onJumpPage(event){
-		this.onPageChange(event.target.innerHTML);
+		this.onPageChange(event.target.getAttribute('data-page'));
 	}
 
 	onPageChange(page){
@@ -84,6 +85,21 @@ export default class Pagination extends Component {
 
 	}
 
+	createOther(i){
+
+		let props = { 
+			className:'item',
+			key:i
+		};
+
+		const handlers = {
+			onClick:this.onJumpPage
+		}
+
+		return React.createElement('a', {...props,...handlers,'data-page':i},'...')
+
+	}
+
 	renderBody(){
 
 		let {page,pageSize,totalCount} = this.props;
@@ -96,14 +112,26 @@ export default class Pagination extends Component {
 		const handlers = {
 			onClick:this.onJumpPage
 		}
+		let pageStart = page;
+		let pageEnd = page+10;
+		let pageMax = Math.ceil(totalCount/pageSize)
+		if(pageEnd>pageMax){
+			pageEnd = pageMax;
+		}
 
-		for(var i = 1;i<=Math.ceil(totalCount/pageSize);i++){
+		for(var i = pageStart;i<pageEnd;i++){
 			props.key = i;
 			props.className = 'item';
 			if(page == i){
 				props.className+=' active';
 			}
-			let element = React.createElement('a', {...props,...handlers},i);
+
+			let element = React.createElement('a', {...props,...handlers,'data-page':i},i);
+
+			if(i==(5+pageStart)){
+				element = this.createOther(i);
+			}
+			
 			pageBody.push(element);
 		}
 
