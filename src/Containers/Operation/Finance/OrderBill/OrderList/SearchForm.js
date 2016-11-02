@@ -10,6 +10,8 @@ import {
 	Row,
 	Col,
 	Button,
+	ListGroup,
+	ListGroupItem,
 } from 'kr-ui';
 
 
@@ -28,7 +30,6 @@ import {
 	}
 
 	 onSubmit(form){
-	 	console.log('---yayay',form);
 	 	const {onSubmit} = this.props;
 	    onSubmit && onSubmit(form);
 	 }
@@ -45,12 +46,10 @@ import {
 		return (
 
 			<form onSubmit={handleSubmit(this.onSubmit)}>
-
-
-              <Row>
-				<Col md={8}><KrField name="customername" type="text"  placeholder="请输入公司名称"/></Col>
-				<Col md={4}><Button  label="查询" type="submit" primary={true} /></Col>
-              </Row>
+              <ListGroup>
+					<ListGroupItem> <KrField name="customername" type="text"  placeholder="请输入公司名称" simple={true}/></ListGroupItem>
+					<ListGroupItem> <Button  label="查询" type="submit" primary={true} /></ListGroupItem>
+			</ListGroup>
 				
 			   
 					

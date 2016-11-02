@@ -19,12 +19,15 @@ export default class  WrapComponent extends React.Component {
 
 	render(){
 
-		let {children,style,inline} = this.props;
+		let {children,style,inline,simple} = this.props;
 
 		let className = 'ui-form-controller';
 		
 		if(inline){
 			className+= ' inline';
+		}
+		if(simple){
+			className+=' simple';
 		}
 
 			return (
