@@ -20,7 +20,7 @@ export default class  LabelTextComponent extends React.Component {
 	render(){
 
 		let {className,label,value, requireBlue, style,defaultValue,type,requireLabel,inline} = this.props;
-		console.log('========',requireBlue);
+
 			if(type == 'date'){
 					return (
 						<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={true} requireBlue={requireBlue}>

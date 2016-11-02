@@ -116,6 +116,7 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
+
 		stationVos[index].unitprice = value;
 
 		this.setState({
@@ -487,11 +488,12 @@ class NewCreateForm extends Component {
                                  <KrField grid={1/2}  name="totaldownpayment" type="text" component="input" label="定金总额"  requireLabel={true}/> 
 								 <KrField grid={1/2}  name="paymentId" type="text" component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/>
                                      
-								 <KrField grid={1/1}  component="group" label="租赁期限"requireLabel={true}> 
-					<KrField grid={1/2}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate}/> 
-					<KrField grid={1/2}  name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} /> 
-				</KrField>
-                                  <KrField name="templockday"  grid={1/2} component="input" type="text" label="保留天数" requireLabel={true}/> 
+								 <KrField grid={1/1}  component="group" label="租赁期限" requireLabel={true}> 
+										<KrField grid={1/2}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate}/> 
+										<KrField grid={1/2}  name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} /> 
+								</KrField>
+
+                               <KrField name="templockday"  grid={1/2} component="input" type="text" label="保留天数" requireLabel={true}/> 
 
 							 <KrField grid={1}  name="contractmark" type="textarea" component="textarea" label="备注" /> 
 
@@ -520,7 +522,6 @@ class NewCreateForm extends Component {
 							</Row>
 						</Grid>
 
-					    <Section title="租赁明细" description=""> 
 
 							<Table onSelect={this.onStationSelect}>
 									<TableHeader>
@@ -544,7 +545,7 @@ class NewCreateForm extends Component {
 								   </TableBody>
 							 </Table>
 
-				</Section>
+		
                </DotTitle>
 				<Grid>
 					<Row style={{marginTop:30}}>

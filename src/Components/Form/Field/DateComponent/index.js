@@ -143,8 +143,8 @@ export default class DateComponent extends React.Component{
 										container="inline" 
 										onChange={this.onChange}/>
 								</span>
-						</div>
-					{touched && error && <p><div className="error-wrap"> <span>{error}</span> </div></p> }
+					</div>
+					{touched && error && <div className="error-wrap"> <span>{error}</span></div> }
 				</WrapComponent>
 					);
 	}
