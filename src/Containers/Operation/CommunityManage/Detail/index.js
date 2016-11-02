@@ -20,6 +20,7 @@ import {
 import Schedule from './Schedule';
 import FloorPlan from './FloorPlan';
 import $ from 'jquery';
+import './index.less';
 
 export default  class CommunityManage extends Component {
 
@@ -138,11 +139,11 @@ export default  class CommunityManage extends Component {
 					<KrField name="community"  grid={1/3} component="select" label="社区" onChange={this.selectCommunity} options={communityInfoList}/>
 
 				</Form>
-				 <Tabs>
-					<Tab label="计划表" onActive={this.planTable}>
+				 <Tabs className="tabs" tabItemContainerStyle={{background:'#FFF'}}>
+					<Tab label="计划表" onActive={this.planTable} style={{color:'#000',borderBottom:"1px solid #eee"}}>
 						<Schedule  community={community}/>
 					</Tab>
-					<Tab label="平面图"  onActive={this.Floorplan} >
+					<Tab label="平面图"  onActive={this.Floorplan} style={{color:'#000',borderBottom:"1px solid #eee"}}>
 
 					   <FloorPlan communityId={community} tab={tab} communityInfoFloorList={communityInfoFloorList}/>
 
