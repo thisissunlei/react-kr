@@ -24,7 +24,7 @@ import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert,FieldArray}
 export default  class FloorPlan extends Component {
 	static defaultProps = {
 		 tab:'',
-		 community:''
+		 community:'',
 		 communityId:'',
 		 communityInfoFloorList:[]
 	 }
