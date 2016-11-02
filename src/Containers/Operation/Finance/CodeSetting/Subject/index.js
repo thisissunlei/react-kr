@@ -173,8 +173,8 @@ export default class AttributeSetting  extends Component{
 
 				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='getFinaFinaflowAccountModelByAjax' ajaxParams={this.state.accountname} onOperation={this.onOperation} >
 					<TableHeader>
-					  <TableHeaderColumn>科目编码</TableHeaderColumn>
 					  <TableHeaderColumn>科目名称</TableHeaderColumn>
+					  <TableHeaderColumn>科目编码</TableHeaderColumn>
 					  <TableHeaderColumn>科目类别</TableHeaderColumn>
 					  <TableHeaderColumn>是否启用</TableHeaderColumn>
 					  <TableHeaderColumn>排序号</TableHeaderColumn>
@@ -184,8 +184,8 @@ export default class AttributeSetting  extends Component{
 
 				<TableBody>
 						 <TableRow displayCheckbox={true}>
+						  <TableRowColumn name="accountname"></TableRowColumn>
 						<TableRowColumn name="accountcode" ></TableRowColumn>
-						 <TableRowColumn name="accountname"></TableRowColumn>
 						 <TableRowColumn name="accounttype" options={[{label:'收入',value:'INCOME'},{label:'回款',value:'PAYMENT'}]}></TableRowColumn>
 						 <TableRowColumn name="enableflag" options={[{label:'是',value:'ENABLE'},{label:'否',value:'DISENABLE'}]}></TableRowColumn>
 						 <TableRowColumn name="ordernum"></TableRowColumn>

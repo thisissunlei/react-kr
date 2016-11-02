@@ -22,7 +22,7 @@ export default class  LabelTextComponent extends React.Component {
 
 			if(type == 'date'){
 					return (
-						<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
+						<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={true}>
 							<span className="ui-label-text" >
 								{value && <KrDate.Format value={value} /> }
 								{!value && defaultValue}

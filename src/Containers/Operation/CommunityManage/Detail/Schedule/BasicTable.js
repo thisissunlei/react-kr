@@ -241,39 +241,28 @@ export default class BasicTable extends Component {
 			}]);
 		});
 
+		render() {
 
-	}
+			let {currentYear,Installmentplan,rate} = this.state;
+			var that = this;
 
+				Store.dispatch(Actions.callAPI('getInstallmentplan', {
+					communityids: 1
+				})).then(function(response) {
+					
+					that.setState({
+						Installmentplan:response.vo,
+						rate:response.rate
+					});
+				}).catch(function(err) {
+					Notify.show([{
+						message: err.message,
+						type: 'danger',
+					}]);
+				});
 
-	render() {
-
-		let {
-			currentYear,
-			Installmentplan,
-			rate
-		} = this.state;
-
-		var that = this;
-		Store.dispatch(Actions.callAPI('getInstallmentplan', {
-			communityids: 1
-		})).then(function(response) {
-			Installmentplan = response.vo;
-			rate = response.rate;
-			that.setState({
-				Installmentplan,
-				rate
-			});
-		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
-
-
-		return (
-
-			<div>
+			return (
+<div>
 		 	<div className="basic-con">
 		 		<div className="legend">
 		 			<div className="legend-left">
@@ -372,18 +361,8 @@ export default class BasicTable extends Component {
 			
 		</div>
 		);
-	}
+				
 
 }
 
-
-// export default connect((state)=>{
-// 	var communityList = [];
-// 	if(state.common && state.common.getCommunity){
-// 		console.log('***********');
-// 		communityList=state.common.getCommunity
-// 	}
-// 	return {
-// 		communityList
-// 	}
-// })(BasicTable)
+}
