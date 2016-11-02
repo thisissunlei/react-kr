@@ -190,9 +190,6 @@ SearchForm = reduxForm({
 
 
 	getInstallmentplan() {
-		// if(this.isInit){
-		// 	return ;
-		// }
 		var _this = this;
 		let {community} = this.props;
 		console.log('this.params', this.props, community);
