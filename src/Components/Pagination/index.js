@@ -3,8 +3,12 @@ import React, {
 	PropTypes
 } from 'react';
 
+import ReactMixin from "react-mixin";
+import LinkedStateMixin from 'react-addons-linked-state-mixin';
+
 import './index.less';
 
+@ReactMixin.decorate(LinkedStateMixin)
 export default class Pagination extends Component {
 
 	static propTypes = {
@@ -28,8 +32,32 @@ export default class Pagination extends Component {
 		this.renderLast = this.renderLast.bind(this);
 		this.renderBody = this.renderBody.bind(this);
 		this.createOther = this.createOther.bind(this);
+		this.renderJump = this.renderJump.bind(this);
+		this.onJump = this.onJump.bind(this);
+
+		this.state = {
+			jumpPageValue:''
+		}
 
 
+	}
+
+	onJump(){
+
+		let {jumpPageValue} = this.state;
+
+		let {pageSize,totalCount} = this.props;
+		let pageMax = Math.ceil(totalCount/pageSize);
+
+		if(jumpPageValue > pageMax){
+			jumpPageValue = pageMax;
+		}
+
+		if(jumpPageValue<1){
+			jumpPageValue = 1;
+		}
+
+		this.onPageChange(jumpPageValue);
 	}
 
 	onPrev() {
@@ -145,7 +173,8 @@ export default class Pagination extends Component {
 			pageEnd = pageMax;
 		}
 
-		for (var i = pageStart; i < pageEnd; i++) {
+
+		for (var i = pageStart; i <pageEnd; i++) {
 			props.key = i;
 			props.className = 'item';
 			if (page == i) {
@@ -160,7 +189,6 @@ export default class Pagination extends Component {
 			pageBody.push(element);
 		}
 
-		
 
 		if(pageEnd<pageMax){
 			element =this.createOther(pageEnd);
@@ -181,7 +209,7 @@ export default class Pagination extends Component {
 		return (
 			<div className="item-body">
 					{pageBody}
-				</div>
+			</div>
 		);
 	}
 
@@ -200,6 +228,23 @@ export default class Pagination extends Component {
 		);
 
 	}
+
+	renderJump(){
+
+		let {
+			page,
+			pageSize,
+			totalCount
+		} = this.props;
+
+		return (
+			<div className="item-jump">
+				<span>到</span>
+				<input type="text" name="age"  valueLink={this.linkState('jumpPageValue')} />
+				<a onClick={this.onJump}>跳转</a>
+			</div>
+		);
+	}
 	render() {
 
 		return (
@@ -208,6 +253,7 @@ export default class Pagination extends Component {
 					{this.renderFirst()}
 					{this.renderBody()}
 					{this.renderLast()}
+					{this.renderJump()}
 		  </div>
 
 		);
