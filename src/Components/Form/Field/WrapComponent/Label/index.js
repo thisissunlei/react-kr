@@ -8,7 +8,8 @@ export default class  WrapComponent extends React.Component {
 	static PropTypes = {
 		label:React.PropTypes.string,
 		requireLabel:React.PropTypes.bool,
-		inline:React.PropTypes.bool
+		inline:React.PropTypes.bool,
+		requireBlue:React.PropTypes.bool
 	}
 
 	constructor(props){
@@ -17,13 +18,17 @@ export default class  WrapComponent extends React.Component {
 
 	render(){
 
-		let {requireLabel,label,inline} = this.props;
+		let {requireLabel,label,inline, requireBlue} = this.props;
 
 		let className = 'ui-form-label';
 		
 		if(inline){
 			className+= ' inline';
 		}
+		if(requireBlue){
+			className+=' require-blue';
+		}
+		console.log('-----------', requireBlue);
 
 			return (
 					<div className={className}>
