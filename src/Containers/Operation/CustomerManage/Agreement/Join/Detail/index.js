@@ -19,7 +19,7 @@ import {Actions,Store} from 'kr/Redux';
 import {Grid,Row,Col} from 'kr-ui/Grid';
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
-
+import './index.less';
 export default  class JoinDetail extends Component {
    
 	 static contextTypes = {
@@ -66,7 +66,10 @@ export default  class JoinDetail extends Component {
 	BasicRender(basic){
 
 		  return (
-				  <div>
+				  <div className="content">
+				  	<div className="head-circle"></div>
+				  	<div className="bgc"></div>
+				  	<div className="container">
 
 					<KrField component="labelText" grid={1/2} label="出租方" value={basic.lessorName} defaultValue="无" requireBlue={true}/>
 					<KrField component="labelText" grid={1/2} label="地址" value={basic.lessorAddress} defaultValue="无"/>
@@ -88,11 +91,6 @@ export default  class JoinDetail extends Component {
 
 					<KrField component="labelText" grid={1/2} label="支付方式" value={basic.payType && basic.payType.dicName} defaultValue="无"/>
 
-			  {/*
-					<KrField component="group" grid={1/2} label="租赁期限:">
-							  <KrField component="labelText" grid={1/2} type="date" value={basic.contractcode} defaultValue="无"/>
-					</KrField>
-				  */}
 
 					<KrField component="group" grid={1/2} label="租赁期限:">
 
@@ -167,6 +165,7 @@ export default  class JoinDetail extends Component {
 						</Table>		
 
 					</Section>
+				</div>
 			</div>
 		  );
 
