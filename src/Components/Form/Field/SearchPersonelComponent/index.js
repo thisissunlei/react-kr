@@ -8,13 +8,13 @@ import WrapComponent from '../WrapComponent';
 
 export default class  SearchPersonelComponent extends React.Component {
 
-
 	static defaultProps = {
 		placeholder:'请选择...'
 	}
 
 	static PropTypes = {
-		placeholder:React.PropTypes.string
+		placeholder:React.PropTypes.string,
+		inline:React.PropTypes.bool
 	}
 
 	constructor(props){

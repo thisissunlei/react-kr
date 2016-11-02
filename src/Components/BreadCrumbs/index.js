@@ -36,6 +36,8 @@ export default class TitleList extends Component {
 			  return null;
 		  }
 
+		  return null;
+
 		return (
 
 		  <div className="titlelist">

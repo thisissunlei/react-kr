@@ -33,7 +33,9 @@ module.exports = {
 					menuItems:[
 						{
 							primaryText:'客户列表',
-							originUrl:'/krspace_operate_web/customerBase/toCoustomerInfoList?mid=103#share'
+							originUrl:'/krspace_operate_web/customerBase/toCoustomerInfoList?mid=103#share',
+							primaryText:'基本信息',
+							router:'/operation/communityManage/4/detail',
 						},
 					]
 				},
@@ -76,8 +78,7 @@ module.exports = {
 					menuItems:[
 						{
 							primaryText:'基本信息',
-							router:'/operation/communityManage/detail',
-					
+							router:'/operation/communityManage/4/detail',
 						},
 					]
 				},

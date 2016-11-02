@@ -35,6 +35,9 @@ import {
 	Notify,
 	IframeContent,
 	Date,
+	Paper,
+	DotTitle,
+	ButtonGroup
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -383,8 +386,8 @@ class NewCreateForm  extends Component{
 			<div>
 <form onSubmit={handleSubmit(this.onSubmit)}>
 
-
-
+	<Paper width={968}>
+	
 								<KrField grid={1/2}  name="stationnum" type="hidden" component="input" /> 
 								<KrField grid={1/2}  name="boardroomnum" type="hidden" component="input" /> 
 
@@ -426,16 +429,19 @@ class NewCreateForm  extends Component{
 				}} />
 
 							 <KrField grid={1/1} component="group" label="租赁项目" requireLabel={true}> 
-								<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} defaultValue="0" /> 
-								<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum} defaultValue="0" /> 
+								<KrField grid={1/2}  name="stationnum" component="labelText" label="工位" value={changeValues.stationnum} defaultValue="0" /> 
+								<KrField grid={1/2}  name="boardroomnum" component="labelText" label="会议室" value={changeValues.boardroomnum} defaultValue="0" /> 
 							</KrField>
 
-					    <Section title="租赁明细" description="" rightMenu = {
-									<Menu>
-										  <MenuItem primaryText="删除" onTouchTap={this.onStationDelete} />
-										  <MenuItem primaryText="选择工位"  onTouchTap={this.openStationDialog} />
-									</Menu>
-					        }> 
+
+							<DotTitle title='租赁明细' />
+
+						<ButtonGroup>
+							<Button label="删除" primary={true} onTouchTap={this.onStationDelete} />
+							<Button label="选择工位" primary={true} onTouchTap={this.openStationDialog} />
+						</ButtonGroup>
+
+					    <Section title="租赁明细" description=""> 
 
 							<Table onSelect={this.onStationSelect}>
 									<TableHeader>
@@ -466,6 +472,16 @@ class NewCreateForm  extends Component{
 						<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} disabled={submitting} /> </Col>
 					  <Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
 				</Grid>
+
+
+
+
+
+	
+	</Paper>
+
+
+
 
 			</form>
 

@@ -17,6 +17,12 @@ export default class Button extends Component{
 		disabled:React.PropTypes.bool,
 	}
 
+	
+	constructor(props){
+		super(props);
+
+	}
+
 
 	render(){
 
@@ -35,30 +41,42 @@ export default class Button extends Component{
 			}
 
 			return (
-				<FlatButton label={label} primary={true} style={{minWidth:30}}  labelStyle={labelStyles} {...other} />
+				<div className="ui-button">
+					<FlatButton label={label} primary={true} style={{minWidth:30}}  labelStyle={labelStyles} {...other} />
+				</div>
 			);
 		}
 
 		if(type == 'button'){
 			return (
-				<RaisedButton label={label} style={{minWidth:30}}  labelStyle={labelStyles} {...other} />
+				<div className="ui-button">
+					<RaisedButton label={label} style={{minWidth:30}}  labelStyle={labelStyles} {...other} />
+				</div>
 			);
 		}
 
 		if(type == 'operation'){
 			return (
-				<span {...other} style={{color:'#00BCD4',marginLeft:'5px',cursor:'pointer'}}>{label}</span>
+				<div className="ui-button">
+					<span {...other} style={{color:'#328ECC',marginLeft:'5px',cursor:'pointer'}}>{label}</span>
+				</div>
+				
 			);
 		}
 
 		if(type == 'submit'){
 			return (
-				<RaisedButton label={label} style={{minWidth:30}} type="submit" labelStyle={labelStyles} {...other} />
+				<div className="ui-button">
+					<RaisedButton label={label} style={{minWidth:30}} type="submit" labelStyle={labelStyles} {...other} />
+				</div>
 			);
 		}
 
 		return (
-				<RaisedButton label={label} style={{minWidth:30}}  labelStyle={labelStyles} {...other} />
+			<div className="ui-button">
+					<RaisedButton label={label} style={{minWidth:30}}  labelStyle={labelStyles} {...other} />
+			</div>
+				
 		);
 	}
 }

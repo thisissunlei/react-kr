@@ -183,8 +183,8 @@ export default class AttributeSetting  extends Component{
 
 				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='findFinaFinaflowPropertyList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} >
 					<TableHeader>
-						<TableHeaderColumn name="propcode">属性编码</TableHeaderColumn>
 						<TableHeaderColumn>属性名称</TableHeaderColumn>
+						<TableHeaderColumn name="propcode">属性编码</TableHeaderColumn>
 						<TableHeaderColumn>是否启用</TableHeaderColumn>
 						<TableHeaderColumn>属性类别</TableHeaderColumn>
 						<TableHeaderColumn>排序号</TableHeaderColumn>
@@ -195,8 +195,8 @@ export default class AttributeSetting  extends Component{
 
 				<TableBody>
 						 <TableRow displayCheckbox={true}>
+						 <TableRowColumn name="propname" ></TableRowColumn>
 						<TableRowColumn name="propcode" ></TableRowColumn>
-						<TableRowColumn name="propname" ></TableRowColumn>
 						<TableRowColumn name="enableflag" options={[{label:'是',value:'ENABLE'},{label:'否',value:'DISENABLE'}]}></TableRowColumn>
 						<TableRowColumn name="proptype" options={[{label:'收入',value:'INCOME'},{label:'回款',value:'PAYMENT'}]}></TableRowColumn>
 						<TableRowColumn name="ordernum"></TableRowColumn>

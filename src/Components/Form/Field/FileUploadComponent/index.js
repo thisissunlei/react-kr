@@ -20,6 +20,7 @@ export default class FileUploadComponent extends React.Component{
 		accept:React.PropTypes.string,
 		defaultValue:React.PropTypes.array,
 		onChange:React.PropTypes.func,
+		inline:React.PropTypes.bool
 	}
 
 	constructor(props){
@@ -126,7 +127,7 @@ export default class FileUploadComponent extends React.Component{
 		console.log("---",response);
 		let {form} = this.state;
 
-		let fileUrl = `http://optest.krspace.cn/krspace_knowledge_wap/doc/docFile/viewFile?sourceservicetoken=${form.sourceservicetoken}&operater=${form.operater}&fileId=${response.id}`;
+		let fileUrl = `http://optest.krspace.cn/krspace_knowledge_wap/doc/docFile/downFile?sourceservicetoken=${form.sourceservicetoken}&operater=${form.operater}&fileId=${response.id}`;
 
 		response.fileUrl = fileUrl;
 		response.fileName = response.filename;
@@ -247,13 +248,13 @@ export default class FileUploadComponent extends React.Component{
 
 	render(){
 
-   	    let { input, label, type, meta: { touched, error },style,requireLabel,multiple,accept} = this.props;
+   	    let { input, label, type, meta: { touched, error },style,requireLabel,multiple,accept,inline} = this.props;
 		let {files,progress,isUploading} = this.state;
 
 		let fileBgStyles = {};
 
 		return (
-				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
+				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
 					<div className="file-button">
 					<input type="file" name="file" onChange={this.onChange}  multiple={multiple?'multiple':null} accept={accept} />
 					上传文件

@@ -23,7 +23,9 @@ import {
 	TableFooter,
 	Button,
 	Section,
-	DotTitle
+	DotTitle,
+	BraceWidth,
+	SelfAdaption,
 } from 'kr-ui';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
@@ -74,10 +76,7 @@ export default class Undefined extends Component {
 							<KrField grid={1/1}  name="age" component="date" label="电话" />
 							<Button  label="确定" type="submit" primary={true} />
 						</Form>
-					</Section>
-					<span className='ui-textLeft'>1111111:</span>
-					<span className='ui-textRight'>3333333</span>
-
+                     </Section>
 
 					<DotTitle title='订单详情'>
 					 
