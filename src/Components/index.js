@@ -13,6 +13,7 @@ import Loading from './Loading';
 import Pagination from './Pagination';
 import Button from './Button';
 import Checkbox from './Checkbox';
+import RadioButton from './RadioButton';
 import Notify from './Notify';
 import IframeContent from './IframeContent';
 //import Tabs from './Tabs/index';
@@ -68,6 +69,7 @@ module.exports = {
 	DotTitle,
 	ListItem,
 	Checkbox,
+	RadioButton,
 	SelfAdaption,
 	...Form,
 	...Table,

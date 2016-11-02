@@ -7,11 +7,19 @@ import FormController from './Controller';
 
 export default class  WrapComponent extends React.Component {
 
+
+
+	static defaultProps = {
+		inline:false
+	}
+
+
 	static PropTypes = {
 		label:React.PropTypes.string,
 		requireLabel:React.PropTypes.bool,
 		children:React.PropTypes.node,
 		wrapStyle:React.PropTypes.object,
+		inline:React.PropTypes.bool
 	}
 
 	constructor(props){
@@ -20,12 +28,12 @@ export default class  WrapComponent extends React.Component {
 
 	render(){
 
-		let {requireLabel,label,children,wrapStyle,style} = this.props;
+		let {requireLabel,label,children,wrapStyle,style,inline} = this.props;
 
 		return (
 				<FormItem style={wrapStyle}>
-					<FormLabel label={label}  requireLabel={requireLabel}/>
-					<FormController style={style}>
+					<FormLabel label={label}  requireLabel={requireLabel} inline={inline}/>
+					<FormController style={style} inline={inline}>
 						{children}
 					</FormController>
 				</FormItem>

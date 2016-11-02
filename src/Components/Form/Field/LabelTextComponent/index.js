@@ -8,17 +8,21 @@ import './index.less';
 export default class  LabelTextComponent extends React.Component {
 
 
+	static PropTypes = {
+		inline:React.PropTypes.bool
+	}
+	
 	constructor(props){
 		super(props)
 	}
 
 	render(){
 
-		let {className,label,value,style,defaultValue,type,requireLabel} = this.props;
+		let {className,label,value,style,defaultValue,type,requireLabel,inline} = this.props;
 
 			if(type == 'date'){
 					return (
-						<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
+						<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
 							<span className="ui-label-text" >
 								{value && <KrDate.Format value={value} /> }
 								{!value && defaultValue}

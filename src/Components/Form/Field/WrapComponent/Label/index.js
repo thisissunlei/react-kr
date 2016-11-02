@@ -8,6 +8,7 @@ export default class  WrapComponent extends React.Component {
 	static PropTypes = {
 		label:React.PropTypes.string,
 		requireLabel:React.PropTypes.bool,
+		inline:React.PropTypes.bool
 	}
 
 	constructor(props){
@@ -16,10 +17,16 @@ export default class  WrapComponent extends React.Component {
 
 	render(){
 
-		let {requireLabel,label} = this.props;
+		let {requireLabel,label,inline} = this.props;
+
+		let className = 'ui-form-label';
+		
+		if(inline){
+			className+= ' inline';
+		}
 
 			return (
-					<div className="ui-form-label">
+					<div className={className}>
 						<label> {requireLabel?<span className="require-label">*</span>:null} {label}</label>		
 					</div>
 				);
