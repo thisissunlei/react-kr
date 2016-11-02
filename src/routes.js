@@ -1,7 +1,17 @@
 import React from 'react';
-import { Router, Route, Link,Redirect,IndexRoute,browserHistory} from 'react-router';
+import {
+	Router,
+	Route,
+	Link,
+	Redirect,
+	IndexRoute,
+	browserHistory
+} from 'react-router';
 
-import {Actions,Store} from 'kr/Redux';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 
 
 import {
@@ -18,7 +28,7 @@ import {
 
 import Master from './master';
 
-export default(
+export default (
 
 	<Route path="/" component={Master}>
 
@@ -44,7 +54,7 @@ export default(
 				<Route path="index" component={Operation.Home} name="operation_home"/>
 				{/*社区管理*/}
 				<Route path="communityManage" component={Basic}>
-					<Route path="detail" component={Operation.CommunityManage.Detail}/>
+					<Route path=":id/detail" component={Operation.CommunityManage.Detail}/>
 				</Route>
 
               {/*客户管理*/}
