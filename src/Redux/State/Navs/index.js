@@ -32,13 +32,10 @@ module.exports = {
 					router:'communityManage',
 					menuItems:[
 						{
-<<<<<<< HEAD
 							primaryText:'客户列表',
 							originUrl:'/krspace_operate_web/customerBase/toCoustomerInfoList?mid=103#share'
-=======
 							primaryText:'基本信息',
 							router:'/operation/communityManage/4/detail',
->>>>>>> feature/计划表
 						},
 					]
 				},
