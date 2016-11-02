@@ -145,7 +145,7 @@ export default class ItemTable extends Component {
       <tr className="last-td" >
 						<td className="company-list">
 							<div className="company-name" data-tip> 诚意有限公司 
-							<ReactTooltip place="right">
+							<ReactTooltip place="right" delayHide={1000} effect='solid'>
 								<ul>
 								{
 									this.renderOrder(detail.contractTypeVo)

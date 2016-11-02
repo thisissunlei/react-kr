@@ -9,7 +9,8 @@ export default class  LabelTextComponent extends React.Component {
 
 
 	static PropTypes = {
-		inline:React.PropTypes.bool
+		inline:React.PropTypes.bool,
+		requireBlue:React.PropTypes.bool
 	}
 	
 	constructor(props){
@@ -18,11 +19,11 @@ export default class  LabelTextComponent extends React.Component {
 
 	render(){
 
-		let {className,label,value,style,defaultValue,type,requireLabel,inline} = this.props;
-
+		let {className,label,value, requireBlue, style,defaultValue,type,requireLabel,inline} = this.props;
+		console.log('========',requireBlue);
 			if(type == 'date'){
 					return (
-						<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={true}>
+						<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={true} requireBlue={requireBlue}>
 							<span className="ui-label-text" >
 								{value && <KrDate.Format value={value} /> }
 								{!value && defaultValue}
@@ -33,7 +34,7 @@ export default class  LabelTextComponent extends React.Component {
 
 			return (
 
-				<WrapComponent label={label} wrapStyle={style}>
+				<WrapComponent label={label} wrapStyle={style} inline={true} requireBlue={requireBlue}>
 					<span className="ui-label-text" > {value || defaultValue} </span>
 				</WrapComponent>
 

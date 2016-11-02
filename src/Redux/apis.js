@@ -1,4 +1,3 @@
-
 const APIS = {
 	//获取全局导航
 	'getSelfMenuInfo': {
@@ -254,6 +253,12 @@ const APIS = {
 		url: '/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/getFinaFinaflowAccountModelByAjax?accountname={accountname}&currentPage={currentPage}&pageSize={pageSize}',
 		method: 'get'
 	},
+	//财务管理－科目配置－导出
+	'getfinancExportExcel': {
+		url: '/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/exportExcel?idList={idList}',
+		method: 'get'
+	},
+
 	//财务管理－订单明细账-分页获得财务流水
 	'getPageAccountFlow': {
 		url: '/api/krspace-finance-web/finaccount/data/getAccountFlow?accountId={accountId}&accountType={accountType}&orderId={orderId}&endTime={endTime}&page={page}&pageSize={pageSize}&propertyId={propertyId}&startTime={startTime}',
