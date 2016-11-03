@@ -1,19 +1,33 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-import {bindActionCreators} from 'redux';
-import {reduxForm,formValueSelector,change} from 'redux-form';
+import React, {
+  Component,
+  PropTypes
+} from 'react';
+import {
+  connect
+} from 'kr/Redux';
+import {
+  bindActionCreators
+} from 'redux';
+import {
+  reduxForm,
+  formValueSelector,
+  change
+} from 'redux-form';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import dateFormat from 'dateformat';
-import {Actions,Store} from 'kr/Redux';
+import {
+  Actions,
+  Store
+} from 'kr/Redux';
 
 import {
-Dialog,
-Snackbar,
-  Table, 
-  TableBody, 
-  TableHeader, 
-  TableHeaderColumn, 
-  TableRow, 
+  Dialog,
+  Snackbar,
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
   TableRowColumn,
   TableFooter,
   Section,
@@ -30,13 +44,23 @@ Snackbar,
 } from 'kr-ui';
 
 
-let SettingCreateForm = function(props){
+let SettingCreateForm = function(props) {
 
-    const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,cityName,onCancel} = props;
+  const {
+    error,
+    handleSubmit,
+    pristine,
+    reset,
+    submitting,
+    communitys,
+    onSubmit,
+    cityName,
+    onCancel
+  } = props;
 
   return (
 
-<form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
 
       <KrField name="dicName" type="text" component="input" label="字段名称" requireLabel={true}/>  
        <KrField name="enableFlag" component="group" label="是否有效" requireLabel={true} >
@@ -56,26 +80,28 @@ let SettingCreateForm = function(props){
   );
 }
 
-const settingCreateFormValidate = values =>{
-	const errors = {}
-	if(!values.dicName){
-		errors.dicName = '请输入字段名称';
-	}
-	return errors
+const settingCreateFormValidate = values => {
+  const errors = {}
+  if (!values.dicName) {
+    errors.dicName = '请输入字段名称';
+  }
+  return errors
 }
 
-SettingCreateForm= reduxForm({
+SettingCreateForm = reduxForm({
   form: 'settingCreateForm',
-	initialValues:{
-		enableFlag:'1'
-	},
-	validate:settingCreateFormValidate
+  initialValues: {
+    enableFlag: '1'
+  },
+  validate: settingCreateFormValidate
 })(SettingCreateForm);
 
 
 
-const SettingViewForm = (props)=>{
-  const {items} = props;
+const SettingViewForm = (props) => {
+  const {
+    items
+  } = props;
   return (
     <div>
         
@@ -86,8 +112,10 @@ const SettingViewForm = (props)=>{
   );
 }
 
-const SettingChildViewForm = (props)=>{
-  const {items} = props;
+const SettingChildViewForm = (props) => {
+  const {
+    items
+  } = props;
   return (
     <div>
         
@@ -96,17 +124,27 @@ const SettingChildViewForm = (props)=>{
         <KrField name="corporationDesc" component="labelText" label="备注" value={items.remark} requireLabel={true}/> 
   </div>
   );
-} 
+}
 
 
 
-let SettingUpdateForm = function(props){
-    
-    const { items,error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
-  
+let SettingUpdateForm = function(props) {
+
+  const {
+    items,
+    error,
+    handleSubmit,
+    pristine,
+    reset,
+    submitting,
+    communitys,
+    onSubmit,
+    onCancel
+  } = props;
+
   return (
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
               <KrField name="id" type="hidden" label="id"  /> 
               <KrField name="dicName" type="text" component="input" label="字段名称"  /> 
               <KrField name="enableFlag" component="group" label="是否有效" >
@@ -124,17 +162,27 @@ let SettingUpdateForm = function(props){
         </form>
   );
 }
- 
- SettingUpdateForm= reduxForm({
+
+SettingUpdateForm = reduxForm({
   form: 'settingUpdateForm',
 })(SettingUpdateForm);
 
-let SettingChildUpdateForm = function(props){
-    const { items,error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel} = props;
-  
+let SettingChildUpdateForm = function(props) {
+  const {
+    items,
+    error,
+    handleSubmit,
+    pristine,
+    reset,
+    submitting,
+    communitys,
+    onSubmit,
+    onCancel
+  } = props;
+
   return (
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
               <KrField name="id" type="hidden" label="id"  /> 
               <KrField name="dicName" type="text" component="input" label="字段名称" requireLabel={true} /> 
               <KrField name="enableflag" component="group" label="是否有效" requireLabel={true}>
@@ -152,18 +200,28 @@ let SettingChildUpdateForm = function(props){
         </form>
   );
 }
- 
- SettingChildUpdateForm= reduxForm({
+
+SettingChildUpdateForm = reduxForm({
   form: 'settingChildUpdateForm',
 })(SettingChildUpdateForm);
 
-let SettingAddForm = function(props){
-  
-    const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,onCancel,dicName} = props;
-   if(props.dicName=='付款方式') {
-        return (
+let SettingAddForm = function(props) {
 
-          <form onSubmit={handleSubmit(onSubmit)}>
+  const {
+    error,
+    handleSubmit,
+    pristine,
+    reset,
+    submitting,
+    communitys,
+    onSubmit,
+    onCancel,
+    dicName
+  } = props;
+  if (props.dicName == '付款方式') {
+    return (
+
+      <form onSubmit={handleSubmit(onSubmit)}>
                   <KrField name="id" type="hidden" component="input" label="id"/> 
                   <KrField name="dicName" type="text" label="子项名称" requireLabel={true}/>
                   <KrField  type="labelText" label="字段名称" value={props.dicName} requireLabel={true}/>
@@ -180,11 +238,11 @@ let SettingAddForm = function(props){
                     </Row>
                   </Grid>
             </form>
-      );
-   }
-   return (
+    );
+  }
+  return (
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
               <KrField name="id" type="hidden" component="input" label="id"/> 
               <KrField name="dicName" type="text" label="子项名称" requireLabel={true}/>
               <KrField  type="labelText" label="字段名称" value={props.dicName} requireLabel={true}/>
@@ -204,79 +262,76 @@ let SettingAddForm = function(props){
         </form>
   );
 
-  
+
 }
- 
- SettingAddForm= reduxForm({
+
+SettingAddForm = reduxForm({
   form: 'settingAddForm',
 })(SettingAddForm);
 
 
 
-
-
-
 export default class SettingList extends Component {
 
-  constructor(props,context){
+  constructor(props, context) {
     super(props, context);
 
     this.confirmSubmit = this.confirmSubmit.bind(this);
-    
-    this.confirmUpdateSubmit=this.confirmUpdateSubmit.bind(this);
+
+    this.confirmUpdateSubmit = this.confirmUpdateSubmit.bind(this);
     this.openCreateDialog = this.openCreateDialog.bind(this);
     this.renderCustomerItem = this.renderCustomerItem.bind(this);
-    this.confirmUpdateChildSubmit =this.confirmUpdateChildSubmit.bind(this);
+    this.confirmUpdateChildSubmit = this.confirmUpdateChildSubmit.bind(this);
 
     this.openUpdateDialog = this.openUpdateDialog.bind(this);
     this.getListData = this.getListData.bind(this);
-    this.openAddDialog=this.openAddDialog.bind(this);
-    this.openViewDialog=this.openViewDialog.bind(this);
-    this.openAdd =this.openAdd.bind(this);
+    this.openAddDialog = this.openAddDialog.bind(this);
+    this.openViewDialog = this.openViewDialog.bind(this);
+    this.openAdd = this.openAdd.bind(this);
     this.renderItemChild = this.renderItemChild.bind(this);
     this.renderItem = this.renderItem.bind(this);
 
     this.openUpdateChildDialog = this.openUpdateChildDialog.bind(this);
-    this.openViewChildDialog=this.openViewChildDialog.bind(this);
+    this.openViewChildDialog = this.openViewChildDialog.bind(this);
 
     this.state = {
-      open:false,
-      openCreate:false,
-      openView:false,
-      openUpdate:false,
-      openChildView:false,
-      openChildUpdate:false,
-      openAdddate:false,
-      dicName:'sss',
-      pageSize:15,
-      page:1,
-      totalCount:1,
-      
+      open: false,
+      openCreate: false,
+      openView: false,
+      openUpdate: false,
+      openChildView: false,
+      openChildUpdate: false,
+      openAdddate: false,
+      dicName: 'sss',
+      pageSize: 15,
+      page: 1,
+      totalCount: 1,
+
     }
 
     this.getListData();
 
   }
 
-  componentDidMount(){
+  componentDidMount() {
 
     var _this = this;
 
-    Store.dispatch(Actions.callAPI('sysDicPaymentList',{
-      page:_this.state.page,
-      pageSize:_this.state.pageSize,
-      totalCount:_this.state.totalCount
-    })).then(function(response){
-        console.log('-----response----',response)
+    Store.dispatch(Actions.callAPI('sysDicPaymentList', {
+      page: _this.state.page,
+      pageSize: _this.state.pageSize,
+      totalCount: _this.state.totalCount
+    })).then(function(response) {
+      console.log('-----response----', response)
       _this.setState({
-        items:response
+        items: response
       });
 
-    }).catch(function(err){
+    }).catch(function(err) {
 
-      console.log('---err',err);
+      console.log('---err', err);
       Notify.show([{
-        message:'报错了',
+        message: '报错了',
         type: 'danger',
       }]);
     });
@@ -284,45 +339,47 @@ export default class SettingList extends Component {
   }
 
 
-  getListData(){
-    var {actions} = this.props;
+  getListData() {
+    var {
+      actions
+    } = this.props;
     var _this = this;
   }
 
 
-  confirmSubmit(values){
-    console.log('添加子项',values)
-    Store.dispatch(Actions.callAPI('addSysDicPayment',{},values)).then(function(response){
-       Notify.show([{
-        message:'创建成功!',
+  confirmSubmit(values) {
+    console.log('添加子项', values)
+    Store.dispatch(Actions.callAPI('addSysDicPayment', {}, values)).then(function(response) {
+      Notify.show([{
+        message: '创建成功!',
         type: 'success',
       }]);
-    }).catch(function(err){
-        Notify.show([{
-        message:err.message,
+    }).catch(function(err) {
+      Notify.show([{
+        message: err.message,
         type: 'danger',
       }]);
       console.log(err.message)
     })
     this.openCreateDialog();
-    
-      window.setTimeout(function(){
-        window.location.reload();
-      },1000);
+
+    window.setTimeout(function() {
+      window.location.reload();
+    }, 1000);
 
 
   }
 
-  confirmUpdateSubmit(values){
+  confirmUpdateSubmit(values) {
 
-    Store.dispatch(Actions.callAPI('editSysDicPayment',{},values)).then(function(response){
-       Notify.show([{
-        message:'编辑成功!',
+    Store.dispatch(Actions.callAPI('editSysDicPayment', {}, values)).then(function(response) {
+      Notify.show([{
+        message: '编辑成功!',
         type: 'success',
       }]);
-    }).catch(function(err){
-        Notify.show([{
-        message:err.message,
+    }).catch(function(err) {
+      Notify.show([{
+        message: err.message,
         type: 'danger',
       }]);
     });
@@ -330,107 +387,107 @@ export default class SettingList extends Component {
     this.openUpdateDialog();
 
 
-    window.setTimeout(function(){
-        window.location.reload();
-      },1000);
+    window.setTimeout(function() {
+      window.location.reload();
+    }, 1000);
 
-      
+
 
   }
-  confirmUpdateChildSubmit(values){
-     Store.dispatch(Actions.callAPI('editSysDicPayment',{},values)).then(function(response){
-       Notify.show([{
-        message:'编辑成功!',
+  confirmUpdateChildSubmit(values) {
+    Store.dispatch(Actions.callAPI('editSysDicPayment', {}, values)).then(function(response) {
+      Notify.show([{
+        message: '编辑成功!',
         type: 'success',
       }]);
-    }).catch(function(err){
-        Notify.show([{
-        message:err.message,
+    }).catch(function(err) {
+      Notify.show([{
+        message: err.message,
         type: 'danger',
       }]);
     });
-    window.setTimeout(function(){
-        window.location.reload();
-      },1000);
+    window.setTimeout(function() {
+      window.location.reload();
+    }, 1000);
     this.openUpdateChildDialog();
-    
+
   }
 
 
- openViewChildDialog(item){
-    
-    console.log('list-----',item)
+  openViewChildDialog(item) {
+
+    console.log('list-----', item)
     this.setState({
-      item:item,
-      openChildView:!this.state.openChildView
+      item: item,
+      openChildView: !this.state.openChildView
     });
 
   };
-  openUpdateChildDialog(item){
+  openUpdateChildDialog(item) {
     this.setState({
-      openChildUpdate:!this.state.openChildUpdate
+      openChildUpdate: !this.state.openChildUpdate
     });
 
 
-   
-      Store.dispatch(change('settingChildUpdateForm','id',item.id));
-      Store.dispatch(change('settingChildUpdateForm','dicName',item.dicName));
-      Store.dispatch(change('settingChildUpdateForm','enableflag',item.enableFlag));
-      Store.dispatch(change('settingChildUpdateForm','remark',item.remark));
 
-}
-  openAddDialog(item){ 
-      this.setState({
-        openAdddate:!this.state.openAdddate,
-        dicName:item.sp.dicName
-    });
-      
-     Store.dispatch(change('settingAddForm','id',item.id));
-    
-     
-  }
-  openAdd(){
-    this.setState({
-        openAdddate:!this.state.openAdddate,
-        
-    });
-  }
-  
-  openCreateDialog(){
-
-    this.setState({
-      openCreate:!this.state.openCreate
-    });
+    Store.dispatch(change('settingChildUpdateForm', 'id', item.id));
+    Store.dispatch(change('settingChildUpdateForm', 'dicName', item.dicName));
+    Store.dispatch(change('settingChildUpdateForm', 'enableflag', item.enableFlag));
+    Store.dispatch(change('settingChildUpdateForm', 'remark', item.remark));
 
   }
-
- openViewDialog(index){
-    const list=this.state.items;
+  openAddDialog(item) {
     this.setState({
-      item:list[index],
-      openView:!this.state.openView
+      openAdddate: !this.state.openAdddate,
+      dicName: item.sp.dicName
+    });
+
+    Store.dispatch(change('settingAddForm', 'id', item.id));
+
+
+  }
+  openAdd() {
+    this.setState({
+      openAdddate: !this.state.openAdddate,
+
+    });
+  }
+
+  openCreateDialog() {
+
+    this.setState({
+      openCreate: !this.state.openCreate
     });
 
   }
 
-  openUpdateDialog(index){
-    const list=this.state.items;
-   
+  openViewDialog(index) {
+    const list = this.state.items;
     this.setState({
-      openUpdate:!this.state.openUpdate
+      item: list[index],
+      openView: !this.state.openView
     });
-    
-      Store.dispatch(change('settingUpdateForm','id',list[index].sp.id));
-      Store.dispatch(change('settingUpdateForm','dicName',list[index].sp.dicName));
-      Store.dispatch(change('settingUpdateForm','enableFlag',list[index].sp.enableFlag));
-      Store.dispatch(change('settingUpdateForm','remark',list[index].sp.remark));
+
+  }
+
+  openUpdateDialog(index) {
+    const list = this.state.items;
+
+    this.setState({
+      openUpdate: !this.state.openUpdate
+    });
+
+    Store.dispatch(change('settingUpdateForm', 'id', list[index].sp.id));
+    Store.dispatch(change('settingUpdateForm', 'dicName', list[index].sp.dicName));
+    Store.dispatch(change('settingUpdateForm', 'enableFlag', list[index].sp.enableFlag));
+    Store.dispatch(change('settingUpdateForm', 'remark', list[index].sp.remark));
   };
 
- 
-  renderItem(item,index){
-      
-           return (
-             <TableRow key={index} >
+
+  renderItem(item, index) {
+
+    return (
+      <TableRow key={index} >
           <TableRowColumn>{item.sp.dicName}</TableRowColumn>
             <TableRowColumn>{item.sp.enableFlag?'是':'否'}</TableRowColumn>
             <TableRowColumn>{item.sp.createName}</TableRowColumn>
@@ -444,14 +501,14 @@ export default class SettingList extends Component {
             <Button label="添加子项" type="link" id={this.state.id}  onClick={this.openAddDialog.bind(this,item)}/>
           </TableRowColumn>
          </TableRow>
-         );
+    );
   }
-  
-  renderItemChild(item,index){
-   
-   
-    if(item.length>0){
-        return (
+
+  renderItemChild(item, index) {
+
+
+    if (item.length > 0) {
+      return (
         <TableRow key={index} >
           <TableRowColumn colSpan={9}>
               <Table displayCheckbox={false}>
@@ -485,18 +542,18 @@ export default class SettingList extends Component {
 
          </TableRow>
 
-      
-        );
+
+      );
     }
-      
+
 
   }
-  renderCustomerItem(){
+  renderCustomerItem() {
 
     let items = this.state.items || [];
 
-  if(!items.length){
-    return(
+    if (!items.length) {
+      return (
         <TableBody style={{paddingTop:10}} >
                 <TableRow displayCheckbox={false} >
                       <TableRowColumn colSpan={8} >
@@ -508,21 +565,21 @@ export default class SettingList extends Component {
         </TableBody>
 
       )
-      
-  }
+
+    }
 
 
-  let allChildren = [];
+    let allChildren = [];
 
-  var _this = this;
+    var _this = this;
 
-  items.map(function(item,index){
-      allChildren.push(_this.renderItem(item,index));
-      allChildren.push(_this.renderItemChild(item.spList,index));
-  });
+    items.map(function(item, index) {
+      allChildren.push(_this.renderItem(item, index));
+      allChildren.push(_this.renderItemChild(item.spList, index));
+    });
 
     return (
-        <TableBody colSpan={10}>
+      <TableBody colSpan={10}>
            {allChildren}  
        </TableBody>
     );
@@ -535,24 +592,26 @@ export default class SettingList extends Component {
 
   render() {
 
-    const {communitys} = this.state;
-    
+    const {
+      communitys
+    } = this.state;
+
     const actions = [
-        <Button
+      <Button
         label="关闭"
         primary={true}
          style={{marginLeft:10}}
         onTouchTap={this.openViewDialog.bind(this)}
         />
-      ];
-  const close=[
-        <Button
+    ];
+    const close = [
+      <Button
         label="关闭"
         primary={true}
          style={{marginLeft:10}}
         onTouchTap={this.openViewChildDialog.bind(this)}
         />
-      ]
+    ]
     return (
 
       <div>
@@ -580,6 +639,7 @@ export default class SettingList extends Component {
         title="新建"
         modal={true}
         open={this.state.openCreate}
+        onClose={this.openCreateDialog}
       >
         <SettingCreateForm onSubmit={this.confirmSubmit} onCancel={this.openCreateDialog}/>
       </Dialog>
@@ -590,6 +650,7 @@ export default class SettingList extends Component {
         modal={true}
         actions={actions}
         open={this.state.openView}
+        onClose={this.openViewDialog}
       >
 
       <SettingViewForm items={this.state.item}/>
@@ -601,6 +662,7 @@ export default class SettingList extends Component {
         modal={true}
         actions={close}
         open={this.state.openChildView}
+        onClose={this.openViewChildDialog}
       >
 
       <SettingChildViewForm items={this.state.item}/>
@@ -614,6 +676,7 @@ export default class SettingList extends Component {
 
         modal={true}
         open={this.state.openUpdate}
+        onClose={this.openUpdateDialog}
      >
       <SettingUpdateForm items={this.state.item} onSubmit={this.confirmUpdateSubmit} onCancel={this.openUpdateDialog} />
       </Dialog>
@@ -622,6 +685,7 @@ export default class SettingList extends Component {
 
         modal={true}
         open={this.state.openChildUpdate}
+        onClose={this.openUpdateChildDialog}
      >
       <SettingChildUpdateForm items={this.state.item} onSubmit={this.confirmUpdateChildSubmit} onCancel={this.openUpdateChildDialog} />
       </Dialog>
@@ -630,14 +694,12 @@ export default class SettingList extends Component {
         title="添加子项"
         modal={true}
         open={this.state.openAdddate}
+        onClose={this.openAdd}
      >
       <SettingAddForm id={this.state.id} dicName={this.state.dicName} onSubmit={this.confirmSubmit} onCancel={this.openAdd}/>
       </Dialog>
       
    </div>
-  );
+    );
   }
 }
-
-
-
