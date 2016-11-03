@@ -11,12 +11,16 @@ import './index.less';
 @ReactMixin.decorate(LinkedStateMixin)
 export default class Pagination extends Component {
 
+	static defaultProps = {
+		pageNumber:10,
+	}
 	static propTypes = {
 		children: React.PropTypes.node,
 		page: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
 		pageSize: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
 		totalCount: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-		onPageChange: React.PropTypes.func
+		onPageChange: React.PropTypes.func,
+		pageNumber:React.PropTypes.number
 	};
 
 	constructor(props) {
@@ -157,7 +161,8 @@ export default class Pagination extends Component {
 		let {
 			page,
 			pageSize,
-			totalCount
+			totalCount,
+			pageNumber
 		} = this.props;
 
 
@@ -168,19 +173,26 @@ export default class Pagination extends Component {
 		const handlers = {
 			onClick: this.onJumpPage
 		}
-		let pageMin = 1;
-		let pageStart = page;
-		let pageJump = 3;
-		let pageEnd = pageStart + pageJump;
-		let pageMax = Math.ceil(totalCount / pageSize);
-		let element = null;
 
-		if (pageEnd > pageMax) {
+		let pageStart = page;
+		let pageJump = 6;
+		let pageMax = Math.ceil(totalCount / pageSize);
+		let pageEnd = pageStart + pageJump;
+
+		if(pageEnd > pageMax){
 			pageEnd = pageMax;
 		}
 
+		
+		
+		let element = null;
 
-		for (var i = pageStart; i < pageEnd; i++) {
+		if(pageStart>=pageJump){
+			element = this.createOther(parseInt(pageStart/pageJump)*pageJump - pageJump );
+			pageBody.push(element);
+		}
+
+		for (var i = pageStart; i <= pageEnd; i++) {
 
 			props.key = i;
 			props.className = 'item';
@@ -197,24 +209,11 @@ export default class Pagination extends Component {
 			pageBody.push(element);
 		}
 
-
-		if (pageEnd < pageMax) {
-			element = this.createOther(pageEnd);
+		if(pageEnd<pageMax){
+			element = this.createOther(pageEnd+1);
 			pageBody.push(element);
-
-			for (var j = pageMax;
-				(j > (pageMax - pageJump)) && ((pageMax - pageJump) > pageEnd); j--) {
-				props.key = j;
-				props.className = 'item';
-				element = React.createElement('a', {...props,
-					...handlers,
-					'data-page': j
-				}, j);
-				pageBody.push(element);
-			}
 		}
-
-
+		console.log('pageStart',pageStart,'pageEnd',pageEnd,'pageJump',pageJump)
 		return (
 			<div className="item-body">
 					{pageBody}
