@@ -146,7 +146,7 @@ class ReceivedBtnForm extends Component{
 const validate = values =>{
 
 		const errors = {}
-	console.log('--------');
+	
 		
 
 		if(!values.accountId){
@@ -160,9 +160,12 @@ const validate = values =>{
 		if (!values.dealCode) {
 			errors.dealCode = '请填写交易编号';
 		}
-
 		if (!values.sum) {
-			errors.sum = '请填写金额';
+		    errors.sum ='请填写金额';
+	    }
+
+		if (values.sum && isNaN(values.sum)) {
+			errors.sum = '金额必须为数字';
 		}		
 
 		return errors

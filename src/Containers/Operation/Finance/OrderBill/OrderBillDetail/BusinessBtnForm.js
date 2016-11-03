@@ -47,8 +47,10 @@ class BusinessBtnForm extends Component{
    }
 
 	componentDidMount() {
-
-       let {initialValues}= this.props;
+       let initialValues={
+       	 id:this.props.initialValues.id,
+       	 finaflowamount:'',
+       }
 	   Store.dispatch(initialize('BusinessBtnForm',initialValues));
 		
 	}
@@ -117,6 +119,9 @@ const validate = values =>{
 
 		if(!values.finaflowamount){
 			errors.finaflowamount = '请填写金额';
+		}
+		if (values.finaflowamount && isNaN(values.finaflowamount)) {
+			errors.finaflowamount = '金额必须为数字';
 		}
 	
 		return errors

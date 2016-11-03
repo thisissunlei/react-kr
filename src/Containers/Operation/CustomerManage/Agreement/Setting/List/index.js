@@ -499,6 +499,7 @@ export default class SettingList extends Component {
               <Button label="查看" type="link"  onClick={this.openViewDialog.bind(this,index)}/>
               <Button label="编辑" type="link"  onClick={this.openUpdateDialog.bind(this,index)}/>
               <Button label="添加子项" type="link" id={this.state.id}  onClick={this.openAddDialog.bind(this,item)}/>
+              <span className="bottomBtn"></span>
             </TableRowColumn>
            </TableRow>
       );
@@ -516,6 +517,7 @@ export default class SettingList extends Component {
               <Button label="查看" type="link"  onClick={this.openViewDialog.bind(this,index)}/>
               <Button label="编辑" type="link"  onClick={this.openUpdateDialog.bind(this,index)}/>
               <Button label="添加子项" type="link" id={this.state.id}  onClick={this.openAddDialog.bind(this,item)}/>
+              <span className="bottomBtn"></span>
             </TableRowColumn>
            </TableRow>
       );
