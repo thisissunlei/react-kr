@@ -492,27 +492,27 @@ class NewCreateForm extends Component {
 				<KrField grid={1}  name="stationnum" type="hidden" component="input" label="工位"/> 
 				<KrField grid={1}  name="boardroomnum" type="hidden" component="input" label="会议室"/> 
 
-				<KrField left={60} name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}   requireLabel={true} />
+				<KrField right={60} name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}   requireLabel={true} />
 				<KrField left={60} grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" inline={false} value={changeValues.lessorAddress}  defaultValue="无"/> 
-				<KrField left={60} grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} placeholder={optionValues.lessorContactName}  requireLabel={true}  /> 
+				<KrField right={60} grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} placeholder={optionValues.lessorContactName}  requireLabel={true}  /> 
 
 				<KrField left={60} grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话"  requireLabel={true}  /> 
 
-				<KrField left={60} grid={1/2}  component="labelText" label="承租方" inline={false} value={optionValues.customerName} /> 
+				<KrField right={60} grid={1/2}  component="labelText" label="承租方" inline={false} value={optionValues.customerName} /> 
 
 				<KrField left={60} grid={1/2}  name="leaseAddress" type="text" component="input" label="地址"  requireLabel={true}  /> 
 
-				<KrField left={60} grid={1/2}  name="leaseContact" type="text" component="input" label="联系人"  requireLabel={true}  /> 
+				<KrField right={60} grid={1/2}  name="leaseContact" type="text" component="input" label="联系人"  requireLabel={true}  /> 
 				<KrField left={60} grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话"  requireLabel={true}  /> 
 
-				<KrField left={60} grid={1/2}  name="communityid" component="labelText" inline={false} label="所属社区" value={optionValues.communityName}  requireLabel={true} /> 
+				<KrField right={60} grid={1/2}  name="communityid" component="labelText" inline={false} label="所属社区" value={optionValues.communityName}  requireLabel={true} /> 
 
 				<KrField left={60} name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true}  requireLabel={true} />
 
-				<KrField left={60} grid={1/2}  name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} /> 
+				<KrField right={60} grid={1/2}  name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} /> 
 				<KrField left={60} grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}/> 
 
-				<KrField grid={1/1}  component="group" label="租赁期限" requireLabel={true}> 
+				<KrField grid={1/1} right={60} component="group" label="租赁期限" requireLabel={true}> 
 					<ListGroup>
 						<ListGroupItem> <KrField grid={1/2}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/></ListGroupItem>
 						<ListGroupItem ><span style={{display:'inline-block',lineHeight:'75px'}}>至</span></ListGroupItem>
@@ -521,19 +521,19 @@ class NewCreateForm extends Component {
 					
 				</KrField>
 
-				<KrField left={60} name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true} /> 
+				<KrField right={60} name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true} /> 
 				<KrField left={60} name="paytype"  grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} requireLabel={true} />
 
-				<KrField left={60} grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" defaultValue={initialValues.signdate} requireLabel={true} /> 
+				<KrField right={60} grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" defaultValue={initialValues.signdate} requireLabel={true} /> 
 
-				<KrField left={60} name="firstpaydate" component="date" label="首付款时间"  requireLabel={true}/> 
+				<KrField right={60} name="firstpaydate" component="date" label="首付款时间"  requireLabel={true}/> 
 
-				<KrField left={60} grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"  requireLabel={true}/> 
+				<KrField right={60} grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"  requireLabel={true}/> 
 
-				<KrField left={60} grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true} /> 
+				<KrField right={60} grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true} /> 
 				<KrField left={60} grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true} /> 
-				<KrField left={60} grid={1/2}  name="contractmark" component="textarea" label="备注" /> 
-				<KrField left={60} grid={1}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} requireLabel={true}/> 
+				<KrField right={60} grid={1}  name="contractmark" component="textarea" label="备注" /> 
+				<KrField right={60} grid={1}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} requireLabel={true}/> 
 
 				<KrField grid={1/1} component="group" label="租赁项目" requireLabel={true}> 
 					<KrField grid={1/2}  name="stationnum" type="text" component="labelText"  label="工位" value={changeValues.stationnum} defaultValue="0"/> 
@@ -665,7 +665,7 @@ const validate = values => {
 	if (!values.rentaluse) {
 		errors.rentaluse = '请填写租赁用途';
 	}
-	
+
 	if (!values.totalrent) {
 		errors.totalrent = '请输入租金总额';
 	}
@@ -699,7 +699,7 @@ const validate = values => {
 	if (!values.leaseBegindatesigndate) {
 		errors.signleaseBegindatedate = '请填写签署时间';
 	}
-	
+
 	if (!values.firstpaydate) {
 		errors.firstpaydate = '请输入首付款时间';
 	}
