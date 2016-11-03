@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import {Actions,Store} from 'kr/Redux';
+import './index.less';
 import {
 	Table,
  	TableBody,
@@ -31,6 +32,7 @@ export default class SearchParam extends Component{
 		detail:{
 
 		},
+
 	}
 
 	static PropTypes = {
@@ -44,7 +46,11 @@ export default class SearchParam extends Component{
 		super(props, context);
 
 		this.onSearch = this.onSearch.bind(this);
-
+		this.state = {	
+		  primaryR:'true',
+		  primaryI:'false'
+		}
+       
 	}
 
 	componentDidMount() {
@@ -53,7 +59,21 @@ export default class SearchParam extends Component{
 
 	onSearch(type,childType,id,propInfo){    
 		const {onSearch,params} = this.props;
+        
+        if(type=='PAYMENT'){
+          this.setState({
+			primaryR:'true',
+			primaryI:'false'	
+	      });
+        }
 
+        if(type=='INCOME'){
+        this.setState({
+			primaryR:'false',
+			primaryI:'true'	
+	      });
+        }
+        
 		var searchParam = {};
 
 		searchParam.accountType = type;
@@ -72,37 +92,31 @@ export default class SearchParam extends Component{
 		<div>     
 
 		            
-		            <LineText title='回款' primary='false' onTouchTap={this.onSearch.bind(this,'PAYMENT','basic','','SETTLED')}/>
+		            <LineText title='回款' primary={this.state.primaryR} onClick={this.onSearch.bind(this,'PAYMENT','basic','','SETTLED')}/>
 
-					<Table  style={{marginTop:10}} displayCheckbox={false}>
+					<Table  style={{marginTop:30}} displayCheckbox={false}>
 					  
 					 <TableBody>
 						 {detailPayment.map((item,index)=><TableRow key={index}>			
-							<TableRowColumn onTouchTap={this.onSearch.bind(this,'PAYMENT',item.propcode,item.id,item.propInfo)}>{item.propname}</TableRowColumn>
+							<TableRowColumn  className='tapText' onTouchTap={this.onSearch.bind(this,'PAYMENT',item.propcode,item.id,item.propInfo)}>{item.propname}</TableRowColumn>
 							<TableRowColumn>{item.propamount}</TableRowColumn>					
 						 </TableRow>
 						  )}
 					</TableBody>
 					</Table>
-
-					<Table  style={{marginTop:10}} displayCheckbox={false}>
-					   <TableHeader>
-						<TableHeaderColumn onTouchTap={this.onSearch.bind(this,'INCOME','basic','','SETTLED')} colSpan={2}>收入</TableHeaderColumn>
-						</TableHeader>
-
+                    
+                    <LineText title='收入' primary={this.state.primaryI} onClick={this.onSearch.bind(this,'INCOME','basic','','SETTLED')}/>
+					<Table  style={{marginTop:30}} displayCheckbox={false}>
 					<TableBody>
 						 {detailIncome.map((item,index)=><TableRow key={index}>						
-							<TableRowColumn onTouchTap={this.onSearch.bind(this,'INCOME',item.propcode,item.id,item.propInfo)}>{item.propname}</TableRowColumn>
+							<TableRowColumn  className='tapText' onTouchTap={this.onSearch.bind(this,'INCOME',item.propcode,item.id,item.propInfo)}>{item.propname}</TableRowColumn>
 							<TableRowColumn>{item.propamount}</TableRowColumn>					
 						 </TableRow>
 						  )}
 					</TableBody>
 					</Table>
-
-					<Table  style={{marginTop:10}} displayCheckbox={false}>
-					  <TableHeader>
-						<TableHeaderColumn colSpan={2}>余额</TableHeaderColumn>
-					   </TableHeader>
+                    <LineText title='余额' primary='false'/>
+					<Table  style={{marginTop:30}} displayCheckbox={false}>
 					 <TableBody>
 						  <TableRow displayCheckbox={false}>						
 							<TableRowColumn>余额</TableRowColumn>
