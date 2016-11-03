@@ -699,6 +699,11 @@ const validate = values => {
 	if (!values.leaseBegindatesigndate) {
 		errors.signleaseBegindatedate = '请填写签署时间';
 	}
+	
+	if (!values.firstpaydate) {
+		errors.firstpaydate = '请输入首付款时间';
+	}
+
 
 	if (!values.stationnum && !values.boardroomnum) {
 		errors.stationnum = '租赁项目必须填写一项';

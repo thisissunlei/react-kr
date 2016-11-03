@@ -35,7 +35,8 @@ import {
 	Notify,
 	IframeContent,
 	DotTitle,
-	ButtonGroup
+	ButtonGroup,
+	Paper
 } from 'kr-ui';
 import Date from 'kr-ui/Date';
 
