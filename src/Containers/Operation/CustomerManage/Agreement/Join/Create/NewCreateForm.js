@@ -530,9 +530,9 @@ class NewCreateForm extends Component {
 				<KrField grid={1/2}  name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress}  /> 
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true} /> 
 
-				<KrField grid={1/1}  component="group" label="租赁期限"> 
-					<KrField grid={1/2}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} requireLabel={true}/> 
-					<KrField grid={1/2}  name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} requireLabel={true}/> 
+				<KrField grid={2/3}  component="group" label="租赁期限" requireLabel={true}> 
+					<KrField grid={1/2}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} />
+					<KrField grid={1/2}  name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} /> 
 				</KrField>
 
 				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true} /> 

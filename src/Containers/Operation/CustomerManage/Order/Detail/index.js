@@ -202,7 +202,7 @@ export default class OrderDetail extends React.Component {
 
 			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog}  primary={true}/>
 
-
+			<span className='border-top'></span>
 			<Grid style={{marginTop:50}}>
 			<span className='ui-remark'>注：如（0-1），1表示该类型合同总数，0表示执行完该类型合同数</span>
 			<ul className='ui-adminBook'>
@@ -227,47 +227,47 @@ export default class OrderDetail extends React.Component {
 
 			<Grid style={{marginTop:50}}>
 				<Row>
-				<Col md={4} ><KrField label="社区名称" component="labelText" value={orderBaseInfo.communityName} defaultValue="无"/></Col>
-				<Col md={4} ><KrField label="客户名称" component="labelText" value={orderBaseInfo.customerName}/></Col>
-				<Col md={4} ><KrField label="订单名称" component="labelText" value={orderBaseInfo.mainbillname}/></Col>
+				<Col md={4} ><KrField label="社区名称：" component="labelText" value={orderBaseInfo.communityName} defaultValue="无" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="客户名称：" component="labelText" value={orderBaseInfo.customerName} alignRight={true}/></Col>
+				<Col md={4} ><KrField label="订单名称：" component="labelText" value={orderBaseInfo.mainbillname} alignRight={true}/></Col>
 				</Row>
 
 				<Row>
-				<Col md={4} ><KrField label="当前工位数" component="labelText" value={orderBaseInfo.stationnum} defaultValue="0"/></Col>
-				<Col md={4} ><KrField label="订单编号"  component="labelText" value={orderBaseInfo.mainbillcode} defaultValue="无"/></Col>
-				<Col md={4} ><KrField label="起始日期" component="labelText" value={orderBaseInfo.contractEntrydate} type="date" defaultValue="无"/></Col>
+				<Col md={4} ><KrField label="当前工位数：" component="labelText" value={orderBaseInfo.stationnum} defaultValue="0" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="订单编号："  component="labelText" value={orderBaseInfo.mainbillcode} defaultValue="无" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="起始日期：" component="labelText" value={orderBaseInfo.contractEntrydate} type="date" defaultValue="无" alignRight={true}/></Col>
 				</Row>
 				<Row>
-				<Col md={4} ><KrField label="结束日期" component="labelText" value={orderBaseInfo.contractLeavedate} type="date" defaultValue="无"/></Col>
-				<Col md={4} ><KrField label="撤场日期" component="labelText" value={orderBaseInfo.actualLeavedate} type="date" defaultValue="无"/></Col>
-				<Col md={4} ><KrField label="订单总额" component="labelText" value={orderBaseInfo.contractTotalamount} defaultValue="0" /></Col>
+				<Col md={4} ><KrField label="结束日期：" component="labelText" value={orderBaseInfo.contractLeavedate} type="date" defaultValue="无" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="撤场日期：" component="labelText" value={orderBaseInfo.actualLeavedate} type="date" defaultValue="无" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="订单总额：" component="labelText" value={orderBaseInfo.contractTotalamount} defaultValue="0" alignRight={true}/></Col>
 				</Row>
 
 				<Row>
-				<Col md={4} ><KrField label="回款总额" component="labelText" value={orderBaseInfo.contractBackamount} defaultValue="0"/></Col>
-				<Col md={4} ><KrField label="未回款额" component="labelText" value={orderBaseInfo.unBackamount} defaultValue="0"/></Col>
-				<Col md={4} ><KrField label="工位回款" component="labelText" value={orderBaseInfo.accruedrent} defaultValue="0"/></Col>
+				<Col md={4} ><KrField label="回款总额：" component="labelText" value={orderBaseInfo.contractBackamount} defaultValue="0" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="未回款额：" component="labelText" value={orderBaseInfo.unBackamount} defaultValue="0" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="工位回款：" component="labelText" value={orderBaseInfo.accruedrent} defaultValue="0" alignRight={true}/></Col>
 				</Row>
 			<Row>
-				<Col md={4} ><KrField label="实收押金" component="labelText" value={orderBaseInfo.realdeposit} defaultValue="0"/></Col>
-				<Col md={4} ><KrField label="实收定金" component="labelText" value={orderBaseInfo.realdownpayment} defaultValue="0"/></Col>
-				<Col md={4} ><KrField label="其他回款" component="labelText" value={orderBaseInfo.refundamount} defaultValue="0"/></Col>		
+				<Col md={4} ><KrField label="实收押金：" component="labelText" value={orderBaseInfo.realdeposit} defaultValue="0" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="实收定金：" component="labelText" value={orderBaseInfo.realdownpayment} defaultValue="0" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="其他回款：" component="labelText" value={orderBaseInfo.refundamount} defaultValue="0" alignRight={true}/></Col>		
 				</Row>
 
 				<Row>
-				<Col md={4} ><KrField label="营业外收入汇款" component="labelText" value={orderBaseInfo.nonbusinessincomeBackamount} width={150} defaultValue="0"/></Col>
-				<Col md={4} ><KrField label="生活消费收入回款" component="labelText" value={orderBaseInfo.liveincomeBackamount} width={160} defaultValue="0"/></Col>
-				<Col md={4} ><KrField label="工位收入" component="labelText" value={orderBaseInfo.accruedrent} defaultValue="0"/></Col>
+				<Col md={4} ><KrField label="营业外收入汇款：" component="labelText" value={orderBaseInfo.nonbusinessincomeBackamount} width={150} defaultValue="0" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="生活消费收入回款：" component="labelText" value={orderBaseInfo.liveincomeBackamount} width={160} defaultValue="0" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="工位收入：" component="labelText" value={orderBaseInfo.accruedrent} defaultValue="0" alignRight={true}/></Col>
 				</Row>
 
 				<Row>
 
-				<Col md={4} ><KrField label="其他收入" component="labelText" value={orderBaseInfo.otherincome} defaultValue="0"/></Col>
-				<Col md={4} ><KrField label="营业外收入" component="labelText" value={orderBaseInfo.nonbusinessincome} defaultValue="0"/></Col>
-				<Col md={4} ><KrField label="生活消费收入" component="labelText" value={orderBaseInfo.liveincome} width={120} defaultValue="0"/></Col>
+				<Col md={4} ><KrField label="其他收入：" component="labelText" value={orderBaseInfo.otherincome} defaultValue="0" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="营业外收入：" component="labelText" value={orderBaseInfo.nonbusinessincome} defaultValue="0" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="生活消费收入：" component="labelText" value={orderBaseInfo.liveincome} width={120} defaultValue="0" alignRight={true}/></Col>
 				</Row>
 				<Row>						
-				<Col md={4} ><KrField label="订单描述" component="labelText" value={orderBaseInfo.mainbilldesc} defaultValue="无"/></Col>
+				<Col md={4} ><KrField label="订单描述：" component="labelText" value={orderBaseInfo.mainbilldesc} defaultValue="无" alignRight={true}/></Col>
 				</Row>
 
 
@@ -296,7 +296,7 @@ export default class OrderDetail extends React.Component {
 					<TableRowColumn><KrDate.Format value={item.leaseBegindate}/></TableRowColumn>
 					<TableRowColumn> <KrDate.Format value={item.leaseEnddate}/></TableRowColumn>
 					<TableRowColumn>
-					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)}/>
+					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} style={{color:'#499df1'}}/>
 					{item.contractstate != 'EXECUTE'  && <Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
 					</TableRowColumn>
 					</TableRow>
@@ -328,7 +328,7 @@ export default class OrderDetail extends React.Component {
 								<Col md={3} align="left" className="ContractName"><Circle type={list.payStatus}/>款项：{list.installmentName}</Col>
 								<Col md={3} align="left" className="ContractName">计划付款日期：<KrDate.Format value={list.installmentReminddate}/></Col>
 								<Col md={3} align="left" className="ContractName">计划付款金额：{list.installmentAmount}</Col>
-								<Col md={3} align="left" className="ContractName">实际付款金额：{list.installmentBackamount}</Col>
+								<Col md={3} align="left" className="ContractName">实际付款金额：<span style={{color:'red'}}>{list.installmentBackamount}</span></Col>
 								</Row>
 							)
 						})
@@ -337,7 +337,7 @@ export default class OrderDetail extends React.Component {
 					</Grid>
 				);
 			})}
-
+			<span className="border-bottom"></span>
 			
 
 
