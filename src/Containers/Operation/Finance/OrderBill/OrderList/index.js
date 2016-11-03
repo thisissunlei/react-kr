@@ -95,7 +95,7 @@ export default class AttributeSetting extends Component {
 	onExport(idList) {		
 		var list = [];			
 		idList.map(function(item, index) {
-         var arrlist = {};
+        var arrlist = {};
 			arrlist.communityid = item.communityid;
 			arrlist.customername = item.customername;
 			arrlist.mainbilltype = item.mainbilltype;

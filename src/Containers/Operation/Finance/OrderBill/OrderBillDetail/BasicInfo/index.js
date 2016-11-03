@@ -69,11 +69,7 @@ export default class BasicInfo extends Component{
 			           <KrField grid={1/3} label="社区名称:" component="labelText" value={detail.communityname} defaultValue="无"/>
 			           <KrField grid={1/3} label="客户名称:" component="labelText" value={detail.customername} defaultValue="无"/>
 
-			           <KrField grid={1/3} label="订单名称:" component="group">
-			             <a  href={`./#/operation/customerManage/${this.props.detail.customerid}/order/${this.context.params.orderId}/detail`} target="view_window" className='ui-href-color'>{detail.mainbillname}</a>
-			           </KrField>
-
-
+			           <KrField grid={1/3}  component="labelText" type="link" label="订单名称:" value={detail.mainbillname} href={`./#/operation/customerManage/${this.props.detail.customerid}/order/${this.context.params.orderId}/detail`}  /> 
 
                        <KrField grid={1/3} label="当前工位数:" component="labelText" value={detail.totalstationnum} defaultValue="无"/>
 			 
