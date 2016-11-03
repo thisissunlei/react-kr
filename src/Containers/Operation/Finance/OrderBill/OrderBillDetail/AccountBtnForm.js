@@ -24,6 +24,7 @@ import {
 	Form,
 	Dialog,
 	KrField,
+	ButtonGroup,
 } from 'kr-ui';
 
 
@@ -86,8 +87,20 @@ export default class AccountBtnForm extends Component{
 					<KrField grid={1} name="finaflowamount" type="text" component="input" label="金额（元）" requireLabel={true}/> 
 					<KrField grid={1} name="finaflowdesc" type="text" component="input" label="备注" /> 
 					<KrField grid={1} name="fileids" component="file" label="上传附件" />
-					<Button  label="确定" type="submit" primary={true} /> 
-					<Button  label="取消" type="button" onTouchTap={this.onCancel} /> 
+
+
+					
+					<Grid style={{marginTop:20}}>
+						<Row>
+							<Col md={12} align="right">
+								<ButtonGroup>
+									<Button  label="确定" type="submit" primary={true} /> 
+									<Button  label="取消" type="button" onTouchTap={this.onCancel} /> 
+								</ButtonGroup>
+							</Col>
+						</Row>
+					</Grid>
+
 				</Form>
 
 			);
