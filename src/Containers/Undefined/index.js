@@ -26,6 +26,7 @@ import {
 	DotTitle,
 	BraceWidth,
 	SelfAdaption,
+	LineText
 } from 'kr-ui';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
@@ -82,6 +83,8 @@ export default class Undefined extends Component {
 					 
 
 					</DotTitle>
+
+					<LineText title='回款' primary='true' />
 				</div>	
 		);
 

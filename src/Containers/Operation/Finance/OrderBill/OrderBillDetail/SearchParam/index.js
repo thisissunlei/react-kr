@@ -21,6 +21,7 @@ import {
 	List,
  	ListItem,
 	LabelText,
+	LineText
 } from 'kr-ui';
 
 
@@ -68,12 +69,13 @@ export default class SearchParam extends Component{
 
 		return(
 
-		<div>
-					<Table  style={{marginTop:10}} displayCheckbox={false}>
-					  <TableHeader>
-						<TableHeaderColumn onTouchTap={this.onSearch.bind(this,'PAYMENT','basic','','SETTLED')} colSpan={2}>回款</TableHeaderColumn>
-					  </TableHeader>
+		<div>     
 
+		            
+		            <LineText title='回款' primary='false' onTouchTap={this.onSearch.bind(this,'PAYMENT','basic','','SETTLED')}/>
+
+					<Table  style={{marginTop:10}} displayCheckbox={false}>
+					  
 					 <TableBody>
 						 {detailPayment.map((item,index)=><TableRow key={index}>			
 							<TableRowColumn onTouchTap={this.onSearch.bind(this,'PAYMENT',item.propcode,item.id,item.propInfo)}>{item.propname}</TableRowColumn>
