@@ -19,6 +19,7 @@ import IframeContent from './IframeContent';
 //import Tabs from './Tabs/index';
 import PageHeader from './PageHeader';
 import Paper from './Paper';
+import SplitLine from './SplitLine';
 
 import {
 	Grid,
@@ -55,6 +56,7 @@ module.exports = {
 	Paper,
 	IframeContent,
 	Calendar,
+	SplitLine,
 	Section,
 	BreadCrumbs,
 	Date,

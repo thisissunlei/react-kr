@@ -1,0 +1,45 @@
+.view-background{
+	// border:1px solid red;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	box-shadow:0 1px 16px #666; 
+	top: 88px;
+	&:before{
+		content: '';
+		width: 100%;
+		background: url('../images/viewHead.png') no-repeat 100%;
+		height: 17px;
+		display: block;
+		background-size: 100% 100%;
+		position: absolute;
+		top: -12px;
+	}
+	&:after{
+		content: '';
+		width: 100%;
+		background: url('../images/viewFooter.png') no-repeat 100%;
+		height: 10px;
+		display: block;
+		background-size: 100% 100%;
+		position: absolute;
+		bottom: -8px;
+	}
+}
+.circle-head{
+	width: 70px;
+	height: 70px;
+	background: url('../images/head.png') no-repeat 100%;
+	background-size: 100% 100%;
+	margin:0 auto;
+	margin-bottom: 50px;
+	position: relative;
+	&:after{
+		content:'';
+		border:1px dashed #499df1;
+		position: absolute;
+		left: 50%;
+		bottom: -8px;
+		height: 10px;
+	}
+}

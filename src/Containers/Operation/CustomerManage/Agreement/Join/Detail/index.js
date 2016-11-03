@@ -8,9 +8,11 @@ import {
 	Notify,
 	Section,
 	Button,
+	SplitLine
 } from 'kr-ui';
 
 import {KrField,LabelText} from 'kr-ui/Form';
+import {View} from 'kr-ui/contractView';
 import Date from 'kr-ui/Date';
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -66,11 +68,10 @@ export default  class JoinDetail extends Component {
 	BasicRender(basic){
 
 		  return (
-				  <div className="content">
-				  	<div className="head-circle"></div>
-				  	<div className="bgc"></div>
-				  	<div className="container">
-
+				  <div className="content" >
+				  	<View/>
+				  	<div className="content-info" >
+				  			
 					<KrField component="labelText" grid={1/2} label="出租方" value={basic.lessorName} defaultValue="无" requireBlue={true}/>
 					<KrField component="labelText" grid={1/2} label="地址" value={basic.lessorAddress} defaultValue="无"/>
 
@@ -82,7 +83,7 @@ export default  class JoinDetail extends Component {
 
 					<KrField component="labelText" grid={1/2} label="联系人" value={basic.leaseContact} defaultValue="无"/>
 					<KrField component="labelText" grid={1/2} label="电话" value={basic.leaseContacttel} defaultValue="无"/>
-
+					<SplitLine />
 					<KrField component="labelText" grid={1/2} label="所属社区" value={basic.communityName} defaultValue="无"/>
 					<KrField component="labelText" grid={1/2} label="所属楼层" value={basic.wherefloor} defaultValue="无"/>
 
@@ -129,7 +130,7 @@ export default  class JoinDetail extends Component {
 							})}
 			  		</KrField>
 
-											
+									
 					<Section title="租赁明细" description=""> 
 
 						<Table displayCheckbox={false}>
@@ -165,7 +166,7 @@ export default  class JoinDetail extends Component {
 						</Table>		
 
 					</Section>
-				</div>
+					</div>
 			</div>
 		  );
 
