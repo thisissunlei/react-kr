@@ -34,6 +34,7 @@ export default class Pagination extends Component {
 		this.createOther = this.createOther.bind(this);
 		this.renderJump = this.renderJump.bind(this);
 		this.onJump = this.onJump.bind(this);
+		this.renderTotalCount = this.renderTotalCount.bind(this);
 
 		this.state = {
 			jumpPageValue: ''
@@ -180,8 +181,10 @@ export default class Pagination extends Component {
 
 
 		for (var i = pageStart; i < pageEnd; i++) {
+
 			props.key = i;
 			props.className = 'item';
+
 			if (page == i) {
 				props.className += ' active';
 			}
@@ -251,11 +254,29 @@ export default class Pagination extends Component {
 			</div>
 		);
 	}
+
+	renderTotalCount(){
+
+		let {
+			totalCount
+		} = this.props;
+
+		totalCount = totalCount ||0;
+
+		return (
+			<div className="item-total-count">
+				<span>共</span>
+				<span className="num">{totalCount}</span>
+				<span>记录</span>
+			</div>
+		);
+	}
 	render() {
 
 		return (
 
 			<div className="ui-pagination">
+					{this.renderTotalCount()}
 					{this.renderFirst()}
 					{this.renderBody()}
 					{this.renderLast()}
