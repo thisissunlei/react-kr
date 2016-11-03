@@ -530,6 +530,7 @@ class NewCreateForm extends Component {
 
 				<KrField grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true}/> 
 				<KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true}/> 
+
 				<KrField grid={1/2}  name="contractmark" component="textarea" label="备注" /> 
 				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} requireLabel={true}/> 
 
@@ -538,7 +539,6 @@ class NewCreateForm extends Component {
 					<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText"  label="会议室" value={changeValues.boardroomnum} /> 
 				</KrField>
 
-				
                   <DotTitle title='租赁明细'>
 				        <Grid>
 							<Row>

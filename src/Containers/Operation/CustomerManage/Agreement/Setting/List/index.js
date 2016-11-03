@@ -485,23 +485,44 @@ export default class SettingList extends Component {
 
 
   renderItem(item, index) {
-
-    return (
-      <TableRow key={index} >
-          <TableRowColumn>{item.sp.dicName}</TableRowColumn>
-            <TableRowColumn>{item.sp.enableFlag?'是':'否'}</TableRowColumn>
-            <TableRowColumn>{item.sp.createName}</TableRowColumn>
-            <TableRowColumn type="date">
-                 <KrDate.Format value={item.sp.createTime}/>
+    if (index % 2 == 0) {
+      return (
+        <TableRow key={index} className="odd">
+            <TableRowColumn>{item.sp.dicName}</TableRowColumn>
+              <TableRowColumn>{item.sp.enableFlag?'是':'否'}</TableRowColumn>
+              <TableRowColumn>{item.sp.createName}</TableRowColumn>
+              <TableRowColumn type="date">
+                   <KrDate.Format value={item.sp.createTime}/>
+              </TableRowColumn>
+              <TableRowColumn>{item.sp.remark}</TableRowColumn>
+              <TableRowColumn>
+              <Button label="查看" type="link"  onClick={this.openViewDialog.bind(this,index)}/>
+              <Button label="编辑" type="link"  onClick={this.openUpdateDialog.bind(this,index)}/>
+              <Button label="添加子项" type="link" id={this.state.id}  onClick={this.openAddDialog.bind(this,item)}/>
             </TableRowColumn>
-            <TableRowColumn>{item.sp.remark}</TableRowColumn>
-            <TableRowColumn>
-            <Button label="查看" type="link"  onClick={this.openViewDialog.bind(this,index)}/>
-            <Button label="编辑" type="link"  onClick={this.openUpdateDialog.bind(this,index)}/>
-            <Button label="添加子项" type="link" id={this.state.id}  onClick={this.openAddDialog.bind(this,item)}/>
-          </TableRowColumn>
-         </TableRow>
-    );
+           </TableRow>
+      );
+    } else {
+      return (
+        <TableRow key={index} className="even" >
+            <TableRowColumn>{item.sp.dicName}</TableRowColumn>
+              <TableRowColumn>{item.sp.enableFlag?'是':'否'}</TableRowColumn>
+              <TableRowColumn>{item.sp.createName}</TableRowColumn>
+              <TableRowColumn type="date">
+                   <KrDate.Format value={item.sp.createTime}/>
+              </TableRowColumn>
+              <TableRowColumn>{item.sp.remark}</TableRowColumn>
+              <TableRowColumn>
+              <Button label="查看" type="link"  onClick={this.openViewDialog.bind(this,index)}/>
+              <Button label="编辑" type="link"  onClick={this.openUpdateDialog.bind(this,index)}/>
+              <Button label="添加子项" type="link" id={this.state.id}  onClick={this.openAddDialog.bind(this,item)}/>
+            </TableRowColumn>
+           </TableRow>
+      );
+
+    }
+
+
   }
 
   renderItemChild(item, index) {
@@ -523,9 +544,8 @@ export default class SettingList extends Component {
                   <TableHeaderColumn>操作</TableHeaderColumn>
               </TableHeader>
               <TableBody>
-             {item.map((item,index)=>{
-                if(index%2==0){
-              <TableRow key={index} className="odd">
+             {item.map((item,index)=> <TableRow key={index}>
+                    
                         <TableRowColumn>{item.dicName}</TableRowColumn>
                         <TableRowColumn>{item.enableFlag?'是':'否'}</TableRowColumn>
                         <TableRowColumn>{item.createName}</TableRowColumn>
@@ -538,25 +558,9 @@ export default class SettingList extends Component {
                           <Button label="编辑" type="link"  onClick={this.openUpdateChildDialog.bind(this,item)}/>
                         </TableRowColumn>
                       </TableRow>
-                }else{
-                     <TableRow key={index} className="even">
-                        <TableRowColumn>{item.dicName}</TableRowColumn>
-                        <TableRowColumn>{item.enableFlag?'是':'否'}</TableRowColumn>
-                        <TableRowColumn>{item.createName}</TableRowColumn>
-                        <TableRowColumn>
-                            <KrDate.Format value={item.createTime}/>
-                        </TableRowColumn>
-                        <TableRowColumn>{item.remark}</TableRowColumn>
-                        <TableRowColumn>
-                          <Button label="查看" type="link"  onClick={this.openViewChildDialog.bind(this,item)}/>
-                          <Button label="编辑" type="link"  onClick={this.openUpdateChildDialog.bind(this,item)}/>
-                        </TableRowColumn>
-                      </TableRow>
-
-
-                }
+               
              
-              })}
+              )}
               
              
            </TableBody>
