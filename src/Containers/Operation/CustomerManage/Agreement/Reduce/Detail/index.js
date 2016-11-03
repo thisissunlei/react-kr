@@ -11,7 +11,8 @@ import {
 	Loading,
 	Notify,
 	Section,
-	SplitLine
+	SplitLine,
+	DotTitle
 } from 'kr-ui';
 
 import {KrField,LabelText} from 'kr-ui/Form';
@@ -136,7 +137,7 @@ function getOrderUrl(){
 			  		</KrField>
 
 											
-			<Section title="租赁明细" description=""> 
+			<DotTitle title="租赁明细" > 
 
 											<Table displayCheckbox={false}>
 															<TableHeader>
@@ -171,7 +172,7 @@ function getOrderUrl(){
 
 						  
 
-											  </Section>
+											  </DotTitle>
 											  </div>
 				  </div>
 		  );

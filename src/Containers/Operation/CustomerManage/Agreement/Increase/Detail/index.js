@@ -6,8 +6,8 @@ import {
 	Notify,
 	Section,
 	KrDate,
-	SplitLine
-
+	SplitLine,
+	DotTitle
 } from 'kr-ui';
 import {View} from 'kr-ui/contractView';
 
@@ -98,7 +98,7 @@ export default  class JoinDetail extends Component {
 					<KrField component="labelText" grid={1/2} label="合同编号" value={basic.contractcode} defaultValue="无"/>
 
 					<KrField component="labelText" grid={1/2} label="支付方式" value={basic.payType && basic.payType.dicName} defaultValue="无"/>
-					<KrField component="group" grid={1/2} label="租赁期限">
+					<KrField component="group" grid={1/2} label="租赁期限" requireBlue={true}>
 						<KrDate.Format value={basic.leaseBegindate}/>  ——  <KrDate.Format value={basic.leaseEnddate}/>
 					</KrField>
 
@@ -127,7 +127,7 @@ export default  class JoinDetail extends Component {
 			  		</KrField>
 
 											
-					<Section title="租赁明细" description=""> 
+					<DotTitle title='租赁明细'>
 
 						<Table displayCheckbox={false} >
 							<TableHeader>
@@ -161,7 +161,7 @@ export default  class JoinDetail extends Component {
 							</TableBody>
 						</Table>		
 
-					</Section>
+					</DotTitle>
 					</div>
 			</div>
 		  );

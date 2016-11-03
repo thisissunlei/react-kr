@@ -20,6 +20,7 @@ import {
 	Row,
 	Col,
 	SplitLine,
+	DotTitle
 } from 'kr-ui';
 import {View} from 'kr-ui/contractView';
 
@@ -155,7 +156,7 @@ export default  class AdmitDetail extends Component {
 			  		</KrField>
 
 
-<Section title="租赁明细" description=""> 
+								<DotTitle title='租赁明细'>
 
 								<Table displayCheckbox={false}>
 												<TableHeader>
@@ -188,7 +189,7 @@ export default  class AdmitDetail extends Component {
 
 			  
 
-								  </Section>
+								  </DotTitle>
 								  </div>
 				  </div>
 		  );
