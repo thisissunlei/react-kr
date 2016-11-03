@@ -1,6 +1,17 @@
-import React, {Component, PropTypes} from 'react';
-import {reduxForm,submitForm,change,reset} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
+import {
+	reduxForm,
+	submitForm,
+	change,
+	reset
+} from 'redux-form';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
 
 import {
@@ -14,82 +25,90 @@ import {
 import NewCreateForm from './NewCreateForm';
 
 
-export default  class JoinCreate extends Component {
+export default class JoinCreate extends Component {
 
-	 static contextTypes = {
-	  	params: React.PropTypes.object.isRequired
-    }
-    
-	constructor(props,context){
+	static contextTypes = {
+		params: React.PropTypes.object.isRequired
+	}
+
+	constructor(props, context) {
 		super(props, context);
 
 		this.onCreateSubmit = this.onCreateSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
 
 		this.state = {
-			stationVos:[],
-			initialValues:{},
-			optionValues:{},
-			formValues:{},
+			stationVos: [],
+			initialValues: {},
+			optionValues: {},
+			formValues: {},
 		}
-		
-		 Store.dispatch(reset('increaseCreateForm'));
+
+		Store.dispatch(reset('increaseCreateForm'));
 	}
 
-	 onCreateSubmit(formValues){
-		formValues = Object.assign({},formValues);
-		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract',{},formValues)).then(function(response){
+	onCreateSubmit(formValues) {
+		formValues = Object.assign({}, formValues);
+		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract', {}, formValues)).then(function(response) {
 			Notify.show([{
-				message:'更新成功',
+				message: '更新成功',
 				type: 'success',
 			}]);
-		location.href =  "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/increase/"+response.contractId+"/detail";
+			location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/increase/" + response.contractId + "/detail";
 
-		}).catch(function(err){
+		}).catch(function(err) {
 			Notify.show([{
-				message:err.message,
+				message: err.message,
 				type: 'danger',
 			}]);
-	   	});
-	 }
-
-	onCancel(){
-		let {params} = this.context;
-		window.location.href =  `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
+		});
 	}
 
-	 componentDidMount(){
+	onCancel() {
+		let {
+			params
+		} = this.context;
+		window.location.href = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
+	}
+
+	componentDidMount() {
 
 		var _this = this;
-		const {params} = this.props;
+		const {
+			params
+		} = this.props;
 		let initialValues = {};
 		let optionValues = {};
-		 let stationVos = [];
+		let stationVos = [];
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
+		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+			customerId: params.customerId,
+			mainBillId: params.orderId,
+			communityId: 1
+		})).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
-			initialValues.mainbillid =  params.orderId;
+			initialValues.mainbillid = params.orderId;
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
-			initialValues.signdate = +new Date((new Date()).getTime() - 24*60*60*1000);
+			initialValues.signdate = +new Date((new Date()).getTime() - 24 * 60 * 60 * 1000);
 
-			optionValues.communityAddress = response.customer.communityAddress; 
+			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）	
 			initialValues.contracttype = 'ADDRENT';
 
-			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item,index){
+			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
 				item.value = item.id;
 				item.label = item.corporationName;
 				return item;
 			});
-			optionValues.paymentList = response.payment.map(function(item,index){
+			optionValues.paymentList = response.payment.map(function(item, index) {
 				item.value = item.id;
 				item.label = item.dicName;
 				return item;
 			});
-			optionValues.payTypeList = response.payType.map(function(item,index){
+			optionValues.payTypeList = response.payType.map(function(item, index) {
 				item.value = item.id;
 				item.label = item.dicName;
 				return item;
@@ -100,89 +119,95 @@ export default  class JoinCreate extends Component {
 			optionValues.leaseAddress = response.customer.customerAddress;
 			optionValues.communityName = response.customer.communityName;
 			optionValues.communityId = response.customer.communityid;
-			optionValues.mainbillCommunityId =  response.mainbillCommunityId||1;
+			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
 
-	   	Store.dispatch(Actions.callAPI('show-checkin-agreement',{id:params.id})).then(function(response){
+			Store.dispatch(Actions.callAPI('show-checkin-agreement', {
+				id: params.id
+			})).then(function(response) {
 
 
-					optionValues.lessorContactName = response.lessorContactName;
+				optionValues.lessorContactName = response.lessorContactName;
 
-					optionValues.contractFileList = response.contractFileList;
+				optionValues.contractFileList = response.contractFileList;
 
-					initialValues.id = response.id;
-			   		initialValues.leaseId = response.leaseId;
-			   		initialValues.contractcode = response.contractcode;
-			   		
-
-			   		initialValues.lessorContactid = response.lessorContactid;
-			   		initialValues.lessorContactName = response.lessorContactName;
-
-			   		initialValues.leaseId = response.leaseId;
-					initialValues.leaseAddress = response.leaseAddress;
-					initialValues.leaseContact = response.leaseContact;
-					initialValues.leaseContacttel = response.leaseContacttel;
-					initialValues.paytype = response.payType.id;
-					initialValues.paymodel = response.payment.id;
-					initialValues.stationnum = response.stationnum;
-					initialValues.wherefloor = response.wherefloor;
-					initialValues.rentaluse = response.rentaluse;
-					initialValues.contractmark = response.contractmark;
-					initialValues.totalrent = response.totalrent;
-					initialValues.totaldeposit = response.totaldeposit;
-					initialValues.lessorContacttel = response.lessorContacttel;
-
-					//时间
-			   		initialValues.firstpaydate = new Date(response.firstpaydate);
-					initialValues.signdate = new Date(response.signdate);
-					initialValues.leaseBegindate = new Date(response.leaseBegindate);
-					initialValues.leaseEnddate = new Date(response.leaseEnddate);
-
-					console.log('时间',initialValues);
+				initialValues.id = response.id;
+				initialValues.leaseId = response.leaseId;
+				initialValues.contractcode = response.contractcode;
 
 
-					//处理stationvos
-					stationVos = response.stationVos;
+				initialValues.lessorContactid = response.lessorContactid;
+				initialValues.lessorContactName = response.lessorContactName;
 
-			   		console.log(stationVos,'---->>>>',response);
+				initialValues.leaseId = response.leaseId;
+				initialValues.leaseAddress = response.leaseAddress;
+				initialValues.leaseContact = response.leaseContact;
+				initialValues.leaseContacttel = response.leaseContacttel;
+				initialValues.paytype = response.payType.id;
+				initialValues.paymodel = response.payment.id;
+				initialValues.stationnum = response.stationnum;
+				initialValues.wherefloor = response.wherefloor;
+				initialValues.rentaluse = response.rentaluse;
+				initialValues.contractmark = response.contractmark;
+				initialValues.totalrent = response.totalrent;
+				initialValues.totaldeposit = response.totaldeposit;
+				initialValues.lessorContacttel = response.lessorContacttel;
 
-					_this.setState({
-						initialValues,
-						optionValues,
-						stationVos
-					});
+				//时间
+				initialValues.firstpaydate = new Date(response.firstpaydate);
+				initialValues.signdate = new Date(response.signdate);
+				initialValues.leaseBegindate = new Date(response.leaseBegindate);
+				initialValues.leaseEnddate = new Date(response.leaseEnddate);
 
-				}).catch(function(err){
-					Notify.show([{
-						message:'后台出错请联系管理员',
-						type: 'danger',
-					}]);
-			   	});
+				console.log('时间', initialValues);
 
 
-		}).catch(function(err){
+				//处理stationvos
+				stationVos = response.stationVos;
+
+				console.log(stationVos, '---->>>>', response);
+
+				_this.setState({
+					initialValues,
+					optionValues,
+					stationVos
+				});
+
+			}).catch(function(err) {
+				Notify.show([{
+					message: '后台出错请联系管理员',
+					type: 'danger',
+				}]);
+			});
+
+
+		}).catch(function(err) {
 			Notify.show([{
-				message:'后台出错请联系管理员',
+				message: '后台出错请联系管理员',
 				type: 'danger',
 			}]);
-	   	});
+		});
 
-	 }
+	}
 
 
-  render() {
+	render() {
 
-	  let {initialValues,optionValues,stationVos} = this.state;
+		let {
+			initialValues,
+			optionValues,
+			stationVos
+		} = this.state;
 
-    return (
+		return (
 
-		 <div>
+			<div>
 		 	<BreadCrumbs children={['系统运营','客户管理','增租协议书']}/>
-			<Section title="编辑增租协议书" description=""> 
+			<Section title="增租协议书" description=""> 
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
 			</Section>
 
 		</div>
-	);
-  }
+		);
+	}
 }

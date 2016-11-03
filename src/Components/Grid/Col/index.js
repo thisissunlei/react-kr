@@ -70,8 +70,7 @@ export default class Col extends React.Component {
 			style.textAlign = align;
 		}
 
-		
-
+	
 		return (
 
 			<div className={className} style={style}> 

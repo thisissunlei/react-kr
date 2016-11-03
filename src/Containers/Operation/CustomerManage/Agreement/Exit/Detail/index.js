@@ -1,4 +1,7 @@
-import React, {Component, PropTypes} from 'react';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
 
 import {
 	BreadCrumbs,
@@ -8,89 +11,115 @@ import {
 	SplitLine,
 } from 'kr-ui';
 
-import {KrField,LabelText} from 'kr-ui/Form';
-import {View} from 'kr-ui/contractView';
+import {
+	KrField,
+	LabelText
+} from 'kr-ui/Form';
+import {
+	View
+} from 'kr-ui/contractView';
 
 import Date from 'kr-ui/Date';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import { Button } from 'kr-ui';
-import {Actions,Store} from 'kr/Redux';
+import {
+	Button
+} from 'kr-ui';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 
-import {Grid,Row,Col} from 'kr-ui/Grid';
+import {
+	Grid,
+	Row,
+	Col
+} from 'kr-ui/Grid';
 import dateFormat from 'dateformat';
 
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
+import {
+	Table,
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
+	TableRowColumn,
+	TableFooter
+} from 'kr-ui/Table';
 
-export default  class ExitDetail extends Component {
+export default class ExitDetail extends Component {
 
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 
 
 		this.state = {
-			loading:true,
-			basic:{
-				payment:{
-				},
-				stationVos:[]
+			loading: true,
+			basic: {
+				payment: {},
+				stationVos: []
 			}
 		}
 
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('getFnaContractWithdrawalById',{id:this.props.params.id})).then(function(response){
+		Store.dispatch(Actions.callAPI('getFnaContractWithdrawalById', {
+			id: this.props.params.id
+		})).then(function(response) {
 			_this.setState({
-				basic:response
+				basic: response
 			});
 
 		});
 
-		setTimeout(function(){
+		setTimeout(function() {
 			_this.setState({
-				loading:false
+				loading: false
 			});
-		},2000);
+		}, 2000);
 	}
 
-	componentWillMount(){
+	componentWillMount() {
 
 	}
 
 
-  render() {
+	render() {
 
-  	if(this.state.loading){
-  		return(<Loading/>);
-  	}
-
-	 const orderBaseInfo = {};
-	 const contractList = [];
-	 const params = this.props.params;
-	 function onCancel(){
-		location.href="/#/operation/customerManage/"+params.customerId+ "/order/"+params.orderId+"/detail"
-	}
-
-	function getOrderUrl(){
-		return `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
-	}
-
-	  const {basic} = this.state;
-	  basic.firstpaydate = dateFormat(basic.firstpaydate,"yyyy-mm-dd h:MM:ss");
-	  basic.signdate = dateFormat(basic.signdate,"yyyy-mm-dd h:MM:ss");
-	  const BasicRender = (props)=>{
-	  	const content = {
-			position: 'relative',
-			width: '900px',
-			margin: '0 auto'
+		if (this.state.loading) {
+			return (<Loading/>);
 		}
-		const info = {
-			overflow:'hidden',
+
+		const orderBaseInfo = {};
+		const contractList = [];
+		const params = this.props.params;
+
+		function onCancel() {
+			location.href = "/#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/detail"
+		}
+
+		function getOrderUrl() {
+			return `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
+		}
+
+		const {
+			basic
+		} = this.state;
+		basic.firstpaydate = dateFormat(basic.firstpaydate, "yyyy-mm-dd h:MM:ss");
+		basic.signdate = dateFormat(basic.signdate, "yyyy-mm-dd h:MM:ss");
+		const BasicRender = (props) => {
+			const content = {
+				position: 'relative',
+				width: '900px',
+				margin: '0 auto'
+			}
+			const info = {
+				overflow: 'hidden',
 			}
 
-		  return (
-				 <div className="content" style={content}>
+			return (
+				<div className="content" style={content}>
 				  	<View/>
 				  	<div className="content-info" style={info} >
 				  	
@@ -127,15 +156,15 @@ export default  class ExitDetail extends Component {
 			  		</KrField>
 			</div>
 				  </div>
-		  );
+			);
 
-	  }
+		}
 
-    return (
+		return (
 
-		  <div>
+			<div>
 				<BreadCrumbs children={['社区运营',,'合同详情','退租合同查看']}/>
-				<Section title="退租合同(查看)" description=""> 
+				<Section title="退租协议书" description=""> 
 					<BasicRender/>
 					<Grid style={{marginTop:30}}>
 				  <Row>
@@ -148,11 +177,6 @@ export default  class ExitDetail extends Component {
 
 		  </div>
 
-    );
-  }
+		);
+	}
 }
-
-
-
-
-

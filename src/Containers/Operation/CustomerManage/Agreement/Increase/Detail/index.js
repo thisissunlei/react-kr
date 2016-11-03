@@ -1,4 +1,7 @@
-import React, {Component, PropTypes} from 'react';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
 
 import {
 	BreadCrumbs,
@@ -9,31 +12,52 @@ import {
 	SplitLine,
 	DotTitle
 } from 'kr-ui';
-import {View} from 'kr-ui/contractView';
+import {
+	View
+} from 'kr-ui/contractView';
 
-import {KrField,LabelText} from 'kr-ui/Form';
+import {
+	KrField,
+	LabelText
+} from 'kr-ui/Form';
 import Date from 'kr-ui/Date';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import { Button } from 'kr-ui/Button';
-import {Actions,Store} from 'kr/Redux';
+import {
+	Button
+} from 'kr-ui/Button';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 
-import {Grid,Row,Col} from 'kr-ui/Grid';
+import {
+	Grid,
+	Row,
+	Col
+} from 'kr-ui/Grid';
 
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
+import {
+	Table,
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
+	TableRowColumn,
+	TableFooter
+} from 'kr-ui/Table';
 
-export default  class JoinDetail extends Component {
+export default class JoinDetail extends Component {
 
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 
 
 		this.state = {
-			loading:true,
-			basic:{
-				payment:{
-				},
+			loading: true,
+			basic: {
+				payment: {},
 			}
 		}
 
@@ -41,40 +65,42 @@ export default  class JoinDetail extends Component {
 
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 
 		var _this = this;
-		Store.dispatch(Actions.callAPI('show-checkin-agreement',{id:this.props.params.id}))
-		.then(function(response){
-			_this.setState({
-				basic:response,
-				loading:false
+		Store.dispatch(Actions.callAPI('show-checkin-agreement', {
+				id: this.props.params.id
+			}))
+			.then(function(response) {
+				_this.setState({
+					basic: response,
+					loading: false
+				});
+			}).catch(function(err) {
+				Notify.show([{
+					message: err.message,
+					type: 'danger'
+				}]);
 			});
-		}).catch(function(err){
-			Notify.show([{
-				message: err.message,
-				type: 'danger'
-			}]);
-		});
 
 	}
 
-	componentWillMount(){
+	componentWillMount() {
 
 	}
-	BasicRender(basic){
+	BasicRender(basic) {
 		const content = {
 			position: 'relative',
 			width: '900px',
 			margin: '0 auto'
 		}
 		const info = {
-			overflow:'hidden',
-			padding:30
+			overflow: 'hidden',
+			padding: 30
 		}
 
-		  return (
-				  <div className="content" style={content}>
+		return (
+			<div className="content" style={content}>
 				  	<View/>
 				  	<div className="content-info" style={info} >
 				  	
@@ -164,42 +190,44 @@ export default  class JoinDetail extends Component {
 					</DotTitle>
 					</div>
 			</div>
-		  );
+		);
 
-	  };
-
-
-  render() {
-
-  	if(this.state.loading){
-  		return(<Loading/>);
-  	}
-	const params = this.props.params;
-	 const orderBaseInfo = {};
-	 const contractList = [];
+	};
 
 
-	  const {basic} = this.state;
+	render() {
 
-	function onCancel(){
-		window.history.back();
-	}
+		if (this.state.loading) {
+			return (<Loading/>);
+		}
+		const params = this.props.params;
+		const orderBaseInfo = {};
+		const contractList = [];
 
-	function editUrl(){
-		return "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/join/"+params.id+"/edit";
-	}
 
-	function getOrderUrl(){
-		return `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
-	}
+		const {
+			basic
+		} = this.state;
 
-    return (
+		function onCancel() {
+			window.history.back();
+		}
 
-      <div>
+		function editUrl() {
+			return "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/join/" + params.id + "/edit";
+		}
+
+		function getOrderUrl() {
+			return `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
+		}
+
+		return (
+
+			<div>
 
 			<BreadCrumbs children={['社区运营',,'合同详情','增租合同查看']}/>
 
-			<Section title="增租合同(查看)" description=""> 
+			<Section title="增租协议书" description=""> 
 
 			{this.BasicRender(basic)}
 			  <Grid style={{marginTop:30}}>
@@ -213,11 +241,6 @@ export default  class JoinDetail extends Component {
 			</Section>
       </div>
 
-    );
-  }
+		);
+	}
 }
-
-
-
-
-

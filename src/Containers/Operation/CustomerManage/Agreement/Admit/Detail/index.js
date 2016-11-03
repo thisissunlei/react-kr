@@ -1,4 +1,7 @@
-import React, {Component, PropTypes} from 'react';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
 
 import {
 	BreadCrumbs,
@@ -10,10 +13,10 @@ import {
 	LabelText,
 	KrDate,
 	Table,
-   	TableBody, 
-	TableHeader, 
-	TableHeaderColumn, 
-	TableRow, 
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
 	TableRowColumn,
 	TableFooter,
 	Grid,
@@ -22,26 +25,30 @@ import {
 	SplitLine,
 	DotTitle
 } from 'kr-ui';
-import {View} from 'kr-ui/contractView';
+import {
+	View
+} from 'kr-ui/contractView';
 
 
 
-import {Actions,Store} from 'kr/Redux';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 
 
-export default  class AdmitDetail extends Component {
+export default class AdmitDetail extends Component {
 
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 
 
 		this.state = {
-			isLoading:true,
-			basic:{
-				payment:{
-				},
-				stationVos:[]
+			isLoading: true,
+			basic: {
+				payment: {},
+				stationVos: []
 			}
 		}
 
@@ -49,12 +56,14 @@ export default  class AdmitDetail extends Component {
 
 
 
-		Store.dispatch(Actions.callAPI('showFinaContractIntentletter', {id:this.props.params.id})).then(function(response){
+		Store.dispatch(Actions.callAPI('showFinaContractIntentletter', {
+			id: this.props.params.id
+		})).then(function(response) {
 			_this.setState({
-				basic:response,
-				isLoading:false
+				basic: response,
+				isLoading: false
 			});
-		}).catch(function(err){
+		}).catch(function(err) {
 			Notify.show([{
 				message: err.message,
 				type: 'danger'
@@ -63,52 +72,57 @@ export default  class AdmitDetail extends Component {
 
 	}
 
-	componentWillMount(){
+	componentWillMount() {
 
 	}
 
-  render() {
+	render() {
 
-  	let {isLoading} = this.state;
+		let {
+			isLoading
+		} = this.state;
 
-  	if(isLoading){
-  		return <Loading />
-  	}
+		if (isLoading) {
+			return <Loading />
+		}
 
 
-	 const orderBaseInfo = {};
-	 const contractList = [];
-	 function onCancel(){
-		location.href="/#/operation/customerManage/"+params.customerId+ "/order/"+params.orderId+"/detail";
-	}
-	const params = this.props.params;
+		const orderBaseInfo = {};
+		const contractList = [];
 
-	function getOrderUrl(){
-		return `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
-	}
+		function onCancel() {
+			location.href = "/#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/detail";
+		}
+		const params = this.props.params;
 
-	  const {basic} = this.state;
-	  let dicName;
+		function getOrderUrl() {
+			return `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
+		}
 
-	  if(basic.payment)  {
-	  	dicName = basic.payment.dicName;
-	  }else{
-	  	dicName = '';
-	  }
-	  const content = {
+		const {
+			basic
+		} = this.state;
+		let dicName;
+
+		if (basic.payment) {
+			dicName = basic.payment.dicName;
+		} else {
+			dicName = '';
+		}
+		const content = {
 			position: 'relative',
 			width: '900px',
 			margin: '0 auto'
 		}
 		const info = {
-			overflow:'hidden',
-			padding:30
+			overflow: 'hidden',
+			padding: 30
 		}
 
-	  const BasicRender = (props)=>{
+		const BasicRender = (props) => {
 
-		  return (
-				  <div className="content" style={content}>
+			return (
+				<div className="content" style={content}>
 				  	<View/>
 				  	<div className="content-info" style={info} >
 
@@ -192,17 +206,17 @@ export default  class AdmitDetail extends Component {
 								  </DotTitle>
 								  </div>
 				  </div>
-		  );
+			);
 
-	  }
+		}
 
-    return (
+		return (
 
-      <div>
+			<div>
 
 			<BreadCrumbs children={['社区运营',,'合同详情']}/>
 
-			<Section title="承租合同" description=""> 
+			<Section title="承租意向书" description=""> 
 				<BasicRender/>
 
 
@@ -217,11 +231,6 @@ export default  class AdmitDetail extends Component {
 			</Section>
       </div>
 
-    );
-  }
+		);
+	}
 }
-
-
-
-
-

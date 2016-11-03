@@ -35,7 +35,8 @@ import {
 	Notify,
 	IframeContent,
 	DotTitle,
-	ButtonGroup
+	ButtonGroup,
+	Paper
 } from 'kr-ui';
 import Date from 'kr-ui/Date';
 
@@ -373,36 +374,36 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" /> 
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" /> 
 
-				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}  requireLabel={true}/>
-				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/> 
-				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} placeholder={optionValues.lessorContactName} requireLabel={true}/> 
+				<KrField left={60} name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList}  requireLabel={true}/>
+				<KrField left={60} grid={1/2}  name="lessorAddress" type="text" component="labelText" label="地址" value={changeValues.lessorAddress}/> 
+				<KrField left={60} grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} placeholder={optionValues.lessorContactName} requireLabel={true}/> 
 
-				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true} /> 
+				<KrField left={60} grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true} /> 
 
-				<KrField grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/> 
+				<KrField left={60} grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/> 
 
-				<KrField grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" requireLabel={true}/> 
+				<KrField left={60} grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" requireLabel={true}/> 
 
-				<KrField grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" requireLabel={true} /> 
-				<KrField grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话" requireLabel={true}/> 
+				<KrField left={60} grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" requireLabel={true} /> 
+				<KrField left={60} grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话" requireLabel={true}/> 
 
-				<KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={optionValues.communityName} /> 
+				<KrField left={60} grid={1/2}  name="communityid" component="labelText" label="所属社区" value={optionValues.communityName} /> 
 
-				<KrField name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} requireLabel={true} multi={true} />
-                <KrField grid={1/2}  name="totaldownpayment" type="text" component="input" label="定金总额" requireLabel={true} /> 
-				<KrField name="paymentId"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/> 
+				<KrField left={60} name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} requireLabel={true} multi={true} />
+                <KrField left={60} grid={1/2}  name="totaldownpayment" type="text" component="input" label="定金总额" requireLabel={true} /> 
+				<KrField left={60} name="paymentId"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/> 
 
-				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号" requireLabel={true} /> 
-				<KrField grid={1/2}  name="signdate"  component="date" label="签署日期"  /> 
+				<KrField left={60} grid={1/2}  name="contractcode" type="text" component="input" label="合同编号" requireLabel={true} /> 
+				<KrField left={60} grid={1/2}  name="signdate"  component="date" label="签署日期"  /> 
 				
 				<KrField grid={1/1}  component="group" label="租赁期限" requireLabel={true}> 
 					<KrField grid={1/2}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate}/> 
 					<KrField grid={1/2}  name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} /> 
 				</KrField>
-				<KrField name="templockday"  grid={1} component="input" type="text" label="保留天数" requireLabel={true}/> 
-				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" /> 
+				<KrField left={60} name="templockday"  grid={1} component="input" type="text" label="保留天数" requireLabel={true}/> 
+				<KrField left={60} grid={1/1}  name="contractmark" component="textarea" label="备注" /> 
 
-				<KrField grid={1}  name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList} requireLabel={true}/> 
+				<KrField left={60} grid={1}  name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList} requireLabel={true}/> 
 				
                <KrField grid={1/1} component="group" label="租赁项目" requireLabel={true}> 
 								<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} /> 

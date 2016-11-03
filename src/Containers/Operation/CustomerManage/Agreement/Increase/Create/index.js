@@ -1,6 +1,17 @@
-import React, {Component, PropTypes} from 'react';
-import {reduxForm,submitForm,change,reset} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
+import {
+	reduxForm,
+	submitForm,
+	change,
+	reset
+} from 'redux-form';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
 
 import {
@@ -15,104 +26,114 @@ import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
 
 
-export default  class JoinCreate extends Component {
+export default class JoinCreate extends Component {
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 
 		this.openConfirmCreateDialog = this.openConfirmCreateDialog.bind(this);
 		this.onCreateSubmit = this.onCreateSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
-		this.onConfrimSubmit  = this.onConfrimSubmit.bind(this);
+		this.onConfrimSubmit = this.onConfrimSubmit.bind(this);
 
 		this.state = {
-			initialValues:{},
-			optionValues:{},
-			formValues:{},
-			openConfirmCreate:false
+			initialValues: {},
+			optionValues: {},
+			formValues: {},
+			openConfirmCreate: false
 		}
-		 Store.dispatch(reset('increaseCreateForm'));
+		Store.dispatch(reset('increaseCreateForm'));
 	}
 
-	 onCreateSubmit(formValues){
-		 console.log("-00000",formValues);
-		 this.setState({
-			 formValues
-		 });
+	onCreateSubmit(formValues) {
+		console.log("-00000", formValues);
+		this.setState({
+			formValues
+		});
 
-		 // this.onConfrimSubmit(formValues);
+		// this.onConfrimSubmit(formValues);
 		this.openConfirmCreateDialog();
-	 }
+	}
 
-	 onConfrimSubmit(){
+	onConfrimSubmit() {
 
-		let {formValues} = this.state;
-		let {params} = this.props;
+		let {
+			formValues
+		} = this.state;
+		let {
+			params
+		} = this.props;
 		formValues.stationVos = JSON.stringify(formValues.stationVos);
 
-		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract',{},formValues)).then(function(response){
+		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract', {}, formValues)).then(function(response) {
 			Notify.show([{
-				message:'创建成功',
+				message: '创建成功',
 				type: 'success',
 			}]);
-		location.href =  "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/increase/"+response.contractId+"/detail";
-		}).catch(function(err){
+			location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/increase/" + response.contractId + "/detail";
+		}).catch(function(err) {
 			Notify.show([{
-				message:err.message,
+				message: err.message,
 				type: 'danger',
 			}]);
-	   	});
+		});
 
-		 //this.openConfirmCreateDialog();
+		//this.openConfirmCreateDialog();
 	}
 
-	onCancel(){
+	onCancel() {
 		window.history.back();
 	}
 
-	 openConfirmCreateDialog(){
-		 this.setState({
-			 openConfirmCreate:!this.state.openConfirmCreate
-		 });
-	 }
+	openConfirmCreateDialog() {
+		this.setState({
+			openConfirmCreate: !this.state.openConfirmCreate
+		});
+	}
 
-	 componentDidMount(){
+	componentDidMount() {
 
 		var _this = this;
-		const {params} = this.props;
+		const {
+			params
+		} = this.props;
 		let initialValues = {};
 		let optionValues = {};
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
+		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+			customerId: params.customerId,
+			mainBillId: params.orderId,
+			communityId: 1
+		})).then(function(response) {
 			console.log(response)
 			initialValues.contractstate = 'UNSTART';
-			initialValues.mainbillid =  params.orderId;
+			initialValues.mainbillid = params.orderId;
 
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
 			initialValues.signdate = +new Date();
 			initialValues.firstpaydate = +new Date();
-			
+
 			initialValues.leaseAddress = response.customer.customerAddress;
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
-			optionValues.communityAddress = response.customer.communityAddress; 
+			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
-			
+
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
 			initialValues.contracttype = 'ADDRENT';
 
-			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item,index){
+			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
 				item.value = item.id;
 				item.label = item.corporationName;
 				return item;
 			});
-			optionValues.paymentList = response.payment.map(function(item,index){
+			optionValues.paymentList = response.payment.map(function(item, index) {
 				item.value = item.id;
 				item.label = item.dicName;
 				return item;
 			});
-			optionValues.payTypeList = response.payType.map(function(item,index){
+			optionValues.payTypeList = response.payType.map(function(item, index) {
 				item.value = item.id;
 				item.label = item.dicName;
 				return item;
@@ -123,32 +144,35 @@ export default  class JoinCreate extends Component {
 			optionValues.leaseAddress = response.customer.customerAddress;
 			optionValues.communityName = response.customer.communityName;
 			optionValues.communityId = response.customer.communityid;
-			optionValues.mainbillCommunityId =  response.mainbillCommunityId||1;
+			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
 			_this.setState({
 				initialValues,
 				optionValues
 			});
 
-		}).catch(function(err){
+		}).catch(function(err) {
 			console.log(err)
 			Notify.show([{
-				message:'后台出错请联系管理员',
+				message: '后台出错请联系管理员',
 				type: 'danger',
 			}]);
-	   	});
-	 }
+		});
+	}
 
 
-  render() {
+	render() {
 
-	  let {initialValues,optionValues} = this.state;
+		let {
+			initialValues,
+			optionValues
+		} = this.state;
 
-    return (
+		return (
 
-		 <div>
+			<div>
 		 	<BreadCrumbs children={['系统运营','客户管理','增租协议']}/>
-			<Section title="创建增租协议书" description="">
+			<Section title="增租协议书" description="">
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues}/>
 			</Section>
 
@@ -161,6 +185,6 @@ export default  class JoinCreate extends Component {
 						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} optionValues={optionValues}/>
 			  </Dialog>
 		</div>
-	);
-  }
+		);
+	}
 }
