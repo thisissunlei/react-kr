@@ -526,7 +526,7 @@ export default class Table extends React.Component {
 			<table className={"ui-table "+className} style={style}>
 				{this.renderTableHeader()}
 				<tbody>
-					<tr>
+					<tr style={{backgroundColor:'#fff'}}>
 						<TableRowColumn colSpan={100} >
 							<div style={{textAlign:'center',paddingTop:100,paddingBottom:100}}>
 								<div className="ui-nothing">

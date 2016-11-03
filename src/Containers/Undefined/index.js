@@ -26,7 +26,7 @@ import {
 	DotTitle,
 	BraceWidth,
 	SelfAdaption,
-	LineText
+	LineText,
 	SplitLine,
 } from 'kr-ui';
 
