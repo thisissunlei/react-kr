@@ -197,6 +197,8 @@ export default class LessorManageList extends Component {
 						title="新建"
 						modal={true}
 						open={this.state.openNewCreate}
+						onClose={this.openNewCreateDialog}
+
 					>
 						<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 
@@ -207,6 +209,8 @@ export default class LessorManageList extends Component {
 						title="编辑"
 						modal={true}
 						open={this.state.openEditDetail}
+						onClose={this.openEditDetailDialog}
+
 					>
 						<EditDetailForm  detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog} />
 				  </Dialog>
@@ -215,6 +219,7 @@ export default class LessorManageList extends Component {
 						title="查看"
 						modal={true}
 						open={this.state.openView}
+						onClose={this.openViewDialog}
 					>
 						<ItemDetail  detail={this.state.itemDetail} onCancel={this.openViewDialog} />
 				  </Dialog>
