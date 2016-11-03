@@ -122,7 +122,7 @@ export default class ConfirmFormDetail  extends Component{
 							</KrField>
 
                   <DotTitle title='租赁明细'> 
-					<Section title="租赁明细" description=""> 
+					
 
 							<Table  displayCheckbox={false}>
 									<TableHeader>
@@ -151,7 +151,7 @@ export default class ConfirmFormDetail  extends Component{
 								   </TableBody>
 							 </Table>
 
-				</Section>
+				
                </DotTitle>
 				<Grid>
 					<Row style={{marginTop:30}}>
