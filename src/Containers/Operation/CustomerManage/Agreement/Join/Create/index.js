@@ -173,7 +173,7 @@ export default class JoinCreate extends Component {
 
 			<div>
 		 	
-			<Section title="创建入驻协议书" description=""> 
+			<Section title="入驻协议书" description=""> 
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues}/>
 			</Section>
 

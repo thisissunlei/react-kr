@@ -1,4 +1,7 @@
-import React, {Component, PropTypes} from 'react';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
 
 import {
 	BreadCrumbs,
@@ -9,80 +12,106 @@ import {
 	SplitLine
 } from 'kr-ui';
 
-import {KrField,LabelText} from 'kr-ui/Form';
+import {
+	KrField,
+	LabelText
+} from 'kr-ui/Form';
 import Date from 'kr-ui/Date';
 import RaisedButton from 'material-ui/RaisedButton';
-import {View} from 'kr-ui/contractView';
+import {
+	View
+} from 'kr-ui/contractView';
 
 
-import { Button } from 'kr-ui/Button';
-import {Actions,Store} from 'kr/Redux';
+import {
+	Button
+} from 'kr-ui/Button';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 
-import {Grid,Row,Col} from 'kr-ui/Grid';
+import {
+	Grid,
+	Row,
+	Col
+} from 'kr-ui/Grid';
 
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
+import {
+	Table,
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
+	TableRowColumn,
+	TableFooter
+} from 'kr-ui/Table';
 
-export default  class JoinDetail extends Component {
+export default class JoinDetail extends Component {
 
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 
 
 		this.state = {
-			basic:{
-				payment:{
-				},
-				stationVos:[]
+			basic: {
+				payment: {},
+				stationVos: []
 			}
 		}
 
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('show-checkin-agreement', {id:_this.props.params.id}))
-		.then(function(response){
-			_this.setState({
-				basic:response
+		Store.dispatch(Actions.callAPI('show-checkin-agreement', {
+				id: _this.props.params.id
+			}))
+			.then(function(response) {
+				_this.setState({
+					basic: response
+				});
 			});
-		});
 
 	}
 
-	componentWillMount(){
+	componentWillMount() {
 
 	}
 
 
-  render() {
+	render() {
 
 
-	 const orderBaseInfo = {};
-	 const contractList = [];
-	
-	const params = this.props.params;
-	 function onCancel(){
-		location.href="/#/operation/customerManage/"+params.customerId+ "/order/"+params.orderId+"/detail";
-	}
+		const orderBaseInfo = {};
+		const contractList = [];
 
-	function getOrderUrl(){
-		return `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
-	}
+		const params = this.props.params;
 
-	 const {basic} = this.state;
-
-	  const BasicRender = (props)=>{
-	  	const content = {
-			position: 'relative',
-			width: '900px',
-			margin: '0 auto'
-		}
-		const info = {
-			overflow:'hidden',
-			padding:30
+		function onCancel() {
+			location.href = "/#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/detail";
 		}
 
-		  return (
-				  <div className="content" style={content}>
+		function getOrderUrl() {
+			return `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
+		}
+
+		const {
+			basic
+		} = this.state;
+
+		const BasicRender = (props) => {
+			const content = {
+				position: 'relative',
+				width: '900px',
+				margin: '0 auto'
+			}
+			const info = {
+				overflow: 'hidden',
+				padding: 30
+			}
+
+			return (
+				<div className="content" style={content}>
 				  	<View/>
 				  	<div className="content-info" style={info} >
 
@@ -171,17 +200,17 @@ export default  class JoinDetail extends Component {
 											  </DotTitle>
 				  </div>
 				  </div>
-		  );
+			);
 
-	  }
+		}
 
-    return (
+		return (
 
-      <div>
+			<div>
 
 			<BreadCrumbs children={['社区运营',,'合同详情','续租合同查看']}/>
 
-			<Section title="续租合同(查看)" description=""> 
+			<Section title="续租协议书" description=""> 
 				<BasicRender/>
 
 <Grid style={{marginTop:30}}>
@@ -195,11 +224,6 @@ export default  class JoinDetail extends Component {
 			</Section>
       </div>
 
-    );
-  }
+		);
+	}
 }
-
-
-
-
-
