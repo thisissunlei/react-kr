@@ -523,20 +523,41 @@ export default class SettingList extends Component {
                   <TableHeaderColumn>操作</TableHeaderColumn>
               </TableHeader>
               <TableBody>
-             {item.map((item,index)=><TableRow key={index}>
-                  <TableRowColumn>{item.dicName}</TableRowColumn>
-                  <TableRowColumn>{item.enableFlag?'是':'否'}</TableRowColumn>
-                  <TableRowColumn>{item.createName}</TableRowColumn>
-                  <TableRowColumn>
-                      <KrDate.Format value={item.createTime}/>
-                  </TableRowColumn>
-                  <TableRowColumn>{item.remark}</TableRowColumn>
-                  <TableRowColumn>
-                    <Button label="查看" type="link"  onClick={this.openViewChildDialog.bind(this,item)}/>
-                    <Button label="编辑" type="link"  onClick={this.openUpdateChildDialog.bind(this,item)}/>
-                  </TableRowColumn>
-                </TableRow>
-              )}
+             {item.map((item,index)=>{
+                if(index%2==0){
+              <TableRow key={index} className="odd">
+                        <TableRowColumn>{item.dicName}</TableRowColumn>
+                        <TableRowColumn>{item.enableFlag?'是':'否'}</TableRowColumn>
+                        <TableRowColumn>{item.createName}</TableRowColumn>
+                        <TableRowColumn>
+                            <KrDate.Format value={item.createTime}/>
+                        </TableRowColumn>
+                        <TableRowColumn>{item.remark}</TableRowColumn>
+                        <TableRowColumn>
+                          <Button label="查看" type="link"  onClick={this.openViewChildDialog.bind(this,item)}/>
+                          <Button label="编辑" type="link"  onClick={this.openUpdateChildDialog.bind(this,item)}/>
+                        </TableRowColumn>
+                      </TableRow>
+                }else{
+                     <TableRow key={index} className="even">
+                        <TableRowColumn>{item.dicName}</TableRowColumn>
+                        <TableRowColumn>{item.enableFlag?'是':'否'}</TableRowColumn>
+                        <TableRowColumn>{item.createName}</TableRowColumn>
+                        <TableRowColumn>
+                            <KrDate.Format value={item.createTime}/>
+                        </TableRowColumn>
+                        <TableRowColumn>{item.remark}</TableRowColumn>
+                        <TableRowColumn>
+                          <Button label="查看" type="link"  onClick={this.openViewChildDialog.bind(this,item)}/>
+                          <Button label="编辑" type="link"  onClick={this.openUpdateChildDialog.bind(this,item)}/>
+                        </TableRowColumn>
+                      </TableRow>
+
+
+                }
+             
+              })}
+              
              
            </TableBody>
        </Table>

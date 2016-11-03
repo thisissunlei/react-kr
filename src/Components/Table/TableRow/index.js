@@ -159,7 +159,7 @@ export default class TableRow extends React.Component {
 
 		if(visibility){
 			return (
-				<tr className={className} {...other}>
+			<tr className={className} {...other}>
 					{this.renderRow()}
 				</tr>
 			);
