@@ -75,9 +75,9 @@ export default class SearchParam extends Component{
 			primaryI:'true'	
 	      });
         }
-        
-        
 
+
+        
 		var searchParam = {};
 
 		searchParam.accountType = type;
@@ -99,9 +99,9 @@ export default class SearchParam extends Component{
 		            <LineText title='回款' primary={this.state.primaryR} onClick={this.onSearch.bind(this,'PAYMENT','basic','','SETTLED')}/>
 
 
-		            <ListGroup inline={false}>
+		            <ListGroup inline={false} className='ui-ListGroup'>
 		              {detailPayment.map((item,index)=>
-		            	<ListGroupItem key={index}>
+		            	<ListGroupItem key={index} className='ui-listGroupItem'>
                           <span className='receivedText' onTouchTap={this.onSearch.bind(this,'PAYMENT',item.propcode,item.id,item.propInfo)}>{item.propname}</span>
                           <span className='receivedMoney'>{item.propamount}</span>
 		            	</ListGroupItem>
