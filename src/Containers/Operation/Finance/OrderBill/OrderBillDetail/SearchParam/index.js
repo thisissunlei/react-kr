@@ -59,7 +59,7 @@ export default class SearchParam extends Component{
        
 	}
 
-	onSearch(type,childType,id,propInfo){    
+	onSearch(type,childType,id,propInfo,event){    
 		const {onSearch,params} = this.props;
         
         if(type=='PAYMENT'){
@@ -75,6 +75,8 @@ export default class SearchParam extends Component{
 			primaryI:'true'	
 	      });
         }
+        
+        
 
 
         
@@ -98,39 +100,48 @@ export default class SearchParam extends Component{
 		            
 		            <LineText title='回款' primary={this.state.primaryR} onClick={this.onSearch.bind(this,'PAYMENT','basic','','SETTLED')}/>
 
-
-		            <ListGroup inline={false} className='ui-ListGroup'>
+                   
+                   <div className='ui-ListGroup'>
+		            <ListGroup inline={false}>
 		              {detailPayment.map((item,index)=>
-		            	<ListGroupItem key={index} className='ui-listGroupItem'>
-                          <span className='receivedText' onTouchTap={this.onSearch.bind(this,'PAYMENT',item.propcode,item.id,item.propInfo)}>{item.propname}</span>
-                          <span className='receivedMoney'>{item.propamount}</span>
+		            	<ListGroupItem key={index}>
+                          <div className='ui-listGroupItem'>
+                           <span className='receivedText' onTouchTap={this.onSearch.bind(this,'PAYMENT',item.propcode,item.id,item.propInfo)}>{item.propname}</span>
+                           <span className='receivedMoney'>{item.propamount}</span>
+		            	  </div>
 		            	</ListGroupItem>
 		              )}
 		            </ListGroup>
-
+                  </div>
 					
                     
                     <LineText title='收入' primary={this.state.primaryI} onClick={this.onSearch.bind(this,'INCOME','basic','','SETTLED')}/>
 					
+				  <div className='ui-ListGroup'>
                     <ListGroup inline={false}>
 		              {detailIncome.map((item,index)=>
 		            	<ListGroupItem key={index}>
+		            	 <div className='ui-listGroupItem'>
                           <span className='receivedText' onTouchTap={this.onSearch.bind(this,'INCOME',item.propcode,item.id,item.propInfo)}>{item.propname}</span>
                           <span className='receivedMoney'>{item.propamount}</span>
+		            	  </div>
 		            	</ListGroupItem>
 		              )}
 		            </ListGroup>
-
+                 </div>
 					
                     <LineText title='余额' primary='false' style={{color:'#999',cursor:'default'}} styleLine={{background:'#999'}}/>
 					
+					<div className='ui-ListGroup'>
                      <ListGroup inline={false}>
 		               <ListGroupItem>
+		                <div className='ui-listGroupItem'>
                           <span className='receivedText' style={{cursor:'default'}}>余额</span>
                           <span className='receivedMoney'>{detailBalance}</span>
+		            	</div>
 		            	</ListGroupItem>
 		            </ListGroup>
-
+                   </div>
 					
 			
 		</div>		
