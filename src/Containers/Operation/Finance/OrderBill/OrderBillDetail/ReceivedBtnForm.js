@@ -146,6 +146,8 @@ class ReceivedBtnForm extends Component{
 const validate = values =>{
 
 		const errors = {}
+	console.log('--------');
+		
 
 		if(!values.accountId){
 			errors.accountId = '请填写代码名称';
