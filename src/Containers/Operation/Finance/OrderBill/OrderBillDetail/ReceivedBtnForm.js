@@ -23,7 +23,8 @@ import {
  	ListItem,
 	LabelText,
 	Dialog,
-	KrField
+	KrField,
+	ButtonGroup
 } from 'kr-ui';
 
 
@@ -120,10 +121,18 @@ class ReceivedBtnForm extends Component{
                             <KrField label="备注" name="remark" component="input" type="text"/>
                             <KrField label="上传附件" name="fileids" component="file" />
 
-						    <Row>
-								<Col md={6}> <Button  label="确定" type="submit" primary={true} /> </Col>
-								<Col md={6}> <Button  label="取消" type="button"  onTouchTap={this.onCancel} /> </Col>
-						   </Row> 
+						   <Grid style={{marginTop:20}}>
+						<Row>
+							<Col md={12} align="right">
+								<ButtonGroup>
+									<Button  label="确定" type="submit" primary={true} /> 
+									<Button  label="取消" type="button"  onTouchTap={this.onCancel} /> 
+								</ButtonGroup>
+							</Col>
+						</Row>
+					</Grid>
+
+
 					   
                          </form>
 			  </div>		

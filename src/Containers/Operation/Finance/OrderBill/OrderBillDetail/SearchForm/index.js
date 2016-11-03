@@ -23,7 +23,8 @@ import {
 	LabelText,
 	Dialog,
 	KrField,
-	Form
+	Form,
+	ButtonGroup,
 } from 'kr-ui';
 
 
@@ -74,8 +75,20 @@ export default class SearchForm extends Component{
 					<KrField grid={1} name="propertyId" type="select" label="款项" options={typeList}/>
 					<KrField grid={1/2} name="startTime" component="date" label="开始日期" />
 					<KrField grid={1/2} name="endTime" component="date" label="结束日期" />
-					<Button  label="确定" type="submit" primary={true} /> 
-					<Button  label="取消" type="button" onTouchTap={this.onCancel} /> 
+					
+
+						   <Grid style={{marginTop:20}}>
+						<Row>
+							<Col md={12} align="right">
+								<ButtonGroup>
+									<Button  label="确定" type="submit" primary={true} /> 
+									<Button  label="取消" type="button" onTouchTap={this.onCancel} /> 
+								</ButtonGroup>
+							</Col>
+						</Row>
+					</Grid>
+
+
 				</Form>
 
 

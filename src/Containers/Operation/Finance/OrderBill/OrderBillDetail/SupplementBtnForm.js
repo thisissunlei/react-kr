@@ -24,6 +24,7 @@ import {
 	Form,
 	Dialog,
 	KrField,
+	ButtonGroup,
 } from 'kr-ui';
 
 export default class SupplementBtnForm extends Component{
@@ -59,8 +60,20 @@ export default class SupplementBtnForm extends Component{
 				
 				<div>
 					<p>是否确定补挂延期收入？</p>
-					<Button  label="确定" type="button"  onTouchTap={this.onSubmit}/> 
-					<Button  label="取消" type="button" onTouchTap={this.onCancel} /> 
+					
+
+					   <Grid style={{marginTop:20}}>
+						<Row>
+							<Col md={12} align="right">
+								<ButtonGroup>
+									<Button  label="确定" type="button"  onTouchTap={this.onSubmit}/> 
+									<Button  label="取消" type="button" onTouchTap={this.onCancel} /> 
+								</ButtonGroup>
+							</Col>
+						</Row>
+					</Grid>
+
+
 				</div>
 					
 					
