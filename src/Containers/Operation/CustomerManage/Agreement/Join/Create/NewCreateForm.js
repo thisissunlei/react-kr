@@ -605,8 +605,13 @@ class NewCreateForm extends Component {
                         </DotTitle>
 						<Grid>
 						<Row style={{marginTop:30}}>
-						<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} disabled={submitting} /> </Col>
-						<Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
+						<Col md={12} align="center">
+							<ButtonGroup>
+								<Button  label="确定" type="submit" primary={true} disabled={submitting} />
+								<Button  label="取消" type="button"  onTouchTap={this.onCancel}/>
+							</ButtonGroup>
+						  </Col>
+						</Row>
 						</Grid>
 
 						</form>
