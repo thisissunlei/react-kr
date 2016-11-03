@@ -290,8 +290,16 @@ const validate = values => {
 		errors.totalreturn = '请填写退租金总额';
 	}
 
+	if (values.totalreturn  && isNaN(values.depositamount) ) {
+		errors.totalreturn = '退租金总额必须为数字';
+	}
+
 	if (!values.depositamount) {
 		errors.depositamount = '请填写退押金总额';
+	}
+
+	if (values.depositamount  && isNaN(values.depositamount)) {
+		errors.depositamount = '退押金总额必须为数字';
 	}
 
 	if (!values.withdrawdate) {

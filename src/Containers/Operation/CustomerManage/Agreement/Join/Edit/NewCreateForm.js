@@ -161,15 +161,6 @@ class NewCreateForm extends Component {
 		this.setState({
 			stationVos: []
 		});
-		/*
-
-		stationVos.forEach(function(item,index){
-			item.leaseBeginDate = value;
-		});
-		this.setState({
-			stationVos
-		});
-		*/
 	}
 
 	//修改租赁期限-结束时间
@@ -186,14 +177,6 @@ class NewCreateForm extends Component {
 		this.setState({
 			stationVos: []
 		});
-		/*
-		stationVos.forEach(function(item,index){
-			item.leaseEndDate = value;
-		});
-		this.setState({
-			stationVos
-		});
-		*/
 	}
 
 	onChangeSearchPersonel(personel) {
