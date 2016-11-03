@@ -756,7 +756,7 @@ export default class AttributeSetting  extends Component{
 		return(
 			<div>
 					<Section title="订单明细账" description="" > 
-					       <DotTitle title='订单描述'/>
+					       <DotTitle title='订单描述' style={{marginTop:'-30'}}/>
 						   <BasicInfo  detail={this.state.basicInfo} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome}/>
 						   
 						   <DotTitle title='订单明细账'/>

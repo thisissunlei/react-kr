@@ -9,13 +9,14 @@ import {
 	KrField,
 	KrDate,
 	Button,
-	DotTitle
+	DotTitle,
+	Dialog
 } from 'kr-ui';
 
 
 import {Grid,Row,Col} from 'kr-ui/Grid';
 
-import {Dialog,Snackbar} from 'material-ui';
+import {Snackbar} from 'material-ui';
 
 import {
 	BreadCrumbs,
@@ -190,14 +191,6 @@ export default class OrderDetail extends React.Component {
 		if(this.state.loading){
 			return(<Loading/>);
 		}
-		const createButton = {
-			background:'#fff',
-			color:'#499df1',
-			borderRadius:20,
-			width:120,
-			boxShadow:'2px 2px 10px #499df1'
-		}
-       
         
        
 		return (
@@ -224,8 +217,8 @@ export default class OrderDetail extends React.Component {
 				<Col md={2} align="center">承租意向书({contractStatusCount.intentionComplete}-{contractStatusCount.intentionTotoal}) </Col>
 				<Col md={2} align="center"> 入驻协议书({contractStatusCount.enterComplete}-{contractStatusCount.enterTotoal}) </Col>
 				<Col md={2} align="center"> 增租协议书({contractStatusCount.addRentComplete}-{contractStatusCount.addRentTotoal}) </Col>
-				<Col md={2} align="center"> 续租协议书({contractStatusCount.renewComplete}-{contractStatusCount.renewComplete}) </Col>
-				<Col md={2} align="center"> 减租协议书({contractStatusCount.lessRentComplete}-{contractStatusCount.lessRentComplete}) </Col>
+				<Col md={2} align="center"> 续租协议书({contractStatusCount.renewComplete}-{contractStatusCount.renewTotoal}) </Col>
+				<Col md={2} align="center"> 减租协议书({contractStatusCount.lessRentComplete}-{contractStatusCount.lessRentTotoal}) </Col>
 				<Col md={2} align="center"> 退租协议书({contractStatusCount.quitRentComplete}-{contractStatusCount.quitRentTotoal}) </Col>
 			</Row>
 		</Grid>
@@ -355,13 +348,13 @@ export default class OrderDetail extends React.Component {
 			<Dialog
 			title="新建合同"
 			modal={true}
-			actions={ <Button label="取消" primary={true} onTouchTap={this.openCreateAgreementDialog} /> }
-			open={this.state.openCreateAgreement}>
+			onClose={this.openCreateAgreementDialog}
+			open={this.state.openCreateAgreement} >
 
 
-			<Grid>
+			<Grid style={{paddingBottom:20}}>
 			<Row>
-			<Col md={4} align="center">
+			<Col md={4} align="center"> 
 				<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/admit/create"}>承租意向书</a>
 				</Col>
 			<Col md={4} align="center">
