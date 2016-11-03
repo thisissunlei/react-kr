@@ -155,7 +155,7 @@ export default class DateComponent extends React.Component {
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
 					<div className="date-component">
-							<span className="date-input"> {(input.value && dateFormat(input.value,"yyyy-mm-dd")) || placeholder ||'日期'} <span className="icon"></span></span>
+							<span className="date-input"> {(input.value && dateFormat(input.value,"yyyy-mm-dd")) || placeholder} <span className="icon"></span></span>
 									<span className="date-operation">
 											<DatePicker
 								 				value = {this.state.value}
