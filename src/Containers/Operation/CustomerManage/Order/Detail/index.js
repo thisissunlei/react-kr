@@ -202,7 +202,7 @@ export default class OrderDetail extends React.Component {
 
 			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog}  primary={true}/>
 
-
+			<span className='border-top'></span>
 			<Grid style={{marginTop:50}}>
 			<span className='ui-remark'>注：如（0-1），1表示该类型合同总数，0表示执行完该类型合同数</span>
 			<ul className='ui-adminBook'>
@@ -296,7 +296,7 @@ export default class OrderDetail extends React.Component {
 					<TableRowColumn><KrDate.Format value={item.leaseBegindate}/></TableRowColumn>
 					<TableRowColumn> <KrDate.Format value={item.leaseEnddate}/></TableRowColumn>
 					<TableRowColumn>
-					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)}/>
+					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} style={{color:'#499df1'}}/>
 					{item.contractstate != 'EXECUTE'  && <Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
 					</TableRowColumn>
 					</TableRow>
@@ -328,7 +328,7 @@ export default class OrderDetail extends React.Component {
 								<Col md={3} align="left" className="ContractName"><Circle type={list.payStatus}/>款项：{list.installmentName}</Col>
 								<Col md={3} align="left" className="ContractName">计划付款日期：<KrDate.Format value={list.installmentReminddate}/></Col>
 								<Col md={3} align="left" className="ContractName">计划付款金额：{list.installmentAmount}</Col>
-								<Col md={3} align="left" className="ContractName">实际付款金额：{list.installmentBackamount}</Col>
+								<Col md={3} align="left" className="ContractName">实际付款金额：<span style={{color:'red'}}>{list.installmentBackamount}</span></Col>
 								</Row>
 							)
 						})
@@ -337,7 +337,7 @@ export default class OrderDetail extends React.Component {
 					</Grid>
 				);
 			})}
-
+			<span className="border-bottom"></span>
 			
 
 
