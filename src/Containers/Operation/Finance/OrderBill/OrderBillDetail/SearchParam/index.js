@@ -68,7 +68,7 @@ export default class SearchParam extends Component{
 			primaryI:'false'	
 	      });
         }
-
+       
         if(type=='INCOME'){
         this.setState({
 			primaryR:'false',
@@ -76,6 +76,8 @@ export default class SearchParam extends Component{
 	      });
         }
         
+        
+
 		var searchParam = {};
 
 		searchParam.accountType = type;
@@ -98,40 +100,38 @@ export default class SearchParam extends Component{
 
 
 		            <ListGroup inline={false}>
-		            	<ListGroupItem></ListGroupItem>
-		            	<ListGroupItem></ListGroupItem>
-		            	<ListGroupItem></ListGroupItem>
+		              {detailPayment.map((item,index)=>
+		            	<ListGroupItem key={index}>
+                          <span className='receivedText' onTouchTap={this.onSearch.bind(this,'PAYMENT',item.propcode,item.id,item.propInfo)}>{item.propname}</span>
+                          <span className='receivedMoney'>{item.propamount}</span>
+		            	</ListGroupItem>
+		              )}
 		            </ListGroup>
-					<Table  style={{marginTop:30}} displayCheckbox={false}>
-					  
-					 <TableBody>
-						 {detailPayment.map((item,index)=><TableRow key={index}>			
-							<TableRowColumn  className='tapText' onTouchTap={this.onSearch.bind(this,'PAYMENT',item.propcode,item.id,item.propInfo)}>{item.propname}</TableRowColumn>
-							<TableRowColumn>{item.propamount}</TableRowColumn>					
-						 </TableRow>
-						  )}
-					</TableBody>
-					</Table>
+
+					
                     
                     <LineText title='收入' primary={this.state.primaryI} onClick={this.onSearch.bind(this,'INCOME','basic','','SETTLED')}/>
-					<Table  style={{marginTop:30}} displayCheckbox={false}>
-					<TableBody>
-						 {detailIncome.map((item,index)=><TableRow key={index}>						
-							<TableRowColumn  className='tapText' onTouchTap={this.onSearch.bind(this,'INCOME',item.propcode,item.id,item.propInfo)}>{item.propname}</TableRowColumn>
-							<TableRowColumn>{item.propamount}</TableRowColumn>					
-						 </TableRow>
-						  )}
-					</TableBody>
-					</Table>
-                    <LineText title='余额' primary='false' style={{color:'#999'}} styleLine={{background:'#999'}}/>
-					<Table  style={{marginTop:30}} displayCheckbox={false}>
-					 <TableBody>
-						  <TableRow displayCheckbox={false}>						
-							<TableRowColumn>余额</TableRowColumn>
-							<TableRowColumn>{detailBalance}</TableRowColumn>					
-						 </TableRow>
-					</TableBody>
-					</Table>
+					
+                    <ListGroup inline={false}>
+		              {detailIncome.map((item,index)=>
+		            	<ListGroupItem key={index}>
+                          <span className='receivedText' onTouchTap={this.onSearch.bind(this,'INCOME',item.propcode,item.id,item.propInfo)}>{item.propname}</span>
+                          <span className='receivedMoney'>{item.propamount}</span>
+		            	</ListGroupItem>
+		              )}
+		            </ListGroup>
+
+					
+                    <LineText title='余额' primary='false' style={{color:'#999',cursor:'default'}} styleLine={{background:'#999'}}/>
+					
+                     <ListGroup inline={false}>
+		               <ListGroupItem>
+                          <span className='receivedText' style={{cursor:'default'}}>余额</span>
+                          <span className='receivedMoney'>{detailBalance}</span>
+		            	</ListGroupItem>
+		            </ListGroup>
+
+					
 			
 		</div>		
 
