@@ -1,14 +1,27 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {Actions,Store} from 'kr/Redux';
+import React, {
+	Component
+} from 'react';
+import {
+	connect
+} from 'react-redux';
+import {
+	bindActionCreators
+} from 'redux';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
-import {reduxForm,formValueSelector,initialize} from 'redux-form';
+import {
+	reduxForm,
+	formValueSelector,
+	initialize
+} from 'redux-form';
 import {
 	Table,
- 	TableBody,
+	TableBody,
 	TableHeader,
-	TableHeaderColumn, 
+	TableHeaderColumn,
 	TableRow,
 	TableRowColumn,
 	TableFooter,
@@ -19,7 +32,7 @@ import {
 	Col,
 	Notify,
 	List,
- 	ListItem,
+	ListItem,
 	LabelText,
 	Dialog,
 	KrField,
@@ -28,59 +41,65 @@ import {
 
 
 
-
-class QuitBtnForm extends Component{
+class QuitBtnForm extends Component {
 
 	static PropTypes = {
-		onSubmit:React.PropTypes.func,
-		onCancel:React.PropTypes.func,
-		initialValues:React.PropTypes.object,
+		onSubmit: React.PropTypes.func,
+		onCancel: React.PropTypes.func,
+		initialValues: React.PropTypes.object,
 	}
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
-		
-        this.onCancel = this.onCancel.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-		  this.state = {
-			
-	     }
-   }
+
+		this.onCancel = this.onCancel.bind(this);
+		this.onSubmit = this.onSubmit.bind(this);
+		this.state = {
+
+		}
+	}
 
 	componentDidMount() {
-        let {initialValues}= this.props;
-	    Store.dispatch(initialize('QuitBtnForm',initialValues));
+		let {
+			initialValues
+		} = this.props;
+		Store.dispatch(initialize('QuitBtnForm', initialValues));
 	}
-    
-   
 
-   
-    
-	
-   onSubmit(values){
-		 const {onSubmit} = this.props;
-		 onSubmit && onSubmit(values);
 
-	 }
 
-	 onCancel(){
-		 const {onCancel} = this.props;	
-		 onCancel && onCancel();		 
-	 }
-	
-    
+	onSubmit(values) {
+		const {
+			onSubmit
+		} = this.props;
+		onSubmit && onSubmit(values);
 
-	render(){
-       
+	}
 
-		const { error, handleSubmit, pristine, reset} = this.props;
+	onCancel() {
+		const {
+			onCancel
+		} = this.props;
+		onCancel && onCancel();
+	}
 
-		
-        
 
-		return(
 
-			    <div>
+	render() {
+
+
+		const {
+			error,
+			handleSubmit,
+			pristine,
+			reset
+		} = this.props;
+
+
+
+		return (
+
+			<div>
                  
 					     <form onSubmit={handleSubmit(this.onSubmit)}>
  
@@ -104,7 +123,7 @@ class QuitBtnForm extends Component{
 
 					   
                          </form>
-			   </div>		
+			   </div>
 
 		);
 
@@ -112,21 +131,20 @@ class QuitBtnForm extends Component{
 
 }
 
-const validate = values =>{
+const validate = values => {
 
-		const errors = {}
+	const errors = {}
 
-		if(!values.finaflowamount){
-			errors.finaflowamount = '请填写金额';
-		}
-
-		if (!values.operatedate) {
-			errors.operatedate = '请填写退款日期';
-		}
-		return errors
+	if (values.finaflowamount && !isNaN(values.finaflowamount)) {
+		errors.finaflowamount = '请填写金额';
 	}
-export default reduxForm({form:'QuitBtnForm',validate})(QuitBtnForm);
 
-
-
-
+	if (!values.operatedate) {
+		errors.operatedate = '请填写退款日期';
+	}
+	return errors
+}
+export default reduxForm({
+	form: 'QuitBtnForm',
+	validate
+})(QuitBtnForm);
