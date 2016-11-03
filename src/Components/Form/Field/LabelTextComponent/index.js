@@ -8,10 +8,13 @@ import './index.less';
 export default class LabelTextComponent extends React.Component {
 
 
+	static defaultProps = {
+		inline: true
+	}
 	static PropTypes = {
 		inline: React.PropTypes.bool,
 		requireBlue: React.PropTypes.bool,
-		alignRight:React.PropTypes.bool
+		alignRight: React.PropTypes.bool
 	}
 
 	constructor(props) {

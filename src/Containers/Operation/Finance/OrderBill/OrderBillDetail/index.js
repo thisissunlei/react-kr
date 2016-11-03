@@ -60,7 +60,6 @@ class ViewForm extends Component{
 	    	items.fileList=[]
 	    }
 
-	    console.log("666999",items);
 		return(
 				<div>					
 					<KrField grid={1}  component="labelText" label="代码名称" value={items.accountName}/>
@@ -68,10 +67,10 @@ class ViewForm extends Component{
 					   <KrDate.Format value={items.occuryear} format="yyyy-mm-dd"  component="labelText"/>   
 					</KrField>
 					<KrField grid={1/2} label="操作时间" component="group">
-					   <KrDate.Format value={items.operatedate} format="hh:mm:ss"  component="labelText"/>   
+					   <KrDate.Format value={items.operatedate} format="yyyy-mm-dd hh:mm:ss"  component="labelText"/>   
 					</KrField>
 					<KrField grid={1}  component="labelText" label="交易编号" value={items.tradingCode}/>
-					<KrField grid={1}  component="labelText" label="操作人名称" value={items.optUserName}/>  
+					<KrField grid={1}  component="labelText" label="操作人" value={items.optUserName}/>  
 					<KrField grid={1}  component="labelText" label="金额（元）" value={items.finaflowAmount}/> 
 					<KrField grid={1}  component="labelText" label="备注" value={items.finaflowdesc}/>
 					<KrField grid={1}  component="group" label="上传附件"> 
@@ -758,7 +757,7 @@ export default class AttributeSetting  extends Component{
 			<div>
 					<Section title="订单明细账" description="" > 
 					       <DotTitle title='订单描述'/>
-						   <BasicInfo style={{marginTop:-10}} detail={this.state.basicInfo} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome}/>
+						   <BasicInfo  detail={this.state.basicInfo} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome}/>
 						   
 						   <DotTitle title='订单明细账'/>
 							<Row style={{marginTop:10}}>
