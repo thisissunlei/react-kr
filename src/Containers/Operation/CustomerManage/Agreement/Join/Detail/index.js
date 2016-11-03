@@ -8,7 +8,7 @@ import {
 	Notify,
 	Section,
 	Button,
-	SplitLine
+	SplitLine,
 } from 'kr-ui';
 
 import {KrField,LabelText} from 'kr-ui/Form';
@@ -21,7 +21,7 @@ import {Actions,Store} from 'kr/Redux';
 import {Grid,Row,Col} from 'kr-ui/Grid';
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
-import './index.less';
+// import './index.less';
 export default  class JoinDetail extends Component {
    
 	 static contextTypes = {
@@ -66,11 +66,20 @@ export default  class JoinDetail extends Component {
 
 	}
 	BasicRender(basic){
+		const content = {
+			position: 'relative',
+			width: '900px',
+			margin: '0 auto'
+		}
+		const info = {
+			overflow:'hidden',
+			padding:30
+		}
 
 		  return (
-				  <div className="content" >
+				  <div className="content" style={content}>
 				  	<View/>
-				  	<div className="content-info" >
+				  	<div className="content-info" style={info} >
 				  			
 					<KrField component="labelText" grid={1/2} label="出租方" value={basic.lessorName} defaultValue="无" requireBlue={true}/>
 					<KrField component="labelText" grid={1/2} label="地址" value={basic.lessorAddress} defaultValue="无"/>
