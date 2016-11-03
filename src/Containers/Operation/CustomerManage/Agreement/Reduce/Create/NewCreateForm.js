@@ -274,31 +274,32 @@ class NewCreateForm extends Component {
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
 				<KrField grid={1/2}  name="leaseEnddate" type="hidden" component="input" />
 				<KrField grid={1/2}  name="leaseBegindate" type="hidden" component="input" />
-				<KrField name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true} />
-				<KrField grid={1/2}  name="lessorAddress" type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress}  defaultValue="无"/>
-				<KrField grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}/>
-				<KrField grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}/>
 
-				<KrField grid={1/2}  component="labelText" label="承租方" inline={false} value={optionValues.customerName}/>
+				<KrField left={60} name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true} />
+				<KrField left={60} grid={1/2}  name="lessorAddress" type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress}  defaultValue="无"/>
+				<KrField left={60} grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}/>
+				<KrField left={60} grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}/>
 
-				<KrField grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" requireLabel={true}/>
+				<KrField left={60} grid={1/2}  component="labelText" label="承租方" inline={false} value={optionValues.customerName}/>
 
-				<KrField grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" requireLabel={true}/>
-				<KrField grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话" requireLabel={true}/>
+				<KrField left={60} grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" requireLabel={true}/>
 
-				<KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" inline={false} value={optionValues.communityName} />
+				<KrField left={60} grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" requireLabel={true}/>
+				<KrField left={60} grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话" requireLabel={true}/>
 
-				<KrField grid={1/2}  name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} />
-				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号" requireLabel={true} />
+				<KrField left={60} grid={1/2}  name="communityid" component="labelText" label="所属社区" inline={false} value={optionValues.communityName} />
 
-				<KrField grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
+				<KrField left={60} grid={1/2}  name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} />
+				<KrField left={60} grid={1/2}  name="contractcode" type="text" component="input" label="合同编号" requireLabel={true} />
 
-				<KrField grid={1}  name="rentamount" component="input" type="text" requireLabel={true} label="减租金额" /> 
+				<KrField left={60} grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
 
-				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" />
+				<KrField left={60} grid={1}  name="rentamount" component="input" type="text" requireLabel={true} label="减租金额" /> 
+
+				<KrField left={60} grid={1/1}  name="contractmark" component="textarea" label="备注" />
 			
-				<KrField grid={1}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
-				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
+				<KrField left={60} grid={1}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
+				<KrField left={60} grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
 					Store.dispatch(change('reduceCreateForm','contractFileList',files));
 				}} />
               <DotTitle title='租赁明细'>
