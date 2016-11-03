@@ -158,12 +158,14 @@ export default class DateComponent extends React.Component {
 							<span className="date-input"> {(input.value && dateFormat(input.value,"yyyy-mm-dd")) || placeholder || '日期'} <span className="icon"></span></span>
 									<span className="date-operation">
 											<DatePicker
+												okLabel="确定"
+												cancelLabel="取消"
 								 				value = {this.state.value}
 												hintText={placeholder}
-										textFieldStyle={styles}
-										name={input.name}
-										container="inline" 
-										onChange={this.onChange}/>
+												textFieldStyle={styles}
+												name={input.name}
+												container="inline" 
+												onChange={this.onChange}/>
 								</span>
 					</div>
 					{touched && error && <div className="error-wrap error-tip"> <span>{error}</span></div> }
