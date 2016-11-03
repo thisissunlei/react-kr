@@ -548,8 +548,6 @@ class NewCreateForm extends Component {
 
 				<KrField grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true} />
 				<KrField grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true} />
-				<KrField grid={1/2}  name="stationnum" type="text" component="input" label="租赁工位" placeholder=""  value={changeValues.stationnum} inline={false}/> 
-				<KrField grid={1/2}  name="boardroomnum" type="text" component="input" label="租赁会议室" placeholder="" value={changeValues.boardroomnum} inline={false}/> 
 
 				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" />
 
@@ -560,6 +558,10 @@ class NewCreateForm extends Component {
 					Store.dispatch(change('increaseCreateForm','contractFileList',files));
 				}} />
 
+				<KrField grid={1/1} component="group" label=" 租赁项目">
+					<KrField grid={1/2}  name="stationnum"  component="labelText"  label="工位" value={changeValues.stationnum} defaultValue="0"/>
+					<KrField grid={1/2}  name="boardroomnum"  component="labelText" label="会议室" value={changeValues.station} defaultValue="0"/>
+				</KrField>
              <DotTitle title='租赁明细'>
 				
 				       <Grid>

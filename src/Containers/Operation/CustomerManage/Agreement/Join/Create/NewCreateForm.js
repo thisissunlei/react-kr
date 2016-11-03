@@ -547,8 +547,8 @@ class NewCreateForm extends Component {
 				}} />
 
 				<KrField grid={1/1} component="group" label="租赁项目" requireLabel={true}> 
-					<KrField grid={1/2}  name="stationnum" type="text" component="labelText"  inline={false} label="工位" value={changeValues.stationnum} defaultValue="0"/> 
-					<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" inline={false} label="会议室" value={changeValues.station} defaultValue="0"/> 
+					<KrField grid={1/2}  name="stationnum" type="text" component="labelText"   label="工位" value={changeValues.stationnum} defaultValue="0" /> 
+					<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.station} defaultValue="0" /> 
 				</KrField>
            
             <DotTitle title='租赁明细'>
