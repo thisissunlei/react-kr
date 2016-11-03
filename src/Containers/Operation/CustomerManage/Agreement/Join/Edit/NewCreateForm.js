@@ -404,10 +404,9 @@ class NewCreateForm extends Component {
 		let {
 			changeValues
 		} = this.props;
-		console.log('----', changeValues);
-		let {
-			stationVos
-		} = this.state;
+
+		var stationVos = [];
+
 		try {
 			billList.map(function(item, index) {
 				var obj = {};
@@ -423,6 +422,7 @@ class NewCreateForm extends Component {
 		} catch (err) {
 			console.log('billList 租赁明细工位列表为空');
 		}
+
 		this.setState({
 			stationVos
 		}, function() {
