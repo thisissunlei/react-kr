@@ -172,6 +172,7 @@ function getOrderUrl(){
 						  
 
 											  </Section>
+											  </div>
 				  </div>
 		  );
 
@@ -193,7 +194,6 @@ function getOrderUrl(){
 				  </Row>
 			  </Grid>
 			</Section>
-</div>
       </div>
 
     );
