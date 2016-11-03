@@ -23,8 +23,6 @@ import {
 	Notify,
 	Dialog,
 	KrDate,
-	autoScrollBodyContent,
-    autoDetectWindowHeight,
     DotTitle
 } from 'kr-ui';
 
@@ -62,20 +60,20 @@ class ViewForm extends Component{
 
 		return(
 				<div>					
-					<KrField grid={1}  component="labelText" label="代码名称" value={items.accountName}/>
-					<KrField grid={1/2} label="付款日期" component="group">
+					<KrField grid={1/2}  component="labelText" label="代码名称" value={items.accountName} inline={false}/>
+					<KrField grid={1/2} label="付款日期" component="group" inline={false}>
 					   <KrDate.Format value={items.occuryear} format="yyyy-mm-dd"  component="labelText"/>   
 					</KrField>
-					<KrField grid={1/2} label="操作时间" component="group">
-					   <KrDate.Format value={items.operatedate} format="yyyy-mm-dd hh:mm:ss"  component="labelText"/>   
+					<KrField grid={1/2} label="操作时间" component="group"   inline={false}>
+					   <KrDate.Format value={items.occuryear} format="yyyy-mm-dd hh:mm:ss"  component="labelText"/>
 					</KrField>
-					<KrField grid={1}  component="labelText" label="交易编号" value={items.tradingCode}/>
-					<KrField grid={1}  component="labelText" label="操作人" value={items.optUserName}/>  
-					<KrField grid={1}  component="labelText" label="金额（元）" value={items.finaflowAmount}/> 
-					<KrField grid={1}  component="labelText" label="备注" value={items.finaflowdesc}/>
-					<KrField grid={1}  component="group" label="上传附件"> 
+					<KrField grid={1/2}  component="labelText" label="交易编号" value={items.tradingCode} inline={false}/>
+					<KrField grid={1/2}  component="labelText" label="操作人"  value={items.optUserName} inline={false}/>  
+					<KrField grid={1/2}  component="labelText" label="金额（元）" value={items.finaflowAmount} inline={false}/> 
+					<KrField grid={1/2}  component="labelText" label="备注" value={items.finaflowdesc} inline={false}/>
+					<KrField grid={1/2}  component="group" label="上传附件" inline={false}> 
 			         {items.fileList.map((item,index)=>						
-						  <KrField key={index} grid={1/3} component="labelText" value={item.fileName}/>						 
+						  <KrField key={index} grid={1} component="labelText" value={item.fileName} />						 
 					  )}
 					</KrField>   
 				</div>	
@@ -650,7 +648,7 @@ export default class AttributeSetting  extends Component{
 	render(){
 	   let {params}=this.state;
        
-       console.log("--888888---",params)
+      
       
 	   //判断按钮出现与隐藏
        let childBtn=params.childType; 
@@ -817,6 +815,7 @@ export default class AttributeSetting  extends Component{
 						title="添加回款"
 						open={this.state.openReceivedBtn}
 						onClose={this.closeReceivedDialog}
+						
 						>							
 					   <ReceivedBtnForm onSubmit={this.onAddReceivedSubmit}  onCancel={this.closeReceivedDialog} optionList={this.state.receivedList} typeList={this.state.typeList}/>
 					 </Dialog>
