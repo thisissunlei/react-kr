@@ -465,8 +465,17 @@ export default class AttributeSetting  extends Component{
         }	  	  
 	  	  params.receiveDate=dateFormat(params.receiveDate,"yyyy-mm-dd h:MM:ss");
 		  var _this = this;
-	      Store.dispatch(Actions.callAPI('receiveMoney',{},params)).then(function(response){   		    
- 		  window.location.reload();
+	      Store.dispatch(Actions.callAPI('receiveMoney',{},params)).then(function(response){   
+
+ 			 Notify.show([{
+				message:'回款成功',
+				type:'success', 
+			}]);
+
+			window.setTimeout(function(){
+				window.location.reload();
+			},200);
+
  		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
