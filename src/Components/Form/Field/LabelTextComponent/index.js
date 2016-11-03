@@ -2,6 +2,7 @@ import React from 'react';
 import KrDate from '../../../Date';
 
 import WrapComponent from '../WrapComponent';
+import Button from '../../../Button';
 
 import './index.less';
 
@@ -14,7 +15,7 @@ export default class LabelTextComponent extends React.Component {
 	static PropTypes = {
 		inline: React.PropTypes.bool,
 		requireBlue: React.PropTypes.bool,
-		alignRight: React.PropTypes.bool
+		alignRight: React.PropTypes.bool,
 	}
 
 	constructor(props) {
@@ -34,7 +35,8 @@ export default class LabelTextComponent extends React.Component {
 			requireLabel,
 			inline,
 			alignRight,
-			format
+			format,
+			href,
 		} = this.props;
 
 		if (type == 'date') {
@@ -45,6 +47,17 @@ export default class LabelTextComponent extends React.Component {
 								{!value && defaultValue}
 							</span>
 						</WrapComponent>
+			);
+		}
+
+
+		if (type == 'link') {
+			return (
+				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} requireBlue={requireBlue} alignRight={alignRight}>
+					<span className="ui-label-text" >
+						<a  href={href}>{value}</a>
+					</span>
+				</WrapComponent>
 			);
 		}
 
