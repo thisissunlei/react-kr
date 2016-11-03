@@ -6,6 +6,7 @@ export default class Button extends Component{
 
 	static PropTypes = {
 		children: React.PropTypes.node,
+		style: React.PropTypes.number,
 	}
 
 	constructor(props){
@@ -16,10 +17,10 @@ export default class Button extends Component{
 	render(){
 
 
-		let {children} = this.props;
+		let {children,style} = this.props;
 
 		return (
-			<div className="ui-button-group">
+			<div className="ui-button-group" style={style}>
 				{children}
 			</div>
 		);
