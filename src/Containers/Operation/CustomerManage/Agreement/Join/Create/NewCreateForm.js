@@ -413,8 +413,6 @@ class NewCreateForm extends Component {
 
 		this.openStationDialog();
 
-		console.log('data', billList);
-
 		if (!billList) {
 			return;
 		}
