@@ -159,7 +159,7 @@ export default class DateComponent extends React.Component {
 									<span className="date-operation">
 											<DatePicker
 								 				value = {this.state.value}
-												hintText={placeholder||'日期'}
+												hintText={placeholder}
 										textFieldStyle={styles}
 										name={input.name}
 										container="inline" 
