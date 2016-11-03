@@ -1,5 +1,8 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import {
+	Field,
+	reduxForm
+} from 'redux-form';
 import DatePicker from 'material-ui/DatePicker';
 import dateFormat from 'dateformat';
 
@@ -7,17 +10,17 @@ import './index.less';
 
 import WrapComponent from '../WrapComponent';
 
-export default class DateComponent extends React.Component{
+export default class DateComponent extends React.Component {
 	static defaultProps = {
-		inline:false
+		inline: false
 	}
 	static PropTypes = {
-		defaultValue:React.PropTypes.string,
-		onChange:React.PropTypes.func,
-		inline:React.PropTypes.bool
+		defaultValue: React.PropTypes.string,
+		onChange: React.PropTypes.func,
+		inline: React.PropTypes.bool
 	}
 
-	constructor(props){
+	constructor(props) {
 		super(props)
 
 		this.onChange = this.onChange.bind(this);
@@ -29,23 +32,23 @@ export default class DateComponent extends React.Component{
 
 		this.isInit = false;
 		this.state = {
-			value:''
+			value: ''
 		}
 
 	}
 
-	setDefaultDate(value){
+	setDefaultDate(value) {
 
-		if(!value){
-			return ;
+		if (!value) {
+			return;
 		}
 
-		if(typeof value === 'string'){
+		if (typeof value === 'string') {
 			value = new Date(Date.parse(value));
 			this.setInputValue(value);
 		}
 
-		if(typeof value === 'number'){
+		if (typeof value === 'number') {
 			this.setInputValue(value);
 			value = new Date(value);
 		}
@@ -54,37 +57,39 @@ export default class DateComponent extends React.Component{
 			value
 		});
 
-		this.isInit = true;	
+		this.isInit = true;
 	}
 
-	setInputValue(value){
-		let {input}  = this.props;		
-		value = dateFormat(value,"yyyy-mm-dd hh:MM:ss");
+	setInputValue(value) {
+		let {
+			input
+		} = this.props;
+		value = dateFormat(value, "yyyy-mm-dd hh:MM:ss");
 		input.onChange(value);
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		this.setDefaultDate(this.props.input.value);
 	}
 
-	componentWillReceiveProps(nextProps){
-		if(!this.isInit && nextProps.input.value){
+	componentWillReceiveProps(nextProps) {
+		if (!this.isInit && nextProps.input.value) {
 			this.setDefaultDate(nextProps.input.value);
 		}
 	}
 
-	supplementZero(value){
-		if(value<10){
-			value = '0'+value;
+	supplementZero(value) {
+		if (value < 10) {
+			value = '0' + value;
 		}
-		return value 
+		return value
 	}
 
-	formatDate(value){
+	formatDate(value) {
 
 		var dt = new Date(value);
 		var year = dt.getFullYear();
-		var month = this.supplementZero(1+ dt.getMonth());
+		var month = this.supplementZero(1 + dt.getMonth());
 		var date = this.supplementZero(dt.getDate());
 		var hours = this.supplementZero(dt.getHours());
 		var minutes = this.supplementZero(dt.getMinutes());
@@ -95,45 +100,62 @@ export default class DateComponent extends React.Component{
 		return result;
 	}
 
-	onChange(event,value){
+	onChange(event, value) {
 
-		if(!value){
-			return ;
+		if (!value) {
+			return;
 		}
 
 		this.setState({
 			value
 		});
 
-		let {input,onChange} = this.props;
+		let {
+			input,
+			onChange
+		} = this.props;
 
 		var result = this.formatDate(value);
 
 		this.setInputValue(result);
-	
+
 		onChange && onChange(result);
 	}
 
-	render(){
+	render() {
 
 
-		let{ input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,style,defaultValue,inline} = this.props;
+		let {
+			input,
+			label,
+			type,
+			meta: {
+				touched,
+				error
+			},
+			requireLabel,
+			disabled,
+			placeholder,
+			style,
+			defaultValue,
+			inline
+		} = this.props;
 
-		const styles ={
-			border:'1px solid #ddd',
-			height:40,
-			borderRadius:'4px',
-			paddingLeft:10,
-			color:'#fff',
-			backgroundColor:'transparent',
-			opacity:0
+		const styles = {
+			border: '1px solid #ddd',
+			height: 40,
+			borderRadius: '4px',
+			paddingLeft: 10,
+			color: '#fff',
+			backgroundColor: 'transparent',
+			opacity: 0
 		}
 
 		return (
-				
-				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
+
+			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
 					<div className="date-component">
-							<span className="date-input"> {(input.value && dateFormat(input.value,"yyyy-mm-dd")) || placeholder ||'日期'}</span>
+							<span className="date-input"> {(input.value && dateFormat(input.value,"yyyy-mm-dd")) || placeholder ||'日期'} <span className="icon"></span></span>
 									<span className="date-operation">
 											<DatePicker
 								 				value = {this.state.value}
@@ -146,7 +168,7 @@ export default class DateComponent extends React.Component{
 					</div>
 					{touched && error && <div className="error-wrap"> <span>{error}</span></div> }
 				</WrapComponent>
-					);
+		);
 	}
 
 }
