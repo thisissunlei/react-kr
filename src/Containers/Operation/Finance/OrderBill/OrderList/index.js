@@ -19,7 +19,9 @@ import {
 	Grid,
 	Row,
 	Col,
-		Dialog,
+	Dialog,
+	ListGroup,
+	ListGroupItem
 } from 'kr-ui';
 
 
@@ -198,22 +200,18 @@ export default class AttributeSetting  extends Component{
 
 					<Grid>
 						<Row>
-							<Col md={2}> 
-							
-							    <KrField label="收入总额" component="labelText" primary={true} value={list.sumcome} defaultValue="0"/>
-							</Col>
-                            
-							<Col md={2}> 
-							    <KrField label="回款总额" component="labelText" primary={true} value={list.sumAmount} defaultValue="0"/>
-							</Col>
-							<Col md={2}> 
-							    <KrField label="余额" component="labelText" primary={true} value={list.summount} defaultValue="0"/>
-							</Col>
-							<Col md={4} align="right"> 
-									<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
+							<Col md={6} align="left"> 
+								<ListGroup>
+									<ListGroupItem> <KrField label="收入总额:" component="labelText" primary={true} inline={true} value={list.sumcome} defaultValue="0"/></ListGroupItem>
+									<ListGroupItem> <KrField label="回款总额:" component="labelText" primary={true} inline={true} value={list.sumAmount} defaultValue="0"/> </ListGroupItem>
+									<ListGroupItem> <KrField label="余额:" component="labelText" primary={true} inline={true} value={list.summount} defaultValue="0"/></ListGroupItem>	
+								</ListGroup>	
 							</Col> 
-							<Col md={2} align="right"> 
-									<Button onTouchTap={this.openNewCreateDialog} label="高级查询" />
+							<Col md={6} align="right"> 
+								<ListGroup>
+									<ListGroupItem> <SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
+									<ListGroupItem> <Button onTouchTap={this.openNewCreateDialog} label="高级查询" /></ListGroupItem>
+								</ListGroup>	
 							</Col> 
 						</Row>
 					</Grid>

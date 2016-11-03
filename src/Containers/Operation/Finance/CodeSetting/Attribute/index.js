@@ -192,10 +192,10 @@ export default class AttributeSetting extends Component {
 
 					<Grid>
 						<Row>
-							<Col md={8}> <Button label="新建" primary={true} onTouchTap={this.openNewCreateDialog} /> </Col>
-							<Col md={4} align="right"> 
-									<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
-							</Col> 
+						<Col md={4} align="left" > <Button  label="新建属性"  primary={true}  onTouchTap={this.openNewCreateDialog} /> </Col>
+						<Col md={8} align="right"> 
+							<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
+						</Col> 
 						</Row>
 					</Grid>
 

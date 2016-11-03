@@ -12,6 +12,7 @@ import KrDate from './Date';
 import Loading from './Loading';
 import Pagination from './Pagination';
 import Button from './Button';
+import ListGroup from './ListGroup';
 import Checkbox from './Checkbox';
 import RadioButton from './RadioButton';
 import Notify from './Notify';
@@ -76,6 +77,7 @@ module.exports = {
 	...Form,
 	...Table,
 	...Button,
+	...ListGroup,
 
 
 	//materal-ui

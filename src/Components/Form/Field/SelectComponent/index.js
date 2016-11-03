@@ -86,7 +86,7 @@ export default class SelectComponent extends React.Component{
 									onChange={this.handleChange} 
 									placeholder="请选择..."
 								/>
-						{touched && error && <p><div className="error-wrap"> <span>{error}</span> </div></p> }
+						{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				</WrapComponent>
 			);
 
@@ -104,7 +104,7 @@ export default class SelectComponent extends React.Component{
 									onChange={this.onChange} 
 									placeholder="请选择..."
 								/>
-					{touched && error && <p><div className="error-wrap"> <span>{error}</span> </div></p> }
+					{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 		</WrapComponent>
 
 			);

@@ -34,6 +34,8 @@ import {
 	Button,
 	Notify,
 	IframeContent,
+	DotTitle,
+	ButtonGroup
 } from 'kr-ui';
 import Date from 'kr-ui/Date';
 
@@ -405,13 +407,19 @@ class NewCreateForm  extends Component{
 				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" /> 
 
 				<KrField grid={1}  name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList} requireLabel={true}/> 
+               
+                <DotTitle title='租赁明细'>
 
-				<Section title="租赁明细" description="" rightMenu = {
-					<Menu>
-						<MenuItem primaryText="删除" onTouchTap={this.onStationDelete} />
-						<MenuItem primaryText="选择工位"  onTouchTap={this.openStationDialog} />
-					</Menu>
-				}> 
+				       <Grid>
+							<Row>
+								<Col align="right">
+									<ButtonGroup>
+										<Button label="删除" primary={true} onTouchTap={this.onStationDelete} />
+										<Button label="选择工位" primary={true} onTouchTap={this.openStationDialog} />
+								  </ButtonGroup>
+								</Col>
+							</Row>
+						</Grid>
 
 				<Table onSelect={this.onStationSelect}>
 				<TableHeader>
@@ -436,7 +444,7 @@ class NewCreateForm  extends Component{
 						</TableBody>
 						</Table>
 
-						</Section>
+					 </DotTitle>	
 
 						<Grid>
 						<Row style={{marginTop:30}}>

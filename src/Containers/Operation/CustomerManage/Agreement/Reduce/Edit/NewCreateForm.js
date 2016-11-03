@@ -35,6 +35,8 @@ import {
 	Button,
 	Notify,
 	KrDate,
+	DotTitle,
+	ButtonGroup
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -288,12 +290,19 @@ class NewCreateForm  extends Component{
 
 				<KrField grid={1/1}  name="contractmark" component="textarea" label="备注" />
 				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} requireLabel={true}/> 
-				<Section title="租赁明细" description="" rightMenu = {
-					<Menu>
-						<MenuItem primaryText="删除" onTouchTap={this.onStationDelete} />
-						<MenuItem primaryText="减租"  onTouchTap={this.openStationDialog} />
-					</Menu>
-				}>
+				
+				   <DotTitle title='租赁明细'>
+
+				       <Grid>
+							<Row>
+								<Col align="right">
+									<ButtonGroup>
+										<Button label="删除" primary={true} onTouchTap={this.onStationDelete} />
+										<Button label="减租" primary={true} onTouchTap={this.openStationDialog} />
+								  </ButtonGroup>
+								</Col>
+							</Row>
+						</Grid>
 
 				<Table  displayCheckbox={true} onSelect={this.onStationSelect}>
 				<TableHeader>
@@ -321,7 +330,7 @@ class NewCreateForm  extends Component{
 						</TableBody>
 						</Table>
 
-						</Section>
+						</DotTitle>
 
 						<Grid>
 						<Row style={{marginTop:30}}>

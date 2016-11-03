@@ -86,6 +86,7 @@ export default class OrderDetail extends React.Component {
 			_this.setState({
 				response:response
 			});
+            
 
 			setTimeout(function(){
 				_this.setState({
@@ -190,6 +191,7 @@ export default class OrderDetail extends React.Component {
 			return(<Loading/>);
 		}
        
+        
        
 		return (
        <div>
@@ -303,15 +305,20 @@ export default class OrderDetail extends React.Component {
 
 			</TableBody>
 			</Table>
-
+         
             <DotTitle title='分期计划'/>
-			<Section title="分期计划" description="" style={{marginTop:20}}>
+			
+			<div className='ui-remark'>
+              <div className='ui-circle-remark'><span className='circle-color circle-color-top over-circle'></span><span className='remark-green-text'>已完成</span></div>
+              <div className='ui-circle-remark'><span className='circle-color circle-color-top section-circle'></span><span className='remark-green-text'>付部分款</span></div>
+              <div className='ui-circle-remark'><span className='circle-color circle-color-top no-pay'></span><span className='remark-green-text'>未付款</span></div>
+			</div>
 
 			{installmentPlan.map((item,index)=>{
 				return (
 					<Grid key={index}>
 					<Row>
-					<Col md={12} align="left" className="ContractName">{item.detailName}</Col>
+					<Col md={12} align="left" className="ContractNameTitle">{item.detailName}</Col>
 					</Row>
 					{this.renderTableItem(item.antecedent)}
 					{this.renderTableItem(item.earnest)}
@@ -331,11 +338,12 @@ export default class OrderDetail extends React.Component {
 				);
 			})}
 
+			
+
+
+          
 			</Section>
 
-
-
-			</Section>
 
 			<Dialog
 			title="新建合同"

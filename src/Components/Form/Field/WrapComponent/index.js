@@ -29,7 +29,19 @@ export default class  WrapComponent extends React.Component {
 
 	render(){
 
-		let {requireLabel,label,children,wrapStyle,style,inline,requireBlue} = this.props;
+		let {requireLabel,label,children,wrapStyle,style,inline,requireBlue,simple} = this.props;
+
+		if(simple){
+
+			return (
+				<FormItem style={wrapStyle}>
+					<FormController simple={simple}>
+						{children}
+					</FormController>
+				</FormItem>
+			);
+
+		}
 
 		return (
 				<FormItem style={wrapStyle}>

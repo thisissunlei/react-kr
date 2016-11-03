@@ -28,7 +28,6 @@ export default class  WrapComponent extends React.Component {
 		if(requireBlue){
 			className+=' require-blue';
 		}
-		console.log('-----------', requireBlue);
 
 			return (
 					<div className={className}>
