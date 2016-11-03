@@ -1,17 +1,26 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, {
+	Component
+} from 'react';
+import {
+	connect
+} from 'react-redux';
+import {
+	bindActionCreators
+} from 'redux';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {Actions,Store} from 'kr/Redux';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 import {
 	KrField,
 	Table,
-	TableBody, 
-	TableHeader, 
-	TableHeaderColumn, 
-	TableRow, 
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
 	TableRowColumn,
 	TableFooter,
 	Button,
@@ -32,9 +41,9 @@ import CompareBillForm from './CompareBillForm';
 
 
 
-export default class AttributeSetting  extends Component{
+export default class AttributeSetting extends Component {
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -42,7 +51,7 @@ export default class AttributeSetting  extends Component{
 		this.onNewCreateSubmit = this.onNewCreateSubmit.bind(this);
 		this.onSearchSubmit = this.onSearchSubmit.bind(this);
 		this.onEditSubmit = this.onEditSubmit.bind(this);
-		this.onLoaded=this.onLoaded.bind(this);
+		this.onLoaded = this.onLoaded.bind(this);
 
 		this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
 		this.openViewDialog = this.openViewDialog.bind(this);
@@ -54,146 +63,150 @@ export default class AttributeSetting  extends Component{
 
 
 		this.state = {
-			openNewCreate:false,
-			openView:false,
-			openEditDetail:false,
-			itemDetail:{},
-			item:{},
-			list:{},
-			searchParams:{
-				page:1,
-				pageSize:10
+			openNewCreate: false,
+			openView: false,
+			openEditDetail: false,
+			itemDetail: {},
+			item: {},
+			list: {},
+			searchParams: {
+				page: 1,
+				pageSize: 10
 			}
-			
+
 		}
 	}
-     
+
 	componentDidMount() {
-       var _this = this;
-		Store.dispatch(Actions.callAPI('getFinaDataByList')).then(function(response){
+		var _this = this;
+		Store.dispatch(Actions.callAPI('getFinaDataByList')).then(function(response) {
 			_this.setState({
-				item:response,
-				loading:false
+				item: response,
+				loading: false
 			});
-		}).catch(function(err){
+		}).catch(function(err) {
 			Notify.show([{
-				message:err.message,
+				message: err.message,
 				type: 'danger',
 			}]);
 		});
 	}
 
-	onExport(idList){
-		var list=[];
-		idList.map(function(item,index){
-          var idList={};
-          idList.communityid=item.communityid;
-          idList.customername=item.customername;
-          idList.mainbilltype=item.mainbilltype;
-          idList.startDate=item.actualEntrydate;
-          idList.endDate=item.operatedate;
-          list.push(idList);
-          return list;
+	onExport(idList) {
+		console.log('idList', idList)
+		var list = [],
+			arrlist = {};
+		idList.map(function(item, index) {
+
+			arrlist.communityid = item.communityid;
+			arrlist.customername = item.customername;
+			arrlist.mainbilltype = item.mainbilltype;
+			arrlist.startDate = item.actualEntrydate;
+			arrlist.endDate = item.operatedate;
+			list.push(arrlist);
+			return list;
 		})
 		var url = `http://optest.krspace.cn/api/krspace-finance-web/finaccount/data/exportExcel?list=${list}`
 		window.location.href = url;
 	}
 
 	//操作相关
-	onOperation(type,itemDetail){
+	onOperation(type, itemDetail) {
 
-        
+
 		this.setState({
 			itemDetail
 		});
 
-		if(type == 'view'){
-			let orderId=itemDetail.id
-			window.location.href=`./#/operation/finance/orderbill/${orderId}/detail`;
-		}else if(type == 'edit'){
+		if (type == 'view') {
+			let orderId = itemDetail.id
+			window.location.href = `./#/operation/finance/orderbill/${orderId}/detail`;
+		} else if (type == 'edit') {
 			this.openEditDetailDialog();
 		}
 	}
 
 	//编辑
-	openEditDetailDialog(){
+	openEditDetailDialog() {
 		this.setState({
-			openEditDetail:!this.state.openEditDetail
+			openEditDetail: !this.state.openEditDetail
 		});
 	}
 
 	//对账单的确定操作
-	onEditSubmit(){
+	onEditSubmit() {
 		this.openEditDetailDialog();
 		this.openConfirmBillDetailDialog();
 	}
 
 	//查看
-	openViewDialog(){
+	openViewDialog() {
 		this.setState({
-			openView:!this.state.openView
+			openView: !this.state.openView
 		});
 	}
 
 
 	//搜索
-	onSearchSubmit(searchParams){	
+	onSearchSubmit(searchParams) {
 
 		this.setState({
 			searchParams
 		});
 	}
 
-	onSearchCancel(){
- 
+	onSearchCancel() {
+
 	}
- 
-  
+
+
 
 	//新建
-	openNewCreateDialog(){
+	openNewCreateDialog() {
 		this.setState({
-			openNewCreate:!this.state.openNewCreate
+			openNewCreate: !this.state.openNewCreate
 		});
 	}
 
-	onNewCreateSubmit(searchParams){
+	onNewCreateSubmit(searchParams) {
 		this.setState({
 			searchParams,
-			openNewCreate:!this.state.openNewCreate
+			openNewCreate: !this.state.openNewCreate
 		});
 	}
 
-	onNewCreateCancel(){
+	onNewCreateCancel() {
 		this.openNewCreateDialog();
 	}
 
-	onLoaded(response){
-		
-    	let list = response;    
-    	this.setState({
-    		list
-    	})
-    }
+	onLoaded(response) {
+
+		let list = response;
+		this.setState({
+			list
+		})
+	}
 
 
-	render(){
-        
-      let {list}=this.state;
+	render() {
 
-      if(!list.sumcome){
-      	  list.sumcome=0;
-      }
-      if(!list.sumAmount){
-      	  list.sumAmount=0;
-      }
-      if(!list.summount){
-      	  list.summount=0;
-      }
-     
-    
-        
-		return(
+		let {
+			list
+		} = this.state;
+
+		if (!list.sumcome) {
+			list.sumcome = 0;
+		}
+		if (!list.sumAmount) {
+			list.sumAmount = 0;
+		}
+		if (!list.summount) {
+			list.summount = 0;
+		}
+
+
+
+		return (
 
 			<div>
 					<Section title="订单账单列表" description="" >
@@ -292,11 +305,10 @@ export default class AttributeSetting  extends Component{
 				  </Dialog>
 
 
-			</div>		
+			</div>
 
 		);
 
 	}
 
 }
-
