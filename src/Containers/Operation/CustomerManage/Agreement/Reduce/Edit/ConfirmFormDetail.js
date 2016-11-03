@@ -17,6 +17,7 @@ import {
 	Col,
 	Button,
 	Notify,
+	DotTitle
 } from 'kr-ui';
 
 
@@ -100,7 +101,7 @@ export default class ConfirmFormDetail  extends Component{
 							 <KrField grid={1}  name="fileIdList" component="labelText" label="合同附件" value={detail.fileIdList}/>
 
 
-					<Section title="租赁明细" description="">
+					 <DotTitle title='租赁明细'>
 
 							<Table  displayCheckbox={false}>
 									<TableHeader>
@@ -125,7 +126,7 @@ export default class ConfirmFormDetail  extends Component{
 								   </TableBody>
 							 </Table>
 
-				</Section>
+				</DotTitle>
 
 				<Grid>
 					<Row style={{marginTop:30}}>

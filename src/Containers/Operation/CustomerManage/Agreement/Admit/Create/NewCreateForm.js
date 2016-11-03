@@ -517,7 +517,7 @@ class NewCreateForm extends Component {
 									<ButtonGroup>
 										<Button label="删除" primary={true} onTouchTap={this.onStationDelete} />
 										<Button label="选择工位" primary={true} onTouchTap={this.openStationDialog} />
-								</ButtonGroup>
+								  </ButtonGroup>
 								</Col>
 							</Row>
 						</Grid>

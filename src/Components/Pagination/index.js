@@ -36,24 +36,29 @@ export default class Pagination extends Component {
 		this.onJump = this.onJump.bind(this);
 
 		this.state = {
-			jumpPageValue:''
+			jumpPageValue: ''
 		}
 
 
 	}
 
-	onJump(){
+	onJump() {
 
-		let {jumpPageValue} = this.state;
+		let {
+			jumpPageValue
+		} = this.state;
 
-		let {pageSize,totalCount} = this.props;
-		let pageMax = Math.ceil(totalCount/pageSize);
+		let {
+			pageSize,
+			totalCount
+		} = this.props;
+		let pageMax = Math.ceil(totalCount / pageSize);
 
-		if(jumpPageValue > pageMax){
+		if (jumpPageValue > pageMax) {
 			jumpPageValue = pageMax;
 		}
 
-		if(jumpPageValue<1){
+		if (jumpPageValue < 1) {
 			jumpPageValue = 1;
 		}
 
@@ -165,16 +170,16 @@ export default class Pagination extends Component {
 		let pageMin = 1;
 		let pageStart = page;
 		let pageJump = 5;
-		let pageEnd = pageStart+pageJump;
-		let pageMax = Math.ceil(totalCount/pageSize);
+		let pageEnd = pageStart + pageJump;
+		let pageMax = Math.ceil(totalCount / pageSize);
 		let element = null;
 
-		if(pageEnd>pageMax){
+		if (pageEnd > pageMax) {
 			pageEnd = pageMax;
 		}
 
 
-		for (var i = pageStart; i <pageEnd; i++) {
+		for (var i = pageStart; i < pageEnd; i++) {
 			props.key = i;
 			props.className = 'item';
 			if (page == i) {
@@ -190,21 +195,22 @@ export default class Pagination extends Component {
 		}
 
 
-		if(pageEnd<pageMax){
-			element =this.createOther(pageEnd);
+		if (pageEnd < pageMax) {
+			element = this.createOther(pageEnd);
 			pageBody.push(element);
 
-			for(var j = pageMax;(j>(pageMax-pageJump))&& ((pageMax-pageJump)>pageEnd);j--){
-			props.key = j;
-			props.className = 'item';
-			element = React.createElement('a', {...props,
-				...handlers,
-				'data-page': j
-			},j);
-			pageBody.push(element);
-			}	
+			for (var j = pageMax;
+				(j > (pageMax - pageJump)) && ((pageMax - pageJump) > pageEnd); j--) {
+				props.key = j;
+				props.className = 'item';
+				element = React.createElement('a', {...props,
+					...handlers,
+					'data-page': j
+				}, j);
+				pageBody.push(element);
+			}
 		}
-		
+
 
 		return (
 			<div className="item-body">
@@ -229,7 +235,7 @@ export default class Pagination extends Component {
 
 	}
 
-	renderJump(){
+	renderJump() {
 
 		let {
 			page,
@@ -241,7 +247,7 @@ export default class Pagination extends Component {
 			<div className="item-jump">
 				<span>到</span>
 				<input type="text" name="age"  valueLink={this.linkState('jumpPageValue')} />
-				<a onClick={this.onJump}>跳转</a>
+				<a   onClick={this.onJump}>跳转</a>
 			</div>
 		);
 	}
