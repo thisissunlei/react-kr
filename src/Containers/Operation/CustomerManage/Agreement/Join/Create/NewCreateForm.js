@@ -159,14 +159,7 @@ class NewCreateForm extends Component {
 		this.setState({
 			stationVos: []
 		});
-		/*
-		stationVos.forEach(function(item,index){
-			item.leaseBeginDate = value;
-		});
-		this.setState({
-			stationVos
-		});
-		*/
+		
 	}
 
 	//修改租赁期限-结束时间
@@ -184,14 +177,6 @@ class NewCreateForm extends Component {
 			stationVos: []
 		});
 
-		/*
-		stationVos.forEach(function(item,index){
-			item.leaseEndDate = value;
-		});
-		this.setState({
-			stationVos
-		});
-		*/
 	}
 
 	onStationVosChange(index, value) {
@@ -687,9 +672,19 @@ const validate = values => {
 		errors.totalrent = '请输入租金总额';
 	}
 
-	if (!values.totaldeposit) {
-		errors.totaldeposit = '请输入租金总额';
+	if (values.totalrent && isNaN(values.totalrent)) {
+		errors.totalrent = '租金总额必须为数字';
 	}
+
+
+	if (!values.totaldeposit) {
+		errors.totaldeposit = '请输入押金总额';
+	}
+
+	if (values.totaldeposit && !isNaN(values.totaldeposit)) {
+		errors.totaldeposit = '押金总额必须为数字';
+	}
+
 
 	if (!values.paymodel) {
 		errors.paymodel = '请输入付款方式';
