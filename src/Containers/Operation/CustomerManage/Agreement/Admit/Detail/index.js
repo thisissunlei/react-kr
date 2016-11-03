@@ -19,7 +19,10 @@ import {
 	Grid,
 	Row,
 	Col,
+	SplitLine,
 } from 'kr-ui';
+import {View} from 'kr-ui/contractView';
+
 
 
 import {Actions,Store} from 'kr/Redux';
@@ -91,11 +94,22 @@ export default  class AdmitDetail extends Component {
 	  }else{
 	  	dicName = '';
 	  }
+	  const content = {
+			position: 'relative',
+			width: '900px',
+			margin: '0 auto'
+		}
+		const info = {
+			overflow:'hidden',
+			padding:30
+		}
 
 	  const BasicRender = (props)=>{
 
 		  return (
-				  <div>
+				  <div className="content" style={content}>
+				  	<View/>
+				  	<div className="content-info" style={info} >
 
 <KrField component="labelText" grid={1/2} label="出租方" value={basic.lessorName}/>
 					<KrField component="labelText" grid={1/2} label="地址" value={basic.lessorAddress} defaultValue="无"/>
@@ -108,7 +122,7 @@ export default  class AdmitDetail extends Component {
 
 					<KrField component="labelText" grid={1/2} label="联系人" value={basic.leaseContact} defaultValue="无"/>
 					<KrField component="labelText" grid={1/2} label="电话" value={basic.leaseContacttel} defaultValue="无"/>
-
+					<SplitLine />
 					<KrField component="labelText" grid={1/2} label="所属社区" value={basic.communityName} defaultValue="无"/>
 					<KrField component="labelText" grid={1/2} label="所属楼层" value={basic.wherefloor} defaultValue="无"/>
 
@@ -175,6 +189,7 @@ export default  class AdmitDetail extends Component {
 			  
 
 								  </Section>
+								  </div>
 				  </div>
 		  );
 
