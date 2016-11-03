@@ -55,7 +55,10 @@ export default class DialogComponent extends Component {
 					open={open} 
 					{...other}>
 						<div className="cancle-dialog" onTouchTap={onClose}></div>
-						{children}
+						<div className="ui-content">
+							{children}
+						</div>
+						
 				  </Dialog>
 			</div>
 		);
