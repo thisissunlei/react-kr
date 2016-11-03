@@ -69,6 +69,7 @@ export default class SelectComponent extends React.Component{
 		onChange && onChange(item);
 	}
 
+
 	render(){
 
 		let { input, label,inline, type, meta: { touched, error },children,disabled,style,requireLabel,options,multi,...other} = this.props;
@@ -95,15 +96,18 @@ export default class SelectComponent extends React.Component{
 			return (
 		
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
-							<ReactSelect 
+						<ReactSelect 
 									name={input.name}
+			
 									searchable={false}
 									value={input.value} 
 									clearable={true}
 									options={options}
 									onChange={this.onChange} 
 									placeholder="请选择..."
+							
 								/>
+						
 					{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 		</WrapComponent>
 

@@ -11,7 +11,7 @@ import {
 export default class DialogComponent extends Component {
 
 
-	static defaultProtypes = {
+	static defaultProps = {
 		autoScrollBodyContent: true,
 		autoDetectWindowHeight: true,
 	}
