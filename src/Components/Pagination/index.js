@@ -247,7 +247,7 @@ export default class Pagination extends Component {
 			<div className="item-jump">
 				<span>到</span>
 				<input type="text" name="age"  valueLink={this.linkState('jumpPageValue')} />
-				<a  className="href" onClick={this.onJump}>跳转</a>
+				<a   onClick={this.onJump}>跳转</a>
 			</div>
 		);
 	}
