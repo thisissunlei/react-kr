@@ -60,28 +60,28 @@ class QuitBtnForm extends Component {
 	}
 
 	componentDidMount() {
-		let {
-			initialValues
-		} = this.props;
+		let initialValues={
+       	 id:this.props.initialValues.id,
+       	 finaflowamount:'',
+       	 operatedate:''
+       }
 		Store.dispatch(initialize('QuitBtnForm', initialValues));
 	}
+    
+   
+    onSubmit(values){
+		 const {onSubmit} = this.props;
+		 onSubmit && onSubmit(values);
 
+	 }
 
+	 onCancel(){
+		 const {onCancel} = this.props;	
+		 onCancel && onCancel();		 
+	 }
+	
 
-	onSubmit(values) {
-		const {
-			onSubmit
-		} = this.props;
-		onSubmit && onSubmit(values);
-
-	}
-
-	onCancel() {
-		const {
-			onCancel
-		} = this.props;
-		onCancel && onCancel();
-	}
+	  
 
 
 
@@ -134,8 +134,9 @@ class QuitBtnForm extends Component {
 const validate = values => {
 
 	const errors = {}
+	console.log('--------');
 
-	if (values.finaflowamount && !isNaN(values.finaflowamount)) {
+	if (!values.finaflowamount) {
 		errors.finaflowamount = '请填写金额';
 	}
 
@@ -146,5 +147,13 @@ const validate = values => {
 }
 export default reduxForm({
 	form: 'QuitBtnForm',
-	validate
+	validate,enableReinitialize:true,keepDirtyOnReinitialize:true
 })(QuitBtnForm);
+
+
+
+
+
+
+
+

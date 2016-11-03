@@ -60,18 +60,16 @@ class ViewForm extends Component{
 
 		return(
 				<div>					
-					<KrField grid={1/2}  component="labelText" label="代码名称" value={items.accountName} inline={false}/>
-					<KrField grid={1/2} label="付款日期" component="group" inline={false}>
-					   <KrDate.Format value={items.occuryear} format="yyyy-mm-dd"  component="labelText"/>   
-					</KrField>
-					<KrField grid={1/2} label="操作时间" component="group"   inline={false}>
-					   <KrDate.Format value={items.occuryear} format="yyyy-mm-dd hh:mm:ss"  component="labelText"/>
-					</KrField>
-					<KrField grid={1/2}  component="labelText" label="交易编号" value={items.tradingCode} inline={false}/>
-					<KrField grid={1/2}  component="labelText" label="操作人"  value={items.optUserName} inline={false}/>  
-					<KrField grid={1/2}  component="labelText" label="金额（元）" value={items.finaflowAmount} inline={false}/> 
-					<KrField grid={1/2}  component="labelText" label="备注" value={items.finaflowdesc} inline={false}/>
-					<KrField grid={1/2}  component="group" label="上传附件" inline={false}> 
+					<KrField grid={1/2}  component="labelText" label="代码名称" value={items.accountName} inline={false} defaultValue="无"/>
+					<KrField grid={1/2} label="付款日期" component="labelText" inline={false} value={items.occuryear} defaultValue="无" type="date"/>
+					   
+					<KrField grid={1/2} label="操作时间" component="labelText" value={items.occuryear} format="yyyy-mm-dd hh:mm:ss" type="date" inline={false} defaultValue="无"/>
+					  
+					<KrField grid={1/2}  component="labelText" label="交易编号" value={items.tradingCode} inline={false} defaultValue="无"/>
+					<KrField grid={1/2}  component="labelText" label="操作人"  value={items.optUserName} inline={false} defaultValue="无"/>  
+					<KrField grid={1/2}  component="labelText" label="金额（元）" value={items.finaflowAmount} inline={false} defaultValue="无"/> 
+					<KrField grid={1/2}  component="labelText" label="备注" value={items.finaflowdesc} inline={false} defaultValue="无"/>
+					<KrField grid={1/2}  component="group" label="上传附件" inline={false} defaultValue="无"> 
 			         {items.fileList.map((item,index)=>						
 						  <KrField key={index} grid={1} component="labelText" value={item.fileName} />						 
 					  )}
