@@ -1,4 +1,6 @@
-import React,{Component} from 'react';
+import React, {
+	Component
+} from 'react';
 import './index.less';
 
 
@@ -6,31 +8,41 @@ import {
 	Dialog,
 } from 'material-ui';
 
-export default class DialogComponent extends Component{
+export default class DialogComponent extends Component {
 
 
-	static defaultProtypes ={
-		autoScrollBodyContent:true,
+	static defaultProtypes = {
+		autoScrollBodyContent: true,
+		autoDetectWindowHeight: true,
 	}
 
 	static PropTypes = {
-		onClose:React.PropTypes.func,
-		open:React.PropTypes.bool,
-		title:React.PropTypes.title,
-		modal:React.PropTypes.bool,
-		autoDetectWindowHeight:React.PropTypes.bool,
-		autoScrollBodyContent:React.PropTypes.bool,
+		onClose: React.PropTypes.func,
+		open: React.PropTypes.bool,
+		title: React.PropTypes.title,
+		modal: React.PropTypes.bool,
+		autoDetectWindowHeight: React.PropTypes.bool,
+		autoScrollBodyContent: React.PropTypes.bool,
 	}
 
 
-	constructor(props){
+	constructor(props) {
 		super(props)
 	}
 
 
-	render(){
+	render() {
 
-		const {title,modal,open,onClose, autoDetectWindowHeight,autoScrollBodyContent,children,...other} = this.props;
+		const {
+			title,
+			modal,
+			open,
+			onClose,
+			autoDetectWindowHeight,
+			autoScrollBodyContent,
+			children,
+			...other
+		} = this.props;
 
 		return (
 			<div>
@@ -42,7 +54,7 @@ export default class DialogComponent extends Component{
 					titleClassName="ui-dialog-header"
 					open={open} 
 					{...other}>
-						<div className="cancle-dialog" onClick={onClose}></div>
+						<div className="cancle-dialog" onTouchTap={onClose}></div>
 						{children}
 				  </Dialog>
 			</div>
@@ -50,9 +62,3 @@ export default class DialogComponent extends Component{
 
 	}
 }
-
-
-
-
-
-
