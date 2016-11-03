@@ -534,8 +534,8 @@ class NewCreateForm extends Component {
 				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} requireLabel={true}/> 
 
 				<KrField grid={1/1} component="group" label="租赁项目"> 
-					<KrField grid={1/2}  name="stationnum" type="text" component="labelText" inline={false} label="工位" value={changeValues.stationnum} /> 
-					<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" inline={false} label="会议室" value={changeValues.boardroomnum} /> 
+					<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} /> 
+					<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText"  label="会议室" value={changeValues.boardroomnum} /> 
 				</KrField>
 
 				
