@@ -48,8 +48,10 @@ class SwitchBtnForm extends Component{
    }
 
 	componentDidMount() {
-
-       let {initialValues}= this.props;
+       let initialValues={
+       	 id:this.props.initialValues.id,
+       	 contractcodeId:'',
+       }
 	   Store.dispatch(initialize('SwitchBtnForm',initialValues));
 		
 	}
@@ -122,7 +124,7 @@ const validate = values =>{
 	}
 
 
-export default reduxForm({form:'SwitchBtnForm',validate})(SwitchBtnForm);
+export default reduxForm({form:'SwitchBtnForm',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(SwitchBtnForm);
 
 
 

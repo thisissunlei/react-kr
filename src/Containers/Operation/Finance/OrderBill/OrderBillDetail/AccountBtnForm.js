@@ -30,7 +30,7 @@ import {
 
 
 
-export default class AccountBtnForm extends Component{
+class AccountBtnForm extends Component{
     static contextTypes = {
 	  params: React.PropTypes.object.isRequired
     }
@@ -63,18 +63,21 @@ export default class AccountBtnForm extends Component{
       let initialValues={
        	 propid:this.props.initialValues.propid,
        	 preCode:'0',
-       	 mainbillid:this.context.params.orderId
+       	 mainbillid:this.context.params.orderId,
+       	 operatedate:'',
+       	 finaflowamount:'',
+       	 accountid:''
        }
 	   Store.dispatch(initialize('AccountBtnForm',initialValues));
 		
 	}
 	
 	render(){
-		const {optionList} = this.props;
+		const {optionList,error,handleSubmit,pristine,reset} = this.props;
 		
 
 		return(
-				<Form name="AccountBtnForm"  onSubmit={this.onSubmit}>
+				<form  onSubmit={handleSubmit(this.onSubmit)}>
 					<KrField  name="propid" type="hidden"/>
 					<KrField  name="mainbillid" type="hidden"/>
 					<KrField grid={1} name="accountid" component="select" label="代码名称" options={optionList} requireLabel={true}/> 
@@ -101,7 +104,7 @@ export default class AccountBtnForm extends Component{
 						</Row>
 					</Grid>
 
-				</Form>
+				</form>
 
 			);
 	}
@@ -120,11 +123,17 @@ const validate = values =>{
 		if(!values.finaflowamount){
 			errors.finaflowamount = '请填写金额';
 		}
+		if (values.finaflowamount && isNaN(values.finaflowamount)) {
+			errors.finaflowamount = '金额必须为数字';
+		}	
 	
 		return errors
 	}
 
-
+export default reduxForm({
+	form: 'AccountBtnForm',
+	validate,enableReinitialize:true,keepDirtyOnReinitialize:true
+})(AccountBtnForm);
 
 
 

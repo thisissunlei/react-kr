@@ -134,11 +134,14 @@ class QuitBtnForm extends Component {
 const validate = values => {
 
 	const errors = {}
-	console.log('--------');
+	
 
 	if (!values.finaflowamount) {
 		errors.finaflowamount = '请填写金额';
 	}
+	if (values.finaflowamount && isNaN(values.finaflowamount)) {
+			errors.finaflowamount = '金额必须为数字';
+		}	
 
 	if (!values.operatedate) {
 		errors.operatedate = '请填写退款日期';
