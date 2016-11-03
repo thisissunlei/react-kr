@@ -45,11 +45,10 @@ export default  class ItemDetail extends Component{
 		return (
 
 			<div>
-       <KrField name="corporationName" component="labelText"  label="出租方名称" value={detail.corporationName} /> 
-        <KrField name="enableflag" component="labelText"  label="是否启用" value={detail.flag}/> 
-        <KrField name="corporationAddress" component="labelText" type="text" label="详细地址" value={detail.corporationAddress} /> 
-        <KrField name="corporationDesc" component="labelText" label="备注"  placeholder="备注信息" value={detail.corporationDesc} /> 
-        <Button  label="取消" type="button"  onTouchTap={this.props.onCancel} /> 
+      			<KrField name="corporationName" component="labelText"  label="出租方名称" value={detail.corporationName} /> 
+        		<KrField name="enableflag" component="labelText"  label="是否启用" value={detail.flag}/> 
+        		<KrField name="corporationAddress" component="labelText" type="text" label="详细地址" value={detail.corporationAddress} /> 
+        		<KrField name="corporationDesc" component="labelText" label="备注"  placeholder="备注信息" value={detail.corporationDesc} /> 
 			</div>
 			
 		);

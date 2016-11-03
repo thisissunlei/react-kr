@@ -160,7 +160,7 @@ class NewCreateForm extends Component {
 		this.setState({
 			stationVos: []
 		});
-		
+
 	}
 
 	//修改租赁期限-结束时间
@@ -413,8 +413,6 @@ class NewCreateForm extends Component {
 
 		this.openStationDialog();
 
-		console.log('data', billList);
-
 		if (!billList) {
 			return;
 		}
@@ -527,7 +525,7 @@ class NewCreateForm extends Component {
 				<KrField grid={1/2}  right={60}  name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress}  /> 
 				<KrField grid={1/2}  left={60}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true} /> 
 
-				<KrField grid={1}  component="group" label="租赁期限" requireLabel={true}> 
+				<KrField grid={1} right={60} component="group" label="租赁期限" requireLabel={true}> 
 					<ListGroup>
 						<ListGroupItem> <KrField name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/></ListGroupItem>
 						<ListGroupItem ><span style={{display:'inline-block',lineHeight:'75px'}}>至</span></ListGroupItem>
@@ -542,11 +540,11 @@ class NewCreateForm extends Component {
 
 				<KrField left={60} grid={1/2} name="firstpaydate" component="date" label="首付款时间" requireLabel={true}  /> 
 
-				<KrField grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"   requireLabel={true}  /> 
+				<KrField grid={1} right={60} name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"   requireLabel={true}  /> 
 
 				<KrField grid={1/2}  right={60} name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true} /> 
 				<KrField grid={1/2} left={60}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true} /> 
-				<KrField grid={1/2} right={60} name="contractmark" component="textarea" label="备注" /> 
+				<KrField grid={1} right={60} name="contractmark" component="textarea" label="备注" /> 
 
 
 				<KrField grid={1}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
@@ -607,8 +605,13 @@ class NewCreateForm extends Component {
                         </DotTitle>
 						<Grid>
 						<Row style={{marginTop:30}}>
-						<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} disabled={submitting} /> </Col>
-						<Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
+						<Col md={12} align="center">
+							<ButtonGroup>
+								<Button  label="确定" type="submit" primary={true} disabled={submitting} />
+								<Button  label="取消" type="button"  onTouchTap={this.onCancel}/>
+							</ButtonGroup>
+						  </Col>
+						</Row>
 						</Grid>
 
 						</form>

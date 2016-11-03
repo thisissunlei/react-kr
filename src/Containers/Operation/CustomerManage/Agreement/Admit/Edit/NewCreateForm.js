@@ -320,8 +320,6 @@ class NewCreateForm  extends Component{
 
 		let {changeValues} = this.props;
 
-		let {stationVos} = this.state;
-
 		try{
 			billList.map(function(item,index){
 					item.leaseBeginDate = changeValues.leaseBegindate;
