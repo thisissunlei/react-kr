@@ -6,9 +6,13 @@ import './index.less';
 
 export default class ListGroup extends Component {
 
+	static defaultProps = {
+		inline:true
+	}
 	static PropTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
+		inline: React.PropTypes.inline,
 	}
 
 	constructor(props) {
@@ -19,10 +23,17 @@ export default class ListGroup extends Component {
 
 	render() {
 
-		let {children} = this.props;
+		let {children,inline} = this.props;
+
+		let className = 'ui-list-group';
+
+		if(inline){
+			className+=' inline';
+		}
+
 
 		return (
-			<div className="ui-list-group">
+			<div className={className}>
 				{children}
 			</div>
 		);

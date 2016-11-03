@@ -3,8 +3,6 @@ import React, {
 } from 'react';
 
 
-import './index.less';
-
 export default class ListGroupItem extends Component {
 
 
@@ -26,7 +24,7 @@ export default class ListGroupItem extends Component {
 		let {children,style} = this.props;
 
 		return (
-			<div className="ui-list-group-item" style={style}>
+			<div className="list-group-item" style={style}>
 				{children}	
 			</div>
 		);

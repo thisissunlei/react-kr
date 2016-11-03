@@ -22,7 +22,9 @@ import {
 	List,
  	ListItem,
 	LabelText,
-	LineText
+	LineText,
+	ListGroup,
+	ListGroupItem
 } from 'kr-ui';
 
 
@@ -94,6 +96,12 @@ export default class SearchParam extends Component{
 		            
 		            <LineText title='回款' primary={this.state.primaryR} onClick={this.onSearch.bind(this,'PAYMENT','basic','','SETTLED')}/>
 
+
+		            <ListGroup inline={false}>
+		            	<ListGroupItem></ListGroupItem>
+		            	<ListGroupItem></ListGroupItem>
+		            	<ListGroupItem></ListGroupItem>
+		            </ListGroup>
 					<Table  style={{marginTop:30}} displayCheckbox={false}>
 					  
 					 <TableBody>
@@ -115,7 +123,7 @@ export default class SearchParam extends Component{
 						  )}
 					</TableBody>
 					</Table>
-                    <LineText title='余额' primary='false'/>
+                    <LineText title='余额' primary='false' style={{color:'#999'}} styleLine={{background:'#999'}}/>
 					<Table  style={{marginTop:30}} displayCheckbox={false}>
 					 <TableBody>
 						  <TableRow displayCheckbox={false}>						
