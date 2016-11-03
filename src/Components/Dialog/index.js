@@ -14,6 +14,7 @@ export default class DialogComponent extends Component{
 	}
 
 	static PropTypes = {
+		onClose:React.PropTypes.func,
 		open:React.PropTypes.bool,
 		title:React.PropTypes.title,
 		modal:React.PropTypes.bool,
@@ -29,7 +30,7 @@ export default class DialogComponent extends Component{
 
 	render(){
 
-		const {title,modal,open,autoDetectWindowHeight,autoScrollBodyContent,children,...other} = this.props;
+		const {title,modal,open,onClose, autoDetectWindowHeight,autoScrollBodyContent,children,...other} = this.props;
 
 		return (
 			<div>
@@ -38,8 +39,10 @@ export default class DialogComponent extends Component{
 					modal={modal}
 					autoScrollBodyContent={autoScrollBodyContent}
 					autoDetectWindowHeight={autoDetectWindowHeight}
+					titleClassName="ui-dialog-header"
 					open={open} 
 					{...other}>
+						<div className="cancle-dialog" onClick={onClose}></div>
 						{children}
 				  </Dialog>
 			</div>
