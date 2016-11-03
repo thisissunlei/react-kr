@@ -12,26 +12,26 @@ export default class TableBody extends React.Component {
 	static PropTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
-		insertElement:React.PropTypes.node,
-		allRowsSelected:React.PropTypes.bool,
-		displayCheckbox:React.PropTypes.bool,
-		selectedRows:React.PropTypes.array,
-		visibilityRows:React.PropTypes.array,
-		setRowTotalCount:React.PropTypes.func,
-		defaultValue:React.PropTypes.object,
-		listData:React.PropTypes.listData,
-		onOperation:React.PropTypes.func,
+		insertElement: React.PropTypes.node,
+		allRowsSelected: React.PropTypes.bool,
+		displayCheckbox: React.PropTypes.bool,
+		selectedRows: React.PropTypes.array,
+		visibilityRows: React.PropTypes.array,
+		setRowTotalCount: React.PropTypes.func,
+		defaultValue: React.PropTypes.object,
+		listData: React.PropTypes.listData,
+		onOperation: React.PropTypes.func,
 	}
 
-	
-	constructor(props,context){
-		super(props,context);
+
+	constructor(props, context) {
+		super(props, context);
 
 		this.toggleInsertElement = this.toggleInsertElement.bind(this);
 		this.createRowElement = this.createRowElement.bind(this);
 
 		this.renderRows = this.renderRows.bind(this);
-		this.onCellClick = this.onCellClick.bind(this); 
+		this.onCellClick = this.onCellClick.bind(this);
 		this.onCellHover = this.onCellHover.bind(this);
 		this.onCellHoverExit = this.onCellHoverExit.bind(this);
 		this.onRowHover = this.onRowHover.bind(this);
@@ -41,31 +41,34 @@ export default class TableBody extends React.Component {
 
 		this.createRowCheckboxColumn = this.createRowCheckboxColumn.bind(this);
 
-		this.createAjaxRow  = this.createAjaxRow.bind(this);
+		this.createAjaxRow = this.createAjaxRow.bind(this);
 		this.createNormalRow = this.createNormalRow.bind(this);
 
 		this.state = {
-			showInsertElement:false,
+			showInsertElement: false,
 		}
 	}
 
-	toggleInsertElement(event){
+	toggleInsertElement(event) {
 
 		let target = event.target;
 		let nodeName = target.nodeName.toLowerCase();
 
-		if(nodeName === 'input'){
+		if (nodeName === 'input') {
 			return false;
 		}
 
 		this.setState({
-			showInsertElement:!this.state.showInsertElement
+			showInsertElement: !this.state.showInsertElement
 		});
 	}
 
-	renderInsertElement(){
-		let {insertElement,colSpan} = this.props;
-		if(!insertElement || !this.state.showInsertElement){
+	renderInsertElement() {
+		let {
+			insertElement,
+			colSpan
+		} = this.props;
+		if (!insertElement || !this.state.showInsertElement) {
 			return null;
 		}
 		return (
@@ -75,42 +78,46 @@ export default class TableBody extends React.Component {
 		)
 	}
 
-	onOperation(type,itemData){
-		const {onOperation}  = this.props;
-		onOperation && onOperation(type,itemData);
+	onOperation(type, itemData) {
+		const {
+			onOperation
+		} = this.props;
+		onOperation && onOperation(type, itemData);
 	}
 
-	onCellClick(){
-
-	}
-
-	onCellHover(){
-
-	}
-
-	onCellHoverExit(){
+	onCellClick() {
 
 	}
 
-	onRowHover(){
+	onCellHover() {
 
 	}
 
-	onRowHoverExit(){
+	onCellHoverExit() {
 
 	}
 
-	onRowClick(event,rowNumber){
+	onRowHover() {
 
-		const {onRowClick} = this.props;
+	}
 
-		onRowClick && onRowClick(event,rowNumber);
+	onRowHoverExit() {
+
+	}
+
+	onRowClick(event, rowNumber) {
+
+		const {
+			onRowClick
+		} = this.props;
+
+		onRowClick && onRowClick(event, rowNumber);
 		this.toggleInsertElement(event);
 	}
 
 	createRowCheckboxColumn(rowProps) {
 
-		if(!this.props.displayCheckbox){
+		if (!this.props.displayCheckbox) {
 			return null;
 		}
 
@@ -129,9 +136,12 @@ export default class TableBody extends React.Component {
 	}
 
 
-	createRowElement(child,rowNumber){
+	createRowElement(child, rowNumber) {
 
-		let {listData,displayCheckbox} = this.props;
+		let {
+			listData,
+			displayCheckbox
+		} = this.props;
 
 		const handlers = {
 			onCellClick: this.onCellClick,
@@ -140,7 +150,7 @@ export default class TableBody extends React.Component {
 			onRowHover: this.onRowHover,
 			onRowHoverExit: this.onRowHoverExit,
 			onRowClick: this.onRowClick,
-			onOperation:this.onOperation,
+			onOperation: this.onOperation,
 		};
 
 		/*
@@ -153,35 +163,42 @@ export default class TableBody extends React.Component {
 		let itemData = listData[rowNumber] || {};
 
 		let props = {
-			displayCheckbox:displayCheckbox,
-			key:rowNumber,
+			displayCheckbox: displayCheckbox,
+			key: rowNumber,
 			rowNumber: rowNumber,
 			selected: this.isRowSelected(rowNumber),
-			visibility:this.isRowVisibility(rowNumber),
+			visibility: this.isRowVisibility(rowNumber),
 			itemData,
 		};
 
 		let children = [
-			this.createRowCheckboxColumn(Object.assign({},props,handlers)),
+			this.createRowCheckboxColumn(Object.assign({}, props, handlers)),
 		];
 
 		if (React.isValidElement(child)) {
 			React.Children.forEach(child.props.children, (child) => {
 				children.push(child);
 			});
-			return React.cloneElement(child, {...props, ...handlers},children);
+			return React.cloneElement(child, {
+				...child.props,
+				...props,
+				...handlers
+			}, children);
 		}
 
 		return null;
 	}
 
 
-	createAjaxRow(){
+	createAjaxRow() {
 
-		let {listData,ajax} = this.props;
+		let {
+			listData,
+			ajax
+		} = this.props;
 
 
-		let cloneElement; 
+		let cloneElement;
 
 		React.Children.map(this.props.children, (child) => {
 			cloneElement = child;
@@ -189,36 +206,43 @@ export default class TableBody extends React.Component {
 
 		let rows = [];
 
-		for(var i = 0 ;i<listData.length;i++){
-			let element = React.cloneElement(cloneElement, {key:i});
-			rows.push(this.createRowElement(element,i)) ;
+		for (var i = 0; i < listData.length; i++) {
+			let element = React.cloneElement(cloneElement, {
+				key: i
+			});
+			rows.push(this.createRowElement(element, i));
 		}
 
 		return rows;
 	}
 
-	createNormalRow(){
+	createNormalRow() {
 		let rows = [];
 		let numChildren = React.Children.count(this.props.children);
-		let {displayCheckbox,setRowTotalCount} = this.props;
+		let {
+			displayCheckbox,
+			setRowTotalCount
+		} = this.props;
 		let rowNumber = 0;
 		React.Children.map(this.props.children, (child) => {
-			rows.push(this.createRowElement(child,rowNumber++)) ;
+			rows.push(this.createRowElement(child, rowNumber++));
 		});
 		return rows;
 	}
 
 	renderRows() {
 
-		let {ajax} = this.props;
+		let {
+			ajax
+		} = this.props;
 
-		return ajax?this.createAjaxRow():this.createNormalRow();
+		return ajax ? this.createAjaxRow() : this.createNormalRow();
 	}
 
 
 	isRowVisibility(rowNumber) {
 
-		if(parseInt(this.props.visibilityRows[rowNumber])){
+		if (parseInt(this.props.visibilityRows[rowNumber])) {
 			return true;
 		}
 
@@ -226,7 +250,7 @@ export default class TableBody extends React.Component {
 	}
 
 	isRowSelected(rowNumber) {
-		if(parseInt(this.props.selectedRows[rowNumber])){
+		if (parseInt(this.props.selectedRows[rowNumber])) {
 			return true;
 		}
 		return false;
@@ -235,7 +259,9 @@ export default class TableBody extends React.Component {
 
 	render() {
 
-		let {className} = this.props;
+		let {
+			className
+		} = this.props;
 
 		return (
 			<tbody className={className}>
@@ -253,9 +279,3 @@ export default class TableBody extends React.Component {
    <tbody className={className} onTouchTap={this.toggleInsertElement}>
 
 */
-
-
-
-
-
-
