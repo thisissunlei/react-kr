@@ -42,7 +42,7 @@ import {
   Notify,
   KrDate
 } from 'kr-ui';
-
+import './index.less';
 
 let SettingCreateForm = function(props) {
 
@@ -511,30 +511,32 @@ export default class SettingList extends Component {
       return (
         <TableRow key={index} >
           <TableRowColumn colSpan={9}>
-              <Table displayCheckbox={false}>
-          <TableHeader>
-              <TableHeaderColumn>子项名称</TableHeaderColumn>
-              <TableHeaderColumn>是否有效</TableHeaderColumn>
-              <TableHeaderColumn>创建人</TableHeaderColumn>
-              <TableHeaderColumn>创建时间</TableHeaderColumn>
-              <TableHeaderColumn>备注</TableHeaderColumn>
-              <TableHeaderColumn>操作</TableHeaderColumn>
-          </TableHeader>
-          <TableBody>
-         {item.map((item,index)=><TableRow key={index}>
-              <TableRowColumn>{item.dicName}</TableRowColumn>
-              <TableRowColumn>{item.enableFlag?'是':'否'}</TableRowColumn>
-              <TableRowColumn>{item.createName}</TableRowColumn>
-              <TableRowColumn>
-                  <KrDate.Format value={item.createTime}/>
-              </TableRowColumn>
-              <TableRowColumn>{item.remark}</TableRowColumn>
-              <TableRowColumn>
-                <Button label="查看" type="link"  onClick={this.openViewChildDialog.bind(this,item)}/>
-                <Button label="编辑" type="link"  onClick={this.openUpdateChildDialog.bind(this,item)}/>
-              </TableRowColumn>
-            </TableRow>
-         )}
+            <div className="bottom"></div>
+            <Table displayCheckbox={false} className="childTable">
+
+              <TableHeader>
+                  <TableHeaderColumn>子项名称</TableHeaderColumn>
+                  <TableHeaderColumn>是否有效</TableHeaderColumn>
+                  <TableHeaderColumn>创建人</TableHeaderColumn>
+                  <TableHeaderColumn>创建时间</TableHeaderColumn>
+                  <TableHeaderColumn>备注</TableHeaderColumn>
+                  <TableHeaderColumn>操作</TableHeaderColumn>
+              </TableHeader>
+              <TableBody>
+             {item.map((item,index)=><TableRow key={index}>
+                  <TableRowColumn>{item.dicName}</TableRowColumn>
+                  <TableRowColumn>{item.enableFlag?'是':'否'}</TableRowColumn>
+                  <TableRowColumn>{item.createName}</TableRowColumn>
+                  <TableRowColumn>
+                      <KrDate.Format value={item.createTime}/>
+                  </TableRowColumn>
+                  <TableRowColumn>{item.remark}</TableRowColumn>
+                  <TableRowColumn>
+                    <Button label="查看" type="link"  onClick={this.openViewChildDialog.bind(this,item)}/>
+                    <Button label="编辑" type="link"  onClick={this.openUpdateChildDialog.bind(this,item)}/>
+                  </TableRowColumn>
+                </TableRow>
+              )}
              
            </TableBody>
        </Table>
@@ -622,7 +624,7 @@ export default class SettingList extends Component {
 
           <Button label="新建" primary={true} onTouchTap={this.openCreateDialog} />
 
-            <Table style={{marginTop:20}} toggleVisibility="odd" displayCheckbox={false} page={this.state.page} pageSize={this.state.pageSize} totalCount={this.state.totalCount}>
+            <Table style={{marginTop:20}} className="parentTable" toggleVisibility="odd" displayCheckbox={false} page={this.state.page} pageSize={this.state.pageSize} totalCount={this.state.totalCount}>
                 <TableHeader>
                   <TableHeaderColumn>字段名称</TableHeaderColumn>
                   <TableHeaderColumn>是否有效</TableHeaderColumn>

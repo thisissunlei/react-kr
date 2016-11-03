@@ -33,14 +33,15 @@ export default class LabelTextComponent extends React.Component {
 			type,
 			requireLabel,
 			inline,
-			alignRight
+			alignRight,
+			format
 		} = this.props;
 
 		if (type == 'date') {
 			return (
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} requireBlue={requireBlue} alignRight={alignRight}>
 							<span className="ui-label-text" >
-								{value && <KrDate.Format value={value} /> }
+								{value && <KrDate.Format value={value} format={format} /> }
 								{!value && defaultValue}
 							</span>
 						</WrapComponent>
