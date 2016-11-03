@@ -2,6 +2,7 @@
 import Calendar from './Calendar';
 import Dialog from './Dialog';
 import DotTitle from './DotTitle';
+import LineText from './LineText';
 import Section from './Section';
 import SelfAdaption from './SelfAdaption';
 import Form from './Form/index';
@@ -70,6 +71,7 @@ module.exports = {
 	Dialog,
 	List,
 	DotTitle,
+	LineText,
 	ListItem,
 	Checkbox,
 	RadioButton,

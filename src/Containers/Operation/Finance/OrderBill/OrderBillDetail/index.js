@@ -758,10 +758,10 @@ export default class AttributeSetting  extends Component{
 			<div>
 					<Section title="订单明细账" description="" > 
 					       <DotTitle title='订单描述'/>
-						   <BasicInfo detail={this.state.basicInfo} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome}/>
+						   <BasicInfo style={{marginTop:-10}} detail={this.state.basicInfo} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome}/>
 						   
 						   <DotTitle title='订单明细账'/>
-							<Row style={{marginTop:30}}>
+							<Row style={{marginTop:10}}>
 							<Col md={2} >
 								<SearchParam onSearch={this.onSearch} params={this.state.params} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance} />
 							</Col>
@@ -772,7 +772,7 @@ export default class AttributeSetting  extends Component{
 							        <Button label="高级查询"  type="button"  onTouchTap={this.openSearchDialog}/>
 							     </div>
 							 
-								 <Table style={{marginTop:10}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
+								 <Table style={{marginTop:30}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
 						              <TableHeader>
 									          <TableHeaderColumn>序号</TableHeaderColumn>
 									          <TableHeaderColumn>交易日期</TableHeaderColumn>
