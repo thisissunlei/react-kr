@@ -20,14 +20,14 @@ export default class Format extends React.Component {
 
 		let {className,value,format} = this.props;
 
+		if(value){
+			return null;
+		}
+
 		return (
 			<span>{dateFormat(value,format)}</span>
 		);
-
-
 	}
-
-
 }
 
 
