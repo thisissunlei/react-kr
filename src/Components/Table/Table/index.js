@@ -205,30 +205,36 @@ export default class Table extends React.Component {
 
 	onExport() {
 
-		let {selectedRows,visibilityRows,listData,} = this.state;
+		let {
+			selectedRows,
+			visibilityRows,
+			listData,
+		} = this.state;
 
 
-		let {onExport} = this.props;
+		let {
+			onExport
+		} = this.props;
 
 		var exportRows = [];
 		var exportData = [];
 
-	
+
 		visibilityRows.forEach(function(item, index) {
 			if (item && parseInt(selectedRows[index])) {
 				exportRows.push(index);
 			}
 		});
 
-		exportRows.forEach(function(item,index){
+		exportRows.forEach(function(item, index) {
 			exportData.push(listData[item]);
 		});
 
-		if(!exportData.length){
+		if (!exportData.length) {
 			exportData = listData;
 		}
-	
-		onExport && onExport(exportData,exportRows);
+
+		onExport && onExport(exportData, exportRows);
 
 	}
 
@@ -517,7 +523,7 @@ export default class Table extends React.Component {
 		} = this.props;
 
 		return (
-			<table className={"table "+className} style={style}>
+			<table className={"ui-table "+className} style={style}>
 				{this.renderTableHeader()}
 				<tbody>
 					<tr>
@@ -591,7 +597,7 @@ export default class Table extends React.Component {
 		} = this.props;
 
 		return (
-			<table className={"table "+className} style={style}>
+			<table className={"ui-table "+className} style={style}>
 				{this.renderTableHeader()}
 				<tbody>
 					<tr>
@@ -633,7 +639,7 @@ export default class Table extends React.Component {
 		}
 
 		return (
-			<table className={"table "+className} style={style}>
+			<table className={"ui-table "+className} style={style}>
 				{this.renderTableHeader()}
 				{this.renderTableBody()}
 				{this.renderTableFooter()}

@@ -11,6 +11,7 @@ export default class ListGroupItem extends Component {
 	static PropTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
+		style: React.PropTypes.object,
 	}
 
 
@@ -22,10 +23,10 @@ export default class ListGroupItem extends Component {
 
 	render() {
 
-		let {children} = this.props;
+		let {children,style} = this.props;
 
 		return (
-			<div className="ui-list-group-item">
+			<div className="ui-list-group-item" style={style}>
 				{children}	
 			</div>
 		);

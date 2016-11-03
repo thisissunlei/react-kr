@@ -5,9 +5,11 @@ import {
 	Loading,
 	Notify,
 	Section,
+	SplitLine,
 } from 'kr-ui';
 
 import {KrField,LabelText} from 'kr-ui/Form';
+import {View} from 'kr-ui/contractView';
 
 import Date from 'kr-ui/Date';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -78,9 +80,20 @@ export default  class ExitDetail extends Component {
 	  basic.firstpaydate = dateFormat(basic.firstpaydate,"yyyy-mm-dd h:MM:ss");
 	  basic.signdate = dateFormat(basic.signdate,"yyyy-mm-dd h:MM:ss");
 	  const BasicRender = (props)=>{
+	  	const content = {
+			position: 'relative',
+			width: '900px',
+			margin: '0 auto'
+		}
+		const info = {
+			overflow:'hidden',
+			}
 
 		  return (
-				  <div>
+				 <div className="content" style={content}>
+				  	<View/>
+				  	<div className="content-info" style={info} >
+				  	
 
 								<KrField component="labelText" grid={1/2} label="出租方" value={basic.lessorName}/>
 								<KrField component="labelText" grid={1/2} label="地址" value={basic.lessorAddress}/>
@@ -93,7 +106,7 @@ export default  class ExitDetail extends Component {
 
 								<KrField component="labelText" grid={1/2} label="联系人" value={basic.leaseContact}/>
 								<KrField component="labelText" grid={1/2} label="电话" value={basic.leaseContacttel}/>
-
+								<SplitLine />
 								<KrField component="labelText" grid={1/2} label="所属社区" value={basic.communityName}/>
 								<KrField component="labelText" grid={1/2} label="地址" value={basic.communityAddress}/>
 
@@ -112,7 +125,7 @@ export default  class ExitDetail extends Component {
 								return <Button label={item.fileName} type="link" href={item.fileUrl} key={index}/>
 							})}
 			  		</KrField>
-			
+			</div>
 				  </div>
 		  );
 

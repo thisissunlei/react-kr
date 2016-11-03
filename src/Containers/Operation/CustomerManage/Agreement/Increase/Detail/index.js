@@ -6,7 +6,10 @@ import {
 	Notify,
 	Section,
 	KrDate,
+	SplitLine,
+	DotTitle
 } from 'kr-ui';
+import {View} from 'kr-ui/contractView';
 
 import {KrField,LabelText} from 'kr-ui/Form';
 import Date from 'kr-ui/Date';
@@ -60,9 +63,21 @@ export default  class JoinDetail extends Component {
 
 	}
 	BasicRender(basic){
+		const content = {
+			position: 'relative',
+			width: '900px',
+			margin: '0 auto'
+		}
+		const info = {
+			overflow:'hidden',
+			padding:30
+		}
 
 		  return (
-				  <div>
+				  <div className="content" style={content}>
+				  	<View/>
+				  	<div className="content-info" style={info} >
+				  	
 
 					<KrField component="labelText" grid={1/2} label="出租方" value={basic.lessorName} defaultValue="无"/>
 					<KrField component="labelText" grid={1/2} label="地址" value={basic.lessorAddress} defaultValue="无"/>
@@ -75,7 +90,7 @@ export default  class JoinDetail extends Component {
 
 					<KrField component="labelText" grid={1/2} label="联系人" value={basic.leaseContact} defaultValue="无"/>
 					<KrField component="labelText" grid={1/2} label="电话" value={basic.leaseContacttel} defaultValue="无"/>
-
+					<SplitLine />
 					<KrField component="labelText" grid={1/2} label="所属社区" value={basic.communityName} defaultValue="无"/>
 					<KrField component="labelText" grid={1/2} label="所属楼层" value={basic.wherefloor} defaultValue="无"/>
 
@@ -83,7 +98,7 @@ export default  class JoinDetail extends Component {
 					<KrField component="labelText" grid={1/2} label="合同编号" value={basic.contractcode} defaultValue="无"/>
 
 					<KrField component="labelText" grid={1/2} label="支付方式" value={basic.payType && basic.payType.dicName} defaultValue="无"/>
-					<KrField component="group" grid={1/2} label="租赁期限">
+					<KrField component="group" grid={1/2} label="租赁期限" requireBlue={true}>
 						<KrDate.Format value={basic.leaseBegindate}/>  ——  <KrDate.Format value={basic.leaseEnddate}/>
 					</KrField>
 
@@ -112,7 +127,7 @@ export default  class JoinDetail extends Component {
 			  		</KrField>
 
 											
-					<Section title="租赁明细" description=""> 
+					<DotTitle title='租赁明细'>
 
 						<Table displayCheckbox={false} >
 							<TableHeader>
@@ -146,7 +161,8 @@ export default  class JoinDetail extends Component {
 							</TableBody>
 						</Table>		
 
-					</Section>
+					</DotTitle>
+					</div>
 			</div>
 		  );
 

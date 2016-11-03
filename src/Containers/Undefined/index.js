@@ -27,6 +27,7 @@ import {
 	BraceWidth,
 	SelfAdaption,
 	LineText
+	SplitLine,
 } from 'kr-ui';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
@@ -80,7 +81,7 @@ export default class Undefined extends Component {
                      </Section>
 
 					<DotTitle title='订单详情'>
-					 
+					 <SplitLine />
 
 					</DotTitle>
 

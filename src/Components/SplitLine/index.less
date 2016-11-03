@@ -1,0 +1,46 @@
+.split-line{
+	height: 65px;
+	width: 100%;
+	position: relative;
+	.circle{
+		border-radius: 20px;
+		width: 20px;
+		height: 20px;
+		box-shadow: 0 0 10px #999 inset;
+		display: inline-block;
+		position: absolute;
+		left: -40px;
+		z-index: 2;
+		top: 10px;
+		background-color: #fff;
+		&:before{
+			content:'';
+			display: inline-block;
+
+		}
+	}
+	.circle:last-child{
+		border-radius: 20px;
+		width: 20px;
+		height: 20px;
+		box-shadow: 0 0 10px #999 inset;
+		display: inline-block;
+		position: absolute;
+		left: 100%;
+		margin-left: 20px;
+		background-color: #fff;
+		&:before{
+			content:'';
+			display: inline-block;
+
+		}
+	}
+	.line{
+		width: 110%;
+		position: absolute;
+		left: -5%;
+		top: 20px;
+		border: 1px dashed #999;
+		display: inline-block;
+	}
+}
