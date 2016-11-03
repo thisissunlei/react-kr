@@ -117,7 +117,7 @@ export default class TableFooter extends React.Component {
 				
                 {this.renderExport()}
 
-				<TableRowColumn style={{textAlign:'left'}} colSpan={8}>
+				<TableRowColumn  colSpan={10} align="right">
 						{this.renderPagination()}
 					</TableRowColumn>
 				</tr>
