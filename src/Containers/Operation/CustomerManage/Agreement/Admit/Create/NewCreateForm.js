@@ -298,15 +298,7 @@ class NewCreateForm extends Component {
 		this.setState({
 			stationVos: []
 		});
-		/*
 
-		stationVos.forEach(function(item,index){
-			item.leaseBeginDate = value;
-		});
-		this.setState({
-			stationVos
-		});
-		*/
 	}
 
 	//修改租赁期限-结束时间
@@ -323,14 +315,7 @@ class NewCreateForm extends Component {
 		this.setState({
 			stationVos: []
 		});
-		/*
-		stationVos.forEach(function(item,index){
-			item.leaseEndDate = value;
-		});
-		this.setState({
-			stationVos
-		});
-		*/
+
 	}
 
 	getStationUrl() {
@@ -566,13 +551,8 @@ class NewCreateForm extends Component {
 					</Row>
 				</Grid>
 	
-
 			</form>
 	</Paper>
-
-
-
-
 
 
 					<Dialog
@@ -665,6 +645,9 @@ const validate = values => {
 
 	if (!values.totaldownpayment) {
 		errors.totaldownpayment = '请填写定金总额';
+	}
+	if (values.totaldownpayment && isNaN(values.totaldownpayment)) {
+		errors.totaldownpayment = '定金总额必须为数字';
 	}
 
 
