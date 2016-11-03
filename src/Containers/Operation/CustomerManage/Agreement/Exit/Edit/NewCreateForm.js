@@ -218,14 +218,14 @@ class NewCreateForm extends Component {
 
 				<KrField grid={1/2} left={60} name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} />
 				<KrField grid={1} right={60} name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}/>
-				<KrField name="totalreturn" left={60} grid={1/2} type="text" component="input" label="退租金总额" requireLabel={true}/>
-				<KrField name="depositamount" right={60}  grid={1/2} type="text" component="input" label="退押金总额" requireLabel={true} />
+				<KrField name="totalreturn" right={60} grid={1/2} type="text" component="input" label="退租金总额" requireLabel={true}/>
+				<KrField name="depositamount" left={60}  grid={1/2} type="text" component="input" label="退押金总额" requireLabel={true} />
 
-				<KrField grid={1/2} left={60} name="withdrawdate" component="labelText" inline={false} label="撤场日期" requireLabel={true}/>
-				<KrField grid={1/2} right={60} name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
+				<KrField grid={1/2} right={60} name="withdrawdate" component="labelText" inline={false} label="撤场日期" requireLabel={true}/>
+				<KrField grid={1/2} left={60} name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
         
 
-				<KrField grid={1} left={60} name="contractmark" component="textarea" label="备注" />
+				<KrField grid={1} right={60} name="contractmark" component="textarea" label="备注" />
 				<KrField grid={1} right={60} name="fileIdList" component="file" label="上传附件" requireLabel={true}/>
 
 						<Grid>
