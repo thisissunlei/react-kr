@@ -213,7 +213,7 @@ export default class Pagination extends Component {
 			element = this.createOther(pageEnd+1);
 			pageBody.push(element);
 		}
-		console.log('pageStart',pageStart,'pageEnd',pageEnd,'pageJump',pageJump)
+
 		return (
 			<div className="item-body">
 					{pageBody}

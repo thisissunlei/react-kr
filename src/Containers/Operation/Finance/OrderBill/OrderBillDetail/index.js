@@ -808,6 +808,7 @@ export default class AttributeSetting  extends Component{
 				    <Dialog
 						title="高级查询"
 						open={this.state.openSearch}
+						onClose={this.closeSearchDialog}
 						>							
 					   <SearchForm onCancel={this.closeSearchDialog} initialValues={searchValue} codeList={this.state.codeList} typeList={this.state.typeList} onSubmit={this.onSubmit}/>
 					 </Dialog>
@@ -815,8 +816,7 @@ export default class AttributeSetting  extends Component{
 					 <Dialog
 						title="添加回款"
 						open={this.state.openReceivedBtn}
-						autoScrollBodyContent={true}
-				        autoDetectWindowHeight={true}
+						onClose={this.closeReceivedDialog}
 						>							
 					   <ReceivedBtnForm onSubmit={this.onAddReceivedSubmit}  onCancel={this.closeReceivedDialog} optionList={this.state.receivedList} typeList={this.state.typeList}/>
 					 </Dialog>
@@ -824,8 +824,7 @@ export default class AttributeSetting  extends Component{
 					 <Dialog
 						title="退款"
 						open={this.state.openQuitBtn}
-						autoScrollBodyContent={true}
-				        autoDetectWindowHeight={true}
+						onClose={this.closeQuitBtn}
 						>							
 					   <QuitBtnForm  onSubmit={this.onQuitSubmit} onCancel={this.closeQuitBtn}  initialValues={initialValuesId}/>
 					 </Dialog>
@@ -833,6 +832,7 @@ export default class AttributeSetting  extends Component{
 					 <Dialog
 						title="转押金"
 						open={this.state.openSwitchBtn}
+						onClose={this.closeSwitchBtn}
 						>							
 					   <SwitchBtnForm  onSubmit={this.onSwitchSubmit} onCancel={this.closeSwitchBtn} optionList={this.state.receivedList} initialValues={initialValuesId}/>
 					 </Dialog>
@@ -840,6 +840,7 @@ export default class AttributeSetting  extends Component{
 					 <Dialog
 						title="转营收"
 						open={this.state.openBusinessBtn}
+						onClose={this.closeBusinessBtn}
 						>							
 					   <BusinessBtnForm  onSubmit={this.onBusinessSubmit} onCancel={this.closeBusinessBtn} fiMoney={fiMoney} initialValues={initialValuesId}/>
 					 </Dialog>
@@ -847,6 +848,7 @@ export default class AttributeSetting  extends Component{
 					 <Dialog
 						title="挂账"
 						open={this.state.openAddaccountBtn}
+						onClose={this.closeAddaccount}
 						>							
 					   <AccountBtnForm  onSubmit={this.onConfrimSubmit}  onCancel={this.closeAddaccount}  optionList={this.state.receivedList} initialValues={propId}/>
 					 </Dialog>
@@ -854,6 +856,7 @@ export default class AttributeSetting  extends Component{
 					 <Dialog
 						title="补收入"
 						open={this.state.openSupplementBtn}
+						onClose={this.openSupplementBtn}
 						>							
 					   <SupplementBtnForm  onSubmit={this.onSupplementSubmit} mainbillid="{params.orderId}" onCancel={this.openSupplementBtn} />
 					 </Dialog>
@@ -862,6 +865,7 @@ export default class AttributeSetting  extends Component{
 						title="查看"
 						open={this.state.openView}
 						actions={close}
+						onClose={this.closeViewDialog}
 						>							
 						<ViewForm detail={this.state.itemDetail}  />
 					 </Dialog> 
