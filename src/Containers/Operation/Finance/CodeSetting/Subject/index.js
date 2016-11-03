@@ -244,6 +244,7 @@ export default class AttributeSetting extends Component {
 						title="编辑"
 						modal={true}
 						open={this.state.openEditDetail}
+						onClose={this.openEditDetailDialog}
 					>
 						<EditDetailForm  detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog} />
 				  </Dialog>
@@ -252,6 +253,7 @@ export default class AttributeSetting extends Component {
 						title="查看"
 						modal={true}
 						open={this.state.openView}
+						onClose={this.openViewDialog}
 					>
 						<ItemDetail  detail={this.state.itemDetail} onCancel={this.openViewDialog} />
 				  </Dialog>
