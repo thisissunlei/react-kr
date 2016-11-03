@@ -6,7 +6,8 @@ import WrapComponent from '../WrapComponent';
 export default class  GroupComponent extends React.Component {
 
 	static PropTypes = {
-		inline:React.PropTypes.bool
+		inline:React.PropTypes.bool,
+		requireBlue:React.PropTypes.bool
 	}
 
 	constructor(props){
@@ -15,10 +16,10 @@ export default class  GroupComponent extends React.Component {
 
 	render(){
 
-		let {requireLabel,label,children,style,inline} = this.props;
+		let {requireLabel,requireBlue,label,children,style,inline} = this.props;
 
 			return (
-				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
+				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} requireBlue={requireBlue}>
 					{children}
 				</WrapComponent>
 				);

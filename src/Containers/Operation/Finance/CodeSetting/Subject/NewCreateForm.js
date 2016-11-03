@@ -10,7 +10,8 @@ import {
 	Row,
 	Col,
 	Button,
-	Notify
+	Notify,
+	ButtonGroup,
 } from 'kr-ui';
 
 
@@ -69,15 +70,20 @@ import {
 
 				<Grid style={{marginTop:30}}>
 					<Row>
-						<Col md={8}></Col>
-						<Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
-						<Col md={2}> <Button  label="取消" type="button"  onTouchTap={this.onCancel} /> </Col>
+						<Col md={12} align="right">
+							<ButtonGroup>
+							<Button  label="确定" type="submit" primary={true} />
+							<Button  label="取消" type="button"  onTouchTap={this.onCancel} />
+							</ButtonGroup>
+						</Col>
 					</Row>
-				</Grid>
+				</Grid>	
+
 				</form>
 		);
 	}
 }
+
 const validate = values =>{
 
 		const errors = {}

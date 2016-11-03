@@ -26,6 +26,7 @@ import {
 	DotTitle,
 	BraceWidth,
 	SelfAdaption,
+	LineText,
 	SplitLine,
 } from 'kr-ui';
 
@@ -83,6 +84,8 @@ export default class Undefined extends Component {
 					 <SplitLine />
 
 					</DotTitle>
+
+					<LineText title='回款' primary='true' />
 				</div>	
 		);
 

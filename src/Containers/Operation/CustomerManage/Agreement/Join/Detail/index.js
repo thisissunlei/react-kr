@@ -16,6 +16,7 @@ import {KrField,LabelText} from 'kr-ui/Form';
 import {View} from 'kr-ui/contractView';
 import Date from 'kr-ui/Date';
 import RaisedButton from 'material-ui/RaisedButton';
+import dateFormat from 'dateformat';
 
 import {Actions,Store} from 'kr/Redux';
 
@@ -101,33 +102,15 @@ export default  class JoinDetail extends Component {
 					<KrField component="labelText" grid={1/2} label="合同编号" value={basic.contractcode} defaultValue="无" requireBlue={true}/>
 
 					<KrField component="labelText" grid={1/2} label="支付方式" value={basic.payType && basic.payType.dicName} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} label="租赁期限：" value={`${dateFormat(basic.leaseBegindate,"yyyy-mm-dd")}——${dateFormat(basic.leaseEnddate,"yyyy-mm-dd")}`} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" type="date" grid={1/2} label="首付款时间：" value={basic.firstpaydate} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} label="付款方式：" value={basic.payment && basic.payment.dicName} defaultValue="无" requireBlue={true}/>
 
+					<KrField component="labelText" type="date" grid={1/2} label="签署日期：" value={basic.signdate} defaultValue="无" requireBlue={true}/>
 
-					<KrField component="group" grid={1/2} label="租赁期限:" requireBlue={true}>
-
-						<Row style={{marginTop:5}}>
-						<Date.Format value={basic.leaseBegindate} />  ——  <Date.Format value={basic.leaseEnddate}/>
-						</Row>
-					</KrField>
-					
-						
-			  <Grid>
-				  <Row style={{padding:10,marginBottom:15}}>
-					  <Col md={6} align="left" >首付款时间： <Date.Format value={basic.firstpaydate}/>  </Col>
-					  <Col md={5} align="left" style={{paddingLeft:10}}>付款方式：  {basic.payment && basic.payment.dicName}</Col>
-				  </Row>
-				  <Row style={{padding:10,marginBottom:15}}>
-					  <Col md={6} align="left" >签署日期： <Date.Format value={basic.signdate}/>  </Col>
-
-				  </Row>
-			  </Grid>
-
-					<KrField component="group" label="租赁项目" requireBlue={true} requireBlue={true}>
-									<KrField component="labelText" label="工位" value={basic.stationnum} defaultValue="0"/>
-									<KrField component="labelText" label="会议室" value={basic.boardroomnum} defaultValue="0"/>
-						</KrField>
-
-					<KrField component="labelText" label="租赁用途" value={basic.rentaluse} requireBlue={true}/>
+					<KrField component="labelText" label="租赁工位：" value={basic.stationnum} requireBlue={true} defaultValue="0"/>
+					<KrField component="labelText" label="租赁办公室：" value={basic.boardroomnum} requireBlue={true} defaultValue="0"/>
+					<KrField component="labelText" label="租赁用途：" value={basic.rentaluse} requireBlue={true} defaultValue="无"/>
 
 					<KrField component="labelText" grid={1/2}  label="租金总额" value={basic.totalrent} defaultValue="0" requireBlue={true}/>
 					<KrField component="labelText" grid={1/2} label="押金总额" value={basic.totaldeposit} defaultValue="0" requireBlue={true}/>
