@@ -170,7 +170,7 @@ export default class Pagination extends Component {
 		}
 		let pageMin = 1;
 		let pageStart = page;
-		let pageJump = 5;
+		let pageJump = 3;
 		let pageEnd = pageStart + pageJump;
 		let pageMax = Math.ceil(totalCount / pageSize);
 		let element = null;

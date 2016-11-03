@@ -339,7 +339,6 @@ class NewCreateForm  extends Component{
 		this.setState({stationVos:billList},function(){
 			this.calcStationNum();
 		});  
-		console.log('---->>>',stationVos);
 
 	}
 	onChangeSearchPersonel(personel){
@@ -468,21 +467,6 @@ class NewCreateForm  extends Component{
 	}
 	}
 
-	/*
-	const validate = values =>{
-		const errors = {}
-
-		if(!values.mainbilltype){
-			errors.mainbilltype = '请选择订单类型';
-		}else if (!values.communityid) {
-			errors.communityid = '请选择所在社区';
-		}else if(!values.mainbillname){
-			errors.mainbillname = '订单名称不能为空';
-		}
-
-		return errors
-	}
-	*/
 
 const selector = formValueSelector('admitCreateForm');
 
@@ -554,6 +538,11 @@ const selector = formValueSelector('admitCreateForm');
 
 		if (!values.totaldownpayment) {
 			errors.totaldownpayment = '请填写定金总额';
+		}
+
+
+		if (values.totaldownpayment && isNaN(values.totaldownpayment)) {
+			errors.totaldownpayment = '定金总额必须为数字';
 		}
 
 

@@ -57,7 +57,10 @@ import {
 	IframeContent,
 	Date,
 	DotTitle,
-	ButtonGroup
+	ButtonGroup,
+	ListGroup,
+	ListGroupItem
+
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -506,8 +509,14 @@ class NewCreateForm extends Component {
 				<KrField grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}/> 
 
 				<KrField grid={1/1}  component="group" label="租赁期限" requireLabel={true}> 
-					<KrField grid={1/2}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate}/> 
-					<KrField grid={1/2}  name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} /> 
+					<ListGroup>
+						<ListGroupItem><KrField grid={1/2}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/> </ListGroupItem>
+						<ListGroupItem ><span style={{display:'inline-block',lineHeight:'75px'}}>至</span></ListGroupItem>
+						<ListGroupItem><KrField grid={1/2}  name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} simple={true} /> </ListGroupItem>
+					</ListGroup>
+ 
+					
+					
 				</KrField>
 
 				<KrField name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/> 
@@ -661,9 +670,20 @@ const validate = values => {
 	if (!values.totalrent) {
 		errors.totalrent = '请填写租金总额';
 	}
+
+	if (values.totalrent && isNaN(values.totalrent)) {
+		errors.totalrent = '租金总额必须为数字';
+	}
+
+
 	if (!values.totaldeposit) {
 		errors.totaldeposit = '请填写押金总额';
 	}
+
+	if (values.totaldeposit && isNaN(values.totaldeposit)) {
+		errors.totaldeposit = '押金总额必须为数字';
+	}
+
 	if (!values.fileIdList) {
 		errors.fileIdList = '请填写合同附件';
 	}

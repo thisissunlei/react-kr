@@ -148,7 +148,7 @@ export default  class JoinDetail extends Component {
 											{item.unitprice}
 										</TableRowColumn>
 										<TableRowColumn><Date.Format value={item.leaseBeginDate}/></TableRowColumn>
-										<TableRowColumn><Date.Format value={item.leaseEnddate}/></TableRowColumn>
+										<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
 									</TableRow>
 								);
 								})
