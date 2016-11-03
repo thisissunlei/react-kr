@@ -238,6 +238,7 @@ export default class AttributeSetting extends Component {
 						title="新建"
 						modal={true}
 						open={this.state.openNewCreate}
+						onClose={this.openNewCreateDialog}
 					>
 						<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 
