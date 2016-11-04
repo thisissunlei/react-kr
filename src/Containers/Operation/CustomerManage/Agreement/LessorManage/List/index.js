@@ -178,7 +178,7 @@ export default class LessorManageList extends Component {
 							 <TableRow displayCheckbox={true}>
 							<TableRowColumn  name="id"></TableRowColumn>
 							<TableRowColumn name="corporationName"></TableRowColumn>
-							<TableRowColumn name="enableflag" options={[{value:'true',label:'是'},{value:'false',label:'否'}]}></TableRowColumn>
+							<TableRowColumn name="enableflag" options={[{value:'ENABLE',label:'是'},{value:'DISENABLE',label:'否'}]}></TableRowColumn>
 							<TableRowColumn name="corporationAddress"></TableRowColumn>
 							<TableRowColumn name="createName"></TableRowColumn>
 							<TableRowColumn name="createdate" type="date"></TableRowColumn>

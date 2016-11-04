@@ -65,8 +65,8 @@ let SettingCreateForm = function(props) {
 
       <KrField name="dicName" type="text" component="input" label="字段名称" requireLabel={true}/>  
        <KrField name="enableFlag" component="group" label="是否有效" requireLabel={true} >
-          <KrField name="enableFlag" label="是" component="radio" type="radio" value="1"  />
-          <KrField name="enableFlag" label="否" component="radio"  type="radio" value="0"/>
+          <KrField name="enableFlag" label="是" component="radio" type="radio" value="ENABLE"  />
+          <KrField name="enableFlag" label="否" component="radio"  type="radio" value="DISENABLE"/>
         </KrField>
      <KrField name="remark" type="textarea" component="textarea" label="备注"  placeholder="备注信息" /> 
 
@@ -110,7 +110,7 @@ const SettingViewForm = (props) => {
     <div>
         
         <KrField name="corporationName" component="labelText"  label="字段名称" value={items.sp.dicName}/> 
-        <KrField name="enableflag" component="labelText"  label="是否有效" value={items.sp.enableFlag?'是':'否'}/> 
+        <KrField name="enableflag" component="labelText"  label="是否有效" value={items.sp.enableFlag=="ENABLE"?'是':'否'}/> 
         <KrField name="corporationDesc" component="labelText" label="备注" value={items.sp.remark}/> 
   </div>
   );
@@ -124,7 +124,7 @@ const SettingChildViewForm = (props) => {
     <div>
         
         <KrField name="corporationName" component="labelText"  label="字段名称" value={items.dicName} requireLabel={true}/> 
-        <KrField name="enableflag" component="labelText"  label="是否有效" value={items.enableFlag?'是':'否'} requireLabel={true}/> 
+        <KrField name="enableflag" component="labelText"  label="是否有效" value={items.enableFlag=="ENABLE"?'是':'否'} requireLabel={true}/> 
         <KrField name="corporationDesc" component="labelText" label="备注" value={items.remark} requireLabel={true}/> 
   </div>
   );
@@ -152,8 +152,8 @@ let SettingUpdateForm = function(props) {
               <KrField name="id" type="hidden" label="id"  /> 
               <KrField name="dicName" type="text" component="input" label="字段名称"  /> 
               <KrField name="enableFlag" component="group" label="是否有效" >
-                <KrField name="enableFlag" label="是" component="radio" type="radio" value={true}/>
-                <KrField name="enableFlag" label="否" component="radio" type="radio" value={false} />
+              <KrField name="enableFlag" label="是" component="radio" type="radio" value="ENABLE"/>
+                <KrField name="enableFlag" label="否" component="radio" type="radio" value="DISENABLE" />
               </KrField>
                <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息"/> 
 
@@ -194,8 +194,8 @@ let SettingChildUpdateForm = function(props) {
               <KrField name="id" type="hidden" label="id"  /> 
               <KrField name="dicName" type="text" component="input" label="字段名称" requireLabel={true} /> 
               <KrField name="enableflag" component="group" label="是否有效" requireLabel={true}>
-                <KrField name="enableflag" label="是" component="radio" type='radio' value={true} requireLabel={true}/>
-                <KrField name="enableflag" label="否" component="radio"  type='radio'  value={false} requireLabel={true}/>
+                <KrField name="enableflag" label="是" component="radio" type='radio' value="ENABLE" requireLabel={true}/>
+                <KrField name="enableflag" label="否" component="radio"  type='radio'  value="DISENABLE" requireLabel={true}/>
               </KrField>
                <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息" requireLabel={true}/> 
               
@@ -238,8 +238,8 @@ let SettingAddForm = function(props) {
                   <KrField name="dicName" type="text" label="子项名称" requireLabel={true}/>
                   <KrField  type="labelText" label="字段名称" value={props.dicName} requireLabel={true}/>
                  <KrField name="enableflag" component="group" label="是否有效" requireLabel={true}>
-                    <KrField name="enableflag" label="是" type="radio" value="1"/>
-                    <KrField name="enableflag" label="否" type="radio" value="0" />
+                    <KrField name="enableflag" label="是" type="radio" value="ENABLE"/>
+                    <KrField name="enableflag" label="否" type="radio" value="DISENABLE" />
                   </KrField>
                    <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息" requireLabel={true}/> 
                   <Grid style={{marginTop:30}}>
@@ -263,8 +263,8 @@ let SettingAddForm = function(props) {
               <KrField  type="labelText" label="字段名称" value={props.dicName} requireLabel={true}/>
               <KrField name="round" type="text" label="拆分周期" requireLabel={true} /> 
               <KrField name="enableflag" component="group" label="是否有效" requireLabel={true}>
-                <KrField name="enableflag" label="是" type="radio" value="1"/>
-                <KrField name="enableflag" label="否" type="radio" value="0" />
+                <KrField name="enableflag" label="是" type="radio" value="ENABLE"/>
+                <KrField name="enableflag" label="否" type="radio" value="DISENABLE" />
               </KrField>
                <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息" requireLabel={true}/> 
               <Grid style={{marginTop:30}}>
@@ -392,6 +392,10 @@ export default class SettingList extends Component {
         message: '编辑成功!',
         type: 'success',
       }]);
+      setTimeout(function() {
+        window.location.reload();
+      }, 1000)
+
     }).catch(function(err) {
       Notify.show([{
         message: err.message,
@@ -400,13 +404,6 @@ export default class SettingList extends Component {
     });
 
     this.openUpdateDialog();
-
-
-    window.setTimeout(function() {
-      window.location.reload();
-    }, 1000);
-
-
 
   }
   confirmUpdateChildSubmit(values) {
@@ -503,7 +500,7 @@ export default class SettingList extends Component {
       return (
         <TableRow key={index} className="odd">
             <TableRowColumn>{item.sp.dicName}</TableRowColumn>
-              <TableRowColumn>{item.sp.enableFlag?'是':'否'}</TableRowColumn>
+              <TableRowColumn>{item.sp.enableFlag=="ENABLE"?'是':'否'}</TableRowColumn>
               <TableRowColumn>{item.sp.createName}</TableRowColumn>
               <TableRowColumn type="date">
                    <KrDate.Format value={item.sp.createTime}/>
@@ -521,7 +518,7 @@ export default class SettingList extends Component {
       return (
         <TableRow key={index} className="even" >
             <TableRowColumn>{item.sp.dicName}</TableRowColumn>
-              <TableRowColumn>{item.sp.enableFlag?'是':'否'}</TableRowColumn>
+              <TableRowColumn>{item.sp.enableFlag=="ENABLE"?'是':'否'}</TableRowColumn>
               <TableRowColumn>{item.sp.createName}</TableRowColumn>
               <TableRowColumn type="date">
                    <KrDate.Format value={item.sp.createTime}/>
@@ -563,7 +560,7 @@ export default class SettingList extends Component {
              {item.map((item,index)=> <TableRow key={index}>
                     
                         <TableRowColumn>{item.dicName}</TableRowColumn>
-                        <TableRowColumn>{item.enableFlag?'是':'否'}</TableRowColumn>
+                        <TableRowColumn>{item.enableFlag=="ENABLE"?'是':'否'}</TableRowColumn>
                         <TableRowColumn>{item.createName}</TableRowColumn>
                         <TableRowColumn>
                             <KrDate.Format value={item.createTime}/>
