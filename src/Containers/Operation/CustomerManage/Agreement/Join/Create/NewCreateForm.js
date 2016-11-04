@@ -608,7 +608,7 @@ class NewCreateForm extends Component {
 						<Col md={12} align="center">
 							<ButtonGroup>
 								<Button  label="确定" type="submit"  disabled={submitting} />
-								<Button  label="取消" type="button"  onTouchTap={this.onCancel}/>
+								<Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/>
 							</ButtonGroup>
 						  </Col>
 						</Row>
