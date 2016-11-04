@@ -39,7 +39,7 @@ let OrderCreateForm = function(props){
 				<Grid>
 					<Row style={{marginTop:30}}>
 						<Col md={10}></Col>
-						<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} disabled={submitting} /> </Col>
+						<Col md={2} align="right"> <Button  label="确定" type="submit" joinEditForm disabled={submitting} /> </Col>
 					</Row>
 				</Grid>
 

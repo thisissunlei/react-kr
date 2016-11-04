@@ -79,7 +79,7 @@ class SearchForm extends Component {
               <Row>
               <Col md={5}><KrField name="type" type="select" component="select" options={[{label:'订单名称',value:'BILL'},{label:'员工姓名',value:'MEMBER'},{label:'手机号',value:'PHONE'}]}/></Col>
 				<Col md={5}><KrField name="value" type="text" placeholder="搜索关键字" /></Col>
-				<Col md={2}><Button  label="查询" type="submit" primary={true} /></Col>
+				<Col md={2}><Button  label="查询" type="submit" joinEditForm /></Col>
               </Row>
 
 			</form>

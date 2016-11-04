@@ -81,7 +81,7 @@ export default class SearchForm extends Component{
 						<Row>
 							<Col md={12} align="right">
 								<ButtonGroup>
-									<Button  label="确定" type="submit" primary={true} /> 
+									<Button  label="确定" type="submit" joinEditForm /> 
 									<Button  label="取消" type="button" onTouchTap={this.onCancel} /> 
 								</ButtonGroup>
 							</Col>

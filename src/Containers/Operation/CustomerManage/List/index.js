@@ -34,7 +34,7 @@ var SubmitValidationForm = (props) => {
 				<Grid style={{marginTop:30}}>
 					<Row>
 						<Col md={8}></Col>
-						<Col md={2}> <RaisedButton  label="确定" type="submit" primary={true} /> </Col>
+						<Col md={2}> <RaisedButton  label="确定" type="submit" joinEditForm /> </Col>
 						<Col md={2}> <FlatButton label="取消"  onTouchTap={cancel} /> </Col>
 
 					</Row>
@@ -43,7 +43,7 @@ var SubmitValidationForm = (props) => {
 
 
 		  {/*
-			<FlatButton label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
+			<FlatButton label="重置" joinEditForm onTouchTap={reset} disabled={pristine || submitting} />
 		  */}
 
 	</form>

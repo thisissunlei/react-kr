@@ -70,10 +70,10 @@ class OrderCreate extends Component {
 
       <Grid>
           <Row>
-            <Col md={2}> <Button label="新建属性" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
+            <Col md={2}> <Button label="新建属性" joinEditForm onTouchTap={this.openCreateDialog} /> </Col>
             <Col md={6}> </Col>
             <Col md={2}> <KrField name="username" type="text" /></Col> 
-            <Col md={2}> <Button label="搜索" primary={true} onTouchTap={this.openCreateDialog} /> </Col>
+            <Col md={2}> <Button label="搜索" joinEditForm onTouchTap={this.openCreateDialog} /> </Col>
           </Row>
         </Grid>
 
@@ -97,9 +97,9 @@ class OrderCreate extends Component {
             <TableRowColumn>4</TableRowColumn>
             <TableRowColumn>Steve Brown</TableRowColumn>
             <TableRowColumn>
-				<Button type="link" label="查看" primary={true} href="/#/operation/customerManage/343/order/create" />
-				<Button type="link" label="编辑" primary={true} href="/#/operation/customerManage/343/order/create" />
-				<Button type="link" label="删除" primary={true} href="/#/operation/customerManage/343/order/create" />
+				<Button type="link" label="查看" joinEditForm href="/#/operation/customerManage/343/order/create" />
+				<Button type="link" label="编辑" joinEditForm href="/#/operation/customerManage/343/order/create" />
+				<Button type="link" label="删除" joinEditForm href="/#/operation/customerManage/343/order/create" />
 			</TableRowColumn>
          </TableRow>
 
@@ -151,14 +151,14 @@ class OrderCreate extends Component {
 
           <Row style={{marginTop:30}}>
             <Col md={8}></Col>
-            <Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
+            <Col md={2}> <Button  label="确定" type="submit" joinEditForm /> </Col>
             <Col md={2}> <Button  label="取消" type="submit"  onTouchTap={this.openCreateDialog} /> </Col>
           </Row>
 
         </Grid>
 
       {/*
-      <FlatButton label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
+      <FlatButton label="重置" joinEditForm onTouchTap={reset} disabled={pristine || submitting} />
       */}
 
     </form>

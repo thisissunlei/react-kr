@@ -74,7 +74,7 @@ let SettingCreateForm = function(props) {
           <Row>
             <Col md={12} align="right">
                 <ButtonGroup>
-                    <Button  label="确定" type="submit" primary={true} />
+                    <Button  label="确定" type="submit" joinEditForm />
                     <Button  label="取消" type="button" onTouchTap={onCancel} />
                 </ButtonGroup>
             </Col>
@@ -161,7 +161,7 @@ let SettingUpdateForm = function(props) {
                 <Row>
                 <Col md={12} align="right">
                     <ButtonGroup>
-                        <Button  label="确定" type="submit" primary={true} /> 
+                        <Button  label="确定" type="submit" joinEditForm /> 
                         <Button  label="取消" type="button"  onTouchTap={onCancel}  />
                     </ButtonGroup>
                 </Col>
@@ -203,7 +203,7 @@ let SettingChildUpdateForm = function(props) {
                 <Row >
                 <Col md={12} align="center">
                     <ButtonGroup>
-                        <Button  label="确定" type="submit" primary={true} />
+                        <Button  label="确定" type="submit" joinEditForm />
                         <Button  label="取消" type="button"  onTouchTap={onCancel}  />
                     </ButtonGroup>
                 </Col>
@@ -246,7 +246,7 @@ let SettingAddForm = function(props) {
                     <Row>
                     <Col md={12} align="right">
                         <ButtonGroup>
-                             <Button  label="确定" type="submit" primary={true} />
+                             <Button  label="确定" type="submit" joinEditForm />
                              <Button  label="取消" type="button"  onTouchTap={onCancel}  />
                         </ButtonGroup>
                     </Col>
@@ -271,7 +271,7 @@ let SettingAddForm = function(props) {
                 <Row>
                 <Col md={12} align="center">
                     <ButtonGroup>
-                        <Button  label="确定" type="submit" primary={true} /> 
+                        <Button  label="确定" type="submit" joinEditForm /> 
                          <Button  label="取消" type="button"  onTouchTap={onCancel}  /> 
                     </ButtonGroup>
                 </Col>
@@ -639,7 +639,7 @@ export default class SettingList extends Component {
     const actions = [
       <Button
         label="关闭"
-        primary={true}
+        joinEditForm
          style={{marginLeft:10}}
         onTouchTap={this.openViewDialog.bind(this)}
         />
@@ -647,7 +647,7 @@ export default class SettingList extends Component {
     const close = [
       <Button
         label="关闭"
-        primary={true}
+        joinEditForm
          style={{marginLeft:10}}
         onTouchTap={this.openViewChildDialog.bind(this)}
         />
@@ -660,7 +660,7 @@ export default class SettingList extends Component {
 
       <Section title="基础配置" description=""> 
 
-          <Button label="新建" primary={true} onTouchTap={this.openCreateDialog} />
+          <Button label="新建" joinEditForm onTouchTap={this.openCreateDialog} />
 
             <Table style={{marginTop:20}} className="parentTable" toggleVisibility="odd" displayCheckbox={false} page={this.state.page} pageSize={this.state.pageSize} totalCount={this.state.totalCount}>
                 <TableHeader>

@@ -157,7 +157,7 @@ export default class LessorManageList extends Component {
 
 					<Grid>
 						<Row>
-							<Col md={4}  align="left"> <Button label="新建出租方" primary={true} onTouchTap={this.openNewCreateDialog} /> </Col>
+							<Col md={4}  align="left"> <Button label="新建出租方" joinEditForm onTouchTap={this.openNewCreateDialog} /> </Col>
 							<Col md={8} align="right"> 
 									<SearchForm onSubmit={this.onSearchSubmit} />
 							</Col> 
