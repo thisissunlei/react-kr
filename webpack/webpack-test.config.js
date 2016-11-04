@@ -21,7 +21,6 @@ const config = {
 	externals: { 
 		React:true
 	}, 
-	//devtool: 'eval-source-map',
 	output: {
 		path: buildPath,
 		filename: '[name].js',

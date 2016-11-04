@@ -190,7 +190,7 @@ export default class AttributeSetting  extends Component{
 		       });             		   
  		}).catch(function(err){
 			Notify.show([{
-				message:message,
+				message:err.message,
 				type: 'danger',
 			}]);
 		 });
@@ -275,7 +275,7 @@ export default class AttributeSetting  extends Component{
 		       });    	       
  		    }).catch(function(err){
 			Notify.show([{
-				message:message,
+				message:err.message,
 				type: 'danger',
 			}]);
 		  });
@@ -329,7 +329,7 @@ export default class AttributeSetting  extends Component{
 		       });             		   
  		}).catch(function(err){
 			Notify.show([{
-				message:message,
+				message:err.message,
 				type: 'danger',
 			}]);
 		 });
@@ -354,7 +354,7 @@ export default class AttributeSetting  extends Component{
  		      	 
  		}).catch(function(err){
 			Notify.show([{
-				message:message,
+				message:err.message,
 				type: 'danger',
 			}]);
 		 });
@@ -422,7 +422,6 @@ export default class AttributeSetting  extends Component{
       	    params,
 			openSearch:!this.state.openSearch	
 	    });  
-	    console.log('8888888')
     }
     onSelect(values){
         //此处反着？
@@ -640,7 +639,7 @@ export default class AttributeSetting  extends Component{
 		       });             	           		   
  		}).catch(function(err){
 			Notify.show([{
-				message:'报错了',
+				message:err.message,
 				type: 'danger',
 			}]);
 		 });
