@@ -51,10 +51,7 @@ class NewCreateForm extends Component {
 
 	onSubmit(values) {
 
-		values = Object.assign({}, values);
-		console.log('hhhhh', values)
-		values.enableflag = Boolean(values.enableflag) ? 1 : 0;
-		console.log('gggg', values)
+
 		values = Object.assign({}, values);
 
 		var _this = this;
@@ -106,8 +103,8 @@ class NewCreateForm extends Component {
 							<KrField name="corporationName" type="text" label="出租方名称" /> 
 
 							<KrField name="enableflag" component="group" label="是否启用">
-								<KrField name="enableflag" label="是" component="radio" type="radio" value="true"/>
-								<KrField name="enableflag" label="否" component="radio" type="radio" value="false" />
+								<KrField name="enableflag" label="是" component="radio" type="radio" value="ENABLE"/>
+								<KrField name="enableflag" label="否" component="radio" type="radio" value="DISENABLE" />
 							</KrField>
 							
 							<KrField name="corporationAddress" component="text" type="text" label="详细地址"/> 
