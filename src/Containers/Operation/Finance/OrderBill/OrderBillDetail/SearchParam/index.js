@@ -70,11 +70,12 @@ export default class SearchParam extends Component{
         }
        
         if(type=='INCOME'){
-        this.setState({
+          this.setState({
 			primaryR:'false',
 			primaryI:'true'	
 	      });
         }
+        
         
         
 
