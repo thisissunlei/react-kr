@@ -152,8 +152,8 @@ let SettingUpdateForm = function(props) {
               <KrField name="id" type="hidden" label="id"  /> 
               <KrField name="dicName" type="text" component="input" label="字段名称"  /> 
               <KrField name="enableFlag" component="group" label="是否有效" >
-                <KrField name="enableFlag" label="是" component="radio" type="radio" value={true}/>
-                <KrField name="enableFlag" label="否" component="radio" type="radio" value={false} />
+              <KrField name="enableFlag" label="是" component="radio" type="radio" value="1"/>
+                <KrField name="enableFlag" label="否" component="radio" type="radio" value="0" />
               </KrField>
                <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息"/> 
 
@@ -392,6 +392,10 @@ export default class SettingList extends Component {
         message: '编辑成功!',
         type: 'success',
       }]);
+      setTimeout(function() {
+        window.location.reload();
+      }, 1000)
+
     }).catch(function(err) {
       Notify.show([{
         message: err.message,
@@ -400,13 +404,6 @@ export default class SettingList extends Component {
     });
 
     this.openUpdateDialog();
-
-
-    window.setTimeout(function() {
-      window.location.reload();
-    }, 1000);
-
-
 
   }
   confirmUpdateChildSubmit(values) {
