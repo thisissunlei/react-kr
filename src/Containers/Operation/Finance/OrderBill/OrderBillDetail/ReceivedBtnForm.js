@@ -98,28 +98,35 @@ class ReceivedBtnForm extends Component{
                  
 					      <form onSubmit={handleSubmit(this.onSubmit)}>
                             <KrField  name="mainbillid" type="hidden" component="input"/>
-						    <KrField  label="代码名称" name="accountId" type="select" options={optionList} requireLabel={true}/>
-						    <KrField component="date" label="回款日期" name="receiveDate" requireLabel={true}/>
-						    <KrField label="交易编号" name="dealCode"  component="input" type="text" requireLabel={true}/>
-						    <KrField label="是否自动拆分"  name="autoSplit" component="select" options={
+						    <KrField  label="代码名称" grid={1/2} name="accountId" type="select" options={optionList} requireLabel={true}/>
+						     <KrField name="sumSign" grid={1/2} component="group" label="金额正负" requireLabel={true}>
+				                <KrField name="sumSign" label="正" component="radio" type="radio" value="0"/>
+				                <KrField name="sumSign" label="负" component="radio" type="radio" value="1"/>
+			                </KrField>
+                            
+						    <KrField component="date" grid={1/2} label="回款日期" name="receiveDate" requireLabel={true}/>
+						    
+                             <KrField label="是否自动拆分"  name="autoSplit" component="select" options={
 						    	[{label:"是",value:"1"},{label:"否",value:"0"}]
 						    } requireLabel={true}/>
 
 						    {parseInt(changeValues.autoSplit)?<div>
-						    	 <KrField label="金额（元）" name="sum" component="input" type="text" requireLabel={true}/>
+						    	 <KrField label="金额（元） " grid={1/2} name="sum" component="input" type="text" requireLabel={true}/>
 						    </div>:<div>
 						      {typeList.map((item,index)=>						
 						         <KrField key={index} grid={1} label={item.label} component="input" name={item.value} type="text"/>						 
 						       )}                           
 						    </div>}
+						    <KrField label="交易编号" grid={1/2} name="dealCode"  component="input" type="text" requireLabel={true}/>
+						    <KrField label="上传附件" grid={1/2} name="fileids" component="file" />
+
+						    
+
+						    
                             
-                            <KrField name="sumSign" component="group" label="金额正负" requireLabel={true}>
-				                <KrField name="sumSign" label="正" component="radio" type="radio" value="0"/>
-				                <KrField name="sumSign" label="负" component="radio" type="radio" value="1"/>
-			                </KrField>
-                            
-                            <KrField label="备注" name="remark" component="input" type="text"/>
-                            <KrField label="上传附件" name="fileids" component="file" />
+                           
+                            <KrField label="备注" name="remark" component="textarea" type="text"/>
+                           
 
 						   <Grid style={{marginTop:20}}>
 						<Row>

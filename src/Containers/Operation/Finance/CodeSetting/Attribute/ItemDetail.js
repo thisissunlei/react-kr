@@ -34,16 +34,6 @@ export default  class ItemDetail extends Component{
 
         let detail=this.props.detail;
 
-        /*
-        let detail={
-            propcode:"shenghuoxiaofeihuikuan" ,
-            propname:"生活消费类回款",
-            proptype:"INCOME",
-            ordernum:77,
-            propdesc:"aaaaaaaaaa",
-            enableflag:"ENABLE"
-         }
-         */
          if(detail.enableflag=="ENABLE"){
          	detail.flag="启用"
          }else if(detail.enableflag=="DISENABLE"){
@@ -62,14 +52,9 @@ export default  class ItemDetail extends Component{
                <KrField component="labelText" label="属性编码" value={detail.propcode}/>
                <KrField component="labelText" label="属性名称" value={detail.propname}/>
                <KrField component="labelText" label="属性类别" value={detail.type}/>
-               <KrField component="labelText" label="排序号" value={detail.ordernum}/>
-               
+               <KrField component="labelText" label="排序号" value={detail.ordernum}/>   
                <KrField component="labelText" label="是否启用"  value={detail.flag}/>
-             
                <KrField component="labelText" label="描述" value={detail.propdesc}/>
-
-
-               <Button  label="取消" type="button"  onTouchTap={this.props.onCancel} /> 
 			</div>
 			
 		);

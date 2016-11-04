@@ -80,16 +80,17 @@ class AccountBtnForm extends Component{
 				<form  onSubmit={handleSubmit(this.onSubmit)}>
 					<KrField  name="propid" type="hidden"/>
 					<KrField  name="mainbillid" type="hidden"/>
-					<KrField grid={1} name="accountid" component="select" label="代码名称" options={optionList} requireLabel={true}/> 
-					<KrField grid={1} name="operatedate" type="date" component="date" label="挂账日期" requireLabel={true}/> 
-					<KrField name="preCode" component="group" label="金额正负" requireLabel={true}>
+					<KrField grid={1/2} name="accountid" component="select" label="代码名称" options={optionList} requireLabel={true}/> 
+					<KrField name="preCode" grid={1/2} component="group" label="金额正负" requireLabel={true}>
 		                <KrField name="preCode" label="正" type="radio" value="0"/>
 		                <KrField name="preCode" label="负" type="radio" value="1" />
 		            </KrField> 
+					<KrField grid={1/2} name="operatedate" type="date" component="date" label="挂账日期" requireLabel={true}/> 
+					<KrField grid={1/2} name="fileids" component="file" label="上传附件" />
 					
 					<KrField grid={1} name="finaflowamount" type="text" component="input" label="金额（元）" requireLabel={true}/> 
-					<KrField grid={1} name="finaflowdesc" type="text" component="input" label="备注" /> 
-					<KrField grid={1} name="fileids" component="file" label="上传附件" />
+					<KrField grid={1} name="finaflowdesc" type="text" component="textarea" label="备注" /> 
+
 
 
 					

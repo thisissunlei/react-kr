@@ -87,10 +87,11 @@ class BusinessBtnForm extends Component{
                  
 					      <form onSubmit={handleSubmit(this.onSubmit)}>
                              <KrField  name="id" type="hidden"/>
-                            <KrField label="款项金额" component="labelText" value={fiMoney}/>
-                            <KrField label="金额（元）" name="finaflowamount" component="input" type="text" requireLabel={true}/>
-                            <KrField label="备注" name="finaflowdesc" component="input" type="text"/>
-                            <KrField label="上传附件" name="fileids" component="file"/>
+                            <KrField label="款项金额" component="labelText" value={fiMoney} inline={false} defaultValue="无"/>
+                            <KrField grid={1/2} label="金额（元）" name="finaflowamount" component="input" type="text" requireLabel={true}/>
+                            <KrField grid={1/2} label="上传附件" name="fileids" component="file"/>
+                            <KrField grid={1} label="备注" name="finaflowdesc" component="textarea" type="text"/>
+                           
 
 
 					<Grid style={{marginTop:20}}>
