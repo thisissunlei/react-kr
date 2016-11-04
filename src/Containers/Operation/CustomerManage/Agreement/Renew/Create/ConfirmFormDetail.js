@@ -167,7 +167,7 @@ export default class ConfirmFormDetail  extends Component{
               </DotTitle>
 				<Grid>
 					<Row style={{marginTop:30}}>
-						<Col md={2} align="right"> <Button  label="确定" type="button" primary={true} onTouchTap={this.onSubmit} /> </Col>
+						<Col md={2} align="right"> <Button  label="确定" type="button"  onTouchTap={this.onSubmit} /> </Col>
 					  <Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
 				</Grid>
 		 </div>);
