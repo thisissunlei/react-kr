@@ -455,18 +455,18 @@ class NewCreateForm extends Component {
 
 								 <KrField right={60} name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}/>
 
-								 <KrField left={60} grid={1/2}  type="text" component="labelText" label="地址" value={changeValues.lessorAddress} defaultValue="无"/> 
+								 <KrField left={60} grid={1/2}  type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress} defaultValue="无"/> 
 								 <KrField right={60}  grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}/> 
 
 								 <KrField left={60} grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}/> 
 
-								 <KrField right={60}  grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName}/> 
+								 <KrField right={60}  grid={1/2}  component="labelText" inline={false} label="承租方" value={optionValues.customerName}/> 
 								 <KrField left={60} grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" requireLabel={true}/> 
 
 								 <KrField right={60} grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" requireLabel={true}/> 
 								 <KrField left={60} grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话" requireLabel={true}/> 
 
-								 <KrField right={60} grid={1/2}  component="labelText" label="所属社区" value={optionValues.communityName} /> 
+								 <KrField right={60} grid={1/2}  component="labelText" label="所属社区" inline={false} value={optionValues.communityName} /> 
 
 								 <KrField left={60} name="wherefloor"  grid={1/2} component="select" label="所属楼层" options={optionValues.floorList} multi={true}  requireLabel={true}/>
 
