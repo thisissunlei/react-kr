@@ -869,7 +869,6 @@ export default class AttributeSetting  extends Component{
 					  <Dialog
 						title="查看"
 						open={this.state.openView}
-						actions={close}
 						onClose={this.closeViewDialog}
 						>							
 						<ViewForm detail={this.state.itemDetail}  />
