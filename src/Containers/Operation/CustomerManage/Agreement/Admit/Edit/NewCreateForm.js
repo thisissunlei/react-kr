@@ -87,7 +87,7 @@ class NewCreateForm  extends Component{
 		this.onChangeLeaseEndDate = this.onChangeLeaseEndDate.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 		this.calcStationNum = this.calcStationNum.bind(this);
-		console.log('------props',props);
+
 		this.state = {
 			stationVos:this.props.stationVos,
 			selectedStation:[],
@@ -234,13 +234,11 @@ class NewCreateForm  extends Component{
 	}
 
 	onSubmit(form){
+
 		form = Object.assign({},form);
 
 		let {stationVos} = this.state;
-
-
 		let {billList} = this.state;
-
 		let {changeValues} = this.props;
 
         form.lessorAddress = changeValues.lessorAddress;
@@ -333,13 +331,12 @@ class NewCreateForm  extends Component{
 		}catch(err){
 			console.log('billList 租赁明细工位列表为空');
 		}
-
 		
 		this.setState({stationVos:billList},function(){
 			this.calcStationNum();
 		});  
-
 	}
+
 	onChangeSearchPersonel(personel){
 		console.log('personel',personel)
 		Store.dispatch(change('admitCreateForm','lessorContacttel',personel.mobile));

@@ -425,9 +425,7 @@ class NewCreateForm extends Component {
 			changeValues
 		} = this.props;
 
-		let {
-			stationVos
-		} = this.state;
+		let stationVos = [];
 
 		try {
 			billList.map(function(item, index) {
