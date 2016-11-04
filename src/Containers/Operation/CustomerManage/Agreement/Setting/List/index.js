@@ -40,7 +40,8 @@ import {
   BreadCrumbs,
   Loading,
   Notify,
-  KrDate
+  KrDate,
+  ButtonGroup
 } from 'kr-ui';
 import './index.less';
 
@@ -71,9 +72,12 @@ let SettingCreateForm = function(props) {
 
         <Grid style={{marginTop:30}}>
           <Row>
-            <Col md={8}></Col>
-            <Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
-            <Col md={2}> <Button  label="取消" type="button" onTouchTap={onCancel} /> </Col>
+            <Col md={12} align="right">
+                <ButtonGroup>
+                    <Button  label="确定" type="submit" primary={true} />
+                    <Button  label="取消" type="button" onTouchTap={onCancel} />
+                </ButtonGroup>
+            </Col>
           </Row>
         </Grid>
     </form>
@@ -152,11 +156,15 @@ let SettingUpdateForm = function(props) {
                 <KrField name="enableFlag" label="否" component="radio" type="radio" value={false} />
               </KrField>
                <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息"/> 
+
               <Grid style={{marginTop:30}}>
-                <Row style={{marginTop:30}}>
-                <Col md={8}></Col>
-                <Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
-                <Col md={2}> <Button  label="取消" type="button"  onTouchTap={onCancel}  /> </Col>
+                <Row>
+                <Col md={12} align="right">
+                    <ButtonGroup>
+                        <Button  label="确定" type="submit" primary={true} /> 
+                        <Button  label="取消" type="button"  onTouchTap={onCancel}  />
+                    </ButtonGroup>
+                </Col>
                 </Row>
               </Grid>
         </form>
@@ -190,11 +198,15 @@ let SettingChildUpdateForm = function(props) {
                 <KrField name="enableflag" label="否" component="radio"  type='radio'  value={false} requireLabel={true}/>
               </KrField>
                <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息" requireLabel={true}/> 
+              
               <Grid style={{marginTop:30}}>
-                <Row style={{marginTop:30}}>
-                <Col md={8}></Col>
-                <Col md={2}><Button  label="确定" type="submit" primary={true} /> </Col>
-                <Col md={2}><Button  label="取消" type="button"  onTouchTap={onCancel}  /> </Col>
+                <Row >
+                <Col md={12} align="center">
+                    <ButtonGroup>
+                        <Button  label="确定" type="submit" primary={true} />
+                        <Button  label="取消" type="button"  onTouchTap={onCancel}  />
+                    </ButtonGroup>
+                </Col>
                 </Row>
               </Grid>
         </form>
@@ -231,10 +243,13 @@ let SettingAddForm = function(props) {
                   </KrField>
                    <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息" requireLabel={true}/> 
                   <Grid style={{marginTop:30}}>
-                    <Row style={{marginTop:30}}>
-                    <Col md={8}></Col>
-                    <Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
-                    <Col md={2}> <Button  label="取消" type="button"  onTouchTap={onCancel}  /> </Col>
+                    <Row>
+                    <Col md={12} align="right">
+                        <ButtonGroup>
+                             <Button  label="确定" type="submit" primary={true} />
+                             <Button  label="取消" type="button"  onTouchTap={onCancel}  />
+                        </ButtonGroup>
+                    </Col>
                     </Row>
                   </Grid>
             </form>
@@ -253,10 +268,13 @@ let SettingAddForm = function(props) {
               </KrField>
                <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息" requireLabel={true}/> 
               <Grid style={{marginTop:30}}>
-                <Row style={{marginTop:30}}>
-                <Col md={8}></Col>
-                <Col md={2}> <Button  label="确定" type="submit" primary={true} /> </Col>
-                <Col md={2}> <Button  label="取消" type="button"  onTouchTap={onCancel}  /> </Col>
+                <Row>
+                <Col md={12} align="center">
+                    <ButtonGroup>
+                        <Button  label="确定" type="submit" primary={true} /> 
+                         <Button  label="取消" type="button"  onTouchTap={onCancel}  /> 
+                    </ButtonGroup>
+                </Col>
                 </Row>
               </Grid>
         </form>
@@ -322,14 +340,11 @@ export default class SettingList extends Component {
       pageSize: _this.state.pageSize,
       totalCount: _this.state.totalCount
     })).then(function(response) {
-      console.log('-----response----', response)
       _this.setState({
         items: response
       });
 
     }).catch(function(err) {
-
-      console.log('---err', err);
       Notify.show([{
         message: '报错了',
         type: 'danger',
@@ -416,7 +431,6 @@ export default class SettingList extends Component {
 
   openViewChildDialog(item) {
 
-    console.log('list-----', item)
     this.setState({
       item: item,
       openChildView: !this.state.openChildView
