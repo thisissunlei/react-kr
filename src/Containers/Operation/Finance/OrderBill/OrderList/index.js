@@ -32,7 +32,7 @@ import {
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';
-
+import './index.less'
 
 import NewCreateForm from './NewCreateForm';
 import SearchForm from './SearchForm';
@@ -208,9 +208,9 @@ export default class AttributeSetting extends Component {
 						<Row>
 							<Col md={6} align="left"> 
 								<ListGroup>
-									<ListGroupItem> <KrField className='ui-incomeMoney' label="收入总额:" component="labelText" primary={true} inline={true} value={list.sumcome} defaultValue="0"/></ListGroupItem>
-									<ListGroupItem> <KrField label="回款总额:" component="labelText" primary={true} inline={true} value={list.sumAmount} defaultValue="0"/> </ListGroupItem>
-									<ListGroupItem> <KrField label="余额:" component="labelText" primary={true} inline={true} value={list.summount} defaultValue="0"/></ListGroupItem>	
+									<span className='ui-incomeMoney'></span><ListGroupItem ><KrField label="收入总额:" component="labelText" primary={true} inline={true} value={list.sumcome} defaultValue="0"/></ListGroupItem>
+									<span className='ui-receiveMoney'></span><ListGroupItem> <KrField label="回款总额:" component="labelText" primary={true} inline={true} value={list.sumAmount} defaultValue="0"/> </ListGroupItem>
+									<span className='ui-selfMoney'></span><ListGroupItem> <KrField label="余额:" component="labelText" primary={true} inline={true} value={list.summount} defaultValue="0"/></ListGroupItem>	
 								</ListGroup>	
 							</Col> 
 							<Col md={6} align="right"> 
