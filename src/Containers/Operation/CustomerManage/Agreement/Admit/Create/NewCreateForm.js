@@ -386,7 +386,7 @@ class NewCreateForm extends Component {
 			stationVos
 		} = this.state;
 
-		console.log('---changeValues',changeValues);
+		console.log('---changeValues', changeValues);
 
 		try {
 			billList.map(function(item, index) {
@@ -456,7 +456,7 @@ class NewCreateForm extends Component {
 
 								 <KrField right={60} name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}/>
 
-								 <KrField left={60} grid={1/2}  type="text" component="labelText" label="地址" value={changeValues.lessorAddress} defaultValue="无"/> 
+								 <KrField left={60} grid={1/2}  type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress} defaultValue="无"/> 
 								 <KrField right={60}  grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}/> 
 
 								 <KrField left={60} grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}/> 
@@ -469,6 +469,7 @@ class NewCreateForm extends Component {
 
 								 <KrField right={60} grid={1/2}  component="labelText" label="所属社区" value={optionValues.communityName} inline={false}/> 
 
+
 								 <KrField left={60} name="wherefloor"  grid={1/2} component="select" label="所属楼层" options={optionValues.floorList} multi={true}  requireLabel={true}/>
 
 								
@@ -479,8 +480,11 @@ class NewCreateForm extends Component {
 								 <KrField left={60} grid={1/2}  name="paymentId" type="text" component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/>
                                      
 								 <KrField grid={1/1}  component="group" label="租赁期限" requireLabel={true}> 
-										<KrField grid={1/2}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate}/> 
-										<KrField grid={1/2}  name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} /> 
+										<ListGroup>
+											<ListGroupItem> <KrField simple={true}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate}/> </ListGroupItem>
+											<ListGroupItem ><span style={{display:'inline-block',lineHeight:'75px'}}>至</span></ListGroupItem>
+											<ListGroupItem> <KrField simple={true}  name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} /> </ListGroupItem>
+										</ListGroup>
 								</KrField>
 
                                <KrField right={60} name="templockday"  grid={1/2} component="input" type="text" label="保留天数" requireLabel={true}/> 

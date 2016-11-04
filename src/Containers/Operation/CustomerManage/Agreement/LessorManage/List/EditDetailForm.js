@@ -1,8 +1,20 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
+import {
+	connect
+} from 'kr/Redux';
 
-import {reduxForm,formValueSelector,initialize} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import {
+	reduxForm,
+	formValueSelector,
+	initialize
+} from 'redux-form';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 import {
 	KrField,
 	Grid,
@@ -14,66 +26,80 @@ import {
 } from 'kr-ui';
 
 
- class NewCreateForm extends Component{
+class NewCreateForm extends Component {
 
-	 static PropTypes = {
-		 onSubmit:React.PropTypes.func,
-		 onCancel:React.PropTypes.func,
-		 detail:React.PropTypes.object,
+	static PropTypes = {
+		onSubmit: React.PropTypes.func,
+		onCancel: React.PropTypes.func,
+		detail: React.PropTypes.object,
 
-	 }
+	}
 
-	constructor(props){
+	constructor(props) {
 		super(props);
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
 	}
 
-	componentDidMount(){
-		let {detail} = this.props;
+	componentDidMount() {
+		let {
+			detail
+		} = this.props;
 		detail.enableflag = detail.enableflag.toString();
-		Store.dispatch(initialize('newCreateForm',detail));
+		Store.dispatch(initialize('newCreateForm', detail));
 	}
 
-	 onSubmit(values){
+	onSubmit(values) {
 
-	 	values = Object.assign({},values);
-	 	values.enableflag = Boolean(values.enableflag)?1:0;
+		values = Object.assign({}, values);
+		console.log('hhhhh', values)
+		values.enableflag = Boolean(values.enableflag) ? 1 : 0;
+		console.log('gggg', values)
+		values = Object.assign({}, values);
 
-	 	values = Object.assign({},values);
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('editFnaCorporation',{},values)).then(function(response){
-				Notify.show([{
-					message:'编辑成功！',
-					type: 'success',
-				}]);
-
-				const {onSubmit} = _this.props;
-				onSubmit && onSubmit();
-			
-		}).catch(function(err){
+		Store.dispatch(Actions.callAPI('editFnaCorporation', {}, values)).then(function(response) {
 			Notify.show([{
-				message:err.message,
+				message: '编辑成功！',
+				type: 'success',
+			}]);
+
+			const {
+				onSubmit
+			} = _this.props;
+			onSubmit && onSubmit();
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
 				type: 'danger',
 			}]);
 		});
-		
 
-	 }
 
-	 onCancel(){
-		 const {onCancel} = this.props;
+	}
+
+	onCancel() {
+		const {
+			onCancel
+		} = this.props;
 		onCancel && onCancel();
-		 
-	 }
 
-	render(){
+	}
 
-		const { error, handleSubmit, pristine, reset,detail} = this.props;
+	render() {
+
+		const {
+			error,
+			handleSubmit,
+			pristine,
+			reset,
+			detail
+		} = this.props;
 
 
-		console.log('detail',detail);
+		console.log('detail', detail);
 
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)}>
@@ -100,13 +126,14 @@ import {
 							</Grid>
 
 				</form>
-			
+
 		);
 	}
 }
 
 
-export default reduxForm({ form: 'newCreateForm',
-	enableReinitialize:true,
-	keepDirtyOnReinitialize:true
+export default reduxForm({
+	form: 'newCreateForm',
+	enableReinitialize: true,
+	keepDirtyOnReinitialize: true
 })(NewCreateForm);

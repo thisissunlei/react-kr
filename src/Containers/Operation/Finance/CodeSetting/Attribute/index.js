@@ -138,6 +138,7 @@ export default class AttributeSetting extends Component {
 	}
 
 	onExport(values) {
+
 		const idList = [];
 		values.map((item, value) => {
 			idList.push(item.id)

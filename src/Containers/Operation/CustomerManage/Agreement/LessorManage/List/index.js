@@ -73,10 +73,13 @@ export default class LessorManageList extends Component {
 
 	onExport(values) {
 		const idList = [];
+		console.log('values', values)
 		values.map((item, value) => {
 			idList.push(item.id)
+
 			return idList;
 		})
+
 		var url = `http://optest.krspace.cn/api/krspace-finance-web/fnacorporationDataExport?corporationIdList=${idList}`
 		window.location.href = url;
 
