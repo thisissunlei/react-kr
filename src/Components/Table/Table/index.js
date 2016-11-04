@@ -220,14 +220,22 @@ export default class Table extends React.Component {
 		var exportData = [];
 
 
+		listData = listData.filter(function(item,index){
+				return !(typeof item === 'undefined');
+		});
+
+
 		visibilityRows.forEach(function(item, index) {
 			if (item && parseInt(selectedRows[index])) {
 				exportRows.push(index);
 			}
 		});
 
+
 		exportRows.forEach(function(item, index) {
-			exportData.push(listData[item]);
+			if(listData[item]){
+				exportData.push(listData[item]);
+			}
 		});
 
 		if (!exportData.length) {
