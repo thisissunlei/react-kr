@@ -20,9 +20,19 @@ export default class Format extends React.Component {
 
 		let {className,value,format} = this.props;
 
+		let result = '';
+
+		try{
+			result =  dateFormat(value,format);
+		}catch(err){
+			let time=new Date(value*1)
+			result = dateFormat(time,"yyyy-mm-dd");
+		}
+
 		return (
-			<span>{dateFormat(value,format)}</span>
+			<span>{result}</span>
 		);
+
 	}
 }
 
