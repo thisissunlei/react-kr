@@ -200,7 +200,7 @@ export default class OrderDetail extends React.Component {
 
 			<Section title="客户订单详情" description="" hide={!!this.props.location.query.closeAll}> 
 
-			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog}  primary={true}/>
+			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog} />
 
 			<span className='border-top'></span>
 			<Grid style={{marginTop:50}}>
@@ -296,7 +296,7 @@ export default class OrderDetail extends React.Component {
 					<TableRowColumn><KrDate.Format value={item.leaseBegindate}/></TableRowColumn>
 					<TableRowColumn> <KrDate.Format value={item.leaseEnddate}/></TableRowColumn>
 					<TableRowColumn>
-					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} style={{color:'#499df1'}}/>
+					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} />
 					{item.contractstate != 'EXECUTE'  && <Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
 					</TableRowColumn>
 					</TableRow>

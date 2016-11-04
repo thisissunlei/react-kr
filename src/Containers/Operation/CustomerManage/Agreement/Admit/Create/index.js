@@ -184,6 +184,7 @@ export default class JoinCreate extends Component {
 				modal={true}
 				autoScrollBodyContent={true}
 				autoDetectWindowHeight={true}
+				onCancel={this.openConfirmCreateDialog}
 				open={this.state.openConfirmCreate} >
 						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} optionValues={optionValues} />
 			  </Dialog>

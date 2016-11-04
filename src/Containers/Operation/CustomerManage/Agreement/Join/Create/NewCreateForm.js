@@ -563,9 +563,9 @@ class NewCreateForm extends Component {
 							<Row>
 								<Col align="right">
 									<ButtonGroup>
-									    <Button label="录入单价" primary={true} onTouchTap={this.openPreStationUnitPriceDialog} />
-										<Button label="删除" primary={true} onTouchTap={this.onStationDelete} />
-										<Button label="选择工位" primary={true} onTouchTap={this.openStationDialog} />
+									    <Button label="录入单价"  onTouchTap={this.openPreStationUnitPriceDialog} />
+										<Button label="删除"  onTouchTap={this.onStationDelete} />
+										<Button label="选择工位"  onTouchTap={this.openStationDialog} />
 								  </ButtonGroup>
 								</Col>
 							</Row>
@@ -607,7 +607,7 @@ class NewCreateForm extends Component {
 						<Row style={{marginTop:30}}>
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<Button  label="确定" type="submit" primary={true} disabled={submitting} />
+								<Button  label="确定" type="submit"  disabled={submitting} />
 								<Button  label="取消" type="button"  onTouchTap={this.onCancel}/>
 							</ButtonGroup>
 						  </Col>

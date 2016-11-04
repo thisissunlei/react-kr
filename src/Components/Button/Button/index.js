@@ -18,6 +18,7 @@ export default class Button extends Component {
 		label: React.PropTypes.string,
 		disabled: React.PropTypes.bool,
 		backgroundColor: React.PropTypes.string,
+		labelColor: React.PropTypes.string,
 	}
 
 
@@ -34,9 +35,9 @@ export default class Button extends Component {
 			label,
 			disabled,
 			backgroundColor,
+			labelColor,
 			...other
 		} = this.props;
-
 
 		if (type == 'link') {
 
@@ -46,7 +47,7 @@ export default class Button extends Component {
 
 			return (
 				<div className="ui-button">
-					<FlatButton label={label} primary={true} style={{minWidth:30}} backgroundColor={backgroundColor} {...other}  />
+					<FlatButton backgroundColor={backgroundColor} labelColor={labelColor} label={label} primary={true} style={{minWidth:30}}  {...other}  />
 				</div>
 			);
 		}
@@ -55,7 +56,7 @@ export default class Button extends Component {
 
 			return (
 				<div className="ui-button">
-					<RaisedButton label={label} style={{minWidth:30}} backgroundColor={backgroundColor} {...other} />
+					<RaisedButton backgroundColor={backgroundColor || "#499df1"} labelColor={labelColor || "#fff"}  label={label} style={{minWidth:30}}  {...other} />
 				</div>
 			);
 		}
@@ -63,7 +64,7 @@ export default class Button extends Component {
 		if (type == 'operation') {
 			return (
 				<div className="ui-button">
-					<span {...other} style={{color:'#328ECC',marginLeft:'5px',cursor:'pointer'}}>{label}</span>
+					<span {...other} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>{label}</span>
 				</div>
 
 			);
@@ -73,7 +74,7 @@ export default class Button extends Component {
 
 			return (
 				<div className="ui-button">
-					<RaisedButton label={label} style={{minWidth:30}} backgroundColor={backgroundColor} type="submit"  {...other}/>
+					<RaisedButton backgroundColor={backgroundColor || "#499df1"} labelColor={labelColor || "#fff"} label={label} style={{minWidth:30}}  type="submit"  {...other}/>
 				</div>
 			);
 		}
@@ -82,7 +83,7 @@ export default class Button extends Component {
 
 		return (
 			<div className="ui-button">
-					<RaisedButton label={label} style={{minWidth:30}} backgroundColor={backgroundColor} {...other}/>
+					<RaisedButton backgroundColor="#499df1" label={label} style={{minWidth:30}}  labelColor="#fff" {...other}/>
 			</div>
 
 		);
