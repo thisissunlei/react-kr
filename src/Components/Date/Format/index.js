@@ -19,6 +19,9 @@ export default class Format extends React.Component {
 	render() {
 
 		let {className,value,format} = this.props;
+		if(!value){
+			return (<span>0</span>);
+		}
 
 		let result = '';
 
