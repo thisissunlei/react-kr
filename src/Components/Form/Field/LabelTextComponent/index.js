@@ -55,7 +55,7 @@ export default class LabelTextComponent extends React.Component {
 			return (
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} requireBlue={requireBlue} alignRight={alignRight}>
 					<span className="ui-label-text" >
-						<a  href={href}>{value}</a>
+						<a  href={href} className='label-text-href' title={value}>{value}</a>
 					</span>
 				</WrapComponent>
 			);

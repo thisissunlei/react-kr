@@ -71,8 +71,8 @@ export default class SearchForm extends Component{
 					
 					<KrField grid={1} name="orderId" type="hidden"/>
 					<KrField grid={1} name="accountType" type="hidden"/>
-					<KrField grid={1} name="accountId" component="select" label="代码" options={codeList}/> 
-					<KrField grid={1} name="propertyId" type="select" label="款项" options={typeList}/>
+					<KrField grid={1/2} name="accountId" component="select" label="代码" options={codeList}/> 
+					<KrField grid={1/2} name="propertyId" type="select" label="款项" options={typeList}/>
 					<KrField grid={1/2} name="startTime" component="date" label="开始日期" />
 					<KrField grid={1/2} name="endTime" component="date" label="结束日期" />
 					

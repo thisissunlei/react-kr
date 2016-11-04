@@ -71,7 +71,7 @@ export default class AttributeSetting extends Component {
 			list: {},
 			searchParams: {
 				page: 1,
-				pageSize: 10
+				pageSize:10
 			}
 
 		}
@@ -92,19 +92,14 @@ export default class AttributeSetting extends Component {
 		});
 	}
 
-	onExport(idList) {		
-		var list = [];			
-		idList.map(function(item, index) {
-        var arrlist = {};
-			arrlist.communityid = item.communityid;
-			arrlist.customername = item.customername;
-			arrlist.mainbilltype = item.mainbilltype;
-			arrlist.startDate = item.actualEntrydate;
-			arrlist.endDate = item.operatedate;
-			list.push(arrlist);
-			return list;
-		})
-		var url = `http://optest.krspace.cn/api/krspace-finance-web/finaccount/data/exportExcel?list=${list}`
+	onExport(values) {
+	    var searchParams=this.state.searchParams;
+		const idList = [];
+		values.map((item, value) => {
+			idList.push(item.id)
+			return idList;
+		 })
+		var url = `http://optest.krspace.cn/api/krspace-finance-web/finaccount/data/exportExcel?searchParams=${searchParams}&idList=${idList}`
 		window.location.href = url;
 	}
 
@@ -213,7 +208,7 @@ export default class AttributeSetting extends Component {
 						<Row>
 							<Col md={6} align="left"> 
 								<ListGroup>
-									<ListGroupItem> <KrField label="收入总额:" component="labelText" primary={true} inline={true} value={list.sumcome} defaultValue="0"/></ListGroupItem>
+									<ListGroupItem> <KrField className='ui-incomeMoney' label="收入总额:" component="labelText" primary={true} inline={true} value={list.sumcome} defaultValue="0"/></ListGroupItem>
 									<ListGroupItem> <KrField label="回款总额:" component="labelText" primary={true} inline={true} value={list.sumAmount} defaultValue="0"/> </ListGroupItem>
 									<ListGroupItem> <KrField label="余额:" component="labelText" primary={true} inline={true} value={list.summount} defaultValue="0"/></ListGroupItem>	
 								</ListGroup>	

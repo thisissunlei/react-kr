@@ -34,7 +34,7 @@ class SwitchBtnForm extends Component{
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
-		optionList:React.PropTypes.object,
+		optionList:React.PropTypes.arr,
 		initialValues:React.PropTypes.object,
   }
 
@@ -87,9 +87,10 @@ class SwitchBtnForm extends Component{
 			    <div>                 
 					      <form onSubmit={handleSubmit(this.onSubmit)}>                           
 						    <KrField  name="id" type="hidden"/>
-                            <KrField label="合同编号" name="contractcodeId" type="select" options={optionList} requireLabel={true}/>
-                            <KrField label="备注" name="finaflowdesc" component="input" type="text"/>
-                            <KrField label="上传附件" name="fileids" component="file"/>
+                            <KrField grid={1/2} label="合同编号" name="contractcodeId" type="select" options={optionList} requireLabel={true}/>
+                            <KrField grid={1/2} label="上传附件" name="fileids" component="file"/>
+                            <KrField label="备注" name="finaflowdesc" component="textarea" type="text"/>
+                            
 
 						   <Grid style={{marginTop:20}}>
 						<Row>
