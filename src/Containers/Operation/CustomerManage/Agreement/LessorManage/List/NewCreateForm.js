@@ -1,9 +1,19 @@
+import React, {
+	Component,
+	PropTypes
+} from 'react';
+import {
+	connect
+} from 'kr/Redux';
 
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-
-import {reduxForm,formValueSelector} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import {
+	reduxForm,
+	formValueSelector
+} from 'redux-form';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 import {
 	KrField,
 	Grid,
@@ -15,55 +25,64 @@ import {
 } from 'kr-ui';
 
 
- class NewCreateForm extends Component{
+class NewCreateForm extends Component {
 
-	 static PropTypes = {
-		 onSubmit:React.PropTypes.func,
-		 onCancel:React.PropTypes.func,
-	 }
+	static PropTypes = {
+		onSubmit: React.PropTypes.func,
+		onCancel: React.PropTypes.func,
+	}
 
-	constructor(props){
+	constructor(props) {
 		super(props);
 
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
-		
+
 	}
 
-	 onSubmit(values){
-	 	 values = Object.assign({},values);
-	 	 values.enableflag = Boolean(values.enableflag)?1:0;
+	onSubmit(values) {
+		values = Object.assign({}, values);
+		values.enableflag = Boolean(values.enableflag) ? 1 : 0;
 
-	 	 values = Object.assign({},values);
+		values = Object.assign({}, values);
 
-		 var _this = this;
-		Store.dispatch(Actions.callAPI('addFnaCorporation',{},values)).then(function(response){
-				Notify.show([{
-					message:'新建成功！',
-					type: 'success',
-				}]);
-				 const {onSubmit} = _this.props;
-				 onSubmit && onSubmit();
- 			}).catch(function(err){
+		var _this = this;
+		Store.dispatch(Actions.callAPI('addFnaCorporation', {}, values)).then(function(response) {
 			Notify.show([{
-				message:err.message,
+				message: '新建成功！',
+				type: 'success',
+			}]);
+			const {
+				onSubmit
+			} = _this.props;
+			onSubmit && onSubmit();
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
 				type: 'danger',
 			}]);
 		});
-		
 
-	 }
 
-	 onCancel(){
-		 const {onCancel} = this.props;
-		
-		 onCancel && onCancel();
-		 
-	 }
+	}
 
-	render(){
+	onCancel() {
+		const {
+			onCancel
+		} = this.props;
 
-		const { error, handleSubmit, pristine, reset} = this.props;
+		onCancel && onCancel();
+
+	}
+
+	render() {
+
+		const {
+			error,
+			handleSubmit,
+			pristine,
+			reset
+		} = this.props;
 
 		return (
 
@@ -95,20 +114,24 @@ import {
 	}
 }
 
-const validate = values =>{
+const validate = values => {
 
-		const errors = {}
+	const errors = {}
 
-		if(!values.corporationName){
-			errors.corporationName = '请填写出租方名称';
-		}
-		if(!values.corporationAddress){
-			errors.corporationAddress = '请填写详细地址';
-		}
-	
-		return errors
+	if (!values.corporationName) {
+		errors.corporationName = '请填写出租方名称';
+	}
+	if (!values.corporationAddress) {
+		errors.corporationAddress = '请填写详细地址';
 	}
 
-export default reduxForm({ form: 'newCreateForm',initialValues:{
-	enableflag:true
-},validate})(NewCreateForm);
+	return errors
+}
+
+export default reduxForm({
+	form: 'newCreateForm',
+	initialValues: {
+		enableflag: true
+	},
+	validate
+})(NewCreateForm);
