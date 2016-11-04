@@ -5,7 +5,7 @@ import WrapComponent from '../WrapComponent';
 import Button from '../../../Button';
 
 import './index.less';
-
+import dateFormat from 'dateformat';
 export default class LabelTextComponent extends React.Component {
 
 
@@ -40,11 +40,12 @@ export default class LabelTextComponent extends React.Component {
 		} = this.props;
 
 		if (type == 'date') {
+			console.log('--------value', value);
 			return (
+
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} requireBlue={requireBlue} alignRight={alignRight}>
 							<span className="ui-label-text" >
-								{value && <KrDate.Format value={value} format={format} /> }
-								{!value && defaultValue}
+								<span>{dateFormat(value,'yyyy-mm-dd')}</span>
 							</span>
 						</WrapComponent>
 			);
