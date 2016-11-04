@@ -422,7 +422,6 @@ export default class AttributeSetting  extends Component{
       	    params,
 			openSearch:!this.state.openSearch	
 	    });  
-	    console.log('8888888')
     }
     onSelect(values){
         //此处反着？
