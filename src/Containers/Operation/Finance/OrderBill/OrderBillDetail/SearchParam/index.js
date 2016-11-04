@@ -50,7 +50,9 @@ export default class SearchParam extends Component{
 		this.onSearch = this.onSearch.bind(this);
 		this.state = {	
 		  primaryR:'true',
-		  primaryI:'false'
+		  primaryI:'false',
+		  active:10000,
+		  activeI:10000
 		}
        
 	}
@@ -59,27 +61,34 @@ export default class SearchParam extends Component{
        
 	}
 
-	onSearch(type,childType,id,propInfo,event){    
+	onSearch(type,childType,id,propInfo,index){    
 		const {onSearch,params} = this.props;
         
         if(type=='PAYMENT'){
           this.setState({
 			primaryR:'true',
-			primaryI:'false'	
+			primaryI:'false',
+			active:index,
+			activeI:10000	
 	      });
         }
        
         if(type=='INCOME'){
           this.setState({
 			primaryR:'false',
-			primaryI:'true'	
+			primaryI:'true',
+			activeI:index,
+		    active:10000,
+
 	      });
         }
         
-        
+       
+      
         
 
-
+       
+      
         
 		var searchParam = {};
 
@@ -104,14 +113,28 @@ export default class SearchParam extends Component{
                    
                    <div className='ui-ListGroup'>
 		            <ListGroup inline={false}>
-		              {detailPayment.map((item,index)=>
+		              {detailPayment.map((item,index)=>{
+					        var className;
+					        var classPic;
+			                if (this.state.active== index) {
+			                   className = 'active';
+			                   classPic='activePic'
+			                }
+			                 else{
+			                   className = 'ui-listGroupItem';
+			                   classPic='pic_color'
+			                 }
+
+			          return (
 		            	<ListGroupItem key={index}>
-                          <div className='ui-listGroupItem'>
-                           <span className='receivedText' onTouchTap={this.onSearch.bind(this,'PAYMENT',item.propcode,item.id,item.propInfo)}>{item.propname}</span>
+                          <div className={className}>
+                           <span className={classPic}></span>
+                           <span className='receivedText' onTouchTap={this.onSearch.bind(this,'PAYMENT',item.propcode,item.id,item.propInfo,index)}>{item.propname}</span>
                            <span className='receivedMoney'>{item.propamount}</span>
 		            	  </div>
-		            	</ListGroupItem>
-		              )}
+		            	</ListGroupItem>)
+		              })
+		           }
 		            </ListGroup>
                   </div>
 					
@@ -120,14 +143,27 @@ export default class SearchParam extends Component{
 					
 				  <div className='ui-ListGroup'>
                     <ListGroup inline={false}>
-		              {detailIncome.map((item,index)=>
+		              {detailIncome.map((item,index)=>{
+		              	    var className;
+					        var classPic;
+			                if (this.state.activeI== index) {
+			                   className = 'active';
+			                   classPic='activePic'
+			                }
+			                 else{
+			                   className = 'ui-listGroupItem';
+			                   classPic='pic_color'
+			                 }
+                      return (
 		            	<ListGroupItem key={index}>
-		            	 <div className='ui-listGroupItem'>
-                          <span className='receivedText' onTouchTap={this.onSearch.bind(this,'INCOME',item.propcode,item.id,item.propInfo)}>{item.propname}</span>
+		            	 <div className={className}>
+                          <span className={classPic}></span>
+                          <span className='receivedText' onTouchTap={this.onSearch.bind(this,'INCOME',item.propcode,item.id,item.propInfo,index)}>{item.propname}</span>
                           <span className='receivedMoney'>{item.propamount}</span>
 		            	  </div>
-		            	</ListGroupItem>
-		              )}
+		            	</ListGroupItem>)
+		              })
+		             }
 		            </ListGroup>
                  </div>
 					

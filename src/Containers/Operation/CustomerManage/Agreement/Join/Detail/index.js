@@ -220,7 +220,7 @@ export default class JoinDetail extends Component {
 			  <Grid style={{marginTop:30}}>
 				  <Row>
 					  <Col md={5} align="center"></Col>
-					  <Col md={2} align="center"> <Button  label="返回"  type="href" primary={true} href={getOrderUrl()}/> </Col>
+					  <Col md={2} align="center"> <Button  label="返回"  type="href"  href={getOrderUrl()} backgroundColor="#499df1"/> </Col>
 					  <Col md={5} align="center"></Col>
 				  </Row>
 			  </Grid>
