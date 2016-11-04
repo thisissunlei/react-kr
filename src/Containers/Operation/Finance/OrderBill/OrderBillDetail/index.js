@@ -125,7 +125,7 @@ export default class AttributeSetting  extends Component{
 				propInfo:'SETTLED',
 				orderId:this.props.params.orderId,
 				page:1,
-				pageSize:20
+				pageSize:15
 			 },
 			 itemDetail:{},
 			//为了判断和获取选中的条的id

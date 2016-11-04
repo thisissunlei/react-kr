@@ -15,10 +15,11 @@ import {
 import {
 	View
 } from 'kr-ui/contractView';
+import dateFormat from 'dateformat';
 
 import {
 	KrField,
-	LabelText
+	LabelText,
 } from 'kr-ui/Form';
 import Date from 'kr-ui/Date';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -131,7 +132,7 @@ export default class JoinDetail extends Component {
 					<KrField component="labelText" grid={1/2} label="首付款时间" type="date" value={basic.firstpaydate} />
 					<KrField component="labelText" grid={1/2} label="付款方式："  value={basic.payment.dicName} defaultValue="无" />
 				
-					<KrField component="labelText" grid={1} label="签署日期" type="date" value={basic.signdate} defaultValue="无" />
+					<KrField component="labelText" grid={1} label="签署日期" value={dateFormat(basic.signdate,"yyyy-mm-dd")} defaultValue="无" />
 
 
 					<KrField component="group" grid={1} label="租赁项目">

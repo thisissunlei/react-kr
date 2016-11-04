@@ -240,7 +240,7 @@ const APIS = {
 	},
 	//财务管理－订单账单列表-导出
 	'finaExportExcel': {
-		url: '/api/krspace-finance-web/finaccount/data/exportExcel?communityid={communityid}&customername={customername}&endDate={endDate}&mainbilltype={mainbilltype}&page={page}&pageSize={pageSize}&startDate={startDate}',
+		url: '/api/krspace-finance-web/finaccount/data/exportExcel?communityid={communityid}&customername={customername}&endDate={endDate}&mainbilltype={mainbilltype}&startDate={startDate}&idList={idList}',
 		method: 'get'
 	},
 	//财务管理－科目配置－新建(修改)
