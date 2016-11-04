@@ -368,7 +368,6 @@ class NewCreateForm extends Component {
 
 	onIframeClose(billList) {
 
-		console.log('000', billList);
 
 		this.openStationDialog();
 
@@ -386,6 +385,8 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
+
+		console.log('---changeValues',changeValues);
 
 		try {
 			billList.map(function(item, index) {
@@ -672,9 +673,9 @@ export default connect((state) => {
 	changeValues.leaseId = selector(state, 'leaseId');
 	changeValues.stationnum = selector(state, 'stationnum') || 0;
 	changeValues.boardroomnum = selector(state, 'boardroomnum') || 0;
-	changeValues.leaseBegindate = selector(state, 'leaseBegindate') || 0;
-	changeValues.leaseEnddate = selector(state, 'leaseEnddate') || 0;
-	changeValues.wherefloor = selector(state, 'wherefloor') || 0;
+	changeValues.leaseBegindate = selector(state, 'leaseBegindate');
+	changeValues.leaseEnddate = selector(state, 'leaseEnddate');
+	changeValues.wherefloor = selector(state, 'wherefloor');
 
 
 	return {
