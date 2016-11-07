@@ -186,6 +186,13 @@ onChangeRentBeginDate(value){
 
 	Store.dispatch(change('reduceCreateForm','leaseBegindate',selectedStationVos[0].leaseEndDate));
 	
+	selectedStationVos.forEach(function(item,index){
+		var tmpDate = new Date();
+		tmpDate.setTime(Date.parse(item.leaseBeginDate));
+		tmpDate.setDate(tmpDate.getDate()+1);
+		item.leaseBeginDate = dateFormat(tmpDate,'yyyy-mm-dd')
+	});
+
 	const {onSubmit} = this.props;
 	onSubmit && onSubmit(selectedStationVos);
   }

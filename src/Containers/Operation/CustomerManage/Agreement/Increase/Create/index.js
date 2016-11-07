@@ -63,8 +63,11 @@ export default class JoinCreate extends Component {
 		let {
 			params
 		} = this.props;
-		formValues.stationVos = JSON.stringify(formValues.stationVos);
 
+		if(typeof formValues.stationVos != 'string'){
+			formValues.stationVos = JSON.stringify(formValues.stationVos);
+		}	
+		
 		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract', {}, formValues)).then(function(response) {
 			Notify.show([{
 				message: '创建成功',
