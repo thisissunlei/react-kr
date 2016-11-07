@@ -52,7 +52,7 @@ export default class SearchParam extends Component{
 		  primaryR:'true',
 		  primaryI:'false',
 		  active:10000,
-		  activeI:10000
+		  activeI:10000,
 		}
        
 	}
@@ -69,7 +69,7 @@ export default class SearchParam extends Component{
 			primaryR:'true',
 			primaryI:'false',
 			active:index,
-			activeI:10000	
+			activeI:10000,
 	      });
         }
        
@@ -79,7 +79,6 @@ export default class SearchParam extends Component{
 			primaryI:'true',
 			activeI:index,
 		    active:10000,
-
 	      });
         }
         
@@ -113,7 +112,7 @@ export default class SearchParam extends Component{
 	      });
         }
 	}
-
+	  
 	render(){
          const {detailPayment,detailIncome,detailBalance}=this.props;
 
