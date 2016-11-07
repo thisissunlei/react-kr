@@ -103,6 +103,7 @@ onChangeRentBeginDate(value){
 
     let {stationVos,selected} = this.state;
 	  let selectedStationVos = [];
+	  let stationVosList = this.props.stationVos;
 
 	  selectedStationVos = stationVos.filter(function(item,index){
 		  if(selected.indexOf(index) !==-1){
@@ -166,22 +167,33 @@ onChangeRentBeginDate(value){
 		obj.stationName = item.stationName;
 		obj.unitprice = item.unitprice;
 		obj.stationType = item.stationType;
-		obj.leaseBeginDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
+		obj.leaseBeginDate = dateFormat(item.leaseBeginDate,'yyyy-mm-dd');
+		obj.end = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
 		obj.leaseEndDate = item.rentBeginDate;
 		resultStationVos.push(obj);
 	});
 
 	selectedStationVos = resultStationVos;
 
-	let beginDate = Date.parse(selectedStationVos[0].leaseBeginDate);
+	let beginDate = Date.parse(selectedStationVos[0].end);
+	let contactEnd = Date.parse(this.props.endTime);
 	let endDate = Date.parse(selectedStationVos[0].leaseEndDate);
-
 	 if(beginDate<= endDate){
 			Notify.show([{
 				message:'选择的工位租赁结束时间不能大于减租开始时间',
 				type: 'danger',
 			  }]);
 			  return false;
+	  }
+	  if(contactEnd!= endDate && stationVosList.length){
+			Notify.show([{
+				message:'选择的工位结束时间必须为'+ dateFormat(this.props.endTime,'yyyy-mm-dd'),
+				type: 'danger',
+			  }]);
+			  return false;
+	  }
+	  if(stationVosList.length){
+	  	selectedStationVos[0].end = this.props.endTime;
 	  }
 
 	Store.dispatch(change('reduceCreateForm','leaseBegindate',selectedStationVos[0].leaseEndDate));
@@ -240,8 +252,11 @@ onChangeRentBeginDate(value){
       </Table>
       <Grid>
       <Row style={{marginTop:30}}>
+      <Col md={4}></Col>
       <Col md={2} align="right"> <Button  label="确定" type="submit" /> </Col>
-      <Col md={2} align="right"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
+      <Col md={2} align="right"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col> 
+      <Col md={4}></Col>
+      </Row>
       </Grid>
 </form>
 			</div>);
