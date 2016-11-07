@@ -69,7 +69,7 @@ export default  class ItemDetail extends Component{
              
                <KrField component="labelText" label="描述" value={detail.accountdesc}/>
 
-               <Button  label="取消" type="button"  onTouchTap={this.props.onCancel} />
+              
 			</div>
 			
 		);
