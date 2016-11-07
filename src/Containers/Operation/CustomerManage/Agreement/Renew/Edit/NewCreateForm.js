@@ -102,6 +102,7 @@ class NewCreateForm extends Component {
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 		this.state = {
 			stationVos: [],
+			delStationVos: [],
 			selectedStation: [],
 			openStation: false,
 			openStationUnitPrice: false,
@@ -199,21 +200,27 @@ class NewCreateForm extends Component {
 
 	//删除工位
 	onStationDelete() {
-
 		let {
 			selectedStation,
-			stationVos
+			stationVos,
+			delStationVos
 		} = this.state;
-		stationVos = stationVos.filter(function(item, index) {
 
+		stationVos = stationVos.filter(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
+				delStationVos.push(item);
 				return false;
 			}
 			return true;
 		});
+
 		this.setState({
-			stationVos
+			stationVos,
+			delStationVos
+		}, function() {
+			this.calcStationNum();
 		});
+
 	}
 
 	onStationSelect(selectedStation) {
@@ -252,8 +259,10 @@ class NewCreateForm extends Component {
 			changeValues
 		} = this.props;
 		let {
-			stationVos
+			stationVos,
+			delStationVos
 		} = this.state;
+
 		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
@@ -261,16 +270,14 @@ class NewCreateForm extends Component {
 		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorContactid = form.lessorContactid;
 
-		var _this = this;
-		var wherefloor = [];
-		form.stationVos = stationVos;
-		form.stationVos = JSON.stringify(form.stationVos);
+
+		form.stationVos = JSON.stringify(stationVos);
+		form.delStationVos = JSON.stringify(delStationVos);
+
 		const {
 			onSubmit
 		} = this.props;
 		onSubmit && onSubmit(form);
-
-
 	}
 
 	onCancel() {

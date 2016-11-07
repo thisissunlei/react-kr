@@ -525,7 +525,7 @@ class NewCreateForm extends Component {
 				<KrField grid={1/2}  right={60}  name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress}  /> 
 				<KrField grid={1/2}  left={60}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true} /> 
 
-				<KrField grid={1} right={60} component="group" label="租赁期限" requireLabel={true}> 
+				<KrField grid={1/1}  component="group" label="租赁期限" requireLabel={true}> 
 					<ListGroup>
 						<ListGroupItem> <KrField name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/></ListGroupItem>
 						<ListGroupItem ><span style={{display:'inline-block',lineHeight:'75px'}}>至</span></ListGroupItem>
@@ -626,6 +626,7 @@ class NewCreateForm extends Component {
 					<Dialog
 						title="录入单价"
 						autoScrollBodyContent={true}
+						onCancel={this.openStationUnitPriceDialog}
 						open={this.state.openStationUnitPrice} >
 								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>

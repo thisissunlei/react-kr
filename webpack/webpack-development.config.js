@@ -8,6 +8,10 @@ var env = process.env.NODE_ENV || 'development';
 
 const config = {
 	entry:{
+		development:[
+			 'webpack/hot/dev-server',
+    		'webpack/hot/only-dev-server',
+		],
 		vender:path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js'),	
 		app:path.join(process.cwd(), '/src/app.js')
 	},
@@ -19,7 +23,15 @@ const config = {
 			'kr': path.join(process.cwd(), '/src'), 
 		},
 	},
-
+  	devServer: {
+	  contentBase: "./static",
+	  hot:true,
+	  port: 8001,
+	  inline: true,
+	  historyApiFallback: true,
+	  colors: true,
+	  stats: 'normal',
+  },
 	externals: { 
 		React:true
 	}, 

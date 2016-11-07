@@ -523,7 +523,7 @@ class NewCreateForm extends Component {
 						Store.dispatch(change('increaseCreateForm','paytypeName',item.label));
 				}} />
 
-				<KrField grid={1/2}  component="group" label="租赁期限" requireLabel={true} left={60}>
+				<KrField grid={1/1}  component="group" label="租赁期限" requireLabel={true} left={60}>
 					<ListGroup>
 						<ListGroupItem><KrField  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/></ListGroupItem>
 						<ListGroupItem ><span style={{display:'inline-block',lineHeight:'75px'}}>至</span></ListGroupItem>

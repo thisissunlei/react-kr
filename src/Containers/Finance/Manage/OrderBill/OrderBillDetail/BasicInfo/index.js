@@ -91,7 +91,7 @@ export default class BasicInfo extends Component{
 						    <KrField key={index} grid={1/3} label={item.propname} component="labelText" value={item.propamount}/>						 
 						 )}*/}
 			  
-			           <KrField grid={1} label="订单描述:" component="labelText" value={detail.mainbilldesc} defaultValue="无"/>
+			           
 		
 			</div>		
 
