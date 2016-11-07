@@ -10,6 +10,8 @@ import Demo from './Demo';
 import Finance from './Finance';
 import Member from './Member';
 import Community from './Community';
+import Retail from './Retail';
+import OA from './OA';
 
 
 module.exports = {
@@ -24,7 +26,9 @@ module.exports = {
 	Demo,
 	Finance,
 	Member,
-	Community
+	Community,
+	Retail,
+	OA
 }
 
 
