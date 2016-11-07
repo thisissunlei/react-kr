@@ -15,7 +15,7 @@ export default class Table extends React.Component {
 
 	static defaultProps = {
 		page: 1,
-		pageSize: 15,
+		pageSize: 20,
 		totalCount: 20,
 		pagination: true,
 		loading: false,
