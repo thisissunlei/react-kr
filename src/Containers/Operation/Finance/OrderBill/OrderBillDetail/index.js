@@ -59,7 +59,7 @@ class ViewForm extends Component{
 	    }
 
 		return(
-				<div>					
+				<div className='ui-watch-detail'>					
 					<KrField grid={1/2}  component="labelText" label="代码名称" value={items.accountName} inline={false} defaultValue="无"/>
 					<KrField grid={1/2} label="付款日期" component="labelText" inline={false} value={items.occuryear} defaultValue="无" type="date"/>
 					   
