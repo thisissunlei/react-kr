@@ -104,7 +104,7 @@ export default class Button extends Component {
 		if (type == 'submit') {
 
 			return (
-				<div className="ui-button">
+				<div className="ui-button" style={divStyle}>
 					<RaisedButton backgroundColor={backgroundColor || "#499df1"} labelStyle={labelStyle} labelColor={labelColor || "#fff"} label={label} style={defaultStyle}  type="submit"  {...other}/>
 				</div>
 			);

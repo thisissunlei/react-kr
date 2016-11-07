@@ -540,19 +540,19 @@ class NewCreateForm extends Component {
 
 				
 
-				<KrField  grid={1/2}  name="signdate"  component="date" grid={1} left={60} label="签署时间" defaultValue={initialValues.signdate} requireLabel={true} />
+				<KrField  grid={1/2}  name="signdate"  component="date"  left={60} label="签署时间" defaultValue={initialValues.signdate} requireLabel={true} />
 				
 
 				
 				<KrField grid={1/2}  name="stationnum"  component="labelText" right={60} label="租赁工位" value={changeValues.stationnum} defaultValue="0" inline={false}/>
 				<KrField grid={1/2}  name="boardroomnum"  component="labelText" left={60} label="租赁会议室" value={changeValues.station} defaultValue="0" inline={false}/>
 
-				<KrField  grid={1}  name="rentaluse" type="text" component="input" right={60} label="租赁用途" placeholder="办公使用" requireLabel={true}  />
+				<KrField  grid={1}  name="rentaluse" type="text" component="input" right={0} label="租赁用途" placeholder="办公使用" requireLabel={true}  />
 
 				<KrField  grid={1/2}  name="totalrent" type="text" component="input" right={60} label="租金总额" placeholder="" requireLabel={true} />
 				<KrField  grid={1/2}  name="totaldeposit" type="text" component="input" left={60} label="押金总额" requireLabel={true} />
 
-				<KrField  grid={1/1}  name="contractmark" component="textarea" right={60} label="备注" />
+				<KrField  grid={1/1}  name="contractmark" component="textarea" right={0} label="备注" />
 
 
 

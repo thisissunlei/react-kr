@@ -51,8 +51,8 @@ class UnitPriceForm  extends Component{
 					<Grid>
 						<Row style={{marginTop:30}}>
 							<Col md={4}></Col>
-							<Col md={2} align="right"> <Button  label="确定" type="submit" /> </Col>
-						  <Col md={2} align="right"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col>
+							<Col md={2} align="center"> <Button  label="确定" type="submit" /> </Col>
+						  <Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col>
 							<Col md={4}></Col>
 						   </Row>
 					</Grid>
