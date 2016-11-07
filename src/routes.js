@@ -24,6 +24,7 @@ import {
 	Basic,
 	Initialize,
 	Demo,
+	Finance,
 } from './Containers';
 
 import Master from './master';
@@ -146,37 +147,36 @@ export default (
 						<Route path="detail" component = {Operation.JoinOrder.Customer.Detail}/>
 					</Route>
 				</Route>
+		</Route>
 
-				{/*财务管理*/}
+			{/*财务管理*/}
 				<Route path="finance" component={Basic}>
-					<Route path="index" component={Operation.Finance.Home}/>
+				
+					<Route path="index" component={Finance.Home}/>
 
-					<Route path="orderbill" component={Basic}>
-						<Route path="receiptList" component={Operation.Finance.OrderBill.ReceiptList}/>
+					<Route path="manage" component={Basic}>
+						<Route path="orderbill" component={Basic}>
+						<Route path="receiptList" component={Finance.Manage.OrderBill.ReceiptList}/>
 
 						{/*订单账单*/}
-						<Route path="orderList" component={Operation.Finance.OrderBill.OrderList}/>
+						<Route path="orderList" component={Finance.Manage.OrderBill.OrderList}/>
 						{/*订单账单明细*/}
-						<Route path=":orderId/detail" component={Operation.Finance.OrderBill.OrderBillDetail}/>
-
-
+						<Route path=":orderId/detail" component={Finance.Manage.OrderBill.OrderBillDetail}/>
 					</Route>
 
 					{/*开票列表*/}
 					<Route path="invoice" component={Basic}>
-						<Route path="list" component={Operation.Finance.Invoice}/>
+						<Route path="list" component={Finance.Manage.Invoice}/>
 					</Route>
 
 					{/*代码配置*/}
 					<Route path="codeSetting" component={Basic}>
-						<Route path="attribute" component={Operation.Finance.CodeSetting.Attribute}/>
-						<Route path="subject" component={Operation.Finance.CodeSetting.Subject}/>
+						<Route path="attribute" component={Finance.Manage.CodeSetting.Attribute}/>
+						<Route path="subject" component={Finance.Manage.CodeSetting.Subject}/>
 					</Route>
+					</Route>	
+			</Route>
 
-
-				</Route>
-
-		</Route>
 
 		{/*权限管理*/}
 		<Route path="permission" component={Basic}>

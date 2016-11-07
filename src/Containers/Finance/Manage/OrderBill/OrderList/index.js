@@ -208,9 +208,9 @@ export default class AttributeSetting extends Component {
 						<Row>
 							<Col md={6} align="left"> 
 								<ListGroup>
-									<span className='ui-incomeMoney'></span><ListGroupItem ><KrField label="收入总额:" component="labelText" joinEditForm inline={true} value={list.sumcome} defaultValue="0"/></ListGroupItem>
+									<div  className='ui-orderList'><span className='ui-incomeMoney'></span><ListGroupItem ><KrField label="收入总额:" component="labelText" joinEditForm inline={true} value={list.sumcome} defaultValue="0"/></ListGroupItem>
 									<span className='ui-receiveMoney'></span><ListGroupItem> <KrField label="回款总额:" component="labelText" joinEditForm inline={true} value={list.sumAmount} defaultValue="0"/> </ListGroupItem>
-									<span className='ui-selfMoney'></span><ListGroupItem> <KrField label="余额:" component="labelText" joinEditForm inline={true} value={list.summount} defaultValue="0"/></ListGroupItem>	
+									<span className='ui-selfMoney'></span><ListGroupItem> <KrField label="余额:" component="labelText" joinEditForm inline={true} value={list.summount} defaultValue="0"/></ListGroupItem></div>	
 								</ListGroup>	
 							</Col> 
 							<Col md={6} align="right"> 
