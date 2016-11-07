@@ -71,7 +71,7 @@ export default class AttributeSetting extends Component {
 			list: {},
 			searchParams: {
 				page: 1,
-				pageSize:20
+				pageSize:15
 			}
 
 		}

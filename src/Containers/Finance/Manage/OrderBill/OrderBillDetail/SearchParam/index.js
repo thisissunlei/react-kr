@@ -101,6 +101,15 @@ export default class SearchParam extends Component{
 			active:index,
 			activeI:10000	
 	      });
+       setTimeout(function(){
+         this.setState({
+			primaryR:'true',
+			primaryI:'false',
+			active:10000,
+			activeI:10000	
+	      });
+       },500)
+
         }
        
         if(type=='INCOME'){
@@ -110,6 +119,14 @@ export default class SearchParam extends Component{
 			activeI:index,
 		    active:10000,
 	      });
+	      setTimeout(function(){
+         this.setState({
+			primaryR:'true',
+			primaryI:'false',
+			active:10000,
+			activeI:10000	
+	      });
+       },500)
         }
 	}
 	  
