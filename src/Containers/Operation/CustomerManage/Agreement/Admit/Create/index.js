@@ -180,7 +180,7 @@ export default class JoinCreate extends Component {
 			</Section>
             
 			<Dialog
-				title="新建"
+				title="承租意向书"
 				modal={true}
 				autoScrollBodyContent={true}
 				autoDetectWindowHeight={true}

@@ -479,7 +479,7 @@ class NewCreateForm extends Component {
                                  <KrField right={60} grid={1/2}  name="totaldownpayment" type="text" component="input" label="定金总额"  requireLabel={true}/> 
 								 <KrField left={60} grid={1/2}  name="paymentId" type="text" component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/>
                                      
-								 <KrField grid={1/1}  component="group" label="租赁期限" requireLabel={true}> 
+								 <KrField grid={1/2}  component="group" label="租赁期限" requireLabel={true}> 
 										<ListGroup>
 											<ListGroupItem> <KrField simple={true}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate}/> </ListGroupItem>
 											<ListGroupItem ><span style={{display:'inline-block',lineHeight:'75px'}}>至</span></ListGroupItem>
@@ -487,7 +487,7 @@ class NewCreateForm extends Component {
 										</ListGroup>
 								</KrField>
 
-                               <KrField right={60} name="templockday"  grid={1/2} component="input" type="text" label="保留天数" requireLabel={true}/> 
+                               <KrField right={60} name="templockday" left={60} grid={1/2} component="input" type="text" label="保留天数" requireLabel={true}/> 
 
 							 <KrField grid={1}  name="contractmark" type="textarea" component="textarea" label="备注" /> 
 
