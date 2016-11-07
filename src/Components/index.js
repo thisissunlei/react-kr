@@ -22,6 +22,7 @@ import IframeContent from './IframeContent';
 import PageHeader from './PageHeader';
 import Paper from './Paper';
 import SplitLine from './SplitLine';
+import FontIcon from './FontIcon';
 
 import {
 	Grid,
@@ -38,7 +39,6 @@ import {
 	DropDownMenu,
 	IconMenu,
 	Divider,
-	FontIcon,
 	DatePicker,
 	Avatar,
 	Snackbar,
@@ -55,6 +55,7 @@ import {
 
 module.exports = {
 	//Components
+	FontIcon,
 	Paper,
 	IframeContent,
 	Calendar,
@@ -88,7 +89,6 @@ module.exports = {
 	DropDownMenu,
 	IconMenu,
 	Divider,
-	FontIcon,
 	DatePicker,
 	Avatar,
 	Dialog,
