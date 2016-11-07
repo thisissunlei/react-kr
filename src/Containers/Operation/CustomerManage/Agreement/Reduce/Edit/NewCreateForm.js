@@ -56,7 +56,8 @@ import {
 	Notify,
 	KrDate,
 	DotTitle,
-	ButtonGroup
+	ButtonGroup,
+	Paper
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -102,6 +103,7 @@ class NewCreateForm extends Component {
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 		this.state = {
 			stationVos: [],
+			delStationVos:[],
 			selectedStation: [],
 			openStation: false,
 			openStationUnitPrice: false,
@@ -203,17 +205,23 @@ class NewCreateForm extends Component {
 
 		let {
 			selectedStation,
-			stationVos
+			stationVos,
+			delStationVos,
 		} = this.state;
+		let {leaseEnddate} = this.props.optionValues;
 		stationVos = stationVos.filter(function(item, index) {
 
 			if (selectedStation.indexOf(index) != -1) {
+				var obj = item;
+				obj.leaseEndDate = leaseEnddate;
+				delStationVos.push(obj);
 				return false;
 			}
 			return true;
 		});
 		this.setState({
-			stationVos
+			stationVos,
+			delStationVos
 		});
 	}
 
@@ -254,7 +262,8 @@ class NewCreateForm extends Component {
 			changeValues
 		} = this.props;
 		let {
-			stationVos
+			stationVos,
+			delStationVos
 		} = this.state;
 
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
@@ -270,6 +279,7 @@ class NewCreateForm extends Component {
 		form.stationVos = stationVos;
 
 		form.stationVos = JSON.stringify(form.stationVos);
+		form.delStationVos = JSON.stringify(delStationVos);
 		console.log('form111', form);
 		const {
 			onSubmit
@@ -310,11 +320,10 @@ class NewCreateForm extends Component {
 			stationVos,
 			params
 		} = this.state;
-		console.log(params);
 
 
 		return (
-			<div>
+			<Paper width={960}>
 
 <form onSubmit={handleSubmit(this.onSubmit)}>
 
@@ -408,11 +417,11 @@ class NewCreateForm extends Component {
 						modal={true}
 						autoScrollBodyContent={true}
 						autoDetectWindowHeight={true}>
-								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} />
+								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} endTime={optionValues.leaseEnddate} stationVos={stationVos}/>
 					  </Dialog>
 
 
-			</div>);
+			</Paper>);
 	}
 }
 const selector = formValueSelector('reduceCreateForm');
