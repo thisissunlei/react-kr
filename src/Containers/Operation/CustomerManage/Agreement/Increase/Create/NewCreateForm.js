@@ -342,12 +342,7 @@ class NewCreateForm extends Component {
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 
-
-		var _this = this;
-
-		form.stationVos = stationVos;
-
-		//form.stationVos = JSON.stringify(form.stationVos);
+		form.stationVos = JSON.stringify(stationVos);
 
 		const {
 			onSubmit
