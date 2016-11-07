@@ -79,13 +79,6 @@ export default class Undefined extends Component {
 							<Button  label="确定" type="submit" joinEditForm />
 						</Form>
                      </Section>
-
-					<DotTitle title='订单详情'>
-					 <SplitLine />
-
-					</DotTitle>
-
-					<LineText title='回款' primary='true' />
 				</div>	
 		);
 
