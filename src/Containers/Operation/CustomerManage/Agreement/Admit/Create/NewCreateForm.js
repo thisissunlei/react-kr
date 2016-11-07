@@ -546,7 +546,7 @@ class NewCreateForm extends Component {
 									 <Button  label="确定" type="submit" primary={false} disabled={submitting} />
 								</ListGroupItem>
 								<ListGroupItem style={{paddingLeft:20}}>
-									<Button  label="取消" type="button"  onTouchTap={this.onCancel}/>
+									<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel}/>
 								</ListGroupItem>
 							</ListGroup>
 						 </Col>

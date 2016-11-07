@@ -71,7 +71,7 @@ class SearchForm extends Component {
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 				 <ListGroup>
 					<ListGroupItem> <KrField name="corporationName" type="text" placeholder="搜索名称" simple={true}/></ListGroupItem>
-					<ListGroupItem> <Button  label="查询" type="submit" primary={true} /></ListGroupItem>
+					<ListGroupItem> <Button  label="查询" type="submit" joinEditForm /></ListGroupItem>
 				</ListGroup>
 			</form>
 		);

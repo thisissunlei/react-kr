@@ -43,7 +43,7 @@ class SearchForm extends Component{
 
                 <KrField grid={1/3} name="corporationName" type="text"  component="input" placeholder="搜索关键词"/>
 
-                 <Button label="搜索"  type="submit" primary={true}/>
+                 <Button label="搜索"  type="submit" joinEditForm/>
 
           </Form>
         
@@ -77,8 +77,8 @@ class EditDetailForm extends Component{
                 <KrField  name="corporationName" type="text"  component="input" label="备注"/>
                 <KrField  name="corporationName" type="text"  component="input" label="上传附件"/>
 
-                 <Button label="确定"  type="submit" primary={true}/>
-                   <Button label="取消"  type="button" primary={true}/>
+                 <Button label="确定"  type="submit" joinEditForm/>
+                   <Button label="取消"  type="button" joinEditForm/>
 
           </Form>
         
@@ -102,7 +102,7 @@ class ItemDetail extends Component{
 
                 <KrField grid={1/3} name="corporationName" type="text"  component="input" placeholder="搜索关键词"/>
 
-                 <Button label="搜索"  type="submit" primary={true}/>
+                 <Button label="搜索"  type="submit" joinEditForm/>
 
           </Form>
         
@@ -207,9 +207,9 @@ export default class AttributeSetting  extends Component{
                     <TableRowColumn name="operateName"></TableRowColumn>
                     <TableRowColumn name="invoicedesc"></TableRowColumn>
                     <TableRowColumn>
-                        <Button label="查看"  type="link" primary={true} operation="view"/>
-                        <Button label="编辑"  type="link" primary={true} operation="edit"/>
-                        <Button label="删除"  type="link" primary={true} operation="delete"/>
+                        <Button label="查看"  type="link" joinEditForm operation="view"/>
+                        <Button label="编辑"  type="link" joinEditForm operation="edit"/>
+                        <Button label="删除"  type="link" joinEditForm operation="delete"/>
                     </TableRowColumn>
                   </TableRow>
               </TableBody>

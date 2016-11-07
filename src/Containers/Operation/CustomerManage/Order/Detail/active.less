@@ -19,11 +19,23 @@ ul,li{
 	-ms-border-radius:50%;
 	-webkit-border-radius:50%;
 	border-radius:50%;
-	background:#499df1;
+	border:2px solid #499df1;
+	position: relative;
+	background:#fff;
 	margin-top:-8px;
 	display:block;
 	margin-right:auto;
 	margin-left:auto;
+	&:before{
+		content:'';
+		width: 25px;
+		height: 25px;
+		position: absolute;
+		border-radius: 25px;
+		background-color: #499df1;
+		top: 5px;
+		left: 5px;
+	}
 }
 
 .ui-circle-dot{
@@ -69,4 +81,14 @@ ul,li{
 .ContractNameTitle{
 	font-weight:bold;
 }
+.adminTitle{
+	position: relative;
+	.adminName{
+		width: 60%;
+		font-size: 14px;
+		display: inline-block;
+	}
+
+}
+
 

@@ -24,6 +24,25 @@ module.exports = {
 			menuCode:'index',
 		},
 		{
+			primaryText:"社区经营",
+			router:'community',
+			menuItems:[
+				{
+					primaryText:"社区管理",
+					menuItems:[
+						{
+							primaryText:'计划表',
+						},
+						{
+							primaryText:'访客记录',
+							menuCode:'sysVisitRecordList',
+							originUrl:'/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=102'
+						},
+					]
+				},
+			],
+		},
+		{
 			primaryText:"运营平台",
 			router:'operation',
 			menuCode:'operate',
@@ -76,9 +95,6 @@ module.exports = {
 						},
 					]
 				},
-				
-
-
 				{
 					primaryText:"社区管理",
 					router:'communityManage',
@@ -91,35 +107,19 @@ module.exports = {
 						},
 					]
 				},
-				
-				/*
-				{
-					primaryText:"客户管理",
-					router:'customerManage',
-					menuItems:[
-						{
-							primaryText:'查看客户订单',
-							router:'/operation/customerManage/108/order/3/detail',
-						},
-						{
-							primaryText:'新增客户订单',
-							router:'/operation/customerManage/108/order/create',
-						},
-						{
-							primaryText:'编辑客户订单',
-							router:'/operation/customerManage/108/order/49/edit',
-						},
-
-
-					]
-				},
-				*/
-
 				{
 					primaryText:"基础配置",
 					router:'BaseManage',
 					menuCode:'basic_config',
 					menuItems:[
+						{
+							primaryText:"出租方管理",
+							router:'/operation/customerManage/agreement/lessorManage/list',
+						},
+						{
+							primaryText:"合同配置",
+							router:'/operation/customerManage/agreement/setting/list',
+						},
 						{
 							primaryText:'参数配置',
 							menuCode:'retail_sysparamadmin',
@@ -142,20 +142,6 @@ module.exports = {
 						},
 					]
 				},
-
-				{
-					primaryText:"合同信息",
-					menuItems:[
-						{
-							primaryText:"出租方管理",
-							router:'/operation/customerManage/agreement/lessorManage/list',
-						},
-						{
-							primaryText:"基础配置",
-							router:'/operation/customerManage/agreement/setting/list',
-						},
-					]
-				},
 				{
 					primaryText:"财务管理",
 					rightIcon:"",
@@ -168,7 +154,6 @@ module.exports = {
 							router:'/operation/finance/orderbill/orderList',
 						},
 						/*
-						
 						{
 							primaryText:"订单明细账",
 							router:'/operation/finance/orderbill/detail',
@@ -203,6 +188,25 @@ module.exports = {
 					menuCode:'memberAdmin',
 					router:'memberAdmin',
 					originUrl:'/krspace_member_web/member/toMemberList?mid=94'
+				}
+			]
+		},
+		{
+			primaryText:"财务系统",
+			menuItems:[
+				{
+					primaryText:'财务管理',
+					menuItems:[
+						{
+							primaryText:'订单账单',
+						},
+						{
+							primaryText:'科目配置',
+						},
+						{
+							primaryText:'属性配置',
+						},
+					]
 				}
 			]
 		},

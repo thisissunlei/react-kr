@@ -8,7 +8,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import './index.less';
 
 export default class Button extends Component {
-
+	static defaultProps = {
+		cancle:false,
+	}
 
 	static PropTypes = {
 		className: React.PropTypes.string,
@@ -19,6 +21,7 @@ export default class Button extends Component {
 		disabled: React.PropTypes.bool,
 		backgroundColor: React.PropTypes.string,
 		labelColor: React.PropTypes.string,
+		cancle:React.PropTypes.bool
 	}
 
 
@@ -36,8 +39,18 @@ export default class Button extends Component {
 			disabled,
 			backgroundColor,
 			labelColor,
+			cancle,
 			...other
 		} = this.props;
+		let defaultStyle = {
+			boxShadow:"1px 1px 10px #499df2",
+			borderRadius:4,
+			minWidth:30
+		};
+		if(cancle){
+			backgroundColor = '#fff';
+			labelColor = '#499df1';
+		}
 
 		if (type == 'link') {
 
@@ -56,7 +69,7 @@ export default class Button extends Component {
 
 			return (
 				<div className="ui-button">
-					<RaisedButton backgroundColor={backgroundColor || "#499df1"} labelColor={labelColor || "#fff"}  label={label} style={{minWidth:30}}  {...other} />
+					<RaisedButton backgroundColor={backgroundColor || "#499df1"} labelColor={labelColor || "#fff"} style={defaultStyle} label={label}   {...other} />
 				</div>
 			);
 		}
@@ -74,7 +87,7 @@ export default class Button extends Component {
 
 			return (
 				<div className="ui-button">
-					<RaisedButton backgroundColor={backgroundColor || "#499df1"} labelColor={labelColor || "#fff"} label={label} style={{minWidth:30}}  type="submit"  {...other}/>
+					<RaisedButton backgroundColor={backgroundColor || "#499df1"} labelColor={labelColor || "#fff"} label={label} style={defaultStyle}  type="submit"  {...other}/>
 				</div>
 			);
 		}
@@ -83,7 +96,7 @@ export default class Button extends Component {
 
 		return (
 			<div className="ui-button">
-					<RaisedButton backgroundColor="#499df1" label={label} style={{minWidth:30}}  labelColor="#fff" {...other}/>
+					<RaisedButton backgroundColor="#499df1" label={label} style={{minWidth:30}}  labelColor="#fff" style={defaultStyle}{...other}/>
 			</div>
 
 		);

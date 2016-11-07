@@ -95,7 +95,7 @@ class DismantlingForm  extends Component{
 			<KrField name="actualLeaveDate"component="date" grid={1} label="实际的撤场时间为" value=""/>
 			<Grid>
 				<Row style={{marginTop:30}}>
-				<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true} /> </Col>
+				<Col md={2} align="right"> <Button  label="确定" type="submit" joinEditForm /> </Col>
 				<Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
 			</Grid>
 		</form>

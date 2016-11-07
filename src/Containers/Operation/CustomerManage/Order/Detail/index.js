@@ -200,10 +200,10 @@ export default class OrderDetail extends React.Component {
 
 			<Section title="客户订单详情" description="" hide={!!this.props.location.query.closeAll}> 
 
-			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog} />
+			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog} style={{width:80,marginTop:15}}/>
 
 			<span className='border-top'></span>
-			<Grid style={{marginTop:50}}>
+			<Grid style={{marginTop:50,width:'80%',marginLeft:'10%'}}>
 			<span className='ui-remark'>注：如（0-1），1表示该类型合同总数，0表示执行完该类型合同数</span>
 			<ul className='ui-adminBook'>
               <li><span className={contractStatusCount.intentionTotoal!=0?'ui-circle':'ui-circle-dot'}></span></li>
@@ -213,13 +213,13 @@ export default class OrderDetail extends React.Component {
               <li><span className={contractStatusCount.lessRentComplete!=0?'ui-circle':'ui-circle-dot'}></span></li>
               <li><span className={contractStatusCount.quitRentTotoal!=0?'ui-circle':'ui-circle-dot'}></span></li>
 			</ul>
-			<Row>
-				<Col md={2} align="center">承租意向书({contractStatusCount.intentionComplete}-{contractStatusCount.intentionTotoal}) </Col>
-				<Col md={2} align="center"> 入驻协议书({contractStatusCount.enterComplete}-{contractStatusCount.enterTotoal}) </Col>
-				<Col md={2} align="center"> 增租协议书({contractStatusCount.addRentComplete}-{contractStatusCount.addRentTotoal}) </Col>
-				<Col md={2} align="center"> 续租协议书({contractStatusCount.renewComplete}-{contractStatusCount.renewTotoal}) </Col>
-				<Col md={2} align="center"> 减租协议书({contractStatusCount.lessRentComplete}-{contractStatusCount.lessRentTotoal}) </Col>
-				<Col md={2} align="center"> 退租协议书({contractStatusCount.quitRentComplete}-{contractStatusCount.quitRentTotoal}) </Col>
+			<Row style={{marginLeft:40}}>
+				<Col md={2} align="center" className="adminTitle"><span className="adminName">承租意向书({contractStatusCount.intentionComplete}-{contractStatusCount.intentionTotoal})</span> </Col>
+				<Col md={2} align="center" className="adminTitle"> <span className="adminName">入驻协议书({contractStatusCount.enterComplete}-{contractStatusCount.enterTotoal})</span> </Col>
+				<Col md={2} align="center" className="adminTitle"><span className="adminName" > 增租协议书({contractStatusCount.addRentComplete}-{contractStatusCount.addRentTotoal})</span> </Col>
+				<Col md={2} align="center" className="adminTitle"><span className="adminName"> 续租协议书({contractStatusCount.renewComplete}-{contractStatusCount.renewTotoal})</span> </Col>
+				<Col md={2} align="center" className="adminTitle"><span className="adminName">  减租协议书({contractStatusCount.lessRentComplete}-{contractStatusCount.lessRentTotoal})</span>  </Col>
+				<Col md={2} align="center" className="adminTitle"> <span className="adminName"> 退租协议书({contractStatusCount.quitRentComplete}-{contractStatusCount.quitRentTotoal}) </span> </Col>
 			</Row>
 		</Grid>
 
