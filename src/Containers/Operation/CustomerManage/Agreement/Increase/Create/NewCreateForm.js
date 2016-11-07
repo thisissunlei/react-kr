@@ -342,7 +342,10 @@ class NewCreateForm extends Component {
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 
-		form.stationVos = JSON.stringify(stationVos);
+
+		form.stationVos = stationVos;
+
+		//form.stationVos = JSON.stringify(stationVos);
 
 		const {
 			onSubmit
@@ -518,7 +521,7 @@ class NewCreateForm extends Component {
 						Store.dispatch(change('increaseCreateForm','paytypeName',item.label));
 				}} />
 
-				<KrField grid={1/1}  component="group" label="租赁期限" requireLabel={true} left={60}>
+				<KrField grid={1/1}  component="group" label="租赁期限" requireLabel={true}>
 					<ListGroup>
 						<ListGroupItem><KrField  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/></ListGroupItem>
 						<ListGroupItem ><span style={{display:'inline-block',lineHeight:'75px'}}>至</span></ListGroupItem>
