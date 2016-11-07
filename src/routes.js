@@ -25,6 +25,7 @@ import {
 	Initialize,
 	Demo,
 	Finance,
+	Member
 } from './Containers';
 
 import Master from './master';
@@ -48,7 +49,14 @@ export default (
 		<Redirect from="messages/:id" to="/messages/:id" />
 
 		<Route path="initialize" component={Initialize} name="initialize"/>
+
+		{/*demo*/}
 		<Route path="demo" component={Demo} name="demo"/>
+
+		<Route path="member" component={Basic}/>
+			<Route path="index" component={Member.Home}/>
+		</Route>
+
 
 		{/*运营管理*/}
 		<Route path="operation" component={Basic}>
