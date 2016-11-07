@@ -71,7 +71,7 @@ export default class AttributeSetting extends Component {
 			list: {},
 			searchParams: {
 				page: 1,
-				pageSize:10
+				pageSize:15
 			}
 
 		}
@@ -113,7 +113,7 @@ export default class AttributeSetting extends Component {
 
 		if (type == 'view') {
 			let orderId = itemDetail.id
-			window.location.href = `./#/operation/finance/orderbill/${orderId}/detail`;
+			window.location.href = `./#/finance/Manage/orderbill/${orderId}/detail`;
 		} else if (type == 'edit') {
 			this.openEditDetailDialog();
 		}
