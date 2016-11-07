@@ -407,6 +407,7 @@ export default class SettingList extends Component {
 
   }
   confirmUpdateChildSubmit(values) {
+    
     Store.dispatch(Actions.callAPI('editSysDicPayment', {}, values)).then(function(response) {
       Notify.show([{
         message: '编辑成功!',
