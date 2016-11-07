@@ -333,7 +333,7 @@ export default class EmployessTable extends Component {
 			customerId,
 			communityId
 		} = this.state;
-		let url = `http://optest.krspace.cn/krspace_member_web/member/toAddMember?companyId=${customerId}&communityId=${communityId}`;
+		let url = `http://op.krspace.cn/krspace_member_web/member/toAddMember?companyId=${customerId}&communityId=${communityId}`;
 		return url;
 	}
 

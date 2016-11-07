@@ -81,7 +81,7 @@ export default class AttributeSetting extends Component {
 			idList.push(item.id)
 			return idList;
 		})
-		var url = `http://optest.krspace.cn/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/exportExcel?idList=${idList}`
+		var url = `http://op.krspace.cn/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/exportExcel?idList=${idList}`
 		window.location.href = url;
 
 	}

@@ -80,7 +80,7 @@ export default class LessorManageList extends Component {
 			return idList;
 		})
 
-		var url = `http://optest.krspace.cn/api/krspace-finance-web/fnacorporationDataExport?corporationIdList=${idList}`
+		var url = `http://op.krspace.cn/api/krspace-finance-web/fnacorporationDataExport?corporationIdList=${idList}`
 		window.location.href = url;
 
 	}

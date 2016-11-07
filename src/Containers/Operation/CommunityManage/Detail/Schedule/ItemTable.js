@@ -97,7 +97,7 @@ export default class ItemTable extends Component {
   //查看员工跳转地址
   onhref() {
 
-    location.href = "http://optest.krspace.cn/krspace_member_web/member/companyMembers?companyId=" + this.props.companyId + "&communityId=" + this.props.communityId;
+    location.href = "http://op.krspace.cn/krspace_member_web/member/companyMembers?companyId=" + this.props.companyId + "&communityId=" + this.props.communityId;
   }
 
   //http://op.krspace.cn/krspace_member_web/member/companyMembers?companyId=1&communityId=11
