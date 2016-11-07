@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run dev",
+    "start": "npm run dev:webpack",
     "dev": "set NODE_ENV=development &&  nodemon ./server.js",
+    "dev:webpack": "set NODE_ENV=development  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile",
     "build": "set NODE_ENV=production  &&  webpack --config ./webpack/webpack-production.config.js --progress --colors --profile",
     "test": "export NODE_ENV=test && webpack --config ./webpack/webpack-test.config.js --progress --colors --profile"
   },
@@ -103,7 +104,7 @@
     "url-search-params": "^0.5.0",
     "validatorjs": "^3.7.0",
     "webpack": "2.1.0-beta.21",
-    "webpack-dev-server": "^1.14.1",
+    "webpack-dev-server": "^1.16.2",
     "webpack-hot-middleware": "^2.10.0"
   },
   "dependencies": {
