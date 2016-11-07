@@ -29,6 +29,7 @@ const config = {
 		React:true
 	},
 	plugins: [
+	/*
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoErrorsPlugin(),
@@ -40,6 +41,7 @@ const config = {
 				comments: false,
 			},
 		}),
+		*/
 		//new webpack.optimize.CommonsChunkPlugin({name:'common', filename:'common.js'}),
 		/*
 		new webpack.DefinePlugin({
