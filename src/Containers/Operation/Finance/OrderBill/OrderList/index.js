@@ -204,23 +204,23 @@ export default class AttributeSetting extends Component {
 			<div>
 					<Section title="订单账单列表" description="" >
 
-					<div  className='ui-orderList'><Grid>
+					<Grid>
 						<Row>
 							<Col md={6} align="left"> 
 								<ListGroup>
-									<span className='ui-incomeMoney'></span><ListGroupItem ><KrField label="收入总额:" component="labelText" joinEditForm inline={true} value={list.sumcome} defaultValue="0"/></ListGroupItem>
+									<div  className='ui-orderList'><span className='ui-incomeMoney'></span><ListGroupItem ><KrField label="收入总额:" component="labelText" joinEditForm inline={true} value={list.sumcome} defaultValue="0"/></ListGroupItem>
 									<span className='ui-receiveMoney'></span><ListGroupItem> <KrField label="回款总额:" component="labelText" joinEditForm inline={true} value={list.sumAmount} defaultValue="0"/> </ListGroupItem>
-									<span className='ui-selfMoney'></span><ListGroupItem> <KrField label="余额:" component="labelText" joinEditForm inline={true} value={list.summount} defaultValue="0"/></ListGroupItem>
+									<span className='ui-selfMoney'></span><ListGroupItem> <KrField label="余额:" component="labelText" joinEditForm inline={true}  defaultValue="0"/></ListGroupItem></div>	
 								</ListGroup>	
 							</Col> 
 							<Col md={6} align="right"> 
 								<ListGroup>
-									<ListGroupItem> <SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
-									<ListGroupItem> <Button onTouchTap={this.openNewCreateDialog} label="高级查询" /></ListGroupItem>
+									<div  className='ui-orderList'><ListGroupItem> <SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
+									<ListGroupItem> <Button onTouchTap={this.openNewCreateDialog} label="高级查询" /></ListGroupItem></div>	
 								</ListGroup>	
 							</Col> 
 						</Row>
-					</Grid></div>	
+					</Grid>
 
 
 
