@@ -11,6 +11,7 @@ export default class FontIcon extends React.Component {
 	static PropTypes = {
 		className: React.PropTypes.string,
 		style: React.PropTypes.object,
+		color:React.PropTypes.string
 
 	}
 
@@ -19,7 +20,13 @@ export default class FontIcon extends React.Component {
 	}
 
 	render() {
-		let {className,style} = this.props;
+		let {className,style,color} = this.props;
+
+		style = Object.assign({},style);
+
+		if(color){
+			style.color = color
+		}
 	
 		return (
 			<span className={className} style={style}></span>
