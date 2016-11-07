@@ -540,23 +540,21 @@ class NewCreateForm extends Component {
 
 				<KrField left={60} grid={1/2} name="firstpaydate" component="date" label="首付款时间" requireLabel={true}  /> 
 
-				<KrField grid={1} right={60} name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"   requireLabel={true}  /> 
+				<KrField grid={1} name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"   requireLabel={true}  /> 
 
 				<KrField grid={1/2}  right={60} name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true} /> 
 				<KrField grid={1/2} left={60}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true} /> 
-				<KrField grid={1} right={60} name="contractmark" component="textarea" label="备注" /> 
+					<KrField grid={1/2}  name="stationnum" component="labelText" type="text" label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>
+				<KrField grid={1/2} left={60} name="boardroomnum" component="labelText" type="text" label="租赁会议室" value={changeValues.station} defaultValue="0" requireLabel={true} inline={false}/>
+           
+				<KrField grid={1}  name="contractmark" component="textarea" label="备注" /> 
 
 
 				<KrField grid={1}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
 				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
 					Store.dispatch(change('joinCreateForm','contractFileList',files));
 				}} />
-
-				<KrField grid={1/1} component="group" label="租赁项目" requireLabel={true}> 
-					<KrField grid={1/2}  name="stationnum" type="text" component="labelText"   label="工位" value={changeValues.stationnum} defaultValue="0" /> 
-					<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.station} defaultValue="0" /> 
-				</KrField>
-           
+			
             <DotTitle title='租赁明细'>
 
 				       <Grid>
