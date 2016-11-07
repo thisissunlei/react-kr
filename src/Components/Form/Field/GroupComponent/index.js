@@ -7,7 +7,7 @@ export default class  GroupComponent extends React.Component {
 
 	static PropTypes = {
 		inline:React.PropTypes.bool,
-		requireBlue:React.PropTypes.bool
+		requireBlue:React.PropTypes.bool,
 	}
 
 	constructor(props){

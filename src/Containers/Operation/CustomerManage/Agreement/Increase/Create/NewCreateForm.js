@@ -60,7 +60,8 @@ import {
 	DotTitle,
 	ButtonGroup,
 	ListGroup,
-	ListGroupItem
+	ListGroupItem,
+	Paper
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -487,7 +488,7 @@ class NewCreateForm extends Component {
 		return (
 
 
-			<div>
+			<Paper width={960}>
 
 <form onSubmit={handleSubmit(this.onSubmit)} enctype="multipart/form-data">
 
@@ -520,6 +521,9 @@ class NewCreateForm extends Component {
                 <KrField  name="paytype"  grid={1/2} component="select" label="支付方式" right={60} options={optionValues.payTypeList} requireLabel={true} onChange={(item)=>{
 						Store.dispatch(change('increaseCreateForm','paytypeName',item.label));
 				}} />
+				<KrField  name="paymodel"  grid={1/2} component="select" label="付款方式" left={60} options={optionValues.paymentList} requireLabel={true} onChange={(item)=>{
+						Store.dispatch(change('increaseCreateForm','paymodelName',item.label));
+				}} />
 
 				<KrField grid={1/1}  component="group" label="租赁期限" requireLabel={true}>
 					<ListGroup>
@@ -532,25 +536,23 @@ class NewCreateForm extends Component {
 
 				<KrField  grid={1/2}  name="firstpaydate"  component="date" grid={1/2} right={60} label="首付款时间" requireLabel={true} />
 
-				<KrField  name="paymodel"  grid={1/2} component="select" label="付款方式" left={60} options={optionValues.paymentList} requireLabel={true} onChange={(item)=>{
-						Store.dispatch(change('increaseCreateForm','paymodelName',item.label));
-				}} />
+				
 
 				
 
-				<KrField  grid={1/2}  name="signdate"  component="date" grid={1} right={60} label="签署时间" defaultValue={initialValues.signdate} requireLabel={true} />
+				<KrField  grid={1/2}  name="signdate"  component="date"  left={60} label="签署时间" defaultValue={initialValues.signdate} requireLabel={true} />
 				
 
 				
 				<KrField grid={1/2}  name="stationnum"  component="labelText" right={60} label="租赁工位" value={changeValues.stationnum} defaultValue="0" inline={false}/>
 				<KrField grid={1/2}  name="boardroomnum"  component="labelText" left={60} label="租赁会议室" value={changeValues.station} defaultValue="0" inline={false}/>
 
-				<KrField  grid={1}  name="rentaluse" type="text" component="input" right={60} label="租赁用途" placeholder="办公使用" requireLabel={true}  />
+				<KrField  grid={1}  name="rentaluse" type="text" component="input" right={0} label="租赁用途" placeholder="办公使用" requireLabel={true}  />
 
 				<KrField  grid={1/2}  name="totalrent" type="text" component="input" right={60} label="租金总额" placeholder="" requireLabel={true} />
 				<KrField  grid={1/2}  name="totaldeposit" type="text" component="input" left={60} label="押金总额" requireLabel={true} />
 
-				<KrField  grid={1/1}  name="contractmark" component="textarea" right={60} label="备注" />
+				<KrField  grid={1/1}  name="contractmark" component="textarea" right={0} label="备注" />
 
 
 
@@ -635,7 +637,7 @@ class NewCreateForm extends Component {
 								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
 
-			</div>);
+			</Paper>);
 	}
 }
 

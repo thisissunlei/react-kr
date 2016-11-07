@@ -60,7 +60,8 @@ import {
 	DotTitle,
 	ButtonGroup,
 	ListGroup,
-	ListGroupItem
+	ListGroupItem,
+	Paper
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -481,7 +482,7 @@ class NewCreateForm extends Component {
 		return (
 
 
-			<div>
+			<Paper width={960}>
 
 <form onSubmit={handleSubmit(this.onSubmit)}>
 
@@ -526,19 +527,17 @@ class NewCreateForm extends Component {
 
 				<KrField right={60} grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" defaultValue={initialValues.signdate} requireLabel={true} /> 
 
-				<KrField right={60} name="firstpaydate" component="date" label="首付款时间"  requireLabel={true}/> 
+				<KrField left={60} grid={1/2} name="firstpaydate" component="date" label="首付款时间"  requireLabel={true}/> 
 
-				<KrField right={60} grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"  requireLabel={true}/> 
+				<KrField right={0} grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"  requireLabel={true}/> 
 
 				<KrField right={60} grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true} /> 
 				<KrField left={60} grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true} /> 
-				<KrField right={60} grid={1}  name="contractmark" component="textarea" label="备注" /> 
+				<KrField right={0} grid={1}  name="contractmark" component="textarea" label="备注" /> 
 				<KrField right={60} grid={1}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} requireLabel={true}/> 
 
-				<KrField grid={1/1} component="group" label="租赁项目" requireLabel={true}> 
-					<KrField grid={1/2}  name="stationnum" type="text" component="labelText"  label="工位" value={changeValues.stationnum} defaultValue="0"/> 
-					<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.station} defaultValue="0" /> 
-				</KrField>
+					<KrField grid={1/2}  name="stationnum" type="text" component="labelText"  label="工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/> 
+					<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.station} defaultValue="0" requireLabel={true} inline={false}/> 
 
 				
                 <DotTitle title='租赁明细'>
@@ -589,8 +588,8 @@ class NewCreateForm extends Component {
 						<Grid>
 						<Row style={{marginTop:30}}>
 						<Col md={4}></Col>
-						<Col md={2} align="right"> <Button  label="确定" type="submit"  /> </Col>
-						<Col md={2} align="right"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col>
+						<Col md={2} align="center"> <Button  label="确定" type="submit"  /> </Col>
+						<Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col>
 						<Col md={4}></Col> </Row>
 						</Grid>
 
@@ -601,18 +600,19 @@ class NewCreateForm extends Component {
 						title="分配工位"
 						autoScrollBodyContent={true}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
-						open={this.state.openStation} >
+						open={this.state.openStation} onClose={this.onIframeClose}>
 							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
 
 					<Dialog
 						title="录入单价"
 						autoScrollBodyContent={true}
-						open={this.state.openStationUnitPrice} >
+						open={this.state.openStationUnitPrice} 
+						onClose={this.openStationUnitPriceDialog}>
 								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
 
-			</div>);
+			</Paper>);
 	}
 }
 

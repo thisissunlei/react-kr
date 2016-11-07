@@ -212,7 +212,7 @@ onChangeRentBeginDate(value){
 		return (
 			<div style={{height:667,marginTop:20}}>
 <form onSubmit={handleSubmit(this.onSubmit)}>
-			<KrField grid={1/1}  name="rentBeginDate" component="date" label="减租开始时间" onChange={this.onChangeRentBeginDate} inline={false}/>
+			<KrField grid={1/1}  name="rentBeginDate" component="date" label="减租开始时间" onChange={this.onChangeRentBeginDate} inline={true}/>
       <Table onSelect={this.onSelect} style={overfolw}>
         <TableHeader>
           <TableHeaderColumn>类别</TableHeaderColumn>
@@ -242,8 +242,8 @@ onChangeRentBeginDate(value){
       <Grid>
       <Row style={{marginTop:30}}>
       <Col md={4}></Col>
-      <Col md={2} align="right"> <Button  label="确定" type="submit" /> </Col>
-      <Col md={2} align="right"> <Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel}/> </Col>
+      <Col md={2} align="center"> <Button  label="确定" type="submit" /> </Col>
+      <Col md={2} align="center"> <Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel}/> </Col>
       <Col md={4}></Col>
        </Row>
       </Grid>
