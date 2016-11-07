@@ -385,7 +385,7 @@ module.exports = {
 		{
 			primaryText:"权限管理",
 			menuCode:'rightadmin',
-			router:'rightadmin',
+			router:'permission',
 			menuItems:[
 				{
 					primaryText:'系统管理',
