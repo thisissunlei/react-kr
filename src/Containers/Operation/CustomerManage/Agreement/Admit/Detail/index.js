@@ -148,7 +148,8 @@ export default class AdmitDetail extends Component {
 			<KrField label="付款方式"   grid={1/2} component="labelText" value={dicName} defaultValue="无" requireBlue={true}/>
 				<KrField label="租赁工位"   grid={1/2} component="labelText" value={basic.stationnum} defaultValue="0" requireBlue={true}/>
 					<KrField label="租赁会议室"   grid={1/2} component="labelText" value={basic.boardroomnum} defaultValue="0" requireBlue={true}/>
-					<KrField label="租赁期限："   grid={1/2} type="date" component="labelText" value={`${basic.leaseBegindate}——${basic.leaseEnddate}`} defaultValue="0" requireBlue={true}/>
+					<KrField label="租赁期限："   grid={1/2}  component="labelText" value={`${basic.leaseBegindate}——${basic.leaseEnddate}`} defaultValue="0" requireBlue={true}/>
+
 <KrField label="保留天数"   grid={1/2} component="labelText" value={basic.templockday} defaultValue="0" requireBlue={true}/>
 
 <KrField label="备注"   grid={1/1} component="labelText" value={basic.contractmark} defaultValue="无" requireBlue={true}/>
