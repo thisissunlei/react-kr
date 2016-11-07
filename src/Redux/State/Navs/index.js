@@ -151,19 +151,19 @@ module.exports = {
 			menuItems:[
 				{
 					primaryText:"财务管理",
-					router:'financeManage',
+					router:'manage',
 					menuItems:[
 						{
 							primaryText:"订单账单",
-							router:'/operation/finance/orderbill/orderList',
+							router:'/finance/manage/orderbill/orderList',
 						},
 						{
 							primaryText:"科目配置",
-							router:'/operation/finance/codeSetting/subject',
+							router:'/finance/manage/codeSetting/subject',
 						},
 						{
 							primaryText:"属性配置",
-							router:'/operation/finance/codeSetting/attribute',
+							router:'/finance/manage/codeSetting/attribute',
 						},
 					]
 				},
