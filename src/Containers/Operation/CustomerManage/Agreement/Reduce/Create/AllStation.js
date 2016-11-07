@@ -166,14 +166,15 @@ onChangeRentBeginDate(value){
 		obj.stationName = item.stationName;
 		obj.unitprice = item.unitprice;
 		obj.stationType = item.stationType;
-		obj.leaseBeginDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
+		obj.leaseBeginDate = dateFormat(item.leaseBeginDate,'yyyy-mm-dd');
+		obj.end = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
 		obj.leaseEndDate = item.rentBeginDate;
 		resultStationVos.push(obj);
 	});
 
 	selectedStationVos = resultStationVos;
 
-	let beginDate = Date.parse(selectedStationVos[0].leaseBeginDate);
+	let beginDate = Date.parse(selectedStationVos[0].end);
 	let endDate = Date.parse(selectedStationVos[0].leaseEndDate);
 
 	 if(beginDate<= endDate){
@@ -211,7 +212,7 @@ onChangeRentBeginDate(value){
 		return (
 			<div style={{height:667,marginTop:20}}>
 <form onSubmit={handleSubmit(this.onSubmit)}>
-			<KrField grid={1/1}  name="rentBeginDate" component="date" label="减租开始时间" onChange={this.onChangeRentBeginDate}/>
+			<KrField grid={1/1}  name="rentBeginDate" component="date" label="减租开始时间" onChange={this.onChangeRentBeginDate} inline={true}/>
       <Table onSelect={this.onSelect} style={overfolw}>
         <TableHeader>
           <TableHeaderColumn>类别</TableHeaderColumn>
@@ -240,8 +241,11 @@ onChangeRentBeginDate(value){
       </Table>
       <Grid>
       <Row style={{marginTop:30}}>
+      <Col md={4}></Col>
       <Col md={2} align="right"> <Button  label="确定" type="submit" /> </Col>
-      <Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
+      <Col md={2} align="right"> <Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel}/> </Col>
+      <Col md={4}></Col>
+       </Row>
       </Grid>
 </form>
 			</div>);

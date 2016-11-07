@@ -16,6 +16,7 @@ import {
 	TableFooter,
 	Button,
 	Section,
+	FontIcon,
 } from 'kr-ui';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
@@ -36,6 +37,7 @@ export default class Demo extends Component{
 			<div>
 					<Section title="demo" description="" >
 							<Checkbox  label="ahah" checked={true} />
+							<FontIcon className="icon-home"/>
 					</Section>
 			</div>
 

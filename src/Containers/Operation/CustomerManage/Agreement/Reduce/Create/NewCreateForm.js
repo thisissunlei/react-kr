@@ -53,7 +53,8 @@ import {
 	Notify,
 	DotTitle,
 	KrDate,
-	ButtonGroup
+	ButtonGroup,
+	Paper
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -211,12 +212,13 @@ class NewCreateForm extends Component {
 			}]);
 			return;
 		}
+		console.log('-------------', stationVos[0]);
 		form.list = stationVos;
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
 
-		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = dateFormat(stationVos[0].end, "yyyy-mm-dd hh:MM:ss");
 
 		var _this = this;
 
@@ -265,7 +267,7 @@ class NewCreateForm extends Component {
 		} = this.state;
 
 		return (
-			<div>
+			<Paper width={960}>
 
 <form onSubmit={handleSubmit(this.onSubmit)}>
 
@@ -321,7 +323,7 @@ class NewCreateForm extends Component {
 				<TableHeaderColumn>类别</TableHeaderColumn>
 				<TableHeaderColumn>编号／名称</TableHeaderColumn>
 				<TableHeaderColumn>单价(元/月)</TableHeaderColumn>
-					<TableHeaderColumn>租赁开始时间</TableHeaderColumn>
+					<TableHeaderColumn>开始时间</TableHeaderColumn>
 						<TableHeaderColumn>减租开始日期</TableHeaderColumn>
 						</TableHeader>
 						<TableBody>
@@ -348,7 +350,7 @@ class NewCreateForm extends Component {
 						<Row style={{marginTop:30}}>
 						<Col md={4}></Col>
 						<Col md={2} align="center"> <Button  label="确定" type="submit"  /> </Col>
-						<Col md={2} align="center"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col>
+						<Col md={2} align="center"> <Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel}/> </Col>
 						<Col md={4}></Col> </Row>
 						</Grid>
 
@@ -359,12 +361,13 @@ class NewCreateForm extends Component {
 						open={this.state.openStation}
 						modal={true}
 						autoScrollBodyContent={true}
-						autoDetectWindowHeight={true}>
+						autoDetectWindowHeight={true}
+						onClose={this.onStationCancel}>
 								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel}    params= {this.props.params}/>
 					  </Dialog>
 
 
-			</div>);
+			</Paper>);
 	}
 }
 const selector = formValueSelector('reduceCreateForm');

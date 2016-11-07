@@ -48,7 +48,7 @@ import {
 			<form onSubmit={handleSubmit(this.onSubmit)}>
               <ListGroup>
 					<ListGroupItem> <KrField name="customername" type="text"  placeholder="请输入公司名称" simple={true}/></ListGroupItem>
-					<ListGroupItem> <Button  label="查询" type="submit" joinEditForm /></ListGroupItem>
+					<ListGroupItem> <Button  label="查询" type="button" joinEditForm /></ListGroupItem>
 			</ListGroup>
 				
 			   
