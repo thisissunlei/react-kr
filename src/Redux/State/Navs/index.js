@@ -333,7 +333,7 @@ module.exports = {
 		{
 			primaryText:"知识中心",
 			menuCode:'krspace_knowledge',
-			router:'krspace_knowledge',
+			router:'document',
 			menuItems:[
 				{
 					primaryText:'系统管理',
@@ -385,7 +385,7 @@ module.exports = {
 		{
 			primaryText:"权限管理",
 			menuCode:'rightadmin',
-			router:'rightadmin',
+			router:'permission',
 			menuItems:[
 				{
 					primaryText:'系统管理',

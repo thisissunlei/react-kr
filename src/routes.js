@@ -22,9 +22,13 @@ import {
 	Document,
 	Operation,
 	Basic,
+	OA,
 	Initialize,
 	Demo,
 	Finance,
+	Member,
+	Community,
+	Retail
 } from './Containers';
 
 import Master from './master';
@@ -47,12 +51,35 @@ export default (
 
 		<Redirect from="messages/:id" to="/messages/:id" />
 
-		<Route path="initialize" component={Initialize} name="initialize"/>
+		<Route path="initialize" component={Initialize}/>
+
+		{/*demo*/}
 		<Route path="demo" component={Demo} name="demo"/>
+
+		{/*会员中心*/}
+		<Route path="member" component={Basic}>
+			<Route path="index" component={Member.Home}/>
+		</Route>
+
+		{/*社区经营*/}
+		<Route path="community" component={Basic}>
+			<Route path="index" component={Community.Home}/>
+		</Route>
+
+		{/*OA办公*/}
+		<Route path="oa" component={Basic}>
+			<Route path="index" component={OA.Home}/>
+		</Route>
+
+		{/*商品零售*/}
+		<Route path="retail" component={Basic}>
+			<Route path="index" component={Retail.Home}/>
+		</Route>
+
 
 		{/*运营管理*/}
 		<Route path="operation" component={Basic}>
-				<Route path="index" component={Operation.Home} name="operation_home"/>
+				<Route path="index" component={Operation.Home}/>
 				{/*社区管理*/}
 				<Route path="communityManage" component={Basic}>
 					<Route path=":id/detail" component={Operation.CommunityManage.Detail}/>
