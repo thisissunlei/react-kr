@@ -46,7 +46,7 @@ export default class SearchParam extends Component{
      
 	constructor(props,context){
 		super(props, context);
-
+        this.onHandleOver=this.onHandleOver.bind(this);
 		this.onSearch = this.onSearch.bind(this);
 		this.state = {	
 		  primaryR:'true',
@@ -83,13 +83,7 @@ export default class SearchParam extends Component{
 	      });
         }
         
-       
-      
-        
-
-       
-      
-        
+   
 		var searchParam = {};
 
 		searchParam.accountType = type;
@@ -98,6 +92,26 @@ export default class SearchParam extends Component{
 		searchParam.propInfo=propInfo;
 		searchParam.orderId = params.orderId;
 		onSearch && onSearch(searchParam);
+	}
+
+	onHandleOver(type,index){
+      if(type=='PAYMENT'){
+          this.setState({
+			primaryR:'true',
+			primaryI:'false',
+			active:index,
+			activeI:10000	
+	      });
+        }
+       
+        if(type=='INCOME'){
+          this.setState({
+			primaryR:'false',
+			primaryI:'true',
+			activeI:index,
+		    active:10000,
+	      });
+        }
 	}
 
 	render(){
@@ -129,7 +143,7 @@ export default class SearchParam extends Component{
 		            	<ListGroupItem key={index}>
                           <div className={className}>
                            <span className={classPic}></span>
-                           <span className='receivedText' onTouchTap={this.onSearch.bind(this,'PAYMENT',item.propcode,item.id,item.propInfo,index)}>{item.propname}</span>
+                           <span className='receivedText' onTouchTap={this.onSearch.bind(this,'PAYMENT',item.propcode,item.id,item.propInfo,index)} onMouseOver={this.onHandleOver.bind(this,'PAYMENT',index)}>{item.propname}</span>
                            <span className='receivedMoney'>{item.propamount}</span>
 		            	  </div>
 		            	</ListGroupItem>)
@@ -139,7 +153,7 @@ export default class SearchParam extends Component{
                   </div>
 					
                     
-                    <LineText title='收入' primary={this.state.primaryI} onClick={this.onSearch.bind(this,'INCOME','basic','','SETTLED')}/>
+                  <LineText title='收入' primary={this.state.primaryI} onClick={this.onSearch.bind(this,'INCOME','basic','','SETTLED')}/>
 					
 				  <div className='ui-ListGroup'>
                     <ListGroup inline={false}>
@@ -158,7 +172,7 @@ export default class SearchParam extends Component{
 		            	<ListGroupItem key={index}>
 		            	 <div className={className}>
                           <span className={classPic}></span>
-                          <span className='receivedText' onTouchTap={this.onSearch.bind(this,'INCOME',item.propcode,item.id,item.propInfo,index)}>{item.propname}</span>
+                          <span className='receivedText' onTouchTap={this.onSearch.bind(this,'INCOME',item.propcode,item.id,item.propInfo,index)} onMouseOver={this.onHandleOver.bind(this,'INCOME',index)}>{item.propname}</span>
                           <span className='receivedMoney'>{item.propamount}</span>
 		            	  </div>
 		            	</ListGroupItem>)

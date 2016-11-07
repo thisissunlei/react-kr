@@ -71,7 +71,7 @@ export default class AttributeSetting extends Component {
 			list: {},
 			searchParams: {
 				page: 1,
-				pageSize:15
+				pageSize:20
 			}
 
 		}
@@ -216,7 +216,7 @@ export default class AttributeSetting extends Component {
 							<Col md={6} align="right"> 
 								<ListGroup>
 									<ListGroupItem> <SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
-									<ListGroupItem> <Button onTouchTap={this.openNewCreateDialog} label="高级查询" /></ListGroupItem>
+									<ListGroupItem> <Button onTouchTap={this.openNewCreateDialog} label="高级查询" type='button'/></ListGroupItem>
 								</ListGroup>	
 							</Col> 
 						</Row>
