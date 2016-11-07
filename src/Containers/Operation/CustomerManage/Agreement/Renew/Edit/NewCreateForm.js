@@ -56,7 +56,8 @@ import {
 	Notify,
 	KrDate,
 	DotTitle,
-	ButtonGroup
+	ButtonGroup,
+	Paper
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -316,7 +317,7 @@ class NewCreateForm extends Component {
 
 
 		return (
-			<div>
+			<Paper width={968}>
 
 <form onSubmit={handleSubmit(this.onSubmit)}>
 
@@ -401,7 +402,7 @@ class NewCreateForm extends Component {
 						<Row style={{marginTop:30}}>
 						<Col md={4}></Col>
 						<Col md={2} align="center"> <Button  label="确定" type="submit"  /> </Col>
-						<Col md={2} align="center"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col>
+						<Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col>
 						<Col md={4}></Col> </Row>
 						</Grid>
 
@@ -412,12 +413,12 @@ class NewCreateForm extends Component {
 						open={this.state.openStation} 
 						modal={true}
 						autoScrollBodyContent={true}
-						autoDetectWindowHeight={true}>
+						autoDetectWindowHeight={true} onClose={this.onStationCancel}>
 								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel}/>
 					  </Dialog>
 
 
-			</div>);
+			</Paper>);
 	}
 }
 const selector = formValueSelector('reduceCreateForm');
