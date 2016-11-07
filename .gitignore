@@ -15,7 +15,9 @@ results
 node_modules
 
 .tags
+
 npm-debug.log
+npm-debug.log.*
 
 static/components
 

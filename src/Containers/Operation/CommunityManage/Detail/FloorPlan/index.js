@@ -155,7 +155,7 @@ export default  class FloorPlan extends Component {
 				<KrField name="floor"  grid={1/4} component="select" label="楼层" options={communityInfoFloorList} inline={true}/>
 				<KrField grid={3/10}  name="start" component="date" label="注册时间" inline={true}/>
 				<KrField grid={1/4}  name="end" component="date"  label="至" inline={true}/>
-				<Button  label="确定" type="submit" primary={true} style={{marginLeft:100}}/>
+				<Button  label="确定" type="submit" joinEditForm style={{marginLeft:100}}/>
 			</Form>
 			<IframeContent src={url} onClose={this.onIframeClose} className="floorIframe" onLoad={this.onLoad} width={width} scrolling="no"/>
 
