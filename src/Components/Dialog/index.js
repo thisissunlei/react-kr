@@ -53,6 +53,7 @@ export default class DialogComponent extends Component {
 					autoDetectWindowHeight={autoDetectWindowHeight}
 					titleClassName="ui-dialog-header"
 					open={open} 
+					style={{borderRadius:4}}
 					{...other}>
 						<div className="cancle-dialog" onTouchTap={onClose}></div>
 						<div className="ui-content">

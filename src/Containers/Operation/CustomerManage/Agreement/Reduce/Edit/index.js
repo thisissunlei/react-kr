@@ -160,6 +160,7 @@ export default class JoinCreate extends Component {
 				optionValues.contractFileList = response.contractFileList;
 
 				// initialValues.id = response.id;
+				initialValues.id = response.id;
 				initialValues.leaseId = response.leaseId;
 				initialValues.contractcode = response.contractcode;
 				initialValues.leaseAddress = response.leaseAddress;

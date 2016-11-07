@@ -178,11 +178,12 @@ export default class JoinCreate extends Component {
 			</Section>
 
 			<Dialog
-				title="确定新建"
+				title="入驻协议书"
 				modal={true}
 				autoScrollBodyContent={true}
 				autoDetectWindowHeight={true}
-				open={this.state.openConfirmCreate} >
+				open={this.state.openConfirmCreate}
+				onClose={this.openConfirmCreateDialog} >
 						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} optionValues={optionValues}/>
 			  </Dialog>
 		</div>
