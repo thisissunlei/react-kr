@@ -124,8 +124,10 @@ export default class SidebarNav extends Component {
 					style={parentStyles}
 					initiallyOpen={initiallyOpen}
 					value={index}
+					open={true}
 					primaryText={item.primaryText} 
 					primaryTogglesNestedList={true}
+					autoGenerateNestedIndicator={true}
 					nestedItems={ item.menuItems.map((it,ind)=>this.renderMenuItem(it,ind,index))} />
 			);
 		}
