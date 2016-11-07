@@ -69,6 +69,7 @@ export default class Button extends Component {
 			padding:0,
 		}
 
+
 		if (type == 'link') {
 
 			if (disabled) {

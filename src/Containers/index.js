@@ -8,6 +8,8 @@ import Basic from './Basic';
 import Initialize from './Initialize';
 import Demo from './Demo';
 import Finance from './Finance';
+import Member from './Member';
+import Community from './Community';
 
 
 module.exports = {
@@ -20,7 +22,9 @@ module.exports = {
 	Basic,
 	Initialize,
 	Demo,
-	Finance
+	Finance,
+	Member,
+	Community
 }
 
 
