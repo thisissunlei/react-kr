@@ -270,7 +270,7 @@ class NewCreateForm extends Component {
 		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorContactid = form.lessorContactid;
 
-
+		var _this = this;
 		form.stationVos = JSON.stringify(stationVos);
 		form.delStationVos = JSON.stringify(delStationVos);
 
@@ -278,6 +278,8 @@ class NewCreateForm extends Component {
 			onSubmit
 		} = this.props;
 		onSubmit && onSubmit(form);
+
+
 	}
 
 	onCancel() {
