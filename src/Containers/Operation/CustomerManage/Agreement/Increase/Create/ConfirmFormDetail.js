@@ -76,30 +76,30 @@ export default class ConfirmFormDetail  extends Component{
 	  return (
 
 		  <div>
-								<KrField name="lessorId"  grid={1/2} component="labelText" label="出租方" value={leasorName} />
+								<KrField name="lessorId"  grid={1/2} component="labelText" label="出租方" value={leasorName} inline={false}/>
 
-								 <KrField grid={1/2}  name="lessorAddress"  component="labelText" label="地址" value={detail.lessorAddress}/> 
+								 <KrField grid={1/2}  name="lessorAddress"  component="labelText" label="地址" value={detail.lessorAddress} inline={false}/> 
 
-								 <KrField grid={1/2}  name="lessorContactid" component="labelText" label="联系人" value={detail.lessorContactName} /> 
-								 <KrField grid={1/2}  name="lessorContacttel"  component="labelText" label="电话" value={detail.lessorContacttel}/> 
+								 <KrField grid={1/2}  name="lessorContactid" component="labelText" label="联系人" value={detail.lessorContactName} inline={false}/> 
+								 <KrField grid={1/2}  name="lessorContacttel"  component="labelText" label="电话" value={detail.lessorContacttel} inline={false}/> 
 
-								 <KrField grid={1/2}  name="leaseId" component="labelText" label="承租方" value={optionValues.customerName}/> 
-								 <KrField grid={1/2}  name="leaseAddress"  component="labelText" label="地址" value={detail.leaseAddress} /> 
+								 <KrField grid={1/2}  name="leaseId" component="labelText" label="承租方" value={optionValues.customerName} inline={false}/> 
+								 <KrField grid={1/2}  name="leaseAddress"  component="labelText" label="地址" value={detail.leaseAddress} inline={false}/> 
 
-								 <KrField grid={1/2}  name="leaseContact"  component="labelText" label="联系人" value={detail.leaseContact}/> 
-								 <KrField grid={1/2}  name="leaseContacttel"  component="labelText" label="电话" value={detail.leaseContacttel}/> 
+								 <KrField grid={1/2}  name="leaseContact"  component="labelText" label="联系人" value={detail.leaseContact} inline={false}/> 
+								 <KrField grid={1/2}  name="leaseContacttel"  component="labelText" label="电话" value={detail.leaseContacttel} inline={false}/> 
 
-								 <KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={optionValues.communityName} /> 
-								 <KrField grid={1/2}  name=""  component="labelText" label="地址"  value={optionValues.communityAddress}/> 
+								 <KrField grid={1/2}  name="communityid" component="labelText" label="所属社区" value={optionValues.communityName} inline={false}/> 
+								 <KrField grid={1/2}  name=""  component="labelText" label="地址"  value={optionValues.communityAddress} inline={false}/> 
 
-								<KrField name="whereFloor"  grid={1/2} component="labelText" label="所在楼层" value={detail.wherefloor} defaultValue="无"/>
+								<KrField name="whereFloor"  grid={1/2} component="labelText" label="所在楼层" value={detail.wherefloor} defaultValue="无" inline={false}/>
 
-								 <KrField grid={1/2}  name="contractcode"  component="labelText" label="合同编号" value={detail.contractcode} defaultValue="无"/> 
+								 <KrField grid={1/2}  name="contractcode"  component="labelText" label="合同编号" value={detail.contractcode} defaultValue="无" inline={false}/> 
 
-								 <KrField grid={1}  name="username" component="labelText" label="租赁期限" value={`${detail.leaseBegindate}--${detail.leaseEnddate}`}/> 
+								 <KrField grid={1}  name="username" component="labelText" label="租赁期限" value={`${detail.leaseBegindate}--${detail.leaseEnddate}`} inline={false}/> 
 
-								<KrField name="paymodel"  grid={1/2} component="labelText" label="付款方式" value={detail.paymodelName}/> 
-								<KrField name="paytype"  grid={1/2} component="labelText" label="支付方式" value={detail.paytypeName}/>
+								<KrField name="paymodel"  grid={1/2} component="labelText" label="付款方式" value={detail.paymodelName} inline={false}/> 
+								<KrField name="paytype"  grid={1/2} component="labelText" label="支付方式" value={detail.paytypeName} inline={false}/>
 
 							 <KrField grid={1/2}  name="signdate"  component="labelText" grid={1/2} label="签署时间" value={detail.signdate} defaultValue="无"/> 
 
