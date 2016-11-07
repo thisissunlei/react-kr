@@ -96,18 +96,6 @@ module.exports = {
 					]
 				},
 				{
-					primaryText:"社区管理",
-					router:'communityManage',
-					menuCode:'sysVisitRecordList',
-					menuItems:[
-						{
-							primaryText:'基本信息',
-							router:'/operation/communityManage/detail',
-					
-						},
-					]
-				},
-				{
 					primaryText:"基础配置",
 					router:'BaseManage',
 					menuCode:'basic_config',
@@ -142,40 +130,6 @@ module.exports = {
 						},
 					]
 				},
-				{
-					primaryText:"财务管理",
-					rightIcon:"",
-					leftIcon:"",
-					insetChildren:true,
-					router:'finance',
-					menuItems:[
-						{
-							primaryText:"订单账单",
-							router:'/operation/finance/orderbill/orderList',
-						},
-						/*
-						{
-							primaryText:"订单明细账",
-							router:'/operation/finance/orderbill/detail',
-						},
-						*/
-						{
-							primaryText:"科目配置",
-							router:'/operation/finance/codeSetting/subject',
-						},
-						{
-							primaryText:"属性配置",
-							router:'/operation/finance/codeSetting/attribute',
-						},
-						/*
-						{
-							primaryText:"开票列表",
-							router:'/operation/finance/invoice/list',
-						}
-						*/
-					]
-				},
-
 			]
 		},
 		{
@@ -193,21 +147,26 @@ module.exports = {
 		},
 		{
 			primaryText:"财务系统",
+			router:'finance',
 			menuItems:[
 				{
-					primaryText:'财务管理',
+					primaryText:"财务管理",
+					router:'manage',
 					menuItems:[
 						{
-							primaryText:'订单账单',
+							primaryText:"订单账单",
+							router:'/finance/manage/orderbill/orderList',
 						},
 						{
-							primaryText:'科目配置',
+							primaryText:"科目配置",
+							router:'/finance/manage/codeSetting/subject',
 						},
 						{
-							primaryText:'属性配置',
+							primaryText:"属性配置",
+							router:'/finance/manage/codeSetting/attribute',
 						},
 					]
-				}
+				},
 			]
 		},
 		{
