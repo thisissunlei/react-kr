@@ -7,6 +7,7 @@ import Operation from './Operation';
 import Basic from './Basic';
 import Initialize from './Initialize';
 import Demo from './Demo';
+import Finance from './Finance';
 
 
 module.exports = {
@@ -18,7 +19,8 @@ module.exports = {
 	Operation,
 	Basic,
 	Initialize,
-	Demo
+	Demo,
+	Finance
 }
 
 
