@@ -23,7 +23,8 @@ import {
 	Notify,
 	Dialog,
 	KrDate,
-    DotTitle
+    DotTitle,
+    ButtonGroup
 } from 'kr-ui';
 
 
@@ -682,68 +683,68 @@ export default class AttributeSetting  extends Component{
        
        var buttonArr = [];
        if(parentBtn=='PAYMENT'&&childBtn=='basic'){
-       	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" joinEditForm onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="退款"  className="lineBtn" type="submit" joinEditForm onTouchTap={this.openQuitBtn}/>);
+       	   buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
+       	   	  <Button label="退款"   type="button" joinEditForm onTouchTap={this.openQuitBtn}/></ButtonGroup>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='dingjin'){
-       	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" joinEditForm onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="转押金" className="lineBtn" type="submit"  joinEditForm onTouchTap={this.openSwitchBtn}/>
-       	   	  ,<Button label="转营收"  className="lineBtn" type="submit" joinEditForm onTouchTap={this.openBusinessBtn}/>);
+       	   buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
+       	   	  <Button label="转押金"  type="button"  joinEditForm onTouchTap={this.openSwitchBtn}/>
+       	   	  <Button label="转营收"  type="button" joinEditForm onTouchTap={this.openBusinessBtn}/></ButtonGroup>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='yajin'){
-       	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" joinEditForm onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="转押金" className="lineBtn" type="submit"  joinEditForm onTouchTap={this.openSwitchBtn}/>
-       	   	  ,<Button label="转营收" className="lineBtn" type="submit"  joinEditForm onTouchTap={this.openBusinessBtn}/>
-       	   	  ,<Button label="退款" className="lineBtn" type="submit"  joinEditForm onTouchTap={this.openQuitBtn}/>);
+       	   buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
+       	   	  <Button label="转押金"  type="button"  joinEditForm onTouchTap={this.openSwitchBtn}/>
+       	   	  <Button label="转营收"  type="button"  joinEditForm onTouchTap={this.openBusinessBtn}/>
+       	   	  <Button label="退款"  type="button"  joinEditForm onTouchTap={this.openQuitBtn}/></ButtonGroup>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='gongweihuikuan'){
-       	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" joinEditForm onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="转营收" className="lineBtn" type="submit"  joinEditForm onTouchTap={this.openBusinessBtn}/>
-       	   	  ,<Button label="退款" className="lineBtn" type="submit"  joinEditForm onTouchTap={this.openQuitBtn}/>);
+       	   buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
+       	   	  <Button label="转营收"  type="button"  joinEditForm onTouchTap={this.openBusinessBtn}/>
+       	   	  <Button label="退款"  type="button"  joinEditForm onTouchTap={this.openQuitBtn}/></ButtonGroup>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='qitahuikuan'){
-       	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" joinEditForm onTouchTap={this.openReceivedBtn}/>
+       	   buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
        	   	  
-       	   	  ,<Button label="转押金" className="lineBtn" type="submit"  joinEditForm onTouchTap={this.openSwitchBtn}/>
-       	   	  ,<Button label="转营收" className="lineBtn" type="submit" joinEditForm onTouchTap={this.openBusinessBtn}/>
-       	   	  ,<Button label="退款" className="lineBtn" type="submit"  joinEditForm onTouchTap={this.openQuitBtn}/>);
+       	   	  <Button label="转押金"  type="button"  joinEditForm onTouchTap={this.openSwitchBtn}/>
+       	   	  <Button label="转营收"  type="button" joinEditForm onTouchTap={this.openBusinessBtn}/>
+       	   	  <Button label="退款"  type="button"  joinEditForm onTouchTap={this.openQuitBtn}/></ButtonGroup>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='yingshouhuikuan'){
-       	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" joinEditForm onTouchTap={this.openReceivedBtn}/>
+       	   buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/></ButtonGroup>
        	   	  
        	   	  );
        }
         if(parentBtn=='PAYMENT'&&childBtn=='shenghuoxiaofeihuikuan'){
-       	   buttonArr.push(<Button label="回款" className="lineBtn" type="submit" joinEditForm onTouchTap={this.openReceivedBtn}/>
+       	   buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
        	   	  
-       	   	  ,<Button label="退款" className="lineBtn" type="submit" joinEditForm onTouchTap={this.openQuitBtn}/>);
+       	   	  <Button label="退款"  type="button" joinEditForm onTouchTap={this.openQuitBtn}/></ButtonGroup>);
        }
        if(parentBtn=='INCOME'&&childBtn=='basic'){
        	   
        }
        if(parentBtn=='INCOME'&&childBtn=='gongweishouru'){
-       	  buttonArr.push(<Button label="挂账" className="lineBtn" type="submit" joinEditForm onTouchTap={this.openAccountBtn}/>
-       	   	  ,<Button label="补收入" className="lineBtn" type="submit" joinEditForm onTouchTap={this.openSupplementBtn}/>
+       	  buttonArr.push(<ButtonGroup><Button label="挂账"  type="button" joinEditForm onTouchTap={this.openAccountBtn}/>
+       	   	  <Button label="补收入"  type="button" joinEditForm onTouchTap={this.openSupplementBtn}/></ButtonGroup>
        	   	  ); 
        }
        if(parentBtn=='INCOME'&&childBtn=='qitashouru'){
-       	  buttonArr.push(<Button label="挂账" className="lineBtn" type="submit" joinEditForm onTouchTap={this.openAccountBtn}/>
+       	  buttonArr.push(<ButtonGroup><Button label="挂账"  type="button" joinEditForm onTouchTap={this.openAccountBtn}/></ButtonGroup>
        	   	  ); 
        }
        if(parentBtn=='INCOME'&&childBtn=='yingyewaishouru'){
-       	  buttonArr.push(<Button label="挂账" className="lineBtn" type="submit" joinEditForm onTouchTap={this.openAccountBtn}/>
+       	  buttonArr.push(<ButtonGroup><Button label="挂账" type="button" joinEditForm onTouchTap={this.openAccountBtn}/></ButtonGroup>
        	   	  ); 
        }
        if(parentBtn=='INCOME'&&childBtn=='shenghuoxiaofeishouru'){
-       	  buttonArr.push(<Button label="挂账" className="lineBtn" type="submit" joinEditForm onTouchTap={this.openAccountBtn}/>
+       	  buttonArr.push(<ButtonGroup><Button label="挂账"  type="button" joinEditForm onTouchTap={this.openAccountBtn}/></ButtonGroup>
        	   	  ); 
        }
        if(parentBtn=='PAYMENT'&&propInfo=='NEW'){
-       	 buttonArr.push(<Button label="回款" className="lineBtn" type="submit" joinEditForm onTouchTap={this.openReceivedBtn}/>
-       	   	  ,<Button label="退款" className="lineBtn" type="submit" joinEditForm onTouchTap={this.openQuitBtn}/>);
+       	 buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
+       	   	  <Button label="退款" type="button" joinEditForm onTouchTap={this.openQuitBtn}/></ButtonGroup>);
        }
        if(parentBtn=='INCOME'&&propInfo=='NEW'){
-       	      buttonArr.push(<Button label="挂账" className="lineBtn" type="submit" joinEditForm onTouchTap={this.openAccountBtn}/>
+       	      buttonArr.push(<ButtonGroup><Button label="挂账"  type="button" joinEditForm onTouchTap={this.openAccountBtn}/></ButtonGroup>
        	   	  ); 
        }
        
