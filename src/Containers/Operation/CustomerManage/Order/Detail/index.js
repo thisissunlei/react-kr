@@ -271,7 +271,7 @@ export default class OrderDetail extends React.Component {
 			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog} style={{width:80,marginTop:15}}/>
 
 			<span className='border-top'></span>
-			<Grid style={{marginTop:50,width:'80%',marginLeft:'10%'}}>
+			<Grid style={{marginTop:50,width:800,marginLeft:'auto',marginRight:'auto'}}>
 			<span className='ui-remark'>注：如（0-1），1表示该类型合同总数，0表示执行完该类型合同数</span>
 			<ul className='ui-adminBook'>
               <li><span className={contractStatusCount.intentionTotoal!=0?'ui-circle':'ui-circle-dot'}></span></li>
