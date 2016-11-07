@@ -22,11 +22,13 @@ import {
 	Document,
 	Operation,
 	Basic,
+	OA,
 	Initialize,
 	Demo,
 	Finance,
 	Member,
-	Community
+	Community,
+	Retail
 } from './Containers';
 
 import Master from './master';
@@ -62,6 +64,16 @@ export default (
 		{/*社区经营*/}
 		<Route path="community" component={Basic}>
 			<Route path="index" component={Community.Home}/>
+		</Route>
+
+		{/*OA办公*/}
+		<Route path="oa" component={Basic}>
+			<Route path="index" component={OA.Home}/>
+		</Route>
+
+		{/*商品零售*/}
+		<Route path="retail" component={Basic}>
+			<Route path="index" component={Retail.Home}/>
 		</Route>
 
 
