@@ -32,7 +32,7 @@
 	background: url('../images/head.png') no-repeat 100%;
 	background-size: 100% 100%;
 	margin:0 auto;
-	margin-bottom: 50px;
+	margin-bottom: 100px;
 	position: relative;
 	&:after{
 		content:'';
@@ -41,5 +41,32 @@
 		left: 50%;
 		bottom: -8px;
 		height: 10px;
+	}
+}
+.content-title{
+	font-size: 24px;
+	display: inline-block;
+	margin: 50px auto;
+	margin-left: 50%;
+	transform:translateX(-50%);
+	position: relative;
+	color: #333;
+	&:before{
+		content:'';
+		width: 150px;
+		height: 34px;
+		position: absolute;
+		top: 17px;
+		left: -175px;
+		border-top: 1px solid #eee;
+	}
+	&:after{
+		content:'';
+		width: 150px;
+		height: 34px;
+		position: absolute;
+		top: 17px;
+		right: -175px;
+		border-top: 1px solid #eee;
 	}
 }

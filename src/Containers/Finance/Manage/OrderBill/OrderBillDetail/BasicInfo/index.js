@@ -64,7 +64,7 @@ export default class BasicInfo extends Component{
 
 		return(
 
-			<div>   
+			<div className='ui-detail-order'>   
                       
 			           <KrField grid={1/3} label="社区名称:" component="labelText" value={detail.communityname} defaultValue="无"/>
 			           <KrField grid={1/3} label="客户名称:" component="labelText" value={detail.customername} defaultValue="无"/>
@@ -91,7 +91,7 @@ export default class BasicInfo extends Component{
 						    <KrField key={index} grid={1/3} label={item.propname} component="labelText" value={item.propamount}/>						 
 						 )}*/}
 			  
-			           <KrField grid={1} label="订单描述:" component="labelText" value={detail.mainbilldesc} defaultValue="无"/>
+			           
 		
 			</div>		
 

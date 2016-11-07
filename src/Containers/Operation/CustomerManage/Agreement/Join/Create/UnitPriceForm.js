@@ -50,8 +50,11 @@ class UnitPriceForm  extends Component{
 					<KrField grid={1}  name="price" component="input" type="text" label="单价"/> 
 					<Grid>
 						<Row style={{marginTop:30}}>
+							<Col md={4}></Col>
 							<Col md={2} align="right"> <Button  label="确定" type="submit" /> </Col>
-						  <Col md={2} align="right"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
+						  <Col md={2} align="right"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col>
+							<Col md={4}></Col>
+						   </Row>
 					</Grid>
 				</form>
 			</div>);

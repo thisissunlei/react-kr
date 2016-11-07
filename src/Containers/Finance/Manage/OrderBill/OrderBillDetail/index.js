@@ -760,52 +760,53 @@ export default class AttributeSetting  extends Component{
 		return(
 			<div>
 					<Section title="订单明细账" description="" > 
-					       <DotTitle title='订单描述' style={{marginTop:'-30'}}/>
-						   <BasicInfo  detail={this.state.basicInfo} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome}/>
+					      <DotTitle title='订单描述' style={{marginTop:'6',marginBottom:'40'}}/>
+						  <BasicInfo  detail={this.state.basicInfo} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome}/>
 						   
-						   <DotTitle title='订单明细账'/>
-							<Row style={{marginTop:10}}>
-							<Col md={2} >
-								<SearchParam onSearch={this.onSearch} params={this.state.params} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance} />
-							</Col>
-							<Col md={1}></Col>
-							<Col md={9}>
-							     <div>
-							        {buttonArr}     							       
-							        <Button label="高级查询"  type="button"  onTouchTap={this.openSearchDialog}/>
-							     </div>
-							 
-								 <Table style={{marginTop:30}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
-						              <TableHeader>
-									          <TableHeaderColumn>序号</TableHeaderColumn>
-									          <TableHeaderColumn>交易日期</TableHeaderColumn>
-									          <TableHeaderColumn>代码</TableHeaderColumn>
-									          <TableHeaderColumn>类别</TableHeaderColumn>
-									          <TableHeaderColumn>款项</TableHeaderColumn>
-									          <TableHeaderColumn>金额</TableHeaderColumn>
-									          <TableHeaderColumn>备注</TableHeaderColumn>
-									           <TableHeaderColumn>操作</TableHeaderColumn>
-						              </TableHeader>
-						              <TableBody>
-						                <TableRow>
-						                	<TableRowColumn name="id"></TableRowColumn>
-						                    <TableRowColumn name="occuryear" type="date" format="yyyy-mm-dd"></TableRowColumn>
-						                    <TableRowColumn name="accountName"></TableRowColumn>
-						                    <TableRowColumn name="typeName"></TableRowColumn>
-						                    <TableRowColumn name="propertyName"></TableRowColumn>
-						                    <TableRowColumn name="finaflowAmount"></TableRowColumn>
-						                    <TableRowColumn name="finaflowdesc"></TableRowColumn>
-						                    <TableRowColumn>
-						                        <Button label="查看"  type="operation" operation="view"/>
-						                    </TableRowColumn>
-						                  </TableRow>
-						              </TableBody>
-						              <TableFooter></TableFooter>
-					              </Table>
-							</Col>
+						  <DotTitle title='订单明细账' style={{marginTop:'28',marginBottom:'62'}}/>
+						  <div className='ui-detail-bottom'>
+								<Row style={{marginTop:10}}>
+								 <div className='detail-left'>
+									<SearchParam onSearch={this.onSearch} params={this.state.params} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance} />
+								
+								 </div>
+								 <div className='detail-right'>
+								     <div>
+								        <Col align="left" className='btn-left'>{buttonArr}</Col>     							       
+								        <Col align="right"><Button label="高级查询"  type="button"  onTouchTap={this.openSearchDialog}/></Col>
+								     </div>
+								 
+									 <Table style={{marginTop:30}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
+							              <TableHeader>
+										          <TableHeaderColumn>序号</TableHeaderColumn>
+										          <TableHeaderColumn>交易日期</TableHeaderColumn>
+										          <TableHeaderColumn>代码</TableHeaderColumn>
+										          <TableHeaderColumn>类别</TableHeaderColumn>
+										          <TableHeaderColumn>款项</TableHeaderColumn>
+										          <TableHeaderColumn>金额</TableHeaderColumn>
+										          <TableHeaderColumn>备注</TableHeaderColumn>
+										           <TableHeaderColumn>操作</TableHeaderColumn>
+							              </TableHeader>
+							              <TableBody>
+							                <TableRow>
+							                	<TableRowColumn name="id"></TableRowColumn>
+							                    <TableRowColumn name="occuryear" type="date" format="yyyy-mm-dd"></TableRowColumn>
+							                    <TableRowColumn name="accountName"></TableRowColumn>
+							                    <TableRowColumn name="typeName"></TableRowColumn>
+							                    <TableRowColumn name="propertyName"></TableRowColumn>
+							                    <TableRowColumn name="finaflowAmount"></TableRowColumn>
+							                    <TableRowColumn name="finaflowdesc"></TableRowColumn>
+							                    <TableRowColumn>
+							                        <Button label="查看"  type="operation" operation="view"/>
+							                    </TableRowColumn>
+							                  </TableRow>
+							              </TableBody>
+							              <TableFooter></TableFooter>
+						              </Table>
+								</div>
 
-						</Row>
-
+							</Row>
+                       </div>
 				</Section>
 
 

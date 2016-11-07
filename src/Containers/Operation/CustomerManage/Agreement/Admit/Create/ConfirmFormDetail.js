@@ -78,46 +78,44 @@ export default class ConfirmFormDetail  extends Component{
                
 		       <div>
 		                        
-								<KrField  grid={1/2} component="labelText" label="出租方" value={leasorName}/>
+								<KrField  grid={1/2} component="labelText" label="出租方" value={leasorName} inline={false}/>
 
-								 <KrField grid={1/2}   component="labelText" label="地址" value={detail.lessorAddress}/> 
+								 <KrField grid={1/2}   component="labelText" label="地址" value={detail.lessorAddress} inline={false}/> 
 
-								 <KrField grid={1/2}  component="labelText" label="联系人" value={detail.lessorContactName}/> 
-								 <KrField grid={1/2}   component="labelText" label="电话" value={detail.lessorContacttel}/> 
+								 <KrField grid={1/2}  component="labelText" label="联系人" value={detail.lessorContactName} inline={false}/> 
+								 <KrField grid={1/2}   component="labelText" label="电话" value={detail.lessorContacttel} inline={false}/> 
 
-								 <KrField grid={1/2}   component="labelText" label="承租方" value={optionValues.customerName}/> 
-								 <KrField grid={1/2}    component="labelText" label="地址" value={detail.leaseAddress}/> 
+								 <KrField grid={1/2}   component="labelText" label="承租方" value={optionValues.customerName} inline={false}/> 
+								 <KrField grid={1/2}    component="labelText" label="地址" value={detail.leaseAddress} inline={false}/> 
 
-								 <KrField grid={1/2}   component="labelText" label="联系人" value={detail.leaseContact}/> 
-								 <KrField grid={1/2}    component="labelText" label="电话" value={detail.leaseContacttel}/> 
+								 <KrField grid={1/2}   component="labelText" label="联系人" value={detail.leaseContact} inline={false}/> 
+								 <KrField grid={1/2}    component="labelText" label="电话" value={detail.leaseContacttel} inline={false}/> 
 
-								 <KrField grid={1/2}   component="labelText" label="所属社区" value={optionValues.communityName} /> 
+								 <KrField grid={1/2}   component="labelText" label="所属社区" value={optionValues.communityName} inline={false}/> 
 
-								<KrField   grid={1/2} component="labelText" label="所在楼层" value={detail.wherefloor}/>
+								<KrField   grid={1/2} component="labelText" label="所在楼层" value={detail.wherefloor} inline={false}/>
 
-								 <KrField grid={1/2}   component="labelText" label="定金总额"  value={detail.totaldownpayment}/> 
-								 <KrField grid={1/2}    component="labelText" label="签署日期"  value={detail.signdate}/> 
+								 <KrField grid={1/2}   component="labelText" label="定金总额"  value={detail.totaldownpayment} inline={false}/> 
+								 <KrField grid={1/2}    component="labelText" label="签署日期"  value={detail.signdate} inline={false}/> 
 
 
 
 								
-								<KrField name="paymodel"  grid={1/2} component="labelText" label="合同编号" value={detail.contractcode}/> 
-								<KrField name="paytype"  grid={1/2} component="labelText" label="付款方式" value={payment}/>
+								<KrField name="paymodel"  grid={1/2} component="labelText" label="合同编号" value={detail.contractcode} inline={false}/> 
+								<KrField name="paytype"  grid={1/2} component="labelText" label="付款方式" value={payment} inline={false}/>
 
 							
-							 <KrField name="" component="group" label=" 租赁项目"> 
-								 <KrField grid={1}  name="stationnum"  component="labelText" label="工位" value={detail.stationnum} defaultValue="0"/> 
-								 <KrField grid={1}  name="boardroomnum"  component="labelText" label="会议室" value={detail.boardroomnum} defaultValue="0"/> 
-		  					</KrField>
+								 <KrField grid={1/2}  name="stationnum"  component="labelText" label="租赁工位" value={`${detail.stationnum}个`} defaultValue="0" inline={false}/> 
+								 <KrField grid={1/2}  name="boardroomnum"  component="labelText" label="租赁会议室" value={`${detail.boardroomnum}个`} defaultValue="0" inline={false}/> 
 
 
-							  <KrField grid={1/1}  name="username" component="labelText" label="租赁期限" value={`${detail.leaseBegindate}--${detail.leaseEnddate}`} defaultValue="0"/> 
-							 <KrField grid={1/2}  name="rentaluse"  component="labelText" label="保留天数" value={detail.templockday} defaultValue="0" /> 
+							  <KrField grid={1/2}  name="username" component="labelText" label="租赁期限" value={`${detail.leaseBegindate}--${detail.leaseEnddate}`} defaultValue="0" inline={false}/> 
+							 <KrField grid={1/2}  name="rentaluse"  component="labelText" label="保留天数" value={detail.templockday} defaultValue="0"  inline={false}/> 
 
 							 
-							 <KrField grid={1}  name="contractmark" component="labelText" label="备注" value={detail.contractmark} defaultValue="无"/> 
+							 <KrField grid={1}  name="contractmark" component="labelText" label="备注" value={detail.contractmark} defaultValue="无" inline={false}/> 
 
-							 <KrField component="group" label="上传附件">
+							 <KrField component="group" label="上传附件" inline={false}>
 									{detail.contractFileList && detail.contractFileList.map((item,index)=>{
 										return <Button label={item.fileName} type="link" href={item.fileUrl} key={index}/>
 									})}
@@ -160,8 +158,9 @@ export default class ConfirmFormDetail  extends Component{
 			    <Grid>
 					<Row style={{marginTop:30}}>
 						<Col md={4}></Col>
+					  <Col md={2} align="right"> <Button  label="编辑" type="button"  onTouchTap={this.onCancel}/> </Col> 
+
 						<Col md={2} align="right"> <Button  label="确定" type="button"  onTouchTap={this.onSubmit}/> </Col>
-					  <Col md={2} align="right"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col> 
 						<Col md={4}></Col>
 					  </Row>
 				</Grid>

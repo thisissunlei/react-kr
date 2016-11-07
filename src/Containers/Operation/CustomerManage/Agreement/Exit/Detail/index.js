@@ -112,15 +112,17 @@ export default class ExitDetail extends Component {
 			const content = {
 				position: 'relative',
 				width: '900px',
-				margin: '0 auto'
+				margin: '0 auto',
+				fontSize:14
 			}
 			const info = {
 				overflow: 'hidden',
+				padding: '30px 70px'
 			}
 
 			return (
 				<div className="content" style={content}>
-				  	<View/>
+				  	<View label="退租协议书详情页"/>
 				  	<div className="content-info" style={info} >
 				  	
 
