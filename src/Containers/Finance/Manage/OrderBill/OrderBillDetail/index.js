@@ -760,20 +760,20 @@ export default class AttributeSetting  extends Component{
 		return(
 			<div>
 					<Section title="订单明细账" description="" > 
-					      <DotTitle title='订单描述' style={{marginTop:'-30'}}/>
+					      <DotTitle title='订单描述' style={{marginTop:'6',marginBottom:'40'}}/>
 						  <BasicInfo  detail={this.state.basicInfo} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome}/>
 						   
-						  <DotTitle title='订单明细账'/>
+						  <DotTitle title='订单明细账' style={{marginTop:'28',marginBottom:'62'}}/>
 						  <div className='ui-detail-bottom'>
 								<Row style={{marginTop:10}}>
-								<Col md={2} >
+								 <div className='detail-left'>
 									<SearchParam onSearch={this.onSearch} params={this.state.params} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance} />
-								</Col>
-								<Col md={1}></Col>
-								<Col md={9}>
+								
+								 </div>
+								 <div className='detail-right'>
 								     <div>
-								        {buttonArr}     							       
-								        <Button label="高级查询"  type="button"  onTouchTap={this.openSearchDialog}/>
+								        <Col align="left" className='btn-left'>{buttonArr}</Col>     							       
+								        <Col align="right"><Button label="高级查询"  type="button"  onTouchTap={this.openSearchDialog}/></Col>
 								     </div>
 								 
 									 <Table style={{marginTop:30}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
@@ -803,7 +803,7 @@ export default class AttributeSetting  extends Component{
 							              </TableBody>
 							              <TableFooter></TableFooter>
 						              </Table>
-								</Col>
+								</div>
 
 							</Row>
                        </div>
