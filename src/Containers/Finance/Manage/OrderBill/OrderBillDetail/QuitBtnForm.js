@@ -116,7 +116,7 @@ class QuitBtnForm extends Component {
 								<Col md={12} align="right">
 									<ButtonGroup>
 										<Button  label="确定" type="submit" joinEditForm />
-										<Button  label="取消" type="button"  onTouchTap={this.onCancel} />
+										<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 									</ButtonGroup>
 								</Col>
 							</Row>
