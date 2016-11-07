@@ -259,18 +259,27 @@ class NewCreateForm extends Component {
 		form = Object.assign({}, form);
 
 		let {
-			changeValues
+			changeValues,
+			optionValues
 		} = this.props;
 		let {
 			stationVos,
 			delStationVos
 		} = this.state;
 
+
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
+		if(stationVos[0].end){
+			form.leaseEnddate = dateFormat(stationVos[0].end, "yyyy-mm-dd hh:MM:ss");
+			form.leaseBegindate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
 
-		form.leaseBegindate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(stationVos[0].end, "yyyy-mm-dd hh:MM:ss");
+
+		}else{
+			form.leaseEnddate = dateFormat(optionValues.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
+			form.leaseBegindate = dateFormat(optionValues.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
+
+		}
 
 		form.lessorAddress = changeValues.lessorAddress;
 		// form.lessorContactid = 111;

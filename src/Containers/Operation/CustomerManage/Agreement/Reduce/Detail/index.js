@@ -17,6 +17,7 @@ import {
 	SplitLine,
 	DotTitle
 } from 'kr-ui';
+import dateFormat from 'dateformat';
 
 import {
 	KrField,
@@ -186,8 +187,8 @@ export default class ReduceDetail extends Component {
 																	<TableRowColumn>
 																		{item.unitprice}
 																	</TableRowColumn>
-																	<TableRowColumn><Date.Format value={item.leaseBegindate}/></TableRowColumn>
-																	<TableRowColumn><Date.Format value={item.leaseEnddate}/></TableRowColumn>
+																	<TableRowColumn><Date.Format value={item.leaseBeginDate}/></TableRowColumn>
+																	<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
 																   </TableRow>
 																	);
 															})}
