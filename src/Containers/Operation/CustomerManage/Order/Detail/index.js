@@ -1,8 +1,15 @@
-import React, {Component, PropTypes} from 'react';
-import { connect } from 'kr/Redux';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
+import {
+	connect
+} from 'kr/Redux';
 
 
-import {reduxForm } from 'redux-form';
+import {
+	reduxForm
+} from 'redux-form';
 import Section from 'kr-ui/Section';
 
 import {
@@ -14,9 +21,15 @@ import {
 } from 'kr-ui';
 
 
-import {Grid,Row,Col} from 'kr-ui/Grid';
+import {
+	Grid,
+	Row,
+	Col
+} from 'kr-ui/Grid';
 
-import {Snackbar} from 'material-ui';
+import {
+	Snackbar
+} from 'material-ui';
 
 import {
 	BreadCrumbs,
@@ -25,7 +38,7 @@ import {
 } from 'kr-ui';
 
 import Circle from './circle';
-import  './active.less';
+import './active.less';
 
 import {
 	Menu,
@@ -37,17 +50,31 @@ import {
 } from 'material-ui';
 
 
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
+import {
+	Table,
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
+	TableRowColumn,
+	TableFooter
+} from 'kr-ui/Table';
 
 
-import {List, ListItem} from 'material-ui/List';
+import {
+	List,
+	ListItem
+} from 'material-ui/List';
 
 
-import {Actions,Store} from 'kr/Redux';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 
 export default class OrderDetail extends React.Component {
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 
 		this.openCreateAgreementDialog = this.openCreateAgreementDialog.bind(this);
@@ -57,48 +84,50 @@ export default class OrderDetail extends React.Component {
 		this.getAgrementType = this.getAgrementType.bind(this);
 
 		this.state = {
-			open:false,
-			loading:true,
-			openCreateAgreement:false,
-			response:{
-				orderBaseInfo:{},
-				installment:{},
-				earnest:{},
-				contractList:[],
-				antecedent:[]
+			open: false,
+			loading: true,
+			openCreateAgreement: false,
+			response: {
+				orderBaseInfo: {},
+				installment: {},
+				earnest: {},
+				contractList: [],
+				antecedent: []
 			}
 		}
 
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		console.log('000000');
 
 		const closeAll = this.props.location.query.closeAll;
 
-		if(closeAll){
+		if (closeAll) {
 			Store.dispatch(Actions.switchSidebarNav(false));
 			Store.dispatch(Actions.switchHeaderNav(false));
 		}
 
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('get-order-detail',{mainBillId:this.props.params.orderId})).then(function(response){
+		Store.dispatch(Actions.callAPI('get-order-detail', {
+			mainBillId: this.props.params.orderId
+		})).then(function(response) {
 			_this.setState({
-				response:response
+				response: response
 			});
-            
 
-			setTimeout(function(){
+
+			setTimeout(function() {
 				_this.setState({
-					loading:false
+					loading: false
 				});
-			},1000);
+			}, 1000);
 
-		}).catch(function(err){
-			console.log('---err',err);
+		}).catch(function(err) {
+			console.log('---err', err);
 			Notify.show([{
-				message:'报错了',
+				message: '报错了',
 				type: 'danger',
 			}]);
 
@@ -106,70 +135,103 @@ export default class OrderDetail extends React.Component {
 
 	}
 
-	openCreateAgreementDialog(){
+	openCreateAgreementDialog() {
 		this.setState({
-			openCreateAgreement:!this.state.openCreateAgreement
+			openCreateAgreement: !this.state.openCreateAgreement
 		});
 	}
 
-	getAgrementEditUrl(customerId,orderId,typeId,agreementId){
+	getAgrementEditUrl(customerId, orderId, typeId, agreementId) {
 
-		var typeArray = [
-			{label:'INTENTION',value:'admit'},
-			{label:'ENTER',value:'join'},
-			{label:'RENEW',value:'renew'},
-			{label:'LESSRENT',value:'reduce'},
-			{label:'QUITRENT',value:'exit'},
-			{label:'ADDRENT',value:'increase'},
-		];
+		var typeArray = [{
+			label: 'INTENTION',
+			value: 'admit'
+		}, {
+			label: 'ENTER',
+			value: 'join'
+		}, {
+			label: 'RENEW',
+			value: 'renew'
+		}, {
+			label: 'LESSRENT',
+			value: 'reduce'
+		}, {
+			label: 'QUITRENT',
+			value: 'exit'
+		}, {
+			label: 'ADDRENT',
+			value: 'increase'
+		}, ];
 		var typeValue = '';
-		typeArray.map((value)=>{
-			if(typeId === value.label){
+		typeArray.map((value) => {
+			if (typeId === value.label) {
 				typeValue = value.value;
 			}
 		});
-		return './#/operation/customerManage/'+customerId+'/order/'+orderId+'/agreement/'+typeValue+'/'+agreementId+'/edit';
+		return './#/operation/customerManage/' + customerId + '/order/' + orderId + '/agreement/' + typeValue + '/' + agreementId + '/edit';
 	}
-	getAgrementDetailUrl(customerId,orderId,typeId,agreementId){
-		var typeArray = [
-			{label:'INTENTION',value:'admit'},
-			{label:'ENTER',value:'join'},
-			{label:'RENEW',value:'renew'},
-			{label:'LESSRENT',value:'reduce'},
-			{label:'QUITRENT',value:'exit'},
-			{label:'ADDRENT',value:'increase'},
-		];
+	getAgrementDetailUrl(customerId, orderId, typeId, agreementId) {
+		var typeArray = [{
+			label: 'INTENTION',
+			value: 'admit'
+		}, {
+			label: 'ENTER',
+			value: 'join'
+		}, {
+			label: 'RENEW',
+			value: 'renew'
+		}, {
+			label: 'LESSRENT',
+			value: 'reduce'
+		}, {
+			label: 'QUITRENT',
+			value: 'exit'
+		}, {
+			label: 'ADDRENT',
+			value: 'increase'
+		}, ];
 		var typeValue = '';
-		typeArray.map((value)=>{
-			if(typeId === value.label){
+		typeArray.map((value) => {
+			if (typeId === value.label) {
 				typeValue = value.value;
 			}
 		});
-		return './#/operation/customerManage/'+customerId+'/order/'+orderId+'/agreement/'+typeValue+'/'+agreementId+'/detail';
+		return './#/operation/customerManage/' + customerId + '/order/' + orderId + '/agreement/' + typeValue + '/' + agreementId + '/detail';
 	}
 
-	getAgrementType(type){
-		var typeList = [
-			{name:'INTENTION',value:'意向书'},
-			{name:'ENTER',value:'入住协议'},
-			{name:'ADDRENT',value:'增租协议'},
-			{name:'LESSRENT',value:'减租协议'},
-			{name:'QUITRENT',value:'退租协议'},
-			{name:'RENEW',value:'续租协议'}
-		];
+	getAgrementType(type) {
+		var typeList = [{
+			name: 'INTENTION',
+			value: '意向书'
+		}, {
+			name: 'ENTER',
+			value: '入住协议'
+		}, {
+			name: 'ADDRENT',
+			value: '增租协议'
+		}, {
+			name: 'LESSRENT',
+			value: '减租协议'
+		}, {
+			name: 'QUITRENT',
+			value: '退租协议'
+		}, {
+			name: 'RENEW',
+			value: '续租协议'
+		}];
 		let name = ''
-		typeList.map(function(value){
-			if(value.name === type){
+		typeList.map(function(value) {
+			if (value.name === type) {
 				name = value.value;
 			}
 		});
-		return(
+		return (
 			<TableRowColumn>{name}</TableRowColumn>
 		)
 	}
 
-	renderTableItem(item){
-		if(item){
+	renderTableItem(item) {
+		if (item) {
 			return (
 				<Row>
 				<Col md={3} align="left" className="ContractName"><Circle type={item.payStatus}></Circle>款项：{item.installmentName}</Col>
@@ -187,19 +249,25 @@ export default class OrderDetail extends React.Component {
 
 	render() {
 
-		const {orderBaseInfo,earnest,contractList,installmentPlan,contractStatusCount} = this.state.response;
-		if(this.state.loading){
-			return(<Loading/>);
+		const {
+			orderBaseInfo,
+			earnest,
+			contractList,
+			installmentPlan,
+			contractStatusCount
+		} = this.state.response;
+		if (this.state.loading) {
+			return (<Loading/>);
 		}
-        
-       
+
+
 		return (
-       <div>
+			<div>
 
 			<BreadCrumbs children={['系统运营','财务管理']} hide={!!this.props.location.query.closeAll}/>
-
+			
 			<Section title="客户订单详情" description="" hide={!!this.props.location.query.closeAll}> 
-
+			<div className="content">
 			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog} style={{width:80,marginTop:15}}/>
 
 			<span className='border-top'></span>
@@ -341,7 +409,7 @@ export default class OrderDetail extends React.Component {
 			
 
 
-          
+          	</div>
 			</Section>
 
 
@@ -378,10 +446,7 @@ export default class OrderDetail extends React.Component {
 
 
 			</div>
-			
+
 		);
 	}
 }
-
-
-
