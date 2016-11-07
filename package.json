@@ -62,6 +62,7 @@
     "koa-webpack-hot-middleware": "^1.0.3",
     "less": "^2.5.3",
     "less-loader": "^2.2.2",
+    "less-plugin-clean-css": "^1.5.1",
     "lodash": "^4.16.4",
     "lodash.assign": "^4.1.0",
     "material-ui": "^0.15.4",

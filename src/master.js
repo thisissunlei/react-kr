@@ -3,6 +3,8 @@ import {bindActionCreators} from 'redux';
 
 import {Actions,Store,connect} from 'kr/Redux';
 
+import  './Styles/index.less';
+
 import Header from './Components/Global/Header';
 import Footer from './Components/Global/Footer';
 
