@@ -211,7 +211,7 @@ onChangeRentBeginDate(value){
 		return (
 			<div style={{height:667,marginTop:20}}>
 <form onSubmit={handleSubmit(this.onSubmit)}>
-			<KrField grid={1/1}  name="rentBeginDate" component="date" label="续租开始时间" onChange={this.onChangeRentBeginDate} inline={true}/>
+			<KrField grid={1/1}  name="rentBeginDate" component="date" label="续租结束时间" onChange={this.onChangeRentBeginDate} inline={true}/>
       <Table onSelect={this.onSelect} style={overfolw}>
         <TableHeader>
           <TableHeaderColumn>类别</TableHeaderColumn>
@@ -219,7 +219,7 @@ onChangeRentBeginDate(value){
           <TableHeaderColumn>单价（元／月）</TableHeaderColumn>
           <TableHeaderColumn>起始日期</TableHeaderColumn>
           <TableHeaderColumn>结束日期</TableHeaderColumn>
-          <TableHeaderColumn>续租开始日期</TableHeaderColumn>
+          <TableHeaderColumn>续租结束时间</TableHeaderColumn>
       </TableHeader>
       <TableBody>
       {stationVos && stationVos.map((item,index)=>{
