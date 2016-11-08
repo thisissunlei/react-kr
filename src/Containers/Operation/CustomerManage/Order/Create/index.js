@@ -37,9 +37,8 @@ let OrderCreateForm = function(props){
 			    <KrField name="mainbilldesc" component="textarea" label="订单描述" /> 
 
 				<Grid>
-					<Row style={{marginTop:30}}>
-						<Col md={10}></Col>
-						<Col md={2} align="right"> <Button  label="确定" type="submit" joinEditForm disabled={submitting} /> </Col>
+					<Row style={{marginTop:10}}>
+						<Col md={12} align="right"> <Button  label="确定" type="submit" joinEditForm disabled={submitting} /> </Col>
 					</Row>
 				</Grid>
 
