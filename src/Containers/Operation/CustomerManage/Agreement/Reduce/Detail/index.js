@@ -124,12 +124,14 @@ export default class ReduceDetail extends Component {
 				position: 'relative',
 				width: '900px',
 				margin: '0 auto',
-				fontSize:14
+				fontSize: 14
 			}
 			const info = {
 				overflow: 'hidden',
 				padding: '30px 70px'
 			}
+
+			console.log('basic', basic)
 			return (
 				<div className="content" style={content}>
 				  	<View label="减租协议书详情页"/>
@@ -172,8 +174,8 @@ export default class ReduceDetail extends Component {
 																	<TableHeaderColumn>类别</TableHeaderColumn>
 																	<TableHeaderColumn>编号／名称</TableHeaderColumn>
 																	<TableHeaderColumn>单价（元／月）</TableHeaderColumn>
-																	<TableHeaderColumn>起始日期</TableHeaderColumn>
-																	<TableHeaderColumn>结束日期</TableHeaderColumn>
+																	<TableHeaderColumn>减租起始日期</TableHeaderColumn>
+																	<TableHeaderColumn>减租结束日期</TableHeaderColumn>
 															</TableHeader>
 															<TableBody>
 
@@ -187,8 +189,8 @@ export default class ReduceDetail extends Component {
 																	<TableRowColumn>
 																		{item.unitprice}
 																	</TableRowColumn>
-																	<TableRowColumn><Date.Format value={item.leaseBeginDate}/></TableRowColumn>
-																	<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
+																	<TableRowColumn><Date.Format value={basic.leaseBegindate}/></TableRowColumn>
+																	<TableRowColumn><Date.Format value={basic.leaseEnddate}/></TableRowColumn>
 																   </TableRow>
 																	);
 															})}

@@ -23,6 +23,7 @@ import PageHeader from './PageHeader';
 import Paper from './Paper';
 import SplitLine from './SplitLine';
 import FontIcon from './FontIcon';
+import Demo from './Demo';
 
 import {
 	Grid,
@@ -55,6 +56,7 @@ import {
 
 module.exports = {
 	//Components
+	Demo,
 	FontIcon,
 	Paper,
 	IframeContent,

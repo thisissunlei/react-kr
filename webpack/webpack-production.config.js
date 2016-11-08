@@ -41,11 +41,13 @@ const config = {
 			},
 		}),
 		//new webpack.optimize.CommonsChunkPlugin({name:'common', filename:'common.js'}),
+		/*
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: JSON.stringify('production'),
 			},
 		}),
+		*/
 		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
 			publicPath: '/',

@@ -11,8 +11,8 @@ export default class FontIcon extends React.Component {
 	static PropTypes = {
 		className: React.PropTypes.string,
 		style: React.PropTypes.object,
-		color:React.PropTypes.string
-
+		color:React.PropTypes.string,
+		hoverColor:React.PropTypes.string
 	}
 
 	constructor(props) {
