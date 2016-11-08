@@ -92,14 +92,14 @@ class NewCreatForm extends Component {
 			<Grid style={{paddingBottom:20}}>
 				<Row>
 				<Col md={4} align="center"> 
-					{
-					 contractStatusCount.enterTotoal>0?<a className="createButton" href={"./#/operation/customerManage/"+params.customerId+"/order/"+this.props.params.orderId+"/agreement/admit/create"}>承租意向书</a>:<span className="createButton disabled">承租意向书</span>
-					}
+					
+					 <a className="createButton" href={"./#/operation/customerManage/"+params.customerId+"/order/"+this.props.params.orderId+"/agreement/admit/create"}>承租意向书</a>
+					
 				</Col>
 				<Col md={4} align="center">
-					{
-					  contractStatusCount.enterTotoal>0?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/join/create"}>入驻协议书</a>	:<span className="createButton disabled">入驻协议书</span>
-					}
+					
+				<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/join/create"}>入驻协议书</a>
+					
 				</Col>
 				<Col md={4} align="center">
 					{
