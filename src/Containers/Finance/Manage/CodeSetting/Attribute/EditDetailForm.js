@@ -68,8 +68,8 @@ import {
 
 				<Grid style={{marginTop:30}}>
 					<Row>
-						<Col md={12} align="right">
-							<Button  label="确定" type="submit" joinEditForm />
+						<Col md={12} align="center">
+							<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div>
 							<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 						</Col>
 					</Row>
