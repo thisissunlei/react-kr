@@ -215,12 +215,12 @@ class NewCreateForm extends Component {
 			return true;
 		});
 
+
 		this.setState({
 			stationVos,
 			delStationVos
-		}, function() {
-			this.calcStationNum();
 		});
+
 
 	}
 
@@ -243,13 +243,15 @@ class NewCreateForm extends Component {
 		Store.dispatch(initialize('reduceCreateForm', initialValues));
 	}
 
+	
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.stationVos.length) {
+		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
 			this.setState({
 				stationVos
 			});
-		}
+			this.isInit = true;
+		};
 	}
 
 	onSubmit(form) {
