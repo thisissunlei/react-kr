@@ -12,7 +12,14 @@ const config = {
 			 'webpack/hot/dev-server',
     		'webpack/hot/only-dev-server',
 		],
-		vender:path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js'),	
+		lib:[
+			'react',
+			'react-dom',
+			'react-router'
+		],
+		vender:[
+			path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js')
+		],	
 		app:path.join(process.cwd(), '/src/app.js')
 	},
 	resolve: {
@@ -43,10 +50,14 @@ const config = {
 	},
 	noParse: ['/node_modules/'],
 	plugins: [
-
+	/*
+	 	new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NoErrorsPlugin(),
+		new webpack.optimize.AggressiveMergingPlugin({
+    		  minSizeReduce: 1.5,
+     		  moveToParents: true
+ 		 }),
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
 				warnings: false,
@@ -55,10 +66,17 @@ const config = {
 				comments: false,
 			},
 		}),
+		*/
+		new webpack.NoErrorsPlugin(),
+		new webpack.optimize.MinChunkSizePlugin({
+   			 compress: {
+     			 warnings: false
+    		}
+  		}),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(env)
 		}),
-		//new webpack.optimize.CommonsChunkPlugin({name:'common', filename:'common.js'}),
+		new webpack.optimize.CommonsChunkPlugin({name:'common',filename:'common.js',chunks: ["app", "vendor"],minChunks: Infinity}),
 		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
 			title: '财务管理',
@@ -66,14 +84,27 @@ const config = {
 			template: './src/index.template.html',
 			inject:false,
 			hash:true,
-			cache:true,
+			cache:false,
 			showErrors:true,
-			chunksSortMode:'none'
+			/*
+			chunksSortMode:function(a,b){
+				 if (a.names[0] > b.names[0]) {
+       				 return 1;
+     			 }
+     			 if (a.names[0] < b.names[0]) {
+        			return -1;
+     			 }
+     			 return 0;
+			}
+			*/
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
 	],
 	watch: true,
     keepalive: true,
+    displayErrorDetails:true,
+    colors:true,
+    optimizeDebupe:true,
 	module: {
 		exprContextRegExp: /$^/,
 		exprContextCritical: false,

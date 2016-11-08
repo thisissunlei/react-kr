@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run dev:webpack",
     "dev": "set NODE_ENV=development &&  nodemon ./server.js",
-    "dev:webpack": "set NODE_ENV=development  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile",
+    "dev:webpack": "set NODE_ENV=development  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile --hot --watch --watch-poll",
     "build": "set NODE_ENV=production  &&  webpack --config ./webpack/webpack-production.config.js --progress --colors --profile",
     "test": "export NODE_ENV=test && webpack --config ./webpack/webpack-test.config.js --progress --colors --profile"
   },
@@ -126,7 +126,6 @@
     "react-dom": "^0.14.6",
     "react-form": "0.0.2",
     "react-form-inputs": "0.0.1",
-
     "react-tap-event-plugin": "^0.2.2",
     "react-tooltip": "^3.2.1",
     "redux-form": "^6.0.2"
