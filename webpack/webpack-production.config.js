@@ -36,7 +36,7 @@ const config = {
            	 manifest: require('./dist/manifest.json'),
            	 name:'lib'
         }),
-        /*
+
        new webpack.optimize.UglifyJsPlugin({
 			compress: {
 				warnings: true,
@@ -45,7 +45,7 @@ const config = {
 				comments: false,
 			},
 		}),
-		*/
+
 	 	new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.optimize.AggressiveMergingPlugin({
@@ -54,7 +54,9 @@ const config = {
  		 }),
 		new webpack.optimize.MinChunkSizePlugin({
    			 compress: {
-     			 warnings: false
+     			 warnings: false,
+    			drop_debugger: true,
+    			drop_console: true
     		},
     		minChunkSize: 10000
   		}),
