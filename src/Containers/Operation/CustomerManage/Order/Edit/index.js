@@ -45,9 +45,8 @@ let OrderEditForm = function (props){
 					 <KrField name="mainbillname" type="text" label="订单名称" requireLabel={true} component="text" /> 
 					 <KrField name="mainbilldesc" type="textarea" label="订单描述" component="textarea" /> 
 					<Grid >
-						<Row style={{marginTop:30}}>
-							<Col md={10}></Col>
-							<Col md={2} align="right"> <Button  label="确定" type="submit" joinEditForm disabled={submitting} /> </Col>
+						<Row style={{marginTop:10}}>
+							<Col md={12} align="right"> <Button  label="确定" type="submit" joinEditForm disabled={submitting} /> </Col>
 						</Row>
 					</Grid>
 			</form>

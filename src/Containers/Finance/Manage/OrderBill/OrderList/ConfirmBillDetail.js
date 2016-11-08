@@ -131,35 +131,16 @@ export default  class ConfirmBillDetail extends Component{
 
 	render(){
 
-      
-       console.log("111",list1);   
-           
+  
        const {params}  = this.props;
-      
-       
-       
 
        let {detail,basic,isLoading}  = this.state;
         
-       
-      
-      
-       
       
         /*if(isLoading){
           return <Loading/>
         }*/
          
-
-
-     
-
-     
-    
-     
-     
-       
- 
   
  
 		return (

@@ -48,7 +48,6 @@ class SearchForm extends Component {
 	}
 
 	onSubmit(form) {
-		console.log('yyyyyyy', form)
 			/*Store.dispatch(Actions.callAPI('getInstallmentplan', {}, form)).then(function(response) {
 				console.log("response", response);
 
@@ -226,10 +225,7 @@ export default class BasicTable extends Component {
 				}]);
 			});
 
-
-
 		}).catch(function(err){
-			console.log('err', err);
 			Notify.show([{
 				message:err.message,
 				type: 'danger',

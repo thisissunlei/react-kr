@@ -133,7 +133,7 @@ export default class AttributeSetting  extends Component{
         creater:''
       }
     }
-    console.log('state',this.state.accountname)
+
   }
 
   componentDidMount() {

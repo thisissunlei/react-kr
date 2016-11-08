@@ -191,9 +191,8 @@ export default class OrderDetail extends React.Component {
 			}, 1000);
 
 		}).catch(function(err) {
-			console.log('---err', err);
 			Notify.show([{
-				message: '报错了',
+				message:err.message,
 				type: 'danger',
 			}]);
 
