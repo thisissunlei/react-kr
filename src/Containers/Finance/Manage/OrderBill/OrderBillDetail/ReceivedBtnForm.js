@@ -56,7 +56,7 @@ class ReceivedBtnForm extends Component{
 
     
       let initialValues={
-       	 sumSign:'0',
+       	 sumSign:'1',
        	 autoSplit:'0',
        	 mainbillid:this.context.params.orderId
        }
