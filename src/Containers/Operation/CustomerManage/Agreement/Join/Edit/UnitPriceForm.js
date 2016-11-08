@@ -13,6 +13,8 @@ import {
 	Col,
 	Button,
 	Notify,
+	ListGroup,
+	ListGroupItem
 } from 'kr-ui';
 
 class UnitPriceForm  extends Component{
@@ -47,14 +49,12 @@ class UnitPriceForm  extends Component{
 		return (
 			<div>
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:20}}>
-					<KrField grid={1}  name="price" component="input" type="text" label="单价"/> 
+					<KrField grid={1}  name="price" component="input" type="text" label="单价" requireLabel={true}/> 
 					<Grid>
-						<Row style={{marginTop:30}}>
-						<Col md={4}></Col>
-							<Col md={2} align="center"> <Button  label="确定" type="submit" /> </Col>
-						  <Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col> 
-						<Col md={4}></Col>
-						  </Row>
+						<ListGroup>
+							<ListGroupItem style={{width:'47%',textAlign:'right',padding:0,paddingRight:10}}> <Button  label="确定" type="submit" /></ListGroupItem>
+							<ListGroupItem style={{width:'46%',textAlign:'left',padding:0,paddingLeft:10}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/></ListGroupItem>
+						</ListGroup>
 					</Grid>
 				</form>
 			</div>);
