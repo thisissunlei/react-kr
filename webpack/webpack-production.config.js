@@ -91,12 +91,12 @@ const config = {
 				loader: 'raw-loader',
 			},
 			{
-				test: /\.less$/,
-				loader: "style-loader!css-loader!less-loader"
+				test: /\.css$/,
+				loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader' })
 			},
 			{
-				test: /\.css$/, 
-				loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader' })
+				test: /\.less$/,
+				 loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader!less-loader' })
 			},
 			{
 				test: /\.(png|jpg|gif)$/,

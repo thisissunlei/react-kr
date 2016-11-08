@@ -98,11 +98,11 @@ const config = {
 			},
 			{
 				test: /\.css$/,
-				loader: 'style-loader!css-loader',
+				loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader' })
 			},
 			{
 				test: /\.less$/,
-				loader: "style-loader!css-loader!less-loader"
+				 loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader!less-loader' })
 			},
 			{
 				test: /\.(png|jpg|gif)$/,
