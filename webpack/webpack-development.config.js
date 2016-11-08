@@ -74,6 +74,8 @@ const config = {
 	],
 	watch: true,
     keepalive: true,
+    displayErrorDetails:true,
+    colors:true,
 	module: {
 		exprContextRegExp: /$^/,
 		exprContextCritical: false,
