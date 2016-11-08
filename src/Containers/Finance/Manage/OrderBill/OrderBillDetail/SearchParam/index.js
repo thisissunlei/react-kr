@@ -67,23 +67,39 @@ export default class SearchParam extends Component{
 	onSearch(type,childType,id,propInfo,index){    
 		const {onSearch,params} = this.props;
         
-        if(type=='PAYMENT'){
+        if(type=='PAYMENT'&&childType=='basic'){
           this.setState({
 			primaryR:'true',
+			primaryI:'false',
+			activeI:10000,
+		    active:10000,
+	      });
+        }
+        if(type=='PAYMENT'&&childType!='basic'){
+           this.setState({
+           	primaryR:'false',
 			primaryI:'false',
 			active:index,
 			activeI:10000	
 	      });
         }
        
-        if(type=='INCOME'){
+        if(type=='INCOME'&&childType=='basic'){
           this.setState({
 			primaryR:'false',
 			primaryI:'true',
+			activeI:10000,
+		    active:10000,
+	      });
+       }
+	    if(type=='INCOME'&&childType!='basic'){
+          this.setState({
+            primaryR:'false',
+			primaryI:'false',
 			activeI:index,
 		    active:10000,
-
 	      });
+	     
         }
 		var searchParam = {};
 
@@ -99,8 +115,6 @@ export default class SearchParam extends Component{
 	 var _this=this;
       if(type=='PAYMENT'){
           this.setState({
-			primaryR:'true',
-			primaryI:'false',
 			myReceive:index,
 			myIncome:10000	
 	      });
@@ -108,8 +122,6 @@ export default class SearchParam extends Component{
        
         if(type=='INCOME'){
           this.setState({
-			primaryR:'false',
-			primaryI:'true',
 			myIncome:index,
 		    myReceive:10000,
 	      });
@@ -118,8 +130,6 @@ export default class SearchParam extends Component{
     onLeave(type,index){
        if(type=='PAYMENT'){
           this.setState({
-			primaryR:'true',
-			primaryI:'false',
 			myReceive:10000,
 			myIncome:10000	
 	      });
@@ -127,8 +137,6 @@ export default class SearchParam extends Component{
        
         if(type=='INCOME'){
           this.setState({
-			primaryR:'false',
-			primaryI:'true',
 			myReceive:10000,
 		    myIncome:10000,
 	      });
