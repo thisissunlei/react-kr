@@ -50,6 +50,7 @@ const config = {
 	},
 	noParse: ['/node_modules/'],
 	plugins: [
+	/*
 	 	new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
@@ -57,7 +58,6 @@ const config = {
     		  minSizeReduce: 1.5,
      		  moveToParents: true
  		 }),
-		new webpack.NoErrorsPlugin(),
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
 				warnings: false,
@@ -66,6 +66,8 @@ const config = {
 				comments: false,
 			},
 		}),
+		*/
+		new webpack.NoErrorsPlugin(),
 		new webpack.optimize.MinChunkSizePlugin({
    			 compress: {
      			 warnings: false
