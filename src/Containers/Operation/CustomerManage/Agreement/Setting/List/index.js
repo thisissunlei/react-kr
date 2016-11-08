@@ -407,7 +407,7 @@ export default class SettingList extends Component {
 
   }
   confirmUpdateChildSubmit(values) {
-    
+
     Store.dispatch(Actions.callAPI('editSysDicPayment', {}, values)).then(function(response) {
       Notify.show([{
         message: '编辑成功!',
@@ -658,7 +658,7 @@ export default class SettingList extends Component {
       <div>
 
       <BreadCrumbs children={['系统运营','合同信息','基础配置']}/>
-
+      <div className="wrap">
       <Section title="基础配置" description=""> 
 
           <Button label="新建" joinEditForm onTouchTap={this.openCreateDialog} />
@@ -675,7 +675,7 @@ export default class SettingList extends Component {
                 {this.renderCustomerItem()}
              </Table>
       </Section>
-
+      </div>
       <Dialog
         title="新建"
         modal={true}
