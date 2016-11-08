@@ -37,7 +37,6 @@ import {
 
 		var _this = this;
 		Store.dispatch(Actions.callAPI('getFinaDataCommunityAndMainBillType')).then(function(response){
-			//console.log("88888",response.communityAndMainBillTypeMap)
 			
 			const communityList=response.communityList
 			const mainbilltypeList=response.mainbilltypeList
@@ -61,8 +60,6 @@ import {
 				mainbilltypeList
 			});
 
-
-			
 		}).catch(function(err){
 			Notify.show([{
 				message:'报错了',
