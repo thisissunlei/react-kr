@@ -4,7 +4,9 @@ import TableRowColumn from '../TableRowColumn';
 
 import Pagination from '../../Pagination';
 
-import {Button} from 'kr-ui/Button';
+import {
+	Button
+} from 'kr-ui/Button';
 
 
 import './index.less';
@@ -12,25 +14,25 @@ import './index.less';
 export default class TableFooter extends React.Component {
 
 	static defaultProps = {
-		exportSwitch:false,
+		exportSwitch: false,
 	}
 
 	static PropTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
-		page: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
-		pageSize: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
-		totalCount: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
-		displayCheckbox:React.PropTypes.bool,
-		pagination:React.PropTypes.bool,
-    	onSelectAll:React.PropTypes.func,
-		onExport:React.PropTypes.func,
-		onPageChange:React.PropTypes.func,
-		exportSwitch:React.PropTypes.bool,
+		page: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+		pageSize: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+		totalCount: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+		displayCheckbox: React.PropTypes.bool,
+		pagination: React.PropTypes.bool,
+		onSelectAll: React.PropTypes.func,
+		onExport: React.PropTypes.func,
+		onPageChange: React.PropTypes.func,
+		exportSwitch: React.PropTypes.bool,
 	}
 
 
-	constructor(props){
+	constructor(props) {
 		super(props);
 
 		this.onExport = this.onExport.bind(this);
@@ -43,40 +45,53 @@ export default class TableFooter extends React.Component {
 
 	}
 
-	onSelectAll(){
-		const {onSelectAll} = this.props;
+	onSelectAll() {
+		const {
+			onSelectAll
+		} = this.props;
 		onSelectAll && onSelectAll();
 	}
 
-	onExport(){
-		const {onExport} = this.props;
+	onExport() {
+		const {
+			onExport
+		} = this.props;
 		onExport && onExport();
 	}
 
-	onPageChange(page){
-		const {onPageChange} = this.props;
+	onPageChange(page) {
+		const {
+			onPageChange
+		} = this.props;
 		onPageChange && onPageChange(page);
 	}
 
 
-	renderCheckbox(){
+	renderCheckbox() {
 
-		let {displayCheckbox} = this.props;
+		let {
+			displayCheckbox
+		} = this.props;
 
-		if(!displayCheckbox){
+		if (!displayCheckbox) {
 			return null;
 		}
 
-		return ( <TableRowColumn width={this.props.defaultValue.checkboxWidth}><input type="checkbox" onTouchTap={this.onSelectAll}/></TableRowColumn>);
+		return (<TableRowColumn width={this.props.defaultValue.checkboxWidth}><input type="checkbox" onTouchTap={this.onSelectAll}/></TableRowColumn>);
 
 	}
 
 
-	renderPagination(){
+	renderPagination() {
 
-		let {pagination,totalCount,page,pageSize} = this.props;
+		let {
+			pagination,
+			totalCount,
+			page,
+			pageSize
+		} = this.props;
 
-		if(!pagination){
+		if (!pagination) {
 			return null;
 		}
 		return (
@@ -84,27 +99,36 @@ export default class TableFooter extends React.Component {
 		);
 	}
 
-	renderExport(){
+	renderExport() {
 
-		let {exportSwitch} = this.props;
+		let {
+			exportSwitch
+		} = this.props;
 
-		if(!exportSwitch){
-					return (
-						  <TableRowColumn></TableRowColumn>
-					);
+		if (!exportSwitch) {
+			return (
+				<TableRowColumn></TableRowColumn>
+			);
 		}
 
 		return (
-			  <TableRowColumn style={{textAlign:'left'}} colSpan={2}> <Button label="导出" primary={true} type="button" onTouchTap={this.onExport}/> </TableRowColumn>
+			<TableRowColumn style={{textAlign:'left'}} colSpan={2}> <a style={{width:80,height:30,background:'#499df1',color:'#fff',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center'}}  onClick={this.onExport}>导出</a> </TableRowColumn>
 		);
 
 	}
 
 	render() {
 
-		let {className,children,totalCount,page,pageSize,footer} = this.props;
+		let {
+			className,
+			children,
+			totalCount,
+			page,
+			pageSize,
+			footer
+		} = this.props;
 
-		if(!footer){
+		if (!footer) {
 			return null;
 		}
 

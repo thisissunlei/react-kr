@@ -207,6 +207,7 @@ class NewCreateForm extends Component {
 			}]);
 			return;
 		};
+	
 
 		form.stationVosList = stationVos;
 		form.lessorAddress = changeValues.lessorAddress;

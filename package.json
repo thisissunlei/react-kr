@@ -8,7 +8,9 @@
     "dev": "set NODE_ENV=development &&  nodemon ./server.js",
     "dev:webpack": "set NODE_ENV=development  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile --hot --watch --watch-poll",
     "build": "set NODE_ENV=production  &&  webpack --config ./webpack/webpack-production.config.js --progress --colors --profile",
-    "test": "export NODE_ENV=test && webpack --config ./webpack/webpack-test.config.js --progress --colors --profile"
+    "test": "export NODE_ENV=test && webpack --config ./webpack/webpack-test.config.js --progress --colors --profile",
+    "dll": "export NODE_ENV=production && webpack --config ./webpack/webpack-dll.config.js --progress --colors --profile",
+     "demo": "export NODE_ENV=production && webpack --config ./webpack/webpack-demo.config.js --progress --colors --profile"
   },
   "author": "",
   "license": "ISC",
