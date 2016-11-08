@@ -94,18 +94,18 @@ export default class AttributeSetting extends Component {
 
 	onExport(values) {
 	    var searchParams=this.state.searchParams;
-		const idList = [];
-		values.map((item, value) => {
+		let idList = [];
+		if(values.length!=0){
+           values.map((item, value) => {
 			idList.push(item.id)
-			return idList;
-		 })
+		 });
+		}
 		var url = `http://op.krspace.cn/api/krspace-finance-web/finaccount/data/exportExcel?searchParams=${searchParams}&idList=${idList}`
 		window.location.href = url;
 	}
 
 	//操作相关
 	onOperation(type, itemDetail) {
-
 
 		this.setState({
 			itemDetail

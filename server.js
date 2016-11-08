@@ -28,25 +28,25 @@ var compiler = webpack(webpackConfig);
 
 app.use(convert(compress()));
 
-app.use(staticDir(path.join(__dirname,'static')));
+app.use(convert(staticDir(path.join(__dirname,'static'))));
 
 app.use(convert(bodyparser()));
 
 app.use(convert(json()));
 
-app.use(logger());
+app.use(convert(logger()));
 
-app.use(function* (next){
+app.use(convert(function* (next){
 
 	var start = new Date();
 	yield next;
 	var ms = new Date - start;
 	console.log('%s-%s-%s',this.mothed,this.url,ms);
-});
+}));
 
-app.use(views(__dirname + '/static'));
+app.use(convert(views(__dirname + '/static')));
 
-app.use(webpackDevMiddleware(compiler,{
+app.use(convert(webpackDevMiddleware(compiler,{
 	hot: true,    
 	inline: true,
 	quiet: false,
@@ -66,13 +66,13 @@ app.use(webpackDevMiddleware(compiler,{
 		chunks: false,
 		children: false,
 	},
-}));
+})));
 
-app.use(webpackHotMiddleware(compiler),{
+app.use(convert(webpackHotMiddleware(compiler),{
 	log: console.log,
 	path: '/__webpack_hmr',
 	heartbeat: 10 * 1000
-});
+}));
 
 //var indexRouter = require('./configs/routes');
 
@@ -84,7 +84,7 @@ router.get('*',function *(next){
 
 //router.use('/',indexRouter.routes(),indexRouter.allowedMethods());
 
-app.use(router.routes());
+app.use(convert(router.routes()));
 
 app.on('error',function(err,ctx){
 	console.log('service error',err,ctx);

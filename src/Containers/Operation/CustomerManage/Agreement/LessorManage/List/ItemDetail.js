@@ -1,7 +1,15 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
+import {
+	connect
+} from 'kr/Redux';
 
-import {reduxForm,formValueSelector} from 'redux-form';
+import {
+	reduxForm,
+	formValueSelector
+} from 'redux-form';
 
 import {
 	KrField,
@@ -12,35 +20,37 @@ import {
 } from 'kr-ui';
 
 
-export default  class ItemDetail extends Component{
+export default class ItemDetail extends Component {
 
-	 static PropTypes = {
-		 detail:React.PropTypes.object,
-		 onCancel:React.PropTypes.func,
+	static PropTypes = {
+		detail: React.PropTypes.object,
+		onCancel: React.PropTypes.func,
 
-	 }
-    
-	constructor(props){
+	}
+
+	constructor(props) {
 		super(props);
 		this.onCancel = this.onCancel.bind(this);
 	}
 
-	 onCancel(){
-		 const {onCancel} = this.props;
-		 onCancel && onCancel();
-	 }
+	onCancel() {
+		const {
+			onCancel
+		} = this.props;
+		onCancel && onCancel();
+	}
 
-	render(){
+	render() {
 
-        let detail=this.props.detail;
-          console.log('detail',detail)
-      
-         if(detail.enableflag==true){
-         	detail.flag="启用"
-         }else if(detail.enableflag==false){
-         	detail.flag="不启用"
-         }
-        
+		let detail = this.props.detail;
+		console.log('detail', detail)
+
+		if (detail.enableflag == 'ENABLE') {
+			detail.flag = "启用"
+		} else if (detail.enableflag == 'DISENABLE') {
+			detail.flag = "不启用"
+		}
+
 
 		return (
 
@@ -50,7 +60,7 @@ export default  class ItemDetail extends Component{
         		<KrField name="corporationAddress" component="labelText" type="text" label="详细地址" value={detail.corporationAddress} /> 
         		<KrField name="corporationDesc" component="labelText" label="备注"  placeholder="备注信息" value={detail.corporationDesc} /> 
 			</div>
-			
+
 		);
 	}
 }

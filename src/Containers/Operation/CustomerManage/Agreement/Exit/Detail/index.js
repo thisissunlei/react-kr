@@ -77,7 +77,7 @@ export default class ExitDetail extends Component {
 			_this.setState({
 				loading: false
 			});
-		}, 2000);
+		}, 0);
 	}
 
 	componentWillMount() {
@@ -116,7 +116,6 @@ export default class ExitDetail extends Component {
 				fontSize:14
 			}
 			const info = {
-				overflow: 'hidden',
 				padding: '30px 70px'
 			}
 
@@ -126,32 +125,32 @@ export default class ExitDetail extends Component {
 				  	<div className="content-info" style={info} >
 				  	
 
-								<KrField component="labelText" grid={1/2} label="出租方" value={basic.lessorName}/>
-								<KrField component="labelText" grid={1/2} label="地址" value={basic.lessorAddress}/>
+								<KrField component="labelText" grid={1/2} label="出租方：" value={basic.lessorName}/>
+								<KrField component="labelText" grid={1/2} label="地址：" value={basic.lessorAddress}/>
 
-								<KrField component="labelText" grid={1/2} label="联系人" value={basic.lessorContactName}/>
-								<KrField component="labelText" grid={1/2} label="电话" value={basic.lessorContacttel}/>
+								<KrField component="labelText" grid={1/2} label="联系人：" value={basic.lessorContactName}/>
+								<KrField component="labelText" grid={1/2} label="电话：" value={basic.lessorContacttel}/>
 
-								<KrField component="labelText" grid={1/2} label="承租方" value={basic.customerName}/>
-								<KrField component="labelText" grid={1/2} label="地址" value={basic.leaseAddress}/>
+								<KrField component="labelText" grid={1/2} label="承租方：" value={basic.customerName}/>
+								<KrField component="labelText" grid={1/2} label="地址：" value={basic.leaseAddress}/>
 
-								<KrField component="labelText" grid={1/2} label="联系人" value={basic.leaseContact}/>
-								<KrField component="labelText" grid={1/2} label="电话" value={basic.leaseContacttel}/>
+								<KrField component="labelText" grid={1/2} label="联系人：" value={basic.leaseContact}/>
+								<KrField component="labelText" grid={1/2} label="电话：" value={basic.leaseContacttel}/>
 								<SplitLine />
-								<KrField component="labelText" grid={1/2} label="所属社区" value={basic.communityName}/>
-								<KrField component="labelText" grid={1/2} label="地址" value={basic.communityAddress}/>
+								<KrField component="labelText" grid={1/2} label="所属社区：" value={basic.communityName}/>
+								<KrField component="labelText" grid={1/2} label="地址：" value={basic.communityAddress}/>
 
-								<KrField component="labelText" grid={1} label="合同编号" value={basic.contractcode}/>
+								<KrField component="labelText" grid={1} label="合同编号：" value={basic.contractcode}/>
 
-								<KrField component="labelText" grid={1/2} label="退租金总额" value={basic.totalreturn} defaultValue="0"/>
-								<KrField component="labelText" grid={1/2} label="退租押金总额" value={basic.depositamount} defaultValue="0"/>
+								<KrField component="labelText" grid={1/2} label="退租金总额：" value={basic.totalreturn} defaultValue="0"/>
+								<KrField component="labelText" grid={1/2} label="退租押金总额：" value={basic.depositamount} defaultValue="0"/>
 
-								<KrField component="labelText" grid={1/2} label="撤场日期" value={basic.firstpaydate}/>
-								<KrField component="labelText" grid={1/2} label="签署日期" value={basic.signdate}/>
+								<KrField component="labelText" grid={1/2} label="撤场日期：" value={basic.firstpaydate}/>
+								<KrField component="labelText" grid={1/2} label="签署日期：" value={basic.signdate}/>
 
-								<KrField component="labelText"  label="备注" value={basic.contractmark} inline={false}/>
+								<KrField component="labelText"  label="备注：" value={basic.contractmark} inline={false}/>
 
-					<KrField component="group" label="上传附件">
+					<KrField component="group" label="上传附件：">
 							{basic.contractFileList && basic.contractFileList.map((item,index)=>{
 								return <Button label={item.fileName} type="link" href={item.fileUrl} key={index}/>
 							})}

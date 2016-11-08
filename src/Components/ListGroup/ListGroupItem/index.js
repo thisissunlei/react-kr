@@ -5,7 +5,8 @@ import React, {
 
 export default class ListGroupItem extends Component {
 
-
+	static displayName = 'ListGroupItem';
+	
 	static PropTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,

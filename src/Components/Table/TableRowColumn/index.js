@@ -4,7 +4,8 @@ import krDate from '../../Date';
 
 export default class TableRowColumn extends React.Component {
 
-
+	static displayName = 'TableRowColumn';
+	
 	static PropTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,

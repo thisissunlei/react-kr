@@ -59,7 +59,7 @@ export default class JoinCreate extends Component {
 
 		setTimeout(function() {
 			_this.onConfrimSubmit();
-		}, 500);
+		}, 0);
 		// this.openConfirmCreateDialog();
 	}
 

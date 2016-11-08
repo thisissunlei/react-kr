@@ -45,7 +45,7 @@ export default class DialogComponent extends Component {
 		} = this.props;
 
 		return (
-			<div>
+			<div >
 				<Dialog
 					title={title}
 					modal={modal}

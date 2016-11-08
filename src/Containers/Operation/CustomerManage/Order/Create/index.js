@@ -37,9 +37,8 @@ let OrderCreateForm = function(props){
 			    <KrField name="mainbilldesc" component="textarea" label="订单描述" /> 
 
 				<Grid>
-					<Row style={{marginTop:30}}>
-						<Col md={10}></Col>
-						<Col md={2} align="right"> <Button  label="确定" type="submit" joinEditForm disabled={submitting} /> </Col>
+					<Row style={{marginTop:10}}>
+						<Col md={12} align="right"> <Button  label="确定" type="submit" joinEditForm disabled={submitting} /> </Col>
 					</Row>
 				</Grid>
 
@@ -122,7 +121,7 @@ class OrderCreate extends Component {
 			_this.setState({
 				loading:false
 			});
-		},2000);
+		},0);
 
 	}
 
@@ -153,7 +152,7 @@ class OrderCreate extends Component {
 			window.setTimeout(function(){
 				window.top.location.reload();
 				_this.isOk = false;
-			},1000);
+			},0);
 
 
 		}).catch(function(err){
@@ -164,7 +163,7 @@ class OrderCreate extends Component {
 
 			window.setTimeout(function(){
 				_this.isOk = false;
-			},1000);
+			},0);
 
 		});
 

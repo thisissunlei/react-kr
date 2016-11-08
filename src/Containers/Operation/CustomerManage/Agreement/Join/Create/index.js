@@ -72,7 +72,7 @@ export default class JoinCreate extends Component {
 
 			window.setTimeout(function() {
 				window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/join/" + response.contractId + "/detail";
-			}, 2000);
+			}, 0);
 
 		}).catch(function(err) {
 			Notify.show([{

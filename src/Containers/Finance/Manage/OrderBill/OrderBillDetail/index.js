@@ -474,7 +474,7 @@ export default class AttributeSetting  extends Component{
 
 			window.setTimeout(function(){
 				window.location.reload();
-			},200);
+			},0);
 
  		}).catch(function(err){
 			Notify.show([{

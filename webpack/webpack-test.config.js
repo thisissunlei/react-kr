@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-const buildPath = path.join(process.cwd(), '/test');
+const buildPath = path.join(process.cwd(), '/webpack/dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -8,7 +8,9 @@ var env = process.env.NODE_ENV || 'test';
 
 const config = {
 	entry:{
-		vender:[path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js')],	
+		vender:[
+			path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js')
+		],	
 		app:path.join(process.cwd(), '/src/app.js'),
 	},
 	resolve: {
@@ -27,13 +29,47 @@ const config = {
 		publicPath:"./"
 	},
 	plugins: [
+		new webpack.DefinePlugin({
+			'process.env': {
+				NODE_ENV: JSON.stringify('production'),
+			}
+		}),
+		new webpack.DllReferencePlugin({
+             context:__dirname,
+           	 manifest: require('./dist/manifest.json'),
+           	 name:'lib'
+        }),
 
+       new webpack.optimize.UglifyJsPlugin({
+			 compress:{
+  			 	 warnings: false,
+    			drop_debugger: true,
+    			drop_console: true
+  			},
+			output: {
+				comments: false,
+			}
+		}),
+
+	 	new webpack.optimize.DedupePlugin(),
+		new webpack.optimize.OccurrenceOrderPlugin(),
+		new webpack.optimize.AggressiveMergingPlugin({
+    		  minSizeReduce: 1.5,
+     		  moveToParents: true
+ 		 }),
+		new webpack.optimize.MinChunkSizePlugin({
+   			 compress: {
+     			 warnings: false
+    		},
+    		minChunkSize: 10000
+  		}),
+  		new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
 		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
 			title: '财务管理',
 			filename: 'index.html',
 			template: './src/index.template.html',
-			inject:false,
+			inject:'body',
 			hash:true,
 			cache:true,
 			showErrors:true,
@@ -92,6 +128,9 @@ const config = {
 	},
 	eslint: {
 		configFile: '../.eslintrc',
+		failOnWarning: true,
+    	failOnError: true, 
+    	cache: true
 	},
 };
 

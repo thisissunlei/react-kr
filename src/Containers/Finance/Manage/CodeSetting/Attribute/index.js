@@ -106,7 +106,7 @@ export default class AttributeSetting extends Component {
 
 			window.setTimeout(function() {
 				window.location.reload();
-			}, 1000);
+			}, 0);
 		}).catch(function(err) {
 			Notify.show([{
 				message: err.message,
@@ -138,11 +138,12 @@ export default class AttributeSetting extends Component {
 
 	onExport(values) {
 
-		const idList = [];
-		values.map((item, value) => {
-			idList.push(item.id)
-			return idList;
-		})
+		let idList = [];
+		if(values.length!=0){
+			values.map((item, value) => {
+				idList.push(item.id)
+			})
+		}
 		var url = `http://op.krspace.cn/api/krspace-finance-web/finaccount/property/exportDatas?ids=${idList}`
 		window.location.href = url;
 
@@ -167,7 +168,7 @@ export default class AttributeSetting extends Component {
 
 			window.setTimeout(function() {
 				window.location.reload();
-			}, 1000);
+			}, 0);
 
 		}).catch(function(err) {
 

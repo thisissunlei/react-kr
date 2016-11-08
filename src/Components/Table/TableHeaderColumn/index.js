@@ -2,6 +2,7 @@ import React from 'react';
 
 export default class TableHeaderColumn extends React.Component {
 
+	static displayName = 'TableHeaderColumn';
 
 	static PropTypes = {
 		className: React.PropTypes.string,

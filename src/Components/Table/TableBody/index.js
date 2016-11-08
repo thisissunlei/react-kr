@@ -8,6 +8,7 @@ import Checkbox from '../../Checkbox';
 
 export default class TableBody extends React.Component {
 
+	static displayName = 'TableBody';
 
 	static PropTypes = {
 		className: React.PropTypes.string,

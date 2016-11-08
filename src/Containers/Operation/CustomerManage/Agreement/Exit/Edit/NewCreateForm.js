@@ -56,6 +56,7 @@ import {
 	Notify,
 	IframeContent,
 	Date,
+	Paper
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -194,7 +195,7 @@ class NewCreateForm extends Component {
 		return (
 
 
-			<div>
+			<Paper width={968}>
 
 <form onSubmit={handleSubmit(this.onSubmit)} enctype="multipart/form-data">
 
@@ -238,7 +239,7 @@ class NewCreateForm extends Component {
 
 						</form>
 
-			</div>);
+			</Paper>);
 	}
 }
 const validate = values => {

@@ -7,19 +7,16 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = {
 	entry:{
-		app:path.join(process.cwd(), '/src/app.js'),
 		vender:[path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js')],	
-		development:[]
+		app:path.join(process.cwd(), '/src/app.js'),	
 	},
 	resolve: {
 		extensions: ['', '.js', '.md'], // 加载这些类型的文件时不用加后缀
 		alias: {
 			'kr-ui': path.join(process.cwd(), '/src/Components'), 
 			'kr': path.join(process.cwd(), '/src'), 
-			// 'material-ui': path.resolve(__dirname, '../meterial-ui'),
 		},
 	},
-
 	// 出口文件配置
 	output: {
 		path: buildPath,
@@ -29,47 +26,52 @@ const config = {
 		React:true
 	},
 	plugins: [
-	/*
-		new webpack.optimize.OccurrenceOrderPlugin(),
-		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NoErrorsPlugin(),
-		new webpack.optimize.UglifyJsPlugin({
+		new webpack.DefinePlugin({
+			'process.env': {
+				NODE_ENV: JSON.stringify('production'),
+			}
+		}),
+		new webpack.DllReferencePlugin({
+             context:__dirname,
+           	 manifest: require('./dist/manifest.json'),
+           	 name:'lib'
+        }),
+        /*
+       new webpack.optimize.UglifyJsPlugin({
 			compress: {
-				warnings: false,
+				warnings: true,
 			},
 			output: {
 				comments: false,
 			},
 		}),
 		*/
-		//new webpack.optimize.CommonsChunkPlugin({name:'common', filename:'common.js'}),
-		/*
-		new webpack.DefinePlugin({
-			'process.env': {
-				NODE_ENV: JSON.stringify('production'),
-			},
-		}),
-		*/
+	 	new webpack.optimize.DedupePlugin(),
+		new webpack.optimize.OccurrenceOrderPlugin(),
+		new webpack.optimize.AggressiveMergingPlugin({
+    		  minSizeReduce: 1.5,
+     		  moveToParents: true
+ 		 }),
+		new webpack.optimize.MinChunkSizePlugin({
+   			 compress: {
+     			 warnings: false
+    		},
+    		minChunkSize: 10000
+  		}),
+  		new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
 		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
 			publicPath: '/',
 			title: '财务管理',
 			filename: 'index.html',
 			template: './src/index.template.html',
-			inject:false,
+			inject:'body',
 			hash:true,
 			cache:true,
-			showErrors:false,
+			showErrors:true,
 			chunksSortMode:'none'
 		}),
-		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
-		new webpack.NoErrorsPlugin(),
-		/*
-	new TransferWebpackPlugin([
-		{from: 'root/css', to: 'css'},
-		{from: 'root/images', to: 'images'},
-	], path.resolve(__dirname, 'src')),
-	*/
+		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop')
 	],
 	module: {
 		loaders: [
@@ -116,9 +118,7 @@ const config = {
 			}
 		],
 	},
-	eslint: {
-		configFile: '../.eslintrc',
-	},
+
 };
 
 module.exports = config;

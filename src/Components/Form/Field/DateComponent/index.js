@@ -11,9 +11,13 @@ import './index.less';
 import WrapComponent from '../WrapComponent';
 
 export default class DateComponent extends React.Component {
+
+	static displayName = 'DateComponent';
+
 	static defaultProps = {
 		inline: false
 	}
+
 	static PropTypes = {
 		defaultValue: React.PropTypes.string,
 		onChange: React.PropTypes.func,

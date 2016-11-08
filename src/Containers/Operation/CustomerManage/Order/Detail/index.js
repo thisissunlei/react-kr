@@ -93,36 +93,33 @@ class NewCreatForm extends Component {
 				<Row>
 				<Col md={4} align="center"> 
 					{
-					 contractStatusCount.enterTotoal>0?<a className="createButton" href={"./#/operation/customerManage/"+params.customerId+"/order/"+this.props.params.orderId+"/agreement/admit/create"}>承租意向书</a>:<span className="createButton disabled">承租意向书</span>
+					contractStatusCount.enterTotoal>0?<span className="createButton disabled">承租意向书</span>:<a className="createButton" href={"./#/operation/customerManage/"+params.customerId+"/order/"+this.props.params.orderId+"/agreement/admit/create"}>承租意向书</a>
 					}
 				</Col>
 				<Col md={4} align="center">
-					{
-					  contractStatusCount.enterTotoal>0?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/join/create"}>入驻协议书</a>	:<span className="createButton disabled">入驻协议书</span>
-					}
+				  {
+					contractStatusCount.enterTotoal>0?<span className="createButton disabled">入驻协议书</span>:<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/join/create"}>入驻协议书</a>
+
+				  }
 				</Col>
 				<Col md={4} align="center">
-					{
-						contractStatusCount.addRentTotoal>0?<a  className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/increase/create"}>增租协议书</a>:<span className="createButton disabled">增租协议书</span>
-					}
+				{contractStatusCount.enterTotoal>0?<a  className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/increase/create"}>增租协议书</a>:<span className="createButton disabled">增租协议书</span>}
+										
 				</Col>
 				</Row>
 
 				<Row style={{marginTop:10}}>
 				<Col md={4} align="center" >
-				   {
-				   	contractStatusCount.renewComplete>0?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/renew/create"}>续租协议书</a>:<span className="createButton disabled">续租协议书</span>
-				   }
+				  	{contractStatusCount.enterTotoal>0?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/renew/create"}>续租协议书</a>:<span className="createButton disabled">续租协议书</span>}
+				  				  
 				</Col>
 				<Col md={4} align="center">
-					{
-						contractStatusCount.lessRentComplete>0?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/reduce/create"} >减租协议书</a>:<span className="createButton disabled">减租协议书</span>
-					}
+					{contractStatusCount.enterTotoal>0?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/reduce/create"} >减租协议书</a>:<span className="createButton disabled">减租协议书</span>}
+										
 				</Col>
 				<Col md={4} align="center">
-					{
-					contractStatusCount.quitRentTotoal>0?<a  className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/exit/create"} >退租协议书</a>:<span className="createButton disabled">退租协议书</span>
-					}
+					{contractStatusCount.enterTotoal>0?<a  className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/exit/create"} >退租协议书</a>:<span className="createButton disabled">退租协议书</span>}
+										
 				</Col>
 				</Row>
 
@@ -184,7 +181,7 @@ export default class OrderDetail extends React.Component {
 				_this.setState({
 					loading: false
 				});
-			}, 1000);
+			}, 0);
 
 		}).catch(function(err) {
 			Notify.show([{
@@ -368,7 +365,7 @@ export default class OrderDetail extends React.Component {
 				</Row>
 				<Row>
 				<Col md={4} ><KrField label="结束日期：" component="labelText" value={orderBaseInfo.contractLeavedate} type="date" defaultValue="无" alignRight={true}/></Col>
-				<Col md={4} ><KrField label="撤场日期：" component="labelText" value={orderBaseInfo.actualLeavedate} type="date" defaultValue="无" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="撤场日期：" component="labelText" value={orderBaseInfo.actualEntrydate} type="date" defaultValue="无" alignRight={true}/></Col>
 				<Col md={4} ><KrField label="订单总额：" component="labelText" value={orderBaseInfo.contractTotalamount} defaultValue="0" alignRight={true}/></Col>
 				</Row>
 
@@ -478,7 +475,8 @@ export default class OrderDetail extends React.Component {
 			title="新建合同"
 			modal={true}
 			onClose={this.openCreateAgreementDialog}
-			open={this.state.openCreateAgreement} >
+			open={this.state.openCreateAgreement}
+			contentStyle={{width:687}}>
 				<NewCreatForm contractStatusCount={contractStatusCount} params={this.props.params}/>
 
 

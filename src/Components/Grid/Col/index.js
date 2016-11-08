@@ -4,7 +4,9 @@ import '../index.less';
 
 export default class Col extends React.Component {
 
-	PropTypes = {
+	static displayName = 'Col';
+
+	static PropTypes = {
 		xs: React.PropTypes.number,
 		sm: React.PropTypes.number,
 		md: React.PropTypes.number,

@@ -110,7 +110,7 @@ const SettingViewForm = (props) => {
     <div>
         
         <KrField name="corporationName" component="labelText"  label="字段名称" value={items.sp.dicName}/> 
-        <KrField name="enableflag" component="labelText"  label="是否有效" value={items.sp.enableFlag=="ENABLE"?'是':'否'}/> 
+        <KrField name="enableFlag" component="labelText"  label="是否有效" value={items.sp.enableFlag=="ENABLE"?'是':'否'}/> 
         <KrField name="corporationDesc" component="labelText" label="备注" value={items.sp.remark}/> 
   </div>
   );
@@ -124,7 +124,7 @@ const SettingChildViewForm = (props) => {
     <div>
         
         <KrField name="corporationName" component="labelText"  label="字段名称" value={items.dicName} requireLabel={true}/> 
-        <KrField name="enableflag" component="labelText"  label="是否有效" value={items.enableFlag=="ENABLE"?'是':'否'} requireLabel={true}/> 
+        <KrField name="enableFlag" component="labelText"  label="是否有效" value={items.enableFlag=="ENABLE"?'是':'否'} requireLabel={true}/> 
         <KrField name="corporationDesc" component="labelText" label="备注" value={items.remark} requireLabel={true}/> 
   </div>
   );
@@ -193,9 +193,9 @@ let SettingChildUpdateForm = function(props) {
     <form onSubmit={handleSubmit(onSubmit)}>
               <KrField name="id" type="hidden" label="id"  /> 
               <KrField name="dicName" type="text" component="input" label="字段名称" requireLabel={true} /> 
-              <KrField name="enableflag" component="group" label="是否有效" requireLabel={true}>
-                <KrField name="enableflag" label="是" component="radio" type='radio' value="ENABLE" requireLabel={true}/>
-                <KrField name="enableflag" label="否" component="radio"  type='radio'  value="DISENABLE" requireLabel={true}/>
+              <KrField name="enableFlag" component="group" label="是否有效" requireLabel={true}>
+                <KrField name="enableFlag" label="是" component="radio" type='radio' value="ENABLE" requireLabel={true}/>
+                <KrField name="enableFlag" label="否" component="radio"  type='radio'  value="DISENABLE" requireLabel={true}/>
               </KrField>
                <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息" requireLabel={true}/> 
               
@@ -237,9 +237,9 @@ let SettingAddForm = function(props) {
                   <KrField name="id" type="hidden" component="input" label="id"/> 
                   <KrField name="dicName" type="text" label="子项名称" requireLabel={true}/>
                   <KrField  type="labelText" label="字段名称" value={props.dicName} requireLabel={true}/>
-                 <KrField name="enableflag" component="group" label="是否有效" requireLabel={true}>
-                    <KrField name="enableflag" label="是" type="radio" value="ENABLE"/>
-                    <KrField name="enableflag" label="否" type="radio" value="DISENABLE" />
+                 <KrField name="enableFlag" component="group" label="是否有效" requireLabel={true}>
+                    <KrField name="enableFlag" label="是" type="radio" value="ENABLE"/>
+                    <KrField name="enableFlag" label="否" type="radio" value="DISENABLE" />
                   </KrField>
                    <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息" requireLabel={true}/> 
                   <Grid style={{marginTop:30}}>
@@ -262,9 +262,9 @@ let SettingAddForm = function(props) {
               <KrField name="dicName" type="text" label="子项名称" requireLabel={true}/>
               <KrField  type="labelText" label="字段名称" value={props.dicName} requireLabel={true}/>
               <KrField name="round" type="text" label="拆分周期" requireLabel={true} /> 
-              <KrField name="enableflag" component="group" label="是否有效" requireLabel={true}>
-                <KrField name="enableflag" label="是" type="radio" value="ENABLE"/>
-                <KrField name="enableflag" label="否" type="radio" value="DISENABLE" />
+              <KrField name="enableFlag" component="group" label="是否有效" requireLabel={true}>
+                <KrField name="enableFlag" label="是" type="radio" value="ENABLE"/>
+                <KrField name="enableFlag" label="否" type="radio" value="DISENABLE" />
               </KrField>
                <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息" requireLabel={true}/> 
               <Grid style={{marginTop:30}}>
@@ -380,7 +380,7 @@ export default class SettingList extends Component {
 
     window.setTimeout(function() {
       window.location.reload();
-    }, 1000);
+    }, 0);
 
 
   }
@@ -394,7 +394,7 @@ export default class SettingList extends Component {
       }]);
       setTimeout(function() {
         window.location.reload();
-      }, 1000)
+      }, 0)
 
     }).catch(function(err) {
       Notify.show([{
@@ -407,7 +407,7 @@ export default class SettingList extends Component {
 
   }
   confirmUpdateChildSubmit(values) {
-    
+
     Store.dispatch(Actions.callAPI('editSysDicPayment', {}, values)).then(function(response) {
       Notify.show([{
         message: '编辑成功!',
@@ -421,7 +421,7 @@ export default class SettingList extends Component {
     });
     window.setTimeout(function() {
       window.location.reload();
-    }, 1000);
+    }, 0);
     this.openUpdateChildDialog();
 
   }
@@ -444,7 +444,7 @@ export default class SettingList extends Component {
 
     Store.dispatch(change('settingChildUpdateForm', 'id', item.id));
     Store.dispatch(change('settingChildUpdateForm', 'dicName', item.dicName));
-    Store.dispatch(change('settingChildUpdateForm', 'enableflag', item.enableFlag));
+    Store.dispatch(change('settingChildUpdateForm', 'enableFlag', item.enableFlag));
     Store.dispatch(change('settingChildUpdateForm', 'remark', item.remark));
 
   }
@@ -535,7 +535,6 @@ export default class SettingList extends Component {
       );
 
     }
-
 
   }
 
@@ -658,7 +657,7 @@ export default class SettingList extends Component {
       <div>
 
       <BreadCrumbs children={['系统运营','合同信息','基础配置']}/>
-
+      <div className="wrap">
       <Section title="基础配置" description=""> 
 
           <Button label="新建" joinEditForm onTouchTap={this.openCreateDialog} />
@@ -675,7 +674,7 @@ export default class SettingList extends Component {
                 {this.renderCustomerItem()}
              </Table>
       </Section>
-
+      </div>
       <Dialog
         title="新建"
         modal={true}
