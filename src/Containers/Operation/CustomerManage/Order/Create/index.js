@@ -121,7 +121,7 @@ class OrderCreate extends Component {
 			_this.setState({
 				loading:false
 			});
-		},2000);
+		},0);
 
 	}
 
@@ -152,7 +152,7 @@ class OrderCreate extends Component {
 			window.setTimeout(function(){
 				window.top.location.reload();
 				_this.isOk = false;
-			},1000);
+			},0);
 
 
 		}).catch(function(err){
@@ -163,7 +163,7 @@ class OrderCreate extends Component {
 
 			window.setTimeout(function(){
 				_this.isOk = false;
-			},1000);
+			},0);
 
 		});
 

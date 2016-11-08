@@ -181,7 +181,7 @@ export default class OrderDetail extends React.Component {
 				_this.setState({
 					loading: false
 				});
-			}, 1000);
+			}, 0);
 
 		}).catch(function(err) {
 			Notify.show([{

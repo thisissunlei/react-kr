@@ -73,7 +73,7 @@ class DismantlingForm  extends Component{
 
 		window.setTimeout(function(){
 			window.location.reload();
-		},2000);
+		},0);
 		//const {onSubmit} = this.props;
 		//onSubmit && onSubmit(form);
 	}

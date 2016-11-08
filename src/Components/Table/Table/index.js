@@ -291,7 +291,7 @@ export default class Table extends React.Component {
 			_this.setState({
 				loading: false
 			});
-		}, 2000);
+		}, 0);
 
 	}
 
@@ -429,7 +429,7 @@ export default class Table extends React.Component {
 		var _this = this;
 		window.setTimeout(function() {
 			_this.onSelect();
-		}, 1000);
+		}, 0);
 	}
 
 	createTableHeader(base) {

@@ -85,7 +85,7 @@ export default class ReduceDetail extends Component {
 			_this.setState({
 				loading: false
 			});
-		}, 2000);
+		}, 0);
 
 
 	}
