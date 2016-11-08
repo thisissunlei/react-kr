@@ -12,7 +12,14 @@ const config = {
 			 'webpack/hot/dev-server',
     		'webpack/hot/only-dev-server',
 		],
-		vender:path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js'),	
+		lib:[
+			'react',
+			'react-dom',
+			'react-router'
+		],
+		vender:[
+			path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js')
+		],	
 		app:path.join(process.cwd(), '/src/app.js')
 	},
 	resolve: {
@@ -43,9 +50,13 @@ const config = {
 	},
 	noParse: ['/node_modules/'],
 	plugins: [
-		new webpack.NewWatchingPlugin(),
+	 	new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
+		new webpack.optimize.AggressiveMergingPlugin({
+    		  minSizeReduce: 1.5,
+     		  moveToParents: true
+ 		 }),
 		new webpack.NoErrorsPlugin(),
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
@@ -55,6 +66,11 @@ const config = {
 				comments: false,
 			},
 		}),
+		new webpack.optimize.MinChunkSizePlugin({
+   			 compress: {
+     			 warnings: false
+    		}
+  		}),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(env)
 		}),
@@ -64,11 +80,21 @@ const config = {
 			title: '财务管理',
 			filename: 'index.html',
 			template: './src/index.template.html',
-			inject:'body',
+			inject:false,
 			hash:true,
-			cache:true,
+			cache:false,
 			showErrors:true,
-			chunksSortMode:'none'
+			/*
+			chunksSortMode:function(a,b){
+				 if (a.names[0] > b.names[0]) {
+       				 return 1;
+     			 }
+     			 if (a.names[0] < b.names[0]) {
+        			return -1;
+     			 }
+     			 return 0;
+			}
+			*/
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
 	],
@@ -76,6 +102,7 @@ const config = {
     keepalive: true,
     displayErrorDetails:true,
     colors:true,
+    optimizeDebupe:true,
 	module: {
 		exprContextRegExp: /$^/,
 		exprContextCritical: false,
