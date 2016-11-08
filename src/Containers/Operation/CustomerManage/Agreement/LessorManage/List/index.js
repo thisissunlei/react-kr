@@ -110,7 +110,7 @@ export default class LessorManageList extends Component {
 
 		window.setTimeout(function() {
 			window.location.reload();
-		}, 2000);
+		}, 0);
 
 	}
 

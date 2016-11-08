@@ -380,7 +380,7 @@ export default class SettingList extends Component {
 
     window.setTimeout(function() {
       window.location.reload();
-    }, 1000);
+    }, 0);
 
 
   }
@@ -394,7 +394,7 @@ export default class SettingList extends Component {
       }]);
       setTimeout(function() {
         window.location.reload();
-      }, 1000)
+      }, 0)
 
     }).catch(function(err) {
       Notify.show([{
@@ -421,7 +421,7 @@ export default class SettingList extends Component {
     });
     window.setTimeout(function() {
       window.location.reload();
-    }, 1000);
+    }, 0);
     this.openUpdateChildDialog();
 
   }
