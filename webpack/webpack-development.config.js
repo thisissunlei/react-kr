@@ -43,8 +43,14 @@ const config = {
 		filename: '[name].js',
 		publicPath:"/"
 	},
-	noParse: ['/node_modules/'],
-	plugins: [
+	noParse:['/node_modules/'],
+	plugins:[
+
+		new webpack.DllReferencePlugin({
+             context:__dirname,
+           	 manifest: require('./dist/manifest.json'),
+           	 name:'lib'
+        }),
 	/*
 	 	new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
