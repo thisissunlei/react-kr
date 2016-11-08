@@ -338,6 +338,20 @@ class NewCreateForm extends Component {
 		let {
 			changeValues
 		} = this.props;
+		let unitprice = true;
+		stationVos.map(function(item,index){
+			if(!item.unitprice){
+				unitprice = false;
+			}
+			return unitprice;
+		})
+		if(!unitprice){
+			Notify.show([{
+				message: '请输入工位单价!',
+				type: 'danger',
+			}]);
+			return;
+		}
 
 		form.lessorAddress = changeValues.lessorAddress;
 
@@ -604,7 +618,7 @@ class NewCreateForm extends Component {
 
 					<Dialog
 						title="录入单价"
-						autoScrollBodyContent={true}
+						autoScrollBodyContent={true} contentStyle={{width:430}}
 						open={this.state.openStationUnitPrice} onClose={this.openStationUnitPriceDialog}>
 								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>

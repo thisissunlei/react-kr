@@ -140,7 +140,7 @@ export default class JoinDetail extends Component {
 					<KrField component="labelText" label="租赁用途：" value={basic.rentaluse} requireBlue={true}/>
 
 					
-					<KrField component="labelText"  label="备注：" value={basic.contractmark} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText"  label="备注：" value={basic.contractmark} defaultValue="无" requireBlue={true} inline={false}/>
 
 					<KrField component="group" label="上传附件：" requireBlue={true}>
 							{basic.contractFileList && basic.contractFileList.map((item,index)=>{

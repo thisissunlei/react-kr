@@ -73,11 +73,11 @@ export default class LessorManageList extends Component {
 
 	onExport(values) {
 		let idList = [];
-	   if(values.length!=0){
-		values.map((item, value) => {
-			idList.push(item.id)
-		})
-     }
+		if (values.length != 0) {
+			values.map((item, value) => {
+				idList.push(item.id)
+			})
+		}
 		var url = `http://optest.krspace.cn/api/krspace-finance-web/fnacorporationDataExport?corporationIdList=${idList}`
 		window.location.href = url;
 
@@ -155,7 +155,7 @@ export default class LessorManageList extends Component {
 
 					<Grid>
 						<Row>
-							<Col md={4}  align="left"> <Button label="新建出租方" joinEditForm onTouchTap={this.openNewCreateDialog} /> </Col>
+							<Col md={4}  align="left"> <Button width="100" label="新建出租方" joinEditForm onTouchTap={this.openNewCreateDialog} /> </Col>
 							<Col md={8} align="right"> 
 									<SearchForm onSubmit={this.onSearchSubmit} />
 							</Col> 
