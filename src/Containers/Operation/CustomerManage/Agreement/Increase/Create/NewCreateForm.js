@@ -113,12 +113,18 @@ class NewCreateForm extends Component {
 		this.onChangeLeaseBeginDate = this.onChangeLeaseBeginDate.bind(this);
 		this.onChangeLeaseEndDate = this.onChangeLeaseEndDate.bind(this);
 		this.calcStationNum = this.calcStationNum.bind(this);
+		this.onCloseStation = this.onCloseStation.bind(this);
 		this.state = {
 			stationVos: [],
 			selectedStation: [],
 			openStation: false,
 			openStationUnitPrice: false,
 		}
+	}
+	onCloseStation() {
+		this.setState({
+			openStation: !this.state.openStation
+		});
 	}
 
 
@@ -327,13 +333,13 @@ class NewCreateForm extends Component {
 			return;
 		}
 		let unitprice = true;
-		stationVos.map(function(item,index){
-			if(!item.unitprice){
+		stationVos.map(function(item, index) {
+			if (!item.unitprice) {
 				unitprice = false;
 			}
 			return unitprice;
 		})
-		if(!unitprice){
+		if (!unitprice) {
 			Notify.show([{
 				message: '请输入工位单价!',
 				type: 'danger',
@@ -640,7 +646,9 @@ class NewCreateForm extends Component {
 						title="分配工位"
 						autoScrollBodyContent={true}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
-						open={this.state.openStation} >
+						open={this.state.openStation} 
+						onClose={this.onCloseStation}
+						>
 							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
 
@@ -731,7 +739,7 @@ const validate = values => {
 	if (!values.totaldeposit) {
 		errors.totaldeposit = '请填写押金总额';
 	}
-	
+
 	if (values.totaldeposit && isNaN(values.totalrent)) {
 		errors.totaldeposit = '押金总额必须为数字';
 	}

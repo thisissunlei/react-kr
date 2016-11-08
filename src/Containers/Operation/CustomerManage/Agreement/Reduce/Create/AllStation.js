@@ -164,7 +164,7 @@ class SelectStationForm extends Component {
 
 		if (!someStartDate) {
 			Notify.show([{
-				message: '选择的工位必须要有租赁开始时间',
+				message: '选择的工位必须要有减租开始时间',
 				type: 'danger',
 			}]);
 			return;

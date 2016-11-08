@@ -114,7 +114,7 @@ class NewCreateForm extends Component {
 		this.onChangeLeaseEndDate = this.onChangeLeaseEndDate.bind(this);
 
 		this.calcStationNum = this.calcStationNum.bind(this);
-
+		this.onCloseStation = this.onCloseStation.bind(this);
 
 		this.state = {
 			stationVos: [],
@@ -303,6 +303,12 @@ class NewCreateForm extends Component {
 			openStation: !this.state.openStation
 		});
 	}
+	onCloseStation() {
+		this.setState({
+			openStation: !this.state.openStation
+		});
+	}
+
 
 	componentDidMount() {
 		let {
@@ -563,7 +569,7 @@ class NewCreateForm extends Component {
 									<ButtonGroup>
 									    <Button label="录入单价"  onTouchTap={this.openPreStationUnitPriceDialog} />
 										<Button label="删除"  onTouchTap={this.onStationDelete} />
-										<Button label="选择工位"  onTouchTap={this.openStationDialog} />
+										<Button label="选择工位"  onTouchTap={this.openStationDialog}  />
 								  </ButtonGroup>
 								</Col>
 							</Row>
@@ -619,7 +625,9 @@ class NewCreateForm extends Component {
 						title="分配工位"
 						autoScrollBodyContent={true}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
-						open={this.state.openStation} >
+						open={this.state.openStation}
+						onClose={this.onCloseStation}
+						 >
 							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
 
@@ -627,7 +635,10 @@ class NewCreateForm extends Component {
 						title="录入单价"
 						autoScrollBodyContent={true}
 						onCancel={this.openStationUnitPriceDialog}
-						open={this.state.openStationUnitPrice} contentStyle={{width:430}}>
+						open={this.state.openStationUnitPrice}
+						 contentStyle={{width:430}}
+						 onClose={this.openStationUnitPrice}
+						>
 								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
 
