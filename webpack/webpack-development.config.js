@@ -43,7 +43,7 @@ const config = {
 	},
 	noParse: ['/node_modules/'],
 	plugins: [
-
+		new webpack.NewWatchingPlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoErrorsPlugin(),
@@ -58,13 +58,13 @@ const config = {
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(env)
 		}),
-		//new webpack.optimize.CommonsChunkPlugin({name:'common', filename:'common.js'}),
+		new webpack.optimize.CommonsChunkPlugin({name:'common',filename:'common.js',chunks: ["app", "vendor"],minChunks: Infinity}),
 		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
 			title: '财务管理',
 			filename: 'index.html',
 			template: './src/index.template.html',
-			inject:false,
+			inject:'body',
 			hash:true,
 			cache:true,
 			showErrors:true,
