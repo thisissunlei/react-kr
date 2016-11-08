@@ -84,7 +84,7 @@ const config = {
 			title: '财务管理',
 			filename: 'index.html',
 			template: './src/index.template.html',
-			inject:false,
+			inject:'body',
 			hash:true,
 			cache:false,
 			showErrors:true,
@@ -162,6 +162,9 @@ const config = {
 	},
 	eslint: {
 		configFile: '../.eslintrc',
+		failOnWarning: true,
+    	failOnError: true, 
+    	cache: true
 	},
 };
 

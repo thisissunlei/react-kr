@@ -1,5 +1,5 @@
 {
-  "name": "dll",
+  "name": "lib",
   "content": {
     "../node_modules/.0.1.0@simple-assign/index.js": {
       "id": 1,

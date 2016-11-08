@@ -29,39 +29,39 @@ const config = {
 		publicPath:"./"
 	},
 	plugins: [
+		new webpack.DefinePlugin({
+			'process.env': {
+				NODE_ENV: JSON.stringify('production'),
+			}
+		}),
 		new webpack.DllReferencePlugin({
              context:__dirname,
            	 manifest: require('./dist/manifest.json'),
            	 name:'lib'
         }),
         /*
-	 	new webpack.optimize.DedupePlugin(),
-		new webpack.optimize.OccurrenceOrderPlugin(),
-		new webpack.HotModuleReplacementPlugin(),
-		new webpack.optimize.AggressiveMergingPlugin({
-    		  minSizeReduce: 1.5,
-     		  moveToParents: true
- 		 }),
-		new webpack.optimize.UglifyJsPlugin({
+       new webpack.optimize.UglifyJsPlugin({
 			compress: {
-				warnings: false,
+				warnings: true,
 			},
 			output: {
 				comments: false,
 			},
 		}),
+		*/
+	 	new webpack.optimize.DedupePlugin(),
+		new webpack.optimize.OccurrenceOrderPlugin(),
+		new webpack.optimize.AggressiveMergingPlugin({
+    		  minSizeReduce: 1.5,
+     		  moveToParents: true
+ 		 }),
 		new webpack.optimize.MinChunkSizePlugin({
    			 compress: {
      			 warnings: false
-    		}
+    		},
+    		minChunkSize: 10000
   		}),
-
-		new webpack.DefinePlugin({
-			'process.env': {
-				NODE_ENV: JSON.stringify('production'),
-			},
-		}),
-		*/
+  		new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
 		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
 			title: '财务管理',
@@ -126,6 +126,9 @@ const config = {
 	},
 	eslint: {
 		configFile: '../.eslintrc',
+		failOnWarning: true,
+    	failOnError: true, 
+    	cache: true
 	},
 };
 

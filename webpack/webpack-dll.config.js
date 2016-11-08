@@ -12,7 +12,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'lib.js',
-     library: 'lib',
+    library: 'lib',
   },
   plugins: [
     new webpack.DllPlugin({
