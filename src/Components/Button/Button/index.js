@@ -8,6 +8,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import './index.less';
 
 export default class Button extends Component {
+
+	static displayName = 'Button';
+	
 	static defaultProps = {
 		cancle:false,
 		width:80,

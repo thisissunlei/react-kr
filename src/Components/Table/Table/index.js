@@ -13,6 +13,7 @@ import './index.less';
 
 export default class Table extends React.Component {
 
+	static displayName = 'Table';
 	static defaultProps = {
 		page: 1,
 		pageSize: 15,
@@ -511,9 +512,10 @@ export default class Table extends React.Component {
 			if (!React.isValidElement(child)) return;
 			const {
 				muiName,
-				name
+				name,
+				displayName
 			} = child.type;
-			if (name === 'TableHeader') {
+			if (displayName === 'TableHeader') {
 				tHead = this.createTableHeader(child);
 			}
 		});
@@ -561,9 +563,10 @@ export default class Table extends React.Component {
 			if (!React.isValidElement(child)) return;
 			const {
 				muiName,
-				name
+				name,
+				displayName
 			} = child.type;
-			if (name === 'TableBody') {
+			if (displayName === 'TableBody') {
 				tBody = this.createTableBody(child);
 			}
 		});

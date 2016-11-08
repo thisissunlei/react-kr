@@ -39,16 +39,18 @@ const config = {
            	 manifest: require('./dist/manifest.json'),
            	 name:'lib'
         }),
-        /*
+
        new webpack.optimize.UglifyJsPlugin({
-			compress: {
-				warnings: true,
-			},
+			 compress:{
+  			 	 warnings: false,
+    			drop_debugger: true,
+    			drop_console: true
+  			},
 			output: {
 				comments: false,
-			},
+			}
 		}),
-		*/
+
 	 	new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.optimize.AggressiveMergingPlugin({
