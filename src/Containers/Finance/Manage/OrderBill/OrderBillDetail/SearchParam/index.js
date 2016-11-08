@@ -98,9 +98,9 @@ export default class SearchParam extends Component{
 			primaryI:'false',
 			activeI:index,
 		    active:10000,
-	      });
-	     
+	      });    
         }
+
 		var searchParam = {};
 
 		searchParam.accountType = type;

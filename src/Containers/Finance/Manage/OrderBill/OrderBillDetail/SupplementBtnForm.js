@@ -64,9 +64,9 @@ export default class SupplementBtnForm extends Component{
 
 					   <Grid style={{marginTop:20}}>
 						<Row>
-							<Col md={12} align="right">
+							<Col md={12} align="center">
 								<ButtonGroup>
-									<Button  label="确定" type="submit"  onTouchTap={this.onSubmit}/> 
+									<div  className='ui-btn-center'><Button  label="确定" type="submit"  onTouchTap={this.onSubmit}/></div>
 									<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} /> 
 								</ButtonGroup>
 							</Col>

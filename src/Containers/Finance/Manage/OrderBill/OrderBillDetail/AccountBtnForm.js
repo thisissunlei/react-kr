@@ -88,7 +88,7 @@ class AccountBtnForm extends Component{
 					<KrField grid={1/2} name="operatedate" type="date" component="date" label="挂账日期" requireLabel={true}/> 
 					<KrField grid={1/2} name="fileids" component="file" label="上传附件" />
 					
-					<KrField grid={1} name="finaflowamount" type="text" component="input" label="金额（元）" requireLabel={true}/> 
+					<KrField grid={1/2} name="finaflowamount" type="text" component="input" label="金额（元）" requireLabel={true}/> 
 					<KrField grid={1} name="finaflowdesc" type="text" component="textarea" label="备注" /> 
 
 
@@ -96,9 +96,9 @@ class AccountBtnForm extends Component{
 					
 					<Grid style={{marginTop:20}}>
 						<Row>
-							<Col md={12} align="right">
+							<Col md={12} align="center">
 								<ButtonGroup>
-									<Button  label="确定" type="submit" joinEditForm /> 
+									<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div> 
 									<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} /> 
 								</ButtonGroup>
 							</Col>
