@@ -181,7 +181,7 @@ export default class OrderDetail extends React.Component {
 				_this.setState({
 					loading: false
 				});
-			}, 1000);
+			}, 0);
 
 		}).catch(function(err) {
 			Notify.show([{
@@ -365,7 +365,7 @@ export default class OrderDetail extends React.Component {
 				</Row>
 				<Row>
 				<Col md={4} ><KrField label="结束日期：" component="labelText" value={orderBaseInfo.contractLeavedate} type="date" defaultValue="无" alignRight={true}/></Col>
-				<Col md={4} ><KrField label="撤场日期：" component="labelText" value={orderBaseInfo.actualLeavedate} type="date" defaultValue="无" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="撤场日期：" component="labelText" value={orderBaseInfo.actualEntrydate} type="date" defaultValue="无" alignRight={true}/></Col>
 				<Col md={4} ><KrField label="订单总额：" component="labelText" value={orderBaseInfo.contractTotalamount} defaultValue="0" alignRight={true}/></Col>
 				</Row>
 

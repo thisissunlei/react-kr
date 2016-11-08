@@ -5,10 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run dev:webpack",
-    "dev": "set NODE_ENV=development &&  nodemon ./server.js",
-    "dev:webpack": "set NODE_ENV=development  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile --hot --watch --watch-poll",
-    "build": "set NODE_ENV=production  &&  webpack --config ./webpack/webpack-production.config.js --progress --colors --profile",
-    "test": "export NODE_ENV=test && webpack --config ./webpack/webpack-test.config.js --progress --colors --profile"
+    "dev": "npm run dll && set NODE_ENV=development &&  nodemon ./server.js",
+    "dev:webpack": "npm run dll && set NODE_ENV=development  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile --hot --watch --watch-poll",
+    "build": "npm run dll && set NODE_ENV=production  &&  webpack --config ./webpack/webpack-production.config.js --progress --colors --profile",
+    "test": "npm run dll && export NODE_ENV=test && webpack --config ./webpack/webpack-test.config.js --progress --colors --profile",
+    "dll": "export NODE_ENV=production && webpack --config ./webpack/webpack-dll.config.js --progress --colors --profile",
+    "demo": "export NODE_ENV=production && webpack --config ./webpack/webpack-demo.config.js --progress --colors --profile"
   },
   "author": "",
   "license": "ISC",
@@ -32,6 +34,7 @@
     "babel-runtime": "^6.6.1",
     "bower": "^1.7.9",
     "co-views": "^2.1.0",
+    "copy-webpack-plugin": "^4.0.0",
     "css-loader": "^0.23.1",
     "dateformat": "^1.0.12",
     "es6-promise": "^4.0.5",

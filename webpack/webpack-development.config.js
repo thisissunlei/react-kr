@@ -3,6 +3,7 @@ const path = require('path');
 const buildPath = path.join(process.cwd(), '/static');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var env = process.env.NODE_ENV || 'development';
 
@@ -43,8 +44,14 @@ const config = {
 		filename: '[name].js',
 		publicPath:"/"
 	},
-	noParse: ['/node_modules/'],
-	plugins: [
+	noParse:['/node_modules/'],
+	plugins:[
+
+		new webpack.DllReferencePlugin({
+             context:__dirname,
+           	 manifest: require('./dist/manifest.json'),
+           	 name:'lib'
+        }),
 	/*
 	 	new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
@@ -78,7 +85,7 @@ const config = {
 			title: '财务管理',
 			filename: 'index.html',
 			template: './src/index.template.html',
-			inject:false,
+			inject:'body',
 			hash:true,
 			cache:false,
 			showErrors:true,
@@ -156,6 +163,9 @@ const config = {
 	},
 	eslint: {
 		configFile: '../.eslintrc',
+		failOnWarning: true,
+    	failOnError: true, 
+    	cache: true
 	},
 };
 

@@ -13,6 +13,8 @@ import './index.less';
 
 export default class TableFooter extends React.Component {
 
+	static displayName = 'TableFooter';
+
 	static defaultProps = {
 		exportSwitch: false,
 	}

@@ -6,6 +6,9 @@ import './index.less';
 
 export default class ListGroup extends Component {
 
+
+	static displayName = 'ListGroup';
+	
 	static defaultProps = {
 		inline:true
 	}

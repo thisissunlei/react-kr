@@ -77,7 +77,7 @@ export default class ExitDetail extends Component {
 			_this.setState({
 				loading: false
 			});
-		}, 2000);
+		}, 0);
 	}
 
 	componentWillMount() {
