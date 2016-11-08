@@ -99,7 +99,6 @@ export default class JoinDetail extends Component {
 			fontSize:14
 		}
 		const info = {
-			overflow: 'hidden',
 			padding: '30px 70px'
 		}
 
@@ -108,25 +107,25 @@ export default class JoinDetail extends Component {
 				  	<View label="入驻协议书详情页"/>
 				  	<div className="content-info" style={info} >
 				  			
-					<KrField component="labelText" grid={1/2} label="出租方" value={basic.lessorName} defaultValue="无" requireBlue={true}/>
-					<KrField component="labelText" grid={1/2} left={60} label="地址" value={basic.lessorAddress} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} label="出租方：" value={basic.lessorName} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} left={60} label="地址：" value={basic.lessorAddress} defaultValue="无" requireBlue={true}/>
 
-					<KrField component="labelText" grid={1/2} label="联系人" value={basic.lessorContactName} defaultValue="无" requireBlue={true}/>
-					<KrField component="labelText" grid={1/2} left={60} label="电话" value={basic.lessorContacttel} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} label="联系人：" value={basic.lessorContactName} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} left={60} label="电话：" value={basic.lessorContacttel} defaultValue="无" requireBlue={true}/>
 
-					<KrField component="labelText" grid={1/2} label="承租方" value={basic.customerName} defaultValue="无" requireBlue={true}/>
-					<KrField component="labelText" grid={1/2} left={60} label="地址" value={basic.leaseAddress} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} label="承租方：" value={basic.customerName} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} left={60} label="地址：" value={basic.leaseAddress} defaultValue="无" requireBlue={true}/>
 
-					<KrField component="labelText" grid={1/2} label="联系人" value={basic.leaseContact} defaultValue="无" requireBlue={true}/>
-					<KrField component="labelText" grid={1/2} left={60} label="电话" value={basic.leaseContacttel} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} label="联系人：" value={basic.leaseContact} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} left={60} label="电话：" value={basic.leaseContacttel} defaultValue="无" requireBlue={true}/>
 					<SplitLine />
-					<KrField component="labelText" grid={1/2} label="所属社区" value={basic.communityName} defaultValue="无" requireBlue={true}/>
-					<KrField component="labelText" grid={1/2} left={60} label="所属楼层" value={basic.wherefloor} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} label="所属社区：" value={basic.communityName} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} left={60} label="所属楼层：" value={basic.wherefloor} defaultValue="无" requireBlue={true}/>
 
-					<KrField component="labelText" grid={1/2} label="地址" value={basic.communityAddress} defaultValue="无" requireBlue={true}/>
-					<KrField component="labelText" grid={1/2} left={60} label="合同编号" value={basic.contractcode} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} label="地址：" value={basic.communityAddress} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} left={60} label="合同编号：" value={basic.contractcode} defaultValue="无" requireBlue={true}/>
 
-					<KrField component="labelText" grid={1/2} label="支付方式" value={basic.payType && basic.payType.dicName} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} label="支付方式：" value={basic.payType && basic.payType.dicName} defaultValue="无" requireBlue={true}/>
 					<KrField component="labelText" grid={1/2} left={60} label="租赁期限：" value={`${dateFormat(basic.leaseBegindate,"yyyy-mm-dd")}——${dateFormat(basic.leaseEnddate,"yyyy-mm-dd")}`} defaultValue="无" requireBlue={true}/>
 					<KrField component="labelText" grid={1/2} label="首付款时间：" value={ dateFormat(basic.firstpaydate,"yyyy-mm-dd")} defaultValue="0" requireBlue={true}/>
 					<KrField component="labelText" grid={1/2} left={60} label="付款方式：" value={basic.payment && basic.payment.dicName} defaultValue="无" requireBlue={true}/>
@@ -136,13 +135,13 @@ export default class JoinDetail extends Component {
 					<KrField component="labelText" left={60} label="租赁工位：" grid={1/2}  value={basic.stationnum} requireBlue={true} defaultValue="0"/>
 					<KrField component="labelText" label="租赁办公室：" grid={1/2} value={basic.boardroomnum} requireBlue={true} defaultValue="0"/>
 
-					<KrField component="labelText" grid={1/2}  left={60} label="租金总额" value={basic.totalrent} defaultValue="0" requireBlue={true}/>
-					<KrField component="labelText" grid={1/2} label="押金总额" value={basic.totaldeposit} defaultValue="0" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2}  left={60} label="租金总额：" value={basic.totalrent} defaultValue="0" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} label="押金总额：" value={basic.totaldeposit} defaultValue="0" requireBlue={true}/>
 					<KrField component="labelText" label="租赁用途：" value={basic.rentaluse} requireBlue={true} defaultValue="无"/>
 
-					<KrField component="labelText"  label="备注" value={basic.contractmark} defaultValue="无" requireBlue={true} inline={false}/>
+					<KrField component="labelText"  label="备注：" value={basic.contractmark} defaultValue="无" requireBlue={true} inline={false}/>
 
-					<KrField component="group" label="上传附件" requireBlue={true}>
+					<KrField component="group" label="上传附件：" requireBlue={true}>
 							{basic.contractFileList && basic.contractFileList.map((item,index)=>{
 								return <Button label={item.fileName} type="link" href={item.fileUrl} key={index}/>
 							})}
