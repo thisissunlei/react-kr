@@ -32,8 +32,9 @@ const config = {
 		new webpack.DllReferencePlugin({
              context:__dirname,
            	 manifest: require('./dist/manifest.json'),
-           	 name:'dll'
+           	 name:'lib'
         }),
+        /*
 	 	new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
@@ -54,6 +55,13 @@ const config = {
      			 warnings: false
     		}
   		}),
+
+		new webpack.DefinePlugin({
+			'process.env': {
+				NODE_ENV: JSON.stringify('production'),
+			},
+		}),
+		*/
 		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
 			title: '财务管理',

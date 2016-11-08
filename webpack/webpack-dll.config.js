@@ -3,17 +3,21 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: {
-    dll: ['react', 'react-dom','material-ui']
+    lib: [
+      'react', 
+      'react-dom',
+      'material-ui',
+    ]
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'dll.js',
-     library: 'dll',
+    filename: 'lib.js',
+     library: 'lib',
   },
   plugins: [
     new webpack.DllPlugin({
       path: path.join(__dirname,'dist','manifest.json'),
-      name: 'dll',
+      name: 'lib',
       context:__dirname
     })
   ]
