@@ -36,7 +36,7 @@ function getUrl(path, params = {},mode = false) {
     if(Object.keys(params).length){
         for (let item in params) {
             if (params.hasOwnProperty(item)) {
-                server = server.replace('{' + item + '}', params[item]);
+                server = server.replace('{' + item + '}', encodeURI(params[item]));
                 delete params[item];
             }
         }
