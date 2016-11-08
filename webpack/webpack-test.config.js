@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-const buildPath = path.join(process.cwd(), '/test');
+const buildPath = path.join(process.cwd(), '/webpack/dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -8,7 +8,9 @@ var env = process.env.NODE_ENV || 'test';
 
 const config = {
 	entry:{
-		vender:[path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js')],	
+		vender:[
+			path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js')
+		],	
 		app:path.join(process.cwd(), '/src/app.js'),
 	},
 	resolve: {
@@ -27,7 +29,11 @@ const config = {
 		publicPath:"./"
 	},
 	plugins: [
-
+		new webpack.DllReferencePlugin({
+             context:__dirname,
+           	 manifest: require('./dist/manifest.json'),
+           	 name:'dll'
+        }),
 	 	new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
@@ -53,7 +59,7 @@ const config = {
 			title: '财务管理',
 			filename: 'index.html',
 			template: './src/index.template.html',
-			inject:false,
+			inject:'body',
 			hash:true,
 			cache:true,
 			showErrors:true,
