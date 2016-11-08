@@ -475,7 +475,7 @@ export default class OrderDetail extends React.Component {
 			title="新建合同"
 			modal={true}
 			onClose={this.openCreateAgreementDialog}
-			open={this.state.openCreateAgreement} >
+			open={this.state.openCreateAgreement}  contentStyle={{width:687}}>
 				<NewCreatForm contractStatusCount={contractStatusCount} params={this.props.params}/>
 
 
