@@ -64,7 +64,7 @@ const config = {
 			title: '财务管理',
 			filename: 'index.html',
 			template: './src/index.template.html',
-			inject:'body',
+			inject:false,
 			hash:true,
 			cache:true,
 			showErrors:true,
