@@ -49,6 +49,7 @@ export default class JoinCreate extends Component {
 
 	onCreateSubmit(formValues) {
 		formValues = Object.assign({}, formValues);
+		let {params} = this.props;
 		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract', {}, formValues)).then(function(response) {
 			Notify.show([{
 				message: '更新成功',

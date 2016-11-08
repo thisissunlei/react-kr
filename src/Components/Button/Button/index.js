@@ -78,7 +78,7 @@ export default class Button extends Component {
 
 			return (
 				<div className="ui-button">
-					<FlatButton backgroundColor={backgroundColor} labelColor={labelColor} label={label} primary={true} style={{minWidth:30}}  {...other}  />
+					<FlatButton backgroundColor={backgroundColor} labelColor={labelColor} label={label} primary={true} style={{minWidth:30,color:'#499df1'}}  {...other}  />
 				</div>
 			);
 		}
