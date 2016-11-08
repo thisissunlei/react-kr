@@ -40,7 +40,6 @@ export default class LabelTextComponent extends React.Component {
 		} = this.props;
 
 		if (type == 'date') {
-			console.log('--------value', value);
 			return (
 
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} requireBlue={requireBlue} alignRight={alignRight}>

@@ -355,7 +355,6 @@ export default class EmployessTable extends Component {
 				}]);
 
 			}).catch(function(err) {
-				console.log('000e', err);
 				Notify.show([{
 					message: err.message,
 					type: 'danger',

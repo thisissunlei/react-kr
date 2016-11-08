@@ -38,7 +38,6 @@ export default  class Schedule extends Component {
 
   render() {
   	let {community} = this.props;
-  	console.log('======',community);
     return (
 		 <div>
 			<BasicTable community={community}/>

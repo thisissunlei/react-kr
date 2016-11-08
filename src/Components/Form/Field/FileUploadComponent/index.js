@@ -142,7 +142,6 @@ export default class FileUploadComponent extends React.Component {
 	onSuccess(response) {
 		response = Object.assign({}, response);
 
-		console.log("---", response);
 		let {
 			form
 		} = this.state;
