@@ -3,7 +3,7 @@ ul,li{
 }
 
 .ui-adminBook{
-	height:20px;
+	height:14px;
 	-moz-border-radius:20px;
 	-ms-border-radius:20px;
 	-webkit-border-radius:20px;
@@ -14,8 +14,8 @@ ul,li{
 	margin-bottom:25px;
 }
 .ui-circle{
-   width:35px;
-   height:35px;
+   width:30px;
+   height:30px;
    -moz-border-radius:50%;
 	-ms-border-radius:50%;
 	-webkit-border-radius:50%;
@@ -23,14 +23,14 @@ ul,li{
 	border:2px solid #499df1;
 	position: relative;
 	background:#fff;
-	margin-top:-8px;
+	margin-top:-10px;
 	display:block;
 	margin-right:auto;
 	margin-left:auto;
 	&:before{
 		content:'';
-		width: 25px;
-		height: 25px;
+		width: 20px;
+		height: 20px;
 		position: absolute;
 		border-radius: 25px;
 		background-color: #499df1;
@@ -40,9 +40,9 @@ ul,li{
 }
 
 .ui-circle-dot{
-   width:25px;
-   height:25px;
-   border:dotted 3px #499df1;
+   width:22px;
+   height:22px;
+   border:dotted 2px #499df1;
    -moz-border-radius:50%;
 	-ms-border-radius:50%;
 	-webkit-border-radius:50%;
@@ -115,4 +115,14 @@ span{
 			color: #ffffff !important;
 	    }
 	}
+}
+
+.row{
+	&:first-child{
+		.createButton{
+			margin-top:25px !important;
+			margin-bottom:10px !important;
+		}
+	}
+	
 }
