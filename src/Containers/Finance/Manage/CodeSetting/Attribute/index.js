@@ -138,11 +138,12 @@ export default class AttributeSetting extends Component {
 
 	onExport(values) {
 
-		const idList = [];
+		let idList = [];
+		if(values.length!=0){
 		values.map((item, value) => {
 			idList.push(item.id)
-			return idList;
 		})
+	 }
 		var url = `http://optest.krspace.cn/api/krspace-finance-web/finaccount/property/exportDatas?ids=${idList}`
 		window.location.href = url;
 
