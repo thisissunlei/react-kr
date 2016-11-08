@@ -326,6 +326,20 @@ class NewCreateForm extends Component {
 			}]);
 			return;
 		}
+		let unitprice = true;
+		stationVos.map(function(item,index){
+			if(!item.unitprice){
+				unitprice = false;
+			}
+			return unitprice;
+		})
+		if(!unitprice){
+			Notify.show([{
+				message: '请输入工位单价!',
+				type: 'danger',
+			}]);
+			return;
+		}
 
 
 		let {
