@@ -28,6 +28,26 @@ const config = {
 	},
 	plugins: [
 
+	 	new webpack.optimize.DedupePlugin(),
+		new webpack.optimize.OccurrenceOrderPlugin(),
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.optimize.AggressiveMergingPlugin({
+    		  minSizeReduce: 1.5,
+     		  moveToParents: true
+ 		 }),
+		new webpack.optimize.UglifyJsPlugin({
+			compress: {
+				warnings: false,
+			},
+			output: {
+				comments: false,
+			},
+		}),
+		new webpack.optimize.MinChunkSizePlugin({
+   			 compress: {
+     			 warnings: false
+    		}
+  		}),
 		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
 			title: '财务管理',

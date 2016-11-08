@@ -633,7 +633,8 @@ class NewCreateForm extends Component {
 					<Dialog
 						title="录入单价"
 						autoScrollBodyContent={true}
-						open={this.state.openStationUnitPrice} >
+						open={this.state.openStationUnitPrice} contentStyle={{width:430}}
+						onClose={this.openStationUnitPriceDialog}>
 								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
 

@@ -633,9 +633,7 @@ const validate = values => {
 	if (!values.templockday) {
 		errors.templockday = '请填写保留天数';
 	}
-	if (!values.stationnum && !values.boardroomnum) {
-		errors.stationnum = '租赁项目必须填写一项';
-	}
+	
 
 	if (!values.contractcode) {
 		errors.contractcode = '请填写合同编号';
