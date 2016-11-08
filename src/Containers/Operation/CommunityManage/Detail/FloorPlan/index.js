@@ -53,16 +53,12 @@ export default  class FloorPlan extends Component {
 			});
 		}
 
-		
 
 	}
 
 
 	onLoad(iframeWindow){
-
 		this.iframeWindow = iframeWindow;
-		console.log('-----------load', iframeWindow.document.body.scrollWidth);
-
 
 	}
 

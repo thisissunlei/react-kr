@@ -79,10 +79,6 @@ export default class CommunityManage extends Component {
 		});
 	}
 	selectCommunity(personel) {
-
-		console.log('change', personel);
-
-		// Store.dispatch(change('selectCommunityForm','community',personel.label));
 		this.getCommunityFloors(personel.id);
 		this.setState({
 			community: personel.id

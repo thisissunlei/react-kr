@@ -42,7 +42,6 @@ import {
 		 initialValues.ordernum = detail.ordernum;
 		 initialValues.accountdesc = detail.accountdesc;
 
-		 console.log('---',initialValues);
 
 		Store.dispatch(initialize('newCreateForm',initialValues));
 		Store.dispatch(change('newCreateForm','enableflag','ENABLE'));
