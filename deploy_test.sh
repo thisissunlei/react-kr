@@ -1,5 +1,6 @@
 #!/bin/bash
 
+npm run  dll
 npm run  test 
 
 target_site=www@10.1.60.201
