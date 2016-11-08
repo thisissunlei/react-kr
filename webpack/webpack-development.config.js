@@ -12,11 +12,6 @@ const config = {
 			 'webpack/hot/dev-server',
     		'webpack/hot/only-dev-server',
 		],
-		lib:[
-			'react',
-			'react-dom',
-			'react-router'
-		],
 		vender:[
 			path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js')
 		],	
@@ -66,13 +61,14 @@ const config = {
 				comments: false,
 			},
 		}),
+
 		*/
-		new webpack.NoErrorsPlugin(),
 		new webpack.optimize.MinChunkSizePlugin({
    			 compress: {
      			 warnings: false
     		}
   		}),
+		new webpack.NoErrorsPlugin(),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(env)
 		}),
@@ -102,8 +98,9 @@ const config = {
 	],
 	watch: true,
     keepalive: true,
-    displayErrorDetails:true,
+    //displayErrorDetails:true,
     colors:true,
+    hot:true,
     optimizeDebupe:true,
 	module: {
 		exprContextRegExp: /$^/,
@@ -114,6 +111,9 @@ const config = {
 				loaders: [
 					'babel-loader',
 				],
+				include: [
+               		 path.join(process.cwd(), './src'),
+              	],
 				exclude: /(node_modules|bower_components|static|test|build|configs)/
 			},
 			{
