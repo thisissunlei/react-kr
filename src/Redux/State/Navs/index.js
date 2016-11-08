@@ -22,16 +22,20 @@ module.exports = {
 			primaryText:"首页",
 			router:'index',
 			menuCode:'index',
+			permission:true,
 		},
 		{
 			primaryText:"社区经营",
 			router:'community',
+			permission:true,
 			menuItems:[
 				{
 					primaryText:"社区管理",
+					permission:true,
 					menuItems:[
 						{
 							primaryText:'计划表',
+							permission:true,
 						},
 						{
 							primaryText:'访客记录',
@@ -46,11 +50,13 @@ module.exports = {
 			primaryText:"运营平台",
 			router:'operation',
 			menuCode:'operate',
+			permission:true,
 			menuItems:[
 				{
 					primaryText:"客户管理",
 					router:'communityManage',
 					menuCode:'coustomerInfoList',
+					permission:true,
 					menuItems:[
 						{
 							primaryText:'客户列表',
@@ -62,6 +68,7 @@ module.exports = {
 					primaryText:"社区配置",
 					router:'communityManage',
 					menuCode:'communityBaseAdmin',
+					permission:true,
 					menuItems:[
 						{
 							primaryText:'社区列表',
@@ -99,6 +106,7 @@ module.exports = {
 					primaryText:"基础配置",
 					router:'BaseManage',
 					menuCode:'basic_config',
+					permission:true,
 					menuItems:[
 						{
 							primaryText:"出租方管理",
@@ -136,6 +144,7 @@ module.exports = {
 			primaryText:"会员中心",
 			router:'member',
             menuCode:'member',
+            permission:true,
 			menuItems:[
 				{
 					primaryText:'会员管理',
@@ -148,6 +157,7 @@ module.exports = {
 		{
 			primaryText:"财务系统",
 			router:'finance',
+			permission:true,
 			menuItems:[
 				{
 					primaryText:"财务管理",
@@ -173,6 +183,7 @@ module.exports = {
 			primaryText:"商品零售",
 			router:'retail',
 			menuCode:'krspace_retail',
+			permission:true,
 			menuItems:[
 				{
 					primaryText:'零售看板',
@@ -216,6 +227,7 @@ module.exports = {
 					primaryText:'订单管理',
 					menuCode:'ordersManager',
 					router:'ordersManager',
+					permission:true,
 					menuItems:[
 						{
 							primaryText:'全部订单',
