@@ -238,9 +238,7 @@ export default class Table extends React.Component {
 			}
 		});
 
-		if (!exportData.length) {
-			exportData = listData;
-		}
+       
 
 		onExport && onExport(exportData, exportRows);
 
