@@ -175,7 +175,7 @@ export default class JoinDetail extends Component {
 											{item.unitprice}
 										</TableRowColumn>
 										<TableRowColumn><Date.Format value={item.leaseBeginDate}/></TableRowColumn>
-										<TableRowColumn><Date.Format value={item.leaseEnddate}/></TableRowColumn>
+										<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
 									</TableRow>
 								);
 								})
@@ -230,7 +230,7 @@ export default class JoinDetail extends Component {
 			  <Grid style={{marginTop:30}}>
 				  <Row>
 					  <Col md={5} align="center"></Col>
-					 	<Col md={2} align="center"> <RaisedButton  label="返回"  type="href" joinEditForm href={getOrderUrl()}/> </Col>
+					 	<Col md={2} align="center">  <Button  label="返回"  type="href" joinEditForm href={getOrderUrl()}/></Col>
 					  <Col md={5} align="center"></Col>
 				  </Row>
 			  </Grid>

@@ -189,7 +189,7 @@ export default class AttributeSetting extends Component {
 
 					<Grid>
 						<Row>
-							<Col md={4} align="left"> <Button label="新建科目" joinEditForm onTouchTap={this.openNewCreateDialog}  /> </Col>
+							<Col md={4} align="left"> <Button label="新建科目" type='button' joinEditForm onTouchTap={this.openNewCreateDialog}  /> </Col>
 							<Col md={8} align="right">
 								
 								<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>

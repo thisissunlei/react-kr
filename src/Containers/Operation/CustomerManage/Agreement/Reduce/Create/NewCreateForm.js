@@ -323,8 +323,8 @@ class NewCreateForm extends Component {
 				<TableHeaderColumn>类别</TableHeaderColumn>
 				<TableHeaderColumn>编号／名称</TableHeaderColumn>
 				<TableHeaderColumn>单价(元/月)</TableHeaderColumn>
-					<TableHeaderColumn>开始时间</TableHeaderColumn>
-						<TableHeaderColumn>减租开始日期</TableHeaderColumn>
+					<TableHeaderColumn>减租开始时间</TableHeaderColumn>
+						<TableHeaderColumn>减租结束日期</TableHeaderColumn>
 						</TableHeader>
 						<TableBody>
 						{stationVos.map((item,index)=>{
@@ -335,8 +335,8 @@ class NewCreateForm extends Component {
 									<TableRowColumn>
 											{item.unitprice}
 									</TableRowColumn>
-									<TableRowColumn> <KrDate.Format value={item.leaseBeginDate}/></TableRowColumn>
-									<TableRowColumn><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
+									<TableRowColumn> <KrDate.Format value={item.leaseBegindate}/></TableRowColumn>
+									<TableRowColumn><KrDate.Format value={item.leaseEnddate}/></TableRowColumn>
 
 									</TableRow>
 							);

@@ -56,7 +56,8 @@ import {
 	Notify,
 	KrDate,
 	DotTitle,
-	ButtonGroup
+	ButtonGroup,
+	Paper
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -258,7 +259,7 @@ class NewCreateForm extends Component {
 		} = this.state;
 
 		return (
-			<div>
+			<Paper width={968}>
 
 <form onSubmit={handleSubmit(this.onSubmit)}>
 
@@ -289,13 +290,13 @@ class NewCreateForm extends Component {
 				<KrField left={60} name="firstpaydate" grid={1/2} component="date" label="首付款时间"  requireLabel={true} /> 
 
 				<KrField right={60} grid={1/2}  name="signdate"  component="date"  label="签署时间" requireLabel={true} />
-				<KrField right={60} grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"  requireLabel={true} /> 
+				<KrField right={0} grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"  requireLabel={true} /> 
 
 				<KrField right={60} grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" requireLabel={true} /> 
 
-				<KrField right={60} grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true}  />
+				<KrField left={60} grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true}  />
 
-				<KrField right={60} grid={1/1}  name="contractmark" component="textarea" label="备注" />
+				<KrField right={0} grid={1/1}  name="contractmark" component="textarea" label="备注" />
 
 				<KrField grid={1}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
 				<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
@@ -366,7 +367,7 @@ class NewCreateForm extends Component {
 					  </Dialog>
 
 
-			</div>);
+			</Paper>);
 	}
 }
 
