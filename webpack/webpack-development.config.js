@@ -33,7 +33,7 @@ const config = {
 	  stats: 'normal',
   },
 	externals: { 
-		React:true
+		React:true,
 	}, 
 	devtool: 'eval-source-map',
 	output: {
@@ -43,6 +43,7 @@ const config = {
 	},
 	noParse: ['/node_modules/'],
 	plugins: [
+
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoErrorsPlugin(),

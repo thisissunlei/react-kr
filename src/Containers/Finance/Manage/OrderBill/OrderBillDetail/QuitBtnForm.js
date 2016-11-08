@@ -107,16 +107,16 @@ class QuitBtnForm extends Component {
                             <KrField label="金额（元）" grid={1/2} name="finaflowamount" component="input" type="text" requireLabel={true}/>
                             <KrField label="上传附件" grid={1/2} name="fileids" component="file"/>
                             <KrField type="date" label="退款日期" name="operatedate" requireLabel={true}/>
-                            <KrField label="备注" name="finaflowdesc" component="textarea" type="text"/>
+                            <KrField label="备注" name="finaflowdesc" component="textarea"  placeholder='请输入备注,文字不能超过100字'/>
                            
 
 				
-						   <Grid style={{marginTop:20}}>
+						   <Grid style={{marginTop:10,marginBottom:5}}>
 							<Row>
-								<Col md={12} align="right">
+								<Col md={12} align="center">
 									<ButtonGroup>
-										<Button  label="确定" type="submit" joinEditForm />
-										<Button  label="取消" type="button"  onTouchTap={this.onCancel} />
+										<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm/></div>
+										<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 									</ButtonGroup>
 								</Col>
 							</Row>

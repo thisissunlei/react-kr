@@ -72,6 +72,68 @@ import {
 	Store
 } from 'kr/Redux';
 
+class NewCreatForm extends Component {
+	static PropTypes = {
+		contractStatusCount: React.PropTypes.object,
+		params: React.PropTypes.object,
+
+	}
+	constructor(props, context) {
+		super(props, context);
+	}
+
+	render() {
+		let {
+			contractStatusCount,
+			params
+		} = this.props;
+
+		return (
+			<Grid style={{paddingBottom:20}}>
+				<Row>
+				<Col md={4} align="center"> 
+					{
+					 contractStatusCount.enterTotoal>0?<a className="createButton" href={"./#/operation/customerManage/"+params.customerId+"/order/"+this.props.params.orderId+"/agreement/admit/create"}>承租意向书</a>:<span className="createButton disabled">承租意向书</span>
+					}
+				</Col>
+				<Col md={4} align="center">
+					{
+					  contractStatusCount.enterTotoal>0?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/join/create"}>入驻协议书</a>	:<span className="createButton disabled">入驻协议书</span>
+					}
+				</Col>
+				<Col md={4} align="center">
+					{
+						contractStatusCount.addRentTotoal>0?<a  className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/increase/create"}>增租协议书</a>:<span className="createButton disabled">增租协议书</span>
+					}
+				</Col>
+				</Row>
+
+				<Row style={{marginTop:10}}>
+				<Col md={4} align="center" >
+				   {
+				   	contractStatusCount.renewComplete>0?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/renew/create"}>续租协议书</a>:<span className="createButton disabled">续租协议书</span>
+				   }
+				</Col>
+				<Col md={4} align="center">
+					{
+						contractStatusCount.lessRentComplete>0?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/reduce/create"} >减租协议书</a>:<span className="createButton disabled">减租协议书</span>
+					}
+				</Col>
+				<Col md={4} align="center">
+					{
+					contractStatusCount.quitRentTotoal>0?<a  className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/exit/create"} >退租协议书</a>:<span className="createButton disabled">退租协议书</span>
+					}
+				</Col>
+				</Row>
+
+				</Grid>
+
+
+
+		)
+	}
+
+}
 export default class OrderDetail extends React.Component {
 
 	constructor(props, context) {
@@ -417,28 +479,7 @@ export default class OrderDetail extends React.Component {
 			modal={true}
 			onClose={this.openCreateAgreementDialog}
 			open={this.state.openCreateAgreement} >
-
-
-			<Grid style={{paddingBottom:20}}>
-			<Row>
-			<Col md={4} align="center"> 
-				<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/admit/create"}>承租意向书</a>
-				</Col>
-			<Col md={4} align="center">
-				<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/join/create"}>入驻协议书</a>
-			</Col>
-
-			<Col md={4} align="center">
-				<a  className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/increase/create"}>增租协议书</a></Col>
-			</Row>
-
-			<Row style={{marginTop:10}}>
-			<Col md={4} align="center" ><a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/renew/create"}>续租协议书</a></Col>
-			<Col md={4} align="center"><a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/reduce/create"} >减租协议书</a></Col>
-			<Col md={4} align="center"><a  className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/exit/create"} >退租协议书</a></Col>
-			</Row>
-
-			</Grid>
+				<NewCreatForm contractStatusCount={contractStatusCount} params={this.props.params}/>
 
 
 			</Dialog>

@@ -109,8 +109,8 @@ import {
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<Button  label="确定" type="submit" joinEditForm />
-								<Button  label="取消" type="button"  onTouchTap={this.onCancel} />
+								<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div>
+								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 							</ButtonGroup>
 						</Col>
 					</Row>

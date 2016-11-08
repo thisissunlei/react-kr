@@ -20,6 +20,7 @@ import {
 	Row,
 	Col,
 	Dialog,
+
 } from 'kr-ui';
 
 export default class Initialize  extends Component{
@@ -30,9 +31,7 @@ export default class Initialize  extends Component{
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
 
-	componentDidMount() {
 
-	}
 
 	render(){
         

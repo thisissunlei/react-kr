@@ -87,7 +87,7 @@ class BusinessBtnForm extends Component{
                  
 					      <form onSubmit={handleSubmit(this.onSubmit)}>
                              <KrField  name="id" type="hidden"/>
-                            <KrField label="款项金额" component="labelText" value={fiMoney} inline={false} defaultValue="无"/>
+                            <KrField grid={1/2} label="款项金额" component="labelText" value={fiMoney} inline={false} defaultValue="无"/>
                             <KrField grid={1/2} label="金额（元）" name="finaflowamount" component="input" type="text" requireLabel={true}/>
                             <KrField grid={1/2} label="上传附件" name="fileids" component="file"/>
                             <KrField grid={1} label="备注" name="finaflowdesc" component="textarea" type="text"/>
@@ -96,10 +96,10 @@ class BusinessBtnForm extends Component{
 
 					<Grid style={{marginTop:20}}>
 						<Row>
-							<Col md={12} align="right">
+							<Col md={12} align="center">
 								<ButtonGroup>
-									<Button  label="确定" type="submit" joinEditForm />
-									<Button  label="取消" type="button"  onTouchTap={this.onCancel} />
+									<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div>
+									<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 								</ButtonGroup>
 							</Col>
 						</Row>

@@ -544,8 +544,8 @@ class NewCreateForm extends Component {
 				
 
 				
-				<KrField grid={1/2}  name="stationnum"  component="labelText" right={60} label="租赁工位" value={changeValues.stationnum} defaultValue="0" inline={false}/>
-				<KrField grid={1/2}  name="boardroomnum"  component="labelText" left={60} label="租赁会议室" value={changeValues.station} defaultValue="0" inline={false}/>
+				<KrField grid={1/2}  name="stationnum"  component="labelText" right={60} label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>
+				<KrField grid={1/2}  name="boardroomnum"  component="labelText" left={60} label="租赁会议室" value={changeValues.station} defaultValue="0" requireLabel={true} inline={false}/>
 
 				<KrField  grid={1}  name="rentaluse" type="text" component="input" right={0} label="租赁用途" placeholder="办公使用" requireLabel={true}  />
 

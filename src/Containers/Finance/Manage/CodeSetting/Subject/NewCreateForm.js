@@ -54,15 +54,15 @@ import {
 
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
-				<KrField name="accountcode" type="text" label="科目编码" requireLabel={true}/> 
-				<KrField name="accountname" type="text" label="科目名称" requireLabel={true}/> 
-				<KrField name="accounttype" type="select" label="科目类别" options={[
+				<KrField grid={1/2} name="accountcode" type="text" label="科目编码" requireLabel={true}/> 
+				<KrField grid={1/2} name="accountname" type="text" label="科目名称" requireLabel={true}/> 
+				<KrField grid={1/2} name="accounttype" type="select" label="科目类别" options={[
 						{value:'INCOME',label:'收入'},
 						{value:'PAYMENT ',label:'回款'},
 				]} requireLabel={true}>
 				</KrField>
-				<KrField name="ordernum" type="text" label="排序号" requireLabel={true}/> 
-				<KrField name="enableflag" component="group" label="是否启用" requireLabel={true}>
+				<KrField grid={1/2} name="ordernum" type="text" label="排序号" requireLabel={true}/> 
+				<KrField grid={1/2} name="enableflag" component="group" label="是否启用" requireLabel={true}>
 						<KrField name="enableflag" grid={1/2} label="是" type="radio" value="ENABLE"/>
 						<KrField name="enableflag" grid={1/2} label="否" type="radio" value="DISENABLE" />
               </KrField> 
@@ -70,10 +70,10 @@ import {
 
 				<Grid style={{marginTop:30}}>
 					<Row>
-						<Col md={12} align="right">
+						<Col md={12} align="center">
 							<ButtonGroup>
-							<Button  label="确定" type="submit" joinEditForm />
-							<Button  label="取消" type="button"  onTouchTap={this.onCancel} />
+							<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div>
+							<Button  label="取消" type="button"  cancle={true}  onTouchTap={this.onCancel} />
 							</ButtonGroup>
 						</Col>
 					</Row>

@@ -48,11 +48,14 @@ export default class SearchParam extends Component{
 		super(props, context);
         this.onHandleOver=this.onHandleOver.bind(this);
 		this.onSearch = this.onSearch.bind(this);
+		this.onLeave=this.onLeave.bind(this);
 		this.state = {	
 		  primaryR:'true',
 		  primaryI:'false',
 		  active:10000,
 		  activeI:10000,
+		  myReceive:10000,
+		  myIncome:10000
 		}
        
 	}
@@ -64,25 +67,40 @@ export default class SearchParam extends Component{
 	onSearch(type,childType,id,propInfo,index){    
 		const {onSearch,params} = this.props;
         
-        if(type=='PAYMENT'){
+        if(type=='PAYMENT'&&childType=='basic'){
           this.setState({
 			primaryR:'true',
 			primaryI:'false',
-			active:index,
 			activeI:10000,
-	      });
-        }
-       
-        if(type=='INCOME'){
-          this.setState({
-			primaryR:'false',
-			primaryI:'true',
-			activeI:index,
 		    active:10000,
 	      });
         }
-        
-   
+        if(type=='PAYMENT'&&childType!='basic'){
+           this.setState({
+           	primaryR:'false',
+			primaryI:'false',
+			active:index,
+			activeI:10000	
+	      });
+        }
+       
+        if(type=='INCOME'&&childType=='basic'){
+          this.setState({
+			primaryR:'false',
+			primaryI:'true',
+			activeI:10000,
+		    active:10000,
+	      });
+       }
+	    if(type=='INCOME'&&childType!='basic'){
+          this.setState({
+            primaryR:'false',
+			primaryI:'false',
+			activeI:index,
+		    active:10000,
+	      });    
+        }
+
 		var searchParam = {};
 
 		searchParam.accountType = type;
@@ -94,42 +112,36 @@ export default class SearchParam extends Component{
 	}
 
 	onHandleOver(type,index){
+	 var _this=this;
       if(type=='PAYMENT'){
           this.setState({
-			primaryR:'true',
-			primaryI:'false',
-			active:index,
-			activeI:10000	
+			myReceive:index,
+			myIncome:10000	
 	      });
-       setTimeout(function(){
-         this.setState({
-			primaryR:'true',
-			primaryI:'false',
-			active:10000,
-			activeI:10000	
-	      });
-       },500)
-
         }
        
         if(type=='INCOME'){
           this.setState({
-			primaryR:'false',
-			primaryI:'true',
-			activeI:index,
-		    active:10000,
+			myIncome:index,
+		    myReceive:10000,
 	      });
-	      setTimeout(function(){
-         this.setState({
-			primaryR:'true',
-			primaryI:'false',
-			active:10000,
-			activeI:10000	
-	      });
-       },500)
         }
 	}
-	  
+    onLeave(type,index){
+       if(type=='PAYMENT'){
+          this.setState({
+			myReceive:10000,
+			myIncome:10000	
+	      });
+        }
+       
+        if(type=='INCOME'){
+          this.setState({
+			myReceive:10000,
+		    myIncome:10000,
+	      });
+        }
+    }
 	render(){
          const {detailPayment,detailIncome,detailBalance}=this.props;
 
@@ -146,7 +158,7 @@ export default class SearchParam extends Component{
 		              {detailPayment.map((item,index)=>{
 					        var className;
 					        var classPic;
-			                if (this.state.active== index) {
+			                if (this.state.active== index||this.state.myReceive==index) {
 			                   className = 'active';
 			                   classPic='activePic'
 			                }
@@ -159,7 +171,7 @@ export default class SearchParam extends Component{
 		            	<ListGroupItem key={index}>
                           <div className={className}>
                            <span className={classPic}></span>
-                           <span className='receivedText' onTouchTap={this.onSearch.bind(this,'PAYMENT',item.propcode,item.id,item.propInfo,index)} onMouseOver={this.onHandleOver.bind(this,'PAYMENT',index)}>{item.propname}</span>
+                           <span className='receivedText' onTouchTap={this.onSearch.bind(this,'PAYMENT',item.propcode,item.id,item.propInfo,index)} onMouseOver={this.onHandleOver.bind(this,'PAYMENT',index)} onMouseOut={this.onLeave.bind(this,'PAYMENT',index)}>{item.propname}</span>
                            <span className='receivedMoney'>{item.propamount}</span>
 		            	  </div>
 		            	</ListGroupItem>)
@@ -176,7 +188,7 @@ export default class SearchParam extends Component{
 		              {detailIncome.map((item,index)=>{
 		              	    var className;
 					        var classPic;
-			                if (this.state.activeI== index) {
+			                if (this.state.activeI== index||this.state.myIncome==index) {
 			                   className = 'active';
 			                   classPic='activePic'
 			                }
@@ -188,7 +200,7 @@ export default class SearchParam extends Component{
 		            	<ListGroupItem key={index}>
 		            	 <div className={className}>
                           <span className={classPic}></span>
-                          <span className='receivedText' onTouchTap={this.onSearch.bind(this,'INCOME',item.propcode,item.id,item.propInfo,index)} onMouseOver={this.onHandleOver.bind(this,'INCOME',index)}>{item.propname}</span>
+                          <span className='receivedText' onTouchTap={this.onSearch.bind(this,'INCOME',item.propcode,item.id,item.propInfo,index)} onMouseOver={this.onHandleOver.bind(this,'INCOME',index)} onMouseOut={this.onLeave.bind(this,'INCOME',index)}>{item.propname}</span>
                           <span className='receivedMoney'>{item.propamount}</span>
 		            	  </div>
 		            	</ListGroupItem>)

@@ -159,6 +159,7 @@ export default class JoinCreate extends Component {
 				optionValues.lessorContactName = response.lessorContactName;
 				optionValues.contractFileList = response.contractFileList;
 				optionValues.leaseEnddate = response.leaseEnddate;
+				optionValues.leaseBegindate = response.leaseBegindate;
 
 				// initialValues.id = response.id;
 				initialValues.id = response.id;

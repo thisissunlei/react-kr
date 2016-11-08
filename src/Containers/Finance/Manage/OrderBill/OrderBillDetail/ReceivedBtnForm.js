@@ -105,8 +105,9 @@ class ReceivedBtnForm extends Component{
 			                </KrField>
                             
 						    <KrField component="date" grid={1/2} label="回款日期" name="receiveDate" requireLabel={true}/>
-						    
-                             <KrField label="是否自动拆分"  name="autoSplit" component="select" options={
+						     <KrField label="上传附件" grid={1/2} name="fileids" component="file" />
+                             <KrField label="交易编号" grid={1/2} name="dealCode"  component="input" type="text" requireLabel={true}/>
+                             <KrField label="是否自动拆分" grid={1/2} name="autoSplit" component="select" options={
 						    	[{label:"是",value:"1"},{label:"否",value:"0"}]
 						    } requireLabel={true}/>
 
@@ -114,11 +115,11 @@ class ReceivedBtnForm extends Component{
 						    	 <KrField label="金额（元） " grid={1/2} name="sum" component="input" type="text" requireLabel={true}/>
 						    </div>:<div>
 						      {typeList.map((item,index)=>						
-						         <KrField key={index} grid={1} label={item.label} component="input" name={item.value} type="text"/>						 
+						         <KrField key={index} grid={1/2} label={item.label} component="input" name={item.value} type="text"/>						 
 						       )}                           
 						    </div>}
-						    <KrField label="交易编号" grid={1/2} name="dealCode"  component="input" type="text" requireLabel={true}/>
-						    <KrField label="上传附件" grid={1/2} name="fileids" component="file" />
+						    
+						   
 
 						    
 
@@ -130,10 +131,10 @@ class ReceivedBtnForm extends Component{
 
 						   <Grid style={{marginTop:20}}>
 						<Row>
-							<Col md={12} align="right">
+							<Col md={12} align="center">
 								<ButtonGroup>
-									<Button  label="确定" type="submit" joinEditForm /> 
-									<Button  label="取消" type="button"  onTouchTap={this.onCancel} /> 
+									<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div>
+									<Button  label="取消" type="button" cancle={true}  onTouchTap={this.onCancel} /> 
 								</ButtonGroup>
 							</Col>
 						</Row>
