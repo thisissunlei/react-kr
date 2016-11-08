@@ -3,7 +3,8 @@ import './index.less';
 
 export default class Loading extends Component{
 
-
+	static displayName = 'Loading';
+	
 	render(){
 
 		return (

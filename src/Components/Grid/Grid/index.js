@@ -4,7 +4,8 @@ import './index.less';
 
 export default class Grid extends React.Component {
 
-
+	static displayName = 'Grid';
+	
 	render() {
 
 		let {children,className,style} = this.props;

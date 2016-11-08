@@ -8,6 +8,8 @@ import './index.less';
 
 export default class FontIcon extends React.Component {
 
+	static displayName = 'FontIcon';
+	
 	static PropTypes = {
 		className: React.PropTypes.string,
 		style: React.PropTypes.object,
