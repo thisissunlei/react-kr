@@ -104,14 +104,29 @@ span{
 	max-width: 160px !important;
 }
 .disabled{
-    color: #dfdfdf  !important;
-    box-shadow: 1px 1px 3px #dfdfdf !important;
+    color: #ffffff  !important;
+    box-shadow: 0 4px 12px #cccccc !important;
+    background:#cccccc !important;
 }
 .createButton{
 	&.disabled{
 		&:hover{
-			background-color: #dfdfdf !important;
-			color: #fff !important;
+			background:#cccccc !important;
+			color: #ffffff !important;
 	    }
 	}
+}
+.grid{
+	padding-top:45px !important;
+	.row{
+		margin-bottom:20px !important;
+		&:last-child{
+			margin-bottom:0px !important;
+		}
+	}
+
+
+}
+.ui-content{
+	margin-top:0 !important;
 }
