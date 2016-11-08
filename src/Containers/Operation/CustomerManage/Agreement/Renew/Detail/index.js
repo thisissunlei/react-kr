@@ -16,7 +16,7 @@ import {
 	KrField,
 	LabelText
 } from 'kr-ui/Form';
-import Date from 'kr-ui/Date';
+import KrDate from 'kr-ui/Date';
 import RaisedButton from 'material-ui/RaisedButton';
 import {
 	View
@@ -46,6 +46,7 @@ import {
 	TableRowColumn,
 	TableFooter
 } from 'kr-ui/Table';
+import dateFormat from 'dateformat';
 
 export default class JoinDetail extends Component {
 
@@ -67,6 +68,13 @@ export default class JoinDetail extends Component {
 				id: _this.props.params.id
 			}))
 			.then(function(response) {
+				let {basic} = _this.state;
+				basic.stationVos = response.stationVos.forEach(function(item,index){
+					var tmpDate = new Date();
+					tmpDate.setTime(item.leaseBeginDate);
+					tmpDate.setDate(tmpDate.getDate()+1);
+					item.leaseBeginDate = dateFormat(tmpDate,'yyyy-mm-dd')
+				});
 				_this.setState({
 					basic: response
 				});
@@ -157,7 +165,7 @@ export default class JoinDetail extends Component {
 											
 			<DotTitle title="租赁明细"> 
 
-											<Table>
+											<Table displayCheckbox={false}>
 															<TableHeader>
 																	<TableHeaderColumn>类别</TableHeaderColumn>
 																	<TableHeaderColumn>编号／名称</TableHeaderColumn>
@@ -177,8 +185,8 @@ export default class JoinDetail extends Component {
 																	<TableRowColumn>
 																		{item.unitprice}
 																	</TableRowColumn>
-																	<TableRowColumn><Date.Format value={item.leaseBeginDate}/></TableRowColumn>
-																	<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
+																	<TableRowColumn>{item.leaseBeginDate}</TableRowColumn>
+																	<TableRowColumn><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
 																   </TableRow>
 																	);
 															})}
