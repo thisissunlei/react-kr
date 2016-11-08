@@ -88,7 +88,7 @@ class AccountBtnForm extends Component{
 					<KrField grid={1/2} name="operatedate" type="date" component="date" label="挂账日期" requireLabel={true}/> 
 					<KrField grid={1/2} name="fileids" component="file" label="上传附件" />
 					
-					<KrField grid={1} name="finaflowamount" type="text" component="input" label="金额（元）" requireLabel={true}/> 
+					<KrField grid={1/2} name="finaflowamount" type="text" component="input" label="金额（元）" requireLabel={true}/> 
 					<KrField grid={1} name="finaflowdesc" type="text" component="textarea" label="备注" /> 
 
 
