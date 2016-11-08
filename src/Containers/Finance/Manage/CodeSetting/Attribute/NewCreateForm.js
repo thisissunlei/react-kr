@@ -52,15 +52,15 @@ import {
 
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
-				<KrField name="propcode" type="text" label="属性编码" requireLabel={true}/> 
-				<KrField name="propname" type="text" label="属性名称" requireLabel={true}/> 
-				<KrField name="proptype" type="select" label="属性类别" options={[
+				<KrField grid={1/2} name="propcode" type="text" label="属性编码" requireLabel={true}/> 
+				<KrField grid={1/2} name="propname" type="text" label="属性名称" requireLabel={true}/> 
+				<KrField grid={1/2} name="proptype" type="select" label="属性类别" options={[
 						{value:'PAYMENT',label:'回款'},
 					   {value:'INCOME',label:'收入'},
 				]} requireLabel={true}>
 				</KrField>
-				<KrField name="ordernum" type="text" label="排序号" requireLabel={true}/> 
-				<KrField name="enableflag" component="group" label="是否启用" requireLabel={true}>
+				<KrField grid={1/2} name="ordernum" type="text" label="排序号" requireLabel={true}/> 
+				<KrField grid={1/2} name="enableflag" component="group" label="是否启用" requireLabel={true}>
                 <KrField name="enableflag" label="是" type="radio" value="ENABLE" checked={true}/>
                 <KrField name="enableflag" label="否" type="radio" value="DISENABLE" />
               </KrField> 
