@@ -265,7 +265,7 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
-
+		console.log('stationVos----', stationVos)
 		return (
 			<Paper width={960}>
 
@@ -335,8 +335,8 @@ class NewCreateForm extends Component {
 									<TableRowColumn>
 											{item.unitprice}
 									</TableRowColumn>
-									<TableRowColumn> <KrDate.Format value={item.leaseBegindate}/></TableRowColumn>
-									<TableRowColumn><KrDate.Format value={item.leaseEnddate}/></TableRowColumn>
+									<TableRowColumn> <KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
+									<TableRowColumn><KrDate.Format value={item.end}/></TableRowColumn>
 
 									</TableRow>
 							);
