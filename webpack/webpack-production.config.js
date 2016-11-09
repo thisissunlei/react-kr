@@ -98,10 +98,7 @@ const config = {
 				test: /\.less$/,
 				 loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader!less-loader' })
 			},
-			{
-				test: /\.(png|jpg|gif)$/,
-				loader: 'file?name=[name].[ext]?[hash]'
-			},
+			{test: /\.(jpg|png)$/, loader: "url?limit=8192"},
 			{
 				test: /\.eot/,
 				loader : 'file?prefix=font/'
