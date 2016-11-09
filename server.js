@@ -50,9 +50,12 @@ app.use(convert(webpackDevMiddleware(compiler,{
 	hot: true,    
 	inline: true,
 	quiet: false,
-	noInfo: false,
-	watchDelay: 300,
-	host:'localhost',
+	noInfo: true,
+	watchOptions:{
+		aggregateTimeout:300,
+		poll:true
+	},
+	host:'local.krspace.cn',
 	headers: {
 		'Access-Control-Allow-Origin': '*',
 		'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
