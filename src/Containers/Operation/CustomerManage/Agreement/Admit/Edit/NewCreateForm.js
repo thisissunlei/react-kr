@@ -112,6 +112,7 @@ class NewCreateForm extends Component {
 
 		this.state = {
 			stationVos: this.props.stationVos,
+			delStationVos,
 			selectedStation: [],
 			openStation: false,
 			openStationUnitPrice: false,
@@ -194,23 +195,30 @@ class NewCreateForm extends Component {
 
 	//删除工位
 	onStationDelete() {
-
 		let {
 			selectedStation,
-			stationVos
+			stationVos,
+			delStationVos
 		} = this.state;
+
 		stationVos = stationVos.filter(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
+				delStationVos.push(item);
 				return false;
 			}
 			return true;
 		});
+
 		this.setState({
-			stationVos
+			stationVos,
+			delStationVos
 		}, function() {
 			this.calcStationNum();
 		});
+
 	}
+
+
 
 	onStationSelect(selectedStation) {
 		this.setState({
@@ -284,11 +292,10 @@ class NewCreateForm extends Component {
 		form = Object.assign({}, form);
 
 		let {
-			stationVos
+			stationVos,
+			delStationVos
 		} = this.state;
-		let {
-			billList
-		} = this.state;
+
 		let {
 			changeValues
 		} = this.props;
@@ -296,10 +303,9 @@ class NewCreateForm extends Component {
 		form.lessorAddress = changeValues.lessorAddress;
 
 		var _this = this;
-
-		form.stationVos = stationVos;
-
-		form.stationVos = JSON.stringify(form.stationVos);
+		
+		form.delStationVos = JSON.stringify(delStationVos);
+		form.stationVos = JSON.stringify(stationVos);
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
