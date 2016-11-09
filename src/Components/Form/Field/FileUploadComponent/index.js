@@ -244,8 +244,11 @@ export default class FileUploadComponent extends React.Component {
 								} else {
 									_this.onError(fileResponse.msg);
 								}
+							} else if (xhrfile.status == 413) {
+
+								_this.onError('您上传的文件过大！');
 							} else {
-								_this.onError('后台报错,请联系管理员');
+								_this.onError('后台报错请联系管理员！');
 							}
 						}
 					};
