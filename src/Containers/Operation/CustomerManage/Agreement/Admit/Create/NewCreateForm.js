@@ -106,7 +106,7 @@ class NewCreateForm extends Component {
 		this.onChangeLeaseEndDate = this.onChangeLeaseEndDate.bind(this);
 		this.calcStationNum = this.calcStationNum.bind(this);
 		this.onCloseStation = this.onCloseStation.bind(this);
-		
+
 		this.state = {
 			stationVos: [],
 			selectedStation: [],
@@ -127,6 +127,7 @@ class NewCreateForm extends Component {
 			stationVos
 		});
 	}
+	
 	onCloseStation() {
 		this.setState({
 			openStation: !this.state.openStation
