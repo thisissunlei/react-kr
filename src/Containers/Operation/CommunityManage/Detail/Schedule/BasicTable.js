@@ -49,15 +49,15 @@ class SearchForm extends Component {
 
 	onSubmit(form) {
 		console.log('yyyyyyy', form)
-		/*Store.dispatch(Actions.callAPI('getInstallmentplan', {}, form)).then(function(response) {
-			console.log("response", response);
+			/*Store.dispatch(Actions.callAPI('getInstallmentplan', {}, form)).then(function(response) {
+				console.log("response", response);
 
-		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});*/
+			}).catch(function(err) {
+				Notify.show([{
+					message: err.message,
+					type: 'danger',
+				}]);
+			});*/
 	}
 
 
@@ -108,7 +108,10 @@ export default class BasicTable extends Component {
 			dismantling: false,
 			formValues: {},
 			Installmentplan: [],
-			rate: []
+			rate: [],
+			communityParm: {
+				communityids: ''
+			}
 		};
 		this.getInstallmentplan();
 
@@ -180,9 +183,13 @@ export default class BasicTable extends Component {
 	getInstallmentplan() {
 		var that = this;
 		var Installmentplan, rate;
+
 		Store.dispatch(Actions.callAPI('getInstallmentplan', {
-			communityids: 1
+			communityids: 1,
+			type: 'BILL',
+			value: ''
 		})).then(function(response) {
+			console.log('response', hhhhhh)
 			Installmentplan = response.vo;
 			rate = response.rate;
 			that.setState({

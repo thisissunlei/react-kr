@@ -1,7 +1,20 @@
-import React, {Component, PropTypes} from 'react';
-import { connect } from 'kr/Redux';
-import {reduxForm,submitForm,change,reset} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
+import {
+	connect
+} from 'kr/Redux';
+import {
+	reduxForm,
+	submitForm,
+	change,
+	reset
+} from 'redux-form';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
 
 import {
@@ -21,9 +34,9 @@ import Schedule from './Schedule';
 import FloorPlan from './FloorPlan';
 import $ from 'jquery';
 
-export default  class CommunityManage extends Component {
+export default class CommunityManage extends Component {
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 		this.planTable = this.planTable.bind(this);
 		this.Floorplan = this.Floorplan.bind(this);
@@ -32,48 +45,54 @@ export default  class CommunityManage extends Component {
 		this.getCommunityFloors = this.getCommunityFloors.bind(this);
 
 		this.state = {
-			tab:'plan',
-			communityInfoList:[],
-			community:'',
+			tab: 'plan',
+			communityInfoList: [],
+			community: '',
 		}
-		
-	}
-
-	componentDidMount(){
-  		this.getCommunity();
 
 	}
-	Floorplan(){
+
+	componentDidMount() {
+		this.getCommunity();
+
+	}
+	Floorplan() {
 		console.log('plan');
-		let {tab} = this.state;
+		let {
+			tab
+		} = this.state;
 		tab = 'floorplan';
 		this.setState({
 			tab
 		});
 	}
-	planTable(){
+	planTable() {
 		console.log('jdadtable');
-		let {tab} = this.state;
+		let {
+			tab
+		} = this.state;
 		tab = 'table';
 		this.setState({
 			tab
 		});
 	}
-	selectCommunity(personel){
-		console.log('change',personel);
+	selectCommunity(personel) {
+		console.log('change', personel);
 		// Store.dispatch(change('selectCommunityForm','community',personel.label));
 		this.getCommunityFloors(personel.id);
 		this.setState({
-			community:personel.id
+			community: personel.id
 		})
 
 	}
-	getCommunity(){
+	getCommunity() {
 		var that = this;
-		var {communityInfoList} = this.state;
-		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response){
-			
-			communityInfoList = response.communityInfoList.map(function(item,index){
+		var {
+			communityInfoList
+		} = this.state;
+		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
+
+			communityInfoList = response.communityInfoList.map(function(item, index) {
 				item.value = item.id;
 				item.label = item.name;
 				return item;
@@ -81,24 +100,26 @@ export default  class CommunityManage extends Component {
 			that.setState({
 				communityInfoList
 			});
-		}).catch(function(err){
+		}).catch(function(err) {
 			console.log('err', err);
 			Notify.show([{
-				message:err.message,
+				message: err.message,
 				type: 'danger',
 			}]);
-	   	});
+		});
 
 	}
-	
-	getCommunityFloors(id){
-		console.log('floors',id);
-		let communityid = {communityid:id};
+
+	getCommunityFloors(id) {
+		console.log('floors', id);
+		let communityid = {
+			communityid: id
+		};
 		var communityInfoFloorList;
 		var that = this;
-	 	Store.dispatch(Actions.callAPI('getCommunityFloors', communityid)).then(function(response){
-			
-			communityInfoFloorList = response.floors.map(function(item,index){
+		Store.dispatch(Actions.callAPI('getCommunityFloors', communityid)).then(function(response) {
+
+			communityInfoFloorList = response.floors.map(function(item, index) {
 				item.value = item.id;
 				item.label = item.name;
 				return item;
@@ -106,30 +127,33 @@ export default  class CommunityManage extends Component {
 			that.setState({
 				communityInfoFloorList
 			});
-		}).catch(function(err){
+		}).catch(function(err) {
 			Notify.show([{
-				message:err.message,
+				message: err.message,
 				type: 'danger',
 			}]);
-	   	});
-	 }
-
-	
-
-	
+		});
+	}
 
 
-  render() {
-  	let {tab} = this.state;
-  	var {communityInfoList, communityInfoFloorList} = this.state;
-  	let {community} = this.state;
-  	console.log('id', community);
+
+	render() {
+		let {
+			tab
+		} = this.state;
+		var {
+			communityInfoList,
+			communityInfoFloorList
+		} = this.state;
+		let {
+			community
+		} = this.state;
 
 
-  	
-    return (
-    	
-		 <div>
+
+		return (
+
+			<div>
 		 	<BreadCrumbs children={['系统运营','社区管理','计划表']}/>
 			
 			<Section title="计划表" description=""> 
@@ -139,7 +163,7 @@ export default  class CommunityManage extends Component {
 				</Form>
 				 <Tabs>
 					<Tab label="计划表" onActive={this.planTable}>
-						<Schedule  community={community}/>
+						<Schedule  communityInfoList={communityInfoList}/>
 					</Tab>
 					<Tab label="平面图"  onActive={this.Floorplan} >
 					   <FloorPlan communityId={community} tab={tab} communityInfoFloorList={communityInfoFloorList}/>
@@ -150,11 +174,6 @@ export default  class CommunityManage extends Component {
 			
 			
 		</div>
-	);
-  }
+		);
+	}
 }
-
-
-
-
-
