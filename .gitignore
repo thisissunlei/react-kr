@@ -31,4 +31,6 @@ static/components
 
 webpack/dist
 
+static/lib.js
+
 

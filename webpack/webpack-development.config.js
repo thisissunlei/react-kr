@@ -12,9 +12,6 @@ const config = {
 		development:[
 			 'webpack/hot/dev-server',
     		'webpack/hot/only-dev-server',
-		],
-		vender:[
-			path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js')
 		],	
 		app:path.join(process.cwd(), '/src/app.js')
 	},

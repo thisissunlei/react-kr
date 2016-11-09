@@ -22,6 +22,7 @@ module.exports = {
 			primaryText:"首页",
 			router:'index',
 			menuCode:'index',
+			originUrl:'/'
 		},
 		{
 			primaryText:"社区经营",
@@ -46,6 +47,7 @@ module.exports = {
 			primaryText:"运营平台",
 			router:'operation',
 			menuCode:'operate',
+			originUrl:'/krspace_operate_web/customerBase/toCoustomerInfoList?mid=103#share',
 			menuItems:[
 				{
 					primaryText:"客户管理",
@@ -136,6 +138,7 @@ module.exports = {
 			primaryText:"会员中心",
 			router:'member',
             menuCode:'member',
+            originUrl:'/krspace_member_web/member/toMemberList?mid=94',
 			menuItems:[
 				{
 					primaryText:'会员管理',
@@ -173,6 +176,7 @@ module.exports = {
 			primaryText:"商品零售",
 			router:'retail',
 			menuCode:'krspace_retail',
+			originUrl:'/krspace_retail_web/retail/charts/retailCharts/toRetailCharts?mid=92',
 			menuItems:[
 				{
 					primaryText:'零售看板',
@@ -270,6 +274,7 @@ module.exports = {
 			primaryText:"OA办公",
 			menuCode:'oa',
 			router:'oa',
+			originUrl:'/krspace_oa_web/hrm/hrmOrganization/main?mid=40',
 			menuItems:[
 				{
 					primaryText:'组织架构',
@@ -334,6 +339,7 @@ module.exports = {
 			primaryText:"知识中心",
 			menuCode:'krspace_knowledge',
 			router:'document',
+			originUrl:'/krspace_knowledge_web/doc/docFile/toDocTypeList?mid=67',
 			menuItems:[
 				{
 					primaryText:'系统管理',
@@ -386,6 +392,7 @@ module.exports = {
 			primaryText:"权限管理",
 			menuCode:'rightadmin',
 			router:'permission',
+			originUrl:'/sys/sysParam/toSysParamList?mid=8',
 			menuItems:[
 				{
 					primaryText:'系统管理',

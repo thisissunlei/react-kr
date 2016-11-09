@@ -80,6 +80,13 @@ class SelectStationForm extends Component {
 			stationVos,
 			selected
 		} = this.state;
+		if(!selected.length){
+			Notify.show([{
+				message: '未选择减租工位',
+				type: 'danger',
+			}]);
+			return;
+		}
 		stationVos = [].concat(stationVos);
 		stationVos.map(function(item, index) {
 			if (selected.indexOf(index) !== -1) {
@@ -270,14 +277,14 @@ class SelectStationForm extends Component {
       {stationVos && stationVos.map((item,index)=>{
         return (
           <TableRow key={index}>
-          <TableRowColumn >{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
-          <TableRowColumn >{item.stationName}</TableRowColumn>
-          <TableRowColumn >{item.unitprice}</TableRowColumn>
-          <TableRowColumn ><KrDate.Format value={item.leaseBeginDate}/></TableRowColumn>
-          <TableRowColumn ><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
-          <TableRowColumn>
-				{item.rentBeginDate&& dateFormat(item.rentBeginDate,'yyyy-mm-dd')}
-          </TableRowColumn>
+	          <TableRowColumn >{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
+	          <TableRowColumn >{item.stationName}</TableRowColumn>
+	          <TableRowColumn >{item.unitprice}</TableRowColumn>
+	          <TableRowColumn ><KrDate.Format value={item.leaseBeginDate}/></TableRowColumn>
+	          <TableRowColumn ><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
+	          <TableRowColumn>
+					{item.rentBeginDate&& dateFormat(item.rentBeginDate,'yyyy-mm-dd')}
+	          </TableRowColumn>
          </TableRow>
         );
       })}
