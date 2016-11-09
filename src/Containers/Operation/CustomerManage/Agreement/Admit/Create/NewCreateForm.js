@@ -105,6 +105,7 @@ class NewCreateForm extends Component {
 		this.onChangeLeaseBeginDate = this.onChangeLeaseBeginDate.bind(this);
 		this.onChangeLeaseEndDate = this.onChangeLeaseEndDate.bind(this);
 		this.calcStationNum = this.calcStationNum.bind(this);
+		this.onCloseStation = this.onCloseStation.bind(this);
 		this.state = {
 			stationVos: [],
 			selectedStation: [],
@@ -124,6 +125,12 @@ class NewCreateForm extends Component {
 		this.setState({
 			stationVos
 		});
+	}
+	onCloseStation() {
+		this.setState({
+			openStation: !this.state.openStation
+		});
+
 	}
 
 
@@ -561,7 +568,9 @@ class NewCreateForm extends Component {
 						title="分配工位"
 						autoScrollBodyContent={true}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
-						open={this.state.openStation} >
+						open={this.state.openStation}
+						onClose={this.onCloseStation}
+						 >
 							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
 
@@ -633,7 +642,7 @@ const validate = values => {
 	if (!values.templockday) {
 		errors.templockday = '请填写保留天数';
 	}
-	
+
 
 	if (!values.contractcode) {
 		errors.contractcode = '请填写合同编号';

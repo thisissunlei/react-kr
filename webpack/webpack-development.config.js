@@ -45,7 +45,7 @@ const config = {
 	},
 	noParse:['/node_modules/'],
 	plugins:[
-
+		new webpack.HotModuleReplacementPlugin(),
 		new webpack.DllReferencePlugin({
              context:__dirname,
            	 manifest: require('./dist/manifest.json'),

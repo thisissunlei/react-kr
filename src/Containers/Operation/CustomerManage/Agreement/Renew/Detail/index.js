@@ -68,13 +68,18 @@ export default class JoinDetail extends Component {
 				id: _this.props.params.id
 			}))
 			.then(function(response) {
-				let {basic} = _this.state;
-				basic.stationVos = response.stationVos.forEach(function(item,index){
+<<<<<<< HEAD
+				let {
+					basic
+				} = _this.state;
+				basic.stationVos = response.stationVos.forEach(function(item, index) {
 					var tmpDate = new Date();
 					tmpDate.setTime(item.leaseBeginDate);
-					tmpDate.setDate(tmpDate.getDate()+1);
-					item.leaseBeginDate = dateFormat(tmpDate,'yyyy-mm-dd')
+					tmpDate.setDate(tmpDate.getDate() + 1);
+					item.leaseBeginDate = dateFormat(tmpDate, 'yyyy-mm-dd')
 				});
+=======
+>>>>>>> aa619fa3f1ab490c60bc5554f59b6be8a4bff169
 				_this.setState({
 					basic: response
 				});
@@ -112,12 +117,12 @@ export default class JoinDetail extends Component {
 				position: 'relative',
 				width: '900px',
 				margin: '0 auto',
-				fontSize:14
+				fontSize: 14
 			}
 			const info = {
 				padding: '30px 70px'
 			}
-
+			console.log('时间', )
 			return (
 				<div className="content" style={content}>
 				  	<View label="续租协议书详情页"/>
@@ -175,6 +180,7 @@ export default class JoinDetail extends Component {
 															<TableBody>
 
 															{basic.stationVos.length && basic.stationVos.map((item,index)=>{
+																console.log('ffffff',item.leaseBeginDate)
 																return (
 																	 <TableRow key={index}>
 																	<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
@@ -184,7 +190,9 @@ export default class JoinDetail extends Component {
 																	<TableRowColumn>
 																		{item.unitprice}
 																	</TableRowColumn>
-																	<TableRowColumn>{item.leaseBeginDate}</TableRowColumn>
+																	<TableRowColumn>
+																					<KrDate.Format value={item.leaseBeginDate}/>
+																	</TableRowColumn>
 																	<TableRowColumn><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
 																   </TableRow>
 																	);

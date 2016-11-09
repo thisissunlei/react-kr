@@ -637,7 +637,7 @@ class NewCreateForm extends Component {
 						onCancel={this.openStationUnitPriceDialog}
 						open={this.state.openStationUnitPrice}
 						 contentStyle={{width:430}}
-						 onClose={this.openStationUnitPrice}
+						 onClose={this.openStationUnitPriceDialog}
 						>
 								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>

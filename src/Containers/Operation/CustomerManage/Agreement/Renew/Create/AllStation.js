@@ -165,6 +165,7 @@ onChangeRentBeginDate(value){
 		obj.stationId = item.stationId;
 		obj.stationType = item.stationType;
 		obj.stationName = item.stationName;
+		obj.whereFloor = item.whereFloor;
 		obj.unitprice = item.unitprice;
 		obj.leaseBeginDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
 		obj.leaseEndDate = item.rentBeginDate;
@@ -192,6 +193,8 @@ onChangeRentBeginDate(value){
 		tmpDate.setDate(tmpDate.getDate()+1);
 		item.leaseBeginDate = dateFormat(tmpDate,'yyyy-mm-dd')
 	});
+
+	console.log('selectedStationVos',selectedStationVos);
 
 	const {onSubmit} = this.props;
 	onSubmit && onSubmit(selectedStationVos);
