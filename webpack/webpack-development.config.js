@@ -9,10 +9,12 @@ var env = process.env.NODE_ENV || 'development';
 
 const config = {
 	entry:{
+		/*
 		development:[
 			 'webpack/hot/dev-server',
     		'webpack/hot/only-dev-server',
 		],	
+		*/
 		app:path.join(process.cwd(), '/src/app.js')
 	},
 	resolve: {

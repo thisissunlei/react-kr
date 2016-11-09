@@ -30,6 +30,7 @@ static/components
 # Test
 
 webpack/dist
+webpack/dist/*
 
 static/lib.js
 
