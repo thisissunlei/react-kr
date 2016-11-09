@@ -48,16 +48,15 @@ class SearchForm extends Component {
 	}
 
 	onSubmit(form) {
-		console.log('yyyyyyy', form)
-			/*Store.dispatch(Actions.callAPI('getInstallmentplan', {}, form)).then(function(response) {
-				console.log("response", response);
+		/*Store.dispatch(Actions.callAPI('getInstallmentplan', {}, form)).then(function(response) {
+			console.log("response", response);
 
-			}).catch(function(err) {
-				Notify.show([{
-					message: err.message,
-					type: 'danger',
-				}]);
-			});*/
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});*/
 	}
 
 
@@ -71,14 +70,15 @@ class SearchForm extends Component {
 			reset
 		} = this.props;
 
+
 		return (
 
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
               <Row>
-              <Col md={5}><KrField name="type" type="select" component="select" options={[{label:'订单名称',value:1},{label:'员工姓名',value:2},{label:'手机号',value:3}]}/></Col>
+              <Col md={5}><KrField name="type" type="select" component="select" options={[{label:'订单名称',value:'BILL'},{label:'员工姓名',value:'MEMBER'},{label:'手机号',value:'PHONE'}]}/></Col>
 				<Col md={5}><KrField name="value" type="text" placeholder="搜索关键字" /></Col>
-				<Col md={2}><Button  label="查询" type="submit" primary={true} /></Col>
+				<Col md={2}><Button  label="查询" type="submit" joinEditForm /></Col>
               </Row>
 
 			</form>
@@ -90,7 +90,10 @@ SearchForm = reduxForm({
 	form: 'searchForm'
 })(SearchForm);
 
+
 export default class BasicTable extends Component {
+
+
 
 	constructor(props, context) {
 		super(props, context);
@@ -114,6 +117,7 @@ export default class BasicTable extends Component {
 
 	}
 
+
 	componentDidMount() {
 		this.getInstallmentplan();
 	}
@@ -126,10 +130,12 @@ export default class BasicTable extends Component {
 			});
 			this.getInstallmentplan();
 		}
-
 	}
 
+
+
 	//撤场
+
 	onDismantling() {
 		this.openDismantlingDialog();
 	}
@@ -142,6 +148,7 @@ export default class BasicTable extends Component {
 	onSubmit() {
 
 	}
+
 	onConfrimSubmit(formValues) {
 		/*Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
 			console.log("response",response);
@@ -190,26 +197,11 @@ export default class BasicTable extends Component {
 
 
 	getInstallmentplan() {
-		var that = this;
-		var Installmentplan, rate;
-
-		/*Store.dispatch(Actions.callAPI('getInstallmentplan', {
-			communityids: 1,
-			type: 'BILL',
-			value: ''
-		})).then(function(response) {
-				console.log('response', hhhhhh)
-				Installmentplan = response.vo;
-				rate = response.rate;
-				that.setState({
-					Installmentplan,
-					rate
-				});
-				var _this = this;
-				let {
-					community
-				} = this.props;
-				console.log('this.params', this.props, community);*/
+		var _this = this;
+		let {
+			community
+		} = this.props;
+		console.log('this.params', this.props, community);
 
 
 		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
@@ -237,10 +229,7 @@ export default class BasicTable extends Component {
 				}]);
 			});
 
-
-
 		}).catch(function(err) {
-			console.log('err', err);
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
@@ -255,11 +244,12 @@ export default class BasicTable extends Component {
 
 		let {
 			currentYear,
-			Installmentplan
+			Installmentplan,
+			rate
 		} = this.state;
+		var that = this;
 
 		return (
-
 			<div>
 		 	<div className="basic-con">
 		 		<div className="legend">
@@ -355,9 +345,12 @@ export default class BasicTable extends Component {
 				
 				open={this.state.dismantling} >
 				<DismantlingForm detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openDismantlingDialog} />
-			  </Dialog>
+			 </Dialog>
 			
 		</div>
 		);
+
+
 	}
+
 }
