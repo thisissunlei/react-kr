@@ -49,10 +49,10 @@ let OrderEditForm = function (props){
 					 <KrField name="mainbilldesc" type="textarea" label="订单描述" component="textarea" inline={false}/> 
 					<Grid >
 						<Row style={{marginTop:10}}>
-							<Col md={4}></Col>
-							<Col md={2} align="center"> <Button  label="确定" type="submit" joinEditForm disabled={submitting} /> </Col>
-							<Col md={2} align="center"> <Button  label="取消" cancle={true} type="button" joinEditForm disabled={submitting} onClick={reload} /> </Col>
-							<Col md={4}></Col>
+							<Col md={3}></Col>
+							<Col md={3} align="center"> <Button  label="确定" type="submit" joinEditForm disabled={submitting} /> </Col>
+							<Col md={3} align="center"> <Button  label="取消" cancle={true} type="button" joinEditForm disabled={submitting} onClick={reload} /> </Col>
+							<Col md={3}></Col>
 						</Row>
 					</Grid>
 			</form>
