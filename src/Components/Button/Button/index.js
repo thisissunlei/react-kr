@@ -51,9 +51,11 @@ export default class Button extends Component {
 			height,
 			...other
 		} = this.props;
+		let border = 'none';
 		if(cancle){
 			backgroundColor = '#fff';
 			labelColor = '#499df1';
+			border = '1px solid #499df1';
 		}
 		let defaultStyle = {
 			minWidth:30,
@@ -64,8 +66,8 @@ export default class Button extends Component {
 			// borderRadius:4,
 		};
 		let divStyle = {
-			boxShadow: "0 2px 3px #b4cde6",
-			border:'1px solid #499df1',
+			boxShadow: "0 2px 8px rgba(134,174,214,.7)",
+			border:border,
 			borderRadius:4,
 		}
 		let labelStyle={
