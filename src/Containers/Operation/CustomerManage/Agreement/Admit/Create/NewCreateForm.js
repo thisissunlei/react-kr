@@ -127,7 +127,7 @@ class NewCreateForm extends Component {
 			stationVos
 		});
 	}
-	
+
 	onCloseStation() {
 		this.setState({
 			openStation: !this.state.openStation
@@ -395,7 +395,6 @@ class NewCreateForm extends Component {
 			stationVos
 		} = this.state;
 
-		console.log('---changeValues', changeValues);
 
 		try {
 			billList.map(function(item, index) {
@@ -628,7 +627,6 @@ const validate = values => {
 		errors.paymodel = '请填写付款方式';
 	}
 
-
 	if (!values.signdate) {
 		errors.signdate = '请填写签署时间';
 	}
@@ -645,7 +643,6 @@ const validate = values => {
 		errors.templockday = '请填写保留天数';
 	}
 
-
 	if (!values.contractcode) {
 		errors.contractcode = '请填写合同编号';
 	}
@@ -654,14 +651,13 @@ const validate = values => {
 		errors.paymentId = '请填写付款方式';
 	}
 
-	if (!values.totaldownpayment) {
+	if (!String(values.totaldownpayment)) {
 		errors.totaldownpayment = '请填写定金总额';
 	}
+
 	if (values.totaldownpayment && isNaN(values.totaldownpayment)) {
 		errors.totaldownpayment = '定金总额必须为数字';
 	}
-
-
 
 	return errors
 }

@@ -151,9 +151,8 @@ export default class EditCreate extends Component {
         initialValues.signdate = new Date(response.signdate);
         initialValues.leaseBegindate = new Date(response.leaseBegindate);
         initialValues.leaseEnddate = new Date(response.leaseEnddate);
-        initialValues.withdrawdate = new Date(response.withdrawdate);
-        console.log('时间', initialValues);
-
+        initialValues.withdrawdate = response.withdrawdate;
+   
 
         //处理stationvos
         stationVos = response.stationVos;

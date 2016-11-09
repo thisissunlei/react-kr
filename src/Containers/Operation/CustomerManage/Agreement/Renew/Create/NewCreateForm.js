@@ -424,11 +424,11 @@ const validate = values => {
 		errors.rentaluse = '请填写租赁用途';
 	}
 
-	if (!values.totalrent) {
+	if (!String(values.totalrent)) {
 		errors.totalrent = '请填写租金总额';
 	}
 
-	if (!values.totaldeposit) {
+	if (!String(values.totaldeposit)) {
 		errors.totaldeposit = '请填写押金总额';
 	}
 

@@ -114,7 +114,7 @@ class NewCreateForm extends Component {
 		this.onChangeLeaseEndDate = this.onChangeLeaseEndDate.bind(this);
 
 		this.calcStationNum = this.calcStationNum.bind(this);
-		this.onCloseStation = this.onCloseStation.bind(this);
+
 
 		this.state = {
 			stationVos: [],
@@ -299,11 +299,6 @@ class NewCreateForm extends Component {
 			return;
 		}
 
-		this.setState({
-			openStation: !this.state.openStation
-		});
-	}
-	onCloseStation() {
 		this.setState({
 			openStation: !this.state.openStation
 		});
@@ -626,7 +621,7 @@ class NewCreateForm extends Component {
 						autoScrollBodyContent={true}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
 						open={this.state.openStation}
-						onClose={this.onCloseStation}
+						onClose={this.openStationDialog}
 						 >
 							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
@@ -689,7 +684,7 @@ const validate = values => {
 	if (!values.rentaluse) {
 		errors.rentaluse = '请输入租赁用途';
 	}
-	if (!values.totalrent) {
+	if (!String(values.totalrent)) {
 		errors.totalrent = '请输入租金总额';
 	}
 
@@ -698,7 +693,7 @@ const validate = values => {
 	}
 
 
-	if (!values.totaldeposit) {
+	if (!String(values.totaldeposit)) {
 		errors.totaldeposit = '请输入押金总额';
 	}
 

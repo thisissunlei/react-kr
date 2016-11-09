@@ -480,7 +480,7 @@ const validate = values => {
 		errors.contractcode = '请填写合同编号';
 	}
 
-	if (!values.totaldeposit) {
+	if (!String(values.totaldeposit)) {
 		errors.totaldeposit = '请填写押金总额';
 	}
 
