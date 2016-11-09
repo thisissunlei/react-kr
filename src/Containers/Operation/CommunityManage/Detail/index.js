@@ -87,18 +87,21 @@ export default class CommunityManage extends Component {
 	}
 	getCommunity() {
 		var that = this;
+
 		var {
-			communityInfoList
+			communityInfoList,
+			community
 		} = this.state;
 		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
 
 			communityInfoList = response.communityInfoList.map(function(item, index) {
+
 				item.value = item.id;
 				item.label = item.name;
 				return item;
 			});
 			that.setState({
-				communityInfoList
+				communityInfoList,
 			});
 		}).catch(function(err) {
 			console.log('err', err);
@@ -148,8 +151,6 @@ export default class CommunityManage extends Component {
 		let {
 			community
 		} = this.state;
-
-
 
 		return (
 

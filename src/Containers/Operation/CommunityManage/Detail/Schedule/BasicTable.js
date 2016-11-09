@@ -109,18 +109,32 @@ export default class BasicTable extends Component {
 			formValues: {},
 			Installmentplan: [],
 			rate: [],
+
 			communityParm: {
 				communityids: ''
 			}
+
+			communityIdList: []
 		};
-		this.getInstallmentplan();
 
 	}
 
 	componentDidMount() {
+		this.getInstallmentplan();
+	}
 
+	componentWillReceiveProps(nextProps) {
+
+		if (nextProps.community !== this.props.community) {
+			this.setState({
+				community: nextProps.community
+			});
+			this.getInstallmentplan();
 		}
-		//撤场
+
+	}
+
+	//撤场
 	onDismantling() {
 		this.openDismantlingDialog();
 	}
@@ -181,40 +195,76 @@ export default class BasicTable extends Component {
 
 
 	getInstallmentplan() {
-		var that = this;
-		var Installmentplan, rate;
+			var that = this;
+			var Installmentplan, rate;
 
-		Store.dispatch(Actions.callAPI('getInstallmentplan', {
-			communityids: 1,
-			type: 'BILL',
-			value: ''
-		})).then(function(response) {
-			console.log('response', hhhhhh)
-			Installmentplan = response.vo;
-			rate = response.rate;
-			that.setState({
-				Installmentplan,
-				rate
-			});
-		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
+			Store.dispatch(Actions.callAPI('getInstallmentplan', {
+					communityids: 1,
+					type: 'BILL',
+					value: ''
+				})).then(function(response) {
+						console.log('response', hhhhhh)
+						Installmentplan = response.vo;
+						rate = response.rate;
+						that.setState({
+								Installmentplan,
+								rate
+								var _this = this;
+								let {
+									community
+								} = this.props;
+								console.log('this.params', this.props, community);
 
-	}
 
-	render() {
+								Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
 
-		let {
-			currentYear,
-			Installmentplan
-		} = this.state;
+									var communityIds = [];
+									response.communityInfoList.map((item) => {
+										communityIds.push(item.id);
+									});
+									var content = community || communityIds;
 
-		return (
 
-			<div>
+									Store.dispatch(Actions.callAPI('getInstallmentplan', {
+										communityids: content.toString()
+									})).then(function(response) {
+
+										_this.setState({
+											Installmentplan: response.vo,
+											rate: response.rate
+										});
+
+									}).catch(function(err) {
+										Notify.show([{
+											message: err.message,
+											type: 'danger',
+										}]);
+									});
+
+
+
+								}).catch(function(err) {
+									console.log('err', err);
+									Notify.show([{
+										message: err.message,
+										type: 'danger',
+									}]);
+								});
+
+
+							}
+
+
+							render() {
+
+								let {
+									currentYear,
+									Installmentplan
+								} = this.state;
+
+								return (
+
+									<div>
 		 	<div className="basic-con">
 		 		<div className="legend">
 		 			<div className="legend-left">
@@ -312,6 +362,18 @@ export default class BasicTable extends Component {
 			  </Dialog>
 			
 		</div>
-		);
-	}
-}
+								);
+							}
+						}
+
+
+						// export default connect((state)=>{
+						// 	var communityList = [];
+						// 	if(state.common && state.common.getCommunity){
+						// 		console.log('***********');
+						// 		communityList=state.common.getCommunity
+						// 	}
+						// 	return {
+						// 		communityList
+						// 	}
+						// })(BasicTable)

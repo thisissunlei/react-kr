@@ -34,7 +34,6 @@ export default  class FloorPlan extends Component {
 		this.onSubmit = this.onSubmit.bind(this);
 		this.scrollLoad = this.scrollLoad.bind(this);
 		this.onLoad = this.onLoad.bind(this);
-		console.log('this.props',this.props,'props', props);
 		this.iframeWindow = null;
 		this.state = {
 			url:this.getStationUrl(),
@@ -96,7 +95,6 @@ export default  class FloorPlan extends Component {
 			}
 		};
 
-  	console.log('url------width',$('#planTable'), $('#planTable').width());
 
 		return url ;
 	}
@@ -140,7 +138,6 @@ export default  class FloorPlan extends Component {
   	}else{
   		$(window).unbind('scroll',this.scrollLoad());
   	}
-  	console.log('width',$('#planTable'), $('#planTable').width());
   	const width = $('#planTable').width() || 900;
     return (
 
