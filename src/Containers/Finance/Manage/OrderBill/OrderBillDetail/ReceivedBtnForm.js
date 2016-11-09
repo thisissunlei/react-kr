@@ -96,7 +96,7 @@ class ReceivedBtnForm extends Component{
 
 			    <div>
                  
-					      <form onSubmit={handleSubmit(this.onSubmit)}>
+					      <form onSubmit={handleSubmit(this.onSubmit)} target="info">
                             <KrField  name="mainbillid" type="hidden" component="input"/>
 						    <KrField  label="代码名称" grid={1/2} name="accountId" type="select" options={optionList} requireLabel={true}/>
 						     <KrField name="sumSign" grid={1/2} component="group" label="金额正负" requireLabel={true}>

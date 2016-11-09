@@ -115,7 +115,8 @@ export default class AttributeSetting extends Component {
 
 		if (type == 'view') {
 			let orderId = itemDetail.id
-			window.location.href = `./#/finance/Manage/orderbill/${orderId}/detail`;
+			//window.location.href = `./#/finance/Manage/orderbill/${orderId}/detail`;
+			window.open(`./#/finance/Manage/orderbill/${orderId}/detail`,'nihao');
 		} else if (type == 'edit') {
 			this.openEditDetailDialog();
 		}
