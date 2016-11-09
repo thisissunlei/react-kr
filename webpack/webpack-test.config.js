@@ -8,9 +8,6 @@ var env = process.env.NODE_ENV || 'test';
 
 const config = {
 	entry:{
-		vender:[
-			path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js')
-		],	
 		app:path.join(process.cwd(), '/src/app.js'),
 	},
 	resolve: {
@@ -20,12 +17,14 @@ const config = {
 			'kr': path.join(process.cwd(), '/src'), 
 		},
 	},
+	/*
 	externals: { 
-		React:true
+		'react':'React',
 	}, 
+	*/
 	output: {
 		path: buildPath,
-		filename: '[name].js',
+		filename: '[name].[chunkhash].js',
 		publicPath:"./"
 	},
 	plugins: [
@@ -98,11 +97,11 @@ const config = {
 			},
 			{
 				test: /\.css$/,
-				loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader' })
+				loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader?minimize' })
 			},
 			{
 				test: /\.less$/,
-				 loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader!less-loader' })
+				 loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader?minimize!less-loader' })
 			},
 			{
 				test: /\.(png|jpg|gif)$/,
