@@ -600,7 +600,7 @@ class NewCreateForm extends Component {
 						title="分配工位"
 						autoScrollBodyContent={true}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
-						open={this.state.openStation} onClose={this.onIframeClose}>
+						open={this.state.openStation} onClose={this.openStationDialog}>
 							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
 

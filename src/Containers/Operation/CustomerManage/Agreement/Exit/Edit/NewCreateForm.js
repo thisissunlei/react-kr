@@ -191,7 +191,6 @@ class NewCreateForm extends Component {
 			}
 		});
 
-		console.log('.....', optionValues.lessorContactName)
 		return (
 
 

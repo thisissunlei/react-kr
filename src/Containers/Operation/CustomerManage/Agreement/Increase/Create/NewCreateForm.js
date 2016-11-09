@@ -113,18 +113,14 @@ class NewCreateForm extends Component {
 		this.onChangeLeaseBeginDate = this.onChangeLeaseBeginDate.bind(this);
 		this.onChangeLeaseEndDate = this.onChangeLeaseEndDate.bind(this);
 		this.calcStationNum = this.calcStationNum.bind(this);
-		this.onCloseStation = this.onCloseStation.bind(this);
+
+
 		this.state = {
 			stationVos: [],
 			selectedStation: [],
 			openStation: false,
 			openStationUnitPrice: false,
 		}
-	}
-	onCloseStation() {
-		this.setState({
-			openStation: !this.state.openStation
-		});
 	}
 
 
@@ -647,7 +643,7 @@ class NewCreateForm extends Component {
 						autoScrollBodyContent={true}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
 						open={this.state.openStation} 
-						onClose={this.onCloseStation}
+						onClose={this.openStationDialog}
 						>
 							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
