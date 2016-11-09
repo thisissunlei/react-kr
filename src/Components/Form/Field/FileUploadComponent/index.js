@@ -199,8 +199,7 @@ export default class FileUploadComponent extends React.Component {
 		});
 
 		let file = event.target.files[0];
-		let fileSize = file.size;
-
+		//let fileSize = file.size;
 		var progress = 0;
 		var timer = window.setInterval(function() {
 			if (progress >= 100) {
@@ -215,6 +214,7 @@ export default class FileUploadComponent extends React.Component {
 				progress
 			});
 		}, 300);
+
 
 		var form = new FormData();
 		form.append('file', file);
@@ -241,6 +241,7 @@ export default class FileUploadComponent extends React.Component {
 							if (xhrfile.status === 200) {
 								if (fileResponse && fileResponse.code > 0) {
 									_this.onSuccess(fileResponse.data);
+
 								} else {
 									_this.onError(fileResponse.msg);
 								}
