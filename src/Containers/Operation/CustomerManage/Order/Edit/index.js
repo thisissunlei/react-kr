@@ -16,6 +16,8 @@ import {
 	Button,
 	Dialog,
 	Snackbar,
+	ListGroup,
+	ListGroupItem
 } from 'kr-ui';
 
 
@@ -48,12 +50,10 @@ let OrderEditForm = function (props){
 					 <KrField name="mainbillname" grid={1/2} left={30} type="text" label="订单名称" requireLabel={true} component="text" inline={false}/> 
 					 <KrField name="mainbilldesc" type="textarea" label="订单描述" component="textarea" inline={false}/> 
 					<Grid >
-						<Row style={{marginTop:10}}>
-							<Col md={3}></Col>
-							<Col md={3} align="center"> <Button  label="确定" type="submit" joinEditForm disabled={submitting} /> </Col>
-							<Col md={3} align="center"> <Button  label="取消" cancle={true} type="button" joinEditForm disabled={submitting} onClick={reload} /> </Col>
-							<Col md={3}></Col>
-						</Row>
+						<ListGroup>
+							<ListGroupItem style={{width:'45%',textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit" joinEditForm disabled={submitting} /></ListGroupItem>
+							<ListGroupItem style={{width:'45%',textAlign:'left',paddingLeft:15}}><Button  label="取消" cancle={true} type="button" joinEditForm disabled={submitting} onClick={reload} /></ListGroupItem>
+						</ListGroup>
 					</Grid>
 			</form>
 	);
