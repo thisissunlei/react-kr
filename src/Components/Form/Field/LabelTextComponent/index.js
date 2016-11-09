@@ -44,9 +44,11 @@ export default class LabelTextComponent extends React.Component {
 
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} requireBlue={requireBlue} alignRight={alignRight}>
 							<span className="ui-label-text" >
-								<span>{dateFormat(value,'yyyy-mm-dd')}</span>
+								<span>
+									<KrDate.Format value={value} />
+								</span>
 							</span>
-						</WrapComponent>
+					</WrapComponent>
 			);
 		}
 

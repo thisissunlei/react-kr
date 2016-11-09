@@ -21,7 +21,7 @@ export default class Format extends React.Component {
 
 		let {className,value,format} = this.props;
 		if(!value){
-			return (<span>0</span>);
+			return (<span>无</span>);
 		}
 
 		let result = '';
