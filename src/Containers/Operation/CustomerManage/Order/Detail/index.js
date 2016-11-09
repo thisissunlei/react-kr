@@ -194,6 +194,21 @@ export default class OrderDetail extends React.Component {
 	}
 
 	openCreateAgreementDialog() {
+
+		const {
+			contractStatusCount
+		} = this.state.response;
+
+		if(contractStatusCount.quitRentTotoal){
+				Notify.show([{
+					message:'您已经签约了退租合同！',
+					type: 'danger',
+				}]);
+
+			return ;
+		}
+		
+
 		this.setState({
 			openCreateAgreement: !this.state.openCreateAgreement
 		});
@@ -314,6 +329,7 @@ export default class OrderDetail extends React.Component {
 			installmentPlan,
 			contractStatusCount
 		} = this.state.response;
+
 		if (this.state.loading) {
 			return (<Loading/>);
 		}
