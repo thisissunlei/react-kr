@@ -127,7 +127,7 @@ class NewCreateForm extends Component {
 			stationVos
 		});
 	}
-	
+
 	onCloseStation() {
 		this.setState({
 			openStation: !this.state.openStation
