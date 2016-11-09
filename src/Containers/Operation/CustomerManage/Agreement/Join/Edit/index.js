@@ -153,7 +153,7 @@ export default class JoinCreate extends Component {
 				initialValues.boardroomnum = response.boardroomnum;
 				initialValues.wherefloor = response.wherefloor;
 				initialValues.rentaluse = response.rentaluse;
-				initialValues.contractmark = response.contractmark;
+				initialValues.contractmark = response.contractmark ||'';
 				initialValues.totalrent = response.totalrent;
 				initialValues.totaldeposit = response.totaldeposit;
 
