@@ -68,6 +68,7 @@ export default class JoinDetail extends Component {
 				id: _this.props.params.id
 			}))
 			.then(function(response) {
+<<<<<<< HEAD
 				let {
 					basic
 				} = _this.state;
@@ -77,6 +78,8 @@ export default class JoinDetail extends Component {
 					tmpDate.setDate(tmpDate.getDate() + 1);
 					item.leaseBeginDate = dateFormat(tmpDate, 'yyyy-mm-dd')
 				});
+=======
+>>>>>>> aa619fa3f1ab490c60bc5554f59b6be8a4bff169
 				_this.setState({
 					basic: response
 				});
@@ -187,7 +190,9 @@ export default class JoinDetail extends Component {
 																	<TableRowColumn>
 																		{item.unitprice}
 																	</TableRowColumn>
-																	<TableRowColumn>{item.leaseBeginDate}</TableRowColumn>
+																	<TableRowColumn>
+																					<KrDate.Format value={item.leaseBeginDate}/>
+																	</TableRowColumn>
 																	<TableRowColumn><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
 																   </TableRow>
 																	);
