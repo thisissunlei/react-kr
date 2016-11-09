@@ -630,7 +630,7 @@ const validate = values => {
 		errors.paymentId = '请填写付款方式';
 	}
 
-	if (!values.totaldownpayment) {
+	if (!String(values.totaldownpayment)) {
 		errors.totaldownpayment = '请填写定金总额';
 	}
 

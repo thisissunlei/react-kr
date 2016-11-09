@@ -728,7 +728,7 @@ const validate = values => {
 		errors.leaseEnddate = '请输入租赁结束时间';
 	}
 
-	if (!values.totalrent) {
+	if (!String(values.totalrent)) {
 		errors.totalrent = '请填写租金总额';
 	}
 
@@ -736,7 +736,7 @@ const validate = values => {
 		errors.totalrent = '租金总额必须为数字';
 	}
 
-	if (!values.totaldeposit) {
+	if (!String(values.totaldeposit)) {
 		errors.totaldeposit = '请填写押金总额';
 	}
 

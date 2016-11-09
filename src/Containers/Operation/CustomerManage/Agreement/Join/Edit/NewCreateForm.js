@@ -668,7 +668,7 @@ const validate = values => {
 		errors.rentaluse = '请填写租赁用途';
 	}
 
-	if (!values.totalrent) {
+	if (!String(values.totalrent)) {
 		errors.totalrent = '请输入租金总额';
 	}
 
@@ -677,7 +677,7 @@ const validate = values => {
 	}
 
 
-	if (!values.totaldeposit) {
+	if (!String(values.totaldeposit)) {
 		errors.totaldeposit = '请输入押金总额';
 	}
 

@@ -289,7 +289,7 @@ const validate = values => {
 		errors.contractcode = '请填写合同编号';
 	}
 
-	if (!values.totalreturn) {
+	if (!String(values.totalreturn)) {
 		errors.totalreturn = '请填写退租金总额';
 	}
 
@@ -297,7 +297,7 @@ const validate = values => {
 		errors.totalreturn = '退租金总额必须为数字';
 	}
 
-	if (!values.depositamount) {
+	if (!String(values.depositamount)) {
 		errors.depositamount = '请填写退押金总额';
 	}
 
