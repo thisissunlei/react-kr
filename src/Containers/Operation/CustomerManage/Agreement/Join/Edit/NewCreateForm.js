@@ -149,8 +149,6 @@ class NewCreateForm extends Component {
 	//修改租赁期限－开始时间
 	onChangeLeaseBeginDate(value) {
 
-		value = dateFormat(value, "yyyy-mm-dd hh:MM:ss");
-
 		let {
 			stationVos
 		} = this.state;
@@ -160,13 +158,13 @@ class NewCreateForm extends Component {
 		}
 
 		this.setState({
-			stationVos: []
+			stationVos:[],
+			delStationVos:stationVos
 		});
 	}
 
 	//修改租赁期限-结束时间
 	onChangeLeaseEndDate(value) {
-		value = dateFormat(value, "yyyy-mm-dd hh:MM:ss");
 		let {
 			stationVos
 		} = this.state;
@@ -176,7 +174,8 @@ class NewCreateForm extends Component {
 		}
 
 		this.setState({
-			stationVos: []
+			stationVos:[],
+			delStationVos:stationVos
 		});
 	}
 

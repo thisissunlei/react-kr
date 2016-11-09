@@ -395,7 +395,6 @@ class NewCreateForm extends Component {
 			stationVos
 		} = this.state;
 
-		console.log('---changeValues', changeValues);
 
 		try {
 			billList.map(function(item, index) {
