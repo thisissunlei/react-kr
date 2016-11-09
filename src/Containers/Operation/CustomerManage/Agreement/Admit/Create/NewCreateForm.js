@@ -497,7 +497,7 @@ class NewCreateForm extends Component {
 
                                <KrField right={0} name="templockday" left={0} grid={1/2} component="input" type="text" label="保留天数" requireLabel={true}/> 
 
-							 <KrField grid={1}  name="contractmark" type="textarea" component="textarea" label="备注" /> 
+							 <KrField grid={1}  name="contractmark" type="textarea" component="textarea" label="备注" maxSize={200} /> 
 
 							 <KrField grid={1}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
 							<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
