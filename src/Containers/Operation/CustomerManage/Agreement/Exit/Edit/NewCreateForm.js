@@ -221,7 +221,7 @@ class NewCreateForm extends Component {
 				<KrField name="totalreturn" left={60} grid={1/2} type="text" component="input" label="退租金总额" requireLabel={true}/>
 				<KrField name="depositamount" right={60}  grid={1/2} type="text" component="input" label="退押金总额" requireLabel={true} />
 
-				<KrField grid={1/2} left={60} name="withdrawdate" component="labelText" inline={false} label="撤场日期" requireLabel={true}/>
+				<KrField grid={1/2} left={60} name="withdrawdate" component="labelText" type="date" inline={false} label="撤场日期" value={initialValues.withdrawdate} requireLabel={true} defaultValue="无"/>
 				<KrField grid={1/2} right={60} name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
         
 
@@ -321,9 +321,11 @@ export default connect((state) => {
 	changeValues.leaseId = selector(state, 'leaseId');
 	changeValues.stationnum = selector(state, 'stationnum') || 0;
 	changeValues.boardroomnum = selector(state, 'boardroomnum') || 0;
-	changeValues.leaseBegindate = selector(state, 'leaseBegindate') || 0;
-	changeValues.leaseEnddate = selector(state, 'leaseEnddate') || 0;
+	changeValues.leaseBegindate = selector(state, 'leaseBegindate');
+	changeValues.leaseEnddate = selector(state, 'leaseEnddate');
 	changeValues.wherefloor = selector(state, 'wherefloor') || 0;
+	changeValues.withdrawdate = selector(state, 'withdrawdate');
+	
 
 	return {
 		changeValues
