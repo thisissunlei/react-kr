@@ -149,8 +149,6 @@ class NewCreateForm extends Component {
 	//修改租赁期限－开始时间
 	onChangeLeaseBeginDate(value) {
 
-		value = dateFormat(value, "yyyy-mm-dd hh:MM:ss");
-
 		let {
 			stationVos
 		} = this.state;
@@ -160,13 +158,13 @@ class NewCreateForm extends Component {
 		}
 
 		this.setState({
-			stationVos: []
+			stationVos:[],
+			delStationVos:stationVos
 		});
 	}
 
 	//修改租赁期限-结束时间
 	onChangeLeaseEndDate(value) {
-		value = dateFormat(value, "yyyy-mm-dd hh:MM:ss");
 		let {
 			stationVos
 		} = this.state;
@@ -176,7 +174,8 @@ class NewCreateForm extends Component {
 		}
 
 		this.setState({
-			stationVos: []
+			stationVos:[],
+			delStationVos:stationVos
 		});
 	}
 
@@ -538,7 +537,7 @@ class NewCreateForm extends Component {
 				<KrField right={60} grid={1}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} requireLabel={true}/> 
 
 					<KrField grid={1/2}  name="stationnum" type="text" component="labelText"  label="工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/> 
-					<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.station} defaultValue="0" requireLabel={true} inline={false}/> 
+					<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/> 
 
 				
                 <DotTitle title='租赁明细'>
@@ -601,7 +600,7 @@ class NewCreateForm extends Component {
 						title="分配工位"
 						autoScrollBodyContent={true}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
-						open={this.state.openStation} onClose={this.onIframeClose}>
+						open={this.state.openStation} onClose={this.openStationDialog}>
 							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
 
@@ -669,7 +668,7 @@ const validate = values => {
 		errors.rentaluse = '请填写租赁用途';
 	}
 
-	if (!values.totalrent) {
+	if (!String(values.totalrent)) {
 		errors.totalrent = '请输入租金总额';
 	}
 
@@ -678,7 +677,7 @@ const validate = values => {
 	}
 
 
-	if (!values.totaldeposit) {
+	if (!String(values.totaldeposit)) {
 		errors.totaldeposit = '请输入押金总额';
 	}
 

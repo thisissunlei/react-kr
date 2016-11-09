@@ -169,8 +169,6 @@ class NewCreateForm extends Component {
 	//修改租赁期限－开始时间
 	onChangeLeaseBeginDate(value) {
 
-		value = dateFormat(value, "yyyy-mm-dd hh:MM:ss");
-
 		let {
 			stationVos
 		} = this.state;
@@ -178,17 +176,15 @@ class NewCreateForm extends Component {
 		if (!stationVos.length) {
 			return;
 		}
-		stationVos.forEach(function(item, index) {
-			item.leaseBeginDate = value;
-		});
+
 		this.setState({
-			stationVos
+			stationVos:[],
+			delStationVos:stationVos
 		});
 	}
 
 	//修改租赁期限-结束时间
 	onChangeLeaseEndDate(value) {
-		value = dateFormat(value, "yyyy-mm-dd hh:MM:ss");
 		let {
 			stationVos
 		} = this.state;
@@ -196,11 +192,10 @@ class NewCreateForm extends Component {
 		if (!stationVos.length) {
 			return;
 		}
-		stationVos.forEach(function(item, index) {
-			item.leaseEndDate = value;
-		});
+
 		this.setState({
-			stationVos
+			stationVos:[],
+			delStationVos:stationVos
 		});
 	}
 
@@ -613,7 +608,7 @@ class NewCreateForm extends Component {
 						title="分配工位"
 						autoScrollBodyContent={true}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
-						open={this.state.openStation} onClose={this.onIframeClose}>
+						open={this.state.openStation} onClose={this.openStationDialog}>
 							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
 
@@ -684,7 +679,7 @@ const validate = values => {
 		errors.signdate = '请填写签署时间';
 	}
 
-	if (!values.totalrent) {
+	if (!String(values.totalrent)){
 		errors.totalrent = '请填写租金总额';
 	}
 
@@ -693,7 +688,7 @@ const validate = values => {
 	}
 
 
-	if (!values.totaldeposit) {
+	if (!String(values.totaldeposit)) {
 		errors.totaldeposit = '请填写押金总额';
 	}
 
