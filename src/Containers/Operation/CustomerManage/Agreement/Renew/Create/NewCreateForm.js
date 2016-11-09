@@ -100,7 +100,7 @@ class NewCreateForm extends Component {
 		this.openStationUnitPriceDialog = this.openStationUnitPriceDialog.bind(this);
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
-
+		this.onCloseStation = this.onCloseStation.bind(this);
 
 
 		this.state = {
@@ -118,6 +118,11 @@ class NewCreateForm extends Component {
 		stationVos[index].unitprice = value;
 		this.setState({
 			stationVos
+		});
+	}
+	onCloseStation() {
+		this.setState({
+			openStation: !this.state.openStation
 		});
 	}
 
@@ -207,7 +212,7 @@ class NewCreateForm extends Component {
 			}]);
 			return;
 		};
-	
+
 
 		form.stationVosList = stationVos;
 		form.lessorAddress = changeValues.lessorAddress;
@@ -363,7 +368,8 @@ class NewCreateForm extends Component {
 						open={this.state.openStation}
 						modal={true}
 						autoScrollBodyContent={true}
-						autoDetectWindowHeight={true} >
+						autoDetectWindowHeight={true} 
+						onClose={this.onCloseStation}>
 								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} selectedStationVos={this.state.stationVos}/>
 					  </Dialog>
 
