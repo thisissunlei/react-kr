@@ -139,12 +139,15 @@ export default class ItemTable extends Component {
       detail
     } = this.props;
     let width = 700;
-
+    console.log('detail.....', detail)
     return (
 
       <tr className="last-td" >
 						<td className="company-list">
-							<div className="company-name" data-tip> 诚意有限公司 
+							<div className="company-name" data-tip> 
+              {
+                detail.companyName
+              }
 							<ReactTooltip place="right">
 								<ul>
 								{

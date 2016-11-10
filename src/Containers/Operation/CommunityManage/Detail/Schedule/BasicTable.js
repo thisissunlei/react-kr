@@ -260,6 +260,7 @@ export default class BasicTable extends Component {
 			rate
 		} = this.state;
 		var that = this;
+		console.log('Installmentplan', Installmentplan)
 		return (
 			<div>
 		 	<div className="basic-con">
@@ -325,13 +326,12 @@ export default class BasicTable extends Component {
 						{
 							rate.map((value,index)=><td>{value}</td>)
 						}
-						<td></td>
 					</tr>
 					{
 						Installmentplan.map((item,index)=>{
 							return (
 
-							<ItemTable onDismantling={this.onDismantling} item={{name:'ddd'}} detail={item} key={index}/>
+							<ItemTable onDismantling={this.onDismantling}  detail={item} key={index}/>
 								
 							)
 
