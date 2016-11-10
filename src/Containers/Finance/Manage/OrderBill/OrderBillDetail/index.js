@@ -632,7 +632,6 @@ export default class AttributeSetting  extends Component{
 
     //
 	initBasicInfo(){
-		//console.log('000basi');
 		var _this = this;
 		let {params} = this.props;
 		Store.dispatch(Actions.callAPI('getAccountFlow',{
