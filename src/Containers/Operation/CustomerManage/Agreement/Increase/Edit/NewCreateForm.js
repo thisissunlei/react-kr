@@ -180,6 +180,8 @@ class NewCreateForm extends Component {
 		this.setState({
 			stationVos:[],
 			delStationVos:stationVos
+		},function(){
+			this.getStationUrl();
 		});
 	}
 
@@ -196,6 +198,8 @@ class NewCreateForm extends Component {
 		this.setState({
 			stationVos:[],
 			delStationVos:stationVos
+		},function(){
+			this.getStationUrl();
 		});
 	}
 
@@ -313,7 +317,7 @@ class NewCreateForm extends Component {
 			}]);
 			return;
 		}
-		
+
 		this.getStationUrl();
 
 		this.setState({
