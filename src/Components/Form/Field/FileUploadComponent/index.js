@@ -194,30 +194,40 @@ export default class FileUploadComponent extends React.Component {
 
 		var _this = this;
 
+
+		let file = event.target.files[0];
+		console.log('file-----', file)
+		if (!file) {
+			return;
+		}
+
 		this.setState({
 			isUploading: true
 		});
 
-		let file = event.target.files[0];
-		//let fileSize = file.size;
-		var progress = 0;
-		var timer = window.setInterval(function() {
-			if (progress >= 100) {
-				window.clearInterval(timer);
-				_this.setState({
-					progress: 0,
-					isUploading: false
-				});
-			}
-			progress += 10;
-			_this.setState({
-				progress
-			});
-		}, 300);
 
+		if (file) {
+			var progress = 0;
+			var timer = window.setInterval(function() {
+				if (progress >= 100) {
+					window.clearInterval(timer);
+					_this.setState({
+						progress: 0,
+						isUploading: false
+					});
+				}
+				progress += 10;
+				_this.setState({
+					progress
+				});
+			}, 300);
+
+
+		}
 
 		var form = new FormData();
 		form.append('file', file);
+
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4) {

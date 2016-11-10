@@ -553,7 +553,7 @@ class NewCreateForm extends Component {
 						autoScrollBodyContent={true}
 						onCancel={this.onCancel}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
-						open={this.state.openStation} onClose={this.onIframeClose}>
+						open={this.state.openStation} onClose={this.onCancel}>
 							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
 
