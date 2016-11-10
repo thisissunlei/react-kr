@@ -39,24 +39,48 @@ import DismantlingForm from './DismantlingForm';
 
 class SearchForm extends Component {
 
-
-
 	constructor(props) {
 		super(props);
 
 		this.onSubmit = this.onSubmit.bind(this);
+		this.state = {
+			currentYear: '2016',
+			dismantling: false,
+			formValues: {},
+			Installmentplan: [],
+			rate: [],
+			communityIdList: [],
+			page: 1,
+			pageSize: 5,
+			type: 'BILL',
+
+		};
+
+
 	}
 
 	onSubmit(form) {
-		/*Store.dispatch(Actions.callAPI('getInstallmentplan', {}, form)).then(function(response) {
-			console.log("response", response);
+		let {
+			communityids
+		} = this.props
+		let {
+			page,
+			pageSize,
+		} = this.state
 
-		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});*/
+		const formValues = {
+			type: form.type,
+			value: form.value,
+			communityids: communityids,
+			page: page,
+			pageSize: pageSize
+
+		}
+
+		const {
+			onSubmit
+		} = this.props;
+		onSubmit && onSubmit(formValues);
 	}
 
 
@@ -123,14 +147,15 @@ export default class BasicTable extends Component {
 
 
 	componentDidMount() {
+
 		this.getInstallmentplan();
 	}
 
 	componentWillReceiveProps(nextProps) {
 
-		if (nextProps.community !== this.props.community) {
+		if (nextProps.community !== this.props.communityids) {
 			this.setState({
-				community: nextProps.community
+				communityids: nextProps.community
 			});
 			this.getInstallmentplan();
 		}
@@ -149,7 +174,21 @@ export default class BasicTable extends Component {
 	}
 
 
-	onSubmit() {
+	onSubmit(formValues) {
+		var _this = this;
+		Store.dispatch(Actions.callAPI('getInstallmentplan', formValues)).then(function(response) {
+			console.log('=======', response)
+			_this.setState({
+				Installmentplan: response.vo,
+				rate: response.rate
+			});
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
 
 	}
 
@@ -205,7 +244,7 @@ export default class BasicTable extends Component {
 		let {
 			community
 		} = this.props;
-		console.log('this.params', this.props, community);
+
 		let {
 			type,
 			page,
@@ -219,7 +258,9 @@ export default class BasicTable extends Component {
 				communityIds.push(item.id);
 			});
 			var content = community || communityIds;
-
+			_this.setState({
+				communityIds: communityIds
+			})
 
 			Store.dispatch(Actions.callAPI('getInstallmentplan', {
 				communityids: content.toString(),
@@ -259,8 +300,11 @@ export default class BasicTable extends Component {
 			Installmentplan,
 			rate
 		} = this.state;
+		let {
+			communityids
+		} = this.props
 		var that = this;
-		console.log('Installmentplan', Installmentplan)
+		console.log('33333', this.props.communityids)
 		return (
 			<div>
 		 	<div className="basic-con">
@@ -287,7 +331,7 @@ export default class BasicTable extends Component {
 		 			</div>
 		 		</div>
 		 		<div className="search">
-					<SearchForm />	
+					<SearchForm  communityids={communityids} onSubmit={this.onSubmit}/>
 		 		</div>
 		 	</div>
 		 	
@@ -326,6 +370,7 @@ export default class BasicTable extends Component {
 						{
 							rate.map((value,index)=><td>{value}</td>)
 						}
+						<td></td>
 					</tr>
 					{
 						Installmentplan.map((item,index)=>{

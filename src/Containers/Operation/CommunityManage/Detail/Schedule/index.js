@@ -47,12 +47,12 @@ export default class Schedule extends Component {
 	}
 	render() {
 		let {
-			communityInfoList
+			communityInfoList,
+			communityids
 		} = this.props;
-		console.log('cccccc=======', communityInfoList)
 		return (
 			<div>
-			<BasicTable detail={communityInfoList}/>
+			<BasicTable detail={communityInfoList} communityids={communityids}/>
 		</div>
 		);
 

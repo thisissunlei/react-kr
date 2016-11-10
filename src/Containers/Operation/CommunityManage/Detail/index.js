@@ -81,7 +81,8 @@ export default class CommunityManage extends Component {
 		// Store.dispatch(change('selectCommunityForm','community',personel.label));
 		this.getCommunityFloors(personel.id);
 		this.setState({
-			community: personel.id
+			community: personel.id,
+			communityids: personel.id,
 		})
 
 	}
@@ -146,11 +147,11 @@ export default class CommunityManage extends Component {
 		} = this.state;
 		var {
 			communityInfoList,
-			communityInfoFloorList
-		} = this.state;
-		let {
+			communityInfoFloorList,
+			communityids,
 			community
 		} = this.state;
+
 
 		return (
 
@@ -164,7 +165,7 @@ export default class CommunityManage extends Component {
 				</Form>
 				 <Tabs>
 					<Tab label="计划表" onActive={this.planTable}>
-						<Schedule  communityInfoList={communityInfoList}/>
+						<Schedule  communityInfoList={communityInfoList} communityids={this.state.communityids} />
 					</Tab>
 					<Tab label="平面图"  onActive={this.Floorplan} >
 					   <FloorPlan communityId={community} tab={tab} communityInfoFloorList={communityInfoFloorList}/>

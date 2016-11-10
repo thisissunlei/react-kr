@@ -139,7 +139,7 @@ export default class ItemTable extends Component {
       detail
     } = this.props;
     let width = 700;
-    console.log('detail.....', detail)
+
     return (
 
       <tr className="last-td" >
