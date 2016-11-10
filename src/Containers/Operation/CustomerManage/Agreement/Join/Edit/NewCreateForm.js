@@ -423,7 +423,7 @@ class NewCreateForm extends Component {
 				obj.leaseEndDate = changeValues.leaseEnddate;
 				obj.stationId = item.id;
 				obj.stationType = item.type;
-				item.stationName = item.name;
+				obj.stationName = item.name;
 				obj.unitprice = '';
 				obj.whereFloor = item.wherefloor;
 				stationVos.push(obj);
