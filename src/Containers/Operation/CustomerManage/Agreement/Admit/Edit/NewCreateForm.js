@@ -112,7 +112,7 @@ class NewCreateForm extends Component {
 
 		this.state = {
 			stationVos: this.props.stationVos,
-			delStationVos:[],
+			delStationVos: [],
 			selectedStation: [],
 			openStation: false,
 			openStationUnitPrice: false,
@@ -170,8 +170,8 @@ class NewCreateForm extends Component {
 		}
 
 		this.setState({
-			stationVos:[],
-			delStationVos:stationVos
+			stationVos: [],
+			delStationVos: stationVos
 		});
 	}
 
@@ -186,8 +186,8 @@ class NewCreateForm extends Component {
 		}
 
 		this.setState({
-			stationVos:[],
-			delStationVos:stationVos
+			stationVos: [],
+			delStationVos: stationVos
 		});
 	}
 
@@ -302,7 +302,7 @@ class NewCreateForm extends Component {
 		form.lessorAddress = changeValues.lessorAddress;
 
 		var _this = this;
-		
+
 		form.delStationVos = JSON.stringify(delStationVos);
 		form.stationVos = JSON.stringify(stationVos);
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
@@ -344,7 +344,7 @@ class NewCreateForm extends Component {
 		});
 
 		let params = {
-			contractId:this.context.params.id,
+			contractId: this.context.params.id,
 			mainBillId: this.context.params.orderId,
 			communityId: optionValues.mainbillCommunityId,
 			floors: changeValues.wherefloor,
@@ -551,6 +551,7 @@ class NewCreateForm extends Component {
 					<Dialog
 						title="分配工位"
 						autoScrollBodyContent={true}
+						onCancel={this.onCancel}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
 						open={this.state.openStation} onClose={this.onIframeClose}>
 							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
