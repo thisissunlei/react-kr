@@ -180,6 +180,8 @@ class NewCreateForm extends Component {
 		this.setState({
 			stationVos:[],
 			delStationVos:stationVos
+		},function(){
+			this.getStationUrl();
 		});
 	}
 
@@ -196,6 +198,8 @@ class NewCreateForm extends Component {
 		this.setState({
 			stationVos:[],
 			delStationVos:stationVos
+		},function(){
+			this.getStationUrl();
 		});
 	}
 
@@ -314,6 +318,8 @@ class NewCreateForm extends Component {
 			return;
 		}
 
+		this.getStationUrl();
+
 		this.setState({
 			openStation: !this.state.openStation
 		});
@@ -377,7 +383,7 @@ class NewCreateForm extends Component {
 
 	getStationUrl() {
 
-		let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate} & contractId={contractId}";
+		let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}&contractId={contractId}";
 
 		let {
 			changeValues,
