@@ -118,7 +118,7 @@ onChangeRentBeginDate(value){
   getLoadData(){
     var _this  = this;
     let {params} = this.context;
-		Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainBillid:params.orderId,page:1,pagesize:100})).then(function(response){
+		Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainBillid:params.orderId,page:1,pagesize:100,contractId:params.id})).then(function(response){
 			  _this.setState({
 				stationVos:response.items
 			  });
