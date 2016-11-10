@@ -23,7 +23,7 @@ import {
 
 import * as actionCreators from 'kr/Redux/Actions';
 
-
+import '../changeBody.js'
 let OrderEditForm = function (props){
 
   	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,cityName,value} = props;
@@ -48,7 +48,7 @@ let OrderEditForm = function (props){
 				 </KrField>
 					<KrField label="所在城市" grid={1/2} right={30} value={cityName||'无'} component="labelText" inline={false}/> 
 					 <KrField name="mainbillname" grid={1/2} left={30} type="text" label="订单名称" requireLabel={true} component="text" inline={false}/> 
-					 <KrField name="mainbilldesc" type="textarea" label="订单描述" component="textarea" inline={false}/> 
+					 <KrField name="mainbilldesc" type="textarea" label="订单描述" component="textarea" inline={false}  maxSize={200}/> 
 					<Grid >
 						<ListGroup>
 							<ListGroupItem style={{width:'45%',textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit" joinEditForm disabled={submitting} /></ListGroupItem>

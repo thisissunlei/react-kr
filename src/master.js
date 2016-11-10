@@ -12,18 +12,22 @@ class Master extends Component {
 
 
 	static childContextTypes =  {
-          params: React.PropTypes.object.isRequired
+          params: React.PropTypes.object.isRequired,
+          //router: React.PropTypes.object.isRequired
   }
 
 	getChildContext() {
 				return {
-					params:this.props.params
+					params:this.props.params,
+					//router:this.props.router
 				};
 	 }
 
 
 	constructor(props,context){
 		super(props, context);
+   
+       
 
 		Store.dispatch(Actions.callAPI('getSelfMenuInfo',{})).then(function(response){
 			Store.dispatch(Actions.setUserNavs());
@@ -46,6 +50,8 @@ class Master extends Component {
 	}
 
 	render() {
+
+
 
 		var styles = {};
 
