@@ -109,7 +109,7 @@ class NewCreateForm extends Component {
 		this.onChangeLeaseEndDate = this.onChangeLeaseEndDate.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 		this.calcStationNum = this.calcStationNum.bind(this);
-
+		this.onClose = this.onClose.bind(this);
 		this.state = {
 			stationVos: this.props.stationVos,
 			delStationVos: [],
@@ -261,8 +261,11 @@ class NewCreateForm extends Component {
 			return;
 		}
 
-		this.getStationUrl();
-
+		this.setState({
+			openStation: !this.state.openStation
+		});
+	}
+	onClose() {
 		this.setState({
 			openStation: !this.state.openStation
 		});
@@ -327,7 +330,7 @@ class NewCreateForm extends Component {
 
 	getStationUrl() {
 
-		let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}&contractId={contractId}";
+		let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate} & contractId={contractId}";
 
 		let {
 			changeValues,
@@ -555,7 +558,7 @@ class NewCreateForm extends Component {
 						autoScrollBodyContent={true}
 						onCancel={this.onCancel}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
-						open={this.state.openStation} onClose={this.onCancel}>
+						open={this.state.openStation} onClose={this.onClose}>
 							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
 
