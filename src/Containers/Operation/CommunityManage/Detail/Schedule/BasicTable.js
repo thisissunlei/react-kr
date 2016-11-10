@@ -177,7 +177,7 @@ export default class BasicTable extends Component {
 	onSubmit(formValues) {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('getInstallmentplan', formValues)).then(function(response) {
-			console.log('=======', response)
+
 			_this.setState({
 				Installmentplan: response.vo,
 				rate: response.rate
@@ -304,7 +304,7 @@ export default class BasicTable extends Component {
 			communityids
 		} = this.props
 		var that = this;
-		console.log('33333', this.props.communityids)
+
 		return (
 			<div>
 		 	<div className="basic-con">

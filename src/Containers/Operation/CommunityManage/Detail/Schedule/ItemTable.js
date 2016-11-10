@@ -120,8 +120,8 @@ export default class ItemTable extends Component {
       } else {
         return (
           <li key={index} className="company-order">
-							<span className="count">({item.contractCount})</span>
-							<p className="name">{item.contractName}</p>
+							
+							<p className="name">{item.contractName}(item.contractCount)</p>
 							<p>{dateFormat(item.contractTime,"yyyy.mm.dd")}</p>
 						</li>
         )
