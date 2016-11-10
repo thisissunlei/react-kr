@@ -57,12 +57,16 @@ class SelectStationForm  extends Component{
 
 
 onChangeRentBeginDate(value){
-	value = dateFormat(value,'yyyy-mm-dd');
-	
+	value = dateFormat(value,'yyyy-mm-dd')+' 00:00:00';
+
+
+
 	let {leaseBegindate} = this.props.changeValues;
 	//判断选择的时间是否大于租赁起始时间
-	let beginDate = Date.parse(leaseBegindate);
+	let beginDate = Date.parse(dateFormat(leaseBegindate,'yyyy-mm-dd')+' 00:00:00');
 	let rentBeginDate = Date.parse(value);
+
+  console.log('leaseBegindate',dateFormat(beginDate,'yyyy-mm-dd'),dateFormat(rentBeginDate,'yyyy-mm-dd'));
 
 	 if(beginDate>rentBeginDate){
 			Notify.show([{
@@ -202,7 +206,7 @@ onChangeRentBeginDate(value){
 	  }
 
 	Store.dispatch(change('reduceCreateForm','leaseBegindate',selectedStationVos[0].leaseEndDate));
-	
+
 	selectedStationVos.forEach(function(item,index){
 		var tmpDate = new Date();
 		tmpDate.setTime(Date.parse(item.leaseBeginDate));
