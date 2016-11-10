@@ -39,7 +39,7 @@ const APIS = {
 
 	//文件预览
 	'viewFile': {
-		url: ' /krspace_knowledge_wap/doc/docFile/viewFile?operater={operater}&sourceservicetoken={sourceservicetoken}&fileId={fileId}',
+		url: '/krspace_knowledge_wap/doc/docFile/viewFile?operater={operater}&sourceservicetoken={sourceservicetoken}&fileId={fileId}',
 		method: 'get'
 	},
 
