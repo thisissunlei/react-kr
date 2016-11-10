@@ -42,7 +42,7 @@ let OrderCreateForm = function(props){
 				 </KrField>
 				<KrField  label="所在城市" right={30} grid={1/2} component="labelText" value={cityName||'无'}  inline={false}/> 
 			 	<KrField name="mainbillname" left={30} grid={1/2} type="text" component="labelText" label="订单名称" requireLabel={true} inline={false} value={mainbillname}/> 
-			    <KrField name="mainbilldesc" component="textarea" label="订单描述" inline={false}/> 
+			    <KrField name="mainbilldesc" component="textarea" label="订单描述" inline={false} maxSize={200}/> 
 
 				<Grid>
 					
