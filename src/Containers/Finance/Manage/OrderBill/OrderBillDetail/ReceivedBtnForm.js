@@ -114,9 +114,6 @@ class ReceivedBtnForm extends Component {
 		} = this.props;
 
 
-		//console.log("====999",typeList)
-
-
 
 		return (
 
