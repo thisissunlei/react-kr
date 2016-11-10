@@ -111,6 +111,7 @@ class NewCreateForm extends Component {
 		this.calcStationNum = this.calcStationNum.bind(this);
 		this.onClose = this.onClose.bind(this);
 		this.state = {
+			stationUrl:'',
 			stationVos: this.props.stationVos,
 			delStationVos: [],
 			selectedStation: [],
