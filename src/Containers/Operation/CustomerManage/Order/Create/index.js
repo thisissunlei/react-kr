@@ -18,6 +18,7 @@ import {
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';
+import '../changeBody.js'
 
 let OrderCreateForm = function(props){
 
@@ -27,18 +28,18 @@ let OrderCreateForm = function(props){
   	let reload = function(){
   		window.top.location.reload();
   	}
+  	let Order = [
+  		{value:'',label:'请选择类型'},
+  		{value:'STATION',label:'工位订单'}
+  	]
 
 	return (
 			<form onSubmit={handleSubmit(onSubmit)} style={{padding:'20'}}>
 
 				<KrField name="customerName" grid={1/1} component="labelText" type="text" label="客户名称"  disabled={true} inline={false} value={customerName}/> 
-				 <KrField name="mainbilltype" right={30} grid={1/2} component="select" label="订单类型" requireLabel={true} inline={false}>
-					 <option value="">请选择类型</option>
-					 <option value="STATION">工位订单</option>
+				 <KrField name="mainbilltype" right={30} grid={1/2} component="select" label="订单类型" requireLabel={true} inline={false} options={Order}>
 				 </KrField>
-				 <KrField name="communityid" left={30} grid={1/2} component="select" label="所在社区" requireLabel={true} inline={false}>
-						<option value="">请选择社区</option>
-						{communitys.map((item,index)=> <option value={item.communityId} key={index}>{item.communityName}</option>)}
+				 <KrField name="communityid" left={30} grid={1/2} component="select" label="所在社区" requireLabel={true} inline={false} options={communitys}>
 				 </KrField>
 				<KrField  label="所在城市" right={30} grid={1/2} component="labelText" value={cityName||'无'}  inline={false}/> 
 			 	<KrField name="mainbillname" left={30} grid={1/2} type="text" component="labelText" label="订单名称" requireLabel={true} inline={false} value={mainbillname}/> 
@@ -113,7 +114,12 @@ class OrderCreate extends Component {
 		}
 
 
-		actions.callAPI('community-city-selected',{},{}).then(function(response){
+		actions.callAPI('community-city-selected',{},{}).then(function(communitys){
+			communitys = communitys.map((item)=>{
+		  		item.value = item.communityId;
+		  		item.label = item.communityName;
+		  		return item;
+		  	})
 		}).catch(function(err){ });
 
 		actions.callAPI('get-customName-orderName',{
