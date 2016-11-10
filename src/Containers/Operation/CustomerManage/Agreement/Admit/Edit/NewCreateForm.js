@@ -370,7 +370,9 @@ class NewCreateForm extends Component {
 			}
 		}
 
-		return url;
+		this.setState({
+			stationUrl:url
+		});
 	}
 
 
@@ -556,7 +558,7 @@ class NewCreateForm extends Component {
 						onCancel={this.onCancel}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
 						open={this.state.openStation} onClose={this.onIframeClose}>
-							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
+							<IframeContent src={this.state.stationUrl} onClose={this.onIframeClose}/>
 					  </Dialog>
 
 

@@ -116,6 +116,7 @@ class NewCreateForm extends Component {
 		this.calcStationNum = this.calcStationNum.bind(this);
 
 		this.state = {
+			stationUrl:'',
 			stationVos: this.props.stationVos,
 			delStationVos: [],
 			selectedStation: [],
@@ -426,7 +427,10 @@ class NewCreateForm extends Component {
 			}
 		}
 
-		return url;
+		this.setState({
+			stationUrl:url
+		});
+
 	}
 
 	onIframeClose(billList) {
@@ -615,7 +619,7 @@ class NewCreateForm extends Component {
 						autoScrollBodyContent={true}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
 						open={this.state.openStation} onClose={this.openStationDialog}>
-							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
+							<IframeContent src={this.state.stationUrl} onClose={this.onIframeClose}/>
 					  </Dialog>
 
 					<Dialog
