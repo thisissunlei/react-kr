@@ -9,15 +9,16 @@ export default class KrCheckbox extends React.Component{
 	
 	static PropTypes = {
 		checked:React.PropTypes.bool,
+		onCheck:React.PropTypes.func,
 
 	}
 
 	render(){
 
-		let {checked} = this.props;
+		let {checked,onCheck} = this.props;
 
 		return (
-			<Checkbox {...this.props}/>
+			<input type="checkbox" onClick={onCheck} checked={checked}/>
 		);
 	}
 }

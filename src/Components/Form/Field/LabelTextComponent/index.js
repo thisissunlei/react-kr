@@ -6,16 +6,20 @@ import Button from '../../../Button';
 
 import './index.less';
 import dateFormat from 'dateformat';
+import ReactTooltip from 'react-tooltip'
+
 export default class LabelTextComponent extends React.Component {
 
 
 	static defaultProps = {
-		inline: true
+		inline: true,
+		tooltip:''
 	}
 	static PropTypes = {
 		inline: React.PropTypes.bool,
 		requireBlue: React.PropTypes.bool,
 		alignRight: React.PropTypes.bool,
+		tooltip:React.PropTypes.string
 	}
 
 	constructor(props) {
@@ -37,8 +41,20 @@ export default class LabelTextComponent extends React.Component {
 			alignRight,
 			format,
 			href,
+			tooltip
 		} = this.props;
-
+		
+		if(tooltip && type != 'date' && type != 'link'){
+			return (
+				<WrapComponent label={label} wrapStyle={style} inline={inline} requireBlue={requireBlue} alignRight={alignRight} requireLabel={requireLabel}>
+					<span className="ui-label-text" data-tip> {value || defaultValue} 
+						<ReactTooltip>
+							<p style={{margin:0}}>{tooltip}</p>
+						</ReactTooltip>
+					</span>
+				</WrapComponent>
+			);
+		}
 		if (type == 'date') {
 			return (
 

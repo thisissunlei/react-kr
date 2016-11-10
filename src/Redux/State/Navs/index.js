@@ -30,6 +30,10 @@ module.exports = {
 			menuItems:[
 				{
 					primaryText:"社区管理",
+					iconName:'icon-com',
+					iconColor:'#2b8dcd',
+					
+
 					menuItems:[
 						{
 							primaryText:'计划表',
@@ -51,6 +55,9 @@ module.exports = {
 			menuItems:[
 				{
 					primaryText:"客户管理",
+					iconName:'icon-user',
+					iconColor:'#2b8dcd',
+
 					router:'communityManage',
 					menuCode:'coustomerInfoList',
 					menuItems:[
@@ -62,6 +69,9 @@ module.exports = {
 				},
 				{
 					primaryText:"社区配置",
+					iconName:'icon-community',
+					iconColor:'#2b8dcd',
+
 					router:'communityManage',
 					menuCode:'communityBaseAdmin',
 					menuItems:[
@@ -99,6 +109,9 @@ module.exports = {
 				},
 				{
 					primaryText:"基础配置",
+					iconName:'icon-basis',
+					iconColor:'#2b8dcd',
+
 					router:'BaseManage',
 					menuCode:'basic_config',
 					menuItems:[
@@ -142,6 +155,9 @@ module.exports = {
 			menuItems:[
 				{
 					primaryText:'会员管理',
+					iconName:'icon-vip',
+					iconColor:'#2b8dcd',
+
 					menuCode:'memberAdmin',
 					router:'memberAdmin',
 					originUrl:'/krspace_member_web/member/toMemberList?mid=94'
@@ -151,10 +167,15 @@ module.exports = {
 		{
 			primaryText:"财务系统",
 			router:'finance',
+			
+
 			menuItems:[
 				{
 					primaryText:"财务管理",
 					router:'manage',
+					iconName:'icon-money',
+					iconColor:'#2b8dcd',
+
 					menuItems:[
 						{
 							primaryText:"订单账单",
@@ -174,6 +195,9 @@ module.exports = {
 		},
 		{
 			primaryText:"商品零售",
+			iconName:'icon-look',
+			iconColor:'#2b8dcd',
+
 			router:'retail',
 			menuCode:'krspace_retail',
 			originUrl:'/krspace_retail_web/retail/charts/retailCharts/toRetailCharts?mid=92',
@@ -187,6 +211,9 @@ module.exports = {
 				{
 					primaryText:'商品管理',
 					menuCode:'goodsAdmin',
+					iconName:'icon-commodityManage',
+					iconColor:'#2b8dcd',
+
 					router:'goodsAdmin',
 					menuItems:[
 						{
@@ -218,6 +245,9 @@ module.exports = {
 				},
 				{
 					primaryText:'订单管理',
+					iconName:'icon-orderForm',
+					iconColor:'#2b8dcd',
+
 					menuCode:'ordersManager',
 					router:'ordersManager',
 					menuItems:[
@@ -238,6 +268,9 @@ module.exports = {
 				},
 				{
 					primaryText:'系统信息',
+					iconName:'icon-system',
+					iconColor:'#2b8dcd',
+
 					menuCode:'sysmsgmanger',
 					router:'sysmsgmanger',
 					menuItems:[
@@ -278,6 +311,9 @@ module.exports = {
 			menuItems:[
 				{
 					primaryText:'组织架构',
+					iconName:'icon-schema',
+					iconColor:'#2b8dcd',
+
 					menuCode:'hrmOrganization',
 			        router:'hrmOrganization',
 			        originUrl:'/krspace_oa_web/hrm/hrmOrganization/main?mid=40'	
@@ -285,6 +321,11 @@ module.exports = {
 				{
 					primaryText:'基础配置',
 					menuCode:'hrmbasedataadmin',
+					iconName:'icon-basis',
+					iconColor:'#2b8dcd',
+
+
+					iconColor:'#2b8dcd',
 					router:'hrmbasedataadmin',	
 					menuItems:[
 						{
@@ -316,6 +357,10 @@ module.exports = {
 				},
 				{
 					primaryText:'人员管理',
+					iconName:'icon-administrator',
+					iconColor:'#2b8dcd',
+
+					iconColor:'#2b8dcd',
 					menuCode:'hrmresourceadmin',
 					router:'hrmresourceadmin',
 					menuItems:[
@@ -343,6 +388,8 @@ module.exports = {
 			menuItems:[
 				{
 					primaryText:'系统管理',
+					iconName:'icon-system',
+					iconColor:'#2b8dcd',
 					menuCode:'sysadmin',
 					router:'sysadmin',
 					menuItems:[
@@ -368,6 +415,8 @@ module.exports = {
 				},
 				{
 					primaryText:'文档管理',
+					iconName:'icon-file',
+					iconColor:'#2b8dcd',
 					menuCode:'docadmin',
 					router:'docadmin',
 					menuItems:[
@@ -449,6 +498,8 @@ module.exports = {
 				{
 					primaryText:'权限管理',
 					menuCode:'rightadmin',
+					iconName:'icon-wendang',
+					iconColor:'#2b8dcd',
 					router:'rightadmin',
 					menuItems:[
 						{
@@ -500,6 +551,8 @@ module.exports = {
 				{
 					primaryText:'账户管理',
 					menuCode:'sysloginadmin',
+					iconName:'icon-account',
+					iconColor:'#2b8dcd',
 					router:'sysloginadmin',
 					menuItems:[
 						{
@@ -526,6 +579,8 @@ module.exports = {
 				{
 					primaryText:'单点管理',
 					menuCode:'issoadmin',
+					iconName:'icon-dandian_nor',
+					iconColor:'#2b8dcd',
 					router:'issoadmin',	
 					menuItems:[
 						{
@@ -544,6 +599,8 @@ module.exports = {
 				},
 				{
 					primaryText:'系统监控',
+					iconName:'icon-control',
+					iconColor:'#2b8dcd',
 					menuCode:'sysmonitor',
 					router:'sysmonitor',
 					menuItems:[

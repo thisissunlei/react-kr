@@ -329,7 +329,7 @@ class NewCreateForm extends Component {
 
 	getStationUrl() {
 
-		let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
+		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
 
 		let {
 			changeValues,
@@ -551,7 +551,7 @@ class NewCreateForm extends Component {
 						<Col md={12} align="center">
 							<ListGroup>
 								<ListGroupItem>
-									 <Button  label="确定" type="submit" primary={false} disabled={submitting}/>
+									 <Button  label="确定" type="submit" primary={false} disabled={pristine || submitting} />
 								</ListGroupItem>
 								<ListGroupItem style={{paddingLeft:20}}>
 									<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel}/>

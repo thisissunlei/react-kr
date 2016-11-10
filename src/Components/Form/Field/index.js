@@ -37,7 +37,7 @@ export default class KrField extends React.Component {
 		component: React.PropTypes.string,
 		disabled: React.PropTypes.bool,
 		grid: React.PropTypes.number,
-		value: React.PropTypes.value,
+		value: React.PropTypes.string,
 		inline: React.PropTypes.bool,
 		left: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
 		right: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),

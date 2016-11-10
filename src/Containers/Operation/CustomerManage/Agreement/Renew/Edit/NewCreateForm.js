@@ -159,45 +159,14 @@ class NewCreateForm extends Component {
 		this.openStationDialog();
 	}
 
-	onStationSubmit(selectedList) {
-
-		let {
-			stationVos
-		} = this.state;
-		let result = stationVos;
-		console.log('stationVos', stationVos, selectedList);
-		var same = false;
-		if (!stationVos.length) {
-			result = selectedList;
-		} else {
-			selectedList.forEach(function(item, index) {
-				stationVos.forEach(function(selected, i) {
-					if (item.id == selected.id) {
-						selected = item;
-						same = true;
-						stationVos.slice(index);
-
-					}
-				});
-			});
-			if (!same) {
-				selectedList.forEach(function(item) {
-					stationVos.push(item);
-				})
-			}
-
-		}
-
-		result.map((item) => {
-			item.stationName = item.stationId;
-			item.leaseBeginDate = dateFormat(item.leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
-			item.leaseEndDate = dateFormat(item.leaseEndDate, "yyyy-mm-dd hh:MM:ss");
-		})
+	onStationSubmit(stationVos) {
 		this.setState({
-			stationVos: result
+			stationVos
 		});
+
 		this.openStationDialog();
 	}
+
 
 	//删除工位
 	onStationDelete() {
@@ -348,7 +317,10 @@ class NewCreateForm extends Component {
 				<KrField name="paytype" right={60} grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} />
 				<KrField name="firstpaydate" right={60} component="date" label="首付款时间" requireLabel={true} /> 
 
-				<KrField grid={1/2} right={60} name="signdate"  component="date"  label="签署时间" requireLabel={true}/>
+				<KrField grid={1/2} right={60} name="signdate"  component="date"  label="签署时间" requireLabel={true}/>	
+				
+
+
 				<KrField grid={1} right={60} name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"  /> 
 				<KrField grid={1/2} right={60} name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true} /> 
 				<KrField grid={1/2} left={60}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true} />
@@ -416,7 +388,7 @@ class NewCreateForm extends Component {
 						modal={true}
 						autoScrollBodyContent={true}
 						autoDetectWindowHeight={true} onClose={this.onStationCancel}>
-								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel}/>
+								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} changeValues={this.props.changeValues}/>
 					  </Dialog>
 
 

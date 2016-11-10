@@ -26,8 +26,6 @@ class Master extends Component {
 
 	constructor(props,context){
 		super(props, context);
-   
-       
 
 		Store.dispatch(Actions.callAPI('getSelfMenuInfo',{})).then(function(response){
 			Store.dispatch(Actions.setUserNavs());

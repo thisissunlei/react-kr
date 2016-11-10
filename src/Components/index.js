@@ -23,6 +23,7 @@ import PageHeader from './PageHeader';
 import Paper from './Paper';
 import SplitLine from './SplitLine';
 import FontIcon from './FontIcon';
+import SearchForms from './search';
 
 
 import {
@@ -98,6 +99,7 @@ module.exports = {
 	Tabs,
 	Tab,
 	KrDate,
+	SearchForms,
 	//...Tabs,
 	PageHeader,
 }

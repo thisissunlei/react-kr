@@ -109,8 +109,9 @@ class NewCreateForm extends Component {
 		this.onChangeLeaseEndDate = this.onChangeLeaseEndDate.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 		this.calcStationNum = this.calcStationNum.bind(this);
-
+		this.onClose = this.onClose.bind(this);
 		this.state = {
+			stationUrl: '',
 			stationVos: this.props.stationVos,
 			delStationVos: [],
 			selectedStation: [],
@@ -227,6 +228,9 @@ class NewCreateForm extends Component {
 
 	openStationDialog() {
 
+
+		this.getStationUrl();
+
 		let {
 			changeValues
 		} = this.props;
@@ -261,6 +265,11 @@ class NewCreateForm extends Component {
 			return;
 		}
 
+		this.setState({
+			openStation: !this.state.openStation
+		});
+	}
+	onClose() {
 		this.setState({
 			openStation: !this.state.openStation
 		});
@@ -325,7 +334,7 @@ class NewCreateForm extends Component {
 
 	getStationUrl() {
 
-		let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate} & contractId={contractId}";
+		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate} & contractId={contractId}";
 
 		let {
 			changeValues,
@@ -368,7 +377,9 @@ class NewCreateForm extends Component {
 			}
 		}
 
-		return url;
+		this.setState({
+			stationUrl: url
+		});
 	}
 
 
@@ -448,7 +459,7 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
-		console.log(stationVos);
+
 
 		return (
 
@@ -497,7 +508,7 @@ class NewCreateForm extends Component {
 				
                <KrField right={60} grid={1/1} component="group" label="租赁项目" requireLabel={true}> 
 								<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} /> 
-								<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum} /> 
+								<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum==0?'0':changeValues.boardroomnum} /> 
 				</KrField>
                 <DotTitle title='租赁明细'>
 
@@ -540,7 +551,7 @@ class NewCreateForm extends Component {
 						<Grid>
 						<Row style={{marginTop:30}}>
 						<Col md={4}></Col>
-						<Col md={2} align="center"> <Button  label="确定" type="submit" /> </Col>
+						<Col md={2} align="center"> <Button  label="确定" type="submit" disabled={pristine || submitting} /> </Col>
 						<Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col>
 						<Col md={4}></Col> </Row>
 						</Grid>
@@ -553,8 +564,8 @@ class NewCreateForm extends Component {
 						autoScrollBodyContent={true}
 						onCancel={this.onCancel}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
-						open={this.state.openStation} onClose={this.onIframeClose}>
-							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
+						open={this.state.openStation} onClose={this.onClose}>
+							<IframeContent src={this.state.stationUrl} onClose={this.onIframeClose}/>
 					  </Dialog>
 
 
