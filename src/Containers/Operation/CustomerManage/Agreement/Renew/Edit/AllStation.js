@@ -148,7 +148,7 @@ onChangeRentBeginDate(value){
 
 	if(!someStartDate){
 		Notify.show([{
-		message:'选择的工位必须要有租赁开始时间',
+		message:'选择的工位必须要有续租结束时间',
 			type: 'danger',
 		  }]);
 	  return ;
