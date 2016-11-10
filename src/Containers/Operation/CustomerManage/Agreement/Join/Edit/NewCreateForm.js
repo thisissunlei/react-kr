@@ -276,6 +276,8 @@ class NewCreateForm extends Component {
 
 	openStationDialog() {
 
+		this.getStationUrl();
+
 		let {
 			changeValues
 		} = this.props;
@@ -366,7 +368,7 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
-
+		console.log('=-->>.',stationVos);
 		stationVos = stationVos.map(function(item) {
 			var obj = {};
 			obj.id = item.stationId;
