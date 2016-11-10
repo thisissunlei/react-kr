@@ -17,8 +17,13 @@ import {
 	Divider,
 	FontIcon,
 	FlatButton,
+	List,
+	ListItem,
+	FileFolder,
+	Avatar,
 	FloatingActionButton
 } from 'material-ui';
+
 
 import ActionHome from 'material-ui/svg-icons/action/home';
 
@@ -142,7 +147,28 @@ class Header extends Component {
 		}
 
 		iconElementRight={
-			 <IconMenu
+			// <List>
+			//     <ListItem
+			//       disabled={true}
+			//       leftAvatar={
+			//         <Avatar 
+			//         src="images/uxceo-128.jpg" 
+			//         size={30}
+			//         />
+			//       }
+			//     >
+			//      <span className='ui-name-hello'>你好&nbsp;!&nbsp;</span>
+			//      <span className='ui-name-master'>{this.props.user.nick}</span>
+                 
+   //               <span className='ui-name-quit' onTouchTap={(event)=>{
+			// 		window.location.href = '/logout/logout';
+			// 	}}>退出</span>
+			     
+			//     </ListItem>
+   //          </List>
+
+
+        <IconMenu
 				iconButtonElement={
 				  <IconButton><MoreVertIcon /></IconButton>
 				}
@@ -158,6 +184,8 @@ class Header extends Component {
 					window.location.href = '/logout/logout';
 				}}/>
 			  </IconMenu>
+
+			 
 		}
 				/>
 			);
@@ -231,3 +259,7 @@ export default connect(mapStateToProps,mapDispatchToProps)(Header);
 			</Popover>
 
 */
+
+
+
+
