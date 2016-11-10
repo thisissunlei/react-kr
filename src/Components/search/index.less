@@ -1,0 +1,97 @@
+.search-form{
+	height: 30px;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	padding:0 10px;
+	display: inline-block;
+	float: right;
+	text-align: left;
+	div{
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	.search-button{
+
+	}
+	.search-val{
+		border:none;
+		// border-left: 1px solid #ccc;
+		padding-left: 10px;
+		font-size: 14px;
+		&:focus {outline: none;} 
+	}
+	.icon-searching{
+		z-index: 10;
+		font-size: 20px;
+		line-height: 30px;
+		color: #d4dce2;
+		float: right;
+		margin-left: 10px;
+		&:hover{
+			color:#499df1;
+		}
+	}
+	.click{
+		color: #499df1;
+	}
+	.search-name{
+		width: 100px;
+		margin-left: 10px;
+		font-size: 14px;
+		display: inline-block;
+		border-right: 1px solid #ccc;
+		text-align: left;
+		&:hover{
+			color: #2980b9;
+		}
+	}
+	.search-filter{
+	}
+	
+	.search-status{
+		z-index: 1;
+		height: 30px;
+		line-height: 30px;
+		visibility: hidden;
+		width: 0;
+		ul{
+			left: 0;
+			padding: 0;
+			margin: 0;
+			width: 100px;
+			visibility: hidden;
+
+			li{
+				padding-left: 10px;
+				background-color: #fff;
+				&:hover{
+					background-color: #ecf0f1;
+					color: #3498db;
+				}
+			}
+
+		}
+		.show-li{
+			visibility: visible;	
+		}
+	}
+	
+	.show-form{
+		animation:show .5s forwards;
+		animation-iteration-count: 1;
+		visibility: visible;
+
+	}
+	@keyframes show {
+      0% {
+         width:0;
+         opacity: 0;
+      }
+      100% {
+         width:270px;
+         opacity: 1;
+      }
+    }
+
+}
