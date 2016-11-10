@@ -313,6 +313,8 @@ class NewCreateForm extends Component {
 			}]);
 			return;
 		}
+		
+		this.getStationUrl();
 
 		this.setState({
 			openStation: !this.state.openStation
