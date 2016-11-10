@@ -16,9 +16,11 @@ import {
 	Drawer,
 	Divider,
 	FontIcon,
-	FloatingActionButton
+	FloatingActionButton,
 } from 'material-ui';
 import './index.less';
+
+
 
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 
@@ -92,7 +94,12 @@ export default class SidebarNav extends Component {
 		let {current_router,current_child} = this.props;
 		var childStyles = {};
 		let initiallyOpen = false;
-		let parentStyles = {};
+		let parentStyles = {
+			fontSize:'16px',
+			marginTop:'0px',
+			marginLeft:'-20px',
+			color:'#999'
+		};
         
        
 
@@ -110,7 +117,11 @@ export default class SidebarNav extends Component {
 		if(item.router === current_router){
 			childStyles.backgroundColor = '#328ECC';
 			childStyles.color = '#fff';
+
 		}
+		childStyles.fontSize='14px';
+		childStyles.color='#333';
+		childStyles.paddingLeft="20px";
 
 		if(item.router === current_child){
 			/*
@@ -123,6 +134,7 @@ export default class SidebarNav extends Component {
 
 		if(item.menuItems && item.menuItems.length){
 			return (
+
 				<ListItem 
 					key={index}
 					style={parentStyles}
@@ -130,9 +142,15 @@ export default class SidebarNav extends Component {
 					value={index}
 					open={true}
 					primaryText={item.primaryText} 
-					primaryTogglesNestedList={true}
-					autoGenerateNestedIndicator={true}
-					nestedItems={ item.menuItems.map((it,ind)=>this.renderMenuItem(it,ind,index))} />
+					primaryTogglesNestedList={false}
+					autoGenerateNestedIndicator={false}
+					disabled={true}
+					leftIcon={<FontIcon  className={item.iconName} color={item.iconColor} style={{fontSize:18,position: 'absolute',margin:'15px 0 0 44px' }}/>}
+
+					nestedItems={ item.menuItems.map((it,ind)=>this.renderMenuItem(it,ind,index))} 
+					
+					/>
+	
 			);
 		}
 		return (
@@ -142,6 +160,7 @@ export default class SidebarNav extends Component {
 					value={parentIndex+'-'+index}
 					href={jumpUrl}
 					style={childStyles}
+					
 			   	/>
 		);
 
@@ -191,24 +210,4 @@ export default class SidebarNav extends Component {
 
 
 
-/*
 
-			<MenuItem
-			rightIcon={<ArrowDropRight />}
-			menuItems={[
-				<MenuItem
-				primaryText="Show"
-				rightIcon={<ArrowDropRight />}
-				menuItems={[
-					<MenuItem primaryText="Show Level 2" />,
-						<MenuItem primaryText="Grid lines" checked={true} />,
-							<MenuItem primaryText="Page breaks" insetChildren={true} />,
-								<MenuItem primaryText="Rules" checked={true} />,
-				]}
-				/>,
-				<MenuItem primaryText="Grid lines" checked={true} />,
-					<MenuItem primaryText="Page breaks" insetChildren={true} />,
-						<MenuItem primaryText="Rules" checked={true} />,
-			]}
-			/>
-			*/

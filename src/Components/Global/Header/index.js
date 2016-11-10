@@ -17,8 +17,13 @@ import {
 	Divider,
 	FontIcon,
 	FlatButton,
+	List,
+	ListItem,
+	FileFolder,
+	Avatar,
 	FloatingActionButton
 } from 'material-ui';
+
 
 import ActionHome from 'material-ui/svg-icons/action/home';
 
@@ -110,7 +115,7 @@ class Header extends Component {
 		
 
 		return (
-			 <FlatButton label={item.primaryText} key={index} style={styles} href={jumpUrl} labelStyle={{lineHeight:'67px'}} />
+			 <FlatButton label={item.primaryText} key={index} style={styles} href={jumpUrl} labelStyle={{lineHeight:'67px',fontSize:"16px"}} />
 		);
 
 	}
@@ -136,13 +141,34 @@ class Header extends Component {
 
 				<div className="main-navs" >
 						 <FlatButton onTouchTap={this.handleToggle} icon={<NavigationMenu  />} style={{color:'#fff',height:67,width:200}} />
-						 <FlatButton onTouchTap={this.touchTitle} label="氪空间" style={{color:'#fff',height:67,width:180}} labelStyle={{fontSize:25}} />
+						 <FlatButton onTouchTap={this.touchTitle}  icon={<FontIcon className="new-logo"/> } style={{height:"65px"}}/>
 						{this.props.navs_items.map((item,index)=>this.renderHeaderNav(item,index))}
 					</div>
 		}
 
 		iconElementRight={
-			 <IconMenu
+			// <List>
+			//     <ListItem
+			//       disabled={true}
+			//       leftAvatar={
+			//         <Avatar 
+			//         src="images/uxceo-128.jpg" 
+			//         size={30}
+			//         />
+			//       }
+			//     >
+			//      <span className='ui-name-hello'>你好&nbsp;!&nbsp;</span>
+			//      <span className='ui-name-master'>{this.props.user.nick}</span>
+                 
+   //               <span className='ui-name-quit' onTouchTap={(event)=>{
+			// 		window.location.href = '/logout/logout';
+			// 	}}>退出</span>
+			     
+			//     </ListItem>
+   //          </List>
+
+
+        <IconMenu
 				iconButtonElement={
 				  <IconButton><MoreVertIcon /></IconButton>
 				}
@@ -158,6 +184,8 @@ class Header extends Component {
 					window.location.href = '/logout/logout';
 				}}/>
 			  </IconMenu>
+
+			 
 		}
 				/>
 			);
@@ -231,3 +259,7 @@ export default connect(mapStateToProps,mapDispatchToProps)(Header);
 			</Popover>
 
 */
+
+
+
+
