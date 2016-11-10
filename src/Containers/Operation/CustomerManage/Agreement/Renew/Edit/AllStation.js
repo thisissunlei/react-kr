@@ -99,6 +99,7 @@ onChangeRentBeginDate(value){
 		});
   }
 
+
   onSubmit(){
 
     let {stationVos,selected} = this.state;
@@ -163,10 +164,10 @@ onChangeRentBeginDate(value){
 		var obj = {};
 		obj.id = item.id;
 		obj.stationId = item.stationId;
-		obj.stationName = item.stationName;
-		obj.unitprice = item.unitprice;
-		obj.whereFloor = item.whereFloor;
 		obj.stationType = item.stationType;
+		obj.stationName = item.stationName;
+		obj.whereFloor = item.whereFloor;
+		obj.unitprice = item.unitprice;
 		obj.leaseBeginDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
 		obj.leaseEndDate = item.rentBeginDate;
 		resultStationVos.push(obj);
@@ -187,6 +188,15 @@ onChangeRentBeginDate(value){
 
 	Store.dispatch(change('reduceCreateForm','leaseBegindate',selectedStationVos[0].leaseEndDate));
 	
+	selectedStationVos.forEach(function(item,index){
+		var tmpDate = new Date();
+		tmpDate.setTime(Date.parse(item.leaseBeginDate));
+		tmpDate.setDate(tmpDate.getDate()+1);
+		item.leaseBeginDate = dateFormat(tmpDate,'yyyy-mm-dd')
+	});
+
+	console.log('selectedStationVos',selectedStationVos);
+
 	const {onSubmit} = this.props;
 	onSubmit && onSubmit(selectedStationVos);
   }
