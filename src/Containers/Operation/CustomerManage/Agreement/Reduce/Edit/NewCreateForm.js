@@ -160,41 +160,11 @@ class NewCreateForm extends Component {
 		this.openStationDialog();
 	}
 
-	onStationSubmit(selectedList) {
+	
+	onStationSubmit(stationVos) {
 
-		let {
-			stationVos
-		} = this.state;
-		let result = stationVos;
-		console.log('stationVos', stationVos, selectedList);
-		var same = false;
-		if (!stationVos.length) {
-			result = selectedList;
-		} else {
-			selectedList.forEach(function(item, index) {
-				stationVos.forEach(function(selected, i) {
-					if (item.id == selected.id) {
-						selected = item;
-						same = true;
-						stationVos.slice(index);
-
-					}
-				});
-			});
-			if (!same) {
-				selectedList.forEach(function(item) {
-					stationVos.push(item);
-				})
-			}
-
-		}
-
-		result.map((item) => {
-			item.leaseBeginDate = dateFormat(item.leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
-			item.leaseEndDate = dateFormat(item.leaseEndDate, "yyyy-mm-dd hh:MM:ss");
-		})
 		this.setState({
-			stationVos: result
+			stationVos
 		});
 		this.openStationDialog();
 	}
