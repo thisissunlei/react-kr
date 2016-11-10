@@ -351,7 +351,7 @@ const APIS = {
 	},
 	// 计划表获取数据
 	'getInstallmentplan': {
-		url: '/api/krspace-finance-web/finacontractdetail/getInstallmentplan?year={year}&communityids={communityids}&type={type}&value={value}',
+		url: '/api/krspace-finance-web/finacontractdetail/getInstallmentplan?year={year}&communityids={communityids}&type={type}&value={value}&pageSize={pageSize}&page={page}',
 		method: 'get'
 	},
 }
