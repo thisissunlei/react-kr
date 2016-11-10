@@ -259,7 +259,7 @@ class NewCreateForm extends Component {
 
 		form.stationVos = JSON.stringify(form.stationVos);
 		form.delStationVos = JSON.stringify(delStationVos);
-		console.log('form111', form);
+
 		const {
 			onSubmit
 		} = this.props;
@@ -396,7 +396,7 @@ class NewCreateForm extends Component {
 						modal={true}
 						autoScrollBodyContent={true}
 						autoDetectWindowHeight={true}>
-								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} endTime={optionValues.leaseEnddate} stationVos={stationVos}/>
+								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} endTime={optionValues.leaseEnddate} stationVos={stationVos} changeValues={this.props.changeValues}/>
 					  </Dialog>
 
 

@@ -59,6 +59,21 @@ class SelectStationForm  extends Component{
 onChangeRentBeginDate(value){
 	value = dateFormat(value,'yyyy-mm-dd');
 	let {stationVos,selected} = this.state;
+
+
+	let {leaseEnddate} = this.props.changeValues;
+	//判断选择的时间是否大于租赁起始时间
+	let endDate = leaseEnddate;
+	let rentBeginDate = Date.parse(value);
+
+	 if(endDate<rentBeginDate){
+			Notify.show([{
+				message:'选择的减租开始时间不能大于租赁期限的终止时间',
+				type: 'danger',
+			  }]);
+		return false;
+	  }
+
 	if(!selected.length){
 			Notify.show([{
 				message: '未选择减租工位',
@@ -218,7 +233,7 @@ onChangeRentBeginDate(value){
 
 	render(){
 
-		let { error, handleSubmit, pristine, reset, submitting} = this.props;
+		let { error, handleSubmit, pristine, reset, submitting,changeValues} = this.props;
     let {stationVos} = this.state;
     const overfolw = {
       'overflow':'hidden',
@@ -231,7 +246,9 @@ onChangeRentBeginDate(value){
 		return (
 			<div style={{height:667,marginTop:20}}>
 <form onSubmit={handleSubmit(this.onSubmit)}>
-			<KrField grid={1/1}  name="rentBeginDate" component="date" label="减租开始时间" onChange={this.onChangeRentBeginDate} inline={false}/>
+			<KrField grid={1/2}  name="rentBeginDate" component="date" label="减租开始时间" onChange={this.onChangeRentBeginDate} inline={true}/>
+			<KrField grid={1/2} name="leaseEnddate"  component="labelText" type="date" label="租赁期限终止时间" value={changeValues.leaseEnddate} defaultValue="无"/>
+
       <Table onSelect={this.onSelect} style={overfolw}>
         <TableHeader>
           <TableHeaderColumn>类别</TableHeaderColumn>
