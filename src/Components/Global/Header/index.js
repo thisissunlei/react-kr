@@ -48,6 +48,7 @@ import SidebarNav from '../SidebarNav';
 
 
 class Header extends Component {
+	
 
     static contextTypes = {
         router: PropTypes.object.isRequired
@@ -63,9 +64,11 @@ class Header extends Component {
 
 		this.state = {
 			bottomNav:false,
+			toggle:true
 		}
 
 	}
+	
 
 	handleToggle(){
 
@@ -88,7 +91,8 @@ class Header extends Component {
 	};
 
 	touchTitle(){
-		this.context.router.push('/');
+		//this.context.router.push('/');
+		window.location.href = 'http://krspace.cn';
 	}
 
 	renderHeaderNav(item,index){
@@ -132,6 +136,16 @@ class Header extends Component {
 
 
 		const Header = (props) =>{
+
+			var iconClassName = '';
+			
+			let sidebarNavSwitch = this.props.sidebar_nav.switch_value;
+			if(sidebarNavSwitch){
+					iconClassName="hide-heng";
+			}else{
+					iconClassName="hide-shu";
+
+			}
 			return (
 				<AppBar
 				style={styles}
@@ -140,7 +154,7 @@ class Header extends Component {
 		 iconElementLeft={
 
 				<div className="main-navs" >
-						 <FlatButton onTouchTap={this.handleToggle} icon={<NavigationMenu  />} style={{color:'#fff',height:67,width:200}} />
+						 <FlatButton onTouchTap={this.handleToggle} icon={<FontIcon className={iconClassName} />} style={{color:'#fff',height:67,width:200}} />
 						 <FlatButton onTouchTap={this.touchTitle}  icon={<FontIcon className="new-logo"/> } style={{height:"65px"}}/>
 						{this.props.navs_items.map((item,index)=>this.renderHeaderNav(item,index))}
 					</div>

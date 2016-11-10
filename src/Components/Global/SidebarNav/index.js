@@ -114,14 +114,16 @@ export default class SidebarNav extends Component {
 
 		var styles = {};
 
+		childStyles.fontSize='14px';
+		childStyles.color='#333';
+		childStyles.paddingLeft="20px";
+
 		if(item.router === current_router){
 			childStyles.backgroundColor = '#328ECC';
 			childStyles.color = '#fff';
 
 		}
-		childStyles.fontSize='14px';
-		childStyles.color='#333';
-		childStyles.paddingLeft="20px";
+		
 
 		if(item.router === current_child){
 			/*
