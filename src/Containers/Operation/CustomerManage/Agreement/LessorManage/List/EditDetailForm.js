@@ -100,14 +100,14 @@ class NewCreateForm extends Component {
 
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)}>
-							<KrField name="corporationName" type="text" label="出租方名称" /> 
+							<KrField name="corporationName" type="text" label="出租方名称" requireLabel={true}/> 
 
-							<KrField name="enableflag" component="group" label="是否启用">
+							<KrField name="enableflag" component="group" label="是否启用" requireLabel={true}>
 								<KrField name="enableflag" label="是" component="radio" type="radio" value="ENABLE"/>
 								<KrField name="enableflag" label="否" component="radio" type="radio" value="DISENABLE" />
 							</KrField>
 							
-							<KrField name="corporationAddress" component="text" type="text" label="详细地址"/> 
+							<KrField name="corporationAddress" component="text" type="text" label="详细地址" requireLabel={true}/> 
 							 <KrField name="corporationDesc" component="textarea" label="备注"  placeholder="备注信息"/> 
 
 
@@ -129,8 +129,26 @@ class NewCreateForm extends Component {
 }
 
 
+const validate = values => {
+
+	const errors = {}
+
+	if (!values.corporationName) {
+		errors.corporationName = '请填写出租方名称';
+	}
+	if (!values.corporationAddress) {
+		errors.corporationAddress = '请填写详细地址';
+	}
+
+	return errors
+}
+
 export default reduxForm({
 	form: 'newCreateForm',
+	initialValues: {
+		enableflag: 'ENABLE'
+	},
+	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true
 })(NewCreateForm);

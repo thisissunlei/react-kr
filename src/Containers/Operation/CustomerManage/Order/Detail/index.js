@@ -200,15 +200,15 @@ export default class OrderDetail extends React.Component {
 			contractStatusCount
 		} = this.state.response;
 
-		if(contractStatusCount.quitRentTotoal){
-				Notify.show([{
-					message:'您已经签约了退租合同！',
-					type: 'danger',
-				}]);
+		if (contractStatusCount.quitRentTotoal) {
+			Notify.show([{
+				message: '您已经签约了退租合同！',
+				type: 'danger',
+			}]);
 
-			return ;
+			return;
 		}
-		
+
 
 		this.setState({
 			openCreateAgreement: !this.state.openCreateAgreement
@@ -305,13 +305,15 @@ export default class OrderDetail extends React.Component {
 	}
 
 	renderTableItem(item) {
+		var _this = this;
 		if (item) {
+
 			return (
 				<Row>
 				<Col md={3} align="left" className="ContractName"><Circle type={item.payStatus}></Circle>款项：{item.installmentName}</Col>
 				<Col md={3} align="left" className="ContractName">计划付款日期：<KrDate.Format value={item.installmentReminddate}/></Col>
 				<Col md={3} align="left" className="ContractName">计划付款金额：{item.installmentAmount}</Col>
-				<Col md={3} align="left" className="ContractName">实际付款金额：{item.installmentBackamount}</Col>
+				{item.installmentBackamount > 0?<Col md={3} align="left"className="ContractName">实际付款金额：{item.installmentBackamount}</Col>:<Col md={3} align="left"  className="ContractName">实际付款金额：<span style={{color:'red'}}>{item.installmentBackamount}</span></Col>}
 				</Row>
 			)
 		}
@@ -473,7 +475,7 @@ export default class OrderDetail extends React.Component {
 								<Col md={3} align="left" className="ContractName"><Circle type={list.payStatus}/>款项：{list.installmentName}</Col>
 								<Col md={3} align="left" className="ContractName">计划付款日期：<KrDate.Format value={list.installmentReminddate}/></Col>
 								<Col md={3} align="left" className="ContractName">计划付款金额：{list.installmentAmount}</Col>
-								<Col md={3} align="left" className="ContractName">实际付款金额：<span style={{color:'red'}}>{list.installmentBackamount}</span></Col>
+								{list.installmentBackamount>0?<Col md={3} align="left" className="ContractName">实际付款金额：<span>{list.installmentBackamount}</span></Col>:<Col md={3} align="left" className="ContractName">实际付款金额：<span style={{color:'red'}}>{list.installmentBackamount}</span></Col>}
 								</Row>
 							)
 						})
