@@ -23,7 +23,7 @@ import {
 
 import * as actionCreators from 'kr/Redux/Actions';
 
-
+import '../changeBody.js'
 let OrderEditForm = function (props){
 
   	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,cityName,value} = props;
@@ -31,24 +31,26 @@ let OrderEditForm = function (props){
   	let reload = function(){
   		window.top.location.reload();
   	}
+  	let Order = [
+  		{value:'',label:'请选择类型'},
+  		{value:'STATION',label:'工位订单'}
+  	]
+  	
+
 	return (
 
 	<form onSubmit={handleSubmit(onSubmit)} style={{padding:20}}>
 
 			<KrField name="customerName" grid={1} type="text" label="客户名称" component="labelText" disabled={true} value={customerName} inline={false}/> 
 
-			 <KrField name="mainbilltype" grid={1/2} right={30} component="select" label="订单类型" requireLabel={true} inline={false}>
-				 <option value="">请选择类型</option>
-				 <option value="STATION">工位订单</option>
+			 <KrField name="mainbilltype" grid={1/2} right={30} component="select" label="订单类型" requireLabel={true} inline={false} options={Order}>
 			 </KrField>
 
-				 <KrField name="communityid" grid={1/2} left={30} component="select" label="所在社区" requireLabel={true} inline={false}>
-						<option value="">请选择社区</option>
-						{communitys.map((item,index)=> <option value={item.communityId} key={index}>{item.communityName}</option>)}
+				 <KrField name="communityid" grid={1/2} left={30} component="select" label="所在社区" requireLabel={true} inline={false} options={communitys}>
 				 </KrField>
 					<KrField label="所在城市" grid={1/2} right={30} value={cityName||'无'} component="labelText" inline={false}/> 
 					 <KrField name="mainbillname" grid={1/2} left={30} type="text" label="订单名称" requireLabel={true} component="text" inline={false}/> 
-					 <KrField name="mainbilldesc" type="textarea" label="订单描述" component="textarea" inline={false}/> 
+					 <KrField name="mainbilldesc" type="textarea" label="订单描述" component="textarea" inline={false}  maxSize={200}/> 
 					<Grid >
 						<ListGroup>
 							<ListGroupItem style={{width:'45%',textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit" joinEditForm disabled={submitting} /></ListGroupItem>
@@ -114,7 +116,13 @@ class OrderCreate extends Component {
 			actions.switchHeaderNav(false);
 		}
 
-		actions.callAPI('community-city-selected',{},{}).then(function(communitys){ }).catch(function(err){ });
+		actions.callAPI('community-city-selected',{},{}).then(function(communitys){
+			communitys = communitys.map((item)=>{
+		  		item.value = item.communityId;
+		  		item.label = item.communityName;
+		  		return item;
+		  	})
+		 }).catch(function(err){ });
 
 		actions.callAPI('get-simple-order',{
 			mainBillId:this.props.params.oriderId

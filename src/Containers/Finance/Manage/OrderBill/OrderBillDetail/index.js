@@ -508,13 +508,7 @@ export default class AttributeSetting  extends Component{
 				type:'success', 
 			}]);
 
- 			 _this.refresh();
-
-			window.setTimeout(function(event){
-				 //window.location.href=`/#/finance/Manage/orderbill/426/detail?123`;
-                 //_this.context.router.push(`finance/Manage/orderbill/426/detail`);
-                // browserHistory.push('/some/finance/Manage/orderbill/426/detail');
-			},0);
+ 			 _this.refresh();		
 
  		}).catch(function(err){
 			Notify.show([{
@@ -638,7 +632,6 @@ export default class AttributeSetting  extends Component{
 
     //
 	initBasicInfo(){
-		//console.log('000basi');
 		var _this = this;
 		let {params} = this.props;
 		Store.dispatch(Actions.callAPI('getAccountFlow',{
