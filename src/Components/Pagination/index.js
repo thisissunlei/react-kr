@@ -10,9 +10,9 @@ import './index.less';
 
 @ReactMixin.decorate(LinkedStateMixin)
 export default class Pagination extends Component {
-
+	static displayName = 'Pagination';
 	static defaultProps = {
-		pageNumber:10,
+		pageNumber: 10,
 	}
 	static propTypes = {
 		children: React.PropTypes.node,
@@ -20,7 +20,7 @@ export default class Pagination extends Component {
 		pageSize: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
 		totalCount: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
 		onPageChange: React.PropTypes.func,
-		pageNumber:React.PropTypes.number
+		pageNumber: React.PropTypes.number
 	};
 
 	constructor(props) {
@@ -179,16 +179,16 @@ export default class Pagination extends Component {
 		let pageMax = Math.ceil(totalCount / pageSize);
 		let pageEnd = pageStart + pageJump;
 
-		if(pageEnd > pageMax){
+		if (pageEnd > pageMax) {
 			pageEnd = pageMax;
 		}
 
-		
-		
+
+
 		let element = null;
 
-		if(pageStart>=pageJump){
-			element = this.createOther(parseInt(pageStart/pageJump)*pageJump - pageJump );
+		if (pageStart >= pageJump) {
+			element = this.createOther(parseInt(pageStart / pageJump) * pageJump - pageJump);
 			pageBody.push(element);
 		}
 
@@ -209,8 +209,8 @@ export default class Pagination extends Component {
 			pageBody.push(element);
 		}
 
-		if(pageEnd<pageMax){
-			element = this.createOther(pageEnd+1);
+		if (pageEnd < pageMax) {
+			element = this.createOther(pageEnd + 1);
 			pageBody.push(element);
 		}
 
@@ -254,13 +254,13 @@ export default class Pagination extends Component {
 		);
 	}
 
-	renderTotalCount(){
+	renderTotalCount() {
 
 		let {
 			totalCount
 		} = this.props;
 
-		totalCount = totalCount ||0;
+		totalCount = totalCount || 0;
 
 		return (
 			<div className="item-total-count">
