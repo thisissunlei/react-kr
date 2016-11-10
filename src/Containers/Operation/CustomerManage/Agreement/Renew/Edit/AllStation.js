@@ -1,7 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {Binder} from 'react-binding';
-import dateFormat from 'dateformat';
+
+import {
+  DateFormat
+} from 'kr/Utils';
+
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
@@ -57,16 +61,14 @@ class SelectStationForm  extends Component{
 
 
 onChangeRentBeginDate(value){
-	value = dateFormat(value,'yyyy-mm-dd')+' 00:00:00';
+	value = DateFormat(value,'yyyy-mm-dd')+' 00:00:00';
 
 
 
 	let {leaseBegindate} = this.props.changeValues;
 	//判断选择的时间是否大于租赁起始时间
-	let beginDate = Date.parse(dateFormat(leaseBegindate,'yyyy-mm-dd')+' 00:00:00');
+	let beginDate = Date.parse(DateFormat(leaseBegindate,'yyyy-mm-dd')+' 00:00:00');
 	let rentBeginDate = Date.parse(value);
-
-  console.log('leaseBegindate',dateFormat(beginDate,'yyyy-mm-dd'),dateFormat(rentBeginDate,'yyyy-mm-dd'));
 
 	 if(beginDate>rentBeginDate){
 			Notify.show([{
@@ -161,8 +163,8 @@ onChangeRentBeginDate(value){
 	  //工位结束时间相同
 	  var some = true;
 	  selectedStationVos.sort(function(pre,next){
-			  var preDate = dateFormat(pre.leaseEndDate,'yyyy-mm-dd');
-			  var nextDate = dateFormat(next.leaseEndDate,'yyyy-mm-dd');
+			  var preDate = DateFormat(pre.leaseEndDate,'yyyy-mm-dd');
+			  var nextDate = DateFormat(next.leaseEndDate,'yyyy-mm-dd');
 			  if(preDate != nextDate){
 				  some = false;
 			  }
@@ -187,7 +189,7 @@ onChangeRentBeginDate(value){
 		obj.stationName = item.stationName;
 		obj.whereFloor = item.whereFloor;
 		obj.unitprice = item.unitprice;
-		obj.leaseBeginDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
+		obj.leaseBeginDate = DateFormat(item.leaseEndDate,'yyyy-mm-dd');
 		obj.leaseEndDate = item.rentBeginDate;
 		resultStationVos.push(obj);
 	});
@@ -211,7 +213,7 @@ onChangeRentBeginDate(value){
 		var tmpDate = new Date();
 		tmpDate.setTime(Date.parse(item.leaseBeginDate));
 		tmpDate.setDate(tmpDate.getDate()+1);
-		item.leaseBeginDate = dateFormat(tmpDate,'yyyy-mm-dd')
+		item.leaseBeginDate = DateFormat(tmpDate,'yyyy-mm-dd')
 	});
 
 	console.log('selectedStationVos',selectedStationVos);
@@ -262,7 +264,7 @@ onChangeRentBeginDate(value){
           <TableRowColumn ><KrDate.Format value={item.leaseBeginDate}/></TableRowColumn>
           <TableRowColumn ><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
           <TableRowColumn>
-				{item.rentBeginDate&& dateFormat(item.rentBeginDate,'yyyy-mm-dd')}
+				{item.rentBeginDate&& DateFormat(item.rentBeginDate,'yyyy-mm-dd')}
           </TableRowColumn>
          </TableRow>
         );
