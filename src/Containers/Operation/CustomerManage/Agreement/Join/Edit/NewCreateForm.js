@@ -118,6 +118,7 @@ class NewCreateForm extends Component {
 
 		this.isInit = false;
 		this.state = {
+			stationUrl:'',
 			stationVos: this.props.stationVos,
 			delStationVos: [],
 			selectedStation: [],
@@ -275,6 +276,8 @@ class NewCreateForm extends Component {
 
 	openStationDialog() {
 
+		this.getStationUrl();
+
 		let {
 			changeValues
 		} = this.props;
@@ -365,7 +368,7 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
-
+		console.log('=-->>.',stationVos);
 		stationVos = stationVos.map(function(item) {
 			var obj = {};
 			obj.id = item.stationId;
@@ -398,7 +401,9 @@ class NewCreateForm extends Component {
 			}
 		}
 
-		return url;
+		this.setState({
+			stationUrl:url
+		});
 	}
 
 	onIframeClose(billList) {
@@ -420,7 +425,7 @@ class NewCreateForm extends Component {
 				obj.leaseEndDate = changeValues.leaseEnddate;
 				obj.stationId = item.id;
 				obj.stationType = item.type;
-				item.stationName = item.name;
+				obj.stationName = item.name;
 				obj.unitprice = '';
 				obj.whereFloor = item.wherefloor;
 				stationVos.push(obj);
@@ -593,7 +598,7 @@ class NewCreateForm extends Component {
 						<Grid>
 						<Row style={{marginTop:30}}>
 						<Col md={4}></Col>
-						<Col md={2} align="center"> <Button  label="确定" type="submit"  /> </Col>
+						<Col md={2} align="center"> <Button  label="确定" type="submit" disabled={pristine || submitting} /> </Col>
 						<Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col>
 						<Col md={4}></Col> </Row>
 						</Grid>
@@ -606,7 +611,7 @@ class NewCreateForm extends Component {
 						autoScrollBodyContent={true}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
 						open={this.state.openStation} onClose={this.openStationDialog}>
-							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
+							<IframeContent src={this.state.stationUrl} onClose={this.onIframeClose}/>
 					  </Dialog>
 
 					<Dialog

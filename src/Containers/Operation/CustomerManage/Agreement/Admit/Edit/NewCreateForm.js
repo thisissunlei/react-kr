@@ -111,6 +111,7 @@ class NewCreateForm extends Component {
 		this.calcStationNum = this.calcStationNum.bind(this);
 		this.onClose = this.onClose.bind(this);
 		this.state = {
+			stationUrl:'',
 			stationVos: this.props.stationVos,
 			delStationVos: [],
 			selectedStation: [],
@@ -226,6 +227,9 @@ class NewCreateForm extends Component {
 	}
 
 	openStationDialog() {
+
+
+		this.getStationUrl();
 
 		let {
 			changeValues
@@ -373,7 +377,9 @@ class NewCreateForm extends Component {
 			}
 		}
 
-		return url;
+		this.setState({
+			stationUrl:url
+		});
 	}
 
 
@@ -545,7 +551,7 @@ class NewCreateForm extends Component {
 						<Grid>
 						<Row style={{marginTop:30}}>
 						<Col md={4}></Col>
-						<Col md={2} align="center"> <Button  label="确定" type="submit" /> </Col>
+						<Col md={2} align="center"> <Button  label="确定" type="submit" disabled={pristine || submitting} /> </Col>
 						<Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col>
 						<Col md={4}></Col> </Row>
 						</Grid>
@@ -559,7 +565,7 @@ class NewCreateForm extends Component {
 						onCancel={this.onCancel}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
 						open={this.state.openStation} onClose={this.onClose}>
-							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
+							<IframeContent src={this.state.stationUrl} onClose={this.onIframeClose}/>
 					  </Dialog>
 
 

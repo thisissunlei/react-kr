@@ -160,41 +160,11 @@ class NewCreateForm extends Component {
 		this.openStationDialog();
 	}
 
-	onStationSubmit(selectedList) {
+	
+	onStationSubmit(stationVos) {
 
-		let {
-			stationVos
-		} = this.state;
-		let result = stationVos;
-		console.log('stationVos', stationVos, selectedList);
-		var same = false;
-		if (!stationVos.length) {
-			result = selectedList;
-		} else {
-			selectedList.forEach(function(item, index) {
-				stationVos.forEach(function(selected, i) {
-					if (item.id == selected.id) {
-						selected = item;
-						same = true;
-						stationVos.slice(index);
-
-					}
-				});
-			});
-			if (!same) {
-				selectedList.forEach(function(item) {
-					stationVos.push(item);
-				})
-			}
-
-		}
-
-		result.map((item) => {
-			item.leaseBeginDate = dateFormat(item.leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
-			item.leaseEndDate = dateFormat(item.leaseEndDate, "yyyy-mm-dd hh:MM:ss");
-		})
 		this.setState({
-			stationVos: result
+			stationVos
 		});
 		this.openStationDialog();
 	}
@@ -412,7 +382,7 @@ class NewCreateForm extends Component {
 						<Grid>
 						<Row style={{marginTop:30}}>
 						<Col md={4}></Col>
-						<Col md={2} align="center"> <Button  label="确定" type="submit"  /> </Col>
+						<Col md={2} align="center"> <Button  label="确定" type="submit" disabled={pristine || submitting}  /> </Col>
 						<Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col> 
 						<Col md={4}></Col></Row>
 						</Grid>
