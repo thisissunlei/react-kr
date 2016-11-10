@@ -106,13 +106,17 @@ export default class BasicTable extends Component {
 		this.onDismantling = this.onDismantling.bind(this);
 		this.getInstallmentplan = this.getInstallmentplan.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
+		//var year = new Date()
 		this.state = {
 			currentYear: '2016',
 			dismantling: false,
 			formValues: {},
 			Installmentplan: [],
 			rate: [],
-			communityIdList: []
+			communityIdList: [],
+			page: 1,
+			pageSize: 5,
+			type: 'BILL'
 		};
 
 	}
@@ -202,7 +206,11 @@ export default class BasicTable extends Component {
 			community
 		} = this.props;
 		console.log('this.params', this.props, community);
-
+		let {
+			type,
+			page,
+			pageSize
+		} = this.state
 
 		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
 
@@ -214,7 +222,11 @@ export default class BasicTable extends Component {
 
 
 			Store.dispatch(Actions.callAPI('getInstallmentplan', {
-				communityids: content.toString()
+				communityids: content.toString(),
+				value: '',
+				type: type,
+				page: page,
+				pageSize: pageSize
 			})).then(function(response) {
 
 				_this.setState({
@@ -248,7 +260,6 @@ export default class BasicTable extends Component {
 			rate
 		} = this.state;
 		var that = this;
-
 		return (
 			<div>
 		 	<div className="basic-con">
@@ -311,18 +322,9 @@ export default class BasicTable extends Component {
 								<p  className="title-left">订单名称</p>
 							</div>
 						</td>
-						<td>35%</td>
-						<td>40%</td>
-						<td>40%</td>
-						<td>40%</td>
-						<td>40%</td>
-						<td>30%</td>
-						<td>35%</td>
-						<td>40%</td>
-						<td>30%</td>
-						<td>35%</td>
-						<td>40%</td>
-						<td>30%</td>
+						{
+							rate.map((value,index)=><td>{value}</td>)
+						}
 						<td></td>
 					</tr>
 					{
