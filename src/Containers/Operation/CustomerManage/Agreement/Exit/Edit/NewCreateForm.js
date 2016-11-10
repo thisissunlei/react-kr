@@ -129,7 +129,7 @@ class NewCreateForm extends Component {
 
 	getStationUrl() {
 
-		let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}";
+		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}";
 
 		let {
 			changeValues,
@@ -221,7 +221,7 @@ class NewCreateForm extends Component {
 				<KrField name="totalreturn" left={60} grid={1/2} type="text" component="input" label="退租金总额" requireLabel={true}/>
 				<KrField name="depositamount" right={60}  grid={1/2} type="text" component="input" label="退押金总额" requireLabel={true} />
 
-				<KrField grid={1/2} left={60} name="withdrawdate" component="labelText" type="date" inline={false} label="撤场日期" value={initialValues.withdrawdate} requireLabel={true} defaultValue="无"/>
+				<KrField grid={1/2} left={60} name="withdrawdate" component="date" label="撤场日期" requireLabel={true}/>
 				<KrField grid={1/2} right={60} name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
         
 

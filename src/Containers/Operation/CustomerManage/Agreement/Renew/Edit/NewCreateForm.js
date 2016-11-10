@@ -317,7 +317,10 @@ class NewCreateForm extends Component {
 				<KrField name="paytype" right={60} grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} />
 				<KrField name="firstpaydate" right={60} component="date" label="首付款时间" requireLabel={true} /> 
 
-				<KrField grid={1/2} right={60} name="signdate"  component="date"  label="签署时间" requireLabel={true}/>
+				<KrField grid={1/2} right={60} name="signdate"  component="date"  label="签署时间" requireLabel={true}/>	
+				
+
+
 				<KrField grid={1} right={60} name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"  /> 
 				<KrField grid={1/2} right={60} name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true} /> 
 				<KrField grid={1/2} left={60}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true} />
@@ -385,7 +388,7 @@ class NewCreateForm extends Component {
 						modal={true}
 						autoScrollBodyContent={true}
 						autoDetectWindowHeight={true} onClose={this.onStationCancel}>
-								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel}/>
+								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} changeValues={this.props.changeValues}/>
 					  </Dialog>
 
 

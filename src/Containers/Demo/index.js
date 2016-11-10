@@ -17,6 +17,7 @@ import {
 	Button,
 	Section,
 	FontIcon,
+	SearchForms
 } from 'kr-ui';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
@@ -41,25 +42,25 @@ export default class Demo extends Component{
 
 	}
 
-	onSubmit(){
-		console.log('----',History)
-		window.location.hash = 'demo';
-		//this.context.router.replace(location.href);;
-	    history.replace(location)
+	onSubmit(value){
+		console.log('----',value)
+		// window.location.hash = 'demo';
+		// //this.context.router.replace(location.href);;
+	 //    history.replace(location)
 		//hashHistory.refresh();
 	}
 
 
 
 	render(){
-
+		const list = [{a:1},{b:2},{c:3},{d:5}]
 		return(
 			<div>
 					<Section title="demo" description="" >
 							<Checkbox  label="ahah" checked={true} />
-							<span onClick={this.onSubmit}>ddddd-d-d-d--</span>
+							<FontIcon className="icon-home"/>
 							<Button lable="haha" type="button" onTouchTab={this.onSubmit} />
-							
+							<SearchForms onSubmit={this.onSubmit} />
 					</Section>
 			</div>
 

@@ -59,6 +59,21 @@ class SelectStationForm  extends Component{
 onChangeRentBeginDate(value){
 	value = dateFormat(value,'yyyy-mm-dd');
 	let {stationVos,selected} = this.state;
+
+
+	let {leaseEnddate} = this.props.changeValues;
+	//判断选择的时间是否大于租赁起始时间
+	let endDate = leaseEnddate;
+	let rentBeginDate = Date.parse(value);
+
+	 if(endDate<rentBeginDate){
+			Notify.show([{
+				message:'选择的减租开始时间不能大于租赁期限的终止时间',
+				type: 'danger',
+			  }]);
+		return false;
+	  }
+
 	if(!selected.length){
 			Notify.show([{
 				message: '未选择减租工位',
@@ -67,6 +82,23 @@ onChangeRentBeginDate(value){
 			return;
 		}
 	stationVos = [].concat(stationVos);
+	//比较减租开始日期不能小于工位起始日期
+	let isOK = true;
+	stationVos.map(function(item,index){
+		let stationStartDate = Date.parse(dateFormat(item.leaseBeginDate,'yyyy-mm-dd'));
+		if(rentBeginDate <stationStartDate){
+			isOK = false;
+		}
+	});
+
+	if(!isOK){
+		Notify.show([{
+				message: '减租开始日期不能小于工位开始的时间',
+				type: 'danger',
+			}]);
+		return ;
+	}
+
 	stationVos.map(function(item,index){
 		if(selected.indexOf(index) !==-1){
 			item.rentBeginDate = value;
@@ -86,7 +118,7 @@ onChangeRentBeginDate(value){
   getLoadData(){
     var _this  = this;
     let {params} = this.context;
-		Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainBillid:params.orderId,page:1,pagesize:100})).then(function(response){
+		Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainBillid:params.orderId,page:1,pagesize:100,contractId:params.id})).then(function(response){
 			  _this.setState({
 				stationVos:response.items
 			  });
@@ -110,7 +142,6 @@ onChangeRentBeginDate(value){
 
     let {stationVos,selected} = this.state;
 	  let selectedStationVos = [];
-	  let stationVosList = this.props.stationVos;
 
 	  selectedStationVos = stationVos.filter(function(item,index){
 		  if(selected.indexOf(index) !==-1){
@@ -173,35 +204,23 @@ onChangeRentBeginDate(value){
 		obj.stationId = item.stationId;
 		obj.stationName = item.stationName;
 		obj.unitprice = item.unitprice;
-		obj.whereFloor = item.whereFloor;
 		obj.stationType = item.stationType;
-		obj.leaseBeginDate = dateFormat(item.leaseBeginDate,'yyyy-mm-dd');
-		obj.end = dateFormat(item.leaseEndDate,'yyyy-mm-dd');//结束日期
-		obj.leaseEndDate = item.rentBeginDate;//减租开始日期
+		obj.leaseBeginDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
+		obj.leaseEndDate = item.rentBeginDate;
 		resultStationVos.push(obj);
 	});
 
 	selectedStationVos = resultStationVos;
 
-	let beginDate = Date.parse(selectedStationVos[0].end);
-	let contactEnd = Date.parse(this.props.endTime);
+	let beginDate = Date.parse(selectedStationVos[0].leaseBeginDate);
 	let endDate = Date.parse(selectedStationVos[0].leaseEndDate);
-	 if(beginDate<= endDate){
+
+	 if(beginDate<endDate){
 			Notify.show([{
 				message:'选择的工位租赁结束时间不能大于减租开始时间',
 				type: 'danger',
 			  }]);
 			  return false;
-	  }
-	  if(contactEnd!= endDate && stationVosList.length){
-			Notify.show([{
-				message:'选择的工位结束时间必须为'+ dateFormat(this.props.endTime,'yyyy-mm-dd'),
-				type: 'danger',
-			  }]);
-			  return false;
-	  }
-	  if(stationVosList.length){
-	  	selectedStationVos[0].end = this.props.endTime;
 	  }
 
 	Store.dispatch(change('reduceCreateForm','leaseBegindate',selectedStationVos[0].leaseEndDate));
@@ -211,6 +230,7 @@ onChangeRentBeginDate(value){
   }
 
 
+
 	onCancel(){
 		const {onCancel} = this.props;
 		onCancel  && onCancel();
@@ -218,7 +238,7 @@ onChangeRentBeginDate(value){
 
 	render(){
 
-		let { error, handleSubmit, pristine, reset, submitting} = this.props;
+		let { error, handleSubmit, pristine, reset, submitting,changeValues} = this.props;
     let {stationVos} = this.state;
     const overfolw = {
       'overflow':'hidden',
@@ -231,7 +251,9 @@ onChangeRentBeginDate(value){
 		return (
 			<div style={{height:667,marginTop:20}}>
 <form onSubmit={handleSubmit(this.onSubmit)}>
-			<KrField grid={1/1}  name="rentBeginDate" component="date" label="减租开始时间" onChange={this.onChangeRentBeginDate} inline={false}/>
+			<KrField grid={1/2}  name="rentBeginDate" component="date" label="减租开始时间" onChange={this.onChangeRentBeginDate} inline={true}/>
+			<KrField grid={1/2} name="leaseEnddate"  component="labelText" type="date" label="租赁期限终止时间" value={changeValues.leaseEnddate} defaultValue="无"/>
+
       <Table onSelect={this.onSelect} style={overfolw}>
         <TableHeader>
           <TableHeaderColumn>类别</TableHeaderColumn>

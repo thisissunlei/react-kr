@@ -172,7 +172,6 @@ class OrderCreate extends Component {
 				_this.isOk = false;
 			},0);
 
-
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,

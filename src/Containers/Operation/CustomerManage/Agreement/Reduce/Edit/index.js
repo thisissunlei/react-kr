@@ -161,6 +161,9 @@ export default class JoinCreate extends Component {
 				optionValues.leaseEnddate = response.leaseEnddate;
 				optionValues.leaseBegindate = response.leaseBegindate;
 
+
+				initialValues.leaseEnddate = response.leaseEnddate;
+
 				// initialValues.id = response.id;
 				initialValues.id = response.id;
 				initialValues.leaseId = response.leaseId;
