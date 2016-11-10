@@ -71,6 +71,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
+import ReactTooltip from 'react-tooltip'
 
 class NewCreatForm extends Component {
 	static PropTypes = {
@@ -371,7 +372,9 @@ export default class OrderDetail extends React.Component {
 				<Row>
 				<Col md={4} ><KrField label="社区名称：" component="labelText" value={orderBaseInfo.communityName} defaultValue="无" alignRight={true}/></Col>
 				<Col md={4} ><KrField label="客户名称：" component="labelText" value={orderBaseInfo.customerName} alignRight={true}/></Col>
-				<Col md={4} ><KrField label="订单名称：" component="labelText" value={orderBaseInfo.mainbillname} alignRight={true}/></Col>
+				<Col md={4} ><KrField label="订单名称：" component="labelText"  value={orderBaseInfo.mainbillname} tooltip={orderBaseInfo.mainbillname} alignRight={true}/>
+				</Col>
+				
 				</Row>
 
 				<Row>

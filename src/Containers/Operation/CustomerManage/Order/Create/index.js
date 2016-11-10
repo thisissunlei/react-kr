@@ -18,7 +18,6 @@ import {
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';
-import '../changeBody.js'
 
 let OrderCreateForm = function(props){
 
@@ -102,7 +101,8 @@ class OrderCreate extends Component {
 
 	componentDidMount(){
 
-
+		var obj = document.body;
+		obj.style.background='#fff';
 		var {actions} = this.props;
 		var _this = this;
 

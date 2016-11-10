@@ -23,7 +23,6 @@ import {
 
 import * as actionCreators from 'kr/Redux/Actions';
 
-import '../changeBody.js'
 let OrderEditForm = function (props){
 
   	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,cityName,value} = props;
@@ -34,7 +33,8 @@ let OrderEditForm = function (props){
   	let Order = [
   		{value:'',label:'请选择类型'},
   		{value:'STATION',label:'工位订单'}
-  	]
+  	];
+
   	
 
 	return (
@@ -105,7 +105,8 @@ class OrderCreate extends Component {
 	}
 
 	componentDidMount(){
-
+		var obj = document.body;
+		obj.style.background='#fff';
 		var {actions} = this.props;
 		var _this = this;
 
