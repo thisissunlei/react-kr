@@ -66,15 +66,13 @@ class Master extends Component {
 		}
 
 		return (
-			<div>
+			<div className="app-container">
 			<Header/>
 
 			<div className="container" style={styles}>
 			{this.props.children}
 			</div>
-				{/*
 					<Footer/>
-				*/}
 			<div id="nowtify-wrapper"></div>
 
 			</div>
