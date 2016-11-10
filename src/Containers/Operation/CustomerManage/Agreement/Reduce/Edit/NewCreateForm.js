@@ -383,6 +383,7 @@ class NewCreateForm extends Component {
 						title="分配工位"
 						open={this.state.openStation} 
 						modal={true}
+						onClose={this.onStationCancel}
 						autoScrollBodyContent={true}
 						autoDetectWindowHeight={true}>
 								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} endTime={optionValues.leaseEnddate} stationVos={stationVos} changeValues={this.props.changeValues}/>
