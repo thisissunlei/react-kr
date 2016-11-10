@@ -138,7 +138,7 @@ export default class BasicTable extends Component {
 			Installmentplan: [],
 			rate: [],
 			communityIdList: [],
-			page: 1,
+			page: 10,
 			pageSize: 5,
 			type: 'BILL'
 		};
@@ -269,7 +269,6 @@ export default class BasicTable extends Component {
 				page: page,
 				pageSize: pageSize
 			})).then(function(response) {
-
 				_this.setState({
 					Installmentplan: response.vo,
 					rate: response.rate
@@ -301,9 +300,9 @@ export default class BasicTable extends Component {
 			rate
 		} = this.state;
 		let {
-			communityids
+			communityids,
 		} = this.props
-		var that = this;
+		var _this = this;
 
 		return (
 			<div>
@@ -376,7 +375,7 @@ export default class BasicTable extends Component {
 						Installmentplan.map((item,index)=>{
 							return (
 
-							<ItemTable onDismantling={this.onDismantling}  detail={item} key={index}/>
+							<ItemTable onDismantling={this.onDismantling}  communityids={_this.props.communityids} detail={item} key={index}/>
 								
 							)
 

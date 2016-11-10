@@ -39,10 +39,7 @@ import DismantlingForm from './DismantlingForm';
 import dateFormat from 'dateformat';
 
 export default class ItemTable extends Component {
-  static defaultProps = {
-    companyId: 1,
-    communityId: 1
-  }
+
 
   static PropTypes = {
     onDismantling: React.PropTypes.func,
@@ -121,7 +118,7 @@ export default class ItemTable extends Component {
         return (
           <li key={index} className="company-order">
 							
-							<p className="name">{item.contractName}(item.contractCount)</p>
+							<p className="name">{item.contractName}({item.contractCount})</p>
 							<p>{dateFormat(item.contractTime,"yyyy.mm.dd")}</p>
 						</li>
         )
@@ -130,15 +127,16 @@ export default class ItemTable extends Component {
     return contractTypeVo;
   }
   render() {
-
-
     let {
       activity
     } = this.state;
     let {
-      detail
+      detail,
+      communityids
     } = this.props;
     let width = 700;
+    var _this = this;
+    var id = communityids;
 
     return (
 
@@ -159,7 +157,7 @@ export default class ItemTable extends Component {
 						</td>
 						<td colSpan="12">
 							<D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} width={width}/>
-							<EmployessTable activity={activity}/>
+							<EmployessTable activity={activity} detail={detail} id={id}/>
 						</td>
 						<td className="btnlist">
 							<Button className="Station" type="link" primary={true} label="" onTouchTap={this.onStation} />
