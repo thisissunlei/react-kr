@@ -284,7 +284,7 @@ class NewCreateForm extends Component {
 	}
 
 	openStationDialog() {
-
+		this.getStationUrl();
 		let {
 			changeValues
 		} = this.props;
