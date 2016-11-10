@@ -82,6 +82,23 @@ onChangeRentBeginDate(value){
 			return;
 		}
 	stationVos = [].concat(stationVos);
+	//比较减租开始日期不能小于工位起始日期
+	let isOK = true;
+	stationVos.map(function(item,index){
+		let stationStartDate = Date.parse(dateFormat(item.leaseBeginDate,'yyyy-mm-dd'));
+		if(rentBeginDate <stationStartDate){
+			isOK = false;
+		}
+	});
+
+	if(!isOK){
+		Notify.show([{
+				message: '减租开始日期不能小于工位开始的时间',
+				type: 'danger',
+			}]);
+		return ;
+	}
+
 	stationVos.map(function(item,index){
 		if(selected.indexOf(index) !==-1){
 			item.rentBeginDate = value;
@@ -198,7 +215,7 @@ onChangeRentBeginDate(value){
 	let beginDate = Date.parse(selectedStationVos[0].leaseBeginDate);
 	let endDate = Date.parse(selectedStationVos[0].leaseEndDate);
 
-	 if(beginDate<= endDate){
+	 if(beginDate<endDate){
 			Notify.show([{
 				message:'选择的工位租赁结束时间不能大于减租开始时间',
 				type: 'danger',
