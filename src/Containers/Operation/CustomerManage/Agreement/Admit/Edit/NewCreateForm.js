@@ -111,7 +111,7 @@ class NewCreateForm extends Component {
 		this.calcStationNum = this.calcStationNum.bind(this);
 		this.onClose = this.onClose.bind(this);
 		this.state = {
-			stationUrl:'',
+			stationUrl: '',
 			stationVos: this.props.stationVos,
 			delStationVos: [],
 			selectedStation: [],
@@ -378,7 +378,7 @@ class NewCreateForm extends Component {
 		}
 
 		this.setState({
-			stationUrl:url
+			stationUrl: url
 		});
 	}
 
@@ -459,7 +459,7 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
-		console.log(stationVos);
+
 
 		return (
 
@@ -508,7 +508,7 @@ class NewCreateForm extends Component {
 				
                <KrField right={60} grid={1/1} component="group" label="租赁项目" requireLabel={true}> 
 								<KrField grid={1/2}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} /> 
-								<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum} /> 
+								<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum==0?'0':changeValues.boardroomnum} /> 
 				</KrField>
                 <DotTitle title='租赁明细'>
 
