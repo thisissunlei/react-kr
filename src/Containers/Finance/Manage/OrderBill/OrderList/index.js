@@ -247,6 +247,7 @@ export default class AttributeSetting extends Component {
 					<TableHeaderColumn>收入总额</TableHeaderColumn>
 					<TableHeaderColumn>回款总额</TableHeaderColumn>
 					<TableHeaderColumn>余额</TableHeaderColumn>
+					<TableHeaderColumn>定押</TableHeaderColumn>
 					<TableHeaderColumn>操作</TableHeaderColumn>
 				</TableHeader>
 
@@ -260,6 +261,7 @@ export default class AttributeSetting extends Component {
 						<TableRowColumn name="come"></TableRowColumn>
 						<TableRowColumn name="backMount"></TableRowColumn>
 						<TableRowColumn name="mount"></TableRowColumn>
+						<TableRowColumn name="rentOrDeposit"></TableRowColumn>
 						<TableRowColumn>
 							  <Button label="查看"  type="operation" operation="view"/>
 							  {/*<Button label="生成对账单"  type="operation" operation="edit"/>*/}
