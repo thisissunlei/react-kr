@@ -118,6 +118,7 @@ class NewCreateForm extends Component {
 
 		this.isInit = false;
 		this.state = {
+			stationUrl:'',
 			stationVos: this.props.stationVos,
 			delStationVos: [],
 			selectedStation: [],
@@ -149,8 +150,6 @@ class NewCreateForm extends Component {
 	//修改租赁期限－开始时间
 	onChangeLeaseBeginDate(value) {
 
-		value = dateFormat(value, "yyyy-mm-dd hh:MM:ss");
-
 		let {
 			stationVos
 		} = this.state;
@@ -158,15 +157,16 @@ class NewCreateForm extends Component {
 		if (!stationVos.length) {
 			return;
 		}
-
 		this.setState({
-			stationVos: []
+			stationVos:[],
+			delStationVos:stationVos
+		},function(){
+			this.getStationUrl();
 		});
 	}
 
 	//修改租赁期限-结束时间
 	onChangeLeaseEndDate(value) {
-		value = dateFormat(value, "yyyy-mm-dd hh:MM:ss");
 		let {
 			stationVos
 		} = this.state;
@@ -176,7 +176,10 @@ class NewCreateForm extends Component {
 		}
 
 		this.setState({
-			stationVos: []
+			stationVos:[],
+			delStationVos:stationVos
+		},function(){
+			this.getStationUrl();
 		});
 	}
 
@@ -273,6 +276,8 @@ class NewCreateForm extends Component {
 
 	openStationDialog() {
 
+		this.getStationUrl();
+
 		let {
 			changeValues
 		} = this.props;
@@ -306,6 +311,8 @@ class NewCreateForm extends Component {
 			}]);
 			return;
 		}
+
+
 
 		this.setState({
 			openStation: !this.state.openStation
@@ -351,7 +358,7 @@ class NewCreateForm extends Component {
 
 	getStationUrl() {
 
-		let url = "http://op.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
+		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}&contractId={contractId}";
 
 		let {
 			changeValues,
@@ -361,7 +368,7 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
-
+		console.log('=-->>.',stationVos);
 		stationVos = stationVos.map(function(item) {
 			var obj = {};
 			obj.id = item.stationId;
@@ -370,6 +377,7 @@ class NewCreateForm extends Component {
 		});
 
 		let params = {
+			contractId:this.context.params.id,
 			mainBillId: this.context.params.orderId,
 			communityId: optionValues.mainbillCommunityId,
 			floors: changeValues.wherefloor,
@@ -393,7 +401,9 @@ class NewCreateForm extends Component {
 			}
 		}
 
-		return url;
+		this.setState({
+			stationUrl:url
+		});
 	}
 
 	onIframeClose(billList) {
@@ -415,7 +425,7 @@ class NewCreateForm extends Component {
 				obj.leaseEndDate = changeValues.leaseEnddate;
 				obj.stationId = item.id;
 				obj.stationType = item.type;
-				item.stationName = item.name;
+				obj.stationName = item.name;
 				obj.unitprice = '';
 				obj.whereFloor = item.wherefloor;
 				stationVos.push(obj);
@@ -537,7 +547,7 @@ class NewCreateForm extends Component {
 				<KrField right={60} grid={1}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} requireLabel={true}/> 
 
 					<KrField grid={1/2}  name="stationnum" type="text" component="labelText"  label="工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/> 
-					<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.station} defaultValue="0" requireLabel={true} inline={false}/> 
+					<KrField grid={1/2}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/> 
 
 				
                 <DotTitle title='租赁明细'>
@@ -588,7 +598,7 @@ class NewCreateForm extends Component {
 						<Grid>
 						<Row style={{marginTop:30}}>
 						<Col md={4}></Col>
-						<Col md={2} align="center"> <Button  label="确定" type="submit"  /> </Col>
+						<Col md={2} align="center"> <Button  label="确定" type="submit" disabled={pristine || submitting} /> </Col>
 						<Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col>
 						<Col md={4}></Col> </Row>
 						</Grid>
@@ -600,8 +610,8 @@ class NewCreateForm extends Component {
 						title="分配工位"
 						autoScrollBodyContent={true}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
-						open={this.state.openStation} onClose={this.onIframeClose}>
-							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
+						open={this.state.openStation} onClose={this.openStationDialog}>
+							<IframeContent src={this.state.stationUrl} onClose={this.onIframeClose}/>
 					  </Dialog>
 
 					<Dialog
@@ -668,7 +678,7 @@ const validate = values => {
 		errors.rentaluse = '请填写租赁用途';
 	}
 
-	if (!values.totalrent) {
+	if (!String(values.totalrent)) {
 		errors.totalrent = '请输入租金总额';
 	}
 
@@ -677,7 +687,7 @@ const validate = values => {
 	}
 
 
-	if (!values.totaldeposit) {
+	if (!String(values.totaldeposit)) {
 		errors.totaldeposit = '请输入押金总额';
 	}
 

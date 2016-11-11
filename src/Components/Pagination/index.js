@@ -10,9 +10,9 @@ import './index.less';
 
 @ReactMixin.decorate(LinkedStateMixin)
 export default class Pagination extends Component {
-
+	static displayName = 'Pagination';
 	static defaultProps = {
-		pageNumber:10,
+		pageNumber: 10,
 	}
 	static propTypes = {
 		children: React.PropTypes.node,
@@ -20,7 +20,7 @@ export default class Pagination extends Component {
 		pageSize: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
 		totalCount: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
 		onPageChange: React.PropTypes.func,
-		pageNumber:React.PropTypes.number
+		pageNumber: React.PropTypes.number
 	};
 
 	constructor(props) {
@@ -29,9 +29,12 @@ export default class Pagination extends Component {
 		this.onPrev = this.onPrev.bind(this);
 		this.onNext = this.onNext.bind(this);
 		this.onFirst = this.onFirst.bind(this);
+		this.onLast = this.onLast.bind(this);
 		this.onPageChange = this.onPageChange.bind(this);
 		this.onJumpPage = this.onJumpPage.bind(this);
+		this.onFirst = this.onFirst.bind(this);
 
+		this.renderPrev = this.renderPrev.bind(this);
 		this.renderFirst = this.renderFirst.bind(this);
 		this.renderLast = this.renderLast.bind(this);
 		this.renderBody = this.renderBody.bind(this);
@@ -39,6 +42,7 @@ export default class Pagination extends Component {
 		this.renderJump = this.renderJump.bind(this);
 		this.onJump = this.onJump.bind(this);
 		this.renderTotalCount = this.renderTotalCount.bind(this);
+		this.renderNext = this.renderNext.bind(this);
 
 		this.state = {
 			jumpPageValue: ''
@@ -89,6 +93,11 @@ export default class Pagination extends Component {
 	onFirst() {
 		this.onPageChange(1);
 	}
+	onLast(){
+		let {pageSize,totalCount} = this.props;
+		var page = Math.ceil(totalCount/pageSize);
+		this.onPageChange(page);
+	}
 
 	onNext() {
 
@@ -122,7 +131,32 @@ export default class Pagination extends Component {
 		onPageChange && onPageChange(page);
 	}
 
-	renderFirst() {
+	onFirst(){
+		this.onPageChange(1);
+	}
+
+	renderFirst(){
+				let {
+					page,
+					pageSize,
+					totalCount
+				} = this.props;
+
+			let props = {};
+			props.className = 'item';
+
+			if (page == 1) {
+				props.className += ' active';
+			}
+
+				return (
+					<div className="item-first">
+						<a className="item" {...props} onClick={this.onFirst}>1</a>
+					</div>
+				);
+	}
+
+	renderPrev() {
 
 		let {
 			page,
@@ -179,20 +213,21 @@ export default class Pagination extends Component {
 		let pageMax = Math.ceil(totalCount / pageSize);
 		let pageEnd = pageStart + pageJump;
 
-		if(pageEnd > pageMax){
+		if (pageEnd > pageMax) {
 			pageEnd = pageMax;
 		}
+		if(pageStart == 1){
+			pageStart++;
+		}
 
-		
-		
 		let element = null;
 
-		if(pageStart>=pageJump){
-			element = this.createOther(parseInt(pageStart/pageJump)*pageJump - pageJump );
+		if (pageStart >= pageJump) {
+			element = this.createOther(parseInt(pageStart / pageJump) * pageJump - pageJump);
 			pageBody.push(element);
 		}
 
-		for (var i = pageStart; i <= pageEnd; i++) {
+		for (var i = pageStart; i < pageEnd; i++) {
 
 			props.key = i;
 			props.className = 'item';
@@ -209,8 +244,8 @@ export default class Pagination extends Component {
 			pageBody.push(element);
 		}
 
-		if(pageEnd<pageMax){
-			element = this.createOther(pageEnd+1);
+		if (pageEnd < pageMax) {
+			element = this.createOther(pageEnd + 1);
 			pageBody.push(element);
 		}
 
@@ -221,7 +256,33 @@ export default class Pagination extends Component {
 		);
 	}
 
-	renderLast() {
+	renderLast(){
+
+		let {
+			page,
+			pageSize,
+			totalCount
+		} = this.props;
+
+
+		var pageMax = Math.ceil(totalCount/pageSize);
+
+		let props = {};
+		props.className = 'item';
+
+		if (pageMax == page) {
+				props.className += ' active';
+		}
+
+		return (
+			<div className="item-last">
+				<a className="item" {...props} onClick={this.onLast} page={pageMax}>{pageMax}</a>
+			</div>
+		);
+
+	}
+
+	renderNext() {
 
 		let {
 			page,
@@ -254,13 +315,13 @@ export default class Pagination extends Component {
 		);
 	}
 
-	renderTotalCount(){
+	renderTotalCount() {
 
 		let {
 			totalCount
 		} = this.props;
 
-		totalCount = totalCount ||0;
+		totalCount = totalCount || 0;
 
 		return (
 			<div className="item-total-count">
@@ -276,9 +337,11 @@ export default class Pagination extends Component {
 
 			<div className="ui-pagination">
 					{this.renderTotalCount()}
+					{this.renderPrev()}
 					{this.renderFirst()}
 					{this.renderBody()}
 					{this.renderLast()}
+					{this.renderNext()}
 					{this.renderJump()}
 		  </div>
 

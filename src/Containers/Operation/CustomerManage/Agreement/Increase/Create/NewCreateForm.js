@@ -113,6 +113,8 @@ class NewCreateForm extends Component {
 		this.onChangeLeaseBeginDate = this.onChangeLeaseBeginDate.bind(this);
 		this.onChangeLeaseEndDate = this.onChangeLeaseEndDate.bind(this);
 		this.calcStationNum = this.calcStationNum.bind(this);
+
+
 		this.state = {
 			stationVos: [],
 			selectedStation: [],
@@ -327,13 +329,13 @@ class NewCreateForm extends Component {
 			return;
 		}
 		let unitprice = true;
-		stationVos.map(function(item,index){
-			if(!item.unitprice){
+		stationVos.map(function(item, index) {
+			if (!item.unitprice) {
 				unitprice = false;
 			}
 			return unitprice;
 		})
-		if(!unitprice){
+		if (!unitprice) {
 			Notify.show([{
 				message: '请输入工位单价!',
 				type: 'danger',
@@ -377,8 +379,7 @@ class NewCreateForm extends Component {
 
 	getStationUrl() {
 
-		let url = "http://op.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
-
+		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
 		let {
 			changeValues,
 			initialValues,
@@ -627,7 +628,7 @@ class NewCreateForm extends Component {
 						<Grid>
 						<Row style={{marginTop:30}}>
 						<Col md={4}></Col>
-						<Col md={2} align="center"> <Button  label="确定" type="submit"  /> </Col>
+						<Col md={2} align="center"> <Button  label="确定" type="submit" disabled={pristine || submitting} /> </Col>
 						<Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col> 
 						<Col md={4}></Col>
 						</Row>
@@ -640,7 +641,9 @@ class NewCreateForm extends Component {
 						title="分配工位"
 						autoScrollBodyContent={true}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
-						open={this.state.openStation} >
+						open={this.state.openStation} 
+						onClose={this.openStationDialog}
+						>
 							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
 
@@ -720,7 +723,7 @@ const validate = values => {
 		errors.leaseEnddate = '请输入租赁结束时间';
 	}
 
-	if (!values.totalrent) {
+	if (!String(values.totalrent)) {
 		errors.totalrent = '请填写租金总额';
 	}
 
@@ -728,10 +731,10 @@ const validate = values => {
 		errors.totalrent = '租金总额必须为数字';
 	}
 
-	if (!values.totaldeposit) {
+	if (!String(values.totaldeposit)) {
 		errors.totaldeposit = '请填写押金总额';
 	}
-	
+
 	if (values.totaldeposit && isNaN(values.totalrent)) {
 		errors.totaldeposit = '押金总额必须为数字';
 	}

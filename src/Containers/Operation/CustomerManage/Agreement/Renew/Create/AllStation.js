@@ -79,7 +79,7 @@ onChangeRentBeginDate(value){
   getLoadData(){
     var _this  = this;
     let {params} = this.context;
-		Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainBillid:params.orderId,page:1,pagesize:100})).then(function(response){
+		Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainBillid:params.orderId,page:1,pagesize:100,contractId:''})).then(function(response){
 			  _this.setState({
 				stationVos:response.items
 			  });
@@ -165,6 +165,7 @@ onChangeRentBeginDate(value){
 		obj.stationId = item.stationId;
 		obj.stationType = item.stationType;
 		obj.stationName = item.stationName;
+		obj.whereFloor = item.whereFloor;
 		obj.unitprice = item.unitprice;
 		obj.leaseBeginDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
 		obj.leaseEndDate = item.rentBeginDate;
@@ -178,20 +179,22 @@ onChangeRentBeginDate(value){
 
 	 if(beginDate>= endDate){
 			Notify.show([{
-				message:'选择的工位租赁结束时间不能大于续租结束时间',
+				message:'续租结束时间要大于选择的工位租赁结束时间',
 				type: 'danger',
 			  }]);
 			  return false;
 	  }
 
 	Store.dispatch(change('reduceCreateForm','leaseBegindate',selectedStationVos[0].leaseEndDate));
-	
+
 	selectedStationVos.forEach(function(item,index){
 		var tmpDate = new Date();
 		tmpDate.setTime(Date.parse(item.leaseBeginDate));
 		tmpDate.setDate(tmpDate.getDate()+1);
 		item.leaseBeginDate = dateFormat(tmpDate,'yyyy-mm-dd')
 	});
+
+	console.log('selectedStationVos',selectedStationVos);
 
 	const {onSubmit} = this.props;
 	onSubmit && onSubmit(selectedStationVos);
@@ -249,7 +252,7 @@ onChangeRentBeginDate(value){
       <Row style={{marginTop:30}}>
       <Col md={4}></Col>
       <Col md={2} align="center"> <Button  label="确定" type="submit" /> </Col>
-      <Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col> 
+      <Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col>
       <Col md={4}></Col>
       </Row>
       </Grid>

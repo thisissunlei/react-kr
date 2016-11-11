@@ -6,7 +6,7 @@ const APIS = {
 	},
 	//合同－工位信息
 	'getStationOrSettingList': {
-		url: '/api/krspace-finance-web/finacontractdetail/contract-detail-station?mainBillId={mainBillid}&page={page}&pageSize={pageSize}',
+		url: '/api/krspace-finance-web/finacontractdetail/contract-detail-station?mainBillId={mainBillid}&page={page}&pageSize={pageSize}&contractId={contractId}',
 		method: 'get'
 	},
 	//退租协议-新增-编辑
@@ -39,7 +39,7 @@ const APIS = {
 
 	//文件预览
 	'viewFile': {
-		url: ' /krspace_knowledge_wap/doc/docFile/viewFile?operater={operater}&sourceservicetoken={sourceservicetoken}&fileId={fileId}',
+		url: '/krspace_knowledge_wap/doc/docFile/viewFile?operater={operater}&sourceservicetoken={sourceservicetoken}&fileId={fileId}',
 		method: 'get'
 	},
 

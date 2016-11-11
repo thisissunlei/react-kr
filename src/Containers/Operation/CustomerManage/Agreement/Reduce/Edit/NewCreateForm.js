@@ -160,41 +160,11 @@ class NewCreateForm extends Component {
 		this.openStationDialog();
 	}
 
-	onStationSubmit(selectedList) {
+	
+	onStationSubmit(stationVos) {
 
-		let {
-			stationVos
-		} = this.state;
-		let result = stationVos;
-		console.log('stationVos', stationVos, selectedList);
-		var same = false;
-		if (!stationVos.length) {
-			result = selectedList;
-		} else {
-			selectedList.forEach(function(item, index) {
-				stationVos.forEach(function(selected, i) {
-					if (item.id == selected.id) {
-						selected = item;
-						same = true;
-						stationVos.slice(index);
-
-					}
-				});
-			});
-			if (!same) {
-				selectedList.forEach(function(item) {
-					stationVos.push(item);
-				})
-			}
-
-		}
-
-		result.map((item) => {
-			item.leaseBeginDate = dateFormat(item.leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
-			item.leaseEndDate = dateFormat(item.leaseEndDate, "yyyy-mm-dd hh:MM:ss");
-		})
 		this.setState({
-			stationVos: result
+			stationVos
 		});
 		this.openStationDialog();
 	}
@@ -259,27 +229,17 @@ class NewCreateForm extends Component {
 		form = Object.assign({}, form);
 
 		let {
-			changeValues,
-			optionValues
+			changeValues
 		} = this.props;
 		let {
-			stationVos,
-			delStationVos
+			stationVos
 		} = this.state;
-
 
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
-		if(stationVos[0].end){
-			form.leaseEnddate = dateFormat(stationVos[0].end, "yyyy-mm-dd hh:MM:ss");
-			form.leaseBegindate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
 
-
-		}else{
-			form.leaseEnddate = dateFormat(optionValues.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
-			form.leaseBegindate = dateFormat(optionValues.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
-
-		}
+		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
 
 		form.lessorAddress = changeValues.lessorAddress;
 		// form.lessorContactid = 111;
@@ -288,7 +248,6 @@ class NewCreateForm extends Component {
 		form.stationVos = stationVos;
 
 		form.stationVos = JSON.stringify(form.stationVos);
-		form.delStationVos = JSON.stringify(delStationVos);
 		console.log('form111', form);
 		const {
 			onSubmit
@@ -412,7 +371,7 @@ class NewCreateForm extends Component {
 						<Grid>
 						<Row style={{marginTop:30}}>
 						<Col md={4}></Col>
-						<Col md={2} align="center"> <Button  label="确定" type="submit"  /> </Col>
+						<Col md={2} align="center"> <Button  label="确定" type="submit" disabled={pristine || submitting}  /> </Col>
 						<Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col> 
 						<Col md={4}></Col></Row>
 						</Grid>
@@ -424,9 +383,10 @@ class NewCreateForm extends Component {
 						title="分配工位"
 						open={this.state.openStation} 
 						modal={true}
+						onClose={this.onStationCancel}
 						autoScrollBodyContent={true}
 						autoDetectWindowHeight={true}>
-								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} endTime={optionValues.leaseEnddate} stationVos={stationVos}/>
+								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} endTime={optionValues.leaseEnddate} stationVos={stationVos} changeValues={this.props.changeValues}/>
 					  </Dialog>
 
 

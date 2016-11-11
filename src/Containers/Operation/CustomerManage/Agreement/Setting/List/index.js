@@ -64,7 +64,7 @@ let SettingCreateForm = function(props) {
     <form onSubmit={handleSubmit(onSubmit)}>
 
       <KrField name="dicName" type="text" component="input" label="字段名称" requireLabel={true}/>  
-       <KrField name="enableFlag" component="group" label="是否有效" requireLabel={true} >
+       <KrField name="enableFlag" component="group" label="是否有效"  >
           <KrField name="enableFlag" label="是" component="radio" type="radio" value="ENABLE"  />
           <KrField name="enableFlag" label="否" component="radio"  type="radio" value="DISENABLE"/>
         </KrField>
@@ -95,7 +95,7 @@ const settingCreateFormValidate = values => {
 SettingCreateForm = reduxForm({
   form: 'settingCreateForm',
   initialValues: {
-    enableFlag: '1'
+    enableFlag: 'ENABLE'
   },
   validate: settingCreateFormValidate
 })(SettingCreateForm);
@@ -150,7 +150,7 @@ let SettingUpdateForm = function(props) {
 
     <form onSubmit={handleSubmit(onSubmit)}>
               <KrField name="id" type="hidden" label="id"  /> 
-              <KrField name="dicName" type="text" component="input" label="字段名称"  /> 
+              <KrField name="dicName" type="text" component="input" label="字段名称" requireLabel={true} /> 
               <KrField name="enableFlag" component="group" label="是否有效" >
               <KrField name="enableFlag" label="是" component="radio" type="radio" value="ENABLE"/>
                 <KrField name="enableFlag" label="否" component="radio" type="radio" value="DISENABLE" />
@@ -170,9 +170,20 @@ let SettingUpdateForm = function(props) {
         </form>
   );
 }
+const settingUpdateForm = values => {
+  const errors = {}
+  if (!values.dicName) {
+    errors.dicName = '请输入字段名称';
+  }
+  return errors
+}
+
+
 
 SettingUpdateForm = reduxForm({
   form: 'settingUpdateForm',
+
+  validate: settingUpdateForm
 })(SettingUpdateForm);
 
 let SettingChildUpdateForm = function(props) {
@@ -236,7 +247,7 @@ let SettingAddForm = function(props) {
       <form onSubmit={handleSubmit(onSubmit)}>
                   <KrField name="id" type="hidden" component="input" label="id"/> 
                   <KrField name="dicName" type="text" label="子项名称" requireLabel={true}/>
-                  <KrField  type="labelText" label="字段名称" value={props.dicName} requireLabel={true}/>
+                  <KrField  type="labelText" label="字段名称" value={props.dicName} />
                  <KrField name="enableFlag" component="group" label="是否有效" requireLabel={true}>
                     <KrField name="enableFlag" label="是" type="radio" value="ENABLE"/>
                     <KrField name="enableFlag" label="否" type="radio" value="DISENABLE" />
@@ -260,7 +271,7 @@ let SettingAddForm = function(props) {
     <form onSubmit={handleSubmit(onSubmit)}>
               <KrField name="id" type="hidden" component="input" label="id"/> 
               <KrField name="dicName" type="text" label="子项名称" requireLabel={true}/>
-              <KrField  type="labelText" label="字段名称" value={props.dicName} requireLabel={true}/>
+              <KrField  type="labelText" label="字段名称" value={props.dicName} />
               <KrField name="round" type="text" label="拆分周期" requireLabel={true} /> 
               <KrField name="enableFlag" component="group" label="是否有效" requireLabel={true}>
                 <KrField name="enableFlag" label="是" type="radio" value="ENABLE"/>
@@ -282,9 +293,27 @@ let SettingAddForm = function(props) {
 
 
 }
+const SettingAddFormvalidate = values => {
+  const errors = {}
+  if (!values.dicName) {
+    errors.dicName = '请输入子项名称';
+  }
+  if (!values.enableFlag) {
+    errors.enableFlag = '请选择是否有效';
+  }
+  if (!values.remark) {
+    errors.remark = '请输入备注信息';
+  }
 
+  if (values.round && !values.round) {
+    errors.round = '请输入拆分周期';
+  }
+
+  return errors
+}
 SettingAddForm = reduxForm({
   form: 'settingAddForm',
+  validate: SettingAddFormvalidate
 })(SettingAddForm);
 
 

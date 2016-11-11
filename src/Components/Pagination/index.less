@@ -5,8 +5,10 @@
 	text-align:right;
 
 	.item-total-count,
+	.item-first,
 	.item-prev,
 	.item-body,
+	.item-last,
 	.item-next,
 	.item-jump{
 		display:inline-block;
@@ -67,10 +69,11 @@
 		}
 	}
 
-	.item-body{
+	.item-first,
+	.item-body,
+	.item-last{
 		vertical-align: top;
 		margin-top:2px;
-
 	}
 
 	.item-next{
@@ -82,7 +85,7 @@
 	}
 
 	.item{
-		
+
 		display:inline-block;
 		width:28px;
 		height:28px;
@@ -92,12 +95,10 @@
 		cursor:pointer;
 		color:#666666;
 		&.active{
-			
+
 			color:#499df1;
 			background:#ffffff !important;
 		}
 	}
 
 }
-
-

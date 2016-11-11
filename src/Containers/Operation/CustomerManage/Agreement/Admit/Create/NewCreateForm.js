@@ -105,6 +105,8 @@ class NewCreateForm extends Component {
 		this.onChangeLeaseBeginDate = this.onChangeLeaseBeginDate.bind(this);
 		this.onChangeLeaseEndDate = this.onChangeLeaseEndDate.bind(this);
 		this.calcStationNum = this.calcStationNum.bind(this);
+		this.onCloseStation = this.onCloseStation.bind(this);
+
 		this.state = {
 			stationVos: [],
 			selectedStation: [],
@@ -124,6 +126,13 @@ class NewCreateForm extends Component {
 		this.setState({
 			stationVos
 		});
+	}
+
+	onCloseStation() {
+		this.setState({
+			openStation: !this.state.openStation
+		});
+
 	}
 
 
@@ -320,7 +329,7 @@ class NewCreateForm extends Component {
 
 	getStationUrl() {
 
-		let url = "http://op.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
+		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
 
 		let {
 			changeValues,
@@ -386,7 +395,6 @@ class NewCreateForm extends Component {
 			stationVos
 		} = this.state;
 
-		console.log('---changeValues', changeValues);
 
 		try {
 			billList.map(function(item, index) {
@@ -489,7 +497,7 @@ class NewCreateForm extends Component {
 
                                <KrField right={0} name="templockday" left={0} grid={1/2} component="input" type="text" label="保留天数" requireLabel={true}/> 
 
-							 <KrField grid={1}  name="contractmark" type="textarea" component="textarea" label="备注" /> 
+							 <KrField grid={1}  name="contractmark" type="textarea" component="textarea" label="备注" maxSize={200} /> 
 
 							 <KrField grid={1}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
 							<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
@@ -543,7 +551,7 @@ class NewCreateForm extends Component {
 						<Col md={12} align="center">
 							<ListGroup>
 								<ListGroupItem>
-									 <Button  label="确定" type="submit" primary={false} disabled={submitting}/>
+									 <Button  label="确定" type="submit" primary={false} disabled={pristine || submitting} />
 								</ListGroupItem>
 								<ListGroupItem style={{paddingLeft:20}}>
 									<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel}/>
@@ -561,7 +569,9 @@ class NewCreateForm extends Component {
 						title="分配工位"
 						autoScrollBodyContent={true}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
-						open={this.state.openStation} >
+						open={this.state.openStation}
+						onClose={this.onCloseStation}
+						 >
 							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
 
@@ -617,7 +627,6 @@ const validate = values => {
 		errors.paymodel = '请填写付款方式';
 	}
 
-
 	if (!values.signdate) {
 		errors.signdate = '请填写签署时间';
 	}
@@ -633,7 +642,6 @@ const validate = values => {
 	if (!values.templockday) {
 		errors.templockday = '请填写保留天数';
 	}
-	
 
 	if (!values.contractcode) {
 		errors.contractcode = '请填写合同编号';
@@ -643,14 +651,13 @@ const validate = values => {
 		errors.paymentId = '请填写付款方式';
 	}
 
-	if (!values.totaldownpayment) {
+	if (!String(values.totaldownpayment)) {
 		errors.totaldownpayment = '请填写定金总额';
 	}
+
 	if (values.totaldownpayment && isNaN(values.totaldownpayment)) {
 		errors.totaldownpayment = '定金总额必须为数字';
 	}
-
-
 
 	return errors
 }

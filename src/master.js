@@ -12,12 +12,14 @@ class Master extends Component {
 
 
 	static childContextTypes =  {
-          params: React.PropTypes.object.isRequired
+          params: React.PropTypes.object.isRequired,
+          //router: React.PropTypes.object.isRequired
   }
 
 	getChildContext() {
 				return {
-					params:this.props.params
+					params:this.props.params,
+					//router:this.props.router
 				};
 	 }
 
@@ -47,6 +49,8 @@ class Master extends Component {
 
 	render() {
 
+
+
 		var styles = {};
 
 		var {switch_value} = this.props.sidebar_nav;
@@ -62,15 +66,13 @@ class Master extends Component {
 		}
 
 		return (
-			<div>
+			<div className="app-container">
 			<Header/>
 
 			<div className="container" style={styles}>
 			{this.props.children}
 			</div>
-				{/*
 					<Footer/>
-				*/}
 			<div id="nowtify-wrapper"></div>
 
 			</div>

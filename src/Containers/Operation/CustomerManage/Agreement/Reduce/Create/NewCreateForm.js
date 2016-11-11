@@ -202,9 +202,11 @@ class NewCreateForm extends Component {
 		let {
 			changeValues
 		} = this.props;
+		
 		let {
 			stationVos
 		} = this.state;
+
 		if (!stationVos.length) {
 			Notify.show([{
 				message: '请选择工位',
@@ -212,20 +214,19 @@ class NewCreateForm extends Component {
 			}]);
 			return;
 		}
-		console.log('-------------', stationVos[0]);
+
 		form.list = stationVos;
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
 
-		form.leaseBegindate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(stationVos[0].end, "yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
 
-		var _this = this;
 
 		form.stationVos = stationVos;
 
 		form.stationVos = JSON.stringify(form.stationVos);
-		console.log('form111', form);
+
 		const {
 			onSubmit
 		} = this.props;
@@ -296,16 +297,16 @@ class NewCreateForm extends Component {
 
 				<KrField left={60} grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
 
-				<KrField right={60} grid={1}  name="rentamount" component="input" type="text" requireLabel={true} label="减租金额" /> 
+				<KrField right={60} grid={1}  name="rentamount" component="input" type="text" requireLabel={true} label="减租金额" />
 
 				<KrField right={60} grid={1/1}  name="contractmark" component="textarea" label="备注" />
-			
+
 				<KrField  grid={1}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
 				<KrField right={60} grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
 					Store.dispatch(change('reduceCreateForm','contractFileList',files));
 				}} />
               <DotTitle title='租赁明细'>
-				
+
 
 				       <Grid>
 							<Row>
@@ -335,8 +336,8 @@ class NewCreateForm extends Component {
 									<TableRowColumn>
 											{item.unitprice}
 									</TableRowColumn>
-									<TableRowColumn> <KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
-									<TableRowColumn><KrDate.Format value={item.end}/></TableRowColumn>
+									<TableRowColumn> <KrDate.Format value={item.leaseBeginDate}/></TableRowColumn>
+									<TableRowColumn><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
 
 									</TableRow>
 							);
@@ -344,12 +345,12 @@ class NewCreateForm extends Component {
 						</TableBody>
 						</Table>
 
-						
+
                      </DotTitle>
 						<Grid>
 						<Row style={{marginTop:30}}>
 						<Col md={4}></Col>
-						<Col md={2} align="center"> <Button  label="确定" type="submit"  /> </Col>
+						<Col md={2} align="center"> <Button  label="确定" type="submit" disabled={pristine || submitting}  /> </Col>
 						<Col md={2} align="center"> <Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel}/> </Col>
 						<Col md={4}></Col> </Row>
 						</Grid>

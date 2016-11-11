@@ -13,10 +13,12 @@
 		display:inline-block;
 		border:1px solid #ddd;
 		height:35px;
-		width: 150px;
+		width:100%;
+		//width: 150px;
+		min-width:150px;
 		border-radius:4px;
 		position:relative;
-
+		cursor: pointer;
 	
 	.date-input,
 	.date-operation{
@@ -26,6 +28,12 @@
 		right:0;
 		bottom:0;
 		position:absolute;
+		div{
+			width:100% !important;
+			input{
+				cursor: pointer !important;
+			}
+		}
 	}
 	.date-input{
 	height:35px;
@@ -33,7 +41,8 @@
 	padding-left:10px;
 	padding-right:10px;
 	position: relative;
-
+	
+	
 	}
 
 	.date-operation {

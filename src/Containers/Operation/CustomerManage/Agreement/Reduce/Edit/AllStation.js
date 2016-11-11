@@ -57,9 +57,48 @@ class SelectStationForm  extends Component{
 
 
 onChangeRentBeginDate(value){
-	value = dateFormat(value,'yyyy-mm-dd');
+  value = DateFormat(value,'yyyy-mm-dd')+' 00:00:00';
 	let {stationVos,selected} = this.state;
+
+
+	let {leaseEnddate} = this.props.changeValues;
+	//判断选择的时间是否大于租赁起始时间
+	let endDate = leaseEnddate;
+  	let rentBeginDate = Date.parse(DateFormat(value,'yyyy-mm-dd')+' 00:00:00');
+
+	 if(endDate<rentBeginDate){
+			Notify.show([{
+				message:'选择的减租开始时间不能大于租赁期限的终止时间',
+				type: 'danger',
+			  }]);
+		return false;
+	  }
+
+	if(!selected.length){
+			Notify.show([{
+				message: '未选择减租工位',
+				type: 'danger',
+			}]);
+			return;
+		}
 	stationVos = [].concat(stationVos);
+	//比较减租开始日期不能小于工位起始日期
+	let isOK = true;
+	stationVos.map(function(item,index){
+		let stationStartDate = Date.parse(dateFormat(item.leaseBeginDate,'yyyy-mm-dd'));
+		if(rentBeginDate <stationStartDate){
+			isOK = false;
+		}
+	});
+
+	if(!isOK){
+		Notify.show([{
+				message: '减租开始日期不能小于工位开始的时间',
+				type: 'danger',
+			}]);
+		return ;
+	}
+
 	stationVos.map(function(item,index){
 		if(selected.indexOf(index) !==-1){
 			item.rentBeginDate = value;
@@ -79,7 +118,7 @@ onChangeRentBeginDate(value){
   getLoadData(){
     var _this  = this;
     let {params} = this.context;
-		Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainBillid:params.orderId,page:1,pagesize:100})).then(function(response){
+		Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainBillid:params.orderId,page:1,pagesize:100,contractId:params.id})).then(function(response){
 			  _this.setState({
 				stationVos:response.items
 			  });
@@ -103,7 +142,6 @@ onChangeRentBeginDate(value){
 
     let {stationVos,selected} = this.state;
 	  let selectedStationVos = [];
-	  let stationVosList = this.props.stationVos;
 
 	  selectedStationVos = stationVos.filter(function(item,index){
 		  if(selected.indexOf(index) !==-1){
@@ -167,40 +205,45 @@ onChangeRentBeginDate(value){
 		obj.stationName = item.stationName;
 		obj.unitprice = item.unitprice;
 		obj.stationType = item.stationType;
-		obj.leaseBeginDate = dateFormat(item.leaseBeginDate,'yyyy-mm-dd');
-		obj.end = dateFormat(item.leaseEndDate,'yyyy-mm-dd');//结束日期
-		obj.leaseEndDate = item.rentBeginDate;//减租开始日期
+    obj.stationBeginDate = dateFormat(item.leaseBeginDate,'yyyy-mm-dd');
+    obj.stationEndDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
+
+		obj.leaseBeginDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
+		obj.leaseEndDate = dateFormat(item.rentBeginDate,'yyyy-mm-dd');
+    obj.rentBeginDate = dateFormat(item.rentBeginDate,'yyyy-mm-dd');
+
 		resultStationVos.push(obj);
 	});
 
 	selectedStationVos = resultStationVos;
 
-	let beginDate = Date.parse(selectedStationVos[0].end);
-	let contactEnd = Date.parse(this.props.endTime);
-	let endDate = Date.parse(selectedStationVos[0].leaseEndDate);
-	 if(beginDate<= endDate){
-			Notify.show([{
-				message:'选择的工位租赁结束时间不能大于减租开始时间',
-				type: 'danger',
-			  }]);
-			  return false;
-	  }
-	  if(contactEnd!= endDate && stationVosList.length){
-			Notify.show([{
-				message:'选择的工位结束时间必须为'+ dateFormat(this.props.endTime,'yyyy-mm-dd'),
-				type: 'danger',
-			  }]);
-			  return false;
-	  }
-	  if(stationVosList.length){
-	  	selectedStationVos[0].end = this.props.endTime;
-	  }
+    //选择的减租开始日期必须要在工位的起始日期和结束日期范围内
+    var isOK = 1;
+    selectedStationVos.map(function(item,index){
+        var stationBeginDate = Date.parse(dateFormat(item.stationBeginDate,'yyyy-mm-dd')+' 00:00:00');
+        var stationEndDate = Date.parse(dateFormat(item.stationEndDate,'yyyy-mm-dd')+' 00:00:00');
+        var rentBeginDate = Date.parse(dateFormat(item.rentBeginDate,'yyyy-mm-dd')+' 00:00:00');
+
+        if(stationBeginDate>=rentBeginDate || rentBeginDate>=stationEndDate){
+           isOK = 0;
+        }
+    });
+
+    if(!isOK){
+      Notify.show([{
+        message:'减租开始时间必须要在选择工位的租赁开始日期和结束日期之内',
+        type: 'danger',
+        }]);
+        return false;
+    }
+    console.log('---->>>>',selectedStationVos)
 
 	Store.dispatch(change('reduceCreateForm','leaseBegindate',selectedStationVos[0].leaseEndDate));
-	
+
 	const {onSubmit} = this.props;
 	onSubmit && onSubmit(selectedStationVos);
   }
+
 
 
 	onCancel(){
@@ -210,7 +253,7 @@ onChangeRentBeginDate(value){
 
 	render(){
 
-		let { error, handleSubmit, pristine, reset, submitting} = this.props;
+		let { error, handleSubmit, pristine, reset, submitting,changeValues} = this.props;
     let {stationVos} = this.state;
     const overfolw = {
       'overflow':'hidden',
@@ -223,7 +266,9 @@ onChangeRentBeginDate(value){
 		return (
 			<div style={{height:667,marginTop:20}}>
 <form onSubmit={handleSubmit(this.onSubmit)}>
-			<KrField grid={1/1}  name="rentBeginDate" component="date" label="减租开始时间" onChange={this.onChangeRentBeginDate} inline={false}/>
+			<KrField grid={1/2}  name="rentBeginDate" component="date" label="减租开始时间" onChange={this.onChangeRentBeginDate} inline={true}/>
+			<KrField grid={1/2} name="leaseEnddate"  component="labelText" type="date" label="租赁期限终止时间" value={changeValues.leaseEnddate} defaultValue="无"/>
+
       <Table onSelect={this.onSelect} style={overfolw}>
         <TableHeader>
           <TableHeaderColumn>类别</TableHeaderColumn>
@@ -254,7 +299,7 @@ onChangeRentBeginDate(value){
       <Row style={{marginTop:30}}>
       <Col md={4}></Col>
       <Col md={2} align="center"> <Button  label="确定" type="submit" /> </Col>
-      <Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col> 
+      <Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col>
       <Col md={4}></Col>
       </Row>
       </Grid>

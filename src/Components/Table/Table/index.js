@@ -221,8 +221,8 @@ export default class Table extends React.Component {
 		var exportData = [];
 
 
-		listData = listData.filter(function(item,index){
-				return !(typeof item === 'undefined');
+		listData = listData.filter(function(item, index) {
+			return !(typeof item === 'undefined');
 		});
 
 
@@ -234,12 +234,10 @@ export default class Table extends React.Component {
 
 
 		exportRows.forEach(function(item, index) {
-			if(listData[item]){
+			if (listData[item]) {
 				exportData.push(listData[item]);
 			}
 		});
-
-       
 
 		onExport && onExport(exportData, exportRows);
 
@@ -275,24 +273,21 @@ export default class Table extends React.Component {
 				pageSize: response.pageSize,
 				totalCount: response.totalCount,
 				isLoaded: true,
+				loading:false,
 			});
 		}).catch(function(err) {
 
 			_this.onInitial({
-				isLoaded: true
+				isLoaded: true,
+				loading:false,
 			});
 
 			Notify.show([{
 				message: err.message,
 				type: 'error',
 			}]);
-		});
 
-		window.setTimeout(function() {
-			_this.setState({
-				loading: false
-			});
-		}, 0);
+		});
 
 	}
 
@@ -587,9 +582,10 @@ export default class Table extends React.Component {
 			if (!React.isValidElement(child)) return;
 			const {
 				muiName,
-				name
+				name,
+				displayName
 			} = child.type;
-			if (name === 'TableFooter') {
+			if (displayName === 'TableFooter') {
 				tFoot = this.createTableFooter(child);
 			}
 		});

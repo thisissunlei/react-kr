@@ -7,7 +7,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = {
 	entry:{
-		vender:[path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js')],	
 		app:path.join(process.cwd(), '/src/app.js'),	
 	},
 	resolve: {
@@ -91,17 +90,14 @@ const config = {
 				loader: 'raw-loader',
 			},
 			{
-				test: /\.less$/,
-				loader: "style-loader!css-loader!less-loader"
-			},
-			{
-				test: /\.css$/, 
+				test: /\.css$/,
 				loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader' })
 			},
 			{
-				test: /\.(png|jpg|gif)$/,
-				loader: 'file?name=[name].[ext]?[hash]'
+				test: /\.less$/,
+				 loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader!less-loader' })
 			},
+			{test: /\.(jpg|png)$/, loader: "url?limit=8192"},
 			{
 				test: /\.eot/,
 				loader : 'file?prefix=font/'

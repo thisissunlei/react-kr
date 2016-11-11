@@ -71,7 +71,7 @@ export default class AttributeSetting extends Component {
 			list: {},
 			searchParams: {
 				page: 1,
-				pageSize:15
+				pageSize: 15
 			}
 
 		}
@@ -93,14 +93,14 @@ export default class AttributeSetting extends Component {
 	}
 
 	onExport(values) {
-	    var searchParams=this.state.searchParams;
+		var searchParams = this.state.searchParams;
 		let idList = [];
-		if(values.length!=0){
-           values.map((item, value) => {
-			idList.push(item.id)
-		 });
+		if (values.length != 0) {
+			values.map((item, value) => {
+				idList.push(item.id)
+			});
 		}
-		var url = `http://op.krspace.cn/api/krspace-finance-web/finaccount/data/exportExcel?searchParams=${searchParams}&idList=${idList}`
+		var url = `/api/krspace-finance-web/finaccount/data/exportExcel?searchParams=${searchParams}&idList=${idList}`
 		window.location.href = url;
 	}
 
@@ -113,7 +113,8 @@ export default class AttributeSetting extends Component {
 
 		if (type == 'view') {
 			let orderId = itemDetail.id
-			window.location.href = `./#/finance/Manage/orderbill/${orderId}/detail`;
+				//window.location.href = `./#/finance/Manage/orderbill/${orderId}/detail`;
+			window.open(`./#/finance/Manage/orderbill/${orderId}/detail`, orderId);
 		} else if (type == 'edit') {
 			this.openEditDetailDialog();
 		}
@@ -244,6 +245,7 @@ export default class AttributeSetting extends Component {
 					<TableHeaderColumn>收入总额</TableHeaderColumn>
 					<TableHeaderColumn>回款总额</TableHeaderColumn>
 					<TableHeaderColumn>余额</TableHeaderColumn>
+					<TableHeaderColumn>定押</TableHeaderColumn>
 					<TableHeaderColumn>操作</TableHeaderColumn>
 				</TableHeader>
 
@@ -257,6 +259,7 @@ export default class AttributeSetting extends Component {
 						<TableRowColumn name="come"></TableRowColumn>
 						<TableRowColumn name="backMount"></TableRowColumn>
 						<TableRowColumn name="mount"></TableRowColumn>
+						<TableRowColumn name="rentOrDeposit"></TableRowColumn>
 						<TableRowColumn>
 							  <Button label="查看"  type="operation" operation="view"/>
 							  {/*<Button label="生成对账单"  type="operation" operation="edit"/>*/}

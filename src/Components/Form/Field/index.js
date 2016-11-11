@@ -26,10 +26,10 @@ import GroupComponent from './GroupComponent';
 export default class KrField extends React.Component {
 
 	static defaultProps = {
-		left:0,
-		right:0,
+		left: 0,
+		right: 0,
 	}
-	
+
 	static PropTypes = {
 		type: React.PropTypes.string,
 		name: React.PropTypes.string,
@@ -37,7 +37,7 @@ export default class KrField extends React.Component {
 		component: React.PropTypes.string,
 		disabled: React.PropTypes.bool,
 		grid: React.PropTypes.number,
-		value: React.PropTypes.value,
+		value: React.PropTypes.string,
 		inline: React.PropTypes.bool,
 		left: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
 		right: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
@@ -49,15 +49,24 @@ export default class KrField extends React.Component {
 			style,
 			left,
 			right,
-			grid = 1, className, children, inline, component, type, requireLabel, label, value, ...other
+			grid = 1,
+			className,
+			children,
+			inline,
+			component,
+			type,
+			requireLabel,
+			label,
+			value,
+			...other
 		} = this.props;
 
 
-		let WrapStyles = Object.assign({},style,{
+		let WrapStyles = Object.assign({}, {
 			width: (grid * 100) + '%',
-			paddingLeft:left,
-			paddingRight:right
-		});
+			paddingLeft: left,
+			paddingRight: right
+		}, style);
 
 		if (component === 'input' || component === 'text') {
 			return (

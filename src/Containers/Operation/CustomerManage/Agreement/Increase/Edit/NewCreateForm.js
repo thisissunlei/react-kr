@@ -116,6 +116,7 @@ class NewCreateForm extends Component {
 		this.calcStationNum = this.calcStationNum.bind(this);
 
 		this.state = {
+			stationUrl:'',
 			stationVos: this.props.stationVos,
 			delStationVos: [],
 			selectedStation: [],
@@ -169,8 +170,6 @@ class NewCreateForm extends Component {
 	//修改租赁期限－开始时间
 	onChangeLeaseBeginDate(value) {
 
-		value = dateFormat(value, "yyyy-mm-dd hh:MM:ss");
-
 		let {
 			stationVos
 		} = this.state;
@@ -178,17 +177,17 @@ class NewCreateForm extends Component {
 		if (!stationVos.length) {
 			return;
 		}
-		stationVos.forEach(function(item, index) {
-			item.leaseBeginDate = value;
-		});
+
 		this.setState({
-			stationVos
+			stationVos:[],
+			delStationVos:stationVos
+		},function(){
+			this.getStationUrl();
 		});
 	}
 
 	//修改租赁期限-结束时间
 	onChangeLeaseEndDate(value) {
-		value = dateFormat(value, "yyyy-mm-dd hh:MM:ss");
 		let {
 			stationVos
 		} = this.state;
@@ -196,11 +195,12 @@ class NewCreateForm extends Component {
 		if (!stationVos.length) {
 			return;
 		}
-		stationVos.forEach(function(item, index) {
-			item.leaseEndDate = value;
-		});
+
 		this.setState({
-			stationVos
+			stationVos:[],
+			delStationVos:stationVos
+		},function(){
+			this.getStationUrl();
 		});
 	}
 
@@ -284,7 +284,7 @@ class NewCreateForm extends Component {
 	}
 
 	openStationDialog() {
-
+		this.getStationUrl();
 		let {
 			changeValues
 		} = this.props;
@@ -318,6 +318,8 @@ class NewCreateForm extends Component {
 			}]);
 			return;
 		}
+
+		this.getStationUrl();
 
 		this.setState({
 			openStation: !this.state.openStation
@@ -382,7 +384,7 @@ class NewCreateForm extends Component {
 
 	getStationUrl() {
 
-		let url = "http://op.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
+		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}&contractId={contractId}";
 
 		let {
 			changeValues,
@@ -401,6 +403,7 @@ class NewCreateForm extends Component {
 		});
 
 		let params = {
+			contractId:this.context.params.id,
 			mainBillId: this.context.params.orderId,
 			communityId: optionValues.mainbillCommunityId,
 			floors: changeValues.wherefloor,
@@ -424,7 +427,10 @@ class NewCreateForm extends Component {
 			}
 		}
 
-		return url;
+		this.setState({
+			stationUrl:url
+		});
+
 	}
 
 	onIframeClose(billList) {
@@ -612,8 +618,8 @@ class NewCreateForm extends Component {
 						title="分配工位"
 						autoScrollBodyContent={true}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
-						open={this.state.openStation} onClose={this.onIframeClose}>
-							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
+						open={this.state.openStation} onClose={this.openStationDialog}>
+							<IframeContent src={this.state.stationUrl} onClose={this.onIframeClose}/>
 					  </Dialog>
 
 					<Dialog
@@ -683,7 +689,7 @@ const validate = values => {
 		errors.signdate = '请填写签署时间';
 	}
 
-	if (!values.totalrent) {
+	if (!String(values.totalrent)){
 		errors.totalrent = '请填写租金总额';
 	}
 
@@ -692,7 +698,7 @@ const validate = values => {
 	}
 
 
-	if (!values.totaldeposit) {
+	if (!String(values.totaldeposit)) {
 		errors.totaldeposit = '请填写押金总额';
 	}
 

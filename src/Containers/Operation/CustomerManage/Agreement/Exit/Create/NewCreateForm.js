@@ -126,7 +126,7 @@ class NewCreateForm extends Component {
 
 	getStationUrl() {
 
-		let url = "http://op.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}";
+		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}";
 
 		let {
 			changeValues,
@@ -243,7 +243,7 @@ class NewCreateForm extends Component {
 				<Grid>
 					<Row style={{marginTop:30}}>
 					<Col md={4}></Col>
-					<Col md={2} align="center"> <Button  label="确定" type="submit"  /> </Col>
+					<Col md={2} align="center"> <Button  label="确定" type="submit" disabled={pristine || submitting}  /> </Col>
 					<Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col>
 					<Col md={4}></Col> </Row>
 				</Grid>
@@ -289,7 +289,7 @@ const validate = values => {
 		errors.contractcode = '请填写合同编号';
 	}
 
-	if (!values.totalreturn) {
+	if (!String(values.totalreturn)) {
 		errors.totalreturn = '请填写退租金总额';
 	}
 
@@ -297,7 +297,7 @@ const validate = values => {
 		errors.totalreturn = '退租金总额必须为数字';
 	}
 
-	if (!values.depositamount) {
+	if (!String(values.depositamount)) {
 		errors.depositamount = '请填写退押金总额';
 	}
 

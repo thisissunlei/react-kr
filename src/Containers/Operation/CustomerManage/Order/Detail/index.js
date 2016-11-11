@@ -71,6 +71,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
+import ReactTooltip from 'react-tooltip'
 
 class NewCreatForm extends Component {
 	static PropTypes = {
@@ -194,6 +195,21 @@ export default class OrderDetail extends React.Component {
 	}
 
 	openCreateAgreementDialog() {
+
+		const {
+			contractStatusCount
+		} = this.state.response;
+
+		if (contractStatusCount.quitRentTotoal) {
+			Notify.show([{
+				message: '您已经签约了退租合同！',
+				type: 'danger',
+			}]);
+
+			return;
+		}
+
+
 		this.setState({
 			openCreateAgreement: !this.state.openCreateAgreement
 		});
@@ -289,13 +305,15 @@ export default class OrderDetail extends React.Component {
 	}
 
 	renderTableItem(item) {
+		var _this = this;
 		if (item) {
+
 			return (
 				<Row>
 				<Col md={3} align="left" className="ContractName"><Circle type={item.payStatus}></Circle>款项：{item.installmentName}</Col>
 				<Col md={3} align="left" className="ContractName">计划付款日期：<KrDate.Format value={item.installmentReminddate}/></Col>
 				<Col md={3} align="left" className="ContractName">计划付款金额：{item.installmentAmount}</Col>
-				<Col md={3} align="left" className="ContractName">实际付款金额：{item.installmentBackamount}</Col>
+				{item.installmentBackamount > 0?<Col md={3} align="left"className="ContractName">实际付款金额：{item.installmentBackamount}</Col>:<Col md={3} align="left"  className="ContractName">实际付款金额：<span style={{color:'red'}}>{item.installmentBackamount}</span></Col>}
 				</Row>
 			)
 		}
@@ -314,6 +332,7 @@ export default class OrderDetail extends React.Component {
 			installmentPlan,
 			contractStatusCount
 		} = this.state.response;
+
 		if (this.state.loading) {
 			return (<Loading/>);
 		}
@@ -355,7 +374,9 @@ export default class OrderDetail extends React.Component {
 				<Row>
 				<Col md={4} ><KrField label="社区名称：" component="labelText" value={orderBaseInfo.communityName} defaultValue="无" alignRight={true}/></Col>
 				<Col md={4} ><KrField label="客户名称：" component="labelText" value={orderBaseInfo.customerName} alignRight={true}/></Col>
-				<Col md={4} ><KrField label="订单名称：" component="labelText" value={orderBaseInfo.mainbillname} alignRight={true}/></Col>
+				<Col md={4} ><KrField label="订单名称：" component="labelText"  value={orderBaseInfo.mainbillname} tooltip={orderBaseInfo.mainbillname} alignRight={true}/>
+				</Col>
+				
 				</Row>
 
 				<Row>
@@ -365,14 +386,14 @@ export default class OrderDetail extends React.Component {
 				</Row>
 				<Row>
 				<Col md={4} ><KrField label="结束日期：" component="labelText" value={orderBaseInfo.contractLeavedate} type="date" defaultValue="无" alignRight={true}/></Col>
-				<Col md={4} ><KrField label="撤场日期：" component="labelText" value={orderBaseInfo.actualEntrydate} type="date" defaultValue="无" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="撤场日期：" component="labelText" value={orderBaseInfo.actualLeavedate} type="date" defaultValue="无" alignRight={true}/></Col>
 				<Col md={4} ><KrField label="订单总额：" component="labelText" value={orderBaseInfo.contractTotalamount} defaultValue="0" alignRight={true}/></Col>
 				</Row>
 
 				<Row>
 				<Col md={4} ><KrField label="回款总额：" component="labelText" value={orderBaseInfo.contractBackamount} defaultValue="0" alignRight={true}/></Col>
 				<Col md={4} ><KrField label="未回款额：" component="labelText" value={orderBaseInfo.unBackamount} defaultValue="0" alignRight={true}/></Col>
-				<Col md={4} ><KrField label="工位回款：" component="labelText" value={orderBaseInfo.accruedrent} defaultValue="0" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="工位回款：" component="labelText" value={orderBaseInfo.paidrent} defaultValue="0" alignRight={true}/></Col>
 				</Row>
 			<Row>
 				<Col md={4} ><KrField label="实收押金：" component="labelText" value={orderBaseInfo.realdeposit} defaultValue="0" alignRight={true}/></Col>
@@ -454,7 +475,7 @@ export default class OrderDetail extends React.Component {
 								<Col md={3} align="left" className="ContractName"><Circle type={list.payStatus}/>款项：{list.installmentName}</Col>
 								<Col md={3} align="left" className="ContractName">计划付款日期：<KrDate.Format value={list.installmentReminddate}/></Col>
 								<Col md={3} align="left" className="ContractName">计划付款金额：{list.installmentAmount}</Col>
-								<Col md={3} align="left" className="ContractName">实际付款金额：<span style={{color:'red'}}>{list.installmentBackamount}</span></Col>
+								{list.installmentBackamount>0?<Col md={3} align="left" className="ContractName">实际付款金额：<span>{list.installmentBackamount}</span></Col>:<Col md={3} align="left" className="ContractName">实际付款金额：<span style={{color:'red'}}>{list.installmentBackamount}</span></Col>}
 								</Row>
 							)
 						})

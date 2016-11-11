@@ -129,7 +129,7 @@ const validate = values => {
 export default reduxForm({
 	form: 'newCreateForm',
 	initialValues: {
-		enableflag: true
+		enableflag: 'ENABLE'
 	},
 	validate
 })(NewCreateForm);

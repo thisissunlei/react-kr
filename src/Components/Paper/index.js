@@ -5,6 +5,7 @@ export default class Paper extends Component{
 
 	static defaultProps = {
 		width: '100%',
+		marginTop:"60px"
 	};
 
 	static propTypes = {

@@ -9,13 +9,12 @@ var env = process.env.NODE_ENV || 'development';
 
 const config = {
 	entry:{
+		/*
 		development:[
 			 'webpack/hot/dev-server',
     		'webpack/hot/only-dev-server',
-		],
-		vender:[
-			path.join(process.cwd(), '/node_modules/babel-polyfill/lib/index.js')
 		],	
+		*/
 		app:path.join(process.cwd(), '/src/app.js')
 	},
 	resolve: {
@@ -46,7 +45,7 @@ const config = {
 	},
 	noParse:['/node_modules/'],
 	plugins:[
-
+		new webpack.HotModuleReplacementPlugin(),
 		new webpack.DllReferencePlugin({
              context:__dirname,
            	 manifest: require('./dist/manifest.json'),

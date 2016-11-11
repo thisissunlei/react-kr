@@ -304,6 +304,7 @@ class NewCreateForm extends Component {
 		});
 	}
 
+
 	componentDidMount() {
 		let {
 			initialValues
@@ -364,7 +365,7 @@ class NewCreateForm extends Component {
 
 	getStationUrl() {
 
-		let url = "http://op.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
+		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
 
 		let {
 			changeValues,
@@ -563,7 +564,7 @@ class NewCreateForm extends Component {
 									<ButtonGroup>
 									    <Button label="录入单价"  onTouchTap={this.openPreStationUnitPriceDialog} />
 										<Button label="删除"  onTouchTap={this.onStationDelete} />
-										<Button label="选择工位"  onTouchTap={this.openStationDialog} />
+										<Button label="选择工位"  onTouchTap={this.openStationDialog}  />
 								  </ButtonGroup>
 								</Col>
 							</Row>
@@ -619,7 +620,9 @@ class NewCreateForm extends Component {
 						title="分配工位"
 						autoScrollBodyContent={true}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
-						open={this.state.openStation} >
+						open={this.state.openStation}
+						onClose={this.openStationDialog}
+						 >
 							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
 					  </Dialog>
 
@@ -627,7 +630,10 @@ class NewCreateForm extends Component {
 						title="录入单价"
 						autoScrollBodyContent={true}
 						onCancel={this.openStationUnitPriceDialog}
-						open={this.state.openStationUnitPrice} contentStyle={{width:430}}>
+						open={this.state.openStationUnitPrice}
+						 contentStyle={{width:430}}
+						 onClose={this.openStationUnitPriceDialog}
+						>
 								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
 
@@ -678,7 +684,7 @@ const validate = values => {
 	if (!values.rentaluse) {
 		errors.rentaluse = '请输入租赁用途';
 	}
-	if (!values.totalrent) {
+	if (!String(values.totalrent)) {
 		errors.totalrent = '请输入租金总额';
 	}
 
@@ -687,7 +693,7 @@ const validate = values => {
 	}
 
 
-	if (!values.totaldeposit) {
+	if (!String(values.totaldeposit)) {
 		errors.totaldeposit = '请输入押金总额';
 	}
 

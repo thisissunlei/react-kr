@@ -24,10 +24,11 @@ import {
 	Dialog,
 	KrDate,
     DotTitle,
-    ButtonGroup
+    ButtonGroup,
+    Loading
 } from 'kr-ui';
 
-
+import { browserHistory } from 'react-router'
 import BasicInfo from './BasicInfo';
 import SearchParam from './SearchParam';
 import SearchForm from './SearchForm';
@@ -37,7 +38,9 @@ import SwitchBtnForm from './SwitchBtnForm';
 import BusinessBtnForm from './BusinessBtnForm';
 import AccountBtnForm from './AccountBtnForm';
 import SupplementBtnForm from './SupplementBtnForm';
-import './index.less'
+import './index.less';
+
+
 
 //代码列表
 var codeList=[];
@@ -83,6 +86,22 @@ class ViewForm extends Component{
 }
 export default class AttributeSetting  extends Component{ 
 
+	static contextTypes = {
+	  router: React.PropTypes.object.isRequired
+    }
+    static childContextTypes =  {
+          refresh: React.PropTypes.func,
+          //router: React.PropTypes.object.isRequired
+  }
+
+	getChildContext() {
+				return {
+					refresh:this.refresh,
+					//router:this.props.router
+				};
+	 }
+
+   
 	constructor(props,context){
 		super(props, context);
 		this.onSearch = this.onSearch.bind(this);
@@ -117,6 +136,9 @@ export default class AttributeSetting  extends Component{
 
 		this.initBasicInfo = this.initBasicInfo.bind(this);
 		this.searchUpperFun=this.searchUpperFun.bind(this);
+
+		this.refresh = this.refresh.bind(this);
+
 		
 		this.state = {			
 		    params:{
@@ -154,12 +176,26 @@ export default class AttributeSetting  extends Component{
             openBusinessBtn:false,
             openAddaccountBtn:false,
             openSupplementBtn:false,
-            isLoading:false,
+            isLoading:true,
+            isInitLoading:true,
             openView:false
 
 		}
 	}
+
+	refresh(){
+		//console.log('00000')
+		var _this = this;
+		this.setState({isInitLoading:true},function(){
+			 window.setTimeout(function(){
+			 	_this.initBasicInfo();
+			 },1000)
+		});
+		
+	}
 //打开遮罩层区域
+
+   
 	openSearchDialog(){
 		this.searchUpperFun();
         this.setState({
@@ -262,6 +298,7 @@ export default class AttributeSetting  extends Component{
 	         }); 
             
            
+           //console.log('2222',fiItem.id);
 	       Store.dispatch(Actions.callAPI('findContractListById',{
 	       	    id:fiItem.id
 	       })).then(function(response){ 
@@ -472,9 +509,7 @@ export default class AttributeSetting  extends Component{
 				type:'success', 
 			}]);
 
-			window.setTimeout(function(){
-				window.location.reload();
-			},0);
+ 			 _this.refresh();		
 
  		}).catch(function(err){
 			Notify.show([{
@@ -496,7 +531,7 @@ export default class AttributeSetting  extends Component{
     	  params= Object.assign({},params);	 
 		  params.operatedate=dateFormat(params.operatedate,"yyyy-mm-dd h:MM:ss");
 	      Store.dispatch(Actions.callAPI('payBack',{},params)).then(function(response){ 
-	        window.location.reload();	 
+	        _this.refresh(); 
  		  }).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -512,7 +547,7 @@ export default class AttributeSetting  extends Component{
     onSwitchSubmit(params){ 
 		  var _this = this;
 	      Store.dispatch(Actions.callAPI('transToDeposit',{},params)).then(function(response){  
-	       window.location.reload();   
+	       _this.refresh();   
  		  }).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -533,7 +568,7 @@ export default class AttributeSetting  extends Component{
 				message:'操作成功',
 				type: 'success',
 			}]);
- 		    window.location.reload(); 
+ 		    _this.refresh(); 
  		  }).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -548,12 +583,13 @@ export default class AttributeSetting  extends Component{
 		 
     }
     onConfrimSubmit(formValues){
+    	var _this=this;
 		Store.dispatch(Actions.callAPI('supplementIncome',{},formValues)).then(function(){
 			Notify.show([{
 				message:'操作成功',
 				type: 'danger',
 			}]);
-			window.location.reload();
+			_this.refresh();
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -575,7 +611,7 @@ export default class AttributeSetting  extends Component{
 				message:'操作成功',
 				type: 'success',
 			}]);
-			 window.location.reload();
+			 _this.refresh();
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -607,6 +643,7 @@ export default class AttributeSetting  extends Component{
 				detailPayment:response.paymentdata,
 				detailIncome:response.incomedata,
 				detailBalance:response.balance,
+				isInitLoading:false,
 			});
 		}).catch(function(err){
 			Notify.show([{
@@ -651,11 +688,15 @@ export default class AttributeSetting  extends Component{
 	componentDidMount() {
      	this.initBasicInfo();
 	}
-    
-	render(){
-	   let {params}=this.state;
+
+   	render(){
+	   let {params,isInitLoading}=this.state;
+
+	   if(isInitLoading){
+	   	 return <Loading/>
+	   }
        
-      
+      //console.log('221111',this.context.router)
       
 	   //判断按钮出现与隐藏
        let childBtn=params.childType; 
@@ -759,6 +800,7 @@ export default class AttributeSetting  extends Component{
 
 		
 		return(
+
 			<div>
 					<Section title="订单明细账" description="" > 
 					      <DotTitle title='订单描述' style={{marginTop:'6',marginBottom:'40'}}/>

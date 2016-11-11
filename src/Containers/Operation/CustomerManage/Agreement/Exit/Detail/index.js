@@ -106,8 +106,7 @@ export default class ExitDetail extends Component {
 		const {
 			basic
 		} = this.state;
-		basic.firstpaydate = dateFormat(basic.firstpaydate, "yyyy-mm-dd h:MM:ss");
-		basic.signdate = dateFormat(basic.signdate, "yyyy-mm-dd h:MM:ss");
+
 		const BasicRender = (props) => {
 			const content = {
 				position: 'relative',
@@ -145,8 +144,8 @@ export default class ExitDetail extends Component {
 								<KrField component="labelText" grid={1/2} label="退租金总额：" value={basic.totalreturn} defaultValue="0"/>
 								<KrField component="labelText" grid={1/2} label="退租押金总额：" value={basic.depositamount} defaultValue="0"/>
 
-								<KrField component="labelText" grid={1/2} label="撤场日期：" value={basic.firstpaydate}/>
-								<KrField component="labelText" grid={1/2} label="签署日期：" value={basic.signdate}/>
+								<KrField component="labelText" grid={1/2} label="撤场日期：" type="date" value={basic.firstpaydate} defaultValue="无"/>
+								<KrField component="labelText" grid={1/2} label="签署日期：" type="date" value={basic.signdate} defaultValue="无"/>
 
 								<KrField component="labelText"  label="备注：" value={basic.contractmark} inline={false}/>
 

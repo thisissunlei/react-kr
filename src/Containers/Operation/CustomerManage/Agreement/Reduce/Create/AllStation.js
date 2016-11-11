@@ -80,6 +80,13 @@ class SelectStationForm extends Component {
 			stationVos,
 			selected
 		} = this.state;
+		if(!selected.length){
+			Notify.show([{
+				message: '未选择减租工位',
+				type: 'danger',
+			}]);
+			return;
+		}
 		stationVos = [].concat(stationVos);
 		stationVos.map(function(item, index) {
 			if (selected.indexOf(index) !== -1) {
@@ -164,7 +171,7 @@ class SelectStationForm extends Component {
 
 		if (!someStartDate) {
 			Notify.show([{
-				message: '选择的工位必须要有租赁开始时间',
+				message: '选择的工位必须要有减租开始时间',
 				type: 'danger',
 			}]);
 			return;
@@ -197,25 +204,44 @@ class SelectStationForm extends Component {
 			obj.stationId = item.stationId;
 			obj.stationName = item.stationName;
 			obj.unitprice = item.unitprice;
+			obj.whereFloor = item.whereFloor;
 			obj.stationType = item.stationType;
-			obj.leaseBeginDate = dateFormat(item.leaseBeginDate, 'yyyy-mm-dd');
-			obj.end = dateFormat(item.leaseEndDate, 'yyyy-mm-dd');
-			obj.leaseEndDate = item.rentBeginDate;
+
+			obj.stationBeginDate = dateFormat(item.leaseBeginDate,'yyyy-mm-dd');
+			obj.stationEndDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
+
+			obj.leaseBeginDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
+			obj.leaseEndDate = dateFormat(item.rentBeginDate,'yyyy-mm-dd');
+			obj.rentBeginDate = dateFormat(item.rentBeginDate,'yyyy-mm-dd');
+
+
+
 			resultStationVos.push(obj);
 		});
 
 		selectedStationVos = resultStationVos;
 
-		let beginDate = Date.parse(selectedStationVos[0].end);
-		let endDate = Date.parse(selectedStationVos[0].leaseEndDate);
 
-		if (beginDate <= endDate) {
-			Notify.show([{
-				message: '选择的工位租赁结束时间不能大于减租开始时间',
-				type: 'danger',
-			}]);
-			return false;
-		}
+		    //选择的减租开始日期必须要在工位的起始日期和结束日期范围内
+		    var isOK = 1;
+		    selectedStationVos.map(function(item,index){
+		        var stationBeginDate = Date.parse(dateFormat(item.stationBeginDate,'yyyy-mm-dd')+' 00:00:00');
+		        var stationEndDate = Date.parse(dateFormat(item.stationEndDate,'yyyy-mm-dd')+' 00:00:00');
+		        var rentBeginDate = Date.parse(dateFormat(item.rentBeginDate,'yyyy-mm-dd')+' 00:00:00');
+
+		        if(stationBeginDate>=rentBeginDate || rentBeginDate>=stationEndDate){
+		           isOK = 0;
+		        }
+		    });
+
+		    if(!isOK){
+		      Notify.show([{
+		        message:'减租开始时间必须要在选择工位的租赁开始日期和结束日期之内',
+		        type: 'danger',
+		        }]);
+		        return false;
+		    }
+		    console.log('---->>>>',selectedStationVos)
 
 		Store.dispatch(change('reduceCreateForm', 'leaseBegindate', selectedStationVos[0].leaseEndDate));
 
@@ -270,14 +296,14 @@ class SelectStationForm extends Component {
       {stationVos && stationVos.map((item,index)=>{
         return (
           <TableRow key={index}>
-          <TableRowColumn >{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
-          <TableRowColumn >{item.stationName}</TableRowColumn>
-          <TableRowColumn >{item.unitprice}</TableRowColumn>
-          <TableRowColumn ><KrDate.Format value={item.leaseBeginDate}/></TableRowColumn>
-          <TableRowColumn ><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
-          <TableRowColumn>
-				{item.rentBeginDate&& dateFormat(item.rentBeginDate,'yyyy-mm-dd')}
-          </TableRowColumn>
+	          <TableRowColumn >{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
+	          <TableRowColumn >{item.stationName}</TableRowColumn>
+	          <TableRowColumn >{item.unitprice}</TableRowColumn>
+	          <TableRowColumn ><KrDate.Format value={item.leaseBeginDate}/></TableRowColumn>
+	          <TableRowColumn ><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
+	          <TableRowColumn>
+					{item.rentBeginDate&& dateFormat(item.rentBeginDate,'yyyy-mm-dd')}
+	          </TableRowColumn>
          </TableRow>
         );
       })}

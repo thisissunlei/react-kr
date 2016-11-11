@@ -16,38 +16,46 @@ import {
 	Button,
 	Dialog,
 	Snackbar,
+	ListGroup,
+	ListGroupItem
 } from 'kr-ui';
 
 
 import * as actionCreators from 'kr/Redux/Actions';
 
-
 let OrderEditForm = function (props){
 
-  	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,cityName} = props;
+  	const { error, handleSubmit, pristine, reset, submitting,communitys,onSubmit,cityName,value} = props;
+  	let customerName = (value && value.customerName) || '';
+  	let reload = function(){
+  		window.top.location.reload();
+  	}
+  	let Order = [
+  		{value:'',label:'请选择类型'},
+  		{value:'STATION',label:'工位订单'}
+  	];
+
+  	
 
 	return (
 
-	<form onSubmit={handleSubmit(onSubmit)}>
+	<form onSubmit={handleSubmit(onSubmit)} style={{padding:20}}>
 
-			<KrField name="customerName" type="text" label="客户名称"  disabled={true}/> 
+			<KrField name="customerName" grid={1} type="text" label="客户名称" component="labelText" disabled={true} value={customerName} inline={false}/> 
 
-			 <KrField name="mainbilltype" component="select" label="订单类型" requireLabel={true}>
-				 <option value="">请选择类型</option>
-				 <option value="STATION">工位订单</option>
+			 <KrField name="mainbilltype" grid={1/2} right={30} component="select" label="订单类型" requireLabel={true} inline={false} options={Order}>
 			 </KrField>
 
-				 <KrField name="communityid" component="select" label="所在社区" requireLabel={true}>
-						<option value="">请选择社区</option>
-						{communitys.map((item,index)=> <option value={item.communityId} key={index}>{item.communityName}</option>)}
+				 <KrField name="communityid" grid={1/2} left={30} component="select" label="所在社区" requireLabel={true} inline={false} options={communitys}>
 				 </KrField>
-					<KrField label="所在城市" value={cityName||'无'} component="labelText" /> 
-					 <KrField name="mainbillname" type="text" label="订单名称" requireLabel={true} component="text" /> 
-					 <KrField name="mainbilldesc" type="textarea" label="订单描述" component="textarea" /> 
+					<KrField label="所在城市" grid={1/2} right={30} value={cityName||'无'} component="labelText" inline={false}/> 
+					 <KrField name="mainbillname" grid={1/2} left={30} type="text" label="订单名称" requireLabel={true} component="text" inline={false}/> 
+					 <KrField name="mainbilldesc" type="textarea" label="订单描述" component="textarea" inline={false}  maxSize={200}/> 
 					<Grid >
-						<Row style={{marginTop:10}}>
-							<Col md={12} align="right"> <Button  label="确定" type="submit" joinEditForm disabled={submitting} /> </Col>
-						</Row>
+						<ListGroup>
+							<ListGroupItem style={{width:'45%',textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit" joinEditForm disabled={submitting} /></ListGroupItem>
+							<ListGroupItem style={{width:'45%',textAlign:'left',paddingLeft:15}}><Button  label="取消" cancle={true} type="button" joinEditForm disabled={submitting} onClick={reload} /></ListGroupItem>
+						</ListGroup>
 					</Grid>
 			</form>
 	);
@@ -67,6 +75,7 @@ class OrderCreate extends Component {
 		this.state = {
 			open:false,
 			loading:true,
+			value:''
 		}
 
 		const {initialValues} = this.props;
@@ -96,7 +105,8 @@ class OrderCreate extends Component {
 	}
 
 	componentDidMount(){
-
+		var obj = document.body;
+		obj.style.background='#fff';
 		var {actions} = this.props;
 		var _this = this;
 
@@ -107,11 +117,20 @@ class OrderCreate extends Component {
 			actions.switchHeaderNav(false);
 		}
 
-		actions.callAPI('community-city-selected',{},{}).then(function(communitys){ }).catch(function(err){ });
+		actions.callAPI('community-city-selected',{},{}).then(function(communitys){
+			communitys = communitys.map((item)=>{
+		  		item.value = item.communityId;
+		  		item.label = item.communityName;
+		  		return item;
+		  	})
+		 }).catch(function(err){ });
 
 		actions.callAPI('get-simple-order',{
 			mainBillId:this.props.params.oriderId
-		},{}).then(function(){
+		},{}).then(function(response){
+			_this.setState({
+				value:response
+			})
 		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -179,6 +198,7 @@ class OrderCreate extends Component {
   	if(this.state.loading){
   		return(<Loading/>);
   	}
+  	let {value} = this.state;
 
 
     return (
@@ -187,7 +207,7 @@ class OrderCreate extends Component {
 
 				<BreadCrumbs children={['运营平台','财务管理','编辑客户订单']} hide={!!this.props.location.query.closeAll}/>
 				<Section title="编辑客户订单" description="" hide={!!this.props.location.query.closeAll}> 
-					<OrderEditForm onSubmit={this.confirmSubmit} communitys={this.props.communitys} cityName={this.props.cityName} initialValues={this.props.initialValues}/>
+					<OrderEditForm onSubmit={this.confirmSubmit} communitys={this.props.communitys} cityName={this.props.cityName} initialValues={this.props.initialValues} value={value}/>
 				</Section>
 			
 	 </div>
