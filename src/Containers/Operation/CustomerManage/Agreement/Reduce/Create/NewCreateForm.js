@@ -217,8 +217,8 @@ class NewCreateForm extends Component {
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
 
-		form.leaseBegindate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(stationVos[0].end, "yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
 
 		var _this = this;
 
@@ -296,16 +296,16 @@ class NewCreateForm extends Component {
 
 				<KrField left={60} grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
 
-				<KrField right={60} grid={1}  name="rentamount" component="input" type="text" requireLabel={true} label="减租金额" /> 
+				<KrField right={60} grid={1}  name="rentamount" component="input" type="text" requireLabel={true} label="减租金额" />
 
 				<KrField right={60} grid={1/1}  name="contractmark" component="textarea" label="备注" />
-			
+
 				<KrField  grid={1}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
 				<KrField right={60} grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
 					Store.dispatch(change('reduceCreateForm','contractFileList',files));
 				}} />
               <DotTitle title='租赁明细'>
-				
+
 
 				       <Grid>
 							<Row>
@@ -335,8 +335,8 @@ class NewCreateForm extends Component {
 									<TableRowColumn>
 											{item.unitprice}
 									</TableRowColumn>
-									<TableRowColumn> <KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
-									<TableRowColumn><KrDate.Format value={item.end}/></TableRowColumn>
+									<TableRowColumn> <KrDate.Format value={item.leaseBeginDate}/></TableRowColumn>
+									<TableRowColumn><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
 
 									</TableRow>
 							);
@@ -344,7 +344,7 @@ class NewCreateForm extends Component {
 						</TableBody>
 						</Table>
 
-						
+
                      </DotTitle>
 						<Grid>
 						<Row style={{marginTop:30}}>
