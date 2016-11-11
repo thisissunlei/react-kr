@@ -29,9 +29,12 @@ export default class Pagination extends Component {
 		this.onPrev = this.onPrev.bind(this);
 		this.onNext = this.onNext.bind(this);
 		this.onFirst = this.onFirst.bind(this);
+		this.onLast = this.onLast.bind(this);
 		this.onPageChange = this.onPageChange.bind(this);
 		this.onJumpPage = this.onJumpPage.bind(this);
+		this.onFirst = this.onFirst.bind(this);
 
+		this.renderPrev = this.renderPrev.bind(this);
 		this.renderFirst = this.renderFirst.bind(this);
 		this.renderLast = this.renderLast.bind(this);
 		this.renderBody = this.renderBody.bind(this);
@@ -39,6 +42,7 @@ export default class Pagination extends Component {
 		this.renderJump = this.renderJump.bind(this);
 		this.onJump = this.onJump.bind(this);
 		this.renderTotalCount = this.renderTotalCount.bind(this);
+		this.renderNext = this.renderNext.bind(this);
 
 		this.state = {
 			jumpPageValue: ''
@@ -89,6 +93,11 @@ export default class Pagination extends Component {
 	onFirst() {
 		this.onPageChange(1);
 	}
+	onLast(){
+		let {pageSize,totalCount} = this.props;
+		var page = Math.ceil(totalCount/pageSize);
+		this.onPageChange(page);
+	}
 
 	onNext() {
 
@@ -122,7 +131,32 @@ export default class Pagination extends Component {
 		onPageChange && onPageChange(page);
 	}
 
-	renderFirst() {
+	onFirst(){
+		this.onPageChange(1);
+	}
+
+	renderFirst(){
+				let {
+					page,
+					pageSize,
+					totalCount
+				} = this.props;
+
+			let props = {};
+			props.className = 'item';
+
+			if (page == 1) {
+				props.className += ' active';
+			}
+
+				return (
+					<div className="item-first">
+						<a className="item" {...props} onClick={this.onFirst}>1</a>
+					</div>
+				);
+	}
+
+	renderPrev() {
 
 		let {
 			page,
@@ -182,8 +216,9 @@ export default class Pagination extends Component {
 		if (pageEnd > pageMax) {
 			pageEnd = pageMax;
 		}
-
-
+		if(pageStart == 1){
+			pageStart++;
+		}
 
 		let element = null;
 
@@ -192,7 +227,7 @@ export default class Pagination extends Component {
 			pageBody.push(element);
 		}
 
-		for (var i = pageStart; i <= pageEnd; i++) {
+		for (var i = pageStart; i < pageEnd; i++) {
 
 			props.key = i;
 			props.className = 'item';
@@ -221,7 +256,33 @@ export default class Pagination extends Component {
 		);
 	}
 
-	renderLast() {
+	renderLast(){
+
+		let {
+			page,
+			pageSize,
+			totalCount
+		} = this.props;
+
+
+		var pageMax = Math.ceil(totalCount/pageSize);
+
+		let props = {};
+		props.className = 'item';
+
+		if (pageMax == page) {
+				props.className += ' active';
+		}
+
+		return (
+			<div className="item-last">
+				<a className="item" {...props} onClick={this.onLast} page={pageMax}>{pageMax}</a>
+			</div>
+		);
+
+	}
+
+	renderNext() {
 
 		let {
 			page,
@@ -276,9 +337,11 @@ export default class Pagination extends Component {
 
 			<div className="ui-pagination">
 					{this.renderTotalCount()}
+					{this.renderPrev()}
 					{this.renderFirst()}
 					{this.renderBody()}
 					{this.renderLast()}
+					{this.renderNext()}
 					{this.renderJump()}
 		  </div>
 
