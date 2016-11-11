@@ -229,27 +229,17 @@ class NewCreateForm extends Component {
 		form = Object.assign({}, form);
 
 		let {
-			changeValues,
-			optionValues
+			changeValues
 		} = this.props;
 		let {
-			stationVos,
-			delStationVos
+			stationVos
 		} = this.state;
-
 
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
-		if(stationVos[0].end){
-			form.leaseEnddate = dateFormat(stationVos[0].end, "yyyy-mm-dd hh:MM:ss");
-			form.leaseBegindate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
 
-
-		}else{
-			form.leaseEnddate = dateFormat(optionValues.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
-			form.leaseBegindate = dateFormat(optionValues.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
-
-		}
+		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
 
 		form.lessorAddress = changeValues.lessorAddress;
 		// form.lessorContactid = 111;
@@ -258,8 +248,7 @@ class NewCreateForm extends Component {
 		form.stationVos = stationVos;
 
 		form.stationVos = JSON.stringify(form.stationVos);
-		form.delStationVos = JSON.stringify(delStationVos);
-
+		console.log('form111', form);
 		const {
 			onSubmit
 		} = this.props;
@@ -394,6 +383,7 @@ class NewCreateForm extends Component {
 						title="分配工位"
 						open={this.state.openStation} 
 						modal={true}
+						onClose={this.onStationCancel}
 						autoScrollBodyContent={true}
 						autoDetectWindowHeight={true}>
 								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} endTime={optionValues.leaseEnddate} stationVos={stationVos} changeValues={this.props.changeValues}/>

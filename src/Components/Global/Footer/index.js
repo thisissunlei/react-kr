@@ -36,7 +36,7 @@ export default class Footer extends Component{
 
 		return (
 			<div className="g-footer">
-				<p>联合办公空间·创业服务平台</p>
+				<p> © 2011~2016 36氪 | 京ICP备12031756号 | 京公网安备11010802012285号 </p>
 			</div>
 		);
 
@@ -45,9 +45,3 @@ export default class Footer extends Component{
 
 
 }
-
-
-
-
-
-
