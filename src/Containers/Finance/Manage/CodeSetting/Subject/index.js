@@ -185,11 +185,11 @@ export default class AttributeSetting extends Component {
 		return (
 
 			<div>
-		 	<BreadCrumbs children={['系统运营','客户管理','科目配置']}/>
-					<Section title="科目配置" description="" >
+		 	<BreadCrumbs children={['系统运营','客户管理','科目配置']} />
+					<Section title="科目配置" description="" style={{marginTop:"-20px"}} >
 
-					<Grid>
-						<Row>
+					<Grid style={{marginTop:-30}}>
+						<Row >
 							<Col md={4} align="left"> <Button label="新建科目" type='button' joinEditForm onTouchTap={this.openNewCreateDialog}  /> </Col>
 							<Col md={8} align="right">
 								

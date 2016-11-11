@@ -114,7 +114,6 @@ module.exports = {
 					primaryText:"基础配置",
 					iconName:'icon-basis',
 					iconColor:'#2b8dcd',
-
 					router:'BaseManage',
 					menuCode:'basic_config',
 					menuItems:[
@@ -124,6 +123,7 @@ module.exports = {
 						},
 						{
 							primaryText:"合同配置",
+							menuCode:'',
 							router:'/operation/customerManage/agreement/setting/list',
 						},
 						{
