@@ -206,8 +206,8 @@ class SelectStationForm extends Component {
 			obj.unitprice = item.unitprice;
 			obj.whereFloor = item.whereFloor;
 			obj.stationType = item.stationType;
-			
-			obj.stationBeginDate = dateFormat(item.leaseStartDate,'yyyy-mm-dd');
+
+			obj.stationBeginDate = dateFormat(item.leaseBeginDate,'yyyy-mm-dd');
 			obj.stationEndDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
 
 			obj.leaseBeginDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
@@ -229,7 +229,7 @@ class SelectStationForm extends Component {
 		        var stationEndDate = Date.parse(dateFormat(item.stationEndDate,'yyyy-mm-dd')+' 00:00:00');
 		        var rentBeginDate = Date.parse(dateFormat(item.rentBeginDate,'yyyy-mm-dd')+' 00:00:00');
 
-		        if(stationBeginDate>rentBeginDate || rentBeginDate>stationEndDate){
+		        if(stationBeginDate>=rentBeginDate || rentBeginDate>=stationEndDate){
 		           isOK = 0;
 		        }
 		    });
