@@ -57,14 +57,14 @@ class SelectStationForm  extends Component{
 
 
 onChangeRentBeginDate(value){
-	value = dateFormat(value,'yyyy-mm-dd');
+  value = DateFormat(value,'yyyy-mm-dd')+' 00:00:00';
 	let {stationVos,selected} = this.state;
 
 
 	let {leaseEnddate} = this.props.changeValues;
 	//判断选择的时间是否大于租赁起始时间
 	let endDate = leaseEnddate;
-	let rentBeginDate = Date.parse(value);
+  	let rentBeginDate = Date.parse(DateFormat(value,'yyyy-mm-dd')+' 00:00:00');
 
 	 if(endDate<rentBeginDate){
 			Notify.show([{
@@ -212,19 +212,19 @@ onChangeRentBeginDate(value){
 
 	selectedStationVos = resultStationVos;
 
-	let beginDate = Date.parse(selectedStationVos[0].leaseBeginDate);
-	let endDate = Date.parse(selectedStationVos[0].leaseEndDate);
+	let beginDate = Date.parse(dateFormat(selectedStationVos[0].leaseBeginDate,'yyyy-mm-dd')+' 00:00:00');
+	let endDate = Date.parse(dateFormat(selectedStationVos[0].leaseEndDate,'yyyy-mm-dd')+' 00:00:00');
 
 	 if(beginDate<endDate){
 			Notify.show([{
-				message:'选择的工位租赁结束时间不能大于减租开始时间',
+				message:'减租开始时间不能大于等于选择工位的租赁结束时间',
 				type: 'danger',
 			  }]);
 			  return false;
 	  }
 
 	Store.dispatch(change('reduceCreateForm','leaseBegindate',selectedStationVos[0].leaseEndDate));
-	
+
 	const {onSubmit} = this.props;
 	onSubmit && onSubmit(selectedStationVos);
   }
@@ -284,7 +284,7 @@ onChangeRentBeginDate(value){
       <Row style={{marginTop:30}}>
       <Col md={4}></Col>
       <Col md={2} align="center"> <Button  label="确定" type="submit" /> </Col>
-      <Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col> 
+      <Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col>
       <Col md={4}></Col>
       </Row>
       </Grid>
