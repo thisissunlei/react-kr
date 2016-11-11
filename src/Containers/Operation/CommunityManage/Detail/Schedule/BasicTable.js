@@ -321,7 +321,6 @@ export default class BasicTable extends Component {
 		return (
 			<div>
 
-			let {currentYear,Installmentplan,rate} = this.state;
 
 		 	<div className="basic-con">
 		 		<div className="legend">

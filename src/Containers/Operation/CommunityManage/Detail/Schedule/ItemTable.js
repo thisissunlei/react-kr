@@ -134,7 +134,7 @@ export default class ItemTable extends Component {
       detail,
       communityids
     } = this.props;
-    let width = 700;
+    let width = 660;
     var _this = this;
     var id = communityids;
 
@@ -158,7 +158,7 @@ export default class ItemTable extends Component {
 							</div>
 						</td>
 						<td colSpan="12">
-							<D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} width={width}/>
+							<D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} width={width} id={detail.billId}/>
 							<EmployessTable activity={activity} detail={detail} id={id}/>
 						</td>
 						<td className="btnlist">

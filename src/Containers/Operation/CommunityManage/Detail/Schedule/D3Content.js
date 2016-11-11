@@ -88,13 +88,14 @@ export default class D3Content extends Component {
 				detail
 			} = this.props;
 			var _this = this;
-			const width = this.props.width || 700;
+			const width = this.props.width || 660;
 			var timeList = detail.map(function(item) {
-				item.start = _this.countDays(item.installmentBegindate);
-				item.end = _this.countDays(item.installmentEnddate);
-				item.Begindate = dateFormat(item.installmentBegindate, "yyyy.mm.dd");
-				item.Enddate = dateFormat(item.installmentEnddate, "yyyy.mm.dd");
-				item.width = parseInt((item.end - item.start) / 365 * width); //时间段的长度
+				item.start = _this.countDays(item.begindate);
+				item.end = _this.countDays(item.enddate);
+				item.Begindate = dateFormat(item.begindate, "yyyy.mm.dd");
+				item.Enddate = dateFormat(item.enddate, "yyyy.mm.dd");
+				item.width = parseInt((item.end - item.start) / 365 * width)-1; //时间段的长度
+				console.log(item);
 				return item;
 			});
 			return timeList;
@@ -102,7 +103,7 @@ export default class D3Content extends Component {
 		// 获取分期前的空白时间段
 	getSpace(timeList) {
 		let whiteLength;
-		const width = this.props.width || 700;
+		const width = this.props.width || 660;
 		var whiteWidth = parseInt((timeList[0].start - 1) / 365 * width);
 		var whiteNode = {
 				start: 0,
@@ -129,7 +130,7 @@ export default class D3Content extends Component {
 		}
 		// 催款时间和工位变更时间节点位置（px）
 	timeNode(date) {
-			const width = this.props.width || 700;
+			const width = this.props.width || 660;
 			var days = this.countDays(date);
 			var marginLeft = parseInt(days / 365 * width);
 			return marginLeft;
@@ -222,7 +223,8 @@ export default class D3Content extends Component {
 	render() {
 		var {
 			finaBluePointVo,
-			finaRedPointVo
+			finaRedPointVo,
+			id
 		} = this.props;
 
 		// 获取当前时间
@@ -238,7 +240,8 @@ export default class D3Content extends Component {
 		var sameNode = this.getSameTime();
 		list = this.getRedInfo(list);
 
-		const width = this.props.width || 700;
+		const width = this.props.width || 660;
+		console.log('--------',list);
 
 		return (
 
@@ -246,49 +249,54 @@ export default class D3Content extends Component {
 			<div className="year">
 				{list.map((item,index)=>{
 						if(index === 0 ){
+							return(
 								<div className='white' style={{'width':item.width}} key={index}></div>
+
+								)
 						}else if(index<nodeList && index !== 0){
 							return(
-								<div className='grey' data-tip data-for={`${index}`} style={{'width':item.width-1,'marginRight':1,}} key={index}>
-									<ReactTooltip id={`${index}`} place="top" type="dark" effect="solid">
-									{item.red && item.red.map((value, i)=>{
+								<div className='grey' data-tip data-for={`${id}${index}`} style={{'width':item.width-1,'marginRight':1,}} key={index}>
+									<ReactTooltip id={`${id}${index}`} place="top" type="dark" effect="solid">
+									{item.planTableModelList && item.planTableModelList.map((value, i)=>{
 										return (
 											<div key={i}>
-												<p>{value.pointDate}日催款</p>
+												<p>{dateFormat(value.installmentReminddate, "yyyy.mm.dd")}日催款</p>
+												<p>{value.stationnum}个位置({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
+												<p>负责人：{value.name}</p>
+												<p>电话：{value.phone}</p>
+												<p>催款金额：{value.installmentAmount}</p>
 											</div>
 										)
 									})
 
 									}
-									  <p>{item.stationnum}个位置({item.Begindate}-{item.Enddate})</p>
-									  <p>负责人：{item.name}</p>
-									  <p>电话：{item.phone}</p>
-									  <p>催款金额：{item.installmentAmount}</p>
 									</ReactTooltip>
 								</div>
 							)
 						}else{
 							return (
-								<div className='blue' data-tip data-for={`${index}`} style={{'width':item.width-1,'marginRight':1,}} key={index}>
-									<ReactTooltip id={`${index}`} place="top" type="dark" effect="solid">
-									{item.red && item.red.map((value, i)=>{
+								<div className='blue' data-tip data-for={`${id}${index}`} style={{'width':item.width-1,'marginRight':1,}} key={index}>
+									<ReactTooltip id={`${id}${index}`} place="top" type="dark" effect="solid">
+									{item.planTableModelList && item.planTableModelList.map((value, i)=>{
 										return (
 											<div key={i}>
-												<p >{value.pointDate}日催款</p>
+												<p>{dateFormat(value.installmentReminddate, "yyyy.mm.dd")}日催款</p>
+												<p>{value.stationnum}个位置({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
+												<p>负责人：{value.name}</p>
+												<p>电话：{value.phone}</p>
+												<p>催款金额：{value.installmentAmount}</p>
 											</div>
 										)
 									})
 
 									}
-									  <p>{item.stationnum}个位置({item.Begindate}-{item.Enddate})</p>
-									  <p>负责人：{item.name}</p>
-									  <p>电话：{item.phone}</p>
-									  <p>催款金额：{item.installmentAmount}</p>
 									</ReactTooltip>
 								</div>
 							)
 						}
 					})}
+
+
 				{
 					blueNodeList && blueNodeList.map((item,index)=>{
 						return (
