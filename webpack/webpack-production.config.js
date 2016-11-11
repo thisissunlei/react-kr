@@ -75,11 +75,15 @@ const config = {
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop')
 	],
 	module: {
+		exprContextRegExp: /$^/,
+		exprContextCritical: false,
 		loaders: [
 			{
-				test: /\.js$/,
-				loader: 'babel-loader',
-				exclude: /node_modules/,
+				test: /\.jsx?$/,
+				loaders: [
+					'babel-loader',
+				],
+				exclude: /(node_modules|bower_components)/
 			},
 			{
 				test: /\.json$/,
@@ -91,13 +95,16 @@ const config = {
 			},
 			{
 				test: /\.css$/,
-				loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader' })
+				loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader?minimize' })
 			},
 			{
 				test: /\.less$/,
-				 loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader!less-loader' })
+				 loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader?minimize!less-loader' })
 			},
-			{test: /\.(jpg|png)$/, loader: "url?limit=8192"},
+			{
+				test: /\.(png|jpg|gif)$/,
+				loader: 'file?name=[name].[ext]?[hash]'
+			},
 			{
 				test: /\.eot/,
 				loader : 'file?prefix=font/'
