@@ -45,7 +45,7 @@ export default class EditCreate extends Component {
   }
 
   onCreateSubmit(formValues) {
-
+    const {params} = this.props;
     Store.dispatch(Actions.callAPI('addFnaContractWithdrawal', {}, formValues)).then(function(response) {
       Notify.show([{
         message: '编辑成功',
@@ -78,11 +78,10 @@ export default class EditCreate extends Component {
     Store.dispatch(Actions.callAPI('fina-contract-intention', {
       customerId: params.customerId,
       mainBillId: params.orderId,
-      communityId: 1
     })).then(function(response) {
 
       //initialValues.ContractStateType = 'EXECUTE';
-      initialValues.contractstate = response.contractstate;
+
       initialValues.mainbillid = params.orderId;
 
       initialValues.leaseBegindate = new Date;
@@ -125,6 +124,7 @@ export default class EditCreate extends Component {
         optionValues.lessorContactName = response.lessorContactName;
 
         initialValues.id = response.id;
+        initialValues.contractstate = response.contractstate;
         initialValues.leaseId = response.leaseId;
         initialValues.contractcode = response.contractcode;
         initialValues.leaseAddress = response.leaseAddress;
@@ -160,7 +160,6 @@ export default class EditCreate extends Component {
         //处理stationvos
         stationVos = response.stationVos;
 
-        console.log(stationVos, '---->>>>', response);
 
         _this.setState({
           initialValues,
