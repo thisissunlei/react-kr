@@ -146,6 +146,7 @@ export default class BasicTable extends Component {
 			type: 'BILL'
 
 		};
+		this.getInstallmentplan();
 
 	}
 
@@ -154,11 +155,6 @@ export default class BasicTable extends Component {
 		this.getInstallmentplan();
 	}
 
-	componentWillReceiveProps(nextProps) {
-
-
-		this.getInstallmentplan();
-	}
 
 	componentWillReceiveProps(nextProps) {
 
@@ -272,7 +268,6 @@ export default class BasicTable extends Component {
 			_this.setState({
 				communityIds: communityIds
 			})
-
 			Store.dispatch(Actions.callAPI('getInstallmentplan', {
 				communityids: content.toString(),
 				value: '',
@@ -281,7 +276,7 @@ export default class BasicTable extends Component {
 				pageSize: pageSize
 			})).then(function(response) {
 				_this.setState({
-					Installmentplan: response.vo,
+					Installmentplan: response.vo || [],
 					rate: response.rate
 				});
 
@@ -293,7 +288,6 @@ export default class BasicTable extends Component {
 			});
 
 		}).catch(function(err) {
-
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
@@ -388,7 +382,7 @@ export default class BasicTable extends Component {
 						<td></td>
 					</tr>
 					{
-						Installmentplan.map((item,index)=>{
+						Installmentplan && Installmentplan.map((item,index)=>{
 							return (
 
 							<ItemTable onDismantling={this.onDismantling}  communityids={_this.props.communityids} detail={item} key={index}/>
