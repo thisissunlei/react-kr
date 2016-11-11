@@ -202,9 +202,11 @@ class NewCreateForm extends Component {
 		let {
 			changeValues
 		} = this.props;
+		
 		let {
 			stationVos
 		} = this.state;
+
 		if (!stationVos.length) {
 			Notify.show([{
 				message: '请选择工位',
@@ -212,7 +214,7 @@ class NewCreateForm extends Component {
 			}]);
 			return;
 		}
-		console.log('-------------', stationVos[0]);
+
 		form.list = stationVos;
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
@@ -220,12 +222,11 @@ class NewCreateForm extends Component {
 		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
 
-		var _this = this;
 
 		form.stationVos = stationVos;
 
 		form.stationVos = JSON.stringify(form.stationVos);
-		console.log('form111', form);
+
 		const {
 			onSubmit
 		} = this.props;
