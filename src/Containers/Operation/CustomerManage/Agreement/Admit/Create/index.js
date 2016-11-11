@@ -1,6 +1,17 @@
-import React, {Component, PropTypes} from 'react';
-import {reduxForm,submitForm,change,reset} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
+import {
+	reduxForm,
+	submitForm,
+	change,
+	reset
+} from 'redux-form';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
 
 import {
@@ -9,111 +20,122 @@ import {
 	Grid,
 	Notify,
 	BreadCrumbs,
+	DotTitle
 } from 'kr-ui';
 
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
 
 
-export default  class JoinCreate extends Component {
+export default class JoinCreate extends Component {
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 
 		this.openConfirmCreateDialog = this.openConfirmCreateDialog.bind(this);
 		this.onCreateSubmit = this.onCreateSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
-		this.onConfrimSubmit  = this.onConfrimSubmit.bind(this);
+		this.onConfrimSubmit = this.onConfrimSubmit.bind(this);
 
 		this.state = {
-			initialValues:{},
-			optionValues:{},
-			formValues:{},
-			openConfirmCreate:false
+			initialValues: {},
+			optionValues: {},
+			formValues: {},
+			openConfirmCreate: false
 		}
-		 Store.dispatch(reset('admitCreateForm'));
+		Store.dispatch(reset('admitCreateForm'));
 	}
-	componentWillUnmount(){
-		 Store.dispatch(reset('admitCreateForm'));
+	componentWillUnmount() {
+		Store.dispatch(reset('admitCreateForm'));
 	}
-  
-	 onCreateSubmit(formValues){
-		 this.setState({
-			 formValues
-		 });
-		 var _this = this;
+
+	onCreateSubmit(formValues) {
+		this.setState({
+			formValues
+		});
+		var _this = this;
 
 		this.openConfirmCreateDialog();
-	 }
+	}
 
-	 onConfrimSubmit(){
+	onConfrimSubmit() {
 
-		let {formValues} = this.state;
-		let {params} = this.props;
-		Store.dispatch(Actions.callAPI('addFinaContractIntentletter',{},formValues)).then(function(response){
+		let {
+			formValues
+		} = this.state;
+		let {
+			params
+		} = this.props;
+		Store.dispatch(Actions.callAPI('addFinaContractIntentletter', {}, formValues)).then(function(response) {
 
 			Notify.show([{
-				message:'创建成功',
+				message: '创建成功',
 				type: 'success',
 			}]);
 
-		  window.setTimeout(function(){
-			window.location.href =  "./#/operation/customerManage/"+params.customerId+"/order/"+params.orderId+"/agreement/admit/"+response.contractId+"/detail";
-		  },1000);
+			window.setTimeout(function() {
+				window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
+			}, 0);
 
-		}).catch(function(err){
+		}).catch(function(err) {
 			Notify.show([{
-				message:err.message,
+				message: err.message,
 				type: 'danger',
 			}]);
-	   	});
+		});
 
-		 //this.openConfirmCreateDialog();
+		//this.openConfirmCreateDialog();
 	}
 
-	onCancel(){
+	onCancel() {
 		window.history.back();
 	}
 
-	 openConfirmCreateDialog(){
-		 this.setState({
-			 openConfirmCreate:!this.state.openConfirmCreate
-		 });
-	 }
+	openConfirmCreateDialog() {
+		this.setState({
+			openConfirmCreate: !this.state.openConfirmCreate
+		});
+	}
 
-	 componentDidMount(){
+	componentDidMount() {
 
 		var _this = this;
-		const {params} = this.props;
+		const {
+			params
+		} = this.props;
 		let initialValues = {};
 		let optionValues = {};
 
-		Store.dispatch(Actions.callAPI('fina-contract-intention',{customerId:params.customerId,mainBillId:params.orderId,communityId:1})).then(function(response){
+		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+			customerId: params.customerId,
+			mainBillId: params.orderId,
+			communityId: 1
+		})).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
-			initialValues.mainbillid =  params.orderId;
+			initialValues.mainbillid = params.orderId;
 
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
-			optionValues.communityAddress = response.customer.communityAddress; 
+			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
 			initialValues.leaseAddress = response.customer.customerAddress;
 
 			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）	
 			initialValues.contracttype = 'INTENTION';
 
-			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item,index){
+			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
 				item.value = item.id;
 				item.label = item.corporationName;
 				return item;
 			});
-			optionValues.paymentList = response.payment.map(function(item,index){
+			optionValues.paymentList = response.payment.map(function(item, index) {
 				item.value = item.id;
 				item.label = item.dicName;
 				return item;
 			});
 
-			optionValues.payTypeList = response.payType.map(function(item,index){
+			optionValues.payTypeList = response.payType.map(function(item, index) {
 				item.value = item.id;
 				item.label = item.dicName;
 				return item;
@@ -124,43 +146,49 @@ export default  class JoinCreate extends Component {
 			optionValues.leaseAddress = response.customer.customerAddress;
 			optionValues.communityName = response.customer.communityName;
 			optionValues.communityId = response.customer.communityid;
-			optionValues.mainbillCommunityId =  response.mainbillCommunityId||1;
+			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
 
 			_this.setState({
 				initialValues,
 				optionValues
 			});
 
-		}).catch(function(err){
+		}).catch(function(err) {
 			Notify.show([{
-				message:'后台出错请联系管理员',
+				message: '后台出错请联系管理员',
 				type: 'danger',
 			}]);
-	   	});
-	 }
+		});
+	}
 
 
-  render() {
+	render() {
 
-	  let {initialValues,optionValues} = this.state;
+		let {
+			initialValues,
+			optionValues
+		} = this.state;
 
-    return (
+		return (
 
-		<div>
+
+			<div>
+
 		 	<BreadCrumbs children={['系统运营','客户管理','承租协议']}/>
-			<Section title="承租协议书" description=""> 
+			<Section title="承租意向书" description=""> 
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues}/>
 			</Section>
-
+            
 			<Dialog
-				title="新建"
+				title="承租意向书"
 				modal={true}
 				autoScrollBodyContent={true}
 				autoDetectWindowHeight={true}
+				onClose={this.openConfirmCreateDialog}
 				open={this.state.openConfirmCreate} >
 						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} optionValues={optionValues} />
 			  </Dialog>
 		</div>
-	);
-  }
+		);
+	}
 }

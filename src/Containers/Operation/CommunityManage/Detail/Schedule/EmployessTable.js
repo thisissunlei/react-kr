@@ -88,7 +88,7 @@ class Distribution extends Component {
 				</div>	
 				<Grid>
 					<Row style={{marginTop:30,marginBottom:100}}>
-					<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true}  onSubmit={this.onSubmit}/> </Col>
+					<Col md={2} align="right"> <Button  label="确定" type="submit" joinEditForm  onSubmit={this.onSubmit}/> </Col>
 					<Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
 				</Grid>
 			</Form>
@@ -148,7 +148,7 @@ class ChangeStation extends Component {
 			</div>	
 			<Grid>
 				<Row style={{marginTop:30}}>
-				<Col md={2} align="right"> <Button  label="确定" type="submit" primary={true}  onSubmit={this.onSubmit}/> </Col>
+				<Col md={2} align="right"> <Button  label="确定" type="submit" joinEditForm  onSubmit={this.onSubmit}/> </Col>
 				<Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
 			</Grid>
 		</Form>

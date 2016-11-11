@@ -1,31 +1,31 @@
-.file-list{
-	list-style-type:none;
+.ui-file{
+	color:#499df1;
 	font-size:14px;
-	padding-left:0;
-
-	li{
-		height:30px;
-		line-height:30px;
-		text-align:left;
-	}
-	.del{
+	.file-icon{
+		width:22px;
+		height:22px;
+		line-height:24px;
+		text-align:center;
+		background:#499df1;
 		display:inline-block;
-		padding-left:10px;
+		color:#fff;
+		font-size:17px;
+		border-radius:50% 50%;
+		-webkit-border-radius:50% 50%;
+		-moz-border-radius:50% 50%;
+		-ms-border-radius:50% 50%;
+		margin-right:10px;
 	}
-}
-
 .file-button{
 
 	height:35px;
-	width:80px;
-	border:1px solid #ddd; 
-	border-radius:4px;
-	color:#333;
+	width:100px;
+	color:#499df1;
+	border:none;
 	line-height:35px;
 	position:relative;
 	text-align:center;
 	overflow:hidden;
-	font-size:14px;
 
 	input[type=file]{
 		opacity:0;
@@ -45,9 +45,43 @@
 		bottom:0;
 		position:absolute;
 	}
+}
+
+
+
 
 
 }
+
+
+.file-list{
+	list-style-type:none;
+	padding-left:0;
+	font-size:14px;
+	li{
+		height:30px;
+		line-height:30px;
+		text-align:left;
+		color:#666666;
+		a{
+			color:#666666;
+			text-decoration:none;
+			padding-left:6px;
+		}
+	
+		.del{
+			display:inline-block;
+			padding-left:20px;
+			color:#ff6868 ;
+
+		}
+	}
+	
+}
+
+
+
+
 
 
 

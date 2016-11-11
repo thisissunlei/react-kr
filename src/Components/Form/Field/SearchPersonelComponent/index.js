@@ -3,15 +3,18 @@ import ReactSelect from 'react-select';
 import 'react-select/dist/react-select.css';
 import {Actions,Store} from 'kr/Redux';
 
-export default class  SearchPersonelComponent extends React.Component {
 
+import WrapComponent from '../WrapComponent';
+
+export default class  SearchPersonelComponent extends React.Component {
 
 	static defaultProps = {
 		placeholder:'请选择...'
 	}
 
 	static PropTypes = {
-		placeholder:React.PropTypes.string
+		placeholder:React.PropTypes.string,
+		inline:React.PropTypes.bool
 	}
 
 	constructor(props){
@@ -51,12 +54,8 @@ export default class  SearchPersonelComponent extends React.Component {
 		let { input, label, type, meta: { touched, error },placeholder,children,disabled,style,requireLabel,...other} = this.props;
 
 		return (
-			<div className="form-item-wrap" style={style}>
-			<div className="form-item">
-			<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
-			<div className="form-main">
-			<div className="form-input">
-				<ReactSelect.Async
+			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
+					<ReactSelect.Async
 					name={input.name}
 					value={input.value}
 					loadOptions={this.getOptions}
@@ -64,11 +63,8 @@ export default class  SearchPersonelComponent extends React.Component {
 					clearAllText="清除"
 					onChange={this.onChange}
 					placeholder={placeholder}/>
-			</div>
-			{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
-			</div>
-			</div>
-			</div>
+			{touched && error && <div className="error-wrap"> <span>{error}</span> </div>}
+		</WrapComponent>
 		);
 	}
 }

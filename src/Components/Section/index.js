@@ -94,7 +94,6 @@ export default class Section extends Component {
 		this.setState({
 			openBody:!this.state.openBody
 		});
-		console.log('hh');
 	}
 
 	renderSectionTitle(){

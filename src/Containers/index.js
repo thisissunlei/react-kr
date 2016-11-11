@@ -7,6 +7,11 @@ import Operation from './Operation';
 import Basic from './Basic';
 import Initialize from './Initialize';
 import Demo from './Demo';
+import Finance from './Finance';
+import Member from './Member';
+import Community from './Community';
+import Retail from './Retail';
+import OA from './OA';
 
 
 module.exports = {
@@ -18,7 +23,12 @@ module.exports = {
 	Operation,
 	Basic,
 	Initialize,
-	Demo
+	Demo,
+	Finance,
+	Member,
+	Community,
+	Retail,
+	OA
 }
 
 

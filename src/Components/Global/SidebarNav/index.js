@@ -18,6 +18,7 @@ import {
 	FontIcon,
 	FloatingActionButton
 } from 'material-ui';
+import './index.less';
 
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 
@@ -25,8 +26,6 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
-
-import SidebarNavMenuItems from '../../../Configs/sidebarNavs';
 
 
 import {List, ListItem, MakeSelectable} from 'material-ui/List';
@@ -88,13 +87,23 @@ export default class SidebarNav extends Component {
 		super(props, context);
 	}
 
-
 	renderMenuItem(item,index,parentIndex){
 
 		let {current_router,current_child} = this.props;
 		var childStyles = {};
 		let initiallyOpen = false;
 		let parentStyles = {};
+        
+       
+
+
+		let jumpUrl = '';
+
+		if(item.originUrl){
+			jumpUrl = item.originUrl;
+		}else{
+			jumpUrl = './#'+item.router;
+		}
 
 		var styles = {};
 
@@ -119,8 +128,10 @@ export default class SidebarNav extends Component {
 					style={parentStyles}
 					initiallyOpen={initiallyOpen}
 					value={index}
+					open={true}
 					primaryText={item.primaryText} 
 					primaryTogglesNestedList={true}
+					autoGenerateNestedIndicator={true}
 					nestedItems={ item.menuItems.map((it,ind)=>this.renderMenuItem(it,ind,index))} />
 			);
 		}
@@ -129,7 +140,7 @@ export default class SidebarNav extends Component {
 					primaryText={item.primaryText} 
 					key={index} 
 					value={parentIndex+'-'+index}
-					href={"./#"+item.router}
+					href={jumpUrl}
 					style={childStyles}
 			   	/>
 		);

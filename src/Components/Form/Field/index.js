@@ -1,5 +1,8 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import {
+	Field,
+	reduxForm
+} from 'redux-form';
 
 import Notify from '../../Notify';
 
@@ -19,67 +22,89 @@ import SearchPersonelComponent from './SearchPersonelComponent';
 import LabelTextComponent from './LabelTextComponent';
 import GroupComponent from './GroupComponent';
 
-import './index.less';
-
 
 export default class KrField extends React.Component {
 
-	PropTypes = {
+	static defaultProps = {
+		left: 0,
+		right: 0,
+	}
+
+	static PropTypes = {
 		type: React.PropTypes.string,
 		name: React.PropTypes.string,
 		label: React.PropTypes.string,
 		component: React.PropTypes.string,
 		disabled: React.PropTypes.bool,
-		grid:React.PropTypes.number,
-		value:React.PropTypes.value
+		grid: React.PropTypes.number,
+		value: React.PropTypes.string,
+		inline: React.PropTypes.bool,
+		left: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+		right: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
 	}
 
 	render() {
 
-		let {grid=1,className,children,component,type,requireLabel,label,value,...other} = this.props;
+		let {
+			style,
+			left,
+			right,
+			grid = 1,
+			className,
+			children,
+			inline,
+			component,
+			type,
+			requireLabel,
+			label,
+			value,
+			...other
+		} = this.props;
 
-		let WrapStyles = {
-			width:(grid*100)+'%'
-		}
 
-		if(component ==='input' || component === 'text'){
+		let WrapStyles = Object.assign({}, {
+			width: (grid * 100) + '%',
+			paddingLeft: left,
+			paddingRight: right
+		}, style);
+
+		if (component === 'input' || component === 'text') {
 			return (
 				<Field {...this.props} component={InputComponent}  style={WrapStyles}/>
 			);
 		}
 
-		if(component ==='file'){
+		if (component === 'file') {
 			return (
 				<Field {...this.props} component={FileUploadComponent}  style={WrapStyles} {...other}/>
 			);
 		}
 
-		if(component ==='searchPersonel'){
+		if (component === 'searchPersonel') {
 			return (
 				<Field {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
 			);
 		}
 
-		if(component ==='search'){
+		if (component === 'search') {
 			return (
 				<Field {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
 			);
 		}
 
-		if(component === 'labelText' || type=='labelText'){
-
+		if (component === 'labelText' || type == 'labelText') {
 			return (
 				<LabelTextComponent {...this.props} style={WrapStyles}/>
 			);
 		}
 
-		if(component === 'textarea'){
+		if (component === 'textarea') {
 			return (
 				<Field {...this.props} component={TextareaComponent} style={WrapStyles}/>
 			);
 		}
 
-		if(component === 'select' || type=='select'){
+		if (component === 'select' || type == 'select') {
 			return (
 				<Field {...this.props} component={SelectComponent} style={WrapStyles}>
 				{children}
@@ -87,29 +112,25 @@ export default class KrField extends React.Component {
 			);
 		}
 
-
-
-		if(component === 'radio' || type=='radio'){
+		if (component === 'radio' || type == 'radio') {
 			return (
 				<Field {...this.props} component={RadioComponent}  style={WrapStyles}/>
 			);
 		}
 
-		if(component === 'date' || type=='date'){
-
+		if (component === 'date' || type == 'date') {
 			return (
 				<Field {...this.props} component={DateComponent}  style={WrapStyles}/>
 			);
-
 		}
 
-		if(component === 'group' || type=='group'){
+		if (component === 'group' || type == 'group') {
 			return (
-				<GroupComponent {...this.props}/>
+				<GroupComponent {...this.props} style={WrapStyles}/>
 			);
 		}
 
-		if(!component || component === 'input'){
+		if (!component || component === 'input') {
 			return (
 				<Field {...this.props} component={InputComponent}  style={WrapStyles}/>
 			);
@@ -121,6 +142,3 @@ export default class KrField extends React.Component {
 
 	}
 }
-
-
-

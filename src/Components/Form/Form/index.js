@@ -73,8 +73,6 @@ export default  class Form  extends React.Component{
 				validateInfo = validations[item];
 				var val = values[item];
 
-				console.log("00haha",validateInfo);
-
 				//require
 				if(validateInfo.hasOwnProperty('required') && !val){
 					errors[item] = validateInfo['required'].message;

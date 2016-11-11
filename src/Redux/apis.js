@@ -1,5 +1,4 @@
 const APIS = {
-
 	//获取全局导航
 	'getSelfMenuInfo': {
 		url: '/api-old/sys/sysfunrights/sysMenu/getSelfMenuInfo',
@@ -7,7 +6,7 @@ const APIS = {
 	},
 	//合同－工位信息
 	'getStationOrSettingList': {
-		url: '/api/krspace-finance-web/finacontractdetail/contract-detail-station?mainBillId={mainBillid}&page={page}&pageSize={pageSize}',
+		url: '/api/krspace-finance-web/finacontractdetail/contract-detail-station?mainBillId={mainBillid}&page={page}&pageSize={pageSize}&contractId={contractId}',
 		method: 'get'
 	},
 	//退租协议-新增-编辑
@@ -40,7 +39,7 @@ const APIS = {
 
 	//文件预览
 	'viewFile': {
-		url: ' /krspace_knowledge_wap/doc/docFile/viewFile?operater={operater}&sourceservicetoken={sourceservicetoken}&fileId={fileId}',
+		url: '/krspace_knowledge_wap/doc/docFile/viewFile?operater={operater}&sourceservicetoken={sourceservicetoken}&fileId={fileId}',
 		method: 'get'
 	},
 
@@ -239,6 +238,11 @@ const APIS = {
 		url: '/api/krspace-finance-web/finaccount/data/getFinaDataCommunityAndMainBillType',
 		method: 'get'
 	},
+	//财务管理－订单账单列表-导出
+	'finaExportExcel': {
+		url: '/api/krspace-finance-web/finaccount/data/exportExcel?communityid={communityid}&customername={customername}&endDate={endDate}&mainbilltype={mainbilltype}&startDate={startDate}&idList={idList}',
+		method: 'get'
+	},
 	//财务管理－科目配置－新建(修改)
 	'saveFinaFinaflowAccountModel': {
 		url: '/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/saveFinaFinaflowAccountModel',
@@ -249,6 +253,12 @@ const APIS = {
 		url: '/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/getFinaFinaflowAccountModelByAjax?accountname={accountname}&currentPage={currentPage}&pageSize={pageSize}',
 		method: 'get'
 	},
+	//财务管理－科目配置－导出
+	'getfinancExportExcel': {
+		url: '/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/exportExcel?idList={idList}',
+		method: 'get'
+	},
+
 	//财务管理－订单明细账-分页获得财务流水
 	'getPageAccountFlow': {
 		url: '/api/krspace-finance-web/finaccount/data/getAccountFlow?accountId={accountId}&accountType={accountType}&orderId={orderId}&endTime={endTime}&page={page}&pageSize={pageSize}&propertyId={propertyId}&startTime={startTime}',

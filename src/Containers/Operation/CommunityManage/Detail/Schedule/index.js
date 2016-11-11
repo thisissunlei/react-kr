@@ -33,6 +33,7 @@ export default class Schedule extends Component {
 		super(props, context);
 	}
 
+
 	componentDidMount() {
 
 	}
@@ -53,6 +54,7 @@ export default class Schedule extends Component {
 		return (
 			<div>
 			<BasicTable detail={communityInfoList} communityids={communityids}/>
+
 		</div>
 		);
 

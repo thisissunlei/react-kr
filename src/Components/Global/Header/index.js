@@ -5,8 +5,6 @@ import {Link} from 'react-router';
 
 import * as actionCreators from '../../../Redux/Actions';
 
-import SidebarNavMenuItems from '../../../Configs/sidebarNavs';
-
 import {
 	AppBar,
 	Menu,
@@ -101,8 +99,18 @@ class Header extends Component {
 			styles.borderRight = '1px solid #3F93CA';
 		}
 
+
+		let jumpUrl = '';
+
+		if(item.originUrl){
+			jumpUrl = item.originUrl;
+		}else{
+			jumpUrl = './#'+item.router;
+		}
+		
+
 		return (
-			 <FlatButton label={item.primaryText} key={index} style={styles} href={'./#/'+item.router} labelStyle={{lineHeight:'67px'}} />
+			 <FlatButton label={item.primaryText} key={index} style={styles} href={jumpUrl} labelStyle={{lineHeight:'67px'}} />
 		);
 
 	}
@@ -141,9 +149,14 @@ class Header extends Component {
 				targetOrigin={{horizontal: 'right', vertical: 'top'}}
 				anchorOrigin={{horizontal: 'right', vertical: 'top'}}
 			  >
-				<MenuItem primaryText="返回" />
-				<MenuItem primaryText="个人中心" />
-				<MenuItem primaryText="退出" />
+				<MenuItem primaryText={this.props.user.nick} />
+				{/*
+				<MenuItem primaryText={this.props.user.email} />
+				<MenuItem primaryText={this.props.user.mobile} />
+					*/}
+				<MenuItem primaryText="退出" onTouchTap={(event)=>{
+					window.location.href = '/logout/logout';
+				}}/>
 			  </IconMenu>
 		}
 				/>
@@ -157,13 +170,6 @@ class Header extends Component {
 				{this.props.header_nav.switch_value && <Header/>}
 
 			<Drawer open={this.props.sidebar_nav.switch_value} width={180} containerStyle={{marginTop:68,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)'}}>
-
-				{/*
-				<AppBar
-				style={{backgroundColor:'#328ECC'}}
-				iconElementLeft={<IconButton onClick={this.handleToggle}><NavigationClose  /></IconButton>}
-				/>
-				*/}
 
 				<SidebarNav items={this.props.navs_current_items} current_router={this.props.current_router} current_parent={this.props.current_parent} current_child={this.props.current_child}/>
 
@@ -190,7 +196,8 @@ function mapStateToProps(state){
 		bottom_nav:state.bottom_nav,
 		current_router:state.navs.current_router,
 		current_parent:state.navs.current_parent,
-		current_child:state.navs.current_child
+		current_child:state.navs.current_child,
+		user:state.user
 	};
 }
 

@@ -147,7 +147,7 @@ export default  class JoinCreate extends Component {
 
 		 <div>
 		 	<BreadCrumbs children={['系统运营','客户管理','创建减租协议书']}/>
-			<Section title="创建减租协议书" description="">
+		<Section title="减租协议书" description="">
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues}/>
 			</Section>
 
@@ -156,7 +156,7 @@ export default  class JoinCreate extends Component {
 				modal={true}
 				autoScrollBodyContent={true}
 				autoDetectWindowHeight={true}
-				open={this.state.openConfirmCreate} >
+				open={this.state.openConfirmCreate} onClose={this.openConfirmCreateDialog}>
 						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} optionValues={optionValues}/>
 			  </Dialog>
 		</div>

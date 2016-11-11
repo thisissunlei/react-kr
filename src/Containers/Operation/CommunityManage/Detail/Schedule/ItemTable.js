@@ -142,11 +142,13 @@ export default class ItemTable extends Component {
 
       <tr className="last-td" >
 						<td className="company-list">
+
 							<div className="company-name" data-tip> 
               {
                 detail.companyName
               }
 							<ReactTooltip place="right">
+
 								<ul>
 								{
 									this.renderOrder(detail.contractTypeVo)
@@ -160,15 +162,15 @@ export default class ItemTable extends Component {
 							<EmployessTable activity={activity} detail={detail} id={id}/>
 						</td>
 						<td className="btnlist">
-							<Button className="Station" type="link" primary={true} label="" onTouchTap={this.onStation} />
+							<Button className="Station" type="link" joinEditForm label="" onTouchTap={this.onStation} />
                 <div className="tip hide  hover">
                    分配工位 < span className = "bArrow" > < /span>
                 </div>
-					    <Button className="Dismantling" type="link" primary={true} label="" 	onTouchTap={this.onDismantling}/>
+					    <Button className="Dismantling" type="link" joinEditForm label="" 	onTouchTap={this.onDismantling}/>
                   <div className="tip hide hover ">
                        撤场日期 <span className = "bArrow"></span>
                  </div>
-  						<Button className="preson" type="link" primary={true} label="" onTouchTap={this.onhref}/>
+  						<Button className="preson" type="link" joinEditForm label="" onTouchTap={this.onhref}/>
                 <div className="tip hide  hover">
                       查看员工 <span className = "bArrow"></span>
                 </div>

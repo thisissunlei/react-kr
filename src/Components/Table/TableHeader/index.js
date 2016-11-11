@@ -1,9 +1,11 @@
 import React from 'react';
 import TableHeaderColumn from '../TableHeaderColumn';
+import Checkbox from '../../Checkbox';
 
 export default class TableHeader extends React.Component {
 
-
+	static displayName = 'TableHeader';
+	
 	static PropTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
@@ -41,7 +43,7 @@ export default class TableHeader extends React.Component {
 		}
 
 		//return ( <TableHeaderColumn width={this.props.defaultValue.checkboxWidth}></TableHeaderColumn>);
-		return ( <TableHeaderColumn width={this.props.defaultValue.checkboxWidth}><input type="checkbox" onTouchTap={onSelectAll}/> </TableHeaderColumn>);
+		return ( <TableHeaderColumn width={this.props.defaultValue.checkboxWidth}> <Checkbox onCheck={onSelectAll} /> </TableHeaderColumn>);
 
 	}
 
@@ -63,9 +65,9 @@ export default class TableHeader extends React.Component {
 		let tHeader = [];
 		React.Children.forEach(children, (child,index) => {
 			if (!React.isValidElement(child)) return;
-			const {muiName,name} = child.type;
+			const {muiName,name,displayName} = child.type;
 
-			if (name === 'TableHeaderColumn') {
+			if (displayName === 'TableHeaderColumn') {
 				tHeader.push(this.createTableHeaderColumn(child,index));
 			} 
 		});

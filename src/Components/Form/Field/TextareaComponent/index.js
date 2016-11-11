@@ -1,34 +1,55 @@
 import React from 'react';
 
-export default class TextareaComponent extends React.Component{
+import WrapComponent from '../WrapComponent';
 
-	constructor(props){
-		super(props)
+export default class TextareaComponent extends React.Component {
+	static PropTypes = {
+		onChange: React.PropTypes.func,
+		maxSize: React.PropTypes.num
 	}
 
-	render(){
+	constructor(props) {
+		super(props)
 
-         let { input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,col,row,style} = this.props;
 
+		this.state = {
+			len: 0,
+		}
+	}
+
+
+
+	render() {
+
+		let {
+			input,
+			label,
+			type,
+			meta: {
+				touched,
+				error
+			},
+			requireLabel,
+			disabled,
+			placeholder,
+			col,
+			row,
+			style,
+			inline,
+			maxSize,
+		} = this.props;
+
+		let {
+			len
+		} = this.state
 		return (
-		
-		<div className="form-item-wrap" style={style}>
-	  <div className="form-item">
-		<label className="form-label"> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
-		<div className="form-main">
-			<div className="form-input-main">
-				<div className="form-input">
-					<textarea {...input} placeholder={placeholder|| label} disabled={disabled} col={col} row={row}></textarea>
-				</div>
-			</div>
-
-			{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
-		</div>
-	  </div>
-			</div>
+			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
+				<textarea {...input} placeholder={placeholder|| label} disabled={disabled} col={col} row={row}  ></textarea>
+				<div style={{width:40,height:30,lineHeight:"30px",color:'#cccccc',float:'right',fontSize:'14px'}}><span className="len">{len}</span>/<span className="size">{maxSize?maxSize:200}</span></div>
+				{touched && error && <div className="error-wrap"> <span>{error}</span></div> }
+			</WrapComponent>
 		);
 
 	}
 
 }
-

@@ -42,10 +42,13 @@ export default class CommunityManage extends Component {
 		this.Floorplan = this.Floorplan.bind(this);
 		this.selectCommunity = this.selectCommunity.bind(this);
 		this.getCommunity = this.getCommunity.bind(this);
+
 		this.getCommunityFloors = this.getCommunityFloors.bind(this);
 
+
 		this.state = {
-			tab: 'plan',
+
+			tab: 'table',
 			communityInfoList: [],
 			community: '',
 		}
@@ -56,8 +59,9 @@ export default class CommunityManage extends Component {
 		this.getCommunity();
 
 	}
+
+
 	Floorplan() {
-		console.log('plan');
 		let {
 			tab
 		} = this.state;
@@ -66,17 +70,19 @@ export default class CommunityManage extends Component {
 			tab
 		});
 	}
+
 	planTable() {
-		console.log('jdadtable');
 		let {
 			tab
 		} = this.state;
+
 		tab = 'table';
 		this.setState({
 			tab
 		});
 	}
 	selectCommunity(personel) {
+
 		console.log('change', personel);
 		// Store.dispatch(change('selectCommunityForm','community',personel.label));
 		this.getCommunityFloors(personel.id);
@@ -88,7 +94,6 @@ export default class CommunityManage extends Component {
 	}
 	getCommunity() {
 		var that = this;
-
 		var {
 			communityInfoList,
 			community
@@ -113,6 +118,8 @@ export default class CommunityManage extends Component {
 		});
 
 	}
+
+
 
 	getCommunityFloors(id) {
 		console.log('floors', id);
@@ -152,6 +159,18 @@ export default class CommunityManage extends Component {
 			community
 		} = this.state;
 
+		const activeTab = {
+			color: '#000',
+			backgroundColor: '#ecf5fe',
+			borderBottom: "1px solid #eee"
+		}
+		const commenTab = {
+			color: '#000',
+			borderBottom: "1px solid #eee"
+		}
+		let tableStyle = (tab == 'table') ? activeTab : commenTab;
+		let planStyle = (tab == 'floorplan') ? activeTab : commenTab;
+
 
 		return (
 
@@ -159,16 +178,22 @@ export default class CommunityManage extends Component {
 		 	<BreadCrumbs children={['系统运营','社区管理','计划表']}/>
 			
 			<Section title="计划表" description=""> 
-				<Form name="selectCommunityForm" initialValues={{community:this.state.community}}>
-					<KrField name="community"  grid={1/3} component="select" label="社区" onChange={this.selectCommunity} options={communityInfoList}/>
+
+				<Form name="selectCommunityForm" initialValues={{community:this.state.community}} >
+					<KrField name="community"  grid={1/2} component="select" label="社区" onChange={this.selectCommunity} options={communityInfoList} inline={true}/>
 
 				</Form>
-				 <Tabs>
-					<Tab label="计划表" onActive={this.planTable}>
-						<Schedule  communityInfoList={communityInfoList} communityids={this.state.communityids} />
+
+				 <Tabs className="tabs" tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={{backgroundColor:'#499df1'}}>
+					<Tab label="计划表" onActive={this.planTable} style={tableStyle}>
+						<Schedule communityInfoList={communityInfoList} communityids={this.state.communityids}/>
+
 					</Tab>
-					<Tab label="平面图"  onActive={this.Floorplan} >
+					<Tab label="平面图"  onActive={this.Floorplan} style={planStyle}>
+
 					   <FloorPlan communityId={community} tab={tab} communityInfoFloorList={communityInfoFloorList}/>
+
+
 					</Tab>
 			</Tabs>
 

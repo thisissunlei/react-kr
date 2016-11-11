@@ -1,4 +1,7 @@
-import React, {Component, PropTypes} from 'react';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
 
 import {
 	BreadCrumbs,
@@ -10,34 +13,43 @@ import {
 	LabelText,
 	KrDate,
 	Table,
-   	TableBody, 
-	TableHeader, 
-	TableHeaderColumn, 
-	TableRow, 
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
 	TableRowColumn,
 	TableFooter,
 	Grid,
 	Row,
 	Col,
+	SplitLine,
+	DotTitle
 } from 'kr-ui';
+import {
+	View
+} from 'kr-ui/contractView';
+import dateFormat from 'dateformat';
 
 
-import {Actions,Store} from 'kr/Redux';
+
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 
 
-export default  class AdmitDetail extends Component {
+export default class AdmitDetail extends Component {
 
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 
 
 		this.state = {
-			isLoading:true,
-			basic:{
-				payment:{
-				},
-				stationVos:[]
+			isLoading: true,
+			basic: {
+				payment: {},
+				stationVos: []
 			}
 		}
 
@@ -45,12 +57,14 @@ export default  class AdmitDetail extends Component {
 
 
 
-		Store.dispatch(Actions.callAPI('showFinaContractIntentletter', {id:this.props.params.id})).then(function(response){
+		Store.dispatch(Actions.callAPI('showFinaContractIntentletter', {
+			id: this.props.params.id
+		})).then(function(response) {
 			_this.setState({
-				basic:response,
-				isLoading:false
+				basic: response,
+				isLoading: false
 			});
-		}).catch(function(err){
+		}).catch(function(err) {
 			Notify.show([{
 				message: err.message,
 				type: 'danger'
@@ -59,85 +73,99 @@ export default  class AdmitDetail extends Component {
 
 	}
 
-	componentWillMount(){
+	componentWillMount() {
 
 	}
 
-  render() {
+	render() {
 
-  	let {isLoading} = this.state;
+		let {
+			isLoading
+		} = this.state;
 
-  	if(isLoading){
-  		return <Loading />
-  	}
-
-
-	 const orderBaseInfo = {};
-	 const contractList = [];
-	 function onCancel(){
-		location.href="/#/operation/customerManage/"+params.customerId+ "/order/"+params.orderId+"/detail";
-	}
-	const params = this.props.params;
-
-	function getOrderUrl(){
-		return `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
-	}
-
-	  const {basic} = this.state;
-	  let dicName;
-
-	  if(basic.payment)  {
-	  	dicName = basic.payment.dicName;
-	  }else{
-	  	dicName = '';
-	  }
-
-	  const BasicRender = (props)=>{
-
-		  return (
-				  <div>
-
-<KrField component="labelText" grid={1/2} label="出租方" value={basic.lessorName}/>
-					<KrField component="labelText" grid={1/2} label="地址" value={basic.lessorAddress} defaultValue="无"/>
-
-					<KrField component="labelText" grid={1/2} label="联系人" value={basic.lessorContactName} defaultValue="无"/>
-					<KrField component="labelText" grid={1/2} label="电话" value={basic.lessorContacttel} defaultValue="无"/>
-
-					<KrField component="labelText" grid={1/2} label="承租方" value={basic.customerName} defaultValue="无"/>
-					<KrField component="labelText" grid={1/2} label="地址" value={basic.leaseAddress} defaultValue="无"/>
-
-					<KrField component="labelText" grid={1/2} label="联系人" value={basic.leaseContact} defaultValue="无"/>
-					<KrField component="labelText" grid={1/2} label="电话" value={basic.leaseContacttel} defaultValue="无"/>
-
-					<KrField component="labelText" grid={1/2} label="所属社区" value={basic.communityName} defaultValue="无"/>
-					<KrField component="labelText" grid={1/2} label="所属楼层" value={basic.wherefloor} defaultValue="无"/>
+		if (isLoading) {
+			return <Loading />
+		}
 
 
-<KrField label="定金总额"   grid={1/2} component="labelText" value={basic.totaldownpayment} defaultValue="0"/>
-<KrField component="group" grid={1/2} label="签署日期:">
-	<Row style={{marginTop:5}}>
-		<KrDate.Format value={basic.signdate}/>
-	</Row>
-</KrField>
-			<KrField label="合同编号"   grid={1/2} component="labelText" value={basic.contractcode} defaultValue="无"/>
-			<KrField label="付款方式"   grid={1/2} component="labelText" value={dicName} defaultValue="无"/>
-			<KrField label="租赁项目" component="group">
-				<KrField label="工位"   grid={1/1} component="labelText" value={basic.stationnum} defaultValue="0"/>
-					<KrField label="会议室"   grid={1/1} component="labelText" value={basic.boardroomnum} defaultValue="0"/>
-				  </KrField>
- <Grid>
-	  <Row style={{padding:10,marginBottom:15}}>
-		  <Col md={6} align="left" >租赁期限： <KrDate.Format value={basic.leaseBegindate}/>  ——  <KrDate.Format value={basic.leaseEnddate}/>  </Col>
-	  </Row>
-</Grid>
-<KrField label="保留天数"   grid={1/2} component="labelText" value={basic.templockday} defaultValue="0"/>
+		const orderBaseInfo = {};
+		const contractList = [];
 
-<KrField label="备注"   grid={1/1} component="labelText" value={basic.contractmark} defaultValue="无"/>
+		function onCancel() {
+			location.href = "/#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/detail";
+		}
+		const params = this.props.params;
 
-<KrField label="上传附件"   grid={1/1} component="labelText" value={basic.contractfile} defaultValue="无"/>
+		function getOrderUrl() {
+			return `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
+		}
+
+		const {
+			basic
+		} = this.state;
+		let dicName;
+
+		if (basic.payment) {
+			dicName = basic.payment.dicName;
+		} else {
+			dicName = '';
+		}
+		const content = {
+			position: 'relative',
+			width: '900px',
+			margin: '0 auto',
+			fontSize:14
+		}
+		const info = {
+			padding: '30px 70px',
+			paddingBottom:0
+		}
+
+		const BasicRender = (props) => {
+
+			return (
+				<div className="content" style={content}>
+				  	<View label="承租意向书详情页"/>
+				  	<div className="content-info" style={info} >
+
+<KrField component="labelText" grid={1/2} label="出租方：" value={basic.lessorName} requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} left={60} label="地址：" value={basic.lessorAddress} defaultValue="无" requireBlue={true}/>
+
+					<KrField component="labelText" grid={1/2} label="联系人：" value={basic.lessorContactName} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} left={60} label="电话：" value={basic.lessorContacttel} defaultValue="无" requireBlue={true}/>
+
+					<KrField component="labelText" grid={1/2} label="承租方：" value={basic.customerName} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} left={60} label="地址：" value={basic.leaseAddress} defaultValue="无" requireBlue={true}/>
+
+					<KrField component="labelText" grid={1/2} label="联系人：" value={basic.leaseContact} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} left={60} label="电话：" value={basic.leaseContacttel} defaultValue="无" requireBlue={true}/>
+					<SplitLine />
+					<KrField component="labelText" grid={1/2} label="所属社区：" value={basic.communityName} defaultValue="无" requireBlue={true}/>
+					<KrField component="labelText" grid={1/2} left={60} label="所属楼层：" value={basic.wherefloor} defaultValue="无" requireBlue={true}/>
 
 
-<Section title="租赁明细" description=""> 
+<KrField label="定金总额："   grid={1/2} component="labelText" value={basic.totaldownpayment} defaultValue="0" requireBlue={true}/>
+<KrField label="签署日期："   grid={1/2} left={60} component="labelText" type="date" value={basic.signdate} defaultValue="0" requireBlue={true}/>
+			
+			<KrField label="合同编号："   grid={1/2} component="labelText" value={basic.contractcode} defaultValue="无" requireBlue={true}/>
+			<KrField label="付款方式："   left={60} grid={1/2} component="labelText" value={dicName} defaultValue="无" requireBlue={true}/>
+				
+				<KrField label="租赁工位："   grid={1/2} component="labelText" value={basic.stationnum} defaultValue="0" requireBlue={true}/>
+					<KrField label="租赁会议室："  left={60} grid={1/2} component="labelText" value={basic.boardroomnum} defaultValue="0" requireBlue={true}/>
+					<KrField label="租赁期限："   grid={1/2}  component="labelText" value={`${dateFormat(basic.leaseBegindate,"yyyy-mm-dd")}——${dateFormat(basic.leaseEnddate,"yyyy-mm-dd")}`} defaultValue="0" requireBlue={true}/>
+
+<KrField label="保留天数："   grid={1/2} component="labelText" left={60} value={basic.templockday} defaultValue="0" requireBlue={true}/>
+
+<KrField label="备注："   grid={1/1} component="labelText" value={basic.contractmark} defaultValue="无" requireBlue={true} inline={false}/>
+
+					<KrField component="group" label="上传附件：" requireBlue={true}>
+							{basic.contractFileList && basic.contractFileList.map((item,index)=>{
+								return <Button label={item.fileName} type="link" href={item.fileUrl} key={index}/>
+							})}
+			  		</KrField>
+
+
+								<DotTitle title='租赁明细'>
 
 								<Table displayCheckbox={false}>
 												<TableHeader>
@@ -170,38 +198,34 @@ export default  class AdmitDetail extends Component {
 
 			  
 
-								  </Section>
+								  </DotTitle>
+								  </div>
 				  </div>
-		  );
+			);
 
-	  }
+		}
 
-    return (
+		return (
 
-      <div>
+			<div style={{minWidth:1000}}>
 
 			<BreadCrumbs children={['社区运营',,'合同详情']}/>
 
-			<Section title="承租合同" description=""> 
+			<Section title="承租意向书" description=""> 
 				<BasicRender/>
 
 
 <Grid style={{marginTop:30}}>
 				  <Row>
-					  <Col md={4} align="center"></Col>
-					  <Col md={2} align="center"> <Button  label="返回"  type="href" primary={true} href={getOrderUrl()}/> </Col>
-					  <Col md={4} align="center"></Col>
+					  <Col md={5} align="center"></Col>
+					  <Col md={2} align="center"> <Button  label="返回"  type="href" joinEditForm href={getOrderUrl()}/> </Col>
+					  <Col md={5} align="center"></Col>
 				  </Row>
 			  </Grid>
 
 			</Section>
       </div>
 
-    );
-  }
+		);
+	}
 }
-
-
-
-
-

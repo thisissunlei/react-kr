@@ -15,15 +15,23 @@ results
 node_modules
 
 .tags
+
 npm-debug.log
+npm-debug.log.*
 
 static/components
 
 # misc / editors
 *~
 *#
+
 .DS_STORE
 
 # Test
+
+webpack/dist
+webpack/dist/*
+
+static/lib.js
 
 

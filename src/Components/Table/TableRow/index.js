@@ -3,7 +3,8 @@ import Button from '../../Button';
 
 export default class TableRow extends React.Component {
 
-
+	static displayName = 'TableRow';
+	
 	static PropTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
@@ -159,7 +160,7 @@ export default class TableRow extends React.Component {
 
 		if(visibility){
 			return (
-				<tr className={className} {...other}>
+			<tr className={className} {...other}>
 					{this.renderRow()}
 				</tr>
 			);

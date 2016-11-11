@@ -60,6 +60,7 @@ class SearchForm extends Component {
 	}
 
 	onSubmit(form) {
+
 		let {
 			communityids
 		} = this.props
@@ -81,6 +82,7 @@ class SearchForm extends Component {
 			onSubmit
 		} = this.props;
 		onSubmit && onSubmit(formValues);
+
 	}
 
 
@@ -137,16 +139,23 @@ export default class BasicTable extends Component {
 			formValues: {},
 			Installmentplan: [],
 			rate: [],
+
 			communityIdList: [],
 			page: 10,
 			pageSize: 5,
 			type: 'BILL'
+
 		};
 
 	}
 
 
 	componentDidMount() {
+		this.getInstallmentplan();
+	}
+
+	componentWillReceiveProps(nextProps) {
+
 
 		this.getInstallmentplan();
 	}
@@ -156,6 +165,7 @@ export default class BasicTable extends Component {
 		if (nextProps.community !== this.props.communityids) {
 			this.setState({
 				communityids: nextProps.community
+
 			});
 			this.getInstallmentplan();
 		}
@@ -241,6 +251,7 @@ export default class BasicTable extends Component {
 
 	getInstallmentplan() {
 		var _this = this;
+
 		let {
 			community
 		} = this.props;
@@ -282,6 +293,7 @@ export default class BasicTable extends Component {
 			});
 
 		}).catch(function(err) {
+
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
@@ -289,7 +301,9 @@ export default class BasicTable extends Component {
 		});
 
 
+
 	}
+
 
 
 	render() {
@@ -306,6 +320,9 @@ export default class BasicTable extends Component {
 
 		return (
 			<div>
+
+			let {currentYear,Installmentplan,rate} = this.state;
+
 		 	<div className="basic-con">
 		 		<div className="legend">
 		 			<div className="legend-left">

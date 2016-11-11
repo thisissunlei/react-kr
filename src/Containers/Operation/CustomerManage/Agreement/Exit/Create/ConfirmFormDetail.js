@@ -91,12 +91,17 @@ export default class ConfirmFormDetail  extends Component{
 							 <KrField grid={1/2}  name="withdrawdate" component="labelText" label="撤场日期"  value={detail.withdrawdate}/>
 							 <KrField grid={1/2}  name="signdate"  component="labelText" grid={1/2} label="签署时间" value={detail.signdate}/> 
 							 <KrField grid={1/2}  name="contractmark" component="labelText" label="备注" value={detail.contractmark}/> 
-							 <KrField grid={1}  name="fileIdList" component="labelText" label="合同附件" value={detail.fileIdList}/> 
+
+							<KrField component="group" label="上传附件">
+									{detail.contractFileList && detail.contractFileList.map((item,index)=>{
+										return <Button label={item.fileName} type="link" href={item.fileUrl} key={index}/>
+									})}
+							</KrField>
 
 				<Grid>
 					<Row style={{marginTop:30}}>
-						<Col md={2} align="right"> <Button  label="确定" type="button" primary={true} onTouchTap={this.onSubmit} /> </Col>
-					  <Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
+						<Col md={2} align="right"> <Button  label="确定" type="button"  onTouchTap={this.onSubmit} /> </Col>
+					  <Col md={2} align="right"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
 				</Grid>
 		 </div>);
 	}

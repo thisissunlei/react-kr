@@ -1,7 +1,17 @@
 import React from 'react';
-import { Router, Route, Link,Redirect,IndexRoute,browserHistory} from 'react-router';
+import {
+	Router,
+	Route,
+	Link,
+	Redirect,
+	IndexRoute,
+	browserHistory
+} from 'react-router';
 
-import {Actions,Store} from 'kr/Redux';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 
 
 import {
@@ -12,12 +22,18 @@ import {
 	Document,
 	Operation,
 	Basic,
+	OA,
 	Initialize,
+	Demo,
+	Finance,
+	Member,
+	Community,
+	Retail
 } from './Containers';
 
 import Master from './master';
 
-export default(
+export default (
 
 	<Route path="/" component={Master}>
 
@@ -35,11 +51,35 @@ export default(
 
 		<Redirect from="messages/:id" to="/messages/:id" />
 
-		<Route path="initialize" component={Initialize} name="initialize"/>
+		<Route path="initialize" component={Initialize}/>
+
+		{/*demo*/}
+		<Route path="demo" component={Demo} name="demo"/>
+
+		{/*会员中心*/}
+		<Route path="member" component={Basic}>
+			<Route path="index" component={Member.Home}/>
+		</Route>
+
+		{/*社区经营*/}
+		<Route path="community" component={Basic}>
+			<Route path="index" component={Community.Home}/>
+		</Route>
+
+		{/*OA办公*/}
+		<Route path="oa" component={Basic}>
+			<Route path="index" component={OA.Home}/>
+		</Route>
+
+		{/*商品零售*/}
+		<Route path="retail" component={Basic}>
+			<Route path="index" component={Retail.Home}/>
+		</Route>
+
 
 		{/*运营管理*/}
 		<Route path="operation" component={Basic}>
-				<Route path="index" component={Operation.Home} name="operation_home"/>
+				<Route path="index" component={Operation.Home}/>
 				{/*社区管理*/}
 				<Route path="communityManage" component={Basic}>
 					<Route path=":id/detail" component={Operation.CommunityManage.Detail}/>
@@ -134,37 +174,36 @@ export default(
 						<Route path="detail" component = {Operation.JoinOrder.Customer.Detail}/>
 					</Route>
 				</Route>
+		</Route>
 
-				{/*财务管理*/}
+			{/*财务管理*/}
 				<Route path="finance" component={Basic}>
-					<Route path="index" component={Operation.Finance.Home}/>
+				
+					<Route path="index" component={Finance.Home}/>
 
-					<Route path="orderbill" component={Basic}>
-						<Route path="receiptList" component={Operation.Finance.OrderBill.ReceiptList}/>
+					<Route path="manage" component={Basic}>
+						<Route path="orderbill" component={Basic}>
+						<Route path="receiptList" component={Finance.Manage.OrderBill.ReceiptList}/>
 
 						{/*订单账单*/}
-						<Route path="orderList" component={Operation.Finance.OrderBill.OrderList}/>
+						<Route path="orderList" component={Finance.Manage.OrderBill.OrderList}/>
 						{/*订单账单明细*/}
-						<Route path=":orderId/detail" component={Operation.Finance.OrderBill.OrderBillDetail}/>
-
-
+						<Route path=":orderId/detail" component={Finance.Manage.OrderBill.OrderBillDetail}/>
 					</Route>
 
 					{/*开票列表*/}
 					<Route path="invoice" component={Basic}>
-						<Route path="list" component={Operation.Finance.Invoice}/>
+						<Route path="list" component={Finance.Manage.Invoice}/>
 					</Route>
 
 					{/*代码配置*/}
 					<Route path="codeSetting" component={Basic}>
-						<Route path="attribute" component={Operation.Finance.CodeSetting.Attribute}/>
-						<Route path="subject" component={Operation.Finance.CodeSetting.Subject}/>
+						<Route path="attribute" component={Finance.Manage.CodeSetting.Attribute}/>
+						<Route path="subject" component={Finance.Manage.CodeSetting.Subject}/>
 					</Route>
+					</Route>	
+			</Route>
 
-
-				</Route>
-
-		</Route>
 
 		{/*权限管理*/}
 		<Route path="permission" component={Basic}>

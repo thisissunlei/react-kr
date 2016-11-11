@@ -3,6 +3,8 @@ import Loading from '../Loading';
 
 export default class IframeContent extends React.Component {
 
+	static displayName = 'IframeContent';
+	
 	static defaultProps = {
 		width:window.innerWidth,
 		height:800

@@ -18,7 +18,8 @@ import {
 	Col,
 	Button,
 	Notify,
-	KrDate
+	KrDate,
+	DotTitle
 } from 'kr-ui';
 
 
@@ -75,53 +76,58 @@ export default class ConfirmFormDetail  extends Component{
 	  return (
 
 		  <div>
-								<KrField  grid={1/2} component="labelText" label="出租方" value={leasorName}/>
+								<KrField  grid={1/2} component="labelText" label="出租方" value={leasorName} inline={false}/>
 
-								 <KrField grid={1/2}   component="labelText" label="地址" value={detail.lessorAddress}/> 
+								 <KrField grid={1/2}   component="labelText" label="地址" value={detail.lessorAddress} inline={false}/> 
 
-								 <KrField grid={1/2}  component="labelText" label="联系人" value={detail.lessorContactName}/> 
-								 <KrField grid={1/2}   component="labelText" label="电话" value={detail.lessorContacttel}/> 
+								 <KrField grid={1/2}  component="labelText" label="联系人" value={detail.lessorContactName} inline={false}/> 
+								 <KrField grid={1/2}   component="labelText" label="电话" value={detail.lessorContacttel} inline={false}/> 
 
-								 <KrField grid={1/2}   component="labelText" label="承租方" value={optionValues.customerName}/> 
-								 <KrField grid={1/2}    component="labelText" label="地址" value={detail.leaseAddress}/> 
+								 <KrField grid={1/2}   component="labelText" label="承租方" value={optionValues.customerName} inline={false}/> 
+								 <KrField grid={1/2}    component="labelText" label="地址" value={detail.leaseAddress} inline={false}/> 
 
-								 <KrField grid={1/2}   component="labelText" label="联系人" value={detail.leaseContact}/> 
-								 <KrField grid={1/2}    component="labelText" label="电话" value={detail.leaseContacttel}/> 
+								 <KrField grid={1/2}   component="labelText" label="联系人" value={detail.leaseContact} inline={false}/> 
+								 <KrField grid={1/2}    component="labelText" label="电话" value={detail.leaseContacttel} inline={false}/> 
 
-								 <KrField grid={1/2}   component="labelText" label="所属社区" value={optionValues.communityName} /> 
+								 <KrField grid={1/2}   component="labelText" label="所属社区" value={optionValues.communityName} inline={false}/> 
 
-								<KrField   grid={1/2} component="labelText" label="地址" value={optionValues.communityAddress}/>
+								<KrField   grid={1/2} component="labelText" label="地址" value={optionValues.communityAddress} inline={false}/>
 								
-								<KrField name="paymodel"  grid={1/2} component="labelText" label="合同编号" value={detail.contractcode}/> 
-								 <KrField grid={1/2}    component="labelText" label="签署日期"  value={detail.signdate}/> 
+								<KrField name="paymodel"  grid={1/2} component="labelText" label="合同编号" value={detail.contractcode} inline={false}/> 
+								 <KrField grid={1/2}    component="labelText" label="签署日期"  value={detail.signdate} inline={false}/> 
 
-								<KrField name="paytype"  grid={1/1} component="labelText" label="减租金额" value={detail.rentamount}/>
+								<KrField name="paytype"  grid={1/1} component="labelText" label="减租金额" value={detail.rentamount} inline={false}/>
 							 
-							 <KrField grid={1}  name="fileIdList" component="labelText" label="备注" value={detail.contractmark}/> 
-							 <KrField grid={1}  name="fileIdList" component="labelText" label="上传附件" value={detail.fileIdList}/> 
+							 <KrField grid={1}  name="contractmark" component="labelText" label="备注" value={detail.contractmark} defaultValue="无" inline={false}/> 
+				
+							 <KrField component="group" label="上传附件">
+									{detail.contractFileList && detail.contractFileList.map((item,index)=>{
+										return <Button label={item.fileName} type="link" href={item.fileUrl} key={index}/>
+									})}
+							</KrField>
 
-
-					<Section title="租赁明细" description=""> 
+                  <DotTitle title='租赁明细'>
+					
 
 							<Table  displayCheckbox={false}>
 									<TableHeader>
 											<TableHeaderColumn>类别</TableHeaderColumn>
 											<TableHeaderColumn>编号／名称</TableHeaderColumn>
-											<TableHeaderColumn>租赁开始时间</TableHeaderColumn>
-											<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
+											<TableHeaderColumn>减租开始时间</TableHeaderColumn>
+											<TableHeaderColumn>减租结束时间</TableHeaderColumn>
 									</TableHeader>
 									<TableBody>
 													
 										{detail.list.map((item,index)=>{
 											return (
 												<TableRow key={index}>
-													<TableRowColumn>{item.stationType}</TableRowColumn>
-													<TableRowColumn>{item.stationId}</TableRowColumn>
-													<TableRowColumn>
-														<KrDate.Format value={item.leaseBeginDate} format="yyyy-mm-dd"/>
-													</TableRowColumn>
+													<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
+													<TableRowColumn>{item.stationName}</TableRowColumn>
 													<TableRowColumn>
 														<KrDate.Format value={item.leaseEndDate} format="yyyy-mm-dd"/>
+													</TableRowColumn>
+													<TableRowColumn>
+														<KrDate.Format value={item.end} format="yyyy-mm-dd"/>
 													</TableRowColumn>
 												</TableRow>
 											);
@@ -129,12 +135,15 @@ export default class ConfirmFormDetail  extends Component{
 								   </TableBody>
 							 </Table>
 
-				</Section>
-
+				
+               </DotTitle>
 				<Grid>
 					<Row style={{marginTop:30}}>
-						<Col md={2} align="right"> <Button  label="确定" type="button" primary={true}  onTouchTap={this.onSubmit}/> </Col>
-					  <Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
+					<Col md={4}></Col>
+						<Col md={2} align="right"> <Button  label="确定" type="button"   onTouchTap={this.onSubmit}/> </Col>
+					  <Col md={2} align="right"> <Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel}/> </Col> 
+					<Col md={4}></Col>
+					  </Row>
 				</Grid>
 		 </div>);
 	}

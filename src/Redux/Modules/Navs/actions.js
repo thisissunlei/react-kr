@@ -1,6 +1,16 @@
 import fetch from 'node-fetch';
 import * as Types from './types';
 
+
+
+//当前用户有哪些导航权限
+
+export function setUserNavs(){
+	return function(dispatch,state){
+		console.log('state',state);
+	}
+}
+
 function setNavsCurrentRoute(currentRoute){
 
 	return {

@@ -2,10 +2,9 @@ import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import * as actionCreators from 'kr-ui/../Redux/Actions';
-
 import {
-DatePicker,
+	Checkbox,
+	DatePicker,
 	Form,
 	KrField,
 	Table,
@@ -17,55 +16,50 @@ DatePicker,
 	TableFooter,
 	Button,
 	Section,
+	FontIcon,
 } from 'kr-ui';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
 
 import {List, ListItem} from 'material-ui/List';
 
-
+import { hashHistory ,History} from 'react-router';
 
 export default class Demo extends Component{
 
-	static defaultProps = {
-		page:1,
-	}
 
-	static PropTypes = {
-		className: React.PropTypes.string,
-		children: React.PropTypes.node,
-	}
+	 static contextTypes = {
+	  router: React.PropTypes.object.isRequired
+    }
 
 	constructor(props,context){
 		super(props, context);
 
 		this.onSubmit = this.onSubmit.bind(this);
+
+		console.log('---',this.context.router);
+
 	}
 
-	componentDidMount() {
-
+	onSubmit(){
+		console.log('----',History)
+		window.location.hash = 'demo';
+		//this.context.router.replace(location.href);;
+	    history.replace(location)
+		//hashHistory.refresh();
 	}
 
-	onSubmit(values){
-		console.log('--values',values);
-	}
+
 
 	render(){
 
-		let initialValues = {
-			age:''
-		}
-
 		return(
-
 			<div>
-					<Section title="出错了" description="" >
-
-						<Form name="jyayayoinForm" initialValues={initialValues} onSubmit={this.onSubmit}>
-							<KrField grid={1/1}  name="age" component="date" label="电话" />
-							<Button  label="确定" type="submit" primary={true} />
-						</Form>
-
+					<Section title="demo" description="" >
+							<Checkbox  label="ahah" checked={true} />
+							<span onClick={this.onSubmit}>ddddd-d-d-d--</span>
+							<Button lable="haha" type="button" onTouchTab={this.onSubmit} />
+							
 					</Section>
 			</div>
 

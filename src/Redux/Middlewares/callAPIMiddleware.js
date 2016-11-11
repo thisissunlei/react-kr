@@ -1,5 +1,8 @@
 import http from 'kr/Redux/Utils/fetch';
 import Promise from 'promise-polyfill';
+import ES6Promise from 'es6-promise';
+
+ES6Promise.polyfill();
 
 
 function callAPIMiddleware({dispatch,getState}){

@@ -1,6 +1,6 @@
 import React from 'react';
 import Loading from '../../Loading';
-import http from  'kr/Redux/Utils/fetch';
+import http from 'kr/Redux/Utils/fetch';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import _ from 'lodash';
 
@@ -13,54 +13,57 @@ import './index.less';
 
 export default class Table extends React.Component {
 
+	static displayName = 'Table';
 	static defaultProps = {
-		page:1,
-		pageSize:15,
-		totalCount:20,
-		pagination:true,
-		loading:false,
-		ajax:false,
-		ajaxFieldListName:'items',
-		displayCheckbox:true,
-		footer:false,
-		exportSwitch:false,
+		page: 1,
+		pageSize: 15,
+		totalCount: 20,
+		pagination: true,
+		loading: false,
+		ajax: false,
+		ajaxFieldListName: 'items',
+		displayCheckbox: true,
+		footer: false,
+		exportSwitch: false,
+		defaultSelectedRows: [],
 	}
 
 	static PropTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
 		displayCheckbox: React.PropTypes.bool,
-		style:React.PropTypes.object,
+		style: React.PropTypes.object,
 		toggleVisibility: React.PropTypes.string,
-		exportSwitch:React.PropTypes.bool,
-		page: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
-		pageSize: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
-		pagination:React.PropTypes.bool,
-		totalCount: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
-		loading:React.PropTypes.bool,
-		ajax:React.PropTypes.bool,
-		ajaxUrlName:React.PropTypes.string,
-		ajaxParams:React.PropTypes.object,
-		ajaxFieldListName:React.PropTypes.string,
+		exportSwitch: React.PropTypes.bool,
+		page: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+		pageSize: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+		pagination: React.PropTypes.bool,
+		totalCount: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+		loading: React.PropTypes.bool,
+		ajax: React.PropTypes.bool,
+		ajaxUrlName: React.PropTypes.string,
+		ajaxParams: React.PropTypes.object,
+		ajaxFieldListName: React.PropTypes.string,
 		//tfoot
-		footer:React.PropTypes.bool,
+		footer: React.PropTypes.bool,
+		defaultSelectedRows: React.PropTypes.array,
 
 		//事件
-		onExport:React.PropTypes.func,
-		onSelectAll:React.PropTypes.func,
-		onCellClick:React.PropTypes.func,
-		onRowClick:React.PropTypes.func,
-		onPageChange:React.PropTypes.func,
-		onOperation:React.PropTypes.func,
-		onLoaded:React.PropTypes.func,
-		onSelect:React.PropTypes.func,
+		onExport: React.PropTypes.func,
+		onSelectAll: React.PropTypes.func,
+		onCellClick: React.PropTypes.func,
+		onRowClick: React.PropTypes.func,
+		onPageChange: React.PropTypes.func,
+		onOperation: React.PropTypes.func,
+		onLoaded: React.PropTypes.func,
+		onSelect: React.PropTypes.func,
 	}
 
-	constructor(props){
+	constructor(props) {
 
 		super(props);
 
-	   this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 
 		this.createTableHeader = this.createTableHeader.bind(this);
 		this.createTableBody = this.createTableBody.bind(this);
@@ -77,7 +80,8 @@ export default class Table extends React.Component {
 		this.onOperation = this.onOperation.bind(this);
 		this.onLoaded = this.onLoaded.bind(this);
 
-		this.onLoadData  = this.onLoadData.bind(this);
+		this.onLoadData = this.onLoadData.bind(this);
+		this.onInitial = this.onInitial.bind(this);
 
 
 		this.renderTableHeader = this.renderTableHeader.bind(this);
@@ -87,215 +91,246 @@ export default class Table extends React.Component {
 		this.renderNotListData = this.renderNotListData.bind(this);
 
 		this.state = {
-			response:{},
-			page:this.props.page,
-			pageSize:this.props.pageSize,
-			totalCount:this.props.totalCount,
-			listData:[],
-			loading:this.props.loading,
-			isLoaded:false,
-			allRowsSelected:false,
-			selectedRows:[],
-			visibilityRows:[],
-			defaultValue:{
-				checkboxWidth:40
+			response: {},
+			page: this.props.page,
+			pageSize: this.props.pageSize,
+			totalCount: this.props.totalCount,
+			listData: [],
+			loading: this.props.loading,
+			isLoaded: false,
+			allRowsSelected: false,
+			selectedRows: [],
+			visibilityRows: [],
+			defaultValue: {
+				checkboxWidth: 50
 			}
 		}
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 
 	}
 
+	componentWillReceiveProps(nextProps) {
 
-	componentWillReceiveProps(nextProps){
-
-		if(!_.isEqual(this.props.ajaxParams,nextProps.ajaxParams)){
+		if (!_.isEqual(this.props.ajaxParams, nextProps.ajaxParams)) {
 			this.setState({
-				isLoaded:false
+				isLoaded: false
 			});
-			this.onLoadData(1,nextProps.ajaxParams);
+			this.onLoadData(1, nextProps.ajaxParams);
 		}
 
-		if(nextProps.page != this.props.page){
+		if (nextProps.page != this.props.page) {
 			this.setState({
-				page:nextProps.page
+				page: nextProps.page
 			});
 		}
 
-		if(nextProps.loading != this.props.loading){
+		if (nextProps.loading != this.props.loading) {
 			this.setState({
-				loading:nextProps.loading
+				loading: nextProps.loading
 			});
-			this.onLoadData(1,nextProps.ajaxParams);
+			this.onLoadData(1, nextProps.ajaxParams);
 		}
 
 	}
 
-	shouldComponentUpdate(nextProps,nextState){
+	shouldComponentUpdate(nextProps, nextState) {
 
-		if(!_.isEqual(this.props.ajaxParams,nextProps.ajaxParams)){
+		if (!_.isEqual(this.props.ajaxParams, nextProps.ajaxParams)) {
 			return true;
 		}
-		if(nextProps.page != this.props.page){
+		if (nextProps.page != this.props.page) {
 			return true;
 		}
-		if(nextProps.loading != this.props.loading){
+		if (nextProps.loading != this.props.loading) {
 			return true;
 		}
 		return false;
 	}
 
-	onSort(name){
-
-
-		if(!name){
-			return ;
+	onSort(name) {
+		if (!name) {
+			return;
 		}
-
-		let {listData} = this.state;
-
-		//console.log("---->>>",listData);
-
-
-		//listData = listData.splice(1,3);
-
+		let {
+			listData
+		} = this.state;
 		this.setState({
 			listData
 		});
-
-		/*
-		listData.sort(function(a,b){
-			return a>b;
-		});
-		*/
-
 	}
 
-	onLoaded(){
-		const {onLoaded} = this.props;
+	onInitial(state) {
+		let {
+			defaultSelectedRows
+		} = this.props;
+		state.selectedRows = defaultSelectedRows;
+		let {
+			listData
+		} = state;
+
+		this.setState(state, function() {
+			this.onLoaded();
+		});
+	}
+
+	onLoaded() {
+		const {
+			onLoaded
+		} = this.props;
 		onLoaded && onLoaded(this.state.response);
 	}
 
 
-
-	onOperation(type,itemData){
-		const {onOperation}  = this.props;
-		onOperation && onOperation(type,itemData);
+	onOperation(type, itemData) {
+		const {
+			onOperation
+		} = this.props;
+		onOperation && onOperation(type, itemData);
 	}
 
-	onPageChange(page){
+	onPageChange(page) {
 
-		const {onPageChange} = this.props;
+		const {
+			onPageChange
+		} = this.props;
 
 		onPageChange && onPageChange(page);
 		this.onLoadData(page);
 	}
 
-	onCellClick(){
+	onCellClick() {
 
 	}
 
-	onExport(){
+	onExport() {
 
-		let {selectedRows,visibilityRows}  = this.state;
+		let {
+			selectedRows,
+			visibilityRows,
+			listData,
+		} = this.state;
 
-		//console.log('selectedRows',this.state.selectedRows,'visibilityRows',this.state.visibilityRows);
-		var result = [];
 
-		visibilityRows.forEach(function(item,index){
-			if(item && parseInt(selectedRows[index])){
-				result.push(index);
+		let {
+			onExport
+		} = this.props;
+
+		var exportRows = [];
+		var exportData = [];
+
+
+		listData = listData.filter(function(item, index) {
+			return !(typeof item === 'undefined');
+		});
+
+
+		visibilityRows.forEach(function(item, index) {
+			if (item && parseInt(selectedRows[index])) {
+				exportRows.push(index);
 			}
 		});
 
-		console.log(result);
+
+		exportRows.forEach(function(item, index) {
+			if (listData[item]) {
+				exportData.push(listData[item]);
+			}
+		});
+
+		onExport && onExport(exportData, exportRows);
 
 	}
 
 
-	onLoadData(page=1,ajaxParams=this.props.ajaxParams){
+	onLoadData(page = 1, ajaxParams = this.props.ajaxParams) {
 
-		ajaxParams = Object.assign({},ajaxParams);
+		ajaxParams = Object.assign({}, ajaxParams);
 
-		if(!this.props.ajax){
-			return ;
+		if (!this.props.ajax) {
+			return;
 		}
 
 		this.setState({
-			loading:true
+			loading: true
 		});
 
 
-		var {ajaxUrlName} = this.props;
+		var {
+			ajaxUrlName
+		} = this.props;
 
 		ajaxParams.page = page;
 
 		var _this = this;
 
-		http.request(ajaxUrlName,ajaxParams).then(function(response){
-			_this.setState({
-				response:response,
-				listData:response[_this.props.ajaxFieldListName],
-				page:response.page,
-				pageSize:response.pageSize,
-				totalCount:response.totalCount,
-				isLoaded:true,
+		http.request(ajaxUrlName, ajaxParams).then(function(response) {
+			_this.onInitial({
+				response: response,
+				listData: response[_this.props.ajaxFieldListName],
+				page: response.page,
+				pageSize: response.pageSize,
+				totalCount: response.totalCount,
+				isLoaded: true,
 			});
-			_this.onLoaded();
-		}).catch(function(err){
-			_this.onLoaded();
-			_this.setState({
-				isLoaded:true
+		}).catch(function(err) {
+
+			_this.onInitial({
+				isLoaded: true
 			});
+
 			Notify.show([{
-				message:err.message,
+				message: err.message,
 				type: 'error',
 			}]);
 		});
 
-		window.setTimeout(function(){
+		window.setTimeout(function() {
 			_this.setState({
-				loading:false
+				loading: false
 			});
-		},2000);
+		}, 0);
 
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 
 		this.onLoadData();
 
-		var visibilityRows = new Array(this.state.pageSize+1).join(1).split('');
+		var visibilityRows = new Array(this.state.pageSize + 1).join(1).split('');
 
 		//默认隐藏children
-		let visibilityType = this.props.toggleVisibility||'';
+		let visibilityType = this.props.toggleVisibility || '';
 
-		switch(visibilityType){
-			case 'odd':{
-				visibilityRows.forEach(function(item,index){
-					if(index%2 !== 0){
-						visibilityRows[index] = 0;
-					}
-				});
-				break;
-			}
+		switch (visibilityType) {
+			case 'odd':
+				{
+					visibilityRows.forEach(function(item, index) {
+						if (index % 2 !== 0) {
+							visibilityRows[index] = 0;
+						}
+					});
+					break;
+				}
 
-			case 'event':{
-				visibilityRows.forEach(function(item,index){
-					if(index%2 == 0){
-						visibilityRows[index] = 0;
-					}
-				});
-				break;
-			}
+			case 'event':
+				{
+					visibilityRows.forEach(function(item, index) {
+						if (index % 2 == 0) {
+							visibilityRows[index] = 0;
+						}
+					});
+					break;
+				}
 
-			default:{
-				visibilityRows.forEach(function(item,index){
-					visibilityRows[index] = 1;
-				});
-				break;
-			}
+			default:
+				{
+					visibilityRows.forEach(function(item, index) {
+						visibilityRows[index] = 1;
+					});
+					break;
+				}
 		}
 
 		this.setState({
@@ -304,147 +339,159 @@ export default class Table extends React.Component {
 
 	}
 
-	setVisibilityRow(rowNumber){
+	setVisibilityRow(rowNumber) {
 		var visibilityRows = this.state.visibilityRows;
-			visibilityRows[rowNumber] = new Number(!!!parseInt(visibilityRows[rowNumber]));
-			this.setState({
-				visibilityRows
-			});
+		visibilityRows[rowNumber] = new Number(!!!parseInt(visibilityRows[rowNumber]));
+		this.setState({
+			visibilityRows
+		});
 	}
 
 
-	onRowClick(event,rowNumber){
+	onRowClick(event, rowNumber) {
 
-		let {selectedRows} = this.state;
+		let {
+			selectedRows
+		} = this.state;
 
-		if(parseInt(selectedRows[rowNumber])){
+		selectedRows = (new Array()).concat(selectedRows);
+
+
+		if (parseInt(selectedRows[rowNumber])) {
 			selectedRows[rowNumber] = 0;
-		}else{
+		} else {
 			selectedRows[rowNumber] = 1;
 		}
 
 		this.setState({
-			selectedRows:selectedRows
+			selectedRows: selectedRows
+		}, function() {
+			this.onSelect();
 		});
 
-		if(event.target.nodeName.toLowerCase() == 'input'){
-			return ;
+		if (event.target.nodeName.toLowerCase() == 'input') {
+			return;
 		}
 		//显示子元素
 		var vitibilityType = this.props.toggleVisibility;
-		if(vitibilityType){
-			if(vitibilityType === 'odd'){
-				if(rowNumber%2 == 0){
-					this.setVisibilityRow(rowNumber+1);
+		if (vitibilityType) {
+			if (vitibilityType === 'odd') {
+				if (rowNumber % 2 == 0) {
+					this.setVisibilityRow(rowNumber + 1);
 				}
-			}else{
-				if(rowNumber%2 != 0){
-					this.setVisibilityRow(rowNumber-1);
+			} else {
+				if (rowNumber % 2 != 0) {
+					this.setVisibilityRow(rowNumber - 1);
 				}
 			}
 		}
 	}
 
-	onSelect(){
-		let {selectedRows,visibilityRows}  = this.state;
+	onSelect() {
+
+		let {
+			selectedRows,
+			visibilityRows
+		} = this.state;
 
 		var result = [];
-		visibilityRows.forEach(function(item,index){
-			if(item && parseInt(selectedRows[index])){
+		visibilityRows.forEach(function(item, index) {
+			if (item && parseInt(selectedRows[index])) {
 				result.push(index);
 			}
 		});
 
-		const {onSelect} = this.props;
+		const {
+			onSelect
+		} = this.props;
 		onSelect && onSelect(result);
 	}
 
-	onSelectAll(){
+	onSelectAll() {
 
-		let {allRowsSelected} = this.state;
-			allRowsSelected = !allRowsSelected;
+		let {
+			allRowsSelected
+		} = this.state;
+		allRowsSelected = !allRowsSelected;
 		var tmp = [];
-		if(allRowsSelected){
-			tmp = new Array(this.state.pageSize+1).join(1).split('');
-		}else{
-			tmp = new Array(this.state.pageSize+1).join(0).split('');
+		if (allRowsSelected) {
+			tmp = new Array(this.state.pageSize + 1).join(1).split('');
+		} else {
+			tmp = new Array(this.state.pageSize + 1).join(0).split('');
 		}
 
-    	this.setState({
-    		allRowsSelected:!this.state.allRowsSelected,
-			selectedRows:tmp
-    	});
+		this.setState({
+			allRowsSelected: !this.state.allRowsSelected,
+			selectedRows: tmp
+		});
 
 		var _this = this;
-		window.setTimeout(function(){
+		window.setTimeout(function() {
 			_this.onSelect();
-		},1000);
+		}, 0);
 	}
 
-	createTableHeader(base){
+	createTableHeader(base) {
 
 		return React.cloneElement(
-			base,
-			{
-				displayCheckbox:this.props.displayCheckbox,
+			base, {
+				displayCheckbox: this.props.displayCheckbox,
 				onSelectAll: this.onSelectAll,
-				defaultValue:this.state.defaultValue,
-				onSort:this.onSort,
+				defaultValue: this.state.defaultValue,
+				onSort: this.onSort,
 			}
 		);
-
-
 	}
 
-	createTableBody(base){
+	createTableBody(base) {
 
 		return React.cloneElement(
-			base,
-			{
-				displayCheckbox:this.props.displayCheckbox,
+			base, {
+				displayCheckbox: this.props.displayCheckbox,
 				allRowsSelected: this.state.allRowsSelected,
-				selectedRows:this.state.selectedRows,
-				visibilityRows:this.state.visibilityRows,
-				onRowClick:this.onRowClick,
-				onOperation:this.onOperation,
-				defaultValue:this.state.defaultValue,
-				listData:this.state.listData,
-				ajax:this.props.ajax,
-				onSelect:this.onSelect,
+				selectedRows: this.state.selectedRows,
+				visibilityRows: this.state.visibilityRows,
+				onRowClick: this.onRowClick,
+				onOperation: this.onOperation,
+				defaultValue: this.state.defaultValue,
+				listData: this.state.listData,
+				ajax: this.props.ajax,
 			}
 		);
 
 	}
 
-	createTableFooter(base){
+	createTableFooter(base) {
 
-		let {pagination,footer} = this.props;
+		let {
+			pagination,
+			footer
+		} = this.props;
 
-		if(pagination || footer){
+		if (pagination || footer) {
 			footer = true;
 		}
 
 		let props = {
-				displayCheckbox:this.props.displayCheckbox,
-				allRowsSelected: this.state.allRowsSelected,
-				defaultValue:this.state.defaultValue,
-				page:this.state.page,
-				pageSize:this.state.pageSize,
-				pagination:this.props.pagination,
-				totalCount:this.state.totalCount,
-				onPageChange:this.onPageChange,
-				exportSwitch:this.props.export,
-				footer:footer,
+			displayCheckbox: this.props.displayCheckbox,
+			allRowsSelected: this.state.allRowsSelected,
+			defaultValue: this.state.defaultValue,
+			page: this.state.page,
+			pageSize: this.state.pageSize,
+			pagination: this.props.pagination,
+			totalCount: this.state.totalCount,
+			onPageChange: this.onPageChange,
+			exportSwitch: this.props.exportSwitch,
+			footer: footer,
 		}
 
 		let handlers = {
-				onSelectAll: this.onSelectAll,
-				onExport:this.onExport
+			onSelectAll: this.onSelectAll,
+			onExport: this.onExport
 		}
 
 		return React.cloneElement(
-			base,
-			{
+			base, {
 				...props,
 				...handlers
 			}
@@ -452,31 +499,46 @@ export default class Table extends React.Component {
 	}
 
 
-	renderTableHeader(){
-		let {className,children,style} = this.props;
+	renderTableHeader() {
+		let {
+			className,
+			children,
+			style
+		} = this.props;
 		let tHead;
 		React.Children.forEach(children, (child) => {
 			if (!React.isValidElement(child)) return;
-			const {muiName,name} = child.type;
-			if (name === 'TableHeader') {
+			const {
+				muiName,
+				name,
+				displayName
+			} = child.type;
+			if (displayName === 'TableHeader') {
 				tHead = this.createTableHeader(child);
 			}
 		});
 		return tHead;
 	}
 
-	renderNotListData(){
+	renderNotListData() {
 
-		let {className,children,style} = this.props;
+		let {
+			className,
+			children,
+			style
+		} = this.props;
 
-		return(
-			<table className={"table "+className} style={style}>
+		return (
+			<table className={"ui-table "+className} style={style}>
 				{this.renderTableHeader()}
 				<tbody>
-					<tr>
+					<tr style={{backgroundColor:'#fff'}}>
 						<TableRowColumn colSpan={100} >
 							<div style={{textAlign:'center',paddingTop:100,paddingBottom:100}}>
-								暂无数据
+								<div className="ui-nothing">
+									<div className="icon"></div>
+									<p className="tip">暂时还没有数据呦~</p>
+								</div>
 							</div>
 						</TableRowColumn>
 					</tr>
@@ -485,16 +547,24 @@ export default class Table extends React.Component {
 		);
 	}
 
-	renderTableBody(){
+	renderTableBody() {
 
-		let {className,children,style} = this.props;
+		let {
+			className,
+			children,
+			style
+		} = this.props;
 
 		let tBody;
 
 		React.Children.forEach(children, (child) => {
 			if (!React.isValidElement(child)) return;
-			const {muiName,name} = child.type;
-			if (name === 'TableBody') {
+			const {
+				muiName,
+				name,
+				displayName
+			} = child.type;
+			if (displayName === 'TableBody') {
 				tBody = this.createTableBody(child);
 			}
 		});
@@ -502,15 +572,23 @@ export default class Table extends React.Component {
 		return tBody;
 	}
 
-	renderTableFooter(){
+	renderTableFooter() {
 
-		let {className,children,style} = this.props;
+		let {
+			className,
+			children,
+			style
+		} = this.props;
 		let tFoot;
 
 		React.Children.forEach(children, (child) => {
 			if (!React.isValidElement(child)) return;
-			const {muiName,name} = child.type;
-			if (name === 'TableFooter') {
+			const {
+				muiName,
+				name,
+				displayName
+			} = child.type;
+			if (displayName === 'TableFooter') {
 				tFoot = this.createTableFooter(child);
 			}
 		});
@@ -519,14 +597,18 @@ export default class Table extends React.Component {
 
 	}
 
-	renderLoading(){
-		let {className,children,style} = this.props;
+	renderLoading() {
+		let {
+			className,
+			children,
+			style
+		} = this.props;
 
-		return(
-			<table className={"table "+className} style={style}>
+		return (
+			<table className={"ui-table "+className} style={style}>
 				{this.renderTableHeader()}
 				<tbody>
-					<tr>
+					<tr style={{backgroundColor:'#fff'}}>
 						<TableRowColumn colSpan={100} >
 							<div style={{textAlign:'center',paddingTop:50,paddingBottom:50}}>
 									<Loading />
@@ -543,21 +625,29 @@ export default class Table extends React.Component {
 
 	render() {
 
-		let {className,children,style,ajax} = this.props;
-		let {listData,loading} = this.state;
 
-		if(loading){
+
+		let {
+			className,
+			children,
+			style,
+			ajax
+		} = this.props;
+		let {
+			listData,
+			loading
+		} = this.state;
+
+		if (loading) {
 			return this.renderLoading();
 		}
 
-		if(ajax && !listData.length){
+		if (ajax && !listData.length) {
 			return this.renderNotListData();
 		}
 
-
-
 		return (
-			<table className={"table "+className} style={style}>
+			<table className={"ui-table "+className} style={style}>
 				{this.renderTableHeader()}
 				{this.renderTableBody()}
 				{this.renderTableFooter()}

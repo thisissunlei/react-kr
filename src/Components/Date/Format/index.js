@@ -6,7 +6,8 @@ import dateFormat from 'dateformat';
 
 export default class Format extends React.Component {
 
-
+	static displayName = 'Format';
+	
 	static defaultProps = {
 		format:'yyyy-mm-dd',
 	}
@@ -18,8 +19,10 @@ export default class Format extends React.Component {
 
 	render() {
 
-		let {className,value,format,time} = this.props;
-
+		let {className,value,format} = this.props;
+		if(!value){
+			return (<span>无</span>);
+		}
 
 		let result = '';
 
@@ -34,10 +37,7 @@ export default class Format extends React.Component {
 			<span>{result}</span>
 		);
 
-
 	}
-
-
 }
 
 
