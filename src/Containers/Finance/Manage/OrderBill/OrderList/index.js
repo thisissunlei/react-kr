@@ -71,7 +71,7 @@ export default class AttributeSetting extends Component {
 			list: {},
 			searchParams: {
 				page: 1,
-				pageSize:15
+				pageSize: 15
 			}
 
 		}
@@ -93,14 +93,14 @@ export default class AttributeSetting extends Component {
 	}
 
 	onExport(values) {
-	    var searchParams=this.state.searchParams;
+		var searchParams = this.state.searchParams;
 		let idList = [];
-		if(values.length!=0){
-           values.map((item, value) => {
-			idList.push(item.id)
-		 });
+		if (values.length != 0) {
+			values.map((item, value) => {
+				idList.push(item.id)
+			});
 		}
-		
+
 		var url = `http://optest.krspace.cn/api/krspace-finance-web/finaccount/data/exportExcel?searchParams=${searchParams}&idList=${idList}`
 		window.location.href = url;
 	}
@@ -115,8 +115,8 @@ export default class AttributeSetting extends Component {
 
 		if (type == 'view') {
 			let orderId = itemDetail.id
-			//window.location.href = `./#/finance/Manage/orderbill/${orderId}/detail`;
-			window.open(`./#/finance/Manage/orderbill/${orderId}/detail`,'nihao');
+				//window.location.href = `./#/finance/Manage/orderbill/${orderId}/detail`;
+			window.open(`./#/finance/Manage/orderbill/${orderId}/detail`, orderId);
 		} else if (type == 'edit') {
 			this.openEditDetailDialog();
 		}
