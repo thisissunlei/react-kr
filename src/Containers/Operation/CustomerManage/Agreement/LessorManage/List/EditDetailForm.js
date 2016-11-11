@@ -45,7 +45,7 @@ class NewCreateForm extends Component {
 		let {
 			detail
 		} = this.props;
-		detail.enableflag = detail.enableflag.toString();
+		//detail.enableflag = detail.enableflag.toString();
 		Store.dispatch(initialize('newCreateForm', detail));
 	}
 
