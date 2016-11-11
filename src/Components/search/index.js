@@ -57,7 +57,6 @@ export default class SearchForms extends Component{
 		const form = ReactDOM.findDOMNode(this.form);
 		const searchButton = form.getElementsByClassName('icon-searching')[0];
 		const searchForm = form.getElementsByClassName('search-status')[0];
-		console.log(num);
 		
 		if(num === 0){
 			if (!this.hasClass(searchButton, 'click')) {
@@ -78,13 +77,19 @@ export default class SearchForms extends Component{
 				searchName = document.getElementsByClassName('search-name')[0].innerHTML;
 			}
 			var searchWord = document.getElementById("keywords").value;
-			console.log(searchName,searchWord);
-			let value = {
-				filter:searchName,
-				content:searchWord
-			};
-			let {onSubmit} = this.props;
-			onSubmit && onSubmit(value);
+			if(searchWord){
+				let value = {
+					filter:searchName,
+					content:searchWord
+				};
+				let {onSubmit} = this.props;
+				onSubmit && onSubmit(value);
+			}else{
+				this.removeClass(searchForm,'show-form');
+			}
+			this.setState({
+		    	num:0
+		    })
 		}
 
 
