@@ -78,7 +78,7 @@ export default class LessorManageList extends Component {
 				idList.push(item.id)
 			})
 		}
-		var url = `http://op.krspace.cn/api/krspace-finance-web/fnacorporationDataExport?corporationIdList=${idList}`
+		var url = `/api/krspace-finance-web/fnacorporationDataExport?corporationIdList=${idList}`
 		window.location.href = url;
 	}
 
@@ -155,9 +155,9 @@ export default class LessorManageList extends Component {
 					<Grid>
 						<Row>
 							<Col md={4}  align="left"> <Button width="100" label="新建出租方" joinEditForm onTouchTap={this.openNewCreateDialog} /> </Col>
-							<Col md={8} align="right"> 
+							<Col md={8} align="right">
 									<SearchForm onSubmit={this.onSearchSubmit} />
-							</Col> 
+							</Col>
 						</Row>
 					</Grid>
 				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='fnaCorporationList' ajaxParams={this.state.params} onOperation={this.onOperation}  exportSwitch={true} onExport={this.onExport}>
@@ -185,7 +185,7 @@ export default class LessorManageList extends Component {
 							 </TableRowColumn>
 						 </TableRow>
 						</TableBody>
-						
+
 						<TableFooter></TableFooter>
 
 					</Table>

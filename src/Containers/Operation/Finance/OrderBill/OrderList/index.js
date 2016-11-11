@@ -99,7 +99,7 @@ export default class AttributeSetting extends Component {
 			idList.push(item.id)
 			return idList;
 		 })
-		var url = `http://op.krspace.cn/api/krspace-finance-web/finaccount/data/exportExcel?searchParams=${searchParams}&idList=${idList}`
+		var url = `/api/krspace-finance-web/finaccount/data/exportExcel?searchParams=${searchParams}&idList=${idList}`
 		window.location.href = url;
 	}
 
@@ -206,36 +206,36 @@ export default class AttributeSetting extends Component {
 
 					<Grid>
 						<Row>
-							<Col md={6} align="left"> 
+							<Col md={6} align="left">
 								<ListGroup>
 									<div  className='ui-orderList'><span className='ui-incomeMoney'></span><ListGroupItem ><KrField label="收入总额:" component="labelText" joinEditForm inline={true} value={list.sumcome} defaultValue="0"/></ListGroupItem>
 									<span className='ui-receiveMoney'></span><ListGroupItem> <KrField label="回款总额:" component="labelText" joinEditForm inline={true} value={list.sumAmount} defaultValue="0"/> </ListGroupItem>
-									<span className='ui-selfMoney'></span><ListGroupItem> <KrField label="余额:" component="labelText" joinEditForm inline={true}  defaultValue="0"/></ListGroupItem></div>	
-								</ListGroup>	
-							</Col> 
-							<Col md={6} align="right"> 
+									<span className='ui-selfMoney'></span><ListGroupItem> <KrField label="余额:" component="labelText" joinEditForm inline={true}  defaultValue="0"/></ListGroupItem></div>
+								</ListGroup>
+							</Col>
+							<Col md={6} align="right">
 								<ListGroup>
 									<div  className='ui-orderList'><ListGroupItem> <SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
-									<ListGroupItem> <Button onTouchTap={this.openNewCreateDialog} label="高级查询" /></ListGroupItem></div>	
-								</ListGroup>	
-							</Col> 
+									<ListGroupItem> <Button onTouchTap={this.openNewCreateDialog} label="高级查询" /></ListGroupItem></div>
+								</ListGroup>
+							</Col>
 						</Row>
 					</Grid>
 
 
 
 				<Table  style={{marginTop:10}}
-						displayCheckbox={true} 
-						onLoaded={this.onLoaded} 
-						ajax={true} 
-						ajaxFieldListName="finaContractMainbillVOList" 
-						ajaxUrlName='getFinaDataByList' 
-						ajaxParams={this.state.searchParams} 
+						displayCheckbox={true}
+						onLoaded={this.onLoaded}
+						ajax={true}
+						ajaxFieldListName="finaContractMainbillVOList"
+						ajaxUrlName='getFinaDataByList'
+						ajaxParams={this.state.searchParams}
 						onOperation={this.onOperation}
 						exportSwitch={true}
 						onExport={this.onExport}
 						  >
-						
+
 					<TableHeader>
 					<TableHeaderColumn>公司名称</TableHeaderColumn>
 					<TableHeaderColumn>订单类型</TableHeaderColumn>

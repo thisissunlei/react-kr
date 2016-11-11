@@ -144,7 +144,7 @@ export default class AttributeSetting extends Component {
 				idList.push(item.id)
 			})
 		}
-		var url = `http://op.krspace.cn/api/krspace-finance-web/finaccount/property/exportDatas?ids=${idList}`
+		var url = `/api/krspace-finance-web/finaccount/property/exportDatas?ids=${idList}`
 		window.location.href = url;
 
 	}
@@ -194,9 +194,9 @@ export default class AttributeSetting extends Component {
 					<Grid>
 						<Row>
 						<Col md={4} align="left" > <Button  label="新建属性"  type='button' joinEditForm  onTouchTap={this.openNewCreateDialog} /> </Col>
-						<Col md={8} align="right"> 
+						<Col md={8} align="right">
 							<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
-						</Col> 
+						</Col>
 						</Row>
 					</Grid>
 

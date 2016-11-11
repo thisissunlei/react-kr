@@ -82,7 +82,7 @@ export default class AttributeSetting extends Component {
 				idList.push(item.id)
 			})
 		}
-		var url = `http://op.krspace.cn/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/exportExcel?idList=${idList}`
+		var url = `/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/exportExcel?idList=${idList}`
 		window.location.href = url;
 	}
 
@@ -191,10 +191,10 @@ export default class AttributeSetting extends Component {
 						<Row>
 							<Col md={4} align="left"> <Button label="新建科目" type='button' joinEditForm onTouchTap={this.openNewCreateDialog}  /> </Col>
 							<Col md={8} align="right">
-								
+
 								<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
-								
-							</Col> 
+
+							</Col>
 						</Row>
 					</Grid>
 

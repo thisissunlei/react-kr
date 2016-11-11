@@ -84,7 +84,7 @@ class Distribution extends Component {
 				<KrField name="communityId" type="hidden"/>
 				<div style={{textAlign:"center",marginBottom:'20px'}}>
 					XX公司10001序号员工为<KrField name="memberId"component="select" grid={2/3}  options={optionValues.member}/>
-				</div>	
+				</div>
 				<Grid>
 					<Row style={{marginTop:30,marginBottom:100}}>
 					<Col md={2} align="right"> <Button  label="确定" type="submit" joinEditForm  onSubmit={this.onSubmit}/> </Col>
@@ -144,7 +144,7 @@ class ChangeStation extends Component {
 			<KrField name="communityId" type="hidden"/>
 			<div style={{textAlign:"center",marginBottom:150}}>
 				XX公司10001序号员工为XXX,变更为员工<KrField name="memberId"component="select" grid={2/3}  options={optionValues.members}/>
-			</div>	
+			</div>
 			<Grid>
 				<Row style={{marginTop:30}}>
 				<Col md={2} align="right"> <Button  label="确定" type="submit" joinEditForm  onSubmit={this.onSubmit}/> </Col>
@@ -333,7 +333,7 @@ export default class EmployessTable extends Component {
 			customerId,
 			communityId
 		} = this.state;
-		let url = `http://op.krspace.cn/krspace_member_web/member/toAddMember?companyId=${customerId}&communityId=${communityId}`;
+		let url = `/krspace_member_web/member/toAddMember?companyId=${customerId}&communityId=${communityId}`;
 		return url;
 	}
 
@@ -441,8 +441,8 @@ export default class EmployessTable extends Component {
 				modal={true}
 				open={this.state.openDistribution}
 			>
-				
-				<Distribution  onCancel={this.onDistributionCancel} onSubmit={this.onDistributionSubmit} optionValues={optionValues} stationId={this.state.stationId} customerId={this.state.customerId} communityId={this.state.communityId}/>	
+
+				<Distribution  onCancel={this.onDistributionCancel} onSubmit={this.onDistributionSubmit} optionValues={optionValues} stationId={this.state.stationId} customerId={this.state.customerId} communityId={this.state.communityId}/>
 			</Dialog>
 			<Dialog
 				title="变更工位"
@@ -450,15 +450,15 @@ export default class EmployessTable extends Component {
 				open={this.state.openChangeStation}
 			>
 				<ChangeStation  onCancel={this.onChangeCancel} onSubmit={this.onChangeSubmit}  optionValues={optionValues} stationId={this.state.stationId} customerId={this.state.customerId} communityId={this.state.communityId}/>
-						
+
 			</Dialog>
 			<Dialog
 				title="新增员工"
 				modal={true}
 				open={this.state.openNewmeber}
 			>
-				
-				<IframeContent src={this.getStationUrl()}  onClose={this.onIframeClose}  />	
+
+				<IframeContent src={this.getStationUrl()}  onClose={this.onIframeClose}  />
 			</Dialog>
 
 		</div>
