@@ -35,9 +35,12 @@ module.exports = {
 					
 
 					menuItems:[
+
+					/*
 						{
 							primaryText:'计划表',
 						},
+					*/
 						{
 							primaryText:'访客记录',
 							menuCode:'sysVisitRecordList',

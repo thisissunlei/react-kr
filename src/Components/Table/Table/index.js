@@ -273,24 +273,21 @@ export default class Table extends React.Component {
 				pageSize: response.pageSize,
 				totalCount: response.totalCount,
 				isLoaded: true,
+				loading:false,
 			});
 		}).catch(function(err) {
 
 			_this.onInitial({
-				isLoaded: true
+				isLoaded: true,
+				loading:false,
 			});
 
 			Notify.show([{
 				message: err.message,
 				type: 'error',
 			}]);
-		});
 
-		window.setTimeout(function() {
-			_this.setState({
-				loading: false
-			});
-		}, 0);
+		});
 
 	}
 

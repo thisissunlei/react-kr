@@ -5,7 +5,7 @@ import WrapComponent from '../WrapComponent';
 import Button from '../../../Button';
 
 import './index.less';
-import dateFormat from 'dateformat';
+
 import ReactTooltip from 'react-tooltip'
 
 export default class LabelTextComponent extends React.Component {
@@ -43,11 +43,11 @@ export default class LabelTextComponent extends React.Component {
 			href,
 			tooltip
 		} = this.props;
-		
+
 		if(tooltip && type != 'date' && type != 'link'){
 			return (
 				<WrapComponent label={label} wrapStyle={style} inline={inline} requireBlue={requireBlue} alignRight={alignRight} requireLabel={requireLabel}>
-					<span className="ui-label-text" data-tip> {value || defaultValue} 
+					<span className="ui-label-text" data-tip> {value || defaultValue}
 						<ReactTooltip>
 							<p style={{margin:0}}>{tooltip}</p>
 						</ReactTooltip>
