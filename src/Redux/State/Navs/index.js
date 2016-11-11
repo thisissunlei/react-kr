@@ -67,7 +67,7 @@ module.exports = {
 					menuItems:[
 						{
 							primaryText:'客户列表',
-							originUrl:'/krspace_operate_web/customerBase/toCoustomerInfoList?mid=103#share'
+							originUrl:'/krspace_operate_web/customerBase/toCoustomerInfoList?mid=103#share',
 							menuCode:'coustomerInfoList',
 						},
 					]
