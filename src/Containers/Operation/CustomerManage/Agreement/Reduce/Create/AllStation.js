@@ -206,24 +206,42 @@ class SelectStationForm extends Component {
 			obj.unitprice = item.unitprice;
 			obj.whereFloor = item.whereFloor;
 			obj.stationType = item.stationType;
-			obj.leaseBeginDate = dateFormat(item.leaseBeginDate, 'yyyy-mm-dd');
-			obj.end = dateFormat(item.leaseEndDate, 'yyyy-mm-dd');
-			obj.leaseEndDate = item.rentBeginDate;
+			
+			obj.stationBeginDate = dateFormat(item.leaseStartDate,'yyyy-mm-dd');
+			obj.stationEndDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
+
+			obj.leaseBeginDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
+			obj.leaseEndDate = dateFormat(item.rentBeginDate,'yyyy-mm-dd');
+			obj.rentBeginDate = dateFormat(item.rentBeginDate,'yyyy-mm-dd');
+
+
+
 			resultStationVos.push(obj);
 		});
 
 		selectedStationVos = resultStationVos;
 
-		let beginDate = Date.parse(selectedStationVos[0].end);
-		let endDate = Date.parse(selectedStationVos[0].leaseEndDate);
 
-		if (beginDate <= endDate) {
-			Notify.show([{
-				message: '选择的工位租赁结束时间不能大于减租开始时间',
-				type: 'danger',
-			}]);
-			return false;
-		}
+		    //选择的减租开始日期必须要在工位的起始日期和结束日期范围内
+		    var isOK = 1;
+		    selectedStationVos.map(function(item,index){
+		        var stationBeginDate = Date.parse(dateFormat(item.stationBeginDate,'yyyy-mm-dd')+' 00:00:00');
+		        var stationEndDate = Date.parse(dateFormat(item.stationEndDate,'yyyy-mm-dd')+' 00:00:00');
+		        var rentBeginDate = Date.parse(dateFormat(item.rentBeginDate,'yyyy-mm-dd')+' 00:00:00');
+
+		        if(stationBeginDate>rentBeginDate || rentBeginDate>stationEndDate){
+		           isOK = 0;
+		        }
+		    });
+
+		    if(!isOK){
+		      Notify.show([{
+		        message:'减租开始时间必须要在选择工位的租赁开始日期和结束日期之内',
+		        type: 'danger',
+		        }]);
+		        return false;
+		    }
+		    console.log('---->>>>',selectedStationVos)
 
 		Store.dispatch(change('reduceCreateForm', 'leaseBegindate', selectedStationVos[0].leaseEndDate));
 

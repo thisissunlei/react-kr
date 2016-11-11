@@ -120,6 +120,8 @@ export default class EditCreate extends Component {
       Store.dispatch(Actions.callAPI('getFnaContractWithdrawalById', {
         id: params.id
       })).then(function(response) {
+
+        optionValues.contractFileList = response.contractFileList;
         optionValues.lessorContactName = response.lessorContactName;
 
         initialValues.id = response.id;

@@ -223,10 +223,10 @@ class NewCreateForm extends Component {
 
 				<KrField grid={1/2} left={60} name="withdrawdate" component="date" label="撤场日期" requireLabel={true}/>
 				<KrField grid={1/2} right={60} name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
-        
+
 
 				<KrField grid={1} right={60} name="contractmark" component="textarea" label="备注" />
-				<KrField grid={1} right={60} name="fileIdList" component="file" label="上传附件" requireLabel={true}/>
+				<KrField grid={1} right={60} name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList} requireLabel={true}/>
 
 						<Grid>
 						<Row style={{marginTop:30}}>
@@ -325,7 +325,7 @@ export default connect((state) => {
 	changeValues.leaseEnddate = selector(state, 'leaseEnddate');
 	changeValues.wherefloor = selector(state, 'wherefloor') || 0;
 	changeValues.withdrawdate = selector(state, 'withdrawdate');
-	
+
 
 	return {
 		changeValues
