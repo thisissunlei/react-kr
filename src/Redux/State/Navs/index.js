@@ -28,12 +28,13 @@ module.exports = {
 		{
 			primaryText:"社区经营",
 			router:'community',
-			permission:true,
+			menuCode:'op_manage',
 			menuItems:[
 				{
 					primaryText:"社区管理",
 					iconName:'icon-com',
 					iconColor:'#2b8dcd',
+					menuCode:'community_manage',
 					menuItems:[
 
 					/*
@@ -55,21 +56,19 @@ module.exports = {
 			primaryText:"运营平台",
 			router:'operation',
 			menuCode:'operate',
-			permission:true,
 			originUrl:'/krspace_operate_web/customerBase/toCoustomerInfoList?mid=103#share',
 			menuItems:[
 				{
 					primaryText:"客户管理",
 					iconName:'icon-user',
 					iconColor:'#2b8dcd',
-
 					router:'communityManage',
 					menuCode:'coustomerInfoList',
-					permission:true,
 					menuItems:[
 						{
 							primaryText:'客户列表',
 							originUrl:'/krspace_operate_web/customerBase/toCoustomerInfoList?mid=103#share'
+							menuCode:'coustomerInfoList',
 						},
 					]
 				},
