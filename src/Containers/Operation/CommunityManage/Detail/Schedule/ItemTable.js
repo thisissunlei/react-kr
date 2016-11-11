@@ -97,10 +97,9 @@ export default class ItemTable extends Component {
   //查看员工跳转地址
   onhref() {
 
-    location.href = "http://optest.krspace.cn/krspace_member_web/member/companyMembers?companyId=" + this.props.companyId + "&communityId=" + this.props.communityId;
+    location.href = "/krspace_member_web/member/companyMembers?companyId=" + this.props.companyId + "&communityId=" + this.props.communityId;
   }
 
-  //http://op.krspace.cn/krspace_member_web/member/companyMembers?companyId=1&communityId=11
   renderOrder(contractTypeVo) {
     contractTypeVo = contractTypeVo.map((item, index) => {
       if (!item.contractCount) {
@@ -144,7 +143,7 @@ export default class ItemTable extends Component {
 
       <tr className="last-td" >
 						<td className="company-list">
-							<div className="company-name" data-tip> 诚意有限公司 
+							<div className="company-name" data-tip> 诚意有限公司
 							<ReactTooltip place="right" delayHide={1000} effect='solid'>
 								<ul>
 								{
@@ -171,7 +170,7 @@ export default class ItemTable extends Component {
                 <div className="tip hide  hover">
                       查看员工 <span className = "bArrow"></span>
                 </div>
-                
+
 
 						</td>
 					</tr>

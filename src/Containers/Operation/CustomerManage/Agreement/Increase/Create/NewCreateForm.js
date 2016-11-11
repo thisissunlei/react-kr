@@ -380,7 +380,6 @@ class NewCreateForm extends Component {
 	getStationUrl() {
 
 		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
-
 		let {
 			changeValues,
 			initialValues,

@@ -208,7 +208,7 @@ onChangeRentBeginDate(value){
     obj.stationBeginDate = dateFormat(item.leaseBeginDate,'yyyy-mm-dd');
     obj.stationEndDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
 
-		obj.leaseBeginDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
+		obj.leaseBeginDate = dateFormat(item.leaseBeginDate,'yyyy-mm-dd');
 		obj.leaseEndDate = dateFormat(item.rentBeginDate,'yyyy-mm-dd');
     obj.rentBeginDate = dateFormat(item.rentBeginDate,'yyyy-mm-dd');
 

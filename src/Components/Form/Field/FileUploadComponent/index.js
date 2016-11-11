@@ -146,7 +146,7 @@ export default class FileUploadComponent extends React.Component {
 			form
 		} = this.state;
 
-		let fileUrl = `http://optest.krspace.cn/krspace_knowledge_wap/doc/docFile/downFile?sourceservicetoken=${form.sourceservicetoken}&operater=${form.operater}&fileId=${response.id}`;
+		let fileUrl = `/krspace_knowledge_wap/doc/docFile/downFile?sourceservicetoken=${form.sourceservicetoken}&operater=${form.operater}&fileId=${response.id}`;
 
 		response.fileUrl = fileUrl;
 		response.fileName = response.filename;
@@ -310,7 +310,7 @@ export default class FileUploadComponent extends React.Component {
 
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
-				<div className="ui-file">	
+				<div className="ui-file">
 					<div className="file-button">
 						<span className="file-icon">+</span>
 						<input type="file" name="file" onChange={this.onChange}  multiple={multiple?'multiple':null} accept={accept} />

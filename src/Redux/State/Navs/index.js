@@ -22,23 +22,24 @@ module.exports = {
 			primaryText:"首页",
 			router:'index',
 			menuCode:'index',
+			permission:true,
 			originUrl:'/'
 		},
 		{
 			primaryText:"社区经营",
 			router:'community',
+			permission:true,
 			menuItems:[
 				{
 					primaryText:"社区管理",
 					iconName:'icon-com',
 					iconColor:'#2b8dcd',
-					
-
 					menuItems:[
 
 					/*
 						{
 							primaryText:'计划表',
+							permission:true,
 						},
 					*/
 						{
@@ -54,6 +55,7 @@ module.exports = {
 			primaryText:"运营平台",
 			router:'operation',
 			menuCode:'operate',
+			permission:true,
 			originUrl:'/krspace_operate_web/customerBase/toCoustomerInfoList?mid=103#share',
 			menuItems:[
 				{
@@ -63,6 +65,7 @@ module.exports = {
 
 					router:'communityManage',
 					menuCode:'coustomerInfoList',
+					permission:true,
 					menuItems:[
 						{
 							primaryText:'客户列表',
@@ -77,6 +80,7 @@ module.exports = {
 
 					router:'communityManage',
 					menuCode:'communityBaseAdmin',
+					permission:true,
 					menuItems:[
 						{
 							primaryText:'社区列表',
@@ -116,6 +120,7 @@ module.exports = {
 					iconColor:'#2b8dcd',
 					router:'BaseManage',
 					menuCode:'basic_config',
+					permission:true,
 					menuItems:[
 						{
 							primaryText:"出租方管理",
@@ -154,6 +159,7 @@ module.exports = {
 			primaryText:"会员中心",
 			router:'member',
             menuCode:'member',
+            permission:true,
             originUrl:'/krspace_member_web/member/toMemberList?mid=94',
 			menuItems:[
 				{
@@ -170,8 +176,7 @@ module.exports = {
 		{
 			primaryText:"财务系统",
 			router:'finance',
-			
-
+			permission:true,
 			menuItems:[
 				{
 					primaryText:"财务管理",
@@ -203,6 +208,7 @@ module.exports = {
 
 			router:'retail',
 			menuCode:'krspace_retail',
+			permission:true,
 			originUrl:'/krspace_retail_web/retail/charts/retailCharts/toRetailCharts?mid=92',
 			menuItems:[
 				{
@@ -253,6 +259,7 @@ module.exports = {
 
 					menuCode:'ordersManager',
 					router:'ordersManager',
+					permission:true,
 					menuItems:[
 						{
 							primaryText:'全部订单',

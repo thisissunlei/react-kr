@@ -62,12 +62,12 @@ export default  class FloorPlan extends Component {
 
 	}
 
-	
 
-	
+
+
 
 	 componentDidMount(){
-	 	
+
 
 
 	 }
@@ -75,7 +75,7 @@ export default  class FloorPlan extends Component {
 	 getStationUrl(form){
 
 
-	     let url = "http://optest.krspace.cn/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanList?communityId={communityId}&wherefloor={wherefloor}&date={date}&dateend={dateend}";
+	     let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanList?communityId={communityId}&wherefloor={wherefloor}&date={date}&dateend={dateend}";
 
 		var formList = form || {};
 		let params;
@@ -109,7 +109,7 @@ export default  class FloorPlan extends Component {
 			dateend: dateFormat(form.end,"yyyy.mm.dd")|| dateFormat(new Date(),"yyyy.mm.dd"),
 		};
 		that.iframeWindow.query(params);
-		
+
 	}
 	// 监听滚动事件
 	scrollLoad(){
@@ -129,7 +129,7 @@ export default  class FloorPlan extends Component {
 	}
 
 
-	
+
 
 
   render() {
@@ -159,12 +159,3 @@ export default  class FloorPlan extends Component {
 	);
   }
 }
-
-
-
-
-
-
-
-
-
