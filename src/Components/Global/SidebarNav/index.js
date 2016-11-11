@@ -98,6 +98,7 @@ export default class SidebarNav extends Component {
 			fontSize:'16px',
 			marginTop:'0px',
 			marginLeft:'-20px',
+			width:"180px",
 			color:'#999'
 		};
         
@@ -117,6 +118,7 @@ export default class SidebarNav extends Component {
 		childStyles.fontSize='14px';
 		childStyles.color='#333';
 		childStyles.paddingLeft="20px";
+		childStyles.width="180px"
 
 		if(item.router === current_router){
 			childStyles.backgroundColor = '#328ECC';
