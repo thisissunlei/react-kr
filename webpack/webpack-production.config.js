@@ -7,21 +7,21 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = {
 	entry:{
-		app:path.join(process.cwd(), '/src/app.js'),	
+		app:path.join(process.cwd(), '/src/app.js'),
 	},
 	resolve: {
 		extensions: ['', '.js', '.md'], // 加载这些类型的文件时不用加后缀
 		alias: {
-			'kr-ui': path.join(process.cwd(), '/src/Components'), 
-			'kr': path.join(process.cwd(), '/src'), 
+			'kr-ui': path.join(process.cwd(), '/src/Components'),
+			'kr': path.join(process.cwd(), '/src'),
 		},
 	},
 	// 出口文件配置
 	output: {
 		path: buildPath,
-		filename: '[name].js',
+		filename: '[name].[chunkhash].js',
 	},
-	externals: { 
+	externals: {
 		React:true
 	},
 	plugins: [
@@ -34,9 +34,9 @@ const config = {
              context:__dirname,
            	 manifest: require('./dist/manifest.json'),
            	 name:'lib'
-        }),
+    }),
 
-       new webpack.optimize.UglifyJsPlugin({
+    new webpack.optimize.UglifyJsPlugin({
 			compress: {
 				warnings: true,
 			},
@@ -109,7 +109,7 @@ const config = {
 			{
 				test: /\.ttf/,
 				loader : 'file?prefix=font/'
-			}, 
+			},
 			{
 				test: /\.svg/,
 				loader : 'file?prefix=font/'

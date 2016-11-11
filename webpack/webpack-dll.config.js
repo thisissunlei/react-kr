@@ -44,6 +44,7 @@ module.exports = {
     new CopyWebpackPlugin([
             { from: path.join(__dirname,'dist','lib.js'), to: path.join(__dirname,'../static','lib.js') },
         ], {copyUnmodified: true})
-  ]
+
   */
+  ]
 };
