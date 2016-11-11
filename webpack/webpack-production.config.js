@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-const buildPath = path.join(process.cwd(), '/build');
+const buildPath = path.join(process.cwd(), '/webpack/dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TransferWebpackPlugin = require('transfer-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
