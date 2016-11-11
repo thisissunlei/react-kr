@@ -217,7 +217,7 @@ export default class Pagination extends Component {
 			pageEnd = pageMax;
 		}
 		if(pageStart == 1){
-			pageStart++;
+				++pageStart;
 		}
 
 		let element = null;
@@ -227,8 +227,8 @@ export default class Pagination extends Component {
 			pageBody.push(element);
 		}
 
-		for (var i = pageStart; i < pageEnd; i++) {
-
+		var i = pageStart;
+		while(i<pageEnd){
 			props.key = i;
 			props.className = 'item';
 
@@ -240,8 +240,8 @@ export default class Pagination extends Component {
 				...handlers,
 				'data-page': i
 			}, i);
-
 			pageBody.push(element);
+			i++;
 		}
 
 		if (pageEnd < pageMax) {
@@ -264,6 +264,9 @@ export default class Pagination extends Component {
 			totalCount
 		} = this.props;
 
+		if(page == 1){
+				return ;
+		}
 
 		var pageMax = Math.ceil(totalCount/pageSize);
 
