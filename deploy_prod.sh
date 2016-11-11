@@ -1,5 +1,6 @@
 #!/bin/bash
 
+npm run dll
 npm run build
 
 rsync -rvltOD ./webpack/dist/* ali-krspace-web-01:/data/work/kr-node-proxy/static/
