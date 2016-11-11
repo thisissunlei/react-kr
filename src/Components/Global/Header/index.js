@@ -126,7 +126,7 @@ class Header extends Component {
 
 	render() {
 
-		var styles = {paddingLeft:0,position:'fixed',top:0,left:0,right:0,zIndex:9,backgroundColor:'#328ECC'};
+		var styles = {paddingLeft:0,position:'fixed',top:0,left:0,right:0,zIndex:9,backgroundColor:'#328ECC',height:"60px"};
 
 		var {switch_value} = this.props.sidebar_nav;
 
@@ -151,36 +151,18 @@ class Header extends Component {
 				style={styles}
 				onLeftIconButtonTouchTap={this.handleToggle}
 				iconStyleLeft={{marginTop:0}}
-				style={{height:"60px",position:'fixed',top:0}}
+				
 		 iconElementLeft={
 
 				<div className="main-navs" >
-						 <FlatButton onTouchTap={this.handleToggle} icon={<FontIcon className={iconClassName} />} style={{color:'#fff',height:60,width:180,marginLeft:-8}} />
+						 <FlatButton onTouchTap={this.handleToggle} icon={<FontIcon className={iconClassName} />} style={{color:'#fff',height:60,width:180,marginLeft:20px}} />
 						 <FlatButton onTouchTap={this.touchTitle}  icon={<FontIcon className="new-logo"/> } style={{height:"60px"}}/>
 						{this.props.navs_items.map((item,index)=>this.renderHeaderNav(item,index))}
 					</div>
 		}
 
 		iconElementRight={
-			// <List>
-			//     <ListItem
-			//       disabled={true}
-			//       leftAvatar={
-			//         <Avatar 
-			//         src="images/uxceo-128.jpg" 
-			//         size={30}
-			//         />
-			//       }
-			//     >
-			//      <span className='ui-name-hello'>你好&nbsp;!&nbsp;</span>
-			//      <span className='ui-name-master'>{this.props.user.nick}</span>
-                 
-   //               <span className='ui-name-quit' onTouchTap={(event)=>{
-			// 		window.location.href = '/logout/logout';
-			// 	}}>退出</span>
-			     
-			//     </ListItem>
-   //          </List>
+			
 
 
         <IconMenu
