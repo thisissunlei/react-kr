@@ -11,16 +11,16 @@ const config = {
 		app:path.join(process.cwd(), '/src/app.js'),
 	},
 	resolve: {
-		extensions: ['', '.js', '.md','.css'], 
+		extensions: ['', '.js', '.md','.css'],
 		alias: {
-			'kr-ui': path.join(process.cwd(), '/src/Components'), 
-			'kr': path.join(process.cwd(), '/src'), 
+			'kr-ui': path.join(process.cwd(), '/src/Components'),
+			'kr': path.join(process.cwd(), '/src'),
 		},
 	},
 	/*
-	externals: { 
+	externals: {
 		'react':'React',
-	}, 
+	},
 	*/
 	output: {
 		path: buildPath,
@@ -34,35 +34,35 @@ const config = {
 			}
 		}),
 		new webpack.DllReferencePlugin({
-             context:__dirname,
-           	 manifest: require('./dist/manifest.json'),
-           	 name:'lib'
-        }),
-
-       new webpack.optimize.UglifyJsPlugin({
-			 compress:{
-  			 	 warnings: false,
-    			drop_debugger: true,
-    			drop_console: true
-  			},
-			output: {
-				comments: false,
-			}
+						 context:__dirname,
+						 manifest: require('./dist/manifest.json'),
+						 name:'lib'
 		}),
 
-	 	new webpack.optimize.DedupePlugin(),
+		new webpack.optimize.UglifyJsPlugin({
+			compress: {
+				warnings: true,
+			},
+			output: {
+				comments: false,
+			},
+		}),
+
+		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.optimize.AggressiveMergingPlugin({
-    		  minSizeReduce: 1.5,
-     		  moveToParents: true
- 		 }),
+					minSizeReduce: 1.5,
+					moveToParents: true
+		 }),
 		new webpack.optimize.MinChunkSizePlugin({
-   			 compress: {
-     			 warnings: false
-    		},
-    		minChunkSize: 10000
-  		}),
-  		new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
+				 compress: {
+					 warnings: false,
+					drop_debugger: true,
+					drop_console: true
+				},
+				minChunkSize: 10000
+			}),
+			new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
 		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
 			title: '财务管理',
@@ -118,7 +118,7 @@ const config = {
 			{
 				test: /\.ttf/,
 				loader : 'file?prefix=font/'
-			}, 
+			},
 			{
 				test: /\.svg/,
 				loader : 'file?prefix=font/'
@@ -128,7 +128,7 @@ const config = {
 	eslint: {
 		configFile: '../.eslintrc',
 		failOnWarning: true,
-    	failOnError: true, 
+    	failOnError: true,
     	cache: true
 	},
 };
