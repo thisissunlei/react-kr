@@ -99,7 +99,7 @@ class Header extends Component {
 
 		let styles = {
 			color:'#fff',
-			height:67,
+			height:60,
 		}
 
 		if(item.active){
@@ -119,7 +119,7 @@ class Header extends Component {
 		
 
 		return (
-			 <FlatButton label={item.primaryText} key={index} style={styles} href={jumpUrl} labelStyle={{lineHeight:'67px',fontSize:"16px"}} />
+			 <FlatButton label={item.primaryText} key={index} style={styles} href={jumpUrl} labelStyle={{lineHeight:'60px',fontSize:"16px"}} />
 		);
 
 	}
@@ -151,11 +151,12 @@ class Header extends Component {
 				style={styles}
 				onLeftIconButtonTouchTap={this.handleToggle}
 				iconStyleLeft={{marginTop:0}}
+				style={{height:"60px",position:'fixed',top:0}}
 		 iconElementLeft={
 
 				<div className="main-navs" >
-						 <FlatButton onTouchTap={this.handleToggle} icon={<FontIcon className={iconClassName} />} style={{color:'#fff',height:67,width:200}} />
-						 <FlatButton onTouchTap={this.touchTitle}  icon={<FontIcon className="new-logo"/> } style={{height:"65px"}}/>
+						 <FlatButton onTouchTap={this.handleToggle} icon={<FontIcon className={iconClassName} />} style={{color:'#fff',height:60,width:180,marginLeft:-8}} />
+						 <FlatButton onTouchTap={this.touchTitle}  icon={<FontIcon className="new-logo"/> } style={{height:"60px"}}/>
 						{this.props.navs_items.map((item,index)=>this.renderHeaderNav(item,index))}
 					</div>
 		}
@@ -211,7 +212,7 @@ class Header extends Component {
 
 				{this.props.header_nav.switch_value && <Header/>}
 
-			<Drawer open={this.props.sidebar_nav.switch_value} width={180} containerStyle={{marginTop:68,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)'}}>
+			<Drawer open={this.props.sidebar_nav.switch_value} width={180} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)'}}>
 
 				<SidebarNav items={this.props.navs_current_items} current_router={this.props.current_router} current_parent={this.props.current_parent} current_child={this.props.current_child}/>
 
