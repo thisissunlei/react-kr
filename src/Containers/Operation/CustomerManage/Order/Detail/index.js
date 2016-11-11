@@ -393,7 +393,7 @@ export default class OrderDetail extends React.Component {
 				<Row>
 				<Col md={4} ><KrField label="回款总额：" component="labelText" value={orderBaseInfo.contractBackamount} defaultValue="0" alignRight={true}/></Col>
 				<Col md={4} ><KrField label="未回款额：" component="labelText" value={orderBaseInfo.unBackamount} defaultValue="0" alignRight={true}/></Col>
-				<Col md={4} ><KrField label="工位回款：" component="labelText" value={orderBaseInfo.accruedrent} defaultValue="0" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="工位回款：" component="labelText" value={orderBaseInfo.paidrent} defaultValue="0" alignRight={true}/></Col>
 				</Row>
 			<Row>
 				<Col md={4} ><KrField label="实收押金：" component="labelText" value={orderBaseInfo.realdeposit} defaultValue="0" alignRight={true}/></Col>

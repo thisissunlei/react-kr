@@ -23,6 +23,7 @@ import {
 	Button,
 	ListGroup,
 	ListGroupItem,
+	SearchForms
 } from 'kr-ui';
 
 
@@ -40,10 +41,12 @@ class SearchForm extends Component {
 		this.onCancel = this.onCancel.bind(this);
 	}
 
-	onSubmit(form) {
+	onSubmit(value) {
+		let form = {};
 
 		form.pageSize = 20;
 		form.page = 1;
+		form.corporationName = value.content;
 		const {
 			onSubmit
 		} = this.props;
@@ -67,13 +70,12 @@ class SearchForm extends Component {
 		} = this.props;
 
 		return (
+			<div>
+				<SearchForms onSubmit={this.onSubmit} />
 
-			<form onSubmit={handleSubmit(this.onSubmit)}>
-				 <ListGroup>
-					<ListGroupItem> <KrField name="corporationName" type="text" placeholder="搜索名称" simple={true}/></ListGroupItem>
-					<ListGroupItem> <Button  label="查询" type="submit" joinEditForm /></ListGroupItem>
-				</ListGroup>
-			</form>
+			</div>
+
+			
 		);
 	}
 }

@@ -17,8 +17,13 @@ import {
 	Divider,
 	FontIcon,
 	FlatButton,
+	List,
+	ListItem,
+	FileFolder,
+	Avatar,
 	FloatingActionButton
 } from 'material-ui';
+
 
 import ActionHome from 'material-ui/svg-icons/action/home';
 
@@ -43,6 +48,7 @@ import SidebarNav from '../SidebarNav';
 
 
 class Header extends Component {
+	
 
     static contextTypes = {
         router: PropTypes.object.isRequired
@@ -58,9 +64,11 @@ class Header extends Component {
 
 		this.state = {
 			bottomNav:false,
+			toggle:true
 		}
 
 	}
+	
 
 	handleToggle(){
 
@@ -83,14 +91,15 @@ class Header extends Component {
 	};
 
 	touchTitle(){
-		this.context.router.push('/');
+		//this.context.router.push('/');
+		window.location.href = 'http://krspace.cn';
 	}
 
 	renderHeaderNav(item,index){
 
 		let styles = {
 			color:'#fff',
-			height:67,
+			height:60,
 		}
 
 		if(item.active){
@@ -110,14 +119,14 @@ class Header extends Component {
 		
 
 		return (
-			 <FlatButton label={item.primaryText} key={index} style={styles} href={jumpUrl} labelStyle={{lineHeight:'67px'}} />
+			 <FlatButton label={item.primaryText} key={index} style={styles} href={jumpUrl} labelStyle={{lineHeight:'60px',fontSize:"16px"}} />
 		);
 
 	}
 
 	render() {
 
-		var styles = {paddingLeft:0,position:'fixed',top:0,left:0,right:0,zIndex:9,backgroundColor:'#328ECC'};
+		var styles = {paddingLeft:0,position:'fixed',top:0,left:0,right:0,zIndex:9,backgroundColor:'#328ECC',height:"60px"};
 
 		var {switch_value} = this.props.sidebar_nav;
 
@@ -127,22 +136,36 @@ class Header extends Component {
 
 
 		const Header = (props) =>{
+
+			var iconClassName = '';
+			
+			let sidebarNavSwitch = this.props.sidebar_nav.switch_value;
+			if(sidebarNavSwitch){
+					iconClassName="hide-heng";
+			}else{
+					iconClassName="hide-shu";
+
+			}
 			return (
 				<AppBar
 				style={styles}
 				onLeftIconButtonTouchTap={this.handleToggle}
 				iconStyleLeft={{marginTop:0}}
+				
 		 iconElementLeft={
 
 				<div className="main-navs" >
-						 <FlatButton onTouchTap={this.handleToggle} icon={<NavigationMenu  />} style={{color:'#fff',height:67,width:200}} />
-						 <FlatButton onTouchTap={this.touchTitle} label="氪空间" style={{color:'#fff',height:67,width:180}} labelStyle={{fontSize:25}} />
+						 <FlatButton onTouchTap={this.handleToggle} icon={<FontIcon className={iconClassName} />} style={{color:'#fff',height:60,width:180,marginLeft:20px}} />
+						 <FlatButton onTouchTap={this.touchTitle}  icon={<FontIcon className="new-logo"/> } style={{height:"60px"}}/>
 						{this.props.navs_items.map((item,index)=>this.renderHeaderNav(item,index))}
 					</div>
 		}
 
 		iconElementRight={
-			 <IconMenu
+			
+
+
+        <IconMenu
 				iconButtonElement={
 				  <IconButton><MoreVertIcon /></IconButton>
 				}
@@ -158,6 +181,8 @@ class Header extends Component {
 					window.location.href = '/logout/logout';
 				}}/>
 			  </IconMenu>
+
+			 
 		}
 				/>
 			);
@@ -169,7 +194,7 @@ class Header extends Component {
 
 				{this.props.header_nav.switch_value && <Header/>}
 
-			<Drawer open={this.props.sidebar_nav.switch_value} width={180} containerStyle={{marginTop:68,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)'}}>
+			<Drawer open={this.props.sidebar_nav.switch_value} width={180} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)'}}>
 
 				<SidebarNav items={this.props.navs_current_items} current_router={this.props.current_router} current_parent={this.props.current_parent} current_child={this.props.current_child}/>
 
@@ -231,3 +256,7 @@ export default connect(mapStateToProps,mapDispatchToProps)(Header);
 			</Popover>
 
 */
+
+
+
+

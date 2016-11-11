@@ -298,6 +298,7 @@ export default class AttributeSetting  extends Component{
 	         }); 
             
            
+           //console.log('2222',fiItem.id);
 	       Store.dispatch(Actions.callAPI('findContractListById',{
 	       	    id:fiItem.id
 	       })).then(function(response){ 
