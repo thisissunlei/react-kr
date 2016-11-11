@@ -1,9 +1,10 @@
 .search-form{
 	height: 30px;
-	border-left: 1px solid #ccc;
-	border-right: 1px solid #ccc;
+	border-left: 1px solid #eee;
+	border-right: 1px solid #eee;
 	padding:0 10px;
 	display: inline-block;
+	padding-left: 0;
 	float: right;
 	text-align: left;
 	div{
@@ -88,8 +89,12 @@
          width:0;
          opacity: 0;
       }
+      50%{
+      	width:150;
+        opacity: 0;
+      }
       100% {
-         width:270px;
+         width:auto;
          opacity: 1;
       }
     }
