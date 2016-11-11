@@ -206,14 +206,26 @@ export default class AttributeSetting extends Component {
 
 					<div  className='ui-orderList'><Grid>
 						<Row>
-							<Col md={6} align="left"> 
-								<ListGroup>
-									<span className='ui-incomeMoney'></span><ListGroupItem ><KrField label="收入总额:" component="labelText" joinEditForm inline={true} value={list.sumcome} defaultValue="0"/></ListGroupItem>
-									<span className='ui-receiveMoney'></span><ListGroupItem> <KrField label="回款总额:" component="labelText" joinEditForm inline={true} value={list.sumAmount} defaultValue="0"/> </ListGroupItem>
-									<span className='ui-selfMoney'></span><ListGroupItem> <KrField label="余额:" component="labelText" joinEditForm inline={true} value={list.summount} defaultValue="0"/></ListGroupItem>
+							<Col md={7} align="left"> 
+								<ListGroup >
+									<span className='ui-incomeMoney'>
+									</span>
+									<span className="font-width">收入总额:</span>
+									<span className="font-width font-num">{list.sumcome}</span>
+									
+									<span className='ui-receiveMoney'>
+									</span>
+									<span className="font-width">回款总额:</span>
+									<span className="font-width font-num">{list.sumAmount}</span>
+									<span className='ui-selfMoney'></span>
+									
+									<span className="font-width">余额:</span>
+									<span className="font-width font-num">{list.summount}</span>
+
+									
 								</ListGroup>	
 							</Col> 
-							<Col md={6} align="right"> 
+							<Col md={5} align="right"> 
 								<ListGroup>
 									<ListGroupItem> <SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
 									<ListGroupItem> <Button onTouchTap={this.openNewCreateDialog} label="高级查询" type='button'/></ListGroupItem>
