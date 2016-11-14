@@ -201,7 +201,7 @@ onChangeRentBeginDate(value){
 
 	 if(beginDate>endDate){
 			Notify.show([{
-				message:'选择的工位租赁结束时间不能大于续租结束时间',
+				message:'续租结束时间要大于选择的工位租赁结束时间',
 				type: 'danger',
 			  }]);
 			  return false;

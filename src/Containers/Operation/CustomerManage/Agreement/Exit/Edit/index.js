@@ -45,7 +45,7 @@ export default class EditCreate extends Component {
   }
 
   onCreateSubmit(formValues) {
-
+    const {params} = this.props;
     Store.dispatch(Actions.callAPI('addFnaContractWithdrawal', {}, formValues)).then(function(response) {
       Notify.show([{
         message: '编辑成功',
@@ -78,10 +78,10 @@ export default class EditCreate extends Component {
     Store.dispatch(Actions.callAPI('fina-contract-intention', {
       customerId: params.customerId,
       mainBillId: params.orderId,
-      communityId: 1
     })).then(function(response) {
 
-      initialValues.ContractStateType = 'EXECUTE';
+      //initialValues.ContractStateType = 'EXECUTE';
+
       initialValues.mainbillid = params.orderId;
 
       initialValues.leaseBegindate = new Date;
@@ -119,9 +119,12 @@ export default class EditCreate extends Component {
       Store.dispatch(Actions.callAPI('getFnaContractWithdrawalById', {
         id: params.id
       })).then(function(response) {
+
+        optionValues.contractFileList = response.contractFileList;
         optionValues.lessorContactName = response.lessorContactName;
 
         initialValues.id = response.id;
+        initialValues.contractstate = response.contractstate;
         initialValues.leaseId = response.leaseId;
         initialValues.contractcode = response.contractcode;
         initialValues.leaseAddress = response.leaseAddress;
@@ -152,12 +155,11 @@ export default class EditCreate extends Component {
         initialValues.leaseBegindate = new Date(response.leaseBegindate);
         initialValues.leaseEnddate = new Date(response.leaseEnddate);
         initialValues.withdrawdate = response.withdrawdate;
-   
+
 
         //处理stationvos
         stationVos = response.stationVos;
 
-        console.log(stationVos, '---->>>>', response);
 
         _this.setState({
           initialValues,
@@ -195,7 +197,7 @@ export default class EditCreate extends Component {
 
       <div>
       <BreadCrumbs children={['系统运营','客户管理','退租协议']}/>
-      <Section title="退租协议书" description=""> 
+      <Section title="退租协议书" description="">
           <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
       </Section>
     </div>
