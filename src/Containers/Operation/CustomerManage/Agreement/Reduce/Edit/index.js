@@ -36,13 +36,11 @@ export default class JoinCreate extends Component {
 		this.openConfirmCreateDialog = this.openConfirmCreateDialog.bind(this);
 		this.onCreateSubmit = this.onCreateSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
-		this.onConfrimSubmit = this.onConfrimSubmit.bind(this);
 
 		this.state = {
 			stationVos: [],
 			initialValues: {},
 			optionValues: {},
-			formValues: {},
 			openConfirmCreate: false
 		}
 
@@ -51,23 +49,7 @@ export default class JoinCreate extends Component {
 	}
 
 	onCreateSubmit(formValues) {
-		this.setState({
-			formValues
-		});
 
-		var _this = this;
-
-		setTimeout(function() {
-			_this.onConfrimSubmit();
-		}, 0);
-		// this.openConfirmCreateDialog();
-	}
-
-	onConfrimSubmit() {
-
-		let {
-			formValues
-		} = this.state;
 		let {
 			params
 		} = this.props;
@@ -125,7 +107,7 @@ export default class JoinCreate extends Component {
 
 			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
-			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）	
+			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
 			initialValues.contracttype = 'LESSRENT';
 
 			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
@@ -237,18 +219,9 @@ export default class JoinCreate extends Component {
 
 			<div>
 		 	<BreadCrumbs children={['系统运营','客户管理','入驻协议']}/>
-			<Section title="减租协议书" description=""> 
+			<Section title="减租协议书" description="">
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
 			</Section>
-
-			<Dialog
-				title="确定新建"
-				modal={true}
-				autoScrollBodyContent={true}
-				autoDetectWindowHeight={true}
-				open={this.state.openConfirmCreate} >
-						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} />
-			  </Dialog>
 		</div>
 		);
 	}

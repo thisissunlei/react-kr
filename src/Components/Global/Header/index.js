@@ -99,6 +99,7 @@ class Header extends Component {
 
 		let styles = {
 			color:'#fff',
+			 width: 'auto',
 			height:60,
 		}
 
@@ -155,7 +156,7 @@ class Header extends Component {
 		 iconElementLeft={
 
 				<div className="main-navs" >
-						 <FlatButton onTouchTap={this.handleToggle} icon={<FontIcon className={iconClassName} />} style={{color:'#fff',height:60,width:180,marginLeft:20}} />
+						 <FlatButton onTouchTap={this.handleToggle} icon={<FontIcon className={iconClassName} />} style={{color:'#fff',height:60,width:200}} />
 						 <FlatButton onTouchTap={this.touchTitle}  icon={<FontIcon className="new-logo"/> } style={{height:"60px"}}/>
 						{this.props.navs_items.map((item,index)=>this.renderHeaderNav(item,index))}
 					</div>

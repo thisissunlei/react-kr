@@ -179,14 +179,14 @@ onChangeRentBeginDate(value){
 
 	 if(beginDate>= endDate){
 			Notify.show([{
-				message:'选择的工位租赁结束时间不能大于续租结束时间',
+				message:'续租结束时间要大于选择的工位租赁结束时间',
 				type: 'danger',
 			  }]);
 			  return false;
 	  }
 
 	Store.dispatch(change('reduceCreateForm','leaseBegindate',selectedStationVos[0].leaseEndDate));
-	
+
 	selectedStationVos.forEach(function(item,index){
 		var tmpDate = new Date();
 		tmpDate.setTime(Date.parse(item.leaseBeginDate));
@@ -252,7 +252,7 @@ onChangeRentBeginDate(value){
       <Row style={{marginTop:30}}>
       <Col md={4}></Col>
       <Col md={2} align="center"> <Button  label="确定" type="submit" /> </Col>
-      <Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col> 
+      <Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col>
       <Col md={4}></Col>
       </Row>
       </Grid>

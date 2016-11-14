@@ -22,23 +22,25 @@ module.exports = {
 			primaryText:"首页",
 			router:'index',
 			menuCode:'index',
+			permission:true,
 			originUrl:'/'
 		},
 		{
 			primaryText:"社区经营",
 			router:'community',
+			menuCode:'op_manage',
 			menuItems:[
 				{
 					primaryText:"社区管理",
 					iconName:'icon-com',
 					iconColor:'#2b8dcd',
-					
-
+					menuCode:'community_manage',
 					menuItems:[
 
 					/*
 						{
 							primaryText:'计划表',
+							permission:true,
 						},
 					*/
 						{
@@ -60,13 +62,13 @@ module.exports = {
 					primaryText:"客户管理",
 					iconName:'icon-user',
 					iconColor:'#2b8dcd',
-
 					router:'communityManage',
 					menuCode:'coustomerInfoList',
 					menuItems:[
 						{
 							primaryText:'客户列表',
-							originUrl:'/krspace_operate_web/customerBase/toCoustomerInfoList?mid=103#share'
+							originUrl:'/krspace_operate_web/customerBase/toCoustomerInfoList?mid=103#share',
+							menuCode:'coustomerInfoList',
 						},
 					]
 				},
@@ -77,6 +79,7 @@ module.exports = {
 
 					router:'communityManage',
 					menuCode:'communityBaseAdmin',
+					permission:true,
 					menuItems:[
 						{
 							primaryText:'社区列表',
@@ -114,9 +117,9 @@ module.exports = {
 					primaryText:"基础配置",
 					iconName:'icon-basis',
 					iconColor:'#2b8dcd',
-
 					router:'BaseManage',
 					menuCode:'basic_config',
+					permission:true,
 					menuItems:[
 						{
 							primaryText:"出租方管理",
@@ -124,6 +127,7 @@ module.exports = {
 						},
 						{
 							primaryText:"合同配置",
+							menuCode:'',
 							router:'/operation/customerManage/agreement/setting/list',
 						},
 						{
@@ -154,13 +158,13 @@ module.exports = {
 			primaryText:"会员中心",
 			router:'member',
             menuCode:'member',
+            permission:true,
             originUrl:'/krspace_member_web/member/toMemberList?mid=94',
 			menuItems:[
 				{
 					primaryText:'会员管理',
 					iconName:'icon-vip',
 					iconColor:'#2b8dcd',
-
 					menuCode:'memberAdmin',
 					router:'memberAdmin',
 					originUrl:'/krspace_member_web/member/toMemberList?mid=94'
@@ -170,27 +174,29 @@ module.exports = {
 		{
 			primaryText:"财务系统",
 			router:'finance',
-			
-
+			menuCode:'finance',
 			menuItems:[
 				{
 					primaryText:"财务管理",
 					router:'manage',
 					iconName:'icon-money',
 					iconColor:'#2b8dcd',
-
+					menuCode:'financeManage',
 					menuItems:[
 						{
-							primaryText:"订单账单",
+							primaryText:"账单列表",
 							router:'/finance/manage/orderbill/orderList',
+							menuCode:'billList',
 						},
 						{
 							primaryText:"科目配置",
 							router:'/finance/manage/codeSetting/subject',
+							menuCode:'finaflowAccount',
 						},
 						{
 							primaryText:"属性配置",
 							router:'/finance/manage/codeSetting/attribute',
+							menuCode:'propManage',
 						},
 					]
 				},
@@ -203,6 +209,7 @@ module.exports = {
 
 			router:'retail',
 			menuCode:'krspace_retail',
+			permission:true,
 			originUrl:'/krspace_retail_web/retail/charts/retailCharts/toRetailCharts?mid=92',
 			menuItems:[
 				{
@@ -223,7 +230,7 @@ module.exports = {
 							primaryText:'商品品牌',
 							menuCode:'goodsBrandAdmin',
 							router:'goodsBrandAdmin',
-							originUrl:'/krspace_retail_web/retail/goods/goodsBrand/toEGoodsBrandList?mid=72'	
+							originUrl:'/krspace_retail_web/retail/goods/goodsBrand/toEGoodsBrandList?mid=72'
 						},
 						{
 							primaryText:'商品类别',
@@ -234,14 +241,14 @@ module.exports = {
 						{
 							primaryText:'中心商品',
 							menuCode:'goodsbase',
-							router:'goodsbase',	
+							router:'goodsbase',
 							originUrl:'/krspace_retail_web/retail/goods/goodsBase/toEGoodsBaseList?mid=78'
 						},
 						{
 							primaryText:'社区商品',
 							menuCode:'goodscommunity',
 							router:'goodscommunity',
-							originUrl:'/krspace_retail_web/retail/goods/goodsCommunity/toEGoodsCommunityList?mid=79'	
+							originUrl:'/krspace_retail_web/retail/goods/goodsCommunity/toEGoodsCommunityList?mid=79'
 						},
 
 					]
@@ -253,17 +260,18 @@ module.exports = {
 
 					menuCode:'ordersManager',
 					router:'ordersManager',
+					permission:true,
 					menuItems:[
 						{
 							primaryText:'全部订单',
 							menuCode:'allOrders',
-							router:'allOrders',	
+							router:'allOrders',
 							originUrl:'/krspace_retail_web/retail/orders/allOrders/toOrdersList?mid=81'
 						},
 						{
 							primaryText:'社区订单',
 							menuCode:'communityOrders',
-							router:'communityOrders',	
+							router:'communityOrders',
 							originUrl:'/krspace_retail_web/retail/orders/communityOrders/toOrdersList?mid=82'
 						}
 
@@ -281,7 +289,7 @@ module.exports = {
 							primaryText:'反馈信息',
 							menuCode:'user_submit_msg',
 							router:'user_submit_msg',
-							originUrl:'/krspace_retail_web/retail/buyers/buyersfeedback/toBuyersFeedbackList?mid=86'	
+							originUrl:'/krspace_retail_web/retail/buyers/buyersfeedback/toBuyersFeedbackList?mid=86'
 						},
 						{
 							primaryText:'推送人员',
@@ -319,7 +327,7 @@ module.exports = {
 
 					menuCode:'hrmOrganization',
 			        router:'hrmOrganization',
-			        originUrl:'/krspace_oa_web/hrm/hrmOrganization/main?mid=40'	
+			        originUrl:'/krspace_oa_web/hrm/hrmOrganization/main?mid=40'
 				},
 				{
 					primaryText:'基础配置',
@@ -329,13 +337,13 @@ module.exports = {
 
 
 					iconColor:'#2b8dcd',
-					router:'hrmbasedataadmin',	
+					router:'hrmbasedataadmin',
 					menuItems:[
 						{
 							primaryText:'参数配置',
 							menuCode:'oa_sysparamadmin',
 							router:'oa_sysparamadmin',
-							originUrl:'/krspace_oa_web/sys/sysParam/toSysParamList?mid=30'	
+							originUrl:'/krspace_oa_web/sys/sysParam/toSysParamList?mid=30'
 						},
 						{
 							primaryText:'职务类型',
@@ -347,13 +355,13 @@ module.exports = {
 							primaryText:'职务管理',
 							menuCode:'dictJob',
 							router:'dictJob',
-							originUrl:'/krspace_oa_web/dict/dictJob/toDictJobList?mid=37'	
+							originUrl:'/krspace_oa_web/dict/dictJob/toDictJobList?mid=37'
 						},
 						{
 							primaryText:'职级管理',
 							menuCode:'dictJobLevel',
 							router:'dictJobLevel',
-							originUrl:'/krspace_oa_web/dict/dictJobLevel/toEDictJobLevelList?mid=39'	
+							originUrl:'/krspace_oa_web/dict/dictJobLevel/toEDictJobLevelList?mid=39'
 						},
 
 					]
@@ -371,15 +379,15 @@ module.exports = {
 							primaryText:'在职列表',
 							menuCode:'hrmresourcelistactive',
 							router:'hrmresourcelistactive',
-							originUrl:'/krspace_oa_web/hrm/hrmResource/toHrmResourceListActive?mid=45'	
+							originUrl:'/krspace_oa_web/hrm/hrmResource/toHrmResourceListActive?mid=45'
 						},
 						{
 							primaryText:'离职列表',
 							menuCode:'hrmresourcelistleave',
 							router:'hrmresourcelistleave',
-							originUrl:'/krspace_oa_web/hrm/hrmResource/toHrmResourceListLeave?mid=55'	
+							originUrl:'/krspace_oa_web/hrm/hrmResource/toHrmResourceListLeave?mid=55'
 						},
-					]	
+					]
 				},
 			]
 		},
@@ -400,21 +408,21 @@ module.exports = {
 							primaryText:'参数配置',
 							menuCode:'sysparamadmin',
 							router:'sysparamadmin',
-							originUrl:'/krspace_knowledge_web/sys/sysParam/toSysParamList?mid=50'	
+							originUrl:'/krspace_knowledge_web/sys/sysParam/toSysParamList?mid=50'
 						},
 						{
 							primaryText:'文件类型',
 							menuCode:'docFiletypeAdmin',
 							router:'docFiletypeAdmin',
-							originUrl:'/krspace_knowledge_web/doc/docFiletype/toDocFiletypeList?mid=56'	
+							originUrl:'/krspace_knowledge_web/doc/docFiletype/toDocFiletypeList?mid=56'
 						},
 						{
 							primaryText:'文件范围',
 							menuCode:'docFileRangeAdmin',
 							router:'docFileRangeAdmin',
-							originUrl:'/krspace_knowledge_web/doc/docFileRange/toDocFileRangeList?mid=57'	
+							originUrl:'/krspace_knowledge_web/doc/docFileRange/toDocFileRangeList?mid=57'
 						},
-					]	
+					]
 				},
 				{
 					primaryText:'文档管理',
@@ -427,18 +435,18 @@ module.exports = {
 							primaryText:'来源系统',
 							menuCode:'docSourceServiceAdmin',
 							router:'docSourceServiceAdmin',
-							originUrl:'/krspace_knowledge_web/doc/docSourceService/toDocSourceServiceList?mid=59'	
+							originUrl:'/krspace_knowledge_web/doc/docSourceService/toDocSourceServiceList?mid=59'
 						},
 						{
 							primaryText:'文档设置',
 							menuCode:'docFileAdmin',
 							router:'docFileAdmin',
-							originUrl:'/krspace_knowledge_web/doc/docFile/toDocTypeList?mid=67'	
+							originUrl:'/krspace_knowledge_web/doc/docFile/toDocTypeList?mid=67'
 						},
-						
-					]		
+
+					]
 				},
-			]	
+			]
 		},
 		{
 			primaryText:"权限管理",
@@ -454,45 +462,45 @@ module.exports = {
 						{
 							primaryText:'参数配置',
 							menuCode:'sysparamadmin',
-					        router:'sysparamadmin',	
+					        router:'sysparamadmin',
 					        originUrl:'/sys/sysParam/toSysParamList?mid=8'
 						},
 						{
 							primaryText:'系统新闻',
 							menuCode:'sysnotice',
-					        router:'sysnotice',	
-					        originUrl:'/sys/sysNews/toSysNewsList?mid=21'	
+					        router:'sysnotice',
+					        originUrl:'/sys/sysNews/toSysNewsList?mid=21'
 						},
 						{
 							primaryText:'系统缓存',
 							menuCode:'syschache_admin',
-					        router:'syschache_admin',	
+					        router:'syschache_admin',
 					        originUrl:'/sys/sysCache/showAllCache?mid=34'
 						},
 						{
 							primaryText:'验证码列表',
 							menuCode:'sysverifycode',
-					        router:'sysverifycode',	
-					        originUrl:'/sys/sysVerifyCode/toVerifyCodeList?mid=25'	
+					        router:'sysverifycode',
+					        originUrl:'/sys/sysVerifyCode/toVerifyCodeList?mid=25'
 						},
 						{
 							primaryText:'待办事项',
 							menuCode:'sysundo',
-					        router:'sysundo',	
-					        originUrl:'/sys/sysUndo/toSysUndoList?mid=33'	
+					        router:'sysundo',
+					        originUrl:'/sys/sysUndo/toSysUndoList?mid=33'
 						},
-						
+
 						{
 							primaryText:'常用列表',
 							menuCode:'sysMyusual',
-					        router:'sysMyusual',	
-					        originUrl:'/sys/sysMyusual/toSysMyusualList?mid=97'	
+					        router:'sysMyusual',
+					        originUrl:'/sys/sysMyusual/toSysMyusualList?mid=97'
 						},
 						{
 							primaryText:'系统日程',
 							menuCode:'sysschedule',
-					        router:'sysschedule',	
-					        originUrl:'/sys/sysSchedule/toSysScheduleList?mid=91'	
+					        router:'sysschedule',
+					        originUrl:'/sys/sysSchedule/toSysScheduleList?mid=91'
 						},
 
 					]
@@ -509,47 +517,47 @@ module.exports = {
 							primaryText:'未注册列表',
 							menuCode:'sysFunRightsNoRegisterAdmin',
 					        router:'sysFunRightsNoRegisterAdmin',
-					        originUrl:'/sys/sysfunrights/sysFunRightsNoRegister/toSysFunRightsNoRegisterList?mid=35'	
+					        originUrl:'/sys/sysfunrights/sysFunRightsNoRegister/toSysFunRightsNoRegisterList?mid=35'
 						},
 						{
 							primaryText:'注册管理',
 							menuCode:'sysFunRightsRegisterAdmin',
 					        router:'sysFunRightsRegisterAdmin',
-					        originUrl:'/sys/sysfunrights/sysFunRightsRegister/toSysFunRightsRegisterList?mid=36'	
+					        originUrl:'/sys/sysfunrights/sysFunRightsRegister/toSysFunRightsRegisterList?mid=36'
 						},
 						{
 							primaryText:'权限类型',
 							menuCode:'righttypeadmin',
 					        router:'righttypeadmin',
-					        originUrl:'/sys/sysfunrights/sysRightType/toSysFunrighttypeList?mid=14'	
+					        originUrl:'/sys/sysfunrights/sysRightType/toSysFunrighttypeList?mid=14'
 						},
 						{
 							primaryText:'权限项列表',
 							menuCode:'sysfunrightsadmin',
 					        router:'sysfunrightsadmin',
-					        originUrl:'/sys/sysfunrights/sysFunrights/toSysFunRightsList?mid=17'	
+					        originUrl:'/sys/sysfunrights/sysFunrights/toSysFunRightsList?mid=17'
 						},
 						,
 						{
 							primaryText:'角色类型',
 							menuCode:'sysroletypeadmin',
 					        router:'sysroletypeadmin',
-					        originUrl:'/sys/sysfunrights/sysRoletype/toSysRoletypeList?mid=18'	
+					        originUrl:'/sys/sysfunrights/sysRoletype/toSysRoletypeList?mid=18'
 						},
 						{
 							primaryText:'功能角色',
 							menuCode:'sysfunroleadmin',
 					        router:'sysfunroleadmin',
-					        originUrl:'/sys/sysfunrights/sysFunrole/toSysFunroleList?mid=19'	
+					        originUrl:'/sys/sysfunrights/sysFunrole/toSysFunroleList?mid=19'
 						},
 						{
 							primaryText:'菜单管理',
 							menuCode:'sysmenuadmin',
 					        router:'sysmenuadmin',
-					        originUrl:'/sys/sysfunrights/sysMenu/toSysMenuList?mid=9'	
+					        originUrl:'/sys/sysfunrights/sysMenu/toSysMenuList?mid=9'
 						},
 
-					]	
+					]
 				},
 				{
 					primaryText:'账户管理',
@@ -561,42 +569,42 @@ module.exports = {
 						{
 							primaryText:'账户列表',
 							menuCode:'sysloginadmin',
-							router:'sysloginadmin',	
+							router:'sysloginadmin',
 							originUrl:'/sys/sysLogin/sysLogin/toSysLoginList?mid=12'
 						},
 						{
 							primaryText:'变更日志',
 							menuCode:'sysloginchangelog',
-							router:'sysloginchangelog',	
-							originUrl:'/sys/sysLogin/sysLoginChangelog/toSysLoginChangelogList?mid=13'	
+							router:'sysloginchangelog',
+							originUrl:'/sys/sysLogin/sysLoginChangelog/toSysLoginChangelogList?mid=13'
 						},
 						{
 							primaryText:'登录日志',
 							menuCode:'sysloginlog',
-							router:'sysloginlog',	
-							originUrl:'/sys/sysLogin/sysLoginLog/toSysLoginLogList?mid=15'	
+							router:'sysloginlog',
+							originUrl:'/sys/sysLogin/sysLoginLog/toSysLoginLogList?mid=15'
 						},
 
-					]	
+					]
 				},
 				{
 					primaryText:'单点管理',
 					menuCode:'issoadmin',
 					iconName:'icon-dandian_nor',
 					iconColor:'#2b8dcd',
-					router:'issoadmin',	
+					router:'issoadmin',
 					menuItems:[
 						{
 							primaryText:'单点服务',
 							menuCode:'issoserviceadmin',
-					        router:'issoserviceadmin',	
+					        router:'issoserviceadmin',
 							originUrl:'/isso/issoService/toIssoServiceList?mid=10'
 						},
 						{
 							primaryText:'单点日志',
 							menuCode:'issolog',
-					        router:'issolog',	
-							originUrl:'/isso/issoLog/toIssoLogList?mid=24'	
+					        router:'issolog',
+							originUrl:'/isso/issoLog/toIssoLogList?mid=24'
 						},
 					]
 				},
@@ -610,12 +618,12 @@ module.exports = {
 						{
 							primaryText:'用户监测',
 							menuCode:'onlineuser',
-					        router:'onlineuser',	
+					        router:'onlineuser',
 							originUrl:'/sys/onLineUser/onLineUserList?mid=42'
 						},
-					]	
+					]
 				},
-			]	
+			]
 		},
 	]
 }

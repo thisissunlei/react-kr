@@ -212,7 +212,7 @@ class NewCreateForm extends Component {
 		Store.dispatch(initialize('reduceCreateForm', initialValues));
 	}
 
-	
+
 	componentWillReceiveProps(nextProps) {
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
@@ -313,25 +313,25 @@ class NewCreateForm extends Component {
 				<KrField grid={1/2} left={60} name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} />
 				<KrField grid={1/2} right={60} name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}/>
 
-				<KrField name="paymodel" left={60} grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/> 
+				<KrField name="paymodel" left={60} grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/>
 				<KrField name="paytype" right={60} grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} />
-				<KrField name="firstpaydate" right={60} component="date" label="首付款时间" requireLabel={true} /> 
+				<KrField name="firstpaydate" right={60} component="date" label="首付款时间" requireLabel={true} />
 
-				<KrField grid={1/2} right={60} name="signdate"  component="date"  label="签署时间" requireLabel={true}/>	
-				
+				<KrField grid={1/2} right={60} name="signdate"  component="date"  label="签署时间" requireLabel={true}/>
 
 
-				<KrField grid={1} right={60} name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"  /> 
-				<KrField grid={1/2} right={60} name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true} /> 
+
+				<KrField grid={1} right={60} name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"  />
+				<KrField grid={1/2} right={60} name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true} />
 				<KrField grid={1/2} left={60}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true} />
 
 				<KrField grid={1/1} right={60} name="contractmark" component="textarea" label="备注" />
 				<KrField grid={1} right={60} name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={optionValues.contractFileList}/>
 
-				
+
 
 				 <DotTitle title='租赁明细'>
-				
+
 
 				      <Grid>
 							<Row>
@@ -384,7 +384,7 @@ class NewCreateForm extends Component {
 
 					<Dialog
 						title="分配工位"
-						open={this.state.openStation} 
+						open={this.state.openStation}
 						modal={true}
 						autoScrollBodyContent={true}
 						autoDetectWindowHeight={true} onClose={this.onStationCancel}>
