@@ -332,6 +332,7 @@ export default class EmployessTable extends Component {
 			customerId,
 			communityId
 		} = this.state;
+
 		let url = `/krspace_member_web/member/toAddMember?companyId=${customerId}&communityId=${communityId}`;
 		return url;
 	}
@@ -412,6 +413,7 @@ export default class EmployessTable extends Component {
 			communityIds: id,
 			mainBillId: detail.billId
 		}
+		console.log('ParamValues', ParamValues)
 
 		return (
 

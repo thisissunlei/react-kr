@@ -94,8 +94,8 @@ export default class D3Content extends Component {
 				item.end = _this.countDays(item.enddate);
 				item.Begindate = dateFormat(item.begindate, "yyyy.mm.dd");
 				item.Enddate = dateFormat(item.enddate, "yyyy.mm.dd");
-				item.width = parseInt((item.end - item.start) / 365 * width)-1; //时间段的长度
-				console.log(item);
+				item.width = parseInt((item.end - item.start) / 365 * width) - 1; //时间段的长度
+
 				return item;
 			});
 			return timeList;
@@ -241,7 +241,7 @@ export default class D3Content extends Component {
 		list = this.getRedInfo(list);
 
 		const width = this.props.width || 660;
-		console.log('--------',list);
+
 
 		return (
 
