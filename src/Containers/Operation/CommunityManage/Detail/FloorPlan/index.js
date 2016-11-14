@@ -56,11 +56,13 @@ export default class FloorPlan extends Component {
 			communityId: this.props.communityId,
 			form: {},
 			communityIdList:[],
+			communityInfoFloorList:[]
 		}
 
 		this.getcommunity = this.getcommunity.bind(this);
 		this.selectCommunity = this.selectCommunity.bind(this);
 		this.getcommunity();
+		this.getCommunityFloors = this.getCommunityFloors.bind(this);;
 
 
 	}
@@ -120,7 +122,7 @@ export default class FloorPlan extends Component {
 			form = Object.assign({}, form);
 			var that = this;
 			var params = {
-				communityId: this.state.communityId || '',
+				communityId: this.state.communityids || '',
 				wherefloor: form.floor || '',
 				date: dateFormat(form.start, "yyyy.mm.dd") || dateFormat(new Date(), "yyyy.mm.dd"),
 				dateend: dateFormat(form.end, "yyyy.mm.dd") || dateFormat(new Date(), "yyyy.mm.dd"),
@@ -169,10 +171,38 @@ export default class FloorPlan extends Component {
 	}
 	selectCommunity(personel) {
 		console.log(personel);
+		this.getCommunityFloors(personel.id);
 		this.setState({
 			communityids: personel.id,
 		})
 	}
+
+	getCommunityFloors(id) {
+		console.log('floors', id);
+		let communityid = {
+			communityid: id
+		};
+		var communityInfoFloorList;
+		var that = this;
+		Store.dispatch(Actions.callAPI('getCommunityFloors', communityid)).then(function(response) {
+
+			communityInfoFloorList = response.floors.map(function(item, index) {
+				item.value = item.id;
+				item.label = item.name;
+				return item;
+			});
+			that.setState({
+				communityInfoFloorList
+			});
+			console.log('========',communityInfoFloorList);
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+	}
+
 
 
 
