@@ -18,6 +18,7 @@ import {
 import {
 	findDOMNode
 } from 'react-dom'
+import dateFormat from 'dateformat';
 import ReactTooltip from 'react-tooltip'
 import {
 	Menu,
@@ -69,7 +70,7 @@ class DismantlingForm extends Component {
 	onSubmit(form) {
 		const formValues = {
 			actualLeaveDate: form.actualLeaveDate,
-			mainBillId: this.props.mainBillId
+			mainBillId: this.props.detail.billId
 		}
 
 		Store.dispatch(Actions.callAPI('updateLeaveDate', {}, formValues)).then(function(response) {
@@ -113,11 +114,11 @@ class DismantlingForm extends Component {
 			detail
 		} = this.props;
 
-		console.log('detail', detail)
+		console.log('detail====', detail)
 		return (
 
 			<form onSubmit={handleSubmit(this.onSubmit)}> 
-			<div style={{textAlign:"center",marginBottom:'20px'}}>合同到期时间为2017.9.1</div>
+			<div style={{textAlign:"center",marginBottom:'20px'}}>{detail.companyName}合同到期时间为{dateFormat(detail.endTime,"yyyy.mm.dd")}</div>
 			<KrField name="actualLeaveDate"component="date" grid={1} label="实际的撤场时间为" value=""/>
 			<Grid>
 				<Row style={{marginTop:30}}>

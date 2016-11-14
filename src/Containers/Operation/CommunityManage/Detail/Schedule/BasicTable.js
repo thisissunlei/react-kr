@@ -203,7 +203,8 @@ export default class BasicTable extends Component {
 			communityIdList: [],
 			page: 1,
 			pageSize: 5,
-			type: 'BILL'
+			type: 'BILL',
+			detail: {}
 
 		};
 		this.getInstallmentplan();
@@ -227,7 +228,7 @@ export default class BasicTable extends Component {
 		}
 	}
 
-	/*scrollLoad() {
+	scrollLoad() {
 		var _this = this;
 		$(window).bind('scroll', function() {
 			var top = $(window).scrollTop() || 0;
@@ -251,171 +252,62 @@ export default class BasicTable extends Component {
 						})
 					}*/
 
-	Store.dispatch(Actions.callAPI('getInstallmentplan', {
-		communityids: communityIds,
-		value: value,
-		type: type,
-		page: page,
-		pageSize: 20
-	})).then(function(response) {
-		//var list = _this.state.Installmentplan.concat(response.vo);
-		//console.log('Installmentplan', _this.state.Installmentplan)
-		_this.setState({
-			Installmentplan: response.vo,
-			rate: response.rate,
-			page: page
-		});
-
-	}).catch(function(err) {
-		Notify.show([{
-			message: err.message,
-			type: 'danger',
-		}]);
-	});
-
-}
-})
 
 
-} * /
-
-//撤场
-
-onDismantling() {
-	this.openDismantlingDialog();
-}
-
-onCancel() {
-
-}
-
-onChange(id) {
-	let {
-		type,
-		page,
-		pageSize,
-	} = this.state
-	var _this = this;
-	Store.dispatch(Actions.callAPI('getInstallmentplan', {
-		communityids: id,
-		value: '',
-		type: type,
-		page: page,
-		pageSize: pageSize
-	})).then(function(response) {
-		_this.setState({
-			Installmentplan: response.vo || [],
-			rate: response.rate,
-			communityIds: id
-		});
-
-	}).catch(function(err) {
-		Notify.show([{
-			message: err.message,
-			type: 'danger',
-		}]);
-	});
-}
-onSubmit(formValues) {
-	var _this = this;
-	Store.dispatch(Actions.callAPI('getInstallmentplan', formValues)).then(function(response) {
-
-		_this.setState({
-			Installmentplan: response.vo,
-			rate: response.rate
-		});
-
-	}).catch(function(err) {
-		Notify.show([{
-			message: err.message,
-			type: 'danger',
-		}]);
-	});
-
-}
-
-onConfrimSubmit(formValues) {
-	/*Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
-			
-
-			Notify.show([{
-				message:'创建成功',
-				type: 'danger',
-			}]);
-
-		}).catch(function(err){
-			Notify.show([{
-				message:err.message,
-				type: 'danger',
-			}]);
-	   	});*/
-
-
-}
-
-openDismantlingDialog() {
-	this.setState({
-		dismantling: !this.state.dismantling
-	})
-}
-
-
-onPreYear() {
-	let {
-		currentYear
-	} = this.state;
-	currentYear--;
-	this.setState({
-		currentYear
-	});
-}
-
-onNextYear() {
-	let {
-		currentYear
-	} = this.state;
-	currentYear++;
-	this.setState({
-		currentYear
-	});
-}
-
-
-getInstallmentplan() {
-	var _this = this;
-
-	let {
-		community
-	} = this.props;
-
-	let {
-		type,
-		page,
-		pageSize
-	} = this.state
-
-	Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
-
-		var Ids = [];
-		response.communityInfoList.map((item) => {
-			Ids.push(item.id);
-			return Ids
-		});
-		var communityIds = Ids.join(',');
-		var content = community || communityIds;
-		_this.setState({
-			communityIds: communityIds
+			}
 		})
+
+
+	}
+
+
+	//撤场
+
+	onDismantling(detail) {
+		this.setState({
+			detail: detail
+		})
+		this.openDismantlingDialog();
+	}
+
+	onCancel() {
+
+	}
+
+	onChange(id) {
+		let {
+			type,
+			page,
+			pageSize,
+		} = this.state
+		var _this = this;
 		Store.dispatch(Actions.callAPI('getInstallmentplan', {
-			communityids: content.toString(),
+			communityids: id,
 			value: '',
 			type: type,
 			page: page,
-			pageSize: pageSize
+			//pageSize: pageSize
+			pageSize: 10
 		})).then(function(response) {
-
 			_this.setState({
 				Installmentplan: response.vo || [],
+				rate: response.rate,
+				communityIds: id
+			});
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+	}
+	onSubmit(formValues) {
+		var _this = this;
+		Store.dispatch(Actions.callAPI('getInstallmentplan', formValues)).then(function(response) {
+
+			_this.setState({
+				Installmentplan: response.vo,
 				rate: response.rate
 			});
 
@@ -426,33 +318,127 @@ getInstallmentplan() {
 			}]);
 		});
 
-	}).catch(function(err) {
-		Notify.show([{
-			message: err.message,
-			type: 'danger',
-		}]);
-	});
+	}
+
+	onConfrimSubmit(formValues) {
+		/*Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
+				
+
+				Notify.show([{
+					message:'创建成功',
+					type: 'danger',
+				}]);
+
+			}).catch(function(err){
+				Notify.show([{
+					message:err.message,
+					type: 'danger',
+				}]);
+		   	});*/
+
+
+	}
+
+	openDismantlingDialog() {
+		this.setState({
+			dismantling: !this.state.dismantling
+		})
+	}
+
+
+	onPreYear() {
+		let {
+			currentYear
+		} = this.state;
+		currentYear--;
+		this.setState({
+			currentYear
+		});
+	}
+
+	onNextYear() {
+		let {
+			currentYear
+		} = this.state;
+		currentYear++;
+		this.setState({
+			currentYear
+		});
+	}
+
+
+	getInstallmentplan() {
+		var _this = this;
+
+		let {
+			community
+		} = this.props;
+
+		let {
+			type,
+			page,
+			pageSize
+		} = this.state
+
+		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
+
+			var Ids = [];
+			response.communityInfoList.map((item) => {
+				Ids.push(item.id);
+				return Ids
+			});
+			var communityIds = Ids.join(',');
+			var content = community || communityIds;
+			_this.setState({
+				communityIds: communityIds
+			})
+			Store.dispatch(Actions.callAPI('getInstallmentplan', {
+				communityids: content.toString(),
+				value: '',
+				type: type,
+				page: page,
+				pageSize: pageSize
+			})).then(function(response) {
+
+				_this.setState({
+					Installmentplan: response.vo || [],
+					rate: response.rate
+				});
+
+			}).catch(function(err) {
+				Notify.show([{
+					message: err.message,
+					type: 'danger',
+				}]);
+			});
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
 
 
 
-}
+	}
 
 
 
-render() {
+	render() {
 
-	let {
-		currentYear,
-		Installmentplan,
-		rate,
-		communityIds
-	} = this.state;
+		let {
+			currentYear,
+			Installmentplan,
+			rate,
+			communityIds
+		} = this.state;
 
-	var _this = this;
-	const id = communityIds
-	this.scrollLoad();
-	return (
-		<div>
+		var _this = this;
+		const id = communityIds
+			//this.scrollLoad();
+		return (
+			<div>
 
 			<SearchForm  onSubmit={this.onSubmit} onChange={this.onChange}/>
 		 	<div className="basic-con">
@@ -537,13 +523,13 @@ render() {
 				modal={true}
 				onClose={this.openDismantlingDialog}
 				open={this.state.dismantling} >
-				<DismantlingForm  onSubmit={this.onConfrimSubmit} onCancel={this.openDismantlingDialog} />
+				<DismantlingForm  onSubmit={this.onConfrimSubmit} onCancel={this.openDismantlingDialog} detail={this.state.detail} />
 			 </Dialog>
 			
 		</div>
-	);
+		);
 
 
-}
+	}
 
 }
