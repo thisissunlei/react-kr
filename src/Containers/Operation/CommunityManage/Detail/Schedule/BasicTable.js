@@ -159,7 +159,7 @@ class SearchForm extends Component {
 		}];
 
 		return (
-			<form name="searchForm" className="searchForm" style={{borderBottom:'2px solid #eee',marginBottom:30,paddingTop:'20px'}}>
+			<form name="searchForm" className="searchForm" style={{borderBottom:'2px solid #eee',marginBottom:30,padding:'20px'}}>
 				{/*<KrField  name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} left={60}/>*/}
 				<KrField name="community"  grid={1/3} component="select" label="社区" inline={true}  options={communityIdList} onChange={this.selectCommunity} />
 				<SearchForms onSubmit={this.onSubmit} searchFilter={options} />
@@ -227,57 +227,7 @@ export default class BasicTable extends Component {
 		}
 	}
 
-	/*scrollLoad() {
-		var _this = this;
-		$(window).bind('scroll', function() {
-			var top = $(window).scrollTop() || 0;
-			var height = $(window).height() || 0;
-			// var scrollBottom = $('#planTable').offset().top +1000 - top - height;
-			var scrollBottom = height - top;
-			var isOutBoundary = scrollBottom >= 100;
 
-			if (!isOutBoundary) {
-				let {
-					communityIds,
-					type,
-					page,
-					pageSize,
-					value,
-					Installmentplan
-				} = _this.state
-					/*if (page < 10) {
-						_this.setState({
-							page: _this.state.page++
-						})
-					}*/
-
-	Store.dispatch(Actions.callAPI('getInstallmentplan', {
-		communityids: communityIds,
-		value: value,
-		type: type,
-		page: page,
-		pageSize: 20
-	})).then(function(response) {
-		//var list = _this.state.Installmentplan.concat(response.vo);
-		//console.log('Installmentplan', _this.state.Installmentplan)
-		_this.setState({
-			Installmentplan: response.vo,
-			rate: response.rate,
-			page: page
-		});
-
-	}).catch(function(err) {
-		Notify.show([{
-			message: err.message,
-			type: 'danger',
-		}]);
-	});
-
-}
-})
-
-
-} * /
 
 //撤场
 
@@ -368,6 +318,7 @@ onPreYear() {
 	this.setState({
 		currentYear
 	});
+	this.getInstallmentplan();
 }
 
 onNextYear() {
@@ -378,6 +329,8 @@ onNextYear() {
 	this.setState({
 		currentYear
 	});
+	this.getInstallmentplan();
+
 }
 
 
@@ -411,7 +364,8 @@ getInstallmentplan() {
 			value: '',
 			type: type,
 			page: page,
-			pageSize: pageSize
+			pageSize: pageSize,
+			year:_this.state.currentYear,
 		})).then(function(response) {
 
 			_this.setState({
@@ -450,7 +404,7 @@ render() {
 
 	var _this = this;
 	const id = communityIds
-	this.scrollLoad();
+	//this.scrollLoad();
 	return (
 		<div>
 
