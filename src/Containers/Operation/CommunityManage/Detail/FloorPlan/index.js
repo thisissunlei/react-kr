@@ -50,17 +50,16 @@ export default class FloorPlan extends Component {
 		this.iframeWindow = null;
 		this.state = {
 			url: '',
-			communityId: '',
 			form: {},
 			communityIdList:[],
 			communityInfoFloorList:[],
-			communityLabel:''
 		}
 
 		this.getcommunity = this.getcommunity.bind(this);
 		this.selectCommunity = this.selectCommunity.bind(this);
 		this.getcommunity();
-		this.getCommunityFloors = this.getCommunityFloors.bind(this);;
+		this.getCommunityFloors = this.getCommunityFloors.bind(this);
+		this.getState = this.getState.bind(this);
 
 
 	}
@@ -116,7 +115,7 @@ export default class FloorPlan extends Component {
 			form = Object.assign({}, form);
 			var that = this;
 			var params = {
-				communityId: this.state.communityids || '',
+				communityId: form.community || '',
 				wherefloor: form.floor || '',
 				date: dateFormat(form.start, "yyyy.mm.dd") || dateFormat(new Date(), "yyyy.mm.dd"),
 				dateend: dateFormat(form.end, "yyyy.mm.dd") || dateFormat(new Date(), "yyyy.mm.dd"),
@@ -130,19 +129,29 @@ export default class FloorPlan extends Component {
 	scrollLoad() {
 		var that = this;
 		$(window).bind('scroll', function() {
-			var top = $(window).scrollTop() || 0;//539
-			var height = $(window).height() || 0;//705
-			var num = $(document).height()-$(window).height();
+			var top = $(window).scrollTop() || 0;//539滚出的距离
+			var height = $(window).height() || 0;//705浏览器高度
+			var num = $(document).height()-$(window).height();//页面高-浏览器高度
 			// var scrollBottom = $('#planTable').offset().top +1000 - top - height;
 			var scrollBottom = top-num;
 			var isOutBoundary = scrollBottom >= 0;
 			console.log(isOutBoundary);
 			if (isOutBoundary) {
 				that.iframeWindow.pagequery();
+				// let possition = that.getState();
+				// if(position){
+					// console.log('--true--');
+					// $(window).scrollTop(top-100);
+				// }
+				
 			}
 		})
 
 
+	}
+	getState(){
+
+		console.log('----');
 	}
 	getcommunity(){
 		let _this = this;
@@ -165,11 +174,6 @@ export default class FloorPlan extends Component {
 		});
 	}
 	selectCommunity(personel) {
-		console.log(personel);
-		this.setState({
-			communityids: personel.id,
-			communityLabel:personel.label,
-		})
 		this.getCommunityFloors(personel.id);
 	}
 
@@ -180,7 +184,6 @@ export default class FloorPlan extends Component {
 		};
 		var communityInfoFloorList;
 		var that = this;
-		console.log(communityId);
 		Store.dispatch(Actions.callAPI('getCommunityFloors', communityId)).then(function(response) {
 			communityInfoFloorList = response.floors.map(function(item, index) {
 				var obj= {};
@@ -220,7 +223,8 @@ export default class FloorPlan extends Component {
 		} else {
 			$(window).unbind('scroll', this.scrollLoad());
 		}
-		const width = $('#planTable').width() || 900;
+		const width = $('#planTable').width()+20 ;
+		// console.log('======',$('#planTable').width());
 		return (
 
 			<div id="planTable" style={{paddingTop:20}}>
@@ -232,7 +236,7 @@ export default class FloorPlan extends Component {
 				<Button  label="确定" type="submit" />
 			</form>
 			<p style={{margin:20}}></p>
-			<IframeContent src={url} onClose={this.onIframeClose} className="floorIframe" onLoad={this.onLoad} width={width} scrolling="no"/>
+			<IframeContent src={url} onClose={this.getState} className="floorIframe" onLoad={this.onLoad} width={width} height={800} scrolling="no"/>
 
 		</div>
 		);
