@@ -28,7 +28,7 @@ module.exports = {
 			primaryText:"社区经营",
 			router:'community',
 			menuCode:'op_manage',
-			originUrl:'/krspace_operate_web/customerBase/toCoustomerInfoList?mid=103#share',
+			originUrl:'/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=112',
 			menuItems:[
 				{
 					primaryText:"社区管理",
