@@ -354,6 +354,7 @@ export default class BasicTable extends Component {
 		this.setState({
 			currentYear
 		});
+		this.getInstallmentplan();
 	}
 
 	onNextYear() {
@@ -364,6 +365,8 @@ export default class BasicTable extends Component {
 		this.setState({
 			currentYear
 		});
+		this.getInstallmentplan();
+
 	}
 
 
@@ -397,7 +400,8 @@ export default class BasicTable extends Component {
 				value: '',
 				type: type,
 				page: page,
-				pageSize: pageSize
+				pageSize: pageSize,
+				year: _this.state.currentYear
 			})).then(function(response) {
 
 				_this.setState({
