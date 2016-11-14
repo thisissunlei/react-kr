@@ -51,7 +51,7 @@ class SearchForm extends Component {
 			Installmentplan: [],
 			rate: [],
 			communityIdList: [],
-			page: 70,
+			page: 1,
 			pageSize: 5,
 			type: 'BILL',
 			communityids: ''
@@ -159,7 +159,7 @@ class SearchForm extends Component {
 		}];
 
 		return (
-			<form name="searchForm" style={{borderBottom:'2px solid #eee',marginBottom:30,paddingTop:'20px'}}>
+			<form name="searchForm" className="searchForm" style={{borderBottom:'2px solid #eee',marginBottom:30,paddingTop:'20px'}}>
 				{/*<KrField  name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} left={60}/>*/}
 				<KrField name="community"  grid={1/3} component="select" label="社区" inline={true}  options={communityIdList} onChange={this.selectCommunity} />
 				<SearchForms onSubmit={this.onSubmit} searchFilter={options} />
@@ -201,7 +201,7 @@ export default class BasicTable extends Component {
 			rate: [],
 
 			communityIdList: [],
-			page: 70,
+			page: 1,
 			pageSize: 5,
 			type: 'BILL'
 
@@ -246,7 +246,6 @@ export default class BasicTable extends Component {
 			pageSize,
 		} = this.state
 		var _this = this;
-		console.log('1234')
 		Store.dispatch(Actions.callAPI('getInstallmentplan', {
 			communityids: id,
 			value: '',
@@ -256,7 +255,8 @@ export default class BasicTable extends Component {
 		})).then(function(response) {
 			_this.setState({
 				Installmentplan: response.vo || [],
-				rate: response.rate
+				rate: response.rate,
+				communityIds: id
 			});
 
 		}).catch(function(err) {
@@ -346,10 +346,12 @@ export default class BasicTable extends Component {
 
 		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
 
-			var communityIds = [];
+			var Ids = [];
 			response.communityInfoList.map((item) => {
-				communityIds.push(item.id);
+				Ids.push(item.id);
+				return Ids
 			});
+			var communityIds = Ids.join(',');
 			var content = community || communityIds;
 			_this.setState({
 				communityIds: communityIds
@@ -361,6 +363,7 @@ export default class BasicTable extends Component {
 				page: page,
 				pageSize: pageSize
 			})).then(function(response) {
+				console.log('----', response)
 				_this.setState({
 					Installmentplan: response.vo || [],
 					rate: response.rate
@@ -391,18 +394,18 @@ export default class BasicTable extends Component {
 		let {
 			currentYear,
 			Installmentplan,
-			rate
+			rate,
+			communityIds
 		} = this.state;
-		let {
-			communityids,
-		} = this.props
+
 		var _this = this;
 
-
+		console.log('communityIds9999', communityIds)
+		const id = communityIds
 		return (
 			<div>
 
-			<SearchForm  communityids={communityids} onSubmit={this.onSubmit} onChange={this.onChange}/>
+			<SearchForm  onSubmit={this.onSubmit} onChange={this.onChange}/>
 		 	<div className="basic-con">
 		 		<div className="legend">
 		 			<div className="legend-left">
@@ -470,7 +473,7 @@ export default class BasicTable extends Component {
 						Installmentplan && Installmentplan.map((item,index)=>{
 							return (
 
-							<ItemTable onDismantling={this.onDismantling}  communityids={_this.props.communityids} detail={item} key={index}/>
+							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item} key={index} />
 								
 							)
 
@@ -483,9 +486,9 @@ export default class BasicTable extends Component {
 			<Dialog
 				title="撤场日期"
 				modal={true}
-				
+				onClose={this.openDismantlingDialog}
 				open={this.state.dismantling} >
-				<DismantlingForm detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openDismantlingDialog} />
+				<DismantlingForm  onSubmit={this.onConfrimSubmit} onCancel={this.openDismantlingDialog} />
 			 </Dialog>
 			
 		</div>

@@ -109,10 +109,11 @@ class DismantlingForm extends Component {
 			pristine,
 			reset,
 			submitting,
-			initialValues
+			initialValues,
+			detail
 		} = this.props;
 
-
+		console.log('detail', detail)
 		return (
 
 			<form onSubmit={handleSubmit(this.onSubmit)}> 
