@@ -51,10 +51,10 @@ class SearchForm extends Component {
 			Installmentplan: [],
 			rate: [],
 			communityIdList: [],
-			page: 1,
+			page: 70,
 			pageSize: 5,
 			type: 'BILL',
-			communityids:''
+			communityids: ''
 
 		};
 		this.getcommunity = this.getcommunity.bind(this);
@@ -62,6 +62,7 @@ class SearchForm extends Component {
 		this.getcommunity();
 
 	}
+
 
 	onSubmit(form) {
 
@@ -72,7 +73,9 @@ class SearchForm extends Component {
 			page,
 			pageSize,
 		} = this.state
-		let {formValues} = this.state;
+		let {
+			formValues
+		} = this.state;
 
 		formValues = {
 			type: form.filter,
@@ -89,9 +92,14 @@ class SearchForm extends Component {
 		onSubmit && onSubmit(formValues);
 
 	}
-	getcommunity(){
+	getcommunity() {
 		let _this = this;
-		let {communityIdList} = this.state;
+		let {
+			communityIdList,
+			page,
+			pageSize,
+			type
+		} = this.state;
 		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
 
 			communityIdList = response.communityInfoList.map(function(item, index) {
@@ -104,6 +112,8 @@ class SearchForm extends Component {
 			_this.setState({
 				communityIdList,
 			});
+
+
 		}).catch(function(err) {
 			console.log('err', err);
 			Notify.show([{
@@ -113,10 +123,15 @@ class SearchForm extends Component {
 		});
 	}
 	selectCommunity(personel) {
-		console.log(personel);
+
 		this.setState({
 			communityids: personel.id,
 		})
+		const {
+			onChange
+		} = this.props;
+		console.log(personel);
+		onChange && onChange(personel.id);
 	}
 
 
@@ -129,8 +144,19 @@ class SearchForm extends Component {
 			pristine,
 			reset
 		} = this.props;
-		let {communityIdList} = this.state;
-		let options = [{label:'订单名称',value:'BILL'},{label:'员工姓名',value:'MEMBER'},{label:'手机号',value:'PHONE'}];
+		let {
+			communityIdList
+		} = this.state;
+		let options = [{
+			label: '订单名称',
+			value: 'BILL'
+		}, {
+			label: '员工姓名',
+			value: 'MEMBER'
+		}, {
+			label: '手机号',
+			value: 'PHONE'
+		}];
 
 		return (
 			<form name="searchForm" style={{borderBottom:'2px solid #eee',marginBottom:30,paddingTop:'20px'}}>
@@ -138,7 +164,6 @@ class SearchForm extends Component {
 				<KrField name="community"  grid={1/3} component="select" label="社区" inline={true}  options={communityIdList} onChange={this.selectCommunity} />
 				<SearchForms onSubmit={this.onSubmit} searchFilter={options} />
 			</form>
-
 
 
 
@@ -166,6 +191,7 @@ export default class BasicTable extends Component {
 		this.onDismantling = this.onDismantling.bind(this);
 		this.getInstallmentplan = this.getInstallmentplan.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
+		this.onChange = this.onChange.bind(this);
 		//var year = new Date()
 		this.state = {
 			currentYear: '2016',
@@ -175,7 +201,7 @@ export default class BasicTable extends Component {
 			rate: [],
 
 			communityIdList: [],
-			page: 10,
+			page: 70,
 			pageSize: 5,
 			type: 'BILL'
 
@@ -213,7 +239,33 @@ export default class BasicTable extends Component {
 
 	}
 
+	onChange(id) {
+		let {
+			type,
+			page,
+			pageSize,
+		} = this.state
+		var _this = this;
+		console.log('1234')
+		Store.dispatch(Actions.callAPI('getInstallmentplan', {
+			communityids: id,
+			value: '',
+			type: type,
+			page: page,
+			pageSize: pageSize
+		})).then(function(response) {
+			_this.setState({
+				Installmentplan: response.vo || [],
+				rate: response.rate
+			});
 
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+	}
 	onSubmit(formValues) {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('getInstallmentplan', formValues)).then(function(response) {
@@ -350,7 +402,7 @@ export default class BasicTable extends Component {
 		return (
 			<div>
 
-			<SearchForm  communityids={communityids} onSubmit={this.onSubmit}/>
+			<SearchForm  communityids={communityids} onSubmit={this.onSubmit} onChange={this.onChange}/>
 		 	<div className="basic-con">
 		 		<div className="legend">
 		 			<div className="legend-left">

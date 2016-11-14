@@ -178,12 +178,6 @@ export default class CommunityManage extends Component {
 		 	<BreadCrumbs children={['系统运营','社区管理','计划表']}/>
 			
 			<Section title="计划表" description=""> 
-
-				<Form name="selectCommunityForm" initialValues={{community:this.state.community}} >
-					<KrField name="community"  grid={1/2} component="select" label="社区" onChange={this.selectCommunity} options={communityInfoList} inline={true}/>
-
-				</Form>
-
 				 <Tabs className="tabs" tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={{backgroundColor:'#499df1'}}>
 					<Tab label="计划表" onActive={this.planTable} style={tableStyle}>
 						<Schedule communityInfoList={communityInfoList} communityids={this.state.communityids}/>
