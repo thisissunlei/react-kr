@@ -89,7 +89,7 @@
     "react-materialui-notifications": "0.4.1",
     "react-mixin": "3.0.5",
     "react-redux": "4.4.5",
-    "react-router": "2.6.0",
+    "react-router": "^3.0.0",
     "react-s-alert": "1.1.4",
     "react-select": "1.0.0-rc.1",
     "react-style-webpack-plugin": "0.4.0",
