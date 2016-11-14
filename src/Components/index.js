@@ -24,6 +24,7 @@ import Paper from './Paper';
 import SplitLine from './SplitLine';
 import FontIcon from './FontIcon';
 import SearchForms from './search';
+import List from './List';
 
 
 import {
@@ -47,10 +48,6 @@ import {
 } from 'material-ui';
 
 import {
-	List,
-	ListItem
-} from 'material-ui/List';
-import {
 	Tabs,
 	Tab
 } from 'material-ui/Tabs';
@@ -73,18 +70,16 @@ module.exports = {
 	Row,
 	Col,
 	Dialog,
-	List,
 	DotTitle,
 	LineText,
-	ListItem,
 	Checkbox,
 	RadioButton,
 	SelfAdaption,
 	...Form,
 	...Table,
 	...Button,
+	...List,
 	...ListGroup,
-
 
 	//materal-ui
 	Menu,
