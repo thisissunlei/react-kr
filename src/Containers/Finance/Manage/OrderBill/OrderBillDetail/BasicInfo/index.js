@@ -1,14 +1,20 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, {
+	Component
+} from 'react';
+import {
+	connect
+} from 'react-redux';
+import {
+	bindActionCreators
+} from 'redux';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import './index.less';
 import {
 	Table,
- 	TableBody,
+	TableBody,
 	TableHeader,
-	TableHeaderColumn, 
+	TableHeaderColumn,
 	TableRow,
 	TableRowColumn,
 	TableFooter,
@@ -19,50 +25,53 @@ import {
 	Col,
 	Notify,
 	List,
- 	ListItem,
- 	KrField,
+	ListItem,
+	KrField,
 	LabelText,
 	KrDate,
 } from 'kr-ui';
 
 
-export default class BasicInfo extends Component{
-    static contextTypes = {
-	  params: React.PropTypes.object.isRequired
-    }
+export default class BasicInfo extends Component {
+	static contextTypes = {
+		params: React.PropTypes.object.isRequired
+	}
 	static defaultProps = {
-		detail:{
+		detail: {
 
 		},
 	}
 
 	static PropTypes = {
-		detail:React.PropTypes.object,
-		detailPayment:React.PropTypes.object,
-		detailIncome:React.PropTypes.object,
+		detail: React.PropTypes.object,
+		detailPayment: React.PropTypes.object,
+		detailIncome: React.PropTypes.object,
 	}
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 	}
-    
-  
+
+
 	componentDidMount() {
-        
+
 	}
-     
-	render(){
-          
-         const {detail,detailPayment,detailIncome} =this.props;
 
-         if(!detail.mainbillname){
-             detail.mainbillname='';
-         }
-        
-        
+	render() {
+
+		const {
+			detail,
+			detailPayment,
+			detailIncome
+		} = this.props;
+
+		if (!detail.mainbillname) {
+			detail.mainbillname = '';
+		}
 
 
-		return(
+
+		return (
 
 			<div className='ui-detail-order'>   
                       
@@ -83,7 +92,7 @@ export default class BasicInfo extends Component{
 			            
 			            <KrField grid={1/3} label="回款总额:" component="labelText" value={detail.totalPayment} defaultValue="无"/>
 
-			            <KrField grid={1} label="未回款额:" component="labelText" value={detail.notPaymentAmount} defaultValue="无"/>
+			            <KrField grid={1} label="未回款额:" className="noReceivedMoney" component="labelText" value={detail.notPaymentAmount} defaultValue="无"/>
 			            {/*{detailPayment.map((item,index)=>						
 						    <KrField key={index} grid={1/3} label={item.propname} component="labelText" value={item.propamount}/>						 
 						 )}
@@ -93,14 +102,10 @@ export default class BasicInfo extends Component{
 			  
 			           
 		
-			</div>		
+			</div>
 
 		)
 
 	}
 
 }
-
-
-
-
