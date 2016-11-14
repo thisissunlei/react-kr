@@ -54,8 +54,13 @@ export default class FloorPlan extends Component {
 		this.state = {
 			url: this.getStationUrl(),
 			communityId: this.props.communityId,
-			form: {}
+			form: {},
+			communityIdList:[],
 		}
+
+		this.getcommunity = this.getcommunity.bind(this);
+		this.selectCommunity = this.selectCommunity.bind(this);
+		this.getcommunity();
 
 
 	}
@@ -139,6 +144,35 @@ export default class FloorPlan extends Component {
 
 
 	}
+	getcommunity(){
+		let _this = this;
+		let {communityIdList} = this.state;
+		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
+
+			communityIdList = response.communityInfoList.map(function(item, index) {
+
+				item.value = item.id;
+				item.label = item.name;
+				return item;
+			});
+			console.log(communityIdList);
+			_this.setState({
+				communityIdList,
+			});
+		}).catch(function(err) {
+			console.log('err', err);
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+	}
+	selectCommunity(personel) {
+		console.log(personel);
+		this.setState({
+			communityids: personel.id,
+		})
+	}
 
 
 
@@ -154,6 +188,7 @@ export default class FloorPlan extends Component {
 		let {
 			communityId
 		} = this.state;
+		let {communityIdList} = this.state;
 		let {
 			communityInfoFloorList
 		} = this.props;
@@ -167,10 +202,11 @@ export default class FloorPlan extends Component {
 
 			<div id="planTable" style={{paddingTop:20}}>
 		 	<Form name="planTable" onSubmit={this.onSubmit} className="form-list">
-				<KrField name="floor"  grid={1/4} component="select" label="楼层" options={communityInfoFloorList} inline={true}/>
+				<KrField name="community"  grid={1/5} component="select" label="社区" inline={true}  options={communityIdList} onChange={this.selectCommunity} />
+				<KrField name="floor"  grid={1/5} component="select" label="楼层" options={communityInfoFloorList} inline={true}/>
 				<KrField grid={3/10}  name="start" component="date" label="注册时间" inline={true}/>
-				<KrField grid={1/4}  name="end" component="date"  label="至" inline={true}/>
-				<Button  label="确定" type="submit" joinEditForm style={{marginLeft:100}}/>
+				<KrField grid={1/5}  name="end" component="date"  label="至" inline={true}/>
+				<Button  label="确定" type="submit" />
 			</Form>
 			<IframeContent src={url} onClose={this.onIframeClose} className="floorIframe" onLoad={this.onLoad} width={width} scrolling="no"/>
 

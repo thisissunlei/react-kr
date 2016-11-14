@@ -29,6 +29,7 @@ import {
 	Form,
 	Row,
 	Col,
+	SearchForms
 } from 'kr-ui';
 
 import './index.less';
@@ -53,9 +54,12 @@ class SearchForm extends Component {
 			page: 1,
 			pageSize: 5,
 			type: 'BILL',
+			communityids:''
 
 		};
-
+		this.getcommunity = this.getcommunity.bind(this);
+		this.selectCommunity = this.selectCommunity.bind(this);
+		this.getcommunity();
 
 	}
 
@@ -63,15 +67,16 @@ class SearchForm extends Component {
 
 		let {
 			communityids
-		} = this.props
+		} = this.state
 		let {
 			page,
 			pageSize,
 		} = this.state
+		let {formValues} = this.state;
 
-		const formValues = {
-			type: form.type,
-			value: form.value,
+		formValues = {
+			type: form.filter,
+			value: form.content,
 			communityids: communityids,
 			page: page,
 			pageSize: pageSize
@@ -84,6 +89,35 @@ class SearchForm extends Component {
 		onSubmit && onSubmit(formValues);
 
 	}
+	getcommunity(){
+		let _this = this;
+		let {communityIdList} = this.state;
+		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
+
+			communityIdList = response.communityInfoList.map(function(item, index) {
+
+				item.value = item.id;
+				item.label = item.name;
+				return item;
+			});
+			console.log(communityIdList);
+			_this.setState({
+				communityIdList,
+			});
+		}).catch(function(err) {
+			console.log('err', err);
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+	}
+	selectCommunity(personel) {
+		console.log(personel);
+		this.setState({
+			communityids: personel.id,
+		})
+	}
 
 
 
@@ -95,19 +129,19 @@ class SearchForm extends Component {
 			pristine,
 			reset
 		} = this.props;
-
+		let {communityIdList} = this.state;
+		let options = [{label:'订单名称',value:'BILL'},{label:'员工姓名',value:'MEMBER'},{label:'手机号',value:'PHONE'}];
 
 		return (
-
-			<form onSubmit={handleSubmit(this.onSubmit)}>
-
-              <Row>
-              <Col md={5}><KrField name="type" type="select" component="select" options={[{label:'订单名称',value:'BILL'},{label:'员工姓名',value:'MEMBER'},{label:'手机号',value:'PHONE'}]}/></Col>
-				<Col md={5}><KrField name="value" type="text" placeholder="搜索关键字" /></Col>
-				<Col md={2}><Button  label="查询" type="submit" joinEditForm /></Col>
-              </Row>
-
+			<form name="searchForm" style={{borderBottom:'2px solid #eee',marginBottom:30,paddingTop:'20px'}}>
+				{/*<KrField  name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} left={60}/>*/}
+				<KrField name="community"  grid={1/3} component="select" label="社区" inline={true}  options={communityIdList} onChange={this.selectCommunity} />
+				<SearchForms onSubmit={this.onSubmit} searchFilter={options} />
 			</form>
+
+
+
+
 		);
 	}
 }
@@ -312,10 +346,11 @@ export default class BasicTable extends Component {
 		} = this.props
 		var _this = this;
 
+
 		return (
 			<div>
 
-
+			<SearchForm  communityids={communityids} onSubmit={this.onSubmit}/>
 		 	<div className="basic-con">
 		 		<div className="legend">
 		 			<div className="legend-left">
@@ -339,9 +374,7 @@ export default class BasicTable extends Component {
 		 				</p>
 		 			</div>
 		 		</div>
-		 		<div className="search">
-					<SearchForm  communityids={communityids} onSubmit={this.onSubmit}/>
-		 		</div>
+		 		
 		 	</div>
 		 	
 			<table className="basic-table" >
