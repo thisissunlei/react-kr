@@ -341,7 +341,7 @@ const APIS = {
 	},
 	//客户管理-计划表-分配员工-获取所有客户
 	'getmembers': {
-		url: '/api/krspace-finance-web/fina-contract-mainbill/members?customerId=97&customerId=',
+		url: '/api/krspace-finance-web/fina-contract-mainbill/members?customerId={customerId}',
 		method: 'get'
 	},
 	//客户管理-计划表-分配员工-保存更改信息
@@ -356,12 +356,12 @@ const APIS = {
 	},
 	// 获取社区楼层数据
 	'getCommunityFloors': {
-		url: '/api-old/krspace_operate_web/commnuity/communityBase/getCommunityFloors?communityid={communityid}',
+		url: '/api-old/krspace_operate_web/commnuity/communityBase/getCommunityFloors?communityId={communityId}',
 		method: 'get'
 	},
 	// 计划表获取数据
 	'getInstallmentplan': {
-		url: '/api/krspace-finance-web/finacontractdetail/getInstallmentplan?year={year}&communityids={communityids}',
+		url: '/api/krspace-finance-web/finacontractdetail/getInstallmentplan?year={year}&communityids={communityids}&page={page}&pageSize={pageSize}&type={type}&value={value}',
 		method: 'get'
 	},
 }

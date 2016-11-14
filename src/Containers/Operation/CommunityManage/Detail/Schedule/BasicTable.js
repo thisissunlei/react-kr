@@ -29,6 +29,7 @@ import {
 	Form,
 	Row,
 	Col,
+	SearchForms
 } from 'kr-ui';
 
 import './index.less';
@@ -39,24 +40,98 @@ import DismantlingForm from './DismantlingForm';
 
 class SearchForm extends Component {
 
-
-
 	constructor(props) {
 		super(props);
 
 		this.onSubmit = this.onSubmit.bind(this);
+		this.state = {
+			currentYear: '2016',
+			dismantling: false,
+			formValues: {},
+			Installmentplan: [],
+			rate: [],
+			communityIdList: [],
+			page: 70,
+			pageSize: 5,
+			type: 'BILL',
+			communityids: ''
+
+		};
+		this.getcommunity = this.getcommunity.bind(this);
+		this.selectCommunity = this.selectCommunity.bind(this);
+		this.getcommunity();
+
 	}
 
-	onSubmit(form) {
-			/*Store.dispatch(Actions.callAPI('getInstallmentplan', {}, form)).then(function(response) {
-				console.log("response", response);
 
-			}).catch(function(err) {
-				Notify.show([{
-					message: err.message,
-					type: 'danger',
-				}]);
-			});*/
+	onSubmit(form) {
+
+		let {
+			communityids
+		} = this.state
+		let {
+			page,
+			pageSize,
+		} = this.state
+		let {
+			formValues
+		} = this.state;
+
+		formValues = {
+			type: form.filter,
+			value: form.content,
+			communityids: communityids,
+			page: page,
+			pageSize: pageSize
+
+		}
+
+		const {
+			onSubmit
+		} = this.props;
+		onSubmit && onSubmit(formValues);
+
+	}
+	getcommunity() {
+		let _this = this;
+		let {
+			communityIdList,
+			page,
+			pageSize,
+			type
+		} = this.state;
+		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
+
+			communityIdList = response.communityInfoList.map(function(item, index) {
+
+				item.value = item.id;
+				item.label = item.name;
+				return item;
+			});
+			console.log(communityIdList);
+			_this.setState({
+				communityIdList,
+			});
+
+
+		}).catch(function(err) {
+			console.log('err', err);
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+	}
+	selectCommunity(personel) {
+
+		this.setState({
+			communityids: personel.id,
+		})
+		const {
+			onChange
+		} = this.props;
+		console.log(personel);
+		onChange && onChange(personel.id);
 	}
 
 
@@ -69,19 +144,29 @@ class SearchForm extends Component {
 			pristine,
 			reset
 		} = this.props;
-
+		let {
+			communityIdList
+		} = this.state;
+		let options = [{
+			label: '订单名称',
+			value: 'BILL'
+		}, {
+			label: '员工姓名',
+			value: 'MEMBER'
+		}, {
+			label: '手机号',
+			value: 'PHONE'
+		}];
 
 		return (
-
-			<form onSubmit={handleSubmit(this.onSubmit)}>
-
-              <Row>
-              <Col md={5}><KrField name="type" type="select" component="select" options={[{label:'订单名称',value:'BILL'},{label:'员工姓名',value:'MEMBER'},{label:'手机号',value:'PHONE'}]}/></Col>
-				<Col md={5}><KrField name="value" type="text" placeholder="搜索关键字" /></Col>
-				<Col md={2}><Button  label="查询" type="submit" joinEditForm /></Col>
-              </Row>
-
+			<form name="searchForm" style={{borderBottom:'2px solid #eee',marginBottom:30,paddingTop:'20px'}}>
+				{/*<KrField  name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} left={60}/>*/}
+				<KrField name="community"  grid={1/3} component="select" label="社区" inline={true}  options={communityIdList} onChange={this.selectCommunity} />
+				<SearchForms onSubmit={this.onSubmit} searchFilter={options} />
 			</form>
+
+
+
 		);
 	}
 }
@@ -106,14 +191,22 @@ export default class BasicTable extends Component {
 		this.onDismantling = this.onDismantling.bind(this);
 		this.getInstallmentplan = this.getInstallmentplan.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
+		this.onChange = this.onChange.bind(this);
+		//var year = new Date()
 		this.state = {
 			currentYear: '2016',
 			dismantling: false,
 			formValues: {},
 			Installmentplan: [],
 			rate: [],
-			communityIdList: []
+
+			communityIdList: [],
+			page: 70,
+			pageSize: 5,
+			type: 'BILL'
+
 		};
+		this.getInstallmentplan();
 
 	}
 
@@ -122,11 +215,13 @@ export default class BasicTable extends Component {
 		this.getInstallmentplan();
 	}
 
+
 	componentWillReceiveProps(nextProps) {
 
-		if (nextProps.community !== this.props.community) {
+		if (nextProps.community !== this.props.communityids) {
 			this.setState({
-				community: nextProps.community
+				communityids: nextProps.community
+
 			});
 			this.getInstallmentplan();
 		}
@@ -144,8 +239,48 @@ export default class BasicTable extends Component {
 
 	}
 
+	onChange(id) {
+		let {
+			type,
+			page,
+			pageSize,
+		} = this.state
+		var _this = this;
+		console.log('1234')
+		Store.dispatch(Actions.callAPI('getInstallmentplan', {
+			communityids: id,
+			value: '',
+			type: type,
+			page: page,
+			pageSize: pageSize
+		})).then(function(response) {
+			_this.setState({
+				Installmentplan: response.vo || [],
+				rate: response.rate
+			});
 
-	onSubmit() {
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+	}
+	onSubmit(formValues) {
+		var _this = this;
+		Store.dispatch(Actions.callAPI('getInstallmentplan', formValues)).then(function(response) {
+
+			_this.setState({
+				Installmentplan: response.vo,
+				rate: response.rate
+			});
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
 
 	}
 
@@ -198,24 +333,37 @@ export default class BasicTable extends Component {
 
 	getInstallmentplan() {
 		var _this = this;
-		let {community} = this.props;
-		console.log('this.params', this.props, community);
 
-	
-		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response){
+		let {
+			community
+		} = this.props;
+
+		let {
+			type,
+			page,
+			pageSize
+		} = this.state
+
+		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
 
 			var communityIds = [];
-			response.communityInfoList.map((item)=>{
+			response.communityInfoList.map((item) => {
 				communityIds.push(item.id);
 			});
-			var	content = community || communityIds;
-
-				
-			Store.dispatch(Actions.callAPI('getInstallmentplan', {communityids:content.toString()})).then(function(response) {
-					
+			var content = community || communityIds;
+			_this.setState({
+				communityIds: communityIds
+			})
+			Store.dispatch(Actions.callAPI('getInstallmentplan', {
+				communityids: content.toString(),
+				value: '',
+				type: type,
+				page: page,
+				pageSize: pageSize
+			})).then(function(response) {
 				_this.setState({
-					Installmentplan:response.vo,
-					rate:response.rate
+					Installmentplan: response.vo || [],
+					rate: response.rate
 				});
 
 			}).catch(function(err) {
@@ -225,24 +373,36 @@ export default class BasicTable extends Component {
 				}]);
 			});
 
-		}).catch(function(err){
+		}).catch(function(err) {
 			Notify.show([{
-				message:err.message,
+				message: err.message,
 				type: 'danger',
 			}]);
-	   	});
-		
+		});
+
+
 
 	}
-	
 
-		render() {
 
-			let {currentYear,Installmentplan,rate} = this.state;
-			var that = this;
 
-			return (
-<div>
+	render() {
+
+		let {
+			currentYear,
+			Installmentplan,
+			rate
+		} = this.state;
+		let {
+			communityids,
+		} = this.props
+		var _this = this;
+
+
+		return (
+			<div>
+
+			<SearchForm  communityids={communityids} onSubmit={this.onSubmit} onChange={this.onChange}/>
 		 	<div className="basic-con">
 		 		<div className="legend">
 		 			<div className="legend-left">
@@ -266,9 +426,7 @@ export default class BasicTable extends Component {
 		 				</p>
 		 			</div>
 		 		</div>
-		 		<div className="search">
-					<SearchForm />	
-		 		</div>
+		 		
 		 	</div>
 		 	
 			<table className="basic-table" >
@@ -303,25 +461,16 @@ export default class BasicTable extends Component {
 								<p  className="title-left">订单名称</p>
 							</div>
 						</td>
-						<td>35%</td>
-						<td>40%</td>
-						<td>40%</td>
-						<td>40%</td>
-						<td>40%</td>
-						<td>30%</td>
-						<td>35%</td>
-						<td>40%</td>
-						<td>30%</td>
-						<td>35%</td>
-						<td>40%</td>
-						<td>30%</td>
+						{
+							rate.map((value,index)=><td>{value}</td>)
+						}
 						<td></td>
 					</tr>
 					{
-						Installmentplan.map((item,index)=>{
+						Installmentplan && Installmentplan.map((item,index)=>{
 							return (
 
-							<ItemTable onDismantling={this.onDismantling} item={{name:'ddd'}} detail={item} key={index}/>
+							<ItemTable onDismantling={this.onDismantling}  communityids={_this.props.communityids} detail={item} key={index}/>
 								
 							)
 
@@ -341,9 +490,8 @@ export default class BasicTable extends Component {
 			
 		</div>
 		);
-				
+
+
+	}
 
 }
-
-}
-
