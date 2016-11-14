@@ -22,7 +22,6 @@ module.exports = {
 			primaryText:"首页",
 			router:'index',
 			menuCode:'index',
-			permission:true,
 			originUrl:'/'
 		},
 		{
@@ -79,7 +78,6 @@ module.exports = {
 
 					router:'communityManage',
 					menuCode:'communityBaseAdmin',
-					permission:true,
 					menuItems:[
 						{
 							primaryText:'社区列表',
@@ -119,7 +117,6 @@ module.exports = {
 					iconColor:'#2b8dcd',
 					router:'BaseManage',
 					menuCode:'basic_config',
-					permission:true,
 					menuItems:[
 						{
 							primaryText:"出租方管理",
@@ -158,7 +155,6 @@ module.exports = {
 			primaryText:"会员中心",
 			router:'member',
             menuCode:'member',
-            permission:true,
             originUrl:'/krspace_member_web/member/toMemberList?mid=94',
 			menuItems:[
 				{
@@ -209,7 +205,6 @@ module.exports = {
 
 			router:'retail',
 			menuCode:'krspace_retail',
-			permission:true,
 			originUrl:'/krspace_retail_web/retail/charts/retailCharts/toRetailCharts?mid=92',
 			menuItems:[
 				{
@@ -260,7 +255,6 @@ module.exports = {
 
 					menuCode:'ordersManager',
 					router:'ordersManager',
-					permission:true,
 					menuItems:[
 						{
 							primaryText:'全部订单',
