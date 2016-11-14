@@ -5,7 +5,8 @@ import {
 	Link,
 	Redirect,
 	IndexRoute,
-	browserHistory
+	browserHistory,
+	IndexRedirect
 } from 'react-router';
 
 import {
@@ -178,8 +179,8 @@ export default (
 
 			{/*财务管理*/}
 				<Route path="finance" component={Basic}>
-				
-					<Route path="index" component={Finance.Home}/>
+
+					<IndexRedirect to="manage/orderbill/orderList" />
 
 					<Route path="manage" component={Basic}>
 						<Route path="orderbill" component={Basic}>
@@ -201,7 +202,7 @@ export default (
 						<Route path="attribute" component={Finance.Manage.CodeSetting.Attribute}/>
 						<Route path="subject" component={Finance.Manage.CodeSetting.Subject}/>
 					</Route>
-					</Route>	
+					</Route>
 			</Route>
 
 
