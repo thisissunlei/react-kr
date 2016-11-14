@@ -49,7 +49,7 @@ export default class FloorPlan extends Component {
 		this.onLoad = this.onLoad.bind(this);
 		this.iframeWindow = null;
 		this.state = {
-			url: this.getStationUrl(),
+			url: '',
 			communityId: '',
 			form: {},
 			communityIdList:[],
@@ -77,7 +77,9 @@ export default class FloorPlan extends Component {
 
 
 	componentDidMount() {
-
+		this.setState({
+			url:this.getStationUrl()
+		})
 
 
 	}
@@ -121,6 +123,7 @@ export default class FloorPlan extends Component {
 			};
 			console.log(params);
 			that.iframeWindow.query(params);
+			return false;
 
 		}
 		// 监听滚动事件
