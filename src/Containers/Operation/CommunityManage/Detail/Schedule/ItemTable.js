@@ -39,10 +39,7 @@ import DismantlingForm from './DismantlingForm';
 import dateFormat from 'dateformat';
 
 export default class ItemTable extends Component {
-  static defaultProps = {
-    companyId: 1,
-    communityId: 1
-  }
+
 
   static PropTypes = {
     onDismantling: React.PropTypes.func,
@@ -120,8 +117,8 @@ export default class ItemTable extends Component {
       } else {
         return (
           <li key={index} className="company-order">
-							<span className="count">({item.contractCount})</span>
-							<p className="name">{item.contractName}</p>
+							
+							<p className="name">{item.contractName}({item.contractCount})</p>
 							<p>{dateFormat(item.contractTime,"yyyy.mm.dd")}</p>
 						</li>
         )
@@ -130,22 +127,28 @@ export default class ItemTable extends Component {
     return contractTypeVo;
   }
   render() {
-
-
     let {
       activity
     } = this.state;
     let {
-      detail
+      detail,
+      communityids
     } = this.props;
-    let width = 700;
+    let width = 660;
+    var _this = this;
+    var id = communityids;
 
     return (
 
       <tr className="last-td" >
 						<td className="company-list">
-							<div className="company-name" data-tip> 诚意有限公司 
-							<ReactTooltip place="right" delayHide={1000} effect='solid'>
+
+							<div className="company-name" data-tip> 
+              {
+                detail.companyName
+              }
+							<ReactTooltip place="right">
+
 								<ul>
 								{
 									this.renderOrder(detail.contractTypeVo)
@@ -155,8 +158,8 @@ export default class ItemTable extends Component {
 							</div>
 						</td>
 						<td colSpan="12">
-							<D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} width={width}/>
-							<EmployessTable activity={activity}/>
+							<D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} width={width} id={detail.billId}/>
+							<EmployessTable activity={activity} detail={detail} id={id}/>
 						</td>
 						<td className="btnlist">
 							<Button className="Station" type="link" joinEditForm label="" onTouchTap={this.onStation} />

@@ -341,7 +341,7 @@ const APIS = {
 	},
 	//客户管理-计划表-分配员工-获取所有客户
 	'getmembers': {
-		url: '/api/krspace-finance-web/fina-contract-mainbill/members?customerId=97&customerId=',
+		url: '/api/krspace-finance-web/fina-contract-mainbill/members?customerId={customerId}',
 		method: 'get'
 	},
 	//客户管理-计划表-分配员工-保存更改信息

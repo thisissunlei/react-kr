@@ -34,6 +34,7 @@ import {
 	Form,
 	KrField,
 	IframeContent,
+	Notify
 } from 'kr-ui';
 
 class Distribution extends Component {
@@ -100,7 +101,7 @@ class Distribution extends Component {
 	}
 
 }
-
+//变更
 class ChangeStation extends Component {
 
 	constructor(props, context) {
@@ -166,11 +167,6 @@ export default class EmployessTable extends Component {
 
 	static defaultProps = {
 		activity: false,
-		params: {
-			mainBillId: 290,
-			communityIds: 1,
-			customerId: 97
-		},
 
 
 	}
@@ -212,19 +208,20 @@ export default class EmployessTable extends Component {
 
 	openChangeStation(itemDetail) {
 		var _this = this;
+
 		this.setState({
 			openChangeStation: !this.state.openChangeStation,
-			stationId: itemDetail.stationId,
+			stationId: itemDetail.id,
 			customerId: itemDetail.customerId,
 			communityId: itemDetail.communityId
 		})
 		let optionValues = {};
 
 		const formValues = {
-			customerId: itemDetail.customerId,
-			communityId: itemDetail.communityId
+			customerId: itemDetail.customerId
 		}
-		Store.dispatch(Actions.callAPI('getmembers', {}, formValues)).then(function(response) {
+		console.log('formValues', formValues)
+		Store.dispatch(Actions.callAPI('getmembers', formValues)).then(function(response) {
 
 			optionValues.members = response.map(function(item, index) {
 				item.value = item.id;
@@ -245,18 +242,18 @@ export default class EmployessTable extends Component {
 	}
 
 	openDistributionStation(itemDetail) {
+		console.log('itemDetail', itemDetail)
 
 		var _this = this;
 		this.setState({
 			openDistribution: !this.state.openDistribution,
-			stationId: itemDetail.stationId,
+			stationId: itemDetail.id,
 			customerId: itemDetail.customerId,
 			communityId: itemDetail.communityId
 		})
 		let optionValues = {};
 		const formValue = {
 			customerId: itemDetail.customerId,
-			communityId: itemDetail.communityId
 		}
 
 		Store.dispatch(Actions.callAPI('getmembers', {}, formValue)).then(function(response) {
@@ -267,7 +264,7 @@ export default class EmployessTable extends Component {
 				return item;
 			});
 			_this.setState({
-				optionValues
+				optionValues,
 			});
 
 		}).catch(function(err) {
@@ -292,7 +289,7 @@ export default class EmployessTable extends Component {
 	}
 
 	onChangeSubmit(form) {
-
+		var _this = this;
 		if (form.memberId == -1) {
 			this.setState({
 				openNewmeber: !this.state.openNewmeber
@@ -301,13 +298,15 @@ export default class EmployessTable extends Component {
 		} else {
 
 			Store.dispatch(Actions.callAPI('changeStation', {}, form)).then(function(response) {
+				_this.onChangeCancel();
 				Notify.show([{
 					message: '操作成功！',
 					type: 'success',
 				}]);
 
+
 			}).catch(function(err) {
-				console.log('000e', err);
+
 				Notify.show([{
 					message: err.message,
 					type: 'danger',
@@ -333,6 +332,7 @@ export default class EmployessTable extends Component {
 			customerId,
 			communityId
 		} = this.state;
+		console.log('customerId', customerId)
 		let url = `http://optest.krspace.cn/krspace_member_web/member/toAddMember?companyId=${customerId}&communityId=${communityId}`;
 		return url;
 	}
@@ -340,7 +340,7 @@ export default class EmployessTable extends Component {
 
 
 	onDistributionSubmit(form) {
-
+		var _this = this;
 		if (form.memberId == -1) {
 			this.setState({
 				openNewmeber: !this.state.openNewmeber,
@@ -349,12 +349,15 @@ export default class EmployessTable extends Component {
 			this.onDistributionCancel()
 		} else {
 			Store.dispatch(Actions.callAPI('changeStation', {}, form)).then(function(response) {
+				_this.onDistributionCancel()
 				Notify.show([{
 					message: '操作成功！',
 					type: 'success',
 				}]);
 
+
 			}).catch(function(err) {
+
 				Notify.show([{
 					message: err.message,
 					type: 'danger',
@@ -394,7 +397,9 @@ export default class EmployessTable extends Component {
 	render() {
 
 		let {
-			activity
+			activity,
+			detail,
+			id
 		} = this.props;
 
 		if (!activity) {
@@ -403,10 +408,16 @@ export default class EmployessTable extends Component {
 		let {
 			optionValues
 		} = this.state;
+
+		const ParamValues = {
+			communityIds: id,
+			mainBillId: detail.billId
+		}
+
 		return (
 
 			<div className="employees-content">
-		 	<Table  style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getStation' ajaxParams={this.props.params} pagination={false} onOperation={this.onOperation} >
+		 	<Table  style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getStation' ajaxParams={ParamValues} pagination={false} onOperation={this.onOperation} >
 				<TableHeader>
 						<TableHeaderColumn>工位编号</TableHeaderColumn>
 						<TableHeaderColumn>租赁起始时间</TableHeaderColumn>
@@ -426,8 +437,12 @@ export default class EmployessTable extends Component {
 						<TableRowColumn name="memberPhone" ></TableRowColumn>
 						<TableRowColumn name="status"></TableRowColumn>
 						<TableRowColumn>
-							  <Button label="分配" className="Distribtn"  type="operation" operation="Distribution"   />
-							  <Button label="变更" className="changeBtn" type="operation" operation="ChangeStation"   />
+							
+							<Button label="变更" className="changeBtn" type="operation" operation="ChangeStation"   />
+							<Button label="分配" className="Distribtn"  type="operation" operation="Distribution"   />
+							
+							 
+							  
 						 </TableRowColumn>
 					</TableRow>
 				</TableBody>
