@@ -224,24 +224,29 @@ export default class D3Content extends Component {
 		var {
 			finaBluePointVo,
 			finaRedPointVo,
-			id
+			id,
+			detail
 		} = this.props;
+		if(detail.length){
+			// 获取当前时间
+			var timestamp = new Date().getTime();
+			var now = this.countDays(timestamp);
+			// 处理时间段
+			var list = this.dealTime();
+			var whiteNode = this.getSpace(list);
+			list.unshift(whiteNode);
+			var nodeList = this.appendDiv(list, now);
+			var redNodeList = this.renderRedNode();
+			var blueNodeList = this.renderBlueNode();
+			var sameNode = this.getSameTime();
+			list = this.getRedInfo(list);
+		}else{
+			var list = [{width:"100%"}];
+		}
 
-		// 获取当前时间
-		var timestamp = new Date().getTime();
-		var now = this.countDays(timestamp);
-		// 处理时间段
-		var list = this.dealTime();
-		var whiteNode = this.getSpace(list);
-		list.unshift(whiteNode);
-		var nodeList = this.appendDiv(list, now);
-		var redNodeList = this.renderRedNode();
-		var blueNodeList = this.renderBlueNode();
-		var sameNode = this.getSameTime();
-		list = this.getRedInfo(list);
+		
 
 		const width = this.props.width || 660;
-		console.log('========', list);
 
 
 
