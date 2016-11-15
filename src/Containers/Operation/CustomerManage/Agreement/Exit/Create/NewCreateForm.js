@@ -57,7 +57,9 @@ import {
 	DotTitle,
 	IframeContent,
 	Date,
-	Paper
+	Paper,
+	ListGroup,
+	ListGroupItem
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -232,7 +234,7 @@ class NewCreateForm extends Component {
 				<KrField grid={1/2} left={60} name="withdrawdate" component="date" label="撤场日期" requireLabel={true}/>
 				<KrField grid={1/2} right={60}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
         
-				<KrField grid={1} right={60} name="contractmark" component="textarea" label="备注" />
+				<KrField grid={1} name="contractmark" component="textarea" label="备注" />
 
 				<KrField grid={1}  right={60} name="contractFileList" component="input" type="hidden" label="合同附件"/>
 				<KrField grid={1} right={60} name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
@@ -242,10 +244,11 @@ class NewCreateForm extends Component {
 
 				<Grid>
 					<Row style={{marginTop:30}}>
-					<Col md={4}></Col>
-					<Col md={2} align="center"> <Button  label="确定" type="submit" disabled={pristine || submitting}  /> </Col>
-					<Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col>
-					<Col md={4}></Col> </Row>
+					<ListGroup>
+					<ListGroupItem style={{width:'45%',textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit" disabled={pristine || submitting}  /></ListGroupItem>
+					<ListGroupItem style={{width:'45%',textAlign:'left',paddingLeft:15}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/></ListGroupItem>
+				</ListGroup>
+					</Row>
 				</Grid>
 
 			</form>
