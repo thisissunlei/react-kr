@@ -14,9 +14,11 @@ export default class Paper extends Component{
 
 	render(){
 
-		let {width,children} = this.props;
-		let styles ={};
+		let {width,children,style} = this.props;
+
+		let styles =Object.assign({},style);
 		styles.width = width;
+
 		return (
 			<div className="ui-paper" style={styles}>
 				{children}
