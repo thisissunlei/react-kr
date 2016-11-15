@@ -24,7 +24,8 @@ export default class DateComponent extends React.Component {
 	static PropTypes = {
 		defaultValue: React.PropTypes.string,
 		onChange: React.PropTypes.func,
-		inline: React.PropTypes.bool
+		inline: React.PropTypes.bool,
+		search: React.PropTypes.bool
 	}
 
 	constructor(props) {
@@ -142,6 +143,7 @@ export default class DateComponent extends React.Component {
 			},
 			requireLabel,
 			disabled,
+			search,
 			placeholder,
 			style,
 			defaultValue,
@@ -160,7 +162,7 @@ export default class DateComponent extends React.Component {
 
 		return (
 
-			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
+			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 					<div className="date-component">
 							<span className="date-input"> {(input.value && DateFormat(input.value,"yyyy-mm-dd")) || placeholder || '日期'} <span className="icon"></span></span>
 									<span className="date-operation">

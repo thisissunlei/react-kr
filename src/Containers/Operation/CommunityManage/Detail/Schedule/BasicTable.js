@@ -31,7 +31,7 @@ import {
 	Col,
 	SearchForms
 } from 'kr-ui';
-
+import $ from 'jquery';
 import './index.less';
 
 import EmployessTable from './EmployessTable';
@@ -51,7 +51,7 @@ class SearchForm extends Component {
 			Installmentplan: [],
 			rate: [],
 			communityIdList: [],
-			page: 70,
+			page: 1,
 			pageSize: 5,
 			type: 'BILL',
 			communityids: ''
@@ -108,14 +108,14 @@ class SearchForm extends Component {
 				item.label = item.name;
 				return item;
 			});
-			console.log(communityIdList);
+
 			_this.setState({
 				communityIdList,
 			});
 
 
 		}).catch(function(err) {
-			console.log('err', err);
+
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
@@ -130,7 +130,7 @@ class SearchForm extends Component {
 		const {
 			onChange
 		} = this.props;
-		console.log(personel);
+
 		onChange && onChange(personel.id);
 	}
 
@@ -159,9 +159,9 @@ class SearchForm extends Component {
 		}];
 
 		return (
-			<form name="searchForm" style={{borderBottom:'2px solid #eee',marginBottom:30,paddingTop:'20px'}}>
+			<form name="searchForm" className="searchForm" style={{borderBottom:'2px solid #eee',marginBottom:30,padding:'20px'}}>
 				{/*<KrField  name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} left={60}/>*/}
-				<KrField name="community"  grid={1/3} component="select" label="社区" inline={true}  options={communityIdList} onChange={this.selectCommunity} />
+				<KrField name="community"  grid={1/3} component="select" label="社区" search={true}  options={communityIdList} onChange={this.selectCommunity} />
 				<SearchForms onSubmit={this.onSubmit} searchFilter={options} />
 			</form>
 
@@ -192,18 +192,20 @@ export default class BasicTable extends Component {
 		this.getInstallmentplan = this.getInstallmentplan.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onChange = this.onChange.bind(this);
-		//var year = new Date()
+		//this.scrollLoad = this.scrollLoad.bind(this);
 		this.state = {
 			currentYear: '2016',
 			dismantling: false,
 			formValues: {},
 			Installmentplan: [],
 			rate: [],
-
+			value: '',
 			communityIdList: [],
-			page: 70,
+			page: 1,
 			pageSize: 5,
-			type: 'BILL'
+			type: 'BILL',
+			detail: {},
+			activity: false,
 
 		};
 		this.getInstallmentplan();
@@ -227,11 +229,45 @@ export default class BasicTable extends Component {
 		}
 	}
 
+	scrollLoad() {
+		var _this = this;
+		$(window).bind('scroll', function() {
+			var top = $(window).scrollTop() || 0;
+			var height = $(window).height() || 0;
+			// var scrollBottom = $('#planTable').offset().top +1000 - top - height;
+			var scrollBottom = height - top;
+			var isOutBoundary = scrollBottom >= 100;
+
+			if (!isOutBoundary) {
+				let {
+					communityIds,
+					type,
+					page,
+					pageSize,
+					value,
+					Installmentplan
+				} = _this.state
+					/*if (page < 10) {
+						_this.setState({
+							page: _this.state.page++
+						})
+					}*/
+
+
+
+			}
+		})
+
+
+	}
 
 
 	//撤场
 
-	onDismantling() {
+	onDismantling(detail) {
+		this.setState({
+			detail: detail
+		})
 		this.openDismantlingDialog();
 	}
 
@@ -246,17 +282,18 @@ export default class BasicTable extends Component {
 			pageSize,
 		} = this.state
 		var _this = this;
-		console.log('1234')
 		Store.dispatch(Actions.callAPI('getInstallmentplan', {
 			communityids: id,
 			value: '',
 			type: type,
 			page: page,
-			pageSize: pageSize
+			//pageSize: pageSize
+			pageSize: 10
 		})).then(function(response) {
 			_this.setState({
-				Installmentplan: response.vo || [],
-				rate: response.rate
+				Installmentplan: response.vo.items || [],
+				rate: response.rate,
+				communityIds: id
 			});
 
 		}).catch(function(err) {
@@ -268,12 +305,18 @@ export default class BasicTable extends Component {
 	}
 	onSubmit(formValues) {
 		var _this = this;
+		if (formValues.type != "BILL") {
+			_this.setState({
+				activity: !this.state.activity
+			});
+		}
 		Store.dispatch(Actions.callAPI('getInstallmentplan', formValues)).then(function(response) {
 
 			_this.setState({
-				Installmentplan: response.vo,
-				rate: response.rate
+				Installmentplan: response.vo.items,
+				rate: response.rate,
 			});
+
 
 		}).catch(function(err) {
 			Notify.show([{
@@ -286,19 +329,20 @@ export default class BasicTable extends Component {
 
 	onConfrimSubmit(formValues) {
 		/*Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
-			console.log("response",response);
+				
 
-			Notify.show([{
-				message:'创建成功',
-				type: 'danger',
-			}]);
+				Notify.show([{
+					message:'创建成功',
+					type: 'danger',
+				}]);
 
-		}).catch(function(err){
-			Notify.show([{
-				message:err.message,
-				type: 'danger',
-			}]);
-	   	});*/
+			}).catch(function(err){
+				Notify.show([{
+					message:err.message,
+					type: 'danger',
+				}]);
+		   	});*/
+
 
 
 	}
@@ -318,6 +362,7 @@ export default class BasicTable extends Component {
 		this.setState({
 			currentYear
 		});
+		this.getInstallmentplan();
 	}
 
 	onNextYear() {
@@ -328,6 +373,7 @@ export default class BasicTable extends Component {
 		this.setState({
 			currentYear
 		});
+		this.getInstallmentplan();
 	}
 
 
@@ -346,10 +392,12 @@ export default class BasicTable extends Component {
 
 		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
 
-			var communityIds = [];
+			var Ids = [];
 			response.communityInfoList.map((item) => {
-				communityIds.push(item.id);
+				Ids.push(item.id);
+				return Ids
 			});
+			var communityIds = Ids.join(',');
 			var content = community || communityIds;
 			_this.setState({
 				communityIds: communityIds
@@ -359,10 +407,12 @@ export default class BasicTable extends Component {
 				value: '',
 				type: type,
 				page: page,
-				pageSize: pageSize
+				pageSize: pageSize,
+				year:_this.state.currentYear,
 			})).then(function(response) {
+
 				_this.setState({
-					Installmentplan: response.vo || [],
+					Installmentplan: response.vo.items || [],
 					rate: response.rate
 				});
 
@@ -391,18 +441,16 @@ export default class BasicTable extends Component {
 		let {
 			currentYear,
 			Installmentplan,
-			rate
+			rate,
+			communityIds
 		} = this.state;
-		let {
-			communityids,
-		} = this.props
 		var _this = this;
-
-
+		const id = communityIds
+			//this.scrollLoad();
 		return (
 			<div>
 
-			<SearchForm  communityids={communityids} onSubmit={this.onSubmit} onChange={this.onChange}/>
+			<SearchForm  onSubmit={this.onSubmit} onChange={this.onChange}/>
 		 	<div className="basic-con">
 		 		<div className="legend">
 		 			<div className="legend-left">
@@ -470,7 +518,7 @@ export default class BasicTable extends Component {
 						Installmentplan && Installmentplan.map((item,index)=>{
 							return (
 
-							<ItemTable onDismantling={this.onDismantling}  communityids={_this.props.communityids} detail={item} key={index}/>
+							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item} key={index} />
 								
 							)
 
@@ -483,9 +531,9 @@ export default class BasicTable extends Component {
 			<Dialog
 				title="撤场日期"
 				modal={true}
-				
+				onClose={this.openDismantlingDialog}
 				open={this.state.dismantling} >
-				<DismantlingForm detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openDismantlingDialog} />
+				<DismantlingForm  onSubmit={this.onConfrimSubmit} onCancel={this.openDismantlingDialog} detail={this.state.detail} />
 			 </Dialog>
 			
 		</div>
