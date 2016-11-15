@@ -39,6 +39,7 @@ export default class KrField extends React.Component {
 		grid: React.PropTypes.number,
 		value: React.PropTypes.string,
 		inline: React.PropTypes.bool,
+		search: React.PropTypes.bool,
 		left: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
 		right: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
 	}
@@ -58,6 +59,7 @@ export default class KrField extends React.Component {
 			requireLabel,
 			label,
 			value,
+			search,
 			...other
 		} = this.props;
 

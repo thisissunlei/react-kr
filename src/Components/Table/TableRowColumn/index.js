@@ -5,7 +5,7 @@ import krDate from '../../Date';
 export default class TableRowColumn extends React.Component {
 
 	static displayName = 'TableRowColumn';
-	
+
 	static PropTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
@@ -62,11 +62,12 @@ export default class TableRowColumn extends React.Component {
 		let {
 			children,
 			className,
-			columnNumber, 
+			columnNumber,
 			style,
 			name,
 			value,
 			type,
+			itemData,
 			options,
 			format,
 			...other,
@@ -105,16 +106,41 @@ export default class TableRowColumn extends React.Component {
 		}
 
 
+		if(type == 'operation'){
+
+			var operationElement = [];
+
+			React.Children.map(children, (child) => {
+				if (!React.isValidElement(child)) return;
+
+
+				let {hidden} = child.props;
+
+				if(hidden){
+						hidden = !!itemData[hidden];
+				}
+
+				let newChild =  React.cloneElement(child, {
+						hidden
+					}
+				);
+				operationElement.push(newChild);
+			});
+
+			return(
+				<td className={className} style={style} {...handlers} {...other}>
+					{operationElement}
+				</td>
+			);
+		}
+
+
 		return(
 			<td className={className} style={style} {...handlers} {...other}>
-				{children}	
+				{children}
 			</td>
 		);
 
 
 	}
 }
-
-
-
-
