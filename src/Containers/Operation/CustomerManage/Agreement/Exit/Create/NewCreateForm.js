@@ -242,8 +242,8 @@ class NewCreateForm extends Component {
 				}} />
 
 
-				<Grid>
-					<Row style={{marginTop:30}}>
+				<Grid style={{paddingBottom:50}}>
+					<Row >
 					<ListGroup>
 					<ListGroupItem style={{width:'45%',textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit" disabled={pristine || submitting}  /></ListGroupItem>
 					<ListGroupItem style={{width:'45%',textAlign:'left',paddingLeft:15}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/></ListGroupItem>
