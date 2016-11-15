@@ -57,7 +57,7 @@ export default class ItemTable extends Component {
 
 
     this.state = {
-      activity: false,
+      //activity: false,
       Dismantling: false,
       show: false,
     }
@@ -79,9 +79,14 @@ export default class ItemTable extends Component {
     }
     //分配工位
   onStation() {
+    /*let {
+      onStation
+    } = this.props
+    onStation && onStation()*/
     this.setState({
       activity: !this.state.activity
     });
+
   }
   onDismantlingDialog() {
     this.setState({
