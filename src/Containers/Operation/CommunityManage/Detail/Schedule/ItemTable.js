@@ -28,6 +28,8 @@ import {
 } from 'kr-ui';
 
 import './index.less';
+import _ from 'lodash';
+
 import {
   findDOMNode
 } from 'react-dom'
@@ -44,6 +46,7 @@ export default class ItemTable extends Component {
   static PropTypes = {
     onDismantling: React.PropTypes.func,
     onStation: React.PropTypes.func,
+    index: React.PropTypes.number
   }
 
 
@@ -58,10 +61,24 @@ export default class ItemTable extends Component {
 
 
     this.state = {
+      detail: this.props.detail,
       //activity: false,
       Dismantling: false,
-      show: false,
+
     }
+
+  }
+
+
+  componentWillReceiveProps(nextProps) {
+
+
+    if (!_.isEqual(this.props.detail, nextProps.detail)) {
+      this.setState({
+        detail: nextProps.detail
+      });
+    }
+
 
   }
 
@@ -80,13 +97,23 @@ export default class ItemTable extends Component {
     }
     //分配工位
   onStation() {
+
+    let {
+      detail
+    } = this.state;
+
+    detail.activity = !detail.activity;
+
+    this.setState({
+      detail
+    });
+
     let {
       onStation
-    } = this.props
+    } = this.props;
+
     onStation && onStation()
-      /*this.setState({
-        activity: !this.state.activity
-      });*/
+
 
   }
   onDismantlingDialog() {
@@ -132,20 +159,27 @@ export default class ItemTable extends Component {
     return contractTypeVo;
   }
   render() {
+
+
     let {
-      activity
-    } = this.props;
+      show,
+      detail
+    } = this.state;
+
     let {
-      detail,
-      communityids
+      communityids,
+      activity,
+      index
     } = this.props;
+
     let width = 660;
     var _this = this;
     var id = communityids;
 
+
     return (
 
-      <tr className="last-td" >
+      <tr className="last-td"   >
 						<td className="company-list">
 
 							<div className="company-name" data-tip> 
@@ -163,10 +197,10 @@ export default class ItemTable extends Component {
 						</td>
 						<td colSpan="12">
 							<D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} width={width} id={detail.billId}/>
-							<EmployessTable activity={activity} detail={detail} id={id}/>
+    <EmployessTable  activity={detail.activity} detail={detail} id={id} />
 						</td>
 						<td className="btnlist">
-							<Button className="Station" type="link" joinEditForm label="" onTouchTap={this.onStation} />
+							<Button className="Station" type="link" joinEditForm label="" onTouchTap={this.onStation}   />
                 <div className="tip hide  hover">
                    分配工位 < span className = "bArrow" > < /span>
                 </div>
