@@ -33,7 +33,7 @@ import {
 import Schedule from './Schedule';
 import FloorPlan from './FloorPlan';
 import $ from 'jquery';
-
+import './index.less'
 export default class CommunityManage extends Component {
 
 	constructor(props, context) {
@@ -81,8 +81,7 @@ export default class CommunityManage extends Component {
 		} = this.state;
 
 		const activeTab = {
-			color: '#000',
-			backgroundColor: '#ecf5fe',
+			color: '#2b8dcd',
 			borderBottom: "1px solid #eee"
 		}
 		const commenTab = {
@@ -91,15 +90,20 @@ export default class CommunityManage extends Component {
 		}
 		let tableStyle = (tab == 'table') ? activeTab : commenTab;
 		let planStyle = (tab == 'floorplan') ? activeTab : commenTab;
-
+		const inkBarStyle = {
+			background: '-moz-linear-gradient(right, #03ec56, #499df1)',
+			background: '-webkit-linear-gradient(right, #03ec56, #499df1)',
+			background: '-ms-linear-gradient(right, #03ec56, #499df1)',
+			position:'absolute',
+			top:0,
+		}
 
 		return (
 
-			<div>
+			<div className="tab-container">
 		 	<BreadCrumbs children={['系统运营','社区管理','计划表']}/>
-			
-			<Section title="计划表" description=""> 
-				 <Tabs className="tabs" tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={{backgroundColor:'#499df1'}}>
+				<span className="line"></span>
+				 <Tabs className="tabs" tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={{background: '-webkit-linear-gradient(right, #03ec56, #499df1)',position:'absolute',top:0,}} style={{background:'#fff',position:'relative'}}>
 					<Tab label="计划表" onActive={this.planTable} style={tableStyle}>
 						<Schedule />
 
@@ -112,7 +116,6 @@ export default class CommunityManage extends Component {
 					</Tab>
 			</Tabs>
 
-			</Section>
 			
 			
 		</div>

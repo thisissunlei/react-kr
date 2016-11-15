@@ -223,11 +223,11 @@ export default class FloorPlan extends Component {
 		} else {
 			$(window).unbind('scroll', this.scrollLoad());
 		}
-		const width = $('#planTable').width()+20 ;
+		const width = $('#planTable').width() ;
 		// console.log('======',$('#planTable').width());
 		return (
 
-			<div id="planTable" style={{paddingTop:20}}>
+			<div id="planTable" style={{margin:20}}>
 		 	<form name="planTable" onSubmit={handleSubmit(this.onSubmit)} className="form-list">
 				<KrField name="community"  grid={1/5} component="select" label="社区" search={true}  options={communityIdList} onChange={this.selectCommunity} />
 				<KrField name="floor"  grid={1/5} component="select" label="楼层" options={communityInfoFloorList} search={true}/>

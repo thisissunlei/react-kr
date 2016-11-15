@@ -30,7 +30,7 @@ export default class InputComponent extends React.Component{
 			return (
 
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} simple={simple}>
-					<input {...input} placeholder={placeholder|| label} type={type} disabled={disabled}  />
+					<input {...input} placeholder={placeholder|| label} type={type} disabled={disabled}/>
 					{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				</WrapComponent>
 		);
