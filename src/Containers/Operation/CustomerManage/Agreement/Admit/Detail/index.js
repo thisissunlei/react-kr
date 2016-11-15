@@ -118,7 +118,7 @@ export default class AdmitDetail extends Component {
 		}
 		const info = {
 			padding: '30px 70px',
-			paddingBottom:0
+			paddingBottom:10
 		}
 
 		const BasicRender = (props) => {
@@ -211,11 +211,11 @@ export default class AdmitDetail extends Component {
 
 			<BreadCrumbs children={['社区运营',,'合同详情']}/>
 
-			<Section title="承租意向书" description=""> 
+			<Section title="承租意向书" description="" bodyPadding={"20px 20px 150px 20px"}> 
 				<BasicRender/>
 
 
-<Grid style={{marginTop:30}}>
+				<Grid>
 				  <Row>
 					  <Col md={5} align="center"></Col>
 					  <Col md={2} align="center"> <Button  label="返回"  type="href" joinEditForm href={getOrderUrl()}/> </Col>

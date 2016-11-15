@@ -97,7 +97,8 @@ export default class JoinDetail extends Component {
 			fontSize:14
 		}
 		const info = {
-			padding: '30px 70px'
+			padding: '30px 70px',
+			paddingBottom:10
 		}
 
 		return (
@@ -223,10 +224,10 @@ export default class JoinDetail extends Component {
 
 			<BreadCrumbs children={['社区运营',,'合同详情','增租合同查看']}/>
 
-			<Section title="增租协议书" description=""> 
+			<Section title="增租协议书" description="" bodyPadding={"20px 20px 150px 20px"}> 
 
 			{this.BasicRender(basic)}
-			  <Grid style={{marginTop:30}}>
+			  <Grid>
 				  <Row>
 					  <Col md={5} align="center"></Col>
 					 	<Col md={2} align="center">  <Button  label="返回"  type="href" joinEditForm href={getOrderUrl()}/></Col>
