@@ -19,7 +19,8 @@ import {
 	change,
 	arrayPush,
 	arrayInsert,
-	FieldArray
+	FieldArray,
+	reset
 } from 'redux-form';
 
 import {
@@ -67,6 +68,8 @@ class ReceivedBtnForm extends Component {
 		this.state = {
 
 		}
+      Store.dispatch(reset('ReceivedBtnForm'));
+		
 	}
 
 	componentDidMount() {
@@ -77,6 +80,7 @@ class ReceivedBtnForm extends Component {
 			autoSplit: '0',
 			mainbillid: this.context.params.orderId
 		}
+
 		Store.dispatch(initialize('ReceivedBtnForm', initialValues));
 
 	}

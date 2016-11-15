@@ -25,8 +25,13 @@ import {
 	KrDate,
     DotTitle,
     ButtonGroup,
-    Loading
+    Loading,
+
 } from 'kr-ui';
+import {
+	reduxForm,
+	reset
+} from 'redux-form';
 
 import { browserHistory } from 'react-router'
 import BasicInfo from './BasicInfo';
@@ -483,6 +488,7 @@ export default class AttributeSetting  extends Component{
     }
     //回款提交
     onAddReceivedSubmit(params){
+    	  //console.log('222222222',params);
 	  	  params= Object.assign({},params);
         if(params.autoSplit==0){
           params.jsonStr = {};
