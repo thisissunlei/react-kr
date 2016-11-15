@@ -57,6 +57,7 @@ export default class Table extends React.Component {
 		onOperation: React.PropTypes.func,
 		onLoaded: React.PropTypes.func,
 		onSelect: React.PropTypes.func,
+		onProcessData: React.PropTypes.func,
 	}
 
 	constructor(props) {
@@ -82,6 +83,7 @@ export default class Table extends React.Component {
 
 		this.onLoadData = this.onLoadData.bind(this);
 		this.onInitial = this.onInitial.bind(this);
+		this.onProcessData = this.onProcessData.bind(this);
 
 
 		this.renderTableHeader = this.renderTableHeader.bind(this);
@@ -89,6 +91,7 @@ export default class Table extends React.Component {
 		this.renderTableFooter = this.renderTableFooter.bind(this);
 		this.renderLoading = this.renderLoading.bind(this);
 		this.renderNotListData = this.renderNotListData.bind(this);
+
 
 		this.state = {
 			response: {},
@@ -105,7 +108,18 @@ export default class Table extends React.Component {
 				checkboxWidth: 50
 			}
 		}
+
+
+		let {initialValues} = this.props;
+
+
+		if(initialValues){
+				this.onInitial(initialValues);
+		}
+
+
 	}
+
 
 	componentDidMount() {
 
@@ -131,6 +145,11 @@ export default class Table extends React.Component {
 				loading: nextProps.loading
 			});
 			this.onLoadData(1, nextProps.ajaxParams);
+		}
+
+
+		if (!_.isEqual(this.props.initialValues, nextProps.initialValues)) {
+				this.onInitial(nextProps.initialValues);
 		}
 
 	}
@@ -161,24 +180,36 @@ export default class Table extends React.Component {
 		});
 	}
 
+	onProcessData(state){
+		let {onProcessData} = this.props;
+
+		if(onProcessData){
+			 state = onProcessData(state);
+		}
+		return state;
+	}
+
 	onInitial(state) {
+
 		let {
 			defaultSelectedRows
 		} = this.props;
+
 		state.selectedRows = defaultSelectedRows;
-		let {
-			listData
-		} = state;
+
+		state = this.onProcessData(state);
 
 		this.setState(state, function() {
 			this.onLoaded();
 		});
+
 	}
 
 	onLoaded() {
 		const {
 			onLoaded
 		} = this.props;
+
 		onLoaded && onLoaded(this.state.response);
 	}
 
