@@ -112,7 +112,7 @@ export default class ItemTable extends Component {
       onStation
     } = this.props;
 
-    onStation && onStation()
+    onStation && onStation(detail.activity)
 
 
   }
@@ -197,7 +197,7 @@ export default class ItemTable extends Component {
 						</td>
 						<td colSpan="12">
 							<D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} width={width} id={detail.billId}/>
-    <EmployessTable  activity={detail.activity} detail={detail} id={id} />
+              <EmployessTable  activity={detail.activity} detail={detail} id={id} />
 						</td>
 						<td className="btnlist">
 							<Button className="Station" type="link" joinEditForm label="" onTouchTap={this.onStation}   />

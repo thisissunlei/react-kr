@@ -283,6 +283,7 @@ export default class BasicTable extends Component {
 		this.setState({
 			activity: !this.state.activity
 		});
+		console.log('activity', this.state.activity)
 	}
 
 	onChange(id) {
@@ -315,17 +316,24 @@ export default class BasicTable extends Component {
 	}
 	onSubmit(formValues) {
 		var _this = this;
-		if (formValues.type != "BILL") {
-			_this.setState({
-				activity: !this.state.activity
-			});
+		var activity = true;
+		if (formValues.type == "BILL") {
+			activity = false;
 		}
+
 		Store.dispatch(Actions.callAPI('getInstallmentplan', formValues)).then(function(response) {
 
+			var Installmentplan = response.vo.items;
+			Installmentplan.forEach(function(item, index) {
+				item.activity = activity;
+			});
+
 			_this.setState({
-				Installmentplan: response.vo.items,
+				Installmentplan,
 				rate: response.rate,
 			});
+
+			console.log('---', Installmentplan)
 
 
 		}).catch(function(err) {
