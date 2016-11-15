@@ -139,7 +139,7 @@ class ChangeStation extends Component {
 
 		return (
 
-			<Form name="jyayayoinForm" initialValues={initialValues} onSubmit={this.onSubmit}>
+			<Form name="jyayayoin" initialValues={initialValues} onSubmit={this.onSubmit}>
 			<KrField name="id" type="hidden"  />
 			<KrField name="customerId" type="hidden"/>
 			<KrField name="communityId" type="hidden"/>
@@ -220,7 +220,6 @@ export default class EmployessTable extends Component {
 		const formValues = {
 			customerId: itemDetail.customerId
 		}
-		console.log('formValues', formValues)
 		Store.dispatch(Actions.callAPI('getmembers', formValues)).then(function(response) {
 
 			optionValues.members = response.map(function(item, index) {
@@ -256,7 +255,7 @@ export default class EmployessTable extends Component {
 			customerId: itemDetail.customerId,
 		}
 
-		Store.dispatch(Actions.callAPI('getmembers', {}, formValue)).then(function(response) {
+		Store.dispatch(Actions.callAPI('getmembers', formValue)).then(function(response) {
 
 			optionValues.member = response.map(function(item, index) {
 				item.value = item.id;
@@ -386,6 +385,7 @@ export default class EmployessTable extends Component {
 			this.setState({
 				stationId: itemDetail.stationId
 			}, function() {
+				console.log('111')
 				this.openChangeStation(itemDetail)
 			})
 
