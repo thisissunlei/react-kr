@@ -87,13 +87,20 @@ class Distribution extends Component {
 				<KrField name="id" type="hidden"/>
 				<KrField name="customerId" type="hidden"/>
 				<KrField name="communityId" type="hidden"/>
-				<div style={{textAlign:"center",marginBottom:'20px'}}>
+				<div style={{textAlign:"center",marginTop:'45px'}}>
 					{detail.companyName}{detail.id}序号员工为<KrField name="memberId"component="select" grid={2/3}  options={optionValues.member}/>
 				</div>
-				<Grid>
-					<Row style={{marginTop:30,marginBottom:100}}>
-					<Col md={2} align="right"> <Button  label="确定" type="submit" joinEditForm  onSubmit={this.onSubmit}/> </Col>
-					<Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
+				<Grid style={{marginTop:'7px',marginBottom:'10px'}}>
+					<Row >
+					<Col md={2} align="right">  </Col>
+					<Col md={2} align="right">  </Col> 
+						<Col md={12} align="center"> 
+							<ButtonGroup>
+								<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm  onSubmit={this.onSubmit}/></div>
+								<Button  label="取消" type="button"  onTouchTap={this.onCancel} cancle={true}/>
+							</ButtonGroup>
+						 </Col>
+					</Row>
 				</Grid>
 			</Form>
 
@@ -146,21 +153,21 @@ class ChangeStation extends Component {
 
 		return (
 
-			<Form name="jyayayoin" initialValues={initialValues} onSubmit={this.onSubmit}>
+			<Form name="jyayayoin" className="change" initialValues={initialValues} onSubmit={this.onSubmit}>
 			<KrField name="id" type="hidden"  />
 			<KrField name="customerId" type="hidden"/>
 			<KrField name="communityId" type="hidden"/>
-			<div style={{textAlign:"center",marginBottom:150}}>
-				{detail.companyName}{detail.id}序号员工为{detail.memberName},变更为员工<KrField name="memberId"component="select" grid={2/3}  options={optionValues.members}/>
+			<div style={{textAlign:"center",marginTop:'45px'}}>
+				<div className="info" style={{paddingBottom:20,color:'#333333'}}>{detail.companyName}{detail.id}序号员工为{detail.memberName},</div>
+				<KrField label="更为员工"  name="memberId"component="select" grid={2/3}  options={optionValues.members} inline={true} />
 			</div>
-			<Grid>
-				<Row style={{marginTop:30}}>
+			<Grid style={{marginTop:'7px',marginBottom:'10px'}}>
+				<Row >
 				<Col md={12} align="center"> 
 					<ButtonGroup>
-						<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm  onSubmit={this.onSubmit}/></div>
-						<Button  label="取消" type="button"  onTouchTap={this.onCancel}/>
+						<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm height={38} onSubmit={this.onSubmit}/></div>
+						<Button  label="取消" type="button"  onTouchTap={this.onCancel} height={36} cancle={true}/>
 					</ButtonGroup>
-					
 				 </Col>
 				</Row>
 			</Grid>
