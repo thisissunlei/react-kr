@@ -139,7 +139,7 @@ class ChangeStation extends Component {
 
 		return (
 
-			<Form name="jyayayoinForm" initialValues={initialValues} onSubmit={this.onSubmit}>
+			<Form name="jyayayoin" initialValues={initialValues} onSubmit={this.onSubmit}>
 			<KrField name="id" type="hidden"  />
 			<KrField name="customerId" type="hidden"/>
 			<KrField name="communityId" type="hidden"/>
@@ -196,6 +196,7 @@ export default class EmployessTable extends Component {
 			openNewmeber: false,
 			customerId: 1,
 			communityId: 1,
+			isLoading: false,
 
 		}
 
@@ -220,7 +221,6 @@ export default class EmployessTable extends Component {
 		const formValues = {
 			customerId: itemDetail.customerId
 		}
-		console.log('formValues', formValues)
 		Store.dispatch(Actions.callAPI('getmembers', formValues)).then(function(response) {
 
 			optionValues.members = response.map(function(item, index) {
@@ -256,7 +256,7 @@ export default class EmployessTable extends Component {
 			customerId: itemDetail.customerId,
 		}
 
-		Store.dispatch(Actions.callAPI('getmembers', {}, formValue)).then(function(response) {
+		Store.dispatch(Actions.callAPI('getmembers', formValue)).then(function(response) {
 
 			optionValues.member = response.map(function(item, index) {
 				item.value = item.id;
@@ -303,7 +303,9 @@ export default class EmployessTable extends Component {
 					message: '操作成功！',
 					type: 'success',
 				}]);
-
+				_this.setState({
+					isLoading: !_this.state.isLoading
+				})
 
 			}).catch(function(err) {
 
@@ -354,7 +356,9 @@ export default class EmployessTable extends Component {
 					message: '操作成功！',
 					type: 'success',
 				}]);
-
+				_this.setState({
+					isLoading: !_this.state.isLoading
+				})
 
 			}).catch(function(err) {
 
@@ -386,6 +390,7 @@ export default class EmployessTable extends Component {
 			this.setState({
 				stationId: itemDetail.stationId
 			}, function() {
+				console.log('111')
 				this.openChangeStation(itemDetail)
 			})
 
@@ -418,7 +423,7 @@ export default class EmployessTable extends Component {
 		return (
 
 			<div className="employees-content">
-		 	<Table  style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getStation' ajaxParams={ParamValues} pagination={false} onOperation={this.onOperation} >
+		 	<Table  style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getStation' ajaxParams={ParamValues} pagination={false} onOperation={this.onOperation} loading={this.state.isLoading}>
 				<TableHeader>
 						<TableHeaderColumn>工位编号</TableHeaderColumn>
 						<TableHeaderColumn>租赁起始时间</TableHeaderColumn>
@@ -432,8 +437,8 @@ export default class EmployessTable extends Component {
 				<TableBody>
 					<TableRow displayCheckbox={true}>
 						<TableRowColumn name="stationCode" ></TableRowColumn>
-						<TableRowColumn name="leaseBeginDate" ></TableRowColumn>
-						<TableRowColumn name="leaseEndDate"></TableRowColumn>
+						<TableRowColumn name="leaseBeginDate" type="date" format="yyyy-mm-dd"></TableRowColumn>
+						<TableRowColumn name="leaseEndDate" type="date" format="yyyy-mm-dd"></TableRowColumn>
 						<TableRowColumn name="memberName" ></TableRowColumn>
 						<TableRowColumn name="memberPhone" ></TableRowColumn>
 						<TableRowColumn name="status"></TableRowColumn>
@@ -456,6 +461,7 @@ export default class EmployessTable extends Component {
 				title="分配工位"
 				modal={true}
 				open={this.state.openDistribution}
+				onClose={this.onDistributionCancel}
 			>
 
 				<Distribution  onCancel={this.onDistributionCancel} onSubmit={this.onDistributionSubmit} optionValues={optionValues} stationId={this.state.stationId} customerId={this.state.customerId} communityId={this.state.communityId}/>
@@ -464,6 +470,7 @@ export default class EmployessTable extends Component {
 				title="变更工位"
 				modal={true}
 				open={this.state.openChangeStation}
+				onClose={this.onChangeCancel}
 			>
 				<ChangeStation  onCancel={this.onChangeCancel} onSubmit={this.onChangeSubmit}  optionValues={optionValues} stationId={this.state.stationId} customerId={this.state.customerId} communityId={this.state.communityId}/>
 
@@ -472,6 +479,7 @@ export default class EmployessTable extends Component {
 				title="新增员工"
 				modal={true}
 				open={this.state.openNewmeber}
+				onClose={this.onIframeClose}
 			>
 
 				<IframeContent src={this.getStationUrl()}  onClose={this.onIframeClose}  />
