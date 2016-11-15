@@ -191,6 +191,7 @@ export default class OrderDetail extends React.Component {
 			}]);
 
 		});
+		Store.dispatch(Actions.switchSidebarNav(false));
 
 	}
 
