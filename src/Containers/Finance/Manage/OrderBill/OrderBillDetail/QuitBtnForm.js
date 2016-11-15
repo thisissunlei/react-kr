@@ -95,19 +95,21 @@ class QuitBtnForm extends Component {
 			reset
 		} = this.props;
 
-
+       let style={
+       	 marginTop:'6'
+       }
 
 		return (
 
-			<div>
+			<div className='ui-quit-wrap'>
                  
 					     <form onSubmit={handleSubmit(this.onSubmit)}>
  
 						    <KrField name="id" type="hidden"/>
-                            <KrField label="金额（元）" grid={1/2} name="finaflowamount" component="input" type="text" requireLabel={true}/>
+                            <KrField label="金额（元）"  grid={1/2} name="finaflowamount" component="input" type="text" requireLabel={true} />
                             <KrField label="上传附件" grid={1/2} name="fileids" component="file"/>
-                            <KrField type="date" label="退款日期" name="operatedate" requireLabel={true}/>
-                            <KrField label="备注" name="finaflowdesc" component="textarea"  placeholder='请输入备注,文字不能超过100字'/>
+                            <KrField type="date" grid={1/2} label="退款日期" name="operatedate" requireLabel={true}/>
+                            <KrField label="备注" style={style} name="finaflowdesc" component="textarea"  placeholder='请输入备注,文字不能超过100字' maxSize={100}/>
                            
 
 				

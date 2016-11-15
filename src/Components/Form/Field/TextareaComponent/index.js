@@ -1,6 +1,7 @@
 import React from 'react';
 
 import WrapComponent from '../WrapComponent';
+import './index.less';
 
 export default class TextareaComponent extends React.Component {
 
@@ -18,7 +19,7 @@ export default class TextareaComponent extends React.Component {
 
 		this.onChange = this.onChange.bind(this);
 		this.state = {
-			inputSize: 0,
+			inputSize: 1,
 		}
 
 	}
