@@ -69,7 +69,9 @@ export default class BasicInfo extends Component {
 			detail.mainbillname = '';
 		}
 
-
+       let style= {
+			color:'#ff6868',
+		}
 
 		return (
 
@@ -92,7 +94,7 @@ export default class BasicInfo extends Component {
 			            
 			            <KrField grid={1/3} alignRight={true} label="回款总额:" component="labelText" value={detail.totalPayment} defaultValue="无"/>
 
-			            <KrField grid={1} alignRight={true} label="未回款额:"  component="labelText" value={detail.notPaymentAmount} defaultValue="无"/>
+			            <KrField grid={1} alignRight={true} label="未回款额:" colorStyle={style} component="labelText" value={detail.notPaymentAmount} defaultValue="无"/>
 			            {/*{detailPayment.map((item,index)=>						
 						    <KrField key={index} grid={1/3} label={item.propname} component="labelText" value={item.propamount}/>						 
 						 )}

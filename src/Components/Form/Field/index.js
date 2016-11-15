@@ -42,6 +42,7 @@ export default class KrField extends React.Component {
 		search: React.PropTypes.bool,
 		left: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
 		right: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+	    colorStyle:React.PropTypes.obj,
 	}
 
 	render() {
@@ -60,6 +61,7 @@ export default class KrField extends React.Component {
 			label,
 			value,
 			search,
+			colorStyle,
 			...other
 		} = this.props;
 
@@ -96,7 +98,7 @@ export default class KrField extends React.Component {
 
 		if (component === 'labelText' || type == 'labelText') {
 			return (
-				<LabelTextComponent {...this.props} style={WrapStyles}/>
+				<LabelTextComponent {...this.props} style={WrapStyles} colorStyle={colorStyle}/>
 			);
 		}
 

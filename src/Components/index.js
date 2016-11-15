@@ -26,7 +26,6 @@ import FontIcon from './FontIcon';
 import SearchForms from './search';
 import List from './List';
 
-
 import {
 	Grid,
 	Row,
@@ -48,8 +47,8 @@ import {
 } from 'material-ui';
 
 import {
-	Tabs,
-	Tab
+	Tab,
+	Tabs
 } from 'material-ui/Tabs';
 
 module.exports = {

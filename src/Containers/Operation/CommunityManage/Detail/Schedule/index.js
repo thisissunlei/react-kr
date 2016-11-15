@@ -60,7 +60,7 @@ export default class Schedule extends Component {
 		} = this.props;
 
 		return (
-			<div>
+			<div style={{margin:20}}>
 			<BasicTable detail={communityInfoList} communityids={communityids}/>
 
 		</div>
