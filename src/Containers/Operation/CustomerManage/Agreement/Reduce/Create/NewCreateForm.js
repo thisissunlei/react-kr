@@ -21,8 +21,7 @@ import {
 	arrayPush,
 	arrayInsert,
 	FieldArray,
-	ListGroup,
-	ListGroupItem
+
 } from 'redux-form';
 
 import {
@@ -56,7 +55,9 @@ import {
 	DotTitle,
 	KrDate,
 	ButtonGroup,
-	Paper
+	Paper,
+	ListGroup,
+	ListGroupItem
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -349,17 +350,16 @@ class NewCreateForm extends Component {
 
 
                      </DotTitle>
-						<Grid>
-						<Row style={{marginTop:30}}>
+                     	<div style={{paddingBottom:50}}>
+						<Grid >
+						<Row >
 						<ListGroup>
 							<ListGroupItem style={{width:'45%',textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit" disabled={pristine || submitting}  /></ListGroupItem>
 							<ListGroupItem style={{width:'45%',textAlign:'left',paddingLeft:15}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/></ListGroupItem>
 						</ListGroup>
-						<Col md={4}></Col>
-						<Col md={2} align="center"> <Button  label="确定" type="submit" disabled={pristine || submitting}  /> </Col>
-						<Col md={2} align="center"> <Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel}/> </Col>
-						<Col md={4}></Col> </Row>
+						</Row>
 						</Grid>
+						</div>
 
 						</form>
 
