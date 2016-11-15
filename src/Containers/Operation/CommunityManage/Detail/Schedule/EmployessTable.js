@@ -38,7 +38,9 @@ import {
 } from 'kr-ui';
 
 class Distribution extends Component {
-
+	static PropTypes = {
+		detail: React.PropTypes.object,
+	}
 	constructor(props, context) {
 		super(props, context);
 		this.onSubmit = this.onSubmit.bind(this);
@@ -68,7 +70,8 @@ class Distribution extends Component {
 			optionValues,
 			stationId,
 			customerId,
-			communityId
+			communityId,
+			detail
 		} = this.props;
 
 		let initialValues = {};
@@ -84,7 +87,7 @@ class Distribution extends Component {
 				<KrField name="customerId" type="hidden"/>
 				<KrField name="communityId" type="hidden"/>
 				<div style={{textAlign:"center",marginBottom:'20px'}}>
-					XX公司10001序号员工为<KrField name="memberId"component="select" grid={2/3}  options={optionValues.member}/>
+					{detail.companyName}{detail.id}序号员工为<KrField name="memberId"component="select" grid={2/3}  options={optionValues.member}/>
 				</div>
 				<Grid>
 					<Row style={{marginTop:30,marginBottom:100}}>
@@ -103,7 +106,9 @@ class Distribution extends Component {
 }
 //变更
 class ChangeStation extends Component {
-
+	static PropTypes = {
+		detail: React.PropTypes.object,
+	}
 	constructor(props, context) {
 		super(props, context);
 		this.onSubmit = this.onSubmit.bind(this);
@@ -129,14 +134,15 @@ class ChangeStation extends Component {
 			optionValues,
 			stationId,
 			customerId,
-			communityId
+			communityId,
+			detail
 		} = this.props;
 		let initialValues = {};
 		initialValues.stationId = stationId;
 
 		initialValues.customerId = customerId;
 		initialValues.communityId = communityId;
-
+		console.log('detail---', detail)
 		return (
 
 			<Form name="jyayayoin" initialValues={initialValues} onSubmit={this.onSubmit}>
@@ -144,7 +150,7 @@ class ChangeStation extends Component {
 			<KrField name="customerId" type="hidden"/>
 			<KrField name="communityId" type="hidden"/>
 			<div style={{textAlign:"center",marginBottom:150}}>
-				XX公司10001序号员工为XXX,变更为员工<KrField name="memberId"component="select" grid={2/3}  options={optionValues.members}/>
+				{detail.companyName}{detail.id}序号员工为{detail.memberName},变更为员工<KrField name="memberId"component="select" grid={2/3}  options={optionValues.members}/>
 			</div>
 			<Grid>
 				<Row style={{marginTop:30}}>
@@ -443,12 +449,8 @@ export default class EmployessTable extends Component {
 						<TableRowColumn name="memberPhone" ></TableRowColumn>
 						<TableRowColumn name="status"></TableRowColumn>
 						<TableRowColumn>
-							
 							<Button label="变更" className="changeBtn" type="operation" operation="ChangeStation"   />
 							<Button label="分配" className="Distribtn"  type="operation" operation="Distribution"   />
-							
-							 
-							  
 						 </TableRowColumn>
 					</TableRow>
 				</TableBody>
@@ -464,7 +466,7 @@ export default class EmployessTable extends Component {
 				onClose={this.onDistributionCancel}
 			>
 
-				<Distribution  onCancel={this.onDistributionCancel} onSubmit={this.onDistributionSubmit} optionValues={optionValues} stationId={this.state.stationId} customerId={this.state.customerId} communityId={this.state.communityId}/>
+				<Distribution  detail={this.state.itemDetail} onCancel={this.onDistributionCancel} onSubmit={this.onDistributionSubmit} optionValues={optionValues} stationId={this.state.stationId} customerId={this.state.customerId} communityId={this.state.communityId}/>
 			</Dialog>
 			<Dialog
 				title="变更工位"
@@ -472,7 +474,7 @@ export default class EmployessTable extends Component {
 				open={this.state.openChangeStation}
 				onClose={this.onChangeCancel}
 			>
-				<ChangeStation  onCancel={this.onChangeCancel} onSubmit={this.onChangeSubmit}  optionValues={optionValues} stationId={this.state.stationId} customerId={this.state.customerId} communityId={this.state.communityId}/>
+				<ChangeStation  detail={this.state.itemDetail} onCancel={this.onChangeCancel} onSubmit={this.onChangeSubmit}  optionValues={optionValues} stationId={this.state.stationId} customerId={this.state.customerId} communityId={this.state.communityId}/>
 
 			</Dialog>
 			<Dialog

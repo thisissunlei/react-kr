@@ -204,7 +204,8 @@ export default class BasicTable extends Component {
 			page: 1,
 			pageSize: 5,
 			type: 'BILL',
-			detail: {}
+			detail: {},
+			activity: false,
 
 		};
 		this.getInstallmentplan();
@@ -304,12 +305,18 @@ export default class BasicTable extends Component {
 	}
 	onSubmit(formValues) {
 		var _this = this;
+		if (formValues.type != "BILL") {
+			_this.setState({
+				activity: !this.state.activity
+			});
+		}
 		Store.dispatch(Actions.callAPI('getInstallmentplan', formValues)).then(function(response) {
 
 			_this.setState({
 				Installmentplan: response.vo.items,
-				rate: response.rate
+				rate: response.rate,
 			});
+
 
 		}).catch(function(err) {
 			Notify.show([{
