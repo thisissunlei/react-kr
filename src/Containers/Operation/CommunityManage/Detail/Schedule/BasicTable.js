@@ -212,7 +212,7 @@ export default class BasicTable extends Component {
 			activity: false,
 			nowDate: '',
 			isIscroll: true,
-			totalPages: '',
+			totalCount: '',
 
 		};
 		this.getInstallmentplan();
@@ -243,9 +243,10 @@ export default class BasicTable extends Component {
 			var height = $(window).height() || 0;
 			var num = $(document).height() - $(window).height();
 			var scrollBottom = top - num;
+
 			var isOutBoundary = scrollBottom >= 0;
 
-			if (!isOutBoundary) {
+			if (isOutBoundary) {
 
 				let {
 					communityIds,
@@ -255,23 +256,24 @@ export default class BasicTable extends Component {
 					value,
 					Installmentplan,
 					isIscroll,
-					totalPages
+					totalCount
 				} = _this.state;
 				if (isIscroll) {
 					_this.setState({
 						isIscroll: !_this.state.isIscroll
 					})
-					var size = page;
+					var step = 5;
+					var size = pageSize;
 
-					if (!totalPages) {
-						size++;
+					if (!totalCount) {
+						size += step;
 						_this.setState({
-							page: size
+							pageSize: size
 						})
-					} else if (totalPages > page) {
-						size++;
+					} else if (totalCount > page) {
+						size += step;
 						_this.setState({
-							page: size
+							pageSize: size
 						})
 					}
 
@@ -279,19 +281,17 @@ export default class BasicTable extends Component {
 						communityids: communityIds,
 						value: value,
 						type: type,
-						page: size,
-						pageSize: pageSize
+						page: page,
+						pageSize: size
 					})).then(function(response) {
-						var list = _this.state.Installmentplan.concat(response.vo.items);
-						console.log('Installmentplan', list)
-						_this.setState({
-							Installmentplan: list,
-							rate: response.rate,
 
-							totalPages: response.vo.totalPages,
+						_this.setState({
+							Installmentplan: response.vo.items,
+							rate: response.rate,
+							totalCount: response.vo.totalCount,
 						});
 
-						if (_this.state.page < _this.state.totalPages) {
+						if (_this.state.pageSize < _this.state.totalCount) {
 
 							_this.setState({
 								isIscroll: !_this.state.isIscroll
@@ -524,7 +524,9 @@ export default class BasicTable extends Component {
 		} = this.state;
 		var _this = this;
 		const id = communityIds
-			//this.scrollLoad();
+		this.scrollLoad();
+
+
 		return (
 			<div>
 
