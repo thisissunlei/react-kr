@@ -196,6 +196,7 @@ export default class EmployessTable extends Component {
 			openNewmeber: false,
 			customerId: 1,
 			communityId: 1,
+			isLoading: false,
 
 		}
 
@@ -302,7 +303,9 @@ export default class EmployessTable extends Component {
 					message: '操作成功！',
 					type: 'success',
 				}]);
-
+				_this.setState({
+					isLoading: !_this.state.isLoading
+				})
 
 			}).catch(function(err) {
 
@@ -353,7 +356,9 @@ export default class EmployessTable extends Component {
 					message: '操作成功！',
 					type: 'success',
 				}]);
-
+				_this.setState({
+					isLoading: !_this.state.isLoading
+				})
 
 			}).catch(function(err) {
 
@@ -418,7 +423,7 @@ export default class EmployessTable extends Component {
 		return (
 
 			<div className="employees-content">
-		 	<Table  style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getStation' ajaxParams={ParamValues} pagination={false} onOperation={this.onOperation} >
+		 	<Table  style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getStation' ajaxParams={ParamValues} pagination={false} onOperation={this.onOperation} loading={this.state.isLoading}>
 				<TableHeader>
 						<TableHeaderColumn>工位编号</TableHeaderColumn>
 						<TableHeaderColumn>租赁起始时间</TableHeaderColumn>
@@ -432,8 +437,8 @@ export default class EmployessTable extends Component {
 				<TableBody>
 					<TableRow displayCheckbox={true}>
 						<TableRowColumn name="stationCode" ></TableRowColumn>
-						<TableRowColumn name="leaseBeginDate" ></TableRowColumn>
-						<TableRowColumn name="leaseEndDate"></TableRowColumn>
+						<TableRowColumn name="leaseBeginDate" type="date" format="yyyy-mm-dd"></TableRowColumn>
+						<TableRowColumn name="leaseEndDate" type="date" format="yyyy-mm-dd"></TableRowColumn>
 						<TableRowColumn name="memberName" ></TableRowColumn>
 						<TableRowColumn name="memberPhone" ></TableRowColumn>
 						<TableRowColumn name="status"></TableRowColumn>
