@@ -23,8 +23,9 @@ import PageHeader from './PageHeader';
 import Paper from './Paper';
 import SplitLine from './SplitLine';
 import FontIcon from './FontIcon';
-import SearchForms from './search';
+import SearchForms from './Search';
 import List from './List';
+import AppBar from './AppBar';
 
 import {
 	Grid,
@@ -79,6 +80,7 @@ module.exports = {
 	...Button,
 	...List,
 	...ListGroup,
+	AppBar,
 
 	//materal-ui
 	Menu,

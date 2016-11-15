@@ -121,7 +121,7 @@ export default class JoinCreate extends Component {
 			optionValues.leaseAddress = response.customer.customerAddress;
 			initialValues.leaseAddress = response.customer.customerAddress;
 
-			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）	
+			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
 			initialValues.contracttype = 'INTENTION';
 
 			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
@@ -175,10 +175,10 @@ export default class JoinCreate extends Component {
 			<div>
 
 		 	<BreadCrumbs children={['系统运营','客户管理','承租协议']}/>
-			<Section title="承租意向书" description=""> 
+			<Section title="承租意向书" description="">
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues}/>
 			</Section>
-            
+
 			<Dialog
 				title="承租意向书"
 				modal={true}
