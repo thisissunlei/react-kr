@@ -21,7 +21,9 @@ import {
 	Col,
 	Button,
 	Notify,
-	ButtonGroup
+	ButtonGroup,
+	ListGroup,
+	ListGroupItem
 } from 'kr-ui';
 
 
@@ -84,25 +86,25 @@ class NewCreateForm extends Component {
 
 		return (
 
-			<form onSubmit={handleSubmit(this.onSubmit)}>
-							<KrField name="corporationName" grid={1/2} right={60} type="text" label="出租方名称" requireLabel={true}/> 
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:40}}>
+							<KrField name="corporationName" grid={1/2} right={10} type="text" label="出租方名称" requireLabel={true}/> 
 
-							<KrField name="enableflag" component="group" grid={1/2} left={60} label="是否启用" requireLabel={true}>
+							<KrField name="enableflag" component="group" grid={1/2} left={20} label="是否启用" requireLabel={true}>
 								<KrField name="enableflag" label="是" component="radio" type="radio" value='ENABLE'/>
 								<KrField name="enableflag" label="否" component="radio" type="radio" value='	DISENABLE'/>
 							</KrField>
 							
-							<KrField name="corporationAddress" grid={1/2} right={60} component="text" type="text" label="详细地址" requireLabel={true}/> 
+							<KrField name="corporationAddress" grid={1/2} right={10} component="text" type="text" label="详细地址" requireLabel={true}/> 
 							 <KrField name="corporationDesc" component="textarea" label="备注"  placeholder="备注信息"/> 
 
 
-							<Grid style={{marginTop:30}}>
+							<Grid style={{marginBottom:10}}>
 								<Row>
 								<Col md={12}>
-									<ButtonGroup style={{textAlign:'center'}}>
-										 <Button  label="确定" type="submit" joinEditForm />
-										 <Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
-									</ButtonGroup>
+									<ListGroup>
+										<ListGroupItem style={{width:'45%',textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit" joinEditForm height={34}/></ListGroupItem>
+										<ListGroupItem style={{width:'45%',textAlign:'left',paddingLeft:15}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} height={34}/></ListGroupItem>
+									</ListGroup>
 								</Col>
 
 								</Row>
