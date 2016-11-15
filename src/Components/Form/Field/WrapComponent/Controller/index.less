@@ -11,8 +11,20 @@
 		display:inline-block;
 		min-width: 100px;
 		padding-bottom: 0;
+		text-align: left;
 		// width: 70%;
-		vertical-align: middle;
+		// vertical-align: middle;
+		.ui-label-text{
+			position: absolute;
+			margin-top: 6px;
+			span{
+				max-width: 170px;
+				text-overflow:ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
+				display: inline-block;
+			}
+		}
 	}
 	&.search-content{
 		display:inline-block;

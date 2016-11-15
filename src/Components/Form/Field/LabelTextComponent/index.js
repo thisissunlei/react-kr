@@ -47,8 +47,8 @@ export default class LabelTextComponent extends React.Component {
 		if(tooltip && type != 'date' && type != 'link'){
 			return (
 				<WrapComponent label={label} wrapStyle={style} inline={inline} requireBlue={requireBlue} alignRight={alignRight} requireLabel={requireLabel}>
-					<span className="ui-label-text" data-tip> {value || defaultValue}
-						<ReactTooltip>
+					<span className="ui-label-text" data-tip data-for={`${tooltip}`}> {value || defaultValue}
+						<ReactTooltip id={`${tooltip}`}>
 							<p style={{margin:0}}>{tooltip}</p>
 						</ReactTooltip>
 					</span>
