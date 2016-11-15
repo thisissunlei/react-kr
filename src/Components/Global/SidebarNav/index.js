@@ -18,6 +18,12 @@ import {
 	FontIcon,
 	FloatingActionButton,
 } from 'material-ui';
+
+import {
+	List,
+	ListItem
+} from 'kr-ui';
+
 import './index.less';
 
 
@@ -30,7 +36,7 @@ import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 
 
-import {List, ListItem, MakeSelectable} from 'material-ui/List';
+import {MakeSelectable} from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import Subheader from 'material-ui/Subheader';
 
@@ -91,6 +97,7 @@ export default class SidebarNav extends Component {
 
 	renderMenuItem(item,index,parentIndex){
 
+
 		let {current_router,current_child} = this.props;
 		var childStyles = {};
 		let initiallyOpen = false;
@@ -101,8 +108,8 @@ export default class SidebarNav extends Component {
 			width:"180px",
 			color:'#999'
 		};
-        
-       
+
+
 
 
 		let jumpUrl = '';
@@ -123,48 +130,38 @@ export default class SidebarNav extends Component {
 		if(item.router === current_router){
 			childStyles.backgroundColor = '#328ECC';
 			childStyles.color = '#fff';
-
+		}else{
+			childStyles.backgroundColor = '#fff';
 		}
-		
-
-		if(item.router === current_child){
-			/*
-			parentStyles.backgroundColor = '#328ECC';
-			parentStyles.color = '#fff';
-			*/
-			initiallyOpen = true;
-		}
-
 
 		if(item.menuItems && item.menuItems.length){
 			return (
 
-				<ListItem 
+				<ListItem
 					key={index}
 					style={parentStyles}
-					initiallyOpen={initiallyOpen}
+					initiallyOpen={true}
 					value={index}
 					open={true}
-					primaryText={item.primaryText} 
+					primaryText={item.primaryText}
 					primaryTogglesNestedList={false}
 					autoGenerateNestedIndicator={false}
 					disabled={true}
 					leftIcon={<FontIcon  className={item.iconName} color={item.iconColor} style={{fontSize:18,position: 'absolute',margin:'15px 0 0 44px' }}/>}
 
-					nestedItems={ item.menuItems.map((it,ind)=>this.renderMenuItem(it,ind,index))} 
-					
+					nestedItems={ item.menuItems.map((it,ind)=>this.renderMenuItem(it,ind,index))}
+
 					/>
-	
+
 			);
 		}
 		return (
-				<ListItem 
-					primaryText={item.primaryText} 
-					key={index} 
+				<ListItem
+					primaryText={item.primaryText}
+					key={index}
 					value={parentIndex+'-'+index}
 					href={jumpUrl}
 					style={childStyles}
-					
 			   	/>
 		);
 
@@ -190,7 +187,7 @@ export default class SidebarNav extends Component {
 			<div>
 						<SelectableList defaultValue={1000}>
 				{/*
-				
+
 						  <ListItem
 							value={1}
 							primaryText="Brendan Lim"
@@ -210,8 +207,3 @@ export default class SidebarNav extends Component {
 
 	}
 }
-
-
-
-
-

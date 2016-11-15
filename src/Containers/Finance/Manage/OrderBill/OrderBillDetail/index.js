@@ -9,10 +9,10 @@ import dateFormat from 'dateformat';
 import {
 	KrField,
 	Table,
-	TableBody, 
-	TableHeader, 
-	TableHeaderColumn, 
-	TableRow, 
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
 	TableRowColumn,
 	TableFooter,
 	Button,
@@ -25,8 +25,13 @@ import {
 	KrDate,
     DotTitle,
     ButtonGroup,
-    Loading
+    Loading,
+
 } from 'kr-ui';
+import {
+	reduxForm,
+	reset
+} from 'redux-form';
 
 import { browserHistory } from 'react-router'
 import BasicInfo from './BasicInfo';
@@ -63,28 +68,28 @@ class ViewForm extends Component{
 	    }
 
 		return(
-				<div className='ui-watch-detail'>					
+				<div className='ui-watch-detail'>
 					<KrField grid={1/2}  component="labelText" label="代码名称" value={items.accountName} inline={false} defaultValue="无"/>
 					<KrField grid={1/2} label="付款日期" component="labelText" inline={false} value={items.occuryear} defaultValue="无" type="date"/>
-					   
+
 					<KrField grid={1/2} label="操作时间" component="labelText" value={items.occuryear} format="yyyy-mm-dd hh:mm:ss" type="date" inline={false} defaultValue="无"/>
-					  
+
 					<KrField grid={1/2}  component="labelText" label="交易编号" value={items.tradingCode} inline={false} defaultValue="无"/>
-					<KrField grid={1/2}  component="labelText" label="操作人"  value={items.optUserName} inline={false} defaultValue="无"/>  
-					<KrField grid={1/2}  component="labelText" label="金额（元）" value={items.finaflowAmount} inline={false} defaultValue="无"/> 
+					<KrField grid={1/2}  component="labelText" label="操作人"  value={items.optUserName} inline={false} defaultValue="无"/>
+					<KrField grid={1/2}  component="labelText" label="金额（元）" value={items.finaflowAmount} inline={false} defaultValue="无"/>
 					<KrField grid={1/2}  component="labelText" label="备注" value={items.finaflowdesc} inline={false} defaultValue="无"/>
-					<KrField grid={1/2}  component="group" label="上传附件" inline={false} defaultValue="无"> 
-			         {items.fileList.map((item,index)=>						
-						  <KrField key={index} grid={1} component="labelText" value={item.fileName} />						 
+					<KrField grid={1/2}  component="group" label="上传附件" inline={false} defaultValue="无">
+			         {items.fileList.map((item,index)=>
+						  <KrField key={index} grid={1} component="labelText" value={item.fileName} />
 					  )}
-					</KrField>   
-				</div>	
+					</KrField>
+				</div>
 
 
 			);
 	 }
 }
-export default class AttributeSetting  extends Component{ 
+export default class AttributeSetting  extends Component{
 
 	static contextTypes = {
 	  router: React.PropTypes.object.isRequired
@@ -101,7 +106,7 @@ export default class AttributeSetting  extends Component{
 				};
 	 }
 
-   
+
 	constructor(props,context){
 		super(props, context);
 		this.onSearch = this.onSearch.bind(this);
@@ -115,7 +120,7 @@ export default class AttributeSetting  extends Component{
 		this.onOperation=this.onOperation.bind(this);
 		this.onLoaded = this.onLoaded.bind(this);
 		this.onSelect = this.onSelect.bind(this);
-		
+
 
 		this.openSearchDialog=this.openSearchDialog.bind(this);
 		this.openReceivedBtn=this.openReceivedBtn.bind(this);
@@ -139,10 +144,10 @@ export default class AttributeSetting  extends Component{
 
 		this.refresh = this.refresh.bind(this);
 
-		
-		this.state = {			
+
+		this.state = {
 		    params:{
-				accountType:'PAYMENT',    
+				accountType:'PAYMENT',
 				childType:'basic',
 				propertyId:'',
 				propInfo:'SETTLED',
@@ -163,7 +168,7 @@ export default class AttributeSetting  extends Component{
 			codeList:[],
             typeList:[],
             receivedList:[],
-            
+
             //这三个是为了挑出选定的那个复选框
             list:[],
             selectedList:[],
@@ -191,15 +196,15 @@ export default class AttributeSetting  extends Component{
 			 	_this.initBasicInfo();
 			 },1000)
 		});
-		
+
 	}
 //打开遮罩层区域
 
-   
+
 	openSearchDialog(){
 		this.searchUpperFun();
         this.setState({
-			openSearch:!this.state.openSearch	
+			openSearch:!this.state.openSearch
 	    });
 	    typeList=[];
 	    codeList=[];
@@ -208,23 +213,23 @@ export default class AttributeSetting  extends Component{
     	 var _this = this;
 	      Store.dispatch(Actions.callAPI('findAccountAndPropList',{
 	      	accountType:'PAYMENT'
-	      })).then(function(response){       	         
- 		      response.account.map(function(item,index){ 
+	      })).then(function(response){
+ 		      response.account.map(function(item,index){
  		      	 var list ={}
  		      	 list.value=item.id;
  		      	 list.label=item.accountname;
- 		      	 receivedList.push(list);		      	 	      	                                            
+ 		      	 receivedList.push(list);
               })
-              response.property.map(function(item,index){ 
+              response.property.map(function(item,index){
  		      	 var list ={}
  		      	 list.value=item.propcode;
  		      	 list.label=item.propname;
- 		      	 typeList.push(list);		      	 	      	                                            
+ 		      	 typeList.push(list);
               })
 		        _this.setState({
 			      receivedList:receivedList,
 			      typeList:typeList
-		       });             		   
+		       });
  		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -237,44 +242,44 @@ export default class AttributeSetting  extends Component{
     }
     openQuitBtn(){
     	 let items=this.state.selectedList
-         var _this=this;          
+         var _this=this;
            items.map(function(item,index){
-             if(typeof(item.finaflowAmount)=='number'){             	
+             if(typeof(item.finaflowAmount)=='number'){
 			       fiMoney=item.finaflowAmount;
-			       fiItem=item;			       	                            
+			       fiItem=item;
               }
            })
            if(this.state.listValues.length==0){
-           	 
+
            	  Notify.show([{
 				message:'请选择一条回款数据进行退款',
 				type: 'danger',
 			 }]);
-           	 
+
            }else if(this.state.listValues.length>1){
            	   Notify.show([{
 				message:'只能选择一条数据',
 				type: 'danger',
 			 }]);
-           }else if(fiMoney>=0){  
+           }else if(fiMoney>=0){
                Notify.show([{
 				message:'金额必须为负且存在可用金额',
 				type: 'danger',
-			 }]);       	  
+			 }]);
            }else{
            	 this.setState({
-			    openQuitBtn:!this.state.openQuitBtn	
-	         }); 
+			    openQuitBtn:!this.state.openQuitBtn
+	         });
             }
          }
-		
+
     openSwitchBtn(){
     	let items=this.state.selectedList
-        var _this=this;          
+        var _this=this;
            items.map(function(item,index){
              if(typeof(item.finaflowAmount)=='number'){
              	  fiMoney=item.finaflowAmount;
-             	  fiItem=item;		              
+             	  fiItem=item;
               }
            })
            if(this.state.listValues.length==0){
@@ -287,45 +292,45 @@ export default class AttributeSetting  extends Component{
 				message:'只能选择一条数据',
 				type: 'danger',
 			 }]);
-           }else if(fiMoney>=0){   	 
+           }else if(fiMoney>=0){
                Notify.show([{
 				message:'金额必须为负且存在可用金额',
 				type: 'danger',
-			  }]);   
+			  }]);
            }else{
            	 this.setState({
-			    openSwitchBtn:!this.state.openSwitchBtn	
-	         }); 
-            
-           
+			    openSwitchBtn:!this.state.openSwitchBtn
+	         });
+
+
            //console.log('2222',fiItem.id);
 	       Store.dispatch(Actions.callAPI('findContractListById',{
 	       	    id:fiItem.id
-	       })).then(function(response){ 
-               response.map(function(item,index){ 
+	       })).then(function(response){
+               response.map(function(item,index){
  		      	 var list ={}
  		      	 list.value=item.id;
  		      	 list.label=item.contractcode;
- 		      	 receivedList.push(list);	      	 	      	                                            
+ 		      	 receivedList.push(list);
               })
  		        _this.setState({
 			      receivedList:receivedList
-		       });    	       
+		       });
  		    }).catch(function(err){
 			Notify.show([{
 				message:err.message,
 				type: 'danger',
 			}]);
 		  });
-         }     
+         }
       }
    openBusinessBtn(){
    	 let items=this.state.selectedList
-         var _this=this;          
+         var _this=this;
            items.map(function(item,index){
              if(typeof(item.finaflowAmount)=='number'){
              	  fiMoney=item.finaflowAmount;
-             	  fiItem=item;		                
+             	  fiItem=item;
               }
            })
            if(this.state.listValues.length==0){
@@ -333,7 +338,7 @@ export default class AttributeSetting  extends Component{
 				message:'请选择一条回款数据进行转营收',
 				type: 'danger',
 			 }]);
-           	
+
            }else if(this.state.listValues.length>1){
            	  Notify.show([{
 				message:'只能选择一条数据',
@@ -343,11 +348,11 @@ export default class AttributeSetting  extends Component{
               Notify.show([{
 				message:'金额必须为负且存在可用金额',
 				type: 'danger',
-			  }]);  
+			  }]);
            }else{
            	 this.setState({
-			    openBusinessBtn:!this.state.openBusinessBtn	
-	         }); 
+			    openBusinessBtn:!this.state.openBusinessBtn
+	         });
             }
    }
 
@@ -355,16 +360,16 @@ export default class AttributeSetting  extends Component{
          var _this = this;
 	      Store.dispatch(Actions.callAPI('findAccountList',{
 	      	accountType:'INCOME'
-	      })).then(function(response){             	         
- 		      response.map(function(item,index){ 
+	      })).then(function(response){
+ 		      response.map(function(item,index){
  		      	 var list ={}
  		      	 list.value=item.id;
  		      	 list.label=item.accountname;
- 		      	 receivedList.push(list);		      	 	      	                                            
+ 		      	 receivedList.push(list);
               })
  		        _this.setState({
 			      receivedList:receivedList
-		       });             		   
+		       });
  		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -385,11 +390,11 @@ export default class AttributeSetting  extends Component{
           let id=itemDetail.id
 	      Store.dispatch(Actions.callAPI('getAccountFlowDetail',{
 	      	id:id
-	      })).then(function(response){             	         
+	      })).then(function(response){
  		    _this.setState({
 			 itemDetail:response
-		   });  
- 		      	 
+		   });
+
  		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -400,39 +405,39 @@ export default class AttributeSetting  extends Component{
 			openView:!this.state.openView
 		});
 	}
-    
-     //关闭遮罩层区域  
+
+     //关闭遮罩层区域
     closeReceivedDialog(){
    	  this.setState({
-		 openReceivedBtn:!this.state.openReceivedBtn,			
-		});	 
-		receivedList=[]; 
+		 openReceivedBtn:!this.state.openReceivedBtn,
+		});
+		receivedList=[];
 		typeList=[];
     }
 
 	closeSearchDialog(){
 		 this.setState({
-			openSearch:!this.state.openSearch	
-	    }); 
+			openSearch:!this.state.openSearch
+	    });
 		typeList=[];
 	    codeList=[];
 	}
 
     closeSwitchBtn(){
-    	 this.setState({	    
+    	 this.setState({
 			openSwitchBtn:!this.state.openSwitchBtn,
-		});	 
-		receivedList=[]; 
+		});
+		receivedList=[];
     }
     closeBusinessBtn(){
-    	this.setState({	    
+    	this.setState({
 			openBusinessBtn:!this.state.openBusinessBtn,
-		});	  
+		});
     }
     closeQuitBtn(){
-    	this.setState({	    
+    	this.setState({
 			openQuitBtn:!this.state.openQuitBtn,
-		});	 
+		});
     }
     closeAddaccount(){
        this.setState({
@@ -442,7 +447,7 @@ export default class AttributeSetting  extends Component{
 		receivedList=[];
 	}
 	closeViewDialog(){
-		this.setState({	    
+		this.setState({
 			openView:!this.state.openView,
 		});
 	}
@@ -458,17 +463,17 @@ export default class AttributeSetting  extends Component{
     	params = Object.assign({},this.state.params,params);
         this.setState({
       	    params,
-			openSearch:!this.state.openSearch	
-	    });  
+			openSearch:!this.state.openSearch
+	    });
     }
     onSelect(values){
         //此处反着？
     	let {list,selectedList} = this.state;
-    	selectedList = list.map(function(item,index){            
+    	selectedList = list.map(function(item,index){
 				if(values.indexOf(index)){
 					return false;
 				}
-				return item;			           
+				return item;
     	});
     	this.setState({
     		selectedList,
@@ -476,13 +481,14 @@ export default class AttributeSetting  extends Component{
     	});
     }
     onLoaded(response){
-    	let list = response.items;    
+    	let list = response.items;
     	this.setState({
     		list
     	})
     }
     //回款提交
-    onAddReceivedSubmit(params){          
+    onAddReceivedSubmit(params){
+    	  //console.log('222222222',params);
 	  	  params= Object.assign({},params);
         if(params.autoSplit==0){
           params.jsonStr = {};
@@ -499,39 +505,39 @@ export default class AttributeSetting  extends Component{
 	  	  delete params.shenghuoxiaofeihuikuan;
 	  	  delete params.gongweihuikuan;
 	  	  delete params.qitahuikuan;
-        }	  	  
+        }
 	  	  params.receiveDate=dateFormat(params.receiveDate,"yyyy-mm-dd h:MM:ss");
 		  var _this = this;
-	      Store.dispatch(Actions.callAPI('receiveMoney',{},params)).then(function(response){   
+	      Store.dispatch(Actions.callAPI('receiveMoney',{},params)).then(function(response){
 
  			 Notify.show([{
 				message:'回款成功',
-				type:'success', 
+				type:'success',
 			}]);
 
- 			 _this.refresh();		
+ 			 _this.refresh();
 
  		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
 				type:'danger',
-                
+
 			}]);
 		 });
 	    this.setState({
 			openReceivedBtn:!this.state.openReceivedBtn,
 			isLoading:true
-		});	 
+		});
 		receivedList=[];
-		typeList=[]; 
-		
+		typeList=[];
+
     }
-    onQuitSubmit(params){ 
+    onQuitSubmit(params){
     	  var _this = this;
-    	  params= Object.assign({},params);	 
+    	  params= Object.assign({},params);
 		  params.operatedate=dateFormat(params.operatedate,"yyyy-mm-dd h:MM:ss");
-	      Store.dispatch(Actions.callAPI('payBack',{},params)).then(function(response){ 
-	        _this.refresh(); 
+	      Store.dispatch(Actions.callAPI('payBack',{},params)).then(function(response){
+	        _this.refresh();
  		  }).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -542,33 +548,33 @@ export default class AttributeSetting  extends Component{
 			openQuitBtn:!this.state.openQuitBtn,
 			isLoading:true
 		});
-		  
+
     }
-    onSwitchSubmit(params){ 
+    onSwitchSubmit(params){
 		  var _this = this;
-	      Store.dispatch(Actions.callAPI('transToDeposit',{},params)).then(function(response){  
-	       _this.refresh();   
+	      Store.dispatch(Actions.callAPI('transToDeposit',{},params)).then(function(response){
+	       _this.refresh();
  		  }).catch(function(err){
 			Notify.show([{
 				message:err.message,
 				type: 'danger',
 			}]);
-		 });       
+		 });
 	    this.setState({
 			openSwitchBtn:!this.state.openSwitchBtn,
 			isLoading:true
-		});	 
+		});
 		receivedList=[];
-		
+
     }
-    onBusinessSubmit(params){ 	  
+    onBusinessSubmit(params){
 		  var _this = this;
-	      Store.dispatch(Actions.callAPI('transToOperateIncome',{},params)).then(function(response){ 
+	      Store.dispatch(Actions.callAPI('transToOperateIncome',{},params)).then(function(response){
  		    Notify.show([{
 				message:'操作成功',
 				type: 'success',
 			}]);
- 		    _this.refresh(); 
+ 		    _this.refresh();
  		  }).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -579,8 +585,8 @@ export default class AttributeSetting  extends Component{
 	    this.setState({
 			openBusinessBtn:!this.state.openBusinessBtn,
 			isLoading:true
-		});	
-		 
+		});
+
     }
     onConfrimSubmit(formValues){
     	var _this=this;
@@ -601,7 +607,7 @@ export default class AttributeSetting  extends Component{
 			isLoading:true
 		})
 		receivedList=[];
-		
+
 	}
 	onSupplementSubmit(){
 		var _this=this;
@@ -622,11 +628,11 @@ export default class AttributeSetting  extends Component{
 			openSupplementBtn:!this.state.openSupplementBtn,
 			isLoading:true
 		})
-		
+
 	}
     //操作相关
 	onOperation(type,itemDetail){
-		if(type == 'view'){		
+		if(type == 'view'){
 			this.openViewDialog(itemDetail);
 		}
 	}
@@ -652,29 +658,29 @@ export default class AttributeSetting  extends Component{
 			}]);
 		});
 	}
-     
+
     searchUpperFun(){
-         var _this = this; 
-         let {params} = this.state;     
+         var _this = this;
+         let {params} = this.state;
 	      Store.dispatch(Actions.callAPI('findAccountAndPropList',{
 	      	accountType:params.accountType
 	      })).then(function(response){
-             response.account.map(function(item,index){ 
+             response.account.map(function(item,index){
  		      	 var list ={}
  		      	 list.value=item.id;
  		      	 list.label=item.accountname;
- 		      	 codeList.push(list);		      	 	      	                                            
+ 		      	 codeList.push(list);
               })
-		      response.property.map(function(item,index){ 
+		      response.property.map(function(item,index){
  		      	 var list ={}
  		      	 list.value=item.id;
  		      	 list.label=item.propname;
- 		      	 typeList.push(list);		      	 	      	                                            
+ 		      	 typeList.push(list);
               })
  		        _this.setState({
 			      codeList:codeList,
 			      typeList:typeList
-		       });             	           		   
+		       });
  		}).catch(function(err){
 			Notify.show([{
 				message:err.message,
@@ -682,11 +688,12 @@ export default class AttributeSetting  extends Component{
 			}]);
 		 });
     }
-    
+
 
 
 	componentDidMount() {
      	this.initBasicInfo();
+		  Store.dispatch(Actions.switchSidebarNav(false));
 	}
 
    	render(){
@@ -695,33 +702,33 @@ export default class AttributeSetting  extends Component{
 	   if(isInitLoading){
 	   	 return <Loading/>
 	   }
-       
+
       //console.log('221111',this.context.router)
-      
+
 	   //判断按钮出现与隐藏
-       let childBtn=params.childType; 
+       let childBtn=params.childType;
        let parentBtn=params.accountType;
        let propInfo=params.propInfo;
        //回款传订单id
        let initialValues={
        	   mainbillid:params.orderId,
 
-       } 
+       }
        //退款等要操作的id
        let initialValuesId={
        	   id:fiItem.id
-       } 
+       }
        //挂账按钮操作
        let propId={
        	   propid:params.propertyId,
        	   mainbillid:params.orderId
-       } 
+       }
        //高级查询
        let searchValue={
        	   accountType:params.accountType,
        	   orderId:params.orderId
-       } 
-       
+       }
+
        var buttonArr = [];
        if(parentBtn=='PAYMENT'&&childBtn=='basic'){
        	   buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
@@ -745,40 +752,40 @@ export default class AttributeSetting  extends Component{
        }
        if(parentBtn=='PAYMENT'&&childBtn=='qitahuikuan'){
        	   buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-       	   	  
+
        	   	  <Button label="转押金"  type="button"  joinEditForm onTouchTap={this.openSwitchBtn}/>
        	   	  <Button label="转营收"  type="button" joinEditForm onTouchTap={this.openBusinessBtn}/>
        	   	  <Button label="退款"  type="button"  joinEditForm onTouchTap={this.openQuitBtn}/></ButtonGroup>);
        }
        if(parentBtn=='PAYMENT'&&childBtn=='yingshouhuikuan'){
        	   buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/></ButtonGroup>
-       	   	  
+
        	   	  );
        }
         if(parentBtn=='PAYMENT'&&childBtn=='shenghuoxiaofeihuikuan'){
        	   buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-       	   	  
+
        	   	  <Button label="退款"  type="button" joinEditForm onTouchTap={this.openQuitBtn}/></ButtonGroup>);
        }
        if(parentBtn=='INCOME'&&childBtn=='basic'){
-       	   
+
        }
        if(parentBtn=='INCOME'&&childBtn=='gongweishouru'){
        	  buttonArr.push(<ButtonGroup><Button label="挂账"  type="button" joinEditForm onTouchTap={this.openAccountBtn}/>
        	   	  <Button label="补收入"  type="button" joinEditForm onTouchTap={this.openSupplementBtn}/></ButtonGroup>
-       	   	  ); 
+       	   	  );
        }
        if(parentBtn=='INCOME'&&childBtn=='qitashouru'){
        	  buttonArr.push(<ButtonGroup><Button label="挂账"  type="button" joinEditForm onTouchTap={this.openAccountBtn}/></ButtonGroup>
-       	   	  ); 
+       	   	  );
        }
        if(parentBtn=='INCOME'&&childBtn=='yingyewaishouru'){
        	  buttonArr.push(<ButtonGroup><Button label="挂账" type="button" joinEditForm onTouchTap={this.openAccountBtn}/></ButtonGroup>
-       	   	  ); 
+       	   	  );
        }
        if(parentBtn=='INCOME'&&childBtn=='shenghuoxiaofeishouru'){
        	  buttonArr.push(<ButtonGroup><Button label="挂账"  type="button" joinEditForm onTouchTap={this.openAccountBtn}/></ButtonGroup>
-       	   	  ); 
+       	   	  );
        }
        if(parentBtn=='PAYMENT'&&propInfo=='NEW'){
        	 buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
@@ -786,9 +793,9 @@ export default class AttributeSetting  extends Component{
        }
        if(parentBtn=='INCOME'&&propInfo=='NEW'){
        	      buttonArr.push(<ButtonGroup><Button label="挂账"  type="button" joinEditForm onTouchTap={this.openAccountBtn}/></ButtonGroup>
-       	   	  ); 
+       	   	  );
        }
-       
+
        const close=[
         <Button
         label="关闭"
@@ -798,27 +805,27 @@ export default class AttributeSetting  extends Component{
         />
       ]
 
-		
+
 		return(
 
 			<div>
-					<Section title="订单明细账" description="" > 
+					<Section title="订单明细账" description="" >
 					      <DotTitle title='订单描述' style={{marginTop:'6',marginBottom:'40'}}/>
 						  <BasicInfo  detail={this.state.basicInfo} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome}/>
-						   
+
 						  <DotTitle title='订单明细账' style={{marginTop:'28',marginBottom:'62'}}/>
 						  <div className='ui-detail-bottom'>
 								<Row style={{marginTop:10}}>
 								 <div className='detail-left'>
 									<SearchParam onSearch={this.onSearch} params={this.state.params} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance} />
-								
+
 								 </div>
 								 <div className='detail-right'>
 								     <div>
-								        <Col align="left" className='btn-left'>{buttonArr}</Col>     							       
+								        <Col align="left" className='btn-left'>{buttonArr}</Col>
 								        <Col align="right"><Button label="高级查询"  type="button"  onTouchTap={this.openSearchDialog}/></Col>
 								     </div>
-								 
+
 									 <Table style={{marginTop:30}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
 							              <TableHeader>
 										          <TableHeaderColumn>序号</TableHeaderColumn>
@@ -857,7 +864,7 @@ export default class AttributeSetting  extends Component{
 						title="高级查询"
 						open={this.state.openSearch}
 						onClose={this.closeSearchDialog}
-						>							
+						>
 					   <SearchForm onCancel={this.closeSearchDialog} initialValues={searchValue} codeList={this.state.codeList} typeList={this.state.typeList} onSubmit={this.onSubmit}/>
 					 </Dialog>
 
@@ -865,8 +872,8 @@ export default class AttributeSetting  extends Component{
 						title="添加回款"
 						open={this.state.openReceivedBtn}
 						onClose={this.closeReceivedDialog}
-						
-						>							
+
+						>
 					   <ReceivedBtnForm onSubmit={this.onAddReceivedSubmit}  onCancel={this.closeReceivedDialog} optionList={this.state.receivedList} typeList={this.state.typeList}/>
 					 </Dialog>
 
@@ -874,7 +881,7 @@ export default class AttributeSetting  extends Component{
 						title="退款"
 						open={this.state.openQuitBtn}
 						onClose={this.closeQuitBtn}
-						>							
+						>
 					   <QuitBtnForm  onSubmit={this.onQuitSubmit} onCancel={this.closeQuitBtn}  initialValues={initialValuesId}/>
 					 </Dialog>
 
@@ -882,7 +889,7 @@ export default class AttributeSetting  extends Component{
 						title="转押金"
 						open={this.state.openSwitchBtn}
 						onClose={this.closeSwitchBtn}
-						>							
+						>
 					   <SwitchBtnForm  onSubmit={this.onSwitchSubmit} onCancel={this.closeSwitchBtn} optionList={this.state.receivedList} initialValues={initialValuesId}/>
 					 </Dialog>
 
@@ -890,7 +897,7 @@ export default class AttributeSetting  extends Component{
 						title="转营收"
 						open={this.state.openBusinessBtn}
 						onClose={this.closeBusinessBtn}
-						>							
+						>
 					   <BusinessBtnForm  onSubmit={this.onBusinessSubmit} onCancel={this.closeBusinessBtn} fiMoney={fiMoney} initialValues={initialValuesId}/>
 					 </Dialog>
 
@@ -898,7 +905,7 @@ export default class AttributeSetting  extends Component{
 						title="挂账"
 						open={this.state.openAddaccountBtn}
 						onClose={this.closeAddaccount}
-						>							
+						>
 					   <AccountBtnForm  onSubmit={this.onConfrimSubmit}  onCancel={this.closeAddaccount}  optionList={this.state.receivedList} initialValues={propId}/>
 					 </Dialog>
 
@@ -906,7 +913,7 @@ export default class AttributeSetting  extends Component{
 						title="补收入"
 						open={this.state.openSupplementBtn}
 						onClose={this.openSupplementBtn}
-						>							
+						>
 					   <SupplementBtnForm  onSubmit={this.onSupplementSubmit} mainbillid="{params.orderId}" onCancel={this.openSupplementBtn} />
 					 </Dialog>
 
@@ -914,15 +921,12 @@ export default class AttributeSetting  extends Component{
 						title="查看"
 						open={this.state.openView}
 						onClose={this.closeViewDialog}
-						>							
+						>
 						<ViewForm detail={this.state.itemDetail}  />
-					 </Dialog> 
+					 </Dialog>
 
-			</div>		
+			</div>
 	    );
 
      }
 }
-
-
-

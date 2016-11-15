@@ -40,23 +40,14 @@ export default class CommunityManage extends Component {
 		super(props, context);
 		this.planTable = this.planTable.bind(this);
 		this.Floorplan = this.Floorplan.bind(this);
-		this.selectCommunity = this.selectCommunity.bind(this);
-		this.getCommunity = this.getCommunity.bind(this);
-
-		this.getCommunityFloors = this.getCommunityFloors.bind(this);
-
-
 		this.state = {
 
 			tab: 'table',
-			communityInfoList: [],
-			community: '',
 		}
 
 	}
 
 	componentDidMount() {
-		this.getCommunity();
 
 	}
 
@@ -81,82 +72,12 @@ export default class CommunityManage extends Component {
 			tab
 		});
 	}
-	selectCommunity(personel) {
-
-		console.log('change', personel);
-		// Store.dispatch(change('selectCommunityForm','community',personel.label));
-		this.getCommunityFloors(personel.id);
-		this.setState({
-			community: personel.id,
-			communityids: personel.id,
-		})
-
-	}
-	getCommunity() {
-		var that = this;
-		var {
-			communityInfoList,
-			community
-		} = this.state;
-		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
-
-			communityInfoList = response.communityInfoList.map(function(item, index) {
-
-				item.value = item.id;
-				item.label = item.name;
-				return item;
-			});
-			that.setState({
-				communityInfoList,
-			});
-		}).catch(function(err) {
-			console.log('err', err);
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
-
-	}
-
-
-
-	getCommunityFloors(id) {
-		console.log('floors', id);
-		let communityid = {
-			communityid: id
-		};
-		var communityInfoFloorList;
-		var that = this;
-		Store.dispatch(Actions.callAPI('getCommunityFloors', communityid)).then(function(response) {
-
-			communityInfoFloorList = response.floors.map(function(item, index) {
-				item.value = item.id;
-				item.label = item.name;
-				return item;
-			});
-			that.setState({
-				communityInfoFloorList
-			});
-		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
-	}
 
 
 
 	render() {
 		let {
 			tab
-		} = this.state;
-		var {
-			communityInfoList,
-			communityInfoFloorList,
-			communityids,
-			community
 		} = this.state;
 
 		const activeTab = {
@@ -180,12 +101,12 @@ export default class CommunityManage extends Component {
 			<Section title="计划表" description=""> 
 				 <Tabs className="tabs" tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={{backgroundColor:'#499df1'}}>
 					<Tab label="计划表" onActive={this.planTable} style={tableStyle}>
-						<Schedule communityInfoList={communityInfoList} communityids={this.state.communityids}/>
+						<Schedule />
 
 					</Tab>
 					<Tab label="平面图"  onActive={this.Floorplan} style={planStyle}>
 
-					   <FloorPlan communityId={community} tab={tab} communityInfoFloorList={communityInfoFloorList}/>
+					   <FloorPlan tab={tab} />
 
 
 					</Tab>

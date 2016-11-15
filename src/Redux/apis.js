@@ -356,7 +356,7 @@ const APIS = {
 	},
 	// 获取社区楼层数据
 	'getCommunityFloors': {
-		url: '/api-old/krspace_operate_web/commnuity/communityBase/getCommunityFloors?communityid={communityid}',
+		url: '/api-old/krspace_operate_web/commnuity/communityBase/getCommunityFloors?communityId={communityId}',
 		method: 'get'
 	},
 	// 计划表获取数据

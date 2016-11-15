@@ -10,7 +10,8 @@ export default class  WrapComponent extends React.Component {
 		requireLabel:React.PropTypes.bool,
 		inline:React.PropTypes.bool,
 		requireBlue:React.PropTypes.bool,
-		alignRight:React.PropTypes.bool
+		alignRight:React.PropTypes.bool,
+		search:React.PropTypes.bool
 	}
 
 	constructor(props){
@@ -19,12 +20,16 @@ export default class  WrapComponent extends React.Component {
 
 	render(){
 
-		let {requireLabel,label,inline, requireBlue, alignRight} = this.props;
+		let {requireLabel,label,inline, search,requireBlue, alignRight} = this.props;
+		console.log('---search---',search);
 
 		let className = 'ui-form-label';
 		
 		if(inline){
 			className+= ' inline';
+		}
+		if(search){
+			className+= ' search-content';
 		}
 		if(requireBlue){
 			className+=' require-blue';

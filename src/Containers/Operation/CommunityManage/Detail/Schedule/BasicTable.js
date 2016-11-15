@@ -159,9 +159,9 @@ class SearchForm extends Component {
 		}];
 
 		return (
-			<form name="searchForm" className="searchForm" style={{borderBottom:'2px solid #eee',marginBottom:30,paddingTop:'20px'}}>
+			<form name="searchForm" className="searchForm" style={{borderBottom:'2px solid #eee',marginBottom:30,padding:'20px'}}>
 				{/*<KrField  name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} left={60}/>*/}
-				<KrField name="community"  grid={1/3} component="select" label="社区" inline={true}  options={communityIdList} onChange={this.selectCommunity} />
+				<KrField name="community"  grid={1/3} component="select" label="社区" search={true}  options={communityIdList} onChange={this.selectCommunity} />
 				<SearchForms onSubmit={this.onSubmit} searchFilter={options} />
 			</form>
 
@@ -344,6 +344,7 @@ export default class BasicTable extends Component {
 		   	});*/
 
 
+
 	}
 
 	openDismantlingDialog() {
@@ -373,7 +374,6 @@ export default class BasicTable extends Component {
 			currentYear
 		});
 		this.getInstallmentplan();
-
 	}
 
 
@@ -408,7 +408,7 @@ export default class BasicTable extends Component {
 				type: type,
 				page: page,
 				pageSize: pageSize,
-				year: _this.state.currentYear
+				year:_this.state.currentYear,
 			})).then(function(response) {
 
 				_this.setState({
@@ -444,7 +444,6 @@ export default class BasicTable extends Component {
 			rate,
 			communityIds
 		} = this.state;
-
 		var _this = this;
 		const id = communityIds
 			//this.scrollLoad();

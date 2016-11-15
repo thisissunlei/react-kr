@@ -166,6 +166,7 @@ export default class AttributeSetting extends Component {
 			searchParams,
 			openNewCreate: !this.state.openNewCreate
 		});
+        
 	}
 
 	onNewCreateCancel() {
@@ -257,7 +258,7 @@ export default class AttributeSetting extends Component {
 					<TableHeaderColumn>收入总额</TableHeaderColumn>
 					<TableHeaderColumn>回款总额</TableHeaderColumn>
 					<TableHeaderColumn>余额</TableHeaderColumn>
-					<TableHeaderColumn>定押</TableHeaderColumn>
+					<TableHeaderColumn>定金/押金</TableHeaderColumn>
 					<TableHeaderColumn>操作</TableHeaderColumn>
 				</TableHeader>
 

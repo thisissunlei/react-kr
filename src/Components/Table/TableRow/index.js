@@ -4,7 +4,7 @@ import Button from '../../Button';
 export default class TableRow extends React.Component {
 
 	static displayName = 'TableRow';
-	
+
 	static PropTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
@@ -24,7 +24,7 @@ export default class TableRow extends React.Component {
 	constructor(props){
 		super(props);
 
-		this.onCellClick = this.onCellClick.bind(this); 
+		this.onCellClick = this.onCellClick.bind(this);
 		this.onCellHover = this.onCellHover.bind(this);
 		this.onCellHoverExit = this.onCellHoverExit.bind(this);
 		this.onRowHover = this.onRowHover.bind(this);
@@ -85,7 +85,7 @@ export default class TableRow extends React.Component {
 
 	createRowColumn(basic,columnNumber,rowNumber){
 
-		const {itemData} = this.props; 
+		const {itemData} = this.props;
 		let {name,actions} = basic.props;
 		let value = '';
 
@@ -118,19 +118,20 @@ export default class TableRow extends React.Component {
 			onHover: this.onCellHover,
 			onHoverExit: this.onCellHoverExit,
 			value,
+			itemData,
 		},children);
 	}
 
 	renderRow(){
 		const {
 			className,
-			hovered, 
+			hovered,
 			onCellClick,
 			onCellHover,
-			onCellHoverExit, 
-			onRowClick, 
-			onRowHover, 
-			onRowHoverExit, 
+			onCellHoverExit,
+			onRowClick,
+			onRowHover,
+			onRowHoverExit,
 			rowNumber,
 			selectable,
 			selected,
@@ -173,10 +174,3 @@ export default class TableRow extends React.Component {
 
 	}
 }
-
-
-
-
-
-
-

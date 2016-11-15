@@ -92,13 +92,13 @@ import {
 
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 			   
-				<KrField name="customername" type="text" label="公司名称" /> 
-				<KrField name="communityid"  type="select" label="所属社区" options={this.state.communityList} >
+				<KrField grid={1/2} name="customername" type="text" label="公司名称" /> 
+				<KrField grid={1/2} name="communityid"  type="select" label="所属社区" options={this.state.communityList} >
 				</KrField>
-				<KrField  name="mainbilltype" type="select" label="订单类型" options={this.state.mainbilltypeList}>
+				<KrField  grid={1/2} name="mainbilltype" type="select" label="订单类型" options={this.state.mainbilltypeList}>
 				</KrField>
-				<KrField  name="startDate" component="date" label="起始时间"/>
-				<KrField name="endDate" component="date" label="结束时间"/>
+				<KrField  grid={1/2} name="startDate" component="date" label="起始时间"/>
+				<KrField grid={1/2} name="endDate" component="date" label="结束时间"/>
              
 				
 
