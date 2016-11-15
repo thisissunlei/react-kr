@@ -41,6 +41,7 @@ export default class LabelTextComponent extends React.Component {
 			alignRight,
 			format,
 			href,
+			//colorStyle,
 			tooltip
 		} = this.props;
 
