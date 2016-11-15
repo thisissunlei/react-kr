@@ -191,6 +191,7 @@ export default class OrderDetail extends React.Component {
 			}]);
 
 		});
+		Store.dispatch(Actions.switchSidebarNav(false));
 
 	}
 
@@ -372,8 +373,8 @@ export default class OrderDetail extends React.Component {
 
 			<Grid style={{marginTop:50}}>
 				<Row>
-				<Col md={4} ><KrField label="社区名称：" component="labelText" value={orderBaseInfo.communityName} defaultValue="无" alignRight={true}/></Col>
-				<Col md={4} ><KrField label="客户名称：" component="labelText" value={orderBaseInfo.customerName} alignRight={true}/></Col>
+				<Col md={4} ><KrField label="社区名称：" component="labelText" value={orderBaseInfo.communityName} defaultValue="无" alignRight={true} tooltip={orderBaseInfo.communityName}/></Col>
+				<Col md={4} ><KrField label="客户名称：" component="labelText" value={orderBaseInfo.customerName} alignRight={true} tooltip={orderBaseInfo.customerName}/></Col>
 				<Col md={4} ><KrField label="订单名称：" component="labelText"  value={orderBaseInfo.mainbillname} tooltip={orderBaseInfo.mainbillname} alignRight={true}/>
 				</Col>
 				

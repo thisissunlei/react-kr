@@ -69,30 +69,32 @@ export default class BasicInfo extends Component {
 			detail.mainbillname = '';
 		}
 
-
+       let style= {
+			color:'#ff6868',
+		}
 
 		return (
 
 			<div className='ui-detail-order'>   
                       
-			           <KrField grid={1/3} label="社区名称:" component="labelText" value={detail.communityname} defaultValue="无"/>
-			           <KrField grid={1/3} label="客户名称:" component="labelText" value={detail.customername} defaultValue="无"/>
+			           <KrField grid={1/3} alignRight={true} label="社区名称:" component="labelText" value={detail.communityname} defaultValue="无"/>
+			           <KrField grid={1/3} alignRight={true} label="客户名称:" component="labelText" value={detail.customername} defaultValue="无"/>
 
-			           <KrField grid={1/3}  component="labelText" type="link" label="订单名称:" value={detail.mainbillname} href={`./#/operation/customerManage/${this.props.detail.customerid}/order/${this.context.params.orderId}/detail`}  /> 
+			           <KrField grid={1/3}  alignRight={true} component="labelText" type="link" label="订单名称:" value={detail.mainbillname} href={`./#/operation/customerManage/${this.props.detail.customerid}/order/${this.context.params.orderId}/detail`}  /> 
 
-                       <KrField grid={1/3} label="当前工位数:" component="labelText" value={detail.totalstationnum} defaultValue="无"/>
+                       <KrField grid={1/3} alignRight={true} label="当前工位数:" component="labelText" value={detail.totalstationnum} defaultValue="无"/>
 			          
-                       <KrField grid={1/3} label="起始日期:" component="labelText" type="date" value={detail.startdate} defaultValue="无"/>
+                       <KrField grid={1/3} alignRight={true} label="起始日期:" component="labelText" type="date" value={detail.startdate} defaultValue="无"/>
 
-			           <KrField grid={1/3} label="结束日期:" component="labelText" type="date" value={detail.enddate} defaultValue="无"/>
+			           <KrField grid={1/3} alignRight={true} label="结束日期:" component="labelText" type="date" value={detail.enddate} defaultValue="无"/>
 
-			           <KrField grid={1/3} label="撤场日期:" component="labelText" type="date" value={detail.leavedate} defaultValue="无"/>
+			           <KrField grid={1/3} alignRight={true} label="撤场日期:" component="labelText" type="date" value={detail.leavedate} defaultValue="无"/>
 				           
-			            <KrField grid={1/3} label="订单总额:" component="labelText" value={detail.totalamount} defaultValue="无" />
+			            <KrField grid={1/3} alignRight={true} label="订单总额:" component="labelText" value={detail.totalamount} defaultValue="无" />
 			            
-			            <KrField grid={1/3} label="回款总额:" component="labelText" value={detail.totalPayment} defaultValue="无"/>
+			            <KrField grid={1/3} alignRight={true} label="回款总额:" component="labelText" value={detail.totalPayment} defaultValue="无"/>
 
-			            <KrField grid={1} label="未回款额:" className="noReceivedMoney" component="labelText" value={detail.notPaymentAmount} defaultValue="无"/>
+			            <KrField grid={1} alignRight={true} label="未回款额:" colorStyle={style} component="labelText" value={detail.notPaymentAmount} defaultValue="无"/>
 			            {/*{detailPayment.map((item,index)=>						
 						    <KrField key={index} grid={1/3} label={item.propname} component="labelText" value={item.propamount}/>						 
 						 )}

@@ -57,7 +57,9 @@ import {
 	KrDate,
 	DotTitle,
 	ButtonGroup,
-	Paper
+	Paper,
+	ListGroup,
+	ListGroupItem
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -352,11 +354,13 @@ class NewCreateForm extends Component {
 
 						
                      </DotTitle>
-						<Grid>
-						<Row style={{marginTop:30}}>
-						<Col md={4}></Col>
-						<Col md={2} align="center"> <Button  label="确定" type="submit"  /> </Col>
-						<Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
+						<Grid style={{paddingBottom:30}}>
+						<Row >
+						<ListGroup>
+							<ListGroupItem style={{width:'45%',textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit"  /></ListGroupItem>
+							<ListGroupItem style={{width:'45%',textAlign:'left',paddingLeft:15}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/></ListGroupItem>
+						</ListGroup>
+						</Row>
 						<Col md={4}></Col>
 						</Grid>
 
