@@ -127,7 +127,7 @@ class PropTypeDescription extends Component {
     let requiredProps = 0;
 
     let text = `${header}
-| Name | Type | Default | Description |
+| 属性名 | 类型 | 默认值 | 说明 |
 |:-----|:-----|:-----|:-----|\n`;
 
     const componentInfo = parse(code);

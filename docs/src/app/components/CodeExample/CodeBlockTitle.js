@@ -1,16 +1,25 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 
-const CodeBlockTitle = (props) => (
-  <div>
+export default class CodeBlockTitle extends React.Component{
 
-  {props.title || 'Example'}
 
-  </div>
-);
+  static PropTypes = {
+    title: React.PropTypes.string,
+    tooltip: React.PropTypes.string,
+  }
 
-CodeBlockTitle.propTypes = {
-  title: PropTypes.string,
-  tooltip: PropTypes.string,
-};
+  render(){
 
-export default CodeBlockTitle;
+    return (
+
+      <div style={{padding:'10px 20px'}}>
+
+      {this.props.title || 'Example'}
+
+      </div>
+    );
+
+  }
+
+
+}

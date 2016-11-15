@@ -28,7 +28,7 @@ const config = {
     devtool: 'eval',
     hot: true,
     inline: true,
-    port: 3000,
+    port: 3001,
     // Required for webpack-dev-server.
     outputPath: buildPath,
   },

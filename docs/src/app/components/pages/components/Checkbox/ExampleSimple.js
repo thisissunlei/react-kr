@@ -1,5 +1,5 @@
 import React from 'react';
-import Checkbox from 'new-ui/Checkbox';
+import Checkbox from 'kr-ui/Checkbox';
 
 const styles = {
   block: {

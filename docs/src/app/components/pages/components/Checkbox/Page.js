@@ -6,27 +6,29 @@ import PropTypeDescription from '../../../PropTypeDescription';
 import MarkdownElement from '../../../MarkdownElement';
 
 import checkboxReadmeText from './README';
-import checkboxCode from '!raw!new-ui/Checkbox';
+import checkboxCode from '!raw!kr-ui/Checkbox';
 import CheckboxExampleSimple from './ExampleSimple';
 import checkboxExampleSimpleCode from '!raw!./ExampleSimple';
 
-const description = 'The second example is selected by default using the `defaultChecked` property. The third ' +
-  'example is disabled using the `disabled` property. The fourth example uses custom icons through the ' +
-  '`checkedIcon` and `uncheckedIcon` properties. The final example uses the `labelPosition` property to position the ' +
-  'label on the left. ';
+const description = 'checkbox 复选框';
 
 const CheckboxPage = () => (
   <div>
     <Title render={(previousTitle) => `Checkbox - ${previousTitle}`} />
+
     <MarkdownElement text={checkboxReadmeText} />
+
     <CodeExample
-      title="Examples"
+      title="Checkbox"
       description={description}
       code={checkboxExampleSimpleCode}
     >
       <CheckboxExampleSimple />
+
     </CodeExample>
+
     <PropTypeDescription code={checkboxCode} />
+
   </div>
 );
 

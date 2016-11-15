@@ -1,17 +1,20 @@
 import React,{Component} from 'react';
 
-import Checkbox from 'material-ui/Checkbox';
 
-export default class KrCheckbox extends React.Component{
+class KrCheckbox extends Component{
 
+	static propTypes = {
+		/**
+		 * Checkbox is checked if true.
+		 */
+		checked:React.PropTypes.bool,
+		/**
+		 * The SvgIcon to use for the checked state.
+		 */
+		onCheck:React.PropTypes.func
+	};
 
 	static displayName = 'KrCheckbox';
-	
-	static PropTypes = {
-		checked:React.PropTypes.bool,
-		onCheck:React.PropTypes.func,
-
-	}
 
 	render(){
 
@@ -23,8 +26,4 @@ export default class KrCheckbox extends React.Component{
 	}
 }
 
-
-
-
-
-
+export default KrCheckbox;

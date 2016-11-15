@@ -2,6 +2,11 @@ import React, {Component, PropTypes} from 'react';
 import MarkdownElement from '../MarkdownElement';
 import CodeBlockTitle from './CodeBlockTitle';
 
+
+
+import {Section} from 'kr-ui';
+
+
 const styles = {
   root: {
     background: '#f8f8f8',
@@ -61,9 +66,11 @@ ${this.props.children}
 
     return (
       <div style={styles.root}>
+
         <div onTouchTap={this.handleTouchTap} style={styles.codeBlockTitle}>
           <CodeBlockTitle title={this.props.title} tooltip={tooltip} />
         </div>
+        
         <MarkdownElement style={codeStyle} text={text} />
         <MarkdownElement style={descriptionStyle} text={this.props.description} />
       </div>

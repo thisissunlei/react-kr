@@ -9,6 +9,7 @@ import {
 import Master from './components/Master';
 
 import CheckboxPage from './components/pages/components/Checkbox/Page';
+import DividerPage from './components/pages/components/Divider/Page';
 
 
 const AppRoutes = (
@@ -17,6 +18,7 @@ const AppRoutes = (
 
     <Route path="components">
       <Route path="checkbox" component={CheckboxPage} />
+      <Route path="divider" component={DividerPage} />
     </Route>
 
   </Route>
