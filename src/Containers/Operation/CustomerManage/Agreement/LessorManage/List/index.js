@@ -152,7 +152,7 @@ export default class LessorManageList extends Component {
 					<BreadCrumbs children={['系统运营','合同信息','出租方管理']}/>
 					<Section title="出租方管理" description="" >
 
-					<Grid>
+					<Grid style={{marginBottom:20}}>
 						<Row>
 							<Col md={4}  align="left"> <Button width="100" label="新建出租方" joinEditForm onTouchTap={this.openNewCreateDialog} /> </Col>
 							<Col md={8} align="right">
@@ -194,10 +194,11 @@ export default class LessorManageList extends Component {
 					</Section>
 
 					<Dialog
-						title="新建"
+						title="新建出租方"
 						modal={true}
 						open={this.state.openNewCreate}
 						onClose={this.openNewCreateDialog}
+						contentStyle={{width:686}}
 
 					>
 						<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
@@ -206,20 +207,22 @@ export default class LessorManageList extends Component {
 
 
 					<Dialog
-						title="编辑"
+						title="编辑出租方"
 						modal={true}
 						open={this.state.openEditDetail}
 						onClose={this.openEditDetailDialog}
+						contentStyle={{width:686}}
 
 					>
 						<EditDetailForm  detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog} />
 				  </Dialog>
 
 					<Dialog
-						title="查看"
+						title="查看出租方"
 						modal={true}
 						open={this.state.openView}
 						onClose={this.openViewDialog}
+						contentStyle={{width:686}}
 					>
 						<ItemDetail  detail={this.state.itemDetail} onCancel={this.openViewDialog} />
 				  </Dialog>
