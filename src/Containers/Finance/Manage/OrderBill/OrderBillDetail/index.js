@@ -240,7 +240,7 @@ export default class AttributeSetting  extends Component{
 			}]);
 		 });
         this.setState({
-			openReceivedBtn:!this.state.openReceivedBtn
+			openReceivedBtn:!this.state.openReceivedBtn,
 		});
     }
     openQuitBtn(){
@@ -530,7 +530,7 @@ export default class AttributeSetting  extends Component{
 	    this.setState({
 			openReceivedBtn:!this.state.openReceivedBtn,
 			isLoading:true,
-			params:''
+			params:'',
 		});
 		receivedList=[];
 		typeList=[];
@@ -706,6 +706,7 @@ export default class AttributeSetting  extends Component{
 	   if(isInitLoading){
 	   	 return <Loading/>
 	   }
+	   
 
       //console.log('221111',this.context.router)
 
