@@ -20,7 +20,9 @@ import {
 	initialize,
 	arrayPush,
 	arrayInsert,
-	FieldArray
+	FieldArray,
+	ListGroup,
+	ListGroupItem
 } from 'redux-form';
 
 import {
