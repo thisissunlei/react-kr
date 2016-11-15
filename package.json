@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run dev",
-    "dev": "npm run dll && set NODE_ENV=development &&  nodemon ./server.js",
+    "start": "npm run dll && npm run dev",
+    "dev": "set NODE_ENV=development &&  nodemon ./server.js",
     "dev:webpack": " set NODE_ENV=development  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile --hot --watch",
     "build": "npm run dll && export NODE_ENV=production  &&  webpack --config ./webpack/webpack-production.config.js --progress --colors",
     "test": "npm run dll && export NODE_ENV=test && webpack --config ./webpack/webpack-test.config.js --progress --colors --profile",
