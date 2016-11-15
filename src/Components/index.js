@@ -27,6 +27,7 @@ import SearchForms from './Search';
 import List from './List';
 import AppBar from './AppBar';
 import Divider from './Divider';
+import Drawer from './Drawer';
 
 import {
 	Grid,
@@ -82,6 +83,7 @@ module.exports = {
 	...ListGroup,
 	AppBar,
 	Divider,
+	Drawer,
 
 	//materal-ui
 	Menu,
