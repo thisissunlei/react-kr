@@ -23,7 +23,7 @@ export default class  WrapComponent extends React.Component {
 		let {requireLabel,label,inline, search,requireBlue, alignRight} = this.props;
 
 		let className = 'ui-form-label';
-		
+
 		if(inline){
 			className+= ' inline';
 		}
@@ -39,13 +39,8 @@ export default class  WrapComponent extends React.Component {
 
 			return (
 					<div className={className}>
-						<label> {requireLabel?<span className="require-label">*</span>:null} {label}</label>		
+						<label> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
 					</div>
 				);
 	}
 }
-
-
-
-
-
