@@ -142,7 +142,7 @@ class ChangeStation extends Component {
 
 		initialValues.customerId = customerId;
 		initialValues.communityId = communityId;
-		console.log('detail---', detail)
+
 		return (
 
 			<Form name="jyayayoin" initialValues={initialValues} onSubmit={this.onSubmit}>
@@ -249,7 +249,7 @@ export default class EmployessTable extends Component {
 	}
 
 	openDistributionStation(itemDetail) {
-		console.log('itemDetail', itemDetail)
+
 
 		var _this = this;
 		this.setState({
@@ -397,7 +397,7 @@ export default class EmployessTable extends Component {
 			this.setState({
 				stationId: itemDetail.stationId
 			}, function() {
-				console.log('111')
+
 				this.openChangeStation(itemDetail)
 			})
 
@@ -426,6 +426,7 @@ export default class EmployessTable extends Component {
 			mainBillId: detail.billId
 		}
 		var _this = this;
+		console.log('...detail', detail)
 		return (
 
 			<div className="employees-content">
@@ -463,8 +464,11 @@ export default class EmployessTable extends Component {
 						<TableRowColumn name="memberPhone" ></TableRowColumn>
 						<TableRowColumn name="status" options={[{label:'未入住',value:'UNLIVE'},{label:'已入住',value:'LIVED'},{label:'已离场',value:'LEFTED'}]}></TableRowColumn>
 						<TableRowColumn type="operation">
-							<Button label="变更" className="changeBtn" type="operation" operation="ChangeStation" hidden="changeHidden"  />
-							<Button label="分配" className="Distribtn"  type="operation" operation="Distribution" hidden="distributionHidden"  />
+							{
+								detail.status='LEFTED'?<span>无</span>:<Button label="变更" className="changeBtn" type="operation" operation="ChangeStation" hidden="changeHidden"  /><Button label="分配" className="Distribtn"  type="operation" operation="Distribution" hidden="distributionHidden"  />
+							}
+							
+							
 						 </TableRowColumn>
 					</TableRow>
 				</TableBody>

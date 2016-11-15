@@ -206,6 +206,7 @@ export default class BasicTable extends Component {
 			type: 'BILL',
 			detail: {},
 			activity: false,
+			nowDate: '',
 
 		};
 		this.getInstallmentplan();
@@ -408,7 +409,7 @@ export default class BasicTable extends Component {
 				type: type,
 				page: page,
 				pageSize: pageSize,
-				year:_this.state.currentYear,
+				year: _this.state.currentYear,
 			})).then(function(response) {
 
 				_this.setState({

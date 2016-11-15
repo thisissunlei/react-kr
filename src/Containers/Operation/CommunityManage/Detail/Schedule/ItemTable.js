@@ -141,6 +141,7 @@ export default class ItemTable extends Component {
     let width = 660;
     var _this = this;
     var id = communityids;
+
     return (
 
       <tr className="last-td" >
