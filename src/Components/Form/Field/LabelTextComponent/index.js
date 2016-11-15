@@ -19,7 +19,8 @@ export default class LabelTextComponent extends React.Component {
 		inline: React.PropTypes.bool,
 		requireBlue: React.PropTypes.bool,
 		alignRight: React.PropTypes.bool,
-		tooltip:React.PropTypes.string
+		tooltip:React.PropTypes.string,
+		labelStyle:React.PropTypes.obj,
 	}
 
 	constructor(props) {
@@ -41,7 +42,7 @@ export default class LabelTextComponent extends React.Component {
 			alignRight,
 			format,
 			href,
-			tooltip
+			tooltip,
 		} = this.props;
 
 		if(tooltip && type != 'date' && type != 'link'){
@@ -82,7 +83,7 @@ export default class LabelTextComponent extends React.Component {
 		return (
 
 			<WrapComponent label={label} wrapStyle={style} inline={inline} requireBlue={requireBlue} alignRight={alignRight} requireLabel={requireLabel}>
-					<span className="ui-label-text" > {value || defaultValue} </span>
+					<span className="ui-label-text"> {value || defaultValue} </span>
 				</WrapComponent>
 
 		);
