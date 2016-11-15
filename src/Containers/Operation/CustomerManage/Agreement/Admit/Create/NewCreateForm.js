@@ -456,38 +456,38 @@ class NewCreateForm extends Component {
 
 
 	<Paper width={968}>
-	
+
 	<form onSubmit={handleSubmit(this.onSubmit)}>
-	
-								<KrField grid={1/2}  name="stationnum" type="hidden" component="input" /> 
-								<KrField grid={1/2}  name="boardroomnum" type="hidden" component="input" /> 
+
+								<KrField grid={1/2}  name="stationnum" type="hidden" component="input" />
+								<KrField grid={1/2}  name="boardroomnum" type="hidden" component="input" />
 
 								 <KrField right={60} name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}/>
 
-								 <KrField left={60} grid={1/2}  type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress} defaultValue="无"/> 
-								 <KrField right={60}  grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}/> 
+								 <KrField left={60} grid={1/2}  type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress} defaultValue="无"/>
+								 <KrField right={60}  grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}/>
 
-								 <KrField left={60} grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}/> 
+								 <KrField left={60} grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}/>
 
-								 <KrField right={60}  grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName} inline={false}/> 
-								 <KrField left={60} grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" requireLabel={true}/> 
+								 <KrField right={60}  grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName} inline={false}/>
+								 <KrField left={60} grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" requireLabel={true}/>
 
-								 <KrField right={60} grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" requireLabel={true}/> 
-								 <KrField left={60} grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话" requireLabel={true}/> 
+								 <KrField right={60} grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" requireLabel={true}/>
+								 <KrField left={60} grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话" requireLabel={true}/>
 
-								 <KrField right={60} grid={1/2}  component="labelText" label="所属社区" value={optionValues.communityName} inline={false}/> 
+								 <KrField right={60} grid={1/2}  component="labelText" label="所属社区" value={optionValues.communityName} inline={false}/>
 
 
 								 <KrField left={60} name="wherefloor"  grid={1/2} component="select" label="所属楼层" options={optionValues.floorList} multi={true}  requireLabel={true}/>
 
-								
-								 <KrField right={60} grid={1/2}  name="signdate"  component="date" label="签署日期"  requireLabel={true}/> 
-								 <KrField left={60} grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}/> 
 
-                                 <KrField right={60} grid={1/2}  name="totaldownpayment" type="text" component="input" label="定金总额"  requireLabel={true}/> 
+								 <KrField right={60} grid={1/2}  name="signdate"  component="date" label="签署日期"  requireLabel={true}/>
+								 <KrField left={60} grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}/>
+
+                                 <KrField right={60} grid={1/2}  name="totaldownpayment" type="text" component="input" label="定金总额"  requireLabel={true}/>
 								 <KrField left={60} grid={1/2}  name="paymentId" type="text" component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/>
-                                     
-								 <KrField grid={1/1}  component="group" label="租赁期限" requireLabel={true}> 
+
+								 <KrField grid={1/1}  component="group" label="租赁期限" requireLabel={true}>
 										<ListGroup>
 											<ListGroupItem> <KrField simple={true}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate}/> </ListGroupItem>
 											<ListGroupItem ><span style={{display:'inline-block',lineHeight:'75px'}}>至</span></ListGroupItem>
@@ -495,7 +495,7 @@ class NewCreateForm extends Component {
 										</ListGroup>
 								</KrField>
 
-                               <KrField right={0} name="templockday" left={0} grid={1/2} component="input" type="text" label="保留天数" requireLabel={true}/> 
+                               <KrField right={0} name="templockday" left={0} grid={1/2} component="input" type="text" label="保留天数" requireLabel={true}/>
 
 							 <KrField grid={1}  name="contractmark" type="textarea" component="textarea" label="备注" maxSize={200} /> 
 
@@ -503,12 +503,12 @@ class NewCreateForm extends Component {
 							<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
 								Store.dispatch(change('admitCreateForm','contractFileList',files));
 							}} />
-							 <KrField grid={1/2}  name="stationnum"  component="labelText" label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/> 
-							 <KrField grid={1/2}  name="boardroomnum"  component="labelText" label="租赁会议室" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/> 
+							 <KrField grid={1/2}  name="stationnum"  component="labelText" label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>
+							 <KrField grid={1/2}  name="boardroomnum"  component="labelText" label="租赁会议室" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/>
 
 							<DotTitle title='租赁明细'>
 
-						
+
 
 						<Grid>
 							<Row>
@@ -543,7 +543,7 @@ class NewCreateForm extends Component {
 										})}
 								   </TableBody>
 							 </Table>
-		
+
                </DotTitle>
 
 				<Grid>
@@ -560,7 +560,7 @@ class NewCreateForm extends Component {
 						 </Col>
 					</Row>
 				</Grid>
-	
+
 			</form>
 	</Paper>
 

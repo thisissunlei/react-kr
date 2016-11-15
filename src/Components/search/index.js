@@ -98,7 +98,7 @@ export default class SearchForms extends Component{
 				})
 			}
 			var searchWord = document.getElementById("keywords").value;
-			if(searchWord && filterValue){
+			if(searchWord ||  filterValue){
 				let value = {
 					filter:filterValue,
 					content:searchWord
@@ -110,10 +110,10 @@ export default class SearchForms extends Component{
 				this.removeClass(searchForm,'show-form');
 				this.removeClass(searchButton,'click');
 			}
-			if(this.hasClass(searchForm, 'show-form')){
-		        this.removeClass(searchForm,'show-form');
-				this.removeClass(searchButton,'click');
-			}
+			// if(this.hasClass(searchForm, 'show-form')){
+		 //        this.removeClass(searchForm,'show-form');
+			// 	this.removeClass(searchButton,'click');
+			// }
 			_this.setState({
 					num:0
 				})

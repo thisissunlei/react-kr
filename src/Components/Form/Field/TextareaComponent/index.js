@@ -3,21 +3,41 @@ import React from 'react';
 import WrapComponent from '../WrapComponent';
 
 export default class TextareaComponent extends React.Component {
+
+	static defaultProps = {
+		maxSize:200
+	}
 	static PropTypes = {
 		onChange: React.PropTypes.func,
-		maxSize: React.PropTypes.num
+		maxSize: React.PropTypes.number
 	}
 
 	constructor(props) {
 		super(props)
 
 
+		this.onChange = this.onChange.bind(this);
 		this.state = {
-			len: 0,
+			inputSize: 0,
 		}
+
 	}
 
+	onChange(event){
+		var value = event.target.value;
 
+		const {onChange,input,maxSize} = this.props;
+
+		let inputSize = (value.length>maxSize)?maxSize:value.length;
+		this.setState({
+			inputSize
+		});
+
+		value = value.slice(0,maxSize);
+		input.onChange(value);
+		onChange && onChange(value);
+
+	}
 
 	render() {
 
@@ -40,12 +60,13 @@ export default class TextareaComponent extends React.Component {
 		} = this.props;
 
 		let {
-			len
-		} = this.state
+			inputSize
+		} = this.state;
+
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
-				<textarea {...input} placeholder={placeholder|| label} disabled={disabled} col={col} row={row}  ></textarea>
-				<div style={{width:40,height:30,lineHeight:"30px",color:'#cccccc',float:'right',fontSize:'14px'}}><span className="len">{len}</span>/<span className="size">{maxSize?maxSize:200}</span></div>
+				<textarea {...input} placeholder={placeholder|| label} disabled={disabled} col={col} row={row} onChange={this.onChange} ></textarea>
+				<div style={{width:40,height:30,lineHeight:"30px",color:'#cccccc',float:'right',fontSize:'14px'}}><span className="len">{inputSize}</span>/<span className="size">{maxSize?maxSize:200}</span></div>
 				{touched && error && <div className="error-wrap"> <span>{error}</span></div> }
 			</WrapComponent>
 		);
