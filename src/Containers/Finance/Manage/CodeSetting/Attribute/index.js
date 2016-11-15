@@ -201,7 +201,9 @@ export default class AttributeSetting extends Component {
 					</Grid>
 
 
-				<Table  style={{marginTop:10}} displayCheckbox={true} ajax={true}  ajaxUrlName='findFinaFinaflowPropertyList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} exportSwitch={true} onExport={this.onExport} >
+				<Table  style={{marginTop:10}} ajax={true} onProcessData={(state)=>{
+						return state;
+					}} ajaxUrlName='findFinaFinaflowPropertyList' ajaxParams={this.state.searchParams} onOperation={this.onOperation} exportSwitch={true} onExport={this.onExport} >
 					<TableHeader>
 						<TableHeaderColumn>属性名称</TableHeaderColumn>
 						<TableHeaderColumn name="propcode">属性编码</TableHeaderColumn>
@@ -222,7 +224,7 @@ export default class AttributeSetting extends Component {
 						<TableRowColumn name="ordernum"></TableRowColumn>
 						<TableRowColumn name="creatername"></TableRowColumn>
 						<TableRowColumn name="createdate" type="date"></TableRowColumn>
-						<TableRowColumn>
+						<TableRowColumn type="operation">
 							  <Button label="查看"  type="operation" operation="view"/>
 							  <Button label="编辑"  type="operation" operation="edit"/>
 						 </TableRowColumn>
