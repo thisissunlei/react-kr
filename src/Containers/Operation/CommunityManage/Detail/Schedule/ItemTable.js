@@ -51,13 +51,13 @@ export default class ItemTable extends Component {
 
     this.onStation = this.onStation.bind(this);
     this.onDismantlingDialog = this.onDismantlingDialog.bind(this);
-    this.onDismantling = this.onDismantling.bind(this);
+    // this.onDismantling = this.onDismantling.bind(this);
     this.renderOrder = this.renderOrder.bind(this);
     this.onhref = this.onhref.bind(this);
 
 
     this.state = {
-      activity: false,
+      //activity: false,
       Dismantling: false,
       show: false,
     }
@@ -68,20 +68,25 @@ export default class ItemTable extends Component {
 
     }
     //撤场
-  onDismantling() {
+  onDismantling(detail) {
 
       const {
         onDismantling
       } = this.props;
 
-      onDismantling && onDismantling();
+      onDismantling && onDismantling(detail);
 
     }
     //分配工位
   onStation() {
+    /*let {
+      onStation
+    } = this.props
+    onStation && onStation()*/
     this.setState({
       activity: !this.state.activity
     });
+
   }
   onDismantlingDialog() {
     this.setState({
@@ -136,7 +141,6 @@ export default class ItemTable extends Component {
     let width = 660;
     var _this = this;
     var id = communityids;
-
     return (
 
       <tr className="last-td" >
@@ -164,7 +168,7 @@ export default class ItemTable extends Component {
                 <div className="tip hide  hover">
                    分配工位 < span className = "bArrow" > < /span>
                 </div>
-					    <Button className="Dismantling" type="link" joinEditForm label="" 	onTouchTap={this.onDismantling}/>
+					    <Button className="Dismantling" type="link" joinEditForm label="" 	onClick={this.onDismantling.bind(this,detail)}/>
                   <div className="tip hide hover ">
                        撤场日期 <span className = "bArrow"></span>
                  </div>

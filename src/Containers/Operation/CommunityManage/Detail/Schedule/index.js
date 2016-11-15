@@ -17,6 +17,7 @@ import {
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
 
+
 import {
 	Dialog,
 	Section,
@@ -25,18 +26,22 @@ import {
 	BreadCrumbs,
 } from 'kr-ui';
 
+
 import BasicTable from './BasicTable';
 
 export default class Schedule extends Component {
 
 	constructor(props, context) {
 		super(props, context);
+
+
 	}
 
 
 	componentDidMount() {
 
 	}
+
 	componentWillReceiveProps(nextProps) {
 
 		if (nextProps.community != this.props.community) {
@@ -46,11 +51,14 @@ export default class Schedule extends Component {
 		}
 
 	}
+
+
 	render() {
 		let {
 			communityInfoList,
 			communityids
 		} = this.props;
+
 		return (
 			<div>
 			<BasicTable detail={communityInfoList} communityids={communityids}/>

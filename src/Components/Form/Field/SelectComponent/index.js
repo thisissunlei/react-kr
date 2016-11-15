@@ -15,7 +15,8 @@ export default class SelectComponent extends React.Component{
 
 	static PropTypes = {
 		onChange:React.PropTypes.func,
-		inline:React.PropTypes.bool
+		inline:React.PropTypes.bool,
+		search:React.PropTypes.bool
 	}
 
 	constructor(props){
@@ -72,11 +73,11 @@ export default class SelectComponent extends React.Component{
 
 	render(){
 
-		let { input, label,inline, type, meta: { touched, error },children,disabled,style,requireLabel,options,multi,...other} = this.props;
+		let { input, label,inline, search,type, meta: { touched, error },children,disabled,style,requireLabel,options,multi,...other} = this.props;
 
 		if(multi){
 			return (
-			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
+			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 						<ReactSelect 
 									multi
 									simpleValue
@@ -95,7 +96,7 @@ export default class SelectComponent extends React.Component{
 		if(options){
 			return (
 		
-			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
+			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 						<ReactSelect 
 									name={input.name}
 			
@@ -116,7 +117,7 @@ export default class SelectComponent extends React.Component{
 		}
 
 		return (
-			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
+			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 					<select {...input}  disabled={disabled}>
 									{children}
 					</select>

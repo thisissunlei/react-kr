@@ -22,7 +22,8 @@ export default class  WrapComponent extends React.Component {
 		wrapStyle:React.PropTypes.object,
 		inline:React.PropTypes.bool,
 		requireBlue:React.PropTypes.bool,
-		alignRight:React.PropTypes.bool
+		alignRight:React.PropTypes.bool,
+		search:React.PropTypes.bool
 
 	}
 
@@ -32,7 +33,7 @@ export default class  WrapComponent extends React.Component {
 
 	render(){
 
-		let {requireLabel,alignRight,label,children,wrapStyle,style,inline,requireBlue,simple} = this.props;
+		let {requireLabel,alignRight,label,search,children,wrapStyle,style,inline,requireBlue,simple} = this.props;
 
 		if(simple){
 
@@ -48,8 +49,8 @@ export default class  WrapComponent extends React.Component {
 
 		return (
 				<FormItem style={wrapStyle}>
-					<FormLabel label={label}  alignRight={alignRight} requireLabel={requireLabel} inline={inline} requireBlue={requireBlue}/>
-					<FormController style={style} inline={inline} alignRight={alignRight}>
+					<FormLabel label={label}  alignRight={alignRight} search={search} requireLabel={requireLabel} inline={inline} requireBlue={requireBlue}/>
+					<FormController style={style} search={search} inline={inline} alignRight={alignRight}>
 						{children}
 					</FormController>
 				</FormItem>
