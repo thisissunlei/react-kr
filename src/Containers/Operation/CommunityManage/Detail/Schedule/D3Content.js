@@ -115,7 +115,7 @@ export default class D3Content extends Component {
 	}
 	appendDiv(list, time) {
 			var nowNode;
-			list.map((item, index) => {
+			list && list.map((item, index) => {
 				if (index === 0 && item.start > time) {
 					nowNode = 0;
 				}
@@ -241,6 +241,8 @@ export default class D3Content extends Component {
 		list = this.getRedInfo(list);
 
 		const width = this.props.width || 660;
+		console.log('========', list);
+
 
 
 		return (

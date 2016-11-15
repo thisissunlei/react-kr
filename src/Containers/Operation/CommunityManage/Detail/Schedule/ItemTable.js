@@ -196,7 +196,7 @@ export default class ItemTable extends Component {
 							</div>
 						</td>
 						<td colSpan="12">
-							<D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} width={width} id={detail.billId}/>
+    { /*<D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} width={width} id={detail.billId}/>*/ }
               <EmployessTable  activity={detail.activity} detail={detail} id={id} />
 						</td>
 						<td className="btnlist">

@@ -54,7 +54,8 @@ class SearchForm extends Component {
 			page: 1,
 			pageSize: 5,
 			type: 'BILL',
-			communityids: ''
+			communityids: '',
+
 
 		};
 		this.getcommunity = this.getcommunity.bind(this);
@@ -193,7 +194,7 @@ export default class BasicTable extends Component {
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onChange = this.onChange.bind(this);
 		this.onStation = this.onStation.bind(this);
-		//this.scrollLoad = this.scrollLoad.bind(this);
+		this.scrollLoad = this.scrollLoad.bind(this);
 		this.state = {
 			currentYear: '2016',
 			dismantling: false,
@@ -208,6 +209,8 @@ export default class BasicTable extends Component {
 			detail: {},
 			activity: false,
 			nowDate: '',
+			isIscroll: true,
+			totalPages: '',
 
 		};
 		this.getInstallmentplan();
@@ -236,24 +239,79 @@ export default class BasicTable extends Component {
 		$(window).bind('scroll', function() {
 			var top = $(window).scrollTop() || 0;
 			var height = $(window).height() || 0;
-			// var scrollBottom = $('#planTable').offset().top +1000 - top - height;
-			var scrollBottom = height - top;
-			var isOutBoundary = scrollBottom >= 100;
+			var num = $(document).height() - $(window).height();
+			var scrollBottom = top - num;
+			var isOutBoundary = scrollBottom >= 0;
 
 			if (!isOutBoundary) {
+
 				let {
 					communityIds,
 					type,
 					page,
 					pageSize,
 					value,
-					Installmentplan
-				} = _this.state
-					/*if (page < 10) {
+					Installmentplan,
+					isIscroll,
+					totalPages
+				} = _this.state;
+				if (isIscroll) {
+					_this.setState({
+						isIscroll: !_this.state.isIscroll
+					})
+					var size = page;
+
+					if (!totalPages) {
+						size++;
 						_this.setState({
-							page: _this.state.page++
+							page: size
 						})
-					}*/
+					} else if (totalPages > page) {
+						size++;
+						_this.setState({
+							page: size
+						})
+					}
+
+					Store.dispatch(Actions.callAPI('getInstallmentplan', {
+						communityids: communityIds,
+						value: value,
+						type: type,
+						page: size,
+						pageSize: pageSize
+					})).then(function(response) {
+						var list = _this.state.Installmentplan.concat(response.vo.items);
+						console.log('Installmentplan', list)
+						_this.setState({
+							Installmentplan: list,
+							rate: response.rate,
+
+							totalPages: response.vo.totalPages,
+						});
+
+						if (_this.state.page < _this.state.totalPages) {
+
+							_this.setState({
+								isIscroll: !_this.state.isIscroll
+							})
+
+						}
+
+					}).catch(function(err) {
+						Notify.show([{
+							message: err.message,
+							type: 'danger',
+						}]);
+					});
+				}
+
+
+
+				if (page < 10) {
+					_this.setState({
+						page: _this.state.page++
+					})
+				}
 
 
 
@@ -283,7 +341,7 @@ export default class BasicTable extends Component {
 		this.setState({
 			activity: !this.state.activity
 		});
-		console.log('activity', this.state.activity)
+
 	}
 
 	onChange(id) {
@@ -298,8 +356,8 @@ export default class BasicTable extends Component {
 			value: '',
 			type: type,
 			page: page,
-			//pageSize: pageSize
-			pageSize: 10
+			pageSize: pageSize
+
 		})).then(function(response) {
 			_this.setState({
 				Installmentplan: response.vo.items || [],
@@ -434,6 +492,7 @@ export default class BasicTable extends Component {
 				});
 
 			}).catch(function(err) {
+
 				Notify.show([{
 					message: err.message,
 					type: 'danger',
@@ -463,7 +522,7 @@ export default class BasicTable extends Component {
 		} = this.state;
 		var _this = this;
 		const id = communityIds
-			//this.scrollLoad();
+		this.scrollLoad();
 		return (
 			<div>
 
@@ -533,6 +592,7 @@ export default class BasicTable extends Component {
 					</tr>
 					{
 						Installmentplan && Installmentplan.map((item,index)=>{
+							
 							return (
 
 							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item} index={index} key={index} onStation={this.onStation} activity={this.state.activity} />
