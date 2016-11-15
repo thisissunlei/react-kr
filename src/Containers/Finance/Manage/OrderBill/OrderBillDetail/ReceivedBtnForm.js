@@ -68,12 +68,12 @@ class ReceivedBtnForm extends Component {
 		this.state = {
 
 		}
-      Store.dispatch(reset('ReceivedBtnForm'));
-		
+    
+		//Store.dispatch(reset('ReceivedBtnForm'));
 	}
 
 	componentDidMount() {
-
+        
 
 		let initialValues = {
 			sumSign: '1',
