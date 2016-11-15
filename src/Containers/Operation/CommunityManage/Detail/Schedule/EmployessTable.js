@@ -433,16 +433,23 @@ export default class EmployessTable extends Component {
 		 	<Table  style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getStation' ajaxParams={ParamValues} pagination={false} onOperation={this.onOperation} loading={this.state.isLoading} 
 		 		onProcessData={(state)=>{
 		 			var listData  = state.listData;
-		 			listData.forEach(function(item){
-		 				if(item.memberName){
-							item.distributionHidden = true;
-		 				}else {
-							item.changeHidden = true;
-		 				}
-						
-		 			});
-		 			
-		 			
+			 			listData.forEach(function(item){
+			 				console.log('item',item)
+			 				if(item.status=="LEFTED"){
+								item.distributionHidden = true;
+								item.changeHidden = true;
+			 				}else{
+			 					if(item.memberName){
+									item.distributionHidden = true;
+									item.noneHidden=true;
+				 				}else {
+									item.changeHidden = true;
+									item.noneHidden=true;
+				 				}
+			 				}
+			 				
+							
+			 			});
 						return state;
 					}}>
 				<TableHeader>
@@ -464,7 +471,9 @@ export default class EmployessTable extends Component {
 						<TableRowColumn name="memberPhone" ></TableRowColumn>
 						<TableRowColumn name="status" options={[{label:'未入住',value:'UNLIVE'},{label:'已入住',value:'LIVED'},{label:'已离场',value:'LEFTED'}]}></TableRowColumn>
 						<TableRowColumn type="operation">
-								<Button label="变更" className="changeBtn" type="operation" operation="ChangeStation" hidden="changeHidden"  /><Button label="分配" className="Distribtn"  type="operation" operation="Distribution" hidden="distributionHidden"  />
+								<Button label="变更" className="changeBtn" type="operation" operation="ChangeStation" hidden="changeHidden"  />
+								<Button label="分配" className="Distribtn"  type="operation" operation="Distribution" hidden="distributionHidden"  />
+								<Button label="无" className="Distribtn" type="operation" operation="none" hidden="noneHidden"/>
 						</TableRowColumn>
 					</TableRow>
 				</TableBody>

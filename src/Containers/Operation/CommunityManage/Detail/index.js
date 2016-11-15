@@ -48,7 +48,7 @@ export default class CommunityManage extends Component {
 	}
 
 	componentDidMount() {
-
+		Store.dispatch(Actions.switchSidebarNav(false));
 	}
 
 
