@@ -456,6 +456,7 @@ export default class EmployessTable extends Component {
 				title="分配工位"
 				modal={true}
 				open={this.state.openDistribution}
+				onClose={this.onDistributionCancel}
 			>
 
 				<Distribution  onCancel={this.onDistributionCancel} onSubmit={this.onDistributionSubmit} optionValues={optionValues} stationId={this.state.stationId} customerId={this.state.customerId} communityId={this.state.communityId}/>
@@ -464,6 +465,7 @@ export default class EmployessTable extends Component {
 				title="变更工位"
 				modal={true}
 				open={this.state.openChangeStation}
+				onClose={this.onChangeCancel}
 			>
 				<ChangeStation  onCancel={this.onChangeCancel} onSubmit={this.onChangeSubmit}  optionValues={optionValues} stationId={this.state.stationId} customerId={this.state.customerId} communityId={this.state.communityId}/>
 
@@ -472,6 +474,7 @@ export default class EmployessTable extends Component {
 				title="新增员工"
 				modal={true}
 				open={this.state.openNewmeber}
+				onClose={this.onIframeClose}
 			>
 
 				<IframeContent src={this.getStationUrl()}  onClose={this.onIframeClose}  />

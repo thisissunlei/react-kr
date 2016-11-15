@@ -290,7 +290,7 @@ export default class BasicTable extends Component {
 			pageSize: 10
 		})).then(function(response) {
 			_this.setState({
-				Installmentplan: response.vo || [],
+				Installmentplan: response.vo.items || [],
 				rate: response.rate,
 				communityIds: id
 			});
@@ -307,7 +307,7 @@ export default class BasicTable extends Component {
 		Store.dispatch(Actions.callAPI('getInstallmentplan', formValues)).then(function(response) {
 
 			_this.setState({
-				Installmentplan: response.vo,
+				Installmentplan: response.vo.items,
 				rate: response.rate
 			});
 
@@ -405,7 +405,7 @@ export default class BasicTable extends Component {
 			})).then(function(response) {
 
 				_this.setState({
-					Installmentplan: response.vo || [],
+					Installmentplan: response.vo.items || [],
 					rate: response.rate
 				});
 
