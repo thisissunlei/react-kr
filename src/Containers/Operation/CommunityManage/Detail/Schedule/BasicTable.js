@@ -280,9 +280,11 @@ export default class BasicTable extends Component {
 
 	//分配工位显示
 	onStation() {
+
 		this.setState({
 			activity: !this.state.activity
 		});
+		console.log('122')
 	}
 
 	onChange(id) {
@@ -528,7 +530,7 @@ export default class BasicTable extends Component {
 						Installmentplan && Installmentplan.map((item,index)=>{
 							return (
 
-							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item} key={index} onStation={this.onStation} />
+							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item} key={index} onStation={this.onStation} activity={this.state.activity} />
 								
 							)
 

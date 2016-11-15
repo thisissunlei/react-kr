@@ -43,6 +43,7 @@ export default class ItemTable extends Component {
 
   static PropTypes = {
     onDismantling: React.PropTypes.func,
+    onStation: React.PropTypes.func,
   }
 
 
@@ -83,6 +84,9 @@ export default class ItemTable extends Component {
       onStation
     } = this.props
     onStation && onStation()
+      /*this.setState({
+        activity: !this.state.activity
+      });*/
 
   }
   onDismantlingDialog() {
@@ -130,7 +134,7 @@ export default class ItemTable extends Component {
   render() {
     let {
       activity
-    } = this.state;
+    } = this.props;
     let {
       detail,
       communityids
