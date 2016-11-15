@@ -333,7 +333,6 @@ export default class BasicTable extends Component {
 				rate: response.rate,
 			});
 
-			console.log('---', Installmentplan)
 
 
 		}).catch(function(err) {

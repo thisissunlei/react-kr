@@ -112,7 +112,7 @@ export default class ItemTable extends Component {
       onStation
     } = this.props;
 
-    onStation && onStation(detail.activity)
+    onStation && onStation()
 
 
   }
