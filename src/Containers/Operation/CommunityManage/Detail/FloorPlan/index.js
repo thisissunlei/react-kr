@@ -229,10 +229,10 @@ export default class FloorPlan extends Component {
 
 			<div id="planTable" style={{paddingTop:20}}>
 		 	<form name="planTable" onSubmit={handleSubmit(this.onSubmit)} className="form-list">
-				<KrField name="community"  grid={1/5} component="select" label="社区" inline={true}  options={communityIdList} onChange={this.selectCommunity} />
-				<KrField name="floor"  grid={1/5} component="select" label="楼层" options={communityInfoFloorList} inline={true}/>
-				<KrField grid={3/10}  name="start" component="date" label="注册时间" inline={true}/>
-				<KrField grid={1/5}  name="end" component="date"  label="至" inline={true}/>
+				<KrField name="community"  grid={1/5} component="select" label="社区" search={true}  options={communityIdList} onChange={this.selectCommunity} />
+				<KrField name="floor"  grid={1/5} component="select" label="楼层" options={communityInfoFloorList} search={true}/>
+				<KrField grid={3/10}  name="start" component="date" label="注册时间" search={true}/>
+				<KrField grid={1/5}  name="end" component="date"  label="至" search={true}/>
 				<Button  label="确定" type="submit" />
 			</form>
 			<p style={{margin:20}}></p>
