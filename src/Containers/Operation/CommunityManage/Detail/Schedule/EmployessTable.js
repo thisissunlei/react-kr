@@ -34,7 +34,8 @@ import {
 	Form,
 	KrField,
 	IframeContent,
-	Notify
+	Notify,
+	ButtonGroup
 } from 'kr-ui';
 
 class Distribution extends Component {
@@ -154,8 +155,14 @@ class ChangeStation extends Component {
 			</div>
 			<Grid>
 				<Row style={{marginTop:30}}>
-				<Col md={2} align="right"> <Button  label="确定" type="submit" joinEditForm  onSubmit={this.onSubmit}/> </Col>
-				<Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
+				<Col md={12} align="center"> 
+					<ButtonGroup>
+						<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm  onSubmit={this.onSubmit}/></div>
+						<Button  label="取消" type="button"  onTouchTap={this.onCancel}/>
+					</ButtonGroup>
+					
+				 </Col>
+				</Row>
 			</Grid>
 		</Form>
 
@@ -426,7 +433,7 @@ export default class EmployessTable extends Component {
 			mainBillId: detail.billId
 		}
 		var _this = this;
-		console.log('...detail', detail)
+
 		return (
 
 			<div className="employees-content">
@@ -434,7 +441,7 @@ export default class EmployessTable extends Component {
 		 		onProcessData={(state)=>{
 		 			var listData  = state.listData;
 			 			listData.forEach(function(item){
-			 				console.log('item',item)
+			 				
 			 				if(item.status=="LEFTED"){
 								item.distributionHidden = true;
 								item.changeHidden = true;
@@ -487,6 +494,7 @@ export default class EmployessTable extends Component {
 				modal={true}
 				open={this.state.openDistribution}
 				onClose={this.onDistributionCancel}
+				contentStyle={{width:445}}
 			>
 
 				<Distribution  detail={this.state.itemDetail} onCancel={this.onDistributionCancel} onSubmit={this.onDistributionSubmit} optionValues={optionValues} stationId={this.state.stationId} customerId={this.state.customerId} communityId={this.state.communityId}/>
@@ -496,6 +504,7 @@ export default class EmployessTable extends Component {
 				modal={true}
 				open={this.state.openChangeStation}
 				onClose={this.onChangeCancel}
+				contentStyle={{width:445}}
 			>
 				<ChangeStation  detail={this.state.itemDetail} onCancel={this.onChangeCancel} onSubmit={this.onChangeSubmit}  optionValues={optionValues} stationId={this.state.stationId} customerId={this.state.customerId} communityId={this.state.communityId}/>
 

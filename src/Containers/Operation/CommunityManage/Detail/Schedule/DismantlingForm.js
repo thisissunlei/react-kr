@@ -41,6 +41,7 @@ import {
 	Col,
 	Button,
 	Notify,
+	ButtonGroup
 } from 'kr-ui';
 
 
@@ -116,12 +117,18 @@ class DismantlingForm extends Component {
 		return (
 
 			<form onSubmit={handleSubmit(this.onSubmit)}> 
-			<div style={{textAlign:"center",marginBottom:'20px'}}>{detail.companyName}合同到期时间为{dateFormat(detail.endTime,"yyyy.mm.dd")}</div>
-			<KrField name="actualLeaveDate"component="date" grid={1} label="实际的撤场时间为" value=""/>
+			<div style={{textAlign:"center",marginBottom:'14px',paddingTop:'20px',color:'#333333'}}>{detail.companyName}合同到期时间为{dateFormat(detail.endTime,"yyyy.mm.dd")}</div>
+			<KrField name="actualLeaveDate"component="date" grid={1} label="实际的撤场时间为" value="" inline={true}/>
 			<Grid>
-				<Row style={{marginTop:30}}>
-				<Col md={2} align="right"> <Button  label="确定" type="submit" joinEditForm /> </Col>
-				<Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
+				<Row style={{marginTop:30,marginBottom:15}}>
+				<Col md={12} align="center"> 
+					<ButtonGroup>
+						<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm height={38}/></div>
+						<Button  label="取消" type="button"  onTouchTap={this.onCancel} cancle={true} height={36}/>
+					</ButtonGroup>
+					
+				 </Col>
+				 </Row>
 			</Grid>
 		</form>
 

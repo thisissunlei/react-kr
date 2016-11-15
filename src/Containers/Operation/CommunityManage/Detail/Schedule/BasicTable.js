@@ -613,7 +613,9 @@ export default class BasicTable extends Component {
 				title="撤场日期"
 				modal={true}
 				onClose={this.openDismantlingDialog}
-				open={this.state.dismantling} >
+				open={this.state.dismantling} 
+				contentStyle={{width:445}}
+				>
 				<DismantlingForm  onSubmit={this.onConfrimSubmit} onCancel={this.openDismantlingDialog} detail={this.state.detail} />
 			 </Dialog>
 			
