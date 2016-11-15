@@ -10,14 +10,14 @@ import './index.less';
 export default class Button extends Component {
 
 	static displayName = 'Button';
-	
+
 	static defaultProps = {
 		cancle:false,
 		width:80,
 		height:30
 	}
 
-	static PropTypes = {
+	static propTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
 		style: React.PropTypes.object,
