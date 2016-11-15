@@ -203,6 +203,7 @@ export default class EmployessTable extends Component {
 			customerId: 1,
 			communityId: 1,
 			isLoading: false,
+			state: {},
 
 		}
 
@@ -424,12 +425,25 @@ export default class EmployessTable extends Component {
 			communityIds: id,
 			mainBillId: detail.billId
 		}
-		console.log('ParamValues', ParamValues)
-
+		var _this = this;
 		return (
 
 			<div className="employees-content">
-		 	<Table  style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getStation' ajaxParams={ParamValues} pagination={false} onOperation={this.onOperation} loading={this.state.isLoading}>
+		 	<Table  style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getStation' ajaxParams={ParamValues} pagination={false} onOperation={this.onOperation} loading={this.state.isLoading} 
+		 		onProcessData={(state)=>{
+		 			var listData  = state.listData;
+		 			listData.forEach(function(item){
+		 				if(item.memberName){
+							item.distributionHidden = true;
+		 				}else {
+							item.changeHidden = true;
+		 				}
+						
+		 			});
+		 			
+		 			
+						return state;
+					}}>
 				<TableHeader>
 						<TableHeaderColumn>工位编号</TableHeaderColumn>
 						<TableHeaderColumn>租赁起始时间</TableHeaderColumn>
@@ -448,9 +462,9 @@ export default class EmployessTable extends Component {
 						<TableRowColumn name="memberName" ></TableRowColumn>
 						<TableRowColumn name="memberPhone" ></TableRowColumn>
 						<TableRowColumn name="status" options={[{label:'未入住',value:'UNLIVE'},{label:'已入住',value:'LIVED'},{label:'已离场',value:'LEFTED'}]}></TableRowColumn>
-						<TableRowColumn>
-							<Button label="变更" className="changeBtn" type="operation" operation="ChangeStation"   />
-							<Button label="分配" className="Distribtn"  type="operation" operation="Distribution"   />
+						<TableRowColumn type="operation">
+							<Button label="变更" className="changeBtn" type="operation" operation="ChangeStation" hidden="changeHidden"  />
+							<Button label="分配" className="Distribtn"  type="operation" operation="Distribution" hidden="distributionHidden"  />
 						 </TableRowColumn>
 					</TableRow>
 				</TableBody>
