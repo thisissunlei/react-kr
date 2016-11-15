@@ -192,6 +192,7 @@ export default class BasicTable extends Component {
 		this.getInstallmentplan = this.getInstallmentplan.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onChange = this.onChange.bind(this);
+		this.onStation = this.onStation.bind(this);
 		//this.scrollLoad = this.scrollLoad.bind(this);
 		this.state = {
 			currentYear: '2016',
@@ -274,6 +275,14 @@ export default class BasicTable extends Component {
 
 	onCancel() {
 
+	}
+
+
+	//分配工位显示
+	onStation() {
+		this.setState({
+			activity: !this.state.activity
+		});
 	}
 
 	onChange(id) {
@@ -519,7 +528,7 @@ export default class BasicTable extends Component {
 						Installmentplan && Installmentplan.map((item,index)=>{
 							return (
 
-							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item} key={index} />
+							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item} key={index} onStation={this.onStation} />
 								
 							)
 

@@ -79,13 +79,10 @@ export default class ItemTable extends Component {
     }
     //分配工位
   onStation() {
-    /*let {
+    let {
       onStation
     } = this.props
-    onStation && onStation()*/
-    this.setState({
-      activity: !this.state.activity
-    });
+    onStation && onStation()
 
   }
   onDismantlingDialog() {

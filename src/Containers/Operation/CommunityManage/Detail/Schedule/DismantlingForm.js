@@ -113,8 +113,6 @@ class DismantlingForm extends Component {
 			initialValues,
 			detail
 		} = this.props;
-
-		console.log('detail====', detail)
 		return (
 
 			<form onSubmit={handleSubmit(this.onSubmit)}> 
