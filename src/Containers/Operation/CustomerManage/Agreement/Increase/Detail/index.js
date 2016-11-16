@@ -4,16 +4,6 @@ import React, {
 } from 'react';
 
 import {
-	BreadCrumbs,
-	Loading,
-	Notify,
-	Section,
-	KrDate,
-	SplitLine,
-	DotTitle
-} from 'kr-ui';
-
-import {
 	View
 } from 'kr-ui/contractView';
 
@@ -22,34 +12,34 @@ import dateFormat from 'dateformat';
 import {
 	KrField,
 	LabelText,
-} from 'kr-ui';
-
-import {
-	Button
-} from 'kr-ui';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
-
-import {
+	Button,
 	Grid,
 	Row,
-	Col
-} from 'kr-ui/Grid';
-
-import {
+	Col,
 	Table,
 	TableBody,
 	TableHeader,
 	TableHeaderColumn,
 	TableRow,
 	TableRowColumn,
-	TableFooter
-} from 'kr-ui/Table';
+	TableFooter,
+	BreadCrumbs,
+	Loading,
+	Notify,
+	Section,
+	KrDate,
+	SplitLine,
+	DotTitle,
+	PaperBack
+} from 'kr-ui';
+
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
+
 
 export default class JoinDetail extends Component {
-
 
 	constructor(props, context) {
 		super(props, context);
@@ -103,7 +93,7 @@ export default class JoinDetail extends Component {
 
 		return (
 			<div className="content" style={content}>
-				  	<View label="增租协议书详情页"/>
+				  	<PaperBack label="增租协议书详情页"/>
 				  	<div className="content-info" style={info} >
 
 

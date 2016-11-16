@@ -23,13 +23,12 @@ import {
 	Row,
 	Col,
 	SplitLine,
-	DotTitle
+	DotTitle,
+	PaperBack
 } from 'kr-ui';
-import {
-	View
-} from 'kr-ui/contractView';
-import dateFormat from 'dateformat';
 
+
+import dateFormat from 'dateformat';
 
 
 import {
@@ -125,7 +124,7 @@ export default class AdmitDetail extends Component {
 
 			return (
 				<div className="content" style={content}>
-				  	<View label="承租意向书详情页"/>
+				  	<PaperBack label="承租意向书详情页"/>
 				  	<div className="content-info" style={info} >
 
 <KrField component="labelText" grid={1/2} label="出租方：" value={basic.lessorName} requireBlue={true}/>
