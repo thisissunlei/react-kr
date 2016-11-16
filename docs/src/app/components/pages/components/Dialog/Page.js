@@ -6,7 +6,7 @@ import PropTypeDescription from '../../../PropTypeDescription';
 import MarkdownElement from '../../../MarkdownElement';
 
 import checkboxReadmeText from './README';
-import AppBarCode from '!raw!kr-ui/AppBar';
+import AppBarCode from '!raw!kr-ui/Dialog';
 import ExampleSimple from './ExampleSimple';
 import ExampleSimpleCode from '!raw!./ExampleSimple';
 

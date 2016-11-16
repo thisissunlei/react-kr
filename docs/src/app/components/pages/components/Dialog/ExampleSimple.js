@@ -1,17 +1,36 @@
 import React from 'react';
-import {AppBar} from 'kr-ui';
+import {
+  Button,
+  Dialog
+} from 'kr-ui';
 
 
 export default class AppBarExampleSimple extends React.Component{
 
+	constructor(props) {
+		super(props);
 
+    this.state = {
+      open:false
+    }
+
+	}
+
+  openDialog = ()=>{
+
+    this.setState({
+      open:!this.state.open
+    });
+
+  }
     render(){
 
 
         return (
 
             <div>
-             <AppBar title="KR-UI"/>
+              <Button label="Dialog" onClick={this.openDialog}/>
+              <Dialog open={this.state.open} onClose={this.openDialog}/>
             </div>
         );
     }

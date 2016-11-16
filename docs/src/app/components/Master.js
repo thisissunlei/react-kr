@@ -64,6 +64,7 @@ export default class Master extends Component {
         <Drawer width={180} open={this.state.openSidebar}>
             <AppBar title="KR-UI" onLeftIconButtonTouchTap={this.openSidebarHanlder}/>
             <List>
+              <ListItem href="/#/components/section">Section</ListItem>
               <ListItem href="/#/components/appbar">AppBar</ListItem>
               <ListItem href="/#/components/button">Button</ListItem>
               <ListItem href="/#/components/krdate">KrDate</ListItem>
@@ -79,7 +80,6 @@ export default class Master extends Component {
               <ListItem href="/#/components/loading">Loading</ListItem>
               <ListItem href="/#/components/pagination">pagination</ListItem>
               <ListItem href="/#/components/table">Table</ListItem>
-              <ListItem href="/#/components/section">Section</ListItem>
               <ListItem href="/#/components/searchforms">SearchForms</ListItem>
               <ListItem href="/#/components/fonticon">FontIcon</ListItem>
               <ListItem href="/#/components/Notify">Notify</ListItem>

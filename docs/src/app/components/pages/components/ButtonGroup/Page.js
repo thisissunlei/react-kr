@@ -6,7 +6,7 @@ import PropTypeDescription from '../../../PropTypeDescription';
 import MarkdownElement from '../../../MarkdownElement';
 
 import checkboxReadmeText from './README';
-import AppBarCode from '!raw!kr-ui/Section';
+import ButtonCode from '!raw!kr-ui/Button';
 import ExampleSimple from './ExampleSimple';
 import ExampleSimpleCode from '!raw!./ExampleSimple';
 
@@ -27,7 +27,7 @@ const CheckboxPage = () => (
 
     </CodeExample>
 
-    <PropTypeDescription code={AppBarCode} />
+    <PropTypeDescription code={ButtonCode} />
 
   </div>
 );
