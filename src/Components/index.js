@@ -23,7 +23,7 @@ import PageHeader from './PageHeader';
 import Paper from './Paper';
 import SplitLine from './SplitLine';
 import FontIcon from './FontIcon';
-import SearchForms from './Search';
+import SearchForms from './SearchForms';
 import List from './List';
 import AppBar from './AppBar';
 import Divider from './Divider';
