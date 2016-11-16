@@ -217,7 +217,8 @@ export default class BasicTable extends Component {
 			isIscroll: true,
 			totalCount: '',
 			isLoading: false,
-			totalPages: ''
+			totalPages: '',
+			istip: false,
 
 		};
 		this.getInstallmentplan();
@@ -279,7 +280,6 @@ export default class BasicTable extends Component {
 							page: len,
 							isLoading: !_this.state.isLoading
 						})
-						console.log('page,,,,', len)
 						Store.dispatch(Actions.callAPI('getInstallmentplan', {
 							communityids: communityIds,
 							value: value,
@@ -292,10 +292,9 @@ export default class BasicTable extends Component {
 							_this.setState({
 								Installmentplan: list, //response.vo.items,
 								rate: response.rate,
-								totalCount: response.vo.totalCount,
 							});
 
-							if (_this.state.pageSize < _this.state.totalCount) {
+							if (_this.state.page < _this.state.totalPages) {
 
 								_this.setState({
 									isIscroll: !_this.state.isIscroll
@@ -313,6 +312,10 @@ export default class BasicTable extends Component {
 								type: 'danger',
 							}]);
 						});
+					} else {
+						_this.setState({
+							istip: !_this.state.istip
+						})
 					}
 
 
@@ -530,7 +533,8 @@ export default class BasicTable extends Component {
 			communityIds,
 			totalCount,
 			isLoading,
-			totalPages
+			totalPages,
+			istip
 		} = this.state;
 		var _this = this;
 		const id = communityIds
@@ -610,6 +614,7 @@ export default class BasicTable extends Component {
 						}
 						<td></td>
 					</tr>
+					
 					{
 						Installmentplan && Installmentplan.map((item,index)=>{
 							
@@ -622,6 +627,8 @@ export default class BasicTable extends Component {
 
 						})
 					}
+					
+					
 
 				</tbody>
 			</table>
