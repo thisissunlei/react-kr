@@ -40,7 +40,9 @@ import ItemTable from './ItemTable';
 import DismantlingForm from './DismantlingForm';
 
 class SearchForm extends Component {
-
+	static defaultProps = {
+		tab: '',
+	}
 	constructor(props) {
 		super(props);
 
@@ -215,6 +217,7 @@ export default class BasicTable extends Component {
 			isIscroll: true,
 			totalCount: '',
 			isLoading: false,
+			totalPages: ''
 
 		};
 		this.getInstallmentplan();
@@ -258,33 +261,36 @@ export default class BasicTable extends Component {
 					value,
 					Installmentplan,
 					isIscroll,
-					totalCount
+					totalCount,
+					totalPages
 				} = _this.state;
 				if (isIscroll) {
 					_this.setState({
 						isIscroll: !_this.state.isIscroll
 					})
-					var step = 5;
-					var size = pageSize;
 
-					if (totalCount > pageSize) {
-						size += step;
+					var step = 1;
+					var len = page;
+
+
+					if (totalPages > page) {
+						len += step;
 						_this.setState({
-							pageSize: size,
+							page: len,
 							isLoading: !_this.state.isLoading
 						})
-
-
+						console.log('page,,,,', len)
 						Store.dispatch(Actions.callAPI('getInstallmentplan', {
 							communityids: communityIds,
 							value: value,
 							type: type,
-							page: page,
-							pageSize: size
+							page: len,
+							pageSize: pageSize
 						})).then(function(response) {
+							var list = Installmentplan.concat(response.vo.items)
 
 							_this.setState({
-								Installmentplan: response.vo.items,
+								Installmentplan: list, //response.vo.items,
 								rate: response.rate,
 								totalCount: response.vo.totalCount,
 							});
@@ -490,7 +496,8 @@ export default class BasicTable extends Component {
 				_this.setState({
 					Installmentplan: response.vo.items || [],
 					rate: response.rate,
-					totalCount: response.vo.totalCount
+					totalCount: response.vo.totalCount,
+					totalPages: response.vo.totalPages,
 				});
 
 			}).catch(function(err) {
@@ -522,12 +529,19 @@ export default class BasicTable extends Component {
 			rate,
 			communityIds,
 			totalCount,
-			isLoading
+			isLoading,
+			totalPages
 		} = this.state;
 		var _this = this;
 		const id = communityIds
-		this.scrollLoad();
-		console.log('-----totalCount', isLoading)
+		let {
+			tab
+		} = this.props
+		if (tab === 'table') {
+			this.scrollLoad();
+		} else {
+			$(window).unbind('scroll', this.scrollLoad());
+		}
 
 		return (
 			<div >
