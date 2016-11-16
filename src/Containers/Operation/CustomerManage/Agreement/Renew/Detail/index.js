@@ -180,9 +180,9 @@ export default class JoinDetail extends Component {
 																		{item.unitprice}
 																	</TableRowColumn>
 																	<TableRowColumn>
-																					<KrDate.Format value={item.leaseBeginDate}/>
+																					<KrDate value={item.leaseBeginDate}/>
 																	</TableRowColumn>
-																	<TableRowColumn><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
+																	<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
 																   </TableRow>
 																	);
 															})}

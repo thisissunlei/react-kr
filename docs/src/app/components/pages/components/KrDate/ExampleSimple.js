@@ -1,5 +1,9 @@
 import React from 'react';
-import {IframeContent} from 'kr-ui';
+
+import {
+  KrDate
+} from 'kr-ui';
+
 
 export default class AppBarExampleSimple extends React.Component{
 
@@ -10,7 +14,7 @@ export default class AppBarExampleSimple extends React.Component{
         return (
 
             <div>
-                <IframeContent src="/" />
+             <KrDate value="" defaultValue="无" format="yyyy-mm-dd"/>
             </div>
         );
     }

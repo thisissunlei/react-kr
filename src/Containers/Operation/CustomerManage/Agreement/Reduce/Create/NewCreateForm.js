@@ -205,7 +205,7 @@ class NewCreateForm extends Component {
 		let {
 			changeValues
 		} = this.props;
-		
+
 		let {
 			stationVos
 		} = this.state;
@@ -339,8 +339,8 @@ class NewCreateForm extends Component {
 									<TableRowColumn>
 											{item.unitprice}
 									</TableRowColumn>
-									<TableRowColumn> <KrDate.Format value={item.leaseBeginDate}/></TableRowColumn>
-									<TableRowColumn><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
+									<TableRowColumn> <KrDate value={item.leaseBeginDate}/></TableRowColumn>
+									<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
 
 									</TableRow>
 							);

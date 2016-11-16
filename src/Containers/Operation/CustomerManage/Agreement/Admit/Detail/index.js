@@ -146,10 +146,10 @@ export default class AdmitDetail extends Component {
 
 <KrField label="定金总额："   grid={1/2} component="labelText" value={basic.totaldownpayment} defaultValue="0" requireBlue={true}/>
 <KrField label="签署日期："   grid={1/2} left={60} component="labelText" type="date" value={basic.signdate} defaultValue="0" requireBlue={true}/>
-			
+
 			<KrField label="合同编号："   grid={1/2} component="labelText" value={basic.contractcode} defaultValue="无" requireBlue={true}/>
 			<KrField label="付款方式："   left={60} grid={1/2} component="labelText" value={dicName} defaultValue="无" requireBlue={true}/>
-				
+
 				<KrField label="租赁工位："   grid={1/2} component="labelText" value={basic.stationnum} defaultValue="0" requireBlue={true}/>
 					<KrField label="租赁会议室："  left={60} grid={1/2} component="labelText" value={basic.boardroomnum} defaultValue="0" requireBlue={true}/>
 					<KrField label="租赁期限："   grid={1/2}  component="labelText" value={`${dateFormat(basic.leaseBegindate,"yyyy-mm-dd")}——${dateFormat(basic.leaseEnddate,"yyyy-mm-dd")}`} defaultValue="0" requireBlue={true}/>
@@ -185,18 +185,18 @@ export default class AdmitDetail extends Component {
 														<TableRowColumn>
 															{item.stationName}
 														</TableRowColumn>
-														<TableRowColumn><KrDate.Format value={item.leaseBeginDate}/></TableRowColumn>
-														<TableRowColumn><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
+														<TableRowColumn><KrDate value={item.leaseBeginDate}/></TableRowColumn>
+														<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
 													   </TableRow>
 														);
 												})}
-													
+
 											   </TableBody>
-										 </Table>		
+										 </Table>
 
 
 
-			  
+
 
 								  </DotTitle>
 								  </div>
@@ -211,7 +211,7 @@ export default class AdmitDetail extends Component {
 
 			<BreadCrumbs children={['社区运营',,'合同详情']}/>
 
-			<Section title="承租意向书" description="" bodyPadding={"20px 20px 150px 20px"}> 
+			<Section title="承租意向书" description="" bodyPadding={"20px 20px 150px 20px"}>
 				<BasicRender/>
 
 

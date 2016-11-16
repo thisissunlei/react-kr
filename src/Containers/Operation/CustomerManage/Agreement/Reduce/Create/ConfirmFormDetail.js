@@ -124,10 +124,10 @@ export default class ConfirmFormDetail  extends Component{
 													<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
 													<TableRowColumn>{item.stationName}</TableRowColumn>
 													<TableRowColumn>
-														<KrDate.Format value={item.leaseBeginDate} format="yyyy-mm-dd"/>
+														<KrDate value={item.leaseBeginDate} format="yyyy-mm-dd"/>
 													</TableRowColumn>
 													<TableRowColumn>
-														<KrDate.Format value={item.leaseEndDate} format="yyyy-mm-dd"/>
+														<KrDate value={item.leaseEndDate} format="yyyy-mm-dd"/>
 													</TableRowColumn>
 												</TableRow>
 											);
