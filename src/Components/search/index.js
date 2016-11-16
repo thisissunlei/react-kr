@@ -5,6 +5,7 @@ import {
 	FontIcon,
 } from 'kr-ui';
 import ReactDOM from 'react-dom';
+
 export default class SearchForms extends Component{
 	// var aa = document.getElementById("keywords").value;
 	static PropTypes = {
@@ -45,17 +46,17 @@ export default class SearchForms extends Component{
 	hasClass(obj, cls) {
 	    return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
 	}
-	
-	 
-	
-	 
+
+
+
+
 	removeClass(obj, cls) {
 	    if (this.hasClass(obj, cls)) {
 	        var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
 	        obj.className = obj.className.replace(reg, '');
 	    }
 	}
-	 
+
 	toggleClass(obj,cls){
 	    if(hasClass(obj,cls)){
 	        removeClass(obj, cls);
@@ -70,19 +71,19 @@ export default class SearchForms extends Component{
 		const form = ReactDOM.findDOMNode(this.form);
 		const searchButton = form.getElementsByClassName('icon-searching')[0];
 		const searchForm = form.getElementsByClassName('search-status')[0];
-		
+
 		if(!num){
 			if(!this.hasClass(searchButton, 'click')){
 				searchButton.className = searchButton.className + ' click';
 		        searchForm.className = searchForm.className+" show-form";
-		        
+
 			}
 			_this.setState({
 					num:1,
 				})
 
-			
-		        
+
+
 		} else {
 			let searchName = '';
 			let {searchFilter} = this.props;
@@ -103,7 +104,7 @@ export default class SearchForms extends Component{
 					filter:filterValue,
 					content:searchWord
 				};
-				
+
 				let {onSubmit} = this.props;
 				onSubmit && onSubmit(value);
 			}else{
@@ -117,7 +118,7 @@ export default class SearchForms extends Component{
 			_this.setState({
 					num:0
 				})
-			
+
 		}
 
 
@@ -128,7 +129,7 @@ export default class SearchForms extends Component{
 		if (!this.hasClass(ul, 'show-li')) {
 	        ul.className += ' show-li';
 	    }
-		
+
 
 	}
 	selectHidden(){
@@ -167,8 +168,8 @@ export default class SearchForms extends Component{
 					_this.setState({num:0})
 				}
 			}
-			
-			
+
+
 		})
 	}
 	renderFilter(){
@@ -181,16 +182,16 @@ export default class SearchForms extends Component{
 						<span className="search-name" >请选择</span>
 						<em className="icon-return"></em>
 					</span>
-					
+
 					<ul onMouseOver={this.selectShow} onMouseOut={this.selectHidden} ref={li=>{this.li = li}}>
 						{searchFilter && searchFilter.map((item,index)=>{
-							
+
 								return (
 									<li className={`${index}`} onClick={this.getValue} key={index}>
 										{item.label}
 									</li>
 								)
-							
+
 						})}
 					</ul>
 				</div>
@@ -202,12 +203,12 @@ export default class SearchForms extends Component{
 		let {style} = this.props;
 		console.log(style);
 
-		
+
 		return (
 			<div className="search-form" ref={div=>{this.form = div}} name="search-form" style={style}>
 				<div className="search-status" >
 					{this.renderFilter()}
-					
+
 					<div className="search-content">
 						<input type="text" className="search-val" placeholder="请输入您要查找的内容"  name="keywords" id="keywords"/>
 					</div>

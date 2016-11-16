@@ -31,3 +31,5 @@ static/components
 
 webpack/dist
 webpack/dist/*
+
+material-demo

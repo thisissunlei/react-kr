@@ -12,10 +12,11 @@ import {
 	Button,
 	ListGroup,
 	ListGroupItem,
+	SearchForms
 } from 'kr-ui';
 
 
- class SearchForm extends Component{
+export default  class SearchForm extends Component{
 
 	 static PropTypes = {
 		 onSubmit:React.PropTypes.func,
@@ -44,19 +45,8 @@ import {
 		const { error, handleSubmit, pristine, reset} = this.props;
 
 		return (
+		  <SearchForms onSubmit={this.onSubmit}/>
 
-			<form onSubmit={handleSubmit(this.onSubmit)}>
-              <ListGroup>
-					<ListGroupItem> <KrField name="customername" type="text"  placeholder="请输入公司名称" simple={true}/></ListGroupItem>
-					<ListGroupItem> <Button  label="查询" type="submit" joinEditForm /></ListGroupItem>
-			</ListGroup>
-				
-			   
-					
-		  </form>
 		);
 	}
 }
-
-
-export default reduxForm({ form: 'searchForm'})(SearchForm);

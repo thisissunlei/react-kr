@@ -23,8 +23,10 @@ import PageHeader from './PageHeader';
 import Paper from './Paper';
 import SplitLine from './SplitLine';
 import FontIcon from './FontIcon';
-import SearchForms from './search';
+import SearchForms from './Search';
 import List from './List';
+import AppBar from './AppBar';
+import Divider from './Divider';
 
 import {
 	Grid,
@@ -40,7 +42,6 @@ import {
 	MenuItem,
 	DropDownMenu,
 	IconMenu,
-	Divider,
 	DatePicker,
 	Avatar,
 	Snackbar,
@@ -79,13 +80,14 @@ module.exports = {
 	...Button,
 	...List,
 	...ListGroup,
+	AppBar,
+	Divider,
 
 	//materal-ui
 	Menu,
 	MenuItem,
 	DropDownMenu,
 	IconMenu,
-	Divider,
 	DatePicker,
 	Avatar,
 	Dialog,

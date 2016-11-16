@@ -115,7 +115,8 @@ export default class ExitDetail extends Component {
 				fontSize:14
 			}
 			const info = {
-				padding: '30px 70px'
+				padding: '30px 70px',
+				paddingBottom:10
 			}
 
 			return (
@@ -164,9 +165,9 @@ export default class ExitDetail extends Component {
 
 			<div>
 				<BreadCrumbs children={['社区运营',,'合同详情','退租合同查看']}/>
-				<Section title="退租协议书" description=""> 
+				<Section title="退租协议书" description="" bodyPadding={"20px 20px 150px 20px"}> 
 					<BasicRender/>
-					<Grid style={{marginTop:30}}>
+					<Grid>
 				  <Row>
 					  <Col md={5} align="center"></Col>
 					  <Col md={2} align="center"> <Button  label="返回"  type="href"  href={getOrderUrl()}/> </Col>
