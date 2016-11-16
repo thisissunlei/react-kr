@@ -344,7 +344,7 @@ export default class OrderDetail extends React.Component {
 
 			<BreadCrumbs children={['系统运营','财务管理']} hide={!!this.props.location.query.closeAll}/>
 
-			<Section title="客户订单详情" description="" hide={!!this.props.location.query.closeAll}>
+			<Section title="客户订单详情" description="" hide={!!this.props.location.query.closeAll} bodyPadding={'20px 20px 50px 20px'}>
 			<div className="content">
 			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog} style={{width:80,marginTop:15}}/>
 

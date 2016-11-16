@@ -25,7 +25,7 @@ import {
 
 import {
 	Button
-} from 'kr-ui/Button';
+} from 'kr-ui';
 import {
 	Actions,
 	Store
@@ -111,7 +111,6 @@ export default class JoinDetail extends Component {
 				padding: '30px 70px',
 				paddingBottom:10
 			}
-			console.log('时间', )
 			return (
 				<div className="content" style={content}>
 				  	<View label="续租协议书详情页"/>
