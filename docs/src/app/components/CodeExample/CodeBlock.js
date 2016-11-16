@@ -10,7 +10,6 @@ import {Section} from 'kr-ui';
 const styles = {
   root: {
     background: '#f8f8f8',
-    borderTop: 'solid 1px #e0e0e0',
   },
   markdown: {
     overflow: 'auto',
@@ -70,7 +69,7 @@ ${this.props.children}
         <div onTouchTap={this.handleTouchTap} style={styles.codeBlockTitle}>
           <CodeBlockTitle title={this.props.title} tooltip={tooltip} />
         </div>
-        
+
         <MarkdownElement style={codeStyle} text={text} />
         <MarkdownElement style={descriptionStyle} text={this.props.description} />
       </div>

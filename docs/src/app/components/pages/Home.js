@@ -5,6 +5,21 @@ import {Button} from 'kr-ui';
 export default class HomePage extends Component {
 
 
+  static contextTypes = {
+    openSidebarHanlder: PropTypes.func.isRequired,
+  };
+
+  constructor(props,context){
+    super(props,context)
+
+  }
+
+  componentDidMount(){
+    this.context.openSidebarHanlder();
+  }
+  componentWillUnmount(){
+    this.context.openSidebarHanlder();
+  }
 
   handleTouchTapDemo(){
     window.location.href = '/#/components';
@@ -84,7 +99,9 @@ export default class HomePage extends Component {
           </div>
 
           <div style={{marginTop:30}}>
-            <Button label="进入" onTouchTap={this.handleTouchTapDemo}  />
+
+                <Button label="进入" onTouchTap={this.handleTouchTapDemo}  />
+
           </div>
         </div>
       </div>

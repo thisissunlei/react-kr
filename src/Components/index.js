@@ -13,6 +13,7 @@ import KrDate from './Date';
 import Loading from './Loading';
 import Pagination from './Pagination';
 import Button from './Button';
+import ButtonGroup from './ButtonGroup';
 import ListGroup from './ListGroup';
 import Checkbox from './Checkbox';
 import RadioButton from './RadioButton';
@@ -27,6 +28,7 @@ import SearchForms from './SearchForms';
 import List from './List';
 import AppBar from './AppBar';
 import Divider from './Divider';
+import Drawer from './Drawer';
 
 import {
 	Grid,
@@ -77,11 +79,13 @@ module.exports = {
 	SelfAdaption,
 	...Form,
 	...Table,
-	...Button,
+	Button,
+	ButtonGroup,
 	...List,
 	...ListGroup,
 	AppBar,
 	Divider,
+	Drawer,
 
 	//materal-ui
 	Menu,

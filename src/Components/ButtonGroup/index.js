@@ -28,9 +28,3 @@ export default class ButtonGroup extends Component{
 		);
 	}
 }
-
-
-
-
-
-

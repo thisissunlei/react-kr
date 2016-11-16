@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {parse} from 'react-docgen';
 import CodeBlock from './CodeBlock';
-import Paper from 'new-ui/Paper';
+import Paper from 'kr-ui/Paper';
 
 class CodeExample extends Component {
   static propTypes = {
@@ -31,6 +31,8 @@ class CodeExample extends Component {
       root: {
         backgroundColor: '#fff',
         marginBottom: 32,
+        border:'1px solid #e0e0e0',
+        borderRadius:'4px'
       },
       exampleBlock: {
         borderRadius: '0 0 2px 0',
@@ -51,7 +53,11 @@ class CodeExample extends Component {
         >
           {code}
         </CodeBlock>
+
+        <div style={{padding:'20'}}>
           {children}
+        </div>
+
       </Paper>
     );
   }
