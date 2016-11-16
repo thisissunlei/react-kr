@@ -62,6 +62,8 @@ export default class KrField extends React.Component {
 			value,
 			search,
 			colorStyle,
+			heightStyle,
+			lengthClass,
 			...other
 		} = this.props;
 
@@ -104,7 +106,7 @@ export default class KrField extends React.Component {
 
 		if (component === 'textarea') {
 			return (
-				<Field {...this.props} component={TextareaComponent} style={WrapStyles}/>
+				<Field {...this.props} component={TextareaComponent} style={WrapStyles} heightStyle={heightStyle} lengthClass={lengthClass}/>
 			);
 		}
 
