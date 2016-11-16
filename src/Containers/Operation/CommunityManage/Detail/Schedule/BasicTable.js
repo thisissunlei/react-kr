@@ -375,7 +375,7 @@ export default class BasicTable extends Component {
 			communityids: id,
 			value: '',
 			type: type,
-			page: page,
+			page: 1,
 			pageSize: pageSize
 
 		})).then(function(response) {
