@@ -597,7 +597,7 @@ export default class AttributeSetting  extends Component{
 		Store.dispatch(Actions.callAPI('supplementIncome',{},formValues)).then(function(){
 			Notify.show([{
 				message:'操作成功',
-				type: 'danger',
+				type: 'success',
 			}]);
 			_this.refresh();
 		}).catch(function(err){

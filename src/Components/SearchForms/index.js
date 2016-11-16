@@ -201,9 +201,6 @@ export default class SearchForms extends Component{
 	}
 	render(){
 		let {style} = this.props;
-		console.log(style);
-
-
 		return (
 			<div className="search-form" ref={div=>{this.form = div}} name="search-form" style={style}>
 				<div className="search-status" >

@@ -29,6 +29,7 @@ export default class Button extends Component {
 		cancle:React.PropTypes.bool,
 		width:React.PropTypes.number,
 		height:React.PropTypes.number,
+		fontSize:React.PropTypes.number,
 	}
 
 
@@ -49,6 +50,7 @@ export default class Button extends Component {
 			cancle,
 			width,
 			height,
+			fontSize,
 			...other
 		} = this.props;
 		let border = 'none';
@@ -72,6 +74,7 @@ export default class Button extends Component {
 		}
 		let labelStyle={
 			padding:0,
+			fontSize:fontSize|| 14
 		}
 
 
