@@ -22,7 +22,8 @@ import {
 	Col,
 	Button,
 	ListGroup,
-	ListGroupItem
+	ListGroupItem,
+	SearchForms
 } from 'kr-ui';
 
 
@@ -44,7 +45,7 @@ class SearchForm extends Component {
 
 		form.pageSize = 20;
 		form.page = 1;
-
+        form.searchParam = form.content;
 		const {
 			onSubmit
 		} = this.props;
@@ -69,13 +70,7 @@ class SearchForm extends Component {
 
 		return (
 
-			<form onSubmit={handleSubmit(this.onSubmit)}>
-				<ListGroup>
-					<ListGroupItem> <KrField name="searchParam" type="text"  placeholder='请输入属性名称' simple={true}/></ListGroupItem>
-					<ListGroupItem> <Button  label="查询" type="submit" joinEditForm /></ListGroupItem>
-				</ListGroup>
-					
-			</form>
+			<SearchForms onSubmit={this.onSubmit}/>
 		);
 	}
 }

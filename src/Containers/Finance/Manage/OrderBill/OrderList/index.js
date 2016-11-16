@@ -211,7 +211,7 @@ export default class AttributeSetting extends Component {
 			<div>
 					<Section title="订单账单列表" description="" >
 
-					<div  className='ui-orderList'><Grid>
+					<div  className='ui-orderList'><Grid style={{marginTop:-5}}>
 						<Row>
 							<Col md={7} align="left"> 
 								<ListGroup >
@@ -237,7 +237,7 @@ export default class AttributeSetting extends Component {
 									
 								</ListGroup>	
 							</Col> 
-							<Col md={5} align="right"> 
+							<Col md={5} align="right" style={{marginTop:7}}> 
 								<ListGroup>
 									<ListGroupItem> <SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
 									<ListGroupItem> <Button onTouchTap={this.openNewCreateDialog} label="高级查询" type='button'/></ListGroupItem>
