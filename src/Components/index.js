@@ -9,7 +9,6 @@ import Form from './Form/index';
 import BreadCrumbs from './BreadCrumbs';
 import Table from './Table/index';
 import Date from './Date';
-import KrDate from './Date';
 import Loading from './Loading';
 import Pagination from './Pagination';
 import Button from './Button';
@@ -29,6 +28,8 @@ import List from './List';
 import AppBar from './AppBar';
 import Divider from './Divider';
 import Drawer from './Drawer';
+import KrField from './KrField';
+import KrDate from './KrDate';
 
 import {
 	Grid,
@@ -78,6 +79,7 @@ module.exports = {
 	RadioButton,
 	SelfAdaption,
 	...Form,
+	KrField,
 	...Table,
 	Button,
 	ButtonGroup,
@@ -86,6 +88,7 @@ module.exports = {
 	AppBar,
 	Divider,
 	Drawer,
+	KrDate,
 
 	//materal-ui
 	Menu,
@@ -98,7 +101,6 @@ module.exports = {
 	Snackbar,
 	Tabs,
 	Tab,
-	KrDate,
 	SearchForms,
 	//...Tabs,
 	PageHeader,

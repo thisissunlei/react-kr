@@ -1,8 +1,8 @@
 import React from 'react';
-import KrDate from '../../../Date';
+import KrDate from '../../Date';
 
 import WrapComponent from '../WrapComponent';
-import Button from '../../../Button';
+import Button from '../../Button';
 
 import './index.less';
 

@@ -160,7 +160,7 @@ class NewCreateForm extends Component {
 		this.openStationDialog();
 	}
 
-	
+
 	onStationSubmit(stationVos) {
 
 		this.setState({
@@ -304,7 +304,7 @@ class NewCreateForm extends Component {
 
 				<KrField right={60} name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true} />
 				<KrField left={60} grid={1/2}  name="lessorAddress" type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress}  defaultValue="无"/>
-				<KrField right={60} grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} placeholder={optionValues.lessorContactName} requireLabel={true} /> 
+				<KrField right={60} grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} placeholder={optionValues.lessorContactName} requireLabel={true} />
 
 				<KrField left={60} grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}/>
 
@@ -322,11 +322,11 @@ class NewCreateForm extends Component {
 
 				<KrField left={60} grid={1/2}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
 
-				<KrField right={60} grid={1}  name="rentamount" type="text"  component="input" label="减租金额" /> 
+				<KrField right={60} grid={1}  name="rentamount" type="text"  component="input" label="减租金额" />
 
 				<KrField right={60} grid={1/1}  name="contractmark" component="textarea" label="备注" />
-				<KrField right={60} grid={1}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} requireLabel={true}/> 
-				
+				<KrField right={60} grid={1}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} requireLabel={true}/>
+
 				   <DotTitle title='租赁明细'>
 
 				       <Grid>
@@ -357,8 +357,8 @@ class NewCreateForm extends Component {
 									<TableRowColumn>
 											{item.unitprice}
 									</TableRowColumn>
-									<TableRowColumn> <KrDate.Format value={item.leaseBeginDate}/></TableRowColumn>
-									<TableRowColumn><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
+									<TableRowColumn> <KrDate value={item.leaseBeginDate}/></TableRowColumn>
+									<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
 
 									</TableRow>
 							);
@@ -372,7 +372,7 @@ class NewCreateForm extends Component {
 						<Row style={{marginTop:30}}>
 						<Col md={4}></Col>
 						<Col md={2} align="center"> <Button  label="确定" type="submit" disabled={pristine || submitting}  /> </Col>
-						<Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col> 
+						<Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col>
 						<Col md={4}></Col></Row>
 						</Grid>
 
@@ -381,7 +381,7 @@ class NewCreateForm extends Component {
 
 					<Dialog
 						title="分配工位"
-						open={this.state.openStation} 
+						open={this.state.openStation}
 						modal={true}
 						onClose={this.onStationCancel}
 						autoScrollBodyContent={true}

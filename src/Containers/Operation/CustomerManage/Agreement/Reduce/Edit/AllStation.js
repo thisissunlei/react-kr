@@ -285,8 +285,8 @@ onChangeRentBeginDate(value){
           <TableRowColumn >{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
           <TableRowColumn >{item.stationName}</TableRowColumn>
           <TableRowColumn >{item.unitprice}</TableRowColumn>
-          <TableRowColumn ><KrDate.Format value={item.leaseBeginDate}/></TableRowColumn>
-          <TableRowColumn ><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
+          <TableRowColumn ><KrDate value={item.leaseBeginDate}/></TableRowColumn>
+          <TableRowColumn ><KrDate value={item.leaseEndDate}/></TableRowColumn>
           <TableRowColumn>
 				{item.rentBeginDate&& dateFormat(item.rentBeginDate,'yyyy-mm-dd')}
           </TableRowColumn>

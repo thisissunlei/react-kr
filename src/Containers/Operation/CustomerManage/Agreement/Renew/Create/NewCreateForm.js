@@ -293,14 +293,14 @@ class NewCreateForm extends Component {
 				<KrField left={60} grid={1/2}  name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} requireLabel={true} />
 				<KrField right={60} grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true} />
 
-				<KrField left={60} name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true} /> 
+				<KrField left={60} name="paymodel"  grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true} />
 				<KrField right={60} name="paytype"  grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} requireLabel={true} />
-				<KrField left={60} name="firstpaydate" grid={1/2} component="date" label="首付款时间"  requireLabel={true} /> 
+				<KrField left={60} name="firstpaydate" grid={1/2} component="date" label="首付款时间"  requireLabel={true} />
 
 				<KrField right={60} grid={1/2}  name="signdate"  component="date"  label="签署时间" requireLabel={true} />
-				<KrField right={0} grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"  requireLabel={true} /> 
+				<KrField right={0} grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"  requireLabel={true} />
 
-				<KrField right={60} grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" requireLabel={true} /> 
+				<KrField right={60} grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" requireLabel={true} />
 
 				<KrField left={60} grid={1/2}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true}  />
 
@@ -312,7 +312,7 @@ class NewCreateForm extends Component {
 				}} />
 
              <DotTitle title='租赁明细'>
-				
+
 
 				      <Grid>
 							<Row>
@@ -343,8 +343,8 @@ class NewCreateForm extends Component {
 									<TableRowColumn>
 											{item.unitprice}
 									</TableRowColumn>
-									<TableRowColumn> <KrDate.Format value={item.leaseBeginDate}/></TableRowColumn>
-									<TableRowColumn><KrDate.Format value={item.leaseEndDate}/></TableRowColumn>
+									<TableRowColumn> <KrDate value={item.leaseBeginDate}/></TableRowColumn>
+									<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
 
 									</TableRow>
 							);
@@ -352,7 +352,7 @@ class NewCreateForm extends Component {
 						</TableBody>
 						</Table>
 
-						
+
                      </DotTitle>
 						<Grid style={{paddingBottom:30}}>
 						<Row >
@@ -372,7 +372,7 @@ class NewCreateForm extends Component {
 						open={this.state.openStation}
 						modal={true}
 						autoScrollBodyContent={true}
-						autoDetectWindowHeight={true} 
+						autoDetectWindowHeight={true}
 						onClose={this.onCloseStation}>
 								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} selectedStationVos={this.state.stationVos}/>
 					  </Dialog>

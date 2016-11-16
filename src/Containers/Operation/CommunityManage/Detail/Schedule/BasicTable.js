@@ -219,6 +219,7 @@ export default class BasicTable extends Component {
 			isLoading: false,
 			totalPages: '',
 			istip: false,
+			dataLoading:true,
 
 		};
 		this.getInstallmentplan();
@@ -538,6 +539,7 @@ export default class BasicTable extends Component {
 					rate: response.rate,
 					totalCount: totalCount,
 					totalPages: totalPages,
+					dataLoading:false
 				});
 				if (totalPages > page) {
 					_this.setState({
@@ -565,9 +567,23 @@ export default class BasicTable extends Component {
 	}
 	renderNone(showNone) {
 		let {
-			rate
+			rate,
+			dataLoading
 		} = this.state;
-		if (!showNone) {
+		if(dataLoading){
+			return (
+				<tr style={{height:200,position:'relative'}}>
+						<td colSpan={14} style={{border:'none'}}>
+						<div style={{left:'50%',top:'40%',zIndex:100}}><Loading/></div>
+						</td>
+						
+					</tr>
+
+
+
+			)
+		}
+		if (!showNone && !dataLoading) {
 			return (
 				<tr style={{height:300}}>
 						<td colSpan={14} style={{border:'none'}}>
@@ -597,6 +613,7 @@ export default class BasicTable extends Component {
 			communityIds,
 			totalCount,
 			isLoading,
+			dataLoading,
 			totalPages,
 			istip,
 			page,

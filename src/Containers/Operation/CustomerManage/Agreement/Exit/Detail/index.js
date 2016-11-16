@@ -9,12 +9,10 @@ import {
 	Notify,
 	Section,
 	SplitLine,
-} from 'kr-ui';
-
-import {
 	KrField,
 	LabelText
-} from 'kr-ui/Form';
+} from 'kr-ui';
+
 import {
 	View
 } from 'kr-ui/contractView';
@@ -123,7 +121,7 @@ export default class ExitDetail extends Component {
 				<div className="content" style={content}>
 				  	<View label="退租协议书详情页"/>
 				  	<div className="content-info" style={info} >
-				  	
+
 
 								<KrField component="labelText" grid={1/2} label="出租方：" value={basic.lessorName}/>
 								<KrField component="labelText" grid={1/2} label="地址：" value={basic.lessorAddress}/>
@@ -165,7 +163,7 @@ export default class ExitDetail extends Component {
 
 			<div>
 				<BreadCrumbs children={['社区运营',,'合同详情','退租合同查看']}/>
-				<Section title="退租协议书" description="" bodyPadding={"20px 20px 150px 20px"}> 
+				<Section title="退租协议书" description="" bodyPadding={"20px 20px 150px 20px"}>
 					<BasicRender/>
 					<Grid>
 				  <Row>
