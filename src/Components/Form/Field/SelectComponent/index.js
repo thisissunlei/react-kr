@@ -5,6 +5,7 @@ import 'react-select/dist/react-select.css';
 
 
 import WrapComponent from '../WrapComponent';
+import './index.less';
 
 export default class SelectComponent extends React.Component{
 

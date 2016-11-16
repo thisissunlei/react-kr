@@ -26,7 +26,7 @@ import {
 	Form,
 	ButtonGroup,
 } from 'kr-ui';
-
+import './index.less';
 
 
 
@@ -66,7 +66,7 @@ export default class SearchForm extends Component{
 		return(
 
 			    
-
+            <div className='ui-search'>
 				<Form name="SearchForm" onSubmit={this.onSubmit} initialValues={initialValues}>
 					
 					<KrField grid={1} name="orderId" type="hidden"/>
@@ -77,7 +77,7 @@ export default class SearchForm extends Component{
 					<KrField grid={1/2} name="endTime" component="date" label="结束日期" />
 					
 
-						   <Grid style={{marginTop:20}}>
+					<Grid style={{marginTop:20,marginBottom:5}}>
 						<Row>
 							<Col md={12} align="center">
 								<ButtonGroup>
@@ -90,7 +90,7 @@ export default class SearchForm extends Component{
 
 
 				</Form>
-
+             </div>
 
 			);
 	}
