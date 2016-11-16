@@ -137,6 +137,7 @@ export default class FloorPlan extends Component {
 			var isOutBoundary = scrollBottom >= 0;
 			console.log(isOutBoundary);
 			if (isOutBoundary) {
+				console.log('------');
 				that.iframeWindow.pagequery();
 				// let possition = that.getState();
 				// if(position){
@@ -233,7 +234,7 @@ export default class FloorPlan extends Component {
 				<KrField name="floor"  grid={1/5} component="select" label="楼层" options={communityInfoFloorList} search={true}/>
 				<KrField grid={3/10}  name="start" component="date" label="注册时间" search={true}/>
 				<KrField grid={1/5}  name="end" component="date"  label="至" search={true}/>
-				<Button  label="确定" type="submit" />
+				<span style={{height:41,paddingTop:3,display:'inline-block'}}><Button  label="确定" type="submit" height={34}/></span>
 			</form>
 			<p style={{margin:20}}></p>
 			<IframeContent src={url} onClose={this.getState} className="floorIframe" onLoad={this.onLoad} width={width} height={800} scrolling="no"/>
