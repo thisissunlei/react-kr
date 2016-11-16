@@ -22,10 +22,10 @@ import dateFormat from 'dateformat';
 
 import {
 	KrField,
-	LabelText
+	LabelText,
+	KrDate,
 } from 'kr-ui';
 
-import Date from 'kr-ui/Date';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import {
@@ -187,8 +187,8 @@ export default class ReduceDetail extends Component {
 																	<TableRowColumn>
 																		{item.unitprice}
 																	</TableRowColumn>
-																	<TableRowColumn><Date.Format value={basic.leaseBegindate}/></TableRowColumn>
-																	<TableRowColumn><Date.Format value={basic.leaseEnddate}/></TableRowColumn>
+																	<TableRowColumn><KrDate value={basic.leaseBegindate}/></TableRowColumn>
+																	<TableRowColumn><KrDate value={basic.leaseEnddate}/></TableRowColumn>
 																   </TableRow>
 																	);
 															})}

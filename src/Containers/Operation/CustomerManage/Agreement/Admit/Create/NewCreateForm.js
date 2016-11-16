@@ -56,6 +56,7 @@ import {
 	ButtonGroup,
 	ListGroup,
 	ListGroupItem,
+	KrDate
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -537,8 +538,8 @@ class NewCreateForm extends Component {
 												<TableRow key={index}>
 													<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
 													<TableRowColumn>{item.stationName}</TableRowColumn>
-													<TableRowColumn> <Date.Format value={item.leaseBeginDate}/></TableRowColumn>
-													<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
+													<TableRowColumn> <KrDate value={item.leaseBeginDate}/></TableRowColumn>
+													<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
 												</TableRow>
 											);
 										})}

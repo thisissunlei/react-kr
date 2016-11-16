@@ -1,5 +1,5 @@
 import React from 'react';
-import KrDate from '../../Date';
+import KrDate from '../../KrDate';
 
 import WrapComponent from '../WrapComponent';
 import Button from '../../Button';
@@ -62,7 +62,7 @@ export default class LabelTextComponent extends React.Component {
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} requireBlue={requireBlue} alignRight={alignRight}>
 							<span className="ui-label-text" >
 								<span>
-									<KrDate.Format value={value} />
+									<KrDate value={value} />
 								</span>
 							</span>
 					</WrapComponent>

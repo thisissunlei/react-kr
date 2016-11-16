@@ -16,10 +16,10 @@ import {
 	KrField,
 	LabelText,
 	PaperBack,
+	KrDate,
 } from 'kr-ui';
 
 
-import Date from 'kr-ui/Date';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import dateFormat from 'dateformat';
@@ -175,8 +175,8 @@ export default class JoinDetail extends Component {
 										<TableRowColumn>
 											{item.unitprice}
 										</TableRowColumn>
-										<TableRowColumn><Date.Format value={item.leaseBeginDate}/></TableRowColumn>
-										<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
+										<TableRowColumn><KrDate value={item.leaseBeginDate}/></TableRowColumn>
+										<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
 									</TableRow>
 								);
 								})

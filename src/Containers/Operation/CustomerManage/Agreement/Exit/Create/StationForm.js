@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import Param from 'jquery-param';
-import { Fields } from 'redux-form'; 
+import { Fields } from 'redux-form';
 
 import {reduxForm,formValueSelector,initialize,arrayPush,arrayInsert} from 'redux-form';
 
@@ -14,11 +14,11 @@ import {
 	IconMenu,
 	Dialog,
 
-	Table, 
-	TableBody, 
-	TableHeader, 
-	TableHeaderColumn, 
-	TableRow, 
+	Table,
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
 	TableRowColumn,
 	TableFooter,
 	Section,
@@ -29,7 +29,7 @@ import {
 	Button,
 	Notify,
 	IframeContent,
-	Date,
+	KrDate
 } from 'kr-ui';
 
 
@@ -56,7 +56,6 @@ class StationForm  extends Component{
 			}
 			return true;
 		});
-		console.log('---->>>>>aaaa>',billList);
 		this.setState({
 			billList
 		});
@@ -81,7 +80,7 @@ class StationForm  extends Component{
 						<MenuItem primaryText="删除" onTouchTap={this.onStationDelete} />
 						<MenuItem primaryText="租赁"  onTouchTap={this.openStationDialog} />
 					</Menu>
-				}> 
+				}>
 
 				<Table  displayCheckbox={true} onSelect={this.onStationSelect}>
 				<TableHeader>
@@ -99,8 +98,8 @@ class StationForm  extends Component{
 									<TableRowColumn>
 										<input type="text" name="hah" onChange={(event)=>{this.onStationInputChange}}/>
 									</TableRowColumn>
-									<TableRowColumn> <Date.Format value={initialValues.leaseBegindate}/></TableRowColumn>
-									<TableRowColumn><Date.Format value={initialValues.leaseEnddate}/></TableRowColumn>
+									<TableRowColumn> <KrDate value={initialValues.leaseBegindate}/></TableRowColumn>
+									<TableRowColumn><KrDate value={initialValues.leaseEnddate}/></TableRowColumn>
 
 									</TableRow>
 						{billList.map((item,index)=>{
@@ -111,8 +110,8 @@ class StationForm  extends Component{
 									<TableRowColumn>
 										<input type="text" name="hah" value={item.unitprice}  onChange={(event)=>{this.onStationInputChange.bind(this,event,index)}}/>
 									</TableRowColumn>
-									<TableRowColumn> <Date.Format value={initialValues.leaseBegindate}/></TableRowColumn>
-									<TableRowColumn><Date.Format value={initialValues.leaseEnddate}/></TableRowColumn>
+									<TableRowColumn> <KrDate value={initialValues.leaseBegindate}/></TableRowColumn>
+									<TableRowColumn><KrDate value={initialValues.leaseEnddate}/></TableRowColumn>
 
 									</TableRow>
 							);
@@ -125,7 +124,3 @@ class StationForm  extends Component{
 			</div>);
 	}
 	}
-
-
-
-

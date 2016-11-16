@@ -3,10 +3,6 @@ import React, {
 	PropTypes
 } from 'react';
 
-import {
-	View
-} from 'kr-ui/contractView';
-
 import dateFormat from 'dateformat';
 
 import {

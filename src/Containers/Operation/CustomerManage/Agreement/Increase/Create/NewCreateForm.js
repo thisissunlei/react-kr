@@ -56,12 +56,12 @@ import {
 	Button,
 	Notify,
 	IframeContent,
-	Date,
 	DotTitle,
 	ButtonGroup,
 	ListGroup,
 	ListGroupItem,
 	Paper,
+	KrDate,
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -531,7 +531,7 @@ class NewCreateForm extends Component {
 
 				<KrField  grid={1/2}  name="communityAddress" component="labelText" inline={false} label="地址" value={optionValues.communityAddress} right={60}/>
 				<KrField  grid={1/2}  name="contractcode" type="text" component="input" label="合同编号" requireLabel={true} left={60} />
-               
+
 
                 <KrField  name="paytype"  grid={1/2} component="select" label="支付方式" right={60} options={optionValues.payTypeList} requireLabel={true} onChange={(item)=>{
 						Store.dispatch(change('increaseCreateForm','paytypeName',item.label));
@@ -551,14 +551,14 @@ class NewCreateForm extends Component {
 
 				<KrField  grid={1/2}  name="firstpaydate"  component="date" grid={1/2} right={60} label="首付款时间" requireLabel={true} />
 
-				
 
-				
+
+
 
 				<KrField  grid={1/2}  name="signdate"  component="date"  left={60} label="签署时间" defaultValue={initialValues.signdate} requireLabel={true} />
-				
 
-				
+
+
 				<KrField grid={1/2}  name="stationnum"  component="labelText" right={60} label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>
 				<KrField grid={1/2}  name="boardroomnum"  component="labelText" left={60} label="租赁会议室" value={changeValues.station} defaultValue="0" requireLabel={true} inline={false}/>
 
@@ -576,10 +576,10 @@ class NewCreateForm extends Component {
 					Store.dispatch(change('increaseCreateForm','contractFileList',files));
 				}} />
 
-				
-			    
+
+
              <DotTitle title='租赁明细'>
-				
+
 				       <Grid>
 							<Row>
 								<Col align="right">
@@ -614,8 +614,8 @@ class NewCreateForm extends Component {
 									<TableRowColumn>
 											<input type="text" name="age"  valueLink={typeLink} />
 									</TableRowColumn>
-									<TableRowColumn> <Date.Format value={item.leaseBeginDate}/></TableRowColumn>
-									<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
+									<TableRowColumn> <KrDate value={item.leaseBeginDate}/></TableRowColumn>
+									<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
 
 									</TableRow>
 							);
@@ -623,7 +623,7 @@ class NewCreateForm extends Component {
 						</TableBody>
 						</Table>
 
-						
+
                    </DotTitle>
 						<Grid style={{paddingBottom:50}}>
 						<Row>
@@ -641,7 +641,7 @@ class NewCreateForm extends Component {
 						title="分配工位"
 						autoScrollBodyContent={true}
 						contentStyle ={{ width: '100%', maxWidth: 'none'}}
-						open={this.state.openStation} 
+						open={this.state.openStation}
 						onClose={this.openStationDialog}
 						>
 							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
