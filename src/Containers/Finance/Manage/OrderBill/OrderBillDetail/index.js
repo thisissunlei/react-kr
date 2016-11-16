@@ -878,7 +878,7 @@ export default class AttributeSetting  extends Component{
 						title="添加回款"
 						open={this.state.openReceivedBtn}
 						onClose={this.closeReceivedDialog}
-
+                        contentStyle ={{ width: '688'}}
 						>
 					   <ReceivedBtnForm onSubmit={this.onAddReceivedSubmit}  onCancel={this.closeReceivedDialog} optionList={this.state.receivedList} typeList={this.state.typeList}/>
 					 </Dialog>
