@@ -15,7 +15,7 @@ import {
 import {
 	KrField,
 	LabelText
-} from 'kr-ui/Form';
+} from 'kr-ui';
 import KrDate from 'kr-ui/Date';
 import RaisedButton from 'material-ui/RaisedButton';
 import {
@@ -130,7 +130,7 @@ export default class JoinDetail extends Component {
 								<KrField component="labelText" grid={1/2} label="电话：" value={basic.leaseContacttel} defaultValue="无" requireBlue={true}/>
 								<SplitLine />
 								<KrField component="labelText"  label="所属社区：" value={basic.communityName} defaultValue="无" requireBlue={true}/>
-								
+
 
 								<KrField component="labelText" grid={1/2} label="地址：" value={basic.communityAddress} defaultValue="无" requireBlue={true}/>
 								<KrField component="labelText" grid={1/2} label="合同编号：" value={basic.contractcode} defaultValue="无" requireBlue={true}/>
@@ -139,7 +139,7 @@ export default class JoinDetail extends Component {
 								<KrField component="labelText" grid={1/2} label="付款方式：" value={basic.payment.dicName} defaultValue="无" requireBlue={true}/>
 								<KrField component="labelText" type="date" grid={1/2} label="签署日期：" value={basic.signdate} defaultValue="无" requireBlue={true}/>
 
-								
+
 
 								<KrField component="labelText" label="租赁用途：" value={basic.rentaluse} requireBlue={true}/>
 
@@ -155,8 +155,8 @@ export default class JoinDetail extends Component {
 			  		</KrField>
 
 
-											
-			<DotTitle title="租赁明细"> 
+
+			<DotTitle title="租赁明细">
 
 											<Table displayCheckbox={false}>
 															<TableHeader>
@@ -186,13 +186,13 @@ export default class JoinDetail extends Component {
 																   </TableRow>
 																	);
 															})}
-																
+
 														   </TableBody>
-													 </Table>		
+													 </Table>
 
 
 
-						  
+
 
 											  </DotTitle>
 				  </div>
@@ -207,7 +207,7 @@ export default class JoinDetail extends Component {
 
 			<BreadCrumbs children={['社区运营',,'合同详情','续租合同查看']}/>
 
-			<Section title="续租协议书" description="" bodyPadding={"20px 20px 150px 20px"}> 
+			<Section title="续租协议书" description="" bodyPadding={"20px 20px 150px 20px"}>
 				<BasicRender/>
 
 			<Grid>

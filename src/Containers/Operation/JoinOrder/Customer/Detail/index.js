@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import {reduxForm } from 'redux-form';
 import Section from 'kr-ui/Section';
-import {KrField} from 'kr-ui/Form';
+import {KrField} from 'kr-ui';
 
 
 import {Grid,Row,Col} from 'kr-ui/Grid';
@@ -78,7 +78,7 @@ var JoinForm = (props) => {
 }
 
 JoinForm = reduxForm({
-  form: 'joinForm'  
+  form: 'joinForm'
 })(JoinForm);
 
 
@@ -120,7 +120,7 @@ var SubmitValidationForm = (props) => {
 }
 
 SubmitValidationForm = reduxForm({
-  form: 'submitValidation'  
+  form: 'submitValidation'
 })(SubmitValidationForm);
 
 
@@ -176,7 +176,7 @@ export default class JoinEdit extends Component {
     return (
 
       <div>
-			<Section title="客户信息编辑" description=""> 
+			<Section title="客户信息编辑" description="">
 				<JoinForm  submit={this.confirmJoinSubmit}/>
 			</Section>
 
@@ -197,7 +197,3 @@ export default class JoinEdit extends Component {
 	);
   }
 }
-
-
-
-

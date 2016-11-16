@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Section from 'kr-ui/Section';
 
 import {reduxForm } from 'redux-form';
-import {KrField} from 'kr-ui/Form';
+import {KrField} from 'kr-ui';
 
 import {Grid,Row,Col} from 'kr-ui/Grid';
 
@@ -54,7 +54,7 @@ var SubmitValidationForm = (props) => {
 }
 
 SubmitValidationForm = reduxForm({
-  form: 'Validation'  
+  form: 'Validation'
 })(SubmitValidationForm);
 
 
@@ -107,7 +107,7 @@ export default class JoinOrderList extends Component {
     return (
 
       <div>
-			<Section title="客户列表" description=""> 
+			<Section title="客户列表" description="">
 
 				 <Tabs>
 					<Tab label="招商线索" >
@@ -234,7 +234,7 @@ export default class JoinOrderList extends Component {
 								  </TableRow>
 								</TableHeader>
 								<TableBody>
-								  
+
 								  <TableRow>
 									<TableRowColumn>4</TableRowColumn>
 									<TableRowColumn>Steve Brown</TableRowColumn>
@@ -259,7 +259,7 @@ export default class JoinOrderList extends Component {
 
 
 
- 
+
 
 			</Section>
 
@@ -292,5 +292,3 @@ export default class JoinOrderList extends Component {
     );
   }
 }
-
-
