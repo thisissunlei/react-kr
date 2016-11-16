@@ -87,17 +87,18 @@ class Distribution extends Component {
 				<KrField name="id" type="hidden"/>
 				<KrField name="customerId" type="hidden"/>
 				<KrField name="communityId" type="hidden"/>
-				<div style={{textAlign:"center",marginTop:'45px'}}>
-					{detail.companyName}{detail.id}序号员工为<KrField name="memberId"component="select" grid={2/3}  options={optionValues.member}/>
+				<div style={{textAlign:"center",marginTop:'45px',fontSize:'14px'}}>
+					<div style={{textAlign:"center",marginBottom:'20px'}}>{detail.companyName}{detail.id}序号员工为</div>
+					<KrField name="memberId"component="select" grid={2/3}  options={optionValues.member}/>
 				</div>
-				<Grid style={{marginTop:'7px',marginBottom:'10px'}}>
+				<Grid style={{marginTop:'20px',marginBottom:'10px'}}>
 					<Row >
 					<Col md={2} align="right">  </Col>
 					<Col md={2} align="right">  </Col> 
 						<Col md={12} align="center"> 
 							<ButtonGroup>
-								<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm  onSubmit={this.onSubmit}/></div>
-								<Button  label="取消" type="button"  onTouchTap={this.onCancel} cancle={true}/>
+								<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm  onSubmit={this.onSubmit} width={90} height={34}/></div>
+								<Button  label="取消" type="button"  onTouchTap={this.onCancel} cancle={true} height={32} width={90} />
 							</ButtonGroup>
 						 </Col>
 					</Row>
@@ -165,8 +166,8 @@ class ChangeStation extends Component {
 				<Row >
 				<Col md={12} align="center"> 
 					<ButtonGroup>
-						<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm height={38} onSubmit={this.onSubmit}/></div>
-						<Button  label="取消" type="button"  onTouchTap={this.onCancel} height={36} cancle={true}/>
+						<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm width={90} height={34} onSubmit={this.onSubmit}/></div>
+						<Button  label="取消" type="button"  onTouchTap={this.onCancel} width={90} height={32} cancle={true}/>
 					</ButtonGroup>
 				 </Col>
 				</Row>
@@ -521,6 +522,7 @@ export default class EmployessTable extends Component {
 				modal={true}
 				open={this.state.openNewmeber}
 				onClose={this.onIframeClose}
+				contentStyle={{width:465,height:630}}
 			>
 
 				<IframeContent src={this.getStationUrl()}  onClose={this.onIframeClose}  />
