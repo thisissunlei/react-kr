@@ -265,54 +265,51 @@ export default class BasicTable extends Component {
 					var step = 5;
 					var size = pageSize;
 
-					if (!totalCount) {
+					/*if (!totalCount) {
 						size += step;
 						_this.setState({
 							pageSize: size
 						})
-					} else if (totalCount > page) {
+					} else */
+
+					if (totalCount > pageSize) {
 						size += step;
 						_this.setState({
 							pageSize: size
 						})
-					}
 
-					Store.dispatch(Actions.callAPI('getInstallmentplan', {
-						communityids: communityIds,
-						value: value,
-						type: type,
-						page: page,
-						pageSize: size
-					})).then(function(response) {
 
-						_this.setState({
-							Installmentplan: response.vo.items,
-							rate: response.rate,
-							totalCount: response.vo.totalCount,
-						});
-
-						if (_this.state.pageSize < _this.state.totalCount) {
+						Store.dispatch(Actions.callAPI('getInstallmentplan', {
+							communityids: communityIds,
+							value: value,
+							type: type,
+							page: page,
+							pageSize: size
+						})).then(function(response) {
 
 							_this.setState({
-								isIscroll: !_this.state.isIscroll
-							})
+								Installmentplan: response.vo.items,
+								rate: response.rate,
+								totalCount: response.vo.totalCount,
+							});
 
-						}
+							if (_this.state.pageSize < _this.state.totalCount) {
 
-					}).catch(function(err) {
-						Notify.show([{
-							message: err.message,
-							type: 'danger',
-						}]);
-					});
-				}
+								_this.setState({
+									isIscroll: !_this.state.isIscroll
+								})
+
+							}
+
+						}).catch(function(err) {
+							Notify.show([{
+								message: err.message,
+								type: 'danger',
+							}]);
+						});
+					}
 
 
-
-				if (page < 10) {
-					_this.setState({
-						page: _this.state.page++
-					})
 				}
 
 
@@ -364,7 +361,8 @@ export default class BasicTable extends Component {
 			_this.setState({
 				Installmentplan: response.vo.items || [],
 				rate: response.rate,
-				communityIds: id
+				communityIds: id,
+				totalCount: response.vo.totalCount,
 			});
 
 		}).catch(function(err) {
@@ -391,6 +389,7 @@ export default class BasicTable extends Component {
 			_this.setState({
 				Installmentplan,
 				rate: response.rate,
+				totalCount: response.vo.totalCount,
 			});
 
 
@@ -490,7 +489,8 @@ export default class BasicTable extends Component {
 
 				_this.setState({
 					Installmentplan: response.vo.items || [],
-					rate: response.rate
+					rate: response.rate,
+					totalCount: response.vo.totalCount
 				});
 
 			}).catch(function(err) {
@@ -520,12 +520,13 @@ export default class BasicTable extends Component {
 			currentYear,
 			Installmentplan,
 			rate,
-			communityIds
+			communityIds,
+			totalCount
 		} = this.state;
 		var _this = this;
 		const id = communityIds
 		this.scrollLoad();
-
+		console.log('-----totalCount', totalCount)
 
 		return (
 			<div>
