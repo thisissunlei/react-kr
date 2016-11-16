@@ -99,18 +99,13 @@ export default class SearchForms extends Component{
 				})
 			}
 			var searchWord = document.getElementById("keywords").value;
-			if(searchWord ||  filterValue){
 				let value = {
-					filter:filterValue,
-					content:searchWord
+					filter:filterValue || '',
+					content:searchWord || ''
 				};
 
 				let {onSubmit} = this.props;
 				onSubmit && onSubmit(value);
-			}else{
-				this.removeClass(searchForm,'show-form');
-				this.removeClass(searchButton,'click');
-			}
 			// if(this.hasClass(searchForm, 'show-form')){
 		 //        this.removeClass(searchForm,'show-form');
 			// 	this.removeClass(searchButton,'click');
