@@ -29,6 +29,7 @@ import List from './List';
 import AppBar from './AppBar';
 import Divider from './Divider';
 import Drawer from './Drawer';
+import KrField from './KrField';
 
 import {
 	Grid,
@@ -78,6 +79,7 @@ module.exports = {
 	RadioButton,
 	SelfAdaption,
 	...Form,
+	KrField,
 	...Table,
 	Button,
 	ButtonGroup,
