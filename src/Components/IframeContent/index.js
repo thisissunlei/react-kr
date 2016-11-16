@@ -4,13 +4,13 @@ import Loading from '../Loading';
 export default class IframeContent extends React.Component {
 
 	static displayName = 'IframeContent';
-	
+
 	static defaultProps = {
 		width:window.innerWidth,
 		height:800
 	}
 
-	static PropTypes = {
+	static propTypes = {
 		className: React.PropTypes.string,
 		src:React.PropTypes.string,
 		width: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
@@ -122,7 +122,7 @@ export default class IframeContent extends React.Component {
 
 
 /*
- 
+
 
 	renderIframWidth(iframe){
 

@@ -6,7 +6,7 @@ import PropTypeDescription from '../../../PropTypeDescription';
 import MarkdownElement from '../../../MarkdownElement';
 
 import checkboxReadmeText from './README';
-import AppBarCode from '!raw!kr-ui/IframeContent';
+import ButtonCode from '!raw!kr-ui/KrDate';
 import ExampleSimple from './ExampleSimple';
 import ExampleSimpleCode from '!raw!./ExampleSimple';
 
@@ -19,7 +19,7 @@ const CheckboxPage = () => (
     <MarkdownElement text={checkboxReadmeText} />
 
     <CodeExample
-      title="IframeContent"
+      title="AppBar"
       description={description}
       code={ExampleSimpleCode}
     >
@@ -27,7 +27,7 @@ const CheckboxPage = () => (
 
     </CodeExample>
 
-    <PropTypeDescription code={AppBarCode} />
+    <PropTypeDescription code={ButtonCode} />
 
   </div>
 );

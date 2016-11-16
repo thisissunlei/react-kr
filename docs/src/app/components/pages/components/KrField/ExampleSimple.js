@@ -1,5 +1,9 @@
 import React from 'react';
-import {AppBar} from 'kr-ui';
+
+import {
+  KrField,
+} from 'kr-ui';
+
 
 
 export default class AppBarExampleSimple extends React.Component{
@@ -11,7 +15,7 @@ export default class AppBarExampleSimple extends React.Component{
         return (
 
             <div>
-             <AppBar title="KR-UI"/>
+                <KrField label="姓名" component="labelText" defaultValue="无" value="张三"/>
             </div>
         );
     }

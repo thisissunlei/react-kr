@@ -66,7 +66,7 @@ export default class Master extends Component {
             <List>
               <ListItem href="/#/components/appbar">AppBar</ListItem>
               <ListItem href="/#/components/button">Button</ListItem>
-              <ListItem href="/#/components/date-format">DateFormat</ListItem>
+              <ListItem href="/#/components/krdate">KrDate</ListItem>
               <ListItem href="/#/components/dialog">Dialog</ListItem>
               <ListItem href="/#/components/form">Form</ListItem>
               <ListItem href="/#/components/krfield">KrField</ListItem>

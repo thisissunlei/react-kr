@@ -92,7 +92,7 @@ class NewCreatForm extends Component {
 		return (
 			<Grid style={{paddingBottom:20}}>
 				<Row>
-				<Col md={4} align="center"> 
+				<Col md={4} align="center">
 					{
 					contractStatusCount.enterTotoal>0?<span className="createButton disabled">承租意向书</span>:<a className="createButton" href={"./#/operation/customerManage/"+params.customerId+"/order/"+this.props.params.orderId+"/agreement/admit/create"}>承租意向书</a>
 					}
@@ -105,22 +105,22 @@ class NewCreatForm extends Component {
 				</Col>
 				<Col md={4} align="center">
 				{contractStatusCount.enterTotoal>0?<a  className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/increase/create"}>增租协议书</a>:<span className="createButton disabled">增租协议书</span>}
-										
+
 				</Col>
 				</Row>
 
 				<Row style={{marginTop:10}}>
 				<Col md={4} align="center" >
 				  	{contractStatusCount.enterTotoal>0?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/renew/create"}>续租协议书</a>:<span className="createButton disabled">续租协议书</span>}
-				  				  
+
 				</Col>
 				<Col md={4} align="center">
 					{contractStatusCount.enterTotoal>0?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/reduce/create"} >减租协议书</a>:<span className="createButton disabled">减租协议书</span>}
-										
+
 				</Col>
 				<Col md={4} align="center">
 					{contractStatusCount.enterTotoal>0?<a  className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/exit/create"} >退租协议书</a>:<span className="createButton disabled">退租协议书</span>}
-										
+
 				</Col>
 				</Row>
 
@@ -312,7 +312,7 @@ export default class OrderDetail extends React.Component {
 			return (
 				<Row>
 				<Col md={3} align="left" className="ContractName"><Circle type={item.payStatus}></Circle>款项：{item.installmentName}</Col>
-				<Col md={3} align="left" className="ContractName">计划付款日期：<KrDate.Format value={item.installmentReminddate}/></Col>
+				<Col md={3} align="left" className="ContractName">计划付款日期：<KrDate value={item.installmentReminddate}/></Col>
 				<Col md={3} align="left" className="ContractName">计划付款金额：{item.installmentAmount}</Col>
 				{item.installmentBackamount > 0?<Col md={3} align="left"className="ContractName">实际付款金额：{item.installmentBackamount}</Col>:<Col md={3} align="left"  className="ContractName">实际付款金额：<span style={{color:'red'}}>{item.installmentBackamount}</span></Col>}
 				</Row>
@@ -343,8 +343,8 @@ export default class OrderDetail extends React.Component {
 			<div>
 
 			<BreadCrumbs children={['系统运营','财务管理']} hide={!!this.props.location.query.closeAll}/>
-			
-			<Section title="客户订单详情" description="" hide={!!this.props.location.query.closeAll}> 
+
+			<Section title="客户订单详情" description="" hide={!!this.props.location.query.closeAll}>
 			<div className="content">
 			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog} style={{width:80,marginTop:15}}/>
 
@@ -377,7 +377,7 @@ export default class OrderDetail extends React.Component {
 				<Col md={4} ><KrField label="客户名称：" component="labelText" value={orderBaseInfo.customerName} alignRight={true} tooltip={orderBaseInfo.customerName}/></Col>
 				<Col md={4} ><KrField label="订单名称：" component="labelText"  value={orderBaseInfo.mainbillname} tooltip={orderBaseInfo.mainbillname} alignRight={true}/>
 				</Col>
-				
+
 				</Row>
 
 				<Row>
@@ -399,7 +399,7 @@ export default class OrderDetail extends React.Component {
 			<Row>
 				<Col md={4} ><KrField label="实收押金：" component="labelText" value={orderBaseInfo.realdeposit} defaultValue="0" alignRight={true}/></Col>
 				<Col md={4} ><KrField label="实收定金：" component="labelText" value={orderBaseInfo.realdownpayment} defaultValue="0" alignRight={true}/></Col>
-				<Col md={4} ><KrField label="其他回款：" component="labelText" value={orderBaseInfo.refundamount} defaultValue="0" alignRight={true}/></Col>		
+				<Col md={4} ><KrField label="其他回款：" component="labelText" value={orderBaseInfo.refundamount} defaultValue="0" alignRight={true}/></Col>
 				</Row>
 
 				<Row>
@@ -414,7 +414,7 @@ export default class OrderDetail extends React.Component {
 				<Col md={4} ><KrField label="营业外收入：" component="labelText" value={orderBaseInfo.nonbusinessincome} defaultValue="0" alignRight={true}/></Col>
 				<Col md={4} ><KrField label="生活消费收入：" component="labelText" value={orderBaseInfo.liveincome} width={120} defaultValue="0" alignRight={true}/></Col>
 				</Row>
-				<Row>						
+				<Row>
 				<Col md={4} ><KrField label="订单描述：" component="labelText" value={orderBaseInfo.mainbilldesc} defaultValue="无" alignRight={true}/></Col>
 				</Row>
 
@@ -441,8 +441,8 @@ export default class OrderDetail extends React.Component {
 					{this.getAgrementType(item.contracttype)}
 
 					<TableRowColumn>{item.contractTotalamount}</TableRowColumn>
-					<TableRowColumn><KrDate.Format value={item.leaseBegindate}/></TableRowColumn>
-					<TableRowColumn> <KrDate.Format value={item.leaseEnddate}/></TableRowColumn>
+					<TableRowColumn><KrDate value={item.leaseBegindate}/></TableRowColumn>
+					<TableRowColumn> <KrDate value={item.leaseEnddate}/></TableRowColumn>
 					<TableRowColumn>
 					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} />
 					{item.contractstate != 'EXECUTE'  && <Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
@@ -453,9 +453,9 @@ export default class OrderDetail extends React.Component {
 
 			</TableBody>
 			</Table>
-         
+
             <DotTitle title='分期计划'/>
-			
+
 			<div className='ui-remark'>
               <div className='ui-circle-remark'><span className='circle-color circle-color-top over-circle'></span><span className='remark-green-text'>已完成</span></div>
               <div className='ui-circle-remark'><span className='circle-color circle-color-top section-circle'></span><span className='remark-green-text'>付部分款</span></div>
@@ -474,7 +474,7 @@ export default class OrderDetail extends React.Component {
 							return (
 								<Row key={index} >
 								<Col md={3} align="left" className="ContractName"><Circle type={list.payStatus}/>款项：{list.installmentName}</Col>
-								<Col md={3} align="left" className="ContractName">计划付款日期：<KrDate.Format value={list.installmentReminddate}/></Col>
+								<Col md={3} align="left" className="ContractName">计划付款日期：<KrDate value={list.installmentReminddate}/></Col>
 								<Col md={3} align="left" className="ContractName">计划付款金额：{list.installmentAmount}</Col>
 								{list.installmentBackamount>0?<Col md={3} align="left" className="ContractName">实际付款金额：<span>{list.installmentBackamount}</span></Col>:<Col md={3} align="left" className="ContractName">实际付款金额：<span style={{color:'red'}}>{list.installmentBackamount}</span></Col>}
 								</Row>
@@ -486,7 +486,7 @@ export default class OrderDetail extends React.Component {
 				);
 			})}
 			<span className="border-bottom"></span>
-			
+
 
 
           	</div>

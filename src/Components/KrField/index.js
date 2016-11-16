@@ -4,7 +4,7 @@ import {
 	reduxForm
 } from 'redux-form';
 
-import Notify from '../../Notify';
+import Notify from '../Notify';
 
 
 import Promise from 'promise-polyfill';

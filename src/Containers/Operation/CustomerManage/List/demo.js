@@ -5,7 +5,7 @@ import Section from 'kr-ui/Section';
 import BreadCrumbs from 'kr-ui/BreadCrumbs';
 
 import {reduxForm } from 'redux-form';
-import {KrField} from 'kr-ui/Form';
+import {KrField} from 'kr-ui';
 
 import {Grid,Row,Col} from 'kr-ui/Grid';
 
@@ -54,7 +54,7 @@ var SubmitValidationForm = (props) => {
 }
 
 SubmitValidationForm = reduxForm({
-  form: 'Validation'  
+  form: 'Validation'
 })(SubmitValidationForm);
 
 
@@ -110,7 +110,7 @@ export default class JoinOrderList extends Component {
 
 			<BreadCrumbs children={['系统运营','财务管理']}/>
 
-			<Section title="客户列表" description=""> 
+			<Section title="客户列表" description="">
 
 
 				 <Tabs >
@@ -164,7 +164,7 @@ export default class JoinOrderList extends Component {
 									<TableRow>
 
 									<TableRowColumn colSpan="10"  className="ahahah-demo">
-			
+
  <Table>
     <TableHeader>
       <TableRow>
@@ -272,5 +272,3 @@ export default class JoinOrderList extends Component {
 	);
   }
 }
-
-

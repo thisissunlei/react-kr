@@ -20,6 +20,7 @@ import KrFieldPage from './components/pages/components/KrField/Page';
 import ListPage from './components/pages/components/List/Page';
 import ListGroupPage from './components/pages/components/ListGroup/Page';
 import SectionPage from './components/pages/components/Section/Page';
+import IframeContentPage from './components/pages/components/IframeContent/Page';
 
 import HomePage from './components/pages/Home';
 import UndefinedPage from './components/pages/Undefined';
@@ -41,6 +42,7 @@ const AppRoutes = (
       <Route path="list" component={ListPage} />
       <Route path="listgroup" component={ListGroupPage} />
       <Route path="section" component={SectionPage} />
+      <Route path="iframecontent" component={IframeContentPage} />
 
       <Route path="dialog" component={DialogPage} />
       <Route path="checkbox" component={CheckboxPage} />

@@ -12,17 +12,17 @@ import {
 	Section,
 	Button,
 	SplitLine,
-	DotTitle
+	DotTitle,
+	KrField,
+	LabelText
 } from 'kr-ui';
 
 import {
-	KrField,
-	LabelText
-} from 'kr-ui/Form';
-import {
 	View
 } from 'kr-ui/contractView';
+
 import Date from 'kr-ui/Date';
+
 import RaisedButton from 'material-ui/RaisedButton';
 import dateFormat from 'dateformat';
 
@@ -112,7 +112,7 @@ export default class JoinDetail extends Component {
 			<div className="content" style={content}>
 				  	<View label="入驻协议书详情页"/>
 				  	<div className="content-info" style={info} >
-				  			
+
 					<KrField component="labelText" grid={1/2} label="出租方：" value={basic.lessorName} defaultValue="无" requireBlue={true}/>
 					<KrField component="labelText" grid={1/2} left={60} label="地址：" value={basic.lessorAddress} defaultValue="无" requireBlue={true}/>
 
@@ -153,7 +153,7 @@ export default class JoinDetail extends Component {
 							})}
 			  		</KrField>
 
-									
+
 					<DotTitle title='租赁明细'>
 						<Table displayCheckbox={false}>
 							<TableHeader>
@@ -167,7 +167,7 @@ export default class JoinDetail extends Component {
 
 							{
 								basic.stationVos && basic.stationVos.map((item,index)=>{
-								
+
 								return (
 									<TableRow key={index}>
 										<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
@@ -183,9 +183,9 @@ export default class JoinDetail extends Component {
 								);
 								})
 							}
-									
+
 							</TableBody>
-						</Table>		
+						</Table>
 
 					</DotTitle>
 					</div>
@@ -220,7 +220,7 @@ export default class JoinDetail extends Component {
 
 			<BreadCrumbs children={['社区运营',,'合同详情','入驻合同查看']}/>
 
-			<Section title="入驻协议书" description="" bodyPadding={"20px 20px 150px 20px"}> 
+			<Section title="入驻协议书" description="" bodyPadding={"20px 20px 150px 20px"}>
 
 			{this.BasicRender(basic)}
 			  <Grid>

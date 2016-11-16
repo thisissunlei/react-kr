@@ -54,6 +54,7 @@ class AccountBtnForm extends Component{
 		onCancel && onCancel();
 	};
 	onSubmit(values){
+		console.log('22222rrrrr',values);
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
 	}

@@ -26,19 +26,19 @@ import ConfirmBillDetail from './ConfirmBillDetail';
 
 	constructor(props){
 		super(props);
-        
+
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
 
 		const detail = this.props.detail;
-		
-		
+
+
 		Store.dispatch(initialize('newCreateForm',detail));
 
 
 
         //提交params
-		this.state = {  
+		this.state = {
 			params:{
 				startDate:'',
 				endDate:'',
@@ -46,46 +46,46 @@ import ConfirmBillDetail from './ConfirmBillDetail';
 			}
 		}
 
-		
+
 
 
 	}
 	componentDidMount(){
 	}
-     
-     //获取提交时的params
-	 onSubmit(params){  
 
- 		
+     //获取提交时的params
+	 onSubmit(params){
+
+
  		 const {detail} = this.props;
 
-  
- 		 params.id = detail.id;  
-         params.startDate=detail.actualEntrydate;
-         		  
 
-		 this.setState({  
+ 		 params.id = detail.id;
+         params.startDate=detail.actualEntrydate;
+
+
+		 this.setState({
 			params
 		 });
 
-         
 
 
-		
+
+
 	 }
 
 	 onCancel(){
 		 const {onCancel} = this.props;
 		 onCancel && onCancel();
-		 
+
 	 }
 
 	render(){
 
 		const { error, handleSubmit, pristine, reset} = this.props;
 
-		
-        
+
+
 		return (
 
 
@@ -94,12 +94,12 @@ import ConfirmBillDetail from './ConfirmBillDetail';
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
 				    <KrField name="id" type="hidden" label="id"/>
-               
+
                     <KrField grid={1/2} label="对账期间" component="group">
-                        <KrDate.Format value={this.props.detail.actualEntrydate} format="yyyy-mm-dd"/>  					
+                        <KrDate value={this.props.detail.actualEntrydate} format="yyyy-mm-dd"/>  					
   						<KrField  component="Date"  name="endDate" type="date" grid={1/2}/>
 				     </KrField>
-		
+
 				<Grid style={{marginTop:10}}>
 					<Row>
 						<Col md={8}></Col>
@@ -111,7 +111,7 @@ import ConfirmBillDetail from './ConfirmBillDetail';
 
 				<ConfirmBillDetail  params={this.state.params} onCancel={this.onCancel}/>
 
-			
+
 			</div>
 
 		);

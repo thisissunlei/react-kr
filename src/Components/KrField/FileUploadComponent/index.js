@@ -1,5 +1,5 @@
 import React from 'react';
-import Notify from '../../../Notify';
+import Notify from '../../Notify';
 import Promise from 'promise-polyfill';
 import {
 	Actions,
