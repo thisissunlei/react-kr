@@ -263,7 +263,8 @@ export default class BasicTable extends Component {
 					Installmentplan,
 					isIscroll,
 					totalCount,
-					totalPages
+					totalPages,
+					istip
 				} = _this.state;
 				if (isIscroll) {
 					_this.setState({
@@ -272,7 +273,13 @@ export default class BasicTable extends Component {
 
 					var step = 1;
 					var len = page;
-
+					if (totalPages - page == 1) {
+						window.setTimeout(function() {
+							_this.setState({
+								istip: !_this.state.istip
+							})
+						}, 1000)
+					}
 
 					if (totalPages > page) {
 						len += step;
@@ -312,10 +319,8 @@ export default class BasicTable extends Component {
 								type: 'danger',
 							}]);
 						});
-					} else {
-						_this.setState({
-							istip: !_this.state.istip
-						})
+
+
 					}
 
 
@@ -371,7 +376,7 @@ export default class BasicTable extends Component {
 				Installmentplan: response.vo.items || [],
 				rate: response.rate,
 				communityIds: id,
-				totalCount: response.vo.totalCount,
+				totalPages: response.vo.totalPages,
 			});
 
 		}).catch(function(err) {
@@ -398,7 +403,7 @@ export default class BasicTable extends Component {
 			_this.setState({
 				Installmentplan,
 				rate: response.rate,
-				totalCount: response.vo.totalCount,
+				totalPages: response.vo.totalPages,
 			});
 
 
@@ -499,7 +504,6 @@ export default class BasicTable extends Component {
 				_this.setState({
 					Installmentplan: response.vo.items || [],
 					rate: response.rate,
-					totalCount: response.vo.totalCount,
 					totalPages: response.vo.totalPages,
 				});
 
@@ -534,13 +538,14 @@ export default class BasicTable extends Component {
 			totalCount,
 			isLoading,
 			totalPages,
-			istip
+			istip,
+			page
 		} = this.state;
 		var _this = this;
-		const id = communityIds
+		const id = communityIds;
 		let {
 			tab
-		} = this.props
+		} = this.props;
 		if (tab === 'table') {
 			this.scrollLoad();
 		} else {
@@ -548,8 +553,11 @@ export default class BasicTable extends Component {
 		}
 
 		return (
-			<div >
+			<div style={{position:'relative'}}>
 			{isLoading?<div style={{position:'fixed',left:'50%',top:'40%',zIndex:100}}><Loading/></div>:''}
+			{istip?<div style={{width:640,color:'#999',fontSize:'14px',position:'absolute',left:'50%',bottom:'-73px',marginLeft:'-320px',zIndex:100}}><p style={{width:260,borderBottom:'1px solid #999999',height:9,float:'left'}} ></p><p style={{float:'left',paddingLeft:'15px',paddingRight:'15px'}}>我是有底线的</p><p style={{width:260,height:9,borderBottom:'1px solid #999999',float:'left'}} ></p></div>:''}
+			
+					
 			<SearchForm  onSubmit={this.onSubmit} onChange={this.onChange}/>
 		 	<div className="basic-con">
 		 		<div className="legend">
@@ -614,7 +622,7 @@ export default class BasicTable extends Component {
 						}
 						<td></td>
 					</tr>
-					
+
 					{
 						Installmentplan && Installmentplan.map((item,index)=>{
 							
