@@ -30,6 +30,7 @@ import Divider from './Divider';
 import Drawer from './Drawer';
 import KrField from './KrField';
 import KrDate from './KrDate';
+import PaperBack from './PaperBack';
 
 import {
 	Grid,
@@ -76,6 +77,7 @@ module.exports = {
 	DotTitle,
 	LineText,
 	Checkbox,
+	PaperBack,
 	RadioButton,
 	SelfAdaption,
 	...Form,

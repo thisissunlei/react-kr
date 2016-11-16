@@ -4,6 +4,25 @@ import React, {
 } from 'react';
 
 import {
+	View
+} from 'kr-ui/contractView';
+
+import dateFormat from 'dateformat';
+
+import {
+	KrField,
+	LabelText,
+	Button,
+	Grid,
+	Row,
+	Col,
+	Table,
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
+	TableRowColumn,
+	TableFooter,
 	BreadCrumbs,
 	Loading,
 	Notify,
@@ -14,42 +33,12 @@ import {
 } from 'kr-ui';
 
 import {
-	View
-} from 'kr-ui/contractView';
-
-import dateFormat from 'dateformat';
-
-import {
-	KrField,
-	LabelText,
-} from 'kr-ui';
-
-import {
-	Button
-} from 'kr-ui';
-import {
 	Actions,
 	Store
 } from 'kr/Redux';
 
-import {
-	Grid,
-	Row,
-	Col
-} from 'kr-ui/Grid';
-
-import {
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter
-} from 'kr-ui/Table';
 
 export default class JoinDetail extends Component {
-
 
 	constructor(props, context) {
 		super(props, context);
