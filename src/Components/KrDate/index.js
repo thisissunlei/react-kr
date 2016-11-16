@@ -17,7 +17,7 @@ export default class KrDate extends React.Component {
     /**
     *
     */
-		value:React.PropTypes.string,
+		value: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
     /**
     * yyyy-mm-dd hh:MM:ss
     */
