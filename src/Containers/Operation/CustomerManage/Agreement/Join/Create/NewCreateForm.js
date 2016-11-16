@@ -603,7 +603,7 @@ class NewCreateForm extends Component {
 						
                         </DotTitle>
 						<Grid>
-						<Row style={{marginTop:30}}>
+						<Row style={{paddingBottom:50}}>
 						<Col md={12} align="center">
 							<ButtonGroup>
 								<Button  label="确定" type="submit"  disabled={submitting} />

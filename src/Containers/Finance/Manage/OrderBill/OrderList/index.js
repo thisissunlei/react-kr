@@ -143,8 +143,14 @@ export default class AttributeSetting extends Component {
 
 	//搜索
 	onSearchSubmit(searchParams) {
+		let obj = {
+			customername:searchParams.content
+		}
+		console.log('searchParams',searchParams,obj);
+
+
 		this.setState({
-			searchParams
+			searchParams:obj
 		});
 	}
 
@@ -209,19 +215,24 @@ export default class AttributeSetting extends Component {
 						<Row>
 							<Col md={7} align="left"> 
 								<ListGroup >
+									<div className="list-name">
 									<span className='ui-incomeMoney'>
 									</span>
 									<span className="font-width">收入总额:</span>
 									<span className="font-width font-num">{list.sumcome}</span>
-									
+									</div>
+									<div className="list-name">
 									<span className='ui-receiveMoney'>
 									</span>
 									<span className="font-width">回款总额:</span>
 									<span className="font-width font-num">{list.sumAmount}</span>
+									</div>
+									<div className="list-name">
 									<span className='ui-selfMoney'></span>
 									
 									<span className="font-width">余额:</span>
 									<span className="font-width font-num">{list.summount}</span>
+									</div>
 
 									
 								</ListGroup>	

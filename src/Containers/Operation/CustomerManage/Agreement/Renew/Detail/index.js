@@ -108,7 +108,8 @@ export default class JoinDetail extends Component {
 				fontSize: 14
 			}
 			const info = {
-				padding: '30px 70px'
+				padding: '30px 70px',
+				paddingBottom:10
 			}
 			console.log('时间', )
 			return (
@@ -206,13 +207,13 @@ export default class JoinDetail extends Component {
 
 			<BreadCrumbs children={['社区运营',,'合同详情','续租合同查看']}/>
 
-			<Section title="续租协议书" description=""> 
+			<Section title="续租协议书" description="" bodyPadding={"20px 20px 150px 20px"}> 
 				<BasicRender/>
 
-<Grid style={{marginTop:30}}>
+			<Grid>
 				  <Row>
 					  <Col md={5} align="center"></Col>
-					  <Col md={2} align="center"> <Button  label="返回"  type="href"  href={getOrderUrl()}/> </Col>
+					  <Col md={2} align="center"> <Button  label="返回"  type="href"  href={getOrderUrl()} width={100} height={40} fontSize={16}/> </Col>
 					  <Col md={5} align="center"></Col>
 				  </Row>
 			  </Grid>

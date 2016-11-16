@@ -9,35 +9,32 @@ var env = process.env.NODE_ENV || 'development';
 
 const config = {
 	entry:{
-		/*
 		development:[
 			 'webpack/hot/dev-server',
     		'webpack/hot/only-dev-server',
-		],	
-		*/
+		],
 		app:path.join(process.cwd(), '/src/app.js')
 	},
 	resolve: {
 		root:path.join(process.cwd(), '/src'),
-		extensions: ['', '.js','.less'], 
+		extensions: ['', '.js','.less'],
 		alias: {
-			'kr-ui': path.join(process.cwd(), '/src/Components'), 
-			'kr': path.join(process.cwd(), '/src'), 
+			'kr-ui': path.join(process.cwd(), '/src/Components'),
+			'kr': path.join(process.cwd(), '/src'),
 		},
 	},
-  	devServer: {
+	devServer: {
 	  contentBase: "./static",
-	  hot:true,
+    devtool: 'eval',
+    hot: true,
+    inline: true,
 	  port: 8001,
-	  inline: true,
-	  historyApiFallback: true,
-	  colors: true,
-	  stats: 'normal',
+    outputPath: buildPath,
   },
-	externals: { 
+	externals: {
 		React:true,
-	}, 
-	devtool: 'eval-source-map',
+	},
+	devtool: 'eval',
 	output: {
 		path: buildPath,
 		filename: '[name].js',
@@ -69,11 +66,6 @@ const config = {
 		}),
 
 		*/
-		new webpack.optimize.MinChunkSizePlugin({
-   			 compress: {
-     			 warnings: false
-    		}
-  		}),
 		new webpack.NoErrorsPlugin(),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(env)
@@ -103,11 +95,7 @@ const config = {
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
 	],
 	watch: true,
-    keepalive: true,
-    //displayErrorDetails:true,
-    colors:true,
-    hot:true,
-    optimizeDebupe:true,
+  keepalive: true,
 	module: {
 		exprContextRegExp: /$^/,
 		exprContextCritical: false,
@@ -153,7 +141,7 @@ const config = {
 			{
 				test: /\.ttf/,
 				loader : 'file?prefix=font/'
-			}, 
+			},
 			{
 				test: /\.svg/,
 				loader : 'file?prefix=font/'
@@ -163,7 +151,7 @@ const config = {
 	eslint: {
 		configFile: '../.eslintrc',
 		failOnWarning: true,
-    	failOnError: true, 
+    	failOnError: true,
     	cache: true
 	},
 };

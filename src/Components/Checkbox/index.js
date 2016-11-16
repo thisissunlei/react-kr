@@ -1,17 +1,24 @@
 import React,{Component} from 'react';
 
-import Checkbox from 'material-ui/Checkbox';
 
-export default class KrCheckbox extends React.Component{
+class KrCheckbox extends Component{
 
+	static defaultProps = {
+		checked:false
+	}
+
+	static propTypes = {
+		/**
+		 * Checkbox 选中时值为true
+		 */
+		checked:React.PropTypes.bool,
+		/**
+		 * 点选时回调该方法
+		 */
+		onCheck:React.PropTypes.func
+	};
 
 	static displayName = 'KrCheckbox';
-	
-	static PropTypes = {
-		checked:React.PropTypes.bool,
-		onCheck:React.PropTypes.func,
-
-	}
 
 	render(){
 
@@ -23,8 +30,4 @@ export default class KrCheckbox extends React.Component{
 	}
 }
 
-
-
-
-
-
+export default KrCheckbox;
