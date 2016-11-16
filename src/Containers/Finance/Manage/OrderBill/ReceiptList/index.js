@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
 import Section from 'kr-ui/Section';
-import {KrField,LabelText} from 'kr-ui/Form';
+import {KrField,LabelText} from 'kr-ui';
 
 import {reduxForm,formValueSelector} from 'redux-form';
 
@@ -66,13 +66,13 @@ class OrderCreate extends Component {
 
       <div>
 
-      <Section title="财务管理" description=""> 
+      <Section title="财务管理" description="">
 
       <Grid>
           <Row>
             <Col md={2}> <Button label="新建属性" joinEditForm onTouchTap={this.openCreateDialog} /> </Col>
             <Col md={6}> </Col>
-            <Col md={2}> <KrField name="username" type="text" /></Col> 
+            <Col md={2}> <KrField name="username" type="text" /></Col>
             <Col md={2}> <Button label="搜索" joinEditForm onTouchTap={this.openCreateDialog} /> </Col>
           </Row>
         </Grid>
@@ -118,7 +118,7 @@ class OrderCreate extends Component {
         modal={true}
         open={this.state.openCreate}
       >
-      
+
 
         <form onSubmit={handleSubmit(this.confirmSubmit)}>
 
@@ -130,13 +130,13 @@ class OrderCreate extends Component {
           </Row>
 
           <Row>
-            <Col md={4} > 
+            <Col md={4} >
                 <KrField name="city" label="是否启用" type="radio"/>
              </Col>
-             <Col md={4} > 
+             <Col md={4} >
                 <KrField name="city" label="是" type="radio" />
              </Col>
-             <Col md={4} > 
+             <Col md={4} >
                 <KrField name="city" label="否" type="radio" />
              </Col>
           </Row>
@@ -168,7 +168,7 @@ class OrderCreate extends Component {
 
       </Dialog>
 
-      
+
    </div>
   );
   }
@@ -192,9 +192,3 @@ export default connect((state)=>{
     items:state.notify.items,
   };
 })(OrderCreate);
-
-
-
-
-
-

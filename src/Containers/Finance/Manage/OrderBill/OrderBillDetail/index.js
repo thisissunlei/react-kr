@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {LabelText} from 'kr-ui/Form';
+import {LabelText} from 'kr-ui';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
@@ -67,7 +67,7 @@ class ViewForm extends Component{
 	    	items.fileList=[]
 	    }
 
-	    
+
 
 		return(
 				<div className='ui-watch-detail'>
@@ -706,7 +706,7 @@ export default class AttributeSetting  extends Component{
 	   if(isInitLoading){
 	   	 return <Loading/>
 	   }
-	   
+
 
       //console.log('221111',this.context.router)
 
