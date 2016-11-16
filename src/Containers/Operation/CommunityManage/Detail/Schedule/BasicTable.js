@@ -161,8 +161,7 @@ class SearchForm extends Component {
 		}];
 
 		return (
-			<form name="searchForm" className="searchForm searchList" style={{borderBottom:'2px solid #eee',marginBottom:30,paddingBottom:'15px',height:45}}>
-
+			<form name="searchForm" className="searchForm searchList" style={{borderBottom:'2px solid #eee',marginBottom:10,paddingBottom:'15px',height:45}}>
 				{/*<KrField  name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} left={60}/>*/}
 				
 				<SearchForms onSubmit={this.onSubmit} searchFilter={options} />

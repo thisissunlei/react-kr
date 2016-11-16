@@ -20,8 +20,9 @@ var config = require('./configs/config');
 var webpackConfig = require('./webpack/webpack-'+process.env.NODE_ENV+'.config');
 webpackConfig.entry.development = [];
 webpackConfig.entry.development.unshift("webpack/hot/dev-server");
-webpackConfig.entry.development.unshift('webpack-hot-middleware/client?path=/__webpack_hmr');
-//webpackConfig.entry.unshift("webpack-dev-server/client?http://127.0.0.1:8001");  
+webpackConfig.entry.development.unshift("webpack/hot/only-dev-server");
+//webpackConfig.entry.development.unshift('webpack-hot-middleware/client?path=/__webpack_hmr');
+//webpackConfig.entry.unshift("webpack-dev-server/client?http://127.0.0.1:8001");
 
 var compiler = webpack(webpackConfig);
 
@@ -47,7 +48,7 @@ app.use(convert(function* (next){
 app.use(convert(views(__dirname + '/static')));
 
 app.use(convert(webpackDevMiddleware(compiler,{
-	hot: true,    
+	hot: true,
 	inline: true,
 	quiet: false,
 	noInfo: true,
@@ -100,4 +101,3 @@ app.listen(config.app.port,'127.0.0.1',function(){
 
 
 module.exports = app;
-

@@ -67,6 +67,8 @@ class ViewForm extends Component{
 	    	items.fileList=[]
 	    }
 
+	    
+
 		return(
 				<div className='ui-watch-detail'>
 					<KrField grid={1/2}  component="labelText" label="代码名称" value={items.accountName} inline={false} defaultValue="无"/>
@@ -78,10 +80,11 @@ class ViewForm extends Component{
 					<KrField grid={1/2}  component="labelText" label="操作人"  value={items.optUserName} inline={false} defaultValue="无"/>
 					<KrField grid={1/2}  component="labelText" label="金额（元）" value={items.finaflowAmount} inline={false} defaultValue="无"/>
 					<KrField grid={1/2}  component="labelText" label="备注" value={items.finaflowdesc} inline={false} defaultValue="无"/>
-					<KrField grid={1/2}  component="group" label="上传附件" inline={false} defaultValue="无">
-			         {items.fileList.map((item,index)=>
-						  <KrField key={index} grid={1} component="labelText" value={item.fileName} />
-					  )}
+					<KrField grid={1/2}  component="group" label="上传附件"  inline={false} defaultValue="无">
+			         {items.fileList.map((item,index)=>{
+						 return <Button label={item.fileName} type="link" href={item.fileUrl} key={index}/>
+			         }
+					)}
 					</KrField>
 				</div>
 
@@ -237,7 +240,7 @@ export default class AttributeSetting  extends Component{
 			}]);
 		 });
         this.setState({
-			openReceivedBtn:!this.state.openReceivedBtn
+			openReceivedBtn:!this.state.openReceivedBtn,
 		});
     }
     openQuitBtn(){
@@ -527,7 +530,7 @@ export default class AttributeSetting  extends Component{
 	    this.setState({
 			openReceivedBtn:!this.state.openReceivedBtn,
 			isLoading:true,
-			params:''
+			params:'',
 		});
 		receivedList=[];
 		typeList=[];
@@ -594,7 +597,7 @@ export default class AttributeSetting  extends Component{
 		Store.dispatch(Actions.callAPI('supplementIncome',{},formValues)).then(function(){
 			Notify.show([{
 				message:'操作成功',
-				type: 'danger',
+				type: 'success',
 			}]);
 			_this.refresh();
 		}).catch(function(err){
@@ -703,6 +706,7 @@ export default class AttributeSetting  extends Component{
 	   if(isInitLoading){
 	   	 return <Loading/>
 	   }
+	   
 
       //console.log('221111',this.context.router)
 
