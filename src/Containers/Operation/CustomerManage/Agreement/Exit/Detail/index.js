@@ -10,12 +10,9 @@ import {
 	Section,
 	SplitLine,
 	KrField,
-	LabelText
+	LabelText,
+	PaperBack
 } from 'kr-ui';
-
-import {
-	View
-} from 'kr-ui/contractView';
 
 import Date from 'kr-ui/Date';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -119,7 +116,7 @@ export default class ExitDetail extends Component {
 
 			return (
 				<div className="content" style={content}>
-				  	<View label="退租协议书详情页"/>
+				  	<PaperBack label="退租协议书详情页"/>
 				  	<div className="content-info" style={info} >
 
 
