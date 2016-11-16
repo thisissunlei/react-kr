@@ -499,7 +499,7 @@ class NewCreateForm extends Component {
 
 			<Paper width={960}>
 
-<form onSubmit={handleSubmit(this.onSubmit)} enctype="multipart/form-data">
+<form onSubmit={handleSubmit(this.onSubmit)} enctype="multipart/form-data" style={{marginTop:50}}>
 
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
@@ -604,9 +604,10 @@ class NewCreateForm extends Component {
 						<Grid style={{marginTop:70,paddingBottom:60}}>
 						<Row >
 						<ListGroup>
-							<ListGroupItem style={{width:'45%',textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit"  /> </ListGroupItem>
-							<ListGroupItem style={{width:'45%',textAlign:'left',paddingLeft:15}}> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </ListGroupItem>
-						</ListGroup></Row>
+							<ListGroupItem style={{width:'45%',textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit"  width={100} height={40} fontSize={16}/> </ListGroupItem>
+							<ListGroupItem style={{width:'45%',textAlign:'left',paddingLeft:15}}> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel} width={100} height={40} fontSize={16}/> </ListGroupItem>
+						</ListGroup>
+						</Row>
 						</Grid>
 
 						</form>
