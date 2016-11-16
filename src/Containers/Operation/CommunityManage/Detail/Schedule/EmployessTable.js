@@ -345,9 +345,6 @@ export default class EmployessTable extends Component {
 		this.setState({
 			openNewmeber: !this.state.openNewmeber
 		});
-		window.location.reload()
-
-
 
 	}
 
@@ -445,7 +442,7 @@ export default class EmployessTable extends Component {
 		return (
 
 			<div className="employees-content">
-		 	<Table  style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getStation' ajaxParams={ParamValues} pagination={false} onOperation={this.onOperation} loading={this.state.isLoading} 
+		 	<Table className="childTable" style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getStation' ajaxParams={ParamValues} pagination={false} onOperation={this.onOperation} loading={this.state.isLoading} 
 		 		onProcessData={(state)=>{
 		 			var listData  = state.listData;
 			 			listData.forEach(function(item){
@@ -525,7 +522,7 @@ export default class EmployessTable extends Component {
 				contentStyle={{width:465,height:630}}
 			>
 
-				<IframeContent src={this.getStationUrl()}  onClose={this.onIframeClose}  />
+				<IframeContent  width={390}  src={this.getStationUrl()}  onClose={this.onIframeClose}  />
 			</Dialog>
 
 		</div>

@@ -81,7 +81,7 @@ a,button,button:hover{
 		}
 	}
 
-	td{
+	&>td{
 		vertical-align:top;
 		height:60px;
 		line-height:60px;
@@ -111,6 +111,9 @@ a,button,button:hover{
 			left:5px;
 			top:0;
 		}
+		
+	}
+	td{
 		&:first-child{
 			border-right:1px solid #dfdfdf;
 			color:#333333;
@@ -254,7 +257,7 @@ a,button,button:hover{
 	}
 	.employees-content{
 		width:100%;
-		min-height:100px;
+		min-height:40px;
 		thead{
 			border:0 !important;
 		}
@@ -263,12 +266,23 @@ a,button,button:hover{
 			background:#eeeeee;
 			color:#555555;
 			height:40px !important;
+			line-height:40px !important;
 		}
 		td{
 			border:0px !important;
 			border-bottom:1px solid #dfdfdf;
 			color:#666666;
 			height:40px !important;
+			line-height:40px !important;
+			background:#ffffff !important;
+		}
+		&:first-child{
+			border-right:1px solid #dfdfdf;
+			color:#333333;
+			font-size:14px;
+		}
+		tr:last-child{
+			border-bottom:1px solid #dfdfdf;
 		}
 
 	}
