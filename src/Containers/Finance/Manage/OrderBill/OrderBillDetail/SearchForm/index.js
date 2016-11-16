@@ -24,6 +24,8 @@ import {
 	Dialog,
 	KrField,
 	Form,
+	ListGroup,
+	ListGroupItem,
 	ButtonGroup,
 } from 'kr-ui';
 import './index.less';
@@ -71,13 +73,20 @@ export default class SearchForm extends Component{
 					
 					<KrField grid={1} name="orderId" type="hidden"/>
 					<KrField grid={1} name="accountType" type="hidden"/>
-					<KrField grid={1/2} name="accountId" component="select" label="代码" options={codeList}/> 
-					<KrField grid={1/2} name="propertyId" type="select" label="款项" options={typeList}/>
-					<KrField grid={1/2} name="startTime" component="date" label="开始日期" />
-					<KrField grid={1/2} name="endTime" component="date" label="结束日期" />
+					<KrField grid={1/2} name="accountId" right={27} component="select" label="代码" options={codeList}/> 
+					<KrField grid={1/2} name="propertyId" right={27} type="select" label="款项" options={typeList}/>
+					<KrField grid={1/1}  component="group" label="日期" >
+					<div className='ui-listDate'><ListGroup>
+						<ListGroupItem><div className='ui-date-start'><KrField  name="startTime" component="date" /></div></ListGroupItem>
+						<div className='ui-line-down'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
+						<ListGroupItem><div className='ui-date-end'><KrField name="endTime" component="date" /></div></ListGroupItem>
+					</ListGroup>
+                    </div>
+				    </KrField>
+					
 					
 
-					<Grid style={{marginTop:20,marginBottom:5}}>
+					<Grid style={{marginTop:8,marginBottom:5}}>
 						<Row>
 							<Col md={12} align="center">
 								<ButtonGroup>

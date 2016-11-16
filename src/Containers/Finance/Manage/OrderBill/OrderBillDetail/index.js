@@ -869,6 +869,7 @@ export default class AttributeSetting  extends Component{
 						title="高级查询"
 						open={this.state.openSearch}
 						onClose={this.closeSearchDialog}
+						contentStyle ={{ width: '686'}}
 						>
 					   <SearchForm onCancel={this.closeSearchDialog} initialValues={searchValue} codeList={this.state.codeList} typeList={this.state.typeList} onSubmit={this.onSubmit}/>
 					 </Dialog>
