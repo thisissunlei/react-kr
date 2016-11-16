@@ -1,5 +1,8 @@
 import React from 'react';
-import {AppBar} from 'kr-ui';
+
+import {
+  Section
+} from 'kr-ui';
 
 
 export default class AppBarExampleSimple extends React.Component{
@@ -11,7 +14,7 @@ export default class AppBarExampleSimple extends React.Component{
         return (
 
             <div>
-             <AppBar title="KR-UI"/>
+              <Section title="订单列表"/>
             </div>
         );
     }

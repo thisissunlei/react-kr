@@ -19,7 +19,7 @@ const CheckboxPage = () => (
     <MarkdownElement text={checkboxReadmeText} />
 
     <CodeExample
-      title="AppBar"
+      title="KrDate"
       description={description}
       code={ExampleSimpleCode}
     >

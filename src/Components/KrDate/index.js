@@ -13,8 +13,14 @@ export default class KrDate extends React.Component {
 		format:'yyyy-mm-dd',
 	}
 
-	static PropTypes = {
+	static propTypes = {
+    /**
+    *
+    */
 		value:React.PropTypes.string,
+    /**
+    * yyyy-mm-dd hh:MM:ss
+    */
 		format:React.PropTypes.string
 	};
 

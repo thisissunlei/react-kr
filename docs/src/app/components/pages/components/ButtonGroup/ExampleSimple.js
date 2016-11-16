@@ -1,17 +1,20 @@
 import React from 'react';
 
 import {
-  KrDate
+  Button
 } from 'kr-ui';
 
 
-export default class ExampleSimple extends React.Component{
+export default class AppBarExampleSimple extends React.Component{
+
 
     render(){
 
+
         return (
+
             <div>
-             <KrDate value={new Date}  format="yyyy-mm-dd"/>
+             <Button label="KR-UI"/>
             </div>
         );
     }

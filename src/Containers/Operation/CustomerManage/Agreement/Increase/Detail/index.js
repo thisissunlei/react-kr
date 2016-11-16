@@ -12,21 +12,21 @@ import {
 	SplitLine,
 	DotTitle
 } from 'kr-ui';
+
 import {
 	View
 } from 'kr-ui/contractView';
+
 import dateFormat from 'dateformat';
 
 import {
 	KrField,
 	LabelText,
 } from 'kr-ui';
-import Date from 'kr-ui/Date';
-import RaisedButton from 'material-ui/RaisedButton';
 
 import {
 	Button
-} from 'kr-ui/Button';
+} from 'kr-ui';
 import {
 	Actions,
 	Store
@@ -173,8 +173,8 @@ export default class JoinDetail extends Component {
 										<TableRowColumn>
 											{item.unitprice}
 										</TableRowColumn>
-										<TableRowColumn><Date.Format value={item.leaseBeginDate}/></TableRowColumn>
-										<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
+										<TableRowColumn><KrDate value={item.leaseBeginDate}/></TableRowColumn>
+										<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
 									</TableRow>
 								);
 								})
