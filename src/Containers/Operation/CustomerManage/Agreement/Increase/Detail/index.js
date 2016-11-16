@@ -142,12 +142,11 @@ export default class JoinDetail extends Component {
 
 					
 					<KrField component="labelText"  label="备注：" value={basic.contractmark} defaultValue="无" requireBlue={true} inline={false}/>
-
 					<KrField component="group" label="上传附件：" requireBlue={true}>
-							{basic.contractFileList && basic.contractFileList.map((item,index)=>{
-								return <Button label={item.fileName} type="link" href={item.fileUrl} key={index}/>
-							})}
-			  		</KrField>
+						{basic.contractFileList && basic.contractFileList.map((item,index)=>{
+							return (<span style={{display:'block',lineHeight:'30px',paddingLeft:5}} key={index}><a href={item.fileUrl} style={{textDecoration:'none',color:'#499df1'}}>{item.fileName}</a></span>)
+						})}
+					</KrField>
 
 											
 					<DotTitle title='租赁明细'>
@@ -230,7 +229,7 @@ export default class JoinDetail extends Component {
 			  <Grid>
 				  <Row>
 					  <Col md={5} align="center"></Col>
-					 	<Col md={2} align="center">  <Button  label="返回"  type="href" joinEditForm href={getOrderUrl()}/></Col>
+					 	<Col md={2} align="center">  <Button  label="返回"  type="href" joinEditForm href={getOrderUrl()} width={100} height={40} fontSize={16}/></Col>
 					  <Col md={5} align="center"></Col>
 				  </Row>
 			  </Grid>

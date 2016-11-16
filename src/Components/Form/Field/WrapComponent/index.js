@@ -50,7 +50,7 @@ export default class  WrapComponent extends React.Component {
 		return (
 				<FormItem style={wrapStyle}>
 					<FormLabel label={label}  alignRight={alignRight} search={search} requireLabel={requireLabel} inline={inline} requireBlue={requireBlue}/>
-					<FormController style={style} search={search} inline={inline} alignRight={alignRight}>
+					<FormController style={style} search={search} inline={inline} alignRight={alignRight} requireBlue={requireBlue}>
 						{children}
 					</FormController>
 				</FormItem>

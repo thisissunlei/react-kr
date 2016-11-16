@@ -29,6 +29,7 @@ export default class Button extends Component {
 		cancle:React.PropTypes.bool,
 		width:React.PropTypes.number,
 		height:React.PropTypes.number,
+		fontSize:React.PropTypes.number,
 	}
 
 
@@ -49,6 +50,7 @@ export default class Button extends Component {
 			cancle,
 			width,
 			height,
+			fontSize,
 			...other
 		} = this.props;
 		let border = 'none';
@@ -72,6 +74,13 @@ export default class Button extends Component {
 		}
 		let labelStyle={
 			padding:0,
+			fontSize:fontSize|| 14
+		}
+		let FlatStyle= {
+			minWidth:30,
+			color:'#499df1',
+			height:height || 30,
+			lineHeight:height+'px' || "30px"
 		}
 
 
@@ -83,7 +92,7 @@ export default class Button extends Component {
 
 			return (
 				<div className="ui-button">
-					<FlatButton backgroundColor={backgroundColor} labelColor={labelColor} label={label} primary={true} style={{minWidth:30,color:'#499df1'}}  {...other}  />
+					<FlatButton backgroundColor={backgroundColor} labelColor={labelColor} label={label} primary={true} style={FlatStyle}  {...other}  />
 				</div>
 			);
 		}

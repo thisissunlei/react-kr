@@ -59,8 +59,9 @@ export default class Demo extends Component{
 					<Section title="demo" description="" >
 							<Checkbox  label="ahah" checked={true} />
 							<FontIcon className="icon-home"/>
-							<Button lable="haha" type="button" onTouchTab={this.onSubmit} />
-							<SearchForms onSubmit={this.onSubmit} />
+					sfdssdfsd
+
+							dffsfdf
 					</Section>
 			</div>
 

@@ -3,13 +3,17 @@ import React,{Component} from 'react';
 
 class KrCheckbox extends Component{
 
+	static defaultProps = {
+		checked:false
+	}
+
 	static propTypes = {
 		/**
-		 * Checkbox is checked if true.
+		 * Checkbox 选中时值为true
 		 */
 		checked:React.PropTypes.bool,
 		/**
-		 * The SvgIcon to use for the checked state.
+		 * 点选时回调该方法
 		 */
 		onCheck:React.PropTypes.func
 	};
