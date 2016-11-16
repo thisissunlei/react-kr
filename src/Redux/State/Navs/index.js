@@ -121,11 +121,12 @@ module.exports = {
 					menuItems:[
 						{
 							primaryText:"出租方管理",
+							menuCode:'lessorManage',
 							router:'/operation/customerManage/agreement/lessorManage/list',
 						},
 						{
 							primaryText:"合同配置",
-							menuCode:'',
+							menuCode:'agreement_setting',
 							router:'/operation/customerManage/agreement/setting/list',
 						},
 						{
