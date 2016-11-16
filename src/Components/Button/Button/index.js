@@ -76,6 +76,12 @@ export default class Button extends Component {
 			padding:0,
 			fontSize:fontSize|| 14
 		}
+		let FlatStyle= {
+			minWidth:30,
+			color:'#499df1',
+			height:height || 30,
+			lineHeight:height+'px' || "30px"
+		}
 
 
 		if (type == 'link') {
@@ -86,7 +92,7 @@ export default class Button extends Component {
 
 			return (
 				<div className="ui-button">
-					<FlatButton backgroundColor={backgroundColor} labelColor={labelColor} label={label} primary={true} style={{minWidth:30,color:'#499df1'}}  {...other}  />
+					<FlatButton backgroundColor={backgroundColor} labelColor={labelColor} label={label} primary={true} style={FlatStyle}  {...other}  />
 				</div>
 			);
 		}
