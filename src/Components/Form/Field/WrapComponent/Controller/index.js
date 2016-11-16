@@ -12,7 +12,9 @@ export default class  WrapComponent extends React.Component {
 		wrapStyle:React.PropTypes.object,
 		inline:React.PropTypes.bool,
 		alignRight:React.PropTypes.bool,
-		search:React.PropTypes.bool
+		search:React.PropTypes.bool,
+		requireBlue:React.PropTypes.bool,
+
 	}
 
 	constructor(props){
@@ -21,7 +23,7 @@ export default class  WrapComponent extends React.Component {
 
 	render(){
 
-		let {children,style,inline,simple,search, alignRight} = this.props;
+		let {children,style,inline,simple,requireBlue,search, alignRight} = this.props;
 
 		let className = 'ui-form-controller';
 		
@@ -37,7 +39,9 @@ export default class  WrapComponent extends React.Component {
 		if(alignRight){
 			className+=' alignRight';
 		}
-
+		if(requireBlue){
+			className+=' require-blue';
+		}
 			return (
 					<div className={className} style={style}>
 						{children}

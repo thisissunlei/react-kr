@@ -230,7 +230,7 @@ export default class JoinDetail extends Component {
 			  <Grid>
 				  <Row>
 					  <Col md={5} align="center"></Col>
-					 	<Col md={2} align="center">  <Button  label="返回"  type="href" joinEditForm href={getOrderUrl()}/></Col>
+					 	<Col md={2} align="center">  <Button  label="返回"  type="href" joinEditForm href={getOrderUrl()} width={100} height={40} fontSize={16}/></Col>
 					  <Col md={5} align="center"></Col>
 				  </Row>
 			  </Grid>
