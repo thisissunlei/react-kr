@@ -22,6 +22,7 @@ import {
   Dialog,
   Section,
   Grid,
+
   Button,
   Notify,
   BreadCrumbs,
@@ -46,7 +47,7 @@ export default class ItemTable extends Component {
   static PropTypes = {
     onDismantling: React.PropTypes.func,
     onStation: React.PropTypes.func,
-    index: React.PropTypes.number
+    isLoading: React.PropTypes.bool,
   }
 
 
@@ -169,7 +170,6 @@ export default class ItemTable extends Component {
     let {
       communityids,
       activity,
-      index
     } = this.props;
 
     let width = 660;
@@ -212,8 +212,6 @@ export default class ItemTable extends Component {
                 <div className="tip hide  hover">
                       查看员工 <span className = "bArrow"></span>
                 </div>
-
-
 						</td>
 					</tr>
 

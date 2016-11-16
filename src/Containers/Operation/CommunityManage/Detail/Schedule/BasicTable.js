@@ -29,7 +29,8 @@ import {
 	Form,
 	Row,
 	Col,
-	SearchForms
+	SearchForms,
+	Loading,
 } from 'kr-ui';
 import $ from 'jquery';
 import './index.less';
@@ -213,6 +214,7 @@ export default class BasicTable extends Component {
 			nowDate: '',
 			isIscroll: true,
 			totalCount: '',
+			isLoading: false,
 
 		};
 		this.getInstallmentplan();
@@ -265,17 +267,11 @@ export default class BasicTable extends Component {
 					var step = 5;
 					var size = pageSize;
 
-					/*if (!totalCount) {
-						size += step;
-						_this.setState({
-							pageSize: size
-						})
-					} else */
-
 					if (totalCount > pageSize) {
 						size += step;
 						_this.setState({
-							pageSize: size
+							pageSize: size,
+							isLoading: !_this.state.isLoading
 						})
 
 
@@ -298,8 +294,12 @@ export default class BasicTable extends Component {
 								_this.setState({
 									isIscroll: !_this.state.isIscroll
 								})
-
 							}
+							window.setTimeout(function() {
+								_this.setState({
+									isLoading: !_this.state.isLoading
+								})
+							}, 100)
 
 						}).catch(function(err) {
 							Notify.show([{
@@ -521,16 +521,17 @@ export default class BasicTable extends Component {
 			Installmentplan,
 			rate,
 			communityIds,
-			totalCount
+			totalCount,
+			isLoading
 		} = this.state;
 		var _this = this;
 		const id = communityIds
 		this.scrollLoad();
-		console.log('-----totalCount', totalCount)
+		console.log('-----totalCount', isLoading)
 
 		return (
-			<div>
-
+			<div >
+			{isLoading?<div style={{position:'fixed',left:'50%',top:'40%',zIndex:100}}><Loading/></div>:''}
 			<SearchForm  onSubmit={this.onSubmit} onChange={this.onChange}/>
 		 	<div className="basic-con">
 		 		<div className="legend">
@@ -601,11 +602,13 @@ export default class BasicTable extends Component {
 							return (
 
 							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item} index={index} key={index} onStation={this.onStation} activity={this.state.activity} />
+							
 								
 							)
 
 						})
 					}
+
 				</tbody>
 			</table>
 
