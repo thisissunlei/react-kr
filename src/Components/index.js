@@ -13,6 +13,7 @@ import KrDate from './Date';
 import Loading from './Loading';
 import Pagination from './Pagination';
 import Button from './Button';
+import ButtonGroup from './ButtonGroup';
 import ListGroup from './ListGroup';
 import Checkbox from './Checkbox';
 import RadioButton from './RadioButton';
@@ -78,7 +79,8 @@ module.exports = {
 	SelfAdaption,
 	...Form,
 	...Table,
-	...Button,
+	Button,
+	ButtonGroup,
 	...List,
 	...ListGroup,
 	AppBar,
