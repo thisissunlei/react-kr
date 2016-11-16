@@ -364,12 +364,20 @@ export default class BasicTable extends Component {
 	}
 
 	onChange(id) {
+		this.setState({
+			page: 1,
+			isIscroll: true
+		})
 		let {
 			type,
 			page,
 			pageSize,
+			totalPages,
+			isIscroll
 		} = this.state
+
 		var _this = this;
+
 		Store.dispatch(Actions.callAPI('getInstallmentplan', {
 			communityids: id,
 			value: '',
@@ -383,7 +391,16 @@ export default class BasicTable extends Component {
 				rate: response.rate,
 				communityIds: id,
 				totalPages: response.vo.totalPages,
+				istip: ' '
 			});
+
+			window.setTimeout(function() {
+				_this.setState({
+					istip: false
+				});
+			}, 100)
+
+
 
 		}).catch(function(err) {
 			Notify.show([{
@@ -522,6 +539,11 @@ export default class BasicTable extends Component {
 					totalCount: totalCount,
 					totalPages: totalPages,
 				});
+				if (totalPages > page) {
+					_this.setState({
+						isIscroll: true
+					})
+				}
 
 			}).catch(function(err) {
 
@@ -577,10 +599,12 @@ export default class BasicTable extends Component {
 			isLoading,
 			totalPages,
 			istip,
-			page
+			page,
+			isIscroll
 		} = this.state;
 		var _this = this;
 		const id = communityIds;
+
 		let {
 			tab
 		} = this.props;
