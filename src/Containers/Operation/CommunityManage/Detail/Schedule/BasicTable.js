@@ -199,6 +199,7 @@ export default class BasicTable extends Component {
 		this.onChange = this.onChange.bind(this);
 		this.onStation = this.onStation.bind(this);
 		this.scrollLoad = this.scrollLoad.bind(this);
+		this.renderNone = this.renderNone.bind(this);
 		this.state = {
 			currentYear: '2016',
 			dismantling: false,
@@ -286,7 +287,13 @@ export default class BasicTable extends Component {
 							page: len,
 							pageSize: pageSize
 						})).then(function(response) {
-							var list = Installmentplan.concat(response.vo.items)
+
+							if(response.vo){
+								var list = Installmentplan.concat(response.vo.items)
+							}else{
+								var list = [];
+							}
+							
 
 							_this.setState({
 								Installmentplan: list, //response.vo.items,
@@ -494,12 +501,21 @@ export default class BasicTable extends Component {
 				pageSize: pageSize,
 				year: _this.state.currentYear,
 			})).then(function(response) {
+				if(response.vo){
+					var list = response.vo.items;
+					var totalCount = response.vo.totalCount;
+					var totalPages = response.vo.totalPages;
+				}else{
+					var list = [];
+					var totalCount = 0;
+					var totalPages = 0;
+				}
 
 				_this.setState({
-					Installmentplan: response.vo.items || [],
+					Installmentplan: list,
 					rate: response.rate,
-					totalCount: response.vo.totalCount,
-					totalPages: response.vo.totalPages,
+					totalCount: totalCount,
+					totalPages: totalPages,
 				});
 
 			}).catch(function(err) {
@@ -520,7 +536,28 @@ export default class BasicTable extends Component {
 
 
 	}
+	renderNone(showNone){
+		let {rate} = this.state;
+		if(!showNone){
+			return (
+				<tr style={{height:300}}>
+						<td colSpan={14} style={{border:'none'}}>
+							<div style={{textAlign:'center'}}>
+								<div className="ui-nothing">
+									<div className="icon"></div>
+									<p className="tip">暂时还没有数据呦~</p>
+								</div>
+							</div>
+						</td>
+						
+					</tr>
 
+
+
+
+			)
+		}
+	}
 
 
 	render() {
@@ -545,6 +582,13 @@ export default class BasicTable extends Component {
 		} else {
 			$(window).unbind('scroll', this.scrollLoad());
 		}
+		let showNone;
+		if(Installmentplan.length){
+			showNone = true;
+		}else{
+			showNone = false;
+		}
+
 
 		return (
 			<div >
@@ -615,7 +659,7 @@ export default class BasicTable extends Component {
 					</tr>
 					
 					{
-						Installmentplan && Installmentplan.map((item,index)=>{
+						showNone && Installmentplan.map((item,index)=>{
 							
 							return (
 
@@ -625,6 +669,9 @@ export default class BasicTable extends Component {
 							)
 
 						})
+					}
+					{
+						this.renderNone(showNone)
 					}
 					
 					
