@@ -158,9 +158,12 @@ export default class SearchParam extends Component{
 		              {detailPayment.map((item,index)=>{
 					        var className;
 					        var classPic;
-			                if (this.state.active== index||this.state.myReceive==index) {
+			                if (this.state.active== index) {
 			                   className = 'active';
 			                   classPic='activePic'
+			                }else if(this.state.myReceive==index){
+                               className = 'active_hover';
+			                   classPic='pic_color'
 			                }
 			                 else{
 			                   className = 'ui-listGroupItem';
@@ -188,9 +191,12 @@ export default class SearchParam extends Component{
 		              {detailIncome.map((item,index)=>{
 		              	    var className;
 					        var classPic;
-			                if (this.state.activeI== index||this.state.myIncome==index) {
+			                if (this.state.activeI== index) {
 			                   className = 'active';
 			                   classPic='activePic'
+			                }else if(this.state.myIncome==index){
+                               className = 'active_hover';
+			                   classPic='pic_color'
 			                }
 			                 else{
 			                   className = 'ui-listGroupItem';
