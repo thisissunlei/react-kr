@@ -608,7 +608,8 @@ class NewCreateForm extends Component {
 						<ListGroup>
 							<ListGroupItem style={{width:'45%',textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit"  /> </ListGroupItem>
 							<ListGroupItem style={{width:'45%',textAlign:'left',paddingLeft:15}}> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </ListGroupItem>
-						</ListGroup></Row>
+						</ListGroup>
+						</Row>
 						</Grid>
 
 						</form>
