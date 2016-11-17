@@ -700,7 +700,7 @@ export default class BasicTable extends Component {
 						<td className='white'>
 							<div className="header-title">
 								<p className="title-right">入驻率</p>
-								<p  className="title-left">订单名称</p>
+								
 							</div>
 						</td>
 						{
