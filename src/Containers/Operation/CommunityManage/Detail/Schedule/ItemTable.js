@@ -193,7 +193,7 @@ export default class ItemTable extends Component {
 							</ReactTooltip>
 							</div>
 						</td>
-						<td colSpan="12" style={{padding:'10 0'}}>
+						<td colSpan="12" style={{padding:'10px 0'}}>
               <D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} width={width} id={detail.billId}/>
               <EmployessTable  activity={detail.activity} detail={detail} id={id} />
 						</td>
