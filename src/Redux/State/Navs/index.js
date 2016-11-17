@@ -33,7 +33,7 @@ module.exports = {
 			menuItems: [{
 				primaryText: '计划表',
 				menuCode: 'plan_table',
-				router: '/operation/communityManage/3/detail'
+				router: '/operation/communityManage/detail'
 			}, {
 				primaryText: '访客记录',
 				menuCode: 'sysVisitRecordList',
