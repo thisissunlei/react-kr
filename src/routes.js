@@ -65,6 +65,11 @@ export default (
 		{/*社区经营*/}
 		<Route path="community" component={Basic}>
 			<Route path="index" component={Community.Home}/>
+			{/*计划表*/}
+
+			<Route path="communityManage" component={Basic}>
+					<Route path="detail" component={Operation.CommunityManage.Detail}/>
+			</Route>
 		</Route>
 
 		{/*OA办公*/}
@@ -81,10 +86,7 @@ export default (
 		{/*运营管理*/}
 		<Route path="operation" component={Basic}>
 				<Route path="index" component={Operation.Home}/>
-				{/*社区管理*/}
-				<Route path="communityManage" component={Basic}>
-					<Route path="detail" component={Operation.CommunityManage.Detail}/>
-				</Route>
+				
 
               {/*客户管理*/}
 				<Route path="customerManage" component={Basic}>
