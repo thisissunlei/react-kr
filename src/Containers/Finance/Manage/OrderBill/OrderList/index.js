@@ -301,7 +301,7 @@ export default class AttributeSetting extends Component {
 						title="高级查询"
 						modal={true}
 						open={this.state.openNewCreate}
-						onClose={this.openNewCreateDialog}
+						onClose={this.openNewCreateDialog} bodyStyle={{paddingTop:34}}
 					>
 						<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 

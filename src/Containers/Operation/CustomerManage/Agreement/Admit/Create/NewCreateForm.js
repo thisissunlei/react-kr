@@ -459,7 +459,7 @@ class NewCreateForm extends Component {
 
 	<Paper width={968}>
 
-	<form onSubmit={handleSubmit(this.onSubmit)}>
+	<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}>
 
 								<KrField grid={1/2}  name="stationnum" type="hidden" component="input" />
 								<KrField grid={1/2}  name="boardroomnum" type="hidden" component="input" />
@@ -547,21 +547,14 @@ class NewCreateForm extends Component {
 							 </Table>
 
                </DotTitle>
-
-				<Grid>
-					<Row style={{marginTop:30}}>
-						<Col md={12} align="center">
-							<ListGroup>
-								<ListGroupItem>
-									 <Button  label="确定" type="submit" primary={false} disabled={pristine || submitting} />
-								</ListGroupItem>
-								<ListGroupItem style={{paddingLeft:20}}>
-									<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel}/>
-								</ListGroupItem>
-							</ListGroup>
-						 </Col>
-					</Row>
-				</Grid>
+						<Grid style={{paddingBottom:50}}>
+						<Row>
+						<ListGroup>
+							<ListGroupItem style={{width:'47%',textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit" disabled={pristine || submitting}  width={100} height={40} fontSize={16}/></ListGroupItem>
+							<ListGroupItem style={{width:'47%',textAlign:'left',paddingLeft:15}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}  width={100} height={40} fontSize={16}/></ListGroupItem>
+						</ListGroup>
+						</Row>
+						</Grid>
 
 			</form>
 	</Paper>

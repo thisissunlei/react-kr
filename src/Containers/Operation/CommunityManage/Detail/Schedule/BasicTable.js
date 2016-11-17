@@ -34,6 +34,7 @@ import {
 } from 'kr-ui';
 import $ from 'jquery';
 import './index.less';
+import ReactDOM from 'react-dom';
 
 import EmployessTable from './EmployessTable';
 import ItemTable from './ItemTable';
@@ -223,6 +224,7 @@ export default class BasicTable extends Component {
 
 		};
 		this.getInstallmentplan();
+		this.getWidth = this.getWidth.bind(this);
 
 	}
 
@@ -602,6 +604,15 @@ export default class BasicTable extends Component {
 			)
 		}
 	}
+	getWidth(){
+			const list = ReactDOM.findDOMNode(this.trLength);
+			let th = list.getElementsByTagName('th')[1].offsetWidth;
+			let length = th*12;
+			return 0;
+
+
+
+		}
 
 
 	render() {
@@ -636,6 +647,8 @@ export default class BasicTable extends Component {
 		} else {
 			showNone = false;
 		}
+		
+		
 
 
 		return (
@@ -673,7 +686,7 @@ export default class BasicTable extends Component {
 		 	
 			<table className="basic-table" >
 				<thead>
-					<tr>
+					<tr ref={tr=>{this.trLength = tr}}>
 						<th onClick={this.onPreYear} className="pre-year">
 							{currentYear -1}年 <span className="prev"></span>
 						</th>
@@ -712,9 +725,10 @@ export default class BasicTable extends Component {
 					{
 						showNone && Installmentplan.map((item,index)=>{
 							
+							console.log(this.getWidth());
 							return (
 
-							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item} index={index} key={index} onStation={this.onStation} activity={this.state.activity} />
+							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item} index={index} key={index} onStation={this.onStation} activity={this.state.activity} width={this.getWidth()} />
 							
 								
 							)
