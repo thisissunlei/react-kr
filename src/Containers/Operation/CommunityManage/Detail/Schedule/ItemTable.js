@@ -183,7 +183,7 @@ export default class ItemTable extends Component {
 
 							<div className="company-name" data-tip data-for={`${detail.companyName}`}> 
               {
-                detail.billName
+                detail.companyName
               }
 							<ReactTooltip place="right" id={`${detail.companyName}`}>
 								<ul>
