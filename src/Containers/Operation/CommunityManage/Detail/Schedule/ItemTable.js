@@ -181,11 +181,11 @@ export default class ItemTable extends Component {
       <tr className="last-td"   >
 						<td className="company-list">
 
-							<div className="company-name" data-tip data-for={`${detail.companyName}`}> 
+							<div className="company-name" data-tip data-for={`${detail.billName}`}> 
               {
-                detail.companyName
+                detail.billName
               }
-							<ReactTooltip place="right" id={`${detail.companyName}`}>
+							<ReactTooltip place="right" id={`${detail.billName}`}>
 								<ul>
 								{
 									this.renderOrder(detail.contractTypeVo)
