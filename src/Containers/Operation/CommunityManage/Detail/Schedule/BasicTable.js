@@ -29,7 +29,8 @@ import {
 	Form,
 	Row,
 	Col,
-	SearchForms
+	SearchForms,
+	Loading,
 } from 'kr-ui';
 import $ from 'jquery';
 import './index.less';
@@ -39,7 +40,9 @@ import ItemTable from './ItemTable';
 import DismantlingForm from './DismantlingForm';
 
 class SearchForm extends Component {
-
+	static defaultProps = {
+		tab: '',
+	}
 	constructor(props) {
 		super(props);
 
@@ -54,7 +57,8 @@ class SearchForm extends Component {
 			page: 1,
 			pageSize: 5,
 			type: 'BILL',
-			communityids: ''
+			communityids: '',
+
 
 		};
 		this.getcommunity = this.getcommunity.bind(this);
@@ -159,10 +163,11 @@ class SearchForm extends Component {
 		}];
 
 		return (
-			<form name="searchForm" className="searchForm" style={{borderBottom:'2px solid #eee',marginBottom:10,paddingBottom:'20px'}}>
+			<form name="searchForm" className="searchForm searchList" style={{borderBottom:'2px solid #eee',marginBottom:10,paddingBottom:'15px',height:45}}>
 				{/*<KrField  name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} left={60}/>*/}
-				<KrField name="community"  grid={1/3} component="select" label="社区" search={true}  options={communityIdList} onChange={this.selectCommunity} />
+				
 				<SearchForms onSubmit={this.onSubmit} searchFilter={options} />
+				<KrField name="community"  grid={1/3} component="select" label="社区" search={true}  options={communityIdList} onChange={this.selectCommunity} />
 			</form>
 
 
@@ -192,7 +197,9 @@ export default class BasicTable extends Component {
 		this.getInstallmentplan = this.getInstallmentplan.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onChange = this.onChange.bind(this);
-		//this.scrollLoad = this.scrollLoad.bind(this);
+		this.onStation = this.onStation.bind(this);
+		this.scrollLoad = this.scrollLoad.bind(this);
+		this.renderNone = this.renderNone.bind(this);
 		this.state = {
 			currentYear: '2016',
 			dismantling: false,
@@ -206,6 +213,13 @@ export default class BasicTable extends Component {
 			type: 'BILL',
 			detail: {},
 			activity: false,
+			nowDate: '',
+			isIscroll: true,
+			totalCount: '',
+			isLoading: false,
+			totalPages: '',
+			istip: false,
+			dataLoading: true,
 
 		};
 		this.getInstallmentplan();
@@ -234,24 +248,90 @@ export default class BasicTable extends Component {
 		$(window).bind('scroll', function() {
 			var top = $(window).scrollTop() || 0;
 			var height = $(window).height() || 0;
-			// var scrollBottom = $('#planTable').offset().top +1000 - top - height;
-			var scrollBottom = height - top;
-			var isOutBoundary = scrollBottom >= 100;
+			var num = $(document).height() - $(window).height();
+			var scrollBottom = top - num;
 
-			if (!isOutBoundary) {
+			var isOutBoundary = scrollBottom >= 0;
+
+			if (isOutBoundary) {
+
 				let {
 					communityIds,
 					type,
 					page,
 					pageSize,
 					value,
-					Installmentplan
-				} = _this.state
-					/*if (page < 10) {
+					Installmentplan,
+					isIscroll,
+					totalCount,
+					totalPages,
+					istip
+				} = _this.state;
+				if (isIscroll) {
+					_this.setState({
+						isIscroll: !_this.state.isIscroll
+					})
+
+					var step = 1;
+					var len = page;
+					if (totalPages - page == 1) {
+						window.setTimeout(function() {
+							_this.setState({
+								istip: !_this.state.istip
+							})
+						}, 1000)
+					}
+
+					if (totalPages > page) {
+						len += step;
 						_this.setState({
-							page: _this.state.page++
+							page: len,
+							isLoading: !_this.state.isLoading
 						})
-					}*/
+						Store.dispatch(Actions.callAPI('getInstallmentplan', {
+							communityids: communityIds,
+							value: value,
+							type: type,
+							page: len,
+							pageSize: pageSize
+						})).then(function(response) {
+
+							if (response.vo) {
+								var list = Installmentplan.concat(response.vo.items)
+							} else {
+								var list = [];
+							}
+
+
+							_this.setState({
+								Installmentplan: list, //response.vo.items,
+								rate: response.rate,
+							});
+
+							if (_this.state.page < _this.state.totalPages) {
+
+								_this.setState({
+									isIscroll: !_this.state.isIscroll
+								})
+							}
+							window.setTimeout(function() {
+								_this.setState({
+									isLoading: !_this.state.isLoading
+								})
+							}, 100)
+
+						}).catch(function(err) {
+							Notify.show([{
+								message: err.message,
+								type: 'danger',
+							}]);
+						});
+
+
+					}
+
+
+				}
 
 
 
@@ -275,26 +355,53 @@ export default class BasicTable extends Component {
 
 	}
 
+
+	//分配工位显示
+	onStation() {
+		this.setState({
+			activity: !this.state.activity
+		});
+
+	}
+
 	onChange(id) {
+		this.setState({
+			page: 1,
+			isIscroll: true
+		})
 		let {
 			type,
 			page,
 			pageSize,
+			totalPages,
+			isIscroll
 		} = this.state
+
 		var _this = this;
+
 		Store.dispatch(Actions.callAPI('getInstallmentplan', {
 			communityids: id,
 			value: '',
 			type: type,
-			page: page,
-			//pageSize: pageSize
-			pageSize: 10
+			page: 1,
+			pageSize: pageSize
+
 		})).then(function(response) {
 			_this.setState({
 				Installmentplan: response.vo.items || [],
 				rate: response.rate,
-				communityIds: id
+				communityIds: id,
+				totalPages: response.vo.totalPages,
+				istip: ' '
 			});
+
+			window.setTimeout(function() {
+				_this.setState({
+					istip: false
+				});
+			}, 100)
+
+
 
 		}).catch(function(err) {
 			Notify.show([{
@@ -305,17 +412,24 @@ export default class BasicTable extends Component {
 	}
 	onSubmit(formValues) {
 		var _this = this;
-		if (formValues.type != "BILL") {
-			_this.setState({
-				activity: !this.state.activity
-			});
+		var activity = true;
+		if (formValues.type == "BILL") {
+			activity = false;
 		}
+
 		Store.dispatch(Actions.callAPI('getInstallmentplan', formValues)).then(function(response) {
 
-			_this.setState({
-				Installmentplan: response.vo.items,
-				rate: response.rate,
+			var Installmentplan = response.vo.items;
+			Installmentplan.forEach(function(item, index) {
+				item.activity = activity;
 			});
+
+			_this.setState({
+				Installmentplan,
+				rate: response.rate,
+				totalPages: response.vo.totalPages,
+			});
+
 
 
 		}).catch(function(err) {
@@ -408,15 +522,33 @@ export default class BasicTable extends Component {
 				type: type,
 				page: page,
 				pageSize: pageSize,
-				year: _this.state.currentYear
+				year: _this.state.currentYear,
 			})).then(function(response) {
+				if (response.vo) {
+					var list = response.vo.items;
+					var totalCount = response.vo.totalCount;
+					var totalPages = response.vo.totalPages;
+				} else {
+					var list = [];
+					var totalCount = 0;
+					var totalPages = 0;
+				}
 
 				_this.setState({
-					Installmentplan: response.vo.items || [],
-					rate: response.rate
+					Installmentplan: list,
+					rate: response.rate,
+					totalCount: totalCount,
+					totalPages: totalPages,
+					dataLoading: false
 				});
+				if (totalPages > page) {
+					_this.setState({
+						isIscroll: true
+					})
+				}
 
 			}).catch(function(err) {
+
 				Notify.show([{
 					message: err.message,
 					type: 'danger',
@@ -433,7 +565,43 @@ export default class BasicTable extends Component {
 
 
 	}
+	renderNone(showNone) {
+		let {
+			rate,
+			dataLoading
+		} = this.state;
+		if (dataLoading) {
+			return (
+				<tr style={{height:200,position:'relative'}}>
+						<td colSpan={14} style={{border:'none'}}>
+						<div style={{left:'50%',top:'40%',zIndex:100}}><Loading/></div>
+						</td>
+						
+					</tr>
 
+
+
+			)
+		}
+		if (!showNone && !dataLoading) {
+			return (
+				<tr style={{height:300}}>
+						<td colSpan={14} style={{border:'none'}}>
+							<div style={{textAlign:'center'}}>
+								<div className="ui-nothing">
+									<div className="icon"></div>
+									<p className="tip">暂时还没有数据呦~</p>
+								</div>
+							</div>
+						</td>
+						
+					</tr>
+
+
+
+			)
+		}
+	}
 
 
 	render() {
@@ -442,14 +610,40 @@ export default class BasicTable extends Component {
 			currentYear,
 			Installmentplan,
 			rate,
-			communityIds
+			communityIds,
+			totalCount,
+			isLoading,
+			dataLoading,
+			totalPages,
+			istip,
+			page,
+			isIscroll
 		} = this.state;
 		var _this = this;
-		const id = communityIds
-			//this.scrollLoad();
-		return (
-			<div>
+		const id = communityIds;
 
+		let {
+			tab
+		} = this.props;
+		if (tab === 'table') {
+			this.scrollLoad();
+		} else {
+			$(window).unbind('scroll', this.scrollLoad());
+		}
+		let showNone;
+		if (Installmentplan.length) {
+			showNone = true;
+		} else {
+			showNone = false;
+		}
+
+
+		return (
+			<div style={{position:'relative'}}>
+			{isLoading?<div style={{position:'fixed',left:'50%',top:'40%',zIndex:100}}><Loading/></div>:''}
+			{istip?<div style={{width:640,color:'#999',fontSize:'14px',position:'absolute',left:'50%',bottom:'-73px',marginLeft:'-320px',zIndex:100}}><p style={{width:260,borderBottom:'1px solid #cccccc',height:9,float:'left'}} ></p><p style={{float:'left',paddingLeft:'15px',paddingRight:'15px'}}>我是有底线的</p><p style={{width:260,height:9,borderBottom:'1px solid #cccccc',float:'left'}} ></p></div>:''}
+			
+					
 			<SearchForm  onSubmit={this.onSubmit} onChange={this.onChange}/>
 		 	<div className="basic-con">
 		 		<div className="legend">
@@ -512,18 +706,27 @@ export default class BasicTable extends Component {
 						{
 							rate.map((value,index)=><td>{value}</td>)
 						}
-						<td></td>
+						<td class="last"></td>
 					</tr>
+
 					{
-						Installmentplan && Installmentplan.map((item,index)=>{
+						showNone && Installmentplan.map((item,index)=>{
+							
 							return (
 
-							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item} key={index} />
+							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item} index={index} key={index} onStation={this.onStation} activity={this.state.activity} />
+							
 								
 							)
 
 						})
 					}
+					{
+						this.renderNone(showNone)
+					}
+					
+					
+
 				</tbody>
 			</table>
 
@@ -532,7 +735,9 @@ export default class BasicTable extends Component {
 				title="撤场日期"
 				modal={true}
 				onClose={this.openDismantlingDialog}
-				open={this.state.dismantling} >
+				open={this.state.dismantling} 
+				contentStyle={{width:445}}
+				>
 				<DismantlingForm  onSubmit={this.onConfrimSubmit} onCancel={this.openDismantlingDialog} detail={this.state.detail} />
 			 </Dialog>
 			

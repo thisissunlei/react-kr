@@ -9,10 +9,11 @@ a,button,button:hover{
 }
 .legend{
 	width:300px;
-	height:80px;
+	height:70px;
 	font-size:14px;
 	color:#999999;
 	float: left;
+	margin-bottom: 45px;
 	.legend-left{
 		float:left;
 		width:150px;
@@ -65,7 +66,8 @@ a,button,button:hover{
 
 
 .basic-table{
-	 width: 980px;   
+	 width:100%;
+	 min-width: 980px;   
 	 border-spacing: initial;
 	 border:0;
 	 font-size:16px;
@@ -74,17 +76,21 @@ a,button,button:hover{
 	}
 	.header-td{
 		td{
-			height:80px;
-			line-height:80px;
+			height:40px;
+			line-height:40px;
+		}
+		td:nth-child(13){
+			border-right:1px solid #dfdfdf !important;
 		}
 	}
 
-	td{
+	&>td{
 		vertical-align:top;
 		height:60px;
+		line-height:60px;
 		text-align:center;
 		color:#333333;
-
+		background:#ffffff !important;
 		.header-title{
 			height:60px;
 			width:100%;
@@ -108,18 +114,30 @@ a,button,button:hover{
 			left:5px;
 			top:0;
 		}
+		
+	}
+	.last-td{
+			td{
+				border-right:1px solid #dfdfdf !important;	
+			}
+		}
+	
+	td{
 		&:first-child{
 			border-right:1px solid #dfdfdf;
 			color:#333333;
 			font-size:14px;
+			text-align:center;
 		}
+
 		&:last-child{
-			border-left:1px solid #dfdfdf;
+			border-right:none !important;
 			button{
 				width:40px;
 				height:40px !important;
 				float:left;
 				margin-right:10px !important;
+				text-align:center;
 			}
 		}
 	}
@@ -173,7 +191,8 @@ a,button,button:hover{
 		background:#f8f8f8;
 	}
 	.company-name{
-		width:150px;
+		min-width:150px;
+		width:100%;
 		height:50px;
 		top:0;
 		padding-top:15px;
@@ -250,7 +269,7 @@ a,button,button:hover{
 	}
 	.employees-content{
 		width:100%;
-		min-height:100px;
+		min-height:40px;
 		thead{
 			border:0 !important;
 		}
@@ -259,12 +278,23 @@ a,button,button:hover{
 			background:#eeeeee;
 			color:#555555;
 			height:40px !important;
+			line-height:40px !important;
 		}
 		td{
 			border:0px !important;
 			border-bottom:1px solid #dfdfdf;
 			color:#666666;
 			height:40px !important;
+			line-height:40px !important;
+			background:#ffffff !important;
+		}
+		&:first-child{
+			border-right:1px solid #dfdfdf;
+			color:#333333;
+			font-size:14px;
+		}
+		tr:last-child{
+			border-bottom:1px solid #dfdfdf;
 		}
 
 	}
@@ -370,11 +400,43 @@ a,button,button:hover{
 		padding-top:5px;
 	}
 }
-.hide{
-	display:none;
-}
+
 .btnlist{
 	position:relative;
+	text-align:center;
+	left:0;
+	top:0;
+	display:block !important;
+	.btnCon{
+		width:170px;
+		height:45px;
+		display:inline-block;
+		.ui-button{
+			margin-left:1%;
+			&:hover{
+				&:nth-child(1)+.tip{
+					position:absolute;
+					left:10px;
+					top:-40px;
+					display:block !important;
+				}
+				&:nth-child(3)+.tip{
+					position:absolute;
+					left:60px;
+					top:-40px;
+					display:block !important;
+				}
+				&:nth-child(5)+.tip{
+					position:absolute;
+					left:110px;
+					top:-40px;
+					display:block !important;
+				}
+			}
+			
+		}
+	}
+	
 	
 }
 .Station{
@@ -390,17 +452,7 @@ a,button,button:hover{
 	div{
 		width:100%;
 		height:100%;
-		overflow:hidden;
-	}
-	
-	&:hover{
 		
-		&+.tip{
-			position:absolute;
-			left:-10px;
-			top:-40px;
-			display:block !important;
-		}
 	}
 }
 .Dismantling{
@@ -418,17 +470,9 @@ a,button,button:hover{
 		overflow:hidden;
 	}
 	
-	&:hover{
-		
-		&+.tip{
-			position:absolute;
-			left:30px;
-			top:-40px;
-			display:block !important;
-		}
-	}
+	
 }
-.preson{
+.Preson{
 	width:40px !important;
 	height:40px !important;
 	border-radius:100%;
@@ -443,15 +487,7 @@ a,button,button:hover{
 		overflow:hidden;
 	}
 	
-	&:hover{
-		
-		&+.tip{
-			position:absolute;
-			left:70px;
-			top:-40px;
-			display:block !important;
-		}
-	}
+	
 }
 .hover{
 	width:80px;
@@ -484,13 +520,33 @@ a,button,button:hover{
 
 }
 
-.search{
-	width:550px;
-	float:right;
-	height:80px;
-	
-}
 
+.searchList{
+
+	.ui-form-item{
+		float:right;
+	}
+	.search-form{
+		float:right;
+		margin-top:8px;
+	}
+}
+.ui-nothing{
+	width:180px;
+	height:240px;
+	margin-left:auto;
+	margin-right:auto;
+	.icon{
+		width:139px;
+		height:196px;
+		background:url('images/nothings.png') no-repeat center center;
+		background-size:100% 100%;
+	}
+	.tip{
+		font-size:18px;
+		color:#666666;
+	}
+}
 
 
 

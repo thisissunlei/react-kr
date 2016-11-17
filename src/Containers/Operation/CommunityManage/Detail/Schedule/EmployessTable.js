@@ -34,7 +34,8 @@ import {
 	Form,
 	KrField,
 	IframeContent,
-	Notify
+	Notify,
+	ButtonGroup
 } from 'kr-ui';
 
 class Distribution extends Component {
@@ -86,13 +87,21 @@ class Distribution extends Component {
 				<KrField name="id" type="hidden"/>
 				<KrField name="customerId" type="hidden"/>
 				<KrField name="communityId" type="hidden"/>
-				<div style={{textAlign:"center",marginBottom:'20px'}}>
-					{detail.companyName}{detail.id}序号员工为<KrField name="memberId"component="select" grid={2/3}  options={optionValues.member}/>
+				<div style={{textAlign:"center",marginTop:'45px',fontSize:'14px'}}>
+					<div style={{textAlign:"center",marginBottom:'20px'}}>{detail.companyName}{detail.id}序号员工为</div>
+					<KrField name="memberId"component="select" grid={2/3}  options={optionValues.member}/>
 				</div>
-				<Grid>
-					<Row style={{marginTop:30,marginBottom:100}}>
-					<Col md={2} align="right"> <Button  label="确定" type="submit" joinEditForm  onSubmit={this.onSubmit}/> </Col>
-					<Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
+				<Grid style={{marginTop:'20px',marginBottom:'10px'}}>
+					<Row >
+					<Col md={2} align="right">  </Col>
+					<Col md={2} align="right">  </Col> 
+						<Col md={12} align="center"> 
+							<ButtonGroup>
+								<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm  onSubmit={this.onSubmit} width={90} height={34}/></div>
+								<Button  label="取消" type="button"  onTouchTap={this.onCancel} cancle={true} height={32} width={90} />
+							</ButtonGroup>
+						 </Col>
+					</Row>
 				</Grid>
 			</Form>
 
@@ -142,20 +151,26 @@ class ChangeStation extends Component {
 
 		initialValues.customerId = customerId;
 		initialValues.communityId = communityId;
-		console.log('detail---', detail)
+
 		return (
 
-			<Form name="jyayayoin" initialValues={initialValues} onSubmit={this.onSubmit}>
+			<Form name="jyayayoin" className="change" initialValues={initialValues} onSubmit={this.onSubmit}>
 			<KrField name="id" type="hidden"  />
 			<KrField name="customerId" type="hidden"/>
 			<KrField name="communityId" type="hidden"/>
-			<div style={{textAlign:"center",marginBottom:150}}>
-				{detail.companyName}{detail.id}序号员工为{detail.memberName},变更为员工<KrField name="memberId"component="select" grid={2/3}  options={optionValues.members}/>
+			<div style={{textAlign:"center",marginTop:'45px'}}>
+				<div className="info" style={{paddingBottom:20,color:'#333333'}}>{detail.companyName}{detail.id}序号员工为{detail.memberName},</div>
+				<KrField label="更为员工"  name="memberId"component="select" grid={2/3}  options={optionValues.members} inline={true} />
 			</div>
-			<Grid>
-				<Row style={{marginTop:30}}>
-				<Col md={2} align="right"> <Button  label="确定" type="submit" joinEditForm  onSubmit={this.onSubmit}/> </Col>
-				<Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel}/> </Col> </Row>
+			<Grid style={{marginTop:'7px',marginBottom:'10px'}}>
+				<Row >
+				<Col md={12} align="center"> 
+					<ButtonGroup>
+						<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm width={90} height={34} onSubmit={this.onSubmit}/></div>
+						<Button  label="取消" type="button"  onTouchTap={this.onCancel} width={90} height={32} cancle={true}/>
+					</ButtonGroup>
+				 </Col>
+				</Row>
 			</Grid>
 		</Form>
 
@@ -203,6 +218,7 @@ export default class EmployessTable extends Component {
 			customerId: 1,
 			communityId: 1,
 			isLoading: false,
+			state: {},
 
 		}
 
@@ -248,7 +264,7 @@ export default class EmployessTable extends Component {
 	}
 
 	openDistributionStation(itemDetail) {
-		console.log('itemDetail', itemDetail)
+
 
 		var _this = this;
 		this.setState({
@@ -329,9 +345,6 @@ export default class EmployessTable extends Component {
 		this.setState({
 			openNewmeber: !this.state.openNewmeber
 		});
-		window.location.reload()
-
-
 
 	}
 
@@ -396,7 +409,7 @@ export default class EmployessTable extends Component {
 			this.setState({
 				stationId: itemDetail.stationId
 			}, function() {
-				console.log('111')
+
 				this.openChangeStation(itemDetail)
 			})
 
@@ -424,12 +437,33 @@ export default class EmployessTable extends Component {
 			communityIds: id,
 			mainBillId: detail.billId
 		}
-		console.log('ParamValues', ParamValues)
+		var _this = this;
 
 		return (
 
 			<div className="employees-content">
-		 	<Table  style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getStation' ajaxParams={ParamValues} pagination={false} onOperation={this.onOperation} loading={this.state.isLoading}>
+		 	<Table className="childTable" style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getStation' ajaxParams={ParamValues} pagination={false} onOperation={this.onOperation} loading={this.state.isLoading} 
+		 		onProcessData={(state)=>{
+		 			var listData  = state.listData;
+			 			listData.forEach(function(item){
+			 				
+			 				if(item.status=="LEFTED"){
+								item.distributionHidden = true;
+								item.changeHidden = true;
+			 				}else{
+			 					if(item.memberName){
+									item.distributionHidden = true;
+									item.noneHidden=true;
+				 				}else {
+									item.changeHidden = true;
+									item.noneHidden=true;
+				 				}
+			 				}
+			 				
+							
+			 			});
+						return state;
+					}}>
 				<TableHeader>
 						<TableHeaderColumn>工位编号</TableHeaderColumn>
 						<TableHeaderColumn>租赁起始时间</TableHeaderColumn>
@@ -447,11 +481,12 @@ export default class EmployessTable extends Component {
 						<TableRowColumn name="leaseEndDate" type="date" format="yyyy-mm-dd"></TableRowColumn>
 						<TableRowColumn name="memberName" ></TableRowColumn>
 						<TableRowColumn name="memberPhone" ></TableRowColumn>
-						<TableRowColumn name="status"></TableRowColumn>
-						<TableRowColumn>
-							<Button label="变更" className="changeBtn" type="operation" operation="ChangeStation"   />
-							<Button label="分配" className="Distribtn"  type="operation" operation="Distribution"   />
-						 </TableRowColumn>
+						<TableRowColumn name="status" options={[{label:'未入住',value:'UNLIVE'},{label:'已入住',value:'LIVED'},{label:'已离场',value:'LEFTED'}]}></TableRowColumn>
+						<TableRowColumn type="operation">
+								<Button label="变更" className="changeBtn" type="operation" operation="ChangeStation" hidden="changeHidden"  />
+								<Button label="分配" className="Distribtn"  type="operation" operation="Distribution" hidden="distributionHidden"  />
+								<Button label="无" className="Distribtn" type="operation" operation="none" hidden="noneHidden"/>
+						</TableRowColumn>
 					</TableRow>
 				</TableBody>
 
@@ -464,6 +499,7 @@ export default class EmployessTable extends Component {
 				modal={true}
 				open={this.state.openDistribution}
 				onClose={this.onDistributionCancel}
+				contentStyle={{width:445}}
 			>
 
 				<Distribution  detail={this.state.itemDetail} onCancel={this.onDistributionCancel} onSubmit={this.onDistributionSubmit} optionValues={optionValues} stationId={this.state.stationId} customerId={this.state.customerId} communityId={this.state.communityId}/>
@@ -473,6 +509,7 @@ export default class EmployessTable extends Component {
 				modal={true}
 				open={this.state.openChangeStation}
 				onClose={this.onChangeCancel}
+				contentStyle={{width:445}}
 			>
 				<ChangeStation  detail={this.state.itemDetail} onCancel={this.onChangeCancel} onSubmit={this.onChangeSubmit}  optionValues={optionValues} stationId={this.state.stationId} customerId={this.state.customerId} communityId={this.state.communityId}/>
 
@@ -482,9 +519,10 @@ export default class EmployessTable extends Component {
 				modal={true}
 				open={this.state.openNewmeber}
 				onClose={this.onIframeClose}
+				contentStyle={{width:465,height:630}}
 			>
 
-				<IframeContent src={this.getStationUrl()}  onClose={this.onIframeClose}  />
+				<IframeContent  width={390}  src={this.getStationUrl()}  onClose={this.onIframeClose}  />
 			</Dialog>
 
 		</div>
