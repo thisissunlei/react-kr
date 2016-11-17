@@ -526,13 +526,15 @@ class NewCreateForm extends Component {
 				<KrField grid={1/2}  right={60}  name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress}  />
 				<KrField grid={1/2}  left={60}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true} />
 
-				<KrField grid={1/1}  component="group" label="租赁期限" requireLabel={true}>
+				<KrField grid={1/2}  component="group" label="租赁期限" right={60} requireLabel={true}>
 					<ListGroup>
-						<ListGroupItem> <KrField name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/></ListGroupItem>
-						<ListGroupItem ><span style={{display:'inline-block',lineHeight:'75px'}}>至</span></ListGroupItem>
-						<ListGroupItem> <KrField name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} simple={true}/> </ListGroupItem>
+						<ListGroupItem style={{width:'45%',padding:0,marginLeft:'-10px'}}> <KrField name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/></ListGroupItem>
+						<ListGroupItem style={{width:'9%',textAlign:'center',padding:0,marginLeft:10}}><span style={{display:'inline-block',lineHeight:'58px'}}>至</span></ListGroupItem>
+						<ListGroupItem style={{width:'45%',padding:0,}}> <KrField name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} simple={true}/> </ListGroupItem>
 					</ListGroup>
 				</KrField>
+				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
+
 
 				<KrField name="paymodel" right={60} grid={1/2} component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true} />
 				<KrField name="paytype" left={60}  grid={1/2} component="select" label="支付方式" options={optionValues.payTypeList} requireLabel={true} />
