@@ -208,7 +208,7 @@ export default class ItemTable extends Component {
                         <div className="tip hide hover ">
                              撤场日期 <span className = "bArrow"></span>
                        </div>
-        						<Button className="preson" type="link" joinEditForm label="" onTouchTap={this.onhref}/>
+        						<Button className="Preson" type="link" joinEditForm label="" onTouchTap={this.onhref}/>
                       <div className="tip hide  hover">
                             查看员工 <span className = "bArrow"></span>
                       </div>

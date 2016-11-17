@@ -400,6 +400,27 @@ a,button,button:hover{
 		display:inline-block;
 		.ui-button{
 			margin-left:1%;
+			&:hover{
+				&:nth-child(1)+.tip{
+					position:absolute;
+					left:10px;
+					top:-40px;
+					display:block !important;
+				}
+				&:nth-child(3)+.tip{
+					position:absolute;
+					left:60px;
+					top:-40px;
+					display:block !important;
+				}
+				&:nth-child(5)+.tip{
+					position:absolute;
+					left:110px;
+					top:-40px;
+					display:block !important;
+				}
+			}
+			
 		}
 	}
 	
@@ -420,17 +441,6 @@ a,button,button:hover{
 		height:100%;
 		
 	}
-	
-	&:hover{
-		
-		.btnlist>.ui-button+.tip{
-			position:absolute;
-			left:-10px;
-			top:-40px;
-			display:block !important;
-			z-index:100;
-		}
-	}
 }
 .Dismantling{
 	width:40px !important;
@@ -447,17 +457,9 @@ a,button,button:hover{
 		overflow:hidden;
 	}
 	
-	&:hover{
-		
-		.ui-button+.tip{
-			position:absolute;
-			left:30px;
-			top:-40px;
-			display:block !important;
-		}
-	}
+	
 }
-.preson{
+.Preson{
 	width:40px !important;
 	height:40px !important;
 	border-radius:100%;
@@ -472,15 +474,7 @@ a,button,button:hover{
 		overflow:hidden;
 	}
 	
-	&:hover{
-		
-		.ui-button+.tip{
-			position:absolute;
-			left:70px;
-			top:-40px;
-			display:block !important;
-		}
-	}
+	
 }
 .hover{
 	width:80px;
