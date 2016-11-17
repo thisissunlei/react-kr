@@ -127,7 +127,7 @@ export default class ItemTable extends Component {
   //查看员工跳转地址
   onhref() {
 
-    location.href = "/krspace_member_web/member/companyMembers?companyId=" + this.props.companyId + "&communityId=" + this.props.communityId;
+    location.href = "/krspace_member_web/member/companyMembers?companyId=" + this.state.detail.companyId + "&communityId=" + this.state.detail.communityId;
   }
 
   renderOrder(contractTypeVo) {
@@ -174,7 +174,6 @@ export default class ItemTable extends Component {
     let width = 660;
     var _this = this;
     var id = communityids;
-
 
     return (
 
