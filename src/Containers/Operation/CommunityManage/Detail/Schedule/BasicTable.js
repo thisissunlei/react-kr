@@ -604,15 +604,15 @@ export default class BasicTable extends Component {
 			)
 		}
 	}
-	getWidth(){
-			const list = ReactDOM.findDOMNode(this.trLength);
-			let th = list.getElementsByTagName('th')[1].offsetWidth;
-			let length = th*12;
-			return length;
+	getWidth() {
+		const list = ReactDOM.findDOMNode(this.trLength);
+		let th = list.getElementsByTagName('th')[1].offsetWidth;
+		let length = th * 12;
+		return length;
 
 
 
-		}
+	}
 
 
 	render() {
@@ -647,8 +647,7 @@ export default class BasicTable extends Component {
 		} else {
 			showNone = false;
 		}
-		
-		
+
 
 
 		return (
