@@ -48,7 +48,7 @@ export default class CommunityManage extends Component {
 	}
 
 	componentDidMount() {
-
+		Store.dispatch(Actions.switchSidebarNav(false));
 	}
 
 
@@ -105,7 +105,7 @@ export default class CommunityManage extends Component {
 				<span className="line"></span>
 				 <Tabs className="tabs" tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={{background: '-webkit-linear-gradient(right, #03ec56, #499df1)',position:'absolute',top:0,}} style={{background:'#fff',position:'relative'}}>
 					<Tab label="计划表" onActive={this.planTable} style={tableStyle}>
-						<Schedule />
+						<Schedule tab={tab}/>
 
 					</Tab>
 					<Tab label="平面图"  onActive={this.Floorplan} style={planStyle}>

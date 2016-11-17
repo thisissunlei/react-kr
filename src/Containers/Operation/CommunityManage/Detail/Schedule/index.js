@@ -30,7 +30,9 @@ import {
 import BasicTable from './BasicTable';
 
 export default class Schedule extends Component {
-
+	static defaultProps = {
+		tab: '',
+	}
 	constructor(props, context) {
 		super(props, context);
 
@@ -56,12 +58,13 @@ export default class Schedule extends Component {
 	render() {
 		let {
 			communityInfoList,
-			communityids
+			communityids,
+			tab
 		} = this.props;
 
 		return (
 			<div style={{margin:20}}>
-			<BasicTable detail={communityInfoList} communityids={communityids}/>
+			<BasicTable detail={communityInfoList} communityids={communityids} tab={tab}/>
 
 		</div>
 		);

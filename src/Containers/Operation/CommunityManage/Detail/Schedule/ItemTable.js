@@ -28,6 +28,8 @@ import {
 } from 'kr-ui';
 
 import './index.less';
+import _ from 'lodash';
+
 import {
   findDOMNode
 } from 'react-dom'
@@ -43,6 +45,8 @@ export default class ItemTable extends Component {
 
   static PropTypes = {
     onDismantling: React.PropTypes.func,
+    onStation: React.PropTypes.func,
+    isLoading: React.PropTypes.bool,
   }
 
 
@@ -57,10 +61,24 @@ export default class ItemTable extends Component {
 
 
     this.state = {
+      detail: this.props.detail,
       //activity: false,
       Dismantling: false,
-      show: false,
+
     }
+
+  }
+
+
+  componentWillReceiveProps(nextProps) {
+
+
+    if (!_.isEqual(this.props.detail, nextProps.detail)) {
+      this.setState({
+        detail: nextProps.detail
+      });
+    }
+
 
   }
 
@@ -79,13 +97,23 @@ export default class ItemTable extends Component {
     }
     //分配工位
   onStation() {
-    /*let {
-      onStation
-    } = this.props
-    onStation && onStation()*/
+
+    let {
+      detail
+    } = this.state;
+
+    detail.activity = !detail.activity;
+
     this.setState({
-      activity: !this.state.activity
+      detail
     });
+
+    let {
+      onStation
+    } = this.props;
+
+    onStation && onStation()
+
 
   }
   onDismantlingDialog() {
@@ -131,19 +159,26 @@ export default class ItemTable extends Component {
     return contractTypeVo;
   }
   render() {
+
+
     let {
-      activity
+      show,
+      detail
     } = this.state;
+
     let {
-      detail,
-      communityids
+      communityids,
+      activity,
     } = this.props;
+
     let width = 660;
     var _this = this;
     var id = communityids;
+
+
     return (
 
-      <tr className="last-td" >
+      <tr className="last-td"   >
 						<td className="company-list">
 
 							<div className="company-name" data-tip> 
@@ -160,24 +195,25 @@ export default class ItemTable extends Component {
 							</div>
 						</td>
 						<td colSpan="12">
-							<D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} width={width} id={detail.billId}/>
-							<EmployessTable activity={activity} detail={detail} id={id}/>
+              <D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} width={width} id={detail.billId}/>
+              <EmployessTable  activity={detail.activity} detail={detail} id={id} />
 						</td>
 						<td className="btnlist">
-							<Button className="Station" type="link" joinEditForm label="" onTouchTap={this.onStation} />
-                <div className="tip hide  hover">
-                   分配工位 < span className = "bArrow" > < /span>
-                </div>
-					    <Button className="Dismantling" type="link" joinEditForm label="" 	onClick={this.onDismantling.bind(this,detail)}/>
-                  <div className="tip hide hover ">
-                       撤场日期 <span className = "bArrow"></span>
-                 </div>
-  						<Button className="preson" type="link" joinEditForm label="" onTouchTap={this.onhref}/>
-                <div className="tip hide  hover">
-                      查看员工 <span className = "bArrow"></span>
-                </div>
-
-
+                 <div className="btnCon">
+      							<Button className="Station" type="link" joinEditForm label="" onTouchTap={this.onStation}   />
+                      <div className="tip hide  hover">
+                         分配工位 < span className = "bArrow" > < /span>
+                      </div>
+      					    <Button className="Dismantling" type="link" joinEditForm label="" 	onClick={this.onDismantling.bind(this,detail)}/>
+                        <div className="tip hide hover ">
+                             撤场日期 <span className = "bArrow"></span>
+                       </div>
+        						<Button className="Preson" type="link" joinEditForm label="" onTouchTap={this.onhref}/>
+                      <div className="tip hide  hover">
+                            查看员工 <span className = "bArrow"></span>
+                      </div>
+                  </div>
+                
 						</td>
 					</tr>
 
