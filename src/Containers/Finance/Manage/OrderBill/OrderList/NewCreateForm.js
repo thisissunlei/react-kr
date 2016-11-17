@@ -1,57 +1,70 @@
+import React, {
+	Component,
+	PropTypes
+} from 'react';
+import {
+	connect
+} from 'kr/Redux';
 
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-
-import {reduxForm,formValueSelector} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import {
+	reduxForm,
+	formValueSelector
+} from 'redux-form';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 import {
 	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	ButtonGroup
+	ButtonGroup,
+	ListGroup,
+	ListGroupItem
 } from 'kr-ui';
 
+import './index.less';
 
- class NewCreateForm extends Component{
+class NewCreateForm extends Component {
 
-	 static PropTypes = {
-		 onSubmit:React.PropTypes.func,
-		 onCancel:React.PropTypes.func,
-	 }
+	static PropTypes = {
+		onSubmit: React.PropTypes.func,
+		onCancel: React.PropTypes.func,
+	}
 
-	constructor(props){
+	constructor(props) {
 		super(props);
 
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
 
-		this.state={
-			communityList:[],
-			mainbilltypeList:[]
+		this.state = {
+			communityList: [],
+			mainbilltypeList: []
 		}
-		
+
 	}
 	componentDidMount() {
 
 		var _this = this;
-		Store.dispatch(Actions.callAPI('getFinaDataCommunityAndMainBillType')).then(function(response){
-			
-			const communityList=response.communityList
-			const mainbilltypeList=response.mainbilltypeList
-           
-			
+		Store.dispatch(Actions.callAPI('getFinaDataCommunityAndMainBillType')).then(function(response) {
 
-			communityList.map(function(item,index){
-				 item.label = item.communityname;
-				 item.value=item.id
-				 return item;
+			const communityList = response.communityList
+			const mainbilltypeList = response.mainbilltypeList
+
+
+
+			communityList.map(function(item, index) {
+				item.label = item.communityname;
+				item.value = item.id
+				return item;
 			});
-             
-            mainbilltypeList.map(function(item,index){
-				 item.label = item.mainBillTypeDesc;
-                 item.value=item.mainbilltype;
+
+			mainbilltypeList.map(function(item, index) {
+				item.label = item.mainBillTypeDesc;
+				item.value = item.mainbilltype;
 				return item;
 			});
 
@@ -60,46 +73,60 @@ import {
 				mainbilltypeList
 			});
 
-		}).catch(function(err){
+		}).catch(function(err) {
 			Notify.show([{
-				message:'报错了',
+				message: '报错了',
 				type: 'danger',
 			}]);
 		});
 
-		
+
 	}
-	 onSubmit(values){
-		 const {onSubmit} = this.props;
-		 onSubmit && onSubmit(values);
-	 }
+	onSubmit(values) {
+		const {
+			onSubmit
+		} = this.props;
+		onSubmit && onSubmit(values);
+	}
 
-	 onCancel(){
-		 const {onCancel} = this.props;
-		
-		 onCancel && onCancel();
-		 
-	 }
+	onCancel() {
+		const {
+			onCancel
+		} = this.props;
 
-	render(){
+		onCancel && onCancel();
+
+	}
+
+	render() {
 
 
-        
-       
-		const { error, handleSubmit, pristine, reset} = this.props;
+
+		const {
+			error,
+			handleSubmit,
+			pristine,
+			reset
+		} = this.props;
 
 		return (
 
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 			   
-				<KrField grid={1/2} name="customername" type="text" label="公司名称" /> 
-				<KrField grid={1/2} component="labelText"/> 
-				<KrField grid={1/2} name="communityid"  type="select" label="所属社区" options={this.state.communityList} >
+				<KrField grid={1/2} right={60} name="customername" type="text" label="公司名称" /> 
+				<KrField grid={1/2}  component="labelText"/> 
+				<KrField grid={1/2} right={60} name="communityid"  type="select" label="所属社区" options={this.state.communityList} >
 				</KrField>
-				<KrField  grid={1/2} name="mainbilltype" type="select" label="订单类型" options={this.state.mainbilltypeList}>
+				<KrField  grid={1/2} right={60} name="mainbilltype" type="select" label="订单类型" options={this.state.mainbilltypeList}>
 				</KrField>
-				<KrField  grid={1/2} name="startDate" component="date" label="起始时间"/>
-				<KrField grid={1/2} name="endDate" component="date" label="结束时间"/>
+				<div className='ui-listDate'><ListGroup>
+						<ListGroupItem><div className='ui-date-start'><KrField   name="startDate" component="date" label="起始时间"/></div></ListGroupItem>
+						<div className='ui-line-down'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
+						<ListGroupItem><div className='ui-date-end'><KrField  name="endDate" component="date" label="结束时间"/></div></ListGroupItem>
+					</ListGroup>
+                    </div>
+				
+				
              
 				
 
@@ -119,4 +146,6 @@ import {
 }
 
 
-export default reduxForm({ form: 'newCreateForm'})(NewCreateForm);
+export default reduxForm({
+	form: 'newCreateForm'
+})(NewCreateForm);
