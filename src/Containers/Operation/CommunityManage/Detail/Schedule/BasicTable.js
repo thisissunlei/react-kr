@@ -608,7 +608,7 @@ export default class BasicTable extends Component {
 			const list = ReactDOM.findDOMNode(this.trLength);
 			let th = list.getElementsByTagName('th')[1].offsetWidth;
 			let length = th*12;
-			return 0;
+			return length;
 
 
 
@@ -724,11 +724,10 @@ export default class BasicTable extends Component {
 
 					{
 						showNone && Installmentplan.map((item,index)=>{
-							
-							console.log(this.getWidth());
+							let width = this.getWidth();
 							return (
 
-							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item} index={index} key={index} onStation={this.onStation} activity={this.state.activity} width={this.getWidth()} />
+							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item} index={index} key={index} onStation={this.onStation} activity={this.state.activity} width={width} />
 							
 								
 							)
