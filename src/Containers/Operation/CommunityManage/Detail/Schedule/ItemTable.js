@@ -199,18 +199,24 @@ export default class ItemTable extends Component {
 						</td>
 						<td className="btnlist">
                  <div className="btnCon">
-      							<Button className="Station" type="link" joinEditForm label="" onTouchTap={this.onStation}   />
+      							<div className="Station"  onTouchTap={this.onStation}   >
                       <div className="tip hide  hover">
                          分配工位 < span className = "bArrow" > < /span>
                       </div>
-      					    <Button className="Dismantling" type="link" joinEditForm label="" 	onClick={this.onDismantling.bind(this,detail)}/>
+                    </div>
+                      
+      					    <div className="Dismantling" onClick={this.onDismantling.bind(this,detail)}> 
                         <div className="tip hide hover ">
                              撤场日期 <span className = "bArrow"></span>
                        </div>
-        						<Button className="Preson" type="link" joinEditForm label="" onTouchTap={this.onhref}/>
+                    </div>
+                        
+        						<div className="Preson"  onTouchTap={this.onhref}>
                       <div className="tip hide  hover">
                             查看员工 <span className = "bArrow"></span>
                       </div>
+                    </div>
+                      
                   </div>
                 
 						</td>
