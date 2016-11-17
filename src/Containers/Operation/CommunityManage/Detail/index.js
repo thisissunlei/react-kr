@@ -48,7 +48,7 @@ export default class CommunityManage extends Component {
 	}
 
 	componentDidMount() {
-		Store.dispatch(Actions.switchSidebarNav(false));
+		Store.dispatch(Actions.switchSidebarNav(true));
 	}
 
 
@@ -94,8 +94,8 @@ export default class CommunityManage extends Component {
 			background: '-moz-linear-gradient(right, #03ec56, #499df1)',
 			background: '-webkit-linear-gradient(right, #03ec56, #499df1)',
 			background: '-ms-linear-gradient(right, #03ec56, #499df1)',
-			position:'absolute',
-			top:0,
+			position: 'absolute',
+			top: 0,
 		}
 
 		return (
