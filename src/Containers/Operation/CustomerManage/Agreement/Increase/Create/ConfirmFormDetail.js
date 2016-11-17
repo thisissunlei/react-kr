@@ -19,7 +19,9 @@ import {
 	Button,
 	Notify,
 	KrDate,
-	DotTitle
+	DotTitle,
+	ListGroup,
+	ListGroupItem
 } from 'kr-ui';
 
 
@@ -117,7 +119,7 @@ export default class ConfirmFormDetail  extends Component{
 
 							<KrField component="group" label="合同附件">
 									{detail.contractFileList && detail.contractFileList.map((item,index)=>{
-										return <Button label={item.fileName} type="link" href={item.fileUrl} key={index}/>
+										return <span style={{display:'inline-block'}} key={index}><Button label={item.fileName} type="link" href={item.fileUrl} key={index}/></span>
 									})}
 							</KrField>
 
@@ -153,13 +155,15 @@ export default class ConfirmFormDetail  extends Component{
 
 
                </DotTitle>
-				<Grid>
-					<Row style={{marginTop:30}}>
-					<Col md={4}></Col>
-						<Col md={2} align="right"> <Button  label="确定" type="button" joinEditForm onTouchTap={this.onSubmit} /> </Col>
-					  <Col md={2} align="right"> <Button  label="取消" type="button"  onTouchTap={this.onCancel} cancle={true} /> </Col>
-					  <Col md={4}></Col></Row>
-				</Grid>
+						<Grid style={{paddingBottom:50}}>
+						<Row>
+						<ListGroup>
+							<ListGroupItem style={{width:'47%',textAlign:'right',paddingRight:15}}><Button label="确定" type="button" joinEditForm onTouchTap={this.onSubmit} width={90} height={34} fontSize={14}/></ListGroupItem>
+							<ListGroupItem style={{width:'47%',textAlign:'left',paddingLeft:15}}><Button  label="取消" type="button"  onTouchTap={this.onCancel} cancle={true}  width={90} height={34} fontSize={14}/></ListGroupItem>
+						</ListGroup>
+						</Row>
+						</Grid>
+				
 		 </div>);
 	}
 }
