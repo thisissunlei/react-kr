@@ -114,7 +114,7 @@ export default class TableFooter extends React.Component {
 		}
 
 		return (
-			<TableRowColumn style={{textAlign:'left'}} colSpan={2}> <a style={{width:80,height:30,background:'#499df1',color:'#fff',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center'}}  onClick={this.onExport}>导&nbsp;&nbsp;&nbsp;出</a> </TableRowColumn>
+			<TableRowColumn style={{textAlign:'left'}} colSpan={2}> <a style={{width:80,height:30,background:'#499df1',color:'#fff',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)'}}  onClick={this.onExport}>导&nbsp;&nbsp;&nbsp;出</a> </TableRowColumn>
 		);
 
 	}
