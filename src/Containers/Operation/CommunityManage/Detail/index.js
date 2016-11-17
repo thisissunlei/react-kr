@@ -103,7 +103,7 @@ export default class CommunityManage extends Component {
 			<div className="tab-container">
 		 	<BreadCrumbs children={['系统运营','社区管理','计划表']}/>
 				<span className="line"></span>
-				 <Tabs className="tabs" tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={{background: '-webkit-linear-gradient(right, #03ec56, #499df1)',position:'absolute',top:0,}} style={{background:'#fff',position:'relative'}}>
+				 <Tabs className="tabs" tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={{background: '-webkit-linear-gradient(right, #03ec56, #499df1)',position:'absolute',top:0,height:3}} style={{background:'#fff',position:'relative'}}>
 					<Tab label="计划表" onActive={this.planTable} style={tableStyle}>
 						<Schedule tab={tab}/>
 
