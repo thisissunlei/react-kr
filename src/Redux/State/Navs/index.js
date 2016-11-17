@@ -36,13 +36,10 @@ module.exports = {
 					iconColor:'#2b8dcd',
 					menuCode:'community_manage',
 					menuItems:[
-
-					/*
 						{
 							primaryText:'计划表',
-							permission:true,
+							router:'/operation/communityManage/3/detail'
 						},
-					*/
 						{
 							primaryText:'访客记录',
 							menuCode:'sysVisitRecordList',
