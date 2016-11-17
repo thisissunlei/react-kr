@@ -9,23 +9,21 @@ import {
 	Notify,
 	Section,
 	DotTitle,
-	SplitLine
+	SplitLine,
+	PaperBack
 } from 'kr-ui';
 
 import {
 	KrField,
 	LabelText
 } from 'kr-ui';
+
 import KrDate from 'kr-ui/Date';
 import RaisedButton from 'material-ui/RaisedButton';
-import {
-	View
-} from 'kr-ui/contractView';
-
 
 import {
 	Button
-} from 'kr-ui/Button';
+} from 'kr-ui';
 import {
 	Actions,
 	Store
@@ -111,10 +109,9 @@ export default class JoinDetail extends Component {
 				padding: '30px 70px',
 				paddingBottom:10
 			}
-			console.log('时间', )
 			return (
 				<div className="content" style={content}>
-				  	<View label="续租协议书详情页"/>
+				  	<PaperBack label="续租协议书详情页"/>
 				  	<div className="content-info" style={info} >
 
 								<KrField component="labelText" grid={1/2} label="出租方：" value={basic.lessorName} defaultValue="无" requireBlue={true}/>

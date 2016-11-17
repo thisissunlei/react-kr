@@ -21,6 +21,7 @@ import ListPage from './components/pages/components/List/Page';
 import ListGroupPage from './components/pages/components/ListGroup/Page';
 import SectionPage from './components/pages/components/Section/Page';
 import IframeContentPage from './components/pages/components/IframeContent/Page';
+import KrDatePage from './components/pages/components/KrDate/Page';
 
 import HomePage from './components/pages/Home';
 import UndefinedPage from './components/pages/Undefined';
@@ -43,7 +44,7 @@ const AppRoutes = (
       <Route path="listgroup" component={ListGroupPage} />
       <Route path="section" component={SectionPage} />
       <Route path="iframecontent" component={IframeContentPage} />
-
+      <Route path="krdate" component={KrDatePage} />
       <Route path="dialog" component={DialogPage} />
       <Route path="checkbox" component={CheckboxPage} />
       <Route path="divider" component={DividerPage} />

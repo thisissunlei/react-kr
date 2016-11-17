@@ -15,19 +15,17 @@ import {
 	Notify,
 	Section,
 	SplitLine,
-	DotTitle
+	DotTitle,
+	PaperBack
 } from 'kr-ui';
 import dateFormat from 'dateformat';
 
 import {
 	KrField,
-	LabelText
+	LabelText,
+	KrDate,
 } from 'kr-ui';
-import {
-	View
-} from 'kr-ui/contractView';
 
-import Date from 'kr-ui/Date';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import {
@@ -134,7 +132,7 @@ export default class ReduceDetail extends Component {
 			console.log('basic', basic)
 			return (
 				<div className="content" style={content}>
-				  	<View label="减租协议书详情页"/>
+				  	<PaperBack label="减租协议书详情页"/>
 				  	<div className="content-info" style={info} >
 
 
@@ -189,8 +187,8 @@ export default class ReduceDetail extends Component {
 																	<TableRowColumn>
 																		{item.unitprice}
 																	</TableRowColumn>
-																	<TableRowColumn><Date.Format value={basic.leaseBegindate}/></TableRowColumn>
-																	<TableRowColumn><Date.Format value={basic.leaseEnddate}/></TableRowColumn>
+																	<TableRowColumn><KrDate value={basic.leaseBegindate}/></TableRowColumn>
+																	<TableRowColumn><KrDate value={basic.leaseEnddate}/></TableRowColumn>
 																   </TableRow>
 																	);
 															})}

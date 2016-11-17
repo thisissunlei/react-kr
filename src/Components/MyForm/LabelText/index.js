@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-import Date from '../../Date';
+import KrDate from '../../Date';
 
 import './index.less';
 
@@ -30,7 +30,7 @@ export default class LabelText extends React.Component {
 						<div className="form-input-main">
 							<div className="form-input">
 								<span className="text" >
-									<Date.Format value={text}/>
+									<KrDate value={text}/>
 								</span>
 							</div>
 						</div>
@@ -58,19 +58,3 @@ export default class LabelText extends React.Component {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

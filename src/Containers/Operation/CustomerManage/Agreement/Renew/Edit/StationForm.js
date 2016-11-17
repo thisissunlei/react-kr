@@ -29,7 +29,7 @@ import {
 	Button,
 	Notify,
 	IframeContent,
-	Date,
+	KrDate,
 } from 'kr-ui';
 
 
@@ -56,7 +56,6 @@ class StationForm  extends Component{
 			}
 			return true;
 		});
-		console.log('---->>>>>aaaa>',billList);
 		this.setState({
 			billList
 		});
@@ -99,8 +98,8 @@ class StationForm  extends Component{
 									<TableRowColumn>
 										<input type="text" name="hah" onChange={(event)=>{this.onStationInputChange}}/>
 									</TableRowColumn>
-									<TableRowColumn> <Date.Format value={initialValues.leaseBegindate}/></TableRowColumn>
-									<TableRowColumn><Date.Format value={initialValues.leaseEnddate}/></TableRowColumn>
+									<TableRowColumn> <KrDate value={initialValues.leaseBegindate}/></TableRowColumn>
+									<TableRowColumn><KrDate value={initialValues.leaseEnddate}/></TableRowColumn>
 
 									</TableRow>
 						{billList.map((item,index)=>{
@@ -111,8 +110,8 @@ class StationForm  extends Component{
 									<TableRowColumn>
 										<input type="text" name="hah" value={item.unitprice}  onChange={(event)=>{this.onStationInputChange.bind(this,event,index)}}/>
 									</TableRowColumn>
-									<TableRowColumn> <Date.Format value={initialValues.leaseBegindate}/></TableRowColumn>
-									<TableRowColumn><Date.Format value={initialValues.leaseEnddate}/></TableRowColumn>
+									<TableRowColumn> <KrDate value={initialValues.leaseBegindate}/></TableRowColumn>
+									<TableRowColumn><KrDate value={initialValues.leaseEnddate}/></TableRowColumn>
 
 									</TableRow>
 							);

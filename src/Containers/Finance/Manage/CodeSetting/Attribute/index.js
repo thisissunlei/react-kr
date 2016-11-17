@@ -31,6 +31,8 @@ import {
 	Col,
 	Dialog,
 	Notify,
+	ListGroup,
+	ListGroupItem,
 	BreadCrumbs
 } from 'kr-ui';
 
@@ -191,13 +193,16 @@ export default class AttributeSetting extends Component {
 					<BreadCrumbs children={['系统运营','客户管理','属性配置']}/>
 					<Section title="属性配置" description="" >
 
-					<Grid style={{marginTop:-30}}>
+					<Grid style={{marginBottom:22,marginTop:2}}>
 						<Row>
 						<Col md={4} align="left" > <Button  label="新建属性"  type='button' joinEditForm  onTouchTap={this.openNewCreateDialog} /> </Col>
+
 						<Col md={8} align="right">
-							<SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/>
+						   <ListGroup>
+							 <ListGroupItem><SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
+						   </ListGroup>	
 						</Col>
-						</Row>
+					  </Row>
 					</Grid>
 
 

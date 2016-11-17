@@ -1,5 +1,7 @@
-import './index.less';
 import React from 'react';
+
+import './index.less';
+
 export default class View extends React.Component {
 	static PropTypes = {
 		label: React.PropTypes.string,
@@ -13,7 +15,7 @@ export default class View extends React.Component {
 render() {
 	const {label} = this.props;
 
-	
+
 	return (
 
 
@@ -21,15 +23,15 @@ render() {
 			<div className="circle-head"></div>
 			<div className="view-background">
 				  	<span className="content-title">{label}</span>
-				
+
 			</div>
 
 		</div>
 
-		
+
 
 		)
-		
+
 }
 
 

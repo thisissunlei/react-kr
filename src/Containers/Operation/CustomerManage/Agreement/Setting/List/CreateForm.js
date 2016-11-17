@@ -36,7 +36,7 @@ import {
 	Button,
 	Notify,
 	IframeContent,
-	Date,
+	KrDate,
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -463,8 +463,8 @@ class NewCreateForm  extends Component{
 									<TableRowColumn>
 											<input type="text" name="age"  valueLink={typeLink} />
 									</TableRowColumn>
-									<TableRowColumn> <Date.Format value={item.leaseBeginDate}/></TableRowColumn>
-									<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
+									<TableRowColumn> <KrDate value={item.leaseBeginDate}/></TableRowColumn>
+									<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
 
 									</TableRow>
 							);

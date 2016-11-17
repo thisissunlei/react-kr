@@ -14,14 +14,12 @@ import {
 	SplitLine,
 	DotTitle,
 	KrField,
-	LabelText
+	LabelText,
+	PaperBack,
+	KrDate,
 } from 'kr-ui';
 
-import {
-	View
-} from 'kr-ui/contractView';
 
-import Date from 'kr-ui/Date';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import dateFormat from 'dateformat';
@@ -110,7 +108,7 @@ export default class JoinDetail extends Component {
 
 		return (
 			<div className="content" style={content}>
-				  	<View label="入驻协议书详情页"/>
+				  	<PaperBack label="入驻协议书详情页"/>
 				  	<div className="content-info" style={info} >
 
 					<KrField component="labelText" grid={1/2} label="出租方：" value={basic.lessorName} defaultValue="无" requireBlue={true}/>
@@ -177,8 +175,8 @@ export default class JoinDetail extends Component {
 										<TableRowColumn>
 											{item.unitprice}
 										</TableRowColumn>
-										<TableRowColumn><Date.Format value={item.leaseBeginDate}/></TableRowColumn>
-										<TableRowColumn><Date.Format value={item.leaseEndDate}/></TableRowColumn>
+										<TableRowColumn><KrDate value={item.leaseBeginDate}/></TableRowColumn>
+										<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
 									</TableRow>
 								);
 								})

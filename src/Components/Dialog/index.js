@@ -10,24 +10,20 @@ import {
 
 export default class DialogComponent extends Component {
 
+	static displayName = 'DialogComponent';
 
 	static defaultProps = {
 		autoScrollBodyContent: true,
 		autoDetectWindowHeight: true,
 	}
 
-	static PropTypes = {
+	static propTypes = {
 		onClose: React.PropTypes.func,
 		open: React.PropTypes.bool,
-		title: React.PropTypes.title,
+		title: React.PropTypes.string,
 		modal: React.PropTypes.bool,
 		autoDetectWindowHeight: React.PropTypes.bool,
 		autoScrollBodyContent: React.PropTypes.bool,
-	}
-
-
-	constructor(props) {
-		super(props)
 	}
 
 
@@ -52,14 +48,14 @@ export default class DialogComponent extends Component {
 					autoScrollBodyContent={autoScrollBodyContent}
 					autoDetectWindowHeight={autoDetectWindowHeight}
 					titleClassName="ui-dialog-header"
-					open={open} 
+					open={open}
 					style={{borderRadius:4}}
 					{...other}>
 						<div className="cancle-dialog" onTouchTap={onClose}></div>
 						<div className="ui-content">
 							{children}
 						</div>
-						
+
 				  </Dialog>
 			</div>
 		);
