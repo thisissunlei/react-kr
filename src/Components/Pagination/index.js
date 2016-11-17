@@ -93,9 +93,12 @@ export default class Pagination extends Component {
 	onFirst() {
 		this.onPageChange(1);
 	}
-	onLast(){
-		let {pageSize,totalCount} = this.props;
-		var page = Math.ceil(totalCount/pageSize);
+	onLast() {
+		let {
+			pageSize,
+			totalCount
+		} = this.props;
+		var page = Math.ceil(totalCount / pageSize);
 		this.onPageChange(page);
 	}
 
@@ -131,29 +134,29 @@ export default class Pagination extends Component {
 		onPageChange && onPageChange(page);
 	}
 
-	onFirst(){
+	onFirst() {
 		this.onPageChange(1);
 	}
 
-	renderFirst(){
-				let {
-					page,
-					pageSize,
-					totalCount
-				} = this.props;
+	renderFirst() {
+		let {
+			page,
+			pageSize,
+			totalCount
+		} = this.props;
 
-			let props = {};
-			props.className = 'item';
+		let props = {};
+		props.className = 'item';
 
-			if (page == 1) {
-				props.className += ' active';
-			}
+		if (page == 1) {
+			props.className += ' active';
+		}
 
-				return (
-					<div className="item-first">
+		return (
+			<div className="item-first">
 						<a className="item" {...props} onClick={this.onFirst}>1</a>
 					</div>
-				);
+		);
 	}
 
 	renderPrev() {
@@ -216,8 +219,8 @@ export default class Pagination extends Component {
 		if (pageEnd > pageMax) {
 			pageEnd = pageMax;
 		}
-		if(pageStart == 1){
-				++pageStart;
+		if (pageStart == 1) {
+			++pageStart;
 		}
 
 		let element = null;
@@ -228,7 +231,7 @@ export default class Pagination extends Component {
 		}
 
 		var i = pageStart;
-		while(i<pageEnd){
+		while (i < pageEnd) {
 			props.key = i;
 			props.className = 'item';
 
@@ -256,7 +259,7 @@ export default class Pagination extends Component {
 		);
 	}
 
-	renderLast(){
+	renderLast() {
 
 		let {
 			page,
@@ -264,17 +267,17 @@ export default class Pagination extends Component {
 			totalCount
 		} = this.props;
 
-		if(page == 1){
-				return ;
+		if (page == 1) {
+			return;
 		}
 
-		var pageMax = Math.ceil(totalCount/pageSize);
+		var pageMax = Math.ceil(totalCount / pageSize);
 
 		let props = {};
 		props.className = 'item';
 
 		if (pageMax == page) {
-				props.className += ' active';
+			props.className += ' active';
 		}
 
 		return (
@@ -313,7 +316,7 @@ export default class Pagination extends Component {
 			<div className="item-jump">
 				<span>到</span>
 				<input type="text" name="age"  valueLink={this.linkState('jumpPageValue')} />
-				<a   onClick={this.onJump}>跳转</a>
+				<a style={{boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)'}}  onClick={this.onJump}>跳转</a>
 			</div>
 		);
 	}
