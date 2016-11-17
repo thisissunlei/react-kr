@@ -530,7 +530,7 @@ class NewCreateForm extends Component {
 				<KrField right={60} grid={1/1}  component="group" label="租赁期限" requireLabel={true}>
 					<ListGroup>
 						<ListGroupItem><KrField grid={1/2}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/> </ListGroupItem>
-						<ListGroupItem ><span style={{display:'inline-block',lineHeight:'75px'}}>至</span></ListGroupItem>
+						<ListGroupItem ><span style={{display:'inline-block',lineHeight:'58px'}}>至</span></ListGroupItem>
 						<ListGroupItem><KrField grid={1/2}  name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} simple={true} /> </ListGroupItem>
 					</ListGroup>
 

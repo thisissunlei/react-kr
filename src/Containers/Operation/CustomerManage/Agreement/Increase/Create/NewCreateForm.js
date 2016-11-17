@@ -539,15 +539,15 @@ class NewCreateForm extends Component {
 				<KrField  name="paymodel"  grid={1/2} component="select" label="付款方式" left={60} options={optionValues.paymentList} requireLabel={true} onChange={(item)=>{
 						Store.dispatch(change('increaseCreateForm','paymodelName',item.label));
 				}} />
-
-				<KrField grid={1/1}  component="group" label="租赁期限" requireLabel={true}>
+				<KrField grid={1/2}  component="group" label="租赁期限" right={60} requireLabel={true}>
 					<ListGroup>
-						<ListGroupItem><KrField  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/></ListGroupItem>
-						<ListGroupItem ><span style={{display:'inline-block',lineHeight:'75px'}}>至</span></ListGroupItem>
-						<ListGroupItem><KrField name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} simple={true} /> </ListGroupItem>
+						<ListGroupItem style={{width:'45%',padding:0,marginLeft:'-10px'}}> <KrField name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/></ListGroupItem>
+						<ListGroupItem style={{width:'9%',textAlign:'center',padding:0,marginLeft:10}}><span style={{display:'inline-block',lineHeight:'58px'}}>至</span></ListGroupItem>
+						<ListGroupItem style={{width:'45%',padding:0,}}> <KrField name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} simple={true}/> </ListGroupItem>
 					</ListGroup>
-
 				</KrField>
+				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
+
 
 				<KrField  grid={1/2}  name="firstpaydate"  component="date" grid={1/2} right={60} label="首付款时间" requireLabel={true} />
 
@@ -650,7 +650,7 @@ class NewCreateForm extends Component {
 					<Dialog
 						title="录入单价"
 						autoScrollBodyContent={true}
-						open={this.state.openStationUnitPrice} contentStyle={{width:430}}
+						open={this.state.openStationUnitPrice} contentStyle={{width:430,paddingTop:30}}
 						onClose={this.openStationUnitPriceDialog}>
 								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
