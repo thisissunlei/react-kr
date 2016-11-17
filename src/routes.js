@@ -83,7 +83,7 @@ export default (
 				<Route path="index" component={Operation.Home}/>
 				{/*社区管理*/}
 				<Route path="communityManage" component={Basic}>
-					<Route path=":id/detail" component={Operation.CommunityManage.Detail}/>
+					<Route path="detail" component={Operation.CommunityManage.Detail}/>
 				</Route>
 
               {/*客户管理*/}
