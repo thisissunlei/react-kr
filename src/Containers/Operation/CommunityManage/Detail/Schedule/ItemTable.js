@@ -183,7 +183,7 @@ export default class ItemTable extends Component {
 
 							<div className="company-name" data-tip data-for={`${detail.companyName}`}> 
               {
-                detail.companyName
+                detail.billName
               }
 							<ReactTooltip place="right" id={`${detail.companyName}`}>
 								<ul>
@@ -194,7 +194,7 @@ export default class ItemTable extends Component {
 							</ReactTooltip>
 							</div>
 						</td>
-						<td colSpan="12">
+						<td colSpan="12" style={{padding:10}}>
               <D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} width={width} id={detail.billId}/>
               <EmployessTable  activity={detail.activity} detail={detail} id={id} />
 						</td>
