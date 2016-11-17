@@ -241,7 +241,7 @@ export default class D3Content extends Component {
 			var sameNode = this.getSameTime();
 			list = this.getRedInfo(list);
 		}else{
-			var list = [{width:"100%"}];
+			var list = [{width:"100%",content:true}];
 		}
 
 		
@@ -257,7 +257,10 @@ export default class D3Content extends Component {
 				{list.map((item,index)=>{
 						if(index === 0 ){
 							return(
-								<div className='white' style={{'width':item.width}} key={index}></div>
+								<div className='white' style={{'width':item.width}} key={index}>
+									{item.content?<span>/</span>:''}
+									
+								</div>
 
 								)
 						}else if(index<nodeList && index !== 0){
