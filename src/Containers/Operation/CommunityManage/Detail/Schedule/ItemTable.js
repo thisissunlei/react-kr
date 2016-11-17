@@ -169,9 +169,9 @@ export default class ItemTable extends Component {
     let {
       communityids,
       activity,
+      width,
     } = this.props;
 
-    let width = 660;
     var _this = this;
     var id = communityids;
 
