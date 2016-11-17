@@ -173,7 +173,7 @@ class ReceivedBtnForm extends Component {
 
 
 					   
-                         </form>
+                   </form>
 			  </div>
 
 		);
@@ -189,15 +189,15 @@ const validate = values => {
 
 
 	if (!values.accountId) {
-		errors.accountId = '请填写代码名称';
+		errors.accountId ='请填写代码名称';
 	}
 
 	if (!values.receiveDate) {
-		errors.receiveDate = '请填写回款日期';
+		errors.receiveDate ='请填写回款日期';
 	}
 
 	if (!values.dealCode) {
-		errors.dealCode = '请填写交易编号';
+		errors.dealCode ='请填写交易编号';
 	}
 	if (!values.sum) {
 		errors.sum = '请填写金额';
