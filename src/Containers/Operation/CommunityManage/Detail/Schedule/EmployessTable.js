@@ -442,7 +442,7 @@ export default class EmployessTable extends Component {
 		return (
 
 			<div className="employees-content">
-		 	<Table className="childTable" style={{marginTop:10}} displayCheckbox={false} ajax={true}  ajaxUrlName='getStation' ajaxParams={ParamValues} pagination={false} onOperation={this.onOperation} loading={this.state.isLoading} 
+		 	<Table className="childTable" style={{marginTop:10,width:'100%'}} displayCheckbox={false} ajax={true}  ajaxUrlName='getStation' ajaxParams={ParamValues} pagination={false} onOperation={this.onOperation} loading={this.state.isLoading} 
 		 		onProcessData={(state)=>{
 		 			var listData  = state.listData;
 			 			listData.forEach(function(item){
