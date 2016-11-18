@@ -154,8 +154,8 @@ export default class Pagination extends Component {
 
 		return (
 			<div className="item-first">
-						<a className="item" {...props} onClick={this.onFirst}>1</a>
-					</div>
+				<a className="item" {...props} onClick={this.onFirst}>1</a>
+			</div>
 		);
 	}
 
