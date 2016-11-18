@@ -118,7 +118,7 @@ class ReceivedBtnForm extends Component {
 		} = this.props;
 
 		let heightStyle = {
-			width: '546',
+			width: '560',
 			height: '72'
 		}
 
@@ -164,7 +164,7 @@ class ReceivedBtnForm extends Component {
 						    
                             
                            
-                            <KrField label="备注" heightStyle={heightStyle} name="remark" component="textarea" type="text" placeholder='请输入备注，输入字数不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/>
+                            <KrField label="备注" grid={1}  heightStyle={heightStyle} name="remark" component="textarea" type="text" placeholder='请输入备注，输入字数不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/>
                            
 
 						   <Grid style={{marginTop:0,marginBottom:5}}>
