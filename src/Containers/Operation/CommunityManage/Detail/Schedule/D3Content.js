@@ -94,7 +94,7 @@ export default class D3Content extends Component {
 				item.end = _this.countDays(item.enddate);
 				item.Begindate = dateFormat(item.begindate, "yyyy.mm.dd");
 				item.Enddate = dateFormat(item.enddate, "yyyy.mm.dd");
-				item.width = parseInt((item.end - item.start -1) / 365 * width); //时间段的长度
+				item.width = parseInt((item.end - item.start - 1) / 365 * width); //时间段的长度
 
 				return item;
 			});
@@ -227,7 +227,7 @@ export default class D3Content extends Component {
 			id,
 			detail
 		} = this.props;
-		if(detail.length){
+		if (detail.length) {
 			// 获取当前时间
 			var timestamp = new Date().getTime();
 			var now = this.countDays(timestamp);
@@ -240,11 +240,14 @@ export default class D3Content extends Component {
 			var blueNodeList = this.renderBlueNode();
 			var sameNode = this.getSameTime();
 			list = this.getRedInfo(list);
-		}else{
-			var list = [{width:"100%",content:true}];
+		} else {
+			var list = [{
+				width: "100%",
+				content: true
+			}];
 		}
 
-		
+
 
 		const width = this.props.width || 660;
 
@@ -258,7 +261,7 @@ export default class D3Content extends Component {
 						if(index === 0 ){
 							return(
 								<div className='white' style={{'width':item.width}} key={index}>
-									{item.content?<span>/</span>:''}
+									{item.content?<span></span>:''}
 									
 								</div>
 
