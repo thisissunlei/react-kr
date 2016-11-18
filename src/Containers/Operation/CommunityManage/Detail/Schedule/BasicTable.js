@@ -164,7 +164,7 @@ class SearchForm extends Component {
 		}];
 
 		return (
-			<form name="searchForm" className="searchForm searchList" style={{borderBottom:'2px solid #eee',marginBottom:10,paddingBottom:'15px',height:45}}>
+			<form name="searchForm" className="searchForm searchList" style={{marginBottom:20,height:45}}>
 				{/*<KrField  name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} left={60}/>*/}
 				
 				<SearchForms onSubmit={this.onSubmit} searchFilter={options} />
@@ -656,30 +656,21 @@ export default class BasicTable extends Component {
 			{istip?<div style={{width:640,color:'#999',fontSize:'14px',position:'absolute',left:'50%',bottom:'-73px',marginLeft:'-320px',zIndex:100}}><p style={{width:260,borderBottom:'1px solid #cccccc',height:9,float:'left'}} ></p><p style={{float:'left',paddingLeft:'15px',paddingRight:'15px'}}>我是有底线的</p><p style={{width:260,height:9,borderBottom:'1px solid #cccccc',float:'left'}} ></p></div>:''}
 			
 					
-			<SearchForm  onSubmit={this.onSubmit} onChange={this.onChange}/>
+			
 		 	<div className="basic-con">
 		 		<div className="legend">
 		 			<div className="legend-left">
 		 				<p>
-		 					<span className="square bule"></span>
-		 					<span className="txt" >当前的分期时间</span>
-		 				</p>
-		 				<p>
-		 					<span className="square grey"></span>
-		 					<span className="txt">过去的分期时间</span>
-		 				</p>
-		 			</div>
-		 			<div className="legend-right">
-		 				<p>
-							<span className="circle red"></span>
+		 					<span className="txts bule-div" >当前的分期时间</span>
+		 					<span className="txts grey-div">过去的分期时间</span>
+		 					<span className="circle red"></span>
 		 					<span className="txt" >催账时间</span>
-		 				</p>
-		 				<p>
-							<span className="circle green"></span>
+		 					<span className="circle green"></span>
 		 					<span className="txt" >工位变更</span>
 		 				</p>
 		 			</div>
 		 		</div>
+		 		<SearchForm  onSubmit={this.onSubmit} onChange={this.onChange}/>
 		 		
 		 	</div>
 		 	
