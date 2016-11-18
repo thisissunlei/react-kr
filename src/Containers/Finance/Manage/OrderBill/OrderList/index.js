@@ -209,7 +209,7 @@ export default class AttributeSetting extends Component {
 		return (
 
 			<div>
-					<Section title="订单账单列表" description="" >
+					<Section title="订单账单列表" description="" style={{marginBottom:-5,minHeight:910}}>
 
 					<div  className='ui-orderList'><Grid style={{marginTop:-5}}>
 						<Row>
