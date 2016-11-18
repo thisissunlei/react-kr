@@ -144,13 +144,13 @@ export default class AttributeSetting extends Component {
 	//搜索
 	onSearchSubmit(searchParams) {
 		let obj = {
-			customername:searchParams.content
+			customername: searchParams.content
 		}
-		console.log('searchParams',searchParams,obj);
+		console.log('searchParams', searchParams, obj);
 
 
 		this.setState({
-			searchParams:obj
+			searchParams: obj
 		});
 	}
 
@@ -172,7 +172,7 @@ export default class AttributeSetting extends Component {
 			searchParams,
 			openNewCreate: !this.state.openNewCreate
 		});
-        
+
 	}
 
 	onNewCreateCancel() {
@@ -301,7 +301,9 @@ export default class AttributeSetting extends Component {
 						title="高级查询"
 						modal={true}
 						open={this.state.openNewCreate}
-						onClose={this.openNewCreateDialog} bodyStyle={{paddingTop:34}}
+						onClose={this.openNewCreateDialog} 
+						bodyStyle={{paddingTop:34}}
+						contentStyle={{width:687}}
 					>
 						<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 
