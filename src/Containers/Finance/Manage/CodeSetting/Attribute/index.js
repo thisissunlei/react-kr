@@ -141,7 +141,7 @@ export default class AttributeSetting extends Component {
 	onExport(values) {
 
 		let idList = [];
-		if(values.length!=0){
+		if (values.length != 0) {
 			values.map((item, value) => {
 				idList.push(item.id)
 			})
@@ -191,7 +191,7 @@ export default class AttributeSetting extends Component {
 
 			<div>
 					<BreadCrumbs children={['系统运营','客户管理','属性配置']}/>
-					<Section title="属性配置" description="" >
+					<Section title="属性配置" description="" style={{minHeight:910}} >
 
 					<Grid style={{marginBottom:22,marginTop:2}}>
 						<Row>
