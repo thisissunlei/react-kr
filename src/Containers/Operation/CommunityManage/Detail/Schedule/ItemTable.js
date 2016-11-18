@@ -127,7 +127,7 @@ export default class ItemTable extends Component {
   //查看员工跳转地址
   onhref() {
 
-    location.href = "/krspace_member_web/member/companyMembers?companyId=" + this.state.detail.companyId + "&communityId=" + this.state.detail.communityId;
+    location.href = "/krspace_member_web/member/companyMembers?companyId=" + this.state.detail.companyId + "&communityId=" + this.state.detail.communityId + "&mid=94";
   }
 
   renderOrder(contractTypeVo) {
@@ -193,7 +193,7 @@ export default class ItemTable extends Component {
 							</ReactTooltip>
 							</div>
 						</td>
-						<td colSpan="12" style={{padding:'10px 0'}}>
+						<td colSpan="12" style={{padding:'0'}}>
               <D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} width={width} id={detail.billId}/>
               <EmployessTable  activity={detail.activity} detail={detail} id={id} />
 						</td>

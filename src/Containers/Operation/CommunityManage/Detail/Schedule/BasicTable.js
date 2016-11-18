@@ -56,7 +56,7 @@ class SearchForm extends Component {
 			rate: [],
 			communityIdList: [],
 			page: 1,
-			pageSize: 7,
+			pageSize: 10,
 			type: 'BILL',
 			communityids: '',
 
@@ -164,7 +164,7 @@ class SearchForm extends Component {
 		}];
 
 		return (
-			<form name="searchForm" className="searchForm searchList" style={{marginBottom:20,height:45}}>
+			<form name="searchForm" className="searchForm searchList" style={{marginBottom:5,height:45}}>
 				{/*<KrField  name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} left={60}/>*/}
 				
 				<SearchForms onSubmit={this.onSubmit} searchFilter={options} />
@@ -210,7 +210,7 @@ export default class BasicTable extends Component {
 			value: '',
 			communityIdList: [],
 			page: 1,
-			pageSize: 7,
+			pageSize: 10,
 			type: 'BILL',
 			detail: {},
 			activity: false,
@@ -253,8 +253,8 @@ export default class BasicTable extends Component {
 			var num = $(document).height() - $(window).height();
 			var scrollBottom = top - num;
 
-			var isOutBoundary = scrollBottom >= 0;
-
+			var isOutBoundary = scrollBottom >= -300;
+			// let isOutBoundary = false;
 			if (isOutBoundary) {
 
 				let {
@@ -569,25 +569,36 @@ export default class BasicTable extends Component {
 	}
 	renderNone(showNone) {
 		let {
+			currentYear,
+			Installmentplan,
 			rate,
-			dataLoading
+			communityIds,
+			totalCount,
+			isLoading,
+			dataLoading,
+			totalPages,
+			istip,
+			page,
+			isIscroll
 		} = this.state;
+		var _this = this;
+		const id = communityIds;
 		if (dataLoading) {
 			return (
-				<tr style={{height:200,position:'relative'}}>
+				<tbody>
+					<tr style={{height:200,position:'relative'}}>
 						<td colSpan={14} style={{border:'none'}}>
 						<div style={{left:'50%',top:'40%',zIndex:100}}><Loading/></div>
 						</td>
 						
 					</tr>
-
-
-
+				</tbody>
 			)
 		}
 		if (!showNone && !dataLoading) {
 			return (
-				<tr style={{height:300}}>
+				<tbody>
+					<tr style={{height:200}}>
 						<td colSpan={14} style={{border:'none'}}>
 							<div style={{textAlign:'center'}}>
 								<div className="ui-nothing">
@@ -596,12 +607,44 @@ export default class BasicTable extends Component {
 								</div>
 							</div>
 						</td>
-						
 					</tr>
-
-
+				</tbody>
 
 			)
+		}
+		if (showNone && !dataLoading){
+			return (
+				<tbody>
+					{/*入住率*/}
+					<tr className="header-td">
+						<td className='white'>
+							<div className="header-title">
+								<p className="title-right">入驻率</p>
+								
+							</div>
+						</td>
+						{
+							rate.map((value,index)=><td>{value}</td>)
+						}
+						<td class="last"></td>
+					</tr>
+
+					{
+						showNone && Installmentplan.map((item,index)=>{
+							let width = this.getWidth();
+							return (
+
+							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item} index={index} key={index} onStation={this.onStation} activity={this.state.activity} width={width} />
+							
+								
+							)
+
+						})
+					}
+				</tbody>
+
+			)
+
 		}
 	}
 	getWidth() {
@@ -697,40 +740,13 @@ export default class BasicTable extends Component {
 						</th>
 					</tr>
 				</thead>
-				<tbody>
-					{/*入住率*/}
-					<tr className="header-td">
-						<td className='white'>
-							<div className="header-title">
-								<p className="title-right">入驻率</p>
-								
-							</div>
-						</td>
-						{
-							rate.map((value,index)=><td>{value}</td>)
-						}
-						<td class="last"></td>
-					</tr>
-
+				
 					{
-						showNone && Installmentplan.map((item,index)=>{
-							let width = this.getWidth();
-							return (
-
-							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item} index={index} key={index} onStation={this.onStation} activity={this.state.activity} width={width} />
-							
-								
-							)
-
-						})
-					}
-					{
-						this.renderNone(showNone)
+						this.renderNone(showNone,rate)
 					}
 					
 					
 
-				</tbody>
 			</table>
 
 
