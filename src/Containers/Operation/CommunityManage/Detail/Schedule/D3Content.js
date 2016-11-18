@@ -94,7 +94,7 @@ export default class D3Content extends Component {
 				item.end = _this.countDays(item.enddate);
 				item.Begindate = dateFormat(item.begindate, "yyyy.mm.dd");
 				item.Enddate = dateFormat(item.enddate, "yyyy.mm.dd");
-				item.width = parseInt((item.end - item.start) / 365 * width) - 1; //时间段的长度
+				item.width = parseInt((item.end - item.start -1) / 365 * width); //时间段的长度
 
 				return item;
 			});
@@ -265,7 +265,7 @@ export default class D3Content extends Component {
 								)
 						}else if(index<nodeList && index !== 0){
 							return(
-								<div className='grey' data-tip data-for={`${id}${index}`} style={{'width':item.width-1,'marginRight':1,}} key={index}>
+								<div className='grey' data-tip data-for={`${id}${index}`} style={{'width':item.width,'marginRight':1,}} key={index}>
 									<ReactTooltip id={`${id}${index}`} place="top" type="dark" effect="solid">
 									{item.planTableModelList && item.planTableModelList.map((value, i)=>{
 										return (
@@ -285,7 +285,7 @@ export default class D3Content extends Component {
 							)
 						}else{
 							return (
-								<div className='blue' data-tip data-for={`${id}${index}`} style={{'width':item.width-1,'marginRight':1,}} key={index}>
+								<div className='blue' data-tip data-for={`${id}${index}`} style={{'width':item.width,'marginRight':1,}} key={index}>
 									<ReactTooltip id={`${id}${index}`} place="top" type="dark" effect="solid">
 									{item.planTableModelList && item.planTableModelList.map((value, i)=>{
 										return (
