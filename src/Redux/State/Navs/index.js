@@ -95,10 +95,6 @@ module.exports = {
 			router: 'BaseManage',
 			menuCode: 'basic_config',
 			menuItems: [{
-				primaryText: "出租方管理",
-				menuCode: 'lessorManage',
-				router: '/operation/customerManage/agreement/lessorManage/list',
-			}, {
 				primaryText: "合同配置",
 				menuCode: 'agreement_setting',
 				router: '/operation/customerManage/agreement/setting/list',
@@ -114,6 +110,10 @@ module.exports = {
 				primaryText: '商圈列表',
 				menuCode: 'businessAreaList',
 				originUrl: '/krspace_operate_web/businessArea/toBusinessAreaList?mid=87'
+			}, {
+				primaryText: "出租方管理",
+				menuCode: 'lessorManage',
+				router: '/operation/customerManage/agreement/lessorManage/list',
 			}, {
 				primaryText: '设备定义',
 				menuCode: 'sysDeviceDefinitionList',
