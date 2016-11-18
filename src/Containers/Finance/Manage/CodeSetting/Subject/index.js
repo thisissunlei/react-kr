@@ -185,6 +185,7 @@ export default class AttributeSetting extends Component {
 
 			<div>
 		 	<BreadCrumbs children={['系统运营','客户管理','科目配置']} />
+
 					<Section title="科目配置" description="" style={{marginTop:"-20px",minHeight:910}} >
 
 					<Grid style={{marginBottom:22,marginTop:2}}>
