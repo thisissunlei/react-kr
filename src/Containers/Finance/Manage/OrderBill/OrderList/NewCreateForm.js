@@ -113,11 +113,11 @@ class NewCreateForm extends Component {
 
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 			   
-				<KrField grid={1/2} right={20} style={{height:32,marginBottom:28}} name="customername" type="text" label="公司名称" /> 
+				<KrField grid={1/2} right={10} style={{height:32,marginBottom:28}} name="customername" type="text" label="公司名称" /> 
 				<KrField grid={1/2}  component="labelText"/> 
-				<KrField grid={1/2} right={21} name="communityid"  type="select" label="所属社区" options={this.state.communityList} >
+				<KrField grid={1/2} right={13} name="communityid"  type="select" label="所属社区" options={this.state.communityList} >
 				</KrField>
-				<KrField  grid={1/2} right={20} name="mainbilltype" type="select" label="订单类型" options={this.state.mainbilltypeList}>
+				<KrField  grid={1/2} right={10} name="mainbilltype" type="select" label="订单类型" options={this.state.mainbilltypeList}>
 				</KrField>
 				<div className='ui-listDate'><ListGroup>
 						<ListGroupItem><div className='ui-date-start'><KrField  name="startDate" component="date" label="起始时间"/></div></ListGroupItem>
