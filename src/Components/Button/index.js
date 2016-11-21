@@ -59,6 +59,10 @@ export default class Button extends Component {
 		 */
 		height:React.PropTypes.number,
 		fontSize:React.PropTypes.number,
+		/**
+		*高级查询的行内样式
+		*/
+		searchStyle:React.PropTypes.object,
 	}
 
 
@@ -80,6 +84,7 @@ export default class Button extends Component {
 			width,
 			height,
 			fontSize,
+			searchStyle,
 			...other
 		} = this.props;
 		let border = 'none';
@@ -133,6 +138,15 @@ export default class Button extends Component {
 			return (
 				<div className="ui-button" >
 					<span {...other} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>{label}</span>
+				</div>
+
+			);
+		}
+
+		if (type == 'search') {
+			return (
+				<div style={searchStyle}>
+					<span className='ui-search-upper' style={{cursor:'pointer',display:'inline-block'}}></span>
 				</div>
 
 			);
