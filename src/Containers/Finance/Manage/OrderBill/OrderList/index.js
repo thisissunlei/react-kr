@@ -186,6 +186,7 @@ export default class AttributeSetting extends Component {
 			list
 		})
 	}
+    
 
 
 	render() {
@@ -240,7 +241,7 @@ export default class AttributeSetting extends Component {
 							<Col md={5} align="right" style={{marginTop:7}}> 
 								<ListGroup>
 									<ListGroupItem> <SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
-									<ListGroupItem> <Button onTouchTap={this.openNewCreateDialog} label="高级查询" type='button'/></ListGroupItem>
+									<ListGroupItem> <Button onTouchTap={this.openNewCreateDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'5'}}/></ListGroupItem>
 								</ListGroup>	
 							</Col> 
 						</Row>
