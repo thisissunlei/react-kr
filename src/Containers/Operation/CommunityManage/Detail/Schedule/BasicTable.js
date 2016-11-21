@@ -474,7 +474,9 @@ export default class BasicTable extends Component {
 		} = this.state;
 		currentYear--;
 		this.setState({
-			currentYear
+			currentYear,
+			istip: false,
+			page: 1
 		});
 		this.getInstallmentplan();
 	}
@@ -485,7 +487,9 @@ export default class BasicTable extends Component {
 		} = this.state;
 		currentYear++;
 		this.setState({
-			currentYear
+			currentYear,
+			istip: false,
+			page: 1
 		});
 		this.getInstallmentplan();
 	}
