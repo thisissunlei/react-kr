@@ -237,9 +237,8 @@ class Header extends Component {
 							window.location.href = '/logout/logout';
 						}
 					}
-					/> < /IconMenu >
-
-
+					/>
+					< /IconMenu >
 				}
 				/>
 			);
