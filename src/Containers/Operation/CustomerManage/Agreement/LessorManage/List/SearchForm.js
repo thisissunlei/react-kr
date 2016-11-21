@@ -29,7 +29,7 @@ import {
 
 class SearchForm extends Component {
 
-	static PropTypes = {
+	static propTypes = {
 		onSubmit: React.PropTypes.func,
 		onCancel: React.PropTypes.func,
 	}
