@@ -59,7 +59,7 @@ export default class AttributeSetting extends Component {
 		this.onOperation = this.onOperation.bind(this);
 
 		this.onExport = this.onExport.bind(this);
-
+        
 
 
 		this.state = {
@@ -146,7 +146,7 @@ export default class AttributeSetting extends Component {
 		let obj = {
 			customername: searchParams.content
 		}
-		console.log('searchParams', searchParams, obj);
+		//console.log('searchParams', searchParams, obj);
 
 
 		this.setState({
@@ -241,7 +241,7 @@ export default class AttributeSetting extends Component {
 							<Col md={5} align="right" style={{marginTop:7}}> 
 								<ListGroup>
 									<ListGroupItem> <SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
-									<ListGroupItem> <Button onTouchTap={this.openNewCreateDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'5'}}/></ListGroupItem>
+									<ListGroupItem> <Button searchClick={this.openNewCreateDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'5'}}/></ListGroupItem>
 								</ListGroup>	
 							</Col> 
 						</Row>

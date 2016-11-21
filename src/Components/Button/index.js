@@ -63,6 +63,10 @@ export default class Button extends Component {
 		*高级查询的行内样式
 		*/
 		searchStyle:React.PropTypes.object,
+		/**
+		*高级查询点击事件
+		*/
+		searchClick:React.PropTypes.function,
 	}
 
 
@@ -85,6 +89,7 @@ export default class Button extends Component {
 			height,
 			fontSize,
 			searchStyle,
+			searchClick,
 			...other
 		} = this.props;
 		let border = 'none';
@@ -145,7 +150,7 @@ export default class Button extends Component {
 
 		if (type == 'search') {
 			return (
-				<div style={searchStyle}>
+				<div style={searchStyle} onClick={searchClick}>
 					<span className='ui-search-upper' style={{cursor:'pointer',display:'inline-block'}}></span>
 				</div>
 
