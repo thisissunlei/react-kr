@@ -21,8 +21,3 @@ export default class Basic extends Component {
     );
   }
 }
-
-
-
-
-

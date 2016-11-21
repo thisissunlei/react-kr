@@ -37,7 +37,7 @@ module.exports = {
 			}, {
 				primaryText: '访客记录',
 				menuCode: 'sysVisitRecord',
-				originUrl: '/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=102'
+				originUrl: '/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=112'
 			}, ]
 		}, ],
 	}, {
