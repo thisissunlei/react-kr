@@ -1,6 +1,6 @@
 import React from 'react';
 
-import krDate from '../../KrDate';
+import KrDate from '../../KrDate';
 
 export default class TableRowColumn extends React.Component {
 
@@ -93,7 +93,7 @@ export default class TableRowColumn extends React.Component {
 			if(type === 'date'){
 				return(
 					<td className={className} style={style} {...handlers} {...other}>
-						<krDate value={value} format={format} />
+						<KrDate value={value} format={format} />
 					</td>
 				);
 			}
