@@ -56,7 +56,7 @@ class SearchForm extends Component {
 			rate: [],
 			communityIdList: [],
 			page: 1,
-			pageSize: 10,
+			pageSize: 15,
 			type: 'BILL',
 			communityids: '',
 
@@ -210,7 +210,7 @@ export default class BasicTable extends Component {
 			value: '',
 			communityIdList: [],
 			page: 1,
-			pageSize: 10,
+			pageSize: 15,
 			type: 'BILL',
 			detail: {},
 			activity: false,
@@ -295,7 +295,7 @@ export default class BasicTable extends Component {
 							value: value,
 							type: type,
 							page: len,
-							pageSize: pageSize
+							pageSize: 10
 						})).then(function(response) {
 
 							if (response.vo) {
