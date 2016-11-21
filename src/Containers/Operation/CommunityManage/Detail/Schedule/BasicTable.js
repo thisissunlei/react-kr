@@ -44,9 +44,12 @@ class SearchForm extends Component {
 	static defaultProps = {
 		tab: '',
 	}
+	static defaultProps = {
+		communityids: React.PropTypes.string,
+	}
 	constructor(props) {
 		super(props);
-
+		console.log('communityids', this.props.communityIds)
 		this.onSubmit = this.onSubmit.bind(this);
 		this.state = {
 			currentYear: '2016',
@@ -58,8 +61,7 @@ class SearchForm extends Component {
 			page: 1,
 			pageSize: 15,
 			type: 'BILL',
-			communityids: '',
-
+			communityids: this.props.communityIds,
 
 		};
 		this.getcommunity = this.getcommunity.bind(this);
@@ -714,7 +716,7 @@ export default class BasicTable extends Component {
 		 				</p>
 		 			</div>
 		 		</div>
-		 		<SearchForm  onSubmit={this.onSubmit} onChange={this.onChange}/>
+		 		<SearchForm  onSubmit={this.onSubmit} communityIds={communityIds} onChange={this.onChange}/>
 		 		
 		 	</div>
 		 	
