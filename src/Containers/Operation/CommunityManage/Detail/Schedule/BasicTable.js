@@ -91,6 +91,7 @@ class SearchForm extends Component {
 
 		}
 
+
 		const {
 			onSubmit
 		} = this.props;
