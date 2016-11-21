@@ -22,7 +22,7 @@ import {
 
 export default class ItemDetail extends Component {
 
-	static PropTypes = {
+	static propTypes = {
 		detail: React.PropTypes.object,
 		onCancel: React.PropTypes.func,
 

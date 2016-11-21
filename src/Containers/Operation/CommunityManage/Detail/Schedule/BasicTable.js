@@ -43,7 +43,9 @@ import DismantlingForm from './DismantlingForm';
 class SearchForm extends Component {
 	static defaultProps = {
 		tab: '',
+		Ids: React.PropTypes.string,
 	}
+
 	constructor(props) {
 		super(props);
 
@@ -58,13 +60,13 @@ class SearchForm extends Component {
 			page: 1,
 			pageSize: 15,
 			type: 'BILL',
-			communityids: '',
-
+			ids: '',
 
 		};
 		this.getcommunity = this.getcommunity.bind(this);
 		this.selectCommunity = this.selectCommunity.bind(this);
 		this.getcommunity();
+
 
 	}
 
@@ -72,25 +74,21 @@ class SearchForm extends Component {
 	onSubmit(form) {
 
 		let {
-			communityids
-		} = this.state
-		let {
 			page,
 			pageSize,
-		} = this.state
-		let {
+			communityids,
+			ids,
 			formValues
-		} = this.state;
+		} = this.state
 
 		formValues = {
 			type: form.filter,
 			value: form.content,
-			communityids: communityids,
+			communityids: communityids || this.props.Id,
 			page: page,
 			pageSize: pageSize
 
 		}
-
 		const {
 			onSubmit
 		} = this.props;
@@ -518,6 +516,7 @@ export default class BasicTable extends Component {
 			_this.setState({
 				communityIds: communityIds
 			})
+
 			Store.dispatch(Actions.callAPI('getInstallmentplan', {
 				communityids: content.toString(),
 				value: '',
@@ -713,7 +712,7 @@ export default class BasicTable extends Component {
 		 				</p>
 		 			</div>
 		 		</div>
-		 		<SearchForm  onSubmit={this.onSubmit} onChange={this.onChange}/>
+		 		<SearchForm  onSubmit={this.onSubmit} Id={communityIds} onChange={this.onChange}/>
 		 		
 		 	</div>
 		 	

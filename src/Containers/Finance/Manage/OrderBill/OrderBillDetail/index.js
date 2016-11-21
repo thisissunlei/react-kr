@@ -550,7 +550,7 @@ export default class AttributeSetting extends Component {
 		this.setState({
 			openReceivedBtn: !this.state.openReceivedBtn,
 			isLoading: true,
-			params: '',
+
 		});
 		receivedList = [];
 		typeList = [];

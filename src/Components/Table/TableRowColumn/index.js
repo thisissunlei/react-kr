@@ -1,6 +1,6 @@
 import React from 'react';
 
-import krDate from '../../KrDate';
+import KrDate from '../../KrDate';
 
 export default class TableRowColumn extends React.Component {
 
@@ -15,16 +15,16 @@ export default class TableRowColumn extends React.Component {
 		onHover: React.PropTypes.func,
 		onHoverExit: React.PropTypes.func,
 		style: React.PropTypes.object,
-		name:React.PropTypes.string,
-		value:React.PropTypes.string,
-		options:React.PropTypes.array,
-		type:React.PropTypes.string,
-		format:React.PropTypes.string,
+		name: React.PropTypes.string,
+		value: React.PropTypes.string,
+		options: React.PropTypes.array,
+		type: React.PropTypes.string,
+		format: React.PropTypes.string,
 	}
 
 
 
-	constructor(props){
+	constructor(props) {
 		super(props);
 
 		this.onClick = this.onClick.bind(this);
@@ -33,9 +33,9 @@ export default class TableRowColumn extends React.Component {
 
 	}
 
-	onClick(event){
+	onClick(event) {
 
-		if(event.target.nodeName.toLowerCase() != 'td' || event.target.nodeName.toLowerCase() == 'input'){
+		if (event.target.nodeName.toLowerCase() != 'td' || event.target.nodeName.toLowerCase() == 'input') {
 			return null;
 		}
 
@@ -44,13 +44,13 @@ export default class TableRowColumn extends React.Component {
 		}
 	}
 
-	onMouseEnter(event){
+	onMouseEnter(event) {
 		if (this.props.onHover) {
 			this.props.onHover(event, this.props.columnNumber);
 		}
 	}
 
-	onMouseLeave(event){
+	onMouseLeave(event) {
 		if (this.props.onHoverExit) {
 			this.props.onHoverExit(event, this.props.columnNumber);
 		}
@@ -79,34 +79,38 @@ export default class TableRowColumn extends React.Component {
 			onMouseLeave: this.onMouseLeave,
 		};
 
-		if(options && options.length){
-			options.map(function(item,index){
-				if(item.value == value){
+		if (options && options.length) {
+			options.map(function(item, index) {
+				if (item.value == value) {
 					value = item.label;
 				}
 			});
 		}
 
 
-		if(name){
+		if (name) {
 
-			if(type === 'date'){
-				return(
+			if (type == 'date') {
+				return (
 					<td className={className} style={style} {...handlers} {...other}>
-						<krDate value={value} format={format} />
+						<KrDate value={value} format={format} />
+
 					</td>
 				);
 			}
-
-			return(
+			return (
 				<td className={className} style={style} {...handlers} {...other}>
 					{value}
-				</td>
+
+					</td>
 			);
+
+
+
 		}
 
 
-		if(type == 'operation'){
+		if (type == 'operation') {
 
 			var operationElement = [];
 
@@ -114,20 +118,21 @@ export default class TableRowColumn extends React.Component {
 				if (!React.isValidElement(child)) return;
 
 
-				let {hidden} = child.props;
+				let {
+					hidden
+				} = child.props;
 
-				if(hidden){
-						hidden = !!itemData[hidden];
+				if (hidden) {
+					hidden = !!itemData[hidden];
 				}
 
-				let newChild =  React.cloneElement(child, {
-						hidden
-					}
-				);
+				let newChild = React.cloneElement(child, {
+					hidden
+				});
 				operationElement.push(newChild);
 			});
 
-			return(
+			return (
 				<td className={className} style={style} {...handlers} {...other}>
 					{operationElement}
 				</td>
@@ -135,7 +140,7 @@ export default class TableRowColumn extends React.Component {
 		}
 
 
-		return(
+		return (
 			<td className={className} style={style} {...handlers} {...other}>
 				{children}
 			</td>
