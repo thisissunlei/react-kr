@@ -94,15 +94,17 @@ export default class TableRowColumn extends React.Component {
 				return (
 					<td className={className} style={style} {...handlers} {...other}>
 						<KrDate value={value} format={format} />
-					</td>
-				);
-			} else {
-				return (
-					<td className={className} style={style} {...handlers} {...other}>
-					{value}
+
 					</td>
 				);
 			}
+			return (
+				<td className={className} style={style} {...handlers} {...other}>
+					{value}
+
+					</td>
+			);
+
 
 
 		}
