@@ -36,7 +36,7 @@ module.exports = {
 				router: '/community/communityManage/detail'
 			}, {
 				primaryText: '访客记录',
-				menuCode: 'sysVisitRecordList',
+				menuCode: 'sysVisitRecord',
 				originUrl: '/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=102'
 			}, ]
 		}, ],
