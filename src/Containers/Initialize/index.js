@@ -8,10 +8,10 @@ import {Actions,Store} from 'kr/Redux';
 import {
 	KrField,
 	Table,
-	TableBody, 
-	TableHeader, 
-	TableHeaderColumn, 
-	TableRow, 
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
 	TableRowColumn,
 	TableFooter,
 	Button,
@@ -34,11 +34,11 @@ export default class Initialize  extends Component{
 
 
 	render(){
-        
+
 		return(
 
 			<div>
-					<Section title="订单账单列表" description="" > 
+					<Section title="订单账单列表" description="" >
 dfdfdsfsd
 dsfdsfds
 fsd
@@ -47,13 +47,10 @@ dsfdsfdsds
 
 
 
-			</div>		
+			</div>
 
 		);
 
 	}
 
 }
-
-
-

@@ -5,7 +5,7 @@ import Checkbox from '../../Checkbox';
 export default class TableHeader extends React.Component {
 
 	static displayName = 'TableHeader';
-	
+
 	static PropTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
@@ -69,24 +69,17 @@ export default class TableHeader extends React.Component {
 
 			if (displayName === 'TableHeaderColumn') {
 				tHeader.push(this.createTableHeaderColumn(child,index));
-			} 
+			}
 		});
 
 		return (
 			<thead className={className}>
 				<tr>
                   {this.renderCheckbox()}
-			      {tHeader}	
+			      {tHeader}
 				</tr>
 			</thead>
 		);
 
 	}
 }
-
-
-
-
-
-
-

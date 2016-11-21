@@ -65,7 +65,7 @@ import {
 @ReactMixin.decorate(LinkedStateMixin)
 class NewCreateForm extends Component {
 
-	static DefaultPropTypes = {
+	static defaultPropTypes = {
 		initialValues: {
 			customerName: '',
 			communityName: '',
@@ -76,7 +76,7 @@ class NewCreateForm extends Component {
 		}
 	}
 
-	static PropTypes = {
+	static propTypes = {
 		initialValues: React.PropTypes.object,
 		onSubmit: React.PropTypes.func,
 		onCancel: React.PropTypes.func,

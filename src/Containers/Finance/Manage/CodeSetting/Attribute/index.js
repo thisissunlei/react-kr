@@ -200,7 +200,7 @@ export default class AttributeSetting extends Component {
 						<Col md={8} align="right">
 						   <ListGroup>
 							 <ListGroupItem><SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
-						   </ListGroup>	
+						   </ListGroup>
 						</Col>
 					  </Row>
 					</Grid>
@@ -279,3 +279,4 @@ export default class AttributeSetting extends Component {
 	}
 
 }
+window.loca

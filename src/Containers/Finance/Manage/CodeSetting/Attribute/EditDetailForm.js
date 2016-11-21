@@ -42,7 +42,7 @@ import {
 	 onCancel(){
 		 const {onCancel} = this.props;
 		onCancel && onCancel();
-		 
+
 	 }
 
 	render(){
@@ -52,19 +52,19 @@ import {
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 				<KrField name="id" type="hidden" label="id"/>
-				<KrField grid={1/2} name="propcode" type="text" label="属性编码" requireLabel={true}/> 
-				<KrField grid={1/2} name="propname" type="text" label="属性名称" requireLabel={true} /> 
+				<KrField grid={1/2} name="propcode" type="text" label="属性编码" requireLabel={true}/>
+				<KrField grid={1/2} name="propname" type="text" label="属性名称" requireLabel={true} />
 				<KrField grid={1/2} name="proptype" type="select" label="属性类别" options={[
 						{value:'PAYMENT',label:'回款'},
 					   {value:'INCOME',label:'收入'},
 				]} requireLabel={true} >
 				</KrField>
-				<KrField grid={1/2} name="ordernum" type="text" label="排序号"  requireLabel={true}/> 
+				<KrField grid={1/2} name="ordernum" type="text" label="排序号"  requireLabel={true}/>
 				<KrField grid={1/2} component="group" label="是否启用" requireLabel={true}>
 						<KrField name="enableflag" grid={1/2} label="是" component="radio" type="radio" value="ENABLE"/>
 						<KrField name="enableflag" grid={1/2} label="否" component="radio" type="radio"  value="DISENABLE"/>
-              </KrField> 
-				<KrField name="propdesc" component="textarea" label="描述"  /> 
+              </KrField>
+				<KrField name="propdesc" component="textarea" label="描述"  />
 
 				<Grid style={{marginTop:30}}>
 					<Row>
@@ -75,7 +75,7 @@ import {
 					</Row>
 				</Grid>
 				</form>
-			
+
 		);
 	}
 }
