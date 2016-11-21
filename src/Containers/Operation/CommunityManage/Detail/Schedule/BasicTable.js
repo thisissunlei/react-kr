@@ -56,7 +56,7 @@ class SearchForm extends Component {
 			rate: [],
 			communityIdList: [],
 			page: 1,
-			pageSize: 10,
+			pageSize: 15,
 			type: 'BILL',
 			communityids: '',
 
@@ -210,7 +210,7 @@ export default class BasicTable extends Component {
 			value: '',
 			communityIdList: [],
 			page: 1,
-			pageSize: 10,
+			pageSize: 15,
 			type: 'BILL',
 			detail: {},
 			activity: false,
@@ -295,7 +295,7 @@ export default class BasicTable extends Component {
 							value: value,
 							type: type,
 							page: len,
-							pageSize: pageSize
+							pageSize: 10
 						})).then(function(response) {
 
 							if (response.vo) {
@@ -612,7 +612,7 @@ export default class BasicTable extends Component {
 
 			)
 		}
-		if (showNone && !dataLoading){
+		if (showNone && !dataLoading) {
 			return (
 				<tbody>
 					{/*入住率*/}
@@ -696,7 +696,7 @@ export default class BasicTable extends Component {
 		return (
 			<div style={{position:'relative'}}>
 			{isLoading?<div style={{position:'fixed',left:'50%',top:'40%',zIndex:100}}><Loading/></div>:''}
-			{istip?<div style={{width:640,color:'#999',fontSize:'14px',position:'absolute',left:'50%',bottom:'-73px',marginLeft:'-320px',zIndex:100}}><p style={{width:260,borderBottom:'1px solid #cccccc',height:9,float:'left'}} ></p><p style={{float:'left',paddingLeft:'15px',paddingRight:'15px'}}>我是有底线的</p><p style={{width:260,height:9,borderBottom:'1px solid #cccccc',float:'left'}} ></p></div>:''}
+			{istip?<div style={{width:640,color:'#999',fontSize:'14px',position:'absolute',left:'50%',bottom:'-103px',marginLeft:'-320px',zIndex:100}}><p style={{width:260,borderBottom:'1px solid #cccccc',height:9,float:'left'}} ></p><p style={{float:'left',paddingLeft:'15px',paddingRight:'15px'}}>我是有底线的</p><p style={{width:260,height:9,borderBottom:'1px solid #cccccc',float:'left'}} ></p></div>:''}
 			
 					
 			
