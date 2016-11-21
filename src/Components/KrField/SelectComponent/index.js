@@ -7,20 +7,20 @@ import 'react-select/dist/react-select.css';
 import WrapComponent from '../WrapComponent';
 import './index.less';
 
-export default class SelectComponent extends React.Component{
+export default class SelectComponent extends React.Component {
 
 
 	static defaultProps = {
-		inline:false
+		inline: false
 	}
 
 	static PropTypes = {
-		onChange:React.PropTypes.func,
-		inline:React.PropTypes.bool,
-		search:React.PropTypes.bool
+		onChange: React.PropTypes.func,
+		inline: React.PropTypes.bool,
+		search: React.PropTypes.bool
 	}
 
-	constructor(props){
+	constructor(props) {
 		super(props)
 
 		this.onChange = this.onChange.bind(this);
@@ -31,40 +31,49 @@ export default class SelectComponent extends React.Component{
 		this.isInit = false;
 
 		this.state = {
-			value:[]
+			value: []
 		}
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		this.setInitValue(this.props.input.value);
 	}
 
 
-	componentWillReceiveProps(nextProps){
-		if(!this.isInit && nextProps.input.value){
+	componentWillReceiveProps(nextProps) {
+		if (!this.isInit && nextProps.input.value) {
 			this.setInitValue(nextProps.input.value);
 		}
 	}
 
-	setInitValue(value){
-		
-		if(!value){
-			return ;
+	setInitValue(value) {
+
+		if (!value) {
+			return;
 		}
 
-		this.setState({value});
+		this.setState({
+			value
+		});
 		this.isInit = true;
 	}
 
-	handleChange(value){
+	handleChange(value) {
 
-		let {input} = this.props;
-		this.setState({value});
+		let {
+			input
+		} = this.props;
+		this.setState({
+			value
+		});
 		input.onChange(value);
 	}
 
-	onChange(item){
-		let {input,onChange} = this.props;
+	onChange(item) {
+		let {
+			input,
+			onChange
+		} = this.props;
 		var value = (item && item.value) || '';
 		input.onChange(value);
 
@@ -72,13 +81,30 @@ export default class SelectComponent extends React.Component{
 	}
 
 
-	render(){
+	render() {
 
-		let { input, label,inline, search,type, meta: { touched, error },children,disabled,style,requireLabel,options,multi,...other} = this.props;
+		let {
+			input,
+			label,
+			inline,
+			search,
+			type,
+			meta: {
+				touched,
+				error
+			},
+			children,
+			disabled,
+			style,
+			requireLabel,
+			options,
+			multi,
+			...other
+		} = this.props;
 
-		if(multi){
+		if (multi) {
 			return (
-			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
+				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 						<ReactSelect 
 									multi
 									simpleValue
@@ -94,10 +120,10 @@ export default class SelectComponent extends React.Component{
 			);
 
 		}
-		if(options){
+		if (options) {
 			return (
-		
-			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
+
+				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 						<ReactSelect 
 									name={input.name}
 			
@@ -106,7 +132,7 @@ export default class SelectComponent extends React.Component{
 									clearable={true}
 									options={options}
 									onChange={this.onChange} 
-									placeholder="请选择..."
+									placeholder="请选择"
 							
 								/>
 						
@@ -131,4 +157,3 @@ export default class SelectComponent extends React.Component{
 
 
 }
-
