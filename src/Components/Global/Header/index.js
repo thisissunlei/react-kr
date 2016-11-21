@@ -1,7 +1,16 @@
-import React,{Component,PropTypes} from 'react';
-import {bindActionCreators} from 'redux';
-import { connect } from 'react-redux';
-import {Link} from 'react-router';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
+import {
+	bindActionCreators
+} from 'redux';
+import {
+	connect
+} from 'react-redux';
+import {
+	Link
+} from 'react-router';
 
 import * as actionCreators from '../../../Redux/Actions';
 
@@ -27,12 +36,20 @@ import {
 
 import ActionHome from 'material-ui/svg-icons/action/home';
 
-import {Popover, PopoverAnimationVertical} from 'material-ui/Popover';
+import {
+	Popover,
+	PopoverAnimationVertical
+} from 'material-ui/Popover';
 
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import {
+	Toolbar,
+	ToolbarGroup,
+	ToolbarSeparator,
+	ToolbarTitle
+} from 'material-ui/Toolbar';
 
 
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
@@ -48,13 +65,13 @@ import SidebarNav from '../SidebarNav';
 
 
 class Header extends Component {
-	
 
-    static contextTypes = {
-        router: PropTypes.object.isRequired
-    };
 
-	constructor(props,context){
+	static contextTypes = {
+		router: PropTypes.object.isRequired
+	};
+
+	constructor(props, context) {
 		super(props, context);
 
 		this.handleToggle = this.handleToggle.bind(this);
@@ -63,47 +80,62 @@ class Header extends Component {
 		this.touchTitle = this.touchTitle.bind(this);
 
 		this.state = {
-			bottomNav:false,
-			toggle:true
+			bottomNav: false,
+			toggle: true
 		}
 
 	}
-	
 
-	handleToggle(){
 
-		var {actions,sidebar_nav} = this.props;
+	handleToggle() {
+
+		var {
+			actions,
+			sidebar_nav
+		} = this.props;
 		actions.switchSidebarNav(!!!sidebar_nav.switch_value);
 	}
 
-	showBottomNav(event){
+	showBottomNav(event) {
 		event.preventDefault();
 
-		var {actions,bottom_nav} = this.props;
-		actions.switchBottomNav({switch_value:!!!bottom_nav.switch_value,anchor_el:event.currentTarget});
+		var {
+			actions,
+			bottom_nav
+		} = this.props;
+		actions.switchBottomNav({
+			switch_value: !!!bottom_nav.switch_value,
+			anchor_el: event.currentTarget
+		});
 
 
 	}
 
-	handleRequestClose(){
-		var {actions,bottom_nav} = this.props;
-		actions.switchBottomNav({switch_value:!!!bottom_nav.switch_value,anchor_el:event.currentTarget});
+	handleRequestClose() {
+		var {
+			actions,
+			bottom_nav
+		} = this.props;
+		actions.switchBottomNav({
+			switch_value: !!!bottom_nav.switch_value,
+			anchor_el: event.currentTarget
+		});
 	};
 
-	touchTitle(){
+	touchTitle() {
 		//this.context.router.push('/');
 		window.location.href = 'http://krspace.cn';
 	}
 
-	renderHeaderNav(item,index){
+	renderHeaderNav(item, index) {
 
 		let styles = {
-			color:'#fff',
-			 width: 'auto',
-			height:60,
+			color: '#fff',
+			width: 'auto',
+			height: 60,
 		}
 
-		if(item.active){
+		if (item.active) {
 			styles.borderBottom = '2px solid #fff';
 			styles.borderLeft = '1px solid #3F93CA';
 			styles.borderRight = '1px solid #3F93CA';
@@ -112,79 +144,108 @@ class Header extends Component {
 
 		let jumpUrl = '';
 
-		if(item.originUrl){
+		if (item.originUrl) {
 			jumpUrl = item.originUrl;
-		}else{
-			jumpUrl = './#'+item.router;
+		} else {
+			jumpUrl = './#' + item.router;
 		}
-		
+
 
 		return (
-			 <FlatButton label={item.primaryText} key={index} style={styles} href={jumpUrl} labelStyle={{lineHeight:'60px',fontSize:"16px"}} />
+			<FlatButton label={item.primaryText} key={index} style={styles} href={jumpUrl} labelStyle={{lineHeight:'60px',fontSize:"16px"}} />
 		);
 
 	}
 
 	render() {
 
-		var styles = {paddingLeft:0,position:'fixed',top:0,left:0,right:0,zIndex:9,backgroundColor:'#328ECC',height:"60px"};
+		var styles = {
+			paddingLeft: 0,
+			position: 'fixed',
+			top: 0,
+			left: 0,
+			right: 0,
+			backgroundColor: '#328ECC',
+			height: "60px",
+			zIndex: 300
+		};
 
-		var {switch_value} = this.props.sidebar_nav;
+		var {
+			switch_value
+		} = this.props.sidebar_nav;
 
-		if(switch_value){
+		if (switch_value) {
 			//styles.paddingLeft = 50;
 		}
 
 
-		const Header = (props) =>{
+		const Header = (props) => {
 
 			var iconClassName = '';
-			
+
 			let sidebarNavSwitch = this.props.sidebar_nav.switch_value;
-			if(sidebarNavSwitch){
-					iconClassName="hide-heng";
-			}else{
-					iconClassName="hide-shu";
+			if (sidebarNavSwitch) {
+				iconClassName = "hide-heng";
+			} else {
+				iconClassName = "hide-shu";
 
 			}
-			return (
-				<AppBar
-				style={styles}
-				onLeftIconButtonTouchTap={this.handleToggle}
-				iconStyleLeft={{marginTop:0}}
-				
-		 iconElementLeft={
+			return ( < AppBar style = {
+					styles
+				}
+				onLeftIconButtonTouchTap = {
+					this.handleToggle
+				}
+				iconStyleLeft = {
+					{
+						marginTop: 0
+					}
+				}
 
-				<div className="main-navs" >
+				iconElementLeft = {
+
+					<div className="main-navs" >
 						 <FlatButton onTouchTap={this.handleToggle} icon={<FontIcon className={iconClassName} />} style={{color:'#fff',height:60,width:200}} />
 						 <FlatButton onTouchTap={this.touchTitle}  icon={<FontIcon className="new-logo"/> } style={{height:"60px"}}/>
 						{this.props.navs_items.map((item,index)=>this.renderHeaderNav(item,index))}
 					</div>
-		}
-
-		iconElementRight={
-			
-
-
-        <IconMenu
-				iconButtonElement={
-				  <IconButton><MoreVertIcon /></IconButton>
 				}
-				targetOrigin={{horizontal: 'right', vertical: 'top'}}
-				anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-			  >
-				<MenuItem primaryText={this.props.user.nick} />
-				{/*
-				<MenuItem primaryText={this.props.user.email} />
-				<MenuItem primaryText={this.props.user.mobile} />
-					*/}
-				<MenuItem primaryText="退出" onTouchTap={(event)=>{
-					window.location.href = '/logout/logout';
-				}}/>
-			  </IconMenu>
 
-			 
-		}
+				iconElementRight = {
+
+
+
+					< IconMenu
+					iconButtonElement = {
+						<IconButton><MoreVertIcon /></IconButton>
+					}
+					targetOrigin = {
+						{
+							horizontal: 'right',
+							vertical: 'top'
+						}
+					}
+					anchorOrigin = {
+						{
+							horizontal: 'right',
+							vertical: 'top'
+						}
+					} >
+					<MenuItem primaryText={this.props.user.nick} /> {
+						/*
+										<MenuItem primaryText={this.props.user.email} />
+										<MenuItem primaryText={this.props.user.mobile} />
+											*/
+					} < MenuItem primaryText = "退出"
+					onTouchTap = {
+						(event) => {
+							window.location.href = '/logout/logout';
+						}
+					}
+					/> < /IconMenu >
+
+
+				}
 				/>
 			);
 		}
@@ -211,31 +272,30 @@ class Header extends Component {
 
 
 
-
-function mapStateToProps(state){
+function mapStateToProps(state) {
 
 	return {
-		header_nav:state.header_nav,
-		sidebar_nav:state.sidebar_nav,
-		navs_items:state.navs.items,
-		navs_current_items:state.navs.current_items,
-		bottom_nav:state.bottom_nav,
-		current_router:state.navs.current_router,
-		current_parent:state.navs.current_parent,
-		current_child:state.navs.current_child,
-		user:state.user
+		header_nav: state.header_nav,
+		sidebar_nav: state.sidebar_nav,
+		navs_items: state.navs.items,
+		navs_current_items: state.navs.current_items,
+		bottom_nav: state.bottom_nav,
+		current_router: state.navs.current_router,
+		current_parent: state.navs.current_parent,
+		current_child: state.navs.current_child,
+		user: state.user
 	};
 }
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch) {
 	return {
-		actions:bindActionCreators(Object.assign({},actionCreators),dispatch)
+		actions: bindActionCreators(Object.assign({}, actionCreators), dispatch)
 	};
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
 
-	/*
+/*
 			<FloatingActionButton onTouchTap={this.showBottomNav} style={{position:'fixed',bottom:20,right:10,zIndex:888}} secondary={true} >
 			<ContentAdd />
 			</FloatingActionButton>
@@ -257,7 +317,3 @@ export default connect(mapStateToProps,mapDispatchToProps)(Header);
 			</Popover>
 
 */
-
-
-
-
