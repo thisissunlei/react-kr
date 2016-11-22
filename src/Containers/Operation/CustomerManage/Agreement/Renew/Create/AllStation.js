@@ -61,7 +61,7 @@ onChangeRentBeginDate(value){
 
   if(!selected.length){
     Notify.show([{
-        message:'请选择工位!',
+        message:'请先选择工位!',
         type: 'danger',
     }]);
     return ;
