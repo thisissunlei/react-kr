@@ -17,7 +17,8 @@ import {
 	Button,
 	Section,
 	FontIcon,
-	SearchForms
+	SearchForms,
+	Title
 } from 'kr-ui';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
@@ -28,9 +29,8 @@ import { hashHistory ,History} from 'react-router';
 
 export default class Demo extends Component{
 
-
 	 static contextTypes = {
-	  router: React.PropTypes.object.isRequired
+	  	router: React.PropTypes.object.isRequired
     }
 
 	constructor(props,context){
@@ -56,6 +56,10 @@ export default class Demo extends Component{
 		const list = [{a:1},{b:2},{c:3},{d:5}]
 		return(
 			<div>
+
+				<Title value="haah "/>
+
+
 					<Section title="demo" description="" >
 							<Checkbox  label="ahah" checked={true} />
 							<FontIcon className="icon-home"/>
