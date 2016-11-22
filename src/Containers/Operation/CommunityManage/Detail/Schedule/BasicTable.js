@@ -318,7 +318,7 @@ export default class BasicTable extends Component {
 								_this.setState({
 									isLoading: !_this.state.isLoading
 								})
-							}, 100)
+							}, 10)
 
 						}).catch(function(err) {
 							Notify.show([{
