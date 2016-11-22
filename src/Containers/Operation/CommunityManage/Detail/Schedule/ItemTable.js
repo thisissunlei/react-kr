@@ -134,14 +134,14 @@ export default class ItemTable extends Component {
     contractTypeVo = contractTypeVo.map((item, index) => {
       if (!item.contractCount) {
         return (
-          <li key={index} className="company-order-zero">
+          <li key={index} className="company-order-zero" key={index}>
 							<p className="name">{item.contractName}</p>
 							<p>{dateFormat(item.contractTime,"yyyy.mm.dd")}</p>
 						</li>
         )
       } else if (item.contractCount === 1) {
         return (
-          <li key={index} className="company-order">
+          <li key={index} className="company-order" key={index}>
 							<p className="name">{item.contractName}</p>
 							<p>{dateFormat(item.contractTime,"yyyy.mm.dd")}</p>
 						</li>
