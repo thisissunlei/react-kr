@@ -25,6 +25,8 @@ import {
 	Button,
 	Row,
 	Col,
+	ListGroup,
+	ListGroupItem
 } from 'kr-ui';
 import {
 	reduxForm,
@@ -224,20 +226,25 @@ export default class FloorPlan extends Component {
 		} else {
 			$(window).unbind('scroll', this.scrollLoad());
 		}
-		const width = $('#planTable').width() ;
-		// console.log('======',$('#planTable').width());
 		return (
 
 			<div id="planTable" style={{margin:20,paddingBottom:30}}>
 		 	<form name="planTable" onSubmit={handleSubmit(this.onSubmit)} className="form-list">
-				<KrField name="community"  grid={1/5} component="select" label="社区" search={true}  options={communityIdList} onChange={this.selectCommunity} />
-				<KrField name="floor"  grid={1/5} component="select" label="楼层" options={communityInfoFloorList} search={true}/>
-				<KrField grid={3/10}  name="start" component="date" label="注册时间" search={true}/>
-				<KrField grid={1/5}  name="end" component="date"  label="至" search={true}/>
-				<span style={{height:41,paddingTop:3,display:'inline-block'}}><Button  label="确定" type="submit" height={34}/></span>
+				
+					<ListGroup>
+						<ListGroupItem><span style={{display:'inline-block',lineHeight:'45px'}}>社区</span></ListGroupItem>
+						<ListGroupItem style={{maxWidth:170,marginTop:'-6px',minWidth:110,width:'100%'}}><KrField grid={1/1} name="community" component="select"   options={communityIdList} onChange={this.selectCommunity} /></ListGroupItem>
+						<ListGroupItem><span style={{display:'inline-block',lineHeight:'45px'}}>楼层</span></ListGroupItem>
+						<ListGroupItem  style={{maxWidth:170,marginTop:'-6px',minWidth:100,width:'100%'}}><KrField name="floor" grid={1/1} component="select" options={communityInfoFloorList} /></ListGroupItem>
+						<ListGroupItem><span style={{display:'inline-block',lineHeight:'45px'}}>注册时间</span></ListGroupItem>
+						<ListGroupItem style={{minWidth:100,marginTop:'-6px'}}> <KrField name="start"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/></ListGroupItem>
+						<ListGroupItem style={{marginLeft:'10px'}}><span style={{display:'inline-block',lineHeight:'45px'}}>至</span></ListGroupItem>
+						<ListGroupItem  style={{minWidth:100,marginTop:'-6px'}}> <KrField name="end" component="date" onChange={this.onChangeLeaseEndDate} simple={true}/> </ListGroupItem>
+						<ListGroupItem style={{marginLeft:6,marginTop:4}}> <Button  label="确定" type="submit" height={34}/></ListGroupItem>
+					</ListGroup>
 			</form>
-			<p style={{margin:20}}></p>
-			<IframeContent src={url} onClose={this.getState} className="floorIframe" onLoad={this.onLoad} width={width} height={800} scrolling="no"/>
+			<p style={{margin:10}}></p>
+			<IframeContent src={url} onClose={this.getState} className="floorIframe" onLoad={this.onLoad} width={'100%'} height={800} scrolling="no"/>
 
 		</div>
 		);
