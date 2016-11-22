@@ -66,7 +66,7 @@ export default class Button extends Component {
 		/**
 		*高级查询点击事件
 		*/
-		searchClick:React.PropTypes.function,
+		searchClick:React.PropTypes.func,
 	}
 
 

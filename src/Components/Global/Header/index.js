@@ -179,7 +179,7 @@ class Header extends Component {
 		}
 
 
-		const Header = (props) => {
+		const HeaderBar = (props) => {
 
 			var iconClassName = '';
 
@@ -213,8 +213,6 @@ class Header extends Component {
 
 				iconElementRight = {
 
-
-
 					< IconMenu
 					iconButtonElement = {
 						<IconButton><MoreVertIcon /></IconButton>
@@ -231,20 +229,16 @@ class Header extends Component {
 							vertical: 'top'
 						}
 					} >
-					<MenuItem primaryText={this.props.user.nick} /> {
-						/*
-										<MenuItem primaryText={this.props.user.email} />
-										<MenuItem primaryText={this.props.user.mobile} />
-											*/
-					} < MenuItem primaryText = "退出"
+					{this.props.user.nick && 	<MenuItem primaryText={this.props.user.nick} />}
+
+					 < MenuItem primaryText = "退出"
 					onTouchTap = {
 						(event) => {
 							window.location.href = '/logout/logout';
 						}
 					}
-					/> < /IconMenu >
-
-
+					/>
+					< /IconMenu >
 				}
 				/>
 			);
@@ -254,7 +248,7 @@ class Header extends Component {
 
 			<div >
 
-				{this.props.header_nav.switch_value && <Header/>}
+				{this.props.header_nav.switch_value && <HeaderBar/>}
 
 			<Drawer open={this.props.sidebar_nav.switch_value} width={180} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)'}}>
 
