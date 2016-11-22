@@ -31,9 +31,12 @@ export default class KrDate extends React.Component {
 			value,
 			format
 		} = this.props;
+
+
 		if (!value) {
 			return (<span>无</span>);
 		}
+
 
 		let result = '';
 

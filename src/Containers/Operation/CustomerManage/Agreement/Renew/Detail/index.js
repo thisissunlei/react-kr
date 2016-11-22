@@ -15,10 +15,11 @@ import {
 
 import {
 	KrField,
-	LabelText
+	LabelText,
+	KrDate
 } from 'kr-ui';
 
-import KrDate from 'kr-ui/Date';
+
 import RaisedButton from 'material-ui/RaisedButton';
 
 import {
@@ -66,6 +67,7 @@ export default class JoinDetail extends Component {
 				id: _this.props.params.id
 			}))
 			.then(function(response) {
+
 				_this.setState({
 					basic: response
 				});
@@ -165,24 +167,28 @@ export default class JoinDetail extends Component {
 															</TableHeader>
 															<TableBody>
 
-															{basic.stationVos.length && basic.stationVos.map((item,index)=>{
-																console.log('ffffff',item.leaseBeginDate)
-																return (
-																	 <TableRow key={index}>
-																	<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
-																	<TableRowColumn>
-																		{item.stationName}
-																	</TableRowColumn>
-																	<TableRowColumn>
-																		{item.unitprice}
-																	</TableRowColumn>
-																	<TableRowColumn>
+																{basic.stationVos.length && basic.stationVos.map((item,index)=>{
+																	console.log('item',item);
+																	return (
+																		 <TableRow key={index}>
+																		<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
+																		<TableRowColumn>
+																			{item.stationName}
+																		</TableRowColumn>
+																		<TableRowColumn>
+																			{item.unitprice}
+																		</TableRowColumn>
+																		<TableRowColumn>
+
 																					<KrDate value={item.leaseBeginDate}/>
-																	</TableRowColumn>
-																	<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
-																   </TableRow>
-																	);
-															})}
+
+																		</TableRowColumn>
+																		<TableRowColumn>
+																								 <KrDate value={item.leaseEndDate}/>
+																			</TableRowColumn>
+																	   </TableRow>
+																		);
+																})}
 
 														   </TableBody>
 													 </Table>
