@@ -64,7 +64,7 @@ export default (
 
 		{/*社区经营*/}
 		<Route path="community" component={Basic}>
-			<Route path="index" component={Community.Home}/>
+             <IndexRedirect to="communityManage/detail" />
 			{/*计划表*/}
 
 			<Route path="communityManage" component={Basic}>
