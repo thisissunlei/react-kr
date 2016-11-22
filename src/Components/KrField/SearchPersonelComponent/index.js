@@ -9,7 +9,7 @@ import WrapComponent from '../WrapComponent';
 export default class  SearchPersonelComponent extends React.Component {
 
 	static defaultProps = {
-		placeholder:'请选择...'
+		placeholder:'请输入...'
 	}
 
 	static PropTypes = {
@@ -61,6 +61,7 @@ export default class  SearchPersonelComponent extends React.Component {
 					loadOptions={this.getOptions}
 					clearable={true}
 					clearAllText="清除"
+					noResultsText=""
 					onChange={this.onChange}
 					placeholder={placeholder}/>
 			{touched && error && <div className="error-wrap"> <span>{error}</span> </div>}

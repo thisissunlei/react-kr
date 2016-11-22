@@ -82,7 +82,7 @@ class SearchForm extends Component {
 		} = this.state
 
 		formValues = {
-			type: form.filter,
+			type: form.filter || 'BILL',
 			value: form.content,
 			communityids: communityids || this.props.Id,
 			page: page,
@@ -162,7 +162,7 @@ class SearchForm extends Component {
 		}];
 
 		return (
-			<form name="searchForm" className="searchForm searchList" style={{marginBottom:5,height:45}}>
+			<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45}}>
 				{/*<KrField  name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} left={60}/>*/}
 				
 				<SearchForms onSubmit={this.onSubmit} searchFilter={options} />
@@ -190,7 +190,7 @@ export default class BasicTable extends Component {
 		this.onPreYear = this.onPreYear.bind(this);
 		this.onNextYear = this.onNextYear.bind(this);
 		this.onCancel = this.onCancel.bind(this);
-		this.onConfrimSubmit = this.onConfrimSubmit.bind(this);
+
 		this.openDismantlingDialog = this.openDismantlingDialog.bind(this);
 		this.onDismantling = this.onDismantling.bind(this);
 		this.getInstallmentplan = this.getInstallmentplan.bind(this);
@@ -318,7 +318,7 @@ export default class BasicTable extends Component {
 								_this.setState({
 									isLoading: !_this.state.isLoading
 								})
-							}, 100)
+							}, 10)
 
 						}).catch(function(err) {
 							Notify.show([{
@@ -441,25 +441,7 @@ export default class BasicTable extends Component {
 
 	}
 
-	onConfrimSubmit(formValues) {
-		/*Store.dispatch(Actions.callAPI('addOrEditEnterContract',{},formValues)).then(function(response){
-				
 
-				Notify.show([{
-					message:'创建成功',
-					type: 'danger',
-				}]);
-
-			}).catch(function(err){
-				Notify.show([{
-					message:err.message,
-					type: 'danger',
-				}]);
-		   	});*/
-
-
-
-	}
 
 	openDismantlingDialog() {
 		this.setState({
@@ -474,7 +456,10 @@ export default class BasicTable extends Component {
 		} = this.state;
 		currentYear--;
 		this.setState({
-			currentYear
+			currentYear,
+			istip: false,
+			page: 1,
+			dataLoading: true,
 		});
 		this.getInstallmentplan();
 	}
@@ -485,7 +470,10 @@ export default class BasicTable extends Component {
 		} = this.state;
 		currentYear++;
 		this.setState({
-			currentYear
+			currentYear,
+			istip: false,
+			page: 1,
+			dataLoading: true,
 		});
 		this.getInstallmentplan();
 	}
@@ -522,7 +510,7 @@ export default class BasicTable extends Component {
 				value: '',
 				type: type,
 				page: page,
-				pageSize: pageSize,
+				pageSize: 15,
 				year: _this.state.currentYear,
 			})).then(function(response) {
 				if (response.vo) {
@@ -597,7 +585,7 @@ export default class BasicTable extends Component {
 		if (!showNone && !dataLoading) {
 			return (
 				<tbody>
-					<tr style={{height:200}}>
+					<tr style={{height:200}} className="nothing">
 						<td colSpan={14} style={{border:'none'}}>
 							<div style={{textAlign:'center'}}>
 								<div className="ui-nothing">
@@ -623,7 +611,7 @@ export default class BasicTable extends Component {
 							</div>
 						</td>
 						{
-							rate.map((value,index)=><td>{value}</td>)
+							rate.map((value,index)=><td key={index}>{value}</td>)
 						}
 						<td class="last"></td>
 					</tr>
@@ -756,7 +744,7 @@ export default class BasicTable extends Component {
 				open={this.state.dismantling} 
 				contentStyle={{width:445}}
 				>
-				<DismantlingForm  onSubmit={this.onConfrimSubmit} onCancel={this.openDismantlingDialog} detail={this.state.detail} />
+				<DismantlingForm   onCancel={this.openDismantlingDialog} detail={this.state.detail} />
 			 </Dialog>
 			
 		</div>

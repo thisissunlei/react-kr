@@ -158,8 +158,8 @@ export default class ConfirmFormDetail  extends Component{
 						<Grid style={{paddingBottom:50}}>
 						<Row>
 						<ListGroup>
-							<ListGroupItem style={{width:'47%',textAlign:'right',paddingRight:15}}><Button label="确定" type="button" joinEditForm onTouchTap={this.onSubmit} width={90} height={34} fontSize={14}/></ListGroupItem>
-							<ListGroupItem style={{width:'47%',textAlign:'left',paddingLeft:15}}><Button  label="取消" type="button"  onTouchTap={this.onCancel} cancle={true}  width={90} height={34} fontSize={14}/></ListGroupItem>
+							<ListGroupItem style={{width:'45%',textAlign:'right',paddingRight:15}}><Button label="确定" type="button" joinEditForm onTouchTap={this.onSubmit} width={90} height={34} fontSize={14}/></ListGroupItem>
+							<ListGroupItem style={{width:'45%',textAlign:'left',paddingLeft:15}}><Button  label="取消" type="button"  onTouchTap={this.onCancel} cancle={true}  width={90} height={34} fontSize={14}/></ListGroupItem>
 						</ListGroup>
 						</Row>
 						</Grid>

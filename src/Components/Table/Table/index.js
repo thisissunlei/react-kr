@@ -450,7 +450,7 @@ export default class Table extends React.Component {
 
 		this.setState({
 			allRowsSelected: !this.state.allRowsSelected,
-			selectedRows: tmp
+			selectedRows: tmp,
 		});
 
 		var _this = this;
