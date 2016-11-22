@@ -38,13 +38,13 @@ export default (
 
 	<Route path="/" component={Master}>
 
-		<IndexRoute component={Permission.Home}  onEnter={({params}, replace) =>{
+		<IndexRoute component={Welcome}  onEnter={({params}, replace) =>{
 			Store.dispatch(Actions.switchSidebarNav(false));
 		}} onLeave={({params},replace)=>{
 			Store.dispatch(Actions.switchSidebarNav(true));
 		}}/>
 
-		<Route path="index" component={Permission.Home}  onEnter={({params}, replace) =>{
+		<Route path="index" component={Welcome}  onEnter={({params}, replace) =>{
 			Store.dispatch(Actions.switchSidebarNav(false));
 		}} onLeave={({params},replace)=>{
 			Store.dispatch(Actions.switchSidebarNav(true));
@@ -86,7 +86,7 @@ export default (
 		{/*运营管理*/}
 		<Route path="operation" component={Basic}>
 				<Route path="index" component={Operation.Home}/>
-				
+
 
               {/*客户管理*/}
 				<Route path="customerManage" component={Basic}>
