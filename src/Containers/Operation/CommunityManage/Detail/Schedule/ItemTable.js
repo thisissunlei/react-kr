@@ -136,7 +136,7 @@ export default class ItemTable extends Component {
         return (
           <li key={index} className="company-order-zero" key={index}>
 							<p className="name">{item.contractName}</p>
-							<p>{dateFormat(item.contractTime,"yyyy.mm.dd")}</p>
+							<p></p>
 						</li>
         )
       } else if (item.contractCount === 1) {
