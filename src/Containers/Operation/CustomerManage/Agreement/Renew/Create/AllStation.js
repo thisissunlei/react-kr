@@ -57,8 +57,17 @@ class SelectStationForm  extends Component{
 
 
 onChangeRentBeginDate(value){
-	value = dateFormat(value,'yyyy-mm-dd');
 	let {stationVos,selected} = this.state;
+
+  if(!selected.length){
+    Notify.show([{
+        message:'请选择工位!',
+        type: 'danger',
+    }]);
+    return ;
+  }
+
+	value = dateFormat(value,'yyyy-mm-dd');
 	stationVos = [].concat(stationVos);
 	stationVos.map(function(item,index){
 		if(selected.indexOf(index) !==-1){
