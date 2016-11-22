@@ -99,8 +99,7 @@ class NewCreatForm extends Component {
 				</Col>
 				<Col md={4} align="center">
 				  {
-					contractStatusCount.enterTotoal>0?<span className="createButton disabled">入驻协议书</span>:<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/join/create"}>入驻协议书</a>
-
+					contractStatusCount.enterTotoal>0 && contractStatusCount.enterFlag?<span className="createButton disabled">入驻协议书</span>:<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/join/create"}>入驻协议书</a>
 				  }
 				</Col>
 				<Col md={4} align="center">
