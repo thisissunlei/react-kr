@@ -16,36 +16,27 @@ import {
 import {
 	KrField,
 	LabelText,
-	KrDate
+	KrDate,
+		Button,
+		Grid,
+		Row,
+		Col,
+		Table,
+		TableBody,
+		TableHeader,
+		TableHeaderColumn,
+		TableRow,
+		TableRowColumn,
+		TableFooter
+
 } from 'kr-ui';
 
 
-import RaisedButton from 'material-ui/RaisedButton';
-
-import {
-	Button
-} from 'kr-ui';
 import {
 	Actions,
 	Store
 } from 'kr/Redux';
 
-import {
-	Grid,
-	Row,
-	Col
-} from 'kr-ui/Grid';
-
-import {
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter
-} from 'kr-ui/Table';
-import dateFormat from 'dateformat';
 
 export default class JoinDetail extends Component {
 
