@@ -247,8 +247,8 @@ export default class Pagination extends Component {
 			i++;
 		}
 
-		if (pageEnd < pageMax) {
-			element = this.createOther(pageEnd + 1);
+		if (pageEnd < pageMax-1) {
+			element = this.createOther(pageEnd);
 			pageBody.push(element);
 		}
 

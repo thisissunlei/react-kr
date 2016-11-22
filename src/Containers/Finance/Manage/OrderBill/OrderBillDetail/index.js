@@ -511,7 +511,6 @@ export default class AttributeSetting extends Component {
 		}
 		//回款提交
 	onAddReceivedSubmit(params) {
-		//console.log('222222222',params);
 		params = Object.assign({}, params);
 		if (params.autoSplit == 0) {
 			params.jsonStr = {};
@@ -550,7 +549,6 @@ export default class AttributeSetting extends Component {
 		this.setState({
 			openReceivedBtn: !this.state.openReceivedBtn,
 			isLoading: true,
-
 		});
 		receivedList = [];
 		typeList = [];

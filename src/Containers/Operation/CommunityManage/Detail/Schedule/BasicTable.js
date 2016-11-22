@@ -476,7 +476,8 @@ export default class BasicTable extends Component {
 		this.setState({
 			currentYear,
 			istip: false,
-			page: 1
+			page: 1,
+			dataLoading:true,
 		});
 		this.getInstallmentplan();
 	}
@@ -489,7 +490,8 @@ export default class BasicTable extends Component {
 		this.setState({
 			currentYear,
 			istip: false,
-			page: 1
+			page: 1,
+			dataLoading:true,
 		});
 		this.getInstallmentplan();
 	}
@@ -526,7 +528,7 @@ export default class BasicTable extends Component {
 				value: '',
 				type: type,
 				page: page,
-				pageSize: pageSize,
+				pageSize: 15,
 				year: _this.state.currentYear,
 			})).then(function(response) {
 				if (response.vo) {
