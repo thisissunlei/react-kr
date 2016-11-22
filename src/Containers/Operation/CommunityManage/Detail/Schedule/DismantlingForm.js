@@ -79,6 +79,10 @@ class DismantlingForm extends Component {
 				message: '修改成功',
 				type: 'success',
 			}]);
+			window.setTimeout(function() {
+				window.location.reload();
+
+			}, 2000);
 
 		}).catch(function(err) {
 			Notify.show([{
@@ -87,13 +91,8 @@ class DismantlingForm extends Component {
 			}]);
 		});
 
-		window.setTimeout(function() {
-			window.location.reload();
 
-		}, 2000);
 
-		//const {onSubmit} = this.props;
-		//onSubmit && onSubmit(form);
 	}
 
 	onCancel() {

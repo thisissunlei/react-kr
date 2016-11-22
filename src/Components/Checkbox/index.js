@@ -3,6 +3,8 @@ import React,{Component} from 'react';
 
 class KrCheckbox extends Component{
 
+	static displayName = 'KrCheckbox';
+
 	static defaultProps = {
 		checked:false
 	}
@@ -18,7 +20,6 @@ class KrCheckbox extends Component{
 		onCheck:React.PropTypes.func
 	};
 
-	static displayName = 'KrCheckbox';
 
 	render(){
 
