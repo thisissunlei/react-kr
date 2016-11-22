@@ -105,15 +105,16 @@ export default class SelectComponent extends React.Component {
 		if (multi) {
 			return (
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
-						<ReactSelect 
+						<ReactSelect
 									multi
 									simpleValue
 									name={input.name}
-									value={this.state.value} 
+									value={this.state.value}
 									clearable={true}
 									options={options}
-									onChange={this.handleChange} 
+									onChange={this.handleChange}
 									placeholder="请选择..."
+									noResultsText=""
 								/>
 						{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				</WrapComponent>
@@ -124,18 +125,19 @@ export default class SelectComponent extends React.Component {
 			return (
 
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
-						<ReactSelect 
+						<ReactSelect
 									name={input.name}
-			
+
 									searchable={false}
-									value={input.value} 
+									value={input.value}
 									clearable={true}
 									options={options}
-									onChange={this.onChange} 
+									onChange={this.onChange}
 									placeholder="请选择"
-							
+
+
 								/>
-						
+
 					{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 		</WrapComponent>
 

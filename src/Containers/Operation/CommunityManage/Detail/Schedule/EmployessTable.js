@@ -485,7 +485,7 @@ export default class EmployessTable extends Component {
 						<TableRowColumn type="operation">
 								<Button label="变更" className="changeBtn" type="operation" operation="ChangeStation" hidden="changeHidden"  />
 								<Button label="分配" className="Distribtn"  type="operation" operation="Distribution" hidden="distributionHidden"  />
-								<Button label="无" className="Distribtn" type="operation" operation="none" hidden="noneHidden"/>
+								<Button label="无" className="Distribtn bgcolor" type="operation" operation="none" hidden="noneHidden"/>
 						</TableRowColumn>
 					</TableRow>
 				</TableBody>

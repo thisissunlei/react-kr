@@ -61,6 +61,7 @@ export default class  SearchPersonelComponent extends React.Component {
 					loadOptions={this.getOptions}
 					clearable={true}
 					clearAllText="清除"
+					noResultsText=""
 					onChange={this.onChange}
 					placeholder={placeholder}/>
 			{touched && error && <div className="error-wrap"> <span>{error}</span> </div>}

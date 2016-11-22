@@ -57,8 +57,17 @@ class SelectStationForm  extends Component{
 
 
 onChangeRentBeginDate(value){
-	value = dateFormat(value,'yyyy-mm-dd');
 	let {stationVos,selected} = this.state;
+
+  if(!selected.length){
+    Notify.show([{
+        message:'请先选择工位!',
+        type: 'danger',
+    }]);
+    return ;
+  }
+
+	value = dateFormat(value,'yyyy-mm-dd');
 	stationVos = [].concat(stationVos);
 	stationVos.map(function(item,index){
 		if(selected.indexOf(index) !==-1){
@@ -132,7 +141,7 @@ onChangeRentBeginDate(value){
 
 	if(!someStartDate){
 		Notify.show([{
-		message:'选择的工位必须要有租赁开始时间',
+		message:'选择的工位必须要有租赁结束时间',
 			type: 'danger',
 		  }]);
 	  return ;
