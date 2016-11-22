@@ -99,22 +99,22 @@ class NewCreatForm extends Component {
 				</Col>
 				<Col md={4} align="center">
 				  {
-					contractStatusCount.enterTotoal>0 && contractStatusCount.enterFlag?<span className="createButton disabled">入驻协议书</span>:<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/join/create"}>入驻协议书</a>
+					contractStatusCount.enterTotoal>0 ?<span className="createButton disabled">入驻协议书</span>:<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/join/create"}>入驻协议书</a>
 				  }
 				</Col>
 				<Col md={4} align="center">
-				{contractStatusCount.enterTotoal>0?<a  className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/increase/create"}>增租协议书</a>:<span className="createButton disabled">增租协议书</span>}
+				{contractStatusCount.enterTotoal>0 && contractStatusCount.enterFlag?<a  className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/increase/create"}>增租协议书</a>:<span className="createButton disabled">增租协议书</span>}
 
 				</Col>
 				</Row>
 
 				<Row style={{marginTop:10}}>
 				<Col md={4} align="center" >
-				  	{contractStatusCount.enterTotoal>0?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/renew/create"}>续租协议书</a>:<span className="createButton disabled">续租协议书</span>}
+				  	{contractStatusCount.enterTotoal>0 && contractStatusCount.enterFlag ?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/renew/create"}>续租协议书</a>:<span className="createButton disabled">续租协议书</span>}
 
 				</Col>
 				<Col md={4} align="center">
-					{contractStatusCount.enterTotoal>0?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/reduce/create"} >减租协议书</a>:<span className="createButton disabled">减租协议书</span>}
+					{contractStatusCount.enterTotoal>0 && contractStatusCount.enterFlag ?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/reduce/create"} >减租协议书</a>:<span className="createButton disabled">减租协议书</span>}
 
 				</Col>
 				<Col md={4} align="center">
