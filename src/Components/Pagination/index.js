@@ -266,10 +266,14 @@ export default class Pagination extends Component {
 			pageSize,
 			totalCount
 		} = this.props;
+        
+        var pageMax = Math.ceil(totalCount / pageSize);
+
+		if (page == 1&&pageMax==1) {
+			return;
+		}
 
 		
-
-		var pageMax = Math.ceil(totalCount / pageSize);
 
 		let props = {};
 		props.className = 'item';
