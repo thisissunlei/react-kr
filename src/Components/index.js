@@ -31,13 +31,13 @@ import Drawer from './Drawer';
 import KrField from './KrField';
 import KrDate from './KrDate';
 import PaperBack from './PaperBack';
+import Title from './Title';
 
 import {
 	Grid,
 	Row,
 	Col
 } from './Grid';
-
 
 
 //materal-ui
@@ -91,6 +91,7 @@ module.exports = {
 	Divider,
 	Drawer,
 	KrDate,
+	Title,
 
 	//materal-ui
 	Menu,
