@@ -735,7 +735,7 @@ const validate = values => {
 		errors.totaldeposit = '请填写押金总额';
 	}
 
-	if (values.totaldeposit && isNaN(values.totalrent)) {
+	if (values.totaldeposit && isNaN(values.totaldeposit)) {
 		errors.totaldeposit = '押金总额必须为数字';
 	}
 
