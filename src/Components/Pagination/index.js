@@ -267,9 +267,7 @@ export default class Pagination extends Component {
 			totalCount
 		} = this.props;
 
-		if (page == 1) {
-			return;
-		}
+		
 
 		var pageMax = Math.ceil(totalCount / pageSize);
 
