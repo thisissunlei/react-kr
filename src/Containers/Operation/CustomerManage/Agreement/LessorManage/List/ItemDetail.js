@@ -54,11 +54,11 @@ export default class ItemDetail extends Component {
 
 		return (
 
-			<div style={{marginTop:40}}>
-      			<KrField grid={1/2} name="corporationName" component="labelText"  label="出租方名称" value={detail.corporationName} inline={false}/> 
-        		<KrField grid={1/2} left={30} name="enableflag" component="labelText"  label="是否启用" value={detail.flag} inline={false}/> 
-        		<KrField grid={1/2} name="corporationAddress" component="labelText" type="text" label="详细地址" value={detail.corporationAddress} inline={false} /> 
-        		<KrField name="corporationDesc" component="labelText" label="备注"  placeholder="备注信息" value={detail.corporationDesc} inline={false}/> 
+			<div className="itemDetail" style={{marginTop:40}}>
+      			<KrField grid={1/2} name="corporationName" component="labelText"  label="出租方名称xz" value={detail.corporationName} inline={false} />
+        		<KrField grid={1/2} left={30} name="enableflag" component="labelText"  label="是否启用" value={detail.flag} inline={false}/>
+        		<KrField grid={1/2} name="corporationAddress" component="labelText" type="text" label="详细地址" value={detail.corporationAddress} inline={false} />
+        		<KrField name="corporationDesc" component="labelText" label="备注"  placeholder="备注信息" value={detail.corporationDesc} inline={false}/>
 			</div>
 
 		);

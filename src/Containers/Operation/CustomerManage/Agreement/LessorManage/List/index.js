@@ -8,6 +8,8 @@ import {
 	bindActionCreators
 } from 'redux';
 
+import './index.less';
+
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 
@@ -165,13 +167,12 @@ export default class LessorManageList extends Component {
 							<TableHeaderColumn>ID</TableHeaderColumn>
 							<TableHeaderColumn>出租方名称</TableHeaderColumn>
 							<TableHeaderColumn>是否启用</TableHeaderColumn>
-							<TableHeaderColumn>地址</TableHeaderColumn>
 							<TableHeaderColumn>创建人</TableHeaderColumn>
 							<TableHeaderColumn>创建时间</TableHeaderColumn>
 							<TableHeaderColumn>操作</TableHeaderColumn>
 						</TableHeader>
 
-						<TableBody>
+						<TableBody >
 							 <TableRow displayCheckbox={true}>
 							<TableRowColumn  name="id"></TableRowColumn>
 							<TableRowColumn name="corporationName"></TableRowColumn>
