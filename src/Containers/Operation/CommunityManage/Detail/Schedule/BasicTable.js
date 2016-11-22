@@ -477,7 +477,7 @@ export default class BasicTable extends Component {
 			currentYear,
 			istip: false,
 			page: 1,
-			dataLoading:true,
+			dataLoading: true,
 		});
 		this.getInstallmentplan();
 	}
@@ -491,7 +491,7 @@ export default class BasicTable extends Component {
 			currentYear,
 			istip: false,
 			page: 1,
-			dataLoading:true,
+			dataLoading: true,
 		});
 		this.getInstallmentplan();
 	}
@@ -629,7 +629,7 @@ export default class BasicTable extends Component {
 							</div>
 						</td>
 						{
-							rate.map((value,index)=><td>{value}</td>)
+							rate.map((value,index)=><td key={index}>{value}</td>)
 						}
 						<td class="last"></td>
 					</tr>
