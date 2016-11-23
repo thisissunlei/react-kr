@@ -168,6 +168,7 @@ export default class AttributeSetting extends Component {
 	}
 
 	onNewCreateSubmit(searchParams) {
+		searchParams = Object.assign({}, this.state.searchParams, searchParams);
 		this.setState({
 			searchParams,
 			openNewCreate: !this.state.openNewCreate

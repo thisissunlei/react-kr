@@ -111,18 +111,18 @@ class NewCreateForm extends Component {
 
 		return (
 
-			<form onSubmit={handleSubmit(this.onSubmit)}>
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:-9}}>
 			   
-				<KrField grid={1/2} right={10} style={{height:32,marginBottom:28}} name="customername" type="text" label="公司名称" /> 
+				<KrField grid={1/2} right={26.5} style={{height:36,marginBottom:28}} name="customername" type="text" label="公司名称" /> 
 				<KrField grid={1/2}  component="labelText"/> 
-				<KrField grid={1/2} right={13} name="communityid"  type="select" label="所属社区" options={this.state.communityList} >
+				<KrField grid={1/2} right={27} name="communityid"  type="select" label="所属社区" options={this.state.communityList} >
 				</KrField>
-				<KrField  grid={1/2} right={10} name="mainbilltype" type="select" label="订单类型" options={this.state.mainbilltypeList}>
+				<KrField  grid={1/2} right={27} name="mainbilltype" type="select" label="订单类型" options={this.state.mainbilltypeList}>
 				</KrField>
 				<div className='ui-listDate'><ListGroup>
-						<ListGroupItem><div className='ui-date-start'><KrField  name="startDate" component="date" label="起始时间"/></div></ListGroupItem>
+						<ListGroupItem><div className='ui-date-start'><KrField  right={6} name="startDate" component="date" label="起始时间"/></div></ListGroupItem>
 						<div className='ui-line-down'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-						<ListGroupItem><div className='ui-date-end'><KrField  name="endDate" component="date" label="结束时间"/></div></ListGroupItem>
+						<ListGroupItem><div className='ui-date-end'><KrField  right={6} name="endDate" component="date" label="结束时间"/></div></ListGroupItem>
 					</ListGroup>
                     </div>
 				
@@ -130,7 +130,7 @@ class NewCreateForm extends Component {
              
 				
 
-				<Grid style={{marginTop:30}}>
+				<Grid style={{marginTop:18,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>

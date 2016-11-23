@@ -268,7 +268,7 @@ export default class D3Content extends Component {
 								)
 						}else if(index<nodeList && index !== 0){
 							return(
-								<div className='grey' data-tip data-for={`${id}${index}`} style={{'width':item.width,'marginRight':1,}} key={index}>
+								<div className='grey' data-tip data-for={`${id}${index}`} data-event='mouseover' data-event-off='mouseleave' style={{'width':item.width,'marginRight':1,}} key={index}>
 									<ReactTooltip id={`${id}${index}`} place="top" type="dark" effect="solid">
 									{item.planTableModelList && item.planTableModelList.map((value, i)=>{
 										return (
