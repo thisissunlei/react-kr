@@ -59,6 +59,9 @@ export default class AttributeSetting extends Component {
 		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
 		this.onOperation = this.onOperation.bind(this);
 		this.onExport = this.onExport.bind(this);
+		
+
+
 		this.state = {
 			openNewCreate: false,
 			openView: false,
@@ -76,6 +79,8 @@ export default class AttributeSetting extends Component {
 	}
 
 	//操作相关
+	//
+	//
 	onOperation(type, itemDetail) {
 
 		this.setState({
