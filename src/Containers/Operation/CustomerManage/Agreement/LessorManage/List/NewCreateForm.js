@@ -87,11 +87,13 @@ class NewCreateForm extends Component {
 		return (
 
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:40}}>
-							<KrField name="corporationName" grid={1/2} right={10} type="text" label="出租方名称" requireLabel={true}/> 
+							<KrField name="corporationName" grid={1/2} right={10} type="text" label="出租方名称" requireLabel={true}/>
 
 							<KrField name="enableflag" component="group" grid={1/2} left={20} label="是否启用" requireLabel={true}>
+							<div className="listRadio">
 								<KrField name="enableflag" label="是" component="radio" type="radio" value='ENABLE'/>
 								<KrField name="enableflag" label="否" component="radio" type="radio" value='	DISENABLE'/>
+							</div>
 							</KrField>
 
 							<KrField name="corporationAddress" grid={1/2} right={10} component="text" type="text" label="详细地址" requireLabel={true}/>

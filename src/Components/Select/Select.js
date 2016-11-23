@@ -630,7 +630,7 @@ const Select = React.createClass({
 				_this.setState({
 					isOpen: false,
 				});
-				},100);
+			},150);
 			});
 		}
 	},

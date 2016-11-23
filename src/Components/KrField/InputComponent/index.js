@@ -8,6 +8,7 @@ export default class InputComponent extends React.Component{
 	static PropTypes = {
 		inline:React.PropTypes.bool,
 		simple:React.PropTypes.bool,
+		heightStyle:React.PropTypes.obj
 	}
 	
 	constructor(props){
@@ -16,7 +17,7 @@ export default class InputComponent extends React.Component{
 
 	render(){
 
-		let { input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,style,inline,simple} = this.props;
+		let { input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,style,inline,simple,heightStyle} = this.props;
 
 			if(type === 'hidden'){
 				return (
@@ -35,7 +36,7 @@ export default class InputComponent extends React.Component{
 			return (
 
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} simple={simple}>
-					<input {...input} placeholder={placeholder|| label} type={type} disabled={disabled} className={className}/>
+					<input {...input} placeholder={placeholder|| label} type={type} disabled={disabled} className={className} style={heightStyle}/>
 					{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				</WrapComponent>
 		);

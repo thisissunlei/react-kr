@@ -41,7 +41,9 @@ export default class SearchParam extends Component{
 		detailPayment:React.PropTypes.object,
 		detailIncome:React.PropTypes.object,
 		detailBalance:React.PropTypes.object,
-		params:React.PropTypes.object
+		params:React.PropTypes.object,
+		type:React.PropTypes.string,
+		index:React.PropTypes.string,
 	}
      
 	constructor(props,context){
@@ -61,11 +63,20 @@ export default class SearchParam extends Component{
 	}
 
 	componentDidMount() {
+
+		console.log('type',this.props.type);
+        console.log('index',this.props.index);
        
 	}
 
 	onSearch(type,childType,id,propInfo,index){    
 		const {onSearch,params} = this.props;
+
+		//console.log('5555555',window.location.href+'/'+type+'/'+index);
+
+		sessionStorage.setItem("type",type);
+		sessionStorage.setItem("index",index);
+        
         
         if(type=='PAYMENT'&&childType=='basic'){
           this.setState({
@@ -144,6 +155,10 @@ export default class SearchParam extends Component{
     }
 	render(){
          const {detailPayment,detailIncome,detailBalance}=this.props;
+
+
+        
+        
 
 		return(
 
