@@ -142,6 +142,7 @@ export default class OrderDetail extends React.Component {
 		this.renderTableItem = this.renderTableItem.bind(this);
 		this.getAgrementType = this.getAgrementType.bind(this);
 
+
 		this.state = {
 			open: false,
 			loading: true,
@@ -158,7 +159,6 @@ export default class OrderDetail extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log('000000');
 
 		const closeAll = this.props.location.query.closeAll;
 
@@ -304,6 +304,23 @@ export default class OrderDetail extends React.Component {
 		)
 	}
 
+	delArgument(id){
+		
+		Store.dispatch(Actions.callAPI('delete-enter-contract', {
+			contractId:id
+		})).then(function(response) {
+			Notify.show([{
+				message: '删除成功!',
+				type: 'success',
+			}]);
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+	}
+
 	renderTableItem(item) {
 		var _this = this;
 		if (item) {
@@ -434,6 +451,8 @@ export default class OrderDetail extends React.Component {
 			<TableBody>
 
 			{contractList.map((item,index)=>{
+
+				console.log('item',item.editFlag)
 				return (
 					<TableRow key={index}>
 					<TableRowColumn>{item.contractcode || '无'}</TableRowColumn>
@@ -444,7 +463,8 @@ export default class OrderDetail extends React.Component {
 					<TableRowColumn> <KrDate value={item.leaseEnddate}/></TableRowColumn>
 					<TableRowColumn>
 					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} />
-					{item.contractstate != 'EXECUTE' && item.editFlag == 'true'  && <Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
+					{item.contractstate != 'EXECUTE' && item.editFlag && <Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
+					{item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除" onTouchTap={this.delArgument.bind(this,item.id)}/> }
 					</TableRowColumn>
 					</TableRow>
 				);
