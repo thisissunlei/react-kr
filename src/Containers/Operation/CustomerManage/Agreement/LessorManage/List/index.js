@@ -166,7 +166,9 @@ export default class LessorManageList extends Component {
 						<TableHeader>
 							<TableHeaderColumn>ID</TableHeaderColumn>
 							<TableHeaderColumn>出租方名称</TableHeaderColumn>
+
 							<TableHeaderColumn>是否启用</TableHeaderColumn>
+							<TableHeaderColumn>地址</TableHeaderColumn>
 							<TableHeaderColumn>创建人</TableHeaderColumn>
 							<TableHeaderColumn>创建时间</TableHeaderColumn>
 							<TableHeaderColumn>操作</TableHeaderColumn>
