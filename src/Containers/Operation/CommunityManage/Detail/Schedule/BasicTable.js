@@ -89,10 +89,13 @@ class SearchForm extends Component {
 			pageSize: pageSize
 
 		}
-		const {
-			onSubmit
-		} = this.props;
-		onSubmit && onSubmit(formValues);
+		if (formValues.type && formValues.value) {
+			const {
+				onSubmit
+			} = this.props;
+			onSubmit && onSubmit(formValues);
+		}
+
 
 	}
 	getcommunity() {
