@@ -12,6 +12,9 @@ import {
 } from 'redux-form';
 import Section from 'kr-ui/Section';
 
+
+import DelAgreementNotify from './DelAgreementNotify';
+
 import {
 	KrField,
 	KrDate,
@@ -143,7 +146,8 @@ export default class OrderDetail extends React.Component {
 		this.getAgrementType = this.getAgrementType.bind(this);
 
 
-		this.confirmDelAgreement ＝ this.confirmDelAgreement.bind(this);
+		this.confirmDelAgreement = this.confirmDelAgreement.bind(this);
+		this.openDelAgreementDialog = this.openDelAgreementDialog.bind(this);
 
 
 		this.state = {
@@ -163,15 +167,22 @@ export default class OrderDetail extends React.Component {
 
 	}
 
-	openDelAgreementDialog(delAgreementId){
+	openDelAgreementDialog(){
 		this.setState({
-				delAgreementId,
 			 	openDelAgreement:!this.state.openDelAgreement
 		});
 	}
 
-	confirmDelAgreement(){
+	setDelAgreementId(delAgreementId){
+		this.setState({
+				delAgreementId,
+		},function(){
+					this.openDelAgreementDialog();
+		});
 
+	}
+
+	confirmDelAgreement(){
 		let {delAgreementId} = this.state;
 		Store.dispatch(Actions.callAPI('delete-enter-contract', {
 			contractId:delAgreementId
@@ -186,6 +197,7 @@ export default class OrderDetail extends React.Component {
 				type: 'danger',
 			}]);
 		});
+		this.openDelAgreementDialog(0);
 	}
 
 	componentDidMount() {
@@ -467,8 +479,6 @@ export default class OrderDetail extends React.Component {
 			<TableBody>
 
 			{contractList.map((item,index)=>{
-
-				console.log('item',item.editFlag)
 				return (
 					<TableRow key={index}>
 					<TableRowColumn>{item.contractcode || '无'}</TableRowColumn>
@@ -481,7 +491,7 @@ export default class OrderDetail extends React.Component {
 					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} />
 							{item.contractstate != 'EXECUTE' && item.editFlag && <Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
 
-				{item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除"  href={""}  onTouchTap={this.openDelAgreementDialog.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
+				{item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
 						{/*
 							{item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除" onTouchTap={this.delArgument.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
 
@@ -550,8 +560,8 @@ export default class OrderDetail extends React.Component {
 			modal={true}
 			onClose={this.openDelAgreementDialog}
 			open={this.state.openDelAgreement}
-			contentStyle={{width:687}}>
-				<DelAgreementNotify onSubmit={this.confirmDelAgreement} onCancel={this.openDelAgreementDialog}/>
+			contentStyle={{width:387}}>
+				<DelAgreementNotify onSubmit={this.confirmDelAgreement} onCancel={this.openDelAgreementDialog.bind(this,0)}/>
 			</Dialog>
 			</div>
 
