@@ -1,8 +1,6 @@
 import React from 'react';
 
-import ReactSelect from 'react-select';
-import 'react-select/dist/react-select.css';
-
+import ReactSelect from '../../Select/Select';
 
 import WrapComponent from '../WrapComponent';
 import './index.less';
@@ -76,12 +74,10 @@ export default class SelectComponent extends React.Component {
 		} = this.props;
 		var value = (item && item.value) || '';
 		input.onChange(value);
-
 		onChange && onChange(item);
-	}
+}
 
-
-	render() {
+render() {
 
 		let {
 			input,
@@ -105,6 +101,7 @@ export default class SelectComponent extends React.Component {
 		if (multi) {
 			return (
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
+					<div className="ui-select">
 						<ReactSelect
 									multi
 									simpleValue
@@ -116,6 +113,9 @@ export default class SelectComponent extends React.Component {
 									placeholder="请选择..."
 									noResultsText=""
 								/>
+
+					</div>
+
 						{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				</WrapComponent>
 			);
@@ -127,15 +127,15 @@ export default class SelectComponent extends React.Component {
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 						<ReactSelect
 									name={input.name}
-
 									searchable={false}
 									value={input.value}
 									clearable={true}
 									options={options}
 									onChange={this.onChange}
 									placeholder="请选择"
+									onValueClick={function(){
 
-
+									}}
 								/>
 
 					{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
@@ -154,8 +154,5 @@ export default class SelectComponent extends React.Component {
 			</WrapComponent>
 
 		);
-
 	}
-
-
 }
