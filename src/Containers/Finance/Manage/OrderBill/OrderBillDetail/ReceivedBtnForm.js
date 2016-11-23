@@ -143,7 +143,7 @@ class ReceivedBtnForm extends Component {
 						    } requireLabel={true}/>
 
 						    {parseInt(changeValues.autoSplit)?<div>
-						    	 <KrField label="金额（元） " grid={1/2} style={{marginBottom:5}}  name="sum" component="input" type="text" requireLabel={true} placeholder='请输入金额'/>
+						    	 <KrField label="金额（元） " grid={1/2} style={{marginBottom:5}} right={30} name="sum" component="input" type="text" requireLabel={true} placeholder='请输入金额'/>
 						    </div>:<div>
 						      {typeList.map((item,index)=>{
 						      	if(index%2==0){

@@ -150,7 +150,7 @@ export default class SearchParam extends Component{
 		<div>     
 
 		            
-		            <LineText title='回款' primary={this.state.primaryR} onClick={this.onSearch.bind(this,'PAYMENT','basic','','SETTLED')}/>
+		           <LineText title='回款' primary={this.state.primaryR} onClick={this.onSearch.bind(this,'PAYMENT','basic','','SETTLED')}/>
 
                    
                    <div className='ui-ListGroup'>
@@ -172,9 +172,9 @@ export default class SearchParam extends Component{
 
 			          return (
 		            	<ListGroupItem key={index}>
-                          <div className={className}>
+                          <div className={className} onTouchTap={this.onSearch.bind(this,'PAYMENT',item.propcode,item.id,item.propInfo,index)} onMouseOver={this.onHandleOver.bind(this,'PAYMENT',index)} onMouseOut={this.onLeave.bind(this,'PAYMENT',index)}>
                            <span className={classPic}></span>
-                           <span className='receivedText' onTouchTap={this.onSearch.bind(this,'PAYMENT',item.propcode,item.id,item.propInfo,index)} onMouseOver={this.onHandleOver.bind(this,'PAYMENT',index)} onMouseOut={this.onLeave.bind(this,'PAYMENT',index)}>{item.propname}</span>
+                           <span className='receivedText'>{item.propname}</span>
                            <span className='receivedMoney'>{item.propamount}</span>
 		            	  </div>
 		            	</ListGroupItem>)
@@ -204,9 +204,9 @@ export default class SearchParam extends Component{
 			                 }
                       return (
 		            	<ListGroupItem key={index}>
-		            	 <div className={className}>
+		            	 <div className={className} onTouchTap={this.onSearch.bind(this,'INCOME',item.propcode,item.id,item.propInfo,index)} onMouseOver={this.onHandleOver.bind(this,'INCOME',index)} onMouseOut={this.onLeave.bind(this,'INCOME',index)}>
                           <span className={classPic}></span>
-                          <span className='receivedText' onTouchTap={this.onSearch.bind(this,'INCOME',item.propcode,item.id,item.propInfo,index)} onMouseOver={this.onHandleOver.bind(this,'INCOME',index)} onMouseOut={this.onLeave.bind(this,'INCOME',index)}>{item.propname}</span>
+                          <span className='receivedText'>{item.propname}</span>
                           <span className='receivedMoney'>{item.propamount}</span>
 		            	  </div>
 		            	</ListGroupItem>)
@@ -222,7 +222,7 @@ export default class SearchParam extends Component{
 		               <ListGroupItem>
 		                <div className='ui-listGroupItem'>
                           <span className='receivedText' style={{cursor:'default'}}>余额</span>
-                          <span className='receivedMoney'>{detailBalance}</span>
+                          <span className='receivedMoney' style={{cursor:'default'}}>{detailBalance}</span>
 		            	</div>
 		            	</ListGroupItem>
 		            </ListGroup>
