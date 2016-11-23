@@ -190,6 +190,10 @@ export default class AttributeSetting extends Component {
 			selectedList: [],
 			listValues: [],
 
+			//切换保持状态
+			index:'',
+			type:'PAYMENT',
+
 			openSearch: false,
 			openReceivedBtn: false,
 			openQuitBtn: false,
@@ -626,7 +630,9 @@ export default class AttributeSetting extends Component {
 		});
 		this.setState({
 			openAddaccountBtn: !this.state.openAddaccountBtn,
-			isLoading: true
+			isLoading: true,
+			index:sessionStorage.getItem('index'),
+			type:sessionStorage.getItem('type'),
 		})
 		receivedList = [];
 
@@ -733,8 +739,9 @@ export default class AttributeSetting extends Component {
 			return <Loading/>
 		}
 
-
+       //console.log('577777',sessionStorage.getItem('type'),sessionStorage.getItem('index'))
 		//console.log('221111',this.context.router)
+
 
 		//判断按钮出现与隐藏
 		let childBtn = params.childType;
@@ -843,7 +850,7 @@ export default class AttributeSetting extends Component {
 						  <div className='ui-detail-bottom'>
 								<Row style={{marginTop:10}}>
 								 <div className='detail-left'>
-									<SearchParam onSearch={this.onSearch} params={this.state.params} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance} />
+									<SearchParam onSearch={this.onSearch} params={this.state.params} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance} type={this.state.type} index={this.state.index}/>
 
 								 </div>
 								 <div className='detail-right'>

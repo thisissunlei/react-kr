@@ -140,7 +140,7 @@ export default class ExitDetail extends Component {
 								<KrField component="labelText" grid={1/2} label="退租金总额：" value={basic.totalreturn} defaultValue="0" requireBlue={true}/>
 								<KrField component="labelText" grid={1/2} label="退租押金总额：" value={basic.depositamount} defaultValue="0" requireBlue={true}/>
 
-								<KrField component="labelText" grid={1/2} label="撤场日期：" type="date" value={basic.firstpaydate} defaultValue="无" requireBlue={true}/>
+								<KrField component="labelText" grid={1/2} label="撤场日期：" type="date" value={basic.withdrawdate} defaultValue="无" requireBlue={true}/>
 								<KrField component="labelText" grid={1/2} label="签署日期：" type="date" value={basic.signdate} defaultValue="无" requireBlue={true}/>
 
 								<KrField component="labelText"  label="备注：" value={basic.contractmark} inline={false} requireBlue={true} defaultValue="无"/>
