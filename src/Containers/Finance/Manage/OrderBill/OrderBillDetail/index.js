@@ -169,7 +169,8 @@ export default class AttributeSetting extends Component {
 				propInfo: 'SETTLED',
 				orderId: this.props.params.orderId,
 				page: 1,
-				pageSize: 20
+				pageSize: 20,
+				index:''
 			},
 			itemDetail: {},
 			//为了判断和获取选中的条的id
@@ -190,9 +191,7 @@ export default class AttributeSetting extends Component {
 			selectedList: [],
 			listValues: [],
 
-			//切换保持状态
-			index:'',
-			type:'PAYMENT',
+			
 
 			openSearch: false,
 			openReceivedBtn: false,
@@ -477,10 +476,12 @@ export default class AttributeSetting extends Component {
 	//确定提交区域
 	//切换
 	onSearch(params) {
+
 			this.setState({
 				params
 			});
-		}
+
+	}
 		//高级查询
 	onSubmit(params) {
 		//为了让其保持params原有的参数，同时将自己的参数传过去
@@ -631,8 +632,6 @@ export default class AttributeSetting extends Component {
 		this.setState({
 			openAddaccountBtn: !this.state.openAddaccountBtn,
 			isLoading: true,
-			index:sessionStorage.getItem('index'),
-			type:sessionStorage.getItem('type'),
 		})
 		receivedList = [];
 
@@ -738,8 +737,9 @@ export default class AttributeSetting extends Component {
 		if (isInitLoading) {
 			return <Loading/>
 		}
-
-       //console.log('577777',sessionStorage.getItem('type'),sessionStorage.getItem('index'))
+          
+         
+        
 		//console.log('221111',this.context.router)
 
 
@@ -850,7 +850,7 @@ export default class AttributeSetting extends Component {
 						  <div className='ui-detail-bottom'>
 								<Row style={{marginTop:10}}>
 								 <div className='detail-left'>
-									<SearchParam onSearch={this.onSearch} params={this.state.params} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance} type={this.state.type} index={this.state.index}/>
+									<SearchParam onSearch={this.onSearch} params={this.state.params} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance}/>
 
 								 </div>
 								 <div className='detail-right'>
