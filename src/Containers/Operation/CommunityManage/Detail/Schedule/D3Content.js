@@ -259,7 +259,6 @@ export default class D3Content extends Component {
 			}];
 		}
 		let whiteBar = this.renderwhiteBar();
-		console.log('whiteBar',whiteBar);
 
 
 
@@ -283,7 +282,7 @@ export default class D3Content extends Component {
 							return(
 								<div className='grey' data-tip data-for={`${id}${index}`} data-event='mouseover' data-event-off='mouseleave' style={{'width':`${item.width*100}%`}} key={index}>
 									<ReactTooltip id={`${id}${index}`} place="top" type="dark" effect="solid">
-									{item.planTableModelList && item.planTableModelList.map((value, i)=>{
+									{item.width && item.planTableModelList && item.planTableModelList.map((value, i)=>{
 										return (
 											<div key={i}>
 												<p>{dateFormat(value.installmentReminddate, "yyyy.mm.dd")}日催款</p>
@@ -325,7 +324,7 @@ export default class D3Content extends Component {
 				{
 					whiteBar && whiteBar.map((item,index)=>{
 						return(
-							<span className="wihiteBar" style={{marginLeft:`${item}%`}}></span>
+							<span className="wihiteBar" style={{marginLeft:`${item}%`}} key={index}></span>
 						)
 					})
 				}
