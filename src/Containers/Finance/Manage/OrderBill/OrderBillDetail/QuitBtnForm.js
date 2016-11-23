@@ -98,6 +98,11 @@ class QuitBtnForm extends Component {
        let style={
        	 marginTop:'6'
        }
+       let heightStyle={
+       	 width:'546',
+       	 height:'72'
+       }
+
 
 		return (
 
@@ -106,14 +111,14 @@ class QuitBtnForm extends Component {
 					     <form onSubmit={handleSubmit(this.onSubmit)}>
  
 						    <KrField name="id" type="hidden"/>
-                            <KrField label="金额（元）"  grid={1/2} name="finaflowamount" component="input" type="text" requireLabel={true} />
-                            <KrField label="上传附件" grid={1/2} name="fileids" component="file"/>
-                            <KrField type="date" grid={1/2} label="退款日期" name="operatedate" requireLabel={true}/>
-                            <KrField label="备注" style={style} name="finaflowdesc" component="textarea"  placeholder='请输入备注,文字不能超过100字' maxSize={100}/>
+                            <KrField label="金额（元）"  grid={1/2} right={29}  name="finaflowamount" component="input" type="text" requireLabel={true} />
+                            <KrField label="上传附件" grid={1/2} name="fileids" style={{marginLeft:-5}} component="file"/>
+                            <KrField type="date" grid={1/2} label="退款日期" right={31} name="operatedate" requireLabel={true}/>
+                            <KrField label="备注" style={style} name="finaflowdesc" component="textarea" heightStyle={heightStyle} placeholder='请输入备注,文字不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/>
                            
 
 				
-						   <Grid style={{marginTop:10,marginBottom:5}}>
+						   <Grid style={{marginTop:0,marginBottom:5}}>
 							<Row>
 								<Col md={12} align="center">
 									<ButtonGroup>

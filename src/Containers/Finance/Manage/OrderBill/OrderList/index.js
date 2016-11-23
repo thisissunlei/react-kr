@@ -144,10 +144,10 @@ export default class AttributeSetting extends Component {
 	//搜索
 	onSearchSubmit(searchParams) {
 		let obj = {
-			customername: searchParams.content
+			customername: searchParams.content,
+			pageSize:15
 		}
-		//console.log('searchParams', searchParams, obj);
-
+		
 
 		this.setState({
 			searchParams: obj
@@ -168,6 +168,7 @@ export default class AttributeSetting extends Component {
 	}
 
 	onNewCreateSubmit(searchParams) {
+		searchParams = Object.assign({}, this.state.searchParams, searchParams);
 		this.setState({
 			searchParams,
 			openNewCreate: !this.state.openNewCreate

@@ -47,10 +47,10 @@ class UnitPriceForm  extends Component{
 		let { error, handleSubmit, pristine, reset, submitting} = this.props;
 
 		return (
-			<div>
+			<div style={{marginTop:50}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 					<KrField grid={1}  name="price" component="input" type="text" label="单价" requireLabel={true}/> 
-					<Grid>
+					<Grid style={{padding:'30px 0'}}>
 						<ListGroup>
 							<ListGroupItem style={{width:'47%',textAlign:'right',padding:0,paddingRight:10}}> <Button  label="确定" type="submit" /></ListGroupItem>
 							<ListGroupItem style={{width:'46%',textAlign:'left',padding:0,paddingLeft:10}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/></ListGroupItem>

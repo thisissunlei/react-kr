@@ -190,6 +190,10 @@ export default class AttributeSetting extends Component {
 			selectedList: [],
 			listValues: [],
 
+			//切换保持状态
+			index:'',
+			type:'PAYMENT',
+
 			openSearch: false,
 			openReceivedBtn: false,
 			openQuitBtn: false,
@@ -511,7 +515,6 @@ export default class AttributeSetting extends Component {
 		}
 		//回款提交
 	onAddReceivedSubmit(params) {
-		//console.log('222222222',params);
 		params = Object.assign({}, params);
 		if (params.autoSplit == 0) {
 			params.jsonStr = {};
@@ -550,7 +553,6 @@ export default class AttributeSetting extends Component {
 		this.setState({
 			openReceivedBtn: !this.state.openReceivedBtn,
 			isLoading: true,
-
 		});
 		receivedList = [];
 		typeList = [];
@@ -628,7 +630,9 @@ export default class AttributeSetting extends Component {
 		});
 		this.setState({
 			openAddaccountBtn: !this.state.openAddaccountBtn,
-			isLoading: true
+			isLoading: true,
+			index:sessionStorage.getItem('index'),
+			type:sessionStorage.getItem('type'),
 		})
 		receivedList = [];
 
@@ -735,8 +739,9 @@ export default class AttributeSetting extends Component {
 			return <Loading/>
 		}
 
-
+       //console.log('577777',sessionStorage.getItem('type'),sessionStorage.getItem('index'))
 		//console.log('221111',this.context.router)
+
 
 		//判断按钮出现与隐藏
 		let childBtn = params.childType;
@@ -845,13 +850,13 @@ export default class AttributeSetting extends Component {
 						  <div className='ui-detail-bottom'>
 								<Row style={{marginTop:10}}>
 								 <div className='detail-left'>
-									<SearchParam onSearch={this.onSearch} params={this.state.params} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance} />
+									<SearchParam onSearch={this.onSearch} params={this.state.params} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance} type={this.state.type} index={this.state.index}/>
 
 								 </div>
 								 <div className='detail-right'>
 								     <div>
 								        <Col align="left" className='btn-left'>{buttonArr}</Col>
-								        <Col align="right"><Button label="高级查询"  type="button"  onTouchTap={this.openSearchDialog}/></Col>
+								        <Col align="right"><Button  type='search'  searchClick={this.openSearchDialog}/></Col>
 								     </div>
 
 									 <Table style={{marginTop:30}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
@@ -910,6 +915,7 @@ export default class AttributeSetting extends Component {
 						title="退款"
 						open={this.state.openQuitBtn}
 						onClose={this.closeQuitBtn}
+						contentStyle ={{ width: '688'}}
 						>
 					   <QuitBtnForm  onSubmit={this.onQuitSubmit} onCancel={this.closeQuitBtn}  initialValues={initialValuesId}/>
 					 </Dialog>
@@ -918,6 +924,7 @@ export default class AttributeSetting extends Component {
 						title="转押金"
 						open={this.state.openSwitchBtn}
 						onClose={this.closeSwitchBtn}
+						contentStyle ={{ width: '688'}}
 						>
 					   <SwitchBtnForm  onSubmit={this.onSwitchSubmit} onCancel={this.closeSwitchBtn} optionList={this.state.receivedList} initialValues={initialValuesId}/>
 					 </Dialog>
@@ -926,6 +933,7 @@ export default class AttributeSetting extends Component {
 						title="转营收"
 						open={this.state.openBusinessBtn}
 						onClose={this.closeBusinessBtn}
+						contentStyle ={{ width: '688'}}
 						>
 					   <BusinessBtnForm  onSubmit={this.onBusinessSubmit} onCancel={this.closeBusinessBtn} fiMoney={fiMoney} initialValues={initialValuesId}/>
 					 </Dialog>

@@ -134,14 +134,14 @@ export default class ItemTable extends Component {
     contractTypeVo = contractTypeVo.map((item, index) => {
       if (!item.contractCount) {
         return (
-          <li key={index} className="company-order-zero">
+          <li key={index} className="company-order-zero" key={index}>
 							<p className="name">{item.contractName}</p>
-							<p>{dateFormat(item.contractTime,"yyyy.mm.dd")}</p>
+							<p></p>
 						</li>
         )
       } else if (item.contractCount === 1) {
         return (
-          <li key={index} className="company-order">
+          <li key={index} className="company-order" key={index}>
 							<p className="name">{item.contractName}</p>
 							<p>{dateFormat(item.contractTime,"yyyy.mm.dd")}</p>
 						</li>
@@ -180,11 +180,11 @@ export default class ItemTable extends Component {
       <tr className="last-td"   >
 						<td className="company-list">
 
-							<div className="company-name" data-tip data-for={`${detail.companyName}`}> 
+							<div className="company-name" data-tip data-for={`${detail.billId}`}> 
               {
-                detail.companyName
+                detail.billName
               }
-							<ReactTooltip place="right" id={`${detail.companyName}`}>
+							<ReactTooltip place="right" type="dark" effect="solid" id={`${detail.billId}`}>
 								<ul>
 								{
 									this.renderOrder(detail.contractTypeVo)
@@ -194,7 +194,7 @@ export default class ItemTable extends Component {
 							</div>
 						</td>
 						<td colSpan="12" style={{padding:'0'}}>
-              <D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} width={width} id={detail.billId}/>
+              <D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} whiteBar={detail.whiteBar} id={detail.billId}/>
               <EmployessTable  activity={detail.activity} detail={detail} id={id} />
 						</td>
 						<td className="btnlist">

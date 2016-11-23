@@ -43,16 +43,9 @@ export default class TableHeaderColumn extends React.Component {
 
 		return (
 			<th className={className} onClick={this.onCellClick} {...other}>
-				{children}	
+				{children}
 			</th>
 		);
 
 	}
 }
-
-
-
-
-
-
-

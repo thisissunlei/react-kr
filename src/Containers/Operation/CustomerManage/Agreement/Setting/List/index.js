@@ -63,8 +63,8 @@ let SettingCreateForm = function(props) {
 
     <form onSubmit={handleSubmit(onSubmit)}>
 
-      <KrField name="dicName" type="text" component="input" label="字段名称" requireLabel={true}/>
-       <KrField name="enableFlag" component="group" label="是否有效"  >
+      <KrField grid={1/2} name="dicName" type="text" right={66} component="input" label="字段名称" requireLabel={true}/>
+       <KrField grid={1/2} name="enableFlag" component="group" label="是否有效"  >
           <KrField name="enableFlag" label="是" component="radio" type="radio" value="ENABLE"  />
           <KrField name="enableFlag" label="否" component="radio"  type="radio" value="DISENABLE"/>
         </KrField>
@@ -109,9 +109,9 @@ const SettingViewForm = (props) => {
   return (
     <div>
 
-        <KrField name="corporationName" component="labelText"  label="字段名称" value={items.sp.dicName}/>
-        <KrField name="enableFlag" component="labelText"  label="是否有效" value={items.sp.enableFlag=="ENABLE"?'是':'否'}/>
-        <KrField name="corporationDesc" component="labelText" label="备注" value={items.sp.remark}/>
+        <KrField grid={1/2} inline={false} name="corporationName" component="labelText"  label="字段名称" value={items.sp.dicName}/>
+        <KrField grid={1/2} inline={false} name="enableFlag" component="labelText"  label="是否有效" value={items.sp.enableFlag=="ENABLE"?'是':'否'}/>
+        <KrField grid={1/2} inline={false} name="corporationDesc" component="labelText" label="备注" value={items.sp.remark}/>
   </div>
   );
 }
@@ -123,9 +123,9 @@ const SettingChildViewForm = (props) => {
   return (
     <div>
 
-        <KrField name="corporationName" component="labelText"  label="字段名称" value={items.dicName} requireLabel={true}/>
-        <KrField name="enableFlag" component="labelText"  label="是否有效" value={items.enableFlag=="ENABLE"?'是':'否'} requireLabel={true}/>
-        <KrField name="corporationDesc" component="labelText" label="备注" value={items.remark} requireLabel={true}/>
+        <KrField grid={1/2} inline={false}  name="corporationName" right={66} component="labelText"  label="字段名称" value={items.dicName} requireLabel={true}/>
+        <KrField grid={1/2} inline={false} name="enableFlag" component="labelText"  label="是否有效" value={items.enableFlag=="ENABLE"?'是':'否'} requireLabel={true}/>
+        <KrField grid={1/2} inline={false} name="corporationDesc" component="labelText" label="备注" value={items.remark} requireLabel={true}/>
   </div>
   );
 }
@@ -150,8 +150,8 @@ let SettingUpdateForm = function(props) {
 
     <form onSubmit={handleSubmit(onSubmit)}>
               <KrField name="id" type="hidden" label="id"  />
-              <KrField name="dicName" type="text" component="input" label="字段名称" requireLabel={true} />
-              <KrField name="enableFlag" component="group" label="是否有效" >
+              <KrField grid={1/2} name="dicName" right={66} type="text" component="input" label="字段名称" requireLabel={true} />
+              <KrField grid={1/2} right={66} name="enableFlag" component="group" label="是否有效" >
               <KrField name="enableFlag" label="是" component="radio" type="radio" value="ENABLE"/>
                 <KrField name="enableFlag" label="否" component="radio" type="radio" value="DISENABLE" />
               </KrField>
@@ -203,8 +203,8 @@ let SettingChildUpdateForm = function(props) {
 
     <form onSubmit={handleSubmit(onSubmit)}>
               <KrField name="id" type="hidden" label="id"  />
-              <KrField name="dicName" type="text" component="input" label="字段名称" requireLabel={true} />
-              <KrField name="enableFlag" component="group" label="是否有效" requireLabel={true}>
+              <KrField grid={1/2} right={66} name="dicName" type="text" component="input" label="字段名称" requireLabel={true} />
+              <KrField className="radioAll" grid={1/2} right={66} name="enableFlag" component="group" label="是否有效" requireLabel={true}>
                 <KrField name="enableFlag" label="是" component="radio" type='radio' value="ENABLE" requireLabel={true}/>
                 <KrField name="enableFlag" label="否" component="radio"  type='radio'  value="DISENABLE" requireLabel={true}/>
               </KrField>
@@ -246,10 +246,10 @@ let SettingAddForm = function(props) {
 
       <form onSubmit={handleSubmit(onSubmit)}>
                   <KrField name="id" type="hidden" component="input" label="id"/>
-                  <KrField name="dicName" type="text" label="子项名称" requireLabel={true}/>
-                  <KrField  type="labelText" label="字段名称" value={props.dicName} />
-                 <KrField name="enableFlag" component="group" label="是否有效" requireLabel={true}>
-                    <KrField name="enableFlag" label="是" type="radio" value="ENABLE"/>
+                  <KrField grid={1/2} right={66} name="dicName" type="text" label="子项名称" requireLabel={true}/>
+                  <KrField grid={1/2} right={66} inline={false}  type="labelText" label="字段名称" value={props.dicName} />
+                 <KrField grid={1/2} right={66} name="enableFlag" component="group" label="是否有效" requireLabel={true}>
+                    <KrField name="enableFlag" label="是" type="radio" value="ENABLE" />
                     <KrField name="enableFlag" label="否" type="radio" value="DISENABLE" />
                   </KrField>
                    <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息" requireLabel={true}/>
@@ -709,6 +709,7 @@ export default class SettingList extends Component {
         modal={true}
         open={this.state.openCreate}
         onClose={this.openCreateDialog}
+        contentStyle={{width:'687'}}
       >
         <SettingCreateForm onSubmit={this.confirmSubmit} onCancel={this.openCreateDialog}/>
       </Dialog>
@@ -720,6 +721,8 @@ export default class SettingList extends Component {
         actions={actions}
         open={this.state.openView}
         onClose={this.openViewDialog}
+        contentStyle={{width:'687'}}
+
       >
 
       <SettingViewForm items={this.state.item}/>
@@ -732,6 +735,8 @@ export default class SettingList extends Component {
         actions={close}
         open={this.state.openChildView}
         onClose={this.openViewChildDialog}
+        contentStyle={{width:'687'}}
+
       >
 
       <SettingChildViewForm items={this.state.item}/>
@@ -746,6 +751,8 @@ export default class SettingList extends Component {
         modal={true}
         open={this.state.openUpdate}
         onClose={this.openUpdateDialog}
+        contentStyle={{width:'687'}}
+
      >
       <SettingUpdateForm items={this.state.item} onSubmit={this.confirmUpdateSubmit} onCancel={this.openUpdateDialog} />
       </Dialog>
@@ -755,6 +762,8 @@ export default class SettingList extends Component {
         modal={true}
         open={this.state.openChildUpdate}
         onClose={this.openUpdateChildDialog}
+        contentStyle={{width:'687'}}
+
      >
       <SettingChildUpdateForm items={this.state.item} onSubmit={this.confirmUpdateChildSubmit} onCancel={this.openUpdateChildDialog} />
       </Dialog>
@@ -764,6 +773,8 @@ export default class SettingList extends Component {
         modal={true}
         open={this.state.openAdddate}
         onClose={this.openAdd}
+        contentStyle={{width:'687'}}
+
      >
       <SettingAddForm id={this.state.id} dicName={this.state.dicName} onSubmit={this.confirmSubmit} onCancel={this.openAdd}/>
       </Dialog>

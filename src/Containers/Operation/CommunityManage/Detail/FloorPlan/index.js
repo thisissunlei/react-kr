@@ -25,6 +25,8 @@ import {
 	Button,
 	Row,
 	Col,
+	ListGroup,
+	ListGroupItem
 } from 'kr-ui';
 import {
 	reduxForm,
@@ -64,7 +66,11 @@ export default class FloorPlan extends Component {
 
 	}
 	componentWillReceiveProps(nextProps) {
-
+		if (nextProps.url != this.props.url) {
+			this.setState({
+				url: nextProps.url
+			});
+		}
 	}
 
 
@@ -90,12 +96,22 @@ export default class FloorPlan extends Component {
 
 		var formList = form || {};
 		let params;
-		params = {
-			communityId: '',
-			wherefloor: '',
-			date: dateFormat(new Date(), "yyyy.mm.dd"),
-			dateend: dateFormat(new Date(), "yyyy.mm.dd"),
-		};
+		
+		if(form){
+			params = {
+				communityId: form.communityId,
+				wherefloor: form.wherefloor,
+				date: form.date || dateFormat(new Date(), "yyyy.mm.dd"),
+				dateend: form.dateend || dateFormat(new Date(), "yyyy.mm.dd"),
+			}
+		}else{
+			params = {
+				communityId:'',
+				wherefloor:'',
+				date:dateFormat(new Date(), "yyyy.mm.dd"),
+				dateend:dateFormat(new Date(), "yyyy.mm.dd"),
+			};
+		}
 
 		if (Object.keys(params).length) {
 			for (let item in params) {
@@ -105,9 +121,6 @@ export default class FloorPlan extends Component {
 				}
 			}
 		};
-		console.log('---');
-
-
 
 		return url;
 	}
@@ -120,9 +133,12 @@ export default class FloorPlan extends Component {
 				date: dateFormat(form.start, "yyyy.mm.dd") || dateFormat(new Date(), "yyyy.mm.dd"),
 				dateend: dateFormat(form.end, "yyyy.mm.dd") || dateFormat(new Date(), "yyyy.mm.dd"),
 			};
-			console.log(params);
-			that.iframeWindow.query(params);
-			return false;
+			// console.log(params);
+			// that.iframeWindow.query(params);
+			// // this.getStationUrl(params);
+			this.setState({
+				url:this.getStationUrl(params)
+			})
 
 		}
 		// 监听滚动事件
@@ -135,9 +151,7 @@ export default class FloorPlan extends Component {
 			// var scrollBottom = $('#planTable').offset().top +1000 - top - height;
 			var scrollBottom = top-num;
 			var isOutBoundary = scrollBottom >= 0;
-			console.log(isOutBoundary);
 			if (isOutBoundary) {
-				console.log('------');
 				that.iframeWindow.pagequery();
 				// let possition = that.getState();
 				// if(position){
@@ -167,7 +181,6 @@ export default class FloorPlan extends Component {
 				communityIdList,
 			});
 		}).catch(function(err) {
-			console.log(err);
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
@@ -179,7 +192,6 @@ export default class FloorPlan extends Component {
 	}
 
 	getCommunityFloors(id) {
-		console.log(id);
 		let communityId = {
 			communityId: parseInt(id)
 		};
@@ -195,9 +207,7 @@ export default class FloorPlan extends Component {
 			that.setState({
 				communityInfoFloorList
 			});
-			console.log(response);
 		}).catch(function(err) {
-			console.log('err',err);
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
@@ -224,20 +234,25 @@ export default class FloorPlan extends Component {
 		} else {
 			$(window).unbind('scroll', this.scrollLoad());
 		}
-		const width = $('#planTable').width() ;
-		// console.log('======',$('#planTable').width());
 		return (
 
 			<div id="planTable" style={{margin:20,paddingBottom:30}}>
-		 	<form name="planTable" onSubmit={handleSubmit(this.onSubmit)} className="form-list">
-				<KrField name="community"  grid={1/5} component="select" label="社区" search={true}  options={communityIdList} onChange={this.selectCommunity} />
-				<KrField name="floor"  grid={1/5} component="select" label="楼层" options={communityInfoFloorList} search={true}/>
-				<KrField grid={3/10}  name="start" component="date" label="注册时间" search={true}/>
-				<KrField grid={1/5}  name="end" component="date"  label="至" search={true}/>
-				<span style={{height:41,paddingTop:3,display:'inline-block'}}><Button  label="确定" type="submit" height={34}/></span>
+		 	<form name="planTable" onSubmit={handleSubmit(this.onSubmit)} className="form-list" style={{textAlign:'right'}}>
+				
+					<ListGroup>
+						<ListGroupItem><span style={{display:'inline-block',lineHeight:'45px',textAlign:'left'}}>社区</span></ListGroupItem>
+						<ListGroupItem style={{maxWidth:170,marginTop:'-6px',minWidth:110,width:'100%',textAlign:'left'}}><KrField grid={1/1} name="community" component="select"   options={communityIdList} onChange={this.selectCommunity} /></ListGroupItem>
+						<ListGroupItem><span style={{display:'inline-block',lineHeight:'45px',textAlign:'left'}}>楼层</span></ListGroupItem>
+						<ListGroupItem  style={{maxWidth:170,marginTop:'-6px',minWidth:100,width:'100%',textAlign:'left'}}><KrField name="floor" grid={1/1} component="select" options={communityInfoFloorList} /></ListGroupItem>
+						<ListGroupItem><span style={{display:'inline-block',lineHeight:'45px',textAlign:'left'}}>注册时间</span></ListGroupItem>
+						<ListGroupItem style={{minWidth:100,marginTop:'-6px',textAlign:'left'}}> <KrField name="start"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/></ListGroupItem>
+						<ListGroupItem style={{marginLeft:'10px',textAlign:'left'}}><span style={{display:'inline-block',lineHeight:'45px'}}>至</span></ListGroupItem>
+						<ListGroupItem  style={{minWidth:100,marginTop:'-6px',textAlign:'left'}}> <KrField name="end" component="date" onChange={this.onChangeLeaseEndDate} simple={true}/> </ListGroupItem>
+						<ListGroupItem style={{marginLeft:6,marginTop:4,textAlign:'left'}}> <Button  label="确定" type="submit" height={34}/></ListGroupItem>
+					</ListGroup>
 			</form>
-			<p style={{margin:20}}></p>
-			<IframeContent src={url} onClose={this.getState} className="floorIframe" onLoad={this.onLoad} width={width} height={800} scrolling="no"/>
+			<p style={{margin:10}}></p>
+			<IframeContent src={url} onClose={this.getState} className="floorIframe" onLoad={this.onLoad} width={'100%'} height={800} scrolling="no"/>
 
 		</div>
 		);

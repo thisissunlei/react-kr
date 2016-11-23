@@ -143,9 +143,25 @@ export default class SearchForms extends Component{
 	bodyEvent(){
 		let _this = this;
 		let targetList = ['icon-searching', 'search-val', 'search-name','filter-container','icon-searching click'];
-
 		$('body').click(function(event){
 			const form = ReactDOM.findDOMNode(_this.form);
+
+			let searchName = '';
+			let {searchFilter} = _this.props;
+			let filterValue = '';
+
+			const filterDom = document.getElementsByClassName('search-name');
+			if(filterDom.length){
+				searchName = document.getElementsByClassName('search-name')[0].innerHTML;
+				searchFilter.forEach((item)=>{
+					if(item.label === searchName ){
+						filterValue = item.value
+					}
+				})
+			}
+			var searchWord = document.getElementById("keywords").value;
+
+			console.log(filterValue,searchWord);
 			if(form){
 				const searchButton = form.getElementsByClassName('icon-searching')[0];
 				const searchForm = form.getElementsByClassName('search-status')[0];
@@ -157,6 +173,7 @@ export default class SearchForms extends Component{
 						close = false;
 					}
 				})
+				if(filterValue || searchWord){return;}
 				if(close){
 					_this.removeClass(searchForm,'show-form');
 					_this.removeClass(searchButton,'click');

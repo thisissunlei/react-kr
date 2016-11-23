@@ -88,8 +88,8 @@ class Distribution extends Component {
 				<KrField name="customerId" type="hidden"/>
 				<KrField name="communityId" type="hidden"/>
 				<div style={{textAlign:"center",marginTop:'45px',fontSize:'14px'}}>
-					<div style={{textAlign:"center",marginBottom:'20px'}}>{detail.companyName}{detail.id}序号员工为</div>
-					<KrField name="memberId"component="select" grid={2/3}  options={optionValues.member}/>
+					
+					<KrField name="memberId"component="select" grid={1} inline={true} label={`${detail.stationCode}分配为： `} options={optionValues.member}/>
 				</div>
 				<Grid style={{marginTop:'20px',marginBottom:'10px'}}>
 					<Row >
@@ -151,7 +151,7 @@ class ChangeStation extends Component {
 
 		initialValues.customerId = customerId;
 		initialValues.communityId = communityId;
-
+		console.log('detail', detail)
 		return (
 
 			<Form name="jyayayoin" className="change" initialValues={initialValues} onSubmit={this.onSubmit}>
@@ -159,8 +159,8 @@ class ChangeStation extends Component {
 			<KrField name="customerId" type="hidden"/>
 			<KrField name="communityId" type="hidden"/>
 			<div style={{textAlign:"center",marginTop:'45px'}}>
-				<div className="info" style={{paddingBottom:20,color:'#333333'}}>{detail.companyName}{detail.id}序号员工为{detail.memberName},</div>
-				<KrField label="更为员工"  name="memberId"component="select" grid={2/3}  options={optionValues.members} inline={true} />
+				<div className="info" style={{paddingBottom:10,color:'#333333'}}>{detail.stationCode}{detail.memberName}变更为员工:</div>
+				<KrField label='' name="memberId"  type="select" grid={2/3}  options={optionValues.members} inline={false} ></KrField>
 			</div>
 			<Grid style={{marginTop:'7px',marginBottom:'10px'}}>
 				<Row >
@@ -485,7 +485,7 @@ export default class EmployessTable extends Component {
 						<TableRowColumn type="operation">
 								<Button label="变更" className="changeBtn" type="operation" operation="ChangeStation" hidden="changeHidden"  />
 								<Button label="分配" className="Distribtn"  type="operation" operation="Distribution" hidden="distributionHidden"  />
-								<Button label="无" className="Distribtn" type="operation" operation="none" hidden="noneHidden"/>
+								<Button label="无" className="Distribtn bgcolor" type="operation" operation="none" hidden="noneHidden"/>
 						</TableRowColumn>
 					</TableRow>
 				</TableBody>

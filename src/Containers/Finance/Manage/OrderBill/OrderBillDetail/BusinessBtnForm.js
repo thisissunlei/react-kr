@@ -78,23 +78,31 @@ class BusinessBtnForm extends Component{
 
         const { error, handleSubmit, pristine, reset,optionList,fiMoney} = this.props;
 		
-
-        
+       let inputStyle={
+       	 height:'36'
+       }
+       let heightStyle={
+       	 width:'546',
+       	 height:'72'
+       }
+	   let style={
+       	 marginTop:'-10'
+       }
  
 		return(
 
-			    <div>
+			    <div className='ui-quit-wrap'>
                  
 					      <form onSubmit={handleSubmit(this.onSubmit)}>
-                             <KrField  name="id" type="hidden"/>
-                            <KrField grid={1/2} label="款项金额" component="labelText" value={fiMoney} inline={false} defaultValue="无"/>
-                            <KrField grid={1/2} label="金额（元）" name="finaflowamount" component="input" type="text" requireLabel={true}/>
+                            <KrField  name="id" type="hidden"/>
+                            <KrField grid={1} label="款项金额"  component="labelText" value={fiMoney} inline={false} defaultValue="无"/>
+                            <KrField grid={1/2} label="金额（元）" heightStyle={inputStyle} right={29} name="finaflowamount" component="input" type="text" requireLabel={true}/>
                             <KrField grid={1/2} label="上传附件" name="fileids" component="file"/>
-                            <KrField grid={1} label="备注" name="finaflowdesc" component="textarea" type="text"/>
+                            <KrField grid={1} label="备注" style={style} name="finaflowdesc" heightStyle={heightStyle} component="textarea" type="text" placeholder='请输入备注,文字不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/>
                            
 
 
-					<Grid style={{marginTop:20}}>
+					<Grid style={{marginBottom:5}}>
 						<Row>
 							<Col md={12} align="center">
 								<ButtonGroup>

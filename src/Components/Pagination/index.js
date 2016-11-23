@@ -247,8 +247,8 @@ export default class Pagination extends Component {
 			i++;
 		}
 
-		if (pageEnd < pageMax) {
-			element = this.createOther(pageEnd + 1);
+		if (pageEnd < pageMax-1) {
+			element = this.createOther(pageEnd);
 			pageBody.push(element);
 		}
 
@@ -266,12 +266,14 @@ export default class Pagination extends Component {
 			pageSize,
 			totalCount
 		} = this.props;
+        
+        var pageMax = Math.ceil(totalCount / pageSize);
 
-		if (page == 1) {
+		if (page == 1&&pageMax==1) {
 			return;
 		}
 
-		var pageMax = Math.ceil(totalCount / pageSize);
+		
 
 		let props = {};
 		props.className = 'item';
@@ -316,7 +318,7 @@ export default class Pagination extends Component {
 			<div className="item-jump">
 				<span>到</span>
 				<input type="text" name="age"  valueLink={this.linkState('jumpPageValue')} />
-				<a style={{boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)'}}  onClick={this.onJump}>跳转</a>
+				<a style={{boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)'}}  onClick={this.onJump}>跳&nbsp;&nbsp;转</a>
 			</div>
 		);
 	}

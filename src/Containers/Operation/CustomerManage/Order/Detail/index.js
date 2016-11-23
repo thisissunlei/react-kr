@@ -12,6 +12,9 @@ import {
 } from 'redux-form';
 import Section from 'kr-ui/Section';
 
+
+import DelAgreementNotify from './DelAgreementNotify';
+
 import {
 	KrField,
 	KrDate,
@@ -99,27 +102,26 @@ class NewCreatForm extends Component {
 				</Col>
 				<Col md={4} align="center">
 				  {
-					contractStatusCount.enterTotoal>0?<span className="createButton disabled">入驻协议书</span>:<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/join/create"}>入驻协议书</a>
-
+					contractStatusCount.enterTotoal>0 ?<span className="createButton disabled">入驻协议书</span>:<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/join/create"}>入驻协议书</a>
 				  }
 				</Col>
 				<Col md={4} align="center">
-				{contractStatusCount.enterTotoal>0?<a  className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/increase/create"}>增租协议书</a>:<span className="createButton disabled">增租协议书</span>}
+				{contractStatusCount.enterTotoal>0 && contractStatusCount.enterFlag?<a  className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/increase/create"}>增租协议书</a>:<span className="createButton disabled">增租协议书</span>}
 
 				</Col>
 				</Row>
 
 				<Row style={{marginTop:10}}>
 				<Col md={4} align="center" >
-				  	{contractStatusCount.enterTotoal>0?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/renew/create"}>续租协议书</a>:<span className="createButton disabled">续租协议书</span>}
+				  	{contractStatusCount.enterTotoal>0 && contractStatusCount.enterFlag ?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/renew/create"}>续租协议书</a>:<span className="createButton disabled">续租协议书</span>}
 
 				</Col>
 				<Col md={4} align="center">
-					{contractStatusCount.enterTotoal>0?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/reduce/create"} >减租协议书</a>:<span className="createButton disabled">减租协议书</span>}
+					{contractStatusCount.enterTotoal>0 && contractStatusCount.enterFlag ?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/reduce/create"} >减租协议书</a>:<span className="createButton disabled">减租协议书</span>}
 
 				</Col>
 				<Col md={4} align="center">
-					{contractStatusCount.enterTotoal>0?<a  className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/exit/create"} >退租协议书</a>:<span className="createButton disabled">退租协议书</span>}
+					{contractStatusCount.enterTotoal>0 && contractStatusCount.enterFlag?<a  className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/exit/create"} >退租协议书</a>:<span className="createButton disabled">退租协议书</span>}
 
 				</Col>
 				</Row>
@@ -143,10 +145,17 @@ export default class OrderDetail extends React.Component {
 		this.renderTableItem = this.renderTableItem.bind(this);
 		this.getAgrementType = this.getAgrementType.bind(this);
 
+
+		this.confirmDelAgreement = this.confirmDelAgreement.bind(this);
+		this.openDelAgreementDialog = this.openDelAgreementDialog.bind(this);
+
+
 		this.state = {
 			open: false,
 			loading: true,
+			delAgreementId:0,
 			openCreateAgreement: false,
+			openDelAgreement:false,
 			response: {
 				orderBaseInfo: {},
 				installment: {},
@@ -158,11 +167,48 @@ export default class OrderDetail extends React.Component {
 
 	}
 
+	openDelAgreementDialog(){
+		this.setState({
+			 	openDelAgreement:!this.state.openDelAgreement
+		});
+	}
+
+	setDelAgreementId(delAgreementId){
+		this.setState({
+				delAgreementId,
+		},function(){
+					this.openDelAgreementDialog();
+		});
+
+	}
+
+	confirmDelAgreement(){
+		
+		this.openDelAgreementDialog(0);
+
+		let {delAgreementId} = this.state;
+		Store.dispatch(Actions.callAPI('delete-enter-contract', {
+			contractId:delAgreementId
+		})).then(function(response) {
+			Notify.show([{
+				message: '删除成功!',
+				type: 'success',
+			}]);
+			window.setTimeout(function(){
+				window.location.reload();
+			},100)
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+
+
+	}
+
 	componentDidMount() {
-		console.log('000000');
-
 		const closeAll = this.props.location.query.closeAll;
-
 		if (closeAll) {
 			Store.dispatch(Actions.switchSidebarNav(false));
 			Store.dispatch(Actions.switchHeaderNav(false));
@@ -305,6 +351,11 @@ export default class OrderDetail extends React.Component {
 		)
 	}
 
+	delArgument(id){
+
+
+	}
+
 	renderTableItem(item) {
 		var _this = this;
 		if (item) {
@@ -403,7 +454,7 @@ export default class OrderDetail extends React.Component {
 				</Row>
 
 				<Row>
-				<Col md={4} ><KrField label="营业外收入汇款：" component="labelText" value={orderBaseInfo.nonbusinessincomeBackamount} width={150} defaultValue="0" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="营业外收入回款：" component="labelText" value={orderBaseInfo.nonbusinessincomeBackamount} width={150} defaultValue="0" alignRight={true}/></Col>
 				<Col md={4} ><KrField label="生活消费收入回款：" component="labelText" value={orderBaseInfo.liveincomeBackamount} width={160} defaultValue="0" alignRight={true}/></Col>
 				<Col md={4} ><KrField label="工位收入：" component="labelText" value={orderBaseInfo.accruedrent} defaultValue="0" alignRight={true}/></Col>
 				</Row>
@@ -445,7 +496,15 @@ export default class OrderDetail extends React.Component {
 					<TableRowColumn> <KrDate value={item.leaseEnddate}/></TableRowColumn>
 					<TableRowColumn>
 					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} />
-					{item.contractstate != 'EXECUTE'  && <Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
+							{item.contractstate != 'EXECUTE' && item.editFlag && <Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
+
+				{item.contracttype == 'ENTER' && item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
+						{/*
+							{item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除" onTouchTap={this.delArgument.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
+
+							*/}
+
+
 					</TableRowColumn>
 					</TableRow>
 				);
@@ -500,11 +559,17 @@ export default class OrderDetail extends React.Component {
 			open={this.state.openCreateAgreement}
 			contentStyle={{width:687}}>
 				<NewCreatForm contractStatusCount={contractStatusCount} params={this.props.params}/>
-
-
 			</Dialog>
 
 
+			<Dialog
+			title="删除合同"
+			modal={true}
+			onClose={this.openDelAgreementDialog}
+			open={this.state.openDelAgreement}
+			contentStyle={{width:387}}>
+				<DelAgreementNotify onSubmit={this.confirmDelAgreement} onCancel={this.openDelAgreementDialog.bind(this,0)}/>
+			</Dialog>
 			</div>
 
 		);

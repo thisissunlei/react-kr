@@ -45,7 +45,8 @@ export default class D3Content extends Component {
 	static defaultProps = {
 		detail: [],
 		finaBluePointVo: [],
-		finaRedPointVo: []
+		finaRedPointVo: [],
+		whiteBar:[]
 	}
 
 	static PropTypes = {
@@ -65,9 +66,7 @@ export default class D3Content extends Component {
 		this.renderBlueNode = this.renderBlueNode.bind(this);
 		this.getRedInfo = this.getRedInfo.bind(this);
 		this.renderRedNode = this.renderRedNode.bind(this);
-		this.state = {
-			width: this.props.width
-		}
+		this.renderwhiteBar = this.renderwhiteBar.bind(this);
 
 	}
 
@@ -88,14 +87,14 @@ export default class D3Content extends Component {
 				detail
 			} = this.props;
 			var _this = this;
-			const width = this.props.width || 660;
 			var timeList = detail.map(function(item) {
 				item.start = _this.countDays(item.begindate);
 				item.end = _this.countDays(item.enddate);
 				item.Begindate = dateFormat(item.begindate, "yyyy.mm.dd");
 				item.Enddate = dateFormat(item.enddate, "yyyy.mm.dd");
-				item.width = parseInt((item.end - item.start - 1) / 365 * width); //时间段的长度
-
+				// item.width = parseInt((item.end - item.start) / 365 * width); //时间段的长度
+				item.width = (item.end - item.start) / 365; //时间段的长度
+				item.width = Math.round(item.width*100)/100;
 				return item;
 			});
 			return timeList;
@@ -103,12 +102,12 @@ export default class D3Content extends Component {
 		// 获取分期前的空白时间段
 	getSpace(timeList) {
 		let whiteLength;
-		const width = this.props.width || 660;
-		var whiteWidth = parseInt((timeList[0].start - 1) / 365 * width);
+		// var whiteWidth = parseInt((timeList[0].start) / 365 * width);
+		var whiteWidth = (timeList[0].start) / 365;
 		var whiteNode = {
 				start: 0,
 				end: timeList[0].start - 1,
-				width: whiteWidth
+				width: Math.round(whiteWidth*100)/100
 			}
 			// whiteLength = $("<div class='white'></div>").css( {'width':whiteLength-1,});
 		return whiteNode;
@@ -130,9 +129,10 @@ export default class D3Content extends Component {
 		}
 		// 催款时间和工位变更时间节点位置（px）
 	timeNode(date) {
-			const width = this.props.width || 660;
 			var days = this.countDays(date);
-			var marginLeft = parseInt(days / 365 * width);
+			var marginLeft = days / 365 ;
+			marginLeft = Math.round(marginLeft*100)/100
+			// var marginLeft = parseInt(days / 365 * width);
 			return marginLeft;
 		}
 		// 插入催款信息
@@ -219,6 +219,16 @@ export default class D3Content extends Component {
 		return finaRedPointVoList;
 
 	}
+	renderwhiteBar(){
+		let {whiteBar} = this.props;
+		let that = this;
+		whiteBar = whiteBar.map((item)=>{
+			let days = that.countDays(item);
+			let num = Math.round((days/365)*100)/100;
+			return num*100;
+		})
+		return whiteBar;
+	}
 
 	render() {
 		var {
@@ -240,16 +250,18 @@ export default class D3Content extends Component {
 			var blueNodeList = this.renderBlueNode();
 			var sameNode = this.getSameTime();
 			list = this.getRedInfo(list);
+			// console.log(list);
+			// return false;
 		} else {
 			var list = [{
 				width: "100%",
 				content: true
 			}];
 		}
+		let whiteBar = this.renderwhiteBar();
 
 
 
-		const width = this.props.width || 660;
 
 
 
@@ -260,7 +272,7 @@ export default class D3Content extends Component {
 				{list.map((item,index)=>{
 						if(index === 0 ){
 							return(
-								<div className='white' style={{'width':item.width}} key={index}>
+								<div className='white' style={{'width':`${item.width*100-1}%`}} key={index}>
 									{item.content?<span></span>:''}
 									
 								</div>
@@ -268,9 +280,9 @@ export default class D3Content extends Component {
 								)
 						}else if(index<nodeList && index !== 0){
 							return(
-								<div className='grey' data-tip data-for={`${id}${index}`} style={{'width':item.width,'marginRight':1,}} key={index}>
+								<div className='grey' data-tip data-for={`${id}${index}`} data-event='mouseover' data-event-off='mouseleave' style={{'width':`${item.width*100}%`}} key={index}>
 									<ReactTooltip id={`${id}${index}`} place="top" type="dark" effect="solid">
-									{item.planTableModelList && item.planTableModelList.map((value, i)=>{
+									{item.width && item.planTableModelList && item.planTableModelList.map((value, i)=>{
 										return (
 											<div key={i}>
 												<p>{dateFormat(value.installmentReminddate, "yyyy.mm.dd")}日催款</p>
@@ -288,7 +300,7 @@ export default class D3Content extends Component {
 							)
 						}else{
 							return (
-								<div className='blue' data-tip data-for={`${id}${index}`} style={{'width':item.width,'marginRight':1,}} key={index}>
+								<div className='blue' data-tip data-for={`${id}${index}`} style={{'width':`${item.width*100}%`}} key={index}>
 									<ReactTooltip id={`${id}${index}`} place="top" type="dark" effect="solid">
 									{item.planTableModelList && item.planTableModelList.map((value, i)=>{
 										return (
@@ -309,28 +321,35 @@ export default class D3Content extends Component {
 						}
 					})}
 
-
+				{
+					whiteBar && whiteBar.map((item,index)=>{
+						return(
+							<span className="wihiteBar" style={{marginLeft:`${item}%`}} key={index}></span>
+						)
+					})
+				}
 				{
 					blueNodeList && blueNodeList.map((item,index)=>{
 						return (
-							<span className='blue-node' key={index} style={{marginLeft:parseInt(item/365 * width)-5}}></span>
+							<span className='blue-node' key={index} style={{marginLeft:`${(Math.round((item/365)*100)/100)*100}%`}}></span>
 						)
 					})
 				}
 				{
 					redNodeList && redNodeList.map((item,index)=>{
 						return (
-							<span className='red-node' key={index} style={{marginLeft:parseInt(item/365 * width)-5}}></span>
+							<span className='red-node' key={index} style={{marginLeft:`${(Math.round((item/365)*100)/100)*100}%`}}></span>
 						)
 					})
 				}
 				{
 					sameNode && sameNode.map((item,index)=>{
 						return (
-							<span className='same-node' key={index} style={{marginLeft:parseInt(item/365 * width)-5}}></span>
+							<span className='same-node' key={index} style={{marginLeft:`${(Math.round((item/365)*100)/100)*100}%`}}></span>
 						)
 					})
 				}
+				
 
 			</div>
 

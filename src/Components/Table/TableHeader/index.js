@@ -9,10 +9,11 @@ export default class TableHeader extends React.Component {
 	static PropTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
-        onSelectAll:React.PropTypes.func,
+    onSelectAll:React.PropTypes.func,
 		displayCheckbox:React.PropTypes.bool,
 		defaultValue:React.PropTypes.object,
 		onSort:React.PropTypes.func,
+
 	}
 
 
@@ -36,14 +37,14 @@ export default class TableHeader extends React.Component {
 
 	renderCheckbox(){
 
-		let {onSelectAll,displayCheckbox} = this.props;
+		let {onSelectAll,displayCheckbox,onCellClick} = this.props;
 
 		if(!displayCheckbox){
 			return null;
 		}
 
 		//return ( <TableHeaderColumn width={this.props.defaultValue.checkboxWidth}></TableHeaderColumn>);
-		return ( <TableHeaderColumn width={this.props.defaultValue.checkboxWidth}> <Checkbox onCheck={onSelectAll} /> </TableHeaderColumn>);
+		return ( <TableHeaderColumn width={this.props.defaultValue.checkboxWidth}> <Checkbox onCheck={onSelectAll} /></TableHeaderColumn>);
 
 	}
 
@@ -68,12 +69,12 @@ export default class TableHeader extends React.Component {
 			const {muiName,name,displayName} = child.type;
 
 			if (displayName === 'TableHeaderColumn') {
-				tHeader.push(this.createTableHeaderColumn(child,index));
+				tHeader.push(this.createTableHeaderColumn(child,index)) ;
 			}
 		});
 
 		return (
-			<thead className={className}>
+			<thead className={className} >
 				<tr>
                   {this.renderCheckbox()}
 			      {tHeader}
