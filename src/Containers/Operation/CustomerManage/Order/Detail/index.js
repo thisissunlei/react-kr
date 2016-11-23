@@ -183,6 +183,9 @@ export default class OrderDetail extends React.Component {
 	}
 
 	confirmDelAgreement(){
+		
+		this.openDelAgreementDialog(0);
+
 		let {delAgreementId} = this.state;
 		Store.dispatch(Actions.callAPI('delete-enter-contract', {
 			contractId:delAgreementId
@@ -191,13 +194,17 @@ export default class OrderDetail extends React.Component {
 				message: '删除成功!',
 				type: 'success',
 			}]);
+			window.setTimeout(function(){
+				window.location.reload();
+			},100)
 		}).catch(function(err) {
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
 			}]);
 		});
-		this.openDelAgreementDialog(0);
+
+
 	}
 
 	componentDidMount() {
