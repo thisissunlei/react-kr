@@ -93,9 +93,9 @@ class NewCreateForm extends Component {
 								<KrField name="enableflag" label="是" component="radio" type="radio" value='ENABLE'/>
 								<KrField name="enableflag" label="否" component="radio" type="radio" value='	DISENABLE'/>
 							</KrField>
-							
-							<KrField name="corporationAddress" grid={1/2} right={10} component="text" type="text" label="详细地址" requireLabel={true}/> 
-							 <KrField name="corporationDesc" component="textarea" label="备注"  placeholder="备注信息"/> 
+
+							<KrField name="corporationAddress" grid={1/2} right={10} component="text" type="text" label="详细地址" requireLabel={true}/>
+							 <KrField name="corporationDesc" component="textarea" label="备注"  placeholder="备注信息"/>
 
 
 							<Grid style={{marginBottom:10}}>
