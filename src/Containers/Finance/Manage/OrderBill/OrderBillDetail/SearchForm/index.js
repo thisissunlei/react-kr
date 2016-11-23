@@ -75,8 +75,8 @@ export default class SearchForm extends Component{
 					<KrField grid={1} name="accountType" type="hidden"/>
 					<KrField grid={1/2} name="accountId" right={26} component="select" label="代码" options={codeList}/> 
 					<KrField grid={1/2} name="propertyId" right={26} type="select" label="款项" options={typeList}/>
-					<KrField grid={1/1}  component="group" label="日期" >
-					<div className='ui-listDate'><ListGroup>
+					<KrField grid={1/1}  component="group" label="日期" style={{marginTop:4}}>
+					<div className='ui-listDate-list'><ListGroup>
 						<ListGroupItem><div className='ui-date-start'><KrField  name="startTime" right={8} style={{marginLeft:-10}} component="date" /></div></ListGroupItem>
 						<div className='ui-line-down-list'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
 						<ListGroupItem><div className='ui-date-end'><KrField name="endTime" right={8} component="date" /></div></ListGroupItem>
