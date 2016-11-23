@@ -29,8 +29,10 @@ export default class IframeContent extends React.Component {
 		this.iframeWindow = '';
 
 		this.state = {
-			isLoading:false
+			isLoading:false,
+			src:this.props.src
 		}
+		this.isInit = false;
 
 		this.createIframe = this.createIframe.bind(this);
 
@@ -45,8 +47,15 @@ export default class IframeContent extends React.Component {
 		this.createIframe();
 	}
 
-	componentWillReceiveProps(){
-		this.createIframe();
+	componentWillReceiveProps(nextProps){
+		if (nextProps.src) {
+			let src = nextProps.src;
+			this.setState({
+				src
+			},function(){
+				this.createIframe();
+			});
+		}
 	}
 
 	onClose(data){
@@ -71,7 +80,7 @@ export default class IframeContent extends React.Component {
 
 	createIframe(){
 			const _this = this;
-			const {src} = this.props;
+			const {src} = this.state;
 
 			var iframe = document.createElement("iframe");
 			iframe.src = src;

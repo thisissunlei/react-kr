@@ -34,6 +34,7 @@
     "babel-preset-stage-3": "^6.17.0",
     "babel-runtime": "6.6.1",
     "bower": "1.7.9",
+    "classnames": "^2.2.5",
     "co-views": "2.1.0",
     "copy-webpack-plugin": "4.0.0",
     "css-loader": "0.23.1",
@@ -86,6 +87,7 @@
     "react-file-reader-input": "1.1.0",
     "react-form": "0.0.2",
     "react-hot-loader": "3.0.0-beta.6",
+    "react-input-autosize": "^1.1.0",
     "react-link-state": "0.1.2",
     "react-materialui-notifications": "0.4.1",
     "react-mixin": "3.0.5",
@@ -128,6 +130,7 @@
     "react-dom": "0.14.6",
     "react-form": "0.0.2",
     "react-form-inputs": "0.0.1",
+    "react-select": "^1.0.0-rc.2",
     "react-tap-event-plugin": "0.2.2",
     "react-tooltip": "3.2.1",
     "redux-form": "6.0.2"

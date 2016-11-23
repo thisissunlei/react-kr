@@ -908,6 +908,7 @@ export default class AttributeSetting extends Component {
 						title="退款"
 						open={this.state.openQuitBtn}
 						onClose={this.closeQuitBtn}
+						contentStyle ={{ width: '688'}}
 						>
 					   <QuitBtnForm  onSubmit={this.onQuitSubmit} onCancel={this.closeQuitBtn}  initialValues={initialValuesId}/>
 					 </Dialog>
@@ -916,6 +917,7 @@ export default class AttributeSetting extends Component {
 						title="转押金"
 						open={this.state.openSwitchBtn}
 						onClose={this.closeSwitchBtn}
+						contentStyle ={{ width: '688'}}
 						>
 					   <SwitchBtnForm  onSubmit={this.onSwitchSubmit} onCancel={this.closeSwitchBtn} optionList={this.state.receivedList} initialValues={initialValuesId}/>
 					 </Dialog>
@@ -924,6 +926,7 @@ export default class AttributeSetting extends Component {
 						title="转营收"
 						open={this.state.openBusinessBtn}
 						onClose={this.closeBusinessBtn}
+						contentStyle ={{ width: '688'}}
 						>
 					   <BusinessBtnForm  onSubmit={this.onBusinessSubmit} onCancel={this.closeBusinessBtn} fiMoney={fiMoney} initialValues={initialValuesId}/>
 					 </Dialog>
