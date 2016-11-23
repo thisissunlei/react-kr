@@ -419,6 +419,9 @@ export default class BasicTable extends Component {
 		if (formValues.type == "BILL") {
 			activity = false;
 		}
+		this.setState({
+			value: formValues.value
+		})
 
 		Store.dispatch(Actions.callAPI('getInstallmentplan', formValues)).then(function(response) {
 
