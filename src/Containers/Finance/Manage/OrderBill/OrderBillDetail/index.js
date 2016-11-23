@@ -942,6 +942,7 @@ export default class AttributeSetting extends Component {
 						title="挂账"
 						open={this.state.openAddaccountBtn}
 						onClose={this.closeAddaccount}
+						contentStyle ={{ width: '688'}}
 						>
 					   <AccountBtnForm  onSubmit={this.onConfrimSubmit}  onCancel={this.closeAddaccount}  optionList={this.state.receivedList} initialValues={propId}/>
 					 </Dialog>

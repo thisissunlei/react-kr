@@ -75,27 +75,34 @@ class AccountBtnForm extends Component{
 	
 	render(){
 		const {optionList,error,handleSubmit,pristine,reset} = this.props;
-		
+		let style={
+       	 marginTop:'6'
+       }
+       let heightStyle={
+       	 width:'546',
+       	 height:'72'
+       }
 
 		return(
+			 <div className='ui-quit-wrap'>
 				<form  onSubmit={handleSubmit(this.onSubmit)}>
 					<KrField  name="propid" type="hidden"/>
 					<KrField  name="mainbillid" type="hidden"/>
-					<KrField grid={1/2} name="accountid" component="select" label="代码名称" options={optionList} requireLabel={true}/> 
+					<KrField grid={1/2} name="accountid" right={29} component="select" label="代码名称" options={optionList} requireLabel={true}/> 
 					<KrField name="preCode" grid={1/2} component="group" label="金额正负" requireLabel={true}>
 		                <KrField name="preCode" label="正" type="radio" value="0"/>
 		                <KrField name="preCode" label="负" type="radio" value="1" />
 		            </KrField> 
-					<KrField grid={1/2} name="operatedate" type="date" component="date" label="挂账日期" requireLabel={true}/> 
+					<KrField grid={1/2} name="operatedate" right={31} type="date" component="date" label="挂账日期" requireLabel={true}/> 
 					<KrField grid={1/2} name="fileids" component="file" label="上传附件" />
 					
-					<KrField grid={1/2} name="finaflowamount" type="text" component="input" label="金额（元）" requireLabel={true}/> 
-					<KrField grid={1} name="finaflowdesc" type="text" component="textarea" label="备注" /> 
+					<KrField grid={1/2} name="finaflowamount" right={29} type="text" component="input" label="金额（元）" requireLabel={true} style={{marginTop:-6}}/> 
+					<KrField grid={1} style={style} label="备注" name="finaflowdesc" style={{marginTop:5}} type="text" heightStyle={heightStyle} component="textarea"  placeholder='请输入备注,文字不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/> 
 
 
 
 					
-					<Grid style={{marginTop:20}}>
+					<Grid style={{marginBottom:5}}>
 						<Row>
 							<Col md={12} align="center">
 								<ButtonGroup>
@@ -107,6 +114,7 @@ class AccountBtnForm extends Component{
 					</Grid>
 
 				</form>
+			  </div>
 
 			);
 	}
