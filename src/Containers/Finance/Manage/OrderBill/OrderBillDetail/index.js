@@ -908,6 +908,7 @@ export default class AttributeSetting extends Component {
 						title="退款"
 						open={this.state.openQuitBtn}
 						onClose={this.closeQuitBtn}
+						contentStyle ={{ width: '688'}}
 						>
 					   <QuitBtnForm  onSubmit={this.onQuitSubmit} onCancel={this.closeQuitBtn}  initialValues={initialValuesId}/>
 					 </Dialog>
