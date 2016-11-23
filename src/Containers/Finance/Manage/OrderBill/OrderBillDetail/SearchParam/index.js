@@ -222,7 +222,7 @@ export default class SearchParam extends Component{
 		               <ListGroupItem>
 		                <div className='ui-listGroupItem'>
                           <span className='receivedText' style={{cursor:'default'}}>余额</span>
-                          <span className='receivedMoney'>{detailBalance}</span>
+                          <span className='receivedMoney' style={{cursor:'default'}}>{detailBalance}</span>
 		            	</div>
 		            	</ListGroupItem>
 		            </ListGroup>
