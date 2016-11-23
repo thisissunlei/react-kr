@@ -135,6 +135,7 @@ class NewCreateForm extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
+		console.log('nextProps',nextProps);
 
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;

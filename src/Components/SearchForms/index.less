@@ -21,6 +21,7 @@
 		// border-left: 1px solid #ccc;
 		padding-left: 10px;
 		font-size: 14px;
+		width: 0;
 		&:focus {outline: none;}
 	}
 	.icon-searching{
@@ -46,10 +47,11 @@
 			color: #2980b9;
 		}
 	}
-	.search-filter{
+	.search-filter,.search-content,.filter-container{
+		width: 0;
 	}
 	.filter-container{
-		width: 100px;
+		// width: 100px;
 		border-right: 1px solid #eee;
 		display: inline-block;
 		color:#666666;
@@ -71,8 +73,8 @@
 			left: 0;
 			padding: 0;
 			margin: 0;
-			margin-top: 0px;
-			width: 100px;
+			margin-width: 100px;top: 0px;
+			// 
 			visibility: hidden;
 			position: relative;
 			box-shadow: 0 1px 6px #7d7d7d;
@@ -124,6 +126,15 @@
 		animation-iteration-count: 1;
 		visibility: visible;
 
+		.search-filter,.search-val,.search-content{
+			width: auto;
+		}
+		.filter-container{
+			width:100px;
+		}
+		ul{
+			width: 100px;
+		}
 	}
 	@keyframes show {
       0% {
