@@ -318,7 +318,7 @@ export default class Pagination extends Component {
 			<div className="item-jump">
 				<span>到</span>
 				<input type="text" name="age"  valueLink={this.linkState('jumpPageValue')} />
-				<a style={{boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)'}}  onClick={this.onJump}>跳转</a>
+				<a style={{boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)'}}  onClick={this.onJump}>跳&nbsp;&nbsp;转</a>
 			</div>
 		);
 	}
