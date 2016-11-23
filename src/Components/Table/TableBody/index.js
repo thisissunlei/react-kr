@@ -265,7 +265,7 @@ export default class TableBody extends React.Component {
 		} = this.props;
 
 		return (
-			<tbody className={className}>
+			<tbody  className={className} style={{borderBottom:"solid 1px #eee"}}>
 			{this.renderRows()}
 			{this.renderInsertElement()}
 			</tbody>

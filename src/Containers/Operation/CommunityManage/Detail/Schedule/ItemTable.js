@@ -184,7 +184,7 @@ export default class ItemTable extends Component {
               {
                 detail.billName
               }
-							<ReactTooltip place="right" id={`${detail.billId}`}>
+							<ReactTooltip place="right" type="dark" effect="solid" id={`${detail.billId}`}>
 								<ul>
 								{
 									this.renderOrder(detail.contractTypeVo)
@@ -194,7 +194,7 @@ export default class ItemTable extends Component {
 							</div>
 						</td>
 						<td colSpan="12" style={{padding:'0'}}>
-              <D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} width={width} id={detail.billId}/>
+              <D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} whiteBar={detail.whiteBar} id={detail.billId}/>
               <EmployessTable  activity={detail.activity} detail={detail} id={id} />
 						</td>
 						<td className="btnlist">
