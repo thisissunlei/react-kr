@@ -66,6 +66,8 @@ export default class SearchParam extends Component{
 
 	onSearch(type,childType,id,propInfo,index){    
 		const {onSearch,params} = this.props;
+
+		
         
         if(type=='PAYMENT'&&childType=='basic'){
           this.setState({

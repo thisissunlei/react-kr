@@ -296,7 +296,7 @@ const validate = values => {
 		errors.totalreturn = '请填写退租金总额';
 	}
 
-	if (values.totalreturn && isNaN(values.depositamount)) {
+	if (values.totalreturn && isNaN(values.totalreturn)) {
 		errors.totalreturn = '退租金总额必须为数字';
 	}
 
