@@ -92,12 +92,12 @@ class SearchForm extends Component {
 
 		}
 
-		if (formValues.type && formValues.value) {
-			const {
-				onSubmit
-			} = this.props;
-			onSubmit && onSubmit(formValues, istip);
-		}
+
+		const {
+			onSubmit
+		} = this.props;
+		onSubmit && onSubmit(formValues, istip);
+
 
 
 	}
@@ -117,6 +117,10 @@ class SearchForm extends Component {
 				item.label = item.name;
 				return item;
 			});
+			communityIdList.unshift({
+				label: '请选择',
+				value: '0'
+			});
 
 			_this.setState({
 				communityIdList,
@@ -134,13 +138,13 @@ class SearchForm extends Component {
 	selectCommunity(personel) {
 
 		this.setState({
-			communityids: personel.id,
+			communityids: personel.value,
 		})
 		const {
 			onChange
 		} = this.props;
 
-		onChange && onChange(personel.id);
+		onChange && onChange(personel.value);
 	}
 
 
@@ -206,7 +210,7 @@ export default class BasicTable extends Component {
 		this.scrollLoad = this.scrollLoad.bind(this);
 		this.renderNone = this.renderNone.bind(this);
 		this.onSetState = this.onSetState.bind(this);
-		this.getcommunity = this.getcommunity.bind(this);
+		//this.getcommunity = this.getcommunity.bind(this);
 
 
 		this.state = {
@@ -229,7 +233,7 @@ export default class BasicTable extends Component {
 			totalPages: '',
 			istip: false,
 			dataLoading: true,
-			communityids: '',
+			communityids: 0,
 
 		};
 
@@ -241,37 +245,11 @@ export default class BasicTable extends Component {
 
 
 	componentDidMount() {
-		this.getcommunity();
+		//this.getcommunity();
 		this.getInstallmentplan();
 	}
 
-	getcommunity() {
-		let {
-			communityIdList
-		} = this.state;
-		var _this = this;
-		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
 
-			communityIdList = response.communityInfoList.map(function(item, index) {
-
-				item.value = item.id;
-				item.label = item.name;
-				return item;
-			});
-
-			_this.setState({
-				communityIdList,
-			});
-
-
-		}).catch(function(err) {
-
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
-	}
 
 	componentWillReceiveProps(nextProps) {
 
@@ -297,7 +275,7 @@ export default class BasicTable extends Component {
 			if (isOutBoundary) {
 
 				let {
-					communityIds,
+					communityids,
 					type,
 					page,
 					pageSize,
@@ -330,7 +308,7 @@ export default class BasicTable extends Component {
 							isLoading: !_this.state.isLoading
 						})
 						Store.dispatch(Actions.callAPI('getInstallmentplan', {
-							communityids: communityIds,
+							communityids: communityids,
 							value: value,
 							type: type,
 							page: len,
@@ -550,24 +528,24 @@ export default class BasicTable extends Component {
 			pageSize,
 			communityids
 		} = this.state
+		console.log('communityids=====', communityids)
+			/*Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
 
-		/*Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
-
-			var Ids = [];
-			response.communityInfoList.map((item) => {
-				Ids.push(item.id);
-				return Ids
-			});
-			var communityIds = Ids.join(',');
-			var content = community || communityIds;
-			_this.setState({
-				communityIds: communityIds
-			});*/
+				var Ids = [];
+				response.communityInfoList.map((item) => {
+					Ids.push(item.id);
+					return Ids
+				});
+				var communityIds = Ids.join(',');
+				var content = community || communityIds;
+				_this.setState({
+					communityIds: communityIds
+				});*/
 
 		var year = _this.state.currentYear;
 
 		Store.dispatch(Actions.callAPI('getInstallmentplan', {
-			communityids: communityids || 1,
+			communityids: communityids,
 			value: '',
 			type: type,
 			page: page,
@@ -575,7 +553,7 @@ export default class BasicTable extends Component {
 			year: year,
 		})).then(function(response) {
 
-			//_this.currentYear = response.year;
+			_this.currentYear = response.year;
 
 			var state = {};
 
@@ -747,7 +725,7 @@ export default class BasicTable extends Component {
 			showNone = false;
 		}
 
-
+		console.log('2222222')
 
 		return (
 			<div style={{position:'relative'}}>
