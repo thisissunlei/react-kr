@@ -12,7 +12,7 @@ export function setUserNavs(navcodes){
 		var codeKeys = Object.keys(navcodes);
 		var permissionNavs = [];
 
-		
+
 		items.forEach(function(item,index){
 			if(item.hasOwnProperty('menuCode') && codeKeys.indexOf(item.menuCode) !==-1 ){
 				permissionNavs.push(item);
@@ -22,11 +22,11 @@ export function setUserNavs(navcodes){
 		permissionNavs.forEach(function(item,index){
 			var itemPermissionKeys = navcodes[item.menuCode];
 			var childNavs = [];
-			
+
 			if(item.hasOwnProperty('menuItems') && item.menuItems.length){
 				item.menuItems.forEach(function(child,key){
 					if(child.hasOwnProperty('menuCode') && itemPermissionKeys.indexOf(child.menuCode) !== -1){
-						
+
 						if(child.hasOwnProperty('menuItems') && child.menuItems.length){
 							var childrenNavs = [];
 							child.menuItems.forEach(function(children,i){
@@ -36,7 +36,7 @@ export function setUserNavs(navcodes){
 							});
 							child.menuItems = childrenNavs;
 						}
-						
+
 						childNavs.push(child);
 					}
 				});
@@ -95,6 +95,7 @@ export function setCurrentNav(router){
 
 	let fatherRouter = router.substring(2).split('/').shift();
 	let childRouter = router.substring(2).split('/')[1];
+	childRouter = childRouter.split('?').shift();
 
 	return function(dispatch){
 
@@ -107,5 +108,3 @@ export function setCurrentNav(router){
 	}
 
 }
-
-
