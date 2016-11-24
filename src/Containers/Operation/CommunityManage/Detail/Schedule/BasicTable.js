@@ -86,25 +86,17 @@ class SearchForm extends Component {
 		formValues = {
 			type: form.filter || 'BILL',
 			value: form.content,
-			communityids: communityids || this.props.Id,
+			communityids: communityids || 0,
 			page: page,
 			pageSize: pageSize
 
 		}
-<<<<<<< HEAD
-
 
 		const {
 			onSubmit
 		} = this.props;
 		onSubmit && onSubmit(formValues, istip);
 
-=======
-			const {
-				onSubmit
-			} = this.props;
-			onSubmit && onSubmit(formValues);
->>>>>>> 2248800d14e15610934f33311134cdf2c19906c3
 
 
 	}
@@ -143,7 +135,9 @@ class SearchForm extends Component {
 		});
 	}
 	selectCommunity(personel) {
-		if(!personel){return};
+		if (!personel) {
+			return
+		};
 		this.setState({
 			communityids: personel.value,
 		})
@@ -448,7 +442,7 @@ export default class BasicTable extends Component {
 
 		this.setState({
 			value: formValues.value,
-			dataLoading:true
+			dataLoading: true
 		})
 
 		Store.dispatch(Actions.callAPI('getInstallmentplan', formValues)).then(function(response) {
@@ -462,7 +456,7 @@ export default class BasicTable extends Component {
 				Installmentplan,
 				rate: response.rate,
 				totalPages: response.vo.totalPages,
-				dataLoading:false
+				dataLoading: false
 			});
 
 
