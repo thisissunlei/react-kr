@@ -2,13 +2,13 @@ import React from 'react';
 
 import './index.less';
 
-export default  class Input extends React.Component {
+export default  class Radio extends React.Component {
 
-	static displayName = 'Input';
+	static displayName = 'Radio';
 
 	static defaultPorps = {
 		value:'',
-		type:'text'
+		type:'radio'
 	}
 
 	static propTypes = {
@@ -55,11 +55,11 @@ export default  class Input extends React.Component {
 
 		let {value} = this.state;
 
-		let classNames = 'ui-input';
+		let classNames = 'ui-input-radio';
 		classNames+=' '+className;
 
 		return (
-			 <input type={type} style={style} name={name} className={classNames} value={value} onChange={this.onChange} {...other}/>
+			 <input type="radio" style={style} name={name} className={classNames} value={value} onChange={this.onChange} {...other}/>
 		);
 	}
 }
