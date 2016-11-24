@@ -20,7 +20,7 @@ import {
 	KrDate,
 	DotTitle
 } from 'kr-ui';
-
+import './index.less';
 
 export default class ConfirmFormDetail  extends Component{
 
@@ -85,7 +85,7 @@ export default class ConfirmFormDetail  extends Component{
 
 	  return (
 
-		  <div>
+		  <div className="lyh-create">
 								<KrField name="leaseId"  grid={1/2} component="labelText" label="出租方" value={leasorName} inline={false}/>
 
 								 <KrField grid={1/2}  name="lessorAddress"  component="labelText" label="地址" value={detail.lessorAddress} inline={false}/>
