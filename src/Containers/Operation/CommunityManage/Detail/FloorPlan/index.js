@@ -238,13 +238,13 @@ export default class FloorPlan extends Component {
 	render() {
 
 		const {
-			url,
 			height,
 			communityLabel,
 			communityIdList,
 			communityId,
 			communityInfoFloorList,
 		} = this.state;
+		let url = this.getStationUrl();
 
 
 		let {tab,handleSubmit} = this.props;
