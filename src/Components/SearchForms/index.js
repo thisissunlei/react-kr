@@ -68,11 +68,13 @@ export default class SearchForms extends Component{
 	click(){
 		let {num} = this.state;
 		let _this = this;
+		console.log('=========');
 		const form = ReactDOM.findDOMNode(this.form);
 		const searchButton = form.getElementsByClassName('icon-searching')[0];
 		const searchForm = form.getElementsByClassName('search-status')[0];
 
 		if(!num){
+			console.log('0',num);
 			if(!this.hasClass(searchButton, 'click')){
 				searchButton.className = searchButton.className + ' click';
 		        searchForm.className = searchForm.className+" show-form";
@@ -85,6 +87,7 @@ export default class SearchForms extends Component{
 
 
 		} else {
+			console.log('1',num);
 			let searchName = '';
 			let {searchFilter} = this.props;
 			let filterValue = '';
@@ -110,9 +113,9 @@ export default class SearchForms extends Component{
 		 //        this.removeClass(searchForm,'show-form');
 			// 	this.removeClass(searchButton,'click');
 			// }
-			_this.setState({
-					num:0
-				})
+			// _this.setState({
+			// 		num:0
+			// 	})
 
 		}
 
@@ -161,18 +164,21 @@ export default class SearchForms extends Component{
 			}
 			var searchWord = document.getElementById("keywords").value;
 
-			console.log(filterValue,searchWord);
 			if(form){
 				const searchButton = form.getElementsByClassName('icon-searching')[0];
 				const searchForm = form.getElementsByClassName('search-status')[0];
 				let name = event.target.className;
 				let close = true;
+				console.log('name',name);
 				if(parseInt(name)+1){return;}
 				targetList.forEach((item)=>{
 					if(item === name){
 						close = false;
 					}
 				})
+				if(name == 'icon-searching click' || name == 'icon-searching'){
+					_this.click();
+				}
 				if(filterValue || searchWord){return;}
 				if(close){
 					_this.removeClass(searchForm,'show-form');
@@ -222,7 +228,7 @@ export default class SearchForms extends Component{
 						<input type="text" className="search-val" placeholder="请输入您要查找的内容"  name="keywords" id="keywords"/>
 					</div>
 				</div>
-				<span className="icon-searching" onClick={this.click}></span>
+				<span className="icon-searching" ></span>
 
 			</div>
 		)

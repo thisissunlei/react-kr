@@ -18,11 +18,29 @@ export default class DialogComponent extends Component {
 	}
 
 	static propTypes = {
+		/**
+		*关闭时回调函数
+		*/
 		onClose: React.PropTypes.func,
+		/**
+		*是否开启
+		*/
 		open: React.PropTypes.bool,
+		/**
+		*标题
+		*/
 		title: React.PropTypes.string,
+		/**
+		*显示遮罩层
+		*/
 		modal: React.PropTypes.bool,
+		/**
+		*
+		*/
 		autoDetectWindowHeight: React.PropTypes.bool,
+		/**
+		* 内容出现滚动条
+		*/
 		autoScrollBodyContent: React.PropTypes.bool,
 	}
 

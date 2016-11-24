@@ -88,10 +88,9 @@ class Distribution extends Component {
 				<KrField name="customerId" type="hidden"/>
 				<KrField name="communityId" type="hidden"/>
 				<div style={{textAlign:"center",marginTop:'45px',fontSize:'14px'}}>
-					
 					<KrField name="memberId"component="select" grid={1} inline={true} label={`${detail.stationCode}分配为： `} options={optionValues.member}/>
 				</div>
-				<Grid style={{marginTop:'20px',marginBottom:'10px'}}>
+				<Grid style={{margin:40}}>
 					<Row >
 					<Col md={2} align="right">  </Col>
 					<Col md={2} align="right">  </Col> 

@@ -19,9 +19,19 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 export default class TitleList extends Component {
 
 	static displayName = 'TitleList';
-	
+
+	static defaultProps = {
+		hide:false
+	}
+
 	static propTypes = {
-		children: React.PropTypes.node.isRequired,
+		/**
+		*
+		*/
+		children: React.PropTypes.node,
+		/**
+		*是否隐藏
+		*/
 		hide:React.PropTypes.bool
 	};
 
@@ -53,10 +63,3 @@ export default class TitleList extends Component {
 	  }
 
 }
-
-
-
-
-
-
-
