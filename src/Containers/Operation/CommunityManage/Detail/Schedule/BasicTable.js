@@ -409,7 +409,7 @@ export default class BasicTable extends Component {
 			_this.setState({
 				Installmentplan: response.vo.items || [],
 				rate: response.rate,
-				communityIds: id,
+				communityids: id,
 				totalPages: response.vo.totalPages,
 				istip: ' '
 			});
@@ -728,7 +728,7 @@ export default class BasicTable extends Component {
 			showNone = false;
 		}
 
-		console.log('2222222')
+
 
 		return (
 			<div style={{position:'relative'}}>
