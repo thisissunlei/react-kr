@@ -191,7 +191,7 @@ export default class AttributeSetting extends Component {
 			selectedList: [],
 			listValues: [],
 
-			
+
 
 			openSearch: false,
 			openReceivedBtn: false,
@@ -516,15 +516,26 @@ export default class AttributeSetting extends Component {
 		}
 		//回款提交
 	onAddReceivedSubmit(params) {
+
+		let {typeList} = this.state;
 		params = Object.assign({}, params);
 		if (params.autoSplit == 0) {
 			params.jsonStr = {};
+			typeList.map(function(item,index){
+					var key = item.value;
+					if(params.hasOwnProperty(key) && params[key]){
+							params.jsonStr[key] = params[key];
+							delete params[key];
+					}
+			});
+			/*
 			params.jsonStr.yajin = params.yajin;
 			params.jsonStr.yingshouhuikuan = params.yingshouhuikuan;
 			params.jsonStr.shenghuoxiaofeihuikuan = params.shenghuoxiaofeihuikuan;
 			params.jsonStr.gongweihuikuan = params.gongweihuikuan;
 			params.jsonStr.qitahuikuan = params.qitahuikuan;
 			params.jsonStr.dingjin = params.dingjin;
+			*/
 			params.jsonStr = JSON.stringify(params.jsonStr);
 			delete params.dingjin;
 			delete params.yajin;
@@ -737,9 +748,9 @@ export default class AttributeSetting extends Component {
 		if (isInitLoading) {
 			return <Loading/>
 		}
-          
-         
-        
+
+
+
 		//console.log('221111',this.context.router)
 
 
