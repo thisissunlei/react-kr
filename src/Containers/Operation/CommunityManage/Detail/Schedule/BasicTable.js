@@ -238,7 +238,7 @@ export default class BasicTable extends Component {
 
 		};
 
-		this.currentYear = this.state.currentYear;
+		this.currentYear = '2016';
 		this.getWidth = this.getWidth.bind(this);
 
 	}
@@ -489,8 +489,10 @@ export default class BasicTable extends Component {
 			istip: false,
 			page: 1,
 			dataLoading: true,
+		}, function() {
+			this.getInstallmentplan();
 		});
-		this.getInstallmentplan();
+
 	}
 
 	onNextYear() {
@@ -505,12 +507,16 @@ export default class BasicTable extends Component {
 			istip: false,
 			page: 1,
 			dataLoading: true,
+		}, function() {
+			this.getInstallmentplan();
 		});
-		this.getInstallmentplan();
+
 	}
 
 
 	onSetState(state) {
+
+		console.log('state', state, this.currentYear, this.state.currentYear)
 		if (this.currentYear != this.state.currentYear) {
 			return;
 		}
@@ -529,7 +535,8 @@ export default class BasicTable extends Component {
 			type,
 			page,
 			pageSize,
-			communityids
+			communityids,
+			dataLoading
 		} = this.state
 		console.log('communityids=====', communityids)
 
@@ -568,12 +575,14 @@ export default class BasicTable extends Component {
 			};
 
 
+
 			if (totalPages > page) {
 				state.isIscroll = true;
 			}
 
 
 			_this.onSetState(state);
+			console.log('dataLoading', dataLoading)
 
 		}).catch(function(err) {
 
