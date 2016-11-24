@@ -208,7 +208,7 @@ export default class BasicTable extends Component {
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onChange = this.onChange.bind(this);
 		this.onStation = this.onStation.bind(this);
-		this.scrollLoad = this.scrollLoad.bind(this);
+		this.scrollLoading = this.scrollLoading.bind(this);
 		this.renderNone = this.renderNone.bind(this);
 		this.onSetState = this.onSetState.bind(this);
 
@@ -262,7 +262,8 @@ export default class BasicTable extends Component {
 		}
 	}
 
-	scrollLoad() {
+	scrollLoading() {
+
 		var _this = this;
 		$(window).bind('scroll', function() {
 			var top = $(window).scrollTop() || 0;
@@ -706,9 +707,11 @@ export default class BasicTable extends Component {
 			tab
 		} = this.props;
 		if (tab === 'table') {
-			$(window).bind('scroll', this.scrollLoad());
+
+			$(window).bind('scroll.table', this.scrollLoading());
+
 		} else {
-			$(window).unbind('scroll', this.scrollLoad());
+			$(window).off('scroll.table', this.scrollLoading());
 		}
 		let showNone;
 		if (Installmentplan.length) {
