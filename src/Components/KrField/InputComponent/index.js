@@ -29,7 +29,7 @@ export default class InputComponent extends React.Component{
 			let className = '';
 
 			if(touched && error){
-				classNam = 'error-input';
+				className = 'error-input';
 			}
 
 

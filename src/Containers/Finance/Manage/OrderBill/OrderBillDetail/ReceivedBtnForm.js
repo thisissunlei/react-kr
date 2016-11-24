@@ -117,6 +117,8 @@ class ReceivedBtnForm extends Component {
 			typeList
 		} = this.props;
 
+		console.log('----',typeList);
+
 		let heightStyle = {
 			width: '546',
 			height: '72'
@@ -126,7 +128,7 @@ class ReceivedBtnForm extends Component {
 		return (
 
 			<div className='ui-receive-money'>
-                 
+
 					      <form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:45,marginLeft:'10px'}}>
                             <KrField  name="mainbillid" type="hidden" component="input"/>
 		                    <KrField  label="代码名称" grid={1/2} right={30} name="accountId" style={{marginBottom:5}} type="select" options={optionList} requireLabel={true}/>
@@ -134,7 +136,7 @@ class ReceivedBtnForm extends Component {
 				                <KrField name="sumSign" grid={1/2} right={30} label="正" component="radio" type="radio" value="0"/>
 				                <KrField name="sumSign"  grid={1/2} left={30}label="负" component="radio" type="radio" value="1"/>
 			                </KrField>
-                            
+
 						    <KrField component="date" grid={1/2} right={30} style={{marginTop:'-5px'}}  label="回款日期" name="receiveDate" requireLabel={true}/>
 						     <KrField label="上传附件" grid={1/2} left={30}  style={{marginTop:'-5px',marginLeft:-30}} name="fileids" component="file" />
                              <KrField label="交易编号" grid={1/2} right={30} style={{marginBottom:5}}  placeholder='请输入交易编号'   name="dealCode"  component="input" type="text" requireLabel={true}/>
@@ -147,39 +149,39 @@ class ReceivedBtnForm extends Component {
 						    </div>:<div>
 						      {typeList.map((item,index)=>{
 						      	if(index%2==0){
-									return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={30} label={item.label} component="input" name={item.value} type="text"/>	
+									return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={30} label={item.label} component="input" name={item.value} type="text"/>
 						      	}else{
-						      		return <KrField key={index} style={{marginBottom:5}}  grid={1/2} style={{marginLeft:-30}} left={30} label={item.label} component="input" name={item.value} type="text"/>	
+						      		return <KrField key={index} style={{marginBottom:5}}  grid={1/2} style={{marginLeft:-30}} left={30} label={item.label} component="input" name={item.value} type="text"/>
 						      	}
-						      	
-						      }						
-						         					 
-						       )}                           
+
+						      }
+
+						       )}
 						    </div>}
-						    
-						   
 
-						    
 
-						    
-                            
-                           
+
+
+
+
+
+
                             <KrField label="备注" grid={1}  heightStyle={heightStyle} name="remark" component="textarea" type="text" placeholder='请输入备注，输入字数不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/>
-                           
+
 
 						   <Grid style={{marginTop:0,marginBottom:5}}>
 						<Row>
 							<Col md={12} align="center">
 								<ButtonGroup>
 									<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div>
-									<Button  label="取消" type="button" cancle={true}  onTouchTap={this.onCancel} /> 
+									<Button  label="取消" type="button" cancle={true}  onTouchTap={this.onCancel} />
 								</ButtonGroup>
 							</Col>
 						</Row>
 					</Grid>
 
 
-					   
+
                    </form>
 			  </div>
 
