@@ -211,7 +211,7 @@ export default class BasicTable extends Component {
 		this.scrollLoad = this.scrollLoad.bind(this);
 		this.renderNone = this.renderNone.bind(this);
 		this.onSetState = this.onSetState.bind(this);
-		//this.getcommunity = this.getcommunity.bind(this);
+
 
 
 		this.state = {
@@ -239,14 +239,13 @@ export default class BasicTable extends Component {
 		};
 
 		this.currentYear = this.state.currentYear;
-		//this.getInstallmentplan();
 		this.getWidth = this.getWidth.bind(this);
 
 	}
 
 
 	componentDidMount() {
-		//this.getcommunity();
+
 		this.getInstallmentplan();
 	}
 
@@ -532,18 +531,7 @@ export default class BasicTable extends Component {
 			communityids
 		} = this.state
 		console.log('communityids=====', communityids)
-			/*Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
 
-				var Ids = [];
-				response.communityInfoList.map((item) => {
-					Ids.push(item.id);
-					return Ids
-				});
-				var communityIds = Ids.join(',');
-				var content = community || communityIds;
-				_this.setState({
-					communityIds: communityIds
-				});*/
 
 		var year = _this.state.currentYear;
 
@@ -594,13 +582,6 @@ export default class BasicTable extends Component {
 			}]);
 		});
 
-		/*}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});*/
-
 
 
 	}
@@ -609,7 +590,7 @@ export default class BasicTable extends Component {
 			currentYear,
 			Installmentplan,
 			rate,
-			communityIds,
+			communityids,
 			totalCount,
 			isLoading,
 			dataLoading,
@@ -619,7 +600,7 @@ export default class BasicTable extends Component {
 			isIscroll
 		} = this.state;
 		var _this = this;
-		const id = communityIds;
+		const id = communityids;
 		if (dataLoading) {
 			return (
 				<tbody>
@@ -671,7 +652,7 @@ export default class BasicTable extends Component {
 							let width = this.getWidth();
 							return (
 
-							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item} index={index} key={index} onStation={this.onStation} activity={this.state.activity} width={width} />
+							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item}  key={index} onStation={this.onStation} activity={this.state.activity} width={width} />
 							
 								
 							)
@@ -701,7 +682,6 @@ export default class BasicTable extends Component {
 			currentYear,
 			Installmentplan,
 			rate,
-			communityIds,
 			totalCount,
 			isLoading,
 			dataLoading,
@@ -711,7 +691,6 @@ export default class BasicTable extends Component {
 			isIscroll
 		} = this.state;
 		var _this = this;
-		const id = communityIds;
 
 		let {
 			tab
@@ -750,7 +729,7 @@ export default class BasicTable extends Component {
 		 				</p>
 		 			</div>
 		 		</div>
-		 		<SearchForm  onSubmit={this.onSubmit} Id={communityIds} onChange={this.onChange}/>
+		 		<SearchForm  onSubmit={this.onSubmit} Id={communityids} onChange={this.onChange}/>
 		 		
 		 	</div>
 		 	
