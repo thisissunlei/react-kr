@@ -34,7 +34,8 @@ import {
 	initialize,
 	arrayPush,
 	arrayInsert,
-	FieldArray
+	FieldArray,
+	change
 } from 'redux-form';
 
 
@@ -45,16 +46,20 @@ export default class FloorPlan extends Component {
 
 	constructor(props, context) {
 		super(props, context);
+		let _this = this;
 		this.getStationUrl = this.getStationUrl.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 		this.scrollLoad = this.scrollLoad.bind(this);
 		this.onLoad = this.onLoad.bind(this);
 		this.iframeWindow = null;
 		this.state = {
-			url: '',
+			
 			form: {},
+			floors:'',
+			community:'',
 			communityIdList:[],
 			communityInfoFloorList:[],
+			url:'',
 		}
 
 		this.getcommunity = this.getcommunity.bind(this);
@@ -62,13 +67,15 @@ export default class FloorPlan extends Component {
 		this.getcommunity();
 		this.getCommunityFloors = this.getCommunityFloors.bind(this);
 		this.getState = this.getState.bind(this);
-
+		this.selectFloors = this.selectFloors.bind(this);
 
 	}
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.url != this.props.url) {
 			this.setState({
 				url: nextProps.url
+			},function(){
+				this.getStationUrl();
 			});
 		}
 	}
@@ -96,6 +103,8 @@ export default class FloorPlan extends Component {
 
 		var formList = form || {};
 		let params;
+		let {community,floors} = this.state;
+		console.log('url', this.state);
 		
 		if(form){
 			params = {
@@ -106,8 +115,8 @@ export default class FloorPlan extends Component {
 			}
 		}else{
 			params = {
-				communityId:'',
-				wherefloor:'',
+				communityId:community,
+				wherefloor:floors,
 				date:dateFormat(new Date(), "yyyy.mm.dd"),
 				dateend:dateFormat(new Date(), "yyyy.mm.dd"),
 			};
@@ -126,10 +135,11 @@ export default class FloorPlan extends Component {
 	}
 	onSubmit(form) {
 			form = Object.assign({}, form);
+			let {floors,community} = this.state;
 			var that = this;
 			var params = {
-				communityId: form.community || '',
-				wherefloor: form.floor || '',
+				communityId: community,
+				wherefloor: floors,
 				date: dateFormat(form.start, "yyyy.mm.dd") || dateFormat(new Date(), "yyyy.mm.dd"),
 				dateend: dateFormat(form.end, "yyyy.mm.dd") || dateFormat(new Date(), "yyyy.mm.dd"),
 			};
@@ -189,6 +199,13 @@ export default class FloorPlan extends Component {
 	}
 	selectCommunity(personel) {
 		this.getCommunityFloors(personel.id);
+		Store.dispatch(change('FloorPlan', 'floor', ''));
+		this.setState({
+			community:personel.id,
+			floors:'',
+			
+		})
+		
 	}
 
 	getCommunityFloors(id) {
@@ -214,17 +231,23 @@ export default class FloorPlan extends Component {
 			}]);
 		});
 	}
+	selectFloors(personel){
+		console.log('selectFloors',personel);
+		this.setState({
+			floors:personel.value
+		})
+	}
 
 	render() {
 
 		const {
-			url,
 			height,
 			communityLabel,
 			communityIdList,
 			communityId,
 			communityInfoFloorList,
 		} = this.state;
+		let url = this.getStationUrl();
 
 
 		let {tab,handleSubmit} = this.props;
@@ -243,7 +266,7 @@ export default class FloorPlan extends Component {
 						<ListGroupItem><span style={{display:'inline-block',lineHeight:'45px',textAlign:'left'}}>社区</span></ListGroupItem>
 						<ListGroupItem style={{maxWidth:170,marginTop:'-6px',minWidth:110,width:'100%',textAlign:'left'}}><KrField grid={1/1} name="community" component="select"   options={communityIdList} onChange={this.selectCommunity} /></ListGroupItem>
 						<ListGroupItem><span style={{display:'inline-block',lineHeight:'45px',textAlign:'left'}}>楼层</span></ListGroupItem>
-						<ListGroupItem  style={{maxWidth:170,marginTop:'-6px',minWidth:100,width:'100%',textAlign:'left'}}><KrField name="floor" grid={1/1} component="select" options={communityInfoFloorList} /></ListGroupItem>
+						<ListGroupItem  style={{maxWidth:170,marginTop:'-6px',minWidth:100,width:'100%',textAlign:'left'}}><KrField name="floor" grid={1/1} component="select" options={communityInfoFloorList} onChange={this.selectFloors}/></ListGroupItem>
 						<ListGroupItem><span style={{display:'inline-block',lineHeight:'45px',textAlign:'left'}}>注册时间</span></ListGroupItem>
 						<ListGroupItem style={{minWidth:100,marginTop:'-6px',textAlign:'left'}}> <KrField name="start"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/></ListGroupItem>
 						<ListGroupItem style={{marginLeft:'10px',textAlign:'left'}}><span style={{display:'inline-block',lineHeight:'45px'}}>至</span></ListGroupItem>
