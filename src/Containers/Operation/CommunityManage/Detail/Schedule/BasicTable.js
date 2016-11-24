@@ -205,6 +205,10 @@ export default class BasicTable extends Component {
 		this.onStation = this.onStation.bind(this);
 		this.scrollLoad = this.scrollLoad.bind(this);
 		this.renderNone = this.renderNone.bind(this);
+		this.onSetState = this.onSetState.bind(this);
+		this.getcommunity = this.getcommunity.bind(this);
+
+
 		this.state = {
 			currentYear: '2016',
 			dismantling: false,
@@ -225,18 +229,49 @@ export default class BasicTable extends Component {
 			totalPages: '',
 			istip: false,
 			dataLoading: true,
+			communityids: '',
 
 		};
-		this.getInstallmentplan();
+
+		this.currentYear = this.state.currentYear;
+		//this.getInstallmentplan();
 		this.getWidth = this.getWidth.bind(this);
 
 	}
 
 
 	componentDidMount() {
+		this.getcommunity();
 		this.getInstallmentplan();
 	}
 
+	getcommunity() {
+		let {
+			communityIdList
+		} = this.state;
+		var _this = this;
+		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
+
+			communityIdList = response.communityInfoList.map(function(item, index) {
+
+				item.value = item.id;
+				item.label = item.name;
+				return item;
+			});
+
+			_this.setState({
+				communityIdList,
+			});
+
+
+		}).catch(function(err) {
+
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+	}
 
 	componentWillReceiveProps(nextProps) {
 
@@ -299,7 +334,7 @@ export default class BasicTable extends Component {
 							value: value,
 							type: type,
 							page: len,
-							pageSize: 10
+							pageSize: 15
 						})).then(function(response) {
 
 							if (response.vo) {
@@ -367,7 +402,6 @@ export default class BasicTable extends Component {
 		this.setState({
 			activity: !this.state.activity
 		});
-
 	}
 
 	onChange(id) {
@@ -483,6 +517,8 @@ export default class BasicTable extends Component {
 			currentYear
 		} = this.state;
 		currentYear++;
+
+
 		this.setState({
 			currentYear,
 			istip: false,
@@ -490,6 +526,14 @@ export default class BasicTable extends Component {
 			dataLoading: true,
 		});
 		this.getInstallmentplan();
+	}
+
+
+	onSetState(state) {
+		if (this.currentYear != this.state.currentYear) {
+			return;
+		}
+		this.setState(state);
 	}
 
 
@@ -503,10 +547,11 @@ export default class BasicTable extends Component {
 		let {
 			type,
 			page,
-			pageSize
+			pageSize,
+			communityids
 		} = this.state
 
-		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
+		/*Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
 
 			var Ids = [];
 			response.communityInfoList.map((item) => {
@@ -517,53 +562,63 @@ export default class BasicTable extends Component {
 			var content = community || communityIds;
 			_this.setState({
 				communityIds: communityIds
-			})
+			});*/
 
-			Store.dispatch(Actions.callAPI('getInstallmentplan', {
-				communityids: content.toString(),
-				value: '',
-				type: type,
-				page: page,
-				pageSize: 15,
-				year: _this.state.currentYear,
-			})).then(function(response) {
-				if (response.vo) {
-					var list = response.vo.items;
-					var totalCount = response.vo.totalCount;
-					var totalPages = response.vo.totalPages;
-				} else {
-					var list = [];
-					var totalCount = 0;
-					var totalPages = 0;
-				}
+		var year = _this.state.currentYear;
 
-				_this.setState({
-					Installmentplan: list,
-					rate: response.rate,
-					totalCount: totalCount,
-					totalPages: totalPages,
-					dataLoading: false
-				});
-				if (totalPages > page) {
-					_this.setState({
-						isIscroll: true
-					})
-				}
+		Store.dispatch(Actions.callAPI('getInstallmentplan', {
+			communityids: communityids || 1,
+			value: '',
+			type: type,
+			page: page,
+			pageSize: 15,
+			year: year,
+		})).then(function(response) {
 
-			}).catch(function(err) {
+			//_this.currentYear = response.year;
 
-				Notify.show([{
-					message: err.message,
-					type: 'danger',
-				}]);
-			});
+			var state = {};
+
+			if (response.vo) {
+				var list = response.vo.items;
+				var totalCount = response.vo.totalCount;
+				var totalPages = response.vo.totalPages;
+			} else {
+				var list = [];
+				var totalCount = 0;
+				var totalPages = 0;
+			}
+
+			state = {
+				Installmentplan: list,
+				rate: response.rate,
+				totalCount: totalCount,
+				totalPages: totalPages,
+				dataLoading: false
+			};
+
+
+			if (totalPages > page) {
+				state.isIscroll = true;
+			}
+
+
+			_this.onSetState(state);
 
 		}).catch(function(err) {
+
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
 			}]);
 		});
+
+		/*}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});*/
 
 
 
@@ -681,7 +736,7 @@ export default class BasicTable extends Component {
 			tab
 		} = this.props;
 		if (tab === 'table') {
-			this.scrollLoad();
+			$(window).bind('scroll', this.scrollLoad());
 		} else {
 			$(window).unbind('scroll', this.scrollLoad());
 		}
