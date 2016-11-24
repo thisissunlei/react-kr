@@ -34,7 +34,8 @@ import {
 	initialize,
 	arrayPush,
 	arrayInsert,
-	FieldArray
+	FieldArray,
+	change
 } from 'redux-form';
 
 
@@ -197,12 +198,14 @@ export default class FloorPlan extends Component {
 		});
 	}
 	selectCommunity(personel) {
+		this.getCommunityFloors(personel.id);
+		Store.dispatch(change('FloorPlan', 'floor', ''));
 		this.setState({
 			community:personel.id,
 			floors:'',
 			
 		})
-		this.getCommunityFloors(personel.id);
+		
 	}
 
 	getCommunityFloors(id) {
