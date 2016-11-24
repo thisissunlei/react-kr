@@ -123,7 +123,7 @@ class DismantlingForm extends Component {
 			<form onSubmit={handleSubmit(this.onSubmit)}> 
 			<div style={{textAlign:"center",marginBottom:'14px',paddingTop:'20px',color:'#333333'}}>{detail.companyName}合同到期时间为:</div>
 			<div style={{textAlign:"center",marginBottom:'14px',color:'#333333',fontSize:'14px'}}>{dateFormat(detail.endTime,"yyyy.mm.dd")}</div>
-			{detail.editFlag?<KrField name="actualLeaveDate"component="date"  label="实际的撤场时间为" value="" inline={true}/>:<KrField component="labelText"  label="实际的撤场时间为:" value={time} />}
+			{detail.editFlag?<KrField name="actualLeaveDate"component="date"  label="实际撤场时间" value="" inline={true}/>:<KrField component="labelText"  label="实际的撤场时间为:" value={time} />}
 			{detail.editFlag?<Grid>
 				<Row style={{marginTop:30,marginBottom:15}}>
 				<Col md={12} align="center"> 
