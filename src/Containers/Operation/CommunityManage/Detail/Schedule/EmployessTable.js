@@ -207,7 +207,7 @@ export default class EmployessTable extends Component {
 		this.onChangeSubmit = this.onChangeSubmit.bind(this);
 		this.onOperation = this.onOperation.bind(this);
 		this.onIframeClose = this.onIframeClose.bind(this);
-
+		this.onClose = this.onClose.bind(this);
 		this.state = {
 			openChangeStation: false,
 			openDistribution: false,
@@ -309,6 +309,11 @@ export default class EmployessTable extends Component {
 			openDistribution: !this.state.openDistribution
 		})
 	}
+	onClose() {
+		this.setState({
+			openNewmeber: !this.state.openNewmeber
+		});
+	}
 
 	onChangeSubmit(form) {
 		var _this = this;
@@ -341,7 +346,10 @@ export default class EmployessTable extends Component {
 	}
 
 	onIframeClose(response) {
-
+		Notify.show([{
+			message: '新增成功！',
+			type: 'success',
+		}]);
 		this.setState({
 			openNewmeber: !this.state.openNewmeber
 		});
@@ -518,7 +526,7 @@ export default class EmployessTable extends Component {
 				title="新增员工"
 				modal={true}
 				open={this.state.openNewmeber}
-				onClose={this.onIframeClose}
+				onClose={this.onClose}
 				contentStyle={{width:465,height:630}}
 			>
 
