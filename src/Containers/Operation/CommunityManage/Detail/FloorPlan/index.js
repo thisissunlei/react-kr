@@ -53,13 +53,13 @@ export default class FloorPlan extends Component {
 		this.onLoad = this.onLoad.bind(this);
 		this.iframeWindow = null;
 		this.state = {
-			
+
 			form: {},
-			floors:'',
-			community:'',
-			communityIdList:[],
-			communityInfoFloorList:[],
-			url:'',
+			floors: '',
+			community: '',
+			communityIdList: [],
+			communityInfoFloorList: [],
+			url: '',
 		}
 
 		this.getcommunity = this.getcommunity.bind(this);
@@ -74,7 +74,7 @@ export default class FloorPlan extends Component {
 		if (nextProps.url != this.props.url) {
 			this.setState({
 				url: nextProps.url
-			},function(){
+			}, function() {
 				this.getStationUrl();
 			});
 		}
@@ -90,7 +90,7 @@ export default class FloorPlan extends Component {
 
 	componentDidMount() {
 		this.setState({
-			url:this.getStationUrl()
+			url: this.getStationUrl()
 		})
 
 
@@ -99,26 +99,29 @@ export default class FloorPlan extends Component {
 	getStationUrl(form) {
 
 
-	     let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanList?communityId={communityId}&wherefloor={wherefloor}&date={date}&dateend={dateend}";
+		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanList?communityId={communityId}&wherefloor={wherefloor}&date={date}&dateend={dateend}";
 
 		var formList = form || {};
 		let params;
-		let {community,floors} = this.state;
+		let {
+			community,
+			floors
+		} = this.state;
 		console.log('url', this.state);
-		
-		if(form){
+
+		if (form) {
 			params = {
 				communityId: form.communityId,
 				wherefloor: form.wherefloor,
 				date: form.date || dateFormat(new Date(), "yyyy.mm.dd"),
 				dateend: form.dateend || dateFormat(new Date(), "yyyy.mm.dd"),
 			}
-		}else{
+		} else {
 			params = {
-				communityId:community,
-				wherefloor:floors,
-				date:dateFormat(new Date(), "yyyy.mm.dd"),
-				dateend:dateFormat(new Date(), "yyyy.mm.dd"),
+				communityId: community,
+				wherefloor: floors,
+				date: dateFormat(new Date(), "yyyy.mm.dd"),
+				dateend: dateFormat(new Date(), "yyyy.mm.dd"),
 			};
 		}
 
@@ -135,7 +138,10 @@ export default class FloorPlan extends Component {
 	}
 	onSubmit(form) {
 			form = Object.assign({}, form);
-			let {floors,community} = this.state;
+			let {
+				floors,
+				community
+			} = this.state;
 			var that = this;
 			var params = {
 				communityId: community,
@@ -147,7 +153,7 @@ export default class FloorPlan extends Component {
 			// that.iframeWindow.query(params);
 			// // this.getStationUrl(params);
 			this.setState({
-				url:this.getStationUrl(params)
+				url: this.getStationUrl(params)
 			})
 
 		}
@@ -155,32 +161,34 @@ export default class FloorPlan extends Component {
 	scrollLoad() {
 		var that = this;
 		$(window).bind('scroll', function() {
-			var top = $(window).scrollTop() || 0;//539滚出的距离
-			var height = $(window).height() || 0;//705浏览器高度
-			var num = $(document).height()-$(window).height();//页面高-浏览器高度
+			var top = $(window).scrollTop() || 0; //539滚出的距离
+			var height = $(window).height() || 0; //705浏览器高度
+			var num = $(document).height() - $(window).height(); //页面高-浏览器高度
 			// var scrollBottom = $('#planTable').offset().top +1000 - top - height;
-			var scrollBottom = top-num;
+			var scrollBottom = top - num;
 			var isOutBoundary = scrollBottom >= 0;
 			if (isOutBoundary) {
 				that.iframeWindow.pagequery();
 				// let possition = that.getState();
 				// if(position){
-					// console.log('--true--');
-					// $(window).scrollTop(top-100);
+				// console.log('--true--');
+				// $(window).scrollTop(top-100);
 				// }
-				
+
 			}
 		})
 
 
 	}
-	getState(){
+	getState() {
 
 		console.log('----');
 	}
-	getcommunity(){
+	getcommunity() {
 		let _this = this;
-		let {communityIdList} = this.state;
+		let {
+			communityIdList
+		} = this.state;
 		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
 			communityIdList = response.communityInfoList.map(function(item, index) {
 				item.value = item.id;
@@ -201,11 +209,11 @@ export default class FloorPlan extends Component {
 		this.getCommunityFloors(personel.id);
 		Store.dispatch(change('FloorPlan', 'floor', ''));
 		this.setState({
-			community:personel.id,
-			floors:'',
-			
+			community: personel.id,
+			floors: '',
+
 		})
-		
+
 	}
 
 	getCommunityFloors(id) {
@@ -216,7 +224,7 @@ export default class FloorPlan extends Component {
 		var that = this;
 		Store.dispatch(Actions.callAPI('getCommunityFloors', communityId)).then(function(response) {
 			communityInfoFloorList = response.floors.map(function(item, index) {
-				var obj= {};
+				var obj = {};
 				obj.value = item;
 				obj.label = item;
 				return obj;
@@ -231,10 +239,10 @@ export default class FloorPlan extends Component {
 			}]);
 		});
 	}
-	selectFloors(personel){
-		console.log('selectFloors',personel);
+	selectFloors(personel) {
+		console.log('selectFloors', personel);
 		this.setState({
-			floors:personel.value
+			floors: personel.value
 		})
 	}
 
@@ -250,12 +258,16 @@ export default class FloorPlan extends Component {
 		let url = this.getStationUrl();
 
 
-		let {tab,handleSubmit} = this.props;
+		let {
+			tab,
+			handleSubmit
+		} = this.props;
 
 		if (tab === 'floorplan') {
-			this.scrollLoad();
+			$(window).bind('scroll.floorplan', this.scrollLoad());
+
 		} else {
-			$(window).unbind('scroll', this.scrollLoad());
+			$(window).unbind('scroll.floorplan', this.scrollLoad());
 		}
 		return (
 
