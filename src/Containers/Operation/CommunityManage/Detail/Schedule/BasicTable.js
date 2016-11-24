@@ -211,7 +211,7 @@ export default class BasicTable extends Component {
 		this.scrollLoad = this.scrollLoad.bind(this);
 		this.renderNone = this.renderNone.bind(this);
 		this.onSetState = this.onSetState.bind(this);
-		//this.getcommunity = this.getcommunity.bind(this);
+
 
 
 		this.state = {
@@ -238,15 +238,14 @@ export default class BasicTable extends Component {
 
 		};
 
-		this.currentYear = this.state.currentYear;
-		//this.getInstallmentplan();
+		this.currentYear = '2016';
 		this.getWidth = this.getWidth.bind(this);
 
 	}
 
 
 	componentDidMount() {
-		//this.getcommunity();
+
 		this.getInstallmentplan();
 	}
 
@@ -272,7 +271,7 @@ export default class BasicTable extends Component {
 			var scrollBottom = top - num;
 
 			var isOutBoundary = scrollBottom >= -300;
-			// let isOutBoundary = false;
+
 			if (isOutBoundary) {
 
 				let {
@@ -287,6 +286,7 @@ export default class BasicTable extends Component {
 					totalPages,
 					istip
 				} = _this.state;
+
 				if (isIscroll) {
 					_this.setState({
 						isIscroll: !_this.state.isIscroll
@@ -409,7 +409,7 @@ export default class BasicTable extends Component {
 			_this.setState({
 				Installmentplan: response.vo.items || [],
 				rate: response.rate,
-				communityIds: id,
+				communityids: id,
 				totalPages: response.vo.totalPages,
 				istip: ' '
 			});
@@ -489,8 +489,10 @@ export default class BasicTable extends Component {
 			istip: false,
 			page: 1,
 			dataLoading: true,
+		}, function() {
+			this.getInstallmentplan();
 		});
-		this.getInstallmentplan();
+
 	}
 
 	onNextYear() {
@@ -505,12 +507,16 @@ export default class BasicTable extends Component {
 			istip: false,
 			page: 1,
 			dataLoading: true,
+		}, function() {
+			this.getInstallmentplan();
 		});
-		this.getInstallmentplan();
+
 	}
 
 
 	onSetState(state) {
+
+		console.log('state', state, this.currentYear, this.state.currentYear)
 		if (this.currentYear != this.state.currentYear) {
 			return;
 		}
@@ -529,21 +535,11 @@ export default class BasicTable extends Component {
 			type,
 			page,
 			pageSize,
-			communityids
+			communityids,
+			dataLoading
 		} = this.state
 		console.log('communityids=====', communityids)
-			/*Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
 
-				var Ids = [];
-				response.communityInfoList.map((item) => {
-					Ids.push(item.id);
-					return Ids
-				});
-				var communityIds = Ids.join(',');
-				var content = community || communityIds;
-				_this.setState({
-					communityIds: communityIds
-				});*/
 
 		var year = _this.state.currentYear;
 
@@ -579,12 +575,14 @@ export default class BasicTable extends Component {
 			};
 
 
+
 			if (totalPages > page) {
 				state.isIscroll = true;
 			}
 
 
 			_this.onSetState(state);
+			console.log('dataLoading', dataLoading)
 
 		}).catch(function(err) {
 
@@ -594,13 +592,6 @@ export default class BasicTable extends Component {
 			}]);
 		});
 
-		/*}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});*/
-
 
 
 	}
@@ -609,7 +600,7 @@ export default class BasicTable extends Component {
 			currentYear,
 			Installmentplan,
 			rate,
-			communityIds,
+			communityids,
 			totalCount,
 			isLoading,
 			dataLoading,
@@ -619,7 +610,7 @@ export default class BasicTable extends Component {
 			isIscroll
 		} = this.state;
 		var _this = this;
-		const id = communityIds;
+		const id = communityids;
 		if (dataLoading) {
 			return (
 				<tbody>
@@ -656,7 +647,7 @@ export default class BasicTable extends Component {
 					<tr className="header-td">
 						<td className='white'>
 							<div className="header-title">
-								<p className="title-right">入驻率</p>
+								<p className="title-right">出租率</p>
 								
 							</div>
 						</td>
@@ -671,7 +662,7 @@ export default class BasicTable extends Component {
 							let width = this.getWidth();
 							return (
 
-							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item} index={index} key={index} onStation={this.onStation} activity={this.state.activity} width={width} />
+							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item}  key={index} onStation={this.onStation} activity={this.state.activity} width={width} />
 							
 								
 							)
@@ -701,7 +692,7 @@ export default class BasicTable extends Component {
 			currentYear,
 			Installmentplan,
 			rate,
-			communityIds,
+			communityids,
 			totalCount,
 			isLoading,
 			dataLoading,
@@ -711,7 +702,6 @@ export default class BasicTable extends Component {
 			isIscroll
 		} = this.state;
 		var _this = this;
-		const id = communityIds;
 
 		let {
 			tab
@@ -728,7 +718,7 @@ export default class BasicTable extends Component {
 			showNone = false;
 		}
 
-		console.log('2222222')
+
 
 		return (
 			<div style={{position:'relative'}}>
@@ -750,7 +740,7 @@ export default class BasicTable extends Component {
 		 				</p>
 		 			</div>
 		 		</div>
-		 		<SearchForm  onSubmit={this.onSubmit} Id={communityIds} onChange={this.onChange}/>
+		 		<SearchForm  onSubmit={this.onSubmit} Id={communityids} onChange={this.onChange}/>
 		 		
 		 	</div>
 		 	
