@@ -708,12 +708,14 @@ export default class AttributeSetting extends Component {
 		Store.dispatch(Actions.callAPI('findAccountAndPropList', {
 			accountType: params.accountType
 		})).then(function(response) {
+			var codeList = [];
 			response.account.map(function(item, index) {
 				var list = {}
 				list.value = item.id;
 				list.label = item.accountname;
 				codeList.push(list);
-			})
+			});
+			var typeList = [];
 			response.property.map(function(item, index) {
 				var list = {}
 				list.value = item.id;
@@ -721,8 +723,8 @@ export default class AttributeSetting extends Component {
 				typeList.push(list);
 			})
 			_this.setState({
-				codeList: codeList,
-				typeList: typeList
+				codeList,
+				typeList
 			});
 		}).catch(function(err) {
 			Notify.show([{
