@@ -20,6 +20,7 @@ export default class TableRowColumn extends React.Component {
 		options: React.PropTypes.array,
 		type: React.PropTypes.string,
 		format: React.PropTypes.string,
+		onFormatData:React.PropTypes.func,
 	}
 
 
@@ -30,6 +31,7 @@ export default class TableRowColumn extends React.Component {
 		this.onClick = this.onClick.bind(this);
 		this.onMouseEnter = this.onMouseEnter.bind(this);
 		this.onMouseLeave = this.onMouseLeave.bind(this);
+		this.onFormatData = this.onFormatData.bind(this);
 
 	}
 
@@ -57,6 +59,19 @@ export default class TableRowColumn extends React.Component {
 	}
 
 
+	onFormatData(value){
+
+		const {onFormatData} = this.props;
+
+		if(typeof onFormatData === 'function'){
+				value = onFormatData(value);
+		}
+
+		return value;
+
+	}
+
+
 	render() {
 
 		let {
@@ -72,6 +87,9 @@ export default class TableRowColumn extends React.Component {
 			format,
 			...other,
 		} = this.props;
+
+		//处理数据格式
+		value = this.onFormatData(value);
 
 		const handlers = {
 			onClick: this.onClick,
@@ -94,19 +112,14 @@ export default class TableRowColumn extends React.Component {
 				return (
 					<td className={className} style={style} {...handlers} {...other}>
 						<KrDate value={value} format={format} />
-
 					</td>
 				);
 			}
 			return (
 				<td className={className} style={style} {...handlers} {...other}>
 					{value}
-
 					</td>
 			);
-
-
-
 		}
 
 
