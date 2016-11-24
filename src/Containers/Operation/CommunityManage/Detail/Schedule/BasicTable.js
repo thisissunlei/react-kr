@@ -271,7 +271,7 @@ export default class BasicTable extends Component {
 			var scrollBottom = top - num;
 
 			var isOutBoundary = scrollBottom >= -300;
-			// let isOutBoundary = false;
+
 			if (isOutBoundary) {
 
 				let {
@@ -286,6 +286,7 @@ export default class BasicTable extends Component {
 					totalPages,
 					istip
 				} = _this.state;
+
 				if (isIscroll) {
 					_this.setState({
 						isIscroll: !_this.state.isIscroll
@@ -682,6 +683,7 @@ export default class BasicTable extends Component {
 			currentYear,
 			Installmentplan,
 			rate,
+			communityids,
 			totalCount,
 			isLoading,
 			dataLoading,
