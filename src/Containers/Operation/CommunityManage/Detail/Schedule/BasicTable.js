@@ -516,7 +516,6 @@ export default class BasicTable extends Component {
 
 	onSetState(state) {
 
-		console.log('state', state, this.currentYear, this.state.currentYear)
 		if (this.currentYear != this.state.currentYear) {
 			return;
 		}
@@ -538,7 +537,7 @@ export default class BasicTable extends Component {
 			communityids,
 			dataLoading
 		} = this.state
-		console.log('communityids=====', communityids)
+
 
 
 		var year = _this.state.currentYear;
@@ -582,7 +581,7 @@ export default class BasicTable extends Component {
 
 
 			_this.onSetState(state);
-			console.log('dataLoading', dataLoading)
+
 
 		}).catch(function(err) {
 
