@@ -61,7 +61,7 @@ let SettingCreateForm = function(props) {
 
   return (
 
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className="listPorp" onSubmit={handleSubmit(onSubmit)}>
 
       <KrField grid={1/2} name="dicName" type="text" right={66} component="input" label="字段名称" requireLabel={true}/>
        <KrField grid={1/2} name="enableFlag" component="group" label="是否有效"  >
@@ -72,12 +72,17 @@ let SettingCreateForm = function(props) {
         </KrField>
      <KrField name="remark" type="textarea" component="textarea" label="备注"  placeholder="备注信息" />
 
-        <Grid style={{marginTop:30}}>
+        <Grid style={{marginTop:0,marginBottom:5}}>
           <Row>
-            <Col md={12} align="right">
+            <Col md={12} align="center">
                 <ButtonGroup>
-                    <Button  label="确定" type="submit" joinEditForm />
-                    <Button  label="取消" type="button" onTouchTap={onCancel} />
+                <span className="lyh-marginRight-15">
+                    <Button label="确定" type="submit" joinEditForm />
+                </span>
+                <span className="lyh-marginLeft-15">
+                    <Button className="lyh-cancel"  label="取消" type="button" onTouchTap={onCancel} cancle={true}/>
+                </span>
+
                 </ButtonGroup>
             </Col>
           </Row>
@@ -109,11 +114,11 @@ const SettingViewForm = (props) => {
     items
   } = props;
   return (
-    <div>
+    <div className="listPorp">
 
         <KrField grid={1/2} inline={false} name="corporationName" component="labelText"  label="字段名称" value={items.sp.dicName}/>
         <KrField grid={1/2} inline={false} name="enableFlag" component="labelText"  label="是否有效" value={items.sp.enableFlag=="ENABLE"?'是':'否'}/>
-        <KrField grid={1/2} inline={false} name="corporationDesc" component="labelText" label="备注" value={items.sp.remark}/>
+        <KrField inline={false} name="corporationDesc" component="labelText" label="备注" value={items.sp.remark}/>
   </div>
   );
 }
@@ -123,7 +128,7 @@ const SettingChildViewForm = (props) => {
     items
   } = props;
   return (
-    <div>
+    <div className="listPorp">
 
         <KrField grid={1/2} inline={false}  name="corporationName" right={66} component="labelText"  label="字段名称" value={items.dicName} requireLabel={true}/>
         <KrField grid={1/2} inline={false} name="enableFlag" component="labelText"  label="是否有效" value={items.enableFlag=="ENABLE"?'是':'否'} requireLabel={true}/>
@@ -150,8 +155,8 @@ let SettingUpdateForm = function(props) {
 
   return (
 
-    <form onSubmit={handleSubmit(onSubmit)}>
-              <KrField name="id" type="hidden" label="id"  />
+    <form className="listPorp" onSubmit={handleSubmit(onSubmit)}>
+              <KrField  name="id" type="hidden" label="id"  />
               <KrField grid={1/2} name="dicName" right={66} type="text" component="input" label="字段名称" requireLabel={true} />
               <KrField grid={1/2} right={66} name="enableFlag" component="group" label="是否有效" >
               <div className="listRadio">
@@ -161,12 +166,16 @@ let SettingUpdateForm = function(props) {
               </KrField>
                <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息"/>
 
-              <Grid style={{marginTop:30}}>
+              <Grid style={{marginTop:0,marginBottom:5}}>
                 <Row>
-                <Col md={12} align="right">
+                <Col md={12} align="center">
                     <ButtonGroup>
+                    <span className="lyh-marginRight-15">
                         <Button  label="确定" type="submit" joinEditForm />
-                        <Button  label="取消" type="button"  onTouchTap={onCancel}  />
+                    </span>
+                    <span className="lyh-marginLeft-15">
+                        <Button  label="取消" type="button"  onTouchTap={onCancel} cancle={true} />
+                    </span>
                     </ButtonGroup>
                 </Col>
                 </Row>
@@ -205,7 +214,7 @@ let SettingChildUpdateForm = function(props) {
 
   return (
 
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className="listPorp" onSubmit={handleSubmit(onSubmit)}>
               <KrField name="id" type="hidden" label="id"  />
               <KrField grid={1/2} right={66} name="dicName" type="text" component="input" label="字段名称" requireLabel={true} />
               <KrField className="radioAll" grid={1/2} right={66} name="enableFlag" component="group" label="是否有效" requireLabel={true}>
@@ -216,12 +225,16 @@ let SettingChildUpdateForm = function(props) {
               </KrField>
                <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息" requireLabel={true}/>
 
-              <Grid style={{marginTop:30}}>
+              <Grid style={{marginTop:0,marginBottom:5}}>
                 <Row >
                 <Col md={12} align="center">
                     <ButtonGroup>
+                  <span className="lyh-marginRight-15">
                         <Button  label="确定" type="submit" joinEditForm />
-                        <Button  label="取消" type="button"  onTouchTap={onCancel}  />
+                        </span>
+                        <span className="lyh-marginLeft-15">
+                        <Button  label="取消" type="button"  onTouchTap={onCancel} cancle={true} />
+                        </span>
                     </ButtonGroup>
                 </Col>
                 </Row>
@@ -250,7 +263,7 @@ let SettingAddForm = function(props) {
   if (props.dicName == '付款方式') {
     return (
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="listPorp" onSubmit={handleSubmit(onSubmit)}>
                   <KrField name="id" type="hidden" component="input" label="id"/>
                   <KrField grid={1/2} right={66} name="dicName" type="text" label="子项名称" requireLabel={true}/>
                   <KrField grid={1/2} right={66} inline={false}  type="labelText" label="字段名称" value={props.dicName} />
@@ -259,12 +272,16 @@ let SettingAddForm = function(props) {
                     <KrField name="enableFlag" label="否" type="radio" value="DISENABLE" />
                   </KrField>
                    <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息" requireLabel={true}/>
-                  <Grid style={{marginTop:30}}>
+                  <Grid style={{marginTop:0,marginBottom:5}}>
                     <Row>
-                    <Col md={12} align="right">
+                    <Col md={12} align="center">
                         <ButtonGroup>
+                        <span className="lyh-marginRight-15">
                              <Button  label="确定" type="submit" joinEditForm />
-                             <Button  label="取消" type="button"  onTouchTap={onCancel}  />
+                             </span>
+                             <span className="lyh-marginLeft-15">
+                             <Button  label="取消" type="button"  onTouchTap={onCancel} cancle={true} />
+                             </span>
                         </ButtonGroup>
                     </Col>
                     </Row>
@@ -274,7 +291,7 @@ let SettingAddForm = function(props) {
   }
   return (
 
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className="listPorp" onSubmit={handleSubmit(onSubmit)}>
               <KrField grid={1/2} right={66} name="id" type="hidden" component="input" label="id"/>
               <KrField grid={1/2} right={66} name="dicName" type="text" label="子项名称" requireLabel={true}/>
               <KrField grid={1/2} right={66} inline={false} type="labelText" label="字段名称" value={props.dicName} />
@@ -283,15 +300,19 @@ let SettingAddForm = function(props) {
               <div className="listRadio">
                 <KrField name="enableFlag" label="是" type="radio" value="ENABLE"/>
                 <KrField name="enableFlag" label="否" type="radio" value="DISENABLE" />
-                </div>
+              </div>
               </KrField>
                <KrField name="remark" component="textarea" label="备注"  placeholder="备注信息" requireLabel={true}/>
-              <Grid style={{marginTop:30}}>
+              <Grid style={{marginTop:0,marginBottom:5}}>
                 <Row>
                 <Col md={12} align="center">
                     <ButtonGroup>
+                    <span className="lyh-marginRight-15">
                         <Button  label="确定" type="submit" joinEditForm />
-                         <Button  label="取消" type="button"  onTouchTap={onCancel}  />
+                    </span>
+                    <span className="lyh-marginLeft-15">
+                         <Button  label="取消" type="button"  onTouchTap={onCancel} cancle={true} />
+                    </span>
                     </ButtonGroup>
                 </Col>
                 </Row>
