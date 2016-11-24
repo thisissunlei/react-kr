@@ -107,7 +107,7 @@ class ReceivedBtnForm extends Component {
 
 
 
-		const {
+		let {
 			error,
 			handleSubmit,
 			pristine,
