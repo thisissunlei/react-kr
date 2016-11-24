@@ -5,7 +5,12 @@ import '../index.less';
 export default  class Row extends React.Component {
 
 	static displayName = 'Row';
-	
+
+	static propTypes = {
+				style: React.PropTypes.object,
+				className: React.PropTypes.string,
+				children:React.PropTypes.node,
+	}
 	render() {
 
 		let {children,className,style} = this.props;
@@ -13,7 +18,7 @@ export default  class Row extends React.Component {
 		return (
 
 
-			<div className="row" style={style}> 
+			<div className="row" style={style}>
 				{children}
 			</div>
 
@@ -23,8 +28,3 @@ export default  class Row extends React.Component {
 
 
 }
-
-
-
-
-

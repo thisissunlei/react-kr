@@ -91,6 +91,7 @@ class SearchForm extends Component {
 			pageSize: pageSize
 
 		}
+<<<<<<< HEAD
 
 
 		const {
@@ -98,6 +99,12 @@ class SearchForm extends Component {
 		} = this.props;
 		onSubmit && onSubmit(formValues, istip);
 
+=======
+			const {
+				onSubmit
+			} = this.props;
+			onSubmit && onSubmit(formValues);
+>>>>>>> 2248800d14e15610934f33311134cdf2c19906c3
 
 
 	}
@@ -136,7 +143,7 @@ class SearchForm extends Component {
 		});
 	}
 	selectCommunity(personel) {
-
+		if(!personel){return};
 		this.setState({
 			communityids: personel.value,
 		})
@@ -440,7 +447,8 @@ export default class BasicTable extends Component {
 		})
 
 		this.setState({
-			value: formValues.value
+			value: formValues.value,
+			dataLoading:true
 		})
 
 		Store.dispatch(Actions.callAPI('getInstallmentplan', formValues)).then(function(response) {
@@ -454,6 +462,7 @@ export default class BasicTable extends Component {
 				Installmentplan,
 				rate: response.rate,
 				totalPages: response.vo.totalPages,
+				dataLoading:false
 			});
 
 

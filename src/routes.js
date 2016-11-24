@@ -29,7 +29,8 @@ import {
 	Finance,
 	Member,
 	Community,
-	Retail
+	Retail,
+	Statistical
 } from './Containers';
 
 import Master from './master';
@@ -61,6 +62,15 @@ export default (
 		<Route path="member" component={Basic}>
 			<Route path="index" component={Member.Home}/>
 		</Route>
+
+		{/*统计看板*/}
+		<Route path="statistical" component={Basic}>
+			<Route path="index" component={Statistical.Home}/>
+			<IndexRedirect to="index" />
+
+		</Route>
+
+
 
 		{/*社区经营*/}
 		<Route path="community" component={Basic}>

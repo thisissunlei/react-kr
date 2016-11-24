@@ -3,34 +3,36 @@ import './index.less';
 
 export default class DotTitle extends Component{
 	static PropTypes = {
-	  title:React.PropTypes.title, 
+		/**
+		*标题
+		*/
+	  title:React.PropTypes.title,
+		/**
+		*子代元素
+		*/
 	  children:React.PropTypes.children,
+		/**
+		*样式
+		*/
 	  style:React.PropTypes.style
 	}
 
-	render(){  
-	   const {title,children,style} = this.props; 
-	  
+	render(){
+	   const {title,children,style} = this.props;
+
        return(
         <div className='ui-title' style={style}>
-         <div className='ui-head'>       
+         <div className='ui-head'>
 			 <span className='ui-title-mid'>{title}</span>
          </div>
 		 {children &&
-		  <div className='ui-body'> 
-		     <div className='ui-body-inner'>       
+		  <div className='ui-body'>
+		     <div className='ui-body-inner'>
 		 	   {children}
-		 	 </div>  		 	  
+		 	 </div>
 		  </div>}
 
 		</div>
        	)
 	}
 }
-
-
-
-
-
-
-

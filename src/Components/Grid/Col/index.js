@@ -6,26 +6,86 @@ export default class Col extends React.Component {
 
 	static displayName = 'Col';
 
-	static PropTypes = {
+	static propTypes = {
+		/**
+		*
+		*/
 		xs: React.PropTypes.number,
+		/**
+		*
+		*/
 		sm: React.PropTypes.number,
+		/**
+		*
+		*/
 		md: React.PropTypes.number,
+		/**
+		*
+		*/
 		lg: React.PropTypes.number,
+		/**
+		*
+		*/
 		xsHidden: React.PropTypes.bool,
+		/**
+		*
+		*/
 		smHidden: React.PropTypes.bool,
+		/**
+		*
+		*/
 		mdHidden: React.PropTypes.bool,
+		/**
+		*
+		*/
 		lgHidden: React.PropTypes.bool,
+		/**
+		*
+		*/
 		xsOffset: React.PropTypes.number,
+		/**
+		*
+		*/
 		smOffset: React.PropTypes.number,
+		/**
+		*
+		*/
 		mdOffset: React.PropTypes.number,
+		/**
+		*
+		*/
 		lgOffset: React.PropTypes.number,
+		/**
+		*
+		*/
 		xsPush: React.PropTypes.number,
+		/**
+		*
+		*/
 		smPush: React.PropTypes.number,
+		/**
+		*
+		*/
 		mdPush: React.PropTypes.number,
+		/**
+		*
+		*/
 		lgPush: React.PropTypes.number,
+		/**
+		*
+		*/
 		xsPull: React.PropTypes.number,
+		/**
+		*
+		*/
 		smPull: React.PropTypes.number,
+		/**
+		*
+		*/
 		mdPull: React.PropTypes.number,
+		/**
+		*
+		*/
 		lgPull: React.PropTypes.number,
 	};
 
@@ -72,10 +132,10 @@ export default class Col extends React.Component {
 			style.textAlign = align;
 		}
 
-	
+
 		return (
 
-			<div className={className} style={style}> 
+			<div className={className} style={style}>
 				{this.props.children}
 				</div>
 		);
@@ -84,5 +144,3 @@ export default class Col extends React.Component {
 
 
 }
-
-

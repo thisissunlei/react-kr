@@ -12,7 +12,7 @@ import Member from './Member';
 import Community from './Community';
 import Retail from './Retail';
 import OA from './OA';
-
+import Statistical from './Statistical';
 
 module.exports = {
 	Welcome,
@@ -28,9 +28,6 @@ module.exports = {
 	Member,
 	Community,
 	Retail,
-	OA
+	OA,
+	Statistical
 }
-
-
-
-

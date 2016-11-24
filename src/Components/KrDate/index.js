@@ -15,7 +15,7 @@ export default class KrDate extends React.Component {
 
 	static propTypes = {
 		/**
-		 *
+		 *值
 		 */
 		value: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
 		/**
