@@ -190,7 +190,6 @@ const http = {
 					//处理数据格式
 					resolve(http.transformResponse(json))
 				}else{
-					console.log('0000----',json);
 					reject(json)
 				}
 		  }else{
@@ -203,15 +202,15 @@ const http = {
 	}),
 
 	post: (url, params, payload) => new Promise((resolve, reject) => {
-		const searchParams = new URLSearchParams();
 
 		if (!url) {
 			return
 		}
 
-		for (const prop in payload) {
-			searchParams.set(prop, payload[prop])
-		}
+    var bodyParams = [];
+    for (var p in payload){
+        bodyParams.push(encodeURIComponent(p) + "=" + encodeURIComponent(payload[p]));
+    }
 
 		fetch(url, {
 			method: 'POST',
@@ -219,11 +218,11 @@ const http = {
 			headers: {
 				'Accept': '*',
 				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-				"Cookie": document.cookie 
+				"Cookie": document.cookie
 			},
-			body: searchParams
+			body:bodyParams.join('&')
 		})
-			
+
 			.then(jsonParse)
 			.then(check401)
 			.then(http.transformPreResponse)
@@ -311,7 +310,3 @@ const http = {
 
 
 module.exports = http;
-
-
-
-
