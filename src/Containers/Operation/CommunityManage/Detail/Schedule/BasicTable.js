@@ -86,7 +86,7 @@ class SearchForm extends Component {
 		formValues = {
 			type: form.filter || 'BILL',
 			value: form.content,
-			communityids: communityids || this.props.Id,
+			communityids: communityids || 0,
 			page: page,
 			pageSize: pageSize
 
