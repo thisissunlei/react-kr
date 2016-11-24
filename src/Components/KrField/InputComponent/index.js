@@ -10,7 +10,7 @@ export default class InputComponent extends React.Component{
 		simple:React.PropTypes.bool,
 		heightStyle:React.PropTypes.obj
 	}
-	
+
 	constructor(props){
 		super(props)
 	}
@@ -26,10 +26,10 @@ export default class InputComponent extends React.Component{
 					</div>
 				);
 			}
-			let className = '';
+			let className = 'ui-input';
 
 			if(touched && error){
-				className = 'error-input';
+				classNam += 'error-input';
 			}
 
 
