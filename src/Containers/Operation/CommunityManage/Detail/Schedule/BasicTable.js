@@ -91,10 +91,20 @@ class SearchForm extends Component {
 			pageSize: pageSize
 
 		}
+<<<<<<< HEAD
+
+
+		const {
+			onSubmit
+		} = this.props;
+		onSubmit && onSubmit(formValues, istip);
+
+=======
 			const {
 				onSubmit
 			} = this.props;
 			onSubmit && onSubmit(formValues);
+>>>>>>> 2248800d14e15610934f33311134cdf2c19906c3
 
 
 	}
@@ -114,6 +124,10 @@ class SearchForm extends Component {
 				item.label = item.name;
 				return item;
 			});
+			communityIdList.unshift({
+				label: '请选择',
+				value: '0'
+			});
 
 			_this.setState({
 				communityIdList,
@@ -131,13 +145,13 @@ class SearchForm extends Component {
 	selectCommunity(personel) {
 		if(!personel){return};
 		this.setState({
-			communityids: personel.id,
+			communityids: personel.value,
 		})
 		const {
 			onChange
 		} = this.props;
 
-		onChange && onChange(personel.id);
+		onChange && onChange(personel.value);
 	}
 
 
@@ -202,6 +216,10 @@ export default class BasicTable extends Component {
 		this.onStation = this.onStation.bind(this);
 		this.scrollLoad = this.scrollLoad.bind(this);
 		this.renderNone = this.renderNone.bind(this);
+		this.onSetState = this.onSetState.bind(this);
+		//this.getcommunity = this.getcommunity.bind(this);
+
+
 		this.state = {
 			currentYear: '2016',
 			dismantling: false,
@@ -222,17 +240,22 @@ export default class BasicTable extends Component {
 			totalPages: '',
 			istip: false,
 			dataLoading: true,
+			communityids: 0,
 
 		};
-		this.getInstallmentplan();
+
+		this.currentYear = this.state.currentYear;
+		//this.getInstallmentplan();
 		this.getWidth = this.getWidth.bind(this);
 
 	}
 
 
 	componentDidMount() {
+		//this.getcommunity();
 		this.getInstallmentplan();
 	}
+
 
 
 	componentWillReceiveProps(nextProps) {
@@ -259,7 +282,7 @@ export default class BasicTable extends Component {
 			if (isOutBoundary) {
 
 				let {
-					communityIds,
+					communityids,
 					type,
 					page,
 					pageSize,
@@ -292,11 +315,11 @@ export default class BasicTable extends Component {
 							isLoading: !_this.state.isLoading
 						})
 						Store.dispatch(Actions.callAPI('getInstallmentplan', {
-							communityids: communityIds,
+							communityids: communityids,
 							value: value,
 							type: type,
 							page: len,
-							pageSize: 10
+							pageSize: 15
 						})).then(function(response) {
 
 							if (response.vo) {
@@ -364,7 +387,6 @@ export default class BasicTable extends Component {
 		this.setState({
 			activity: !this.state.activity
 		});
-
 	}
 
 	onChange(id) {
@@ -482,6 +504,8 @@ export default class BasicTable extends Component {
 			currentYear
 		} = this.state;
 		currentYear++;
+
+
 		this.setState({
 			currentYear,
 			istip: false,
@@ -489,6 +513,14 @@ export default class BasicTable extends Component {
 			dataLoading: true,
 		});
 		this.getInstallmentplan();
+	}
+
+
+	onSetState(state) {
+		if (this.currentYear != this.state.currentYear) {
+			return;
+		}
+		this.setState(state);
 	}
 
 
@@ -502,67 +534,78 @@ export default class BasicTable extends Component {
 		let {
 			type,
 			page,
-			pageSize
+			pageSize,
+			communityids
 		} = this.state
+		console.log('communityids=====', communityids)
+			/*Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
 
-		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
-
-			var Ids = [];
-			response.communityInfoList.map((item) => {
-				Ids.push(item.id);
-				return Ids
-			});
-			var communityIds = Ids.join(',');
-			var content = community || communityIds;
-			_this.setState({
-				communityIds: communityIds
-			})
-
-			Store.dispatch(Actions.callAPI('getInstallmentplan', {
-				communityids: content.toString(),
-				value: '',
-				type: type,
-				page: page,
-				pageSize: 15,
-				year: _this.state.currentYear,
-			})).then(function(response) {
-				if (response.vo) {
-					var list = response.vo.items;
-					var totalCount = response.vo.totalCount;
-					var totalPages = response.vo.totalPages;
-				} else {
-					var list = [];
-					var totalCount = 0;
-					var totalPages = 0;
-				}
-
-				_this.setState({
-					Installmentplan: list,
-					rate: response.rate,
-					totalCount: totalCount,
-					totalPages: totalPages,
-					dataLoading: false
+				var Ids = [];
+				response.communityInfoList.map((item) => {
+					Ids.push(item.id);
+					return Ids
 				});
-				if (totalPages > page) {
-					_this.setState({
-						isIscroll: true
-					})
-				}
+				var communityIds = Ids.join(',');
+				var content = community || communityIds;
+				_this.setState({
+					communityIds: communityIds
+				});*/
 
-			}).catch(function(err) {
+		var year = _this.state.currentYear;
 
-				Notify.show([{
-					message: err.message,
-					type: 'danger',
-				}]);
-			});
+		Store.dispatch(Actions.callAPI('getInstallmentplan', {
+			communityids: communityids,
+			value: '',
+			type: type,
+			page: page,
+			pageSize: 15,
+			year: year,
+		})).then(function(response) {
+
+			_this.currentYear = response.year;
+
+			var state = {};
+
+			if (response.vo) {
+				var list = response.vo.items;
+				var totalCount = response.vo.totalCount;
+				var totalPages = response.vo.totalPages;
+			} else {
+				var list = [];
+				var totalCount = 0;
+				var totalPages = 0;
+			}
+
+			state = {
+				Installmentplan: list,
+				rate: response.rate,
+				totalCount: totalCount,
+				totalPages: totalPages,
+				dataLoading: false
+			};
+
+
+			if (totalPages > page) {
+				state.isIscroll = true;
+			}
+
+
+			_this.onSetState(state);
 
 		}).catch(function(err) {
+
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
 			}]);
 		});
+
+		/*}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});*/
 
 
 
@@ -680,7 +723,7 @@ export default class BasicTable extends Component {
 			tab
 		} = this.props;
 		if (tab === 'table') {
-			this.scrollLoad();
+			$(window).bind('scroll', this.scrollLoad());
 		} else {
 			$(window).unbind('scroll', this.scrollLoad());
 		}
@@ -691,7 +734,7 @@ export default class BasicTable extends Component {
 			showNone = false;
 		}
 
-
+		console.log('2222222')
 
 		return (
 			<div style={{position:'relative'}}>
