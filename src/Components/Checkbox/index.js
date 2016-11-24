@@ -20,14 +20,45 @@ class KrCheckbox extends Component{
 		onCheck:React.PropTypes.func
 	};
 
+	constructor(props){
+		super(props);
+
+		this.onCheck = this.onCheck.bind(this);
+
+		this.state = {
+			checked:this.props.checked
+		}
+
+	}
+
+  componentWillReceiveProps(nextProps) {
+		if(nextProps.checked !== this.props.checked){
+			  this.setState({
+					checked:nextProps.checked
+				});
+		}
+	}
+
+	onCheck(){
+
+		this.setState({
+			checked:!this.state.checked
+		});
+
+		const {onCheck} = this.props;
+		onCheck && onCheck();
+
+	}
+
 
 	render(){
 
-		let {checked,onCheck} = this.props;
+		let {checked} = this.state;
 
 		return (
-			<input type="checkbox" onClick={onCheck} checked={checked}/>
+			<input type="checkbox" onClick={this.onCheck} checked={checked}/>
 		);
+
 	}
 }
 
