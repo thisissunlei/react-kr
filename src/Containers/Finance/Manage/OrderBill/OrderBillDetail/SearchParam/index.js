@@ -31,9 +31,7 @@ import {
 export default class SearchParam extends Component{
 
 	static defaultProps = {
-		detail:{
-
-		},
+		
 
 	}
 
@@ -41,7 +39,7 @@ export default class SearchParam extends Component{
 		detailPayment:React.PropTypes.object,
 		detailIncome:React.PropTypes.object,
 		detailBalance:React.PropTypes.object,
-		params:React.PropTypes.object
+		params:React.PropTypes.object,
 	}
      
 	constructor(props,context){
@@ -53,7 +51,7 @@ export default class SearchParam extends Component{
 		  primaryR:'true',
 		  primaryI:'false',
 		  active:10000,
-		  activeI:10000,
+		  activeI:this.props.params.accountType=='PAYMENT'?10000:this.props.params.index,
 		  myReceive:10000,
 		  myIncome:10000
 		}
@@ -61,13 +59,17 @@ export default class SearchParam extends Component{
 	}
 
 	componentDidMount() {
+
+		
        
 	}
 
 	onSearch(type,childType,id,propInfo,index){    
 		const {onSearch,params} = this.props;
 
+		//console.log('5555555',window.location.href+'?type='+type+'&index='+index);
 		
+        
         
         if(type=='PAYMENT'&&childType=='basic'){
           this.setState({
@@ -110,6 +112,7 @@ export default class SearchParam extends Component{
 		searchParam.propertyId = id;
 		searchParam.propInfo=propInfo;
 		searchParam.orderId = params.orderId;
+		searchParam.index=index;
 		onSearch && onSearch(searchParam);
 	}
 
@@ -146,6 +149,10 @@ export default class SearchParam extends Component{
     }
 	render(){
          const {detailPayment,detailIncome,detailBalance}=this.props;
+
+
+         //console.log('props',this.props.params.accountType,this.props.params.index);
+        
 
 		return(
 
@@ -193,6 +200,7 @@ export default class SearchParam extends Component{
 		              {detailIncome.map((item,index)=>{
 		              	    var className;
 					        var classPic;
+
 			                if (this.state.activeI== index) {
 			                   className = 'active';
 			                   classPic='activePic'

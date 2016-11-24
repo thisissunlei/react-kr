@@ -41,7 +41,8 @@ const defaultProps = {
 	ignoreCase: true,
 	loadingPlaceholder: 'Loading...',
 	options: [],
-	searchPromptText: 'Type to search',
+	//searchPromptText: 'Type to search',
+	searchPromptText: '',
 };
 
 export default class Async extends Component {
@@ -171,7 +172,7 @@ export default class Async extends Component {
 			return loadingPlaceholder;
 		}
 		if (inputValue && noResultsText) {
-			return noResultsText;
+			return '';
 		}
 		return searchPromptText;
 	}

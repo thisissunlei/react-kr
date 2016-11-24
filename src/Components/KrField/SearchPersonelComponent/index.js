@@ -1,6 +1,8 @@
 import React from 'react';
-import ReactSelect from 'react-select';
-import 'react-select/dist/react-select.css';
+
+
+import ReactSelectAsync from '../../Select/Async';
+
 import {Actions,Store} from 'kr/Redux';
 
 
@@ -55,14 +57,14 @@ export default class  SearchPersonelComponent extends React.Component {
 
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
-					<ReactSelect.Async
+					<ReactSelectAsync
 					name={input.name}
 					value={input.value}
 					loadOptions={this.getOptions}
 					clearable={true}
 					clearAllText="清除"
-					noResultsText=""
 					onChange={this.onChange}
+					noResultsText=""
 					placeholder={placeholder}/>
 			{touched && error && <div className="error-wrap"> <span>{error}</span> </div>}
 		</WrapComponent>

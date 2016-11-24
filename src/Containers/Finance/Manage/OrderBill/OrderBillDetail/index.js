@@ -169,7 +169,8 @@ export default class AttributeSetting extends Component {
 				propInfo: 'SETTLED',
 				orderId: this.props.params.orderId,
 				page: 1,
-				pageSize: 20
+				pageSize: 20,
+				index:''
 			},
 			itemDetail: {},
 			//为了判断和获取选中的条的id
@@ -189,6 +190,8 @@ export default class AttributeSetting extends Component {
 			list: [],
 			selectedList: [],
 			listValues: [],
+
+			
 
 			openSearch: false,
 			openReceivedBtn: false,
@@ -473,10 +476,12 @@ export default class AttributeSetting extends Component {
 	//确定提交区域
 	//切换
 	onSearch(params) {
+
 			this.setState({
 				params
 			});
-		}
+
+	}
 		//高级查询
 	onSubmit(params) {
 		//为了让其保持params原有的参数，同时将自己的参数传过去
@@ -626,7 +631,7 @@ export default class AttributeSetting extends Component {
 		});
 		this.setState({
 			openAddaccountBtn: !this.state.openAddaccountBtn,
-			isLoading: true
+			isLoading: true,
 		})
 		receivedList = [];
 
@@ -732,9 +737,11 @@ export default class AttributeSetting extends Component {
 		if (isInitLoading) {
 			return <Loading/>
 		}
-
-
+          
+         
+        
 		//console.log('221111',this.context.router)
+
 
 		//判断按钮出现与隐藏
 		let childBtn = params.childType;
@@ -843,7 +850,7 @@ export default class AttributeSetting extends Component {
 						  <div className='ui-detail-bottom'>
 								<Row style={{marginTop:10}}>
 								 <div className='detail-left'>
-									<SearchParam onSearch={this.onSearch} params={this.state.params} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance} />
+									<SearchParam onSearch={this.onSearch} params={this.state.params} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome} detailBalance={this.state.detailBalance}/>
 
 								 </div>
 								 <div className='detail-right'>
@@ -935,6 +942,7 @@ export default class AttributeSetting extends Component {
 						title="挂账"
 						open={this.state.openAddaccountBtn}
 						onClose={this.closeAddaccount}
+						contentStyle ={{ width: '688'}}
 						>
 					   <AccountBtnForm  onSubmit={this.onConfrimSubmit}  onCancel={this.closeAddaccount}  optionList={this.state.receivedList} initialValues={propId}/>
 					 </Dialog>
