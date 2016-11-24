@@ -88,9 +88,11 @@ class Distribution extends Component {
 				<KrField name="customerId" type="hidden"/>
 				<KrField name="communityId" type="hidden"/>
 				<div style={{textAlign:"center",marginTop:'45px',fontSize:'14px'}}>
-					<KrField name="memberId"component="select" grid={1} inline={true} label={`${detail.stationCode}分配为： `} options={optionValues.member}/>
+					<div className="info" style={{paddingBottom:10,color:'#333333'}}>{detail.stationCode}分配为： </div>
+
+					<KrField name="memberId"component="select" grid={2/3} inline={false}  options={optionValues.member}/>
 				</div>
-				<Grid style={{margin:40}}>
+				<Grid style={{margin:'52px 0'}}>
 					<Row >
 					<Col md={2} align="right">  </Col>
 					<Col md={2} align="right">  </Col> 
@@ -158,10 +160,10 @@ class ChangeStation extends Component {
 			<KrField name="customerId" type="hidden"/>
 			<KrField name="communityId" type="hidden"/>
 			<div style={{textAlign:"center",marginTop:'45px'}}>
-				<div className="info" style={{paddingBottom:10,color:'#333333'}}>{detail.stationCode}{detail.memberName}变更为员工:</div>
+				<div className="info" style={{paddingBottom:10,color:'#333333'}}>{detail.stationCode}-{detail.memberName}变更为员工:</div>
 				<KrField label='' name="memberId"  type="select" grid={2/3}  options={optionValues.members} inline={false} ></KrField>
 			</div>
-			<Grid style={{marginTop:'7px',marginBottom:'10px'}}>
+			<Grid style={{margin:'52px 0'}}>
 				<Row >
 				<Col md={12} align="center"> 
 					<ButtonGroup>

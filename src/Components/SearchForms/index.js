@@ -32,6 +32,19 @@ export default class SearchForms extends Component{
 		this.bodyEvent();
 	}
 	componentDidMount() {
+		let _this = this;
+		 $('.search-val').bind('keypress',function(event){  
+  
+            if(event.keyCode == "13")      
+  
+            {  
+            	event.preventDefault ? event.preventDefault() : event.returnValue = false;
+  				_this.click();
+                // alert('你输入的内容为：' + $('.search-val').val());  
+  
+            }  
+  
+        });
 	}
 	componentWillReceiveProps(nextProps){
 		if (!this.isInit && nextProps.value) {
@@ -68,13 +81,11 @@ export default class SearchForms extends Component{
 	click(){
 		let {num} = this.state;
 		let _this = this;
-		console.log('=========');
 		const form = ReactDOM.findDOMNode(this.form);
 		const searchButton = form.getElementsByClassName('icon-searching')[0];
 		const searchForm = form.getElementsByClassName('search-status')[0];
 
 		if(!num){
-			console.log('0',num);
 			if(!this.hasClass(searchButton, 'click')){
 				searchButton.className = searchButton.className + ' click';
 		        searchForm.className = searchForm.className+" show-form";
@@ -87,7 +98,6 @@ export default class SearchForms extends Component{
 
 
 		} else {
-			console.log('1',num);
 			let searchName = '';
 			let {searchFilter} = this.props;
 			let filterValue = '';
@@ -169,7 +179,6 @@ export default class SearchForms extends Component{
 				const searchForm = form.getElementsByClassName('search-status')[0];
 				let name = event.target.className;
 				let close = true;
-				console.log('name',name);
 				if(parseInt(name)+1){return;}
 				targetList.forEach((item)=>{
 					if(item === name){

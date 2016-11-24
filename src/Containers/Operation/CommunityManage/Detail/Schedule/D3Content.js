@@ -272,7 +272,7 @@ export default class D3Content extends Component {
 				{list.map((item,index)=>{
 						if(index === 0 ){
 							return(
-								<div className='white' style={{'width':`${item.width*100-1}%`}} key={index}>
+								<div className='white' style={{'width':`${item.width*100}%`}} key={index}>
 									{item.content?<span></span>:''}
 									
 								</div>
