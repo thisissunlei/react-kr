@@ -235,21 +235,27 @@ export default class AttributeSetting extends Component {
 		Store.dispatch(Actions.callAPI('findAccountAndPropList', {
 			accountType: 'PAYMENT'
 		})).then(function(response) {
+
+			var receivedList = [];
+			var typeList = [];
+
 			response.account.map(function(item, index) {
 				var list = {}
 				list.value = item.id;
 				list.label = item.accountname;
 				receivedList.push(list);
-			})
+			});
+
 			response.property.map(function(item, index) {
 				var list = {}
 				list.value = item.propcode;
 				list.label = item.propname;
 				typeList.push(list);
-			})
+			});
+
 			_this.setState({
-				receivedList: receivedList,
-				typeList: typeList
+				receivedList,
+				typeList
 			});
 		}).catch(function(err) {
 			Notify.show([{
@@ -708,12 +714,15 @@ export default class AttributeSetting extends Component {
 		Store.dispatch(Actions.callAPI('findAccountAndPropList', {
 			accountType: params.accountType
 		})).then(function(response) {
+			var codeList = [];
+			var typeList = [];
 			response.account.map(function(item, index) {
 				var list = {}
 				list.value = item.id;
 				list.label = item.accountname;
 				codeList.push(list);
-			})
+			});
+
 			response.property.map(function(item, index) {
 				var list = {}
 				list.value = item.id;
@@ -721,8 +730,8 @@ export default class AttributeSetting extends Component {
 				typeList.push(list);
 			})
 			_this.setState({
-				codeList: codeList,
-				typeList: typeList
+				codeList,
+				typeList
 			});
 		}).catch(function(err) {
 			Notify.show([{
