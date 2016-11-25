@@ -20,6 +20,7 @@ import {
 	Grid,
 	Notify,
 	BreadCrumbs,
+	Title,
 } from 'kr-ui';
 
 import NewCreateForm from './NewCreateForm';
@@ -121,7 +122,7 @@ export default class JoinCreate extends Component {
 
 			optionValues.communityAddress = response.customer.communityAddress;
 			optionValues.leaseAddress = response.customer.customerAddress;
-			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）	
+			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
 			initialValues.contracttype = 'ENTER';
 
 			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
@@ -172,8 +173,10 @@ export default class JoinCreate extends Component {
 		return (
 
 			<div>
-		 	
-			<Section title="入驻协议书" description=""> 
+
+				<Title value="创建入驻协议书_财务管理"/>
+
+			<Section title="入驻协议书" description="">
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues}/>
 			</Section>
 

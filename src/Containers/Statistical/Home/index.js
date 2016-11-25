@@ -20,7 +20,8 @@ import {
 	Row,
 	Col,
 	Dialog,
-
+	Tabs,
+	Tab
 } from 'kr-ui';
 
 import PanelComponents from './PanelComponents';
@@ -31,17 +32,84 @@ export default class Home  extends Component{
 		super(props, context);
 
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+
+		this.state = {
+				groupList:[
+					{
+						groupName:'集团经营',
+						id:'3224',
+						templateList:[
+							{
+								id:'324324',
+								templateName:'第一个',
+								templateNo:''
+							},
+							{
+								id:'2334',
+								templateName:'第二个',
+								templateNo:''
+							},
+						]
+					},
+					{
+						groupName:'经营',
+						id:'3224',
+						templateList:[
+							{
+								id:'324324',
+								templateName:'第一个',
+								templateNo:''
+							},
+							{
+								id:'2334',
+								templateName:'第二个',
+								templateNo:''
+							},
+						]
+					},
+				]
+		}
+	}
+
+	getInitData = ()=>{
+
+	}
+
+	renderGroupTabs = ()=>{
+
+		let {groupList} = this.state;
+
+		return (
+				<Tabs>
+					{groupList.map((item,index)=><Tab label={item.groupName} key={index}> <PanelComponents panels={item.templateList} /> </Tab>)}
+	 	   </Tabs>
+		);
 	}
 
 
+	renderGroupSingle = ()=>{
+
+		let {groupList} = this.state;
+		let groupItem = groupList[0];
+
+		return(
+			<Section title={groupItem.groupName} >
+					<PanelComponents panels={groupItem.templateList} />
+			</Section>
+		);
+	}
 
 	render(){
-		return(
 
+		let {groupList} = this.state;
+
+		if(groupList.length == 1){
+				return this.renderGroupSingle();
+		}
+		
+		return(
 			<div>
-					<Section title="统计看板" description="" >
-								<PanelComponents />
-					</Section>
+					{this.renderGroupTabs()}
 			</div>
 
 		);

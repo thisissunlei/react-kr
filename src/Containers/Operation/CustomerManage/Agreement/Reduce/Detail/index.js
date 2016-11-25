@@ -24,6 +24,7 @@ import {
 	KrField,
 	LabelText,
 	KrDate,
+	Title,
 } from 'kr-ui';
 
 import RaisedButton from 'material-ui/RaisedButton';
@@ -210,6 +211,8 @@ export default class ReduceDetail extends Component {
 		return (
 
 			<div>
+
+					<Title value="减租协议书详情_财务管理"/>
 
 			<BreadCrumbs children={['社区运营',,'合同详情','减租合同查看']}/>
 

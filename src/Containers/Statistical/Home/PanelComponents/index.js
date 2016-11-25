@@ -23,7 +23,18 @@ import {
 
 } from 'kr-ui';
 
-export default class Home  extends Component{
+import NotOpenPanel from './NotOpenPanel';
+import OpenPanel from './OpenPanel';
+
+export default class PanelComponents  extends Component{
+
+	static defaultProps = {
+		panels:[{label:'张三',value:''},{label:'里斯',value:'dddd'}]
+	}
+
+	static propTypes = {
+		 panels:React.PropTypes.array,
+	}
 
 	constructor(props,context){
 		super(props, context);
@@ -31,15 +42,12 @@ export default class Home  extends Component{
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
 
-
-
 	render(){
 		return(
-
 			<div>
-
+				<NotOpenPanel/>
+				<OpenPanel/>
 			</div>
-
 		);
 	}
 }
