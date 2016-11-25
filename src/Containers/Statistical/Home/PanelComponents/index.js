@@ -45,7 +45,7 @@ export default class PanelComponents  extends Component{
 	render(){
 		return(
 			<div>
-				<NotOpenPanel />
+				<NotOpenPanel/>
 				<OpenPanel/>
 			</div>
 		);

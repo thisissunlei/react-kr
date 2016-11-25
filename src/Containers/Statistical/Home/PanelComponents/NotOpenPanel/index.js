@@ -35,8 +35,7 @@ export default class Initialize  extends Component{
 		return(
 
 			<div>
-					<Section title="订单账单列表" description="" >
-					</Section>
+					
 			</div>
 		);
 	}

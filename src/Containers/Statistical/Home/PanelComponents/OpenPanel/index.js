@@ -17,6 +17,8 @@ import {
 	Row,
 	Col,
 	Dialog,
+	ListGroup,
+	ListGroupItem
 
 } from 'kr-ui';
 
@@ -35,8 +37,20 @@ export default class Initialize  extends Component{
 		return(
 
 			<div>
-					<Section title="订单账单列表" description="" >
-					</Section>
+				<Grid>
+						<Row>
+							<Col align="left"> 
+							 <span className='ui-pic-open'></span><span>招商数据统计</span>	
+							</Col> 
+							<Col align="right"> 
+								<ListGroup>
+									<ListGroupItem></ListGroupItem>
+									<ListGroupItem></ListGroupItem>
+								</ListGroup>	
+							</Col> 
+						</Row>
+					</Grid>
+
 			</div>
 		);
 	}
