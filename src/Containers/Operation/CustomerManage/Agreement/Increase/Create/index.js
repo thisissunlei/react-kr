@@ -20,6 +20,7 @@ import {
 	Grid,
 	Notify,
 	BreadCrumbs,
+	Title,
 } from 'kr-ui';
 
 import NewCreateForm from './NewCreateForm';
@@ -66,8 +67,8 @@ export default class JoinCreate extends Component {
 
 		if(typeof formValues.stationVos != 'string'){
 			formValues.stationVos = JSON.stringify(formValues.stationVos);
-		}	
-		
+		}
+
 		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract', {}, formValues)).then(function(response) {
 			Notify.show([{
 				message: '创建成功',
@@ -174,6 +175,7 @@ export default class JoinCreate extends Component {
 		return (
 
 			<div>
+				<Title value="创建增租协议书_财务管理"/>
 		 	<BreadCrumbs children={['系统运营','客户管理','增租协议']}/>
 			<Section title="增租协议书" description="">
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues}/>

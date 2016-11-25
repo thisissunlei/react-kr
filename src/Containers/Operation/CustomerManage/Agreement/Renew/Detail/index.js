@@ -27,7 +27,8 @@ import {
 		TableHeaderColumn,
 		TableRow,
 		TableRowColumn,
-		TableFooter
+		TableFooter,
+		Title,
 
 } from 'kr-ui';
 
@@ -104,6 +105,7 @@ export default class JoinDetail extends Component {
 			}
 			return (
 				<div className="content" style={content}>
+						<Title value="续租协议书详情页_财务管理"/>
 				  	<PaperBack label="续租协议书详情页"/>
 				  	<div className="content-info" style={info} >
 

@@ -33,7 +33,8 @@ import {
 	Notify,
 	ListGroup,
 	ListGroupItem,
-	BreadCrumbs
+	BreadCrumbs,
+	Title,
 } from 'kr-ui';
 
 
@@ -59,7 +60,7 @@ export default class AttributeSetting extends Component {
 		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
 		this.onOperation = this.onOperation.bind(this);
 		this.onExport = this.onExport.bind(this);
-		
+
 
 
 		this.state = {
@@ -195,6 +196,7 @@ export default class AttributeSetting extends Component {
 		return (
 
 			<div>
+				<Title value="属性配置_财务管理"/>
 					<BreadCrumbs children={['系统运营','客户管理','属性配置']}/>
 					<Section title="属性配置" description="" style={{marginBottom:-5,minHeight:910}} >
 

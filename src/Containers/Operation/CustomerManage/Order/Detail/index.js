@@ -20,7 +20,8 @@ import {
 	KrDate,
 	Button,
 	DotTitle,
-	Dialog
+	Dialog,
+	Title,
 } from 'kr-ui';
 
 
@@ -392,6 +393,9 @@ export default class OrderDetail extends React.Component {
 
 		return (
 			<div>
+
+
+			<Title value="客户订单详情_财务管理"/>
 
 			<BreadCrumbs children={['系统运营','财务管理']} hide={!!this.props.location.query.closeAll}/>
 

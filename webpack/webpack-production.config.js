@@ -63,7 +63,7 @@ const config = {
 		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
 			publicPath: '/',
-			title: '财务管理',
+			title: '氪空间后台管理系统',
 			filename: 'index.html',
 			template: './src/index.template.html',
 			inject:'body',
