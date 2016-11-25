@@ -746,8 +746,7 @@ export default class SettingList extends Component {
       <Dialog
         title="查看"
 
-        modal={true}
-        actions={actions}
+        modal={true},
         open={this.state.openView}
         onClose={this.openViewDialog}
         contentStyle={{width:'687'}}
