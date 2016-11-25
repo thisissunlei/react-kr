@@ -189,11 +189,11 @@ export default class SearchForms extends Component{
 					_this.click();
 				}
 				if(filterValue || searchWord){return;}
-				if(close){
-					_this.removeClass(searchForm,'show-form');
-					_this.removeClass(searchButton,'click');
-					_this.setState({num:0})
-				}
+				// if(close){
+				// 	_this.removeClass(searchForm,'show-form');
+				// 	_this.removeClass(searchButton,'click');
+				// 	_this.setState({num:0})
+				// }
 			}
 
 
