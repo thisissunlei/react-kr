@@ -106,6 +106,7 @@ export default class Home  extends Component{
 		if(groupList.length == 1){
 				return this.renderGroupSingle();
 		}
+		
 		return(
 			<div>
 					{this.renderGroupTabs()}

@@ -26,7 +26,8 @@ import {
 	KrDate,
 	SplitLine,
 	DotTitle,
-	PaperBack
+	PaperBack,
+	Title,
 } from 'kr-ui';
 
 import {
@@ -89,6 +90,7 @@ export default class JoinDetail extends Component {
 
 		return (
 			<div className="content" style={content}>
+				<Title value="增租协议书详情页_财务管理"/>
 				  	<PaperBack label="增租协议书详情页"/>
 				  	<div className="content-info" style={info} >
 

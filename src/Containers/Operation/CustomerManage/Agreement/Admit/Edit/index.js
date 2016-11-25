@@ -20,6 +20,7 @@ import {
 	Grid,
 	Notify,
 	BreadCrumbs,
+	Title,
 } from 'kr-ui';
 
 import NewCreateForm from './NewCreateForm';
@@ -230,6 +231,7 @@ export default class JoinCreate extends Component {
 		return (
 
 			<div>
+			<Title value="编辑承租意向书_财务管理"/>
 		 	<BreadCrumbs children={['系统运营','客户管理','承租协议']}/>
 			<Section title="承租意向书" description="">
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>

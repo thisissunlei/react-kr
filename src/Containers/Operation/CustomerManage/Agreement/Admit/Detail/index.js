@@ -24,7 +24,8 @@ import {
 	Col,
 	SplitLine,
 	DotTitle,
-	PaperBack
+	PaperBack,
+	Title,
 } from 'kr-ui';
 
 
@@ -124,6 +125,7 @@ export default class AdmitDetail extends Component {
 
 			return (
 				<div className="content" style={content}>
+						<Title value="承租意向书详情页_财务管理"/>
 				  	<PaperBack label="承租意向书详情页"/>
 				  	<div className="content-info" style={info} >
 
