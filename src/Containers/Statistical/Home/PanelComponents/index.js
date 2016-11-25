@@ -46,7 +46,7 @@ export default class PanelComponents  extends Component{
 	render(){
 		return(
 			<div>
-			   <Title value="数据统计"/>
+			    <Title value="数据统计"/>
 				<NotOpenPanel/>
 				<OpenPanel/>
 			</div>
