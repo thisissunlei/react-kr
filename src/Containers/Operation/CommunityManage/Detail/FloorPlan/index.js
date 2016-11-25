@@ -107,6 +107,9 @@ export default class FloorPlan extends Component {
 			community,
 			floors
 		} = this.state;
+		if(community==0){
+			community='';
+		}
 		console.log('url', this.state);
 
 		if (form) {
@@ -195,6 +198,11 @@ export default class FloorPlan extends Component {
 				item.label = item.name;
 				return item;
 			});
+			communityIdList.unshift({
+				label: '请选择',
+				value: '0',
+				id:'0',
+			});
 			_this.setState({
 				communityIdList,
 			});
@@ -208,6 +216,7 @@ export default class FloorPlan extends Component {
 	selectCommunity(personel) {
 		this.getCommunityFloors(personel.id);
 		Store.dispatch(change('FloorPlan', 'floor', ''));
+		
 		this.setState({
 			community: personel.id,
 			floors: '',
