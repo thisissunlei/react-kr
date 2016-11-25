@@ -163,7 +163,8 @@ export default class AttributeSetting extends Component {
 	//新建
 	openNewCreateDialog() {
 		this.setState({
-			openNewCreate: !this.state.openNewCreate
+			openNewCreate: !this.state.openNewCreate,
+			searchParams:''
 		});
 	}
 
