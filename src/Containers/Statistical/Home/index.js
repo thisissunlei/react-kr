@@ -21,7 +21,8 @@ import {
 	Col,
 	Dialog,
 	Tabs,
-	Tab
+	Tab,
+	Title
 } from 'kr-ui';
 
 import PanelComponents from './PanelComponents';

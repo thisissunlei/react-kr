@@ -369,6 +369,16 @@ const APIS = {
 		url: '/api/krspace-finance-web/finacontractdetail/getInstallmentplan?year={year}&communityids={communityids}&page={page}&pageSize={pageSize}&type={type}&value={value}',
 		method: 'get'
 	},
+	//权限管理-权限管理-数据模板管理数据
+	'getDataGrouplis': {
+		url: '/mockjsdata/13/krspace-finance-web/stat/group/group-list',
+		method: 'get'
+	},
+	//数据统计-集团经营-招商数据已开业
+	'openCompanyData': {
+		url: '/mockjsdata/13/krspace-finance-web/stat/merchant/actions/open?endDate={endDate}&startDate={startDate}&groupId={groupId}',
+		method: 'get'
+	},
 }
 
 module.exports = APIS;
