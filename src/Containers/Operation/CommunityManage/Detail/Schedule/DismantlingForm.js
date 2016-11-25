@@ -116,7 +116,7 @@ class DismantlingForm extends Component {
 			initialValues,
 			detail
 		} = this.props;
-		console.log('detail.editFlag', detail.editFlag)
+
 		let time = DateFormat(detail.actualLeavedate, "yyyy-mm-dd")
 		return (
 

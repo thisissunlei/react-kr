@@ -183,7 +183,7 @@ export default class OrderDetail extends React.Component {
 	}
 
 	confirmDelAgreement(){
-		
+
 		this.openDelAgreementDialog(0);
 
 		let {delAgreementId} = this.state;
@@ -326,7 +326,7 @@ export default class OrderDetail extends React.Component {
 			value: '意向书'
 		}, {
 			name: 'ENTER',
-			value: '入住协议'
+			value: '入驻协议'
 		}, {
 			name: 'ADDRENT',
 			value: '增租协议'

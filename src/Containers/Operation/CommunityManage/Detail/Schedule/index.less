@@ -200,8 +200,8 @@ a,button,button:hover{
 		background:#f8f9f9;
 		border-bottom:1px solid #dfdfdf;
 		border-right:1px solid #ffffff;
-		&:last-child{
-			border-right:0px solid #fff;
+		&:nth-child(13){
+			border-right:1px solid #dfdfdf;
 		}
 	}
 	
@@ -226,7 +226,7 @@ a,button,button:hover{
 		}
 	}
 	.next-year{
-		border-left:1px solid #dfdfdf;
+		
 		position:relative;
 		.next{
 			width:12px;
@@ -463,9 +463,16 @@ a,button,button:hover{
 				text-align: left;
 			}
 		}
+		.year{
+			overflow: hidden;
+		}
 		.year>div{
 			display: inline-block;
-			float: left;
+			// float: left;
+			position: absolute;
+			top: 0;
+			left: 0;
+
 		}
 		.grey{
 			background: #b7cad4;

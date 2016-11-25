@@ -152,7 +152,7 @@ class ChangeStation extends Component {
 
 		initialValues.customerId = customerId;
 		initialValues.communityId = communityId;
-		console.log('detail', detail)
+
 		return (
 
 			<Form name="jyayayoin" className="change" initialValues={initialValues} onSubmit={this.onSubmit}>

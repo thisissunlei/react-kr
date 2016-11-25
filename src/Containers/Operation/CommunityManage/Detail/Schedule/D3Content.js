@@ -79,13 +79,15 @@ export default class D3Content extends Component {
 			var initial = (new Date('2016-1-1')).getTime();
 
 			var offset = date - initial;
-			return Math.floor(offset / 24 / 3600 / 1e3) + 1;
+			return (offset / 24 / 3600 / 1e3) + 1;
+			// return Math.ceil(offset / 24 / 3600) + 1;
 		}
 		// 处理时间段
 	dealTime() {
 			var {
 				detail
 			} = this.props;
+			let width;
 			var _this = this;
 			var timeList = detail.map(function(item) {
 				item.start = _this.countDays(item.begindate);
@@ -93,8 +95,12 @@ export default class D3Content extends Component {
 				item.Begindate = dateFormat(item.begindate, "yyyy.mm.dd");
 				item.Enddate = dateFormat(item.enddate, "yyyy.mm.dd");
 				// item.width = parseInt((item.end - item.start) / 365 * width); //时间段的长度
-				item.width = (item.end - item.start) / 365; //时间段的长度
-				item.width = Math.round(item.width*100)/100;
+				width = (item.end - item.start) / 365; //时间段的长度
+				// item.width = Math.ceil(width*100)/100;
+				// item.left = Math.ceil((item.start*10000/365)*100)/10000 ;
+				item.width = (width*100)/100;
+				item.left = ((item.start*10000/365)*100)/10000 ;
+				item.left = item.left;
 				return item;
 			});
 			return timeList;
@@ -106,8 +112,9 @@ export default class D3Content extends Component {
 		var whiteWidth = (timeList[0].start) / 365;
 		var whiteNode = {
 				start: 0,
-				end: timeList[0].start - 1,
-				width: Math.round(whiteWidth*100)/100
+				end: timeList[0].start,
+				// width: Math.ceil(whiteWidth*100)/100
+				width: (whiteWidth*100)/100
 			}
 			// whiteLength = $("<div class='white'></div>").css( {'width':whiteLength-1,});
 		return whiteNode;
@@ -224,9 +231,12 @@ export default class D3Content extends Component {
 		let that = this;
 		whiteBar = whiteBar.map((item)=>{
 			let days = that.countDays(item);
-			let num = Math.round((days/365)*100)/100;
-			return num*100;
+			let num = (days*10000/365)/10000*100;
+			// let num = Math.ceil((days*10000/365)/10000*100) ;
+			return num;
 		})
+		// if(whiteBar.length>1){whiteBar.pop();}
+		
 		return whiteBar;
 	}
 
@@ -249,7 +259,7 @@ export default class D3Content extends Component {
 			var redNodeList = this.renderRedNode();
 			var blueNodeList = this.renderBlueNode();
 			var sameNode = this.getSameTime();
-			list = this.getRedInfo(list);
+			// list = this.getRedInfo(list);
 			// console.log(list);
 			// return false;
 		} else {
@@ -280,12 +290,12 @@ export default class D3Content extends Component {
 								)
 						}else if(index<nodeList && index !== 0){
 							return(
-								<div className='grey' data-tip data-for={`${id}${index}`} data-event='mouseover' data-event-off='mouseleave' style={{'width':`${item.width*100}%`}} key={index}>
+								<div className='grey' data-tip data-for={`${id}${index}`} data-event='mouseover' data-event-off='mouseleave' style={{'width':`${item.width*100}%`,marginLeft:`${item.left}%`}} key={index}>
 									<ReactTooltip id={`${id}${index}`} place="top" type="dark" effect="solid">
 									{item.width && item.planTableModelList && item.planTableModelList.map((value, i)=>{
 										return (
 											<div key={i}>
-												<p>{dateFormat(value.installmentReminddate, "yyyy.mm.dd")}日催款</p>
+												<p>{dateFormat(value.installmentReminddate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
 												<p>{value.stationnum}个位置({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
 												<p>负责人：{value.name}</p>
 												<p>电话：{value.phone}</p>
@@ -300,12 +310,12 @@ export default class D3Content extends Component {
 							)
 						}else{
 							return (
-								<div className='blue' data-tip data-for={`${id}${index}`} style={{'width':`${item.width*100}%`}} key={index}>
+								<div className='blue' data-tip data-for={`${id}${index}`} style={{'width':`${item.width*100}%`,marginLeft:`${item.left}%`}} key={index}>
 									<ReactTooltip id={`${id}${index}`} place="top" type="dark" effect="solid">
 									{item.planTableModelList && item.planTableModelList.map((value, i)=>{
 										return (
 											<div key={i}>
-												<p>{dateFormat(value.installmentReminddate, "yyyy.mm.dd")}日催款</p>
+												<p>{dateFormat(value.installmentReminddate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
 												<p>{value.stationnum}个位置({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
 												<p>负责人：{value.name}</p>
 												<p>电话：{value.phone}</p>

@@ -67,7 +67,7 @@ export default (
 		<Route path="statistical" component={Basic}>
 			<Route path="index" component={Statistical.Home}/>
 			<IndexRedirect to="index" />
-
+			<Route path="groupSetting" component={Statistical.GroupSetting}/>
 		</Route>
 
 
