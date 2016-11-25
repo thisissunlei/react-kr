@@ -746,7 +746,7 @@ export default class SettingList extends Component {
       <Dialog
         title="查看"
 
-        modal={true},
+        modal={true}
         open={this.state.openView}
         onClose={this.openViewDialog}
         contentStyle={{width:'687'}}
@@ -760,7 +760,6 @@ export default class SettingList extends Component {
         title="查看子项"
 
         modal={true}
-        actions={close}
         open={this.state.openChildView}
         onClose={this.openViewChildDialog}
         contentStyle={{width:'687'}}

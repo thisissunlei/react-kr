@@ -57,6 +57,7 @@ export default class Button extends Component {
 		*
 		*/
 		fontSize:React.PropTypes.number,
+
 	}
 
 
