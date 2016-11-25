@@ -32,7 +32,8 @@ import {
 	Dialog,
 	Notify,
 	BreadCrumbs,
-	ListGroup
+	ListGroup,
+	Title,
 } from 'kr-ui';
 
 
@@ -184,6 +185,7 @@ export default class AttributeSetting extends Component {
 		return (
 
 			<div>
+			<Title value="科目配置_财务管理"/>
 		 	<BreadCrumbs children={['系统运营','客户管理','科目配置']} />
 
 					<Section title="科目配置" description="" style={{marginBottom:-5,minHeight:910}} >
