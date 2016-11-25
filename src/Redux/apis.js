@@ -374,6 +374,11 @@ const APIS = {
 		url: '/mockjsdata/13/krspace-finance-web/stat/group/group-list',
 		method: 'get'
 	},
+	//数据统计-集团经营-招商数据已开业
+	'openCompanyData': {
+		url: '/mockjsdata/13/krspace-finance-web/stat/merchant/actions/open?endDate={endDate}&startDate={startDate}&groupId={groupId}',
+		method: 'get'
+	},
 }
 
 module.exports = APIS;
