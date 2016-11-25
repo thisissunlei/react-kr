@@ -394,14 +394,15 @@ export default class BasicTable extends Component {
 			page,
 			pageSize,
 			totalPages,
-			isIscroll
+			isIscroll,
+			value,
 		} = this.state
 
 		var _this = this;
 
 		Store.dispatch(Actions.callAPI('getInstallmentplan', {
 			communityids: id,
-			value: '',
+			value: value,
 			type: type,
 			page: 1,
 			pageSize: pageSize
@@ -436,6 +437,7 @@ export default class BasicTable extends Component {
 		if (formValues.type == "BILL") {
 			activity = false;
 		}
+		console.log('formValues',formValues);
 
 		this.setState({
 			istip: istip
@@ -443,7 +445,8 @@ export default class BasicTable extends Component {
 
 		this.setState({
 			value: formValues.value,
-			dataLoading: true
+			type:formValues.type,
+			dataLoading: true,
 		})
 
 		Store.dispatch(Actions.callAPI('getInstallmentplan', formValues)).then(function(response) {
@@ -534,10 +537,12 @@ export default class BasicTable extends Component {
 		let {
 			type,
 			page,
+			value,
 			pageSize,
 			communityids,
 			dataLoading
-		} = this.state
+		} = this.state;
+		console.log('value',value);
 
 
 
@@ -545,7 +550,7 @@ export default class BasicTable extends Component {
 
 		Store.dispatch(Actions.callAPI('getInstallmentplan', {
 			communityids: communityids,
-			value: '',
+			value: value,
 			type: type,
 			page: page,
 			pageSize: 15,
