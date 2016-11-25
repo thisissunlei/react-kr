@@ -295,7 +295,7 @@ export default class D3Content extends Component {
 									{item.width && item.planTableModelList && item.planTableModelList.map((value, i)=>{
 										return (
 											<div key={i}>
-												<p>{dateFormat(value.installmentReminddate, "yyyy.mm.dd")}日催款</p>
+												<p>{dateFormat(value.installmentReminddate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
 												<p>{value.stationnum}个位置({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
 												<p>负责人：{value.name}</p>
 												<p>电话：{value.phone}</p>
@@ -315,7 +315,7 @@ export default class D3Content extends Component {
 									{item.planTableModelList && item.planTableModelList.map((value, i)=>{
 										return (
 											<div key={i}>
-												<p>{dateFormat(value.installmentReminddate, "yyyy.mm.dd")}日催款</p>
+												<p>{dateFormat(value.installmentReminddate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
 												<p>{value.stationnum}个位置({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
 												<p>负责人：{value.name}</p>
 												<p>电话：{value.phone}</p>
