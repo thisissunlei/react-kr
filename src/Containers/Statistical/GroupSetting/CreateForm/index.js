@@ -35,7 +35,7 @@ export default class Initialize  extends Component{
 		return(
 
 			<div>
-					<Section title="分组配置" description="" >
+					<Section title="模板组配置" description="" >
 
 
 					</Section>

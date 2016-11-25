@@ -59,7 +59,7 @@ export default class AttributeSetting extends Component {
 		this.onOperation = this.onOperation.bind(this);
 
 		this.onExport = this.onExport.bind(this);
-        
+
 
 
 		this.state = {
@@ -147,7 +147,7 @@ export default class AttributeSetting extends Component {
 			customername: searchParams.content,
 			pageSize:15
 		}
-		
+
 
 		this.setState({
 			searchParams: obj
@@ -163,7 +163,8 @@ export default class AttributeSetting extends Component {
 	//新建
 	openNewCreateDialog() {
 		this.setState({
-			openNewCreate: !this.state.openNewCreate
+			openNewCreate: !this.state.openNewCreate,
+			searchParams:''
 		});
 	}
 
@@ -187,7 +188,7 @@ export default class AttributeSetting extends Component {
 			list
 		})
 	}
-    
+
 
 
 	render() {
@@ -215,7 +216,7 @@ export default class AttributeSetting extends Component {
 
 					<div  className='ui-orderList'><Grid style={{marginTop:-5}}>
 						<Row>
-							<Col md={7} align="left"> 
+							<Col md={7} align="left">
 								<ListGroup >
 									<div className="list-name">
 									<span className='ui-incomeMoney'>
@@ -231,37 +232,37 @@ export default class AttributeSetting extends Component {
 									</div>
 									<div className="list-name">
 									<span className='ui-selfMoney'></span>
-									
+
 									<span className="font-width">余额:</span>
 									<span className="font-width font-num">{list.summount}</span>
 									</div>
 
-									
-								</ListGroup>	
-							</Col> 
-							<Col md={5} align="right" style={{marginTop:7}}> 
+
+								</ListGroup>
+							</Col>
+							<Col md={5} align="right" style={{marginTop:7}}>
 								<ListGroup>
 									<ListGroupItem> <SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
 									<ListGroupItem> <Button searchClick={this.openNewCreateDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'5'}}/></ListGroupItem>
-								</ListGroup>	
-							</Col> 
+								</ListGroup>
+							</Col>
 						</Row>
-					</Grid></div>	
+					</Grid></div>
 
 
 
 				<Table  style={{marginTop:10}}
-						displayCheckbox={true} 
-						onLoaded={this.onLoaded} 
-						ajax={true} 
-						ajaxFieldListName="finaContractMainbillVOList" 
-						ajaxUrlName='getFinaDataByList' 
-						ajaxParams={this.state.searchParams} 
+						displayCheckbox={true}
+						onLoaded={this.onLoaded}
+						ajax={true}
+						ajaxFieldListName="finaContractMainbillVOList"
+						ajaxUrlName='getFinaDataByList'
+						ajaxParams={this.state.searchParams}
 						onOperation={this.onOperation}
 						exportSwitch={true}
 						onExport={this.onExport}
 						  >
-						
+
 					<TableHeader>
 					<TableHeaderColumn>公司名称</TableHeaderColumn>
 					<TableHeaderColumn>订单类型</TableHeaderColumn>
@@ -303,7 +304,7 @@ export default class AttributeSetting extends Component {
 						title="高级查询"
 						modal={true}
 						open={this.state.openNewCreate}
-						onClose={this.openNewCreateDialog} 
+						onClose={this.openNewCreateDialog}
 						bodyStyle={{paddingTop:34}}
 						contentStyle={{width:687}}
 					>
