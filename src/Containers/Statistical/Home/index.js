@@ -21,7 +21,8 @@ import {
 	Col,
 	Dialog,
 	Tabs,
-	Tab
+	Tab,
+	Title
 } from 'kr-ui';
 
 import PanelComponents from './PanelComponents';
@@ -106,6 +107,7 @@ export default class Home  extends Component{
 		if(groupList.length == 1){
 				return this.renderGroupSingle();
 		}
+		
 		return(
 			<div>
 					{this.renderGroupTabs()}

@@ -11,7 +11,8 @@ import {
 	SplitLine,
 	KrField,
 	LabelText,
-	PaperBack
+	PaperBack,
+	Title
 } from 'kr-ui';
 
 import Date from 'kr-ui/Date';
@@ -116,6 +117,7 @@ export default class ExitDetail extends Component {
 
 			return (
 				<div className="content" style={content}>
+					 <Title value="退租协议书详情页_财务管理"/>
 				  	<PaperBack label="退租协议书详情页"/>
 				  	<div className="content-info" style={info} >
 

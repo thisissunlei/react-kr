@@ -21,6 +21,7 @@ import {
 	ListGroupItem
 
 } from 'kr-ui';
+import './index.less';
 
 export default class Initialize  extends Component{
 
@@ -36,8 +37,8 @@ export default class Initialize  extends Component{
 
 		return(
 
-			<div>
-				<Grid>
+			<div className='ui-open-info'>
+				   <Grid>
 						<Row>
 							<Col align="left"> 
 							 <span className='ui-pic-open'></span><span>招商数据统计</span>	

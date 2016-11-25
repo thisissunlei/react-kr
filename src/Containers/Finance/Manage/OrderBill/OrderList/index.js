@@ -30,7 +30,8 @@ import {
 	Col,
 	Dialog,
 	ListGroup,
-	ListGroupItem
+	ListGroupItem,
+	Title,
 } from 'kr-ui';
 import './index.less'
 
@@ -212,6 +213,7 @@ export default class AttributeSetting extends Component {
 		return (
 
 			<div>
+					<Title value="订单账单列表_财务管理"/>
 					<Section title="订单账单列表" description="" style={{marginBottom:-5,minHeight:910}}>
 
 					<div  className='ui-orderList'><Grid style={{marginTop:-5}}>

@@ -41,7 +41,8 @@ import {
   Loading,
   Notify,
   KrDate,
-  ButtonGroup
+  ButtonGroup,
+  Title,
 } from 'kr-ui';
 import './index.less';
 
@@ -713,7 +714,7 @@ export default class SettingList extends Component {
     return (
 
       <div>
-
+        		<Title value="基础配置_社区经营"/>
       <BreadCrumbs children={['系统运营','合同信息','基础配置']}/>
       <div className="wrap">
       <Section title="基础配置" description="">
