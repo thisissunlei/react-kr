@@ -19,7 +19,8 @@ import {
 	FontIcon,
 	SearchForms,
 	Title,
-	Input
+	Input,
+	CheckboxGroup,
 } from 'kr-ui';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
@@ -54,11 +55,15 @@ export default class Demo extends Component{
 
 
 	render(){
-		const list = [{a:1},{b:2},{c:3},{d:5}]
+		const list = [{a:1},{b:2},{c:3},{d:5}];
+
+
 		return(
 			<div>
 
 				<Title value="haah "/>
+
+
 
 
 					<Section title="demo" description="" >
@@ -66,9 +71,16 @@ export default class Demo extends Component{
 							<FontIcon className="icon-home"/>
 
 						<Input />
-					sfdssdfsd
-
-							dffsfdf
+						<CheckboxGroup name="demo" options={[{
+							label:'是',
+							value:'yes'
+						},
+						{
+							label:'否',
+							value:'no'
+						}
+					]}
+					/>
 					</Section>
 			</div>
 

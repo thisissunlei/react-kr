@@ -1,12 +1,16 @@
 import React,{Component} from 'react';
 
+import './index.less';
 
-class KrCheckbox extends Component{
+
+export default class KrCheckbox extends Component{
 
 	static displayName = 'KrCheckbox';
 
 	static defaultProps = {
-		checked:false
+		checked:false,
+		label:'',
+		readOnly:false,
 	}
 
 	static propTypes = {
@@ -17,7 +21,15 @@ class KrCheckbox extends Component{
 		/**
 		 * 点选时回调该方法
 		 */
-		onCheck:React.PropTypes.func
+		onCheck:React.PropTypes.func,
+		/**
+		* label
+		*/
+		label:React.PropTypes.string,
+		/**
+		*是否只读
+		*/
+		readOnly:React.PropTypes.bool
 	};
 
 	constructor(props){
@@ -41,6 +53,12 @@ class KrCheckbox extends Component{
 
 	onCheck(){
 
+		let {readOnly} = this.props;
+
+		if(readOnly){
+				return ;
+		}
+
 		this.setState({
 			checked:!this.state.checked
 		});
@@ -54,12 +72,15 @@ class KrCheckbox extends Component{
 	render(){
 
 		let {checked} = this.state;
+		let {label} = this.props;
 
 		return (
-			<input type="checkbox" onClick={this.onCheck} checked={checked}/>
+			<span className="ui-checkbox">
+					<input type="checkbox" onChange={this.onCheck} checked={checked}/>
+					{label && <span className="label">{label}</span>}
+			</span>
+
 		);
 
 	}
 }
-
-export default KrCheckbox;

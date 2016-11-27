@@ -33,6 +33,8 @@ import KrDate from './KrDate';
 import PaperBack from './PaperBack';
 import Title from './Title';
 import Input from './Input';
+import Alert from './Alert';
+import CheckboxGroup from './CheckboxGroup';
 
 import {
 	Grid,
@@ -94,6 +96,8 @@ module.exports = {
 	KrDate,
 	Title,
 	Input,
+	Alert,
+	CheckboxGroup,
 
 	//materal-ui
 	Menu,
