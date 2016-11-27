@@ -76,12 +76,13 @@ export default class D3Content extends Component {
 
 	// 计算第几天
 	countDays(date) {
-			var initial = (new Date('2016-1-1')).getTime();
-				var offset = date - initial;
-				return (offset / 24 / 3600 / 1e3) + 1;
-
-			
-			// return Math.ceil(offset / 24 / 3600) + 1;
+		var {currentYear} = this.props;
+		let year = `${currentYear}-1-1`;
+		// var initial = (new Date('2016-1-1')).getTime();
+		var initial = (new Date(year)).getTime();
+		var offset = date - initial;
+		return (offset / 24 / 3600 / 1e3) + 1;	
+		// return Math.ceil(offset / 24 / 3600) + 1;
 		}
 		// 处理时间段
 	dealTime() {
@@ -254,8 +255,10 @@ export default class D3Content extends Component {
 			finaBluePointVo,
 			finaRedPointVo,
 			id,
-			detail
+			detail,
+			currentYear
 		} = this.props;
+		console.log('currentYear',currentYear);
 		if (detail.length) {
 			// 获取当前时间
 			var timestamp = new Date().getTime();
@@ -283,7 +286,6 @@ export default class D3Content extends Component {
 
 
 
-
 		return (
 
 			<div className="d3-container">
@@ -303,7 +305,7 @@ export default class D3Content extends Component {
 									<ReactTooltip id={`${id}${index}`} place="top" type="dark" effect="solid">
 									{item.width && item.planTableModelList && item.planTableModelList.map((value, i)=>{
 										return (
-											<div key={i}>
+											<div key={i} className="react-tooltip-content">
 												<p>{dateFormat(value.installmentReminddate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
 												<p>{value.stationnum}个位置({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
 												<p>负责人：{value.name}</p>
