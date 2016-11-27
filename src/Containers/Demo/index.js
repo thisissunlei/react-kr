@@ -23,6 +23,7 @@ import {
 	CheckboxGroup,
 	RadioGroup,
 	Message,
+	DemoComponent
 } from 'kr-ui';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
@@ -102,6 +103,9 @@ export default class Demo extends Component{
 						}
 					]}
 					/>
+
+
+					<DemoComponent/>
 					</Section>
 			</div>
 
