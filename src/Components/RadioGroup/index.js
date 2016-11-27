@@ -1,25 +1,26 @@
 import React,{Component} from 'react';
 
-import Checkbox from '../Checkbox';
+import Radio from '../Radio';
 
-export default class CheckboxGroup extends Component{
+export default class RadioGroup extends Component{
 
-	static displayName = 'CheckboxGroup';
+	static displayName = 'RadioGroup';
 
 	static defaultProps = {
-		name:'kr-checkboxGroup',
+    name:'kr',
 		optipns:[]
 	}
 
 	static propTypes = {
+
 		/**
 		 * name
 		 */
 		name:React.PropTypes.string,
-		/**
-		 * Checkbox 选中时值为true
-		 */
-		options:React.PropTypes.array,
+    /**
+     * Checkbox 选中时值为true
+     */
+    options:React.PropTypes.array,
 	};
 
 	constructor(props){
@@ -38,7 +39,7 @@ export default class CheckboxGroup extends Component{
 
 		return (
 		    <div>
-            {options && options.map((item,index)=><Checkbox label={item.label} name={name} key={index} {...item}/>)}
+            {options && options.map((item,index)=><Radio label={item.label} key={index} name={name} {...item}/>)}
         </div>
 		);
 

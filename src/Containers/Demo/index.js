@@ -21,6 +21,7 @@ import {
 	Title,
 	Input,
 	CheckboxGroup,
+	RadioGroup
 } from 'kr-ui';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
@@ -69,7 +70,17 @@ export default class Demo extends Component{
 					<Section title="demo" description="" >
 							<Checkbox  label="ahah" checked={true} />
 							<FontIcon className="icon-home"/>
-
+							
+							<RadioGroup name="demo" options={[{
+								label:'是',
+								value:'yes'
+							},
+							{
+								label:'否',
+								value:'no'
+							}
+						]}
+						/>
 						<Input />
 						<CheckboxGroup name="demo" options={[{
 							label:'是',

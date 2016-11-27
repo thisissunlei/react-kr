@@ -35,6 +35,7 @@ import Title from './Title';
 import Input from './Input';
 import Alert from './Alert';
 import CheckboxGroup from './CheckboxGroup';
+import RadioGroup from './RadioGroup';
 
 import {
 	Grid,
@@ -98,6 +99,7 @@ module.exports = {
 	Input,
 	Alert,
 	CheckboxGroup,
+	RadioGroup,
 
 	//materal-ui
 	Menu,

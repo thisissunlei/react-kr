@@ -8,15 +8,15 @@ export default  class Radio extends React.Component {
 
 	static defaultPorps = {
 		value:'',
-		type:'radio'
+		label:''
 	}
 
 	static propTypes = {
 				name: React.PropTypes.string,
 				style: React.PropTypes.object,
 				className: React.PropTypes.string,
-				type: React.PropTypes.string,
 				children:React.PropTypes.node,
+				label:React.PropTypes.string
 	}
 
 	constructor(props){
@@ -51,7 +51,7 @@ export default  class Radio extends React.Component {
 	}
 	render() {
 
-		let {children,className,style,type,name,...other} = this.props;
+		let {children,className,style,name,label,...other} = this.props;
 
 		let {value} = this.state;
 
@@ -59,7 +59,11 @@ export default  class Radio extends React.Component {
 		classNames+=' '+className;
 
 		return (
-			 <input type="radio" style={style} name={name} className={classNames} value={value} onChange={this.onChange} {...other}/>
+			<span className="ui-radio">
+					 <input type="radio" style={style} name={name} className={classNames} value={value} onChange={this.onChange} {...other}/>
+					 {label && <span className="label">{label}</span> }
+			</span>
+
 		);
 	}
 }
