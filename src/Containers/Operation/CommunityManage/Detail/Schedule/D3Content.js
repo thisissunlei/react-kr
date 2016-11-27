@@ -77,9 +77,10 @@ export default class D3Content extends Component {
 	// 计算第几天
 	countDays(date) {
 			var initial = (new Date('2016-1-1')).getTime();
+				var offset = date - initial;
+				return (offset / 24 / 3600 / 1e3) + 1;
 
-			var offset = date - initial;
-			return (offset / 24 / 3600 / 1e3) + 1;
+			
 			// return Math.ceil(offset / 24 / 3600) + 1;
 		}
 		// 处理时间段
@@ -89,7 +90,15 @@ export default class D3Content extends Component {
 			} = this.props;
 			let width;
 			var _this = this;
-			var timeList = detail.map(function(item) {
+			let newArr = [];
+			for(let j in detail){
+			  for(let prop in detail[j]){
+			      if(prop!=''||detail[j][prop]!=''){
+			          newArr.push(detail[j]);
+			      }
+			  }
+			};
+			var timeList = newArr.map(function(item) {
 				item.start = _this.countDays(item.begindate);
 				item.end = _this.countDays(item.enddate);
 				item.Begindate = dateFormat(item.begindate, "yyyy.mm.dd");
@@ -260,7 +269,7 @@ export default class D3Content extends Component {
 			var blueNodeList = this.renderBlueNode();
 			var sameNode = this.getSameTime();
 			// list = this.getRedInfo(list);
-			// console.log(list);
+			// console.log('list',list);
 			// return false;
 		} else {
 			var list = [{
