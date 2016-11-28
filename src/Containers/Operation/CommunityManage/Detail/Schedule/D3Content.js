@@ -92,17 +92,33 @@ export default class D3Content extends Component {
 			let width;
 			var _this = this;
 			let newArr = [];
-
+			
 			for(let j in detail){
 			  for(let prop in detail[j]){
 			      if(prop!=''||detail[j][prop]!=''){
-			          newArr.push(detail[j]);
+			          	newArr.push(detail[j]);	
 			      }
 			  }
 			};
 			var unique = {};
 		    newArr.forEach(function(a){ unique[ JSON.stringify(a) ] = 1 });
 		    newArr= Object.keys(unique).map(function(u){return JSON.parse(u) });
+
+		    let length = newArr.length;
+			if(length===1){
+				newArr[0].planTableModelList = [];
+			}else{
+				for(let i = 0;i<=length-1;i++){
+					if(i!=length-1){
+						let j = i;
+			      		newArr[i].planTableModelList = newArr[++j].planTableModelList;
+					}else{
+			      		newArr[i].planTableModelList = [];
+					}
+				}
+			}
+
+
 			var timeList = newArr.map(function(item) {
 				item.start = _this.countDays(item.begindate);
 				item.end = _this.countDays(item.enddate);
@@ -136,7 +152,7 @@ export default class D3Content extends Component {
 	appendDiv(list, time) {
 			var nowNode;
 			list && list.map((item, index) => {
-				if (index === 0 && item.start > time) {
+				if (index === 0 && item.installmentBegindate > time) {
 					nowNode = 0;
 				}
 				if (index === list.length - 1 && item.end < time) {
@@ -305,8 +321,8 @@ export default class D3Content extends Component {
 								)
 						}else if(index<nodeList && index !== 0){
 							return(
-								<div className='grey' data-tip data-for={`${id}${index}`} data-event='mouseover' data-event-off='mouseleave' style={{'width':`${item.width*100}%`,marginLeft:`${item.left}%`}} key={index}>
-									<ReactTooltip id={`${id}${index}`} place="top" type="dark" effect="solid">
+								<div className='grey' data-tip data-for={`${id}${index}`} data-event='mouseover' data-event-off='mouseleave' style={{'width':`${item.width*100}%`,marginLeft:`${item.left}%`}} key={index} >
+									{item.planTableModelList.length?<ReactTooltip id={`${id}${index}`} place="top" type="dark" effect="solid" >
 									{item.width && item.planTableModelList && item.planTableModelList.map((value, i)=>{
 										return (
 											<div key={i} className="react-tooltip-content">
@@ -320,13 +336,13 @@ export default class D3Content extends Component {
 									})
 
 									}
-									</ReactTooltip>
+									</ReactTooltip>:''}
 								</div>
 							)
 						}else{
 							return (
 								<div className='blue' data-tip data-for={`${id}${index}`} style={{'width':`${item.width*100}%`,marginLeft:`${item.left}%`}} key={index}>
-									<ReactTooltip id={`${id}${index}`} place="top" type="dark" effect="solid">
+									{item.planTableModelList.length?<ReactTooltip id={`${id}${index}`} place="top" type="dark" effect="solid">
 									{item.planTableModelList && item.planTableModelList.map((value, i)=>{
 										return (
 											<div key={i} className="react-tooltip-content">
@@ -340,7 +356,7 @@ export default class D3Content extends Component {
 									})
 
 									}
-									</ReactTooltip>
+									</ReactTooltip>:''}
 								</div>
 							)
 						}
