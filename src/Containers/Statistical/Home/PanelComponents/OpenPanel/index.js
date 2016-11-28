@@ -51,7 +51,9 @@ export default class Initialize  extends Component{
 				   <Grid style={{height:'76'}}>
 						<Row>
 							<Col align="left" md={4} style={{marginTop:'25'}}> 
-							 <span  className='ui-pic-open'>招商数据统计</span>	
+							 <span  className='ui-pic-open'>招商数据统计-</span>
+							 <span  className='static-openCompany'>已开业</span>	
+							 <span  className='static-upload'>实时更新</span>	
 							</Col> 
 							<Col align="right" md={8}> 
 							  <SearchDateForm />
