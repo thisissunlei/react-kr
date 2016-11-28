@@ -64,7 +64,7 @@ export default class ItemTable extends Component {
       detail: this.props.detail,
       //activity: false,
       Dismantling: false,
-      currentYear:'2016'
+      currentYear: '2016'
 
     }
 
