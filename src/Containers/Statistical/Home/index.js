@@ -68,7 +68,8 @@ export default class Home  extends Component{
 							},
 						]
 					},
-				]
+				],
+				active:'tab'
 		}
 	}
 
@@ -76,13 +77,39 @@ export default class Home  extends Component{
 
 	}
 
+	activeTable=()=>{
+       let {
+			active
+		} = this.state;
+
+		active = 'tab';
+		this.setState({
+			active
+		});
+	}
+    
+
 	renderGroupTabs = ()=>{
 
-		let {groupList} = this.state;
+		let {groupList,active} = this.state;
+
+		const activeTab={
+			color:'#499df1',
+			borderBottom: "1px solid #eee",
+			fontSize:16
+		}
+		const commenTab={
+			color:'#666',
+			borderBottom: "1px solid #eee",
+			fontSize:16
+		}
+        
+       let activeStyle = (active == 'tab') ? activeTab : commenTab;
+
 
 		return (
-				<Tabs>
-					{groupList.map((item,index)=><Tab label={item.groupName} key={index}> <PanelComponents panels={item.templateList} /> </Tab>)}
+		   <Tabs tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={{background: '-webkit-linear-gradient(right, #03ec56, #499df1)',position:'absolute',top:0,height:3}} style={{background:'#fff',position:'relative'}}>
+					{groupList.map((item,index)=><Tab label={item.groupName} key={index} onActive={this.activeTable} style={activeStyle}><PanelComponents panels={item.templateList}/> </Tab>)}
 	 	   </Tabs>
 		);
 	}
@@ -95,19 +122,37 @@ export default class Home  extends Component{
 
 		return(
 			<Section title={groupItem.groupName} >
-					<PanelComponents panels={groupItem.templateList} />
+					<PanelComponents panels={groupItem.templateList}/>
 			</Section>
 		);
+	}
+
+	componentDidMount() {
+
+		/*var _this = this;
+		Store.dispatch(Actions.callAPI('get-my-groups')).then(function(response) {
+		   _this.setState({
+		   	 groupList:response.groupList
+		   })
+		}).catch(function(err) {
+			Notify.show([{
+				message:err.message,
+				type: 'danger',
+			}]);
+		});*/
+
+
 	}
 
 	render(){
 
 		let {groupList} = this.state;
 
+		
 		if(groupList.length == 1){
 				return this.renderGroupSingle();
 		}
-		
+	
 		return(
 			<div>
 					{this.renderGroupTabs()}
