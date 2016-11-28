@@ -345,7 +345,7 @@ export default class EmployessTable extends Component {
 	}
 
 	onIframeClose(response) {
-		if (response.operation == 'ok') {
+		if (response.operator == 'ok') {
 			Notify.show([{
 				message: '新增成功！',
 				type: 'success',
