@@ -439,7 +439,7 @@ export default class EmployessTable extends Component {
 		let {
 			optionValues
 		} = this.state;
-		console.log('detail', detail)
+
 		const ParamValues = {
 			communityIds: detail.communityId,
 			mainBillId: detail.billId
