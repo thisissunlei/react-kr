@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import StyleSheet from 'react-style';
+
 import ReactDOM from 'react-dom';
 
 
@@ -8,7 +8,7 @@ import { isTouchDevice, isTransform, noop, slice } from '../Utils';
 var rippleUniqueId = 0;
 import { transitionEnd } from '../Utils';
 
-const RippleContainerStyles = StyleSheet.create({
+const RippleContainerStyles = {
   normalStyle: {
     height: '100%',
     left: 0,
@@ -33,7 +33,7 @@ const RippleContainerStyles = StyleSheet.create({
   rippleFadeoutStyle: {
     opacity: '0'
   }
-});
+};
 
 export default class extends React.Component {
   constructor(props) {
@@ -148,11 +148,17 @@ export default class extends React.Component {
         width: ripple.width
       });
 
+      let endStyle = {};
+      rippleStyles.map(function(item,index){
+          endStyle = Object.assign({},endStyle,item);
+      });
+
+
       return (
         <div
           key={ ripple.id }
           ref={ 'ripple_' + ripple.id }
-          styles={ rippleStyles } />
+          style={endStyle} />
       );
     });
   }
@@ -172,6 +178,10 @@ export default class extends React.Component {
       rippleAnimationStyle
     } = RippleContainerStyles;
 
+    let endStyle = {};
+
+     endStyle = Object.assign({},normalStyle,styles);
+
     return (
       <div
         onMouseDown={ !isTouchDevice ? this.onMouseDown.bind(this) : noop }
@@ -181,7 +191,7 @@ export default class extends React.Component {
         onTouchCancel={ isTouchDevice ? this.onMouseLeave.bind(this) : noop }
         onTouchEnd={ isTouchDevice ? this.onMouseUp.bind(this) : noop }
         onTouchStart={ isTouchDevice ? this.onMouseDown.bind(this) : noop }
-        styles={ [normalStyle, styles] }>
+        style={endStyle}>
         { this.renderRipples(ripples, rippleStyle, rippleAnimationStyle) }
       </div>
     );

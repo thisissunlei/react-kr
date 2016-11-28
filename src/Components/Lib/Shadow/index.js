@@ -1,9 +1,8 @@
 import React, { PropTypes } from 'react';
-import StyleSheet from 'react-style';
 
-import { Shadow } from './style';
+import { Shadow } from '../Styles';
 
-const ShadowStyles = StyleSheet.create({
+const ShadowStyles = {
   normalShadowStyle: {
     bottom: 0,
     left: 0,
@@ -13,7 +12,7 @@ const ShadowStyles = StyleSheet.create({
     willChange: 'box-shadow',
     transition: 'box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1)'
   }
-});
+};
 
 function getShadow(size) {
   size = parseInt(size, 10);
@@ -60,10 +59,21 @@ export default class extends React.Component {
       topStyles = topStyles.concat(styles);
     }
 
+    let bottomStylesEnd = {};
+    bottomStyles.map(function(item,index){
+        bottomStylesEnd = Object.assign({},bottomStylesEnd,item);
+    });
+
+    let topStylesEnd = {};
+
+    topStyles.map(function(item,index){
+        topStylesEnd = Object.assign({},topStylesEnd,item);
+    });
+
     return (
       <div>
-        <div styles={ bottomStyles }/>
-        <div styles={ topStyles } />
+        <div style={ bottomStylesEnd }/>
+        <div style={ topStyles } />
           { this.props.children }
       </div>
     );

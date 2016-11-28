@@ -652,7 +652,7 @@ export default class BasicTable extends Component {
 					<tr className="header-td">
 						<td className='white'>
 							<div className="header-title">
-								<p className="title-right">出租率</p>
+								<p className="title-right">签约率</p>
 								
 							</div>
 						</td>
@@ -667,7 +667,7 @@ export default class BasicTable extends Component {
 							let width = this.getWidth();
 							return (
 
-							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item}  key={index} onStation={this.onStation} activity={this.state.activity} width={width} />
+							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item}  key={index} onStation={this.onStation} activity={this.state.activity} currentYear={currentYear} />
 							
 								
 							)

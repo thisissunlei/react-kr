@@ -19,7 +19,11 @@ import {
 	FontIcon,
 	SearchForms,
 	Title,
-	Input
+	Input,
+	CheckboxGroup,
+	RadioGroup,
+	Message,
+	DemoComponent
 } from 'kr-ui';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
@@ -52,23 +56,56 @@ export default class Demo extends Component{
 	}
 
 
+	show = ()=>{
+
+		console.log('click');
+
+
+		Message.show('hahah');
+	}
+
+
 
 	render(){
-		const list = [{a:1},{b:2},{c:3},{d:5}]
+		const list = [{a:1},{b:2},{c:3},{d:5}];
+
+
 		return(
 			<div>
 
 				<Title value="haah "/>
 
 
+
+
 					<Section title="demo" description="" >
-							<Checkbox  label="ahah" checked={true} />
-							<FontIcon className="icon-home"/>
 
+							<Button label="show"  onTouchTap={this.show}/>
+
+							<RadioGroup name="demo" options={[{
+								label:'是',
+								value:'yes'
+							},
+							{
+								label:'否',
+								value:'no'
+							}
+						]}
+						/>
 						<Input />
-					sfdssdfsd
+						<CheckboxGroup name="demo" options={[{
+							label:'是',
+							value:'yes'
+						},
+						{
+							label:'否',
+							value:'no'
+						}
+					]}
+					/>
 
-							dffsfdf
+
+					<DemoComponent/>
 					</Section>
 			</div>
 
