@@ -136,14 +136,12 @@ export default class ItemTable extends Component {
         return (
           <li key={index} className="company-order-zero" key={index}>
 							<p className="name">{item.contractName}</p>
-							<p></p>
 						</li>
         )
       } else if (item.contractCount === 1) {
         return (
           <li key={index} className="company-order" key={index}>
 							<p className="name">{item.contractName}</p>
-							<p></p>
 						</li>
         )
       } else {
@@ -151,7 +149,6 @@ export default class ItemTable extends Component {
           <li key={index} className="company-order">
 							
 							<p className="name">{item.contractName}({item.contractCount})</p>
-							<p></p>
 						</li>
         )
       }
