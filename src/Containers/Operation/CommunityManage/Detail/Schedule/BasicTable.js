@@ -437,7 +437,7 @@ export default class BasicTable extends Component {
 		if (formValues.type == "BILL") {
 			activity = false;
 		}
-		console.log('formValues',formValues);
+		console.log('formValues', formValues);
 
 		this.setState({
 			istip: istip
@@ -445,7 +445,7 @@ export default class BasicTable extends Component {
 
 		this.setState({
 			value: formValues.value,
-			type:formValues.type,
+			type: formValues.type,
 			dataLoading: true,
 		})
 
@@ -542,7 +542,7 @@ export default class BasicTable extends Component {
 			communityids,
 			dataLoading
 		} = this.state;
-		console.log('value',value);
+		console.log('value', value);
 
 
 
@@ -725,7 +725,7 @@ export default class BasicTable extends Component {
 			showNone = false;
 		}
 
-
+		console.log('1234567')
 
 		return (
 			<div style={{position:'relative'}}>
