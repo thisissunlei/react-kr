@@ -64,6 +64,7 @@ export default class ItemTable extends Component {
       detail: this.props.detail,
       //activity: false,
       Dismantling: false,
+      currentYear:'2016'
 
     }
 
@@ -126,8 +127,7 @@ export default class ItemTable extends Component {
 
   //查看员工跳转地址
   onhref() {
-
-    location.href = "/krspace_member_web/member/companyMembers?companyId=" + this.state.detail.companyId + "&communityId=" + this.state.detail.communityId + "&mid=111";
+    window.open("/krspace_member_web/member/companyMembers?companyId=" + this.state.detail.companyId + "&communityId=" + this.state.detail.communityId + "&mid=111");
   }
 
   renderOrder(contractTypeVo) {
@@ -136,14 +136,12 @@ export default class ItemTable extends Component {
         return (
           <li key={index} className="company-order-zero" key={index}>
 							<p className="name">{item.contractName}</p>
-							<p></p>
 						</li>
         )
       } else if (item.contractCount === 1) {
         return (
           <li key={index} className="company-order" key={index}>
 							<p className="name">{item.contractName}</p>
-							<p>{dateFormat(item.contractTime,"yyyy.mm.dd")}</p>
 						</li>
         )
       } else {
@@ -151,7 +149,6 @@ export default class ItemTable extends Component {
           <li key={index} className="company-order">
 							
 							<p className="name">{item.contractName}({item.contractCount})</p>
-							<p>{dateFormat(item.contractTime,"yyyy.mm.dd")}</p>
 						</li>
         )
       }
@@ -170,6 +167,7 @@ export default class ItemTable extends Component {
       communityids,
       activity,
       width,
+      currentYear
     } = this.props;
 
     var _this = this;
@@ -194,7 +192,7 @@ export default class ItemTable extends Component {
 							</div>
 						</td>
 						<td colSpan="12" style={{padding:'0'}}>
-              <D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} whiteBar={detail.whiteBar} id={detail.billId}/>
+              <D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} whiteBar={detail.whiteBar} id={detail.billId} currentYear={currentYear}/>
               <EmployessTable  activity={detail.activity} detail={detail} id={id} />
 						</td>
 						<td className="btnlist">

@@ -18,64 +18,89 @@ import {
 	Col,
 	Dialog,
 	ListGroup,
-	ListGroupItem
+	ListGroupItem,
+	Form
 
 } from 'kr-ui';
 import './index.less';
-
-class searchDateForm extends Component {
-	constructor(props, context) {
-		super(props, context);
-	}
-	render() {
-		
-
-
-
-		return (
-			<div>
-                 
-					     <form onSubmit={handleSubmit(this.onSubmit)}>
- 
-						    <KrField name="groupId" type="hidden"/>
-                            <div><ListGroup>
-								<ListGroupItem><div className='ui-date-start'><KrField  name="startDate" right={8} style={{marginLeft:-10}} component="date" /></div></ListGroupItem>
-								<div className='ui-line-down-list'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-								<ListGroupItem><div className='ui-date-end'><KrField name="endDate" right={8} component="date" /></div></ListGroupItem>
-							 </ListGroup>
-		                    </div>
-                         </form>
-			   </div>
-
-		);
-	}
-}
-
+import SearchDateForm from './SearchDateForm';
 export default class Initialize  extends Component{
 
 	constructor(props,context){
 		super(props, context);
 
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+	    this.state = {
+			searchParams: {
+				endDate:'2016-09-09',
+				startDate:'2016-09-01',
+				groupId:1
+			}
+
+		}
+
 	}
 
-
+    
 
 	render(){
 
 		return(
 
 			<div className='ui-open-info'>
-				   <Grid>
+				   <Grid style={{height:'76'}}>
 						<Row>
-							<Col align="left"> 
-							 <span className='ui-pic-open'></span><span>招商数据统计</span>	
+							<Col align="left" md={4} style={{marginTop:'25'}}> 
+							 <span  className='ui-pic-open'>招商数据统计</span>	
 							</Col> 
-							<Col align="right"> 
-							  <searchDateForm />
+							<Col align="right" md={8}> 
+							  <SearchDateForm />
 							</Col> 
 						</Row>
 					</Grid>
+
+				   <div className='ui-table-wrap'>
+					<Table style={{marginTop:0}}
+						displayCheckbox={false}
+						ajax={true}
+						ajaxUrlName='openCompanyData'
+						ajaxFieldListName="list"
+						  >
+					<TableHeader>
+					<TableHeaderColumn>城市</TableHeaderColumn>
+					<TableHeaderColumn>社区</TableHeaderColumn>
+					<TableHeaderColumn>总工位数</TableHeaderColumn>
+					<TableHeaderColumn>可出租工位数</TableHeaderColumn>
+					<TableHeaderColumn>已出租工位数</TableHeaderColumn>
+					<TableHeaderColumn>剩余工位数</TableHeaderColumn>
+					<TableHeaderColumn>出租率</TableHeaderColumn>
+					<TableHeaderColumn>上期出租率</TableHeaderColumn>
+					<TableHeaderColumn>出租率变化</TableHeaderColumn>
+					<TableHeaderColumn>环比</TableHeaderColumn>
+					<TableHeaderColumn>新增意向工位数</TableHeaderColumn>
+					<TableHeaderColumn>累计意向工位数</TableHeaderColumn>
+					<TableHeaderColumn>平均单价</TableHeaderColumn>
+				</TableHeader>
+
+				<TableBody>
+						 <TableRow>
+						<TableRowColumn name="cityName" ></TableRowColumn>
+						<TableRowColumn name="communityName"></TableRowColumn>
+						<TableRowColumn name="totalStation"></TableRowColumn>
+						<TableRowColumn name="unUsedStation" ></TableRowColumn>
+						<TableRowColumn name="usedStation"></TableRowColumn>
+						<TableRowColumn name="leftStation"></TableRowColumn>
+						<TableRowColumn name="rate"></TableRowColumn>
+						<TableRowColumn name="lastRate"></TableRowColumn>
+						<TableRowColumn name="rateChange"></TableRowColumn>
+						<TableRowColumn name="chainRate"></TableRowColumn>
+						<TableRowColumn name="newIntention"></TableRowColumn>
+						<TableRowColumn name="totalIntention"></TableRowColumn>
+						<TableRowColumn name="averagePrice"></TableRowColumn>
+					 </TableRow>
+				</TableBody>
+				</Table>
+              </div>
 
 			</div>
 		);

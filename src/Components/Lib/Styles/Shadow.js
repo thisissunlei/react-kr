@@ -1,6 +1,4 @@
-import StyleSheet from 'react-style';
-
-export default StyleSheet.create({
+export default {
   z1top: {
     boxShadow: '0 2px 10px 0 rgba(0, 0, 0, 0.16)'
   },
@@ -31,4 +29,4 @@ export default StyleSheet.create({
   z5bottom: {
     boxShadow: '0 27px 24px 0 rgba(0, 0, 0, 0.2)'
   }
-});
+};
