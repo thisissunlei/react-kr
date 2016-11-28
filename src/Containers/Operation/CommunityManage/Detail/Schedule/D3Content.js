@@ -177,8 +177,19 @@ export default class D3Content extends Component {
 			var {
 				finaRedPointVo
 			} = this.props;
-
-			list.map((item) => {
+			let newArr = [];
+			
+			for(let j in finaRedPointVo){
+			  for(let prop in finaRedPointVo[j]){
+			      if(prop!=''||finaRedPointVo[j][prop]!=''){
+			          	newArr.push(finaRedPointVo[j]);	
+			      }
+			  }
+			};
+			var unique = {};
+		    newArr.forEach(function(a){ unique[ JSON.stringify(a) ] = 1 });
+		    newArr= Object.keys(unique).map(function(u){return JSON.parse(u) });
+			newArr.map((item) => {
 				item.red = [];
 				finaRedPointVo.map((value) => {
 					if (item.installmentBegindate <= value.pointDate && item.installmentEnddate >= value.pointDate) {
@@ -188,7 +199,7 @@ export default class D3Content extends Component {
 					}
 				})
 			})
-			return list;
+			return newArr;
 
 		}
 		// 获取相同时间节点天数(天)
@@ -241,7 +252,19 @@ export default class D3Content extends Component {
 			finaRedPointVo
 		} = this.props;
 		const that = this;
-		var finaRedPointVoList = finaRedPointVo.map((item) => {
+		let newArr = [];
+			
+		for(let j in finaRedPointVo){
+		  for(let prop in finaRedPointVo[j]){
+		      if(prop!=''||finaRedPointVo[j][prop]!=''){
+		          	newArr.push(finaRedPointVo[j]);	
+		      }
+		  }
+		};
+		var unique = {};
+		newArr.forEach(function(a){ unique[ JSON.stringify(a) ] = 1 });
+		newArr= Object.keys(unique).map(function(u){return JSON.parse(u) });
+		var finaRedPointVoList = newArr.map((item) => {
 			return that.countDays(item.pointDate);
 		});
 		if (sameNode.length) {
