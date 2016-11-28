@@ -26,6 +26,7 @@ import {
 } from 'kr-ui';
 
 import PanelComponents from './PanelComponents';
+import './index.less';
 
 export default class Home  extends Component{
 
@@ -69,7 +70,7 @@ export default class Home  extends Component{
 						]
 					},
 				],
-				active:'tab'
+				action:0,
 		}
 	}
 
@@ -77,15 +78,14 @@ export default class Home  extends Component{
 
 	}
 
-	activeTable=()=>{
+	activeTable=(index)=>{
        let {
-			active
-		} = this.state;
-
-		active = 'tab';
-		this.setState({
-			active
-		});
+			action,
+		} = this.state; 
+        
+        this.setState({
+			action:index,
+		});      
 	}
     
 
@@ -104,13 +104,25 @@ export default class Home  extends Component{
 			fontSize:16
 		}
         
-       let activeStyle = (active == 'tab') ? activeTab : commenTab;
-
+        
+        
 
 		return (
+	      <div className='static-tabWrap'>
+		   <span className="line"></span>
 		   <Tabs tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={{background: '-webkit-linear-gradient(right, #03ec56, #499df1)',position:'absolute',top:0,height:3}} style={{background:'#fff',position:'relative'}}>
-					{groupList.map((item,index)=><Tab label={item.groupName} key={index} onActive={this.activeTable} style={activeStyle}><PanelComponents panels={item.templateList}/> </Tab>)}
+					{groupList.map((item,index)=>{
+						    var activeStyle={}
+							if(this.state.action==index){
+								activeStyle=activeTab;
+							}else{
+								activeStyle=commenTab;
+							}
+						    return (<Tab label={item.groupName} key={index} onActive={this.activeTable.bind(this,index)} style={activeStyle}><PanelComponents panels={item.templateList}/> </Tab>)
+						})
+				   }
 	 	   </Tabs>
+	 	  </div>
 		);
 	}
 
