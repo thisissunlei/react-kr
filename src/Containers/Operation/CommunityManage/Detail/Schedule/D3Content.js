@@ -92,6 +92,7 @@ export default class D3Content extends Component {
 			let width;
 			var _this = this;
 			let newArr = [];
+
 			for(let j in detail){
 			  for(let prop in detail[j]){
 			      if(prop!=''||detail[j][prop]!=''){
@@ -99,6 +100,9 @@ export default class D3Content extends Component {
 			      }
 			  }
 			};
+			var unique = {};
+		    newArr.forEach(function(a){ unique[ JSON.stringify(a) ] = 1 });
+		    newArr= Object.keys(unique).map(function(u){return JSON.parse(u) });
 			var timeList = newArr.map(function(item) {
 				item.start = _this.countDays(item.begindate);
 				item.end = _this.countDays(item.enddate);
@@ -325,9 +329,9 @@ export default class D3Content extends Component {
 									<ReactTooltip id={`${id}${index}`} place="top" type="dark" effect="solid">
 									{item.planTableModelList && item.planTableModelList.map((value, i)=>{
 										return (
-											<div key={i}>
-												<p>{dateFormat(value.installmentReminddate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
-												<p>{value.stationnum}个位置({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
+											<div key={i} className="react-tooltip-content">
+												<p className='important'>{dateFormat(value.installmentReminddate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
+												<p className='important'>{value.stationnum}个位置({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
 												<p>负责人：{value.name}</p>
 												<p>电话：{value.phone}</p>
 												<p>催款金额：{value.installmentAmount}</p>
