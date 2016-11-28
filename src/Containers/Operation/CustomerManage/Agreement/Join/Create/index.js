@@ -63,7 +63,11 @@ export default class JoinCreate extends Component {
 			params
 		} = this.props;
 
+console.log(formValues.stationVos);
+
 		formValues.stationVos = JSON.stringify(formValues.stationVos);
+
+
 
 		Store.dispatch(Actions.callAPI('addOrEditEnterContract', {}, formValues)).then(function(response) {
 			Notify.show([{

@@ -74,7 +74,6 @@ class Distribution extends Component {
 			communityId,
 			detail
 		} = this.props;
-
 		let initialValues = {};
 		initialValues.stationId = stationId;
 		initialValues.customerId = customerId;
@@ -149,7 +148,6 @@ class ChangeStation extends Component {
 		} = this.props;
 		let initialValues = {};
 		initialValues.stationId = stationId;
-
 		initialValues.customerId = customerId;
 		initialValues.communityId = communityId;
 
@@ -347,10 +345,13 @@ export default class EmployessTable extends Component {
 	}
 
 	onIframeClose(response) {
-		Notify.show([{
-			message: '新增成功！',
-			type: 'success',
-		}]);
+		if (response.operation == 'ok') {
+			Notify.show([{
+				message: '新增成功！',
+				type: 'success',
+			}]);
+		}
+
 		this.setState({
 			openNewmeber: !this.state.openNewmeber
 		});
@@ -443,7 +444,7 @@ export default class EmployessTable extends Component {
 		} = this.state;
 
 		const ParamValues = {
-			communityIds: id,
+			communityIds: detail.communityId,
 			mainBillId: detail.billId
 		}
 		var _this = this;

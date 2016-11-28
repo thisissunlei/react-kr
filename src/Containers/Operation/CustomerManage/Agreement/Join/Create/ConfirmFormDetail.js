@@ -40,7 +40,7 @@ export default class ConfirmFormDetail  extends Component{
 	}
 
 	onSubmit(form){
-
+		 form = Object.assign({},form);
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}
