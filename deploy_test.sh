@@ -5,11 +5,11 @@
 
 target_site=www@10.1.60.201
 
-if [ $2 = 'test01' ]; then
+if [ $1 = 'test01' ]; then
   target_site=www@114.215.78.9
-elif [ $2 = 'test02' ]; then
+elif [ $1 = 'test02' ]; then
     target_site=www@114.215.78.48
-elif [ $2 = 'test' ]; then
+elif [ $1 = 'test' ]; then
     target_site=www@10.1.60.201
 fi
 
