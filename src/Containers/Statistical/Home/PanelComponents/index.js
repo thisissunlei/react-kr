@@ -35,6 +35,7 @@ export default class PanelComponents  extends Component{
 
 	static propTypes = {
 		 panels:React.PropTypes.array,
+		 groupId:React.PropTypes.string
 	}
 
 	constructor(props,context){
@@ -44,6 +45,8 @@ export default class PanelComponents  extends Component{
 	}
 
 	render(){
+
+	  
 		return(
 			<div>
 			    <Title value="数据统计"/>
