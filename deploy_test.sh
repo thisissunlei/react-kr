@@ -19,4 +19,8 @@ fi
 
 echo $target_site
 
+SSH="ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o CheckHostIP=no -o GSSAPIAuthentication=no -p ${target_site_port} ${target_site}"
+
+rm -rf /data/work/frontend/kr-admin/*
+
 rsync -cza --delete-before  -e "ssh -p ${target_site_port}"  ./webpack/dist/* ${target_site}:/data/work/frontend/kr-admin >/dev/null
