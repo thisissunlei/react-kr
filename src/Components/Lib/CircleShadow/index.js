@@ -1,9 +1,7 @@
 import React from 'react';
-import StyleSheet from 'react-style';
+import { Colors } from '../Styles';
 
-import { Colors } from './style';
-
-const CircleShadowStyles = StyleSheet.create({
+const CircleShadowStyles ={
   normalStyle: {
     WebkitTapHighlightColor: 'rgba(0,0,0,0)',
     backgroundColor: Colors.grey.P700,
@@ -24,7 +22,7 @@ const CircleShadowStyles = StyleSheet.create({
     transform: 'scale(3) translateZ(0)',
     transition: 'opacity ease 0s, transform ease 0s'
   }
-});
+};
 
 export default class extends React.Component {
   constructor(props) {
@@ -39,11 +37,11 @@ export default class extends React.Component {
     styles: React.PropTypes.object
   }
 
-  onMouseUp() {
+  onMouseUp = ()=>{
     this.setState({ pressed: false });
   }
 
-  onMouseDown() {
+  onMouseDown = ()=> {
     this.setState({ pressed: true });
   }
 
@@ -60,11 +58,17 @@ export default class extends React.Component {
       styles = styles.concat(this.props.styles);
     }
 
+    let endStyle = {};
+
+    styles.map(function(item,index){
+        endStyle = Object.assign({},endStyle,item);
+    });
+
     return (
       <div
-        onMouseDown={ ::this.onMouseDown }
-        onMouseUp={ ::this.onMouseUp }
-        styles={styles} />
+        onMouseDown={ this.onMouseDown }
+        onMouseUp={ this.onMouseUp }
+        style={endStyle} />
     );
   }
 }

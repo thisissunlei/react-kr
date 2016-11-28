@@ -76,11 +76,13 @@ export default class D3Content extends Component {
 
 	// 计算第几天
 	countDays(date) {
-			var initial = (new Date('2016-1-1')).getTime();
-
-			var offset = date - initial;
-			return (offset / 24 / 3600 / 1e3) + 1;
-			// return Math.ceil(offset / 24 / 3600) + 1;
+		var {currentYear} = this.props;
+		let year = `${currentYear}-1-1`;
+		// var initial = (new Date('2016-1-1')).getTime();
+		var initial = (new Date(year)).getTime();
+		var offset = date - initial;
+		return (offset / 24 / 3600 / 1e3) + 1;	
+		// return Math.ceil(offset / 24 / 3600) + 1;
 		}
 		// 处理时间段
 	dealTime() {
@@ -89,7 +91,19 @@ export default class D3Content extends Component {
 			} = this.props;
 			let width;
 			var _this = this;
-			var timeList = detail.map(function(item) {
+			let newArr = [];
+
+			for(let j in detail){
+			  for(let prop in detail[j]){
+			      if(prop!=''||detail[j][prop]!=''){
+			          newArr.push(detail[j]);
+			      }
+			  }
+			};
+			var unique = {};
+		    newArr.forEach(function(a){ unique[ JSON.stringify(a) ] = 1 });
+		    newArr= Object.keys(unique).map(function(u){return JSON.parse(u) });
+			var timeList = newArr.map(function(item) {
 				item.start = _this.countDays(item.begindate);
 				item.end = _this.countDays(item.enddate);
 				item.Begindate = dateFormat(item.begindate, "yyyy.mm.dd");
@@ -245,8 +259,10 @@ export default class D3Content extends Component {
 			finaBluePointVo,
 			finaRedPointVo,
 			id,
-			detail
+			detail,
+			currentYear
 		} = this.props;
+		console.log('currentYear',currentYear);
 		if (detail.length) {
 			// 获取当前时间
 			var timestamp = new Date().getTime();
@@ -260,7 +276,7 @@ export default class D3Content extends Component {
 			var blueNodeList = this.renderBlueNode();
 			var sameNode = this.getSameTime();
 			// list = this.getRedInfo(list);
-			// console.log(list);
+			// console.log('list',list);
 			// return false;
 		} else {
 			var list = [{
@@ -269,7 +285,6 @@ export default class D3Content extends Component {
 			}];
 		}
 		let whiteBar = this.renderwhiteBar();
-
 
 
 
@@ -294,7 +309,7 @@ export default class D3Content extends Component {
 									<ReactTooltip id={`${id}${index}`} place="top" type="dark" effect="solid">
 									{item.width && item.planTableModelList && item.planTableModelList.map((value, i)=>{
 										return (
-											<div key={i}>
+											<div key={i} className="react-tooltip-content">
 												<p>{dateFormat(value.installmentReminddate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
 												<p>{value.stationnum}个位置({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
 												<p>负责人：{value.name}</p>
@@ -314,9 +329,9 @@ export default class D3Content extends Component {
 									<ReactTooltip id={`${id}${index}`} place="top" type="dark" effect="solid">
 									{item.planTableModelList && item.planTableModelList.map((value, i)=>{
 										return (
-											<div key={i}>
-												<p>{dateFormat(value.installmentReminddate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
-												<p>{value.stationnum}个位置({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
+											<div key={i} className="react-tooltip-content">
+												<p className='important'>{dateFormat(value.installmentReminddate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
+												<p className='important'>{value.stationnum}个位置({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
 												<p>负责人：{value.name}</p>
 												<p>电话：{value.phone}</p>
 												<p>催款金额：{value.installmentAmount}</p>

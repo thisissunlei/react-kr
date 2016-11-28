@@ -1,9 +1,11 @@
 import React, { PropTypes } from 'react';
-import StyleSheet from 'react-style';
+
 
 import RippleContainer from '../Lib/RippleContainer';
+import CircleShadow from '../Lib/CircleShadow';
 
-const ListItemStyles = StyleSheet.create({
+/*
+const ListItemStyles = {
   normalListItemStyle: {
     WebkitTapHighlightColor: 'rgba(0,0,0,0)',
     boxSizing: 'border-box',
@@ -25,57 +27,71 @@ const ListItemStyles = StyleSheet.create({
     position: 'relative',
     pointerEvents: 'none'
   }
-});
+};
+
+*/
+
 
 export default class extends React.Component{
+
+  static displayName = 'ListItem';
+
   constructor(props) {
     super(props);
   }
-  static displayName = 'ListItem'
-  static propTypes = {
-    children: PropTypes.node,
-    disableRipple: PropTypes.bool,
-    icon: PropTypes.string,
-    onClick: PropTypes.func,
-    styles: PropTypes.array
-  }
 
-  renderRipple(disableRipple, onClick) {
-    if (disableRipple) {
+
+
+
+  renderRipples = (disabled, onClick, styles = [])=>{
+    if (disabled) {
       return null;
     }
-    return <RippleContainer onClick={ onClick } />;
-  }
 
-  render() {
-    const {
-      children,
-      disableRipple,
-      icon,
-      onClick,
-      styles
-    } = this.props;
-
-    const {
-      normalListItemStyle,
-      singleLineWithIconTitleStyle
-    } = ListItemStyles;
-
-    let listItemStyles = [normalListItemStyle];
-
-    if (icon) {
-      listItemStyles.push(singleLineWithIconTitleStyle);
-    }
-
-    if (styles) {
-      listItemStyles = listItemStyles.concat(styles);
-    }
+        let endStyle = {};
+        styles.map(function(item,index){
+            endStyle = Object.assign({},endStyle,item);
+        });
 
     return (
-      <div styles={listItemStyles}>
-        { this.renderRipple(disableRipple, onClick) }
-        { children }
+      <RippleContainer
+        onClick={ onClick }
+        style={endStyle} />
+    );
+  }
+
+
+  render() {
+
+
+
+    return (
+      <div style={ {
+        cursor: 'pointer',
+        display: 'inline-block',
+        height: 24,
+        padding: 8,
+        position: 'relative',
+        width: 24,
+        WebkitTapHighlightColor: 'rgba(0,0,0,0)',
+        outline: 'none'
+      }}>
+
+        <CircleShadow
+          active={ true }
+          styles={{
+            backgroundColor:'#ddd',
+            height: 24,
+            left: 0,
+            padding: 0,
+            top: 8,
+            transform: 'scale(2) translateZ(0)',
+            width: 24
+          }}
+        />
+          x
       </div>
+
     );
   }
 }

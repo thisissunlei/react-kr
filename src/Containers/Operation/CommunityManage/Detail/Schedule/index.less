@@ -302,7 +302,8 @@ a,button,button:hover{
 				}
 			}
 			.company-order{
-				height: 50px;
+				// height: 50px;
+				height: 25px;
 				// margin-top: -4px;
 				&:before{
 					content:'';
@@ -612,6 +613,9 @@ a,button,button:hover{
 		margin-left:-7px;
 	}
 }
+.react-tooltip-content + .react-tooltip-content{
+	// margin-top:1px solid red;
+}
 
 
 .searchList{
@@ -621,7 +625,7 @@ a,button,button:hover{
 	}
 	.search-form{
 		float:right;
-		margin-top:5px;
+		border-top:5px;
 	}
 }
 .ui-nothing{
@@ -649,3 +653,46 @@ a,button,button:hover{
 	color: #666666 !important;
 }
 
+.react-tooltip-content{
+	padding:15px 0;
+	p:first-child{
+		color: #fff;
+		&:before{
+			border:2px solid #fff;
+
+		}
+	}
+	p:nth-child(2){
+		color: #fff;
+		&:before{
+			border:2px solid #fff;
+			
+		}
+	}
+	p{
+		&:before{
+			content:'';
+			border:2px solid #999;
+			border-radius: 2px;
+			height: 0;
+			width: 0;
+			vertical-align: middle;
+			margin-right: 8px;
+			display: inline-block;
+		}
+	}
+}
+.react-tooltip-content + .react-tooltip-content{
+	position: relative;
+	&:before{
+		content: '';
+		width: 100%;
+		background: url('./images/picture.png') no-repeat 100%;
+		height: 10px;
+		display: block;
+		background-size: 100% 100%;
+		position: absolute;
+		top:-5px;
+	}
+
+}
