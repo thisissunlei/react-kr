@@ -23,7 +23,9 @@ import {
 	CheckboxGroup,
 	RadioGroup,
 	Message,
-	DemoComponent
+	DemoComponent,
+	Tabs,
+	Tab
 } from 'kr-ui';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
@@ -96,7 +98,18 @@ export default class Demo extends Component{
 
 
 					<DemoComponent/>
+
+					
 					</Section>
+
+					<Tabs className="tabs">
+						<Tab label="01">
+							<span>1234dsaasd</span>
+						</Tab>
+						<Tab label="02">
+							<span>dsr3242aasd</span>
+						</Tab>
+					</Tabs>
 			</div>
 
 		);
