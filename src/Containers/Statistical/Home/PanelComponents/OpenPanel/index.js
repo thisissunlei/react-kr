@@ -23,26 +23,7 @@ import {
 
 } from 'kr-ui';
 import './index.less';
-
-class SearchDateForm extends Component {
-	constructor(props, context) {
-		super(props, context);
-	}
-
-
-	render() {
-
-		
-
-		return (
-			   <div>
-                 		 
-			   </div>
-
-		);
-	}
-}
-
+import SearchDateForm from './SearchDateForm';
 export default class Initialize  extends Component{
 
 	constructor(props,context){
@@ -67,10 +48,12 @@ export default class Initialize  extends Component{
 		return(
 
 			<div className='ui-open-info'>
-				   <Grid>
+				   <Grid style={{height:'76'}}>
 						<Row>
-							<Col align="left" md={4}> 
-							 <span className='ui-pic-open'></span><span>招商数据统计</span>	
+							<Col align="left" md={4} style={{marginTop:'25'}}> 
+							 <span  className='ui-pic-open'>招商数据统计-</span>
+							 <span  className='static-openCompany'>已开业</span>	
+							 <span  className='static-upload'>实时更新</span>	
 							</Col> 
 							<Col align="right" md={8}> 
 							  <SearchDateForm />
@@ -78,7 +61,8 @@ export default class Initialize  extends Component{
 						</Row>
 					</Grid>
 
-					<Table  style={{marginTop:10}}
+				   <div className='ui-table-wrap'>
+					<Table style={{marginTop:0}}
 						displayCheckbox={false}
 						ajax={true}
 						ajaxUrlName='openCompanyData'
@@ -118,7 +102,7 @@ export default class Initialize  extends Component{
 					 </TableRow>
 				</TableBody>
 				</Table>
-
+              </div>
 
 			</div>
 		);

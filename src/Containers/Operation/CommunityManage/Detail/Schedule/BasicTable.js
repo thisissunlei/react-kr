@@ -285,7 +285,8 @@ export default class BasicTable extends Component {
 					isIscroll,
 					totalCount,
 					totalPages,
-					istip
+					istip,
+					currentYear
 				} = _this.state;
 
 				if (isIscroll) {
@@ -300,7 +301,7 @@ export default class BasicTable extends Component {
 							_this.setState({
 								istip: !_this.state.istip
 							})
-						}, 1000)
+						}, 2000)
 					}
 
 					if (totalPages > page) {
@@ -314,7 +315,8 @@ export default class BasicTable extends Component {
 							value: value,
 							type: type,
 							page: len,
-							pageSize: 15
+							pageSize: 15,
+							year:currentYear
 						})).then(function(response) {
 
 							if (response.vo) {
@@ -437,7 +439,7 @@ export default class BasicTable extends Component {
 		if (formValues.type == "BILL") {
 			activity = false;
 		}
-		console.log('formValues',formValues);
+		console.log('formValues', formValues);
 
 		this.setState({
 			istip: istip
@@ -445,7 +447,7 @@ export default class BasicTable extends Component {
 
 		this.setState({
 			value: formValues.value,
-			type:formValues.type,
+			type: formValues.type,
 			dataLoading: true,
 		})
 
@@ -542,7 +544,7 @@ export default class BasicTable extends Component {
 			communityids,
 			dataLoading
 		} = this.state;
-		console.log('value',value);
+		console.log('value', value);
 
 
 

@@ -109,6 +109,8 @@ export default class Table extends React.Component {
 			}
 		}
 
+		this.maxRows = 100;
+
 
 		let {initialValues} = this.props;
 
@@ -326,7 +328,7 @@ export default class Table extends React.Component {
 
 		this.onLoadData();
 
-		var visibilityRows = new Array(this.state.pageSize + 1).join(1).split('');
+		var visibilityRows = new Array(this.maxRows + 1).join(1).split('');
 
 		//默认隐藏children
 		let visibilityType = this.props.toggleVisibility || '';
@@ -443,9 +445,9 @@ export default class Table extends React.Component {
 		allRowsSelected = !allRowsSelected;
 		var tmp = [];
 		if (allRowsSelected) {
-			tmp = new Array(this.state.pageSize + 1).join(1).split('');
+			tmp = new Array(this.state.maxSize + 1).join(1).split('');
 		} else {
-			tmp = new Array(this.state.pageSize + 1).join(0).split('');
+			tmp = new Array(this.state.maxSize + 1).join(0).split('');
 		}
 
 		this.setState({
@@ -587,11 +589,7 @@ export default class Table extends React.Component {
 
 		React.Children.forEach(children, (child) => {
 			if (!React.isValidElement(child)) return;
-			const {
-				muiName,
-				name,
-				displayName
-			} = child.type;
+			const {displayName} = child.type;
 			if (displayName === 'TableBody') {
 				tBody = this.createTableBody(child);
 			}

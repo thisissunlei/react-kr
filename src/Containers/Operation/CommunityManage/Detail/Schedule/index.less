@@ -657,14 +657,22 @@ a,button,button:hover{
 	padding:15px 0;
 	p:first-child{
 		color: #fff;
+		&:before{
+			border:2px solid #fff;
+
+		}
 	}
 	p:nth-child(2){
 		color: #fff;
+		&:before{
+			border:2px solid #fff;
+			
+		}
 	}
 	p{
 		&:before{
 			content:'';
-			border:2px solid #fff;
+			border:2px solid #999;
 			border-radius: 2px;
 			height: 0;
 			width: 0;
@@ -675,7 +683,6 @@ a,button,button:hover{
 	}
 }
 .react-tooltip-content + .react-tooltip-content{
-	// border-top: 1px solid  red;
 	position: relative;
 	&:before{
 		content: '';

@@ -47,6 +47,7 @@ export default class JoinCreate extends Component {
 	}
 
 	onCreateSubmit(formValues) {
+		console.log('--first--formValues',formValues)
 		this.setState({
 			formValues
 		}, function() {
@@ -59,10 +60,11 @@ export default class JoinCreate extends Component {
 		let {
 			formValues
 		} = this.state;
+
 		let {
 			params
 		} = this.props;
-
+			console.log('-to',formValues)
 		formValues.stationVos = JSON.stringify(formValues.stationVos);
 
 		Store.dispatch(Actions.callAPI('addOrEditEnterContract', {}, formValues)).then(function(response) {
@@ -187,7 +189,7 @@ export default class JoinCreate extends Component {
 				autoDetectWindowHeight={true}
 				open={this.state.openConfirmCreate}
 				onClose={this.openConfirmCreateDialog} >
-						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} optionValues={optionValues}/>
+						<ConfirmFormDetail detail={Object.assign({},this.state.formValues)} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} optionValues={optionValues}/>
 			  </Dialog>
 		</div>
 		);
