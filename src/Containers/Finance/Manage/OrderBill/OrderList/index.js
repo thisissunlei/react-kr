@@ -165,7 +165,9 @@ export default class AttributeSetting extends Component {
 	openNewCreateDialog() {
 		this.setState({
 			openNewCreate: !this.state.openNewCreate,
-			searchParams:''
+			searchParams:{
+				 pageSize:15
+			 }
 		});
 	}
 
