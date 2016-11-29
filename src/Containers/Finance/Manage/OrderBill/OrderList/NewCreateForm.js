@@ -29,7 +29,7 @@ import './index.less';
 
 class NewCreateForm extends Component {
 
-	static PropTypes = {
+	static propTypes = {
 		onSubmit: React.PropTypes.func,
 		onCancel: React.PropTypes.func,
 	}
@@ -112,9 +112,9 @@ class NewCreateForm extends Component {
 		return (
 
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:-9}}>
-			   
-				<KrField grid={1/2} right={27} style={{height:36,marginBottom:28}} name="customername" type="text" label="公司名称" /> 
-				<KrField grid={1/2}  component="labelText"/> 
+
+				<KrField grid={1/2} right={27} style={{height:36,marginBottom:28}} name="customername" type="text" label="公司名称" />
+				<KrField grid={1/2}  component="labelText"/>
 				<KrField grid={1/2} right={27} name="communityid"  style={{marginTop:7}} type="select" label="所属社区" options={this.state.communityList} >
 				</KrField>
 				<KrField  grid={1/2} right={27} name="mainbilltype" type="select" style={{marginTop:7}} label="订单类型" options={this.state.mainbilltypeList}>
@@ -127,9 +127,9 @@ class NewCreateForm extends Component {
 					</ListGroup>
                     </div>
 				</KrField>
-				
-             
-				
+
+
+
 
 				<Grid style={{marginTop:7,marginBottom:5}}>
 					<Row>
