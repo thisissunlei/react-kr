@@ -300,7 +300,7 @@ export default class BasicTable extends Component {
 							_this.setState({
 								istip: !_this.state.istip
 							})
-						}, 1000)
+						}, 2000)
 					}
 
 					if (totalPages > page) {
@@ -725,7 +725,7 @@ export default class BasicTable extends Component {
 			showNone = false;
 		}
 
-		console.log('1234567')
+
 
 		return (
 			<div style={{position:'relative'}}>

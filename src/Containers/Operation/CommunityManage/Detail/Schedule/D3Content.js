@@ -301,7 +301,6 @@ export default class D3Content extends Component {
 			detail,
 			currentYear
 		} = this.props;
-		console.log('currentYear',currentYear);
 		if (detail.length) {
 			// 获取当前时间
 			var timestamp = new Date().getTime();
