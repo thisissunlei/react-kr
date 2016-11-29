@@ -152,7 +152,7 @@ export default class D3Content extends Component {
 	appendDiv(list, time) {
 			var nowNode;
 			list && list.map((item, index) => {
-				if (index === 0 && item.installmentBegindate > time) {
+				if (index === 0 && item.begindate > time) {
 					nowNode = 0;
 				}
 				if (index === list.length - 1 && item.end < time) {
