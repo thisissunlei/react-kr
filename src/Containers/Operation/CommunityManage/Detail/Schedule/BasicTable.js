@@ -725,7 +725,7 @@ export default class BasicTable extends Component {
 			showNone = false;
 		}
 
-		console.log('1234567')
+
 
 		return (
 			<div style={{position:'relative'}}>
