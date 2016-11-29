@@ -82,17 +82,7 @@ export default class Demo extends Component{
 
 							<Button label="show"  onTouchTap={this.show}/>
 
-							<RadioGroup name="demo" options={[{
-								label:'是',
-								value:'yes'
-							},
-							{
-								label:'否',
-								value:'no'
-							}
-						]}
-						/>
-						<Input />
+					<Input type="text" maxLength={10} disabled={true}/>
 						<CheckboxGroup name="demo" options={[{
 							label:'是',
 							value:'yes'

@@ -109,7 +109,7 @@ export default class Table extends React.Component {
 			}
 		}
 
-		this.maxRows = 100;
+		this.maxRows = 200;
 
 
 		let {initialValues} = this.props;

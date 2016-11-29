@@ -1,5 +1,9 @@
 import React from 'react';
 
+import {
+	ClassNames
+} from 'kr/Utils';
+
 import './index.less';
 
 export default  class Input extends React.Component {
@@ -8,7 +12,9 @@ export default  class Input extends React.Component {
 
 	static defaultPorps = {
 		value:'',
-		type:'text'
+		type:'text',
+		placeholder:'',
+		disabled:false,
 	}
 
 	static propTypes = {
@@ -17,6 +23,9 @@ export default  class Input extends React.Component {
 				className: React.PropTypes.string,
 				type: React.PropTypes.string,
 				children:React.PropTypes.node,
+				maxLength:React.PropTypes.number,
+				placeholder:React.PropTypes.string,
+				disabled:React.PropTypes.bool,
 	}
 
 	constructor(props){
@@ -27,7 +36,6 @@ export default  class Input extends React.Component {
 		this.state = {
 			value:this.props.value
 		}
-
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -41,8 +49,10 @@ export default  class Input extends React.Component {
 	onChange(event){
 
 			var value = event.target.value;
-			const {onChange} = this.props;
-
+			const {onChange,maxLength} = this.props;
+			if (maxLength) {
+					value = value.slice(0,maxLength);
+			}
 			this.setState({
 				value
 			});
@@ -51,15 +61,18 @@ export default  class Input extends React.Component {
 	}
 	render() {
 
-		let {children,className,style,type,name,...other} = this.props;
+		let {children,className,style,type,name,disabled,placeholder,...other} = this.props;
 
 		let {value} = this.state;
 
-		let classNames = 'ui-input';
-		classNames+=' '+className;
+		let  classNames = ClassNames('ui-input',className);
+
+		if(disabled){
+		  	classNames = ClassNames('ui-input',className,'disabled');
+		}
 
 		return (
-			 <input type={type} style={style} name={name} className={classNames} value={value} onChange={this.onChange} {...other}/>
+			 <input type={type} style={style} name={name} className={classNames} placeholder={placeholder} value={value} disabled={disabled} onChange={this.onChange} {...other}/>
 		);
 	}
 }
