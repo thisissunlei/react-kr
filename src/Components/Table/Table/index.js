@@ -17,7 +17,6 @@ export default class Table extends React.Component {
 	static defaultProps = {
 		page: 1,
 		pageSize: 15,
-		maxRows:100,
 		totalCount: 20,
 		pagination: true,
 		loading: false,
@@ -45,7 +44,6 @@ export default class Table extends React.Component {
 		ajaxUrlName: React.PropTypes.string,
 		ajaxParams: React.PropTypes.object,
 		ajaxFieldListName: React.PropTypes.string,
-		maxRows:React.PropTypes.number,
 		//tfoot
 		footer: React.PropTypes.bool,
 		defaultSelectedRows: React.PropTypes.array,
@@ -97,7 +95,6 @@ export default class Table extends React.Component {
 
 		this.state = {
 			response: {},
-			maxRows:this.props.maxRows,
 			page: this.props.page,
 			pageSize: this.props.pageSize,
 			totalCount: this.props.totalCount,
@@ -111,6 +108,8 @@ export default class Table extends React.Component {
 				checkboxWidth: 50
 			}
 		}
+
+		this.maxRows = 100;
 
 
 		let {initialValues} = this.props;
@@ -329,7 +328,7 @@ export default class Table extends React.Component {
 
 		this.onLoadData();
 
-		var visibilityRows = new Array(this.state.maxRows + 1).join(1).split('');
+		var visibilityRows = new Array(this.maxRows + 1).join(1).split('');
 
 		//默认隐藏children
 		let visibilityType = this.props.toggleVisibility || '';
@@ -479,9 +478,10 @@ export default class Table extends React.Component {
 
 		var maxRows = React.Children.count(base.children);
 
-		this.setState({
-			maxRows
-		});
+
+
+		this.maxRows = maxRows;
+
 
 		return React.cloneElement(
 			base, {
