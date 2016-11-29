@@ -13,11 +13,14 @@ export default class TabsComponent extends Component {
 	static PropTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
+		/**
+		 * 若Tab有onActive参数值，tabName为必带参数
+		 */
+		tabName:React.PropTypes.string,
 	}
 
 	constructor(props){
 		super(props);
-
 	}
 
 	renderTabs=()=> {
@@ -29,7 +32,6 @@ export default class TabsComponent extends Component {
 		} = this.props;
 
 		let tabs=[];
-		// console.log(children);
 		const commenTab = {
 			color: '#000',
 			borderBottom: "1px solid #eee"
@@ -44,31 +46,49 @@ export default class TabsComponent extends Component {
 		return tabs;
 	}
 	createTab=(base,i)=>{
+		let _this = this;
+		let  {tabName} = this.props;
 		const commenTab = {
 			color: '#000',
 			borderBottom: "1px solid #eee",
 		}
-		let {label,children,onAction}= base.props;
-		return (
-			<Tab label={label} style={commenTab} key={i} onAction={onAction}>
+		const active = {
+			color: '#2b8dcd',
+			borderBottom: "1px solid #eee",
+		}
+		let {label,children,onActive,style}= base.props;
+		if(!tabName && i===0){
+			tabName = label;
+		}
+		if(!style){
+			style =(label == tabName ? active:commenTab);
+		}
 
-				{children}
-			</Tab>
-			)
+		if(!onActive){
+			onActive = function(){
+				_this.setState({tabName: label})
+			}
+		}
+			return (
+				<Tab label={label} style={style} key={i} onActive={onActive} className={label}>
+					<div style={{padding:'20px 10px'}}> 
+						{children}
+					</div>
+					
+				</Tab>
+				)
+		
 	}
 	renderLines=()=>{
 		let {children} = this.props;
 		let lines = [];
 
-		console.log('children',children,children.length);
 		let left = (1/children.length)*100;
 		for(var i=0;i<=children.length;i++){
-			console.log('index',i);
 			if(i!=0){
 				lines.push(left*i);
 			}
 		}
-		console.log(lines);
 		lines = lines.map((item,index)=>{
 			return (
 				<span className='tabs-lines' style={{marginLeft:`${item}%`}} key={index}></span>

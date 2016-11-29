@@ -106,11 +106,11 @@ export default class CommunityManage extends Component {
 		 	<BreadCrumbs children={['系统运营','社区管理','计划表']}/>
 				<span className="line"></span>
 				 <Tabs className="tabs">
-					<Tab label="计划表" >
+					<Tab label="计划表" onActive={this.planTable} style={tableStyle}>
 						<Schedule tab={tab}/>
 
 					</Tab>
-					<Tab label="平面图">
+					<Tab label="平面图"  onActive={this.Floorplan} style={planStyle}>
 
 					   <FloorPlan tab={tab} />
 

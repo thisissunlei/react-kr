@@ -46,6 +46,10 @@ export default class Demo extends Component{
 		this.onSubmit = this.onSubmit.bind(this);
 
 		console.log('---',this.context.router);
+		this.state = {
+
+			tab: '',
+		}
 
 	}
 
@@ -65,11 +69,19 @@ export default class Demo extends Component{
 
 		Message.show('hahah');
 	}
+	changelable=()=>{
+		this.setState({tab:'计划表'})
+	}
+	changelabels=()=>{
+		console.log('active');
+		this.setState({tab:'平面图'})
+	}
 
 
 
 	render(){
 		const list = [{a:1},{b:2},{c:3},{d:5}];
+		let {tab} = this.state;
 
 
 		return(
@@ -102,26 +114,25 @@ export default class Demo extends Component{
 					
 					</Section>
 
-					<Tabs className="tabs">
-						<Tab label="01">
-							<span>1234dsaasd</span>
-							<Button label="show"  onTouchTap={this.show}/>
+					<Tabs className="tabs" tabName={tab}>
+						<Tab label="计划表" onActive={this.changelable} >
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+
 						</Tab>
-						<Tab label="02">
-							<span>dsr3242aasd</span>
-							<DemoComponent/>
-						</Tab>
-						<Tab label="03">
-							<span>1234dsaasd</span>
-							<Button label="show"  onTouchTap={this.show}/>
-							<div>
-								<span>dsr3242aasd</span>
-								<DemoComponent/>
-							</div>
-						</Tab>
-						<Tab label="04">
-							<span>dsr3242czcxzcaasd</span>
-							<DemoComponent/>
+						<Tab label="平面图"  onActive={this.changelabels}>
+
+						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
+						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
+						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
+						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
+
+
 						</Tab>
 					</Tabs>
 			</div>

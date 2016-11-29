@@ -57,10 +57,9 @@ import {
 	Snackbar,
 } from 'material-ui';
 
-// import {
-// 	Tab,
-// 	Tabs
-// } from 'material-ui/Tabs';
+import {
+	Tab
+} from 'material-ui/Tabs';
 
 module.exports = {
 	//Components
@@ -115,7 +114,7 @@ module.exports = {
 	Dialog,
 	Snackbar,
 	// Tabs,
-	// Tab,
+	Tab,
 	SearchForms,
 	...Tabs,
 	PageHeader,
