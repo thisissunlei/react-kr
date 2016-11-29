@@ -111,6 +111,18 @@ export default class Demo extends Component{
 							<span>dsr3242aasd</span>
 							<DemoComponent/>
 						</Tab>
+						<Tab label="03">
+							<span>1234dsaasd</span>
+							<Button label="show"  onTouchTap={this.show}/>
+							<div>
+								<span>dsr3242aasd</span>
+								<DemoComponent/>
+							</div>
+						</Tab>
+						<Tab label="04">
+							<span>dsr3242czcxzcaasd</span>
+							<DemoComponent/>
+						</Tab>
 					</Tabs>
 			</div>
 

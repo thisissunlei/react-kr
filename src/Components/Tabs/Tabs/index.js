@@ -6,6 +6,7 @@ import {
 	Tab
 } from 'material-ui';
 
+import './index.less'
 export default class TabsComponent extends Component {
 
 
@@ -28,7 +29,7 @@ export default class TabsComponent extends Component {
 		} = this.props;
 
 		let tabs=[];
-		console.log(children);
+		// console.log(children);
 		const commenTab = {
 			color: '#000',
 			borderBottom: "1px solid #eee"
@@ -55,9 +56,18 @@ export default class TabsComponent extends Component {
 			</Tab>
 			)
 	}
-	renderLines(){
+	renderLines=()=>{
 		let {children} = this.props;
-		console.log('children',children);
+		let lines = children;
+
+		console.log('children',children,children.length);
+		let left = (1/children.length)*100;
+		lines.forEach((item,index)=>{
+			return(
+				<span className="tabs-lines"></span>
+			)
+		})
+		
 	}
 
 	render() {
@@ -74,7 +84,7 @@ export default class TabsComponent extends Component {
 		}
 
 		return(
-			<div>
+			<div className='ui-tabs'>
 				{this.renderLines()}
 				<Tabs className="tabs" tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={{background: '-webkit-linear-gradient(right, #03ec56, #499df1)',position:'absolute',top:0,height:3}} style={{background:'#fff',position:'relative'}}>
 				{this.renderTabs()}
