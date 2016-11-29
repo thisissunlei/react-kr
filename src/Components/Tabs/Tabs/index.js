@@ -46,11 +46,11 @@ export default class TabsComponent extends Component {
 	createTab=(base,i)=>{
 		const commenTab = {
 			color: '#000',
-			borderBottom: "1px solid #eee"
+			borderBottom: "1px solid #eee",
 		}
-		let {label,children}= base.props;
+		let {label,children,onAction}= base.props;
 		return (
-			<Tab label={label} style={commenTab} key={i}>
+			<Tab label={label} style={commenTab} key={i} onAction={onAction}>
 
 				{children}
 			</Tab>
@@ -58,15 +58,25 @@ export default class TabsComponent extends Component {
 	}
 	renderLines=()=>{
 		let {children} = this.props;
-		let lines = children;
+		let lines = [];
 
 		console.log('children',children,children.length);
 		let left = (1/children.length)*100;
-		lines.forEach((item,index)=>{
-			return(
-				<span className="tabs-lines"></span>
-			)
+		for(var i=0;i<=children.length;i++){
+			console.log('index',i);
+			if(i!=0){
+				lines.push(left*i);
+			}
+		}
+		console.log(lines);
+		lines = lines.map((item,index)=>{
+			return (
+				<span className='tabs-lines' style={{marginLeft:`${item}%`}} key={index}></span>
+			);
+			
 		})
+		return lines;
+		
 		
 	}
 
