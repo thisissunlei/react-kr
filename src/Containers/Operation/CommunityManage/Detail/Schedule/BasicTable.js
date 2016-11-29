@@ -437,7 +437,7 @@ export default class BasicTable extends Component {
 		if (formValues.type == "BILL") {
 			activity = false;
 		}
-		console.log('formValues',formValues);
+		console.log('formValues', formValues);
 
 		this.setState({
 			istip: istip
@@ -445,7 +445,7 @@ export default class BasicTable extends Component {
 
 		this.setState({
 			value: formValues.value,
-			type:formValues.type,
+			type: formValues.type,
 			dataLoading: true,
 		})
 
@@ -542,7 +542,7 @@ export default class BasicTable extends Component {
 			communityids,
 			dataLoading
 		} = this.state;
-		console.log('value',value);
+		console.log('value', value);
 
 
 
@@ -652,7 +652,7 @@ export default class BasicTable extends Component {
 					<tr className="header-td">
 						<td className='white'>
 							<div className="header-title">
-								<p className="title-right">出租率</p>
+								<p className="title-right">签约率</p>
 								
 							</div>
 						</td>
@@ -667,7 +667,7 @@ export default class BasicTable extends Component {
 							let width = this.getWidth();
 							return (
 
-							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item}  key={index} onStation={this.onStation} activity={this.state.activity} width={width} />
+							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item}  key={index} onStation={this.onStation} activity={this.state.activity} currentYear={currentYear} />
 							
 								
 							)
@@ -725,7 +725,7 @@ export default class BasicTable extends Component {
 			showNone = false;
 		}
 
-
+		console.log('1234567')
 
 		return (
 			<div style={{position:'relative'}}>
