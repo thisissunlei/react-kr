@@ -475,14 +475,6 @@ export default class Table extends React.Component {
 
 	createTableBody(base) {
 
-
-		var maxRows = React.Children.count(base.children);
-
-
-
-		this.maxRows = maxRows;
-
-
 		return React.cloneElement(
 			base, {
 				displayCheckbox: this.props.displayCheckbox,
