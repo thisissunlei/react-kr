@@ -16,7 +16,8 @@ export default class Table extends React.Component {
 	static displayName = 'Table';
 	static defaultProps = {
 		page: 1,
-		pageSize: 100,
+		pageSize: 15,
+		maxSize:100,
 		totalCount: 20,
 		pagination: true,
 		loading: false,
@@ -44,6 +45,7 @@ export default class Table extends React.Component {
 		ajaxUrlName: React.PropTypes.string,
 		ajaxParams: React.PropTypes.object,
 		ajaxFieldListName: React.PropTypes.string,
+		maxRows:React.PropTypes.number,
 		//tfoot
 		footer: React.PropTypes.bool,
 		defaultSelectedRows: React.PropTypes.array,
@@ -95,6 +97,7 @@ export default class Table extends React.Component {
 
 		this.state = {
 			response: {},
+			maxRows:this.props.maxRows,
 			page: this.props.page,
 			pageSize: this.props.pageSize,
 			totalCount: this.props.totalCount,
@@ -326,7 +329,7 @@ export default class Table extends React.Component {
 
 		this.onLoadData();
 
-		var visibilityRows = new Array(this.state.pageSize + 1).join(1).split('');
+		var visibilityRows = new Array(this.state.maxRows + 1).join(1).split('');
 
 		//默认隐藏children
 		let visibilityType = this.props.toggleVisibility || '';
@@ -443,9 +446,9 @@ export default class Table extends React.Component {
 		allRowsSelected = !allRowsSelected;
 		var tmp = [];
 		if (allRowsSelected) {
-			tmp = new Array(this.state.pageSize + 1).join(1).split('');
+			tmp = new Array(this.state.maxSize + 1).join(1).split('');
 		} else {
-			tmp = new Array(this.state.pageSize + 1).join(0).split('');
+			tmp = new Array(this.state.maxSize + 1).join(0).split('');
 		}
 
 		this.setState({
