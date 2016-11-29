@@ -2,9 +2,9 @@ import React, {
 	Component
 } from 'react';
 import {
-	Tabs
+	Tabs,
+	Tab
 } from 'material-ui';
-import TabItem from '../TabItem'
 
 export default class TabsComponent extends Component {
 
@@ -27,34 +27,43 @@ export default class TabsComponent extends Component {
 			style
 		} = this.props;
 
-		let tabs;
+		let tabs=[];
 		console.log(children);
+		const commenTab = {
+			color: '#000',
+			borderBottom: "1px solid #eee"
+		}
 
 
-		React.Children.forEach(children, (child) => {
+		React.Children.forEach(children, (child,index) => {
 			if (!React.isValidElement(child)) return;
-			tabs = this.createTab(child);
+			tabs.push(this.createTab(child,index));
 		});
 
 		return tabs;
 	}
-	createTab=(base)=>{
-		console.log('base',base.props);
-		let {label,child}= base.props;
+	createTab=(base,i)=>{
+		const commenTab = {
+			color: '#000',
+			borderBottom: "1px solid #eee"
+		}
+		let {label,children}= base.props;
 		return (
-			<TabItem label={label}>
-				{child}
-			</TabItem>
+			<Tab label={label} style={commenTab} key={i}>
+
+				{children}
+			</Tab>
 			)
+	}
+	renderLines(){
+		let {children} = this.props;
+		console.log('children',children);
 	}
 
 	render() {
 
 
 		const {children}  = this.props;
-		this.renderTabs();
-		// 
-		// 
 		const activeTab = {
 			color: '#2b8dcd',
 			borderBottom: "1px solid #eee"
@@ -66,6 +75,7 @@ export default class TabsComponent extends Component {
 
 		return(
 			<div>
+				{this.renderLines()}
 				<Tabs className="tabs" tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={{background: '-webkit-linear-gradient(right, #03ec56, #499df1)',position:'absolute',top:0,height:3}} style={{background:'#fff',position:'relative'}}>
 				{this.renderTabs()}
 				</Tabs>

@@ -20,7 +20,7 @@ export default class TabItem extends React.Component {
 
 	render() {
 		const {children,label} = this.props;
-		console.log('TabItem',label,children);
+		console.log('TabItem',label,this.props);
 		return(
 				<Tab label={label}>
 				{children}

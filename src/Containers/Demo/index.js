@@ -105,9 +105,11 @@ export default class Demo extends Component{
 					<Tabs className="tabs">
 						<Tab label="01">
 							<span>1234dsaasd</span>
+							<Button label="show"  onTouchTap={this.show}/>
 						</Tab>
 						<Tab label="02">
 							<span>dsr3242aasd</span>
+							<DemoComponent/>
 						</Tab>
 					</Tabs>
 			</div>
