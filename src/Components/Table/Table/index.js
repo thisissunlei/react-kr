@@ -476,6 +476,13 @@ export default class Table extends React.Component {
 
 	createTableBody(base) {
 
+
+		var maxRows = React.Children.count(base.children);
+
+		this.setState({
+			maxRows
+		});
+
 		return React.cloneElement(
 			base, {
 				displayCheckbox: this.props.displayCheckbox,
@@ -590,11 +597,7 @@ export default class Table extends React.Component {
 
 		React.Children.forEach(children, (child) => {
 			if (!React.isValidElement(child)) return;
-			const {
-				muiName,
-				name,
-				displayName
-			} = child.type;
+			const {displayName} = child.type;
 			if (displayName === 'TableBody') {
 				tBody = this.createTableBody(child);
 			}
