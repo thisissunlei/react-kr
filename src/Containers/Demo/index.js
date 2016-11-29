@@ -82,7 +82,9 @@ export default class Demo extends Component{
 
 							<Button label="show"  onTouchTap={this.show}/>
 
-					<Input type="text" maxLength={10} disabled={true}/>
+					<Input type="text" maxLength={10} errors={{
+							maxLength:'不能操作'
+						}}/>
 						<CheckboxGroup name="demo" options={[{
 							label:'是',
 							value:'yes'

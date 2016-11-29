@@ -4,6 +4,7 @@ import {
 	ClassNames
 } from 'kr/Utils';
 
+
 import './index.less';
 
 export default  class Input extends React.Component {
@@ -23,9 +24,16 @@ export default  class Input extends React.Component {
 				className: React.PropTypes.string,
 				type: React.PropTypes.string,
 				children:React.PropTypes.node,
+				minLength:React.PropTypes.number,
 				maxLength:React.PropTypes.number,
 				placeholder:React.PropTypes.string,
 				disabled:React.PropTypes.bool,
+				/**
+				*{maxLength:'不能超过最大值',minLength:'最小值为'}
+				*
+				*/
+				errors:React.PropTypes.object,
+				onError:React.PropTypes.func,
 	}
 
 	constructor(props){
@@ -36,6 +44,7 @@ export default  class Input extends React.Component {
 		this.state = {
 			value:this.props.value
 		}
+
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -45,6 +54,9 @@ export default  class Input extends React.Component {
 			 });
 		}
 	}
+	componentDidMount(){
+		this.onBlur();
+	}
 
 	onChange(event){
 
@@ -53,12 +65,46 @@ export default  class Input extends React.Component {
 			if (maxLength) {
 					value = value.slice(0,maxLength);
 			}
+
 			this.setState({
 				value
 			});
-
 			onChange && onChange(value);
 	}
+
+	onValidate = ()=>{
+
+		let {minLength,maxLength,requiredValue,errors} = this.props;
+		let {value} = this.state;
+
+
+		if(requiredValue && !value){
+			return errors['requiredValue'];
+		}
+
+		if(minLength && String(value).length<minLength){
+			return errors['minLength'];
+		}
+
+		if(maxLength && value.length>maxLength){
+			return errors['maxLength'];
+		}
+
+		return undefined;
+
+	}
+
+	onBlur = ()=>{
+
+		let {value} = this.state;
+		let message = this.onValidate();
+		let {onError} = this.props;
+
+		if(typeof message !== 'undefined'){
+			onError && onError(message);
+		}
+	}
+
 	render() {
 
 		let {children,className,style,type,name,disabled,placeholder,...other} = this.props;
@@ -71,8 +117,9 @@ export default  class Input extends React.Component {
 		  	classNames = ClassNames('ui-input',className,'disabled');
 		}
 
+
 		return (
-			 <input type={type} style={style} name={name} className={classNames} placeholder={placeholder} value={value} disabled={disabled} onChange={this.onChange} {...other}/>
+			 <input type={type} name={name} className={classNames}  style={style} placeholder={placeholder} value={value} {...other} disabled={disabled} onChange={this.onChange} onBlur={this.onBlur} />
 		);
 	}
 }
