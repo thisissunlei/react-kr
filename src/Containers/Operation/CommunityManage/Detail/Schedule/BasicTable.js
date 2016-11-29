@@ -285,7 +285,8 @@ export default class BasicTable extends Component {
 					isIscroll,
 					totalCount,
 					totalPages,
-					istip
+					istip,
+					currentYear
 				} = _this.state;
 
 				if (isIscroll) {
@@ -314,7 +315,8 @@ export default class BasicTable extends Component {
 							value: value,
 							type: type,
 							page: len,
-							pageSize: 15
+							pageSize: 15,
+							year:currentYear
 						})).then(function(response) {
 
 							if (response.vo) {
