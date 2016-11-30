@@ -662,7 +662,7 @@ export default class BasicTable extends Component {
 					<tr className="header-td">
 						<td className='white'>
 							<div className="header-title">
-								<p className="title-right">签约率</p>
+								<p className="title-right">出租率</p>
 								
 							</div>
 						</td>
