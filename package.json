@@ -99,7 +99,7 @@
     "react-tap-event-plugin": "0.2.2",
     "react-title-component": "^1.0.1",
     "redux": "3.5.2",
-    "redux-form": "6.0.2",
+    "redux-form": "^6.2.0",
     "redux-immutablejs": "0.0.8",
     "redux-logger": "2.6.1",
     "redux-thunk": "2.1.0",

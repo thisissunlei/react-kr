@@ -26,6 +26,7 @@ import {
 } from 'kr-ui';
 
 import PanelComponents from './PanelComponents';
+import './index.less';
 
 export default class Home  extends Component{
 
@@ -52,24 +53,9 @@ export default class Home  extends Component{
 							},
 						]
 					},
-					{
-						groupName:'经营',
-						id:'3224',
-						templateList:[
-							{
-								id:'324324',
-								templateName:'第一个',
-								templateNo:''
-							},
-							{
-								id:'2334',
-								templateName:'第二个',
-								templateNo:''
-							},
-						]
-					},
+					
 				],
-				active:'tab'
+				action:0,
 		}
 	}
 
@@ -77,15 +63,14 @@ export default class Home  extends Component{
 
 	}
 
-	activeTable=()=>{
+	activeTable=(index)=>{
        let {
-			active
-		} = this.state;
-
-		active = 'tab';
-		this.setState({
-			active
-		});
+			action,
+		} = this.state; 
+        
+        this.setState({
+			action:index,
+		});      
 	}
     
 
@@ -103,14 +88,24 @@ export default class Home  extends Component{
 			borderBottom: "1px solid #eee",
 			fontSize:16
 		}
-        
-       let activeStyle = (active == 'tab') ? activeTab : commenTab;
-
+              
 
 		return (
-		   <Tabs tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={{background: '-webkit-linear-gradient(right, #03ec56, #499df1)',position:'absolute',top:0,height:3}} style={{background:'#fff',position:'relative'}}>
-					{groupList.map((item,index)=><Tab label={item.groupName} key={index} onActive={this.activeTable} style={activeStyle}><PanelComponents panels={item.templateList}/> </Tab>)}
+	      <div className='static-tabWrap'>
+		   <span className="line"></span>
+		   <Tabs tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={{background: '-webkit-linear-gradient(right, #03ec56, #499df1)',position:'absolute',top:0,height:3}} style={{background:'#fff',position:'relative',paddingLeft:'20',paddingRight:'20'}}>
+					{groupList.map((item,index)=>{
+						    var activeStyle={}
+							if(this.state.action==index){
+								activeStyle=activeTab;
+							}else{
+								activeStyle=commenTab;
+							}
+						    return (<Tab label={item.groupName} key={index} onActive={this.activeTable.bind(this,index)} style={activeStyle}><PanelComponents panels={item.templateList} groupId={item.id}/> </Tab>)
+						})
+				   }
 	 	   </Tabs>
+	 	  </div>
 		);
 	}
 
@@ -121,8 +116,10 @@ export default class Home  extends Component{
 		let groupItem = groupList[0];
 
 		return(
-			<Section title={groupItem.groupName} >
-					<PanelComponents panels={groupItem.templateList}/>
+			<Section title={groupItem.groupName}>
+			    <div className='static-section-inner'>
+					<PanelComponents panels={groupItem.templateList} groupId={groupItem.id}/>
+				</div>
 			</Section>
 		);
 	}

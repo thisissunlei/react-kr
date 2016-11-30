@@ -285,7 +285,8 @@ export default class BasicTable extends Component {
 					isIscroll,
 					totalCount,
 					totalPages,
-					istip
+					istip,
+					currentYear
 				} = _this.state;
 
 				if (isIscroll) {
@@ -300,7 +301,7 @@ export default class BasicTable extends Component {
 							_this.setState({
 								istip: !_this.state.istip
 							})
-						}, 1000)
+						}, 2000)
 					}
 
 					if (totalPages > page) {
@@ -314,11 +315,16 @@ export default class BasicTable extends Component {
 							value: value,
 							type: type,
 							page: len,
-							pageSize: 15
+							pageSize: 15,
+							year:currentYear
 						})).then(function(response) {
 
 							if (response.vo) {
-								var list = Installmentplan.concat(response.vo.items)
+								console.log('Installmentplan',Installmentplan);
+								var list = Installmentplan.concat(response.vo.items);
+								// var list = $.extend(Installmentplan,response.vo.items);
+								console.log('list',list);
+
 							} else {
 								var list = [];
 							}
@@ -565,11 +571,14 @@ export default class BasicTable extends Component {
 				var list = response.vo.items;
 				var totalCount = response.vo.totalCount;
 				var totalPages = response.vo.totalPages;
+				console.log('-----getInstallmentplan',list);
 			} else {
 				var list = [];
 				var totalCount = 0;
 				var totalPages = 0;
 			}
+
+
 
 			state = {
 				Installmentplan: list,
@@ -614,6 +623,7 @@ export default class BasicTable extends Component {
 			page,
 			isIscroll
 		} = this.state;
+
 		var _this = this;
 		const id = communityids;
 		if (dataLoading) {
@@ -652,7 +662,7 @@ export default class BasicTable extends Component {
 					<tr className="header-td">
 						<td className='white'>
 							<div className="header-title">
-								<p className="title-right">签约率</p>
+								<p className="title-right">出租率</p>
 								
 							</div>
 						</td>
@@ -665,9 +675,11 @@ export default class BasicTable extends Component {
 					{
 						showNone && Installmentplan.map((item,index)=>{
 							let width = this.getWidth();
+
+							let itemData = Object.assign(item);
 							return (
 
-							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item}  key={index} onStation={this.onStation} activity={this.state.activity} currentYear={currentYear} />
+							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={itemData}  key={index} onStation={this.onStation} activity={this.state.activity} currentYear={currentYear} />
 							
 								
 							)
@@ -725,7 +737,7 @@ export default class BasicTable extends Component {
 			showNone = false;
 		}
 
-		console.log('1234567')
+
 
 		return (
 			<div style={{position:'relative'}}>

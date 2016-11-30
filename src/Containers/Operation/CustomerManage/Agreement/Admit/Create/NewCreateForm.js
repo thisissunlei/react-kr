@@ -464,7 +464,7 @@ class NewCreateForm extends Component {
 								<KrField grid={1/2}  name="stationnum" type="hidden" component="input" />
 								<KrField grid={1/2}  name="boardroomnum" type="hidden" component="input" />
 
-								 <KrField right={60} name="leaseId"  grid={1/2} component="select" label="出租方asd" options={optionValues.fnaCorporationList} requireLabel={true}/>
+								 <KrField right={60} name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}/>
 
 								 <KrField left={60} grid={1/2}  type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress} defaultValue="无"/>
 								 <KrField right={60}  grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}/>

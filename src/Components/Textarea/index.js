@@ -7,13 +7,12 @@ import {
 
 import './index.less';
 
-export default  class Input extends React.Component {
+export default  class Textarea extends React.Component {
 
-	static displayName = 'Input';
+	static displayName = 'Textarea';
 
 	static defaultPorps = {
 		value:'',
-		type:'text',
 		placeholder:'',
 		disabled:false,
 	}
@@ -117,15 +116,15 @@ export default  class Input extends React.Component {
 
 		let {value} = this.state;
 
-		let  classNames = ClassNames('ui-input',className);
+		let  classNames = ClassNames('ui-textarea',className);
 
 		if(disabled){
-		  	classNames = ClassNames('ui-input',className,'disabled');
+		  	classNames = ClassNames('ui-textarea',className,'disabled');
 		}
 
 
 		return (
-			 <input type={type} name={name} className={classNames}  style={style} placeholder={placeholder} value={value} {...other} disabled={disabled} onChange={this.onChange} onBlur={this.onBlur} />
+			 <textarea  name={name} className={classNames}  style={style} placeholder={placeholder} value={value} {...other} disabled={disabled} onChange={this.onChange} onBlur={this.onBlur} />
 		);
 	}
 }

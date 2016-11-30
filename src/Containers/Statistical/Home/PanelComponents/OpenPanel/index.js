@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
+import dateFormat from 'dateformat';
 import {
 	KrField,
 	Table,
@@ -16,15 +17,22 @@ import {
 	Grid,
 	Row,
 	Col,
+	Notify,
 	Dialog,
 	ListGroup,
 	ListGroupItem,
 	Form
-
 } from 'kr-ui';
 import './index.less';
 import SearchDateForm from './SearchDateForm';
+
+
 export default class Initialize  extends Component{
+     
+    static propTypes = {
+		 groupId:React.PropTypes.string,
+		 currentDate:React.PropTypes.string,
+	}
 
 	constructor(props,context){
 		super(props, context);
@@ -32,19 +40,42 @@ export default class Initialize  extends Component{
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	    this.state = {
 			searchParams: {
-				endDate:'2016-09-09',
-				startDate:'2016-09-01',
-				groupId:1
+				groupId:this.props.groupId,
+				startDate:this.props.currentDate,
+				endDate:this.props.currentDate
 			}
 
 		}
 
 	}
-
+    
     
 
-	render(){
+    onStartChange=(searchParams)=>{
+    	searchParams = Object.assign({}, this.state.searchParams, searchParams);
+    	this.setState({
+			searchParams
+		});
+    }
+    onEndChange=(searchParams)=>{
+    	searchParams = Object.assign({}, this.state.searchParams, searchParams);
+    	this.setState({
+			searchParams
+		});
+    }
 
+    render(){
+    	let {searchParams}=this.state;
+        let start=Date.parse(dateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
+        let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"));
+        if(start>end){
+          Notify.show([{
+				message:'开始时间不能大于结束时间',
+				type: 'danger',
+			}]);
+        }
+	  
+        
 		return(
 
 			<div className='ui-open-info'>
@@ -56,7 +87,7 @@ export default class Initialize  extends Component{
 							 <span  className='static-upload'>实时更新</span>	
 							</Col> 
 							<Col align="right" md={8}> 
-							  <SearchDateForm />
+							  <SearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange} />
 							</Col> 
 						</Row>
 					</Grid>
@@ -67,6 +98,7 @@ export default class Initialize  extends Component{
 						ajax={true}
 						ajaxUrlName='openCompanyData'
 						ajaxFieldListName="list"
+						ajaxParams={this.state.searchParams}
 						  >
 					<TableHeader>
 					<TableHeaderColumn>城市</TableHeaderColumn>
@@ -78,6 +110,7 @@ export default class Initialize  extends Component{
 					<TableHeaderColumn>出租率</TableHeaderColumn>
 					<TableHeaderColumn>上期出租率</TableHeaderColumn>
 					<TableHeaderColumn>出租率变化</TableHeaderColumn>
+					<TableHeaderColumn>出租率(不含意向)</TableHeaderColumn>
 					<TableHeaderColumn>环比</TableHeaderColumn>
 					<TableHeaderColumn>新增意向工位数</TableHeaderColumn>
 					<TableHeaderColumn>累计意向工位数</TableHeaderColumn>
@@ -92,9 +125,10 @@ export default class Initialize  extends Component{
 						<TableRowColumn name="unUsedStation" ></TableRowColumn>
 						<TableRowColumn name="usedStation"></TableRowColumn>
 						<TableRowColumn name="leftStation"></TableRowColumn>
-						<TableRowColumn name="rate"></TableRowColumn>
+						<TableRowColumn name="rateAll"></TableRowColumn>
 						<TableRowColumn name="lastRate"></TableRowColumn>
 						<TableRowColumn name="rateChange"></TableRowColumn>
+						<TableRowColumn name="rate"></TableRowColumn>
 						<TableRowColumn name="chainRate"></TableRowColumn>
 						<TableRowColumn name="newIntention"></TableRowColumn>
 						<TableRowColumn name="totalIntention"></TableRowColumn>
