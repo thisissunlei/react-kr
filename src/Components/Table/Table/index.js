@@ -445,9 +445,9 @@ export default class Table extends React.Component {
 		allRowsSelected = !allRowsSelected;
 		var tmp = [];
 		if (allRowsSelected) {
-			tmp = new Array(this.state.maxSize + 1).join(1).split('');
+			tmp = new Array(this.maxRows + 1).join(1).split('');
 		} else {
-			tmp = new Array(this.state.maxSize + 1).join(0).split('');
+			tmp = new Array(this.maxRows + 1).join(0).split('');
 		}
 
 		this.setState({
