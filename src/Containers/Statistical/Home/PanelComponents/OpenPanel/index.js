@@ -21,6 +21,7 @@ import {
 	Dialog,
 	ListGroup,
 	ListGroupItem,
+	Message,
 	Form
 } from 'kr-ui';
 import './index.less';
@@ -69,10 +70,7 @@ export default class Initialize  extends Component{
         let start=Date.parse(dateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
         let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"));
         if(start>end){
-          Notify.show([{
-				message:'开始时间不能大于结束时间',
-				type: 'danger',
-			}]);
+          Message.error('开始时间不能大于结束时间');
         }
 	  
         
