@@ -114,8 +114,8 @@ export default class Demo extends Component{
 					
 					</Section>
 
-					<Tabs className="tabs" tabName={tab}>
-						<Tab label="计划表" onActive={this.changelable} >
+					<Tabs className="tabs">
+						<Tab label="计划表" >
 							<span style={{display:'block'}}>fdsfsdf</span>
 							<span style={{display:'block'}}>fdsfsdf</span>
 							<span style={{display:'block'}}>fdsfsdf</span>
@@ -125,7 +125,26 @@ export default class Demo extends Component{
 							<span style={{display:'block'}}>fdsfsdf</span>
 
 						</Tab>
-						<Tab label="平面图"  onActive={this.changelabels}>
+						<Tab label="平面图1" >
+
+						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
+						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
+						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
+						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
+
+
+						</Tab>
+						<Tab label="计划表我"  >
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+
+						</Tab>
+						<Tab label="平面图"  >
 
 						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
 						  <span style={{display:'block'}}>fdsfsczczxcdf</span>

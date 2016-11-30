@@ -320,7 +320,11 @@ export default class BasicTable extends Component {
 						})).then(function(response) {
 
 							if (response.vo) {
-								var list = Installmentplan.concat(response.vo.items)
+								console.log('Installmentplan',Installmentplan);
+								var list = Installmentplan.concat(response.vo.items);
+								// var list = $.extend(Installmentplan,response.vo.items);
+								console.log('list',list);
+
 							} else {
 								var list = [];
 							}
@@ -567,11 +571,14 @@ export default class BasicTable extends Component {
 				var list = response.vo.items;
 				var totalCount = response.vo.totalCount;
 				var totalPages = response.vo.totalPages;
+				console.log('-----getInstallmentplan',list);
 			} else {
 				var list = [];
 				var totalCount = 0;
 				var totalPages = 0;
 			}
+
+
 
 			state = {
 				Installmentplan: list,
@@ -616,6 +623,7 @@ export default class BasicTable extends Component {
 			page,
 			isIscroll
 		} = this.state;
+
 		var _this = this;
 		const id = communityids;
 		if (dataLoading) {
@@ -667,9 +675,11 @@ export default class BasicTable extends Component {
 					{
 						showNone && Installmentplan.map((item,index)=>{
 							let width = this.getWidth();
+
+							let itemData = Object.assign(item);
 							return (
 
-							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={item}  key={index} onStation={this.onStation} activity={this.state.activity} currentYear={currentYear} />
+							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={itemData}  key={index} onStation={this.onStation} activity={this.state.activity} currentYear={currentYear} />
 							
 								
 							)

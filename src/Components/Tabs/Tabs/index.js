@@ -21,6 +21,10 @@ export default class TabsComponent extends Component {
 
 	constructor(props){
 		super(props);
+		this.state={
+			tabName:this.props.tabName
+		}
+
 	}
 
 	renderTabs=()=> {
@@ -47,7 +51,7 @@ export default class TabsComponent extends Component {
 	}
 	createTab=(base,i)=>{
 		let _this = this;
-		let  {tabName} = this.props;
+		let  {tabName} = this.state;
 		const commenTab = {
 			color: '#000',
 			borderBottom: "1px solid #eee",

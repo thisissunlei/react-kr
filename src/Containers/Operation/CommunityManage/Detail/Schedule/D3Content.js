@@ -38,6 +38,7 @@ import {
 } from 'react-dom'
 import ReactTooltip from 'react-tooltip'
 import dateFormat from 'dateformat';
+import $ from 'jquery';
 
 export default class D3Content extends Component {
 
@@ -49,7 +50,7 @@ export default class D3Content extends Component {
 		whiteBar:[]
 	}
 
-	static PropTypes = {
+	static propTypes = {
 		params: React.PropTypes.object,
 		detail: React.PropTypes.object
 	}
@@ -67,6 +68,7 @@ export default class D3Content extends Component {
 		this.getRedInfo = this.getRedInfo.bind(this);
 		this.renderRedNode = this.renderRedNode.bind(this);
 		this.renderwhiteBar = this.renderwhiteBar.bind(this);
+		this.sameNode = this.getSameTime();
 
 	}
 
@@ -81,6 +83,7 @@ export default class D3Content extends Component {
 		// var initial = (new Date('2016-1-1')).getTime();
 		var initial = (new Date(year)).getTime();
 		var offset = date - initial;
+		// console.log(date,initial);
 		return (offset / 24 / 3600 / 1e3) + 1;	
 		// return Math.ceil(offset / 24 / 3600) + 1;
 		}
@@ -89,6 +92,9 @@ export default class D3Content extends Component {
 			var {
 				detail
 			} = this.props;
+
+			detail = Object.assign({},detail);
+
 			let width;
 			var _this = this;
 			let newArr = [];
@@ -103,21 +109,6 @@ export default class D3Content extends Component {
 			var unique = {};
 		    newArr.forEach(function(a){ unique[ JSON.stringify(a) ] = 1 });
 		    newArr= Object.keys(unique).map(function(u){return JSON.parse(u) });
-
-		    let length = newArr.length;
-			if(length===1){
-				newArr[0].planTableModelList = [];
-			}else{
-				for(let i = 0;i<=length-1;i++){
-					if(i!=length-1){
-						let j = i;
-			      		newArr[i].planTableModelList = newArr[++j].planTableModelList;
-					}else{
-			      		newArr[i].planTableModelList = [];
-					}
-				}
-			}
-
 
 			var timeList = newArr.map(function(item) {
 				item.start = _this.countDays(item.begindate);
@@ -209,13 +200,15 @@ export default class D3Content extends Component {
 			finaBluePointVo,
 			finaRedPointVo
 		} = this.props;
+		finaBluePointVo = [].concat(finaBluePointVo);
+		finaRedPointVo = [].concat(finaRedPointVo);
 		let sameNode = [];
 		finaBluePointVo.map((item) => {
-			var blueNode = that.countDays(item.pointDate);
 			finaRedPointVo.map((value) => {
-				var redNode = that.countDays(value.pointDate);
-				if (redNode === blueNode) {
-					sameNode.push(redNode);
+				if (item.pointDay === value.pointDay) {
+					console.log('----');
+					let node = $.extend(item, value);
+					sameNode.push(node);
 				}
 			});
 
@@ -224,18 +217,25 @@ export default class D3Content extends Component {
 	}
 
 	renderBlueNode() {
-		let sameNode = this.getSameTime();
-		const {
+		
+		let {
 			finaBluePointVo
 		} = this.props;
+
+		// finaBluePointVo = [].concat(finaBluePointVo);
+
+		// finaBluePointVo = Object.assign([],finaBluePointVo);
+
 		const that = this;
-		var finaBluePointVoList = finaBluePointVo.map((item) => {
-			return that.countDays(item.pointDate);
+		let finaBluePointVoList = finaBluePointVo.map((item) => {
+			item.pointDay = that.countDays(item.pointDate);
+			return item;
 		});
-		if (sameNode.length) {
-			sameNode.map((item) => {
+		if (this.sameNode.length) {
+			this.sameNode.map((item) => {
 				finaBluePointVoList.map((value, index) => {
-					if (item === value) {
+					console.log('same',item,value);
+					if (item.pointDay === value.pointDay) {
 						finaBluePointVoList.splice(index, 1);
 					}
 				})
@@ -247,35 +247,49 @@ export default class D3Content extends Component {
 	}
 
 	renderRedNode() {
-		var sameNode = this.getSameTime();
-		const {
+
+		// var sameNode = this.getSameTime();
+		let {
 			finaRedPointVo
 		} = this.props;
+
+		// finaRedPointVo = new Array(finaRedPointVo);
+		let finaRedPointVoList = finaRedPointVo;
+
 		const that = this;
 		let newArr = [];
 			
 		for(let j in finaRedPointVo){
-		  for(let prop in finaRedPointVo[j]){
-		      if(prop!=''||finaRedPointVo[j][prop]!=''){
-		          	newArr.push(finaRedPointVo[j]);	
-		      }
-		  }
+			if(!finaRedPointVo[j].pointDate){
+				finaRedPointVoList.splice(j, 1);
+			}
 		};
-		var unique = {};
-		newArr.forEach(function(a){ unique[ JSON.stringify(a) ] = 1 });
-		newArr= Object.keys(unique).map(function(u){return JSON.parse(u) });
-		var finaRedPointVoList = newArr.map((item) => {
-			return that.countDays(item.pointDate);
+		finaRedPointVoList = finaRedPointVoList.map((item) => {
+			item.pointDay = that.countDays(item.pointDate);
+			return item;
 		});
-		if (sameNode.length) {
-			sameNode.map((item) => {
+		// if (this.sameNode.length) {
+		// 	this.sameNode.map((item) => {
+		// 		finaRedPointVoList.map((value, index) => {
+		// 			if (item.pointDay === value.pointDay) {
+		// 				console.log('---');
+		// 				finaRedPointVoList.splice(index, 1);
+		// 			}
+		// 		})
+		// 	})
+		// }
+		if (this.sameNode.length) {
+			this.sameNode.map((item) => {
 				finaRedPointVoList.map((value, index) => {
-					if (item === value) {
+					console.log('same',item,value);
+					if (item.pointDay === value.pointDay) {
 						finaRedPointVoList.splice(index, 1);
 					}
 				})
 			})
+
 		}
+		// console.log('finaRedPointVoList',finaRedPointVoList,finaRedPointVo);
 		return finaRedPointVoList;
 
 	}
@@ -301,6 +315,7 @@ export default class D3Content extends Component {
 			detail,
 			currentYear
 		} = this.props;
+		let that = this;
 		if (detail.length) {
 			// 获取当前时间
 			var timestamp = new Date().getTime();
@@ -312,10 +327,8 @@ export default class D3Content extends Component {
 			var nodeList = this.appendDiv(list, now);
 			var redNodeList = this.renderRedNode();
 			var blueNodeList = this.renderBlueNode();
-			var sameNode = this.getSameTime();
-			// list = this.getRedInfo(list);
-			// console.log('list',list);
-			// return false;
+			var sameNode = this.sameNode;
+			// console.log(blueNodeList,redNodeList);
 		} else {
 			var list = [{
 				width: "100%",
@@ -343,42 +356,12 @@ export default class D3Content extends Component {
 								)
 						}else if(index<nodeList && index !== 0){
 							return(
-								<div className='grey' data-tip data-for={`${id}${index}`} data-event='mouseover' data-event-off='mouseleave' style={{'width':`${item.width*100}%`,marginLeft:`${item.left}%`}} key={index} >
-									{item.planTableModelList.length?<ReactTooltip id={`${id}${index}`} place="top" type="dark" effect="solid" >
-									{item.width && item.planTableModelList && item.planTableModelList.map((value, i)=>{
-										return (
-											<div key={i} className="react-tooltip-content">
-												<p>{dateFormat(value.installmentReminddate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
-												<p>{value.stationnum}个位置({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
-												<p>负责人：{value.name}</p>
-												<p>电话：{value.phone}</p>
-												<p>催款金额：{value.installmentAmount}</p>
-											</div>
-										)
-									})
-
-									}
-									</ReactTooltip>:''}
+								<div className='grey' style={{'width':`${item.width*100}%`,marginLeft:`${item.left}%`}} key={index} >
 								</div>
 							)
 						}else{
 							return (
-								<div className='blue' data-tip data-for={`${id}${index}`} style={{'width':`${item.width*100}%`,marginLeft:`${item.left}%`}} key={index}>
-									{item.planTableModelList.length?<ReactTooltip id={`${id}${index}`} place="top" type="dark" effect="solid">
-									{item.planTableModelList && item.planTableModelList.map((value, i)=>{
-										return (
-											<div key={i} className="react-tooltip-content">
-												<p className='important'>{dateFormat(value.installmentReminddate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
-												<p className='important'>{value.stationnum}个位置({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
-												<p>负责人：{value.name}</p>
-												<p>电话：{value.phone}</p>
-												<p>催款金额：{value.installmentAmount}</p>
-											</div>
-										)
-									})
-
-									}
-									</ReactTooltip>:''}
+								<div className='blue' style={{'width':`${item.width*100}%`,marginLeft:`${item.left}%`}} key={index}>
 								</div>
 							)
 						}
@@ -394,21 +377,64 @@ export default class D3Content extends Component {
 				{
 					blueNodeList && blueNodeList.map((item,index)=>{
 						return (
-							<span className='blue-node' key={index} style={{marginLeft:`${(Math.round((item/365)*100)/100)*100}%`}}></span>
+							<span className='blue-node' key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}} data-tip data-for={`${item.pointDate}${item.newStationNum}${index}`}>
+							<ReactTooltip id={`${item.pointDate}${item.newStationNum}${index}`} place="top" type="dark" effect="solid" >
+								<div key={index} className="react-tooltip-content">
+									<span>工位变更</span>
+									<p>{item.finaName}({dateFormat(item.leaseBeginDate, "yyyy.mm.dd")}-{dateFormat(item.leaseEndDate, "yyyy.mm.dd")})</p>
+									<p>变更前工位：<span className='blue-content'>{item.oldStationNum}</span></p>
+									<p>变更后工位：<span className='blue-content'>{item.newStationNum}</span></p>
+								</div>
+							</ReactTooltip>
+							</span>
 						)
 					})
 				}
 				{
 					redNodeList && redNodeList.map((item,index)=>{
 						return (
-							<span className='red-node' key={index} style={{marginLeft:`${(Math.round((item/365)*100)/100)*100}%`}}></span>
+							<span className='red-node' key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}} data-tip data-for={`${item.pointDate}${index}`}>
+								<ReactTooltip id={`${item.pointDate}${index}`} place="top" type="dark" effect="solid" >
+											<div key={index} className="react-tooltip-content">
+												<span>分期催款</span>
+												<p>{dateFormat(item.plan.installmentReminddate, "yyyy.mm.dd")}日催款({dateFormat(item.plan.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(item.plan.installmentEnddate, "yyyy.mm.dd")})</p>
+												<p>{item.plan.stationnum}个位置({dateFormat(item.plan.billStartDate, "yyyy.mm.dd")}-{dateFormat(item.plan.billEndDate, "yyyy.mm.dd")})</p>
+												<p>负责人：<span className='red-content'>{item.plan.name}</span></p>
+												<p>电话：<span className='red-content'>{item.plan.phone}</span></p>
+												<p>催款金额：<span className='red-content'>{item.plan.installmentAmount}</span></p>
+											</div>
+									</ReactTooltip>
+							</span>
 						)
 					})
 				}
 				{
 					sameNode && sameNode.map((item,index)=>{
 						return (
-							<span className='same-node' key={index} style={{marginLeft:`${(Math.round((item/365)*100)/100)*100}%`}}></span>
+							<div className='same-div'  key={index}style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}}>
+								<span className='blue-node' data-tip data-for={`${item.pointDate}${item.newStationNum}${index}red`}>
+									<ReactTooltip id={`${item.pointDate}${item.newStationNum}${index}red`} place="top" type="dark" effect="solid" >
+										<div className="react-tooltip-content">
+											<span>工位变更</span>
+											<p>{item.finaName}({dateFormat(item.leaseBeginDate, "yyyy.mm.dd")}-{dateFormat(item.leaseEndDate, "yyyy.mm.dd")})</p>
+											<p>变更前工位：<span className='blue-content'>{item.oldStationNum}</span></p>
+											<p>变更后工位：<span className='blue-content'>{item.newStationNum}</span></p>
+										</div>
+									</ReactTooltip>
+								</span>
+								<span className='red-node' data-tip data-for={`${item.pointDate}${item.newStationNum}${index}blue`}>
+									<ReactTooltip id={`${item.pointDate}${item.newStationNum}${index}blue`} place="top" type="dark" effect="solid" >
+											<div className="react-tooltip-content">
+												<span>分期催款</span>
+												<p>{dateFormat(item.installmentReminddate, "yyyy.mm.dd")}日催款({dateFormat(item.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(item.installmentEnddate, "yyyy.mm.dd")})</p>
+												<p>{item.stationnum}个位置({dateFormat(item.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(item.installmentEnddate, "yyyy.mm.dd")})</p>
+												<p>负责人：<span className='red-content'>{item.name}</span></p>
+												<p>电话：<span className='red-content'>{item.phone}</span></p>
+												<p>催款金额：<span className='red-content'>{item.installmentAmount}</span></p>
+											</div>
+									</ReactTooltip>
+							</span>
+							</div>
 						)
 					})
 				}
