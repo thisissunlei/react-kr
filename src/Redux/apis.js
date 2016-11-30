@@ -389,6 +389,11 @@ const APIS = {
 		url: '/mockjsdata/13/krspace-finance-web/stat/merchant/actions/notopen?endDate={endDate}&startDate={startDate}&groupId={groupId}',
 		method: 'get'
 	},
+	//数据统计-模板分组-模板列表
+	'MouldGroupList': {
+		url: '/mockjsdata/13/krspace-finance-web/stat/group/group-list',
+		method: 'get'
+	},
 }
 
 module.exports = APIS;
