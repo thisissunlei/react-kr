@@ -7,7 +7,7 @@ import {
 import './index.less';
 
 import WrapComponent from '../WrapComponent';
-import { myData } from './city.json';
+import { default as CityData } from './CityData.json';
 
 export default class CityComponent extends React.Component {
 
@@ -45,6 +45,39 @@ export default class CityComponent extends React.Component {
 			this.setDefaultDate(nextProps.input.value);
 		}
 	}
+
+	firstCityList=()=>{
+		var firstCity = [];
+		firstCity = CityData.map((item)=>{
+			var obj = {};
+			obj.id = item.id;
+			obj.name = item.name;
+			return obj;
+
+		})
+		return firstCity;
+
+
+	}
+
+	secondCityList=(id)=>{
+		var secondCity = [];
+		secondCity = CityData.map(item=>{
+			if(item.id === id){
+				return item.children;
+			}
+		})
+		return secondCity;
+	}
+	thirdCityList=(secondCity,id)=>{
+		var thirdCity = [];
+		thirdCity = secondCity.map(item=>{
+			if(item.id === id){
+				return item.children;
+			}
+		})
+		return thirdCity;
+	}
 	
 
 	onChange(event, value) {
@@ -56,7 +89,6 @@ export default class CityComponent extends React.Component {
 
 	render() {
 
-		console.log('myData',myData);
 		let {
 			style,
 			left,
