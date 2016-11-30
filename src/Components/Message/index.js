@@ -29,7 +29,7 @@ class Message extends Component{
     let {messages,className} = this.props;
 		let {msg}=this.state;
 		var  Messages=messages || msg
-		console.log('props',this.props)
+
 		return (
 			<div className="zhezhao">
         <div className="ui-message message_box">
@@ -52,18 +52,18 @@ Message.show = function (messages) {
 		zhezhaoDOM.appendChild(containerDOM);
 		document.body.appendChild(zhezhaoDOM);
   }
-    ReactDOM.render(<Message messages={messages} />, zhezhaoDOM);
+    ReactDOM.render(<Message messages={messages} className="success"/>, zhezhaoDOM);
 };
 
 Message.success = function (messages) {
-  if(!containerDOM){
+	if(!containerDOM){
 		zhezhaoDOM = document.createElement('div');
 		zhezhaoDOM.className = "wai";
     containerDOM = document.createElement('div');
 		zhezhaoDOM.appendChild(containerDOM);
 		document.body.appendChild(zhezhaoDOM);
   }
-    ReactDOM.render(<Message messages={messages} className="success"/>, containerDOM);
+    ReactDOM.render(<Message messages={messages} className="success"/>, zhezhaoDOM);
 };
 
 Message.error = function (messages) {
@@ -74,7 +74,7 @@ Message.error = function (messages) {
 		zhezhaoDOM.appendChild(containerDOM);
 		document.body.appendChild(zhezhaoDOM);
   }
-    ReactDOM.render(<Message messages={messages} className="error" />, containerDOM);
+    ReactDOM.render(<Message messages={messages} className="error" />, zhezhaoDOM);
 };
 
 
