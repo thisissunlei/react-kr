@@ -83,7 +83,6 @@ export default class D3Content extends Component {
 		// var initial = (new Date('2016-1-1')).getTime();
 		var initial = (new Date(year)).getTime();
 		var offset = date - initial;
-		// console.log(date,initial);
 		return (offset / 24 / 3600 / 1e3) + 1;	
 		// return Math.ceil(offset / 24 / 3600) + 1;
 		}
@@ -234,7 +233,6 @@ export default class D3Content extends Component {
 			this.sameNode.map((item) => {
 				item.pointDay = that.countDays(item.pointDate);
 				finaBluePointVoList.map((value, index) => {
-					console.log('same',item,value);
 					if (item.pointDay === value.pointDay) {
 						finaBluePointVoList.splice(index, 1);
 					}
@@ -242,7 +240,6 @@ export default class D3Content extends Component {
 			})
 
 		}
-		console.log('finaBluePointVoList',finaBluePointVoList);
 		return finaBluePointVoList;
 
 	}
@@ -284,14 +281,12 @@ export default class D3Content extends Component {
 				item.pointDay = that.countDays(item.pointDate);
 				finaRedPointVoList.map((value, index) => {
 					if (item.pointDay === value.pointDay) {
-						console.log('same',item,value);
 						finaRedPointVoList.splice(index, 1);
 					}
 				})
 			})
 
 		}
-		console.log('finaRedPointVoList',finaRedPointVoList,finaRedPointVo,this.sameNode);
 		return finaRedPointVoList;
 
 	}
@@ -330,7 +325,6 @@ export default class D3Content extends Component {
 			var redNodeList = this.renderRedNode();
 			var blueNodeList = this.renderBlueNode();
 			var sameNode = this.sameNode;
-			// console.log(blueNodeList,redNodeList);
 		} else {
 			var list = [{
 				width: "100%",
