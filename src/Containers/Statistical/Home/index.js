@@ -101,7 +101,7 @@ export default class Home  extends Component{
 							}else{
 								activeStyle=commenTab;
 							}
-						    return (<Tab label={item.groupName} key={index} onActive={this.activeTable.bind(this,index)} style={activeStyle}><PanelComponents panels={item.templateList}/> </Tab>)
+						    return (<Tab label={item.groupName} key={index} onActive={this.activeTable.bind(this,index)} style={activeStyle}><PanelComponents panels={item.templateList} groupId={item.id}/> </Tab>)
 						})
 				   }
 	 	   </Tabs>
@@ -117,8 +117,8 @@ export default class Home  extends Component{
 
 		return(
 			<Section title={groupItem.groupName}>
-			    <div className='static-section-inner																		'>
-					<PanelComponents panels={groupItem.templateList}/>
+			    <div className='static-section-inner'>
+					<PanelComponents panels={groupItem.templateList} groupId={groupItem.id}/>
 				</div>
 			</Section>
 		);

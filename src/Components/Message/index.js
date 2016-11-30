@@ -7,6 +7,7 @@ import Dialog from '../Dialog';
 
 
 let containerDOM = '';
+let zhezhaoDOM = '';
 
 class Message extends Component{
 
@@ -15,20 +16,29 @@ class Message extends Component{
     super(props)
     this.state = {
       open:true,
+			msg:'保存成功'
     }
 
   }
 
   onClose = ()=>{
-    ReactDOM.render('', containerDOM);
+    ReactDOM.render(<div className='hide'></div>, zhezhaoDOM);
   }
 
 	render(){
-    let {message} = this.props;
+    let {messages,className} = this.props;
+		let {msg}=this.state;
+		var  Messages=messages || msg
+
 		return (
-        <div className="ui-message">
-            {message}
+			<div className="zhezhao">
+        <div className="ui-message message_box">
+					<span onTouchTap={this.onClose}></span>
+					<p className={className}>
+						<span>{messages}</span>
+					</p>
         </div>
+			</div>
 		);
 	}
 }
@@ -36,26 +46,44 @@ class Message extends Component{
 
 Message.show = function (messages) {
   if(!containerDOM){
+		zhezhaoDOM = document.createElement('div');
+		zhezhaoDOM.className = "wai";
     containerDOM = document.createElement('div');
-    document.body.appendChild(containerDOM);
+		zhezhaoDOM.appendChild(containerDOM);
+		document.body.appendChild(zhezhaoDOM);
   }
-    ReactDOM.render(<Message messages={messages} />, containerDOM);
+    ReactDOM.render(<Message messages={messages} className="success"/>, zhezhaoDOM);
+		setTimeout(function(){
+		  ReactDOM.render(<div className='hide'></div>, zhezhaoDOM);
+		},1000)
 };
 
 Message.success = function (messages) {
-  if(!containerDOM){
+	if(!containerDOM){
+		zhezhaoDOM = document.createElement('div');
+		zhezhaoDOM.className = "wai";
     containerDOM = document.createElement('div');
-    document.body.appendChild(containerDOM);
+		zhezhaoDOM.appendChild(containerDOM);
+		document.body.appendChild(zhezhaoDOM);
   }
-    ReactDOM.render(<Message messages={messages} />, containerDOM);
+    ReactDOM.render(<Message messages={messages} className="success"/>, zhezhaoDOM);
+		setTimeout(function(){
+		  ReactDOM.render(<div className='hide'></div>, zhezhaoDOM);
+		},1000)
 };
 
 Message.error = function (messages) {
   if(!containerDOM){
+		zhezhaoDOM = document.createElement('div');
+		zhezhaoDOM.className = "wai";
     containerDOM = document.createElement('div');
-    document.body.appendChild(containerDOM);
+		zhezhaoDOM.appendChild(containerDOM);
+		document.body.appendChild(zhezhaoDOM);
   }
-    ReactDOM.render(<Message messages={messages} />, containerDOM);
+    ReactDOM.render(<Message messages={messages} className="error" />, zhezhaoDOM);
+		setTimeout(function(){
+		  ReactDOM.render(<div className='hide'></div>, zhezhaoDOM);
+		},1000)
 };
 
 
