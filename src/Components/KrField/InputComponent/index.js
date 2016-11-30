@@ -27,8 +27,6 @@ export default class InputComponent extends React.Component{
 	}
 
 	componentDidMount(){
-
-			this.onError('ahah');
 	}
 
 	onError = (message)=>{
