@@ -135,17 +135,23 @@ class SearchForm extends Component {
 		});
 	}
 	selectCommunity(personel) {
+		let id = 0;
 		if (!personel) {
-			return
-		};
-		this.setState({
-			communityids: personel.value,
-		})
+			this.setState({
+				communityids:0
+			})
+		}else{
+			id = personel.value;
+			this.setState({
+				communityids: personel.value,
+			})
+		}
+		
 		const {
 			onChange
 		} = this.props;
 
-		onChange && onChange(personel.value);
+		onChange && onChange(id);
 	}
 
 
