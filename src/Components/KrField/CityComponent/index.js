@@ -116,7 +116,7 @@ export default class CityComponent extends React.Component {
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 					<div className="city-component">
-					{label}
+					<input readonly/>
 					</div>
 				</WrapComponent>
 		);
