@@ -12,7 +12,7 @@ import Param from 'jquery-param';
 
 import {
 	Fields
-} from 'kr/Redux/ReduxForm';
+} from 'redux-form';
 
 import {
 	Binder

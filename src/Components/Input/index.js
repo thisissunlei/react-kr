@@ -98,11 +98,12 @@ export default  class Input extends React.Component {
 
 		let {value} = this.state;
 		let message = this.onValidate();
-		let {onError} = this.props;
+		let {onError,onBlur} = this.props;
 
 		if(typeof message !== 'undefined'){
 			onError && onError(message);
 		}
+		onBlur && onBlur(value);
 	}
 
 	render() {

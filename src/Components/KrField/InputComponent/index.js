@@ -45,8 +45,6 @@ export default class InputComponent extends React.Component{
 		_reduxForm.blur();
 
 		onError && onError();
-
-		console.log(_reduxForm)
 	}
 
 	render(){
