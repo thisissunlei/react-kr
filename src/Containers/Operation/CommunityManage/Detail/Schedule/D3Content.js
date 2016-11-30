@@ -203,16 +203,19 @@ export default class D3Content extends Component {
 		finaBluePointVo = [].concat(finaBluePointVo);
 		finaRedPointVo = [].concat(finaRedPointVo);
 		let sameNode = [];
+
 		finaBluePointVo.map((item) => {
 			finaRedPointVo.map((value) => {
 				if (item.pointDay === value.pointDay) {
-					console.log('----');
 					let node = $.extend(item, value);
 					sameNode.push(node);
 				}
 			});
 
 		})
+		var unique = {};
+		    sameNode.forEach(function(a){ unique[ JSON.stringify(a) ] = 1 });
+		    sameNode= Object.keys(unique).map(function(u){return JSON.parse(u) });
 		return sameNode;
 	}
 
@@ -222,10 +225,6 @@ export default class D3Content extends Component {
 			finaBluePointVo
 		} = this.props;
 
-		// finaBluePointVo = [].concat(finaBluePointVo);
-
-		// finaBluePointVo = Object.assign([],finaBluePointVo);
-
 		const that = this;
 		let finaBluePointVoList = finaBluePointVo.map((item) => {
 			item.pointDay = that.countDays(item.pointDate);
@@ -233,6 +232,7 @@ export default class D3Content extends Component {
 		});
 		if (this.sameNode.length) {
 			this.sameNode.map((item) => {
+				item.pointDay = that.countDays(item.pointDate);
 				finaBluePointVoList.map((value, index) => {
 					console.log('same',item,value);
 					if (item.pointDay === value.pointDay) {
@@ -242,6 +242,7 @@ export default class D3Content extends Component {
 			})
 
 		}
+		console.log('finaBluePointVoList',finaBluePointVoList);
 		return finaBluePointVoList;
 
 	}
@@ -280,16 +281,17 @@ export default class D3Content extends Component {
 		// }
 		if (this.sameNode.length) {
 			this.sameNode.map((item) => {
+				item.pointDay = that.countDays(item.pointDate);
 				finaRedPointVoList.map((value, index) => {
-					console.log('same',item,value);
 					if (item.pointDay === value.pointDay) {
+						console.log('same',item,value);
 						finaRedPointVoList.splice(index, 1);
 					}
 				})
 			})
 
 		}
-		// console.log('finaRedPointVoList',finaRedPointVoList,finaRedPointVo);
+		console.log('finaRedPointVoList',finaRedPointVoList,finaRedPointVo,this.sameNode);
 		return finaRedPointVoList;
 
 	}
