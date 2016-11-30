@@ -38,6 +38,7 @@ import CheckboxGroup from './CheckboxGroup';
 import RadioGroup from './RadioGroup';
 import Message from './Message';
 import DemoComponent from './Demo';
+import Textarea from './Textarea';
 
 import {
 	Grid,
@@ -103,6 +104,7 @@ module.exports = {
 	RadioGroup,
 	Message,
 	DemoComponent,
+	Textarea,
 
 	//materal-ui
 	Menu,
