@@ -8,6 +8,8 @@ import {
 	Form,
 	KrField,
 	Table,
+	Tabs,
+	Tab,
  	TableBody,
 	TableHeader,
 	TableHeaderColumn,
@@ -23,9 +25,7 @@ import {
 	CheckboxGroup,
 	RadioGroup,
 	Message,
-	DemoComponent,
-	Tabs,
-	Tab
+	DemoComponent
 } from 'kr-ui';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
@@ -46,10 +46,6 @@ export default class Demo extends Component{
 		this.onSubmit = this.onSubmit.bind(this);
 
 		console.log('---',this.context.router);
-		this.state = {
-
-			tab: '',
-		}
 
 	}
 
@@ -67,21 +63,13 @@ export default class Demo extends Component{
 		console.log('click');
 
 
-		Message.show('hahah');
-	}
-	changelable=()=>{
-		this.setState({tab:'计划表'})
-	}
-	changelabels=()=>{
-		console.log('active');
-		this.setState({tab:'平面图'})
+		Message.error('hahah');
 	}
 
 
 
 	render(){
 		const list = [{a:1},{b:2},{c:3},{d:5}];
-		let {tab} = this.state;
 
 
 		return(
@@ -95,27 +83,11 @@ export default class Demo extends Component{
 					<Section title="demo" description="" >
 
 							<Button label="show"  onTouchTap={this.show}/>
-
-					<Input type="text" maxLength={10} errors={{
-							maxLength:'不能操作'
-						}}/>
-						<CheckboxGroup name="demo" options={[{
-							label:'是',
-							value:'yes'
-						},
-						{
-							label:'否',
-							value:'no'
-						}
-					]}
-					/>
+							<KrField label='city' component='city'/>
 
 
-					<DemoComponent/>
 
-					
 					</Section>
-
 					<Tabs className="tabs">
 						<Tab label="计划表" >
 							<span style={{display:'block'}}>fdsfsdf</span>
@@ -156,7 +128,6 @@ export default class Demo extends Component{
 
 						</Tab>
 					</Tabs>
-
 			</div>
 
 		);

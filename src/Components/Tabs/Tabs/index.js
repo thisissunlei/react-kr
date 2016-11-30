@@ -127,13 +127,3 @@ export default class TabsComponent extends Component {
 		);
 	}
 }
-
-
-
-
-
-
-
-
-
-
