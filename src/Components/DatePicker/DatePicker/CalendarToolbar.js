@@ -72,6 +72,11 @@ class CalendarToolbar extends Component {
       year: 'numeric',
     }).format(displayDate);
 
+    const monthNumber = dateTimeFormatted.split(' ').shift();
+    const yearNumber = dateTimeFormatted.split(' ').pop();
+
+    console.log('----',dateTimeFormatted.split(' '))
+
     return (
       <div style={styles.root}>
       {/*
@@ -88,7 +93,11 @@ class CalendarToolbar extends Component {
           style={styles.titleDiv}
         >
           <div key={dateTimeFormatted} style={styles.titleText}>
+            {/*
             {dateTimeFormatted}
+              */}
+              <span onTouchTap={this.props.onTouchTapYear}> {yearNumber}年 </span>
+              <span > {monthNumber} </span>
           </div>
         </SlideInTransitionGroup>
 

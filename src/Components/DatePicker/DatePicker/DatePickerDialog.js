@@ -69,7 +69,7 @@ class DatePickerDialog extends Component {
 
   handleTouchTapDay = () => {
     if (this.props.autoOk) {
-      setTimeout(this.handleTouchTapOk, 300);
+      setTimeout(this.handleTouchTapOk, 0);
     }
   };
 
@@ -83,6 +83,7 @@ class DatePickerDialog extends Component {
 
   handleTouchTapOk = () => {
     if (this.props.onAccept && !this.refs.calendar.isSelectedDateDisabled()) {
+
       this.props.onAccept(this.refs.calendar.getSelectedDate());
     }
 
@@ -131,7 +132,8 @@ class DatePickerDialog extends Component {
       },
       dialogBodyContent: {
         padding: 0,
-        minHeight: mode === 'landscape' ? 330 : 434,
+        //minHeight: mode === 'landscape' ? 330 : 434,
+        minHeight: mode === 'landscape' ? 330 : 310,
         minWidth: mode === 'landscape' ? 479 : 310,
       },
     };

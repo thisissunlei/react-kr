@@ -153,6 +153,10 @@ class Calendar extends Component {
     const date = cloneDate(this.state.selectedDate);
     date.setFullYear(year);
     this.setSelectedDate(date, event);
+
+    console.log('----->>>')
+
+    this.handleTouchTapDateDisplayYear();
   };
 
   getToolbarInteractions() {
@@ -169,8 +173,10 @@ class Calendar extends Component {
   };
 
   handleTouchTapDateDisplayYear = () => {
+
     this.setState({
-      displayMonthDay: false,
+    //  displayMonthDay: false,
+        displayMonthDay:!this.state.displayMonthDay
     });
   };
 
@@ -309,6 +315,9 @@ class Calendar extends Component {
           target="window"
           onKeyDown={this.handleWindowKeyDown}
         />
+
+        {/*
+
         <DateDisplay
           DateTimeFormat={DateTimeFormat}
           disableYearSelection={this.props.disableYearSelection}
@@ -319,9 +328,13 @@ class Calendar extends Component {
           mode={this.props.mode}
           selectedDate={this.state.selectedDate}
         />
+
+          */}
+
         <div style={prepareStyles(styles.calendar)}>
           {this.state.displayMonthDay &&
             <div style={prepareStyles(styles.calendarContainer)}>
+            {/*
               <CalendarToolbar
                 DateTimeFormat={DateTimeFormat}
                 locale={locale}
@@ -329,6 +342,16 @@ class Calendar extends Component {
                 onMonthChange={this.handleMonthChange}
                 prevMonth={toolbarInteractions.prevMonth}
                 nextMonth={toolbarInteractions.nextMonth}
+              />
+              */}
+              <CalendarToolbar
+                DateTimeFormat={DateTimeFormat}
+                locale={locale}
+                displayDate={this.state.displayDate}
+                onMonthChange={this.handleMonthChange}
+                prevMonth={toolbarInteractions.prevMonth}
+                nextMonth={toolbarInteractions.nextMonth}
+                onTouchTapYear={this.handleTouchTapDateDisplayYear}
               />
               <div style={prepareStyles(styles.weekTitle)}>
                 {daysArray.map((event, i) => (
@@ -359,6 +382,7 @@ class Calendar extends Component {
               {this.yearSelector()}
             </div>
           }
+          {/*
           {okLabel &&
             <CalendarActionButtons
               autoOk={this.props.autoOk}
@@ -368,6 +392,7 @@ class Calendar extends Component {
               onTouchTapOk={onTouchTapOk}
             />
           }
+            */}
         </div>
       </div>
     );

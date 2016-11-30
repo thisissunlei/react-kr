@@ -1,6 +1,7 @@
 import warning from 'warning';
 
-const dayAbbreviation = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+//const dayAbbreviation = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+const dayAbbreviation = ['日', '一', '二', '三', '四', '五', '六'];
 //const dayList = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const dayList = ['日', '一', '二', '三', '四', '五', '六'];
 //const monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

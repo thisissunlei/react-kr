@@ -178,6 +178,7 @@ export default class DateComponent extends React.Component {
 												hintText={placeholder}
 												textFieldStyle={styles}
 												name={input.name}
+												autoOk={true}
 												container="inline"
 												onChange={this.onChange}/>
 								</span>

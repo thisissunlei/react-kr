@@ -114,6 +114,7 @@ class DateDisplay extends Component {
   handleTouchTapYear = () => {
     if (this.props.onTouchTapYear && !this.props.disableYearSelection && !this.state.selectedYear) {
       this.props.onTouchTapYear();
+
     }
 
     if (!this.props.disableYearSelection) {
