@@ -392,7 +392,7 @@ export default class D3Content extends Component {
 							<span className='red-node' key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}} data-tip data-for={`${item.pointDate}${index}red`}>
 								<ReactTooltip id={`${item.pointDate}${index}red`} place="top" type="dark" effect="solid" >
 											<div key={index} className="react-tooltip-content">
-												<span>分期催款</span>
+												<span>{item.plan.contractName}分期催款</span>
 												<p>{dateFormat(item.plan.installmentReminddate, "yyyy.mm.dd")}日催款({dateFormat(item.plan.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(item.plan.installmentEnddate, "yyyy.mm.dd")})</p>
 												<p>{item.plan.stationnum}个位置({dateFormat(item.plan.billStartDate, "yyyy.mm.dd")}-{dateFormat(item.plan.billEndDate, "yyyy.mm.dd")})</p>
 												<p>负责人：<span className='red-content'>{item.plan.name}</span></p>
@@ -421,7 +421,7 @@ export default class D3Content extends Component {
 								<span className='red-node' data-tip data-for={`${item.pointDate}${item.newStationNum}${index}samered`}>
 									<ReactTooltip id={`${item.pointDate}${item.newStationNum}${index}samered`} place="top" type="dark" effect="solid" >
 											<div className="react-tooltip-content">
-												<span>分期催款</span>
+												<span>{item.plan.contractName}分期催款</span>
 												<p>{dateFormat(item.plan.installmentReminddate, "yyyy.mm.dd")}日催款({dateFormat(item.plan.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(item.plan.installmentEnddate, "yyyy.mm.dd")})</p>
 												<p>{item.stationnum}个位置({dateFormat(item.plan.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(item.plan.installmentEnddate, "yyyy.mm.dd")})</p>
 												<p>负责人：<span className='red-content'>{item.plan.name}</span></p>
