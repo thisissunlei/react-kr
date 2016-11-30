@@ -395,8 +395,8 @@ export default class D3Content extends Component {
 				{
 					redNodeList && redNodeList.map((item,index)=>{
 						return (
-							<span className='red-node' key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}} data-tip data-for={`${item.pointDate}${index}`}>
-								<ReactTooltip id={`${item.pointDate}${index}`} place="top" type="dark" effect="solid" >
+							<span className='red-node' key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}} data-tip data-for={`${item.pointDate}${index}red`}>
+								<ReactTooltip id={`${item.pointDate}${index}red`} place="top" type="dark" effect="solid" >
 											<div key={index} className="react-tooltip-content">
 												<span>分期催款</span>
 												<p>{dateFormat(item.plan.installmentReminddate, "yyyy.mm.dd")}日催款({dateFormat(item.plan.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(item.plan.installmentEnddate, "yyyy.mm.dd")})</p>
@@ -414,8 +414,8 @@ export default class D3Content extends Component {
 					sameNode && sameNode.map((item,index)=>{
 						return (
 							<div className='same-div'  key={index}style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}}>
-								<span className='blue-node' data-tip data-for={`${item.pointDate}${item.newStationNum}${index}red`}>
-									<ReactTooltip id={`${item.pointDate}${item.newStationNum}${index}red`} place="top" type="dark" effect="solid" >
+								<span className='blue-node' data-tip data-for={`${item.pointDate}${item.newStationNum}${index}sameblue`}>
+									<ReactTooltip id={`${item.pointDate}${item.newStationNum}${index}sameblue`} place="top" type="dark" effect="solid" >
 										<div className="react-tooltip-content">
 											<span>工位变更</span>
 											<p>{item.finaName}({dateFormat(item.leaseBeginDate, "yyyy.mm.dd")}-{dateFormat(item.leaseEndDate, "yyyy.mm.dd")})</p>
@@ -424,15 +424,15 @@ export default class D3Content extends Component {
 										</div>
 									</ReactTooltip>
 								</span>
-								<span className='red-node' data-tip data-for={`${item.pointDate}${item.newStationNum}${index}blue`}>
-									<ReactTooltip id={`${item.pointDate}${item.newStationNum}${index}blue`} place="top" type="dark" effect="solid" >
+								<span className='red-node' data-tip data-for={`${item.pointDate}${item.newStationNum}${index}samered`}>
+									<ReactTooltip id={`${item.pointDate}${item.newStationNum}${index}samered`} place="top" type="dark" effect="solid" >
 											<div className="react-tooltip-content">
 												<span>分期催款</span>
-												<p>{dateFormat(item.installmentReminddate, "yyyy.mm.dd")}日催款({dateFormat(item.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(item.installmentEnddate, "yyyy.mm.dd")})</p>
-												<p>{item.stationnum}个位置({dateFormat(item.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(item.installmentEnddate, "yyyy.mm.dd")})</p>
-												<p>负责人：<span className='red-content'>{item.name}</span></p>
-												<p>电话：<span className='red-content'>{item.phone}</span></p>
-												<p>催款金额：<span className='red-content'>{item.installmentAmount}</span></p>
+												<p>{dateFormat(item.plan.installmentReminddate, "yyyy.mm.dd")}日催款({dateFormat(item.plan.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(item.plan.installmentEnddate, "yyyy.mm.dd")})</p>
+												<p>{item.stationnum}个位置({dateFormat(item.plan.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(item.plan.installmentEnddate, "yyyy.mm.dd")})</p>
+												<p>负责人：<span className='red-content'>{item.plan.name}</span></p>
+												<p>电话：<span className='red-content'>{item.plan.phone}</span></p>
+												<p>催款金额：<span className='red-content'>{item.plan.installmentAmount}</span></p>
 											</div>
 									</ReactTooltip>
 							</span>
