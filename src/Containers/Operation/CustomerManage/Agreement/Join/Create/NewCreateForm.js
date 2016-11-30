@@ -2,13 +2,18 @@ import React, {
 	Component,
 	PropTypes
 } from 'react';
+
 import {
-	connect
+	connect,
+	ReduxFrom
 } from 'kr/Redux';
+
 import Param from 'jquery-param';
+
 import {
 	Fields
 } from 'redux-form';
+
 import {
 	Binder
 } from 'react-binding';
@@ -510,7 +515,7 @@ class NewCreateForm extends Component {
 
 
 				<KrField grid={1/2} right={60}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} />
-				<KrField grid={1/2} left={60} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}/>
+				<KrField grid={1/2} left={60} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true} minLength={10} requiredValue={true} errors={{minLength:'最小值为10',requiredValue:'必须填写'}}/>
 
 				<KrField grid={1/2}  right={60}  component="labelText" label="承租方" inline={false} value={optionValues.customerName}/>
 
@@ -658,10 +663,11 @@ const validate = values => {
 	if (!values.wherefloor) {
 		errors.wherefloor = '请输入所在楼层';
 	}
-
+/*
 	if (!values.lessorContacttel) {
 		errors.lessorContacttel = '请输入出租方联系电话';
 	}
+*/
 
 	if (!values.contractcode) {
 		errors.contractcode = '请输入合同编号';
@@ -728,6 +734,8 @@ const validate = values => {
 		errors.leaseEnddate = '请输入租赁结束时间';
 	}
 
+	console.log('进来了')
+
 	return errors
 }
 
@@ -737,7 +745,7 @@ NewCreateForm = reduxForm({
 	form: 'joinCreateForm',
 	validate,
 	enableReinitialize: true,
-	keepDirtyOnReinitialize: true
+	keepDirtyOnReinitialize: true,
 })(NewCreateForm);
 
 export default connect((state) => {
