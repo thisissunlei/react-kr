@@ -26,6 +26,7 @@ export default  class Input extends React.Component {
 				children:React.PropTypes.node,
 				minLength:React.PropTypes.number,
 				maxLength:React.PropTypes.number,
+				pattern:React.PropTypes.object,
 				placeholder:React.PropTypes.string,
 				disabled:React.PropTypes.bool,
 				/**
@@ -74,7 +75,7 @@ export default  class Input extends React.Component {
 
 	onValidate = ()=>{
 
-		let {minLength,maxLength,requiredValue,errors} = this.props;
+		let {minLength,maxLength,requiredValue,pattern,errors} = this.props;
 		let {value} = this.state;
 
 
@@ -88,6 +89,10 @@ export default  class Input extends React.Component {
 
 		if(maxLength && value.length>maxLength){
 			return errors['maxLength'];
+		}
+
+		if(pattern && !pattern.test(value)){
+			return errors['pattern'];
 		}
 
 		return undefined;
