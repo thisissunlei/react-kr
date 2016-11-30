@@ -13,6 +13,7 @@ export default class Pagination extends Component {
 	static displayName = 'Pagination';
 	static defaultProps = {
 		pageNumber: 10,
+		pageJump:6,
 	}
 	static propTypes = {
 		children: React.PropTypes.node,
@@ -20,7 +21,8 @@ export default class Pagination extends Component {
 		pageSize: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
 		totalCount: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
 		onPageChange: React.PropTypes.func,
-		pageNumber: React.PropTypes.number
+		pageNumber: React.PropTypes.number,
+		pageJump: React.PropTypes.number
 	};
 
 	constructor(props) {
@@ -199,7 +201,8 @@ export default class Pagination extends Component {
 			page,
 			pageSize,
 			totalCount,
-			pageNumber
+			pageNumber,
+			pageJump
 		} = this.props;
 
 
@@ -207,13 +210,16 @@ export default class Pagination extends Component {
 
 		let props = {};
 
+
 		const handlers = {
 			onClick: this.onJumpPage
 		}
 
-		let pageStart = page;
-		let pageJump = 6;
-		let pageMax = Math.ceil(totalCount / pageSize);
+		let pageStart = parseInt(page/pageJump)*pageJump;
+		if(pageStart === 0){
+					pageStart = 1;
+		}
+		let pageMax = Math.ceil(totalCount/pageSize);
 		let pageEnd = pageStart + pageJump;
 
 		if (pageEnd > pageMax) {
@@ -224,11 +230,6 @@ export default class Pagination extends Component {
 		}
 
 		let element = null;
-
-		if (pageStart >= pageJump) {
-			element = this.createOther(parseInt(pageStart / pageJump) * pageJump - pageJump);
-			pageBody.push(element);
-		}
 
 		var i = pageStart;
 		while (i < pageEnd) {
@@ -247,11 +248,6 @@ export default class Pagination extends Component {
 			i++;
 		}
 
-		if (pageEnd < pageMax-1) {
-			element = this.createOther(pageEnd);
-			pageBody.push(element);
-		}
-
 		return (
 			<div className="item-body">
 					{pageBody}
@@ -266,14 +262,14 @@ export default class Pagination extends Component {
 			pageSize,
 			totalCount
 		} = this.props;
-        
+
         var pageMax = Math.ceil(totalCount / pageSize);
 
 		if (page == 1&&pageMax==1) {
 			return;
 		}
 
-		
+
 
 		let props = {};
 		props.className = 'item';
@@ -306,14 +302,61 @@ export default class Pagination extends Component {
 
 	}
 
-	renderJump() {
+	renderPrevMore = ()=>{
 
+		let {page,pageJump} = this.props;
+		let props = {
+			className:'item'
+		};
+		if(page<pageJump){
+				return null;
+		}
+		const handlers = {
+			onClick: this.onJumpPage
+		}
+
+
+		var element = this.createOther(parseInt(page/pageJump)*pageJump-1);
+
+		return(
+			<div className="item-body">
+					{element}
+			</div>
+		);
+	}
+
+	renderNextMore = ()=>{
+
+		let {page,pageJump,totalCount,pageSize} = this.props;
+
+		let props = {
+			className:'item'
+		};
+
+
+		var pageMax = Math.ceil(totalCount/pageSize);
+
+
+		if(Math.ceil(totalCount/pageSize)<pageJump || page>=(pageMax-pageJump)){
+				return null;
+		}
+		const handlers = {
+			onClick: this.onJumpPage
+		}
+		var element = this.createOther((parseInt(page/pageJump)+1)*pageJump+1);
+		return(
+			<div className="item-body">
+					{element}
+			</div>
+		);
+	}
+
+	renderJump() {
 		let {
 			page,
 			pageSize,
 			totalCount
 		} = this.props;
-
 		return (
 			<div className="item-jump">
 				<span>到</span>
@@ -347,7 +390,9 @@ export default class Pagination extends Component {
 					{this.renderTotalCount()}
 					{this.renderPrev()}
 					{this.renderFirst()}
+					{this.renderPrevMore()}
 					{this.renderBody()}
+					{this.renderNextMore()}
 					{this.renderLast()}
 					{this.renderNext()}
 					{this.renderJump()}

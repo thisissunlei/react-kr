@@ -1,4 +1,7 @@
 import React from 'react';
+import {
+	Tab
+} from 'material-ui';
 
 export default class TabItem extends React.Component {
 
@@ -6,6 +9,7 @@ export default class TabItem extends React.Component {
 	static PropTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
+		label:React.PropTypes.string,
 	}
 
 	constructor(props){
@@ -15,11 +19,12 @@ export default class TabItem extends React.Component {
 
 
 	render() {
-		const {children} = this.props;
+		const {children,label} = this.props;
+		console.log('TabItem',label,this.props);
 		return(
-			<div className="tab-item">
+				<Tab label={label}>
 				{children}
-			</div>
+				</Tab>
 		);
 	}
 

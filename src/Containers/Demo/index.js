@@ -23,7 +23,9 @@ import {
 	CheckboxGroup,
 	RadioGroup,
 	Message,
-	DemoComponent
+	DemoComponent,
+	Tabs,
+	Tab
 } from 'kr-ui';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
@@ -44,6 +46,10 @@ export default class Demo extends Component{
 		this.onSubmit = this.onSubmit.bind(this);
 
 		console.log('---',this.context.router);
+		this.state = {
+
+			tab: '',
+		}
 
 	}
 
@@ -63,11 +69,19 @@ export default class Demo extends Component{
 
 		Message.show('hahah');
 	}
+	changelable=()=>{
+		this.setState({tab:'计划表'})
+	}
+	changelabels=()=>{
+		console.log('active');
+		this.setState({tab:'平面图'})
+	}
 
 
 
 	render(){
 		const list = [{a:1},{b:2},{c:3},{d:5}];
+		let {tab} = this.state;
 
 
 		return(
@@ -82,17 +96,9 @@ export default class Demo extends Component{
 
 							<Button label="show"  onTouchTap={this.show}/>
 
-							<RadioGroup name="demo" options={[{
-								label:'是',
-								value:'yes'
-							},
-							{
-								label:'否',
-								value:'no'
-							}
-						]}
-						/>
-						<Input />
+					<Input type="text" maxLength={10} errors={{
+							maxLength:'不能操作'
+						}}/>
 						<CheckboxGroup name="demo" options={[{
 							label:'是',
 							value:'yes'
@@ -106,7 +112,50 @@ export default class Demo extends Component{
 
 
 					<DemoComponent/>
+
+					
 					</Section>
+
+					<Tabs className="tabs">
+						<Tab label="计划表" >
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+
+						</Tab>
+						<Tab label="平面图1" >
+
+						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
+						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
+						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
+						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
+
+
+						</Tab>
+						<Tab label="计划表我"  >
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+							<span style={{display:'block'}}>fdsfsdf</span>
+
+						</Tab>
+						<Tab label="平面图"  >
+
+						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
+						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
+						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
+						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
+
+
+						</Tab>
+					</Tabs>
 			</div>
 
 		);

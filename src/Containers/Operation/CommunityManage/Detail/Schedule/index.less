@@ -426,7 +426,9 @@ a,button,button:hover{
 					border-color: #54c5a5 #54c5a5 red red;
 					transform: rotate(45deg);
 					position: absolute;
-					pointer-events:none;
+					background-color: #fff;
+					left: 0;
+					// pointer-events:none;
 
 				}
 				
@@ -652,27 +654,25 @@ a,button,button:hover{
 .bgcolor{
 	color: #666666 !important;
 }
-
+.same-div{
+	width: 20px;
+	height: 50px;
+	.blue-node{
+		margin-top: 10px;
+	}
+	.red-node{
+		margin-top: 30px;
+	}
+}
 .react-tooltip-content{
 	padding:15px 0;
-	p:first-child{
-		color: #fff;
-		&:before{
-			border:2px solid #fff;
-
-		}
-	}
-	p:nth-child(2){
-		color: #fff;
-		&:before{
-			border:2px solid #fff;
-			
-		}
-	}
+	text-align: left;
+	
 	p{
+		color: #fff;
 		&:before{
 			content:'';
-			border:2px solid #999;
+			border:2px solid #fff;
 			border-radius: 2px;
 			height: 0;
 			width: 0;
@@ -680,6 +680,12 @@ a,button,button:hover{
 			margin-right: 8px;
 			display: inline-block;
 		}
+	}
+	.red-content{
+		color:#FF6868;
+	}
+	.blue-content{
+		color: #54c5a5;
 	}
 }
 .react-tooltip-content + .react-tooltip-content{
