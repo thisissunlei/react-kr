@@ -3,6 +3,7 @@ import React, {Component, PropTypes} from 'react';
 //import NavigationChevronLeft from '../svg-icons/navigation/chevron-left';
 //import NavigationChevronRight from '../svg-icons/navigation/chevron-right';
 import SlideInTransitionGroup from '../internal/SlideIn';
+import Button from '../../Button';
 
 const styles = {
   root: {
@@ -81,6 +82,7 @@ class CalendarToolbar extends Component {
           <NavigationChevronLeft />
         </IconButton>
         */}
+        <Button type="link" label='&lt;'   onTouchTap={this.handleTouchTapPrevMonth}/>
         <SlideInTransitionGroup
           direction={this.state.transitionDirection}
           style={styles.titleDiv}
@@ -89,6 +91,8 @@ class CalendarToolbar extends Component {
             {dateTimeFormatted}
           </div>
         </SlideInTransitionGroup>
+
+          <Button type="link" label='&gt;'   onTouchTap={this.handleTouchTapNextMonth}/>
           {/*
         <IconButton
           disabled={!this.props.nextMonth}

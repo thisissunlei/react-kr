@@ -1,11 +1,14 @@
 import warning from 'warning';
 
 const dayAbbreviation = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-const dayList = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
-  'Oct', 'Nov', 'Dec'];
-const monthLongList = ['January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December'];
+//const dayList = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const dayList = ['日', '一', '二', '三', '四', '五', '六'];
+//const monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const monthList = ['一', '二', '三', '四', '五', '六', '七', '八', '九',
+  '十', '十一', '十二'];
+//const monthLongList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+const monthLongList = ['1月', '2月', '3月', '4月', '5月', '6月','7月', '8月', '9月', '10月', '11月', '12月'];
 
 export function dateTimeFormat(locale, options) {
   warning(locale === 'en-US', `Material-UI: The ${locale} locale is not supported by the built-in DateTimeFormat.

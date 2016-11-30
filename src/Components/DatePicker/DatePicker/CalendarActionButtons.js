@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 //import FlatButton from '../FlatButton';
+import Button from '../../Button';
 
 class CalendarActionButton extends Component {
   static propTypes = {
@@ -33,16 +34,15 @@ class CalendarActionButton extends Component {
 
     return (
       <div style={styles.root} >
-      {/*
 
-        <FlatButton
+        <Button
           label={cancelLabel}
           onTouchTap={this.props.onTouchTapCancel}
           primary={true}
           style={styles.flatButtons}
         />
         {!this.props.autoOk &&
-          <FlatButton
+          <Button
             disabled={this.refs.calendar !== undefined && this.refs.calendar.isSelectedDateDisabled()}
             label={okLabel}
             onTouchTap={this.props.onTouchTapOk}
@@ -50,8 +50,6 @@ class CalendarActionButton extends Component {
             style={styles.flatButtons}
           />
         }
-
-      */}
       </div>
     );
   }

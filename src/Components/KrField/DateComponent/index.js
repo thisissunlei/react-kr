@@ -5,7 +5,7 @@ import {
 } from 'redux-form';
 
 //import DatePicker from 'material-ui/DatePicker';
-import DatePicker from '../../DatePick';
+import DatePicker from '../../DatePicker';
 
 import {
   DateFormat
