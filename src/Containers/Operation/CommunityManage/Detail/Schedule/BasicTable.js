@@ -753,7 +753,7 @@ export default class BasicTable extends Component {
 		 					<span className="txts bule-div" >当前的分期时间</span>
 		 					<span className="txts grey-div">过去的分期时间</span>
 		 					<span className="circle red"></span>
-		 					<span className="txt" >催账时间</span>
+		 					<span className="txt" >催款时间</span>
 		 					<span className="circle green"></span>
 		 					<span className="txt" >工位变更</span>
 		 				</p>
