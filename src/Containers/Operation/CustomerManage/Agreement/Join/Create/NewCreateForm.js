@@ -515,7 +515,7 @@ class NewCreateForm extends Component {
 
 
 				<KrField grid={1/2} right={60}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} />
-				<KrField grid={1/2} left={60} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true} minLength={10} requiredValue={true} errors={{minLength:'最小值为10',requiredValue:'必须填写'}}/>
+				<KrField grid={1/2} left={60} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}  errors={{requiredValue:'电话号码为必填项'}}/>
 
 				<KrField grid={1/2}  right={60}  component="labelText" label="承租方" inline={false} value={optionValues.customerName}/>
 
