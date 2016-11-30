@@ -18,7 +18,7 @@ import Checkbox from './Checkbox';
 import RadioButton from './RadioButton';
 import Notify from './Notify';
 import IframeContent from './IframeContent';
-//import Tabs from './Tabs/index';
+import Tabs from './Tabs/index';
 import PageHeader from './PageHeader';
 import Paper from './Paper';
 import SplitLine from './SplitLine';
@@ -58,8 +58,7 @@ import {
 } from 'material-ui';
 
 import {
-	Tab,
-	Tabs
+	Tab
 } from 'material-ui/Tabs';
 
 module.exports = {
@@ -114,9 +113,9 @@ module.exports = {
 	Avatar,
 	Dialog,
 	Snackbar,
-	Tabs,
+	// Tabs,
 	Tab,
 	SearchForms,
-	//...Tabs,
+	...Tabs,
 	PageHeader,
 }

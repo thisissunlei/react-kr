@@ -1,5 +1,10 @@
 import React from 'react';
 
+import {
+	ClassNames
+} from 'kr/Utils';
+
+
 import './index.less';
 
 export default  class Input extends React.Component {
@@ -8,7 +13,9 @@ export default  class Input extends React.Component {
 
 	static defaultPorps = {
 		value:'',
-		type:'text'
+		type:'text',
+		placeholder:'',
+		disabled:false,
 	}
 
 	static propTypes = {
@@ -17,6 +24,17 @@ export default  class Input extends React.Component {
 				className: React.PropTypes.string,
 				type: React.PropTypes.string,
 				children:React.PropTypes.node,
+				minLength:React.PropTypes.number,
+				maxLength:React.PropTypes.number,
+				pattern:React.PropTypes.object,
+				placeholder:React.PropTypes.string,
+				disabled:React.PropTypes.bool,
+				/**
+				*{maxLength:'不能超过最大值',minLength:'最小值为'}
+				*
+				*/
+				errors:React.PropTypes.object,
+				onError:React.PropTypes.func,
 	}
 
 	constructor(props){
@@ -37,29 +55,77 @@ export default  class Input extends React.Component {
 			 });
 		}
 	}
+	componentDidMount(){
+		this.onBlur();
+	}
 
 	onChange(event){
 
 			var value = event.target.value;
-			const {onChange} = this.props;
+			const {onChange,maxLength} = this.props;
+			if (maxLength) {
+					value = value.slice(0,maxLength);
+			}
 
 			this.setState({
 				value
 			});
-
 			onChange && onChange(value);
 	}
+
+	onValidate = ()=>{
+
+		let {minLength,maxLength,requiredValue,pattern,errors} = this.props;
+		let {value} = this.state;
+
+
+		if(requiredValue && !value){
+			return errors['requiredValue'];
+		}
+
+		if(minLength && String(value).length<minLength){
+			return errors['minLength'];
+		}
+
+		if(maxLength && value.length>maxLength){
+			return errors['maxLength'];
+		}
+
+		if(pattern && !pattern.test(value)){
+			return errors['pattern'];
+		}
+
+		return undefined;
+
+	}
+
+	onBlur = ()=>{
+
+		let {value} = this.state;
+		let message = this.onValidate();
+		let {onError,onBlur} = this.props;
+
+		if(typeof message !== 'undefined'){
+			onError && onError(message);
+		}
+		onBlur && onBlur(value);
+	}
+
 	render() {
 
-		let {children,className,style,type,name,...other} = this.props;
+		let {children,className,style,type,name,disabled,placeholder,...other} = this.props;
 
 		let {value} = this.state;
 
-		let classNames = 'ui-input';
-		classNames+=' '+className;
+		let  classNames = ClassNames('ui-input',className);
+
+		if(disabled){
+		  	classNames = ClassNames('ui-input',className,'disabled');
+		}
+
 
 		return (
-			 <input type={type} style={style} name={name} className={classNames} value={value} onChange={this.onChange} {...other}/>
+			 <input type={type} name={name} className={classNames}  style={style} placeholder={placeholder} value={value} {...other} disabled={disabled} onChange={this.onChange} onBlur={this.onBlur} />
 		);
 	}
 }
