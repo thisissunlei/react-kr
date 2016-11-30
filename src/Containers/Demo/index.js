@@ -156,6 +156,7 @@ export default class Demo extends Component{
 
 						</Tab>
 					</Tabs>
+
 			</div>
 
 		);
