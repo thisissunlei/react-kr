@@ -68,8 +68,8 @@ import {
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
 				<KrField name="id" type="hidden" label="id"/>
-				<KrField grid={1/2} name="accounttype" type="select" label="分组名称" options={[ {value:'a',label:'启用'},{value:'b',label:'不启用'} {value:'INCOME',label:'全部'}]} requireLabel={true} />
-				<KrField grid={1/2} name="accountty" type="select" label="启用状态" options={[ {value:'PAYMENT',label:'启用'},{value:'b',label:'不启用'} {value:'INCOME',label:'全部'} ]} requireLabel={true} />
+				<KrField grid={1/2} name="accounttype" type="select" label="分组名称" options={[ {value:'PAYMENT',label:'启用'}, {value:'INCOME',label:'全部'}, ]} requireLabel={true} />
+				<KrField grid={1/2} name="accounttype" type="select" label="启用状态" options={[ {value:'PAYMENT',label:'回款'}, {value:'INCOME',label:'收入'}, ]} requireLabel={true} />
 
 
 

@@ -37,16 +37,27 @@ class Switchover extends Component{
     this.setState({allData:arr});
   }
   render(){
-
+		var boxStyle={
+			marginLeft:"15px",
+			width:"auto",
+			display:"inline-block",
+			verticalAlign:"middle",
+			position:"relative",
+			lineHeight:"250px"
+		}
     var moddleStyle={
       display:"inline-block",
       width:"40px",
-      height:"250px",
-      verticalAlign:"middle",
+			height:"48px",
+			position:"relative",
+			marginBottom:"101px",
+			textAlign:"center",
+
+
     }
 
     return (
-      <div>
+      <div style={boxStyle}>
           <ZhuanHuan  iconShow="false"
                       Data={this.state.allData}
                       addOther={this.rightAdd.bind(this)}
@@ -117,13 +128,15 @@ class ZhuanHuan extends React.Component{
 
   render(){
     var _this=this;
-		console.log(_this,"-----");
     var boxStyle={
       border:"1px solid #dfdfdf",
       width:"252px",
+			float:"left",
       height:"250px",
+			lineHeight:"26px",
       display:'inline-block',
-      overflow:"auto"
+      overflow:"auto",
+			borderRadius:"3px",
     }
     var arr=this.state.mouldSort.map(function(item,index){
       var j=index;
@@ -285,11 +298,11 @@ class ZhuanHuan extends React.Component{
 					<KrField name="enableflag" label="是" component="radio" type="radio" value="ENABLE"/>
 						<KrField name="enableflag" label="否"  component="radio"  type="radio" value="DISENABLE" />
 				</KrField>
-				<KrField grid={1/2} name="accounttype" type="select" label="数据模板" options={[ {value:'PAYMENT',label:'回款'}, {value:'INCOME',label:'收入'}, ]} requireLabel={true} />
+				<KrField grid={1/2} label="数据模板" requireLabel={true} component="labelText"/>
+				<Switchover allData={[1,2,3,4,5]} okData={[6,7,8,9,10]}/>
 
 
 			<KrField name="accountdesc" component="textarea" label="分组描述"  />
-			<Switchover allData={[1,2,3,4,5]} okData={[6,7,8,9,10]}/>
 
 				<Grid style={{marginTop:30}}>
 					<Row>

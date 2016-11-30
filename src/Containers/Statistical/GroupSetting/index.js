@@ -23,7 +23,7 @@ import {
 
 } from 'kr-ui';
 import NewCreateForm from './CreateForm';
-
+import NewEditDetail from './EditForm';
 import SearchUpperForm from './SearchUpperFrom'
 
 export default class Initialize  extends Component{
@@ -147,18 +147,19 @@ export default class Initialize  extends Component{
 						open={this.state.openEditDetail}
 						onClose={this.openEditDetailDialog}
 					>
-						<NewCreateForm  detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog} />
+						<NewEditDetail  detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog} />
 		  			</Dialog>
 
 		  			<Dialog
 						title="新建分组"
 						modal={true}
+
 						open={this.state.openNewCreate}
 						onClose={this.openNewCreateDialog}
 
 
 					>
-						<NewCreateForm onSubmit={this.openNewCreateSubmit} onCancel={this.openNewCreateDialog} />
+						<NewCreateForm detail={this.state.itemDetail} onSubmit={this.openNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 
 				  </Dialog>
 
@@ -171,7 +172,7 @@ export default class Initialize  extends Component{
 						bodyStyle={{paddingTop:34}}
 						contentStyle={{width:687}}
 					>
-						<SearchUpperForm onSubmit={this.onNewCreateSubmit} onCancel={this.openSearchUpperFormDialog} />
+						<SearchUpperForm detail={this.state.itemDetail} onSubmit={this.onNewCreateSubmit} onCancel={this.openSearchUpperFormDialog} />
 
 				  </Dialog>
 
