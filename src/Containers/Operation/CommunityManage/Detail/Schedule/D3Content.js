@@ -423,7 +423,7 @@ export default class D3Content extends Component {
 											<div className="react-tooltip-content">
 												<span>{item.plan.contractName}分期催款</span>
 												<p>{dateFormat(item.pointDate, "yyyy.mm.dd")}日催款({dateFormat(item.plan.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(item.plan.installmentEnddate, "yyyy.mm.dd")})</p>
-												<p>{item.stationnum}个位置({dateFormat(item.plan.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(item.plan.installmentEnddate, "yyyy.mm.dd")})</p>
+												<p>{item.plan.stationnum}个位置({dateFormat(item.plan.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(item.plan.installmentEnddate, "yyyy.mm.dd")})</p>
 												<p>负责人：<span className='red-content'>{item.plan.name}</span></p>
 												<p>电话：<span className='red-content'>{item.plan.phone}</span></p>
 												<p>催款金额：<span className='red-content'>{item.plan.installmentAmount}</span></p>
