@@ -53,6 +53,9 @@ Message.show = function (messages) {
 		document.body.appendChild(zhezhaoDOM);
   }
     ReactDOM.render(<Message messages={messages} className="success"/>, zhezhaoDOM);
+		setTimeout(function(){
+		  ReactDOM.render(<div className='hide'></div>, zhezhaoDOM);
+		},1000)
 };
 
 Message.success = function (messages) {
@@ -64,6 +67,9 @@ Message.success = function (messages) {
 		document.body.appendChild(zhezhaoDOM);
   }
     ReactDOM.render(<Message messages={messages} className="success"/>, zhezhaoDOM);
+		setTimeout(function(){
+		  ReactDOM.render(<div className='hide'></div>, zhezhaoDOM);
+		},1000)
 };
 
 Message.error = function (messages) {
@@ -75,6 +81,9 @@ Message.error = function (messages) {
 		document.body.appendChild(zhezhaoDOM);
   }
     ReactDOM.render(<Message messages={messages} className="error" />, zhezhaoDOM);
+		setTimeout(function(){
+		  ReactDOM.render(<div className='hide'></div>, zhezhaoDOM);
+		},1000)
 };
 
 
