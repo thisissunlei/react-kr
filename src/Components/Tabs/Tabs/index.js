@@ -75,7 +75,7 @@ export default class TabsComponent extends Component {
 		}
 			return (
 				<Tab label={label} style={style} key={i} onActive={onActive} className={label}>
-					<div style={{padding:'20px 10px'}}> 
+					<div style={{padding:'0 20px'}}> 
 						{children}
 					</div>
 					
@@ -127,13 +127,3 @@ export default class TabsComponent extends Component {
 		);
 	}
 }
-
-
-
-
-
-
-
-
-
-

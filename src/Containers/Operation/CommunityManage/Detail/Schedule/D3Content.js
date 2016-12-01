@@ -389,9 +389,9 @@ export default class D3Content extends Component {
 				{
 					redNodeList && redNodeList.map((item,index)=>{
 						return (
-							<span className='red-node' key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}} data-tip data-for={`${item.pointDate}${index}red`}>
-								<ReactTooltip id={`${item.pointDate}${index}red`} place="top" type="dark" effect="solid" >
-									 		<div key={index} className="react-tooltip-content">
+							<span className='red-node' key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}} data-tip data-for={`${item.pointDate}${index}red${item.plan.id}`}>
+								<ReactTooltip id={`${item.pointDate}${index}red${item.plan.id}`} place="top" type="dark" effect="solid" >
+											<div key={index} className="react-tooltip-content">
 												<span>{item.plan.contractName}分期催款</span>
 												<p>{dateFormat(item.pointDate, "yyyy.mm.dd")}日催款({dateFormat(item.plan.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(item.plan.installmentEnddate, "yyyy.mm.dd")})</p>
 												<p>{item.plan.stationnum}个位置({dateFormat(item.plan.billStartDate, "yyyy.mm.dd")}-{dateFormat(item.plan.billEndDate, "yyyy.mm.dd")})</p>
@@ -423,7 +423,7 @@ export default class D3Content extends Component {
 											<div className="react-tooltip-content">
 												<span>{item.plan.contractName}分期催款</span>
 												<p>{dateFormat(item.pointDate, "yyyy.mm.dd")}日催款({dateFormat(item.plan.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(item.plan.installmentEnddate, "yyyy.mm.dd")})</p>
-												<p>{item.stationnum}个位置({dateFormat(item.plan.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(item.plan.installmentEnddate, "yyyy.mm.dd")})</p>
+												<p>{item.plan.stationnum}个位置({dateFormat(item.plan.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(item.plan.installmentEnddate, "yyyy.mm.dd")})</p>
 												<p>负责人：<span className='red-content'>{item.plan.name}</span></p>
 												<p>电话：<span className='red-content'>{item.plan.phone}</span></p>
 												<p>催款金额：<span className='red-content'>{item.plan.installmentAmount}</span></p>

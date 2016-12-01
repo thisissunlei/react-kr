@@ -38,6 +38,8 @@ import CheckboxGroup from './CheckboxGroup';
 import RadioGroup from './RadioGroup';
 import Message from './Message';
 import DemoComponent from './Demo';
+import Textarea from './Textarea';
+import 	DatePicker from './DatePicker';
 
 import {
 	Grid,
@@ -52,7 +54,6 @@ import {
 	MenuItem,
 	DropDownMenu,
 	IconMenu,
-	DatePicker,
 	Avatar,
 	Snackbar,
 } from 'material-ui';
@@ -103,13 +104,15 @@ module.exports = {
 	RadioGroup,
 	Message,
 	DemoComponent,
+	Textarea,
+	DatePicker,
 
 	//materal-ui
 	Menu,
 	MenuItem,
 	DropDownMenu,
 	IconMenu,
-	DatePicker,
+
 	Avatar,
 	Dialog,
 	Snackbar,

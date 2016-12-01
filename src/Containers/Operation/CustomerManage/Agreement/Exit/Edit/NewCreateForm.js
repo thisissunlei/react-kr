@@ -198,7 +198,7 @@ class NewCreateForm extends Component {
 
 			<Paper width={968}>
 
-<form onSubmit={handleSubmit(this.onSubmit)} enctype="multipart/form-data" style={{marginTop:50}}>
+<form onSubmit={handleSubmit(this.onSubmit)}  style={{marginTop:50}}>
 
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
