@@ -22,7 +22,6 @@ export default class InputDate extends React.Component {
 		* 样式
 		*/
 		style: React.PropTypes.object,
-
 	}
 
 	constructor(props) {

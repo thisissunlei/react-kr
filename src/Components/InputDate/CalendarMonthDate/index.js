@@ -27,8 +27,36 @@ export default class CalendarDate extends React.Component {
 		super(props)
 	}
 
+	getDaysInMonth = (year,month)=>{
+	      month = parseInt(month,10)+1;
+	      var temp = new Date(year,month,0);
+	      return temp.getDate();
+	}
+
+	createDate = (date)=>{
+
+		let handlers = {};
+		let props = {
+			className:'item-date'
+		};
+
+		return React.createElement('a', {...props,
+				...handlers,
+			},date);
+
+	}
+
 	renderMonthDate =()=>{
 
+		let monthDateAll = [];
+		let {year,month,date} = this.props;
+		var lastDate = this.getDaysInMonth(year,month);
+
+		for(var i = 1;i<=lastDate;i++){
+				monthDateAll.push(this.createDate(i));
+		}
+		return monthDateAll;
+		
 	}
 
 	render() {
