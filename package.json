@@ -111,7 +111,7 @@
     "transfer-webpack-plugin": "0.1.4",
     "url-search-params": "0.5.0",
     "validatorjs": "3.7.0",
-    "webpack": "2.1.0-beta.21",
+    "webpack": "^2.1.0-beta.22",
     "webpack-dev-server": "1.16.2",
     "webpack-hot-middleware": "2.10.0"
   },
