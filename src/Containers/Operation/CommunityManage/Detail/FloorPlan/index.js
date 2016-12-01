@@ -213,11 +213,16 @@ export default class FloorPlan extends Component {
 		});
 	}
 	selectCommunity(personel) {
-		this.getCommunityFloors(personel.id);
+		let id = '';
+		if(personel){
+			id = personel.id;
+			this.getCommunityFloors(personel.id);
+		}
+		
 		Store.dispatch(change('FloorPlan', 'floor', ''));
 		
 		this.setState({
-			community: personel.id,
+			community: id,
 			floors: '',
 
 		})
@@ -248,9 +253,12 @@ export default class FloorPlan extends Component {
 		});
 	}
 	selectFloors(personel) {
-		console.log('selectFloors', personel);
+		let value = '';
+		if(personel){
+			value = personel.value;
+		}
 		this.setState({
-			floors: personel.value
+			floors: value
 		})
 	}
 
