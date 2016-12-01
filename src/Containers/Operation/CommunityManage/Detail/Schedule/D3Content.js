@@ -51,8 +51,7 @@ export default class D3Content extends Component {
 	}
 
 	static propTypes = {
-		params: React.PropTypes.object,
-		detail: React.PropTypes.object
+		params: React.PropTypes.object
 	}
 
 	constructor(props, context) {
@@ -136,7 +135,6 @@ export default class D3Content extends Component {
 				// width: Math.ceil(whiteWidth*100)/100
 				width: (whiteWidth*100)/100
 			}
-			// whiteLength = $("<div class='white'></div>").css( {'width':whiteLength-1,});
 		return whiteNode;
 	}
 	appendDiv(list, time) {
