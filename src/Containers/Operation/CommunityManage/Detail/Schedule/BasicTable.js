@@ -675,7 +675,7 @@ export default class BasicTable extends Component {
 						{
 							rate.map((value,index)=><td key={index}>{value}</td>)
 						}
-						<td class="last"></td>
+						<td className="last"></td>
 					</tr>
 
 					{
