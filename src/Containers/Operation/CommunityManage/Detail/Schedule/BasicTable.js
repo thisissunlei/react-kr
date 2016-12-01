@@ -675,7 +675,7 @@ export default class BasicTable extends Component {
 						{
 							rate.map((value,index)=><td key={index}>{value}</td>)
 						}
-						<td class="last"></td>
+						<td className="last"></td>
 					</tr>
 
 					{
@@ -765,7 +765,7 @@ export default class BasicTable extends Component {
 		 				</p>
 		 			</div>
 		 		</div>
-		 		<SearchForm  onSubmit={this.onSubmit} Id={communityids} onChange={this.onChange}/>
+		 		<SearchForm  onSubmit={this.onSubmit} Ids={communityids} onChange={this.onChange}/>
 		 		
 		 	</div>
 		 	

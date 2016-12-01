@@ -204,7 +204,7 @@ class NewCreateForm extends Component {
 
 			<Paper width={968}>
 
-<form onSubmit={handleSubmit(this.onSubmit)} enctype="multipart/form-data" style={{marginTop:50}}>
+<form onSubmit={handleSubmit(this.onSubmit)}  style={{marginTop:50}}>
 
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
@@ -212,10 +212,10 @@ class NewCreateForm extends Component {
 
 				<KrField name="leaseId" right={60} grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true} />
 				<KrField grid={1/2} left={60} name="lessorAddress" type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress} defaultValue="无" />
-				<KrField grid={1/2} right={60}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}/> 
-				<KrField grid={1/2} left={60} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}/> 
+				<KrField grid={1/2} right={60}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}/>
+				<KrField grid={1/2} left={60} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}/>
 
-				
+
 
 				<KrField grid={1/2} right={60} component="labelText" label="承租方" inline={false} value={optionValues.customerName}/>
 
@@ -233,7 +233,7 @@ class NewCreateForm extends Component {
 
 				<KrField grid={1/2} left={60} name="withdrawdate" component="date" label="撤场日期" requireLabel={true}/>
 				<KrField grid={1/2} right={60}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
-        
+
 				<KrField grid={1} name="contractmark" component="textarea" label="备注" />
 
 				<KrField grid={1}  right={60} name="contractFileList" component="input" type="hidden" label="合同附件"/>
