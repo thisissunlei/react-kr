@@ -40,6 +40,8 @@ import Message from './Message';
 import DemoComponent from './Demo';
 import Textarea from './Textarea';
 import 	DatePicker from './DatePicker';
+import 	InputDate from './InputDate';
+
 
 import {
 	Grid,
@@ -106,6 +108,7 @@ module.exports = {
 	DemoComponent,
 	Textarea,
 	DatePicker,
+	InputDate,
 
 	//materal-ui
 	Menu,
