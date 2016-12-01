@@ -21,6 +21,7 @@ import FileUploadComponent from './FileUploadComponent';
 import SearchPersonelComponent from './SearchPersonelComponent';
 import LabelTextComponent from './LabelTextComponent';
 import GroupComponent from './GroupComponent';
+import CityComponent from './CityComponent';
 
 
 export default class KrField extends React.Component {
@@ -101,6 +102,12 @@ export default class KrField extends React.Component {
 		if (component === 'labelText' || type == 'labelText') {
 			return (
 				<LabelTextComponent {...this.props} style={WrapStyles} colorStyle={colorStyle}/>
+			);
+		}
+
+		if (component === 'city' || type == 'city') {
+			return (
+				<CityComponent {...this.props}/>
 			);
 		}
 
