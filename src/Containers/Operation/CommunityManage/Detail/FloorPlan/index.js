@@ -60,8 +60,8 @@ export default class FloorPlan extends Component {
 			communityIdList: [],
 			communityInfoFloorList: [],
 			url: '',
-			dateend:dateFormat(new Date(), "yyyy.mm.dd"),
-			date:dateFormat(new Date(), "yyyy.mm.dd")
+			dateend:dateFormat(new Date(), "yyyy-mm-dd"),
+			date:dateFormat(new Date(), "yyyy-mm-dd")
 		}
 
 		this.getcommunity = this.getcommunity.bind(this);
@@ -149,15 +149,15 @@ export default class FloorPlan extends Component {
 			var params = {
 				communityId: community,
 				wherefloor: floors,
-				date: dateFormat(form.start, "yyyy.mm.dd") || dateFormat(new Date(), "yyyy.mm.dd"),
-				dateend: dateFormat(form.end, "yyyy.mm.dd") || dateFormat(new Date(), "yyyy.mm.dd"),
+				date: dateFormat(form.start, "yyyy-mm-dd") || dateFormat(new Date(), "yyyy-mm-dd"),
+				dateend: dateFormat(form.end, "yyyy-mm-dd") || dateFormat(new Date(), "yyyy-mm-dd"),
 			};
 			console.log(params);
 			// that.iframeWindow.query(params);
 			// // this.getStationUrl(params);
 			this.setState({
-				date: dateFormat(form.start, "yyyy.mm.dd"),
-				dateend: dateFormat(form.end, "yyyy.mm.dd"),
+				date: dateFormat(form.start, "yyyy-mm-dd"),
+				dateend: dateFormat(form.end, "yyyy-mm-dd"),
 				url: this.getStationUrl(params)
 			})
 
