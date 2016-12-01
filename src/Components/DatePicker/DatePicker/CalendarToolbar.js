@@ -75,8 +75,6 @@ class CalendarToolbar extends Component {
     const monthNumber = dateTimeFormatted.split(' ').shift();
     const yearNumber = dateTimeFormatted.split(' ').pop();
 
-    console.log('----',dateTimeFormatted.split(' '))
-
     return (
       <div style={styles.root}>
       {/*
