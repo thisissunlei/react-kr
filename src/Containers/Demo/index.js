@@ -61,7 +61,7 @@ export default class Demo extends Component{
 		console.log('click');
 
 
-		Message.show('hahah');
+		Message.error('hahah');
 	}
 
 
@@ -82,20 +82,7 @@ export default class Demo extends Component{
 
 							<Button label="show"  onTouchTap={this.show}/>
 
-					<Input type="text" maxLength={10} disabled={true}/>
-						<CheckboxGroup name="demo" options={[{
-							label:'是',
-							value:'yes'
-						},
-						{
-							label:'否',
-							value:'no'
-						}
-					]}
-					/>
 
-
-					<DemoComponent/>
 					</Section>
 			</div>
 

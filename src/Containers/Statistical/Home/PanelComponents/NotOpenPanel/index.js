@@ -35,7 +35,7 @@ export default class Initialize  extends Component{
 		return(
 
 			<div>
-					
+				123	
 			</div>
 		);
 	}

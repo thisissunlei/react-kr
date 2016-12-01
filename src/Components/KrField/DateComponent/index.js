@@ -3,7 +3,9 @@ import {
 	Field,
 	reduxForm
 } from 'redux-form';
-import DatePicker from 'material-ui/DatePicker';
+
+//import DatePicker from 'material-ui/DatePicker';
+import DatePicker from '../../DatePicker';
 
 import {
   DateFormat
@@ -176,6 +178,7 @@ export default class DateComponent extends React.Component {
 												hintText={placeholder}
 												textFieldStyle={styles}
 												name={input.name}
+												autoOk={true}
 												container="inline"
 												onChange={this.onChange}/>
 								</span>

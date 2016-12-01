@@ -17,11 +17,15 @@ import {
 	Row,
 	Col,
 	Dialog,
-	SearchForm,
+	SearchForms,
+	ListGroup,
+	ListGroupItem,
 
 } from 'kr-ui';
 import NewCreateForm from './CreateForm';
-import EditDetailForm from './EditForm';
+import NewEditDetail from './EditForm';
+import SearchUpperForm from './SearchUpperFrom'
+
 export default class Initialize  extends Component{
 
 	constructor(props,context){
@@ -37,6 +41,7 @@ export default class Initialize  extends Component{
 			openNewCreate: false,
 			openView: false,
 			openEditDetail: false,
+			openSearchUpperForm:false,
 			itemDetail: {},
 			accountname: {}
 		}
@@ -63,16 +68,18 @@ export default class Initialize  extends Component{
 		});
 
 	}
-	
+
 	//新建
 	openNewCreateDialog() {
 		this.setState({
 			openNewCreate: !this.state.openNewCreate
 		});
 	}
-
-	onSearchCancel() {
-
+//高级搜索
+	openSearchUpperFormDialog=()=> {
+		this.setState({
+			openSearchUpperForm: !this.state.openSearchUpperForm
+		});
 	}
 
 	render(){
@@ -85,10 +92,11 @@ export default class Initialize  extends Component{
 							<Grid style={{marginBottom:22,marginTop:2}}>
 								<Row >
 									<Col md={4} align="left"> <Button label="新建" type='button' joinEditForm onTouchTap={this.openNewCreateDialog}  /> </Col>
-									<Col md={8} align="right">
-
-										
-
+									<Col md={8} align="right" style={{marginTop:7}}>
+										<ListGroup>
+											<ListGroupItem> <SearchForms onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
+											<ListGroupItem> <Button searchClick={this.openSearchUpperFormDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'5'}}/></ListGroupItem>
+										</ListGroup>
 									</Col>
 								</Row>
 							</Grid>
@@ -99,9 +107,9 @@ export default class Initialize  extends Component{
 												onProcessData={(state)=>{
 												return state;
 											}}
-											
-											ajaxFieldListName="groups"
-											ajaxUrlName='getDataGrouplis' exportSwitch={true}>
+
+											ajaxFieldListName="items"
+											ajaxUrlName='MouldGroupList' exportSwitch={true}>
 											<TableHeader>
 												<TableHeaderColumn>分组名称</TableHeaderColumn>
 												<TableHeaderColumn>排序</TableHeaderColumn>
@@ -139,17 +147,36 @@ export default class Initialize  extends Component{
 						open={this.state.openEditDetail}
 						onClose={this.openEditDetailDialog}
 					>
-						<NewCreateForm  detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog} />
+						<NewEditDetail  detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog} />
 		  			</Dialog>
 
 		  			<Dialog
 						title="新建分组"
+						modal={true}
+
 						open={this.state.openNewCreate}
 						onClose={this.openNewCreateDialog}
+
+
 					>
-						<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
+						<NewCreateForm detail={this.state.itemDetail} onSubmit={this.openNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 
 				  </Dialog>
+
+
+					<Dialog
+						title="高级查询"
+						modal={true}
+						open={this.state.openSearchUpperForm}
+						onClose={this.openSearchUpperFormDialog}
+						bodyStyle={{paddingTop:34}}
+						contentStyle={{width:687}}
+					>
+						<SearchUpperForm detail={this.state.itemDetail} onSubmit={this.onNewCreateSubmit} onCancel={this.openSearchUpperFormDialog} />
+
+				  </Dialog>
+
+
 			</div>
 		);
 	}
