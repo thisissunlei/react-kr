@@ -267,7 +267,7 @@ export default class FileUploadComponent extends React.Component {
 						console.error(xhr.statusText);
 					};
 
-					xhrfile.open('POST', '/api-old/krspace_knowledge_wap/doc/docFile/uploadSingleFile', true);
+					xhrfile.open('POST', '/api-old/krspace_oa_web/doc/docFile/uploadSingleFile', true);
 					xhrfile.responseType = 'json';
 					xhrfile.send(form);
 				} else {
