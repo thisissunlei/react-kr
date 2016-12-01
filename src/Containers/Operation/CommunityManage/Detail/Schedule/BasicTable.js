@@ -135,17 +135,23 @@ class SearchForm extends Component {
 		});
 	}
 	selectCommunity(personel) {
+		let id = 0;
 		if (!personel) {
-			return
-		};
-		this.setState({
-			communityids: personel.value,
-		})
+			this.setState({
+				communityids:0
+			})
+		}else{
+			id = personel.value;
+			this.setState({
+				communityids: personel.value,
+			})
+		}
+		
 		const {
 			onChange
 		} = this.props;
 
-		onChange && onChange(personel.value);
+		onChange && onChange(id);
 	}
 
 
@@ -176,7 +182,7 @@ class SearchForm extends Component {
 			<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45}}>
 				{/*<KrField  name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} left={60}/>*/}
 				
-				<SearchForms onSubmit={this.onSubmit} searchFilter={options} />
+				<SearchForms onSubmit={this.onSubmit} searchFilter={options} style={{marginTop:5}} />
 				<KrField name="community"  grid={1/5} component="select" label="社区" search={true}  options={communityIdList} onChange={this.selectCommunity} />
 			</form>
 
@@ -753,13 +759,13 @@ export default class BasicTable extends Component {
 		 					<span className="txts bule-div" >当前的分期时间</span>
 		 					<span className="txts grey-div">过去的分期时间</span>
 		 					<span className="circle red"></span>
-		 					<span className="txt" >催账时间</span>
+		 					<span className="txt" >催款时间</span>
 		 					<span className="circle green"></span>
 		 					<span className="txt" >工位变更</span>
 		 				</p>
 		 			</div>
 		 		</div>
-		 		<SearchForm  onSubmit={this.onSubmit} Id={communityids} onChange={this.onChange}/>
+		 		<SearchForm  onSubmit={this.onSubmit} Ids={communityids} onChange={this.onChange}/>
 		 		
 		 	</div>
 		 	
