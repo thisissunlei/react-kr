@@ -536,7 +536,7 @@ class NewCreateForm extends Component {
 
 				<KrField  grid={1/2}  name="communityAddress" component="labelText" inline={false} label="地址" value={optionValues.communityAddress} right={60}/>
 				<KrField  grid={1/2}  name="contractcode" type="text" component="input" label="合同编号" requireLabel={true} left={60}
-				requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'地址为必填项',pattern:'合同编号最大50位'}} />
+				requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同为必填项',pattern:'合同编号最大50位'}} />
 
 
                 <KrField  name="paytype"  grid={1/2} component="select" label="支付方式" right={60} options={optionValues.payTypeList} requireLabel={true} onChange={(item)=>{
