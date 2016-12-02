@@ -146,7 +146,7 @@ export default class FileUploadComponent extends React.Component {
 			form
 		} = this.state;
 
-		let fileUrl = `/krspace_knowledge_wap/doc/docFile/downFile?sourceservicetoken=${form.sourceservicetoken}&operater=${form.operater}&fileId=${response.id}`;
+		let fileUrl = `/krspace_oa_web/doc/docFile/downFile?sourceservicetoken=${form.sourceservicetoken}&operater=${form.operater}&fileId=${response.id}`;
 
 		response.fileUrl = fileUrl;
 		response.fileName = response.filename;
