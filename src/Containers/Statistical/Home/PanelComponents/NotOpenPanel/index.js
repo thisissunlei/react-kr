@@ -76,7 +76,7 @@ export default class Initialize  extends Component{
         
 		return(
 
-			<div className='ui-open-info'>
+			<div className='ui-open-in'>
 				   <Grid style={{height:'76'}}>
 						<Row>
 							<Col align="left" md={4} style={{marginTop:'25'}}> 
