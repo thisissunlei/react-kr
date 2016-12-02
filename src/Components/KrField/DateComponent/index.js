@@ -161,7 +161,7 @@ export default class DateComponent extends React.Component {
 			backgroundColor: 'transparent',
 			opacity: 0
 		}
-		console.log('input.value', input.value)
+
 		return (
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
