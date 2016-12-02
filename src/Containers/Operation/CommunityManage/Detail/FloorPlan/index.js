@@ -60,8 +60,8 @@ export default class FloorPlan extends Component {
 			communityIdList: [],
 			communityInfoFloorList: [],
 			url: '',
-			dateend:dateFormat(new Date(), "yyyy.mm.dd"),
-			date:dateFormat(new Date(), "yyyy.mm.dd")
+			dateend: dateFormat(new Date(), "yyyy-mm-dd"),
+			date: dateFormat(new Date(), "yyyy-mm-dd")
 		}
 
 		this.getcommunity = this.getcommunity.bind(this);
@@ -70,6 +70,9 @@ export default class FloorPlan extends Component {
 		this.getCommunityFloors = this.getCommunityFloors.bind(this);
 		this.getState = this.getState.bind(this);
 		this.selectFloors = this.selectFloors.bind(this);
+		Store.dispatch(change('FloorPlan', 'start', ''));
+		Store.dispatch(change('FloorPlan', 'end', ''));
+
 
 	}
 	componentWillReceiveProps(nextProps) {
@@ -112,32 +115,34 @@ export default class FloorPlan extends Component {
 			dateend
 
 		} = this.state;
-		if(community==0){
-			community='';
+		if (community == 0) {
+			community = '';
 		}
 		console.log('url', form);
 
-			params = {
-				communityId: community,
-				wherefloor: floors,
-				date: date ,
-				dateend:dateend,
-			}
+		params = {
+			communityId: community,
+			wherefloor: floors,
+			date: date,
+			dateend: dateend,
+		}
 
 		if (Object.keys(params).length) {
 			for (let item in params) {
 				if (params.hasOwnProperty(item)) {
 					url = url.replace('{' + item + '}', params[item]);
 					delete params[item];
-				}44
+				}
+				44
 			}
-		};console.log(url);
+		};
+		console.log(url);
 
 		return url;
 	}
 	onSubmit(form) {
 			form = Object.assign({}, form);
-			console.log('form',form);
+			console.log('form', form);
 			let {
 				floors,
 				community
@@ -146,15 +151,15 @@ export default class FloorPlan extends Component {
 			var params = {
 				communityId: community,
 				wherefloor: floors,
-				date: dateFormat(form.date, "yyyy.mm.dd") || dateFormat(new Date(), "yyyy.mm.dd"),
-				dateend: dateFormat(form.dateend, "yyyy.mm.dd") || dateFormat(new Date(), "yyyy.mm.dd"),
+				date: dateFormat(form.start, "yyyy-mm-dd") || dateFormat(new Date(), "yyyy-mm-dd"),
+				dateend: dateFormat(form.end, "yyyy-mm-dd") || dateFormat(new Date(), "yyyy-mm-dd"),
 			};
 			console.log(params);
 			// that.iframeWindow.query(params);
 			// // this.getStationUrl(params);
 			this.setState({
-				date: dateFormat(form.date, "yyyy.mm.dd"),
-				dateend: dateFormat(form.dateend, "yyyy.mm.dd"),
+				date: dateFormat(form.start, "yyyy-mm-dd"),
+				dateend: dateFormat(form.end, "yyyy-mm-dd"),
 				url: this.getStationUrl(params)
 			})
 
@@ -200,7 +205,7 @@ export default class FloorPlan extends Component {
 			communityIdList.unshift({
 				label: '请选择',
 				value: '0',
-				id:'0',
+				id: '0',
 			});
 			_this.setState({
 				communityIdList,
@@ -214,13 +219,13 @@ export default class FloorPlan extends Component {
 	}
 	selectCommunity(personel) {
 		let id = '';
-		if(personel){
+		if (personel) {
 			id = personel.id;
 			this.getCommunityFloors(personel.id);
 		}
-		
+
 		Store.dispatch(change('FloorPlan', 'floor', ''));
-		
+
 		this.setState({
 			community: id,
 			floors: '',
@@ -254,7 +259,7 @@ export default class FloorPlan extends Component {
 	}
 	selectFloors(personel) {
 		let value = '';
-		if(personel){
+		if (personel) {
 			value = personel.value;
 		}
 		this.setState({
@@ -295,10 +300,9 @@ export default class FloorPlan extends Component {
 						<ListGroupItem style={{maxWidth:170,marginTop:'-6px',minWidth:110,width:'100%',textAlign:'left'}}><KrField grid={1/1} name="community" component="select"   options={communityIdList} onChange={this.selectCommunity} /></ListGroupItem>
 						<ListGroupItem><span style={{display:'inline-block',lineHeight:'45px',textAlign:'left'}}>楼层</span></ListGroupItem>
 						<ListGroupItem  style={{maxWidth:170,marginTop:'-6px',minWidth:100,width:'100%',textAlign:'left'}}><KrField name="floor" grid={1/1} component="select" options={communityInfoFloorList} onChange={this.selectFloors}/></ListGroupItem>
-						<ListGroupItem><span style={{display:'inline-block',lineHeight:'45px',textAlign:'left'}}>注册时间</span></ListGroupItem>
-						<ListGroupItem style={{minWidth:100,marginTop:'-6px',textAlign:'left'}}> <KrField name="date"  component="date"  simple={true}/></ListGroupItem>
+						<ListGroupItem style={{minWidth:100,marginTop:'-6px',marginLeft:'-3px',textAlign:'left'}}> <KrField name="start"  component="date"  simple={true}/></ListGroupItem>
 						<ListGroupItem style={{marginLeft:'10px',textAlign:'left'}}><span style={{display:'inline-block',lineHeight:'45px'}}>至</span></ListGroupItem>
-						<ListGroupItem  style={{minWidth:100,marginTop:'-6px',textAlign:'left'}}> <KrField name="dateend" component="date" simple={true}/> </ListGroupItem>
+						<ListGroupItem  style={{minWidth:100,marginTop:'-6px',textAlign:'left'}}> <KrField name="end" component="date" simple={true}/> </ListGroupItem>
 						<ListGroupItem style={{marginLeft:6,marginTop:4,textAlign:'left'}}> <Button  label="确定" type="submit" height={34}/></ListGroupItem>
 					</ListGroup>
 			</form>

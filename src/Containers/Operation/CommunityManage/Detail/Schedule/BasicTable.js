@@ -138,15 +138,15 @@ class SearchForm extends Component {
 		let id = 0;
 		if (!personel) {
 			this.setState({
-				communityids:0
+				communityids: 0
 			})
-		}else{
+		} else {
 			id = personel.value;
 			this.setState({
 				communityids: personel.value,
 			})
 		}
-		
+
 		const {
 			onChange
 		} = this.props;
@@ -322,14 +322,14 @@ export default class BasicTable extends Component {
 							type: type,
 							page: len,
 							pageSize: 15,
-							year:currentYear
+							year: currentYear
 						})).then(function(response) {
 
 							if (response.vo) {
-								console.log('Installmentplan',Installmentplan);
+
 								var list = Installmentplan.concat(response.vo.items);
 								// var list = $.extend(Installmentplan,response.vo.items);
-								console.log('list',list);
+
 
 							} else {
 								var list = [];
@@ -449,7 +449,7 @@ export default class BasicTable extends Component {
 		if (formValues.type == "BILL") {
 			activity = false;
 		}
-		console.log('formValues', formValues);
+
 
 		this.setState({
 			istip: istip
@@ -577,7 +577,7 @@ export default class BasicTable extends Component {
 				var list = response.vo.items;
 				var totalCount = response.vo.totalCount;
 				var totalPages = response.vo.totalPages;
-				console.log('-----getInstallmentplan',list);
+				console.log('-----getInstallmentplan', list);
 			} else {
 				var list = [];
 				var totalCount = 0;
@@ -675,7 +675,7 @@ export default class BasicTable extends Component {
 						{
 							rate.map((value,index)=><td key={index}>{value}</td>)
 						}
-						<td class="last"></td>
+						<td className="last"></td>
 					</tr>
 
 					{

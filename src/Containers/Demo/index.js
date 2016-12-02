@@ -66,7 +66,7 @@ export default class Demo extends Component{
 		console.log('click');
 
 
-		Message.error('hahah');
+		Message.show('hahah','normal');
 	}
 
 
