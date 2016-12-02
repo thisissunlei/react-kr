@@ -493,7 +493,7 @@ class NewCreateForm extends Component {
 
 			<Paper width={960}>
 
-<form onSubmit={handleSubmit(this.onSubmit)} enctype="multipart/form-data">
+<form onSubmit={handleSubmit(this.onSubmit)} >
 
 
 
