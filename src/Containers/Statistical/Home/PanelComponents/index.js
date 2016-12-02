@@ -21,7 +21,6 @@ import {
 	Col,
 	Dialog,
 	Title
-
 } from 'kr-ui';
 
 import NotOpenPanel from './NotOpenPanel';
