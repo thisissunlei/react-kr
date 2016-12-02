@@ -142,7 +142,7 @@ export default class FloorPlan extends Component {
 	}
 	onSubmit(form) {
 			form = Object.assign({}, form);
-			console.log('form', form);
+
 			let {
 				floors,
 				community
@@ -157,11 +157,30 @@ export default class FloorPlan extends Component {
 			console.log(params);
 			// that.iframeWindow.query(params);
 			// // this.getStationUrl(params);
-			this.setState({
-				date: dateFormat(form.start, "yyyy-mm-dd"),
-				dateend: dateFormat(form.end, "yyyy-mm-dd"),
-				url: this.getStationUrl(params)
-			})
+			if (form.start && form.end) {
+				var datastart = Date.parse(form.start),
+					dataend = Date.parse(form.end);
+				if (datastart > dataend) {
+					Notify.show([{
+						message: '开始时间不能大于结束时间',
+						type: 'danger',
+					}]);
+
+				} else {
+					this.setState({
+						date: dateFormat(form.start, "yyyy-mm-dd"),
+						dateend: dateFormat(form.end, "yyyy-mm-dd"),
+						url: this.getStationUrl(params)
+					})
+				}
+
+			} else {
+				Notify.show([{
+					message: '注册时间不能为空',
+					type: 'danger',
+				}]);
+			}
+
 
 		}
 		// 监听滚动事件
@@ -275,10 +294,12 @@ export default class FloorPlan extends Component {
 			communityIdList,
 			communityId,
 			communityInfoFloorList,
+			dateend,
+			date
 		} = this.state;
 		let url = this.getStationUrl();
 
-
+		console.log('dateend', dateend)
 		let {
 			tab,
 			handleSubmit
@@ -290,6 +311,7 @@ export default class FloorPlan extends Component {
 		} else {
 			$(window).unbind('scroll.floorplan', this.scrollLoad());
 		}
+
 		return (
 
 			<div id="planTable" style={{margin:20,paddingBottom:30}}>
@@ -302,7 +324,7 @@ export default class FloorPlan extends Component {
 						<ListGroupItem  style={{maxWidth:170,marginTop:'-6px',minWidth:100,width:'100%',textAlign:'left'}}><KrField name="floor" grid={1/1} component="select" options={communityInfoFloorList} onChange={this.selectFloors}/></ListGroupItem>
 						<ListGroupItem style={{minWidth:100,marginTop:'-6px',marginLeft:'-3px',textAlign:'left'}}> <KrField name="start"  component="date"  simple={true}/></ListGroupItem>
 						<ListGroupItem style={{marginLeft:'10px',textAlign:'left'}}><span style={{display:'inline-block',lineHeight:'45px'}}>至</span></ListGroupItem>
-						<ListGroupItem  style={{minWidth:100,marginTop:'-6px',textAlign:'left'}}> <KrField name="end" component="date" simple={true}/> </ListGroupItem>
+						<ListGroupItem  style={{minWidth:100,marginTop:'-6px',textAlign:'left'}}> <KrField name="end" component="date" simple={true}  /> </ListGroupItem>
 						<ListGroupItem style={{marginLeft:6,marginTop:4,textAlign:'left'}}> <Button  label="确定" type="submit" height={34}/></ListGroupItem>
 					</ListGroup>
 			</form>
