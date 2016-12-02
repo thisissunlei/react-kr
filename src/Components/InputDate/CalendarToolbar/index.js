@@ -24,6 +24,8 @@ export default class CalendarToolbar extends React.Component {
 		* 样式
 		*/
 		style: React.PropTypes.object,
+		openYearSelectorDialog:React.PropTypes.func.isRequired,
+		openMonthSelectorDialog:React.PropTypes.func.isRequired,
 	}
 
 	constructor(props) {
@@ -42,14 +44,14 @@ export default class CalendarToolbar extends React.Component {
 
 	render() {
 
-		let {year,month} = this.props;
+		let {year,month,openYearSelectorDialog,openMonthSelectorDialog} = this.props;
 
 		return (
 				<div className="calendar-toolbar">
             <span className="left-button" onClick={this.onPrevMonth}>&lt;</span>
 						<span className="main-content">
-							<span className="year-number">{year}年</span>
-							<span className="month-number">{month}月</span>
+							<span className="month-number" onClick={openMonthSelectorDialog}>{month}月</span>
+							<span className="year-number" onClick={openYearSelectorDialog}>{year}年</span>
 						</span>
             <span className="right-button" onClick={this.onNextMonth}>&gt;</span>
 				</div>

@@ -29,7 +29,15 @@ export default class InputDate extends React.Component {
 
 		this.state = {
 			openCalendar:true,
+			value:''
 		}
+
+		var _this = this;
+		document.addEventListener('click',function(event){
+			var nodeName = event.target.className;
+			//_this.openCalendarDialog();
+		});
+
 	}
 
 	openCalendarDialog = ()=>{
@@ -38,13 +46,17 @@ export default class InputDate extends React.Component {
 			});
 	}
 
+	onChange = (value)=>{
+		this.setState({value});
+	}
+
 	render() {
 
 
 		return (
 				<div className="ui-calendar">
-        	<Input name="date" onClick={this.openCalendarDialog}/>
-					<Calendar open={this.state.openCalendar} />
+        	<Input name="date" onClick={this.openCalendarDialog} value={this.state.value}/>
+					<Calendar open={this.state.openCalendar} onChange={this.onChange}/>
 				</div>
 		);
 

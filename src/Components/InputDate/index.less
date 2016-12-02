@@ -1,4 +1,5 @@
 
+@calendar-active-color:#499df1;
 
 .ui-calendar {
     display:block;
@@ -17,16 +18,68 @@
      position:absolute;
      bottom:0;
      left:0;
-     top:100%;
+     top:calc(100% + 8px);
      width:210px;
-     height:300px;
+     height:342px;
      background-color:#fff;
      border:1px solid #ddd;
-     box-shadow:0 2px 6px #ddd;
-     border-radius:2px;
-     padding-left:10px;
-     padding-right:10px;
+     box-shadow:0 0 6px lighten(@calendar-active-color,14%);
+     border-radius:4px;
+     padding-left:23px;
+     padding-right:23px;
   }
+
+  .calendar-year-selector{
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color:#fff;
+    position: absolute;
+    padding-top:10px;
+    padding-bottom: 10px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    .item-year{
+        height:35px;
+        line-height: 35px;
+        text-align:center;
+        font-size:14px;
+        color:#333;
+
+        &:hover{
+          color:@calendar-active-color;
+        }
+    }
+  }
+
+  .calendar-month-selector{
+        width:100%;
+        height:100%;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        background-color:#fff;
+        position: absolute;
+        padding-top:10px;
+        padding-bottom: 10px;
+        overflow-y: auto;
+        box-sizing: border-box;
+        .item-month{
+            height:35px;
+            line-height: 35px;
+            text-align:center;
+            font-size:14px;
+            color:#333;
+
+            &:hover{
+              color:@calendar-active-color;
+            }
+        }
+      }
 
   .calendar-month-date{
     width:100%;
@@ -36,6 +89,7 @@
     box-sizing: border-box;
   }
   .calendar-day-display{
+    margin-top:10px;
     span{
       width:30px;
       line-height:30px;
@@ -53,39 +107,40 @@
       box-sizing: border-box;
       padding-top:5px;
       padding-bottom:5px;
-      font-size:12px;
+      font-size:14px;
       color:#333;
       position: relative;
       cursor: pointer;
       background-color:#fff;
-      line-height:1.8;
+      line-height:1.6;
       border-radius:100px;
 
       &:hover{
-        background-color:red;
+        background-color:lighten(@calendar-active-color,10%);
         color:#fff;
       }
       &.day-active{
-        background-color:green;
+        background-color:@calendar-active-color;
         color:#fff;
 
       }
   }
 
   .calendar-input{
-      padding-top:5px;
-      padding-bottom:5px;
+      padding-top:20px;
+      padding-bottom:20px;
       position:relative;
      input[type=text]{
        border:1px solid #ddd;
-       border-radius:2px;
-       height:25px;
+       border-radius:4px;
+       height:30px;
+       width:200px;
        display:block;
-       padding-left:10px;
+       padding-left:5px;
+       padding-right:5px;
        box-sizing: border-box;
-       width:100%;
        &:focus{
-         //border-color:green;
+         border-color:@calendar-active-color;
          outline:none;
        }
      }
@@ -96,16 +151,20 @@
     position: relative;
     box-sizing: border-box;
     vertical-align: middle;
+    border-top:1px dashed #eee;
+    padding-top:20px;
 
     .left-button,
     .right-button{
       display:inline-block;
       width:30px;
       height:30px;
-      line-height: 30px;
+      line-height: 32px;
       border-radius:30px;
       text-align:center;
       cursor: pointer;
+      font-size:14px;
+      font-weight:600;
       &:hover{
         background-color:#ddd;
       }
@@ -117,6 +176,13 @@
       box-sizing: border-box;
       text-align: center;
     }
+
+    .year-number,
+    .month-number{
+      font-size:18px;
+      font-weight: 600;
+    }
+
 
     .year-number{
       padding-left:5px;

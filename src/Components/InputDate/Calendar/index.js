@@ -6,6 +6,8 @@ import CalendarInput from '../CalendarInput';
 import CalendarDayDisplay from '../CalendarDayDisplay';
 import CalendarMonthDate from '../CalendarMonthDate';
 import CalendarToolbar from '../CalendarToolbar';
+import CalendarYearSelector from '../CalendarYearSelector';
+import CalendarMonthSelector from '../CalendarMonthSelector';
 
 export default class Calendar extends React.Component {
 
@@ -53,8 +55,11 @@ export default class Calendar extends React.Component {
 		this.state = {
 			year:'2015',
 			month:'11',
-			date:'1'
+			date:'1',
+			openYearSelector:false,
+			openMonthSelector:false,
 		}
+
 	}
 
 	onSetDate = (year,month,date)=>{
@@ -108,11 +113,30 @@ export default class Calendar extends React.Component {
 	}
 
 	onSelectedYear = (year)=>{
-		this.setState({year});
+		this.setState({
+				year,
+				openYearSelector:false
+			});
 	}
 
+	openYearSelectorDialog = ()=>{
+		this.setState({
+				openYearSelector:!this.state.openYearSelector
+			});
+	}
+
+	openMonthSelectorDialog =()=>{
+		this.setState({
+				openMonthSelector:!this.state.openMonthSelector
+		});
+	}
+
+
 	onSelectedMonth = (month)=>{
-		this.setState({month});
+		this.setState({
+				month,
+				openMonthSelector:false
+			});
 	}
 
 	onSelectedDate = (date)=>{
@@ -126,7 +150,7 @@ export default class Calendar extends React.Component {
 
     let {open} = this.props;
 
-		let {year,month,date} = this.state;
+		let {year,month,date,openYearSelector,openMonthSelector} = this.state;
 
     if(!open){
       return null;
@@ -135,9 +159,12 @@ export default class Calendar extends React.Component {
 		return (
 				<div className="calendar">
 					<CalendarInput year={year} month={month} date={date} />
-					<CalendarToolbar year={year} month={month} />
+					<CalendarToolbar year={year} month={month} openYearSelectorDialog={this.openYearSelectorDialog} openMonthSelectorDialog={this.openMonthSelectorDialog}/>
 					<CalendarDayDisplay />
           <CalendarMonthDate year={year} month={month} date={date} />
+
+					<CalendarYearSelector open={openYearSelector} onSelected={this.onSelectedYear}/>
+					<CalendarMonthSelector open={openMonthSelector} onSelected={this.onSelectedMonth}/>
 				</div>
 		);
 
