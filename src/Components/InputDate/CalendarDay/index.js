@@ -17,20 +17,34 @@ export default class CalendarDay extends React.Component {
 		*/
 		style: React.PropTypes.object,
 		value:React.PropTypes.string,
+		onClick:React.PropTypes.func,
 	}
 
 	constructor(props) {
 		super(props)
 	}
 
+	onClick = ()=>{
+		let {value,onClick} = this.props;
+		onClick && onClick(value);
+	}
+
 	render() {
 
-		let {value} = this.props;
+		let {value,date} = this.props;
+
+		let classNames = 'calendar-day';
+
+		if(date == value){
+				classNames += ' day-active';
+		}else {
+		   classNames = 'calendar-day';
+		}
 
 		return (
-				<div className="calendar-day">
+				<span className={classNames} onClick={this.onClick}>
 						{value}
-				</div>
+				</span>
 		);
 
 	}

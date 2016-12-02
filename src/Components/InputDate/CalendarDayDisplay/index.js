@@ -16,7 +16,6 @@ export default class CalendarDay extends React.Component {
 		* 样式
 		*/
 		style: React.PropTypes.object,
-		value:React.PropTypes.string,
 	}
 
 	constructor(props) {
@@ -27,10 +26,16 @@ export default class CalendarDay extends React.Component {
 	render() {
 
 
-
 		return (
-				<span >
-				</span>
+        <div className="calendar-day-display">
+          <span>日</span>
+          <span>一</span>
+          <span>二</span>
+          <span>三</span>
+          <span>四</span>
+          <span>五</span>
+          <span>六</span>
+        </div>
 		);
 
 	}

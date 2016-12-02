@@ -5,9 +5,15 @@ import React, {
 import CalendarDay from '../CalendarDay';
 
 
-export default class CalendarDate extends React.Component {
+export default class CalendarMonthDate extends React.Component {
 
-	static displayName = 'CalendarDate';
+	static displayName = 'CalendarMonthDate';
+
+	static contextTypes =  {
+		    onSelectedYear: React.PropTypes.func.isRequired,
+				onSelectedMonth: React.PropTypes.func.isRequired,
+				onSelectedDate: React.PropTypes.func.isRequired,
+	}
 
 	static propTypes = {
 		/**
@@ -18,9 +24,9 @@ export default class CalendarDate extends React.Component {
 		* 样式
 		*/
 		style: React.PropTypes.object,
-		year:React.PropTypes.string,
-		date:React.PropTypes.string,
-		day:React.PropTypes.string,
+		year: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+		month: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+		date: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
 	}
 
 	constructor(props) {
@@ -33,16 +39,18 @@ export default class CalendarDate extends React.Component {
 	      return temp.getDate();
 	}
 
-	createDate = (date)=>{
+	createDate(date){
 
-		let handlers = {};
+		let handlers = {
+			onClick:this.context.onSelectedDate
+		};
 		let props = {
-			className:'item-date'
+			value:date,
+			key:date,
+			date:this.props.date
 		};
 
-		return React.createElement('a', {...props,
-				...handlers,
-			},date);
+		return <CalendarDay {...props} {...handlers} />
 
 	}
 
@@ -56,7 +64,7 @@ export default class CalendarDate extends React.Component {
 				monthDateAll.push(this.createDate(i));
 		}
 		return monthDateAll;
-		
+
 	}
 
 	render() {
