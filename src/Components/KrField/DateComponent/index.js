@@ -8,7 +8,7 @@ import {
 import DatePicker from '../../DatePicker';
 
 import {
-  DateFormat
+	DateFormat
 } from 'kr/Utils';
 
 import './index.less';
@@ -74,7 +74,7 @@ export default class DateComponent extends React.Component {
 		let {
 			input
 		} = this.props;
-		value = DateFormat(value, "yyyy-mm-dd") +' 00:00:00';
+		value = DateFormat(value, "yyyy-mm-dd") + ' 00:00:00';
 		input.onChange(value);
 	}
 
