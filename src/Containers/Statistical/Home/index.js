@@ -116,7 +116,7 @@ export default class Home  extends Component{
 		let groupItem = groupList[0];
 
 		return(
-			<Section title={groupItem.groupName} className='panelSection'>
+			<Section title={groupItem.groupName} style={{background:'none'}} headerStyle={{background:'#fff'}}>
 			    <div className='static-section-inner'>
 					<PanelComponents panels={groupItem.templateList} groupId={groupItem.id}/>
 				</div>
