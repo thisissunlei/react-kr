@@ -464,18 +464,22 @@ class NewCreateForm extends Component {
 								<KrField grid={1/2}  name="stationnum" type="hidden" component="input" />
 								<KrField grid={1/2}  name="boardroomnum" type="hidden" component="input" />
 
-								 <KrField right={60} name="leaseId"  grid={1/2} component="select" label="出租方asd" options={optionValues.fnaCorporationList} requireLabel={true}/>
+								 <KrField right={60} name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}/>
 
 								 <KrField left={60} grid={1/2}  type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress} defaultValue="无"/>
 								 <KrField right={60}  grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}/>
 
-								 <KrField left={60} grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}/>
+								 <KrField left={60} grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
+								 requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
 
 								 <KrField right={60}  grid={1/2}  component="labelText" label="承租方" value={optionValues.customerName} inline={false}/>
-								 <KrField left={60} grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" requireLabel={true}/>
+								 <KrField left={60} grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" requireLabel={true}
+								 requiredValue={true} pattern={/^.{0,120}$/} errors={{requiredValue:'地址为必填项',pattern:'地址最大60位'}} />
 
-								 <KrField right={60} grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" requireLabel={true}/>
-								 <KrField left={60} grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话" requireLabel={true}/>
+								 <KrField right={60} grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" requireLabel={true}
+								 requiredValue={true} pattern={/^.{0,20}$/} errors={{requiredValue:'联系人为必填项',pattern:'联系人最大20位'}}  />
+								 <KrField left={60} grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话" requireLabel={true}
+								 requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
 
 								 <KrField right={60} grid={1/2}  component="labelText" label="所属社区" value={optionValues.communityName} inline={false}/>
 
@@ -484,12 +488,14 @@ class NewCreateForm extends Component {
 
 
 								 <KrField right={60} grid={1/2}  name="signdate"  component="date" label="签署日期"  requireLabel={true}/>
-								 <KrField left={60} grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}/>
+								 <KrField left={60} grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
+								 requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'地址为必填项',pattern:'合同编号最大50位'}}/>
 
-                                 <KrField right={60} grid={1/2}  name="totaldownpayment" type="text" component="input" label="定金总额"  requireLabel={true}/>
+                                 <KrField right={60} grid={1/2}  name="totaldownpayment" type="text" component="input" label="定金总额"  requireLabel={true}
+																 requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'定金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 								 <KrField left={60} grid={1/2}  name="paymentId" type="text" component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/>
 
-								 <KrField grid={1/1}  component="group" label="租赁期限dfsf" requireLabel={true}>
+								 <KrField grid={1/1}  component="group" label="租赁期限" requireLabel={true}>
 										<ListGroup>
 											<ListGroupItem style={{marginLeft:"-10px",width:"185px"}}> <KrField simple={true}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate}/> </ListGroupItem>
 											<ListGroupItem ><span style={{display:'inline-block',lineHeight:'60px',width:'33px',textAlign:'center',left:'5px'}}>至</span></ListGroupItem>
@@ -497,9 +503,10 @@ class NewCreateForm extends Component {
 										</ListGroup>
 								</KrField>
 
-                               <KrField right={0} name="templockday" left={0} grid={1/2} component="input" type="text" label="保留天数" requireLabel={true}/>
+                               <KrField right={0} name="templockday" left={0} grid={1/2} component="input" type="text" label="保留天数" requireLabel={true}
+															 requiredValue={true} pattern={/^\d{0,3}$/} errors={{requiredValue:'保留天数为必填项',pattern:'请输入三位以内正整数'}} />
 
-							 <KrField grid={1}  name="contractmark" type="textarea" component="textarea" label="备注" maxSize={200} />
+							 <KrField grid={1}  name="contractmark" type="textarea" component="textarea" label="备注" maxSize={200}/>
 
 							 <KrField grid={1}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
 							<KrField grid={1}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
@@ -661,7 +668,7 @@ const selector = formValueSelector('admitCreateForm');
 
 NewCreateForm = reduxForm({
 	form: 'admitCreateForm',
-	validate,
+	// validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true
 })(NewCreateForm);
