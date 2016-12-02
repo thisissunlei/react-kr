@@ -529,10 +529,10 @@ export default class EmployessTable extends Component {
 				modal={true}
 				open={this.state.openNewmeber}
 				onClose={this.onClose}
-				contentStyle={{width:465}}
+				contentStyle={{width:465,height:600}}
 			>
 
-				<IframeContent  width={400} height={500} src={this.getStationUrl()}  onClose={this.onIframeClose}  />
+				<IframeContent  width={450} height={600} src={this.getStationUrl()}  onClose={this.onIframeClose}  />
 			</Dialog>
 
 		</div>
