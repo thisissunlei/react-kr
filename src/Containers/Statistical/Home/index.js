@@ -44,12 +44,12 @@ export default class Home  extends Component{
 							{
 								id:'324324',
 								templateName:'第一个',
-								templateNo:''
+								templateNo:'121'
 							},
 							{
 								id:'2334',
 								templateName:'第二个',
-								templateNo:''
+								templateNo:'111'
 							},
 						]
 					},

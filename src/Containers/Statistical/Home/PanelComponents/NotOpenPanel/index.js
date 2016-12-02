@@ -52,13 +52,13 @@ export default class Initialize  extends Component{
     
     
 
-    onStartChange=(searchParams)=>{
+    onStartNotChange=(searchParams)=>{
     	searchParams = Object.assign({}, this.state.searchParams, searchParams);
     	this.setState({
 			searchParams
 		});
     }
-    onEndChange=(searchParams)=>{
+    onEndNotChange=(searchParams)=>{
     	searchParams = Object.assign({}, this.state.searchParams, searchParams);
     	this.setState({
 			searchParams
@@ -85,7 +85,7 @@ export default class Initialize  extends Component{
 							 <span  className='static-upload'>实时更新</span>	
 							</Col> 
 							<Col align="right" md={8}> 
-							  <SearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange} />
+							  <SearchDateForm onStartNotChange={this.onStartNotChange} onEndNotChange={this.onEndNotChange} />
 							</Col> 
 						</Row>
 					</Grid>
@@ -94,7 +94,7 @@ export default class Initialize  extends Component{
 					<Table style={{marginTop:0}}
 						displayCheckbox={false}
 						ajax={true}
-						ajaxUrlName='openCompanyData'
+						ajaxUrlName='notOpenCompanyData'
 						ajaxFieldListName="list"
 						ajaxParams={this.state.searchParams}
 						  >

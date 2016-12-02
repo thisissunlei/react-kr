@@ -50,7 +50,20 @@ export default class Initialize  extends Component{
 
 	}
     
-    
+    componentDidMount() {
+		var _this = this;
+		Store.dispatch(Actions.callAPI('openCompanyData')).then(function(response) {
+			_this.setState({
+				item: response,
+				loading: false
+			});
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+	}
 
     onStartChange=(searchParams)=>{
     	searchParams = Object.assign({}, this.state.searchParams, searchParams);
