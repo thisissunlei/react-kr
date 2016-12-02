@@ -41,7 +41,7 @@ export default class  SearchPersonelComponent extends React.Component {
 		return new Promise((resolve, reject) => {
 			Store.dispatch(Actions.callAPI('getHrmResourceExtListByLastname',{ lastname:lastname })).then(function(response){
 				response.forEach(function(item,index){
-					item.value = item.id;
+					item.value = item.sysloginid;
 					item.label = item.lastname;
 				});
 				resolve({options:response});
