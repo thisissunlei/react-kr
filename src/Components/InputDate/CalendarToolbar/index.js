@@ -42,6 +42,7 @@ export default class CalendarToolbar extends React.Component {
 		onPrevMonth && onPrevMonth();
 	}
 
+
 	render() {
 
 		let {year,month,openYearSelectorDialog,openMonthSelectorDialog} = this.props;

@@ -5,9 +5,10 @@ import React, {
 import Input from '../Input';
 
 import Calendar from './Calendar';
+import ReactDOM from 'react-dom';
 
 import './index.less';
-
+import './animate.less';
 
 export default class InputDate extends React.Component {
 
@@ -24,21 +25,26 @@ export default class InputDate extends React.Component {
 		style: React.PropTypes.object,
 	}
 
+	static childContextTypes =  {
+					openCalendarDialog: React.PropTypes.func.isRequired
+	}
+
+	getChildContext() {
+				return {
+					openCalendarDialog:this.openCalendarDialog,
+				};
+	}
+
 	constructor(props) {
 		super(props)
 
 		this.state = {
-			openCalendar:true,
-			value:''
+			openCalendar:false,
+			value:'2015-11-1'
 		}
 
-		var _this = this;
-		document.addEventListener('click',function(event){
-			var nodeName = event.target.className;
-			//_this.openCalendarDialog();
-		});
-
 	}
+
 
 	openCalendarDialog = ()=>{
 			this.setState({
@@ -52,11 +58,12 @@ export default class InputDate extends React.Component {
 
 	render() {
 
+		let {openCalendar} = this.state;
 
 		return (
 				<div className="ui-calendar">
-        	<Input name="date" onClick={this.openCalendarDialog} value={this.state.value}/>
-					<Calendar open={this.state.openCalendar} onChange={this.onChange}/>
+        	<Input onClick={this.openCalendarDialog} value={this.state.value}/>
+					{openCalendar && <Calendar onChange={this.onChange} value={this.state.value}/>}
 				</div>
 		);
 

@@ -31,6 +31,36 @@ export default class CalendarMonthDate extends React.Component {
 
 	constructor(props) {
 		super(props)
+
+		this.state = {
+			isLoading:false
+		}
+
+	}
+
+	componentDidMount(){
+		//this.getLoading();
+	}
+
+	componentWillReceiveProps(nextProps) {
+
+		if(nextProps.month !== this.props.month){
+			this.getLoading();
+		}
+	}
+
+	getLoading = ()=>{
+
+		this.setState({
+			 isLoading:false
+		},function(){
+			var _this = this;
+		 window.setTimeout(function(){
+			 	_this.setState({
+					isLoading:!_this.state.isLoading
+				})
+		 },100);
+		});
 	}
 
 	getDaysInMonth = (year,month)=>{
@@ -69,9 +99,16 @@ export default class CalendarMonthDate extends React.Component {
 
 	render() {
 
+		let {isLoading} = this.state;
+		let className = 'calendar-month-date animated';
 
+		if(isLoading){
+					className += ' fadeInRightBig';
+		}else{
+				className += ' ';
+		}
 		return (
-				<div className="calendar-month-date">
+				<div className={className} style={{'animationDuration':'0.2s'}}>
 					{this.renderMonthDate()}
 				</div>
 		);

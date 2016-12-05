@@ -14,12 +14,22 @@
     user-select: none;
     }
 
-  .calendar {
+
+  .calendar-wrap {
      position:absolute;
      bottom:0;
      left:0;
-     top:calc(100% + 8px);
-     width:210px;
+     top:calc(100% + 10px);
+     width:280px;
+     height:360px;
+     overflow-y: hidden;
+     margin-left:-10px;
+     margin-top:-10px;
+  }
+
+  .calendar {
+     width:260px;
+     position:relative;
      height:342px;
      background-color:#fff;
      border:1px solid #ddd;
@@ -27,6 +37,10 @@
      border-radius:4px;
      padding-left:23px;
      padding-right:23px;
+     overflow: hidden;
+     box-sizing: border-box;
+     margin-left:10px;
+     margin-top:10px;
   }
 
   .calendar-year-selector{
@@ -38,7 +52,7 @@
     bottom:0;
     background-color:#fff;
     position: absolute;
-    padding-top:10px;
+    padding-top:15px;
     padding-bottom: 10px;
     overflow-y: auto;
     box-sizing: border-box;
@@ -48,9 +62,14 @@
         text-align:center;
         font-size:14px;
         color:#333;
+        font-weight:500;
 
         &:hover{
           color:@calendar-active-color;
+        }
+        &.year-active{
+          color:@calendar-active-color;
+          font-size:18px;
         }
     }
   }
@@ -73,10 +92,15 @@
             line-height: 35px;
             text-align:center;
             font-size:14px;
+            font-weight:500;
             color:#333;
 
             &:hover{
               color:@calendar-active-color;
+            }
+            &.month-active{
+              color:@calendar-active-color;
+              font-size:18px;
             }
         }
       }
@@ -139,6 +163,7 @@
        padding-left:5px;
        padding-right:5px;
        box-sizing: border-box;
+       -webkit-appearance:none ;
        &:focus{
          border-color:@calendar-active-color;
          outline:none;
