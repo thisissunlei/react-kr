@@ -203,7 +203,7 @@ export default class SearchForms extends Component{
 		let {searchFilter} = this.props;
 		let {value} = this.state;
 		let select ='请选择';
-		if(searchFilter.length){
+		if(searchFilter){
 			select = searchFilter[0].label;
 		}
 		
