@@ -425,12 +425,12 @@ export default class D3Content extends Component {
 												<span>{value.contractName}分期催款</span>
 												<p>{dateFormat(item.pointDate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
 												<p>{value.stationnum}个位置({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
-												<p>负责人：<span className='red-content'>{value.name}</span></p>
-												<p>电话：<span className='red-content'>{value.phone}</span></p>
+												<p>负责人：<span className='red-content'>{value.name?value.name:'—'}</span></p>
+												<p>电话：<span className='red-content'>{value.phone?value.phone:'—'}</span></p>
 												<p>催款金额：<span className='red-content'>{value.installmentAmount}</span></p>
 												<span className="content-lines"></span>
 												<p>回款金额：<span className='red-content'>{value.installmentBackamount}</span></p>
-												<p>回款时间：<span className='red-content'>{value.installmentBackamountDate?dateFormat(value.installmentBackamountDate, "yyyy.mm.dd"):'——'}</span></p>
+												<p>回款时间：<span className='red-content'>{value.installmentBackamountDate?dateFormat(value.installmentBackamountDate, "yyyy.mm.dd"):'—'}</span></p>
 											</div>
 										)
 									})}
@@ -462,12 +462,12 @@ export default class D3Content extends Component {
 												<span>{value.contractName}分期催款</span>
 												<p>{dateFormat(item.pointDate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
 												<p>{value.stationnum}个位置({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
-												<p>负责人：<span className='red-content'>{value.name}</span></p>
-												<p>电话：<span className='red-content'>{value.phone}</span></p>
+												<p>负责人：<span className='red-content'>{value.name?value.name:'—'}</span></p>
+												<p>电话：<span className='red-content'>{value.phone?value.phone:'—'}</span></p>
 												<p>催款金额：<span className='red-content'>{value.installmentAmount}</span></p>
 												<span className="content-lines"></span>
 												<p>回款金额：<span className='red-content'>{value.installmentBackamount}</span></p>
-												<p>回款时间：<span className='red-content'>{value.installmentBackamountDate?dateFormat(value.installmentBackamountDate, "yyyy.mm.dd"):'——'}</span></p>
+												<p>回款时间：<span className='red-content'>{value.installmentBackamountDate?dateFormat(value.installmentBackamountDate, "yyyy.mm.dd"):'—'}</span></p>
 											</div>
 										)
 									})}
