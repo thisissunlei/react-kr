@@ -53,8 +53,8 @@ export default class Initialize  extends Component{
 			searchParams: {
 				pageNo: 1,
 				pageSize: 15,
-				enable:"",
-				groupName:""
+				enable:'',
+				groupName:''
 			},
 			id:null,
 
