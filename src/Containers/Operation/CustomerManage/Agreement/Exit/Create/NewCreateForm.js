@@ -339,7 +339,7 @@ const selector = formValueSelector('exitCreateForm');
 
 NewCreateForm = reduxForm({
 	form: 'exitCreateForm',
-	// validate,
+	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true
 })(NewCreateForm);
