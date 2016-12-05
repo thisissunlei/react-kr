@@ -60,8 +60,8 @@ export default class FloorPlan extends Component {
 			communityIdList: [],
 			communityInfoFloorList: [],
 			url: '',
-			dateend: dateFormat(new Date(), "yyyy-mm-dd"),
-			date: dateFormat(new Date(), "yyyy-mm-dd")
+			dateend: '',
+			date: ''
 		}
 
 		this.getcommunity = this.getcommunity.bind(this);
@@ -271,27 +271,57 @@ export default class FloorPlan extends Component {
 		})
 	}
 	firstDate=(personel)=>{
-		this.setState({
-			date: personel
-		})
+
+		// Store.dispatch(change('FloorPlan', 'start', dateFormat(new Date(), "yyyy-mm-dd")));
+		let firstDate = new Date(personel);
+		if(this.state.dateend){
+			let endDate = new Date(this.state.dateend);
+			let start = firstDate.getTime();
+			let end = endDate.getTime();
+			if(start<=end){
+				this.setState({
+					date: personel
+				})
+			}else{
+				Notify.show([{
+					message:'结束时间不能小于开始时间',
+					type: 'danger',
+				}]);
+				// Store.dispatch(change('FloorPlan', 'end', dateFormat(end, "yyyy-mm-dd")));
+			}
+		}else{
+			this.setState({
+				date: personel
+			})
+		}
 	}
 	secondDate=(personel)=>{
-		let firstDate = new Date(this.state.date);
+		
 		let secondDate = new Date(personel);
-
-		let start = firstDate.getTime();
-		let end = secondDate.getTime();
-		console.log(start,end,firstDate);
-		if(start<=end){
+		let end = this.state.dateend;
+		if(this.state.date){
+			let firstDate = new Date(this.state.date);
+			let start = firstDate.getTime();
+			let end = secondDate.getTime();
+			if(start<=end){
+				this.setState({
+					dateend: personel
+				})
+			}else{
+				Notify.show([{
+					message:'结束时间不能小于开始时间',
+					type: 'danger',
+				}]);
+				Store.dispatch(change('FloorPlan', 'end', dateFormat(end, "yyyy-mm-dd")));
+			}
+		}else{
 			this.setState({
 				dateend: personel
 			})
-		}else{
-			Notify.show([{
-				message:'结束时间不能小于开始时间',
-				type: 'danger',
-			}]);
 		}
+
+		
+		
 
 		
 	}
