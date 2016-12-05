@@ -65,6 +65,9 @@ export default class Demo extends Component{
 									console.log('values',values);
 							}} >
 
+
+								<FieldItem name="de2ame" label="其它" component="date"/>
+
 							<FieldItem name="demn22ame" label="其它:" component="file"  requiredValue={true} errors={{requiredValue:'必填'}}/>
 
 						<FieldItem name="demn3322342ame" type="text" label="其它" component="input"/>

@@ -20,6 +20,7 @@ export default class Field extends React.Component{
       syncErrors:React.PropTypes.object.isRequired,
       fields:React.PropTypes.object.isRequired,
       initializeValidations:React.PropTypes.func.isRequired,
+      values:React.PropTypes.object.isRequired,
   }
 
 	constructor(props,context){
@@ -90,18 +91,20 @@ export default class Field extends React.Component{
 
   renderComponent = (component)=>{
 
-    const {syncErrors,fields} = this.context;
+    const {syncErrors,fields,values} = this.context;
+    const {name} = this.props;
+
 
     const input = {
       name:this.props.name,
-      value:this.props.value,
+      value:values[name],
       onChange:this.onChange,
       onBlur:this.oBlur,
       onFocus:this.onFocus,
       onError:this.onError,
     };
 
-    let {name} = this.props;
+
 
     let field = {
       touched:false,

@@ -17,7 +17,8 @@ export default class KrForm  extends React.Component{
           initializeField:React.PropTypes.func.isRequired,
           syncErrors:React.PropTypes.object.isRequired,
           fields:React.PropTypes.object.isRequired,
-          initializeValidations:React.PropTypes.func.isRequired
+          initializeValidations:React.PropTypes.func.isRequired,
+          values:React.PropTypes.object.isRequired,
   }
 
 	getChildContext() {
@@ -30,6 +31,7 @@ export default class KrForm  extends React.Component{
           initializeField: this.initializeField,
           syncErrors:this.state.syncErrors,
           fields:this.state.fields,
+          values:this.state.values,
 				};
 	 }
 
