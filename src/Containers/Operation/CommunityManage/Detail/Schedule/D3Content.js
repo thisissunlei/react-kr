@@ -290,68 +290,30 @@ export default class D3Content extends Component {
 			finaRedPointVoList[0].arr = [];
 			finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[0].plan);
 		}
-		if(finaRedPointVo.length===2){
-			if(finaRedPointVoList[0].pointDate === finaRedPointVoList[1].pointDate){
-				finaRedPointVoList[0].arr = [];
-				finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[0].plan);
-				finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[1].plan);
-			}else{
-				finaRedPointVoList[0].arr = [];
-				finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[0].plan);
-				finaRedPointVoList[1].arr = [];
-				finaRedPointVoList[1].arr = finaRedPointVoList[1].arr.concat(finaRedPointVoList[1].plan);
+		// if(finaRedPointVo.length===2){
+		// 	if(finaRedPointVoList[0].pointDate === finaRedPointVoList[1].pointDate){
+		// 		finaRedPointVoList[0].arr = [];
+		// 		finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[0].plan);
+		// 		finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[1].plan);
+		// 	}else{
+		// 		finaRedPointVoList[0].arr = [];
+		// 		finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[0].plan);
+		// 		finaRedPointVoList[1].arr = [];
+		// 		finaRedPointVoList[1].arr = finaRedPointVoList[1].arr.concat(finaRedPointVoList[1].plan);
+		// 	}
+		// }	
+		for (var i = 0; i <= finaRedPointVo.length-1; i++) {
+			finaRedPointVoList[i].arr = [];
+			finaRedPointVoList[i].arr= finaRedPointVoList[i].arr.concat(finaRedPointVoList[i].plan);
+			for (var j = finaRedPointVo.length - 1; j >= 0; j--) {
+				if(finaRedPointVoList[i].pointDate === finaRedPointVoList[j].pointDate && i!=j){
+					finaRedPointVoList[i].arr= finaRedPointVoList[i].arr.concat(finaRedPointVoList[j].plan);
+				}
 			}
 		}
-		for (var i = 0; i <= finaRedPointVo.length-2; i++) {
-			if(finaRedPointVoList[i].pointDate === finaRedPointVoList[1+i].pointDate){
-				finaRedPointVoList[i].arr = [];
-				finaRedPointVoList[i].arr = finaRedPointVoList[i].arr.concat(finaRedPointVoList[0].plan);
-				finaRedPointVoList[i].arr= finaRedPointVoList[i].arr.concat(finaRedPointVoList[1+i].plan);
-				finaRedPointVoList.splice(1+i, 1);
-
-			}else{
-				finaRedPointVoList[i].arr = [];
-				finaRedPointVoList[i].arr= finaRedPointVoList[i].arr.concat(finaRedPointVoList[i].plan);
-			}
-			if(i=== finaRedPointVo.length-2 && finaRedPointVoList[i].pointDate !== finaRedPointVoList[1+i].pointDate){
-				finaRedPointVoList[1+i].arr = [];
-				finaRedPointVoList[1+i].arr = finaRedPointVoList[1+i].arr.concat(finaRedPointVoList[1+i].plan);	
-			}
-				 
-		}	
 
 
 
-
-		// finaRedPointVoList = finaRedPointVoList.map((item) => {
-		// 	item.pointDay = that.countDays(item.pointDate);
-		// 	item.arr =[];
-		// 	item.plan.push(item.plan);
-		// 	item.plan.push(item.plan);
-		// 	return item;
-		// });
-		// if (this.sameNode.length) {
-		// 	this.sameNode.map((item) => {
-		// 		finaRedPointVoList.map((value, index) => {
-		// 			if (item.pointDay === value.pointDay) {
-		// 				console.log('---');
-		// 				finaRedPointVoList.splice(index, 1);
-		// 			}
-		// 		})
-		// 	})
-		// }
-		// if (this.sameNode.length) {
-		// 	this.sameNode.map((item) => {
-		// 		item.pointDay = that.countDays(item.pointDate);
-		// 		finaRedPointVoList.map((value, index) => {
-		// 			if (item.pointDay === value.pointDay) {
-		// 				finaRedPointVoList.splice(index, 1);
-		// 			}
-		// 		})
-		// 	})
-
-		// }
-		// console.log(finaRedPointVoList,this.sameNode);
 		return finaRedPointVoList;
 
 	}
@@ -389,7 +351,7 @@ export default class D3Content extends Component {
 			var nodeList = this.appendDiv(list, now);
 			var redNodeList = this.renderRedNode();
 			var blueNodeList = this.renderBlueNode();
-			console.log(redNodeList);
+			console.log('redNodeList',redNodeList);
 			var sameNode = this.sameNode;
 		} else {
 			var list = [{
