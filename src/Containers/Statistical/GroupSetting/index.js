@@ -20,6 +20,7 @@ import {
 	SearchForms,
 	ListGroup,
 	ListGroupItem,
+	Notify,
 
 } from 'kr-ui';
 import NewCreateForm from './CreateForm';
@@ -43,43 +44,162 @@ export default class Initialize  extends Component{
 			openEditDetail: false,
 			openSearchUpperForm:false,
 			itemDetail: {},
-			accountname: {}
+			accountname: {},
+			//已选模板列表
+			templateList:[],
+			//未选模板列表
+			unselectedList:[],
+			allData:{},
+			searchParams: {
+				pageNo: 1,
+				pageSize: 15,
+				enable:null,
+				groupName:null
+			},
+			id:null,
+
 		}
 	}
 
-	//操作相关
-	onOperation(type, itemDetail) {
+	//新建提交数据和编辑数据的提交
+	onCreateSubmit=(params)=> {
+		var _this = this;
+		params = Object.assign({}, params);
 
-			this.openEditDetailDialog();
+		params.templateIdList=this.state.templateList;
+		console.log(params);
+
+		Store.dispatch(Actions.callAPI('GroupNewAndEidt', {}, params)).then(function(response) {
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+
+		this.setState({
+			openNewCreate: false,
+			openEditDetail: false
+		});
+
+	}
+
+
+	//导出事件
+	onExport(values) {
+
+		let idList = [];
+		if (values.length != 0) {
+			values.map((item, value) => {
+				idList.push(item.id)
+			})
+		}
+		var url = `/api/krspace-finance-web/finaccount/property/exportDatas?ids=${idList}`
+		window.location.href = url;
+
+	}
+
+	//操作相关
+	onOperation(type,itemDetail) {
+				this.setState({
+					id:itemDetail.id
+				},function(){
+					this.openEditDetailDialog();
+				})
 
 	}
 
 	//编辑
-	openEditDetailDialog() {
-		this.setState({
-			openEditDetail: !this.state.openEditDetail
+	openEditDetailDialog=()=> {
+		var _this = this;
+		Store.dispatch(Actions.callAPI('MouldGroupDetails'),{id:this.state.id}).then(function(data) {
+
+			_this.setState({
+					itemDetail:data,
+			},function(){
+
+				_this.setState({
+					openEditDetail: !_this.state.openEditDetail
+				});
+			});
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
 		});
+
+
+
 	}
 	//搜索功能
-	onSearchSubmit(accountname) {
+	onSearchSubmit(searchParams) {
+		let obj = {
+			groupName:searchParams.content,
+			pageSize:15,
+			pageNo: 1,
+		}
+
 
 		this.setState({
-			accountname
+			searchParams: obj
 		});
+		console.log("34343")
 
 	}
 
-	//新建
-	openNewCreateDialog() {
+	onSearchCancel() {
+
+	}
+	//高级搜索功能点击确定
+	onSearchUpperForm=(searchParams)=>{
+
+		var _this=this;
+
+		let obj = {
+			groupName:searchParams.groupName,
+			pageSize:15,
+			pageNo: 1,
+			enable:searchParams.enable
+		}
 		this.setState({
-			openNewCreate: !this.state.openNewCreate
+			searchParams: obj
 		});
+		this.openSearchUpperFormDialog();
+
+
+	}
+	//新建
+	openNewCreateDialog=()=> {
+		var _this = this;
+		Store.dispatch(Actions.callAPI('GroupNewModule')).then(function(data) {
+			_this.setState({
+					templateList:data.templateList,
+			},function(){
+				_this.setState({
+					openNewCreate: !_this.state.openNewCreate
+				});
+			});
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+	
 	}
 //高级搜索
 	openSearchUpperFormDialog=()=> {
+		var _this=this;
 		this.setState({
 			openSearchUpperForm: !this.state.openSearchUpperForm
 		});
+	}
+
+	// 改变模板分组
+	changeMudle=(arr)=>{
+		this.setState({templateList:arr})
 	}
 
 	render(){
@@ -105,8 +225,13 @@ export default class Initialize  extends Component{
 												ajax={true}
 												onOperation={this.onOperation}
 												onProcessData={(state)=>{
-												return state;
-											}}
+
+													return state;
+												}
+											}
+
+										onExport={this.onExport}
+										ajaxParams={this.state.searchParams}
 
 											ajaxFieldListName="items"
 											ajaxUrlName='MouldGroupList' exportSwitch={true}>
@@ -127,9 +252,9 @@ export default class Initialize  extends Component{
 												<TableRowColumn name="sort" ></TableRowColumn>
 												<TableRowColumn name="groupDesc"></TableRowColumn>
 												<TableRowColumn name="templateNum"></TableRowColumn>
-												<TableRowColumn name="operaterName"></TableRowColumn>
-												<TableRowColumn name="operatedate" ></TableRowColumn>
-												<TableRowColumn name="enableflag" options={[{label:'启用',value:'ENABLE'},{label:'禁用',value:'DISENABLE'}]}></TableRowColumn>
+												<TableRowColumn name="creator"></TableRowColumn>
+												<TableRowColumn name="createTime" ></TableRowColumn>
+												<TableRowColumn name="enable" options={[{label:'启用',value:'ENABLE'},{label:'禁用',value:'DISENABLE'}]}></TableRowColumn>
 
 												<TableRowColumn>
 													  <Button label="编辑"  type="operation"  operation="edit" />
@@ -146,20 +271,25 @@ export default class Initialize  extends Component{
 						modal={true}
 						open={this.state.openEditDetail}
 						onClose={this.openEditDetailDialog}
+						changeMudle={this.changeMudle}
 					>
-						<NewEditDetail  detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog} />
+						<NewEditDetail  detail={this.state.itemDetail} onSubmit={this.onCreateSubmit} onCancel={this.openEditDetailDialog} />
+
+
+
+
 		  			</Dialog>
 
 		  			<Dialog
 						title="新建分组"
 						modal={true}
-
+						// detail={this.state.templateList}
 						open={this.state.openNewCreate}
 						onClose={this.openNewCreateDialog}
 
 
 					>
-						<NewCreateForm detail={this.state.itemDetail} onSubmit={this.openNewCreateSubmit} onCancel={this.openNewCreateDialog} />
+						<NewCreateForm changeMudle={this.changeMudle}  detail={this.state.templateList} onSubmit={this.onCreateSubmit} onCancel={this.openNewCreateDialog} />
 
 				  </Dialog>
 
@@ -172,7 +302,7 @@ export default class Initialize  extends Component{
 						bodyStyle={{paddingTop:34}}
 						contentStyle={{width:687}}
 					>
-						<SearchUpperForm detail={this.state.itemDetail} onSubmit={this.onNewCreateSubmit} onCancel={this.openSearchUpperFormDialog} />
+						<SearchUpperForm detail={this.state.itemDetail} onSubmit={this.onSearchUpperForm} onCancel={this.openSearchUpperFormDialog} />
 
 				  </Dialog>
 
