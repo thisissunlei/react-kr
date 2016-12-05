@@ -202,8 +202,12 @@ export default class SearchForms extends Component{
 	renderFilter(){
 		let {searchFilter} = this.props;
 		let {value} = this.state;
-		let select = searchFilter[0].label || '请选择';
-		console.log('searchFilter',searchFilter);
+		let select ='请选择';
+		if(searchFilter){
+			select = searchFilter[0].label;
+		}
+		
+		// console.log('searchFilter',searchFilter);
 		if(searchFilter){
 			return(
 				<div className="search-filter" ref={div=>{this.selectList = div}}>
