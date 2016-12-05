@@ -53,8 +53,8 @@ export default class Initialize  extends Component{
 			searchParams: {
 				pageNo: 1,
 				pageSize: 15,
-				enable:null,
-				groupName:null
+				enable:"",
+				groupName:""
 			},
 			id:null,
 
@@ -202,7 +202,7 @@ export default class Initialize  extends Component{
 		this.setState({templateList:arr})
 	}
 
-	
+
 
 	render(){
 
