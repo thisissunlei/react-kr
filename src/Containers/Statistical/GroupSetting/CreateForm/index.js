@@ -300,11 +300,13 @@ class ZhuanHuan extends React.Component{
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
 				<KrField name="id" type="hidden" label="id"/>
-				<KrField grid={1/2} right={68} name="agroupName" type="text" label="分组名称" requireLabel={true} />
+				<KrField grid={1/2} right={68} name="agroupName" type="text" label="分组名称" requireLabel={true} onChange={function(){
+					 console.log('-----')
+				}}/>
 				<KrField grid={1/2} right={68} name="sort" type="text" label="排序" requireLabel={true} style={{marginLeft:"-38"}}/>
 				<KrField grid={1} name="nable" component="group" label="启用状态" requireLabel={true}>
 					<KrField name="enableflag" label="是" component="radio" type="radio" value="ENABLE"/>
-						<KrField name="enableflag" label="否"  component="radio"  type="radio" value="DISENABLE" />
+						<KrField name="enableflag" label="否"  component="radio"  type="radio" value="DISABLE" />
 				</KrField>
 				<KrField grid={1/2} label="数据模板" requireLabel={true} name="groupDesc" component="labelText"/>
 				<Switchover allData={this.state.moduleData} okData={[]} changeMudle={this.props.changeMudle}/>
