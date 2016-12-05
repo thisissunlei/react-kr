@@ -4,6 +4,8 @@ import Field from '../Field';
 
 import InputComponent from './InputComponent';
 import LabelTextComponent from './LabelTextComponent';
+import GroupComponent from './GroupComponent';
+
 
 export default class KrField extends React.Component {
 
@@ -68,6 +70,15 @@ export default class KrField extends React.Component {
 						<LabelTextComponent {...this.props} style={WrapStyles} colorStyle={colorStyle}/>
 					);
 				}
+
+
+
+						if (component === 'group' || type == 'group') {
+							return (
+								<GroupComponent {...this.props} style={WrapStyles}/>
+							);
+						}
+
 
 
 		return (
