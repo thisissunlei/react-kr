@@ -95,7 +95,10 @@ export function setCurrentNav(router){
 
 	let fatherRouter = router.substring(2).split('/').shift();
 	let childRouter = router.substring(2).split('/')[1];
-	childRouter = childRouter.split('?').shift();
+
+	if(typeof childRouter !== 'undefined' && childRouter.indexOf('?') !==-1){
+		childRouter = childRouter.split('?').shift();
+	}
 
 	return function(dispatch){
 
