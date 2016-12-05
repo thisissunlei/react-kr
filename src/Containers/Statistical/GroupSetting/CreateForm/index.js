@@ -330,12 +330,12 @@ const validate = values =>{
 
 		const errors = {}
 
-		if(!values.accountcode){
-			errors.accountcode = '请填写分组名称';
+		if(!values.agroupName){
+			errors.agroupName = '请填写分组名称';
 		}
 
-		if (!values.accountname) {
-			errors.accountname = '请输入排序';
+		if (!values.sort) {
+			errors.sort = '请输入排序';
 		}
 
 		if (!values.accounttype) {
@@ -345,8 +345,8 @@ const validate = values =>{
 		if (!values.ordernum) {
 			errors.ordernum = '请填写排序号';
 		}
-		if (!values.enableflag) {
-			errors.enableflag = '请先选择是否启用';
+		if (!values.nable) {
+			errors.nable = '请先选择是否启用';
 		}
 
 
