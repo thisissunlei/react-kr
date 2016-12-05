@@ -52,7 +52,7 @@ import {
 
 				<KrField name="id" type="hidden" label="id"/>
 				<KrField grid={1/2} right={25} name="groupName" type="text" label="分组名称"  />
-				<KrField grid={1/2} right={25} style={{marginLeft:"0"}} name="enable" type="select" label="启用状态" options={[ {value:'PAYMENT',label:'启用'}, {value:'INCOME',label:'禁用'}, ]}  />
+				<KrField grid={1/2} right={25} style={{marginLeft:"0"}} name="enable" type="select" label="启用状态" options={[ {value:'ENABLE',label:'启用'}, {value:'DISABLE',label:'禁用'}, ]}  />
 
 
 
@@ -76,7 +76,7 @@ const validate = values =>{
 
 		const errors = {}
 
-		
+
 
 
 		return errors

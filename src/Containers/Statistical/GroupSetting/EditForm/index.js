@@ -292,7 +292,7 @@ class ZhuanHuan extends React.Component{
 				<KrField grid={1/2} right={68} name="sort" type="text" label="排序" requireLabel={true} style={{marginLeft:"-38"}}/>
 				<KrField grid={1} name="enable" component="group" label="启用状态" requireLabel={true}>
 					<KrField name="enable" label="是" component="radio" type="radio" value="ENABLE"/>
-						<KrField name="enable" label="否"  component="radio"  type="radio" value="DISENABLE" />
+						<KrField name="enable" label="否"  component="radio"  type="radio" value="DISABLE" />
 				</KrField>
 				<KrField grid={1/2} label="数据模板" requireLabel={true} component="labelText"/>
 				<Switchover allData={this.state.detail.templateList} okData={this.state.detail.unselectedList} changeMudle={this.props.changeMudle}/>

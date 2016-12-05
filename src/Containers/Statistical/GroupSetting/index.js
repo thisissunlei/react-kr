@@ -145,7 +145,6 @@ export default class Initialize  extends Component{
 		this.setState({
 			searchParams: obj
 		});
-		console.log("34343")
 
 	}
 
@@ -256,7 +255,7 @@ export default class Initialize  extends Component{
 												<TableRowColumn name="templateNum"></TableRowColumn>
 												<TableRowColumn name="creator"></TableRowColumn>
 												<TableRowColumn name="createTime" ></TableRowColumn>
-												<TableRowColumn name="enable" options={[{label:'启用',value:'ENABLE'},{label:'禁用',value:'DISENABLE'}]}></TableRowColumn>
+												<TableRowColumn name="enable" options={[{label:'启用',value:'ENABLE'},{label:'禁用',value:'DISABLE'}]}></TableRowColumn>
 
 												<TableRowColumn>
 													  <Button label="编辑"  type="operation"  operation="edit" />
