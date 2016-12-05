@@ -318,7 +318,7 @@ const selector = formValueSelector('exitEditForm');
 
 NewCreateForm = reduxForm({
 	form: 'exitEditForm',
-	// validate,
+	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true
 })(NewCreateForm);

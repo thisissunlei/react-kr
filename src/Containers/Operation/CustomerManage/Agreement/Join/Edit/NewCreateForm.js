@@ -738,7 +738,7 @@ const selector = formValueSelector('joinEditForm');
 
 NewCreateForm = reduxForm({
 	form: 'joinEditForm',
-	// validate,
+	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true
 })(NewCreateForm);
