@@ -42,20 +42,49 @@ export default class PanelComponents  extends Component{
 	constructor(props,context){
 		super(props, context);
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+		 this.state = {			
+			    groupId:this.props.groupId,
+				startDate:'',
+		}
+	}
+
+	componentDidMount() {
+		var _this = this;
+		Store.dispatch(Actions.callAPI('openCompanyData')).then(function(response) {
+       
+            _this.setState({			
+					startDate:response.today,						
+			},function(){
+				let {groupId,startDate}=this.state;
+				var url='http://local.krspace.cn/#/statistical/index?groupId='+groupId+'&startDate='+startDate
+                window.location.href=url;
+			})
+
+		}).catch(function(err) {
+			Message.error(err);
+		});
+
+            
+           
+           
+      
 	}
 
 	render(){
-
+        
+         
 		let {panels}=this.props;
+		
+       console.log('333eeee',panels.templateName);
+
 		var renderComponent = [];
 		panels.map(function(item,index){
 			var childComponentName = PanelsDic[item.templateNo];
 			if(childComponentName){
-
 				renderComponent.push(<div key={index}>{childComponentName}</div>);
 			}
 		});
-		console.log(renderComponent);
+		
 		return(
 			<div>
 			    <Title value="数据统计"/>

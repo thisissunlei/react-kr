@@ -43,12 +43,12 @@ export default class Home  extends Component{
 						templateList:[
 							{
 								id:'324324',
-								templateName:'第一个',
+								templateName:'招商数据统计－已开业',
 								templateNo:'121'
 							},
 							{
 								id:'2334',
-								templateName:'第二个',
+								templateName:'招商数据统计－未开业',
 								templateNo:'111'
 							},
 						]
@@ -104,7 +104,7 @@ export default class Home  extends Component{
 						    return (<Tab label={item.groupName} key={index} onActive={this.activeTable.bind(this,index)} style={activeStyle}><PanelComponents panels={item.templateList} groupId={item.id}/> </Tab>)
 						})
 				   }
-	 	   </Tabs>
+	 	   </Tabs> 
 	 	  </div>
 		);
 	}
@@ -114,13 +114,16 @@ export default class Home  extends Component{
 
 		let {groupList} = this.state;
 		let groupItem = groupList[0];
+		
 
 		return(
+		  <div className='static-section'>
 			<Section title={groupItem.groupName} style={{background:'none'}} headerStyle={{background:'#fff'}}>
 			    <div className='static-section-inner'>
 					<PanelComponents panels={groupItem.templateList} groupId={groupItem.id}/>
 				</div>
 			</Section>
+		  </div>
 		);
 	}
 
@@ -144,7 +147,7 @@ export default class Home  extends Component{
 	render(){
 
 		let {groupList} = this.state;
-
+        
 		
 		if(groupList.length == 1){
 				return this.renderGroupSingle();
