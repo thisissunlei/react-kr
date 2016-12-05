@@ -41,7 +41,7 @@ export default class Initialize  extends Component{
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	    this.state = {
 			searchParams: {
-				groupId:this.props.groupId,
+				groupId:window.location.href.split('?')[1].split('&')[0].split('=')[1],
 				startDate:'',
 				endDate:''
 			}
@@ -50,17 +50,7 @@ export default class Initialize  extends Component{
 
 	}
     
-    componentDidMount() {
-		var _this = this;
-		Store.dispatch(Actions.callAPI('openCompanyData')).then(function(response) {
-			_this.setState({
-				startDate:response.today,
-				endDate:response.today
-			});
-		}).catch(function(err) {
-			Message.error(err);
-		});
-	}
+    
 
     onStartChange=(searchParams)=>{
     	searchParams = Object.assign({}, this.state.searchParams, searchParams);
@@ -82,10 +72,14 @@ export default class Initialize  extends Component{
         if(start>end){
           Message.error('开始时间不能大于结束时间');
         }
-	  
-        
-		return(
 
+	 var date_1=window.location.href.split('&')[1];
+	 var date_2=date_1.split('=')[1];
+	 
+	
+        
+	return(
+         <div className='open-back' style={{background:'#fff',marginBottom:'20'}}>
 			<div className='ui-open-info'>
 				   <Grid style={{height:'76'}}>
 						<Row>
@@ -95,7 +89,7 @@ export default class Initialize  extends Component{
 							 <span  className='static-upload'>实时更新</span>	
 							</Col> 
 							<Col align="right" md={8}> 
-							  <SearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange} />
+							  <SearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange} date_2={date_2}/>
 							</Col> 
 						</Row>
 					</Grid>
@@ -118,10 +112,10 @@ export default class Initialize  extends Component{
 					<TableHeaderColumn>出租率</TableHeaderColumn>
 					<TableHeaderColumn>上期出租率</TableHeaderColumn>
 					<TableHeaderColumn>出租率变化</TableHeaderColumn>
-					<TableHeaderColumn><div className='rentNotInfo'>出租率(不含意向)</div></TableHeaderColumn>
+					<TableHeaderColumn><div style={{display:'inlineBlock'}}>出租率</div><div style={{display:'inlineBlock'}}>(不含意向)</div></TableHeaderColumn>
 					<TableHeaderColumn>环比</TableHeaderColumn>
-					<TableHeaderColumn>新增意向工位数</TableHeaderColumn>
-					<TableHeaderColumn>累计意向工位数</TableHeaderColumn>
+					<TableHeaderColumn><div style={{display:'inlineBlock'}}>新增意向</div><div style={{display:'inlineBlock'}}>工位数</div></TableHeaderColumn>
+					<TableHeaderColumn><div style={{display:'inlineBlock'}}>累计意向</div><div style={{display:'inlineBlock'}}>工位数</div></TableHeaderColumn>
 					<TableHeaderColumn>平均单价</TableHeaderColumn>
 				</TableHeader>
 
@@ -147,6 +141,7 @@ export default class Initialize  extends Component{
               </div>
 
 			</div>
+		 </div>
 		);
 	}
 

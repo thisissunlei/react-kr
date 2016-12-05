@@ -25,7 +25,7 @@ import {
 	Form
 } from 'kr-ui';
 import './index.less';
-import SearchDateForm from './SearchDateForm';
+import SearchNotDateForm from './SearchNotDateForm';
 
 
 export default class Initialize  extends Component{
@@ -41,9 +41,9 @@ export default class Initialize  extends Component{
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	    this.state = {
 			searchParams: {
-				groupId:this.props.groupId,
-				startDate:this.props.currentDate,
-				endDate:this.props.currentDate
+				groupId:window.location.href.split('?')[1].split('&')[0].split('=')[1],
+				startDate:'',
+				endDate:''
 			}
 
 		}
@@ -72,20 +72,22 @@ export default class Initialize  extends Component{
         if(start>end){
           Message.error('开始时间不能大于结束时间');
         }
-	  
+	   
+	 var date_1=window.location.href.split('&')[1];
+	 var date_2=date_1.split('=')[1];
         
 		return(
-
+          <div className='notOpenBack' style={{background:'#fff',marginBottom:'20'}}>
 			<div className='ui-open-in'>
 				   <Grid style={{height:'76'}}>
 						<Row>
 							<Col align="left" md={4} style={{marginTop:'25'}}> 
-							 <span  className='ui-pic-open'>招商数据统计-</span>
+							 <span  className='ui-pic-Notopen'>招商数据统计-</span>
 							 <span  className='static-openCompany'>未开业</span>	
 							 <span  className='static-upload'>实时更新</span>	
 							</Col> 
 							<Col align="right" md={8}> 
-							  <SearchDateForm onStartNotChange={this.onStartNotChange} onEndNotChange={this.onEndNotChange} />
+							  <SearchNotDateForm onStartNotChange={this.onStartNotChange} onEndNotChange={this.onEndNotChange} date_2={date_2}/>
 							</Col> 
 						</Row>
 					</Grid>
@@ -125,8 +127,8 @@ export default class Initialize  extends Component{
 				</TableBody>
 				</Table>
               </div>
-
-			</div>
+            </div>
+		  </div>
 		);
 	}
 
