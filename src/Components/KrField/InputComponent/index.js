@@ -29,6 +29,14 @@ export default class InputComponent extends React.Component{
 	componentDidMount(){
 	}
 
+	onChange = (value)=>{
+		let {input} = this.props;
+		input.onChange(value);
+		const {onChange} = this.props;
+		onChange && onChange(value)
+
+	}
+
 	onError = (message)=>{
 
 
@@ -65,7 +73,7 @@ export default class InputComponent extends React.Component{
 
 			return (
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} simple={simple}>
-					<Input {...input} placeholder={placeholder|| label} type={type} disabled={disabled} className={className} style={heightStyle} {...other} onError={this.onError}/>
+					<Input {...input} onChange={this.onChange} placeholder={placeholder|| label} type={type} disabled={disabled} className={className} style={heightStyle} {...other} onError={this.onError}/>
 					{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				</WrapComponent>
 		);

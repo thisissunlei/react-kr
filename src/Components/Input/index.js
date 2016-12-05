@@ -123,7 +123,6 @@ export default  class Input extends React.Component {
 		  	classNames = ClassNames('ui-input',className,'disabled');
 		}
 
-
 		return (
 			 <input type={type} name={name} className={classNames}  style={style} placeholder={placeholder} value={value} {...other} disabled={disabled} onChange={this.onChange} onBlur={this.onBlur} />
 		);
