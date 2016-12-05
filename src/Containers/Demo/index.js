@@ -97,11 +97,28 @@ export default class Demo extends Component{
 						      style={{marginRight:'20px',color:'#499df1',fontSize:20}}
 						    />
 						 <FlatButton icon={<FontIcon className={'icon-basis'} />} style={{color:'#499df1',height:36,width:100}} />
-						<div className="tooltip">
-							<Tooltip>
+						<div className="tooltip" data-for='tooltip2'>
+							<Tooltip place="top" tipName="tooltip2">
 								<p>12345</p>
 								<p>12345</p>
 								<p>12345</p>
+								<p>12345</p>
+								<p>12345</p>
+								<p>12345</p>
+								<p>12345</p>
+								<p>12345</p>
+								<p>12345</p>
+								<p>12345</p>
+								<p>12345</p>
+								<p>12345</p>
+							</Tooltip>
+						</div>
+						<div className="tooltip" style={{marginTop:40}} data-for='tooltip1'>
+							<Tooltip place="bottom" tipName="tooltip1">
+								<p>12345</p>
+								<p>12345</p>
+								<p>12345</p>
+								<a href="https://www.baidu.com" target="_blank">baidu1</a>
 							</Tooltip>
 						</div>
 
