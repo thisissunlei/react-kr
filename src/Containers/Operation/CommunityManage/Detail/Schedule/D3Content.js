@@ -68,6 +68,7 @@ export default class D3Content extends Component {
 		this.renderRedNode = this.renderRedNode.bind(this);
 		this.renderwhiteBar = this.renderwhiteBar.bind(this);
 		this.sameNode = this.getSameTime();
+		// console.log('same',this.sameNode);
 
 	}
 
@@ -193,10 +194,8 @@ export default class D3Content extends Component {
 		// 获取相同时间节点天数(天)
 	getSameTime() {
 		var that = this;
-		var {
-			finaBluePointVo,
-			finaRedPointVo
-		} = this.props;
+		let finaBluePointVo = this.renderBlueNode();
+		let finaRedPointVo = this.renderRedNode();
 		finaBluePointVo = [].concat(finaBluePointVo);
 		finaRedPointVo = [].concat(finaRedPointVo);
 		let sameNode = [];
@@ -204,12 +203,38 @@ export default class D3Content extends Component {
 		finaBluePointVo.map((item) => {
 			finaRedPointVo.map((value) => {
 				if (item.pointDay === value.pointDay) {
+					var obj = value;
+					obj.arr =[];
+					obj.arr.push(value.plan);
 					let node = $.extend(item, value);
 					sameNode.push(node);
 				}
 			});
 
 		})
+		if (sameNode.length) {
+			sameNode.map((item) => {
+				item.pointDay = that.countDays(item.pointDate);
+				finaRedPointVoList.map((value, index) => {
+					if (item.pointDay === value.pointDay) {
+						finaRedPointVoList.splice(index, 1);
+					}
+				})
+			})
+
+		}
+		if (sameNode.length) {
+			sameNode.map((item) => {
+				item.pointDay = that.countDays(item.pointDate);
+				finaBluePointVoList.map((value, index) => {
+					if (item.pointDay === value.pointDay) {
+						finaBluePointVoList.splice(index, 1);
+					}
+				})
+			})
+
+		}
+		console.log('same',sameNode);
 		var unique = {};
 		    sameNode.forEach(function(a){ unique[ JSON.stringify(a) ] = 1 });
 		    sameNode= Object.keys(unique).map(function(u){return JSON.parse(u) });
@@ -227,43 +252,86 @@ export default class D3Content extends Component {
 			item.pointDay = that.countDays(item.pointDate);
 			return item;
 		});
-		if (this.sameNode.length) {
-			this.sameNode.map((item) => {
-				item.pointDay = that.countDays(item.pointDate);
-				finaBluePointVoList.map((value, index) => {
-					if (item.pointDay === value.pointDay) {
-						finaBluePointVoList.splice(index, 1);
-					}
-				})
-			})
+		// if (this.sameNode.length) {
+		// 	this.sameNode.map((item) => {
+		// 		item.pointDay = that.countDays(item.pointDate);
+		// 		finaBluePointVoList.map((value, index) => {
+		// 			if (item.pointDay === value.pointDay) {
+		// 				finaBluePointVoList.splice(index, 1);
+		// 			}
+		// 		})
+		// 	})
 
-		}
+		// }
 		return finaBluePointVoList;
 
 	}
 
 	renderRedNode() {
 
-		// var sameNode = this.getSameTime();
 		let {
 			finaRedPointVo
 		} = this.props;
-
-		// finaRedPointVo = new Array(finaRedPointVo);
 		let finaRedPointVoList = finaRedPointVo;
 
 		const that = this;
 		let newArr = [];
 			
 		for(let j in finaRedPointVo){
+
 			if(!finaRedPointVo[j].pointDate){
 				finaRedPointVoList.splice(j, 1);
+			}else{
+				finaRedPointVoList[j].pointDay = that.countDays(finaRedPointVo[j].pointDate);
 			}
 		};
-		finaRedPointVoList = finaRedPointVoList.map((item) => {
-			item.pointDay = that.countDays(item.pointDate);
-			return item;
-		});
+		//判断时间点是否重合,若重合，合并数据
+		if(finaRedPointVo.length===1){
+			finaRedPointVoList[0].arr = [];
+			finaRedPointVoList[0].arr.push(finaRedPointVoList[0].plan);
+		}
+		if(finaRedPointVo.length===2){
+			finaRedPointVoList[0].arr = [];
+			finaRedPointVoList[0].arr.push(finaRedPointVoList[0].plan);
+			if(finaRedPointVoList[0].pointDate === finaRedPointVoList[1].pointDate){
+				finaRedPointVoList[0].arr = [];
+				finaRedPointVoList[0].arr.push(finaRedPointVoList[0].plan);
+				finaRedPointVoList[0].arr.push(finaRedPointVoList[1].plan);
+			}else{
+				finaRedPointVoList[0].arr = [];
+				finaRedPointVoList[0].arr.push(finaRedPointVoList[0].plan);
+				finaRedPointVoList[1].arr = [];
+				finaRedPointVoList[1].arr.push(finaRedPointVoList[1].plan);
+			}
+		}
+		for (var i = 0; i <= finaRedPointVo.length-2; i++) {
+			if(finaRedPointVoList[i].pointDate === finaRedPointVoList[1+i].pointDate){
+				finaRedPointVoList[i].arr = [];
+				finaRedPointVoList[i].arr.push(finaRedPointVoList[i].plan);
+				finaRedPointVoList[i].arr.push(finaRedPointVoList[1+i].plan);
+				finaRedPointVoList.splice(1+i, 1);
+
+			}else{
+				finaRedPointVoList[i].arr = [];
+				finaRedPointVoList[i].arr.push(finaRedPointVoList[i].plan);
+			}
+			if(i=== finaRedPointVo.length-2 && finaRedPointVoList[i].pointDate !== finaRedPointVoList[1+i].pointDate){
+				finaRedPointVoList[1+i].arr = [];
+				finaRedPointVoList[1+i].arr.push(finaRedPointVoList[1+i].plan);	
+			}
+				 
+		}	
+
+
+
+
+		// finaRedPointVoList = finaRedPointVoList.map((item) => {
+		// 	item.pointDay = that.countDays(item.pointDate);
+		// 	item.arr =[];
+		// 	item.arr.push(item.plan);
+		// 	item.arr.push(item.plan);
+		// 	return item;
+		// });
 		// if (this.sameNode.length) {
 		// 	this.sameNode.map((item) => {
 		// 		finaRedPointVoList.map((value, index) => {
@@ -274,17 +342,18 @@ export default class D3Content extends Component {
 		// 		})
 		// 	})
 		// }
-		if (this.sameNode.length) {
-			this.sameNode.map((item) => {
-				item.pointDay = that.countDays(item.pointDate);
-				finaRedPointVoList.map((value, index) => {
-					if (item.pointDay === value.pointDay) {
-						finaRedPointVoList.splice(index, 1);
-					}
-				})
-			})
+		// if (this.sameNode.length) {
+		// 	this.sameNode.map((item) => {
+		// 		item.pointDay = that.countDays(item.pointDate);
+		// 		finaRedPointVoList.map((value, index) => {
+		// 			if (item.pointDay === value.pointDay) {
+		// 				finaRedPointVoList.splice(index, 1);
+		// 			}
+		// 		})
+		// 	})
 
-		}
+		// }
+		// console.log(finaRedPointVoList,this.sameNode);
 		return finaRedPointVoList;
 
 	}
@@ -386,17 +455,26 @@ export default class D3Content extends Component {
 				}
 				{
 					redNodeList && redNodeList.map((item,index)=>{
+
 						return (
 							<span className='red-node' key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}} data-tip data-for={`${item.pointDate}${index}red${item.plan.id}`}>
 								<ReactTooltip id={`${item.pointDate}${index}red${item.plan.id}`} place="top" type="dark" effect="solid" >
-											<div key={index} className="react-tooltip-content">
-												<span>{item.plan.contractName}分期催款</span>
-												<p>{dateFormat(item.pointDate, "yyyy.mm.dd")}日催款({dateFormat(item.plan.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(item.plan.installmentEnddate, "yyyy.mm.dd")})</p>
-												<p>{item.plan.stationnum}个位置({dateFormat(item.plan.billStartDate, "yyyy.mm.dd")}-{dateFormat(item.plan.billEndDate, "yyyy.mm.dd")})</p>
-												<p>负责人：<span className='red-content'>{item.plan.name}</span></p>
-												<p>电话：<span className='red-content'>{item.plan.phone}</span></p>
-												<p>催款金额：<span className='red-content'>{item.plan.installmentAmount}</span></p>
+									{item.plan && item.arr.map((value,i)=>{
+										return(
+											<div key={i} className="react-tooltip-content">
+												<span>{value.contractName}分期催款</span>
+												<p>{dateFormat(item.pointDate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
+												<p>{value.stationnum}个位置({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
+												<p>负责人：<span className='red-content'>{value.name}</span></p>
+												<p>电话：<span className='red-content'>{value.phone}</span></p>
+												<p>催款金额：<span className='red-content'>{value.installmentAmount}</span></p>
+												<span className="content-lines"></span>
+												<p>回款金额：<span className='red-content'>{value.phone}</span></p>
+												<p>回款时间：<span className='red-content'>{value.installmentAmount}</span></p>
 											</div>
+										)
+									})}
+											
 									</ReactTooltip>
 							</span>
 						)
@@ -418,14 +496,21 @@ export default class D3Content extends Component {
 								</span>
 								<span className='red-node' data-tip data-for={`${item.pointDate}${item.newStationNum}${index}samered`}>
 									<ReactTooltip id={`${item.pointDate}${item.newStationNum}${index}samered`} place="top" type="dark" effect="solid" >
-											<div className="react-tooltip-content">
-												<span>{item.plan.contractName}分期催款</span>
-												<p>{dateFormat(item.pointDate, "yyyy.mm.dd")}日催款({dateFormat(item.plan.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(item.plan.installmentEnddate, "yyyy.mm.dd")})</p>
-												<p>{item.plan.stationnum}个位置({dateFormat(item.plan.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(item.plan.installmentEnddate, "yyyy.mm.dd")})</p>
-												<p>负责人：<span className='red-content'>{item.plan.name}</span></p>
-												<p>电话：<span className='red-content'>{item.plan.phone}</span></p>
-												<p>催款金额：<span className='red-content'>{item.plan.installmentAmount}</span></p>
+										{item.plan && item.arr.map((value,i)=>{
+										return(
+											<div key={i} className="react-tooltip-content">
+												<span>{value.contractName}分期催款</span>
+												<p>{dateFormat(item.pointDate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
+												<p>{value.stationnum}个位置({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
+												<p>负责人：<span className='red-content'>{value.name}</span></p>
+												<p>电话：<span className='red-content'>{value.phone}</span></p>
+												<p>催款金额：<span className='red-content'>{value.installmentAmount}</span></p>
+												<span className="content-lines"></span>
+												<p>回款金额：<span className='red-content'>{value.phone}</span></p>
+												<p>回款时间：<span className='red-content'>{value.installmentAmount}</span></p>
 											</div>
+										)
+									})}
 									</ReactTooltip>
 							</span>
 							</div>
