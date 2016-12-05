@@ -30,8 +30,8 @@ import './index.less';
 class SearchDateForm extends Component {
 
 	static PropTypes = {
-		onStartChange: React.PropTypes.func,
-		onEndChange:React.PropTypes.func,
+		onStartNotChange: React.PropTypes.func,
+		onEndNotChange:React.PropTypes.func,
 	}
 
 	constructor(props) {
@@ -45,23 +45,23 @@ class SearchDateForm extends Component {
 
 	}
 	
-    onStartChange=(value)=>{
+    onStartNotChange=(value)=>{
       let values={
       	 startDate:value
       }
       const {
-			onStartChange
+			onStartNotChange
 		} = this.props;
-		onStartChange && onStartChange(values);
+		onStartNotChange && onStartNotChange(values);
     }
-    onEndChange=(value)=>{
+    onEndNotChange=(value)=>{
       let values={
       	 endDate:value
       }
       const {
-			onEndChange
+			onEndNotChange
 		} = this.props;
-		onEndChange && onEndChange(values);
+		onEndNotChange && onEndNotChange(values);
     }
 
 	render() {
@@ -88,9 +88,9 @@ class SearchDateForm extends Component {
 
 				    <ListGroup>
 				        <span className='statis-date-title'>时间：</span>
-						<ListGroupItem><div className='statis-date-start'><KrField  style={{marginLeft:-10}} name="startDate" component="date" onChange={this.onStartChange} placeholder={currentDate}/></div></ListGroupItem>
+						<ListGroupItem><div className='statis-date-start'><KrField  style={{marginLeft:-10}} name="startDate" component="date" onChange={this.onStartNotChange} placeholder={currentDate}/></div></ListGroupItem>
 						<div className='ui-line-down-list'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-						<ListGroupItem><div className='statis-date-end'><KrField  name="endDate" component="date" onChange={this.onEndChange} placeholder={currentDate}/></div></ListGroupItem>
+						<ListGroupItem><div className='statis-date-end'><KrField  name="endDate" component="date" onChange={this.onEndNotChange} placeholder={currentDate}/></div></ListGroupItem>
 					</ListGroup>
                   
 				</div>

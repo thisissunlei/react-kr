@@ -44,12 +44,12 @@ export default class Home  extends Component{
 							{
 								id:'324324',
 								templateName:'第一个',
-								templateNo:''
+								templateNo:'121'
 							},
 							{
 								id:'2334',
 								templateName:'第二个',
-								templateNo:''
+								templateNo:'111'
 							},
 						]
 					},
@@ -116,7 +116,7 @@ export default class Home  extends Component{
 		let groupItem = groupList[0];
 
 		return(
-			<Section title={groupItem.groupName}>
+			<Section title={groupItem.groupName} style={{background:'none'}} headerStyle={{background:'#fff'}}>
 			    <div className='static-section-inner'>
 					<PanelComponents panels={groupItem.templateList} groupId={groupItem.id}/>
 				</div>

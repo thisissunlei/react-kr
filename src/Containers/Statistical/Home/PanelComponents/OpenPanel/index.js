@@ -42,15 +42,25 @@ export default class Initialize  extends Component{
 	    this.state = {
 			searchParams: {
 				groupId:this.props.groupId,
-				startDate:this.props.currentDate,
-				endDate:this.props.currentDate
+				startDate:'',
+				endDate:''
 			}
 
 		}
 
 	}
     
-    
+    componentDidMount() {
+		var _this = this;
+		Store.dispatch(Actions.callAPI('openCompanyData')).then(function(response) {
+			_this.setState({
+				startDate:response.today,
+				endDate:response.today
+			});
+		}).catch(function(err) {
+			Message.error(err);
+		});
+	}
 
     onStartChange=(searchParams)=>{
     	searchParams = Object.assign({}, this.state.searchParams, searchParams);
@@ -108,7 +118,7 @@ export default class Initialize  extends Component{
 					<TableHeaderColumn>出租率</TableHeaderColumn>
 					<TableHeaderColumn>上期出租率</TableHeaderColumn>
 					<TableHeaderColumn>出租率变化</TableHeaderColumn>
-					<TableHeaderColumn>出租率(不含意向)</TableHeaderColumn>
+					<TableHeaderColumn><div className='rentNotInfo'>出租率(不含意向)</div></TableHeaderColumn>
 					<TableHeaderColumn>环比</TableHeaderColumn>
 					<TableHeaderColumn>新增意向工位数</TableHeaderColumn>
 					<TableHeaderColumn>累计意向工位数</TableHeaderColumn>

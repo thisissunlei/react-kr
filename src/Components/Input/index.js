@@ -113,7 +113,7 @@ export default  class Input extends React.Component {
 
 	render() {
 
-		let {children,className,style,type,name,disabled,placeholder,...other} = this.props;
+		let {children,className,style,type,name,disabled,placeholder,pattern,...other} = this.props;
 
 		let {value} = this.state;
 
