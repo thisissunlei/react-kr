@@ -81,9 +81,11 @@ export default  class Input extends React.Component {
 
 			onChange && onChange(value);
 
+/*
 		let message = this.onValidate(value);
 		let {onError} = this.props;
 			onError && onError(message);
+			*/
 
 	}
 
