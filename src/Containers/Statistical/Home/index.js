@@ -39,7 +39,7 @@ export default class Home  extends Component{
 				groupList:[
 					{
 						groupName:'集团经营',
-						id:'3224',
+						id:'1',
 						templateList:[
 							{
 								id:'324324',

@@ -47,26 +47,25 @@ export default class PanelComponents  extends Component{
 				startDate:'',
 		}
 	}
-
-	componentDidMount() {
-		var _this = this;
-		Store.dispatch(Actions.callAPI('openCompanyData')).then(function(response) {
-       
+   
+    getDefaultProps(){
+    	var _this = this;
+		Store.dispatch(Actions.callAPI('openCompanyData',{
+			groupId:'1'
+		})).then(function(response){
             _this.setState({			
 					startDate:response.today,						
 			},function(){
 				let {groupId,startDate}=this.state;
-				var url='http://local.krspace.cn/#/statistical/index?groupId='+groupId+'&startDate='+startDate
+				var url=window.location.href+'?groupId='+groupId+'&startDate='+startDate
                 window.location.href=url;
 			})
 
 		}).catch(function(err) {
 			Message.error(err);
 		});
-
-            
-           
-           
+    }
+	componentDidMount() {  	  
       
 	}
 

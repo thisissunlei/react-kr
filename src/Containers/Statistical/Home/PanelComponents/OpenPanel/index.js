@@ -42,8 +42,8 @@ export default class Initialize  extends Component{
 	    this.state = {
 			searchParams: {
 				groupId:window.location.href.split('?')[1].split('&')[0].split('=')[1],
-				startDate:'',
-				endDate:''
+				startDate:window.location.href.split('&')[1].split('=')[1],
+				endDate:window.location.href.split('&')[1].split('=')[1]
 			}
 
 		}
