@@ -61,6 +61,9 @@ a,button,button:hover{
 	.green{
 		border:1px solid #54c5a5;
 	}
+	.grey-circle{
+		border:1px solid #999;
+	}
 	.txts{
 		vertical-align:top;
 		position: relative;
@@ -462,7 +465,7 @@ a,button,button:hover{
 
 			}
 			p{
-				padding: 2px;
+				// padding: 2px;
 				margin:0;
 				line-height: 20px;
 				text-align: left;
@@ -683,6 +686,9 @@ a,button,button:hover{
 			display: inline-block;
 		}
 	}
+	span{
+		line-height: 24px;
+	}
 	.red-content{
 		color:#FF6868;
 	}
@@ -690,8 +696,14 @@ a,button,button:hover{
 		color: #54c5a5;
 	}
 }
-.react-tooltip-content + .react-tooltip-content{
+
+.content-lines{
 	position: relative;
+	width: 90%;
+	height: 10px;
+	display: inline-block;
+	margin-bottom: 5px;
+	margin-left: 5%;
 	&:before{
 		content: '';
 		width: 100%;
@@ -700,11 +712,13 @@ a,button,button:hover{
 		display: block;
 		background-size: 100% 100%;
 		position: absolute;
-		top:-5px;
+		top:4px;
 	}
 
 }
-
+.react-tooltip-content + .react-tooltip-content{
+	border-top:1px solid #fff;
+}
 .DismantlingForm{
 	.ui-form-item{
 			width:80% !important;
