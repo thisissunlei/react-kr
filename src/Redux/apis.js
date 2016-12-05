@@ -391,7 +391,7 @@ const APIS = {
 	},
 	//数据统计-模板分组-模板列表
 	'MouldGroupList': {
-		url: '/mockjsdata/13/krspace-finance-web/stat/group/group-list?pageNo={pageNo}&pageSize={pageSize}&groupName={groupName}&enable={enable}',
+		url: '/api/krspace-finance-web/stat/group/group-list?pageNo={pageNo}&pageSize={pageSize}&groupName={groupName}&enable={enable}',
 		method: 'get'
 	},
 	//数据统计-模板分组-分组详情
