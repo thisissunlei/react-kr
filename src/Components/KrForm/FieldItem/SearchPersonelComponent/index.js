@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-import ReactSelectAsync from '../../Select/Async';
+import ReactSelectAsync from '../../../Select/Async';
 
 import {Actions,Store} from 'kr/Redux';
 
@@ -35,6 +35,9 @@ export default class  SearchPersonelComponent extends React.Component {
 		var value = (item && item.value) || '';
 		input.onChange(value);
 		onChange && onChange(item);
+
+		console.log(item);
+
 	}
 
 	getOptions(lastname){
@@ -54,7 +57,6 @@ export default class  SearchPersonelComponent extends React.Component {
 	render(){
 
 		let { input, label, type, meta: { touched, error },placeholder,children,disabled,style,requireLabel,...other} = this.props;
-
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync

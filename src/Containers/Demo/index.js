@@ -65,7 +65,7 @@ export default class Demo extends Component{
 									console.log('values',values);
 							}} >
 
-
+									<FieldItem name="de" label="其它" component="searchPersonel" requiredValue={true} errors={{requiredValue:'请填写时间'}}/>
 
 									<FieldItem name="dame" label="其它" component="select" requiredValue={true} errors={{requiredValue:'请填写时间'}} options={[{label:'请选择',value:''},{label:'北京',value:'1'}]}/>
 

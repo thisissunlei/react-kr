@@ -8,6 +8,7 @@ import GroupComponent from './GroupComponent';
 import FileUploadComponent from './FileUploadComponent';
 import DateComponent from './DateComponent';
 import SelectComponent from './SelectComponent';
+import SearchPersonelComponent from './SearchPersonelComponent';
 
 export default class KrField extends React.Component {
 
@@ -103,6 +104,14 @@ export default class KrField extends React.Component {
 										</Field>
 									);
 								}
+
+
+								if (component === 'searchPersonel') {
+									return (
+										<Field {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
+									);
+								}
+
 
 		return (
 			<Field {...this.props} component={InputComponent}  style={WrapStyles}/>
