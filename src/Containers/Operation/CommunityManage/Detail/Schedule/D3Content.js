@@ -430,7 +430,7 @@ export default class D3Content extends Component {
 												<p>催款金额：<span className='red-content'>{value.installmentAmount}</span></p>
 												<span className="content-lines"></span>
 												<p>回款金额：<span className='red-content'>{value.installmentBackamount}</span></p>
-												<p>回款时间：<span className='red-content'>{value.installmentBackamountDate}</span></p>
+												<p>回款时间：<span className='red-content'>{dateFormat(value.installmentBackamountDate, "yyyy.mm.dd")}</span></p>
 											</div>
 										)
 									})}
@@ -467,7 +467,7 @@ export default class D3Content extends Component {
 												<p>催款金额：<span className='red-content'>{value.installmentAmount}</span></p>
 												<span className="content-lines"></span>
 												<p>回款金额：<span className='red-content'>{value.installmentBackamount}</span></p>
-												<p>回款时间：<span className='red-content'>{value.installmentBackamountDate}</span></p>
+												<p>回款时间：<span className='red-content'>{dateFormat(value.installmentBackamountDate, "yyyy.mm.dd")}</span></p>
 											</div>
 										)
 									})}
