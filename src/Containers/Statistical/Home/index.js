@@ -37,22 +37,6 @@ export default class Home  extends Component{
 
 		this.state = {
 				groupList:[
-					{
-						groupName:'集团经营',
-						id:'1',
-						templateList:[
-							{
-								id:'324324',
-								templateName:'招商数据统计－已开业',
-								templateNo:'121'
-							},
-							{
-								id:'2334',
-								templateName:'招商数据统计－未开业',
-								templateNo:'111'
-							},
-						]
-					},
 					
 				],
 				action:0,
@@ -129,14 +113,15 @@ export default class Home  extends Component{
 
 	componentDidMount() {
 
-		/*var _this = this;
+		var _this = this;
 		Store.dispatch(Actions.callAPI('get-my-groups')).then(function(response) {
 		   _this.setState({
 		   	 groupList:response.groupList
 		   })
+		   console.log('22222',response);
 		}).catch(function(err) {
 			Message.error(err);
-		});*/
+		});
 
 
 	}

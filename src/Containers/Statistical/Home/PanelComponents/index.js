@@ -47,25 +47,27 @@ export default class PanelComponents  extends Component{
 				startDate:'',
 		}
 	}
-   
-    getDefaultProps(){
-    	var _this = this;
+
+	componentDidMount() {
+		var _this = this;
 		Store.dispatch(Actions.callAPI('openCompanyData',{
-			groupId:'1'
+			groupId:_this.props.groupId
 		})).then(function(response){
             _this.setState({			
 					startDate:response.today,						
 			},function(){
 				let {groupId,startDate}=this.state;
-				var url=window.location.href+'?groupId='+groupId+'&startDate='+startDate
+				var url='http://local.krspace.cn/#/statistical/index?groupId='+groupId+'&startDate='+startDate
                 window.location.href=url;
 			})
 
 		}).catch(function(err) {
 			Message.error(err);
 		});
-    }
-	componentDidMount() {  	  
+
+            
+           
+           
       
 	}
 
@@ -73,11 +75,11 @@ export default class PanelComponents  extends Component{
         
          
 		let {panels}=this.props;
-		//console.log('www444',window.location.href);
+		console.log('www444',panels);
 
 		var renderComponent = [];
 		panels.map(function(item,index){
-			var childComponentName = PanelsDic[item.templateNo];
+			var childComponentName = PanelsDic[item.id];
 			if(childComponentName){
 				renderComponent.push(<div key={index}>{childComponentName}</div>);
 			}

@@ -66,7 +66,8 @@ export default class Initialize  extends Component{
     }
     openOver=(event)=>{
     	var val=event.target.innerText;
-    	
+    	//console.log('wwww',val);
+
     }
 
     render(){
