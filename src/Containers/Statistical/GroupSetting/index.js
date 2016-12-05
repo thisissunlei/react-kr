@@ -187,7 +187,7 @@ export default class Initialize  extends Component{
 				type: 'danger',
 			}]);
 		});
-	
+
 	}
 //高级搜索
 	openSearchUpperFormDialog=()=> {
@@ -201,6 +201,8 @@ export default class Initialize  extends Component{
 	changeMudle=(arr)=>{
 		this.setState({templateList:arr})
 	}
+
+	
 
 	render(){
 
