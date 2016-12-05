@@ -146,11 +146,28 @@ module.exports = {
 				iconColor: '#2b8dcd',
 				menuCode: 'index',
 				router: '/member/memberManage',
-				menuItems: [{
-					primaryText: "账单列表",
+				menuItems: [
+					{
+					primaryText: "会员看板",
+					router: '/member/memberManage/list',
+					menuCode: 'index',
+					},
+					{
+					primaryText: "会员列表",
 					router: '/member/memberManage/list',
 					menuCode: 'index',
 				},
+					{
+					primaryText: "会员卡管理",
+					router: '/member/memberManage/list',
+					menuCode: 'index',
+				},
+					{
+					primaryText: "会员配置",
+					router: '/member/memberManage/list',
+					menuCode: 'index',
+				},
+
 		]
 		}
 
