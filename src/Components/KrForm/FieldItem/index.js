@@ -7,6 +7,7 @@ import LabelTextComponent from './LabelTextComponent';
 import GroupComponent from './GroupComponent';
 import FileUploadComponent from './FileUploadComponent';
 import DateComponent from './DateComponent';
+import SelectComponent from './SelectComponent';
 
 export default class KrField extends React.Component {
 
@@ -94,6 +95,14 @@ export default class KrField extends React.Component {
 									);
 								}
 
+
+								if (component === 'select' || type == 'select') {
+									return (
+										<Field {...this.props} component={SelectComponent} style={WrapStyles}>
+										{children}
+										</Field>
+									);
+								}
 
 		return (
 			<Field {...this.props} component={InputComponent}  style={WrapStyles}/>

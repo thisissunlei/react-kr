@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ReactSelect from '../../Select/Select';
+import ReactSelect from '../../../Select/Select';
 
 import WrapComponent from '../WrapComponent';
 import './index.less';
@@ -124,6 +124,8 @@ render() {
 
 		}
 		if (options) {
+
+			console.log('---options',options);
 			return (
 
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>

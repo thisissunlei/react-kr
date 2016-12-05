@@ -66,7 +66,10 @@ export default class Demo extends Component{
 							}} >
 
 
-								<FieldItem name="de2ame" label="其它" component="date"/>
+
+									<FieldItem name="dame" label="其它" component="select" requiredValue={true} errors={{requiredValue:'请填写时间'}} options={[{label:'请选择',value:''},{label:'北京',value:'1'}]}/>
+
+								<FieldItem name="de2ame" label="其它" component="date" requiredValue={true} errors={{requiredValue:'请填写时间'}}/>
 
 							<FieldItem name="demn22ame" label="其它:" component="file"  requiredValue={true} errors={{requiredValue:'必填'}}/>
 
