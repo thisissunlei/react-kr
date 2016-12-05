@@ -205,7 +205,7 @@ export default class SearchForms extends Component{
 		if(searchFilter.length){
 			let select = searchFilter[0].label;
 		}else{
-			let select = '请选择'；
+			let select = '请选择';
 		}
 		
 		// console.log('searchFilter',searchFilter);
