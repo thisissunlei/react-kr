@@ -15,14 +15,9 @@ export default class Basic extends Component {
 
 
     return (
-      <div>
+      <div style={{marginBottom:"50px"}}>
 					{this.props.children}
       </div>
     );
   }
 }
-
-
-
-
-

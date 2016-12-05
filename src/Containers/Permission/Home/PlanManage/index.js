@@ -169,12 +169,12 @@ class PlanManage extends Component{
 		const actions = [
 			<FlatButton
 			label="取消"
-			primary={true}
+			joinEditForm
 			onTouchTap={this.closeDialog}
 			/>,
 			<FlatButton
 			label="提交"
-			primary={true}
+			joinEditForm
 			keyboardFocused={true}
 			onTouchTap={this.confirmSubmit}
 			/>

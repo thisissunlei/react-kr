@@ -5,8 +5,9 @@ import * as Notifiy from  './Notifiy/reducers';
 import * as Plan from  './Plan/reducers';
 import * as Navs from  './Navs/reducers';
 import * as Common from  './Common/reducers';
+import * as User from  './User/reducers';
 
-import { reducer as form } from 'redux-form'
+import { reducer as form } from 'redux-form';
 
 
 module.exports = {
@@ -17,5 +18,6 @@ module.exports = {
 ...Plan,
 ...Navs,
 ...Common,
- form  
+...User,
+ form
 };

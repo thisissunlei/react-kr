@@ -44,7 +44,6 @@ class PlanManage extends Component{
 
 		const {actions} = this.props;
 		actions.createPlan().then(function(response){
-			console.log('hahah<<<<');
 		});
 	}
 
@@ -59,7 +58,7 @@ class PlanManage extends Component{
 
 		return(
 			<div>
-			
+
 					<Section title="我的常用" description=""
 
 							leftIcon= {
@@ -96,7 +95,7 @@ class PlanManage extends Component{
 							</div>
 					</Section>
 
-			
+
 			</div>
 		);
 
@@ -121,10 +120,3 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(PlanManage);
-
-
-
-
-
-
-

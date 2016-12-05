@@ -3,9 +3,20 @@ import * as Types from './types';
 export function navs(state = {},action){
 
 	switch(action.type){
+		//用户navs
+		case Types.SET_USER_NAVS:{
+			return {...state,items:action.response};
+		}
+		case Types.SET_NAVS_CURRENT_CHILD_ROUTER:{
+			return {...state,current_child:action.router};
+		}
 
-		case Types.SET_NAVS_CURRENT_ROUTE:{
-			return {...state,current_route:action.router};
+		case Types.SET_NAVS_CURRENT_PARENT_ROUTER:{
+			return {...state,current_parent:action.router};
+		}
+
+		case Types.SET_NAVS_CURRENT_ROUTER:{
+			return {...state,current_router:action.router};
 		}
 
 		case Types.SET_NAVS_ACTIVITY:{

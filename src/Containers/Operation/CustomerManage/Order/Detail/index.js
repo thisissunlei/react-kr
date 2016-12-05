@@ -1,24 +1,39 @@
-import React, {Component, PropTypes} from 'react';
-import { connect } from 'kr/Redux';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
+import {
+	connect
+} from 'kr/Redux';
 
-
-import {reduxForm } from 'redux-form';
-import Section from 'kr-ui/Section';
-import {LabelText} from 'kr-ui/Form';
-
-
-import {Grid,Row,Col} from 'kr-ui/Grid';
-
-import {Dialog,Snackbar} from 'material-ui';
-
-import { Button } from 'kr-ui/Button';
-import Date from 'kr-ui/Date';
 
 import {
-  Step,
-  Stepper,
-  StepLabel,
-} from 'material-ui/Stepper';
+	reduxForm
+} from 'redux-form';
+import Section from 'kr-ui/Section';
+
+
+import DelAgreementNotify from './DelAgreementNotify';
+
+import {
+	KrField,
+	KrDate,
+	Button,
+	DotTitle,
+	Dialog,
+	Title,
+} from 'kr-ui';
+
+
+import {
+	Grid,
+	Row,
+	Col
+} from 'kr-ui/Grid';
+
+import {
+	Snackbar
+} from 'material-ui';
 
 import {
 	BreadCrumbs,
@@ -26,6 +41,8 @@ import {
 	Notify
 } from 'kr-ui';
 
+import Circle from './circle';
+import './active.less';
 
 import {
 	Menu,
@@ -37,291 +54,528 @@ import {
 } from 'material-ui';
 
 
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,TableFooter} from 'kr-ui/Table';
+import {
+	Table,
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
+	TableRowColumn,
+	TableFooter
+} from 'kr-ui/Table';
 
 
-import {List, ListItem} from 'material-ui/List';
+import {
+	List,
+	ListItem
+} from 'material-ui/List';
 
 
-class OrderDetail extends Component {
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
+import ReactTooltip from 'react-tooltip'
 
-	constructor(props,context){
+class NewCreatForm extends Component {
+	static PropTypes = {
+		contractStatusCount: React.PropTypes.object,
+		params: React.PropTypes.object,
+
+	}
+	constructor(props, context) {
+		super(props, context);
+	}
+
+	render() {
+		let {
+			contractStatusCount,
+			params
+		} = this.props;
+
+		return (
+			<Grid style={{paddingBottom:20}}>
+				<Row>
+				<Col md={4} align="center">
+					{
+					contractStatusCount.enterTotoal>0?<span className="createButton disabled">承租意向书</span>:<a className="createButton" href={"./#/operation/customerManage/"+params.customerId+"/order/"+this.props.params.orderId+"/agreement/admit/create"}>承租意向书</a>
+					}
+				</Col>
+				<Col md={4} align="center">
+				  {
+					contractStatusCount.enterTotoal>0 ?<span className="createButton disabled">入驻协议书</span>:<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/join/create"}>入驻协议书</a>
+				  }
+				</Col>
+				<Col md={4} align="center">
+				{contractStatusCount.enterTotoal>0 && contractStatusCount.enterFlag?<a  className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/increase/create"}>增租协议书</a>:<span className="createButton disabled">增租协议书</span>}
+
+				</Col>
+				</Row>
+
+				<Row style={{marginTop:10}}>
+				<Col md={4} align="center" >
+				  	{contractStatusCount.enterTotoal>0 && contractStatusCount.enterFlag ?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/renew/create"}>续租协议书</a>:<span className="createButton disabled">续租协议书</span>}
+
+				</Col>
+				<Col md={4} align="center">
+					{contractStatusCount.enterTotoal>0 && contractStatusCount.enterFlag ?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/reduce/create"} >减租协议书</a>:<span className="createButton disabled">减租协议书</span>}
+
+				</Col>
+				<Col md={4} align="center">
+					{contractStatusCount.enterTotoal>0 && contractStatusCount.enterFlag?<a  className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/exit/create"} >退租协议书</a>:<span className="createButton disabled">退租协议书</span>}
+
+				</Col>
+				</Row>
+
+				</Grid>
+
+
+
+		)
+	}
+
+}
+export default class OrderDetail extends React.Component {
+
+	constructor(props, context) {
 		super(props, context);
 
 		this.openCreateAgreementDialog = this.openCreateAgreementDialog.bind(this);
+		this.getAgrementDetailUrl = this.getAgrementDetailUrl.bind(this);
+		this.getAgrementEditUrl = this.getAgrementEditUrl.bind(this);
+		this.renderTableItem = this.renderTableItem.bind(this);
+		this.getAgrementType = this.getAgrementType.bind(this);
+
+
+		this.confirmDelAgreement = this.confirmDelAgreement.bind(this);
+		this.openDelAgreementDialog = this.openDelAgreementDialog.bind(this);
+
 
 		this.state = {
-			open:false,
-			loading:true,
-			openCreateAgreement:false,
-			response:{
-				orderBaseInfo:{},
-				installment:{},
-				earnest:{},
-				contractList:[],
-				antecedent:[]
+			open: false,
+			loading: true,
+			delAgreementId:0,
+			openCreateAgreement: false,
+			openDelAgreement:false,
+			response: {
+				orderBaseInfo: {},
+				installment: {},
+				earnest: {},
+				contractList: [],
+				antecedent: []
 			}
 		}
 
 	}
 
-	componentDidMount(){
+	openDelAgreementDialog(){
+		this.setState({
+			 	openDelAgreement:!this.state.openDelAgreement
+		});
+	}
 
-		var {actions} = this.props;
+	setDelAgreementId(delAgreementId){
+		this.setState({
+				delAgreementId,
+		},function(){
+					this.openDelAgreementDialog();
+		});
 
+	}
+
+	confirmDelAgreement(){
+
+		this.openDelAgreementDialog(0);
+
+		let {delAgreementId} = this.state;
+		Store.dispatch(Actions.callAPI('delete-enter-contract', {
+			contractId:delAgreementId
+		})).then(function(response) {
+			Notify.show([{
+				message: '删除成功!',
+				type: 'success',
+			}]);
+			window.setTimeout(function(){
+				window.location.reload();
+			},100)
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+
+
+	}
+
+	componentDidMount() {
 		const closeAll = this.props.location.query.closeAll;
-
-		if(closeAll){
-			actions.switchSidebarNav(false);
-			actions.switchHeaderNav(false);
+		if (closeAll) {
+			Store.dispatch(Actions.switchSidebarNav(false));
+			Store.dispatch(Actions.switchHeaderNav(false));
 		}
 
 		var _this = this;
 
-		actions.callAPI('get-order-detail',{
-			mainBillId:this.props.params.orderId
-		},{}).then(function(response){
-
-			console.log('----',response);
-
+		Store.dispatch(Actions.callAPI('get-order-detail', {
+			mainBillId: this.props.params.orderId
+		})).then(function(response) {
 			_this.setState({
-				response:response
+				response: response
 			});
 
-			setTimeout(function(){
-				_this.setState({
-					loading:false
-				});
-			},1000);
 
-		}).catch(function(err){
+			setTimeout(function() {
+				_this.setState({
+					loading: false
+				});
+			}, 0);
+
+		}).catch(function(err) {
 			Notify.show([{
-				message:'报错了',
+				message: err.message,
 				type: 'danger',
 			}]);
 
 		});
+		Store.dispatch(Actions.switchSidebarNav(false));
 
 	}
 
-	openCreateAgreementDialog(){
+	openCreateAgreementDialog() {
+
+		const {
+			contractStatusCount
+		} = this.state.response;
+
+		if (contractStatusCount.quitRentTotoal) {
+			Notify.show([{
+				message: '您已经签约了退租合同！',
+				type: 'danger',
+			}]);
+
+			return;
+		}
+
+
 		this.setState({
-			openCreateAgreement:!this.state.openCreateAgreement
+			openCreateAgreement: !this.state.openCreateAgreement
 		});
 	}
-  render() {
 
-  	const {orderBaseInfo,installment,earnest,contractList,antecedent,contractStatusCount} = this.state.response;
+	getAgrementEditUrl(customerId, orderId, typeId, agreementId) {
+
+		var typeArray = [{
+			label: 'INTENTION',
+			value: 'admit'
+		}, {
+			label: 'ENTER',
+			value: 'join'
+		}, {
+			label: 'RENEW',
+			value: 'renew'
+		}, {
+			label: 'LESSRENT',
+			value: 'reduce'
+		}, {
+			label: 'QUITRENT',
+			value: 'exit'
+		}, {
+			label: 'ADDRENT',
+			value: 'increase'
+		}, ];
+		var typeValue = '';
+		typeArray.map((value) => {
+			if (typeId === value.label) {
+				typeValue = value.value;
+			}
+		});
+		return './#/operation/customerManage/' + customerId + '/order/' + orderId + '/agreement/' + typeValue + '/' + agreementId + '/edit';
+	}
+	getAgrementDetailUrl(customerId, orderId, typeId, agreementId) {
+		var typeArray = [{
+			label: 'INTENTION',
+			value: 'admit'
+		}, {
+			label: 'ENTER',
+			value: 'join'
+		}, {
+			label: 'RENEW',
+			value: 'renew'
+		}, {
+			label: 'LESSRENT',
+			value: 'reduce'
+		}, {
+			label: 'QUITRENT',
+			value: 'exit'
+		}, {
+			label: 'ADDRENT',
+			value: 'increase'
+		}, ];
+		var typeValue = '';
+		typeArray.map((value) => {
+			if (typeId === value.label) {
+				typeValue = value.value;
+			}
+		});
+		return './#/operation/customerManage/' + customerId + '/order/' + orderId + '/agreement/' + typeValue + '/' + agreementId + '/detail';
+	}
+
+	getAgrementType(type) {
+		var typeList = [{
+			name: 'INTENTION',
+			value: '意向书'
+		}, {
+			name: 'ENTER',
+			value: '入驻协议'
+		}, {
+			name: 'ADDRENT',
+			value: '增租协议'
+		}, {
+			name: 'LESSRENT',
+			value: '减租协议'
+		}, {
+			name: 'QUITRENT',
+			value: '退租协议'
+		}, {
+			name: 'RENEW',
+			value: '续租协议'
+		}];
+		let name = ''
+		typeList.map(function(value) {
+			if (value.name === type) {
+				name = value.value;
+			}
+		});
+		return (
+			<TableRowColumn>{name}</TableRowColumn>
+		)
+	}
+
+	delArgument(id){
 
 
-  	if(this.state.loading){
-  		return(<Loading/>);
-  	}
+	}
+
+	renderTableItem(item) {
+		var _this = this;
+		if (item) {
+
+			return (
+				<Row>
+				<Col md={3} align="left" className="ContractName"><Circle type={item.payStatus}></Circle>款项：{item.installmentName}</Col>
+				<Col md={3} align="left" className="ContractName">计划付款日期：<KrDate value={item.installmentReminddate}/></Col>
+				<Col md={3} align="left" className="ContractName">计划付款金额：{item.installmentAmount}</Col>
+				{item.installmentBackamount > 0?<Col md={3} align="left"className="ContractName">实际付款金额：{item.installmentBackamount}</Col>:<Col md={3} align="left"  className="ContractName">实际付款金额：<span style={{color:'red'}}>{item.installmentBackamount}</span></Col>}
+				</Row>
+			)
+		}
+
+		return null;
 
 
-    return (
+	}
 
-      <div>
+	render() {
+
+		const {
+			orderBaseInfo,
+			earnest,
+			contractList,
+			installmentPlan,
+			contractStatusCount
+		} = this.state.response;
+
+		if (this.state.loading) {
+			return (<Loading/>);
+		}
+
+
+		return (
+			<div>
+
+
+			<Title value="客户订单详情_财务管理"/>
 
 			<BreadCrumbs children={['系统运营','财务管理']} hide={!!this.props.location.query.closeAll}/>
 
-			<Section title="客户订单详情" description="" hide={!!this.props.location.query.closeAll}> 
+			<Section title="客户订单详情" description="" hide={!!this.props.location.query.closeAll} bodyPadding={'20px 20px 50px 20px'}>
+			<div className="content">
+			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog} style={{width:80,marginTop:15}}/>
 
-			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog}  primary={true}/>
+			<span className='border-top'></span>
+			<Grid style={{marginTop:50,width:800,marginLeft:'auto',marginRight:'auto'}}>
+			<span className='ui-remark'>注：如（0-1），1表示该类型合同总数，0表示执行完该类型合同数</span>
+			<ul className='ui-adminBook'>
+              <li><span className={(contractStatusCount.intentionTotoal&&contractStatusCount.intentionComplete)!=0?'ui-circle':'ui-circle-dot'}></span></li>
+              <li><span className={(contractStatusCount.enterTotoal&&contractStatusCount.enterComplete)!=0?'ui-circle':'ui-circle-dot'}></span></li>
+              <li><span className={(contractStatusCount.addRentTotoal&&contractStatusCount.addRentComplete)!=0?'ui-circle':'ui-circle-dot'}></span></li>
+              <li><span className={(contractStatusCount.renewComplete&&contractStatusCount.renewComplete)!=0?'ui-circle':'ui-circle-dot'}></span></li>
+              <li><span className={(contractStatusCount.lessRentComplete&&contractStatusCount.lessRentComplete)!=0?'ui-circle':'ui-circle-dot'}></span></li>
+              <li><span className={(contractStatusCount.quitRentTotoal&&contractStatusCount.quitRentComplete)!=0?'ui-circle':'ui-circle-dot'}></span></li>
+			</ul>
+			<Row style={{marginLeft:40}}>
+				<Col md={2} align="center" className="adminTitle"><span className="adminName">承租意向书({contractStatusCount.intentionComplete}-{contractStatusCount.intentionTotoal})</span> </Col>
+				<Col md={2} align="center" className="adminTitle"> <span className="adminName">入驻协议书({contractStatusCount.enterComplete}-{contractStatusCount.enterTotoal})</span> </Col>
+				<Col md={2} align="center" className="adminTitle"><span className="adminName" > 增租协议书({contractStatusCount.addRentComplete}-{contractStatusCount.addRentTotoal})</span> </Col>
+				<Col md={2} align="center" className="adminTitle"><span className="adminName"> 续租协议书({contractStatusCount.renewComplete}-{contractStatusCount.renewTotoal})</span> </Col>
+				<Col md={2} align="center" className="adminTitle"><span className="adminName">  减租协议书({contractStatusCount.lessRentComplete}-{contractStatusCount.lessRentTotoal})</span>  </Col>
+				<Col md={2} align="center" className="adminTitle"> <span className="adminName"> 退租协议书({contractStatusCount.quitRentComplete}-{contractStatusCount.quitRentTotoal}) </span> </Col>
+			</Row>
+		</Grid>
+
+            <DotTitle title='订单描述'/>
+
+			<Grid style={{marginTop:50}}>
+				<Row>
+				<Col md={4} ><KrField label="社区名称：" component="labelText" value={orderBaseInfo.communityName} defaultValue="无" alignRight={true} tooltip={orderBaseInfo.communityName}/></Col>
+				<Col md={4} ><KrField label="客户名称：" component="labelText" value={orderBaseInfo.customerName} alignRight={true} tooltip={orderBaseInfo.customerName}/></Col>
+				<Col md={4} ><KrField label="订单名称：" component="labelText"  value={orderBaseInfo.mainbillname} tooltip={orderBaseInfo.mainbillname} alignRight={true}/>
+				</Col>
+
+				</Row>
+
+				<Row>
+				<Col md={4} ><KrField label="当前工位数：" component="labelText" value={orderBaseInfo.stationnum} defaultValue="0" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="订单编号："  component="labelText" value={orderBaseInfo.mainbillcode} defaultValue="无" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="起始日期：" component="labelText" value={orderBaseInfo.contractEntrydate} type="date" defaultValue="无" alignRight={true}/></Col>
+				</Row>
+				<Row>
+				<Col md={4} ><KrField label="结束日期：" component="labelText" value={orderBaseInfo.contractLeavedate} type="date" defaultValue="无" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="撤场日期：" component="labelText" value={orderBaseInfo.actualLeavedate} type="date" defaultValue="无" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="订单总额：" component="labelText" value={orderBaseInfo.contractTotalamount} defaultValue="0" alignRight={true}/></Col>
+				</Row>
+
+				<Row>
+				<Col md={4} ><KrField label="回款总额：" component="labelText" value={orderBaseInfo.contractBackamount} defaultValue="0" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="未回款额：" component="labelText" value={orderBaseInfo.unBackamount} defaultValue="0" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="工位回款：" component="labelText" value={orderBaseInfo.paidrent} defaultValue="0" alignRight={true}/></Col>
+				</Row>
+			<Row>
+				<Col md={4} ><KrField label="实收押金：" component="labelText" value={orderBaseInfo.realdeposit} defaultValue="0" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="实收定金：" component="labelText" value={orderBaseInfo.realdownpayment} defaultValue="0" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="其他回款：" component="labelText" value={orderBaseInfo.refundamount} defaultValue="0" alignRight={true}/></Col>
+				</Row>
+
+				<Row>
+				<Col md={4} ><KrField label="营业外收入回款：" component="labelText" value={orderBaseInfo.nonbusinessincomeBackamount} width={150} defaultValue="0" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="生活消费收入回款：" component="labelText" value={orderBaseInfo.liveincomeBackamount} width={160} defaultValue="0" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="工位收入：" component="labelText" value={orderBaseInfo.accruedrent} defaultValue="0" alignRight={true}/></Col>
+				</Row>
+
+				<Row>
+
+				<Col md={4} ><KrField label="其他收入：" component="labelText" value={orderBaseInfo.otherincome} defaultValue="0" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="营业外收入：" component="labelText" value={orderBaseInfo.nonbusinessincome} defaultValue="0" alignRight={true}/></Col>
+				<Col md={4} ><KrField label="生活消费收入：" component="labelText" value={orderBaseInfo.liveincome} width={120} defaultValue="0" alignRight={true}/></Col>
+				</Row>
+				<Row>
+				<Col md={4} ><KrField label="订单描述：" component="labelText" value={orderBaseInfo.mainbilldesc} defaultValue="无" alignRight={true}/></Col>
+				</Row>
 
 
+			</Grid>
 
-<Stepper activeStep={1}>
-		          <Step>
-		            <StepLabel>承租意向书({contractStatusCount.intentionComplete}-{contractStatusCount.intentionTotoal})</StepLabel>
-		          </Step>
-		          <Step>
-		            <StepLabel>入驻协议书({contractStatusCount.enterComplete}-{contractStatusCount.enterTotoal})</StepLabel>
-		          </Step>
-		          <Step>
-		            <StepLabel>增租协议书({contractStatusCount.addRentComplete}-{contractStatusCount.addRentTotoal})</StepLabel>
-		          </Step>
-		          <Step>
-		            <StepLabel>续租协议书({contractStatusCount.renewComplete}-{contractStatusCount.renewComplete})</StepLabel>
-		          </Step>
-		          <Step>
-		            <StepLabel>减租协议书({contractStatusCount.lessRentComplete}-{contractStatusCount.lessRentComplete})</StepLabel>
-		          </Step>
-		          <Step>
-		            <StepLabel>退租协议书({contractStatusCount.quitRentComplete}-{contractStatusCount.quitRentTotoal})</StepLabel>
-		         </Step>
+            <DotTitle title='合同列表'/>
 
-        </Stepper>
+			<Table pageSize={contractList.length} displayCheckbox={false}>
+			<TableHeader>
+			<TableHeaderColumn>合同编号</TableHeaderColumn>
+			<TableHeaderColumn>合同类型</TableHeaderColumn>
+			<TableHeaderColumn>合同总额</TableHeaderColumn>
+			<TableHeaderColumn>合同开始时间</TableHeaderColumn>
+			<TableHeaderColumn>合同结束日期</TableHeaderColumn>
+			<TableHeaderColumn>操作</TableHeaderColumn>
+			</TableHeader>
+			<TableBody>
 
-				
-				<Grid style={{marginTop:30}}>
+			{contractList.map((item,index)=>{
+				return (
+					<TableRow key={index}>
+					<TableRowColumn>{item.contractcode || '无'}</TableRowColumn>
+					{this.getAgrementType(item.contracttype)}
 
-				
+					<TableRowColumn>{item.contractTotalamount}</TableRowColumn>
+					<TableRowColumn><KrDate value={item.leaseBegindate}/></TableRowColumn>
+					<TableRowColumn> <KrDate value={item.leaseEnddate}/></TableRowColumn>
+					<TableRowColumn>
+					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} />
+							{item.contractstate != 'EXECUTE' && item.editFlag && <Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
+
+				{item.contracttype == 'ENTER' && item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
+						{/*
+							{item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除" onTouchTap={this.delArgument.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
+
+							*/}
+
+
+					</TableRowColumn>
+					</TableRow>
+				);
+			})}
+
+			</TableBody>
+			</Table>
+
+            <DotTitle title='分期计划'/>
+
+			<div className='ui-remark'>
+              <div className='ui-circle-remark'><span className='circle-color circle-color-top over-circle'></span><span className='remark-green-text'>已完成</span></div>
+              <div className='ui-circle-remark'><span className='circle-color circle-color-top section-circle'></span><span className='remark-green-text'>付部分款</span></div>
+              <div className='ui-circle-remark'><span className='circle-color circle-color-top no-pay'></span><span className='remark-green-text'>未付款</span></div>
+			</div>
+
+			{installmentPlan.map((item,index)=>{
+				return (
+					<Grid key={index}>
 					<Row>
-						<Col md={4} ><LabelText label="社区名称" text={orderBaseInfo.communityName}/></Col>
-						<Col md={4} ><LabelText label="客户名称" text={orderBaseInfo.customerName}/></Col>
-						<Col md={4} ><LabelText label="订单名称" text={orderBaseInfo.mainbillname}/></Col>
+					<Col md={12} align="left" className="ContractNameTitle">{item.detailName}</Col>
 					</Row>
+					{this.renderTableItem(item.antecedent)}
+					{this.renderTableItem(item.earnest)}
+					{item.installment && item.installment.map((list,index)=>{
+							return (
+								<Row key={index} >
+								<Col md={3} align="left" className="ContractName"><Circle type={list.payStatus}/>款项：{list.installmentName}</Col>
+								<Col md={3} align="left" className="ContractName">计划付款日期：<KrDate value={list.installmentReminddate}/></Col>
+								<Col md={3} align="left" className="ContractName">计划付款金额：{list.installmentAmount}</Col>
+								{list.installmentBackamount>0?<Col md={3} align="left" className="ContractName">实际付款金额：<span>{list.installmentBackamount}</span></Col>:<Col md={3} align="left" className="ContractName">实际付款金额：<span style={{color:'red'}}>{list.installmentBackamount}</span></Col>}
+								</Row>
+							)
+						})
+					}
 
-					<Row>
-						<Col md={4} ><LabelText label="当前工位数" text={orderBaseInfo.stationnum}/></Col>
-						<Col md={4} ><LabelText label="订单编号" text={orderBaseInfo.mainbillcode}/></Col>
-						<Col md={4} ><LabelText label="起始日期" text={orderBaseInfo.contractEntrydate} type="date"/></Col>
-					</Row>
-					<Row>
-						<Col md={4} ><LabelText label="结束日期" text={orderBaseInfo.contractLeavedate} type="date"/></Col>
-						<Col md={4} ><LabelText label="撤场日期" text={orderBaseInfo.actualLeavedate} type="date"/></Col>
-						<Col md={4} ><LabelText label="订单总额" text={orderBaseInfo.contractTotalamount} /></Col>
-					</Row>
+					</Grid>
+				);
+			})}
+			<span className="border-bottom"></span>
 
-					<Row>
-						<Col md={4} ><LabelText label="回款总额" text={orderBaseInfo.contractBackamount}/></Col>
-						<Col md={4} ><LabelText label="未回款额" text={orderBaseInfo.unBackamount}/></Col>
-						<Col md={4} ><LabelText label="工位回款" text={orderBaseInfo.accruedrent}/></Col>
-					</Row>
 
-					<Row>
-						<Col md={4} ><LabelText label="实收押金" text={orderBaseInfo.realdeposit}/></Col>
-						<Col md={4} ><LabelText label="应收定金" text={orderBaseInfo.realdownpayment}/></Col>
-						<Col md={4} ><LabelText label="其他回款" text={orderBaseInfo.refundamount}/></Col>		
-					</Row>
 
-					<Row>
-						<Col md={4} ><LabelText label="营业外收入汇款" text={orderBaseInfo.nonbusinessincomeBackamount} width={150}/></Col>
-						<Col md={4} ><LabelText label="生活消费收入回款" text={orderBaseInfo.liveincomeBackamount} width={160}/></Col>
-						<Col md={4} ><LabelText label="工位收入" text={orderBaseInfo.accruedrent}/></Col>
-					</Row>
-
-					<Row>
-
-						<Col md={4} ><LabelText label="其他收入" text={orderBaseInfo.otherincome}/></Col>
-						<Col md={4} ><LabelText label="营业外收入" text={orderBaseInfo.nonbusinessincome}/></Col>
-						<Col md={4} ><LabelText label="生活消费收入" text={orderBaseInfo.liveincome} width={120}/></Col>
-					</Row>
-					<Row>						
-						<Col md={4} ><LabelText label="订单描述" text={orderBaseInfo.mainbilldesc}/></Col>
-					</Row>
-				
-
-				</Grid>
-
-			       
-<Table>
-					<TableHeader>
-							<TableHeaderColumn>合同编号</TableHeaderColumn>
-							<TableHeaderColumn>合同类型</TableHeaderColumn>
-							<TableHeaderColumn>合同总额</TableHeaderColumn>
-							<TableHeaderColumn>合同开始时间</TableHeaderColumn>
-							<TableHeaderColumn>合同结束日期</TableHeaderColumn>
-							<TableHeaderColumn>操作</TableHeaderColumn>
-					</TableHeader>
-					<TableBody>
-
-					{contractList.map((item,index)=>{
-						return (
-							 <TableRow key={index}>
-							<TableRowColumn>{item.contractcode}</TableRowColumn>
-							<TableRowColumn>
-								{item.contracttype == 1 && '意向书'}
-								{item.contracttype == 2 && '入住协议'}
-								{item.contracttype == 3 && ':增续租协议'}
-								{item.contracttype == 4 && ':减租协议'}
-								{item.contracttype == 5 && ':退租协议'}
-								{item.contracttype == 6 && ':增值服务合同'}
-							</TableRowColumn>
-							<TableRowColumn><Date.Format value={item.contractTotalamount}/></TableRowColumn>
-							<TableRowColumn><Date.Format value={item.leaseBegindate}/></TableRowColumn>
-							<TableRowColumn> <Date.Format value={item.leaseEnddate}/></TableRowColumn>
-							<TableRowColumn><Button  type="link" label="查看" href={"/#/operation/customerManage/"+item.customerid+"/agreement/admit/"+item.id+"/detail"}/>
-								{/*
-							<Button type="link" label="编辑"  href={"/#/operation/customerManage/"+item.customerid+"/agreement/admit/"+item.id+"/edit"}/>
-								*/}
-							</TableRowColumn>
-						   </TableRow>
-							);
-					})}
-						
-				   </TableBody>
-			 </Table>
-
-		  {/*
-<Section title="分期计划" description="" style={{marginTop:20}}> 
-
-			 	<Table >
-					<TableBody>
-					 {antecedent.map((item,index)=>{
-						return (
-							 <TableRow key={index}>
-							
-							 	<TableRowColumn>
-								款项：{item.installmentName}
-							</TableRowColumn>
-							
-							<TableRowColumn>
-								计划付款日期：{item.installmentReminddate}
-							</TableRowColumn>
-
-							<TableRowColumn>
-								计划付款金额：{item.installmentAmount}
-							</TableRowColumn>
-
-							<TableRowColumn>
-								实际付款金额：{item.installmentBackamount}
-							</TableRowColumn>
-
-						   </TableRow>
-							);
-					})}
-				   </TableBody>
-			 </Table>
-
+          	</div>
 			</Section>
-		  */}
-		
 
-			</Section>
 
 			<Dialog
-				title="新建合同"
-				modal={true}
-				actions={ <Button label="取消" primary={true} onTouchTap={this.openCreateAgreementDialog} /> }
-				open={this.state.openCreateAgreement}>
-
-
-					<Grid>
-							<Row>
-								<Col md={4} align="center"><Button label="入驻协议书" href={"/#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/join/create"}/></Col>
-								<Col md={4} align="center"><Button label="承租意向书" href={"/#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/admit/create"}/></Col>
-								<Col md={4} align="center"><Button label="增租协议书" href={"/#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/increase/create"}/></Col>
-							</Row>
-
-							<Row style={{marginTop:10}}>
-								<Col md={4} align="center" ><Button label="续租协议书" href={"/#/operation/customerManage/"+this.props.params.customerId+"/order"+this.props.params.orderId+"/agreement/renew/create"}/></Col>
-								<Col md={4} align="center"><Button label="减租协议书" href={"/#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/admit/create"}/></Col>
-								<Col md={4} align="center"><Button label="退租协议书" href={"/#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/exit/create"}/></Col>
-							</Row>
-					
-						</Grid>
-
-			
+			title="新建合同"
+			modal={true}
+			onClose={this.openCreateAgreementDialog}
+			open={this.state.openCreateAgreement}
+			contentStyle={{width:687}}>
+				<NewCreatForm contractStatusCount={contractStatusCount} params={this.props.params}/>
 			</Dialog>
 
 
-	 </div>
-	);
-  }
+			<Dialog
+			title="删除合同"
+			modal={true}
+			onClose={this.openDelAgreementDialog}
+			open={this.state.openDelAgreement}
+			contentStyle={{width:387}}>
+				<DelAgreementNotify onSubmit={this.confirmDelAgreement} onCancel={this.openDelAgreementDialog.bind(this,0)}/>
+			</Dialog>
+			</div>
+
+		);
+	}
 }
-
-
-
-function mapStateToProps(state){
-	return  {
-		items:state.notify.items
-	};
-}
-
-
-export default connect(mapStateToProps)(OrderDetail);
-
-
-

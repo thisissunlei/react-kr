@@ -18,43 +18,45 @@ var webpackHotMiddleware = require('koa-webpack-hot-middleware');
 
 var config = require('./configs/config');
 var webpackConfig = require('./webpack/webpack-'+process.env.NODE_ENV+'.config');
-
-webpackConfig.entry.unshift('webpack-hot-middleware/client?path=http://localhost:8001/__webpack_hmr');
-//webpackConfig.entry.unshift("webpack-dev-server/client?http://127.0.0.1:8001");  
-//webpackConfig.entry.unshift("webpack/hot/dev-server");
+webpackConfig.entry.development = [];
+webpackConfig.entry.development.unshift("webpack/hot/dev-server");
+webpackConfig.entry.development.unshift("webpack/hot/only-dev-server");
+//webpackConfig.entry.development.unshift('webpack-hot-middleware/client?path=/__webpack_hmr');
+//webpackConfig.entry.unshift("webpack-dev-server/client?http://127.0.0.1:8001");
 
 var compiler = webpack(webpackConfig);
 
 
+app.use(convert(compress()));
 
+app.use(convert(staticDir(path.join(__dirname,'static'))));
 
-app.use(compress());
+app.use(convert(bodyparser()));
 
-app.use(staticDir(path.join(__dirname,'static')));
+app.use(convert(json()));
 
-app.use(bodyparser());
+app.use(convert(logger()));
 
-app.use(json());
-
-app.use(logger());
-
-app.use(function* (next){
+app.use(convert(function* (next){
 
 	var start = new Date();
 	yield next;
 	var ms = new Date - start;
 	console.log('%s-%s-%s',this.mothed,this.url,ms);
-});
+}));
 
-app.use(views(__dirname + '/static'));
+app.use(convert(views(__dirname + '/static')));
 
-app.use(webpackDevMiddleware(compiler,{
-	hot: true,    
+app.use(convert(webpackDevMiddleware(compiler,{
+	hot: true,
 	inline: true,
 	quiet: false,
 	noInfo: true,
-	watchDelay: 300,
-	host:'localhost',
+	watchOptions:{
+		aggregateTimeout:300,
+		poll:true
+	},
+	host:'local.krspace.cn',
 	headers: {
 		'Access-Control-Allow-Origin': '*',
 		'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
@@ -68,27 +70,25 @@ app.use(webpackDevMiddleware(compiler,{
 		chunks: false,
 		children: false,
 	},
-}));
+})));
 
-app.use(webpackHotMiddleware(compiler),{
+app.use(convert(webpackHotMiddleware(compiler),{
 	log: console.log,
 	path: '/__webpack_hmr',
 	heartbeat: 10 * 1000
-});
+}));
 
 //var indexRouter = require('./configs/routes');
-
 
 var router = require('koa-router')();
 
 router.get('*',function *(next){
-	console.log('-----0-0-');
 	yield this.render('index.html');
 });
 
 //router.use('/',indexRouter.routes(),indexRouter.allowedMethods());
 
-app.use(router.routes());
+app.use(convert(router.routes()));
 
 app.on('error',function(err,ctx){
 	console.log('service error',err,ctx);
@@ -101,4 +101,3 @@ app.listen(config.app.port,'127.0.0.1',function(){
 
 
 module.exports = app;
-

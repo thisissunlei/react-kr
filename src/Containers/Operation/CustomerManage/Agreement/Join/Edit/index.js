@@ -1,244 +1,212 @@
-import React, {Component, PropTypes} from 'react';
-import { connect } from 'react-redux';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
+import {
+	reduxForm,
+	submitForm,
+	change,
+	reset
+} from 'redux-form';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
+import http from 'kr/Redux/Utils/fetch';
 
-import {reduxForm } from 'redux-form';
-import Section from 'kr-ui/Section';
-import {KrField} from 'kr-ui/Form';
+import {
+	Dialog,
+	Section,
+	Grid,
+	Notify,
+	BreadCrumbs,
+	Title,
+} from 'kr-ui';
 
+import NewCreateForm from './NewCreateForm';
 
-import {Grid,Row,Col} from 'kr-ui/Grid';
-
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-
-
-
-var JoinForm = (props) => {
-
-  const { error, handleSubmit, pristine, reset, submitting,submit} = props;
-
-  return (
-
-    <form onSubmit={handleSubmit(submit)}>
-
-
-				<Grid style={{marginTop:30}}>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="出租方" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="地址" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="联系人" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="电话" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="承租方" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="地址" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="联系人" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="电话" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="所属社区" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="所在楼层" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="地址" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="合同编号" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="租赁期限"  requireLabel={true} /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="付款方式" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="支付方式" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="签署时间" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="首付款时间" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="工位" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="会议室" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={11}> <KrField name="username" type="text" label="租赁用途" placeholder="办公使用" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="租金总额" placeholder="" /> </Col>
-						<Col md={5} mdOffset="1"> <KrField name="username" type="text" label="押金总额" /> </Col>
-					</Row>
-
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="合同附件" /> </Col>
-					</Row>
-
-		  {/*
-		  
-					<Row>
-						<Col md={5}> <KrField name="username" type="text" label="" /> </Col>
-						<Col md={5}> <KrField name="username" type="text" label="" /> </Col>
-					</Row>
-		  */}
+export default class JoinCreate extends Component {
 
 
-				</Grid>
+	static contextTypes = {
+		params: React.PropTypes.object.isRequired
+	}
 
-
-
-				<Grid style={{marginTop:30}}>
-
-					<Row>
-
-						<Col md={8}></Col>
-						<Col md={2}> <RaisedButton  label="确定" type="submit" primary={true} /> </Col>
-
-					</Row>
-
-				</Grid>
-
-
-		  {/*
-			<FlatButton label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
-		  */}
-
-    </form>
-
-  )
-}
-
-JoinForm = reduxForm({
-  form: 'joinForm'  
-})(JoinForm);
-
-
-
-
-var SubmitValidationForm = (props) => {
-
-  const { error, handleSubmit, pristine, reset, submitting,submit,cancel } = props;
-
-  return (
-
-    <form onSubmit={handleSubmit(submit)}>
-
-      <KrField name="username" type="text" label="用户名" />
-      <KrField name="name" type="text" label="hahah" />
-
-
-
-				<Grid style={{marginTop:30}}>
-
-					<Row>
-
-						<Col md={8}></Col>
-						<Col md={2}> <RaisedButton  label="确定" type="submit" primary={true} /> </Col>
-						<Col md={2}> <FlatButton label="取消"  onTouchTap={cancel} /> </Col>
-
-					</Row>
-
-				</Grid>
-
-
-		  {/*
-			<FlatButton label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
-		  */}
-
-    </form>
-
-  )
-}
-
-SubmitValidationForm = reduxForm({
-  form: 'submitValidation'  
-})(SubmitValidationForm);
-
-
-export default class JoinEdit extends Component {
-
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 
-
-		this.handleOpen = this.handleOpen.bind(this);
-		this.handleClose = this.handleClose.bind(this);
-		this.confirmSubmit = this.confirmSubmit.bind(this);
-		this.confirmJoinSubmit = this.confirmJoinSubmit.bind(this);
+		this.onCreateSubmit = this.onCreateSubmit.bind(this);
+		this.onCancel = this.onCancel.bind(this);
 
 		this.state = {
-			open:false,
+			stationVos: [],
+			initialValues: {},
+			optionValues: {},
+			formValues: {},
+			openConfirmCreate: false
 		}
-
+		Store.dispatch(reset('joinEditForm'));
 	}
 
-	confirmJoinSubmit(values){
-		console.log('---',values);
+	onCreateSubmit(formValues) {
+
+		let {
+			params
+		} = this.props;
+
+		Store.dispatch(Actions.callAPI('addOrEditEnterContract', {}, formValues)).then(function(response) {
+			Notify.show([{
+				message: '更新成功',
+				type: 'success',
+			}]);
+
+			window.setTimeout(function() {
+				window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/join/" + response.contractId + "/detail";
+			}, 0);
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
 	}
 
-	confirmSubmit(values){
-		console.log('---',values);
-		this.setState({open: false});
-	}
-	handleOpen(){
-		this.setState({open: true});
-	}
 
-	handleClose(values){
-		console.log('---',values);
-		this.setState({open: false});
+	onCancel() {
+		let {
+			params
+		} = this.context;
+		window.location.href = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
 	}
 
-  render() {
+	componentDidMount() {
 
-			 const actions = [
-				  <FlatButton
-					label="Cancel"
-					primary={true}
-					onTouchTap={this.handleClose}
-				  />,
-				  <FlatButton
-					label="Submit"
-					primary={true}
-					onTouchTap={this.handleClose}
-				  />,
-				];
+		var _this = this;
+		const {
+			params
+		} = this.props;
+		let initialValues = {};
+		let optionValues = {};
+		let stationVos = [];
 
-    return (
+		Store.dispatch(Actions.callAPI('fina-contract-intention', {
+			customerId: params.customerId,
+			mainBillId: params.orderId,
+			communityId: 1
+		})).then(function(response) {
 
-      <div>
-			<Section title="入驻协议书" description=""> 
-				<JoinForm  submit={this.confirmJoinSubmit}/>
+			initialValues.contractstate = 'UNSTART';
+			initialValues.mainbillid = params.orderId;
+
+			optionValues.communityAddress = response.customer.communityAddress;
+			optionValues.leaseAddress = response.customer.customerAddress;
+			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
+			initialValues.contracttype = 'ENTER';
+
+			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
+				item.value = item.id;
+				item.label = item.corporationName;
+				return item;
+			});
+
+			optionValues.paymentList = response.payment.map(function(item, index) {
+				item.value = item.id;
+				item.label = item.dicName;
+				return item;
+			});
+
+			optionValues.payTypeList = response.payType.map(function(item, index) {
+				item.value = item.id;
+				item.label = item.dicName;
+				return item;
+			});
+
+			optionValues.floorList = response.customer.floor;
+			optionValues.customerName = response.customer.customerName;
+			optionValues.leaseAddress = response.customer.customerAddress;
+			optionValues.communityName = response.customer.communityName;
+			optionValues.communityId = response.customer.communityid;
+			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
+
+
+			Store.dispatch(Actions.callAPI('show-checkin-agreement', {
+				id: params.id
+			})).then(function(response) {
+
+				optionValues.lessorContactName = response.lessorContactName;
+				optionValues.contractFileList = response.contractFileList;
+
+				initialValues.id = response.id;
+				initialValues.leaseId = response.leaseId;
+				initialValues.contractcode = response.contractcode;
+				initialValues.leaseAddress = response.leaseAddress;
+				initialValues.lessorContactid = response.lessorContactid;
+				initialValues.lessorContactName = response.lessorContactName;
+				initialValues.lessorContacttel = response.lessorContacttel;
+
+				initialValues.leaseContact = response.leaseContact;
+				initialValues.leaseContacttel = response.leaseContacttel;
+				initialValues.paytype = response.payType.id;
+				initialValues.paymodel = response.payment.id;
+
+				initialValues.stationnum = response.stationnum;
+				initialValues.boardroomnum = response.boardroomnum;
+				initialValues.wherefloor = response.wherefloor;
+				initialValues.rentaluse = response.rentaluse;
+				initialValues.contractmark = response.contractmark ||'';
+				initialValues.totalrent = response.totalrent;
+				initialValues.totaldeposit = response.totaldeposit;
+
+				//时间
+				initialValues.firstpaydate = response.firstpaydate;
+				initialValues.signdate = response.signdate;
+				initialValues.leaseBegindate = response.leaseBegindate;
+				initialValues.leaseEnddate = response.leaseEnddate;
+
+				//处理stationvos
+				stationVos = response.stationVos;
+
+				_this.setState({
+					initialValues,
+					optionValues,
+					stationVos
+				});
+
+			}).catch(function(err) {
+				Notify.show([{
+					message: '后台出错请联系管理员',
+					type: 'danger',
+				}]);
+			});
+
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: '后台出错请联系管理员',
+				type: 'danger',
+			}]);
+		});
+	}
+
+
+	render() {
+
+		let {
+			initialValues,
+			optionValues,
+			stationVos
+		} = this.state;
+
+		return (
+
+			<div>
+			<Title value="编辑入驻协议书_财务管理"/>
+		 	<BreadCrumbs children={['系统运营','客户管理','入驻协议']}/>
+			<Section title="入驻协议书" description="">
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
 			</Section>
-
-			<RaisedButton label="Modal Dialog" onTouchTap={this.handleOpen} />
-
-			<Dialog
-				title="表单提交"
-				modal={true}
-				open={this.state.open}
-			>
-				<SubmitValidationForm ref="formdata" submit={this.confirmSubmit} cancel={this.handleClose}/>
-
-
-			</Dialog>
-
-
-			</div>
-	);
-  }
+		</div>
+		);
+	}
 }
-

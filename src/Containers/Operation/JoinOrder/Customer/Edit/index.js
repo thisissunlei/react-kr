@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import {reduxForm } from 'redux-form';
 import Section from 'kr-ui/Section';
-import {KrField} from 'kr-ui/Form';
+import {KrField} from 'kr-ui';
 
 
 import {Grid,Row,Col} from 'kr-ui/Grid';
@@ -62,14 +62,14 @@ var JoinForm = (props) => {
 				<Grid style={{marginTop:30}}>
 					<Row>
 						<Col md={10}></Col>
-						<Col md={1}> <RaisedButton  label="确定" type="submit" primary={true} /> </Col>
+						<Col md={1}> <RaisedButton  label="确定" type="submit" joinEditForm /> </Col>
 						<Col md={1}> <RaisedButton  label="取消" type="submit"  /> </Col>
 					</Row>
 				</Grid>
 
 
 		  {/*
-			<FlatButton label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
+			<FlatButton label="重置" joinEditForm onTouchTap={reset} disabled={pristine || submitting} />
 		  */}
 
     </form>
@@ -78,7 +78,7 @@ var JoinForm = (props) => {
 }
 
 JoinForm = reduxForm({
-  form: 'joinForm'  
+  form: 'joinForm'
 })(JoinForm);
 
 
@@ -102,7 +102,7 @@ var SubmitValidationForm = (props) => {
 					<Row>
 
 						<Col md={8}></Col>
-						<Col md={2}> <RaisedButton  label="确定" type="submit" primary={true} /> </Col>
+						<Col md={2}> <RaisedButton  label="确定" type="submit" joinEditForm /> </Col>
 						<Col md={2}> <FlatButton label="取消"  onTouchTap={cancel} /> </Col>
 
 					</Row>
@@ -111,7 +111,7 @@ var SubmitValidationForm = (props) => {
 
 
 		  {/*
-			<FlatButton label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
+			<FlatButton label="重置" joinEditForm onTouchTap={reset} disabled={pristine || submitting} />
 		  */}
 
     </form>
@@ -120,7 +120,7 @@ var SubmitValidationForm = (props) => {
 }
 
 SubmitValidationForm = reduxForm({
-  form: 'submitValidation'  
+  form: 'submitValidation'
 })(SubmitValidationForm);
 
 
@@ -163,12 +163,12 @@ export default class JoinEdit extends Component {
 			 const actions = [
 				  <FlatButton
 					label="Cancel"
-					primary={true}
+					joinEditForm
 					onTouchTap={this.handleClose}
 				  />,
 				  <FlatButton
 					label="Submit"
-					primary={true}
+					joinEditForm
 					onTouchTap={this.handleClose}
 				  />,
 				];
@@ -176,7 +176,7 @@ export default class JoinEdit extends Component {
     return (
 
       <div>
-			<Section title="客户信息编辑" description=""> 
+			<Section title="客户信息编辑" description="">
 				<JoinForm  submit={this.confirmJoinSubmit}/>
 			</Section>
 
@@ -197,4 +197,3 @@ export default class JoinEdit extends Component {
 	);
   }
 }
-

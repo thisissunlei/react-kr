@@ -1,14 +1,22 @@
 #!/bin/bash
-target=${1:7}
 
-npm run  build:$target
+npm run dll
+npm run  test
 
-if [ $target = 'test' ] || [ $target = 'test4' ]; then
-  server='03'
-elif [ $target = 'test2' ] || [ $target = 'test3' ]; then
-  server='02'
-elif [ $target = 'dev' ]; then
-  server='04'
+target_site=www@10.1.60.201
+target_site_port=9830
+
+if [ $1 = 'test01' ]; then
+  target_site=www@114.215.78.9
+  target_site_port=22
+elif [ $1 = 'test02' ]; then
+    target_site=www@114.215.78.48
+    target_site_port=22
+elif [ $1 = 'test' ]; then
+    target_site=www@10.1.60.201
+    target_site_port=9830
 fi
 
-# rsync -rvltOD ./dist/* "dev$server:/data/work/frontend/$target/36kr/space/dist"
+echo $target_site
+
+rsync -cza --delete-before  -e "ssh -p ${target_site_port}"  ./webpack/dist/* ${target_site}:/data/work/frontend/kr-admin >/dev/null

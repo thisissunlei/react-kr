@@ -25,7 +25,9 @@ export default class Section extends Component {
 		rightMenu: React.PropTypes.node,
 		height:React.PropTypes.number,
 		style:React.PropTypes.object,
-		hide:React.PropTypes.bool
+		headerStyle:React.PropTypes.object,
+		hide:React.PropTypes.bool,
+		bodyPadding:React.PropTypes.string
 	};
 
 	constructor(props){
@@ -94,7 +96,6 @@ export default class Section extends Component {
 		this.setState({
 			openBody:!this.state.openBody
 		});
-		console.log('hh');
 	}
 
 	renderSectionTitle(){
@@ -126,7 +127,7 @@ export default class Section extends Component {
 
 	renderBody(){
 
-		const {children} = this.props;
+		const {children,bodyPadding} = this.props;
 
 		if(!this.state.openBody){
 			return null;
@@ -139,6 +140,9 @@ export default class Section extends Component {
 		if(height){
 			bodyStyles.height = height+'px';
 			bodyStyles.overflowY = 'auto';
+		}
+		if(bodyPadding){
+			bodyStyles.padding = bodyPadding;
 		}
 
 		return (
@@ -162,7 +166,7 @@ export default class Section extends Component {
 
 	  render() {
 
-	  	const {style,hide,children} = this.props;
+	  	const {style,hide,children,headerStyle} = this.props;
 
 
 		  if(hide){
@@ -179,7 +183,7 @@ export default class Section extends Component {
 
 		  <div className="section" style={style}>
 
-			  <div className="section-header">
+			  <div className="section-header" style={headerStyle}>
 
 				  {this.renderSectionTitle()}
 				  {this.renderDescription()}

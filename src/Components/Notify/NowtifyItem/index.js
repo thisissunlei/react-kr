@@ -61,7 +61,7 @@ class NowtifyItem extends React.Component {
         this.setState({
           cssClass: this.state.cssClass.concat(['nowtify-box__notification-item_hide'])
         });
-      }.bind(this), 400);
+      }.bind(this), 0);
     }
     this.props.onRemove(this.props.position);
 

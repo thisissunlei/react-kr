@@ -5,7 +5,7 @@ import Section from 'kr-ui/Section';
 import BreadCrumbs from 'kr-ui/BreadCrumbs';
 
 import {reduxForm } from 'redux-form';
-import {KrField} from 'kr-ui/Form';
+import {KrField} from 'kr-ui';
 
 import {Grid,Row,Col} from 'kr-ui/Grid';
 
@@ -34,7 +34,7 @@ var SubmitValidationForm = (props) => {
 				<Grid style={{marginTop:30}}>
 					<Row>
 						<Col md={8}></Col>
-						<Col md={2}> <RaisedButton  label="确定" type="submit" primary={true} /> </Col>
+						<Col md={2}> <RaisedButton  label="确定" type="submit" joinEditForm /> </Col>
 						<Col md={2}> <FlatButton label="取消"  onTouchTap={cancel} /> </Col>
 
 					</Row>
@@ -43,7 +43,7 @@ var SubmitValidationForm = (props) => {
 
 
 		  {/*
-			<FlatButton label="重置" primary={true} onTouchTap={reset} disabled={pristine || submitting} />
+			<FlatButton label="重置" joinEditForm onTouchTap={reset} disabled={pristine || submitting} />
 		  */}
 
 	</form>
@@ -52,7 +52,7 @@ var SubmitValidationForm = (props) => {
 }
 
 SubmitValidationForm = reduxForm({
-  form: 'Validation'  
+  form: 'Validation'
 })(SubmitValidationForm);
 
 
@@ -136,7 +136,7 @@ export default class JoinOrderList extends Component {
 							<TableRowColumn>John Smith</TableRowColumn>
 							<TableRowColumn>Employed</TableRowColumn>
 						</TableRow>
-			
+
 						 <TableRow>
 							<TableRowColumn>1</TableRowColumn>
 							<TableRowColumn>John Smith</TableRowColumn>
@@ -159,7 +159,7 @@ export default class JoinOrderList extends Component {
 
 			<BreadCrumbs children={['系统运营','财务管理']}/>
 
-			<Section title="客户列表" description=""> 
+			<Section title="客户列表" description="">
 
 
 				 <Tabs >
@@ -246,5 +246,3 @@ export default class JoinOrderList extends Component {
 	);
   }
 }
-
-

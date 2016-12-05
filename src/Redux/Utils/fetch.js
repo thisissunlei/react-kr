@@ -4,19 +4,27 @@ import URLSearchParams from 'url-search-params';
 import { browserHistory } from 'react-router';
 import APIS from '../apis';
 
+import ES6Promise from 'es6-promise';
+ES6Promise.polyfill();
+
 var env = process.env.NODE_ENV;
 
 function getUrl(path, params = {},mode = false) {
 
     let server = '';
 
+	/*
 	if(env ==='test'){
 		server = 'optest.krspace.cn';
 	}
+	*/
 
-    if (path.startsWith('http')) {
+	/*
+    if (path.match(/^http/) != 'null') {
         return path;
     }
+    */
+
 
     try {
         server += APIS[path].url;
@@ -28,11 +36,12 @@ function getUrl(path, params = {},mode = false) {
     if(Object.keys(params).length){
         for (let item in params) {
             if (params.hasOwnProperty(item)) {
-                server = server.replace('{' + item + '}', params[item]);
+                server = server.replace('{' + item + '}', encodeURI(params[item]));
                 delete params[item];
             }
         }
     }
+
 
     if(!mode){
 
@@ -50,6 +59,10 @@ function getUrl(path, params = {},mode = false) {
             server +='?'+searchParams.toString();
         }
     }
+
+	//去除多余参数
+	server = server.replace(/={.*?}/gi,'=');
+
     return server;
 }
 
@@ -62,8 +75,8 @@ function getMethod(path) {
 }
 
 function check401(res) {
-    if (res.status === 401) {
-        //browserHistory.replace('/login');
+    if (res.code ===-4011) {
+		window.location.href = '/';
     }
     return res;
 }
@@ -74,7 +87,9 @@ function jsonParse(res) {
 
 const http = {
 
-    request:(path, params,payload,method)=>{
+    request:(path='demo', params,payload,method)=>{
+
+
 
         const url = getUrl(path, params);
 
@@ -87,6 +102,7 @@ const http = {
 
         switch(method){
             case 'get':{
+
                 promise = http.get(url,params);
                 break;
             }
@@ -122,7 +138,7 @@ const http = {
 	transformResponse:function(response){
 		return response.data;
 	},
-	getdemo: (url, params) => new Promise((resolve, reject) => {
+	get: (url, params) => new Promise((resolve, reject) => {
 
 		if (!url) {
 			return;
@@ -130,6 +146,7 @@ const http = {
 
 		fetch(url, {
 			method: 'GET',
+			credentials: 'same-origin',
 			headers: {
 				'Accept': '*',
 				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
@@ -137,21 +154,22 @@ const http = {
 			},
 			withCredentials:true
 		})
-			.then(check401)
 			.then(jsonParse)
+			.then(check401)
 			.then(http.transformPreResponse)
 			.then(json => {
 				if(parseInt(json.code)>0){
 					//处理数据格式
-					resolve(http.transformResponse(json))
+					resolve(http.transformResponse(json));
 				}else{
-					reject(json)
+					reject(json);
 				}
 			})
-			.catch(err => reject(err))
+			.catch(err => reject(err));
 	}),
 
-	get: (url, params) => new Promise((resolve, reject) => {
+	getdemo: (url, params) => new Promise((resolve, reject) => {
+
 
 		if (!url) {
 			return;
@@ -162,10 +180,13 @@ const http = {
 		xhr.withCredentials = true;
 		xhr.open('GET', url, true);
 		xhr.responseType = 'json';
+		xhr.setRequestHeader('crossDomain', true);
 		xhr.onload = function(e) {
 		  if (this.status >= 200 || this.status <300 ) {
 			  var json = http.transformPreResponse(xhr.response);
+			   console.log('fgfgfg',typeof json);
 				if(json && json.code && parseInt(json.code)>0){
+                   console.log('00456',json);
 					//处理数据格式
 					resolve(http.transformResponse(json))
 				}else{
@@ -181,26 +202,29 @@ const http = {
 	}),
 
 	post: (url, params, payload) => new Promise((resolve, reject) => {
-		const searchParams = new URLSearchParams();
 
 		if (!url) {
 			return
 		}
 
-		for (const prop in payload) {
-			searchParams.set(prop, payload[prop])
-		}
+    var bodyParams = [];
+    for (var p in payload){
+        bodyParams.push(encodeURIComponent(p) + "=" + encodeURIComponent(payload[p]));
+    }
 
 		fetch(url, {
 			method: 'POST',
+			credentials: 'same-origin',
 			headers: {
 				'Accept': '*',
 				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+				"Cookie": document.cookie
 			},
-			body: searchParams
+			body:bodyParams.join('&')
 		})
-			.then(check401)
+
 			.then(jsonParse)
+			.then(check401)
 			.then(http.transformPreResponse)
 			.then(json => {
 
@@ -227,14 +251,15 @@ const http = {
 
 		fetch(url, {
 			method: 'PUT',
+			credentials: 'same-origin',
 			headers: {
 				'Accept': '*',
 				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
 			},
 			body: searchParams
 		})
-			.then(check401)
 			.then(jsonParse)
+			.then(check401)
 			.then(http.transformPreResponse)
 			.then(json => {
 				if(parseInt(json.code)>0){
@@ -260,14 +285,15 @@ const http = {
 
 		return fetch(url, {
 			method: 'DELETE',
+			credentials: 'same-origin',
 			headers: {
 				'Accept': '*',
 				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
 			},
 			body: searchParams
 		})
-			.then(check401)
 			.then(jsonParse)
+			.then(check401)
 			.then(http.transformPreResponse)
 			.then(json => {
 				if(parseInt(json.code)>0){
@@ -284,7 +310,3 @@ const http = {
 
 
 module.exports = http;
-
-
-
-

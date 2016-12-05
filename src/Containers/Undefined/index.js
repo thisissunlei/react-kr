@@ -1,89 +1,94 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, {
+	Component
+} from 'react';
+import {
+	connect
+} from 'react-redux';
+import {
+	bindActionCreators
+} from 'redux';
 
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 
-import Section from 'kr-ui/Section';
+import {
+	DatePicker,
+	Form,
+	KrField,
+	Table,
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
+	TableRowColumn,
+	TableFooter,
+	Button,
+	Section,
+	DotTitle,
+	BraceWidth,
+	SelfAdaption,
+	LineText,
+	SplitLine,
+} from 'kr-ui';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
 
-
-
-
-import {List, ListItem} from 'material-ui/List';
+import {
+	List,
+	ListItem
+} from 'material-ui/List';
 
 import './index.less';
 
+export default class Undefined extends Component {
 
+	static defaultProps = {
+		page: 1,
+	}
 
-import {Form,Field} from 'kr-ui/MyForm';
+	static PropTypes = {
+		className: React.PropTypes.string,
+		children: React.PropTypes.node,
+	}
 
-
-class Undefined extends Component{
-
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 
-		this.submit = this.submit.bind(this);
-		this.setGet = this.setGet.bind(this);
-
-		this.state={
-			get:false
-		}
-
+		this.onSubmit = this.onSubmit.bind(this);
 	}
 
 	componentDidMount() {
 
 	}
 
-	submit(values){
-		console.log('---values',values);
+	onSubmit(values) {
+
 	}
 
-	setGet(){
-		console.log('click setGet');
-		this.setState({
-			get:true
-		})
-	}
+	render() {
 
-	render(){
+		let initialValues = {
+			age: ''
+		}
 
-
-
-		return(
-
-			<div>
-					<Section title="出错了" description="" >
-						<LocationMap />
-					</Section>
-			</div>		
-
+		return (
+			<div className="ui-Undefined">
+				<div className='ui-labelText'>
+						<div className="Undefined">
+							<div className="left-bg"></div>
+							<div className="right-bg">
+								<p className="tip">
+									<span className="icon"></span>
+								</p>
+								<p className="btn">
+									<a>转到主页</a>
+									<a className="pr">联系我们</a>
+								</p>
+							</div>
+						</div>
+					</div>
+			</div>
 		);
 
 	}
 
 }
-
-
-
-
-function mapStateToProps(state){
-
-
-	return {
-		items:state.notify.items,
-	};
-}
-
-function mapDispatchToProps(dispatch){
-	return {
-		actions:bindActionCreators(Object.assign({},actionCreators),dispatch)
-	};
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(Undefined);
-
-

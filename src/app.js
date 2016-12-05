@@ -19,6 +19,7 @@ import routes from './routes';
 
 import store from './Redux/Store';
 
+//document.domain = "krspace.cn";
 
 injectTapEventPlugin({
 	/*
@@ -35,10 +36,9 @@ import * as actionCreators from 'kr-ui/../Redux/Actions';
 
 ReactDOM.render((
 	<MuiThemeProvider>
-		<Provider store={store} key="provider"> 
-
-			<Router 
-				routes={routes} 
+		<Provider store={store} key="provider">
+			<Router
+				routes={routes}
 				history={useRouterHistory(createHashHistory)({queryKey: false})}
 				onUpdate={() => {
 					window.scrollTo(0, 0)
@@ -46,13 +46,9 @@ ReactDOM.render((
 				}}
 				/>
 			{/*
-
 			//<Router history={browserHistory} routes={routes} />
-
 			<Router routes={routes} history={hashHistory} />
 				*/}
 		</Provider>
 	</MuiThemeProvider>
 ), document.getElementById('app'))
-
-

@@ -1,11 +1,18 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-import dateFormat from 'dateformat';
+import {
+  DateFormat
+} from 'kr/Utils';
 
 
 export default class Format extends React.Component {
 
+	static displayName = 'Format';
+
+	static defaultProps = {
+		format:'yyyy-mm-dd',
+	}
 
 	static PropTypes = {
 		value:React.PropTypes.string,
@@ -14,23 +21,23 @@ export default class Format extends React.Component {
 
 	render() {
 
-		let {className,value,format="yyyy-mm-dd"} = this.props;
+		let {className,value,format} = this.props;
+		if(!value){
+			return (<span>无</span>);
+		}
 
-		const result =  dateFormat(value,format);
+		let result = '';
+
+		try{
+			result =  DateFormat(value,format);
+		}catch(err){
+			let time=new Date(value*1)
+			result = DateFormat(time,"yyyy-mm-dd");
+		}
 
 		return (
 			<span>{result}</span>
 		);
 
-
 	}
-
-
 }
-
-
-
-
-
-
-

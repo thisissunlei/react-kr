@@ -4,7 +4,10 @@ import './index.less';
 
 export default class Grid extends React.Component {
 
-
+	static displayName = 'Grid';
+  static propTypes = {
+				style: React.PropTypes.object,
+	}
 	render() {
 
 		let {children,className,style} = this.props;
@@ -12,7 +15,7 @@ export default class Grid extends React.Component {
 
 		return (
 
-			<div className="grid" style={style}> 
+			<div className="grid" style={style}>
 				{this.props.children}
 			</div>
 		);
@@ -21,8 +24,3 @@ export default class Grid extends React.Component {
 
 
 }
-
-
-
-
-
