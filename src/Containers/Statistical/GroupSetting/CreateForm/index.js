@@ -300,7 +300,7 @@ class ZhuanHuan extends React.Component{
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
 				<KrField name="id" type="hidden" label="id"/>
-				<KrField grid={1/2} right={68} name="agroupName" type="text" label="分组名称" requireLabel={true} onChange={function(){
+				<KrField grid={1/2} right={68} name="agroupName" component="text" label="分组名称" requireLabel={true} onChange={function(){
 					 console.log('-----')
 				}}/>
 				<KrField grid={1/2} right={68} name="sort" type="text" label="排序" requireLabel={true} style={{marginLeft:"-38"}}/>

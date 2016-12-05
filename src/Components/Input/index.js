@@ -70,6 +70,8 @@ export default  class Input extends React.Component {
 			this.setState({
 				value
 			});
+
+
 			onChange && onChange(value);
 	}
 
