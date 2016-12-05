@@ -74,7 +74,7 @@ export default class PanelComponents  extends Component{
         
          
 		let {panels}=this.props;
-		
+		//console.log('www444',window.location.href);
 
 		var renderComponent = [];
 		panels.map(function(item,index){
