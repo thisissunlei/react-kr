@@ -767,7 +767,7 @@ const selector = formValueSelector('increaseCreateForm');
 
 NewCreateForm = reduxForm({
 	form: 'increaseCreateForm',
-	// validate,
+	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true
 })(NewCreateForm);

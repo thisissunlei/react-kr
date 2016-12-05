@@ -40,11 +40,11 @@ module.exports = {
 				originUrl: '/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=112'
 			}, ]
 		}, ],
-	},/*{
+	},{
 		primaryText: "数据统计",
-		menuCode: 'op_manage',
+		menuCode: 'index',
 		router: '/statistical/index?groupId=&startDate=',
-	},*/ {
+	},{
 		primaryText: "运营平台",
 		router: 'operation',
 		menuCode: 'operate',
