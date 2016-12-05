@@ -205,7 +205,7 @@ export default class D3Content extends Component {
 				if (item.pointDay === value.pointDay) {
 					var obj = value;
 					obj.arr =[];
-					obj.arr.push(value.plan);
+					obj.arr.concat(value.plan);
 					let node = $.extend(item, value);
 					sameNode.push(node);
 				}
@@ -288,36 +288,34 @@ export default class D3Content extends Component {
 		//判断时间点是否重合,若重合，合并数据
 		if(finaRedPointVo.length===1){
 			finaRedPointVoList[0].arr = [];
-			finaRedPointVoList[0].arr.push(finaRedPointVoList[0].plan);
+			finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[0].plan);
 		}
 		if(finaRedPointVo.length===2){
-			finaRedPointVoList[0].arr = [];
-			finaRedPointVoList[0].arr.push(finaRedPointVoList[0].plan);
 			if(finaRedPointVoList[0].pointDate === finaRedPointVoList[1].pointDate){
 				finaRedPointVoList[0].arr = [];
-				finaRedPointVoList[0].arr.push(finaRedPointVoList[0].plan);
-				finaRedPointVoList[0].arr.push(finaRedPointVoList[1].plan);
+				finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[0].plan);
+				finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[1].plan);
 			}else{
 				finaRedPointVoList[0].arr = [];
-				finaRedPointVoList[0].arr.push(finaRedPointVoList[0].plan);
+				finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[0].plan);
 				finaRedPointVoList[1].arr = [];
-				finaRedPointVoList[1].arr.push(finaRedPointVoList[1].plan);
+				finaRedPointVoList[1].arr = finaRedPointVoList[1].arr.concat(finaRedPointVoList[1].plan);
 			}
 		}
 		for (var i = 0; i <= finaRedPointVo.length-2; i++) {
 			if(finaRedPointVoList[i].pointDate === finaRedPointVoList[1+i].pointDate){
 				finaRedPointVoList[i].arr = [];
-				finaRedPointVoList[i].arr.push(finaRedPointVoList[i].plan);
-				finaRedPointVoList[i].arr.push(finaRedPointVoList[1+i].plan);
+				finaRedPointVoList[i].arr = finaRedPointVoList[i].arr.concat(finaRedPointVoList[0].plan);
+				finaRedPointVoList[i].arr= finaRedPointVoList[i].arr.concat(finaRedPointVoList[1+i].plan);
 				finaRedPointVoList.splice(1+i, 1);
 
 			}else{
 				finaRedPointVoList[i].arr = [];
-				finaRedPointVoList[i].arr.push(finaRedPointVoList[i].plan);
+				finaRedPointVoList[i].arr= finaRedPointVoList[i].arr.concat(finaRedPointVoList[i].plan);
 			}
 			if(i=== finaRedPointVo.length-2 && finaRedPointVoList[i].pointDate !== finaRedPointVoList[1+i].pointDate){
 				finaRedPointVoList[1+i].arr = [];
-				finaRedPointVoList[1+i].arr.push(finaRedPointVoList[1+i].plan);	
+				finaRedPointVoList[1+i].arr = finaRedPointVoList[1+i].arr.concat(finaRedPointVoList[1+i].plan);	
 			}
 				 
 		}	
@@ -328,8 +326,8 @@ export default class D3Content extends Component {
 		// finaRedPointVoList = finaRedPointVoList.map((item) => {
 		// 	item.pointDay = that.countDays(item.pointDate);
 		// 	item.arr =[];
-		// 	item.arr.push(item.plan);
-		// 	item.arr.push(item.plan);
+		// 	item.plan.push(item.plan);
+		// 	item.plan.push(item.plan);
 		// 	return item;
 		// });
 		// if (this.sameNode.length) {
@@ -391,6 +389,7 @@ export default class D3Content extends Component {
 			var nodeList = this.appendDiv(list, now);
 			var redNodeList = this.renderRedNode();
 			var blueNodeList = this.renderBlueNode();
+			console.log(redNodeList);
 			var sameNode = this.sameNode;
 		} else {
 			var list = [{
@@ -457,8 +456,8 @@ export default class D3Content extends Component {
 					redNodeList && redNodeList.map((item,index)=>{
 
 						return (
-							<span className='red-node' key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}} data-tip data-for={`${item.pointDate}${index}red${item.plan.id}`}>
-								<ReactTooltip id={`${item.pointDate}${index}red${item.plan.id}`} place="top" type="dark" effect="solid" >
+							<span className='red-node' key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}} data-tip data-for={`${item.pointDate}${index}red${item.plan[0].id}`}>
+								<ReactTooltip id={`${item.pointDate}${index}red${item.plan[0].id}`} place="top" type="dark" effect="solid" >
 									{item.plan && item.arr.map((value,i)=>{
 										return(
 											<div key={i} className="react-tooltip-content">
