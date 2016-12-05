@@ -286,6 +286,13 @@ class ZhuanHuan extends React.Component{
 		onCancel && onCancel();
 	 }
 
+	 groupNameCheck=()=>{
+
+	 }
+	 sortCheck=()=>{
+	 }
+	
+
 	render(){
 		const { error, handleSubmit, pristine, reset} = this.props;
 
@@ -293,7 +300,7 @@ class ZhuanHuan extends React.Component{
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
 				<KrField name="id" type="hidden" label="id"/>
-				<KrField grid={1/2} right={68} name="agroupName" type="text" label="分组名称" requireLabel={true} />
+				<KrField grid={1/2} right={68} name="agroupName" type="text" label="分组名称"  requireLabel={true} />
 				<KrField grid={1/2} right={68} name="sort" type="text" label="排序" requireLabel={true} style={{marginLeft:"-38"}}/>
 				<KrField grid={1} name="nable" component="group" label="启用状态" requireLabel={true}>
 					<KrField name="enableflag" label="是" component="radio" type="radio" value="ENABLE"/>
@@ -322,7 +329,7 @@ class ZhuanHuan extends React.Component{
 const validate = values =>{
 
 		const errors = {}
-		
+
 		if(!values.accountcode){
 			errors.accountcode = '请填写分组名称';
 		}

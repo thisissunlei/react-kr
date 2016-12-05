@@ -55,7 +55,7 @@ export default class InputComponent extends React.Component{
 
 	render(){
 
-		let {input, label, type, meta: { touched, error } ,requireLabel,disabled,placeholder,style,inline,simple,heightStyle,...other} = this.props;
+		let {input, label, type, meta: { touched, error } ,requireLabel,onChange,disabled,placeholder,style,inline,simple,heightStyle,...other} = this.props;
 
 			if(type === 'hidden'){
 				return (
@@ -70,7 +70,6 @@ export default class InputComponent extends React.Component{
 			if(touched && error){
 				className = 'error-input';
 			}
-
 			return (
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} simple={simple}>
 					<Input {...input} onChange={this.onChange} placeholder={placeholder|| label} type={type} disabled={disabled} className={className} style={heightStyle} {...other} onError={this.onError}/>
