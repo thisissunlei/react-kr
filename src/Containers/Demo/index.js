@@ -8,6 +8,8 @@ import {
 	Form,
 	KrField,
 	Table,
+	Tabs,
+	Tab,
  	TableBody,
 	TableHeader,
 	TableHeaderColumn,
@@ -23,10 +25,11 @@ import {
 	CheckboxGroup,
 	RadioGroup,
 	Message,
-	DemoComponent,
-	Tabs,
-	Tab
+	DemoComponent
 } from 'kr-ui';
+import {
+	FlatButton,
+} from 'material-ui';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
 
@@ -46,10 +49,6 @@ export default class Demo extends Component{
 		this.onSubmit = this.onSubmit.bind(this);
 
 		console.log('---',this.context.router);
-		this.state = {
-
-			tab: '',
-		}
 
 	}
 
@@ -67,21 +66,13 @@ export default class Demo extends Component{
 		console.log('click');
 
 
-		Message.show('hahah');
-	}
-	changelable=()=>{
-		this.setState({tab:'计划表'})
-	}
-	changelabels=()=>{
-		console.log('active');
-		this.setState({tab:'平面图'})
+		Message.show('hahah','normal');
 	}
 
 
 
 	render(){
 		const list = [{a:1},{b:2},{c:3},{d:5}];
-		let {tab} = this.state;
 
 
 		return(
@@ -95,27 +86,20 @@ export default class Demo extends Component{
 					<Section title="demo" description="" >
 
 							<Button label="show"  onTouchTap={this.show}/>
+							<KrField label='city' component='city'/>
+							<span className="icon-basis">fff</span>
+							<FontIcon className="icon-basis" color={'#499df1'}/>
 
-					<Input type="text" maxLength={10} errors={{
-							maxLength:'不能操作'
-						}}/>
-						<CheckboxGroup name="demo" options={[{
-							label:'是',
-							value:'yes'
-						},
-						{
-							label:'否',
-							value:'no'
-						}
-					]}
-					/>
+							<FontIcon
+						      className="icon-basis"
+						      style={{marginRight:'20px',color:'#499df1',fontSize:20}}
+						    />
+						 <FlatButton icon={<FontIcon className={'icon-basis'} />} style={{color:'#499df1',height:36,width:100}} />
 
 
-					<DemoComponent/>
 
-					
+
 					</Section>
-
 					<Tabs className="tabs">
 						<Tab label="计划表" >
 							<span style={{display:'block'}}>fdsfsdf</span>

@@ -113,7 +113,7 @@ export default  class Input extends React.Component {
 
 	render() {
 
-		let {children,className,style,type,name,disabled,placeholder,...other} = this.props;
+		let {children,className,style,type,name,disabled,placeholder,pattern,...other} = this.props;
 
 		let {value} = this.state;
 
@@ -122,7 +122,6 @@ export default  class Input extends React.Component {
 		if(disabled){
 		  	classNames = ClassNames('ui-input',className,'disabled');
 		}
-
 
 		return (
 			 <input type={type} name={name} className={classNames}  style={style} placeholder={placeholder} value={value} {...other} disabled={disabled} onChange={this.onChange} onBlur={this.onBlur} />
