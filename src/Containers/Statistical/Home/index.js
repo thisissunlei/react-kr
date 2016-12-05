@@ -135,10 +135,7 @@ export default class Home  extends Component{
 		   	 groupList:response.groupList
 		   })
 		}).catch(function(err) {
-			Notify.show([{
-				message:err.message,
-				type: 'danger',
-			}]);
+			Message.error(err);
 		});*/
 
 
