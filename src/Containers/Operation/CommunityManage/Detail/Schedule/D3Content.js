@@ -454,9 +454,10 @@ export default class D3Content extends Component {
 				}
 				{
 					redNodeList && redNodeList.map((item,index)=>{
+						let nodeKind = item.color==='1'?'grey-circle':'red-node';
 
 						return (
-							<span className='red-node' key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}} data-tip data-for={`${item.pointDate}${index}red${item.plan[0].id}`}>
+							<span className=`${nodeKind}` key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}} data-tip data-for={`${item.pointDate}${index}red${item.plan[0].id}`}>
 								<ReactTooltip id={`${item.pointDate}${index}red${item.plan[0].id}`} place="top" type="dark" effect="solid" >
 									{item.plan && item.arr.map((value,i)=>{
 										return(
