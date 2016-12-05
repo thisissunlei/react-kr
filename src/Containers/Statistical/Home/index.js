@@ -37,8 +37,9 @@ export default class Home  extends Component{
 
 		this.state = {
 				groupList:[
-					
+				  
 				],
+				groupId:'',
 				action:0,
 		}
 	}
@@ -47,13 +48,17 @@ export default class Home  extends Component{
 
 	}
 
-	activeTable=(index)=>{
+	activeTable=(index,id)=>{
        let {
 			action,
+			groupId
 		} = this.state; 
         
         this.setState({
 			action:index,
+			groupId:id
+		},function(){
+			
 		});      
 	}
     
@@ -75,6 +80,7 @@ export default class Home  extends Component{
               
 
 		return (
+		 <div className='backStatic'>
 	      <div className='static-tabWrap'>
 		   <span className="line"></span>
 		   <Tabs tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={{background: '-webkit-linear-gradient(right, #03ec56, #499df1)',position:'absolute',top:0,height:3}} style={{background:'#fff',position:'relative',paddingLeft:'20',paddingRight:'20'}}>
@@ -85,10 +91,11 @@ export default class Home  extends Component{
 							}else{
 								activeStyle=commenTab;
 							}
-						    return (<Tab label={item.groupName} key={index} onActive={this.activeTable.bind(this,index)} style={activeStyle}><PanelComponents panels={item.templateList} groupId={item.id}/> </Tab>)
+						    return (<Tab label={item.groupName} key={index} onActive={this.activeTable.bind(this,index,item.id)} style={activeStyle}><div className='tabWrap_section'><PanelComponents panels={item.templateList} groupId={this.state.groupId}/></div></Tab>)
 						})
 				   }
-	 	   </Tabs> 
+	 	    </Tabs> 
+	 	   </div>
 	 	  </div>
 		);
 	}
@@ -116,14 +123,12 @@ export default class Home  extends Component{
 		var _this = this;
 		Store.dispatch(Actions.callAPI('get-my-groups')).then(function(response) {
 		   _this.setState({
-		   	 groupList:response.groupList
-		   })
-		   console.log('22222',response);
+		   	 groupList:response.groupList,
+		   	 groupId:response.groupList[0].id
+		   })	   
 		}).catch(function(err) {
 			Message.error(err);
 		});
-
-
 	}
 
 	render(){

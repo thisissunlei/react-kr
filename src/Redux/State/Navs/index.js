@@ -43,7 +43,7 @@ module.exports = {
 	},{
 		primaryText: "数据统计",
 		menuCode: 'index',
-		router: '/statistical/index?groupId=&startDate=',
+		router: '/statistical/index',
 	},{
 		primaryText: "运营平台",
 		router: 'operation',
