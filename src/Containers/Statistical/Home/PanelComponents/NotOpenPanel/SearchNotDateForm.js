@@ -27,7 +27,7 @@ import {
 
 import './index.less';
 
-class SearchDateForm extends Component {
+class SearchNotDateForm extends Component {
 
 	static PropTypes = {
 		onStartNotChange: React.PropTypes.func,
@@ -96,5 +96,5 @@ class SearchDateForm extends Component {
 
 
 export default reduxForm({
-	form: 'SearchDateForm'
-})(SearchDateForm);
+	form: 'SearchNotDateForm'
+})(SearchNotDateForm);

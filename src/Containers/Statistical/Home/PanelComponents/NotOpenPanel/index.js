@@ -25,7 +25,7 @@ import {
 	Form
 } from 'kr-ui';
 import './index.less';
-import SearchDateForm from './SearchDateForm';
+import SearchNotDateForm from './SearchNotDateForm';
 
 
 export default class Initialize  extends Component{
@@ -87,7 +87,7 @@ export default class Initialize  extends Component{
 							 <span  className='static-upload'>实时更新</span>	
 							</Col> 
 							<Col align="right" md={8}> 
-							  <SearchDateForm onStartNotChange={this.onStartNotChange} onEndNotChange={this.onEndNotChange} date_2={date_2}/>
+							  <SearchNotDateForm onStartNotChange={this.onStartNotChange} onEndNotChange={this.onEndNotChange} date_2={date_2}/>
 							</Col> 
 						</Row>
 					</Grid>
