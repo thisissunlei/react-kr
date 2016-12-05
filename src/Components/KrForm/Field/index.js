@@ -61,12 +61,18 @@ export default class Field extends React.Component{
   }
 
   componentDidMount(){
+
       const {initializeField,initializeValidations} = this.context;
       const {name,defaultValue} = this.props;
       initializeField && initializeField(name,defaultValue);
 
       let props = this.props;
       let {errors} = this.props;
+
+      console.log(errors,name);
+      if(!errors){
+          return ;
+      }
       let validationKeys = Object.keys(errors);
 
       let validation = {

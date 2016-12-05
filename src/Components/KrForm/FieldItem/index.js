@@ -5,7 +5,7 @@ import Field from '../Field';
 import InputComponent from './InputComponent';
 import LabelTextComponent from './LabelTextComponent';
 import GroupComponent from './GroupComponent';
-
+import FileUploadComponent from './FileUploadComponent';
 
 export default class KrField extends React.Component {
 
@@ -79,7 +79,11 @@ export default class KrField extends React.Component {
 							);
 						}
 
-
+						if (component === 'file') {
+							return (
+								<Field {...this.props} component={FileUploadComponent}  style={WrapStyles} {...other}/>
+							);
+						}
 
 		return (
 			<Field {...this.props} component={InputComponent}  style={WrapStyles}/>

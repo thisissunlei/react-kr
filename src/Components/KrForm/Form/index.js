@@ -107,18 +107,32 @@ export default class KrForm  extends React.Component{
 
   }
 
-  change =(name,value)=>{
+  change =(fieldName,value)=>{
 
-    let {values} = this.state;
-    values[name] = value;
+    let {values,validations,syncErrors} = this.state;
+    let checkValidation = validations[fieldName];
+
+    values[fieldName] = value;
+
+    if(typeof checkValidation === 'object'){
+      syncErrors[fieldName] = this.getErrorMessage(values[fieldName],checkValidation);
+    }
 
     this.setState({
-      values
+      values,
+      syncErrors
     });
+
+
   }
 
   getErrorMessage = (value,validation)=>{
+
     let {errors}  = validation;
+
+    if(typeof errors === 'undefined'){
+      return '';
+    }
 
 		if(errors.hasOwnProperty('requiredValue') && !value){
 			return errors['requiredValue'];
@@ -173,6 +187,8 @@ export default class KrForm  extends React.Component{
         fields,
     });
 
+    console.log('--->>validate',syncErrors,fields);
+
     return valiabled;
 
   }
@@ -208,10 +224,12 @@ export default class KrForm  extends React.Component{
   }
 
   submit =(event)=>{
-    
+
     event = event || window.event;
     //取消默认事件
      event.preventDefault();
+
+
 
     //校验
     if(!this.validate()){
