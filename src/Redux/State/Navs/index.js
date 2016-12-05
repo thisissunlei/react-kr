@@ -149,7 +149,7 @@ module.exports = {
 				menuItems: [
 					{
 					primaryText: "会员看板",
-					router: '/member/memberManage/list',
+					router: '/member/memberManage/board',
 					menuCode: 'index',
 					},
 					{
@@ -159,12 +159,12 @@ module.exports = {
 				},
 					{
 					primaryText: "会员卡管理",
-					router: '/member/memberManage/list',
+					router: '/member/memberManage/card',
 					menuCode: 'index',
 				},
 					{
 					primaryText: "会员配置",
-					router: '/member/memberManage/list',
+					router: '/member/memberManage/setting',
 					menuCode: 'index',
 				},
 
