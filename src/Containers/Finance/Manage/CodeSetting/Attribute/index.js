@@ -82,6 +82,7 @@ export default class AttributeSetting extends Component {
 	//操作相关
 	//
 	//
+	//
 	onOperation(type, itemDetail) {
 
 		this.setState({
