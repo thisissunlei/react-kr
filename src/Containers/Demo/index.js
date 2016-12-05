@@ -64,6 +64,8 @@ export default class Demo extends Component{
 						<KrForm name="demoForm" onSubmit={function(values){
 									console.log('values',values);
 							}} >
+									<FieldItem name="demname" label="其它:" component="labelText" value="你的直接" inline={false}/>
+
 									<FieldItem name="username" type="text" label="用户名" component="input" defaultValue={this.state.userNameDefaultValue} requiredValue={true} minLength={10} errors={{minLength:'用户名最少为10字符',requiredValue:'用户名为必填项'}}/>
 								<FieldItem name="password" type="text" label="密码" component="input"  requiredValue={true} maxLength={20} errors={{maxLength:'最大为20个字符',requiredValue:'要有密码'}}/>
 							<FieldItem name="demname" type="text" label="其它" component="input"/>

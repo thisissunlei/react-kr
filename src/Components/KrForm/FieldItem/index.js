@@ -3,6 +3,7 @@ import Field from '../Field';
 
 
 import InputComponent from './InputComponent';
+import LabelTextComponent from './LabelTextComponent';
 
 export default class KrField extends React.Component {
 
@@ -60,6 +61,14 @@ export default class KrField extends React.Component {
 				<Field {...this.props} component={InputComponent}  style={WrapStyles}/>
 			);
 		}
+
+
+				if (component === 'labelText' || type == 'labelText') {
+					return (
+						<LabelTextComponent {...this.props} style={WrapStyles} colorStyle={colorStyle}/>
+					);
+				}
+
 
 		return (
 			<Field {...this.props} component={InputComponent}  style={WrapStyles}/>
