@@ -178,6 +178,8 @@ export default class Async extends Component {
 	}
 
 	render () {
+
+
 		const { children, loadingPlaceholder, placeholder } = this.props;
 		const { isLoading, options } = this.state;
 

@@ -9,9 +9,6 @@ import Notify from '../Notify';
 
 import Promise from 'promise-polyfill';
 
-import ReactSelect from 'react-select';
-import 'react-select/dist/react-select.css';
-
 import InputComponent from './InputComponent';
 import DateComponent from './DateComponent';
 import RadioComponent from './RadioComponent';
@@ -21,6 +18,7 @@ import FileUploadComponent from './FileUploadComponent';
 import SearchPersonelComponent from './SearchPersonelComponent';
 import LabelTextComponent from './LabelTextComponent';
 import GroupComponent from './GroupComponent';
+import CityComponent from './CityComponent';
 
 
 export default class KrField extends React.Component {
@@ -101,6 +99,12 @@ export default class KrField extends React.Component {
 		if (component === 'labelText' || type == 'labelText') {
 			return (
 				<LabelTextComponent {...this.props} style={WrapStyles} colorStyle={colorStyle}/>
+			);
+		}
+
+		if (component === 'city' || type == 'city') {
+			return (
+				<CityComponent {...this.props}/>
 			);
 		}
 

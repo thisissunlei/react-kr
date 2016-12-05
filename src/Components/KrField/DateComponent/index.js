@@ -3,10 +3,12 @@ import {
 	Field,
 	reduxForm
 } from 'redux-form';
-import DatePicker from 'material-ui/DatePicker';
+
+//import DatePicker from 'material-ui/DatePicker';
+import DatePicker from '../../DatePicker';
 
 import {
-  DateFormat
+	DateFormat
 } from 'kr/Utils';
 
 import './index.less';
@@ -72,7 +74,7 @@ export default class DateComponent extends React.Component {
 		let {
 			input
 		} = this.props;
-		value = DateFormat(value, "yyyy-mm-dd") +' 00:00:00';
+		value = DateFormat(value, "yyyy-mm-dd") + ' 00:00:00';
 		input.onChange(value);
 	}
 
@@ -176,6 +178,7 @@ export default class DateComponent extends React.Component {
 												hintText={placeholder}
 												textFieldStyle={styles}
 												name={input.name}
+												autoOk={true}
 												container="inline"
 												onChange={this.onChange}/>
 								</span>
