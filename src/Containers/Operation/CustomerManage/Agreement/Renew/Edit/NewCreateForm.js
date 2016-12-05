@@ -474,7 +474,7 @@ const validate = values => {
 
 NewCreateForm = reduxForm({
 	form: 'reduceCreateForm',
-	// validate,
+	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true
 })(NewCreateForm);
