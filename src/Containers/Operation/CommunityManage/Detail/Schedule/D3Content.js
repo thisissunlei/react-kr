@@ -67,7 +67,8 @@ export default class D3Content extends Component {
 		this.getRedInfo = this.getRedInfo.bind(this);
 		this.renderRedNode = this.renderRedNode.bind(this);
 		this.renderwhiteBar = this.renderwhiteBar.bind(this);
-		this.sameNode = this.getSameTime();
+		this.NodeList = this.getSameTime();
+		this.sameNode = this.NodeList[0];
 
 	}
 
@@ -237,7 +238,8 @@ export default class D3Content extends Component {
 		var unique = {};
 		    sameNode.forEach(function(a){ unique[ JSON.stringify(a) ] = 1 });
 		    sameNode= Object.keys(unique).map(function(u){return JSON.parse(u) });
-		return sameNode;
+		let NodeList = [sameNode,finaBluePointVoList,finaRedPointVo]; 
+		return NodeList;
 	}
 
 	renderBlueNode() {
@@ -348,8 +350,8 @@ export default class D3Content extends Component {
 			var whiteNode = this.getSpace(list);
 			list.unshift(whiteNode);
 			var nodeList = this.appendDiv(list, now);
-			var redNodeList = this.renderRedNode();
-			var blueNodeList = this.renderBlueNode();
+			var redNodeList = this.NodeList[2];
+			var blueNodeList =this.NodeList[1];
 			var sameNode = this.sameNode;
 		} else {
 			var list = [{
