@@ -60,18 +60,17 @@ export default class FloorPlan extends Component {
 			communityIdList: [],
 			communityInfoFloorList: [],
 			url: '',
-			dateend: dateFormat(new Date(), "yyyy-mm-dd"),
-			date: dateFormat(new Date(), "yyyy-mm-dd")
+			dateend: '',
+			date: ''
 		}
 
 		this.getcommunity = this.getcommunity.bind(this);
 		this.selectCommunity = this.selectCommunity.bind(this);
 		this.getcommunity();
 		this.getCommunityFloors = this.getCommunityFloors.bind(this);
-		this.getState = this.getState.bind(this);
 		this.selectFloors = this.selectFloors.bind(this);
-		Store.dispatch(change('FloorPlan', 'start', ''));
-		Store.dispatch(change('FloorPlan', 'end', ''));
+		Store.dispatch(change('FloorPlan', 'start', dateFormat(new Date(), "yyyy-mm-dd")));
+		Store.dispatch(change('FloorPlan', 'end', dateFormat(new Date(), "yyyy-mm-dd")));
 
 
 	}
@@ -118,7 +117,6 @@ export default class FloorPlan extends Component {
 		if (community == 0) {
 			community = '';
 		}
-		console.log('url', form);
 
 		params = {
 			communityId: community,
@@ -136,7 +134,6 @@ export default class FloorPlan extends Component {
 				44
 			}
 		};
-		console.log(url);
 
 		return url;
 	}
@@ -154,9 +151,6 @@ export default class FloorPlan extends Component {
 				date: dateFormat(form.start, "yyyy-mm-dd") || dateFormat(new Date(), "yyyy-mm-dd"),
 				dateend: dateFormat(form.end, "yyyy-mm-dd") || dateFormat(new Date(), "yyyy-mm-dd"),
 			};
-			console.log(params);
-			// that.iframeWindow.query(params);
-			// // this.getStationUrl(params);
 			if (form.start && form.end) {
 				var datastart = Date.parse(form.start),
 					dataend = Date.parse(form.end);
@@ -195,20 +189,11 @@ export default class FloorPlan extends Component {
 			var isOutBoundary = scrollBottom >= 0;
 			if (isOutBoundary) {
 				that.iframeWindow.pagequery();
-				// let possition = that.getState();
-				// if(position){
-				// console.log('--true--');
-				// $(window).scrollTop(top-100);
-				// }
 
 			}
 		})
 
 
-	}
-	getState() {
-
-		console.log('----');
 	}
 	getcommunity() {
 		let _this = this;
@@ -285,6 +270,61 @@ export default class FloorPlan extends Component {
 			floors: value
 		})
 	}
+	firstDate=(personel)=>{
+
+		// Store.dispatch(change('FloorPlan', 'start', dateFormat(new Date(), "yyyy-mm-dd")));
+		let firstDate = new Date(personel);
+		if(this.state.dateend){
+			let endDate = new Date(this.state.dateend);
+			let start = firstDate.getTime();
+			let end = endDate.getTime();
+			if(start<=end){
+				this.setState({
+					date: personel
+				})
+			}else{
+				Notify.show([{
+					message:'结束时间不能小于开始时间',
+					type: 'danger',
+				}]);
+				// Store.dispatch(change('FloorPlan', 'end', dateFormat(end, "yyyy-mm-dd")));
+			}
+		}else{
+			this.setState({
+				date: personel
+			})
+		}
+	}
+	secondDate=(personel)=>{
+		
+		let secondDate = new Date(personel);
+		let end = this.state.dateend;
+		if(this.state.date){
+			let firstDate = new Date(this.state.date);
+			let start = firstDate.getTime();
+			let end = secondDate.getTime();
+			if(start<=end){
+				this.setState({
+					dateend: personel
+				})
+			}else{
+				Notify.show([{
+					message:'结束时间不能小于开始时间',
+					type: 'danger',
+				}]);
+				Store.dispatch(change('FloorPlan', 'end', dateFormat(end, "yyyy-mm-dd")));
+			}
+		}else{
+			this.setState({
+				dateend: personel
+			})
+		}
+
+		
+		
+
+		
+	}
 
 	render() {
 
@@ -299,7 +339,6 @@ export default class FloorPlan extends Component {
 		} = this.state;
 		let url = this.getStationUrl();
 
-		console.log('dateend', dateend)
 		let {
 			tab,
 			handleSubmit
@@ -322,10 +361,10 @@ export default class FloorPlan extends Component {
 						<ListGroupItem style={{maxWidth:170,marginTop:'-6px',minWidth:110,width:'100%',textAlign:'left'}}><KrField grid={1/1} name="community" component="select"   options={communityIdList} onChange={this.selectCommunity} /></ListGroupItem>
 						<ListGroupItem><span style={{display:'inline-block',lineHeight:'45px',textAlign:'left'}}>楼层</span></ListGroupItem>
 						<ListGroupItem  style={{maxWidth:170,marginTop:'-6px',minWidth:100,width:'100%',textAlign:'left'}}><KrField name="floor" grid={1/1} component="select" options={communityInfoFloorList} onChange={this.selectFloors}/></ListGroupItem>
-						<ListGroupItem style={{minWidth:100,marginTop:'-6px',marginLeft:'-3px',textAlign:'left'}}> <KrField name="start"  component="date"  simple={true}/></ListGroupItem>
+						<ListGroupItem style={{minWidth:100,marginTop:'-6px',marginLeft:'-3px',textAlign:'left'}}> <KrField name="start"  component="date"  simple={true} onChange={this.firstDate}/></ListGroupItem>
 						<ListGroupItem style={{marginLeft:'10px',textAlign:'left'}}><span style={{display:'inline-block',lineHeight:'45px'}}>至</span></ListGroupItem>
-						<ListGroupItem  style={{minWidth:100,marginTop:'-6px',textAlign:'left'}}> <KrField name="end" component="date" simple={true}  /> </ListGroupItem>
-						<ListGroupItem style={{marginLeft:6,marginTop:4,textAlign:'left'}}> <Button  label="确定" type="submit" height={34}/></ListGroupItem>
+						<ListGroupItem  style={{minWidth:100,marginTop:'-6px',textAlign:'left'}}> <KrField name="end" component="date" simple={true}  onChange={this.secondDate}/> </ListGroupItem>
+						{/*<ListGroupItem style={{marginLeft:6,marginTop:4,textAlign:'left'}}> <Button  label="确定" type="submit" height={34}/></ListGroupItem>*/}
 					</ListGroup>
 			</form>
 			<p style={{margin:10}}></p>

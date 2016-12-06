@@ -32,6 +32,7 @@ class SearchDateForm extends Component {
 	static PropTypes = {
 		onStartChange: React.PropTypes.func,
 		onEndChange:React.PropTypes.func,
+		date_2:React.PropTypes.string,
 	}
 
 	constructor(props) {
@@ -65,20 +66,16 @@ class SearchDateForm extends Component {
     }
 
 	render() {
-      
-       var myDate = new Date();
-       var year=myDate.getFullYear();  
-	   var month=myDate.getMonth()+1;  
-	   var day=myDate.getDate();  
-       var currentDate=year+'-'+month+'-'+day
-
 
 		const {
 			error,
 			handleSubmit,
 			pristine,
-			reset
+			reset,
+			date_2
 		} = this.props;
+
+		
 
 		return (
 
@@ -88,9 +85,9 @@ class SearchDateForm extends Component {
 
 				    <ListGroup>
 				        <span className='statis-date-title'>时间：</span>
-						<ListGroupItem><div className='statis-date-start'><KrField  style={{marginLeft:-10}} name="startDate" component="date" onChange={this.onStartChange} placeholder={currentDate}/></div></ListGroupItem>
+						<ListGroupItem><div className='statis-date-start'><KrField  style={{marginLeft:-10}} name="startDate" component="date" onChange={this.onStartChange} placeholder={date_2}/></div></ListGroupItem>
 						<div className='ui-line-down-list'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-						<ListGroupItem><div className='statis-date-end'><KrField  name="endDate" component="date" onChange={this.onEndChange} placeholder={currentDate}/></div></ListGroupItem>
+						<ListGroupItem><div className='statis-date-end'><KrField  name="endDate" component="date" onChange={this.onEndChange} placeholder={date_2}/></div></ListGroupItem>
 					</ListGroup>
                   
 				</div>

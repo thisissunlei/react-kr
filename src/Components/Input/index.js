@@ -70,6 +70,8 @@ export default  class Input extends React.Component {
 			this.setState({
 				value
 			});
+
+
 			onChange && onChange(value);
 	}
 
@@ -122,7 +124,6 @@ export default  class Input extends React.Component {
 		if(disabled){
 		  	classNames = ClassNames('ui-input',className,'disabled');
 		}
-
 
 		return (
 			 <input type={type} name={name} className={classNames}  style={style} placeholder={placeholder} value={value} {...other} disabled={disabled} onChange={this.onChange} onBlur={this.onBlur} />

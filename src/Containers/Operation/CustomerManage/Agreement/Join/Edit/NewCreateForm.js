@@ -516,7 +516,8 @@ class NewCreateForm extends Component {
 				<KrField left={60} grid={1/2}  name="leaseAddress" type="text" component="input" label="地址"  requireLabel={true}
 				requiredValue={true} pattern={/^.{0,120}$/} errors={{requiredValue:'地址为必填项',pattern:'地址最大60位'}} />
 
-				<KrField right={60} grid={1/2}  name="leaseContact" type="text" component="input" label="联系人"  requireLabel={true}  />
+				<KrField right={60} grid={1/2}  name="leaseContact" type="text" component="input" label="联系人"  requireLabel={true}
+				requiredValue={true} pattern={/^.{0,20}$/} errors={{requiredValue:'联系人为必填项',pattern:'联系人最大20位'}} />
 				<KrField left={60} grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话"  requireLabel={true}
 				requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}} />
 
@@ -526,7 +527,7 @@ class NewCreateForm extends Component {
 
 				<KrField right={60} grid={1/2}  name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} />
 				<KrField left={60} grid={1/2}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
-				requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'地址为必填项',pattern:'合同编号最大50位'}} />
+				requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同为必填项',pattern:'合同编号最大50位'}} />
 
 				<KrField grid={1/1} right={60} component="group" label="租赁期限" requireLabel={true}>
 					<ListGroup>
@@ -737,7 +738,7 @@ const selector = formValueSelector('joinEditForm');
 
 NewCreateForm = reduxForm({
 	form: 'joinEditForm',
-	// validate,
+	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true
 })(NewCreateForm);
