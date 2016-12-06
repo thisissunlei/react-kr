@@ -40,6 +40,10 @@ import {
 
 
 export default class FloorPlan extends Component {
+	static contextTypes = {
+		onSetCommunity: React.PropTypes.func.isRequired,
+		communityId: React.PropTypes.string.isRequired,
+	}
 	static defaultProps = {
 		tab: '',
 	}
@@ -270,60 +274,58 @@ export default class FloorPlan extends Component {
 			floors: value
 		})
 	}
-	firstDate=(personel)=>{
+	firstDate = (personel) => {
 
 		// Store.dispatch(change('FloorPlan', 'start', dateFormat(new Date(), "yyyy-mm-dd")));
 		let firstDate = new Date(personel);
-		if(this.state.dateend){
+		if (this.state.dateend) {
 			let endDate = new Date(this.state.dateend);
 			let start = firstDate.getTime();
 			let end = endDate.getTime();
-			if(start<=end){
+			if (start <= end) {
 				this.setState({
 					date: personel
 				})
-			}else{
+			} else {
 				Notify.show([{
-					message:'结束时间不能小于开始时间',
+					message: '结束时间不能小于开始时间',
 					type: 'danger',
 				}]);
 				// Store.dispatch(change('FloorPlan', 'end', dateFormat(end, "yyyy-mm-dd")));
 			}
-		}else{
+		} else {
 			this.setState({
 				date: personel
 			})
 		}
 	}
-	secondDate=(personel)=>{
-		
+	secondDate = (personel) => {
+
 		let secondDate = new Date(personel);
 		let end = this.state.dateend;
-		if(this.state.date){
+		if (this.state.date) {
 			let firstDate = new Date(this.state.date);
 			let start = firstDate.getTime();
 			let end = secondDate.getTime();
-			if(start<=end){
+			if (start <= end) {
 				this.setState({
 					dateend: personel
 				})
-			}else{
+			} else {
 				Notify.show([{
-					message:'结束时间不能小于开始时间',
+					message: '结束时间不能小于开始时间',
 					type: 'danger',
 				}]);
 				Store.dispatch(change('FloorPlan', 'end', dateFormat(end, "yyyy-mm-dd")));
 			}
-		}else{
+		} else {
 			this.setState({
 				dateend: personel
 			})
 		}
 
-		
-		
 
-		
+
 	}
 
 	render() {

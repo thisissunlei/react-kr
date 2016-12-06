@@ -38,14 +38,15 @@ import './index.less'
 export default class CommunityManage extends Component {
 	static childContextTypes = {
 		onSetCommunity: React.PropTypes.func.isRequired,
+		communityId: React.PropTypes.string.isRequired,
 	}
 
-	/*getChildContext() {
+	getChildContext() {
 		return {
 			onSetCommunity: this.onSetCommunity,
 			communityId: this.state.communityId
 		};
-	}*/
+	}
 
 	constructor(props, context) {
 		super(props, context);
@@ -63,11 +64,11 @@ export default class CommunityManage extends Component {
 
 	}
 
-	/*onSetCommunity = (communityId) => {
+	onSetCommunity = (communityId) => {
 		this.setState({
 			communityId
 		});
-	}*/
+	}
 
 	Floorplan() {
 		let {
