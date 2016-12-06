@@ -409,6 +409,11 @@ const APIS = {
 		url: '/mockjsdata/13/krspace-finance-web/stat/template/list',
 		method: 'get'
 	},
+	//会员中心-会员列表-获取所有会员信息
+	'membersList': {
+		url: '/mockjsdata/4/member/member-list?page={page}&pageSize={pageSize}',
+		method: 'get'
+	},
 
 }
 

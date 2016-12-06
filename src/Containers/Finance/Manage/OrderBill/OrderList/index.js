@@ -92,7 +92,7 @@ export default class AttributeSetting extends Component {
 			}]);
 		});
 	}
-//导出功能
+
 	onExport(values) {
 		var searchParams = this.state.searchParams;
 		let idList = [];
@@ -170,7 +170,7 @@ export default class AttributeSetting extends Component {
 			}
 		});
 	}
-	//高级查询
+
 	onNewCreateSubmit(searchParams) {
 		searchParams = Object.assign({}, this.state.searchParams, searchParams);
 		this.setState({
@@ -305,7 +305,7 @@ export default class AttributeSetting extends Component {
 					</Section>
 
 					<Dialog
-						title="高级查询"
+						title="高询"
 						modal={true}
 						open={this.state.openNewCreate}
 						onClose={this.openNewCreateDialog}
