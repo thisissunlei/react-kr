@@ -66,7 +66,7 @@ export default class PanelComponents  extends Component{
 		let {panels,groupId}=this.props;
 		let {startDate}=this.state;
 
-		console.log('33333',startDate);
+		
 		var renderComponent = [];
 		var props = {
 			groupId

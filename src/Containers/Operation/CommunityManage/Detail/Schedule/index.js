@@ -64,7 +64,7 @@ export default class Schedule extends Component {
 
 		return (
 			<div style={{marginBottom:20,marginTop:0,minHeight:910}}>
-			<BasicTable detail={communityInfoList} communityids={communityids} tab={tab}/>
+			<BasicTable detail={communityInfoList} tab={tab}/>
 
 		</div>
 		);

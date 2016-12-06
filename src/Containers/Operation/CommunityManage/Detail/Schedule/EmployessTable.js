@@ -58,11 +58,18 @@ class Distribution extends Component {
 	}
 
 	onSubmit(form) {
+		if (form.memberId) {
+			const {
+				onSubmit
+			} = this.props;
+			onSubmit && onSubmit(form);
+		} else {
+			Notify.show([{
+				message: '请选择分配人员',
+				type: 'danger',
+			}]);
+		}
 
-		const {
-			onSubmit
-		} = this.props;
-		onSubmit && onSubmit(form);
 	}
 
 	render() {
@@ -132,10 +139,20 @@ class ChangeStation extends Component {
 	}
 
 	onSubmit(form) {
-		const {
-			onSubmit
-		} = this.props;
-		onSubmit && onSubmit(form);
+
+		if (form.memberId) {
+			const {
+				onSubmit
+			} = this.props;
+			onSubmit && onSubmit(form);
+		} else {
+			Notify.show([{
+				message: '请选择要变更的人员',
+				type: 'danger',
+			}]);
+		}
+
+
 	}
 
 	render() {

@@ -129,6 +129,10 @@ export default class Home  extends Component{
 		}).catch(function(err) {
 			Message.error(err);
 		});
+
+		
+		Store.dispatch(Actions.switchSidebarNav(false));
+	
 	}
 
 	render(){

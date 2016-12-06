@@ -22,6 +22,7 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Message,
+	Tooltip,
 	Form
 } from 'kr-ui';
 import './index.less';
@@ -102,26 +103,29 @@ export default class Initialize  extends Component{
 					<TableHeader>
 					<TableHeaderColumn>城市</TableHeaderColumn>
 					<TableHeaderColumn>社区</TableHeaderColumn>
-					<TableHeaderColumn>开业后第一个出租率</TableHeaderColumn>
-					<TableHeaderColumn>新增意向工位数</TableHeaderColumn>
-					<TableHeaderColumn>开业后第二个出租率</TableHeaderColumn>
-					<TableHeaderColumn>开业后第三个出租率</TableHeaderColumn>
-					<TableHeaderColumn>累计意向工位数</TableHeaderColumn>
-					<TableHeaderColumn>总工位数</TableHeaderColumn>
-					<TableHeaderColumn>可出租工位数</TableHeaderColumn>
+					<TableHeaderColumn>总工位</TableHeaderColumn>
+					<TableHeaderColumn>可出租工位</TableHeaderColumn>
+					<TableHeaderColumn>开业第一个月出租率</TableHeaderColumn>
+					<TableHeaderColumn>开业第二个月出租率</TableHeaderColumn>
+					<TableHeaderColumn>开业第三个月出租率</TableHeaderColumn>
+					<TableHeaderColumn>新增意向工位</TableHeaderColumn>					
+					<TableHeaderColumn>累计意向工位</TableHeaderColumn>
+					<TableHeaderColumn>平均单价</TableHeaderColumn>							
 				</TableHeader>
 
 				<TableBody>
 						 <TableRow>
 						<TableRowColumn name="cityName" ></TableRowColumn>
 						<TableRowColumn name="communityName"></TableRowColumn>
-						<TableRowColumn name="firstMonth"></TableRowColumn>
-						<TableRowColumn name="newIntention" ></TableRowColumn>
-						<TableRowColumn name="secondMonth"></TableRowColumn>
-						<TableRowColumn name="thirdMonth"></TableRowColumn>
-						<TableRowColumn name="totalIntention"></TableRowColumn>
 						<TableRowColumn name="totalStation"></TableRowColumn>
 						<TableRowColumn name="unUsedStation"></TableRowColumn>
+						<TableRowColumn name="firstMonth"></TableRowColumn>
+						<TableRowColumn name="secondMonth"></TableRowColumn>
+						<TableRowColumn name="thirdMonth"></TableRowColumn>
+						<TableRowColumn name="newIntention" ></TableRowColumn>
+						<TableRowColumn name="totalIntention"></TableRowColumn>
+						<TableRowColumn name="averagePrice"></TableRowColumn>
+						
 					 </TableRow>
 				</TableBody>
 				</Table>

@@ -22,12 +22,13 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Message,
+	Tooltip,
 	Form
 } from 'kr-ui';
 import './index.less';
 import SearchDateForm from './SearchDateForm';
 
-
+var flag='false';
 export default class Initialize  extends Component{
      
     static propTypes = {
@@ -42,16 +43,15 @@ export default class Initialize  extends Component{
 	    this.state = {
 			searchParams: {
 				groupId:this.props.groupId,
-				startDate:'',
-				endDate:''
+				startDate:this.props.startDate,
+				endDate:this.props.startDate
 			}
 
 		}
 
 	}
     
-    
-
+   
     onStartChange=(searchParams)=>{
     	searchParams = Object.assign({}, this.state.searchParams, searchParams);
     	this.setState({
@@ -64,23 +64,18 @@ export default class Initialize  extends Component{
 			searchParams
 		});
     }
-    openOver=(event)=>{
-    	var val=event.target.innerText;
-    	//console.log('wwww',val);
+   
+   
 
-    }
-
-    render(){
-    	
-    	let {searchParams}=this.state;
+    render(){   	
+    	let {searchParams}=this.state;	
         let start=Date.parse(dateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
         let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"));
         if(start>end){
-          Message.error('开始时间不能大于结束时间');
-          
+          Message.error('开始时间不能大于结束时间');    
         }
 
-	
+	   //console.log('3333666',searchParams.startDate);
         
 	return(
          <div className='open-back' style={{background:'#fff',marginBottom:'20'}}>
@@ -108,25 +103,27 @@ export default class Initialize  extends Component{
 						  >
 					<TableHeader>
 					<TableHeaderColumn>城市</TableHeaderColumn>
-					<TableHeaderColumn>社区</TableHeaderColumn>
-					<TableHeaderColumn>总工位数</TableHeaderColumn>
-					<TableHeaderColumn>可出租工位数</TableHeaderColumn>
-					<TableHeaderColumn>已出租工位数</TableHeaderColumn>
-					<TableHeaderColumn>剩余工位数</TableHeaderColumn>
+					<TableHeaderColumn>社区<Tooltip style={{visibility:'visible'}} place='top'>123</Tooltip></TableHeaderColumn>
+					<TableHeaderColumn>总工位</TableHeaderColumn>
+					<TableHeaderColumn>可出租工位</TableHeaderColumn>
+					<TableHeaderColumn>已出租工位</TableHeaderColumn>
+					<TableHeaderColumn>剩余工位</TableHeaderColumn>
 					<TableHeaderColumn>出租率</TableHeaderColumn>
 					<TableHeaderColumn>上期出租率</TableHeaderColumn>
 					<TableHeaderColumn>出租率变化</TableHeaderColumn>
-					<TableHeaderColumn><div style={{display:'inlineBlock'}}>出租率</div><div style={{display:'inlineBlock'}}>(不含意向)</div></TableHeaderColumn>
+					<TableHeaderColumn>出租率(不含意向)</TableHeaderColumn>
 					<TableHeaderColumn>环比</TableHeaderColumn>
-					<TableHeaderColumn><div style={{display:'inlineBlock'}}>新增意向</div><div style={{display:'inlineBlock'}}>工位数</div></TableHeaderColumn>
-					<TableHeaderColumn><div style={{display:'inlineBlock'}}>累计意向</div><div style={{display:'inlineBlock'}}>工位数</div></TableHeaderColumn>
+					<TableHeaderColumn>新增意向工位</TableHeaderColumn>
+					<TableHeaderColumn>累计意向工位</TableHeaderColumn>
 					<TableHeaderColumn>平均单价</TableHeaderColumn>
 				</TableHeader>
 
 				<TableBody>
 						 <TableRow>
-						<TableRowColumn name="cityName" ></TableRowColumn>
-						<TableRowColumn name="communityName" onMouseOver={this.openOver.bind(this)}></TableRowColumn>
+						<TableRowColumn name="cityName"></TableRowColumn>
+						<TableRowColumn name="communityName"   component={(value,oldValue)=>{
+                             return (<Tooltip style={{visibility:'visible'}} place='top'>123</Tooltip>)
+						}} ></TableRowColumn>
 						<TableRowColumn name="totalStation"></TableRowColumn>
 						<TableRowColumn name="unUsedStation" ></TableRowColumn>
 						<TableRowColumn name="usedStation"></TableRowColumn>
