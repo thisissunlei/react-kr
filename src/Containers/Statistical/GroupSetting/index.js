@@ -66,17 +66,27 @@ export default class Initialize  extends Component{
 	onCreateSubmit=(params)=> {
 		var _this = this;
 		params = Object.assign({}, params);
+		console.log(params.id,"123")
 		if(this.state.noinit){
 			params.templateIdList="";
 		}else{
 			params.templateIdList=this.state.templateList;
 		}
 
-
 		Store.dispatch(Actions.callAPI('GroupNewAndEidt', {}, params)).then(function(response) {
+			let obj = {
+				pageNo: 1,
+				pageSize: 15,
+				enable:'',
+				groupName:''
+			}
 			_this.setState({
 				openNewCreate: false,
-				openEditDetail: false
+				openEditDetail: false,
+				searchParams: obj
+
+			},function(){
+				window.location.reload(true)
 			});
 
 		}).catch(function(err) {
@@ -122,7 +132,8 @@ export default class Initialize  extends Component{
 	openEditDetailDialog=()=> {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('MouldGroupDetails',{id:this.state.id})).then(function(data) {
-
+			_this.changeMudle(data.templateList)
+			console.log(data.templateList,"=====")
 			_this.setState({
 					itemDetail:data,
 			},function(){
@@ -212,8 +223,10 @@ export default class Initialize  extends Component{
 		for(var i=0;i<arr.length;i++){
 				ids.push(arr[i].id);
 		}
-		this.setState({templateList:ids.join(","),noinit:false})
+		this.setState({templateList:ids,noinit:false})
 	}
+
+
 	render(){
 		return(
 			<div>
