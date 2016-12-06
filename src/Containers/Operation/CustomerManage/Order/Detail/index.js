@@ -154,9 +154,9 @@ export default class OrderDetail extends React.Component {
 		this.state = {
 			open: false,
 			loading: true,
-			delAgreementId:0,
+			delAgreementId: 0,
 			openCreateAgreement: false,
-			openDelAgreement:false,
+			openDelAgreement: false,
 			response: {
 				orderBaseInfo: {},
 				installment: {},
@@ -168,36 +168,38 @@ export default class OrderDetail extends React.Component {
 
 	}
 
-	openDelAgreementDialog(){
+	openDelAgreementDialog() {
 		this.setState({
-			 	openDelAgreement:!this.state.openDelAgreement
+			openDelAgreement: !this.state.openDelAgreement
 		});
 	}
 
-	setDelAgreementId(delAgreementId){
+	setDelAgreementId(delAgreementId) {
 		this.setState({
-				delAgreementId,
-		},function(){
-					this.openDelAgreementDialog();
+			delAgreementId,
+		}, function() {
+			this.openDelAgreementDialog();
 		});
 
 	}
 
-	confirmDelAgreement(){
+	confirmDelAgreement() {
 
 		this.openDelAgreementDialog(0);
 
-		let {delAgreementId} = this.state;
+		let {
+			delAgreementId
+		} = this.state;
 		Store.dispatch(Actions.callAPI('delete-enter-contract', {
-			contractId:delAgreementId
+			contractId: delAgreementId
 		})).then(function(response) {
 			Notify.show([{
 				message: '删除成功!',
 				type: 'success',
 			}]);
-			window.setTimeout(function(){
+			window.setTimeout(function() {
 				window.location.reload();
-			},100)
+			}, 100)
 		}).catch(function(err) {
 			Notify.show([{
 				message: err.message,
@@ -352,7 +354,7 @@ export default class OrderDetail extends React.Component {
 		)
 	}
 
-	delArgument(id){
+	delArgument(id) {
 
 
 	}
@@ -401,29 +403,91 @@ export default class OrderDetail extends React.Component {
 
 			<Section title="客户订单详情" description="" hide={!!this.props.location.query.closeAll} bodyPadding={'20px 20px 50px 20px'}>
 			<div className="content">
-			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog} style={{width:80,marginTop:15}}/>
+			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog} style={{width:160,height:40,marginTop:15,fontSize:'18px !important'}}/>
+			
+			<DotTitle title='合同列表'/>
 
-			<span className='border-top'></span>
-			<Grid style={{marginTop:50,width:800,marginLeft:'auto',marginRight:'auto'}}>
-			<span className='ui-remark'>注：如（0-1），1表示该类型合同总数，0表示执行完该类型合同数</span>
-			<ul className='ui-adminBook'>
-              <li><span className={(contractStatusCount.intentionTotoal&&contractStatusCount.intentionComplete)!=0?'ui-circle':'ui-circle-dot'}></span></li>
-              <li><span className={(contractStatusCount.enterTotoal&&contractStatusCount.enterComplete)!=0?'ui-circle':'ui-circle-dot'}></span></li>
-              <li><span className={(contractStatusCount.addRentTotoal&&contractStatusCount.addRentComplete)!=0?'ui-circle':'ui-circle-dot'}></span></li>
-              <li><span className={(contractStatusCount.renewComplete&&contractStatusCount.renewComplete)!=0?'ui-circle':'ui-circle-dot'}></span></li>
-              <li><span className={(contractStatusCount.lessRentComplete&&contractStatusCount.lessRentComplete)!=0?'ui-circle':'ui-circle-dot'}></span></li>
-              <li><span className={(contractStatusCount.quitRentTotoal&&contractStatusCount.quitRentComplete)!=0?'ui-circle':'ui-circle-dot'}></span></li>
-			</ul>
-			<Row style={{marginLeft:40}}>
-				<Col md={2} align="center" className="adminTitle"><span className="adminName">承租意向书({contractStatusCount.intentionComplete}-{contractStatusCount.intentionTotoal})</span> </Col>
-				<Col md={2} align="center" className="adminTitle"> <span className="adminName">入驻协议书({contractStatusCount.enterComplete}-{contractStatusCount.enterTotoal})</span> </Col>
-				<Col md={2} align="center" className="adminTitle"><span className="adminName" > 增租协议书({contractStatusCount.addRentComplete}-{contractStatusCount.addRentTotoal})</span> </Col>
-				<Col md={2} align="center" className="adminTitle"><span className="adminName"> 续租协议书({contractStatusCount.renewComplete}-{contractStatusCount.renewTotoal})</span> </Col>
-				<Col md={2} align="center" className="adminTitle"><span className="adminName">  减租协议书({contractStatusCount.lessRentComplete}-{contractStatusCount.lessRentTotoal})</span>  </Col>
-				<Col md={2} align="center" className="adminTitle"> <span className="adminName"> 退租协议书({contractStatusCount.quitRentComplete}-{contractStatusCount.quitRentTotoal}) </span> </Col>
-			</Row>
-		</Grid>
+			<Table pageSize={contractList.length} displayCheckbox={false}>
+			<TableHeader>
+			<TableHeaderColumn>合同类型</TableHeaderColumn>
+			<TableHeaderColumn>租金金额</TableHeaderColumn>
+			<TableHeaderColumn>工位个数</TableHeaderColumn>
+			<TableHeaderColumn>会议室个数</TableHeaderColumn>
+			<TableHeaderColumn>起始日期</TableHeaderColumn>
+			<TableHeaderColumn>终止日期</TableHeaderColumn>
+			<TableHeaderColumn>工位/会议室均价(月)</TableHeaderColumn>
+			<TableHeaderColumn>销售员</TableHeaderColumn>
+			<TableHeaderColumn>录入人</TableHeaderColumn>
+			<TableHeaderColumn>操作</TableHeaderColumn>
+			</TableHeader>
+			<TableBody>
 
+			{contractList.map((item,index)=>{
+				console.log('item---',item)
+				return (
+					<TableRow key={index}>
+					<TableRowColumn>{item.contractcode || '无'}</TableRowColumn>
+					{this.getAgrementType(item.contracttype)}
+					<TableRowColumn>{item.stationnum}</TableRowColumn>
+					<TableRowColumn>{item.boardroomnum}</TableRowColumn>
+					<TableRowColumn><KrDate value={item.leaseBegindate}/></TableRowColumn>
+					<TableRowColumn> <KrDate value={item.leaseEnddate}/></TableRowColumn>
+					<TableRowColumn>{item.contractTotalamount}</TableRowColumn>
+					<TableRowColumn><KrDate value={item.leaseBegindate}/></TableRowColumn>
+					<TableRowColumn> <KrDate value={item.leaseEnddate}/></TableRowColumn>
+					<TableRowColumn>
+					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} />
+							{item.contractstate != 'EXECUTE' && item.editFlag && <Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
+
+							{item.contracttype == 'ENTER' && item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
+						{/*
+							{item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除" onTouchTap={this.delArgument.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
+
+							*/}
+
+
+					</TableRowColumn>
+					</TableRow>
+				);
+			})}
+
+			</TableBody>
+			</Table>
+
+			<DotTitle title='分期计划'/>
+
+			<div className='ui-remark'>
+              <div className='ui-circle-remark'><span className='circle-color circle-color-top over-circle'></span><span className='remark-green-text'>已完成</span></div>
+              <div className='ui-circle-remark'><span className='circle-color circle-color-top section-circle'></span><span className='remark-green-text'>付部分款</span></div>
+              <div className='ui-circle-remark'><span className='circle-color circle-color-top no-pay'></span><span className='remark-green-text'>未付款</span></div>
+			</div>
+
+			{installmentPlan.map((item,index)=>{
+				return (
+					<Grid key={index}>
+					<Row>
+					<Col md={12} align="left" className="ContractNameTitle">{item.detailName}</Col>
+					</Row>
+					{this.renderTableItem(item.antecedent)}
+					{this.renderTableItem(item.earnest)}
+					{item.installment && item.installment.map((list,index)=>{
+							return (
+								<Row key={index} >
+								<Col md={3} align="left" className="ContractName"><Circle type={list.payStatus}/>款项：{list.installmentName}</Col>
+								<Col md={3} align="left" className="ContractName">计划付款日期：<KrDate value={list.installmentReminddate}/></Col>
+								<Col md={3} align="left" className="ContractName">计划付款金额：{list.installmentAmount}</Col>
+								{list.installmentBackamount>0?<Col md={3} align="left" className="ContractName">实际付款金额：<span>{list.installmentBackamount}</span></Col>:<Col md={3} align="left" className="ContractName">实际付款金额：<span style={{color:'red'}}>{list.installmentBackamount}</span></Col>}
+								</Row>
+							)
+						})
+					}
+
+					</Grid>
+				);
+			})}
+			<span className="border-bottom"></span>
+
+			
             <DotTitle title='订单描述'/>
 
 			<Grid style={{marginTop:50}}>
@@ -476,80 +540,9 @@ export default class OrderDetail extends React.Component {
 
 			</Grid>
 
-            <DotTitle title='合同列表'/>
+            
 
-			<Table pageSize={contractList.length} displayCheckbox={false}>
-			<TableHeader>
-			<TableHeaderColumn>合同编号</TableHeaderColumn>
-			<TableHeaderColumn>合同类型</TableHeaderColumn>
-			<TableHeaderColumn>合同总额</TableHeaderColumn>
-			<TableHeaderColumn>合同开始时间</TableHeaderColumn>
-			<TableHeaderColumn>合同结束日期</TableHeaderColumn>
-			<TableHeaderColumn>操作</TableHeaderColumn>
-			</TableHeader>
-			<TableBody>
-
-			{contractList.map((item,index)=>{
-				return (
-					<TableRow key={index}>
-					<TableRowColumn>{item.contractcode || '无'}</TableRowColumn>
-					{this.getAgrementType(item.contracttype)}
-
-					<TableRowColumn>{item.contractTotalamount}</TableRowColumn>
-					<TableRowColumn><KrDate value={item.leaseBegindate}/></TableRowColumn>
-					<TableRowColumn> <KrDate value={item.leaseEnddate}/></TableRowColumn>
-					<TableRowColumn>
-					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} />
-							{item.contractstate != 'EXECUTE' && item.editFlag && <Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
-
-				{item.contracttype == 'ENTER' && item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
-						{/*
-							{item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除" onTouchTap={this.delArgument.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
-
-							*/}
-
-
-					</TableRowColumn>
-					</TableRow>
-				);
-			})}
-
-			</TableBody>
-			</Table>
-
-            <DotTitle title='分期计划'/>
-
-			<div className='ui-remark'>
-              <div className='ui-circle-remark'><span className='circle-color circle-color-top over-circle'></span><span className='remark-green-text'>已完成</span></div>
-              <div className='ui-circle-remark'><span className='circle-color circle-color-top section-circle'></span><span className='remark-green-text'>付部分款</span></div>
-              <div className='ui-circle-remark'><span className='circle-color circle-color-top no-pay'></span><span className='remark-green-text'>未付款</span></div>
-			</div>
-
-			{installmentPlan.map((item,index)=>{
-				return (
-					<Grid key={index}>
-					<Row>
-					<Col md={12} align="left" className="ContractNameTitle">{item.detailName}</Col>
-					</Row>
-					{this.renderTableItem(item.antecedent)}
-					{this.renderTableItem(item.earnest)}
-					{item.installment && item.installment.map((list,index)=>{
-							return (
-								<Row key={index} >
-								<Col md={3} align="left" className="ContractName"><Circle type={list.payStatus}/>款项：{list.installmentName}</Col>
-								<Col md={3} align="left" className="ContractName">计划付款日期：<KrDate value={list.installmentReminddate}/></Col>
-								<Col md={3} align="left" className="ContractName">计划付款金额：{list.installmentAmount}</Col>
-								{list.installmentBackamount>0?<Col md={3} align="left" className="ContractName">实际付款金额：<span>{list.installmentBackamount}</span></Col>:<Col md={3} align="left" className="ContractName">实际付款金额：<span style={{color:'red'}}>{list.installmentBackamount}</span></Col>}
-								</Row>
-							)
-						})
-					}
-
-					</Grid>
-				);
-			})}
-			<span className="border-bottom"></span>
-
+            
 
 
           	</div>
