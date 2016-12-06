@@ -396,17 +396,25 @@ const APIS = {
 	},
 	//数据统计-模板分组-分组详情
 	'MouldGroupDetails': {
-		url: '/mockjsdata/13/krspace-finance-web/stat/group/actions/view',
+		url: '/api/krspace-finance-web/stat/group/actions/view?id={id}',
 		method: 'get'
 	},
 	//数据统计-模板分组-修改与新建
 	'GroupNewAndEidt': {
-		url: '/mockjsdata/13/krspace-finance-web/stat/group/actions/add-or-update',
+		url: '/api/krspace-finance-web/stat/group/actions/add-or-update',
 		method: 'post'
 	},
 	//数据统计-模板分组-新建时获取所有模板的数据
 	'GroupNewModule': {
-		url: '/mockjsdata/13/krspace-finance-web/stat/template/list',
+		url: '/api/krspace-finance-web/stat/template/list',
+		method: 'get'
+	},
+	'groupNameCheck': {
+		url: '/api/krspace-finance-web/stat/group/name/actions/check?groupName={groupName}&id={id}',
+		method: 'get'
+	},
+	'sortCheck': {
+		url: '/api/krspace-finance-web/stat/group/sort/actions/check?sort={sort}&id={id}',
 		method: 'get'
 	},
 

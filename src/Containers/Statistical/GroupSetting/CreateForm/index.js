@@ -10,7 +10,8 @@ import {
 	Col,
 	Button,
 	Notify,
-	ButtonGroup
+	ButtonGroup,
+
 } from 'kr-ui';
 
 import './index.less';
@@ -42,8 +43,15 @@ class Switchover extends Component{
 		});
 	}
 
+	//数组的状态
+	swapItems =(arr, index1, index2)=> {
 
-
+			var _this=this;
+       arr[index1] = arr.splice(index2, 1, arr[index1])[0];
+       this.setState({okData:arr},function(){
+	 			_this.props.changeMudle(_this.state.okData)
+	 		});
+   }
   render(){
 		var boxStyle={
 			marginLeft:"10px",
@@ -76,6 +84,7 @@ class Switchover extends Component{
           <ZhuanHuan  iconShow="true"
                       Data={this.state.okData}
                       addOther={this.leftAdd.bind(this)}
+											swapItems={this.swapItems}
                       />
       </div>
     );
@@ -93,29 +102,22 @@ class ZhuanHuan extends React.Component{
     }
   }
 
-  swapItems (arr, index1, index2) {
-		console.log(this);
 
-       arr[index1] = arr.splice(index2, 1, arr[index1])[0];
-       this.setState({mouldSort:arr});
-   }
    //上移
-  upMove(index,event){
+  upMove=(index,event)=>{
     if(index==0){
       return;
     }
-     this.swapItems(this.state.mouldSort, index, index- 1);
-     console.log(React.SyntheticEvent);
+     this.props.swapItems(this.state.mouldSort, index, index- 1);
 
 
   }
   //下移
-  downMove(index,event){
+  downMove=(index,event)=>{
     if(index == this.state.mouldSort.length -1) {
            return;
        }
-
-    this.state.mouldSort=this.swapItems(this.state.mouldSort, index, index + 1);
+			 this.props.swapItems(this.state.mouldSort, index, index + 1);
 
   }
   upArrow(index){
@@ -266,17 +268,13 @@ class ZhuanHuan extends React.Component{
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
 		this.state={
-			moduleData:this.props.detail
+			moduleData:this.props.detail,
+			valuesErr:""
+
 		};
-
-
-
 	}
+ onSubmit(values){
 
-
-
-	 onSubmit(values){
-		 console.log(values,"00000")
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
 	 }
@@ -285,13 +283,41 @@ class ZhuanHuan extends React.Component{
 		 const {onCancel} = this.props;
 		onCancel && onCancel();
 	 }
-
+	 //分组名实时校验
 	 groupNameCheck=(values)=>{
-		 	console.log(values);
-	 }
-	 sortCheck=()=>{
+		 var _this=this;
+		 values=this.Trim(values);
+		 Store.dispatch(Actions.callAPI('groupNameCheck',{groupName:values,id:''})).then(function(data) {
+
+		 }).catch(function(err) {
+
+			 Notify.show([{
+				 message: err.message,
+				 type: 'danger',
+			 }]);
+		 });
 	 }
 
+	 //排序实时校验
+	 sortCheck=(values)=>{
+
+		 var _this=this;
+		 values=this.Trim(values);
+		 Store.dispatch(Actions.callAPI('sortCheck',{sort:values,id:''})).then(function(data) {
+
+		 }).catch(function(err) {
+
+			 Notify.show([{
+				 message: err.message,
+				 type: 'danger',
+			 }]);
+		 });
+
+	 }
+	 //去除前后空格
+	Trim=(str)=>{
+					return str.replace(/(^\s*)|(\s*$)/g, "");
+	}
 
 	render(){
 		const { error, handleSubmit, pristine, reset} = this.props;
@@ -300,19 +326,17 @@ class ZhuanHuan extends React.Component{
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
 				<KrField name="id" type="hidden" label="id"/>
-				<KrField grid={1/2} right={68} name="agroupName" component="text" label="分组名称" requireLabel={true} onChange={function(){
-					 console.log('-----')
-				}}/>
-				<KrField grid={1/2} right={68} name="sort" type="text" label="排序" requireLabel={true} style={{marginLeft:"-38"}}/>
-				<KrField grid={1} name="nable" component="group" label="启用状态" requireLabel={true}>
-					<KrField name="enableflag" label="是" component="radio" type="radio" value="ENABLE"/>
-						<KrField name="enableflag" label="否"  component="radio"  type="radio" value="DISABLE" />
+				<KrField grid={1/2} right={68} name="groupName" comp="text" label="分组名称" requireLabel={true} onChange={this.groupNameCheck}/>
+				<KrField grid={1/2} right={68} name="sort" type="text" label="排序" requireLabel={true} style={{marginLeft:"-38"}} onChange={this.sortCheck}/>
+				<KrField grid={1} name="enable" component="group" label="启用状态" requireLabel={true}>
+					<KrField name="enable" label="是" component="radio" type="radio" value="ENABLE"/>
+						<KrField name="enable" label="否"  component="radio"  type="radio" value="DISABLE" />
 				</KrField>
 				<KrField grid={1/2} label="数据模板" requireLabel={true} name="groupDesc" component="labelText"/>
 				<Switchover allData={this.state.moduleData} okData={[]} changeMudle={this.props.changeMudle}/>
 
 
-			<KrField name="accountdesc" right={102} component="textarea" label="分组描述"  />
+			<KrField name="groupDesc" right={102} component="textarea" label="分组描述"  />
 
 				<Grid style={{marginTop:30}}>
 					<Row>
@@ -329,15 +353,15 @@ class ZhuanHuan extends React.Component{
 	}
 }
 const validate = values =>{
-
 		const errors = {}
-
-		if(!values.agroupName){
-			errors.agroupName = '请填写分组名称';
+		if(!values.groupName){
+			errors.groupName = '请填写分组名称';
 		}
-
 		if (!values.sort) {
-			errors.sort = '请输入排序';
+
+			errors.sort = '排序值不能为空';
+		}else if(isNaN(+values.sort)){
+			errors.sort = '请输入数字';
 		}
 
 		if (!values.accounttype) {
