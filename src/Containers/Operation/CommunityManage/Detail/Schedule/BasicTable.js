@@ -41,10 +41,10 @@ import ItemTable from './ItemTable';
 import DismantlingForm from './DismantlingForm';
 
 class SearchForm extends Component {
-	static contextTypes = {
-		onSetCommunity: React.PropTypes.func.isRequired,
-		communityId: React.PropTypes.string.isRequired,
-	}
+	// static contextTypes = {
+	// 	onSetCommunity: React.PropTypes.func.isRequired,
+	// 	communityId: React.PropTypes.string.isRequired,
+	// }
 	static defaultProps = {
 		tab: '',
 		Ids: React.PropTypes.string,
@@ -151,7 +151,7 @@ class SearchForm extends Component {
 			})
 		}
 
-		this.context.onSetCommunity(id);
+		// this.context.onSetCommunity(id);
 		const {
 			onChange
 		} = this.props;
@@ -203,10 +203,10 @@ SearchForm = reduxForm({
 
 
 export default class BasicTable extends Component {
-	static contextTypes = {
-		onSetCommunity: React.PropTypes.func.isRequired,
-		communityId: React.PropTypes.string.isRequired,
-	}
+	// static contextTypes = {
+	// 	onSetCommunity: React.PropTypes.func.isRequired,
+	// 	communityId: React.PropTypes.string.isRequired,
+	// }
 
 
 	constructor(props, context) {
@@ -750,7 +750,7 @@ export default class BasicTable extends Component {
 			showNone = false;
 		}
 
-		console.log('----123456', this.context)
+		// console.log('----123456', this.context)
 
 		return (
 			<div style={{position:'relative'}}>

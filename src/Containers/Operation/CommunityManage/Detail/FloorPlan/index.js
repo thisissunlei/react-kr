@@ -40,10 +40,10 @@ import {
 
 
 export default class FloorPlan extends Component {
-	static contextTypes = {
-		onSetCommunity: React.PropTypes.func.isRequired,
-		communityId: React.PropTypes.string.isRequired,
-	}
+	// static contextTypes = {
+	// 	onSetCommunity: React.PropTypes.func.isRequired,
+	// 	communityId: React.PropTypes.string.isRequired,
+	// }
 	static defaultProps = {
 		tab: '',
 	}
