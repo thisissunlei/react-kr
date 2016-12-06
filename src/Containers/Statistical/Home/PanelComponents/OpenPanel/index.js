@@ -48,7 +48,7 @@ export default class Initialize  extends Component{
 			}
 
 		}
-
+		
 	}
     
    
@@ -65,6 +65,7 @@ export default class Initialize  extends Component{
 		});
     }
    
+
    
 
     render(){   	
@@ -75,7 +76,7 @@ export default class Initialize  extends Component{
           Message.error('开始时间不能大于结束时间');    
         }
 
-	   //console.log('3333666',searchParams.startDate);
+	   //console.log('3333666',this.props.startDate);
         
 	return(
          <div className='open-back' style={{background:'#fff',marginBottom:'20'}}>
@@ -100,10 +101,11 @@ export default class Initialize  extends Component{
 						ajaxUrlName='openCompanyData'
 						ajaxFieldListName="list"
 						ajaxParams={this.state.searchParams}
+						
 						  >
 					<TableHeader>
 					<TableHeaderColumn>城市</TableHeaderColumn>
-					<TableHeaderColumn>社区<Tooltip style={{visibility:'visible'}} place='top'>123</Tooltip></TableHeaderColumn>
+					<TableHeaderColumn>社区</TableHeaderColumn>
 					<TableHeaderColumn>总工位</TableHeaderColumn>
 					<TableHeaderColumn>可出租工位</TableHeaderColumn>
 					<TableHeaderColumn>已出租工位</TableHeaderColumn>
@@ -111,18 +113,19 @@ export default class Initialize  extends Component{
 					<TableHeaderColumn>出租率</TableHeaderColumn>
 					<TableHeaderColumn>上期出租率</TableHeaderColumn>
 					<TableHeaderColumn>出租率变化</TableHeaderColumn>
-					<TableHeaderColumn>出租率(不含意向)</TableHeaderColumn>
+					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>出租率</span><span style={{display:'inline-block',lineHeight:'16px'}}>(不含意向)</span></TableHeaderColumn>
 					<TableHeaderColumn>环比</TableHeaderColumn>
-					<TableHeaderColumn>新增意向工位</TableHeaderColumn>
-					<TableHeaderColumn>累计意向工位</TableHeaderColumn>
+					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>新增</span><span style={{display:'inline-block',lineHeight:'16px'}}>意向工位</span></TableHeaderColumn>
+					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>累计</span><span style={{display:'inline-block',lineHeight:'16px'}}>意向工位</span></TableHeaderColumn>
 					<TableHeaderColumn>平均单价</TableHeaderColumn>
+
 				</TableHeader>
 
 				<TableBody>
 						 <TableRow>
 						<TableRowColumn name="cityName"></TableRowColumn>
-						<TableRowColumn name="communityName"   component={(value,oldValue)=>{
-                             return (<Tooltip style={{visibility:'visible'}} place='top'>123</Tooltip>)
+						<TableRowColumn name="communityName" className='cityTu' component={(value,oldValue)=>{
+                             return (<div><span className='tableOver'>{value}</span><Tooltip style={{visibility:'visible'}} place='top'>{value}</Tooltip></div>)
 						}} ></TableRowColumn>
 						<TableRowColumn name="totalStation"></TableRowColumn>
 						<TableRowColumn name="unUsedStation" ></TableRowColumn>

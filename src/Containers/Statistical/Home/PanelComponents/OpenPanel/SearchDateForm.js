@@ -37,13 +37,11 @@ class SearchDateForm extends Component {
 
 	constructor(props) {
 		super(props);
-
-		
-
+	
+        
 	}
 	componentDidMount() {
-
-
+          
 	}
 	
     onStartChange=(value)=>{
@@ -98,5 +96,5 @@ class SearchDateForm extends Component {
 
 
 export default reduxForm({
-	form: 'SearchDateForm'
+	form: 'searchDateForm'
 })(SearchDateForm);
