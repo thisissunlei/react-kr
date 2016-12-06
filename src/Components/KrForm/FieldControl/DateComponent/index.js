@@ -149,7 +149,8 @@ export default class DateComponent extends React.Component {
 			placeholder,
 			style,
 			defaultValue,
-			inline
+			inline,
+			contentStyle
 		} = this.props;
 
 		const styles = {
@@ -164,7 +165,7 @@ export default class DateComponent extends React.Component {
 
 		return (
 
-			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
+			<WrapComponent label={label} wrapStyle={style} contentStyle={contentStyle} requireLabel={requireLabel} inline={inline} search={search}>
 					<div className="date-component">
 
 							<span className="date-input"> {(input.value && DateFormat(input.value,"yyyy-mm-dd")) || placeholder || '日期'} <span className="icon"></span></span>
