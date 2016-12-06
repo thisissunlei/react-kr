@@ -206,7 +206,7 @@ export default class D3Content extends Component {
 					var obj = value;
 					obj.arr =[];
 					obj.arr.concat(value.plan);
-					let node = $.extend(item, value);
+					let node = $.extend(item, obj);
 					sameNode.push(node);
 				}
 			});
