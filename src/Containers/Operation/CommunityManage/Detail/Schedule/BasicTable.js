@@ -416,6 +416,7 @@ export default class BasicTable extends Component {
 			totalPages,
 			isIscroll,
 			value,
+			currentYear
 		} = this.state
 
 		var _this = this;
@@ -425,8 +426,8 @@ export default class BasicTable extends Component {
 			value: value,
 			type: type,
 			page: 1,
-			pageSize: pageSize
-
+			pageSize: pageSize,
+			year:currentYear
 		})).then(function(response) {
 			_this.setState({
 				Installmentplan: response.vo.items || [],
@@ -584,7 +585,6 @@ export default class BasicTable extends Component {
 				var list = response.vo.items;
 				var totalCount = response.vo.totalCount;
 				var totalPages = response.vo.totalPages;
-				console.log('-----getInstallmentplan', list);
 			} else {
 				var list = [];
 				var totalCount = 0;
