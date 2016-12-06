@@ -25,7 +25,6 @@ import {
 	CheckboxGroup,
 	RadioGroup,
 	Message,
-	DemoComponent,
 	Tooltip,
 	KrForm,
 	DemoComponent,
@@ -92,26 +91,7 @@ export default class Demo extends Component{
 						      className="icon-basis"
 						      style={{marginRight:'20px',color:'#499df1',fontSize:20}}
 						    />
-						    <ul>
-						    	{list.map((item,index)=>{
-						    		return (
-						    			<li key={index} className='tooltip-li'>
-						    				<div>
-						    				{index}
-							    				<Tooltip place="right">
-													<p>12345</p>
-													<p>12345</p>
-													<p>12345</p>
-													<p>12345</p>
-													<p>12345</p>
-													
-												</Tooltip>
-						    				</div>
-
-						    			</li>
-						    			)
-						    	})}
-						    </ul>
+					
 						 <FlatButton icon={<FontIcon className={'icon-basis'} />} style={{color:'#499df1',height:36,width:100}} />
 						<div className="tooltip" >
 							<Tooltip place="top">
