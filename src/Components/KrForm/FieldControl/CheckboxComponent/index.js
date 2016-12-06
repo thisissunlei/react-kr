@@ -1,6 +1,8 @@
 import React from 'react';
 
-export default class RadioComponent  extends React.Component{
+export default class CheckboxComponent  extends React.Component{
+
+  static displayName = 'CheckboxComponent';
 
 	constructor(props){
 		super(props)
@@ -16,7 +18,7 @@ export default class RadioComponent  extends React.Component{
 
 		return (
 			<span style={Styles}>
-					<input {...input} placeholder={placeholder|| label} type="radio" disabled={disabled}/>
+					<input {...input} placeholder={placeholder|| label} type="checkbox" disabled={disabled}/>
 					<span style={{paddingLeft:5}}>{label}</span>
 			</span>
 		)

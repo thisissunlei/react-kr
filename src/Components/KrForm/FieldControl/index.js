@@ -9,6 +9,8 @@ import FileUploadComponent from './FileUploadComponent';
 import DateComponent from './DateComponent';
 import SelectComponent from './SelectComponent';
 import SearchPersonelComponent from './SearchPersonelComponent';
+import RadioComponent from './RadioComponent';
+import CheckboxComponent from './CheckboxComponent';
 
 export default class KrField extends React.Component {
 
@@ -111,6 +113,21 @@ export default class KrField extends React.Component {
 										<Field {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
 									);
 								}
+
+
+						if (component === 'radio' || type == 'radio') {
+									return (
+										<Field {...this.props} component={RadioComponent}  style={WrapStyles}/>
+									);
+							}
+
+
+													if (component === 'checkbox' || type == 'checkbox') {
+																return (
+																	<Field {...this.props} component={CheckboxComponent}  style={WrapStyles}/>
+																);
+														}
+
 
 
 		return (

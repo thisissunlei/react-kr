@@ -155,9 +155,9 @@ export default class Field extends React.Component{
     const {name,children,minLength,maxLength,errors,requiredValue,component} = this.props;
 
 	  return (
-      <div>
+      <span>
        {this.renderComponent(component)}
-      </div>
+     </span>
 	 );
 	}
 
