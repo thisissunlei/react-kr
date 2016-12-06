@@ -324,25 +324,24 @@ class ZhuanHuan extends React.Component{
 	 }
 	 //去除前后空格
 	Trim=(str)=>{
+				str=str.toString();
 					return str.replace(/(^\s*)|(\s*$)/g, "");
-	}
+				}
 
 	render(){
-		// cosole.log(this.state.detail,"//////////")
 		const { error, handleSubmit, pristine, reset} = this.props;
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
 				<KrField name="id" type="hidden" label="id"/>
-				<KrField grid={1/2} right={68} name="groupName" type="text" label="分组名称" requireLabel={true} onChange={this.groupNameCheck}/>
-				<KrField grid={1/2} right={68} name="sort" type="text" label="排序" requireLabel={true} style={{marginLeft:"-38"}} onChange={this.sortCheck}/>
+				<KrField grid={1/2} right={68} name="groupName" type="text" label="分组名称" requireLabel={true} onBlur={this.groupNameCheck}/>
+				<KrField grid={1/2} right={68} name="sort" type="text" label="排序" requireLabel={true} style={{marginLeft:"-38"}} onBlur={this.sortCheck}/>
 				<KrField grid={1} name="enable" component="group" label="启用状态" requireLabel={true}>
 					<KrField name="enable" label="是" component="radio" type="radio" value="ENABLE"/>
 						<KrField name="enable" label="否"  component="radio"  type="radio" value="DISABLE" />
 				</KrField>
 				<KrField grid={1/2} label="数据模板" requireLabel={true} component="labelText"/>
-				<Switchover allData={this.state.detail.templateList} okData={this.state.detail.unselectedList} changeMudle={this.props.changeMudle}/>
-
+				<Switchover allData={this.state.detail.unselectedList} okData={this.state.detail.templateList} changeMudle={this.props.changeMudle}/>
 
 			<KrField right={102} name="accountdesc" component="textarea" label="分组描述"  />
 
