@@ -69,6 +69,7 @@ export default class Demo extends Component{
 
 
 	render(){
+		let list = [{a:1},{b:1},{c:3},{s:9},{e:2}]
 		return(
 			<div>
 
@@ -102,12 +103,11 @@ export default class Demo extends Component{
 							<FieldControl name="demn22ame" label="其它:" component="file"  requiredValue={true} errors={{requiredValue:'必填'}}/>
 
 						<FieldControl name="demn3322342ame" type="text" label="其它" component="input"/>
-
 							<FontIcon
 						      className="icon-basis"
 						      style={{marginRight:'20px',color:'#499df1',fontSize:20}}
 						    />
-					
+
 						 <FlatButton icon={<FontIcon className={'icon-basis'} />} style={{color:'#499df1',height:36,width:100}} />
 						<div className="tooltip" >
 							<Tooltip place="top">
@@ -133,14 +133,10 @@ export default class Demo extends Component{
 								<a href="https://www.baidu.com" target="_blank">baidu1</a>
 							</Tooltip>
 						</div>
-							<FieldControl name="demn33ame" label="其它:" component="labelText" value="你的直接" inline={false}/>
+						<form style={{marginBottom:400}}>
+							<KrField grid={1/2} label='city' component='city' />
 
-								<FieldControl name="demn3ame" label="其它:" component="group" value="你的直接" inline={false}/>
-									<FieldControl name="username" type="text" label="用户名" component="input" defaultValue={this.state.userNameDefaultValue} requiredValue={true} minLength={10} errors={{minLength:'用户名最少为10字符',requiredValue:'用户名为必填项'}}/>
-								<FieldControl name="password" type="text" label="密码" component="input"  requiredValue={true} maxLength={20} errors={{maxLength:'最大为20个字符',requiredValue:'要有密码'}}/>
-
-							<Button type="submit" label="ok"/>
-						</KrForm>
+						    </form>
 
 
 					</Section>
