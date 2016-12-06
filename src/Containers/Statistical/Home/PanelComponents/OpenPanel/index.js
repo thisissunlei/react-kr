@@ -31,8 +31,8 @@ import SearchDateForm from './SearchDateForm';
 export default class Initialize  extends Component{
      
     static propTypes = {
-		 groupId:React.PropTypes.string,
-		 currentDate:React.PropTypes.string,
+		 groupId:React.PropTypes.number,
+		 startDate:React.PropTypes.string
 	}
 
 	constructor(props,context){
@@ -41,7 +41,7 @@ export default class Initialize  extends Component{
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	    this.state = {
 			searchParams: {
-				groupId:window.location.href.split('?')[1].split('&')[0].split('=')[1],
+				groupId:this.props.groupId,
 				startDate:'',
 				endDate:''
 			}
@@ -66,20 +66,20 @@ export default class Initialize  extends Component{
     }
     openOver=(event)=>{
     	var val=event.target.innerText;
-    	
+    	//console.log('wwww',val);
+
     }
 
     render(){
+    	
     	let {searchParams}=this.state;
         let start=Date.parse(dateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
         let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"));
         if(start>end){
           Message.error('开始时间不能大于结束时间');
+          
         }
 
-	 var date_1=window.location.href.split('&')[1];
-	 var date_2=date_1.split('=')[1];
-	 
 	
         
 	return(
@@ -93,7 +93,7 @@ export default class Initialize  extends Component{
 							 <span  className='static-upload'>实时更新</span>	
 							</Col> 
 							<Col align="right" md={8}> 
-							  <SearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange} date_2={date_2}/>
+							  <SearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange} date_2={this.props.startDate}/>
 							</Col> 
 						</Row>
 					</Grid>

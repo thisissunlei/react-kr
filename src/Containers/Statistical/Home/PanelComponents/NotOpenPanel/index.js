@@ -31,8 +31,8 @@ import SearchNotDateForm from './SearchNotDateForm';
 export default class Initialize  extends Component{
      
     static propTypes = {
-		 groupId:React.PropTypes.string,
-		 currentDate:React.PropTypes.string,
+		groupId:React.PropTypes.number,
+		startDate:React.PropTypes.string
 	}
 
 	constructor(props,context){
@@ -41,7 +41,7 @@ export default class Initialize  extends Component{
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	    this.state = {
 			searchParams: {
-				groupId:window.location.href.split('?')[1].split('&')[0].split('=')[1],
+				groupId:this.props.groupId,
 				startDate:'',
 				endDate:''
 			}
@@ -73,8 +73,7 @@ export default class Initialize  extends Component{
           Message.error('开始时间不能大于结束时间');
         }
 	   
-	 var date_1=window.location.href.split('&')[1];
-	 var date_2=date_1.split('=')[1];
+	
         
 		return(
           <div className='notOpenBack' style={{background:'#fff',marginBottom:'20'}}>
@@ -87,7 +86,7 @@ export default class Initialize  extends Component{
 							 <span  className='static-upload'>实时更新</span>	
 							</Col> 
 							<Col align="right" md={8}> 
-							  <SearchNotDateForm onStartNotChange={this.onStartNotChange} onEndNotChange={this.onEndNotChange} date_2={date_2}/>
+							  <SearchNotDateForm onStartNotChange={this.onStartNotChange} onEndNotChange={this.onEndNotChange} date_2={this.props.startDate}/>
 							</Col> 
 						</Row>
 					</Grid>

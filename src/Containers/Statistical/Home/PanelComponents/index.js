@@ -36,53 +36,54 @@ export default class PanelComponents  extends Component{
 
 	static propTypes = {
 		 panels:React.PropTypes.array,
-		 groupId:React.PropTypes.string
+		 groupId:React.PropTypes.number
 	}
 
 	constructor(props,context){
 		super(props, context);
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 		 this.state = {			
-			    groupId:this.props.groupId,
 				startDate:'',
 		}
 	}
 
 	componentDidMount() {
 		var _this = this;
-		Store.dispatch(Actions.callAPI('openCompanyData')).then(function(response) {
-       
+		Store.dispatch(Actions.callAPI('openCompanyData',{
+			groupId:_this.props.groupId
+		})).then(function(response){
             _this.setState({			
 					startDate:response.today,						
-			},function(){
-				let {groupId,startDate}=this.state;
-				var url='http://local.krspace.cn/#/statistical/index?groupId='+groupId+'&startDate='+startDate
-                window.location.href=url;
 			})
-
 		}).catch(function(err) {
 			Message.error(err);
-		});
-
-            
-           
-           
-      
+		});                
 	}
 
 	render(){
         
          
-		let {panels}=this.props;
-		//console.log('www444',window.location.href);
+		let {panels,groupId}=this.props;
+		let {startDate}=this.state;
 
+		console.log('33333',startDate);
 		var renderComponent = [];
+		var props = {
+			groupId
+		};
+
 		panels.map(function(item,index){
-			var childComponentName = PanelsDic[item.templateNo];
+			var childComponentName = PanelsDic[item.id];
 			if(childComponentName){
-				renderComponent.push(<div key={index}>{childComponentName}</div>);
+				props.key = index;
+				props.startDate=startDate;
+				renderComponent.push(React.cloneElement(childComponentName,{
+					...props
+				}));
 			}
 		});
+
+		//<div key={index}>{childComponentName}</div>
 		
 		return(
 			<div>

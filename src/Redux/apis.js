@@ -376,12 +376,12 @@ const APIS = {
 	},
 	//数据统计-集团经营-招商数据已开业
 	'openCompanyData': {
-		url: '/mockjsdata/13/krspace-finance-web/stat/merchant/actions/open?endDate={endDate}&startDate={startDate}&groupId={groupId}',
+		url: '/api/krspace-finance-web/stat/merchant/actions/open?endDate={endDate}&startDate={startDate}&groupId={groupId}',
 		method: 'get'
 	},
 	//数据统计-集团经营-获取当前登陆人的组合模块
 	'get-my-groups': {
-		url: '/mockjsdata/13/krspace-finance-web/stat/group/actions/get-my-groups',
+		url: '/api/krspace-finance-web/stat/group/actions/get-my-groups',
 		method: 'get'
 	},
 	//数据统计-集团经营-招商数据未开业
