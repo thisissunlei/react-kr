@@ -319,7 +319,7 @@ class ZhuanHuan extends React.Component{
 					return str.replace(/(^\s*)|(\s*$)/g, "");
 	}
 
-	
+
 	render(){
 		const { error, handleSubmit, pristine, reset} = this.props;
 
@@ -327,8 +327,10 @@ class ZhuanHuan extends React.Component{
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
 				<KrField name="id" type="hidden" label="id"/>
-				<KrField grid={1/2} right={68} name="groupName" comp="text" label="分组名称" requireLabel={true} onBlur={this.groupNameCheck}/>
-				<KrField grid={1/2} right={68} name="sort" type="text" label="排序" requireLabel={true} style={{marginLeft:"-38"}} onBlur={this.sortCheck}/>
+
+
+				<KrField grid={1/2} style={{marginTop:25}} right={25} name="groupName" type="text" label="分组名称" requireLabel={true} onBlur={this.groupNameCheck}/>
+				<KrField grid={1/2} right={25} name="sort" type="text" label="排序" requireLabel={true} style={{marginTop:25}} onBlur={this.sortCheck}/>
 				<KrField grid={1} name="enable" component="group" label="启用状态" requireLabel={true}>
 					<KrField name="enable" label="是" component="radio" type="radio" value="ENABLE"/>
 						<KrField name="enable" label="否"  component="radio"  type="radio" value="DISABLE" />
@@ -337,9 +339,9 @@ class ZhuanHuan extends React.Component{
 				<Switchover allData={this.state.moduleData} okData={[]} changeMudle={this.props.changeMudle}/>
 
 
-			<KrField name="groupDesc" right={102} component="textarea" label="分组描述"  />
+			<KrField name="groupDesc" style={{width:558}} component="textarea" label="分组描述"  />
 
-				<Grid style={{marginTop:30}}>
+				<Grid style={{marginTop:0,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>

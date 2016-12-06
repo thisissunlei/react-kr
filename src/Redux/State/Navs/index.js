@@ -458,6 +458,10 @@ module.exports = {
 					menuCode: 'sysmenuadmin',
 					router: 'sysmenuadmin',
 					originUrl: '/sys/sysfunrights/sysMenu/toSysMenuList?mid=9'
+				},{
+					primaryText: '数据模板管理',
+					menuCode: 'sysmenuadmin',
+					originUrl: '/statistical/groupSetting'
 				},
 
 			]
