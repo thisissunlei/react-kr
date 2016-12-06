@@ -42,8 +42,7 @@ class SearchNotDateForm extends Component {
 
 	}
 	componentDidMount() {
-
-
+    
 	}
 	
     onStartNotChange=(value)=>{

@@ -37,13 +37,12 @@ class SearchDateForm extends Component {
 
 	constructor(props) {
 		super(props);
-
-		
-
+	  //Store.dispatch(change('SearchDateForm','startDate',this.props.date_2));
+      //Store.dispatch(change('SearchDateForm','endDate',this.props.date_2));
+        
 	}
 	componentDidMount() {
-
-
+        
 	}
 	
     onStartChange=(value)=>{

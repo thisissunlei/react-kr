@@ -103,7 +103,7 @@ export default class Initialize  extends Component{
 						  >
 					<TableHeader>
 					<TableHeaderColumn>城市</TableHeaderColumn>
-					<TableHeaderColumn>社区<Tooltip style={{visibility:'visible'}} place='top'>123</Tooltip></TableHeaderColumn>
+					<TableHeaderColumn>社区</TableHeaderColumn>
 					<TableHeaderColumn>总工位</TableHeaderColumn>
 					<TableHeaderColumn>可出租工位</TableHeaderColumn>
 					<TableHeaderColumn>已出租工位</TableHeaderColumn>
@@ -111,17 +111,17 @@ export default class Initialize  extends Component{
 					<TableHeaderColumn>出租率</TableHeaderColumn>
 					<TableHeaderColumn>上期出租率</TableHeaderColumn>
 					<TableHeaderColumn>出租率变化</TableHeaderColumn>
-					<TableHeaderColumn>出租率(不含意向)</TableHeaderColumn>
+					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block'}}>出租率</span><span style={{display:'inline-block'}}>(不含意向)</span></TableHeaderColumn>
 					<TableHeaderColumn>环比</TableHeaderColumn>
-					<TableHeaderColumn>新增意向工位</TableHeaderColumn>
-					<TableHeaderColumn>累计意向工位</TableHeaderColumn>
+					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block'}}>新增</span><span style={{display:'inline-block'}}>意向工位</span></TableHeaderColumn>
+					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block'}}>累计</span><span style={{display:'inline-block'}}>意向工位</span></TableHeaderColumn>
 					<TableHeaderColumn>平均单价</TableHeaderColumn>
 				</TableHeader>
 
 				<TableBody>
 						 <TableRow>
 						<TableRowColumn name="cityName"></TableRowColumn>
-						<TableRowColumn name="communityName"   component={(value,oldValue)=>{
+						<TableRowColumn name="communityName"  component={(value,oldValue)=>{
                              return (<Tooltip style={{visibility:'visible'}} place='top'>123</Tooltip>)
 						}} ></TableRowColumn>
 						<TableRowColumn name="totalStation"></TableRowColumn>

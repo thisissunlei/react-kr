@@ -119,7 +119,6 @@ export default class Home  extends Component{
 	}
 
 	componentDidMount() {
-
 		var _this = this;
 		Store.dispatch(Actions.callAPI('get-my-groups')).then(function(response) {
 		   _this.setState({
