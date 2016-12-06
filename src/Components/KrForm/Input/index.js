@@ -43,15 +43,23 @@ export default  class Input extends React.Component {
 		this.onChange = this.onChange.bind(this);
 
 		this.state = {
-			value:this.props.defaultValue
+			value:this.props.defaultValue,
+			defaultValue:this.props.defaultValue
 		}
 
 	}
 
 	componentWillReceiveProps(nextProps) {
+		/*
 		if(nextProps.value != this.props.value){
 			 this.setState({
 				 value:nextProps.value
+			 });
+		}
+		*/
+		if(nextProps.defaultValue != this.props.defaultValue){
+			 this.setState({
+				 value:nextProps.defaultValue
 			 });
 		}
 	}
@@ -73,9 +81,11 @@ export default  class Input extends React.Component {
 
 			onChange && onChange(value);
 
+/*
 		let message = this.onValidate(value);
 		let {onError} = this.props;
 			onError && onError(message);
+			*/
 
 	}
 
