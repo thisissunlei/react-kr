@@ -6,7 +6,7 @@ export default class TableRowColumn extends React.Component {
 
 	static displayName = 'TableRowColumn';
 
-	static PropTypes = {
+	static propTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
 		columnNumber: React.PropTypes.number,
@@ -21,9 +21,8 @@ export default class TableRowColumn extends React.Component {
 		type: React.PropTypes.string,
 		format: React.PropTypes.string,
 		onFormatData:React.PropTypes.func,
+		component: React.PropTypes.func,
 	}
-
-
 
 	constructor(props) {
 		super(props);
@@ -72,6 +71,32 @@ export default class TableRowColumn extends React.Component {
 	}
 
 
+	renderValue = ()=>{
+
+		let { value, options, component } = this.props;
+
+		let oldValue = value;
+
+		//处理数据格式
+		value = this.onFormatData(value);
+
+		if (options && options.length) {
+			options.map(function(item, index) {
+				if (item.value == value) {
+					value = item.label;
+				}
+			});
+		}
+
+		if(typeof component === 'function'){
+		 	return component(value,oldValue);
+		}
+
+		return value;
+
+	}
+
+
 	render() {
 
 		let {
@@ -88,40 +113,28 @@ export default class TableRowColumn extends React.Component {
 			...other,
 		} = this.props;
 
-		//处理数据格式
-		value = this.onFormatData(value);
-
 		const handlers = {
 			onClick: this.onClick,
 			onMouseEnter: this.onMouseEnter,
 			onMouseLeave: this.onMouseLeave,
 		};
 
-		if (options && options.length) {
-			options.map(function(item, index) {
-				if (item.value == value) {
-					value = item.label;
-				}
-			});
-		}
-
-
 		if (name) {
 
 			if (type == 'date') {
 				return (
 					<td className={className} style={style} {...handlers} {...other}>
-						<KrDate value={value} format={format} />
+						<KrDate value={this.renderValue()} format={format} />
 					</td>
 				);
 			}
 			return (
 				<td className={className} style={style} {...handlers} {...other}>
-					{value}
+						{this.renderValue()}
 					</td>
 			);
-		}
 
+		}
 
 		if (type == 'operation') {
 
@@ -129,7 +142,6 @@ export default class TableRowColumn extends React.Component {
 
 			React.Children.map(children, (child) => {
 				if (!React.isValidElement(child)) return;
-
 
 				let {
 					hidden
