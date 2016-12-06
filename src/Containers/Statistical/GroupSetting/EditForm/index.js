@@ -42,6 +42,19 @@ class Switchover extends Component{
 			_this.props.changeMudle(_this.state.okData)
 		});
   }
+	//数组的状态
+	swapItems =(arr, index1, index2)=> {
+
+			var _this=this;
+       arr[index1] = arr.splice(index2, 1, arr[index1])[0];
+       this.setState({okData:arr},function(){
+	 			_this.props.changeMudle(_this.state.okData)
+	 		});
+   }
+
+
+
+
   render(){
 		var boxStyle={
 			marginLeft:"10px",
@@ -74,6 +87,7 @@ class Switchover extends Component{
           <ZhuanHuan  iconShow="true"
                       Data={this.state.okData}
                       addOther={this.leftAdd.bind(this)}
+											swapItems={this.swapItems}
                       />
       </div>
     );
@@ -97,24 +111,21 @@ class ZhuanHuan extends React.Component{
        arr[index1] = arr.splice(index2, 1, arr[index1])[0];
        this.setState({mouldSort:arr});
    }
-   //上移
-  upMove(index,event){
+	 //上移
+  upMove=(index,event)=>{
     if(index==0){
       return;
     }
-     this.swapItems(this.state.mouldSort, index, index- 1);
-     console.log(React.SyntheticEvent);
+     this.props.swapItems(this.state.mouldSort, index, index- 1);
 
 
   }
   //下移
-  downMove(index,event){
+  downMove=(index,event)=>{
     if(index == this.state.mouldSort.length -1) {
            return;
        }
-
-    this.state.mouldSort=this.swapItems(this.state.mouldSort, index, index + 1);
-
+			 this.props.swapItems(this.state.mouldSort, index, index + 1);
   }
   upArrow(index){
     return index>0?true:false;
@@ -282,14 +293,49 @@ class ZhuanHuan extends React.Component{
 		onCancel && onCancel();
 	 }
 
+	 //分组名实时校验
+	 groupNameCheck=(values)=>{
+		 var _this=this;
+		 values=this.Trim(values);
+		 Store.dispatch(Actions.callAPI('groupNameCheck',{groupName:values,id:this.props.detail.id})).then(function(data) {
+
+		 }).catch(function(err) {
+			 Notify.show([{
+				 message: err.message,
+				 type: 'danger',
+			 }]);
+		 });
+	 }
+
+	 //排序实时校验
+	 sortCheck=(values)=>{
+
+		 var _this=this;
+		 values=this.Trim(values);
+		 Store.dispatch(Actions.callAPI('sortCheck',{sort:values,id:this.props.detail.id})).then(function(data) {
+
+		 }).catch(function(err) {
+			 Notify.show([{
+				 message: err.message,
+				 type: 'danger',
+			 }]);
+		 });
+
+	 }
+	 //去除前后空格
+	Trim=(str)=>{
+					return str.replace(/(^\s*)|(\s*$)/g, "");
+	}
+
 	render(){
+		// cosole.log(this.state.detail,"//////////")
 		const { error, handleSubmit, pristine, reset} = this.props;
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
 				<KrField name="id" type="hidden" label="id"/>
-				<KrField grid={1/2} right={68} name="groupName" type="text" label="分组名称" requireLabel={true} />
-				<KrField grid={1/2} right={68} name="sort" type="text" label="排序" requireLabel={true} style={{marginLeft:"-38"}}/>
+				<KrField grid={1/2} right={68} name="groupName" type="text" label="分组名称" requireLabel={true} onChange={this.groupNameCheck}/>
+				<KrField grid={1/2} right={68} name="sort" type="text" label="排序" requireLabel={true} style={{marginLeft:"-38"}} onChange={this.sortCheck}/>
 				<KrField grid={1} name="enable" component="group" label="启用状态" requireLabel={true}>
 					<KrField name="enable" label="是" component="radio" type="radio" value="ENABLE"/>
 						<KrField name="enable" label="否"  component="radio"  type="radio" value="DISABLE" />
