@@ -33,13 +33,13 @@ export default class  WrapComponent extends React.Component {
 
 	render(){
 
-		let {requireLabel,alignRight,label,search,children,wrapStyle,style,inline,requireBlue,simple} = this.props;
+		let {requireLabel,alignRight,label,search,children,wrapStyle,style,inline,requireBlue,simple,contentStyle} = this.props;
 
 		if(simple){
 
 			return (
 				<FormItem style={wrapStyle}>
-					<FormController simple={simple}>
+					<FormController simple={simple} style={contentStyle}>
 						{children}
 					</FormController>
 				</FormItem>
@@ -47,25 +47,17 @@ export default class  WrapComponent extends React.Component {
 
 		}
 
+
+		contentStyle = Object.assign({},contentStyle,style);
+
+
 		return (
 				<FormItem style={wrapStyle}>
 					<FormLabel label={label}  alignRight={alignRight} search={search} requireLabel={requireLabel} inline={inline} requireBlue={requireBlue}/>
-					<FormController style={style} search={search} inline={inline} alignRight={alignRight} requireBlue={requireBlue}>
+					<FormController style={contentStyle} search={search} inline={inline} alignRight={alignRight} requireBlue={requireBlue}>
 						{children}
 					</FormController>
 				</FormItem>
 			);
-
-
 	}
 }
-
-
-
-
-
-
-
-
-
-

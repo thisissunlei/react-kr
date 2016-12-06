@@ -22,6 +22,9 @@ export default class  WrapComponent extends React.Component {
 
 		let {requireLabel,label,inline, search,requireBlue, alignRight} = this.props;
 
+		if(!label){
+			return null;
+		}
 		let className = 'ui-form-label';
 
 		if(inline){

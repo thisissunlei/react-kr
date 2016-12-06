@@ -16,10 +16,12 @@ export default class  GroupComponent extends React.Component {
 
 	render(){
 
-		let {requireLabel,requireBlue,label,children,style,inline} = this.props;
+		let {requireLabel,requireBlue,label,children,style,inline,contentStyle} = this.props;
+
+			contentStyle= Object.assign({},contentStyle,{paddingLeft:0});
 
 			return (
-				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} requireBlue={requireBlue}>
+				<WrapComponent label={label} wrapStyle={style} contentStyle={contentStyle} requireLabel={requireLabel} inline={inline} requireBlue={requireBlue}>
 					{children}
 				</WrapComponent>
 				);
