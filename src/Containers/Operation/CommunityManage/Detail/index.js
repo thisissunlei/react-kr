@@ -40,12 +40,12 @@ export default class CommunityManage extends Component {
 		onSetCommunity: React.PropTypes.func.isRequired,
 	}
 
-	getChildContext() {
+	/*getChildContext() {
 		return {
 			onSetCommunity: this.onSetCommunity,
 			communityId: this.state.communityId
 		};
-	}
+	}*/
 
 	constructor(props, context) {
 		super(props, context);
@@ -63,11 +63,11 @@ export default class CommunityManage extends Component {
 
 	}
 
-	onSetCommunity = (communityId) => {
+	/*onSetCommunity = (communityId) => {
 		this.setState({
 			communityId
 		});
-	}
+	}*/
 
 	Floorplan() {
 		let {
