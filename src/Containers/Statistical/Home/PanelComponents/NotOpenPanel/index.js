@@ -105,9 +105,9 @@ export default class Initialize  extends Component{
 					<TableHeaderColumn>社区</TableHeaderColumn>
 					<TableHeaderColumn>总工位</TableHeaderColumn>
 					<TableHeaderColumn>可出租工位</TableHeaderColumn>
-					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block'}}>开业</span><span style={{display:'inline-block'}}>第一个月出租率</span></TableHeaderColumn>
-					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block'}}>开业</span><span style={{display:'inline-block'}}>第二个月出租率</span></TableHeaderColumn>
-					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block'}}>开业</span><span style={{display:'inline-block'}}>第三个月出租率</span></TableHeaderColumn>
+					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>开业</span><span style={{display:'inline-block',lineHeight:'16px'}}>第一个月出租率</span></TableHeaderColumn>
+					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>开业</span><span style={{display:'inline-block',lineHeight:'16px'}}>第二个月出租率</span></TableHeaderColumn>
+					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>开业</span><span style={{display:'inline-block',lineHeight:'16px'}}>第三个月出租率</span></TableHeaderColumn>
 					<TableHeaderColumn>新增意向工位</TableHeaderColumn>					
 					<TableHeaderColumn>累计意向工位</TableHeaderColumn>
 					<TableHeaderColumn>平均单价</TableHeaderColumn>							

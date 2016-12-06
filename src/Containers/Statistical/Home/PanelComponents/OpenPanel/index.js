@@ -113,10 +113,10 @@ export default class Initialize  extends Component{
 					<TableHeaderColumn>出租率</TableHeaderColumn>
 					<TableHeaderColumn>上期出租率</TableHeaderColumn>
 					<TableHeaderColumn>出租率变化</TableHeaderColumn>
-					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block'}}>出租率</span><span style={{display:'inline-block'}}>(不含意向)</span></TableHeaderColumn>
+					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>出租率</span><span style={{display:'inline-block',lineHeight:'16px'}}>(不含意向)</span></TableHeaderColumn>
 					<TableHeaderColumn>环比</TableHeaderColumn>
-					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block'}}>新增</span><span style={{display:'inline-block'}}>意向工位</span></TableHeaderColumn>
-					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block'}}>累计</span><span style={{display:'inline-block'}}>意向工位</span></TableHeaderColumn>
+					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>新增</span><span style={{display:'inline-block',lineHeight:'16px'}}>意向工位</span></TableHeaderColumn>
+					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>累计</span><span style={{display:'inline-block',lineHeight:'16px'}}>意向工位</span></TableHeaderColumn>
 					<TableHeaderColumn>平均单价</TableHeaderColumn>
 
 				</TableHeader>
