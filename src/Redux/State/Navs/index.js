@@ -20,7 +20,11 @@ module.exports = {
 		router: 'index',
 		menuCode: 'index',
 		originUrl: '/'
-	}, {
+	},{
+		primaryText: "数据统计",
+		menuCode: 'index',
+		router: '/statistical/index',
+	},{
 		primaryText: "社区经营",
 		router: 'community',
 		menuCode: 'op_manage',
@@ -40,10 +44,6 @@ module.exports = {
 				originUrl: '/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=112'
 			}, ]
 		}, ],
-	},{
-		primaryText: "数据统计",
-		menuCode: 'index',
-		router: '/statistical/index',
 	},{
 		primaryText: "运营平台",
 		router: 'operation',
