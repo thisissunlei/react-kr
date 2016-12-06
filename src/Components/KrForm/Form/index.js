@@ -1,12 +1,17 @@
 import React from 'react';
 
+import {ShallowEqual} from 'kr/Utils';
 
 export default class KrForm  extends React.Component{
 
   static displayName = 'KrForm';
 
+  static defaultProps = {
+    initialValues:{}
+  }
   static propTypes = {
-    name:React.PropTypes.string
+    name:React.PropTypes.string,
+    initialValues:React.PropTypes.object,
   }
 
   static childContextTypes =  {
@@ -39,16 +44,29 @@ export default class KrForm  extends React.Component{
 	constructor(props,context){
 		super(props, context);
 
+    let {initialValues} = this.props;
+
     this.state = {
+      initialValues:initialValues,
       registeredFields:[],
       syncErrors:{},
       fields:{},
-      values:{},
+      values:initialValues,
       initial:{},
       validations:{}
     }
 
 	}
+
+  componentWillReceiveProps(nextProps) {
+
+    if(!ShallowEqual(nextProps.initialValues,this.props.initialValues)){
+        this.setState({
+          values:nextProps.initialValues
+        });
+    }
+
+  }
 
   error =  (fieldName,message='')=>{
 
