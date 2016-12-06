@@ -67,10 +67,16 @@ export default class Demo extends Component{
 
 
 									<FieldControl name="d23233" label="选择城市" component="group"  requiredValue={true} errors={{requiredValue:'请填写时间'}} >
-													<FieldControl name="d23233" label="北京" component="checkbox"/>
-													<FieldControl name="d23233" label="上海" component="checkbox"/>
-													<FieldControl name="d23233" label="深圳" component="checkbox"/>
+												<FieldControl name="d23233" label="北京" component="checkbox" />
+											<FieldControl name="d23233" label="上海" component="checkbox" />
+												<FieldControl name="d23233" label="深圳" component="checkbox"/>
 								</FieldControl>
+
+
+								<FieldControl name="d233" label="选择城市" component="group"  requiredValue={true} errors={{requiredValue:'请填写时间'}} >
+												<FieldControl grid={1/2} name="d23" component="date"  contentStyle={{paddingLeft:0}}/>
+											<FieldControl  grid={1/2} name="d2"  component="date" />
+							</FieldControl>
 
 									<FieldControl name="d" label="单选" component="radio"  requiredValue={true} errors={{requiredValue:'请填写时间'}}/>
 
