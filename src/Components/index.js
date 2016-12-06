@@ -40,6 +40,7 @@ import Message from './Message';
 import DemoComponent from './Demo';
 import Textarea from './Textarea';
 import 	DatePicker from './DatePicker';
+import 	Tooltip from './Tooltip';
 
 import {
 	Grid,
@@ -121,4 +122,5 @@ module.exports = {
 	SearchForms,
 	...Tabs,
 	PageHeader,
+	Tooltip
 }
