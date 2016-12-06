@@ -10,12 +10,19 @@ import ReactDOM from 'react-dom';
 import './index.less';
 export default class Tooltip extends Component {
 
+	static defaultProps = {
+		backgroundColor:"rgba(0,0,0,.7)",
+		ShadowColor:'#fff'
+	}
 
 	static PropTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
 		place:React.PropTypes.string,
 		tipName:React.PropTypes.string,
+		backgroundColor:React.PropTypes.string,
+		boxShadow:React.PropTypes.string,
+		ShadowColor:React.PropTypes.string,
 	}
 
 	constructor(props){
@@ -33,6 +40,7 @@ export default class Tooltip extends Component {
 		let {tipName} = this.props;
 		let node = ReactDOM.findDOMNode(this.tooltip);
 		let parent = node.parentNode;
+		// node.style.backgroundColor = backgroundColor;
 		parent.style.position = "relative";
 		parent.onmouseover = function(){
 			node.style.visibility = 'visible';
@@ -47,10 +55,13 @@ export default class Tooltip extends Component {
 	}
 
 	render() {
-		let {children,place} = this.props;
+		let {children,place,backgroundColor,boxShadow,ShadowColor} = this.props;
 		let {width,height} = this.state;
 		let className = 'ui-tooltip';
+		let arrowStyle = {};
+		let arrowContentStyle = {};
 		let arrowName = '';
+		let arrowContentName = '';
 		let style = {};
 		if(place === 'top' || place==='bottom'){
 			className+=' center';
@@ -61,25 +72,43 @@ export default class Tooltip extends Component {
 		if(place === 'right'){
 			style.right = '-'+ (width-5)+'px';
 			arrowName = 'right-arrow';
+			arrowContentName = 'right-arrows';
+			arrowStyle.borderRightColor = ShadowColor;
+			arrowContentStyle.borderRightColor = backgroundColor;
 		}
 		if(place === 'left'){
 			style.left = '-'+ (width-5)+'px';
 			arrowName = 'left-arrow';
+			arrowContentName = 'left-arrows';
+			arrowStyle.borderLeftColor = ShadowColor;
+			arrowContentStyle.borderLeftColor = backgroundColor;
+
 		}
 		if(place === 'top'){
 			style.top = '-'+(height-5)+'px';
 			arrowName = 'top-arrow';
+			arrowContentName = 'top-arrows';
+			arrowStyle.borderTopColor = ShadowColor;
+			arrowContentStyle.borderTopColor = backgroundColor;
+
 		}
 		if(place === 'bottom'){
 			style.bottom = '-'+(height-5)+'px';
 			arrowName = 'bottom-arrows';
+			arrowContentName = 'bottom-content-arrows';
+			arrowStyle.borderBottomColor = ShadowColor;
+			arrowContentStyle.borderBottomColor = backgroundColor;
+
 		}
-		
+		style.background = backgroundColor;
+		// style.boxShadow = '0 0 3px #499df1';
+		style.boxShadow = boxShadow;
 		
 
 		return(
 			<div className={className} ref={div=>{this.tooltip = div}} style={style}>
-				<span className={arrowName}></span>
+				<span className={arrowName} style={arrowStyle}></span>
+				<span className={arrowContentName} style={arrowContentStyle}></span>
 				{children}
 			</div>
 		);

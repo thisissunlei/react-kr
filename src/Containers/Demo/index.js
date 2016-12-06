@@ -114,7 +114,7 @@ export default class Demo extends Component{
 							</Tooltip>
 						</div>
 						<div className="tooltip" style={{marginTop:40}} data-for='tooltip1'>
-							<Tooltip place="bottom" tipName="tooltip1">
+							<Tooltip place="bottom" tipName="tooltip1" backgroundColor="#fff" ShadowColor="#499df1" boxShadow="0 0 3px #499df1">
 								<p>12345</p>
 								<p>12345</p>
 								<p>12345</p>
