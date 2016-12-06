@@ -195,8 +195,8 @@ export default class D3Content extends Component {
 		var that = this;
 		let finaBluePointVo = this.renderBlueNode();
 		let finaRedPointVo = this.renderRedNode();
-		finaBluePointVo = [].concat(finaBluePointVo);
-		finaRedPointVo = [].concat(finaRedPointVo);
+		finaBluePointVoList = [].concat(finaBluePointVo);
+		finaRedPointVoList = [].concat(finaRedPointVo);
 		let sameNode = [];
 
 		finaBluePointVo.map((item) => {
