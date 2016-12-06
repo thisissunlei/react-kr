@@ -64,10 +64,8 @@ export default class Initialize  extends Component{
 			searchParams
 		});
     }
-    openOver=(event)=>{
-    	var val=event.target.innerText;
-        
-    }
+   
+   
 
     render(){   	
     	let {searchParams}=this.state;	
@@ -122,10 +120,10 @@ export default class Initialize  extends Component{
 
 				<TableBody>
 						 <TableRow>
-						<TableRowColumn name="cityName"  component={(value,oldValue)=>{
-                             return (<Tooltip style={{visibility:'visible'}}>123</Tooltip>)
+						<TableRowColumn name="cityName"></TableRowColumn>
+						<TableRowColumn name="communityName"   component={(value,oldValue)=>{
+                             return (<Tooltip style={{visibility:'visible'}} place='top'>123</Tooltip>)
 						}} ></TableRowColumn>
-						<TableRowColumn name="communityName" onMouseOver={this.openOver.bind(this)}></TableRowColumn>
 						<TableRowColumn name="totalStation"></TableRowColumn>
 						<TableRowColumn name="unUsedStation" ></TableRowColumn>
 						<TableRowColumn name="usedStation"></TableRowColumn>
