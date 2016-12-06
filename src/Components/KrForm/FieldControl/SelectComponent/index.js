@@ -125,7 +125,6 @@ render() {
 		}
 		if (options) {
 
-			console.log('---options',options);
 			return (
 
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>

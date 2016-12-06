@@ -36,8 +36,6 @@ export default class  SearchPersonelComponent extends React.Component {
 		input.onChange(value);
 		onChange && onChange(item);
 
-		console.log(item);
-
 	}
 
 	getOptions(lastname){

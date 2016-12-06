@@ -70,7 +70,6 @@ export default class Field extends React.Component{
       let props = this.props;
       let {errors} = this.props;
 
-      console.log(errors,name);
       if(!errors){
           return ;
       }

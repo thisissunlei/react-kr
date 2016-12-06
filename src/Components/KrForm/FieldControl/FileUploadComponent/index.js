@@ -62,7 +62,6 @@ export default class FileUploadComponent extends React.Component {
 		let {
 			defaultValue
 		} = this.props;
-		console.log('---defaultValue', defaultValue);
 	}
 
 
@@ -163,7 +162,6 @@ export default class FileUploadComponent extends React.Component {
 
 		files.unshift(response);
 
-		console.log('files', files);
 		this.setState({
 			files,
 			progress: 0,
@@ -198,7 +196,6 @@ export default class FileUploadComponent extends React.Component {
 
 
 		let file = event.target.files[0];
-		console.log('file-----', file)
 		if (!file) {
 			return;
 		}
@@ -266,7 +263,6 @@ export default class FileUploadComponent extends React.Component {
 						}
 					};
 					xhrfile.onerror = function(e) {
-						console.error(xhr.statusText);
 					};
 
 					xhrfile.open('POST', '/api-old/krspace_oa_web/doc/docFile/uploadSingleFile', true);
@@ -279,7 +275,6 @@ export default class FileUploadComponent extends React.Component {
 		};
 
 		xhr.onerror = function(e) {
-			console.error(xhr.statusText);
 		};
 		xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
 		xhr.responseType = 'json';

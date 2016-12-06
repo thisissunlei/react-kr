@@ -120,7 +120,6 @@ export default class KrForm  extends React.Component{
     let {validations} = this.state;
     validations[name] = validation;
 
-    console.log('--->>>',validation,name);
     this.setState({
         validations
     });
@@ -206,8 +205,6 @@ export default class KrForm  extends React.Component{
         syncErrors,
         fields,
     });
-
-    console.log('--->>validate',syncErrors,fields);
 
     return valiabled;
 
