@@ -30,6 +30,7 @@ import {
 	DemoComponent,
 	Field,
 	FieldControl,
+	InputDate,
 } from 'kr-ui';
 
 import {
