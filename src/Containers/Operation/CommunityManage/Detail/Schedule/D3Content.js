@@ -239,6 +239,7 @@ export default class D3Content extends Component {
 		    sameNode.forEach(function(a){ unique[ JSON.stringify(a) ] = 1 });
 		    sameNode= Object.keys(unique).map(function(u){return JSON.parse(u) });
 		let NodeList = [sameNode,finaBluePointVoList,finaRedPointVo]; 
+		console.log('same',NodeList);
 		return NodeList;
 	}
 
