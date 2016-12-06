@@ -1,10 +1,10 @@
 import KrForm from './Form';
 import Field from './Field';
-import FieldItem from './FieldItem';
+import FieldControl from './FieldControl';
 
 
 module.exports = {
   KrForm,
   Field,
-  FieldItem,
+  FieldControl,
 }
