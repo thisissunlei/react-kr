@@ -22,6 +22,7 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Message,
+	Tooltip,
 	Form
 } from 'kr-ui';
 import './index.less';
@@ -104,7 +105,7 @@ export default class Initialize  extends Component{
 						  >
 					<TableHeader>
 					<TableHeaderColumn>城市</TableHeaderColumn>
-					<TableHeaderColumn>社区</TableHeaderColumn>
+					<TableHeaderColumn>社区<Tooltip style={{visibility:'visible'}} place='top'>123</Tooltip></TableHeaderColumn>
 					<TableHeaderColumn>总工位</TableHeaderColumn>
 					<TableHeaderColumn>可出租工位</TableHeaderColumn>
 					<TableHeaderColumn>已出租工位</TableHeaderColumn>
@@ -121,7 +122,9 @@ export default class Initialize  extends Component{
 
 				<TableBody>
 						 <TableRow>
-						<TableRowColumn name="cityName" ></TableRowColumn>
+						<TableRowColumn name="cityName"  component={(value,oldValue)=>{
+                             return (<Tooltip style={{visibility:'visible'}}>123</Tooltip>)
+						}} ></TableRowColumn>
 						<TableRowColumn name="communityName" onMouseOver={this.openOver.bind(this)}></TableRowColumn>
 						<TableRowColumn name="totalStation"></TableRowColumn>
 						<TableRowColumn name="unUsedStation" ></TableRowColumn>

@@ -22,6 +22,7 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Message,
+	Tooltip,
 	Form
 } from 'kr-ui';
 import './index.less';
