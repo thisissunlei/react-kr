@@ -48,7 +48,8 @@ export default class Initialize  extends Component{
 			}
 
 		}
-
+		console.log('------',this.props.startDate)
+		
 	}
     
    
@@ -65,6 +66,7 @@ export default class Initialize  extends Component{
 		});
     }
    
+
    
 
     render(){   	
@@ -75,7 +77,7 @@ export default class Initialize  extends Component{
           Message.error('开始时间不能大于结束时间');    
         }
 
-	   //console.log('3333666',searchParams.startDate);
+	   console.log('3333666',this.props.startDate);
         
 	return(
          <div className='open-back' style={{background:'#fff',marginBottom:'20'}}>
@@ -116,6 +118,7 @@ export default class Initialize  extends Component{
 					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block'}}>新增</span><span style={{display:'inline-block'}}>意向工位</span></TableHeaderColumn>
 					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block'}}>累计</span><span style={{display:'inline-block'}}>意向工位</span></TableHeaderColumn>
 					<TableHeaderColumn>平均单价</TableHeaderColumn>
+
 				</TableHeader>
 
 				<TableBody>
