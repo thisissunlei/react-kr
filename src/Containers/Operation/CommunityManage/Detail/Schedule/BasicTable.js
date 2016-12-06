@@ -41,7 +41,10 @@ import ItemTable from './ItemTable';
 import DismantlingForm from './DismantlingForm';
 
 class SearchForm extends Component {
-
+	static contextTypes = {
+		onSetCommunity: React.PropTypes.func.isRequired,
+		communityId: React.PropTypes.string.isRequired,
+	}
 	static defaultProps = {
 		tab: '',
 		Ids: React.PropTypes.string,
@@ -148,7 +151,7 @@ class SearchForm extends Component {
 			})
 		}
 
-		//this.context.selectCommunity(id);
+		this.context.onSetCommunity(id);
 		const {
 			onChange
 		} = this.props;
