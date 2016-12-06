@@ -106,16 +106,16 @@ export default class Initialize  extends Component{
 					<TableHeaderColumn>城市</TableHeaderColumn>
 					<TableHeaderColumn>社区</TableHeaderColumn>
 					<TableHeaderColumn>总工位</TableHeaderColumn>
-					<TableHeaderColumn>可出租</TableHeaderColumn>
-					<TableHeaderColumn>已出租</TableHeaderColumn>
+					<TableHeaderColumn>可出租工位</TableHeaderColumn>
+					<TableHeaderColumn>已出租工位</TableHeaderColumn>
 					<TableHeaderColumn>剩余工位</TableHeaderColumn>
 					<TableHeaderColumn>出租率</TableHeaderColumn>
 					<TableHeaderColumn>上期出租率</TableHeaderColumn>
 					<TableHeaderColumn>出租率变化</TableHeaderColumn>
 					<TableHeaderColumn>出租率(不含意向)</TableHeaderColumn>
 					<TableHeaderColumn>环比</TableHeaderColumn>
-					<TableHeaderColumn>新增意向</TableHeaderColumn>
-					<TableHeaderColumn>累计意向</TableHeaderColumn>
+					<TableHeaderColumn>新增意向工位</TableHeaderColumn>
+					<TableHeaderColumn>累计意向工位</TableHeaderColumn>
 					<TableHeaderColumn>平均单价</TableHeaderColumn>
 				</TableHeader>
 

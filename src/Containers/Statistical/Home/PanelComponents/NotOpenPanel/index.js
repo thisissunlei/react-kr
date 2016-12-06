@@ -103,12 +103,12 @@ export default class Initialize  extends Component{
 					<TableHeaderColumn>城市</TableHeaderColumn>
 					<TableHeaderColumn>社区</TableHeaderColumn>
 					<TableHeaderColumn>总工位</TableHeaderColumn>
-					<TableHeaderColumn>可出租</TableHeaderColumn>
+					<TableHeaderColumn>可出租工位</TableHeaderColumn>
 					<TableHeaderColumn>开业第一个月出租率</TableHeaderColumn>
 					<TableHeaderColumn>开业第二个月出租率</TableHeaderColumn>
 					<TableHeaderColumn>开业第三个月出租率</TableHeaderColumn>
-					<TableHeaderColumn>新增意向</TableHeaderColumn>					
-					<TableHeaderColumn>累计意向</TableHeaderColumn>
+					<TableHeaderColumn>新增意向工位</TableHeaderColumn>					
+					<TableHeaderColumn>累计意向工位</TableHeaderColumn>
 					<TableHeaderColumn>平均单价</TableHeaderColumn>							
 				</TableHeader>
 
