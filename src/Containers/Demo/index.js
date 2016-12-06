@@ -96,9 +96,29 @@ export default class Demo extends Component{
 						      className="icon-basis"
 						      style={{marginRight:'20px',color:'#499df1',fontSize:20}}
 						    />
+						    <ul>
+						    	{list.map((item,index)=>{
+						    		return (
+						    			<li key={index} className='tooltip-li'>
+						    				<div>
+						    				{index}
+							    				<Tooltip place="right">
+													<p>12345</p>
+													<p>12345</p>
+													<p>12345</p>
+													<p>12345</p>
+													<p>12345</p>
+													
+												</Tooltip>
+						    				</div>
+
+						    			</li>
+						    			)
+						    	})}
+						    </ul>
 						 <FlatButton icon={<FontIcon className={'icon-basis'} />} style={{color:'#499df1',height:36,width:100}} />
-						<div className="tooltip" data-for='tooltip2'>
-							<Tooltip place="top" tipName="tooltip2">
+						<div className="tooltip" >
+							<Tooltip place="top">
 								<p>12345</p>
 								<p>12345</p>
 								<p>12345</p>
@@ -113,8 +133,8 @@ export default class Demo extends Component{
 								<p>12345</p>
 							</Tooltip>
 						</div>
-						<div className="tooltip" style={{marginTop:40}} data-for='tooltip1'>
-							<Tooltip place="bottom" tipName="tooltip1" backgroundColor="#fff" ShadowColor="#499df1" boxShadow="0 0 3px #499df1">
+						<div className="tooltip" style={{marginTop:40}}>
+							<Tooltip place="bottom"  backgroundColor="#fff" ShadowColor="#499df1" boxShadow="0 0 3px #499df1">
 								<p>12345</p>
 								<p>12345</p>
 								<p>12345</p>
