@@ -25,17 +25,11 @@ import {
 	CheckboxGroup,
 	RadioGroup,
 	Message,
-	DemoComponent
+	KrForm,
+	DemoComponent,
+	Field,
+	FieldControl,
 } from 'kr-ui';
-import {
-	FlatButton,
-} from 'material-ui';
-
-import LocationMap from 'kr-ui/Global/LocationMap';
-
-import {List, ListItem} from 'material-ui/List';
-
-import { hashHistory ,History} from 'react-router';
 
 export default class Demo extends Component{
 
@@ -46,100 +40,54 @@ export default class Demo extends Component{
 	constructor(props,context){
 		super(props, context);
 
-		this.onSubmit = this.onSubmit.bind(this);
-
-		console.log('---',this.context.router);
+		this.state = {
+			userNameDefaultValue:''
+		}
 
 	}
 
-	onSubmit(value){
-		console.log('----',value)
-		// window.location.hash = 'demo';
-		// //this.context.router.replace(location.href);;
-	 //    history.replace(location)
-		//hashHistory.refresh();
+	componentDidMount(){
+		/*
+		this.setState({
+			userNameDefaultValue:'aahahh'
+		});
+		*/
 	}
-
-
-	show = ()=>{
-
-		console.log('click');
-
-
-		Message.show('hahah','normal');
-	}
-
 
 
 	render(){
-		const list = [{a:1},{b:2},{c:3},{d:5}];
-
-
 		return(
 			<div>
 
-				<Title value="haah "/>
-
-
-
-
 					<Section title="demo" description="" >
 
-							<Button label="show"  onTouchTap={this.show}/>
-							<KrField label='city' component='city'/>
-							<span className="icon-basis">fff</span>
-							<FontIcon className="icon-basis" color={'#499df1'}/>
+						<KrForm name="demoForm" onSubmit={function(values){
+									console.log('values',values);
+							}} >
 
-							<FontIcon
-						      className="icon-basis"
-						      style={{marginRight:'20px',color:'#499df1',fontSize:20}}
-						    />
-						 <FlatButton icon={<FontIcon className={'icon-basis'} />} style={{color:'#499df1',height:36,width:100}} />
+									<FieldControl name="de" label="其它" component="searchPersonel" requiredValue={true} errors={{requiredValue:'请填写时间'}}/>
 
+									<FieldControl name="dame" label="其它" component="select" requiredValue={true} errors={{requiredValue:'请填写时间'}} options={[{label:'请选择',value:''},{label:'北京',value:'1'}]}/>
 
+								<FieldControl name="de2ame" label="其它" component="date" requiredValue={true} errors={{requiredValue:'请填写时间'}}/>
+
+							<FieldControl name="demn22ame" label="其它:" component="file"  requiredValue={true} errors={{requiredValue:'必填'}}/>
+
+						<FieldControl name="demn3322342ame" type="text" label="其它" component="input"/>
+
+							<FieldControl name="demn33ame" label="其它:" component="labelText" value="你的直接" inline={false}/>
+
+								<FieldControl name="demn3ame" label="其它:" component="group" value="你的直接" inline={false}/>
+
+									<FieldControl name="username" type="text" label="用户名" component="input" defaultValue={this.state.userNameDefaultValue} requiredValue={true} minLength={10} errors={{minLength:'用户名最少为10字符',requiredValue:'用户名为必填项'}}/>
+								<FieldControl name="password" type="text" label="密码" component="input"  requiredValue={true} maxLength={20} errors={{maxLength:'最大为20个字符',requiredValue:'要有密码'}}/>
+
+							<Button type="submit" label="ok"/>
+						</KrForm>
 
 
 					</Section>
-					<Tabs className="tabs">
-						<Tab label="计划表" >
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
 
-						</Tab>
-						<Tab label="平面图1" >
-
-						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
-						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
-						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
-						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
-
-
-						</Tab>
-						<Tab label="计划表我"  >
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-
-						</Tab>
-						<Tab label="平面图"  >
-
-						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
-						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
-						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
-						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
-
-
-						</Tab>
-					</Tabs>
 			</div>
 
 		);
