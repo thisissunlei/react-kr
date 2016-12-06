@@ -88,7 +88,6 @@ export default class Demo extends Component{
 					<Section title="demo" description="" >
 
 							<Button label="show"  onTouchTap={this.show}/>
-							<KrField label='city' component='city'/>
 							<span className="icon-basis">fff</span>
 							<FontIcon className="icon-basis" color={'#499df1'}/>
 
@@ -116,6 +115,10 @@ export default class Demo extends Component{
 						    			)
 						    	})}
 						    </ul>
+						    <form>
+							<KrField grid={1/2} label='city' component='city' />
+
+						    </form>
 						 <FlatButton icon={<FontIcon className={'icon-basis'} />} style={{color:'#499df1',height:36,width:100}} />
 						<div className="tooltip" >
 							<Tooltip place="top">

@@ -131,7 +131,6 @@ export default class FloorPlan extends Component {
 					url = url.replace('{' + item + '}', params[item]);
 					delete params[item];
 				}
-				44
 			}
 		};
 

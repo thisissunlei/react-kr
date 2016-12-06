@@ -116,7 +116,15 @@ export default class CityComponent extends React.Component {
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 					<div className="city-component">
-					<input readonly/>
+						<input readOnly="true" value="请选择"/>
+						<span className="arrow"></span>
+						<div className="city-cantainer">
+							<ul>
+								<li></li>
+								<li></li>
+								<li></li>
+							</ul>
+						</div>
 					</div>
 				</WrapComponent>
 		);
