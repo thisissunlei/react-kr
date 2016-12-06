@@ -31,7 +31,8 @@ export default class CityComponent extends React.Component {
 
 		this.isInit = false;
 		this.state = {
-			value: ''
+			value: '',
+			showCity:false
 		}
 
 	}
@@ -87,6 +88,12 @@ export default class CityComponent extends React.Component {
 		onChange && onChange(result);
 	}
 
+	showCity=()=>{
+		this.setState({
+			showCity:true
+		})	
+	}
+
 	render() {
 
 		let {
@@ -108,7 +115,11 @@ export default class CityComponent extends React.Component {
 			lengthClass,
 			...other
 		} = this.props;
-
+		let {showCity} = this.state;
+		let cityDiv = {};
+		cityDiv.display = showCity?'block':'none';
+		let firstCity = this.firstCityList();
+		console.log('firstCity',firstCity);
 
 		
 
@@ -116,13 +127,17 @@ export default class CityComponent extends React.Component {
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 					<div className="city-component">
-						<input readOnly="true" value="请选择"/>
+						<input readOnly="true" value="请选择" onClick={this.showCity}/>
 						<span className="arrow"></span>
-						<div className="city-cantainer">
+						<div className="city-cantainer" style={cityDiv}>
 							<ul>
-								<li></li>
-								<li></li>
-								<li></li>
+								<li className="firstCity">
+									{firstCity.map((item,index)=>{
+										return (<span key={index} className='city-name'>{item.name}</span>)
+									})}
+								</li>
+								<li className="secondCity">2</li>
+								<li className="thirdCity">3</li>
 							</ul>
 						</div>
 					</div>

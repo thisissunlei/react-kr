@@ -115,10 +115,7 @@ export default class Demo extends Component{
 						    			)
 						    	})}
 						    </ul>
-						    <form>
-							<KrField grid={1/2} label='city' component='city' />
-
-						    </form>
+						    
 						 <FlatButton icon={<FontIcon className={'icon-basis'} />} style={{color:'#499df1',height:36,width:100}} />
 						<div className="tooltip" >
 							<Tooltip place="top">
@@ -144,6 +141,10 @@ export default class Demo extends Component{
 								<a href="https://www.baidu.com" target="_blank">baidu1</a>
 							</Tooltip>
 						</div>
+						<form style={{marginBottom:400}}>
+							<KrField grid={1/2} label='city' component='city' />
+
+						    </form>
 
 
 
