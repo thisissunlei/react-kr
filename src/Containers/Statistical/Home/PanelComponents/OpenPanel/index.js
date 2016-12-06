@@ -48,7 +48,6 @@ export default class Initialize  extends Component{
 			}
 
 		}
-		console.log('------',this.props.startDate)
 		
 	}
     
@@ -77,7 +76,7 @@ export default class Initialize  extends Component{
           Message.error('开始时间不能大于结束时间');    
         }
 
-	   console.log('3333666',this.props.startDate);
+	   //console.log('3333666',this.props.startDate);
         
 	return(
          <div className='open-back' style={{background:'#fff',marginBottom:'20'}}>
@@ -102,6 +101,7 @@ export default class Initialize  extends Component{
 						ajaxUrlName='openCompanyData'
 						ajaxFieldListName="list"
 						ajaxParams={this.state.searchParams}
+						
 						  >
 					<TableHeader>
 					<TableHeaderColumn>城市</TableHeaderColumn>
@@ -124,8 +124,8 @@ export default class Initialize  extends Component{
 				<TableBody>
 						 <TableRow>
 						<TableRowColumn name="cityName"></TableRowColumn>
-						<TableRowColumn name="communityName"  component={(value,oldValue)=>{
-                             return (<Tooltip style={{visibility:'visible'}} place='top'>123</Tooltip>)
+						<TableRowColumn name="communityName" className='cityTu' component={(value,oldValue)=>{
+                             return (<div><span className='tableOver'>{value}</span><Tooltip style={{visibility:'visible'}} place='top'>{value}</Tooltip></div>)
 						}} ></TableRowColumn>
 						<TableRowColumn name="totalStation"></TableRowColumn>
 						<TableRowColumn name="unUsedStation" ></TableRowColumn>

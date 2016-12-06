@@ -116,7 +116,9 @@ export default class Initialize  extends Component{
 				<TableBody>
 						 <TableRow>
 						<TableRowColumn name="cityName" ></TableRowColumn>
-						<TableRowColumn name="communityName"></TableRowColumn>
+						<TableRowColumn name="communityName" className='cityTu' component={(value,oldValue)=>{
+                             return (<div><span className='tableOver'>{value}</span><Tooltip style={{visibility:'visible'}} place='top'>{value}</Tooltip></div>)
+						}} ></TableRowColumn>
 						<TableRowColumn name="totalStation"></TableRowColumn>
 						<TableRowColumn name="unUsedStation"></TableRowColumn>
 						<TableRowColumn name="firstMonth"></TableRowColumn>
