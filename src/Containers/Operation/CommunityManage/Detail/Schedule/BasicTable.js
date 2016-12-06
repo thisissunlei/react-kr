@@ -147,6 +147,7 @@ class SearchForm extends Component {
 			})
 		}
 
+		//this.context.selectCommunity(id);
 		const {
 			onChange
 		} = this.props;

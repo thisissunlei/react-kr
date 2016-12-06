@@ -25,11 +25,13 @@ import {
 	CheckboxGroup,
 	RadioGroup,
 	Message,
-	DemoComponent
+	DemoComponent,
+	Tooltip
 } from 'kr-ui';
 import {
 	FlatButton,
 } from 'material-ui';
+import './index.less';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
 
@@ -94,8 +96,51 @@ export default class Demo extends Component{
 						      className="icon-basis"
 						      style={{marginRight:'20px',color:'#499df1',fontSize:20}}
 						    />
-						 <FlatButton icon={<FontIcon className={'icon-basis'} />} style={{color:'#499df1',height:36,width:100}} />
+						    <ul>
+						    	{list.map((item,index)=>{
+						    		return (
+						    			<li key={index} className='tooltip-li'>
+						    				<div>
+						    				{index}
+							    				<Tooltip place="right">
+													<p>12345</p>
+													<p>12345</p>
+													<p>12345</p>
+													<p>12345</p>
+													<p>12345</p>
+													
+												</Tooltip>
+						    				</div>
 
+						    			</li>
+						    			)
+						    	})}
+						    </ul>
+						 <FlatButton icon={<FontIcon className={'icon-basis'} />} style={{color:'#499df1',height:36,width:100}} />
+						<div className="tooltip" >
+							<Tooltip place="top">
+								<p>12345</p>
+								<p>12345</p>
+								<p>12345</p>
+								<p>12345</p>
+								<p>12345</p>
+								<p>12345</p>
+								<p>12345</p>
+								<p>12345</p>
+								<p>12345</p>
+								<p>12345</p>
+								<p>12345</p>
+								<p>12345</p>
+							</Tooltip>
+						</div>
+						<div className="tooltip" style={{marginTop:40}}>
+							<Tooltip place="bottom"  backgroundColor="#fff" ShadowColor="#499df1" boxShadow="0 0 3px #499df1">
+								<p>12345</p>
+								<p>12345</p>
+								<p>12345</p>
+								<a href="https://www.baidu.com" target="_blank">baidu1</a>
+							</Tooltip>
+						</div>
 
 
 
@@ -140,6 +185,10 @@ export default class Demo extends Component{
 
 						</Tab>
 					</Tabs>
+
+					
+
+					
 			</div>
 
 		);
