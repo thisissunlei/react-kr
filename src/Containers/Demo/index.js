@@ -69,10 +69,8 @@ export default class Demo extends Component{
 
 
 	render(){
-		let list = [{a:1},{b:1},{c:3},{s:9},{e:2}]
 		return(
 			<div>
-
 					<Section title="demo" description="" >
 
 						<KrForm name="demoForm" onSubmit={function(values){
@@ -109,36 +107,8 @@ export default class Demo extends Component{
 						    />
 
 						 <FlatButton icon={<FontIcon className={'icon-basis'} />} style={{color:'#499df1',height:36,width:100}} />
-						<div className="tooltip" >
-							<Tooltip place="top">
-								<p>12345</p>
-								<p>12345</p>
-								<p>12345</p>
-								<p>12345</p>
-								<p>12345</p>
-								<p>12345</p>
-								<p>12345</p>
-								<p>12345</p>
-								<p>12345</p>
-								<p>12345</p>
-								<p>12345</p>
-								<p>12345</p>
-							</Tooltip>
-						</div>
-						<div className="tooltip" style={{marginTop:40}}>
-							<Tooltip place="bottom"  backgroundColor="#fff" ShadowColor="#499df1" boxShadow="0 0 3px #499df1">
-								<p>12345</p>
-								<p>12345</p>
-								<p>12345</p>
-								<a href="https://www.baidu.com" target="_blank">baidu1</a>
-							</Tooltip>
-						</div>
-						<form style={{marginBottom:400}}>
-							<KrField grid={1/2} label='city' component='city' />
 
-						    </form>
-
-
+							 </KrForm>
 					</Section>
 			</div>
 
