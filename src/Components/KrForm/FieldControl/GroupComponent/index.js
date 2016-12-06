@@ -18,7 +18,7 @@ export default class  GroupComponent extends React.Component {
 
 		let {requireLabel,requireBlue,label,children,style,inline,contentStyle} = this.props;
 
-			contentStyle= Object.assign({},contentStyle,{paddingLeft:0});
+			contentStyle= Object.assign({},contentStyle);
 
 			return (
 				<WrapComponent label={label} wrapStyle={style} contentStyle={contentStyle} requireLabel={requireLabel} inline={inline} requireBlue={requireBlue}>
