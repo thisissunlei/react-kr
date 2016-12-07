@@ -367,8 +367,12 @@ const validate = values =>{
 			errors.accountcode = '请填写分组名称';
 		}
 
-		if (!values.accountname) {
-			errors.accountname = '请输入排序';
+		if (!values.sort) {
+			errors.sort = '请填写排序号';
+		}else if(isNaN(+values.sort)){
+			errors.sort = '请输入数字';
+		}else if(+values.sort<=0){
+			errors.sort = '请输入正整数';
 		}
 
 		if (!values.accounttype) {

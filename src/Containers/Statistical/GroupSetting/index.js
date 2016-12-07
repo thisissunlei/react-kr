@@ -58,7 +58,7 @@ export default class Initialize  extends Component{
 				pageSize: 15,
 				enable:'',
 				groupName:'',
-				other:1
+				other:false
 			},
 			id:null,
 			noinit:true,
@@ -82,7 +82,9 @@ export default class Initialize  extends Component{
 			let obj = {
 				page: 1,
 				pageSize: 15,
-				other:_this.state.searchParams.other++,
+				other:!_this.state.searchParams.other,
+				groupName:_this.state.searchText,
+
 			}
 			console.log(obj)
 			_this.setState({
@@ -255,7 +257,7 @@ export default class Initialize  extends Component{
 													return state;
 												}
 											}
-
+										displayCheckbox={false}
 										onExport={this.onExport}
 										ajaxParams={this.state.searchParams}
 
@@ -272,7 +274,7 @@ export default class Initialize  extends Component{
 												<TableHeaderColumn>操作</TableHeaderColumn>
 										</TableHeader>
 
-										<TableBody>
+										<TableBody >
 												<TableRow >
 												<TableRowColumn name="groupName" ></TableRowColumn>
 												<TableRowColumn name="sort" ></TableRowColumn>

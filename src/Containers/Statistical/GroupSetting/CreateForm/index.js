@@ -27,42 +27,54 @@ class Switchover extends Component{
 	//向右边添加
 	rightAdd=(value)=>{
 		var _this=this;
+
 		var arr=this.state.okData;
 		arr.push(value);
 		this.setState({okData:arr},function(){
-			_this.props.changeMudle(_this.state.okData)
-
+			_this.props.changeMudle(_this.state.okData);
+			// _this.rightToAll();
 		});
 	}
 	//向左边添加
 	leftAdd=(value)=>{
 		var _this=this;
 		var arr=this.state.allData;
+		console.log(value,"??-----??",arr);
 		arr.push(value);
 		this.setState({allData:arr},function(){
 			_this.props.changeMudle(_this.state.okData)
 
 		});
 	}
-	//左边全部数据添加到左边
+	//右边全部数据添加到左边
 	leftToAll=()=>{
 		var _this=this;
 		var arr=this.state.allData.concat(this.state.okData)
-		this.setState({
-			okData:[],
-			allData:arr
-		},function(){
+		this.setState({allData:arr,okData:[]},function(){
 			_this.props.changeMudle(_this.state.okData);
+			// console.log("<<<<<<<<<<<<<");
+			// console.log(_this.state.allData,"左边");
+			// console.log(_this.state.okData,"右边");
+
 		});
 	}
+	//左边全部数据添加到右边
+
 	rightToAll=()=>{
+		console.log(this.state.allData);
 		var _this=this;
-		var arr=this.state.allData.concat(this.state.okData)
-		this.setState({
-			okData:arr,
-			allData:[]
-		},function(){
+		var allArr=this.state.allData
+		var okArr=this.state.okData;
+		var arr=allArr.concat(okArr)
+		this.setState({allData:[],okData:arr},function(){
+
 			_this.props.changeMudle(_this.state.okData);
+
+			console.log(">>>>>>>>>>>>");
+			console.log(_this.state.allData,"左边");
+			console.log(_this.state.okData,"右边");
+
+
 		});
 	}
 	//数组的状态
@@ -87,11 +99,8 @@ class Switchover extends Component{
       width:"40px",
 			height:"48px",
 			float:"left",
-			marginTop:"101px",
+			marginTop:"90px",
 			textAlign:"center"
-
-
-
     }
 
     return (
@@ -99,17 +108,19 @@ class Switchover extends Component{
           <ZhuanHuan  iconShow="false"
                       Data={this.state.allData}
                       addOther={this.rightAdd.bind(this)}
+											kk="l"
 
           />
           <div className="ui-moveIcon" style={moddleStyle}>
-						<span className="moveRight" onClick={this.leftToAll}></span><br/>
-						<span className="moveLeft" onClick={this.rightToAll}></span>
+						<span className="moveRight" onClick={this.rightToAll}></span><br/>
+						<span className="moveLeft" onClick={this.leftToAll}></span>
 
           </div>
           <ZhuanHuan  iconShow="true"
                       Data={this.state.okData}
                       addOther={this.leftAdd.bind(this)}
 											swapItems={this.swapItems}
+											kk="r"
                       />
       </div>
     );
@@ -123,10 +134,13 @@ class ZhuanHuan extends React.Component{
 	constructor(props) {
 		super(props);
     this.state={
-			mouldSort:this.props.Data
+			mouldSort:props.Data
     }
   }
-
+	
+	componentWillReceiveProps(nextProps) {
+			 this.setState({mouldSort: nextProps.Data});
+	 }
 
    //上移
   upMove=(index,event)=>{
@@ -156,11 +170,12 @@ class ZhuanHuan extends React.Component{
 
     var remove=arr.splice(index,1)[0];
     _this.setState({mouldSort:arr});
-
+		console.log(remove,"???????");
     _this.props.addOther(remove);
   }
 
   render(){
+		console.log(this.props.Data,this.props.kk);
     var _this=this;
     var boxStyle={
       border:"1px solid #dfdfdf",
@@ -410,6 +425,8 @@ const validate = values =>{
 			errors.sort = '请填写排序号';
 		}else if(isNaN(+values.sort)){
 			errors.sort = '请输入数字';
+		}else if(+values.sort<=0){
+			errors.sort = '请输入正整数';
 		}
 		if (!values.enable) {
 			errors.enable = '请先选择是否启用';
