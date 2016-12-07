@@ -57,7 +57,7 @@ class SearchNotDateForm extends Component {
 			todayDate
 		} = this.props;
 
-       //console.log('0000---',todayDate)
+       console.log('0000---',todayDate)
 
 		return (
 
