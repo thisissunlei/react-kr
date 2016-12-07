@@ -1,6 +1,12 @@
-import React, {Component, PropTypes} from 'react';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
 
-import {Actions,Store} from 'kr/Redux';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 import dateFormat from 'dateformat';
 
 import {
@@ -21,54 +27,61 @@ import {
 } from 'kr-ui';
 
 
-export default class ConfirmFormDetail  extends Component{
+export default class ConfirmFormDetail extends Component {
 
 
 	static PropTypes = {
-		detail:React.PropTypes.object,
-		onSubmit:React.PropTypes.func,
-		onCancel:React.PropTypes.func,
+		detail: React.PropTypes.object,
+		onSubmit: React.PropTypes.func,
+		onCancel: React.PropTypes.func,
 	}
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 
 		this.onSubmit = this.onSubmit.bind(this);
-		this.onCancel  = this.onCancel.bind(this);
+		this.onCancel = this.onCancel.bind(this);
 
 	}
 
-	onSubmit(form){
+	onSubmit(form) {
 
-		const {onSubmit} = this.props;
+		const {
+			onSubmit
+		} = this.props;
 		onSubmit && onSubmit(form);
 	}
 
-	onCancel(){
+	onCancel() {
 
-		const {onCancel} = this.props;
+		const {
+			onCancel
+		} = this.props;
 		onCancel && onCancel();
 	}
 
-	render(){
+	render() {
 
-		let {detail,optionValues} = this.props;
+		let {
+			detail,
+			optionValues
+		} = this.props;
 
-			detail = Object.assign({},detail);
+		detail = Object.assign({}, detail);
 
-		 var leasorName ;
-	        optionValues.fnaCorporationList.map((item)=>{
-	        	if(item.value === detail.leaseId){
-	        		return leasorName = item.label;
-	        	}
-	        });
+		var leasorName;
+		optionValues.fnaCorporationList.map((item) => {
+			if (item.value === detail.leaseId) {
+				return leasorName = item.label;
+			}
+		});
 
-	     detail.signdate=dateFormat(detail.signdate,"yyyy-mm-dd ");
-	     detail.withdrawdate=dateFormat(detail.withdrawdate,"yyyy-mm-dd ");
+		detail.signdate = dateFormat(detail.signdate, "yyyy-mm-dd ");
+		detail.withdrawdate = dateFormat(detail.withdrawdate, "yyyy-mm-dd ");
 
-	  return (
+		return (
 
-		  <div>
+			<div>
 								<KrField name="lessorId"  grid={1/2} component="labelText" label="出租方" value={leasorName} />
 
 								 <KrField grid={1/2}  name="lessorAddress"  component="labelText" label="地址" value={detail.lessorAddress}/>
@@ -94,7 +107,7 @@ export default class ConfirmFormDetail  extends Component{
 
 							<KrField component="group" label="上传附件">
 									{detail.contractFileList && detail.contractFileList.map((item,index)=>{
-										return <Button label={item.fileName}  type="link" href={item.fileUrl} key={index} linkStyle={{display:block}}/>
+										return <Button label={item.fileName}  type="link" href={item.fileUrl} key={index} linkStyle={{display:'block'}}/>
 									})}
 							</KrField>
 
