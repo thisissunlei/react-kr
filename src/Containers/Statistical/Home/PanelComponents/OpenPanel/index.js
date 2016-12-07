@@ -28,7 +28,6 @@ import {
 import './index.less';
 import SearchDateForm from './SearchDateForm';
 
-var flag='false';
 export default class Initialize  extends Component{
      
     static propTypes = {

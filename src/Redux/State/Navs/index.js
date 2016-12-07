@@ -22,7 +22,7 @@ module.exports = {
 		originUrl: '/'
 	},{
 		primaryText: "数据统计",
-		menuCode: 'dataStat',
+		menuCode: 'index',
 		router: '/statistical/index',
 	},{
 		primaryText: "社区经营",
