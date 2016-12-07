@@ -11,11 +11,14 @@ import {
 import {
 	default as CommunityManage
 } from './CommunityManage';
-
+import { 
+	default as GroupSetting
+ } from './GroupSetting';
 
 module.exports = {
 	Home,
 	JoinOrder,
 	CustomerManage,
 	CommunityManage,
+	GroupSetting,
 }

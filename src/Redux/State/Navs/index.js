@@ -22,7 +22,7 @@ module.exports = {
 		originUrl: '/'
 	},{
 		primaryText: "数据统计",
-		menuCode: 'index',
+		menuCode: 'dataStat',
 		router: '/statistical/index',
 	},{
 		primaryText: "社区经营",
@@ -128,7 +128,7 @@ module.exports = {
 			},{
 				primaryText: '数据模板管理',
 				menuCode: 'groupManage',
-				router: '/statistical/groupSetting'
+				router: '/operation/groupSetting'
 			}
 		]
 		}, ]

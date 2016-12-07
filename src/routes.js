@@ -68,7 +68,6 @@ export default (
 		<Route path="statistical" component={Basic}>
 			<Route path="index" component={Statistical.Home}/>
 			<IndexRedirect to="index" />
-			<Route path="groupSetting" component={Statistical.GroupSetting}/>
 		</Route>
 
 
@@ -97,8 +96,8 @@ export default (
 		{/*运营管理*/}
 		<Route path="operation" component={Basic}>
 				<Route path="index" component={Operation.Home}/>
-
-
+                 {/*分组模版管理*/}
+                <Route path="groupSetting" component={Operation.GroupSetting}/>
               {/*客户管理*/}
 				<Route path="customerManage" component={Basic}>
 					<Route path="List" component={Operation.CustomerManage.List} name="customerManage_list"/>
