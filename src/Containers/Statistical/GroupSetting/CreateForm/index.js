@@ -269,9 +269,13 @@ class ZhuanHuan extends React.Component{
 		this.onCancel = this.onCancel.bind(this);
 		this.state={
 			moduleData:this.props.detail,
-			valuesErr:""
+			valuesErr:"",
+			isErr:false,
 
 		};
+	}
+	componentDidMount(){
+	 Store.dispatch(change('newCreateForm','enable','ENABLE'));
 	}
  onSubmit(values){
 
@@ -285,35 +289,51 @@ class ZhuanHuan extends React.Component{
 	 }
 	 //分组名实时校验
 	 groupNameCheck=(values)=>{
-		 var _this=this;
-		 values=this.Trim(values);
-		 Store.dispatch(Actions.callAPI('groupNameCheck',{groupName:values,id:''})).then(function(data) {
+		 if(this.state.isErr){
+			 var _this=this;
+			 values=this.Trim(values);
+			 Store.dispatch(Actions.callAPI('groupNameCheck',{groupName:values,id:''})).then(function(data) {
 
-		 }).catch(function(err) {
+			 }).catch(function(err) {
 
-			 Notify.show([{
-				 message: err.message,
-				 type: 'danger',
-			 }]);
-		 });
+				 Notify.show([{
+					 message: err.message,
+					 type: 'danger',
+				 }]);
+			 });
+
+		 }
+
 	 }
 
 	 //排序实时校验
 	 sortCheck=(values)=>{
+		 if(this.state.isErr){
+			 var _this=this;
+			 values=this.Trim(values);
+			 Store.dispatch(Actions.callAPI('sortCheck',{sort:values,id:''})).then(function(data) {
 
-		 var _this=this;
-		 values=this.Trim(values);
-		 Store.dispatch(Actions.callAPI('sortCheck',{sort:values,id:''})).then(function(data) {
+			 }).catch(function(err) {
 
-		 }).catch(function(err) {
-
-			 Notify.show([{
-				 message: err.message,
-				 type: 'danger',
-			 }]);
-		 });
+				 Notify.show([{
+					 message: err.message,
+					 type: 'danger',
+				 }]);
+			 });
+		 }
 
 	 }
+	 //获取焦点
+	 inputFocus=(values)=>{
+		 
+		 this.setState({
+			 isErr:true
+		 })
+	 }
+
+
+
+
 	 //去除前后空格
 	Trim=(str)=>{
 					return str.replace(/(^\s*)|(\s*$)/g, "");
@@ -329,11 +349,11 @@ class ZhuanHuan extends React.Component{
 				<KrField name="id" type="hidden" label="id"/>
 
 
-				<KrField grid={1/2} style={{marginTop:25}} right={25} name="groupName" type="text" label="分组名称" requireLabel={true} onBlur={this.groupNameCheck}/>
+				<KrField grid={1/2} style={{marginTop:25}} right={25} name="groupName" type="text" label="分组名称" requireLabel={true} onBlur={this.groupNameCheck} onFocus={this.inputFocus}/>
 				<KrField grid={1/2} right={25} name="sort" type="text" label="排序" requireLabel={true} style={{marginTop:25}} onBlur={this.sortCheck}/>
 				<KrField grid={1} name="enable" component="group" label="启用状态" requireLabel={true}>
-					<KrField name="enable" label="是" component="radio" type="radio" value="ENABLE"/>
-						<KrField name="enable" label="否"  component="radio"  type="radio" value="DISABLE" />
+							 <KrField name="enable" label="是" type="radio" value="ENABLE" checked={true}/>
+							 <KrField name="enable" label="否" type="radio" value="DISENABLE" />
 				</KrField>
 				<KrField grid={1/2} label="数据模板" requireLabel={true} name="groupDesc" component="labelText"/>
 				<Switchover allData={this.state.moduleData} okData={[]} changeMudle={this.props.changeMudle}/>
@@ -362,17 +382,9 @@ const validate = values =>{
 		}
 		if (!values.sort) {
 
-			errors.sort = '排序值不能为空';
+			errors.sort = '请填写排序号';
 		}else if(isNaN(+values.sort)){
 			errors.sort = '请输入数字';
-		}
-
-		if (!values.accounttype) {
-			errors.accounttype = '请填写科目类别';
-		}
-
-		if (!values.ordernum) {
-			errors.ordernum = '请填写排序号';
 		}
 		if (!values.enable) {
 			errors.enable = '请先选择是否启用';

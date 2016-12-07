@@ -30,14 +30,16 @@ export default class Tooltip extends Component {
 		/**
 		 * 与box-shadow的阴影色相同
 		 */
-		ShadowColor:React.PropTypes.string,
+
+
 	}
 
 	constructor(props){
 		super(props);
 		this.state={
 			width:0,
-			height:0
+			height:0,
+			offsetTop:this.props.offsetTop,
 		}
 
 	}
@@ -49,6 +51,7 @@ export default class Tooltip extends Component {
 		let node = ReactDOM.findDOMNode(this.tooltip);
 		let parent = node.parentNode;
 		// node.style.backgroundColor = backgroundColor;
+
 		parent.style.position = "relative";
 		parent.onmouseover = function(){
 			node.style.visibility = 'visible';
@@ -71,6 +74,10 @@ export default class Tooltip extends Component {
 		let arrowName = '';
 		let arrowContentName = '';
 		let style = {};
+		let offsetTop=this.state.offsetTop;
+		if(!this.state.offsetTop){
+			offsetTop=0;
+		}
 		if(place === 'top' || place==='bottom'){
 			className+=' center';
 		}
@@ -93,7 +100,7 @@ export default class Tooltip extends Component {
 
 		}
 		if(place === 'top'){
-			style.top = '-'+(height-5)+'px';
+			style.top = '-'+(height-5+offsetTop)+'px';
 			arrowName = 'top-arrow';
 			arrowContentName = 'top-arrows';
 			arrowStyle.borderTopColor = ShadowColor;
@@ -111,7 +118,7 @@ export default class Tooltip extends Component {
 		style.background = backgroundColor;
 		// style.boxShadow = '0 0 3px #499df1';
 		style.boxShadow = boxShadow;
-		
+
 
 		return(
 			<div className={className} ref={div=>{this.tooltip = div}} style={style}>
