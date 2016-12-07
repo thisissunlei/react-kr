@@ -91,7 +91,10 @@ module.exports = {
 				primaryText: '访客记录',
 				menuCode: 'sysVisitRecordList',
 				originUrl: '/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=102'
-			}, ]
+			}
+
+
+		 ]
 		}, {
 			primaryText: "基础配置",
 			iconName: 'icon-basis',
@@ -122,7 +125,12 @@ module.exports = {
 				primaryText: '设备定义',
 				menuCode: 'sysDeviceDefinitionList',
 				originUrl: '/krspace_operate_web/community/sysDeviceDefinition/toSysDeviceDefinitionList?mid=105'
-			}, ]
+			},{
+				primaryText: '数据模板管理',
+				menuCode: 'groupManage',
+				router: '/statistical/groupSetting'
+			}
+		]
 		}, ]
 	}, {
 		primaryText: "会员中心",
@@ -458,11 +466,7 @@ module.exports = {
 					menuCode: 'sysmenuadmin',
 					router: 'sysmenuadmin',
 					originUrl: '/sys/sysfunrights/sysMenu/toSysMenuList?mid=9'
-				},{
-					primaryText: '数据模板管理',
-					menuCode: 'groupManage',
-					router: '/statistical/groupSetting'
-				},
+				}
 
 			]
 		}, {

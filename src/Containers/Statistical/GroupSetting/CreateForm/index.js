@@ -31,6 +31,7 @@ class Switchover extends Component{
 		arr.push(value);
 		this.setState({okData:arr},function(){
 			_this.props.changeMudle(_this.state.okData)
+
 		});
 	}
 	//向左边添加
@@ -40,9 +41,30 @@ class Switchover extends Component{
 		arr.push(value);
 		this.setState({allData:arr},function(){
 			_this.props.changeMudle(_this.state.okData)
+
 		});
 	}
-
+	//左边全部数据添加到左边
+	leftToAll=()=>{
+		var _this=this;
+		var arr=this.state.allData.concat(this.state.okData)
+		this.setState({
+			okData:[],
+			allData:arr
+		},function(){
+			_this.props.changeMudle(_this.state.okData);
+		});
+	}
+	rightToAll=()=>{
+		var _this=this;
+		var arr=this.state.allData.concat(this.state.okData)
+		this.setState({
+			okData:arr,
+			allData:[]
+		},function(){
+			_this.props.changeMudle(_this.state.okData);
+		});
+	}
 	//数组的状态
 	swapItems =(arr, index1, index2)=> {
 
@@ -66,6 +88,7 @@ class Switchover extends Component{
 			height:"48px",
 			float:"left",
 			marginTop:"101px",
+			textAlign:"center"
 
 
 
@@ -79,6 +102,8 @@ class Switchover extends Component{
 
           />
           <div className="ui-moveIcon" style={moddleStyle}>
+						<span onClick={this.leftToAll}>()</span><br/>
+						<span onClick={this.rightToAll}>()</span>
 
           </div>
           <ZhuanHuan  iconShow="true"
@@ -325,7 +350,7 @@ class ZhuanHuan extends React.Component{
 	 }
 	 //获取焦点
 	 inputFocus=(values)=>{
-		 
+
 		 this.setState({
 			 isErr:true
 		 })
