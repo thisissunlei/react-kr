@@ -8,7 +8,7 @@ import { default as Docs } from './Docs';
 import { default as Order } from './Order';
 import { default as CompanyInstitution } from './CompanyInstitution';
 import { default as SNSActivity } from './SNSActivity';
-
+import { default as PersonalCenter } from './PersonalCenter';
 
 module.exports = {
 	Home,
@@ -21,11 +21,5 @@ module.exports = {
 	SNSActivity,
 	Docs,
 	Order,
+	PersonalCenter,
 }
-
-
-
-
-
-
-

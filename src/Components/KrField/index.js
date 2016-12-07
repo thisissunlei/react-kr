@@ -19,6 +19,7 @@ import SearchPersonelComponent from './SearchPersonelComponent';
 import LabelTextComponent from './LabelTextComponent';
 import GroupComponent from './GroupComponent';
 import CityComponent from './CityComponent';
+import EditLabelTextComponent from './EditLabelTextComponent';
 
 
 export default class KrField extends React.Component {
@@ -40,7 +41,7 @@ export default class KrField extends React.Component {
 		search: React.PropTypes.bool,
 		left: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
 		right: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-	    colorStyle:React.PropTypes.obj,
+	    colorStyle:React.PropTypes.object,
 	}
 
 	render() {
@@ -78,6 +79,19 @@ export default class KrField extends React.Component {
 			);
 		}
 
+		if (component === 'labelText' || type == 'labelText') {
+			return (
+				<LabelTextComponent {...this.props} style={WrapStyles} colorStyle={colorStyle}/>
+			);
+		}
+
+		if (component === 'editLabelText' || type == 'editLabelText') {
+			return (
+				<EditLabelTextComponent {...this.props} style={WrapStyles} colorStyle={colorStyle}/>
+			);
+		}
+
+
 		if (component === 'file') {
 			return (
 				<Field {...this.props} component={FileUploadComponent}  style={WrapStyles} {...other}/>
@@ -96,11 +110,6 @@ export default class KrField extends React.Component {
 			);
 		}
 
-		if (component === 'labelText' || type == 'labelText') {
-			return (
-				<LabelTextComponent {...this.props} style={WrapStyles} colorStyle={colorStyle}/>
-			);
-		}
 
 		if (component === 'city' || type == 'city') {
 			return (

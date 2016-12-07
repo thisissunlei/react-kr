@@ -277,13 +277,13 @@ export default class Initialize  extends Component{
 
 												<TableRowColumn style={{width:160,overflow:"visible"}} name="groupDesc" component={(value,oldValue)=>{
 														var TooltipStyle=""
-														if(value==""){
+														if(value.length==""){
 															TooltipStyle="none"
 
 														}else{
 															TooltipStyle="block";
 														}
-														 return (<div style={{display:TooltipStyle}}><span className='tableOver'>{value}</span><Tooltip place='top'>{value}</Tooltip></div>)
+														 return (<div style={{display:TooltipStyle}}><span className='tableOver'>{value}</span><Tooltip offsetTop={10} place='top'>{value}</Tooltip></div>)
 													 }} ></TableRowColumn>
 
 
@@ -297,9 +297,7 @@ export default class Initialize  extends Component{
 												component={(value,oldValue)=>{
 													var fontColor="";
 													if(value=="禁用"){
-														console.log(value)
-
-														fontColor="red"
+														fontColor="#ff6060"
 													}
 													return (<span style={{color:fontColor}}>{value}</span>)}}
 

@@ -68,10 +68,21 @@ export default class Demo extends Component{
 	}
 
 
+
+	show = ()=>{
+
+		console.log('click');
+
+
+		Message.show('hahaha 爱的范德萨发几块了');
+	}
+
+
 	render(){
 		return(
 			<div>
 					<Section title="demo" description="" >
+
 
 						<KrForm name="demoForm" onSubmit={function(values){
 									console.log('values',values);
@@ -96,6 +107,7 @@ export default class Demo extends Component{
 
 									<FieldControl name="dame" label="其它" component="select" requiredValue={true} errors={{requiredValue:'请填写时间'}} options={[{label:'请选择',value:''},{label:'北京',value:'1'}]}/>
 
+
 								<FieldControl name="de2ame" label="其它" component="date" requiredValue={true} errors={{requiredValue:'请填写时间'}}/>
 
 							<FieldControl name="demn22ame" label="其它:" component="file"  requiredValue={true} errors={{requiredValue:'必填'}}/>
@@ -105,6 +117,7 @@ export default class Demo extends Component{
 						      className="icon-basis"
 						      style={{marginRight:'20px',color:'#499df1',fontSize:20}}
 						    />
+
 
 						 <FlatButton icon={<FontIcon className={'icon-basis'} />} style={{color:'#499df1',height:36,width:100}} />
 
