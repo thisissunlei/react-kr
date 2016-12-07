@@ -461,7 +461,7 @@ module.exports = {
 				},{
 					primaryText: '数据模板管理',
 					menuCode: 'sysmenuadmin',
-					originUrl: '/statistical/groupSetting'
+					router: '/statistical/groupSetting'
 				},
 
 			]
