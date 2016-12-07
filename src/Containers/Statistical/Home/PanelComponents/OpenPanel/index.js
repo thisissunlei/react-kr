@@ -28,7 +28,6 @@ import {
 import './index.less';
 import SearchDateForm from './SearchDateForm';
 
-var flag='false';
 export default class Initialize  extends Component{
      
     static propTypes = {
@@ -59,7 +58,6 @@ export default class Initialize  extends Component{
         let start=Date.parse(dateFormat(startDate,"yyyy-mm-dd hh:MM:ss"));
         let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
         if(start>end){  
-
          Message.error('开始时间不能大于结束时间');        
           return ; 
         }
