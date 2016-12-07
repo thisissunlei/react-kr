@@ -427,7 +427,7 @@ export default class BasicTable extends Component {
 			type: type,
 			page: 1,
 			pageSize: pageSize,
-			year:currentYear
+			year: currentYear
 		})).then(function(response) {
 			_this.setState({
 				Installmentplan: response.vo.items || [],
@@ -623,6 +623,7 @@ export default class BasicTable extends Component {
 
 	}
 	renderNone(showNone) {
+
 		let {
 			currentYear,
 			Installmentplan,
@@ -636,9 +637,10 @@ export default class BasicTable extends Component {
 			page,
 			isIscroll
 		} = this.state;
-
+		console.log('11111', showNone)
 		var _this = this;
 		const id = communityids;
+
 		if (dataLoading) {
 			return (
 				<tbody>
@@ -651,7 +653,8 @@ export default class BasicTable extends Component {
 				</tbody>
 			)
 		}
-		if (!showNone && !dataLoading) {
+
+		if (showNone || dataLoading) {
 			return (
 				<tbody>
 					<tr style={{height:200}} className="nothing">
@@ -750,7 +753,7 @@ export default class BasicTable extends Component {
 			showNone = false;
 		}
 
-		// console.log('----123456', this.context)
+
 
 		return (
 			<div style={{position:'relative'}}>
@@ -802,7 +805,7 @@ export default class BasicTable extends Component {
 					</tr>
 				</thead>
 				
-					{
+					{	
 						this.renderNone(showNone,rate)
 					}
 					
