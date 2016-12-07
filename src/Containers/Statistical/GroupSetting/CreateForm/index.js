@@ -102,8 +102,8 @@ class Switchover extends Component{
 
           />
           <div className="ui-moveIcon" style={moddleStyle}>
-						<span onClick={this.leftToAll}>()</span><br/>
-						<span onClick={this.rightToAll}>()</span>
+						<span className="moveRight" onClick={this.leftToAll}></span><br/>
+						<span className="moveLeft" onClick={this.rightToAll}></span>
 
           </div>
           <ZhuanHuan  iconShow="true"
