@@ -274,6 +274,9 @@ class ZhuanHuan extends React.Component{
 
 		};
 	}
+	componentDidMount(){
+	 Store.dispatch(change('newCreateForm','enable','ENABLE'));
+	}
  onSubmit(values){
 
 		const {onSubmit} = this.props;
@@ -322,6 +325,7 @@ class ZhuanHuan extends React.Component{
 	 }
 	 //获取焦点
 	 inputFocus=(values)=>{
+		 
 		 this.setState({
 			 isErr:true
 		 })
