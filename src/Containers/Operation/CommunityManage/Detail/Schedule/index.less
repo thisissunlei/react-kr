@@ -412,7 +412,7 @@ a,button,button:hover{
 			height: 50px;
 			margin: 0;
 			position: relative;
-			.red-node,.blue-node,.same-node{
+			.red-node,.blue-node,.same-node,.grey-circle{
 				position: absolute;
 				width: 10px;
 				height: 10px;
@@ -428,7 +428,7 @@ a,button,button:hover{
 					display: inline-block;
 					border: 2px solid red;
 					border-radius: 6px;
-					border-color: #54c5a5 #54c5a5 red red;
+					// border-color: #54c5a5 #54c5a5 red red;
 					transform: rotate(45deg);
 					position: absolute;
 					background-color: #fff;
@@ -463,6 +463,15 @@ a,button,button:hover{
 
 				}
 
+			}
+			.grey-circle{
+				// border:1px solid #999;
+				&:before{
+					border-color:#999;
+				pointer-events:none;
+
+
+				}
 			}
 			p{
 				// padding: 2px;

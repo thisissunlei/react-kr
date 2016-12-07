@@ -43,7 +43,7 @@ export default  class Input extends React.Component {
 		this.onChange = this.onChange.bind(this);
 
 		this.state = {
-			value:this.props.value
+			value:this.props.defaultValue
 		}
 
 	}
@@ -56,7 +56,6 @@ export default  class Input extends React.Component {
 		}
 	}
 	componentDidMount(){
-		this.onBlur();
 	}
 
 	onChange(event){
@@ -73,13 +72,18 @@ export default  class Input extends React.Component {
 
 
 			onChange && onChange(value);
+
+		let message = this.onValidate(value);
+		let {onError} = this.props;
+			onError && onError(message);
+
 	}
 
-	onValidate = ()=>{
+	onValidate = (value)=>{
+
+		value = value || this.state.value;
 
 		let {minLength,maxLength,requiredValue,pattern,errors} = this.props;
-		let {value} = this.state;
-
 
 		if(requiredValue && !value){
 			return errors['requiredValue'];
@@ -89,7 +93,7 @@ export default  class Input extends React.Component {
 			return errors['minLength'];
 		}
 
-		if(maxLength && value.length>maxLength){
+		if(maxLength && String(value).length>maxLength){
 			return errors['maxLength'];
 		}
 
@@ -106,11 +110,15 @@ export default  class Input extends React.Component {
 		let {value} = this.state;
 		let message = this.onValidate();
 		let {onError,onBlur} = this.props;
-
 		if(typeof message !== 'undefined'){
 			onError && onError(message);
 		}
 		onBlur && onBlur(value);
+	}
+
+	onFocus = ()=>{
+		let {onFocus} = this.props;
+		onFocus && onFocus();
 	}
 
 	render() {
@@ -126,7 +134,7 @@ export default  class Input extends React.Component {
 		}
 
 		return (
-			 <input type={type} name={name} className={classNames}  style={style} placeholder={placeholder} value={value} {...other} disabled={disabled} onChange={this.onChange} onBlur={this.onBlur} />
+			 <input type={type} name={name} className={classNames}  style={style} placeholder={placeholder} value={value} {...other} disabled={disabled} onChange={this.onChange} onBlur={this.onBlur} onFocus={this.onFocus} />
 		);
 	}
 }
