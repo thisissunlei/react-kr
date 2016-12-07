@@ -654,7 +654,7 @@ export default class BasicTable extends Component {
 			)
 		}
 
-		if (showNone || dataLoading) {
+		if (!showNone || dataLoading) {
 			return (
 				<tbody>
 					<tr style={{height:200}} className="nothing">
