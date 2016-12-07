@@ -52,29 +52,17 @@ class Switchover extends Component{
 		var arr=this.state.allData.concat(this.state.okData)
 		this.setState({allData:arr,okData:[]},function(){
 			_this.props.changeMudle(_this.state.okData);
-			// console.log("<<<<<<<<<<<<<");
-			// console.log(_this.state.allData,"左边");
-			// console.log(_this.state.okData,"右边");
-
 		});
 	}
 	//左边全部数据添加到右边
 
 	rightToAll=()=>{
-		console.log(this.state.allData);
 		var _this=this;
 		var allArr=this.state.allData
 		var okArr=this.state.okData;
 		var arr=allArr.concat(okArr)
 		this.setState({allData:[],okData:arr},function(){
-
 			_this.props.changeMudle(_this.state.okData);
-
-			console.log(">>>>>>>>>>>>");
-			console.log(_this.state.allData,"左边");
-			console.log(_this.state.okData,"右边");
-
-
 		});
 	}
 	//数组的状态
@@ -134,10 +122,10 @@ class ZhuanHuan extends React.Component{
 	constructor(props) {
 		super(props);
     this.state={
-			mouldSort:props.Data
+			mouldSort:this.props.Data
     }
   }
-	
+
 	componentWillReceiveProps(nextProps) {
 			 this.setState({mouldSort: nextProps.Data});
 	 }
