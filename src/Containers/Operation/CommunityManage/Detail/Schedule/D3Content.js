@@ -224,13 +224,19 @@ export default class D3Content extends Component {
 		})
 		if (sameNode.length) {
 			sameNode.map((item) => {
+				console.log('------item', item)
 				item.pointDay = that.countDays(item.pointDate);
 				finaRedPointVoList.map((value, index) => {
 					if (item.pointDay === value.pointDay) {
 						finaRedPointVoList.splice(index, 1);
+						//console.log('finaRedPointVoList-----', finaRedPointVoList)
+
+
+
 					}
 				})
 			})
+			console.log('----finaRedPointVoList', finaRedPointVoList)
 
 		}
 		if (sameNode.length) {
@@ -244,7 +250,7 @@ export default class D3Content extends Component {
 			})
 
 		}
-		console.log('same', sameNode);
+
 		var unique = {};
 		sameNode.forEach(function(a) {
 			unique[JSON.stringify(a)] = 1
@@ -253,7 +259,7 @@ export default class D3Content extends Component {
 			return JSON.parse(u)
 		});
 		let NodeList = [sameNode, finaBluePointVoList, finaRedPointVoList];
-		console.log('same', NodeList);
+
 		return NodeList;
 	}
 
@@ -370,7 +376,7 @@ export default class D3Content extends Component {
 			var redNodeList = this.NodeList[2];
 			var blueNodeList = this.NodeList[1];
 			var sameNode = this.sameNode;
-			console.log('sameNode-----', sameNode)
+
 		} else {
 			var list = [{
 				width: "100%",
@@ -432,8 +438,9 @@ export default class D3Content extends Component {
 				}
 				{
 					redNodeList && redNodeList.map((item,index)=>{
+						
 						let nodeKind = item.color===1?'grey-circle':'red-node';
-
+						
 						return (
 							<span className={`${nodeKind}`} key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}} data-tip data-for={`${item.pointDate}${index}red${item.plan[0].id}`}>
 								<ReactTooltip id={`${item.pointDate}${index}red${item.plan[0].id}`} place="top" type="dark" effect="solid" >
@@ -460,7 +467,7 @@ export default class D3Content extends Component {
 				}
 				{
 					sameNode && sameNode.map((item,index)=>{
-						console.log('item0------',item)
+						
 						return (
 							<div className='same-div'  key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}}>
 								<span className='blue-node' data-tip data-for={`${item.pointDate}${item.newStationNum}${index}sameblue`}>
