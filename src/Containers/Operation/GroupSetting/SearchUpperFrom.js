@@ -75,7 +75,12 @@ import {
 const validate = values =>{
 
 		const errors = {}
-
+		if(!values.groupName){
+			errors.groupName = '请填写分组名称';
+		}
+		if(!values.enable){
+			errors.enable = '请先选择是否启用';
+		}
 
 
 
