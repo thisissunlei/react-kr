@@ -22,12 +22,12 @@ module.exports = {
 		originUrl: '/'
 	},{
 		primaryText: "数据统计",
-		menuCode: 'dataStat',
+		menuCode: 'index',
 		router:'statistical',
 		menuItems: [{
 			primaryText: "数据统计",
-			router: 'op_manage',
-			iconName: 'icon-money',
+			router: 'statistical',
+			iconName: 'icon-com',
 			iconColor: '#2b8dcd',
 			menuCode: 'dataStat',
 			menuItems: [{

@@ -55,16 +55,10 @@ export default class Initialize  extends Component{
 
     onStartNotChange=(startDate)=>{
     	let {searchParams}=this.state;	
-    	var oldStartDate=searchParams.startDate;
-    	//searchParams.oldStartDate=oldStartDate;
         let start=Date.parse(dateFormat(startDate,"yyyy-mm-dd hh:MM:ss"));
         let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
         if(start>end){  
-        searchParams = Object.assign({},searchParams,{oldStartDate});
-    	this.setState({
-    		searchParams,
-		});
-        Message.error('开始时间不能大于结束时间');        
+          Message.error('开始时间不能大于结束时间');       
           return ; 
         }
     	searchParams = Object.assign({}, searchParams, {startDate});
@@ -105,7 +99,7 @@ export default class Initialize  extends Component{
 							 <span  className='static-upload'>实时更新</span>	
 							</Col> 
 							<Col align="right" md={8}> 
-							  <SearchNotDateForm onStartNotChange={this.onStartNotChange} onEndNotChange={this.onEndNotChange} todayDate={searchParams.startDate}/>
+							  <SearchNotDateForm onStartNotChange={this.onStartNotChange} onEndNotChange={this.onEndNotChange} todayDate={searchParams.startDate} todayEndDate={searchParams.endDate}/>
 							</Col> 
 						</Row>
 					</Grid>
