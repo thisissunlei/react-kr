@@ -33,7 +33,7 @@ export default class Initialize  extends Component{
      
     static propTypes = {
 		groupId:React.PropTypes.number,
-		startDate:React.PropTypes.string
+		todayDate:React.PropTypes.string
 	}
 
 	constructor(props,context){
@@ -43,8 +43,8 @@ export default class Initialize  extends Component{
 	    this.state = {
 			searchParams: {
 				groupId:this.props.groupId,
-				startDate:'',
-				endDate:''
+				startDate:this.props.todayDate,
+				endDate:this.props.todayDate
 			}
 
 		}
@@ -53,14 +53,28 @@ export default class Initialize  extends Component{
     
     
 
-    onStartNotChange=(searchParams)=>{
-    	searchParams = Object.assign({}, this.state.searchParams, searchParams);
+    onStartNotChange=(startDate)=>{
+    	let {searchParams}=this.state;	
+        let start=Date.parse(dateFormat(startDate,"yyyy-mm-dd hh:MM:ss"));
+        let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
+        if(start>end){  
+         Message.error('开始时间不能大于结束时间');        
+          return ; 
+        }
+    	searchParams = Object.assign({}, searchParams, {startDate});
     	this.setState({
 			searchParams
 		});
     }
-    onEndNotChange=(searchParams)=>{
-    	searchParams = Object.assign({}, this.state.searchParams, searchParams);
+    onEndNotChange=(endDate)=>{
+    	let {searchParams}=this.state;	
+        let start=Date.parse(dateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
+        let end=Date.parse(dateFormat(endDate,"yyyy-mm-dd hh:MM:ss"))
+        if(start>end){  
+          Message.error('开始时间不能大于结束时间');        
+          return ; 
+        }
+    	searchParams = Object.assign({}, searchParams, {endDate});
     	this.setState({
 			searchParams
 		});
@@ -68,12 +82,7 @@ export default class Initialize  extends Component{
 
     render(){
     	let {searchParams}=this.state;
-        let start=Date.parse(dateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
-        let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"));
-        if(start>end){
-          Message.error('开始时间不能大于结束时间');
-        }
-	   
+        
 	
         
 		return(
@@ -87,7 +96,7 @@ export default class Initialize  extends Component{
 							 <span  className='static-upload'>实时更新</span>	
 							</Col> 
 							<Col align="right" md={8}> 
-							  <SearchNotDateForm onStartNotChange={this.onStartNotChange} onEndNotChange={this.onEndNotChange} date_2={this.props.startDate}/>
+							  <SearchNotDateForm onStartNotChange={this.onStartNotChange} onEndNotChange={this.onEndNotChange} todayDate={searchParams.startDate}/>
 							</Col> 
 						</Row>
 					</Grid>
@@ -116,7 +125,7 @@ export default class Initialize  extends Component{
 				<TableBody>
 						 <TableRow>
 						<TableRowColumn name="cityName" ></TableRowColumn>
-						<TableRowColumn name="communityName" className='cityTu' component={(value,oldValue)=>{
+						<TableRowColumn name="communityName"  component={(value,oldValue)=>{
                              return (<div><span className='tableOver'>{value}</span><Tooltip style={{visibility:'visible'}} place='top'>{value}</Tooltip></div>)
 						}} ></TableRowColumn>
 						<TableRowColumn name="totalStation"></TableRowColumn>
