@@ -126,7 +126,7 @@ module.exports = {
 				menuCode: 'sysDeviceDefinitionList',
 				originUrl: '/krspace_operate_web/community/sysDeviceDefinition/toSysDeviceDefinitionList?mid=105'
 			},{
-				primaryText: '数据模板管理',
+				primaryText: '分组管理',
 				menuCode: 'groupManage',
 				router: '/operation/groupSetting'
 			}
