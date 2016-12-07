@@ -64,7 +64,6 @@ export default class Initialize  extends Component{
     	this.setState({
     		searchParams,
 		});
-		console.log('-----',this.state.searchParams)
         Message.error('开始时间不能大于结束时间');        
           return ; 
         }
@@ -86,6 +85,8 @@ export default class Initialize  extends Component{
 			searchParams
 		});
     }
+
+    
 
     render(){
     	

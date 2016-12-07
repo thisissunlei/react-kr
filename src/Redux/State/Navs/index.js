@@ -22,8 +22,19 @@ module.exports = {
 		originUrl: '/'
 	},{
 		primaryText: "数据统计",
-		menuCode: 'index',
-		router: '/statistical/index',
+		menuCode: 'dataStat',
+		router:'statistical',
+		menuItems: [{
+			primaryText: "数据统计",
+			router: 'op_manage',
+			iconName: 'icon-money',
+			iconColor: '#2b8dcd',
+			menuCode: 'dataStat',
+			menuItems: [{
+				primaryText: "集团经营",
+				router: '/statistical/index'
+			},]
+		}, ]
 	},{
 		primaryText: "社区经营",
 		router: 'community',
