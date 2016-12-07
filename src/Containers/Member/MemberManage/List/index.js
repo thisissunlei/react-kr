@@ -35,7 +35,8 @@ export default class List extends Component {
 		super(props, context);
 
 		this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
-
+		this.onLoaded = this.onLoaded.bind(this);
+		this.onOperation = this.onOperation.bind(this);
 		this.state = {
 			openNewCreate: false,
 			openView: false,
@@ -57,16 +58,54 @@ export default class List extends Component {
 				pageSize:'15'
 			}
 		});
-		console.log(!this.state.openNewCreate);
-	}
 
+	}
+	onChangeSearchPersonel(personel) {
+		Store.dispatch(change('joinCreateForm', 'lessorContacttel', personel.mobile));
+		Store.dispatch(change('joinCreateForm', 'lessorContactName', personel.lastname));
+	}
 	onNewCreateCancel() {
 		this.openNewCreateDialog();
 	}
+	onLoaded(response) {
 
+		let list = response;
+
+		this.setState({
+			list
+		})
+	}
+	//操作相关
+	onOperation(type, itemDetail) {
+
+		this.setState({
+			itemDetail
+		});
+
+		if (type == 'view') {
+			let orderId = itemDetail.id
+			console.log('3333ddd',orderId);
+				//window.location.href = `./#/finance/Manage/orderbill/${orderId}/detail`;
+			window.open(`./#/member/MemberManage/${orderId}/detail`, orderId);
+		} else if (type == 'edit') {
+			this.openEditDetailDialog();
+		}
+	}
+	// 社区联想
+	onChangeSearchPersonel(personel) {
+		Store.dispatch(change('joinCreateForm', 'lessorContacttel', personel.mobile));
+		Store.dispatch(change('joinCreateForm', 'lessorContactName', personel.lastname));
+	}
 	render() {
 
-		let title = 3000;
+		let {
+			list
+		} = this.state;
+
+		if (!list.totalCount) {
+			list.totalCount = 0;
+		}
+
 		let options = [{
 			label: '公司名称',
 			value: 'BILL'
@@ -85,19 +124,22 @@ export default class List extends Component {
 			    <div >
 								<Title value="全部会员 "/>
 
-								<Section title={`全部会员 (${title})`} description="" >
+								<Section title={`全部会员 (${list.totalCount})`} description="" >
 									<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45,zIndex:1000}}>
 										<Button label="新建会员"  onTouchTap={this.openNewCreateDialog} />
-										<Button searchClick={this.openNewCreateDialog}  type='search' searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
+										<Button   type='search' searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
 										<SearchForms onSubmit={this.onSubmit} searchFilter={options} style={{marginTop:5}} />
 									</form>
 									<Table
 											style={{marginTop:10,zIndex:0}}
+											onLoaded={this.onLoaded}
 											ajax={true}
 											onProcessData={(state)=>{
 												return state;
 												}}
-											ajaxFieldListName="memberPage"
+											onOperation={this.onOperation}
+											exportSwitch={true}
+											ajaxFieldListName='items'
 											ajaxUrlName='membersList'
 											ajaxParams={this.state.searchParams}
 										>
@@ -110,7 +152,7 @@ export default class List extends Component {
 											<TableHeaderColumn>职位</TableHeaderColumn>
 											<TableHeaderColumn>工作地点</TableHeaderColumn>
 											<TableHeaderColumn>公司</TableHeaderColumn>
-											<TableHeaderColumn>会员等级</TableHeaderColumn>
+											{/*<TableHeaderColumn>会员等级</TableHeaderColumn>*/}
 											<TableHeaderColumn>注册来源</TableHeaderColumn>
 											<TableHeaderColumn>注册日期</TableHeaderColumn>
 											<TableHeaderColumn>操作</TableHeaderColumn>
@@ -120,14 +162,15 @@ export default class List extends Component {
 											<TableRow displayCheckbox={true}>
 											<TableRowColumn name="id" ></TableRowColumn>
 											<TableRowColumn name="name" ></TableRowColumn>
+											<TableRowColumn name="phone" ></TableRowColumn>
 											<TableRowColumn name="wechatNick"></TableRowColumn>
 											<TableRowColumn name="email"></TableRowColumn>
-											<TableRowColumn name="jobBame"></TableRowColumn>
+											<TableRowColumn name="jobName"></TableRowColumn>
 											<TableRowColumn name="cityName"></TableRowColumn>
 											<TableRowColumn name="companyName"></TableRowColumn>
-											<TableRowColumn name="companyName"></TableRowColumn>
+											{/*<TableRowColumn name=""></TableRowColumn>*/}
 											<TableRowColumn name="sourceName"></TableRowColumn>
-											<TableRowColumn name="registerTime" type="date"></TableRowColumn>
+											<TableRowColumn name="registerTime"></TableRowColumn>
 											<TableRowColumn type="operation">
 													<Button label="详情"  type="operation" operation="view"/>
 													<Button label="编辑"  type="operation" operation="edit"/>
@@ -145,14 +188,11 @@ export default class List extends Component {
 									modal={true}
 									open={this.state.openNewCreate}
 									onClose={this.openNewCreateDialog}
-									bodyStyle={{paddingTop:34}}
+									// bodyStyle={{paddingTop:34}}
 									contentStyle={{width:687}}
 								>
-								
+								<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 							  </Dialog>
-
-
-
 				</div>
 		);
 

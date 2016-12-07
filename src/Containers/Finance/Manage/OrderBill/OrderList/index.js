@@ -200,14 +200,11 @@ export default class AttributeSetting extends Component {
 			list
 		} = this.state;
 
-		if (!list.sumcome) {
+		if (!list.totalCount) {
 			list.sumcome = 0;
 		}
-		if (!list.sumAmount) {
+		if (!list.totalCount) {
 			list.sumAmount = 0;
-		}
-		if (!list.summount) {
-			list.summount = 0;
 		}
 
 
