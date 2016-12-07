@@ -283,7 +283,7 @@ export default class Initialize  extends Component{
 														}else{
 															TooltipStyle="block";
 														}
-														 return (<div style={{display:TooltipStyle}}><span className='tableOver'>{value}</span><Tooltip place='top'>{value}</Tooltip></div>)
+														 return (<div style={{display:TooltipStyle}}><span className='tableOver'>{value}</span><Tooltip offsetTop={10} place='top'>{value}</Tooltip></div>)
 													 }} ></TableRowColumn>
 
 
