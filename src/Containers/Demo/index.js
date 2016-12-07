@@ -66,7 +66,7 @@ export default class Demo extends Component{
 		console.log('click');
 
 
-		Message.show('hahah','normal');
+		Message.show('hahaha 爱的范德萨发几块了');
 	}
 
 
@@ -84,17 +84,7 @@ export default class Demo extends Component{
 
 
 					<Section title="demo" description="" >
-
-							<Button label="show"  onTouchTap={this.show}/>
-							<KrField label='city' component='city'/>
-							<span className="icon-basis">fff</span>
-							<FontIcon className="icon-basis" color={'#499df1'}/>
-
-							<FontIcon
-						      className="icon-basis"
-						      style={{marginRight:'20px',color:'#499df1',fontSize:20}}
-						    />
-						 <FlatButton icon={<FontIcon className={'icon-basis'} />} style={{color:'#499df1',height:36,width:100}} />
+							<KrField component="editLabelText" inline="true" />
 
 
 
