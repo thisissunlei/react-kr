@@ -32,53 +32,32 @@ class SearchDateForm extends Component {
 	static PropTypes = {
 		onStartChange: React.PropTypes.func,
 		onEndChange:React.PropTypes.func,
+		date_2:React.PropTypes.string,
 	}
 
 	constructor(props) {
 		super(props);
-
-		
-
+	
+        
 	}
 	componentDidMount() {
-
-
+          
 	}
 	
-    onStartChange=(value)=>{
-      let values={
-      	 startDate:value
-      }
-      const {
-			onStartChange
-		} = this.props;
-		onStartChange && onStartChange(values);
-    }
-    onEndChange=(value)=>{
-      let values={
-      	 endDate:value
-      }
-      const {
-			onEndChange
-		} = this.props;
-		onEndChange && onEndChange(values);
-    }
+    
+  
 
 	render() {
-      
-       var myDate = new Date();
-       var year=myDate.getFullYear();  
-	   var month=myDate.getMonth()+1;  
-	   var day=myDate.getDate();  
-       var currentDate=year+'-'+month+'-'+day
-
 
 		const {
 			error,
 			handleSubmit,
 			pristine,
-			reset
+			reset,
+			todayDate
 		} = this.props;
+
+		
 
 		return (
 
@@ -88,9 +67,9 @@ class SearchDateForm extends Component {
 
 				    <ListGroup>
 				        <span className='statis-date-title'>时间：</span>
-						<ListGroupItem><div className='statis-date-start'><KrField  style={{marginLeft:-10}} name="startDate" component="date" onChange={this.onStartChange} placeholder={currentDate}/></div></ListGroupItem>
+						<ListGroupItem><div className='statis-date-start'><KrField  style={{marginLeft:-10}} name="startDate" component="date" onChange={this.props.onStartChange} placeholder={todayDate}/></div></ListGroupItem>
 						<div className='ui-line-down-list'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-						<ListGroupItem><div className='statis-date-end'><KrField  name="endDate" component="date" onChange={this.onEndChange} placeholder={currentDate}/></div></ListGroupItem>
+						<ListGroupItem><div className='statis-date-end'><KrField  name="endDate" component="date" onChange={this.props.onEndChange} placeholder={todayDate}/></div></ListGroupItem>
 					</ListGroup>
                   
 				</div>
@@ -101,5 +80,5 @@ class SearchDateForm extends Component {
 
 
 export default reduxForm({
-	form: 'SearchDateForm'
+	form: 'searchDateForm'
 })(SearchDateForm);

@@ -22,17 +22,18 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Message,
+	Tooltip,
 	Form
 } from 'kr-ui';
 import './index.less';
 import SearchDateForm from './SearchDateForm';
 
-
+var flag='false';
 export default class Initialize  extends Component{
      
     static propTypes = {
-		 groupId:React.PropTypes.string,
-		 currentDate:React.PropTypes.string,
+		 groupId:React.PropTypes.number,
+		 todayDate:React.PropTypes.string
 	}
 
 	constructor(props,context){
@@ -42,53 +43,53 @@ export default class Initialize  extends Component{
 	    this.state = {
 			searchParams: {
 				groupId:this.props.groupId,
-				startDate:this.props.currentDate,
-				endDate:this.props.currentDate
+				startDate:this.props.todayDate,
+				endDate:this.props.todayDate
 			}
 
 		}
-
+		
 	}
     
-    componentDidMount() {
-		var _this = this;
-		Store.dispatch(Actions.callAPI('openCompanyData')).then(function(response) {
-			_this.setState({
-				item: response,
-				loading: false
-			});
-		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
-	}
-
-    onStartChange=(searchParams)=>{
-    	searchParams = Object.assign({}, this.state.searchParams, searchParams);
-    	this.setState({
-			searchParams
-		});
-    }
-    onEndChange=(searchParams)=>{
-    	searchParams = Object.assign({}, this.state.searchParams, searchParams);
-    	this.setState({
-			searchParams
-		});
-    }
-
-    render(){
+   
+    onStartChange=(startDate)=>{
     	let {searchParams}=this.state;
-        let start=Date.parse(dateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
-        let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"));
-        if(start>end){
-          Message.error('开始时间不能大于结束时间');
-        }
-	  
-        
-		return(
+    	var oldStartDate=searchParams.startDate;
+    	//console.log('-----',oldStartDate)
+        let start=Date.parse(dateFormat(startDate,"yyyy-mm-dd hh:MM:ss"));
+        let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
+        if(start>end){  
 
+         Message.error('开始时间不能大于结束时间');        
+          return ; 
+        }
+    	searchParams = Object.assign({}, searchParams, {startDate});
+    	this.setState({
+			searchParams
+		});
+    }
+    onEndChange=(endDate)=>{
+    	let {searchParams}=this.state;	
+        let start=Date.parse(dateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
+        let end=Date.parse(dateFormat(endDate,"yyyy-mm-dd hh:MM:ss"));
+        if(start>end){
+          Message.error('开始时间不能大于结束时间');  
+          return ;  
+        }
+        searchParams = Object.assign({}, searchParams, {endDate});
+    	this.setState({
+			searchParams
+		});
+    }
+   
+    
+    
+
+    render(){   	
+    	let {searchParams}=this.state;	
+        
+	return(
+         <div className='open-back' style={{background:'#fff',marginBottom:'20'}}>
 			<div className='ui-open-info'>
 				   <Grid style={{height:'76'}}>
 						<Row>
@@ -98,7 +99,7 @@ export default class Initialize  extends Component{
 							 <span  className='static-upload'>实时更新</span>	
 							</Col> 
 							<Col align="right" md={8}> 
-							  <SearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange} />
+							  <SearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange} todayDate={searchParams.startDate}/>
 							</Col> 
 						</Row>
 					</Grid>
@@ -111,27 +112,31 @@ export default class Initialize  extends Component{
 						ajaxFieldListName="list"
 						ajaxParams={this.state.searchParams}
 						  >
+						}
 					<TableHeader>
 					<TableHeaderColumn>城市</TableHeaderColumn>
 					<TableHeaderColumn>社区</TableHeaderColumn>
-					<TableHeaderColumn>总工位数</TableHeaderColumn>
-					<TableHeaderColumn>可出租工位数</TableHeaderColumn>
-					<TableHeaderColumn>已出租工位数</TableHeaderColumn>
-					<TableHeaderColumn>剩余工位数</TableHeaderColumn>
+					<TableHeaderColumn>总工位</TableHeaderColumn>
+					<TableHeaderColumn>可出租工位</TableHeaderColumn>
+					<TableHeaderColumn>已出租工位</TableHeaderColumn>
+					<TableHeaderColumn>剩余工位</TableHeaderColumn>
 					<TableHeaderColumn>出租率</TableHeaderColumn>
 					<TableHeaderColumn>上期出租率</TableHeaderColumn>
 					<TableHeaderColumn>出租率变化</TableHeaderColumn>
-					<TableHeaderColumn>出租率(不含意向)</TableHeaderColumn>
+					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>出租率</span><span style={{display:'inline-block',lineHeight:'16px'}}>(不含意向)</span></TableHeaderColumn>
 					<TableHeaderColumn>环比</TableHeaderColumn>
-					<TableHeaderColumn>新增意向工位数</TableHeaderColumn>
-					<TableHeaderColumn>累计意向工位数</TableHeaderColumn>
+					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>新增</span><span style={{display:'inline-block',lineHeight:'16px'}}>意向工位</span></TableHeaderColumn>
+					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>累计</span><span style={{display:'inline-block',lineHeight:'16px'}}>意向工位</span></TableHeaderColumn>
 					<TableHeaderColumn>平均单价</TableHeaderColumn>
+
 				</TableHeader>
 
 				<TableBody>
 						 <TableRow>
-						<TableRowColumn name="cityName" ></TableRowColumn>
-						<TableRowColumn name="communityName"></TableRowColumn>
+						<TableRowColumn name="cityName"></TableRowColumn>
+						<TableRowColumn name="communityName"  component={(value,oldValue)=>{
+                             return (<div><span className='tableOver'>{value}</span><Tooltip style={{visibility:'visible'}} offsetTop={10} place='top'>{value}</Tooltip></div>)
+						}} ></TableRowColumn>
 						<TableRowColumn name="totalStation"></TableRowColumn>
 						<TableRowColumn name="unUsedStation" ></TableRowColumn>
 						<TableRowColumn name="usedStation"></TableRowColumn>
@@ -150,6 +155,7 @@ export default class Initialize  extends Component{
               </div>
 
 			</div>
+		 </div>
 		);
 	}
 

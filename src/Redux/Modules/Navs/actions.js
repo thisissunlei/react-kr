@@ -93,9 +93,9 @@ function setNavsActivity(fatherRouter){
 
 export function setCurrentNav(router){
 
+	router = router.split('?').shift();
 	let fatherRouter = router.substring(2).split('/').shift();
 	let childRouter = router.substring(2).split('/')[1];
-	childRouter = childRouter.split('?').shift();
 
 	return function(dispatch){
 

@@ -213,28 +213,38 @@ class NewCreateForm extends Component {
 				<KrField name="leaseId" right={60} grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true} />
 				<KrField grid={1/2} left={60} name="lessorAddress" type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress} defaultValue="无" />
 				<KrField grid={1/2} right={60}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true}/>
-				<KrField grid={1/2} left={60} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}/>
+
+				<KrField grid={1/2} left={60} name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
+				requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}} />
+
 
 
 
 				<KrField grid={1/2} right={60} component="labelText" label="承租方" inline={false} value={optionValues.customerName}/>
 
-				<KrField grid={1/2} left={60} name="leaseAddress" type="text" component="input" label="地址" requireLabel={true} />
+				<KrField grid={1/2} left={60} name="leaseAddress" type="text" component="input" label="地址" requireLabel={true}
+				 requiredValue={true} pattern={/^.{0,120}$/} errors={{requiredValue:'地址为必填项',pattern:'地址最大60位'}} />
 
-				<KrField grid={1/2} right={60} name="leaseContact" type="text" component="input" label="联系人" requireLabel={true}/>
-				<KrField grid={1/2} left={60} name="leaseContacttel" type="text" component="input" label="电话"  requireLabel={true}/>
+				<KrField grid={1/2} right={60} name="leaseContact" type="text" component="input" label="联系人" requireLabel={true}
+				requiredValue={true} pattern={/^.{0,20}$/} errors={{requiredValue:'联系人为必填项',pattern:'联系人最大20位'}} />
+				<KrField grid={1/2} left={60} name="leaseContacttel" type="text" component="input" label="电话"  requireLabel={true}
+				 requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}} />
 
 				<KrField grid={1/2} right={60} name="communityid" component="labelText" label="所属社区" inline={false} value={optionValues.communityName} />
 
 				<KrField grid={1/2} left={60} name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} />
-				<KrField grid={1} right={60} name="contractcode"  grid={1/2} type="text" component="input" label="合同编号" requireLabel={true} />
-				<KrField name="totalreturn" left={60} grid={1/2} type="text" component="input" label="退租金总额" requireLabel={true}/>
-				<KrField name="depositamount" right={60} grid={1/2} type="text" component="input" label="退押金总额"  requireLabel={true}/>
+				<KrField grid={1} right={60} name="contractcode"  grid={1/2} type="text" component="input" label="合同编号" requireLabel={true}
+				requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同为必填项',pattern:'合同编号最大50位'}} />
+				<KrField name="totalreturn" left={60} grid={1/2} type="text" component="input" label="退租金总额"
+				requireLabel={true} requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
+				<KrField name="depositamount" right={60} grid={1/2} type="text" component="input" label="退押金总额"  requireLabel={true}
+				requireLabel={true} requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 
 				<KrField grid={1/2} left={60} name="withdrawdate" component="date" label="撤场日期" requireLabel={true}/>
 				<KrField grid={1/2} right={60}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
 
-				<KrField grid={1} name="contractmark" component="textarea" label="备注" />
+
+				<KrField grid={1} name="contractmark" component="textarea" label="备注" maxSize={200}/>
 
 				<KrField grid={1}  right={60} name="contractFileList" component="input" type="hidden" label="合同附件"/>
 				<KrField grid={1} right={60} name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{

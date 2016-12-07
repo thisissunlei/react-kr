@@ -41,6 +41,10 @@ import ItemTable from './ItemTable';
 import DismantlingForm from './DismantlingForm';
 
 class SearchForm extends Component {
+	// static contextTypes = {
+	// 	onSetCommunity: React.PropTypes.func.isRequired,
+	// 	communityId: React.PropTypes.string.isRequired,
+	// }
 	static defaultProps = {
 		tab: '',
 		Ids: React.PropTypes.string,
@@ -138,15 +142,16 @@ class SearchForm extends Component {
 		let id = 0;
 		if (!personel) {
 			this.setState({
-				communityids:0
+				communityids: 0
 			})
-		}else{
+		} else {
 			id = personel.value;
 			this.setState({
 				communityids: personel.value,
 			})
 		}
-		
+
+		// this.context.onSetCommunity(id);
 		const {
 			onChange
 		} = this.props;
@@ -198,7 +203,10 @@ SearchForm = reduxForm({
 
 
 export default class BasicTable extends Component {
-
+	// static contextTypes = {
+	// 	onSetCommunity: React.PropTypes.func.isRequired,
+	// 	communityId: React.PropTypes.string.isRequired,
+	// }
 
 
 	constructor(props, context) {
@@ -322,14 +330,14 @@ export default class BasicTable extends Component {
 							type: type,
 							page: len,
 							pageSize: 15,
-							year:currentYear
+							year: currentYear
 						})).then(function(response) {
 
 							if (response.vo) {
-								console.log('Installmentplan',Installmentplan);
+
 								var list = Installmentplan.concat(response.vo.items);
 								// var list = $.extend(Installmentplan,response.vo.items);
-								console.log('list',list);
+
 
 							} else {
 								var list = [];
@@ -408,6 +416,7 @@ export default class BasicTable extends Component {
 			totalPages,
 			isIscroll,
 			value,
+			currentYear
 		} = this.state
 
 		var _this = this;
@@ -417,8 +426,8 @@ export default class BasicTable extends Component {
 			value: value,
 			type: type,
 			page: 1,
-			pageSize: pageSize
-
+			pageSize: pageSize,
+			year:currentYear
 		})).then(function(response) {
 			_this.setState({
 				Installmentplan: response.vo.items || [],
@@ -449,7 +458,7 @@ export default class BasicTable extends Component {
 		if (formValues.type == "BILL") {
 			activity = false;
 		}
-		console.log('formValues', formValues);
+
 
 		this.setState({
 			istip: istip
@@ -554,7 +563,6 @@ export default class BasicTable extends Component {
 			communityids,
 			dataLoading
 		} = this.state;
-		console.log('value', value);
 
 
 
@@ -577,7 +585,6 @@ export default class BasicTable extends Component {
 				var list = response.vo.items;
 				var totalCount = response.vo.totalCount;
 				var totalPages = response.vo.totalPages;
-				console.log('-----getInstallmentplan',list);
 			} else {
 				var list = [];
 				var totalCount = 0;
@@ -743,7 +750,7 @@ export default class BasicTable extends Component {
 			showNone = false;
 		}
 
-
+		// console.log('----123456', this.context)
 
 		return (
 			<div style={{position:'relative'}}>
@@ -756,12 +763,14 @@ export default class BasicTable extends Component {
 		 		<div className="legend">
 		 			<div className="legend-left">
 		 				<p>
-		 					<span className="txts bule-div" >当前的分期时间</span>
-		 					<span className="txts grey-div">过去的分期时间</span>
+		 					<span className="txts bule-div" >当前时间</span>
+		 					<span className="txts grey-div">过去时间</span>
 		 					<span className="circle red"></span>
-		 					<span className="txt" >催款时间</span>
+		 					<span className="txt" >催款回款</span>
 		 					<span className="circle green"></span>
 		 					<span className="txt" >工位变更</span>
+		 					<span className="circle grey-circle"></span>
+		 					<span className="txt" >回款完成</span>
 		 				</p>
 		 			</div>
 		 		</div>

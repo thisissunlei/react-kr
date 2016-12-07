@@ -25,6 +25,7 @@ export default class Section extends Component {
 		rightMenu: React.PropTypes.node,
 		height:React.PropTypes.number,
 		style:React.PropTypes.object,
+		headerStyle:React.PropTypes.object,
 		hide:React.PropTypes.bool,
 		bodyPadding:React.PropTypes.string
 	};
@@ -165,7 +166,7 @@ export default class Section extends Component {
 
 	  render() {
 
-	  	const {style,hide,children} = this.props;
+	  	const {style,hide,children,headerStyle} = this.props;
 
 
 		  if(hide){
@@ -182,7 +183,7 @@ export default class Section extends Component {
 
 		  <div className="section" style={style}>
 
-			  <div className="section-header">
+			  <div className="section-header" style={headerStyle}>
 
 				  {this.renderSectionTitle()}
 				  {this.renderDescription()}

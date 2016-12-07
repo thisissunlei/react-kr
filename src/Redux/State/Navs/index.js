@@ -21,10 +21,14 @@ module.exports = {
 		menuCode: 'index',
 		originUrl: '/'
 	}, {
+		primaryText: "数据统计",
+		menuCode: 'index',
+		router: '/statistical/index',
+	}, {
 		primaryText: "社区经营",
 		router: 'community',
 		menuCode: 'op_manage',
-		originUrl: '/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=112',
+		originUrl: '#/community/communityManage/detail',
 		menuItems: [{
 			primaryText: "社区管理",
 			iconName: 'icon-com',
@@ -454,6 +458,10 @@ module.exports = {
 					menuCode: 'sysmenuadmin',
 					router: 'sysmenuadmin',
 					originUrl: '/sys/sysfunrights/sysMenu/toSysMenuList?mid=9'
+				}, {
+					primaryText: '数据模板管理',
+					menuCode: 'groupManage',
+					router: '/statistical/groupSetting'
 				},
 
 			]
