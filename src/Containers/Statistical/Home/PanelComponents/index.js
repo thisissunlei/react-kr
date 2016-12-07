@@ -36,53 +36,50 @@ export default class PanelComponents  extends Component{
 
 	static propTypes = {
 		 panels:React.PropTypes.array,
-		 groupId:React.PropTypes.string
+		 groupId:React.PropTypes.number
 	}
 
 	constructor(props,context){
 		super(props, context);
-		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
-		 this.state = {			
-			    groupId:this.props.groupId,
-				startDate:'',
-		}
+		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this); 
 	}
 
 	componentDidMount() {
-		var _this = this;
-		Store.dispatch(Actions.callAPI('openCompanyData')).then(function(response) {
-       
-            _this.setState({			
-					startDate:response.today,						
-			},function(){
-				let {groupId,startDate}=this.state;
-				var url='http://local.krspace.cn/#/statistical/index?groupId='+groupId+'&startDate='+startDate
-                window.location.href=url;
-			})
-
-		}).catch(function(err) {
-			Message.error(err);
-		});
-
-            
-           
-           
-      
+		
 	}
 
 	render(){
         
          
-		let {panels}=this.props;
-		//console.log('www444',window.location.href);
-
+		let {panels,groupId}=this.props;
+		
+		var  dateT=new Date();
+		var dateYear=dateT.getFullYear();
+		var dateMonth=dateT.getMonth()+1;
+		var dateDay=dateT.getDate();	
+        if(dateDay<10){
+        	dateDay='0'+dateDay
+        }
+        var todayDate=dateYear+'-'+dateMonth+'-'+dateDay;
+		
+		
 		var renderComponent = [];
+		var props = {
+			groupId
+		};
+
 		panels.map(function(item,index){
-			var childComponentName = PanelsDic[item.templateNo];
+			var childComponentName = PanelsDic[item.id];
 			if(childComponentName){
-				renderComponent.push(<div key={index}>{childComponentName}</div>);
+				props.key = index;
+				props.todayDate=todayDate;
+				renderComponent.push(React.cloneElement(childComponentName,{
+					...props
+				}));
 			}
 		});
+         
+		//<div key={index}>{childComponentName}</div>
 		
 		return(
 			<div>

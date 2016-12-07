@@ -22,6 +22,7 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Message,
+	Tooltip,
 	Form
 } from 'kr-ui';
 import './index.less';
@@ -31,8 +32,8 @@ import SearchNotDateForm from './SearchNotDateForm';
 export default class Initialize  extends Component{
      
     static propTypes = {
-		 groupId:React.PropTypes.string,
-		 currentDate:React.PropTypes.string,
+		groupId:React.PropTypes.number,
+		todayDate:React.PropTypes.string
 	}
 
 	constructor(props,context){
@@ -41,9 +42,9 @@ export default class Initialize  extends Component{
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	    this.state = {
 			searchParams: {
-				groupId:window.location.href.split('?')[1].split('&')[0].split('=')[1],
-				startDate:'',
-				endDate:''
+				groupId:this.props.groupId,
+				startDate:this.props.todayDate,
+				endDate:this.props.todayDate
 			}
 
 		}
@@ -52,14 +53,28 @@ export default class Initialize  extends Component{
     
     
 
-    onStartNotChange=(searchParams)=>{
-    	searchParams = Object.assign({}, this.state.searchParams, searchParams);
+    onStartNotChange=(startDate)=>{
+    	let {searchParams}=this.state;	
+        let start=Date.parse(dateFormat(startDate,"yyyy-mm-dd hh:MM:ss"));
+        let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
+        if(start>end){  
+         Message.error('开始时间不能大于结束时间');        
+          return ; 
+        }
+    	searchParams = Object.assign({}, searchParams, {startDate});
     	this.setState({
 			searchParams
 		});
     }
-    onEndNotChange=(searchParams)=>{
-    	searchParams = Object.assign({}, this.state.searchParams, searchParams);
+    onEndNotChange=(endDate)=>{
+    	let {searchParams}=this.state;	
+        let start=Date.parse(dateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
+        let end=Date.parse(dateFormat(endDate,"yyyy-mm-dd hh:MM:ss"))
+        if(start>end){  
+          Message.error('开始时间不能大于结束时间');        
+          return ; 
+        }
+    	searchParams = Object.assign({}, searchParams, {endDate});
     	this.setState({
 			searchParams
 		});
@@ -67,14 +82,8 @@ export default class Initialize  extends Component{
 
     render(){
     	let {searchParams}=this.state;
-        let start=Date.parse(dateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
-        let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"));
-        if(start>end){
-          Message.error('开始时间不能大于结束时间');
-        }
-	   
-	 var date_1=window.location.href.split('&')[1];
-	 var date_2=date_1.split('=')[1];
+        
+	
         
 		return(
           <div className='notOpenBack' style={{background:'#fff',marginBottom:'20'}}>
@@ -87,7 +96,7 @@ export default class Initialize  extends Component{
 							 <span  className='static-upload'>实时更新</span>	
 							</Col> 
 							<Col align="right" md={8}> 
-							  <SearchNotDateForm onStartNotChange={this.onStartNotChange} onEndNotChange={this.onEndNotChange} date_2={date_2}/>
+							  <SearchNotDateForm onStartNotChange={this.onStartNotChange} onEndNotChange={this.onEndNotChange} todayDate={searchParams.startDate}/>
 							</Col> 
 						</Row>
 					</Grid>
@@ -103,26 +112,31 @@ export default class Initialize  extends Component{
 					<TableHeader>
 					<TableHeaderColumn>城市</TableHeaderColumn>
 					<TableHeaderColumn>社区</TableHeaderColumn>
-					<TableHeaderColumn>开业后第一个出租率</TableHeaderColumn>
-					<TableHeaderColumn>新增意向工位数</TableHeaderColumn>
-					<TableHeaderColumn>开业后第二个出租率</TableHeaderColumn>
-					<TableHeaderColumn>开业后第三个出租率</TableHeaderColumn>
-					<TableHeaderColumn>累计意向工位数</TableHeaderColumn>
-					<TableHeaderColumn>总工位数</TableHeaderColumn>
-					<TableHeaderColumn>可出租工位数</TableHeaderColumn>
+					<TableHeaderColumn>总工位</TableHeaderColumn>
+					<TableHeaderColumn>可出租工位</TableHeaderColumn>
+					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>开业</span><span style={{display:'inline-block',lineHeight:'16px'}}>第一个月出租率</span></TableHeaderColumn>
+					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>开业</span><span style={{display:'inline-block',lineHeight:'16px'}}>第二个月出租率</span></TableHeaderColumn>
+					<TableHeaderColumn style={{textAlign:'center'}}><span style={{display:'inline-block',lineHeight:'16px'}}>开业</span><span style={{display:'inline-block',lineHeight:'16px'}}>第三个月出租率</span></TableHeaderColumn>
+					<TableHeaderColumn>新增意向工位</TableHeaderColumn>					
+					<TableHeaderColumn>累计意向工位</TableHeaderColumn>
+					<TableHeaderColumn>平均单价</TableHeaderColumn>							
 				</TableHeader>
 
 				<TableBody>
 						 <TableRow>
 						<TableRowColumn name="cityName" ></TableRowColumn>
-						<TableRowColumn name="communityName"></TableRowColumn>
-						<TableRowColumn name="firstMonth"></TableRowColumn>
-						<TableRowColumn name="newIntention" ></TableRowColumn>
-						<TableRowColumn name="secondMonth"></TableRowColumn>
-						<TableRowColumn name="thirdMonth"></TableRowColumn>
-						<TableRowColumn name="totalIntention"></TableRowColumn>
+						<TableRowColumn name="communityName"  component={(value,oldValue)=>{
+                             return (<div><span className='tableOver'>{value}</span><Tooltip style={{visibility:'visible'}} place='top'>{value}</Tooltip></div>)
+						}} ></TableRowColumn>
 						<TableRowColumn name="totalStation"></TableRowColumn>
 						<TableRowColumn name="unUsedStation"></TableRowColumn>
+						<TableRowColumn name="firstMonth"></TableRowColumn>
+						<TableRowColumn name="secondMonth"></TableRowColumn>
+						<TableRowColumn name="thirdMonth"></TableRowColumn>
+						<TableRowColumn name="newIntention" ></TableRowColumn>
+						<TableRowColumn name="totalIntention"></TableRowColumn>
+						<TableRowColumn name="averagePrice"></TableRowColumn>
+						
 					 </TableRow>
 				</TableBody>
 				</Table>

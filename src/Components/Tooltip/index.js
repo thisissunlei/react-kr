@@ -12,7 +12,7 @@ export default class Tooltip extends Component {
 
 	static defaultProps = {
 		backgroundColor:"rgba(0,0,0,.7)",
-		ShadowColor:'#fff'
+		ShadowColor:'transparent'
 	}
 
 	static PropTypes = {
