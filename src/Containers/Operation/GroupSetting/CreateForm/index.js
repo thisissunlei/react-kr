@@ -336,7 +336,8 @@ class ZhuanHuan extends React.Component{
 
 	 //排序实时校验
 	 sortCheck=(values)=>{
-		 if(this.state.isErr){
+
+		 if(this.state.isErr&&+values>0){
 			 var _this=this;
 			 values=this.Trim(values);
 			 Store.dispatch(Actions.callAPI('sortCheck',{sort:values,id:''})).then(function(data) {

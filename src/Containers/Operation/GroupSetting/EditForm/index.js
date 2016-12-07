@@ -334,7 +334,7 @@ class ZhuanHuan extends React.Component{
 
 	 //排序实时校验
 	 sortCheck=(values)=>{
-
+		 if(+values>0){
 		 var _this=this;
 		 values=this.Trim(values);
 		 Store.dispatch(Actions.callAPI('sortCheck',{sort:values,id:this.props.detail.id})).then(function(data) {
@@ -345,7 +345,7 @@ class ZhuanHuan extends React.Component{
 				 type: 'danger',
 			 }]);
 		 });
-
+		 }
 	 }
 	 //去除前后空格
 	Trim=(str)=>{
