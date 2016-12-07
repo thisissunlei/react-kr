@@ -83,7 +83,6 @@ export default class Initialize  extends Component{
 				page: 1,
 				pageSize: 15,
 				other:_this.state.searchParams.other++,
-				groupName:_this.state.searchText,
 			}
 			console.log(obj)
 			_this.setState({
