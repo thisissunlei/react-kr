@@ -404,7 +404,7 @@ export default class OrderDetail extends React.Component {
 			<Section title="客户订单详情" description="" hide={!!this.props.location.query.closeAll} bodyPadding={'20px 20px 50px 20px'}>
 			<div className="content">
 			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog} style={{width:160,height:40,marginTop:15,fontSize:'18px !important'}}/>
-			
+			<span className="border-top" style={{marginBottom:20}}></span>
 			<DotTitle title='合同列表'/>
 
 			<Table pageSize={contractList.length} displayCheckbox={false}>
@@ -485,7 +485,7 @@ export default class OrderDetail extends React.Component {
 					</Grid>
 				);
 			})}
-			<span className="border-bottom"></span>
+			
 
 			
             <DotTitle title='订单描述'/>
@@ -527,7 +527,7 @@ export default class OrderDetail extends React.Component {
             </div>
 
             
-
+			<span className="border-bottom" style={{marginTop:60}}></span>
 
           	</div>
 			</Section>
