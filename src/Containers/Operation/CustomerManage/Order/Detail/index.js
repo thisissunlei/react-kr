@@ -426,15 +426,15 @@ export default class OrderDetail extends React.Component {
 				console.log('item---',item)
 				return (
 					<TableRow key={index}>
-					<TableRowColumn>{item.contractcode || '无'}</TableRowColumn>
-					{this.getAgrementType(item.contracttype)}
+					<TableRowColumn>{item.contracttype}</TableRowColumn>
+					<TableRowColumn>{item.totalrent}</TableRowColumn>
 					<TableRowColumn>{item.stationnum}</TableRowColumn>
 					<TableRowColumn>{item.boardroomnum}</TableRowColumn>
 					<TableRowColumn><KrDate value={item.leaseBegindate}/></TableRowColumn>
-					<TableRowColumn> <KrDate value={item.leaseEnddate}/></TableRowColumn>
-					<TableRowColumn>{item.contractTotalamount}</TableRowColumn>
-					<TableRowColumn><KrDate value={item.leaseBegindate}/></TableRowColumn>
-					<TableRowColumn> <KrDate value={item.leaseEnddate}/></TableRowColumn>
+					<TableRowColumn><KrDate value={item.leaseEnddate}/></TableRowColumn>
+					<TableRowColumn>{item.staionOrMeetingPrice}</TableRowColumn>
+					<TableRowColumn>{item.saler}</TableRowColumn>
+					<TableRowColumn>{item.inputUser}</TableRowColumn>
 					<TableRowColumn>
 					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} />
 							{item.contractstate != 'EXECUTE' && item.editFlag && <Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
