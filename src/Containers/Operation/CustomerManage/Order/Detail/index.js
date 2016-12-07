@@ -407,7 +407,7 @@ export default class OrderDetail extends React.Component {
 			<span className="border-top" style={{marginBottom:20}}></span>
 			<DotTitle title='合同列表'/>
 
-			<Table pageSize={contractList.length} displayCheckbox={false}>
+			<Table pageSize={contractList.length} displayCheckbox={false} >
 			<TableHeader>
 			<TableHeaderColumn>合同类型</TableHeaderColumn>
 			<TableHeaderColumn>租金金额</TableHeaderColumn>
@@ -454,7 +454,7 @@ export default class OrderDetail extends React.Component {
 			</TableBody>
 			</Table>
 
-			<DotTitle title='分期计划'/>
+			<DotTitle title='分期计划' style={{marginTop:45}}/>
 
 			<div className='ui-remark'>
               <div className='ui-circle-remark'><span className='circle-color circle-color-top over-circle'></span><span className='remark-green-text'>已完成</span></div>
