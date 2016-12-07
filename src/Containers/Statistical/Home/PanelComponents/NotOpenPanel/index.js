@@ -55,16 +55,16 @@ export default class Initialize  extends Component{
 
     onStartNotChange=(startDate)=>{
     	let {searchParams}=this.state;	
-    	var startDate=searchParams.startDate;
+    	var oldStartDate=searchParams.startDate;
     	//searchParams.oldStartDate=oldStartDate;
         let start=Date.parse(dateFormat(startDate,"yyyy-mm-dd hh:MM:ss"));
         let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
         if(start>end){  
-        searchParams = Object.assign({}, searchParams,{startDate});
+        searchParams = Object.assign({}, searchParams,{oldStartDate});
     	this.setState({
     		searchParams
 		});
-		console.log('-----',this.state.searchParams)
+		//console.log('-----',this.state.searchParams)
         Message.error('开始时间不能大于结束时间');        
           return ; 
         }

@@ -68,7 +68,7 @@ class Header extends Component {
 
 
 	static contextTypes = {
-		router: PropTypes.object.isRequired
+		router: PropTypes.object.isRequired,
 	};
 
 	constructor(props, context) {
@@ -81,19 +81,22 @@ class Header extends Component {
 
 		this.state = {
 			bottomNav: false,
-			toggle: true
+			toggle: true,
 		}
 
 	}
 
 
 	handleToggle() {
-
+       
+     
 		var {
 			actions,
-			sidebar_nav
+			sidebar_nav,
 		} = this.props;
+  
 		actions.switchSidebarNav(!!!sidebar_nav.switch_value);
+	
 	}
 
 	showBottomNav(event) {
@@ -112,6 +115,7 @@ class Header extends Component {
 	}
 
 	handleRequestClose() {
+	    
 		var {
 			actions,
 			bottom_nav
