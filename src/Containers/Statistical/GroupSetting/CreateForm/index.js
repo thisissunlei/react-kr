@@ -50,7 +50,7 @@ class Switchover extends Component{
 		var arr=this.state.allData.concat(this.state.okData)
 		this.setState({
 			okData:[],
-			allData:arr,
+			allData:arr
 		},function(){
 			_this.props.changeMudle(_this.state.okData);
 		});
@@ -60,7 +60,7 @@ class Switchover extends Component{
 		var arr=this.state.allData.concat(this.state.okData)
 		this.setState({
 			okData:arr,
-			allData:[],
+			allData:[]
 		},function(){
 			_this.props.changeMudle(_this.state.okData);
 		});
@@ -102,7 +102,7 @@ class Switchover extends Component{
 
           />
           <div className="ui-moveIcon" style={moddleStyle}>
-					<span onClick={this.leftToAll}>()</span><br/>
+						<span onClick={this.leftToAll}>()</span><br/>
 						<span onClick={this.rightToAll}>()</span>
 
           </div>
