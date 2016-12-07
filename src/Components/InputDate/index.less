@@ -21,7 +21,7 @@
      left:0;
      top:calc(100% + 10px);
      width:280px;
-     height:360px;
+     height:380px;
      overflow-y: hidden;
      margin-left:-10px;
      margin-top:-10px;
@@ -30,7 +30,7 @@
   .calendar {
      width:260px;
      position:relative;
-     height:342px;
+     height:362px;
      background-color:#fff;
      border:1px solid #ddd;
      box-shadow:0 0 6px lighten(@calendar-active-color,14%);
@@ -108,7 +108,6 @@
   .calendar-month-date{
     width:100%;
     padding-bottom:10px;
-    padding-top:10px;
     position: relative;
     box-sizing: border-box;
   }
@@ -147,6 +146,12 @@
         background-color:@calendar-active-color;
         color:#fff;
 
+      }
+      &.placeholder{
+        &:hover{
+          background-color:transparent;
+          color:normal;
+        }
       }
   }
 
