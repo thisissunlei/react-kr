@@ -94,7 +94,7 @@ export default class ConfirmFormDetail  extends Component{
 
 							<KrField component="group" label="上传附件">
 									{detail.contractFileList && detail.contractFileList.map((item,index)=>{
-										return <Button label={item.fileName}  type="link" href={item.fileUrl} key={index} linkStyle={{display:'block'}}/>
+										return <Button label={item.fileName}  type="link" href={item.fileUrl} key={index} linkStyle={{display:block}}/>
 									})}
 							</KrField>
 
