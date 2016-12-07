@@ -468,6 +468,7 @@ export default class D3Content extends Component {
 				{
 					sameNode && sameNode.map((item,index)=>{
 						
+						let nodeKind = item.color===1?'grey-circle':'red-node';
 						return (
 							<div className='same-div'  key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}}>
 								<span className='blue-node' data-tip data-for={`${item.pointDate}${item.newStationNum}${index}sameblue`}>
@@ -480,7 +481,7 @@ export default class D3Content extends Component {
 										</div>
 									</ReactTooltip>
 								</span>
-								<span className='red-node' data-tip data-for={`${item.pointDate}${item.newStationNum}${index}samered`}>
+								<span className={`${nodeKind}`} data-tip data-for={`${item.pointDate}${item.newStationNum}${index}samered`}>
 									<ReactTooltip id={`${item.pointDate}${item.newStationNum}${index}samered`} place="top" type="dark" effect="solid" >
 										{item.plan && item.plan.map((value,i)=>{
 										return(
