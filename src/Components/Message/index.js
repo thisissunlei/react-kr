@@ -6,7 +6,7 @@ import Dialog from '../Dialog';
 
 
 let containerDOM = '';
-let zhezhaoDOM = '';
+let shadowDOM = '';
 
 class Message extends Component{
 
@@ -23,7 +23,7 @@ class Message extends Component{
 			isClassName:!this.state.isClassName
 		})
 		window.setTimeout(function(){
-			ReactDOM.render(<div className='hide'></div>, zhezhaoDOM);
+			ReactDOM.render(<div className='hide'></div>, shadowDOM);
 		},500)
 
   }
@@ -32,7 +32,7 @@ class Message extends Component{
     let {messages,className} = this.props;
 		let {isClassName}=this.state;
 		return (
-			<div className="zhezhao">
+			<div className="shadow">
         <div className={`ui-message message_box ${isClassName?'exit':''}`}>
 					<span onTouchTap={this.onClose}></span>
 					<p className={className}>
@@ -46,7 +46,7 @@ class Message extends Component{
 
 function commonTimeout(){
 	setTimeout(function(){
-		ReactDOM.render(<div className='hide'></div>, zhezhaoDOM);
+		ReactDOM.render(<div className='hide'></div>, shadowDOM);
 	},1000)
 }
 
@@ -62,13 +62,13 @@ function commonRender(messages,type,fn){
 			className = 'error';
 		}
 		if(!containerDOM){
-			zhezhaoDOM = document.createElement('div');
-			zhezhaoDOM.className = "wai";
+			shadowDOM = document.createElement('div');
+			shadowDOM.className = "outer";
 			containerDOM = document.createElement('div');
-			zhezhaoDOM.appendChild(containerDOM);
-			document.body.appendChild(zhezhaoDOM);
+			shadowDOM.appendChild(containerDOM);
+			document.body.appendChild(shadowDOM);
 		}
-			ReactDOM.render(<Message messages={messages} className={className}/>, zhezhaoDOM);
+			ReactDOM.render(<Message messages={messages} className={className}/>, shadowDOM);
 			if(fn){
 				fn();
 			}
