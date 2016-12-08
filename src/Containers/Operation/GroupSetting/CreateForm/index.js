@@ -244,6 +244,8 @@ class ZhuanHuan extends React.Component{
           paddingLeft:"10px",
           cursor:"pointer",
           fontSize:"14px",
+          paddingLeft:"5px",
+        paddingRight:"5px",
           color:"#666666",
           boxSizing:"border-box",
       }
