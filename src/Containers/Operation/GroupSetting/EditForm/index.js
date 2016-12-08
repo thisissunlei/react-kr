@@ -36,7 +36,6 @@ class Switchover extends Component{
   leftAdd(value){
 		var _this=this;
     var arr=this.state.allData;
-    console.log(arr)
     arr.push(value);
     this.setState({allData:arr},function(){
 			_this.props.changeMudle(_this.state.okData)
@@ -131,7 +130,6 @@ class ZhuanHuan extends React.Component{
 	 }
 
   swapItems (arr, index1, index2) {
-		console.log(this);
 
        arr[index1] = arr.splice(index2, 1, arr[index1])[0];
        this.setState({mouldSort:arr});

@@ -39,7 +39,6 @@ class Switchover extends Component{
 	leftAdd=(value)=>{
 		var _this=this;
 		var arr=this.state.allData;
-		console.log(value,"??-----??",arr);
 		arr.push(value);
 		this.setState({allData:arr},function(){
 			_this.props.changeMudle(_this.state.okData)
