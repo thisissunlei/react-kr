@@ -77,8 +77,6 @@ export default class Home  extends Component{
 			borderBottom: "1px solid #eee",
 			fontSize:16
 		}
-              
-
 		return (
 		 <div className='backStatic'>
 	      <div className='static-tabWrap'>
@@ -87,10 +85,17 @@ export default class Home  extends Component{
 						    var activeStyle={}
 							if(this.state.action==index){
 								activeStyle=activeTab;
+								var activeTab=(<PanelComponents panels={item.templateList} groupId={this.state.groupId}/>)
 							}else{
 								activeStyle=commenTab;
 							}
-						    return (<Tab label={item.groupName} key={index} onActive={this.activeTable.bind(this,index,item.id)} style={activeStyle}><div className='tabWrap_section'><PanelComponents panels={item.templateList} groupId={this.state.groupId}/></div></Tab>)
+							return (
+				             <Tab label={item.groupName} key={index} onActive={this.activeTable.bind(this,index,item.id)} style={activeStyle}>
+				               <div className='tabWrap_section'>
+				                {activeTab}
+				               </div>
+				             </Tab>
+    		                )
 						})
 				   }
 	 	    </Tabs> 
@@ -98,8 +103,8 @@ export default class Home  extends Component{
 	 	  </div>
 		);
 	}
-
-
+    
+ 
 	renderGroupSingle = ()=>{
 
 		let {groupList} = this.state;
