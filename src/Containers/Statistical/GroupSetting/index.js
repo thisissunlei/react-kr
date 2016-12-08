@@ -21,8 +21,7 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Notify,
-	Tooltip,
-	Message
+	Tooltip
 
 } from 'kr-ui';
 import NewCreateForm from './CreateForm';
@@ -75,8 +74,6 @@ export default class Initialize  extends Component{
 		params = Object.assign({}, params);
 		if(this.state.noinit){
 			params.templateIdList="";
-			Message.error("模板列表不能为空")
-
 		}else{
 			params.templateIdList=this.state.templateList;
 		}
@@ -101,7 +98,10 @@ export default class Initialize  extends Component{
 			if(!params.templateIdList){
 				err.message="模板列表不能为空";
 			}
-			Message.error(err.message)
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
 		});
 
 
@@ -181,10 +181,10 @@ export default class Initialize  extends Component{
 		var _this=this;
 
 		let obj = {
-			groupName:searchParams.groupName||"",
+			groupName:searchParams.groupName,
 			pageSize:15,
 			page: 1,
-			enable:searchParams.enable||""
+			enable:searchParams.enable
 		}
 		this.setState({
 			searchParams: obj
