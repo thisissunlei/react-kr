@@ -2,6 +2,8 @@ import React, {
 	Component
 } from 'react';
 
+import ReactDOM from 'react-dom';
+
 
 export default class CalendarYearSelector extends React.Component {
 
@@ -24,35 +26,53 @@ export default class CalendarYearSelector extends React.Component {
 		super(props)
 	}
 
+	componentDidMount(){
+			var element = ReactDOM.findDOMNode(this);
+			element.scrollTop = 53*30;
+	}
+
 	onSelected(year){
 			const {onSelected} = this.props;
 			onSelected && onSelected(year);
 	}
 
-	render() {
+	createYearItem(yearItem){
 
-		let {open} = this.props;
-		if(!open){
-			return null;
+		let {year} = this.props;
+		let handlers = {
+			onClick:this.onSelected.bind(this,yearItem)
+		};
+
+		let props = {
+			key:yearItem,
+			className:'item-year'
 		}
 
-		return (
-				<div className="calendar-year-selector" >
-						<div className="item-year" onClick={this.onSelected.bind(this,2015)}>2015</div>
-						<div className="item-year" onClick={this.onSelected.bind(this,2013)}>2015</div>
-						<div className="item-year" onClick={this.onSelected.bind(this,2016)}>2015</div>
-						<div className="item-year">2015</div>
-						<div className="item-year">2015</div>
-						<div className="item-year">2015</div>
-						<div className="item-year">2015</div>
-						<div className="item-year">2015</div>
-							<div className="item-year">2015</div>
-								<div className="item-year">2015</div>
-									<div className="item-year">2015</div>
-										<div className="item-year">2015</div>
-											<div className="item-year">2015</div>
-												<div className="item-year">2015</div>
+		if(year == yearItem){
+			props.className ='item-year year-active';
+		}else{
+			props.className ='item-year';
+		}
+		return React.createElement('div', {...props, ...handlers}, yearItem);
+	}
 
+	renderYearOptions = ()=>{
+
+		let {year} = this.props;
+		var yearOptions = [];
+		var i = parseInt(year)-50;
+		var maxYear = parseInt(year)+50;
+		for(;i<maxYear;i++){
+			yearOptions.push(this.createYearItem(i));
+		}
+		return yearOptions;
+	}
+
+	render() {
+
+		return (
+				<div className="calendar-year-selector" ref="yearSelector" >
+				{this.renderYearOptions()}
 				</div>
 		);
 
