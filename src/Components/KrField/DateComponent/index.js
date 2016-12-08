@@ -71,7 +71,7 @@ export default class DateComponent extends React.Component {
 		if (!value) {
 			return;
 		}
-		
+
 		let { input, onChange } = this.props;
 
 		var result = this.formatDate(value);

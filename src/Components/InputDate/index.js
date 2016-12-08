@@ -49,8 +49,44 @@ export default class InputDate extends React.Component {
 		}
 	}
 
-	componentDidMount(){
 
+	setDefaultValue = (value)=>{
+
+		if(typeof value === 'undefined'){
+			 return '';
+		}
+
+		if(!isNaN(value)){
+			var nowTime = new Date(value);
+			var year = nowTime.getFullYear();
+			var month = nowTime.getMonth();
+			var date = nowTime.getDate();
+
+			this.setState({
+				value:`${year}-${month}-${date}`
+			});
+
+			return ;
+		}
+
+		if(typeof value === 'string' && value.indexOf('-')!==-1){
+			this.setState({
+				value:value
+			});
+			return ;
+		}
+
+		if(typeof value === 'string' && value.indexOf('/')!==-1){
+			this.setState({
+				value:value.replace('/','-')
+			});
+			return ;
+		}
+
+	}
+
+	componentDidMount(){
+			this.setDefaultValue(this.props.value);
 			var _this = this;
 			document.addEventListener('click',function(event){
 
@@ -69,6 +105,13 @@ export default class InputDate extends React.Component {
 					});
 
 			});
+	}
+
+	componentWillReceiveProps(nextProps){
+
+		if(nextProps.defaultValue !== this.props.defaultValue ){
+				this.setDefaultValue(nextProps.defaultValue);
+		}
 	}
 
 
