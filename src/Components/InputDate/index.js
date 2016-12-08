@@ -114,11 +114,31 @@ export default class InputDate extends React.Component {
 		}
 	}
 
+	componentDidMount(){
+			var _this = this;
+			document.addEventListener('click',function(event){
+					event = event || window.event;
+					console.log('documnt');
+					var target = event.target;
+					while (target) {
+						console.log(target.className)
+							if(target && target.className && target.className.indexOf('calendar')!==-1){
+								 return ;
+							}
+							target = target.parentNode;
+					}
+					_this.setState({
+						openCalendar:false
+					});
+			});
+
+	}
 
 	openCalendarDialog = ()=>{
 			this.setState({
 				openCalendar:!this.state.openCalendar
 			});
+
 	}
 
 	onChange = (value)=>{

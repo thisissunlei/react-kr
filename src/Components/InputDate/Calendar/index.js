@@ -16,7 +16,7 @@ export default class Calendar extends React.Component {
 	static displayName = 'Calendar';
 
 	static defaultProps = {
-		value:'2015-11-1',
+		value:'2016-12-7'
 	}
 	static propTypes = {
 		/**
@@ -61,9 +61,9 @@ export default class Calendar extends React.Component {
 		super(props)
 
 		this.state = {
-			year:'',
-			month:'',
-			date:'',
+			year:this.props.year,
+			month:this.props.month,
+			date:this.props.date,
 			openYearSelector:false,
 			openMonthSelector:false,
 		}
@@ -207,7 +207,7 @@ export default class Calendar extends React.Component {
 					<CalendarInput year={year} month={month} date={date} />
 					<CalendarToolbar year={year} month={month} openYearSelectorDialog={this.openYearSelectorDialog} openMonthSelectorDialog={this.openMonthSelectorDialog}/>
 					<CalendarDayDisplay />
-          <CalendarMonthDate year={year} month={month} date={date} />
+          {year && month && date && <CalendarMonthDate year={year} month={month} date={date} />}
 
 					{openYearSelector && <CalendarYearSelector onSelected={this.onSelectedYear} year={year}/> }
 					{openMonthSelector && <CalendarMonthSelector onSelected={this.onSelectedMonth} month={month}/>}
