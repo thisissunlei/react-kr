@@ -25,9 +25,14 @@ import {
 	CheckboxGroup,
 	RadioGroup,
 	Message,
+	Tooltip,
+	KrForm,
 	DemoComponent,
-	Tooltip
+	Field,
+	FieldControl,
+	InputDate,
 } from 'kr-ui';
+
 import {
 	FlatButton,
 } from 'material-ui';
@@ -48,19 +53,20 @@ export default class Demo extends Component{
 	constructor(props,context){
 		super(props, context);
 
-		this.onSubmit = this.onSubmit.bind(this);
-
-		console.log('---',this.context.router);
+		this.state = {
+			userNameDefaultValue:''
+		}
 
 	}
 
-	onSubmit(value){
-		console.log('----',value)
-		// window.location.hash = 'demo';
-		// //this.context.router.replace(location.href);;
-	 //    history.replace(location)
-		//hashHistory.refresh();
+	componentDidMount(){
+		/*
+		this.setState({
+			userNameDefaultValue:'aahahh'
+		});
+		*/
 	}
+
 
 
 	show = ()=>{
@@ -68,127 +74,55 @@ export default class Demo extends Component{
 		console.log('click');
 
 
-		Message.show('hahah','normal');
+		Message.show('hahaha 爱的范德萨发几块了');
 	}
 
 
-
 	render(){
-		const list = [{a:1},{b:2},{c:3},{d:5}];
-
-
 		return(
 			<div>
-
-				<Title value="haah "/>
-
-
-
-
 					<Section title="demo" description="" >
 
-							<Button label="show"  onTouchTap={this.show}/>
-							<KrField label='city' component='city'/>
-							<span className="icon-basis">fff</span>
-							<FontIcon className="icon-basis" color={'#499df1'}/>
 
+						<KrForm name="demoForm" onSubmit={function(values){
+									console.log('values',values);
+							}} >
+
+
+									<FieldControl name="d23233" label="选择城市" component="group"  requiredValue={true} errors={{requiredValue:'请填写时间'}} >
+												<FieldControl name="d23233" label="北京" component="checkbox" />
+											<FieldControl name="d23233" label="上海" component="checkbox" />
+												<FieldControl name="d23233" label="深圳" component="checkbox"/>
+								</FieldControl>
+
+
+								<FieldControl name="d233" label="选择城市" component="group"  requiredValue={true} errors={{requiredValue:'请填写时间'}} >
+												<FieldControl grid={1/2} name="d23" component="date"  contentStyle={{paddingLeft:0}}/>
+											<FieldControl  grid={1/2} name="d2"  component="date" />
+							</FieldControl>
+
+									<FieldControl name="d" label="单选" component="radio"  requiredValue={true} errors={{requiredValue:'请填写时间'}}/>
+
+									<FieldControl name="de" label="其它" component="searchPersonel" requiredValue={true} errors={{requiredValue:'请填写时间'}}/>
+
+									<FieldControl name="dame" label="其它" component="select" requiredValue={true} errors={{requiredValue:'请填写时间'}} options={[{label:'请选择',value:''},{label:'北京',value:'1'}]}/>
+
+
+								<FieldControl name="de2ame" label="其它" component="date" requiredValue={true} errors={{requiredValue:'请填写时间'}}/>
+
+							<FieldControl name="demn22ame" label="其它:" component="file"  requiredValue={true} errors={{requiredValue:'必填'}}/>
+
+						<FieldControl name="demn3322342ame" type="text" label="其它" component="input"/>
 							<FontIcon
 						      className="icon-basis"
 						      style={{marginRight:'20px',color:'#499df1',fontSize:20}}
 						    />
-						    <ul>
-						    	{list.map((item,index)=>{
-						    		return (
-						    			<li key={index} className='tooltip-li'>
-						    				<div>
-						    				{index}
-							    				<Tooltip place="right">
-													<p>12345</p>
-													<p>12345</p>
-													<p>12345</p>
-													<p>12345</p>
-													<p>12345</p>
-													
-												</Tooltip>
-						    				</div>
 
-						    			</li>
-						    			)
-						    	})}
-						    </ul>
+
 						 <FlatButton icon={<FontIcon className={'icon-basis'} />} style={{color:'#499df1',height:36,width:100}} />
-						<div className="tooltip" >
-							<Tooltip place="top">
-								<p>12345</p>
-								<p>12345</p>
-								<p>12345</p>
-								<p>12345</p>
-								<p>12345</p>
-								<p>12345</p>
-								<p>12345</p>
-								<p>12345</p>
-								<p>12345</p>
-								<p>12345</p>
-								<p>12345</p>
-								<p>12345</p>
-							</Tooltip>
-						</div>
-						<div className="tooltip" style={{marginTop:40}}>
-							<Tooltip place="bottom"  backgroundColor="#fff" ShadowColor="#499df1" boxShadow="0 0 3px #499df1">
-								<p>12345</p>
-								<p>12345</p>
-								<p>12345</p>
-								<a href="https://www.baidu.com" target="_blank">baidu1</a>
-							</Tooltip>
-						</div>
 
-
-
+							 </KrForm>
 					</Section>
-					<Tabs className="tabs">
-						<Tab label="计划表" >
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-
-						</Tab>
-						<Tab label="平面图1" >
-
-						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
-						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
-						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
-						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
-
-
-						</Tab>
-						<Tab label="计划表我"  >
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-							<span style={{display:'block'}}>fdsfsdf</span>
-
-						</Tab>
-						<Tab label="平面图"  >
-
-						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
-						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
-						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
-						  <span style={{display:'block'}}>fdsfsczczxcdf</span>
-
-
-						</Tab>
-					</Tabs>
-
-					
-
-					
 			</div>
 
 		);

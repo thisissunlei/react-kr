@@ -88,15 +88,13 @@ class Header extends Component {
 
 
 	handleToggle() {
-       
-     
+        
 		var {
 			actions,
 			sidebar_nav,
 		} = this.props;
   
 		actions.switchSidebarNav(!!!sidebar_nav.switch_value);
-	
 	}
 
 	showBottomNav(event) {

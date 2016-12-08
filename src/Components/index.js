@@ -41,6 +41,9 @@ import DemoComponent from './Demo';
 import Textarea from './Textarea';
 import 	DatePicker from './DatePicker';
 import 	Tooltip from './Tooltip';
+import 	KrForm from './KrForm';
+import 	InputDate from './InputDate';
+
 
 import {
 	Grid,
@@ -107,6 +110,8 @@ module.exports = {
 	DemoComponent,
 	Textarea,
 	DatePicker,
+	...KrForm,
+	InputDate,
 
 	//materal-ui
 	Menu,

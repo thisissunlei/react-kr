@@ -58,7 +58,7 @@ export default class Home  extends Component{
 			action:index,
 			groupId:id
 		},function(){
-			
+			//console.log('----22222',this.state.groupId);
 		});      
 	}
     
@@ -82,7 +82,6 @@ export default class Home  extends Component{
 		return (
 		 <div className='backStatic'>
 	      <div className='static-tabWrap'>
-		   <span className="line"></span>
 		   <Tabs tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={{background: '-webkit-linear-gradient(right, #03ec56, #499df1)',position:'absolute',top:0,height:3}} style={{background:'#fff',position:'relative',paddingLeft:'20',paddingRight:'20'}}>
 					{groupList.map((item,index)=>{
 						    var activeStyle={}
@@ -121,6 +120,7 @@ export default class Home  extends Component{
 	componentDidMount() {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('get-my-groups')).then(function(response) {
+			//console.log('----0000',response);
 		   _this.setState({
 		   	 groupList:response.groupList,
 		   	 groupId:response.groupList[0].id

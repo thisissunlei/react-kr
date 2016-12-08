@@ -381,7 +381,7 @@ export default class EmployessTable extends Component {
 			communityId
 		} = this.state;
 
-		let url = `/krspace_member_web/member/toAddMember?companyId=${customerId}&communityId=${communityId}`;
+		let url = `/krspace_member_web/member/toAddMember?companyId=${customerId}&communityId=${communityId}&flag=op`;
 		return url;
 	}
 

@@ -47,7 +47,7 @@ export default class D3Content extends Component {
 		detail: [],
 		finaBluePointVo: [],
 		finaRedPointVo: [],
-		whiteBar:[]
+		whiteBar: []
 	}
 
 	static propTypes = {
@@ -67,7 +67,8 @@ export default class D3Content extends Component {
 		this.getRedInfo = this.getRedInfo.bind(this);
 		this.renderRedNode = this.renderRedNode.bind(this);
 		this.renderwhiteBar = this.renderwhiteBar.bind(this);
-		this.sameNode = this.getSameTime();
+		this.NodeList = this.getSameTime();
+		this.sameNode = this.NodeList[0];
 
 	}
 
@@ -77,13 +78,15 @@ export default class D3Content extends Component {
 
 	// 计算第几天
 	countDays(date) {
-		var {currentYear} = this.props;
-		let year = `${currentYear}-1-1`;
-		// var initial = (new Date('2016-1-1')).getTime();
-		var initial = (new Date(year)).getTime();
-		var offset = date - initial;
-		return (offset / 24 / 3600 / 1e3) + 1;	
-		// return Math.ceil(offset / 24 / 3600) + 1;
+			var {
+				currentYear
+			} = this.props;
+			let year = `${currentYear}-1-1`;
+			// var initial = (new Date('2016-1-1')).getTime();
+			var initial = (new Date(year)).getTime();
+			var offset = date - initial;
+			return (offset / 24 / 3600 / 1e3) + 1;
+			// return Math.ceil(offset / 24 / 3600) + 1;
 		}
 		// 处理时间段
 	dealTime() {
@@ -91,22 +94,26 @@ export default class D3Content extends Component {
 				detail
 			} = this.props;
 
-			detail = Object.assign({},detail);
+			detail = Object.assign({}, detail);
 
 			let width;
 			var _this = this;
 			let newArr = [];
-			
-			for(let j in detail){
-			  for(let prop in detail[j]){
-			      if(prop!=''||detail[j][prop]!=''){
-			          	newArr.push(detail[j]);	
-			      }
-			  }
+
+			for (let j in detail) {
+				for (let prop in detail[j]) {
+					if (prop != '' || detail[j][prop] != '') {
+						newArr.push(detail[j]);
+					}
+				}
 			};
 			var unique = {};
-		    newArr.forEach(function(a){ unique[ JSON.stringify(a) ] = 1 });
-		    newArr= Object.keys(unique).map(function(u){return JSON.parse(u) });
+			newArr.forEach(function(a) {
+				unique[JSON.stringify(a)] = 1
+			});
+			newArr = Object.keys(unique).map(function(u) {
+				return JSON.parse(u)
+			});
 
 			var timeList = newArr.map(function(item) {
 				item.start = _this.countDays(item.begindate);
@@ -117,8 +124,8 @@ export default class D3Content extends Component {
 				width = (item.end - item.start) / 365; //时间段的长度
 				// item.width = Math.ceil(width*100)/100;
 				// item.left = Math.ceil((item.start*10000/365)*100)/10000 ;
-				item.width = (width*100)/100;
-				item.left = ((item.start*10000/365)*100)/10000 ;
+				item.width = (width * 100) / 100;
+				item.left = ((item.start * 10000 / 365) * 100) / 10000;
 				item.left = item.left;
 				return item;
 			});
@@ -130,11 +137,11 @@ export default class D3Content extends Component {
 		// var whiteWidth = parseInt((timeList[0].start) / 365 * width);
 		var whiteWidth = (timeList[0].start) / 365;
 		var whiteNode = {
-				start: 0,
-				end: timeList[0].start,
-				// width: Math.ceil(whiteWidth*100)/100
-				width: (whiteWidth*100)/100
-			}
+			start: 0,
+			end: timeList[0].start,
+			// width: Math.ceil(whiteWidth*100)/100
+			width: (whiteWidth * 100) / 100
+		}
 		return whiteNode;
 	}
 	appendDiv(list, time) {
@@ -155,9 +162,9 @@ export default class D3Content extends Component {
 		// 催款时间和工位变更时间节点位置（px）
 	timeNode(date) {
 			var days = this.countDays(date);
-			var marginLeft = days / 365 ;
-			marginLeft = Math.round(marginLeft*100)/100
-			// var marginLeft = parseInt(days / 365 * width);
+			var marginLeft = days / 365;
+			marginLeft = Math.round(marginLeft * 100) / 100
+				// var marginLeft = parseInt(days / 365 * width);
 			return marginLeft;
 		}
 		// 插入催款信息
@@ -166,17 +173,21 @@ export default class D3Content extends Component {
 				finaRedPointVo
 			} = this.props;
 			let newArr = [];
-			
-			for(let j in finaRedPointVo){
-			  for(let prop in finaRedPointVo[j]){
-			      if(prop!=''||finaRedPointVo[j][prop]!=''){
-			          	newArr.push(finaRedPointVo[j]);	
-			      }
-			  }
+
+			for (let j in finaRedPointVo) {
+				for (let prop in finaRedPointVo[j]) {
+					if (prop != '' || finaRedPointVo[j][prop] != '') {
+						newArr.push(finaRedPointVo[j]);
+					}
+				}
 			};
 			var unique = {};
-		    newArr.forEach(function(a){ unique[ JSON.stringify(a) ] = 1 });
-		    newArr= Object.keys(unique).map(function(u){return JSON.parse(u) });
+			newArr.forEach(function(a) {
+				unique[JSON.stringify(a)] = 1
+			});
+			newArr = Object.keys(unique).map(function(u) {
+				return JSON.parse(u)
+			});
 			newArr.map((item) => {
 				item.red = [];
 				finaRedPointVo.map((value) => {
@@ -195,17 +206,17 @@ export default class D3Content extends Component {
 		var that = this;
 		let finaBluePointVo = this.renderBlueNode();
 		let finaRedPointVo = this.renderRedNode();
-		finaBluePointVo = [].concat(finaBluePointVo);
-		finaRedPointVo = [].concat(finaRedPointVo);
+		let finaBluePointVoList = [].concat(finaBluePointVo);
+		let finaRedPointVoList = [].concat(finaRedPointVo);
 		let sameNode = [];
 
 		finaBluePointVo.map((item) => {
 			finaRedPointVo.map((value) => {
 				if (item.pointDay === value.pointDay) {
 					var obj = value;
-					obj.arr =[];
+					obj.arr = [];
 					obj.arr.concat(value.plan);
-					let node = $.extend(item, value);
+					let node = $.extend(item, obj);
 					sameNode.push(node);
 				}
 			});
@@ -213,13 +224,19 @@ export default class D3Content extends Component {
 		})
 		if (sameNode.length) {
 			sameNode.map((item) => {
+				console.log('------item', item)
 				item.pointDay = that.countDays(item.pointDate);
 				finaRedPointVoList.map((value, index) => {
 					if (item.pointDay === value.pointDay) {
 						finaRedPointVoList.splice(index, 1);
+						//console.log('finaRedPointVoList-----', finaRedPointVoList)
+
+
+
 					}
 				})
 			})
+			console.log('----finaRedPointVoList', finaRedPointVoList)
 
 		}
 		if (sameNode.length) {
@@ -233,15 +250,21 @@ export default class D3Content extends Component {
 			})
 
 		}
-		console.log('same',sameNode);
+
 		var unique = {};
-		    sameNode.forEach(function(a){ unique[ JSON.stringify(a) ] = 1 });
-		    sameNode= Object.keys(unique).map(function(u){return JSON.parse(u) });
-		return sameNode;
+		sameNode.forEach(function(a) {
+			unique[JSON.stringify(a)] = 1
+		});
+		sameNode = Object.keys(unique).map(function(u) {
+			return JSON.parse(u)
+		});
+		let NodeList = [sameNode, finaBluePointVoList, finaRedPointVoList];
+
+		return NodeList;
 	}
 
 	renderBlueNode() {
-		
+
 		let {
 			finaBluePointVo
 		} = this.props;
@@ -275,17 +298,17 @@ export default class D3Content extends Component {
 
 		const that = this;
 		let newArr = [];
-			
-		for(let j in finaRedPointVo){
 
-			if(!finaRedPointVo[j].pointDate){
+		for (let j in finaRedPointVo) {
+
+			if (!finaRedPointVo[j].pointDate) {
 				finaRedPointVoList.splice(j, 1);
-			}else{
+			} else {
 				finaRedPointVoList[j].pointDay = that.countDays(finaRedPointVo[j].pointDate);
 			}
 		};
 		//判断时间点是否重合,若重合，合并数据
-		if(finaRedPointVo.length===1){
+		if (finaRedPointVo.length === 1) {
 			finaRedPointVoList[0].arr = [];
 			finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[0].plan);
 		}
@@ -301,12 +324,12 @@ export default class D3Content extends Component {
 		// 		finaRedPointVoList[1].arr = finaRedPointVoList[1].arr.concat(finaRedPointVoList[1].plan);
 		// 	}
 		// }	
-		for (var i = 0; i <= finaRedPointVo.length-1; i++) {
+		for (var i = 0; i <= finaRedPointVo.length - 1; i++) {
 			finaRedPointVoList[i].arr = [];
-			finaRedPointVoList[i].arr= finaRedPointVoList[i].arr.concat(finaRedPointVoList[i].plan);
+			finaRedPointVoList[i].arr = finaRedPointVoList[i].arr.concat(finaRedPointVoList[i].plan);
 			for (var j = finaRedPointVo.length - 1; j >= 0; j--) {
-				if(finaRedPointVoList[i].pointDate === finaRedPointVoList[j].pointDate && i!=j){
-					finaRedPointVoList[i].arr= finaRedPointVoList[i].arr.concat(finaRedPointVoList[j].plan);
+				if (finaRedPointVoList[i].pointDate === finaRedPointVoList[j].pointDate && i != j) {
+					finaRedPointVoList[i].arr = finaRedPointVoList[i].arr.concat(finaRedPointVoList[j].plan);
 				}
 			}
 		}
@@ -316,17 +339,19 @@ export default class D3Content extends Component {
 		return finaRedPointVoList;
 
 	}
-	renderwhiteBar(){
-		let {whiteBar} = this.props;
+	renderwhiteBar() {
+		let {
+			whiteBar
+		} = this.props;
 		let that = this;
-		whiteBar = whiteBar.map((item)=>{
-			let days = that.countDays(item);
-			let num = (days*10000/365)/10000*100;
-			// let num = Math.ceil((days*10000/365)/10000*100) ;
-			return num;
-		})
-		// if(whiteBar.length>1){whiteBar.pop();}
-		
+		whiteBar = whiteBar.map((item) => {
+				let days = that.countDays(item);
+				let num = (days * 10000 / 365) / 10000 * 100;
+				// let num = Math.ceil((days*10000/365)/10000*100) ;
+				return num;
+			})
+			// if(whiteBar.length>1){whiteBar.pop();}
+
 		return whiteBar;
 	}
 
@@ -348,9 +373,10 @@ export default class D3Content extends Component {
 			var whiteNode = this.getSpace(list);
 			list.unshift(whiteNode);
 			var nodeList = this.appendDiv(list, now);
-			var redNodeList = this.renderRedNode();
-			var blueNodeList = this.renderBlueNode();
+			var redNodeList = this.NodeList[2];
+			var blueNodeList = this.NodeList[1];
 			var sameNode = this.sameNode;
+
 		} else {
 			var list = [{
 				width: "100%",
@@ -358,8 +384,6 @@ export default class D3Content extends Component {
 			}];
 		}
 		let whiteBar = this.renderwhiteBar();
-
-
 
 
 
@@ -414,8 +438,9 @@ export default class D3Content extends Component {
 				}
 				{
 					redNodeList && redNodeList.map((item,index)=>{
-						let nodeKind = item.color==='1'?'grey-circle':'red-node';
-
+						
+						let nodeKind = item.color===1?'grey-circle':'red-node';
+						
 						return (
 							<span className={`${nodeKind}`} key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}} data-tip data-for={`${item.pointDate}${index}red${item.plan[0].id}`}>
 								<ReactTooltip id={`${item.pointDate}${index}red${item.plan[0].id}`} place="top" type="dark" effect="solid" >
@@ -442,8 +467,10 @@ export default class D3Content extends Component {
 				}
 				{
 					sameNode && sameNode.map((item,index)=>{
+						
+						let nodeKind = item.color===1?'grey-circle':'red-node';
 						return (
-							<div className='same-div'  key={index}style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}}>
+							<div className='same-div'  key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}}>
 								<span className='blue-node' data-tip data-for={`${item.pointDate}${item.newStationNum}${index}sameblue`}>
 									<ReactTooltip id={`${item.pointDate}${item.newStationNum}${index}sameblue`} place="top" type="dark" effect="solid" >
 										<div className="react-tooltip-content">
@@ -454,9 +481,9 @@ export default class D3Content extends Component {
 										</div>
 									</ReactTooltip>
 								</span>
-								<span className='red-node' data-tip data-for={`${item.pointDate}${item.newStationNum}${index}samered`}>
+								<span className={`${nodeKind}`} data-tip data-for={`${item.pointDate}${item.newStationNum}${index}samered`}>
 									<ReactTooltip id={`${item.pointDate}${item.newStationNum}${index}samered`} place="top" type="dark" effect="solid" >
-										{item.plan && item.arr.map((value,i)=>{
+										{item.plan && item.plan.map((value,i)=>{
 										return(
 											<div key={i} className="react-tooltip-content">
 												<span>{value.contractName}分期催款</span>

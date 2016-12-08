@@ -41,6 +41,10 @@ import ItemTable from './ItemTable';
 import DismantlingForm from './DismantlingForm';
 
 class SearchForm extends Component {
+	// static contextTypes = {
+	// 	onSetCommunity: React.PropTypes.func.isRequired,
+	// 	communityId: React.PropTypes.string.isRequired,
+	// }
 	static defaultProps = {
 		tab: '',
 		Ids: React.PropTypes.string,
@@ -147,7 +151,7 @@ class SearchForm extends Component {
 			})
 		}
 
-		//this.context.selectCommunity(id);
+		// this.context.onSetCommunity(id);
 		const {
 			onChange
 		} = this.props;
@@ -199,7 +203,10 @@ SearchForm = reduxForm({
 
 
 export default class BasicTable extends Component {
-
+	// static contextTypes = {
+	// 	onSetCommunity: React.PropTypes.func.isRequired,
+	// 	communityId: React.PropTypes.string.isRequired,
+	// }
 
 
 	constructor(props, context) {
@@ -409,6 +416,7 @@ export default class BasicTable extends Component {
 			totalPages,
 			isIscroll,
 			value,
+			currentYear
 		} = this.state
 
 		var _this = this;
@@ -418,8 +426,8 @@ export default class BasicTable extends Component {
 			value: value,
 			type: type,
 			page: 1,
-			pageSize: pageSize
-
+			pageSize: pageSize,
+			year: currentYear
 		})).then(function(response) {
 			_this.setState({
 				Installmentplan: response.vo.items || [],
@@ -555,7 +563,6 @@ export default class BasicTable extends Component {
 			communityids,
 			dataLoading
 		} = this.state;
-		console.log('value', value);
 
 
 
@@ -578,7 +585,6 @@ export default class BasicTable extends Component {
 				var list = response.vo.items;
 				var totalCount = response.vo.totalCount;
 				var totalPages = response.vo.totalPages;
-				console.log('-----getInstallmentplan', list);
 			} else {
 				var list = [];
 				var totalCount = 0;
@@ -617,6 +623,7 @@ export default class BasicTable extends Component {
 
 	}
 	renderNone(showNone) {
+
 		let {
 			currentYear,
 			Installmentplan,
@@ -633,6 +640,7 @@ export default class BasicTable extends Component {
 
 		var _this = this;
 		const id = communityids;
+
 		if (dataLoading) {
 			return (
 				<tbody>
@@ -645,7 +653,8 @@ export default class BasicTable extends Component {
 				</tbody>
 			)
 		}
-		if (!showNone && !dataLoading) {
+
+		if (!showNone || dataLoading) {
 			return (
 				<tbody>
 					<tr style={{height:200}} className="nothing">
@@ -796,7 +805,7 @@ export default class BasicTable extends Component {
 					</tr>
 				</thead>
 				
-					{
+					{	
 						this.renderNone(showNone,rate)
 					}
 					

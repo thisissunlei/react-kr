@@ -53,8 +53,6 @@ export default class Initialize  extends Component{
    
     onStartChange=(startDate)=>{
     	let {searchParams}=this.state;
-    	var oldStartDate=searchParams.startDate;
-    	//console.log('-----',oldStartDate)
         let start=Date.parse(dateFormat(startDate,"yyyy-mm-dd hh:MM:ss"));
         let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
         if(start>end){  
@@ -80,11 +78,21 @@ export default class Initialize  extends Component{
 		});
     }
    
-    
-    
+ 
+    componentWillReceiveProps(nextProps){
+		 this.setState({
+		 	searchParams:{
+               groupId:nextProps.groupId,
+               startDate:this.props.todayDate,
+			   endDate:this.props.todayDate
+		    }
+		})
+	 }
 
     render(){   	
     	let {searchParams}=this.state;	
+
+    	//console.log('888888888',searchParams.groupId,this.props.groupId);
         
 	return(
          <div className='open-back' style={{background:'#fff',marginBottom:'20'}}>
@@ -97,7 +105,7 @@ export default class Initialize  extends Component{
 							 <span  className='static-upload'>实时更新</span>	
 							</Col> 
 							<Col align="right" md={8}> 
-							  <SearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange} todayDate={searchParams.startDate}/>
+							  <SearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange} todayDate={searchParams.startDate} todayEndDate={searchParams.endDate}/>
 							</Col> 
 						</Row>
 					</Grid>
