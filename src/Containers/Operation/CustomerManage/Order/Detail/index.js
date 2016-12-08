@@ -462,6 +462,28 @@ export default class OrderDetail extends React.Component {
               <div className='ui-circle-remark'><span className='circle-color circle-color-top no-pay'></span><span className='remark-green-text'>未付款</span></div>
 			</div>
 
+			<div className="planList">
+				<div className="headerList">
+					<div className="type">类型</div>
+					<div className="fund">款项</div>
+					<div className="Begindate">分期开始时间</div>
+					<div className="Enddate">分期结束时间</div>
+					<div className="planMoney">计划付款金额</div>
+					<div className="actualMoney">实际付款金额</div>
+					<div className="status">状态</div>
+				</div>
+				<div className="contentList">
+					<div className="type">类型</div>
+					<div className="fund">款项</div>
+					<div className="Begindate">分期开始时间</div>
+					<div className="Enddate">分期结束时间</div>
+					<div className="planMoney">计划付款金额</div>
+					<div className="actualMoney">实际付款金额</div>
+					<div className="status">状态</div>
+				</div>
+
+			</div>
+
 			{installmentPlan.map((item,index)=>{
 				return (
 					<Grid key={index}>
@@ -495,11 +517,7 @@ export default class OrderDetail extends React.Component {
 				<Col md={4}><KrField label="社区名称"component="labelText" value={orderBaseInfo.communityName} defaultValue="无" alignRight={true} tooltip={orderBaseInfo.communityName}/></Col>
 				<Col md={4}><KrField label="客户名称" component="labelText" value={orderBaseInfo.customerName} alignRight={true} tooltip={orderBaseInfo.customerName}/></Col>
 				<Col md={4}><KrField  label="订单名称"component="labelText"  value={orderBaseInfo.mainbillname} tooltip={orderBaseInfo.mainbillname} alignRight={true}/></Col>
-
-				
-
 				</Row>
-
 				<Row>
 				<Col  md={4} ><KrField label="当前工位数" component="labelText" value={orderBaseInfo.stationnum} defaultValue="0" alignRight={true}/></Col>
 				<Col  md={4} ><KrField label="订单编号"  component="labelText" value={orderBaseInfo.mainbillcode} defaultValue="无" alignRight={true}/></Col>
@@ -516,12 +534,16 @@ export default class OrderDetail extends React.Component {
 				<Col  md={4} ><KrField label="未回款额" component="labelText" value={orderBaseInfo.unBackamount} defaultValue="0" alignRight={true}/></Col>
 				<Col  md={4} ><KrField label="工位回款" component="labelText" value={orderBaseInfo.paidrent} defaultValue="0" alignRight={true}/></Col>
 				</Row>
-			<Row>
+				<Row>
 				<Col  md={4} ><KrField label="实收押金" component="labelText" value={orderBaseInfo.realdeposit} defaultValue="0" alignRight={true}/></Col>
 				<Col  md={4} ><KrField label="实收定金" component="labelText" value={orderBaseInfo.realdownpayment} defaultValue="0" alignRight={true}/></Col>
 				<Col  md={4} ><KrField label="其他回款" component="labelText" value={orderBaseInfo.refundamount} defaultValue="0" alignRight={true}/></Col>
 				</Row>
-
+				<Row>
+				<Col  md={4} ><div className="staion">工位编号</div><div className="view">点击查看</div></Col>
+				<Col  md={4} ><div className="staion"></div><div className="view"></div></Col>
+				<Col  md={4} ><div className="staion"></div><div className="view"></div></Col>
+				</Row>
 			</Grid>
 
             </div>
