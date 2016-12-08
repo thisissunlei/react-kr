@@ -772,7 +772,7 @@ export default class BasicTable extends Component {
 		 					<span className="txt" >催款回款</span>
 		 					<span className="circle green"></span>
 		 					<span className="txt" >工位变更</span>
-		 					<span className="circle grey-circle"></span>
+		 					<span className="circle grey-span"></span>
 		 					<span className="txt" >回款完成</span>
 		 				</p>
 		 			</div>
