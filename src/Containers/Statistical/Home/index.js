@@ -85,14 +85,14 @@ export default class Home  extends Component{
 						    var activeStyle={}
 							if(this.state.action==index){
 								activeStyle=activeTab;
-								var activeTab=(<PanelComponents panels={item.templateList} groupId={this.state.groupId}/>)
+								var activeTabPanel=(<PanelComponents panels={item.templateList} groupId={this.state.groupId}/>)
 							}else{
 								activeStyle=commenTab;
 							}
 							return (
 				             <Tab label={item.groupName} key={index} onActive={this.activeTable.bind(this,index,item.id)} style={activeStyle}>
 				               <div className='tabWrap_section'>
-				                {activeTab}
+				                {activeTabPanel}
 				               </div>
 				             </Tab>
     		                )

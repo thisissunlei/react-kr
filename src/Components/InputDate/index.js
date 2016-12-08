@@ -122,9 +122,10 @@ export default class InputDate extends React.Component {
 	}
 
 	onChange = (value)=>{
+		
 		this.setState({value});
-		let {onChange} = this.props;
-		onChange && onChange(value);
+		let {onChange,flag} = this.props;
+		onChange && onChange(value);	
 	}
 
 	render() {
