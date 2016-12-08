@@ -58,9 +58,8 @@ export default class Initialize  extends Component{
         let start=Date.parse(dateFormat(startDate,"yyyy-mm-dd hh:MM:ss"));
         let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
         if(start>end){  
-          Message.error('开始时间不能大于结束时间');  
-                
-          return ; 
+          Message.error('开始时间不能大于结束时间');
+          return ;
         }
     	searchParams = Object.assign({}, searchParams, {startDate});
     	this.setState({
@@ -72,8 +71,8 @@ export default class Initialize  extends Component{
         let start=Date.parse(dateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
         let end=Date.parse(dateFormat(endDate,"yyyy-mm-dd hh:MM:ss"))
         if(start>end){  
-          Message.error('开始时间不能大于结束时间');        
-          return ; 
+          Message.error('开始时间不能大于结束时间');
+          return ;        
         }
     	searchParams = Object.assign({}, searchParams, {endDate});
     	this.setState({
@@ -138,7 +137,7 @@ export default class Initialize  extends Component{
 						 <TableRow>
 						<TableRowColumn name="cityName" ></TableRowColumn>
 						<TableRowColumn name="communityName"  component={(value,oldValue)=>{
-                             return (<div style={{paddingTop:'6px'}}><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
+                             return (<div style={{paddingTop:'5px'}}><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
 						}} ></TableRowColumn>
 						<TableRowColumn name="totalStation"></TableRowColumn>
 						<TableRowColumn name="unUsedStation"></TableRowColumn>
