@@ -5,7 +5,7 @@ import {Actions,Store} from 'kr/Redux';
 
 class FormComponent  extends React.Component{
 
-	static PropTypes = {
+	static propTypes = {
 		onSubmit:React.PropTypes.func,
 		name:React.PropTypes.string,
 	}

@@ -29,30 +29,39 @@ export default class CalendarMonthSelector extends React.Component {
 			onSelected && onSelected(year);
 	}
 
-	render() {
+	createItem(monthItem){
 
-		let {open} = this.props;
-		if(!open){
-			return null;
+			let {month} = this.props;
+			let handlers = {
+				onClick:this.onSelected.bind(this,monthItem)
+			};
+
+			let props = {
+				key:monthItem,
+				className:'item-month'
+			}
+
+			if(month == monthItem){
+				props.className ='item-month month-active';
+			}else{
+				props.className ='item-month';
+			}
+			return React.createElement('div', {...props, ...handlers}, monthItem);
 		}
+
+	renderOptions = ()=>{
+			var options = [];
+			for(var i=1;i<=12;i++){
+				options.push(this.createItem(i));
+			}
+			return options;
+		}
+
+	render() {
 
 		return (
 				<div className="calendar-month-selector" >
-						<div className="item-month" onClick={this.onSelected.bind(this,2)}>2015</div>
-						<div className="item-month" onClick={this.onSelected.bind(this,3)}>2015</div>
-						<div className="item-month" onClick={this.onSelected.bind(this,6)}>2015</div>
-						<div className="item-month">2015</div>
-						<div className="item-month">2015</div>
-						<div className="item-month">2015</div>
-						<div className="item-month">2015</div>
-						<div className="item-month">2015</div>
-							<div className="item-month">2015</div>
-								<div className="item-month">2015</div>
-									<div className="item-month">2015</div>
-										<div className="item-month">2015</div>
-											<div className="item-month">2015</div>
-												<div className="item-month">2015</div>
-
+					{this.renderOptions()}
 				</div>
 		);
 

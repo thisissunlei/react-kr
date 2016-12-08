@@ -39,7 +39,6 @@ class Switchover extends Component{
 	leftAdd=(value)=>{
 		var _this=this;
 		var arr=this.state.allData;
-		console.log(value,"??-----??",arr);
 		arr.push(value);
 		this.setState({allData:arr},function(){
 			_this.props.changeMudle(_this.state.okData)
@@ -324,10 +323,8 @@ class ZhuanHuan extends React.Component{
 
 			 }).catch(function(err) {
 
-				 Notify.show([{
-					 message: err.message,
-					 type: 'danger',
-				 }]);
+				 Message.error(err.message)
+
 			 });
 
 		 }
@@ -343,11 +340,8 @@ class ZhuanHuan extends React.Component{
 			 Store.dispatch(Actions.callAPI('sortCheck',{sort:values,id:''})).then(function(data) {
 
 			 }).catch(function(err) {
+				 Message.error(err.message)
 
-				 Notify.show([{
-					 message: err.message,
-					 type: 'danger',
-				 }]);
 			 });
 		 }
 
@@ -379,7 +373,7 @@ class ZhuanHuan extends React.Component{
 
 
 				<KrField grid={1/2} style={{marginTop:25}} right={25} name="groupName" type="text" label="分组名称" requireLabel={true} onBlur={this.groupNameCheck} onFocus={this.inputFocus}/>
-				<KrField grid={1/2} right={25} name="sort" type="text" label="排序" requireLabel={true} style={{marginTop:25}} onBlur={this.sortCheck}/>
+				<KrField grid={1/2} right={25} name="sort" type="text" label="排序" requireLabel={true} style={{marginTop:25}} onBlur={this.sortCheck} onFocus={this.inputFocus}/>
 				<KrField grid={1} name="enable" component="group" label="启用状态" requireLabel={true}>
 							 <KrField name="enable" label="是" type="radio" value="ENABLE" checked={true}/>
 							 <KrField name="enable" label="否" type="radio" value="DISENABLE" />
