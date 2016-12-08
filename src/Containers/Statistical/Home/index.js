@@ -58,7 +58,7 @@ export default class Home  extends Component{
 			action:index,
 			groupId:id
 		},function(){
-			
+			//console.log('----22222',this.state.groupId);
 		});      
 	}
     
@@ -120,6 +120,7 @@ export default class Home  extends Component{
 	componentDidMount() {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('get-my-groups')).then(function(response) {
+			//console.log('----0000',response);
 		   _this.setState({
 		   	 groupList:response.groupList,
 		   	 groupId:response.groupList[0].id

@@ -80,7 +80,15 @@ export default class Initialize  extends Component{
 		});
     }
 
-    
+     componentWillReceiveProps(nextProps){
+		 this.setState({
+		 	searchParams:{
+               groupId:nextProps.groupId,
+               startDate:this.props.todayDate,
+			   endDate:this.props.todayDate
+		    }
+		})
+	 }
 
     render(){
     	

@@ -78,11 +78,21 @@ export default class Initialize  extends Component{
 		});
     }
    
-    
-    
+ 
+    componentWillReceiveProps(nextProps){
+		 this.setState({
+		 	searchParams:{
+               groupId:nextProps.groupId,
+               startDate:this.props.todayDate,
+			   endDate:this.props.todayDate
+		    }
+		})
+	 }
 
     render(){   	
     	let {searchParams}=this.state;	
+
+    	//console.log('888888888',searchParams.groupId,this.props.groupId);
         
 	return(
          <div className='open-back' style={{background:'#fff',marginBottom:'20'}}>
