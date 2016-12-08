@@ -136,10 +136,8 @@ export default class DateComponent extends React.Component {
 									<InputDate
 												value = {input.value}
 												placeholder={placeholder}
-												textFieldStyle={styles}
 												name={input.name}
 												defaultValue={defaultValue}
-												container="inline"
 												onChange={this.onChange}/>
 					</div>
 					{touched && error && <div className="error-wrap error-tip"> <span>{error}</span></div> }

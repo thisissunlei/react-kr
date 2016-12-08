@@ -52,7 +52,7 @@ export default class InputDate extends React.Component {
 
 	setDefaultValue = (value)=>{
 
-		if(typeof value === 'undefined'){
+		if(typeof value === 'undefined' || !value){
 			 return '';
 		}
 
@@ -114,26 +114,6 @@ export default class InputDate extends React.Component {
 		}
 	}
 
-	componentDidMount(){
-			var _this = this;
-			document.addEventListener('click',function(event){
-					event = event || window.event;
-					console.log('documnt');
-					var target = event.target;
-					while (target) {
-						console.log(target.className)
-							if(target && target.className && target.className.indexOf('calendar')!==-1){
-								 return ;
-							}
-							target = target.parentNode;
-					}
-					_this.setState({
-						openCalendar:false
-					});
-			});
-
-	}
-
 	openCalendarDialog = ()=>{
 			this.setState({
 				openCalendar:!this.state.openCalendar
@@ -153,7 +133,10 @@ export default class InputDate extends React.Component {
 
 		return (
 				<div className="ui-calendar">
-					<div className="calendar-value" onClick={this.openCalendarDialog}>{this.state.value || this.props.placeholder}</div>
+					<div className="calendar-content"  onClick={this.openCalendarDialog}>
+							<div className="calendar-value"> {this.state.value || this.props.placeholder}</div>
+							<span className="icon"></span>
+					</div>
 					{openCalendar && <Calendar onChange={this.onChange} value={this.state.value}/>}
 				</div>
 		);

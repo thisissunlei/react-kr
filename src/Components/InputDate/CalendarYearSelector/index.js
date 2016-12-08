@@ -62,7 +62,6 @@ export default class CalendarYearSelector extends React.Component {
 		var yearOptions = [];
 		var i = parseInt(year)-50;
 		var maxYear = parseInt(year)+50;
-		console.log(year,maxYear,i);
 		for(;i<maxYear;i++){
 			yearOptions.push(this.createYearItem(i));
 		}
