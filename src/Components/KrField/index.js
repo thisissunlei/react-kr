@@ -9,9 +9,6 @@ import Notify from '../Notify';
 
 import Promise from 'promise-polyfill';
 
-import ReactSelect from 'react-select';
-import 'react-select/dist/react-select.css';
-
 import InputComponent from './InputComponent';
 import DateComponent from './DateComponent';
 import RadioComponent from './RadioComponent';
@@ -107,7 +104,7 @@ export default class KrField extends React.Component {
 
 		if (component === 'city' || type == 'city') {
 			return (
-				<CityComponent {...this.props}/>
+				<CityComponent {...this.props} style={WrapStyles}/>
 			);
 		}
 

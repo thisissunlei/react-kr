@@ -21,16 +21,17 @@ import {
 	Col,
 	Dialog,
 	Title
-
 } from 'kr-ui';
 
 import NotOpenPanel from './NotOpenPanel';
 import OpenPanel from './OpenPanel';
 
+import PanelsDic from './PanelsDic';
+
 export default class PanelComponents  extends Component{
 
 	static defaultProps = {
-		panels:[{label:'张三',value:''},{label:'里斯',value:'dddd'}]
+		panels:[{templateName:'张三',templateNo:''},{latemplateNamebel:'里斯',templateNo:'dddd'}]
 	}
 
 	static propTypes = {
@@ -40,42 +41,58 @@ export default class PanelComponents  extends Component{
 
 	constructor(props,context){
 		super(props, context);
-
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+		 this.state = {			
+			    groupId:this.props.groupId,
+				startDate:'',
+		}
+	}
+
+	componentDidMount() {
+		var _this = this;
+		Store.dispatch(Actions.callAPI('openCompanyData')).then(function(response) {
+       
+            _this.setState({			
+					startDate:response.today,						
+			},function(){
+				let {groupId,startDate}=this.state;
+				var url='http://local.krspace.cn/#/statistical/index?groupId='+groupId+'&startDate='+startDate
+                window.location.href=url;
+			})
+
+		}).catch(function(err) {
+			Message.error(err);
+		});
+
+            
+           
+           
+      
 	}
 
 	render(){
-
+        
+         
 		let {panels}=this.props;
+		//console.log('www444',window.location.href);
 
-		console.log('ffffff',this.props.panels);
-
-		var myDate = new Date();
-		var year=myDate.getFullYear();  
-		var month=myDate.getMonth()+1;  
-		var day=myDate.getDate();  
-		var currentDate=year+'-'+month+'-'+day
-
+		var renderComponent = [];
+		panels.map(function(item,index){
+			var childComponentName = PanelsDic[item.templateNo];
+			if(childComponentName){
+				renderComponent.push(<div key={index}>{childComponentName}</div>);
+			}
+		});
 		
-
 		return(
 			<div>
 			    <Title value="数据统计"/>
-			     {
-			    	panels.map((item,index)=>{
-                      console.log(item.templateName);
-                      if(index==0){
-                         if(item.templateName=='第一个'){
-                            return (<div key={index}><OpenPanel groupId={this.props.groupId} currentDate={currentDate}/>
-				                    <NotOpenPanel groupId={this.props.groupId} currentDate={currentDate}/></div>)
-                         }else if(item.templateName=='第二个'){
-                             return (<div key={index}><NotOpenPanel groupId={this.props.groupId} currentDate={currentDate}/>
-				              <OpenPanel groupId={this.props.groupId} currentDate={currentDate}/></div>)
-                        }
-                      }
-			    	})
-			     }
-				
+			    	{renderComponent}
+			  {/*
+	            <NotOpenPanel groupId={this.props.groupId} currentDate={currentDate}/>
+				<OpenPanel groupId={this.props.groupId} currentDate={currentDate}/></div>			
+			*/}
+		
 			</div>
 		);
 	}

@@ -40,6 +40,8 @@ import Message from './Message';
 import DemoComponent from './Demo';
 import Textarea from './Textarea';
 import 	DatePicker from './DatePicker';
+import 	Tooltip from './Tooltip';
+import 	KrForm from './KrForm';
 import 	InputDate from './InputDate';
 
 
@@ -108,6 +110,7 @@ module.exports = {
 	DemoComponent,
 	Textarea,
 	DatePicker,
+	...KrForm,
 	InputDate,
 
 	//materal-ui
@@ -124,4 +127,5 @@ module.exports = {
 	SearchForms,
 	...Tabs,
 	PageHeader,
+	Tooltip
 }

@@ -40,6 +40,10 @@ import {
 
 
 export default class FloorPlan extends Component {
+	// static contextTypes = {
+	// 	onSetCommunity: React.PropTypes.func.isRequired,
+	// 	communityId: React.PropTypes.string.isRequired,
+	// }
 	static defaultProps = {
 		tab: '',
 	}
@@ -60,16 +64,18 @@ export default class FloorPlan extends Component {
 			communityIdList: [],
 			communityInfoFloorList: [],
 			url: '',
-			dateend:dateFormat(new Date(), "yyyy.mm.dd"),
-			date:dateFormat(new Date(), "yyyy.mm.dd")
+			dateend: '',
+			date: ''
 		}
 
 		this.getcommunity = this.getcommunity.bind(this);
 		this.selectCommunity = this.selectCommunity.bind(this);
 		this.getcommunity();
 		this.getCommunityFloors = this.getCommunityFloors.bind(this);
-		this.getState = this.getState.bind(this);
 		this.selectFloors = this.selectFloors.bind(this);
+		Store.dispatch(change('FloorPlan', 'start', dateFormat(new Date(), "yyyy-mm-dd")));
+		Store.dispatch(change('FloorPlan', 'end', dateFormat(new Date(), "yyyy-mm-dd")));
+
 
 	}
 	componentWillReceiveProps(nextProps) {
@@ -112,32 +118,31 @@ export default class FloorPlan extends Component {
 			dateend
 
 		} = this.state;
-		if(community==0){
-			community='';
+		if (community == 0) {
+			community = '';
 		}
-		console.log('url', form);
 
-			params = {
-				communityId: community,
-				wherefloor: floors,
-				date: date ,
-				dateend:dateend,
-			}
+		params = {
+			communityId: community,
+			wherefloor: floors,
+			date: date,
+			dateend: dateend,
+		}
 
 		if (Object.keys(params).length) {
 			for (let item in params) {
 				if (params.hasOwnProperty(item)) {
 					url = url.replace('{' + item + '}', params[item]);
 					delete params[item];
-				}44
+				}
 			}
-		};console.log(url);
+		};
 
 		return url;
 	}
 	onSubmit(form) {
 			form = Object.assign({}, form);
-			console.log('form',form);
+
 			let {
 				floors,
 				community
@@ -146,17 +151,33 @@ export default class FloorPlan extends Component {
 			var params = {
 				communityId: community,
 				wherefloor: floors,
-				date: dateFormat(form.date, "yyyy.mm.dd") || dateFormat(new Date(), "yyyy.mm.dd"),
-				dateend: dateFormat(form.dateend, "yyyy.mm.dd") || dateFormat(new Date(), "yyyy.mm.dd"),
+				date: dateFormat(form.start, "yyyy-mm-dd") || dateFormat(new Date(), "yyyy-mm-dd"),
+				dateend: dateFormat(form.end, "yyyy-mm-dd") || dateFormat(new Date(), "yyyy-mm-dd"),
 			};
-			console.log(params);
-			// that.iframeWindow.query(params);
-			// // this.getStationUrl(params);
-			this.setState({
-				date: dateFormat(form.date, "yyyy.mm.dd"),
-				dateend: dateFormat(form.dateend, "yyyy.mm.dd"),
-				url: this.getStationUrl(params)
-			})
+			if (form.start && form.end) {
+				var datastart = Date.parse(form.start),
+					dataend = Date.parse(form.end);
+				if (datastart > dataend) {
+					Notify.show([{
+						message: '开始时间不能大于结束时间',
+						type: 'danger',
+					}]);
+
+				} else {
+					this.setState({
+						date: dateFormat(form.start, "yyyy-mm-dd"),
+						dateend: dateFormat(form.end, "yyyy-mm-dd"),
+						url: this.getStationUrl(params)
+					})
+				}
+
+			} else {
+				Notify.show([{
+					message: '注册时间不能为空',
+					type: 'danger',
+				}]);
+			}
+
 
 		}
 		// 监听滚动事件
@@ -171,20 +192,11 @@ export default class FloorPlan extends Component {
 			var isOutBoundary = scrollBottom >= 0;
 			if (isOutBoundary) {
 				that.iframeWindow.pagequery();
-				// let possition = that.getState();
-				// if(position){
-				// console.log('--true--');
-				// $(window).scrollTop(top-100);
-				// }
 
 			}
 		})
 
 
-	}
-	getState() {
-
-		console.log('----');
 	}
 	getcommunity() {
 		let _this = this;
@@ -200,7 +212,7 @@ export default class FloorPlan extends Component {
 			communityIdList.unshift({
 				label: '请选择',
 				value: '0',
-				id:'0',
+				id: '0',
 			});
 			_this.setState({
 				communityIdList,
@@ -214,13 +226,13 @@ export default class FloorPlan extends Component {
 	}
 	selectCommunity(personel) {
 		let id = '';
-		if(personel){
+		if (personel) {
 			id = personel.id;
 			this.getCommunityFloors(personel.id);
 		}
-		
+
 		Store.dispatch(change('FloorPlan', 'floor', ''));
-		
+
 		this.setState({
 			community: id,
 			floors: '',
@@ -254,12 +266,65 @@ export default class FloorPlan extends Component {
 	}
 	selectFloors(personel) {
 		let value = '';
-		if(personel){
+		if (personel) {
 			value = personel.value;
 		}
 		this.setState({
 			floors: value
 		})
+	}
+	firstDate = (personel) => {
+
+		// Store.dispatch(change('FloorPlan', 'start', dateFormat(new Date(), "yyyy-mm-dd")));
+		let firstDate = new Date(personel);
+		if (this.state.dateend) {
+			let endDate = new Date(this.state.dateend);
+			let start = firstDate.getTime();
+			let end = endDate.getTime();
+			if (start <= end) {
+				this.setState({
+					date: personel
+				})
+			} else {
+				Notify.show([{
+					message: '结束时间不能小于开始时间',
+					type: 'danger',
+				}]);
+				// Store.dispatch(change('FloorPlan', 'end', dateFormat(end, "yyyy-mm-dd")));
+			}
+		} else {
+			this.setState({
+				date: personel
+			})
+		}
+	}
+	secondDate = (personel) => {
+
+		let secondDate = new Date(personel);
+		let end = this.state.dateend;
+		if (this.state.date) {
+			let firstDate = new Date(this.state.date);
+			let start = firstDate.getTime();
+			let end = secondDate.getTime();
+			if (start <= end) {
+				this.setState({
+					dateend: personel
+				})
+			} else {
+				Notify.show([{
+					message: '结束时间不能小于开始时间',
+					type: 'danger',
+				}]);
+				Store.dispatch(change('FloorPlan', 'end', dateFormat(end, "yyyy-mm-dd")));
+			}
+		} else {
+			this.setState({
+				dateend: personel
+			})
+		}
+
+
+
 	}
 
 	render() {
@@ -270,9 +335,10 @@ export default class FloorPlan extends Component {
 			communityIdList,
 			communityId,
 			communityInfoFloorList,
+			dateend,
+			date
 		} = this.state;
 		let url = this.getStationUrl();
-
 
 		let {
 			tab,
@@ -285,6 +351,7 @@ export default class FloorPlan extends Component {
 		} else {
 			$(window).unbind('scroll.floorplan', this.scrollLoad());
 		}
+
 		return (
 
 			<div id="planTable" style={{margin:20,paddingBottom:30}}>
@@ -295,11 +362,10 @@ export default class FloorPlan extends Component {
 						<ListGroupItem style={{maxWidth:170,marginTop:'-6px',minWidth:110,width:'100%',textAlign:'left'}}><KrField grid={1/1} name="community" component="select"   options={communityIdList} onChange={this.selectCommunity} /></ListGroupItem>
 						<ListGroupItem><span style={{display:'inline-block',lineHeight:'45px',textAlign:'left'}}>楼层</span></ListGroupItem>
 						<ListGroupItem  style={{maxWidth:170,marginTop:'-6px',minWidth:100,width:'100%',textAlign:'left'}}><KrField name="floor" grid={1/1} component="select" options={communityInfoFloorList} onChange={this.selectFloors}/></ListGroupItem>
-						<ListGroupItem><span style={{display:'inline-block',lineHeight:'45px',textAlign:'left'}}>注册时间</span></ListGroupItem>
-						<ListGroupItem style={{minWidth:100,marginTop:'-6px',textAlign:'left'}}> <KrField name="date"  component="date"  simple={true}/></ListGroupItem>
+						<ListGroupItem style={{minWidth:100,marginTop:'-6px',marginLeft:'-3px',textAlign:'left'}}> <KrField name="start"  component="date"  simple={true} onChange={this.firstDate}/></ListGroupItem>
 						<ListGroupItem style={{marginLeft:'10px',textAlign:'left'}}><span style={{display:'inline-block',lineHeight:'45px'}}>至</span></ListGroupItem>
-						<ListGroupItem  style={{minWidth:100,marginTop:'-6px',textAlign:'left'}}> <KrField name="dateend" component="date" simple={true}/> </ListGroupItem>
-						<ListGroupItem style={{marginLeft:6,marginTop:4,textAlign:'left'}}> <Button  label="确定" type="submit" height={34}/></ListGroupItem>
+						<ListGroupItem  style={{minWidth:100,marginTop:'-6px',textAlign:'left'}}> <KrField name="end" component="date" simple={true}  onChange={this.secondDate}/> </ListGroupItem>
+						{/*<ListGroupItem style={{marginLeft:6,marginTop:4,textAlign:'left'}}> <Button  label="确定" type="submit" height={34}/></ListGroupItem>*/}
 					</ListGroup>
 			</form>
 			<p style={{margin:10}}></p>

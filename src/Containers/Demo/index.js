@@ -25,12 +25,18 @@ import {
 	CheckboxGroup,
 	RadioGroup,
 	Message,
+	Tooltip,
+	KrForm,
 	DemoComponent,
+	Field,
+	FieldControl,
 	InputDate,
 } from 'kr-ui';
+
 import {
 	FlatButton,
 } from 'material-ui';
+import './index.less';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
 
@@ -47,40 +53,63 @@ export default class Demo extends Component{
 	constructor(props,context){
 		super(props, context);
 
-		this.onSubmit = this.onSubmit.bind(this);
-
-		console.log('---',this.context.router);
+		this.state = {
+			userNameDefaultValue:''
+		}
 
 	}
 
-	onSubmit(value){
-		console.log('----',value)
-		// window.location.hash = 'demo';
-		// //this.context.router.replace(location.href);;
-	 //    history.replace(location)
-		//hashHistory.refresh();
+	componentDidMount(){
+		/*
+		this.setState({
+			userNameDefaultValue:'aahahh'
+		});
+		*/
 	}
-
-
-	show = ()=>{
-
-		console.log('click');
-
-
-		Message.error('hahah');
-	}
-
 
 
 	render(){
-		const list = [{a:1},{b:2},{c:3},{d:5}];
-
-
 		return(
 			<div>
+					<Section title="demo" description="" >
 
-				<Title value="haah "/>
-					<InputDate />
+						<KrForm name="demoForm" onSubmit={function(values){
+									console.log('values',values);
+							}} >
+
+
+									<FieldControl name="d23233" label="选择城市" component="group"  requiredValue={true} errors={{requiredValue:'请填写时间'}} >
+												<FieldControl name="d23233" label="北京" component="checkbox" />
+											<FieldControl name="d23233" label="上海" component="checkbox" />
+												<FieldControl name="d23233" label="深圳" component="checkbox"/>
+								</FieldControl>
+
+
+								<FieldControl name="d233" label="选择城市" component="group"  requiredValue={true} errors={{requiredValue:'请填写时间'}} >
+												<FieldControl grid={1/2} name="d23" component="date"  contentStyle={{paddingLeft:0}}/>
+											<FieldControl  grid={1/2} name="d2"  component="date" />
+							</FieldControl>
+
+									<FieldControl name="d" label="单选" component="radio"  requiredValue={true} errors={{requiredValue:'请填写时间'}}/>
+
+									<FieldControl name="de" label="其它" component="searchPersonel" requiredValue={true} errors={{requiredValue:'请填写时间'}}/>
+
+									<FieldControl name="dame" label="其它" component="select" requiredValue={true} errors={{requiredValue:'请填写时间'}} options={[{label:'请选择',value:''},{label:'北京',value:'1'}]}/>
+
+								<FieldControl name="de2ame" label="其它" component="date" requiredValue={true} errors={{requiredValue:'请填写时间'}}/>
+
+							<FieldControl name="demn22ame" label="其它:" component="file"  requiredValue={true} errors={{requiredValue:'必填'}}/>
+
+						<FieldControl name="demn3322342ame" type="text" label="其它" component="input"/>
+							<FontIcon
+						      className="icon-basis"
+						      style={{marginRight:'20px',color:'#499df1',fontSize:20}}
+						    />
+
+						 <FlatButton icon={<FontIcon className={'icon-basis'} />} style={{color:'#499df1',height:36,width:100}} />
+
+							 </KrForm>
+					</Section>
 			</div>
 
 		);
