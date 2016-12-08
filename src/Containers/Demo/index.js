@@ -82,7 +82,8 @@ export default class Demo extends Component{
 		return(
 			<div>
 					<Section title="demo" description="" >
-
+						<KrField grid={1/2} label='city' component='city' />
+						
 
 						<KrForm name="demoForm" onSubmit={function(values){
 									console.log('values',values);
