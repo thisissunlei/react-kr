@@ -10,7 +10,8 @@ import {
 	Col,
 	Button,
 	Notify,
-	ButtonGroup
+	ButtonGroup,
+	Message
 } from 'kr-ui';
 
 // import './index.less';
@@ -323,10 +324,8 @@ class ZhuanHuan extends React.Component{
 		 Store.dispatch(Actions.callAPI('groupNameCheck',{groupName:values,id:this.props.detail.id})).then(function(data) {
 
 		 }).catch(function(err) {
-			 Notify.show([{
-				 message: err.message,
-				 type: 'danger',
-			 }]);
+			 Message.error(err.message)
+
 		 });
 	 }
 
@@ -338,10 +337,8 @@ class ZhuanHuan extends React.Component{
 		 Store.dispatch(Actions.callAPI('sortCheck',{sort:values,id:this.props.detail.id})).then(function(data) {
 
 		 }).catch(function(err) {
-			 Notify.show([{
-				 message: err.message,
-				 type: 'danger',
-			 }]);
+			 Message.error(err.message)
+
 		 });
 		 }
 	 }
