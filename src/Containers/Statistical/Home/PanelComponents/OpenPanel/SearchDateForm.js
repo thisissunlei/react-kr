@@ -32,7 +32,7 @@ class SearchDateForm extends Component {
 	static PropTypes = {
 		onStartChange: React.PropTypes.func,
 		onEndChange:React.PropTypes.func,
-		date_2:React.PropTypes.string,
+		todayDate:React.PropTypes.string,
 	}
 
 	constructor(props) {
@@ -68,9 +68,9 @@ class SearchDateForm extends Component {
 
 				    <ListGroup>
 				        <span className='statis-date-title'>时间：</span>
-						<ListGroupItem><div className='statis-date-start'><KrField  style={{marginLeft:-10}} name="startDate" component="date" onChange={this.props.onStartChange} flag='true' placeholder={todayDate}/></div></ListGroupItem>
+						<ListGroupItem><div className='statis-date-start'><KrField  style={{marginLeft:-10}} name="startDate" component="date" onChange={this.props.onStartChange} flag='true' dateNoSecond='true' placeholder={todayDate}/></div></ListGroupItem>
 						<div className='ui-line-down-list'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-						<ListGroupItem><div className='statis-date-end'><KrField  name="endDate" component="date" onChange={this.props.onEndChange} placeholder={todayEndDate} flag='true'/></div></ListGroupItem>
+						<ListGroupItem><div className='statis-date-end'><KrField  name="endDate" component="date" onChange={this.props.onEndChange} placeholder={todayEndDate} dateNoSecond='true' flag='true'/></div></ListGroupItem>
 					</ListGroup>
                   
 				</div>
