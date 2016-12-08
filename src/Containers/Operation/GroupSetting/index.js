@@ -58,10 +58,11 @@ export default class Initialize  extends Component{
 				pageSize: 15,
 				enable:'',
 				groupName:'',
-				other:1
+				other:false
 			},
 			id:null,
 			noinit:true,
+			searchText:"",
 
 		}
 	}
@@ -69,7 +70,6 @@ export default class Initialize  extends Component{
 	//新建提交数据和编辑数据的提交
 	onCreateSubmit=(params)=> {
 
-		console.log(params,"4444444444");
 		var _this = this;
 		params = Object.assign({}, params);
 		if(this.state.noinit){
@@ -82,8 +82,11 @@ export default class Initialize  extends Component{
 			let obj = {
 				page: 1,
 				pageSize: 15,
-				other:_this.state.searchParams.other++
+				other:!_this.state.searchParams.other,
+				groupName:_this.state.searchText,
+
 			}
+			console.log(obj)
 			_this.setState({
 				openNewCreate: false,
 				openEditDetail: false,
@@ -162,7 +165,9 @@ export default class Initialize  extends Component{
 		}
 
 		this.setState({
-			searchParams: obj
+			searchParams: obj,
+			searchText:searchParams.content,
+
 		});
 
 	}
@@ -252,12 +257,12 @@ export default class Initialize  extends Component{
 													return state;
 												}
 											}
-
+										displayCheckbox={false}
 										onExport={this.onExport}
 										ajaxParams={this.state.searchParams}
 
 											ajaxFieldListName="items"
-											ajaxUrlName='MouldGroupList' exportSwitch={true}>
+											ajaxUrlName='MouldGroupList'>
 											<TableHeader>
 												<TableHeaderColumn>分组名称</TableHeaderColumn>
 												<TableHeaderColumn>排序</TableHeaderColumn>
@@ -269,8 +274,8 @@ export default class Initialize  extends Component{
 												<TableHeaderColumn>操作</TableHeaderColumn>
 										</TableHeader>
 
-										<TableBody>
-												<TableRow displayCheckbox={true}>
+										<TableBody >
+												<TableRow >
 												<TableRowColumn name="groupName" ></TableRowColumn>
 												<TableRowColumn name="sort" ></TableRowColumn>
 
@@ -309,7 +314,7 @@ export default class Initialize  extends Component{
 											 </TableRow>
 										</TableBody>
 
-										<TableFooter></TableFooter>
+										<TableFooter ></TableFooter>
 
 										</Table>
 					</Section>
