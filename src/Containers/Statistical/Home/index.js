@@ -82,7 +82,6 @@ export default class Home  extends Component{
 		return (
 		 <div className='backStatic'>
 	      <div className='static-tabWrap'>
-		   <span className="line"></span>
 		   <Tabs tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={{background: '-webkit-linear-gradient(right, #03ec56, #499df1)',position:'absolute',top:0,height:3}} style={{background:'#fff',position:'relative',paddingLeft:'20',paddingRight:'20'}}>
 					{groupList.map((item,index)=>{
 						    var activeStyle={}
