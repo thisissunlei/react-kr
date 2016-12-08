@@ -14,6 +14,10 @@ export default class InputDate extends React.Component {
 
 	static displayName = 'InputDate';
 
+	static defaultProps = {
+			placeholder:'日期',
+			defaultValue:'2015-11-1'
+	}
 	static propTypes = {
 		/**
 		*样式class类名
@@ -23,6 +27,7 @@ export default class InputDate extends React.Component {
 		* 样式
 		*/
 		style: React.PropTypes.object,
+		placeholder: React.PropTypes.string,
 	}
 
 	static childContextTypes =  {
@@ -40,9 +45,30 @@ export default class InputDate extends React.Component {
 
 		this.state = {
 			openCalendar:false,
-			value:'2015-11-1'
+			value:''
 		}
+	}
 
+	componentDidMount(){
+
+			var _this = this;
+			document.addEventListener('click',function(event){
+
+					event = event || window.event;
+					var target = event.target;
+
+					while (target) {
+							if(target && target.className && target.className.indexOf('calendar') !== -1){
+									return ;
+							}
+							target = target.parentNode;
+					}
+
+					_this.setState({
+						openCalendar:false
+					});
+
+			});
 	}
 
 
@@ -54,6 +80,8 @@ export default class InputDate extends React.Component {
 
 	onChange = (value)=>{
 		this.setState({value});
+		let {onChange} = this.props;
+		onChange && onChange(value);
 	}
 
 	render() {
@@ -62,7 +90,7 @@ export default class InputDate extends React.Component {
 
 		return (
 				<div className="ui-calendar">
-        	<Input onClick={this.openCalendarDialog} value={this.state.value}/>
+					<div className="calendar-value" onClick={this.openCalendarDialog}>{this.state.value || this.props.placeholder}</div>
 					{openCalendar && <Calendar onChange={this.onChange} value={this.state.value}/>}
 				</div>
 		);

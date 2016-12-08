@@ -16,7 +16,7 @@ export default class Calendar extends React.Component {
 	static displayName = 'Calendar';
 
 	static defaultProps = {
-		value:'2015-11-1'
+		value:'2015-11-1',
 	}
 	static propTypes = {
 		/**
@@ -83,6 +83,10 @@ export default class Calendar extends React.Component {
 
 	setInitValue = (value)=>{
 
+		if(!value){
+				value = '2015-11-1';
+		}
+
 		let year;
 		let month;
 		let date;
@@ -102,7 +106,7 @@ export default class Calendar extends React.Component {
 		this.setState({
 			year,
 			month,
-			date
+			date,
 		});
 
 	}
