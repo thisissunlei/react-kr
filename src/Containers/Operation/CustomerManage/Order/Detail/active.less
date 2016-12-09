@@ -217,9 +217,25 @@ span{
 	display:inline-block;
 	border:1px solid #eeeeee;
 	border-top:none;
+	font-size:14px;
+	position:relative;
 	&>div{
 		float:left;
 		
+	}
+	.type{
+		min-height:60px;
+		
+	}
+	.typeCon{
+		position: absolute;
+	    top: 50%;
+	    left:21px;
+	    margin-top:-24px;
+		.p{
+			color:#333333;
+			line-height:24px !important;
+		}
 	}
 	.status{
 		border-right:none !important;
@@ -233,9 +249,11 @@ span{
 	.Conlist{
 		width:780px;
 		float:left;
+		color:#666666;
 		&:last-child{
 			border-bottom:1px solid #eeeeee;
 		}
+
 		.list{
 			height:60px;
 			line-height:60px;

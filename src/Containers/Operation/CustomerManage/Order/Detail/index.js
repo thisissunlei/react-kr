@@ -472,12 +472,15 @@ export default class OrderDetail extends React.Component {
 					<div className="actualMoney">实际付款金额</div>
 					<div className="status">状态</div>
 				</div>
-
 				{installmentPlan && installmentPlan.map((item,index)=>{
 					return(
 						<div className="contentList"  key={index}>
 							<div className="type">
-								{item.detailName}
+								<div className="typeCon">
+									<div className="p">{item.detailName}</div>
+									<div className="p">{item.detailStart}至{item.detailEnd}</div>
+								</div>
+								
 							</div>
 							<div className="Conlist">
 							{item.installment && item.installment.map((items,indexs)=>{
@@ -498,7 +501,6 @@ export default class OrderDetail extends React.Component {
 							</div>
 							
 						</div>
-
 
 
 					)
