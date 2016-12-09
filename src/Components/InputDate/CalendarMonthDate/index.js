@@ -87,7 +87,7 @@ export default class CalendarMonthDate extends React.Component {
 	}
 
 	createPlaceholderElement = (key)=>{
-		return ( <span className="calendar-day placeholder" key={key}></span> );
+		return ( <span className="calendar-day placeholder" key={key}>&nbsp;</span> );
 	}
 
 	renderMonthDate =()=>{

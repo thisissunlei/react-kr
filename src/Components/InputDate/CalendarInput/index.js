@@ -72,6 +72,7 @@ export default class CalendarInput extends React.Component {
 		return (
 				<div className="calendar-input" >
             <input type="text" name="" onChange={this.onChange} value={value} />
+						<div className="line"></div>
         </div>
 		);
 
