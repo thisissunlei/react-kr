@@ -236,7 +236,7 @@ export default class Initialize  extends Component{
 
 	render(){
 		return(
-			<div>
+			<div className="switchhover">
 			<Title value="数据模板管理"/>
 
 					<Section title="模板分组" description="" style={{minHeight:"900px"}}>
@@ -283,7 +283,7 @@ export default class Initialize  extends Component{
 												<TableRowColumn name="sort" ></TableRowColumn>
 
 
-												<TableRowColumn style={{maxWidth:160,overflow:"visible"}} name="groupDesc" component={(value,oldValue)=>{
+												<TableRowColumn style={{overflow:"visible",textAlign: "center"}} name="groupDesc" component={(value,oldValue)=>{
 														var TooltipStyle=""
 														if(value.length==""){
 															TooltipStyle="none"
@@ -291,7 +291,7 @@ export default class Initialize  extends Component{
 														}else{
 															TooltipStyle="block";
 														}
-														 return (<div style={{display:TooltipStyle}}><span className='tableOver'>{value}</span>
+														 return (<div style={{display:TooltipStyle}}><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
 														 	<Tooltip offsetTop={10} place='top'>
 																<div style={{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{value}</div>
 														 	</Tooltip></div>)
