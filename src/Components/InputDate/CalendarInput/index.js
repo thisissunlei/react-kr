@@ -20,7 +20,10 @@ export default class CalendarInput extends React.Component {
 
 		static contextTypes =  {
 					onSetDate:React.PropTypes.func.isRequired,
+					openCalendarDialog: React.PropTypes.func.isRequired,
+					onChange: React.PropTypes.func.isRequired,
 		}
+
 	constructor(props) {
 		super(props)
 
@@ -65,13 +68,27 @@ export default class CalendarInput extends React.Component {
 		}
 	}
 
+	onSubmit = (event)=>{
+
+		var event = event || window.event;
+
+		const {onSetDate,onChange,openCalendarDialog} = this.context;
+		var value = event.target.value;
+
+	  if(event.keyCode == 13){
+			onChange && onChange(value);
+			openCalendarDialog && openCalendarDialog();
+	  }
+
+	}
+
 	render() {
 
 		let {value} = this.state;
 
 		return (
 				<div className="calendar-input" >
-            <input type="text" name="" onChange={this.onChange} value={value} />
+							 <input type="text"  onChange={this.onChange} value={value} onKeyDown={this.onSubmit} />
 						<div className="line"></div>
         </div>
 		);

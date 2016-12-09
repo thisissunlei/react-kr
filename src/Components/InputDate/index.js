@@ -31,12 +31,14 @@ export default class InputDate extends React.Component {
 	}
 
 	static childContextTypes =  {
-					openCalendarDialog: React.PropTypes.func.isRequired
+					openCalendarDialog: React.PropTypes.func.isRequired,
+					onChange:React.PropTypes.func.isRequired
 	}
 
 	getChildContext() {
 				return {
 					openCalendarDialog:this.openCalendarDialog,
+					onChange:this.onChange
 				};
 	}
 
@@ -122,10 +124,40 @@ export default class InputDate extends React.Component {
 	}
 
 	onChange = (value)=>{
+
+		var year;
+		var month;
+		var date;
+		var valueArr = [];
+
+		//校验格式
+		if(value.indexOf('-') !== -1){
+				valueArr = value.split('-');
+		}else if(value.indexOf('/') !== -1){
+				valueArr = value.split('/');
+		}
+
+		year = valueArr[0];
+		month = valueArr[1];
+		date = valueArr[2];
+
+		if(!year){
+				return ;
+		}
+
+		if(!date || date>31){
+			return ;
+		}
+
+		if(!month || month<-1 || month>12){
+				return ;
+		}
+
 		this.setState({value});
 		let {onChange} = this.props;
 		onChange && onChange(value);
 	}
+
 
 	render() {
 
