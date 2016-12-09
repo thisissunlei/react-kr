@@ -82,13 +82,10 @@ import {
 				<KrField grid={1/2} name="phone" type="text" label="手机号" requireLabel={true} style={{display:'block'}}
 				   requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
 
-        {/*<KrField grid={1/2} name="communityid" component="searchCommunity" label="社区"
-            onChange={this.onChangeSearchCommunity} requireLabel={true}
-    				   requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>*/}
 
-				<KrField grid={1/2} name="communityid" component="searchCommunity" label="社区" onChange={this.onChangeSearchCommunity}  searchlink={'searchCommunityByCommunityText'}
-				searchcontent={'searchcontent'} requireLabel={true}
-				requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
+
+				<KrField grid={1/2} name="communityid" component="searchCommunity" label="社区" onChange={this.onChangeSearchPersonel} requireLabel={true}
+			               requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
 
 
         <KrField grid={1/2} name="email" type="text" label="邮箱" requireLabel={true}

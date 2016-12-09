@@ -8,7 +8,7 @@ import {Actions,Store} from 'kr/Redux';
 
 import WrapComponent from '../WrapComponent';
 
-export default class  SearchCommunityComponent extends React.Component {
+export default class  SearchPersonelComponent extends React.Component {
 
 	static defaultProps = {
 		placeholder:'请输入社区...'
@@ -16,9 +16,7 @@ export default class  SearchCommunityComponent extends React.Component {
 
 	static PropTypes = {
 		placeholder:React.PropTypes.string,
-		inline:React.PropTypes.bool,
-		searchcontent:React.PropTypes.string,
-		searchlink:React.PropTypes.string
+		inline:React.PropTypes.bool
 	}
 
 	constructor(props){
@@ -39,19 +37,15 @@ export default class  SearchCommunityComponent extends React.Component {
 		onChange && onChange(item);
 	}
 
-	getOptions(communityText){
-		let {searchlink,searchcontent}=this.props;
-		console.log('communityText',communityText);
+	getOptions(lastname){
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI(searchlink,{searchcontent:communityText })).then(function(response){
-				response.items.forEach(function(item,index){
-					item.value = item.communityId;
-					item.label = item.communityName;
+			Store.dispatch(Actions.callAPI('getHrmResourceExtListByLastname',{ lastname:lastname })).then(function(response){
+				response.forEach(function(item,index){
+					item.value = item.sysloginid;
+					item.label = item.lastname;
 				});
-				console.log('response',response);
 				resolve({options:response});
 			}).catch(function(err){
-				// console.log('err',err);
 				reject(err);
 			});
 		});
@@ -60,6 +54,7 @@ export default class  SearchCommunityComponent extends React.Component {
 	render(){
 
 		let { input, label, type, meta: { touched, error },placeholder,children,disabled,style,requireLabel,...other} = this.props;
+
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync

@@ -12,6 +12,7 @@ export default class memberListDetail extends Component{
   constructor(props, context) {
 		super(props, context);
     this.state = {
+      isLeader:false,
 			params: {
 				accountType: 'PAYMENT',
 				childType: 'basic',
@@ -32,9 +33,13 @@ export default class memberListDetail extends Component{
 		Store.dispatch(Actions.callAPI('getMemberDetailData', {
 			mainbillid: params.orderId,
 		})).then(function(response) {
-      console.log(11111);
+      console.log("response.baseinfo",response.baseinfo);
+      console.log("response.isLeader",response.isLeader);
+
 			_this.setState({
 				personalData: response.baseinfo,
+
+        isLeader:response.isLeader,
 			});
 		}).catch(function(err) {
 			Notify.show([{
@@ -48,7 +53,6 @@ export default class memberListDetail extends Component{
       console.log(response);
       _this.setState({
 				personalBehavior: response.items,
-
 			});
     }).catch(function(err){
       Notify.show([{
@@ -57,6 +61,56 @@ export default class memberListDetail extends Component{
 			}]);
     });
 	}
+  isLeader=()=>{
+    let show = true;
+    let {isLeader} = this.state;
+    if(isLeader){
+      return (
+        <Tabs>
+        <Tab label="个人资料">
+          <div style={{background:"fff",height:'680'}}>
+            <DotTitle title='基本信息' style={{marginBottom:'40'}}/>
+              <PersonalData  detail={this.state.PersonalData}/>
+            <DotTitle title='工作信息' style={{marginTop:'40',marginBottom:'40'}}/>
+              <PersonalJob  detail={this.state.PersonalJob}/>
+          </div>
+        </Tab>
+        <Tab label="个人行为记录">
+          <div>
+            <PersonalBehavior  detail={this.state.PersonalBehavior}/>
+          </div>
+        </Tab>
+        <Tab label="组织架构">
+          <div>组织架构</div>
+        </Tab>
+        <Tab label="更新日志">
+          <div>更新日志</div>
+        </Tab>
+        </Tabs>
+      )
+    }else{
+      return(
+        <Tabs >
+        <Tab label="个人资料">
+          <div style={{background:"fff",height:'680'}}>
+            <DotTitle title='基本信息' style={{marginBottom:'40'}}/>
+              <PersonalData  detail={this.state.PersonalData}/>
+            <DotTitle title='工作信息' style={{marginTop:'40',marginBottom:'40'}}/>
+              <PersonalJob  detail={this.state.PersonalJob}/>
+          </div>
+        </Tab>
+        <Tab label="个人行为记录">
+          <div>
+            <PersonalBehavior  detail={this.state.PersonalBehavior}/>
+          </div>
+        </Tab>
+        <Tab label="更新日志">
+          <div>更新日志</div>
+        </Tab>
+        </Tabs>
+      )
+    }
+  }
   render(){
     let {
 			params,
@@ -68,27 +122,9 @@ export default class memberListDetail extends Component{
 		}
     return(
       <div name="memberListDetail" >
-        <Tabs >
-          <Tab label="个人资料">
-            <div style={{background:"fff",height:'680'}}>
-              <DotTitle title='基本信息' style={{marginBottom:'40'}}/>
-                <PersonalData  detail={this.state.PersonalData}/>
-              <DotTitle title='工作信息' style={{marginTop:'40',marginBottom:'40'}}/>
-                <PersonalJob  detail={this.state.PersonalJob}/>
-            </div>
-          </Tab>
-          <Tab label="个人行为记录">
-            <div>
-              <PersonalBehavior  detail={this.state.PersonalBehavior}/>
-            </div>
-          </Tab>
-
-          <Tab label="更新日志">
-            <div>更新日志</div>
-
-          </Tab>
-        </Tabs>
-
+          {
+            this.isLeader()
+          }
       </div>
 
     );

@@ -48,15 +48,14 @@ export default class List extends Component {
 				page: 1,
 				pageSize: 15
 			}
-
 		}
 	}
 	openNewCreateDialog() {
 		this.setState({
 			openNewCreate: !this.state.openNewCreate,
-			searchParams:{
-				pageSize:'15'
-			}
+			// searchParams:{
+			// 	pageSize:'15'
+			// }
 		});
 
 	}
@@ -77,14 +76,12 @@ export default class List extends Component {
 	}
 	//操作相关
 	onOperation(type, itemDetail) {
-
 		this.setState({
 			itemDetail
 		});
 	// 点击详情跳转到详情页面
 		if (type == 'view') {
 			let orderId = itemDetail.id
-			console.log('3333ddd',orderId);
 				//window.location.href = `./#/finance/Manage/orderbill/${orderId}/detail`;
 			window.open(`./#/member/MemberManage/${orderId}/detail`, orderId);
 		} else if (type == 'edit') {
@@ -123,7 +120,6 @@ export default class List extends Component {
 
 			    <div >
 								<Title value="全部会员 "/>
-
 								<Section title={`全部会员 (${list.totalCount})`} description="" >
 									<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
 										<Button label="新建会员"  onTouchTap={this.openNewCreateDialog} />
@@ -145,7 +141,7 @@ export default class List extends Component {
 											ajaxParams={this.state.searchParams}
 										>
 										<TableHeader>
-											<TableHeaderColumn>ID</TableHeaderColumn>
+											{/*<TableHeaderColumn>ID</TableHeaderColumn>*/}
 											<TableHeaderColumn>联系电话</TableHeaderColumn>
 											<TableHeaderColumn>姓名</TableHeaderColumn>
 											<TableHeaderColumn>微信</TableHeaderColumn>
@@ -162,7 +158,7 @@ export default class List extends Component {
 
 									<TableBody style={{position:'inherit'}}>
 											<TableRow displayCheckbox={true}>
-											<TableRowColumn name="id" ></TableRowColumn>
+											{/*<TableRowColumn name="id" ></TableRowColumn>*/}
 											<TableRowColumn name="name" ></TableRowColumn>
 											<TableRowColumn name="phone" ></TableRowColumn>
 											<TableRowColumn name="wechatNick"></TableRowColumn>

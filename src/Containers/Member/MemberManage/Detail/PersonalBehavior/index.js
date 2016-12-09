@@ -4,6 +4,12 @@ import React, {
 import {
 	connect
 } from 'react-redux';
+import {
+	reduxForm,
+	submitForm,
+	change,
+	reset
+} from 'redux-form';
 // import {
 // 	bindActionCreators
 // } from 'redux';
@@ -26,6 +32,36 @@ import {
 	ListGroup,
 	ListGroupItem,
 } from 'kr-ui';
+class SearchDateForm extends Component{
+	constructor(props, context) {
+		super(props, context);
+		this.state = {
+		}
+	}
+
+	render(){
+		return (
+
+						<form style={{display:'inline-block',marginTop:10}}>
+						<ListGroup style={{width:'610'}}>
+						<ListGroupItem style={{textAlign:'center',padding:0}}><span style={{display:'inline-block',lineHeight:'58px'}}>注册时间:</span></ListGroupItem>
+							<ListGroupItem style={{padding:0}}>
+									<KrField name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/>
+							</ListGroupItem>
+							<ListGroupItem style={{textAlign:'center',padding:0,marginLeft:'10'}}><span style={{display:'inline-block',lineHeight:'58px'}}>至</span></ListGroupItem>
+							<ListGroupItem style={{padding:0}}>
+									<KrField name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} simple={true}/>
+							</ListGroupItem>
+						</ListGroup>
+						</form>
+		)
+	}
+
+}
+
+ SearchDateForm = reduxForm({
+	form: 'searchDateForm'
+})(SearchDateForm);
 export default class PersonalBehavior extends Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
@@ -43,21 +79,18 @@ export default class PersonalBehavior extends Component {
 		this.state = {
 		}
 	}
+	onSubmit=(form)=>{
+
+	}
 	render() {
+
 		return (
 			<div>
-				<div className='peronal-behavior-header'>
-							<span>Krspace轨迹</span>
-							<ListGroup>
-								<ListGroupItem style={{width:'45%',padding:0,marginLeft:'-10px'}}>
-										<KrField name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/>
-								</ListGroupItem>
-								<ListGroupItem style={{width:'9%',textAlign:'center',padding:0,marginLeft:10}}><span style={{display:'inline-block',lineHeight:'58px'}}>至</span></ListGroupItem>
-								<ListGroupItem style={{width:'45%',padding:0,}}>
-										<KrField name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} simple={true}/>
-								</ListGroupItem>
-							</ListGroup>
+				<div style={{width:'100%',height:75}}>
+					<span style={{display:'inline-block',verticalAlign:'top',width:'60%',height:75,lineHeight:'75px',color:'#499df1'}}>Krspace轨迹</span>
+					<SearchDateForm onSubmit={this.onSubmit} />
 				</div>
+
 				<Table
 						displayCheckbox={false}
 						ajax={true}
@@ -67,6 +100,7 @@ export default class PersonalBehavior extends Component {
 						ajaxFieldListName='items'
 						ajaxUrlName='getPersonalBehavior'
 						ajaxParams={this.state.searchParams}
+						style={{marginTop:0}}
 					>
 						<TableHeader>
 								<TableHeaderColumn>时间</TableHeaderColumn>
