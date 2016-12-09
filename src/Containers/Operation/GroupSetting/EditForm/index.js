@@ -10,7 +10,8 @@ import {
 	Col,
 	Button,
 	Notify,
-	ButtonGroup
+	ButtonGroup,
+	Message
 } from 'kr-ui';
 
 // import './index.less';
@@ -36,7 +37,6 @@ class Switchover extends Component{
   leftAdd(value){
 		var _this=this;
     var arr=this.state.allData;
-    console.log(arr)
     arr.push(value);
     this.setState({allData:arr},function(){
 			_this.props.changeMudle(_this.state.okData)
@@ -131,7 +131,6 @@ class ZhuanHuan extends React.Component{
 	 }
 
   swapItems (arr, index1, index2) {
-		console.log(this);
 
        arr[index1] = arr.splice(index2, 1, arr[index1])[0];
        this.setState({mouldSort:arr});
@@ -325,10 +324,8 @@ class ZhuanHuan extends React.Component{
 		 Store.dispatch(Actions.callAPI('groupNameCheck',{groupName:values,id:this.props.detail.id})).then(function(data) {
 
 		 }).catch(function(err) {
-			 Notify.show([{
-				 message: err.message,
-				 type: 'danger',
-			 }]);
+			 Message.error(err.message)
+
 		 });
 	 }
 
@@ -340,10 +337,8 @@ class ZhuanHuan extends React.Component{
 		 Store.dispatch(Actions.callAPI('sortCheck',{sort:values,id:this.props.detail.id})).then(function(data) {
 
 		 }).catch(function(err) {
-			 Notify.show([{
-				 message: err.message,
-				 type: 'danger',
-			 }]);
+			 Message.error(err.message)
+
 		 });
 		 }
 	 }
