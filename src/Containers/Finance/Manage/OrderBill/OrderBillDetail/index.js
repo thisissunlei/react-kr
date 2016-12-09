@@ -866,7 +866,7 @@ export default class AttributeSetting extends Component {
 					<Title value="订单明细账_财务管理"/>
 					<Section title="订单明细账" description="" style={{marginBottom:-5,minHeight:910}}>
 					      <DotTitle title='订单描述' style={{marginTop:'6',marginBottom:'40'}}/>
-						  <BasicInfo  detail={this.state.basicInfo} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome}/>
+						  <BasicInfo  detail={this.state.basicInfo}  />
 
 						  <DotTitle title='订单明细账' style={{marginTop:'28',marginBottom:'62'}}/>
 						  <div className='ui-detail-bottom'>

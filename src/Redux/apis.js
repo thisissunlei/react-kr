@@ -417,6 +417,26 @@
 		url: '/api/krspace-finance-web/stat/group/sort/actions/check?sort={sort}&id={id}',
 		method: 'get'
 	},
+	//会员中心-会员列表-获取所有会员信息
+	'membersList': {
+		url: '/mockjsdata/4/member/member-list?page={page}&pageSize={pageSize}',
+		method: 'get'
+	},
+	//会员中心-会员详细信息－个人资料
+	'getMemberDetailData': {
+		url: '/mockjsdata/4/member/member?id={id}',
+		method: 'get'
+	},
+	// 会员中心-会员详细信息－个人行为
+	'getPersonalBehavior': {
+		url: '/mockjsdata/4/member/mbr-device-log?id={id}',
+		method: 'get'
+	},
+	//会员中心-新增会员－社区查询
+	'searchCommunityByCommunityText': {
+		url: '/mockjsdata/4/member/community-list?communityText={communityText}',
+		method: 'get'
+	},
 
 }
 
