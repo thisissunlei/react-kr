@@ -22,7 +22,8 @@ import {
 	ListGroupItem,
 	Notify,
 	Tooltip,
-	Message
+	Message,
+	Title 
 
 } from 'kr-ui';
 import NewCreateForm from './CreateForm';
@@ -236,7 +237,9 @@ export default class Initialize  extends Component{
 	render(){
 		return(
 			<div>
-					<Section title="分组配置" description="" >
+			<Title value="分组管理"/>
+
+					<Section title="模板分组" description="" style={{minHeight:"900px"}}>
 							<Grid style={{marginBottom:22,marginTop:2}}>
 								<Row >
 									<Col md={4} align="left"> <Button label="新建" type='button' joinEditForm onTouchTap={this.openNewCreateDialog}  /> </Col>
@@ -280,7 +283,7 @@ export default class Initialize  extends Component{
 												<TableRowColumn name="sort" ></TableRowColumn>
 
 
-												<TableRowColumn style={{width:160,overflow:"visible"}} name="groupDesc" component={(value,oldValue)=>{
+												<TableRowColumn style={{maxWidth:160,overflow:"visible"}} name="groupDesc" component={(value,oldValue)=>{
 														var TooltipStyle=""
 														if(value.length==""){
 															TooltipStyle="none"
@@ -288,7 +291,10 @@ export default class Initialize  extends Component{
 														}else{
 															TooltipStyle="block";
 														}
-														 return (<div style={{display:TooltipStyle}}><span className='tableOver'>{value}</span><Tooltip offsetTop={10} place='top'>{value}</Tooltip></div>)
+														 return (<div style={{display:TooltipStyle}}><span className='tableOver'>{value}</span>
+														 	<Tooltip offsetTop={10} place='top'>
+																<div style={{width:"260px",whiteSpace:"normal"}}>{value}</div>
+														 	</Tooltip></div>)
 													 }} ></TableRowColumn>
 
 

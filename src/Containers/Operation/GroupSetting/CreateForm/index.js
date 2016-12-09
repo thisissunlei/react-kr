@@ -157,7 +157,6 @@ class ZhuanHuan extends React.Component{
 
     var remove=arr.splice(index,1)[0];
     _this.setState({mouldSort:arr});
-		console.log(remove,"???????");
     _this.props.addOther(remove);
   }
 
@@ -227,7 +226,7 @@ class ZhuanHuan extends React.Component{
   */
   class KrMould extends Component{
     render(){
-      var upShow,downShow;
+      var upShow,downShow,className="ui-KrMould";
 
       if(this.props.iconShow=="false"){
         upShow="hidden";
@@ -241,38 +240,41 @@ class ZhuanHuan extends React.Component{
           width:"100%",
           height:"26px",
           lineHeight:"26px",
+          marginTop:"-1px",
           paddingLeft:"10px",
           cursor:"pointer",
           fontSize:"14px",
           paddingLeft:"5px",
-        paddingRight:"5px",
-          color:"#666666",
+          paddingRight:"5px",
+
           boxSizing:"border-box",
       }
       //上移箭头的样式
       var upStyle={
+      	position:"absolute",
         display:"inline-block",
         cursor:"pointer",
 				width:"10px",
         float:"right",
 				height:"26px",
-        marginRight:"30px",
+        right:"70px",
         visibility:upShow
       }
       //下移箭头的样式
       var downShow={
+      	position:"absolute",
         cursor:"pointer",
         float:"right",
 				height:"26px",
 				width:"10px",
-        marginRight:"30px",
+        right:"30px",
 
         visibility:downShow
       }
 
       return(
         <div className="ui-groupMould " style={contentStyle} onClick={this.props.onClick}>
-          <span >{this.props.text}</span>
+          <span className={className}>{this.props.text}</span>
           <span className="ui-iconDown" onClick={this.props.downMove} style={downShow}></span>
           <span className="ui-iconUp"  onClick={this.props.upMoves} style={upStyle}></span>
 
@@ -318,7 +320,7 @@ class ZhuanHuan extends React.Component{
 	 }
 	 //分组名实时校验
 	 groupNameCheck=(values)=>{
-		 if(this.state.isErr){
+		 if(this.state.isErr&&values){
 			 var _this=this;
 			 values=this.Trim(values);
 			 Store.dispatch(Actions.callAPI('groupNameCheck',{groupName:values,id:''})).then(function(data) {
@@ -384,14 +386,14 @@ class ZhuanHuan extends React.Component{
 				<Switchover allData={this.state.moduleData} okData={[]} changeMudle={this.props.changeMudle}/>
 
 
-			<KrField name="groupDesc" style={{width:558}} component="textarea" label="分组描述"  />
+			<KrField name="groupDesc" style={{width:558}} heightStyle={{height:"80px"}} component="textarea" label="分组描述" maxSize={100}  />
 
 				<Grid style={{marginTop:0,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
 								<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div>
-								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
+								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel}  />
 							</ButtonGroup>
 						</Col>
 					</Row>
