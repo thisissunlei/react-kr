@@ -521,7 +521,7 @@ export default class OrderDetail extends React.Component {
 				<Row>
 				<Col md={4}><KrField label="社区名称"component="labelText" value={orderBaseInfo.communityName} defaultValue="无" alignRight={true} tooltip={orderBaseInfo.communityName}/></Col>
 				<Col md={4}><KrField label="客户名称" component="labelText" value={orderBaseInfo.customerName} alignRight={true} tooltip={orderBaseInfo.customerName}/></Col>
-				<Col md={4}><KrField label="订单名称" oldText={orderBaseInfo.mainbillname} component="editLabelText"  alignRight={true} save={this.change} /></Col>
+				<Col md={4}><KrField label="订单名称" oldText={orderBaseInfo.mainbillname} component="editLabelText"  alignRight={true} save={this.change} alignRight={true} /></Col>
 				</Row>
 				<Row>
 				<Col  md={4} ><KrField label="当前工位数" component="labelText" value={orderBaseInfo.stationnum} defaultValue="0" alignRight={true}/></Col>
