@@ -16,7 +16,7 @@ export default class InputDate extends React.Component {
 
 	static defaultProps = {
 			placeholder:'日期',
-			defaultValue:'2015-11-1'
+			defaultValue:+new Date
 	}
 	static propTypes = {
 		/**
@@ -110,7 +110,6 @@ export default class InputDate extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps){
-
 		if(nextProps.defaultValue !== this.props.defaultValue ){
 				this.setDefaultValue(nextProps.defaultValue);
 		}
@@ -120,7 +119,6 @@ export default class InputDate extends React.Component {
 			this.setState({
 				openCalendar:!this.state.openCalendar
 			});
-
 	}
 
 	onChange = (value)=>{
