@@ -105,7 +105,7 @@ export default class Demo extends Component {
 					<Section title="demo" description="" >
 						<KrField grid={1/2} label='city' component='city' onSubmit={this.list}/>
 
-						<KrField oldText={"123"} component="editLabelText" save={this.ll} />
+						<KrField oldText={"123"} label="订单名称" inline="inline" alignRight={true} component="editLabelText" save={this.ll} />
 						<KrForm name="demoForm" onSubmit={function(values){
 									console.log('values',values);
 							}} >

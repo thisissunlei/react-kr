@@ -428,7 +428,11 @@
  		url: ' /api/krspace_isso_web/sys/sysOwn/verifyIdentity',
  		method: 'get'
  	},
-
+ 	//合同详情-修改订单名字
+ 	'edit-order-name': {
+ 		url: ' /api/krspace-finance-web/edit-order-name',
+ 		method: 'put'
+ 	},
 
  }
 

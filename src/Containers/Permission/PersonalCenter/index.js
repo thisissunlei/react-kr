@@ -27,10 +27,11 @@ export default class PersonalCenter extends Component{
 			togettest:true,
 			name:'',
 			mail:'',
-			mobile:''
+			mobile:'',
+			pwdStrength:'',
 		}
   }
-	initBasicInfo =()=>{
+	initBasicInfo = ()=>{
 		var _this = this;
 		Store.dispatch(Actions.callAPI('PersonalCenterData', {
 		})).then(function(response) {
@@ -46,7 +47,6 @@ export default class PersonalCenter extends Component{
 	}
 	componentDidMount() {
 		this.initBasicInfo();
-		Store.dispatch(Actions.switchSidebarNav(false));
 	}
 
 	mobileTitleClick =()=>{
@@ -108,8 +108,8 @@ export default class PersonalCenter extends Component{
 						</div>
 								<div className="right_box">
 									<ul className="data">
-											<li>登录账号：</li>
-											<li>邮&emsp;&emsp;箱：</li>
+											<li>登录账号：{this.state.name}</li>
+											<li>邮&emsp;&emsp;箱：{this.state.mail}</li>
 											<li>修改头像</li>
 									</ul>
 								</div>
@@ -148,7 +148,7 @@ export default class PersonalCenter extends Component{
 									手机号
 								</dt>
 								<dd>
-									您已绑定了手机    。（您的手机为安全手机，可以找回密码）
+									您已绑定了手机 {this.state.mobile}   。（您的手机为安全手机，可以找回密码）
 									<p className="setted">&ensp;已设置&ensp;<span className="bl">|</span>&ensp;<span onTouchTap={this.openVerifyIdFunc} className="revise">修改</span></p>
 								</dd>
 

@@ -222,6 +222,7 @@ export default class OrderDetail extends React.Component {
 		Store.dispatch(Actions.callAPI('get-order-detail', {
 			mainBillId: this.props.params.orderId
 		})).then(function(response) {
+			console.log('response----', response)
 			_this.setState({
 				response: response
 			});
@@ -377,7 +378,28 @@ export default class OrderDetail extends React.Component {
 
 
 	}
-	change = () => {
+	change = (form) => {
+		const {
+			orderBaseInfo
+		} = this.state.response;
+
+		if (form && orderBaseInfo.id) {
+			Store.dispatch(Actions.callAPI('edit-order-name', {}, {
+				mainbillName: form,
+				mainBillId: orderBaseInfo.id
+			})).then(function(response) {
+				Notify.show([{
+					message: '修改成功!',
+					type: 'success',
+				}]);
+			}).catch(function(err) {
+				Notify.show([{
+					message: err.message,
+					type: 'danger',
+				}]);
+			});
+		}
+
 
 	}
 
@@ -521,7 +543,7 @@ export default class OrderDetail extends React.Component {
 				<Row>
 				<Col md={4}><KrField label="社区名称"component="labelText" value={orderBaseInfo.communityName} defaultValue="无" alignRight={true} tooltip={orderBaseInfo.communityName}/></Col>
 				<Col md={4}><KrField label="客户名称" component="labelText" value={orderBaseInfo.customerName} alignRight={true} tooltip={orderBaseInfo.customerName}/></Col>
-				<Col md={4}><KrField label="订单名称" oldText={orderBaseInfo.mainbillname} component="editLabelText"  alignRight={true} save={this.change} alignRight={true} /></Col>
+				<Col md={4}><KrField label="订单名称" oldText={orderBaseInfo.mainbillname} component="editLabelText"   alignRight={true} save={this.change}  /></Col>
 				</Row>
 				<Row>
 				<Col  md={4} ><KrField label="当前工位数" component="labelText" value={orderBaseInfo.stationnum} defaultValue="0" alignRight={true}/></Col>
