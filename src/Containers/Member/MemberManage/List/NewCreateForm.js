@@ -40,7 +40,10 @@ import {
 
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
-    this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
+    this.onChangeSearchCommunity = this.onChangeSearchCommunity.bind(this);
+		this.state={
+			communityText:''
+		}
 
 		Store.dispatch(reset('newCreateForm'));
 		Store.dispatch(change('newCreateForm','enableflag','ENABLE'));
@@ -59,14 +62,18 @@ import {
 
 	 }
 
-   onChangeSearchPersonel(personel) {
- 		Store.dispatch(change('creatNewMember', 'lessorContacttel', personel.mobile));
- 		Store.dispatch(change('creatNewMember', 'lessorContactName', personel.lastname));
+   onChangeSearchCommunity(community) {
+		 console.log('community',community);
+
+ 	// 	Store.dispatch(change('creatNewMember', 'communityText', community.communityText));
+ 	// 	Store.dispatch(change('creatNewMember', 'lessorContactName', personel.lastname));
  	}
+
 
 	render(){
 
 		const { error, handleSubmit, pristine, reset} = this.props;
+		let communityText = 'easda';
 
 		return (
 
@@ -75,9 +82,15 @@ import {
 				<KrField grid={1/2} name="phone" type="text" label="手机号" requireLabel={true} style={{display:'block'}}
 				   requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
 
-        <KrField grid={1/2} name="communityid" component="searchPersonel" label="社区"
-            onChange={this.onChangeSearchPersonel} requireLabel={true}
-    				   requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
+        {/*<KrField grid={1/2} name="communityid" component="searchCommunity" label="社区"
+            onChange={this.onChangeSearchCommunity} requireLabel={true}
+    				   requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>*/}
+
+				<KrField grid={1/2} name="communityid" component="searchCommunity" label="社区" onChange={this.onChangeSearchCommunity}  searchlink={'searchCommunityByCommunityText'}
+				searchcontent={'searchcontent'} requireLabel={true}
+				requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
+
+
         <KrField grid={1/2} name="email" type="text" label="邮箱" requireLabel={true}
 				   requiredValue={true} pattern={/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/} errors={{requiredValue:'邮箱为必填项',pattern:'请输入正确邮箱地址'}}/>
         <KrField grid={1/2} name="communityid" component="searchPersonel" label="公司" onChange={this.onChangeSearchPersonel} requireLabel={true}

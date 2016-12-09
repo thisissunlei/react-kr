@@ -419,6 +419,16 @@ const APIS = {
 		url: '/mockjsdata/4/member/member?id={id}',
 		method: 'get'
 	},
+	// 会员中心-会员详细信息－个人行为
+	'getPersonalBehavior': {
+		url: '/mockjsdata/4/member/mbr-device-log?id={id}',
+		method: 'get'
+	},
+	//会员中心-新增会员－社区查询
+	'searchCommunityByCommunityText': {
+		url: '/mockjsdata/4/member/community-list?communityText={communityText}',
+		method: 'get'
+	},
 
 }
 

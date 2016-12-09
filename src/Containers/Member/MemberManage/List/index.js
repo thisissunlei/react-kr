@@ -27,7 +27,7 @@ import {
 } from 'kr-ui';
 
 import NewCreateForm from './NewCreateForm';
-
+import './index.less';
 
 export default class List extends Component {
 
@@ -81,14 +81,14 @@ export default class List extends Component {
 		this.setState({
 			itemDetail
 		});
-
+	// 点击详情跳转到详情页面
 		if (type == 'view') {
 			let orderId = itemDetail.id
 			console.log('3333ddd',orderId);
 				//window.location.href = `./#/finance/Manage/orderbill/${orderId}/detail`;
 			window.open(`./#/member/MemberManage/${orderId}/detail`, orderId);
 		} else if (type == 'edit') {
-			this.openEditDetailDialog();
+			// this.openEditDetailDialog();
 		}
 	}
 	// 社区联想
@@ -125,13 +125,14 @@ export default class List extends Component {
 								<Title value="全部会员 "/>
 
 								<Section title={`全部会员 (${list.totalCount})`} description="" >
-									<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45,zIndex:1000}}>
+									<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
 										<Button label="新建会员"  onTouchTap={this.openNewCreateDialog} />
 										<Button   type='search' searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
-										<SearchForms onSubmit={this.onSubmit} searchFilter={options} style={{marginTop:5}} />
+										<SearchForms onSubmit={this.onSubmit} searchFilter={options} style={{marginTop:5,zIndex:10000}} />
 									</form>
 									<Table
-											style={{marginTop:10,zIndex:0}}
+										className="member-list-table"
+											style={{marginTop:10,position:'inherit'}}
 											onLoaded={this.onLoaded}
 											ajax={true}
 											onProcessData={(state)=>{
@@ -152,13 +153,14 @@ export default class List extends Component {
 											<TableHeaderColumn>职位</TableHeaderColumn>
 											<TableHeaderColumn>工作地点</TableHeaderColumn>
 											<TableHeaderColumn>公司</TableHeaderColumn>
+											// 由于页面效果不好暂时不添加会员等级这一项
 											{/*<TableHeaderColumn>会员等级</TableHeaderColumn>*/}
 											<TableHeaderColumn>注册来源</TableHeaderColumn>
 											<TableHeaderColumn>注册日期</TableHeaderColumn>
 											<TableHeaderColumn>操作</TableHeaderColumn>
 									</TableHeader>
 
-									<TableBody>
+									<TableBody style={{position:'inherit'}}>
 											<TableRow displayCheckbox={true}>
 											<TableRowColumn name="id" ></TableRowColumn>
 											<TableRowColumn name="name" ></TableRowColumn>
@@ -168,7 +170,6 @@ export default class List extends Component {
 											<TableRowColumn name="jobName"></TableRowColumn>
 											<TableRowColumn name="cityName"></TableRowColumn>
 											<TableRowColumn name="companyName"></TableRowColumn>
-											{/*<TableRowColumn name=""></TableRowColumn>*/}
 											<TableRowColumn name="sourceName"></TableRowColumn>
 											<TableRowColumn name="registerTime"></TableRowColumn>
 											<TableRowColumn type="operation">

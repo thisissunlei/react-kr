@@ -6,6 +6,8 @@ import{
   DotTitle
 }from 'kr-ui';
 import PersonalData from './PersonalData';
+import PersonalJob from './PersonalJob';
+import PersonalBehavior from './PersonalBehavior';
 export default class memberListDetail extends Component{
   constructor(props, context) {
 		super(props, context);
@@ -30,9 +32,9 @@ export default class memberListDetail extends Component{
 		Store.dispatch(Actions.callAPI('getMemberDetailData', {
 			mainbillid: params.orderId,
 		})).then(function(response) {
+      console.log(11111);
 			_this.setState({
 				personalData: response.baseinfo,
-
 			});
 		}).catch(function(err) {
 			Notify.show([{
@@ -40,6 +42,20 @@ export default class memberListDetail extends Component{
 				type: 'danger',
 			}]);
 		});
+    Store.dispatch(Action.callApI('getMemberDatailBehavior',{
+      mainbillid: params.orderId,
+    })).then(function(response){
+      console.log(response);
+      _this.setState({
+				personalBehavior: response.items,
+
+			});
+    }).catch(function(err){
+      Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+    });
 	}
   render(){
     let {
@@ -51,24 +67,28 @@ export default class memberListDetail extends Component{
 			return <Loading/>
 		}
     return(
-      <div name="memberListDetail">
+      <div name="memberListDetail" >
         <Tabs >
           <Tab label="个人资料">
-
+            <div style={{background:"fff",height:'680'}}>
+              <DotTitle title='基本信息' style={{marginBottom:'40'}}/>
+                <PersonalData  detail={this.state.PersonalData}/>
+              <DotTitle title='工作信息' style={{marginTop:'40',marginBottom:'40'}}/>
+                <PersonalJob  detail={this.state.PersonalJob}/>
+            </div>
           </Tab>
           <Tab label="个人行为记录">
-
+            <div>
+              <PersonalBehavior  detail={this.state.PersonalBehavior}/>
+            </div>
           </Tab>
 
           <Tab label="更新日志">
+            <div>更新日志</div>
 
           </Tab>
         </Tabs>
-        <div style={{background:"fff"}}>
-          <DotTitle title='基本信息' style={{marginTop:'6',marginBottom:'40'}}/>
-            <PersonalData  detail={this.state.PersonalData}  />
-          <DotTitle title='工作信息' style={{marginTop:'6',marginBottom:'40'}}/>
-        </div>
+
       </div>
 
     );
