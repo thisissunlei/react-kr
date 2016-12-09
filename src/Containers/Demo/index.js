@@ -76,16 +76,16 @@ export default class Demo extends Component{
 
 		Message.show('hahaha 爱的范德萨发几块了');
 	}
-<<<<<<< HEAD
+
 ll=(values)=>{
 	console.log(values,"???");
 }
-=======
+
 	list=(value)=>{
 		console.log('city',value);
 	}
 
->>>>>>> cffc1b5402efe32c3ed17749b59cadb381f65dd7
+
 
 	render(){
 		return(
@@ -93,7 +93,7 @@ ll=(values)=>{
 					<Section title="demo" description="" >
 						<KrField grid={1/2} label='city' component='city' onSubmit={this.list}/>
 
-						<KrField oldText={"123"} component="editLabelText" save={this.ll} />
+						<KrField oldText={"123"} label="订单名称" inline="inline" alignRight={true} component="editLabelText" save={this.ll} />
 						<KrForm name="demoForm" onSubmit={function(values){
 									console.log('values',values);
 							}} >

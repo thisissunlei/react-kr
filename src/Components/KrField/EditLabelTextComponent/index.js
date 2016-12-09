@@ -60,12 +60,12 @@ export default class InputComponent extends React.Component{
 	}
 
 	render(){
-    let {input, label, type,requireLabel,disabled,placeholder,style,inline,simple,heightStyle,...other} = this.props;
+    let {input, label, type,requireLabel,disabled,placeholder,style,inline,alignRight,simple,heightStyle,...other} = this.props;
     let className = '';
 
 
 			return (
-				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} wrapStyle={style}>
+				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} wrapStyle={style} alignRight={alignRight}>
 					<Tooltip  style={{visibility:'visible'}} offsetTop={10} place='top'>{this.state.oldtext}</Tooltip>
           <span className="contract">{this.state.oldtext}</span>
           {!this.state.editOpen && <span className="ui-label-text"><span className="edit" onTouchTap={this.onEdit}></span></span>}
