@@ -427,7 +427,7 @@ export default class BasicTable extends Component {
 			type: type,
 			page: 1,
 			pageSize: pageSize,
-			year:currentYear
+			year: currentYear
 		})).then(function(response) {
 			_this.setState({
 				Installmentplan: response.vo.items || [],
@@ -453,11 +453,14 @@ export default class BasicTable extends Component {
 		});
 	}
 	onSubmit(formValues, istip) {
+		console.log('formValues',formValues);
+		let year = this.state.currentYear;
 		var _this = this;
 		var activity = true;
 		if (formValues.type == "BILL") {
 			activity = false;
 		}
+		formValues.year = year;
 
 
 		this.setState({
@@ -623,6 +626,7 @@ export default class BasicTable extends Component {
 
 	}
 	renderNone(showNone) {
+
 		let {
 			currentYear,
 			Installmentplan,
@@ -639,6 +643,7 @@ export default class BasicTable extends Component {
 
 		var _this = this;
 		const id = communityids;
+
 		if (dataLoading) {
 			return (
 				<tbody>
@@ -651,7 +656,8 @@ export default class BasicTable extends Component {
 				</tbody>
 			)
 		}
-		if (!showNone && !dataLoading) {
+
+		if (!showNone || dataLoading) {
 			return (
 				<tbody>
 					<tr style={{height:200}} className="nothing">
@@ -750,7 +756,7 @@ export default class BasicTable extends Component {
 			showNone = false;
 		}
 
-		// console.log('----123456', this.context)
+
 
 		return (
 			<div style={{position:'relative'}}>
@@ -769,7 +775,7 @@ export default class BasicTable extends Component {
 		 					<span className="txt" >催款回款</span>
 		 					<span className="circle green"></span>
 		 					<span className="txt" >工位变更</span>
-		 					<span className="circle grey-circle"></span>
+		 					<span className="circle grey-span"></span>
 		 					<span className="txt" >回款完成</span>
 		 				</p>
 		 			</div>
@@ -802,7 +808,7 @@ export default class BasicTable extends Component {
 					</tr>
 				</thead>
 				
-					{
+					{	
 						this.renderNone(showNone,rate)
 					}
 					

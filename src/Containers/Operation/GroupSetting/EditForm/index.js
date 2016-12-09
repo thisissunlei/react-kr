@@ -51,6 +51,25 @@ class Switchover extends Component{
 	 			_this.props.changeMudle(_this.state.okData)
 	 		});
    }
+	 //右边全部数据添加到左边
+ 	leftToAll=()=>{
+ 		var _this=this;
+ 		var arr=this.state.allData.concat(this.state.okData)
+ 		this.setState({allData:arr,okData:[]},function(){
+ 			_this.props.changeMudle(_this.state.okData);
+ 		});
+ 	}
+ 	//左边全部数据添加到右边
+
+ 	rightToAll=()=>{
+ 		var _this=this;
+ 		var allArr=this.state.allData
+ 		var okArr=this.state.okData;
+ 		var arr=allArr.concat(okArr)
+ 		this.setState({allData:[],okData:arr},function(){
+ 			_this.props.changeMudle(_this.state.okData);
+ 		});
+ 	}
 
 
 
@@ -68,7 +87,8 @@ class Switchover extends Component{
       width:"40px",
 			height:"48px",
 			float:"left",
-			marginTop:"101px",
+			marginTop:"90px",
+			textAlign:"center"
 
 
 
@@ -82,7 +102,8 @@ class Switchover extends Component{
 
           />
           <div className="ui-moveIcon" style={moddleStyle}>
-
+					<span className="moveRight" onClick={this.rightToAll}></span><br/>
+					<span className="moveLeft" onClick={this.leftToAll}></span>
           </div>
           <ZhuanHuan  iconShow="true"
                       Data={this.state.okData}
@@ -104,6 +125,10 @@ class ZhuanHuan extends React.Component{
 			mouldSort:this.props.Data
     }
   }
+
+	componentWillReceiveProps(nextProps) {
+			 this.setState({mouldSort: nextProps.Data});
+	 }
 
   swapItems (arr, index1, index2) {
 		console.log(this);
@@ -309,7 +334,7 @@ class ZhuanHuan extends React.Component{
 
 	 //排序实时校验
 	 sortCheck=(values)=>{
-
+		 if(+values>0){
 		 var _this=this;
 		 values=this.Trim(values);
 		 Store.dispatch(Actions.callAPI('sortCheck',{sort:values,id:this.props.detail.id})).then(function(data) {
@@ -320,7 +345,7 @@ class ZhuanHuan extends React.Component{
 				 type: 'danger',
 			 }]);
 		 });
-
+		 }
 	 }
 	 //去除前后空格
 	Trim=(str)=>{
@@ -367,8 +392,12 @@ const validate = values =>{
 			errors.accountcode = '请填写分组名称';
 		}
 
-		if (!values.accountname) {
-			errors.accountname = '请输入排序';
+		if (!values.sort) {
+			errors.sort = '请填写排序号';
+		}else if(isNaN(+values.sort)){
+			errors.sort = '请输入数字';
+		}else if(+values.sort<=0){
+			errors.sort = '请输入正整数';
 		}
 
 		if (!values.accounttype) {

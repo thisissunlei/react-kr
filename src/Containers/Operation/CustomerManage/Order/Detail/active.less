@@ -65,6 +65,7 @@ ul,li{
 	font-size:14px;
 	width:280px;
 	margin:0 auto;
+	margin-bottom:24px;
 
 }
 .ui-orderDetail{
@@ -92,9 +93,16 @@ ul,li{
 
 }
 .content{
-	width:900px;
+	width:1000px;
 	margin-left:auto;
 	margin-right:auto;
+	.ui-button{
+		button{
+			span{
+				font-size:18px !important;
+			}
+		}
+	}
 }
 span{
 	font-size:14px;
@@ -125,3 +133,99 @@ span{
 	}
 	
 }
+.orderList{
+	.ui-label-text{
+		padding-left:20px;
+		
+	}
+	.ui-form-label{
+		text-align:center !important;
+		border-right:1px solid #eeeeee;
+		width:120px !important;
+		min-width:120px !important;
+		
+	}
+	.ui-form-controller{
+		height:40px;
+	}
+
+	
+	.row{
+		border:1px solid #eeeeee;
+		border-bottom:none;
+		border-right:none;
+		color: #666;
+		font-size:14px;
+		text-algin:cener;
+		&:last-child{
+			border-bottom:1px solid #eeeeee;
+		}
+		.ui-form-item{
+			
+			border-right:1px solid #eeeeee !important;
+		}
+
+	}
+	
+	.staion{
+		width:120px;
+		float:left;
+		text-align:center;
+		height:40px;
+		line-height:40px;
+		border-right:1px solid #eeeeee;
+	}
+	.view{
+		width:332px;
+		color:#499df1;
+		text-align:left;
+		text-indent:20px;
+		height:40px;
+		line-height:40px;
+		border-right:1px solid #eeeeee;
+	}
+
+
+}
+.planList{
+	width:100%;
+	display:inline-block;
+	height:auto;
+	border:1px solid #eeeeee;
+	text-align:center;
+	.headerList{
+		width:100%;
+		height:50px;
+		background:#f2f2f2;
+		div{
+			float:left;
+			line-height:50px;
+			width:140px;
+		}
+		
+		
+	}
+	.type{
+		width:220px !important;
+		}
+	.status{
+		width:80px !important;
+	}
+.contentList{
+	width:100%;
+	height:60px;
+	div{
+			float:left;
+			line-height:60px;
+			width:140px;
+			
+		}
+}
+
+
+
+}
+
+
+
+

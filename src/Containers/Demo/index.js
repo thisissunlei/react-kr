@@ -76,14 +76,22 @@ export default class Demo extends Component{
 
 		Message.show('hahaha 爱的范德萨发几块了');
 	}
+<<<<<<< HEAD
 ll=(values)=>{
 	console.log(values,"???");
 }
+=======
+	list=(value)=>{
+		console.log('city',value);
+	}
+
+>>>>>>> cffc1b5402efe32c3ed17749b59cadb381f65dd7
 
 	render(){
 		return(
 			<div>
 					<Section title="demo" description="" >
+						<KrField grid={1/2} label='city' component='city' onSubmit={this.list}/>
 
 						<KrField oldText={"123"} component="editLabelText" save={this.ll} />
 						<KrForm name="demoForm" onSubmit={function(values){
