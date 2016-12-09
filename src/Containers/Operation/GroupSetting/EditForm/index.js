@@ -231,7 +231,7 @@ class ZhuanHuan extends React.Component{
   */
   class KrMould extends Component{
     render(){
-      var upShow,downShow;
+      var upShow,downShow,className="ui-KrMould";
 
       if(this.props.iconShow=="false"){
         upShow="hidden";
@@ -249,32 +249,35 @@ class ZhuanHuan extends React.Component{
           cursor:"pointer",
           fontSize:"14px",
           color:"#666666",
+          marginTop:"-1px",
           boxSizing:"border-box",
       }
       //上移箭头的样式
       var upStyle={
+        position:"absolute",
         display:"inline-block",
         cursor:"pointer",
 				width:"10px",
         float:"right",
 				height:"26px",
-        marginRight:"30px",
+        right:"70px",
         visibility:upShow
       }
       //下移箭头的样式
       var downShow={
+        position:"absolute",
         cursor:"pointer",
         float:"right",
 				height:"26px",
 				width:"10px",
-        marginRight:"30px",
+        right:"30px",
 
         visibility:downShow
       }
 
       return(
         <div className="ui-groupMould " style={contentStyle} onClick={this.props.onClick}>
-          <span >{this.props.text}</span>
+          <span className={className}>{this.props.text}</span>
           <span className="ui-iconDown" onClick={this.props.downMove} style={downShow}></span>
           <span className="ui-iconUp"  onClick={this.props.upMoves} style={upStyle}></span>
 
@@ -319,6 +322,7 @@ class ZhuanHuan extends React.Component{
 
 	 //分组名实时校验
 	 groupNameCheck=(values)=>{
+    if(values){
 		 var _this=this;
 		 values=this.Trim(values);
 		 Store.dispatch(Actions.callAPI('groupNameCheck',{groupName:values,id:this.props.detail.id})).then(function(data) {
@@ -327,6 +331,7 @@ class ZhuanHuan extends React.Component{
 			 Message.error(err.message)
 
 		 });
+    }
 	 }
 
 	 //排序实时校验
@@ -363,7 +368,7 @@ class ZhuanHuan extends React.Component{
 				<KrField grid={1/2} label="数据模板" requireLabel={true} component="labelText"/>
 				<Switchover allData={this.state.detail.unselectedList} okData={this.state.detail.templateList} changeMudle={this.props.changeMudle}/>
 
-			<KrField style={{width:558}} name="groupDesc" component="textarea" label="分组描述"  />
+			<KrField style={{width:558}} heightStyle={{height:"80px"}} name="groupDesc" component="textarea" label="分组描述" maxSize={100} />
 
 				<Grid style={{marginTop:0,marginBottom:5}}>
 					<Row>
@@ -383,8 +388,8 @@ const validate = values =>{
 
 		const errors = {}
 
-		if(!values.accountcode){
-			errors.accountcode = '请填写分组名称';
+		if(!values.groupName){
+			errors.groupName = '请填写分组名称';
 		}
 
 		if (!values.sort) {
