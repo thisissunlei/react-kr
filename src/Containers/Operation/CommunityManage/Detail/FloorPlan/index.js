@@ -64,8 +64,8 @@ export default class FloorPlan extends Component {
 			communityIdList: [],
 			communityInfoFloorList: [],
 			url: '',
-			dateend: '',
-			date: ''
+			dateend: dateFormat(new Date(), "yyyy-mm-dd"),
+			date: dateFormat(new Date(), "yyyy-mm-dd")
 		}
 
 		this.getcommunity = this.getcommunity.bind(this);

@@ -472,7 +472,7 @@ export default class OrderDetail extends React.Component {
 					<div className="actualMoney">实际付款金额</div>
 					<div className="status">状态</div>
 				</div>
-				
+
 
 			</div>
 
