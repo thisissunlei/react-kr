@@ -453,11 +453,14 @@ export default class BasicTable extends Component {
 		});
 	}
 	onSubmit(formValues, istip) {
+		console.log('formValues',formValues);
+		let year = this.state.currentYear;
 		var _this = this;
 		var activity = true;
 		if (formValues.type == "BILL") {
 			activity = false;
 		}
+		formValues.year = year;
 
 
 		this.setState({

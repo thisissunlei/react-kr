@@ -6,7 +6,7 @@ import {
 import ReactDOM from 'react-dom';
 
 import './index.less';
-
+import $ from 'jquery';
 import WrapComponent from '../WrapComponent';
 import { default as CityData } from './CityData.json';
 
@@ -20,15 +20,14 @@ export default class CityComponent extends React.Component {
 
 	static PropTypes = {
 		defaultValue: React.PropTypes.string,
-		onChange: React.PropTypes.func,
+		onSubmit: React.PropTypes.func,
 		inline: React.PropTypes.bool,
-		search: React.PropTypes.bool
+		search: React.PropTypes.bool,
 	}
 
 	constructor(props) {
 		super(props)
 
-		this.onChange = this.onChange.bind(this);
 
 		this.isInit = false;
 		this.state = {
@@ -92,14 +91,13 @@ export default class CityComponent extends React.Component {
 	}
 	
 
-	onChange(event, value) {
-
-		
-
-		onChange && onChange(result);
-	}
 	selected=(event)=>{
 		event.target.style.background = '#f5f5f5';
+		let thirdId = event.target.getAttribute('data-for');
+		const target = event.target.getElementsByTagName('span')[0];
+		this.setState({
+			thirdId,
+		});
 	}
 	leave=(event)=>{
 		event.target.style.background = '#fff';
@@ -142,51 +140,37 @@ export default class CityComponent extends React.Component {
 
 
 	}
-	leaveFirstCity=(event)=>{
-		let e = event;
-		// if(event.target.className === 'city-name'){
-			// event.target.style.background = '#fff';
-		// }
-		// const h = event.target.offsetHeight;
-  //   	const w = event.target.offsetWidth;
-  //   	var x = (e.pageX - event.target.offsetLeft - (w / 2)) * (w > h ? (h / w) : 1);
-		// var y = (e.pageY - event.target.offsetTop - (h / 2)) * (h > w ? (w / h) : 1);
-		// var direction = Math.round((((Math.atan2(y, x) * (180 / Math.PI)) + 180) / 90) + 3) % 4;
-		// console.log(e,event.target,event.target.offsetLeft);
-		// // console.log(e.pageX,event.target.offsetLeft,event.target.offsetParent.parentNode.offsetLeft);
-		// // console.log(Math.atan2(y, x),Math.atan2(y, x) * (180 / Math.PI))
-		// var dirName = new Array('上方','右侧','下方','左侧');
-		// // let w = event.target.width;
-		// console.log('leave',dirName,direction,dirName[direction]);
-	}
 
 	showCity=()=>{
 		this.setState({
 			showCity:true
 		})	
 	}
-	cityName=(event)=>{
-		// let {firstName,secondName}= this.state;
-		let thirdCityId = event.target.getAttribute('data-for');
-		console.log(thirdCityId);
+
+	onSubmit=(event)=>{
+		let {thirdId} = this.state;
 		const target = event.target.getElementsByTagName('span')[0];
+		let {thirdName,firstName,secondName} = this.state;
+		let city = `${firstName}/${secondName}/${target.innerHTML}`;
 		this.setState({
-			thirdCityId,
-			thirdName:target.innerHTML
+			city,
+			showCity:false
 		});
 
-		this.submit(target.innerHTML);
+		let {onSubmit} = this.props;
+		onSubmit && onSubmit(thirdId);
+
+
 	}
-
-	submit=(name)=>{
-		let {thirdName,firstName,secondName} = this.state;
-		let city = `${firstName}/${secondName}/${name}`;
-		
-		this.setState({
-			city
-		})
-
-
+	bodyEvent=()=>{
+		let _this = this;
+		$('body').click(function(event){
+			if(event.target.className !='city-name'){
+				_this.setState({
+					showCity:false
+				});
+			}
+		});
 	}
 
 
@@ -216,7 +200,7 @@ export default class CityComponent extends React.Component {
 		let cityDiv = {};
 		cityDiv.display = showCity?'block':'none';
 		let firstCity = this.firstCityList();
-		let {secondCity,thirdCity,firstId,secondId,city} = this.state;
+		let {secondCity,thirdCity,firstId,secondId,city,thirdId} = this.state;
 		let cityStyle= {
 			background:'#fff'
 		};
@@ -224,6 +208,7 @@ export default class CityComponent extends React.Component {
 			background:'#f5f5f5'
 		}
 		let hoverColor = {};
+		this.bodyEvent();
 
 
 		
@@ -239,18 +224,19 @@ export default class CityComponent extends React.Component {
 								<li className="firstCity">
 									{firstCity.map((item,index)=>{
 										hoverColor = (item.id == firstId)?selectedCity:cityStyle;
-										return (<div key={index} className='city-name' style={hoverColor} data-for={item.id} onMouseOver={this.selectFirstCity} onMouseOut={this.leaveFirstCity}><span >{item.name}</span></div>)
+										return (<div key={index} className='city-name' style={hoverColor} data-for={item.id} onMouseOver={this.selectFirstCity} ><span >{item.name}</span></div>)
 									})}
 								</li>
 								<li className="secondCity">
 									{secondCity.map((item,index)=>{
 										hoverColor = (item.id == secondId)?selectedCity:cityStyle;
-										return (<div key={index} className='city-name' style={hoverColor} data-for={item.id} onMouseOver={this.selectSecondCity} onMouseOut={this.leaveFirstCity}><span >{item.name}</span></div>)
+										return (<div key={index} className='city-name' style={hoverColor} data-for={item.id} onMouseOver={this.selectSecondCity}><span >{item.name}</span></div>)
 									})}
 								</li>
 								<li className="thirdCity">
 									{thirdCity.map((item,index)=>{
-										return (<div key={index} className='city-name' data-for={item.id} onMouseOver={this.selected} onMouseOut={this.leave} onClick={this.cityName}><span >{item.name}</span></div>)
+										hoverColor = (item.id == thirdId)?selectedCity:cityStyle;
+										return (<div key={index} className='city-name' style={hoverColor} data-for={item.id} onMouseOver={this.selected}  onClick={this.onSubmit}><span >{item.name}</span></div>)
 									})}
 								</li>
 							</ul>

@@ -472,6 +472,7 @@ export default class OrderDetail extends React.Component {
 					<div className="actualMoney">实际付款金额</div>
 					<div className="status">状态</div>
 				</div>
+
 				{installmentPlan && installmentPlan.map((item,index)=>{
 					return(
 						<div className="contentList"  key={index}>
@@ -497,6 +498,7 @@ export default class OrderDetail extends React.Component {
 							</div>
 							
 						</div>
+
 
 
 					)
