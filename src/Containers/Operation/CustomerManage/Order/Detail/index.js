@@ -472,24 +472,7 @@ export default class OrderDetail extends React.Component {
 					<div className="actualMoney">实际付款金额</div>
 					<div className="status">状态</div>
 				</div>
-				{
-					installmentPlan.map((item,index)=>{
-						<div className="contentList">
-						<div className="type"></div>
-						<div className="Conlist">
-							<div className="list">
-								<div className="fund">款项</div>
-								<div className="Begindate">分期开始时间</div>
-								<div className="Enddate">分期结束时间</div>
-								<div className="planMoney">计划付款金额</div>
-								<div className="actualMoney">实际付款金额</div>
-								<div className="status">状态</div>
-							</div>
-						</div>
-						</div>
-					}
-
-				}
+				
 				
 
 			</div>
