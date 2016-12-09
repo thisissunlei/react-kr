@@ -382,7 +382,9 @@ export default class OrderDetail extends React.Component {
 		const {
 			orderBaseInfo
 		} = this.state.response;
-
+		if (orderBaseInfo.mainbillname === form) {
+			return;
+		}
 		if (form && orderBaseInfo.id) {
 			Store.dispatch(Actions.callAPI('edit-order-name', {}, {
 				mainbillName: form,
