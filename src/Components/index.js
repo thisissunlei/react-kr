@@ -24,6 +24,7 @@ import Paper from './Paper';
 import SplitLine from './SplitLine';
 import FontIcon from './FontIcon';
 import SearchForms from './SearchForms';
+import SearchForm from './SearchForm';
 import List from './List';
 import AppBar from './AppBar';
 import Divider from './Divider';
@@ -127,5 +128,6 @@ module.exports = {
 	SearchForms,
 	...Tabs,
 	PageHeader,
-	Tooltip
+	Tooltip,
+	SearchForm
 }
