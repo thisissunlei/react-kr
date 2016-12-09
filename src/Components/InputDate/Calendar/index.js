@@ -83,19 +83,30 @@ export default class Calendar extends React.Component {
 
 	setInitValue = (value)=>{
 
-		if(!value){
-				value = '2015-11-1';
-		}
-
 		let year;
 		let month;
 		let date;
-
 		let valueArr = [];
 
-		if(value.indexOf('-') !==-1){
+		if(!value){
+				value = +new Date;
+		}
+
+	if(!isNaN(value)){
+
+			var nowTime = new Date(value);
+
+			valueArr.push(nowTime.getFullYear());
+			valueArr.push(nowTime.getMonth());
+			valueArr.push(nowTime.getDate());
+
+		}
+
+		if(typeof value === 'string' && value.indexOf('-')!==-1){
 			valueArr = value.split('-');
-		}else if(value.indexOf('/') !==-1){
+		}
+
+		if(typeof value === 'string' && value.indexOf('/')!==-1){
 			valueArr = value.split('/');
 		}
 

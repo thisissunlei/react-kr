@@ -64,7 +64,7 @@ export default class CalendarMonthDate extends React.Component {
 	}
 
 	getDaysInMonth = (year,month)=>{
-	      month = parseInt(month,10)+1;
+	    //  month = parseInt(month,10)+1;
 	      var temp = new Date(year,month,0);
 	      return temp.getDate();
 	}
@@ -100,7 +100,6 @@ export default class CalendarMonthDate extends React.Component {
 		for(var i = 1;i<=placeholderSize;i++){
 				monthDateAll.push(this.createPlaceholderElement(i));
 		}
-
 		for(i = 1;i<=lastDate;i++){
 				monthDateAll.push(this.createDate(i,i+placeholderSize));
 		}
