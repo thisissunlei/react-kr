@@ -47,6 +47,12 @@ export default class PersonalCenter extends Component{
 	}
 	componentDidMount() {
 		this.initBasicInfo();
+		this.setState({
+			togettest:true,
+		})
+	}
+	componentDidUpdate(){
+
 	}
 
 	mobileTitleClick =()=>{
@@ -66,7 +72,7 @@ export default class PersonalCenter extends Component{
 
 		this.setState({
 			openVerifyId:!this.state.openVerifyId,
-
+			togettest:true,
 		})
 
 	}
@@ -82,7 +88,7 @@ export default class PersonalCenter extends Component{
 		})
 	}
 	render(){
-		console.log('11111',this.state.openVerifyId);
+
 
 		let {settle_mobile,settle_password}=this.state;
 		return (
@@ -148,7 +154,7 @@ export default class PersonalCenter extends Component{
 									手机号
 								</dt>
 								<dd>
-									您已绑定了手机 {this.state.mobile}   。（您的手机为安全手机，可以找回密码）
+									您已绑定了手机   。（您的手机为安全手机，可以找回密码）
 									<p className="setted">&ensp;已设置&ensp;<span className="bl">|</span>&ensp;<span onTouchTap={this.openVerifyIdFunc} className="revise">修改</span></p>
 								</dd>
 
