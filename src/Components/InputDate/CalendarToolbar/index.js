@@ -51,8 +51,8 @@ export default class CalendarToolbar extends React.Component {
 				<div className="calendar-toolbar">
             <span className="left-button" onClick={this.onPrevMonth}>&lt;</span>
 						<span className="main-content">
-							<span className="month-number" onClick={openMonthSelectorDialog}>{month}月</span>
-							<span className="year-number" onClick={openYearSelectorDialog}>{year}年</span>
+							<span className="month-number" onClick={openMonthSelectorDialog}>{month}&nbsp;月</span>
+							<span className="year-number" onClick={openYearSelectorDialog}>{year}&nbsp;年</span>
 						</span>
             <span className="right-button" onClick={this.onNextMonth}>&gt;</span>
 				</div>
