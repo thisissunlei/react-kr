@@ -76,14 +76,16 @@ export default class Demo extends Component{
 
 		Message.show('hahaha 爱的范德萨发几块了');
 	}
-
+ll=(values)=>{
+	console.log(values,"???");
+}
 
 	render(){
 		return(
 			<div>
 					<Section title="demo" description="" >
 
-
+						<KrField oldText={"123"} component="editLabelText" save={this.ll} />
 						<KrForm name="demoForm" onSubmit={function(values){
 									console.log('values',values);
 							}} >
