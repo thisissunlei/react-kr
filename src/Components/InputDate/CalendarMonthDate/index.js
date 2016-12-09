@@ -31,6 +31,36 @@ export default class CalendarMonthDate extends React.Component {
 
 	constructor(props) {
 		super(props)
+
+		this.state = {
+			isLoading:false
+		}
+
+	}
+
+	componentDidMount(){
+		//this.getLoading();
+	}
+
+	componentWillReceiveProps(nextProps) {
+
+		if(nextProps.month !== this.props.month){
+			this.getLoading();
+		}
+	}
+
+	getLoading = ()=>{
+
+		this.setState({
+			 isLoading:false
+		},function(){
+			var _this = this;
+		 window.setTimeout(function(){
+			 	_this.setState({
+					isLoading:!_this.state.isLoading
+				})
+		 },100);
+		});
 	}
 
 	getDaysInMonth = (year,month)=>{
@@ -39,19 +69,25 @@ export default class CalendarMonthDate extends React.Component {
 	      return temp.getDate();
 	}
 
-	createDate(date){
+	createDate(date,key){
 
 		let handlers = {
 			onClick:this.context.onSelectedDate
 		};
 		let props = {
 			value:date,
-			key:date,
-			date:this.props.date
+			key:key,
+			date:this.props.date,
+			year:this.props.year,
+			month:this.props.month
 		};
 
 		return <CalendarDay {...props} {...handlers} />
 
+	}
+
+	createPlaceholderElement = (key)=>{
+		return ( <span className="calendar-day placeholder" key={key}>&nbsp;</span> );
 	}
 
 	renderMonthDate =()=>{
@@ -59,9 +95,14 @@ export default class CalendarMonthDate extends React.Component {
 		let monthDateAll = [];
 		let {year,month,date} = this.props;
 		var lastDate = this.getDaysInMonth(year,month);
+		var nowTime = new Date(`${year}-${month}-${1}`);
+		var placeholderSize = nowTime.getDay();
+		for(var i = 1;i<=placeholderSize;i++){
+				monthDateAll.push(this.createPlaceholderElement(i));
+		}
 
-		for(var i = 1;i<=lastDate;i++){
-				monthDateAll.push(this.createDate(i));
+		for(i = 1;i<=lastDate;i++){
+				monthDateAll.push(this.createDate(i,i+placeholderSize));
 		}
 		return monthDateAll;
 
@@ -69,9 +110,16 @@ export default class CalendarMonthDate extends React.Component {
 
 	render() {
 
+		let {isLoading} = this.state;
+		let className = 'calendar-month-date animated';
 
+		if(isLoading){
+					className += ' fadeInRightBig';
+		}else{
+				className += ' ';
+		}
 		return (
-				<div className="calendar-month-date">
+				<div className={className} style={{'animationDuration':'0.2s'}}>
 					{this.renderMonthDate()}
 				</div>
 		);
