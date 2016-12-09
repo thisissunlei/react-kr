@@ -237,7 +237,7 @@ export default class Initialize  extends Component{
 	render(){
 		return(
 			<div className="switchhover">
-			<Title value="数据模板管理"/>
+			<Title value="数据模板管理_基础配置"/>
 
 					<Section title="模板分组" description="" style={{minHeight:"900px"}}>
 							<Grid style={{marginBottom:22,marginTop:2}}>
@@ -275,7 +275,7 @@ export default class Initialize  extends Component{
 												<TableHeaderColumn>创建时间</TableHeaderColumn>
 												<TableHeaderColumn>启用状态</TableHeaderColumn>
 												<TableHeaderColumn>操作</TableHeaderColumn>
-												
+
 										</TableHeader>
 
 										<TableBody >
