@@ -240,7 +240,7 @@ export default class SearchForms extends Component{
 					{this.renderFilter()}
 
 					<div className="search-content">
-						<input type="text" className="search-val" placeholder="请输入您要查找的内容"  name="keywords" id="keywords"/>
+						<input type="text" autoComplete="off" className="search-val" placeholder="请输入您要查找的内容"  name="keywords" id="keywords"/>
 					</div>
 				</div>
 				<span className="icon-searching" ></span>
