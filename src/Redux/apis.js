@@ -264,6 +264,7 @@
  		method: 'get'
  	},
 
+
  	//财务管理－订单明细账-分页获得财务流水
  	'getPageAccountFlow': {
  		url: '/api/krspace-finance-web/finaccount/data/getAccountFlow?accountId={accountId}&accountType={accountType}&orderId={orderId}&endTime={endTime}&page={page}&pageSize={pageSize}&propertyId={propertyId}&startTime={startTime}',
@@ -417,6 +418,17 @@
  		url: '/api/krspace-finance-web/stat/group/sort/actions/check?sort={sort}&id={id}',
  		method: 'get'
  	},
+ 	//个人中心-获取个人信息
+ 	'PersonalCenterData': {
+ 		url: ' /api/krspace_isso_web/sys/sysOwn/getPersonalInfo',
+ 		method: 'get'
+ 	},
+ 	//个人中心-身份验证
+ 	'PersonalCenterVerifyId': {
+ 		url: ' /api/krspace_isso_web/sys/sysOwn/verifyIdentity',
+ 		method: 'get'
+ 	},
+
 
  }
 
