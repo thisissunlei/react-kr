@@ -275,6 +275,7 @@ export default class Initialize  extends Component{
 												<TableHeaderColumn>创建时间</TableHeaderColumn>
 												<TableHeaderColumn>启用状态</TableHeaderColumn>
 												<TableHeaderColumn>操作</TableHeaderColumn>
+												
 										</TableHeader>
 
 										<TableBody >
