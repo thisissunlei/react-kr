@@ -6,7 +6,7 @@ import {
 import ReactDOM from 'react-dom';
 
 import './index.less';
-
+import $ from 'jquery';
 import WrapComponent from '../WrapComponent';
 import { default as CityData } from './CityData.json';
 
@@ -162,6 +162,16 @@ export default class CityComponent extends React.Component {
 
 
 	}
+	bodyEvent=()=>{
+		let _this = this;
+		$('body').click(function(event){
+			if(event.target.className !='city-name'){
+				_this.setState({
+					showCity:false
+				});
+			}
+		});
+	}
 
 
 
@@ -198,6 +208,7 @@ export default class CityComponent extends React.Component {
 			background:'#f5f5f5'
 		}
 		let hoverColor = {};
+		this.bodyEvent();
 
 
 		
