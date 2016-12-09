@@ -36,11 +36,20 @@ export default class InputComponent extends React.Component{
 		onChange && onChange(value)
 
 	}
+	onBlur=(value)=>{
+		let {input} = this.props;
+		input.onBlur(value);
+		const {onBlur} = this.props;
+		onBlur && onBlur(value)
+	}
+	onFocus=(value)=>{
+		let {input} = this.props;
+		input.onFocus(value);
+		const {onFocus} = this.props;
+		onFocus && onFocus(value)
+	}
 
 	onError = (message)=>{
-
-
-
 		let {meta,input} = this.props;
 		const {onError} = this.props;
 		const {_reduxForm} = this.context;
@@ -55,7 +64,7 @@ export default class InputComponent extends React.Component{
 
 	render(){
 
-		let {input, label, type, meta: { touched, error } ,requireLabel,onChange,disabled,placeholder,style,inline,simple,heightStyle,...other} = this.props;
+		let {input, label, type, meta: { touched, error } ,requireLabel,onChange,onBlur,onFocus,disabled,placeholder,style,inline,simple,heightStyle,...other} = this.props;
 
 			if(type === 'hidden'){
 				return (
@@ -72,7 +81,7 @@ export default class InputComponent extends React.Component{
 			}
 			return (
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} simple={simple}>
-					<Input {...input} placeholder={placeholder|| label} type={type} disabled={disabled} className={className} style={heightStyle} {...other} onError={this.onError}/>
+					<Input {...input} placeholder={placeholder|| label} type={type} disabled={disabled} className={className} style={heightStyle} onChange={this.onChange} onBlur={this.onBlur} onFocus={this.onFocus} {...other} onError={this.onError}/>
 					{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				</WrapComponent>
 		);

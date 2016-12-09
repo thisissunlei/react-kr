@@ -36,22 +36,39 @@ import FloorPlan from './FloorPlan';
 import $ from 'jquery';
 import './index.less'
 export default class CommunityManage extends Component {
+	static childContextTypes = {
+		onSetCommunity: React.PropTypes.func.isRequired,
+		communityId: React.PropTypes.string.isRequired,
+	}
+
+	getChildContext() {
+		return {
+			onSetCommunity: this.onSetCommunity,
+			communityId: this.state.communityId
+		};
+	}
 
 	constructor(props, context) {
 		super(props, context);
 		this.planTable = this.planTable.bind(this);
 		this.Floorplan = this.Floorplan.bind(this);
 		this.state = {
-
 			tab: 'table',
+			communityId: ''
 		}
 
 	}
 
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(true));
+
 	}
 
+	onSetCommunity = (communityId) => {
+		this.setState({
+			communityId
+		});
+	}
 
 	Floorplan() {
 		let {

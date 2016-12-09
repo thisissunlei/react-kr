@@ -21,10 +21,25 @@ module.exports = {
 		menuCode: 'index',
 		originUrl: '/'
 	}, {
+		primaryText: "数据统计",
+		menuCode: 'dataStat',
+		router:'statistical',
+		menuItems: [{
+			primaryText: "数据统计",
+			router: 'statistical',
+			iconName: 'icon-com',
+			iconColor: '#2b8dcd',
+			menuCode: 'dataStat',
+			menuItems: [{
+				primaryText: "集团经营",
+				router: '/statistical/index'
+			},]
+		}, ]
+	},{
 		primaryText: "社区经营",
 		router: 'community',
 		menuCode: 'op_manage',
-		originUrl: '/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=112',
+		originUrl: '#/community/communityManage/detail',
 		menuItems: [{
 			primaryText: "社区管理",
 			iconName: 'icon-com',
@@ -40,11 +55,7 @@ module.exports = {
 				originUrl: '/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=112'
 			}, ]
 		}, ],
-	},{
-		primaryText: "数据统计",
-		menuCode: 'index',
-		router: '/statistical/index?groupId=&startDate=',
-	},{
+	}, {
 		primaryText: "运营平台",
 		router: 'operation',
 		menuCode: 'operate',
@@ -91,7 +102,10 @@ module.exports = {
 				primaryText: '访客记录',
 				menuCode: 'sysVisitRecordList',
 				originUrl: '/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=102'
-			}, ]
+			}
+
+
+		 ]
 		}, {
 			primaryText: "基础配置",
 			iconName: 'icon-basis',
@@ -122,7 +136,12 @@ module.exports = {
 				primaryText: '设备定义',
 				menuCode: 'sysDeviceDefinitionList',
 				originUrl: '/krspace_operate_web/community/sysDeviceDefinition/toSysDeviceDefinitionList?mid=105'
-			}, ]
+			},{
+				primaryText: '分组管理',
+				menuCode: 'groupManage',
+				router: '/operation/groupSetting'
+			}
+		]
 		}, ]
 	}, {
 		primaryText: "会员中心",
@@ -494,6 +513,10 @@ module.exports = {
 					menuCode: 'sysmenuadmin',
 					router: 'sysmenuadmin',
 					originUrl: '/sys/sysfunrights/sysMenu/toSysMenuList?mid=9'
+				}, {
+					primaryText: '数据模板管理',
+					menuCode: 'groupManage',
+					router: '/statistical/groupSetting'
 				},
 
 			]

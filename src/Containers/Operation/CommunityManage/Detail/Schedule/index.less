@@ -61,9 +61,10 @@ a,button,button:hover{
 	.green{
 		border:1px solid #54c5a5;
 	}
-	.grey-circle{
-		border:1px solid #999;
-	}
+	// .grey-circle{
+	// 	border:1px solid #999;
+	// 	margin-top:24px ！important;
+	// }
 	.txts{
 		vertical-align:top;
 		position: relative;
@@ -173,6 +174,7 @@ a,button,button:hover{
 			td{
 				border-right:1px solid #dfdfdf !important;
 				border-bottom:1px solid #eeeeee;
+				padding:2px !important;
 			}
 		}
 	
@@ -243,9 +245,9 @@ a,button,button:hover{
 			background-size:80% 100%;
 		}
 	}
-	.company-list{
-		background:#f8f8f8;
-	}
+	// .company-list{
+	// 	background:#f8f8f8;
+	// }
 	.company-name{
 		min-width:150px;
 		max-width:100%;
@@ -412,7 +414,7 @@ a,button,button:hover{
 			height: 50px;
 			margin: 0;
 			position: relative;
-			.red-node,.blue-node,.same-node{
+			.red-node,.blue-node,.same-node,.grey-circle{
 				position: absolute;
 				width: 10px;
 				height: 10px;
@@ -428,7 +430,7 @@ a,button,button:hover{
 					display: inline-block;
 					border: 2px solid red;
 					border-radius: 6px;
-					border-color: #54c5a5 #54c5a5 red red;
+					// border-color: #54c5a5 #54c5a5 red red;
 					transform: rotate(45deg);
 					position: absolute;
 					background-color: #fff;
@@ -463,6 +465,15 @@ a,button,button:hover{
 
 				}
 
+			}
+			.grey-circle{
+				// border:1px solid #999;
+				&:before{
+					border-color:#999;
+				pointer-events:none;
+
+
+				}
 			}
 			p{
 				// padding: 2px;
@@ -666,6 +677,9 @@ a,button,button:hover{
 		margin-top: 10px;
 	}
 	.red-node{
+		margin-top: 30px;
+	}
+	.grey-circle{
 		margin-top: 30px;
 	}
 }

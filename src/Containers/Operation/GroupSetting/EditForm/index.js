@@ -13,7 +13,7 @@ import {
 	ButtonGroup
 } from 'kr-ui';
 
-import './index.less';
+// import './index.less';
 
 class Switchover extends Component{
 	constructor(props) {
@@ -23,24 +23,54 @@ class Switchover extends Component{
 			okData:this.props.okData,
     }
   }
-	//向右边添加
-	rightAdd=(value)=>{
+
+  rightAdd(value){
 		var _this=this;
-		var arr=this.state.okData;
-		arr.push(value);
-		this.setState({okData:arr},function(){
+    var arr=this.state.okData;
+    arr.push(value);
+    this.setState({okData:arr},function(){
+			_this.props.changeMudle(_this.state.okData)
+
+		});
+  }
+  leftAdd(value){
+		var _this=this;
+    var arr=this.state.allData;
+    console.log(arr)
+    arr.push(value);
+    this.setState({allData:arr},function(){
 			_this.props.changeMudle(_this.state.okData)
 		});
-	}
-	//向左边添加
-	leftAdd=(value)=>{
-		var _this=this;
-		var arr=this.state.allData;
-		arr.push(value);
-		this.setState({allData:arr},function(){
-			_this.props.changeMudle(_this.state.okData)
-		});
-	}
+  }
+	//数组的状态
+	swapItems =(arr, index1, index2)=> {
+
+			var _this=this;
+       arr[index1] = arr.splice(index2, 1, arr[index1])[0];
+       this.setState({okData:arr},function(){
+	 			_this.props.changeMudle(_this.state.okData)
+	 		});
+   }
+	 //右边全部数据添加到左边
+ 	leftToAll=()=>{
+ 		var _this=this;
+ 		var arr=this.state.allData.concat(this.state.okData)
+ 		this.setState({allData:arr,okData:[]},function(){
+ 			_this.props.changeMudle(_this.state.okData);
+ 		});
+ 	}
+ 	//左边全部数据添加到右边
+
+ 	rightToAll=()=>{
+ 		var _this=this;
+ 		var allArr=this.state.allData
+ 		var okArr=this.state.okData;
+ 		var arr=allArr.concat(okArr)
+ 		this.setState({allData:[],okData:arr},function(){
+ 			_this.props.changeMudle(_this.state.okData);
+ 		});
+ 	}
+
 
 
 
@@ -57,7 +87,8 @@ class Switchover extends Component{
       width:"40px",
 			height:"48px",
 			float:"left",
-			marginTop:"101px",
+			marginTop:"90px",
+			textAlign:"center"
 
 
 
@@ -71,11 +102,13 @@ class Switchover extends Component{
 
           />
           <div className="ui-moveIcon" style={moddleStyle}>
-
+					<span className="moveRight" onClick={this.rightToAll}></span><br/>
+					<span className="moveLeft" onClick={this.leftToAll}></span>
           </div>
           <ZhuanHuan  iconShow="true"
                       Data={this.state.okData}
                       addOther={this.leftAdd.bind(this)}
+											swapItems={this.swapItems}
                       />
       </div>
     );
@@ -93,30 +126,31 @@ class ZhuanHuan extends React.Component{
     }
   }
 
+	componentWillReceiveProps(nextProps) {
+			 this.setState({mouldSort: nextProps.Data});
+	 }
+
   swapItems (arr, index1, index2) {
 		console.log(this);
 
        arr[index1] = arr.splice(index2, 1, arr[index1])[0];
        this.setState({mouldSort:arr});
    }
-   //上移
-  upMove(index,event){
+	 //上移
+  upMove=(index,event)=>{
     if(index==0){
       return;
     }
-     this.swapItems(this.state.mouldSort, index, index- 1);
-     console.log(React.SyntheticEvent);
+     this.props.swapItems(this.state.mouldSort, index, index- 1);
 
 
   }
   //下移
-  downMove(index,event){
+  downMove=(index,event)=>{
     if(index == this.state.mouldSort.length -1) {
            return;
        }
-
-    this.state.mouldSort=this.swapItems(this.state.mouldSort, index, index + 1);
-
+			 this.props.swapItems(this.state.mouldSort, index, index + 1);
   }
   upArrow(index){
     return index>0?true:false;
@@ -266,17 +300,15 @@ class ZhuanHuan extends React.Component{
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
 		this.state={
-			moduleData:this.props.detail
-		};
+			detail:this.props.detail
+		}
 
 
+		Store.dispatch(initialize('newCreateForm',this.props.detail));
 
 	}
 
-
-
 	 onSubmit(values){
-		 console.log(values,"00000")
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
 	 }
@@ -286,33 +318,59 @@ class ZhuanHuan extends React.Component{
 		onCancel && onCancel();
 	 }
 
+	 //分组名实时校验
 	 groupNameCheck=(values)=>{
-		 	console.log(values);
-	 }
-	 sortCheck=()=>{
+		 var _this=this;
+		 values=this.Trim(values);
+		 Store.dispatch(Actions.callAPI('groupNameCheck',{groupName:values,id:this.props.detail.id})).then(function(data) {
+
+		 }).catch(function(err) {
+			 Notify.show([{
+				 message: err.message,
+				 type: 'danger',
+			 }]);
+		 });
 	 }
 
+	 //排序实时校验
+	 sortCheck=(values)=>{
+		 if(+values>0){
+		 var _this=this;
+		 values=this.Trim(values);
+		 Store.dispatch(Actions.callAPI('sortCheck',{sort:values,id:this.props.detail.id})).then(function(data) {
+
+		 }).catch(function(err) {
+			 Notify.show([{
+				 message: err.message,
+				 type: 'danger',
+			 }]);
+		 });
+		 }
+	 }
+	 //去除前后空格
+	Trim=(str)=>{
+				str=str.toString();
+					return str.replace(/(^\s*)|(\s*$)/g, "");
+				}
 
 	render(){
 		const { error, handleSubmit, pristine, reset} = this.props;
-
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
 				<KrField name="id" type="hidden" label="id"/>
-				<KrField grid={1/2} right={68} name="agroupName" type="text" label="分组名称" requireLabel={true} />
-				<KrField grid={1/2} right={68} name="sort" type="text" label="排序" requireLabel={true} style={{marginLeft:"-38"}}/>
-				<KrField grid={1} name="nable" component="group" label="启用状态" requireLabel={true}>
-					<KrField name="enableflag" label="是" component="radio" type="radio" value="ENABLE"/>
-						<KrField name="enableflag" label="否"  component="radio"  type="radio" value="DISENABLE" />
+				<KrField grid={1/2} style={{marginTop:25}} right={25} name="groupName" type="text" label="分组名称" requireLabel={true} onBlur={this.groupNameCheck}/>
+				<KrField grid={1/2} right={25} name="sort" type="text" label="排序" requireLabel={true} style={{marginTop:25}} onBlur={this.sortCheck}/>
+				<KrField grid={1} name="enable" component="group" label="启用状态" requireLabel={true}>
+					<KrField name="enable" label="是" component="radio" type="radio" value="ENABLE"/>
+						<KrField name="enable" label="否"  component="radio"  type="radio" value="DISABLE" />
 				</KrField>
-				<KrField grid={1/2} label="数据模板" requireLabel={true} name="groupDesc" component="labelText"/>
-				<Switchover allData={this.state.moduleData} okData={[]} changeMudle={this.props.changeMudle}/>
+				<KrField grid={1/2} label="数据模板" requireLabel={true} component="labelText"/>
+				<Switchover allData={this.state.detail.unselectedList} okData={this.state.detail.templateList} changeMudle={this.props.changeMudle}/>
 
+			<KrField style={{width:558}} name="groupDesc" component="textarea" label="分组描述"  />
 
-			<KrField name="accountdesc" right={102} component="textarea" label="分组描述"  />
-
-				<Grid style={{marginTop:30}}>
+				<Grid style={{marginTop:0,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
@@ -330,12 +388,16 @@ const validate = values =>{
 
 		const errors = {}
 
-		if(!values.agroupName){
-			errors.agroupName = '请填写分组名称';
+		if(!values.accountcode){
+			errors.accountcode = '请填写分组名称';
 		}
 
 		if (!values.sort) {
-			errors.sort = '请输入排序';
+			errors.sort = '请填写排序号';
+		}else if(isNaN(+values.sort)){
+			errors.sort = '请输入数字';
+		}else if(+values.sort<=0){
+			errors.sort = '请输入正整数';
 		}
 
 		if (!values.accounttype) {
@@ -345,8 +407,8 @@ const validate = values =>{
 		if (!values.ordernum) {
 			errors.ordernum = '请填写排序号';
 		}
-		if (!values.nable) {
-			errors.nable = '请先选择是否启用';
+		if (!values.enableflag) {
+			errors.enableflag = '请先选择是否启用';
 		}
 
 

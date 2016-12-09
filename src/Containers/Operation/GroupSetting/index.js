@@ -21,11 +21,14 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Notify,
+	Tooltip
 
 } from 'kr-ui';
 import NewCreateForm from './CreateForm';
 import NewEditDetail from './EditForm';
 import SearchUpperForm from './SearchUpperFrom'
+import './index.less';
+
 
 export default class Initialize  extends Component{
 
@@ -51,37 +54,56 @@ export default class Initialize  extends Component{
 			unselectedList:[],
 			allData:{},
 			searchParams: {
-				pageNo: 1,
+				page: 1,
 				pageSize: 15,
 				enable:'',
-				groupName:''
+				groupName:'',
+				other:false
 			},
 			id:null,
+			noinit:true,
+			searchText:"",
 
 		}
 	}
 
 	//新建提交数据和编辑数据的提交
 	onCreateSubmit=(params)=> {
+
 		var _this = this;
 		params = Object.assign({}, params);
-
-		params.templateIdList=this.state.templateList;
-		console.log(params);
+		if(this.state.noinit){
+			params.templateIdList="";
+		}else{
+			params.templateIdList=this.state.templateList;
+		}
 
 		Store.dispatch(Actions.callAPI('GroupNewAndEidt', {}, params)).then(function(response) {
+			let obj = {
+				page: 1,
+				pageSize: 15,
+				other:!_this.state.searchParams.other,
+				groupName:_this.state.searchText,
+
+			}
+			console.log(obj)
+			_this.setState({
+				openNewCreate: false,
+				openEditDetail: false,
+				searchParams: obj
+
+			});
 
 		}).catch(function(err) {
+			if(!params.templateIdList){
+				err.message="模板列表不能为空";
+			}
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
 			}]);
 		});
 
-		this.setState({
-			openNewCreate: false,
-			openEditDetail: false
-		});
 
 	}
 
@@ -113,17 +135,18 @@ export default class Initialize  extends Component{
 	//编辑
 	openEditDetailDialog=()=> {
 		var _this = this;
-		Store.dispatch(Actions.callAPI('MouldGroupDetails'),{id:this.state.id}).then(function(data) {
-
+		Store.dispatch(Actions.callAPI('MouldGroupDetails',{id:this.state.id})).then(function(data) {
+			_this.changeMudle(data.templateList)
 			_this.setState({
 					itemDetail:data,
 			},function(){
-
 				_this.setState({
 					openEditDetail: !_this.state.openEditDetail
 				});
+
 			});
 		}).catch(function(err) {
+
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
@@ -138,14 +161,14 @@ export default class Initialize  extends Component{
 		let obj = {
 			groupName:searchParams.content,
 			pageSize:15,
-			pageNo: 1,
+			page: 1,
 		}
 
-
 		this.setState({
-			searchParams: obj
+			searchParams: obj,
+			searchText:searchParams.content,
+
 		});
-		console.log("34343")
 
 	}
 
@@ -160,7 +183,7 @@ export default class Initialize  extends Component{
 		let obj = {
 			groupName:searchParams.groupName,
 			pageSize:15,
-			pageNo: 1,
+			page: 1,
 			enable:searchParams.enable
 		}
 		this.setState({
@@ -196,25 +219,28 @@ export default class Initialize  extends Component{
 			openSearchUpperForm: !this.state.openSearchUpperForm
 		});
 	}
-
 	// 改变模板分组
 	changeMudle=(arr)=>{
-		this.setState({templateList:arr})
+		var ids=[];
+
+		for(var i=0;i<arr.length;i++){
+				ids.push(arr[i].id);
+		}
+		this.setState({templateList:ids,noinit:false})
 	}
 
 
+//
+//  component={(value,item)=>{<span>{value}</span>}}
 
 	render(){
-
-
 		return(
-
 			<div>
 					<Section title="分组配置" description="" >
 							<Grid style={{marginBottom:22,marginTop:2}}>
 								<Row >
 									<Col md={4} align="left"> <Button label="新建" type='button' joinEditForm onTouchTap={this.openNewCreateDialog}  /> </Col>
-									<Col md={8} align="right" style={{marginTop:7}}>
+									<Col md={8} align="right" style={{marginTop:0}}>
 										<ListGroup>
 											<ListGroupItem> <SearchForms onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
 											<ListGroupItem> <Button searchClick={this.openSearchUpperFormDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'5'}}/></ListGroupItem>
@@ -231,16 +257,16 @@ export default class Initialize  extends Component{
 													return state;
 												}
 											}
-
+										displayCheckbox={false}
 										onExport={this.onExport}
 										ajaxParams={this.state.searchParams}
 
 											ajaxFieldListName="items"
-											ajaxUrlName='MouldGroupList' exportSwitch={true}>
+											ajaxUrlName='MouldGroupList'>
 											<TableHeader>
 												<TableHeaderColumn>分组名称</TableHeaderColumn>
 												<TableHeaderColumn>排序</TableHeaderColumn>
-												<TableHeaderColumn>分组描述</TableHeaderColumn>
+												<TableHeaderColumn style={{maxWidth:150}}>分组描述</TableHeaderColumn>
 												<TableHeaderColumn>模板数</TableHeaderColumn>
 												<TableHeaderColumn>创建人</TableHeaderColumn>
 												<TableHeaderColumn>创建时间</TableHeaderColumn>
@@ -248,15 +274,39 @@ export default class Initialize  extends Component{
 												<TableHeaderColumn>操作</TableHeaderColumn>
 										</TableHeader>
 
-										<TableBody>
-												<TableRow displayCheckbox={true}>
+										<TableBody >
+												<TableRow >
 												<TableRowColumn name="groupName" ></TableRowColumn>
 												<TableRowColumn name="sort" ></TableRowColumn>
-												<TableRowColumn name="groupDesc"></TableRowColumn>
+
+
+												<TableRowColumn style={{width:160,overflow:"visible"}} name="groupDesc" component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="block";
+														}
+														 return (<div style={{display:TooltipStyle}}><span className='tableOver'>{value}</span><Tooltip offsetTop={10} place='top'>{value}</Tooltip></div>)
+													 }} ></TableRowColumn>
+
+
+
+
+
 												<TableRowColumn name="templateNum"></TableRowColumn>
 												<TableRowColumn name="creator"></TableRowColumn>
-												<TableRowColumn name="createTime" ></TableRowColumn>
-												<TableRowColumn name="enable" options={[{label:'启用',value:'ENABLE'},{label:'禁用',value:'DISENABLE'}]}></TableRowColumn>
+												<TableRowColumn name="createTime" type='date' format="yyyy-mm-dd" ></TableRowColumn>
+												<TableRowColumn name="enable" options={[{label:'启用',value:'ENABLE'},{label:'禁用',value:'DISABLE'}]}
+												component={(value,oldValue)=>{
+													var fontColor="";
+													if(value=="禁用"){
+														fontColor="#ff6060"
+													}
+													return (<span style={{color:fontColor}}>{value}</span>)}}
+
+												></TableRowColumn>
 
 												<TableRowColumn>
 													  <Button label="编辑"  type="operation"  operation="edit" />
@@ -264,7 +314,7 @@ export default class Initialize  extends Component{
 											 </TableRow>
 										</TableBody>
 
-										<TableFooter></TableFooter>
+										<TableFooter ></TableFooter>
 
 										</Table>
 					</Section>
@@ -273,9 +323,10 @@ export default class Initialize  extends Component{
 						modal={true}
 						open={this.state.openEditDetail}
 						onClose={this.openEditDetailDialog}
-						changeMudle={this.changeMudle}
+						contentStyle={{width:687}}
+
 					>
-						<NewEditDetail  detail={this.state.itemDetail} onSubmit={this.onCreateSubmit} onCancel={this.openEditDetailDialog} />
+						<NewEditDetail changeMudle={this.changeMudle} detail={this.state.itemDetail} onSubmit={this.onCreateSubmit} onCancel={this.openEditDetailDialog} />
 
 
 
@@ -285,6 +336,7 @@ export default class Initialize  extends Component{
 		  			<Dialog
 						title="新建分组"
 						modal={true}
+						contentStyle={{width:687}}
 						// detail={this.state.templateList}
 						open={this.state.openNewCreate}
 						onClose={this.openNewCreateDialog}
