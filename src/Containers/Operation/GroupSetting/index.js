@@ -237,7 +237,7 @@ export default class Initialize  extends Component{
 	render(){
 		return(
 			<div>
-			<Title value="分组管理"/>
+			<Title value="数据模板管理"/>
 
 					<Section title="模板分组" description="" style={{minHeight:"900px"}}>
 							<Grid style={{marginBottom:22,marginTop:2}}>
@@ -293,7 +293,7 @@ export default class Initialize  extends Component{
 														}
 														 return (<div style={{display:TooltipStyle}}><span className='tableOver'>{value}</span>
 														 	<Tooltip offsetTop={10} place='top'>
-																<div style={{width:"260px",whiteSpace:"normal"}}>{value}</div>
+																<div style={{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{value}</div>
 														 	</Tooltip></div>)
 													 }} ></TableRowColumn>
 
