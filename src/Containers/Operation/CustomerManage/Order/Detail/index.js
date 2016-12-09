@@ -472,36 +472,40 @@ export default class OrderDetail extends React.Component {
 					<div className="actualMoney">实际付款金额</div>
 					<div className="status">状态</div>
 				</div>
-				
-				
+				{installmentPlan && installmentPlan.map((item,index)=>{
+					return(
+						<div className="contentList"  key={index}>
+							<div className="type">
+								{item.detailName}
+							</div>
+							<div className="Conlist">
+							{item.installment && item.installment.map((items,indexs)=>{
+								return(
+										<div className="list">
+											<div className="fund">{items.installmentName}</div>
+											<div className="Begindate"><KrDate value={items.installmentBegindate}/></div>
+											<div className="Enddate"><KrDate value={items.installmentEnddate}/></div>
+											<div className="planMoney">{items.installmentAmount}</div>
+											<div className="actualMoney">{items.installmentBackamount}</div>
+											<div className="status">
+												<Circle type={items.payStatus}></Circle>
+											</div>
+										</div>
+								)
+
+							})}
+							</div>
+							
+						</div>
+
+
+					)
+
+
+				})}
+					
 
 			</div>
-
-			{installmentPlan.map((item,index)=>{
-				return (
-					<Grid key={index}>
-					<Row>
-					<Col md={12} align="left" className="ContractNameTitle">{item.detailName}</Col>
-					</Row>
-					{this.renderTableItem(item.antecedent)}
-					{this.renderTableItem(item.earnest)}
-					{item.installment && item.installment.map((list,index)=>{
-							return (
-								<Row key={index} >
-								<Col md={3} align="left" className="ContractName"><Circle type={list.payStatus}/>款项：{list.installmentName}</Col>
-								<Col md={3} align="left" className="ContractName">计划付款日期：<KrDate value={list.installmentReminddate}/></Col>
-								<Col md={3} align="left" className="ContractName">计划付款金额：{list.installmentAmount}</Col>
-								{list.installmentBackamount>0?<Col md={3} align="left" className="ContractName">实际付款金额：<span>{list.installmentBackamount}</span></Col>:<Col md={3} align="left" className="ContractName">实际付款金额：<span style={{color:'red'}}>{list.installmentBackamount}</span></Col>}
-								</Row>
-							)
-						})
-					}
-
-					</Grid>
-				);
-			})}
-			
-
 			
             <DotTitle title='订单描述'/>
 			<div className="orderList">

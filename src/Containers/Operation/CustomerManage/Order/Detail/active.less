@@ -191,12 +191,12 @@ span{
 	width:100%;
 	display:inline-block;
 	height:auto;
-	border:1px solid #eeeeee;
 	text-align:center;
 	.headerList{
 		width:100%;
 		height:50px;
 		background:#f2f2f2;
+		border:1px solid #eeeeee;
 		div{
 			float:left;
 			line-height:50px;
@@ -213,13 +213,46 @@ span{
 	}
 .contentList{
 	width:100%;
-	height:60px;
-	div{
-			float:left;
-			line-height:60px;
-			width:140px;
-			
+	min-height:60px;
+	display:inline-block;
+	border:1px solid #eeeeee;
+	border-top:none;
+	&>div{
+		float:left;
+		
+	}
+	.status{
+		border-right:none !important;
+		span{
+			margin-right:auto;
+			margin-left:auto;
+			margin-top:25px;
+
 		}
+	}
+	.Conlist{
+		width:780px;
+		float:left;
+		&:last-child{
+			border-bottom:1px solid #eeeeee;
+		}
+		.list{
+			height:60px;
+			line-height:60px;
+			border-bottom:1px solid #eeeeee;
+			border-left:1px solid #eeeeee;
+			&:last-child{
+				border-bottom:none !important;
+			}
+			div{
+				width:140px;
+				border-right:1px solid #eeeeee;
+			}
+		}
+		&:last-child{
+			border-bottom:none !important;
+		}
+	}
 }
 
 
