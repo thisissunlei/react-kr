@@ -15,7 +15,7 @@ export default class ListGroup extends Component {
 	static PropTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
-		inline: React.PropTypes.inline,
+		inline: React.PropTypes.bool,
 	}
 
 	constructor(props) {
