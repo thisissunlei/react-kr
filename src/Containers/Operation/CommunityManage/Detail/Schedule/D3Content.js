@@ -388,6 +388,7 @@ export default class D3Content extends Component {
 		let left = '-5px;';
 		start = (new Date(start)).getTime();
 		end = (new Date(end)).getTime();
+		console.log(value,end,start);
 		if(value === start){
 			left = '10px';
 		}
