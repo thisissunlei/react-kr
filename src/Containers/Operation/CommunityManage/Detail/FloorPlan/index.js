@@ -277,6 +277,7 @@ export default class FloorPlan extends Component {
 
 		// Store.dispatch(change('FloorPlan', 'start', dateFormat(new Date(), "yyyy-mm-dd")));
 		let firstDate = new Date(personel);
+		let {date} = this.state;
 		if (this.state.dateend) {
 			let endDate = new Date(this.state.dateend);
 			let start = firstDate.getTime();
@@ -290,7 +291,7 @@ export default class FloorPlan extends Component {
 					message: '结束时间不能小于开始时间',
 					type: 'danger',
 				}]);
-				// Store.dispatch(change('FloorPlan', 'end', dateFormat(end, "yyyy-mm-dd")));
+				Store.dispatch(change('FloorPlan', 'start', dateFormat(date, "yyyy-mm-dd")));
 			}
 		} else {
 			this.setState({
@@ -299,6 +300,7 @@ export default class FloorPlan extends Component {
 		}
 	}
 	secondDate = (personel) => {
+		let {dateend}= this.state;
 
 		let secondDate = new Date(personel);
 		let end = this.state.dateend;
@@ -315,7 +317,7 @@ export default class FloorPlan extends Component {
 					message: '结束时间不能小于开始时间',
 					type: 'danger',
 				}]);
-				Store.dispatch(change('FloorPlan', 'end', dateFormat(end, "yyyy-mm-dd")));
+				Store.dispatch(change('FloorPlan', 'end', dateFormat(dateend, "yyyy-mm-dd")));
 			}
 		} else {
 			this.setState({
