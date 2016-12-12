@@ -67,6 +67,12 @@ export default class D3Content extends Component {
 		this.getRedInfo = this.getRedInfo.bind(this);
 		this.renderRedNode = this.renderRedNode.bind(this);
 		this.renderwhiteBar = this.renderwhiteBar.bind(this);
+		this.state = {
+			detail:this.props.detail,
+			finaBluePointVo:this.props.finaBluePointVo,
+			finaRedPointVo:this.props.finaRedPointVo,
+			whiteBar:this.props.whiteBar,
+		}
 		this.NodeList = this.getSameTime();
 		this.sameNode = this.NodeList[0];
 
@@ -75,6 +81,34 @@ export default class D3Content extends Component {
 	componentDidMount() {
 
 	}
+	componentWillReceiveProps(nextProps) {
+
+
+    if (!_.isEqual(this.props.detail, nextProps.detail)) {
+      this.setState({
+        detail: nextProps.detail
+      });
+    }
+    if (!_.isEqual(this.props.finaBluePointVo, nextProps.finaBluePointVo)) {
+      this.setState({
+        detail: nextProps.finaBluePointVo
+      });
+    }
+    if (!_.isEqual(this.props.finaRedPointVo, nextProps.finaRedPointVo)) {
+      this.setState({
+        detail: nextProps.finaRedPointVo
+      });
+    }
+    if (!_.isEqual(this.props.whiteBar, nextProps.whiteBar)) {
+      this.setState({
+        detail: nextProps.whiteBar
+      });
+    }
+    this.NodeList = this.getSameTime();
+	this.sameNode = this.NodeList[0];
+
+
+  }
 
 	// 计算第几天
 	countDays(date) {
@@ -387,6 +421,7 @@ export default class D3Content extends Component {
 
 
 
+
 		return (
 
 			<div className="d3-container">
@@ -428,8 +463,8 @@ export default class D3Content extends Component {
 								<div key={index} className="react-tooltip-content">
 									<span>工位变更</span>
 									<p>{item.finaName}({dateFormat(item.leaseBeginDate, "yyyy.mm.dd")}-{dateFormat(item.leaseEndDate, "yyyy.mm.dd")})</p>
-									<p>变更前工位：<span className='blue-content'>{item.oldStationNum}</span></p>
-									<p>变更后工位：<span className='blue-content'>{item.newStationNum}</span></p>
+									<p>变更前工位：<span className='blue-content'>{item.oldStationNum}</span> &nbsp; 会议室：<span className='blue-content'>{item.oldBoardroomNum}</span></p>
+									<p>变更后工位：<span className='blue-content'>{item.newStationNum}</span> &nbsp; 会议室：<span className='blue-content'>{item.newBoardroomNum}</span></p>
 								</div>
 							</ReactTooltip>
 							</span>
@@ -449,7 +484,7 @@ export default class D3Content extends Component {
 											<div key={i} className="react-tooltip-content">
 												<span>{value.contractName}分期催款</span>
 												<p>{dateFormat(item.pointDate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
-												<p>{value.stationnum}个位置({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
+												<p>工位:<span className='red-content'>{value.stationnum}</span> &nbsp; 会议室:<span className='red-content'>{value.boardroomNum}</span>({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
 												<p>负责人：<span className='red-content'>{value.name?value.name:'—'}</span></p>
 												<p>电话：<span className='red-content'>{value.phone?value.phone:'—'}</span></p>
 												<p>催款金额：<span className='red-content'>{value.installmentAmount}</span></p>
@@ -476,8 +511,8 @@ export default class D3Content extends Component {
 										<div className="react-tooltip-content">
 											<span>工位变更</span>
 											<p>{item.finaName}({dateFormat(item.leaseBeginDate, "yyyy.mm.dd")}-{dateFormat(item.leaseEndDate, "yyyy.mm.dd")})</p>
-											<p>变更前工位：<span className='blue-content'>{item.oldStationNum}</span></p>
-											<p>变更后工位：<span className='blue-content'>{item.newStationNum}</span></p>
+											<p>变更前工位：<span className='blue-content'>{item.oldStationNum}</span> &nbsp; 会议室：<span className='blue-content'>{item.oldBoardroomNum}</span></p>
+											<p>变更后工位：<span className='blue-content'>{item.newStationNum}</span> &nbsp; 会议室：<span className='blue-content'>{item.newBoardroomNum}</span></p>
 										</div>
 									</ReactTooltip>
 								</span>
@@ -488,7 +523,7 @@ export default class D3Content extends Component {
 											<div key={i} className="react-tooltip-content">
 												<span>{value.contractName}分期催款</span>
 												<p>{dateFormat(item.pointDate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
-												<p>{value.stationnum}个位置({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
+												<p>工位:<span className='red-content'>{value.stationnum}</span> &nbsp; 会议室:<span className='red-content'>{value.boardroomNum}</span>({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
 												<p>负责人：<span className='red-content'>{value.name?value.name:'—'}</span></p>
 												<p>电话：<span className='red-content'>{value.phone?value.phone:'—'}</span></p>
 												<p>催款金额：<span className='red-content'>{value.installmentAmount}</span></p>
