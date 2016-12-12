@@ -389,10 +389,10 @@ export default class D3Content extends Component {
 		start = (new Date(start)).getTime();
 		end = (new Date(end)).getTime();
 		console.log(value,end,start);
-		if(value === start){
+		if(value == start){
 			left = '10px';
 		}
-		if(value === end){
+		if(value >= end){
 			left = "-10px";
 		}
 		return left;
