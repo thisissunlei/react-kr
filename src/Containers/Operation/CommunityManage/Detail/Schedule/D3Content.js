@@ -258,7 +258,6 @@ export default class D3Content extends Component {
 		})
 		if (sameNode.length) {
 			sameNode.map((item) => {
-				console.log('------item', item)
 				item.pointDay = that.countDays(item.pointDate);
 				finaRedPointVoList.map((value, index) => {
 					if (item.pointDay === value.pointDay) {
@@ -270,7 +269,6 @@ export default class D3Content extends Component {
 					}
 				})
 			})
-			console.log('----finaRedPointVoList', finaRedPointVoList)
 
 		}
 		if (sameNode.length) {
@@ -338,41 +336,29 @@ export default class D3Content extends Component {
 		const that = this;
 		let newArr = [];
 
-		for (let j in finaRedPointVo) {
+		for (let j in finaRedPointVoList) {
+			finaRedPointVoList[j].pointDay = that.countDays(finaRedPointVoList[j].pointDate);
+		};
 
-			if (!finaRedPointVo[j].pointDate || finaRedPointVo[j].pointDate < initial) {
+		for (let j in finaRedPointVoList) {
+			if (finaRedPointVoList[j].pointDate < initial) {
 				finaRedPointVoList.splice(j, 1);
-			} else {
-				finaRedPointVoList[j].pointDay = that.countDays(finaRedPointVo[j].pointDate);
 			}
 		};
 		//判断时间点是否重合,若重合，合并数据
-		if (finaRedPointVo.length === 1) {
+		if (finaRedPointVoList.length === 1) {
 			finaRedPointVoList[0].arr = [];
 			finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[0].plan);
-		}
-		// if(finaRedPointVo.length===2){
-		// 	if(finaRedPointVoList[0].pointDate === finaRedPointVoList[1].pointDate){
-		// 		finaRedPointVoList[0].arr = [];
-		// 		finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[0].plan);
-		// 		finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[1].plan);
-		// 	}else{
-		// 		finaRedPointVoList[0].arr = [];
-		// 		finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[0].plan);
-		// 		finaRedPointVoList[1].arr = [];
-		// 		finaRedPointVoList[1].arr = finaRedPointVoList[1].arr.concat(finaRedPointVoList[1].plan);
-		// 	}
-		// }	
-		for (var i = 0; i <= finaRedPointVo.length - 1; i++) {
+		}	
+		for (var i = 0; i <= finaRedPointVoList.length - 1; i++) {
 			finaRedPointVoList[i].arr = [];
 			finaRedPointVoList[i].arr = finaRedPointVoList[i].arr.concat(finaRedPointVoList[i].plan);
-			for (var j = finaRedPointVo.length - 1; j >= 0; j--) {
+			for (var j = finaRedPointVoList.length - 1; j >= 0; j--) {
 				if (finaRedPointVoList[i].pointDate === finaRedPointVoList[j].pointDate && i != j) {
 					finaRedPointVoList[i].arr = finaRedPointVoList[i].arr.concat(finaRedPointVoList[j].plan);
 				}
 			}
 		}
-
 
 
 		return finaRedPointVoList;
@@ -399,13 +385,13 @@ export default class D3Content extends Component {
 			} = this.props;
 		let start = `${currentYear}-1-1`;
 		let end = `${currentYear}-12-30`;
-		let left = '0';
+		let left = '-5px';
 		start = (new Date(start)).getTime();
 		end = (new Date(end)).getTime();
-		if(value === start){
+		if(value == start){
 			left = '10px';
 		}
-		if(value === end){
+		if(value >= end){
 			left = "-10px";
 		}
 		return left;
