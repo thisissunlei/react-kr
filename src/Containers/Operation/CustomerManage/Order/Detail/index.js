@@ -473,6 +473,7 @@ export default class OrderDetail extends React.Component {
 					<div className="status">状态</div>
 				</div>
 
+
 			</div>
 
 			{installmentPlan.map((item,index)=>{
