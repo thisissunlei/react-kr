@@ -145,20 +145,35 @@ class StaionInfo extends Component {
 
 	constructor(props, context) {
 		super(props, context);
+		this.state = {
+			isClassName: ''
+		}
 	}
 	close = () => {
+		this.setState({
+			isClassName: 'leave'
+		})
 		const {
 			onClose
 		} = this.props;
-		onClose && onClose()
+		setTimeout(function() {
+			onClose && onClose()
+		}, 2000)
+
+
+
 	}
 	render() {
 		let {
 			detail,
+			className
 		} = this.props;
+		let {
+			isClassName
+		} = this.state;
 
 		return (
-			<div className="showCon">
+			<div className={`${className} ${isClassName}`}>
 				<div className="closeBtn" onTouchTap={this.close} ></div>
 				<div className="showHeader"><span className="icon"></span><span className="title">工位编号 :</span></div>
 				<div className="infoCon">
@@ -167,11 +182,12 @@ class StaionInfo extends Component {
 							<div className="infoList" key={index}>
 								<div className="hTitle"><span className="circle"></span>{item.detailName}</div>
 								<div className="listCon">
-									{item.stationIds && item.stationIds.map((v,i)=>{
+									{item.stationIds.length>0 ?item.stationIds.map((v,i)=>{
 										return(
 											<div className="list" key={i}>工位编号：{v}</div>
 										)
-									})}
+									}):<div className="list" >该客户的所有工位已退租</div>}
+
 								</div>
 							</div>
 
@@ -215,6 +231,7 @@ export default class OrderDetail extends React.Component {
 			openCreateAgreement: false,
 			openDelAgreement: false,
 			isShow: false,
+			View: false,
 			response: {
 				orderBaseInfo: {},
 				installment: {},
@@ -464,36 +481,58 @@ export default class OrderDetail extends React.Component {
 
 	}
 	onClose = () => {
+
 		this.setState({
 			isShow: !this.state.isShow
 		})
 	}
+	StaionInfo = () => {
+		var _this = this;
+		let {
+			isShow,
+		} = this.state;
+		const {
+			orderBaseInfo,
+		} = this.state.response;
+		if (isShow) {
+			return (
+				<StaionInfo onClose={_this.onClose}  detail={_this.state.staionsList} className='showCon' isShow={isShow} id={orderBaseInfo.id}/>
+			)
+		} else {
+			return (
+				<span></span>
+			)
 
+		}
+
+
+	}
 	onView = () => {
 		var _this = this;
 		const {
 			orderBaseInfo,
 		} = this.state.response;
 		let {
-			isShow
+			isShow,
+			View
 		} = this.state
-		if(!isShow){
+		if (!isShow) {
 			Store.dispatch(Actions.callAPI('get-order-station', {
-								mainBillId: orderBaseInfo.id
-							})).then(function(response) {
-						_this.setState({
-							staionsList: response
-						})
+				mainBillId: orderBaseInfo.id
+			})).then(function(response) {
+				_this.setState({
+					staionsList: response
+				})
 
 
-					}).catch(function(err) {
-						Notify.show([{
-							message: err.message,
-							type: 'danger',
-						}]);
-					});
+			}).catch(function(err) {
+				Notify.show([{
+					message: err.message,
+					type: 'danger',
+				}]);
+			});
 		}
-		
+
 		this.onClose();
 	}
 
@@ -676,7 +715,8 @@ export default class OrderDetail extends React.Component {
 			<span className="border-bottom" style={{marginTop:60}}></span>
 
           	</div>
-          	{isShow?<StaionInfo onClose={this.onClose} detail={this.state.staionsList} id={orderBaseInfo.id}/>:''}
+          	{this.StaionInfo()}
+          	
 			</Section>
 
 
