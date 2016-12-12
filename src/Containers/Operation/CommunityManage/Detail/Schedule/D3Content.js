@@ -449,7 +449,7 @@ export default class D3Content extends Component {
 											<div key={i} className="react-tooltip-content">
 												<span>{value.contractName}分期催款</span>
 												<p>{dateFormat(item.pointDate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
-												<p>{value.stationnum}个位置({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
+												<p>工位个数：{value.stationnum}，会议室个数{value.boardroomNum}({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
 												<p>负责人：<span className='red-content'>{value.name?value.name:'—'}</span></p>
 												<p>电话：<span className='red-content'>{value.phone?value.phone:'—'}</span></p>
 												<p>催款金额：<span className='red-content'>{value.installmentAmount}</span></p>
@@ -476,8 +476,8 @@ export default class D3Content extends Component {
 										<div className="react-tooltip-content">
 											<span>工位变更</span>
 											<p>{item.finaName}({dateFormat(item.leaseBeginDate, "yyyy.mm.dd")}-{dateFormat(item.leaseEndDate, "yyyy.mm.dd")})</p>
-											<p>变更前工位：<span className='blue-content'>{item.oldStationNum}</span></p>
-											<p>变更后工位：<span className='blue-content'>{item.newStationNum}</span></p>
+											<p>变更前工位个数：<span className='blue-content'>{item.oldStationNum}</span>，会议室个数：<span className='blue-content'>{item.oldBoardroomNum}</span></p>
+											<p>变更后工位个数：<span className='blue-content'>{item.newStationNum}</span>，会议室个数：<span className='blue-content'>{item.newBoardroomNum}</span></p>
 										</div>
 									</ReactTooltip>
 								</span>
@@ -488,7 +488,7 @@ export default class D3Content extends Component {
 											<div key={i} className="react-tooltip-content">
 												<span>{value.contractName}分期催款</span>
 												<p>{dateFormat(item.pointDate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
-												<p>{value.stationnum}个位置({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
+												<p>工位个数：{value.stationnum}，会议室个数{value.boardroomNum}({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
 												<p>负责人：<span className='red-content'>{value.name?value.name:'—'}</span></p>
 												<p>电话：<span className='red-content'>{value.phone?value.phone:'—'}</span></p>
 												<p>催款金额：<span className='red-content'>{value.installmentAmount}</span></p>
