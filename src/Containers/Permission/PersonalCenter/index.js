@@ -22,13 +22,25 @@ export default class PersonalCenter extends Component{
 			openVerifyId:false,
 			// openVerifyMobile:false,
 			// openVerifyMail:false,
+			PwdOrMobile:'',
 			m_mContent:true,
 			titleClass:true,
-			togettest:true,
+			togetMobiletest:true,
+			togetMailtest:true,
+			MobileTimeDisabled_state:false,
+			MailTimeDisabled_state:false,
+			timeminMobile:60,
+			timeminMail:60,
+			timedisabled:'秒后,重新获取验证码',
+			regettest_state:false,
+			regettest:'重新获取验证码',
+			pwdStrengthClass:'',
 			name:'',
 			mail:'',
 			mobile:'',
 			pwdStrength:'',
+			pwdLevel:'',
+			VerifyCodeSuccessOrFail:'',
 		}
   }
 	initBasicInfo = ()=>{
@@ -40,6 +52,25 @@ export default class PersonalCenter extends Component{
 				mail: response.email,
 				mobile: response.mobile,
 				pwdStrength: response.pwdStrength,
+
+			},function(){
+				if (_this.state.pwdStrength<50) {
+					_this.setState({
+						pwdStrengthClass:'low',
+						pwdLevel:'低',
+						})
+					}else if (50<_this.state.pwdStrength&&_this.state.pwdStrength<70) {
+						_this.setState({
+							pwdStrengthClass:'middle',
+							pwdLevel:'中',
+						})
+					}else if (_this.state.pwdStrength>80) {
+						_this.setState({
+							pwdStrength:'high',
+							pwdLevel:'高',
+						})
+
+				}
 			});
 		}).catch(function(err) {
 
@@ -47,11 +78,9 @@ export default class PersonalCenter extends Component{
 	}
 	componentDidMount() {
 		this.initBasicInfo();
-		this.setState({
-			togettest:true,
-		})
+
 	}
-	componentDidUpdate(){
+	componentWillReceiveProps(){
 
 	}
 
@@ -67,25 +96,122 @@ export default class PersonalCenter extends Component{
 			m_mContent:false,
 		})
 	}
-	openVerifyIdFunc = ()=>{
+	openPwdVerifyIdFunc = ()=>{
+
+		this.setState({
+			openVerifyId:!this.state.openVerifyId,
+			togetMobiletest:true,
+			togetMailtest:true,
+			MobileTimeDisabled_state:false,
+			MailTimeDisabled_state:false,
+			regettest_state:false,
+			timeminMobile:60,
+			timeminMail:60,
+			PwdOrMobile:'pwd',
+		})
+
+	}
+	openMobileVerifyIdFunc = ()=>{
 
 
 		this.setState({
 			openVerifyId:!this.state.openVerifyId,
-			togettest:true,
+			togetMobiletest:true,
+			togetMailtest:true,
+			MobileTimeDisabled_state:false,
+			MailTimeDisabled_state:false,
+			regettest_state:false,
+			timeminMobile:60,
+			timeminMail:60,
+			PwdOrMobile:'mobile',
 		})
 
 	}
+	getVerificationCode = ()=>{
+		var _this = this;
+		Store.dispatch(Actions.callAPI('PersonalCenterGetVerificationCode', {
+		})).then(function(response) {
+			_this.setState({
+				VerifyCodeSuccessOrFail: response.message,
 
+			});
+		}).catch(function(err) {
+
+		});
+	}
 	closeVerifyIdFunc = ()=>{
 		this.setState({
 			openVerifyId:!this.state.openVerifyId,
 		})
 	}
-	togettest =()=>{
+	togetMobiletest =()=>{
+		var _this = this;
 		this.setState({
-			togettest:false,
+			togetMobiletest:false,
+			MobileTimeDisabled_state:true,
+			regettest_state:false,
+
+		},function(){
+			time()
 		})
+		var wait=60;
+		function time() {
+			console.log(_this.state.timeminMobile)
+        if (wait == 0) {
+            _this.setState({
+							regettest_state:true,
+							MobileTimeDisabled_state:false,
+							timeminMobile:60,
+						})
+
+
+        } else {
+					_this.setState({
+
+						timeminMobile:--_this.state.timeminMobile,
+					})
+            wait--;
+            window.setTimeout(function() {
+                time()
+            },
+            1000)
+        }
+    }
+	}
+	togetMailtest =()=>{
+		var _this = this;
+		this.setState({
+			togetMailtest:false,
+			MailTimeDisabled_state:true,
+			regettest_state:false,
+
+		},function(){
+			time()
+		})
+		var wait=60;
+		function time() {
+
+				if (wait == 0) {
+						_this.setState({
+							regettest_state:true,
+							MailTimeDisabled_state:false,
+							timeminMail:60,
+						})
+
+
+				} else {
+					_this.setState({
+
+
+						timeminMail:--_this.state.timeminMail,
+					})
+						wait--;
+						window.setTimeout(function() {
+								time()
+						},
+						1000)
+				}
+		}
 	}
 	render(){
 
@@ -128,12 +254,12 @@ export default class PersonalCenter extends Component{
 									您当前的账号安全程度
 								</dt>
 								<dd>
-									<div id="bar" className="middle">
+									<div id="bar" className={this.state.pwdStrengthClass}>
 
 									</div>
 									<p>
 										安全级别：
-										<span>中</span>
+										<span>{this.state.pwdLevel}</span>
 									</p>
 
 
@@ -145,7 +271,7 @@ export default class PersonalCenter extends Component{
 								</dt>
 								<dd>
 									安全性高的密码可以使帐号更安全。建议您定期更换密码，设置一个包含字母，符号或数字中至少两项且长度超过6位的密码。
-								  <p className="setted">&ensp;已设置&ensp;<span className="bl">|</span>&ensp;<span onTouchTap={this.openVerifyIdFunc} className="revise">修改</span></p>
+								  <p className="setted">&ensp;已设置&ensp;<span className="bl">|</span>&ensp;<span onTouchTap={this.openPwdVerifyIdFunc} className="revise">修改</span></p>
 								</dd>
 
 							</dl>
@@ -154,8 +280,8 @@ export default class PersonalCenter extends Component{
 									手机号
 								</dt>
 								<dd>
-									您已绑定了手机   。（您的手机为安全手机，可以找回密码）
-									<p className="setted">&ensp;已设置&ensp;<span className="bl">|</span>&ensp;<span onTouchTap={this.openVerifyIdFunc} className="revise">修改</span></p>
+									您已绑定了手机 {this.state.mobile}。（您的手机为安全手机，可以找回密码）
+									<p className="setted">&ensp;已设置&ensp;<span className="bl">|</span>&ensp;<span onTouchTap={this.openMobileVerifyIdFunc} className="revise">修改</span></p>
 								</dd>
 
 							</dl>
@@ -171,10 +297,9 @@ export default class PersonalCenter extends Component{
 									邮箱
 								</span>
 							</div>
-							{ this.state.m_mContent && <div className="mobile_test"><span className="m_m">此处写手机号</span><span>验证码</span><div className="test"><input placeholder="6位验证码" type="text" />{ this.state.togettest && <span onTouchTap={this.togettest} className="gettest">点此获取验证码</span>}{ !this.state.togettest && <span className="timeout">倒计时</span>}</div></div>}
-							{ !this.state.m_mContent && <div className="mail_test"><span className="m_m">此处写邮箱阿</span><span>验证码</span><div className="test"><input placeholder="6位验证码" type="text" />{ this.state.togettest && <span onTouchTap={this.togettest} className="gettest">点此获取验证码</span>}{ !this.state.togettest && <span className="timeout">倒计时</span>}</div></div>}
-							{/*<Button label="确定" labelStyle={{color:"#fff",width:"90",height:"35"}} />
-							 <Button label="取消" backgroundColor= "red" labelStyle={{color:"#499df1",width:"90",height:"35"}} />*/}
+							{ this.state.m_mContent && <div className="mobile_test"><span className="m_m">此处写手机号</span><span>验证码</span><div className="test"><input placeholder="6位验证码" type="text" /><span className="alltest">{ this.state.togetMobiletest && <span onTouchTap={this.togetMobiletest} className="gettest">点此获取验证码</span>}{ this.state.MobileTimeDisabled_state && <span className="timeout">{this.state.timeminMobile+this.state.timedisabled}</span>}{this.state.regettest_state && <span onTouchTap={this.togetMobiletest} className="regettest">{this.state.regettest}</span>}</span></div></div>}
+							{ !this.state.m_mContent && <div className="mail_test"><span className="m_m">此处写邮箱阿</span><span>验证码</span><div className="test"><input placeholder="6位验证码" type="text" /><span className="alltest">{ this.state.togetMailtest && <span onTouchTap={this.togetMailtest} className="gettest">点此获取验证码</span>}{ this.state.MailTimeDisabled_state && <span className="timeout">{this.state.timeminMail+this.state.timedisabled}</span>}{this.state.regettest_state && <span onTouchTap={this.togetMailtest} className="regettest">{this.state.regettest}</span>}</span></div></div>}
+
 							 {!this.state.togettest && <span className="geted">&emsp;&ensp;验证码已发送到你的手机，30分钟内输入有效，验证 码等同于密码，打死也不能告诉别人。</span>}
 								<ButtonGroup style={{marginLeft:'55',marginTop:'30'}}>
 									<div  className='ui-btn-center'><Button label="确定" type="submit" joinEditForm /></div>
