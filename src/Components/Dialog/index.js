@@ -75,7 +75,7 @@ export default class DialogComponent extends Component {
 	}
 
 
-	onClose ()=>{
+	onClose = ()=>{
 			const {onClose} = this.props;
 			onClose && onClose();
 	}
