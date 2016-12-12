@@ -156,9 +156,8 @@ class StaionInfo extends Component {
 			const {
 				onClose
 			} = this.props;
-			setTimeout(function() {
-				onClose && onClose()
-			}, 1000)
+			onClose && onClose()
+
 		})
 
 
