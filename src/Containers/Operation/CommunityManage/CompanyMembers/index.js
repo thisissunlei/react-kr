@@ -148,15 +148,15 @@ export default class CompanyMembers extends Component {
 							var fontColor="";
 							if(value=="Leader"){
 								return (<span>
-									<Button label="详情"  type="button" onTouchTap={this.createMember}/>
-									<Button label="编辑"  type="button" onTouchTap={this.createMember}/>
-									<Button label="设置Leader"  type="button" onTouchTap={this.createMember}/>
+									<Button label="详情"  type="operation" onTouchTap={this.createMember}/>
+									<Button label="编辑"  type="operation" onTouchTap={this.createMember}/>
+									<Button label="设置Leader"  type="operation" onTouchTap={this.createMember}/>
 								</span>)
 							}else{
 								return (<span>
-									<Button label="详情"  type="button" onTouchTap={this.createMember}/>
-									<Button label="编辑"  type="button" onTouchTap={this.createMember}/>
-									<Button label="取消Leader"  type="button" onTouchTap={this.createMember}/>
+									<Button label="详情"  type="operation" onTouchTap={this.createMember}/>
+									<Button label="编辑"  type="operation" onTouchTap={this.createMember}/>
+									<Button label="取消Leader"  type="operation" onTouchTap={this.createMember}/>
 								</span>)
 							}
 							}}>
