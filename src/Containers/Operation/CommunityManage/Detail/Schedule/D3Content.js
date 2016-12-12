@@ -428,8 +428,8 @@ export default class D3Content extends Component {
 								<div key={index} className="react-tooltip-content">
 									<span>工位变更</span>
 									<p>{item.finaName}({dateFormat(item.leaseBeginDate, "yyyy.mm.dd")}-{dateFormat(item.leaseEndDate, "yyyy.mm.dd")})</p>
-									<p>变更前工位：<span className='blue-content'>{item.oldStationNum}</span></p>
-									<p>变更后工位：<span className='blue-content'>{item.newStationNum}</span></p>
+									<p>变更前工位个数：<span className='blue-content'>{item.oldStationNum}</span>，会议室个数：<span className='blue-content'>{item.oldBoardroomNum}</span></p>
+									<p>变更后工位个数：<span className='blue-content'>{item.newStationNum}</span>，会议室个数：<span className='blue-content'>{item.newBoardroomNum}</span></p>
 								</div>
 							</ReactTooltip>
 							</span>
