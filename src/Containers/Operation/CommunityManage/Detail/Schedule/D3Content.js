@@ -385,11 +385,15 @@ export default class D3Content extends Component {
 			} = this.props;
 		let start = `${currentYear}-1-1`;
 		let end = `${currentYear-1}-12-30 12:00:00`;
+		let startTime = `${currentYear}-1-1 12:00:00`;
 		let left = '-5px';
 		start = (new Date(start)).getTime();
 		end = (new Date(end)).getTime();
-		if(value == start || value >= end){
+		if(value == end || value >= start){
 			left = '-10px';
+		}
+		if(value == startTime){
+			left = "10px";
 		}
 		return left;
 	}
