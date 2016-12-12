@@ -42,6 +42,8 @@ import {
 } from 'kr-ui';
 
 import $ from 'jquery';
+import CreateMemberForm from './CreateMemberForm';
+import ValidateMember from './ValidateMember';
 export default class CompanyMembers extends Component {
 
 	constructor(props, context) {
@@ -52,7 +54,9 @@ export default class CompanyMembers extends Component {
 			searchParams: {
 				page: 1,
 				pageSize: 15
-			}
+			},
+			validateMember:false,
+			createMember:false,
 		}
 
 	}
@@ -69,6 +73,17 @@ export default class CompanyMembers extends Component {
 		console.log('value');
 
 	}
+	validateMember=()=>{
+		this.setState({
+			validateMember: !this.state.validateMember,
+		});
+
+	}
+	createMember=()=>{
+		this.setState({
+			createMember: !this.state.createMember,
+		});
+	}
 
 	
 
@@ -77,14 +92,15 @@ export default class CompanyMembers extends Component {
 	render() {
 		
 		return (
+			<div>
 
 			<Section title={`全部会员 ()`} description="" >
 				<Grid>
 					<Row>
 						<Col align="left">
 							<ButtonGroup>
-								<Button  label="新建员工" type="button" onTouchTap={this.onCancel} width={80} height={30}/>
-								<Button  label="验证员工" type="button" onTouchTap={this.onCancel} width={80} height={30}/>
+								<Button  label="新建员工" type="button" onTouchTap={this.createMember} width={80} height={30}/>
+								<Button  label="验证员工" type="button" onTouchTap={this.validateMember} width={80} height={30}/>
 						  </ButtonGroup>
 						</Col>
 					</Row>
@@ -118,19 +134,60 @@ export default class CompanyMembers extends Component {
 						<TableRowColumn name="phone" ></TableRowColumn>
 						<TableRowColumn name="email" ></TableRowColumn>
 						<TableRowColumn name="jobName"></TableRowColumn>
-						<TableRowColumn name="checkStatus"></TableRowColumn>
-						<TableRowColumn type="operation">
-								<Button label="详情"  type="operation" operation="view"/>
-								<Button label="编辑"  type="operation" operation="edit"/>
+						<TableRowColumn name="checkStatus" options={[{label:'已验证',value:1},{label:'未验证',value:0}]}
+						component={(value,oldValue)=>{
+							var fontColor="";
+							if(value=="未验证"){
+								fontColor="#ff6060"
+							}
+							return (<span style={{color:fontColor}}>{value}</span>)}}>
+							
+						</TableRowColumn>
+						<TableRowColumn name="isLeader" options={[{label:'isLeader',value:1},{label:'Leader',value:0}]}
+						component={(value,oldValue)=>{
+							var fontColor="";
+							if(value=="Leader"){
+								return (<span>
+									<Button label="详情"  type="operation" operation="view"/>
+									<Button label="编辑"  type="operation" operation="edit"/>
+									<Button label="设置Leader"  type="operation" operation="edit"/>
+								</span>)
+							}else{
+								return (<span>
+									<Button label="详情"  type="operation" operation="view"/>
+									<Button label="编辑"  type="operation" operation="edit"/>
+									<Button label="取消Leader"  type="operation" operation="edit"/>
+								</span>)
+							}
+							}}>
+								
 						 </TableRowColumn>
 					 </TableRow>
 				</TableBody>
 
-				<TableFooter></TableFooter>
+				<TableFooter>
+				</TableFooter>
 
 				</Table>
 									
 			</Section>
+			<Dialog
+			title="新建员工"
+			modal={true}
+			open={this.state.createMember}
+			onClose={this.createMember}
+			contentStyle={{width:687}}>
+				<CreateMemberForm onSubmit={this.onNewCreateSubmit} onCancel={this.createMember} />
+			</Dialog>
+			<Dialog
+			title="验证员工"
+			modal={true}
+			open={this.state.validateMember}
+			onClose={this.validateMember}
+			contentStyle={{width:687}}>
+				<ValidateMember onSubmit={this.onNewCreateSubmit} onCancel={this.validateMember} />
+			</Dialog>
+			</div>
 
 
 
