@@ -474,20 +474,26 @@ export default class OrderDetail extends React.Component {
 		const {
 			orderBaseInfo,
 		} = this.state.response;
-		Store.dispatch(Actions.callAPI('get-order-station', {
-			mainBillId: orderBaseInfo.id
-		})).then(function(response) {
-			_this.setState({
-				staionsList: response
-			})
+		let {
+			isShow
+		} = this.state
+		if(!isShow){
+			Store.dispatch(Actions.callAPI('get-order-station', {
+								mainBillId: orderBaseInfo.id
+							})).then(function(response) {
+						_this.setState({
+							staionsList: response
+						})
 
 
-		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
+					}).catch(function(err) {
+						Notify.show([{
+							message: err.message,
+							type: 'danger',
+						}]);
+					});
+		}
+		
 		this.onClose();
 	}
 
