@@ -447,6 +447,11 @@
     url:' /api/krspace_isso_web/sys/sysOwn/verifyIdentity',
     method: 'get'
   },
+  //获取指定公司会员列表
+  'getCompanyMemberList':{
+  	url:'/mockjsdata/4/member/company-team?companyId={companyId}&page={page}&pageSize={pageSize}',
+  	method:'get'
+  }
 
 }
 

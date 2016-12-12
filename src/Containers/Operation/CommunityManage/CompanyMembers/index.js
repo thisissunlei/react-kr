@@ -28,30 +28,31 @@ import {
 	KrField,
 	Form,
 	BreadCrumbs,
-	Title
+	Title,
+	Row,
+	Col,
+	ButtonGroup,
+	Table,
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
+	TableRowColumn,
+	TableFooter,
 } from 'kr-ui';
 
 import $ from 'jquery';
 export default class CompanyMembers extends Component {
-	static childContextTypes = {
-		onSetCommunity: React.PropTypes.func.isRequired,
-		communityId: React.PropTypes.string.isRequired,
-	}
-
-	getChildContext() {
-		return {
-			onSetCommunity: this.onSetCommunity,
-			communityId: this.state.communityId
-		};
-	}
 
 	constructor(props, context) {
 		super(props, context);
-		this.planTable = this.planTable.bind(this);
-		this.Floorplan = this.Floorplan.bind(this);
 		this.state = {
 			tab: 'table',
-			communityId: ''
+			communityId: '',
+			searchParams: {
+				page: 1,
+				pageSize: 15
+			}
 		}
 
 	}
@@ -61,79 +62,78 @@ export default class CompanyMembers extends Component {
 
 	}
 
-	onSetCommunity = (communityId) => {
-		this.setState({
-			communityId
-		});
+	onOperation=()=>{
+		console.log('value');
+	}
+	onLoaded=()=>{
+		console.log('value');
+
 	}
 
-	Floorplan() {
-		let {
-			tab
-		} = this.state;
-		tab = 'floorplan';
-		this.setState({
-			tab
-		});
-	}
-
-	planTable() {
-		let {
-			tab
-		} = this.state;
-
-		tab = 'table';
-		this.setState({
-			tab
-		});
-	}
+	
 
 
 
 	render() {
-		let {
-			tab
-		} = this.state;
-
-		const activeTab = {
-			color: '#2b8dcd',
-			borderBottom: "1px solid #eee"
-		}
-		const commenTab = {
-			color: '#000',
-			borderBottom: "1px solid #eee"
-		}
-		let tableStyle = (tab == 'table') ? activeTab : commenTab;
-		let planStyle = (tab == 'floorplan') ? activeTab : commenTab;
-		const inkBarStyle = {
-			background: '-moz-linear-gradient(right, #03ec56, #499df1)',
-			background: '-webkit-linear-gradient(right, #03ec56, #499df1)',
-			background: '-ms-linear-gradient(right, #03ec56, #499df1)',
-			position: 'absolute',
-			top: 0,
-		}
-
+		
 		return (
 
-			<div className="tab-container" style={{minHeight:910}}>
-			<Title value="计划表_社区经营"/>
-		 	<BreadCrumbs children={['系统运营','社区管理','计划表']}/>
-				<span className="line"></span>
-				 <Tabs className="tabs">
-					<Tab label="计划表" onActive={this.planTable} style={tableStyle}>
+			<Section title={`全部会员 ()`} description="" >
+				<Grid>
+					<Row>
+						<Col align="left">
+							<ButtonGroup>
+								<Button  label="新建员工" type="button" onTouchTap={this.onCancel} width={80} height={30}/>
+								<Button  label="验证员工" type="button" onTouchTap={this.onCancel} width={80} height={30}/>
+						  </ButtonGroup>
+						</Col>
+					</Row>
+				</Grid>
+				<Table
+				className="members-list-table"
+					style={{marginTop:20,position:'inherit'}}
+					onLoaded={this.onLoaded}
+					ajax={true}
+					onProcessData={(state)=>{
+						return state;
+						}}
+					onOperation={this.onOperation}
+					exportSwitch={true}
+					ajaxFieldListName='items'
+					ajaxUrlName='getCompanyMemberList'
+					ajaxParams={this.state.searchParams}
+				>
+				<TableHeader>
+						{/*<TableHeaderColumn>ID</TableHeaderColumn>*/}
+						<TableHeaderColumn>姓名</TableHeaderColumn>
+						<TableHeaderColumn>手机号</TableHeaderColumn>
+						<TableHeaderColumn>邮箱</TableHeaderColumn>
+						<TableHeaderColumn>职位</TableHeaderColumn>
+						<TableHeaderColumn>状态</TableHeaderColumn>
+						<TableHeaderColumn>操作</TableHeaderColumn>
+				</TableHeader>
+				<TableBody style={{position:'inherit'}}>
+						<TableRow displayCheckbox={true}>
+						<TableRowColumn name="name" ></TableRowColumn>
+						<TableRowColumn name="phone" ></TableRowColumn>
+						<TableRowColumn name="email" ></TableRowColumn>
+						<TableRowColumn name="jobName"></TableRowColumn>
+						<TableRowColumn name="checkStatus"></TableRowColumn>
+						<TableRowColumn type="operation">
+								<Button label="详情"  type="operation" operation="view"/>
+								<Button label="编辑"  type="operation" operation="edit"/>
+						 </TableRowColumn>
+					 </TableRow>
+				</TableBody>
 
-					</Tab>
-					<Tab label="平面图"  onActive={this.Floorplan} style={planStyle}>
+				<TableFooter></TableFooter>
 
-					   
-
-
-					</Tab>
-			</Tabs>
+				</Table>
+									
+			</Section>
 
 
 
-		</div>
 		);
 	}
 }
