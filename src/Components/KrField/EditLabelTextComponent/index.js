@@ -3,21 +3,32 @@ import React from 'react';
 import WrapComponent from '../WrapComponent';
 import Input from '../../Input';
 
-
+import Tooltip from '../../Tooltip';
 import './index.less';
 
 export default class InputComponent extends React.Component{
 
+	static defaultProps = {
 
 
+	}
+
+	static PropTypes = {
+
+		defaultValue: React.PropTypes.string,
+		ajaxUrlName: React.PropTypes.string,
+		ajaxParams: React.PropTypes.object,
+					// save:React.PropTypes.func,
+
+	}
+// static PropTypes = {
+// 	defaultValue:
+// }
 	constructor(props,context){
 		super(props,context)
-
-
-
     this.state ={
       editOpen:false,
-      value1:'改动前一二三四五六七'
+      oldtext:props.oldText
     }
 	}
   onEdit = ()=>{
@@ -28,20 +39,20 @@ export default class InputComponent extends React.Component{
     },function(){
 
       document.getElementById('focus').focus();
-    document.getElementsByClassName('hetong')[0].style.display="none"
+    document.getElementsByClassName('contract')[0].style.display="none"
 
     })
   }
   onSave = ()=>{
-
+		var _this=this;
     this.setState({
       editOpen:false,
-      value1:document.getElementById('focus').value
+      oldtext:document.getElementById('focus').value
     },function(){
 
-        document.getElementsByClassName('hetong')[0].style.display="inline-block";
+        document.getElementsByClassName('contract')[0].style.display="inline-block";
 
-
+				_this.props.save(_this.state.oldtext);
     })
   }
 	componentDidMount(){
@@ -49,15 +60,16 @@ export default class InputComponent extends React.Component{
 	}
 
 	render(){
-    let {input, label, type,requireLabel,disabled,placeholder,style,inline,simple,heightStyle,...other} = this.props;
+    let {input, label, type,requireLabel,disabled,placeholder,style,inline,alignRight,simple,heightStyle,...other} = this.props;
     let className = '';
 
 
 			return (
-				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} wrapStyle={style}>
-          <span className="hetong">{this.state.value1}</span>
+				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} wrapStyle={style} alignRight={alignRight}>
+					<Tooltip  style={{visibility:'visible'}} offsetTop={10} place='top'>{this.state.oldtext}</Tooltip>
+          <span className="contract">{this.state.oldtext}</span>
           {!this.state.editOpen && <span className="ui-label-text"><span className="edit" onTouchTap={this.onEdit}></span></span>}
-					{this.state.editOpen && <input id="focus" onBlur={this.onSave} className={className} defaultValue={this.state.value1} />}
+					{this.state.editOpen && <input id="focus" onBlur={this.onSave} className={className} defaultValue={this.state.oldtext} />}
 
 				</WrapComponent>
 
