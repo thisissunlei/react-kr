@@ -73,6 +73,19 @@ export default class Calendar extends React.Component {
 	componentDidMount(){
 		let {value} = this.props;
 		this.setInitValue(value);
+
+		var ele = ReactDOM.findDOMNode(this);
+		var position = {};
+		var winWidth = window.innerWidth;
+		if(ele.getClientRects().length){
+				position = ele.getBoundingClientRect();
+		}
+
+		if(position && position.right && position.right>winWidth){
+			ele.style.right = '0px';
+			ele.style.left = 'auto';
+		}
+
 	}
 
 	componentWillReceiveProps(nextProps) {
