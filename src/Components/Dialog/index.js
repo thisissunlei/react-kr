@@ -3,10 +3,7 @@ import React, {
 } from 'react';
 import './index.less';
 
-
-import {
-	Dialog,
-} from 'material-ui';
+import ReactDOM from 'react-dom';
 
 export default class DialogComponent extends Component {
 
@@ -44,6 +41,45 @@ export default class DialogComponent extends Component {
 		autoScrollBodyContent: React.PropTypes.bool,
 	}
 
+	componentDidMount(){
+			this.initializeStyles();
+	}
+
+	initializeStyles = ()=>{
+
+			var ele = ReactDOM.findDOMNode(this);
+
+			var position = {};
+
+			if(ele.getClientRects().length){
+					position = ele.getBoundingClientRect();
+			}
+
+			var pageWidth = window.innerWidth;
+			var pageHeight = window.innerHeight;
+			if(document.compatMode == 'CSS1Compat'){
+				 pageWidth = document.documentElement.clientWidth;
+				 pageHeight = document.documentElement.clientHeight;
+			}else{
+				pageWidth = document.body.clientWidth;
+				pageHeight = document.body.clientHeight;
+			}
+
+			ele.style.width = pageWidth+'px';
+			ele.style.height = pageHeight+'px';
+			ele.style.zIndex = 99999;
+			ele.style.top = -position.top +'px';
+			ele.style.left = -position.left+'px';
+			ele.style.bottom = -position.bottom+'px';
+			ele.style.right = -0+'px';
+	}
+
+
+	onClose ()=>{
+			const {onClose} = this.props;
+			onClose && onClose();
+	}
+
 
 	render() {
 
@@ -58,23 +94,25 @@ export default class DialogComponent extends Component {
 			...other
 		} = this.props;
 
+		let styles = {};
+		if(open){
+				styles.display = 'block';
+		}else{
+				styles.display = 'none';
+		}
+
 		return (
-			<div >
-				<Dialog
-					title={title}
-					modal={modal}
-					autoScrollBodyContent={autoScrollBodyContent}
-					autoDetectWindowHeight={autoDetectWindowHeight}
-					titleClassName="ui-dialog-header"
-					open={open}
-					style={{borderRadius:4}}
-					{...other}>
-						<div className="cancle-dialog" onTouchTap={onClose}></div>
-						<div className="ui-content">
+			<div className="ui-dialog" ref="dialog" style={styles}>
+				<div className="dialog-modal"></div>
+				<div className="dialog-content">
+						<div className="dialog-header">
+								<div className="dialog-header-title"> {title} </div>
+								<span className="close" onClick={this.onClose}></span>
+						</div>
+						<div className="dialog-body">
 							{children}
 						</div>
-
-				  </Dialog>
+				</div>
 			</div>
 		);
 
