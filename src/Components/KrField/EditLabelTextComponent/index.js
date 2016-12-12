@@ -67,9 +67,10 @@ export default class InputComponent extends React.Component{
 			return (
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} wrapStyle={style} alignRight={alignRight}>
 					<Tooltip  style={{visibility:'visible'}} offsetTop={10} place='top'>{this.state.oldtext}</Tooltip>
-          <span className="contract">{this.state.oldtext}</span>
-          {!this.state.editOpen && <span className="ui-label-text"><span className="edit" onTouchTap={this.onEdit}></span></span>}
-					{this.state.editOpen && <input id="focus" onBlur={this.onSave} className={className} defaultValue={this.state.oldtext} />}
+						{!this.state.editOpen && <span className="edit" onTouchTap={this.onEdit}></span>}
+						{this.state.editOpen && <input id="focus" onBlur={this.onSave} className={className} defaultValue={this.state.oldtext} />}
+				<span className="contract">{this.state.oldtext}</span>
+
 
 				</WrapComponent>
 
