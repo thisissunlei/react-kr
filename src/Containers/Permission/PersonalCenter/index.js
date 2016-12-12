@@ -54,21 +54,22 @@ export default class PersonalCenter extends Component{
 				pwdStrength: response.pwdStrength,
 
 			},function(){
-				if (this.state.pwdStrength<50) {
-					this.setState({
+				if (_this.state.pwdStrength<50) {
+					_this.setState({
 						pwdStrengthClass:'low',
 						pwdLevel:'低',
-					}else if (50<this.state.pwdStrength&&this.state.pwdStrength<70) {
-						this.setState({
+						})
+					}else if (50<_this.state.pwdStrength&&_this.state.pwdStrength<70) {
+						_this.setState({
 							pwdStrengthClass:'middle',
 							pwdLevel:'中',
 						})
-					}else if (this.state.pwdStrength>80) {
-						this.setState({
+					}else if (_this.state.pwdStrength>80) {
+						_this.setState({
 							pwdStrength:'high',
 							pwdLevel:'高',
 						})
-					})
+
 				}
 			});
 		}).catch(function(err) {
