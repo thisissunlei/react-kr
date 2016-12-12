@@ -152,28 +152,33 @@ class StaionInfo extends Component {
 	close = () => {
 		this.setState({
 			isClassName: 'leave'
+		}, function() {
+			const {
+				onClose
+			} = this.props;
+			setTimeout(function() {
+				onClose && onClose()
+			}, 1000)
 		})
-		const {
-			onClose
-		} = this.props;
-		setTimeout(function() {
-			onClose && onClose()
-		}, 2000)
 
 
 
 	}
 	render() {
+		var _this = this;
 		let {
 			detail,
-			className
+			className,
+			isShow
 		} = this.props;
 		let {
 			isClassName
 		} = this.state;
+		var Name = isShow ? 'actives' : isClassName
+
 
 		return (
-			<div className={`${className} ${isClassName}`}>
+			<div className={`${className} ${Name}`}>
 				<div className="closeBtn" onTouchTap={this.close} ></div>
 				<div className="showHeader"><span className="icon"></span><span className="title">工位编号 :</span></div>
 				<div className="infoCon">
@@ -203,6 +208,9 @@ class StaionInfo extends Component {
 			</div>
 
 		)
+
+
+
 	}
 
 
@@ -486,27 +494,7 @@ export default class OrderDetail extends React.Component {
 			isShow: !this.state.isShow
 		})
 	}
-	StaionInfo = () => {
-		var _this = this;
-		let {
-			isShow,
-		} = this.state;
-		const {
-			orderBaseInfo,
-		} = this.state.response;
-		if (isShow) {
-			return (
-				<StaionInfo onClose={_this.onClose}  detail={_this.state.staionsList} className='showCon' isShow={isShow} id={orderBaseInfo.id}/>
-			)
-		} else {
-			return (
-				<span></span>
-			)
 
-		}
-
-
-	}
 	onView = () => {
 		var _this = this;
 		const {
@@ -715,7 +703,7 @@ export default class OrderDetail extends React.Component {
 			<span className="border-bottom" style={{marginTop:60}}></span>
 
           	</div>
-          	{this.StaionInfo()}
+          	<StaionInfo onClose={this.onClose}  detail={this.state.staionsList} className='showCon' isShow={isShow} id={orderBaseInfo.id}/>
           	
 			</Section>
 

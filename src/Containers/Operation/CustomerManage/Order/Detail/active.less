@@ -298,7 +298,7 @@ span{
 }
 
 .leave{
-	animation:left linear 1s forwards;
+	animation:left linear 1s none;
 	@keyframes left {
 	  0% { right:-100px; }
 	  50% { right:-200px ; }
@@ -307,7 +307,14 @@ span{
 
 	
 }
-
+.actives{
+	animation:right linear 1s forwards;
+	@keyframes right {
+	  0% { right:-200px; }
+	  50% { right:-100px; }
+	  100% { right: 0px; }
+	}
+}
 .showCon{
 	width:310px;
 	background:#ffffff;
@@ -320,12 +327,7 @@ span{
 	z-index:1000;
 	box-shadow:-2px 0 20px rgba(102,102,102,0.8),0 0 0 #fff,0 0 0 #fff,0 0 0 #fff;
 	padding:0 30px 50px 40px;
-	animation:right linear 1s forwards;
-	@keyframes right {
-	  0% { right:-200px; }
-	  50% { right:-100px; }
-	  100% { right: 0px; }
-	}
+	
 	.showHeader{
 		color:#333333;
 		font-size:18px;
