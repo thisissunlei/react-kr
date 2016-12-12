@@ -329,13 +329,18 @@ export default class D3Content extends Component {
 			finaRedPointVo
 		} = this.props;
 		let finaRedPointVoList = finaRedPointVo;
+		var {
+				currentYear
+			} = this.props;
+		let year = `${currentYear}-1-1`;
+		var initial = (new Date(year)).getTime();
 
 		const that = this;
 		let newArr = [];
 
 		for (let j in finaRedPointVo) {
 
-			if (!finaRedPointVo[j].pointDate) {
+			if (!finaRedPointVo[j].pointDate || finaRedPointVo[j].pointDate < initial) {
 				finaRedPointVoList.splice(j, 1);
 			} else {
 				finaRedPointVoList[j].pointDay = that.countDays(finaRedPointVo[j].pointDate);
@@ -387,6 +392,23 @@ export default class D3Content extends Component {
 			// if(whiteBar.length>1){whiteBar.pop();}
 
 		return whiteBar;
+	}
+	getLeft=(value)=>{
+		var {
+				currentYear
+			} = this.props;
+		let start = `${currentYear}-1-1`;
+		let end = `${currentYear}-12-30`;
+		let left = '0';
+		start = (new Date(start)).getTime();
+		end = (new Date(end)).getTime();
+		if(value === start){
+			left = '10px';
+		}
+		if(value === end){
+			left = "-10px";
+		}
+		return left;
 	}
 
 	render() {
@@ -475,9 +497,11 @@ export default class D3Content extends Component {
 					redNodeList && redNodeList.map((item,index)=>{
 						
 						let nodeKind = item.color===1?'grey-circle':'red-node';
+						let left = this.getLeft(item.pointDate);
+
 						
 						return (
-							<span className={`${nodeKind}`} key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}} data-tip data-for={`${item.pointDate}${index}red${item.plan[0].id}`}>
+							<span className={`${nodeKind}`} key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`,left:left}} data-tip data-for={`${item.pointDate}${index}red${item.plan[0].id}`}>
 								<ReactTooltip id={`${item.pointDate}${index}red${item.plan[0].id}`} place="top" type="dark" effect="solid" >
 									{item.plan && item.arr.map((value,i)=>{
 										return(
