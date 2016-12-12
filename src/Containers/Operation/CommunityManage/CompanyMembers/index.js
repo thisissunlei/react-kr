@@ -149,14 +149,14 @@ export default class CompanyMembers extends Component {
 							if(value=="Leader"){
 								return (<span>
 									<Button label="详情"  type="operation" onTouchTap={this.createMember}/>
-									<Button label="编辑"  type="operation" onTouchTap={this.createMember}/>
-									<Button label="设置Leader"  type="operation" onTouchTap={this.createMember}/>
+									<Button label="编辑"  type="operation" onTouchTap={this.editMember}/>
+									<Button label="设置Leader"  type="operation" onTouchTap={this.setLeader}/>
 								</span>)
 							}else{
 								return (<span>
 									<Button label="详情"  type="operation" onTouchTap={this.createMember}/>
-									<Button label="编辑"  type="operation" onTouchTap={this.createMember}/>
-									<Button label="取消Leader"  type="operation" onTouchTap={this.createMember}/>
+									<Button label="编辑"  type="operation" onTouchTap={this.editMember}/>
+									<Button label="取消Leader"  type="operation" onTouchTap={this.cancleLeader}/>
 								</span>)
 							}
 							}}>
@@ -181,6 +181,22 @@ export default class CompanyMembers extends Component {
 			</Dialog>
 			<Dialog
 			title="验证员工"
+			modal={true}
+			open={this.state.validateMember}
+			onClose={this.validateMember}
+			contentStyle={{width:687}}>
+				<ValidateMember onSubmit={this.onNewCreateSubmit} onCancel={this.validateMember} />
+			</Dialog>
+			<Dialog
+			title="编辑员工"
+			modal={true}
+			open={this.state.validateMember}
+			onClose={this.validateMember}
+			contentStyle={{width:687}}>
+				<ValidateMember onSubmit={this.onNewCreateSubmit} onCancel={this.validateMember} />
+			</Dialog>
+			<Dialog
+			title="取消Leader"
 			modal={true}
 			open={this.state.validateMember}
 			onClose={this.validateMember}
