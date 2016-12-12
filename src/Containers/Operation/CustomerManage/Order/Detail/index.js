@@ -135,6 +135,63 @@ class NewCreatForm extends Component {
 	}
 
 }
+
+
+class StaionInfo extends Component {
+	static PropTypes = {
+		detail: React.PropTypes.object,
+
+	}
+
+	constructor(props, context) {
+		super(props, context);
+	}
+	close = () => {
+		const {
+			onClose
+		} = this.props;
+		onClose && onClose()
+	}
+	render() {
+		let {
+			detail,
+		} = this.props;
+
+		return (
+			<div className="showCon">
+				<div className="closeBtn" onTouchTap={this.close} ></div>
+				<div className="showHeader"><span className="icon"></span><span className="title">工位编号 :</span></div>
+				<div className="infoCon">
+					{detail && detail.map((item,index)=>{
+						return(
+							<div className="infoList" key={index}>
+								<div className="hTitle"><span className="circle"></span>{item.detailName}</div>
+								<div className="listCon">
+									{item.stationIds && item.stationIds.map((v,i)=>{
+										return(
+											<div className="list" key={i}>工位编号：{v}</div>
+										)
+									})}
+								</div>
+							</div>
+
+						)
+							
+						
+
+					})}
+					
+
+				</div>
+				<div className="CloseBtn" onTouchTap={this.close}>关闭</div>
+			</div>
+
+		)
+	}
+
+
+}
+
 export default class OrderDetail extends React.Component {
 
 	constructor(props, context) {
@@ -157,13 +214,15 @@ export default class OrderDetail extends React.Component {
 			delAgreementId: 0,
 			openCreateAgreement: false,
 			openDelAgreement: false,
+			isShow: false,
 			response: {
 				orderBaseInfo: {},
 				installment: {},
 				earnest: {},
 				contractList: [],
-				antecedent: []
-			}
+				antecedent: [],
+			},
+			staionsList: []
 		}
 
 	}
@@ -404,6 +463,33 @@ export default class OrderDetail extends React.Component {
 
 
 	}
+	onClose = () => {
+		this.setState({
+			isShow: !this.state.isShow
+		})
+	}
+
+	onView = () => {
+		var _this = this;
+		const {
+			orderBaseInfo,
+		} = this.state.response;
+		Store.dispatch(Actions.callAPI('get-order-station', {
+			mainBillId: orderBaseInfo.id
+		})).then(function(response) {
+			_this.setState({
+				staionsList: response
+			})
+
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+		this.onClose();
+	}
 
 	render() {
 
@@ -412,9 +498,12 @@ export default class OrderDetail extends React.Component {
 			earnest,
 			contractList,
 			installmentPlan,
-			contractStatusCount
-		} = this.state.response;
+			contractStatusCount,
 
+		} = this.state.response;
+		let {
+			isShow
+		} = this.state
 		if (this.state.loading) {
 			return (<Loading/>);
 		}
@@ -512,7 +601,7 @@ export default class OrderDetail extends React.Component {
 							<div className="Conlist">
 							{item.installment && item.installment.map((items,indexs)=>{
 								return(
-										<div className="list">
+										<div className="list" key={indexs}>
 											<div className="fund">{items.installmentName}</div>
 											<div className="Begindate"><KrDate value={items.installmentBegindate}/></div>
 											<div className="Enddate"><KrDate value={items.installmentEnddate}/></div>
@@ -569,7 +658,7 @@ export default class OrderDetail extends React.Component {
 				<Col  md={4} ><KrField label="其他回款" component="labelText" value={orderBaseInfo.refundamount} defaultValue="0" alignRight={true}/></Col>
 				</Row>
 				<Row>
-				<Col  md={4} ><div className="staion">工位编号</div><div className="view">点击查看</div></Col>
+				<Col  md={4} ><div className="staion">工位编号</div><div className="view"  onTouchTap={this.onView} >点击查看</div></Col>
 				<Col  md={4} ><div className="staion"></div><div className="view"></div></Col>
 				<Col  md={4} ><div className="staion"></div><div className="view"></div></Col>
 				</Row>
@@ -581,6 +670,7 @@ export default class OrderDetail extends React.Component {
 			<span className="border-bottom" style={{marginTop:60}}></span>
 
           	</div>
+          	{isShow?<StaionInfo onClose={this.onClose} detail={this.state.staionsList} id={orderBaseInfo.id}/>:''}
 			</Section>
 
 

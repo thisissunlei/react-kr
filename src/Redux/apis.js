@@ -433,7 +433,11 @@
  		url: ' /api/krspace-finance-web/edit-order-name',
  		method: 'put'
  	},
-
+ 	//合同详情-订单工位
+ 	'get-order-station': {
+ 		url: ' /api/krspace-finance-web/action/get-order-station?mainBillId={mainBillId}',
+ 		method: 'get'
+ 	},
  }
 
  module.exports = APIS;
