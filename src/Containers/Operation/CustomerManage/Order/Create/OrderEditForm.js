@@ -79,7 +79,7 @@ class OrderEditForm extends Component {
 
 				 <KrField name="communityid" grid={1/2} left={30} component="select" label="所在社区" requireLabel={true} inline={false} options={communityOptions}/>
 					<KrField label="所在城市" grid={1/2} right={30} value={cityName||'无'} component="labelText" inline={false}/> 
-					 <KrField name="mainbillname" grid={1/2} left={30} type="text" label="订单名称" requireLabel={true} component="text" inline={false}/> 
+					 <KrField name="mainbillname" grid={1/2} left={30} type="text" label="订单名称" requireLabel={true} value={initialValues.mainbillname} component="labelText" inline={false}/> 
 					 <KrField name="mainbilldesc" type="textarea" label="订单描述" component="textarea" inline={false}  maxSize={200}/> 
 
 					<Grid >
