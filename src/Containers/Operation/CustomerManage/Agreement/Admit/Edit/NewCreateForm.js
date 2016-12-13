@@ -318,7 +318,6 @@ class NewCreateForm extends Component {
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
-		console.log('form', form);
 
 		const {
 			onSubmit

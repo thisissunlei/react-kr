@@ -269,7 +269,6 @@ class NewCreateForm extends Component {
 		let {
 			stationVos
 		} = this.state;
-		console.log('stationVos----', stationVos)
 		return (
 			<Paper width={960}>
 

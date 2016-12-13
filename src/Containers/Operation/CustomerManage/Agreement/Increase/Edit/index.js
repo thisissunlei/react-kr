@@ -167,8 +167,6 @@ export default class JoinCreate extends Component {
 				//处理stationvos
 				stationVos = response.stationVos;
 
-				console.log(stationVos, '---->>>>', response);
-
 				_this.setState({
 					initialValues,
 					optionValues,
