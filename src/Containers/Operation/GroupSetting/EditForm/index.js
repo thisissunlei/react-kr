@@ -14,7 +14,7 @@ import {
 	Message
 } from 'kr-ui';
 
-// import './index.less';
+import './index.less';
 
 class Switchover extends Component{
 	constructor(props) {
