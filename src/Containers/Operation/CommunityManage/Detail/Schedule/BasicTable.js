@@ -704,7 +704,7 @@ export default class BasicTable extends Component {
 					{
 						showNone && Installmentplan.map((item,index)=>{
 							let width = this.getWidth();
-
+                   
 							let itemData = Object.assign(item);
 							return (
 

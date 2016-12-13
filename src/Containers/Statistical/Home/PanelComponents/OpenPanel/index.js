@@ -92,7 +92,7 @@ export default class Initialize  extends Component{
     render(){   	
     	let {searchParams}=this.state;	
 
-    	//console.log('888888888',searchParams.groupId,this.props.groupId);
+    	//console.log('888888888',searchParams);
         
 	return(
          <div className='open-back' style={{background:'#fff',marginBottom:'20'}}>
