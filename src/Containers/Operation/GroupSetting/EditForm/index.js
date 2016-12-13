@@ -178,11 +178,12 @@ class ZhuanHuan extends React.Component{
       overflow:"auto",
 			borderRadius:"3px",
     }
-		var startData=this.state.mouldSort;
-		if(!this.state.mouldSort){
-			startData=[];
-		}
-    var arr=startData.map(function(item,index){
+		var dd=this.state.mouldSort;
+    if (!this.state.mouldSort) {
+    dd=[];
+    }
+    
+    var arr=dd.map(function(item,index){
       var j=index;
 
       return <KrMould
@@ -370,7 +371,7 @@ class ZhuanHuan extends React.Component{
 						<KrField name="enable" label="否"  component="radio"  type="radio" value="DISABLE" />
 				</KrField>
 				<KrField grid={1/2} label="数据模板" requireLabel={true} component="labelText"/>
-				<Switchover allData={this.state.detail.unselectedList} okData={this.state.detail.templateList} changeMudle={this.props.changeMudle}/>
+				<Switchover allData={this.props..detail.unselectedList} okData={this.props.detail.templateList} changeMudle={this.props.changeMudle}/>
 
 			<KrField style={{width:558}} heightStyle={{height:"80px"}} name="groupDesc" component="textarea" label="分组描述" maxSize={100} />
 

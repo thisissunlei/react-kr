@@ -161,7 +161,7 @@ class ZhuanHuan extends React.Component{
   }
 
   render(){
-		console.log(this.props.Data,this.props.kk);
+		
     var _this=this;
     var boxStyle={
       border:"1px solid #dfdfdf",
@@ -173,11 +173,12 @@ class ZhuanHuan extends React.Component{
       overflow:"auto",
 			borderRadius:"3px",
     }
-		var startData=this.state.mouldSort;
-		if(!this.state.mouldSort){
-			startData=[];
-		}
-    var arr=startData.map(function(item,index){
+   
+    if (!this.state.mouldSort) {
+		dd=[];
+    }
+		
+    var arr=this.state.mouldSort.map(function(item,index){
       var j=index;
 
       return <KrMould
@@ -372,6 +373,7 @@ class ZhuanHuan extends React.Component{
 
 
 	render(){
+		console.log(this.state.moduleData,"444444");
 		const { error, handleSubmit, pristine, reset} = this.props;
 
 		return (
