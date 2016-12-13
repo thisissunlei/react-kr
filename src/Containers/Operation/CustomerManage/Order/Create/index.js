@@ -44,13 +44,14 @@ export default class OrderCreate extends Component {
 			loading: true,
 			communityOptions: [],
 			initialValues: {},
-			orderTypeOptions: [{
+			orderTypeOptions: [],
+			/*[{
 				value: '',
 				label: '请选择类型'
 			}, {
 				value: 'STATION',
 				label: '工位订单'
-			}]
+			}]*/
 		}
 		Store.dispatch(Actions.switchSidebarNav(false));
 		Store.dispatch(Actions.switchHeaderNav(false));
@@ -61,6 +62,7 @@ export default class OrderCreate extends Component {
 		var obj = document.body;
 		obj.style.background = '#fff';
 		this.getInitValues();
+
 
 	}
 	onSubmit = (values) => {
@@ -108,16 +110,23 @@ export default class OrderCreate extends Component {
 		var _this = this;
 		let communityOptions = [];
 		let initialValues = {};
-		Store.dispatch(Actions.callAPI('community-city-selected', {}, {})).then(function(communityOptions) {
-			communityOptions = communityOptions.communityCity.map((item) => {
+		let orderTypeOptions = [];
+		Store.dispatch(Actions.callAPI('community-city-selected', {}, {})).then(function(response) {
+			communityOptions = response.communityCity.map((item) => {
 				item.value = String(item.communityId);
 				item.label = item.communityName;
 				return item;
 			});
-			console.log('communityOptions', communityOptions);
+
+			orderTypeOptions = response.sysDicPayments.map((item) => {
+				item.value = item.id;
+				item.label = item.dicName;
+				return item;
+			});
 
 			_this.setState({
-				communityOptions
+				communityOptions: communityOptions,
+				orderTypeOptions: orderTypeOptions
 			})
 		}).catch(function(err) {});
 
@@ -154,7 +163,7 @@ export default class OrderCreate extends Component {
 		} = this.state;
 
 
-		//console.log('communityOptions------', communityOptions)
+		console.log('orderTypeOptions------', orderTypeOptions)
 
 		return (
 
