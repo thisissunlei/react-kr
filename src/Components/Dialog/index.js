@@ -76,7 +76,7 @@ export default class DialogComponent extends Component {
 
 
 	onClose = ()=>{
-			document.body.style.overflow = 'auto';
+			//document.body.style.overflow = 'auto';
 			const {onClose} = this.props;
 			onClose && onClose();
 	}
@@ -100,8 +100,7 @@ export default class DialogComponent extends Component {
 		let bodyStyles ={};
 		if(open){
 				styles.display = 'block';
-			document.body.style.overflow = 'hidden';
-
+			//document.body.style.overflow = 'hidden';
 		}else{
 				styles.display = 'none';
 		}
