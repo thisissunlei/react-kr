@@ -73,7 +73,7 @@ export default class TableRowColumn extends React.Component {
 
 	renderValue = ()=>{
 
-		let { value, options, component } = this.props;
+		let { value, options, component,itemData } = this.props;
 
 		let oldValue = value;
 
