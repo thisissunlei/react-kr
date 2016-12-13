@@ -742,7 +742,20 @@ export default class AttributeSetting extends Component {
 		});
 	}
 
-
+    historyIncomed=()=>{
+        var _this = this;
+        let {
+			params
+		} = this.props;
+		Store.dispatch(Actions.callAPI('runStationIncome',{
+			mainbillId:params.orderId,
+		})).then(function(response) {
+			
+		}).catch(function(err) {
+			
+		});
+    	
+    }
 
 	componentDidMount() {
 		this.initBasicInfo();
@@ -878,7 +891,7 @@ export default class AttributeSetting extends Component {
 								 <div className='detail-right'>
 								     <div>
 								        <Col align="left" className='btn-left'>{buttonArr}</Col>
-								        <Col align="right"><Button  type='search'  searchClick={this.openSearchDialog}/></Col>
+								        <Col align="right"><Button  type='search'  searchClick={this.openSearchDialog}/><span className='historyIncome' onClick={this.historyIncomed}>补历史收入</span></Col>
 								     </div>
 
 									 <Table style={{marginTop:30}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>

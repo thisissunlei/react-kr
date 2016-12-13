@@ -427,6 +427,11 @@
     url:' /api/krspace_isso_web/sys/sysOwn/verifyIdentity',
     method: 'get'
   },
+  //订单明细账－补历史收入
+  'runStationIncome': {
+    url:'/mockjsdata/16/krspace-finance-web/finaccount/opt/runStationIncome?mainbillId={mainbillId}',
+    method: 'get'
+  },
 
 }
 

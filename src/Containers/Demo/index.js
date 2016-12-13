@@ -31,6 +31,7 @@ import {
 	Field,
 	FieldControl,
 	InputDate,
+	SnackTip
 } from 'kr-ui';
 
 import {
@@ -132,6 +133,9 @@ ll=(values)=>{
 						 <FlatButton icon={<FontIcon className={'icon-basis'} />} style={{color:'#499df1',height:36,width:100}} />
 
 							 </KrForm>
+                             
+                         <SnackTip title='snack' style={{'cursor':'pointer'}}/>   
+
 					</Section>
 			</div>
 
