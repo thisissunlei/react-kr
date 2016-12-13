@@ -160,6 +160,30 @@ export default class CompanyMembers extends Component {
 			}]);
 		});
 	}
+	editMemberForm=(value)=>{
+		console.log('index',value);
+		Store.dispatch(Actions.callAPI('setLeader', params)).then(function(response) {
+			if(value.isLeader){
+				_this.setLeaders();
+			}else{
+				_this.cancleLeaders();
+			}
+			Notify.show([{
+				message: '设置成功',
+				type: 'success',
+			}]);
+
+			// window.setTimeout(function() {
+			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
+			// }, 0);
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+	}
 	
 
 	
@@ -277,7 +301,7 @@ export default class CompanyMembers extends Component {
 			open={this.state.editMember}
 			onClose={this.editMembers}
 			contentStyle={{width:687}}>
-				<EditMember onSubmit={this.onNewCreateSubmit} params={this.params} onCancel={this.editMembers} detail={itemDetail}/>
+				<EditMember onSubmit={this.editMemberForm} params={this.params} onCancel={this.editMembers} detail={itemDetail}/>
 			</Dialog>
 			<Dialog
 			title="取消Leader"

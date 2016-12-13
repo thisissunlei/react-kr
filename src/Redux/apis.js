@@ -468,6 +468,7 @@
     url:'/mockjs/15/krspace_isso_web/sys/sysOwn/getVerifyCode',
     method:'get'
   }
+
 }
 
 module.exports = APIS;
