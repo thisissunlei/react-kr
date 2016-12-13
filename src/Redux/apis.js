@@ -417,7 +417,21 @@
 		url: '/api/krspace-finance-web/stat/group/sort/actions/check?sort={sort}&id={id}',
 		method: 'get'
 	},
-
+  //个人中心-获取个人信息
+  'PersonalCenterData': {
+    url:' /mockjs/15/krspace_isso_web/sys/sysOwn/getPersonalInfo',
+    method: 'get'
+  },
+  //个人中心-身份验证
+  'PersonalCenterVerifyId': {
+    url:' /mockjs/15/krspace_isso_web/sys/sysOwn/verifyIdentity',
+    method: 'get'
+  },
+  //个人中心-获取验证码
+  'PersonalCenterGetVerificationCode': {
+    url:'/mockjs/15/krspace_isso_web/sys/sysOwn/getVerifyCode',
+    method:'get'
+  }
 }
 
 module.exports = APIS;

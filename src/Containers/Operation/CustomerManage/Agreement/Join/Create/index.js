@@ -67,7 +67,12 @@ export default class JoinCreate extends Component {
 			console.log('-to',formValues)
 		formValues.stationVos = JSON.stringify(formValues.stationVos);
 
+
+		var _this = this;
 		Store.dispatch(Actions.callAPI('addOrEditEnterContract', {}, formValues)).then(function(response) {
+
+			_this.setState({baiscInf:response});
+
 			Notify.show([{
 				message: '创建成功',
 				type: 'success',
