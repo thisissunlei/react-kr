@@ -283,16 +283,17 @@ export default class BasicTable extends Component {
 	scrollLoading() {
 
 		var _this = this;
+		
+		// console.log('dataLoading',dataLoading);
 		$(window).bind('scroll', function() {
 			var top = $(window).scrollTop() || 0;
 			var height = $(window).height() || 0;
 			var num = $(document).height() - $(window).height();
 			var scrollBottom = top - num;
-
+			var {dataLoading} = _this.state;
 			var isOutBoundary = scrollBottom >= -300;
 
-			if (isOutBoundary) {
-
+			if (isOutBoundary && !dataLoading) {
 				let {
 					communityids,
 					type,
@@ -304,7 +305,8 @@ export default class BasicTable extends Component {
 					totalCount,
 					totalPages,
 					istip,
-					currentYear
+					currentYear,
+					dataLoading
 				} = _this.state;
 
 				if (isIscroll) {
@@ -323,6 +325,7 @@ export default class BasicTable extends Component {
 					}
 
 					if (totalPages > page) {
+						console.log('isLoadingisLoading');
 						len += step;
 						_this.setState({
 							page: len,
@@ -360,9 +363,10 @@ export default class BasicTable extends Component {
 								})
 							}
 							window.setTimeout(function() {
-								_this.setState({
-									isLoading: !_this.state.isLoading
-								})
+									_this.setState({
+										isLoading: !_this.state.isLoading
+									})
+								
 							}, 10)
 
 						}).catch(function(err) {
@@ -529,10 +533,11 @@ export default class BasicTable extends Component {
 
 	onNextYear() {
 		let {
-			currentYear
+			currentYear,
+			isLoading,
 		} = this.state;
+		let _this = this;
 		currentYear++;
-
 
 		this.setState({
 			currentYear,
@@ -597,7 +602,6 @@ export default class BasicTable extends Component {
 				var totalCount = 0;
 				var totalPages = 0;
 			}
-
 
 
 			state = {
@@ -760,7 +764,7 @@ export default class BasicTable extends Component {
 
 		return (
 			<div style={{position:'relative'}}>
-			{isLoading?<div style={{position:'fixed',left:'50%',top:'40%',zIndex:100}}><Loading/></div>:''}
+			{(isLoading && !dataLoading)?<div style={{position:'fixed',left:'50%',top:'40%',zIndex:100}}><Loading/></div>:''}
 			{istip?<div style={{width:640,color:'#999',fontSize:'14px',position:'absolute',left:'50%',bottom:'-103px',marginLeft:'-320px',zIndex:100}}><p style={{width:260,borderBottom:'1px solid #cccccc',height:9,float:'left'}} ></p><p style={{float:'left',paddingLeft:'15px',paddingRight:'15px'}}>我是有底线的</p><p style={{width:260,height:9,borderBottom:'1px solid #cccccc',float:'left'}} ></p></div>:''}
 			
 					
