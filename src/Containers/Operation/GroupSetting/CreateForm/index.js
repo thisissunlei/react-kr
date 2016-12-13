@@ -24,6 +24,12 @@ class Switchover extends Component{
 			okData:this.props.okData,
     }
   }
+	componentWillReceiveProps(nextProps){
+			this.setState({
+				allData:nextProps.allData,
+				okData:nextProps.okData,
+			});
+	}
 	//向右边添加
 	rightAdd=(value)=>{
 		var _this=this;
@@ -161,7 +167,7 @@ class ZhuanHuan extends React.Component{
   }
 
   render(){
-		
+
     var _this=this;
     var boxStyle={
       border:"1px solid #dfdfdf",
@@ -173,11 +179,11 @@ class ZhuanHuan extends React.Component{
       overflow:"auto",
 			borderRadius:"3px",
     }
-   
+
     if (!this.state.mouldSort) {
 		dd=[];
     }
-		
+
     var arr=this.state.mouldSort.map(function(item,index){
       var j=index;
 

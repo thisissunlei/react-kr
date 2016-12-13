@@ -128,8 +128,11 @@ export default class GroupSetting  extends Component{
 				this.setState({
 					id:itemDetail.id
 				},function(){
+
 					this.openEditDetailDialog();
-				})
+				});
+
+
 
 	}
 
@@ -137,10 +140,13 @@ export default class GroupSetting  extends Component{
 	openEditDetailDialog=()=> {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('MouldGroupDetails',{id:this.state.id})).then(function(data) {
+			
 			_this.changeMudle(data.templateList)
 			_this.setState({
 					itemDetail:data,
 			},function(){
+
+
 				console.log(this.state.itemDetail);
 				_this.setState({
 					openEditDetail: !_this.state.openEditDetail

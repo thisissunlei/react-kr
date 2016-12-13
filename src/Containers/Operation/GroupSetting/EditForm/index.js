@@ -24,6 +24,12 @@ class Switchover extends Component{
 			okData:this.props.okData,
     }
   }
+	componentWillReceiveProps(nextProps){
+			this.setState({
+				allData:nextProps.allData,
+				okData:nextProps.okData,
+			});
+	}
 
   rightAdd(value){
 		var _this=this;
@@ -182,7 +188,7 @@ class ZhuanHuan extends React.Component{
     if (!this.state.mouldSort) {
     dd=[];
     }
-    
+
     var arr=dd.map(function(item,index){
       var j=index;
 
@@ -311,8 +317,12 @@ class ZhuanHuan extends React.Component{
 		}
 
 
-		Store.dispatch(initialize('newCreateForm',this.props.detail));
 
+
+	}
+
+	componentWillReceiveProps(nextProps){
+				Store.dispatch(initialize('newCreateForm',nextProps.detail));
 	}
 
 	 onSubmit(values){
@@ -359,6 +369,8 @@ class ZhuanHuan extends React.Component{
 				}
 
 	render(){
+
+		console.log('------>>>',this.props.detail)
 		const { error, handleSubmit, pristine, reset} = this.props;
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)}>
