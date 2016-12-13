@@ -100,7 +100,7 @@ export default class OrderCreate extends Component {
 		let communityOptions = [];
 		let initialValues = {};
 		Store.dispatch(Actions.callAPI('community-city-selected',{},{})).then(function(communityOptions){
-			communityOptions = communityOptions.communityCity.map((item)=>{
+			communityOptions = communityOptions.map((item)=>{
 		  		item.value = String(item.communityId);
 		  		item.label = item.communityName;
 		  		return item;
