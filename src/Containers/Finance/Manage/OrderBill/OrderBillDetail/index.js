@@ -742,8 +742,8 @@ export default class AttributeSetting extends Component {
 		});
 	}
 
-    historyIncomed=()=>{
-        var _this = this;
+    historyIncomed=(value)=>{
+       /* var _this = this;
         let {
 			params
 		} = this.props;
@@ -753,7 +753,8 @@ export default class AttributeSetting extends Component {
 			
 		}).catch(function(err) {
 			
-		});
+		});*/
+      console.log('11111');
     	
     }
 

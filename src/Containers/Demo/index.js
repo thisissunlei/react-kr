@@ -31,7 +31,6 @@ import {
 	Field,
 	FieldControl,
 	InputDate,
-	SnackTip
 } from 'kr-ui';
 
 import {
@@ -134,7 +133,7 @@ ll=(values)=>{
 
 							 </KrForm>
                              
-                         <SnackTip title='snack' style={{'cursor':'pointer'}}/>   
+                         
 
 					</Section>
 			</div>
