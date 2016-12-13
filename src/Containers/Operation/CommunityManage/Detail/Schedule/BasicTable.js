@@ -258,7 +258,6 @@ export default class BasicTable extends Component {
 		};
 
 		this.currentYear = '2016';
-		this.getWidth = this.getWidth.bind(this);
 
 	}
 
@@ -704,7 +703,6 @@ export default class BasicTable extends Component {
 
 					{
 						showNone && Installmentplan.map((item,index)=>{
-							let width = this.getWidth();
 
 							let itemData = Object.assign(item);
 							return (
@@ -721,15 +719,6 @@ export default class BasicTable extends Component {
 			)
 
 		}
-	}
-	getWidth() {
-		const list = ReactDOM.findDOMNode(this.trLength);
-		let th = list.getElementsByTagName('th')[1].offsetWidth;
-		let length = th * 12;
-		return length;
-
-
-
 	}
 
 
