@@ -92,11 +92,12 @@ export default class DialogComponent extends Component {
 			autoDetectWindowHeight,
 			autoScrollBodyContent,
 			children,
+			contentStyle,
 			...other
 		} = this.props;
-		console.log('autoScrollBodyContent',autoScrollBodyContent);
 
-		let styles = {};
+		let styles = Object.assign({},contentStyle);
+
 		let bodyStyles ={};
 		if(open){
 				styles.display = 'block';
@@ -104,6 +105,7 @@ export default class DialogComponent extends Component {
 		}else{
 				styles.display = 'none';
 		}
+		
 		if(autoScrollBodyContent){
 			bodyStyles.maxHeight = '400px';
 			bodyStyles.overflowY = 'auto';
