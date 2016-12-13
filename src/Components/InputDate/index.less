@@ -6,28 +6,67 @@
     position:relative;
 
     & * {
-      -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
     }
 
-  .calendar {
+
+  .calendar-wrap {
      position:absolute;
      bottom:0;
      left:0;
-     top:calc(100% + 8px);
-     width:210px;
-     height:342px;
+     top:calc(100% + 10px);
+     width:330px;
+     height:380px;
+     overflow-y: hidden;
+     margin-left:-10px;
+     margin-top:-10px;
+  }
+
+  .calendar {
+     width:313px;
+     position:relative;
+     height:360px;
      background-color:#fff;
      border:1px solid #ddd;
      box-shadow:0 0 6px lighten(@calendar-active-color,14%);
      border-radius:4px;
-     padding-left:23px;
-     padding-right:23px;
+     overflow: hidden;
+     box-sizing: border-box;
+     margin-left:10px;
+     margin-top:10px;
+     z-index: 9;
   }
+
+
+  .calendar-content{
+
+      height:35px;
+      line-height: 35px;
+      font-size:12px;
+      .calendar-value{
+          padding-left:10px;
+          padding-right:10px;
+          display:inline-block;
+      }
+
+	.icon{
+  		width:21px;
+  		height:22px;
+  		background:url('images/date.png') no-repeat center center;
+  		background-size: 100% 100%;
+  		position: absolute;
+  		right:7px;
+  		top:50%;
+  		margin-top: -11px;
+  	}
+
+  }
+
 
   .calendar-year-selector{
     width:100%;
@@ -46,11 +85,18 @@
         height:35px;
         line-height: 35px;
         text-align:center;
-        font-size:14px;
-        color:#333;
+        font-size:18px;
+        font-weight:200;
+        color:#666;
 
         &:hover{
           color:@calendar-active-color;
+          font-size:500;
+        }
+        &.year-active{
+          color:@calendar-active-color;
+          font-size:24px;
+          font-size:500;
         }
     }
   }
@@ -72,30 +118,45 @@
             height:35px;
             line-height: 35px;
             text-align:center;
-            font-size:14px;
-            color:#333;
+            font-size:18px;
+            font-weight:200;
+            color:#666;
 
             &:hover{
               color:@calendar-active-color;
+              font-weight:500;
+            }
+            &.month-active{
+              color:@calendar-active-color;
+              font-size:24px;
+              font-weight:500;
             }
         }
       }
 
   .calendar-month-date{
-    width:100%;
-    padding-bottom:10px;
-    padding-top:10px;
     position: relative;
     box-sizing: border-box;
+    margin-left:15px;
+    margin-right:15px;
   }
   .calendar-day-display{
-    margin-top:10px;
+    margin-top:5px;
+    margin-left:15px;
+    margin-right:15px;
+    margin-bottom:5px;
     span{
       width:30px;
       line-height:30px;
       display:inline-block;
       text-align:center;
       font-size:12px;
+      margin-right:11.2px;
+      color:#666;
+      &:last-of-type{
+          margin-right:0;
+      }
+
     }
   }
 
@@ -114,6 +175,12 @@
       background-color:#fff;
       line-height:1.6;
       border-radius:100px;
+      margin-right:11.2px;
+      margin-bottom:2px;
+
+      &:nth-of-type(7n){
+        margin-right:0;
+      }
 
       &:hover{
         background-color:lighten(@calendar-active-color,10%);
@@ -124,25 +191,40 @@
         color:#fff;
 
       }
+      &.placeholder{
+        &:hover{
+          background-color:transparent;
+          color:normal;
+        }
+      }
   }
 
   .calendar-input{
       padding-top:20px;
-      padding-bottom:20px;
       position:relative;
+      padding-left:23px;
+      padding-right:23px;
+
      input[type=text]{
        border:1px solid #ddd;
        border-radius:4px;
        height:30px;
        width:200px;
        display:block;
-       padding-left:5px;
-       padding-right:5px;
+       padding-left:8px;
+       padding-right:8px;
        box-sizing: border-box;
+       -webkit-appearance:none ;
+       color:#666;
+       font-size:12px;
        &:focus{
          border-color:@calendar-active-color;
          outline:none;
        }
+     }
+     .line{
+       margin-top:20px;
+       border-bottom:1px dashed #ddd;
      }
   }
 
@@ -151,8 +233,9 @@
     position: relative;
     box-sizing: border-box;
     vertical-align: middle;
-    border-top:1px dashed #eee;
-    padding-top:20px;
+    padding-top:10px;
+    margin-left:15px;
+    margin-right:15px;
 
     .left-button,
     .right-button{
@@ -172,15 +255,16 @@
 
     .main-content{
       display:inline-block;
-      width:150px;
+      width:221px;
       box-sizing: border-box;
       text-align: center;
     }
 
     .year-number,
     .month-number{
-      font-size:18px;
+      font-size:18px !important;
       font-weight: 600;
+      color:#333 !important;
     }
 
 
@@ -190,6 +274,7 @@
       text-align: center;
       cursor: pointer;
       display:inline-block;
+      margin-left:10px;
     }
 
     .month-number{

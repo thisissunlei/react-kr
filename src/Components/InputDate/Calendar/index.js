@@ -2,6 +2,8 @@ import React, {
 	Component
 } from 'react';
 
+import ReactDOM from 'react-dom';
+
 import CalendarInput from '../CalendarInput';
 import CalendarDayDisplay from '../CalendarDayDisplay';
 import CalendarMonthDate from '../CalendarMonthDate';
@@ -13,6 +15,9 @@ export default class Calendar extends React.Component {
 
 	static displayName = 'Calendar';
 
+	static defaultProps = {
+		value:'2016-12-7'
+	}
 	static propTypes = {
 		/**
 		*样式class类名
@@ -24,9 +29,12 @@ export default class Calendar extends React.Component {
 		style: React.PropTypes.object,
     open:React.PropTypes.bool,
 		onChange:React.PropTypes.func,
+		value:React.PropTypes.string,
 	}
 
-
+	static contextTypes =  {
+		openCalendarDialog: React.PropTypes.func.isRequired
+	}
 		static childContextTypes =  {
 	          onSelectedYear: React.PropTypes.func.isRequired,
 						onSelectedMonth: React.PropTypes.func.isRequired,
@@ -53,18 +61,81 @@ export default class Calendar extends React.Component {
 		super(props)
 
 		this.state = {
-			year:'2015',
-			month:'11',
-			date:'1',
+			year:this.props.year,
+			month:this.props.month,
+			date:this.props.date,
 			openYearSelector:false,
 			openMonthSelector:false,
 		}
 
 	}
 
-	onSetDate = (year,month,date)=>{
+	componentDidMount(){
+		let {value} = this.props;
+		this.setInitValue(value);
 
-		console.log('year',year,month,date)
+		var ele = ReactDOM.findDOMNode(this);
+		var position = {};
+		var winWidth = window.innerWidth;
+		if(ele.getClientRects().length){
+				position = ele.getBoundingClientRect();
+		}
+
+		if(position && position.right && position.right>winWidth){
+			ele.style.right = '0px';
+			ele.style.left = 'auto';
+		}
+
+	}
+
+	componentWillReceiveProps(nextProps) {
+			if(nextProps.value !== this.props.value){
+				this.setInitValue(nextProps.value);
+			}
+	}
+
+	setInitValue = (value)=>{
+
+		let year;
+		let month;
+		let date;
+		let valueArr = [];
+
+		if(!value){
+				value = +new Date;
+		}
+
+	if(!isNaN(value)){
+
+			var nowTime = new Date(value);
+
+			valueArr.push(nowTime.getFullYear());
+			valueArr.push(nowTime.getMonth());
+			valueArr.push(nowTime.getDate());
+
+		}
+
+		if(typeof value === 'string' && value.indexOf('-')!==-1){
+			valueArr = value.split('-');
+		}
+
+		if(typeof value === 'string' && value.indexOf('/')!==-1){
+			valueArr = value.split('/');
+		}
+
+		year = valueArr[0];
+		month = valueArr[1];
+		date = valueArr[2];
+
+		this.setState({
+			year,
+			month,
+			date,
+		});
+
+	}
+
+	onSetDate = (year,month,date)=>{
 			this.setState({
 					year,
 					month,
@@ -143,28 +214,28 @@ export default class Calendar extends React.Component {
 			this.setState({date});
 			const {onChange} = this.props;
 			let {year,month} = this.state;
-			onChange && onChange(year+'-'+month+'-'+date+' 00:00:00');
+			onChange && onChange(year+'-'+month+'-'+date);
+			let {openCalendarDialog} = this.context;
+			openCalendarDialog && openCalendarDialog();
 	}
 
 	render() {
 
-    let {open} = this.props;
 
 		let {year,month,date,openYearSelector,openMonthSelector} = this.state;
 
-    if(!open){
-      return null;
-    }
-
 		return (
-				<div className="calendar">
+				<div className="calendar-wrap">
+				<div className="calendar  animated slideInDown" style={{'animationDuration':'0.2s'}}>
+
 					<CalendarInput year={year} month={month} date={date} />
 					<CalendarToolbar year={year} month={month} openYearSelectorDialog={this.openYearSelectorDialog} openMonthSelectorDialog={this.openMonthSelectorDialog}/>
 					<CalendarDayDisplay />
-          <CalendarMonthDate year={year} month={month} date={date} />
+          {year && month && date && <CalendarMonthDate year={year} month={month} date={date} />}
 
-					<CalendarYearSelector open={openYearSelector} onSelected={this.onSelectedYear}/>
-					<CalendarMonthSelector open={openMonthSelector} onSelected={this.onSelectedMonth}/>
+					{openYearSelector && <CalendarYearSelector onSelected={this.onSelectedYear} year={year}/> }
+					{openMonthSelector && <CalendarMonthSelector onSelected={this.onSelectedMonth} month={month}/>}
+				</div>
 				</div>
 		);
 

@@ -65,17 +65,14 @@ export default class CancleLeader extends Component {
 	
 
 	render() {
-		
-		
-
 		return (
 			<div>
 				<p style={{marginTop:55,marginBottom:59,textAlign:'center',color:'#333'}}>确定取消Leader吗？ </p>
 				<Grid style={{marginBottom:20}}>
 					<Row>
 						<ListGroup>
-							<ListGroupItem style={{width:'150px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="button"  onTouchTap={this.onSubmit} width={90} height={34}/></ListGroupItem>
-							<ListGroupItem style={{width:'150px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/> </ListGroupItem>
+							<ListGroupItem style={{width:'47%',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="button"  onTouchTap={this.onSubmit} width={90} height={34}/></ListGroupItem>
+							<ListGroupItem style={{width:'47%',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/> </ListGroupItem>
 						</ListGroup>
 					  </Row>
 				</Grid>

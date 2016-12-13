@@ -258,7 +258,6 @@ export default class D3Content extends Component {
 		})
 		if (sameNode.length) {
 			sameNode.map((item) => {
-				console.log('------item', item)
 				item.pointDay = that.countDays(item.pointDate);
 				finaRedPointVoList.map((value, index) => {
 					if (item.pointDay === value.pointDay) {
@@ -270,7 +269,6 @@ export default class D3Content extends Component {
 					}
 				})
 			})
-			console.log('----finaRedPointVoList', finaRedPointVoList)
 
 		}
 		if (sameNode.length) {
@@ -329,45 +327,38 @@ export default class D3Content extends Component {
 			finaRedPointVo
 		} = this.props;
 		let finaRedPointVoList = finaRedPointVo;
+		var {
+				currentYear
+			} = this.props;
+		let year = `${currentYear}-1-1`;
+		var initial = (new Date(year)).getTime();
 
 		const that = this;
 		let newArr = [];
 
-		for (let j in finaRedPointVo) {
+		for (let j in finaRedPointVoList) {
+			finaRedPointVoList[j].pointDay = that.countDays(finaRedPointVoList[j].pointDate);
+		};
 
-			if (!finaRedPointVo[j].pointDate) {
+		for (let j in finaRedPointVoList) {
+			if (finaRedPointVoList[j].pointDate < initial) {
 				finaRedPointVoList.splice(j, 1);
-			} else {
-				finaRedPointVoList[j].pointDay = that.countDays(finaRedPointVo[j].pointDate);
 			}
 		};
 		//判断时间点是否重合,若重合，合并数据
-		if (finaRedPointVo.length === 1) {
+		if (finaRedPointVoList.length === 1) {
 			finaRedPointVoList[0].arr = [];
 			finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[0].plan);
-		}
-		// if(finaRedPointVo.length===2){
-		// 	if(finaRedPointVoList[0].pointDate === finaRedPointVoList[1].pointDate){
-		// 		finaRedPointVoList[0].arr = [];
-		// 		finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[0].plan);
-		// 		finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[1].plan);
-		// 	}else{
-		// 		finaRedPointVoList[0].arr = [];
-		// 		finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[0].plan);
-		// 		finaRedPointVoList[1].arr = [];
-		// 		finaRedPointVoList[1].arr = finaRedPointVoList[1].arr.concat(finaRedPointVoList[1].plan);
-		// 	}
-		// }	
-		for (var i = 0; i <= finaRedPointVo.length - 1; i++) {
+		}	
+		for (var i = 0; i <= finaRedPointVoList.length - 1; i++) {
 			finaRedPointVoList[i].arr = [];
 			finaRedPointVoList[i].arr = finaRedPointVoList[i].arr.concat(finaRedPointVoList[i].plan);
-			for (var j = finaRedPointVo.length - 1; j >= 0; j--) {
+			for (var j = finaRedPointVoList.length - 1; j >= 0; j--) {
 				if (finaRedPointVoList[i].pointDate === finaRedPointVoList[j].pointDate && i != j) {
 					finaRedPointVoList[i].arr = finaRedPointVoList[i].arr.concat(finaRedPointVoList[j].plan);
 				}
 			}
 		}
-
 
 
 		return finaRedPointVoList;
@@ -387,6 +378,24 @@ export default class D3Content extends Component {
 			// if(whiteBar.length>1){whiteBar.pop();}
 
 		return whiteBar;
+	}
+	getLeft=(value)=>{
+		var {
+				currentYear
+			} = this.props;
+		let start = `${currentYear}-1-1`;
+		let end = `${currentYear-1}-12-31 12:00:00`;
+		let startTime = `${currentYear}-1-1 12:00:00`;
+		let left = '-5px';
+		start = (new Date(start)).getTime();
+		end = (new Date(end)).getTime();
+		if(value == end || value >= start){
+			left = '-10px';
+		}
+		if(value == startTime){
+			left = "10px";
+		}
+		return left;
 	}
 
 	render() {
@@ -475,9 +484,11 @@ export default class D3Content extends Component {
 					redNodeList && redNodeList.map((item,index)=>{
 						
 						let nodeKind = item.color===1?'grey-circle':'red-node';
+						let left = this.getLeft(item.pointDate);
+
 						
 						return (
-							<span className={`${nodeKind}`} key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}} data-tip data-for={`${item.pointDate}${index}red${item.plan[0].id}`}>
+							<span className={`${nodeKind}`} key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`,left:left}} data-tip data-for={`${item.pointDate}${index}red${item.plan[0].id}`}>
 								<ReactTooltip id={`${item.pointDate}${index}red${item.plan[0].id}`} place="top" type="dark" effect="solid" >
 									{item.plan && item.arr.map((value,i)=>{
 										return(
