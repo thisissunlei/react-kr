@@ -495,13 +495,14 @@ class NewCreateForm extends Component {
 
 <form onSubmit={handleSubmit(this.onSubmit)} >
 				<KrField name="wherefloor" style={{width:370,marginLeft:100}} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true}/>
-				<KrField grid={1/3}  component="group" label="租赁期限" requireLabel={true}>
+				<KrField grid={1/2} left={20}  component="group" label="租赁期限" requireLabel={true}>
 					<ListGroup>
 						<ListGroupItem style={{width:'45%',padding:0,marginLeft:'-10px',marginTop:'-10px'}}> <KrField name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/></ListGroupItem>
-						<ListGroupItem style={{width:'9%',textAlign:'center',padding:0,marginLeft:10,marginTop:'-10px'}}><span style={{display:'inline-block',lineHeight:'58px'}}>至</span></ListGroupItem>
+						<ListGroupItem style={{width:'5%',textAlign:'center',padding:0,marginLeft:10,marginTop:'-10px'}}><span style={{display:'inline-block',lineHeight:'58px'}}>至</span></ListGroupItem>
 						<ListGroupItem style={{width:'45%',padding:0,marginTop:'-10px'}}> <KrField name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} simple={true}/> </ListGroupItem>
 					</ListGroup>
-				</KrField>			
+				</KrField>
+				<div className="detailList">			
 				<DotTitle title='租赁明细'>
 
 				       <Grid>
@@ -547,7 +548,7 @@ class NewCreateForm extends Component {
 						</Table>
 
                         </DotTitle>
-
+					</div>
 
 				<KrField   name="mainbillid" type="hidden" component="input" />
 
