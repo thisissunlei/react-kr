@@ -429,12 +429,32 @@
 	},
 	// 会员中心-会员详细信息－个人行为
 	'getPersonalBehavior': {
-		url: '/mockjsdata/4/member/mbr-device-log?id={id}',
+		url: '/mockjsdata/4/member/mbr-device-log?page={page}&pageSize={pageSize}&memberId={memberId}&startTime={startTime}&endTime={endTime}',
 		method: 'get'
 	},
-	//会员中心-新增会员－社区查询
+  // 会员中心-会员详细信息－组织架构
+	'getOrganizationChart': {
+		url: '/mockjsdata/4/member/company-team?page={page}&pageSize={pageSize}&memberId={memberId}',
+		method: 'get'
+	},
+  // 会员中心－会员详细信息－更新日志
+  'getUpdateLog': {
+		url: '/mockjsdata/4/member/mbr-log?page={page}&pageSize={pageSize}&memberId={memberId}&startTime={startTime}&endTime={endTime}',
+		method: 'get'
+	},
+	//会员中心-新增会员－社区模糊查询
 	'searchCommunityByCommunityText': {
 		url: '/mockjsdata/4/member/community-list?communityText={communityText}',
+		method: 'post'
+	},
+  //会员中心-新增会员－公司模糊查询
+	'searchCommunityByCommunityText': {
+		url: '/mockjsdata/4/member/community-list?communityText={communityText}',
+		method: 'post'
+	},
+  //会员中心-新增会员－公司模糊查询
+  'getCompanyByCompanyName': {
+		url: '/mockjsdata/4/member/company-list?companyText={companyText}',
 		method: 'get'
 	},
   //个人中心-获取个人信息
@@ -462,12 +482,19 @@
   	url:'/mockjsdata/4/member/member-add-edit?companyId={companyId}&memberId={memberId}&communityId={communityId}',
   	method:'get'
   },
-
+  //新建编辑会员
+  'membersChange':{
+  	url:'/mockjsdata/4/member/member?companyId={companyId}&email={email}&communityId={communityId}&foreignCode={foreignCode}&jobId={jobId}&name={name}&phone={phone}&sendMsg={sendMsg}',
+  	method:'post'
+  },
   //个人中心-获取验证码
   'PersonalCenterGetVerificationCode': {
     url:'/mockjs/15/krspace_isso_web/sys/sysOwn/getVerifyCode',
     method:'get'
   }
+
+
+
 
 }
 

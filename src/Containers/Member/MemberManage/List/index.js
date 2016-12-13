@@ -1,8 +1,6 @@
 import React, {
 	Component
 } from 'react';
-
-
 import {
 	Title,
 	DatePicker,
@@ -53,15 +51,23 @@ export default class List extends Component {
 	openNewCreateDialog() {
 		this.setState({
 			openNewCreate: !this.state.openNewCreate,
-			// searchParams:{
-			// 	pageSize:'15'
-			// }
+			searchParams:{
+				pageSize:'15'
+			}
 		});
 
 	}
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('joinCreateForm', 'lessorContacttel', personel.mobile));
 		Store.dispatch(change('joinCreateForm', 'lessorContactName', personel.lastname));
+	}
+	// 社区模糊查询
+	onChangeSearchCommunity(community) {
+		Store.dispatch(change('joinCreateForm', 'communityName', community.communityName));
+	}
+	// 公司模糊查询
+	onChangeSearchCompany(company) {
+		Store.dispatch(change('joinCreateForm', 'companyName', company.companyName));
 	}
 	onNewCreateCancel() {
 		this.openNewCreateDialog();
@@ -82,17 +88,12 @@ export default class List extends Component {
 	// 点击详情跳转到详情页面
 		if (type == 'view') {
 			let orderId = itemDetail.id
-				//window.location.href = `./#/finance/Manage/orderbill/${orderId}/detail`;
 			window.open(`./#/member/MemberManage/${orderId}/detail`, orderId);
 		} else if (type == 'edit') {
 			// this.openEditDetailDialog();
 		}
 	}
-	// 社区联想
-	onChangeSearchPersonel(personel) {
-		Store.dispatch(change('joinCreateForm', 'lessorContacttel', personel.mobile));
-		Store.dispatch(change('joinCreateForm', 'lessorContactName', personel.lastname));
-	}
+
 	render() {
 
 		let {
@@ -174,21 +175,17 @@ export default class List extends Component {
 											 </TableRowColumn>
 										 </TableRow>
 									</TableBody>
-
 									<TableFooter></TableFooter>
-
 									</Table>
 								</Section>
-
 								<Dialog
 									title="新建会员"
 									modal={true}
 									open={this.state.openNewCreate}
 									onClose={this.openNewCreateDialog}
-									// bodyStyle={{paddingTop:34}}
 									contentStyle={{width:687}}
 								>
-								<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
+										<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 							  </Dialog>
 				</div>
 		);

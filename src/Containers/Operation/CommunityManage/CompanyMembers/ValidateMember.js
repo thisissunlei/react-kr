@@ -64,6 +64,7 @@ export default class CancleLeader extends Component {
 	
 
 	render() {
+		console.log('seleced',this.props.seleced);
 		
 		
 

@@ -67,7 +67,10 @@ export default class CompanyMembers extends Component {
 			cancleLeader:false,
 			setLeader:false,
 			editMember:false,
-			itemDetail:{}
+			itemDetail:{},
+			memberList:[],
+			allData:{},
+			seleced:[]
 		}
 		this.companyId = this.context.router.params.companyId;
 		this.params = this.context.router.params;
@@ -79,9 +82,31 @@ export default class CompanyMembers extends Component {
 
 	}
 
-	onLoaded=()=>{
-		console.log('value');
+	onLoaded=(values)=>{
+		console.log('onloaded',values);
+		this.setState({
+			allData:values.items
+		})
 
+
+	}
+	onSelect=(values)=>{
+		let {allData} = this.state;
+		console.log(values);
+		let seleced = [];
+		allData.map((value,index)=>{
+			values.map(item=>{
+				console.log(index,item);
+				if(item == index ){
+					seleced.push(value)
+				}
+			})
+		})
+		this.setState({
+			seleced
+		})
+
+		// console.log('onSelect',seleced);
 	}
 	editMember(itemDetail){
 		this.setState({
@@ -95,6 +120,14 @@ export default class CompanyMembers extends Component {
 		});
 	}
 	validateMember=()=>{
+		let {seleced} = this.state;
+		if(!seleced.length){
+			Notify.show([{
+				message: '请选择会员',
+				type: 'danger',
+			}]);
+			return;
+		}
 		this.setState({
 			validateMember: !this.state.validateMember,
 		});
@@ -162,12 +195,10 @@ export default class CompanyMembers extends Component {
 	}
 	editMemberForm=(value)=>{
 		console.log('index',value);
-		Store.dispatch(Actions.callAPI('setLeader', params)).then(function(response) {
-			if(value.isLeader){
-				_this.setLeaders();
-			}else{
-				_this.cancleLeaders();
-			}
+		let _this = this;
+		let params = value;
+		Store.dispatch(Actions.callAPI('membersChange', params)).then(function(response) {
+			_this.editMembers()
 			Notify.show([{
 				message: '设置成功',
 				type: 'success',
@@ -184,6 +215,10 @@ export default class CompanyMembers extends Component {
 			}]);
 		});
 	}
+	onExport=(value)=>{
+
+		console.log('onExport',value);
+	}
 	
 
 	
@@ -191,7 +226,7 @@ export default class CompanyMembers extends Component {
 
 
 	render() {
-		let {itemDetail} = this.state;
+		let {itemDetail,seleced} = this.state;
 		
 
 		return (
@@ -216,10 +251,13 @@ export default class CompanyMembers extends Component {
 					onProcessData={(state)=>{
 						return state;
 						}}
-					exportSwitch={true}
+					onSelect={this.onSelect}
+					displayCheckbox={true}
 					ajaxFieldListName='items'
 					ajaxUrlName='getCompanyMemberList'
 					ajaxParams={this.state.searchParams}
+					exportSwitch={true}
+					onExport={this.onExport}
 				>
 				<TableHeader>
 						{/*<TableHeaderColumn>ID</TableHeaderColumn>*/}
@@ -293,7 +331,7 @@ export default class CompanyMembers extends Component {
 			open={this.state.validateMember}
 			onClose={this.validateMember}
 			contentStyle={{width:687}}>
-				<ValidateMember onSubmit={this.onNewCreateSubmit} onCancel={this.validateMember} />
+				<ValidateMember onSubmit={this.onNewCreateSubmit} onCancel={this.validateMember} seleced={seleced}/>
 			</Dialog>
 			<Dialog
 			title="编辑员工"

@@ -760,7 +760,7 @@ export default class AttributeSetting extends Component {
 
 
 
-		//console.log('221111',this.context.router)
+		console.log('221111',this.context.router)
 
 
 		//判断按钮出现与隐藏

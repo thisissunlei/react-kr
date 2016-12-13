@@ -58,7 +58,7 @@ export default class BasicInfo extends Component {
 			// 	pageSize: 20,
 			// 	index:''
 			// },
-			companyInfo:{}
+			workInfo:{}
 		}
 	}
 
@@ -77,7 +77,7 @@ export default class BasicInfo extends Component {
 			// console.log("response.baseInfo",response.baseInfo);
 
 			_this.setState({
-				companyInfo:response.companyInfo,
+				workInfo:response.workInfo,
 				// detailPayment: response.paymentdata,
 				// detailIncome: response.incomedata,
 				// detailBalance: response.balance,
@@ -98,7 +98,7 @@ export default class BasicInfo extends Component {
 	// }
 	render() {
 		const {
-		companyInfo
+		workInfo
 			// detailPayment,
 			// detailIncome
 		} = this.state;
@@ -116,32 +116,25 @@ export default class BasicInfo extends Component {
 			<div className='ui-detail-order'>
 
 			           {/*<KrField grid={1/3} alignRight={true} label="星座:" component="labelText" value={basicinfo.star} defaultValue="无"/>*/}
-			           <KrField grid={1/3} alignRight={true} label="职位:" component="labelText" value={companyInfo.jobName} defaultValue="无"/>
+			           <KrField grid={1/3} alignRight={true} label="职位:" component="labelText" value={workInfo.jobName} defaultValue="无"/>
 
-			           <KrField grid={1/3}  alignRight={true} component="labelText"  label="工位号:" value={companyInfo.stationCode} defaultValue="无" />
+			           <KrField grid={1/3}  alignRight={true} component="labelText"  label="工位号:" value={workInfo.stationCode} defaultValue="无" />
 
-								 <KrField grid={1/3}  alignRight={true} component="labelText"  label="社区:" value={companyInfo.communityName} defaultValue="无" />
+								 <KrField grid={1/3}  alignRight={true} component="labelText"  label="社区:" value={workInfo.communityName} defaultValue="无" />
 
-                <KrField grid={1/3} alignRight={true} label="公司:" component="labelText"  value={companyInfo.customerCompany} defaultValue="无"/>
+                <KrField grid={1/3} alignRight={true} label="公司:" component="labelText"  value={workInfo.customerCompany} defaultValue="无"/>
 
-			           <KrField grid={1/3} alignRight={true} label="入驻氪空间状态:" component="labelText"  value={companyInfo.customerCompany} defaultValue="无"/>
+			           <KrField grid={1/3} alignRight={true} label="入驻氪空间状态:" component="labelText"  value={workInfo.customerCompany} defaultValue="无"/>
 
-			           <KrField grid={1/3} alignRight={true} label="入职时间:" component="labelText" type="date" value={companyInfo.entryTime} defaultValue="无"/>
-
-
-									<KrField grid={1/3} alignRight={true} label="入驻氪空间时间:" component="labelText" type="date" value={companyInfo.customerCompany} defaultValue="无"/>
-
-			            <KrField grid={1/3} alignRight={true} label="工作地点:" component="labelText" value={companyInfo.cityName} defaultValue="无" />
-
-									<KrField grid={1/3} alignRight={true} label="离开氪空间时间:" component="labelText" type="date" value={companyInfo.customerCompany} defaultValue="无"/>
+			           <KrField grid={1/3} alignRight={true} label="入职时间:" component="labelText" type="date" value={workInfo.entryTime} defaultValue="无"/>
 
 
-									{/*{detailPayment.map((item,index)=>
-						    <KrField key={index} grid={1/3} label={item.propname} component="labelText" value={item.propamount}/>
-						 )}
-						 {detailIncome.map((item,index)=>
-						    <KrField key={index} grid={1/3} label={item.propname} component="labelText" value={item.propamount}/>
-						 )}*/}
+									<KrField grid={1/3} alignRight={true} label="入驻氪空间时间:" component="labelText" type="date" value={workInfo.customerCompany} defaultValue="无"/>
+
+			            <KrField grid={1/3} alignRight={true} label="工作地点:" component="labelText" value={workInfo.cityName} defaultValue="无" />
+
+									<KrField grid={1/3} alignRight={true} label="离开氪空间时间:" component="labelText" type="date" value={workInfo.customerCompany} defaultValue="无"/>
+
 			</div>
 
 		)
