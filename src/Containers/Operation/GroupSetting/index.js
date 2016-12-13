@@ -23,7 +23,7 @@ import {
 	Notify,
 	Tooltip,
 	Message,
-	Title 
+	Title
 
 } from 'kr-ui';
 import NewCreateForm from './CreateForm';
@@ -32,7 +32,7 @@ import SearchUpperForm from './SearchUpperFrom'
 import './index.less';
 
 
-export default class Initialize  extends Component{
+export default class GroupSetting  extends Component{
 
 	constructor(props,context){
 		super(props, context);
