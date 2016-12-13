@@ -126,6 +126,7 @@ class NewCreateForm extends Component {
 			selectedStation: [],
 			openStation: false,
 			openStationUnitPrice: false,
+			HeightAuto: false,
 		}
 	}
 
@@ -458,14 +459,15 @@ class NewCreateForm extends Component {
 		Store.dispatch(change('joinCreateForm', 'lessorContacttel', personel.mobile));
 		Store.dispatch(change('joinCreateForm', 'lessorContactName', personel.lastname));
 	}
-	renderStation = (stationVos) => {
-
-
+	showMore = () => {
+		this.setState({
+			HeightAuto: !this.state.HeightAuto
+		})
 
 	}
 
 	render() {
-
+		var _this = this;
 		let {
 			error,
 			handleSubmit,
@@ -489,8 +491,11 @@ class NewCreateForm extends Component {
 
 		let {
 			billList,
-			stationVos
+			stationVos,
+			HeightAuto
 		} = this.state;
+
+
 
 		return (
 
@@ -520,7 +525,7 @@ class NewCreateForm extends Component {
 								</Col>
 							</Row>
 						</Grid>
-
+				<div  className={HeightAuto?'auto':'stationList'}>
 				<Table  displayCheckbox={true} onSelect={this.onStationSelect}>
 				<TableHeader>
 				<TableHeaderColumn>类别</TableHeaderColumn>
@@ -550,12 +555,10 @@ class NewCreateForm extends Component {
 								);
 							})
 						}
-						
-						
-						
 						</TableBody>
 						</Table>
-						{stationVos.length>5?<div className="Btip"> <p><span>展开</span><span className="Toprow"></span></p></div>:''}
+					</div>	
+						{stationVos.length>5?<div className="Btip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'Toprow':'Bottomrow'}></span></p></div>:''}
 						
                         </DotTitle>
 					</div>
