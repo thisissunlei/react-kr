@@ -135,7 +135,7 @@ export default class ConfirmFormDetail  extends Component{
 									</TableHeader>
 									<TableBody>
 
-										{detail.list.map((item,index)=>{
+										{detail.list && detail.list.map((item,index)=>{
 											return (
 												<TableRow key={index}>
 													<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
