@@ -96,7 +96,7 @@ export default class DialogComponent extends Component {
 			...other
 		} = this.props;
 
-		let styles = Object.assign({},contentStyle);
+		let styles = {};
 
 		let bodyStyles ={};
 		if(open){
@@ -105,16 +105,16 @@ export default class DialogComponent extends Component {
 		}else{
 				styles.display = 'none';
 		}
-		
+
 		if(autoScrollBodyContent){
-			bodyStyles.maxHeight = '400px';
+			//bodyStyles.maxHeight = '400px';
 			bodyStyles.overflowY = 'auto';
 		}
 
 		return (
 			<div className="ui-dialog" ref="dialog" style={styles}>
 				<div className="dialog-modal"></div>
-				<div className="dialog-content">
+				<div className="dialog-content" style={contentStyle}>
 						<div className="dialog-header">
 								<div className="dialog-header-title"> {title} </div>
 								<span className="close" onClick={this.onClose}></span>
