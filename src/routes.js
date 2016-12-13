@@ -80,6 +80,11 @@ export default (
 			<Route path="communityManage" component={Basic}>
 					<Route path="detail" component={Operation.CommunityManage.Detail}/>
 			</Route>
+			{/*公司成员*/}
+
+			<Route path="companyMembers" component={Basic}>
+					<Route path=":companyId/list/:communityId" component={Operation.CommunityManage.CompanyMembers}/>
+			</Route>
 		</Route>
 
 		{/*OA办公*/}

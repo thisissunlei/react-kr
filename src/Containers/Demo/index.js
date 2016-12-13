@@ -77,13 +77,23 @@ export default class Demo extends Component{
 		Message.show('hahaha 爱的范德萨发几块了');
 	}
 
+ll=(values)=>{
+	console.log(values,"???");
+}
+
+	list=(value)=>{
+		console.log('city',value);
+	}
+
+
 
 	render(){
 		return(
 			<div>
 					<Section title="demo" description="" >
+						<KrField grid={1/2} label='city' component='city' onSubmit={this.list}/>
 
-
+						<KrField oldText={"123"} label="订单名称" inline="inline" alignRight={true} component="editLabelText" save={this.ll} />
 						<KrForm name="demoForm" onSubmit={function(values){
 									console.log('values',values);
 							}} >

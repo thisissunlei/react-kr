@@ -68896,8 +68896,13 @@ module.exports = toArray;
 !function (root, name, definition) {
   if (typeof module != 'undefined' && module.exports) module.exports = definition()
   else if (true) __webpack_require__(431)(name, definition)
+<<<<<<< HEAD
   else root[name] = definition()
 }(this, 'bowser', function () {
+=======
+  else this[name] = definition()
+}('bowser', function () {
+>>>>>>> abbfbb54d92a92634db4889936a8565236fd8f61
   /**
     * See useragents.js for examples of navigator.userAgent
     */

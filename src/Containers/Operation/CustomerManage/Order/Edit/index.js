@@ -113,7 +113,7 @@ export default class OrderCreate extends Component {
 
 
 		Store.dispatch(Actions.callAPI('get-simple-order',{
-			mainBillId:this.context.params.oriderId
+			mainBillId:this.context.params.customerId
 		},{})).then(function(response){
 			let initialValues = {};
 			initialValues = response;
