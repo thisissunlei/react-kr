@@ -458,7 +458,11 @@ class NewCreateForm extends Component {
 		Store.dispatch(change('joinCreateForm', 'lessorContacttel', personel.mobile));
 		Store.dispatch(change('joinCreateForm', 'lessorContactName', personel.lastname));
 	}
+	renderStation = (stationVos) => {
 
+
+
+	}
 
 	render() {
 
@@ -493,7 +497,7 @@ class NewCreateForm extends Component {
 
 			<Paper width={960}>
 
-<form onSubmit={handleSubmit(this.onSubmit)} >
+		<form onSubmit={handleSubmit(this.onSubmit)} >
 				<KrField name="wherefloor" style={{width:370,marginLeft:100}} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true}/>
 				<KrField grid={1/2} left={20}  component="group" label="租赁期限" requireLabel={true}>
 					<ListGroup>
@@ -526,27 +530,33 @@ class NewCreateForm extends Component {
 						<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
 						</TableHeader>
 						<TableBody>
-						{stationVos.map((item,index)=>{
-							var typeLink = {
-								value: this.state.stationVos[index].unitprice,
-								requestChange: this.onStationVosChange.bind(null, index)
-							}
-							return (
-								<TableRow key={index}>
-									<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
-									<TableRowColumn>{item.stationName}</TableRowColumn>
-									<TableRowColumn>
-											<input type="text" name="age"  valueLink={typeLink} />
-									</TableRowColumn>
-									<TableRowColumn> <KrDate value={item.leaseBeginDate}/></TableRowColumn>
-									<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
+						{
+							stationVos.map((item, index) => {
+								var typeLink = {
+									value: this.state.stationVos[index].unitprice,
+									requestChange: this.onStationVosChange.bind(null, index)
+								}
+								return (
+									<TableRow key={index}>
+										<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
+										<TableRowColumn>{item.stationName}</TableRowColumn>
+										<TableRowColumn>
+												<input type="text" name="age"  valueLink={typeLink} />
+										</TableRowColumn>
+										<TableRowColumn> <KrDate value={item.leaseBeginDate}/></TableRowColumn>
+										<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
 
-									</TableRow>
-							);
-						})}
+										</TableRow>
+								);
+							})
+						}
+						
+						
+						
 						</TableBody>
 						</Table>
-
+						{stationVos.length>5?<div className="Btip"> <p><span>展开</span><span className="Toprow"></span></p></div>:''}
+						
                         </DotTitle>
 					</div>
 
