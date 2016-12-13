@@ -119,7 +119,7 @@ export default class OrderCreate extends Component {
 			});
 
 			orderTypeOptions = response.sysDicPayments.map((item) => {
-				item.value = item.id;
+				item.value = String(item.id);
 				item.label = item.dicName;
 				return item;
 			});
@@ -163,7 +163,6 @@ export default class OrderCreate extends Component {
 		} = this.state;
 
 
-		console.log('orderTypeOptions------', orderTypeOptions)
 
 		return (
 
