@@ -69,8 +69,13 @@ export default class CreateMemberForm extends Component {
 			companyId:url.companyId,
 			memberId:memberId
 		}
+		let _this = this;
 		Store.dispatch(Actions.callAPI('getMemberBasicData', params)).then(function(response) {
 			console.log(response);
+			// _this.setState({
+			// 	community:,
+			// 	company:,
+			// })
 			
 
 		}).catch(function(err) {
@@ -93,14 +98,14 @@ export default class CreateMemberForm extends Component {
 		
 
 		return (
-			<div>
+			<div className="edit-form">
 				<KrForm name="editForm" initialValues={detail} onSubmit={function(values){
 									console.log('values',values);
 							}} >
-					<div>
-						<span>{detail.name}</span>
-						<span>未验证</span>
-						<span>（员工UserID：{detail.id}）</span>
+					<div className="person-info">
+						<span className="person-name">{detail.name}</span>
+						<span className="person-status">未验证</span>
+						<span className="person-id">（员工UserID：{detail.id}）</span>
 
 					</div>
 					<FieldControl grid={1} name="phone" label="手机号" component="labelText" / >
