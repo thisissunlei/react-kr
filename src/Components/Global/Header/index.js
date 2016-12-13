@@ -89,16 +89,12 @@ class Header extends Component {
 
 	handleToggle() {
 
-	    var {
+		var {
 			actions,
 			sidebar_nav,
 			flag
 		} = this.props;
-        
-        //console.log('3333tttt',actions.setCurrentNav())
- 
-		
-       
+
 		actions.switchSidebarNav(!!!sidebar_nav.switch_value);
 	}
 
@@ -118,7 +114,7 @@ class Header extends Component {
 	}
 
 	handleRequestClose() {
-	    
+
 		var {
 			actions,
 			bottom_nav
@@ -174,7 +170,7 @@ class Header extends Component {
 			right: 0,
 			backgroundColor: '#328ECC',
 			height: "60px",
-			zIndex: 300
+			zIndex: 10
 		};
 
 		var {

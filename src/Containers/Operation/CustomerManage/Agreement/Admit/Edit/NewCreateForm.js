@@ -318,7 +318,6 @@ class NewCreateForm extends Component {
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
-		console.log('form', form);
 
 		const {
 			onSubmit
@@ -401,7 +400,7 @@ class NewCreateForm extends Component {
 		} = this.props;
 
 		try {
-			billList.map(function(item, index) {
+			billList && billList.map(function(item, index) {
 				item.leaseBeginDate = changeValues.leaseBegindate;
 				item.leaseEndDate = changeValues.leaseEnddate;
 				item.stationId = item.id;
@@ -541,7 +540,7 @@ class NewCreateForm extends Component {
 						</TableHeader>
 						<TableBody>
 						{
-							stationVos.map((item,index)=>{
+							stationVos && stationVos.map((item,index)=>{
 							return (
 								<TableRow key={index}>
 									<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>

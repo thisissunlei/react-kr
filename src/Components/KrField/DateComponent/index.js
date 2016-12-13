@@ -80,7 +80,9 @@ export default class DateComponent extends React.Component {
 		let { input, onChange} = this.props;
 
 		var result = this.formatDate(value);
+
 		input.onChange(result);
+
 		onChange && onChange(result);
 	}
 
