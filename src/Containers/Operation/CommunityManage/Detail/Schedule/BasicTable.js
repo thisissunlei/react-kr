@@ -602,6 +602,11 @@ export default class BasicTable extends Component {
 				var totalCount = 0;
 				var totalPages = 0;
 			}
+			if(response.vo.totalPages == 1){
+				_this.setState({
+					istip:true
+				})
+			}
 
 
 			state = {
