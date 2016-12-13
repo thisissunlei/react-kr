@@ -442,7 +442,7 @@ class NewCreateForm extends Component {
 		let stationVos = [];
 
 		try {
-			billList.map(function(item, index) {
+			billList && billList.map(function(item, index) {
 				var obj = {};
 				obj.leaseBeginDate = changeValues.leaseBegindate;
 				obj.leaseEndDate = changeValues.leaseEnddate;
@@ -611,7 +611,7 @@ class NewCreateForm extends Component {
 						<TableHeaderColumn>结束时间</TableHeaderColumn>
 						</TableHeader>
 						<TableBody>
-						{stationVos.map((item,index)=>{
+						{stationVos && stationVos.map((item,index)=>{
 							var typeLink = {
 								value: this.state.stationVos[index].unitprice,
 								requestChange: this.onStationVosChange.bind(null, index)
