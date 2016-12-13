@@ -361,6 +361,7 @@ class ZhuanHuan extends React.Component{
 
 
 
+
 	 //去除前后空格
 	Trim=(str)=>{
 					return str.replace(/(^\s*)|(\s*$)/g, "");
@@ -376,7 +377,7 @@ class ZhuanHuan extends React.Component{
 				<KrField name="id" type="hidden" label="id"/>
 
 
-				<KrField grid={1/2} style={{marginTop:25}} right={25} name="groupName" type="text" label="分组名称" requireLabel={true} onBlur={this.groupNameCheck} onFocus={this.inputFocus}/>
+				<KrField grid={1/2} style={{marginTop:25}} right={25} name="groupName" type="text" label="分组名称" requireLabel={true} onBlur={this.groupNameCheck} onFocus={this.inputFocus} />
 				<KrField grid={1/2} right={25} name="sort" type="text" label="排序" requireLabel={true} style={{marginTop:25}} onBlur={this.sortCheck} onFocus={this.inputFocus}/>
 				<KrField grid={1} name="enable" component="group" label="启用状态" requireLabel={true}>
 							 <KrField name="enable" label="是" type="radio" value="ENABLE" checked={true}/>
