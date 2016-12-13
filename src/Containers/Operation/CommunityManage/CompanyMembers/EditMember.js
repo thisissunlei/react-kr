@@ -38,6 +38,7 @@ import {
 	FieldControl,
 	KrForm
 } from 'kr-ui';
+import './index.less';
 
 export default class CreateMemberForm extends Component {
 	
@@ -47,8 +48,7 @@ export default class CreateMemberForm extends Component {
 		this.detail = this.props.detail;
 		this.getBasicData(this.detail.id);
 		this.state={
-			community:[],
-			company:[],
+			jobList:[],
 		}
 	}
 	componentDidMount() {
@@ -72,10 +72,9 @@ export default class CreateMemberForm extends Component {
 		let _this = this;
 		Store.dispatch(Actions.callAPI('getMemberBasicData', params)).then(function(response) {
 			console.log(response);
-			// _this.setState({
-			// 	community:,
-			// 	company:,
-			// })
+			_this.setState({
+				jobList:response.jobList,
+			})
 			
 
 		}).catch(function(err) {
@@ -109,9 +108,9 @@ export default class CreateMemberForm extends Component {
 
 					</div>
 					<FieldControl grid={1} name="phone" label="手机号" component="labelText" / >
-					<FieldControl name="communityId" grid={1/2} label="社区" component="select" requiredValue={true} errors={{requiredValue:'请填写时间'}} requireLabel={true}/>
+					<FieldControl name="communityId" grid={1/2} label="社区" component="select" right={60} requiredValue={true} errors={{requiredValue:'请填写时间'}} requireLabel={true}/>
 					<FieldControl name="foreignCode" grid={1/2} label="会员卡号" component="input" requiredValue={true} errors={{requiredValue:'请填写时间'}} requireLabel={true}/>
-					<FieldControl name="companyId" grid={1/2} label="公司" component="select" requiredValue={true} errors={{requiredValue:'请填写时间'}} requireLabel={true}/>
+					<FieldControl name="companyId" grid={1/2} label="公司" component="select" right={60}  requiredValue={true} errors={{requiredValue:'请填写时间'}} requireLabel={true}/>
 					<FieldControl name="email" grid={1/2} label="邮箱:" component="input"  requiredValue={true} errors={{requiredValue:'必填'}} requireLabel={true}/>
 					<FieldControl name="name" grid={1/2}  label="姓名" component="input" requireLabel={true}/>
 					<FieldControl name="jobId" grid={1/2} label="职位" component="input"/>
