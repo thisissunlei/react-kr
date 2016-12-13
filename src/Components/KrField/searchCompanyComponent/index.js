@@ -8,10 +8,10 @@ import {Actions,Store} from 'kr/Redux';
 
 import WrapComponent from '../WrapComponent';
 
-export default class  SearchCommunityComponent extends React.Component {
+export default class  SearchCompanyComponent extends React.Component {
 
 	static defaultProps = {
-		placeholder:'请输入社区名...'
+		placeholder:'请输入公司名称'
 	}
 
 	static PropTypes = {
@@ -37,16 +37,14 @@ export default class  SearchCommunityComponent extends React.Component {
 		onChange && onChange(item);
 	}
 
-	getOptions(communityText){
-
+	getOptions(companyText){
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('searchCommunityByCommunityText',{ communityText:communityText})).then(function(response){
+			Store.dispatch(Actions.callAPI('getCompanyBycompanyText',{ companyText:companyText })).then(function(response){
 				response.items.forEach(function(item,index){
-					item.value = item.communityId;
-					item.label = item.communityName;
+					item.value = item.sysloginid;
+					item.label = item.companyName;
 				});
-
-				resolve({options:response.items});
+				resolve({options:response.tems});
 			}).catch(function(err){
 				reject(err);
 			});

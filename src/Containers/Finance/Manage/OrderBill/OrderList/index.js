@@ -148,19 +148,12 @@ export default class AttributeSetting extends Component {
 			customername: searchParams.content,
 			pageSize:15
 		}
-
-
 		this.setState({
 			searchParams: obj
 		});
 	}
-
 	onSearchCancel() {
-
 	}
-
-
-
 	//新建
 	openNewCreateDialog() {
 		this.setState({
