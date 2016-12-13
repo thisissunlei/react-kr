@@ -136,6 +136,7 @@ export default class Initialize  extends Component{
 	openEditDetailDialog=()=> {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('MouldGroupDetails',{id:this.state.id})).then(function(data) {
+
 			_this.changeMudle(data.templateList)
 			_this.setState({
 					itemDetail:data,
@@ -276,7 +277,19 @@ export default class Initialize  extends Component{
 
 										<TableBody >
 												<TableRow >
-												<TableRowColumn name="groupName" ></TableRowColumn>
+												<TableRowColumn name="groupName" component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="block";
+														}
+														 return (<div style={{display:TooltipStyle}}><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
+														 	<Tooltip offsetTop={10} place='top'>
+																<div style={{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{value}</div>
+														 	</Tooltip></div>)
+													 }} ></TableRowColumn>
 												<TableRowColumn name="sort" ></TableRowColumn>
 
 
@@ -297,7 +310,7 @@ export default class Initialize  extends Component{
 
 												<TableRowColumn name="templateNum"></TableRowColumn>
 												<TableRowColumn name="creator"></TableRowColumn>
-												<TableRowColumn name="createTime" type='date' format="yyyy-mm-dd" ></TableRowColumn>
+												<TableRowColumn name="createTime" type='date' format="yyyy-mm-dd hh:mm:ss" ></TableRowColumn>
 												<TableRowColumn name="enable" options={[{label:'启用',value:'ENABLE'},{label:'禁用',value:'DISABLE'}]}
 												component={(value,oldValue)=>{
 													var fontColor="";

@@ -62,6 +62,9 @@ export default (
 		<Route path="member" component={Basic}>
 			<Route path="index" component={Member.Home}/>
 			<Route path="list"  component={Member.List}/>
+				<Route path="memberManage"  component={Member.Basic}>
+						<Route path="setting"  component={Member.MemberManage.Setting}/>
+				</Route>
 		</Route>
 
 		{/*统计看板*/}
