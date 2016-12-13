@@ -96,6 +96,7 @@ class Header extends Component {
 		} = this.props;
 
 		actions.switchSidebarNav(!!!sidebar_nav.switch_value);
+
 	}
 
 	showBottomNav(event) {

@@ -89,8 +89,8 @@ export default class GroupSetting  extends Component{
 				other:!_this.state.searchParams.other,
 				groupName:_this.state.searchText,
 
-			}
-			console.log(obj)
+			};
+
 			_this.setState({
 				openNewCreate: false,
 				openEditDetail: false,
@@ -141,6 +141,7 @@ export default class GroupSetting  extends Component{
 			_this.setState({
 					itemDetail:data,
 			},function(){
+				console.log(this.state.itemDetail);
 				_this.setState({
 					openEditDetail: !_this.state.openEditDetail
 				});
@@ -235,6 +236,7 @@ export default class GroupSetting  extends Component{
 //  component={(value,item)=>{<span>{value}</span>}}
 
 	render(){
+		console.log(this.state.itemDetail,"66666")
 		return(
 			<div className="switchhover">
 			<Title value="数据模板管理_基础配置"/>

@@ -137,7 +137,7 @@ export default class Initialize  extends Component{
 						 <TableRow>
 						<TableRowColumn name="cityName" ></TableRowColumn>
 						<TableRowColumn name="communityName"  component={(value,oldValue)=>{
-                             return (<div style={{paddingTop:'5px'}}><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
+                             return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
 						}} ></TableRowColumn>
 						<TableRowColumn name="totalStation"></TableRowColumn>
 						<TableRowColumn name="unUsedStation"></TableRowColumn>
