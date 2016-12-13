@@ -178,7 +178,11 @@ class ZhuanHuan extends React.Component{
       overflow:"auto",
 			borderRadius:"3px",
     }
-    var arr=this.state.mouldSort.map(function(item,index){
+		var startData=this.state.mouldSort;
+		if(!this.state.mouldSort){
+			startData=[];
+		}
+    var arr=startData.map(function(item,index){
       var j=index;
 
       return <KrMould
