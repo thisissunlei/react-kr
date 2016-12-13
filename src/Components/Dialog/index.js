@@ -76,6 +76,7 @@ export default class DialogComponent extends Component {
 
 
 	onClose = ()=>{
+			document.body.style.overflow = 'auto';
 			const {onClose} = this.props;
 			onClose && onClose();
 	}
@@ -93,12 +94,20 @@ export default class DialogComponent extends Component {
 			children,
 			...other
 		} = this.props;
+		console.log('autoScrollBodyContent',autoScrollBodyContent);
 
 		let styles = {};
+		let bodyStyles ={};
 		if(open){
 				styles.display = 'block';
+			document.body.style.overflow = 'hidden';
+
 		}else{
 				styles.display = 'none';
+		}
+		if(autoScrollBodyContent){
+			bodyStyles.maxHeight = '400px';
+			bodyStyles.overflowY = 'auto';
 		}
 
 		return (
@@ -109,7 +118,7 @@ export default class DialogComponent extends Component {
 								<div className="dialog-header-title"> {title} </div>
 								<span className="close" onClick={this.onClose}></span>
 						</div>
-						<div className="dialog-body">
+						<div className="dialog-body" style={bodyStyles}>
 							{children}
 						</div>
 				</div>
