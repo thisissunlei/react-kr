@@ -89,7 +89,7 @@ export default class TableRowColumn extends React.Component {
 		}
 
 		if(typeof component === 'function'){
-		 	return component(value,oldValue);
+		 	return component(value,oldValue,itemData);
 		}
 
 		return value;
