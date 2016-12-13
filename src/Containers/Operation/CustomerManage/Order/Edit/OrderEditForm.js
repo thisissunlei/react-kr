@@ -80,8 +80,7 @@ class OrderEditForm extends Component {
 				cityName = item.cityName;
 			}
 		});
-		console.log('....orderTypeOptions', orderTypeOptions)
-		console.log('......communityOptions', communityOptions)
+
 
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{padding:20}}>
