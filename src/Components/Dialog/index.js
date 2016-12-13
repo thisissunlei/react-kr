@@ -43,6 +43,42 @@ export default class DialogComponent extends Component {
 
 	componentDidMount(){
 			this.initializeStyles();
+			this.initializeDialogBodyStyles();
+
+			window.addEventListener('resize',function(){
+				this.initializeStyles();
+				this.initializeDialogBodyStyles();
+			}.bind(this));
+	}
+
+
+	initializeDialogBodyStyles = ()=>{
+
+		var ele = this.refs.dialogBody;
+		const {autoScrollBodyContent} = this.props;
+
+		var page = this.getPageWidthOrHeight();
+
+		if(autoScrollBodyContent){
+			ele.style.maxHeight = page.height-200+'px';
+			ele.style.overflowY = 'auto';
+		}
+
+	}
+
+	getPageWidthOrHeight = ()=>{
+
+			var page = {};
+			 page.width = window.innerWidth;
+			 page.height = window.innerHeight;
+			if(document.compatMode == 'CSS1Compat'){
+				 page.width = document.documentElement.clientWidth;
+				 page.height = document.documentElement.clientHeight;
+			}else{
+				page.width = document.body.clientWidth;
+				page.height = document.body.clientHeight;
+			}
+			return  Object.assign({},page);
 	}
 
 	initializeStyles = ()=>{
@@ -55,19 +91,11 @@ export default class DialogComponent extends Component {
 					position = ele.getBoundingClientRect();
 			}
 
-			var pageWidth = window.innerWidth;
-			var pageHeight = window.innerHeight;
-			if(document.compatMode == 'CSS1Compat'){
-				 pageWidth = document.documentElement.clientWidth;
-				 pageHeight = document.documentElement.clientHeight;
-			}else{
-				pageWidth = document.body.clientWidth;
-				pageHeight = document.body.clientHeight;
-			}
+			var page = this.getPageWidthOrHeight();
 
-			ele.style.width = pageWidth+'px';
-			ele.style.height = pageHeight+'px';
-			ele.style.zIndex = 99999;
+			ele.style.width = page.width+'px';
+			ele.style.height = page.height+'px';
+			ele.style.zIndex = 99;
 			ele.style.top = -position.top +'px';
 			ele.style.left = -position.left+'px';
 			ele.style.bottom = -position.bottom+'px';
@@ -76,10 +104,10 @@ export default class DialogComponent extends Component {
 
 
 	onClose = ()=>{
+			//document.body.style.overflow = 'auto';
 			const {onClose} = this.props;
 			onClose && onClose();
 	}
-
 
 	render() {
 
@@ -91,12 +119,15 @@ export default class DialogComponent extends Component {
 			autoDetectWindowHeight,
 			autoScrollBodyContent,
 			children,
+			contentStyle,
 			...other
 		} = this.props;
 
 		let styles = {};
+
 		if(open){
 				styles.display = 'block';
+			//document.body.style.overflow = 'hidden';
 		}else{
 				styles.display = 'none';
 		}
@@ -104,12 +135,12 @@ export default class DialogComponent extends Component {
 		return (
 			<div className="ui-dialog" ref="dialog" style={styles}>
 				<div className="dialog-modal"></div>
-				<div className="dialog-content">
+				<div className="dialog-content" style={contentStyle}>
 						<div className="dialog-header">
 								<div className="dialog-header-title"> {title} </div>
 								<span className="close" onClick={this.onClose}></span>
 						</div>
-						<div className="dialog-body">
+						<div className="dialog-body" ref="dialogBody">
 							{children}
 						</div>
 				</div>

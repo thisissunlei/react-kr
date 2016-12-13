@@ -159,7 +159,6 @@ class SearchForm extends Component {
 		onChange && onChange(id);
 	}
 	onFilter=(value)=>{
-		console.log('onFilter-form',value);
 		let {onFilter} = this.props;
 		onFilter && onFilter(value);
 	}
@@ -191,7 +190,7 @@ class SearchForm extends Component {
 		return (
 			<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45}}>
 				{/*<KrField  name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} left={60}/>*/}
-				
+
 				<SearchForms onSubmit={this.onSubmit} searchFilter={options} style={{marginTop:5}} onFilter={this.onFilter}/>
 				<KrField name="community"  grid={1/5} component="select" label="社区" search={true}  options={communityIdList} onChange={this.selectCommunity} />
 			</form>
@@ -670,7 +669,7 @@ export default class BasicTable extends Component {
 						<td colSpan={14} style={{border:'none'}}>
 						<div style={{left:'50%',top:'40%',zIndex:100}}><Loading/></div>
 						</td>
-						
+
 					</tr>
 				</tbody>
 			)
@@ -701,7 +700,7 @@ export default class BasicTable extends Component {
 						<td className='white'>
 							<div className="header-title">
 								<p className="title-right">出租率</p>
-								
+
 							</div>
 						</td>
 						{
@@ -717,8 +716,8 @@ export default class BasicTable extends Component {
 							return (
 
 							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={itemData}  key={index} onStation={this.onStation} activity={this.state.activity} currentYear={currentYear} />
-							
-								
+
+
 							)
 
 						})
@@ -771,9 +770,6 @@ export default class BasicTable extends Component {
 			<div style={{position:'relative',minHeight:908}}>
 			{(isLoading && !dataLoading)?<div style={{position:'fixed',left:'50%',top:'40%',zIndex:100}}><Loading/></div>:''}
 			{(istip && !dataLoading && !isLoading)?<div style={{width:640,color:'#999',fontSize:'14px',position:'absolute',left:'50%',bottom:'-103px',marginLeft:'-320px',zIndex:100}}><p style={{width:260,borderBottom:'1px solid #cccccc',height:9,float:'left'}} ></p><p style={{float:'left',paddingLeft:'15px',paddingRight:'15px'}}>我是有底线的</p><p style={{width:260,height:9,borderBottom:'1px solid #cccccc',float:'left'}} ></p></div>:''}
-			
-					
-			
 		 	<div className="basic-con">
 		 		<div className="legend">
 		 			<div className="legend-left">
@@ -790,9 +786,9 @@ export default class BasicTable extends Component {
 		 			</div>
 		 		</div>
 		 		<SearchForm  onSubmit={this.onSubmit} Ids={communityids} onChange={this.onChange} onFilter={this.onFilter}/>
-		 		
+
 		 	</div>
-		 	
+
 			<table className="basic-table" >
 				<thead>
 					<tr ref={tr=>{this.trLength = tr}}>
@@ -816,12 +812,12 @@ export default class BasicTable extends Component {
 						</th>
 					</tr>
 				</thead>
-				
-					{	
+
+					{
 						this.renderNone(showNone,rate)
 					}
-					
-					
+
+
 
 			</table>
 
@@ -830,12 +826,12 @@ export default class BasicTable extends Component {
 				title="撤场日期"
 				modal={true}
 				onClose={this.openDismantlingDialog}
-				open={this.state.dismantling} 
+				open={this.state.dismantling}
 				contentStyle={{width:445}}
 				>
 				<DismantlingForm   onCancel={this.openDismantlingDialog} detail={this.state.detail} />
 			 </Dialog>
-			
+
 		</div>
 		);
 
