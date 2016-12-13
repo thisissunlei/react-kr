@@ -80,11 +80,8 @@ class OrderEditForm extends Component {
 				cityName = item.cityName;
 			}
 		});
-		orderTypeOptions.map(function(item) {
-			if (item.id == changeValues.id) {
-				dicName = item.dicName;
-			}
-		});
+		console.log('....orderTypeOptions', orderTypeOptions)
+		console.log('......communityOptions', communityOptions)
 
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{padding:20}}>
