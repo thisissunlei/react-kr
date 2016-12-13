@@ -451,7 +451,17 @@
   'getCompanyMemberList':{
   	url:'/mockjsdata/4/member/company-team?companyId={companyId}&page={page}&pageSize={pageSize}',
   	method:'get'
-  }
+  },
+  //设置Leader
+  'setLeader':{
+  	url:'/mockjsdata/4/member/leader?companyId={companyId}&isLeader={isLeader}&memberId={memberId}',
+  	method:'put'
+  },
+  //新建编辑会员的准备数据
+  'getMemberBasicData':{
+  	url:'/mockjsdata/4/member/member-add-edit?companyId={companyId}&memberId={memberId}&communityId={communityId}',
+  	method:'get'
+  },
 
 }
 

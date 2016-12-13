@@ -44,7 +44,14 @@ import {
 import $ from 'jquery';
 import CreateMemberForm from './CreateMemberForm';
 import ValidateMember from './ValidateMember';
+import CancleLeader from './CancleLeader';
+import SetLeader from './SetLeader';
+import EditMember from './EditMember';
 export default class CompanyMembers extends Component {
+
+	static contextTypes = {
+		router: React.PropTypes.object.isRequired
+	}
 
 	constructor(props, context) {
 		super(props, context);
@@ -57,7 +64,13 @@ export default class CompanyMembers extends Component {
 			},
 			validateMember:false,
 			createMember:false,
+			cancleLeader:false,
+			setLeader:false,
+			editMember:false,
+			itemDetail:{}
 		}
+		this.companyId = this.context.router.params.companyId;
+		this.params = this.context.router.params;
 
 	}
 
@@ -73,6 +86,11 @@ export default class CompanyMembers extends Component {
 		console.log('value');
 
 	}
+	editMember=()=>{
+		this.setState({
+			editMember: !this.state.editMember,
+		});
+	}
 	validateMember=()=>{
 		this.setState({
 			validateMember: !this.state.validateMember,
@@ -84,13 +102,76 @@ export default class CompanyMembers extends Component {
 			createMember: !this.state.createMember,
 		});
 	}
+	cancleLeader=()=>{
+		this.setState({
+			cancleLeader: !this.state.cancleLeader,
+		});
+	}
+	setLeader=()=>{
+		this.setState({
+			setLeader: !this.state.setLeader,
+		});
+	}
+	setLeaderStatus=(value)=>{
+		let params = {
+			companyId:this.companyId,
+			isLeader:value.isLeader,
+			memberId:12
+		}
+		let _this = this;
+		console.log(value);
+		Store.dispatch(Actions.callAPI('setLeader', params)).then(function(response) {
+			if(value.isLeader){
+				_this.setLeader();
+			}else{
+				_this.cancleLeader();
+			}
+			Notify.show([{
+				message: '设置成功',
+				type: 'success',
+			}]);
+
+			// window.setTimeout(function() {
+			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
+			// }, 0);
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+	}
+	onOperation=(type,itemDetail)=>{
+		console.log('itemDetail',itemDetail);
+		this.setState({
+			itemDetail
+		});
+		if(type=='view'){
+
+		}else if(type == 'edit'){
+			this.editMember();
+		}
+	}
+	renderDetail=()=>{
+		return (<Button label="详情"  type="operation" operation="view"/>)
+	}
+	renderEdit=()=>{
+		return (<Button label="编辑"  type="operation" operation="edit"/>)
+	}
+	renderCanclaLeader=()=>{
+		return (<Button label="取消Leader"  type="operation" onTouchTap={this.cancleLeader} />)
+	}
+	renderSetLeader=()=>{
+		return (<Button label="设置Leader"  type="operation" onTouchTap={this.setLeader}/>)
+	}
 
 	
 
 
 
 	render() {
-		
+
 		return (
 			<div>
 
@@ -143,25 +224,23 @@ export default class CompanyMembers extends Component {
 							return (<span style={{color:fontColor}}>{value}</span>)}}>
 							
 						</TableRowColumn>
-						<TableRowColumn name="isLeader" options={[{label:'isLeader',value:1},{label:'Leader',value:0}]}
-						component={(value,oldValue)=>{
-							var fontColor="";
-							if(value=="Leader"){
-								return (<span>
-									<Button label="详情"  type="operation" onTouchTap={this.createMember}/>
-									<Button label="编辑"  type="operation" onTouchTap={this.editMember}/>
-									<Button label="设置Leader"  type="operation" onTouchTap={this.setLeader}/>
-								</span>)
-							}else{
-								return (<span>
-									<Button label="详情"  type="operation" onTouchTap={this.createMember}/>
-									<Button label="编辑"  type="operation" onTouchTap={this.editMember}/>
-									<Button label="取消Leader"  type="operation" onTouchTap={this.cancleLeader}/>
-								</span>)
-							}
-							}}>
-								
-						 </TableRowColumn>
+						<TableRowColumn name="isLeader" options={[{label:'isLeader',value:1},{label:'setLeader',value:0}]}
+												component={(value,oldValue)=>{
+													var fontColor="";
+													if(value=="setLeader"){
+														
+													}else if(value=="setLeader"){
+														this.renderDetail();
+													}
+													}}>
+														
+												 </TableRowColumn>
+						{/*<TableRowColumn>
+													<Button label="详情"  type="operation" operation="view"/>
+													<Button label="编辑"  type="operation" operation="edit"/>
+													<Button label="取消Leader"  type="operation" onTouchTap={this.cancleLeader} />
+												</TableRowColumn>*/}
+
 					 </TableRow>
 				</TableBody>
 
@@ -190,18 +269,26 @@ export default class CompanyMembers extends Component {
 			<Dialog
 			title="编辑员工"
 			modal={true}
-			open={this.state.validateMember}
-			onClose={this.validateMember}
+			open={this.state.editMember}
+			onClose={this.editMember}
 			contentStyle={{width:687}}>
-				<ValidateMember onSubmit={this.onNewCreateSubmit} onCancel={this.validateMember} />
+				<EditMember onSubmit={this.onNewCreateSubmit} params={this.params} onCancel={this.editMember} detail={this.state.itemDetail}/>
 			</Dialog>
 			<Dialog
 			title="取消Leader"
 			modal={true}
-			open={this.state.validateMember}
-			onClose={this.validateMember}
-			contentStyle={{width:687}}>
-				<ValidateMember onSubmit={this.onNewCreateSubmit} onCancel={this.validateMember} />
+			open={this.state.cancleLeader}
+			onClose={this.cancleLeader}
+			contentStyle={{width:440}}>
+				<CancleLeader onSubmit={this.setLeaderStatus} onCancel={this.cancleLeader} />
+			</Dialog>
+			<Dialog
+			title="设置Leader"
+			modal={true}
+			open={this.state.setLeader}
+			onClose={this.setLeader}
+			contentStyle={{width:440}}>
+				<SetLeader onSubmit={this.setLeaderStatus} onCancel={this.setLeader} />
 			</Dialog>
 			</div>
 
