@@ -550,7 +550,9 @@ export default class OrderDetail extends React.Component {
 			<BreadCrumbs children={['系统运营','财务管理']} hide={!!this.props.location.query.closeAll}/>
 
 			<Section title="客户订单详情" description="" hide={!!this.props.location.query.closeAll} bodyPadding={'20px 20px 50px 20px'}>
+			
 			<div className="content">
+						<StaionInfo onClose={this.onClose}  detail={this.state.staionsList} className='showCon' isShow={isShow} id={orderBaseInfo.id}/>
 			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog} style={{width:160,height:40,marginTop:15,fontSize:'18px !important'}}/>
 			<span className="border-top" style={{marginBottom:20}}></span>
 			<DotTitle title='合同列表'/>
@@ -700,9 +702,9 @@ export default class OrderDetail extends React.Component {
 
             
 			<span className="border-bottom" style={{marginTop:60}}></span>
-
+			
           	</div>
-          	<StaionInfo onClose={this.onClose}  detail={this.state.staionsList} className='showCon' isShow={isShow} id={orderBaseInfo.id}/>
+          	
           	
 			</Section>
 
