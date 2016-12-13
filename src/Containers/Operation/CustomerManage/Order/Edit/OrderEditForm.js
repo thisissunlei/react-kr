@@ -38,35 +38,51 @@ import {
 
 class OrderEditForm extends Component {
 	static propTypes = {
-		initialValues:React.PropTypes.object,
-		communityOptions:React.PropTypes.array,
-		orderTypeOptions:React.PropTypes.array,
+		initialValues: React.PropTypes.object,
+		communityOptions: React.PropTypes.array,
+		orderTypeOptions: React.PropTypes.array,
 	}
 
 	constructor(props, context) {
 		super(props, context);
 	}
 
-	onSubmit=(values)=>{
-		const {onSubmit} = this.props;
+	onSubmit = (values) => {
+		const {
+			onSubmit
+		} = this.props;
 		onSubmit && onSubmit(values);
 	}
-	onCancel=()=>{
-		const {onCancel} = this.props;
+	onCancel = () => {
+		const {
+			onCancel
+		} = this.props;
 		onCancel && onCancel();
 	}
 
 
 
-	
-
 	render() {
-		
-		const { error, handleSubmit, submitting,initialValues,communityOptions,orderTypeOptions,changeValues} = this.props;
+
+		const {
+			error,
+			handleSubmit,
+			submitting,
+			initialValues,
+			communityOptions,
+			orderTypeOptions,
+			changeValues
+		} = this.props;
 		let cityName = '';
-		communityOptions.map(function(item){
-			if(item.communityId == changeValues.communityid){
+		let dicName = '';
+		communityOptions.map(function(item) {
+			if (item.communityId == changeValues.communityid) {
 				cityName = item.cityName;
+			}
+		});
+		orderTypeOptions.map(function(item) {
+			if (item.id == changeValues.id) {
+				dicName = item.dicName;
 			}
 		});
 
@@ -89,7 +105,7 @@ class OrderEditForm extends Component {
 						</ListGroup>
 					</Grid>
 			</form>
-)
+		)
 	}
 }
 const selector = formValueSelector('orderEditForm');
@@ -97,13 +113,13 @@ const validate = values => {
 
 	const errors = {}
 
-	if(!values.mainbilltype){
-				errors.mainbilltype = '请选择订单类型';
-			  }else if (!values.communityid) {
-				errors.communityid = '请选择所在社区';
-			  }else if(!values.mainbillname){
-				errors.mainbillname = '订单名称不能为空';
-			  }
+	if (!values.mainbilltype) {
+		errors.mainbilltype = '请选择订单类型';
+	} else if (!values.communityid) {
+		errors.communityid = '请选择所在社区';
+	} else if (!values.mainbillname) {
+		errors.mainbillname = '订单名称不能为空';
+	}
 
 
 	return errors
@@ -121,7 +137,7 @@ export default connect((state) => {
 	let changeValues = {};
 
 	changeValues.communityid = selector(state, 'communityid');
-	
+
 
 	return {
 		changeValues
