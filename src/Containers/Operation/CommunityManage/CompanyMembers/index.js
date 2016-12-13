@@ -102,12 +102,13 @@ export default class CompanyMembers extends Component {
 			createMember: !this.state.createMember,
 		});
 	}
-	cancleLeader=()=>{
+	cancleLeader(itemDetail){
+		console.log(itemDetail);
 		this.setState({
 			cancleLeader: !this.state.cancleLeader,
 		});
 	}
-	setLeader=()=>{
+	setLeader(itemDetail){
 		this.setState({
 			setLeader: !this.state.setLeader,
 		});
@@ -225,20 +226,31 @@ export default class CompanyMembers extends Component {
 							
 						</TableRowColumn>
 						<TableRowColumn name="isLeader" options={[{label:'isLeader',value:1},{label:'setLeader',value:0}]}
-												component={(value,oldValue)=>{
+												component={(value,oldValue,itemDetail)=>{
 													var fontColor="";
-													if(value=="setLeader"){
-														
+													if(value=="isLeader"){
+														return (
+															<span>
+															<Button label="详情"  type="operation" />
+															<Button label="编辑"  type="operation" />
+															<Button label="取消Leader"  type="operation" onTouchTap={this.cancleLeader.bind(this,itemDetail)}/>
+															</span>
+														)
 													}else if(value=="setLeader"){
-														this.renderDetail();
+														return (
+															<span>
+															<Button label="详情"  type="operation" />
+															<Button label="编辑"  type="operation" />
+															<Button label="设置Leader"  type="operation" onTouchTap={this.setLeader.bind(this,itemDetail)}/>
+															</span>
+														)
+
 													}
 													}}>
 														
 												 </TableRowColumn>
-						{/*<TableRowColumn>
-													<Button label="详情"  type="operation" operation="view"/>
-													<Button label="编辑"  type="operation" operation="edit"/>
-													<Button label="取消Leader"  type="operation" onTouchTap={this.cancleLeader} />
+						{/*<TableRowColumn><span>
+													
 												</TableRowColumn>*/}
 
 					 </TableRow>
