@@ -296,32 +296,42 @@ export default class GroupSetting  extends Component{
 										<TableBody >
 												<TableRow >
 												<TableRowColumn style={{overflow:"visible",textAlign: "center"}} name="groupName" component={(value,oldValue)=>{
-														var TooltipStyle=""
+														var TooltipStyle="";
+														var lest='';
+														if(value.length>=10){
+															value=value.substring(0,10);
+															lest="..."
+														}
 														if(value.length==""){
 															TooltipStyle="none"
 
 														}else{
 															TooltipStyle="block";
 														}
-														 return (<div style={{display:TooltipStyle}}><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
+														 return (<div style={{display:TooltipStyle}}><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}<span style={{display:"inline-block",transform:"translateY(-5px)"}}>{lest}</span></span>
 														 	<Tooltip offsetTop={10} place='top'>
-																<div style={{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{value}</div>
+																<div style={{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{oldValue}</div>
 														 	</Tooltip></div>)
 													 }} ></TableRowColumn>
 												<TableRowColumn name="sort" ></TableRowColumn>
 
 
 												<TableRowColumn style={{overflow:"visible",textAlign: "center"}} name="groupDesc" component={(value,oldValue)=>{
-														var TooltipStyle=""
+														var TooltipStyle="";
+														var lest='';
+														if(value.length>=10){
+															value=value.substring(0,10);
+															lest="..."
+														}
 														if(value.length==""){
 															TooltipStyle="none"
 
 														}else{
 															TooltipStyle="block";
 														}
-														 return (<div style={{display:TooltipStyle}}><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
+														 return (<div style={{display:TooltipStyle}}><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}<span style={{display:"inline-block",transform:"translateY(-5px)"}}>{lest}</span></span>
 														 	<Tooltip offsetTop={10} place='top'>
-																<div style={{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{value}</div>
+																<div style={{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{oldValue}</div>
 														 	</Tooltip></div>)
 													 }} ></TableRowColumn>
 
