@@ -729,7 +729,7 @@ export default class OrderDetail extends React.Component {
 			modal={true}
 			onClose={this.openDelAgreementDialog}
 			open={this.state.openDelAgreement}
-			contentStyle={{width:387}}>
+			contentStyle={{width:445,height:236}}>
 				<DelAgreementNotify onSubmit={this.confirmDelAgreement} onCancel={this.openDelAgreementDialog.bind(this,0)}/>
 			</Dialog>
 			</div>
