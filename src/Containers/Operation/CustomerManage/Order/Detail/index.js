@@ -558,9 +558,9 @@ export default class OrderDetail extends React.Component {
 			
 			<div className="content">
 						{/*<StaionInfo onClose={this.onClose}  detail={this.state.staionsList} className='showCon' isShow={isShow} id={orderBaseInfo.id}/>*/}
-			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog} style={{width:160,height:40,marginTop:15,fontSize:'18px !important'}}/>
-			<span className="border-top" ></span>
-			<DotTitle title='合同列表' style={{marginTop:40,marginBottom:40}}/>
+			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog} style={{width:160,height:40,fontSize:'18px !important'}}/>
+						<span className="border-top" style={{marginTop:'20px !important'}}></span>
+			<DotTitle title='合同列表' style={{marginTop:40,marginBottom:30}}/>
 
 			<Table className="orders" pageSize={contractList.length} displayCheckbox={false} >
 			<TableHeader>
@@ -609,7 +609,7 @@ export default class OrderDetail extends React.Component {
 			</TableBody>
 			</Table>
 
-			<DotTitle title='分期计划' style={{marginTop:40,marginBottom:40}}/>
+			<DotTitle title='分期计划' style={{marginTop:40,marginBottom:30}}/>
 
 			<div className='ui-remark'>
               <div className='ui-circle-remark'><span className='circle-color circle-color-top over-circle'></span><span className='remark-green-text'>已完成</span></div>
@@ -666,7 +666,7 @@ export default class OrderDetail extends React.Component {
 
 			</div>
 			
-            <DotTitle title='订单描述' style={{marginTop:30}}/>
+            <DotTitle title='订单描述' style={{marginTop:24}}/>
 			<div className="orderList">
 			<Grid style={{marginTop:40}} >
 				<Row>
