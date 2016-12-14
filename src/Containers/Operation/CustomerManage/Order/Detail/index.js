@@ -554,8 +554,8 @@ export default class OrderDetail extends React.Component {
 			<div className="content">
 						{/*<StaionInfo onClose={this.onClose}  detail={this.state.staionsList} className='showCon' isShow={isShow} id={orderBaseInfo.id}/>*/}
 			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog} style={{width:160,height:40,marginTop:15,fontSize:'18px !important'}}/>
-			<span className="border-top" style={{marginBottom:20}}></span>
-			<DotTitle title='合同列表'/>
+			<span className="border-top" ></span>
+			<DotTitle title='合同列表' style={{marginTop:40,marginBottom:40}}/>
 
 			<Table pageSize={contractList.length} displayCheckbox={false} >
 			<TableHeader>
@@ -604,7 +604,7 @@ export default class OrderDetail extends React.Component {
 			</TableBody>
 			</Table>
 
-			<DotTitle title='分期计划' style={{marginTop:45}}/>
+			<DotTitle title='分期计划' style={{marginTop:40,marginBottom:40}}/>
 
 			<div className='ui-remark'>
               <div className='ui-circle-remark'><span className='circle-color circle-color-top over-circle'></span><span className='remark-green-text'>已完成</span></div>
@@ -627,8 +627,7 @@ export default class OrderDetail extends React.Component {
 						<div className="contentList"  key={index}>
 							<div className="type">
 								<div className="typeCon">
-									<div className="p">{item.detailName}</div>
-									<div className="p">{item.detailStart}至{item.detailEnd}</div>
+									<div className="p">{item.detailName}{item.detailStart}至{item.detailEnd}</div>
 								</div>
 								
 							</div>
@@ -662,9 +661,9 @@ export default class OrderDetail extends React.Component {
 
 			</div>
 			
-            <DotTitle title='订单描述'/>
+            <DotTitle title='订单描述' style={{marginTop:30}}/>
 			<div className="orderList">
-			<Grid style={{marginTop:50}} >
+			<Grid style={{marginTop:40}} >
 				<Row>
 				<Col md={4}><KrField label="社区名称"component="labelText" value={orderBaseInfo.communityName} defaultValue="无" alignRight={true} tooltip={orderBaseInfo.communityName}/></Col>
 				<Col md={4}><KrField label="客户名称" component="labelText" value={orderBaseInfo.customerName} alignRight={true} tooltip={orderBaseInfo.customerName}/></Col>
