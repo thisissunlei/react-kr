@@ -448,11 +448,6 @@
 		method: 'post'
 	},
   //会员中心-新增会员－公司模糊查询
-	'searchCommunityByCommunityText': {
-		url: '/mockjsdata/4/member/community-list?communityText={communityText}',
-		method: 'post'
-	},
-  //会员中心-新增会员－公司模糊查询
   'getCompanyByCompanyText': {
 		url: '/mockjsdata/4/member/company-list?companyText={companyText}',
 		method: 'get'
@@ -462,6 +457,11 @@
 		url: '/mockjsdata/4/member/member-add-edit',
 		method: 'get'
 	},
+  // 会员中心－新增会员－电话号码校验是否存在
+  'isPhoneRegistered':{
+    url:'/mockjsdata/4/member/member-phone?phone={phone}',
+    method:'get'
+  },
   //个人中心-获取个人信息
   'PersonalCenterData': {
     url:' /mockjs/15/krspace_isso_web/sys/sysOwn/getPersonalInfo',

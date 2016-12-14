@@ -23,7 +23,7 @@ import {
 	SearchForms,
 	Dialog,
 } from 'kr-ui';
-
+import {Actions,Store} from 'kr/Redux';
 import NewCreateForm from './NewCreateForm';
 import './index.less';
 
@@ -111,10 +111,21 @@ export default class List extends Component {
 				ids.push(item.id)
 			});
 		}
-		console.log(ids,"ids");
+		// console.log(ids,"ids");
 		var url = `/api/member/member-list-excel?ids=${ids}`
 		// var url = `/api/krspace-financ÷e-web/finaccount/data/exportExcel?ids=${ids}`
 		window.location.href = url;
+	}
+	onNewCreateSubmit(values){
+		console.log("-------index", values)
+		Store.dispatch(Actions.callAPI('membersChange',values)).then(function(response){
+			Notify.show([{
+ 			 message: '新建成功',
+ 			 type: 'success',
+ 		 }]);
+		}).catch(function(err){
+			reject(err);
+		});
 	}
 	render() {
 
