@@ -64,7 +64,7 @@ export default class OrderCreate extends Component {
 
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('edit-order',{},values)).then(function(response){
+		Store.dispatch(Actions.callAPI('enter-order',{},values)).then(function(response){
 			Notify.show([{
 				message:'保存成功',
 				type: 'success',
@@ -100,7 +100,7 @@ export default class OrderCreate extends Component {
 		let communityOptions = [];
 		let initialValues = {};
 		Store.dispatch(Actions.callAPI('community-city-selected',{},{})).then(function(communityOptions){
-			communityOptions = communityOptions.communityCity.map((item)=>{
+			communityOptions = communityOptions.map((item)=>{
 		  		item.value = String(item.communityId);
 		  		item.label = item.communityName;
 		  		return item;
