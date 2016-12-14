@@ -39,10 +39,10 @@ export default class  SearchBelongCommunity extends React.Component {
 
 	getOptions(lastname){
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('getHrmResourceExtListByLastname',{ lastname:lastname })).then(function(response){
+			Store.dispatch(Actions.callAPI('getCommunityListByParams',{ communityName:lastname })).then(function(response){
 				response.forEach(function(item,index){
-					item.value = item.sysloginid;
-					item.label = item.lastname;
+					item.value = item.id;
+					item.label = item.communityname;
 				});
 				resolve({options:response});
 			}).catch(function(err){

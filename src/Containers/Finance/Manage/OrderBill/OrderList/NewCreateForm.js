@@ -112,9 +112,7 @@ class NewCreateForm extends Component {
 
 				<KrField grid={1/2} right={27} style={{height:36,marginBottom:28}} name="mainbillname" type="text" label="订单名称"/>
 				<KrField grid={1/2}  component="labelText"/>
-				<KrField grid={1/2} right={27} name="communityid"  style={{marginTop:7}} type="select" label="所属社区" options={this.state.communityList} >
-				</KrField>
-				 <KrField right={60}  grid={1/2}  name="communityid" component="searchCommunity" label="所属社区" onChange={this.onChangeCommunity} requireLabel={true}/>
+				 <KrField right={60}  grid={1/2}  name="communityid" component="searchCommunity" label="所属社区" onChange={this.onChangeCommunity}/>
 				<KrField  grid={1/2} right={27} name="mainbilltype" type="select" style={{marginTop:7}} label="订单类型" options={this.state.mainbilltypeList}>
 				</KrField>
 				<KrField grid={1/1}  component="group" label="查询区间" style={{marginTop:3}}>
