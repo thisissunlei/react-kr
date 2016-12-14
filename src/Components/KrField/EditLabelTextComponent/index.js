@@ -33,13 +33,16 @@ export default class InputComponent extends React.Component {
 		}
 	}
 	onEdit = () => {
+		let {
+			oldtext
+		} = this.state;
 
-		console.log(this.state.editOpen)
 		this.setState({
 			editOpen: true
 		}, function() {
 
 			document.getElementById('focus').focus();
+			document.getElementById('focus').value = oldtext;
 			document.getElementsByClassName('contract')[0].style.display = "none"
 
 		})
