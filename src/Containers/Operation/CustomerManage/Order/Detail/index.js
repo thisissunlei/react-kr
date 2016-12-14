@@ -552,7 +552,7 @@ export default class OrderDetail extends React.Component {
 			<Section title="客户订单详情" description="" hide={!!this.props.location.query.closeAll} bodyPadding={'20px 20px 50px 20px'}>
 			
 			<div className="content">
-						<StaionInfo onClose={this.onClose}  detail={this.state.staionsList} className='showCon' isShow={isShow} id={orderBaseInfo.id}/>
+						{/*<StaionInfo onClose={this.onClose}  detail={this.state.staionsList} className='showCon' isShow={isShow} id={orderBaseInfo.id}/>*/}
 			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog} style={{width:160,height:40,marginTop:15,fontSize:'18px !important'}}/>
 			<span className="border-top" style={{marginBottom:20}}></span>
 			<DotTitle title='合同列表'/>
