@@ -230,7 +230,7 @@
 
 	//财务管理－订单账单列表-分页获取订单
 	'getFinaDataByList': {
-		url: '/api/krspace-finance-web/finaccount/data/getFinaDataByAjax?page={page}&pageSize={pageSize}&customername={customername}&startDate={startDate}&endDate={endDate}&mainbilltype={mainbilltype}&communityid={communityid}',
+		url: '/api/krspace-finance-web/finaccount/data/getFinaDataByAjax?page={page}&pageSize={pageSize}&mainbillname={mainbillname}&startDate={startDate}&endDate={endDate}&mainbilltype={mainbilltype}&communityid={communityid}',
 		method: 'get'
 	},
 	//财务管理－订单账单列表-生成对账单
@@ -250,7 +250,7 @@
 	},
 	//财务管理－订单账单列表-高级查询-社区类型
 	'getCommunityListByParams': {
-		url:'/api/krspace-finance-web/finaccount/data/getCommunityListByParams',
+		url:'/api/krspace-finance-web/finaccount/data/getCommunityListByParams ',
 		method: 'post'
 	},
 	//财务管理－订单账单列表-导出

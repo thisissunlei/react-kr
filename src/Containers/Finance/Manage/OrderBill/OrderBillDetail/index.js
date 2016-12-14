@@ -39,7 +39,8 @@ import {
 	Loading,
 	Title,
     SnackTip,
-    Tooltip
+    Tooltip,
+    Message
 } from 'kr-ui';
 import {
 	reduxForm,
@@ -282,22 +283,11 @@ export default class AttributeSetting extends Component {
 			}
 		})
 		if (this.state.listValues.length == 0) {
-
-			Notify.show([{
-				message: '请选择一条回款数据进行退款',
-				type: 'danger',
-			}]);
-
+			Message.error('请选择一条回款数据进行退款');
 		} else if (this.state.listValues.length > 1) {
-			Notify.show([{
-				message: '只能选择一条数据',
-				type: 'danger',
-			}]);
+			Message.error('只能选择一条数据');
 		} else if (fiMoney >= 0) {
-			Notify.show([{
-				message: '金额必须为负且存在可用金额',
-				type: 'danger',
-			}]);
+			Message.error('金额必须为负且存在可用金额');
 		} else {
 			this.setState({
 				openQuitBtn: !this.state.openQuitBtn
@@ -315,20 +305,11 @@ export default class AttributeSetting extends Component {
 			}
 		})
 		if (this.state.listValues.length == 0) {
-			Notify.show([{
-				message: '请选择一条回款数据进行转押金',
-				type: 'danger',
-			}]);
+			Message.error('请选择一条回款数据进行转押金');
 		} else if (this.state.listValues.length > 1) {
-			Notify.show([{
-				message: '只能选择一条数据',
-				type: 'danger',
-			}]);
+			Message.error('只能选择一条数据');
 		} else if (fiMoney >= 0) {
-			Notify.show([{
-				message: '金额必须为负且存在可用金额',
-				type: 'danger',
-			}]);
+			Message.error('金额必须为负且存在可用金额');
 		} else {
 			this.setState({
 				openSwitchBtn: !this.state.openSwitchBtn
@@ -366,21 +347,11 @@ export default class AttributeSetting extends Component {
 			}
 		})
 		if (this.state.listValues.length == 0) {
-			Notify.show([{
-				message: '请选择一条回款数据进行转营收',
-				type: 'danger',
-			}]);
-
+            Message.error('请选择一条回款数据进行转营收');
 		} else if (this.state.listValues.length > 1) {
-			Notify.show([{
-				message: '只能选择一条数据',
-				type: 'danger',
-			}]);
+			 Message.error('只能选择一条数据');
 		} else if (fiMoney >= 0) {
-			Notify.show([{
-				message: '金额必须为负且存在可用金额',
-				type: 'danger',
-			}]);
+			 Message.error('金额必须为负且存在可用金额');
 		} else {
 			this.setState({
 				openBusinessBtn: !this.state.openBusinessBtn
@@ -960,11 +931,11 @@ export default class AttributeSetting extends Component {
 								 </div>
 								 <div className='detail-right'>
 								     <div>
-								        <Col align="left" className='btn-left'>{buttonArr}</Col>
-								        <Col align="right" style={{'position':'relative'}}><Button  type='search'  searchClick={this.openSearchDialog}/><span className={colorClassName} onClick={this.historyIncomed}><Tooltip  offsetTop={8} place='top'>补历史收入</Tooltip></span></Col>
+								        <Col align="left" md={9} className='btn-left'>{buttonArr}</Col>
+								        <Col align="right" md={3} style={{'position':'relative'}}><Button  type='search'  searchClick={this.openSearchDialog}/><span className={colorClassName} onClick={this.historyIncomed}><Tooltip  offsetTop={8} place='top'>补历史收入</Tooltip></span></Col>
 								     </div>
 
-									 <Table style={{marginTop:30}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
+									 <Table style={{marginTop:60}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
 							              <TableHeader>
 										          <TableHeaderColumn>序号</TableHeaderColumn>
 										          <TableHeaderColumn>交易日期</TableHeaderColumn>

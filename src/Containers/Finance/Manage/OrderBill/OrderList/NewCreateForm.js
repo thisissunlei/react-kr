@@ -50,10 +50,7 @@ class NewCreateForm extends Component {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('getMainBillTypeList')).then(function(response) {
 
-		
 			const mainbilltypeList = response.mainbilltypeList
-
-
 
 			mainbilltypeList.map(function(item, index) {
 				item.label = item.mainBillTypeDesc;
@@ -91,10 +88,10 @@ class NewCreateForm extends Component {
 		onCancel && onCancel();
 
 	}
-   onChangeCommunity=(community)=>{
+    onChangeCommunity=(community)=>{
 		Store.dispatch(change('newCreateForm', 'communityid', community.id));
 		Store.dispatch(change('newCreateForm', 'communityName', community.communityname));
-   }
+    }
 	render() {
 
 
@@ -112,7 +109,7 @@ class NewCreateForm extends Component {
 
 				<KrField grid={1/2} right={27} style={{height:36,marginBottom:28}} name="mainbillname" type="text" label="订单名称"/>
 				<KrField grid={1/2}  component="labelText"/>
-				 <KrField right={60}  grid={1/2}  name="communityid" component="searchCommunity" label="所属社区" onChange={this.onChangeCommunity}/>
+				<KrField right={27}  grid={1/2}  name="communityid" style={{marginTop:'7px'}} component="searchCommunity" label="所属社区" onChange={this.onChangeCommunity}/>
 				<KrField  grid={1/2} right={27} name="mainbilltype" type="select" style={{marginTop:7}} label="订单类型" options={this.state.mainbilltypeList}>
 				</KrField>
 				<KrField grid={1/1}  component="group" label="查询区间" style={{marginTop:3}}>
