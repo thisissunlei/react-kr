@@ -453,8 +453,13 @@
 		method: 'post'
 	},
   //会员中心-新增会员－公司模糊查询
-  'getCompanyByCompanyName': {
+  'getCompanyByCompanyText': {
 		url: '/mockjsdata/4/member/company-list?companyText={companyText}',
+		method: 'get'
+	},
+  //会员中心-新增会员－职位准备数据
+  'getMemberPosition': {
+		url: '/mockjsdata/4/member/member-add-edit',
 		method: 'get'
 	},
   //个人中心-获取个人信息

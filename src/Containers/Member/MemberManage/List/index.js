@@ -33,8 +33,10 @@ export default class List extends Component {
 		super(props, context);
 
 		this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
+		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
 		this.onLoaded = this.onLoaded.bind(this);
 		this.onOperation = this.onOperation.bind(this);
+		this.onExport = this.onExport.bind(this);
 		this.state = {
 			openNewCreate: false,
 			openView: false,
@@ -55,7 +57,14 @@ export default class List extends Component {
 				pageSize:'15'
 			}
 		});
-
+	}
+	openEditDetailDialog(){
+		this.setState({
+			openEditDetail: !this.state.openEditDetail,
+			searchParams:{
+				pageSize:'15'
+			}
+		});
 	}
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('joinCreateForm', 'lessorContacttel', personel.mobile));
@@ -72,6 +81,7 @@ export default class List extends Component {
 	onNewCreateCancel() {
 		this.openNewCreateDialog();
 	}
+
 	onLoaded(response) {
 
 		let list = response;
@@ -85,15 +95,27 @@ export default class List extends Component {
 		this.setState({
 			itemDetail
 		});
-	// 点击详情跳转到详情页面
 		if (type == 'view') {
 			let orderId = itemDetail.id
 			window.open(`./#/member/MemberManage/${orderId}/detail`, orderId);
 		} else if (type == 'edit') {
-			// this.openEditDetailDialog();
+			this.openEditDetailDialog();
 		}
 	}
-
+	// 导出Excle表格
+	onExport(values) {
+		console.log("values",values);
+		let ids = [];
+		if (values.length != 0) {
+			values.map((item, value) => {
+				ids.push(item.id)
+			});
+		}
+		console.log(ids,"ids");
+		var url = `/api/member/member-list-excel?ids=${ids}`
+		// var url = `/api/krspace-financ÷e-web/finaccount/data/exportExcel?ids=${ids}`
+		window.location.href = url;
+	}
 	render() {
 
 		let {
@@ -137,6 +159,7 @@ export default class List extends Component {
 												}}
 											onOperation={this.onOperation}
 											exportSwitch={true}
+											onExport={this.onExport}
 											ajaxFieldListName='items'
 											ajaxUrlName='membersList'
 											ajaxParams={this.state.searchParams}
@@ -187,6 +210,16 @@ export default class List extends Component {
 								>
 										<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 							  </Dialog>
+								<Dialog
+									title="编辑会员"
+									modal={true}
+									open={this.state.openEditDetail}
+									onClose={this.openEditDetailDialog}
+									contentStyle={{width:687}}
+								>
+										<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
+							  </Dialog>
+
 				</div>
 		);
 

@@ -36,25 +36,21 @@ export default class  SearchCompanyComponent extends React.Component {
 		input.onChange(value);
 		onChange && onChange(item);
 	}
-
 	getOptions(companyText){
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('getCompanyBycompanyText',{ companyText:companyText })).then(function(response){
+			Store.dispatch(Actions.callAPI('getCompanyByCompanyText',{ companyText:companyText })).then(function(response){
 				response.items.forEach(function(item,index){
-					item.value = item.sysloginid;
+					item.value = item.companyId;
 					item.label = item.companyName;
 				});
-				resolve({options:response.tems});
+				resolve({options:response.items});
 			}).catch(function(err){
 				reject(err);
 			});
 		});
 	}
-
 	render(){
-
 		let { input, label, type, meta: { touched, error },placeholder,children,disabled,style,requireLabel,...other} = this.props;
-
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync
