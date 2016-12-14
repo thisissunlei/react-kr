@@ -38,6 +38,7 @@ export default class  SearchBelongCommunity extends React.Component {
 	}
 
 	getOptions(communityName){
+		console.log('3333',communityName);
 		return new Promise((resolve, reject) => {
 			Store.dispatch(Actions.callAPI('getCommunityListByParams',{ communityName:communityName })).then(function(response){
 				response.forEach(function(item,index){
