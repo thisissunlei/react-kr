@@ -296,7 +296,17 @@ export default class AttributeSetting extends Component {
 														 	<Tooltip offsetTop={10} place='top'>{value}</Tooltip></div>)
 													 }} ></TableRowColumn>
 						<TableRowColumn name="mainBillTypeName" options={[{label:'工位入驻订单',value:'STATION'}]}></TableRowColumn>
-						<TableRowColumn name="community"></TableRowColumn>
+						<TableRowColumn style={{width:160,overflow:"visible"}} name="community" component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="block";
+														}
+														 return (<div style={{display:TooltipStyle}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
+														 	<Tooltip offsetTop={10} place='top'>{value}</Tooltip></div>)
+											}} ></TableRowColumn>
 						<TableRowColumn name="stationnum"></TableRowColumn>
 						<TableRowColumn name="contractEntrydate" type="date" format="yyyy-mm-dd"></TableRowColumn>
 						<TableRowColumn name="contractLeavedate" type="date" format="yyyy-mm-dd"></TableRowColumn>
