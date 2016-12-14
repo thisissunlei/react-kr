@@ -27,6 +27,7 @@ import {
 import {Actions,Store} from 'kr/Redux';
 import NewCreateForm from './NewCreateForm';
 import CreateMemberForm from './EditMember';
+import AdvancedQueryForm from './AdvancedQueryForm';
 import './index.less';
 
 export default class List extends Component {
@@ -38,6 +39,7 @@ export default class List extends Component {
 
 		this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
 		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
+		this.openAdvancedQueryDialog = this.openAdvancedQueryDialog.bind(this);
 		this.onLoaded = this.onLoaded.bind(this);
 		this.onOperation = this.onOperation.bind(this);
 		this.onExport = this.onExport.bind(this);
@@ -47,6 +49,8 @@ export default class List extends Component {
 			openNewCreate: false,
 			openView: false,
 			openEditDetail: false,
+			openAdvancedQuery :false,
+			openA: false,
 			itemDetail: {},
 			item: {},
 			list: {},
@@ -78,6 +82,15 @@ export default class List extends Component {
 	openEditDetailDialog(){
 		this.setState({
 			openEditDetail: !this.state.openEditDetail,
+			searchParams:{
+				pageSize:'15'
+			}
+		});
+	}
+	openAdvancedQueryDialog(){
+		console.log("1111");
+		this.setState({
+			openAdvancedQuery: !this.state.openAdvancedQuery,
 			searchParams:{
 				pageSize:'15'
 			}
@@ -144,23 +157,32 @@ export default class List extends Component {
 			}]);
 		});
 	}
+	// 查询
 	onSearchSubmit=(value)=>{
 		console.log("-----",value);
-		Store.dispatch(Actions.callAPI('membersChange',values)).then(function(response){
-			_this.openEditDetailDialog();
-			Notify.show([{
- 			 message: '成功',
- 			 type: 'success',
- 		 	}]);
+		let _this = this;
+		let searchParam = {
+			value :value.content,
+			type :value.filter
+		}
+		Store.dispatch(Actions.callAPI('searchListByFilter',searchParam)).then(function(response){
+			console.log(_this.state.searchParams,"_this.state.searchParams");
+				console.log(value.content,"value.content");
+			_this.setState({
+				searchParams:{
+					page:1,
+					pageSize:15,
+					value :value.content,
+					type :value.filter
+				}
+			})
 
 		}).catch(function(err){
-			console.log(err);
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
 			}]);
 		});
-
 	}
 	render() {
 		let {
@@ -185,14 +207,13 @@ export default class List extends Component {
 			value: 'PHONE'
 		}];
 		return (
-
 			    <div >
 								<Title value="全部会员 "/>
 								<Section title={`全部会员 (${list.totalCount})`} description="" >
 									<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
 										<Button label="新建会员"  onTouchTap={this.openNewCreateDialog} />
-										// 高级查询
-										<Button   type='search' searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
+										{/*高级查询*/}
+										<Button   type='search'  searchClick={this.openAdvancedQueryDialog}   searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
 										<SearchForms onSubmit={this.onSearchSubmit} searchFilter={options} style={{marginTop:5,zIndex:10000}} />
 									</form>
 									<Table
@@ -262,6 +283,15 @@ export default class List extends Component {
 									contentStyle={{width:687}}
 								>
 										<CreateMemberForm onSubmit={this.onNewCreateSubmit} params={this.params} onCancel={this.openEditDetailDialog} detail={itemDetail}/>
+							  </Dialog>
+								<Dialog
+									title="高级查询"
+									modal={true}
+									open={this.state.openAdvancedQuery}
+									onClose={this.openAdvancedQueryDialog}
+									contentStyle={{width:687}}
+								>
+									<AdvancedQueryForm onSubmit={this.onAdvanceSearchSubmit} params={this.params} onCancel={this.openAdvancedQueryDialog} detail={itemDetail}/>
 							  </Dialog>
 
 				</div>

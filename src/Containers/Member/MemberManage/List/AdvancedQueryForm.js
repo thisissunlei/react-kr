@@ -11,6 +11,8 @@ import {
 	Button,
 	Notify,
 	ButtonGroup,
+  ListGroup,
+  ListGroupItem,
 } from 'kr-ui';
 import $ from 'jQuery'
 import imgLine from './images/line.png'
@@ -51,7 +53,6 @@ class NewCreateForm extends Component{
 	}
 	// 点确定提交时候如果有错误提示返回，否则提交,,如果邮箱存在有错误提示，不能提交
 	 onSubmit(values){
-		 console.log("--------","1111");
 		 const {onSubmit} = this.props;
 		 onSubmit && onSubmit(values);
 	 }
@@ -101,7 +102,17 @@ class NewCreateForm extends Component{
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 				<KrField grid={1/2} name="phone" type="text" label="手机号" requireLabel={true} style={{display:'block'}}
 				   requiredValue={true} onBlur={this.onBlur} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
-				<div style={{width:'100%',textAlign:'center',height:25,marginBottom:8}}>
+        <ListGroup>
+        <ListGroupItem style={{textAlign:'center',padding:0}}></ListGroupItem>
+          <ListGroupItem style={{padding:0}}>
+              <KrField name="startDate"  component="date" onChange={this.props.onStartChange} simple={true}/>
+          </ListGroupItem>
+          <ListGroupItem style={{textAlign:'center',padding:0,marginLeft:'10'}}><span style={{display:'inline-block',lineHeight:'58px'}}>至</span></ListGroupItem>
+          <ListGroupItem style={{padding:0}}>
+              <KrField name="leaseendTime" component="date" onChange={this.props.onEndChange}  style={{width:'252'}} simple={true}/>
+          </ListGroupItem>
+        </ListGroup>
+				{/*<div style={{width:'100%',textAlign:'center',height:25,marginBottom:8}}>
 						<img src={imgLine}/>
 				</div>
 				<KrField grid={1/2} name="communityId" component="searchCommunity" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
@@ -114,7 +125,7 @@ class NewCreateForm extends Component{
 						<KrField name="enableflag" grid={1/2} label="是" type="radio" value="ENABLE"/>
 						<KrField name="enableflag" grid={1/2} label="否" type="radio" value="DISENABLE" />
               </KrField>
-        <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" />
+        <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" />*/}
 				<Grid style={{marginTop:30}}>
 					<Row>
 						<Col md={12} align="center">
