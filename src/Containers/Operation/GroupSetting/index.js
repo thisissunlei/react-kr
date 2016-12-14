@@ -32,6 +32,9 @@ import SearchUpperForm from './SearchUpperFrom'
 import './index.less';
 
 
+import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
+
+
 export default class GroupSetting  extends Component{
 
 	constructor(props,context){
@@ -52,6 +55,7 @@ export default class GroupSetting  extends Component{
 			accountname: {},
 			//已选模板列表
 			templateList:[],
+			templateListIds:[],
 			//未选模板列表
 			unselectedList:[],
 			allData:{},
@@ -79,7 +83,7 @@ export default class GroupSetting  extends Component{
 			Message.error("模板列表不能为空")
 
 		}else{
-			params.templateIdList=this.state.templateList;
+			params.templateIdList=this.state.templateListIds;
 		}
 
 		Store.dispatch(Actions.callAPI('GroupNewAndEidt', {}, params)).then(function(response) {
@@ -140,14 +144,14 @@ export default class GroupSetting  extends Component{
 	openEditDetailDialog=()=> {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('MouldGroupDetails',{id:this.state.id})).then(function(data) {
-			
+
 			_this.changeMudle(data.templateList)
+
+			Store.dispatch(initialize('newCreateForm',data));
+
 			_this.setState({
 					itemDetail:data,
 			},function(){
-
-
-				console.log(this.state.itemDetail);
 				_this.setState({
 					openEditDetail: !_this.state.openEditDetail
 				});
@@ -203,12 +207,15 @@ export default class GroupSetting  extends Component{
 	}
 	//新建
 	openNewCreateDialog=()=> {
+		Store.dispatch(initialize('newCreateForm',{
+			enable:'ENABLE'
+		}));
 		var _this = this;
 		Store.dispatch(Actions.callAPI('GroupNewModule')).then(function(data) {
 			_this.setState({
 					templateList:data.templateList,
 			},function(){
-				_this.setState({
+				this.setState({
 					openNewCreate: !_this.state.openNewCreate
 				});
 			});
@@ -234,7 +241,7 @@ export default class GroupSetting  extends Component{
 		for(var i=0;i<arr.length;i++){
 				ids.push(arr[i].id);
 		}
-		this.setState({templateList:ids,noinit:false})
+		this.setState({templateListIds:ids,noinit:false})
 	}
 
 
@@ -242,7 +249,6 @@ export default class GroupSetting  extends Component{
 //  component={(value,item)=>{<span>{value}</span>}}
 
 	render(){
-		console.log(this.state.itemDetail,"66666")
 		return(
 			<div className="switchhover">
 			<Title value="数据模板管理_基础配置"/>
@@ -355,10 +361,8 @@ export default class GroupSetting  extends Component{
 						// detail={this.state.templateList}
 						open={this.state.openNewCreate}
 						onClose={this.openNewCreateDialog}
-
-
 					>
-						<NewCreateForm changeMudle={this.changeMudle}  detail={this.state.templateList} onSubmit={this.onCreateSubmit} onCancel={this.openNewCreateDialog} />
+						<NewCreateForm changeMudle={this.changeMudle}  		open={this.state.openNewCreate} detail={this.state.templateList} onSubmit={this.onCreateSubmit} onCancel={this.openNewCreateDialog} />
 
 				  </Dialog>
 

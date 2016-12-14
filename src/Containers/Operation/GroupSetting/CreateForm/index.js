@@ -3,6 +3,8 @@ import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
+import {ShallowEqual} from 'kr/Utils';
+
 import {
 	KrField,
 	Grid,
@@ -24,16 +26,17 @@ class Switchover extends Component{
 			okData:this.props.okData,
     }
   }
+
 	componentWillReceiveProps(nextProps){
+		if(!ShallowEqual(nextProps.allData,this.state.allData)){
 			this.setState({
 				allData:nextProps.allData,
-				okData:nextProps.okData,
 			});
+		}
 	}
 	//向右边添加
 	rightAdd=(value)=>{
 		var _this=this;
-
 		var arr=this.state.okData;
 		arr.push(value);
 		this.setState({okData:arr},function(){
@@ -48,7 +51,6 @@ class Switchover extends Component{
 		arr.push(value);
 		this.setState({allData:arr},function(){
 			_this.props.changeMudle(_this.state.okData)
-
 		});
 	}
 	//右边全部数据添加到左边
@@ -72,13 +74,13 @@ class Switchover extends Component{
 	}
 	//数组的状态
 	swapItems =(arr, index1, index2)=> {
-
 			var _this=this;
        arr[index1] = arr.splice(index2, 1, arr[index1])[0];
        this.setState({okData:arr},function(){
 	 			_this.props.changeMudle(_this.state.okData)
 	 		});
    }
+
   render(){
 		var boxStyle={
 			marginLeft:"10px",
@@ -310,15 +312,27 @@ class ZhuanHuan extends React.Component{
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
 		this.state={
+			okData:[],
 			moduleData:this.props.detail,
 			valuesErr:"",
 			isErr:false,
-
 		};
 	}
 	componentDidMount(){
-	 Store.dispatch(change('newCreateForm','enable','ENABLE'));
+	 	Store.dispatch(change('newCreateForm','enable','ENABLE'));
 	}
+
+	componentWillReceiveProps(nextProps){
+
+		if(nextProps.open != this.props.open){
+			console.log('--->>>')
+			this.setState({
+				moduleData:nextProps.detail,
+				okData:[]
+			});
+		}
+	}
+
  onSubmit(values){
 
 		const {onSubmit} = this.props;
@@ -380,7 +394,6 @@ class ZhuanHuan extends React.Component{
 
 
 	render(){
-		console.log(this.state.moduleData,"444444");
 		const { error, handleSubmit, pristine, reset} = this.props;
 
 		return (
@@ -396,7 +409,7 @@ class ZhuanHuan extends React.Component{
 							 <KrField name="enable" label="否" type="radio" value="DISENABLE" />
 				</KrField>
 				<KrField grid={1/2} label="数据模板" requireLabel={true} name="groupDesc" component="labelText"/>
-				<Switchover allData={this.state.moduleData} okData={[]} changeMudle={this.props.changeMudle}/>
+				<Switchover allData={this.state.moduleData} okData={this.state.okData} changeMudle={this.props.changeMudle}/>
 
 
 			<KrField name="groupDesc" style={{width:558}} heightStyle={{height:"80px"}} component="textarea" label="分组描述" maxSize={100}  />
@@ -435,8 +448,5 @@ const validate = values =>{
 
 		return errors
 	}
-const selector = formValueSelector('newCreateForm');
-
-
 
 export default reduxForm({ form: 'newCreateForm', validate,enableReinitialize:true, keepDirtyOnReinitialize:true })(NewCreateForm);

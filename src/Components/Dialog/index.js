@@ -141,7 +141,7 @@ export default class DialogComponent extends Component {
 								<span className="close" onClick={this.onClose}></span>
 						</div>
 						<div className="dialog-body" ref="dialogBody">
-							{children}
+							{this.props.open && children}
 						</div>
 				</div>
 			</div>

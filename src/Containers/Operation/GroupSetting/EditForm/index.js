@@ -315,14 +315,9 @@ class ZhuanHuan extends React.Component{
 		this.state={
 			detail:this.props.detail
 		}
-
-
-
-
 	}
 
 	componentWillReceiveProps(nextProps){
-				Store.dispatch(initialize('newCreateForm',nextProps.detail));
 	}
 
 	 onSubmit(values){
