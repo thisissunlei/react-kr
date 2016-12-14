@@ -47,6 +47,8 @@ import ValidateMember from './ValidateMember';
 import CancleLeader from './CancleLeader';
 import SetLeader from './SetLeader';
 import EditMember from './EditMember';
+import ImportData from './ImportData';
+import BatchDelet from './BatchDelet';
 export default class CompanyMembers extends Component {
 
 	static contextTypes = {
@@ -70,7 +72,10 @@ export default class CompanyMembers extends Component {
 			itemDetail:{},
 			memberList:[],
 			allData:{},
-			seleced:[]
+			seleced:[],
+			selecedList:[],
+			importdata:false,
+			batchDelet:false
 		}
 		this.companyId = this.context.router.params.companyId;
 		this.params = this.context.router.params;
@@ -80,6 +85,12 @@ export default class CompanyMembers extends Component {
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(true));
 
+	}
+	importData=()=>{
+		console.log('ppppp');
+		this.setState({
+			importdata:!this.state.importdata
+		})
 	}
 
 	onLoaded=(values)=>{
@@ -103,10 +114,38 @@ export default class CompanyMembers extends Component {
 			})
 		})
 		this.setState({
-			seleced
+			seleced,
+			selecedList:values
 		})
 
 		// console.log('onSelect',seleced);
+	}
+	batchDelet=()=>{
+		this.setState({
+			batchDelet:!this.state.batchDelet
+		})
+	}
+	validateMemberSubmit=()=>{
+		let {selecedList} = this.state;
+		let _this = this;
+		console.log('validateMemberSubmit',selecedList,JSON.stringify(selecedList));
+		Store.dispatch(Actions.callAPI('validMember',{memberIds:JSON.stringify(selecedList)} )).then(function(response) {
+			_this.validateMember();
+			Notify.show([{
+				message: '设置成功',
+				type: 'success',
+			}]);
+
+			// window.setTimeout(function() {
+			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
+			// }, 0);
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
 	}
 	editMember(itemDetail){
 		this.setState({
@@ -216,9 +255,26 @@ export default class CompanyMembers extends Component {
 		});
 	}
 	onExport=(value)=>{
+		let companyId = this.companyId;
+		let ids = 1;
+		let url = `/mockjsdata/4/member/member-company-excel?${ids}&${companyId}`;
+		window.location.href = url;
 
 		console.log('onExport',value);
 	}
+	
+	onLoadDemo=()=>{
+		console.log('onLoadDemo');
+		let companyId = this.companyId;
+		let url = `/mockjsdata/4/member/member-templet-excel?${companyId}`;
+		window.location.href = url;
+	}
+	BatchDeletSure=()=>{
+		let {seleced} = this.state;
+		console.log('BatchDeletSure',seleced);
+	}
+	
+
 	
 
 	
@@ -311,7 +367,7 @@ export default class CompanyMembers extends Component {
 					 </TableRow>
 				</TableBody>
 
-				<TableFooter>
+				<TableFooter onImport={this.importData} batchDelet={this.batchDelet}>
 				</TableFooter>
 
 				</Table>
@@ -326,12 +382,20 @@ export default class CompanyMembers extends Component {
 				<CreateMemberForm onSubmit={this.onNewCreateSubmit} onCancel={this.createMember} />
 			</Dialog>
 			<Dialog
+			title="批量导入"
+			modal={true}
+			open={this.state.importdata}
+			onClose={this.importData}
+			contentStyle={{width:687}}>
+				<ImportData onSubmit={this.onNewCreateSubmit} onCancel={this.importData} onLoadDemo={this.onLoadDemo}/>
+			</Dialog>
+			<Dialog
 			title="验证员工"
 			modal={true}
 			open={this.state.validateMember}
 			onClose={this.validateMember}
 			contentStyle={{width:687}}>
-				<ValidateMember onSubmit={this.onNewCreateSubmit} onCancel={this.validateMember} seleced={seleced}/>
+				<ValidateMember onSubmit={this.validateMemberSubmit} onCancel={this.validateMember} seleced={seleced}/>
 			</Dialog>
 			<Dialog
 			title="编辑员工"
@@ -356,6 +420,14 @@ export default class CompanyMembers extends Component {
 			onClose={this.setLeaders}
 			contentStyle={{width:440}}>
 				<SetLeader onSubmit={this.setLeaderStatus} onCancel={this.setLeaders}/>
+			</Dialog>
+			<Dialog
+			title="批量删除"
+			modal={true}
+			open={this.state.batchDelet}
+			onClose={this.batchDelet}
+			contentStyle={{width:440}}>
+				<BatchDelet onSubmit={this.BatchDeletSure} onCancel={this.batchDelet}/>
 			</Dialog>
 			</div>
 

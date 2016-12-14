@@ -8,15 +8,79 @@
 		font-size: 16px;
 		font-weight: 500;
 	}
-	.person-status{
+	.person-status,.person-status-not{
 		font-size: 12px;
 		padding: 2px 8px;
 		background: #ff6868;
 		border-radius: 4px;
 		margin: 0 15px;
 		color: #fff;
+		position: relative;
+		padding-right: 15px;
+		&:after{
+			content: '';
+			width: 12px;
+			height: 12px;
+			background: url('./images/1.png') no-repeat;
+			display: inline-block;
+			background-size:cover;
+			margin-left: 4px;
+			position: absolute;
+			top: 4px;
+		}
+	}
+	.person-status-not{
+		background: #499df1;
 	}
 	.person-id{
 		font-size: 14px;
 	}
+	.split-lines{
+		height: 20px;
+		width: 80%;
+		padding-left: 10%;
+		margin-bottom: 10px;
+		background: url('./images/line.png') no-repeat;
+	}
+}
+.validate-member{
+	span{
+		font-size: 14px;
+	}
+	.make-sure{
+		display: block;
+		color: #ff6868;
+		font-size: 14px;
+		margin-top: 10px;
+	}
+	.demo-info{
+		margin-bottom: 30px;
+		.demo-title{
+			display: block;
+			margin: 10px 0;
+		}
+	}
+	.table-div{
+		max-height: 200px;
+		overflow-y: auto;
+	}
+}
+.import-logo{
+	color: #7ab55c;
+	display: block;
+	font-size: 80px;
+	margin: 10px auto;
+	text-align: center;
+}
+.import-font{
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	color: #499df1;
+}
+.load-demo{
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	margin:10px 0 20px 0;
 }
