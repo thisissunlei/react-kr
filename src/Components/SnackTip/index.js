@@ -49,7 +49,7 @@ export default class SnackTip extends Component {
 		return (
 			<div className="ui-snackTap">
 			 <div className={className}  style={style} onClick={onClose}>
-			  <span style={{'marginRight':'2px'}}>{title}</span><span style={{'color':'#499df1','fontSize':'16px'}}>{titleAfter}</span>
+			  <span style={{'marginRight':'10px'}}>{title}</span><span style={{'color':'#499df1','fontSize':'16px'}}>{titleAfter}</span>
 			 </div>
 			</div>
 		);

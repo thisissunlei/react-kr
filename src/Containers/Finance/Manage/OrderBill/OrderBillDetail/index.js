@@ -206,7 +206,7 @@ export default class AttributeSetting extends Component {
 			isInitLoading: true,
 			openView: false,
             isRunIncome:0,
-            colorClassName:'historyIncome'
+            colorClassName:''
 		}
 	}
 
@@ -702,7 +702,8 @@ export default class AttributeSetting extends Component {
 				detailIncome: response.incomedata,
 				detailBalance: response.balance,
 				isInitLoading: false,
-				isRunIncome:response.isIncomeRunning
+				isRunIncome:response.isIncomeRunning,
+				colorClassName:response.isIncomeRunning==2?'historyIncomeGray':'historyIncome'
 			});
 		}).catch(function(err) {
 			Notify.show([{
@@ -832,7 +833,7 @@ export default class AttributeSetting extends Component {
 		let {
 			params,
 			isInitLoading,
-			colorClassName
+			colorClassName,
 		} = this.state;
 
 		if (isInitLoading) {
