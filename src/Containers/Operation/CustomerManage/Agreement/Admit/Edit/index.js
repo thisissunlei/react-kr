@@ -226,7 +226,6 @@ export default class JoinCreate extends Component {
 			optionValues,
 			stationVos
 		} = this.state;
-		console.log('index', this.state);
 
 		return (
 
