@@ -8,7 +8,7 @@ import {Actions,Store} from 'kr/Redux';
 
 import WrapComponent from '../WrapComponent';
 
-export default class  SearchPersonelCommunity extends React.Component {
+export default class  SearchPersonelComponent extends React.Component {
 
 	static defaultProps = {
 		placeholder:'请输入...'
