@@ -9,7 +9,6 @@ export default class SnackTip extends Component {
     
    constructor(props) {
     super(props);
-    this.state = { flag:'true' };
   }
 
 	static propTypes = {
