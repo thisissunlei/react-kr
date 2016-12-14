@@ -47,7 +47,6 @@ export default class JoinCreate extends Component {
 	}
 
 	onCreateSubmit(formValues) {
-		console.log('--first--formValues',formValues)
 		this.setState({
 			formValues
 		}, function() {
@@ -64,7 +63,6 @@ export default class JoinCreate extends Component {
 		let {
 			params
 		} = this.props;
-			console.log('-to',formValues)
 		formValues.stationVos = JSON.stringify(formValues.stationVos);
 
 

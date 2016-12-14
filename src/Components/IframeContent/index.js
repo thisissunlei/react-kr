@@ -7,7 +7,8 @@ export default class IframeContent extends React.Component {
 
 	static defaultProps = {
 		width:window.innerWidth,
-		height:800
+		height:800,
+		params:{}
 	}
 
 	static propTypes = {
@@ -17,6 +18,7 @@ export default class IframeContent extends React.Component {
 		height: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
 		onClose:React.PropTypes.func,
 		onLoad:React.PropTypes.func,
+		params:React.PropTypes.object,
 	}
 
 	constructor(props){
@@ -45,15 +47,25 @@ export default class IframeContent extends React.Component {
 
 	componentDidMount(){
 		this.createIframe();
+		this.initialParams(this.props.params);
+	}
+
+	//初始化变量
+	initialParams = (params)=>{
+			window.iframeRequestParams = params;
 	}
 
 	componentWillReceiveProps(nextProps){
 		if (nextProps.src) {
+
 			let src = nextProps.src;
+			let params = nextProps.params;
+
 			this.setState({
 				src
 			},function(){
 				this.createIframe();
+				this.initialParams(params);
 			});
 		}
 	}
