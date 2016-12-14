@@ -35,7 +35,7 @@ export default class Setting extends Component {
 
 		return (
 
-			    <div >
+			  <div >
 
 				</div>
 		);
