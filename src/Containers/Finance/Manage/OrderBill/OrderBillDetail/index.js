@@ -205,7 +205,8 @@ export default class AttributeSetting extends Component {
 			isLoading: true,
 			isInitLoading: true,
 			openView: false,
-            isRunIncome:0
+            isRunIncome:0,
+            colorClassName:'historyIncome'
 		}
 	}
 
@@ -761,7 +762,8 @@ export default class AttributeSetting extends Component {
 			})).then(function(response) {
 			    setTimeout(function(){
                    _this.setState({
-				     isRunIncome:2
+				     isRunIncome:2,
+				     colorClassName:'historyIncomeGray'
 			        });
 			    },1000)
 			}).catch(function(err) {
@@ -785,14 +787,15 @@ export default class AttributeSetting extends Component {
 				mainbillId:params.orderId,
 			})).then(function(response) {
 			    _this.setState({
-				 isRunIncome:0
+				 isRunIncome:0,
+				 colorClassName:'historyIncome'
 			 });
 			}).catch(function(err) {
 				 
 			});
     }
 
-	initializeSnack = (open=false,title='正在补历史收入...',color)=>{
+	initializeSnack = (open=false,title='正在补历史收入...',titleAfter,color)=>{
 	
     	let style={
     	'background':color,
@@ -804,7 +807,7 @@ export default class AttributeSetting extends Component {
     	
     	   return (
                
-    	   	  <SnackTip style={style} open={open} title={title}  onClose={this.snackTipClose}/>
+    	   	  <SnackTip style={style} open={open} title={title} titleAfter={titleAfter} onClose={this.snackTipClose}/>
     	  
     	   	);
 	}
@@ -815,11 +818,11 @@ export default class AttributeSetting extends Component {
     renderSnack=()=>{
     	let {isRunIncome} = this.state;
     	if(isRunIncome == 1){
-    		return this.initializeSnack(true,'正在补历史收入...','#69bbf0');
+    		return this.initializeSnack(true,'正在补历史收入...','','#69bbf0');
     	}else if(isRunIncome==0){
     		return this.initializeSnack(false,'未完成');
     	}else if(isRunIncome==2){
-    		return this.initializeSnack(true,'补历史收入已完成!','#75c7bc');
+    		return this.initializeSnack(true,'补历史收入已完成!','确认','#75c7bc');
     	}
     	
     	
@@ -828,7 +831,8 @@ export default class AttributeSetting extends Component {
 	render() {
 		let {
 			params,
-			isInitLoading
+			isInitLoading,
+			colorClassName
 		} = this.state;
 
 		if (isInitLoading) {
@@ -956,7 +960,7 @@ export default class AttributeSetting extends Component {
 								 <div className='detail-right'>
 								     <div>
 								        <Col align="left" className='btn-left'>{buttonArr}</Col>
-								        <Col align="right" style={{'position':'relative'}}><Button  type='search'  searchClick={this.openSearchDialog}/><span className='historyIncome' onClick={this.historyIncomed}><Tooltip  offsetTop={8} place='top'>补历史收入</Tooltip></span></Col>
+								        <Col align="right" style={{'position':'relative'}}><Button  type='search'  searchClick={this.openSearchDialog}/><span className={colorClassName} onClick={this.historyIncomed}><Tooltip  offsetTop={8} place='top'>补历史收入</Tooltip></span></Col>
 								     </div>
 
 									 <Table style={{marginTop:30}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>

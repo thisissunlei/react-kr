@@ -17,6 +17,7 @@ export default class SnackTip extends Component {
 		*标题
 		*/
 		title: React.PropTypes.string,
+		titleAfter: React.PropTypes.string,
 		/**
 		*样式
 		*/
@@ -33,6 +34,7 @@ export default class SnackTip extends Component {
 			style,
 			children,
 			open,
+			titleAfter,
 			onClose,
 			...other
 		} = this.props;
@@ -47,7 +49,7 @@ export default class SnackTip extends Component {
 		return (
 			<div className="ui-snackTap">
 			 <div className={className}  style={style} onClick={onClose}>
-			  <span>{title}</span>
+			  <span style={{'marginRight':'2px'}}>{title}</span><span style={{'color':'#499df1','fontSize':'16px'}}>{titleAfter}</span>
 			 </div>
 			</div>
 		);
