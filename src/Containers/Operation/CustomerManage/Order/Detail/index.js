@@ -557,7 +557,7 @@ export default class OrderDetail extends React.Component {
 			<span className="border-top" ></span>
 			<DotTitle title='合同列表' style={{marginTop:40,marginBottom:40}}/>
 
-			<Table pageSize={contractList.length} displayCheckbox={false} >
+			<Table className="orders" pageSize={contractList.length} displayCheckbox={false} >
 			<TableHeader>
 			<TableHeaderColumn>合同类型</TableHeaderColumn>
 			<TableHeaderColumn>租金金额</TableHeaderColumn>
