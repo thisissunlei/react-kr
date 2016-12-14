@@ -431,7 +431,7 @@
   'PersonalCenterGetVerificationCode': {
     url:'/mockjs/15/krspace_isso_web/sys/sysOwn/getVerifyCode',
     method:'get'
-  }
+  },
   //订单明细账－补历史收入
   'runStationIncome': {
     url:'/api/krspace-finance-web/finaccount/opt/runStationIncome?mainbillId={mainbillId}',
