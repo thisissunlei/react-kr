@@ -41,7 +41,8 @@ import {
 		this.onCancel = this.onCancel.bind(this);
 		this.state={
 			communityText:'',
-			companyText:''
+			companyText:'',
+
 		}
 
 		Store.dispatch(reset('newCreateForm'));
@@ -58,10 +59,28 @@ import {
 		 const {onCancel} = this.props;
 		 onCancel && onCancel();
 	 }
-
+	 componentDidMount(){
+		 let _this =this;
+		//  新增会员准备职位数据
+		 Store.dispatch(Actions.callAPI('getMemberPosition')).then(function(response){
+			 console.log(response,'response');
+			 console.log(response.items,'response.items');
+			 _this.setState({
+				 selectOption:response.items
+			 })
+			//  response.forEach(function(item,index){
+				//  item.value = item.companyId;
+				//  item.label = item.companyName;
+			//  });
+			//  resolve({options:response.items});
+		 }).catch(function(err){
+			 reject(err);
+		 });
+	 }
 	render(){
 		const { error, handleSubmit, pristine, reset} = this.props;
 		let communityText = '';
+		let {selectOption} =this.state;
 
 		return (
 
@@ -73,7 +92,7 @@ import {
         <KrField grid={1/2} name="email" type="text" label="邮箱" requireLabel={true}
 				   requiredValue={true} pattern={/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/} errors={{requiredValue:'邮箱为必填项',pattern:'请输入正确邮箱地址'}}/>
 				<KrField grid={1/2} name="companyid" component="searchCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
-        {/*<KrField name="memberPosition"  grid={1/2} component="select" label="职位" options={optionValues.paymentList} requireLabel={true} />*/}
+        {/*<KrField name="memberPosition"  grid={1/2} component="select" label="职位" options={selectOption} requireLabel={true} />*/}
 				<KrField grid={1/2} name="ordernum" type="text" label="姓名" requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}}/>
 				<KrField grid={1/2} name="enableflag" component="group" label="发送验证短信" requireLabel={true}>
 						<KrField name="enableflag" grid={1/2} label="是" type="radio" value="ENABLE"/>
@@ -90,14 +109,12 @@ import {
 						</Col>
 					</Row>
 				</Grid>
-
 		  </form>
 		);
 	}
 }
 export default reduxForm({ form: 'newCreateForm', enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCreateForm);
 const selector = formValueSelector('creatNewMember');
-
 NewCreateForm = reduxForm({
 	form: 'creatNewMember',
 	// validate,
