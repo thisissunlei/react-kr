@@ -47,6 +47,7 @@ import ValidateMember from './ValidateMember';
 import CancleLeader from './CancleLeader';
 import SetLeader from './SetLeader';
 import EditMember from './EditMember';
+import ImportData from './ImportData';
 export default class CompanyMembers extends Component {
 
 	static contextTypes = {
@@ -71,7 +72,8 @@ export default class CompanyMembers extends Component {
 			memberList:[],
 			allData:{},
 			seleced:[],
-			selecedList:[]
+			selecedList:[],
+			importdata:false,
 		}
 		this.companyId = this.context.router.params.companyId;
 		this.params = this.context.router.params;
@@ -81,6 +83,12 @@ export default class CompanyMembers extends Component {
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(true));
 
+	}
+	importData=()=>{
+		console.log('ppppp');
+		this.setState({
+			importdata:!this.state.importdata
+		})
 	}
 
 	onLoaded=(values)=>{
@@ -113,7 +121,7 @@ export default class CompanyMembers extends Component {
 	validateMemberSubmit=()=>{
 		let {selecedList} = this.state;
 		let _this = this;
-		console.log('validateMemberSubmit',selecedList);
+		console.log('validateMemberSubmit',selecedList,JSON.stringify(selecedList));
 		Store.dispatch(Actions.callAPI('validMember',{memberIds:JSON.stringify(selecedList)} )).then(function(response) {
 			_this.validateMember();
 			Notify.show([{
@@ -240,8 +248,19 @@ export default class CompanyMembers extends Component {
 		});
 	}
 	onExport=(value)=>{
+		let companyId = 1;
+		let ids = 1;
+		let url = `/mockjsdata/4/member/member-company-excel?${ids}&${companyId}`;
+		window.location.href = url;
 
 		console.log('onExport',value);
+	}
+	
+	batchDelet=()=>{
+		console.log('3123123');
+	}
+	onLoadDemo=()=>{
+		console.log('onLoadDemo');
 	}
 	
 
@@ -335,7 +354,7 @@ export default class CompanyMembers extends Component {
 					 </TableRow>
 				</TableBody>
 
-				<TableFooter>
+				<TableFooter onImport={this.importData} batchDelet={this.batchDelet}>
 				</TableFooter>
 
 				</Table>
@@ -348,6 +367,14 @@ export default class CompanyMembers extends Component {
 			onClose={this.createMember}
 			contentStyle={{width:687}}>
 				<CreateMemberForm onSubmit={this.onNewCreateSubmit} onCancel={this.createMember} />
+			</Dialog>
+			<Dialog
+			title="批量导入"
+			modal={true}
+			open={this.state.importdata}
+			onClose={this.importData}
+			contentStyle={{width:687}}>
+				<ImportData onSubmit={this.onNewCreateSubmit} onCancel={this.importData} onLoadDemo={this.onLoadDemo}/>
 			</Dialog>
 			<Dialog
 			title="验证员工"

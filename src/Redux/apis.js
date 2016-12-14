@@ -497,6 +497,21 @@
   	url:'/mockjsdata/4/member/actions/set-as-valid?memberIds={memberIds}',
   	method:'post'
   },
+  //指定公司下的会员数据导出 
+  'companyMemberExcel':{
+  	url:'/mockjsdata/4/member/member-company-excel?ids={ids}&companyId={companyId}',
+  	method:'get'
+  },
+  //根据邮箱判断手否存在
+  'membersByEmail':{
+  	url:'/mockjsdata/4/member/member-email?email={email}',
+  	method:'get'
+  },
+  //根据会员卡号判断手否存在
+  'membersByForeignCode':{
+  	url:'/mockjsdata/4/member/getCardInfoByForeignCode?foreignCode={foreignCode}&interCode={interCode}',
+  	method:'get'
+  },
   //个人中心-获取验证码
   'PersonalCenterGetVerificationCode': {
     url:'/mockjs/15/krspace_isso_web/sys/sysOwn/getVerifyCode',
