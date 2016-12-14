@@ -445,12 +445,7 @@
 	//会员中心-新增会员－社区模糊查询
 	'searchCommunityByCommunityText': {
 		url: '/mockjsdata/4/member/community-list?communityText={communityText}',
-		method: 'post'
-	},
-  //会员中心-新增会员－公司模糊查询
-	'searchCommunityByCommunityText': {
-		url: '/mockjsdata/4/member/community-list?communityText={communityText}',
-		method: 'post'
+		method: 'get'
 	},
   //会员中心-新增会员－公司模糊查询
   'getCompanyByCompanyText': {
@@ -462,6 +457,11 @@
 		url: '/mockjsdata/4/member/member-add-edit',
 		method: 'get'
 	},
+  // 会员中心－新增会员－电话号码校验是否存在
+  'isPhoneRegistered':{
+    url:'/mockjsdata/4/member/member-phone?phone={phone}',
+    method:'get'
+  },
   //个人中心-获取个人信息
   'PersonalCenterData': {
     url:' /mockjs/15/krspace_isso_web/sys/sysOwn/getPersonalInfo',
@@ -489,7 +489,7 @@
   },
   //新建编辑会员
   'membersChange':{
-  	url:'/mockjsdata/4/member/member?companyId={companyId}&email={email}&communityId={communityId}&foreignCode={foreignCode}&jobId={jobId}&name={name}&phone={phone}&sendMsg={sendMsg}',
+  	url:'/mockjsdata/4/member/member',
   	method:'post'
   },
   //验证成员
@@ -497,7 +497,7 @@
   	url:'/mockjsdata/4/member/actions/set-as-valid?memberIds={memberIds}',
   	method:'post'
   },
-  //指定公司下的会员数据导出 
+  //指定公司下的会员数据导出
   'companyMemberExcel':{
   	url:'/mockjsdata/4/member/member-company-excel?ids={ids}&companyId={companyId}',
   	method:'get'

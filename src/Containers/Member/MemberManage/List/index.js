@@ -22,13 +22,17 @@ import {
 	SplitLine,
 	SearchForms,
 	Dialog,
+	Notify,
 } from 'kr-ui';
-
+import {Actions,Store} from 'kr/Redux';
 import NewCreateForm from './NewCreateForm';
+import CreateMemberForm from './EditMember';
 import './index.less';
 
 export default class List extends Component {
-
+	static contextTypes = {
+		router: React.PropTypes.object.isRequired
+	}
 	constructor(props, context) {
 		super(props, context);
 
@@ -37,6 +41,8 @@ export default class List extends Component {
 		this.onLoaded = this.onLoaded.bind(this);
 		this.onOperation = this.onOperation.bind(this);
 		this.onExport = this.onExport.bind(this);
+		this.onSearchSubmit = this.onSearchSubmit.bind(this);
+		this.params = this.context.router.params;
 		this.state = {
 			openNewCreate: false,
 			openView: false,
@@ -49,6 +55,17 @@ export default class List extends Component {
 				pageSize: 15
 			}
 		}
+	}
+	editMember(itemDetail){
+		this.setState({
+			editMember: !this.state.editMember,
+			itemDetail:itemDetail
+		});
+	}
+	editMembers=()=>{
+		this.setState({
+			editMember: !this.state.editMember,
+		});
 	}
 	openNewCreateDialog() {
 		this.setState({
@@ -81,11 +98,8 @@ export default class List extends Component {
 	onNewCreateCancel() {
 		this.openNewCreateDialog();
 	}
-
 	onLoaded(response) {
-
 		let list = response;
-
 		this.setState({
 			list
 		})
@@ -104,22 +118,53 @@ export default class List extends Component {
 	}
 	// 导出Excle表格
 	onExport(values) {
-		console.log("values",values);
 		let ids = [];
 		if (values.length != 0) {
 			values.map((item, value) => {
 				ids.push(item.id)
 			});
 		}
-		console.log(ids,"ids");
 		var url = `/api/member/member-list-excel?ids=${ids}`
-		// var url = `/api/krspace-financ÷e-web/finaccount/data/exportExcel?ids=${ids}`
 		window.location.href = url;
 	}
-	render() {
+	onNewCreateSubmit=(values)=>{
+		var _this = this;
+		Store.dispatch(Actions.callAPI('membersChange',values)).then(function(response){
+			_this.openEditDetailDialog();
+			Notify.show([{
+ 			 message: '成功',
+ 			 type: 'success',
+ 		 	}]);
 
+		}).catch(function(err){
+			console.log(err);
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+	}
+	onSearchSubmit=(value)=>{
+		console.log("-----",value);
+		Store.dispatch(Actions.callAPI('membersChange',values)).then(function(response){
+			_this.openEditDetailDialog();
+			Notify.show([{
+ 			 message: '成功',
+ 			 type: 'success',
+ 		 	}]);
+
+		}).catch(function(err){
+			console.log(err);
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+
+	}
+	render() {
 		let {
-			list
+			list,itemDetail,seleced
 		} = this.state;
 
 		if (!list.totalCount) {
@@ -146,8 +191,9 @@ export default class List extends Component {
 								<Section title={`全部会员 (${list.totalCount})`} description="" >
 									<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
 										<Button label="新建会员"  onTouchTap={this.openNewCreateDialog} />
+										// 高级查询
 										<Button   type='search' searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
-										<SearchForms onSubmit={this.onSubmit} searchFilter={options} style={{marginTop:5,zIndex:10000}} />
+										<SearchForms onSubmit={this.onSearchSubmit} searchFilter={options} style={{marginTop:5,zIndex:10000}} />
 									</form>
 									<Table
 										className="member-list-table"
@@ -165,7 +211,6 @@ export default class List extends Component {
 											ajaxParams={this.state.searchParams}
 										>
 										<TableHeader>
-											{/*<TableHeaderColumn>ID</TableHeaderColumn>*/}
 											<TableHeaderColumn>联系电话</TableHeaderColumn>
 											<TableHeaderColumn>姓名</TableHeaderColumn>
 											<TableHeaderColumn>微信</TableHeaderColumn>
@@ -182,7 +227,6 @@ export default class List extends Component {
 
 									<TableBody style={{position:'inherit'}}>
 											<TableRow displayCheckbox={true}>
-											{/*<TableRowColumn name="id" ></TableRowColumn>*/}
 											<TableRowColumn name="name" ></TableRowColumn>
 											<TableRowColumn name="phone" ></TableRowColumn>
 											<TableRowColumn name="wechatNick"></TableRowColumn>
@@ -217,7 +261,7 @@ export default class List extends Component {
 									onClose={this.openEditDetailDialog}
 									contentStyle={{width:687}}
 								>
-										<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
+										<CreateMemberForm onSubmit={this.onNewCreateSubmit} params={this.params} onCancel={this.openEditDetailDialog} detail={itemDetail}/>
 							  </Dialog>
 
 				</div>
