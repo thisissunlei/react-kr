@@ -25,7 +25,7 @@ import {
 
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
-
+import './index.less';
 
 export default class JoinCreate extends Component {
 
@@ -65,7 +65,7 @@ export default class JoinCreate extends Component {
 			params
 		} = this.props;
 
-		if(typeof formValues.stationVos != 'string'){
+		if (typeof formValues.stationVos != 'string') {
 			formValues.stationVos = JSON.stringify(formValues.stationVos);
 		}
 
