@@ -146,7 +146,7 @@ export default class AttributeSetting extends Component {
 	//搜索
 	onSearchSubmit(searchParams) {
 		let obj = {
-			customername: searchParams.content,
+			mainbillname: searchParams.content,
 			pageSize:15
 		}
 

@@ -243,6 +243,16 @@
 		url: '/api/krspace-finance-web/finaccount/data/getFinaDataCommunityAndMainBillType',
 		method: 'get'
 	},
+	//财务管理－订单账单列表-高级查询-订单类型
+	'getMainBillTypeList': {
+		url:'/api/finaccount/data/getMainBillTypeList',
+		method: 'get'
+	},
+	//财务管理－订单账单列表-高级查询-社区类型
+	'getCommunityListByParams': {
+		url:'/api/finaccount/data/getCommunityListByParams',
+		method: 'get'
+	},
 	//财务管理－订单账单列表-导出
 	'finaExportExcel': {
 		url: '/api/krspace-finance-web/finaccount/data/exportExcel?communityid={communityid}&customername={customername}&endDate={endDate}&mainbilltype={mainbilltype}&startDate={startDate}&idList={idList}',
