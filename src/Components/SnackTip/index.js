@@ -43,7 +43,7 @@ export default class SnackTip extends Component {
 		let className = 'snackTap';
 
 		let titleAfterStyle={
-			color:'#499df1',
+			color:'#265e97',
 			fontSize:'16px',
 			marginLeft:'10px'
 		}
