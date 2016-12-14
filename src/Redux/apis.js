@@ -479,7 +479,7 @@
   },
   //设置Leader
   'setLeader':{
-  	url:'/mockjsdata/4/member/leader?companyId={companyId}&isLeader={isLeader}&memberId={memberId}',
+  	url:'/mockjsdata/4/member/work/leader?companyId={companyId}&isLeader={isLeader}&memberId={memberId}',
   	method:'put'
   },
   //新建编辑会员的准备数据
@@ -516,6 +516,16 @@
   'importExcelDemo':{
   	url:'/mockjsdata/4/member/member-templet-excel?companyId={companyId}',
   	method:'get'
+  },
+  //上传会员数据
+  'importMemberExcel':{
+  	url:'/mockjsdata/4/member/member-excel',
+  	method:'post'
+  },
+  //批量删除
+  'deleteMembers':{
+  	url:'/mockjsdata/4//member/actions/unbind-from-company?memberIds={memberIds}',
+  	method:'delete'
   },
   //个人中心-获取验证码
   'PersonalCenterGetVerificationCode': {

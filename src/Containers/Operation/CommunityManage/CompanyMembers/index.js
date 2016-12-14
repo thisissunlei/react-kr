@@ -39,6 +39,8 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
+	ListGroup,
+	ListGroupItem
 } from 'kr-ui';
 
 import $ from 'jquery';
@@ -75,6 +77,7 @@ export default class CompanyMembers extends Component {
 			seleced:[],
 			selecedList:[],
 			importdata:false,
+			warns:false,
 			batchDelet:false
 		}
 		this.companyId = this.context.router.params.companyId;
@@ -121,6 +124,11 @@ export default class CompanyMembers extends Component {
 		// console.log('onSelect',seleced);
 	}
 	batchDelet=()=>{
+		let {seleced} = this.state;
+		if(!seleced.length){
+			this.onSubmits();
+			return;
+		}
 		this.setState({
 			batchDelet:!this.state.batchDelet
 		})
@@ -161,10 +169,7 @@ export default class CompanyMembers extends Component {
 	validateMember=()=>{
 		let {seleced} = this.state;
 		if(!seleced.length){
-			Notify.show([{
-				message: '请选择会员',
-				type: 'danger',
-			}]);
+			this.onSubmits();
 			return;
 		}
 		this.setState({
@@ -270,8 +275,57 @@ export default class CompanyMembers extends Component {
 		window.location.href = url;
 	}
 	BatchDeletSure=()=>{
-		let {seleced} = this.state;
-		console.log('BatchDeletSure',seleced);
+		let {selecedList} = this.state;
+		let _this = this;
+		Store.dispatch(Actions.callAPI('deleteMembers',{memberIds:JSON.stringify(selecedList)} )).then(function(response) {
+			_this.batchDelet();
+			Notify.show([{
+				message: '设置成功',
+				type: 'success',
+			}]);
+
+			// window.setTimeout(function() {
+			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
+			// }, 0);
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+	}
+	importDataPost=(files)=>{
+		console.log('files',files);
+		let companyId = this.companyId;
+		let params = {
+			companyId:companyId,
+			file:files.file
+		}
+		let _this = this;
+		Store.dispatch(Actions.callAPI('importMemberExcel',params)).then(function(response) {
+			_this.importData();
+			Notify.show([{
+				message: '设置成功',
+				type: 'success',
+			}]);
+
+			// window.setTimeout(function() {
+			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
+			// }, 0);
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+
+	}
+	onSubmits=()=>{
+		this.setState({
+			warns:!this.state.warns
+		})
 	}
 	
 
@@ -387,7 +441,7 @@ export default class CompanyMembers extends Component {
 			open={this.state.importdata}
 			onClose={this.importData}
 			contentStyle={{width:687}}>
-				<ImportData onSubmit={this.onNewCreateSubmit} onCancel={this.importData} onLoadDemo={this.onLoadDemo}/>
+				<ImportData onSubmit={this.importDataPost} onCancel={this.importData} onLoadDemo={this.onLoadDemo}/>
 			</Dialog>
 			<Dialog
 			title="验证员工"
@@ -428,6 +482,23 @@ export default class CompanyMembers extends Component {
 			onClose={this.batchDelet}
 			contentStyle={{width:440}}>
 				<BatchDelet onSubmit={this.BatchDeletSure} onCancel={this.batchDelet}/>
+			</Dialog>
+			<Dialog
+			title="提示"
+			modal={true}
+			open={this.state.warns}
+			onClose={this.onSubmits}
+			contentStyle={{width:440}}>
+				<div>
+				<p style={{marginTop:55,marginBottom:59,textAlign:'center',color:'#333'}}>请至少选择一个成员  </p>
+				<Grid style={{marginBottom:20}}>
+					<Row>
+						<ListGroup>
+							<ListGroupItem style={{width:'100%',textAlign:'center',padding:0}}><Button  label="确定" type="button"  onTouchTap={this.onSubmits} width={90} height={34}/></ListGroupItem>
+						</ListGroup>
+					  </Row>
+				</Grid></div>
+
 			</Dialog>
 			</div>
 
