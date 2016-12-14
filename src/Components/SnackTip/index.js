@@ -42,6 +42,12 @@ export default class SnackTip extends Component {
 
 		let className = 'snackTap';
 
+		let titleAfterStyle={
+			color:'#499df1',
+			fontSize:'16px',
+			marginLeft:'10px'
+		}
+
 		if(!open){
 			className = 'none';	
 		} 
@@ -49,7 +55,7 @@ export default class SnackTip extends Component {
 		return (
 			<div className="ui-snackTap">
 			 <div className={className}  style={style} onClick={onClose}>
-			  <span style={{'marginRight':'10px'}}>{title}</span><span style={{'color':'#499df1','fontSize':'16px'}}>{titleAfter}</span>
+			  <span>{title}</span><span style={titleAfterStyle}>{titleAfter}</span>
 			 </div>
 			</div>
 		);
