@@ -483,6 +483,11 @@ export default class OrderDetail extends React.Component {
 					type: 'danger',
 				}]);
 			});
+		} else {
+			Notify.show([{
+				message: '订单名称不能为空',
+				type: 'danger',
+			}]);
 		}
 
 
