@@ -81,14 +81,16 @@ export default class InputComponent extends React.Component {
 
 		return (
 			<WrapComponent  label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} wrapStyle={style} alignRight={alignRight}>
-					<span  data-tip data-for={`${tooltip}`}> 
-						<ReactTooltip id={`${tooltip}`}>
-							<p style={{margin:0}}>{tooltip}</p>
-						</ReactTooltip>
-					</span>
+					
 						{!this.state.editOpen && <span className="edit" onTouchTap={this.onEdit}></span>}
 						{this.state.editOpen && <input id="focus" onBlur={this.onSave} className={className} defaultValue={this.state.oldtext} />}
-				<span className="contract">{this.state.oldtext}</span>
+						<span  className="ui-label-text" data-tip data-for={`${tooltip}`}>
+							<ReactTooltip id={`${tooltip}`}>
+								<p style={{margin:0}}>{tooltip}</p>
+							</ReactTooltip>
+							<span className="contract">{this.state.oldtext}</span>
+						</span>
+
 
 
 				</WrapComponent>
