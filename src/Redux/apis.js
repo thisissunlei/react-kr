@@ -487,6 +487,11 @@
   	url:'/mockjsdata/4/member/member?companyId={companyId}&email={email}&communityId={communityId}&foreignCode={foreignCode}&jobId={jobId}&name={name}&phone={phone}&sendMsg={sendMsg}',
   	method:'post'
   },
+  //验证成员
+  'validMember':{
+  	url:'/mockjsdata/4/member/actions/set-as-valid?memberIds={memberIds}',
+  	method:'post'
+  },
   //个人中心-获取验证码
   'PersonalCenterGetVerificationCode': {
     url:'/mockjs/15/krspace_isso_web/sys/sysOwn/getVerifyCode',

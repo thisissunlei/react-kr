@@ -70,7 +70,8 @@ export default class CompanyMembers extends Component {
 			itemDetail:{},
 			memberList:[],
 			allData:{},
-			seleced:[]
+			seleced:[],
+			selecedList:[]
 		}
 		this.companyId = this.context.router.params.companyId;
 		this.params = this.context.router.params;
@@ -103,10 +104,33 @@ export default class CompanyMembers extends Component {
 			})
 		})
 		this.setState({
-			seleced
+			seleced,
+			selecedList:values
 		})
 
 		// console.log('onSelect',seleced);
+	}
+	validateMemberSubmit=()=>{
+		let {selecedList} = this.state;
+		let _this = this;
+		console.log('validateMemberSubmit',selecedList);
+		Store.dispatch(Actions.callAPI('validMember',{memberIds:JSON.stringify(selecedList)} )).then(function(response) {
+			_this.validateMember();
+			Notify.show([{
+				message: '设置成功',
+				type: 'success',
+			}]);
+
+			// window.setTimeout(function() {
+			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
+			// }, 0);
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
 	}
 	editMember(itemDetail){
 		this.setState({
@@ -331,7 +355,7 @@ export default class CompanyMembers extends Component {
 			open={this.state.validateMember}
 			onClose={this.validateMember}
 			contentStyle={{width:687}}>
-				<ValidateMember onSubmit={this.onNewCreateSubmit} onCancel={this.validateMember} seleced={seleced}/>
+				<ValidateMember onSubmit={this.validateMemberSubmit} onCancel={this.validateMember} seleced={seleced}/>
 			</Dialog>
 			<Dialog
 			title="编辑员工"

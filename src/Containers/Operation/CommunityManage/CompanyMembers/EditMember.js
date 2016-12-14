@@ -102,6 +102,7 @@ export default class CreateMemberForm extends Component {
 		
 		let {detail} = this.props;
 		let {itemData,jobList} = this.state;
+		let images = `./images/all.png`;
 		console.log('detail',detail,itemData);
 		
 
@@ -110,12 +111,12 @@ export default class CreateMemberForm extends Component {
 				<KrForm name="editForm" initialValues={itemData} onSubmit={this.onSubmit} >
 					<div className="person-info">
 						<span className="person-name">{detail.name}</span>
-						<span className="person-status">未验证</span>
+						{detail.checkStatus?<span className="person-status">未验证</span>:<span className="person-status-not">已验证</span>}
 						<span className="person-id">（员工UserID：{detail.id}）</span>
 
 					</div>
 					<FieldControl name="phone" label="手机号" component="labelText" />
-					<div></div>
+					<div className="split-lines"></div>
 					<FieldControl name="communityId" grid={1/2} label="社区" component="input" right={60} requiredValue={true}  errors={{requiredValue:'请选择社区'}} requireLabel={true}/>
 					<FieldControl name="foreignCode" grid={1/2} label="会员卡号" component="input" requiredValue={true} errors={{requiredValue:'请填写会员卡号'}} requireLabel={true}/>
 					<FieldControl name="companyId" grid={1/2} label="公司" component="input" right={60}  requiredValue={true} errors={{requiredValue:'请填选择公司'}} requireLabel={true}/>
