@@ -16,6 +16,7 @@ import SelectComponent from './SelectComponent';
 import TextareaComponent from './TextareaComponent';
 import FileUploadComponent from './FileUploadComponent';
 import SearchPersonelComponent from './SearchPersonelComponent';
+import SearchBelongCommunity from './SearchBelongCommunity';
 import LabelTextComponent from './LabelTextComponent';
 import GroupComponent from './GroupComponent';
 import CityComponent from './CityComponent';
@@ -101,6 +102,11 @@ export default class KrField extends React.Component {
 		if (component === 'searchPersonel') {
 			return (
 				<Field {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+		if (component === 'searchCommunity') {
+			return (
+				<Field {...this.props} component={SearchBelongCommunity}  style={WrapStyles} {...other}/>
 			);
 		}
 

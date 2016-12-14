@@ -41,51 +41,29 @@ class NewCreateForm extends Component {
 		this.onCancel = this.onCancel.bind(this);
 
 		this.state = {
-			communityList: [],
 			mainbilltypeList: []
 		}
 
 	}
 	componentDidMount() {
-       this.initOrderList();
-       this.initCommunityList();
-	}
 
-	initOrderList=()=>{
 		var _this = this;
 		Store.dispatch(Actions.callAPI('getMainBillTypeList')).then(function(response) {
 
-			// mainbilltypeList.map(function(item, index) {
-			// 	item.label = item.mainBillTypeDesc;
-			// 	item.value = item.mainbilltype;
-			// 	return item;
-			// });
+		
+			const mainbilltypeList = response.mainbilltypeList
 
-			// _this.setState({
-			// 	mainbilltypeList
-			// });
 
-		}).catch(function(err) {
-			Notify.show([{
-				message: '报错了',
-				type: 'danger',
-			}]);
-		});
 
-	}
-	initCommunityList=()=>{
-		var _this = this;
-		Store.dispatch(Actions.callAPI('getCommunityListByParams')).then(function(response) {
+			mainbilltypeList.map(function(item, index) {
+				item.label = item.mainBillTypeDesc;
+				item.value = item.mainbilltype;
+				return item;
+			});
 
-			// mainbilltypeList.map(function(item, index) {
-			// 	item.label = item.mainBillTypeDesc;
-			// 	item.value = item.mainbilltype;
-			// 	return item;
-			// });
-
-			// _this.setState({
-			// 	mainbilltypeList
-			// });
+			_this.setState({
+				mainbilltypeList
+			});
 
 		}).catch(function(err) {
 			Notify.show([{
@@ -94,7 +72,10 @@ class NewCreateForm extends Component {
 			}]);
 		});
 
+
 	}
+
+	
 	onSubmit(values) {
 		const {
 			onSubmit
@@ -110,7 +91,10 @@ class NewCreateForm extends Component {
 		onCancel && onCancel();
 
 	}
-
+   onChangeCommunity=(community)=>{
+		Store.dispatch(change('newCreateForm', 'communityid', community.id));
+		Store.dispatch(change('newCreateForm', 'communityName', community.communityname));
+   }
 	render() {
 
 
@@ -130,6 +114,7 @@ class NewCreateForm extends Component {
 				<KrField grid={1/2}  component="labelText"/>
 				<KrField grid={1/2} right={27} name="communityid"  style={{marginTop:7}} type="select" label="所属社区" options={this.state.communityList} >
 				</KrField>
+				 <KrField right={60}  grid={1/2}  name="communityid" component="searchCommunity" label="所属社区" onChange={this.onChangeCommunity} requireLabel={true}/>
 				<KrField  grid={1/2} right={27} name="mainbilltype" type="select" style={{marginTop:7}} label="订单类型" options={this.state.mainbilltypeList}>
 				</KrField>
 				<KrField grid={1/1}  component="group" label="查询区间" style={{marginTop:3}}>
