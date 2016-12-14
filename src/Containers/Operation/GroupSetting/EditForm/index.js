@@ -365,14 +365,13 @@ class ZhuanHuan extends React.Component{
 
 	render(){
 
-		console.log('------>>>',this.props.detail)
 		const { error, handleSubmit, pristine, reset} = this.props;
 		return (
-			<form onSubmit={handleSubmit(this.onSubmit)}>
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginLeft:25}}>
 
 				<KrField name="id" type="hidden" label="id"/>
-				<KrField grid={1/2} style={{marginTop:25}} right={25} name="groupName" type="text" label="分组名称" requireLabel={true} onBlur={this.groupNameCheck}/>
-				<KrField grid={1/2} right={25} name="sort" type="text" label="排序" requireLabel={true} style={{marginTop:25}} onBlur={this.sortCheck}/>
+				<KrField grid={1/2} maxLength={20} style={{marginTop:30}} right={43} name="groupName" type="text" label="分组名称" requireLabel={true} onBlur={this.groupNameCheck} onFocus={this.inputFocus} />
+				<KrField grid={1/2} right={43} name="sort" type="text" label="排序" requireLabel={true} style={{marginTop:30,marginLeft:-10}} onBlur={this.sortCheck} onFocus={this.inputFocus}/>
 				<KrField grid={1} name="enable" component="group" label="启用状态" requireLabel={true}>
 					<KrField name="enable" label="是" component="radio" type="radio" value="ENABLE"/>
 						<KrField name="enable" label="否"  component="radio"  type="radio" value="DISABLE" />
