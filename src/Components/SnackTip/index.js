@@ -3,24 +3,16 @@ import React, {
 } from 'react';
 import './index.less';
 
-
 export default class SnackTip extends Component {
 
 	static displayName = 'SnackTip';
-
-	static defaultProps = {
-		
-	}
+    
+   constructor(props) {
+    super(props);
+    this.state = { flag:'true' };
+  }
 
 	static propTypes = {
-		/**
-		*关闭
-		*/
-		onClose: React.PropTypes.func,
-		/**
-		*是否开启
-		*/
-		open: React.PropTypes.bool,
 		/**
 		*标题
 		*/
@@ -29,29 +21,34 @@ export default class SnackTip extends Component {
 		*样式
 		*/
 		style:React.PropTypes.object,
+		onClose:React.PropTypes.func,
+		open:React.PropTypes.bool
 	}
-     
-    open=()=>{
-      
-     }
+    
 
 	render() {
 
 		const {
 			title,
 			style,
+			children,
 			open,
 			onClose,
-			children,
 			...other
 		} = this.props;
-         
 
 
+		let className = 'snackTap';
+
+		if(!open){
+			className = 'none';	
+		} 
 
 		return (
-			<div>
-			  <span style={style}>{title}</span>
+			<div className="ui-snackTap">
+			 <div className={className}  style={style} onClick={onClose}>
+			  <span>{title}</span>
+			 </div>
 			</div>
 		);
 

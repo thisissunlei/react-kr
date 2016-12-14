@@ -38,7 +38,8 @@ import {
 	ButtonGroup,
 	Loading,
 	Title,
-
+    SnackTip,
+    Tooltip
 } from 'kr-ui';
 import {
 	reduxForm,
@@ -203,10 +204,12 @@ export default class AttributeSetting extends Component {
 			openSupplementBtn: false,
 			isLoading: true,
 			isInitLoading: true,
-			openView: false
-
+			openView: false,
+            isRunIncome:0
 		}
 	}
+
+
 
 	refresh() {
 			//console.log('00000')
@@ -698,6 +701,7 @@ export default class AttributeSetting extends Component {
 				detailIncome: response.incomedata,
 				detailBalance: response.balance,
 				isInitLoading: false,
+				isRunIncome:response.isRunIncome||0
 			});
 		}).catch(function(err) {
 			Notify.show([{
@@ -742,26 +746,84 @@ export default class AttributeSetting extends Component {
 		});
 	}
 
-    historyIncomed=(value)=>{
-       /* var _this = this;
-        let {
-			params
-		} = this.props;
-		Store.dispatch(Actions.callAPI('runStationIncome',{
-			mainbillId:params.orderId,
-		})).then(function(response) {
-			
-		}).catch(function(err) {
-			
-		});*/
-      console.log('11111');
-    	
+    historyIncomed=()=>{
+       let {isRunIncome} = this.state;
+       if(isRunIncome==0){
+       	 var _this = this;
+	        let {
+				params
+			} = this.props;
+			_this.setState({
+				 isRunIncome:1
+			 });
+			Store.dispatch(Actions.callAPI('runStationIncome',{
+				mainbillId:params.orderId,
+			})).then(function(response) {
+			    setTimeout(function(){
+                   _this.setState({
+				     isRunIncome:2
+			        });
+			    },1000)
+			}).catch(function(err) {
+				 
+			});
+        }
     }
 
 	componentDidMount() {
 		this.initBasicInfo();
 		Store.dispatch(Actions.switchSidebarNav(false));
 	}
+
+
+    snackTipClose=()=>{
+    	   var _this = this;
+	        let {
+				params
+			} = this.props;
+			Store.dispatch(Actions.callAPI('removeRunningTag',{},{
+				mainbillId:params.orderId,
+			})).then(function(response) {
+			    _this.setState({
+				 isRunIncome:0
+			 });
+			}).catch(function(err) {
+				 
+			});
+    }
+
+	initializeSnack = (open=false,title='正在补历史收入...',color)=>{
+	
+    	let style={
+    	'background':color,
+    	'position': 'fixed',
+        'top': '-40px',
+        'left': 0,
+        'right': 0
+    	}
+    	
+    	   return (
+               
+    	   	  <SnackTip style={style} open={open} title={title}  onClose={this.snackTipClose}/>
+    	  
+    	   	);
+	}
+    
+
+    
+    
+    renderSnack=()=>{
+    	let {isRunIncome} = this.state;
+    	if(isRunIncome == 1){
+    		return this.initializeSnack(true,'正在补历史收入...','#69bbf0');
+    	}else if(isRunIncome==0){
+    		return this.initializeSnack(false,'未完成');
+    	}else if(isRunIncome==2){
+    		return this.initializeSnack(true,'补历史收入已完成!','#75c7bc');
+    	}
+    	
+    	
+    }
 
 	render() {
 		let {
@@ -877,8 +939,10 @@ export default class AttributeSetting extends Component {
 		return (
 
 			<div>
+			        {this.renderSnack()}
 					<Title value="订单明细账_财务管理"/>
 					<Section title="订单明细账" description="" style={{marginBottom:-5,minHeight:910}}>
+                          
 					      <DotTitle title='订单描述' style={{marginTop:'6',marginBottom:'40'}}/>
 						  <BasicInfo  detail={this.state.basicInfo} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome}/>
 
@@ -892,7 +956,7 @@ export default class AttributeSetting extends Component {
 								 <div className='detail-right'>
 								     <div>
 								        <Col align="left" className='btn-left'>{buttonArr}</Col>
-								        <Col align="right"><Button  type='search'  searchClick={this.openSearchDialog}/><span className='historyIncome' onClick={this.historyIncomed}>补历史收入</span></Col>
+								        <Col align="right" style={{'position':'relative'}}><Button  type='search'  searchClick={this.openSearchDialog}/><span className='historyIncome' onClick={this.historyIncomed}><Tooltip  offsetTop={8} place='top'>补历史收入</Tooltip></span></Col>
 								     </div>
 
 									 <Table style={{marginTop:30}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>

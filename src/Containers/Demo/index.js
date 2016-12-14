@@ -31,6 +31,7 @@ import {
 	Field,
 	FieldControl,
 	InputDate,
+	SnackTip
 } from 'kr-ui';
 
 import {
@@ -90,7 +91,9 @@ ll=(values)=>{
 	render(){
 		return(
 			<div>
+
 					<Section title="demo" description="" >
+					    <SnackTip style={{'background':'#69bbf0'}} title='snack'/>
 						<KrField grid={1/2} label='city' component='city' onSubmit={this.list}/>
 
 						<KrField oldText={"123"} label="订单名称" inline="inline" alignRight={true} component="editLabelText" save={this.ll} />
@@ -133,7 +136,7 @@ ll=(values)=>{
 
 							 </KrForm>
                              
-                         
+                        
 
 					</Section>
 			</div>

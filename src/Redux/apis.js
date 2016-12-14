@@ -429,8 +429,13 @@
   },
   //订单明细账－补历史收入
   'runStationIncome': {
-    url:'/mockjsdata/16/krspace-finance-web/finaccount/opt/runStationIncome?mainbillId={mainbillId}',
+    url:'/api/krspace-finance-web/finaccount/opt/runStationIncome?mainbillId={mainbillId}',
     method: 'get'
+  },
+   //订单明细账－补充完成之后
+  'removeRunningTag': {
+    url:'/api/krspace-finance-web/finaccount/opt/removeRunningTag',
+    method: 'post'
   },
 
 }
