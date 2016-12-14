@@ -250,7 +250,7 @@
 	},
 	//财务管理－订单账单列表-高级查询-社区类型
 	'getCommunityListByParams': {
-		url:'/api/krspace-finance-web/finaccount/data/getCommunityListByParams ',
+		url:'/api/krspace-finance-web/finaccount/data/getCommunityListByParams',
 		method: 'post'
 	},
 	//财务管理－订单账单列表-导出
