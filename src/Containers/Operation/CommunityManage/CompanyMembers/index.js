@@ -328,6 +328,23 @@ export default class CompanyMembers extends Component {
 			warns:!this.state.warns
 		})
 	}
+	onNewCreateSubmit=(values)=>{
+		var _this = this;
+		Store.dispatch(Actions.callAPI('membersChange',values)).then(function(response){
+			_this.createMember();
+			Notify.show([{
+ 			 message: '成功',
+ 			 type: 'success',
+ 		 	}]);
+
+		}).catch(function(err){
+			console.log(err);
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+	}
 
 
 
