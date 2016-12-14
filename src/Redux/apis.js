@@ -445,7 +445,7 @@
 	//会员中心-新增会员－社区模糊查询
 	'searchCommunityByCommunityText': {
 		url: '/mockjsdata/4/member/community-list?communityText={communityText}',
-		method: 'post'
+		method: 'get'
 	},
   //会员中心-新增会员－公司模糊查询
   'getCompanyByCompanyText': {
@@ -489,7 +489,7 @@
   },
   //新建编辑会员
   'membersChange':{
-  	url:'/mockjsdata/4/member/member?companyId={companyId}&email={email}&communityId={communityId}&foreignCode={foreignCode}&jobId={jobId}&name={name}&phone={phone}&sendMsg={sendMsg}',
+  	url:'/mockjsdata/4/member/member',
   	method:'post'
   },
   //验证成员
@@ -497,7 +497,7 @@
   	url:'/mockjsdata/4/member/actions/set-as-valid?memberIds={memberIds}',
   	method:'post'
   },
-  //指定公司下的会员数据导出 
+  //指定公司下的会员数据导出
   'companyMemberExcel':{
   	url:'/mockjsdata/4/member/member-company-excel?ids={ids}&companyId={companyId}',
   	method:'get'

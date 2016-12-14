@@ -57,6 +57,7 @@ export default class CompanyMembers extends Component {
 
 	constructor(props, context) {
 		super(props, context);
+		this.params = this.context.router.params;
 		this.state = {
 			tab: 'table',
 			communityId: '',
@@ -78,7 +79,7 @@ export default class CompanyMembers extends Component {
 			batchDelet:false
 		}
 		this.companyId = this.context.router.params.companyId;
-		this.params = this.context.router.params;
+
 
 	}
 
@@ -262,7 +263,7 @@ export default class CompanyMembers extends Component {
 
 		console.log('onExport',value);
 	}
-	
+
 	onLoadDemo=()=>{
 		console.log('onLoadDemo');
 		let companyId = this.companyId;
@@ -273,18 +274,16 @@ export default class CompanyMembers extends Component {
 		let {seleced} = this.state;
 		console.log('BatchDeletSure',seleced);
 	}
-	
 
-	
 
-	
+
+
+
 
 
 
 	render() {
 		let {itemDetail,seleced} = this.state;
-		
-
 		return (
 			<div>
 
@@ -337,7 +336,7 @@ export default class CompanyMembers extends Component {
 								fontColor="#ff6060"
 							}
 							return (<span style={{color:fontColor}}>{value}</span>)}}>
-							
+
 						</TableRowColumn>
 						<TableRowColumn name="isLeader" options={[{label:'isLeader',value:1},{label:'setLeader',value:0}]}
 												component={(value,oldValue,itemData)=>{
@@ -361,7 +360,7 @@ export default class CompanyMembers extends Component {
 
 													}
 													}}>
-														
+
 												 </TableRowColumn>
 
 					 </TableRow>
@@ -371,7 +370,7 @@ export default class CompanyMembers extends Component {
 				</TableFooter>
 
 				</Table>
-									
+
 			</Section>
 			<Dialog
 			title="新建员工"
