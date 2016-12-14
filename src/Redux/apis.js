@@ -432,6 +432,16 @@
     url:'/mockjs/15/krspace_isso_web/sys/sysOwn/getVerifyCode',
     method:'get'
   }
+  //订单明细账－补历史收入
+  'runStationIncome': {
+    url:'/api/krspace-finance-web/finaccount/opt/runStationIncome?mainbillId={mainbillId}',
+    method: 'get'
+  },
+   //订单明细账－补充完成之后
+  'removeRunningTag': {
+    url:'/api/krspace-finance-web/finaccount/opt/removeRunningTag',
+    method: 'post'
+  },
 }
 
 module.exports = APIS;
