@@ -26,6 +26,7 @@ import {
 
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
+import './index.less';
 
 
 export default class JoinCreate extends Component {
