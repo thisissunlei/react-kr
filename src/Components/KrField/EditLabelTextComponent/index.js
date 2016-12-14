@@ -87,12 +87,15 @@ export default class InputComponent extends React.Component {
 					
 						{!this.state.editOpen && <span className="edit" onTouchTap={this.onEdit}></span>}
 						{this.state.editOpen && <input id="focus" onBlur={this.onSave} className={className}  defaultValue={this.state.oldtext}  />}
+						<span className="editContent">
 						<span  className="ui-label-text" data-tip data-for={`${tooltip}`}>
 							<ReactTooltip id={`${tooltip}`}>
 								<p style={{margin:0}}>{this.state.oldtext}</p>
 							</ReactTooltip>
 							<span className="contract">{this.state.oldtext}</span>
 						</span>
+						</span>
+						
 
 
 
