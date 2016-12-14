@@ -48,6 +48,7 @@ import CancleLeader from './CancleLeader';
 import SetLeader from './SetLeader';
 import EditMember from './EditMember';
 import ImportData from './ImportData';
+import BatchDelet from './BatchDelet';
 export default class CompanyMembers extends Component {
 
 	static contextTypes = {
@@ -74,6 +75,7 @@ export default class CompanyMembers extends Component {
 			seleced:[],
 			selecedList:[],
 			importdata:false,
+			batchDelet:false
 		}
 		this.companyId = this.context.router.params.companyId;
 		this.params = this.context.router.params;
@@ -117,6 +119,11 @@ export default class CompanyMembers extends Component {
 		})
 
 		// console.log('onSelect',seleced);
+	}
+	batchDelet=()=>{
+		this.setState({
+			batchDelet:!this.state.batchDelet
+		})
 	}
 	validateMemberSubmit=()=>{
 		let {selecedList} = this.state;
@@ -248,7 +255,7 @@ export default class CompanyMembers extends Component {
 		});
 	}
 	onExport=(value)=>{
-		let companyId = 1;
+		let companyId = this.companyId;
 		let ids = 1;
 		let url = `/mockjsdata/4/member/member-company-excel?${ids}&${companyId}`;
 		window.location.href = url;
@@ -256,12 +263,18 @@ export default class CompanyMembers extends Component {
 		console.log('onExport',value);
 	}
 	
-	batchDelet=()=>{
-		console.log('3123123');
-	}
 	onLoadDemo=()=>{
 		console.log('onLoadDemo');
+		let companyId = this.companyId;
+		let url = `/mockjsdata/4/member/member-templet-excel?${companyId}`;
+		window.location.href = url;
 	}
+	BatchDeletSure=()=>{
+		let {seleced} = this.state;
+		console.log('BatchDeletSure',seleced);
+	}
+	
+
 	
 
 	
@@ -407,6 +420,14 @@ export default class CompanyMembers extends Component {
 			onClose={this.setLeaders}
 			contentStyle={{width:440}}>
 				<SetLeader onSubmit={this.setLeaderStatus} onCancel={this.setLeaders}/>
+			</Dialog>
+			<Dialog
+			title="批量删除"
+			modal={true}
+			open={this.state.batchDelet}
+			onClose={this.batchDelet}
+			contentStyle={{width:440}}>
+				<BatchDelet onSubmit={this.BatchDeletSure} onCancel={this.batchDelet}/>
 			</Dialog>
 			</div>
 

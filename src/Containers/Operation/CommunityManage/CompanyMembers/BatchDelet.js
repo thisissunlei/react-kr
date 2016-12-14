@@ -58,13 +58,6 @@ export default class CancleLeader extends Component {
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
-	onLoadDemo=()=>{
-		const {onLoadDemo} = this.props;
-		onLoadDemo && onLoadDemo();
-	}
-	importFile=()=>{
-		console.log('importFile');
-	}
 
 
 
@@ -76,15 +69,11 @@ export default class CancleLeader extends Component {
 
 		return (
 			<div>
-				<div>
-					<span className='import-logo icon-excel' onClick={this.importFile}></span>
-					<span className='import-font' onClick={this.importFile}>请选择上传文件</span>
-					<span className='load-demo icon-template' onClick={this.onLoadDemo}>下载excel模板</span>
-				</div>
+				<p style={{marginTop:55,marginBottom:59,textAlign:'center',color:'#333'}}>确定删除所选人员吗？  </p>
 				<Grid style={{marginBottom:20}}>
 					<Row>
 						<ListGroup>
-							<ListGroupItem style={{width:'47%',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定导入" type="button"  onTouchTap={this.onSubmit} width={90} height={34}/></ListGroupItem>
+							<ListGroupItem style={{width:'47%',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="button"  onTouchTap={this.onSubmit} width={90} height={34}/></ListGroupItem>
 							<ListGroupItem style={{width:'47%',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/> </ListGroupItem>
 						</ListGroup>
 					  </Row>
