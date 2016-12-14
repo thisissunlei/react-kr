@@ -701,7 +701,7 @@ export default class AttributeSetting extends Component {
 				detailIncome: response.incomedata,
 				detailBalance: response.balance,
 				isInitLoading: false,
-				isRunIncome:response.isRunIncome||0
+				isRunIncome:response.isIncomeRunning
 			});
 		}).catch(function(err) {
 			Notify.show([{
