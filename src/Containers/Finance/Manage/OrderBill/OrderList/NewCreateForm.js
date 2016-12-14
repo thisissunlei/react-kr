@@ -47,31 +47,23 @@ class NewCreateForm extends Component {
 
 	}
 	componentDidMount() {
+       this.initOrderList();
+       this.initCommunityList();
+	}
 
+	initOrderList=()=>{
 		var _this = this;
-		Store.dispatch(Actions.callAPI('getFinaDataCommunityAndMainBillType')).then(function(response) {
+		Store.dispatch(Actions.callAPI('getMainBillTypeList')).then(function(response) {
 
-			const communityList = response.communityList
-			const mainbilltypeList = response.mainbilltypeList
+			// mainbilltypeList.map(function(item, index) {
+			// 	item.label = item.mainBillTypeDesc;
+			// 	item.value = item.mainbilltype;
+			// 	return item;
+			// });
 
-
-
-			communityList.map(function(item, index) {
-				item.label = item.communityname;
-				item.value = item.id
-				return item;
-			});
-
-			mainbilltypeList.map(function(item, index) {
-				item.label = item.mainBillTypeDesc;
-				item.value = item.mainbilltype;
-				return item;
-			});
-
-			_this.setState({
-				communityList,
-				mainbilltypeList
-			});
+			// _this.setState({
+			// 	mainbilltypeList
+			// });
 
 		}).catch(function(err) {
 			Notify.show([{
@@ -80,6 +72,27 @@ class NewCreateForm extends Component {
 			}]);
 		});
 
+	}
+	initCommunityList=()=>{
+		var _this = this;
+		Store.dispatch(Actions.callAPI('getCommunityListByParams')).then(function(response) {
+
+			// mainbilltypeList.map(function(item, index) {
+			// 	item.label = item.mainBillTypeDesc;
+			// 	item.value = item.mainbilltype;
+			// 	return item;
+			// });
+
+			// _this.setState({
+			// 	mainbilltypeList
+			// });
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: '报错了',
+				type: 'danger',
+			}]);
+		});
 
 	}
 	onSubmit(values) {
