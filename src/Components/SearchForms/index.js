@@ -13,6 +13,8 @@ export default class SearchForms extends Component{
 		style: React.PropTypes.object,
 		//事件
 		onSubmit: React.PropTypes.func,
+		onFilter: React.PropTypes.func,
+
 	}
 	constructor(props, context) {
 		super(props, context);
@@ -146,12 +148,21 @@ export default class SearchForms extends Component{
 		this.removeClass(ul,'show-li');
 	}
 	getValue(event){
+		let {searchFilter} = this.props;
+		let filterValue ='';
 		const list = ReactDOM.findDOMNode(this.selectList);
 		let ul = list.getElementsByTagName('ul')[0];
 		let className = event.target.className;
 		var aa = document.getElementsByClassName(className)[0].innerHTML;
 		document.getElementsByClassName('search-name')[0].innerHTML = aa;
 		this.removeClass(ul,'show-li');
+		searchFilter.forEach((item)=>{
+			if(item.label === aa ){
+				filterValue = item.value
+			}
+		})
+		let {onFilter} = this.props;
+		onFilter && onFilter(filterValue);
 	}
 	bodyEvent(){
 		let _this = this;
@@ -240,7 +251,7 @@ export default class SearchForms extends Component{
 					{this.renderFilter()}
 
 					<div className="search-content">
-						<input type="text" className="search-val" placeholder="请输入您要查找的内容"  name="keywords" id="keywords"/>
+						<input type="text" autoComplete="off" className="search-val" placeholder="请输入您要查找的内容"  name="keywords" id="keywords"/>
 					</div>
 				</div>
 				<span className="icon-searching" ></span>

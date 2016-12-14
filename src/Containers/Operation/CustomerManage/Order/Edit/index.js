@@ -100,7 +100,7 @@ export default class OrderCreate extends Component {
 		let communityOptions = [];
 		let initialValues = {};
 		Store.dispatch(Actions.callAPI('community-city-selected',{},{})).then(function(communityOptions){
-			communityOptions = communityOptions.map((item)=>{
+			communityOptions = communityOptions.communityCity.map((item)=>{
 		  		item.value = String(item.communityId);
 		  		item.label = item.communityName;
 		  		return item;
@@ -113,7 +113,7 @@ export default class OrderCreate extends Component {
 
 
 		Store.dispatch(Actions.callAPI('get-simple-order',{
-			mainBillId:this.context.params.oriderId
+			mainBillId:this.context.params.customerId
 		},{})).then(function(response){
 			let initialValues = {};
 			initialValues = response;

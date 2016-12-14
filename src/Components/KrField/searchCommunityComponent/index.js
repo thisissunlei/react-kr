@@ -45,7 +45,6 @@ export default class  SearchCommunityComponent extends React.Component {
 					item.value = item.communityId;
 					item.label = item.communityName;
 				});
-
 				resolve({options:response.items});
 			}).catch(function(err){
 				reject(err);

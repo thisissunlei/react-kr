@@ -6,6 +6,7 @@ import {
 
 //import DatePicker from 'material-ui/DatePicker';
 import DatePicker from '../../DatePicker';
+import InputDate from '../../InputDate';
 
 import {
 	DateFormat
@@ -34,7 +35,6 @@ export default class DateComponent extends React.Component {
 		super(props)
 
 		this.onChange = this.onChange.bind(this);
-		this.setDefaultDate = this.setDefaultDate.bind(this);
 		this.supplementZero = this.supplementZero.bind(this);
 
 		this.formatDate = this.formatDate.bind(this);
@@ -86,13 +86,6 @@ export default class DateComponent extends React.Component {
 	}
 
 	componentDidMount() {
-		this.setDefaultDate(this.props.input.value);
-	}
-
-	componentWillReceiveProps(nextProps) {
-		if (!this.isInit && nextProps.input.value) {
-			this.setDefaultDate(nextProps.input.value);
-		}
 	}
 
 	supplementZero(value) {
@@ -121,24 +114,16 @@ export default class DateComponent extends React.Component {
 		return result;
 	}
 
-	onChange(event, value) {
+	onChange(value) {
 
 
 		if (!value) {
 			return;
 		}
 
-		this.setState({
-			value
-		});
-
-		let {
-			input,
-			onChange
-		} = this.props;
+		let { input, onChange } = this.props;
 
 		var result = this.formatDate(value);
-
 		
 
 		this.setInputValue(result);
@@ -166,6 +151,7 @@ export default class DateComponent extends React.Component {
 			inline
 		} = this.props;
 
+
 		const styles = {
 			border: '1px solid #ddd',
 			height: 40,
@@ -181,10 +167,10 @@ export default class DateComponent extends React.Component {
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 					<div className="date-component">
 
+									{/*
 							<span className="date-input"> {(input.value && DateFormat(input.value,"yyyy-mm-dd")) || placeholder || '日期'} <span className="icon"></span></span>
 
 								<span className="date-operation">
-
 											<DatePicker
 												okLabel="确定"
 												cancelLabel="取消"
@@ -196,6 +182,13 @@ export default class DateComponent extends React.Component {
 												container="inline"
 												onChange={this.onChange}/>
 								</span>
+										*/}
+									<InputDate
+												value = {input.value}
+												placeholder={placeholder}
+												name={input.name}
+												defaultValue={defaultValue}
+												onChange={this.onChange}/>
 					</div>
 					{touched && error && <div className="error-wrap error-tip"> <span>{error}</span></div> }
 				</WrapComponent>

@@ -462,6 +462,42 @@
 		url: '/mockjsdata/4/member/member-add-edit',
 		method: 'get'
 	},
+  //个人中心-获取个人信息
+  'PersonalCenterData': {
+    url:' /mockjs/15/krspace_isso_web/sys/sysOwn/getPersonalInfo',
+    method: 'get'
+  },
+  //个人中心-身份验证
+  'PersonalCenterVerifyId': {
+    url:' /mockjs/15/krspace_isso_web/sys/sysOwn/verifyIdentity',
+    method: 'get'
+  },
+  //获取指定公司会员列表
+  'getCompanyMemberList':{
+  	url:'/mockjsdata/4/member/company-team?companyId={companyId}&page={page}&pageSize={pageSize}',
+  	method:'get'
+  },
+  //设置Leader
+  'setLeader':{
+  	url:'/mockjsdata/4/member/leader?companyId={companyId}&isLeader={isLeader}&memberId={memberId}',
+  	method:'put'
+  },
+  //新建编辑会员的准备数据
+  'getMemberBasicData':{
+  	url:'/mockjsdata/4/member/member-add-edit?companyId={companyId}&memberId={memberId}&communityId={communityId}',
+  	method:'get'
+  },
+  //新建编辑会员
+  'membersChange':{
+  	url:'/mockjsdata/4/member/member?companyId={companyId}&email={email}&communityId={communityId}&foreignCode={foreignCode}&jobId={jobId}&name={name}&phone={phone}&sendMsg={sendMsg}',
+  	method:'post'
+  },
+  //个人中心-获取验证码
+  'PersonalCenterGetVerificationCode': {
+    url:'/mockjs/15/krspace_isso_web/sys/sysOwn/getVerifyCode',
+    method:'get'
+  }
+
 
 
 

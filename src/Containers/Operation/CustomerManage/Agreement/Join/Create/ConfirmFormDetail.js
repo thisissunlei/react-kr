@@ -25,7 +25,7 @@ import './index.less';
 export default class ConfirmFormDetail  extends Component{
 
 
-	static PropTypes = {
+	static propTypes = {
 		detail:React.PropTypes.object,
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
@@ -61,20 +61,20 @@ export default class ConfirmFormDetail  extends Component{
 		detail = Object.assign({},detail);
 
 		 var leasorName ;
-	        optionValues.fnaCorporationList.map((item)=>{
+		 optionValues.fnaCorporationList && optionValues.fnaCorporationList.map((item)=>{
 	        	if(item.value === detail.leaseId){
 	        		return leasorName = item.label;
 	        	}
 	        });
 	        var payment;
-	        optionValues.paymentList.map((item)=>{
+	      optionValues.paymentList && optionValues.paymentList.map((item)=>{
 	        	if(item.value === detail.paymodel){
 	        		return payment = item.dicName;
 	        	}
 
 	        })
 	        var paytypes;
-	        optionValues.payTypeList.map((item)=>{
+	        optionValues.payTypeList && optionValues.payTypeList.map((item)=>{
 	        	if(item.id === detail.paytype){
 	        		return paytypes = item.dicName;
 	        	}

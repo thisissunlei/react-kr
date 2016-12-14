@@ -158,6 +158,11 @@ class SearchForm extends Component {
 
 		onChange && onChange(id);
 	}
+	onFilter=(value)=>{
+		console.log('onFilter-form',value);
+		let {onFilter} = this.props;
+		onFilter && onFilter(value);
+	}
 
 
 
@@ -187,7 +192,7 @@ class SearchForm extends Component {
 			<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45}}>
 				{/*<KrField  name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} left={60}/>*/}
 				
-				<SearchForms onSubmit={this.onSubmit} searchFilter={options} style={{marginTop:5}} />
+				<SearchForms onSubmit={this.onSubmit} searchFilter={options} style={{marginTop:5}} onFilter={this.onFilter}/>
 				<KrField name="community"  grid={1/5} component="select" label="社区" search={true}  options={communityIdList} onChange={this.selectCommunity} />
 			</form>
 
@@ -453,11 +458,14 @@ export default class BasicTable extends Component {
 		});
 	}
 	onSubmit(formValues, istip) {
+		console.log('formValues',formValues);
+		let year = this.state.currentYear;
 		var _this = this;
 		var activity = true;
 		if (formValues.type == "BILL") {
 			activity = false;
 		}
+		formValues.year = year;
 
 
 		this.setState({
@@ -622,6 +630,12 @@ export default class BasicTable extends Component {
 
 
 	}
+	onFilter=(value)=>{
+		console.log('onFilter',value);
+		this.setState({
+			type:value
+		})
+	}
 	renderNone(showNone) {
 
 		let {
@@ -772,12 +786,12 @@ export default class BasicTable extends Component {
 		 					<span className="txt" >催款回款</span>
 		 					<span className="circle green"></span>
 		 					<span className="txt" >工位变更</span>
-		 					<span className="circle grey-circle"></span>
+		 					<span className="circle grey-span"></span>
 		 					<span className="txt" >回款完成</span>
 		 				</p>
 		 			</div>
 		 		</div>
-		 		<SearchForm  onSubmit={this.onSubmit} Ids={communityids} onChange={this.onChange}/>
+		 		<SearchForm  onSubmit={this.onSubmit} Ids={communityids} onChange={this.onChange} onFilter={this.onFilter}/>
 		 		
 		 	</div>
 		 	

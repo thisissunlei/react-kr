@@ -31,6 +31,7 @@ import {
 	Field,
 	FieldControl,
 	InputDate,
+	SearchForm
 } from 'kr-ui';
 
 import {
@@ -77,13 +78,34 @@ export default class Demo extends Component{
 		Message.show('hahaha 爱的范德萨发几块了');
 	}
 
+ll=(values)=>{
+	console.log(values,"???");
+}
+
+	list=(value)=>{
+		console.log('city',value);
+	}
+	onSubmit=(value)=>{
+		console.log('demo',value);
+	}
+
+
 
 	render(){
+		let list = [
+			{label:'选择公司1',value:1},
+			{label:'选择公司2',value:2},
+			{label:'选择公司3',value:3},
+			{label:'选择公司4',value:4},
+			{label:'选择公司5',value:5},
+		]
 		return(
 			<div>
 					<Section title="demo" description="" >
+						<KrField grid={1/2} label='city' component='city' onSubmit={this.list}/>
+						<SearchForm searchFilter={list} grid={1/2} onSubmit={this.onSubmit}/>
 
-
+						<KrField oldText={"123"} label="订单名称" inline="inline" alignRight={true} component="editLabelText" save={this.ll} />
 						<KrForm name="demoForm" onSubmit={function(values){
 									console.log('values',values);
 							}} >
