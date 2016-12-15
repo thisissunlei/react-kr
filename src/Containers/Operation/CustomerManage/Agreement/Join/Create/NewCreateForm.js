@@ -521,9 +521,10 @@ class NewCreateForm extends Component {
 							<Row>
 								<Col align="right">
 									<ButtonGroup>
-									    <Button label="录入单价"  onTouchTap={this.openPreStationUnitPriceDialog} />
-										<Button label="删除"  onTouchTap={this.onStationDelete} />
 										<Button label="选择工位"  onTouchTap={this.openStationDialog}  />
+									    <Button label="批量录入单价" width={100} onTouchTap={this.openPreStationUnitPriceDialog} />
+										<Button label="删除" cancle={true} type="button" height={28} onTouchTap={this.onStationDelete} />
+										
 								  </ButtonGroup>
 								</Col>
 							</Row>
