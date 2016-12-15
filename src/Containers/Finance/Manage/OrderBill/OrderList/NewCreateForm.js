@@ -8,7 +8,8 @@ import {
 
 import {
 	reduxForm,
-	formValueSelector
+	formValueSelector,
+	change
 } from 'redux-form';
 import {
 	Actions,
@@ -89,8 +90,7 @@ class NewCreateForm extends Component {
 
 	}
     onChangeCommunity=(community)=>{
-		Store.dispatch(change('newCreateForm', 'communityid', community.id));
-		Store.dispatch(change('newCreateForm', 'communityName', community.communityname));
+		Store.dispatch(change('newCreateForm','communityid',community.id));
     }
 	render() {
 

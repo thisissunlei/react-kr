@@ -14,7 +14,7 @@ export default class  SearchBelongCommunity extends React.Component {
 		placeholder:'请输入...'
 	}
 
-	static PropTypes = {
+	static propTypes = {
 		placeholder:React.PropTypes.string,
 		inline:React.PropTypes.bool
 	}
@@ -39,7 +39,7 @@ export default class  SearchBelongCommunity extends React.Component {
 
 	getOptions(communityName){
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('getCommunityListByParams',{},{ communityName:communityName })).then(function(response){
+			Store.dispatch(Actions.callAPI('getCommunityListByParams',{communityName:communityName})).then(function(response){
 				response.forEach(function(item,index){
 					item.value = item.id;
 					item.label = item.communityname;
