@@ -22,10 +22,9 @@ import {
 	BreadCrumbs,
 	Title,
 } from 'kr-ui';
-
+import './index.less';
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
-import './index.less';
 
 export default class JoinCreate extends Component {
 
