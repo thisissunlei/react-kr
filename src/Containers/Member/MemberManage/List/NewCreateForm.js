@@ -90,6 +90,12 @@ class NewCreateForm extends Component{
 			 reject(err);
 		 });
 	 }
+	 onChangeSearchCommunity(personel) {
+		Store.dispatch(change('NewCreateForm', 'communityId', personel.id));
+	}
+	onChangeSearchCompany(personel) {
+		Store.dispatch(change('NewCreateForm', 'companyId', personel.id));
+	}
 	render(){
 		const { error, handleSubmit, pristine, reset} = this.props;
 		let communityText = '';

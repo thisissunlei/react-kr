@@ -31,7 +31,7 @@ import {
 	Field,
 	FieldControl,
 	InputDate,
-	SearchForm
+	SearchForm,
 	SnackTip
 } from 'kr-ui';
 
@@ -147,7 +147,11 @@ ll=(values)=>{
 						 <FlatButton icon={<FontIcon className={'icon-basis'} />} style={{color:'#499df1',height:36,width:100}} />
 
 							 </KrForm>
-                             
+
+
+	<span>dsadsd
+		<Tooltip>ccc</Tooltip>
+	</span>                             
                         
 
 					</Section>

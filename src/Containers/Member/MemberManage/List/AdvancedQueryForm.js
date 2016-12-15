@@ -17,20 +17,6 @@ import {
 } from 'kr-ui';
 import $ from 'jQuery'
 class NewCreateForm extends Component{
-     static contextTypes = {
-   		params: React.PropTypes.object.isRequired
-   	}
-
-   	static DefaultPropTypes = {
-   		initialValues: {
-   			customerName: '',
-   			communityName: '',
-   			lessorAddress: '',
-   			payTypeList: [],
-   			paymentList: [],
-   			fnaCorporationList: [],
-   		}
-   	}
 	 static PropTypes = {
 		 onSubmit:React.PropTypes.func,
 		 onCancel:React.PropTypes.func,
@@ -48,9 +34,10 @@ class NewCreateForm extends Component{
 			selectSourceOption:[]
 
 		}
+		this.basicData();
 
-		Store.dispatch(reset('newCreateForm'));
-		Store.dispatch(change('newCreateForm','enableflag','ENABLE'));
+		// Store.dispatch(reset('newCreateForm'));
+		// Store.dispatch(change('newCreateForm','enableflag','ENABLE'));
 
 	}
 	// 点确定提交时候如果有错误提示返回，否则提交,,如果邮箱存在有错误提示，不能提交
@@ -63,7 +50,7 @@ class NewCreateForm extends Component{
 		 const {onCancel} = this.props;
 		 onCancel && onCancel();
 	 }
-	 componentDidMount(){
+	 basicData=()=>{
 	//  新增会员准备职位数据
 
 		 let _this =this;
@@ -86,7 +73,7 @@ class NewCreateForm extends Component{
 		 });
 	 }
 	render(){
-		const { error, handleSubmit, pristine, reset} = this.props;
+		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
 		let communityText = '';
 		let {selectOption,selectSourceOption} =this.state;
 		let options = [{
@@ -104,21 +91,21 @@ class NewCreateForm extends Component{
 		}];
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)}>
-				<SearchForm searchFilter={options} style={{width:'252',marginBottom:'10'}}/>
-				<KrField name="work"  component="city" label="工作地点"  style={{display:'block',width:'252',marginRight:'24'}}/>
-				<KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} style={{width:'252',marginRight:'24'}}/>
-				<KrField name="from"  grid={1/2} component="select" label="注册来源" options={selectSourceOption} style={{width:'252'}}/>
+				<SearchForm searchFilter={options} style={{width:252,marginBottom:10}} defaultFilter={filter} defaultContent={content}/>
+				<KrField name="work"  component="city" label="工作地点"  style={{display:'block',width:'252px',marginRight:24}}/>
+				<KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption}/>
+				<KrField name="from"  grid={1/2} component="select" label="注册来源" options={selectSourceOption}/>
         <ListGroup>
-					<ListGroupItem style={{width:540,paddingLeft:10,color:'#333333'}}><span>注册时间</span></ListGroupItem>
+			<ListGroupItem style={{width:540,paddingLeft:10,color:'#333333'}}><span>注册时间</span></ListGroupItem>
         	<ListGroupItem style={{textAlign:'center',padding:0}}></ListGroupItem>
           <ListGroupItem style={{padding:0}}>
-              <KrField name="startDate"  component="date" onChange={this.props.onStartChange} style={{width:'252'}} simple={true}/>
+              <KrField name="startDate"  component="date" style={{width:'252px'}} simple={true}/>
           </ListGroupItem>
-          <ListGroupItem style={{textAlign:'center',padding:0,marginLeft:'10'}}>
+          <ListGroupItem style={{textAlign:'center',padding:0,marginLeft:10}}>
 						<span style={{display:'inline-block',lineHeight:'58px',margin:'0 5 0 5'}}>至</span>
 					</ListGroupItem>
           <ListGroupItem style={{padding:0}}>
-              <KrField name="endDate" component="date" onChange={this.props.onEndChange}  style={{width:'252'}} simple={true}/>
+              <KrField name="endDate" component="date"  style={{width:252}} simple={true}/>
           </ListGroupItem>
         </ListGroup>
 				<Grid style={{marginTop:30}}>

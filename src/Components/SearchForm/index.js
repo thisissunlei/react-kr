@@ -95,13 +95,16 @@ export default class SearchForm extends Component{
 		this.removeClass(ul,'show-li');
 	}
 	getValue=(event)=>{
+		console.log('getvalue',event);
 		let {onSubmit,searchFilter}= this.props;
 		let {content,value} = this.state;
 		const list = ReactDOM.findDOMNode(this.selectList);
 		let ul = list.getElementsByTagName('ul')[0];
 		let className = event.target.className;
+		console.log('dsdasdasd',className);
 		var aa = document.getElementsByClassName(className)[0].innerHTML;
 		document.getElementsByClassName('search-name')[0].innerHTML = aa;
+		console.log(document.getElementsByClassName('search-name')[0].innerHTML);
 		this.removeClass(ul,'show-li');
 		this.setState({
 			value:aa
@@ -120,12 +123,26 @@ export default class SearchForm extends Component{
 		
 	}
 	renderFilter=()=>{
-		let {searchFilter} = this.props;
+		let {searchFilter,defaultFilter} = this.props;
 		let {value} = this.state;
+		console.log('ddddd',defaultFilter);
 		let select ='请选择';
-		if(searchFilter){
+		if(searchFilter && !value){
 			select = searchFilter[0].label;
 		}
+		if(value){
+			select = value;
+		}
+		if(defaultFilter && !value){
+			searchFilter.map((item)=>{
+				console.log(item.label);
+				if(item.value == defaultFilter){
+					select = item.label;
+				}
+			})
+			// select = defaultFilter;
+		}
+		console.log(value);
 		
 		// console.log('searchFilter',searchFilter);
 		if(searchFilter){
@@ -157,20 +174,23 @@ export default class SearchForm extends Component{
 			left,
 			right,
 			grid =1,
-			style
+			style,
+			defaultFilter,
+			defaultContent
 		}= this.props;
 		let WrapStyles = Object.assign({}, {
 			width: (grid * 100) + '%',
 			paddingLeft: left,
 			paddingRight: right
 		}, style);
+
 		return (
 			<div className='search-form-member' ref={div=>{this.form = div}} name="search-form" style={WrapStyles}>
 				<div className="search-status" >
 					{this.renderFilter()}
 
 					<div className="search-content">
-						<input type="text" className="search-val" placeholder="请输入您要查找的内容" onBlur={this.onBlur} name="keywords" id="keywords" autoComplete="off"/>
+						<input type="text" value={defaultContent} className="search-val" placeholder="请输入您要查找的内容" onBlur={this.onBlur} name="keywords" id="keywords" autoComplete="off"/>
 					</div>
 				</div>
 

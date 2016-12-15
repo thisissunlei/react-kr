@@ -40,6 +40,7 @@ export default class  SearchCompanyComponent extends React.Component {
 		return new Promise((resolve, reject) => {
 			Store.dispatch(Actions.callAPI('getCompanyByCompanyText',{ companyText:companyText })).then(function(response){
 				response.items.forEach(function(item,index){
+					console.log('getCompanyByCompanyText',response);
 					item.value = item.companyId;
 					item.label = item.companyName;
 				});

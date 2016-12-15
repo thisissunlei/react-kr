@@ -57,7 +57,10 @@ export default class List extends Component {
 			searchParams: {
 				page: 1,
 				pageSize: 15
-			}
+			},
+			filter:'',
+			content:''
+
 		}
 	}
 	editMember(itemDetail){
@@ -165,6 +168,10 @@ export default class List extends Component {
 			value :value.content,
 			type :value.filter
 		}
+		_this.setState({
+			content :value.content,
+			filter :value.filter
+		})
 		Store.dispatch(Actions.callAPI('searchListByFilter',searchParam)).then(function(response){
 			console.log(_this.state.searchParams,"_this.state.searchParams");
 				console.log(value.content,"value.content");
@@ -184,6 +191,10 @@ export default class List extends Component {
 			}]);
 		});
 	}
+	onAdvanceSearchSubmit=(values)=>{
+		console.log('onAdvanceSearchSubmit',values);
+	}
+
 	render() {
 		let {
 			list,itemDetail,seleced
@@ -214,7 +225,7 @@ export default class List extends Component {
 										<Button label="新建会员"  onTouchTap={this.openNewCreateDialog} />
 										{/*高级查询*/}
 										<Button   type='search'  searchClick={this.openAdvancedQueryDialog}   searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
-										<SearchForms onSubmit={this.onSearchSubmit} searchFilter={options} style={{marginTop:5,zIndex:10000}} />
+										<SearchForms onSubmit={this.onSearchSubmit} searchFilter={options} style={{marginTop:5,zIndex:10000}} content={this.state.content} filter={this.state.filter}/>
 									</form>
 									<Table
 										className="member-list-table"
@@ -291,7 +302,7 @@ export default class List extends Component {
 									onClose={this.openAdvancedQueryDialog}
 									contentStyle={{width:687}}
 								>
-									<AdvancedQueryForm onSubmit={this.onAdvanceSearchSubmit} params={this.params} onCancel={this.openAdvancedQueryDialog} detail={itemDetail} style={{textAlign:'center'}}/>
+									<AdvancedQueryForm onSubmit={this.onAdvanceSearchSubmit} params={this.params} onCancel={this.openAdvancedQueryDialog} detail={itemDetail} style={{textAlign:'center'}} content={this.state.content} filter={this.state.filter} />
 							  </Dialog>
 
 				</div>
