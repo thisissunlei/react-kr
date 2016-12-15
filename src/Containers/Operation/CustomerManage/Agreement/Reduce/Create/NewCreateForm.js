@@ -275,7 +275,7 @@ class NewCreateForm extends Component {
 
 <form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}>
 				<CircleStyle num="1" info="租赁明细" >
-				<div className="detailList">	
+				<div className="detailList" style={{marginTop:"-40px"}}>	
 				<DotTitle title='租赁明细'>
 
 
@@ -361,7 +361,7 @@ class NewCreateForm extends Component {
 					Store.dispatch(change('reduceCreateForm','contractFileList',files));
 				}} />
               
-                     	<div style={{paddingBottom:50}}>
+                     	<div style={{padding:"10px 0 50px"}}>
 						<Grid >
 						<Row >
 						<ListGroup>
