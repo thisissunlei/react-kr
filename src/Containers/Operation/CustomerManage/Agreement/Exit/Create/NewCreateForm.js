@@ -59,7 +59,8 @@ import {
 	Date,
 	Paper,
 	ListGroup,
-	ListGroupItem
+	ListGroupItem,
+	CircleStyle
 } from 'kr-ui';
 
 
@@ -206,9 +207,8 @@ class NewCreateForm extends Component {
 			<Paper width={968}>
 
 <form onSubmit={handleSubmit(this.onSubmit)}  style={{marginTop:50}}>
-				<div className="textInfo">
-					<div className="one"><p>1</p><div className="txt">———— 合同文本信息</div></div>
-					<div className="circle"><span></span></div>
+				<CircleStyle num='1' info='合同文本信息' circle="bottom">
+				
 				<KrField  name="mainbillid" type="hidden" component="input" />
 				<KrField   name="contractstate" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
@@ -248,7 +248,7 @@ class NewCreateForm extends Component {
 
 
 				<KrField style={{width:830,marginLeft:90}} name="contractmark" component="textarea" label="备注" maxSize={200}/>
-				</div>
+				</CircleStyle>
 				<KrField style={{width:830,marginLeft:90}} name="contractFileList" component="input" type="hidden" label="合同附件"/>
 				<KrField style={{width:830,marginLeft:90}} name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
 					Store.dispatch(change('exitCreateForm','contractFileList',files));
