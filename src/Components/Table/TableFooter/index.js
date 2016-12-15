@@ -152,6 +152,19 @@ export default class TableFooter extends React.Component {
 			<a style={{width:80,height:30,background:'#499df1',color:'#fff',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)',marginRight:20}}  onClick={this.onImport}>批量导入</a>
 		);
 	}
+	renderRow=()=>{
+		let num = 1;
+		if(onImport && batchDelet && exportSwitch){
+			num = 4;
+		}
+			return (
+				<TableRowColumn style={{textAlign:'left'}} colSpan={num}>
+					{this.renderExport()}
+					{this.renderImport()}
+                	{this.renderBatchDelet()}
+				</TableRowColumn>
+			)
+	}
 
 	render() {
 
@@ -174,11 +187,8 @@ export default class TableFooter extends React.Component {
 				{/*
                   {this.renderCheckbox()}
 				*/}
-			<TableRowColumn style={{textAlign:'left'}} colSpan={4}>
-				{this.renderExport()}
-                {this.renderImport()}
-                {this.renderBatchDelet()}
-			</TableRowColumn>
+			this.renderRow();
+			
 
 
 
