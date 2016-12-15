@@ -60,11 +60,15 @@ export default class CompanyMembers extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.params = this.context.router.params;
+		this.companyId = this.context.router.params.companyId;
+
 		this.state = {
 			tab: 'table',
 			communityId: '',
+
 			searchParams: {
 				page: 1,
+				companyId:this.companyId,
 				pageSize: 15
 			},
 			validateMember:false,
@@ -81,7 +85,6 @@ export default class CompanyMembers extends Component {
 			warns:false,
 			batchDelet:false
 		}
-		this.companyId = this.context.router.params.companyId;
 
 
 	}
@@ -380,7 +383,7 @@ export default class CompanyMembers extends Component {
 					onSelect={this.onSelect}
 					displayCheckbox={true}
 					ajaxFieldListName='items'
-					ajaxUrlName='getCompanyMemberList'
+					ajaxUrlName='membersList'
 					ajaxParams={this.state.searchParams}
 					exportSwitch={true}
 					onExport={this.onExport}

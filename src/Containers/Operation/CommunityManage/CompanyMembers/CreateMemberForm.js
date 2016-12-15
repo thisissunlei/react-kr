@@ -64,7 +64,7 @@ import imgLine from './images/line.png'
 	 componentDidMount(){
 	//  新增会员准备职位数据
 		 let _this =this;
-		 Store.dispatch(Actions.callAPI('getMemberPosition')).then(function(response){
+		 Store.dispatch(Actions.callAPI('getMemberBasicData')).then(function(response){
 			 response[0].jobList.forEach(function(item,index){
 				 item.value = item.id;
 				 item.label = item.jobName;

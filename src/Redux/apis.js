@@ -418,53 +418,53 @@
 		method: 'get'
 	},
 	//会员中心-会员列表-获取所有会员信息
-	'membersList': {
-		url: '/mockjsdata/4/member/member-list?page={page}&pageSize={pageSize}',
-		method: 'get'
-	},
+	// 'membersList': {
+	// 	url: '/api/krspace-finance-web/member/member-list?page={page}&pageSize={pageSize}',
+	// 	method: 'get'
+	// },
 	//会员中心-会员详细信息－个人资料
 	'getMemberDetailData': {
-		url: '/mockjsdata/4/member/member?id={id}',
+		url: '/api/krspace-finance-web/member/member?id={id}',
 		method: 'get'
 	},
 	// 会员中心-会员详细信息－个人行为
 	'getPersonalBehavior': {
-		url: '/mockjsdata/4/member/mbr-device-log?page={page}&pageSize={pageSize}&memberId={memberId}&startTime={startTime}&endTime={endTime}',
+		url: '/api/krspace-finance-web/member/mbr-device-log?page={page}&pageSize={pageSize}&memberId={memberId}&startTime={startTime}&endTime={endTime}',
 		method: 'get'
 	},
   // 会员中心-会员详细信息－组织架构
 	'getOrganizationChart': {
-		url: '/mockjsdata/4/member/company-team?page={page}&pageSize={pageSize}&memberId={memberId}',
+		url: '/api/krspace-finance-web/member/company-team?page={page}&pageSize={pageSize}&memberId={memberId}',
 		method: 'get'
 	},
   // 会员中心－会员详细信息－更新日志
   'getUpdateLog': {
-		url: '/mockjsdata/4/member/mbr-log?page={page}&pageSize={pageSize}&memberId={memberId}&startTime={startTime}&endTime={endTime}',
+		url: '/api/krspace-finance-web/member/mbr-log?page={page}&pageSize={pageSize}&memberId={memberId}&startTime={startTime}&endTime={endTime}',
 		method: 'get'
 	},
 	//会员中心-新增会员－社区模糊查询
 	'searchCommunityByCommunityText': {
-		url: '/mockjsdata/4/member/community-list?communityText={communityText}',
+		url: '/api/krspace-finance-web/member/work/community-list?communityText={communityText}',
 		method: 'get'
 	},
   //会员中心-新增会员－公司模糊查询
   'getCompanyByCompanyText': {
-		url: '/mockjsdata/4/member/company-list?companyText={companyText}',
+		url: '/api/krspace-finance-web/member/work/company-list?companyText={companyText}',
 		method: 'get'
 	},
   //会员中心-新增会员－职位准备数据
   'getMemberPosition': {
-		url: '/mockjsdata/4/member/member-add-edit',
+		url: '/api/krspace-finance-web/member/member-add-editcompanyId={companyId}&memberId={memberId}&communityId={communityId}',
 		method: 'get'
 	},
   // 会员中心－新增会员－电话号码校验是否存在
   'isPhoneRegistered':{
-    url:'/mockjsdata/4/member/member-phone?phone={phone}',
+    url:'/api/krspace-finance-web/member/member-phone?phone={phone}',
     method:'get'
   },
-  // 会员中心－新增会员－电话号码校验是否存在
-  'searchListByFilter':{
-    url:'/mockjsdata/4/member/member-list?value={value}&type={type}&startTime={startTime}&endTime={endTime}&registerSourceId={registerSourceId}&jobId={jobId}&pageSize={pageSize}&page={page}&companyId={companyId}&cityId={cityId}',
+  // 会员中心-会员-获取-高级搜索
+  'membersList':{
+    url:'/api/krspace-finance-web/member/member-list?value={value}&type={type}&startTime={startTime}&endTime={endTime}&registerSourceId={registerSourceId}&jobId={jobId}&pageSize={pageSize}&page={page}&companyId={companyId}&cityId={cityId}',
     method:'get'
   },
 
@@ -480,57 +480,57 @@
   },
   //获取指定公司会员列表
   'getCompanyMemberList':{
-  	url:'/mockjsdata/4/member/company-team?companyId={companyId}&page={page}&pageSize={pageSize}',
+  	url:'/api/krspace-finance-web/member/company-team?companyId={companyId}&page={page}&pageSize={pageSize}',
   	method:'get'
   },
   //设置Leader
   'setLeader':{
-  	url:'/mockjsdata/4/member/work/leader?companyId={companyId}&isLeader={isLeader}&memberId={memberId}',
+  	url:'/api/krspace-finance-web/member/work/leader?companyId={companyId}&isLeader={isLeader}&memberId={memberId}',
   	method:'put'
   },
   //新建编辑会员的准备数据
   'getMemberBasicData':{
-  	url:'/mockjsdata/4/member/member-add-edit?companyId={companyId}&memberId={memberId}&communityId={communityId}',
+  	url:'/api/krspace-finance-web/member/member-add-edit?companyId={companyId}&memberId={memberId}&communityId={communityId}',
   	method:'get'
   },
   //新建编辑会员
   'membersChange':{
-  	url:'/mockjsdata/4/member/member',
+  	url:'/api/krspace-finance-web/member/member',
   	method:'post'
   },
   //验证成员
   'validMember':{
-  	url:'/mockjsdata/4/member/actions/set-as-valid?memberIds={memberIds}',
+  	url:'/api/krspace-finance-web/member/actions/set-as-valid?memberIds={memberIds}',
   	method:'post'
   },
   //指定公司下的会员数据导出
   'companyMemberExcel':{
-  	url:'/mockjsdata/4/member/member-company-excel?ids={ids}&companyId={companyId}',
+  	url:'/api/krspace-finance-web/member/member-company-excel?ids={ids}&companyId={companyId}',
   	method:'get'
   },
   //根据邮箱判断手否存在
   'membersByEmail':{
-  	url:'/mockjsdata/4/member/member-email?email={email}',
+  	url:'/api/krspace-finance-web/member/member-email?email={email}',
   	method:'get'
   },
   //根据会员卡号判断手否存在
   'membersByForeignCode':{
-  	url:'/mockjsdata/4/member/getCardInfoByForeignCode?foreignCode={foreignCode}&interCode={interCode}',
+  	url:'/api/krspace-finance-web/member/getCardInfoByForeignCode?foreignCode={foreignCode}&interCode={interCode}',
   	method:'get'
   },
   //下载导入模板
   'importExcelDemo':{
-  	url:'/mockjsdata/4/member/member-templet-excel?companyId={companyId}',
+  	url:'/api/krspace-finance-web/member/member-templet-excel?companyId={companyId}',
   	method:'get'
   },
   //上传会员数据
   'importMemberExcel':{
-  	url:'/mockjsdata/4/member/member-excel',
+  	url:'/api/krspace-finance-web/member/member-excel',
   	method:'post'
   },
   //批量删除
   'deleteMembers':{
-  	url:'/mockjsdata/4//member/actions/unbind-from-company?memberIds={memberIds}',
+  	url:'/api/krspace-finance-web//member/actions/unbind-from-company?memberIds={memberIds}',
   	method:'delete'
   },
   //个人中心-获取验证码
