@@ -32,6 +32,7 @@ import {
 	FieldControl,
 	InputDate,
 	SearchForm
+	SnackTip
 } from 'kr-ui';
 
 import {
@@ -101,7 +102,9 @@ ll=(values)=>{
 		]
 		return(
 			<div>
+
 					<Section title="demo" description="" >
+					    <SnackTip style={{'background':'#69bbf0'}} title='snack'/>
 						<KrField grid={1/2} label='city' component='city' onSubmit={this.list}/>
 						<SearchForm searchFilter={list} grid={1/2} onSubmit={this.onSubmit}/>
 
@@ -144,6 +147,9 @@ ll=(values)=>{
 						 <FlatButton icon={<FontIcon className={'icon-basis'} />} style={{color:'#499df1',height:36,width:100}} />
 
 							 </KrForm>
+                             
+                        
+
 					</Section>
 			</div>
 

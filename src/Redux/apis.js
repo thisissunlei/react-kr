@@ -230,7 +230,7 @@
 
 	//财务管理－订单账单列表-分页获取订单
 	'getFinaDataByList': {
-		url: '/mockjsdata/4/finaccount/data/getFinaDataByAjax?page={page}&pageSize={pageSize}&customername={customername}&startDate={startDate}&endDate={endDate}&mainbilltype={mainbilltype}&communityid={communityid}',
+		url: '/api/krspace-finance-web/finaccount/data/getFinaDataByAjax?page={page}&pageSize={pageSize}&mainbillname={mainbillname}&startDate={startDate}&endDate={endDate}&mainbilltype={mainbilltype}&communityid={communityid}',
 		method: 'get'
 	},
 	//财务管理－订单账单列表-生成对账单
@@ -241,6 +241,16 @@
 	//财务管理－订单账单列表-高级查询
 	'getFinaDataCommunityAndMainBillType': {
 		url: '/mockjsdata/4/finaccount/data/getFinaDataCommunityAndMainBillType',
+		method: 'get'
+	},
+	//财务管理－订单账单列表-高级查询-订单类型
+	'getMainBillTypeList': {
+		url:'/api/krspace-finance-web/finaccount/data/getMainBillTypeList',
+		method: 'get'
+	},
+	//财务管理－订单账单列表-高级查询-社区类型
+	'getCommunityListByParams': {
+		url:'/api/krspace-finance-web/finaccount/data/getCommunityListByParams?communityName={communityName}',
 		method: 'get'
 	},
 	//财务管理－订单账单列表-导出
@@ -533,6 +543,17 @@
   	url:'/mockjsdata/4/member/actions/unbind-from-company?memberIds={memberIds}',
   	method:'delete'
   },
+  //订单明细账－补历史收入
+  'runStationIncome': {
+    url:'/api/krspace-finance-web/finaccount/opt/runStationIncome?mainbillId={mainbillId}',
+    method: 'get'
+  },
+   //订单明细账－补充完成之后
+  'removeRunningTag': {
+    url:'/api/krspace-finance-web/finaccount/opt/removeRunningTag',
+    method: 'post'
+  },
+
   //个人中心-获取验证码
   'PersonalCenterGetVerificationCode': {
     url:'/mockjsdata/15/krspace_isso_web/sys/sysOwn/getVerifyCode',
