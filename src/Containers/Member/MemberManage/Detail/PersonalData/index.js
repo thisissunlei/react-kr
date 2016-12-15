@@ -19,12 +19,12 @@ import {
 	Grid,
 	Row,
 	Col,
-	// Notify,
 	List,
 	ListItem,
 	KrField,
 	LabelText,
 	KrDate,
+	Message
 } from 'kr-ui';
 export default class BasicInfo extends Component {
 	static contextTypes = {
@@ -56,10 +56,7 @@ export default class BasicInfo extends Component {
 				baseInfo:response.baseInfo,
 			});
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			Message.error(err.message);
 		});
 	}
 

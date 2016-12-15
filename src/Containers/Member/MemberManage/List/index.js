@@ -22,7 +22,7 @@ import {
 	SplitLine,
 	SearchForms,
 	Dialog,
-	Notify,
+	Message,
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import NewCreateForm from './NewCreateForm';
@@ -140,21 +140,26 @@ export default class List extends Component {
 		var url = `/mockjs/4/member/member-list-excel?ids=${ids}`
 		window.location.href = url;
 	}
-	onNewCreateSubmit=(values)=>{
+	onEditSubmit=(values)=>{
 		var _this = this;
 		Store.dispatch(Actions.callAPI('membersChange',values)).then(function(response){
 			_this.openEditDetailDialog();
-			Notify.show([{
- 			 message: '成功',
- 			 type: 'success',
- 		 	}]);
+			window.location.reload();
+			Message.success("操作成功");
 
 		}).catch(function(err){
-			console.log(err);
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			Message.error(err.message);
+		});
+	}
+	onNewCreateSubmit=(values)=>{
+		var _this = this;
+		Store.dispatch(Actions.callAPI('membersChange',values)).then(function(response){
+			_this.openNewCreateDialog();
+			window.location.reload();
+			Message.success("操作成功");
+		}).catch(function(err){
+			_this.openNewCreateDialog();
+			Message.error(err.message);
 		});
 	}
 	// 查询
@@ -178,10 +183,7 @@ export default class List extends Component {
 			})
 
 		}).catch(function(err){
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			Message.error(error.message);
 		});
 	}
 	render() {
@@ -282,7 +284,7 @@ export default class List extends Component {
 									onClose={this.openEditDetailDialog}
 									contentStyle={{width:687}}
 								>
-										<CreateMemberForm onSubmit={this.onNewCreateSubmit} params={this.params} onCancel={this.openEditDetailDialog} detail={itemDetail}/>
+										<CreateMemberForm onSubmit={this.onEditSubmit} params={this.params} onCancel={this.openEditDetailDialog} detail={itemDetail}/>
 							  </Dialog>
 								<Dialog
 									title="高级查询"

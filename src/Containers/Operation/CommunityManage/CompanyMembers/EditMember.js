@@ -26,7 +26,7 @@ import {
 	Grid,
 	Row,
 	Col,
-	Notify,
+	Message,
 	Button,
 	KrDate,
 	DotTitle,
@@ -40,7 +40,7 @@ import {
 import './index.less';
 
 export default class CreateMemberForm extends Component {
-	
+
 
 	constructor(props, context) {
 		super(props, context);
@@ -85,13 +85,10 @@ export default class CreateMemberForm extends Component {
 				jobList:response[0].jobList,
 				itemData:response[0].memberInfoVO
 			})
-			
+
 
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			Message.error(err.message);
 		});
 	}
 	communityChange=(mail)=>{
@@ -105,14 +102,11 @@ export default class CreateMemberForm extends Component {
 					console.log('1');
 
 				}
-				
-				
+
+
 
 			}).catch(function(err) {
-				Notify.show([{
-					message: err.message,
-					type: 'danger',
-				}]);
+				Message.error( err.message);
 			});
  		};
 	}
@@ -123,32 +117,29 @@ export default class CreateMemberForm extends Component {
 				if(response == 1){
 					console.log('1');
 				}
-				
-				
+
+
 
 			}).catch(function(err) {
-				Notify.show([{
-					message: err.message,
-					type: 'danger',
-				}]);
+				Message.error(err.message);
 			});
  		};
 	}
 
 
 
-	
+
 
 	render() {
 
-		
+
 		let {detail,handleSubmit} = this.props;
 		let {itemData,jobList} = this.state;
 		let images = `./images/all.png`;
 		itemData.phone = '13314619606';
 		console.log('detail',detail,itemData);
 
-		
+
 
 		return (
 			<div className="edit-form">
@@ -189,4 +180,3 @@ CreateMemberForm = reduxForm({
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
 })(CreateMemberForm);
-

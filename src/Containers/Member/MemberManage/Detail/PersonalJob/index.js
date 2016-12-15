@@ -14,19 +14,12 @@ import {
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import './index.less';
 import {
-	// Table,
-	// TableBody,
-	// TableHeader,
-	// TableHeaderColumn,
-	// TableRow,
-	// TableRowColumn,
-	// TableFooter,
 	Button,
 	Section,
 	Grid,
 	Row,
 	Col,
-	Notify,
+	Message,
 	List,
 	ListItem,
 	KrField,
@@ -48,74 +41,38 @@ export default class BasicInfo extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			// params: {
-			// 	accountType: 'PAYMENT',
-			// 	childType: 'basic',
-			// 	propertyId: '',
-			// 	propInfo: 'SETTLED',
-			// 	orderId: this.props.params.orderId
-			// 	page: 1,
-			// 	pageSize: 20,
-			// 	index:''
-			// },
+
 			workInfo:{}
 		}
 	}
 
 
 	componentDidMount() {
-		// console.log("this.props.params",this.context.router.params.memberId);
-     var _this=this;
+		var _this=this;
 		let {
 			params
 		} = this.props;
-		// console.log('222',params);
 		Store.dispatch(Actions.callAPI('getMemberDetailData', {
 			id:this.context.router.params.memberId
 		})).then(function(response) {
-			// console.log("response",response);
-			// console.log("response.baseInfo",response.baseInfo);
-
 			_this.setState({
 				workInfo:response.workInfo,
-				// detailPayment: response.paymentdata,
-				// detailIncome: response.incomedata,
-				// detailBalance: response.balance,
-				// isInitLoading: false,
 			},function(){
-				// console.log('3333',_this.state.baseInfo);
 			});
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			Message.error(err.message);
 		});
 	}
-	// initBasicInfo() {
-	// 	console.log("response",response);
-	//
-	// }
 	render() {
 		const {
 		workInfo
-			// detailPayment,
-			// detailIncome
 		} = this.state;
-		// console.log("baseInfo",baseInfo);
-		// if (!detail.mainbillname) {
-		// 	detail.mainbillname = '';
-		// }
-
-		// let style={
-		// 	color:'#ff6868',
-		// }
 
 		return (
 
 			<div className='ui-detail-order'>
 
-			           {/*<KrField grid={1/3} alignRight={true} label="星座:" component="labelText" value={basicinfo.star} defaultValue="无"/>*/}
+
 			           <KrField grid={1/3} alignRight={true} label="职位:" component="labelText" value={workInfo.jobName} defaultValue="无"/>
 
 			           <KrField grid={1/3}  alignRight={true} component="labelText"  label="工位号:" value={workInfo.stationCode} defaultValue="无" />

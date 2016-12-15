@@ -9,7 +9,7 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-  Notify,
+  Message,
 } from 'kr-ui';
 import dateFormat from 'dateformat';
 import SearchUpdateLog from './SearchUpdateLog';
@@ -50,10 +50,7 @@ export default class UpdateLog extends Component {
     let start=Date.parse(dateFormat(startTime,"yyyy-mm-dd hh:MM:ss"));
     let end=Date.parse(dateFormat(searchParams.endTime,"yyyy-mm-dd hh:MM:ss"))
     if(searchParams.endTime && start>end ){
-      Notify.show([{
-        message: "结束时间要小于开始时间",
-        type: 'danger',
-      }]);
+      Message.error("结束时间要小于开始时间");
       return ;
     }
     searchParams = Object.assign({}, searchParams, {startTime});
@@ -66,10 +63,7 @@ export default class UpdateLog extends Component {
     let start=Date.parse(dateFormat(searchParams.startTime,"yyyy-mm-dd hh:MM:ss"));
     let end=Date.parse(dateFormat(endTime,"yyyy-mm-dd hh:MM:ss"));
     if(searchParams.startTime && start>end){
-      Notify.show([{
-  			message: "结束时间要小于开始时间",
-  			type: 'danger',
-  		}]);
+      Message.error("结束时间要小于开始时间");
 			return ;
     }
     searchParams = Object.assign({}, searchParams, {endTime});
