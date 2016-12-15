@@ -33,6 +33,11 @@ import imgLine from './images/line.png'
 	}
 	// 点确定提交时候如果有错误提示返回，否则提交,,如果邮箱存在有错误提示，不能提交
 	 onSubmit=(values)=>{
+	 	// values.communityId = 1;
+	 	// values.companyId = 1;
+	 	// values.jobId = 1;
+	 	// console.log('values',values);
+
 		 const {onSubmit} = this.props;
 		 onSubmit && onSubmit(values);
 	 }
@@ -156,7 +161,7 @@ const validate = values => {
 const selector = formValueSelector('NewCreateForm');
 export default NewCreateForm = reduxForm({
 	form: 'NewCreateForm',
-	validate,
+	// validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
 })(NewCreateForm);

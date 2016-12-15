@@ -41,11 +41,11 @@ export default class  SearchCommunityComponent extends React.Component {
 
 		return new Promise((resolve, reject) => {
 			Store.dispatch(Actions.callAPI('searchCommunityByCommunityText',{ communityText:communityText})).then(function(response){
-				response.items.forEach(function(item,index){
-					item.value = item.communityId;
-					item.label = item.communityName;
+				response.forEach(function(item,index){
+					item.value = item.id;
+					item.label = item.communityname;
 				});
-				resolve({options:response.items});
+				resolve({options:response});
 			}).catch(function(err){
 				reject(err);
 			});
