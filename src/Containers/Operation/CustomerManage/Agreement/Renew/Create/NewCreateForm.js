@@ -271,8 +271,8 @@ class NewCreateForm extends Component {
 			<Paper width={968}>
 
 <form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}>
-			<CircleStyle num={1} info='租赁明细' >
-				<div className="detailList">
+			<CircleStyle num={1} info='租赁明细'  >
+				<div className="detailList" style={{marginTop:'-50px'}}>
 				<DotTitle title='租赁明细'>
 				      <Grid style={{marginTop:'-30px'}}>
 							<Row>
@@ -367,7 +367,7 @@ class NewCreateForm extends Component {
 				}} />
 
              
-						<Grid style={{paddingBottom:30}}>
+						<Grid style={{padding:'10px 0 50px'}}>
 						<Row >
 						<ListGroup>
 							<ListGroupItem style={{width:'45%',textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit"  width={100} height={40} fontSize={16}/></ListGroupItem>
