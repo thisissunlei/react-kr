@@ -13,9 +13,9 @@ import {
 	ButtonGroup,
   ListGroup,
   ListGroupItem,
+	SearchForm,
 } from 'kr-ui';
 import $ from 'jQuery'
-import imgLine from './images/line.png'
 class NewCreateForm extends Component{
      static contextTypes = {
    		params: React.PropTypes.object.isRequired
@@ -63,8 +63,10 @@ class NewCreateForm extends Component{
 	 }
 	 componentDidMount(){
 	//  新增会员准备职位数据
+
 		 let _this =this;
 		 Store.dispatch(Actions.callAPI('getMemberPosition')).then(function(response){
+			 console.log("----------");
 			 response[0].jobList.forEach(function(item,index){
 				 item.value = item.id;
 				 item.label = item.jobName;
@@ -96,36 +98,38 @@ class NewCreateForm extends Component{
 		const { error, handleSubmit, pristine, reset} = this.props;
 		let communityText = '';
 		let {selectOption} =this.state;
-
+		let options = [{
+			label: '公司名称',
+			value: 'BILL'
+		}, {
+			label: '手机号',
+			value: 'PHONE'
+		}, {
+			label: '微信',
+			value: 'PHONE'
+		}, {
+			label: '姓名',
+			value: 'PHONE'
+		}];
 		return (
-
 			<form onSubmit={handleSubmit(this.onSubmit)}>
-				<KrField grid={1/2} name="phone" type="text" label="手机号" requireLabel={true} style={{display:'block'}}
-				   requiredValue={true} onBlur={this.onBlur} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
+				<SearchForm searchFilter={options} style={{width:'252',marginBottom:'10'}}/>
+				{/*<KrField name="jobId"  component="city" label="工作地点"  style={{display:'block',width:'252',marginRight:'24'}}/>*/}
+				<KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} style={{width:'252',marginRight:'24'}}/>
+				<KrField name="jobId"  grid={1/2} component="select" label="注册来源" options={selectOption} style={{width:'252'}}/>
         <ListGroup>
-        <ListGroupItem style={{textAlign:'center',padding:0}}></ListGroupItem>
+					<ListGroupItem style={{width:540,paddingLeft:10,color:'#333333'}}><span>注册时间</span></ListGroupItem>
+        	<ListGroupItem style={{textAlign:'center',padding:0}}></ListGroupItem>
           <ListGroupItem style={{padding:0}}>
-              <KrField name="startDate"  component="date" onChange={this.props.onStartChange} simple={true}/>
+              <KrField name="startDate"  component="date" onChange={this.props.onStartChange} style={{width:'252'}} simple={true}/>
           </ListGroupItem>
-          <ListGroupItem style={{textAlign:'center',padding:0,marginLeft:'10'}}><span style={{display:'inline-block',lineHeight:'58px'}}>至</span></ListGroupItem>
+          <ListGroupItem style={{textAlign:'center',padding:0,marginLeft:'10'}}>
+						<span style={{display:'inline-block',lineHeight:'58px',margin:'0 5 0 5'}}>至</span>
+					</ListGroupItem>
           <ListGroupItem style={{padding:0}}>
-              <KrField name="leaseendTime" component="date" onChange={this.props.onEndChange}  style={{width:'252'}} simple={true}/>
+              <KrField name="endDate" component="date" onChange={this.props.onEndChange}  style={{width:'252'}} simple={true}/>
           </ListGroupItem>
         </ListGroup>
-				{/*<div style={{width:'100%',textAlign:'center',height:25,marginBottom:8}}>
-						<img src={imgLine}/>
-				</div>
-				<KrField grid={1/2} name="communityId" component="searchCommunity" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
-        <KrField grid={1/2} name="email" type="text" label="邮箱" requireLabel={true}
-				   requiredValue={true} pattern={/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/} errors={{requiredValue:'邮箱为必填项',pattern:'请输入正确邮箱地址'}}/>
-				<KrField grid={1/2} name="companyId" component="searchCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
-        <KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} requireLabel={true} />
-				<KrField grid={1/2} name="name" type="text" label="姓名" requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}}/>
-				<KrField grid={1/2} name="enableflag" component="group" label="发送验证短信" requireLabel={true}>
-						<KrField name="enableflag" grid={1/2} label="是" type="radio" value="ENABLE"/>
-						<KrField name="enableflag" grid={1/2} label="否" type="radio" value="DISENABLE" />
-              </KrField>
-        <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" />*/}
 				<Grid style={{marginTop:30}}>
 					<Row>
 						<Col md={12} align="center">
