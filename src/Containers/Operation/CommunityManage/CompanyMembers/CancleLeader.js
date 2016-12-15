@@ -26,7 +26,6 @@ import {
 	Grid,
 	Row,
 	Col,
-	Notify,
 	Button,
 	KrDate,
 	DotTitle,
@@ -62,7 +61,7 @@ export default class CancleLeader extends Component {
 
 
 
-	
+
 
 	render() {
 		return (
@@ -80,4 +79,3 @@ export default class CancleLeader extends Component {
 )
 	}
 }
-

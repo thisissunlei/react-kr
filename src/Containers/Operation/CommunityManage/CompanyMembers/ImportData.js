@@ -26,7 +26,7 @@ import {
 	Grid,
 	Row,
 	Col,
-	Notify,
+	Message,
 	Button,
 	KrDate,
 	DotTitle,
@@ -54,17 +54,19 @@ export default class CancleLeader extends Component {
 		}
 	}
 	onTokenError=()=> {
-		Notify.show([{
-			message: '初始化上传文件失败',
-			type: 'danger',
-		}]);
+		// Notify.show([{
+		// 	message: '初始化上传文件失败',
+		// 	type: 'danger',
+		// }]);
+		Message.error('初始化上传文件失败');
 	}
 	onError=(message)=> {
-		message = message || '上传文件失败';
-		Notify.show([{
-			message: message,
-			type: 'danger',
-		}]);
+		// message = message || '上传文件失败';
+		// Notify.show([{
+		// 	message: message,
+		// 	type: 'danger',
+		// }]);
+		Message.error('上传文件失败');
 
 		this.setState({
 			progress: 0,
@@ -101,10 +103,11 @@ export default class CancleLeader extends Component {
 		});
 
 
-		Notify.show([{
-			message: '上传文件成功',
-			type: 'success',
-		}]);
+		// Notify.show([{
+		// 	message: '上传文件成功',
+		// 	type: 'success',
+		// }]);
+		Message.success("上传文件成功");
 		onChange && onChange(files);
 	}
 
@@ -139,7 +142,7 @@ export default class CancleLeader extends Component {
 		let file = event.target.files[0];
 		console.log('file-----', file)
 		Store.dispatch(change('cancleLeader', 'file', file));
-		
+
 		if (!file) {
 			console.log('[[[[[[');
 			return;
@@ -148,12 +151,12 @@ export default class CancleLeader extends Component {
 
 
 
-	
+
 
 	render() {
 		let {handleSubmit} = this.props;
-		
-		
+
+
 
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)}>
@@ -183,4 +186,3 @@ CancleLeader = reduxForm({
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
 })(CancleLeader);
-

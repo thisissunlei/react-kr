@@ -9,7 +9,6 @@ import {
 	Row,
 	Col,
 	Button,
-	Notify,
 	ButtonGroup,
 } from 'kr-ui';
 import $ from 'jQuery'

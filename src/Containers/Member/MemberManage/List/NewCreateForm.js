@@ -9,7 +9,6 @@ import {
 	Row,
 	Col,
 	Button,
-	Notify,
 	ButtonGroup,
 } from 'kr-ui';
 import $ from 'jQuery'
@@ -103,7 +102,7 @@ class NewCreateForm extends Component{
 
 		return (
 
-			<form onSubmit={handleSubmit(this.onSubmit)}>
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'20'}}>
 				<KrField grid={1/2} name="phone" type="text" label="手机号" requireLabel={true} style={{display:'block'}}
 				   requiredValue={true} onBlur={this.onBlur} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
 				<div style={{width:'100%',textAlign:'center',height:25,marginBottom:8}}>
@@ -116,15 +115,15 @@ class NewCreateForm extends Component{
         <KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} requireLabel={true} />
 				<KrField grid={1/2} name="name" type="text" label="姓名" requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}}/>
 				<KrField grid={1/2} name="enableflag" component="group" label="发送验证短信" requireLabel={true}>
-						<KrField name="enableflag" grid={1/2} label="是" type="radio" value="ENABLE"/>
-						<KrField name="enableflag" grid={1/2} label="否" type="radio" value="DISENABLE" />
+						<KrField name="enableflag" grid={1/4} label="是" type="radio" value="ENABLE"/>
+						<KrField name="enableflag" grid={1/4} label="否" type="radio" value="DISENABLE" />
               </KrField>
         <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" />
 				<Grid style={{marginTop:30}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-									<Button  label="确定" type="submit"/>
+									<Button  label="确定" type="submit" onTouchTap={this.onSubmit}/>
 									<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />
 							</ButtonGroup>
 						</Col>

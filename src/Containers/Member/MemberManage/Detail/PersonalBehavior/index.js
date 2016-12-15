@@ -31,7 +31,7 @@ import {
 	KrField,
 	ListGroup,
 	ListGroupItem,
-	Notify,
+	Message,
 } from 'kr-ui';
 class SearchDateForm extends Component{
 	constructor(props, context) {
@@ -81,10 +81,7 @@ export default class PersonalBehavior extends Component {
 			let start=Date.parse(dateFormat(startTime,"yyyy-mm-dd hh:MM:ss"));
 			let end=Date.parse(dateFormat(searchParams.endTime,"yyyy-mm-dd hh:MM:ss"))
 			if(searchParams.endTime&&start>end){
-				Notify.show([{
-  				message: "结束时间要小于开始时间",
-  				type: 'danger',
-  			}]);
+				Message.error("结束时间要小于开始时间");
 				return ;
 			}
 		searchParams = Object.assign({}, searchParams, {startTime});
@@ -97,10 +94,7 @@ export default class PersonalBehavior extends Component {
 			let start=Date.parse(dateFormat(searchParams.startTime,"yyyy-mm-dd hh:MM:ss"));
 			let end=Date.parse(dateFormat(endTime,"yyyy-mm-dd hh:MM:ss"));
 			if(start>end){
-				Notify.show([{
-  				message: "结束时间要小于开始时间",
-  				type: 'danger',
-  			}]);
+				Message.error("结束时间要小于开始时间");
 				return ;
 			}
 			searchParams = Object.assign({}, searchParams, {endTime});

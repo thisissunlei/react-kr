@@ -19,7 +19,7 @@ import {
 	Grid,
 	Row,
 	Col,
-	Notify,
+	Message,
 	List,
 	ListItem,
 	KrField,
@@ -75,10 +75,7 @@ export default class  CompanyInfo extends Component {
 				// console.log('3333',_this.state.baseInfo);
 			});
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			Message.error(err.message);
 		});
 	}
 	// initBasicInfo() {

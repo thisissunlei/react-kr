@@ -23,7 +23,7 @@ import {
 	Dialog,
 	Section,
 	Grid,
-	Notify,
+	Message,
 	Button,
 	KrField,
 	Form,
@@ -143,20 +143,22 @@ export default class CompanyMembers extends Component {
 		console.log('validateMemberSubmit',selecedList,JSON.stringify(selecedList));
 		Store.dispatch(Actions.callAPI('validMember',{memberIds:JSON.stringify(selecedList)} )).then(function(response) {
 			_this.validateMember();
-			Notify.show([{
-				message: '设置成功',
-				type: 'success',
-			}]);
+			// Message.show([{
+			// 	message: '设置成功',
+			// 	type: 'success',
+			// }]);
+			Message.success('设置成功');
 
 			// window.setTimeout(function() {
 			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
 			// }, 0);
 
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			// Notify.show([{
+			// 	message: err.message,
+			// 	type: 'danger',
+			// }]);
+			Message.error(err.message);
 		});
 	}
 	editMember(itemDetail){
@@ -225,20 +227,23 @@ export default class CompanyMembers extends Component {
 			}else{
 				_this.cancleLeaders();
 			}
-			Notify.show([{
-				message: '设置成功',
-				type: 'success',
-			}]);
+			// Notify.show([{
+			// 	message: '设置成功',
+			// 	type: 'success',
+			// }]);
+			Message.success('设置成功');
+
 
 			// window.setTimeout(function() {
 			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
 			// }, 0);
 
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			// Notify.show([{
+			// 	message: err.message,
+			// 	type: 'danger',
+			// }]);
+			Message.error(err.message);
 		});
 	}
 	editMemberForm=(value)=>{
@@ -247,20 +252,22 @@ export default class CompanyMembers extends Component {
 		let params = value;
 		Store.dispatch(Actions.callAPI('membersChange', params)).then(function(response) {
 			_this.editMembers()
-			Notify.show([{
-				message: '设置成功',
-				type: 'success',
-			}]);
+			// Notify.show([{
+			// 	message: '设置成功',
+			// 	type: 'success',
+			// }]);
+			Message.success('设置成功');
 
 			// window.setTimeout(function() {
 			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
 			// }, 0);
 
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			// Notify.show([{
+			// 	message: err.message,
+			// 	type: 'danger',
+			// }]);
+			Message.error(err.message);
 		});
 	}
 	onExport=(value)=>{
@@ -283,20 +290,22 @@ export default class CompanyMembers extends Component {
 		let _this = this;
 		Store.dispatch(Actions.callAPI('deleteMembers',{memberIds:JSON.stringify(selecedList)} )).then(function(response) {
 			_this.batchDelet();
-			Notify.show([{
-				message: '设置成功',
-				type: 'success',
-			}]);
+			// Notify.show([{
+			// 	message: '设置成功',
+			// 	type: 'success',
+			// }]);
+			Message.success('设置成功');
 
 			// window.setTimeout(function() {
 			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
 			// }, 0);
 
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			// Notify.show([{
+			// 	message: err.message,
+			// 	type: 'danger',
+			// }]);
+			Message.error(err.message);
 		});
 	}
 	importDataPost=(files)=>{
@@ -309,20 +318,22 @@ export default class CompanyMembers extends Component {
 		let _this = this;
 		Store.dispatch(Actions.callAPI('importMemberExcel',params)).then(function(response) {
 			_this.importData();
-			Notify.show([{
-				message: '设置成功',
-				type: 'success',
-			}]);
+			// Notify.show([{
+			// 	message: '设置成功',
+			// 	type: 'success',
+			// }]);
+			Message.success('设置成功');
 
 			// window.setTimeout(function() {
 			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
 			// }, 0);
 
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			// Notify.show([{
+			// 	message: err.message,
+			// 	type: 'danger',
+			// }]);
+			Message.error(err.message);
 		});
 
 	}
@@ -335,17 +346,18 @@ export default class CompanyMembers extends Component {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('membersChange',values)).then(function(response){
 			_this.createMember();
-			Notify.show([{
- 			 message: '成功',
- 			 type: 'success',
- 		 	}]);
-
+			// Notify.show([{
+ 		// 	 message: '成功',
+ 		// 	 type: 'success',
+			//  	}]);
+			Message.success('成功');
 		}).catch(function(err){
 			console.log(err);
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			// Notify.show([{
+			// 	message: err.message,
+			// 	type: 'danger',
+			// }]);
+			Message.error(err.message);
 		});
 	}
 

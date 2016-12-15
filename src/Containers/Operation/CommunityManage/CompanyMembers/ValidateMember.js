@@ -26,7 +26,6 @@ import {
 	Grid,
 	Row,
 	Col,
-	Notify,
 	Button,
 	KrDate,
 	DotTitle,
@@ -64,13 +63,13 @@ export default class ValidateMember extends Component {
 
 
 
-	
+
 
 	render() {
 		console.log('seleced',this.props.seleced);
 		let {seleced} = this.props;
-		
-		
+
+
 
 		return (
 			<div className='validate-member' style={{marginTop:20}}>
@@ -121,4 +120,3 @@ export default class ValidateMember extends Component {
 )
 	}
 }
-
