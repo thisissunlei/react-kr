@@ -233,11 +233,6 @@
 		url: '/api/krspace-finance-web/finaccount/data/getFinaDataByAjax?page={page}&pageSize={pageSize}&mainbillname={mainbillname}&startDate={startDate}&endDate={endDate}&mainbilltype={mainbilltype}&communityid={communityid}',
 		method: 'get'
 	},
-	//财务管理－订单账单列表-生成对账单
-	'getFinaDataDetailAdd': {
-		url: '/api/krspace-finance-web/finaccount/data/getFinaDataDetailById?id={id}&startDate={startDate}&endDate={endDate}',
-		method: 'get'
-	},
 	//财务管理－订单账单列表-高级查询
 	'getFinaDataCommunityAndMainBillType': {
 		url: '/api/krspace-finance-web/finaccount/data/getFinaDataCommunityAndMainBillType',
