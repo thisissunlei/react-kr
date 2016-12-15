@@ -30,7 +30,7 @@ const config = {
 	plugins: [
 		new webpack.DefinePlugin({
 			'process.env': {
-				NODE_ENV: JSON.stringify('production'),
+				NODE_ENV: JSON.stringify('test'),
 			}
 		}),
 		new webpack.DllReferencePlugin({
@@ -65,7 +65,7 @@ const config = {
 			new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
 		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
-			title: '氪空间后台管理系统',	
+			title: '氪空间后台管理系统',
 			filename: 'index.html',
 			template: './src/index.template.html',
 			inject:'body',
