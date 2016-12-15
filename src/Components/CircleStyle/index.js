@@ -59,7 +59,7 @@ export default class CircleStyle extends Component {
 		if (circle == 'center') {
 			return (
 				<div className="ui-detailContent" style={style}>
-					<div className="one"><p>{num}</p><div className="txt">———— {info}</div></div>
+					<div className="one"><p>{num}</p><div className="txt">—— {info}</div></div>
 					<div className="circle"><span></span></div>
 					{children}
 			</div>
@@ -68,7 +68,7 @@ export default class CircleStyle extends Component {
 		if (circle == 'bottom') {
 			return (
 				<div className="ui-textInfo" style={style}>
-					<div className="one"><p>{num}</p><div className="txt">———— {info}</div></div>
+					<div className="one"><p>{num}</p><div className="txt">—— {info}</div></div>
 					<div className="circle"><span></span></div>
 					{children}
 			</div>
