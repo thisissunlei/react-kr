@@ -113,6 +113,7 @@ export default class SearchParam extends Component{
 		searchParam.propInfo=propInfo;
 		searchParam.orderId = params.orderId;
 		searchParam.index=index;
+		searchParam.pageSize=30;
 		onSearch && onSearch(searchParam);
 	}
 

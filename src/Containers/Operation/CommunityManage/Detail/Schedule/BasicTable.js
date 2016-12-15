@@ -159,7 +159,6 @@ class SearchForm extends Component {
 		onChange && onChange(id);
 	}
 	onFilter=(value)=>{
-		console.log('onFilter-form',value);
 		let {onFilter} = this.props;
 		onFilter && onFilter(value);
 	}
@@ -191,7 +190,7 @@ class SearchForm extends Component {
 		return (
 			<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45}}>
 				{/*<KrField  name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} left={60}/>*/}
-				
+
 				<SearchForms onSubmit={this.onSubmit} searchFilter={options} style={{marginTop:5}} onFilter={this.onFilter}/>
 				<KrField name="community"  grid={1/5} component="select" label="社区" search={true}  options={communityIdList} onChange={this.selectCommunity} />
 			</form>
@@ -258,7 +257,6 @@ export default class BasicTable extends Component {
 		};
 
 		this.currentYear = '2016';
-		this.getWidth = this.getWidth.bind(this);
 
 	}
 
@@ -284,16 +282,17 @@ export default class BasicTable extends Component {
 	scrollLoading() {
 
 		var _this = this;
+		
+		// console.log('dataLoading',dataLoading);
 		$(window).bind('scroll', function() {
 			var top = $(window).scrollTop() || 0;
 			var height = $(window).height() || 0;
 			var num = $(document).height() - $(window).height();
 			var scrollBottom = top - num;
-
+			var {dataLoading} = _this.state;
 			var isOutBoundary = scrollBottom >= -300;
 
-			if (isOutBoundary) {
-
+			if (isOutBoundary && !dataLoading) {
 				let {
 					communityids,
 					type,
@@ -305,7 +304,8 @@ export default class BasicTable extends Component {
 					totalCount,
 					totalPages,
 					istip,
-					currentYear
+					currentYear,
+					dataLoading
 				} = _this.state;
 
 				if (isIscroll) {
@@ -324,6 +324,7 @@ export default class BasicTable extends Component {
 					}
 
 					if (totalPages > page) {
+						console.log('isLoadingisLoading');
 						len += step;
 						_this.setState({
 							page: len,
@@ -361,9 +362,10 @@ export default class BasicTable extends Component {
 								})
 							}
 							window.setTimeout(function() {
-								_this.setState({
-									isLoading: !_this.state.isLoading
-								})
+									_this.setState({
+										isLoading: !_this.state.isLoading
+									})
+								
 							}, 10)
 
 						}).catch(function(err) {
@@ -530,10 +532,11 @@ export default class BasicTable extends Component {
 
 	onNextYear() {
 		let {
-			currentYear
+			currentYear,
+			isLoading,
 		} = this.state;
+		let _this = this;
 		currentYear++;
-
 
 		this.setState({
 			currentYear,
@@ -598,7 +601,11 @@ export default class BasicTable extends Component {
 				var totalCount = 0;
 				var totalPages = 0;
 			}
-
+			if(response.vo.totalPages == 1){
+				_this.setState({
+					istip:true
+				})
+			}
 
 
 			state = {
@@ -662,7 +669,7 @@ export default class BasicTable extends Component {
 						<td colSpan={14} style={{border:'none'}}>
 						<div style={{left:'50%',top:'40%',zIndex:100}}><Loading/></div>
 						</td>
-						
+
 					</tr>
 				</tbody>
 			)
@@ -693,7 +700,7 @@ export default class BasicTable extends Component {
 						<td className='white'>
 							<div className="header-title">
 								<p className="title-right">出租率</p>
-								
+
 							</div>
 						</td>
 						{
@@ -704,14 +711,13 @@ export default class BasicTable extends Component {
 
 					{
 						showNone && Installmentplan.map((item,index)=>{
-							let width = this.getWidth();
 
 							let itemData = Object.assign(item);
 							return (
 
 							<ItemTable onDismantling={this.onDismantling}  communityids={id} detail={itemData}  key={index} onStation={this.onStation} activity={this.state.activity} currentYear={currentYear} />
-							
-								
+
+
 							)
 
 						})
@@ -721,15 +727,6 @@ export default class BasicTable extends Component {
 			)
 
 		}
-	}
-	getWidth() {
-		const list = ReactDOM.findDOMNode(this.trLength);
-		let th = list.getElementsByTagName('th')[1].offsetWidth;
-		let length = th * 12;
-		return length;
-
-
-
 	}
 
 
@@ -770,12 +767,9 @@ export default class BasicTable extends Component {
 
 
 		return (
-			<div style={{position:'relative'}}>
-			{isLoading?<div style={{position:'fixed',left:'50%',top:'40%',zIndex:100}}><Loading/></div>:''}
-			{istip?<div style={{width:640,color:'#999',fontSize:'14px',position:'absolute',left:'50%',bottom:'-103px',marginLeft:'-320px',zIndex:100}}><p style={{width:260,borderBottom:'1px solid #cccccc',height:9,float:'left'}} ></p><p style={{float:'left',paddingLeft:'15px',paddingRight:'15px'}}>我是有底线的</p><p style={{width:260,height:9,borderBottom:'1px solid #cccccc',float:'left'}} ></p></div>:''}
-			
-					
-			
+			<div style={{position:'relative',minHeight:908}}>
+			{(isLoading && !dataLoading)?<div style={{position:'fixed',left:'50%',top:'40%',zIndex:100}}><Loading/></div>:''}
+			{(istip && !dataLoading && !isLoading)?<div style={{width:640,color:'#999',fontSize:'14px',position:'absolute',left:'50%',bottom:'-103px',marginLeft:'-320px',zIndex:100}}><p style={{width:260,borderBottom:'1px solid #cccccc',height:9,float:'left'}} ></p><p style={{float:'left',paddingLeft:'15px',paddingRight:'15px'}}>我是有底线的</p><p style={{width:260,height:9,borderBottom:'1px solid #cccccc',float:'left'}} ></p></div>:''}
 		 	<div className="basic-con">
 		 		<div className="legend">
 		 			<div className="legend-left">
@@ -792,9 +786,9 @@ export default class BasicTable extends Component {
 		 			</div>
 		 		</div>
 		 		<SearchForm  onSubmit={this.onSubmit} Ids={communityids} onChange={this.onChange} onFilter={this.onFilter}/>
-		 		
+
 		 	</div>
-		 	
+
 			<table className="basic-table" >
 				<thead>
 					<tr ref={tr=>{this.trLength = tr}}>
@@ -818,12 +812,12 @@ export default class BasicTable extends Component {
 						</th>
 					</tr>
 				</thead>
-				
-					{	
+
+					{
 						this.renderNone(showNone,rate)
 					}
-					
-					
+
+
 
 			</table>
 
@@ -832,12 +826,12 @@ export default class BasicTable extends Component {
 				title="撤场日期"
 				modal={true}
 				onClose={this.openDismantlingDialog}
-				open={this.state.dismantling} 
+				open={this.state.dismantling}
 				contentStyle={{width:445}}
 				>
 				<DismantlingForm   onCancel={this.openDismantlingDialog} detail={this.state.detail} />
 			 </Dialog>
-			
+
 		</div>
 		);
 

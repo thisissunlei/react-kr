@@ -228,206 +228,227 @@
  		method: 'get'
  	},
 
- 	//财务管理－订单账单列表-分页获取订单
- 	'getFinaDataByList': {
- 		url: '/api/krspace-finance-web/finaccount/data/getFinaDataByAjax?page={page}&pageSize={pageSize}&customername={customername}&startDate={startDate}&endDate={endDate}&mainbilltype={mainbilltype}&communityid={communityid}',
- 		method: 'get'
- 	},
- 	//财务管理－订单账单列表-生成对账单
- 	'getFinaDataDetailAdd': {
- 		url: '/api/krspace-finance-web/finaccount/data/getFinaDataDetailById?id={id}&startDate={startDate}&endDate={endDate}',
- 		method: 'get'
- 	},
- 	//财务管理－订单账单列表-高级查询
- 	'getFinaDataCommunityAndMainBillType': {
- 		url: '/api/krspace-finance-web/finaccount/data/getFinaDataCommunityAndMainBillType',
- 		method: 'get'
- 	},
- 	//财务管理－订单账单列表-导出
- 	'finaExportExcel': {
- 		url: '/api/krspace-finance-web/finaccount/data/exportExcel?communityid={communityid}&customername={customername}&endDate={endDate}&mainbilltype={mainbilltype}&startDate={startDate}&idList={idList}',
- 		method: 'get'
- 	},
- 	//财务管理－科目配置－新建(修改)
- 	'saveFinaFinaflowAccountModel': {
- 		url: '/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/saveFinaFinaflowAccountModel',
- 		method: 'post'
- 	},
- 	//财务管理－科目配置－搜索(list)
- 	'getFinaFinaflowAccountModelByAjax': {
- 		url: '/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/getFinaFinaflowAccountModelByAjax?accountname={accountname}&currentPage={currentPage}&pageSize={pageSize}',
- 		method: 'get'
- 	},
- 	//财务管理－科目配置－导出
- 	'getfinancExportExcel': {
- 		url: '/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/exportExcel?idList={idList}',
- 		method: 'get'
- 	},
+	//财务管理－订单账单列表-分页获取订单
+	'getFinaDataByList': {
+		url: '/api/krspace-finance-web/finaccount/data/getFinaDataByAjax?page={page}&pageSize={pageSize}&mainbillname={mainbillname}&startDate={startDate}&endDate={endDate}&mainbilltype={mainbilltype}&communityid={communityid}',
+		method: 'get'
+	},
+	//财务管理－订单账单列表-高级查询
+	'getFinaDataCommunityAndMainBillType': {
+		url: '/api/krspace-finance-web/finaccount/data/getFinaDataCommunityAndMainBillType',
+		method: 'get'
+	},
+	//财务管理－订单账单列表-高级查询-订单类型
+	'getMainBillTypeList': {
+		url:'/api/krspace-finance-web/finaccount/data/getMainBillTypeList',
+		method: 'get'
+	},
+	//财务管理－订单账单列表-高级查询-社区类型
+	'getCommunityListByParams': {
+		url:'/api/krspace-finance-web/finaccount/data/getCommunityListByParams?communityName={communityName}',
+		method: 'get'
+	},
+	//财务管理－订单账单列表-导出
+	'finaExportExcel': {
+		url: '/api/krspace-finance-web/finaccount/data/exportExcel?communityid={communityid}&customername={customername}&endDate={endDate}&mainbilltype={mainbilltype}&startDate={startDate}&idList={idList}',
+		method: 'get'
+	},
+	//财务管理－科目配置－新建(修改)
+	'saveFinaFinaflowAccountModel': {
+		url: '/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/saveFinaFinaflowAccountModel',
+		method: 'post'
+	},
+	//财务管理－科目配置－搜索(list)
+	'getFinaFinaflowAccountModelByAjax': {
+		url: '/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/getFinaFinaflowAccountModelByAjax?accountname={accountname}&currentPage={currentPage}&pageSize={pageSize}',
+		method: 'get'
+	},
+	//财务管理－科目配置－导出
+	'getfinancExportExcel': {
+		url: '/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/exportExcel?idList={idList}',
+		method: 'get'
+	},
 
+	//财务管理－订单明细账-分页获得财务流水
+	'getPageAccountFlow': {
+		url: '/api/krspace-finance-web/finaccount/data/getAccountFlow?accountId={accountId}&accountType={accountType}&orderId={orderId}&endTime={endTime}&page={page}&pageSize={pageSize}&propertyId={propertyId}&startTime={startTime}',
+		method: 'get'
+	},
+	//财务管理－订单明细账-订单明细页首次加载
+	'getAccountFlow': {
+		url: '/api/krspace-finance-web/finaccount/data/getFinaContractBillDataById?accountType={accountType}&mainbillid={mainbillid}&page={page}&pageSize={pageSize}',
+		method: 'get'
+	},
+	//财务管理－订单明细账-回款
+	'receiveMoney': {
+		url: '/api/krspace-finance-web/finaccount/opt/receiveMoney',
+		method: 'post'
+	},
+	//财务管理－订单明细账-退款
+	'payBack': {
+		url: '/api/krspace-finance-web/finaccount/opt/payBack',
+		method: 'post'
+	},
+	//财务管理－订单明细账-查询代码列表
+	'findAccountList': {
+		url: '/api/krspace-finance-web/finaccount/data/findAccountList?accountType={accountType}',
+		method: 'get'
+	},
+	//财务管理－订单明细账-转押金
+	'transToDeposit': {
+		url: '/api/krspace-finance-web/finaccount/opt/transToDeposit',
+		method: 'post'
+	},
+	//财务管理－订单明细账-转押金按钮查询合同编号
+	'findContractListById': {
+		url: '/api/krspace-finance-web/finaccount/data/findContractListById?id={id}',
+		method: 'get'
+	},
+	//财务管理－订单明细账-转营收
+	'transToOperateIncome': {
+		url: '/api/krspace-finance-web//finaccount/opt/transToOperateIncome',
+		method: 'post'
+	},
+	//财务管理－订单明细账-添加挂账
+	'supplementIncome': {
+		url: '/api/krspace-finance-web//finaccount/opt/onAccount',
+		method: 'post'
+	},
+	//财务管理－订单明细账-补收入
+	'addIncome': {
+		url: '/api/krspace-finance-web/finaccount/opt/supplementIncome?mainbillid={mainbillid}',
+		method: 'get'
+	},
+	//财务管理－开票列表-list
+	'getFnaInvoiceModelListByAjax': {
+		url: '/api/krspace-finance-web/finaccount/fnaInvoiceModel/getFnaInvoiceModelListByAjax?pageSize={pageSize}&operatedate={operatedate}&page={page}&operateName={operateName}&invoiceType={invoiceType}&creater={creater}',
+		method: 'get'
+	},
+	//财务管理-订单明细账-款项查询
+	'getPropList': {
+		url: '/api/krspace-finance-web/finaccount/data/getPropList?accountType={accountType}',
+		method: 'get'
+	},
+	//财务管理-订单明细账-款项和代码列表
+	'findAccountAndPropList': {
+		url: '/api/krspace-finance-web/finaccount/data/findAccountAndPropList?accountType={accountType}',
+		method: 'get'
+	},
+	//财务管理-订单明细账-查看流水
+	'getAccountFlowDetail': {
+		url: '/api/krspace-finance-web/finaccount/data/getAccountFlowDetail?id={id}',
+		method: 'get'
+	},
+	//客户管理-计划表-分配工位-list
+	'getStation': {
+		url: '/api/krspace-finance-web/find-contract-station/station?communityIds={communityIds}&mainBillId={mainBillId}',
+		method: 'get'
+	},
+	//客户管理-计划表-撤场日期修改
+	'updateLeaveDate': {
+		url: '/api/krspace-finance-web/fina-contract-mainbill/action/update-leaveDate',
+		method: 'post'
+	},
+	//客户管理-计划表-分配员工-获取所有客户
+	'getmembers': {
+		url: '/api/krspace-finance-web/fina-contract-mainbill/members?customerId={customerId}',
+		method: 'get'
+	},
+	//客户管理-计划表-分配员工-保存更改信息
+	'changeStation': {
+		url: '/api/krspace-finance-web/find-contract-station/action/change-station',
+		method: 'post'
+	},
+	// 获取社区数据
+	'getCommunity': {
+		url: '/api-old/sys/sysdatarights/sysDatarights/getSelfDatarights',
+		method: 'get'
+	},
+	// 获取社区楼层数据
+	'getCommunityFloors': {
+		url: '/api-old/krspace_operate_web/commnuity/communityBase/getCommunityFloors?communityId={communityId}',
+		method: 'get'
+	},
+	// 计划表获取数据
+	'getInstallmentplan': {
+		url: '/api/krspace-finance-web/finacontractdetail/getInstallmentplan?year={year}&communityids={communityids}&page={page}&pageSize={pageSize}&type={type}&value={value}',
+		method: 'get'
+	},
+	//权限管理-权限管理-数据模板管理数据
+	'getDataGrouplis': {
+		url: '/mockjsdata/13/krspace-finance-web/stat/group/group-list',
+		method: 'get'
+	},
+	//数据统计-集团经营-招商数据已开业
+	'openCompanyData': {
+		url: '/api/krspace-finance-web/stat/merchant/actions/open?groupId={groupId}&endDate={endDate}&startDate={startDate}',
+		method: 'get'
+	},
+	//数据统计-集团经营-获取当前登陆人的组合模块
+	'get-my-groups': {
+		url: '/api/krspace-finance-web/stat/group/actions/get-my-groups',
+		method: 'get'
+	},
+	//数据统计-集团经营-招商数据未开业
+	'notOpenCompanyData': {
+		url: '/api/krspace-finance-web/stat/merchant/actions/notopen?groupId={groupId}&endDate={endDate}&startDate={startDate}',
+		method: 'get'
+	},
+	//数据统计-模板分组-模板列表
+	'MouldGroupList': {
+		url: '/api/krspace-finance-web/stat/group/group-list?page={page}&pageSize={pageSize}&groupName={groupName}&enable={enable}',
+		method: 'get'
+	},
+	//数据统计-模板分组-分组详情
+	'MouldGroupDetails': {
+		url: '/api/krspace-finance-web/stat/group/actions/view?id={id}',
+		method: 'get'
+	},
+	//数据统计-模板分组-修改与新建
+	'GroupNewAndEidt': {
+		url: '/api/krspace-finance-web/stat/group/actions/add-or-update',
+		method: 'post'
+	},
+	//数据统计-模板分组-新建时获取所有模板的数据
+	'GroupNewModule': {
+		url: '/api/krspace-finance-web/stat/template/list',
+		method: 'get'
+	},
+	'groupNameCheck': {
+		url: '/api/krspace-finance-web/stat/group/name/actions/check?groupName={groupName}&id={id}',
+		method: 'get'
+	},
+	'sortCheck': {
+		url: '/api/krspace-finance-web/stat/group/sort/actions/check?sort={sort}&id={id}',
+		method: 'get'
+	},
+  //个人中心-获取个人信息
+  'PersonalCenterData': {
+    url:' /mockjs/15/krspace_isso_web/sys/sysOwn/getPersonalInfo',
+    method: 'get'
+  },
+  //个人中心-身份验证
+  'PersonalCenterVerifyId': {
+    url:' /mockjs/15/krspace_isso_web/sys/sysOwn/verifyIdentity',
+    method: 'get'
+  },
+  //订单明细账－补历史收入
+  'runStationIncome': {
+    url:'/api/krspace-finance-web/finaccount/opt/runStationIncome?mainbillId={mainbillId}',
+    method: 'get'
+  },
+   //订单明细账－补充完成之后
+  'removeRunningTag': {
+    url:'/api/krspace-finance-web/finaccount/opt/removeRunningTag',
+    method: 'post'
+  },
 
- 	//财务管理－订单明细账-分页获得财务流水
- 	'getPageAccountFlow': {
- 		url: '/api/krspace-finance-web/finaccount/data/getAccountFlow?accountId={accountId}&accountType={accountType}&orderId={orderId}&endTime={endTime}&page={page}&pageSize={pageSize}&propertyId={propertyId}&startTime={startTime}',
- 		method: 'get'
- 	},
- 	//财务管理－订单明细账-订单明细页首次加载
- 	'getAccountFlow': {
- 		url: '/api/krspace-finance-web/finaccount/data/getFinaContractBillDataById?accountType={accountType}&mainbillid={mainbillid}&page={page}&pageSize={pageSize}',
- 		method: 'get'
- 	},
- 	//财务管理－订单明细账-回款
- 	'receiveMoney': {
- 		url: '/api/krspace-finance-web/finaccount/opt/receiveMoney',
- 		method: 'post'
- 	},
- 	//财务管理－订单明细账-退款
- 	'payBack': {
- 		url: '/api/krspace-finance-web/finaccount/opt/payBack',
- 		method: 'post'
- 	},
- 	//财务管理－订单明细账-查询代码列表
- 	'findAccountList': {
- 		url: '/api/krspace-finance-web/finaccount/data/findAccountList?accountType={accountType}',
- 		method: 'get'
- 	},
- 	//财务管理－订单明细账-转押金
- 	'transToDeposit': {
- 		url: '/api/krspace-finance-web/finaccount/opt/transToDeposit',
- 		method: 'post'
- 	},
- 	//财务管理－订单明细账-转押金按钮查询合同编号
- 	'findContractListById': {
- 		url: '/api/krspace-finance-web/finaccount/data/findContractListById?id={id}',
- 		method: 'get'
- 	},
- 	//财务管理－订单明细账-转营收
- 	'transToOperateIncome': {
- 		url: '/api/krspace-finance-web//finaccount/opt/transToOperateIncome',
- 		method: 'post'
- 	},
- 	//财务管理－订单明细账-添加挂账
- 	'supplementIncome': {
- 		url: '/api/krspace-finance-web//finaccount/opt/onAccount',
- 		method: 'post'
- 	},
- 	//财务管理－订单明细账-补收入
- 	'addIncome': {
- 		url: '/api/krspace-finance-web/finaccount/opt/supplementIncome?mainbillid={mainbillid}',
- 		method: 'get'
- 	},
- 	//财务管理－开票列表-list
- 	'getFnaInvoiceModelListByAjax': {
- 		url: '/api/krspace-finance-web/finaccount/fnaInvoiceModel/getFnaInvoiceModelListByAjax?pageSize={pageSize}&operatedate={operatedate}&page={page}&operateName={operateName}&invoiceType={invoiceType}&creater={creater}',
- 		method: 'get'
- 	},
- 	//财务管理-订单明细账-款项查询
- 	'getPropList': {
- 		url: '/api/krspace-finance-web/finaccount/data/getPropList?accountType={accountType}',
- 		method: 'get'
- 	},
- 	//财务管理-订单明细账-款项和代码列表
- 	'findAccountAndPropList': {
- 		url: '/api/krspace-finance-web/finaccount/data/findAccountAndPropList?accountType={accountType}',
- 		method: 'get'
- 	},
- 	//财务管理-订单明细账-查看流水
- 	'getAccountFlowDetail': {
- 		url: '/api/krspace-finance-web/finaccount/data/getAccountFlowDetail?id={id}',
- 		method: 'get'
- 	},
- 	//客户管理-计划表-分配工位-list
- 	'getStation': {
- 		url: '/api/krspace-finance-web/find-contract-station/station?communityIds={communityIds}&mainBillId={mainBillId}',
- 		method: 'get'
- 	},
- 	//客户管理-计划表-撤场日期修改
- 	'updateLeaveDate': {
- 		url: '/api/krspace-finance-web/fina-contract-mainbill/action/update-leaveDate',
- 		method: 'post'
- 	},
- 	//客户管理-计划表-分配员工-获取所有客户
- 	'getmembers': {
- 		url: '/api/krspace-finance-web/fina-contract-mainbill/members?customerId={customerId}',
- 		method: 'get'
- 	},
- 	//客户管理-计划表-分配员工-保存更改信息
- 	'changeStation': {
- 		url: '/api/krspace-finance-web/find-contract-station/action/change-station',
- 		method: 'post'
- 	},
- 	// 获取社区数据
- 	'getCommunity': {
- 		url: '/api-old/sys/sysdatarights/sysDatarights/getSelfDatarights',
- 		method: 'get'
- 	},
- 	// 获取社区楼层数据
- 	'getCommunityFloors': {
- 		url: '/api-old/krspace_operate_web/commnuity/communityBase/getCommunityFloors?communityId={communityId}',
- 		method: 'get'
- 	},
- 	// 计划表获取数据
- 	'getInstallmentplan': {
- 		url: '/api/krspace-finance-web/finacontractdetail/getInstallmentplan?year={year}&communityids={communityids}&page={page}&pageSize={pageSize}&type={type}&value={value}',
- 		method: 'get'
- 	},
- 	//权限管理-权限管理-数据模板管理数据
- 	'getDataGrouplis': {
- 		url: '/mockjsdata/13/krspace-finance-web/stat/group/group-list',
- 		method: 'get'
- 	},
- 	//数据统计-集团经营-招商数据已开业
- 	'openCompanyData': {
- 		url: '/api/krspace-finance-web/stat/merchant/actions/open?groupId={groupId}&endDate={endDate}&startDate={startDate}',
- 		method: 'get'
- 	},
- 	//数据统计-集团经营-获取当前登陆人的组合模块
- 	'get-my-groups': {
- 		url: '/api/krspace-finance-web/stat/group/actions/get-my-groups',
- 		method: 'get'
- 	},
- 	//数据统计-集团经营-招商数据未开业
- 	'notOpenCompanyData': {
- 		url: '/api/krspace-finance-web/stat/merchant/actions/notopen?groupId={groupId}&endDate={endDate}&startDate={startDate}',
- 		method: 'get'
- 	},
- 	//数据统计-模板分组-模板列表
- 	'MouldGroupList': {
- 		url: '/api/krspace-finance-web/stat/group/group-list?page={page}&pageSize={pageSize}&groupName={groupName}&enable={enable}',
- 		method: 'get'
- 	},
- 	//数据统计-模板分组-分组详情
- 	'MouldGroupDetails': {
- 		url: '/api/krspace-finance-web/stat/group/actions/view?id={id}',
- 		method: 'get'
- 	},
- 	//数据统计-模板分组-修改与新建
- 	'GroupNewAndEidt': {
- 		url: '/api/krspace-finance-web/stat/group/actions/add-or-update',
- 		method: 'post'
- 	},
- 	//数据统计-模板分组-新建时获取所有模板的数据
- 	'GroupNewModule': {
- 		url: '/api/krspace-finance-web/stat/template/list',
- 		method: 'get'
- 	},
- 	'groupNameCheck': {
- 		url: '/api/krspace-finance-web/stat/group/name/actions/check?groupName={groupName}&id={id}',
- 		method: 'get'
- 	},
- 	'sortCheck': {
- 		url: '/api/krspace-finance-web/stat/group/sort/actions/check?sort={sort}&id={id}',
- 		method: 'get'
- 	},
- 	//个人中心-获取个人信息
- 	'PersonalCenterData': {
- 		url: ' /api/krspace_isso_web/sys/sysOwn/getPersonalInfo',
- 		method: 'get'
- 	},
- 	//个人中心-身份验证
- 	'PersonalCenterVerifyId': {
- 		url: ' /api/krspace_isso_web/sys/sysOwn/verifyIdentity',
- 		method: 'get'
- 	},
+  //个人中心-获取验证码
+  'PersonalCenterGetVerificationCode': {
+    url:'/mockjs/15/krspace_isso_web/sys/sysOwn/getVerifyCode',
+    method:'get'
+  },
+
  	//合同详情-修改订单名字
  	'edit-order-name': {
  		url: ' /api/krspace-finance-web/edit-order-name',

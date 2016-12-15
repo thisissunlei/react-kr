@@ -70,7 +70,7 @@ export default class ConfirmFormDetail extends Component {
 		detail = Object.assign({}, detail);
 
 		var leasorName;
-		optionValues.fnaCorporationList.map((item) => {
+		optionValues.fnaCorporationList && optionValues.fnaCorporationList.map((item) => {
 			if (item.value === detail.leaseId) {
 				return leasorName = item.label;
 			}

@@ -88,15 +88,15 @@ class Header extends Component {
 
 
 	handleToggle() {
-     
+
 		var {
 			actions,
 			sidebar_nav,
 			flag
 		} = this.props;
-  
+
 		actions.switchSidebarNav(!!!sidebar_nav.switch_value);
-	
+
 	}
 
 	showBottomNav(event) {
@@ -115,7 +115,7 @@ class Header extends Component {
 	}
 
 	handleRequestClose() {
-	    
+
 		var {
 			actions,
 			bottom_nav
@@ -171,7 +171,7 @@ class Header extends Component {
 			right: 0,
 			backgroundColor: '#328ECC',
 			height: "60px",
-			zIndex: 300
+			zIndex: 10
 		};
 
 		var {
@@ -254,7 +254,7 @@ class Header extends Component {
 
 				{this.props.header_nav.switch_value && <HeaderBar/>}
 
-			<Drawer open={this.props.sidebar_nav.switch_value} width={180} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)'}}>
+			<Drawer open={this.props.sidebar_nav.switch_value} width={180} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 
 				<SidebarNav items={this.props.navs_current_items} current_router={this.props.current_router} current_parent={this.props.current_parent} current_child={this.props.current_child}/>
 

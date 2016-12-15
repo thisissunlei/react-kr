@@ -61,18 +61,18 @@ export default class ConfirmFormDetail  extends Component{
 
         var leasorName ;
 
-        optionValues.fnaCorporationList.map((item)=>{
+        optionValues.fnaCorporationList && optionValues.fnaCorporationList.map((item)=>{
         	if(item.value === detail.leaseId){
         		return leasorName = item.corporationAddress;
         	}
         });
         var payment, payType;
-        optionValues.paymentList.map((item)=>{
+        optionValues.paymentList && optionValues.paymentList.map((item)=>{
         	if(item.id === detail.paymodel){
         		return payment = item.dicName;
         	}
         });
-         optionValues.payTypeList.map((item)=>{
+        optionValues.payTypeList &&  optionValues.payTypeList.map((item)=>{
         	if(item.id === detail.paytype){
         		return payType = item.dicName;
         	}
@@ -145,7 +145,7 @@ export default class ConfirmFormDetail  extends Component{
 									</TableHeader>
 									<TableBody>
 
-										{detail.stationVosList.map((item,index)=>{
+										{detail.stationVosList && detail.stationVosList.map((item,index)=>{
 											return (
 												<TableRow key={index}>
 													<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>

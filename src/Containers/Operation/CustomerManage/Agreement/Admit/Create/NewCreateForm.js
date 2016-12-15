@@ -399,7 +399,7 @@ class NewCreateForm extends Component {
 
 
 		try {
-			billList.map(function(item, index) {
+			billList && billList.map(function(item, index) {
 				item.leaseBeginDate = dateFormat(changeValues.leaseBegindate, "yyyy-mm-dd");
 				item.leaseEndDate = dateFormat(changeValues.leaseEnddate, "yyyy-mm-dd");
 				item.stationId = item.id;
