@@ -3,10 +3,7 @@ import React, {
 } from 'react';
 import './index.less';
 
-
-import {
-	Dialog,
-} from 'material-ui';
+import ReactDOM from 'react-dom';
 
 export default class DialogComponent extends Component {
 
@@ -44,6 +41,73 @@ export default class DialogComponent extends Component {
 		autoScrollBodyContent: React.PropTypes.bool,
 	}
 
+	componentDidMount(){
+			this.initializeStyles();
+			this.initializeDialogBodyStyles();
+
+			window.addEventListener('resize',function(){
+				this.initializeStyles();
+				this.initializeDialogBodyStyles();
+			}.bind(this));
+	}
+
+
+	initializeDialogBodyStyles = ()=>{
+
+		var ele = this.refs.dialogBody;
+		const {autoScrollBodyContent} = this.props;
+
+		var page = this.getPageWidthOrHeight();
+
+		if(autoScrollBodyContent){
+			ele.style.maxHeight = page.height-200+'px';
+			ele.style.overflowY = 'auto';
+		}
+
+	}
+
+	getPageWidthOrHeight = ()=>{
+
+			var page = {};
+			 page.width = window.innerWidth;
+			 page.height = window.innerHeight;
+			if(document.compatMode == 'CSS1Compat'){
+				 page.width = document.documentElement.clientWidth;
+				 page.height = document.documentElement.clientHeight;
+			}else{
+				page.width = document.body.clientWidth;
+				page.height = document.body.clientHeight;
+			}
+			return  Object.assign({},page);
+	}
+
+	initializeStyles = ()=>{
+
+			var ele = ReactDOM.findDOMNode(this);
+
+			var position = {};
+
+			if(ele.getClientRects().length){
+					position = ele.getBoundingClientRect();
+			}
+
+			var page = this.getPageWidthOrHeight();
+
+			ele.style.width = page.width+'px';
+			ele.style.height = page.height+'px';
+			ele.style.zIndex = 99;
+			ele.style.top = -position.top +'px';
+			ele.style.left = -position.left+'px';
+			ele.style.bottom = -position.bottom+'px';
+			ele.style.right = -0+'px';
+	}
+
+
+	onClose = ()=>{
+			//document.body.style.overflow = 'auto';
+			const {onClose} = this.props;
+			onClose && onClose();
+	}
 
 	render() {
 
@@ -55,26 +119,31 @@ export default class DialogComponent extends Component {
 			autoDetectWindowHeight,
 			autoScrollBodyContent,
 			children,
+			contentStyle,
 			...other
 		} = this.props;
 
+		let styles = {};
+
+		if(open){
+				styles.display = 'block';
+			//document.body.style.overflow = 'hidden';
+		}else{
+				styles.display = 'none';
+		}
+
 		return (
-			<div >
-				<Dialog
-					title={title}
-					modal={modal}
-					autoScrollBodyContent={autoScrollBodyContent}
-					autoDetectWindowHeight={autoDetectWindowHeight}
-					titleClassName="ui-dialog-header"
-					open={open}
-					style={{borderRadius:4}}
-					{...other}>
-						<div className="cancle-dialog" onTouchTap={onClose}></div>
-						<div className="ui-content">
+			<div className="ui-dialog" ref="dialog" style={styles}>
+				<div className="dialog-modal"></div>
+				<div className="dialog-content" style={contentStyle}>
+						<div className="dialog-header">
+								<div className="dialog-header-title"> {title} </div>
+								<span className="close" onClick={this.onClose}></span>
+						</div>
+						<div className="dialog-body" ref="dialogBody">
 							{children}
 						</div>
-
-				  </Dialog>
+				</div>
 			</div>
 		);
 

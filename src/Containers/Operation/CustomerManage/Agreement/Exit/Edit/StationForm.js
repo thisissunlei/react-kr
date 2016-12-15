@@ -56,7 +56,6 @@ class StationForm  extends Component{
 			}
 			return true;
 		});
-		console.log('---->>>>>aaaa>',billList);
 		this.setState({
 			billList
 		});
@@ -103,7 +102,7 @@ class StationForm  extends Component{
 									<TableRowColumn><KrDate value={initialValues.leaseEnddate}/></TableRowColumn>
 
 									</TableRow>
-						{billList.map((item,index)=>{
+						{billList && billList.map((item,index)=>{
 							return (
 								<TableRow key={index}>
 									<TableRowColumn>{(item.type == 1) ?'工位':'会议室'}</TableRowColumn>

@@ -172,7 +172,7 @@ export default class AttributeSetting extends Component {
 				propInfo: 'SETTLED',
 				orderId: this.props.params.orderId,
 				page: 1,
-				pageSize: 20,
+				pageSize: 30,
 				index:''
 			},
 			itemDetail: {},
@@ -458,7 +458,6 @@ export default class AttributeSetting extends Component {
 	//确定提交区域
 	//切换
 	onSearch(params) {
-
 			this.setState({
 				params
 			});

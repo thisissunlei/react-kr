@@ -67,6 +67,12 @@ export default class D3Content extends Component {
 		this.getRedInfo = this.getRedInfo.bind(this);
 		this.renderRedNode = this.renderRedNode.bind(this);
 		this.renderwhiteBar = this.renderwhiteBar.bind(this);
+		this.state = {
+			detail:this.props.detail,
+			finaBluePointVo:this.props.finaBluePointVo,
+			finaRedPointVo:this.props.finaRedPointVo,
+			whiteBar:this.props.whiteBar,
+		}
 		this.NodeList = this.getSameTime();
 		this.sameNode = this.NodeList[0];
 
@@ -75,6 +81,34 @@ export default class D3Content extends Component {
 	componentDidMount() {
 
 	}
+	componentWillReceiveProps(nextProps) {
+
+
+    if (!_.isEqual(this.props.detail, nextProps.detail)) {
+      this.setState({
+        detail: nextProps.detail
+      });
+    }
+    if (!_.isEqual(this.props.finaBluePointVo, nextProps.finaBluePointVo)) {
+      this.setState({
+        detail: nextProps.finaBluePointVo
+      });
+    }
+    if (!_.isEqual(this.props.finaRedPointVo, nextProps.finaRedPointVo)) {
+      this.setState({
+        detail: nextProps.finaRedPointVo
+      });
+    }
+    if (!_.isEqual(this.props.whiteBar, nextProps.whiteBar)) {
+      this.setState({
+        detail: nextProps.whiteBar
+      });
+    }
+    this.NodeList = this.getSameTime();
+	this.sameNode = this.NodeList[0];
+
+
+  }
 
 	// 计算第几天
 	countDays(date) {
@@ -224,7 +258,6 @@ export default class D3Content extends Component {
 		})
 		if (sameNode.length) {
 			sameNode.map((item) => {
-				console.log('------item', item)
 				item.pointDay = that.countDays(item.pointDate);
 				finaRedPointVoList.map((value, index) => {
 					if (item.pointDay === value.pointDay) {
@@ -236,7 +269,6 @@ export default class D3Content extends Component {
 					}
 				})
 			})
-			console.log('----finaRedPointVoList', finaRedPointVoList)
 
 		}
 		if (sameNode.length) {
@@ -295,45 +327,38 @@ export default class D3Content extends Component {
 			finaRedPointVo
 		} = this.props;
 		let finaRedPointVoList = finaRedPointVo;
+		var {
+				currentYear
+			} = this.props;
+		let year = `${currentYear}-1-1`;
+		var initial = (new Date(year)).getTime();
 
 		const that = this;
 		let newArr = [];
 
-		for (let j in finaRedPointVo) {
+		for (let j in finaRedPointVoList) {
+			finaRedPointVoList[j].pointDay = that.countDays(finaRedPointVoList[j].pointDate);
+		};
 
-			if (!finaRedPointVo[j].pointDate) {
+		for (let j in finaRedPointVoList) {
+			if (finaRedPointVoList[j].pointDate < initial) {
 				finaRedPointVoList.splice(j, 1);
-			} else {
-				finaRedPointVoList[j].pointDay = that.countDays(finaRedPointVo[j].pointDate);
 			}
 		};
 		//判断时间点是否重合,若重合，合并数据
-		if (finaRedPointVo.length === 1) {
+		if (finaRedPointVoList.length === 1) {
 			finaRedPointVoList[0].arr = [];
 			finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[0].plan);
-		}
-		// if(finaRedPointVo.length===2){
-		// 	if(finaRedPointVoList[0].pointDate === finaRedPointVoList[1].pointDate){
-		// 		finaRedPointVoList[0].arr = [];
-		// 		finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[0].plan);
-		// 		finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[1].plan);
-		// 	}else{
-		// 		finaRedPointVoList[0].arr = [];
-		// 		finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[0].plan);
-		// 		finaRedPointVoList[1].arr = [];
-		// 		finaRedPointVoList[1].arr = finaRedPointVoList[1].arr.concat(finaRedPointVoList[1].plan);
-		// 	}
-		// }	
-		for (var i = 0; i <= finaRedPointVo.length - 1; i++) {
+		}	
+		for (var i = 0; i <= finaRedPointVoList.length - 1; i++) {
 			finaRedPointVoList[i].arr = [];
 			finaRedPointVoList[i].arr = finaRedPointVoList[i].arr.concat(finaRedPointVoList[i].plan);
-			for (var j = finaRedPointVo.length - 1; j >= 0; j--) {
+			for (var j = finaRedPointVoList.length - 1; j >= 0; j--) {
 				if (finaRedPointVoList[i].pointDate === finaRedPointVoList[j].pointDate && i != j) {
 					finaRedPointVoList[i].arr = finaRedPointVoList[i].arr.concat(finaRedPointVoList[j].plan);
 				}
 			}
 		}
-
 
 
 		return finaRedPointVoList;
@@ -353,6 +378,24 @@ export default class D3Content extends Component {
 			// if(whiteBar.length>1){whiteBar.pop();}
 
 		return whiteBar;
+	}
+	getLeft=(value)=>{
+		var {
+				currentYear
+			} = this.props;
+		let start = `${currentYear}-1-1`;
+		let end = `${currentYear-1}-12-31 12:00:00`;
+		let startTime = `${currentYear}-1-1 12:00:00`;
+		let left = '-5px';
+		start = (new Date(start)).getTime();
+		end = (new Date(end)).getTime();
+		if(value == end || value >= start){
+			left = '-10px';
+		}
+		if(value == startTime){
+			left = "10px";
+		}
+		return left;
 	}
 
 	render() {
@@ -384,6 +427,7 @@ export default class D3Content extends Component {
 			}];
 		}
 		let whiteBar = this.renderwhiteBar();
+
 
 
 
@@ -428,8 +472,8 @@ export default class D3Content extends Component {
 								<div key={index} className="react-tooltip-content">
 									<span>工位变更</span>
 									<p>{item.finaName}({dateFormat(item.leaseBeginDate, "yyyy.mm.dd")}-{dateFormat(item.leaseEndDate, "yyyy.mm.dd")})</p>
-									<p>变更前工位个数：<span className='blue-content'>{item.oldStationNum}</span>，会议室个数：<span className='blue-content'>{item.oldBoardroomNum}</span></p>
-									<p>变更后工位个数：<span className='blue-content'>{item.newStationNum}</span>，会议室个数：<span className='blue-content'>{item.newBoardroomNum}</span></p>
+									<p>变更前工位：<span className='blue-content'>{item.oldStationNum}</span> &nbsp; 会议室：<span className='blue-content'>{item.oldBoardroomNum}</span></p>
+									<p>变更后工位：<span className='blue-content'>{item.newStationNum}</span> &nbsp; 会议室：<span className='blue-content'>{item.newBoardroomNum}</span></p>
 								</div>
 							</ReactTooltip>
 							</span>
@@ -440,16 +484,18 @@ export default class D3Content extends Component {
 					redNodeList && redNodeList.map((item,index)=>{
 						
 						let nodeKind = item.color===1?'grey-circle':'red-node';
+						let left = this.getLeft(item.pointDate);
+
 						
 						return (
-							<span className={`${nodeKind}`} key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}} data-tip data-for={`${item.pointDate}${index}red${item.plan[0].id}`}>
+							<span className={`${nodeKind}`} key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`,left:left}} data-tip data-for={`${item.pointDate}${index}red${item.plan[0].id}`}>
 								<ReactTooltip id={`${item.pointDate}${index}red${item.plan[0].id}`} place="top" type="dark" effect="solid" >
 									{item.plan && item.arr.map((value,i)=>{
 										return(
 											<div key={i} className="react-tooltip-content">
 												<span>{value.contractName}分期催款</span>
 												<p>{dateFormat(item.pointDate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
-												<p>工位个数:{value.stationnum}，会议室个数:{value.boardroomNum}({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
+												<p>工位:<span className='red-content'>{value.stationnum}</span> &nbsp; 会议室:<span className='red-content'>{value.boardroomNum}</span>({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
 												<p>负责人：<span className='red-content'>{value.name?value.name:'—'}</span></p>
 												<p>电话：<span className='red-content'>{value.phone?value.phone:'—'}</span></p>
 												<p>催款金额：<span className='red-content'>{value.installmentAmount}</span></p>
@@ -476,8 +522,8 @@ export default class D3Content extends Component {
 										<div className="react-tooltip-content">
 											<span>工位变更</span>
 											<p>{item.finaName}({dateFormat(item.leaseBeginDate, "yyyy.mm.dd")}-{dateFormat(item.leaseEndDate, "yyyy.mm.dd")})</p>
-											<p>变更前工位个数：<span className='blue-content'>{item.oldStationNum}</span>，会议室个数：<span className='blue-content'>{item.oldBoardroomNum}</span></p>
-											<p>变更后工位个数：<span className='blue-content'>{item.newStationNum}</span>，会议室个数：<span className='blue-content'>{item.newBoardroomNum}</span></p>
+											<p>变更前工位：<span className='blue-content'>{item.oldStationNum}</span> &nbsp; 会议室：<span className='blue-content'>{item.oldBoardroomNum}</span></p>
+											<p>变更后工位：<span className='blue-content'>{item.newStationNum}</span> &nbsp; 会议室：<span className='blue-content'>{item.newBoardroomNum}</span></p>
 										</div>
 									</ReactTooltip>
 								</span>
@@ -488,7 +534,7 @@ export default class D3Content extends Component {
 											<div key={i} className="react-tooltip-content">
 												<span>{value.contractName}分期催款</span>
 												<p>{dateFormat(item.pointDate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
-												<p>工位个数:{value.stationnum}，会议室个数:{value.boardroomNum}({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
+												<p>工位:<span className='red-content'>{value.stationnum}</span> &nbsp; 会议室:<span className='red-content'>{value.boardroomNum}</span>({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
 												<p>负责人：<span className='red-content'>{value.name?value.name:'—'}</span></p>
 												<p>电话：<span className='red-content'>{value.phone?value.phone:'—'}</span></p>
 												<p>催款金额：<span className='red-content'>{value.installmentAmount}</span></p>

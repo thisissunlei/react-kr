@@ -429,12 +429,12 @@
 	},
   //个人中心-获取个人信息
   'PersonalCenterData': {
-    url:' /api/krspace_isso_web/sys/sysOwn/getPersonalInfo',
+    url:' /mockjs/15/krspace_isso_web/sys/sysOwn/getPersonalInfo',
     method: 'get'
   },
   //个人中心-身份验证
   'PersonalCenterVerifyId': {
-    url:' /api/krspace_isso_web/sys/sysOwn/verifyIdentity',
+    url:' /mockjs/15/krspace_isso_web/sys/sysOwn/verifyIdentity',
     method: 'get'
   },
   //订单明细账－补历史收入
@@ -448,6 +448,11 @@
     method: 'post'
   },
 
+  //个人中心-获取验证码
+  'PersonalCenterGetVerificationCode': {
+    url:'/mockjs/15/krspace_isso_web/sys/sysOwn/getVerifyCode',
+    method:'get'
+  }
 }
 
 module.exports = APIS;

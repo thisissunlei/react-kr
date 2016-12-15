@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import { connect } from 'kr/Redux';
-import {reduxForm,formValueSelector} from 'redux-form';
+import { connect ,Store,Actions} from 'kr/Redux';
 
 import {
 	KrField,
@@ -16,118 +15,113 @@ import {
 	Dialog,
 	Snackbar,
 	ListGroup,
-	ListGroupItem,
-	Title,
+	ListGroupItem
 } from 'kr-ui';
 
-let OrderCreateForm = function(props){
+import OrderEditForm from './OrderEditForm';
 
-  	const { error, handleSubmit, pristine, reset, submitting,communitys,cityName,onSubmit,value} = props;
-  	let customerName = (value && value.customerName) || '';
-  	let mainbillname = (value && value.mainbillname) || '';
-  	let reload = function(){
-  		window.top.location.reload();
-  	}
-  	let Order = [
-  		{value:'',label:'请选择类型'},
-  		{value:'STATION',label:'工位订单'}
-  	]
+ 
+export default class OrderCreate extends Component {
 
-	return (
-			<form onSubmit={handleSubmit(onSubmit)} style={{padding:'20'}}>
+	static contextTypes = {
+          params: React.PropTypes.object.isRequired,
 
-				<KrField name="customerName" grid={1/1} component="labelText" type="text" label="客户名称"  disabled={true} inline={false} value={customerName}/>
-				 <KrField name="mainbilltype" right={30} grid={1/2} component="select" label="订单类型" requireLabel={true} inline={false} options={Order}>
-				 </KrField>
-				 <KrField name="communityid" left={30} grid={1/2} component="select" label="所在社区" requireLabel={true} inline={false} options={communitys}>
-				 </KrField>
-				<KrField  label="所在城市" right={30} grid={1/2} component="labelText" value={cityName||'无'}  inline={false}/>
-			 	<KrField name="mainbillname" left={30} grid={1/2} type="text" component="labelText" label="订单名称" requireLabel={true} inline={false} value={mainbillname}/>
-			    <KrField name="mainbilldesc" component="textarea" label="订单描述" inline={false} maxSize={200}/>
-
-				<Grid>
-
-				<ListGroup>
-					<ListGroupItem style={{width:'45%',textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit" joinEditForm disabled={submitting} /></ListGroupItem>
-					<ListGroupItem style={{width:'45%',textAlign:'left',paddingLeft:15}}><Button  label="取消" cancle={true} type="button" joinEditForm disabled={submitting} onClick={reload} /></ListGroupItem>
-				</ListGroup>
-				</Grid>
-
-
-		</form>
-	);
-
-}
-
-
-class OrderCreate extends Component {
-
+	}
 	constructor(props,context){
 		super(props, context);
-
-		this.confirmSubmit = this.confirmSubmit.bind(this);
-		this.back = this.back.bind(this);
 
 
 		this.isOk = false;
 
 		this.state = {
-			open:false,
-			loading:true
+			loading:true,
+			communityOptions:[],
+			initialValues:{},
+			orderTypeOptions:[
+					  		{value:'',label:'请选择类型'},
+					  		{value:'STATION',label:'工位订单'}
+					  	]
 		}
-
-
-		const validate = values =>{
-			 const errors = {}
-
-			if(!values.mainbilltype){
-				errors.mainbilltype = '请选择订单类型';
-			  }else if (!values.communityid) {
-				errors.communityid = '请选择所在社区';
-			  }else if(!values.mainbillname){
-				errors.mainbillname = '订单名称不能为空';
-			  }
-			  return errors
-		}
-
-		const {initialValues} =this.props;
-
-		OrderCreateForm= reduxForm({
-			form: 'orderCreateForm',
-			initialValues,
-			validate,
-		})(OrderCreateForm);
+		Store.dispatch(Actions.switchSidebarNav(false));
+		Store.dispatch(Actions.switchHeaderNav(false));
 
 	}
 
 	componentDidMount(){
-
 		var obj = document.body;
 		obj.style.background='#fff';
-		var {actions} = this.props;
-		var _this = this;
+		this.getInitValues();
 
-		const closeAll = this.props.location.query.closeAll;
+	}
+	onSubmit=(values)=>{
 
-		if(closeAll){
-			actions.switchSidebarNav(false);
-			actions.switchHeaderNav(false);
+		if(this.isOk){
+			return false;
 		}
 
+		this.isOk = true;
+		values.customerid = this.context.params.customerId;
 
-		actions.callAPI('community-city-selected',{},{}).then(function(communitys){
-			communitys = communitys.map((item)=>{
-		  		item.value = item.communityId;
+		var _this = this;
+
+		Store.dispatch(Actions.callAPI('enter-order',{},values)).then(function(response){
+			Notify.show([{
+				message:'保存成功',
+				type: 'success',
+			}]);
+
+			window.setTimeout(function(){
+				window.top.location.reload();
+				_this.isOk = false;
+			},100);
+
+		}).catch(function(err){
+
+			Notify.show([{
+				message:'创建失败',
+				type: 'danger',
+			}]);
+
+			window.setTimeout(function(){
+				_this.isOk = false;
+			},0);
+
+		});
+
+	}
+	onCancel=()=>{
+		window.top.location.reload();
+	}
+
+	componentWillReceiveProps(nextProps){
+	}
+	getInitValues=()=>{
+		var _this = this;
+		let communityOptions = [];
+		let initialValues = {};
+		Store.dispatch(Actions.callAPI('community-city-selected',{},{})).then(function(communityOptions){
+			communityOptions = communityOptions.map((item)=>{
+		  		item.value = String(item.communityId);
 		  		item.label = item.communityName;
 		  		return item;
-		  	})
-		}).catch(function(err){ });
+		  	});
+		  	console.log('communityOptions',communityOptions);
 
-		actions.callAPI('get-customName-orderName',{
+		  	_this.setState({
+		  		communityOptions
+		  	})
+		 }).catch(function(err){ });
+
+
+		Store.dispatch(Actions.callAPI('get-customName-orderName',{
 			customerId:this.props.params.customerId
-		},{}).then(function(response){
+		},{})).then(function(response){
+			let initialValues = {};
+			initialValues = response;
+			initialValues.communityid = String(initialValues.communityid);
 			_this.setState({
-				value:response
+				initialValues,
+				loading:false
 			})
 		}).catch(function(err){
 			Notify.show([{
@@ -135,60 +129,6 @@ class OrderCreate extends Component {
 				type: 'danger',
 			}]);
 		});
-
-		setTimeout(function(){
-			_this.setState({
-				loading:false
-			});
-		},0);
-
-	}
-
-	componentWillReceiveProps(nextProps){
-	}
-
-	confirmSubmit(values){
-
-		var {actions} = this.props;
-		values.customerid = this.props.params.customerId;
-
-		if(this.isOk){
-			return false;
-		}
-
-		this.isOk = true;
-
-
-		var _this = this;
-
-		actions.callAPI('enter-order',{},values).then(function(response){
-
-			Notify.show([{
-				message:'创建成功',
-				type: 'success',
-			}]);
-
-			window.setTimeout(function(){
-				window.top.location.reload();
-				_this.isOk = false;
-			},0);
-
-		}).catch(function(err){
-			Notify.show([{
-				message:err.message,
-				type: 'danger',
-			}]);
-
-			window.setTimeout(function(){
-				_this.isOk = false;
-			},0);
-
-		});
-
-	}
-
-	back(){
-
 	}
 
 
@@ -198,55 +138,51 @@ class OrderCreate extends Component {
   	if(this.state.loading){
   		return(<Loading/>);
   	}
-  	let {value} = this.state;
+  	let {initialValues,communityOptions,orderTypeOptions} = this.state;
+
+
+
 
     return (
 
       <div>
 
-			<BreadCrumbs children={['运营平台','财务管理','新增客户订单']} hide={!!this.props.location.query.closeAll}/>
-
-			<Section title="新增客户订单" description="" hide={!!this.props.location.query.closeAll}>
-				<OrderCreateForm onSubmit={this.confirmSubmit} communitys={this.props.communitys} cityName={this.props.cityName} initialValues={this.props.initialValues} value={value}/>
-			</Section>
-
+		<OrderEditForm onSubmit={this.onSubmit} communityOptions={communityOptions} initialValues={initialValues} orderTypeOptions={orderTypeOptions} onCancel={this.onCancel}/>
+			
 	 </div>
 	);
   }
 }
 
 
-const selector = formValueSelector('orderCreateForm');
+// const selector = formValueSelector('orderEditForm');
 
-function mapStateToProps(state){
+// function mapStateToProps(state){
 
-  const communityid = selector(state, 'communityid');
-	const initialValues = state.common['get-customName-orderName'];
+// 	let communitys = state.common['community-city-selected'];
 
-	let communitys = state.common['community-city-selected'];
+// 	if(Object.prototype.toString.call(communitys) !== '[object Array]'){
+// 		communitys = [];
+// 	}
 
-	if(Object.prototype.toString.call(communitys) !== '[object Array]'){
-		communitys = [];
-	}
+// 	const communityid = selector(state, 'communityid');
 
-	let cityName = '';
-	communitys.map(function(item){
-		if(item.communityId == communityid){
-			cityName = item.cityName;
-		}
-	});
+// 	let cityName = '';
+// 	communitys.map(function(item){
+// 		if(item.communityId == communityid){
+// 			cityName = item.cityName;
+// 		}
+// 	});
 
-	let customerName = initialValues && initialValues.customerName;
-
-
-	return {
-		cityName,
-		communitys,
-		customerName,
-		initialValues
-	};
-
-}
+// 	return {
+// 		cityName,
+// 		initialValues:state.common['get-simple-order'],
+// 		communitys,
+//    	};
+// }
 
 
-export default connect(mapStateToProps)(OrderCreate);
+// export default connect(mapStateToProps)(OrderCreate);
+
+
+

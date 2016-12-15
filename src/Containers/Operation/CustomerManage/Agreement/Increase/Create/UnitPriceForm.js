@@ -33,7 +33,6 @@ class UnitPriceForm  extends Component{
 	}
 
 	onSubmit(form){
-		console.log('form----',form)
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(form);
 	}
@@ -50,7 +49,7 @@ class UnitPriceForm  extends Component{
 		return (
 			<div>
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:20}}>
-					<KrField grid={1}  name="price" component="input" type="text" label="单价" requireLabel={true}/> 
+					<KrField grid={1}  name="price" component="input" type="text" label="单价" requireLabel={true}/>
 					<Grid style={{padding:'30px 0'}}>
 						<ListGroup>
 							<ListGroupItem style={{width:'47%',textAlign:'right',padding:0,paddingRight:10}}> <Button  label="确定" type="submit" /></ListGroupItem>

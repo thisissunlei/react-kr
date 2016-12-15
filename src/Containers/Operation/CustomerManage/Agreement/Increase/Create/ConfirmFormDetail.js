@@ -64,7 +64,7 @@ export default class ConfirmFormDetail  extends Component{
 
 
         var leasorName ;
-        optionValues.fnaCorporationList.map((item)=>{
+        optionValues.fnaCorporationList && optionValues.fnaCorporationList.map((item)=>{
         	if(item.value === detail.leaseId){
         		return leasorName = item.corporationAddress;
         	}
@@ -163,7 +163,7 @@ export default class ConfirmFormDetail  extends Component{
 						</ListGroup>
 						</Row>
 						</Grid>
-				
+
 		 </div>);
 	}
 }

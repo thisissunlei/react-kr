@@ -3,9 +3,9 @@ import React, {
 } from 'react';
 
 
-export default class CalendarDay extends React.Component {
+export default class CalendarDayDispaly extends React.Component {
 
-	static displayName = 'CalendarDay';
+	static displayName = 'CalendarDayDispaly';
 
 	static propTypes = {
 		/**
