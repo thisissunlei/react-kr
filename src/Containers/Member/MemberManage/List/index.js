@@ -140,7 +140,7 @@ export default class List extends Component {
 				ids.push(item.id)
 			});
 		}
-		var url = `/mockjs/4/member/member-list-excel?ids=${ids}`
+		var url = `/api/krspace-finance-webmember/member-list-excel?ids=${ids}`
 		window.location.href = url;
 	}
 	onEditSubmit=(values)=>{

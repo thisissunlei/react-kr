@@ -62,10 +62,9 @@ export default class  SearchCommunityComponent extends React.Component {
 					name={input.name}
 					value={input.value}
 					loadOptions={this.getOptions}
-					clearable={true}
+					clearable={false}
 					clearAllText="清除"
 					onChange={this.onChange}
-					noResultsText=""
 					placeholder={placeholder}/>
 			{touched && error && <div className="error-wrap"> <span>{error}</span> </div>}
 		</WrapComponent>

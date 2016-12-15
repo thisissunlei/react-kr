@@ -45,10 +45,13 @@ export default class CreateMemberForm extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.detail = this.props.detail;
-		this.getBasicData(this.detail.id);
+
 		this.state={
 			jobList:[],
 			itemData:{}
+		}
+		if(this.detail.id){
+			this.getBasicData(this.detail.id);
 		}
 	}
 	componentDidMount() {
@@ -67,8 +70,9 @@ export default class CreateMemberForm extends Component {
 		let params = {
 			communityId:url.communityId,
 			companyId:url.companyId,
-			memberId:memberId
+			memberId:memberId || ''
 		}
+		console.log(memberId);
 		let _this = this;
 		Store.dispatch(Actions.callAPI('getMemberBasicData', params)).then(function(response) {
 			console.log(response);
@@ -78,7 +82,6 @@ export default class CreateMemberForm extends Component {
 				item.value = item.id;
 				item.label = item.jobName;
 			})
-			console.log('createMemberForm',response[0].memberInfoVO);
 			Store.dispatch(initialize('createMemberForm', response[0].memberInfoVO));
 
 			_this.setState({

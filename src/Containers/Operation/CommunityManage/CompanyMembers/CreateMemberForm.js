@@ -24,10 +24,11 @@ import imgLine from './images/line.png'
 
 
 		}
+		this.getBasicData();
 
 		// Store.dispatch(reset('newCreateForm'));
 		// Store.dispatch(change('newCreateForm','enableflag','ENABLE'));
-		this.getBasicData();
+		// this.getBasicData();
 
 	}
 	// 点确定提交时候如果有错误提示返回，否则提交,,如果邮箱存在有错误提示，不能提交
@@ -43,7 +44,12 @@ import imgLine from './images/line.png'
 	 getBasicData=()=>{
 	//  新增会员准备职位数据
 		 let _this =this;
-		 Store.dispatch(Actions.callAPI('getMemberBasicData')).then(function(response){
+		 let url = this.props.params;
+		let params = {
+			communityId:url.communityId,
+			companyId:url.companyId,
+		}
+		 Store.dispatch(Actions.callAPI('getMemberBasicData',params)).then(function(response){
 			 response[0].jobList.forEach(function(item,index){
 				 item.value = item.id;
 				 item.label = item.jobName;

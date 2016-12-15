@@ -464,7 +464,7 @@ export default class CompanyMembers extends Component {
 			open={this.state.createMember}
 			onClose={this.createMember}
 			contentStyle={{width:687}}>
-				<CreateMemberForm onSubmit={this.onNewCreateSubmit} onCancel={this.createMember} />
+				<CreateMemberForm onSubmit={this.onNewCreateSubmit} params={this.params} onCancel={this.createMember}  detail={itemDetail}/>
 			</Dialog>
 			<Dialog
 			title="批量导入"
