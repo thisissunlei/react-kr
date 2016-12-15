@@ -633,8 +633,8 @@ class NewCreateForm extends Component {
 					<KrField  style={{width:830,marginLeft:70}}  name="contractmark" component="textarea" label="备注" maxSize={200}/>
 				</CircleStyle>
 
-				<KrField  style={{width:830,marginLeft:70}} name="contractFileList" component="input" type="hidden" label="合同附件"/>
-				<KrField  style={{width:830,marginLeft:70}} name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
+				<KrField  style={{width:830,marginLeft:70,marginTop:'-20px'}} name="contractFileList" component="input" type="hidden" label="合同附件"/>
+				<KrField  style={{width:830,marginLeft:70,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
 					Store.dispatch(change('joinCreateForm','contractFileList',files));
 				}} />
 
