@@ -472,6 +472,10 @@
     url:'/api/krspace-finance-web/member/member-phone?phone={phone}',
     method:'get'
   },
+  'isEmailRegistered':{
+    url:'/api/krspace-finance-web/member/member-email?email={email}',
+    method:'get'
+  },
   // 会员中心-会员-获取-(查询)高级搜索
   'membersList':{
     url:'/api/krspace-finance-web/member/member-list?value={value}&type={type}&startTime={startTime}&endTime={endTime}&registerSourceId={registerSourceId}&jobId={jobId}&pageSize={pageSize}&page={page}&companyId={companyId}&cityId={cityId}',

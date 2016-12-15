@@ -40,6 +40,7 @@ import {
 	TableRowColumn,
 	TableFooter,
 	ListGroup,
+	SnackTip,
 	ListGroupItem
 } from 'kr-ui';
 
@@ -65,12 +66,9 @@ export default class CompanyMembers extends Component {
 		this.state = {
 			tab: 'table',
 			communityId: '',
-
-			searchParams: {
-				page: 1,
-				companyId:this.companyId,
-				pageSize: 15
-			},
+			page: 1,
+			companyId:this.companyId,
+			pageSize: 15,
 			validateMember:false,
 			createMember:false,
 			cancleLeader:false,
@@ -83,7 +81,7 @@ export default class CompanyMembers extends Component {
 			selecedList:[],
 			importdata:false,
 			warns:false,
-			batchDelet:false
+			batchDelet:false,
 		}
 
 
@@ -94,27 +92,23 @@ export default class CompanyMembers extends Component {
 
 	}
 	importData=()=>{
-		console.log('ppppp');
 		this.setState({
 			importdata:!this.state.importdata
 		})
 	}
 
 	onLoaded=(values)=>{
-		console.log('onloaded',values);
 		this.setState({
-			allData:values.items
+			allData:values
 		})
 
 
 	}
 	onSelect=(values)=>{
 		let {allData} = this.state;
-		console.log(values);
 		let seleced = [];
-		allData.map((value,index)=>{
+		allData.items.map((value,index)=>{
 			values.map(item=>{
-				console.log(index,item);
 				if(item == index ){
 					seleced.push(value)
 				}
@@ -138,10 +132,14 @@ export default class CompanyMembers extends Component {
 		})
 	}
 	validateMemberSubmit=()=>{
-		let {selecedList} = this.state;
+		let {seleced} = this.state;
 		let _this = this;
-		console.log('validateMemberSubmit',selecedList,JSON.stringify(selecedList));
-		Store.dispatch(Actions.callAPI('validMember',{memberIds:JSON.stringify(selecedList)} )).then(function(response) {
+		let selecedList =[];
+		seleced.map(item=>{
+			selecedList.push(item.id);
+		})
+		console.log('selecedList',selecedList);
+		Store.dispatch(Actions.callAPI('validMember',{memberIds:String(selecedList)} )).then(function(response) {
 			_this.validateMember();
 			// Message.show([{
 			// 	message: '设置成功',
@@ -174,6 +172,7 @@ export default class CompanyMembers extends Component {
 	}
 	validateMember=()=>{
 		let {seleced} = this.state;
+		console.log(seleced);
 		if(!seleced.length){
 			this.onSubmits();
 			return;
@@ -184,13 +183,11 @@ export default class CompanyMembers extends Component {
 
 	}
 	createMember=(itemData)=>{
-		console.log('itemData',itemData);
 		this.setState({
 			createMember: !this.state.createMember,
 		});
 	}
 	cancleLeader(itemDetail){
-		console.log(itemDetail);
 		this.setState({
 			cancleLeader: !this.state.cancleLeader,
 			itemDetail:itemDetail
@@ -220,7 +217,6 @@ export default class CompanyMembers extends Component {
 			memberId:itemDetail.id
 		}
 		let _this = this;
-		console.log(value);
 		Store.dispatch(Actions.callAPI('setLeader', params)).then(function(response) {
 			if(value.isLeader){
 				_this.setLeaders();
@@ -247,10 +243,10 @@ export default class CompanyMembers extends Component {
 		});
 	}
 	editMemberForm=(value)=>{
-		console.log('index',value);
 		let _this = this;
 		let params = value;
-		Store.dispatch(Actions.callAPI('membersChange', params)).then(function(response) {
+		console.log('edit',value);
+		Store.dispatch(Actions.callAPI('membersChange',{}, params)).then(function(response) {
 			_this.editMembers()
 			// Notify.show([{
 			// 	message: '设置成功',
@@ -276,19 +272,21 @@ export default class CompanyMembers extends Component {
 		let url = `/mockjsdata/4/member/member-company-excel?${ids}&${companyId}`;
 		window.location.href = url;
 
-		console.log('onExport',value);
 	}
 
 	onLoadDemo=()=>{
-		console.log('onLoadDemo');
 		let companyId = this.companyId;
 		let url = `/mockjsdata/4/member/member-templet-excel?${companyId}`;
 		window.location.href = url;
 	}
 	BatchDeletSure=()=>{
-		let {selecedList} = this.state;
+		let {seleced} = this.state;
 		let _this = this;
-		Store.dispatch(Actions.callAPI('deleteMembers',{memberIds:JSON.stringify(selecedList)} )).then(function(response) {
+		let selecedList =[];
+		seleced.map(item=>{
+			selecedList.push(item.id);
+		})
+		Store.dispatch(Actions.callAPI('deleteMembers',{memberIds:String(selecedList)} )).then(function(response) {
 			_this.batchDelet();
 			// Notify.show([{
 			// 	message: '设置成功',
@@ -309,7 +307,6 @@ export default class CompanyMembers extends Component {
 		});
 	}
 	importDataPost=(files)=>{
-		console.log('files',files);
 		let companyId = this.companyId;
 		let params = {
 			companyId:companyId,
@@ -351,6 +348,7 @@ export default class CompanyMembers extends Component {
  		// 	 type: 'success',
 			//  	}]);
 			Message.success('成功');
+			// window.location.href = "/#/community/companyMembers/" + _this.params.companyId + "/list/" + _this.params.communityId ;
 		}).catch(function(err){
 			console.log(err);
 			// Notify.show([{
@@ -369,11 +367,17 @@ export default class CompanyMembers extends Component {
 
 
 	render() {
-		let {itemDetail,seleced} = this.state;
+		let {itemDetail,seleced,open,title,allData} = this.state;
+		let searchParams ={
+			page:this.state.page,
+			pageSize:this.state.pageSize,
+			companyId:this.state.companyId
+		}
 		return (
 			<div>
 
-			<Section title={`全部会员 ()`} description="" >
+
+			<Section title={`${allData.companyName} (${allData.totalCount})`} description="" >
 				<Grid>
 					<Row>
 						<Col align="left">
@@ -396,7 +400,7 @@ export default class CompanyMembers extends Component {
 					displayCheckbox={true}
 					ajaxFieldListName='items'
 					ajaxUrlName='membersList'
-					ajaxParams={this.state.searchParams}
+					ajaxParams={searchParams}
 					exportSwitch={true}
 					onExport={this.onExport}
 				>
@@ -415,7 +419,7 @@ export default class CompanyMembers extends Component {
 						<TableRowColumn name="phone" ></TableRowColumn>
 						<TableRowColumn name="email" ></TableRowColumn>
 						<TableRowColumn name="jobName"></TableRowColumn>
-						<TableRowColumn name="checkStatus" options={[{label:'已验证',value:1},{label:'未验证',value:0}]}
+						<TableRowColumn name="checkStatus" options={[{label:'已验证',value:'true'},{label:'未验证',value:'false'}]}
 						component={(value,oldValue)=>{
 							var fontColor="";
 							if(value=="未验证"){
@@ -424,7 +428,7 @@ export default class CompanyMembers extends Component {
 							return (<span style={{color:fontColor}}>{value}</span>)}}>
 
 						</TableRowColumn>
-						<TableRowColumn name="isLeader" options={[{label:'isLeader',value:1},{label:'setLeader',value:0}]}
+						<TableRowColumn name="isLeader" options={[{label:'isLeader',value:'true'},{label:'setLeader',value:'false'}]}
 												component={(value,oldValue,itemData)=>{
 													var fontColor="";
 													if(value=="isLeader"){

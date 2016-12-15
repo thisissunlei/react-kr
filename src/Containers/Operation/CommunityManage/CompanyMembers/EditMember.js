@@ -38,6 +38,7 @@ import {
 	KrForm
 } from 'kr-ui';
 import './index.less';
+import {ShallowEqual} from 'kr/Utils';
 
 export default class CreateMemberForm extends Component {
 
@@ -48,13 +49,25 @@ export default class CreateMemberForm extends Component {
 
 		this.state={
 			jobList:[],
-			itemData:{}
-		}
-		if(this.detail.id){
-			this.getBasicData(this.detail.id);
+			itemData:{},
+			initializeValues:{}
 		}
 	}
-	componentDidMount() {
+	//首次加载，只执行一次
+	componentWillMount() {
+		this.getBasicData(this.detail.id);
+		let {detail,handleSubmit} = this.props;
+		console.log('edit-detail',detail);
+		
+	}
+	componentWillReceiveProps(nextProps){
+		if(!ShallowEqual(this.state.initializeValues,nextProps.detail)){
+			this.setState({
+				initializeValues:nextProps.detail
+			})
+			Store.dispatch(initialize('createMemberForm', nextProps.detail));
+
+		}
 	}
 
 	onSubmit=(values)=>{
@@ -72,21 +85,18 @@ export default class CreateMemberForm extends Component {
 			companyId:url.companyId,
 			memberId:memberId || ''
 		}
-		console.log(memberId);
 		let _this = this;
 		Store.dispatch(Actions.callAPI('getMemberBasicData', params)).then(function(response) {
-			console.log(response);
-			response[0].memberInfoVO.jobId= 11411;
-
-			response[0].jobList.forEach((item)=>{
+			response.memberInfoVO.jobId= 11411;
+			response.jobList.forEach((item)=>{
 				item.value = item.id;
 				item.label = item.jobName;
 			})
-			Store.dispatch(initialize('createMemberForm', response[0].memberInfoVO));
+			// Store.dispatch(initialize('createMemberForm', response.memberInfoVO));
 
 			_this.setState({
-				jobList:response[0].jobList,
-				itemData:response[0].memberInfoVO
+				jobList:response.jobList,
+				itemData:response.memberInfoVO
 			})
 
 
@@ -95,10 +105,8 @@ export default class CreateMemberForm extends Component {
 		});
 	}
 	communityChange=(mail)=>{
-		console.log(mail);
 		var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
  		if (filter.test(mail)){
- 			console.log('mail');
  			Store.dispatch(Actions.callAPI('membersByEmail', {email:mail})).then(function(response) {
 				console.log(response);
 				if(response == 1){
@@ -140,8 +148,6 @@ export default class CreateMemberForm extends Component {
 		let {itemData,jobList} = this.state;
 		let images = `./images/all.png`;
 		itemData.phone = '13314619606';
-		console.log('detail',detail,itemData);
-
 
 
 		return (
