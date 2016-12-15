@@ -10,8 +10,8 @@
     "dev:test": " export NODE_ENV=test  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile --hot --watch  --inline",
     "dev:test01": " export NODE_ENV=test01  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile --hot --watch  --inline",
     "dev:test02": " export NODE_ENV=test02  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile --hot --watch  --inline",
-    "build:prod": "export NODE_ENV=production  &&  npm run dll && webpack --config ./webpack/webpack-production.config.js --progress --colors",
-    "build:test": "export NODE_ENV=test && npm run dll &&  webpack --config ./webpack/webpack-test.config.js --progress --colors --profile",
+    "build": "export NODE_ENV=production  &&  npm run dll && webpack --config ./webpack/webpack-production.config.js --progress --colors",
+    "test": "export NODE_ENV=test && npm run dll &&  webpack --config ./webpack/webpack-test.config.js --progress --colors --profile",
     "dll": "webpack --config ./webpack/webpack-dll.config.js --progress --colors --profile",
     "demo": "export NODE_ENV=production && webpack --config ./webpack/webpack-demo.config.js --progress --colors --profile"
   },
