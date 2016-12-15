@@ -13,11 +13,14 @@ function getUrl(path, params = {},mode = false) {
 
     let server = '';
 
-	/*
-	if(env ==='test'){
-		server = 'optest.krspace.cn';
+	if(env ==='development'){
+		server = 'http://optest.krspace.cn';
+	}else if(env ==='test01'){
+		server = 'http://optest01.krspace.cn';
+	} else if(env ==='test02'){
+		server = 'http://optest02.krspace.cn';
 	}
-	*/
+
 
 	/*
     if (path.match(/^http/) != 'null') {
@@ -76,7 +79,7 @@ function getMethod(path) {
 
 function check401(res) {
     if (res.code ===-4011) {
-		window.location.href = '/';
+		//window.location.href = '/';
     }
     return res;
 }
@@ -146,13 +149,12 @@ const http = {
 
 		fetch(url, {
 			method: 'GET',
-			credentials: 'same-origin',
 			headers: {
 				'Accept': '*',
 				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-				'cache':false,
 			},
-			withCredentials:true
+      mode:'cors',
+		  credentials: 'include',
 		})
 			.then(jsonParse)
 			.then(check401)
@@ -170,7 +172,6 @@ const http = {
 
 	getdemo: (url, params) => new Promise((resolve, reject) => {
 
-
 		if (!url) {
 			return;
 		}
@@ -180,13 +181,10 @@ const http = {
 		xhr.withCredentials = true;
 		xhr.open('GET', url, true);
 		xhr.responseType = 'json';
-		xhr.setRequestHeader('crossDomain', true);
 		xhr.onload = function(e) {
 		  if (this.status >= 200 || this.status <300 ) {
 			  var json = http.transformPreResponse(xhr.response);
-			   console.log('fgfgfg',typeof json);
 				if(json && json.code && parseInt(json.code)>0){
-                   console.log('00456',json);
 					//处理数据格式
 					resolve(http.transformResponse(json))
 				}else{
@@ -196,9 +194,7 @@ const http = {
 				reject(xhr.response);
 		  }
 		};
-
 		xhr.send();
-
 	}),
 
 	post: (url, params, payload) => new Promise((resolve, reject) => {
@@ -214,7 +210,8 @@ const http = {
 
 		fetch(url, {
 			method: 'POST',
-			credentials: 'same-origin',
+		  credentials: 'include',
+      mode:'cors',
 			headers: {
 				'Accept': '*',
 				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
@@ -251,7 +248,8 @@ const http = {
 
 		fetch(url, {
 			method: 'PUT',
-			credentials: 'same-origin',
+		  credentials: 'include',
+      mode:'cors',
 			headers: {
 				'Accept': '*',
 				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
@@ -285,7 +283,8 @@ const http = {
 
 		return fetch(url, {
 			method: 'DELETE',
-			credentials: 'same-origin',
+		  credentials: 'include',
+      mode:'cors',
 			headers: {
 				'Accept': '*',
 				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
