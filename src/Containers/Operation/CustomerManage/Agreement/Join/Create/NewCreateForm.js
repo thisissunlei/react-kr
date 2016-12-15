@@ -67,6 +67,7 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Paper,
+	CircleStyle
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -503,9 +504,8 @@ class NewCreateForm extends Component {
 			<Paper width={960}>
 
 		<form onSubmit={handleSubmit(this.onSubmit)} >
-				<div className="detailContent">
-					<div className="one"><p>1</p><div className="txt">———— 租赁明细</div></div>
-					<div className="circle"><span></span></div>
+				<CircleStyle num="1" info="租赁明细">
+				
 				<KrField name="wherefloor" style={{width:370,marginLeft:90}} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true}/>
 				<KrField grid={1/2} left={20}  component="group" label="租赁期限" requireLabel={true}>
 					<ListGroup>
@@ -514,7 +514,7 @@ class NewCreateForm extends Component {
 						<ListGroupItem style={{width:'45%',padding:0,marginTop:'-10px'}}> <KrField name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} simple={true}/> </ListGroupItem>
 					</ListGroup>
 				</KrField>
-				<div className="detailList">			
+				<div className="detail-list">			
 				<DotTitle title='租赁明细'>
 
 				       <Grid>
@@ -528,7 +528,7 @@ class NewCreateForm extends Component {
 								</Col>
 							</Row>
 						</Grid>
-				<div  className={HeightAuto?'auto':'stationList'}>
+				<div  className={HeightAuto?'auto':'station-list'}>
 				<Table  displayCheckbox={true} onSelect={this.onStationSelect}>
 				<TableHeader>
 				<TableHeaderColumn>类别</TableHeaderColumn>
@@ -561,14 +561,12 @@ class NewCreateForm extends Component {
 						</TableBody>
 						</Table>
 					</div>	
-						{stationVos.length>5?<div className="Btip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'Toprow':'Bottomrow'}></span></p></div>:''}
+						{stationVos.length>5?<div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}
 						
                         </DotTitle>
 					</div>
-					</div>
-				<div className="textInfo">
-					<div className="one"><p>2</p><div className="txt">———— 合同文本信息</div></div>
-					<div className="circle"><span></span></div>
+					</CircleStyle>
+				<CircleStyle num="2" info="合同文本信息" circle="bottom">
 					<KrField   name="mainbillid" type="hidden" component="input" />
 
 					<KrField   name="contractstate" type="hidden" component="input" />
@@ -632,7 +630,7 @@ class NewCreateForm extends Component {
 					<KrField  style={{width:370,marginLeft:90}} name="boardroomnum" component="labelText" type="text" label="租赁会议室" value={changeValues.station} defaultValue="0" requireLabel={true} inline={false}/>
 
 					<KrField  style={{width:830,marginLeft:90}}  name="contractmark" component="textarea" label="备注" maxSize={200}/>
-				</div>
+				</CircleStyle>
 
 				<KrField  style={{width:830,marginLeft:90}} name="contractFileList" component="input" type="hidden" label="合同附件"/>
 				<KrField  style={{width:830,marginLeft:90}} name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
