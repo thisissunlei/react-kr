@@ -447,6 +447,16 @@
     url:'/api/krspace-finance-web/finaccount/opt/removeRunningTag',
     method: 'post'
   },
+   //订单明细账－二期－添加挂帐
+  'onNewAccountg': {
+    url:'/api/krspace-op-web/finaccount/opt/onAccountg',
+    method: 'post'
+  },
+  //订单明细账－二期－点击挂帐所需数据
+  'getOnNewAccountData': {
+    url:'/mockjs/18/krspace-op-web/finaccount/data/getOnAccountData',
+    method: 'get'
+  },
 }
 
 module.exports = APIS;

@@ -361,18 +361,9 @@ export default class AttributeSetting extends Component {
 
 	openAccountBtn() {
 		var _this = this;
-		Store.dispatch(Actions.callAPI('findAccountList', {
-			accountType: 'INCOME'
-		})).then(function(response) {
-			response.map(function(item, index) {
-				var list = {}
-				list.value = item.id;
-				list.label = item.accountname;
-				receivedList.push(list);
-			})
-			_this.setState({
-				receivedList: receivedList
-			});
+		Store.dispatch(Actions.callAPI('getOnNewAccountData')).then(function(response) {
+			
+			console.log('444444',response);
 		}).catch(function(err) {
 			Notify.show([{
 				message: err.message,
