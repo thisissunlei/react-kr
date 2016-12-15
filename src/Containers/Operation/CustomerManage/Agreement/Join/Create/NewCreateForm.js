@@ -641,7 +641,6 @@ class NewCreateForm extends Component {
 
             
 
-
 						<Grid>
 						<Row style={{paddingBottom:50}}>
 						<Col md={12} align="center">
