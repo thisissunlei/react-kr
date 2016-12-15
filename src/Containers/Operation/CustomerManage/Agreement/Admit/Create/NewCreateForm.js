@@ -480,7 +480,7 @@ class NewCreateForm extends Component {
 					</KrField>
 					<div className="detailList">
 					<DotTitle title='租赁明细'>
-						<Grid>
+						<Grid style={{marginTop:"-30px"}}>
 							<Row>
 								<Col align="right">
 									<ButtonGroup>
