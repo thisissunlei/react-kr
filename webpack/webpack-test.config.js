@@ -39,6 +39,7 @@ const config = {
 						 name:'lib'
 		}),
 
+		/*
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
 				warnings: true,
@@ -47,6 +48,7 @@ const config = {
 				comments: false,
 			},
 		}),
+		*/
 
 		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
