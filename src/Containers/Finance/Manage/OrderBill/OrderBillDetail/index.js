@@ -878,7 +878,7 @@ export default class AttributeSetting extends Component {
        	   	  <Button label="退款"  type="button" joinEditForm onTouchTap={this.openQuitBtn}/></ButtonGroup>);
 		}
 		if (parentBtn == 'INCOME' && childBtn == 'basic') {
-
+            buttonArr.push(<ButtonGroup><Button label="挂账" type="button" joinEditForm onTouchTap={this.openAccountBtn}/></ButtonGroup>);
 		}
 		if (parentBtn == 'INCOME' && childBtn == 'gongweishouru') {
 			buttonArr.push(<ButtonGroup><Button label="挂账"  type="button" joinEditForm onTouchTap={this.openAccountBtn}/>
