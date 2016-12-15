@@ -56,7 +56,8 @@ import {
 	ButtonGroup,
 	ListGroup,
 	ListGroupItem,
-	KrDate
+	KrDate,
+	CircleStyle
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -467,9 +468,8 @@ class NewCreateForm extends Component {
 	<Paper width={968}>
 
 	<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}>
-				<div className="detailContent">
-					<div className="one"><p>1</p><div className="txt">———— 租赁明细</div></div>
-					<div className="circle"><span></span></div>
+				<CircleStyle num="1" info="租赁明细">
+				
 					<KrField name="wherefloor" style={{width:370,marginLeft:90}}  component="select" label="所属楼层" options={optionValues.floorList} multi={true}  requireLabel={true}/>
 					 <KrField grid={1/2}  component="group" label="租赁期限" requireLabel={true}>
 										<ListGroup>
@@ -517,10 +517,9 @@ class NewCreateForm extends Component {
 							{stationVos.length>5?<div className="Btip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'Toprow':'Bottomrow'}></span></p></div>:''}
                			</DotTitle>
                			</div>
-					</div>
-					<div className="textInfo">
-					<div className="one"><p>2</p><div className="txt">———— 合同文本信息</div></div>
-					<div className="circle"><span></span></div>
+					</CircleStyle>
+					<CircleStyle num="2" info="合同文本信息" circle="bottom">
+					
 								<KrField grid={1/2}  name="stationnum" type="hidden" component="input" />
 								<KrField grid={1/2}  name="boardroomnum" type="hidden" component="input" />
 
@@ -565,7 +564,7 @@ class NewCreateForm extends Component {
 							 <KrField style={{width:830,marginLeft:90}}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
 							<KrField style={{width:370,marginLeft:90}}  name="stationnum"  component="labelText" label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>
 							 <KrField style={{width:370,marginLeft:90}}  name="boardroomnum"  component="labelText" label="租赁会议室" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/>
-							 </div>
+							 </CircleStyle>
 							<KrField  style={{width:830,marginLeft:90}} name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
 								Store.dispatch(change('admitCreateForm','contractFileList',files));
 							}} />
