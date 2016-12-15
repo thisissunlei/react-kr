@@ -111,7 +111,7 @@ export default class OrderCreate extends Component {
 		let communityOptions = [];
 		let initialValues = {};
 		let orderTypeOptions = [];
-		Store.dispatch(Actions.callAPI('community-city-selected', {}, {})).then(function(response) {
+		Store.dispatch(Actions.callAPI('community-city-selected')).then(function(response) {
 			communityOptions = response.communityCity.map((item) => {
 				item.value = String(item.communityId);
 				item.label = item.communityName;
@@ -166,11 +166,9 @@ export default class OrderCreate extends Component {
 
 		return (
 
-			<div>
+			<OrderEditForm onSubmit={this.onSubmit} communityOptions={communityOptions} initialValues={initialValues} orderTypeOptions={orderTypeOptions} onCancel={this.onCancel}/>
 
-		<OrderEditForm onSubmit={this.onSubmit} communityOptions={communityOptions} initialValues={initialValues} orderTypeOptions={orderTypeOptions} onCancel={this.onCancel}/>
-			
-	 </div>
+
 		);
 	}
 }
