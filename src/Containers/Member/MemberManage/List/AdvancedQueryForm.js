@@ -16,7 +16,6 @@ import {
 	SearchForm,
 } from 'kr-ui';
 import $ from 'jQuery'
-import imgLine from './images/line.png'
 class NewCreateForm extends Component{
      static contextTypes = {
    		params: React.PropTypes.object.isRequired
@@ -64,8 +63,10 @@ class NewCreateForm extends Component{
 	 }
 	 componentDidMount(){
 	//  新增会员准备职位数据
+
 		 let _this =this;
 		 Store.dispatch(Actions.callAPI('getMemberPosition')).then(function(response){
+			 console.log("----------");
 			 response[0].jobList.forEach(function(item,index){
 				 item.value = item.id;
 				 item.label = item.jobName;
@@ -113,7 +114,7 @@ class NewCreateForm extends Component{
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 				<SearchForm searchFilter={options} style={{width:'252',marginBottom:'10'}}/>
-				<KrField name="jobId"  component="city" label="工作地点"  style={{display:'block',width:'252',marginRight:'24'}}/>
+				{/*<KrField name="jobId"  component="city" label="工作地点"  style={{display:'block',width:'252',marginRight:'24'}}/>*/}
 				<KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} style={{width:'252',marginRight:'24'}}/>
 				<KrField name="jobId"  grid={1/2} component="select" label="注册来源" options={selectOption} style={{width:'252'}}/>
         <ListGroup>
