@@ -85,12 +85,14 @@ ll=(values)=>{
 	list=(value)=>{
 		console.log('city',value);
 	}
-
+    
+   
 
 
 	render(){
 		return(
 			<div>
+			        <SnackTip style={{'background':'#499df1'}}  open={true} title='123'/>
 
 					<Section title="demo" description="" >
 					    <SnackTip style={{'background':'#69bbf0'}} title='snack'/>

@@ -454,7 +454,7 @@
   },
   //订单明细账－二期－点击挂帐所需数据
   'getOnNewAccountData': {
-    url:'/mockjs/18/krspace-op-web/finaccount/data/getOnAccountData',
+    url:'/mockjsdata/18/krspace-op-web/finaccount/data/getOnAccountData',
     method: 'get'
   },
 }

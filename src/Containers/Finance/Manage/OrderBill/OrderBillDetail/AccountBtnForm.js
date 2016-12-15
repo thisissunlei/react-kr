@@ -39,6 +39,7 @@ class AccountBtnForm extends Component{
 		onCancel:React.PropTypes.func,
 		optionList:React.PropTypes.object,
 		initialValues:React.PropTypes.object,
+		accountDetail:React.PropTypes.object,
 	}
 	constructor(props,context){
 		super(props,context);
@@ -54,7 +55,6 @@ class AccountBtnForm extends Component{
 		onCancel && onCancel();
 	};
 	onSubmit(values){
-		console.log('22222rrrrr',values);
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
 	}
@@ -74,7 +74,7 @@ class AccountBtnForm extends Component{
 	}
 	
 	render(){
-		const {optionList,error,handleSubmit,pristine,reset} = this.props;
+		const {optionList,error,handleSubmit,pristine,reset,accountDetail} = this.props;
 		let style={
        	 marginTop:'6'
        }
@@ -88,7 +88,7 @@ class AccountBtnForm extends Component{
 				<form  onSubmit={handleSubmit(this.onSubmit)}>
 					<KrField  name="propid" type="hidden"/>
 					<KrField  name="mainbillid" type="hidden"/>
-					<KrField grid={1/2} name="accountid" right={29} component="select" label="代码名称" options={optionList} requireLabel={true}/> 
+					<KrField grid={1/2} name="accountid" right={29} component="select" label="支付方式" options={optionList} requireLabel={true}/> 
 					<KrField name="preCode" grid={1/2} component="group" label="金额正负" requireLabel={true}>
 		                <KrField name="preCode" label="正" type="radio" value="0"/>
 		                <KrField name="preCode" label="负" type="radio" value="1" />
@@ -96,7 +96,18 @@ class AccountBtnForm extends Component{
 					<KrField grid={1/2} name="operatedate" right={31} type="date" component="date" label="挂账日期" requireLabel={true}/> 
 					<KrField grid={1/2} name="fileids" component="file" label="上传附件" />
 					
-					<KrField grid={1/2} name="finaflowamount" right={29} type="text" component="input" label="金额（元）" requireLabel={true} style={{marginTop:-6}}/> 
+					   <div>
+						      {accountDetail.map((item,index)=>{
+						      	if(index%2==0){
+									return <KrField key={index}   grid={1/2}  right={30} label={item.label} component="input" name={item.value} type="text"/>
+						      	}else{
+						      		return <KrField key={index}   grid={1/2}  left={30} label={item.label} component="input" name={item.value} type="text"/>
+						      	}
+
+						       }
+
+						       )}
+					    </div>
 					<KrField grid={1} style={style} label="备注" name="finaflowdesc" style={{marginTop:5}} type="text" heightStyle={heightStyle} component="textarea"  placeholder='请输入备注,文字不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/> 
 
 

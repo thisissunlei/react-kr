@@ -194,6 +194,9 @@ export default class AttributeSetting extends Component {
 			selectedList: [],
 			listValues: [],
 
+			payWayList:[],
+			accountDetail:[],
+
 
 
 			openSearch: false,
@@ -361,14 +364,20 @@ export default class AttributeSetting extends Component {
 
 	openAccountBtn() {
 		var _this = this;
-		Store.dispatch(Actions.callAPI('getOnNewAccountData')).then(function(response) {
-			
-			console.log('444444',response);
+		Store.dispatch(Actions.callAPI('getOnNewAccountData')).then(function(response) {	
+			var payWayList = [];
+			response.payWay.map(function(item, index) {
+				var list = {}
+				list.value = item.id;
+				list.label = item.accountname;
+				payWayList.push(list);
+			});
+			_this.setState({
+				payWayList,
+				accountDetail:response.propData
+			});
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			Message.error(err);
 		});
 		this.setState({
 			openAddaccountBtn: !this.state.openAddaccountBtn
@@ -1010,7 +1019,7 @@ export default class AttributeSetting extends Component {
 						onClose={this.closeAddaccount}
 						contentStyle ={{ width: '688'}}
 						>
-					   <AccountBtnForm  onSubmit={this.onConfrimSubmit}  onCancel={this.closeAddaccount}  optionList={this.state.receivedList} initialValues={propId}/>
+					   <AccountBtnForm  onSubmit={this.onConfrimSubmit}  onCancel={this.closeAddaccount}  optionList={this.state.payWayList} initialValues={propId} accountDetail={this.state.accountDetail}/>
 					 </Dialog>
 
 					 <Dialog
