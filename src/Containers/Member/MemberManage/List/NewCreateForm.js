@@ -51,7 +51,6 @@ class NewCreateForm extends Component{
 	}
 	// 点确定提交时候如果有错误提示返回，否则提交,,如果邮箱存在有错误提示，不能提交
 	 onSubmit(values){
-		 console.log("--------","1111");
 		 const {onSubmit} = this.props;
 		 onSubmit && onSubmit(values);
 	 }

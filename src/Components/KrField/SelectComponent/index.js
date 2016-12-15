@@ -99,6 +99,7 @@ render() {
 			multi,
 			...other
 		} = this.props;
+		console.log('select',options);
 
 		if (multi) {
 			return (
@@ -152,7 +153,7 @@ render() {
 					<select {...input}  disabled={disabled}>
 									{children}
 					</select>
-					{touched && error && <p><div className="error-wrap"> <span>{error}</span> </div></p> }
+					{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 			</WrapComponent>
 
 		);

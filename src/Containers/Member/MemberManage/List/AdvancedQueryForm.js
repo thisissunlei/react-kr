@@ -44,6 +44,8 @@ class NewCreateForm extends Component{
 		this.state={
 			communityText:'',
 			companyText:'',
+			selectSourceOption:[],
+			selectSourceOption:[]
 
 		}
 
@@ -66,30 +68,19 @@ class NewCreateForm extends Component{
 
 		 let _this =this;
 		 Store.dispatch(Actions.callAPI('getMemberPosition')).then(function(response){
-			 console.log("----------");
+			//  console.log("----------response",response);
 			 response[0].jobList.forEach(function(item,index){
 				 item.value = item.id;
 				 item.label = item.jobName;
 			 });
+			 response[0].registerSourceList.forEach(function(item,index){
+				 item.value = item.id;
+				 item.label = item.sourceName;
+			 });
 			 _this.setState({
-				selectOption:response[0].jobList
+				selectOption:response[0].jobList,
+				selectSourceOption :response[0].registerSourceList
 			})
-		 }).catch(function(err){
-			 reject(err);
-		 });
-	 }
-	//  输入手机号查看该手机号是否绑定
-	 onBlur=(phone)=>{
-		 let params = {
-			 phone :phone
-		 }
-		 Store.dispatch(Actions.callAPI('isPhoneRegistered',params)).then(function(response){
-			//  检验response是不是空对象
-				if(!$.isEmptyObject(response)){
-					Store.dispatch(initialize('NewCreateForm',response));
-					// console.log("response",response);
-					// 此处要有提示
-				}
 		 }).catch(function(err){
 			 reject(err);
 		 });
@@ -97,7 +88,7 @@ class NewCreateForm extends Component{
 	render(){
 		const { error, handleSubmit, pristine, reset} = this.props;
 		let communityText = '';
-		let {selectOption} =this.state;
+		let {selectOption,selectSourceOption} =this.state;
 		let options = [{
 			label: '公司名称',
 			value: 'BILL'
@@ -114,9 +105,9 @@ class NewCreateForm extends Component{
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 				<SearchForm searchFilter={options} style={{width:'252',marginBottom:'10'}}/>
-				{/*<KrField name="jobId"  component="city" label="工作地点"  style={{display:'block',width:'252',marginRight:'24'}}/>*/}
+				<KrField name="work"  component="city" label="工作地点"  style={{display:'block',width:'252',marginRight:'24'}}/>
 				<KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} style={{width:'252',marginRight:'24'}}/>
-				<KrField name="jobId"  grid={1/2} component="select" label="注册来源" options={selectOption} style={{width:'252'}}/>
+				<KrField name="from"  grid={1/2} component="select" label="注册来源" options={selectSourceOption} style={{width:'252'}}/>
         <ListGroup>
 					<ListGroupItem style={{width:540,paddingLeft:10,color:'#333333'}}><span>注册时间</span></ListGroupItem>
         	<ListGroupItem style={{textAlign:'center',padding:0}}></ListGroupItem>
