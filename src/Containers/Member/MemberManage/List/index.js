@@ -167,7 +167,7 @@ export default class List extends Component {
 	}
 	// 查询
 	onSearchSubmit=(value)=>{
-		console.log("-----",value);
+		// console.log("-----",value);
 		let _this = this;
 		let searchParam = {
 			value :value.content,
@@ -177,9 +177,9 @@ export default class List extends Component {
 			content :value.content,
 			filter :value.filter
 		})
-		Store.dispatch(Actions.callAPI('searchListByFilter',searchParam)).then(function(response){
-			console.log(_this.state.searchParams,"_this.state.searchParams");
-				console.log(value.content,"value.content");
+		Store.dispatch(Actions.callAPI('membersList',searchParam)).then(function(response){
+			// console.log(_this.state.searchParams,"_this.state.searchParams");
+				// console.log(value.content,"value.content");
 			_this.setState({
 				searchParams:{
 					page:1,
