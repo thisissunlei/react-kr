@@ -19,7 +19,9 @@ function getUrl(path, params = {},mode = false) {
 		server = 'http://optest01.krspace.cn';
 	} else if(env ==='test02'){
 		server = 'http://optest02.krspace.cn';
-	}
+	}else {
+		server = 'http://op.krspace.cn';
+  }
 
 
 	/*
