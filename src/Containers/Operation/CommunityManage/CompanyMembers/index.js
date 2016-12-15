@@ -205,7 +205,7 @@ export default class CompanyMembers extends Component {
 			itemDetail:itemDetail
 		});
 	}
-	setLeader=()=>{
+	setLeaders=()=>{
 		this.setState({
 			setLeader: !this.state.setLeader,
 		});

@@ -73,7 +73,7 @@ export default class ValidateMember extends Component {
 		
 
 		return (
-			<div className='validate-member'>
+			<div className='validate-member' style={{marginTop:20}}>
 				<div>
 					<span>发送验证短信：</span>
 					<span className="make-sure">（请确认成员手机号码是否正确，验证单人一天最多发一次）</span>
