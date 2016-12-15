@@ -44,8 +44,8 @@ class NewCreateForm extends Component{
 
 		}
 
-		Store.dispatch(reset('newCreateForm'));
-		Store.dispatch(change('newCreateForm','enableflag','ENABLE'));
+		// Store.dispatch(reset('newCreateForm'));
+		// Store.dispatch(change('newCreateForm','enableflag','ENABLE'));
 
 	}
 	// 点确定提交时候如果有错误提示返回，否则提交,,如果邮箱存在有错误提示，不能提交
@@ -61,7 +61,7 @@ class NewCreateForm extends Component{
 	 componentDidMount(){
 	//  新增会员准备职位数据
 		 let _this =this;
-		 Store.dispatch(Actions.callAPI('getMemberPosition')).then(function(response){
+		 Store.dispatch(Actions.callAPI('getMemberBasicData')).then(function(response){
 			 response[0].jobList.forEach(function(item,index){
 				 item.value = item.id;
 				 item.label = item.jobName;

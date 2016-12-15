@@ -462,17 +462,17 @@
 		url: '/api/krspace-finance-web/member/work/company-list?companyText={companyText}',
 		method: 'get'
 	},
-  //会员中心-新增会员－职位准备数据
-  'getMemberPosition': {
-		url: '/api/krspace-finance-web/member/member-add-edit?companyId={companyId}&memberId={memberId}&communityId={communityId}',
-		method: 'get'
-	},
+  //会员中心-新增会员－准备数据
+  // 'getMemberPosition': {
+	// 	url: '/api/krspace-finance-web/member/member-add-edit?companyId={companyId}&memberId={memberId}&communityId={communityId}',
+	// 	method: 'get'
+	// },
   // 会员中心－新增会员－电话号码校验是否存在
   'isPhoneRegistered':{
     url:'/api/krspace-finance-web/member/member-phone?phone={phone}',
     method:'get'
   },
-  // 会员中心-会员-获取-高级搜索
+  // 会员中心-会员-获取-(查询)高级搜索
   'membersList':{
     url:'/api/krspace-finance-web/member/member-list?value={value}&type={type}&startTime={startTime}&endTime={endTime}&registerSourceId={registerSourceId}&jobId={jobId}&pageSize={pageSize}&page={page}&companyId={companyId}&cityId={cityId}',
     method:'get'
