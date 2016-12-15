@@ -38,7 +38,6 @@ class AccountBtnForm extends Component{
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
 		optionList:React.PropTypes.object,
-		initialValues:React.PropTypes.object,
 		accountDetail:React.PropTypes.object,
 	}
 	constructor(props,context){
@@ -62,11 +61,9 @@ class AccountBtnForm extends Component{
 
     
       let initialValues={
-       	 propid:this.props.initialValues.propid,
        	 preCode:'0',
-       	 mainbillid:this.context.params.orderId,
+       	 mainbillId:this.context.params.orderId,
        	 operatedate:'',
-       	 finaflowamount:'',
        	 accountid:''
        }
 	   Store.dispatch(initialize('AccountBtnForm',initialValues));
@@ -85,31 +82,29 @@ class AccountBtnForm extends Component{
 
 		return(
 			 <div className='ui-quit-wrap'>
-				<form  onSubmit={handleSubmit(this.onSubmit)}>
-					<KrField  name="propid" type="hidden"/>
-					<KrField  name="mainbillid" type="hidden"/>
-					<KrField grid={1/2} name="accountid" right={29} component="select" label="支付方式" options={optionList} requireLabel={true}/> 
+				<form  onSubmit={handleSubmit(this.onSubmit)} style={{marginLeft:31}}>
+					<KrField  name="mainbillId" type="hidden"/>
+					<KrField grid={1/2} name="accountid" right={42} component="select" label="支付方式" options={optionList} requireLabel={true}/> 
 					<KrField name="preCode" grid={1/2} component="group" label="金额正负" requireLabel={true}>
 		                <KrField name="preCode" label="正" type="radio" value="0"/>
 		                <KrField name="preCode" label="负" type="radio" value="1" />
 		            </KrField> 
-					<KrField grid={1/2} name="operatedate" right={31} type="date" component="date" label="挂账日期" requireLabel={true}/> 
+					<KrField grid={1/2} name="operatedate" right={42} type="date" component="date" label="挂账日期" requireLabel={true}/> 
 					<KrField grid={1/2} name="fileids" component="file" label="上传附件" />
 					
 					   <div>
 						      {accountDetail.map((item,index)=>{
 						      	if(index%2==0){
-									return <KrField key={index}   grid={1/2}  right={30} label={item.label} component="input" name={item.value} type="text"/>
+									return <KrField key={index}   grid={1/2}  right={42} label={item.propname} component="input" name={item.id} type="text"/>
 						      	}else{
-						      		return <KrField key={index}   grid={1/2}  left={30} label={item.label} component="input" name={item.value} type="text"/>
+						      		return <KrField key={index}   grid={1/2}  left={42} label={item.propname} component="input" name={item.id} type="text"/>
 						      	}
 
-						       }
+						        }
 
 						       )}
 					    </div>
 					<KrField grid={1} style={style} label="备注" name="finaflowdesc" style={{marginTop:5}} type="text" heightStyle={heightStyle} component="textarea"  placeholder='请输入备注,文字不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/> 
-
 
 
 					
@@ -120,7 +115,7 @@ class AccountBtnForm extends Component{
 									<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div> 
 									<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} /> 
 								</ButtonGroup>
-							</Col>
+							</Col
 						</Row>
 					</Grid>
 

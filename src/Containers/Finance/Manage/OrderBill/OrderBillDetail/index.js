@@ -516,14 +516,14 @@ export default class AttributeSetting extends Component {
 			params.jsonStr.gongweihuikuan = params.gongweihuikuan;
 			params.jsonStr.qitahuikuan = params.qitahuikuan;
 			params.jsonStr.dingjin = params.dingjin;
-			*/
+			
 			params.jsonStr = JSON.stringify(params.jsonStr);
 			delete params.dingjin;
 			delete params.yajin;
 			delete params.yingshouhuikuan;
 			delete params.shenghuoxiaofeihuikuan;
 			delete params.gongweihuikuan;
-			delete params.qitahuikuan;
+			delete params.qitahuikuan;*/
 		}
 		params.receiveDate = dateFormat(params.receiveDate, "yyyy-mm-dd h:MM:ss");
 		var _this = this;
@@ -607,9 +607,20 @@ export default class AttributeSetting extends Component {
 		});
 
 	}
-	onConfrimSubmit(formValues) {
+	onConfrimSubmit(params) {
+		let {payWayList} = this.state;
+		params = Object.assign({}, params);
+			params.propJasonStr = {};
+			payWayList.map(function(item,index){
+					var key = item.value;
+					if(params.hasOwnProperty(key) && params[key]){
+							params.propJasonStr[key] = params[key];
+							delete params[key];
+					}
+			});
 		var _this = this;
-		Store.dispatch(Actions.callAPI('supplementIncome', {}, formValues)).then(function() {
+		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd");
+		Store.dispatch(Actions.callAPI('onNewAccountg', {}, params)).then(function() {
 			Notify.show([{
 				message: '操作成功',
 				type: 'success',
@@ -625,8 +636,6 @@ export default class AttributeSetting extends Component {
 			openAddaccountBtn: !this.state.openAddaccountBtn,
 			isLoading: true,
 		})
-		receivedList = [];
-
 	}
 	onSupplementSubmit() {
 			var _this = this;
@@ -828,11 +837,6 @@ export default class AttributeSetting extends Component {
 		let initialValuesId = {
 				id: fiItem.id
 			}
-			//挂账按钮操作
-		let propId = {
-				propid: params.propertyId,
-				mainbillid: params.orderId
-			}
 			//高级查询
 		let searchValue = {
 			accountType: params.accountType,
@@ -1019,7 +1023,7 @@ export default class AttributeSetting extends Component {
 						onClose={this.closeAddaccount}
 						contentStyle ={{ width: '688'}}
 						>
-					   <AccountBtnForm  onSubmit={this.onConfrimSubmit}  onCancel={this.closeAddaccount}  optionList={this.state.payWayList} initialValues={propId} accountDetail={this.state.accountDetail}/>
+					   <AccountBtnForm  onSubmit={this.onConfrimSubmit}  onCancel={this.closeAddaccount}  optionList={this.state.payWayList}  accountDetail={this.state.accountDetail}/>
 					 </Dialog>
 
 					 <Dialog
