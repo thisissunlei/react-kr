@@ -427,7 +427,7 @@ export default class CompanyMembers extends Component {
 														return (
 															<span>
 															<Button label="详情"  type="operation" />
-															<Button label="编辑"  type="operation" />
+															<Button label="编辑"  type="operation" type="operation" onTouchTap={this.editMember.bind(this,itemData)}/>
 															<Button label="设置Leader"  type="operation" onTouchTap={this.setLeader.bind(this,itemData)}/>
 															</span>
 														)
