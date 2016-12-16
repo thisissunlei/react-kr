@@ -52,6 +52,7 @@ export default class BasicInfo extends Component {
 		Store.dispatch(Actions.callAPI('getMemberDetailData', {
 			id:this.context.router.params.memberId
 		})).then(function(response) {
+			// console.log(response.baseInfo,"基本信息response.baseInfo");
 			_this.setState({
 				baseInfo:response.baseInfo,
 			});

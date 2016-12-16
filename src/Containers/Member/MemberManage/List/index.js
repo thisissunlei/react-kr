@@ -56,10 +56,18 @@ export default class List extends Component {
 			list: {},
 			searchParams: {
 				page: 1,
-				pageSize: 15
-			},
-			filter:'',
-			content:''
+				pageSize: 15,
+				startTime:'',
+				endTime:'',
+				registerSourceId:'',
+				jobId:'',
+				companyId:'',
+				cityId:'',
+				filter:'',
+				content:''
+			}
+
+
 
 		}
 	}
@@ -90,8 +98,9 @@ export default class List extends Component {
 			}
 		});
 	}
+	// 打开高级搜索
 	openAdvancedQueryDialog(){
-		console.log("1111");
+		// console.log("value",value);
 		this.setState({
 			openAdvancedQuery: !this.state.openAdvancedQuery,
 			searchParams:{
@@ -126,7 +135,8 @@ export default class List extends Component {
 			itemDetail
 		});
 		if (type == 'view') {
-			let orderId = itemDetail.id
+			// console.log(orderId,"orderId");
+
 			window.open(`./#/member/MemberManage/${orderId}/detail`, orderId);
 		} else if (type == 'edit') {
 			this.openEditDetailDialog();
@@ -167,7 +177,7 @@ export default class List extends Component {
 	}
 	// 查询
 	onSearchSubmit=(value)=>{
-		// console.log("-----",value);
+
 		let _this = this;
 		let searchParam = {
 			value :value.content,
@@ -178,8 +188,6 @@ export default class List extends Component {
 			filter :value.filter
 		})
 		Store.dispatch(Actions.callAPI('membersList',searchParam)).then(function(response){
-			// console.log(_this.state.searchParams,"_this.state.searchParams");
-				// console.log(value.content,"value.content");
 			_this.setState({
 				searchParams:{
 					page:1,
@@ -194,10 +202,49 @@ export default class List extends Component {
 		});
 	}
 	onAdvanceSearchSubmit=(values)=>{
-		console.log('onAdvanceSearchSubmit',values);
+		console.log('onAdvanceSearchSubmit高级查询',values);
+		let _this = this;
+		let searchParam = {
+			cityId     :values.cityId,
+			// value      :value.content,
+			endTime    :values.endTime,
+			companyId  :values.companyId,
+			pageSize   :values.pageSize,
+			jobId      :values.jobId,
+			page       :values.page,
+			registerSourceId :value.registerSourceId,
+			// type    :value.type,
+			startTime  :values.startTime
+		}
+		_this.setState({
+			// content :value.content,
+			// filter :value.filter
+			cityId     :values.cityId,
+			endTime    :values.endTime,
+			companyId  :values.companyId,
+			pageSize   :values.pageSize,
+			jobId      :values.jobId,
+			page       :values.page,
+			registerSourceId :value.registerSourceId,
+			startTime  :values.startTime
+		})
+		Store.dispatch(Actions.callAPI('membersList',searchParam)).then(function(response){
+			// _this.setState({
+			// 	searchParams:{
+			// 		page:1,
+			// 		pageSize:15,
+			// 		value :value.content,
+			// 		type :value.filter
+			// 	}
+			// })
+
+		}).catch(function(err){
+			Message.error(error.message);
+		});
 	}
 
 	render() {
+
 		let {
 			list,itemDetail,seleced
 		} = this.state;
@@ -208,17 +255,18 @@ export default class List extends Component {
 
 		let options = [{
 			label: '公司名称',
-			value: 'BILL'
+			value: 'COMP_NAME'
 		}, {
 			label: '手机号',
 			value: 'PHONE'
 		}, {
 			label: '微信',
-			value: 'PHONE'
+			value: 'WECHAT'
 		}, {
 			label: '姓名',
-			value: 'PHONE'
+			value: 'Name'
 		}];
+
 		return (
 			    <div >
 								<Title value="全部会员 "/>
@@ -261,8 +309,8 @@ export default class List extends Component {
 
 									<TableBody style={{position:'inherit'}}>
 											<TableRow displayCheckbox={true}>
-											<TableRowColumn name="name" ></TableRowColumn>
 											<TableRowColumn name="phone" ></TableRowColumn>
+											<TableRowColumn name="name" ></TableRowColumn>
 											<TableRowColumn name="wechatNick"></TableRowColumn>
 											<TableRowColumn name="email"></TableRowColumn>
 											<TableRowColumn name="jobName"></TableRowColumn>
