@@ -20,7 +20,7 @@ export default class CircleStyle extends Component {
 		/**
 		 * num
 		 */
-		num: React.PropTypes.number,
+		num: React.PropTypes.any,
 		/**
 		 * info 文字描述
 		 */
