@@ -13,7 +13,7 @@ import {
 } from 'kr-ui';
 import $ from 'jQuery'
 import imgLine from './images/line.png'
-class NewCreateForm extends Component{
+export default class CreateMemberForm extends Component{
      static contextTypes = {
    		params: React.PropTypes.object.isRequired
    	}
@@ -90,10 +90,10 @@ class NewCreateForm extends Component{
 		 });
 	 }
 	 onChangeSearchCommunity(personel) {
-		Store.dispatch(change('NewCreateForm', 'communityId', personel.id));
+		Store.dispatch(change('createMemberForm', 'communityId', personel.id));
 	}
 	onChangeSearchCompany(personel) {
-		Store.dispatch(change('NewCreateForm', 'companyId', personel.id));
+		Store.dispatch(change('createMemberForm', 'companyId', personel.id));
 	}
 	render(){
 		const { error, handleSubmit, pristine, reset} = this.props;
@@ -101,8 +101,8 @@ class NewCreateForm extends Component{
 		let {selectOption} =this.state;
 
 		return (
-
-			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'20'}}>
+			<div>
+			<form onSubmit={handleSubmit(this.onSubmit)}>
 				<KrField grid={1/2} name="phone" type="text" label="手机号" requireLabel={true} style={{display:'block'}}
 				   requiredValue={true} onBlur={this.onBlur} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
 				<div style={{width:'100%',textAlign:'center',height:25,marginBottom:8}}>
@@ -130,6 +130,7 @@ class NewCreateForm extends Component{
 					</Row>
 				</Grid>
 		  </form>
+		  </div>
 		);
 	}
 }
@@ -163,12 +164,11 @@ const validate = values => {
 	if (!values.enableflag) {
 		errors.enableflag = '请选择是否发送验证短信';
 	}
-	return errors
+	return errors;
 }
-const selector = formValueSelector('NewCreateForm');
-export default NewCreateForm = reduxForm({
-	form: 'NewCreateForm',
+CreateMemberForm = reduxForm({
+	form: 'createMemberForm',
 	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
-})(NewCreateForm);
+})(CreateMemberForm);

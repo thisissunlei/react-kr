@@ -10,6 +10,8 @@ import {
 	Col,
 	Button,
 	ButtonGroup,
+	Message,
+	SnackTip
 } from 'kr-ui';
 import $ from 'jQuery'
 import imgLine from './images/line.png'
@@ -25,19 +27,29 @@ import imgLine from './images/line.png'
 
 		}
 		this.getBasicData();
+		this.params = this.props.params;
+		console.log('this.params',this.params);
 
-		// Store.dispatch(reset('newCreateForm'));
-		// Store.dispatch(change('newCreateForm','enableflag','ENABLE'));
-		// this.getBasicData();
 
+
+	}
+	componentWillMount() {
+		this.params = this.props.params;
+		let response = {
+			phone:'',
+			communityId:parseInt(this.params.communityId),
+			companyId:parseInt(this.params.companyId),
+			email:'eeee@163.com',
+			jobId:16,
+			name:'ewqeqweqe',
+			foreignCode:'11111',
+		}
+		console.log('fdsfsdffdsd',this.props.params,response);
+		Store.dispatch(initialize('NewCreateForm',response));
 	}
 	// 点确定提交时候如果有错误提示返回，否则提交,,如果邮箱存在有错误提示，不能提交
 	 onSubmit=(values)=>{
-	 	// values.communityId = 1;
-	 	// values.companyId = 1;
-	 	// values.jobId = 1;
-	 	// console.log('values',values);
-
+	 		console.log('companyId',values);
 		 const {onSubmit} = this.props;
 		 onSubmit && onSubmit(values);
 	 }
@@ -55,12 +67,17 @@ import imgLine from './images/line.png'
 			companyId:url.companyId,
 		}
 		 Store.dispatch(Actions.callAPI('getMemberBasicData',params)).then(function(response){
-			 response[0].jobList.forEach(function(item,index){
+			 response.jobList.forEach(function(item,index){
 				 item.value = item.id;
 				 item.label = item.jobName;
 			 });
+			 let memberInfoVO = {
+				communityId:_this.params.communityId,
+				companyId:_this.params.companyId
+			}
+			Store.dispatch(initialize('NewCreateForm', memberInfoVO));
 			 _this.setState({
-				selectOption:response[0].jobList
+				selectOption:response.jobList
 			})
 		 }).catch(function(err){
 			 reject(err);
@@ -71,16 +88,49 @@ import imgLine from './images/line.png'
 		 let params = {
 			 phone :phone
 		 }
+		 this.setState({
+	 		open:true
+	 	})
+
 		 Store.dispatch(Actions.callAPI('isPhoneRegistered',params)).then(function(response){
 			//  检验response是不是空对象
 				if(!$.isEmptyObject(response)){
 					Store.dispatch(initialize('NewCreateForm',response));
 					// console.log("response",response);
 					// 此处要有提示
+					Message.warn('该手机号码已被注册！','error');
+					
 				}
 		 }).catch(function(err){
-			 reject(err);
+		 	console.log('ddddd',err.message);
+			// Store.dispatch(reset('NewCreateForm'));
 		 });
+	 }
+	 EmailonBlur=(phone)=>{
+		 let params = {
+			 email :phone
+		 }
+		 this.setState({
+	 		open:true
+	 	})
+
+		 Store.dispatch(Actions.callAPI('isEmailRegistered',params)).then(function(response){
+			//  检验response是不是空对象
+				// if(!$.isEmptyObject(response)){
+				// 	Store.dispatch(initialize('NewCreateForm',response));
+				// 	// console.log("response",response);
+				// 	// 此处要有提示
+				// 	Message.warn('该手机号码已被注册！','error');
+					
+				// }
+		 }).catch(function(err){
+		 	console.log('ddddd',err.message);
+		 });
+	 }
+	 snackTipClose=()=>{
+	 	this.setState({
+	 		open:false
+	 	})
 	 }
 	 onChangeSearchCommunity(personel) {
 		Store.dispatch(change('NewCreateForm', 'communityId', personel.id));
@@ -92,9 +142,10 @@ import imgLine from './images/line.png'
 		const { error, handleSubmit, pristine, reset} = this.props;
 		let communityText = '';
 		let {selectOption} =this.state;
+		
 
 		return (
-
+			<div>
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:20}}>
 				<KrField grid={1/2} name="phone" type="text" label="手机号" requireLabel={true} style={{display:'block'}}
 				   requiredValue={true} onBlur={this.onBlur} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
@@ -102,7 +153,7 @@ import imgLine from './images/line.png'
 						<img src={imgLine}/>
 				</div>
 				<KrField grid={1/2} name="communityId" component="searchCommunities" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
-        <KrField grid={1/2} name="email" type="text" label="邮箱" requireLabel={true}
+        <KrField grid={1/2} name="email" type="input" label="邮箱" requireLabel={true} onBlur={this.EmailonBlur}
 				   requiredValue={true} pattern={/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/} errors={{requiredValue:'邮箱为必填项',pattern:'请输入正确邮箱地址'}}/>
 				<KrField grid={1/2} name="companyId" component="searchCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
         <KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} requireLabel={true} />
@@ -111,7 +162,7 @@ import imgLine from './images/line.png'
 						<KrField name="enableflag" grid={1/2} label="是" type="radio" value="ENABLE"/>
 						<KrField name="enableflag" grid={1/2} label="否" type="radio" value="DISENABLE" />
               </KrField>
-        <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" />
+        <KrField grid={1/2} name="foreignCode" type="input" label="会员卡号" />
 				<Grid style={{marginTop:30}}>
 					<Row>
 						<Col md={12} align="center">
@@ -123,6 +174,7 @@ import imgLine from './images/line.png'
 					</Row>
 				</Grid>
 		  </form>
+		  </div>
 		);
 	}
 }
@@ -161,7 +213,5 @@ const validate = values => {
 const selector = formValueSelector('NewCreateForm');
 export default NewCreateForm = reduxForm({
 	form: 'NewCreateForm',
-	// validate,
-	enableReinitialize: true,
-	keepDirtyOnReinitialize: true,
+	validate,
 })(NewCreateForm);

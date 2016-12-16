@@ -166,12 +166,12 @@ export default class List extends Component {
 	}
 	onNewCreateSubmit=(values)=>{
 		var _this = this;
-		Store.dispatch(Actions.callAPI('membersChange',values)).then(function(response){
+		Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
 			_this.openNewCreateDialog();
 			window.location.reload();
 			Message.success("操作成功");
 		}).catch(function(err){
-			_this.openNewCreateDialog();
+			// _this.openNewCreateDialog();
 			Message.error(err.message);
 		});
 	}
