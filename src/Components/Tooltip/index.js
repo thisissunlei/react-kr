@@ -30,6 +30,7 @@ export default class Tooltip extends Component {
 		/**
 		 * 与box-shadow的阴影色相同
 		 */
+		scroll:React.PropTypes.bool
 
 
 	}
@@ -67,7 +68,7 @@ export default class Tooltip extends Component {
 	}
 
 	render() {
-		let {children,place,backgroundColor,boxShadow,ShadowColor} = this.props;
+		let {children,place,backgroundColor,boxShadow,ShadowColor,scroll} = this.props;
 		let {width,height} = this.state;
 		let className = 'ui-tooltip';
 		let arrowStyle = {};
@@ -119,6 +120,9 @@ export default class Tooltip extends Component {
 			arrowStyle.borderBottomColor = ShadowColor;
 			arrowContentStyle.borderBottomColor = backgroundColor;
 
+		}
+		if(scroll){
+			style.maxHeight = '250px';
 		}
 		style.background = backgroundColor;
 		// style.boxShadow = '0 0 3px #499df1';

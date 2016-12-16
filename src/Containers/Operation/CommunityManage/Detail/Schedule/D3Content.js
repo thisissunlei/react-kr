@@ -380,7 +380,7 @@ export default class D3Content extends Component {
 		let item = infoList || [];
 		let id = this.props.id;
 		return (
-			<Tooltip  place="top" type="dark" effect="solid" id={`${item.pointDate}${id}`} offsetTop={250}>
+			<Tooltip  place="top" type="dark" effect="solid" scroll={true} id={`${item.pointDate}${id}`} offsetTop={250}>
 			{item.map((value,i)=>{
 				return(
 					<div key={i} className="react-tooltip-content">
