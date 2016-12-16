@@ -314,7 +314,7 @@ export default class Table extends React.Component {
 				isLoaded: true,
 				loading:false,
 			});
-            
+
 			Notify.show([{
 				message: err.message,
 				type: 'error',

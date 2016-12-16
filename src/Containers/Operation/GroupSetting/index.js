@@ -344,11 +344,8 @@ export default class GroupSetting  extends Component{
 
 												<TableRowColumn name="templateNum"></TableRowColumn>
 												<TableRowColumn name="creator"></TableRowColumn>
-<<<<<<< HEAD
-												<TableRowColumn name="createTime" type='date' format="yyyy-mm-dd hh:mm:ss" ></TableRowColumn>
-=======
+
 												<TableRowColumn name="createTime" type='date' format="yyyy-mm-dd hh:MM:ss" ></TableRowColumn>
->>>>>>> feature/release
 												<TableRowColumn name="enable" options={[{label:'启用',value:'ENABLE'},{label:'禁用',value:'DISABLE'}]}
 												component={(value,oldValue)=>{
 													var fontColor="";
