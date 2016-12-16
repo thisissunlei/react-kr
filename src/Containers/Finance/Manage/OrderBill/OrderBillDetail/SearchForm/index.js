@@ -54,7 +54,7 @@ class SearchForm extends Component{
 		onCancel && onCancel();
 	};
 	onSubmit(forms){
-
+        
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(forms);
 	}
@@ -62,7 +62,7 @@ class SearchForm extends Component{
 	render(){
 
 
-		let {typeList,codeList,initialValues}=this.props;
+		let {typeList,codeList,initialValues,handleSubmit}=this.props;
 
 
 
@@ -70,7 +70,7 @@ class SearchForm extends Component{
 
 
             <div className='ui-search'>
-				<form  onSubmit={this.onSubmit} initialValues={initialValues}>
+				<form  onSubmit={handleSubmit(this.onSubmit)} initialValues={initialValues}>
 
 					<KrField grid={1} name="orderId" type="hidden"/>
 					<KrField grid={1} name="accountType" type="hidden"/>
