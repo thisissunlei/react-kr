@@ -78,6 +78,8 @@ export default class JoinCreate extends Component {
 
 			_this.setState({baiscInf:response});
 
+			_this.isConfirmSubmiting = false;
+
 			Notify.show([{
 				message: '创建成功',
 				type: 'success',
@@ -87,14 +89,13 @@ export default class JoinCreate extends Component {
 				window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/join/" + response.contractId + "/detail";
 			}, 0);
 
-			this.isConfirmSubmiting = false;
 
 		}).catch(function(err) {
+			_this.isConfirmSubmiting = false;
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
 			}]);
-			this.isConfirmSubmiting = false;
 		});
 
 		this.openConfirmCreateDialog();
