@@ -11,15 +11,25 @@ import {
 	TableFooter,
 } from 'kr-ui';
 export default class OrganizationChart extends Component {
+	static contextTypes = {
+		router: React.PropTypes.object.isRequired
+	}
+	static defaultProps = {
+	}
+	static PropTypes = {
+		displayCheckbox: false,
+	}
   constructor(props, context) {
 		super(props, context);
 		this.onLoaded = this.onLoaded.bind(this);
+		this.params = this.context.router.params;
 		this.state = {
 			item: {},
 			list: {},
 			organizationChart: {
 				page: 1,
-				pageSize: 15
+				pageSize: 15,
+				companyId:1
 			}
 		}
 	}
@@ -48,6 +58,9 @@ export default class OrganizationChart extends Component {
           displayCheckbox={false}
           onLoaded={this.onLoaded}
           ajax={true}
+					onProcessData={(state)=>{
+						return state;
+						}}
           ajaxFieldListName='items'
           ajaxUrlName='getOrganizationChart'
           ajaxParams={this.state.organizationChart}

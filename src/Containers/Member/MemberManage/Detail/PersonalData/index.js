@@ -49,6 +49,7 @@ export default class BasicInfo extends Component {
 		let {
 			params
 		} = this.props;
+		// 会员详情页－－－－基本信息数据
 		Store.dispatch(Actions.callAPI('getMemberDetailData', {
 			id:this.context.router.params.memberId
 		})).then(function(response) {

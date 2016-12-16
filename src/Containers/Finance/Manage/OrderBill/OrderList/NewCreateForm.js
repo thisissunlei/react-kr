@@ -122,10 +122,6 @@ class NewCreateForm extends Component {
 					</ListGroup>
                     </div>
 				</KrField>
-
-
-
-
 				<Grid style={{marginTop:7,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">
@@ -140,8 +136,6 @@ class NewCreateForm extends Component {
 		);
 	}
 }
-
-
 export default reduxForm({
 	form: 'newCreateForm'
 })(NewCreateForm);

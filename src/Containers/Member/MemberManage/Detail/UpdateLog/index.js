@@ -17,6 +17,7 @@ export default class UpdateLog extends Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
 	}
+
 	static propTypes = {
 	 memberId:React.PropTypes.number
 	}
@@ -24,25 +25,29 @@ export default class UpdateLog extends Component {
 		super(props, context);
 		this.onLoaded = this.onLoaded.bind(this);
 		this.state = {
-      searchParams:{
-				memberId:this.context.router.params.memberId,
-				page:1,
-				pageSize:15
-			},
+      // searchParams:{
+			// 	memberId:this.context.router.params.memberId,
+			// 	page:1,
+			// 	pageSize:15
+			// },
 			item: {},
 			list: {},
-			organizationChart: {
+			searchParams: {
 				page: 1,
-				pageSize: 15
+				pageSize: 15,
+				memberId:this.props.params,
+				endTime:'',
+				startTime:''
 			}
 		}
 	}
   onLoaded(response) {
+		console.log("更新日志请求地址React.PropTypes",this.props.params.orderId);
+		console.log('更新日志response',response);
 		let list = response;
-    // console.log(list,"更新日志list");
-
+    console.log(list,"更新日志list");
 		this.setState({
-			list,
+			list
 		})
 	}
   onStartChange=(startTime)=>{

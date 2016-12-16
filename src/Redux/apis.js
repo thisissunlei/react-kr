@@ -485,12 +485,12 @@
 	},
   // 会员中心-会员详细信息－组织架构
 	'getOrganizationChart': {
-		url: '/api/krspace-finance-web/member/company-team?page={page}&pageSize={pageSize}&memberId={memberId}',
+		url: '/api/krspace-finance-web/member/company-team?page={page}&pageSize={pageSize}&companyId={companyId}',
 		method: 'get'
 	},
   // 会员中心－会员详细信息－更新日志
   'getUpdateLog': {
-		url: '/api/krspace-finance-web/member/work/mbr-log?page={page}&pageSize={pageSize}&memberId={memberId}&startTime={startTime}&endTime={endTime}',
+		url: '/api/krspace-finance-web/member/log/mbr-log?page={page}&pageSize={pageSize}&memberId={memberId}&startTime={startTime}&endTime={endTime}',
 		method: 'get'
 	},
 	//会员中心-新增会员－社区模糊查询
