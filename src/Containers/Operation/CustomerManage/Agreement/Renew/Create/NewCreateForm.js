@@ -270,11 +270,11 @@ class NewCreateForm extends Component {
 		return (
 			<Paper width={968}>
 
-<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}>
+<form onSubmit={handleSubmit(this.onSubmit)} >
 			<CircleStyle num={1} info='租赁明细'  >
 				<div className="detailList" style={{marginTop:'-50px'}}>
 				<DotTitle title='租赁明细'>
-				      <Grid style={{marginTop:'-30px'}}>
+				      <Grid style={{marginTop:'-40px'}}>
 							<Row>
 								<Col align="right">
 									<ButtonGroup>
@@ -286,8 +286,8 @@ class NewCreateForm extends Component {
 							</Row>
 						</Grid>
 
-
-				<Table  displayCheckbox={true} onSelect={this.onStationSelect}>
+				<div style={{marginTop:"-10px"}}>
+				<Table  displayCheckbox={true} onSelect={this.onStationSelect} >
 				<TableHeader>
 				<TableHeaderColumn>类别</TableHeaderColumn>
 				<TableHeaderColumn>编号／名称</TableHeaderColumn>
@@ -312,7 +312,7 @@ class NewCreateForm extends Component {
 						})}
 						</TableBody>
 						</Table>
-
+						</div>
 
                      </DotTitle>
                      </div>
