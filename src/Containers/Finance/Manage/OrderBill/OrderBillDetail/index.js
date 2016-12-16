@@ -38,8 +38,13 @@ import {
 	ButtonGroup,
 	Loading,
 	Title,
+<<<<<<< HEAD
 	Tooltip,
 	SnackTip,
+=======
+    SnackTip,
+    Tooltip,
+>>>>>>> 4e3b44cb9f852dfe1227a2630f07c48970cc5f52
     Message
 } from 'kr-ui';
 import {
@@ -208,9 +213,10 @@ export default class AttributeSetting extends Component {
 			openView: false,
             colorClassName:'',
             isRunningIncome:0,
-
 		}
 	}
+
+
 
 	refresh() {
 			//console.log('00000')
@@ -626,7 +632,9 @@ export default class AttributeSetting extends Component {
 				detailIncome: response.incomedata,
 				detailBalance: response.balance,
 				isInitLoading: false,
+
 				isRunningIncome:response.isIncomeRunning,
+
 				colorClassName:response.isIncomeRunning==2?'historyIncomeGray':'historyIncome'
 			});
 		}).catch(function(err) {
@@ -666,40 +674,47 @@ export default class AttributeSetting extends Component {
 				typeList,
 			});
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			 Message.error(err.message); 
 		});
 	}
+
 
       historyIncomed=()=>{
        let {isRunningIncome} = this.state;
        if(isRunningIncome==0){
+
        	 var _this = this;
 	        let {
 				params
 			} = this.props;
 			_this.setState({
+
 				 isRunningIncome:1
+
 			 });
 			Store.dispatch(Actions.callAPI('runStationIncome',{
 				mainbillId:params.orderId,
 			})).then(function(response) {
 			    setTimeout(function(){
                    _this.setState({
+
 				     isRunningIncome:2,
+
 				     colorClassName:'historyIncomeGray'
 			        });
 			    },1000)
 			}).catch(function(err) {
 				 Message.error(err.message);
 				 _this.setState({
+
 				   isRunningIncome:0
+
 			    }); 
 			});
         }
     }
+
+
 
 
 	componentDidMount() {
@@ -707,7 +722,9 @@ export default class AttributeSetting extends Component {
 		Store.dispatch(Actions.switchSidebarNav(false));
 	}
 
+
 	 snackTipClose=()=>{
+
     	   var _this = this;
 	        let {
 				params
@@ -717,7 +734,9 @@ export default class AttributeSetting extends Component {
 			})).then(function(response) {
 				_this.refresh();
 			    _this.setState({
+
 				 isRunningIncome:0,
+
 				 colorClassName:'historyIncome'
 			 });
 			}).catch(function(err){
@@ -747,12 +766,14 @@ export default class AttributeSetting extends Component {
     
     
     renderSnack=()=>{
+
     	let {isRunningIncome} = this.state;
     	if(isRunningIncome == 1){
     		return this.initializeSnack(true,'正在补历史收入...','','#69bbf0');
     	}else if(isRunningIncome==0){
     		return this.initializeSnack(false,'未完成');
     	}else if(isRunningIncome==2){
+
     		return this.initializeSnack(true,'补历史收入已完成!','确认','#75c7bc');
     	}
     	
