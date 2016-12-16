@@ -19,7 +19,7 @@ import {
 	Grid,
 	Row,
 	Col,
-	Message,
+	Notify,
 	List,
 	ListItem,
 	KrField,
@@ -62,7 +62,10 @@ export default class BasicInfo extends Component {
 			},function(){
 			});
 		}).catch(function(err) {
-			Message.error(err.message);
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
 		});
 	}
 	render() {

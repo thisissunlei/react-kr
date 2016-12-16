@@ -24,7 +24,7 @@ import {
 	KrField,
 	LabelText,
 	KrDate,
-	Message
+	Notify,
 } from 'kr-ui';
 export default class BasicInfo extends Component {
 	static contextTypes = {
@@ -58,7 +58,10 @@ export default class BasicInfo extends Component {
 				baseInfo:response.baseInfo,
 			});
 		}).catch(function(err) {
-			Message.error(err.message);
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
 		});
 	}
 

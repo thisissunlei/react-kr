@@ -23,6 +23,7 @@ import {
 	SearchForms,
 	Dialog,
 	Message,
+	Notify,
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import NewCreateForm from './NewCreateForm';
@@ -152,7 +153,10 @@ export default class List extends Component {
 			Message.success("操作成功");
 
 		}).catch(function(err){
-			Message.error(err.message);
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
 		});
 	}
 	onNewCreateSubmit=(values)=>{
@@ -163,7 +167,10 @@ export default class List extends Component {
 			Message.success("操作成功");
 		}).catch(function(err){
 			// _this.openNewCreateDialog();
-			Message.error(err.message);
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
 		});
 	}
 	// 查询
@@ -189,7 +196,10 @@ export default class List extends Component {
 			})
 
 		}).catch(function(err){
-			Message.error(error.message);
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
 		});
 	}
 	// 打开高级查询
@@ -237,7 +247,10 @@ export default class List extends Component {
 			})
 
 		}).catch(function(err){
-			Message.error(error.message);
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
 		});
 	}
 

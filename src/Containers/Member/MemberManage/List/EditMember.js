@@ -27,6 +27,7 @@ import {
 	Row,
 	Col,
 	Message,
+	Notify,
 	Button,
 	KrDate,
 	DotTitle,
@@ -101,7 +102,10 @@ export default class CreateMemberForm extends Component {
 
 
 		}).catch(function(err) {
-			Message.error(err.message);
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
 		});
 	}
 	communityChange=(mail)=>{
@@ -117,7 +121,10 @@ export default class CreateMemberForm extends Component {
 
 
 			}).catch(function(err) {
-				Message.error( err.message);
+				Notify.show([{
+					message: err.message,
+					type: 'danger',
+				}]);
 			});
  		};
 	}
@@ -132,7 +139,10 @@ export default class CreateMemberForm extends Component {
 
 
 			}).catch(function(err) {
-				Message.error(err.message);
+				Notify.show([{
+					message: err.message,
+					type: 'danger',
+				}]);
 			});
  		};
 	}
