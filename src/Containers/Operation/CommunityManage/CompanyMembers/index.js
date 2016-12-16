@@ -269,14 +269,14 @@ export default class CompanyMembers extends Component {
 	onExport=(value)=>{
 		let companyId = this.companyId;
 		let ids = 1;
-		let url = `/mockjsdata/4/member/member-company-excel?${ids}&${companyId}`;
+		let url = `/api/krspace-finance-web/member/member-company-excel?ids=${ids}&companyId=${companyId}`;
 		window.location.href = url;
 
 	}
 
 	onLoadDemo=()=>{
 		let companyId = this.companyId;
-		let url = `/mockjsdata/4/member/member-templet-excel?${companyId}`;
+		let url = `/api/krspace-finance-web/member/member-templet-excel?${companyId}`;
 		window.location.href = url;
 	}
 	BatchDeletSure=()=>{
@@ -313,7 +313,7 @@ export default class CompanyMembers extends Component {
 			file:files.file
 		}
 		let _this = this;
-		Store.dispatch(Actions.callAPI('importMemberExcel',params)).then(function(response) {
+		Store.dispatch(Actions.callAPI('importMemberExcel',{},params)).then(function(response) {
 			_this.importData();
 			// Notify.show([{
 			// 	message: '设置成功',
@@ -357,6 +357,11 @@ export default class CompanyMembers extends Component {
 			// }]);
 			Message.error(err.message);
 		});
+	}
+	detailView(itemData){
+		let orderId = itemData.id;
+		window.open(`./#/member/MemberManage/${orderId}/detail`, orderId);
+
 	}
 
 
@@ -434,7 +439,7 @@ export default class CompanyMembers extends Component {
 													if(value=="isLeader"){
 														return (
 															<span>
-															<Button label="详情"  type="operation" />
+															<Button label="详情"  type="operation" onTouchTap={this.detailView.bind(this,itemData)}/>
 															<Button label="编辑"  type="operation" onTouchTap={this.editMember.bind(this,itemData)}/>
 															<Button label="取消Leader"  type="operation" onTouchTap={this.cancleLeader.bind(this,itemData)}/>
 															</span>
@@ -442,7 +447,7 @@ export default class CompanyMembers extends Component {
 													}else if(value=="setLeader"){
 														return (
 															<span>
-															<Button label="详情"  type="operation" />
+															<Button label="详情"  type="operation" onTouchTap={this.detailView.bind(this,itemData)}/>
 															<Button label="编辑"  type="operation" type="operation" onTouchTap={this.editMember.bind(this,itemData)}/>
 															<Button label="设置Leader"  type="operation" onTouchTap={this.setLeader.bind(this,itemData)}/>
 															</span>
