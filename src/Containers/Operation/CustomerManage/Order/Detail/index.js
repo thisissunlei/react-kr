@@ -135,6 +135,86 @@ class NewCreatForm extends Component {
 	}
 
 }
+
+
+class StaionInfo extends Component {
+	static PropTypes = {
+		detail: React.PropTypes.object,
+
+	}
+
+	constructor(props, context) {
+		super(props, context);
+		this.state = {
+			isClassName: ''
+		}
+	}
+	close = () => {
+		this.setState({
+			isClassName: 'leave'
+		}, function() {
+			const {
+				onClose
+			} = this.props;
+			onClose && onClose()
+
+		})
+
+
+
+	}
+	render() {
+		var _this = this;
+		let {
+			detail,
+			className,
+			isShow
+		} = this.props;
+		let {
+			isClassName
+		} = this.state;
+		var Name = isShow ? 'actives' : isClassName
+
+
+		return (
+			<div className={`${className} ${Name}`}>
+				<div className="closeBtn" onTouchTap={this.close} ></div>
+				<div className="showHeader"><span className="icon"></span><span className="title">工位编号 :</span></div>
+				<div className="infoCon">
+					{detail && detail.map((item,index)=>{
+						return(
+							<div className="infoList" key={index}>
+								<div className="hTitle"><span className="circle"></span>{item.detailName}</div>
+								<div className="listCon">
+									{item.stationIds.length>0 ?item.stationIds.map((v,i)=>{
+										return(
+											<div className="list" key={i}>工位编号：{v}</div>
+										)
+									}):<div className="list" >该客户的所有工位已退租</div>}
+
+								</div>
+							</div>
+
+						)
+							
+						
+
+					})}
+					
+
+				</div>
+				<div className="CloseBtn" onTouchTap={this.close}>关闭</div>
+			</div>
+
+		)
+
+
+
+	}
+
+
+}
+
 export default class OrderDetail extends React.Component {
 
 	constructor(props, context) {
@@ -154,50 +234,55 @@ export default class OrderDetail extends React.Component {
 		this.state = {
 			open: false,
 			loading: true,
-			delAgreementId:0,
+			delAgreementId: 0,
 			openCreateAgreement: false,
-			openDelAgreement:false,
+			openDelAgreement: false,
+			isShow: false,
+			View: false,
 			response: {
 				orderBaseInfo: {},
 				installment: {},
 				earnest: {},
 				contractList: [],
-				antecedent: []
-			}
+				antecedent: [],
+			},
+			staionsList: []
 		}
 
 	}
 
-	openDelAgreementDialog(){
+	openDelAgreementDialog() {
 		this.setState({
-			 	openDelAgreement:!this.state.openDelAgreement
+			openDelAgreement: !this.state.openDelAgreement
 		});
 	}
 
-	setDelAgreementId(delAgreementId){
+	setDelAgreementId(delAgreementId) {
 		this.setState({
-				delAgreementId,
-		},function(){
-					this.openDelAgreementDialog();
+			delAgreementId,
+		}, function() {
+			this.openDelAgreementDialog();
 		});
 
 	}
 
-	confirmDelAgreement(){
+	confirmDelAgreement() {
 
 		this.openDelAgreementDialog(0);
 
-		let {delAgreementId} = this.state;
+		let {
+			delAgreementId
+		} = this.state;
 		Store.dispatch(Actions.callAPI('delete-enter-contract', {
-			contractId:delAgreementId
+			contractId: delAgreementId
 		})).then(function(response) {
 			Notify.show([{
 				message: '删除成功!',
 				type: 'success',
 			}]);
-			window.setTimeout(function(){
+			window.setTimeout(function() {
 				window.location.reload();
-			},100)
+			}, 100)
 		}).catch(function(err) {
 			Notify.show([{
 				message: err.message,
@@ -220,6 +305,7 @@ export default class OrderDetail extends React.Component {
 		Store.dispatch(Actions.callAPI('get-order-detail', {
 			mainBillId: this.props.params.orderId
 		})).then(function(response) {
+			console.log('response----', response)
 			_this.setState({
 				response: response
 			});
@@ -352,7 +438,7 @@ export default class OrderDetail extends React.Component {
 		)
 	}
 
-	delArgument(id){
+	delArgument(id) {
 
 
 	}
@@ -375,6 +461,72 @@ export default class OrderDetail extends React.Component {
 
 
 	}
+	change = (form) => {
+		const {
+			orderBaseInfo
+		} = this.state.response;
+		if (orderBaseInfo.mainbillname === form) {
+			return;
+		}
+		if (form && orderBaseInfo.id) {
+			Store.dispatch(Actions.callAPI('edit-order-name', {}, {
+				mainbillName: form,
+				mainBillId: orderBaseInfo.id
+			})).then(function(response) {
+				Notify.show([{
+					message: '修改成功!',
+					type: 'success',
+				}]);
+			}).catch(function(err) {
+				Notify.show([{
+					message: err.message,
+					type: 'danger',
+				}]);
+			});
+		} else {
+			Notify.show([{
+				message: '订单名称不能为空',
+				type: 'danger',
+			}]);
+		}
+
+
+	}
+	onClose = () => {
+
+		this.setState({
+			isShow: !this.state.isShow
+		})
+	}
+
+	onView = () => {
+		var _this = this;
+		const {
+			orderBaseInfo,
+		} = this.state.response;
+		let {
+			isShow,
+			View
+		} = this.state
+		if (!isShow) {
+			Store.dispatch(Actions.callAPI('get-order-station', {
+				mainBillId: orderBaseInfo.id
+			})).then(function(response) {
+				_this.setState({
+					staionsList: response
+				})
+
+
+			}).catch(function(err) {
+				Notify.show([{
+					message: err.message,
+					type: 'danger',
+				}]);
+			});
+		}
+
+		this.onClose();
+	}
 
 	render() {
 
@@ -383,9 +535,12 @@ export default class OrderDetail extends React.Component {
 			earnest,
 			contractList,
 			installmentPlan,
-			contractStatusCount
-		} = this.state.response;
+			contractStatusCount,
 
+		} = this.state.response;
+		let {
+			isShow
+		} = this.state
 		if (this.state.loading) {
 			return (<Loading/>);
 		}
@@ -400,109 +555,46 @@ export default class OrderDetail extends React.Component {
 			<BreadCrumbs children={['系统运营','财务管理']} hide={!!this.props.location.query.closeAll}/>
 
 			<Section title="客户订单详情" description="" hide={!!this.props.location.query.closeAll} bodyPadding={'20px 20px 50px 20px'}>
+			
 			<div className="content">
-			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog} style={{width:80,marginTop:15}}/>
+						{/*<StaionInfo onClose={this.onClose}  detail={this.state.staionsList} className='showCon' isShow={isShow} id={orderBaseInfo.id}/>*/}
+			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog} style={{width:160,height:40,fontSize:'18px !important'}}/>
+						<span className="border-top" style={{marginTop:'20px !important'}}></span>
+			<DotTitle title='合同列表' style={{marginTop:40,marginBottom:30}}/>
 
-			<span className='border-top'></span>
-			<Grid style={{marginTop:50,width:800,marginLeft:'auto',marginRight:'auto'}}>
-			<span className='ui-remark'>注：如（0-1），1表示该类型合同总数，0表示执行完该类型合同数</span>
-			<ul className='ui-adminBook'>
-              <li><span className={(contractStatusCount.intentionTotoal&&contractStatusCount.intentionComplete)!=0?'ui-circle':'ui-circle-dot'}></span></li>
-              <li><span className={(contractStatusCount.enterTotoal&&contractStatusCount.enterComplete)!=0?'ui-circle':'ui-circle-dot'}></span></li>
-              <li><span className={(contractStatusCount.addRentTotoal&&contractStatusCount.addRentComplete)!=0?'ui-circle':'ui-circle-dot'}></span></li>
-              <li><span className={(contractStatusCount.renewComplete&&contractStatusCount.renewComplete)!=0?'ui-circle':'ui-circle-dot'}></span></li>
-              <li><span className={(contractStatusCount.lessRentComplete&&contractStatusCount.lessRentComplete)!=0?'ui-circle':'ui-circle-dot'}></span></li>
-              <li><span className={(contractStatusCount.quitRentTotoal&&contractStatusCount.quitRentComplete)!=0?'ui-circle':'ui-circle-dot'}></span></li>
-			</ul>
-			<Row style={{marginLeft:40}}>
-				<Col md={2} align="center" className="adminTitle"><span className="adminName">承租意向书({contractStatusCount.intentionComplete}-{contractStatusCount.intentionTotoal})</span> </Col>
-				<Col md={2} align="center" className="adminTitle"> <span className="adminName">入驻协议书({contractStatusCount.enterComplete}-{contractStatusCount.enterTotoal})</span> </Col>
-				<Col md={2} align="center" className="adminTitle"><span className="adminName" > 增租协议书({contractStatusCount.addRentComplete}-{contractStatusCount.addRentTotoal})</span> </Col>
-				<Col md={2} align="center" className="adminTitle"><span className="adminName"> 续租协议书({contractStatusCount.renewComplete}-{contractStatusCount.renewTotoal})</span> </Col>
-				<Col md={2} align="center" className="adminTitle"><span className="adminName">  减租协议书({contractStatusCount.lessRentComplete}-{contractStatusCount.lessRentTotoal})</span>  </Col>
-				<Col md={2} align="center" className="adminTitle"> <span className="adminName"> 退租协议书({contractStatusCount.quitRentComplete}-{contractStatusCount.quitRentTotoal}) </span> </Col>
-			</Row>
-		</Grid>
-
-            <DotTitle title='订单描述'/>
-
-			<Grid style={{marginTop:50}}>
-				<Row>
-				<Col md={4} ><KrField label="社区名称：" component="labelText" value={orderBaseInfo.communityName} defaultValue="无" alignRight={true} tooltip={orderBaseInfo.communityName}/></Col>
-				<Col md={4} ><KrField label="客户名称：" component="labelText" value={orderBaseInfo.customerName} alignRight={true} tooltip={orderBaseInfo.customerName}/></Col>
-				<Col md={4} ><KrField label="订单名称：" component="labelText"  value={orderBaseInfo.mainbillname} tooltip={orderBaseInfo.mainbillname} alignRight={true}/>
-				</Col>
-
-				</Row>
-
-				<Row>
-				<Col md={4} ><KrField label="当前工位数：" component="labelText" value={orderBaseInfo.stationnum} defaultValue="0" alignRight={true}/></Col>
-				<Col md={4} ><KrField label="订单编号："  component="labelText" value={orderBaseInfo.mainbillcode} defaultValue="无" alignRight={true}/></Col>
-				<Col md={4} ><KrField label="起始日期：" component="labelText" value={orderBaseInfo.contractEntrydate} type="date" defaultValue="无" alignRight={true}/></Col>
-				</Row>
-				<Row>
-				<Col md={4} ><KrField label="结束日期：" component="labelText" value={orderBaseInfo.contractLeavedate} type="date" defaultValue="无" alignRight={true}/></Col>
-				<Col md={4} ><KrField label="撤场日期：" component="labelText" value={orderBaseInfo.actualLeavedate} type="date" defaultValue="无" alignRight={true}/></Col>
-				<Col md={4} ><KrField label="订单总额：" component="labelText" value={orderBaseInfo.contractTotalamount} defaultValue="0" alignRight={true}/></Col>
-				</Row>
-
-				<Row>
-				<Col md={4} ><KrField label="回款总额：" component="labelText" value={orderBaseInfo.contractBackamount} defaultValue="0" alignRight={true}/></Col>
-				<Col md={4} ><KrField label="未回款额：" component="labelText" value={orderBaseInfo.unBackamount} defaultValue="0" alignRight={true}/></Col>
-				<Col md={4} ><KrField label="工位回款：" component="labelText" value={orderBaseInfo.paidrent} defaultValue="0" alignRight={true}/></Col>
-				</Row>
-			<Row>
-				<Col md={4} ><KrField label="实收押金：" component="labelText" value={orderBaseInfo.realdeposit} defaultValue="0" alignRight={true}/></Col>
-				<Col md={4} ><KrField label="实收定金：" component="labelText" value={orderBaseInfo.realdownpayment} defaultValue="0" alignRight={true}/></Col>
-				<Col md={4} ><KrField label="其他回款：" component="labelText" value={orderBaseInfo.refundamount} defaultValue="0" alignRight={true}/></Col>
-				</Row>
-
-				<Row>
-				<Col md={4} ><KrField label="营业外收入回款：" component="labelText" value={orderBaseInfo.nonbusinessincomeBackamount} width={150} defaultValue="0" alignRight={true}/></Col>
-				<Col md={4} ><KrField label="生活消费收入回款：" component="labelText" value={orderBaseInfo.liveincomeBackamount} width={160} defaultValue="0" alignRight={true}/></Col>
-				<Col md={4} ><KrField label="工位收入：" component="labelText" value={orderBaseInfo.accruedrent} defaultValue="0" alignRight={true}/></Col>
-				</Row>
-
-				<Row>
-
-				<Col md={4} ><KrField label="其他收入：" component="labelText" value={orderBaseInfo.otherincome} defaultValue="0" alignRight={true}/></Col>
-				<Col md={4} ><KrField label="营业外收入：" component="labelText" value={orderBaseInfo.nonbusinessincome} defaultValue="0" alignRight={true}/></Col>
-				<Col md={4} ><KrField label="生活消费收入：" component="labelText" value={orderBaseInfo.liveincome} width={120} defaultValue="0" alignRight={true}/></Col>
-				</Row>
-				<Row>
-				<Col md={4} ><KrField label="订单描述：" component="labelText" value={orderBaseInfo.mainbilldesc} defaultValue="无" alignRight={true}/></Col>
-				</Row>
-
-
-			</Grid>
-
-            <DotTitle title='合同列表'/>
-
-			<Table pageSize={contractList.length} displayCheckbox={false}>
+			<Table className="orders" pageSize={contractList.length} displayCheckbox={false} >
 			<TableHeader>
-			<TableHeaderColumn>合同编号</TableHeaderColumn>
 			<TableHeaderColumn>合同类型</TableHeaderColumn>
-			<TableHeaderColumn>合同总额</TableHeaderColumn>
-			<TableHeaderColumn>合同开始时间</TableHeaderColumn>
-			<TableHeaderColumn>合同结束日期</TableHeaderColumn>
+			<TableHeaderColumn>租金金额</TableHeaderColumn>
+			<TableHeaderColumn>工位个数</TableHeaderColumn>
+			<TableHeaderColumn>会议室个数</TableHeaderColumn>
+			<TableHeaderColumn>起始日期</TableHeaderColumn>
+			<TableHeaderColumn>终止日期</TableHeaderColumn>
+			<TableHeaderColumn>工位/会议室均价(月)</TableHeaderColumn>
+			<TableHeaderColumn>销售员</TableHeaderColumn>
+			<TableHeaderColumn>录入人</TableHeaderColumn>
 			<TableHeaderColumn>操作</TableHeaderColumn>
 			</TableHeader>
 			<TableBody>
 
 			{contractList.map((item,index)=>{
+				
 				return (
 					<TableRow key={index}>
-					<TableRowColumn>{item.contractcode || '无'}</TableRowColumn>
 					{this.getAgrementType(item.contracttype)}
-
-					<TableRowColumn>{item.contractTotalamount}</TableRowColumn>
+					<TableRowColumn>{item.totalrent}</TableRowColumn>
+					<TableRowColumn>{item.stationnum}</TableRowColumn>
+					<TableRowColumn>{item.boardroomnum}</TableRowColumn>
 					<TableRowColumn><KrDate value={item.leaseBegindate}/></TableRowColumn>
-					<TableRowColumn> <KrDate value={item.leaseEnddate}/></TableRowColumn>
+					<TableRowColumn><KrDate value={item.leaseEnddate}/></TableRowColumn>
+					<TableRowColumn>{item.staionOrMeetingPrice}</TableRowColumn>
+					<TableRowColumn>{item.saler}</TableRowColumn>
+					<TableRowColumn>{item.inputUser}</TableRowColumn>
 					<TableRowColumn>
 					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} />
 							{item.contractstate != 'EXECUTE' && item.editFlag && <Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
 
-				{item.contracttype == 'ENTER' && item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
+							{item.contracttype == 'ENTER' && item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
 						{/*
 							{item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除" onTouchTap={this.delArgument.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
 
@@ -517,7 +609,7 @@ export default class OrderDetail extends React.Component {
 			</TableBody>
 			</Table>
 
-            <DotTitle title='分期计划'/>
+			<DotTitle title='分期计划' style={{marginTop:40,marginBottom:30}}/>
 
 			<div className='ui-remark'>
               <div className='ui-circle-remark'><span className='circle-color circle-color-top over-circle'></span><span className='remark-green-text'>已完成</span></div>
@@ -525,34 +617,100 @@ export default class OrderDetail extends React.Component {
               <div className='ui-circle-remark'><span className='circle-color circle-color-top no-pay'></span><span className='remark-green-text'>未付款</span></div>
 			</div>
 
-			{installmentPlan.map((item,index)=>{
-				return (
-					<Grid key={index}>
-					<Row>
-					<Col md={12} align="left" className="ContractNameTitle">{item.detailName}</Col>
-					</Row>
-					{this.renderTableItem(item.antecedent)}
-					{this.renderTableItem(item.earnest)}
-					{item.installment && item.installment.map((list,index)=>{
-							return (
-								<Row key={index} >
-								<Col md={3} align="left" className="ContractName"><Circle type={list.payStatus}/>款项：{list.installmentName}</Col>
-								<Col md={3} align="left" className="ContractName">计划付款日期：<KrDate value={list.installmentReminddate}/></Col>
-								<Col md={3} align="left" className="ContractName">计划付款金额：{list.installmentAmount}</Col>
-								{list.installmentBackamount>0?<Col md={3} align="left" className="ContractName">实际付款金额：<span>{list.installmentBackamount}</span></Col>:<Col md={3} align="left" className="ContractName">实际付款金额：<span style={{color:'red'}}>{list.installmentBackamount}</span></Col>}
+			<div className="planList">
+				<div className="headerList">
+					<div className="type">类型</div>
+					<div className="fund">款项</div>
+					<div className="Begindate">分期开始时间</div>
+					<div className="Enddate">分期结束时间</div>
+					<div className="planMoney">计划付款金额</div>
+					<div className="actualMoney">实际付款金额</div>
+					<div className="status">状态</div>
+				</div>
+				{installmentPlan && installmentPlan.map((item,index)=>{
+					return(
+						<div className="contentList"  key={index}>
+							<div className="type">
+								<div className="typeCon">
+									<div className="p">{item.detailName}{item.detailStart}至{item.detailEnd}</div>
+								</div>
+								
+							</div>
+							<div className="Conlist">
+							{item.installment && item.installment.map((items,indexs)=>{
+								return(
+										<div className="list" key={indexs}>
+											<div className="fund">{items.installmentName}</div>
+											<div className="Begindate"><KrDate value={items.installmentBegindate}/></div>
+											<div className="Enddate"><KrDate value={items.installmentEnddate}/></div>
+											<div className="planMoney">{items.installmentAmount}</div>
+											<div className="actualMoney">{items.installmentBackamount}</div>
+											<div className="status">
+												<Circle type={items.payStatus}></Circle>
+											</div>
+										</div>
+								)
+
+							})}
+							</div>
+							
+						</div>
+
+
+					)
+
+
+				})}
+					
+
+
+			</div>
+			
+            <DotTitle title='订单描述' style={{marginTop:24}}/>
+			<div className="orderList">
+			<Grid style={{marginTop:40}} >
+				<Row>
+				<Col md={4}><KrField label="社区名称"component="labelText" value={orderBaseInfo.communityName} defaultValue="无" alignRight={true} tooltip={orderBaseInfo.communityName}/></Col>
+				<Col md={4}><KrField label="客户名称" component="labelText" value={orderBaseInfo.customerName} alignRight={true} tooltip={orderBaseInfo.customerName}/></Col>
+				<Col md={4}><KrField label="订单名称" oldText={orderBaseInfo.mainbillname} component="editLabelText" tooltip={orderBaseInfo.mainbillname}  alignRight={true} save={this.change}  /></Col>
+				</Row>
+				<Row>
+				<Col  md={4} ><KrField label="当前工位数" component="labelText" value={orderBaseInfo.stationnum} defaultValue="0" alignRight={true}/></Col>
+				<Col  md={4} ><KrField label="订单编号"  component="labelText" value={orderBaseInfo.mainbillcode} defaultValue="无" alignRight={true}/></Col>
+				<Col  md={4} ><KrField label="起始日期" component="labelText" value={orderBaseInfo.contractEntrydate} type="date" defaultValue="无" alignRight={true}/></Col>
+				</Row>
+				<Row>
+				<Col  md={4} ><KrField label="结束日期" component="labelText" value={orderBaseInfo.contractLeavedate} type="date" defaultValue="无" alignRight={true}/></Col>
+				<Col  md={4} ><KrField label="撤场日期" component="labelText" value={orderBaseInfo.actualLeavedate} type="date" defaultValue="无" alignRight={true}/></Col>
+				<Col  md={4} ><KrField label="订单总额" component="labelText" value={orderBaseInfo.contractTotalamount} defaultValue="0" alignRight={true}/></Col>
+				</Row>
+
+				<Row>
+				<Col  md={4} ><KrField label="回款总额" component="labelText" value={orderBaseInfo.contractBackamount} defaultValue="0" alignRight={true}/></Col>
+				<Col  md={4} ><KrField label="未回款额" component="labelText" value={orderBaseInfo.unBackamount} defaultValue="0" alignRight={true}/></Col>
+				<Col  md={4} ><KrField label="工位回款" component="labelText" value={orderBaseInfo.paidrent} defaultValue="0" alignRight={true}/></Col>
+				</Row>
+				<Row>
+				<Col  md={4} ><KrField label="实收押金" component="labelText" value={orderBaseInfo.realdeposit} defaultValue="0" alignRight={true}/></Col>
+				<Col  md={4} ><KrField label="实收定金" component="labelText" value={orderBaseInfo.realdownpayment} defaultValue="0" alignRight={true}/></Col>
+				<Col  md={4} ><KrField label="其他回款" component="labelText" value={orderBaseInfo.refundamount} defaultValue="0" alignRight={true}/></Col>
+				</Row>
+				{/*				<Row>
+								<Col  md={4} ><div className="staion">工位编号</div><div className="view"  onTouchTap={this.onView} >点击查看</div></Col>
+								<Col  md={4} ><div className="staion"></div><div className="view"></div></Col>
+								<Col  md={4} ><div className="staion"></div><div className="view"></div></Col>
 								</Row>
-							)
-						})
-					}
+				*/}
+			</Grid>
 
-					</Grid>
-				);
-			})}
-			<span className="border-bottom"></span>
+            </div>
 
-
-
+            
+			<span className="border-bottom" style={{marginTop:60}}></span>
+			
           	</div>
+          	
+          	
 			</Section>
 
 
@@ -571,7 +729,7 @@ export default class OrderDetail extends React.Component {
 			modal={true}
 			onClose={this.openDelAgreementDialog}
 			open={this.state.openDelAgreement}
-			contentStyle={{width:387}}>
+			contentStyle={{width:445,height:236}}>
 				<DelAgreementNotify onSubmit={this.confirmDelAgreement} onCancel={this.openDelAgreementDialog.bind(this,0)}/>
 			</Dialog>
 			</div>
