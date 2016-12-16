@@ -102,7 +102,8 @@ export default class Calendar extends React.Component {
 		let valueArr = [];
 
 		if(!value){
-				value = +new Date;
+				var nowDate = new Date();
+				value = `${nowDate.getFullYear()}-${nowDate.getMonth()+1}-${nowDate.getDate()}`;
 		}
 
 	if(!isNaN(value)){

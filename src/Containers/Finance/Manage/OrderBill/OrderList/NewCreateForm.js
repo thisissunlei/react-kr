@@ -106,7 +106,6 @@ class NewCreateForm extends Component {
 		return (
 
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:45,marginLeft:44}}>
-
 				<KrField grid={1/2} right={35} style={{height:36,marginBottom:28}} name="mainbillname" type="text" label="订单名称"/>
 				<KrField grid={1/2}  component="labelText"/>
 				<KrField right={35} grid={1/2}  name="communityid" style={{marginTop:'7px'}} component="searchCommunity" label="所属社区" onChange={this.onChangeCommunity}/>
