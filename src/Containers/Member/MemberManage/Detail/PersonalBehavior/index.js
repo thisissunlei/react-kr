@@ -103,12 +103,14 @@ export default class PersonalBehavior extends Component {
 			});
 	}
 	onLoaded(response) {
+		// console.log(response,"response");
 		let list = response;
 		this.setState({
 			list
 		})
 	}
 	render() {
+
 		return (
 			<div style={{height:'860'}}>
 				<div style={{width:'100%',height:75}}>
