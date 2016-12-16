@@ -37,6 +37,7 @@ import {
 	Field,
 	FieldControl,
 	InputDate,
+	CircleStyle
 } from 'kr-ui';
 
 import {
@@ -103,6 +104,7 @@ export default class Demo extends Component {
 		return (
 			<div>
 					<Section title="demo" description="" >
+						<CircleStyle num={2} info='demo杨区' circle='bottom' style={{marginTop:30,marginRight:30}}>
 						<KrField grid={1/2} label='city' component='city' onSubmit={this.list}/>
 
 						<KrField oldText={"123"} label="订单名称" inline="inline" alignRight={true} component="editLabelText" save={this.ll} />
@@ -144,6 +146,7 @@ export default class Demo extends Component {
 						 <FlatButton icon={<FontIcon className={'icon-basis'} />} style={{color:'#499df1',height:36,width:100}} />
 
 							 </KrForm>
+						</CircleStyle>	 
 					</Section>
 			</div>
 

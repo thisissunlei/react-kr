@@ -514,10 +514,10 @@ class NewCreateForm extends Component {
 						<ListGroupItem style={{width:'45%',padding:0,marginTop:'-10px'}}> <KrField name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} simple={true}/> </ListGroupItem>
 					</ListGroup>
 				</KrField>
-				<div className="detail-list">			
+				<div className="detail-list" style={{marginTop:"-20px"}}>			
 				<DotTitle title='租赁明细'>
 
-				       <Grid>
+				       <Grid style={{marginTop:"-30px"}}>
 							<Row>
 								<Col align="right">
 									<ButtonGroup>
