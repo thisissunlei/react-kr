@@ -633,7 +633,7 @@ class NewCreateForm extends Component {
 					<KrField  style={{width:370,marginLeft:90}}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true}
 					requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 						<KrField style={{width:370,marginLeft:70}}  name="stationnum" component="labelText" type="text" label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>
-					<KrField  style={{width:370,marginLeft:90}} name="boardroomnum" component="labelText" type="text" label="租赁会议室" value={changeValues.station} defaultValue="0" requireLabel={true} inline={false}/>
+					<KrField  style={{width:370,marginLeft:90}} name="boardroomnum" component="labelText" type="text" label="租赁会议室" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/>
 
 					<KrField  style={{width:830,marginLeft:70}}  name="contractmark" component="textarea" label="备注" maxSize={200}/>
 				</CircleStyle>
