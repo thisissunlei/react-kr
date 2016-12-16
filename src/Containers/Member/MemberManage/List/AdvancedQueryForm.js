@@ -52,7 +52,7 @@ class NewCreateForm extends Component{
 	}
 	// 点确定提交时候如果有错误提示返回，否则提交,,如果邮箱存在有错误提示，不能提交
 	 onSubmit(values){
-		  console.log('onAdvanceSearchSubmit高级查询',values);
+		  // console.log('onAdvanceSearchSubmit高级查询',values);
 		 const {onSubmit} = this.props;
 		 onSubmit && onSubmit(values);
 	 }
@@ -90,6 +90,11 @@ class NewCreateForm extends Component{
 		 Store.dispatch(change('AdvancedQueryForm','city',values));
 		//  console.log('city',values);
 	 }
+	 onFilter=(search)=>{
+		//  console.log('--------search',search);
+		 Store.dispatch(change('AdvancedQueryForm','type',search.value));
+		 Store.dispatch(change('AdvancedQueryForm','value',search.content));
+	 }
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
 		let communityText = '';
@@ -110,19 +115,19 @@ class NewCreateForm extends Component{
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
-			{/*
-
-		<SearchForm searchFilter={options} style={{width:252,marginBottom:10}} defaultFilter={filter} defaultContent={content}/>
-
-				*/}
+		<ListGroup>
+			<ListGroupItem>
+				<SearchForm searchFilter={options} style={{width:252,marginBottom:10}} defaultFilter={filter} defaultContent={content} onSubmit={this.onFilter}/>
+			</ListGroupItem>
+		</ListGroup>
 
 				<KrField name="work"  component="city" label="工作地点"  style={{display:'block',width:'252px',marginRight:24}} onSubmit={this.city}/>
 				<KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption}/>
 				<KrField name="from"  grid={1/2} component="select" label="注册来源" options={selectSourceOption}/>
         <ListGroup>
-				<ListGroupItem style={{width:540,paddingLeft:10,color:'#333333'}}>
+					<ListGroupItem style={{width:540,paddingLeft:10,color:'#333333'}}>
 
-				</ListGroupItem>
+					</ListGroupItem>
         	<ListGroupItem style={{textAlign:'center',padding:0}}></ListGroupItem>
           <ListGroupItem style={{padding:0}}>
               <KrField name="startDate"  component="date" style={{width:'252px'}} simple={true}/>
@@ -148,8 +153,6 @@ class NewCreateForm extends Component{
 		);
 	}
 }
-
-
 export default NewCreateForm = reduxForm({
 	form: 'AdvancedQueryForm',
 	// validate,

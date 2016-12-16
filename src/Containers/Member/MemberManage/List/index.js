@@ -50,7 +50,6 @@ export default class List extends Component {
 			openView: false,
 			openEditDetail: false,
 			openAdvancedQuery :false,
-			openA: false,
 			itemDetail: {},
 			item: {},
 			list: {},
@@ -64,12 +63,12 @@ export default class List extends Component {
 				companyId:'',
 				cityId:'',
 				filter:'',
-				content:''
+				content:'',
+				type:'COMP_NAME',
+				value:'',
 			}
-
-
-
 		}
+
 	}
 	editMember(itemDetail){
 		this.setState({
@@ -98,16 +97,6 @@ export default class List extends Component {
 			}
 		});
 	}
-	// 打开高级搜索
-	openAdvancedQueryDialog(){
-		// console.log("value",value);
-		this.setState({
-			openAdvancedQuery: !this.state.openAdvancedQuery,
-			searchParams:{
-				pageSize:'15'
-			}
-		});
-	}
 	onChangeSearchPersonel(personel) {
 		Store.dispatch(change('joinCreateForm', 'lessorContacttel', personel.mobile));
 		Store.dispatch(change('joinCreateForm', 'lessorContactName', personel.lastname));
@@ -120,6 +109,7 @@ export default class List extends Component {
 	onChangeSearchCompany(company) {
 		Store.dispatch(change('joinCreateForm', 'companyName', company.companyName));
 	}
+
 	onNewCreateCancel() {
 		this.openNewCreateDialog();
 	}
@@ -201,43 +191,49 @@ export default class List extends Component {
 			Message.error(error.message);
 		});
 	}
+	// 打开高级查询
+	openAdvancedQueryDialog(){
+		// console.log("value",value);
+		this.setState({
+			openAdvancedQuery: !this.state.openAdvancedQuery,
+			searchParams:{
+				pageSize:'15'
+			}
+		});
+	}
 	// 高级查询
 	onAdvanceSearchSubmit=(values)=>{
-		console.log('onAdvanceSearchSubmit高级查询',values);
 		let _this = this;
-		let searchParam = {
-			cityId     :values.cityId,
-			// value      :value.content,
-			endTime    :values.endTime,
-			companyId  :values.companyId,
-			pageSize   :values.pageSize,
-			jobId      :values.jobId,
-			page       :values.page,
-			registerSourceId :value.registerSourceId,
-			// type    :value.type,
-			startTime  :values.startTime
+		let searchParams = {
+			value :values.value || '',
+			type :values.type || '',
+			cityId :values.city || '',
+			endTime :values.endDate || '',
+			startTime :values.startDate || '',
+			registerSourceId:values.registerSourceId || '',
+			jobId :values.jobId || ''
 		}
+		// console.log("searchParams",searchParams);
 		_this.setState({
-			// content :value.content,
-			// filter :value.filter
-			cityId     :values.cityId,
-			endTime    :values.endTime,
-			companyId  :values.companyId,
-			pageSize   :values.pageSize,
-			jobId      :values.jobId,
-			page       :values.page,
-			registerSourceId :value.registerSourceId,
-			startTime  :values.startTime
+			openAdvancedQuery: !this.state.openAdvancedQuery,
+			searchParams :{
+				value :values.value || '',
+				type :values.type || '',
+				cityId :values.city || '',
+				endTime :values.endDate || '',
+				startTime :values.startDate || '',
+				jobId :values.jobId || ''
+			}
 		})
-		Store.dispatch(Actions.callAPI('membersList',searchParam)).then(function(response){
-			// _this.setState({
-			// 	searchParams:{
-			// 		page:1,
-			// 		pageSize:15,
-			// 		value :value.content,
-			// 		type :value.filter
-			// 	}
-			// })
+		Store.dispatch(Actions.callAPI('membersList',searchParams)).then(function(response){
+			_this.setState({
+				searchParams:{
+					page:1,
+					pageSize:15,
+					value :value.content,
+					type :value.filter
+				}
+			})
 
 		}).catch(function(err){
 			Message.error(error.message);

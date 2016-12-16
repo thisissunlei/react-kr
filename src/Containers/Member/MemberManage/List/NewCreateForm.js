@@ -59,15 +59,18 @@ export default class CreateMemberForm extends Component{
 		 onCancel && onCancel();
 	 }
 	 componentDidMount(){
+
 	//  新增会员准备职位数据
 		 let _this =this;
+		//  console.log("________职位准备数据");
 		 Store.dispatch(Actions.callAPI('getMemberBasicData')).then(function(response){
-			 response[0].jobList.forEach(function(item,index){
+			//  console.log(response,"response");
+			 response.jobList.forEach(function(item,index){
 				 item.value = item.id;
 				 item.label = item.jobName;
 			 });
 			 _this.setState({
-				selectOption:response[0].jobList
+				selectOption:response.jobList
 			})
 		 }).catch(function(err){
 			 reject(err);
@@ -81,8 +84,8 @@ export default class CreateMemberForm extends Component{
 		 Store.dispatch(Actions.callAPI('isPhoneRegistered',params)).then(function(response){
 			//  检验response是不是空对象
 				if(!$.isEmptyObject(response)){
-					Store.dispatch(initialize('NewCreateForm',response));
-					// console.log("response",response);
+					Store.dispatch(initialize('createMemberForm',response));
+					console.log("response",response);
 					// 此处要有提示
 				}
 		 }).catch(function(err){
@@ -112,7 +115,7 @@ export default class CreateMemberForm extends Component{
         <KrField grid={1/2} name="email" type="text" label="邮箱" requireLabel={true}
 				   requiredValue={true} pattern={/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/} errors={{requiredValue:'邮箱为必填项',pattern:'请输入正确邮箱地址'}}/>
 				<KrField grid={1/2} name="companyId" component="searchCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
-        <KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} requireLabel={true} />
+        <KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} requireLabel={true}/>
 				<KrField grid={1/2} name="name" type="text" label="姓名" requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}}/>
 				<KrField grid={1/2} name="enableflag" component="group" label="发送验证短信" requireLabel={true}>
 						<KrField name="enableflag" grid={1/4} label="是" type="radio" value="ENABLE"/>

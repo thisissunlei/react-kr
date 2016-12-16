@@ -11,7 +11,7 @@ import WrapComponent from '../WrapComponent';
 export default class  SearchCompanyComponent extends React.Component {
 
 	static defaultProps = {
-		placeholder:'请输入公司名称'
+		placeholder:'请输入公司名称测试'
 	}
 
 	static PropTypes = {
@@ -39,8 +39,9 @@ export default class  SearchCompanyComponent extends React.Component {
 	getOptions(companyText){
 		return new Promise((resolve, reject) => {
 			Store.dispatch(Actions.callAPI('getCompanyByCompanyText',{ companyText:companyText })).then(function(response){
+				console.log('getCompanyByCompanyTextresponse',response);
 				response.forEach(function(item,index){
-					console.log('getCompanyByCompanyText',response);
+
 					item.value = item.companyId;
 					item.label = item.companyName;
 				});
