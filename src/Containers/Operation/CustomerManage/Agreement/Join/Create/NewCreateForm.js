@@ -536,7 +536,7 @@ class NewCreateForm extends Component {
 								</Col>
 							</Row>
 						</Grid>
-				<div  className={HeightAuto?'auto':'station-list'} style={{marginTop:"-10px"}}>
+		<div  className={HeightAuto?'auto':'station-list'} style={{marginTop:"-10px"}}>
 				<Table  displayCheckbox={true} onSelect={this.onStationSelect}>
 				<TableHeader>
 				<TableHeaderColumn>类别</TableHeaderColumn>
@@ -627,15 +627,14 @@ class NewCreateForm extends Component {
 
 					<KrField  style={{width:370,marginLeft:70}}  name="firstpaydate" component="date" label="首付款时间" requireLabel={true}  />
 
-					<KrField style={{width:830,marginLeft:70}} name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用"   requireLabel={true}
-					 requiredValue={true} pattern={/^.{0,100}$/} errors={{requiredValue:'租赁用途为必填项',pattern:'租赁用途最大50位'}}/>
+					
 
-					<KrField  style={{width:370,marginLeft:70}} name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true}
+					<KrField  style={{width:370,marginLeft:90}} name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true}
 					requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
-					<KrField  style={{width:370,marginLeft:90}}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true}
+					<KrField  style={{width:370,marginLeft:70}}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true}
 					requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
-						<KrField style={{width:370,marginLeft:70}}  name="stationnum" component="labelText" type="text" label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>
-					<KrField  style={{width:370,marginLeft:90}} name="boardroomnum" component="labelText" type="text" label="租赁会议室" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/>
+						<KrField style={{width:370,marginLeft:90}}  name="stationnum" component="labelText" type="text" label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>
+					<KrField  style={{width:370,marginLeft:70}} name="boardroomnum" component="labelText" type="text" label="租赁会议室" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/>
 
 					<KrField  style={{width:830,marginLeft:70}}  name="contractmark" component="textarea" label="备注" maxSize={200}/>
 				</CircleStyle>
@@ -727,9 +726,7 @@ const validate = values => {
 		errors.fileIdList = '请输入合同附件';
 	}
 
-	if (!values.rentaluse) {
-		errors.rentaluse = '请输入租赁用途';
-	}
+
 	if (!String(values.totalrent)) {
 		errors.totalrent = '请输入租金总额';
 	}
