@@ -37,7 +37,12 @@ import {
 	Field,
 	FieldControl,
 	InputDate,
+
 	CircleStyle
+
+	SearchForm,
+	SnackTip
+
 } from 'kr-ui';
 
 import {
@@ -97,15 +102,33 @@ export default class Demo extends Component {
 	list = (value) => {
 		console.log('city', value);
 	}
+	onSubmit=(value)=>{
+		console.log('demo',value);
+	}
 
 
 
-	render() {
-		return (
+
+	render(){
+		let list = [
+			{label:'选择公司1',value:1},
+			{label:'选择公司2',value:2},
+			{label:'选择公司3',value:3},
+			{label:'选择公司4',value:4},
+			{label:'选择公司5',value:5},
+		]
+		return(
+
 			<div>
+
 					<Section title="demo" description="" >
+
 						<CircleStyle num={2} info='demo杨区' circle='bottom' style={{marginTop:30,marginRight:30}}>
+
+					    <SnackTip style={{'background':'#69bbf0'}} title='snack'/>
+
 						<KrField grid={1/2} label='city' component='city' onSubmit={this.list}/>
+						<SearchForm searchFilter={list} grid={1/2} onSubmit={this.onSubmit}/>
 
 						<KrField oldText={"123"} label="订单名称" inline="inline" alignRight={true} component="editLabelText" save={this.ll} />
 						<KrForm name="demoForm" onSubmit={function(values){
@@ -146,7 +169,15 @@ export default class Demo extends Component {
 						 <FlatButton icon={<FontIcon className={'icon-basis'} />} style={{color:'#499df1',height:36,width:100}} />
 
 							 </KrForm>
-						</CircleStyle>	 
+
+						</CircleStyle>
+
+
+	<span>dsadsd
+		<Tooltip>ccc</Tooltip>
+	</span>
+
+
 					</Section>
 			</div>
 

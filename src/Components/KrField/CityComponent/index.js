@@ -52,9 +52,9 @@ export default class CityComponent extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (!this.isInit && nextProps.input.value) {
-			this.setDefaultDate(nextProps.input.value);
-		}
+		// if (!this.isInit && nextProps.input.value) {
+		// 	this.setDefaultDate(nextProps.input.value);
+		// }
 	}
 
 	firstCityList=()=>{
@@ -142,6 +142,11 @@ export default class CityComponent extends React.Component {
 	}
 
 	showCity=()=>{
+		let {showCity} = this.state;
+		if(showCity){
+			return;
+		}
+		this.bodyEvent();
 		this.setState({
 			showCity:true
 		})	
@@ -208,7 +213,7 @@ export default class CityComponent extends React.Component {
 			background:'#f5f5f5'
 		}
 		let hoverColor = {};
-		this.bodyEvent();
+		
 
 
 		

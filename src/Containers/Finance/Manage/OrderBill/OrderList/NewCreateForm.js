@@ -8,7 +8,8 @@ import {
 
 import {
 	reduxForm,
-	formValueSelector
+	formValueSelector,
+	change
 } from 'redux-form';
 import {
 	Actions,
@@ -41,7 +42,6 @@ class NewCreateForm extends Component {
 		this.onCancel = this.onCancel.bind(this);
 
 		this.state = {
-			communityList: [],
 			mainbilltypeList: []
 		}
 
@@ -49,27 +49,17 @@ class NewCreateForm extends Component {
 	componentDidMount() {
 
 		var _this = this;
-		Store.dispatch(Actions.callAPI('getFinaDataCommunityAndMainBillType')).then(function(response) {
+		Store.dispatch(Actions.callAPI('getMainBillTypeList')).then(function(response) {
 
-			const communityList = response.communityList
 			const mainbilltypeList = response.mainbilltypeList
-
-
-
-			communityList.map(function(item, index) {
-				item.label = item.communityname;
-				item.value = item.id
-				return item;
-			});
 
 			mainbilltypeList.map(function(item, index) {
 				item.label = item.mainBillTypeDesc;
-				item.value = item.mainbilltype;
+				item.value = item.mainBillTypeValue;
 				return item;
 			});
 
 			_this.setState({
-				communityList,
 				mainbilltypeList
 			});
 
@@ -82,6 +72,8 @@ class NewCreateForm extends Component {
 
 
 	}
+
+
 	onSubmit(values) {
 		const {
 			onSubmit
@@ -97,7 +89,9 @@ class NewCreateForm extends Component {
 		onCancel && onCancel();
 
 	}
-
+    onChangeCommunity=(community)=>{
+		Store.dispatch(change('newCreateForm','communityid',community.id));
+    }
 	render() {
 
 
@@ -111,13 +105,14 @@ class NewCreateForm extends Component {
 
 		return (
 
+
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
-				<KrField grid={1/2} right={27} style={{height:36,marginBottom:28}} name="customername" type="text" label="公司名称"/>
+
+				<KrField grid={1/2} right={35} style={{height:36,marginBottom:28}} name="mainbillname" type="text" label="订单名称"/>
 				<KrField grid={1/2}  component="labelText"/>
-				<KrField grid={1/2} right={27} name="communityid"  style={{marginTop:7}} type="select" label="所属社区" options={this.state.communityList} >
-				</KrField>
-				<KrField  grid={1/2} right={27} name="mainbilltype" type="select" style={{marginTop:7}} label="订单类型" options={this.state.mainbilltypeList}>
+				<KrField right={35} grid={1/2}  name="communityid" style={{marginTop:'7px'}} component="searchCommunity" label="所属社区" onChange={this.onChangeCommunity}/>
+				<KrField  grid={1/2} right={35} name="mainBillTypeValue" type="select" style={{marginTop:7,marginLeft:-6}} label="订单类型" options={this.state.mainbilltypeList}>
 				</KrField>
 				<KrField grid={1/1}  component="group" label="查询区间" style={{marginTop:3}}>
 				<div className='ui-listDate'><ListGroup>

@@ -29,7 +29,7 @@ import './index.less';
 import SearchDateForm from './SearchDateForm';
 
 export default class Initialize  extends Component{
-     
+
     static propTypes = {
 		 groupId:React.PropTypes.number,
 		 todayDate:React.PropTypes.string
@@ -47,17 +47,16 @@ export default class Initialize  extends Component{
 			}
 
 		}
-		
+
 	}
-    
-   
+
     onStartChange=(startDate)=>{
     	let {searchParams}=this.state;
         let start=Date.parse(dateFormat(startDate,"yyyy-mm-dd hh:MM:ss"));
         let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
-        if(start>end){  
-         Message.error('开始时间不能大于结束时间');        
-          return ; 
+        if(start>end){
+         Message.error('开始时间不能大于结束时间');
+          return ;
         }
     	searchParams = Object.assign({}, searchParams, {startDate});
     	this.setState({
@@ -65,38 +64,34 @@ export default class Initialize  extends Component{
 		});
     }
     onEndChange=(endDate)=>{
-    	let {searchParams}=this.state;	
+    	let {searchParams}=this.state;
         let start=Date.parse(dateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
         let end=Date.parse(dateFormat(endDate,"yyyy-mm-dd hh:MM:ss"));
         if(start>end){
-          Message.error('开始时间不能大于结束时间');  
-          return ;  
+          Message.error('开始时间不能大于结束时间');
+          return ;
         }
         searchParams = Object.assign({}, searchParams, {endDate});
     	this.setState({
 			searchParams
 		});
     }
-   
-    
-    
+    render(){
+    	let {searchParams}=this.state;
 
-    render(){   	
-    	let {searchParams}=this.state;	
-        
 	return(
          <div className='open-back' style={{background:'#fff',marginBottom:'20'}}>
 			<div className='ui-open-info'>
 				   <Grid style={{height:'76'}}>
 						<Row>
-							<Col align="left" md={4} style={{marginTop:'25'}}> 
+							<Col align="left" md={4} style={{marginTop:'25'}}>
 							 <span  className='ui-pic-open'>招商数据统计-</span>
-							 <span  className='static-openCompany'>已开业</span>	
-							 <span  className='static-upload'>实时更新</span>	
-							</Col> 
-							<Col align="right" md={8}> 
+							 <span  className='static-openCompany'>已开业</span>
+							 <span  className='static-upload'>实时更新</span>
+							</Col>
+							<Col align="right" md={8}>
 							  <SearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange} todayDate={searchParams.startDate} todayEndDate={searchParams.endDate}/>
-							</Col> 
+							</Col>
 						</Row>
 					</Grid>
 
