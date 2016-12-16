@@ -147,7 +147,7 @@ class NewCreateForm extends Component {
 			}
 		});
 
-		console.log('--->>',stationnum,boardroomnum);
+		console.log('--->>', stationnum, boardroomnum);
 
 		Store.dispatch(change('joinCreateForm', 'stationnum', stationnum));
 		Store.dispatch(change('joinCreateForm', 'boardroomnum', boardroomnum));
@@ -423,7 +423,7 @@ class NewCreateForm extends Component {
 
 		this.openStationDialog();
 
-		console.log('--->>选择的工位',billList);
+		console.log('--->>选择的工位', billList);
 
 		if (!billList) {
 			return;
@@ -512,17 +512,19 @@ class NewCreateForm extends Component {
 				<CircleStyle num="1" info="租赁明细">
 
 				<KrField name="wherefloor" style={{width:370,marginLeft:70}} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true}/>
-				<KrField grid={1/2} left={20}  component="group" label="租赁期限" requireLabel={true}>
+				<KrField style={{width:370,marginLeft:90}} left={20}  component="group" label="租赁期限" requireLabel={true}>
 					<ListGroup>
-						<ListGroupItem style={{width:'45%',padding:0,marginLeft:'-10px',marginTop:'-10px'}}> <KrField name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/></ListGroupItem>
-						<ListGroupItem style={{width:'5%',textAlign:'center',padding:0,marginLeft:10,marginTop:'-10px'}}><span style={{display:'inline-block',lineHeight:'58px'}}>至</span></ListGroupItem>
+						<ListGroupItem style={{width:'47%',padding:0,marginLeft:'-10px',marginTop:'-10px'}}> <KrField name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/></ListGroupItem>
+						<ListGroupItem style={{width:'6%',textAlign:'center',padding:0,marginLeft:10,marginTop:'-10px'}}><span style={{display:'inline-block',lineHeight:'58px'}}>至</span></ListGroupItem>
 						<ListGroupItem style={{width:'45%',padding:0,marginTop:'-10px'}}> <KrField name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} simple={true}/> </ListGroupItem>
 					</ListGroup>
 				</KrField>
-				<div className="detail-list" style={{marginTop:"-20px"}}>
+
+				<div className="detail-list" style={{marginTop:"-35px"}}>			
+
 				<DotTitle title='租赁明细'>
 
-				       <Grid style={{marginTop:"-30px"}}>
+				       <Grid style={{marginTop:"-40px"}}>
 							<Row>
 								<Col align="right">
 									<ButtonGroup>
@@ -534,7 +536,7 @@ class NewCreateForm extends Component {
 								</Col>
 							</Row>
 						</Grid>
-				<div  className={HeightAuto?'auto':'station-list'}>
+				<div  className={HeightAuto?'auto':'station-list'} style={{marginTop:"-10px"}}>
 				<Table  displayCheckbox={true} onSelect={this.onStationSelect}>
 				<TableHeader>
 				<TableHeaderColumn>类别</TableHeaderColumn>
