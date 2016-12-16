@@ -212,7 +212,6 @@ export default class ItemTable extends Component {
 
     var _this = this;
     var id = communityids;
-    console.log('detail',detail);
 
     return (
 

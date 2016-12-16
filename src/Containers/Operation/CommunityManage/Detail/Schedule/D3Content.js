@@ -107,9 +107,7 @@ export default class D3Content extends Component {
       });
     }
     this.NodeList = this.getSameTime();
-    console.log('swqw',this.NodeList);
 	this.sameNode = this.NodeList[0];
-    console.log('sameNode',this.sameNode);
 
 
   }
@@ -261,7 +259,6 @@ export default class D3Content extends Component {
 			return JSON.parse(u)
 		});
 		let NodeList = [sameNode, finaBluePointVoList, finaRedPointVoList];
-		console.log('NodeList',NodeList);
 		return NodeList;
 	}
 
@@ -272,21 +269,15 @@ export default class D3Content extends Component {
 		} = this.props;
 
 		const that = this;
-		let finaBluePointVoList = finaBluePointVo.map((item) => {
+		let finaBluePointVoList = finaBluePointVo.map((item,index) => {
 			item.pointDay = that.countDays(item.pointDate);
-			return item;
+			item.left = (Math.round((that.countDays(item.pointDate)/365)*100)/100)*100;
+			if(item.left>0){
+				return item;
+			}
+			return false
 		});
-		// if (this.sameNode.length) {
-		// 	this.sameNode.map((item) => {
-		// 		item.pointDay = that.countDays(item.pointDate);
-		// 		finaBluePointVoList.map((value, index) => {
-		// 			if (item.pointDay === value.pointDay) {
-		// 				finaBluePointVoList.splice(index, 1);
-		// 			}
-		// 		})
-		// 	})
-
-		// }
+		console.log('finaBluePointVoList',finaBluePointVoList);
 		return finaBluePointVoList;
 
 	}
@@ -390,7 +381,6 @@ export default class D3Content extends Component {
 	renderRedInfo=()=>{
 		let {infoList} = this.state;
 		let item = infoList || [];
-		console.log('item',item);
 		let id = this.props.id;
 		return (
 			<Tooltip  place="top" type="dark" effect="solid" id={`${item.pointDate}${id}`} offsetTop={250}>
@@ -459,7 +449,6 @@ export default class D3Content extends Component {
 			currentYear
 		} = this.props;
 		let that = this;
-		console.log('render',detail);
 		if (detail.length) {
 			// 获取当前时间
 			var timestamp = new Date().getTime();
@@ -518,11 +507,10 @@ export default class D3Content extends Component {
 				}
 				{
 					blueNodeList && blueNodeList.map((item,index)=>{
-						return (
-							<span className='blue-node' key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`}} data-tip data-for={`${item.pointDate}${id}sameblue`} onMouseOver={this.getBlueInfo.bind(this,item)}>
+						{item?<span className='blue-node' key={index} style={{marginLeft:`${item.left}%`}} data-tip data-for={`${item.pointDate}${id}sameblue`} onMouseOver={this.getBlueInfo.bind(this,item)}>
 							{this.renderBlueInfo()}
-							</span>
-						)
+							</span>:""}
+						
 					})
 				}
 				{

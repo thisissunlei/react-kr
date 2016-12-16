@@ -324,7 +324,6 @@ export default class BasicTable extends Component {
 					}
 
 					if (totalPages > page) {
-						console.log('isLoadingisLoading');
 						len += step;
 						_this.setState({
 							page: len,
@@ -460,7 +459,6 @@ export default class BasicTable extends Component {
 		});
 	}
 	onSubmit(formValues, istip) {
-		console.log('formValues',formValues);
 		let year = this.state.currentYear;
 		var _this = this;
 		var activity = true;
@@ -569,6 +567,9 @@ export default class BasicTable extends Component {
 			communityids,
 			dataLoading
 		} = this.state;
+		this.setState({
+			rate:[]
+		})
 
 
 		let _this = this;
@@ -578,7 +579,6 @@ export default class BasicTable extends Component {
 			communityids: communityids,
 			year: year,
 		})).then(function(response) {
-			console.log('fsdfsd',response.rate);
 
 
 			_this.setState({
@@ -630,7 +630,6 @@ export default class BasicTable extends Component {
 			_this.currentYear = response.year;
 
 			var state = {};
-			console.log('items',response);
 
 			if (response.vo) {
 				var list = response.vo.items;
@@ -655,7 +654,6 @@ export default class BasicTable extends Component {
 				totalPages: totalPages,
 				dataLoading: false
 			};
-			console.log('getInstallmentplan');
 
 
 
@@ -679,7 +677,6 @@ export default class BasicTable extends Component {
 
 	}
 	onFilter=(value)=>{
-		console.log('onFilter',value);
 		this.setState({
 			type:value
 		})
