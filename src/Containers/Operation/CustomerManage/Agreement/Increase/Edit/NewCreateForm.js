@@ -116,7 +116,7 @@ class NewCreateForm extends Component {
 		this.calcStationNum = this.calcStationNum.bind(this);
 
 		this.state = {
-			stationUrl:'',
+			stationUrl: '',
 			stationVos: this.props.stationVos,
 			delStationVos: [],
 			selectedStation: [],
@@ -179,9 +179,9 @@ class NewCreateForm extends Component {
 		}
 
 		this.setState({
-			stationVos:[],
-			delStationVos:stationVos
-		},function(){
+			stationVos: [],
+			delStationVos: stationVos
+		}, function() {
 			this.getStationUrl();
 		});
 	}
@@ -197,9 +197,9 @@ class NewCreateForm extends Component {
 		}
 
 		this.setState({
-			stationVos:[],
-			delStationVos:stationVos
-		},function(){
+			stationVos: [],
+			delStationVos: stationVos
+		}, function() {
 			this.getStationUrl();
 		});
 	}
@@ -341,13 +341,13 @@ class NewCreateForm extends Component {
 			changeValues
 		} = this.props;
 		let unitprice = true;
-		stationVos.map(function(item,index){
-			if(!item.unitprice){
+		stationVos.map(function(item, index) {
+			if (!item.unitprice) {
 				unitprice = false;
 			}
 			return unitprice;
 		})
-		if(!unitprice){
+		if (!unitprice) {
 			Notify.show([{
 				message: '请输入工位单价!',
 				type: 'danger',
@@ -401,7 +401,7 @@ class NewCreateForm extends Component {
 		});
 
 		let params = {
-			contractId:this.context.params.id,
+			contractId: this.context.params.id,
 			mainBillId: this.context.params.orderId,
 			communityId: optionValues.mainbillCommunityId,
 			floors: changeValues.wherefloor,
@@ -426,7 +426,7 @@ class NewCreateForm extends Component {
 		}
 
 		this.setState({
-			stationUrl:url
+			stationUrl: url
 		});
 
 	}
@@ -550,8 +550,7 @@ class NewCreateForm extends Component {
 
 				<KrField left={60} grid={1/2} name="firstpaydate" component="date" label="首付款时间"  requireLabel={true}/>
 
-				<KrField left={0} grid={1}  name="rentaluse" type="text" component="input" label="租赁用途" placeholder="办公使用" requireLabel={true}
-				requiredValue={true} pattern={/^.{0,100}$/} errors={{requiredValue:'租赁用途为必填项',pattern:'租赁用途最大50位'}} />
+				
 
 				<KrField right={60} grid={1/2}  name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true}
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
@@ -696,7 +695,7 @@ const validate = values => {
 		errors.signdate = '请填写签署时间';
 	}
 
-	if (!String(values.totalrent)){
+	if (!String(values.totalrent)) {
 		errors.totalrent = '请填写租金总额';
 	}
 
@@ -716,9 +715,7 @@ const validate = values => {
 	if (!values.fileIdList) {
 		errors.fileIdList = '请填写合同附件';
 	}
-	if (!values.rentaluse) {
-		errors.rentaluse = '请填写租赁用途';
-	}
+
 	if (!values.wherefloor) {
 		errors.wherefloor = '请填写所属楼层';
 	}
