@@ -12,7 +12,8 @@ export default class Tooltip extends Component {
 
 	static defaultProps = {
 		backgroundColor:"rgba(0,0,0,.7)",
-		ShadowColor:'transparent'
+		ShadowColor:'transparent',
+		scroll:false
 	}
 
 	static PropTypes = {
@@ -123,6 +124,9 @@ export default class Tooltip extends Component {
 		}
 		if(scroll){
 			style.maxHeight = '250px';
+		}else{
+			style.maxHeight = 'auto';
+
 		}
 		style.background = backgroundColor;
 		// style.boxShadow = '0 0 3px #499df1';
