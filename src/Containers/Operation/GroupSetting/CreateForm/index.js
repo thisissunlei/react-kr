@@ -328,7 +328,6 @@ class ZhuanHuan extends React.Component{
 	componentWillReceiveProps(nextProps){
 
 		if(nextProps.open != this.props.open){
-			console.log('--->>>')
 			this.setState({
 				moduleData:nextProps.detail,
 				okData:[]

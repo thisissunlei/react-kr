@@ -35,6 +35,8 @@ import {
 import EditDetail from "./EditDetail";
 import HeavilyActivation from "./HeavilyActivation";
 import NewActivation from "./NewActivation";
+import StartCardActivation from "./StartCardActivation"
+
 
 export default class List extends Component {
 
@@ -45,8 +47,10 @@ export default class List extends Component {
 			openNewActivation: false,
 			//编辑页面的开启状态
 			openEditDetail: false,
-			//批量激活的开启状态
+			//批量激活输入卡号的开启状态
 			openHeavilyActivation: false,
+			//批量激活开始激活
+			openStartCardActivation:false,
 			itemDetail: {},
 			item: {},
 			list: {},
@@ -84,16 +88,22 @@ export default class List extends Component {
 			openEditDetail: !this.state.openEditDetail
 		});
 	}
-	//批量激活页面开关
+	//批量激活输入卡号页面开关
 	openHeavilyActivationDialog=()=> {
 		this.setState({
-			openHeavilyActivation: !this.state.openHeavilyActivation
+			openHeavilyActivation: !this.state.openHeavilyActivation,
 		});
 	}
 	//新建激活页面开关
 	openNewActivationDialog=()=> {
 		this.setState({
 			openNewActivation: !this.state.openNewActivation,
+		});
+	}
+	//批量激活开始激活页面的开关
+	openStartCardActivationDialog=()=>{
+		this.setState({
+			openStartCardActivation: !this.state.openStartCardActivation,
 
 		});
 	}
@@ -111,9 +121,20 @@ export default class List extends Component {
 		});
 	}
 
-	//批量激活的确定操作
-	onHeavilyActivation=()=> {
-		this.openHeavilyActivationDialog();
+	//输入卡号的确定操作
+	onHeavilyActivation=(detail)=> {
+
+		this.setState({detail},function(){
+			console.log(this.state.detail,"+++++++++++");
+				this.openHeavilyActivationDialog();
+				this.onStartCardActivation()
+
+			}
+		)
+	}
+	//开始激活的确定操作
+	onStartCardActivation=()=>{
+		this.openStartCardActivationDialog();
 	}
 	//编辑页面的确定操作
 	onEditDetail=(values)=>{
@@ -123,7 +144,7 @@ export default class List extends Component {
 		params.foreignCode=values.foreign_code;
 		params.interCode=""+values.inter_code;
 		Store.dispatch(Actions.callAPI('CardEdit', {}, params)).then(function(response) {
-			_this.openEditDetailDialog()
+			_this.openHeavilyActivationDialog()
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
@@ -227,7 +248,7 @@ export default class List extends Component {
 
 					  </Dialog>
 
-
+						//输入号码
 						<Dialog
 							title="批量激活"
 							modal={true}
@@ -247,9 +268,20 @@ export default class List extends Component {
 							bodyStyle={{paddingTop:45}}
 							contentStyle={{width:442}}
 						>
-						<EditDetail detail={this.state.itemDetail} onSubmit={this.onEditDetail} onCancel={this.openEditDetailDialog}/>
+						<EditDetail detail={this.state.detail} onSubmit={this.onEditDetail} onCancel={this.openEditDetailDialog}/>
 					  </Dialog>
 
+						//开始激活
+						<Dialog
+							title="批量激活"
+							modal={true}
+							open={this.state.openStartCardActivation}
+							onClose={this.openStartCardActivationDialog}
+							bodyStyle={{paddingTop:45}}
+							contentStyle={{width:500}}
+						>
+							<StartCardActivation detail={this.state.detail}  onCancel={this.openStartCardActivationDialog}/>
+					  </Dialog>
 
 				</div>
 			);
