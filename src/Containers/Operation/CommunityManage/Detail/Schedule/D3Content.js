@@ -272,10 +272,7 @@ export default class D3Content extends Component {
 		let finaBluePointVoList = finaBluePointVo.map((item,index) => {
 			item.pointDay = that.countDays(item.pointDate);
 			item.left = (Math.round((that.countDays(item.pointDate)/365)*100)/100)*100;
-			if(item.left>0){
-				return item;
-			}
-			return false
+			return item
 		});
 		console.log('finaBluePointVoList',finaBluePointVoList);
 		return finaBluePointVoList;
@@ -369,7 +366,7 @@ export default class D3Content extends Component {
 	      _this.setState({
 	        infoList:response,
 	      },function(){
-	        this.renderRedInfo()
+	        this.renderRedInfo(data)
 	      });
 	      
 
@@ -378,7 +375,7 @@ export default class D3Content extends Component {
 	    	console.log(err,err);
 	    });
 	}
-	renderRedInfo=()=>{
+	renderRedInfo=(itemData)=>{
 		let {infoList} = this.state;
 		let item = infoList || [];
 		let id = this.props.id;
@@ -388,7 +385,7 @@ export default class D3Content extends Component {
 				return(
 					<div key={i} className="react-tooltip-content">
 						<span>{value.contractName}分期催款</span>
-						<p>{dateFormat(item.pointDate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
+						<p>{dateFormat(itemData.pointDate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
 						<p>工位:<span className='red-content'>{value.stationnum}</span> &nbsp; 会议室:<span className='red-content'>{value.boardroomNum}</span>({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
 						<p>负责人：<span className='red-content'>{value.name?value.name:'—'}</span></p>
 						<p>电话：<span className='red-content'>{value.phone?value.phone:'—'}</span></p>
@@ -507,9 +504,16 @@ export default class D3Content extends Component {
 				}
 				{
 					blueNodeList && blueNodeList.map((item,index)=>{
-						{item?<span className='blue-node' key={index} style={{marginLeft:`${item.left}%`}} data-tip data-for={`${item.pointDate}${id}sameblue`} onMouseOver={this.getBlueInfo.bind(this,item)}>
+						console.log('item.left',item.left);
+
+
+
+						return (
+							<span className='blue-node' key={index} style={{marginLeft:`${item.left}%`}} data-tip data-for={`${item.pointDate}${id}sameblue`} onMouseOver={this.getBlueInfo.bind(this,item)}>
 							{this.renderBlueInfo()}
-							</span>:""}
+							</span>
+						)
+						
 						
 					})
 				}
@@ -522,7 +526,7 @@ export default class D3Content extends Component {
 						
 						return (
 							<span className={`${nodeKind}`} key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`,left:left,position:'absolute'}} data-tip data-for={`${item.pointDate}${id}sameblue`} onMouseOver={this.getRedInfo.bind(this,item)}>
-								{this.renderRedInfo()}
+								{this.renderRedInfo(item)}
 							</span>
 						)
 					})
@@ -537,7 +541,7 @@ export default class D3Content extends Component {
 									{this.renderBlueInfo()}
 								</span>
 								<span className={`${nodeKind}`} data-tip data-for={`${item.pointDate}${item.newStationNum}${index}samered`} onMouseOver={this.getRedInfo.bind(this,item)}>
-									{this.renderRedInfo()}
+									{this.renderRedInfo(item)}
 							</span>
 							</div>
 						)
