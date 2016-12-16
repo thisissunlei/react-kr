@@ -132,6 +132,6 @@ module.exports = {
 	...Tabs,
 	PageHeader,
 	Tooltip,
-	CircleStyle
+	CircleStyle,
 	SearchForm
 }

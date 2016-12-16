@@ -38,7 +38,7 @@ import {
 	FieldControl,
 	InputDate,
 
-	CircleStyle
+	CircleStyle,
 
 	SearchForm,
 	SnackTip
