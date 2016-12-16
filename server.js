@@ -56,7 +56,7 @@ app.use(convert(webpackDevMiddleware(compiler,{
 		aggregateTimeout:300,
 		poll:true
 	},
-	host:'local.krspace.cn',
+	host:'optest.krspace.cn',
 	headers: {
 		'Access-Control-Allow-Origin': '*',
 		'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'

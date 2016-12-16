@@ -87,26 +87,29 @@ export default class InputDate extends React.Component {
 
 	}
 
+	docClick = (event)=>{
+		event = event || window.event;
+		var target = event.target;
+
+		while (target) {
+			if(target && target.className && target.className.indexOf('calendar') !== -1){
+				return ;
+			}
+			target = target.parentNode;
+		}
+
+		const {openCalendar} = this.props;
+
+		this.setState({
+			openCalendar:false
+		});
+
+		document.removeEventListener('click',this.docClick);
+
+	}
+
 	componentDidMount(){
 			this.setDefaultValue(this.props.value);
-			var _this = this;
-			document.addEventListener('click',function(event){
-
-					event = event || window.event;
-					var target = event.target;
-
-					while (target) {
-							if(target && target.className && target.className.indexOf('calendar') !== -1){
-									return ;
-							}
-							target = target.parentNode;
-					}
-
-					_this.setState({
-						openCalendar:false
-					});
-
-			});
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -116,9 +119,15 @@ export default class InputDate extends React.Component {
 	}
 
 	openCalendarDialog = ()=>{
+
 			this.setState({
 				openCalendar:!this.state.openCalendar
+			},function(){
+					if(this.state.openCalendar){
+						document.addEventListener('click',this.docClick);
+					}
 			});
+
 	}
 
 	onChange = (value)=>{

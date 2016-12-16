@@ -29,7 +29,7 @@ export default class Calendar extends React.Component {
 		style: React.PropTypes.object,
     open:React.PropTypes.bool,
 		onChange:React.PropTypes.func,
-		value:React.PropTypes.string,
+		value:React.PropTypes.any,
 	}
 
 	static contextTypes =  {
@@ -102,7 +102,8 @@ export default class Calendar extends React.Component {
 		let valueArr = [];
 
 		if(!value){
-				value = +new Date;
+				var nowDate = new Date();
+				value = `${nowDate.getFullYear()}-${nowDate.getMonth()+1}-${nowDate.getDate()}`;
 		}
 
 	if(!isNaN(value)){

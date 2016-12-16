@@ -5,13 +5,14 @@ import './index.less';
 
 import ReactDOM from 'react-dom';
 
+import DialogBody from './DialogBody';
+
 export default class DialogComponent extends Component {
 
 	static displayName = 'DialogComponent';
 
 	static defaultProps = {
-		autoScrollBodyContent: true,
-		autoDetectWindowHeight: true,
+		autoScrollBodyContent: false,
 	}
 
 	static propTypes = {
@@ -43,14 +44,17 @@ export default class DialogComponent extends Component {
 
 	componentDidMount(){
 			this.initializeStyles();
-			this.initializeDialogBodyStyles();
+			//this.initializeDialogBodyStyles();
 
 			window.addEventListener('resize',function(){
 				this.initializeStyles();
-				this.initializeDialogBodyStyles();
+				//this.initializeDialogBodyStyles();
 			}.bind(this));
 	}
 
+
+	componentWillReceiveProps() {
+	}
 
 	initializeDialogBodyStyles = ()=>{
 
@@ -58,11 +62,22 @@ export default class DialogComponent extends Component {
 		const {autoScrollBodyContent} = this.props;
 
 		var page = this.getPageWidthOrHeight();
+		var eleBoxStyle = ele.getBoundingClientRect();
 
+/*
 		if(autoScrollBodyContent){
-			ele.style.maxHeight = page.height-200+'px';
-			ele.style.overflowY = 'auto';
+			ele.style.overflowY = 'scroll';
 		}
+		*/
+
+
+		ele.style.maxHeight = page.height-200+'px';
+		ele.style.minHeight = 100 +'px';
+
+		if(eleBoxStyle.height > page.height-200){
+			ele.style.overflowY = 'scroll';
+		}
+
 
 	}
 
@@ -87,8 +102,10 @@ export default class DialogComponent extends Component {
 
 			var position = {};
 
-			if(ele.getClientRects().length){
+			try{
 					position = ele.getBoundingClientRect();
+			}catch(err){
+				position = {};
 			}
 
 			var page = this.getPageWidthOrHeight();
@@ -140,9 +157,7 @@ export default class DialogComponent extends Component {
 								<div className="dialog-header-title"> {title} </div>
 								<span className="close" onClick={this.onClose}></span>
 						</div>
-						<div className="dialog-body" ref="dialogBody">
-							{children}
-						</div>
+						{open && <DialogBody> {children} </DialogBody>}
 				</div>
 			</div>
 		);
