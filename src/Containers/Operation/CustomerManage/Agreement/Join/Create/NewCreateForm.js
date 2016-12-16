@@ -147,6 +147,8 @@ class NewCreateForm extends Component {
 			}
 		});
 
+		console.log('--->>',stationnum,boardroomnum);
+
 		Store.dispatch(change('joinCreateForm', 'stationnum', stationnum));
 		Store.dispatch(change('joinCreateForm', 'boardroomnum', boardroomnum));
 	}
@@ -421,6 +423,8 @@ class NewCreateForm extends Component {
 
 		this.openStationDialog();
 
+		console.log('--->>选择的工位',billList);
+
 		if (!billList) {
 			return;
 		}
@@ -448,6 +452,7 @@ class NewCreateForm extends Component {
 		} catch (err) {
 			console.log('billList 租赁明细工位列表为空');
 		}
+
 
 		this.setState({
 			stationVos: billList
@@ -505,7 +510,7 @@ class NewCreateForm extends Component {
 
 		<form onSubmit={handleSubmit(this.onSubmit)} >
 				<CircleStyle num="1" info="租赁明细">
-				
+
 				<KrField name="wherefloor" style={{width:370,marginLeft:70}} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true}/>
 				<KrField grid={1/2} left={20}  component="group" label="租赁期限" requireLabel={true}>
 					<ListGroup>
@@ -514,7 +519,7 @@ class NewCreateForm extends Component {
 						<ListGroupItem style={{width:'45%',padding:0,marginTop:'-10px'}}> <KrField name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} simple={true}/> </ListGroupItem>
 					</ListGroup>
 				</KrField>
-				<div className="detail-list" style={{marginTop:"-20px"}}>			
+				<div className="detail-list" style={{marginTop:"-20px"}}>
 				<DotTitle title='租赁明细'>
 
 				       <Grid style={{marginTop:"-30px"}}>
@@ -524,7 +529,7 @@ class NewCreateForm extends Component {
 										<Button label="选择工位"  onTouchTap={this.openStationDialog}  />
 									    <Button label="批量录入单价" width={100} onTouchTap={this.openPreStationUnitPriceDialog} />
 										<Button label="删除" cancle={true} type="button" height={28} onTouchTap={this.onStationDelete} />
-										
+
 								  </ButtonGroup>
 								</Col>
 							</Row>
@@ -561,9 +566,9 @@ class NewCreateForm extends Component {
 						}
 						</TableBody>
 						</Table>
-					</div>	
+					</div>
 						{stationVos.length>5?<div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}
-						
+
                         </DotTitle>
 					</div>
 					</CircleStyle>
@@ -601,7 +606,7 @@ class NewCreateForm extends Component {
 
 					<KrField   style={{width:370,marginLeft:70}} name="communityid" component="labelText" inline={false} label="所属社区" value={optionValues.communityName} />
 
-					
+
 
 					<KrField    style={{width:370,marginLeft:90}}  name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress}  />
 					<KrField    style={{width:370,marginLeft:70}} name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
@@ -609,8 +614,8 @@ class NewCreateForm extends Component {
 					requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同编码为必填项',pattern:'合同编号最大50位'}}/>
 
 
-					
-					
+
+
 
 
 					<KrField name="paymodel"  style={{width:370,marginLeft:90}}  component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true} />
@@ -633,12 +638,12 @@ class NewCreateForm extends Component {
 					<KrField  style={{width:830,marginLeft:70}}  name="contractmark" component="textarea" label="备注" maxSize={200}/>
 				</CircleStyle>
 
-				<KrField  style={{width:830,marginLeft:70,marginTop:'-20px'}} name="contractFileList" component="input" type="hidden" label="合同附件"/>
-				<KrField  style={{width:830,marginLeft:70,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
+				<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="contractFileList" component="input" type="hidden" label="合同附件"/>
+				<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
 					Store.dispatch(change('joinCreateForm','contractFileList',files));
 				}} />
 
-            
+
 
 						<Grid>
 						<Row style={{paddingBottom:50}}>
