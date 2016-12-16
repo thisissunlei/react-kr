@@ -44,6 +44,7 @@ export default class JoinCreate extends Component {
 			formValues: {},
 			openConfirmCreate: false
 		}
+		this.isConfirmSubmiting = false;
 		Store.dispatch(reset('admitCreateForm'));
 	}
 	componentWillUnmount() {
@@ -61,14 +62,20 @@ export default class JoinCreate extends Component {
 
 	onConfrimSubmit() {
 
+				if(this.isConfirmSubmiting){
+					return ;
+				}
+				this.isConfirmSubmiting = true;
+
 		let {
 			formValues
 		} = this.state;
 		let {
 			params
 		} = this.props;
+			var _this = this;
 		Store.dispatch(Actions.callAPI('addFinaContractIntentletter', {}, formValues)).then(function(response) {
-
+			_this.isConfirmSubmiting = false;
 			Notify.show([{
 				message: '创建成功',
 				type: 'success',
@@ -79,6 +86,7 @@ export default class JoinCreate extends Component {
 			}, 0);
 
 		}).catch(function(err) {
+				_this.isConfirmSubmiting = false;
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
