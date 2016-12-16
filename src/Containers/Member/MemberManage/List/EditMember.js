@@ -178,7 +178,7 @@ export default class CreateMemberForm extends Component {
 	}
 }
 CreateMemberForm = reduxForm({
-	form: 'createMemberForm',
+	form: 'editMemberForm',
 	// validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
