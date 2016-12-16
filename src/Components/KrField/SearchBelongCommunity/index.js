@@ -8,13 +8,13 @@ import {Actions,Store} from 'kr/Redux';
 
 import WrapComponent from '../WrapComponent';
 
-export default class  SearchPersonelComponent extends React.Component {
+export default class  SearchBelongCommunity extends React.Component {
 
 	static defaultProps = {
 		placeholder:'请输入...'
 	}
 
-	static PropTypes = {
+	static propTypes = {
 		placeholder:React.PropTypes.string,
 		inline:React.PropTypes.bool
 	}
@@ -37,12 +37,12 @@ export default class  SearchPersonelComponent extends React.Component {
 		onChange && onChange(item);
 	}
 
-	getOptions(lastname){
+	getOptions(communityName){
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('getHrmResourceExtListByLastname',{ lastname:lastname })).then(function(response){
+			Store.dispatch(Actions.callAPI('getCommunityListByParams',{communityName:communityName})).then(function(response){
 				response.forEach(function(item,index){
-					item.value = item.sysloginid;
-					item.label = item.lastname;
+					item.value = item.id;
+					item.label = item.communityname;
 				});
 				resolve({options:response});
 			}).catch(function(err){
