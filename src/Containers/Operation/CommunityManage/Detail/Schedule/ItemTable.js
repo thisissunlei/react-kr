@@ -25,6 +25,7 @@ import {
   Button,
   Notify,
   BreadCrumbs,
+  Tooltip
 } from 'kr-ui';
 
 import './index.less';
@@ -64,7 +65,8 @@ export default class ItemTable extends Component {
       detail: this.props.detail,
       //activity: false,
       Dismantling: false,
-      currentYear: '2016'
+      currentYear: '2016',
+      contractTypeVo:[]
 
     }
 
@@ -130,37 +132,75 @@ export default class ItemTable extends Component {
     window.open("/krspace_member_web/member/companyMembers?companyId=" + this.state.detail.companyId + "&communityId=" + this.state.detail.communityId + "&mid=111");
   }
 
-  renderOrder(contractTypeVo) {
-    contractTypeVo = contractTypeVo.map((item, index) => {
-      if (!item.contractCount) {
-        return (
-          <li key={index} className="company-order-zero" key={index}>
-							<p className="name">{item.contractName}</p>
-						</li>
-        )
-      } else if (item.contractCount === 1) {
-        return (
-          <li key={index} className="company-order" key={index}>
-							<p className="name">{item.contractName}</p>
-						</li>
-        )
-      } else {
-        return (
-          <li key={index} className="company-order">
-							
-							<p className="name">{item.contractName}({item.contractCount})</p>
-						</li>
-        )
-      }
-    })
-    return contractTypeVo;
+  renderOrder() {
+
+    let {
+      show,
+      detail,
+      contractTypeVo
+    } = this.state;
+    return (
+        <Tooltip place="right" type="dark" offsetRight={80} effect="solid" id={`${detail.billId}${detail.billName}`}>
+          <ul style={{marginTop:20}}>
+           {contractTypeVo.map((item, index) => {
+                if (!item.contractCount) {
+                  return (
+                    
+                        <li key={index} className="company-order-zero" key={index}>
+                         <p className="name">{item.contractName}</p>
+                        </li>
+                      
+                  )
+                } else if (item.contractCount === 1) {
+                  return (
+                      <li key={index} className="company-order" key={index}>
+                        <p className="name">{item.contractName}</p>
+                      </li>
+                  )
+                } else {
+                  return (
+                    <li key={index} className="company-order">
+                        
+                        <p className="name">{item.contractName}({item.contractCount})</p>
+                      </li>
+                  )
+                }
+              })
+          }
+          </ul>
+        </Tooltip>
+
+      )
+  }
+  getShowData(billId){
+    let _this =this;
+    Store.dispatch(Actions.callAPI('getBillContract',{billId:billId})).then(function(response) {
+
+      
+
+      _this.setState({
+        contractTypeVo:response,
+      },function(){
+        this.renderOrder()
+      });
+      
+
+
+    }).catch(function(err) {
+
+      Notify.show([{
+        message: err.message,
+        type: 'danger',
+      }]);
+    });
   }
   render() {
 
 
     let {
       show,
-      detail
+      detail,
+      contractTypeVo
     } = this.state;
 
     let {
@@ -172,26 +212,24 @@ export default class ItemTable extends Component {
 
     var _this = this;
     var id = communityids;
+    console.log('detail',detail);
 
     return (
 
       <tr className="last-td"   >
 						<td className="company-list">
 
-							<div className="company-name" data-tip data-for={`${detail.billId}${detail.billName}`}> 
+							<div className="company-name" onMouseOver={this.getShowData.bind(this,detail.billId)}> 
               {
                 detail.billName
               }
-							<ReactTooltip place="right" type="dark" effect="solid" id={`${detail.billId}${detail.billName}`}>
-								<ul>
 								{
-									this.renderOrder(detail.contractTypeVo)
+									this.renderOrder()
 								}
-								</ul>
-							</ReactTooltip>
+								
 							</div>
 						</td>
-						<td colSpan="12" style={{padding:'0'}}>
+						<td colSpan="12">
               <D3Content detail={detail.contractInstallmentplanVo} finaBluePointVo={detail.finaBluePointVo} finaRedPointVo={detail.finaRedPointVo} whiteBar={detail.whiteBar} id={detail.billId} currentYear={currentYear}/>
               <EmployessTable  activity={detail.activity} detail={detail} id={id} />
 						</td>
