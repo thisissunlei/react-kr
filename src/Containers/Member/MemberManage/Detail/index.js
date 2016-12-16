@@ -4,8 +4,13 @@ import{
   Tab,
   Section,
   DotTitle,
-  Paper
+  Paper,
+  Notify
 }from 'kr-ui';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 import dateFormat from 'dateformat';
 import PersonalData from './PersonalData';
 import PersonalJob from './PersonalJob';
@@ -16,6 +21,7 @@ import UpdateLog from './UpdateLog';
 export default class memberListDetail extends Component{
   constructor(props, context) {
 		super(props, context);
+		this.initpersonalData = this.initpersonalData.bind(this);
     this.state = {
       isLeader:true,
 			params: {
@@ -26,7 +32,8 @@ export default class memberListDetail extends Component{
 			},
 		}
   }
-  initpersonalData() {
+  componentDidMount() {
+    // console.log("-------------个人详情");
 		var _this = this;
 		let {
 			params
@@ -35,21 +42,46 @@ export default class memberListDetail extends Component{
 		Store.dispatch(Actions.callAPI('getMemberDetailData', {
 			mainbillid: params.orderId,
 		})).then(function(response) {
+      // console.log("_this",_this);
 			_this.setState({
 				personalData: response.baseinfo,
         isLeader:response.isLeader,
 			});
+
 		}).catch(function(err) {
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
 			}]);
 		});
+
+	}
+  initpersonalData=()=>{
+    console.log("-------------获取个人行为");
+		// var _this = this;
+		// let {
+		// 	params
+		// } = this.props;
+    // // 获取会员详细信息
+		// Store.dispatch(Actions.callAPI('getMemberDetailData', {
+		// 	mainbillid: params.orderId,
+		// })).then(function(response) {
+		// 	_this.setState({
+		// 		personalData: response.baseinfo,
+    //     isLeader:response.isLeader,
+		// 	});
+    //
+		// }).catch(function(err) {
+		// 	Notify.show([{
+		// 		message: err.message,
+		// 		type: 'danger',
+		// 	}]);
+		// });
     // 获取会员个人行为
-    Store.dispatch(Action.callApI('getMemberDatailBehavior',{
+    Store.dispatch(Actions.callApI('getMemberDatailBehavior',{
       mainbillid: params.orderId,
     })).then(function(response){
-      // console.log(response);
+      // console.log("获取个人行为",response);
       _this.setState({
 				personalBehavior: response.items,
 			});

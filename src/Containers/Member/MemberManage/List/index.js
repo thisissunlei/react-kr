@@ -125,9 +125,10 @@ export default class List extends Component {
 			itemDetail
 		});
 		if (type == 'view') {
+			// console.log(itemDetail,"itemDetail");
 			// console.log(orderId,"orderId");
 
-			window.open(`./#/member/MemberManage/${orderId}/detail`, orderId);
+			window.open(`./#/member/MemberManage/${itemDetail.id}/detail`, itemDetail.id);
 		} else if (type == 'edit') {
 			this.openEditDetailDialog();
 		}

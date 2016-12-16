@@ -40,6 +40,7 @@ import RadioGroup from './RadioGroup';
 import Message from './Message';
 import DemoComponent from './Demo';
 import Textarea from './Textarea';
+import CircleStyle from './CircleStyle';
 import 	DatePicker from './DatePicker';
 import 	Tooltip from './Tooltip';
 import 	KrForm from './KrForm';
@@ -131,5 +132,6 @@ module.exports = {
 	...Tabs,
 	PageHeader,
 	Tooltip,
+	CircleStyle,
 	SearchForm
 }
