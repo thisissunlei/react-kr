@@ -44,6 +44,8 @@ export default class JoinCreate extends Component {
 			openConfirmCreate: false
 		}
 		Store.dispatch(reset('joinCreateForm'));
+
+		this.isConfirmSubmiting = false;
 	}
 
 	onCreateSubmit(formValues) {
@@ -55,6 +57,12 @@ export default class JoinCreate extends Component {
 	}
 
 	onConfrimSubmit() {
+
+		if(this.isConfirmSubmiting){
+				return ;
+		}
+
+		this.isConfirmSubmiting = true;
 
 		let {
 			formValues
@@ -79,11 +87,14 @@ export default class JoinCreate extends Component {
 				window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/join/" + response.contractId + "/detail";
 			}, 0);
 
+			this.isConfirmSubmiting = false;
+
 		}).catch(function(err) {
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
 			}]);
+			this.isConfirmSubmiting = false;
 		});
 
 		this.openConfirmCreateDialog();
