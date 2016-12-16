@@ -7,6 +7,8 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var env = process.env.NODE_ENV || 'development';
 
+console.log('所在环境',env);
+
 const config = {
 	entry:{
 		development:[
