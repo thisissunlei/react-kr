@@ -110,12 +110,12 @@ export default class Tooltip extends Component {
 			className += ' bottom-arrows';
 
 		}
-		// if(scroll){
-		// 	style.maxHeight = '250px';
-		// }else{
-		// 	style.maxHeight = 'auto';
+		if(scroll){
+			style.maxHeight = '250px';
+		}else{
+			style.maxHeight = 'auto';
 
-		// }
+		}
 		style.background = backgroundColor;
 		// style.boxShadow = '0 0 3px #499df1';
 		style.boxShadow = boxShadow;
