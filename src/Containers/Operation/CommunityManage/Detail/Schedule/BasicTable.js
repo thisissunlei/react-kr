@@ -569,7 +569,7 @@ export default class BasicTable extends Component {
 			dataLoading
 		} = this.state;
 		this.setState({
-			rate:[]
+			rate:['','','','','','','','','','','','']
 		})
 
 

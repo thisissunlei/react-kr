@@ -30,7 +30,7 @@ import {
 	Row,
 	Col,
 	Dialog,
-	Tooltip,
+	Tooltips,
 	BreadCrumbs
 } from 'kr-ui';
 
@@ -380,7 +380,8 @@ export default class D3Content extends Component {
 		let item = infoList || [];
 		let id = this.props.id;
 		return (
-			<Tooltip  place="top" type="dark" effect="solid" scroll={true} id={`${item.pointDate}${id}`} offsetTop={250}>
+			<Tooltips  place="top" type="dark" effect="solid" scroll={true} id={`${item.pointDate}${id}`} offsetTop={250}>
+			<div className="react-tooltips-content">
 			{item.map((value,i)=>{
 				return(
 					<div key={i} className="react-tooltip-content">
@@ -396,8 +397,8 @@ export default class D3Content extends Component {
 					</div>
 				)
 			})}
-											
-			</Tooltip>
+				</div>							
+			</Tooltips>
 		)
 	}
 	getBlueInfo(data){
@@ -425,7 +426,7 @@ export default class D3Content extends Component {
 		console.log('BlueinfoList',item);
 		let id = this.props.id;
 		return (
-			<Tooltip  place="top" type="dark" effect="solid" id={`${item.pointDate}${id}sameblue`} offsetTop={10}>
+			<Tooltips  place="top" type="dark" effect="solid" id={`${item.pointDate}${id}sameblue`} offsetTop={10}>
 					<div className="react-tooltip-content">
 						<span>工位变更</span>
 						<p>{item.finaName}({dateFormat(item.leaseBeginDate, "yyyy.mm.dd")}-{dateFormat(item.leaseEndDate, "yyyy.mm.dd")})</p>
@@ -433,7 +434,7 @@ export default class D3Content extends Component {
 						<p>变更后工位：<span className='blue-content'>{item.newStationNum}</span> &nbsp; 会议室：<span className='blue-content'>{item.newBoardroomNum}</span></p>
 					</div>
 											
-			</Tooltip>
+			</Tooltips>
 		)
 	}
 
