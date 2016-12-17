@@ -426,6 +426,7 @@ export default class BasicTable extends Component {
 		} = this.state
 
 		var _this = this;
+		_this.getRate();
 
 		Store.dispatch(Actions.callAPI('getInstallmentplan', {
 			communityids: id,
