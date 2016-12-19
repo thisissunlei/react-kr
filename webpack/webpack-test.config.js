@@ -4,7 +4,7 @@ const buildPath = path.join(process.cwd(), '/webpack/dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var env = process.env.NODE_ENV || 'test';
+var env = process.env.NODE_ENV || 'production';
 
 const config = {
 	entry:{
@@ -65,7 +65,7 @@ const config = {
 			new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
 		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
-			title: '氪空间后台管理系统',	
+			title: '氪空间后台管理系统',
 			filename: 'index.html',
 			template: './src/index.template.html',
 			inject:'body',

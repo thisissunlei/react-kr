@@ -41,6 +41,7 @@ import DemoComponent from './Demo';
 import Textarea from './Textarea';
 import 	DatePicker from './DatePicker';
 import 	Tooltip from './Tooltip';
+import 	Tooltips from './Tooltips';
 import 	KrForm from './KrForm';
 import 	InputDate from './InputDate';
 import  SnackTip from './SnackTip';
@@ -128,5 +129,6 @@ module.exports = {
 	SearchForms,
 	...Tabs,
 	PageHeader,
+	Tooltips,
 	Tooltip
 }

@@ -19,7 +19,7 @@ export default  class ItemDetail extends Component{
 		 onCancel:React.PropTypes.func,
 
 	 }
-    
+
 	constructor(props){
 		super(props);
 		this.onCancel = this.onCancel.bind(this);
@@ -33,8 +33,8 @@ export default  class ItemDetail extends Component{
 	render(){
 
         let detail=this.props.detail;
-         
-        
+
+
         /*let detail={
             accountcode:"feihuikuan" ,
             accountname:"niaho",
@@ -55,23 +55,23 @@ export default  class ItemDetail extends Component{
          	detail.type="收入"
          }else if(detail.accounttype=="PAYMENT"){
          	detail.type="回款"
-         } 
+         }
 
 		return (
 
 			<div>
-               <KrField component="labelText" label="科目编码" value={detail.accountcode}/>
-               <KrField component="labelText" label="科目名称" value={detail.accountname}/>
-               <KrField component="labelText" label="科目类别" value={detail.type}/>
-               <KrField component="labelText" label="排序号" value={detail.ordernum}/>
-               
-               <KrField component="labelText" label="是否启用"  value={detail.flag}/>
-             
-               <KrField component="labelText" label="描述" value={detail.accountdesc}/>
+               <KrField component="labelText" label="科目编码" value={detail.accountcode} inline={false}/>
+               <KrField component="labelText" label="科目名称" value={detail.accountname} inline={false}/>
+               <KrField component="labelText" label="科目类别" value={detail.type} inline={false}/>
+               <KrField component="labelText" label="排序号" value={detail.ordernum} inline={false}/>
 
-              
+               <KrField component="labelText" label="是否启用"  value={detail.flag} inline={false}/>
+
+               <KrField component="labelText" label="描述" value={detail.accountdesc} inline={false}/>
+
+
 			</div>
-			
+
 		);
 	}
 }
