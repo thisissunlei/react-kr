@@ -43,6 +43,7 @@ import Textarea from './Textarea';
 import CircleStyle from './CircleStyle';
 import 	DatePicker from './DatePicker';
 import 	Tooltip from './Tooltip';
+import 	Tooltips from './Tooltips';
 import 	KrForm from './KrForm';
 import 	InputDate from './InputDate';
 import  SnackTip from './SnackTip';
@@ -131,7 +132,8 @@ module.exports = {
 	SearchForms,
 	...Tabs,
 	PageHeader,
-	Tooltip,
 	CircleStyle,
-	SearchForm
+	SearchForm,
+	Tooltips,
+	Tooltip
 }

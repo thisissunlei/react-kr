@@ -104,7 +104,7 @@ class Distribution extends Component {
 					<Col md={2} align="right">  </Col> 
 						<Col md={12} align="center"> 
 							<ButtonGroup>
-								<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm  onSubmit={this.onSubmit} width={90} height={34}/></div>
+								<div  className='ui-btn-center'><Button  label="确定" type="submit"  onSubmit={this.onSubmit} width={90} height={34}/></div>
 								<Button  label="取消" type="button"  onTouchTap={this.onCancel} cancle={true} height={32} width={90} />
 							</ButtonGroup>
 						 </Col>
@@ -546,7 +546,7 @@ export default class EmployessTable extends Component {
 				modal={true}
 				open={this.state.openNewmeber}
 				onClose={this.onClose}
-				contentStyle={{width:620,height:600}}
+				contentStyle={{width:620}}
 			>
 
 				<IframeContent  width={500} height={600} src={this.getStationUrl()}  onClose={this.onIframeClose}  />
