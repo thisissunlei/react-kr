@@ -1,6 +1,12 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, {
+	Component
+} from 'react';
+import {
+	connect
+} from 'react-redux';
+import {
+	bindActionCreators
+} from 'redux';
 
 import {
 	Checkbox,
@@ -10,7 +16,7 @@ import {
 	Table,
 	Tabs,
 	Tab,
- 	TableBody,
+	TableBody,
 	TableHeader,
 	TableHeaderColumn,
 	TableRow,
@@ -31,7 +37,8 @@ import {
 	Field,
 	FieldControl,
 	InputDate,
-	SnackTip
+	SnackTip,
+	CircleStyle
 } from 'kr-ui';
 
 import {
@@ -41,26 +48,32 @@ import './index.less';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
 
-import {List, ListItem} from 'material-ui/List';
+import {
+	List,
+	ListItem
+} from 'material-ui/List';
 
-import { hashHistory ,History} from 'react-router';
+import {
+	hashHistory,
+	History
+} from 'react-router';
 
-export default class Demo extends Component{
+export default class Demo extends Component {
 
-	 static contextTypes = {
-	  	router: React.PropTypes.object.isRequired
-    }
+	static contextTypes = {
+		router: React.PropTypes.object.isRequired
+	}
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 
 		this.state = {
-			userNameDefaultValue:''
+			userNameDefaultValue: ''
 		}
 
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		/*
 		this.setState({
 			userNameDefaultValue:'aahahh'
@@ -70,7 +83,7 @@ export default class Demo extends Component{
 
 
 
-	show = ()=>{
+	show = () => {
 
 		console.log('click');
 
@@ -78,24 +91,23 @@ export default class Demo extends Component{
 		Message.show('hahaha 爱的范德萨发几块了');
 	}
 
-ll=(values)=>{
-	console.log(values,"???");
-}
+	ll = (values) => {
+		console.log(values, "???");
+	}
 
-	list=(value)=>{
-		console.log('city',value);
+	list = (value) => {
+		console.log('city', value);
 	}
     
    
 
 
-	render(){
-		return(
+	render() {
+		return (
 			<div>
 			        <SnackTip style={{'background':'#499df1'}}  open={true} title='123'/>
 
 					<Section title="demo" description="" >
-					    <SnackTip style={{'background':'#69bbf0'}} title='snack'/>
 						<KrField grid={1/2} label='city' component='city' onSubmit={this.list}/>
 
 						<KrField oldText={"123"} label="订单名称" inline="inline" alignRight={true} component="editLabelText" save={this.ll} />
@@ -137,9 +149,6 @@ ll=(values)=>{
 						 <FlatButton icon={<FontIcon className={'icon-basis'} />} style={{color:'#499df1',height:36,width:100}} />
 
 							 </KrForm>
-                             
-                        
-
 					</Section>
 			</div>
 

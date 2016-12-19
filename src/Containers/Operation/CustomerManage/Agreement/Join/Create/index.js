@@ -44,10 +44,11 @@ export default class JoinCreate extends Component {
 			openConfirmCreate: false
 		}
 		Store.dispatch(reset('joinCreateForm'));
+
+		this.isConfirmSubmiting = false;
 	}
 
 	onCreateSubmit(formValues) {
-		console.log('--first--formValues',formValues)
 		this.setState({
 			formValues
 		}, function() {
@@ -57,6 +58,12 @@ export default class JoinCreate extends Component {
 
 	onConfrimSubmit() {
 
+		if(this.isConfirmSubmiting){
+				return ;
+		}
+
+		this.isConfirmSubmiting = true;
+
 		let {
 			formValues
 		} = this.state;
@@ -64,14 +71,14 @@ export default class JoinCreate extends Component {
 		let {
 			params
 		} = this.props;
-			console.log('-to',formValues)
 		formValues.stationVos = JSON.stringify(formValues.stationVos);
-
 
 		var _this = this;
 		Store.dispatch(Actions.callAPI('addOrEditEnterContract', {}, formValues)).then(function(response) {
 
 			_this.setState({baiscInf:response});
+
+			_this.isConfirmSubmiting = false;
 
 			Notify.show([{
 				message: '创建成功',
@@ -82,7 +89,9 @@ export default class JoinCreate extends Component {
 				window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/join/" + response.contractId + "/detail";
 			}, 0);
 
+
 		}).catch(function(err) {
+			_this.isConfirmSubmiting = false;
 			Notify.show([{
 				message: err.message,
 				type: 'danger',

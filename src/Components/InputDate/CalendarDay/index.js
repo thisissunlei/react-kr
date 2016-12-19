@@ -16,7 +16,7 @@ export default class CalendarDay extends React.Component {
 		* 样式
 		*/
 		style: React.PropTypes.object,
-		value:React.PropTypes.string,
+		value:React.PropTypes.any,
 		onClick:React.PropTypes.func,
 	}
 

@@ -62,6 +62,7 @@ import {
 	ListGroupItem,
 	Paper,
 	KrDate,
+	CircleStyle
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)
@@ -120,6 +121,7 @@ class NewCreateForm extends Component {
 			selectedStation: [],
 			openStation: false,
 			openStationUnitPrice: false,
+			HeightAuto: false,
 		}
 	}
 
@@ -470,6 +472,12 @@ class NewCreateForm extends Component {
 		Store.dispatch(change('increaseCreateForm', 'lessorContactName', personel.lastname));
 
 	}
+	showMore = () => {
+		this.setState({
+			HeightAuto: !this.state.HeightAuto
+		})
+
+	}
 
 
 	render() {
@@ -497,7 +505,8 @@ class NewCreateForm extends Component {
 
 		let {
 			billList,
-			stationVos
+			stationVos,
+			HeightAuto
 		} = this.state;
 
 		return (
@@ -505,103 +514,32 @@ class NewCreateForm extends Component {
 
 			<Paper width={960}>
 
-<form onSubmit={handleSubmit(this.onSubmit)}  style={{marginTop:50}}>
-
-				<KrField  grid={1/2}  name="mainbillid" type="hidden" component="input" />
-				<KrField  grid={1/2}  name="contractstate" type="hidden" component="input" />
-				<KrField  grid={1/2}  name="contracttype" type="hidden" component="input" />
-				<KrField  grid={1/2}  name="paymodelName" type="hidden" component="input" />
-				<KrField  grid={1/2}  name="paytypeName" type="hidden" component="input" />
-
-				<KrField  name="leaseId"  grid={1/2} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true} right={60} />
-				<KrField  grid={1/2}  name="lessorAddress" type="text" inline={false} component="labelText" label="地址" value={changeValues.lessorAddress}  defaultValue="无" left={60}/>
-				<KrField  grid={1/2}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} right={60}/>
-				<KrField  grid={1/2}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}  left={60}
-
-				requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
-
-				<KrField  grid={1/2}  component="labelText" inline={false} label="承租方" value={optionValues.customerName} right={60}/>
-
-				<KrField  grid={1/2}  name="leaseAddress" type="text" component="input" label="地址" requireLabel={true} left={60}
-				requiredValue={true} pattern={/^.{0,120}$/} errors={{requiredValue:'地址为必填项',pattern:'地址最大60位'}} />
-
-				<KrField  grid={1/2}  name="leaseContact" type="text" component="input" label="联系人" requireLabel={true} right={60}
-				requiredValue={true} pattern={/^.{0,20}$/} errors={{requiredValue:'联系人为必填项',pattern:'联系人最大20位'}} />
-				<KrField  grid={1/2}  name="leaseContacttel" type="text" component="input" label="电话" requireLabel={true} left={60}
-				requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
-
-				<KrField  grid={1/2}  name="communityid" component="labelText" inline={false} label="所属社区" value={optionValues.communityName} right={60}/>
-
-				<KrField  name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} left={60}/>
-
-				<KrField  grid={1/2}  name="communityAddress" component="labelText" inline={false} label="地址" value={optionValues.communityAddress} right={60}/>
-				<KrField  grid={1/2}  name="contractcode" type="text" component="input" label="合同编号" requireLabel={true} left={60}
-				requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同为必填项',pattern:'合同编号最大50位'}} />
-
-
-                <KrField  name="paytype"  grid={1/2} component="select" label="支付方式" right={60} options={optionValues.payTypeList} requireLabel={true} onChange={(item)=>{
-						Store.dispatch(change('increaseCreateForm','paytypeName',item.label));
-				}} />
-				<KrField  name="paymodel"  grid={1/2} component="select" label="付款方式" left={60} options={optionValues.paymentList} requireLabel={true} onChange={(item)=>{
-						Store.dispatch(change('increaseCreateForm','paymodelName',item.label));
-				}} />
-				<KrField grid={1/2}  component="group" label="租赁期限" right={60} requireLabel={true}>
+<form onSubmit={handleSubmit(this.onSubmit)}  >
+				<CircleStyle num="1" info="租赁明细" >
+					<KrField  name="wherefloor" style={{width:370,marginLeft:70,marginRight:15}} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} />
+					<KrField style={{width:370,marginLeft:90}} left={20} component="group" label="租赁期限"  requireLabel={true}>
 					<ListGroup>
-						<ListGroupItem style={{width:'45%',padding:0,marginLeft:'-10px'}}> <KrField name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/></ListGroupItem>
-						<ListGroupItem style={{width:'9%',textAlign:'center',padding:0,marginLeft:10}}><span style={{display:'inline-block',lineHeight:'58px'}}>至</span></ListGroupItem>
-						<ListGroupItem style={{width:'45%',padding:0,}}> <KrField name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} simple={true}/> </ListGroupItem>
+						<ListGroupItem style={{width:'45%',padding:0,marginLeft:'-10px',marginTop:'-10px'}}> <KrField name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/></ListGroupItem>
+						<ListGroupItem style={{width:'5%',textAlign:'center',padding:0,marginLeft:10,marginTop:'-10px'}}><span style={{display:'inline-block',lineHeight:'58px'}}>至</span></ListGroupItem>
+						<ListGroupItem style={{width:'45%',padding:0,marginTop:'-10px'}}> <KrField name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} simple={true}/> </ListGroupItem>
 					</ListGroup>
 				</KrField>
-				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
+					<div className="detailList" style={{marginTop:'-35px'}}>	
+					<DotTitle title='租赁明细'>
 
-
-				<KrField  grid={1/2}  name="firstpaydate"  component="date" grid={1/2} right={60} label="首付款时间" requireLabel={true} />
-
-
-
-
-
-				<KrField  grid={1/2}  name="signdate"  component="date"  left={60} label="签署时间" defaultValue={initialValues.signdate} requireLabel={true} />
-
-
-
-				<KrField grid={1/2}  name="stationnum"  component="labelText" right={60} label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>
-				<KrField grid={1/2}  name="boardroomnum"  component="labelText" left={60} label="租赁会议室" value={changeValues.station} defaultValue="0" requireLabel={true} inline={false}/>
-
-				<KrField  grid={1}  name="rentaluse" type="text" component="input" right={0} label="租赁用途" placeholder="办公使用" requireLabel={true}
-				requiredValue={true} pattern={/^.{0,100}$/} errors={{requiredValue:'租赁用途为必填项',pattern:'租赁用途最大50位'}} />
-
-				<KrField  grid={1/2}  name="totalrent" type="text" component="input" right={60} label="租金总额" placeholder="" requireLabel={true}
-				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}}  />
-				<KrField  grid={1/2}  name="totaldeposit" type="text" component="input" left={60} label="押金总额" requireLabel={true}
-				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
-
-				<KrField  grid={1/1}  name="contractmark" component="textarea" right={0} label="备注" maxSize={200}/>
-
-
-
-				<KrField  grid={1}  name="contractFileList" component="input"  type="hidden" label="合同附件"/>
-				<KrField right={60} grid={1}  name="fileIdList" component="file" label="上传附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
-					Store.dispatch(change('increaseCreateForm','contractFileList',files));
-				}} />
-
-
-
-             <DotTitle title='租赁明细'>
-
-				       <Grid>
+				       <Grid style={{marginTop:'-40px'}}>
 							<Row>
 								<Col align="right">
 									<ButtonGroup>
-									    <Button label="录入单价"  onTouchTap={this.openPreStationUnitPriceDialog} />
-										<Button label="删除"  onTouchTap={this.onStationDelete} />
 										<Button label="选择工位"  onTouchTap={this.openStationDialog} />
+									    <Button label="批量录入单价"  width={100}  onTouchTap={this.openPreStationUnitPriceDialog} />
+										<Button label="删除" height={27} cancle={true} type="button" onTouchTap={this.onStationDelete} />
 								  </ButtonGroup>
 								</Col>
 							</Row>
 						</Grid>
 
-
+				<div  className={HeightAuto?'auto':'stationList'} style={{marginTop:"-10px"}}>
 				<Table  displayCheckbox={true} onSelect={this.onStationSelect}>
 				<TableHeader>
 				<TableHeaderColumn>类别</TableHeaderColumn>
@@ -631,10 +569,89 @@ class NewCreateForm extends Component {
 						})}
 						</TableBody>
 						</Table>
-
+						</div>
+						{stationVos.length>5?<div className="Btip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'Toprow':'Bottomrow'}></span></p></div>:''}
 
                    </DotTitle>
-						<Grid style={{paddingBottom:50}}>
+                   </div>
+					</CircleStyle>
+					<CircleStyle num="2" info="合同文本信息" circle="bottom" >
+				
+					<KrField  grid={1/2}  name="mainbillid" type="hidden" component="input" />
+					<KrField  grid={1/2}  name="contractstate" type="hidden" component="input" />
+					<KrField  grid={1/2}  name="contracttype" type="hidden" component="input" />
+					<KrField  grid={1/2}  name="paymodelName" type="hidden" component="input" />
+					<KrField  grid={1/2}  name="paytypeName" type="hidden" component="input" />
+
+					<KrField  name="leaseId" style={{width:370,marginLeft:70}} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}  />
+					<KrField  style={{width:370,marginLeft:90}}  name="lessorAddress" type="text" inline={false} component="labelText" label="地址" value={changeValues.lessorAddress}  defaultValue="无" />
+					<KrField  style={{width:370,marginLeft:70}}  name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} />
+					<KrField style={{width:370,marginLeft:90}}  name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}  
+
+					requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
+
+					<KrField  style={{width:370,marginLeft:70}} component="labelText" inline={false} label="承租方" value={optionValues.customerName} />
+
+					<KrField  style={{width:370,marginLeft:90}}  name="leaseAddress" type="text" component="input" label="地址" requireLabel={true} 
+					requiredValue={true} pattern={/^.{0,120}$/} errors={{requiredValue:'地址为必填项',pattern:'地址最大60位'}} />
+
+					<KrField  style={{width:370,marginLeft:70}}  name="leaseContact" type="text" component="input" label="联系人" requireLabel={true} 
+					requiredValue={true} pattern={/^.{0,20}$/} errors={{requiredValue:'联系人为必填项',pattern:'联系人最大20位'}} />
+					<KrField  style={{width:370,marginLeft:90}}  name="leaseContacttel" type="text" component="input" label="电话" requireLabel={true} 
+					requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
+
+					<KrField  style={{width:370,marginLeft:70}}  name="communityid" component="labelText" inline={false} label="所属社区" value={optionValues.communityName} />
+
+					
+
+					<KrField style={{width:370,marginLeft:90}} name="communityAddress" component="labelText" inline={false} label="地址" value={optionValues.communityAddress} />
+					<KrField  style={{width:370,marginLeft:70}}  name="contractcode" type="text" component="input" label="合同编号" requireLabel={true} 
+					requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同为必填项',pattern:'合同编号最大50位'}} />
+
+
+	                <KrField  name="paytype"  style={{width:370,marginLeft:90}} component="select" label="支付方式"  options={optionValues.payTypeList} requireLabel={true} onChange={(item)=>{
+							Store.dispatch(change('increaseCreateForm','paytypeName',item.label));
+					}} />
+					<KrField  name="paymodel"  style={{width:370,marginLeft:70}} component="select" label="付款方式"  options={optionValues.paymentList} requireLabel={true} onChange={(item)=>{
+							Store.dispatch(change('increaseCreateForm','paymodelName',item.label));
+					}} />
+					
+					<KrField style={{width:370,marginLeft:90}}  name="mainbillid" type="hidden" component="input" />
+
+
+					<KrField  style={{width:370,marginLeft:70}}  name="firstpaydate"  component="date"  label="首付款时间" requireLabel={true} />
+
+
+
+
+
+					<KrField  style={{width:370,marginLeft:90}} name="signdate"  component="date"   label="签署时间" defaultValue={initialValues.signdate} requireLabel={true} />
+
+
+
+					<KrField style={{width:370,marginLeft:70}}  name="stationnum"  component="labelText"  label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>
+					<KrField style={{width:370,marginLeft:90}}  name="boardroomnum"  component="labelText"  label="租赁会议室" value={changeValues.station} defaultValue="0" requireLabel={true} inline={false}/>
+
+					
+
+					<KrField  style={{width:370,marginLeft:70}}  name="totalrent" type="text" component="input"  label="租金总额" placeholder="" requireLabel={true}
+					requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}}  />
+					<KrField  style={{width:370,marginLeft:90}}  name="totaldeposit" type="text" component="input"  label="押金总额" requireLabel={true}
+					requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
+
+					<KrField  style={{width:830,marginLeft:70}}   name="contractmark" component="textarea"  label="备注" maxSize={200}/>
+
+
+					</CircleStyle>
+					<KrField  grid={1}  name="contractFileList" component="input"  type="hidden" label="合同附件"/>
+					<KrField style={{width:830,marginLeft:80,marginTop:'-20px'}}  name="fileIdList" component="file" label="上传附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
+						Store.dispatch(change('increaseCreateForm','contractFileList',files));
+					}} />
+
+
+
+             
+						<Grid style={{padding:"10px 0 50px"}}>
 						<Row>
 						<ListGroup>
 							<ListGroupItem style={{width:'45%',textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit" disabled={pristine || submitting}  width={100} height={40} fontSize={16}/></ListGroupItem>
@@ -659,7 +676,7 @@ class NewCreateForm extends Component {
 					<Dialog
 						title="录入单价"
 						autoScrollBodyContent={true}
-						open={this.state.openStationUnitPrice} contentStyle={{width:430,paddingTop:30}}
+						open={this.state.openStationUnitPrice} contentStyle={{width:430}}
 						onClose={this.openStationUnitPriceDialog}>
 								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
@@ -751,9 +768,7 @@ const validate = values => {
 	if (!values.fileIdList) {
 		errors.fileIdList = '请填写合同附件';
 	}
-	if (!values.rentaluse) {
-		errors.rentaluse = '请填写租赁用途';
-	}
+
 	if (!values.wherefloor) {
 		errors.wherefloor = '请填写所属楼层';
 	}
