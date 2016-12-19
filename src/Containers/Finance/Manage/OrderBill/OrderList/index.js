@@ -32,6 +32,7 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Title,
+	Tooltip
 } from 'kr-ui';
 import './index.less'
 
@@ -92,7 +93,7 @@ export default class AttributeSetting extends Component {
 			}]);
 		});
 	}
-//导出功能
+
 	onExport(values) {
 		var searchParams = this.state.searchParams;
 		let idList = [];
@@ -145,22 +146,15 @@ export default class AttributeSetting extends Component {
 	//搜索
 	onSearchSubmit(searchParams) {
 		let obj = {
-			customername: searchParams.content,
+			mainbillname: searchParams.content,
 			pageSize:15
 		}
-
-
 		this.setState({
 			searchParams: obj
 		});
 	}
-
 	onSearchCancel() {
-
 	}
-
-
-
 	//新建
 	openNewCreateDialog() {
 		this.setState({
@@ -170,7 +164,7 @@ export default class AttributeSetting extends Component {
 			}
 		});
 	}
-	//高级查询
+
 	onNewCreateSubmit(searchParams) {
 		searchParams = Object.assign({}, this.state.searchParams, searchParams);
 		this.setState({
@@ -200,14 +194,11 @@ export default class AttributeSetting extends Component {
 			list
 		} = this.state;
 
-		if (!list.sumcome) {
+		if (!list.totalCount) {
 			list.sumcome = 0;
 		}
-		if (!list.sumAmount) {
+		if (!list.totalCount) {
 			list.sumAmount = 0;
-		}
-		if (!list.summount) {
-			list.summount = 0;
 		}
 
 
@@ -268,9 +259,10 @@ export default class AttributeSetting extends Component {
 						  >
 
 					<TableHeader>
-					<TableHeaderColumn>公司名称</TableHeaderColumn>
+					<TableHeaderColumn>订单名称</TableHeaderColumn>
 					<TableHeaderColumn>订单类型</TableHeaderColumn>
 					<TableHeaderColumn>所在社区</TableHeaderColumn>
+					<TableHeaderColumn>工位</TableHeaderColumn>
 					<TableHeaderColumn>起始日期</TableHeaderColumn>
 					<TableHeaderColumn>结束日期</TableHeaderColumn>
 					<TableHeaderColumn>收入总额</TableHeaderColumn>
@@ -282,9 +274,30 @@ export default class AttributeSetting extends Component {
 
 				<TableBody>
 						 <TableRow displayCheckbox={true}>
-						<TableRowColumn name="customername" ></TableRowColumn>
-						<TableRowColumn name="mainbilltype" options={[{label:'工位入驻订单',value:'STATION'}]}></TableRowColumn>
-						<TableRowColumn name="community"></TableRowColumn>
+						<TableRowColumn style={{width:160,overflow:"visible"}} name="mainbillname" component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="block";
+														}
+														 return (<div style={{display:TooltipStyle}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
+														 	<Tooltip offsetTop={10} place='top'>{value}</Tooltip></div>)
+													 }} ></TableRowColumn>
+						<TableRowColumn name="mainBillTypeName" options={[{label:'工位入驻订单',value:'STATION'}]}></TableRowColumn>
+						<TableRowColumn style={{width:160,overflow:"visible"}} name="community" component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="block";
+														}
+														 return (<div style={{display:TooltipStyle}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
+														 	<Tooltip offsetTop={10} place='top'>{value}</Tooltip></div>)
+											}} ></TableRowColumn>
+						<TableRowColumn name="stationnum"></TableRowColumn>
 						<TableRowColumn name="contractEntrydate" type="date" format="yyyy-mm-dd"></TableRowColumn>
 						<TableRowColumn name="contractLeavedate" type="date" format="yyyy-mm-dd"></TableRowColumn>
 						<TableRowColumn name="come"></TableRowColumn>
@@ -305,7 +318,7 @@ export default class AttributeSetting extends Component {
 					</Section>
 
 					<Dialog
-						title="高级查询"
+						title="高询"
 						modal={true}
 						open={this.state.openNewCreate}
 						onClose={this.openNewCreateDialog}

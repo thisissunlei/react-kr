@@ -31,7 +31,7 @@ export default class SearchForms extends Component{
 		this.getValue = this.getValue.bind(this);
 		this.renderFilter = this.renderFilter.bind(this);
 		this.bodyEvent = this.bodyEvent.bind(this);
-		this.bodyEvent();
+		// this.bodyEvent()
 	}
 	componentDidMount() {
 		let _this = this;
@@ -164,48 +164,57 @@ export default class SearchForms extends Component{
 		let {onFilter} = this.props;
 		onFilter && onFilter(filterValue);
 	}
-	bodyEvent(){
+	bodyEvent(event){
 		let _this = this;
+		let targetName = event.target.className;
+		console.log(event.target.className,'event');
+		if(targetName == icon-searching){
+			console.log('icon-searching');
+			_this.click();
+		}else{
+			console.log('icon-searching');
+		}
 		let targetList = ['icon-searching', 'search-val', 'search-name','filter-container','icon-searching click'];
-		$('body').click(function(event){
-			const form = ReactDOM.findDOMNode(_this.form);
+		$('.icon-searching').click(function(event){
+			console.log('pppp',event);
+			// const form = ReactDOM.findDOMNode(_this.form);
 
-			let searchName = '';
-			let {searchFilter} = _this.props;
-			let filterValue = '';
+			// let searchName = '';
+			// let {searchFilter} = _this.props;
+			// let filterValue = '';
 
-			const filterDom = document.getElementsByClassName('search-name');
-			if(filterDom.length){
-				searchName = document.getElementsByClassName('search-name')[0].innerHTML;
-				searchFilter.forEach((item)=>{
-					if(item.label === searchName ){
-						filterValue = item.value
-					}
-				})
-			}
-			var searchWord = document.getElementById("keywords").value;
+			// const filterDom = document.getElementsByClassName('search-name');
+			// if(filterDom.length){
+			// 	searchName = document.getElementsByClassName('search-name')[0].innerHTML;
+			// 	searchFilter.forEach((item)=>{
+			// 		if(item.label === searchName ){
+			// 			filterValue = item.value
+			// 		}
+			// 	})
+			// }
+			// var searchWord = document.getElementById("keywords").value;
 
-			if(form){
-				const searchButton = form.getElementsByClassName('icon-searching')[0];
-				const searchForm = form.getElementsByClassName('search-status')[0];
-				let name = event.target.className;
-				let close = true;
-				if(parseInt(name)+1){return;}
-				targetList.forEach((item)=>{
-					if(item === name){
-						close = false;
-					}
-				})
-				if(name == 'icon-searching click' || name == 'icon-searching'){
-					_this.click();
-				}
-				if(filterValue || searchWord){return;}
-				// if(close){
-				// 	_this.removeClass(searchForm,'show-form');
-				// 	_this.removeClass(searchButton,'click');
-				// 	_this.setState({num:0})
-				// }
-			}
+			// if(form){
+			// 	const searchButton = form.getElementsByClassName('icon-searching')[0];
+			// 	const searchForm = form.getElementsByClassName('search-status')[0];
+			// 	let name = event.target.className;
+			// 	let close = true;
+			// 	if(parseInt(name)+1){return;}
+			// 	targetList.forEach((item)=>{
+			// 		if(item === name){
+			// 			close = false;
+			// 		}
+			// 	})
+			// 	if(name == 'icon-searching click' || name == 'icon-searching'){
+			// 		_this.click();
+			// 	}
+			// 	if(filterValue || searchWord){return;}
+			// 	// if(close){
+			// 	// 	_this.removeClass(searchForm,'show-form');
+			// 	// 	_this.removeClass(searchButton,'click');
+			// 	// 	_this.setState({num:0})
+			// 	// }
+			// }
 
 
 		})
@@ -251,10 +260,10 @@ export default class SearchForms extends Component{
 					{this.renderFilter()}
 
 					<div className="search-content">
-						<input type="text" className="search-val" placeholder="请输入您要查找的内容"  name="keywords" id="keywords"/>
+						<input type="text" autoComplete="off" className="search-val" placeholder="请输入您要查找的内容"  name="keywords" id="keywords"/>
 					</div>
 				</div>
-				<span className="icon-searching" ></span>
+				<span className="icon-searching" onClick={this.click}></span>
 
 			</div>
 		)

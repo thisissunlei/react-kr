@@ -24,6 +24,7 @@ import Paper from './Paper';
 import SplitLine from './SplitLine';
 import FontIcon from './FontIcon';
 import SearchForms from './SearchForms';
+import SearchForm from './SearchForm';
 import List from './List';
 import AppBar from './AppBar';
 import Divider from './Divider';
@@ -39,10 +40,12 @@ import RadioGroup from './RadioGroup';
 import Message from './Message';
 import DemoComponent from './Demo';
 import Textarea from './Textarea';
+import CircleStyle from './CircleStyle';
 import 	DatePicker from './DatePicker';
 import 	Tooltip from './Tooltip';
 import 	KrForm from './KrForm';
 import 	InputDate from './InputDate';
+import  SnackTip from './SnackTip';
 
 
 import {
@@ -112,6 +115,7 @@ module.exports = {
 	DatePicker,
 	...KrForm,
 	InputDate,
+	SnackTip,
 
 	//materal-ui
 	Menu,
@@ -127,5 +131,7 @@ module.exports = {
 	SearchForms,
 	...Tabs,
 	PageHeader,
-	Tooltip
+	Tooltip,
+	CircleStyle,
+	SearchForm
 }
