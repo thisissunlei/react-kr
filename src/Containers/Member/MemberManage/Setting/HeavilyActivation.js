@@ -33,6 +33,11 @@ import './index.less';
 	//数据的初始化设定
 	constructor(props){
 		super(props);
+		this.state={
+			startNum:"",
+			endNum:"",
+			cardNum:0
+		}
 		// const detail=props.detail;
 		// console.log(detail,"H");
 		//
@@ -50,8 +55,52 @@ import './index.less';
 	 }
 
 
-	 handleBlur=()=>{
+	 handleStartBlur=(event)=>{
+		 var _this=this;
+		 if(this.isCard(event)){
+			 this.setState({
+				startNum:event,
+					 endNum:this.state.endNum,
+					 cardNum:this.state.cardNum
+				 },function(){
+					 _this.calCard();
+				 })
+		 }
 
+	 }
+	 handleEndBlur=(event)=>{
+		 var _this=this;
+		 if(this.isCard(event)){
+			 this.setState({
+					 startNum:this.state.startNum,
+					 endNum:event,
+					 cardNum:this.state.cardNum
+				 },function(){
+					 _this.calCard();
+				 })
+		 }
+	 }
+	 //计算卡的多少
+	 calCard=()=>{
+		 if(this.state.startNum&&this.state.endNum){
+			 this.setState({
+					 startNum:this.state.startNum,
+					 endNum:this.state.endNum,
+					 cardNum:this.state.endNum-this.state.startNum+1
+				 })
+		 }
+	 }
+	 isCard=(card)=>{
+		 if(!card){
+			 return false;
+		 }
+		 if(isNaN(+card)){
+			 return false;
+		 }
+		 if(card.length!=10){
+			 return false;
+		 }
+		 return true;
 	 }
 
 	render(){
@@ -65,9 +114,9 @@ import './index.less';
 		return (
 			<form className="HeavilyActivation" onSubmit={handleSubmit(this.onSubmit)}>
 				<div className="stageImg" ></div>
-				<KrField style={{marginTop:20}} left={71} right={71} name="startNum" type="text" label="起始号码" onBlur={this.handleBlur} />
-				<KrField style={{}} left={71} right={71} name="endNum" type="text" label="终止号码"/>
-				<KrField style={{height:36,marginTop:-15}} left={71} right={71} component="labelText" label="会员卡数量:" value={"100"+"张"}/>
+				<KrField style={{marginTop:20}} left={71} right={71} name="startNum" type="text" label="起始号码" onBlur={this.handleStartBlur} />
+				<KrField style={{}} left={71} right={71} name="endNum" type="text" label="终止号码" onBlur={this.handleEndBlur} />
+				<KrField style={{height:36,marginTop:-15}} left={71} right={71} component="labelText" label="会员卡数量:" value={this.state.cardNum+"张"}/>
 				<Grid style={{marginTop:15,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">

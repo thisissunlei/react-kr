@@ -27,7 +27,8 @@ import {
 	Tooltip,
 	Message,
 	Title,
-	KrDate
+	KrDate,
+	SnackTip
 
 } from 'kr-ui';
 
@@ -104,10 +105,12 @@ export default class List extends Component {
 	openStartCardActivationDialog=()=>{
 		this.setState({
 			openStartCardActivation: !this.state.openStartCardActivation,
-			openHeavilyActivation: !this.state.openHeavilyActivation,
 		});
 	}
-
+	throwBack=()=>{
+		this.openStartCardActivationDialog();
+		this.openHeavilyActivationDialog();
+	}
 	//新建激活的确定操作
 	onNewActivation=(values)=> {
 		var _this=this;
@@ -281,7 +284,7 @@ export default class List extends Component {
 							bodyStyle={{paddingTop:45}}
 							contentStyle={{width:500}}
 						>
-							<StartCardActivation detail={this.state.detail}  onCancel={this.openStartCardActivationDialog}/>
+							<StartCardActivation detail={this.state.detail}  onCancel={this.openStartCardActivationDialog} throwBack={this.throwBack}/>
 					  </Dialog>
 
 				</div>

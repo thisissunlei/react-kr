@@ -43,7 +43,7 @@ import 	DatePicker from './DatePicker';
 import 	Tooltip from './Tooltip';
 import 	KrForm from './KrForm';
 import 	InputDate from './InputDate';
-
+import  SnackTip from './SnackTip';
 
 import {
 	Grid,
@@ -112,6 +112,7 @@ module.exports = {
 	DatePicker,
 	...KrForm,
 	InputDate,
+	SnackTip,
 
 	//materal-ui
 	Menu,

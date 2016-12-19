@@ -10,7 +10,8 @@ import {
 	Col,
 	Button,
 	Notify,
-	ButtonGroup
+	ButtonGroup,
+	SnackTip
 } from 'kr-ui';
 import './index.less';
 
@@ -18,6 +19,7 @@ import './index.less';
 
 	 static defaultProps = {
 	 		stage:'importNum'
+
 	 	}
 	 //节点的暴露
 	 static PropTypes = {
@@ -34,12 +36,21 @@ import './index.less';
 	constructor(props){
 		super(props);
     this.state={
-				detail:props.detail
+				detail:props.detail,
+				accomplish:false
     }
 	}
 	//监听props是否发生变化
-	 onSubmit=(values)=>{
-		 this.cardNumAdd(4);
+	 onSubmit=(values,event)=>{
+		 console.log(event,"---");
+		 if (this.state.detail.startNum<this.state.detail.endNum) {
+			 this.cardNumAdd(4);
+		 }
+		 if(this.state.detail.startNum>=this.state.detail.endNum){
+			 this.setState({
+				 accomplish:true
+			 })
+		 }
 	 }
 
 	 //数字处理
@@ -83,13 +94,14 @@ import './index.less';
 			error,
 			handleSubmit,
 			pristine,
-			reset
+			reset,
+			throwBack
 		} = this.props;
 		return (
 			<form className="HeavilyActivation" onSubmit={handleSubmit(this.onSubmit)}>
 				<div className="activeImg" ></div>
 				<div style={{textAlign:"right",width:340,margin:"auto",marginTop:10}}>
-						<label >{"会员卡数量:"+((+this.state.detail.endNum)-(+this.state.detail.startNum))+"张"}</label>
+						<label >{"会员卡数量:"+((+this.state.detail.endNum)-(+this.state.detail.startNum-1))+"张"}</label>
 						<div style={{height:'60px'}}>
 								<span className="cardNum">{this.numhandle(this.state.detail.startNum,0,4)}</span>
 								<span className="cardNum" style={{padding:"0 10px"}}>{this.numhandle(this.state.detail.startNum,4,6)}</span>
@@ -97,19 +109,21 @@ import './index.less';
 						</div>
 						<label className="jump" onClick={this.skipCard}>跳过该号码</label>
 				</div>
-				<KrField style={{height:36}} left={71} right={71} name="interCode" type="text" label="" disable={true}/>
+				<KrField style={{height:36}} left={71} right={71} name="interCode" type="text" />
 
 
 				<Grid style={{marginTop:38,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<div  className='ui-btn-center'><Button  label="完成" type="submit" joinEditForm /></div>
-								<Button  label="返回" type="button" cancle={true} onTouchTap={this.onCancel} />
+							{this.state.accomplish&&<div  className='ui-btn-center' style={{marginLeft:27}}><Button  label="完成" type="submit" backgroundColor={this.state.accomplish?"#499df1":"#cccccc"} joinEditForm /></div>}
+							{!this.state.accomplish&&<Button  label="返回" type="button" cancle={true} onTouchTap={throwBack} />}
 							</ButtonGroup>
 						</Col>
 					</Row>
 				</Grid>
+				<SnackTip style={{position:'fixed',top:-160,right:0,backgroundColor:"#000"}} open={true} title={"title"}  />
+
 
 			</form>
 		);

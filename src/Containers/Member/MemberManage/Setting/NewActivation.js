@@ -110,7 +110,7 @@ class NewActivation extends Component {
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:30}}>
 
 				<KrField  right={27}  left={42} right={42} name="foreignCode" type="text" label="会员卡号"/>
-				<KrField  right={27}  left={42} right={42} name="interCode" type="text" disable={true} label="会员卡内码"/>
+				<KrField  right={27}  left={42} right={42} name="interCode" type="text" label="会员卡内码"/>
 				<Grid style={{marginTop:10,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">
