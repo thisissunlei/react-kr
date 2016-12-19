@@ -527,7 +527,7 @@ class NewCreateForm extends Component {
 					<div className="detailList" style={{marginTop:'-35px'}}>	
 					<DotTitle title='租赁明细'>
 
-				       <Grid style={{marginTop:'-40px'}}>
+		<Grid style={{marginTop:'-40px'}}>
 							<Row>
 								<Col align="right">
 									<ButtonGroup>
