@@ -113,9 +113,31 @@ export default class CancleLeader extends Component {
 
 
 	onSubmit=(form)=>{
-		console.log('onSubmit',form);
-		const {onSubmit} = this.props;
-		onSubmit && onSubmit(form);
+		form.companyId = 45;
+		console.log('form',form);
+
+		Store.dispatch(Actions.callAPI('importMemberExcel',{},form)).then(function(response) {
+			_this.importData();
+			// Notify.show([{
+			// 	message: '设置成功',
+			// 	type: 'success',
+			// }]);
+			Message.success('设置成功');
+
+			// window.setTimeout(function() {
+			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
+			// }, 0);
+
+		}).catch(function(err) {
+			// Notify.show([{
+			// 	message: err.message,
+			// 	type: 'danger',
+			// }]);
+			Message.error(err.message);
+		});
+		// console.log('onSubmit',form);
+		// const {onSubmit} = this.props;
+		// onSubmit && onSubmit(form);
 	}
 	onCancel=()=>{
 		const {onCancel} = this.props;
@@ -159,7 +181,7 @@ export default class CancleLeader extends Component {
 
 
 		return (
-			<form onSubmit={handleSubmit(this.onSubmit)}>
+			<form onSubmit={handleSubmit(this.onSubmit)} encType= "mutipart/form-data">
 				<KrField grid={1/2}  name="file" type="hidden" component="input" />
 				<div>
 					<span className='import-logo icon-excel' onClick={this.importFile}></span>
