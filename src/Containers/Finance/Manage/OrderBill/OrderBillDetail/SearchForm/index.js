@@ -70,12 +70,15 @@ class SearchForm extends Component{
 
 
             <div className='ui-search'>
-				<form  onSubmit={handleSubmit(this.onSubmit)} initialValues={initialValues}>
+				<form  onSubmit={handleSubmit(this.onSubmit)}  initialValues={initialValues}>
 
 					<KrField grid={1} name="orderId" type="hidden"/>
 					<KrField grid={1} name="accountType" type="hidden"/>
-					<KrField grid={1/2} name="accountId" right={53} component="select" label="代码" options={codeList}/>
-					<KrField grid={1/2} name="propertyId" right={53} type="select" label="款项" options={typeList} style={{marginLeft:-27}}/>
+
+					<KrField grid={1/2} name="accountId" right={39} component="select" label="代码" options={codeList}/>
+					<KrField grid={1/2} name="propertyId" right={39} type="select" label="款项" options={typeList} style={{marginLeft:-11}}/>
+
+
 
 						
 
@@ -88,7 +91,11 @@ class SearchForm extends Component{
 	                    </div>
 				   </KrField>
 
-					<Grid style={{marginTop:8,marginBottom:5,marginLeft:-10}}>
+
+
+					<Grid style={{marginTop:8,marginBottom:5,marginLeft:-35}}>
+
+
 						<Row>
 							<Col md={12} align="center">
 								<ButtonGroup>
@@ -103,7 +110,7 @@ class SearchForm extends Component{
 				</form>
              </div>
 
-			);
+		 );
 	}
 
 }

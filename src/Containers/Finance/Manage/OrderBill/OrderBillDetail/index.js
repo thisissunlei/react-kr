@@ -38,8 +38,8 @@ import {
 	ButtonGroup,
 	Loading,
 	Title,
-    SnackTip,
-    Tooltip,
+	Tooltip,
+	SnackTip,
     Message
 } from 'kr-ui';
 import {
@@ -209,8 +209,9 @@ export default class AttributeSetting extends Component {
 			isLoading: true,
 			isInitLoading: true,
 			openView: false,
-            isRunIncome:0,
-            colorClassName:''
+            colorClassName:'',
+            isRunningIncome:0,
+
 		}
 	}
 
@@ -267,10 +268,7 @@ export default class AttributeSetting extends Component {
 				typeList
 			});
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			  Message.error(err.message); 
 		});
 		this.setState({
 			openReceivedBtn: !this.state.openReceivedBtn,
@@ -333,10 +331,7 @@ export default class AttributeSetting extends Component {
 					receivedList: receivedList
 				});
 			}).catch(function(err) {
-				Notify.show([{
-					message: err.message,
-					type: 'danger',
-				}]);
+				 Message.error(err.message); 
 			});
 		}
 	}
@@ -377,7 +372,7 @@ export default class AttributeSetting extends Component {
 				accountDetail:response.propData
 			});
 		}).catch(function(err) {
-			Message.error(err);
+			 Message.error(err.message); 
 		});
 		this.setState({
 			openAddaccountBtn: !this.state.openAddaccountBtn
@@ -399,10 +394,7 @@ export default class AttributeSetting extends Component {
 			});
 
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			  Message.error(err.message); 
 		});
 		this.setState({
 			openView: !this.state.openView
@@ -528,20 +520,10 @@ export default class AttributeSetting extends Component {
 		params.receiveDate = dateFormat(params.receiveDate, "yyyy-mm-dd h:MM:ss");
 		var _this = this;
 		Store.dispatch(Actions.callAPI('receiveMoney', {}, params)).then(function(response) {
-
-			Notify.show([{
-				message: '回款成功',
-				type: 'success',
-			}]);
-
 			_this.refresh();
 
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-
-			}]);
+			 Message.error(err.message); 
 		});
 		this.setState({
 			openReceivedBtn: !this.state.openReceivedBtn,
@@ -558,10 +540,7 @@ export default class AttributeSetting extends Component {
 		Store.dispatch(Actions.callAPI('payBack', {}, params)).then(function(response) {
 			_this.refresh();
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+		  Message.error(err.message); 
 		});
 		this.setState({
 			openQuitBtn: !this.state.openQuitBtn,
@@ -574,10 +553,7 @@ export default class AttributeSetting extends Component {
 		Store.dispatch(Actions.callAPI('transToDeposit', {}, params)).then(function(response) {
 			_this.refresh();
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			 Message.error(err.message); 
 		});
 		this.setState({
 			openSwitchBtn: !this.state.openSwitchBtn,
@@ -589,16 +565,9 @@ export default class AttributeSetting extends Component {
 	onBusinessSubmit(params) {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('transToOperateIncome', {}, params)).then(function(response) {
-			Notify.show([{
-				message: '操作成功',
-				type: 'success',
-			}]);
 			_this.refresh();
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			  Message.error(err.message); 
 		});
 
 		this.setState({
@@ -627,10 +596,7 @@ export default class AttributeSetting extends Component {
 			}]);
 			_this.refresh();
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			  Message.error(err.message); 
 		});
 		this.setState({
 			openAddaccountBtn: !this.state.openAddaccountBtn,
@@ -642,16 +608,9 @@ export default class AttributeSetting extends Component {
 			Store.dispatch(Actions.callAPI('addIncome', {
 				mainbillid: _this.props.params.orderId
 			})).then(function(response) {
-				Notify.show([{
-					message: '操作成功',
-					type: 'success',
-				}]);
 				_this.refresh();
 			}).catch(function(err) {
-				Notify.show([{
-					message: err.message,
-					type: 'danger',
-				}]);
+				 Message.error(err.message); 
 			});
 			_this.setState({
 				openSupplementBtn: !this.state.openSupplementBtn,
@@ -668,7 +627,7 @@ export default class AttributeSetting extends Component {
 
 	//
 	initBasicInfo() {
-		var _this = this;
+			var _this = this;
 		let {
 			params
 		} = this.props;
@@ -681,14 +640,11 @@ export default class AttributeSetting extends Component {
 				detailIncome: response.incomedata,
 				detailBalance: response.balance,
 				isInitLoading: false,
-				isRunIncome:response.isIncomeRunning,
+				isRunningIncome:response.isIncomeRunning,
 				colorClassName:response.isIncomeRunning==2?'historyIncomeGray':'historyIncome'
 			});
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			 Message.error(err.message); 
 		});
 	}
 
@@ -715,42 +671,55 @@ export default class AttributeSetting extends Component {
 				list.label = item.propname;
 				typeList.push(list);
 			})
+			params.propertyId='';
+			params.accountId='';
+			params.startTime='';
+			params.endTime='';
 			_this.setState({
 				codeList,
-				typeList
+				typeList,
 			});
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			 Message.error(err.message); 
 		});
 	}
 
-    historyIncomed=()=>{
-       let {isRunIncome} = this.state;
-       if(isRunIncome==0){
+
+      historyIncomed=()=>{
+       let {isRunningIncome} = this.state;
+       if(isRunningIncome==0){
+
        	 var _this = this;
 	        let {
 				params
 			} = this.props;
 			_this.setState({
-				 isRunIncome:1
+				 isRunningIncome:1
+
 			 });
 			Store.dispatch(Actions.callAPI('runStationIncome',{
 				mainbillId:params.orderId,
 			})).then(function(response) {
 			    setTimeout(function(){
                    _this.setState({
-				     isRunIncome:2,
+
+				     isRunningIncome:2,
+
 				     colorClassName:'historyIncomeGray'
 			        });
 			    },1000)
 			}).catch(function(err) {
-				 
+				 Message.error(err.message);
+				 _this.setState({
+
+				   isRunningIncome:0
+
+			    }); 
 			});
         }
     }
+
+
 
 	componentDidMount() {
 		this.initBasicInfo();
@@ -758,7 +727,10 @@ export default class AttributeSetting extends Component {
 	}
 
 
-    snackTipClose=()=>{
+
+	 snackTipClose=()=>{
+
+
     	   var _this = this;
 	        let {
 				params
@@ -766,13 +738,19 @@ export default class AttributeSetting extends Component {
 			Store.dispatch(Actions.callAPI('removeRunningTag',{},{
 				mainbillId:params.orderId,
 			})).then(function(response) {
+
+				_this.refresh();
 			    _this.setState({
-				 isRunIncome:0,
+
+				 isRunningIncome:0,
+
 				 colorClassName:'historyIncome'
 			 });
-			}).catch(function(err) {
-				 
+			}).catch(function(err){
+				  Message.error(err.message); 
 			});
+
+
     }
 
 	initializeSnack = (open=false,title='正在补历史收入...',titleAfter,color)=>{
@@ -796,12 +774,15 @@ export default class AttributeSetting extends Component {
     
     
     renderSnack=()=>{
-    	let {isRunIncome} = this.state;
-    	if(isRunIncome == 1){
+
+
+    	let {isRunningIncome} = this.state;
+    	if(isRunningIncome == 1){
     		return this.initializeSnack(true,'正在补历史收入...','','#69bbf0');
-    	}else if(isRunIncome==0){
+    	}else if(isRunningIncome==0){
     		return this.initializeSnack(false,'未完成');
-    	}else if(isRunIncome==2){
+    	}else if(isRunningIncome==2){
+
     		return this.initializeSnack(true,'补历史收入已完成!','确认','#75c7bc');
     	}
     	
@@ -809,6 +790,7 @@ export default class AttributeSetting extends Component {
     }
 
 	render() {
+		
 		let {
 			params,
 			isInitLoading,
