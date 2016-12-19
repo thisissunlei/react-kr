@@ -68,7 +68,7 @@ export default class CompanyMembers extends Component {
 			communityId: '',
 			page: 1,
 			companyId:this.companyId,
-			pageSize: 15,
+			pageSize: 5,
 			validateMember:false,
 			createMember:false,
 			cancleLeader:false,
