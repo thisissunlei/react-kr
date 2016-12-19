@@ -196,7 +196,8 @@ export default class AttributeSetting extends Component {
 
 			payWayList:[],
 			accountDetail:[],
-
+			contractList:[],
+            
 
 
 			openSearch: false,
@@ -211,7 +212,6 @@ export default class AttributeSetting extends Component {
 			openView: false,
             colorClassName:'',
             isRunningIncome:0,
-
 		}
 	}
 
@@ -297,6 +297,7 @@ export default class AttributeSetting extends Component {
 	}
 
 	openSwitchBtn() {
+	   
 		let items = this.state.selectedList
 		var _this = this;
 		items.map(function(item, index) {
@@ -305,6 +306,7 @@ export default class AttributeSetting extends Component {
 				fiItem = item;
 			}
 		})
+		
 		if (this.state.listValues.length == 0) {
 			Message.error('请选择一条回款数据进行转押金');
 		} else if (this.state.listValues.length > 1) {
@@ -313,10 +315,9 @@ export default class AttributeSetting extends Component {
 			Message.error('金额必须为负且存在可用金额');
 		} else {
 			this.setState({
-				openSwitchBtn: !this.state.openSwitchBtn
+				openSwitchBtn: !this.state.openSwitchBtn,
 			});
-
-
+            this.getMoneyALLTrue();
 			//console.log('2222',fiItem.id);
 			Store.dispatch(Actions.callAPI('findContractListById', {
 				id: fiItem.id
@@ -334,6 +335,18 @@ export default class AttributeSetting extends Component {
 				 Message.error(err.message); 
 			});
 		}
+	}
+	getMoneyALLTrue=()=>{
+		Store.dispatch(Actions.callAPI('getFlowRemainMoney', {
+				id: fiItem.id
+			})).then(function(response) {
+				_this.setState({
+					fiMoney:response
+				});
+			}).catch(function(err) {
+				 //Message.error(err.message); 
+		 });
+
 	}
 	openBusinessBtn() {
 		let items = this.state.selectedList
@@ -361,18 +374,27 @@ export default class AttributeSetting extends Component {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('getOnNewAccountData')).then(function(response) {	
 			var payWayList = [];
+			var contractList=[];
 			response.payWay.map(function(item, index) {
 				var list = {}
 				list.value = item.id;
 				list.label = item.accountname;
 				payWayList.push(list);
 			});
+			response.contractList.map(function(item, index) {
+				var list = {}
+				list.value = item.id;
+				list.label = item.accountname;
+				contractList.push(list);
+			});
+			
 			_this.setState({
 				payWayList,
-				accountDetail:response.propData
+				accountDetail:response.propData,
+				contractList
 			});
 		}).catch(function(err) {
-			 Message.error(err.message); 
+			 //Message.error(err.message); 
 		});
 		this.setState({
 			openAddaccountBtn: !this.state.openAddaccountBtn
@@ -795,6 +817,7 @@ export default class AttributeSetting extends Component {
 			params,
 			isInitLoading,
 			colorClassName,
+			fiMoney
 		} = this.state;
 
 		if (isInitLoading) {
@@ -813,11 +836,11 @@ export default class AttributeSetting extends Component {
 		//回款传订单id
 		let initialValues = {
 				mainbillid: params.orderId,
-
 			}
 			//退款等要操作的id
 		let initialValuesId = {
-				id: fiItem.id
+				id: fiItem.id,
+				fiMoney:123
 			}
 			//高级查询
 		let searchValue = {
@@ -1005,7 +1028,7 @@ export default class AttributeSetting extends Component {
 						onClose={this.closeAddaccount}
 						contentStyle ={{ width: '688'}}
 						>
-					   <AccountBtnForm  onSubmit={this.onConfrimSubmit}  onCancel={this.closeAddaccount}  optionList={this.state.payWayList}  accountDetail={this.state.accountDetail}/>
+					   <AccountBtnForm  onSubmit={this.onConfrimSubmit}  onCancel={this.closeAddaccount}  optionList={this.state.payWayList}  accountDetail={this.state.accountDetail} contractList={this.state.contractList}/>
 					 </Dialog>
 
 					 <Dialog

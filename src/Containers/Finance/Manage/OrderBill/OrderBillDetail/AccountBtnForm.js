@@ -37,8 +37,9 @@ class AccountBtnForm extends Component{
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
-		optionList:React.PropTypes.object,
-		accountDetail:React.PropTypes.object,
+		optionList:React.PropTypes.arr,
+		accountDetail:React.PropTypes.arr,
+		contractList:React.PropTypes.arr,
 	}
 	constructor(props,context){
 		super(props,context);
@@ -71,7 +72,7 @@ class AccountBtnForm extends Component{
 	}
 	
 	render(){
-		const {optionList,error,handleSubmit,pristine,reset} = this.props;
+		const {error,handleSubmit,pristine,reset} = this.props;
 		let style={
        	 marginTop:'6'
        }
@@ -83,11 +84,28 @@ class AccountBtnForm extends Component{
       
        	 let accountDetail=[
         {
-            "id":72726,"propname":"测试内容s6k4"
+            "id":72726,"propname":"工位服务费"
         }, 
          {
-            "id":727,"propname":"测试内容123"
+            "id":727,"propname":"电费"
+        }, 
+        {
+            "id":727,"propname":"电费"
         },  
+        ]
+
+        let contractList=[
+        {
+            "value":7,"label":"入驻合同"
+        }, 
+         {
+            "value":6,"label":"增租合同"
+        },  
+        ]
+        let optionList=[
+          {
+          	"value":123,"label":'nihao'
+          }
         ]
        
 
@@ -101,25 +119,31 @@ class AccountBtnForm extends Component{
 		                <KrField name="preCode" label="负" type="radio" value="1" />
 		            </KrField> 
 					<KrField grid={1/2} name="operatedate" right={45} type="date" component="date" label="挂账日期" requireLabel={true} style={{marginTop:3}}/> 
-					<KrField grid={1/2} name="fileids" style={{marginLeft:-15}} component="file" label="上传附件" />
+					<KrField grid={1/2} name="fileids"  component="file" label="上传附件" />
+					
+					
 					
 					   <div>
 						      {accountDetail.map((item,index)=>{
+						      	
 						      	if(index%2==0){
-									return <KrField key={index}   grid={1/2} style={{marginTop:-4,marginRight:-12}} right={42} label={item.propname} component="input" name={item.id} type="text"/>
+									return <KrField key={index}   grid={1/2} style={{marginTop:5,marginRight:-12}} right={42} label={item.propname} component="input" name={item.id} type="text"/>
+									        
 						      	}else{
-						      		return <KrField key={index}   grid={1/2} style={{marginTop:-4}} right={42} label={item.propname} component="input" name={item.id} type="text"/>
+						      		return <KrField key={index}   grid={1/2}  style={{marginTop:5}} right={42} label={item.propname} component="input" name={item.id} type="text"/>
 						      	}
 
 						        }
 
 						       )}
 					    </div>
+					 <KrField grid={1/2} name="contractId" right={42}  component="select" label="工位合同"  options={contractList} style={{marginTop:3}}/> 
+				
 					<KrField grid={1} style={style} label="备注" name="finaflowdesc" style={{marginTop:5}} type="text" heightStyle={heightStyle} component="textarea"  placeholder='请输入备注,文字不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/> 
 
 
 					
-					<Grid style={{marginBottom:5,marginLeft:-5}}>
+					<Grid style={{marginBottom:5,marginLeft:-30}}>
 						<Row>
 							<Col md={12} align="center">
 								<ButtonGroup>
@@ -142,7 +166,7 @@ const validate = values =>{
 		const errors = {}
 
 		if(!values.accountid){
-			errors.accountid = '请填写代码名称';
+			errors.accountid = '请填写支付方式';
 		}
 		if(!values.operatedate){
 			errors.operatedate = '请填写挂帐日期';
@@ -152,7 +176,8 @@ const validate = values =>{
 		}
 		if (values.finaflowamount && isNaN(values.finaflowamount)) {
 			errors.finaflowamount = '金额必须为数字';
-		}	
+		}
+	
 	
 		return errors
 	}

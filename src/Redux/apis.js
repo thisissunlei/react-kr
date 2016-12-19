@@ -484,6 +484,11 @@
  		url: ' /api/krspace-finance-web/action/get-order-station?mainBillId={mainBillId}',
  		method: 'get'
  	},
+  //订单明细账－二期－根据选中id来获取金额
+   'getFlowRemainMoney': {
+ 		url: '/mockjsdata/18/krspace-op-web/finaccount/data/getFlowRemainMoney?flowId={flowId}',
+ 		method: 'get'
+ 	},
  }
 
 
