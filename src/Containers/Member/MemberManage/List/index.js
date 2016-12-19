@@ -71,17 +71,17 @@ export default class List extends Component {
 		}
 
 	}
-	editMember(itemDetail){
-		this.setState({
-			editMember: !this.state.editMember,
-			itemDetail:itemDetail
-		});
-	}
-	editMembers=()=>{
-		this.setState({
-			editMember: !this.state.editMember,
-		});
-	}
+	// editMember(itemDetail){
+	// 	this.setState({
+	// 		editMember: !this.state.editMember,
+	// 		itemDetail:itemDetail
+	// 	});
+	// }
+	// editMembers=()=>{
+	// 	this.setState({
+	// 		editMember: !this.state.editMember,
+	// 	});
+	// }
 	openNewCreateDialog() {
 		this.setState({
 			openNewCreate: !this.state.openNewCreate,
@@ -90,6 +90,7 @@ export default class List extends Component {
 			}
 		});
 	}
+	// 编辑详情的Dialog
 	openEditDetailDialog(){
 		this.setState({
 			openEditDetail: !this.state.openEditDetail,
@@ -160,6 +161,7 @@ export default class List extends Component {
 		});
 	}
 	onNewCreateSubmit=(values)=>{
+
 		var _this = this;
 		Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
 			_this.openNewCreateDialog();
@@ -328,7 +330,7 @@ export default class List extends Component {
 											<TableRowColumn name="cityName"></TableRowColumn>
 											<TableRowColumn name="companyName"></TableRowColumn>
 											<TableRowColumn name="sourceName"></TableRowColumn>
-											<TableRowColumn name="registerTime"></TableRowColumn>
+											<TableRowColumn name="registerTime" type="date" format="yyyy-mm-dd"></TableRowColumn>
 											<TableRowColumn type="operation">
 													<Button label="详情"  type="operation" operation="view"/>
 													<Button label="编辑"  type="operation" operation="edit"/>

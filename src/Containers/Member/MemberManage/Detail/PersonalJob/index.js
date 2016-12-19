@@ -41,26 +41,23 @@ export default class BasicInfo extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-
 			workInfo:{}
 		}
 	}
-
-
 	componentDidMount() {
-		var _this=this;
+		let _this=this;
 		let {
-			params
+			params,workInfo
 		} = this.props;
 		Store.dispatch(Actions.callAPI('getMemberDetailData', {
 			id:this.context.router.params.memberId
 		})).then(function(response) {
-			// console.log(response.workInfo,"工作信息response.workInfo");
-			// console.log(response.companyInfo,"工作信息response.companyInfo");
+			let workInfo = response.workInfo;
+			console.log("workInfo",workInfo);
 			_this.setState({
-				workInfo:response.workInfo,
-			},function(){
+				workInfo
 			});
+			console.log("workInfo",workInfo);
 		}).catch(function(err) {
 			Notify.show([{
 				message: err.message,
@@ -69,7 +66,7 @@ export default class BasicInfo extends Component {
 		});
 	}
 	render() {
-		const {
+		let {
 		workInfo
 		} = this.state;
 

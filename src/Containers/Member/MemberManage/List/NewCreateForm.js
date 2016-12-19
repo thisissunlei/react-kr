@@ -52,6 +52,8 @@ export default class CreateMemberForm extends Component{
 	 onSubmit(values){
 		 const {onSubmit} = this.props;
 		 onSubmit && onSubmit(values);
+		 console.log('values',values);
+		 console.log('values.registerTime',values.registerTime);
 	 }
 
 	 onCancel(){
@@ -85,7 +87,7 @@ export default class CreateMemberForm extends Component{
 			//  检验response是不是空对象
 				if(!$.isEmptyObject(response)){
 					Store.dispatch(initialize('createMemberForm',response));
-					console.log("response",response);
+					// console.log("response",response);
 					// 此处要有提示
 				}
 		 }).catch(function(err){

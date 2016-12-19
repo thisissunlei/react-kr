@@ -42,10 +42,10 @@ export default class UpdateLog extends Component {
 		}
 	}
   onLoaded(response) {
-		console.log("更新日志请求地址React.PropTypes",this.props.params.orderId);
-		console.log('更新日志response',response);
+		// console.log("更新日志请求地址React.PropTypes",this.props.params.orderId);
+		// console.log('更新日志response',response);
 		let list = response;
-    console.log(list,"更新日志list");
+    // console.log(list,"更新日志list");
 		this.setState({
 			list
 		})

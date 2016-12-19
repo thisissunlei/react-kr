@@ -11,7 +11,7 @@ import WrapComponent from '../WrapComponent';
 export default class  SearchCompanyComponent extends React.Component {
 
 	static defaultProps = {
-		placeholder:'请输入公司名称测试'
+		placeholder:'请输入公司名称'
 	}
 
 	static PropTypes = {

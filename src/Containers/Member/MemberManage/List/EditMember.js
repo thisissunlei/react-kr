@@ -62,10 +62,11 @@ export default class CreateMemberForm extends Component {
 
 	}
 	componentWillReceiveProps(nextProps){
+
 		if(!ShallowEqual(this.state.initializeValues,nextProps.detail)){
-			this.setState({
-				initializeValues:nextProps.detail
-			})
+			// this.setState({
+			// 	initializeValues:nextProps.detail
+			// })
 			Store.dispatch(initialize('createMemberForm', nextProps.detail));
 
 		}
