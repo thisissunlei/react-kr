@@ -114,7 +114,7 @@ export default class KrField extends React.Component {
 
 		if (component === 'searchCommunity') {
 			return (
-		
+
 				<Field {...this.props} component={SearchBelongCommunity}  style={WrapStyles} {...other}/>
 			);
 		}

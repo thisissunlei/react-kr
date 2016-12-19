@@ -35,7 +35,7 @@ export default class UpdateLog extends Component {
 			searchParams: {
 				page: 1,
 				pageSize: 15,
-				memberId:this.props.params,
+				memberId:this.context.router.params.memberId,
 				endTime:'',
 				startTime:''
 			}

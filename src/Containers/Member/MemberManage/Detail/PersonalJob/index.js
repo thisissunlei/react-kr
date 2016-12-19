@@ -53,11 +53,11 @@ export default class BasicInfo extends Component {
 			id:this.context.router.params.memberId
 		})).then(function(response) {
 			let workInfo = response.workInfo;
-			console.log("workInfo",workInfo);
+			// console.log("workInfo",workInfo);
 			_this.setState({
 				workInfo
 			});
-			console.log("workInfo",workInfo);
+			// console.log("workInfo",workInfo);
 		}).catch(function(err) {
 			Notify.show([{
 				message: err.message,

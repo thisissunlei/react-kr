@@ -68,6 +68,7 @@ export default class PersonalBehavior extends Component {
 	}
 	constructor(props, context) {
 		super(props, context);
+		this.onLoaded = this.onLoaded.bind(this);
 		this.state = {
 			searchParams:{
 				 page:1,

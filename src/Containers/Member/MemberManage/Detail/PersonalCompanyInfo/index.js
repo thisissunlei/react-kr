@@ -41,24 +41,12 @@ export default class  CompanyInfo extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			// params: {
-			// 	accountType: 'PAYMENT',
-			// 	childType: 'basic',
-			// 	propertyId: '',
-			// 	propInfo: 'SETTLED',
-			// 	orderId: this.props.params.orderId
-			// 	page: 1,
-			// 	pageSize: 20,
-			// 	index:''
-			// },
 			companyInfo:{}
 		}
 	}
-
-
 	componentDidMount() {
 		// console.log("this.props.params",this.context.router.params.memberId);
-     var _this=this;
+    var _this=this;
 		let {
 			params
 		} = this.props;
@@ -68,7 +56,7 @@ export default class  CompanyInfo extends Component {
 		})).then(function(response) {
 			// console.log("response",response);
 			// console.log("response.baseInfo",response.baseInfo);
-
+			console.log("_this",_this);
 			_this.setState({
 				companyInfo:response.companyInfo,
 			},function(){
