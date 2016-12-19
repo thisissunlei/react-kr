@@ -23,12 +23,12 @@ import imgLine from './images/line.png'
 		this.state={
 			communityText:'',
 			companyText:'',
+			phoneSame:false
 
 
 		}
 		this.getBasicData();
 		this.params = this.props.params;
-		console.log('this.params',this.params);
 
 
 
@@ -39,10 +39,11 @@ import imgLine from './images/line.png'
 			phone:'',
 			communityId:parseInt(this.params.communityId),
 			companyId:parseInt(this.params.companyId),
-			email:'eeee@163.com',
-			jobId:16,
-			name:'ewqeqweqe',
-			foreignCode:'11111',
+			email:'',
+			jobId:'',
+			name:'',
+			foreignCode:'',
+			enableflag:true
 		}
 		console.log('fdsfsdffdsd',this.props.params,response);
 		Store.dispatch(initialize('NewCreateForm',response));
@@ -91,6 +92,7 @@ import imgLine from './images/line.png'
 		 this.setState({
 	 		open:true
 	 	})
+		 let _this = this;
 
 		 Store.dispatch(Actions.callAPI('isPhoneRegistered',params)).then(function(response){
 			//  检验response是不是空对象
@@ -98,15 +100,24 @@ import imgLine from './images/line.png'
 					Store.dispatch(initialize('NewCreateForm',response));
 					// console.log("response",response);
 					// 此处要有提示
-					// Message.warn('该手机号码已被注册！','error');
+					Message.warn('该手机号码已被注册！','error');
+					_this.setState({
+						phoneSame:true
+					})
 					
 				}
 		 }).catch(function(err){
-		 	console.log('ddddd',err.message);
+		 	let {phoneSame} = _this.state;
 		 	let response = {
-		 		phone:phone
+		 		phone:phone,
+		 		communityId:parseInt(_this.params.communityId),
+				companyId:parseInt(_this.params.companyId),
 		 	}
-			Store.dispatch(initialize('NewCreateForm',response));
+		 	if(phoneSame){
+				Store.dispatch(initialize('NewCreateForm',response));
+				
+
+		 	}
 		 });
 	 }
 	 EmailonBlur=(phone)=>{
@@ -155,7 +166,7 @@ import imgLine from './images/line.png'
 				<div style={{width:'100%',textAlign:'center',height:25,marginBottom:8}}>
 						<img src={imgLine}/>
 				</div>
-				<KrField grid={1/2} name="communityId" component="searchCommunities" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
+				<KrField grid={1/2} name="communityId" component="searchCommunity" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
         <KrField grid={1/2} name="email" type="input" label="邮箱" requireLabel={true} onBlur={this.EmailonBlur}
 				   requiredValue={true} pattern={/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/} errors={{requiredValue:'邮箱为必填项',pattern:'请输入正确邮箱地址'}}/>
 				<KrField grid={1/2} name="companyId" component="searchCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>

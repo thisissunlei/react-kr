@@ -308,6 +308,7 @@ export default class CompanyMembers extends Component {
 	}
 	importDataPost=(files)=>{
 		let companyId = this.companyId;
+		console.log(files);
 		let params = {
 			companyId:companyId,
 			file:files.file
