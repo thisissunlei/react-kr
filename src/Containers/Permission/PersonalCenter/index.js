@@ -634,14 +634,16 @@ export default class PersonalCenter extends Component{
 						<div className="verifyId">
 							<div className="m_mTitle">
 								<span onTouchTap={this.mobileTitleClick} className={this.state.titleClass?'activeTitle':'normalTitle'}>
+									<span className="arrow"></span>
 									手机号
 								</span>
 								<span onTouchTap={this.mailTitleClick} className={!this.state.titleClass?'activeTitle':'normalTitle'}>
+									<span className="arrow"></span>
 									邮箱
 								</span>
 							</div>
 							{ this.state.mmContent && <div className="mobile_test"><span className="m_m">{this.state.mobile}</span>
-									<span>验证码</span>
+									<span className="testTitle">验证码</span>
 									<div className="test">
 										<input className="code" ref="MobileCode" placeholder="6位验证码" type="text" />
 										<span className="alltest">{ this.state.togetMobiletest && <span onTouchTap={this.togetMobiletestCode} className="gettest">点此获取验证码</span>}
@@ -654,7 +656,7 @@ export default class PersonalCenter extends Component{
 									{ this.state.togettest && <span className="geted">&emsp;&ensp;验证码已发送到你的手机，30分钟内输入有效，验证码等同于密码，打死也不能告诉别人。</span>}
 								 </div>}
 							{ !this.state.mmContent && <div className="mail_test"><span className="m_m">{this.state.mail}</span>
-								<span>验证码</span>
+								<span className="testTitle">验证码</span>
 								<div className="test"><input className="code" ref="MailCode" placeholder="6位验证码" type="text" />
 									<span className="alltest">{ this.state.togetMailtest && <span onTouchTap={this.togetMailtestCode} className="gettest">点此获取验证码</span>}
 										{ this.state.gettingMail && <span className="timeout">正在发送...</span>}
@@ -672,9 +674,9 @@ export default class PersonalCenter extends Component{
 									<Col align="center">
 
 										<ListGroup >
-											<ListGroupItem style={{paddingRight:30,paddingTop:30}}><Button width={90} height={36} fontSize={16} label="确定" onTouchTap={this.submitIdByMobile}  /></ListGroupItem>
+											<ListGroupItem style={{paddingRight:30,paddingTop:25}}><Button width={90} height={36} fontSize={16} label="确定" onTouchTap={this.submitIdByMobile}  /></ListGroupItem>
 
-											<ListGroupItem style={{paddingTop:30}}><Button  label="取消" type="button" width={90} height={34} fontSize={16} cancle={true} onTouchTap={this.closeVerifyIdFunc} /></ListGroupItem>
+											<ListGroupItem style={{paddingTop:25}}><Button  label="取消" type="button" width={90} height={34} fontSize={16} cancle={true} onTouchTap={this.closeVerifyIdFunc} /></ListGroupItem>
 										</ListGroup>
 									</Col>
 		            </Row>
@@ -684,8 +686,8 @@ export default class PersonalCenter extends Component{
 										<Col align="center">
 
 											<ListGroup>
-												<ListGroupItem style={{paddingRight:30,paddingTop:30}}><Button label="确定" width={90} height={36} fontSize={16} onTouchTap={this.submitIdByMail}  /></ListGroupItem>
-												<ListGroupItem style={{paddingTop:30}}><Button  label="取消" type="button" width={90} height={34} fontSize={16} cancle={true} onTouchTap={this.closeVerifyIdFunc} /></ListGroupItem>
+												<ListGroupItem style={{paddingRight:30,paddingTop:25}}><Button label="确定" width={90} height={36} fontSize={16} onTouchTap={this.submitIdByMail}  /></ListGroupItem>
+												<ListGroupItem style={{paddingTop:25}}><Button  label="取消" type="button" width={90} height={34} fontSize={16} cancle={true} onTouchTap={this.closeVerifyIdFunc} /></ListGroupItem>
 											</ListGroup>
 										</Col>
 									</Row>
@@ -708,12 +710,12 @@ export default class PersonalCenter extends Component{
 							fn={testrevisemobile:this.testrevisemobile,submitMobile:this.submitMobile,closeMobileRevise:this.closeMobileRevise} />
 							*/}
 							<div className="reviseMobile">
-								<span>
+								<span className="testTitle">
 									手机号
 
 								</span>
 								<input ref="newMobile" className="input" placeholder="请输入手机号" type="text" />
-								<span>
+								<span className="testTitle">
 									验证码
 								</span>
 								<div className="test">
@@ -731,8 +733,8 @@ export default class PersonalCenter extends Component{
 									<Row >
 										<Col align="center">
 												<ListGroup>
-													<ListGroupItem style={{paddingRight:30,paddingTop:30}}><Button label="确定" width={90} height={36} fontSize={16} onTouchTap={this.submitMobile} /></ListGroupItem>
-												  <ListGroupItem  style={{paddingTop:30}}><Button  label="取消" width={90} height={34} fontSize={16} type="button" cancle={true} onTouchTap={this.closeMobileRevise} /></ListGroupItem>
+													<ListGroupItem style={{paddingRight:30,paddingTop:25}}><Button label="确定" width={90} height={36} fontSize={16} onTouchTap={this.submitMobile} /></ListGroupItem>
+												  <ListGroupItem  style={{paddingTop:25}}><Button  label="取消" width={90} height={34} fontSize={16} type="button" cancle={true} onTouchTap={this.closeMobileRevise} /></ListGroupItem>
 												</ListGroup>
 										</Col>
 									</Row>

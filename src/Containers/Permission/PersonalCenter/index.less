@@ -2,6 +2,9 @@
 
   width: 100%;
   overflow-x: hidden;
+  .testTitle{
+    color: #333;
+  }
   .section-body{
     display: none;
   }
@@ -226,19 +229,37 @@
   .verifyId{
     width: 300px;
     margin-left: 48px;
+    margin-bottom: 6px;
     .m_mTitle{
       line-height: 50px;
       text-align: center;
       cursor: pointer;
       .activeTitle{
-        background: url("images/active.png") no-repeat center bottom;
+
         display: inline-block;
         width: 50%;
+        border-bottom: 1px solid #3b9bee;
+        position: relative;
+        .arrow{
+          width: 8px;
+          height: 8px;
+          border-top: 1px solid #3b9bee;
+          border-left: 1px solid #3b9bee;
+          background: #fff;
+          transform: rotate(45deg);
+          position: absolute;
+          bottom: -5px;
+          left: 71px;
+        }
       }
       .normalTitle{
-        background: url("images/normal.png") no-repeat center bottom;
         display: inline-block;
         width: 50%;
+        border-bottom: 1px solid #3b9bee;
+        position: relative;
+        .arrow{
+          background: #fff;
+        }
       }
     }
     .mobile_test,.mail_test{
@@ -251,12 +272,13 @@
         margin-top: 6px;
       }
       .test{
-        width: 294px;
+        width: 288px;
         border: 1px solid #dfdfdf;
         position: relative;
         height: 34px;
         border-radius: 4px;
-        padding-left: 4px;
+        padding-left: 10px;
+        margin-bottom: 3px;
         input{
           outline: none;
           border: none;
@@ -275,10 +297,10 @@
             color: #499df1;
           }
           .timeout{
-            color: #dfdfdf;
+            color: #666;
           }
           .regettest{
-            color: red;
+            color: #ff6868;
           }
 
         }
@@ -289,9 +311,10 @@
         width: 300px;
         background-size: 16px 16px;
         line-height: 20px;
-        padding-bottom: 2px;
         display: inline-block;
         margin-top: 20px;
+        color: #666;
+        font-size: 12px;
       }
 
     }
@@ -302,81 +325,82 @@
   }
 
 }
-.verifyId{
-  width: 300px;
-  margin-left: 18px;
-  .m_mTitle{
-    line-height: 50px;
-    text-align: center;
-    .activeTitle{
-      background: url("images/active.png") no-repeat center bottom;
-      display: inline-block;
-      width: 50%;
-    }
-    .normalTitle{
-      background: url("images/normal.png") no-repeat center bottom;
-      display: inline-block;
-      width: 50%;
-    }
-  }
-  .mobile_test,.mail_test{
-
-    span{
-      display: block;
-      line-height: 34px;
-    }
-    .m_m{
-      margin-top: 6px;
-    }
-    .input{
-      width: 294px;
-      border: 1px solid #dfdfdf;
-      position: relative;
-      height: 34px;
-      border-radius: 4px;
-      padding-left: 4px;
-    }
-    .test{
-      width: 294px;
-      border: 1px solid #dfdfdf;
-      position: relative;
-      height: 34px;
-      border-radius: 4px;
-      padding-left: 4px;
-      input{
-        outline: none;
-        border: none;
-        width: 100px;
-        height: 100%;
-        padding: 0;
-
-      }
-      .alltest{
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        right: 10px;
-        cursor: pointer;
-        .gettest{
-          color: #499df1;
-        }
-        .timeout{
-          color: #dfdfdf;
-        }
-        .regettest{
-          color: red;
-        }
-      }
-    }
-  }
-
-  .mail_test{
-
-  }
-}
+// .verifyId{
+//   width: 300px;
+//   margin-left: 18px;
+//   .m_mTitle{
+//     line-height: 50px;
+//     text-align: center;
+//     .activeTitle{
+//       background: url("images/active.png") no-repeat center bottom;
+//       display: inline-block;
+//       width: 50%;
+//     }
+//     .normalTitle{
+//       background: url("images/normal.png") no-repeat center bottom;
+//       display: inline-block;
+//       width: 50%;
+//     }
+//   }
+//   .mobile_test,.mail_test{
+//
+//     span{
+//       display: block;
+//       line-height: 34px;
+//     }
+//     .m_m{
+//       margin-top: 6px;
+//     }
+//     .input{
+//       width: 294px;
+//       border: 1px solid #dfdfdf;
+//       position: relative;
+//       height: 34px;
+//       border-radius: 4px;
+//       padding-left: 4px;
+//     }
+//     .test{
+//       width: 294px;
+//       border: 1px solid #dfdfdf;
+//       position: relative;
+//       height: 34px;
+//       border-radius: 4px;
+//       padding-left: 4px;
+//       input{
+//         outline: none;
+//         border: none;
+//         width: 100px;
+//         height: 100%;
+//         padding: 0;
+//
+//       }
+//       .alltest{
+//         position: absolute;
+//         top: 50%;
+//         transform: translateY(-50%);
+//         right: 10px;
+//         cursor: pointer;
+//         .gettest{
+//           color: #499df1;
+//         }
+//         .timeout{
+//           color: #dfdfdf;
+//         }
+//         .regettest{
+//           color: red;
+//         }
+//       }
+//     }
+//   }
+//
+//   .mail_test{
+//
+//   }
+// }
 .reviseMobile{
   width: 300px;
   margin: 0 auto;
+  margin-bottom: 6px;
   span{
     display: block;
     line-height: 34px;
@@ -390,21 +414,21 @@
 
   }
   .input{
-    width: 294px;
+    width: 288px;
     border: 1px solid #dfdfdf;
     position: relative;
     height: 34px;
     border-radius: 4px;
-    padding-left: 4px;
+    padding-left: 10px;
   }
   .test{
-    width: 294px;
+    width: 288px;
     border: 1px solid #dfdfdf;
     position: relative;
     height: 34px;
     border-radius: 4px;
-    padding-left: 4px;
-
+    padding-left: 10px;
+    margin-bottom: 3px;
     .alltest{
       position: absolute;
       top: 50%;
@@ -415,10 +439,10 @@
         color: #499df1;
       }
       .timeout{
-        color: #dfdfdf;
+        color: #666;
       }
       .regettest{
-        color: red;
+        color: #ff6868;
       }
     }
 
@@ -430,8 +454,9 @@
     width: 300px;
     background-size: 16px 16px;
     line-height: 20px;
-    padding-bottom: 2px;
     display: inline-block;
     margin-top: 20px;
+    color: #666;
+    font-size: 12px;
   }
 }
