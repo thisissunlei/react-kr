@@ -509,16 +509,21 @@ export default class PersonalCenter extends Component{
 				oldPwd:values.old,
 			})).then(function(response) {
 				Message.success("修改成功")
-				_this.setState({
-					openPwdRevise:false,
-					isLegal:false,
-				},function(){
-					console.log("11");
-					_this.initBasicInfo();
-					window.location.reload();
-				})
+				window.setTimeout(function(){
+					window.location.href=`${window.location.host}/login/login`
+				}
+					,1000)
+
+				// _this.setState({
+				// 	openPwdRevise:false,
+				//
+				// },function(){
+				// 	console.log("11");
+				//
+				//
+				// })
 			//	console.log(window.location);
-				window.location.reload();
+				//window.location.reload();
 			}).catch(function(err) {
 				if(err.code<0){
 					Message.error(err.message)
