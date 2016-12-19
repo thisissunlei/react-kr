@@ -38,13 +38,8 @@ import {
 	ButtonGroup,
 	Loading,
 	Title,
-<<<<<<< HEAD
 	Tooltip,
 	SnackTip,
-=======
-    SnackTip,
-    Tooltip,
->>>>>>> 4e3b44cb9f852dfe1227a2630f07c48970cc5f52
     Message
 } from 'kr-ui';
 import {
