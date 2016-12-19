@@ -72,8 +72,8 @@ class EditDetail extends Component {
 
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:30}}>
-				<KrField  right={27} style={{}} left={42} right={42} name="foreign_code" type="text" label="会员卡号"/>
-				<KrField  right={27} style={{}} left={42} right={42} name="inter_code" type="text" label="会员卡内码" />
+				<KrField  right={27} style={{}} left={42} right={42} name="foreignCode" type="text" label="会员卡号"/>
+				<KrField  right={27} style={{}} left={42} right={42} name="interCode" type="text" label="会员卡内码" />
 				<Grid style={{marginTop:10,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">
@@ -90,22 +90,22 @@ class EditDetail extends Component {
 }
 
 const validate = values =>{
-	var foreign_code=values.foreign_code;
-	console.log( "foreign_code",foreign_code,Object.prototype.toString.call(foreign_code));
+	var foreignCode=values.foreignCode;
+	console.log( "foreignCode",foreignCode,Object.prototype.toString.call(foreignCode));
 	const errors = {}
 
-	if(!values.foreign_code){
-		errors.foreign_code = '请输入会员卡号';
+	if(!values.foreignCode){
+		errors.foreignCode = '请输入会员卡号';
 	}
-	if(foreign_code&&foreign_code.length!=10){
-		errors.foreign_code = '请输入10位会员卡号';
+	if(foreignCode&&foreignCode.length!=10){
+		errors.foreignCode = '请输入10位会员卡号';
 	}
-	if (isNaN(+foreign_code) ) {
-		errors.foreign_code = '卡号由十位数字的卡号组成';
+	if (isNaN(+foreignCode) ) {
+		errors.foreignCode = '卡号由十位数字的卡号组成';
 
 	}
-	if (!values.inter_code) {
-		errors.inter_code = '请输入会员卡内码';
+	if (!values.interCode) {
+		errors.interCode = '请输入会员卡内码';
 	}
 	return errors
 

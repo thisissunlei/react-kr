@@ -114,10 +114,11 @@ export default class List extends Component {
 	//新建激活的确定操作
 	onNewActivation=(values)=> {
 		var _this=this;
+		console.log();
 		const params={};
 		params.foreignCode=values.foreignCode;
 		params.interCode=values.interCode;
-		Store.dispatch(Actions.callAPI('CardEdit', {}, params)).then(function(response) {
+		Store.dispatch(Actions.callAPI('CardActivation', {}, params)).then(function(response) {
 			_this.openNewActivationDialog();
 		}).catch(function(err) {
 			Message.error(err.message)
@@ -139,7 +140,7 @@ export default class List extends Component {
 		)
 	}
 	//开始激活的确定操作
-	onStartCardActivation=()=>{
+	onStartCardActivation=(values)=>{
 		this.openStartCardActivationDialog();
 	}
 	//编辑页面的确定操作
@@ -147,10 +148,11 @@ export default class List extends Component {
 		var _this=this;
 		const params={};
 		params.id=values.id;
-		params.foreignCode=values.foreign_code;
-		params.interCode=""+values.inter_code;
+		params.foreignCode=values.foreignCode;
+		params.interCode=""+values.interCode;
 		Store.dispatch(Actions.callAPI('CardEdit', {}, params)).then(function(response) {
 			_this.openEditDetailDialog()
+			console.log(response,"9999");
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
@@ -228,8 +230,8 @@ export default class List extends Component {
 
 											<TableBody >
 													<TableRow >
-													<TableRowColumn name="foreign_code" ></TableRowColumn>
-													<TableRowColumn name="inter_code" ></TableRowColumn>
+													<TableRowColumn name="foreignCode" ></TableRowColumn>
+													<TableRowColumn name="interCode" ></TableRowColumn>
 													<TableRowColumn name="enable" options={[{label:'是',value:'ENABLE'},{label:'否',value:'DISENABLE'}]}></TableRowColumn>
 													<TableRowColumn name="active_time" type='date' format="yyyy-mm-dd hh:MM:ss" ></TableRowColumn>
 													<TableRowColumn type="operation">

@@ -11,7 +11,8 @@ import {
 	Button,
 	Notify,
 	ButtonGroup,
-	SnackTip
+	SnackTip,
+	Message
 } from 'kr-ui';
 import './index.less';
 
@@ -40,11 +41,9 @@ import './index.less';
 				accomplish:false
     }
 	}
-	//监听props是否发生变化
-	 onSubmit=(values,event)=>{
-		 console.log(event,"---");
+	 onSubmit=(values)=>{
 		 if (this.state.detail.startNum<this.state.detail.endNum) {
-			 this.cardNumAdd(4);
+			 this.cardNumAdd(4,values);
 		 }
 		 if(this.state.detail.startNum>=this.state.detail.endNum){
 			 this.setState({
@@ -60,7 +59,8 @@ import './index.less';
 			return num
 	 }
 	 //卡号增加
-	 cardNumAdd=(len)=>{
+	 cardNumAdd=(len,values)=>{
+		 console.log(values,"lll");
 		 var _this=this
 		 let detail = Object.assign({},_this.props.detail);
 		 var start=this.state.detail.startNum.substring(0,6).toString();
@@ -76,6 +76,15 @@ import './index.less';
 				 detail.endNum=this.state.detail.endNum;
 				 this.setState({
 	 				detail:detail
+				},function(){
+					const params={};
+					params.foreignCode=_this.state.detail.startNum;
+					params.interCode=values.interCode;
+					console.log("ooo",params);
+					Store.dispatch(Actions.callAPI('CardActivation', {}, params)).then(function(response) {
+					}).catch(function(err) {
+						Message.error(err.message)
+					});
 				})
 	 }
 	 //跳过号码
@@ -116,7 +125,7 @@ import './index.less';
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-							{this.state.accomplish&&<div  className='ui-btn-center' style={{marginLeft:27}}><Button  label="完成" type="submit" backgroundColor={this.state.accomplish?"#499df1":"#cccccc"} joinEditForm /></div>}
+							{this.state.accomplish&&<div  className='ui-btn-center' style={{marginLeft:27}}><Button  label="完成" type="submit" backgroundColor={this.state.accomplish?"#499df1":"#cccccc"} onTouchTap={this.onCancel} /></div>}
 							{!this.state.accomplish&&<Button  label="返回" type="button" cancle={true} onTouchTap={throwBack} />}
 							</ButtonGroup>
 						</Col>
@@ -133,8 +142,8 @@ const validate = values =>{
 
 		const errors = {}
 
-		if(!values.foreignCode){
-			errors.foreignCode = '请填写科目编码';
+		if(!values.interCode){
+			errors.interCode = '会员卡内码不能为空';
 		}
 
 		if (!values.accountname) {

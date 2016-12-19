@@ -459,17 +459,17 @@
   },
   //运营平台-会员管理-会员配置-会员卡激活-会卡列表
   'CardActivationList': {
-    url:'/api/member/card/mbr-card?foreignCode={foreignCode}&page={page}&pageSize={pageSize}',
+    url:'/api/krspace-finance-web/member/card/mbr-card?foreignCode={foreignCode}&page={page}&pageSize={pageSize}',
     method:'get'
   },
   //运营平台-会员管理-会员配置-会员卡激活-会卡批量激活&&运营平台-会员管理-会员配置-会员卡激活-会卡新建激活
   'CardActivation': {
-    url:'/api/member/card/mbr-card/member/card/mbr-card',
+    url:'/api/krspace-finance-web/member/card/mbr-card',
     method:'post'
   },
   //运营平台-会员管理-会员配置-会员卡激活-会卡编辑
   'CardEdit': {
-    url:'/api/member/card/mbr-card',
+    url:'/api/krspace-finance-web/member/card/mbr-card',
     method:'put'
   }
 }
