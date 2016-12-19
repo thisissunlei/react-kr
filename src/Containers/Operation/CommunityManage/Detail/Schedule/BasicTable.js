@@ -426,7 +426,8 @@ export default class BasicTable extends Component {
 		} = this.state
 
 		var _this = this;
-		_this.getRate();
+		_this.getRate(id);
+		console.log('id',id);
 
 		Store.dispatch(Actions.callAPI('getInstallmentplan', {
 			communityids: id,
@@ -559,7 +560,7 @@ export default class BasicTable extends Component {
 		this.setState(state);
 	}
 	//获取年份出租率
-	getRate=()=>{
+	getRate=(id)=>{
 		let {
 			type,
 			page,
@@ -571,13 +572,17 @@ export default class BasicTable extends Component {
 		this.setState({
 			rate:['','','','','','','','','','','','']
 		})
+		if(!id && id != 0){
+			id = communityids;
+			console.log('dsadasda');
+		}
 
 
 		let _this = this;
 		var year = this.state.currentYear;
 
 		Store.dispatch(Actions.callAPI('getRate', {
-			communityids: communityids,
+			communityids: id ,
 			year: year,
 		})).then(function(response) {
 

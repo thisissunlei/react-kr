@@ -274,7 +274,6 @@ export default class D3Content extends Component {
 			item.left = (Math.round((that.countDays(item.pointDate)/365)*100)/100)*100;
 			return item
 		});
-		console.log('finaBluePointVoList',finaBluePointVoList);
 		return finaBluePointVoList;
 
 	}
@@ -379,8 +378,13 @@ export default class D3Content extends Component {
 		let {infoList} = this.state;
 		let item = infoList || [];
 		let id = this.props.id;
+		let top = 250*item.length;
+		let place = 'bottom';
+		if(item.length>1){
+			place = 'top';
+		}
 		return (
-			<Tooltips  place="top" type="dark" effect="solid" scroll={false} id={`${item.pointDate}${id}`} offsetTop={250}>
+			<Tooltips  place={place} type="dark" effect="solid" scroll={false} id={`${item.pointDate}${id}`} offsetTop={top}>
 			<div className="react-tooltips-content">
 			{item.map((value,i)=>{
 				return(
@@ -423,7 +427,6 @@ export default class D3Content extends Component {
 	renderBlueInfo=()=>{
 		let {BlueinfoList} = this.state;
 		let item = BlueinfoList || [];
-		console.log('BlueinfoList',item);
 		let id = this.props.id;
 		return (
 			<Tooltips  place="top" type="dark" effect="solid" id={`${item.pointDate}${id}sameblue`} offsetTop={10}>
@@ -505,10 +508,6 @@ export default class D3Content extends Component {
 				}
 				{
 					blueNodeList && blueNodeList.map((item,index)=>{
-						console.log('item.left',item.left);
-
-
-
 						return (
 							<span className='blue-node' key={index} style={{marginLeft:`${item.left}%`}} data-tip data-for={`${item.pointDate}${id}sameblue`} onMouseOver={this.getBlueInfo.bind(this,item)}>
 							{this.renderBlueInfo()}
