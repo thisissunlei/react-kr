@@ -20,7 +20,7 @@ import {
 
 import OrderEditForm from './OrderEditForm';
 
- 
+
 export default class OrderCreate extends Component {
 
 	static contextTypes = {
@@ -38,8 +38,15 @@ export default class OrderCreate extends Component {
 			communityOptions:[],
 			initialValues:{},
 			orderTypeOptions:[
-					  		{value:'',label:'请选择类型'},
-					  		{value:'STATION',label:'工位订单'}
+								{value:'',label:'请选择类型'},
+					  		{value:'STATION',label:'工位服务订单'},
+					  		{value:'INCUBAZION',label:'孵化订单'},
+					  		{value:'REGISTER',label:'注册订单'},
+					  		{value:'INCUSTOM',label:'场内消费订单'},
+					  		{value:'ACTIVITY',label:'广告订单'},
+					  		{value:'ADDEDSERVICE',label:'增值服务订单'},
+					  		{value:'TRAINING',label:'培训订单'},
+					  		{value:'OTHER',label:'其他服务订单'}
 					  	]
 		}
 		Store.dispatch(Actions.switchSidebarNav(false));
@@ -147,7 +154,7 @@ export default class OrderCreate extends Component {
       <div>
 
 		<OrderEditForm onSubmit={this.onSubmit} communityOptions={communityOptions} initialValues={initialValues} orderTypeOptions={orderTypeOptions} onCancel={this.onCancel}/>
-			
+
 	 </div>
 	);
   }
@@ -182,6 +189,3 @@ export default class OrderCreate extends Component {
 
 
 // export default connect(mapStateToProps)(OrderCreate);
-
-
-
