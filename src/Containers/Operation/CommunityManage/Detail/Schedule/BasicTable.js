@@ -291,6 +291,7 @@ export default class BasicTable extends Component {
 			var scrollBottom = top - num;
 			var {dataLoading} = _this.state;
 			var isOutBoundary = scrollBottom >= -300;
+			console.log(dataLoading,isOutBoundary);
 
 			if (isOutBoundary && !dataLoading) {
 				let {
@@ -444,20 +445,14 @@ export default class BasicTable extends Component {
 				totalPages: response.vo.totalPages,
 			});
 			if(response.vo.totalPages == response.vo.page){
-				console.log('fss======dfsd');
 				_this.setState({
 					istip:true
 				})
-			}
-
-
-			window.setTimeout(function() {
+			}else{
 				_this.setState({
-					istip: false
-				});
-			}, 100)
-
-
+					istip:false
+				})
+			}
 
 		}).catch(function(err) {
 			Notify.show([{
