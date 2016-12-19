@@ -237,7 +237,7 @@ class NewCreateForm extends Component {
 				</CircleStyle>
 				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList} requireLabel={true}/>
 
-						<Grid style={{marginTop:70,paddingBottom:60}}>
+						<Grid style={{paddingBottom:50}}>
 						<Row >
 						<ListGroup>
 							<ListGroupItem style={{width:'45%',textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit" disabled={pristine || submitting} width={100} height={40} fontSize={16}/></ListGroupItem>

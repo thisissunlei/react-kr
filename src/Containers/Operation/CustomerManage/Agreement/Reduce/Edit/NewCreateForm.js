@@ -384,7 +384,7 @@ class NewCreateForm extends Component {
 
 				  
 
-						<Grid style={{marginTop:70,paddingBottom:60}}>
+						<Grid style={{padding:"10px 0 50px"}}>
 						<Row >
 						<ListGroup>
 							<ListGroupItem style={{width:'45%',textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit" disabled={pristine || submitting} width={100} height={40} fontSize={16}/></ListGroupItem>
