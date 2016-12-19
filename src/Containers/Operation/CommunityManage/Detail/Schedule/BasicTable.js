@@ -227,7 +227,6 @@ export default class BasicTable extends Component {
 		this.onChange = this.onChange.bind(this);
 		this.onStation = this.onStation.bind(this);
 		this.scrollLoading = this.scrollLoading.bind(this);
-		this.renderNone = this.renderNone.bind(this);
 		this.onSetState = this.onSetState.bind(this);
 
 
@@ -262,6 +261,7 @@ export default class BasicTable extends Component {
 
 
 	componentDidMount() {
+			this.getRate();
 
 		this.getInstallmentplan();
 	}
@@ -324,7 +324,6 @@ export default class BasicTable extends Component {
 					}
 
 					if (totalPages > page) {
-						console.log('isLoadingisLoading');
 						len += step;
 						_this.setState({
 							page: len,
@@ -352,7 +351,7 @@ export default class BasicTable extends Component {
 
 							_this.setState({
 								Installmentplan: list, //response.vo.items,
-								rate: response.rate,
+								// rate: response.rate,
 							});
 
 							if (_this.state.page < _this.state.totalPages) {
@@ -427,6 +426,7 @@ export default class BasicTable extends Component {
 		} = this.state
 
 		var _this = this;
+		_this.getRate();
 
 		Store.dispatch(Actions.callAPI('getInstallmentplan', {
 			communityids: id,
@@ -438,7 +438,7 @@ export default class BasicTable extends Component {
 		})).then(function(response) {
 			_this.setState({
 				Installmentplan: response.vo.items || [],
-				rate: response.rate,
+				// rate: response.rate,
 				communityids: id,
 				totalPages: response.vo.totalPages,
 				istip: ' '
@@ -460,7 +460,6 @@ export default class BasicTable extends Component {
 		});
 	}
 	onSubmit(formValues, istip) {
-		console.log('formValues',formValues);
 		let year = this.state.currentYear;
 		var _this = this;
 		var activity = true;
@@ -489,7 +488,7 @@ export default class BasicTable extends Component {
 
 			_this.setState({
 				Installmentplan,
-				rate: response.rate,
+				// rate: response.rate,
 				totalPages: response.vo.totalPages,
 				dataLoading: false
 			});
@@ -526,6 +525,7 @@ export default class BasicTable extends Component {
 			dataLoading: true,
 		}, function() {
 			this.getInstallmentplan();
+			this.getRate();
 		});
 
 	}
@@ -544,6 +544,7 @@ export default class BasicTable extends Component {
 			page: 1,
 			dataLoading: true,
 		}, function() {
+			this.getRate();
 			this.getInstallmentplan();
 		});
 
@@ -557,8 +558,47 @@ export default class BasicTable extends Component {
 		}
 		this.setState(state);
 	}
+	//获取年份出租率
+	getRate=()=>{
+		let {
+			type,
+			page,
+			value,
+			pageSize,
+			communityids,
+			dataLoading
+		} = this.state;
+		this.setState({
+			rate:['','','','','','','','','','','','']
+		})
 
 
+		let _this = this;
+		var year = this.state.currentYear;
+
+		Store.dispatch(Actions.callAPI('getRate', {
+			communityids: communityids,
+			year: year,
+		})).then(function(response) {
+
+
+			_this.setState({
+				rate: response.rate,
+			});
+
+
+			 
+
+		}).catch(function(err) {
+
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+	}
+
+	//获取计划表数据
 	getInstallmentplan() {
 		var _this = this;
 
@@ -610,7 +650,7 @@ export default class BasicTable extends Component {
 
 			state = {
 				Installmentplan: list,
-				rate: response.rate,
+				// rate: response.rate,
 				totalCount: totalCount,
 				totalPages: totalPages,
 				dataLoading: false
@@ -638,12 +678,11 @@ export default class BasicTable extends Component {
 
 	}
 	onFilter=(value)=>{
-		console.log('onFilter',value);
 		this.setState({
 			type:value
 		})
 	}
-	renderNone(showNone) {
+	renderNone=(showNone)=>{
 
 		let {
 			currentYear,
@@ -678,6 +717,19 @@ export default class BasicTable extends Component {
 		if (!showNone || dataLoading) {
 			return (
 				<tbody>
+				{/*入住率*/}
+					<tr className="header-td">
+						<td className='white'>
+							<div className="header-title">
+								<p className="title-right">出租率</p>
+
+							</div>
+						</td>
+						{
+							rate.map((value,index)=><td key={index}>{value}</td>)
+						}
+						<td className="last"></td>
+					</tr>
 					<tr style={{height:200}} className="nothing">
 						<td colSpan={14} style={{border:'none'}}>
 							<div style={{textAlign:'center'}}>
@@ -729,6 +781,7 @@ export default class BasicTable extends Component {
 		}
 	}
 
+	
 
 	render() {
 
@@ -812,10 +865,9 @@ export default class BasicTable extends Component {
 						</th>
 					</tr>
 				</thead>
+				{this.renderNone(showNone)}
 
-					{
-						this.renderNone(showNone,rate)
-					}
+				
 
 
 

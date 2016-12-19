@@ -55,7 +55,7 @@ export default class Tooltip extends Component {
 		let parent = node.parentNode;
 		// node.style.backgroundColor = backgroundColor;
 
-		parent.style.position = "relative";
+		// parent.style.position = "relative";
 		parent.onmouseover = function(){
 			node.style.visibility = 'visible';
 		}
@@ -71,7 +71,7 @@ export default class Tooltip extends Component {
 	render() {
 		let {children,place,backgroundColor,boxShadow,ShadowColor,scroll} = this.props;
 		let {width,height} = this.state;
-		let className = 'ui-tooltip';
+		let className = 'ui-tooltips';
 		let arrowStyle = {};
 		let arrowContentStyle = {};
 		let arrowName = '';
@@ -93,33 +93,21 @@ export default class Tooltip extends Component {
 		}
 		if(place === 'right'){
 			style.right = '-'+ (width-5+offsetRight)+'px';
-			arrowName = 'right-arrow';
-			arrowContentName = 'right-arrows';
-			arrowStyle.borderRightColor = ShadowColor;
-			arrowContentStyle.borderRightColor = backgroundColor;
+			className += ' right-arrow';
 		}
 		if(place === 'left'){
 			style.left = '-'+ (width-5)+'px';
-			arrowName = 'left-arrow';
-			arrowContentName = 'left-arrows';
-			arrowStyle.borderLeftColor = ShadowColor;
-			arrowContentStyle.borderLeftColor = backgroundColor;
+			// className += ' left-arrow';
 
 		}
 		if(place === 'top'){
 			style.top = '-'+(height-5+offsetTop)+'px';
-			arrowName = 'top-arrow';
-			arrowContentName = 'top-arrows';
-			arrowStyle.borderTopColor = ShadowColor;
-			arrowContentStyle.borderTopColor = backgroundColor;
+			// className += ' top-arrow';
 
 		}
 		if(place === 'bottom'){
 			style.bottom = '-'+(height-5)+'px';
-			arrowName = 'bottom-arrows';
-			arrowContentName = 'bottom-content-arrows';
-			arrowStyle.borderBottomColor = ShadowColor;
-			arrowContentStyle.borderBottomColor = backgroundColor;
+			className += ' bottom-arrows';
 
 		}
 		if(scroll){
