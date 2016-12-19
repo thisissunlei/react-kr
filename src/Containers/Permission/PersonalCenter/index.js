@@ -29,8 +29,6 @@ export default class PersonalCenter extends Component{
     super(props,context)
 		this.state={
 			openVerifyId:false,
-			// openVerifyMobile:false,
-			// openVerifyMail:false,
 			PwdOrMobile:'',
 			mmContent:true,
 			titleClass:true,
@@ -60,6 +58,7 @@ export default class PersonalCenter extends Component{
 			openMobileRevise:false,
 			ceshi:"1",
 			isLegal:false,
+			testSuccess:false,
 			regettestNewMobileState:false,
 			togetNewMobiletest:true,
 		}
@@ -70,6 +69,9 @@ export default class PersonalCenter extends Component{
 	// 加载基本信息
 	initBasicInfo = ()=>{
 		var _this = this;
+		_this.setState({
+			isLegal:false
+		})
 		Store.dispatch(Actions.callAPI('PersonalCenterData', {
 		})).then(function(response) {
 			if (response.pwdStrength<3) {
@@ -123,11 +125,13 @@ export default class PersonalCenter extends Component{
 			this.setState({
 				openPwdRevise:true,
 				openVerifyId:false,
+				togettest:false,
+			});
 
-			})
-		}else {
+			return ;
+		}
 			this.setState({
-				openVerifyId:!this.state.openVerifyId,
+				openVerifyId:true,
 				togetMobiletest:true,
 				togetMailtest:true,
 				togettest:false,
@@ -142,8 +146,8 @@ export default class PersonalCenter extends Component{
 				timeminMail:60,
 				PwdOrMobile:'pwd',
 				regettestNewMobileState:false,
-			})
-		}
+			});
+
 	}
 	//点击修改手机号时打开验证窗口
 	openMobileVerifyIdFunc = ()=>{
@@ -158,10 +162,11 @@ export default class PersonalCenter extends Component{
 				togettest:false,
 				regettestMobileState:false,
 				regettestNewMobileState:false,
-			})
-		}else{
+			});
+			return ;
+		}
 			this.setState({
-				openVerifyId:!this.state.openVerifyId,
+				openVerifyId:true,
 				togetMobiletest:true,
 				togetMailtest:true,
 				gettingMobile:false,
@@ -178,13 +183,13 @@ export default class PersonalCenter extends Component{
 				//timeminMobile:"",//
 				//timeminMail:"",//
 				PwdOrMobile:'mobile',
-			})
-		}
+			});
+
 	}
 	//关闭验证身份窗口
 	closeVerifyIdFunc = ()=>{
 		this.setState({
-			openVerifyId:!this.state.openVerifyId,
+			openVerifyId:false,
 			regettestMobileState:false,
 			regettestMailState:false,
 			//timeminMobile:"",//
@@ -251,12 +256,12 @@ export default class PersonalCenter extends Component{
 	}
 	//test邮箱验证身份点击获取验证码
 	togetMailtestCode=()=>{
-		var _this = this;
-		_this.setState({
+		this.setState({
 			gettingMail:true,
 			regettestMailState:false,
 			togetMailtest:false,
 		},function(){
+			var _this = this;
 			Store.dispatch(Actions.callAPI('PersonalCenterGetMailVerificationCode', {
 			})).then(function(response) {
 				_this.togetMailtest()
@@ -307,17 +312,18 @@ export default class PersonalCenter extends Component{
 	}
 	//身份验证By手机点击确认后
 	submitIdByMobile=()=>{
-		var _this = this;
-		if(document.getElementsByClassName("code")[0].value){
+
+		if(this.refs.MobileCode.value){
 			//console.log("111",document.getElementsByClassName("code")[0].value);
-			_this.submitVerifyIDbyMobile()
+			this.submitVerifyIDbyMobile()
 		}else{
 			Message.error("请填写验证码")
 		}
 	}
 	//身份验证By邮箱点击确认后
 	submitIdByMail=()=>{
-		if(document.getElementsByClassName("code")[0].value){
+
+		if(this.refs.MailCode.value){
 			this.submitVerifyIDbyMail()
 		}else{
 			Message.error("请填写验证码")
@@ -328,7 +334,7 @@ export default class PersonalCenter extends Component{
 			var _this = this;
 			//console.log("1",this.state.regettestMobileState);
 				Store.dispatch(Actions.callAPI('PersonalCenterVerifyIdByMobile', {
-					verifyCode:document.getElementsByClassName("code")[0].value,
+					verifyCode:_this.refs.MobileCode.value,
 				})).then(function(response) {
 					_this.setState({
 						isLegal:true,
@@ -348,15 +354,9 @@ export default class PersonalCenter extends Component{
 								togettest:false,
 								MobileTimeDisabledState:false,
 								togetNewMobiletest:true,
-								regettestMailState:false,
-								regettestMobileState:false,
+								//regettestMailState:false,
+							//	regettestMobileState:false,
 								regettestNewMobileState:false,
-							},function(){
-								//console.log("2",this.state.togettestMobile_state);
-								_this.setState({
-									regettestMailState:false,
-									regettestMobileState:false,
-								})
 							})
 						}
 						//console.log("3",this.state.regettestMobileState);
@@ -373,10 +373,10 @@ export default class PersonalCenter extends Component{
 	submitVerifyIDbyMail =()=>{
 			var _this = this;
 				Store.dispatch(Actions.callAPI('PersonalCenterVerifyIdByMail', {
-					verifyCode:document.getElementsByClassName("code")[0].value,
+					verifyCode:_this.refs.MailCode.value,
 				})).then(function(response) {
 					_this.setState({
-	//					isLegal:true,
+						isLegal:true,
 						//timeminMobile:"",//
 						//timeminMail:"",//
 					},function(){
@@ -392,8 +392,8 @@ export default class PersonalCenter extends Component{
 								togettest:false,
 								togetNewMobiletest:true,
 								MobileTimeDisabledState:false,
-								regettestMailState:false,
-								regettestMobileState:false,
+								//regettestMailState:false,
+								//regettestMobileState:false,
 								regettestNewMobileState:false,
 							})
 						}
@@ -409,14 +409,14 @@ export default class PersonalCenter extends Component{
 	//test修改手机号获取验证码
 	testrevisemobile =()=>{
 		var _this = this;
-		if(document.getElementsByClassName("input")[0].value){
+		if(_this.refs.newMobile.value){
 			_this.setState({
 				gettingNewMobile:true,
 				regettestNewMobileState:false,
 				togetNewMobiletest:false,
 			},function(){
 				Store.dispatch(Actions.callAPI('PersonalCenterGetNewMobileVerificationCode', {
-					mobile:document.getElementsByClassName("input")[0].value,
+					mobile:_this.refs.newMobile.value,
 				})).then(function(response) {
 					_this.reviseMobileGetVerify()
 				}).catch(function(err) {
@@ -470,7 +470,7 @@ export default class PersonalCenter extends Component{
 	}
 	//修改手机号点击确定后的函数
 	submitMobile =()=>{
-		if(document.getElementsByClassName("input")[0].value){
+		if(this.refs.newMobile.value){
 			this.submitReviseMobile()
 		}else{
 			Message.error("请填写手机号")
@@ -481,8 +481,8 @@ export default class PersonalCenter extends Component{
 		var _this = this;
 			//      console.log(document.getElementById("reviseMobile_code").value)
 			Store.dispatch(Actions.callAPI('PersonalCenterVerifyReviseMobileVerificationCode', {},{
-				mobile:document.getElementsByClassName("input")[0].value,
-				verifyCode:document.getElementById("reviseMobile_code").value,
+				mobile:_this.refs.newMobile.value,
+				verifyCode:_this.refs.reviseMobileCode.value,
 			})).then(function(response) {
 				console.log(response)
 				Message.success("修改成功")
@@ -531,12 +531,12 @@ export default class PersonalCenter extends Component{
 			openPwdRevise:false,
 			//timeminMobile:"",//
 			//timeminMail:"",//
-			togettest:false,
-			gettingMobile:false,
-			gettingNewMobile:false,
-			regettestMobileState:false,
-			MobileTimeDisabledState:false,
-			regettestNewMobileState:false,
+			// togettest:false,
+			// gettingMobile:false,
+			// gettingNewMobile:false,
+			// regettestMobileState:false,
+			// MobileTimeDisabledState:false,
+			// regettestNewMobileState:false,
 		})
 	}
 	closeMobileRevise=()=>{
@@ -544,12 +544,12 @@ export default class PersonalCenter extends Component{
 			openMobileRevise:false,
 			//timeminMobile:"",//
 		//	timeminMobile:"",//
-			togettest:false,
-			gettingMobile:false,
-			gettingNewMobile:false,
-			regettestMobileState:false,
-			MobileTimeDisabledState:false,
-			regettestNewMobileState:false,
+			// togettest:false,
+			// gettingMobile:false,
+			// gettingNewMobile:false,
+			// regettestMobileState:false,
+			// MobileTimeDisabledState:false,
+			// regettestNewMobileState:false,
 		})
 	}
 
@@ -635,7 +635,7 @@ export default class PersonalCenter extends Component{
 							{ this.state.mmContent && <div className="mobile_test"><span className="m_m">{this.state.mobile}</span>
 									<span>验证码</span>
 									<div className="test">
-										<input className="code" placeholder="6位验证码" type="text" />
+										<input className="code" ref="MobileCode" placeholder="6位验证码" type="text" />
 										<span className="alltest">{ this.state.togetMobiletest && <span onTouchTap={this.togetMobiletestCode} className="gettest">点此获取验证码</span>}
 											{ this.state.gettingMobile && <span className="timeout">正在发送...</span>}
 											{ this.state.MobileTimeDisabledState && <span className="timeout">{this.state.timeminMobile+this.state.timedisabled}</span>}
@@ -643,11 +643,11 @@ export default class PersonalCenter extends Component{
 										</span>
 									</div>
 
-									{ this.state.togettest && <span className="geted">&emsp;&ensp;验证码已发送到你的手机，30分钟内输入有效，验证 码等同于密码，打死也不能告诉别人。</span>}
+									{ this.state.togettest && <span className="geted">&emsp;&ensp;验证码已发送到你的手机，30分钟内输入有效，验证码等同于密码，打死也不能告诉别人。</span>}
 								 </div>}
 							{ !this.state.mmContent && <div className="mail_test"><span className="m_m">{this.state.mail}</span>
 								<span>验证码</span>
-								<div className="test"><input className="code" placeholder="6位验证码" type="text" />
+								<div className="test"><input className="code" ref="MailCode" placeholder="6位验证码" type="text" />
 									<span className="alltest">{ this.state.togetMailtest && <span onTouchTap={this.togetMailtestCode} className="gettest">点此获取验证码</span>}
 										{ this.state.gettingMail && <span className="timeout">正在发送...</span>}
 										{ this.state.MailTimeDisabledState && <span className="timeout">{this.state.timeminMail+this.state.timedisabled}</span>}
@@ -685,18 +685,31 @@ export default class PersonalCenter extends Component{
 						</div>
 					</Dialog>
 					<Dialog title="修改手机号" open={this.state.openMobileRevise} onClose={this.closeMobileRevise} contentStyle={{width:444}}>
-
+						{/*
+						<UpdateMobileForm
+							detail={
+								togetNewMobiletest:this.state.togetNewMobiletest,
+								MobileTimeDisabledState:this.state.MobileTimeDisabledState,
+								togettest:this.state.togettest,
+								regettestMobileState:this.state.regettestMobileState,
+								regettest:this.state.regettest,
+								timeminMobile:this.state.timeminMobile,
+								timedisabled:this.state.timedisabled,
+								testrevisemobile:this.state.testrevisemobile,
+							}
+							fn={testrevisemobile:this.testrevisemobile,submitMobile:this.submitMobile,closeMobileRevise:this.closeMobileRevise} />
+							*/}
 							<div className="reviseMobile">
 								<span>
 									手机号
 
 								</span>
-								<input className="input" placeholder="请输入手机号" type="text" />
+								<input ref="newMobile" className="input" placeholder="请输入手机号" type="text" />
 								<span>
 									验证码
 								</span>
 								<div className="test">
-									<input className="code" id="reviseMobile_code" placeholder="6位验证码" type="text" />
+									<input className="code" ref="reviseMobileCode" placeholder="6位验证码" type="text" />
 									<span className="alltest">
 										{ this.state.togetNewMobiletest && <span onTouchTap={this.testrevisemobile} className="gettest">点此获取验证码</span>}
 										{ this.state.gettingNewMobile && <span className="timeout">正在发送...</span>}
@@ -704,7 +717,7 @@ export default class PersonalCenter extends Component{
 										{ this.state.regettestNewMobileState && <span onTouchTap={this.testrevisemobile} className="regettest">{this.state.regettest}</span>}
 									</span>
 								</div>
-								{ this.state.togettest && <span className="geted">&emsp;&ensp;验证码已发送到你的手机，30分钟内输入有效，验证 码等同于密码，打死也不能告诉别人。</span>}
+								{ this.state.togettest && <span className="geted">&emsp;&ensp;验证码已发送到你的手机，30分钟内输入有效,验证码等同于密码，打死也不能告诉别人。</span>}
 
 								<Grid>
 									<Row >
@@ -721,7 +734,7 @@ export default class PersonalCenter extends Component{
 					</Dialog>
 					<Dialog title="修改密码" open={this.state.openPwdRevise} onClose={this.closePwdRevise} contentStyle={{width:444}}>
 
-							<UpdatePasswordForm onSubmit={this.submitPwd} onCancel={this.closePwdRevise}/>
+						<UpdatePasswordForm onSubmit={this.submitPwd} onCancel={this.closePwdRevise}/>
 
 							{/*
 								<KrForm name="revisepwd" onSubmit={this.submitPwd}>

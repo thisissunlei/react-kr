@@ -95,8 +95,8 @@ class NewCreateForm extends Component {
 
 			</div>);
 	}
-}
 
+}
 
 const validate = values => {
 
@@ -126,4 +126,6 @@ NewCreateForm = reduxForm({
 	validate,
 })(NewCreateForm);
 
-export default connect()(NewCreateForm);
+export default connect((state)=>{
+	return state
+})(NewCreateForm);
