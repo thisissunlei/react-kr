@@ -123,7 +123,7 @@ export default class PersonalCenter extends Component{
 			this.setState({
 				openPwdRevise:true,
 				openVerifyId:false,
-				togettest:false,
+
 			})
 		}else {
 			this.setState({
@@ -251,12 +251,12 @@ export default class PersonalCenter extends Component{
 	}
 	//test邮箱验证身份点击获取验证码
 	togetMailtestCode=()=>{
-		this.setState({
+		var _this = this;
+		_this.setState({
 			gettingMail:true,
 			regettestMailState:false,
 			togetMailtest:false,
 		},function(){
-			var _this = this;
 			Store.dispatch(Actions.callAPI('PersonalCenterGetMailVerificationCode', {
 			})).then(function(response) {
 				_this.togetMailtest()
@@ -376,7 +376,7 @@ export default class PersonalCenter extends Component{
 					verifyCode:document.getElementsByClassName("code")[0].value,
 				})).then(function(response) {
 					_this.setState({
-						isLegal:true,
+	//					isLegal:true,
 						//timeminMobile:"",//
 						//timeminMail:"",//
 					},function(){
@@ -685,20 +685,7 @@ export default class PersonalCenter extends Component{
 						</div>
 					</Dialog>
 					<Dialog title="修改手机号" open={this.state.openMobileRevise} onClose={this.closeMobileRevise} contentStyle={{width:444}}>
-						{/*
-						<UpdateMobileForm
-							detail={
-								togetNewMobiletest:this.state.togetNewMobiletest,
-								MobileTimeDisabledState:this.state.MobileTimeDisabledState,
-								togettest:this.state.togettest,
-								regettestMobileState:this.state.regettestMobileState,
-								regettest:this.state.regettest,
-								timeminMobile:this.state.timeminMobile,
-								timedisabled:this.state.timedisabled,
-								testrevisemobile:this.state.testrevisemobile,
-							}
-							fn={testrevisemobile:this.testrevisemobile,submitMobile:this.submitMobile,closeMobileRevise:this.closeMobileRevise} />
-							*/}
+
 							<div className="reviseMobile">
 								<span>
 									手机号
