@@ -71,7 +71,7 @@ class AccountBtnForm extends Component{
 	}
 	
 	render(){
-		const {optionList,error,handleSubmit,pristine,reset,accountDetail} = this.props;
+		const {optionList,error,handleSubmit,pristine,reset} = this.props;
 		let style={
        	 marginTop:'6'
        }
@@ -80,24 +80,35 @@ class AccountBtnForm extends Component{
        	 height:'72'
        }
 
+      
+       	 let accountDetail=[
+        {
+            "id":72726,"propname":"测试内容s6k4"
+        }, 
+         {
+            "id":727,"propname":"测试内容123"
+        },  
+        ]
+       
+
 		return(
 			 <div className='ui-quit-wrap'>
 				<form  onSubmit={handleSubmit(this.onSubmit)} style={{marginLeft:31}}>
 					<KrField  name="mainbillId" type="hidden"/>
 					<KrField grid={1/2} name="accountid" right={42} component="select" label="支付方式" options={optionList} requireLabel={true}/> 
-					<KrField name="preCode" grid={1/2} component="group" label="金额正负" requireLabel={true}>
+					<KrField name="preCode" grid={1/2} component="group" label="金额正负" requireLabel={true} style={{marginLeft:-12}}>
 		                <KrField name="preCode" label="正" type="radio" value="0"/>
 		                <KrField name="preCode" label="负" type="radio" value="1" />
 		            </KrField> 
-					<KrField grid={1/2} name="operatedate" right={42} type="date" component="date" label="挂账日期" requireLabel={true}/> 
-					<KrField grid={1/2} name="fileids" component="file" label="上传附件" />
+					<KrField grid={1/2} name="operatedate" right={45} type="date" component="date" label="挂账日期" requireLabel={true} style={{marginTop:3}}/> 
+					<KrField grid={1/2} name="fileids" style={{marginLeft:-15}} component="file" label="上传附件" />
 					
 					   <div>
 						      {accountDetail.map((item,index)=>{
 						      	if(index%2==0){
-									return <KrField key={index}   grid={1/2}  right={42} label={item.propname} component="input" name={item.id} type="text"/>
+									return <KrField key={index}   grid={1/2} style={{marginTop:-4,marginRight:-12}} right={42} label={item.propname} component="input" name={item.id} type="text"/>
 						      	}else{
-						      		return <KrField key={index}   grid={1/2}  left={42} label={item.propname} component="input" name={item.id} type="text"/>
+						      		return <KrField key={index}   grid={1/2} style={{marginTop:-4}} right={42} label={item.propname} component="input" name={item.id} type="text"/>
 						      	}
 
 						        }
@@ -108,7 +119,7 @@ class AccountBtnForm extends Component{
 
 
 					
-					<Grid style={{marginBottom:5}}>
+					<Grid style={{marginBottom:5,marginLeft:-5}}>
 						<Row>
 							<Col md={12} align="center">
 								<ButtonGroup>
