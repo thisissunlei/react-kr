@@ -38,22 +38,8 @@ import './index.less';
     }
 	}
 	//监听props是否发生变化
-	componentWillReceiveProps(nextProps){
-			this.setState({
-				detail:nextProps.detail,
-
-			});
-	}
-
 	 onSubmit=(values)=>{
-		 var _this=this;
-			this.setState({
-				detail:{
-					startNum:this.cardNumAdd(10)
-				}
-			},function(){
-			})
-
+		 this.cardNumAdd(4);
 	 }
 
 	 //数字处理
@@ -64,18 +50,29 @@ import './index.less';
 	 }
 	 //卡号增加
 	 cardNumAdd=(len)=>{
-		 var num=parseInt(this.state.detail.startNum);
+		 var _this=this
+		 let detail = Object.assign({},_this.props.detail);
+		 var start=this.state.detail.startNum.substring(0,6).toString();
+		 var num=parseInt(this.state.detail.startNum.substring(6,10));
 		 		 num=num+1;
-
 		 		 num=num.toString();
-
 				 if (num.length<len) {
 				 	for (var i = num.length; i < len; i++) {
 							num='0'+num;
 				 	}
 				 }
-				 return num;
+				 detail.startNum=start+num;
+				 detail.endNum=this.state.detail.endNum;
+				 this.setState({
+	 				detail:detail
+				})
 	 }
+	 //跳过号码
+	 skipCard=()=>{
+		 this.cardNumAdd(4);
+	 }
+
+	 //关闭窗口
 	 onCancel=()=>{
 		 const {onCancel} = this.props;
 		onCancel && onCancel();
@@ -98,17 +95,17 @@ import './index.less';
 								<span className="cardNum" style={{padding:"0 10px"}}>{this.numhandle(this.state.detail.startNum,4,6)}</span>
 								<span className="cardNum normal">{this.numhandle(this.state.detail.startNum,6,10)}</span>
 						</div>
-						<label className="jump">跳过该号码</label>
+						<label className="jump" onClick={this.skipCard}>跳过该号码</label>
 				</div>
-				<KrField style={{height:36}} left={71} right={71} name="interCode" type="text" label=""/>
+				<KrField style={{height:36}} left={71} right={71} name="interCode" type="text" label="" disable={true}/>
 
 
 				<Grid style={{marginTop:38,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<div  className='ui-btn-center'><Button  label="返回" type="submit" joinEditForm /></div>
-								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
+								<div  className='ui-btn-center'><Button  label="完成" type="submit" joinEditForm /></div>
+								<Button  label="返回" type="button" cancle={true} onTouchTap={this.onCancel} />
 							</ButtonGroup>
 						</Col>
 					</Row>

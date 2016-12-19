@@ -33,7 +33,12 @@ import './index.less';
 	//数据的初始化设定
 	constructor(props){
 		super(props);
+		// const detail=props.detail;
+		// console.log(detail,"H");
+		//
+		// Store.dispatch(initialize('HeavilyActivation',detail));
 	}
+
 	 onSubmit=(values)=>{
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
@@ -45,7 +50,7 @@ import './index.less';
 	 }
 
 
-	 handleBlur=(event)=>{
+	 handleBlur=()=>{
 
 	 }
 
@@ -60,8 +65,8 @@ import './index.less';
 		return (
 			<form className="HeavilyActivation" onSubmit={handleSubmit(this.onSubmit)}>
 				<div className="stageImg" ></div>
-				<KrField style={{height:36,marginBottom:43,marginTop:20}} left={71} right={71} name="startNum" type="text" label="起始号码" onBlur={this.handleBlur}/>
-				<KrField style={{height:36,marginBottom:43}} left={71} right={71} name="endNum" type="text" label="终止号码"/>
+				<KrField style={{marginTop:20}} left={71} right={71} name="startNum" type="text" label="起始号码" onBlur={this.handleBlur} />
+				<KrField style={{}} left={71} right={71} name="endNum" type="text" label="终止号码"/>
 				<KrField style={{height:36,marginTop:-15}} left={71} right={71} component="labelText" label="会员卡数量:" value={"100"+"张"}/>
 				<Grid style={{marginTop:15,marginBottom:5}}>
 					<Row>
@@ -81,23 +86,25 @@ const validate = values =>{
 		const errors = {}
 
 		if(!values.startNum){
-			errors.startNum = '请填写科目编码';
+			errors.startNum = '请输入起始号码';
 		}
+		if(!isNaN(+values.startNum)&&values.startNum&&values.startNum.length!=10){
+			errors.startNum='请输入10位会员卡号'
+		}
+		if(values.startNum&&isNaN(+values.startNum)){
 
+			errors.startNum = '卡号由十位数字的卡号组成';
+		}
 		if (!values.endNum) {
-			errors.endNum = '请填写科目名称';
+			errors.endNum = '请输入终止号码';
+		}
+		if(!isNaN(+values.endNum)&&values.endNum&&values.endNum.length!=10){
+			errors.endNum='请输入10位会员卡号'
+		}
+		if(values.endNum&&isNaN(+values.endNum)){
+			errors.endNum = '卡号由十位数字的卡号组成';
 		}
 
-		if (!values.accounttype) {
-			errors.accounttype = '请填写科目类别';
-		}
-
-		if (!values.ordernum) {
-			errors.ordernum = '请填写排序号';
-		}
-		if (!values.enableflag) {
-			errors.enableflag = '请先选择是否启用';
-		}
 
 
 		return errors
@@ -106,4 +113,4 @@ const selector = formValueSelector('HeavilyActivation');
 
 
 
-export default reduxForm({ form: 'HeavilyActivation', validate,enableReinitialize:true, keepDirtyOnReinitialize:true })(HeavilyActivation);
+export default reduxForm({ form: 'HeavilyActivation', validate})(HeavilyActivation);

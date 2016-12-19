@@ -109,8 +109,8 @@ class NewActivation extends Component {
 
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:30}}>
 
-				<KrField  right={27} style={{height:36,marginBottom:70}} left={42} right={42} name="foreignCode" type="text" label="会员卡号"/>
-				<KrField  right={27} style={{height:36,marginBottom:70}} left={42} right={42} name="interCode" type="text" label="会员卡内码"/>
+				<KrField  right={27}  left={42} right={42} name="foreignCode" type="text" label="会员卡号"/>
+				<KrField  right={27}  left={42} right={42} name="interCode" type="text" disable={true} label="会员卡内码"/>
 				<Grid style={{marginTop:10,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">
@@ -127,29 +127,23 @@ class NewActivation extends Component {
 }
 
 const validate = values =>{
-
+		var foreignCode=values.foreignCode;
+		console.log( "foreignCode",foreignCode,Object.prototype.toString.call(foreignCode));
 		const errors = {}
 
 		if(!values.foreignCode){
-			errors.foreignCode = '请填写科目编码';
+			errors.foreignCode = '请输入会员卡号';
 		}
+		if(foreignCode&&foreignCode.length!=10){
+			errors.foreignCode = '请输入10位会员卡号';
+		}
+		if (isNaN(+foreignCode) ) {
+			errors.foreignCode = '卡号由十位数字的卡号组成';
 
+		}
 		if (!values.interCode) {
-			errors.interCode = '请填写科目名称';
+			errors.interCode = '请输入会员卡内码';
 		}
-
-		if (!values.accounttype) {
-			errors.accounttype = '请填写科目类别';
-		}
-
-		if (!values.ordernum) {
-			errors.ordernum = '请填写排序号';
-		}
-		if (!values.enableflag) {
-			errors.enableflag = '请先选择是否启用';
-		}
-
-
 		return errors
 	}
 const selector = formValueSelector('NewActivation');

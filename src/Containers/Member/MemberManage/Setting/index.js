@@ -104,7 +104,7 @@ export default class List extends Component {
 	openStartCardActivationDialog=()=>{
 		this.setState({
 			openStartCardActivation: !this.state.openStartCardActivation,
-
+			openHeavilyActivation: !this.state.openHeavilyActivation,
 		});
 	}
 
@@ -123,9 +123,12 @@ export default class List extends Component {
 
 	//输入卡号的确定操作
 	onHeavilyActivation=(detail)=> {
-
+		console.log(detail,"index");
+		if(!detail.startNum||!detail.endNum){
+			return ;
+		}
 		this.setState({detail},function(){
-			console.log(this.state.detail,"+++++++++++");
+
 				this.openHeavilyActivationDialog();
 				this.onStartCardActivation()
 
@@ -144,7 +147,7 @@ export default class List extends Component {
 		params.foreignCode=values.foreign_code;
 		params.interCode=""+values.inter_code;
 		Store.dispatch(Actions.callAPI('CardEdit', {}, params)).then(function(response) {
-			_this.openHeavilyActivationDialog()
+			_this.openEditDetailDialog()
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
@@ -248,7 +251,6 @@ export default class List extends Component {
 
 					  </Dialog>
 
-						//输入号码
 						<Dialog
 							title="批量激活"
 							modal={true}
@@ -257,7 +259,7 @@ export default class List extends Component {
 							bodyStyle={{paddingTop:45}}
 							contentStyle={{width:500}}
 						>
-							<HeavilyActivation onSubmit={this.onHeavilyActivation} onCancel={this.openHeavilyActivationDialog}/>
+							<HeavilyActivation detail={this.state.detail}  onSubmit={this.onHeavilyActivation} onCancel={this.openHeavilyActivationDialog}/>
 					  </Dialog>
 
 						<Dialog
@@ -268,10 +270,9 @@ export default class List extends Component {
 							bodyStyle={{paddingTop:45}}
 							contentStyle={{width:442}}
 						>
-						<EditDetail detail={this.state.detail} onSubmit={this.onEditDetail} onCancel={this.openEditDetailDialog}/>
+						<EditDetail detail={this.state.itemDetail} onSubmit={this.onEditDetail} onCancel={this.openEditDetailDialog}/>
 					  </Dialog>
 
-						//开始激活
 						<Dialog
 							title="批量激活"
 							modal={true}

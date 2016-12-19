@@ -47,7 +47,7 @@ class EditDetail extends Component {
 		const detail=props.detail;
 		Store.dispatch(initialize('EditDetail',detail));
 	}
-	
+
 	onSubmit(values) {
 		const {
 			onSubmit
@@ -72,8 +72,8 @@ class EditDetail extends Component {
 
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:30}}>
-				<KrField  right={27} style={{height:36,marginBottom:43}} left={42} right={42} name="foreign_code" type="text" label="会员卡号"/>
-				<KrField  right={27} style={{height:36,marginBottom:43}} left={42} right={42} name="inter_code" type="text" label="会员卡内码"/>
+				<KrField  right={27} style={{}} left={42} right={42} name="foreign_code" type="text" label="会员卡号"/>
+				<KrField  right={27} style={{}} left={42} right={42} name="inter_code" type="text" label="会员卡内码" disable={true}/>
 				<Grid style={{marginTop:10,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">
@@ -90,35 +90,30 @@ class EditDetail extends Component {
 }
 
 const validate = values =>{
+	var foreign_code=values.foreign_code;
+	console.log( "foreign_code",foreign_code,Object.prototype.toString.call(foreign_code));
+	const errors = {}
 
-		const errors = {}
-
-		if(!values.foreignCode){
-			errors.accountcode = '请填写科目编码';
-		}
-
-		if (!values.accountname) {
-			errors.accountname = '请填写科目名称';
-		}
-
-		if (!values.accounttype) {
-			errors.accounttype = '请填写科目类别';
-		}
-
-		if (!values.ordernum) {
-			errors.ordernum = '请填写排序号';
-		}
-		if (!values.enableflag) {
-			errors.enableflag = '请先选择是否启用';
-		}
-
-
-		return errors
+	if(!values.foreign_code){
+		errors.foreign_code = '请输入会员卡号';
 	}
+	if(foreign_code&&foreign_code.length!=10){
+		errors.foreign_code = '请输入10位会员卡号';
+	}
+	if (isNaN(+foreign_code) ) {
+		errors.foreign_code = '卡号由十位数字的卡号组成';
+
+	}
+	if (!values.inter_code) {
+		errors.inter_code = '请输入会员卡内码';
+	}
+	return errors
+
+}
 const selector = formValueSelector('EditDetail');
 
 
 
 export default reduxForm({
-	form: 'EditDetail'
+	form: 'EditDetail',validate
 })(EditDetail);
