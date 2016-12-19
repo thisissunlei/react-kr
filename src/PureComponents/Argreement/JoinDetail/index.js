@@ -29,6 +29,7 @@ export default class Initialize  extends Component{
 	}
 
 
+
 	render(){
 
 		return(
