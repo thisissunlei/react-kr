@@ -15,6 +15,7 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Message,
+	Section,
 } from 'kr-ui';
 import {
 	Actions,
@@ -102,6 +103,7 @@ export default class PersonalCenter extends Component{
 	}
 	componentDidMount() {
 		this.initBasicInfo();
+		Store.dispatch(Actions.switchSidebarNav(false));
 	}
 	componentWillReceiveProps(){
 		//console.log(this.state.isLegal);
@@ -562,6 +564,7 @@ export default class PersonalCenter extends Component{
 		let {settle_mobile,settle_password}=this.state;
 		return (
       <div className="g-personal-center">
+				<Section title="个人中心" />
           <div className="personal-data">
 						<div className="left_box">
 								<div className="left">
@@ -620,7 +623,7 @@ export default class PersonalCenter extends Component{
 									手机号
 								</dt>
 								<dd>
-									<span>您已绑定了手机 {this.state.mobile}。（您的手机为安全手机，可以找回密码）</span>
+									<span>您已绑定了手机 <span className="mobileSettle">{this.state.mobile}</span>。（您的手机为安全手机，可以找回密码）</span>
 									<p className="setted">&ensp;已设置&ensp;<span className="bl">|</span>&ensp;<span onTouchTap={this.openMobileVerifyIdFunc} className="revise">修改</span></p>
 								</dd>
 
