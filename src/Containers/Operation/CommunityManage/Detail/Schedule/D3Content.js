@@ -274,7 +274,6 @@ export default class D3Content extends Component {
 			item.left = (Math.round((that.countDays(item.pointDate)/365)*100)/100)*100;
 			return item
 		});
-		console.log('finaBluePointVoList',finaBluePointVoList);
 		return finaBluePointVoList;
 
 	}
@@ -379,8 +378,14 @@ export default class D3Content extends Component {
 		let {infoList} = this.state;
 		let item = infoList || [];
 		let id = this.props.id;
+		let top = 250;
+		let place = 'top';
+		if(item.length>1){
+			place = 'bottom';
+			top = 250*item.length;
+		}
 		return (
-			<Tooltips  place="top" type="dark" effect="solid" scroll={true} id={`${item.pointDate}${id}`} offsetTop={250}>
+			<Tooltips  place={place} type="dark" effect="solid" scroll={false} id={`${item.pointDate}${id}`} offsetTop={top}>
 			<div className="react-tooltips-content">
 			{item.map((value,i)=>{
 				return(
@@ -423,10 +428,9 @@ export default class D3Content extends Component {
 	renderBlueInfo=()=>{
 		let {BlueinfoList} = this.state;
 		let item = BlueinfoList || [];
-		console.log('BlueinfoList',item);
 		let id = this.props.id;
 		return (
-			<Tooltips  place="top" type="dark" effect="solid" id={`${item.pointDate}${id}sameblue`} offsetTop={10}>
+			<Tooltips  place="top" type="dark" effect="solid" id={`${item.pointDate}${id}sameblue`} offsetTop={130}>
 					<div className="react-tooltip-content">
 						<span>工位变更</span>
 						<p>{item.finaName}({dateFormat(item.leaseBeginDate, "yyyy.mm.dd")}-{dateFormat(item.leaseEndDate, "yyyy.mm.dd")})</p>
@@ -505,10 +509,6 @@ export default class D3Content extends Component {
 				}
 				{
 					blueNodeList && blueNodeList.map((item,index)=>{
-						console.log('item.left',item.left);
-
-
-
 						return (
 							<span className='blue-node' key={index} style={{marginLeft:`${item.left}%`}} data-tip data-for={`${item.pointDate}${id}sameblue`} onMouseOver={this.getBlueInfo.bind(this,item)}>
 							{this.renderBlueInfo()}
@@ -526,7 +526,7 @@ export default class D3Content extends Component {
 
 						
 						return (
-							<span className={`${nodeKind}`} key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`,left:left,position:'absolute'}} data-tip data-for={`${item.pointDate}${id}sameblue`} onMouseOver={this.getRedInfo.bind(this,item)}>
+							<span className={`${nodeKind}`} key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`,left:left,position:'absolute'}} data-tip data-for={`${item.pointDate}${id}`} onMouseOver={this.getRedInfo.bind(this,item)}>
 								{this.renderRedInfo(item)}
 							</span>
 						)

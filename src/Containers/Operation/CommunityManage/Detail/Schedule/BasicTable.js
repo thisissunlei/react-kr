@@ -291,6 +291,7 @@ export default class BasicTable extends Component {
 			var scrollBottom = top - num;
 			var {dataLoading} = _this.state;
 			var isOutBoundary = scrollBottom >= -300;
+			console.log(dataLoading,isOutBoundary);
 
 			if (isOutBoundary && !dataLoading) {
 				let {
@@ -426,7 +427,8 @@ export default class BasicTable extends Component {
 		} = this.state
 
 		var _this = this;
-		_this.getRate();
+		_this.getRate(id);
+		console.log('id',id);
 
 		Store.dispatch(Actions.callAPI('getInstallmentplan', {
 			communityids: id,
@@ -441,16 +443,16 @@ export default class BasicTable extends Component {
 				// rate: response.rate,
 				communityids: id,
 				totalPages: response.vo.totalPages,
-				istip: ' '
 			});
-
-			window.setTimeout(function() {
+			if(response.vo.totalPages == response.vo.page){
 				_this.setState({
-					istip: false
-				});
-			}, 100)
-
-
+					istip:true
+				})
+			}else{
+				_this.setState({
+					istip:false
+				})
+			}
 
 		}).catch(function(err) {
 			Notify.show([{
@@ -492,6 +494,13 @@ export default class BasicTable extends Component {
 				totalPages: response.vo.totalPages,
 				dataLoading: false
 			});
+			if(response.vo.totalPages == response.vo.page){
+				console.log('fss======dfsd');
+				_this.setState({
+					istip:true
+				})
+			}
+
 
 
 
@@ -559,7 +568,7 @@ export default class BasicTable extends Component {
 		this.setState(state);
 	}
 	//获取年份出租率
-	getRate=()=>{
+	getRate=(id)=>{
 		let {
 			type,
 			page,
@@ -571,13 +580,17 @@ export default class BasicTable extends Component {
 		this.setState({
 			rate:['','','','','','','','','','','','']
 		})
+		if(!id && id != 0){
+			id = communityids;
+			console.log('dsadasda');
+		}
 
 
 		let _this = this;
 		var year = this.state.currentYear;
 
 		Store.dispatch(Actions.callAPI('getRate', {
-			communityids: communityids,
+			communityids: id ,
 			year: year,
 		})).then(function(response) {
 
@@ -641,7 +654,9 @@ export default class BasicTable extends Component {
 				var totalCount = 0;
 				var totalPages = 0;
 			}
-			if(response.vo.totalPages == 1){
+			console.log('response',response.vo.totalPages,response.vo.page);
+			if(response.vo.totalPages == response.vo.page){
+				console.log('fss======dfsd');
 				_this.setState({
 					istip:true
 				})
@@ -816,6 +831,7 @@ export default class BasicTable extends Component {
 		} else {
 			showNone = false;
 		}
+		console.log(istip,'istip');
 
 
 
