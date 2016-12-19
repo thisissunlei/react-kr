@@ -5,16 +5,17 @@ import Input from '../../Input';
 
 import Tooltip from '../../Tooltip';
 import './index.less';
+import ReactTooltip from 'react-tooltip'
 
 export default class InputComponent extends React.Component{
 
 	static defaultProps = {
 
-
+		tooltip:'',
 	}
 
 	static PropTypes = {
-
+		tooltip:React.PropTypes.string,
 		defaultValue: React.PropTypes.string,
 		ajaxUrlName: React.PropTypes.string,
 		ajaxParams: React.PropTypes.object,
@@ -60,13 +61,17 @@ export default class InputComponent extends React.Component{
 	}
 
 	render(){
-    let {input, label, type,requireLabel,disabled,placeholder,style,inline,alignRight,simple,heightStyle,...other} = this.props;
+    let {input, label, type,requireLabel,disabled,placeholder,style,inline,alignRight,simple,heightStyle,tooltip,...other} = this.props;
     let className = '';
 
 
 			return (
-				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} wrapStyle={style} alignRight={alignRight}>
-					<Tooltip  style={{visibility:'visible'}} offsetTop={10} place='top'>{this.state.oldtext}</Tooltip>
+				<WrapComponent  label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} wrapStyle={style} alignRight={alignRight}>
+					<span  data-tip data-for={`${tooltip}`}>
+						<ReactTooltip id={`${tooltip}`}>
+							<p style={{margin:0}}>{tooltip}</p>
+						</ReactTooltip>
+					</span>
 						{!this.state.editOpen && <span className="edit" onTouchTap={this.onEdit}></span>}
 						{this.state.editOpen && <input id="focus" onBlur={this.onSave} className={className} defaultValue={this.state.oldtext} />}
 				<span className="contract">{this.state.oldtext}</span>
