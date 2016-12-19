@@ -57,14 +57,14 @@ export default class CreateMemberForm extends Component {
 	componentWillMount() {
 		this.getBasicData(this.detail.id);
 		let {detail,handleSubmit} = this.props;
-		console.log('edit-detail',detail);
+		Store.dispatch(initialize('createMemberForm', detail));
 		
 	}
 	componentWillReceiveProps(nextProps){
 		if(!ShallowEqual(this.state.initializeValues,nextProps.detail)){
 			this.setState({
 				initializeValues:nextProps.detail
-			})
+			});
 			Store.dispatch(initialize('createMemberForm', nextProps.detail));
 
 		}
@@ -108,7 +108,6 @@ export default class CreateMemberForm extends Component {
 		var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
  		if (filter.test(mail)){
  			Store.dispatch(Actions.callAPI('membersByEmail', {email:mail})).then(function(response) {
-				console.log(response);
 				if(response == 1){
 					console.log('1');
 
@@ -124,7 +123,6 @@ export default class CreateMemberForm extends Component {
 	membersByForeignCode=(value)=>{
 		if (value){
  			Store.dispatch(Actions.callAPI('membersByForeignCode', {foreignCode:value})).then(function(response) {
-				console.log(response);
 				if(response == 1){
 					console.log('1');
 				}

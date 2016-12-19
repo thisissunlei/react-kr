@@ -23,12 +23,12 @@ import imgLine from './images/line.png'
 		this.state={
 			communityText:'',
 			companyText:'',
+			phoneSame:false
 
 
 		}
 		this.getBasicData();
 		this.params = this.props.params;
-		console.log('this.params',this.params);
 
 
 
@@ -39,10 +39,11 @@ import imgLine from './images/line.png'
 			phone:'',
 			communityId:parseInt(this.params.communityId),
 			companyId:parseInt(this.params.companyId),
-			email:'eeee@163.com',
-			jobId:16,
-			name:'ewqeqweqe',
-			foreignCode:'11111',
+			email:'',
+			jobId:'',
+			name:'',
+			foreignCode:'',
+			enableflag:true
 		}
 		console.log('fdsfsdffdsd',this.props.params,response);
 		Store.dispatch(initialize('NewCreateForm',response));
@@ -91,6 +92,7 @@ import imgLine from './images/line.png'
 		 this.setState({
 	 		open:true
 	 	})
+		 let _this = this;
 
 		 Store.dispatch(Actions.callAPI('isPhoneRegistered',params)).then(function(response){
 			//  检验response是不是空对象
@@ -99,11 +101,23 @@ import imgLine from './images/line.png'
 					// console.log("response",response);
 					// 此处要有提示
 					Message.warn('该手机号码已被注册！','error');
+					_this.setState({
+						phoneSame:true
+					})
 					
 				}
 		 }).catch(function(err){
-		 	console.log('ddddd',err.message);
-			// Store.dispatch(reset('NewCreateForm'));
+		 	let {phoneSame} = _this.state;
+		 	let response = {
+		 		phone:phone,
+		 		communityId:parseInt(_this.params.communityId),
+				companyId:parseInt(_this.params.companyId),
+		 	}
+		 	if(phoneSame){
+				Store.dispatch(initialize('NewCreateForm',response));
+				
+
+		 	}
 		 });
 	 }
 	 EmailonBlur=(phone)=>{
