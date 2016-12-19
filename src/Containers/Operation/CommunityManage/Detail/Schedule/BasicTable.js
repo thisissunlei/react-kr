@@ -442,8 +442,14 @@ export default class BasicTable extends Component {
 				// rate: response.rate,
 				communityids: id,
 				totalPages: response.vo.totalPages,
-				istip: ' '
 			});
+			if(response.vo.totalPages == response.vo.page){
+				console.log('fss======dfsd');
+				_this.setState({
+					istip:true
+				})
+			}
+
 
 			window.setTimeout(function() {
 				_this.setState({
@@ -493,6 +499,13 @@ export default class BasicTable extends Component {
 				totalPages: response.vo.totalPages,
 				dataLoading: false
 			});
+			if(response.vo.totalPages == response.vo.page){
+				console.log('fss======dfsd');
+				_this.setState({
+					istip:true
+				})
+			}
+
 
 
 
@@ -646,7 +659,9 @@ export default class BasicTable extends Component {
 				var totalCount = 0;
 				var totalPages = 0;
 			}
-			if(response.vo.totalPages == 1){
+			console.log('response',response.vo.totalPages,response.vo.page);
+			if(response.vo.totalPages == response.vo.page){
+				console.log('fss======dfsd');
 				_this.setState({
 					istip:true
 				})
@@ -821,6 +836,7 @@ export default class BasicTable extends Component {
 		} else {
 			showNone = false;
 		}
+		console.log(istip,'istip');
 
 
 

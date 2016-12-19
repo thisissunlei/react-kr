@@ -8,6 +8,7 @@ import {
 } from 'kr-ui';
 import ReactDOM from 'react-dom';
 import './index.less';
+import {ShallowEqual} from 'kr/Utils';
 export default class Tooltip extends Component {
 
 	static defaultProps = {
@@ -48,6 +49,12 @@ export default class Tooltip extends Component {
 	}
 	componentDidMount() {
 		this.renderHover();
+	}
+	componentWillReceiveProps(nextProps){
+		if(!ShallowEqual(this.props.offsetTop,nextProps.offsetTop)){
+			this.renderHover();
+
+		}
 	}
 	renderHover=()=>{
 		// let {tipName} = this.props;
@@ -101,12 +108,13 @@ export default class Tooltip extends Component {
 
 		}
 		if(place === 'top'){
-			style.top = '-'+(height-5+offsetTop)+'px';
+			console.log('top-tooltop',offsetTop,height);
+			style.top = '-'+(-5+offsetTop)+'px';
 			// className += ' top-arrow';
 
 		}
 		if(place === 'bottom'){
-			style.bottom = 10+'px';
+			style.top = 10+'px';
 			className += ' bottom-arrows';
 
 		}

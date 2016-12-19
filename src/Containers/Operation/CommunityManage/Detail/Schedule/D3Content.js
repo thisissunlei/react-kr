@@ -378,10 +378,11 @@ export default class D3Content extends Component {
 		let {infoList} = this.state;
 		let item = infoList || [];
 		let id = this.props.id;
-		let top = 250*item.length;
-		let place = 'bottom';
+		let top = 250;
+		let place = 'top';
 		if(item.length>1){
-			place = 'top';
+			place = 'bottom';
+			top = 250*item.length;
 		}
 		return (
 			<Tooltips  place={place} type="dark" effect="solid" scroll={false} id={`${item.pointDate}${id}`} offsetTop={top}>
@@ -429,7 +430,7 @@ export default class D3Content extends Component {
 		let item = BlueinfoList || [];
 		let id = this.props.id;
 		return (
-			<Tooltips  place="top" type="dark" effect="solid" id={`${item.pointDate}${id}sameblue`} offsetTop={10}>
+			<Tooltips  place="top" type="dark" effect="solid" id={`${item.pointDate}${id}sameblue`} offsetTop={130}>
 					<div className="react-tooltip-content">
 						<span>工位变更</span>
 						<p>{item.finaName}({dateFormat(item.leaseBeginDate, "yyyy.mm.dd")}-{dateFormat(item.leaseEndDate, "yyyy.mm.dd")})</p>
