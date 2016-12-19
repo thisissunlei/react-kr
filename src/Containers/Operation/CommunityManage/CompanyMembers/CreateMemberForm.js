@@ -98,12 +98,15 @@ import imgLine from './images/line.png'
 					Store.dispatch(initialize('NewCreateForm',response));
 					// console.log("response",response);
 					// 此处要有提示
-					Message.warn('该手机号码已被注册！','error');
+					// Message.warn('该手机号码已被注册！','error');
 					
 				}
 		 }).catch(function(err){
 		 	console.log('ddddd',err.message);
-			// Store.dispatch(reset('NewCreateForm'));
+		 	let response = {
+		 		phone:phone
+		 	}
+			Store.dispatch(initialize('NewCreateForm',response));
 		 });
 	 }
 	 EmailonBlur=(phone)=>{

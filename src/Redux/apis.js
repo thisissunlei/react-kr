@@ -514,7 +514,7 @@
     method:'get'
   },
   'isEmailRegistered':{
-    url:'/api/krspace-finance-web/member/member-email?email={email}',
+    url:'/api/krspace-finance-web/member/member-mail?email={email}',
     method:'get'
   },
   // 会员中心-会员-获取-(查询)高级搜索
