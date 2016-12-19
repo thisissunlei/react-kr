@@ -15,7 +15,7 @@ import {
   ListGroupItem,
 	SearchForm,
 } from 'kr-ui';
-import $ from 'jQuery'
+import $ from 'jquery'
 class NewCreateForm extends Component{
 	static DefaultPropTypes = {
 		initialValues: {

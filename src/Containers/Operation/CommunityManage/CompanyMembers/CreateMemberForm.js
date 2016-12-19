@@ -13,7 +13,7 @@ import {
 	Message,
 	SnackTip
 } from 'kr-ui';
-import $ from 'jQuery'
+import $ from 'jquery'
 import imgLine from './images/line.png'
 
  class NewCreateForm extends Component{

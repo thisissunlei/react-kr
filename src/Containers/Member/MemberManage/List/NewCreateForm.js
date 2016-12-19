@@ -11,7 +11,7 @@ import {
 	Button,
 	ButtonGroup,
 } from 'kr-ui';
-import $ from 'jQuery'
+import $ from 'jquery'
 import imgLine from './images/line.png'
 export default class NewCreatMemberForm extends Component{
      static contextTypes = {
