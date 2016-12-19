@@ -31,6 +31,8 @@ export default class TableFooter extends React.Component {
 		onExport: React.PropTypes.func,
 		onPageChange: React.PropTypes.func,
 		exportSwitch: React.PropTypes.bool,
+		onImport:React.PropTypes.func,
+		batchDelet:React.PropTypes.func,
 	}
 
 
@@ -59,6 +61,14 @@ export default class TableFooter extends React.Component {
 			onExport
 		} = this.props;
 		onExport && onExport();
+	}
+	onImport=()=>{
+		const {onImport}=this.props;
+		onImport && onImport();
+	}
+	batchDelet=()=>{
+		const {batchDelet} = this.props;
+		batchDelet && batchDelet();
 	}
 
 	onPageChange(page) {
@@ -108,15 +118,39 @@ export default class TableFooter extends React.Component {
 		} = this.props;
 
 		if (!exportSwitch) {
-			return (
-				<TableRowColumn></TableRowColumn>
-			);
+			return;
 		}
 
 		return (
-			<TableRowColumn style={{textAlign:'left'}} colSpan={2}> <a style={{width:80,height:30,background:'#499df1',color:'#fff',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)'}}  onClick={this.onExport}>导&nbsp;&nbsp;出</a> </TableRowColumn>
+			<a style={{width:80,height:30,background:'#499df1',color:'#fff',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)',marginRight:20}}  onClick={this.onExport}>导&nbsp;&nbsp;出</a>
 		);
 
+	}
+	renderBatchDelet=()=>{
+		let {
+			batchDelet
+		} = this.props;
+
+		if (!batchDelet) {
+			return ;
+		}
+
+		return (
+			 <a style={{width:80,height:30,background:'#fff',color:'#499df1',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)',marginRight:20,border:'1px solid #499df1'}}  onClick={this.batchDelet}>批量删除</a>
+		);
+	}
+	renderImport=()=>{
+		let {
+			onImport
+		} = this.props;
+
+		if (!onImport) {
+			return;
+		}
+
+		return (
+			<a style={{width:80,height:30,background:'#499df1',color:'#fff',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)',marginRight:20}}  onClick={this.onImport}>批量导入</a>
+		);
 	}
 
 	render() {
@@ -127,11 +161,18 @@ export default class TableFooter extends React.Component {
 			totalCount,
 			page,
 			pageSize,
-			footer
+			footer,
+			batchDelet,
+			onImport,
+			exportSwitch
 		} = this.props;
 
 		if (!footer) {
 			return null;
+		}
+		let num = 1;
+		if(onImport && batchDelet && exportSwitch){
+			num = 4;
 		}
 
 		return (
@@ -140,8 +181,15 @@ export default class TableFooter extends React.Component {
 				{/*
                   {this.renderCheckbox()}
 				*/}
-				
-                {this.renderExport()}
+				<TableRowColumn style={{textAlign:'left'}} colSpan={num}>
+					{this.renderExport()}
+					{this.renderImport()}
+                	{this.renderBatchDelet()}
+				</TableRowColumn>
+			
+
+
+
 
 				    <TableRowColumn  colSpan={100} align="right">
 						{this.renderPagination()}
