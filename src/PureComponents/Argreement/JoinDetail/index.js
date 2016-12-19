@@ -17,9 +17,11 @@ import {
 	Row,
 	Col,
 	Dialog,
-
 } from 'kr-ui';
 
+import {observer} from 'mobx-react';
+
+@observer
 export default class Initialize  extends Component{
 
 	constructor(props,context){
@@ -29,13 +31,12 @@ export default class Initialize  extends Component{
 	}
 
 
-
 	render(){
 
 		return(
 
 			<div>
-					<Section title="订单账单列表" description="" >
+					<Section title={Store.name} description="" >
 					</Section>
 			</div>
 		);
