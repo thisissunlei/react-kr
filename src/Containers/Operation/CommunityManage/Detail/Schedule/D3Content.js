@@ -380,7 +380,7 @@ export default class D3Content extends Component {
 		let item = infoList || [];
 		let id = this.props.id;
 		return (
-			<Tooltips  place="top" type="dark" effect="solid" scroll={true} id={`${item.pointDate}${id}`} offsetTop={250}>
+			<Tooltips  place="top" type="dark" effect="solid" scroll={false} id={`${item.pointDate}${id}`} offsetTop={250}>
 			<div className="react-tooltips-content">
 			{item.map((value,i)=>{
 				return(
@@ -526,7 +526,7 @@ export default class D3Content extends Component {
 
 						
 						return (
-							<span className={`${nodeKind}`} key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`,left:left,position:'absolute'}} data-tip data-for={`${item.pointDate}${id}sameblue`} onMouseOver={this.getRedInfo.bind(this,item)}>
+							<span className={`${nodeKind}`} key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`,left:left,position:'absolute'}} data-tip data-for={`${item.pointDate}${id}`} onMouseOver={this.getRedInfo.bind(this,item)}>
 								{this.renderRedInfo(item)}
 							</span>
 						)
