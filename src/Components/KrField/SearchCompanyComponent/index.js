@@ -8,10 +8,10 @@ import {Actions,Store} from 'kr/Redux';
 
 import WrapComponent from '../WrapComponent';
 
-export default class  SearchCommunityComponent extends React.Component {
+export default class  SearchCompanyComponent extends React.Component {
 
 	static defaultProps = {
-		placeholder:'请输入社区名...'
+		placeholder:'请输入公司名称'
 	}
 
 	static PropTypes = {
@@ -36,14 +36,13 @@ export default class  SearchCommunityComponent extends React.Component {
 		input.onChange(value);
 		onChange && onChange(item);
 	}
-
-	getOptions(communityText){
-
+	getOptions(companyText){
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('searchCommunityByCommunityText',{ communityText:communityText})).then(function(response){
+			Store.dispatch(Actions.callAPI('getCompanyByCompanyText',{ companyText:companyText })).then(function(response){
+				console.log('getCompanyByCompanyTextresponse',response);
 				response.forEach(function(item,index){
 					item.value = item.id;
-					item.label = item.communityname;
+					item.label = item.customercompany;
 				});
 				resolve({options:response});
 			}).catch(function(err){
@@ -51,20 +50,18 @@ export default class  SearchCommunityComponent extends React.Component {
 			});
 		});
 	}
-
 	render(){
-
 		let { input, label, type, meta: { touched, error },placeholder,children,disabled,style,requireLabel,...other} = this.props;
-
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync
 					name={input.name}
 					value={input.value}
 					loadOptions={this.getOptions}
-					clearable={false}
+					clearable={true}
 					clearAllText="清除"
 					onChange={this.onChange}
+					noResultsText=""
 					placeholder={placeholder}/>
 			{touched && error && <div className="error-wrap"> <span>{error}</span> </div>}
 		</WrapComponent>
