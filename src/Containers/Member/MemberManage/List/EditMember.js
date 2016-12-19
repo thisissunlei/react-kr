@@ -41,7 +41,7 @@ import {
 import './index.less';
 import {ShallowEqual} from 'kr/Utils';
 
-export default class CreateMemberForm extends Component {
+export default class EditMemberForm extends Component {
 
 
 	constructor(props, context) {
@@ -67,7 +67,7 @@ export default class CreateMemberForm extends Component {
 			// this.setState({
 			// 	initializeValues:nextProps.detail
 			// })
-			Store.dispatch(initialize('createMemberForm', nextProps.detail));
+			Store.dispatch(initialize('editMemberForm', nextProps.detail));
 
 		}
 	}
@@ -194,9 +194,9 @@ export default class CreateMemberForm extends Component {
 )
 	}
 }
-CreateMemberForm = reduxForm({
-	form: 'createMemberForm',
+EditMemberForm = reduxForm({
+	form: 'editMemberForm',
 	// validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
-})(CreateMemberForm);
+})(EditMemberForm);

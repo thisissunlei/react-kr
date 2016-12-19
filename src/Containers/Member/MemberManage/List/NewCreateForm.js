@@ -13,7 +13,7 @@ import {
 } from 'kr-ui';
 import $ from 'jQuery'
 import imgLine from './images/line.png'
-export default class CreateMemberForm extends Component{
+export default class NewCreatMemberForm extends Component{
      static contextTypes = {
    		params: React.PropTypes.object.isRequired
    	}
@@ -86,7 +86,7 @@ export default class CreateMemberForm extends Component{
 		 Store.dispatch(Actions.callAPI('isPhoneRegistered',params)).then(function(response){
 			//  检验response是不是空对象
 				if(!$.isEmptyObject(response)){
-					Store.dispatch(initialize('createMemberForm',response));
+					Store.dispatch(initialize('newCreatMemberForm',response));
 					// console.log("response",response);
 					// 此处要有提示
 				}
@@ -95,11 +95,31 @@ export default class CreateMemberForm extends Component{
 		 });
 	 }
 	 onChangeSearchCommunity(personel) {
-		Store.dispatch(change('createMemberForm', 'communityId', personel.id));
+		Store.dispatch(change('newCreatMemberForm', 'communityId', personel.id));
 	}
 	onChangeSearchCompany(personel) {
-		Store.dispatch(change('createMemberForm', 'companyId', personel.id));
+		Store.dispatch(change('newCreatMemberForm', 'companyId', personel.id));
 	}
+	EmailonBlur=(Email)=>{
+			 let params = {
+				 email :email
+			 }
+			 this.setState({
+		 		open:true
+		 	})
+			Store.dispatch(Actions.callAPI('isPhoneRegistered',params)).then(function(response){
+				//  检验response是不是空对象
+					if(!$.isEmptyObject(response)){
+						Store.dispatch(initialize('NewCreateForm',response));
+						// console.log("response",response);
+						// 此处要有提示
+						Message.warn('该邮箱已被注册！','error');
+					}
+			 }).catch(function(err){
+			 	console.log('ddddd',err.message);
+				// Store.dispatch(reset('NewCreateForm'));
+			 });
+		 }
 	render(){
 		const { error, handleSubmit, pristine, reset} = this.props;
 		let communityText = '';
@@ -115,7 +135,7 @@ export default class CreateMemberForm extends Component{
 				</div>
 				<KrField grid={1/2} name="communityId" component="searchCommunity" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
         <KrField grid={1/2} name="email" type="text" label="邮箱" requireLabel={true}
-				   requiredValue={true} pattern={/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/} errors={{requiredValue:'邮箱为必填项',pattern:'请输入正确邮箱地址'}}/>
+				   requiredValue={true} pattern={/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/} errors={{requiredValue:'邮箱为必填项',pattern:'请输入正确邮箱地址'}} onBlur={this.EmailonBlur}/>
 				<KrField grid={1/2} name="companyId" component="searchCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
         <KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} requireLabel={true}/>
 				<KrField grid={1/2} name="name" type="text" label="姓名" requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}}/>
@@ -171,9 +191,9 @@ const validate = values => {
 	}
 	return errors;
 }
-CreateMemberForm = reduxForm({
-	form: 'createMemberForm',
+NewCreatMemberForm = reduxForm({
+	form: 'newCreatMemberForm',
 	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
-})(CreateMemberForm);
+})(NewCreatMemberForm);
