@@ -612,10 +612,6 @@ export default class AttributeSetting extends Component {
 		var _this = this;
 		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd");
 		Store.dispatch(Actions.callAPI('onNewAccountg', {}, params)).then(function() {
-			Notify.show([{
-				message: '操作成功',
-				type: 'success',
-			}]);
 			_this.refresh();
 		}).catch(function(err) {
 			  Message.error(err.message); 
@@ -1019,7 +1015,7 @@ export default class AttributeSetting extends Component {
 						onClose={this.closeBusinessBtn}
 						contentStyle ={{ width: '688'}}
 						>
-					   <BusinessBtnForm  onSubmit={this.onBusinessSubmit} onCancel={this.closeBusinessBtn} fiMoney={fiMoney} initialValues={initialValuesId}/>
+					   <BusinessBtnForm  onSubmit={this.onBusinessSubmit} onCancel={this.closeBusinessBtn}  initialValues={initialValuesId}/>
 					 </Dialog>
 
 					 <Dialog

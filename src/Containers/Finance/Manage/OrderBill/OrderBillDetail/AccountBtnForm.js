@@ -84,10 +84,10 @@ class AccountBtnForm extends Component{
       
        	 let accountDetail=[
         {
-            "id":72726,"propname":"工位服务费"
+            "id":72726,"propname":"押金"
         }, 
          {
-            "id":727,"propname":"电费"
+            "id":727,"propname":"定金"
         }, 
         {
             "id":727,"propname":"电费"
@@ -110,7 +110,7 @@ class AccountBtnForm extends Component{
        
 
 		return(
-			 <div className='ui-quit-wrap'>
+			 <div className='ui-quit-wrap' style={{marginLeft:3}}>
 				<form  onSubmit={handleSubmit(this.onSubmit)} style={{marginLeft:31}}>
 					<KrField  name="mainbillId" type="hidden"/>
 					<KrField grid={1/2} name="accountid" right={42} component="select" label="支付方式" options={optionList} requireLabel={true}/> 
@@ -119,9 +119,9 @@ class AccountBtnForm extends Component{
 		                <KrField name="preCode" label="负" type="radio" value="1" />
 		            </KrField> 
 					<KrField grid={1/2} name="operatedate" right={45} type="date" component="date" label="挂账日期" requireLabel={true} style={{marginTop:3}}/> 
-					<KrField grid={1/2} name="fileids"  component="file" label="上传附件" />
-					
-					
+					<KrField grid={1/2} name="fileids"  component="file" label="上传附件" style={{marginLeft:-12}}/>
+					<KrField grid={1/2} name="contractId" right={42}  component="input" label="工位服务费" type="text" style={{marginRight:-12}}/> 
+					<KrField grid={1/2} name="contracId" right={42}  component="select" label="工位合同"  options={contractList}/> 
 					
 					   <div>
 						      {accountDetail.map((item,index)=>{
@@ -137,7 +137,7 @@ class AccountBtnForm extends Component{
 
 						       )}
 					    </div>
-					 <KrField grid={1/2} name="contractId" right={42}  component="select" label="工位合同"  options={contractList} style={{marginTop:3}}/> 
+					
 				
 					<KrField grid={1} style={style} label="备注" name="finaflowdesc" style={{marginTop:5}} type="text" heightStyle={heightStyle} component="textarea"  placeholder='请输入备注,文字不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/> 
 
@@ -176,6 +176,12 @@ const validate = values =>{
 		}
 		if (values.finaflowamount && isNaN(values.finaflowamount)) {
 			errors.finaflowamount = '金额必须为数字';
+		}
+		if (!values.contractId&&values.contracId) {
+			errors.contractId = '必须填写工位服务费金额';
+		}
+		if (values.contractId&&!values.contracId) {
+			errors.contracId = '必须选择工位合同';
 		}
 	
 	

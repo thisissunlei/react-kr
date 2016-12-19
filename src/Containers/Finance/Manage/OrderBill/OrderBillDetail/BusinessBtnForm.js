@@ -34,7 +34,6 @@ class BusinessBtnForm extends Component{
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
 		initialValues:React.PropTypes.object,
-		fiMoney:React.PropTypes.object,
   }
 
 	constructor(props,context){
@@ -76,33 +75,34 @@ class BusinessBtnForm extends Component{
 
 	
 
-        const { error, handleSubmit, pristine, reset,optionList,fiMoney} = this.props;
+        const { error, handleSubmit, pristine, reset,optionList,initialValues} = this.props;
 		
        let inputStyle={
-       	 height:'36'
+       	 height:'36',
+       	 marginLeft:-12
        }
        let heightStyle={
        	 width:'546',
        	 height:'72'
        }
 	   let style={
-       	 marginTop:'-10'
+       	 marginTop:'-18'
        }
  
 		return(
 
-			    <div className='ui-quit-wrap'>
+			    <div className='ui-quit-wrap' style={{marginLeft:30}}>
                  
 					      <form onSubmit={handleSubmit(this.onSubmit)}>
                             <KrField  name="id" type="hidden"/>
-                            <KrField grid={1} label="款项金额"  component="labelText" value={fiMoney} inline={false} defaultValue="无"/>
-                            <KrField grid={1/2} label="金额（元）" heightStyle={inputStyle} right={29} name="finaflowamount" component="input" type="text" requireLabel={true}/>
+                            <KrField grid={1/2} label="可操作金额"  component="labelText" value={initialValues.fiMoney} inline={false} defaultValue="无"/>
+                            <KrField grid={1/2} label="金额（元）" heightStyle={inputStyle} right={43} name="finaflowamount" component="input" type="text" requireLabel={true}/>
                             <KrField grid={1/2} label="上传附件" name="fileids" component="file"/>
                             <KrField grid={1} label="备注" style={style} name="finaflowdesc" heightStyle={heightStyle} component="textarea" type="text" placeholder='请输入备注,文字不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/>
                            
 
 
-					<Grid style={{marginBottom:5}}>
+					<Grid style={{marginBottom:5,marginLeft:-30}}>
 						<Row>
 							<Col md={12} align="center">
 								<ButtonGroup>
