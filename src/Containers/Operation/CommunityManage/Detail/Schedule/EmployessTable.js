@@ -104,7 +104,7 @@ class Distribution extends Component {
 					<Col md={2} align="right">  </Col> 
 						<Col md={12} align="center"> 
 							<ButtonGroup>
-								<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm  onSubmit={this.onSubmit} width={90} height={34}/></div>
+								<div  className='ui-btn-center'><Button  label="确定" type="submit"  onSubmit={this.onSubmit} width={90} height={34}/></div>
 								<Button  label="取消" type="button"  onTouchTap={this.onCancel} cancle={true} height={32} width={90} />
 							</ButtonGroup>
 						 </Col>
