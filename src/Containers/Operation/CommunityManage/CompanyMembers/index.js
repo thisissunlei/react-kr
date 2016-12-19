@@ -230,9 +230,9 @@ export default class CompanyMembers extends Component {
 			Message.success('设置成功');
 
 
-			// window.setTimeout(function() {
-			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
-			// }, 0);
+			_this.setState({
+				companyId:_this.companyId
+			})
 
 		}).catch(function(err) {
 			// Notify.show([{
@@ -363,6 +363,22 @@ export default class CompanyMembers extends Component {
 		let orderId = itemData.id;
 		window.open(`./#/member/MemberManage/${orderId}/detail`, orderId);
 
+	}
+	onSearchSubmit=()=>{
+
+		let _this = this;
+		let searchParam = {
+			registerSourceId :''
+		}
+		Store.dispatch(Actions.callAPI('membersList',searchParam)).then(function(response){
+			
+
+		}).catch(function(err){
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
 	}
 
 

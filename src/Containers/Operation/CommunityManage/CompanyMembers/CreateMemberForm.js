@@ -137,7 +137,10 @@ import imgLine from './images/line.png'
 				// 	Message.warn('该手机号码已被注册！','error');
 					
 				// }
+				console.log('success');
+				//邮箱已注册
 		 }).catch(function(err){
+		 	//邮箱未注册
 		 	console.log('ddddd',err.message);
 		 });
 	 }
