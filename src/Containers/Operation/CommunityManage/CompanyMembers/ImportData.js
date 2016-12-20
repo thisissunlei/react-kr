@@ -180,10 +180,11 @@ export default class CancleLeader extends Component {
 
 
 		return (
-			<form  encType="multipart/form-data" name='import'>
+			<form  encType="multipart/form-data" name='import' method="post" action="api/krspace-finance-web/member/member-excel">
 				<div>
 					<span className='import-logo icon-excel' onClick={this.importFile}></span>
 					<input type="file" name="file" onChange={this.onChange} multiple />
+					<input type="hidden" name="companyId" value="45" />
 
 					<span className='import-font' onClick={this.importFile}>请选择上传文件</span>
 					<span className='load-demo icon-template' onClick={this.onLoadDemo}>下载excel模板</span>
@@ -191,7 +192,7 @@ export default class CancleLeader extends Component {
 				<Grid style={{marginBottom:20}}>
 					<Row>
 						<ListGroup>
-							<ListGroupItem style={{width:'47%',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定导入" type="submit" width={90} height={34} onTouchTap={this.onSubmit}/></ListGroupItem>
+							<ListGroupItem style={{width:'47%',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定导入" type="submit" width={90} height={34}/></ListGroupItem>
 							<ListGroupItem style={{width:'47%',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/> </ListGroupItem>
 						</ListGroup>
 					  </Row>
