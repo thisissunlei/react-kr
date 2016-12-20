@@ -34,7 +34,7 @@ export default class OrganizationChart extends Component {
 		}
 	}
   onLoaded(response) {
-
+		// console.log("this.props.params",this.props.params);
 		let list = response;
     // console.log(list,"组织架构list");
 
@@ -60,7 +60,7 @@ export default class OrganizationChart extends Component {
           ajax={true}
 					onProcessData={(state)=>{
 						return state;
-						}}
+					}}
           ajaxFieldListName='items'
           ajaxUrlName='getOrganizationChart'
           ajaxParams={this.state.organizationChart}

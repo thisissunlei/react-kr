@@ -10,10 +10,12 @@ import {
 	Col,
 	Button,
 	ButtonGroup,
+	Message,
+	Notify,
 } from 'kr-ui';
 import $ from 'jQuery'
 import imgLine from './images/line.png'
-export default class NewCreatMemberForm extends Component{
+export default class CreateMemberForm extends Component{
      static contextTypes = {
    		params: React.PropTypes.object.isRequired
    	}
@@ -32,28 +34,20 @@ export default class NewCreatMemberForm extends Component{
 		 onSubmit:React.PropTypes.func,
 		 onCancel:React.PropTypes.func,
 	 }
-
 	constructor(props){
 		super(props);
 
-		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
+		this.emailOnBlur = this.emailOnBlur.bind(this);
 		this.state={
 			communityText:'',
 			companyText:'',
 
 		}
-
-		// Store.dispatch(reset('newCreateForm'));
-		// Store.dispatch(change('newCreateForm','enableflag','ENABLE'));
-
 	}
-	// 点确定提交时候如果有错误提示返回，否则提交,,如果邮箱存在有错误提示，不能提交
-	 onSubmit(values){
+	 onSubmit =(values)=>{
 		 const {onSubmit} = this.props;
 		 onSubmit && onSubmit(values);
-		 console.log('values',values);
-		 console.log('values.registerTime',values.registerTime);
 	 }
 
 	 onCancel(){
@@ -61,10 +55,10 @@ export default class NewCreatMemberForm extends Component{
 		 onCancel && onCancel();
 	 }
 	 componentDidMount(){
-
-	//  新增会员准备职位数据
+		 let initialValues={
+				sendMsg:'0'
+			}
 		 let _this =this;
-		//  console.log("________职位准备数据");
 		 Store.dispatch(Actions.callAPI('getMemberBasicData')).then(function(response){
 			//  console.log(response,"response");
 			 response.jobList.forEach(function(item,index){
@@ -75,23 +69,7 @@ export default class NewCreatMemberForm extends Component{
 				selectOption:response.jobList
 			})
 		 }).catch(function(err){
-			 reject(err);
-		 });
-	 }
-	//  输入手机号查看该手机号是否绑定
-	 onBlur=(phone)=>{
-		 let params = {
-			 phone :phone
-		 }
-		 Store.dispatch(Actions.callAPI('isPhoneRegistered',params)).then(function(response){
-			//  检验response是不是空对象
-				if(!$.isEmptyObject(response)){
-					Store.dispatch(initialize('newCreatMemberForm',response));
-					// console.log("response",response);
-					// 此处要有提示
-				}
-		 }).catch(function(err){
-			 reject(err);
+			//  reject(err);
 		 });
 	 }
 	 onChangeSearchCommunity(personel) {
@@ -100,30 +78,44 @@ export default class NewCreatMemberForm extends Component{
 	onChangeSearchCompany(personel) {
 		Store.dispatch(change('newCreatMemberForm', 'companyId', personel.id));
 	}
-	EmailonBlur=(Email)=>{
-			 let params = {
-				 email :email
-			 }
-			 this.setState({
-		 		open:true
-		 	})
-			Store.dispatch(Actions.callAPI('isPhoneRegistered',params)).then(function(response){
-				//  检验response是不是空对象
-					if(!$.isEmptyObject(response)){
-						Store.dispatch(initialize('NewCreateForm',response));
-						// console.log("response",response);
-						// 此处要有提示
-						Message.warn('该邮箱已被注册！','error');
-					}
-			 }).catch(function(err){
-			 	console.log('ddddd',err.message);
-				// Store.dispatch(reset('NewCreateForm'));
-			 });
+	//  输入手机号查看该手机号是否绑定
+	 onBlur=(phone)=>{
+		 console.log(phone,"phone");
+		 let params = {
+			 phone :phone
 		 }
+		 Store.dispatch(Actions.callAPI('isPhoneRegistered',params)).then(function(response){
+			//  检验response是不是空对象
+				if(!$.isEmptyObject(response)){
+
+					Store.dispatch(initialize('newCreatMemberForm',response));
+					Message.warn('该电话已被注册！','error');
+					// console.log("response",response);
+				}
+		 }).catch(function(err){
+			//  Notify.show([{
+ 		// 		message: err.message,
+ 		// 		type: 'danger',
+ 		// 	}]);
+		 });
+	 }
+	// 验证邮箱是否被验证
+	emailOnBlur(email){
+		let params = {
+			email :email
+		}
+		Store.dispatch(Actions.callAPI('membersByEmail', params)).then(function(response) {
+			// console.log("已经注册");
+				Message.warn('该邮箱已被注册！','error');
+			// }
+		}).catch(function(err) {
+			// console.log("邮箱未注册")
+		});
+	}
 	render(){
 		const { error, handleSubmit, pristine, reset} = this.props;
 		let communityText = '';
-		let {selectOption} =this.state;
+		let {selectOption,params} =this.state;
 
 		return (
 			<div>
@@ -135,20 +127,20 @@ export default class NewCreatMemberForm extends Component{
 				</div>
 				<KrField grid={1/2} name="communityId" component="searchCommunity" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
         <KrField grid={1/2} name="email" type="text" label="邮箱" requireLabel={true}
-				   requiredValue={true} pattern={/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/} errors={{requiredValue:'邮箱为必填项',pattern:'请输入正确邮箱地址'}} onBlur={this.EmailonBlur}/>
+				   requiredValue={true} pattern={/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/} errors={{requiredValue:'邮箱为必填项',pattern:'请输入正确邮箱地址'}} onBlur={this.emailOnBlur}/>
 				<KrField grid={1/2} name="companyId" component="searchCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
         <KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} requireLabel={true}/>
 				<KrField grid={1/2} name="name" type="text" label="姓名" requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}}/>
-				<KrField grid={1/2} name="enableflag" component="group" label="发送验证短信" requireLabel={true}>
-						<KrField name="enableflag" grid={1/4} label="是" type="radio" value="ENABLE"/>
-						<KrField name="enableflag" grid={1/4} label="否" type="radio" value="DISENABLE" />
+				<KrField grid={1/2} name="sendMsg" component="group" label="发送验证短信" requireLabel={true}>
+						<KrField name="sendMsg" grid={1/4} label="是" component="radio" type="radio" value="1"/>
+						<KrField name="sendMsg" grid={1/4} label="否" component="radio" type="radio" value="0"/>
               </KrField>
         <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" />
 				<Grid style={{marginTop:30}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-									<Button  label="确定" type="submit" onTouchTap={this.onSubmit}/>
+									<Button  label="确定" type="submit" />
 									<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />
 							</ButtonGroup>
 						</Col>
@@ -191,9 +183,9 @@ const validate = values => {
 	}
 	return errors;
 }
-NewCreatMemberForm = reduxForm({
+CreateMemberForm = reduxForm({
 	form: 'newCreatMemberForm',
 	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
-})(NewCreatMemberForm);
+})(CreateMemberForm);

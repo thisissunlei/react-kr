@@ -83,8 +83,8 @@ export default class EditMemberForm extends Component {
 	getBasicData=(memberId)=>{
 		let url = this.props.params;
 		let params = {
-			communityId:url.communityId,
-			companyId:url.companyId,
+			communityId:'',
+			companyId:'',
 			memberId:memberId || ''
 		}
 		let _this = this;

@@ -26,6 +26,7 @@ class NewCreateForm extends Component{
 			paymentList: [],
 			fnaCorporationList: [],
 		}
+
 	}
 	 static PropTypes = {
 		 onSubmit:React.PropTypes.func,
@@ -41,8 +42,8 @@ class NewCreateForm extends Component{
 			communityText:'',
 			companyText:'',
 			selectSourceOption:[],
-			selectSourceOption:[]
-
+			selectSourceOption:[],
+			searchForm:false
 		}
 		this.basicData();
 
@@ -50,9 +51,19 @@ class NewCreateForm extends Component{
 		// Store.dispatch(change('newCreateForm','enableflag','ENABLE'));
 
 	}
-	// 点确定提交时候如果有错误提示返回，否则提交,,如果邮箱存在有错误提示，不能提交
 	 onSubmit(values){
 		  // console.log('onAdvanceSearchSubmit高级查询',values);
+			let {content,filter} = this.props;
+			let {searchForm} = this.state;
+			if (!searchForm){
+				values.type = filter;
+				values.value = content;
+			}
+			console.log('values',values);
+
+			// if(!search){
+			//
+			// }
 		 const {onSubmit} = this.props;
 		 onSubmit && onSubmit(values);
 	 }
@@ -91,7 +102,7 @@ class NewCreateForm extends Component{
 		//  console.log('city',values);
 	 }
 	 onFilter=(search)=>{
-		//  console.log('--------search',search);
+		 this.setState({searchForm:true});
 		 Store.dispatch(change('AdvancedQueryForm','type',search.value));
 		 Store.dispatch(change('AdvancedQueryForm','value',search.content));
 	 }
@@ -110,10 +121,10 @@ class NewCreateForm extends Component{
 			value: 'WECHAT'
 		}, {
 			label: '姓名',
-			value: 'Name'
+			value: 'NAME'
 		}];
 		return (
-			<form onSubmit={handleSubmit(this.onSubmit)}>
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px'}}>
 
 		<ListGroup>
 			<ListGroupItem>
@@ -122,23 +133,24 @@ class NewCreateForm extends Component{
 		</ListGroup>
 
 				<KrField name="work"  component="city" label="工作地点"  style={{display:'block',width:'252px',marginRight:24}} onSubmit={this.city}/>
-				<KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption}/>
-				<KrField name="from"  grid={1/2} component="select" label="注册来源" options={selectSourceOption}/>
+				<KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} style={{width:'252px',marginRight:'33'}}/>
+				<KrField name="from"  grid={1/2} component="select" label="注册来源" options={selectSourceOption} style={{width:'252px'}}/>
         <ListGroup>
-					<ListGroupItem style={{width:540,paddingLeft:10,color:'#333333'}}>
-
+					<ListGroupItem style={{width:540,paddingLeft:10,color:'#333333',fontSize:'14'}}>
+							注册时间
 					</ListGroupItem>
         	<ListGroupItem style={{textAlign:'center',padding:0}}></ListGroupItem>
           <ListGroupItem style={{padding:0}}>
               <KrField name="startDate"  component="date" style={{width:'252px'}} simple={true}/>
           </ListGroupItem>
-          <ListGroupItem style={{textAlign:'center',padding:0,marginLeft:10}}>
-
+          <ListGroupItem style={{textAlign:'center',padding:15,fontSize:'14'}}>
+							至
 					</ListGroupItem>
-          <ListGroupItem style={{padding:0}}>
+          <ListGroupItem style={{padding:0,marginLeft:-13}}>
               <KrField name="endDate" component="date"  style={{width:252}} simple={true}/>
           </ListGroupItem>
         </ListGroup>
+
 				<Grid style={{marginTop:30}}>
 					<Row>
 						<Col md={12} align="center">

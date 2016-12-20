@@ -85,6 +85,8 @@ export default class UpdateLog extends Component {
 		if (!list.totalCount) {
 			list.totalCount = 0;
 		}
+		console.log(list,"list");
+
     return (
       <div style={{height:'860'}}>
         <div>
@@ -113,11 +115,16 @@ export default class UpdateLog extends Component {
       <TableBody style={{position:'inherit'}}>
           <TableRow displayCheckbox={true}>
               <TableRowColumn name="memberId" ></TableRowColumn>
-              <TableRowColumn name="businessObjId" ></TableRowColumn>
-              <TableRowColumn name="businessObj" ></TableRowColumn>
+							<TableRowColumn name="businessObj" options={[{label:'更新',value:'UPDATE'},{label:'新增',value:'ADD'}]}
+							component={(value,oldValue)=>{
+								return (<span>{value}</span>)}}>
+							</TableRowColumn>
+							<TableRowColumn name="operationResult" options={[{label:'成功',value:''},{label:'成功',value:''}]}
+							component={(value,oldValue)=>{
+								return (<span>{value}</span>)}}></TableRowColumn>
               <TableRowColumn name="operateRecord" ></TableRowColumn>
               <TableRowColumn name="operater" ></TableRowColumn>
-              <TableRowColumn name="operater" ></TableRowColumn>
+              <TableRowColumn name="operateDate" type="date" format="yyyy-mm-dd hh:MM:ss"></TableRowColumn>
               <TableRowColumn name="operateIp" ></TableRowColumn>
          </TableRow>
       </TableBody>
