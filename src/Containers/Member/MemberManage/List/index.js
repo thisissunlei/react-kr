@@ -218,7 +218,7 @@ export default class List extends Component {
 	}
 	// 高级查询
 	onAdvanceSearchSubmit=(values)=>{
-		// console.log('onAdvanceSearchSubmit',values);
+		// console.log('onAdvanceSearchSubmit是否传到列表页',values);
 		let _this = this;
 		_this.setState({
 			openAdvancedQuery: !this.state.openAdvancedQuery,
@@ -226,9 +226,11 @@ export default class List extends Component {
 				value :values.value,
 				type :values.type,
 				cityId :values.city || '',
-				endTime :values.endDate || '',
-				startTime :values.startDate || '',
-				jobId :values.jobId || ''
+				endTime :values.endTime || '',
+				startTime :values.startTime || '',
+				jobId :values.jobId || '',
+				page:1,
+				pageSize:15
 			}
 		})
 	}
