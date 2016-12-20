@@ -34,7 +34,7 @@ export default class memberListDetail extends Component{
 				pageSize: 15,
 				index:''
 			},
-      PersonalData:{},
+      baseInfo:{},
       companyInfo:{},
       workInfo:{}
       // OrganizationChart:{
@@ -47,7 +47,6 @@ export default class memberListDetail extends Component{
   }
   componentDidMount() {
 
-    this.getBasicData();
 
 	}
   getBasicData=()=>{
@@ -57,6 +56,7 @@ export default class memberListDetail extends Component{
 		Store.dispatch(Actions.callAPI('getMemberDetailData', {
 			id: params.memberId,
 		})).then(function(response) {
+      console.log("response",response);
       _this.setState({
         workInfo:response.workInfo,
         companyInfo:response.companyInfo,
