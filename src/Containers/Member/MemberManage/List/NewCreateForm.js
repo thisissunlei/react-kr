@@ -57,7 +57,7 @@ import imgLine from './images/line.png'
 	 	this.foreignCodeBlur(values.foreignCode);
 	 	let {onsubmit,onSubmitCode} = this.state;
 	 	if(onsubmit && onSubmitCode){
-	 		console.log('values',values);
+			// 	console.log('values',values);
 	 		const {onSubmit} = this.props;
 		 	onSubmit && onSubmit(values);
 	 	}
@@ -107,7 +107,7 @@ import imgLine from './images/line.png'
 				if(!$.isEmptyObject(response)){
 					response.sendMsg = '0';
 					Store.dispatch(initialize('NewCreateForm',response));
-					console.log("response",response);
+					// console.log("response",response);
 					// 此处要有提示
 					Message.warn('该手机号码已被注册！','error');
 					_this.setState({
@@ -146,7 +146,7 @@ import imgLine from './images/line.png'
 	 	})
 		 let _this = this;
 		 if(phoneSame && email == params.email){
-		 	console.log('phoneSame');
+			// 	console.log('phoneSame');
 		 	_this.setState({
 				onsubmit:true
 			})
@@ -161,13 +161,13 @@ import imgLine from './images/line.png'
 
 			 }).catch(function(err){
 			 	//邮箱未注册
-			 	console.log('ddddd',err.message);
+				// 	console.log('ddddd',err.message);
 			 	_this.setState({
 					onsubmit:true
 				})
 			 });
 		 }
-		 console.log('EmailonBlur',phone);
+		//  console.log('EmailonBlur',phone);
 
 
 	 }
@@ -196,7 +196,7 @@ import imgLine from './images/line.png'
 
 		 }).catch(function(err){
 		 	//邮箱未注册
-		 	console.log('ddddd',err.message);
+			// 	console.log('ddddd',err.message);
 		 	_this.setState({
 				onSubmitCode:true
 			})

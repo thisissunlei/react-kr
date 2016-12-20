@@ -56,13 +56,13 @@ import imgLine from './images/line.png'
 	 	this.EmailonBlur(values.email);
 	 	this.foreignCodeBlur(values.foreignCode);
 	 	let {onsubmit,onsubmitCode} = this.state;
-	 	console.log(onsubmit,onsubmitCode);
+		// 	console.log(onsubmit,onsubmitCode);
 	 	if(onsubmit && onsubmitCode){
-	 		console.log('values',values);
+			// 	console.log('values',values);
 	 		const {onSubmit} = this.props;
 		 	onSubmit && onSubmit(values);
 	 	}
-		 
+
 	 }
 
 	 onCancel=()=>{
@@ -109,7 +109,7 @@ import imgLine from './images/line.png'
 				if(!$.isEmptyObject(response)){
 					response.sendMsg = '0';
 					Store.dispatch(initialize('NewCreateForm',response));
-					console.log("response",response);
+					// console.log("response",response);
 					// 此处要有提示
 					Message.warn('该手机号码已被注册！','error');
 					_this.setState({
@@ -117,7 +117,7 @@ import imgLine from './images/line.png'
 						email:response.email,
 						code:response.code
 					})
-					
+
 				}
 		 }).catch(function(err){
 		 	let {phoneSame} = _this.state;
@@ -133,7 +133,7 @@ import imgLine from './images/line.png'
 					phoneSame:false,
 					email:''
 				})
-				
+
 
 		 	}
 		 });
@@ -148,7 +148,7 @@ import imgLine from './images/line.png'
 	 	})
 		 let _this = this;
 		 if(phoneSame && email == params.email){
-		 	console.log('phoneSame');
+			// 	console.log('phoneSame');
 		 	_this.setState({
 				onsubmit:true
 			})
@@ -164,7 +164,7 @@ import imgLine from './images/line.png'
 
 		 }).catch(function(err){
 		 	//邮箱未注册
-		 	console.log('ddddd',err.message);
+			// 	console.log('ddddd',err.message);
 		 	_this.setState({
 				onsubmit:true
 			})
@@ -195,7 +195,7 @@ import imgLine from './images/line.png'
 
 		 }).catch(function(err){
 		 	//邮箱未注册
-		 	console.log('ddddd',err.message);
+			// 	console.log('ddddd',err.message);
 		 	_this.setState({
 				onsubmitCode:true
 			})
@@ -212,7 +212,7 @@ import imgLine from './images/line.png'
 		const { error, handleSubmit, pristine, reset} = this.props;
 		let communityText = '';
 		let {selectOption} =this.state;
-		
+
 
 		return (
 			<div>

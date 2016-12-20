@@ -40,36 +40,13 @@ export default class BasicInfo extends Component {
 
 	constructor(props, context) {
 		super(props, context);
-		this.state = {
-			workInfo:{}
-		}
 	}
 	componentDidMount() {
-		let _this=this;
-		let {
-			params,workInfo
-		} = this.props;
-		Store.dispatch(Actions.callAPI('getMemberDetailData', {
-			id:this.context.router.params.memberId
-		})).then(function(response) {
-			let workInfo = response.workInfo;
-			// console.log("workInfo",workInfo);
-			_this.setState({
-				workInfo
-			});
-			// console.log("workInfo",workInfo);
-		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
+
 	}
 	render() {
-		let {
-		workInfo
-		} = this.state;
-
+		let {detail} = this.props;
+		let workInfo = detail;
 		return (
 
 			<div className='ui-detail-order'>

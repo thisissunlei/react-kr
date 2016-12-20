@@ -95,7 +95,7 @@ export default class CancleLeader extends Component {
 
 		files.unshift(response);
 
-		console.log('files', files);
+		// console.log('files', files);
 		this.setState({
 			files,
 			progress: 0,
@@ -148,7 +148,7 @@ export default class CancleLeader extends Component {
 		onLoadDemo && onLoadDemo();
 	}
 	importFile=()=>{
-		console.log('importFile');
+		// console.log('importFile');
 	}
 	onTokenSuccess=(form)=> {
 		this.setState({
@@ -166,7 +166,7 @@ export default class CancleLeader extends Component {
 
 
 		if (!file) {
-			console.log('[[[[[[');
+			// console.log('[[[[[[');
 			return;
 		}
 	}

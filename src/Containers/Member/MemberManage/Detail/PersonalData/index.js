@@ -47,8 +47,9 @@ export default class BasicInfo extends Component {
 	componentDidMount() {
      var _this=this;
 		let {
-			params
+			params,PersonalData
 		} = this.props;
+		let baseInfo = PersonalData;
 		// 会员详情页－－－－基本信息数据
 		Store.dispatch(Actions.callAPI('getMemberDetailData', {
 			id:this.context.router.params.memberId
@@ -83,6 +84,11 @@ export default class BasicInfo extends Component {
 		const {
 		baseInfo
 		} = this.state;
+		let {
+			params,detail
+		} = this.props;
+		// console.log("detail",detail);
+		// let {baseInfo} = detail;
 		return (
 
 			<div className='ui-detail-order'>
