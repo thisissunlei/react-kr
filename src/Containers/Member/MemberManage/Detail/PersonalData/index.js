@@ -54,6 +54,20 @@ export default class BasicInfo extends Component {
 			id:this.context.router.params.memberId
 		})).then(function(response) {
 			// console.log(response.baseInfo,"基本信息response.baseInfo");
+			if(response.baseInfo.gender=="WOMAN"){
+				response.baseInfo.gender  = "女";
+			}else if(response.baseInfo.gender=="MAN"){
+				 response.baseInfo.gender  = "男";
+			}else{
+				response.baseInfo.gender  = "保密";
+			}
+			if(response.baseInfo.maritalStatus=="MARRIED"){
+				response.baseInfo.maritalStatus = "已婚";
+			}else if(response.baseInfo.maritalStatus=="UNMARRIED"){
+				response.baseInfo.maritalStatus = "未婚";
+			}else{
+				response.baseInfo.maritalStatus = "保密";
+			}
 			_this.setState({
 				baseInfo:response.baseInfo,
 			});

@@ -24,7 +24,7 @@ export default class SearchForm extends Component{
 			value:'',
 			content:''
 		};
-		
+
 	}
 	componentDidMount() {
 
@@ -58,10 +58,10 @@ export default class SearchForm extends Component{
 			value:value,
 			content:event.target.value
 		}
-		
+
 		onSubmit && onSubmit(search);
 
-		
+
 
 	}
 
@@ -118,9 +118,9 @@ export default class SearchForm extends Component{
 			value:value,
 			content:content
 		}
-		
+
 		onSubmit && onSubmit(search);
-		
+
 	}
 	renderFilter=()=>{
 		let {searchFilter,defaultFilter} = this.props;
@@ -143,7 +143,7 @@ export default class SearchForm extends Component{
 			// select = defaultFilter;
 		}
 		console.log(value);
-		
+
 		// console.log('searchFilter',searchFilter);
 		if(searchFilter){
 			return(
@@ -190,7 +190,7 @@ export default class SearchForm extends Component{
 					{this.renderFilter()}
 
 					<div className="search-content">
-						<input type="text" value={defaultContent} className="search-val" placeholder="请输入您要查找的内容" onBlur={this.onBlur} name="keywords" id="keywords" autoComplete="off"/>
+						<input type="text" defaultValue={defaultContent} className="search-val" placeholder="请输入您要查找的内容" onBlur={this.onBlur} name="keywords" id="keywords" autoComplete="off"/>
 					</div>
 				</div>
 

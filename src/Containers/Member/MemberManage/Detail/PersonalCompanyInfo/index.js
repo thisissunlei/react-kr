@@ -56,7 +56,7 @@ export default class  CompanyInfo extends Component {
 		})).then(function(response) {
 			// console.log("response",response);
 			// console.log("response.baseInfo",response.baseInfo);
-			console.log("_this",_this);
+			// console.log("_this",_this);
 			_this.setState({
 				companyInfo:response.companyInfo,
 			},function(){

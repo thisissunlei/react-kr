@@ -22,6 +22,7 @@ export default class memberListDetail extends Component{
   constructor(props, context) {
 		super(props, context);
 		this.initpersonalData = this.initpersonalData.bind(this);
+    console.log("this.props",this.props);
     this.state = {
       isLeader:true,
 			params: {
@@ -30,6 +31,11 @@ export default class memberListDetail extends Component{
 				pageSize: 15,
 				index:''
 			},
+      // OrganizationChart:{
+      //   page:1,
+      //   pageSize:15,
+      //   companyId:1
+      // }
 		}
   }
   componentDidMount() {
@@ -57,7 +63,7 @@ export default class memberListDetail extends Component{
 
 	}
   initpersonalData=()=>{
-    console.log("-------------获取个人行为");
+    // console.log("-------------获取个人行为");
 		// var _this = this;
 		// let {
 		// 	params
