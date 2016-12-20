@@ -50,13 +50,16 @@ export default class CreateMemberForm extends Component {
 		this.state={
 			jobList:[],
 			itemData:{},
-			initializeValues:{}
+			initializeValues:{},
+			onsubmit:true,
+			onsubmitCode:true,
 		}
 	}
 	//首次加载，只执行一次
 	componentWillMount() {
 		this.getBasicData(this.detail.id);
 		let {detail,handleSubmit} = this.props;
+		console.log('edit',detail);
 		Store.dispatch(initialize('createMemberForm', detail));
 		
 	}
@@ -71,9 +74,15 @@ export default class CreateMemberForm extends Component {
 	}
 
 	onSubmit=(values)=>{
-		const {onSubmit} = this.props;
-		onSubmit && onSubmit(values);
-	}
+	 	this.EmailonBlur(values.email);
+	 	this.foreignCodeBlur(values.foreignCode);
+	 	let {onsubmit,onsubmitCode} = this.state;
+	 	if(onsubmit && onsubmitCode){
+	 		const {onSubmit} = this.props;
+		 	onSubmit && onSubmit(values);
+	 	}
+		 
+	 }
 	onCancel=()=>{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
@@ -104,36 +113,67 @@ export default class CreateMemberForm extends Component {
 			Message.error(err.message);
 		});
 	}
-	communityChange=(mail)=>{
-		var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
- 		if (filter.test(mail)){
- 			Store.dispatch(Actions.callAPI('membersByEmail', {email:mail})).then(function(response) {
-				if(response == 1){
-					console.log('1');
+	EmailonBlur=(phone)=>{
+		 let params = {
+			 email :phone
+		 }
+		 this.setState({
+	 		open:true
+	 	})
+		 let {detail} = this.props;
+		 let _this = this;
 
+		 Store.dispatch(Actions.callAPI('isEmailRegistered',params)).then(function(response){
+				//邮箱已注册
+				if(detail.phone == response.phone){
+					return;
+				}else{
+					Message.warn('该邮箱已被绑定，请更换邮箱','error');
+
+						_this.setState({
+							onsubmit:false
+						})
 				}
+				
 
+		 }).catch(function(err){
+		 	//邮箱未注册
+		 	console.log('ddddd',err.message);
+		 	_this.setState({
+				onsubmit:true
+			})
+		 });
+	 }
+	 foreignCodeBlur=(codes)=>{
+		 let params = {
+			 code :codes
+		 }
+		 let _this = this;
+		 this.setState({
+	 		open:true
+	 	})
+		 let {detail} = this.props;
 
-
-			}).catch(function(err) {
-				Message.error( err.message);
-			});
- 		};
-	}
-	membersByForeignCode=(value)=>{
-		if (value){
- 			Store.dispatch(Actions.callAPI('membersByForeignCode', {foreignCode:value})).then(function(response) {
-				if(response == 1){
-					console.log('1');
+		 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
+				//邮箱已注册
+				if(detail.foreignCode == response.foreignCode){
+					return;
+				}else{
+					Message.warn('foreignCodeBlur','error');
+					_this.setState({
+						onsubmitCode:false
+					})
 				}
+				
 
-
-
-			}).catch(function(err) {
-				Message.error(err.message);
-			});
- 		};
-	}
+		 }).catch(function(err){
+		 	//邮箱未注册
+		 	console.log('ddddd',err.message);
+		 	_this.setState({
+				onsubmitCode:true
+			})
+		 });
+	 }
 
 
 
@@ -159,11 +199,11 @@ export default class CreateMemberForm extends Component {
 					</div>
 					<KrField name="phone" grid={1/2} label="手机号" inline={false} component="labelText" value={itemData.phone} />
 					<div className="split-lines"></div>
-					<KrField name="communityId" grid={1/2} label="社区" component="searchCommunity" right={30} requiredValue={true}  errors={{requiredValue:'请选择社区'}} requireLabel={true}/>
-					<KrField name="foreignCode" grid={1/2} label="会员卡号" component="input" left={30}onBlur={this.membersByForeignCode} requiredValue={true} errors={{requiredValue:'请填写会员卡号'}} requireLabel={true}/>
-					<KrField name="companyId" grid={1/2} label="公司" component="searchCompany"  right={30} requiredValue={true} errors={{requiredValue:'请填选择公司'}} requireLabel={true}/>
-					<KrField name="email" grid={1/2} label="邮箱:" component="input" left={30} pattern={/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/} onBlur={this.communityChange} requiredValue={true} errors={{requiredValue:'请填写邮箱',pattern:'请输入正确邮箱地址'}} requireLabel={true}/>
-					<KrField name="name" grid={1/2}  label="姓名" component="input" right={30}  requireLabel={true} requiredValue={true} errors={{requiredValue:'请填写姓名'}}/>
+					<KrField name="communityId" grid={1/2} label="社区" component="searchCommunity" right={30}  requireLabel={true}/>
+					<KrField name="foreignCode" grid={1/2} label="会员卡号" component="input" left={30}onBlur={this.foreignCodeBlur}  requireLabel={true}/>
+					<KrField name="companyId" grid={1/2} label="公司" component="searchCompany"  right={30}  requireLabel={true}/>
+					<KrField name="email" grid={1/2} label="邮箱:" component="input" left={30}  onBlur={this.EmailonBlur}  requireLabel={true}/>
+					<KrField name="name" grid={1/2}  label="姓名" component="input" right={30}  requireLabel={true} />
 					<KrField name="jobId" grid={1/2} label="职位" component="select" left={30} options={jobList}/>
 					<Grid style={{margin:'20px 0'}}>
 						<Row>
@@ -181,9 +221,44 @@ export default class CreateMemberForm extends Component {
 )
 	}
 }
+const validate = values => {
+
+	const errors = {}
+
+	if (!values.phone) {
+		errors.phone = '请输入电话号码';
+	}
+
+	if (!values.communityId) {
+		errors.communityId = '请输入社区名称';
+	}
+
+	if (!values.email) {
+		errors.email = '请输入邮箱';
+	}
+	if (!values.companyId) {
+		errors.companyId = '请输入公司';
+	}
+
+	if (!values.jobId) {
+		errors.jobId = '请输入职位';
+	}
+
+	if (!values.name) {
+		errors.name = '请输入姓名';
+	}
+
+	if (!values.sendMsg ) {
+        errors.sendMsg = '请选择是否发送验证短信';
+    }
+    if (!values.foreignCode) {
+        errors.foreignCode = '请输入会员卡号';
+    }
+	return errors
+}
 CreateMemberForm = reduxForm({
 	form: 'createMemberForm',
-	// validate,
+	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
 })(CreateMemberForm);

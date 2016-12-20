@@ -157,19 +157,7 @@ export default class List extends Component {
 			foreignCode:values.cardId
 		}
 		let _this = this;
-		// 验证邮箱是否被注册
-		Store.dispatch(Actions.callAPI('membersByEmail', params)).then(function(response) {
-			// 邮箱已注册
-				Message.warn('该邮箱已被注册！','error');
-		}).catch(function(err) {
-					// 邮箱未注册
-					// 验证会员卡号
-					Store.dispatch(Actions.callAPI('membersByForeignCode', cardSearchParams)).then(function(response) {
-						// 会员卡号已注册
-							Message.warn('该会员卡号已存在！','error');
-					}).catch(function(err) {
-						// 卡号／邮箱都不能存在才会提交
-						Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
+		Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
 							_this.openNewCreateDialog();
 							Message.success("操作成功");
 							_this.setState({
@@ -186,8 +174,6 @@ export default class List extends Component {
 								type: 'danger',
 							}]);
 						});
-					})
-		});
 	}
 	// 查询
 	onSearchSubmit=(value)=>{
