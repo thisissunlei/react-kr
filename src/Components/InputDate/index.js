@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 
 import Input from '../Input';
+import KrDate from '../KrDate';
 
 import Calendar from './Calendar';
 import ReactDOM from 'react-dom';
@@ -112,8 +113,8 @@ export default class InputDate extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps){
-		if(nextProps.defaultValue !== this.props.defaultValue ){
-				this.setDefaultValue(nextProps.defaultValue);
+		if(nextProps.value != this.props.value){
+				this.setDefaultValue(nextProps.value);
 		}
 	}
 
@@ -170,7 +171,7 @@ export default class InputDate extends React.Component {
 		if(!month || month<-1 || month>12){
 				return ;
 		}
-
+		value = `${year}-${month}-${date}`;
 		this.setState({value});
 		let {onChange} = this.props;
 		onChange && onChange(value);
@@ -192,7 +193,7 @@ export default class InputDate extends React.Component {
 		return (
 				<div className="ui-calendar" ref="calendar">
 					<div className="calendar-content"  onClick={this.openCalendarDialog} >
-							<div className="calendar-value"> {this.state.value || this.props.placeholder}</div>
+							<div className="calendar-value">{(this.state.value && <KrDate value={this.state.value} />) || this.props.placeholder} </div>
 							<span className="icon"></span>
 					</div>
 					{openCalendar && <Calendar onChange={this.onChange} value={this.state.value}/>}
