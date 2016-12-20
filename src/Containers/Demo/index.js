@@ -101,8 +101,11 @@ ll=(values)=>{
 		return(
 			<div>
 					<Section title="demo" description="" >
-						<KrField oldText={"123"} label="订单名称"  type="text" component="input" disabled={true} />
-					</Section>
+						<form>
+						<KrField label="订单名称"  name="nn" component="groupCheckbox" defaultValue={[{label:'haha',checked:false,value:'haha'},{label:'yayay',value:'ss',checked:true}]} />
+
+						</form>
+				</Section>
 			</div>
 
 		);
