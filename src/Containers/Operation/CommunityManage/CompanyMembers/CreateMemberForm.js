@@ -180,6 +180,9 @@ import imgLine from './images/line.png'
 	 		open:true
 	 	})
 		 if(phoneSame && code == params.code){
+		 	_this.setState({
+				onsubmitCode:true
+			})
 		 	return;
 		 }
 
