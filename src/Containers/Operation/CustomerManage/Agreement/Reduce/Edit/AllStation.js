@@ -342,7 +342,7 @@ class SelectStationForm extends Component {
       </TableBody>
       </Table>
       <Grid>
-      <Row style={{marginTop:30}}>
+      <Row style={{marginTop:30,paddingBottom:24}}>
       <Col md={4}></Col>
       <Col md={2} align="center"> <Button  label="确定" type="submit" /> </Col>
       <Col md={2} align="center"> <Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/> </Col>
