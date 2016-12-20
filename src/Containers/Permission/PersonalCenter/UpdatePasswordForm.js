@@ -132,6 +132,4 @@ NewCreateForm = reduxForm({
 })(NewCreateForm);
 
 
-export default connect((state)=>{
-	return state
-})(NewCreateForm);
+export default NewCreateForm;
