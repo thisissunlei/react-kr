@@ -19,45 +19,40 @@ export default class CreateMemberForm extends Component{
      static contextTypes = {
    		params: React.PropTypes.object.isRequired
    	}
-
    	static DefaultPropTypes = {
    		initialValues: {
-   			customerName: '',
-   			communityName: '',
-   			lessorAddress: '',
-   			payTypeList: [],
-   			paymentList: [],
-   			fnaCorporationList: [],
+				sendMsg:'0',
+				foreignCode:'foreign',
    		}
    	}
 	 static PropTypes = {
 		 onSubmit:React.PropTypes.func,
 		 onCancel:React.PropTypes.func,
+		 initialValues:React.PropTypes.object,
 	 }
 	constructor(props){
 		super(props);
-
-		this.onCancel = this.onCancel.bind(this);
-		this.emailOnBlur = this.emailOnBlur.bind(this);
+		// this.onCancel = this.onCancel.bind(this);
+		// this.emailOnBlur = this.emailOnBlur.bind(this);
 		this.state={
 			communityText:'',
 			companyText:'',
-
 		}
 	}
 	 onSubmit =(values)=>{
 		 const {onSubmit} = this.props;
 		 onSubmit && onSubmit(values);
 	 }
-
-	 onCancel(){
+	 onCancel=()=>{
 		 const {onCancel} = this.props;
 		 onCancel && onCancel();
 	 }
 	 componentDidMount(){
+		//  设置是否发送信息radio的初始状态为否
 		 let initialValues={
-				sendMsg:'0'
-			}
+			 sendMsg:'0'
+		 }
+		 Store.dispatch(initialize('newCreatMemberForm',initialValues));
 		 let _this =this;
 		 Store.dispatch(Actions.callAPI('getMemberBasicData')).then(function(response){
 			//  console.log(response,"response");
@@ -72,42 +67,40 @@ export default class CreateMemberForm extends Component{
 			//  reject(err);
 		 });
 	 }
-	 onChangeSearchCommunity(personel) {
+	onChangeSearchCommunity(personel) {
 		Store.dispatch(change('newCreatMemberForm', 'communityId', personel.id));
 	}
 	onChangeSearchCompany(personel) {
 		Store.dispatch(change('newCreatMemberForm', 'companyId', personel.id));
 	}
 	//  输入手机号查看该手机号是否绑定
-	 onBlur=(phone)=>{
-		 console.log(phone,"phone");
+	onBlur=(phone)=>{
+		//  console.log(phone,"phone");
 		 let params = {
 			 phone :phone
 		 }
 		 Store.dispatch(Actions.callAPI('isPhoneRegistered',params)).then(function(response){
 			//  检验response是不是空对象
 				if(!$.isEmptyObject(response)){
-
 					Store.dispatch(initialize('newCreatMemberForm',response));
 					Message.warn('该电话已被注册！','error');
 					// console.log("response",response);
 				}
 		 }).catch(function(err){
-			//  Notify.show([{
- 		// 		message: err.message,
- 		// 		type: 'danger',
- 		// 	}]);
+			// Notify.show([{
+	 		// 		message: err.message,
+	 		// 		type: 'danger',
+	 		// 	}]);
 		 });
 	 }
 	// 验证邮箱是否被验证
-	emailOnBlur(email){
+	emailOnBlur=(email)=>{
 		let params = {
 			email :email
 		}
 		Store.dispatch(Actions.callAPI('membersByEmail', params)).then(function(response) {
 			// console.log("已经注册");
-				Message.warn('该邮箱已被注册！','error');
-			// }
+				Message.warn('该邮箱已被注册，请更换其他邮箱！','error');
 		}).catch(function(err) {
 			// console.log("邮箱未注册")
 		});
@@ -116,7 +109,6 @@ export default class CreateMemberForm extends Component{
 		const { error, handleSubmit, pristine, reset} = this.props;
 		let communityText = '';
 		let {selectOption,params} =this.state;
-
 		return (
 			<div>
 			<form onSubmit={handleSubmit(this.onSubmit)}>
@@ -135,7 +127,7 @@ export default class CreateMemberForm extends Component{
 						<KrField name="sendMsg" grid={1/4} label="是" component="radio" type="radio" value="1"/>
 						<KrField name="sendMsg" grid={1/4} label="否" component="radio" type="radio" value="0"/>
               </KrField>
-        <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" />
+        <KrField grid={1/2} name="code" type="text" label="会员卡号" />
 				<Grid style={{marginTop:30}}>
 					<Row>
 						<Col md={12} align="center">

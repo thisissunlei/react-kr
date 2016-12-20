@@ -63,7 +63,7 @@ export default (
 			<Route path="index" component={Member.Home}/>
 		<Route path="memberManage" component={Basic}>
 				<Route path="list"  component={Member.MemberManage.List}/>
-				<Route path=":memberId/detail"  component={Member.MemberManage.Detail}/>
+				<Route path=":memberId/detail/:companyId"  component={Member.MemberManage.Detail}/>
 			</Route>
 
 		</Route>

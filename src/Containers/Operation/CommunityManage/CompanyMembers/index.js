@@ -381,7 +381,7 @@ export default class CompanyMembers extends Component {
 			// }]);
 			Message.error(err.message);
 		});
-		
+
 	}
 	detailView(itemData){
 		let orderId = itemData.id;
@@ -395,7 +395,7 @@ export default class CompanyMembers extends Component {
 			registerSourceId :''
 		}
 		Store.dispatch(Actions.callAPI('membersList',searchParam)).then(function(response){
-			
+
 
 		}).catch(function(err){
 			Notify.show([{

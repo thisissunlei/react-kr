@@ -22,7 +22,7 @@ export default class memberListDetail extends Component{
   constructor(props, context) {
 		super(props, context);
 		this.initpersonalData = this.initpersonalData.bind(this);
-    console.log("this.props",this.props);
+    // console.log("this.props",this.props);
     this.state = {
       isLeader:true,
 			params: {
@@ -48,7 +48,7 @@ export default class memberListDetail extends Component{
 		Store.dispatch(Actions.callAPI('getMemberDetailData', {
 			mainbillid: params.orderId,
 		})).then(function(response) {
-      // console.log("_this",_this);
+      console.log("response.isLeader",response);
 			_this.setState({
 				personalData: response.baseinfo,
         isLeader:response.isLeader,
@@ -110,9 +110,9 @@ export default class memberListDetail extends Component{
               <DotTitle title='基本信息' style={{marginBottom:'40'}}/>
                 <PersonalData  detail={this.state.PersonalData}/>
               <DotTitle title='工作信息' style={{marginTop:'40',marginBottom:'40'}}/>
-                <PersonalJob  detail={this.state.PersonalJob}/>
+                <PersonalCompanyInfo  detail={this.state.PersonalJob}/>
               <DotTitle title='公司信息' style={{marginTop:'40',marginBottom:'40'}}/>
-                  <PersonalCompanyInfo  detail={this.state.PersonalJob}/>
+                  <PersonalCompanyInfo  detail={this.state.PersonalCompanyInfo}/>
             </div>
 
         </Tab>
@@ -144,7 +144,7 @@ export default class memberListDetail extends Component{
               <DotTitle title='工作信息' style={{marginTop:'40',marginBottom:'40'}}/>
                 <PersonalJob  detail={this.state.PersonalJob}/>
               <DotTitle title='公司信息' style={{marginTop:'40',marginBottom:'40'}}/>
-                  <PersonalJob  detail={this.state.PersonalJob}/>
+                  <PersonalCompanyInfo  detail={this.state.PersonalCompanyInfo}/>
             </div>
 
         </Tab>
@@ -165,7 +165,7 @@ export default class memberListDetail extends Component{
   render(){
     let {
 			params,
-			isInitLoading
+			isInitLoading,
 		} = this.state;
 		if (isInitLoading) {
 			return <Loading/>

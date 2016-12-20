@@ -81,11 +81,11 @@ export default class UpdateLog extends Component {
 			list,
       searchParams,
 		} = this.state;
-
+		// console.log("list更新日志",list);
 		if (!list.totalCount) {
 			list.totalCount = 0;
 		}
-		console.log(list,"list");
+		// console.log(list,"list");
 
     return (
       <div style={{height:'860'}}>
@@ -123,7 +123,7 @@ export default class UpdateLog extends Component {
 							component={(value,oldValue)=>{
 								return (<span>{value}</span>)}}></TableRowColumn>
               <TableRowColumn name="operateRecord" ></TableRowColumn>
-              <TableRowColumn name="operater" ></TableRowColumn>
+              <TableRowColumn name="operaterName" ></TableRowColumn>
               <TableRowColumn name="operateDate" type="date" format="yyyy-mm-dd hh:MM:ss"></TableRowColumn>
               <TableRowColumn name="operateIp" ></TableRowColumn>
          </TableRow>
