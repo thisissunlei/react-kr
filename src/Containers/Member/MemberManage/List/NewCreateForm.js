@@ -61,7 +61,7 @@ import imgLine from './images/line.png'
 	 		const {onSubmit} = this.props;
 		 	onSubmit && onSubmit(values);
 	 	}
-		 
+
 	 }
 
 	 onCancel=()=>{
@@ -115,7 +115,7 @@ import imgLine from './images/line.png'
 						email:response.email,
 						code:response.code
 					})
-					
+
 				}
 		 }).catch(function(err){
 		 	let {phoneSame} = _this.state;
@@ -131,7 +131,7 @@ import imgLine from './images/line.png'
 					phoneSame:false,
 					email:''
 				})
-				
+
 
 		 	}
 		 });
@@ -154,7 +154,7 @@ import imgLine from './images/line.png'
 		 }else{
 		 	Store.dispatch(Actions.callAPI('isEmailRegistered',params)).then(function(response){
 				//邮箱已注册
-				Message.warn('该邮箱已被绑定，请更换邮箱','error');
+				Message.warn('该邮箱已被绑定','error');
 				_this.setState({
 					onsubmit:false
 				})
@@ -169,7 +169,7 @@ import imgLine from './images/line.png'
 		 }
 		 console.log('EmailonBlur',phone);
 
-		 
+
 	 }
 	 foreignCodeBlur=(codes)=>{
 		 let params = {
@@ -189,7 +189,7 @@ import imgLine from './images/line.png'
 
 		 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
 				//邮箱已注册
-				Message.warn('该邮箱已被绑定，请更换邮箱','error');
+				Message.warn('该邮箱已被绑定','error');
 				_this.setState({
 					onSubmitCode:false
 				})
@@ -213,7 +213,7 @@ import imgLine from './images/line.png'
 		const { error, handleSubmit, pristine, reset} = this.props;
 		let communityText = '';
 		let {selectOption} =this.state;
-		
+
 
 		return (
 			<div>
