@@ -44,6 +44,7 @@ export default class PersonalCenter extends Component{
 			regettestMailState:false,
 			regettest:'重新获取验证码',
 			pwdStrengthClass:'',
+			pwdLetter:'',
 			name:'',
 			mail:'',
 			mobile:'',
@@ -69,7 +70,6 @@ export default class PersonalCenter extends Component{
   }
 	// 加载基本信息
 	initBasicInfo = ()=>{
-		console.log(window.location.host);
 		var _this = this;
 		_this.setState({
 			isLegal:false
@@ -80,16 +80,19 @@ export default class PersonalCenter extends Component{
 				_this.setState({
 					pwdStrengthClass:'low',
 					pwdLevel:'低',
+					pwdletter:'red',
 					})
 				}else if (response.pwdStrength==3) {
 					_this.setState({
 						pwdStrengthClass:'middle',
 						pwdLevel:'中',
+						pwdLetter:'yellow',
 					})
 				}else if (response.pwdStrength==4) {
 					_this.setState({
 						pwdStrengthClass:'high',
 						pwdLevel:'高',
+						pwdLetter:'green',
 					})
 				}
 			_this.setState({
@@ -202,6 +205,7 @@ export default class PersonalCenter extends Component{
 	}
 	//test手机验证身份点击获取验证码
 	togetMobiletestCode=()=>{
+		this.refs.MobileCode.value='';
 		this.setState({
 			regettestMobileState:false,
 			gettingMobile:true,
@@ -326,7 +330,6 @@ export default class PersonalCenter extends Component{
 	}
 	//身份验证By邮箱点击确认后
 	submitIdByMail=()=>{
-
 		if(this.refs.MailCode.value){
 			this.submitVerifyIDbyMail()
 		}else{
@@ -413,6 +416,8 @@ export default class PersonalCenter extends Component{
 	//test修改手机号获取验证码
 	testrevisemobile =()=>{
 		var _this = this;
+		_this.refs.reviseMobileCode.value='';
+
 		if(_this.refs.newMobile.value){
 			_this.setState({
 				gettingNewMobile:true,
@@ -488,7 +493,7 @@ export default class PersonalCenter extends Component{
 				mobile:_this.refs.newMobile.value,
 				verifyCode:_this.refs.reviseMobileCode.value,
 			})).then(function(response) {
-				console.log(response)
+			//	console.log(response)
 				Message.success("修改成功")
 				_this.setState({
 					openMobileRevise:false,
@@ -514,7 +519,7 @@ export default class PersonalCenter extends Component{
 			})).then(function(response) {
 				Message.success("修改成功")
 				window.setTimeout(function(){
-					window.location.href="login/login"
+					window.location.href="/login/login"
 				}
 					,1000)
 				// _this.setState({
@@ -605,7 +610,7 @@ export default class PersonalCenter extends Component{
 									</div>
 									<p>
 										安全级别：
-										<span>{this.state.pwdLevel}</span>
+										<span className={this.state.pwdLetter}>{this.state.pwdLevel}</span>
 									</p>
 								</dd>
 							</dl>

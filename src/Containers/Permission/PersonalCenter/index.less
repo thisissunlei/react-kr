@@ -132,9 +132,11 @@
     .level{
       dt{
         width: 184px;
-        color: #666666
+        color: #666666;
+        font-size: 14px;
       }
       dd{
+        margin-left: 0;
         #bar{
           width: 300px;
           height: 20px;
@@ -158,10 +160,15 @@
         p{
           margin: 0;
           margin-left: 320px;
-          span:nth-child(2){
-            color: red;
+          .red{
+            color: #ff6769;
           }
-
+          .yellow{
+            color: #f5a22b;
+          }
+          .green{
+            color: #4cc57a;
+          }
         }
       }
 
@@ -169,6 +176,7 @@
     .password,.mobile{
       dt{
         font-weight: 500;
+        font-size: 14px;
       }
       dd>span{
         display: inline-block;
