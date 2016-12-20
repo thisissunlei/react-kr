@@ -58,8 +58,7 @@ export default class List extends Component {
 			searchParams: {
 				foreignCode:'',
 				page: 1,
-				pageSize: 15,
-				EditDetail:{}
+				pageSize: 15
 			}
 
 		}
@@ -120,6 +119,7 @@ export default class List extends Component {
 		params.interCode=values.interCode;
 		Store.dispatch(Actions.callAPI('CardActivation', {}, params)).then(function(response) {
 			_this.openNewActivationDialog();
+			-tiis.onFlush();
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
@@ -187,6 +187,16 @@ export default class List extends Component {
 			list
 		})
 	}
+//数据刷新
+	onFlush=()=>{
+		this.setState({
+			searchParams: {
+				foreignCode:'',
+				page: 1,
+				pageSize: 15
+			}
+		})
+	}
 
 		render(){
 			return(
@@ -233,7 +243,7 @@ export default class List extends Component {
 													<TableRowColumn name="foreignCode" ></TableRowColumn>
 													<TableRowColumn name="interCode" ></TableRowColumn>
 													<TableRowColumn name="enable" options={[{label:'是',value:'ENABLE'},{label:'否',value:'DISENABLE'}]}></TableRowColumn>
-													<TableRowColumn name="active_time" type='date' format="yyyy-mm-dd hh:MM:ss" ></TableRowColumn>
+													<TableRowColumn name="activeTime" type='date' format="yyyy-mm-dd hh:MM:ss" ></TableRowColumn>
 													<TableRowColumn type="operation">
 														  <Button label="编辑"  type="operation"  operation="edit" />
 													 </TableRowColumn>

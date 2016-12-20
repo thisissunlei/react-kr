@@ -60,8 +60,14 @@ import './index.less';
 	 }
 	 //卡号增加
 	 cardNumAdd=(len,values)=>{
-		 console.log(values,"lll");
 		 var _this=this
+		 const params={};
+		 params.foreignCode=_this.state.detail.startNum;
+		 params.interCode=values.interCode;
+		 Store.dispatch(Actions.callAPI('CardActivation', {}, params)).then(function(response) {
+		 }).catch(function(err) {
+			 Message.error(err.message)
+		 });
 		 let detail = Object.assign({},_this.props.detail);
 		 var start=this.state.detail.startNum.substring(0,6).toString();
 		 var num=parseInt(this.state.detail.startNum.substring(6,10));
@@ -76,15 +82,6 @@ import './index.less';
 				 detail.endNum=this.state.detail.endNum;
 				 this.setState({
 	 				detail:detail
-				},function(){
-					const params={};
-					params.foreignCode=_this.state.detail.startNum;
-					params.interCode=values.interCode;
-					console.log("ooo",params);
-					Store.dispatch(Actions.callAPI('CardActivation', {}, params)).then(function(response) {
-					}).catch(function(err) {
-						Message.error(err.message)
-					});
 				})
 	 }
 	 //跳过号码
@@ -131,7 +128,7 @@ import './index.less';
 						</Col>
 					</Row>
 				</Grid>
-				<SnackTip style={{position:'fixed',top:-160,right:0,backgroundColor:"#000"}} open={true} title={"title"}  />
+				{/*<SnackTip style={{position:'fixed',top:-160,right:0,backgroundColor:"#000"}} open={true} title={"title"}  />*/}
 
 
 			</form>
