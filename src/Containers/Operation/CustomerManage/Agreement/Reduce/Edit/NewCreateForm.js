@@ -60,7 +60,8 @@ import {
 	Paper,
 	ListGroup,
 	ListGroupItem,
-	CircleStyle
+	CircleStyle,
+
 } from 'kr-ui';
 
 @ReactMixin.decorate(LinkedStateMixin)

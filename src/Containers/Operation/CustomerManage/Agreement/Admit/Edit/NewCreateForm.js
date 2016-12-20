@@ -474,7 +474,7 @@ class NewCreateForm extends Component {
 
 
 			<div>
-
+<Paper width={968}>
 <form onSubmit={handleSubmit(this.onSubmit)}>
 				<CircleStyle num="1" info="租赁明细">
 				<KrField  name="wherefloor" style={{width:370,marginLeft:70}} component="select" label="所在楼层" options={optionValues.floorList} requireLabel={true} multi={true} />
@@ -584,7 +584,7 @@ class NewCreateForm extends Component {
 						</Grid>
 
 						</form>
-
+					</Paper>
 
 					<Dialog
 						title="分配工位"

@@ -83,8 +83,9 @@ export default class Demo extends Component {
 
 	}
 
-	componentDidMount() {
-	}
+
+	componentDidMount() {}
+
 
 
 	render() {
@@ -94,5 +95,4 @@ export default class Demo extends Component {
 
 		);
 	}
-
 }

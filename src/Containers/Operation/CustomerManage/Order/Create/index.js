@@ -44,14 +44,35 @@ export default class OrderCreate extends Component {
 			loading: true,
 			communityOptions: [],
 			initialValues: {},
-			orderTypeOptions: [],
-			/*[{
+			orderTypeOptions: [{
 				value: '',
 				label: '请选择类型'
 			}, {
 				value: 'STATION',
-				label: '工位订单'
-			}]*/
+				label: '工位服务订单'
+			}, {
+				value: 'INCUBAZION',
+				label: '孵化订单'
+			}, {
+				value: 'REGISTER',
+				label: '注册订单'
+			}, {
+				value: 'INCUSTOM',
+				label: '场内消费订单'
+			}, {
+				value: 'ACTIVITY',
+				label: '广告订单'
+			}, {
+				value: 'ADDEDSERVICE',
+				label: '增值服务订单'
+			}, {
+				value: 'TRAINING',
+				label: '培训订单'
+			}, {
+				value: 'OTHER',
+				label: '其他服务订单'
+			}]
+
 		}
 		Store.dispatch(Actions.switchSidebarNav(false));
 		Store.dispatch(Actions.switchHeaderNav(false));
@@ -111,6 +132,7 @@ export default class OrderCreate extends Component {
 		var _this = this;
 		let communityOptions = [];
 		let initialValues = {};
+
 		let orderTypeOptions = [];
 		Store.dispatch(Actions.callAPI('community-city-selected')).then(function(response) {
 			communityOptions = response.communityCity.map((item) => {
@@ -135,6 +157,7 @@ export default class OrderCreate extends Component {
 		Store.dispatch(Actions.callAPI('get-customName-orderName', {
 			customerId: this.props.params.customerId
 		}, {})).then(function(response) {
+
 			let initialValues = {};
 			initialValues = response;
 			initialValues.communityid = String(initialValues.communityid);
@@ -203,3 +226,5 @@ export default class OrderCreate extends Component {
 
 
 // export default connect(mapStateToProps)(OrderCreate);
+
+// }
