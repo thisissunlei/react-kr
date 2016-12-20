@@ -69,6 +69,7 @@ export default class PersonalCenter extends Component{
   }
 	// 加载基本信息
 	initBasicInfo = ()=>{
+		console.log(window.location.host);
 		var _this = this;
 		_this.setState({
 			isLegal:false
@@ -258,6 +259,7 @@ export default class PersonalCenter extends Component{
 	}
 	//test邮箱验证身份点击获取验证码
 	togetMailtestCode=()=>{
+		this.refs.MailCode.value='';
 		this.setState({
 			gettingMail:true,
 			regettestMailState:false,
