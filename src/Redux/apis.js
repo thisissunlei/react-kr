@@ -540,7 +540,7 @@
   },
   //设置Leader
   'setLeader':{
-  	url:'/api/krspace-finance-web/member/work/leader?companyId={companyId}&isLeader={isLeader}&memberId={memberId}',
+  	url:'/api/krspace-finance-web/member/work/leader?companyId={companyId}&isLeader={isLeader}&memberIds={memberIds}',
   	method:'put'
   },
   //新建编辑会员的准备数据
@@ -552,6 +552,10 @@
   'membersChange':{
   	url:'/api/krspace-finance-web/member/member',
   	method:'post'
+  },
+  'editMembersChange':{
+  	url:'/api/krspace-finance-web/member/member?companyId={companyId}&email={email}&communityId={communityId}&foreignCode={foreignCode}&jobId={jobId}&name={name}&phone={phone}&sendMsg={sendMsg}',
+  	method:'put'
   },
   //验证成员
   'validMember':{

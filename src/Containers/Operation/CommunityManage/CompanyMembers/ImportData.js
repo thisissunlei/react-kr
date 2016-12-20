@@ -181,11 +181,11 @@ export default class CancleLeader extends Component {
 
 
 		return (
-			<form onSubmit={handleSubmit(this.onSubmit)} encType= "mutipart/form-data">
+			<form onSubmit={handleSubmit(this.onSubmit)} method="post" encType="multipart/form-data">
 				<KrField grid={1/2}  name="file" type="hidden" component="input" />
 				<div>
 					<span className='import-logo icon-excel' onClick={this.importFile}></span>
-					<input type="file" name="file" onChange={this.onChange} />
+					<input type="file" name="file" onChange={this.onChange} multiple />
 
 					<span className='import-font' onClick={this.importFile}>请选择上传文件</span>
 					<span className='load-demo icon-template' onClick={this.onLoadDemo}>下载excel模板</span>
