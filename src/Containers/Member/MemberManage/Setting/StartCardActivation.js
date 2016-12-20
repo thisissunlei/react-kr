@@ -39,9 +39,13 @@ import './index.less';
     this.state={
 				detail:props.detail,
 				accomplish:false,
-				errorText:'',
-				openMessage:true,
 				oldNum:props.detail.endNum-props.detail.startNum,
+				closeMessageBar:{
+					title:'',
+					open:false,
+					style:{},
+					className:''
+				}
     }
 	}
 	 onSubmit=(values)=>{
@@ -59,6 +63,7 @@ import './index.less';
 					 detail.interCode="";
 					 Store.dispatch(initialize('StartCardActivation',detail));
 					 _this.props.onFlush();
+					_this.openMessageBar("sds","otk");
 
 					 if (_this.state.detail.startNum<=_this.state.detail.endNum) {
 
@@ -114,15 +119,35 @@ import './index.less';
 		 const {onCancel} = this.props;
 		onCancel && onCancel();
 	 }
+	 //打开弹跳
+	 openMessageBar=(text,type)=>{
+	 	var style={};
+	 	var className="";
+	 	if(type=="ok"){
+	 		style={position:'fixed',top:-160,right:0,display:"inline-block",color:"#000",backgroundColor:"#edffe2"};
+	 		className="messagesBarIconOk";
+	 	}else{
+	 		style={position:'fixed',top:-160,right:0,display:"inline-block",color:"#000",backgroundColor:"#ffe9e9"};
+	 		className="messagesBarIconError";
+	 	}
 
-	 closeMessage=()=>{
+	 	this.setState({
+	 		closeMessageBar:{
+					title:text,
+					open:true,
+					style:style,
+					className:className
+				}
+	 	})
+	 }
+	 //关闭弹跳
+	 closeMessageBar=()=>{
 		 this.setState({
 			 openMessage:false
 		 })
 	 }
 
 	render(){
-
 		const {
 			error,
 			handleSubmit,
@@ -155,7 +180,7 @@ import './index.less';
 						</Col>
 					</Row>
 				</Grid>
-				{/*<SnackTip style={{position:'fixed',top:-160,right:0,backgroundColor:"#000"}} open={this.state.openMessage} title={"title"}  />*/}
+				<SnackTip style={this.state.closeMessageBar.style} open={this.state.closeMessageBar.open} title={<span style={{display:"inline-block"}}><span className={this.state.closeMessageBar.className}></span><span style={{float:"left",color:"#000"}}>{this.state.closeMessageBar.title}</span></span>}  />
 
 
 			</form>
