@@ -21,7 +21,6 @@ export default class OrganizationChart extends Component {
 	}
   constructor(props, context) {
 		super(props, context);
-		this.onLoaded = this.onLoaded.bind(this);
 		this.params = this.context.router.params;
 		this.state = {
 			item: {},
@@ -29,15 +28,14 @@ export default class OrganizationChart extends Component {
 			organizationChart: {
 				page: 1,
 				pageSize: 15,
-				companyId:1
+				companyId:this.params.companyId
 			}
 		}
 	}
-  onLoaded(response) {
+  onLoaded=(response)=>{
 		// console.log("this.props.params",this.props.params);
 		let list = response;
     // console.log(list,"组织架构list");
-
 		this.setState({
 			list
 		})

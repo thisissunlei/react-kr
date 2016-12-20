@@ -14,8 +14,34 @@ import {
   ListGroup,
   ListGroupItem,
 	SearchForm,
+	Message,
 } from 'kr-ui';
+import dateFormat from 'dateformat';
 import $ from 'jquery'
+class AdvanceSearchDateForm extends Component{
+	constructor(props, context) {
+		super(props, context);
+	}
+	render(){
+		return (
+
+						<ListGroup style={{width:'610'}}>
+						<ListGroupItem style={{display:'block',paddingLeft:13,marginTop:-20,marginBottom:-20,color:'#333'}}><span style={{lineHeight:'58px'}}>注册时间:</span></ListGroupItem>
+							<ListGroupItem style={{padding:0}}>
+									<KrField name="leaseBegindate"  component="date" onChange={this.props.onStartChange} style={{width:'252'}} simple={true}/>
+							</ListGroupItem>
+							<ListGroupItem style={{textAlign:'center',padding:0,marginLeft:'15',marginRight:'5'}}><span style={{display:'inline-block',lineHeight:'58px'}}>至</span></ListGroupItem>
+							<ListGroupItem style={{padding:0}}>
+									<KrField name="leaseendTime" component="date" onChange={this.props.onEndChange}  style={{width:'252'}} simple={true}/>
+							</ListGroupItem>
+						</ListGroup>
+
+		)
+	}
+}
+AdvanceSearchDateForm = reduxForm({
+	form: 'advanceSearchDateForm'
+})(AdvanceSearchDateForm);
 class NewCreateForm extends Component{
 	static DefaultPropTypes = {
 		initialValues: {
@@ -42,8 +68,10 @@ class NewCreateForm extends Component{
 			communityText:'',
 			companyText:'',
 			selectSourceOption:[],
-			selectSourceOption:[],
-			searchForm:false
+			searchForm:false,
+			searchParams:{
+
+			},
 		}
 		this.basicData();
 
@@ -55,11 +83,15 @@ class NewCreateForm extends Component{
 		  // console.log('onAdvanceSearchSubmit高级查询',values);
 			let {content,filter} = this.props;
 			let {searchForm} = this.state;
+			console.log(content,filter);
 			if (!searchForm){
 				values.type = filter;
 				values.value = content;
 			}
-			console.log('values',values);
+			if(!values.type){
+				values.type = filter;
+			}
+			console.log('高级查询values',values,searchForm);
 
 			// if(!search){
 			//
@@ -106,6 +138,36 @@ class NewCreateForm extends Component{
 		 Store.dispatch(change('AdvancedQueryForm','type',search.value));
 		 Store.dispatch(change('AdvancedQueryForm','value',search.content));
 	 }
+	 onStartChange=(startTime)=>{
+		 let {searchParams}=this.state;
+			 let start=Date.parse(dateFormat(startTime,"yyyy-mm-dd hh:MM:ss"));
+			 let end=Date.parse(dateFormat(searchParams.endTime,"yyyy-mm-dd hh:MM:ss"))
+
+			 if(searchParams.endTime&&start>end){
+				 Message.error("结束时间要小于开始时间");
+				 return ;
+			 }
+			 Store.dispatch(change('AdvancedQueryForm','startTime',startTime));
+		 searchParams = Object.assign({}, searchParams, {startTime});
+		 this.setState({
+			 searchParams
+		 });
+	 }
+	 onEndChange=(endTime)=>{
+		 let {searchParams}=this.state;
+			 let start=Date.parse(dateFormat(searchParams.startTime,"yyyy-mm-dd hh:MM:ss"));
+			 let end=Date.parse(dateFormat(endTime,"yyyy-mm-dd hh:MM:ss"));
+			 console.log('onendchange',searchParams.startTime,start,end)
+			 if(searchParams.startTime&&start>end){
+				 Message.error("结束时间要小于开始时间");
+				 return ;
+			 }
+			 Store.dispatch(change('AdvancedQueryForm','endTime',endTime));
+			 searchParams = Object.assign({}, searchParams, {endTime});
+			 this.setState({
+				 searchParams
+			 });
+	 }
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
 		let communityText = '';
@@ -125,32 +187,15 @@ class NewCreateForm extends Component{
 		}];
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px'}}>
-
 		<ListGroup>
 			<ListGroupItem>
 				<SearchForm searchFilter={options} style={{width:252,marginBottom:10}} defaultFilter={filter} defaultContent={content} onSubmit={this.onFilter}/>
 			</ListGroupItem>
 		</ListGroup>
-
 				<KrField name="work"  component="city" label="工作地点"  style={{display:'block',width:'252px',marginRight:24}} onSubmit={this.city}/>
 				<KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} style={{width:'252px',marginRight:'33'}}/>
 				<KrField name="from"  grid={1/2} component="select" label="注册来源" options={selectSourceOption} style={{width:'252px'}}/>
-        <ListGroup>
-					<ListGroupItem style={{width:540,paddingLeft:10,color:'#333333',fontSize:'14'}}>
-							注册时间
-					</ListGroupItem>
-        	<ListGroupItem style={{textAlign:'center',padding:0}}></ListGroupItem>
-          <ListGroupItem style={{padding:0}}>
-              <KrField name="startDate"  component="date" style={{width:'252px'}} simple={true}/>
-          </ListGroupItem>
-          <ListGroupItem style={{textAlign:'center',padding:15,fontSize:'14'}}>
-							至
-					</ListGroupItem>
-          <ListGroupItem style={{padding:0,marginLeft:-13}}>
-              <KrField name="endDate" component="date"  style={{width:252}} simple={true}/>
-          </ListGroupItem>
-        </ListGroup>
-
+				<AdvanceSearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange}/>
 				<Grid style={{marginTop:30}}>
 					<Row>
 						<Col md={12} align="center">

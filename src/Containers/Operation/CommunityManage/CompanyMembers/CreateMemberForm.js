@@ -25,7 +25,8 @@ import imgLine from './images/line.png'
 			companyText:'',
 			phoneSame:false,
 			email:'',
-			onsubmit:true
+			onsubmit:true,
+			onsubmitCode:true
 
 
 		}
@@ -46,7 +47,7 @@ import imgLine from './images/line.png'
 			name:'',
 			foreignCode:'',
 			sendMsg:'0',
-			code:''
+			foreignCode:''
 		}
 		Store.dispatch(initialize('NewCreateForm',response));
 	}
@@ -54,8 +55,10 @@ import imgLine from './images/line.png'
 	 onSubmit=(values)=>{
 	 	this.EmailonBlur(values.email);
 	 	this.foreignCodeBlur(values.foreignCode);
-	 	let {onsubmit} = this.state;
-	 	if(onsubmit){
+	 	let {onsubmit,onsubmitCode} = this.state;
+	 	console.log(onsubmit,onsubmitCode);
+	 	if(onsubmit && onsubmitCode){
+	 		console.log('values',values);
 	 		const {onSubmit} = this.props;
 		 	onSubmit && onSubmit(values);
 	 	}
@@ -122,6 +125,7 @@ import imgLine from './images/line.png'
 		 		phone:phone,
 		 		communityId:parseInt(_this.params.communityId),
 				companyId:parseInt(_this.params.companyId),
+				sendMsg:'0'
 		 	}
 		 	if(phoneSame){
 				Store.dispatch(initialize('NewCreateForm',response));
@@ -145,6 +149,9 @@ import imgLine from './images/line.png'
 		 let _this = this;
 		 if(phoneSame && email == params.email){
 		 	console.log('phoneSame');
+		 	_this.setState({
+				onsubmit:true
+			})
 		 	return;
 		 }
 
@@ -173,21 +180,24 @@ import imgLine from './images/line.png'
 	 		open:true
 	 	})
 		 if(phoneSame && code == params.code){
+		 	_this.setState({
+				onsubmitCode:true
+			})
 		 	return;
 		 }
 
 		 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
 				//邮箱已注册
-				Message.warn('该邮箱已被绑定，请更换邮箱','error');
+				Message.warn('此会员卡号已被绑定','error');
 				_this.setState({
-					onsubmit:false
+					onsubmitCode:false
 				})
 
 		 }).catch(function(err){
 		 	//邮箱未注册
 		 	console.log('ddddd',err.message);
 		 	_this.setState({
-				onsubmit:true
+				onsubmitCode:true
 			})
 		 });
 	 }

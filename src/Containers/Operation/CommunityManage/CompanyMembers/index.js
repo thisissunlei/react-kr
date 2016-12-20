@@ -270,11 +270,14 @@ export default class CompanyMembers extends Component {
 			// }]);
 			Message.success('设置成功');
 			_this.setState({
+				leader:!_this.state.leader,
 				searchParams:{
 					value:'',
 					page:_this.state.page,
 					pageSize:15,
 					companyId:_this.state.companyId,
+					leader:!_this.state.leader
+
 				}
 			})
 
@@ -331,32 +334,33 @@ export default class CompanyMembers extends Component {
 		});
 	}
 	importDataPost=(files)=>{
-		let companyId = this.companyId;
-		console.log(files);
-		let params = {
-			companyId:companyId,
-			file:files.file
-		}
-		let _this = this;
-		Store.dispatch(Actions.callAPI('importMemberExcel',{},params)).then(function(response) {
-			_this.importData();
-			// Notify.show([{
-			// 	message: '设置成功',
-			// 	type: 'success',
-			// }]);
-			Message.success('设置成功');
+		console.log('file',files);
+		// let companyId = this.companyId;
+		// console.log(files);
+		// let params = {
+		// 	companyId:companyId,
+		// 	file:files.file
+		// }
+		// let _this = this;
+		// Store.dispatch(Actions.callAPI('importMemberExcel',{},params)).then(function(response) {
+		// 	_this.importData();
+		// 	// Notify.show([{
+		// 	// 	message: '设置成功',
+		// 	// 	type: 'success',
+		// 	// }]);
+		// 	Message.success('设置成功');
 
-			// window.setTimeout(function() {
-			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
-			// }, 0);
+		// 	// window.setTimeout(function() {
+		// 	// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
+		// 	// }, 0);
 
-		}).catch(function(err) {
-			// Notify.show([{
-			// 	message: err.message,
-			// 	type: 'danger',
-			// }]);
-			Message.error(err.message);
-		});
+		// }).catch(function(err) {
+		// 	// Notify.show([{
+		// 	// 	message: err.message,
+		// 	// 	type: 'danger',
+		// 	// }]);
+		// 	Message.error(err.message);
+		// });
 
 	}
 	onSubmits=()=>{
@@ -391,7 +395,7 @@ export default class CompanyMembers extends Component {
 			// }]);
 			Message.error(err.message);
 		});
-		
+
 	}
 	detailView(itemData){
 		let orderId = itemData.id;
@@ -405,7 +409,7 @@ export default class CompanyMembers extends Component {
 			registerSourceId :''
 		}
 		Store.dispatch(Actions.callAPI('membersList',searchParam)).then(function(response){
-			
+
 
 		}).catch(function(err){
 			Notify.show([{
@@ -475,7 +479,13 @@ export default class CompanyMembers extends Component {
 				</TableHeader>
 				<TableBody style={{position:'inherit'}}>
 						<TableRow displayCheckbox={true}>
-						<TableRowColumn name="name" ></TableRowColumn>
+						<TableRowColumn name="name" component={(value,oldValue,itemData)=>{
+							if(itemData.isLeader){
+								return(<span>{value}<span style={{color:'#499df1'}}>(Leader)</span></span>)
+							}else{
+								return(<span>{value}</span>)
+							}
+						}}></TableRowColumn>
 						<TableRowColumn name="phone" ></TableRowColumn>
 						<TableRowColumn name="email" ></TableRowColumn>
 						<TableRowColumn name="jobName"></TableRowColumn>

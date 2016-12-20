@@ -27,7 +27,7 @@ import {
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import NewCreateForm from './NewCreateForm';
-import CreateMemberForm from './EditMember';
+import MemeberEditMemberForm from './MemeberEditMemberForm';
 import AdvancedQueryForm from './AdvancedQueryForm';
 import './index.less';
 
@@ -56,7 +56,7 @@ export default class List extends Component {
 			item: {},
 			list: {},
 			content:'',
-			filter:'',
+			filter:'COMP_NAME',
 			searchParams: {
 				page: 1,
 				pageSize: 15,
@@ -70,40 +70,22 @@ export default class List extends Component {
 				value:'',
 			}
 		}
-
 	}
-	// editMember(itemDetail){
-	// 	this.setState({
-	// 		editMember: !this.state.editMember,
-	// 		itemDetail:itemDetail
-	// 	});
-	// }
-	// editMembers=()=>{
-	// 	this.setState({
-	// 		editMember: !this.state.editMember,
-	// 	});
-	// }
 	openNewCreateDialog() {
 		this.setState({
 			openNewCreate: !this.state.openNewCreate,
-			searchParams:{
-				pageSize:'15'
-			}
 		});
 	}
 	// 编辑详情的Dialog
 	openEditDetailDialog(){
 		this.setState({
 			openEditDetail: !this.state.openEditDetail,
-			searchParams:{
-				pageSize:'15'
-			}
 		});
 	}
-	onChangeSearchPersonel(personel) {
-		Store.dispatch(change('joinCreateForm', 'lessorContacttel', personel.mobile));
-		Store.dispatch(change('joinCreateForm', 'lessorContactName', personel.lastname));
-	}
+	// onChangeSearchPersonel(personel) {
+	// 	Store.dispatch(change('joinCreateForm', 'lessorContacttel', personel.mobile));
+	// 	Store.dispatch(change('joinCreateForm', 'lessorContactName', personel.lastname));
+	// }
 	// 社区模糊查询
 	onChangeSearchCommunity(community) {
 		Store.dispatch(change('joinCreateForm', 'communityName', community.communityName));
@@ -127,11 +109,9 @@ export default class List extends Component {
 		this.setState({
 			itemDetail
 		});
+		// console.log("itemDetail",itemDetail);
 		if (type == 'view') {
-			// console.log(itemDetail,"itemDetail");
-			// console.log(orderId,"orderId");
-
-			window.open(`./#/member/MemberManage/${itemDetail.id}/detail`, itemDetail.id);
+			window.open(`./#/member/MemberManage/${itemDetail.id}/detail/${itemDetail.companyId}`, itemDetail.id);
 		} else if (type == 'edit') {
 			this.openEditDetailDialog();
 		}
@@ -152,18 +132,24 @@ export default class List extends Component {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
 			_this.openEditDetailDialog();
-			window.location.reload();
 			Message.success("操作成功");
-
+			_this.setState({
+				searchParams:{
+					page:"1",
+					pageSize:"15",
+					value:'',
+					type:'COMP_NAME'
+				}
+			})
 		}).catch(function(err){
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			// Notify.show([{
+			// 	message: err.message,
+			// 	type: 'danger',
+			// }]);
 		});
 	}
 	onNewCreateSubmit=(values)=>{
-		console.log("value",values);
+		// console.log("value",values);
 		let params = {
 			email:values.email
 		}
@@ -171,29 +157,23 @@ export default class List extends Component {
 			foreignCode:values.cardId
 		}
 		let _this = this;
-		// 验证邮箱是否被注册
-		Store.dispatch(Actions.callAPI('membersByEmail', params)).then(function(response) {
-			// 邮箱已注册
-				Message.warn('该邮箱已被注册！','error');
-		}).catch(function(err) {
-					// 邮箱未注册
-					// 验证会员卡号
-					Store.dispatch(Actions.callAPI('membersByForeignCode', cardSearchParams)).then(function(response) {
-						// 会员卡号已注册
-							Message.warn('该会员卡号已存在！','error');
-					}).catch(function(err) {
-						// 卡号／邮箱都不能存在才会提交
-						Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
+		Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
 							_this.openNewCreateDialog();
 							Message.success("操作成功");
+							_this.setState({
+								searchParams:{
+									page:"1",
+									pageSize:"15",
+									type:'COMP_NAME',
+									value:""
+								}
+							})
 						}).catch(function(err){
 							Notify.show([{
 								message: err.message,
 								type: 'danger',
 							}]);
 						});
-					})
-		});
 	}
 	// 查询
 	onSearchSubmit=(value)=>{
@@ -202,7 +182,6 @@ export default class List extends Component {
 			value :value.content,
 			type :value.filter
 		}
-		//  this.setState({submit:true});
 		_this.setState({
 			content :value.content,
 			filter :value.filter,
@@ -212,84 +191,43 @@ export default class List extends Component {
 				value:value.content
 			}
 		})
-		Store.dispatch(Actions.callAPI('membersList',searchParam)).then(function(response){
-			_this.setState({
-				searchParams:{
-					page:1,
-					pageSize:15,
-					value :value.content,
-					type :value.filter
-				}
-			})
-		}).catch(function(err){
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
 	}
 	// 打开高级查询
 	openAdvancedQueryDialog(){
 		// console.log("value",value);
 		this.setState({
 			openAdvancedQuery: !this.state.openAdvancedQuery,
-			searchParams:{
-				pageSize:'15'
-			}
+			// searchParams:{
+			// 	pageSize:'15'
+			// }
 		});
 	}
 	// 高级查询
 	onAdvanceSearchSubmit=(values)=>{
-		console.log('onAdvanceSearchSubmit',values);
+		// console.log('onAdvanceSearchSubmit是否传到列表页',values);
 		let _this = this;
-		let searchParams = {
-			value :values.value || '',
-			type :values.type || '',
-			cityId :values.city || '',
-			endTime :values.endDate || '',
-			startTime :values.startDate || '',
-			registerSourceId:values.registerSourceId || '',
-			jobId :values.jobId || ''
-		}
 		_this.setState({
 			openAdvancedQuery: !this.state.openAdvancedQuery,
 			searchParams :{
-				value :values.value || '',
-				type :values.type || '',
+				value :values.value,
+				type :values.type,
 				cityId :values.city || '',
-				endTime :values.endDate || '',
-				startTime :values.startDate || '',
-				jobId :values.jobId || ''
+				endTime :values.endTime || '',
+				startTime :values.startTime || '',
+				jobId :values.jobId || '',
+				page:1,
+				pageSize:15
 			}
 		})
-		Store.dispatch(Actions.callAPI('membersList',searchParams)).then(function(response){
-			_this.setState({
-				searchParams:{
-					page:1,
-					pageSize:15,
-					value :value.content,
-					type :value.filter
-				}
-			})
-
-		}).catch(function(err){
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
 	}
-
 	render() {
-
 		let {
 			list,itemDetail,seleced
 		} = this.state;
-
+		// console.log("list",list);
 		if (!list.totalCount) {
 			list.totalCount = 0;
 		}
-
 		let options = [{
 			label: '公司名称',
 			value: 'COMP_NAME'
@@ -303,7 +241,6 @@ export default class List extends Component {
 			label: '姓名',
 			value: 'NAME'
 		}];
-
 		return (
 			    <div >
 								<Title value="全部会员 "/>
@@ -380,7 +317,7 @@ export default class List extends Component {
 									onClose={this.openEditDetailDialog}
 									contentStyle={{width:687}}
 								>
-										<CreateMemberForm onSubmit={this.onEditSubmit} params={this.params} onCancel={this.openEditDetailDialog} detail={itemDetail}/>
+										<MemeberEditMemberForm onSubmit={this.onEditSubmit} params={this.params} onCancel={this.openEditDetailDialog} detail={itemDetail}/>
 							  </Dialog>
 								<Dialog
 									title="高级查询"
@@ -391,7 +328,6 @@ export default class List extends Component {
 								>
 									<AdvancedQueryForm onSubmit={this.onAdvanceSearchSubmit} params={this.params} onCancel={this.openAdvancedQueryDialog} detail={itemDetail} style={{marginTop:37}} content={this.state.content} filter={this.state.filter} />
 							  </Dialog>
-
 				</div>
 		);
 

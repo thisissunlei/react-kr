@@ -11,136 +11,234 @@ import {
 	Button,
 	ButtonGroup,
 	Message,
-	Notify,
+	SnackTip
 } from 'kr-ui';
 import $ from 'jquery'
 import imgLine from './images/line.png'
-export default class CreateMemberForm extends Component{
-     static contextTypes = {
-   		params: React.PropTypes.object.isRequired
-   	}
 
-   	static DefaultPropTypes = {
-   		initialValues: {
-   			customerName: '',
-   			communityName: '',
-   			lessorAddress: '',
-   			payTypeList: [],
-   			paymentList: [],
-   			fnaCorporationList: [],
-   		}
-   	}
-	 static PropTypes = {
-		 onSubmit:React.PropTypes.func,
-		 onCancel:React.PropTypes.func,
-	 }
+ class NewCreateForm extends Component{
+
 	constructor(props){
 		super(props);
-
-		this.onCancel = this.onCancel.bind(this);
-		this.emailOnBlur = this.emailOnBlur.bind(this);
 		this.state={
 			communityText:'',
 			companyText:'',
+			phoneSame:false,
+			email:'',
+			onsubmit:true,
+			onSubmitCode:true
+
 
 		}
+		this.getBasicData();
+		this.params = this.props.params;
+
+
+
 	}
-	 onSubmit =(values)=>{
-		 const {onSubmit} = this.props;
-		 onSubmit && onSubmit(values);
+	componentWillMount() {
+		this.params = this.props.params;
+		let response = {
+			phone:'',
+			communityId:'',
+			companyId:'',
+			email:'',
+			jobId:'',
+			name:'',
+			foreignCode:'',
+			sendMsg:'0',
+			foreignCode:''
+		}
+		Store.dispatch(initialize('NewCreateForm',response));
+	}
+	// 点确定提交时候如果有错误提示返回，否则提交,,如果邮箱存在有错误提示，不能提交
+	 onSubmit=(values)=>{
+	 	this.EmailonBlur(values.email);
+	 	this.foreignCodeBlur(values.foreignCode);
+	 	let {onsubmit,onSubmitCode} = this.state;
+	 	if(onsubmit && onSubmitCode){
+	 		console.log('values',values);
+	 		const {onSubmit} = this.props;
+		 	onSubmit && onSubmit(values);
+	 	}
+		 
 	 }
 
-	 onCancel(){
+	 onCancel=()=>{
 		 const {onCancel} = this.props;
 		 onCancel && onCancel();
 	 }
-	 componentDidMount(){
-		 let initialValues={
-				sendMsg:'0'
-			}
+	 getBasicData=()=>{
+	//  新增会员准备职位数据
 		 let _this =this;
-		 Store.dispatch(Actions.callAPI('getMemberBasicData')).then(function(response){
-			//  console.log(response,"response");
+		let params = {
+			communityId:'',
+			companyId:'',
+		}
+		 Store.dispatch(Actions.callAPI('getMemberBasicData',params)).then(function(response){
 			 response.jobList.forEach(function(item,index){
 				 item.value = item.id;
 				 item.label = item.jobName;
 			 });
+			//  let memberInfoVO = {
+			// 	communityId:_this.params.communityId,
+			// 	companyId:_this.params.companyId
+			// }
+			// Store.dispatch(initialize('NewCreateForm', memberInfoVO));
 			 _this.setState({
 				selectOption:response.jobList
 			})
 		 }).catch(function(err){
-			//  reject(err);
+			 reject(err);
 		 });
 	 }
-	 onChangeSearchCommunity(personel) {
-		Store.dispatch(change('newCreatMemberForm', 'communityId', personel.id));
-	}
-	onChangeSearchCompany(personel) {
-		Store.dispatch(change('newCreatMemberForm', 'companyId', personel.id));
-	}
 	//  输入手机号查看该手机号是否绑定
 	 onBlur=(phone)=>{
-		 console.log(phone,"phone");
 		 let params = {
 			 phone :phone
 		 }
+		 this.setState({
+	 		open:true
+	 	})
+		 let _this = this;
+
 		 Store.dispatch(Actions.callAPI('isPhoneRegistered',params)).then(function(response){
 			//  检验response是不是空对象
 				if(!$.isEmptyObject(response)){
-
-					Store.dispatch(initialize('newCreatMemberForm',response));
-					Message.warn('该电话已被注册！','error');
-					// console.log("response",response);
+					response.sendMsg = '0';
+					Store.dispatch(initialize('NewCreateForm',response));
+					console.log("response",response);
+					// 此处要有提示
+					Message.warn('该手机号码已被注册！','error');
+					_this.setState({
+						phoneSame:true,
+						email:response.email,
+						code:response.code
+					})
+					
 				}
 		 }).catch(function(err){
-			//  Notify.show([{
- 		// 		message: err.message,
- 		// 		type: 'danger',
- 		// 	}]);
+		 	let {phoneSame} = _this.state;
+		 	let response = {
+		 		phone:phone,
+		 		communityId:'',
+				companyId:'',
+				sendMsg:'0'
+		 	}
+		 	if(phoneSame){
+				Store.dispatch(initialize('NewCreateForm',response));
+				_this.setState({
+					phoneSame:false,
+					email:''
+				})
+				
+
+		 	}
 		 });
 	 }
-	// 验证邮箱是否被验证
-	emailOnBlur(email){
-		let params = {
-			email :email
-		}
-		Store.dispatch(Actions.callAPI('membersByEmail', params)).then(function(response) {
-			// console.log("已经注册");
-				Message.warn('该邮箱已被注册！','error');
-			// }
-		}).catch(function(err) {
-			// console.log("邮箱未注册")
-		});
+	 EmailonBlur=(phone)=>{
+		 let params = {
+			 email :phone
+		 }
+		 let {email,phoneSame} = this.state;
+		 this.setState({
+	 		open:true
+	 	})
+		 let _this = this;
+		 if(phoneSame && email == params.email){
+		 	console.log('phoneSame');
+		 	_this.setState({
+				onsubmit:true
+			})
+		 	return;
+		 }else{
+		 	Store.dispatch(Actions.callAPI('isEmailRegistered',params)).then(function(response){
+				//邮箱已注册
+				Message.warn('该邮箱已被绑定，请更换邮箱','error');
+				_this.setState({
+					onsubmit:false
+				})
+
+			 }).catch(function(err){
+			 	//邮箱未注册
+			 	console.log('ddddd',err.message);
+			 	_this.setState({
+					onsubmit:true
+				})
+			 });
+		 }
+		 console.log('EmailonBlur',phone);
+
+		 
+	 }
+	 foreignCodeBlur=(codes)=>{
+		 let params = {
+			 code :codes
+		 }
+		 let {code,phoneSame} = this.state;
+		 let _this = this;
+		 this.setState({
+	 		open:true
+	 	})
+		 if(phoneSame && code == params.code){
+		 	_this.setState({
+				onSubmitCode:true
+			})
+		 	return;
+		 }
+
+		 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
+				//邮箱已注册
+				Message.warn('该邮箱已被绑定，请更换邮箱','error');
+				_this.setState({
+					onSubmitCode:false
+				})
+
+		 }).catch(function(err){
+		 	//邮箱未注册
+		 	console.log('ddddd',err.message);
+		 	_this.setState({
+				onSubmitCode:true
+			})
+		 });
+	 }
+
+	 onChangeSearchCommunity(personel) {
+		Store.dispatch(change('NewCreateForm', 'communityId', personel.id));
+	}
+	onChangeSearchCompany(personel) {
+		Store.dispatch(change('NewCreateForm', 'companyId', personel.id));
 	}
 	render(){
 		const { error, handleSubmit, pristine, reset} = this.props;
 		let communityText = '';
-		let {selectOption,params} =this.state;
+		let {selectOption} =this.state;
+		
 
 		return (
 			<div>
-			<form onSubmit={handleSubmit(this.onSubmit)}>
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:20}}>
 				<KrField grid={1/2} name="phone" type="text" label="手机号" requireLabel={true} style={{display:'block'}}
 				   requiredValue={true} onBlur={this.onBlur} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
 				<div style={{width:'100%',textAlign:'center',height:25,marginBottom:8}}>
 						<img src={imgLine}/>
 				</div>
 				<KrField grid={1/2} name="communityId" component="searchCommunity" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
-        <KrField grid={1/2} name="email" type="text" label="邮箱" requireLabel={true}
-				   requiredValue={true} pattern={/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/} errors={{requiredValue:'邮箱为必填项',pattern:'请输入正确邮箱地址'}} onBlur={this.emailOnBlur}/>
+        <KrField grid={1/2} name="email" type="input" label="邮箱" requireLabel={true} onBlur={this.EmailonBlur}
+				   requiredValue={true} pattern={/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/} errors={{requiredValue:'邮箱为必填项',pattern:'请输入正确邮箱地址'}}/>
 				<KrField grid={1/2} name="companyId" component="searchCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
-        <KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} requireLabel={true}/>
+        <KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} requireLabel={true} />
 				<KrField grid={1/2} name="name" type="text" label="姓名" requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}}/>
-				<KrField grid={1/2} name="sendMsg" component="group" label="发送验证短信" requireLabel={true}>
-						<KrField name="sendMsg" grid={1/4} label="是" component="radio" type="radio" value="1"/>
-						<KrField name="sendMsg" grid={1/4} label="否" component="radio" type="radio" value="0"/>
+				<KrField grid={1/2} name="sendMsg" component="group" label="发送验证短信" >
+						<KrField name="sendMsg" grid={1/2} label="是" type="radio" value="1"/>
+						<KrField name="sendMsg" grid={1/2} label="否" type="radio" value="0" />
               </KrField>
-        <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" />
+        <KrField grid={1/2} name="foreignCode" type="input" label="会员卡号" requireLabel={true} onBlur={this.foreignCodeBlur}/>
 				<Grid style={{marginTop:30}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-									<Button  label="确定" type="submit" />
+									<Button  label="确定" type="submit"/>
 									<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />
 							</ButtonGroup>
 						</Col>
@@ -178,14 +276,16 @@ const validate = values => {
 		errors.name = '请输入姓名';
 	}
 
-	if (!values.enableflag) {
-		errors.enableflag = '请选择是否发送验证短信';
-	}
-	return errors;
+	if (!values.sendMsg ) {
+        errors.sendMsg = '请选择是否发送验证短信';
+    }
+    if (!values.foreignCode) {
+        errors.foreignCode = '请输入会员卡号';
+    }
+	return errors
 }
-CreateMemberForm = reduxForm({
-	form: 'newCreatMemberForm',
+const selector = formValueSelector('NewCreateForm');
+export default NewCreateForm = reduxForm({
+	form: 'NewCreateForm',
 	validate,
-	enableReinitialize: true,
-	keepDirtyOnReinitialize: true,
-})(CreateMemberForm);
+})(NewCreateForm);

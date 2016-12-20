@@ -41,7 +41,7 @@ import {
 import './index.less';
 import {ShallowEqual} from 'kr/Utils';
 
-export default class EditMemberForm extends Component {
+export default class MemeberEditMemberForm extends Component {
 
 
 	constructor(props, context) {
@@ -58,7 +58,7 @@ export default class EditMemberForm extends Component {
 	componentWillMount() {
 		this.getBasicData(this.detail.id);
 		let {detail,handleSubmit} = this.props;
-		Store.dispatch(initialize('editMemberForm', detail));
+		Store.dispatch(initialize('memeberEditMemberForm', detail));
 
 
 	}
@@ -68,7 +68,7 @@ export default class EditMemberForm extends Component {
 			this.setState({
 				initializeValues:nextProps.detail
 			})
-			Store.dispatch(initialize('editMemberForm', nextProps.detail));
+			Store.dispatch(initialize('memeberEditMemberForm', nextProps.detail));
 
 		}
 	}
@@ -176,8 +176,8 @@ export default class EditMemberForm extends Component {
 					<KrField name="communityId" grid={1/2} label="社区" component="searchCommunity" right={30} requiredValue={true}  errors={{requiredValue:'请选择社区'}} requireLabel={true}/>
 					<KrField name="foreignCode" grid={1/2} label="会员卡号" component="input" left={30}onBlur={this.membersByForeignCode} requiredValue={true} errors={{requiredValue:'请填写会员卡号'}} requireLabel={true}/>
 					<KrField name="companyId" grid={1/2} label="公司" component="searchCompany"  right={30} requiredValue={true} errors={{requiredValue:'请填选择公司'}} requireLabel={true}/>
-					<KrField name="email" grid={1/2} label="邮箱:" component="input" left={30} pattern={/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/} onBlur={this.communityChange} requiredValue={true} errors={{requiredValue:'请填写邮箱',pattern:'请输入正确邮箱地址'}} requireLabel={true}/>
-					<KrField name="name" grid={1/2}  label="姓名" component="input" right={30}  requireLabel={true} requiredValue={true} errors={{requiredValue:'请填写姓名'}}/>
+					<KrField name="email" grid={1/2} label="邮箱:" component="input" left={30}  onBlur={this.communityChange}  requireLabel={true}/>
+					<KrField name="name" grid={1/2}  label="姓名" component="input" right={30}  requireLabel={true}/>
 					<KrField name="jobId" grid={1/2} label="职位" component="select" left={30} options={jobList}/>
 					<Grid style={{margin:'20px 0'}}>
 						<Row>
@@ -187,17 +187,46 @@ export default class EditMemberForm extends Component {
 							</ListGroup>
 						  </Row>
 					</Grid>
-
-
-
 							 </form>
 			</div>
 )
 	}
 }
-EditMemberForm = reduxForm({
-	form: 'editMemberForm',
-	// validate,
+const validate = values => {
+
+	const errors = {}
+
+	if (!values.phone) {
+		errors.phone = '请输入电话号码';
+	}
+
+	if (!values.communityId) {
+		errors.communityId = '请输入社区名称';
+	}
+
+	if (!values.email) {
+		errors.email = '请输入邮箱';
+	}
+	if (!values.companyId) {
+		errors.companyId = '请输入公司';
+	}
+
+	if (!values.jobId) {
+		errors.jobId = '请输入职位';
+	}
+
+	if (!values.name) {
+		errors.name = '请输入姓名';
+	}
+
+	if (!values.enableflag) {
+		errors.enableflag = '请选择是否发送验证短信';
+	}
+	return errors;
+}
+MemeberEditMemberForm = reduxForm({
+	form: 'memeberEditMemberForm',
+	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
-})(EditMemberForm);
+})(MemeberEditMemberForm);
