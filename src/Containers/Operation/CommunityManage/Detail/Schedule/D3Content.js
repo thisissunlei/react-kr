@@ -347,7 +347,7 @@ export default class D3Content extends Component {
 		start = (new Date(start)).getTime();
 		end = (new Date(end)).getTime();
 		if(value == end || value >= start){
-			left = '-10px';
+			left = '-5px';
 		}
 		if(value == startTime){
 			left = "10px";
