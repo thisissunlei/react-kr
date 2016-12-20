@@ -373,7 +373,7 @@ class NewCreateForm extends Component {
 				<KrField style={{width:370,marginLeft:70}}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
 				requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同编号为必填项',pattern:'合同编号最大50位'}} />
 
-				<KrField style={{width:370,marginLeft:70}}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
+				<KrField style={{width:370,marginLeft:90}}  name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
 
 				<KrField style={{width:370,marginLeft:70}}  name="rentamount" type="text"  component="input" label="减租金额"
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'减租金额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
