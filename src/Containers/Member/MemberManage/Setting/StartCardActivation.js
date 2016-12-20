@@ -38,33 +38,37 @@ import './index.less';
 		super(props);
     this.state={
 				detail:props.detail,
-				accomplish:false
+				accomplish:false,
+				errorText:'',
+				openMessage:true,
+				oldNum:props.detail.endNum-props.detail.startNum,
     }
 	}
 	 onSubmit=(values)=>{
-		 var _this=this
+		 var _this=this;
+		 var isErr=false;
 		 const params={};
 		 params.foreignCode=_this.state.detail.startNum;
 		 params.interCode=values.interCode;
+		 if(this.state.accomplish){
+			 return;
+		 }
 		 Store.dispatch(Actions.callAPI('CardActivation', {}, params)).then(function(response) {
-			 Message.success("成功");
-			 const detail={};
-			 detail.interCode="";
-			 Store.dispatch(initialize('StartCardActivation',detail));
-			 _this.props.onFlush();
+					//  Message.success("成功");
+					 const detail={};
+					 detail.interCode="";
+					 Store.dispatch(initialize('StartCardActivation',detail));
+					 _this.props.onFlush();
+
+					 if (_this.state.detail.startNum<=_this.state.detail.endNum) {
+
+							 _this.cardNumAdd(4);
+
+					 }
+
 		 }).catch(function(err) {
 			 Message.error(err.message);
-			 return ;
 		 });
-		 if (this.state.detail.startNum<=this.state.detail.endNum) {
-			 this.cardNumAdd(4,values);
-		 }
-		 if(this.state.detail.startNum>=this.state.detail.endNum){
-			 this.setState({
-				 accomplish:true,
-
-			 })
-		 }
 	 }
 
 	 //数字处理
@@ -74,11 +78,8 @@ import './index.less';
 			return num
 	 }
 	 //卡号增加
-	 cardNumAdd=(len,values)=>{
-
-
+	 cardNumAdd=(len)=>{
 		 let detail = Object.assign({},this.props.detail);
-
 		 var start=this.state.detail.startNum.substring(0,6).toString();
 		 var num=parseInt(this.state.detail.startNum.substring(6,10));
 		 		 num=num+1;
@@ -88,13 +89,20 @@ import './index.less';
 							num='0'+num;
 				 	}
 				 }
+				 if (this.state.detail.startNum==this.state.detail.endNum) {
+					 	Message.success(this.state.detail.oldNum+"张会员卡激活成功!");
+						this.setState({
+		 				 accomplish:true,
+		 			 })
+					 return;
 
+				 }
 
-					 detail.startNum=start+num;
+					detail.startNum=start+num;
 					detail.endNum=this.state.detail.endNum;
-				 this.setState({
-	 				detail:detail
-				})
+					this.setState({
+						detail:detail
+					})
 	 }
 	 //跳过号码
 	 skipCard=()=>{
@@ -107,7 +115,14 @@ import './index.less';
 		onCancel && onCancel();
 	 }
 
+	 closeMessage=()=>{
+		 this.setState({
+			 openMessage:false
+		 })
+	 }
+
 	render(){
+
 		const {
 			error,
 			handleSubmit,
@@ -140,7 +155,7 @@ import './index.less';
 						</Col>
 					</Row>
 				</Grid>
-				{/*<SnackTip style={{position:'fixed',top:-160,right:0,backgroundColor:"#000"}} open={true} title={"title"}  />*/}
+				{/*<SnackTip style={{position:'fixed',top:-160,right:0,backgroundColor:"#000"}} open={this.state.openMessage} title={"title"}  />*/}
 
 
 			</form>

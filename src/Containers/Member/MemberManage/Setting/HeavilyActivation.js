@@ -45,7 +45,6 @@ import './index.less';
 	}
 	componentWillReceiveProps(nextProps){
 		if(nextProps.detail.startNum&&nextProps.detail.endNum){
-			//Store.dispatch(initialize('HeavilyActivation',nextProps.detail));
 			this.setState({
 					startNum:nextProps.detail.startNum,
 					endNum:nextProps.detail.endNum,
