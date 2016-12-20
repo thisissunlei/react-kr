@@ -270,11 +270,14 @@ export default class CompanyMembers extends Component {
 			// }]);
 			Message.success('设置成功');
 			_this.setState({
+				leader:!_this.state.leader,
 				searchParams:{
 					value:'',
 					page:_this.state.page,
 					pageSize:15,
 					companyId:_this.state.companyId,
+					leader:!_this.state.leader
+
 				}
 			})
 

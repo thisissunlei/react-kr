@@ -46,7 +46,7 @@ import imgLine from './images/line.png'
 			name:'',
 			foreignCode:'',
 			sendMsg:'0',
-			code:''
+			foreignCode:''
 		}
 		Store.dispatch(initialize('NewCreateForm',response));
 	}
@@ -56,6 +56,7 @@ import imgLine from './images/line.png'
 	 	this.foreignCodeBlur(values.foreignCode);
 	 	let {onsubmit} = this.state;
 	 	if(onsubmit){
+	 		console.log('values',values);
 	 		const {onSubmit} = this.props;
 		 	onSubmit && onSubmit(values);
 	 	}
@@ -122,6 +123,7 @@ import imgLine from './images/line.png'
 		 		phone:phone,
 		 		communityId:parseInt(_this.params.communityId),
 				companyId:parseInt(_this.params.companyId),
+				sendMsg:'0'
 		 	}
 		 	if(phoneSame){
 				Store.dispatch(initialize('NewCreateForm',response));
