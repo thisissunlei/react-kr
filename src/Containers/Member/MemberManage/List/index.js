@@ -51,9 +51,12 @@ export default class List extends Component {
 			openView: false,
 			openEditDetail: false,
 			openAdvancedQuery :false,
+			submit:false,
 			itemDetail: {},
 			item: {},
 			list: {},
+			content:'',
+			filter:'',
 			searchParams: {
 				page: 1,
 				pageSize: 15,
@@ -63,8 +66,6 @@ export default class List extends Component {
 				jobId:'',
 				companyId:'',
 				cityId:'',
-				filter:'',
-				content:'',
 				type:'COMP_NAME',
 				value:'',
 			}
@@ -143,12 +144,13 @@ export default class List extends Component {
 				ids.push(item.id)
 			});
 		}
-		var url = `/api/krspace-finance-webmember/member-list-excel?ids=${ids}`
+		ids = String(ids);
+		var url = `/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
 		window.location.href = url;
 	}
 	onEditSubmit=(values)=>{
 		var _this = this;
-		Store.dispatch(Actions.callAPI('membersChange',values)).then(function(response){
+		Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
 			_this.openEditDetailDialog();
 			window.location.reload();
 			Message.success("操作成功");
@@ -161,31 +163,54 @@ export default class List extends Component {
 		});
 	}
 	onNewCreateSubmit=(values)=>{
-
-		var _this = this;
-		Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
-			_this.openNewCreateDialog();
-			window.location.reload();
-			Message.success("操作成功");
-		}).catch(function(err){
-			// _this.openNewCreateDialog();
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+		console.log("value",values);
+		let params = {
+			email:values.email
+		}
+		let cardSearchParams ={
+			foreignCode:values.cardId
+		}
+		let _this = this;
+		// 验证邮箱是否被注册
+		Store.dispatch(Actions.callAPI('membersByEmail', params)).then(function(response) {
+			// 邮箱已注册
+				Message.warn('该邮箱已被注册！','error');
+		}).catch(function(err) {
+					// 邮箱未注册
+					// 验证会员卡号
+					Store.dispatch(Actions.callAPI('membersByForeignCode', cardSearchParams)).then(function(response) {
+						// 会员卡号已注册
+							Message.warn('该会员卡号已存在！','error');
+					}).catch(function(err) {
+						// 卡号／邮箱都不能存在才会提交
+						Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
+							_this.openNewCreateDialog();
+							Message.success("操作成功");
+						}).catch(function(err){
+							Notify.show([{
+								message: err.message,
+								type: 'danger',
+							}]);
+						});
+					})
 		});
 	}
 	// 查询
 	onSearchSubmit=(value)=>{
-
 		let _this = this;
 		let searchParam = {
 			value :value.content,
 			type :value.filter
 		}
+		//  this.setState({submit:true});
 		_this.setState({
 			content :value.content,
-			filter :value.filter
+			filter :value.filter,
+			submit:true,
+			searchParams :{
+				type:value.filter,
+				value:value.content
+			}
 		})
 		Store.dispatch(Actions.callAPI('membersList',searchParam)).then(function(response){
 			_this.setState({
@@ -196,7 +221,6 @@ export default class List extends Component {
 					type :value.filter
 				}
 			})
-
 		}).catch(function(err){
 			Notify.show([{
 				message: err.message,
@@ -216,6 +240,7 @@ export default class List extends Component {
 	}
 	// 高级查询
 	onAdvanceSearchSubmit=(values)=>{
+		console.log('onAdvanceSearchSubmit',values);
 		let _this = this;
 		let searchParams = {
 			value :values.value || '',
@@ -226,7 +251,6 @@ export default class List extends Component {
 			registerSourceId:values.registerSourceId || '',
 			jobId :values.jobId || ''
 		}
-		// console.log("searchParams",searchParams);
 		_this.setState({
 			openAdvancedQuery: !this.state.openAdvancedQuery,
 			searchParams :{
@@ -277,7 +301,7 @@ export default class List extends Component {
 			value: 'WECHAT'
 		}, {
 			label: '姓名',
-			value: 'Name'
+			value: 'NAME'
 		}];
 
 		return (
@@ -365,7 +389,7 @@ export default class List extends Component {
 									onClose={this.openAdvancedQueryDialog}
 									contentStyle={{width:687}}
 								>
-									<AdvancedQueryForm onSubmit={this.onAdvanceSearchSubmit} params={this.params} onCancel={this.openAdvancedQueryDialog} detail={itemDetail} style={{textAlign:'center'}} content={this.state.content} filter={this.state.filter} />
+									<AdvancedQueryForm onSubmit={this.onAdvanceSearchSubmit} params={this.params} onCancel={this.openAdvancedQueryDialog} detail={itemDetail} style={{marginTop:37}} content={this.state.content} filter={this.state.filter} />
 							  </Dialog>
 
 				</div>

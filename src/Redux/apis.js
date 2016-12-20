@@ -493,9 +493,9 @@
 		url: '/api/krspace-finance-web/stat/group/sort/actions/check?sort={sort}&id={id}',
 		method: 'get'
 	},
-	//会员中心-会员列表-获取所有会员信息
-	// 'membersList': {
-	// 	url: '/api/krspace-finance-web/member/member-list?page={page}&pageSize={pageSize}',
+	//会员中心-新增会员-根据邮箱查询会员是否存在
+	// 'isMemberHasByEmail': {
+	// 	url: '/api/krspace-finance-web/member/member-mail?email={email}',
 	// 	method: 'get'
 	// },
 	//会员中心-会员详细信息－个人资料
@@ -565,7 +565,7 @@
   },
   //设置Leader
   'setLeader':{
-  	url:'/api/krspace-finance-web/member/work/leader?companyId={companyId}&isLeader={isLeader}&memberId={memberId}',
+  	url:'/api/krspace-finance-web/member/work/leader?companyId={companyId}&isLeader={isLeader}&memberIds={memberIds}',
   	method:'put'
   },
   //新建编辑会员的准备数据
@@ -577,6 +577,10 @@
   'membersChange':{
   	url:'/api/krspace-finance-web/member/member',
   	method:'post'
+  },
+  'editMembersChange':{
+  	url:'/api/krspace-finance-web/member/member?companyId={companyId}&email={email}&communityId={communityId}&foreignCode={foreignCode}&jobId={jobId}&name={name}&phone={phone}&sendMsg={sendMsg}',
+  	method:'put'
   },
   //验证成员
   'validMember':{
@@ -590,7 +594,7 @@
   },
   //根据邮箱判断手否存在
   'membersByEmail':{
-  	url:'/api/krspace-finance-web/member/member-email?email={email}',
+  	url:'/api/krspace-finance-web/member/member-mail?email={email}',
   	method:'get'
   },
   //根据会员卡号判断手否存在

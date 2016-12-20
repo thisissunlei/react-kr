@@ -82,6 +82,12 @@ export default class CompanyMembers extends Component {
 			importdata:false,
 			warns:false,
 			batchDelet:false,
+			value:'',
+			searchParams:{
+				page: 1,
+				companyId:this.companyId,
+				pageSize: 5,
+			}
 		}
 
 
@@ -214,7 +220,7 @@ export default class CompanyMembers extends Component {
 		let params = {
 			companyId:this.companyId,
 			isLeader:value.isLeader,
-			memberId:itemDetail.id
+			memberIds:itemDetail.id
 		}
 		let _this = this;
 		Store.dispatch(Actions.callAPI('setLeader', params)).then(function(response) {
@@ -230,9 +236,9 @@ export default class CompanyMembers extends Component {
 			Message.success('设置成功');
 
 
-			// window.setTimeout(function() {
-			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
-			// }, 0);
+			_this.setState({
+				companyId:_this.companyId
+			})
 
 		}).catch(function(err) {
 			// Notify.show([{
@@ -253,6 +259,14 @@ export default class CompanyMembers extends Component {
 			// 	type: 'success',
 			// }]);
 			Message.success('设置成功');
+			_this.setState({
+				searchParams:{
+					value:'',
+					page:_this.state.page,
+					pageSize:5,
+					companyId:_this.state.companyId,
+				}
+			})
 
 			// window.setTimeout(function() {
 			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
@@ -342,13 +356,22 @@ export default class CompanyMembers extends Component {
 	}
 	onNewCreateSubmit=(values)=>{
 		var _this = this;
-		Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
+			Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
 			_this.createMember();
 			// Notify.show([{
  		// 	 message: '成功',
  		// 	 type: 'success',
 			//  	}]);
+			console.log('newMember');
 			Message.success('成功');
+			_this.setState({
+				searchParams:{
+					value:'',
+					page:_this.state.page,
+					pageSize:5,
+					companyId:_this.state.companyId,
+				}
+			})
 			// window.location.href = "/#/community/companyMembers/" + _this.params.companyId + "/list/" + _this.params.communityId ;
 		}).catch(function(err){
 			console.log(err);
@@ -358,11 +381,28 @@ export default class CompanyMembers extends Component {
 			// }]);
 			Message.error(err.message);
 		});
+		
 	}
 	detailView(itemData){
 		let orderId = itemData.id;
 		window.open(`./#/member/MemberManage/${orderId}/detail`, orderId);
 
+	}
+	onSearchSubmit=()=>{
+
+		let _this = this;
+		let searchParam = {
+			registerSourceId :''
+		}
+		Store.dispatch(Actions.callAPI('membersList',searchParam)).then(function(response){
+			
+
+		}).catch(function(err){
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
 	}
 
 
@@ -374,11 +414,15 @@ export default class CompanyMembers extends Component {
 
 	render() {
 		let {itemDetail,seleced,open,title,allData} = this.state;
-		let searchParams ={
-			page:this.state.page,
-			pageSize:this.state.pageSize,
-			companyId:this.state.companyId
-		}
+		// let searchParams ={
+		// 	page:this.state.page,
+		// 	pageSize:this.state.pageSize,
+		// 	companyId:this.state.companyId,
+		// 	value:this.state.value
+
+		// }
+		let {searchParams} = this.state;
+		console.log('state',searchParams);
 		return (
 			<div>
 

@@ -153,7 +153,7 @@ export default class CreateMemberForm extends Component {
 				<form onSubmit={handleSubmit(this.onSubmit)} >
 					<div className="person-info">
 						<span className="person-name">{detail.name}</span>
-						{detail.checkStatus?<span className="person-status">未验证</span>:<span className="person-status-not">已验证</span>}
+						{detail.checkStatus?<span className="person-status-not">已验证</span>:<span className="person-status">未验证</span>}
 						<span className="person-id">（员工UserID：{detail.id}）</span>
 
 					</div>
