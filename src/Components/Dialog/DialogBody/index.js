@@ -16,7 +16,7 @@ export default class DialogBody extends Component {
 
     window.setTimeout(function(){
 			this.initializeDialogBodyStyles();
-      }.bind(this),200);
+		}.bind(this),100);
 
 			window.addEventListener('resize',function(){
 				this.initializeDialogBodyStyles();
