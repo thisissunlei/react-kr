@@ -509,7 +509,7 @@ class NewCreateForm extends Component {
 
 <form onSubmit={handleSubmit(this.onSubmit)} >
 				<CircleStyle num="1" info="租赁明细" >
-				<KrField  name="wherefloor"  style={{width:370,marginLeft:70,marginRight:15}} component="select" label="所在楼层" options={optionValues.floorList} requireLabel={true}/>
+				<KrField  name="wherefloor"  style={{width:370,marginLeft:70,marginRight:15}} component="select" label="所在楼层" multi={true} options={optionValues.floorList} requireLabel={true}/>
 				<KrField style={{width:370,marginLeft:70}} left={20}  component="group" label="租赁期限" requireLabel={true}>
 					<ListGroup>
 						<ListGroupItem style={{width:'45%',padding:0,marginLeft:'-10px',marginTop:'-10px'}}><KrField   name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/> </ListGroupItem>
