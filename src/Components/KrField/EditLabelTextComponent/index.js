@@ -15,16 +15,14 @@ export default class InputComponent extends React.Component {
 	}
 
 	static PropTypes = {
-			tooltip: React.PropTypes.string,
-			defaultValue: React.PropTypes.string,
-			ajaxUrlName: React.PropTypes.string,
-			ajaxParams: React.PropTypes.object,
-			// save:React.PropTypes.func,
+		tooltip: React.PropTypes.string,
+		defaultValue: React.PropTypes.string,
+		ajaxUrlName: React.PropTypes.string,
+		ajaxParams: React.PropTypes.object,
 
-		}
-		// static PropTypes = {
-		// 	defaultValue:
-		// }
+
+	}
+
 	constructor(props, context) {
 		super(props, context)
 		this.state = {

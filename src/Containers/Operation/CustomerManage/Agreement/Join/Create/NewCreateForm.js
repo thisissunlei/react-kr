@@ -520,7 +520,7 @@ class NewCreateForm extends Component {
 					</ListGroup>
 				</KrField>
 
-				<div className="detail-list" style={{marginTop:"-35px"}}>			
+				<div className="detail-list" style={{marginTop:"-35px"}}>
 
 				<DotTitle title='租赁明细'>
 
@@ -627,7 +627,7 @@ class NewCreateForm extends Component {
 
 					<KrField  style={{width:370,marginLeft:70}}  name="firstpaydate" component="date" label="首付款时间" requireLabel={true}  />
 
-					
+
 
 					<KrField  style={{width:370,marginLeft:90}} name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true}
 					requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />

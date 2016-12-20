@@ -37,7 +37,8 @@ import {
 	Field,
 	FieldControl,
 	InputDate,
-	CircleStyle
+	CircleStyle,
+	SnackTip,
 } from 'kr-ui';
 
 
@@ -89,7 +90,6 @@ export default class Demo extends Component {
 	render() {
 		return (
 			<div>
-					
 			</div>
 
 		);
