@@ -18,7 +18,7 @@ import {
 	Store,
 	connect
 } from 'kr/Redux';
-
+import $ from 'jquery';
 
 import {
 	Section,
@@ -112,32 +112,32 @@ export default class CancleLeader extends Component {
 	}
 
 
-	onSubmit=(form)=>{
-		form.companyId = 45;
-		console.log('form',form);
+	onSubmit=(data)=>{
+		// form.companyId = 45;
+		document.import.submit();
 
-		Store.dispatch(Actions.callAPI('importMemberExcel',{},form)).then(function(response) {
-			_this.importData();
-			// Notify.show([{
-			// 	message: '设置成功',
-			// 	type: 'success',
-			// }]);
-			Message.success('设置成功');
+		// Store.dispatch(Actions.callAPI('importMemberExcel',{},form)).then(function(response) {
+		// 	_this.importData();
+		// 	// Notify.show([{
+		// 	// 	message: '设置成功',
+		// 	// 	type: 'success',
+		// 	// }]);
+		// 	Message.success('设置成功');
 
-			// window.setTimeout(function() {
-			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
-			// }, 0);
+		// 	// window.setTimeout(function() {
+		// 	// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
+		// 	// }, 0);
 
-		}).catch(function(err) {
-			// Notify.show([{
-			// 	message: err.message,
-			// 	type: 'danger',
-			// }]);
-			Message.error(err.message);
-		});
+		// }).catch(function(err) {
+		// 	// Notify.show([{
+		// 	// 	message: err.message,
+		// 	// 	type: 'danger',
+		// 	// }]);
+		// 	Message.error(err.message);
+		// });
 		// console.log('onSubmit',form);
 		// const {onSubmit} = this.props;
-		// onSubmit && onSubmit(form);
+		// onSubmit && onSubmit(data);
 	}
 	onCancel=()=>{
 		const {onCancel} = this.props;
@@ -162,8 +162,8 @@ export default class CancleLeader extends Component {
 
 
 		let file = event.target.files[0];
-		console.log('file-----', file)
-		Store.dispatch(change('cancleLeader', 'file', file));
+		let {files} = this.state;
+
 
 		if (!file) {
 			console.log('[[[[[[');
@@ -176,13 +176,11 @@ export default class CancleLeader extends Component {
 
 
 	render() {
-		let {handleSubmit} = this.props;
 
 
 
 		return (
-			<form onSubmit={handleSubmit(this.onSubmit)} method="post" encType="multipart/form-data">
-				<KrField grid={1/2}  name="file" type="hidden" component="input" />
+			<form  encType="multipart/form-data" name='import'>
 				<div>
 					<span className='import-logo icon-excel' onClick={this.importFile}></span>
 					<input type="file" name="file" onChange={this.onChange} multiple />
@@ -193,7 +191,7 @@ export default class CancleLeader extends Component {
 				<Grid style={{marginBottom:20}}>
 					<Row>
 						<ListGroup>
-							<ListGroupItem style={{width:'47%',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定导入" type="submit" width={90} height={34}/></ListGroupItem>
+							<ListGroupItem style={{width:'47%',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定导入" type="submit" width={90} height={34} onTouchTap={this.onSubmit}/></ListGroupItem>
 							<ListGroupItem style={{width:'47%',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/> </ListGroupItem>
 						</ListGroup>
 					  </Row>
@@ -202,9 +200,3 @@ export default class CancleLeader extends Component {
 )
 	}
 }
-CancleLeader = reduxForm({
-	form: 'cancleLeader',
-	// validate,
-	enableReinitialize: true,
-	keepDirtyOnReinitialize: true,
-})(CancleLeader);
