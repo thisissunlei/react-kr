@@ -19,9 +19,12 @@ import PersonalBehavior from './PersonalBehavior';
 import OrganizationChart from './OrganizationChart';
 import UpdateLog from './UpdateLog';
 export default class memberListDetail extends Component{
+
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  }
   constructor(props, context) {
 		super(props, context);
-		this.initpersonalData = this.initpersonalData.bind(this);
     // console.log("this.props",this.props);
     this.state = {
       isLeader:true,
@@ -31,88 +34,56 @@ export default class memberListDetail extends Component{
 				pageSize: 15,
 				index:''
 			},
+      baseInfo:{},
+      companyInfo:{},
+      workInfo:{}
       // OrganizationChart:{
       //   page:1,
       //   pageSize:15,
       //   companyId:1
       // }
 		}
+    this.getBasicData();
   }
   componentDidMount() {
-    // console.log("-------------个人详情");
-		var _this = this;
-		let {
-			params
-		} = this.props;
+
+
+	}
+  getBasicData=()=>{
+    var _this = this;
+    let params = this.context.router.params;
     // 获取会员详细信息
 		Store.dispatch(Actions.callAPI('getMemberDetailData', {
-			mainbillid: params.orderId,
+			id: params.memberId,
 		})).then(function(response) {
-      console.log("response.isLeader",response);
-			_this.setState({
-				personalData: response.baseinfo,
-        isLeader:response.isLeader,
-			});
-
+      console.log("response",response);
+      _this.setState({
+        workInfo:response.workInfo,
+        companyInfo:response.companyInfo,
+        baseInfo:response.baseInfo
+      })
 		}).catch(function(err) {
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
 			}]);
 		});
-
-	}
-  initpersonalData=()=>{
-    // console.log("-------------获取个人行为");
-		// var _this = this;
-		// let {
-		// 	params
-		// } = this.props;
-    // // 获取会员详细信息
-		// Store.dispatch(Actions.callAPI('getMemberDetailData', {
-		// 	mainbillid: params.orderId,
-		// })).then(function(response) {
-		// 	_this.setState({
-		// 		personalData: response.baseinfo,
-    //     isLeader:response.isLeader,
-		// 	});
-    //
-		// }).catch(function(err) {
-		// 	Notify.show([{
-		// 		message: err.message,
-		// 		type: 'danger',
-		// 	}]);
-		// });
-    // 获取会员个人行为
-    Store.dispatch(Actions.callApI('getMemberDatailBehavior',{
-      mainbillid: params.orderId,
-    })).then(function(response){
-      // console.log("获取个人行为",response);
-      _this.setState({
-				personalBehavior: response.items,
-			});
-    }).catch(function(err){
-      Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-    });
-	}
+  }
   isLeader=()=>{
     let show = true;
     let {isLeader} = this.state.isLeader;
-    if(this.state.isLeader){
+    // console.log('index',this.state);
+    if(isLeader){
       return (
         <Tabs>
         <Tab label="个人资料">
-
             <div style={{background:"fff",height:'860'}}>
               <DotTitle title='基本信息' style={{marginBottom:'40'}}/>
-                <PersonalData  detail={this.state.PersonalData}/>
+                <PersonalData  detail={this.state.baseInfo}/>
               <DotTitle title='工作信息' style={{marginTop:'40',marginBottom:'40'}}/>
-                <PersonalCompanyInfo  detail={this.state.PersonalJob}/>
+                <PersonalCompanyInfo  detail={this.state.workInfo}/>
               <DotTitle title='公司信息' style={{marginTop:'40',marginBottom:'40'}}/>
-                  <PersonalCompanyInfo  detail={this.state.PersonalCompanyInfo}/>
+                  <PersonalCompanyInfo  detail={this.state.companyInfo}/>
             </div>
 
         </Tab>
@@ -140,22 +111,22 @@ export default class memberListDetail extends Component{
 
             <div style={{background:"fff",height:'860'}}>
               <DotTitle title='基本信息' style={{marginBottom:'40'}}/>
-                <PersonalData  detail={this.state.PersonalData}/>
+                <PersonalData  detail={this.state.baseInfo}/>
               <DotTitle title='工作信息' style={{marginTop:'40',marginBottom:'40'}}/>
-                <PersonalJob  detail={this.state.PersonalJob}/>
+                <PersonalJob  detail={this.state.workInfo}/>
               <DotTitle title='公司信息' style={{marginTop:'40',marginBottom:'40'}}/>
-                  <PersonalCompanyInfo  detail={this.state.PersonalCompanyInfo}/>
+                  <PersonalCompanyInfo  detail={this.state.companyInfo}/>
             </div>
 
         </Tab>
         <Tab label="个人行为记录">
           <div>
-            <PersonalBehavior  detail={this.state.PersonalBehavior}/>
+            <PersonalBehavior/>
           </div>
         </Tab>
         <Tab label="更新日志">
           <div>
-            <UpdateLog  detail={this.state.UpdateLog}/>
+            <UpdateLog/>
           </div>
         </Tab>
         </Tabs>

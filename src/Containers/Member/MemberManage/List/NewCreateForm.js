@@ -57,11 +57,11 @@ import imgLine from './images/line.png'
 	 	this.foreignCodeBlur(values.foreignCode);
 	 	let {onsubmit,onSubmitCode} = this.state;
 	 	if(onsubmit && onSubmitCode){
-	 		console.log('values',values);
+			// 	console.log('values',values);
 	 		const {onSubmit} = this.props;
 		 	onSubmit && onSubmit(values);
 	 	}
-		 
+
 	 }
 
 	 onCancel=()=>{
@@ -107,7 +107,7 @@ import imgLine from './images/line.png'
 				if(!$.isEmptyObject(response)){
 					response.sendMsg = '0';
 					Store.dispatch(initialize('NewCreateForm',response));
-					console.log("response",response);
+					// console.log("response",response);
 					// 此处要有提示
 					Message.warn('该手机号码已被注册！','error');
 					_this.setState({
@@ -115,7 +115,7 @@ import imgLine from './images/line.png'
 						email:response.email,
 						code:response.code
 					})
-					
+
 				}
 		 }).catch(function(err){
 		 	let {phoneSame} = _this.state;
@@ -131,7 +131,7 @@ import imgLine from './images/line.png'
 					phoneSame:false,
 					email:''
 				})
-				
+
 
 		 	}
 		 });
@@ -146,7 +146,7 @@ import imgLine from './images/line.png'
 	 	})
 		 let _this = this;
 		 if(phoneSame && email == params.email){
-		 	console.log('phoneSame');
+			// 	console.log('phoneSame');
 		 	_this.setState({
 				onsubmit:true
 			})
@@ -154,22 +154,22 @@ import imgLine from './images/line.png'
 		 }else{
 		 	Store.dispatch(Actions.callAPI('isEmailRegistered',params)).then(function(response){
 				//邮箱已注册
-				Message.warn('该邮箱已被绑定，请更换邮箱','error');
+				Message.warn('该邮箱已被绑定','error');
 				_this.setState({
 					onsubmit:false
 				})
 
 			 }).catch(function(err){
 			 	//邮箱未注册
-			 	console.log('ddddd',err.message);
+				// 	console.log('ddddd',err.message);
 			 	_this.setState({
 					onsubmit:true
 				})
 			 });
 		 }
-		 console.log('EmailonBlur',phone);
+		//  console.log('EmailonBlur',phone);
 
-		 
+
 	 }
 	 foreignCodeBlur=(codes)=>{
 		 let params = {
@@ -189,14 +189,14 @@ import imgLine from './images/line.png'
 
 		 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
 				//邮箱已注册
-				Message.warn('该邮箱已被绑定，请更换邮箱','error');
+				Message.warn('该邮箱已被绑定','error');
 				_this.setState({
 					onSubmitCode:false
 				})
 
 		 }).catch(function(err){
 		 	//邮箱未注册
-		 	console.log('ddddd',err.message);
+			// 	console.log('ddddd',err.message);
 		 	_this.setState({
 				onSubmitCode:true
 			})
@@ -213,7 +213,7 @@ import imgLine from './images/line.png'
 		const { error, handleSubmit, pristine, reset} = this.props;
 		let communityText = '';
 		let {selectOption} =this.state;
-		
+
 
 		return (
 			<div>
