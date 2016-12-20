@@ -54,7 +54,7 @@ class SearchForm extends Component{
 		onCancel && onCancel();
 	};
 	onSubmit(forms){
-        
+
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(forms);
 	}
@@ -70,14 +70,16 @@ class SearchForm extends Component{
 
 
             <div className='ui-search'>
-				<form  onSubmit={handleSubmit(this.onSubmit)} initialValues={initialValues}>
+				<form  onSubmit={handleSubmit(this.onSubmit)}  initialValues={initialValues}>
 
 					<KrField grid={1} name="orderId" type="hidden"/>
 					<KrField grid={1} name="accountType" type="hidden"/>
-					<KrField grid={1/2} name="accountId" right={53} component="select" label="代码" options={codeList}/>
-					<KrField grid={1/2} name="propertyId" right={53} type="select" label="款项" options={typeList} style={{marginLeft:-27}}/>
 
-						
+					<KrField grid={1/2} name="accountId" right={39} component="select" label="代码" options={codeList}/>
+					<KrField grid={1/2} name="propertyId" right={39} type="select" label="款项" options={typeList} style={{marginLeft:-11}}/>
+
+
+
 
 					<KrField grid={1/1}  component="group" label="日期" style={{marginTop:3}}>
 					<div className='ui-listDate'><ListGroup>
@@ -88,7 +90,9 @@ class SearchForm extends Component{
 	                    </div>
 				   </KrField>
 
-					<Grid style={{marginTop:8,marginBottom:5,marginLeft:-10}}>
+
+					<Grid style={{marginTop:8,marginBottom:5,marginLeft:-35}}>
+
 						<Row>
 							<Col md={12} align="center">
 								<ButtonGroup>
@@ -103,7 +107,7 @@ class SearchForm extends Component{
 				</form>
              </div>
 
-			);
+		 );
 	}
 
 }
@@ -111,4 +115,3 @@ class SearchForm extends Component{
 export default reduxForm({
 	form: 'searchForm'
 })(SearchForm);
-
