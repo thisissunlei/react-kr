@@ -1,14 +1,32 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-import {Binder} from 'react-binding';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
+import {
+	connect
+} from 'kr/Redux';
+import {
+	Binder
+} from 'react-binding';
 import dateFormat from 'dateformat';
-import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray} from 'redux-form';
-
-import {Actions,Store} from 'kr/Redux';
+import {
+	reduxForm,
+	formValueSelector,
+	change,
+	initialize,
+	arrayPush,
+	arrayInsert,
+	FieldArray
+} from 'redux-form';
 
 import {
-  Form,
-  Table,
+	Actions,
+	Store
+} from 'kr/Redux';
+
+import {
+	Form,
+	Table,
 	TableBody,
 	TableHeader,
 	TableHeaderColumn,
@@ -21,20 +39,20 @@ import {
 	Col,
 	Button,
 	Notify,
-  KrDate,
+	KrDate,
 } from 'kr-ui';
 
-class SelectStationForm  extends Component{
+class SelectStationForm extends Component {
 
 	static PropTypes = {
-    searchParams:React.PropTypes.object,
-		onSubmit:React.PropTypes.func,
-		onCancel:React.PropTypes.func,
+		searchParams: React.PropTypes.object,
+		onSubmit: React.PropTypes.func,
+		onCancel: React.PropTypes.func,
 	}
-  static contextTypes = {
-	 params: React.PropTypes.object.isRequired
- }
-	constructor(props,context){
+	static contextTypes = {
+		params: React.PropTypes.object.isRequired
+	}
+	constructor(props, context) {
 		super(props, context);
 
 
@@ -44,193 +62,218 @@ class SelectStationForm  extends Component{
 		this.getLoadData = this.getLoadData.bind(this);
 		this.onChangeRentBeginDate = this.onChangeRentBeginDate.bind(this);
 
-    this.state = {
-      stationVos:[],
-		selected:[],
-    }
+		this.state = {
+			stationVos: [],
+			selected: [],
+		}
 
 	}
 
-  componentDidMount(){
-    this.getLoadData();
-  }
+	componentDidMount() {
+		this.getLoadData();
+	}
 
 
-onChangeRentBeginDate(value){
-	let {stationVos,selected} = this.state;
+	onChangeRentBeginDate(value) {
+		let {
+			stationVos,
+			selected
+		} = this.state;
 
-  if(!selected.length){
-    Notify.show([{
-        message:'请先选择工位!',
-        type: 'danger',
-    }]);
-    return ;
-  }
-
-	value = dateFormat(value,'yyyy-mm-dd');
-	stationVos = [].concat(stationVos);
-	stationVos.map(function(item,index){
-		if(selected.indexOf(index) !==-1){
-			item.rentBeginDate = value;
-		}else{
-			item.rentBeginDate = '';
-		}
-		return item;
-	});
-
-	this.setState({
-		stationVos
-	});
-
-}
-
-
-  getLoadData(){
-    var _this  = this;
-    let {params} = this.context;
-		Store.dispatch(Actions.callAPI('getStationOrSettingList',{mainBillid:params.orderId,page:1,pagesize:100,contractId:''})).then(function(response){
-			  _this.setState({
-				stationVos:response.items
-			  });
-		}).catch(function(err){
+		if (!selected.length) {
 			Notify.show([{
-				message:'后台出错请联系管理员',
+				message: '请先选择工位!',
 				type: 'danger',
 			}]);
-	   	});
-  }
+			return;
+		}
 
-  onSelect(selected){
+		value = dateFormat(value, 'yyyy-mm-dd');
+		stationVos = [].concat(stationVos);
+		stationVos.map(function(item, index) {
+			if (selected.indexOf(index) !== -1) {
+				item.rentBeginDate = value;
+			} else {
+				item.rentBeginDate = '';
+			}
+			return item;
+		});
+
+		this.setState({
+			stationVos
+		});
+
+	}
+
+
+	getLoadData() {
+		var _this = this;
+		let {
+			params
+		} = this.context;
+		Store.dispatch(Actions.callAPI('getStationOrSettingList', {
+			mainBillid: params.orderId,
+			page: 1,
+			pagesize: 100,
+			contractId: ''
+		})).then(function(response) {
+			_this.setState({
+				stationVos: response.items
+			});
+		}).catch(function(err) {
+			Notify.show([{
+				message: '后台出错请联系管理员',
+				type: 'danger',
+			}]);
+		});
+	}
+
+	onSelect(selected) {
 		this.setState({
 			selected
-		},function(){
+		}, function() {
 
 		});
-  }
-
-  onSubmit(){
-
-    let {stationVos,selected} = this.state;
-	  let selectedStationVos = [];
-
-	  selectedStationVos = stationVos.filter(function(item,index){
-		  if(selected.indexOf(index) !==-1){
-			  return true;
-		  }
-		  return false;
-	  });
-
-
-    if(!selectedStationVos.length){
-       Notify.show([{
-            message:'请选择工位',
-            type: 'danger',
-        }]);
-
-		return ;
-    }
-
-	//选中的必须要有租赁结束日期
-	var someStartDate = true;
-
-	selectedStationVos.forEach(function(item,index){
-		if(!item.rentBeginDate){
-			someStartDate = false;
-		}
-	});
-
-	if(!someStartDate){
-		Notify.show([{
-		message:'选择的工位必须要有租赁结束时间',
-			type: 'danger',
-		  }]);
-	  return ;
 	}
 
-	  //工位结束时间相同
-	  var some = true;
-	  selectedStationVos.sort(function(pre,next){
-			  var preDate = dateFormat(pre.leaseEndDate,'yyyy-mm-dd');
-			  var nextDate = dateFormat(next.leaseEndDate,'yyyy-mm-dd');
-			  if(preDate != nextDate){
-				  some = false;
-			  }
-			  return -1;
-		  });
+	onSubmit() {
 
-		  if(!some){
-			  Notify.show([{
-				  message:'请选择相同日期',
-				  type: 'danger',
-			  }]);
-			  return false;
-		  }
+		let {
+			stationVos,
+			selected
+		} = this.state;
+		let selectedStationVos = [];
 
-	  //修改日期
-	var resultStationVos = [];
-	selectedStationVos.forEach(function(item,index){
-		var obj = {};
-		obj.id = item.id;
-		obj.stationId = item.stationId;
-		obj.stationType = item.stationType;
-		obj.stationName = item.stationName;
-		obj.whereFloor = item.whereFloor;
-		obj.unitprice = item.unitprice;
-		obj.leaseBeginDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
-		obj.leaseEndDate = item.rentBeginDate;
-		resultStationVos.push(obj);
-	});
+		selectedStationVos = stationVos.filter(function(item, index) {
+			if (selected.indexOf(index) !== -1) {
+				return true;
+			}
+			return false;
+		});
 
-	selectedStationVos = resultStationVos;
 
-	let beginDate = Date.parse(selectedStationVos[0].leaseBeginDate);
-	let endDate = Date.parse(selectedStationVos[0].leaseEndDate);
-
-	 if(beginDate>= endDate){
+		if (!selectedStationVos.length) {
 			Notify.show([{
-				message:'续租结束时间要大于选择的工位租赁结束时间',
+				message: '请选择工位',
 				type: 'danger',
-			  }]);
-			  return false;
-	  }
+			}]);
 
-	Store.dispatch(change('reduceCreateForm','leaseBegindate',selectedStationVos[0].leaseEndDate));
+			return;
+		}
 
-	selectedStationVos.forEach(function(item,index){
-		var tmpDate = new Date();
-		tmpDate.setTime(Date.parse(item.leaseBeginDate));
-		tmpDate.setDate(tmpDate.getDate()+1);
-		item.leaseBeginDate = dateFormat(tmpDate,'yyyy-mm-dd')
-	});
+		//选中的必须要有租赁结束日期
+		var someStartDate = true;
 
-	console.log('selectedStationVos',selectedStationVos);
+		selectedStationVos.forEach(function(item, index) {
+			if (!item.rentBeginDate) {
+				someStartDate = false;
+			}
+		});
 
-	const {onSubmit} = this.props;
-	onSubmit && onSubmit(selectedStationVos);
-  }
+		if (!someStartDate) {
+			Notify.show([{
+				message: '选择的工位必须要有租赁结束时间',
+				type: 'danger',
+			}]);
+			return;
+		}
 
+		//工位结束时间相同
+		var some = true;
+		selectedStationVos.sort(function(pre, next) {
+			var preDate = dateFormat(pre.leaseEndDate, 'yyyy-mm-dd');
+			var nextDate = dateFormat(next.leaseEndDate, 'yyyy-mm-dd');
+			if (preDate != nextDate) {
+				some = false;
+			}
+			return -1;
+		});
 
-	onCancel(){
-		const {onCancel} = this.props;
-		onCancel  && onCancel();
+		if (!some) {
+			Notify.show([{
+				message: '请选择相同日期',
+				type: 'danger',
+			}]);
+			return false;
+		}
+
+		//修改日期
+		var resultStationVos = [];
+		selectedStationVos.forEach(function(item, index) {
+			var obj = {};
+			obj.id = item.id;
+			obj.stationId = item.stationId;
+			obj.stationType = item.stationType;
+			obj.stationName = item.stationName;
+			obj.whereFloor = item.whereFloor;
+			obj.unitprice = item.unitprice;
+			obj.leaseBeginDate = dateFormat(item.leaseEndDate, 'yyyy-mm-dd');
+			obj.leaseEndDate = item.rentBeginDate;
+			resultStationVos.push(obj);
+		});
+
+		selectedStationVos = resultStationVos;
+
+		let beginDate = Date.parse(selectedStationVos[0].leaseBeginDate);
+		let endDate = Date.parse(selectedStationVos[0].leaseEndDate);
+
+		if (beginDate >= endDate) {
+			Notify.show([{
+				message: '续租结束时间要大于选择的工位租赁结束时间',
+				type: 'danger',
+			}]);
+			return false;
+		}
+
+		Store.dispatch(change('reduceCreateForm', 'leaseBegindate', selectedStationVos[0].leaseEndDate));
+
+		selectedStationVos.forEach(function(item, index) {
+			var tmpDate = new Date();
+			tmpDate.setTime(Date.parse(item.leaseBeginDate));
+			tmpDate.setDate(tmpDate.getDate() + 1);
+			item.leaseBeginDate = dateFormat(tmpDate, 'yyyy-mm-dd')
+		});
+
+		console.log('selectedStationVos', selectedStationVos);
+
+		const {
+			onSubmit
+		} = this.props;
+		onSubmit && onSubmit(selectedStationVos);
 	}
 
-	render(){
 
-		let { error, handleSubmit, pristine, reset, submitting} = this.props;
-    let {stationVos} = this.state;
-    const overfolw = {
-      'overflow':'hidden',
-      maxHeight:510,
-    }
-    const height = {
-      height:stationVos.length*45,
-      maxHeight:667,
-    }
+	onCancel() {
+		const {
+			onCancel
+		} = this.props;
+		onCancel && onCancel();
+	}
+
+	render() {
+
+		let {
+			error,
+			handleSubmit,
+			pristine,
+			reset,
+			submitting
+		} = this.props;
+		let {
+			stationVos
+		} = this.state;
+		const overfolw = {
+			'overflow': 'hidden',
+			maxHeight: 510,
+		}
+		const height = {
+			height: stationVos.length * 45,
+			maxHeight: 667,
+		}
 		return (
 			<div style={{height:667,marginTop:20}}>
 <form onSubmit={handleSubmit(this.onSubmit)}>
-			<KrField grid={1/1}  name="rentBeginDate" component="date" label="续租结束时间" onChange={this.onChangeRentBeginDate} inline={true}/>
+			<KrField grid={1/1}  name="rentBeginDate" component="date" label="续租结束时间：" onChange={this.onChangeRentBeginDate} inline={true}/>
       <Table onSelect={this.onSelect} style={overfolw}>
         <TableHeader>
           <TableHeaderColumn>类别</TableHeaderColumn>
@@ -270,4 +313,8 @@ onChangeRentBeginDate(value){
 	}
 }
 
-export default reduxForm({form: 'selectStationForm',enableReinitialize:true,keepDirtyOnReinitialize:true})(SelectStationForm);
+export default reduxForm({
+	form: 'selectStationForm',
+	enableReinitialize: true,
+	keepDirtyOnReinitialize: true
+})(SelectStationForm);
