@@ -25,7 +25,8 @@ import imgLine from './images/line.png'
 			companyText:'',
 			phoneSame:false,
 			email:'',
-			onsubmit:true
+			onsubmit:true,
+			onsubmitCode:true
 
 
 		}
@@ -54,8 +55,9 @@ import imgLine from './images/line.png'
 	 onSubmit=(values)=>{
 	 	this.EmailonBlur(values.email);
 	 	this.foreignCodeBlur(values.foreignCode);
-	 	let {onsubmit} = this.state;
-	 	if(onsubmit){
+	 	let {onsubmit,onsubmitCode} = this.state;
+	 	console.log(onsubmit,onsubmitCode);
+	 	if(onsubmit && onsubmitCode){
 	 		console.log('values',values);
 	 		const {onSubmit} = this.props;
 		 	onSubmit && onSubmit(values);
@@ -147,6 +149,9 @@ import imgLine from './images/line.png'
 		 let _this = this;
 		 if(phoneSame && email == params.email){
 		 	console.log('phoneSame');
+		 	_this.setState({
+				onsubmit:true
+			})
 		 	return;
 		 }
 
@@ -182,14 +187,14 @@ import imgLine from './images/line.png'
 				//邮箱已注册
 				Message.warn('该邮箱已被绑定，请更换邮箱','error');
 				_this.setState({
-					onsubmit:false
+					onsubmitCode:false
 				})
 
 		 }).catch(function(err){
 		 	//邮箱未注册
 		 	console.log('ddddd',err.message);
 		 	_this.setState({
-				onsubmit:true
+				onsubmitCode:true
 			})
 		 });
 	 }

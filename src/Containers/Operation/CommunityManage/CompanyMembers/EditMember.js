@@ -50,7 +50,9 @@ export default class CreateMemberForm extends Component {
 		this.state={
 			jobList:[],
 			itemData:{},
-			initializeValues:{}
+			initializeValues:{},
+			onsubmit:true,
+			onsubmitCode:true,
 		}
 	}
 	//首次加载，只执行一次
@@ -72,9 +74,15 @@ export default class CreateMemberForm extends Component {
 	}
 
 	onSubmit=(values)=>{
-		const {onSubmit} = this.props;
-		onSubmit && onSubmit(values);
-	}
+	 	this.EmailonBlur(values.email);
+	 	this.foreignCodeBlur(values.foreignCode);
+	 	let {onsubmit,onsubmitCode} = this.state;
+	 	if(onsubmit && onsubmitCode){
+	 		const {onSubmit} = this.props;
+		 	onSubmit && onSubmit(values);
+	 	}
+		 
+	 }
 	onCancel=()=>{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
@@ -106,37 +114,64 @@ export default class CreateMemberForm extends Component {
 		});
 	}
 	EmailonBlur=(phone)=>{
-		let {detail} = this.props;
-		let params = {
-			email:phone
-		}
+		 let params = {
+			 email :phone
+		 }
+		 this.setState({
+	 		open:true
+	 	})
+		 let {detail} = this.props;
+		 let _this = this;
+
 		 Store.dispatch(Actions.callAPI('isEmailRegistered',params)).then(function(response){
 				//邮箱已注册
 				if(detail.phone == response.phone){
 					return;
+				}else{
+					Message.warn('该邮箱已被绑定，请更换邮箱','error');
+
+						_this.setState({
+							onsubmit:false
+						})
 				}
-				Message.warn('该邮箱已被绑定，请更换邮箱','error');
+				
 
 		 }).catch(function(err){
 		 	//邮箱未注册
 		 	console.log('ddddd',err.message);
+		 	_this.setState({
+				onsubmit:true
+			})
 		 });
 	 }
 	 foreignCodeBlur=(codes)=>{
-	 	let {detail} = this.props;
-		let params = {
-			code:codes
-		}
+		 let params = {
+			 code :codes
+		 }
+		 let _this = this;
+		 this.setState({
+	 		open:true
+	 	})
+		 let {detail} = this.props;
+
 		 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
 				//邮箱已注册
-				if(detail.code == response.code){
+				if(detail.foreignCode == response.foreignCode){
 					return;
+				}else{
+					Message.warn('foreignCodeBlur','error');
+					_this.setState({
+						onsubmitCode:false
+					})
 				}
-				Message.warn('该邮箱已被绑定，请更换邮箱','error');
+				
 
 		 }).catch(function(err){
 		 	//邮箱未注册
 		 	console.log('ddddd',err.message);
+		 	_this.setState({
+				onsubmitCode:true
+			})
 		 });
 	 }
 

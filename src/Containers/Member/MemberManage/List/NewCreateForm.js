@@ -70,8 +70,9 @@ import imgLine from './images/line.png'
 	 getBasicData=()=>{
 	//  新增会员准备职位数据
 		 let _this =this;
-		 let url = this.props.params;
 		let params = {
+			communityId:'',
+			companyId:'',
 		}
 		 Store.dispatch(Actions.callAPI('getMemberBasicData',params)).then(function(response){
 			 response.jobList.forEach(function(item,index){
@@ -146,22 +147,25 @@ import imgLine from './images/line.png'
 		 if(phoneSame && email == params.email){
 		 	console.log('phoneSame');
 		 	return;
-		 }
-
-		 Store.dispatch(Actions.callAPI('isEmailRegistered',params)).then(function(response){
+		 }else{
+		 	Store.dispatch(Actions.callAPI('isEmailRegistered',params)).then(function(response){
 				//邮箱已注册
 				Message.warn('该邮箱已被绑定，请更换邮箱','error');
 				_this.setState({
 					onsubmit:false
 				})
 
-		 }).catch(function(err){
-		 	//邮箱未注册
-		 	console.log('ddddd',err.message);
-		 	_this.setState({
-				onsubmit:true
-			})
-		 });
+			 }).catch(function(err){
+			 	//邮箱未注册
+			 	console.log('ddddd',err.message);
+			 	_this.setState({
+					onsubmit:true
+				})
+			 });
+		 }
+		 console.log('EmailonBlur',phone);
+
+		 
 	 }
 	 foreignCodeBlur=(codes)=>{
 		 let params = {

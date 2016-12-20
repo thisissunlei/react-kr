@@ -55,11 +55,15 @@ class NewCreateForm extends Component{
 		  // console.log('onAdvanceSearchSubmit高级查询',values);
 			let {content,filter} = this.props;
 			let {searchForm} = this.state;
+			console.log(content,filter);
 			if (!searchForm){
 				values.type = filter;
 				values.value = content;
 			}
-			console.log('values',values);
+			if(!values.type){
+				values.type = filter;
+			}
+			console.log('高级查询values',values,searchForm);
 
 			// if(!search){
 			//
