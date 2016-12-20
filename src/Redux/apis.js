@@ -599,7 +599,7 @@
   },
   //根据会员卡号判断手否存在
   'membersByForeignCode':{
-  	url:'/api/krspace-finance-web/member/getCardInfoByForeignCode?foreignCode={foreignCode}&interCode={interCode}',
+  	url:'/api/krspace-finance-web/member/member-foreigncode?code={code}&codeType="foreigns"',
   	method:'get'
   },
   //下载导入模板
