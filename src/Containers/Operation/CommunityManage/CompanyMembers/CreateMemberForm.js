@@ -23,7 +23,9 @@ import imgLine from './images/line.png'
 		this.state={
 			communityText:'',
 			companyText:'',
-			phoneSame:false
+			phoneSame:false,
+			email:'',
+			onsubmit:true
 
 
 		}
@@ -43,16 +45,21 @@ import imgLine from './images/line.png'
 			jobId:'',
 			name:'',
 			foreignCode:'',
-			enableflag:true
+			sendMsg:'0',
+			code:''
 		}
-		console.log('fdsfsdffdsd',this.props.params,response);
 		Store.dispatch(initialize('NewCreateForm',response));
 	}
 	// 点确定提交时候如果有错误提示返回，否则提交,,如果邮箱存在有错误提示，不能提交
 	 onSubmit=(values)=>{
-	 		console.log('companyId',values);
-		 const {onSubmit} = this.props;
-		 onSubmit && onSubmit(values);
+	 	this.EmailonBlur(values.email);
+	 	this.foreignCodeBlur(values.foreignCode);
+	 	let {onsubmit} = this.state;
+	 	if(onsubmit){
+	 		const {onSubmit} = this.props;
+		 	onSubmit && onSubmit(values);
+	 	}
+		 
 	 }
 
 	 onCancel=()=>{
@@ -72,11 +79,11 @@ import imgLine from './images/line.png'
 				 item.value = item.id;
 				 item.label = item.jobName;
 			 });
-			 let memberInfoVO = {
-				communityId:_this.params.communityId,
-				companyId:_this.params.companyId
-			}
-			Store.dispatch(initialize('NewCreateForm', memberInfoVO));
+			//  let memberInfoVO = {
+			// 	communityId:_this.params.communityId,
+			// 	companyId:_this.params.companyId
+			// }
+			// Store.dispatch(initialize('NewCreateForm', memberInfoVO));
 			 _this.setState({
 				selectOption:response.jobList
 			})
@@ -97,12 +104,15 @@ import imgLine from './images/line.png'
 		 Store.dispatch(Actions.callAPI('isPhoneRegistered',params)).then(function(response){
 			//  检验response是不是空对象
 				if(!$.isEmptyObject(response)){
+					response.sendMsg = '0';
 					Store.dispatch(initialize('NewCreateForm',response));
-					// console.log("response",response);
+					console.log("response",response);
 					// 此处要有提示
 					Message.warn('该手机号码已被注册！','error');
 					_this.setState({
-						phoneSame:true
+						phoneSame:true,
+						email:response.email,
+						code:response.code
 					})
 					
 				}
@@ -115,6 +125,10 @@ import imgLine from './images/line.png'
 		 	}
 		 	if(phoneSame){
 				Store.dispatch(initialize('NewCreateForm',response));
+				_this.setState({
+					phoneSame:false,
+					email:''
+				})
 				
 
 		 	}
@@ -124,31 +138,60 @@ import imgLine from './images/line.png'
 		 let params = {
 			 email :phone
 		 }
+		 let {email,phoneSame} = this.state;
 		 this.setState({
 	 		open:true
 	 	})
+		 let _this = this;
+		 if(phoneSame && email == params.email){
+		 	console.log('phoneSame');
+		 	return;
+		 }
 
 		 Store.dispatch(Actions.callAPI('isEmailRegistered',params)).then(function(response){
-			//  检验response是不是空对象
-				// if(!$.isEmptyObject(response)){
-				// 	Store.dispatch(initialize('NewCreateForm',response));
-				// 	// console.log("response",response);
-				// 	// 此处要有提示
-				// 	Message.warn('该手机号码已被注册！','error');
-					
-				// }
-				console.log('success');
 				//邮箱已注册
+				Message.warn('该邮箱已被绑定，请更换邮箱','error');
+				_this.setState({
+					onsubmit:false
+				})
+
 		 }).catch(function(err){
 		 	//邮箱未注册
 		 	console.log('ddddd',err.message);
+		 	_this.setState({
+				onsubmit:true
+			})
 		 });
 	 }
-	 snackTipClose=()=>{
-	 	this.setState({
-	 		open:false
+	 foreignCodeBlur=(codes)=>{
+		 let params = {
+			 code :codes
+		 }
+		 let {code,phoneSame} = this.state;
+		 let _this = this;
+		 this.setState({
+	 		open:true
 	 	})
+		 if(phoneSame && code == params.code){
+		 	return;
+		 }
+
+		 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
+				//邮箱已注册
+				Message.warn('该邮箱已被绑定，请更换邮箱','error');
+				_this.setState({
+					onsubmit:false
+				})
+
+		 }).catch(function(err){
+		 	//邮箱未注册
+		 	console.log('ddddd',err.message);
+		 	_this.setState({
+				onsubmit:true
+			})
+		 });
 	 }
+
 	 onChangeSearchCommunity(personel) {
 		Store.dispatch(change('NewCreateForm', 'communityId', personel.id));
 	}
@@ -175,11 +218,11 @@ import imgLine from './images/line.png'
 				<KrField grid={1/2} name="companyId" component="searchCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
         <KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} requireLabel={true} />
 				<KrField grid={1/2} name="name" type="text" label="姓名" requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}}/>
-				<KrField grid={1/2} name="enableflag" component="group" label="发送验证短信" requireLabel={true}>
-						<KrField name="enableflag" grid={1/2} label="是" type="radio" value="ENABLE"/>
-						<KrField name="enableflag" grid={1/2} label="否" type="radio" value="DISENABLE" />
+				<KrField grid={1/2} name="sendMsg" component="group" label="发送验证短信" >
+						<KrField name="sendMsg" grid={1/2} label="是" type="radio" value="1"/>
+						<KrField name="sendMsg" grid={1/2} label="否" type="radio" value="0" />
               </KrField>
-        <KrField grid={1/2} name="foreignCode" type="input" label="会员卡号" />
+        <KrField grid={1/2} name="foreignCode" type="input" label="会员卡号" requireLabel={true} onBlur={this.foreignCodeBlur}/>
 				<Grid style={{marginTop:30}}>
 					<Row>
 						<Col md={12} align="center">
@@ -222,9 +265,12 @@ const validate = values => {
 		errors.name = '请输入姓名';
 	}
 
-	if (!values.enableflag) {
-		errors.enableflag = '请选择是否发送验证短信';
-	}
+	if (!values.sendMsg ) {
+        errors.sendMsg = '请选择是否发送验证短信';
+    }
+    if (!values.foreignCode) {
+        errors.foreignCode = '请输入会员卡号';
+    }
 	return errors
 }
 const selector = formValueSelector('NewCreateForm');

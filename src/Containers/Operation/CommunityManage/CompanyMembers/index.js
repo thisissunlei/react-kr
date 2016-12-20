@@ -68,7 +68,7 @@ export default class CompanyMembers extends Component {
 			communityId: '',
 			page: 1,
 			companyId:this.companyId,
-			pageSize: 5,
+			pageSize: 15,
 			validateMember:false,
 			createMember:false,
 			cancleLeader:false,
@@ -83,10 +83,11 @@ export default class CompanyMembers extends Component {
 			warns:false,
 			batchDelet:false,
 			value:'',
+			leader:false,
 			searchParams:{
 				page: 1,
 				companyId:this.companyId,
-				pageSize: 5,
+				pageSize: 15,
 			}
 		}
 
@@ -111,6 +112,7 @@ export default class CompanyMembers extends Component {
 
 	}
 	onSelect=(values)=>{
+		console.log('onSelect',values);
 		let {allData} = this.state;
 		let seleced = [];
 		allData.items.map((value,index)=>{
@@ -237,7 +239,15 @@ export default class CompanyMembers extends Component {
 
 
 			_this.setState({
-				companyId:_this.companyId
+				companyId:_this.companyId,
+				leader:!_this.state.leader,
+				searchParams:{
+					value:'',
+					page:_this.state.page,
+					pageSize:15,
+					leader:!_this.state.leader,
+					companyId:_this.companyId
+				}
 			})
 
 		}).catch(function(err) {
@@ -263,7 +273,7 @@ export default class CompanyMembers extends Component {
 				searchParams:{
 					value:'',
 					page:_this.state.page,
-					pageSize:5,
+					pageSize:15,
 					companyId:_this.state.companyId,
 				}
 			})
@@ -368,7 +378,7 @@ export default class CompanyMembers extends Component {
 				searchParams:{
 					value:'',
 					page:_this.state.page,
-					pageSize:5,
+					pageSize:15,
 					companyId:_this.state.companyId,
 				}
 			})
