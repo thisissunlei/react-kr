@@ -44,6 +44,7 @@ import Tooltip from './Tooltip';
 import KrForm from './KrForm';
 import InputDate from './InputDate';
 import CircleStyle from './CircleStyle';
+import Tooltips from './Tooltips';
 
 
 import {
@@ -129,5 +130,6 @@ module.exports = {
 	...Tabs,
 	PageHeader,
 	Tooltip,
-	CircleStyle
+	CircleStyle,
+	Tooltips,
 }
