@@ -121,7 +121,7 @@ export default class OrderCreate extends Component {
 
 
 		Store.dispatch(Actions.callAPI('get-customName-orderName',{
-			customerId:this.props.params.orderId
+			customerId:this.props.params.customerId
 		},{})).then(function(response){
 			let initialValues = {};
 			initialValues = response;
