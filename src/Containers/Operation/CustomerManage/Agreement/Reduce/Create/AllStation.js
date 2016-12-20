@@ -321,7 +321,7 @@ class SelectStationForm extends Component {
       </TableBody>
       </Table>
       <Grid>
-      <Row style={{marginTop:30}}>
+      <Row style={{marginTop:30,paddingBottom:24}}>
       <Col md={4}></Col>
       <Col md={2} align="center"> <Button  label="确定" type="button" onClick={this.onSubmit}  /> </Col>
       <Col md={2} align="center"> <Button  label="取消" type="button" cancle={true} onClick={this.onCancel}/> </Col>
