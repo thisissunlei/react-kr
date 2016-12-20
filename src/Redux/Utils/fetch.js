@@ -81,7 +81,7 @@ function getMethod(path) {
 
 function check401(res) {
     if (res.code ===-4011) {
-		//window.location.href = '/';
+		window.location.href = '/';
     }
     return res;
 }
