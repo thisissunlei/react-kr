@@ -16,7 +16,7 @@ import {
 } from 'kr-ui';
 import './index.less';
 
- class HeavilyActivation extends Component{
+ class StartCardActivation extends Component{
 
 	 static defaultProps = {
 	 		stage:'importNum'
@@ -42,12 +42,27 @@ import './index.less';
     }
 	}
 	 onSubmit=(values)=>{
-		 if (this.state.detail.startNum<this.state.detail.endNum) {
+		 var _this=this
+		 const params={};
+		 params.foreignCode=_this.state.detail.startNum;
+		 params.interCode=values.interCode;
+		 Store.dispatch(Actions.callAPI('CardActivation', {}, params)).then(function(response) {
+			 Message.success("成功");
+			 const detail={};
+			 detail.interCode="";
+			 Store.dispatch(initialize('StartCardActivation',detail));
+			 _this.props.onFlush();
+		 }).catch(function(err) {
+			 Message.error(err.message);
+			 return ;
+		 });
+		 if (this.state.detail.startNum<=this.state.detail.endNum) {
 			 this.cardNumAdd(4,values);
 		 }
 		 if(this.state.detail.startNum>=this.state.detail.endNum){
 			 this.setState({
-				 accomplish:true
+				 accomplish:true,
+
 			 })
 		 }
 	 }
@@ -60,15 +75,10 @@ import './index.less';
 	 }
 	 //卡号增加
 	 cardNumAdd=(len,values)=>{
-		 var _this=this
-		 const params={};
-		 params.foreignCode=_this.state.detail.startNum;
-		 params.interCode=values.interCode;
-		 Store.dispatch(Actions.callAPI('CardActivation', {}, params)).then(function(response) {
-		 }).catch(function(err) {
-			 Message.error(err.message)
-		 });
-		 let detail = Object.assign({},_this.props.detail);
+
+
+		 let detail = Object.assign({},this.props.detail);
+
 		 var start=this.state.detail.startNum.substring(0,6).toString();
 		 var num=parseInt(this.state.detail.startNum.substring(6,10));
 		 		 num=num+1;
@@ -78,8 +88,10 @@ import './index.less';
 							num='0'+num;
 				 	}
 				 }
-				 detail.startNum=start+num;
-				 detail.endNum=this.state.detail.endNum;
+
+
+					 detail.startNum=start+num;
+					detail.endNum=this.state.detail.endNum;
 				 this.setState({
 	 				detail:detail
 				})
@@ -115,10 +127,10 @@ import './index.less';
 						</div>
 						<label className="jump" onClick={this.skipCard}>跳过该号码</label>
 				</div>
-				<KrField style={{height:36}} left={71} right={71} name="interCode" type="text" />
+				<KrField  left={71} right={71} name="interCode" type="text" />
 
 
-				<Grid style={{marginTop:38,marginBottom:5}}>
+				<Grid style={{marginTop:18,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
@@ -161,8 +173,8 @@ const validate = values =>{
 
 		return errors
 	}
-const selector = formValueSelector('HeavilyActivation');
+const selector = formValueSelector('StartCardActivation');
 
 
 
-export default reduxForm({ form: 'HeavilyActivation', validate,enableReinitialize:true, keepDirtyOnReinitialize:true })(HeavilyActivation);
+export default reduxForm({ form: 'StartCardActivation', validate,enableReinitialize:true, keepDirtyOnReinitialize:true })(StartCardActivation);

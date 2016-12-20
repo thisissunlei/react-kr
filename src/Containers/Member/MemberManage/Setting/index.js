@@ -2,6 +2,7 @@
 import React, {
 	Component
 } from 'react';
+import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
 
@@ -58,15 +59,12 @@ export default class List extends Component {
 			searchParams: {
 				foreignCode:'',
 				page: 1,
-				pageSize: 15
+				pageSize: 15,
+				other:false
 			}
 
 		}
 	}
-
-
-
-
 	//操作相关
 	onOperation=(type, itemDetail)=> {
 		var _this=this;
@@ -79,9 +77,6 @@ export default class List extends Component {
 			this.openEditDetailDialog();
 		}
 	}
-
-
-
 	//编辑页面开关
 	openEditDetailDialog=()=> {
 		this.setState({
@@ -106,9 +101,12 @@ export default class List extends Component {
 			openStartCardActivation: !this.state.openStartCardActivation,
 		});
 	}
+	//批量激活开始激活页面返回按钮
 	throwBack=()=>{
+		Store.dispatch(initialize('HeavilyActivation',this.state.detail));
 		this.openStartCardActivationDialog();
 		this.openHeavilyActivationDialog();
+
 	}
 	//新建激活的确定操作
 	onNewActivation=(values)=> {
@@ -119,7 +117,7 @@ export default class List extends Component {
 		params.interCode=values.interCode;
 		Store.dispatch(Actions.callAPI('CardActivation', {}, params)).then(function(response) {
 			_this.openNewActivationDialog();
-			-tiis.onFlush();
+			_this.onFlush();
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
@@ -127,7 +125,6 @@ export default class List extends Component {
 
 	//输入卡号的确定操作
 	onHeavilyActivation=(detail)=> {
-		console.log(detail,"index");
 		if(!detail.startNum||!detail.endNum){
 			return ;
 		}
@@ -151,8 +148,8 @@ export default class List extends Component {
 		params.foreignCode=values.foreignCode;
 		params.interCode=""+values.interCode;
 		Store.dispatch(Actions.callAPI('CardEdit', {}, params)).then(function(response) {
-			_this.openEditDetailDialog()
-			console.log(response,"9999");
+			_this.openEditDetailDialog();
+			_this.onFlush();
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
@@ -162,6 +159,7 @@ export default class List extends Component {
 
 	//搜索被点击
 	onSearchSubmit=(searchParams)=> {
+		console.log(searchParams,"---->");
 		let obj = {
 			foreignCode: searchParams.content,
 			pageSize:15,
@@ -181,7 +179,6 @@ export default class List extends Component {
 	}
 
 	onLoaded=(response)=> {
-
 		let list = response;
 		this.setState({
 			list
@@ -189,11 +186,13 @@ export default class List extends Component {
 	}
 //数据刷新
 	onFlush=()=>{
+		console.log("44");
 		this.setState({
 			searchParams: {
 				foreignCode:'',
 				page: 1,
-				pageSize: 15
+				pageSize: 15,
+				other:!this.state.searchParams.other
 			}
 		})
 	}
@@ -296,7 +295,7 @@ export default class List extends Component {
 							bodyStyle={{paddingTop:45}}
 							contentStyle={{width:500}}
 						>
-							<StartCardActivation detail={this.state.detail}  onCancel={this.openStartCardActivationDialog} throwBack={this.throwBack}/>
+							<StartCardActivation onFlush={this.onFlush} detail={this.state.detail}  onCancel={this.openStartCardActivationDialog} throwBack={this.throwBack}/>
 					  </Dialog>
 
 				</div>

@@ -43,6 +43,17 @@ import './index.less';
 		//
 		// Store.dispatch(initialize('HeavilyActivation',detail));
 	}
+	componentWillReceiveProps(nextProps){
+		if(nextProps.detail.startNum&&nextProps.detail.endNum){
+			//Store.dispatch(initialize('HeavilyActivation',nextProps.detail));
+			this.setState({
+					startNum:nextProps.detail.startNum,
+					endNum:nextProps.detail.endNum,
+					cardNum:nextProps.detail.endNum-nextProps.detail.startNum+1
+				})
+		}
+
+	}
 
 	 onSubmit=(values)=>{
 		const {onSubmit} = this.props;
@@ -114,8 +125,8 @@ import './index.less';
 		return (
 			<form className="HeavilyActivation" onSubmit={handleSubmit(this.onSubmit)}>
 				<div className="stageImg" ></div>
-				<KrField style={{marginTop:20}} left={71} right={71} name="startNum" type="text" label="起始号码" onBlur={this.handleStartBlur} />
-				<KrField style={{}} left={71} right={71} name="endNum" type="text" label="终止号码" onBlur={this.handleEndBlur} />
+				<KrField style={{marginTop:20}} left={71} right={71} name="startNum" component="input" type="text" label="起始号码" onBlur={this.handleStartBlur} />
+				<KrField style={{}} left={71} right={71} name="endNum" component="input" type="text" label="终止号码" onBlur={this.handleEndBlur} />
 				<KrField style={{height:36,marginTop:-15}} left={71} right={71} component="labelText" label="会员卡数量:" value={this.state.cardNum+"张"}/>
 				<Grid style={{marginTop:15,marginBottom:5}}>
 					<Row>
