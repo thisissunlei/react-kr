@@ -197,6 +197,7 @@ export default class AttributeSetting extends Component {
 			payWayList:[],
 			accountDetail:[],
 			contractList:[],
+			stationPayment:{},
             
 
 
@@ -391,7 +392,8 @@ export default class AttributeSetting extends Component {
 			_this.setState({
 				payWayList,
 				accountDetail:response.propData,
-				contractList
+				contractList,
+				stationPayment:response.stationPayment
 			});
 		}).catch(function(err) {
 			 //Message.error(err.message); 
@@ -755,15 +757,14 @@ export default class AttributeSetting extends Component {
 			} = this.props;
 			Store.dispatch(Actions.callAPI('removeRunningTag',{},{
 				mainbillId:params.orderId,
-			})).then(function(response) {
-
-				_this.refresh();
+			})).then(function(response) {              
+				//_this.refresh();
+				  window.location.reload();
 			    _this.setState({
-
 				 isRunningIncome:0,
-
 				 colorClassName:'historyIncome'
 			 });
+
 			}).catch(function(err){
 				  Message.error(err.message); 
 			});
@@ -813,7 +814,8 @@ export default class AttributeSetting extends Component {
 			params,
 			isInitLoading,
 			colorClassName,
-			fiMoney
+			fiMoney,
+			stationPayment
 		} = this.state;
 
 		if (isInitLoading) {
@@ -1024,7 +1026,7 @@ export default class AttributeSetting extends Component {
 						onClose={this.closeAddaccount}
 						contentStyle ={{ width: '688'}}
 						>
-					   <AccountBtnForm  onSubmit={this.onConfrimSubmit}  onCancel={this.closeAddaccount}  optionList={this.state.payWayList}  accountDetail={this.state.accountDetail} contractList={this.state.contractList}/>
+					   <AccountBtnForm  onSubmit={this.onConfrimSubmit}  onCancel={this.closeAddaccount}  optionList={this.state.payWayList}  accountDetail={this.state.accountDetail} contractList={this.state.contractList} stationPayment={stationPayment}/>
 					 </Dialog>
 
 					 <Dialog

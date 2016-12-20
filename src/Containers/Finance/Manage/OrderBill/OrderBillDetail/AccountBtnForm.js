@@ -40,6 +40,7 @@ class AccountBtnForm extends Component{
 		optionList:React.PropTypes.arr,
 		accountDetail:React.PropTypes.arr,
 		contractList:React.PropTypes.arr,
+		stationPayment:React.PropTypes.object,
 	}
 	constructor(props,context){
 		super(props,context);
@@ -107,7 +108,10 @@ class AccountBtnForm extends Component{
           	"value":123,"label":'nihao'
           }
         ]
-       
+        
+        let stationPayment={
+        	'id':123,'propname':'工位服务费'
+        }
 
 		return(
 			 <div className='ui-quit-wrap' style={{marginLeft:3}}>
@@ -120,8 +124,8 @@ class AccountBtnForm extends Component{
 		            </KrField> 
 					<KrField grid={1/2} name="operatedate" right={45} type="date" component="date" label="挂账日期" requireLabel={true} style={{marginTop:3}}/> 
 					<KrField grid={1/2} name="fileids"  component="file" label="上传附件" style={{marginLeft:-12}}/>
-					<KrField grid={1/2} name="contractId" right={42}  component="input" label="工位服务费" type="text" style={{marginRight:-12}}/> 
-					<KrField grid={1/2} name="contracId" right={42}  component="select" label="工位合同"  options={contractList}/> 
+					<KrField grid={1/2} name={stationPayment.id} right={42}  component="input" label={stationPayment.propname} type="text" style={{marginRight:-12}}/> 
+					<KrField grid={1/2} name="contractId" right={42}  component="select" label="工位合同"  options={contractList}/> 
 					
 					   <div>
 						      {accountDetail.map((item,index)=>{
@@ -177,11 +181,11 @@ const validate = values =>{
 		if (values.finaflowamount && isNaN(values.finaflowamount)) {
 			errors.finaflowamount = '金额必须为数字';
 		}
-		if (!values.contractId&&values.contracId) {
-			errors.contractId = '必须填写工位服务费金额';
+		if (!values.123&&values.contractId) {
+			errors.123 = '必须填写工位服务费金额';
 		}
-		if (values.contractId&&!values.contracId) {
-			errors.contracId = '必须选择工位合同';
+		if (values.123&&!values.contractId) {
+			errors.contractId = '必须选择工位合同';
 		}
 	
 	
