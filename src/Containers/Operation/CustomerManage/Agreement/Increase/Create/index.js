@@ -22,10 +22,9 @@ import {
 	BreadCrumbs,
 	Title,
 } from 'kr-ui';
-
+import './index.less';
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
-
 
 export default class JoinCreate extends Component {
 
@@ -43,11 +42,11 @@ export default class JoinCreate extends Component {
 			formValues: {},
 			openConfirmCreate: false
 		}
+			this.isConfirmSubmiting = false;
 		Store.dispatch(reset('increaseCreateForm'));
 	}
 
 	onCreateSubmit(formValues) {
-		console.log("-00000", formValues);
 		this.setState({
 			formValues
 		});
@@ -58,6 +57,11 @@ export default class JoinCreate extends Component {
 
 	onConfrimSubmit() {
 
+		if(this.isConfirmSubmiting){
+			return ;
+		}
+		this.isConfirmSubmiting = true;
+
 		let {
 			formValues
 		} = this.state;
@@ -65,17 +69,21 @@ export default class JoinCreate extends Component {
 			params
 		} = this.props;
 
-		if(typeof formValues.stationVos != 'string'){
+		if (typeof formValues.stationVos != 'string') {
 			formValues.stationVos = JSON.stringify(formValues.stationVos);
 		}
 
+		var _this = this;
+
 		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract', {}, formValues)).then(function(response) {
+			_this.isConfirmSubmiting = false;
 			Notify.show([{
 				message: '创建成功',
 				type: 'success',
 			}]);
 			location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/increase/" + response.contractId + "/detail";
 		}).catch(function(err) {
+			_this.isConfirmSubmiting = false;
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
