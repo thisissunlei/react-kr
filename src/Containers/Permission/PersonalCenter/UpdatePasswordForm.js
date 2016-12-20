@@ -74,9 +74,10 @@ class NewCreateForm extends Component {
 	render() {
       const {handleSubmit} = this.props;
 		return (
-			<div>
+			<div className="revisePwd">
 
-        <form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:20}}>
+        <form onSubmit={handleSubmit(this.onSubmit)} style={{width:262,marginTop:20}}>
+
                   	<KrField requireLabel={true} label="请输入当前登录密码" name="old" type="password" component="input"/>
                   	<KrField requireLabel={true} label="请输入新的登录密码" name="new" type="password" component="input" notifys={['6-20位字符','只能包含大小写字母、数字以及标点符号（除空格）','大写字母、小写字母、数字和标点符号至少包含两种']}/>
                   	<KrField requireLabel={true} label="请确认新的登录密码" name="newagain" type="password" component="input"/>
@@ -84,8 +85,10 @@ class NewCreateForm extends Component {
             <Row >
 							<Col align="center">
             <ListGroup>
-              <ListGroupItem style={{paddingRight:30,paddingTop:20,paddingBottom:6}}><Button  label="确定" type="submit" width={90} height={36} fontSize={16} /></ListGroupItem>
+
+              <ListGroupItem style={{paddingLeft:17,paddingRight:30,paddingTop:20,paddingBottom:6}}><Button  label="确定" type="submit" width={90} height={36} fontSize={16} /></ListGroupItem>
               <ListGroupItem style={{paddingTop:20,paddingBottom:6}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}  width={90} height={34} fontSize={16}/></ListGroupItem>
+
             </ListGroup>
 							</Col>
             </Row>
@@ -97,6 +100,8 @@ class NewCreateForm extends Component {
 	}
 
 }
+
+
 
 const validate = values => {
 
@@ -125,6 +130,7 @@ NewCreateForm = reduxForm({
 	form: 'updatePasswordForm',
 	validate,
 })(NewCreateForm);
+
 
 export default connect((state)=>{
 	return state

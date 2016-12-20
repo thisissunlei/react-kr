@@ -80,7 +80,7 @@ export default class PersonalCenter extends Component{
 				_this.setState({
 					pwdStrengthClass:'low',
 					pwdLevel:'低',
-					pwdletter:'red',
+					pwdLetter:'red',
 					})
 				}else if (response.pwdStrength==3) {
 					_this.setState({
@@ -522,16 +522,6 @@ export default class PersonalCenter extends Component{
 					window.location.href="/login/login"
 				}
 					,1000)
-				// _this.setState({
-				// 	openPwdRevise:false,
-				//
-				// },function(){
-				// 	console.log("11");
-				//
-				//
-				// })
-			//	console.log(window.location);
-				//window.location.reload();
 			}).catch(function(err) {
 				if(err.code<0){
 					Message.error(err.message)
@@ -701,20 +691,6 @@ export default class PersonalCenter extends Component{
 						</div>
 					</Dialog>
 					<Dialog title="修改手机号" open={this.state.openMobileRevise} onClose={this.closeMobileRevise} contentStyle={{width:444}}>
-						{/*
-						<UpdateMobileForm
-							detail={
-								togetNewMobiletest:this.state.togetNewMobiletest,
-								MobileTimeDisabledState:this.state.MobileTimeDisabledState,
-								togettest:this.state.togettest,
-								regettestMobileState:this.state.regettestMobileState,
-								regettest:this.state.regettest,
-								timeminMobile:this.state.timeminMobile,
-								timedisabled:this.state.timedisabled,
-								testrevisemobile:this.state.testrevisemobile,
-							}
-							fn={testrevisemobile:this.testrevisemobile,submitMobile:this.submitMobile,closeMobileRevise:this.closeMobileRevise} />
-							*/}
 							<div className="reviseMobile">
 								<span className="testTitle">
 									手机号
@@ -752,21 +728,6 @@ export default class PersonalCenter extends Component{
 
 						<UpdatePasswordForm onSubmit={this.submitPwd} onCancel={this.closePwdRevise}/>
 
-							{/*
-								<KrForm name="revisepwd" onSubmit={this.submitPwd}>
-
-									<FieldControl label="请输入当前登录密码" name="old" type="text" component="input"/>
-
-									<FieldControl label="请输入新的登录密码" name="new" type="text" component="input" notifys={['6-20位字符','只能包含大小写字母、数字以及标点符号（除空格）','大写字母、小写字母、数字和标点符号至少包含两种']}/>
-
-									<FieldControl label="请确认新的登录密码" name="newagain" type="text" component="input"/>
-
-									<ButtonGroup style={{marginLeft:'70',marginTop:'30'}}>
-										<Button label="确定"  type="submit" />
-										<Button  label="取消" type="button" cancle={true} onTouchTap={this.closePwdRevise} />
-									</ButtonGroup>
-								</KrForm>
-								*/}
 					</Dialog>
     	</div>
 		);
