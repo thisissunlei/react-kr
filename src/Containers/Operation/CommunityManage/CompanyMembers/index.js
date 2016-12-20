@@ -112,7 +112,7 @@ export default class CompanyMembers extends Component {
 
 	}
 	onSelect=(values)=>{
-		console.log('onSelect',values);
+		// console.log('onSelect',values);
 		let {allData} = this.state;
 		let seleced = [];
 		allData.items.map((value,index)=>{
@@ -146,7 +146,7 @@ export default class CompanyMembers extends Component {
 		seleced.map(item=>{
 			selecedList.push(item.id);
 		})
-		console.log('selecedList',selecedList);
+		// console.log('selecedList',selecedList);
 		Store.dispatch(Actions.callAPI('validMember',{memberIds:String(selecedList)} )).then(function(response) {
 			_this.validateMember();
 			// Message.show([{
@@ -180,7 +180,7 @@ export default class CompanyMembers extends Component {
 	}
 	validateMember=()=>{
 		let {seleced} = this.state;
-		console.log(seleced);
+		// console.log(seleced);
 		if(!seleced.length){
 			this.onSubmits();
 			return;
@@ -261,7 +261,7 @@ export default class CompanyMembers extends Component {
 	editMemberForm=(value)=>{
 		let _this = this;
 		let params = value;
-		console.log('edit',value);
+		// console.log('edit',value);
 		Store.dispatch(Actions.callAPI('membersChange',{}, params)).then(function(response) {
 			_this.editMembers()
 			// Notify.show([{
@@ -334,7 +334,7 @@ export default class CompanyMembers extends Component {
 		});
 	}
 	importDataPost=(files)=>{
-		console.log('file',files);
+		// console.log('file',files);
 		// let companyId = this.companyId;
 		// console.log(files);
 		// let params = {
@@ -376,7 +376,7 @@ export default class CompanyMembers extends Component {
  		// 	 message: '成功',
  		// 	 type: 'success',
 			//  	}]);
-			console.log('newMember');
+			// console.log('newMember');
 			Message.success('成功');
 			_this.setState({
 				searchParams:{
@@ -388,7 +388,7 @@ export default class CompanyMembers extends Component {
 			})
 			// window.location.href = "/#/community/companyMembers/" + _this.params.companyId + "/list/" + _this.params.communityId ;
 		}).catch(function(err){
-			console.log(err);
+			// console.log(err);
 			// Notify.show([{
 			// 	message: err.message,
 			// 	type: 'danger',
@@ -436,7 +436,7 @@ export default class CompanyMembers extends Component {
 
 		// }
 		let {searchParams} = this.state;
-		console.log('state',searchParams);
+		// console.log('state',searchParams);
 		return (
 			<div>
 

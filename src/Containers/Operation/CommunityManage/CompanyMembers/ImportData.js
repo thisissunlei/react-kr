@@ -95,7 +95,7 @@ export default class CancleLeader extends Component {
 
 		files.unshift(response);
 
-		console.log('files', files);
+		// console.log('files', files);
 		this.setState({
 			files,
 			progress: 0,
@@ -112,10 +112,10 @@ export default class CancleLeader extends Component {
 	}
 
 
-	onSubmit=(data)=>{
+	onSubmit=()=>{
 		// form.companyId = 45;
-		document.import.submit();
-
+		// document.import.submit();
+		console.log('dddddd',document.forms[0].value);
 		// Store.dispatch(Actions.callAPI('importMemberExcel',{},form)).then(function(response) {
 		// 	_this.importData();
 		// 	// Notify.show([{
@@ -148,7 +148,7 @@ export default class CancleLeader extends Component {
 		onLoadDemo && onLoadDemo();
 	}
 	importFile=()=>{
-		console.log('importFile');
+		// console.log('importFile');
 	}
 	onTokenSuccess=(form)=> {
 		this.setState({
@@ -166,7 +166,7 @@ export default class CancleLeader extends Component {
 
 
 		if (!file) {
-			console.log('[[[[[[');
+			// console.log('[[[[[[');
 			return;
 		}
 	}
@@ -180,19 +180,19 @@ export default class CancleLeader extends Component {
 
 
 		return (
-			<form  encType="multipart/form-data" name='import' method="post" action="api/krspace-finance-web/member/member-excel">
+			<form  encType="multipart/form-data" name='import' method="post" action="http://optest02.krspace.cn/api/krspace-finance-web/member/member-excel">
 				<div>
 					<span className='import-logo icon-excel' onClick={this.importFile}></span>
-					<input type="file" name="file" onChange={this.onChange} multiple />
+					
 					<input type="hidden" name="companyId" value="45" />
 
-					<span className='import-font' onClick={this.importFile}>请选择上传文件</span>
+					<span className='import-font'><span className="chooce">请选择上传文件</span><input type="file" name="file" className='chooce-file' defaultValue='请选择上传文件'/></span>
 					<span className='load-demo icon-template' onClick={this.onLoadDemo}>下载excel模板</span>
 				</div>
 				<Grid style={{marginBottom:20}}>
 					<Row>
 						<ListGroup>
-							<ListGroupItem style={{width:'47%',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定导入" type="submit" width={90} height={34}/></ListGroupItem>
+							<ListGroupItem style={{width:'47%',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定导入" type="submit" width={90} height={34} onClick={this.onSubmit}/></ListGroupItem>
 							<ListGroupItem style={{width:'47%',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/> </ListGroupItem>
 						</ListGroup>
 					  </Row>

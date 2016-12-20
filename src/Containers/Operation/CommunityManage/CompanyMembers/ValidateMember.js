@@ -66,7 +66,7 @@ export default class ValidateMember extends Component {
 
 
 	render() {
-		console.log('seleced',this.props.seleced);
+		// console.log('seleced',this.props.seleced);
 		let {seleced} = this.props;
 
 

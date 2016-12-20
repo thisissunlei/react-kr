@@ -45,49 +45,12 @@ export default class  CompanyInfo extends Component {
 		}
 	}
 	componentDidMount() {
-		// console.log("this.props.params",this.context.router.params.memberId);
-    var _this=this;
-		let {
-			params
-		} = this.props;
-		// console.log('222',params);
-		Store.dispatch(Actions.callAPI('getMemberDetailData', {
-			id:this.context.router.params.memberId
-		})).then(function(response) {
-			// console.log("response",response);
-			// console.log("response.baseInfo",response.baseInfo);
-			// console.log("_this",_this);
-			_this.setState({
-				companyInfo:response.companyInfo,
-			},function(){
-				// console.log('3333',_this.state.baseInfo);
-			});
-		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
+
 	}
-	// initBasicInfo() {
-	// 	console.log("response",response);
-	//
-	// }
+
 	render() {
-		const {
-		companyInfo
-			// detailPayment,
-			// detailIncome
-		} = this.state;
-		// console.log("baseInfo",baseInfo);
-		// if (!detail.mainbillname) {
-		// 	detail.mainbillname = '';
-		// }
-
-		// let style={
-		// 	color:'#ff6868',
-		// }
-
+		let {detail} = this.props;
+		let companyInfo = detail;
 		return (
 
 			<div className='ui-detail-order'>

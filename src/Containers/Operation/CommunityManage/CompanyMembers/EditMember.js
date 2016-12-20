@@ -59,9 +59,9 @@ export default class CreateMemberForm extends Component {
 	componentWillMount() {
 		this.getBasicData(this.detail.id);
 		let {detail,handleSubmit} = this.props;
-		console.log('edit',detail);
+		// console.log('edit',detail);
 		Store.dispatch(initialize('createMemberForm', detail));
-		
+
 	}
 	componentWillReceiveProps(nextProps){
 		if(!ShallowEqual(this.state.initializeValues,nextProps.detail)){
@@ -81,7 +81,7 @@ export default class CreateMemberForm extends Component {
 	 		const {onSubmit} = this.props;
 		 	onSubmit && onSubmit(values);
 	 	}
-		 
+
 	 }
 	onCancel=()=>{
 		const {onCancel} = this.props;
@@ -134,11 +134,11 @@ export default class CreateMemberForm extends Component {
 							onsubmit:false
 						})
 				}
-				
+
 
 		 }).catch(function(err){
 		 	//邮箱未注册
-		 	console.log('ddddd',err.message);
+			// 	console.log('ddddd',err.message);
 		 	_this.setState({
 				onsubmit:true
 			})
@@ -164,11 +164,11 @@ export default class CreateMemberForm extends Component {
 						onsubmitCode:false
 					})
 				}
-				
+
 
 		 }).catch(function(err){
 		 	//邮箱未注册
-		 	console.log('ddddd',err.message);
+			// 	console.log('ddddd',err.message);
 		 	_this.setState({
 				onsubmitCode:true
 			})
