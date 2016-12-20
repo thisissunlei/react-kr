@@ -724,7 +724,7 @@ export default class PersonalCenter extends Component{
 							</div>
 
 					</Dialog>
-					<Dialog title="修改密码" open={this.state.openPwdRevise} onClose={this.closePwdRevise} contentStyle={{width:444}}>
+					<Dialog title="修改密码" open={true} onClose={this.closePwdRevise} contentStyle={{width:444}}>
 
 						<UpdatePasswordForm onSubmit={this.submitPwd} onCancel={this.closePwdRevise}/>
 
