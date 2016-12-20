@@ -512,10 +512,9 @@ export default class PersonalCenter extends Component{
 			})).then(function(response) {
 				Message.success("修改成功")
 				window.setTimeout(function(){
-					window.location.href=`${window.location.host}/login/login`
+					window.location.href="login/login"
 				}
 					,1000)
-
 				// _this.setState({
 				// 	openPwdRevise:false,
 				//
