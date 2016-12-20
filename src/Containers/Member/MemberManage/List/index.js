@@ -144,12 +144,13 @@ export default class List extends Component {
 				ids.push(item.id)
 			});
 		}
+		ids = String(ids);
 		var url = `/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
 		window.location.href = url;
 	}
 	onEditSubmit=(values)=>{
 		var _this = this;
-		Store.dispatch(Actions.callAPI('membersChange',values)).then(function(response){
+		Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
 			_this.openEditDetailDialog();
 			window.location.reload();
 			Message.success("操作成功");

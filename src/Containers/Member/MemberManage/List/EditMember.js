@@ -58,15 +58,16 @@ export default class EditMemberForm extends Component {
 	componentWillMount() {
 		this.getBasicData(this.detail.id);
 		let {detail,handleSubmit} = this.props;
-		console.log('edit-detail',detail);
+		Store.dispatch(initialize('editMemberForm', detail));
+
 
 	}
 	componentWillReceiveProps(nextProps){
-
+		console.log('ererwer');
 		if(!ShallowEqual(this.state.initializeValues,nextProps.detail)){
-			// this.setState({
-			// 	initializeValues:nextProps.detail
-			// })
+			this.setState({
+				initializeValues:nextProps.detail
+			})
 			Store.dispatch(initialize('editMemberForm', nextProps.detail));
 
 		}
