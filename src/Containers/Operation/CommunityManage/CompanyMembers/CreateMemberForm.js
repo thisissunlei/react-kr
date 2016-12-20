@@ -188,7 +188,7 @@ import imgLine from './images/line.png'
 
 		 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
 				//邮箱已注册
-				Message.warn('该邮箱已被绑定，请更换邮箱','error');
+				Message.warn('此会员卡号已被绑定','error');
 				_this.setState({
 					onsubmitCode:false
 				})
