@@ -95,16 +95,16 @@ export default class SearchForm extends Component{
 		this.removeClass(ul,'show-li');
 	}
 	getValue=(event)=>{
-		console.log('getvalue',event);
+		// console.log('getvalue',event);
 		let {onSubmit,searchFilter}= this.props;
 		let {content,value} = this.state;
 		const list = ReactDOM.findDOMNode(this.selectList);
 		let ul = list.getElementsByTagName('ul')[0];
 		let className = event.target.className;
-		console.log('dsdasdasd',className);
+		// console.log('dsdasdasd',className);
 		var aa = document.getElementsByClassName(className)[0].innerHTML;
 		document.getElementsByClassName('search-name')[0].innerHTML = aa;
-		console.log(document.getElementsByClassName('search-name')[0].innerHTML);
+		// console.log(document.getElementsByClassName('search-name')[0].innerHTML);
 		this.removeClass(ul,'show-li');
 		this.setState({
 			value:aa
@@ -142,7 +142,7 @@ export default class SearchForm extends Component{
 			})
 			// select = defaultFilter;
 		}
-		console.log(value);
+		// console.log(value);
 
 		// console.log('searchFilter',searchFilter);
 		if(searchFilter){

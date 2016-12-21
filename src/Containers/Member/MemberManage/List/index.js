@@ -209,6 +209,7 @@ export default class List extends Component {
 		_this.setState({
 			openAdvancedQuery: !this.state.openAdvancedQuery,
 			searchParams :{
+				registerSourceId:values.registerSourceId,
 				value :values.value,
 				type :values.type,
 				cityId :values.city || '',
@@ -216,7 +217,7 @@ export default class List extends Component {
 				startTime :values.startTime || '',
 				jobId :values.jobId || '',
 				page:1,
-				pageSize:15
+				pageSize:15,
 			}
 		})
 	}
@@ -280,7 +281,6 @@ export default class List extends Component {
 											<TableHeaderColumn>注册日期</TableHeaderColumn>
 											<TableHeaderColumn>操作</TableHeaderColumn>
 									</TableHeader>
-
 									<TableBody style={{position:'inherit'}}>
 											<TableRow displayCheckbox={true}>
 											<TableRowColumn name="phone" ></TableRowColumn>
@@ -290,7 +290,7 @@ export default class List extends Component {
 											<TableRowColumn name="jobName"></TableRowColumn>
 											<TableRowColumn name="cityName"></TableRowColumn>
 											<TableRowColumn name="companyName"></TableRowColumn>
-											<TableRowColumn name="sourceName"></TableRowColumn>
+											<TableRowColumn name="registerName"></TableRowColumn>
 											<TableRowColumn name="registerTime" type="date" format="yyyy-mm-dd"></TableRowColumn>
 											<TableRowColumn type="operation">
 													<Button label="详情"  type="operation" operation="view"/>
