@@ -61,6 +61,12 @@ export default class List extends Component {
 				page: 1,
 				pageSize: 15,
 				other:false
+			},
+			closeMessageBar:{
+				title:'',
+				open:false,
+				style:{},
+				className:''
 			}
 
 		}
@@ -159,7 +165,6 @@ export default class List extends Component {
 
 	//搜索被点击
 	onSearchSubmit=(searchParams)=> {
-		console.log(searchParams,"---->");
 		let obj = {
 			foreignCode: searchParams.content,
 			pageSize:15,
@@ -169,6 +174,35 @@ export default class List extends Component {
 			searchParams: obj
 		});
 	}
+	 //打开弹跳
+	 openMessageBar=(text,type)=>{
+	 	var style={};
+	 	var className="";
+	 	if(type=="ok"){
+	 		style={position:'fixed',top:-160,right:0,display:"inline-block",color:"#000",backgroundColor:"#edffe2"};
+	 		className="messagesBarIconOk";
+	 	}else{
+	 		style={position:'fixed',top:-160,right:0,display:"inline-block",color:"#000",backgroundColor:"#ffe9e9"};
+	 		className="messagesBarIconError";
+	 	}
+
+	 	this.setState({
+	 		closeMessageBar:{
+					title:text,
+					open:true,
+					style:style,
+					className:className
+				}
+	 	})
+	 }
+	 //关闭弹跳
+	 closeMessageBar=()=>{
+	 	let detail = Object.assign({},this.state.closeMessageBar);
+		 	detail.open=false;
+		 this.setState({
+			 closeMessageBar:detail
+		 })
+	 }
 
 	onSearchCancel=()=> {
 
@@ -186,7 +220,6 @@ export default class List extends Component {
 	}
 //数据刷新
 	onFlush=()=>{
-		console.log("44");
 		this.setState({
 			searchParams: {
 				foreignCode:'',
@@ -295,8 +328,9 @@ export default class List extends Component {
 							bodyStyle={{paddingTop:45}}
 							contentStyle={{width:500}}
 						>
-							<StartCardActivation onFlush={this.onFlush} detail={this.state.detail}  onCancel={this.openStartCardActivationDialog} throwBack={this.throwBack}/>
+							<StartCardActivation onFlush={this.onFlush} detail={this.state.detail}  onCancel={this.openStartCardActivationDialog} throwBack={this.throwBack} openMessageBar={this.openMessageBar} closeMessageBar={this.closeMessageBar}/>
 					  </Dialog>
+				<SnackTip  style={this.state.closeMessageBar.style} open={this.state.closeMessageBar.open} title={<span style={{display:"inline-block"}}><span className={this.state.closeMessageBar.className}></span><span style={{float:"left",color:"#000"}}>{this.state.closeMessageBar.title}</span></span>}  />
 
 				</div>
 			);

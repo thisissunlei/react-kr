@@ -36,17 +36,17 @@ import './index.less';
 	//数据的初始化设定
 	constructor(props){
 		super(props);
-    this.state={
-				detail:props.detail,
-				accomplish:false,
-				oldNum:props.detail.endNum-props.detail.startNum,
-				closeMessageBar:{
-					title:'',
-					open:false,
-					style:{},
-					className:''
-				}
-    }
+	    this.state={
+					detail:props.detail,
+					accomplish:false,
+					oldNum:props.detail.endNum-props.detail.startNum,
+					closeMessageBar:{
+						title:'',
+						open:false,
+						style:{},
+						className:''
+					}
+	    }
 	}
 	 onSubmit=(values)=>{
 		 var _this=this;
@@ -54,6 +54,9 @@ import './index.less';
 		 const params={};
 		 params.foreignCode=_this.state.detail.startNum;
 		 params.interCode=values.interCode;
+		 if(!values.interCode){
+		 	return;
+		 }
 		 if(this.state.accomplish){
 			 return;
 		 }
@@ -63,17 +66,31 @@ import './index.less';
 					 detail.interCode="";
 					 Store.dispatch(initialize('StartCardActivation',detail));
 					 _this.props.onFlush();
-					_this.openMessageBar("sds","otk");
+					 var title="会员卡"+values.interCode+"激活成功";
+					_this.openMessageBar(title,"ok");
+					
 
 					 if (_this.state.detail.startNum<=_this.state.detail.endNum) {
 
 							 _this.cardNumAdd(4);
-
 					 }
+					 setTimeout(function(){
+						_this.closeMessageBar();
+					 },1000)
 
 		 }).catch(function(err) {
-			 Message.error(err.message);
-		 });
+		 	const detail={};
+		 	if (err.message=="该会员卡已被录入") {
+		 		err.message="卡号"+_this.state.detail.startNum+"已存在请跳过！"
+		 	}else if(err.message=="改卡已被激活,请重刷"){
+		 		err.message="会员卡"+values.interCode+"已被激活，请重刷！"
+		 	}else{
+
+		 	}
+			detail.interCode="";
+			Store.dispatch(initialize('StartCardActivation',detail));
+		 	_this.openMessageBar(err.message,"error");
+		},1000)
 	 }
 
 	 //数字处理
@@ -95,23 +112,26 @@ import './index.less';
 				 	}
 				 }
 				 if (this.state.detail.startNum==this.state.detail.endNum) {
-					 	Message.success(this.state.detail.oldNum+"张会员卡激活成功!");
-						this.setState({
-		 				 accomplish:true,
-		 			 })
-					 return;
-
-				 }
-
-					detail.startNum=start+num;
-					detail.endNum=this.state.detail.endNum;
 					this.setState({
-						detail:detail
-					})
+	 				 	accomplish:true
+	 			 	})
+	 			 	Message.success(this.state.detail.oldNum+"张会员卡激活成功！")
+					detail.startNum=detail.endNum="0000000000"
+
+				 }else{
+				 	detail.startNum=start+num;
+					detail.endNum=this.state.detail.endNum;
+				 }
+				
+				this.setState({
+					detail:detail
+				})
 	 }
 	 //跳过号码
 	 skipCard=()=>{
+	 	if (+this.state.detail.endNum!=0) {
 		 this.cardNumAdd(4);
+		 }
 	 }
 
 	 //关闭窗口
@@ -142,9 +162,14 @@ import './index.less';
 	 }
 	 //关闭弹跳
 	 closeMessageBar=()=>{
+	 	let detail = Object.assign({},this.state.closeMessageBar);
+		 	detail.open=false;
 		 this.setState({
-			 openMessage:false
+			 closeMessageBar:detail
 		 })
+	 }
+	 onClose=()=>{
+	 	this.closeMessageBar();
 	 }
 
 	render(){
@@ -155,11 +180,12 @@ import './index.less';
 			reset,
 			throwBack
 		} = this.props;
+		var numbers=+this.state.detail.endNum==0?0:(+this.state.detail.endNum)-(+this.state.detail.startNum)+1;
 		return (
 			<form className="HeavilyActivation" onSubmit={handleSubmit(this.onSubmit)}>
 				<div className="activeImg" ></div>
 				<div style={{textAlign:"right",width:340,margin:"auto",marginTop:10}}>
-						<label >{"会员卡数量:"+((+this.state.detail.endNum)-(+this.state.detail.startNum-1))+"张"}</label>
+						<label >{"会员卡数量:"+numbers+"张"}</label>
 						<div style={{height:'60px'}}>
 								<span className="cardNum">{this.numhandle(this.state.detail.startNum,0,4)}</span>
 								<span className="cardNum" style={{padding:"0 10px"}}>{this.numhandle(this.state.detail.startNum,4,6)}</span>
@@ -180,7 +206,7 @@ import './index.less';
 						</Col>
 					</Row>
 				</Grid>
-				<SnackTip style={this.state.closeMessageBar.style} open={this.state.closeMessageBar.open} title={<span style={{display:"inline-block"}}><span className={this.state.closeMessageBar.className}></span><span style={{float:"left",color:"#000"}}>{this.state.closeMessageBar.title}</span></span>}  />
+				<SnackTip onClose={this.onClose} style={this.state.closeMessageBar.style} open={this.state.closeMessageBar.open} title={<span style={{display:"inline-block"}}><span className={this.state.closeMessageBar.className}></span><span style={{float:"left",color:"#000"}}>{this.state.closeMessageBar.title}</span></span>}  />
 
 
 			</form>
@@ -190,27 +216,6 @@ import './index.less';
 const validate = values =>{
 
 		const errors = {}
-
-		if(!values.interCode){
-			errors.interCode = '会员卡内码不能为空';
-		}
-
-		if (!values.accountname) {
-			errors.accountname = '请填写科目名称';
-		}
-
-		if (!values.accounttype) {
-			errors.accounttype = '请填写科目类别';
-		}
-
-		if (!values.ordernum) {
-			errors.ordernum = '请填写排序号';
-		}
-		if (!values.enableflag) {
-			errors.enableflag = '请先选择是否启用';
-		}
-
-
 		return errors
 	}
 const selector = formValueSelector('StartCardActivation');
