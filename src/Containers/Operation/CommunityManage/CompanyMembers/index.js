@@ -147,7 +147,7 @@ export default class CompanyMembers extends Component {
 			selecedList.push(item.id);
 		})
 		// console.log('selecedList',selecedList);
-		Store.dispatch(Actions.callAPI('validMember',{memberIds:String(selecedList)} )).then(function(response) {
+		Store.dispatch(Actions.callAPI('validMember',{memberIds:String(selecedList),companyId:_this.companyId} )).then(function(response) {
 			_this.validateMember();
 			// Message.show([{
 			// 	message: '设置成功',
