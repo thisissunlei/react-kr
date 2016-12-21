@@ -163,6 +163,7 @@ export default class CancleLeader extends Component {
 
 		let file = event.target.files[0];
 		let {files} = this.state;
+		console.log('pppp',file);
 
 
 		if (!file) {
@@ -184,9 +185,9 @@ export default class CancleLeader extends Component {
 				<div>
 					<span className='import-logo icon-excel' onClick={this.importFile}></span>
 					
-					<input type="hidden" name="companyId" value="45" />
+					<input type="hidden" name="companyId" value="45"  />
 
-					<span className='import-font'><span className="chooce">请选择上传文件</span><input type="file" name="file" className='chooce-file' defaultValue='请选择上传文件'/></span>
+					<span className='import-font'><span className="chooce">请选择上传文件</span><input type="file" name="file" className='chooce-file' onClick={this.onChange}/></span>
 					<span className='load-demo icon-template' onClick={this.onLoadDemo}>下载excel模板</span>
 				</div>
 				<Grid style={{marginBottom:20}}>
