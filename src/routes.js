@@ -156,6 +156,7 @@ export default (
 																		<Route path="create" component={Operation.CustomerManage.Agreement.Reduce.Create}/>
 																		<Route path=":id/edit" component={Operation.CustomerManage.Agreement.Reduce.Edit}/>
 																		<Route path=":id/detail" component={Operation.CustomerManage.Agreement.Reduce.Detail}/>
+																		<Route path="print" component={Operation.CustomerManage.Agreement.Reduce.Print}/>
 																	</Route>
 
 																	{/*退租协议书*/}
@@ -163,6 +164,7 @@ export default (
 																		<Route path="create" component={Operation.CustomerManage.Agreement.Exit.Create}/>
 																		<Route path=":id/edit" component={Operation.CustomerManage.Agreement.Exit.Edit}/>
 																		<Route path=":id/detail" component={Operation.CustomerManage.Agreement.Exit.Detail}/>
+																		<Route path="print" component={Operation.CustomerManage.Agreement.Exit.Print}/>
 																	</Route>
 
 																</Route>
