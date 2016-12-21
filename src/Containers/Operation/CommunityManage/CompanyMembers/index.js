@@ -362,33 +362,16 @@ export default class CompanyMembers extends Component {
 		});
 	}
 	importDataPost=(files)=>{
-		// console.log('file',files);
-		// let companyId = this.companyId;
-		// console.log(files);
-		// let params = {
-		// 	companyId:companyId,
-		// 	file:files.file
-		// }
-		// let _this = this;
-		// Store.dispatch(Actions.callAPI('importMemberExcel',{},params)).then(function(response) {
-		// 	_this.importData();
-		// 	// Notify.show([{
-		// 	// 	message: '设置成功',
-		// 	// 	type: 'success',
-		// 	// }]);
-		// 	Message.success('设置成功');
-
-		// 	// window.setTimeout(function() {
-		// 	// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
-		// 	// }, 0);
-
-		// }).catch(function(err) {
-		// 	// Notify.show([{
-		// 	// 	message: err.message,
-		// 	// 	type: 'danger',
-		// 	// }]);
-		// 	Message.error(err.message);
-		// });
+		this.setState({
+				leader:!this.state.leader,
+				searchParams:{
+					value:'',
+					page:this.state.page,
+					pageSize:15,
+					companyId:this.state.companyId,
+					leader:!this.state.leader
+				}
+			})
 
 	}
 	onSubmits=()=>{

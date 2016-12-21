@@ -69,6 +69,7 @@ export default class CancleLeader extends Component {
 
 				Message.success("上传文件成功");
             	_this.onCancel(); 
+            	_this.onSubmit();
 				} else {
             	_this.onCancel(); 
 					Message.error('上传文件失败');
@@ -88,6 +89,10 @@ export default class CancleLeader extends Component {
 	onCancel=()=>{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
+	}
+	onSubmit=()=>{
+		const {onSubmit} = this.props;
+		onSubmit && onSubmit();
 	}
 	onLoadDemo=()=>{
 		const {onLoadDemo} = this.props;
@@ -136,7 +141,7 @@ export default class CancleLeader extends Component {
 					<input type="hidden" name="companyId" value="45"  />
 
 					<span className='import-font'><span className="chooce">请选择上传文件</span><input type="file" name="file" className='chooce-file' onChange={this.onChange}/></span>
-					{fileName?<span className='load-demo'>{fileName}</span>:''}
+					{fileName?<span className='file-name'>{fileName}</span>:''}
 					<span className='load-demo icon-template' onClick={this.onLoadDemo}>下载excel模板</span>
 				</div>
 				<Grid style={{marginBottom:20}}>
