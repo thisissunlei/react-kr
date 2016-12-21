@@ -186,7 +186,7 @@ class NewCreateForm extends Component{
 			value: 'NAME'
 		}];
 		return (
-			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px'}}>
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px',marginLeft:'40px'}}>
 		<ListGroup>
 			<ListGroupItem>
 				<SearchForm searchFilter={options} style={{width:252,marginBottom:10}} defaultFilter={filter} defaultContent={content} onSubmit={this.onFilter}/>

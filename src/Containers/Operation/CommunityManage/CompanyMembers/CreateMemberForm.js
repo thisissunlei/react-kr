@@ -157,13 +157,13 @@ import imgLine from './images/line.png'
 
 		 Store.dispatch(Actions.callAPI('isEmailRegistered',params)).then(function(response){
 				//邮箱已注册
-				Message.warn('该邮箱已被绑定，请更换邮箱','error');
+				Message.warn('该邮箱已被绑定','error');
 				_this.setState({
 					onsubmit:false
 				})
 
 		 }).catch(function(err){
-		 	//邮箱未注册
+		 	//会员卡号未注册
 			// 	console.log('ddddd',err.message);
 		 	_this.setState({
 				onsubmit:true
@@ -187,14 +187,14 @@ import imgLine from './images/line.png'
 		 }
 
 		 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
-				//邮箱已注册
+				//会员卡号已注册
 				Message.warn('此会员卡号已被绑定','error');
 				_this.setState({
 					onsubmitCode:false
 				})
 
 		 }).catch(function(err){
-		 	//邮箱未注册
+		 	//会员卡号未注册
 			// 	console.log('ddddd',err.message);
 		 	_this.setState({
 				onsubmitCode:true

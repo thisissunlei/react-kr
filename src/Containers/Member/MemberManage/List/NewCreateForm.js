@@ -26,8 +26,8 @@ import imgLine from './images/line.png'
 			phoneSame:false,
 			email:'',
 			onsubmit:true,
-			onSubmitCode:true
-
+			onSubmitCode:true,
+			code:'',
 
 		}
 		this.getBasicData();
@@ -98,7 +98,8 @@ import imgLine from './images/line.png'
 			 phone :phone
 		 }
 		 this.setState({
-	 		open:true
+	 		open:true,
+			phone
 	 	})
 		 let _this = this;
 
@@ -113,7 +114,7 @@ import imgLine from './images/line.png'
 					_this.setState({
 						phoneSame:true,
 						email:response.email,
-						code:response.code
+						code:response.foreignCode
 					})
 
 				}
@@ -175,7 +176,7 @@ import imgLine from './images/line.png'
 		 let params = {
 			 code :codes
 		 }
-		 let {code,phoneSame} = this.state;
+		 let {code,phoneSame,phone} = this.state;
 		 let _this = this;
 		 this.setState({
 	 		open:true
@@ -188,14 +189,14 @@ import imgLine from './images/line.png'
 		 }
 
 		 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
-				//邮箱已注册
-				Message.warn('该邮箱已被绑定','error');
-				_this.setState({
-					onSubmitCode:false
-				})
 
+				 //会员卡号已注册
+ 				Message.warn('该会员卡号已被绑定','error');
+ 				_this.setState({
+ 					onSubmitCode:false
+ 				})
 		 }).catch(function(err){
-		 	//邮箱未注册
+		 	//会员卡号未注册
 			// 	console.log('ddddd',err.message);
 		 	_this.setState({
 				onSubmitCode:true
@@ -217,24 +218,24 @@ import imgLine from './images/line.png'
 
 		return (
 			<div>
-			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:20}}>
-				<KrField grid={1/2} name="phone" type="text" label="手机号" requireLabel={true} style={{display:'block'}}
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:20,marginLeft:'40px'}}>
+				<KrField grid={1/2} name="phone" type="text" label="手机号" requireLabel={true} style={{display:'block',width:'252px'}}
 				   requiredValue={true} onBlur={this.onBlur} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
-				<div style={{width:'100%',textAlign:'center',height:25,marginBottom:8}}>
+				<div style={{width:'100%',textAlign:'center',height:25,marginBottom:8,marginLeft:'-30px'}}>
 						<img src={imgLine}/>
 				</div>
-				<KrField grid={1/2} name="communityId" component="searchCommunity" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
+				<KrField grid={1/2} name="communityId" component="searchCommunity" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}} style={{width:'252px',marginRight:'30'}}/>
         <KrField grid={1/2} name="email" type="input" label="邮箱" requireLabel={true} onBlur={this.EmailonBlur}
-				   requiredValue={true} pattern={/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/} errors={{requiredValue:'邮箱为必填项',pattern:'请输入正确邮箱地址'}}/>
-				<KrField grid={1/2} name="companyId" component="searchCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
-        <KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} requireLabel={true} />
-				<KrField grid={1/2} name="name" type="text" label="姓名" requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}}/>
-				<KrField grid={1/2} name="sendMsg" component="group" label="发送验证短信" >
+				   requiredValue={true} pattern={/^([a-zA-Z0-9\_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/} errors={{requiredValue:'邮箱为必填项',pattern:'请输入正确邮箱地址'}} style={{width:'252px'}}/>
+				<KrField grid={1/2} name="companyId" component="searchCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true} errors={{requiredValue:'公司为必填项'}} style={{width:'252px',marginRight:'30'}}/>
+        <KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} requireLabel={true} style={{width:'252px'}}/>
+				<KrField grid={1/2} name="name" type="text" label="姓名" requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}} style={{width:'252px',marginRight:'30'}}/>
+				<KrField grid={1/2} name="sendMsg" component="group" label="发送验证短信"  style={{width:'252px'}}>
 						<KrField name="sendMsg" grid={1/2} label="是" type="radio" value="1"/>
 						<KrField name="sendMsg" grid={1/2} label="否" type="radio" value="0" />
               </KrField>
-        <KrField grid={1/2} name="foreignCode" type="input" label="会员卡号" requireLabel={true} onBlur={this.foreignCodeBlur}/>
-				<Grid style={{marginTop:30}}>
+        <KrField grid={1/2} name="foreignCode" type="input" label="会员卡号" requireLabel={true} onBlur={this.foreignCodeBlur} style={{width:'252px'}}/>
+				<Grid style={{marginTop:30,marginLeft:'-40px'}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>

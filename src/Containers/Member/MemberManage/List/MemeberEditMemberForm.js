@@ -51,7 +51,9 @@ export default class MemeberEditMemberForm extends Component {
 		this.state={
 			jobList:[],
 			itemData:{},
-			initializeValues:{}
+			initializeValues:{},
+			open:'false',
+			onsubmit:'false'
 		}
 	}
 	//首次加载，只执行一次
@@ -111,29 +113,44 @@ export default class MemeberEditMemberForm extends Component {
 		});
 	}
 	communityChange=(mail)=>{
-		var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
- 		if (filter.test(mail)){
- 			Store.dispatch(Actions.callAPI('membersByEmail', {email:mail})).then(function(response) {
-				// console.log(response);
-				if(response == 1){
-					// console.log('1');
+		let params = {
+			email :mail
+		}
+		let {email,phoneSame} = this.state;
+		this.setState({
+		 open:true
+	 })
+		let _this = this;
+		if(phoneSame && email == params.email){
+		 // 	console.log('phoneSame');
+		 _this.setState({
+			 onsubmit:true
+		 })
+		 return;
+		}else{
+		 Store.dispatch(Actions.callAPI('isEmailRegistered',params)).then(function(response){
+			 //邮箱已注册
+			 Message.warn('该邮箱已被绑定','error');
+			 _this.setState({
+				 onsubmit:false
+			 })
 
-				}
-
-
-
-			}).catch(function(err) {
-				Notify.show([{
-					message: err.message,
-					type: 'danger',
-				}]);
+			}).catch(function(err){
+			 //邮箱未注册
+			 // 	console.log('ddddd',err.message);
+			 _this.setState({
+				 onsubmit:true
+			 })
 			});
- 		};
+		}
+	 //  console.log('EmailonBlur',phone);
+
+
 	}
 	membersByForeignCode=(value)=>{
 		if (value){
- 			Store.dispatch(Actions.callAPI('membersByForeignCode', {foreignCode:value})).then(function(response) {
-				// console.log(response);
+ 			Store.dispatch(Actions.callAPI('membersByForeignCode', {code:value})).then(function(response) {
+				console.log(response,"response111");
 				if(response == 1){
 					// console.log('1');
 				}
@@ -141,6 +158,7 @@ export default class MemeberEditMemberForm extends Component {
 
 
 			}).catch(function(err) {
+				console.log(response,'response222');
 				Notify.show([{
 					message: err.message,
 					type: 'danger',
@@ -169,15 +187,19 @@ export default class MemeberEditMemberForm extends Component {
 						<span className="person-name">{detail.name}</span>
 						{detail.checkStatus?<span className="person-status">未验证</span>:<span className="person-status-not">已验证</span>}
 						<span className="person-id">（员工UserID：{detail.id}）</span>
-
 					</div>
+
 					<KrField name="phone" grid={1/2} label="手机号" inline={false} component="labelText" value={itemData.phone} />
 					<div className="split-lines"></div>
 					<KrField name="communityId" grid={1/2} label="社区" component="searchCommunities" right={30} requiredValue={true}  errors={{requiredValue:'请选择社区'}} requireLabel={true}/>
-					<KrField name="foreignCode" grid={1/2} label="会员卡号" component="input" left={30}onBlur={this.membersByForeignCode} requiredValue={true} errors={{requiredValue:'请填写会员卡号'}} requireLabel={true}/>
+
+					<KrField name="foreignCode" grid={1/2} label="会员卡号" component="input" left={30} onBlur={this.membersByForeignCode} requiredValue={true} errors={{requiredValue:'请填写会员卡号'}} requireLabel={true}/>
+
 					<KrField name="companyId" grid={1/2} label="公司" component="searchCompany"  right={30} requiredValue={true} errors={{requiredValue:'请填选择公司'}} requireLabel={true}/>
 					<KrField name="email" grid={1/2} label="邮箱:" component="input" left={30}  onBlur={this.communityChange}  requireLabel={true}/>
-					<KrField name="name" grid={1/2}  label="姓名" component="input" right={30}  requireLabel={true}/>
+
+					<KrField name="name" grid={1/2}  label="姓名" component="input" right={30}  requireLabel={true} requiredValue={true} errors={{requiredValue:'请填写会员卡号'}}/>
+
 					<KrField name="jobId" grid={1/2} label="职位" component="select" left={30} options={jobList}/>
 					<Grid style={{margin:'20px 0'}}>
 						<Row>

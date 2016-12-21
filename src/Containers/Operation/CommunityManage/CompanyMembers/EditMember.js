@@ -128,7 +128,7 @@ export default class CreateMemberForm extends Component {
 				if(detail.phone == response.phone){
 					return;
 				}else{
-					Message.warn('该邮箱已被绑定，请更换邮箱','error');
+					Message.warn('该邮箱已被绑定','error');
 
 						_this.setState({
 							onsubmit:false
@@ -155,7 +155,7 @@ export default class CreateMemberForm extends Component {
 		 let {detail} = this.props;
 
 		 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
-				//邮箱已注册
+				//会员卡号已注册
 				if(detail.foreignCode == response.foreignCode){
 					return;
 				}else{
@@ -167,7 +167,7 @@ export default class CreateMemberForm extends Component {
 
 
 		 }).catch(function(err){
-		 	//邮箱未注册
+		 	//会员卡号未注册
 			// 	console.log('ddddd',err.message);
 		 	_this.setState({
 				onsubmitCode:true
