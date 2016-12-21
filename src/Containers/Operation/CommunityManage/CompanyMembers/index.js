@@ -310,6 +310,7 @@ export default class CompanyMembers extends Component {
 		seleced.map(item=>{
 			selecedList.push(item.id);
 		})
+		console.log(String(selecedList));
 		let companyId = this.companyId;
 		let url = `/api/krspace-finance-web/member/member-company-excel?ids=${String(selecedList)}&companyId=${companyId}`;
 		window.location.href = url;
