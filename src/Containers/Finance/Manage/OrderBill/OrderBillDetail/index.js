@@ -90,7 +90,7 @@ class ViewForm extends Component {
 					<KrField grid={1/2}  component="labelText" label="代码名称" value={items.accountName} inline={false} defaultValue="无"/>
 					<KrField grid={1/2} label="付款日期" component="labelText" inline={false} value={items.occuryear} defaultValue="无" type="date"/>
 
-					<KrField grid={1/2} label="操作时间" component="labelText" value={items.occuryear} format="yyyy-mm-dd hh:mm:ss" type="date" inline={false} defaultValue="无"/>
+					<KrField grid={1/2} label="操作时间" component="labelText" value={items.operatedate} format="yyyy-mm-dd hh:mm:ss" type="date" inline={false} defaultValue="无"/>
 
 					<KrField grid={1/2}  component="labelText" label="交易编号" value={items.tradingCode} inline={false} defaultValue="无"/>
 					<KrField grid={1/2}  component="labelText" label="操作人"  value={items.optUserName} inline={false} defaultValue="无"/>
