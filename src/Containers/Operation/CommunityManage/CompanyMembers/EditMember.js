@@ -102,6 +102,9 @@ export default class CreateMemberForm extends Component {
 				jobList:response.jobList,
 				itemData:response.memberInfoVO
 			})
+			console.log('response.memberInfoVO',response.memberInfoVO);
+			Store.dispatch(initialize('createMemberForm', response.memberInfoVO));
+
 
 
 		}).catch(function(err) {
