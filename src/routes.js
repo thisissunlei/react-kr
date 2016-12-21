@@ -132,7 +132,7 @@ export default (
 																		<Route path="create" component={Operation.CustomerManage.Agreement.Admit.Create}/>
 																		<Route path=":id/edit" component={Operation.CustomerManage.Agreement.Admit.Edit}/>
 																		<Route path=":id/detail" component={Operation.CustomerManage.Agreement.Admit.Detail}/>
-																		<Route path="print" component={Operation.CustomerManage.Agreement.Admit.Print}/>
+																		<Route path=":id/print" component={Operation.CustomerManage.Agreement.Admit.Print}/>
 																	</Route>
 
 																	{/*增租协议书*/}
@@ -140,7 +140,7 @@ export default (
 																		<Route path="create" component={Operation.CustomerManage.Agreement.Increase.Create}/>
 																		<Route path=":id/edit" component={Operation.CustomerManage.Agreement.Increase.Edit}/>
 																		<Route path=":id/detail" component={Operation.CustomerManage.Agreement.Increase.Detail}/>
-																		<Route path="print" component={Operation.CustomerManage.Agreement.Increase.Print}/>
+																		<Route path=":id/print" component={Operation.CustomerManage.Agreement.Increase.Print}/>
 																	</Route>
 
 																	{/*续租协议书*/}
@@ -148,7 +148,7 @@ export default (
 																		<Route path="create" component={Operation.CustomerManage.Agreement.Renew.Create}/>
 																		<Route path=":id/edit" component={Operation.CustomerManage.Agreement.Renew.Edit}/>
 																		<Route path=":id/detail" component={Operation.CustomerManage.Agreement.Renew.Detail}/>
-																		<Route path="print" component={Operation.CustomerManage.Agreement.Renew.Print}/>
+																		<Route path=":id/print" component={Operation.CustomerManage.Agreement.Renew.Print}/>
 																	</Route>
 
 																	{/*减租协议书*/}
@@ -156,7 +156,7 @@ export default (
 																		<Route path="create" component={Operation.CustomerManage.Agreement.Reduce.Create}/>
 																		<Route path=":id/edit" component={Operation.CustomerManage.Agreement.Reduce.Edit}/>
 																		<Route path=":id/detail" component={Operation.CustomerManage.Agreement.Reduce.Detail}/>
-																		<Route path="print" component={Operation.CustomerManage.Agreement.Reduce.Print}/>
+																		<Route path=":id/print" component={Operation.CustomerManage.Agreement.Reduce.Print}/>
 																	</Route>
 
 																	{/*退租协议书*/}
@@ -164,7 +164,7 @@ export default (
 																		<Route path="create" component={Operation.CustomerManage.Agreement.Exit.Create}/>
 																		<Route path=":id/edit" component={Operation.CustomerManage.Agreement.Exit.Edit}/>
 																		<Route path=":id/detail" component={Operation.CustomerManage.Agreement.Exit.Detail}/>
-																		<Route path="print" component={Operation.CustomerManage.Agreement.Exit.Print}/>
+																		<Route path=":id/print" component={Operation.CustomerManage.Agreement.Exit.Print}/>
 																	</Route>
 
 																</Route>
