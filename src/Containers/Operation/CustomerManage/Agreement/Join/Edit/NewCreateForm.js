@@ -212,6 +212,7 @@ class NewCreateForm extends Component {
 				message: '请先选择要录入单价的工位',
 				type: 'danger',
 			}]);
+			return ;
 		}
 		this.openStationUnitPriceDialog();
 	}
@@ -561,8 +562,8 @@ class NewCreateForm extends Component {
 						{stationVos.length>5?<div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}
 						 </DotTitle>
 						 </div>
-					</CircleStyle>	
-					<CircleStyle num="2" info="合同文本信息" circle="bottom"> 
+					</CircleStyle>
+					<CircleStyle num="2" info="合同文本信息" circle="bottom">
 				<KrField  grid={1/2}  name="mainbillid" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
@@ -589,13 +590,13 @@ class NewCreateForm extends Component {
 
 				<KrField style={{width:370,marginLeft:70}}  name="communityid" component="labelText" inline={false} label="所属社区" value={optionValues.communityName}  requireLabel={true} />
 
-				
+
 
 				<KrField style={{width:370,marginLeft:90}} name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} />
 				<KrField style={{width:370,marginLeft:70}}  name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
 				requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同为必填项',pattern:'合同编号最大50位'}} />
 
-				
+
 
 				<KrField style={{width:370,marginLeft:90}} name="paymodel"   component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true} />
 				<KrField style={{width:370,marginLeft:70}} name="paytype"   component="select" label="支付方式" options={optionValues.payTypeList} requireLabel={true} />
@@ -604,7 +605,7 @@ class NewCreateForm extends Component {
 
 				<KrField style={{width:370,marginLeft:70}} name="firstpaydate" component="date" label="首付款时间"  requireLabel={true}/>
 
-				
+
 				<KrField style={{width:370,marginLeft:90}}  name="stationnum" type="text" component="labelText"  label="工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>
 				<KrField style={{width:370,marginLeft:70}}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/>
 				<KrField style={{width:370,marginLeft:90}}  name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true}
