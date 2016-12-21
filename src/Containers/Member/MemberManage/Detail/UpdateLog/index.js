@@ -124,7 +124,7 @@ export default class UpdateLog extends Component {
 								return (<span>{value}</span>)}}></TableRowColumn>
               <TableRowColumn name="operateRecord" ></TableRowColumn>
               <TableRowColumn name="operaterName" ></TableRowColumn>
-              <TableRowColumn name="operateDate" type="date" format="yyyy-mm-dd hh:MM:ss"></TableRowColumn>
+              <TableRowColumn name="operateDate" type="date" format="yyyy-mm-dd HH:MM:ss"></TableRowColumn>
               <TableRowColumn name="operateIp" ></TableRowColumn>
          </TableRow>
       </TableBody>
