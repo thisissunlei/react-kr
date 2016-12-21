@@ -280,7 +280,7 @@ class NewCreateForm extends Component {
 									<ButtonGroup>
 										<Button label="续租"  onTouchTap={this.openStationDialog} />
 										<Button label="删除" cancle={true} type="button" height={27} onTouchTap={this.onStationDelete} />
-										
+
 								  </ButtonGroup>
 								</Col>
 							</Row>
@@ -292,7 +292,7 @@ class NewCreateForm extends Component {
 				<TableHeaderColumn>类别</TableHeaderColumn>
 				<TableHeaderColumn>编号／名称</TableHeaderColumn>
 				<TableHeaderColumn>单价(元/月)</TableHeaderColumn>
-					<TableHeaderColumn>开始时间</TableHeaderColumn>
+					<TableHeaderColumn>续租开始时间</TableHeaderColumn>
 						<TableHeaderColumn>续租结束日期</TableHeaderColumn>
 						</TableHeader>
 						<TableBody>
@@ -316,8 +316,8 @@ class NewCreateForm extends Component {
 
                      </DotTitle>
                      </div>
-				</CircleStyle>	
-				<CircleStyle num={2} info='合同文本信息' circle='bottom'> 
+				</CircleStyle>
+				<CircleStyle num={2} info='合同文本信息' circle='bottom'>
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
@@ -350,7 +350,7 @@ class NewCreateForm extends Component {
 				<KrField style={{width:370,marginLeft:90}}  name="firstpaydate"  component="date" label="首付款时间"  requireLabel={true} />
 
 				<KrField style={{width:370,marginLeft:70}}   name="signdate"  component="date"  label="签署时间" requireLabel={true} />
-				
+
 
 				<KrField style={{width:370,marginLeft:90}}   name="totalrent" type="text" component="input" label="租金总额" requireLabel={true}
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
@@ -365,7 +365,7 @@ class NewCreateForm extends Component {
 					Store.dispatch(change('reduceCreateForm','contractFileList',files));
 				}} />
 
-             
+
 						<Grid style={{padding:'10px 0 50px'}}>
 						<Row >
 						<ListGroup>

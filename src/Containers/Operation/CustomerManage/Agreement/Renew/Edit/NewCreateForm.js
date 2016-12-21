@@ -314,7 +314,7 @@ class NewCreateForm extends Component {
 				<TableHeaderColumn>类别</TableHeaderColumn>
 				<TableHeaderColumn>编号／名称</TableHeaderColumn>
 				<TableHeaderColumn>单价(元/月)</TableHeaderColumn>
-					<TableHeaderColumn>开始时间</TableHeaderColumn>
+					<TableHeaderColumn>续租开始时间</TableHeaderColumn>
 						<TableHeaderColumn>续租结束日期</TableHeaderColumn>
 						</TableHeader>
 						<TableBody>
@@ -337,8 +337,8 @@ class NewCreateForm extends Component {
 						</div>
 						</DotTitle>
 						</div>
-						</CircleStyle>	
-				<CircleStyle num={2} info='合同文本信息' circle='bottom'> 
+						</CircleStyle>
+				<CircleStyle num={2} info='合同文本信息' circle='bottom'>
 
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
