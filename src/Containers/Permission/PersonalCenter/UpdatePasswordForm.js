@@ -78,16 +78,16 @@ class NewCreateForm extends Component {
 
         <form onSubmit={handleSubmit(this.onSubmit)} style={{width:262,marginTop:20}}>
 
-                  	<KrField requireLabel={true} label="请输入当前登录密码" name="old" type="password" component="input"/>
-                  	<KrField requireLabel={true} label="请输入新的登录密码" name="new" type="password" component="input" notifys={['6-20位字符','只能包含大小写字母、数字以及标点符号（除空格）','大写字母、小写字母、数字和标点符号至少包含两种']}/>
-                  	<KrField requireLabel={true} label="请确认新的登录密码" name="newagain" type="password" component="input"/>
+                  	<KrField requireLabel={true} label="当前登录密码" placeholder="请输入当前登录密码" name="old" type="password" component="input"/>
+                  	<KrField requireLabel={true} label="新的登录密码" placeholder="请输入新的登录密码" name="new" type="password" component="input" notifys={['6-20位字符','只能包含大小写字母、数字以及标点符号（除空格）','大写字母、小写字母、数字和标点符号至少包含两种']}/>
+                  	<KrField requireLabel={true} label="新的登录密码" placeholder="请确认新的登录密码" name="newagain" type="password" component="input"/>
             <Grid >
             <Row >
 							<Col align="center">
             <ListGroup>
 
-              <ListGroupItem style={{paddingLeft:17,paddingRight:30,paddingTop:20,paddingBottom:6}}><Button  label="确定" type="submit" width={90} height={36} fontSize={16} /></ListGroupItem>
-              <ListGroupItem style={{paddingTop:20,paddingBottom:6}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}  width={90} height={34} fontSize={16}/></ListGroupItem>
+              <ListGroupItem style={{paddingLeft:17,paddingRight:30,paddingTop:20,paddingBottom:6}}><Button  label="确定" type="submit" width={90} height={36} fontSize={14} /></ListGroupItem>
+              <ListGroupItem style={{paddingTop:20,paddingBottom:6}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}  width={90} height={34} fontSize={14}/></ListGroupItem>
 
             </ListGroup>
 							</Col>
