@@ -44,15 +44,15 @@ export default class JoinPrint extends Component {
 		return (
 
 			<div>
-			<Section title="hdsjf">
-			ffffff
+			
 			<Agreement.Print.Header/>
 			<Agreement.Print.Payment/>
 			<Agreement.Print.Station/>
+			<Agreement.Print.Footter/>
 
-			</Section>
 			
-			{State.name}
+			
+			
       </div>
 
 		);
