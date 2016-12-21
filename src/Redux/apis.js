@@ -520,6 +520,11 @@ const APIS = {
 		url: '/api/krspace-finance-web/finacontractdetail/plan-table/billContract?billId={billId}',
 		method: 'get'
 	},
+  //获取出租率
+	'getRate':{
+		url: '/api/krspace-finance-web/finacontractdetail/plan-table/rate?year={year}&communityids={communityids}',
+		method: 'get'
+	},
 }
 
 module.exports = APIS;
