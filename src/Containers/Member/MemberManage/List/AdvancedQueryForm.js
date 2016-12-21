@@ -187,13 +187,13 @@ class NewCreateForm extends Component{
 		}];
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px',marginLeft:'40px'}}>
-		<ListGroup>
-			<ListGroupItem>
+		<ListGroup >
+			<ListGroupItem style={{marginBottom:5}}>
 				<SearchForm searchFilter={options} style={{width:252,marginBottom:10}} defaultFilter={filter} defaultContent={content} onSubmit={this.onFilter}/>
 			</ListGroupItem>
 		</ListGroup>
-				<KrField name="work"  component="city" label="工作地点"  style={{display:'block',width:'252px',marginRight:24}} onSubmit={this.city}/>
-				<KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} style={{width:'252px',marginRight:'33'}}/>
+				<KrField name="work"  component="city" label="工作地点"  style={{display:'block',width:'252px',marginRight:24,marginBottom:5}} onSubmit={this.city}/>
+				<KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} style={{width:'252px',marginRight:'33',marginBottom:5}}/>
 				<KrField name="registerSourceId"  grid={1/2} component="select" label="注册来源" options={selectSourceOption} style={{width:'252px'}}/>
 				<AdvanceSearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange}/>
 				<Grid style={{marginTop:30}}>
