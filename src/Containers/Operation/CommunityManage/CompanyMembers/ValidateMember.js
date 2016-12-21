@@ -68,6 +68,11 @@ export default class ValidateMember extends Component {
 	render() {
 		// console.log('seleced',this.props.seleced);
 		let {seleced} = this.props;
+		seleced.forEach((item,index)=>{
+			if(item.checkStatus){
+				seleced.splice(index, 1)
+			}
+		})
 
 
 
@@ -90,15 +95,15 @@ export default class ValidateMember extends Component {
 						<TableBody>
 							{
 								seleced.length && seleced.map((item,index)=>{
-								return (
-									<TableRow key={index} displayCheckbox={false}>
-										<TableRowColumn>{item.name}</TableRowColumn>
-										<TableRowColumn>{item.phone}</TableRowColumn>
-										<TableRowColumn> {item.id}</TableRowColumn>
-										<TableRowColumn>{item.email}</TableRowColumn>
-										<TableRowColumn>{item.jobName}</TableRowColumn>
-									</TableRow>
-								);
+										return (
+											<TableRow key={index} displayCheckbox={false}>
+												<TableRowColumn>{item.name}</TableRowColumn>
+												<TableRowColumn>{item.phone}</TableRowColumn>
+												<TableRowColumn> {item.id}</TableRowColumn>
+												<TableRowColumn>{item.email}</TableRowColumn>
+												<TableRowColumn>{item.jobName}</TableRowColumn>
+											</TableRow>
+										);
 							})}
 					   </TableBody>
 					</Table>

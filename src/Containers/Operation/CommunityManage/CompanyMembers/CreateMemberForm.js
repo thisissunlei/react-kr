@@ -26,6 +26,7 @@ import imgLine from './images/line.png'
 			phoneSame:false,
 			email:'',
 			onsubmit:true,
+			communityName:'',
 			onsubmitCode:true
 
 
@@ -33,6 +34,7 @@ import imgLine from './images/line.png'
 		this.getBasicData();
 		this.params = this.props.params;
 
+		this.getCummityName();
 
 
 	}
@@ -57,8 +59,11 @@ import imgLine from './images/line.png'
 	 	this.foreignCodeBlur(values.foreignCode);
 	 	let {onsubmit,onsubmitCode} = this.state;
 		// 	console.log(onsubmit,onsubmitCode);
+		console.log('values',values);
 	 	if(onsubmit && onsubmitCode){
 			// 	console.log('values',values);
+			values.companyId = parseInt(this.params.companyId);
+			values.communityId = parseInt(this.params.communityId);
 	 		const {onSubmit} = this.props;
 		 	onSubmit && onSubmit(values);
 	 	}
@@ -115,7 +120,7 @@ import imgLine from './images/line.png'
 					_this.setState({
 						phoneSame:true,
 						email:response.email,
-						code:response.code
+						code:response.foreignCode
 					})
 
 				}
@@ -170,6 +175,30 @@ import imgLine from './images/line.png'
 			})
 		 });
 	 }
+	 getCummityName=()=>{
+	 	let _this = this;
+	 	let communityName = '';
+	 	//this.params.communityId
+	 	console.log('getCummityNamegetCummityName');
+	 	Store.dispatch(Actions.callAPI('searchCommunityByCommunityText')).then(function(response){
+				response.forEach((item)=>{
+					if(item.id == _this.params.companyId){
+						communityName = item.communityname;
+					}
+				})
+				console.log('getCummityName',communityName);
+				_this.setState({
+					communityName
+				})
+
+		 }).catch(function(err){
+		 	//会员卡号未注册
+			// 	console.log('ddddd',err.message);
+		 	_this.setState({
+				onsubmitCode:true
+			})
+		 });
+	 }
 	 foreignCodeBlur=(codes)=>{
 		 let params = {
 			 code :codes
@@ -202,16 +231,10 @@ import imgLine from './images/line.png'
 		 });
 	 }
 
-	 onChangeSearchCommunity(personel) {
-		Store.dispatch(change('NewCreateForm', 'communityId', personel.id));
-	}
-	onChangeSearchCompany(personel) {
-		Store.dispatch(change('NewCreateForm', 'companyId', personel.id));
-	}
 	render(){
 		const { error, handleSubmit, pristine, reset} = this.props;
 		let communityText = '';
-		let {selectOption} =this.state;
+		let {selectOption,communityName} =this.state;
 
 
 		return (
@@ -222,17 +245,17 @@ import imgLine from './images/line.png'
 				<div style={{width:'100%',textAlign:'center',height:25,marginBottom:8}}>
 						<img src={imgLine}/>
 				</div>
-				<KrField grid={1/2} name="communityId" component="searchCommunity" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
+				<KrField grid={1/2} name="community" component="labelText" label="社区" inline={false}  defaultValue={communityName} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
         <KrField grid={1/2} name="email" type="input" label="邮箱" requireLabel={true} onBlur={this.EmailonBlur}
 				   requiredValue={true} pattern={/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/} errors={{requiredValue:'邮箱为必填项',pattern:'请输入正确邮箱地址'}}/>
-				<KrField grid={1/2} name="companyId" component="searchCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
+				<KrField grid={1/2} name="company" inline={false} component="labelText" label="公司" defaultValue={this.props.detail.companyName} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
         <KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} requireLabel={true} />
 				<KrField grid={1/2} name="name" type="text" label="姓名" requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}}/>
 				<KrField grid={1/2} name="sendMsg" component="group" label="发送验证短信" >
 						<KrField name="sendMsg" grid={1/2} label="是" type="radio" value="1"/>
 						<KrField name="sendMsg" grid={1/2} label="否" type="radio" value="0" />
               </KrField>
-        <KrField grid={1/2} name="foreignCode" type="input" label="会员卡号" requireLabel={true} onBlur={this.foreignCodeBlur}/>
+        <KrField grid={1/2} name="foreignCode" type="input" label="会员卡号" requireLabel={true} onBlur={this.foreignCodeBlur} requiredValue={true} pattern={/^\d{10}$/} errors={{requiredValue:'会员卡号为必填项',pattern:'会员卡号应由10位纯数字组成'}}/>
 				<Grid style={{marginTop:30}}>
 					<Row>
 						<Col md={12} align="center">

@@ -53,12 +53,16 @@ export default class CreateMemberForm extends Component {
 			initializeValues:{},
 			onsubmit:true,
 			onsubmitCode:true,
+
+			baseInfo:{}
+
 		}
 	}
 	//首次加载，只执行一次
 	componentWillMount() {
-		this.getBasicData(this.detail.id);
+		this.getBasicData(this.detail);
 		let {detail,handleSubmit} = this.props;
+
 		// console.log('edit',detail);
 		Store.dispatch(initialize('createMemberForm', detail));
 
@@ -68,7 +72,11 @@ export default class CreateMemberForm extends Component {
 			this.setState({
 				initializeValues:nextProps.detail
 			});
+
 			Store.dispatch(initialize('createMemberForm', nextProps.detail));
+
+			// Store.dispatch(initialize('createMemberForm', nextProps.detail));
+
 
 		}
 	}
@@ -92,21 +100,25 @@ export default class CreateMemberForm extends Component {
 		let params = {
 			communityId:url.communityId,
 			companyId:url.companyId,
-			memberId:memberId || ''
+			memberId:memberId.id || ''
 		}
 		let _this = this;
 		Store.dispatch(Actions.callAPI('getMemberBasicData', params)).then(function(response) {
-			response.memberInfoVO.jobId= 11411;
 			response.jobList.forEach((item)=>{
 				item.value = item.id;
 				item.label = item.jobName;
 			})
-			// Store.dispatch(initialize('createMemberForm', response.memberInfoVO));
+			response.memberInfoVO.jobId = memberId.jobId;
+
 
 			_this.setState({
 				jobList:response.jobList,
-				itemData:response.memberInfoVO
+				itemData:response.memberInfoVO,
+				baseInfo:response.memberInfoVO
+			},function(){
+				Store.dispatch(initialize('createMemberForm', response.memberInfoVO));
 			})
+
 
 
 		}).catch(function(err) {
@@ -126,6 +138,9 @@ export default class CreateMemberForm extends Component {
 		 Store.dispatch(Actions.callAPI('isEmailRegistered',params)).then(function(response){
 				//邮箱已注册
 				if(detail.phone == response.phone){
+					_this.setState({
+							onsubmit:true
+						})
 					return;
 				}else{
 					Message.warn('该邮箱已被绑定','error');
@@ -156,10 +171,13 @@ export default class CreateMemberForm extends Component {
 
 		 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
 				//会员卡号已注册
-				if(detail.foreignCode == response.foreignCode){
+				if(detail.phone == response.phone){
+					_this.setState({
+						onsubmitCode:true
+					})
 					return;
 				}else{
-					Message.warn('foreignCodeBlur','error');
+					Message.warn('会员卡号已注册','error');
 					_this.setState({
 						onsubmitCode:false
 					})
@@ -183,9 +201,8 @@ export default class CreateMemberForm extends Component {
 
 
 		let {detail,handleSubmit} = this.props;
-		let {itemData,jobList} = this.state;
+		let {itemData,jobList,baseInfo} = this.state;
 		let images = `./images/all.png`;
-		itemData.phone = '13314619606';
 
 
 		return (
@@ -197,14 +214,15 @@ export default class CreateMemberForm extends Component {
 						<span className="person-id">（员工UserID：{detail.id}）</span>
 
 					</div>
-					<KrField name="phone" grid={1/2} label="手机号" inline={false} component="labelText" value={itemData.phone} />
+					<KrField name="phone" grid={1/2} label="手机号" inline={false} component="labelText" value={detail.phone} />
 					<div className="split-lines"></div>
-					<KrField name="communityId" grid={1/2} label="社区" component="searchCommunity" right={30}  requireLabel={true}/>
-					<KrField name="foreignCode" grid={1/2} label="会员卡号" component="input" left={30}onBlur={this.foreignCodeBlur}  requireLabel={true}/>
-					<KrField name="companyId" grid={1/2} label="公司" component="searchCompany"  right={30}  requireLabel={true}/>
+
+					<KrField name="communityId" grid={1/2} label="社区" inline={false} component="labelText" right={30} defaultValue={baseInfo.communityName} requireLabel={true}/>
+					<KrField name="foreignCode" grid={1/2} label="会员卡号" component="input" left={30} onBlur={this.foreignCodeBlur}  requireLabel={true} requiredValue={true} pattern={/^\d{10}$/} errors={{requiredValue:'会员卡号为必填项',pattern:'会员卡号应由10位纯数字组成'}}/>
+					<KrField name="companyId" grid={1/2} label="公司" inline={false} component="labelText" defaultValue={baseInfo.companyName}  right={30}  requireLabel={true}/>
 					<KrField name="email" grid={1/2} label="邮箱:" component="input" left={30}  onBlur={this.EmailonBlur}  requireLabel={true}/>
 					<KrField name="name" grid={1/2}  label="姓名" component="input" right={30}  requireLabel={true} />
-					<KrField name="jobId" grid={1/2} label="职位" component="select" left={30} options={jobList}/>
+					<KrField name="jobId" grid={1/2} label="职位" defaultValue={detail.jobName} component="select" left={30} options={jobList}/>
 					<Grid style={{margin:'20px 0'}}>
 						<Row>
 							<ListGroup>

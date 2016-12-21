@@ -81,7 +81,7 @@ module.exports = {
 			menuItems: [{
 				primaryText: '社区列表',
 				menuCode: 'communityBaseList',
-				originUrl: '/krspace_operate_web/commnuity/communityBase/toCommunityBaseList'
+				originUrl: '/krspace_operate_web/commnuity/communityBase/toCommunityBaseList?mid=65'
 			}, {
 				primaryText: '会议室列表',
 				menuCode: 'communityBoardroomList',

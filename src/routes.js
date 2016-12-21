@@ -60,7 +60,8 @@ export default (
 
 		{/*会员中心*/}
 		<Route path="member" component={Basic}>
-			<Route path="index" component={Member.Home}/>
+             <IndexRedirect to="memberManage/list" />
+
 		<Route path="memberManage" component={Basic}>
 				<Route path="list"  component={Member.MemberManage.List}/>
 				<Route path=":memberId/detail/:companyId"  component={Member.MemberManage.Detail}/>
@@ -117,7 +118,7 @@ export default (
 								<Route path="order" component={Basic}>
 									<Route path="create" component = {Operation.CustomerManage.Order.Create} name="customerManage_order_create"/>
 									<Route path=":orderId/detail" component = {Operation.CustomerManage.Order.Detail} name="customerManage_order_detail"/>
-									<Route path=":oriderId/Edit" component = {Operation.CustomerManage.Order.Edit} name="customerManage_order_edit"/>
+									<Route path=":orderId/Edit" component = {Operation.CustomerManage.Order.Edit} name="customerManage_order_edit"/>
 
 
 									{/*合同信息*/}

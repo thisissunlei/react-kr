@@ -37,8 +37,7 @@ export default class List extends Component {
 	}
 	constructor(props, context) {
 		super(props, context);
-
-		this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
+		// this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
 		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
 		this.openAdvancedQueryDialog = this.openAdvancedQueryDialog.bind(this);
 		this.onLoaded = this.onLoaded.bind(this);
@@ -51,6 +50,7 @@ export default class List extends Component {
 			openView: false,
 			openEditDetail: false,
 			openAdvancedQuery :false,
+			status:false,
 			submit:false,
 			itemDetail: {},
 			item: {},
@@ -68,10 +68,11 @@ export default class List extends Component {
 				cityId:'',
 				type:'COMP_NAME',
 				value:'',
+				status:false,
 			}
 		}
 	}
-	openNewCreateDialog() {
+	openNewCreateDialog=()=> {
 		this.setState({
 			openNewCreate: !this.state.openNewCreate,
 		});
@@ -82,10 +83,6 @@ export default class List extends Component {
 			openEditDetail: !this.state.openEditDetail,
 		});
 	}
-	// onChangeSearchPersonel(personel) {
-	// 	Store.dispatch(change('joinCreateForm', 'lessorContacttel', personel.mobile));
-	// 	Store.dispatch(change('joinCreateForm', 'lessorContactName', personel.lastname));
-	// }
 	// 社区模糊查询
 	onChangeSearchCommunity(community) {
 		Store.dispatch(change('joinCreateForm', 'communityName', community.communityName));
@@ -148,6 +145,7 @@ export default class List extends Component {
 			// }]);
 		});
 	}
+	// 提交新建
 	onNewCreateSubmit=(values)=>{
 		// console.log("value",values);
 		let params = {
@@ -161,11 +159,13 @@ export default class List extends Component {
 							_this.openNewCreateDialog();
 							Message.success("操作成功");
 							_this.setState({
+								status:!_this.state.status,
 								searchParams:{
 									page:"1",
 									pageSize:"15",
 									type:'COMP_NAME',
-									value:""
+									value:"",
+									status:!_this.state.status,
 								}
 							})
 						}).catch(function(err){
@@ -194,7 +194,6 @@ export default class List extends Component {
 	}
 	// 打开高级查询
 	openAdvancedQueryDialog(){
-		// console.log("value",value);
 		this.setState({
 			openAdvancedQuery: !this.state.openAdvancedQuery,
 			// searchParams:{
@@ -209,6 +208,7 @@ export default class List extends Component {
 		_this.setState({
 			openAdvancedQuery: !this.state.openAdvancedQuery,
 			searchParams :{
+				registerSourceId:values.registerSourceId || '',
 				value :values.value,
 				type :values.type,
 				cityId :values.city || '',
@@ -216,7 +216,7 @@ export default class List extends Component {
 				startTime :values.startTime || '',
 				jobId :values.jobId || '',
 				page:1,
-				pageSize:15
+				pageSize:15,
 			}
 		})
 	}
@@ -280,7 +280,6 @@ export default class List extends Component {
 											<TableHeaderColumn>注册日期</TableHeaderColumn>
 											<TableHeaderColumn>操作</TableHeaderColumn>
 									</TableHeader>
-
 									<TableBody style={{position:'inherit'}}>
 											<TableRow displayCheckbox={true}>
 											<TableRowColumn name="phone" ></TableRowColumn>
@@ -290,7 +289,7 @@ export default class List extends Component {
 											<TableRowColumn name="jobName"></TableRowColumn>
 											<TableRowColumn name="cityName"></TableRowColumn>
 											<TableRowColumn name="companyName"></TableRowColumn>
-											<TableRowColumn name="sourceName"></TableRowColumn>
+											<TableRowColumn name="registerName"></TableRowColumn>
 											<TableRowColumn name="registerTime" type="date" format="yyyy-mm-dd"></TableRowColumn>
 											<TableRowColumn type="operation">
 													<Button label="详情"  type="operation" operation="view"/>

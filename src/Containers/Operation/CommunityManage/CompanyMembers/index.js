@@ -154,6 +154,16 @@ export default class CompanyMembers extends Component {
 			// 	type: 'success',
 			// }]);
 			Message.success('设置成功');
+			_this.setState({
+				leader:!_this.state.leader,
+				searchParams:{
+					value:'',
+					page:_this.state.page,
+					pageSize:15,
+					companyId:_this.state.companyId,
+					leader:!_this.state.leader
+				}
+			})
 
 			// window.setTimeout(function() {
 			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
@@ -294,9 +304,15 @@ export default class CompanyMembers extends Component {
 		});
 	}
 	onExport=(value)=>{
+		let {seleced} = this.state;
+		let _this = this;
+		let selecedList =[];
+		seleced.map(item=>{
+			selecedList.push(item.id);
+		})
+		console.log(String(selecedList));
 		let companyId = this.companyId;
-		let ids = 1;
-		let url = `/api/krspace-finance-web/member/member-company-excel?ids=${ids}&companyId=${companyId}`;
+		let url = `/api/krspace-finance-web/member/member-company-excel?ids=${String(selecedList)}&companyId=${companyId}`;
 		window.location.href = url;
 
 	}
@@ -320,6 +336,18 @@ export default class CompanyMembers extends Component {
 			// 	type: 'success',
 			// }]);
 			Message.success('设置成功');
+			_this.setState({
+				leader:!_this.state.leader,
+				searchParams:{
+					value:'',
+					page:_this.state.page,
+					pageSize:15,
+					companyId:_this.state.companyId,
+					leader:!_this.state.leader
+
+				}
+			})
+
 
 			// window.setTimeout(function() {
 			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
@@ -334,33 +362,16 @@ export default class CompanyMembers extends Component {
 		});
 	}
 	importDataPost=(files)=>{
-		// console.log('file',files);
-		// let companyId = this.companyId;
-		// console.log(files);
-		// let params = {
-		// 	companyId:companyId,
-		// 	file:files.file
-		// }
-		// let _this = this;
-		// Store.dispatch(Actions.callAPI('importMemberExcel',{},params)).then(function(response) {
-		// 	_this.importData();
-		// 	// Notify.show([{
-		// 	// 	message: '设置成功',
-		// 	// 	type: 'success',
-		// 	// }]);
-		// 	Message.success('设置成功');
-
-		// 	// window.setTimeout(function() {
-		// 	// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
-		// 	// }, 0);
-
-		// }).catch(function(err) {
-		// 	// Notify.show([{
-		// 	// 	message: err.message,
-		// 	// 	type: 'danger',
-		// 	// }]);
-		// 	Message.error(err.message);
-		// });
+		this.setState({
+				leader:!this.state.leader,
+				searchParams:{
+					value:'',
+					page:this.state.page,
+					pageSize:15,
+					companyId:this.state.companyId,
+					leader:!this.state.leader
+				}
+			})
 
 	}
 	onSubmits=()=>{
@@ -379,11 +390,13 @@ export default class CompanyMembers extends Component {
 			// console.log('newMember');
 			Message.success('成功');
 			_this.setState({
+				leader:!_this.state.leader,
 				searchParams:{
 					value:'',
 					page:_this.state.page,
 					pageSize:15,
 					companyId:_this.state.companyId,
+					leader:!_this.state.leader
 				}
 			})
 			// window.location.href = "/#/community/companyMembers/" + _this.params.companyId + "/list/" + _this.params.communityId ;
@@ -539,7 +552,7 @@ export default class CompanyMembers extends Component {
 			open={this.state.createMember}
 			onClose={this.createMember}
 			contentStyle={{width:687}}>
-				<CreateMemberForm onSubmit={this.onNewCreateSubmit} params={this.params} onCancel={this.createMember}  detail={itemDetail}/>
+				<CreateMemberForm onSubmit={this.onNewCreateSubmit} params={this.params} onCancel={this.createMember}  detail={allData}/>
 			</Dialog>
 			<Dialog
 			title="批量导入"

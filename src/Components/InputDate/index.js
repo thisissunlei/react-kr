@@ -10,6 +10,8 @@ import ReactDOM from 'react-dom';
 import './index.less';
 import './animate.less';
 
+window.calendars= [];
+
 export default class InputDate extends React.Component {
 
 	static displayName = 'InputDate';
@@ -100,16 +102,13 @@ export default class InputDate extends React.Component {
 
 		const {openCalendar} = this.props;
 
-		this.setState({
-			openCalendar:false
-		});
-
-		document.removeEventListener('click',this.docClick);
+		this.closeCalendarDialog();
 
 	}
 
 	componentDidMount(){
 			this.setDefaultValue(this.props.value);
+			window.calendars.push(this);
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -125,9 +124,21 @@ export default class InputDate extends React.Component {
 			},function(){
 					if(this.state.openCalendar){
 						document.addEventListener('click',this.docClick);
+						this.closeOtherAllCalendar();
 					}
 			});
 
+	}
+
+	closeOtherAllCalendar = ()=>{
+
+		let calendars = window.calendars;
+		var _this = this;
+		calendars.map(function(item,index){
+			if(item != _this ){
+					item.closeCalendarDialog()
+			}
+		});
 	}
 
 	onChange = (value)=>{
@@ -165,14 +176,22 @@ export default class InputDate extends React.Component {
 		onChange && onChange(value);
 	}
 
+	closeCalendarDialog=()=>{
+		this.setState({
+			openCalendar:false
+		},function(){
+				document.removeEventListener('click',this.docClick);
+		});
+	}
+
 
 	render() {
 
 		let {openCalendar} = this.state;
 
 		return (
-				<div className="ui-calendar">
-					<div className="calendar-content"  onClick={this.openCalendarDialog}>
+				<div className="ui-calendar" ref="calendar">
+					<div className="calendar-content"  onClick={this.openCalendarDialog} >
 							<div className="calendar-value"> {this.state.value || this.props.placeholder}</div>
 							<span className="icon"></span>
 					</div>

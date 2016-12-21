@@ -74,16 +74,10 @@ class NewCreateForm extends Component{
 			},
 		}
 		this.basicData();
-
-		// Store.dispatch(reset('newCreateForm'));
-		// Store.dispatch(change('newCreateForm','enableflag','ENABLE'));
-
 	}
 	 onSubmit(values){
-		  // console.log('onAdvanceSearchSubmit高级查询',values);
 			let {content,filter} = this.props;
 			let {searchForm} = this.state;
-			// console.log(content,filter);
 			if (!searchForm){
 				values.type = filter;
 				values.value = content;
@@ -91,11 +85,6 @@ class NewCreateForm extends Component{
 			if(!values.type){
 				values.type = filter;
 			}
-			// console.log('高级查询values',values,searchForm);
-
-			// if(!search){
-			//
-			// }
 		 const {onSubmit} = this.props;
 		 onSubmit && onSubmit(values);
 	 }
@@ -131,7 +120,6 @@ class NewCreateForm extends Component{
 	 }
 	 city=(values)=>{
 		 Store.dispatch(change('AdvancedQueryForm','city',values));
-		//  console.log('city',values);
 	 }
 	 onFilter=(search)=>{
 		 this.setState({searchForm:true});
@@ -157,7 +145,6 @@ class NewCreateForm extends Component{
 		 let {searchParams}=this.state;
 			 let start=Date.parse(dateFormat(searchParams.startTime,"yyyy-mm-dd hh:MM:ss"));
 			 let end=Date.parse(dateFormat(endTime,"yyyy-mm-dd hh:MM:ss"));
-			//  console.log('onendchange',searchParams.startTime,start,end)
 			 if(searchParams.startTime&&start>end){
 				 Message.error("结束时间要小于开始时间");
 				 return ;
@@ -187,14 +174,14 @@ class NewCreateForm extends Component{
 		}];
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px',marginLeft:'40px'}}>
-		<ListGroup>
-			<ListGroupItem>
+		<ListGroup >
+			<ListGroupItem style={{marginBottom:5}}>
 				<SearchForm searchFilter={options} style={{width:252,marginBottom:10}} defaultFilter={filter} defaultContent={content} onSubmit={this.onFilter}/>
 			</ListGroupItem>
 		</ListGroup>
-				<KrField name="work"  component="city" label="工作地点"  style={{display:'block',width:'252px',marginRight:24}} onSubmit={this.city}/>
-				<KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} style={{width:'252px',marginRight:'33'}}/>
-				<KrField name="from"  grid={1/2} component="select" label="注册来源" options={selectSourceOption} style={{width:'252px'}}/>
+				<KrField name="work"  component="city" label="工作地点"  style={{display:'block',width:'252px',marginRight:24,marginBottom:5}} onSubmit={this.city}/>
+				<KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} style={{width:'252px',marginRight:'33',marginBottom:5}}/>
+				<KrField name="registerSourceId"  grid={1/2} component="select" label="注册来源" options={selectSourceOption} style={{width:'252px'}}/>
 				<AdvanceSearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange}/>
 				<Grid style={{marginTop:30}}>
 					<Row>

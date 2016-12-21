@@ -39,7 +39,6 @@ export default class  SearchCompanyComponent extends React.Component {
 	getOptions(companyText){
 		return new Promise((resolve, reject) => {
 			Store.dispatch(Actions.callAPI('getCompanyByCompanyText',{ companyText:companyText })).then(function(response){
-				console.log('getCompanyByCompanyTextresponse',response);
 				response.forEach(function(item,index){
 					item.value = item.id;
 					item.label = item.customercompany;
@@ -64,6 +63,10 @@ export default class  SearchCompanyComponent extends React.Component {
 					noResultsText=""
 					placeholder={placeholder}/>
 			{touched && error && <div className="error-wrap"> <span>{error}</span> </div>}
+
+
+
+
 		</WrapComponent>
 		);
 	}
