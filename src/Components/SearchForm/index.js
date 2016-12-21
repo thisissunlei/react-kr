@@ -190,7 +190,7 @@ export default class SearchForm extends Component{
 					{this.renderFilter()}
 
 					<div className="search-content">
-						<input type="text" defaultValue={defaultContent} className="search-val" placeholder="请输入您要查找的内容" onBlur={this.onBlur} name="keywords" id="keywords" autoComplete="off"/>
+						<input type="text" defaultValue={defaultContent} className="search-val" placeholder="请输入查找内容" onBlur={this.onBlur} name="keywords" id="keywords" autoComplete="off"/>
 					</div>
 				</div>
 

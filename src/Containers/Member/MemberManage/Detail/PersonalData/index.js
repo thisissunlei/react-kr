@@ -87,8 +87,21 @@ export default class BasicInfo extends Component {
 		let {
 			params,detail
 		} = this.props;
-		console.log("detail",detail);
 		let baseInfo = detail;
+			if(baseInfo.gender=="WOMAN"){
+	     		baseInfo.gender  = "女";
+			}else if(baseInfo.gender=="MAN"){
+				 baseInfo.gender  = "男";
+			}else{
+				baseInfo.gender  = "保密";
+			}
+			if(baseInfo.maritalStatus=="MARRIED"){
+				baseInfo.maritalStatus = "已婚";
+			}else if(baseInfo.maritalStatus=="UNMARRIED"){
+				baseInfo.maritalStatus = "未婚";
+			}else{
+				baseInfo.maritalStatus = "保密";
+			}
 		return (
 
 			<div className='ui-detail-order'>
