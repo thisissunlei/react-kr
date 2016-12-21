@@ -559,7 +559,7 @@
   },
   //验证成员
   'validMember':{
-  	url:'/api/krspace-finance-web/member/actions/set-as-valid?memberIds={memberIds}',
+  	url:'/api/krspace-finance-web/member/actions/set-as-valid?memberIds={memberIds}&companyId={companyId}',
   	method:'post'
   },
   //指定公司下的会员数据导出
