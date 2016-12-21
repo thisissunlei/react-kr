@@ -43,16 +43,20 @@ export default class CancleLeader extends Component {
 		communityOptions:React.PropTypes.array,
 		orderTypeOptions:React.PropTypes.array,
 	}
+	static contextTypes = {
+		router: React.PropTypes.object.isRequired
+	}
 
 	constructor(props, context) {
 		super(props, context);
+		this.companyId = this.context.router.params.companyId
 		this.state = {
 			isInit: true,
 			form: {},
 			files: [],
 			isUploading: false,
 			progress: 0,
-			file:[],
+			file:{},
 			fileName:''
 		}
 	}
@@ -60,16 +64,26 @@ export default class CancleLeader extends Component {
 		let _this = this;
     	var form = new FormData();
 		form.append('file', this.state.file);
-		form.append('companyId', '45');
+		form.append('companyId', this.companyId);
+		if(!this.state.file.name){
+			Message.error('请选择上传文件');
+			return false;
+		}
 
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
+					console.log('ss',xhr.response);
+					if(xhr.response.code=='-1'){
+						Message.error(xhr.response.message);
+					}else{
+						Message.success("上传文件成功");
+            			_this.onCancel(); 
+            			_this.onSubmit();
+					}
 
-				Message.success("上传文件成功");
-            	_this.onCancel(); 
-            	_this.onSubmit();
+				
 				} else {
             	_this.onCancel(); 
 					Message.error('上传文件失败');
