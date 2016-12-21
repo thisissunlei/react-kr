@@ -60,19 +60,19 @@ export default class JoinCreate extends Component {
 
 	onConfrimSubmit() {
 
-				if(this.isConfirmSubmiting){
-					return ;
-				}
-				this.isConfirmSubmiting = true;
+		if (this.isConfirmSubmiting) {
+			return;
+		}
+		this.isConfirmSubmiting = true;
 		let {
 			formValues
 		} = this.state;
 		let {
 			params
 		} = this.props;
-			var _this = this;
+		var _this = this;
 		Store.dispatch(Actions.callAPI('addFnaContractWithdrawal', {}, formValues)).then(function(response) {
-				_this.isConfirmSubmiting = false;
+			_this.isConfirmSubmiting = false;
 			Notify.show([{
 				message: '创建成功',
 				type: 'success',
@@ -80,7 +80,7 @@ export default class JoinCreate extends Component {
 			location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/exit/" + response.contractId + "/detail";
 
 		}).catch(function(err) {
-				_this.isConfirmSubmiting = false;
+			_this.isConfirmSubmiting = false;
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
@@ -120,8 +120,8 @@ export default class JoinCreate extends Component {
 			initialValues.leaseBegindate = new Date;
 			initialValues.leaseEnddate = new Date;
 
-			initialValues.withdrawdate = +new Date();
-			initialValues.signdate = +new Date();
+			//initialValues.withdrawdate = +new Date();
+			//initialValues.signdate = +new Date();
 
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;
