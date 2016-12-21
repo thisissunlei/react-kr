@@ -1,5 +1,5 @@
-import Argreement from './Argreement';
+import Agreement from './Argreement';
 
 module.exports = {
-	Argreement,
+	Agreement,
 }

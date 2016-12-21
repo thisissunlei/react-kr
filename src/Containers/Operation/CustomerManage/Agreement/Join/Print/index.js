@@ -22,6 +22,10 @@ import {
 	Title,
 } from 'kr-ui';
 
+import {
+	Agreement
+} from 'kr/PureComponents';
+
 import State from './State';
 
 @observer
