@@ -194,7 +194,7 @@ class NewCreateForm extends Component {
 		this.setState({
 			stationVos: [],
 			delStationVos: stationVos
-		}, fucntion() {
+		}, function() {
 			this.calcStationNum();
 		});
 	}
