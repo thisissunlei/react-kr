@@ -110,6 +110,9 @@ export default class CreateMemberForm extends Component {
 			},function(){
 				Store.dispatch(initialize('createMemberForm', response.memberInfoVO));
 			})
+			console.log('response.memberInfoVO',response.memberInfoVO);
+			Store.dispatch(initialize('createMemberForm', response.memberInfoVO));
+
 
 
 
