@@ -160,10 +160,10 @@ module.exports = {
 		}
 		*/
 			{
-				primaryText: '会员列表',
+				primaryText: '会员管理',
 				iconName: 'icon-vip',
 				iconColor: '#2b8dcd',
-				menuCode: 'member',
+				menuCode: 'memberAdmin',
 				router: '/member/memberManage/list',
 				menuItems: [
 					{
