@@ -56,7 +56,7 @@ export default class memberListDetail extends Component{
 		Store.dispatch(Actions.callAPI('getMemberDetailData', {
 			id: params.memberId,
 		})).then(function(response) {
-      console.log("response",response);
+      // console.log("response",response);
       _this.setState({
         workInfo:response.workInfo,
         companyInfo:response.companyInfo,

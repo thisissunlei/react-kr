@@ -53,31 +53,33 @@ export default class MemeberEditMemberForm extends Component {
 			itemData:{},
 			initializeValues:{},
 			open:'false',
-			onsubmit:'false',
+			onsubmit:false,
 			phoneSame:'true',
+			onsubmitCode:false,
+			code:'',
+			email:'',
 		}
 	}
 	//首次加载，只执行一次
 	componentWillMount() {
 		this.getBasicData(this.detail);
-		// let {detail,handleSubmit} = this.props;
-		// Store.dispatch(initialize('memeberEditMemberForm', detail));
-
 	}
 	componentWillReceiveProps(nextProps){
-		// console.log('ererwer');
 		if(!ShallowEqual(this.state.initializeValues,nextProps.detail)){
 			this.setState({
 				initializeValues:nextProps.detail
 			})
-			// Store.dispatch(initialize('memeberEditMemberForm', nextProps.detail));
-
 		}
 	}
 
 	onSubmit=(values)=>{
-		const {onSubmit} = this.props;
-		onSubmit && onSubmit(values);
+		this.communityChange(values.email);
+	 	this.membersByForeignCode(values.foreignCode);
+	 	let {onsubmit,onsubmitCode} = this.state;
+	 	if(onsubmit && onsubmitCode){
+	 		const {onSubmit} = this.props;
+		 	onSubmit && onSubmit(values);
+		}
 	}
 	onCancel=()=>{
 		const {onCancel} = this.props;
@@ -102,6 +104,8 @@ export default class MemeberEditMemberForm extends Component {
 			_this.setState({
 				jobList:response.jobList,
 				itemData:response.memberInfoVO,
+				phone:response.memberInfoVO.phone,
+				code:response.memberInfoVO.foreignCode,
 			})
 
 
@@ -116,82 +120,66 @@ export default class MemeberEditMemberForm extends Component {
 		let params = {
 			email :mail
 		}
-		let {email,phoneSame} = this.state;
 		this.setState({
 		 open:true
 	 })
+		let {detail} = this.props;
 		let _this = this;
-		if(phoneSame && email == params.email){
-		 // 	console.log('phoneSame');
+
+		Store.dispatch(Actions.callAPI('isEmailRegistered',params)).then(function(response){
+			 //邮箱已注册
+			 if(detail.phone == response.phone){
+				 _this.setState({
+						 onsubmit:true
+					 })
+				 return;
+			 }else{
+				 Message.warn('该邮箱已被绑定','error');
+
+					 _this.setState({
+						 onsubmit:false
+					 })
+			 }
+
+
+		}).catch(function(err){
+		 //邮箱未注册
 		 _this.setState({
 			 onsubmit:true
 		 })
-		 return;
-		}else{
-		 Store.dispatch(Actions.callAPI('isEmailRegistered',params)).then(function(response){
-			 //邮箱已注册
-			//  Message.warn('该邮箱已被绑定','error');
-			//  _this.setState({
-			// 	 onsubmit:false
-			//  })
-			console.log("111");
-			}).catch(function(err){
-			 //邮箱未注册
-			 	console.log('ddddd');
-			 _this.setState({
-				 onsubmit:true
-			 })
-			});
+		});
+	}
+	membersByForeignCode=(codes)=>{
+		let params = {
+			code :codes
 		}
-	}
-	membersByForeignCode=(value)=>{
-		// if (value){
- 	// 		Store.dispatch(Actions.callAPI('membersByForeignCode', {code:value})).then(function(response) {
-		// 		// console.log("response111");
-		// 		// if(response == 1){
-		// 			// console.log('1');
-		// 		// }
-		// 		Message.warn('该会员卡号已被注册！','error');
-		//
-		//
-		// 	}).catch(function(err) {
-		// 		// console.log('response222');
-		// 		// Notify.show([{
-		// 		// 	message: err.message,
-		// 		// 	type: 'danger',
-		// 		// }]);
-		//
-		// 	});
- 	// 	};
-	let params = {
-		code :value
-	}
-	let {code,phoneSame,phone} = this.state;
-	let _this = this;
-	this.setState({
-	 open:true
- })
-	if(phoneSame && code == params.code){
-	 _this.setState({
-		 onSubmitCode:true
+		let _this = this;
+		this.setState({
+		 open:true
 	 })
-	 return;
-	}
+		let {detail} = this.props;
 
-	Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
+		Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
+			 //会员卡号已注册
+			 if(detail.phone == response.phone){
+				 _this.setState({
+					 onsubmitCode:true
+				 })
+				 return;
+			 }else{
+				 Message.warn('会员卡号已注册','error');
+				 _this.setState({
+					 onsubmitCode:false
+				 })
+			 }
 
-			//会员卡号已注册
-		//  Message.warn('该会员卡号已被绑定','error');
-		//  _this.setState({
-		// 	 onSubmitCode:false
-		//  })
-	}).catch(function(err){
-	 //会员卡号未注册
-	 // 	console.log('ddddd',err.message);
-	 _this.setState({
-		 onSubmitCode:true
-	 })
-	});
+
+		}).catch(function(err){
+		 //会员卡号未注册
+		 _this.setState({
+			 onsubmitCode:true
+		 })
+		});
 	}
 
 

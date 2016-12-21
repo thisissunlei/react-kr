@@ -99,7 +99,7 @@ render() {
 			multi,
 			...other
 		} = this.props;
-		console.log('select',options);
+		// console.log('select',options);
 
 		if (multi) {
 			return (
