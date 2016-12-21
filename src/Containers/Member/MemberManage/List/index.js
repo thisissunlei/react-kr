@@ -195,7 +195,6 @@ export default class List extends Component {
 	}
 	// 打开高级查询
 	openAdvancedQueryDialog(){
-		// console.log("value",value);
 		this.setState({
 			openAdvancedQuery: !this.state.openAdvancedQuery,
 			// searchParams:{
@@ -210,7 +209,7 @@ export default class List extends Component {
 		_this.setState({
 			openAdvancedQuery: !this.state.openAdvancedQuery,
 			searchParams :{
-				registerSourceId:values.registerSourceId,
+				registerSourceId:values.registerSourceId || '',
 				value :values.value,
 				type :values.type,
 				cityId :values.city || '',
