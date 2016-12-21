@@ -74,16 +74,10 @@ class NewCreateForm extends Component{
 			},
 		}
 		this.basicData();
-
-		// Store.dispatch(reset('newCreateForm'));
-		// Store.dispatch(change('newCreateForm','enableflag','ENABLE'));
-
 	}
 	 onSubmit(values){
-		  // console.log('onAdvanceSearchSubmit高级查询',values);
 			let {content,filter} = this.props;
 			let {searchForm} = this.state;
-			// console.log(content,filter);
 			if (!searchForm){
 				values.type = filter;
 				values.value = content;
@@ -91,11 +85,6 @@ class NewCreateForm extends Component{
 			if(!values.type){
 				values.type = filter;
 			}
-			// console.log('高级查询values',values,searchForm);
-
-			// if(!search){
-			//
-			// }
 		 const {onSubmit} = this.props;
 		 onSubmit && onSubmit(values);
 	 }
@@ -131,7 +120,6 @@ class NewCreateForm extends Component{
 	 }
 	 city=(values)=>{
 		 Store.dispatch(change('AdvancedQueryForm','city',values));
-		//  console.log('city',values);
 	 }
 	 onFilter=(search)=>{
 		 this.setState({searchForm:true});
@@ -157,7 +145,6 @@ class NewCreateForm extends Component{
 		 let {searchParams}=this.state;
 			 let start=Date.parse(dateFormat(searchParams.startTime,"yyyy-mm-dd hh:MM:ss"));
 			 let end=Date.parse(dateFormat(endTime,"yyyy-mm-dd hh:MM:ss"));
-			//  console.log('onendchange',searchParams.startTime,start,end)
 			 if(searchParams.startTime&&start>end){
 				 Message.error("结束时间要小于开始时间");
 				 return ;

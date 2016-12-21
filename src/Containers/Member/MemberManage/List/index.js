@@ -37,7 +37,6 @@ export default class List extends Component {
 	}
 	constructor(props, context) {
 		super(props, context);
-
 		// this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
 		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
 		this.openAdvancedQueryDialog = this.openAdvancedQueryDialog.bind(this);
