@@ -9,9 +9,13 @@ import {
 import {
 	default as Header
 } from './Header';
+import {
+	default as Footer
+} from './Footer';
 
 module.exports = {
 	Payment,
 	Station,
-	Header
+	Header,
+	Footer
 }
