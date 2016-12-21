@@ -3,7 +3,13 @@ import React, {
 	PropTypes
 } from 'react';
 
-import {observer} from 'mobx-react';
+import './index.less';
+
+
+
+import {
+	observer
+} from 'mobx-react';
 
 import {
 	Menu,
@@ -33,6 +39,8 @@ export default class JoinPrint extends Component {
 
 	constructor(props, context) {
 		super(props, context);
+
+		State.getBasicInfo();
 	}
 
 	render() {
@@ -40,7 +48,7 @@ export default class JoinPrint extends Component {
 		return (
 
 			<div>
-fsdsssd
+			{State.name}
       </div>
 
 		);
