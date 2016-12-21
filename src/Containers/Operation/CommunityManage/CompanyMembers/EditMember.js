@@ -96,7 +96,6 @@ export default class CreateMemberForm extends Component {
 		}
 		let _this = this;
 		Store.dispatch(Actions.callAPI('getMemberBasicData', params)).then(function(response) {
-			response.memberInfoVO.jobId= 11411;
 			response.jobList.forEach((item)=>{
 				item.value = item.id;
 				item.label = item.jobName;
@@ -110,8 +109,6 @@ export default class CreateMemberForm extends Component {
 			},function(){
 				Store.dispatch(initialize('createMemberForm', response.memberInfoVO));
 			})
-			console.log('response.memberInfoVO',response.memberInfoVO);
-			Store.dispatch(initialize('createMemberForm', response.memberInfoVO));
 
 
 
