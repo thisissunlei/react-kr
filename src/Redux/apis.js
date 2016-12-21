@@ -420,6 +420,31 @@
 		url: '/api/krspace-finance-web/finacontractdetail/getInstallmentplan?year={year}&communityids={communityids}&page={page}&pageSize={pageSize}&type={type}&value={value}',
 		method: 'get'
 	},
+	// 计划表获取合同数据
+	'getBillContract': {
+		url: '/api/krspace-finance-web/finacontractdetail/plan-table/billContract?billId={billId}',
+		method: 'get'
+	},
+	// 计划表获取合同数据
+	'getRedPoint': {
+		url: '/api/krspace-finance-web/finacontractdetail/plan-table/redPoint?billId={billId}&remindDate={remindDate}',
+		method: 'get'
+	},
+	// 计划表获取合同数据
+	'getBluePoint': {
+		url: '/api/krspace-finance-web/finacontractdetail/plan-table/bluePoint?billId={billId}&detailId={detailId}',
+		method: 'get'
+	},
+	//车场接口
+	'getLeaveDate': {
+		url: '/api/krspace-finance-web/finacontractdetail/plan-table/leaveDate?billId={billId}',
+		method: 'get'
+	},
+	//获取出租率
+	'getRate':{
+		url: '/api/krspace-finance-web/finacontractdetail/plan-table/rate?year={year}&communityids={communityids}',
+		method: 'get'
+	},
 	//权限管理-权限管理-数据模板管理数据
 	'getDataGrouplis': {
 		url: '/mockjsdatadata/13/krspace-finance-web/stat/group/group-list',
