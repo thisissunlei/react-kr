@@ -60,7 +60,8 @@ export default class memberListDetail extends Component{
       _this.setState({
         workInfo:response.workInfo,
         companyInfo:response.companyInfo,
-        baseInfo:response.baseInfo
+        baseInfo:response.baseInfo,
+        isLeader:response.isLeader
       })
 		}).catch(function(err) {
 			Notify.show([{
@@ -71,8 +72,7 @@ export default class memberListDetail extends Component{
   }
   isLeader=()=>{
     let show = true;
-    let {isLeader} = this.state.isLeader;
-    // console.log('index',this.state);
+    let {isLeader} = this.state;
     if(isLeader){
       return (
         <Tabs>
