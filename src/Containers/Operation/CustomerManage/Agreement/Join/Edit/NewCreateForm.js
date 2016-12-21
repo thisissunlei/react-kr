@@ -165,6 +165,7 @@ class NewCreateForm extends Component {
 			delStationVos: stationVos
 		}, function() {
 			this.getStationUrl();
+			this.calcStationNum();
 		});
 	}
 
@@ -183,6 +184,7 @@ class NewCreateForm extends Component {
 			delStationVos: stationVos
 		}, function() {
 			this.getStationUrl();
+			this.calcStationNum();
 		});
 	}
 
@@ -212,7 +214,7 @@ class NewCreateForm extends Component {
 				message: '请先选择要录入单价的工位',
 				type: 'danger',
 			}]);
-			return ;
+			return;
 		}
 		this.openStationUnitPriceDialog();
 	}

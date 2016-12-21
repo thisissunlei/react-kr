@@ -185,6 +185,7 @@ class NewCreateForm extends Component {
 			delStationVos: stationVos
 		}, function() {
 			this.getStationUrl();
+			this.calcStationNum();
 		});
 	}
 
@@ -203,6 +204,7 @@ class NewCreateForm extends Component {
 			delStationVos: stationVos
 		}, function() {
 			this.getStationUrl();
+			this.calcStationNum();
 		});
 	}
 

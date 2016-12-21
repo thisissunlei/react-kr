@@ -176,6 +176,8 @@ class NewCreateForm extends Component {
 		this.setState({
 			stationVos: [],
 			delStationVos: stationVos
+		}, function() {
+			this.calcStationNum();
 		});
 	}
 
@@ -192,6 +194,8 @@ class NewCreateForm extends Component {
 		this.setState({
 			stationVos: [],
 			delStationVos: stationVos
+		}, fucntion() {
+			this.calcStationNum();
 		});
 	}
 
