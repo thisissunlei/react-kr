@@ -53,9 +53,9 @@ export default class MemeberEditMemberForm extends Component {
 			itemData:{},
 			initializeValues:{},
 			open:'false',
-			onsubmit:false,
+			onsubmit:true,
 			phoneSame:'true',
-			onsubmitCode:false,
+			onsubmitCode:true,
 			code:'',
 			email:'',
 		}
