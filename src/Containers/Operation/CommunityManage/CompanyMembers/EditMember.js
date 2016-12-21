@@ -53,6 +53,7 @@ export default class CreateMemberForm extends Component {
 			initializeValues:{},
 			onsubmit:true,
 			onsubmitCode:true,
+			baseInfo:{}
 		}
 	}
 	//首次加载，只执行一次
@@ -105,7 +106,8 @@ export default class CreateMemberForm extends Component {
 
 			_this.setState({
 				jobList:response.jobList,
-				itemData:response.memberInfoVO
+				itemData:response.memberInfoVO,
+				baseInfo:response.memberInfoVO
 			},function(){
 				Store.dispatch(initialize('createMemberForm', response.memberInfoVO));
 			})
@@ -194,7 +196,7 @@ export default class CreateMemberForm extends Component {
 
 
 		let {detail,handleSubmit} = this.props;
-		let {itemData,jobList} = this.state;
+		let {itemData,jobList,baseInfo} = this.state;
 		let images = `./images/all.png`;
 
 
@@ -209,9 +211,9 @@ export default class CreateMemberForm extends Component {
 					</div>
 					<KrField name="phone" grid={1/2} label="手机号" inline={false} component="labelText" value={detail.phone} />
 					<div className="split-lines"></div>
-					<KrField name="communityId" grid={1/2} label="社区" component="searchCommunity" right={30}  requireLabel={true}/>
+					<KrField name="communityId" grid={1/2} label="社区" inline={false} component="labelText" right={30} defaultValue={baseInfo.communityName} requireLabel={true}/>
 					<KrField name="foreignCode" grid={1/2} label="会员卡号" component="input" left={30} onBlur={this.foreignCodeBlur}  requireLabel={true} requiredValue={true} pattern={/^\d{10}$/} errors={{requiredValue:'会员卡号为必填项',pattern:'会员卡号应由10位纯数字组成'}}/>
-					<KrField name="companyId" grid={1/2} label="公司" component="searchCompany"  right={30}  requireLabel={true}/>
+					<KrField name="companyId" grid={1/2} label="公司" inline={false} component="labelText" defaultValue={baseInfo.companyName}  right={30}  requireLabel={true}/>
 					<KrField name="email" grid={1/2} label="邮箱:" component="input" left={30}  onBlur={this.EmailonBlur}  requireLabel={true}/>
 					<KrField name="name" grid={1/2}  label="姓名" component="input" right={30}  requireLabel={true} />
 					<KrField name="jobId" grid={1/2} label="职位" defaultValue={detail.jobName} component="select" left={30} options={jobList}/>
