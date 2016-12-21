@@ -124,7 +124,7 @@ export default (
 																		<Route path=":id/edit" component={Operation.CustomerManage.Agreement.Join.Edit}/>
 																		<Route path=":id/detail" component={Operation.CustomerManage.Agreement.Join.Detail}/>
 																		<Route path="create" component={Operation.CustomerManage.Agreement.Join.Create}/>
-																		<Route path="print" component={Operation.CustomerManage.Agreement.Join.Print}/>
+																		<Route path=":id/print" component={Operation.CustomerManage.Agreement.Join.Print}/>
 																	</Route>
 
 																	{/*承租意向书*/}

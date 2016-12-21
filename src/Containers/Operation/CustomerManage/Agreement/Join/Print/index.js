@@ -2,11 +2,6 @@ import React, {
 	Component,
 	PropTypes
 } from 'react';
-
-import './index.less';
-
-
-
 import {
 	observer
 } from 'mobx-react';
@@ -29,6 +24,7 @@ import {
 } from 'kr-ui';
 
 import State from './State';
+import './index.less';
 
 @observer
 export default class JoinPrint extends Component {
@@ -44,6 +40,10 @@ export default class JoinPrint extends Component {
 		return (
 
 			<div>
+			<Section title="hdsjf">
+			ffffff
+			</Section>
+			
 			{State.name}
       </div>
 
