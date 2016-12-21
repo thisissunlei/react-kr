@@ -33,12 +33,12 @@ import {
 
 } from 'kr-ui';
 
-
 import EditDetail from "./EditDetail";
 import HeavilyActivation from "./HeavilyActivation";
 import NewActivation from "./NewActivation";
 import StartCardActivation from "./StartCardActivation"
 
+import './index.less';
 
 export default class List extends Component {
 
@@ -66,7 +66,8 @@ export default class List extends Component {
 				title:'',
 				open:false,
 				style:{},
-				className:''
+				className:'',
+				barStyle:{}
 			}
 
 		}
@@ -178,11 +179,14 @@ export default class List extends Component {
 	 openMessageBar=(text,type)=>{
 	 	var style={};
 	 	var className="";
+	 	var barStyle={};
 	 	if(type=="ok"){
-	 		style={position:'fixed',top:-160,right:0,display:"inline-block",color:"#000",backgroundColor:"#edffe2"};
-	 		className="messagesBarIconOk";
+	 		style={position:'fixed',right:0,display:"inline-block",height:40,color:"#000",top:30};
+	 		barStyle={display:"inline-block",backgroundColor:"#edffe2",borderRadius:3,padding:'0px 8px',border:"1px solid #cce6a0"};
+	 		className="messagesBarIconOk"
 	 	}else{
-	 		style={position:'fixed',top:-160,right:0,display:"inline-block",color:"#000",backgroundColor:"#ffe9e9"};
+	 		style={position:'fixed',right:0,display:"inline-block",height:40,color:"#000",top:30};
+	 		barStyle={display:"inline-block",backgroundColor:"#ffe9e9",borderRadius:3,padding:'0px 8px',border:"1px solid #ffb8b8"};
 	 		className="messagesBarIconError";
 	 	}
 
@@ -191,7 +195,8 @@ export default class List extends Component {
 					title:text,
 					open:true,
 					style:style,
-					className:className
+					className:className,
+					barStyle:barStyle
 				}
 	 	})
 	 }
@@ -231,6 +236,7 @@ export default class List extends Component {
 	}
 
 		render(){
+			
 			return(
 				<div className="switchhover">
 				<Title value="会员配置"/>
@@ -330,7 +336,7 @@ export default class List extends Component {
 						>
 							<StartCardActivation onFlush={this.onFlush} detail={this.state.detail}  onCancel={this.openStartCardActivationDialog} throwBack={this.throwBack} openMessageBar={this.openMessageBar} closeMessageBar={this.closeMessageBar}/>
 					  </Dialog>
-				<SnackTip  style={this.state.closeMessageBar.style} open={this.state.closeMessageBar.open} title={<span style={{display:"inline-block"}}><span className={this.state.closeMessageBar.className}></span><span style={{float:"left",color:"#000"}}>{this.state.closeMessageBar.title}</span></span>}  />
+					  <SnackTip zIndex={20000}  style={this.state.closeMessageBar.style} open={this.state.closeMessageBar.open} title={<span style={this.state.closeMessageBar.barStyle}><span className={this.state.closeMessageBar.className} ></span><span style={{float:"left",color:"#000"}}>{this.state.closeMessageBar.title}</span></span>}  />
 
 				</div>
 			);

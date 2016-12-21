@@ -67,7 +67,7 @@ import './index.less';
 					 Store.dispatch(initialize('StartCardActivation',detail));
 					 _this.props.onFlush();
 					 var title="会员卡"+values.interCode+"激活成功";
-					_this.openMessageBar(title,"ok");
+					_this.props.openMessageBar(title,"ok");
 					
 
 					 if (_this.state.detail.startNum<=_this.state.detail.endNum) {
@@ -75,7 +75,7 @@ import './index.less';
 							 _this.cardNumAdd(4);
 					 }
 					 setTimeout(function(){
-						_this.closeMessageBar();
+						_this.props.closeMessageBar();
 					 },1000)
 
 		 }).catch(function(err) {
@@ -89,8 +89,12 @@ import './index.less';
 		 	}
 			detail.interCode="";
 			Store.dispatch(initialize('StartCardActivation',detail));
-		 	_this.openMessageBar(err.message,"error");
-		},1000)
+		 	_this.props.openMessageBar(err.message,"error");
+		 	setTimeout(function(){
+
+				_this.props.closeMessageBar();
+			},3000)
+		 })
 	 }
 
 	 //数字处理
@@ -139,38 +143,7 @@ import './index.less';
 		 const {onCancel} = this.props;
 		onCancel && onCancel();
 	 }
-	 //打开弹跳
-	 openMessageBar=(text,type)=>{
-	 	var style={};
-	 	var className="";
-	 	if(type=="ok"){
-	 		style={position:'fixed',top:-160,right:0,display:"inline-block",color:"#000",backgroundColor:"#edffe2"};
-	 		className="messagesBarIconOk";
-	 	}else{
-	 		style={position:'fixed',top:-160,right:0,display:"inline-block",color:"#000",backgroundColor:"#ffe9e9"};
-	 		className="messagesBarIconError";
-	 	}
-
-	 	this.setState({
-	 		closeMessageBar:{
-					title:text,
-					open:true,
-					style:style,
-					className:className
-				}
-	 	})
-	 }
-	 //关闭弹跳
-	 closeMessageBar=()=>{
-	 	let detail = Object.assign({},this.state.closeMessageBar);
-		 	detail.open=false;
-		 this.setState({
-			 closeMessageBar:detail
-		 })
-	 }
-	 onClose=()=>{
-	 	this.closeMessageBar();
-	 }
+	 
 
 	render(){
 		const {
@@ -206,8 +179,6 @@ import './index.less';
 						</Col>
 					</Row>
 				</Grid>
-				<SnackTip onClose={this.onClose} style={this.state.closeMessageBar.style} open={this.state.closeMessageBar.open} title={<span style={{display:"inline-block"}}><span className={this.state.closeMessageBar.className}></span><span style={{float:"left",color:"#000"}}>{this.state.closeMessageBar.title}</span></span>}  />
-
 
 			</form>
 		);

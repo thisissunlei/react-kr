@@ -47,13 +47,16 @@ export default class SnackTip extends Component {
 			marginLeft:'10px',
 			display:"inline-block"
 		}
+		let zIndex={
+			zIndex:this.props.zIndex||10,
+		}
 
 		if(!open){
 			className = 'none';	
 		} 
 
 		return (
-			<div className="ui-snackTap">
+			<div className="ui-snackTap" style={zIndex}>
 			 <div className={className}  style={style} onClick={onClose}>
 			  <span>{title}</span><span style={titleAfterStyle}>{titleAfter}</span>
 			 </div>
