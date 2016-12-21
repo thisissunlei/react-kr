@@ -19,9 +19,16 @@ import {
 	Row,
 	Col,
 } from 'kr-ui';
+import './index.less';
 
 export default class Initialize extends Component {
+	static defaultProps = {
+		data: []
+	}
 
+	static propTypes = {
+		data: React.PropTypes.array
+	}
 	constructor(props, context) {
 		super(props, context);
 
@@ -32,8 +39,19 @@ export default class Initialize extends Component {
 
 		return (
 
-			<div>
-					yayayayay
+			<div className="ui-print-header">
+				<div className="logo-info">
+					<div className="print-logo"></div>
+					<div  className="print-code">合同编号：2017001010</div>
+					<div  className="print-code">
+						<span style={{marginRight:38}}>北京</span>
+						<span>创业大街社区</span>
+					</div>
+				</div>
+				<div className="print-title">入驻服务协议</div>
+				<div className="QRCode">
+					
+				</div>	
 			</div>
 		);
 	}
