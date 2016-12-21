@@ -106,9 +106,9 @@ export default class CancleLeader extends Component {
 
 		var _this = this;
 		let fileName = event.target.files[0].name;
-		let type = event.target.files[0].type;
-		console.log('file',event.target.files[0]);
-		if(type !== 'application/vnd.ms-excel' || type != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'){
+		let arr = event.target.files[0].name.split('.');
+		let type = arr[arr.length-1];
+		if(type != 'xls' && type != 'xlsx'){
 			Message.error('上传文件类型不对，请选择.xls或.xlsx');
 			return ;
 		}
