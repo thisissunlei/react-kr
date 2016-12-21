@@ -255,7 +255,7 @@ import imgLine from './images/line.png'
 						<KrField name="sendMsg" grid={1/2} label="是" type="radio" value="1"/>
 						<KrField name="sendMsg" grid={1/2} label="否" type="radio" value="0" />
               </KrField>
-        <KrField grid={1/2} name="foreignCode" type="input" label="会员卡号" requireLabel={true} onBlur={this.foreignCodeBlur}/>
+        <KrField grid={1/2} name="foreignCode" type="input" label="会员卡号" requireLabel={true} onBlur={this.foreignCodeBlur} requiredValue={true} pattern={/^\d{10}$/} errors={{requiredValue:'会员卡号为必填项',pattern:'会员卡号应由10位纯数字组成'}}/>
 				<Grid style={{marginTop:30}}>
 					<Row>
 						<Col md={12} align="center">
