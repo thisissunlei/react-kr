@@ -1,4 +1,4 @@
-import Agreement from './Argreement';
+import Agreement from './Agreement';
 
 module.exports = {
 	Agreement,

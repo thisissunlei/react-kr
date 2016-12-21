@@ -1,5 +1,9 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
+import React, {
+	Component
+} from 'react';
+import {
+	connect
+} from 'react-redux';
 import {
 	KrField,
 	Table,
@@ -16,20 +20,20 @@ import {
 	Col,
 } from 'kr-ui';
 
-export default class Initialize  extends Component{
+export default class Initialize extends Component {
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 
 	}
 
 
-	render(){
+	render() {
 
-		return(
+		return (
 
 			<div>
-
+					yayayayay
 			</div>
 		);
 	}

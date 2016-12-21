@@ -46,6 +46,10 @@ export default class JoinPrint extends Component {
 			<div>
 			<Section title="hdsjf">
 			ffffff
+			<Agreement.Print.Header/>
+			<Agreement.Print.Payment/>
+			<Agreement.Print.Station/>
+
 			</Section>
 			
 			{State.name}

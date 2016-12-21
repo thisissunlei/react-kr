@@ -1,7 +1,17 @@
-import { default as PaymentInfo } from './PaymentInfo';
-import { default as StationInfo } from './StationInfo';
+import {
+	default as Payment
+} from './Payment';
+import {
+	default as Station
+} from './Station';
+
+
+import {
+	default as Header
+} from './Header';
 
 module.exports = {
-	PaymentInfo,
-  StationInfo
+	Payment,
+	Station,
+	Header
 }
