@@ -147,7 +147,7 @@ module.exports = {
 		primaryText: "会员中心",
 		router: 'member',
 		menuCode: 'member',
-		//originUrl: '/krspace_member_web/member/toMemberList?mid=94',
+		originUrl: '#/member/memberManage/list?mid=94',
 		menuItems: [
 			/*
 			{
@@ -160,11 +160,11 @@ module.exports = {
 		}
 		*/
 			{
-				primaryText: '会员管理',
+				primaryText: '会员列表',
 				iconName: 'icon-vip',
 				iconColor: '#2b8dcd',
-				menuCode: 'index',
-				router: '/member/memberManage',
+				menuCode: 'member',
+				router: '/member/memberManage/list',
 				menuItems: [
 					{
 					primaryText: "会员看板",
@@ -174,7 +174,7 @@ module.exports = {
 					{
 					primaryText: "会员列表",
 					router: '/member/memberManage/list',
-					menuCode: 'index',
+					menuCode: 'memberList',
 				},
 					{
 					primaryText: "会员卡管理",
