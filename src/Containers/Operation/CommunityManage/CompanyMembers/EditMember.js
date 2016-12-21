@@ -59,8 +59,6 @@ export default class CreateMemberForm extends Component {
 	componentWillMount() {
 		this.getBasicData(this.detail);
 		let {detail,handleSubmit} = this.props;
-		// Store.dispatch(initialize('createMemberForm', detail));
-		// Store.dispatch(change('createMemberForm','foreignCode', detail));
 
 	}
 	componentWillReceiveProps(nextProps){
@@ -68,7 +66,6 @@ export default class CreateMemberForm extends Component {
 			this.setState({
 				initializeValues:nextProps.detail
 			});
-			// Store.dispatch(initialize('createMemberForm', nextProps.detail));
 
 		}
 	}
@@ -96,22 +93,15 @@ export default class CreateMemberForm extends Component {
 		}
 		let _this = this;
 		Store.dispatch(Actions.callAPI('getMemberBasicData', params)).then(function(response) {
-			response.memberInfoVO.jobId= 11411;
 			response.jobList.forEach((item)=>{
 				item.value = item.id;
 				item.label = item.jobName;
 			})
-			response.memberInfoVO.jobId = memberId.jobId;
-
 
 			_this.setState({
 				jobList:response.jobList,
 				itemData:response.memberInfoVO
-			},function(){
-				Store.dispatch(initialize('createMemberForm', response.memberInfoVO));
 			})
-			
-
 
 
 		}).catch(function(err) {

@@ -117,7 +117,7 @@ export default (
 								<Route path="order" component={Basic}>
 									<Route path="create" component = {Operation.CustomerManage.Order.Create} name="customerManage_order_create"/>
 									<Route path=":orderId/detail" component = {Operation.CustomerManage.Order.Detail} name="customerManage_order_detail"/>
-									<Route path=":oriderId/Edit" component = {Operation.CustomerManage.Order.Edit} name="customerManage_order_edit"/>
+									<Route path=":orderId/Edit" component = {Operation.CustomerManage.Order.Edit} name="customerManage_order_edit"/>
 
 
 									{/*合同信息*/}
