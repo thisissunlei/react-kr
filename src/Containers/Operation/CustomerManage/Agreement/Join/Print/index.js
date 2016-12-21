@@ -43,7 +43,7 @@ export default class JoinPrint extends Component {
 
 		return (
 
-			<div>
+		<div className="print-section">
 			
 			<Agreement.Print.Header/>
 			<Agreement.Print.Payment/>
