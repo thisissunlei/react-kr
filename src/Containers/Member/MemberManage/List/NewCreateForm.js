@@ -11,7 +11,9 @@ import {
 	Button,
 	ButtonGroup,
 	Message,
-	SnackTip
+	SnackTip,
+	ListGroup,
+	ListGroupItem
 } from 'kr-ui';
 import $ from 'jquery'
 import imgLine from './images/line.png'
@@ -225,7 +227,7 @@ import imgLine from './images/line.png'
 						<img src={imgLine}/>
 				</div>
 				<KrField grid={1/2} name="communityId" component="searchCommunity" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}} style={{width:'252px',marginRight:'30'}}/>
-        <KrField grid={1/2} name="email" type="input" label="邮箱" requireLabel={true} onBlur={this.EmailonBlur}
+        <KrField grid={1/2} name="email" type="text" label="邮箱" requireLabel={true} onBlur={this.EmailonBlur}
 				   requiredValue={true} pattern={/^([a-zA-Z0-9\_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/} errors={{requiredValue:'邮箱为必填项',pattern:'请输入正确邮箱地址'}} style={{width:'252px'}}/>
 				<KrField grid={1/2} name="companyId" component="searchCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true} errors={{requiredValue:'公司为必填项'}} style={{width:'252px',marginRight:'30'}}/>
         <KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} requireLabel={true} style={{width:'252px'}}/>
@@ -234,16 +236,13 @@ import imgLine from './images/line.png'
 						<KrField name="sendMsg" grid={1/2} label="是" type="radio" value="1"/>
 						<KrField name="sendMsg" grid={1/2} label="否" type="radio" value="0" />
               </KrField>
-        <KrField grid={1/2} name="foreignCode" type="input" label="会员卡号" requireLabel={true} onBlur={this.foreignCodeBlur} style={{width:'252px'}} requiredValue={true} pattern={/^\d{10}$/} errors={{requiredValue:'会员卡号为必填项',pattern:'会员卡号应由10位纯数字组成'}}/>
-				<Grid style={{marginTop:30,marginLeft:'-40px'}}>
+        <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" requireLabel={true} onBlur={this.foreignCodeBlur} style={{width:'252px'}} requiredValue={true} pattern={/^\d{10}$/} errors={{requiredValue:'会员卡号为必填项',pattern:'会员卡号应由10位纯数字组成'}}/>
+				<Grid style={{marginTop:30,marginBottom:'20px'}}>
 					<Row>
-						<Col md={12} align="center">
-							<ButtonGroup>
-									<Button  label="确定" type="submit"/>
-									<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />
-							</ButtonGroup>
-						</Col>
-					</Row>
+						<ListGroup>
+								<ListGroupItem style={{width:'269px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"/></ListGroupItem>
+								<ListGroupItem style={{width:'254px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} /></ListGroupItem>
+							</ListGroup>					</Row>
 				</Grid>
 		  </form>
 		  </div>
