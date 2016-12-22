@@ -207,19 +207,19 @@ export default class MemeberEditMemberForm extends Component {
 
 					<KrField name="communityId" grid={1/2} label="社区" component="searchCommunity" right={30} requiredValue={true}  errors={{requiredValue:'请选择社区'}} requireLabel={true}/>
 
-					<KrField name="foreignCode" grid={1/2} label="会员卡号"   component="input" left={30} onBlur={this.membersByForeignCode} requiredValue={true} pattern={/^\d{10}$/} errors={{requiredValue:'会员卡号为必填项',pattern:'会员卡号应由10位纯数字组成'}} requireLabel={true}/>
+					<KrField name="foreignCode" grid={1/2} label="会员卡号"   type="text" left={30} onBlur={this.membersByForeignCode} requiredValue={true} pattern={/^\d{10}$/} errors={{requiredValue:'会员卡号为必填项',pattern:'会员卡号应由10位纯数字组成'}} requireLabel={true}/>
 
 					<KrField name="companyId" grid={1/2} label="公司" component="searchCompany"  right={30} requiredValue={true} errors={{requiredValue:'请填选择公司'}} requireLabel={true}/>
-					<KrField name="email" grid={1/2} label="邮箱:" component="input" left={30}  onBlur={this.communityChange}  requireLabel={true} requiredValue={true} pattern={/^([a-zA-Z0-9\_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/} errors={{requiredValue:'邮箱为必填项',pattern:'请输入正确邮箱地址'}}/>
+					<KrField name="email" grid={1/2} label="邮箱:" type="text" left={30}  onBlur={this.communityChange}  requireLabel={true} requiredValue={true} pattern={/^([a-zA-Z0-9\_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/} errors={{requiredValue:'邮箱为必填项',pattern:'请输入正确邮箱地址'}}/>
 
-					<KrField name="name" grid={1/2}  label="姓名" component="input" right={30}  requireLabel={true} requiredValue={true} errors={{requiredValue:'请填写会员卡号'}}/>
+					<KrField name="name" grid={1/2}  label="姓名" type="text" right={30}  requireLabel={true} requiredValue={true} errors={{requiredValue:'请填写会员卡号'}}/>
 
 					<KrField name="jobId" grid={1/2} label="职位" component="select" left={30} options={jobList}/>
-					<Grid style={{margin:'20px 0'}}>
+					<Grid style={{margin:'20px 0',marginBottom:'0'}}>
 						<Row>
 							<ListGroup>
-								<ListGroupItem style={{width:'234px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"   width={90} height={34}/></ListGroupItem>
-								<ListGroupItem style={{width:'274px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/> </ListGroupItem>
+								<ListGroupItem style={{width:'270px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"   width={90} height={34}/></ListGroupItem>
+								<ListGroupItem style={{width:'250px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/> </ListGroupItem>
 							</ListGroup>
 						  </Row>
 					</Grid>
