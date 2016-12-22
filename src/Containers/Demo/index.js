@@ -39,7 +39,8 @@ import {
 	InputDate,
 	CircleStyle,
 	SearchForm,
-	SnackTip
+	SnackTip,
+	Dictionary
 } from 'kr-ui';
 
 
@@ -93,6 +94,9 @@ export default class Demo extends Component {
 	render() {
 		return (
 			<div>
+				<Section title="haha">
+					<Dictionary type="ContractType" value="ADDRENT"/>
+				</Section>
 			</div>
 
 		);
