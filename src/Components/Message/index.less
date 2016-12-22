@@ -8,10 +8,10 @@
   margin-top: -118px;
   margin-left: -222px;
   position: absolute;
-  z-index: 1400;
+  z-index: 1600;
   box-shadow:0 0 30px rgba(0, 2, 49,0.25),0 0 30px rgba(0, 2, 49,0.25),0 0 30px rgba(0, 2, 49,0.25),0 0 30px rgba(0, 2, 49,0.25);
-  -webkit-animation-name: pulse;
-  animation-name: pulse;
+  -webkit-animation-name: MessagePulse;
+  animation-name: MessagePulse;
   -webkit-animation-duration: 0.5s;
   animation-duration: 0.5s;
   -webkit-animation-fill-mode: both;
@@ -31,11 +31,6 @@
 }
 .hide{
   display: none;
-}
-.message_box{
-  top: 50%;
-  left: 50%;
-  position: absolute;
 }
 .success{
   background:url(images/success.png) no-repeat center 14px;
@@ -66,7 +61,7 @@
   color: #333333;
   font-family: "Adobe 黑体 Std R"
 }
-@-webkit-keyframes pulse {
+@-webkit-keyframes MessagePulse {
   from {
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
@@ -83,7 +78,7 @@
   }
 }
 
-@keyframes pulse {
+@keyframes MessagePulse {
   from {
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);

@@ -92,9 +92,12 @@ export default class BasicInfo extends Component {
 				           
 			            <KrField grid={1/3} alignRight={true} label="订单总额:" component="labelText" value={detail.totalamount} defaultValue="无" />
 			            
+			             <KrField grid={1/3} alignRight={true} label="回款定金:" component="labelText" value={detail.frontMoney} defaultValue="无"/>
+			             <KrField grid={1/3} alignRight={true} label="回款押金:" component="labelText" value={detail.deposit} defaultValue="无"/>
+
 			            <KrField grid={1/3} alignRight={true} label="回款总额:" component="labelText" value={detail.totalPayment} defaultValue="无"/>
 
-			            <KrField grid={1} alignRight={true} label="未回款额:" colorStyle={style} component="labelText" value={detail.notPaymentAmount} defaultValue="无"/>
+			            <KrField grid={1/3} alignRight={true} label="未回款额:" colorStyle={style} component="labelText" value={detail.notPaymentAmount} defaultValue="无"/>
 			            {/*{detailPayment.map((item,index)=>						
 						    <KrField key={index} grid={1/3} label={item.propname} component="labelText" value={item.propamount}/>						 
 						 )}

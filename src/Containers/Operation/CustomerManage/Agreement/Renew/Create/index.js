@@ -25,7 +25,7 @@ import {
 
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
-
+import './index.less';
 
 export default class JoinCreate extends Component {
 
@@ -64,7 +64,6 @@ export default class JoinCreate extends Component {
 		let {
 			params
 		} = this.props;
-		console.log('ss');
 
 		Store.dispatch(Actions.callAPI('addOrEditContinueContract', {}, formValues)).then(function(response) {
 			Notify.show([{

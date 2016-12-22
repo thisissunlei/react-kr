@@ -23,6 +23,7 @@ import {
 	Title,
 } from 'kr-ui';
 
+import './index.less';
 import NewCreateForm from './NewCreateForm';
 
 
@@ -50,7 +51,9 @@ export default class JoinCreate extends Component {
 
 	onCreateSubmit(formValues) {
 		formValues = Object.assign({}, formValues);
-		let {params} = this.props;
+		let {
+			params
+		} = this.props;
 		Store.dispatch(Actions.callAPI('addOrEditIncreaseContract', {}, formValues)).then(function(response) {
 			Notify.show([{
 				message: '更新成功',
@@ -150,7 +153,7 @@ export default class JoinCreate extends Component {
 				initialValues.stationnum = response.stationnum;
 				initialValues.wherefloor = response.wherefloor;
 				initialValues.rentaluse = response.rentaluse;
-				initialValues.contractmark = response.contractmark ||'';
+				initialValues.contractmark = response.contractmark || '';
 				initialValues.totalrent = response.totalrent;
 				initialValues.totaldeposit = response.totaldeposit;
 				initialValues.lessorContacttel = response.lessorContacttel;

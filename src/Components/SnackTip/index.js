@@ -49,6 +49,7 @@ export default class SnackTip extends Component {
 		}
 		let zIndex={
 			zIndex:this.props.zIndex||10,
+
 		}
 
 		if(!open){

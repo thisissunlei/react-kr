@@ -24,6 +24,7 @@ import {
 } from 'kr-ui';
 
 import NewCreateForm from './NewCreateForm';
+import './index.less';
 
 export default class JoinCreate extends Component {
 
@@ -45,16 +46,26 @@ export default class JoinCreate extends Component {
 			formValues: {},
 			openConfirmCreate: false
 		}
+
+		this.isConfirmSubmiting = false;
+
 		Store.dispatch(reset('joinEditForm'));
 	}
 
 	onCreateSubmit(formValues) {
 
+		if (this.isConfirmSubmiting) {
+			return;
+		}
+
 		let {
 			params
 		} = this.props;
 
+		var _this = this;
 		Store.dispatch(Actions.callAPI('addOrEditEnterContract', {}, formValues)).then(function(response) {
+
+			_this.isConfirmSubmiting = false;
 			Notify.show([{
 				message: '更新成功',
 				type: 'success',
@@ -64,7 +75,9 @@ export default class JoinCreate extends Component {
 				window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/join/" + response.contractId + "/detail";
 			}, 0);
 
+
 		}).catch(function(err) {
+			_this.isConfirmSubmiting = false;
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
@@ -154,7 +167,7 @@ export default class JoinCreate extends Component {
 				initialValues.boardroomnum = response.boardroomnum;
 				initialValues.wherefloor = response.wherefloor;
 				initialValues.rentaluse = response.rentaluse;
-				initialValues.contractmark = response.contractmark ||'';
+				initialValues.contractmark = response.contractmark || '';
 				initialValues.totalrent = response.totalrent;
 				initialValues.totaldeposit = response.totaldeposit;
 

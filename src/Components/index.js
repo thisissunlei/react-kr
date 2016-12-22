@@ -45,7 +45,6 @@ import 	Tooltips from './Tooltips';
 import 	KrForm from './KrForm';
 import 	InputDate from './InputDate';
 import  SnackTip from './SnackTip';
-
 import {
 	Grid,
 	Row,
@@ -129,6 +128,7 @@ module.exports = {
 	SearchForms,
 	...Tabs,
 	PageHeader,
+	Tooltip,
+	CircleStyle,
 	Tooltips,
-	Tooltip
 }
