@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 
 import Input from '../Input';
+import KrDate from '../KrDate';
 
 import Calendar from './Calendar';
 import ReactDOM from 'react-dom';
@@ -10,127 +11,140 @@ import ReactDOM from 'react-dom';
 import './index.less';
 import './animate.less';
 
+window.calendars = [];
+
 export default class InputDate extends React.Component {
 
 	static displayName = 'InputDate';
 
 	static defaultProps = {
-			placeholder:'日期',
-			defaultValue:+new Date
+		placeholder: '日期',
+		defaultValue: +new Date
 	}
 	static propTypes = {
 		/**
-		*样式class类名
-		*/
+		 *样式class类名
+		 */
 		className: React.PropTypes.string,
 		/**
-		* 样式
-		*/
+		 * 样式
+		 */
 		style: React.PropTypes.object,
 		placeholder: React.PropTypes.string,
 	}
 
-	static childContextTypes =  {
-					openCalendarDialog: React.PropTypes.func.isRequired,
-					onChange:React.PropTypes.func.isRequired
+	static childContextTypes = {
+		openCalendarDialog: React.PropTypes.func.isRequired,
+		onChange: React.PropTypes.func.isRequired
 	}
 
 	getChildContext() {
-				return {
-					openCalendarDialog:this.openCalendarDialog,
-					onChange:this.onChange
-				};
+		return {
+			openCalendarDialog: this.openCalendarDialog,
+			onChange: this.onChange
+		};
 	}
 
 	constructor(props) {
 		super(props)
 
 		this.state = {
-			openCalendar:false,
-			value:''
+			openCalendar: false,
+			value: ''
 		}
 	}
 
 
-	setDefaultValue = (value)=>{
+	setDefaultValue = (value) => {
 
-		if(typeof value === 'undefined' || !value){
-			 return '';
+		if (typeof value === 'undefined' || !value) {
+			return '';
 		}
 
-		if(!isNaN(value)){
+		if (!isNaN(value)) {
 			var nowTime = new Date(value);
 			var year = nowTime.getFullYear();
-			var month = nowTime.getMonth();
+			var month = nowTime.getMonth() + 1;
 			var date = nowTime.getDate();
 
 			this.setState({
-				value:`${year}-${month}-${date}`
+				value: `${year}-${month}-${date}`
 			});
 
-			return ;
+			return;
 		}
 
-		if(typeof value === 'string' && value.indexOf('-')!==-1){
+		if (typeof value === 'string' && value.indexOf('-') !== -1) {
 			this.setState({
-				value:value
+				value: value
 			});
-			return ;
+			return;
 		}
 
-		if(typeof value === 'string' && value.indexOf('/')!==-1){
+		if (typeof value === 'string' && value.indexOf('/') !== -1) {
 			this.setState({
-				value:value.replace('/','-')
+				value: value.replace('/', '-')
 			});
-			return ;
+			return;
 		}
 
 	}
 
-	docClick = (event)=>{
+	docClick = (event) => {
 		event = event || window.event;
 		var target = event.target;
 
 		while (target) {
-			if(target && target.className && target.className.indexOf('calendar') !== -1){
-				return ;
+			if (target && target.className && target.className.indexOf('calendar') !== -1) {
+				return;
 			}
 			target = target.parentNode;
 		}
 
-		const {openCalendar} = this.props;
+		const {
+			openCalendar
+		} = this.props;
 
-		this.setState({
-			openCalendar:false
-		});
-
-		document.removeEventListener('click',this.docClick);
+		this.closeCalendarDialog();
 
 	}
 
-	componentDidMount(){
-			this.setDefaultValue(this.props.value);
+	componentDidMount() {
+		this.setDefaultValue(this.props.value);
+		window.calendars.push(this);
 	}
 
-	componentWillReceiveProps(nextProps){
-		if(nextProps.defaultValue !== this.props.defaultValue ){
-				this.setDefaultValue(nextProps.defaultValue);
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.value != this.props.value) {
+			this.setDefaultValue(nextProps.value);
 		}
 	}
 
-	openCalendarDialog = ()=>{
+	openCalendarDialog = () => {
 
-			this.setState({
-				openCalendar:!this.state.openCalendar
-			},function(){
-					if(this.state.openCalendar){
-						document.addEventListener('click',this.docClick);
-					}
-			});
+		this.setState({
+			openCalendar: !this.state.openCalendar
+		}, function() {
+			if (this.state.openCalendar) {
+				document.addEventListener('click', this.docClick);
+				this.closeOtherAllCalendar();
+			}
+		});
 
 	}
 
-	onChange = (value)=>{
+	closeOtherAllCalendar = () => {
+
+		let calendars = window.calendars;
+		var _this = this;
+		calendars.map(function(item, index) {
+			if (item != _this) {
+				item.closeCalendarDialog()
+			}
+		});
+	}
+
+	onChange = (value) => {
 
 		var year;
 		var month;
@@ -138,42 +152,56 @@ export default class InputDate extends React.Component {
 		var valueArr = [];
 
 		//校验格式
-		if(value.indexOf('-') !== -1){
-				valueArr = value.split('-');
-		}else if(value.indexOf('/') !== -1){
-				valueArr = value.split('/');
+		if (value.indexOf('-') !== -1) {
+			valueArr = value.split('-');
+		} else if (value.indexOf('/') !== -1) {
+			valueArr = value.split('/');
 		}
 
 		year = valueArr[0];
 		month = valueArr[1];
 		date = valueArr[2];
 
-		if(!year){
-				return ;
+		if (!year) {
+			return;
 		}
 
-		if(!date || date>31){
-			return ;
+		if (!date || date > 31) {
+			return;
 		}
 
-		if(!month || month<-1 || month>12){
-				return ;
+		if (!month || month < -1 || month > 12) {
+			return;
 		}
-
-		this.setState({value});
-		let {onChange} = this.props;
+		value = `${year}-${month}-${date}`;
+		this.setState({
+			value
+		});
+		let {
+			onChange
+		} = this.props;
 		onChange && onChange(value);
+	}
+
+	closeCalendarDialog = () => {
+		this.setState({
+			openCalendar: false
+		}, function() {
+			document.removeEventListener('click', this.docClick);
+		});
 	}
 
 
 	render() {
 
-		let {openCalendar} = this.state;
+		let {
+			openCalendar
+		} = this.state;
 
 		return (
-				<div className="ui-calendar">
-					<div className="calendar-content"  onClick={this.openCalendarDialog}>
-							<div className="calendar-value"> {this.state.value || this.props.placeholder}</div>
+			<div className="ui-calendar" ref="calendar">
+					<div className="calendar-content"  onClick={this.openCalendarDialog} >
+							<div className="calendar-value">{(this.state.value && <KrDate value={this.state.value} />) || this.props.placeholder} </div>
 							<span className="icon"></span>
 					</div>
 					{openCalendar && <Calendar onChange={this.onChange} value={this.state.value}/>}

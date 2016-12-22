@@ -31,9 +31,9 @@ import {
 	Community,
 	Retail,
 	Statistical
-} from './Containers';
+} from '../Containers';
 
-import Master from './master';
+import Master from '../master';
 
 export default (
 
@@ -113,7 +113,7 @@ export default (
 								<Route path="order" component={Basic}>
 									<Route path="create" component = {Operation.CustomerManage.Order.Create} name="customerManage_order_create"/>
 									<Route path=":orderId/detail" component = {Operation.CustomerManage.Order.Detail} name="customerManage_order_detail"/>
-									<Route path=":oriderId/Edit" component = {Operation.CustomerManage.Order.Edit} name="customerManage_order_edit"/>
+									<Route path=":orderId/Edit" component = {Operation.CustomerManage.Order.Edit} name="customerManage_order_edit"/>
 
 
 									{/*合同信息*/}
@@ -241,10 +241,8 @@ export default (
 	*/}
 
 	<Route path="personalCenter" component={Permission.PersonalCenter}/>
-	<Redirect from="permission" to="permission/personalCenter" />
-
+			<Redirect from="permission" to="permission/personalCenter" />
 		</Route>
-
 
 		{/*文档管理*/}
 		<Route path="document" component={Basic}>

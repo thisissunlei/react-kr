@@ -38,7 +38,9 @@ import {
 	ButtonGroup,
 	Loading,
 	Title,
-
+	Tooltip,
+	SnackTip,
+    Message
 } from 'kr-ui';
 import {
 	reduxForm,
@@ -88,7 +90,7 @@ class ViewForm extends Component {
 					<KrField grid={1/2}  component="labelText" label="代码名称" value={items.accountName} inline={false} defaultValue="无"/>
 					<KrField grid={1/2} label="付款日期" component="labelText" inline={false} value={items.occuryear} defaultValue="无" type="date"/>
 
-					<KrField grid={1/2} label="操作时间" component="labelText" value={items.occuryear} format="yyyy-mm-dd hh:mm:ss" type="date" inline={false} defaultValue="无"/>
+					<KrField grid={1/2} label="操作时间" component="labelText" value={items.operatedate} format="yyyy-mm-dd hh:mm:ss" type="date" inline={false} defaultValue="无"/>
 
 					<KrField grid={1/2}  component="labelText" label="交易编号" value={items.tradingCode} inline={false} defaultValue="无"/>
 					<KrField grid={1/2}  component="labelText" label="操作人"  value={items.optUserName} inline={false} defaultValue="无"/>
@@ -203,10 +205,13 @@ export default class AttributeSetting extends Component {
 			openSupplementBtn: false,
 			isLoading: true,
 			isInitLoading: true,
-			openView: false
-
+			openView: false,
+            colorClassName:'',
+            isRunningIncome:0,
 		}
 	}
+
+
 
 	refresh() {
 			//console.log('00000')
@@ -259,10 +264,7 @@ export default class AttributeSetting extends Component {
 				typeList
 			});
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			  Message.error(err.message);
 		});
 		this.setState({
 			openReceivedBtn: !this.state.openReceivedBtn,
@@ -278,22 +280,11 @@ export default class AttributeSetting extends Component {
 			}
 		})
 		if (this.state.listValues.length == 0) {
-
-			Notify.show([{
-				message: '请选择一条回款数据进行退款',
-				type: 'danger',
-			}]);
-
+			Message.error('请选择一条回款数据进行退款');
 		} else if (this.state.listValues.length > 1) {
-			Notify.show([{
-				message: '只能选择一条数据',
-				type: 'danger',
-			}]);
+			Message.error('只能选择一条数据');
 		} else if (fiMoney >= 0) {
-			Notify.show([{
-				message: '金额必须为负且存在可用金额',
-				type: 'danger',
-			}]);
+			Message.error('金额必须为负且存在可用金额');
 		} else {
 			this.setState({
 				openQuitBtn: !this.state.openQuitBtn
@@ -311,20 +302,11 @@ export default class AttributeSetting extends Component {
 			}
 		})
 		if (this.state.listValues.length == 0) {
-			Notify.show([{
-				message: '请选择一条回款数据进行转押金',
-				type: 'danger',
-			}]);
+			Message.error('请选择一条回款数据进行转押金');
 		} else if (this.state.listValues.length > 1) {
-			Notify.show([{
-				message: '只能选择一条数据',
-				type: 'danger',
-			}]);
+			Message.error('只能选择一条数据');
 		} else if (fiMoney >= 0) {
-			Notify.show([{
-				message: '金额必须为负且存在可用金额',
-				type: 'danger',
-			}]);
+			Message.error('金额必须为负且存在可用金额');
 		} else {
 			this.setState({
 				openSwitchBtn: !this.state.openSwitchBtn
@@ -345,10 +327,7 @@ export default class AttributeSetting extends Component {
 					receivedList: receivedList
 				});
 			}).catch(function(err) {
-				Notify.show([{
-					message: err.message,
-					type: 'danger',
-				}]);
+				 Message.error(err.message);
 			});
 		}
 	}
@@ -362,21 +341,11 @@ export default class AttributeSetting extends Component {
 			}
 		})
 		if (this.state.listValues.length == 0) {
-			Notify.show([{
-				message: '请选择一条回款数据进行转营收',
-				type: 'danger',
-			}]);
-
+            Message.error('请选择一条回款数据进行转营收');
 		} else if (this.state.listValues.length > 1) {
-			Notify.show([{
-				message: '只能选择一条数据',
-				type: 'danger',
-			}]);
+			 Message.error('只能选择一条数据');
 		} else if (fiMoney >= 0) {
-			Notify.show([{
-				message: '金额必须为负且存在可用金额',
-				type: 'danger',
-			}]);
+			 Message.error('金额必须为负且存在可用金额');
 		} else {
 			this.setState({
 				openBusinessBtn: !this.state.openBusinessBtn
@@ -399,10 +368,7 @@ export default class AttributeSetting extends Component {
 				receivedList: receivedList
 			});
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			 Message.error(err.message);
 		});
 		this.setState({
 			openAddaccountBtn: !this.state.openAddaccountBtn
@@ -424,10 +390,7 @@ export default class AttributeSetting extends Component {
 			});
 
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			  Message.error(err.message);
 		});
 		this.setState({
 			openView: !this.state.openView
@@ -553,20 +516,10 @@ export default class AttributeSetting extends Component {
 		params.receiveDate = dateFormat(params.receiveDate, "yyyy-mm-dd h:MM:ss");
 		var _this = this;
 		Store.dispatch(Actions.callAPI('receiveMoney', {}, params)).then(function(response) {
-
-			Notify.show([{
-				message: '回款成功',
-				type: 'success',
-			}]);
-
 			_this.refresh();
 
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-
-			}]);
+			 Message.error(err.message);
 		});
 		this.setState({
 			openReceivedBtn: !this.state.openReceivedBtn,
@@ -583,10 +536,7 @@ export default class AttributeSetting extends Component {
 		Store.dispatch(Actions.callAPI('payBack', {}, params)).then(function(response) {
 			_this.refresh();
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+		  Message.error(err.message);
 		});
 		this.setState({
 			openQuitBtn: !this.state.openQuitBtn,
@@ -599,10 +549,7 @@ export default class AttributeSetting extends Component {
 		Store.dispatch(Actions.callAPI('transToDeposit', {}, params)).then(function(response) {
 			_this.refresh();
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			 Message.error(err.message);
 		});
 		this.setState({
 			openSwitchBtn: !this.state.openSwitchBtn,
@@ -614,16 +561,9 @@ export default class AttributeSetting extends Component {
 	onBusinessSubmit(params) {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('transToOperateIncome', {}, params)).then(function(response) {
-			Notify.show([{
-				message: '操作成功',
-				type: 'success',
-			}]);
 			_this.refresh();
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			  Message.error(err.message);
 		});
 
 		this.setState({
@@ -641,10 +581,7 @@ export default class AttributeSetting extends Component {
 			}]);
 			_this.refresh();
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			  Message.error(err.message);
 		});
 		this.setState({
 			openAddaccountBtn: !this.state.openAddaccountBtn,
@@ -658,16 +595,9 @@ export default class AttributeSetting extends Component {
 			Store.dispatch(Actions.callAPI('addIncome', {
 				mainbillid: _this.props.params.orderId
 			})).then(function(response) {
-				Notify.show([{
-					message: '操作成功',
-					type: 'success',
-				}]);
 				_this.refresh();
 			}).catch(function(err) {
-				Notify.show([{
-					message: err.message,
-					type: 'danger',
-				}]);
+				 Message.error(err.message);
 			});
 			_this.setState({
 				openSupplementBtn: !this.state.openSupplementBtn,
@@ -684,7 +614,7 @@ export default class AttributeSetting extends Component {
 
 	//
 	initBasicInfo() {
-		var _this = this;
+			var _this = this;
 		let {
 			params
 		} = this.props;
@@ -697,12 +627,13 @@ export default class AttributeSetting extends Component {
 				detailIncome: response.incomedata,
 				detailBalance: response.balance,
 				isInitLoading: false,
+
+				isRunningIncome:response.isIncomeRunning,
+
+				colorClassName:response.isIncomeRunning==2?'historyIncomeGray':'historyIncome'
 			});
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			 Message.error(err.message);
 		});
 	}
 
@@ -729,17 +660,55 @@ export default class AttributeSetting extends Component {
 				list.label = item.propname;
 				typeList.push(list);
 			})
+			params.propertyId='';
+			params.accountId='';
+			params.startTime='';
+			params.endTime='';
 			_this.setState({
 				codeList,
-				typeList
+				typeList,
 			});
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			 Message.error(err.message);
 		});
 	}
+
+
+      historyIncomed=()=>{
+       let {isRunningIncome} = this.state;
+       if(isRunningIncome==0){
+
+       	 var _this = this;
+	        let {
+				params
+			} = this.props;
+			_this.setState({
+
+				 isRunningIncome:1
+
+			 });
+			Store.dispatch(Actions.callAPI('runStationIncome',{
+				mainbillId:params.orderId,
+			})).then(function(response) {
+			    setTimeout(function(){
+                   _this.setState({
+
+				     isRunningIncome:2,
+
+				     colorClassName:'historyIncomeGray'
+			        });
+			    },1000)
+			}).catch(function(err) {
+				 Message.error(err.message);
+				 _this.setState({
+
+				   isRunningIncome:0
+
+			    });
+			});
+        }
+    }
+
 
 
 
@@ -748,10 +717,70 @@ export default class AttributeSetting extends Component {
 		Store.dispatch(Actions.switchSidebarNav(false));
 	}
 
+
+	 snackTipClose=()=>{
+
+    	   var _this = this;
+	        let {
+				params
+			} = this.props;
+			Store.dispatch(Actions.callAPI('removeRunningTag',{},{
+				mainbillId:params.orderId,
+			})).then(function(response) {
+				_this.refresh();
+			    _this.setState({
+
+				 isRunningIncome:0,
+
+				 colorClassName:'historyIncome'
+			 });
+			}).catch(function(err){
+				  Message.error(err.message);
+			});
+
+    }
+
+	initializeSnack = (open=false,title='正在补历史收入...',titleAfter,color)=>{
+
+    	let style={
+    	'background':color,
+    	'position': 'fixed',
+        'top': '-40px',
+        'left': 0,
+        'right': 0
+    	}
+
+    	   return (
+
+    	   	  <SnackTip style={style} open={open} title={title} titleAfter={titleAfter} onClose={this.snackTipClose}/>
+
+    	   	);
+	}
+
+
+
+
+    renderSnack=()=>{
+
+    	let {isRunningIncome} = this.state;
+    	if(isRunningIncome == 1){
+    		return this.initializeSnack(true,'正在补历史收入...','','#69bbf0');
+    	}else if(isRunningIncome==0){
+    		return this.initializeSnack(false,'未完成');
+    	}else if(isRunningIncome==2){
+
+    		return this.initializeSnack(true,'补历史收入已完成!','确认','#75c7bc');
+    	}
+
+
+    }
+
 	render() {
+
 		let {
 			params,
-			isInitLoading
+			isInitLoading,
+			colorClassName,
 		} = this.state;
 
 		if (isInitLoading) {
@@ -862,8 +891,10 @@ export default class AttributeSetting extends Component {
 		return (
 
 			<div>
+			        {this.renderSnack()}
 					<Title value="订单明细账_财务管理"/>
 					<Section title="订单明细账" description="" style={{marginBottom:-5,minHeight:910}}>
+
 					      <DotTitle title='订单描述' style={{marginTop:'6',marginBottom:'40'}}/>
 						  <BasicInfo  detail={this.state.basicInfo} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome}/>
 
@@ -876,11 +907,11 @@ export default class AttributeSetting extends Component {
 								 </div>
 								 <div className='detail-right'>
 								     <div>
-								        <Col align="left" className='btn-left'>{buttonArr}</Col>
-								        <Col align="right"><Button  type='search'  searchClick={this.openSearchDialog}/></Col>
+								        <Col align="left" md={9} className='btn-left'>{buttonArr}</Col>
+								        <Col align="right" md={3} style={{'position':'relative'}}><Button  type='search'  searchClick={this.openSearchDialog}/><span className={colorClassName} onClick={this.historyIncomed}><Tooltip  offsetTop={8} place='top'>补历史收入</Tooltip></span></Col>
 								     </div>
 
-									 <Table style={{marginTop:30}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
+									 <Table style={{marginTop:60}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
 							              <TableHeader>
 										          <TableHeaderColumn>序号</TableHeaderColumn>
 										          <TableHeaderColumn>交易日期</TableHeaderColumn>
