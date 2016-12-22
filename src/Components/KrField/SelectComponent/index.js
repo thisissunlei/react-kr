@@ -116,7 +116,6 @@ render() {
 									placeholder="请选择..."
 									noResultsText=""
 								/>
-
 					</div>
 
 						{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }

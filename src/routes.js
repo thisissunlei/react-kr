@@ -240,10 +240,8 @@ export default (
 	*/}
 
 	<Route path="personalCenter" component={Permission.PersonalCenter}/>
-	<Redirect from="permission" to="permission/personalCenter" />
-
+			<Redirect from="permission" to="permission/personalCenter" />
 		</Route>
-
 
 		{/*文档管理*/}
 		<Route path="document" component={Basic}>

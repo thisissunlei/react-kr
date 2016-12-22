@@ -53,18 +53,15 @@ export default class CreateMemberForm extends Component {
 			initializeValues:{},
 			onsubmit:true,
 			onsubmitCode:true,
-
 			baseInfo:{}
-
 		}
 	}
 	//首次加载，只执行一次
 	componentWillMount() {
 		this.getBasicData(this.detail);
 		let {detail,handleSubmit} = this.props;
-
-		// console.log('edit',detail);
-		Store.dispatch(initialize('createMemberForm', detail));
+		// Store.dispatch(initialize('createMemberForm', detail));
+		// Store.dispatch(change('createMemberForm','foreignCode', detail));
 
 	}
 	componentWillReceiveProps(nextProps){
@@ -72,11 +69,7 @@ export default class CreateMemberForm extends Component {
 			this.setState({
 				initializeValues:nextProps.detail
 			});
-
-			Store.dispatch(initialize('createMemberForm', nextProps.detail));
-
 			// Store.dispatch(initialize('createMemberForm', nextProps.detail));
-
 
 		}
 	}
@@ -118,6 +111,8 @@ export default class CreateMemberForm extends Component {
 			},function(){
 				Store.dispatch(initialize('createMemberForm', response.memberInfoVO));
 			})
+
+
 
 
 
@@ -216,7 +211,6 @@ export default class CreateMemberForm extends Component {
 					</div>
 					<KrField name="phone" grid={1/2} label="手机号" inline={false} component="labelText" value={detail.phone} />
 					<div className="split-lines"></div>
-
 					<KrField name="communityId" grid={1/2} label="社区" inline={false} component="labelText" right={30} defaultValue={baseInfo.communityName} requireLabel={true}/>
 					<KrField name="foreignCode" grid={1/2} label="会员卡号" component="input" left={30} onBlur={this.foreignCodeBlur}  requireLabel={true} requiredValue={true} pattern={/^\d{10}$/} errors={{requiredValue:'会员卡号为必填项',pattern:'会员卡号应由10位纯数字组成'}}/>
 					<KrField name="companyId" grid={1/2} label="公司" inline={false} component="labelText" defaultValue={baseInfo.companyName}  right={30}  requireLabel={true}/>

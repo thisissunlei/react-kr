@@ -467,20 +467,20 @@ class NewCreateForm extends Component {
 
 	<Paper width={968}>
 
-	<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}>
+	<form onSubmit={handleSubmit(this.onSubmit)} >
 				<CircleStyle num="1" info="租赁明细">
 				
 					<KrField name="wherefloor" style={{width:370,marginLeft:70}}  component="select" label="所属楼层" options={optionValues.floorList} multi={true}  requireLabel={true}/>
-					 <KrField grid={1/2} left={20} component="group" label="租赁期限" requireLabel={true}>
+					 <KrField style={{width:370,marginLeft:90}} left={20} component="group" label="租赁期限" requireLabel={true}>
 										<ListGroup>
 											<ListGroupItem style={{width:'45%',padding:0,marginLeft:'-10px',marginTop:'-10px'}}> <KrField simple={true}  name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate}/> </ListGroupItem>
 											<ListGroupItem style={{width:'5%',textAlign:'center',padding:0,marginLeft:10,marginTop:'-10px'}}><span style={{display:'inline-block',lineHeight:'60px',width:'33px',textAlign:'center',left:'5px'}}>至</span></ListGroupItem>
 											<ListGroupItem style={{width:'45%',padding:0,marginTop:'-10px'}}> <KrField simple={true}  name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} /> </ListGroupItem>
 										</ListGroup>
 					</KrField>
-					<div className="detailList" style={{marginTop:"-20px"}}>
+					<div className="detailList" style={{marginTop:"-35px"}}>
 					<DotTitle title='租赁明细'>
-						<Grid style={{marginTop:"-30px"}}>
+						<Grid style={{marginTop:"-40px"}}>
 							<Row>
 								<Col align="right">
 									<ButtonGroup>
@@ -491,7 +491,7 @@ class NewCreateForm extends Component {
 							</Row>
 						</Grid>
 
-						<div  className={HeightAuto?'auto':'stationList'}>
+						<div  className={HeightAuto?'auto':'stationList'} style={{marginTop:"-10px"}}>
 							<Table onSelect={this.onStationSelect}>
 									<TableHeader>
 											<TableHeaderColumn>类别</TableHeaderColumn>
