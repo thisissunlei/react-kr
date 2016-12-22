@@ -190,11 +190,12 @@ export default class CompanyMembers extends Component {
 	}
 	validateMember=()=>{
 		let {seleced} = this.state;
-		// console.log(seleced);
-		if(!seleced.length){
+		console.log(seleced);
+		if(!seleced.length && !this.state.validateMember){
 			this.onSubmits();
 			return;
 		}
+
 		this.setState({
 			validateMember: !this.state.validateMember,
 		});
