@@ -59,7 +59,7 @@ class SearchForm extends Component {
 			dismantling: false,
 			formValues: {},
 			Installmentplan: [],
-			rate: [],
+			rate: ['0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%'],
 			communityIdList: [],
 			page: 1,
 			pageSize: 15,
@@ -236,7 +236,7 @@ export default class BasicTable extends Component {
 			dismantling: false,
 			formValues: {},
 			Installmentplan: [],
-			rate: [],
+			rate: ['0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%'],
 			value: '',
 			communityIdList: [],
 			page: 1,
@@ -578,7 +578,7 @@ export default class BasicTable extends Component {
 			dataLoading
 		} = this.state;
 		this.setState({
-			rate:['','','','','','','','','','','','']
+			rate:['0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%']
 		})
 		if(!id && id != 0){
 			id = communityids;
@@ -593,11 +593,17 @@ export default class BasicTable extends Component {
 			communityids: id ,
 			year: year,
 		})).then(function(response) {
+			if(!response.rate.length){
+				_this.setState({
+					rate: ['0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%','0.00%']
+				});
+			}else{
+				_this.setState({
+					rate: response.rate,
+				});
+			}
 
-
-			_this.setState({
-				rate: response.rate,
-			});
+			
 
 
 			 
@@ -661,6 +667,9 @@ export default class BasicTable extends Component {
 					istip:true
 				})
 			}
+			_this.setState({
+				dataLoading: false
+			})
 
 
 			state = {
@@ -715,6 +724,7 @@ export default class BasicTable extends Component {
 
 		var _this = this;
 		const id = communityids;
+		console.log('show',dataLoading,showNone);
 
 		if (dataLoading) {
 			return (
@@ -831,7 +841,6 @@ export default class BasicTable extends Component {
 		} else {
 			showNone = false;
 		}
-		console.log(istip,'istip');
 
 
 
