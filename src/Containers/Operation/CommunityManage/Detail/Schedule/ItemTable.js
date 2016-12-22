@@ -127,7 +127,7 @@ export default class ItemTable extends Component {
 
   //查看员工跳转地址
   onhref() {
-    window.open("/#/community/companyMembers/" + this.state.detail.companyId + "/list/" + this.state.detail.communityId);
+    window.open("/new/#/community/companyMembers/" + this.state.detail.companyId + "/list/" + this.state.detail.communityId);
   }
 
   renderOrder(contractTypeVo) {
