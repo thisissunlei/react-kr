@@ -194,7 +194,8 @@ export default class List extends Component {
 				type:value.filter,
 				value:value.content,
 				page :1,
-				pageSize:15
+				pageSize:15,
+				companyId:0,
 			}
 		})
 	}
