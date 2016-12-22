@@ -143,14 +143,30 @@ export default class SidebarNav extends Component {
 		childStyles.fontSize = '14px';
 		childStyles.color = '#333';
 		childStyles.paddingLeft = "20px";
-		childStyles.width = "180px"
+		childStyles.width = "180px";
 
+		var isSelected = false;
+
+		if(typeof item.router === 'string'){
+				isSelected = (item.router === current_router);
+		}else if(Object.prototype.toString.call(item.router) === '[object Array]'){
+				isSelected = (item.router.indexOf(current_router) !== -1);
+		}
+
+		if (isSelected) {
+			childStyles.backgroundColor = '#328ECC';
+			childStyles.color = '#fff';
+		} else {
+			childStyles.backgroundColor = '#fff';
+		}
+/*
 		if (item.router === current_router) {
 			childStyles.backgroundColor = '#328ECC';
 			childStyles.color = '#fff';
 		} else {
 			childStyles.backgroundColor = '#fff';
 		}
+		*/
 
 		if (item.menuItems && item.menuItems.length) {
 			return (
