@@ -4,6 +4,7 @@ import React, {
 import {
 	connect
 } from 'react-redux';
+import './index.less';
 import {
 	KrField,
 	Table,
@@ -32,8 +33,11 @@ export default class Initialize extends Component {
 
 		return (
 
-			<div>
-					yayayayay
+			<div className="print-Footer">
+
+						<p>双方证实上述资料属实，并已阅读及同意本页和背页所载之协议</p>
+						<p className="print-Bottom">氪空间&ensp;<span className="dott"></span>&ensp;让办公更简单<span className="tel">Tel：400-807-3636</span></p>
+
 			</div>
 		);
 	}
