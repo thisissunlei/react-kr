@@ -131,11 +131,13 @@ export default class List extends Component {
 			_this.openEditDetailDialog();
 			Message.success("操作成功");
 			_this.setState({
+				status:!_this.state.status,
 				searchParams:{
 					page:"1",
 					pageSize:"15",
 					value:'',
-					type:'COMP_NAME'
+					type:'COMP_NAME',
+					status:!_this.state.status,
 				}
 			})
 		}).catch(function(err){
