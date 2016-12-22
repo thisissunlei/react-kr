@@ -1,0 +1,131 @@
+.clear:after {
+	clear:both;
+	content:'.';
+	display:block;
+	width: 0;
+	height: 0;
+	visibility:hidden;
+}
+.ui-payment{
+	width:790px;
+	margin:0 auto;
+	border-top:2px solid #2d8dcd;
+	.payment-title{
+		height:35px;
+		line-height:35px;
+		.payment-info{
+			float:left;
+			color:#2d8dcd;
+			font-size:12px;
+			text-indent:12px;
+			width:290px;
+		}
+		.method{
+			float:left;
+			color:#333333;
+			font-size:12px;
+			width:320px;
+			div{
+				float:left;
+				padding:0 8px;
+				span{
+					font-size:12px;
+				}
+			}
+
+
+		}
+		.pay-method{
+			float:left;
+			width:178px;
+			color:#333333;
+			font-size:12px;
+			div{
+				float:right;
+				padding:0 8px;
+				span{
+					font-size:12px;
+				}
+			}
+		}
+	}
+	.discheck{
+		width:8px;
+		height:8px;
+		display:inline-block;
+		border:1px solid #ababab;
+		border-radius: 2px;
+		margin-right:5px;
+		vertical-align: middle;
+	}
+	.checked{
+		width:10px;
+		height:10px;
+		display:inline-block;
+		border-radius: 2px;
+		margin-right:5px;
+		vertical-align: middle;
+		background:#2d8dcd;
+		position:relative;
+	}
+	.checked:after{
+	    content: '';
+	    position: absolute;
+	    width: 5px;
+	    height: 2px;
+	    background: transparent;
+	    top: 2px;
+	    left: 2px;
+	    border: 2px solid #ffffff;
+	    border-top: none;
+	    border-right: none;
+		-webkit-transform: rotate(-45deg);
+		-moz-transform: rotate(-45deg);
+		-o-transform: rotate(-45deg);
+		-ms-transform: rotate(-45deg);
+		transform: rotate(-45deg);
+	}
+
+	.payment-content{
+		table{
+			border-top:1px solid #2d8dcd;
+			font-size:12px;
+			border-collapse: collapse;
+			th{
+				font-weight:100;
+				height:30px;
+				line-height:30px;
+				border-bottom:1px dashed #9dcae8;
+			}
+			td{
+				text-align:center;
+			}
+		}
+		.one-line{
+			width:100%;
+
+			td{
+				height:27px;
+				line-height:27px;
+			}
+		}
+	}
+	.table-content{
+		height:467px;
+		border-bottom:1px dashed #9dcae8;
+	}
+	.table-list{
+		height:465px;
+		margin-bottom:1px ;
+		border-bottom:1px dashed #9dcae8;
+	}
+
+	.reminder{
+		height:36px;
+		line-height:36px;
+		font-size:12px;
+		color:#666666;
+		border-bottom:2px solid #2d8dcd;
+
+	}
+}
