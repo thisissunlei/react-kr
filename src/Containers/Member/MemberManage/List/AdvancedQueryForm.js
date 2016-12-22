@@ -183,7 +183,7 @@ class NewCreateForm extends Component{
 				<KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} style={{width:'252px',marginRight:'33',marginBottom:5}}/>
 				<KrField name="registerSourceId"  grid={1/2} component="select" label="注册来源" options={selectSourceOption} style={{width:'252px'}}/>
 				<AdvanceSearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange}/>
-				<Grid style={{marginTop:30}}>
+				<Grid style={{marginTop:30,marginLeft:-40}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
