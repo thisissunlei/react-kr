@@ -207,10 +207,10 @@ export default class MemeberEditMemberForm extends Component {
 
 					<KrField name="communityId" grid={1/2} label="社区" component="searchCommunity" right={30} requiredValue={true}  errors={{requiredValue:'请选择社区'}} requireLabel={true}/>
 
-					<KrField name="foreignCode" grid={1/2} label="会员卡号"   type="text" left={30} onBlur={this.membersByForeignCode} requiredValue={true} pattern={/^\d{10}$/} errors={{requiredValue:'会员卡号为必填项',pattern:'会员卡号应由10位纯数字组成'}} requireLabel={true}/>
+					<KrField name="foreignCode" grid={1/2} label="会员卡号"   type="text" left={30} onBlur={this.membersByForeignCode} requireLabel={true}/>
 
 					<KrField name="companyId" grid={1/2} label="公司" component="searchCompany"  right={30} requiredValue={true} errors={{requiredValue:'请填选择公司'}} requireLabel={true}/>
-					<KrField name="email" grid={1/2} label="邮箱:" type="text" left={30}  onBlur={this.communityChange}  requireLabel={true} requiredValue={true} pattern={/^([a-zA-Z0-9\_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/} errors={{requiredValue:'邮箱为必填项',pattern:'请输入正确邮箱地址'}}/>
+					<KrField name="email" grid={1/2} label="邮箱:" type="text" left={30}  onBlur={this.communityChange}  requireLabel={true}/>
 
 					<KrField name="name" grid={1/2}  label="姓名" type="text" right={30}  requireLabel={true} requiredValue={true} errors={{requiredValue:'请填写会员卡号'}}/>
 
@@ -231,7 +231,9 @@ export default class MemeberEditMemberForm extends Component {
 const validate = values => {
 
 	const errors = {}
-
+	let code = /^\d{10}$/;
+	let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
+	let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
 	if (!values.phone) {
 		errors.phone = '请输入电话号码';
 	}
@@ -254,14 +256,23 @@ const validate = values => {
 	if (!values.name) {
 		errors.name = '请输入姓名';
 	}
-
-	if (!values.enableflag) {
-		errors.enableflag = '请选择是否发送验证短信';
-	}
-	if (!values.foreignCode) {
-		errors.foreignCode = '请填写会员卡号';
-	}
-	return errors;
+	if (!email.test(values.email) ) {
+        errors.email = '请填写正确邮箱';
+    }
+    if (!phone.test(values.phone) ) {
+        errors.phone = '请输入正确电话号';
+    }
+    if (!code.test(values.foreignCode) ) {
+        errors.foreignCode = '会员卡号为10位纯数字';
+    }
+    if (!values.sendMsg ) {
+        errors.sendMsg = '请选择是否发送验证短信';
+    }
+    if (!values.foreignCode) {
+        errors.foreignCode = '请输入会员卡号';
+    }
+    
+	return errors
 }
 MemeberEditMemberForm = reduxForm({
 	form: 'memeberEditMemberForm',
