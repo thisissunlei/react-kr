@@ -123,7 +123,7 @@ export default class SearchForm extends Component{
 	renderFilter=()=>{
 		let {searchFilter,defaultFilter} = this.props;
 		let {value} = this.state;
-		console.log('ddddd',defaultFilter);
+		// console.log('ddddd',defaultFilter);
 		let select ='请选择';
 		if(searchFilter && !value){
 			select = searchFilter[0].label;
@@ -133,7 +133,7 @@ export default class SearchForm extends Component{
 		}
 		if(defaultFilter && !value){
 			searchFilter.map((item)=>{
-				console.log(item.label);
+				// console.log(item.label);
 				if(item.value == defaultFilter){
 					select = item.label;
 				}

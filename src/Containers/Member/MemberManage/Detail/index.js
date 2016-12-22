@@ -89,17 +89,17 @@ export default class memberListDetail extends Component{
         </Tab>
         <Tab label="个人行为记录">
           <div>
-            <PersonalBehavior  detail={this.state.PersonalBehavior}/>
+            <PersonalBehavior/>
           </div>
         </Tab>
         <Tab label="组织架构">
           <div style={{marginTop:76}}>
-            <OrganizationChart  detail={this.state.OrganizationChart}/>
+            <OrganizationChart/>
           </div>
         </Tab>
         <Tab label="更新日志">
           <div>
-            <UpdateLog  detail={this.state.UpdateLog}/>
+            <UpdateLog/>
           </div>
         </Tab>
         </Tabs>
