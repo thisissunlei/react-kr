@@ -77,7 +77,7 @@ class NewCreateForm extends Component {
 		params: React.PropTypes.object.isRequired
 	}
 
-	static DefaultPropTypes = {
+	static defaultPropTypes = {
 		initialValues: {
 			customerName: '',
 			communityName: '',
@@ -88,7 +88,7 @@ class NewCreateForm extends Component {
 		}
 	}
 
-	static PropTypes = {
+	static propTypes = {
 		initialValues: React.PropTypes.object,
 		onSubmit: React.PropTypes.func,
 		onCancel: React.PropTypes.func,
@@ -372,9 +372,7 @@ class NewCreateForm extends Component {
 		onCancel && onCancel();
 	}
 
-	getStationUrl() {
-
-		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
+	getStationParams = ()=>{
 
 		let {
 			changeValues,
@@ -392,7 +390,7 @@ class NewCreateForm extends Component {
 			return obj;
 		});
 
-		let params = {
+		let stationParams = {
 			mainBillId: this.context.params.orderId,
 			communityId: optionValues.mainbillCommunityId,
 			floors: changeValues.wherefloor,
@@ -406,16 +404,11 @@ class NewCreateForm extends Component {
 
 		};
 
+		return stationParams;
+	}
 
-		if (Object.keys(params).length) {
-			for (let item in params) {
-				if (params.hasOwnProperty(item)) {
-					url = url.replace('{' + item + '}', params[item]);
-					delete params[item];
-				}
-			}
-		}
-
+	getStationUrl() {
+		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel";
 		return url;
 	}
 
@@ -667,7 +660,7 @@ class NewCreateForm extends Component {
 						open={this.state.openStation}
 						onClose={this.openStationDialog}
 						 >
-							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
+							<IframeContent src={this.getStationUrl()} parmas={this.getStationParams()} onClose={this.onIframeClose}/>
 					  </Dialog>
 
 					<Dialog

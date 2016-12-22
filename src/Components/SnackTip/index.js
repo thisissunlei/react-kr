@@ -44,7 +44,12 @@ export default class SnackTip extends Component {
 		let titleAfterStyle={
 			color:'#265e97',
 			fontSize:'16px',
-			marginLeft:'10px'
+			marginLeft:'10px',
+			display:"inline-block"
+		}
+		let zIndex={
+			zIndex:this.props.zIndex||10,
+
 		}
 
 		if(!open){
@@ -52,7 +57,7 @@ export default class SnackTip extends Component {
 		} 
 
 		return (
-			<div className="ui-snackTap">
+			<div className="ui-snackTap" style={zIndex}>
 			 <div className={className}  style={style} onClick={onClose}>
 			  <span>{title}</span><span style={titleAfterStyle}>{titleAfter}</span>
 			 </div>

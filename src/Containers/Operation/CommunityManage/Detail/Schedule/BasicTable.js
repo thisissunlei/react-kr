@@ -788,7 +788,6 @@ export default class BasicTable extends Component {
 
 					{
 						showNone && Installmentplan.map((item,index)=>{
-
 							let itemData = Object.assign(item);
 							return (
 

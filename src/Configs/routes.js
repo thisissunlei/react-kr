@@ -60,6 +60,7 @@ export default (
 
 		{/*会员中心*/}
 		<Route path="member" component={Basic}>
+<<<<<<< HEAD
              <IndexRedirect to="memberManage/list" />
 
 		<Route path="memberManage" component={Basic}>
@@ -67,6 +68,13 @@ export default (
 				<Route path=":memberId/detail/:companyId"  component={Member.MemberManage.Detail}/>
 			</Route>
 
+=======
+			<Route path="index" component={Member.Home}/>
+			<Route path="list"  component={Member.List}/>
+				<Route path="memberManage"  component={Member.Basic}>
+						<Route path="setting"  component={Member.MemberManage.Setting}/>
+				</Route>
+>>>>>>> feature/会员卡激活
 		</Route>
 
 		{/*统计看板*/}

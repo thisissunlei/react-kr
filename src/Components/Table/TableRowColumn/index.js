@@ -97,6 +97,7 @@ export default class TableRowColumn extends React.Component {
 	}
 
 
+
 	render() {
 
 		let {

@@ -160,6 +160,7 @@ export default class DialogComponent extends Component {
 								<span className="close" onClick={this.onClose}></span>
 						</div>
 						{open && <DialogBody padding={padding}> {children} </DialogBody>}
+
 				</div>
 			</div>
 		);

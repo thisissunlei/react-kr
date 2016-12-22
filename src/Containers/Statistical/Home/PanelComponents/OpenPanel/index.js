@@ -76,9 +76,24 @@ export default class Initialize  extends Component{
 			searchParams
 		});
     }
-    render(){
-    	let {searchParams}=this.state;
 
+   
+ 
+    componentWillReceiveProps(nextProps){
+		 this.setState({
+		 	searchParams:{
+               groupId:nextProps.groupId,
+               startDate:this.props.todayDate,
+			   endDate:this.props.todayDate
+		    }
+		})
+	 }
+
+    render(){   	
+    	let {searchParams}=this.state;	
+
+    	//console.log('888888888',searchParams);
+        
 	return(
          <div className='open-back' style={{background:'#fff',marginBottom:'20'}}>
 			<div className='ui-open-info'>
@@ -126,7 +141,7 @@ export default class Initialize  extends Component{
 						 <TableRow>
 						<TableRowColumn name="cityName"></TableRowColumn>
 						<TableRowColumn name="communityName"  component={(value,oldValue)=>{
-                             return (<div><span className='tableOver'>{value}</span><Tooltip style={{visibility:'visible'}} offsetTop={10} place='top'>{value}</Tooltip></div>)
+                             return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
 						}} ></TableRowColumn>
 						<TableRowColumn name="totalStation"></TableRowColumn>
 						<TableRowColumn name="unUsedStation" ></TableRowColumn>

@@ -1,9 +1,10 @@
+
+
 import { default as List} from './List';
-import { default as Card} from './Card';
-import { default as Detail} from './Detail';
+import { default as Setting} from './Setting';
 
 module.exports = {
 	List,
-	Card,
-	Detail,
+  Setting
+
 }
