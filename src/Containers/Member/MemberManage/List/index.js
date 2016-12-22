@@ -138,6 +138,7 @@ export default class List extends Component {
 					value:'',
 					type:'COMP_NAME',
 					status:!_this.state.status,
+					companyId:"0",
 				}
 			})
 		}).catch(function(err){
