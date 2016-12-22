@@ -64,7 +64,7 @@ export default class List extends Component {
 				endTime:'',
 				registerSourceId:'',
 				jobId:'',
-				companyId:'',
+				companyId:0,
 				cityId:'',
 				type:'COMP_NAME',
 				value:'',
@@ -138,6 +138,7 @@ export default class List extends Component {
 					value:'',
 					type:'COMP_NAME',
 					status:!_this.state.status,
+					companyId:"0",
 				}
 			})
 		}).catch(function(err){
@@ -168,6 +169,7 @@ export default class List extends Component {
 									type:'COMP_NAME',
 									value:"",
 									status:!_this.state.status,
+									companyId:0,
 								}
 							})
 						}).catch(function(err){
@@ -221,6 +223,7 @@ export default class List extends Component {
 				jobId :values.jobId || '',
 				page:1,
 				pageSize:15,
+				companyId:0,
 			}
 		})
 	}
@@ -246,13 +249,13 @@ export default class List extends Component {
 			value: 'NAME'
 		}];
 		return (
-			    <div >
+			    <div style={{minHeight:'910',backgroundColor:"#fff"}}>
 								<Title value="全部会员 "/>
 								<Section title={`全部会员 (${list.totalCount})`} description="" >
 									<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
 										<Button label="新建会员"  onTouchTap={this.openNewCreateDialog} />
 										{/*高级查询*/}
-										<Button   type='search'  searchClick={this.openAdvancedQueryDialog}   searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
+										<Button   type='search'  searchClick={this.openAdvancedQueryDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
 										<SearchForms onSubmit={this.onSearchSubmit} searchFilter={options} style={{marginTop:5,zIndex:10000}} content={this.state.content} filter={this.state.filter}/>
 									</form>
 									<Table
@@ -286,14 +289,61 @@ export default class List extends Component {
 									</TableHeader>
 									<TableBody style={{position:'inherit'}}>
 											<TableRow displayCheckbox={true}>
-											<TableRowColumn name="phone" ></TableRowColumn>
-											<TableRowColumn name="name" ></TableRowColumn>
-											<TableRowColumn name="wechatNick"></TableRowColumn>
-											<TableRowColumn name="email"></TableRowColumn>
-											<TableRowColumn name="jobName"></TableRowColumn>
-											<TableRowColumn name="cityName"></TableRowColumn>
-											<TableRowColumn name="companyName"></TableRowColumn>
-											<TableRowColumn name="registerName"></TableRowColumn>
+											<TableRowColumn name="phone"
+											component={(value,oldValue)=>{
+												if(value==""){
+													value="-"
+												}
+												return (<span>{value}</span>)}}
+											></TableRowColumn>
+											<TableRowColumn name="name"
+											component={(value,oldValue)=>{
+												if(value==""){
+													value="-"
+												}
+												return (<span>{value}</span>)}}
+											 ></TableRowColumn>
+											<TableRowColumn name="wechatNick"
+											component={(value,oldValue)=>{
+												if(value==""){
+													value="-"
+												}
+												return (<span>{value}</span>)}}
+											></TableRowColumn>
+											<TableRowColumn name="email"
+											component={(value,oldValue)=>{
+												if(value==""){
+													value="-"
+												}
+												return (<span>{value}</span>)}}
+											></TableRowColumn>
+											<TableRowColumn name="jobName"
+											component={(value,oldValue)=>{
+												if(value==""){
+													value="-"
+												}
+												return (<span>{value}</span>)}}
+											></TableRowColumn>
+											<TableRowColumn name="cityName"
+											component={(value,oldValue)=>{
+												if(value==""){
+													value="-"
+												}
+												return (<span>{value}</span>)}}
+											></TableRowColumn>
+											<TableRowColumn name="companyName"
+											component={(value,oldValue)=>{
+												if(value==""){
+													value="-"
+												}
+												return (<span>{value}</span>)}}
+											></TableRowColumn>
+											<TableRowColumn name="registerName"
+											component={(value,oldValue)=>{
+												if(value==""){
+													value="-"
+												}
+												return (<span>{value}</span>)}}></TableRowColumn>
 											<TableRowColumn name="registerTime" type="date" format="yyyy-mm-dd"></TableRowColumn>
 											<TableRowColumn type="operation">
 													<Button label="详情"  type="operation" operation="view"/>

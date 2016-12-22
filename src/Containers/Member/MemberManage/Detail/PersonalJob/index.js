@@ -52,17 +52,17 @@ export default class BasicInfo extends Component {
 			<div className='ui-detail-order'>
 
 
-			           <KrField grid={1/3} alignRight={true} label="职位:" component="labelText" value={workInfo.jobName} defaultValue="无"/>
+			           <KrField grid={1/3} alignRight={true} label="职位:" component="labelText" value={workInfo.jobName} defaultValue="无" style={{marginRight:'20px'}}/>
 
 			          	{/*<KrField grid={1/3}  alignRight={true} component="labelText"  label="工位号:" value={workInfo.stationCode} defaultValue="无" />*/}
 
 								 <KrField grid={1/3}  alignRight={true} component="labelText"  label="社区:" value={workInfo.communityName} defaultValue="无" />
 
-                <KrField grid={1/3} alignRight={true} label="公司:" component="labelText"  value={workInfo.customerCompany} defaultValue="无"/>
+                <KrField grid={1/3} alignRight={true} label="公司:" component="labelText"  value={workInfo.customerCompany} defaultValue="无" style={{marginLeft:'-20px'}}/>
 
 			           {/*<KrField grid={1/3} alignRight={true} label="入驻氪空间状态:" component="labelText"  value={workInfo.customerCompany} defaultValue="无"/>*/}
 
-			           <KrField grid={1/3} alignRight={true} label="入职时间:" component="labelText" type="date" value={workInfo.entryTime} defaultValue="无"/>
+			           <KrField grid={1/3} alignRight={true} label="入职时间:" component="labelText" type="date" value={workInfo.entryTime} defaultValue="无" style={{marginRight:'20px'}}/>
 
 
 									{/*<KrField grid={1/3} alignRight={true} label="入驻氪空间时间:" component="labelText" type="date" value={workInfo.customerCompany} defaultValue="无"/>*/}

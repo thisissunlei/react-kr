@@ -183,14 +183,12 @@ class NewCreateForm extends Component{
 				<KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} style={{width:'252px',marginRight:'33',marginBottom:5}}/>
 				<KrField name="registerSourceId"  grid={1/2} component="select" label="注册来源" options={selectSourceOption} style={{width:'252px'}}/>
 				<AdvanceSearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange}/>
-				<Grid style={{marginTop:30}}>
+				<Grid style={{margin:"20px 0 3px -10px"}}>
 					<Row>
-						<Col md={12} align="center">
-							<ButtonGroup>
-									<Button  label="确定" type="submit"/>
-									<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />
-							</ButtonGroup>
-						</Col>
+						<ListGroup>
+								<ListGroupItem style={{width:'269px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"/></ListGroupItem>
+								<ListGroupItem style={{width:'254px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} /></ListGroupItem>
+							</ListGroup>
 					</Row>
 				</Grid>
 		  </form>

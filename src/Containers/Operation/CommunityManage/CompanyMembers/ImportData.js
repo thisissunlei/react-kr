@@ -50,6 +50,7 @@ export default class CancleLeader extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.companyId = this.context.router.params.companyId
+		this.communityId = this.context.router.params.communityId
 		this.state = {
 			isInit: true,
 			form: {},
@@ -65,6 +66,7 @@ export default class CancleLeader extends Component {
     	var form = new FormData();
 		form.append('file', this.state.file);
 		form.append('companyId', this.companyId);
+		form.append('communityId', this.communityId);
 		if(!this.state.file.name){
 			Message.error('请选择上传文件');
 			return false;
@@ -148,21 +150,21 @@ export default class CancleLeader extends Component {
 
 
 		return (
-			<form  name='import'>
+			<form  name='import' style={{textAlign:'center'}}>
 				<div>
-					<span className='import-logo icon-excel' onClick={this.importFile}></span>
+					<span className='import-logo icon-excel' onClick={this.importFile}><input type="file" name="file" className='chooce-file' onChange={this.onChange}/></span>
 					
-					<input type="hidden" name="companyId" value="45"  />
+					<input type="hidden" name="companyId" />
 
 					<span className='import-font'><span className="chooce">请选择上传文件</span><input type="file" name="file" className='chooce-file' onChange={this.onChange}/></span>
 					{fileName?<span className='file-name'>{fileName}</span>:''}
 					<span className='load-demo icon-template' onClick={this.onLoadDemo}>下载excel模板</span>
 				</div>
-				<Grid style={{marginBottom:20}}>
+				<Grid style={{marginTop:10}}>
 					<Row>
 						<ListGroup>
-							<ListGroupItem style={{width:'47%',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定导入" type="button" width={90} height={34} onClick={this.test}/></ListGroupItem>
-							<ListGroupItem style={{width:'47%',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/> </ListGroupItem>
+							<ListGroupItem style={{width:'180px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定导入" type="button" width={90} height={34} onClick={this.test}/></ListGroupItem>
+							<ListGroupItem style={{width:'150px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/> </ListGroupItem>
 						</ListGroup>
 					  </Row>
 				</Grid>

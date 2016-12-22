@@ -1,7 +1,7 @@
 .edit-form{
 	padding:  10px 40px;
 	.person-info{
-		padding-left: 10px;
+		padding-left: 15px;
 		margin: 20px 0;
 
 	}
@@ -73,10 +73,14 @@
 }
 .import-logo{
 	color: #7ab55c;
-	display: block;
+	display: inline-block;
 	font-size: 80px;
 	margin: 10px auto;
 	text-align: center;
+	position: relative;
+	.chooce-file{
+		height: 80px;
+	}
 }
 .import-font{
 	display: inline-block;
@@ -84,15 +88,21 @@
 	text-align: center;
 	color: #499df1;
 	position: relative;
+	// cursor: pointer;
 	.chooce{
 		width: 100px;
+		cursor: pointer;
+	}
+	input[type='file']{
+		cursor: pointer;
 	}
 }
 .load-demo{
 	display: inline-block;
-	width: 100%;
+	// width: 100%;
 	text-align: center;
-	margin:10px 0 20px 0;
+	margin:20px 0;
+	cursor: pointer;
 }
 .file-name{
 	display: inline-block;
@@ -107,4 +117,5 @@
 	left: 50%;
 	transform:translateX(-50px);
 	opacity: 0;
+	cursor: pointer;
 }

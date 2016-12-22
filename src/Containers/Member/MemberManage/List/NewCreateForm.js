@@ -11,7 +11,9 @@ import {
 	Button,
 	ButtonGroup,
 	Message,
-	SnackTip
+	SnackTip,
+	ListGroup,
+	ListGroupItem
 } from 'kr-ui';
 import $ from 'jquery'
 import imgLine from './images/line.png'
@@ -28,13 +30,9 @@ import imgLine from './images/line.png'
 			onsubmit:true,
 			onSubmitCode:true,
 			code:'',
-
 		}
 		this.getBasicData();
 		this.params = this.props.params;
-
-
-
 	}
 	componentWillMount() {
 		this.params = this.props.params;
@@ -61,9 +59,7 @@ import imgLine from './images/line.png'
 	 		const {onSubmit} = this.props;
 		 	onSubmit && onSubmit(values);
 	 	}
-
 	 }
-
 	 onCancel=()=>{
 		 const {onCancel} = this.props;
 		 onCancel && onCancel();
@@ -187,9 +183,7 @@ import imgLine from './images/line.png'
 			})
 		 	return;
 		 }
-
 		 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
-
 				 //会员卡号已注册
  				Message.warn('该会员卡号已被绑定','error');
  				_this.setState({
@@ -203,12 +197,11 @@ import imgLine from './images/line.png'
 			})
 		 });
 	 }
-
-	 onChangeSearchCommunity(personel) {
-		Store.dispatch(change('NewCreateForm', 'communityId', personel.id));
+	 onChangeSearchCommunity(community) {
+		Store.dispatch(change('NewCreateForm', 'communityId', community.id));
 	}
-	onChangeSearchCompany(personel) {
-		Store.dispatch(change('NewCreateForm', 'companyId', personel.id));
+	onChangeSearchCompany(company) {
+		Store.dispatch(change('NewCreateForm', 'companyId', company.id));
 	}
 	render(){
 		const { error, handleSubmit, pristine, reset} = this.props;
@@ -219,31 +212,27 @@ import imgLine from './images/line.png'
 		return (
 			<div>
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:20,marginLeft:'40px'}}>
-				<KrField grid={1/2} name="phone" type="text" label="手机号" requireLabel={true} style={{display:'block',width:'252px'}}
-				   requiredValue={true} onBlur={this.onBlur} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
+				<KrField grid={1/2} name="phone" type="text" onBlur={this.onBlur} label="手机号" requireLabel={true} style={{display:'block',width:'252px'}}/>
 				<div style={{width:'100%',textAlign:'center',height:25,marginBottom:8,marginLeft:'-30px'}}>
 						<img src={imgLine}/>
 				</div>
 				<KrField grid={1/2} name="communityId" component="searchCommunity" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}} style={{width:'252px',marginRight:'30'}}/>
-        <KrField grid={1/2} name="email" type="input" label="邮箱" requireLabel={true} onBlur={this.EmailonBlur}
-				   requiredValue={true} pattern={/^([a-zA-Z0-9\_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/} errors={{requiredValue:'邮箱为必填项',pattern:'请输入正确邮箱地址'}} style={{width:'252px'}}/>
+        <KrField grid={1/2} name="email" type="text" label="邮箱" requireLabel={true} onBlur={this.EmailonBlur} style={{width:'252px'}}/>
 				<KrField grid={1/2} name="companyId" component="searchCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true} errors={{requiredValue:'公司为必填项'}} style={{width:'252px',marginRight:'30'}}/>
-        <KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} requireLabel={true} style={{width:'252px'}}/>
+        <KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} style={{width:'252px'}}/>
 				<KrField grid={1/2} name="name" type="text" label="姓名" requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}} style={{width:'252px',marginRight:'30'}}/>
-				<KrField grid={1/2} name="sendMsg" component="group" label="发送验证短信"  style={{width:'252px'}}>
-						<KrField name="sendMsg" grid={1/2} label="是" type="radio" value="1"/>
+				<KrField grid={1/2} name="sendMsg" component="group" label="发送验证短信"  style={{width:'252px'}} requireLabel={true} >
+						<KrField name="sendMsg" grid={1/2} label="是" type="radio" value="1" style={{marginRight:'50'}}/>
 						<KrField name="sendMsg" grid={1/2} label="否" type="radio" value="0" />
               </KrField>
-        <KrField grid={1/2} name="foreignCode" type="input" label="会员卡号" requireLabel={true} onBlur={this.foreignCodeBlur} style={{width:'252px'}} requiredValue={true} pattern={/^\d{10}$/} errors={{requiredValue:'会员卡号为必填项',pattern:'会员卡号应由10位纯数字组成'}}/>
-				<Grid style={{marginTop:30,marginLeft:'-40px'}}>
+        <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" requireLabel={true} onBlur={this.foreignCodeBlur} style={{width:'252px'}} />
+
+				<Grid style={{marginTop:30,marginBottom:'20px'}}>
 					<Row>
-						<Col md={12} align="center">
-							<ButtonGroup>
-									<Button  label="确定" type="submit"/>
-									<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />
-							</ButtonGroup>
-						</Col>
-					</Row>
+						<ListGroup>
+								<ListGroupItem style={{width:'269px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"/></ListGroupItem>
+								<ListGroupItem style={{width:'254px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} /></ListGroupItem>
+							</ListGroup>					</Row>
 				</Grid>
 		  </form>
 		  </div>
@@ -253,11 +242,15 @@ import imgLine from './images/line.png'
 const validate = values => {
 
 	const errors = {}
-
+	let code = /^\d{10}$/;
+	let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
+	let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
 	if (!values.phone) {
 		errors.phone = '请输入电话号码';
 	}
-
+	if(!/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/.test(values.phone)){
+		errors.phone = '请输入正确电话号码';
+	}
 	if (!values.communityId) {
 		errors.communityId = '请输入社区名称';
 	}
@@ -265,24 +258,36 @@ const validate = values => {
 	if (!values.email) {
 		errors.email = '请输入邮箱';
 	}
+	if(!/^([a-zA-Z0-9\_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(values.email)){
+		errors.email = '请输入正确邮箱';
+	}
 	if (!values.companyId) {
 		errors.companyId = '请输入公司';
-	}
-
-	if (!values.jobId) {
-		errors.jobId = '请输入职位';
 	}
 
 	if (!values.name) {
 		errors.name = '请输入姓名';
 	}
-
-	if (!values.sendMsg ) {
+	if (!email.test(values.email) ) {
+        errors.email = '请填写正确邮箱';
+    }
+    if (!phone.test(values.phone) ) {
+        errors.phone = '请输入正确电话号';
+    }
+    if (!code.test(values.foreignCode) ) {
+        errors.foreignCode = '会员卡号为10位纯数字';
+    }
+    if (!values.sendMsg ) {
         errors.sendMsg = '请选择是否发送验证短信';
-    }
-    if (!values.foreignCode) {
-        errors.foreignCode = '请输入会员卡号';
-    }
+
+  }
+  if (!values.foreignCode) {
+      errors.foreignCode = '请输入会员卡号';
+  }
+	if(!/^\d{10}$/.test(values.foreignCode)){
+		errors.foreignCode = '请填写10位纯数字会员卡号';
+	}
+
 	return errors
 }
 const selector = formValueSelector('NewCreateForm');

@@ -109,7 +109,8 @@ export default class CityComponent extends React.Component {
 		const SecondCity = second.getElementsByClassName('secondCity')[0];
 		const target = event.target.getElementsByTagName('span')[0];
 		SecondCity.style.display = 'inline-block';
-
+		const ThirdCity = second.getElementsByClassName('thirdCity')[0];
+		ThirdCity.style.display = 'none';
 		let secondCity = this.secondCityList(firstCityId);
 
 		this.setState({
@@ -229,19 +230,19 @@ export default class CityComponent extends React.Component {
 								<li className="firstCity">
 									{firstCity.map((item,index)=>{
 										hoverColor = (item.id == firstId)?selectedCity:cityStyle;
-										return (<div key={index} className='city-name' style={hoverColor} data-for={item.id} onMouseOver={this.selectFirstCity} ><span >{item.name}</span></div>)
+										return (<div key={index} className='city-name' style={hoverColor} data-for={item.id} onMouseOver={this.selectFirstCity} ><span >{item.name}</span><span className="scroll-div"></span></div>)
 									})}
 								</li>
 								<li className="secondCity">
 									{secondCity.map((item,index)=>{
 										hoverColor = (item.id == secondId)?selectedCity:cityStyle;
-										return (<div key={index} className='city-name' style={hoverColor} data-for={item.id} onMouseOver={this.selectSecondCity}><span >{item.name}</span></div>)
+										return (<div key={index} className='city-name' style={hoverColor} data-for={item.id} onMouseOver={this.selectSecondCity}><span >{item.name}</span><span className="scroll-div"></span></div>)
 									})}
 								</li>
 								<li className="thirdCity">
 									{thirdCity.map((item,index)=>{
 										hoverColor = (item.id == thirdId)?selectedCity:cityStyle;
-										return (<div key={index} className='city-name' style={hoverColor} data-for={item.id} onMouseOver={this.selected}  onClick={this.onSubmit}><span >{item.name}</span></div>)
+										return (<div key={index} className='city-name' style={hoverColor} data-for={item.id} onMouseOver={this.selected}  onClick={this.onSubmit}><span >{item.name}</span><span className="scroll-div"></span></div>)
 									})}
 								</li>
 							</ul>
