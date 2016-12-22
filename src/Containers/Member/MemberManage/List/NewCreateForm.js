@@ -221,7 +221,7 @@ import imgLine from './images/line.png'
 		return (
 			<div>
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:20,marginLeft:'40px'}}>
-				<KrField grid={1/2} name="phone" type="text" label="手机号" requireLabel={true} style={{display:'block',width:'252px'}}/>
+				<KrField grid={1/2} name="phone" type="text" onBlur={this.onBlur} label="手机号" requireLabel={true} style={{display:'block',width:'252px'}}/>
 				<div style={{width:'100%',textAlign:'center',height:25,marginBottom:8,marginLeft:'-30px'}}>
 						<img src={imgLine}/>
 				</div>
