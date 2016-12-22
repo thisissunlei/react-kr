@@ -2,7 +2,7 @@
 import fetch from 'isomorphic-fetch';
 import URLSearchParams from 'url-search-params';
 import { browserHistory } from 'react-router';
-import APIS from '../apis';
+import APIS from '../../Configs/apis';
 
 import ES6Promise from 'es6-promise';
 ES6Promise.polyfill();
