@@ -182,7 +182,7 @@ import imgLine from './images/line.png'
 	 	console.log('getCummityNamegetCummityName');
 	 	Store.dispatch(Actions.callAPI('searchCommunityByCommunityText')).then(function(response){
 				response.forEach((item)=>{
-					if(item.id == _this.params.companyId){
+					if(item.id == _this.params.communityId){
 						communityName = item.communityname;
 					}
 				})

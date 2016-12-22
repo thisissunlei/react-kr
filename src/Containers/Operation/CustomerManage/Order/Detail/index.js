@@ -178,13 +178,13 @@ class StaionInfo extends Component {
 
 		return (
 			<div className={`${className} ${Name}`}>
-				<div className="closeBtn" onTouchTap={this.close} ></div>
+				<div className="close-btn" onTouchTap={this.close} ></div>
 				<div className="showHeader"><span className="icon"></span><span className="title">工位编号 :</span></div>
-				<div className="infoCon">
+				<div className="info-con">
 					{detail && detail.map((item,index)=>{
 						return(
 							<div className="infoList" key={index}>
-								<div className="hTitle"><span className="circle"></span>{item.detailName}</div>
+								<div className="h-title"><span className="circle"></span>{item.detailName}</div>
 								<div className="listCon">
 									{item.stationIds.length>0 ?item.stationIds.map((v,i)=>{
 										return(
@@ -203,7 +203,7 @@ class StaionInfo extends Component {
 					
 
 				</div>
-				<div className="CloseBtn" onTouchTap={this.close}>关闭</div>
+				<div className="close-btn-n" onTouchTap={this.close}>关闭</div>
 			</div>
 
 		)
@@ -636,7 +636,7 @@ export default class OrderDetail extends React.Component {
 								</div>
 								
 							</div>
-							<div className="Conlist">
+							<div className="conlist">
 							{item.installment && item.installment.map((items,indexs)=>{
 								return(
 										<div className="list" key={indexs}>

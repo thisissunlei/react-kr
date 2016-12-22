@@ -4,6 +4,9 @@ import React from 'react';
 import FormItem from './Item';
 import FormLabel from './Label';
 import FormController from './Controller';
+import ControllerNotify from './ControllerNotify';
+
+
 
 export default class  WrapComponent extends React.Component {
 
@@ -15,7 +18,7 @@ export default class  WrapComponent extends React.Component {
 	}
 
 
-	static PropTypes = {
+	static propTypes = {
 		label:React.PropTypes.string,
 		requireLabel:React.PropTypes.bool,
 		children:React.PropTypes.node,
@@ -52,6 +55,7 @@ export default class  WrapComponent extends React.Component {
 					<FormLabel label={label}  alignRight={alignRight} search={search} requireLabel={requireLabel} inline={inline} requireBlue={requireBlue}/>
 					<FormController style={style} search={search} inline={inline} alignRight={alignRight} requireBlue={requireBlue}>
 						{children}
+						<ControllerNotify notifys={this.props.notifys}/>
 					</FormController>
 				</FormItem>
 			);
@@ -59,13 +63,3 @@ export default class  WrapComponent extends React.Component {
 
 	}
 }
-
-
-
-
-
-
-
-
-
-

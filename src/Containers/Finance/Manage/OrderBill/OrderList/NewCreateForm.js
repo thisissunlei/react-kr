@@ -105,11 +105,12 @@ class NewCreateForm extends Component {
 
 		return (
 
-			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:45,marginLeft:44}}>
-				<KrField grid={1/2} right={35} style={{height:36,marginBottom:28}} name="mainbillname" type="text" label="订单名称"/>
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:34,marginLeft:36}}>
+
+				<KrField grid={1/2} right={39} style={{height:36,marginBottom:28}} name="mainbillname" type="text" label="订单名称"/>
 				<KrField grid={1/2}  component="labelText"/>
-				<KrField right={35} grid={1/2}  name="communityid" style={{marginTop:'7px'}} component="searchCommunity" label="所属社区" onChange={this.onChangeCommunity}/>
-				<KrField  grid={1/2} right={35} name="mainBillTypeValue" type="select" style={{marginTop:7,marginLeft:-6}} label="订单类型" options={this.state.mainbilltypeList}>
+				<KrField right={39} grid={1/2}  name="communityid" style={{marginTop:'7px'}} component="searchCommunity" label="所属社区" onChange={this.onChangeCommunity}/>
+				<KrField  grid={1/2} right={39} name="mainbilltype" type="select" style={{marginTop:7,marginLeft:-10}} label="订单类型" options={this.state.mainbilltypeList}>
 				</KrField>
 				<KrField grid={1/1}  component="group" label="查询区间" style={{marginTop:3}}>
 				<div className='ui-listDate'><ListGroup>
@@ -119,7 +120,11 @@ class NewCreateForm extends Component {
 					</ListGroup>
                     </div>
 				</KrField>
-				<Grid style={{marginTop:7,marginBottom:5}}>
+
+
+
+
+				<Grid style={{marginTop:7,marginBottom:5,marginLeft:-24}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
