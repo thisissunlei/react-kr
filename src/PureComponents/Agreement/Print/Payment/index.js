@@ -42,18 +42,23 @@ export default class Initialize extends Component {
 			<div className="table-one-content">
 				<div className="table-list">
 						<table className="one-line">
-							<tr>
-								<th>款项</th>
-								<th>服务期限</th>
-								<th>付款日期</th>
-								<th>付款金额</th>
-							</tr>
-							<tr>
-								<td>履约保证金</td>
-								<td>2015/09/10-2016/10/10</td>
-								<td>2015/09/10</td>
-								<td>1200</td>
-							</tr>
+							<thead>
+								<tr>
+									<th>款项</th>
+									<th>服务期限</th>
+									<th>付款日期</th>
+									<th>付款金额</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>履约保证金</td>
+									<td>2015/09/10-2016/10/10</td>
+									<td>2015/09/10</td>
+									<td>1200</td>
+								</tr>
+							</tbody>
+							
 						</table>
 				</div>
 			</div>
@@ -142,7 +147,7 @@ export default class Initialize extends Component {
 				</div>
 				<div className="payment-content">
 					<div className="table-content">
-						{this.Twotable()}
+						{this.Onetable()}
 					</div>
 					<div className="reminder">
 						注：每期服务期到期之日前15日支付下期服务费
