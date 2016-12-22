@@ -5,6 +5,10 @@ import mobx, {
 	computed,
 	extendObservable
 } from 'mobx';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 
 let State = observable({
 	name: 'dd',
@@ -12,12 +16,25 @@ let State = observable({
 	fields: {},
 	initialValues: {},
 	syncErrors: {},
-	validations: {}
+	validations: {},
+	data: [],
+	installmentPlans: []
 });
 
 //action
-State.getBasicInfo = action(function() {
+State.getBasicInfo = action(function(params) {
+	var _this = this;
+	Store.dispatch(Actions.callAPI('checkinagreement-print-info', {
+		contractId: params.id
+	})).then(function(response) {
+		console.log('response----', response)
+		_this.data = response.data;
+		_this.installmentPlans = response.data.installmentPlans;
+		_this.stationVOs = response.data.stationVOs;
 
+	}).catch(function(err) {
+
+	});
 
 
 	this.name = 'haa'

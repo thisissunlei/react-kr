@@ -32,11 +32,14 @@ import './index.less';
 
 @observer
 export default class JoinPrint extends Component {
-
+	static contextTypes = {
+		router: React.PropTypes.object.isRequired
+	}
 	constructor(props, context) {
 		super(props, context);
+		let params = this.context.router.params;
 
-		State.getBasicInfo();
+		State.getBasicInfo(params);
 	}
 
 	render() {
@@ -45,11 +48,14 @@ export default class JoinPrint extends Component {
 
 			<div className="print-section">
 			
-			<Agreement.Print.Header/>
+			<Agreement.Print.Header data={State.data}/>
 			<Agreement.Print.BaseInfo/>
 			<Agreement.Print.Station/>
 			<Agreement.Print.Payment/>
-			<div className=""></div>
+			<div className="print-text">
+				<span>双方其他约定内容：</span>
+				<p></p>
+			</div>
 			<Agreement.Print.Footer/>
 			
       		</div>

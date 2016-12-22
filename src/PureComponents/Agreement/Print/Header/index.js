@@ -23,11 +23,11 @@ import './index.less';
 
 export default class Initialize extends Component {
 	static defaultProps = {
-		data: []
+		Baseinfo: {}
 	}
 
 	static propTypes = {
-		data: React.PropTypes.array
+		Baseinfo: React.PropTypes.object
 	}
 	constructor(props, context) {
 		super(props, context);
