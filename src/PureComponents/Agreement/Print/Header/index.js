@@ -49,7 +49,7 @@ export default class Initialize extends Component {
 					</div>
 				</div>
 				<div className="print-title">入驻服务协议</div>
-				<div className="QRCode">
+				<div className="print-QRCode">
 					
 				</div>	
 			</div>
