@@ -12,10 +12,14 @@ import {
 import {
 	default as Footer
 } from './Footer';
+import {
+	default as BaseInfo
+} from './BaseInfo';
 
 module.exports = {
 	Payment,
 	Station,
 	Header,
-	Footer
+	Footer,
+	BaseInfo
 }
