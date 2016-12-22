@@ -17,18 +17,18 @@ import {
 	KrField,
 	LabelText,
 	KrDate,
-		Button,
-		Grid,
-		Row,
-		Col,
-		Table,
-		TableBody,
-		TableHeader,
-		TableHeaderColumn,
-		TableRow,
-		TableRowColumn,
-		TableFooter,
-		Title,
+	Button,
+	Grid,
+	Row,
+	Col,
+	Table,
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
+	TableRowColumn,
+	TableFooter,
+	Title,
 
 } from 'kr-ui';
 
@@ -101,7 +101,7 @@ export default class JoinDetail extends Component {
 			}
 			const info = {
 				padding: '30px 70px',
-				paddingBottom:10
+				paddingBottom: 10
 			}
 			return (
 				<div className="content" style={content}>
@@ -133,7 +133,7 @@ export default class JoinDetail extends Component {
 
 
 
-								<KrField component="labelText" label="租赁用途：" value={basic.rentaluse} requireBlue={true}/>
+								
 								<KrField component="labelText" grid={1/2} label="首付款时间：" type="date" value={basic.firstpaydate} requireBlue={true}/>
 
 								<KrField component="labelText" grid={1/2}  label="租金总额：" value={basic.totalrent} defaultValue="0" requireBlue={true}/>

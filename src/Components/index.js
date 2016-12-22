@@ -39,12 +39,13 @@ import RadioGroup from './RadioGroup';
 import Message from './Message';
 import DemoComponent from './Demo';
 import Textarea from './Textarea';
-import 	DatePicker from './DatePicker';
-import 	Tooltip from './Tooltip';
-import 	Tooltips from './Tooltips';
-import 	KrForm from './KrForm';
-import 	InputDate from './InputDate';
-
+import DatePicker from './DatePicker';
+import Tooltip from './Tooltip';
+import KrForm from './KrForm';
+import InputDate from './InputDate';
+import CircleStyle from './CircleStyle';
+import SnackTip from './SnackTip';
+import Tooltips from './Tooltips';
 
 import {
 	Grid,
@@ -113,6 +114,7 @@ module.exports = {
 	DatePicker,
 	...KrForm,
 	InputDate,
+	SnackTip,
 
 	//materal-ui
 	Menu,
@@ -128,6 +130,7 @@ module.exports = {
 	SearchForms,
 	...Tabs,
 	PageHeader,
+	Tooltip,
+	CircleStyle,
 	Tooltips,
-	Tooltip
 }

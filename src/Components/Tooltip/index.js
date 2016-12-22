@@ -12,8 +12,7 @@ export default class Tooltip extends Component {
 
 	static defaultProps = {
 		backgroundColor:"rgba(0,0,0,.7)",
-		ShadowColor:'transparent',
-		scroll:false
+		ShadowColor:'transparent'
 	}
 
 	static PropTypes = {
@@ -31,7 +30,6 @@ export default class Tooltip extends Component {
 		/**
 		 * 与box-shadow的阴影色相同
 		 */
-		scroll:React.PropTypes.bool
 
 
 	}
@@ -42,7 +40,6 @@ export default class Tooltip extends Component {
 			width:0,
 			height:0,
 			offsetTop:this.props.offsetTop,
-			offsetRight:this.props.offsetRight
 		}
 
 	}
@@ -69,7 +66,7 @@ export default class Tooltip extends Component {
 	}
 
 	render() {
-		let {children,place,backgroundColor,boxShadow,ShadowColor,scroll} = this.props;
+		let {children,place,backgroundColor,boxShadow,ShadowColor} = this.props;
 		let {width,height} = this.state;
 		let className = 'ui-tooltip';
 		let arrowStyle = {};
@@ -78,10 +75,6 @@ export default class Tooltip extends Component {
 		let arrowContentName = '';
 		let style = {};
 		let offsetTop=this.state.offsetTop;
-		let offsetRight=this.state.offsetRight;
-		if(!this.state.offsetRight){
-			offsetRight=0;
-		}
 		if(!this.state.offsetTop){
 			offsetTop=0;
 		}
@@ -92,7 +85,7 @@ export default class Tooltip extends Component {
 			className+=' height';
 		}
 		if(place === 'right'){
-			style.right = '-'+ (width-5+offsetRight)+'px';
+			style.right = '-'+ (width-5)+'px';
 			arrowName = 'right-arrow';
 			arrowContentName = 'right-arrows';
 			arrowStyle.borderRightColor = ShadowColor;
@@ -120,12 +113,6 @@ export default class Tooltip extends Component {
 			arrowContentName = 'bottom-content-arrows';
 			arrowStyle.borderBottomColor = ShadowColor;
 			arrowContentStyle.borderBottomColor = backgroundColor;
-
-		}
-		if(scroll){
-			style.maxHeight = '250px';
-		}else{
-			style.maxHeight = 'auto';
 
 		}
 		style.background = backgroundColor;
