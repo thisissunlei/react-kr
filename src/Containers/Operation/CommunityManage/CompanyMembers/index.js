@@ -90,6 +90,7 @@ export default class CompanyMembers extends Component {
 				pageSize: 15,
 			}
 		}
+		 Store.dispatch(Actions.navActive('plan_table'));
 
 
 	}
@@ -190,7 +191,7 @@ export default class CompanyMembers extends Component {
 	}
 	validateMember=()=>{
 		let {seleced} = this.state;
-		console.log(seleced);
+		// console.log(seleced);
 		let list = [];
 		list = seleced.map((item)=>{
 			if(!item.checkStatus){
@@ -198,7 +199,7 @@ export default class CompanyMembers extends Component {
 			}
 			return false;
 		})
-		console.log(list);
+		// console.log(list);
 		if(!seleced.length && !this.state.validateMember){
 			this.onSubmits();
 			return;
@@ -319,7 +320,7 @@ export default class CompanyMembers extends Component {
 		seleced.map(item=>{
 			selecedList.push(item.id);
 		})
-		console.log(String(selecedList));
+		// console.log(String(selecedList));
 		let companyId = this.companyId;
 		let url = `/api/krspace-finance-web/member/member-company-excel?ids=${String(selecedList)}&companyId=${companyId}`;
 		window.location.href = url;
@@ -461,7 +462,7 @@ export default class CompanyMembers extends Component {
 		let {searchParams} = this.state;
 		// console.log('state',searchParams);
 		return (
-			<div>
+			<div style={{minHeight:910,background:'#fff'}}>
 
 
 			<Section title={`${allData.companyName} (${allData.totalCount})`} description="" >

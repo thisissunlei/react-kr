@@ -44,6 +44,8 @@ export default class memberListDetail extends Component{
       // }
 		}
     this.getBasicData();
+
+    Store.dispatch(Actions.navActive('memberList'));
   }
   componentDidMount() {
 

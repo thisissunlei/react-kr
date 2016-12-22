@@ -49,6 +49,7 @@ import 	Tooltips from './Tooltips';
 import 	KrForm from './KrForm';
 import 	InputDate from './InputDate';
 import  SnackTip from './SnackTip';
+import Dictionary from './Dictionary';
 
 
 import {
@@ -74,7 +75,7 @@ import {
 
 module.exports = {
 	//Components
-
+	Dictionary,
 	FontIcon,
 	Paper,
 	IframeContent,
