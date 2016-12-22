@@ -184,7 +184,7 @@ module.exports = {
 					{
 					primaryText: "会员配置",
 					router: '/member/memberManage/setting',
-					menuCode: 'index',
+					menuCode: 'memberSetting',
 				},
 
 		]

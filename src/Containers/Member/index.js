@@ -5,5 +5,5 @@ import { default as MemberManage} from './MemberManage';
 module.exports = {
 	Home,
 	List,
-	MemberManage
+	MemberManage,
 }
