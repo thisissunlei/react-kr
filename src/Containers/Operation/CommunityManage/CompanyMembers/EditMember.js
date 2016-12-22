@@ -212,10 +212,10 @@ export default class CreateMemberForm extends Component {
 					<KrField name="phone" grid={1/2} label="手机号" inline={false} component="labelText" value={detail.phone} />
 					<div className="split-lines"></div>
 					<KrField name="communityId" grid={1/2} label="社区" inline={false} component="labelText" right={20} defaultValue={baseInfo.communityName} requireLabel={true}/>
-					<KrField name="foreignCode" grid={1/2} label="会员卡号" component="input" left={20} onBlur={this.foreignCodeBlur}  requireLabel={true} requiredValue={true} pattern={/^\d{10}$/} errors={{requiredValue:'会员卡号为必填项',pattern:'会员卡号应由10位纯数字组成'}}/>
+					<KrField name="foreignCode" grid={1/2} label="会员卡号" type="text" left={20} onBlur={this.foreignCodeBlur}  requireLabel={true} requiredValue={true} pattern={/^\d{10}$/} errors={{requiredValue:'会员卡号为必填项',pattern:'会员卡号应由10位纯数字组成'}}/>
 					<KrField name="companyId" grid={1/2} label="公司" inline={false} component="labelText" defaultValue={baseInfo.companyName}  right={20}  requireLabel={true}/>
-					<KrField name="email" grid={1/2} label="邮箱:" component="input" left={20}  onBlur={this.EmailonBlur}  requireLabel={true}/>
-					<KrField name="name" grid={1/2}  label="姓名" component="input" right={20}  requireLabel={true} />
+					<KrField name="email" grid={1/2} label="邮箱:" type="text" left={20}  onBlur={this.EmailonBlur}  requireLabel={true}/>
+					<KrField name="name" grid={1/2}  label="姓名" type="text" right={20}  requireLabel={true} />
 					<KrField name="jobId" grid={1/2} label="职位" defaultValue={detail.jobName} component="select" left={20} options={jobList}/>
 					<Grid style={{margin:'20px 0',marginBottom:0}}>
 						<Row>

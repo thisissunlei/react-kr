@@ -191,6 +191,14 @@ export default class CompanyMembers extends Component {
 	validateMember=()=>{
 		let {seleced} = this.state;
 		console.log(seleced);
+		let list = [];
+		list = seleced.map((item)=>{
+			if(!item.checkStatus){
+				return item;
+			}
+			return false;
+		})
+		console.log(list);
 		if(!seleced.length && !this.state.validateMember){
 			this.onSubmits();
 			return;
@@ -459,12 +467,10 @@ export default class CompanyMembers extends Component {
 			<Section title={`${allData.companyName} (${allData.totalCount})`} description="" >
 				<Grid>
 					<Row>
-						<Col align="left">
-							<ButtonGroup>
-								<Button  label="新建员工" type="button" onTouchTap={this.createMember} width={80} height={30}/>
-								<Button  label="验证员工" type="button" onTouchTap={this.validateMember} width={80} height={30}/>
-						  </ButtonGroup>
-						</Col>
+						<ListGroup>
+							<ListGroupItem style={{marginRight:10}}><Button  label="新建员工" type="button" onTouchTap={this.createMember} width={80} height={30}/></ListGroupItem>
+							<ListGroupItem><Button  label="验证员工" type="button" onTouchTap={this.validateMember} width={80} height={30}/></ListGroupItem>
+						</ListGroup>
 					</Row>
 				</Grid>
 				<Table
