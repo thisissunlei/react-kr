@@ -461,7 +461,7 @@ export default class CompanyMembers extends Component {
 		let {searchParams} = this.state;
 		// console.log('state',searchParams);
 		return (
-			<div>
+			<div style={{minHeight:910,background:'#fff'}}>
 
 
 			<Section title={`${allData.companyName} (${allData.totalCount})`} description="" >
