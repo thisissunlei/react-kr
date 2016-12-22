@@ -121,7 +121,7 @@ import './index.less';
 					this.setState({
 	 				 	accomplish:true
 	 			 	})
-	 			 	Message.success(this.state.detail.oldNum+"张会员卡激活成功！")
+	 			 	Message.success(this.state.oldNum+"张会员卡激活成功！")
 					detail.startNum=detail.endNum="0000000000"
 
 				 }else{

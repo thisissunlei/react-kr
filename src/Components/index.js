@@ -45,6 +45,7 @@ import 	Tooltips from './Tooltips';
 import 	KrForm from './KrForm';
 import 	InputDate from './InputDate';
 import  SnackTip from './SnackTip';
+import CircleStyle from "./CircleStyle";
 import {
 	Grid,
 	Row,
