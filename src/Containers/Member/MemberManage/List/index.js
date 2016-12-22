@@ -89,7 +89,6 @@ export default class List extends Component {
 	}
 	// 公司模糊查询
 	onChangeSearchCompany(company) {
-		console.log("copany",company);
 		Store.dispatch(change('joinCreateForm', 'companyName', company.companyName));
 	}
 
@@ -223,6 +222,7 @@ export default class List extends Component {
 				jobId :values.jobId || '',
 				page:1,
 				pageSize:15,
+				companyId:0,
 			}
 		})
 	}
