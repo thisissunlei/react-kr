@@ -229,6 +229,7 @@ export default class SearchForms extends Component{
 		
 		// console.log('searchFilter',searchFilter);
 		if(searchFilter){
+			
 			return(
 				<div className="search-filter" ref={div=>{this.selectList = div}}>
 					<span className="filter-container" onMouseOver={this.selectShow} onMouseOut={this.selectHidden}>
@@ -253,6 +254,8 @@ export default class SearchForms extends Component{
 		}
 	}
 	render(){
+		var placeholder=this.props.placeholder||"请输入查找内容"
+
 		let {style} = this.props;
 		return (
 			<div className="search-form" ref={div=>{this.form = div}} name="search-form" style={style}>
@@ -260,7 +263,7 @@ export default class SearchForms extends Component{
 					{this.renderFilter()}
 
 					<div className="search-content">
-						<input type="text" autoComplete="off" className="search-val" placeholder="请输入您要查找的内容"  name="keywords" id="keywords"/>
+						<input type="text" autoComplete="off" className="search-val" placeholder={placeholder}  name="keywords" id="keywords"/>
 					</div>
 				</div>
 				<span className="icon-searching" onClick={this.click}></span>

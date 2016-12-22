@@ -117,6 +117,7 @@ class EditDetail extends Component {
 
 const validate = values =>{
 	var foreignCode=values.foreignCode;
+	var reg=/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8}$/;
 	console.log( "foreignCode",foreignCode,Object.prototype.toString.call(foreignCode));
 	const errors = {}
 
@@ -130,8 +131,12 @@ const validate = values =>{
 		errors.foreignCode = '卡号由十位数字的卡号组成';
 
 	}
-	if (!values.interCode) {
+	if(!values.interCode){
 		errors.interCode = '请输入会员卡内码';
+
+	}else if (!reg.test(values.interCode)) {
+
+		errors.interCode = '卡内码由8位的数字和字母组成';
 	}
 	return errors
 

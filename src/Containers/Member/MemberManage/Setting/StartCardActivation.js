@@ -122,6 +122,7 @@ import './index.less';
 	 				 	accomplish:true
 	 			 	})
 	 			 	Message.success(this.state.oldNum+"张会员卡激活成功！")
+	 			 	this.onCancel();
 					detail.startNum=detail.endNum="0000000000"
 
 				 }else{
@@ -136,7 +137,10 @@ import './index.less';
 	 //跳过号码
 	 skipCard=()=>{
 	 	if (+this.state.detail.endNum!=0) {
-		 this.cardNumAdd(4);
+	 		 this.setState({
+	 		 	oldNum:this.state.oldNum-1
+	 		 })
+		 	this.cardNumAdd(4);
 		 }
 	 }
 
@@ -209,8 +213,16 @@ import './index.less';
 	}
 }
 const validate = values =>{
-
+		
 		const errors = {}
+		var reg=/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8}$/;
+		if(!values.interCode){
+		errors.interCode = '请输入会员卡内码';
+
+		}else if (!reg.test(values.interCode)) {
+
+			errors.interCode = '卡内码由8位的数字和字母组成';
+		}
 		return errors
 	}
 const selector = formValueSelector('StartCardActivation');

@@ -125,6 +125,7 @@ export default class List extends Component {
 		Store.dispatch(Actions.callAPI('CardActivation', {}, params)).then(function(response) {
 			_this.openNewActivationDialog();
 			_this.onFlush();
+			Message.error("激活成功！")
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
@@ -248,7 +249,7 @@ export default class List extends Component {
 									<Col md={1} align="left"> <Button label="批量激活" type='button' joinEditForm onTouchTap={this.openHeavilyActivationDialog}  /> </Col>
 										<Col md={10} align="right" style={{marginTop:0}}>
 											<ListGroup>
-												<ListGroupItem> <SearchForms onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
+												<ListGroupItem> <SearchForms placeholder='请输入会员卡号码' onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
 											</ListGroup>
 										</Col>
 									</Row>
@@ -280,8 +281,8 @@ export default class List extends Component {
 													<TableRow >
 														<TableRowColumn name="foreignCode" ></TableRowColumn>
 														<TableRowColumn name="interCode" ></TableRowColumn>
-														<TableRowColumn name="enable" options={[{label:'是',value:'ENABLE'},{label:'否',value:'DISENABLE'}]}></TableRowColumn>
-														<TableRowColumn name="activeTime" type='date' format="yyyy-mm-dd hh:MM:ss" ></TableRowColumn>
+														<TableRowColumn name="enable" options={[{label:'已激活',value:'true'},{label:'未激活',value:'false'}]}></TableRowColumn>
+														<TableRowColumn name="activeTime" type='date' format="yyyy-mm-dd HH:MM:ss" ></TableRowColumn>
 														<TableRowColumn type="operation">
 															  <Button label="编辑"  type="operation"  operation="edit" />
 														 </TableRowColumn>
