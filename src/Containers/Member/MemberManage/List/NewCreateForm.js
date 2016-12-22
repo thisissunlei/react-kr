@@ -197,9 +197,8 @@ import imgLine from './images/line.png'
 			})
 		 });
 	 }
-
-	 onChangeSearchCommunity(personel) {
-		Store.dispatch(change('NewCreateForm', 'communityId', personel.id));
+	 onChangeSearchCommunity(community) {
+		Store.dispatch(change('NewCreateForm', 'communityId', community.id));
 	}
 	onChangeSearchCompany(company) {
 		Store.dispatch(change('NewCreateForm', 'companyId', company.id));
