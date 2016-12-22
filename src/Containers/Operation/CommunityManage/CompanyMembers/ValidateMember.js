@@ -83,7 +83,7 @@ export default class ValidateMember extends Component {
 					<span className="make-sure">（请确认成员手机号码是否正确，验证单人一天最多发一次）</span>
 				</div>
 				<div className="table-div" style={{margin:'20px 0',border:'1px solid #f2f2f2',padding:'20px 0'}}>
-				<div style={{margin:'10px 15px',border:'1px solid #f2f2f2',borderRadius:'4px',overflow:'hidden',borderTop:'none'}}>
+				<div style={{margin:'10px 40px',border:'1px solid #f2f2f2',borderRadius:'4px',overflow:'hidden',borderTop:'none'}}>
 					<Table displayCheckbox={false} style={{marginTop:0}}>
 						<TableHeader>
 								<TableHeaderColumn>姓名</TableHeaderColumn>
