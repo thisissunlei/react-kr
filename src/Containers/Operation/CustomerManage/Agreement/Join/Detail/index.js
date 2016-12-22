@@ -93,18 +93,18 @@ export default class JoinDetail extends Component {
 	}
 	getOrderUrl() {
 		const params = this.props.params;
-			return `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
-		}
+		return `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
+	}
 	BasicRender(basic) {
 		const content = {
 			position: 'relative',
 			width: '900px',
 			margin: '0 auto',
-			fontSize:14
+			fontSize: 14
 		}
 		const info = {
 			padding: '30px 70px',
-			paddingBottom:10
+			paddingBottom: 10
 		}
 
 		return (
@@ -144,7 +144,7 @@ export default class JoinDetail extends Component {
 
 					<KrField component="labelText" grid={1/2}  left={60} label="租金总额：" value={basic.totalrent} defaultValue="0" requireBlue={true}/>
 					<KrField component="labelText" grid={1/2} label="押金总额：" value={basic.totaldeposit} defaultValue="0" requireBlue={true}/>
-					<KrField component="labelText" label="租赁用途：" value={basic.rentaluse} requireBlue={true} defaultValue="无"/>
+					
 
 					<KrField component="labelText"  label="备注：" value={basic.contractmark} defaultValue="无" requireBlue={true} inline={false}/>
 

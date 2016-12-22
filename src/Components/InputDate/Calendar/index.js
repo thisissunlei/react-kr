@@ -29,7 +29,7 @@ export default class Calendar extends React.Component {
 		style: React.PropTypes.object,
     open:React.PropTypes.bool,
 		onChange:React.PropTypes.func,
-		value:React.PropTypes.string,
+		value:React.PropTypes.any,
 	}
 
 	static contextTypes =  {

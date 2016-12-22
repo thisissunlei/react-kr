@@ -204,6 +204,7 @@ export default class MemeberEditMemberForm extends Component {
 					<KrField name="phone" grid={1/2} label="手机号" inline={false} component="labelText" value={detail.phone} />
 					<div className="split-lines"></div>
 
+
 					<KrField name="communityId" grid={1/2} label="社区" component="searchCommunity" right={30} requiredValue={true}  errors={{requiredValue:'请选择社区'}} requireLabel={true}/>
 
 					<KrField name="foreignCode" grid={1/2} label="会员卡号"   component="input" left={30} onBlur={this.membersByForeignCode} requiredValue={true} pattern={/^\d{10}$/} errors={{requiredValue:'会员卡号为必填项',pattern:'会员卡号应由10位纯数字组成'}} requireLabel={true}/>

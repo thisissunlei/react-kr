@@ -105,7 +105,7 @@ export default class DateComponent extends React.Component {
 		var minutes = this.supplementZero(dt.getMinutes());
 		var seconds = this.supplementZero(dt.getSeconds());
 
-		var result = `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`;
+		var result = `${year}-${month}-${date} 00:00:00`;
 
 		if(this.props.dateNoSecond=='true'){
 		 var result = `${year}-${month}-${date}`;

@@ -59,7 +59,11 @@ class DismantlingForm extends Component {
 
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
-
+		this.billId = this.props.detail.billId;
+		this.state = {
+			detail :{}
+		}
+		this.getBasicData();
 
 
 	}
@@ -67,6 +71,22 @@ class DismantlingForm extends Component {
 	componentDidMount() {
 		//const {detail}= this.props;
 
+	}
+	getBasicData=()=>{
+		let _this = this;
+		Store.dispatch(Actions.callAPI('getLeaveDate',{billId:_this.billId})).then(function(response) {
+
+	      
+
+	      _this.setState({
+	        detail:response,
+	      });
+	      
+
+
+	    }).catch(function(err) {
+	    	console.log(err,err);
+	    });
 	}
 
 
@@ -113,9 +133,9 @@ class DismantlingForm extends Component {
 			pristine,
 			reset,
 			submitting,
-			initialValues,
-			detail
+			initialValues
 		} = this.props;
+		let {detail} = this.state;
 
 		let time = DateFormat(detail.actualLeavedate, "yyyy-mm-dd")
 		return (

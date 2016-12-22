@@ -83,7 +83,7 @@ export default class LabelTextComponent extends React.Component {
 		return (
 
 			<WrapComponent label={label} wrapStyle={style} inline={inline} requireBlue={requireBlue} alignRight={alignRight} requireLabel={requireLabel}>
-					<span className="ui-label-text" style={colorStyle}> {value || defaultValue} </span>
+					<span className="ui-label-text" style={colorStyle}>{value || defaultValue}</span>
 				</WrapComponent>
 
 		);
