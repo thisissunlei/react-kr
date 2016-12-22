@@ -1,5 +1,12 @@
-import React, {Component, PropTypes} from 'react';
-import { connect ,Store,Actions} from 'kr/Redux';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
+import {
+	connect,
+	Store,
+	Actions
+} from 'kr/Redux';
 
 import {
 	KrField,
@@ -24,45 +31,64 @@ import OrderEditForm from './OrderEditForm';
 export default class OrderCreate extends Component {
 
 	static contextTypes = {
-          params: React.PropTypes.object.isRequired,
+		params: React.PropTypes.object.isRequired,
 
 	}
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 
 
 		this.isOk = false;
 
 		this.state = {
-			loading:true,
-			communityOptions:[],
-			initialValues:{},
-			orderTypeOptions:[
-					  		{value:'',label:'请选择类型'},
-					  		{value:'STATION',label:'工位服务订单'},
-					  		{value:'INCUBAZION',label:'孵化订单'},
-					  		{value:'REGISTER',label:'注册订单'},
-					  		{value:'INCUSTOM',label:'场内消费订单'},
-					  		{value:'ACTIVITY',label:'广告订单'},
-					  		{value:'ADDEDSERVICE',label:'增值服务订单'},
-					  		{value:'TRAINING',label:'培训订单'},
-					  		{value:'OTHER',label:'其他服务订单'}
-					  	]
+			loading: true,
+			communityOptions: [],
+			initialValues: {},
+			orderTypeOptions: [{
+				value: '',
+				label: '请选择类型'
+			}, {
+				value: 'STATION',
+				label: '工位服务订单'
+			}, {
+				value: 'INCUBAZION',
+				label: '孵化订单'
+			}, {
+				value: 'REGISTER',
+				label: '注册订单'
+			}, {
+				value: 'INCUSTOM',
+				label: '场内消费订单'
+			}, {
+				value: 'ACTIVITY',
+				label: '广告订单'
+			}, {
+				value: 'ADDEDSERVICE',
+				label: '增值服务订单'
+			}, {
+				value: 'TRAINING',
+				label: '培训订单'
+			}, {
+				value: 'OTHER',
+				label: '其他服务订单'
+			}]
+
 		}
 		Store.dispatch(Actions.switchSidebarNav(false));
 		Store.dispatch(Actions.switchHeaderNav(false));
 
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		var obj = document.body;
-		obj.style.background='#fff';
+		obj.style.background = '#fff';
 		this.getInitValues();
 
-	}
-	onSubmit=(values)=>{
 
-		if(this.isOk){
+	}
+	onSubmit = (values) => {
+
+		if (this.isOk) {
 			return false;
 		}
 
@@ -71,94 +97,104 @@ export default class OrderCreate extends Component {
 
 		var _this = this;
 
-		Store.dispatch(Actions.callAPI('enter-order',{},values)).then(function(response){
+		Store.dispatch(Actions.callAPI('enter-order', {}, values)).then(function(response) {
+
 			Notify.show([{
-				message:'保存成功',
+				message: '保存成功',
 				type: 'success',
 			}]);
 
-			window.setTimeout(function(){
+			window.setTimeout(function() {
 				window.top.location.reload();
 				_this.isOk = false;
-			},100);
+			}, 100);
 
-		}).catch(function(err){
+		}).catch(function(err) {
 
 			Notify.show([{
-				message:'创建失败',
+				message: '创建失败',
 				type: 'danger',
 			}]);
 
-			window.setTimeout(function(){
+			window.setTimeout(function() {
 				_this.isOk = false;
-			},0);
+			}, 0);
 
 		});
 
 	}
-	onCancel=()=>{
+	onCancel = () => {
 		window.top.location.reload();
 	}
 
-	componentWillReceiveProps(nextProps){
-	}
-	getInitValues=()=>{
+	componentWillReceiveProps(nextProps) {}
+	getInitValues = () => {
 		var _this = this;
 		let communityOptions = [];
 		let initialValues = {};
-		Store.dispatch(Actions.callAPI('community-city-selected',{},{})).then(function(communityOptions){
-			communityOptions = communityOptions.map((item)=>{
-		  		item.value = String(item.communityId);
-		  		item.label = item.communityName;
-		  		return item;
-		  	});
-		  	console.log('communityOptions',communityOptions);
 
-		  	_this.setState({
-		  		communityOptions
-		  	})
-		 }).catch(function(err){ });
+		let orderTypeOptions = [];
+		Store.dispatch(Actions.callAPI('community-city-selected')).then(function(response) {
+			communityOptions = response.communityCity.map((item) => {
+				item.value = String(item.communityId);
+				item.label = item.communityName;
+				return item;
+			});
+
+			orderTypeOptions = response.sysDicPayments.map((item) => {
+				item.value = String(item.id);
+				item.label = item.dicName;
+				return item;
+			});
+
+			_this.setState({
+				communityOptions: communityOptions,
+				orderTypeOptions: orderTypeOptions
+			})
+		}).catch(function(err) {});
 
 
-		Store.dispatch(Actions.callAPI('get-customName-orderName',{
-			customerId:this.props.params.customerId
-		},{})).then(function(response){
+		Store.dispatch(Actions.callAPI('get-customName-orderName', {
+			customerId: this.props.params.customerId
+		}, {})).then(function(response) {
+
 			let initialValues = {};
 			initialValues = response;
 			initialValues.communityid = String(initialValues.communityid);
 			_this.setState({
 				initialValues,
-				loading:false
+				loading: false
 			})
-		}).catch(function(err){
+		}).catch(function(err) {
 			Notify.show([{
-				message:err.message,
+				message: err.message,
 				type: 'danger',
 			}]);
 		});
 	}
 
 
-  render() {
+	render() {
 
 
-  	if(this.state.loading){
-  		return(<Loading/>);
-  	}
-  	let {initialValues,communityOptions,orderTypeOptions} = this.state;
+		if (this.state.loading) {
+			return (<Loading/>);
+		}
+		let {
+			initialValues,
+			communityOptions,
+			orderTypeOptions
+		} = this.state;
 
 
 
+		return (
 
-    return (
+			<OrderEditForm onSubmit={this.onSubmit} communityOptions={communityOptions} initialValues={initialValues} orderTypeOptions={orderTypeOptions} onCancel={this.onCancel}/>
 
-      <div>
 
-		<OrderEditForm onSubmit={this.onSubmit} communityOptions={communityOptions} initialValues={initialValues} orderTypeOptions={orderTypeOptions} onCancel={this.onCancel}/>
-
-	 </div>
-	);
-  }
+		);
+	}
 }
 
 
@@ -190,3 +226,5 @@ export default class OrderCreate extends Component {
 
 
 // export default connect(mapStateToProps)(OrderCreate);
+
+// }

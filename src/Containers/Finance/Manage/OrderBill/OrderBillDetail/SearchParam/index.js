@@ -184,8 +184,8 @@ export default class SearchParam extends Component{
 		            	<ListGroupItem key={index}>
                           <div className={className} onTouchTap={this.onSearch.bind(this,'PAYMENT',item.propcode,item.id,item.propInfo,index)} onMouseOver={this.onHandleOver.bind(this,'PAYMENT',index)} onMouseOut={this.onLeave.bind(this,'PAYMENT',index)}>
                            <span className={classPic}></span>
-                           <span className='receivedText'>{item.propname}</span>
-                           <span className='receivedMoney'>{item.propamount}</span>
+                            <span className={item.propname=='代收（水电、打印等）'?'receivedTextWater':'receivedText'}>{item.propname}</span>
+                           <span className={item.propname=='代收（水电、打印等）'?'receivedTextWaterMoney':'receivedMoney'}>{item.propamount}</span>
 		            	  </div>
 		            	</ListGroupItem>)
 		              })
@@ -217,8 +217,8 @@ export default class SearchParam extends Component{
 		            	<ListGroupItem key={index}>
 		            	 <div className={className} onTouchTap={this.onSearch.bind(this,'INCOME',item.propcode,item.id,item.propInfo,index)} onMouseOver={this.onHandleOver.bind(this,'INCOME',index)} onMouseOut={this.onLeave.bind(this,'INCOME',index)}>
                           <span className={classPic}></span>
-                          <span className='receivedText'>{item.propname}</span>
-                          <span className='receivedMoney'>{item.propamount}</span>
+                            <span className={item.propname=='代收（水电、打印等）'?'receivedTextWater':'receivedText'}>{item.propname}</span>
+                            <span className={item.propname=='代收（水电、打印等）'?'receivedTextWaterMoney':'receivedMoney'}>{item.propamount}</span>
 		            	  </div>
 		            	</ListGroupItem>)
 		              })

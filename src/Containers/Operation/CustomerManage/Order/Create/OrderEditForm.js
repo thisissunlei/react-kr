@@ -58,10 +58,10 @@ class OrderEditForm extends Component {
 
 
 
-	
+
 
 	render() {
-		
+
 		const { error, handleSubmit, submitting,initialValues,communityOptions,orderTypeOptions,changeValues} = this.props;
 		let cityName = '';
 		communityOptions.map(function(item){
@@ -73,14 +73,14 @@ class OrderEditForm extends Component {
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{padding:20}}>
 
-			<KrField name="customerName" grid={1} label="客户名称" component="labelText" disabled={true} value={initialValues.customerName} inline={false}/> 
+			<KrField name="customerName" grid={1} label="客户名称" component="labelText" disabled={true} value={initialValues.customerName} inline={false}/>
 
 			 <KrField name="mainbilltype" grid={1/2} right={30} component="select" label="订单类型" requireLabel={true} inline={false} options={orderTypeOptions}/>
 
 				 <KrField name="communityid" grid={1/2} left={30} component="select" label="所在社区" requireLabel={true} inline={false} options={communityOptions}/>
-					<KrField label="所在城市" grid={1/2} right={30} value={cityName||'无'} component="labelText" inline={false}/> 
-					 <KrField name="mainbillname" grid={1/2} left={30} type="text" label="订单名称" requireLabel={true} value={initialValues.mainbillname} component="labelText" inline={false}/> 
-					 <KrField name="mainbilldesc" type="textarea" label="订单描述" component="textarea" inline={false}  maxSize={200}/> 
+					<KrField label="所在城市" grid={1/2} right={30} value={cityName||'无'} component="labelText" inline={false}/>
+					 <KrField name="mainbillname" grid={1/2} left={30} type="text" label="订单名称" requireLabel={true} value={initialValues.mainbillname} component="labelText" inline={false}/>
+					 <KrField name="mainbilldesc" type="textarea" label="订单描述" component="textarea" inline={false}  maxSize={200}/>
 
 					<Grid >
 						<ListGroup>
@@ -121,7 +121,7 @@ export default connect((state) => {
 	let changeValues = {};
 
 	changeValues.communityid = selector(state, 'communityid');
-	
+
 
 	return {
 		changeValues
