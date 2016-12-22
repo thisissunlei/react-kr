@@ -3,6 +3,38 @@ import * as Types from './types';
 
 
 
+export function navActive(menuCode){
+
+	return function(dispatch,getState){
+		var state = getState();
+		var permissionNavs = state.navs.items;
+
+		permissionNavs.forEach(function(item,index){
+
+			if(item.hasOwnProperty('menuItems') && item.menuItems.length){
+				item.menuItems.forEach(function(child,key){
+						if(child.hasOwnProperty('menuItems') && child.menuItems.length){
+							child.menuItems.forEach(function(children,i){
+									if(children.menuCode == menuCode){
+										children.active = true;
+									}else{
+										children.active = false;
+									}
+							});
+						}
+
+				});
+			}
+		});
+
+		dispatch({
+			type:Types.SET_USER_NAVS,
+			response:permissionNavs
+		});
+
+}
+}
+
 //当前用户有哪些导航权限
 
 export function setUserNavs(navcodes){
@@ -67,6 +99,8 @@ function setRouterParent(parentRouter){
 		router:parentRouter
 	}
 }
+
+
 
 
 function setRouterChild(childRouter){
