@@ -109,7 +109,8 @@ export default class CityComponent extends React.Component {
 		const SecondCity = second.getElementsByClassName('secondCity')[0];
 		const target = event.target.getElementsByTagName('span')[0];
 		SecondCity.style.display = 'inline-block';
-
+		const ThirdCity = second.getElementsByClassName('thirdCity')[0];
+		ThirdCity.style.display = 'none';
 		let secondCity = this.secondCityList(firstCityId);
 
 		this.setState({
