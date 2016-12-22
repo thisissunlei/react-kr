@@ -89,6 +89,7 @@ export default class List extends Component {
 	}
 	// 公司模糊查询
 	onChangeSearchCompany(company) {
+		console.log("copany",company);
 		Store.dispatch(change('joinCreateForm', 'companyName', company.companyName));
 	}
 
