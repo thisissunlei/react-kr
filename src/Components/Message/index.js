@@ -67,10 +67,10 @@ class Warn extends Component{
     let {messages,className} = this.props;
 		let {isClassName}=this.state;
 		return (
-		<div className="shadows">
-        	<div className={`ui-messages message_box_warn ${isClassName?'exit':''}`}>
+		<div className="shadows"><div className="container-warn">
+        	<div className={`ui-messages message_box_warn ${className} ${isClassName?'exit':''}`}>
 				<span className={className} onTouchTap={this.onClose}></span>
-			<span>{messages}</span>
+			<span>{messages}</span></div>
         	</div>
 		</div>
 		);
@@ -111,9 +111,9 @@ function warnRender(messages,type,fn){
 
 	 var className = 'normal';
     	if(type == 'success'){
-				className = 'succes';
+				className = 'succes-warn';
 		}else if (type == 'error') {
-			className = 'error';
+			className = 'error-warn';
 		}else if(type == 'warn') {
 			className = 'warn';
 		}
