@@ -195,7 +195,7 @@ import imgLine from './images/line.png'
 
 		 }).catch(function(err){
 		 	//会员卡号未注册
-			// 	console.log('ddddd',err.message);
+			// 	console.log(ddddd',err.message);
 		 	_this.setState({
 				onsubmitCode:true
 			})
@@ -243,13 +243,12 @@ import imgLine from './images/line.png'
 			<div style={{padding:'10px 30px 10px 30px'}}>
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:20}}>
 				<KrField grid={1/2} name="phone" type="text" label="手机号" right={20} requireLabel={true} style={{display:'block'}}
-				   requiredValue={true} onBlur={this.onBlur} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
+				   onBlur={this.onBlur}/>
 				<div style={{width:'100%',textAlign:'center',height:25,marginBottom:8}}>
 						<img src={imgLine}/>
 				</div>
 				<KrField grid={1/2} name="community" component="labelText" label="社区" inline={false}  defaultValue={communityName} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
-        <KrField grid={1/2} name="email" type="text" label="邮箱"  left={20}  requireLabel={true} onBlur={this.EmailonBlur}
-				   requiredValue={true} pattern={/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/} errors={{requiredValue:'邮箱为必填项',pattern:'请输入正确邮箱地址'}}/>
+        <KrField grid={1/2} name="email" type="text" label="邮箱"  left={20}  requireLabel={true} onBlur={this.EmailonBlur}/>
 				<KrField grid={1/2} name="company" inline={false} component="labelText" label="公司" defaultValue={this.props.detail.companyName} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
         <KrField name="jobId"  grid={1/2} component="select" label="职位"  left={20} options={selectOption} requireLabel={true} />
 				<KrField grid={1/2} name="name" type="text" label="姓名" right={20}  requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}}/>
@@ -257,7 +256,7 @@ import imgLine from './images/line.png'
 						<KrField name="sendMsg" grid={1/2} label="是" type="radio" value="1"/>
 						<KrField name="sendMsg" grid={1/2} label="否" type="radio" value="0" />
               </KrField>
-        <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" right={20}  requireLabel={true} onBlur={this.foreignCodeBlur} requiredValue={true} pattern={/^\d{10}$/} errors={{requiredValue:'会员卡号为必填项',pattern:'会员卡号应由10位纯数字组成'}}/>
+        <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" right={20}  requireLabel={true} onBlur={this.foreignCodeBlur}/>
 				<Grid style={{marginTop:30,marginBottom:20}}>
 					<Row>
 							<ListGroup>
@@ -274,7 +273,9 @@ import imgLine from './images/line.png'
 const validate = values => {
 
 	const errors = {}
-
+	let code = /^\d{10}$/;
+	let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
+	let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
 	if (!values.phone) {
 		errors.phone = '请输入电话号码';
 	}
@@ -297,13 +298,22 @@ const validate = values => {
 	if (!values.name) {
 		errors.name = '请输入姓名';
 	}
-
-	if (!values.sendMsg ) {
+	if (!email.test(values.email) ) {
+        errors.email = '请填写正确邮箱';
+    }
+    if (!phone.test(values.phone) ) {
+        errors.phone = '请输入正确电话号';
+    }
+    if (!code.test(values.foreignCode) ) {
+        errors.foreignCode = '会员卡号为10位纯数字';
+    }
+    if (!values.sendMsg ) {
         errors.sendMsg = '请选择是否发送验证短信';
     }
     if (!values.foreignCode) {
         errors.foreignCode = '请输入会员卡号';
     }
+    
 	return errors
 }
 const selector = formValueSelector('NewCreateForm');

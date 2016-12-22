@@ -212,7 +212,7 @@ export default class CreateMemberForm extends Component {
 					<KrField name="phone" grid={1/2} label="手机号" inline={false} component="labelText" value={detail.phone} />
 					<div className="split-lines"></div>
 					<KrField name="communityId" grid={1/2} label="社区" inline={false} component="labelText" right={20} defaultValue={baseInfo.communityName} requireLabel={true}/>
-					<KrField name="foreignCode" grid={1/2} label="会员卡号" type="text" left={20} onBlur={this.foreignCodeBlur}  requireLabel={true} requiredValue={true} pattern={/^\d{10}$/} errors={{requiredValue:'会员卡号为必填项',pattern:'会员卡号应由10位纯数字组成'}}/>
+					<KrField name="foreignCode" grid={1/2} label="会员卡号" type="text" left={20} onBlur={this.foreignCodeBlur}  requireLabel={true} />
 					<KrField name="companyId" grid={1/2} label="公司" inline={false} component="labelText" defaultValue={baseInfo.companyName}  right={20}  requireLabel={true}/>
 					<KrField name="email" grid={1/2} label="邮箱:" type="text" left={20}  onBlur={this.EmailonBlur}  requireLabel={true}/>
 					<KrField name="name" grid={1/2}  label="姓名" type="text" right={20}  requireLabel={true} />
@@ -236,7 +236,9 @@ export default class CreateMemberForm extends Component {
 const validate = values => {
 
 	const errors = {}
-
+	let code = /^\d{10}$/;
+	let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
+	let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
 	if (!values.phone) {
 		errors.phone = '请输入电话号码';
 	}
@@ -259,13 +261,22 @@ const validate = values => {
 	if (!values.name) {
 		errors.name = '请输入姓名';
 	}
-
-	if (!values.sendMsg ) {
+	if (!email.test(values.email) ) {
+        errors.email = '请填写正确邮箱';
+    }
+    if (!phone.test(values.phone) ) {
+        errors.phone = '请输入正确电话号';
+    }
+    if (!code.test(values.foreignCode) ) {
+        errors.foreignCode = '会员卡号为10位纯数字';
+    }
+    if (!values.sendMsg ) {
         errors.sendMsg = '请选择是否发送验证短信';
     }
     if (!values.foreignCode) {
         errors.foreignCode = '请输入会员卡号';
     }
+    
 	return errors
 }
 CreateMemberForm = reduxForm({
