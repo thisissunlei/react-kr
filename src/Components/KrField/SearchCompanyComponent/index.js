@@ -63,10 +63,6 @@ export default class  SearchCompanyComponent extends React.Component {
 					noResultsText=""
 					placeholder={placeholder}/>
 			{touched && error && <div className="error-wrap"> <span>{error}</span> </div>}
-
-
-
-
 		</WrapComponent>
 		);
 	}

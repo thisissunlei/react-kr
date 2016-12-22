@@ -566,7 +566,7 @@ export default class CompanyMembers extends Component {
 			modal={true}
 			open={this.state.importdata}
 			onClose={this.importData}
-			contentStyle={{width:687}}>
+			contentStyle={{width:444}}>
 				<ImportData onSubmit={this.importDataPost} onCancel={this.importData} onLoadDemo={this.onLoadDemo}/>
 			</Dialog>
 			<Dialog
