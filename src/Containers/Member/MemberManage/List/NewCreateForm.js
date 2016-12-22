@@ -30,13 +30,9 @@ import imgLine from './images/line.png'
 			onsubmit:true,
 			onSubmitCode:true,
 			code:'',
-
 		}
 		this.getBasicData();
 		this.params = this.props.params;
-
-
-
 	}
 	componentWillMount() {
 		this.params = this.props.params;
@@ -63,9 +59,7 @@ import imgLine from './images/line.png'
 	 		const {onSubmit} = this.props;
 		 	onSubmit && onSubmit(values);
 	 	}
-
 	 }
-
 	 onCancel=()=>{
 		 const {onCancel} = this.props;
 		 onCancel && onCancel();
@@ -189,9 +183,7 @@ import imgLine from './images/line.png'
 			})
 		 	return;
 		 }
-
 		 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
-
 				 //会员卡号已注册
  				Message.warn('该会员卡号已被绑定','error');
  				_this.setState({
@@ -231,7 +223,7 @@ import imgLine from './images/line.png'
         <KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} style={{width:'252px'}}/>
 				<KrField grid={1/2} name="name" type="text" label="姓名" requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}} style={{width:'252px',marginRight:'30'}}/>
 				<KrField grid={1/2} name="sendMsg" component="group" label="发送验证短信"  style={{width:'252px'}} requireLabel={true} >
-						<KrField name="sendMsg" grid={1/2} label="是" type="radio" value="1"/>
+						<KrField name="sendMsg" grid={1/2} label="是" type="radio" value="1" style={{marginRight:'50'}}/>
 						<KrField name="sendMsg" grid={1/2} label="否" type="radio" value="0" />
               </KrField>
         <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" requireLabel={true} onBlur={this.foreignCodeBlur} style={{width:'252px'}} />

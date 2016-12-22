@@ -50,6 +50,7 @@ export default class CancleLeader extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.companyId = this.context.router.params.companyId
+		this.communityId = this.context.router.params.communityId
 		this.state = {
 			isInit: true,
 			form: {},
@@ -65,6 +66,7 @@ export default class CancleLeader extends Component {
     	var form = new FormData();
 		form.append('file', this.state.file);
 		form.append('companyId', this.companyId);
+		form.append('communityId', this.communityId);
 		if(!this.state.file.name){
 			Message.error('请选择上传文件');
 			return false;
