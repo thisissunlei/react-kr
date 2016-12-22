@@ -108,6 +108,7 @@ function commonRender(messages,type,fn){
 			}
 }
 function warnRender(messages,type,fn){
+
 	 var className = 'normal';
     if(type == 'success'){
 				className = 'succes';
@@ -116,7 +117,10 @@ function warnRender(messages,type,fn){
 		}else if(type == 'warn') {
 			className = 'warn';
 		}
+		console.log("className",'containerDOM',containerDOM);
+		console.log("!containerDOM",!containerDOM);
 		if(!containerDOM){
+
 			shadowDOM = document.createElement('div');
 			shadowDOM.className = `${className} outer`;
 			containerDOM = document.createElement('div');
