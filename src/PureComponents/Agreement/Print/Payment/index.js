@@ -59,122 +59,44 @@ export default class Initialize extends Component {
 			</div>
 		)
 	}
+
 	Twotable = () => {
 		return (
 			<div className="table-two-list">
-
 					<div className="two-line">
-						<div className="table-th clear">
-							<div className="th clear" style={{marginRight:14}} >
-								<div>款项</div>
-								<div>服务期限</div>
-								<div>付款日期</div>
-								<div>付款金额</div>
-							</div>
-							<div  className="th clear">
-								<div>款项</div>
-								<div>服务期限</div>
-								<div>付款日期</div>
-								<div>付款金额</div>
-							</div>
-						</div>
-						<div className="table-td clear">
-							<div className="td clear">
-								<div>履约保证金</div>
-								<div>2015/09/10-2016/10/10</div>
-								<div>2015/09/10</div>
-								<div>1200</div>
-							</div>
-							<div className="td clear">
-								<div>履约保证金</div>
-								<div>2015/09/10-2016/10/10</div>
-								<div>2015/09/10</div>
-								<div>1200</div>
-							</div>
-							<div className="td clear">
-								<div>履约保证金</div>
-								<div>2015/09/10-2016/10/10</div>
-								<div>2015/09/10</div>
-								<div>1200</div>
-							</div>
-							<div className="td clear">
-								<div>履约保证金</div>
-								<div>2015/09/10-2016/10/10</div>
-								<div>2015/09/10</div>
-								<div>1200</div>
-							</div>
-							
-							<div className="td clear">
-								<div>履约保证金</div>
-								<div>2015/09/10-2016/10/10</div>
-								<div>2015/09/10</div>
-								<div>1200</div>
-							</div>
-							<div className="td clear">
-								<div>履约保证金</div>
-								<div>2015/09/10-2016/10/10</div>
-								<div>2015/09/10</div>
-								<div>1200</div>
-							</div>
-							
-							<div className="td clear">
-								<div>履约保证金</div>
-								<div>2015/09/10-2016/10/10</div>
-								<div>2015/09/10</div>
-								<div>1200</div>
-							</div>
-							<div className="td clear">
-								<div>履约保证金</div>
-								<div>2015/09/10-2016/10/10</div>
-								<div>2015/09/10</div>
-								<div>1200</div>
-							</div>
-							
-							<div className="td clear">
-								<div>履约保证金</div>
-								<div>2015/09/10-2016/10/10</div>
-								<div>2015/09/10</div>
-								<div>1200</div>
-							</div>
-							<div className="td clear">
-								<div>履约保证金</div>
-								<div>2015/09/10-2016/10/10</div>
-								<div>2015/09/10</div>
-								<div>1200</div>
-							</div>
-							
-							<div className="td clear">
-								<div>履约保证金</div>
-								<div>2015/09/10-2016/10/10</div>
-								<div>2015/09/10</div>
-								<div>1200</div>
-							</div>
-							<div className="td clear">
-								<div>履约保证金</div>
-								<div>2015/09/10-2016/10/10</div>
-								<div>2015/09/10</div>
-								<div>1200</div>
-							</div>
-							
-							<div className="td clear">
-								<div>履约保证金</div>
-								<div>2015/09/10-2016/10/10</div>
-								<div>2015/09/10</div>
-								<div>1200</div>
-							</div>
-							<div className="td clear">
-								<div>履约保证金</div>
-								<div>2015/09/10-2016/10/10</div>
-								<div>2015/09/10</div>
-								<div>1200</div>
-							</div>
-
-							<div className="td td-border">
-								<p></p>
-							</div>
-							<div className="td td-border">
-								<p></p>
-							</div>
+						<div className="table-td-content clear">
+								<div className="table-left" style={{marginRight:14}}>
+									<div className="th clear">
+										<div>款项</div>
+										<div>服务期限</div>
+										<div>付款日期</div>
+										<div>付款金额</div>
+									</div>
+									<div className="left-td">
+										<div className="td clear">
+											<div>履约保证金</div>
+											<div>2015/09/10-2016/10/10</div>
+											<div>2015/09/10</div>
+											<div>1200</div>
+										</div>
+									</div>
+								</div>
+								<div className="table-right">
+									<div  className="th clear">
+										<div>款项</div>
+										<div>服务期限</div>
+										<div>付款日期</div>
+										<div>付款金额</div>
+									</div>
+									<div className="right-td">
+										<div className="td clear">
+											<div>履约保证金</div>
+											<div>2015/09/10-2016/10/10</div>
+											<div>2015/09/10</div>
+											<div>1200</div>
+										</div>
+									</div>
+								</div>
 						</div>
 					</div>
 			</div>
@@ -182,7 +104,6 @@ export default class Initialize extends Component {
 
 		)
 	}
-
 	render() {
 
 		return (

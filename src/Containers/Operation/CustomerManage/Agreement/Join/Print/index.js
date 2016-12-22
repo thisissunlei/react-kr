@@ -47,8 +47,8 @@ export default class JoinPrint extends Component {
 			
 			<Agreement.Print.Header/>
 			<Agreement.Print.BaseInfo/>
-			<Agreement.Print.Payment/>
 			<Agreement.Print.Station/>
+			<Agreement.Print.Payment/>
 			<Agreement.Print.Footer/>
 
 			
