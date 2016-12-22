@@ -11,7 +11,9 @@ import {
 	Button,
 	ButtonGroup,
 	Message,
-	SnackTip
+	SnackTip,
+	ListGroup,
+	ListGroupItem 
 } from 'kr-ui';
 import $ from 'jquery'
 import imgLine from './images/line.png'
@@ -238,32 +240,30 @@ import imgLine from './images/line.png'
 
 
 		return (
-			<div>
+			<div style={{padding:'10px 30px 10px 30px'}}>
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:20}}>
-				<KrField grid={1/2} name="phone" type="text" label="手机号" requireLabel={true} style={{display:'block'}}
+				<KrField grid={1/2} name="phone" type="text" label="手机号" right={20} requireLabel={true} style={{display:'block'}}
 				   requiredValue={true} onBlur={this.onBlur} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
 				<div style={{width:'100%',textAlign:'center',height:25,marginBottom:8}}>
 						<img src={imgLine}/>
 				</div>
 				<KrField grid={1/2} name="community" component="labelText" label="社区" inline={false}  defaultValue={communityName} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
-        <KrField grid={1/2} name="email" type="input" label="邮箱" requireLabel={true} onBlur={this.EmailonBlur}
+        <KrField grid={1/2} name="email" type="text" label="邮箱"  left={20}  requireLabel={true} onBlur={this.EmailonBlur}
 				   requiredValue={true} pattern={/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/} errors={{requiredValue:'邮箱为必填项',pattern:'请输入正确邮箱地址'}}/>
 				<KrField grid={1/2} name="company" inline={false} component="labelText" label="公司" defaultValue={this.props.detail.companyName} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
-        <KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} requireLabel={true} />
-				<KrField grid={1/2} name="name" type="text" label="姓名" requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}}/>
-				<KrField grid={1/2} name="sendMsg" component="group" label="发送验证短信" >
+        <KrField name="jobId"  grid={1/2} component="select" label="职位"  left={20} options={selectOption} requireLabel={true} />
+				<KrField grid={1/2} name="name" type="text" label="姓名" right={20}  requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}}/>
+				<KrField grid={1/2} name="sendMsg" component="group" left={20}  label="发送验证短信" >
 						<KrField name="sendMsg" grid={1/2} label="是" type="radio" value="1"/>
 						<KrField name="sendMsg" grid={1/2} label="否" type="radio" value="0" />
               </KrField>
-        <KrField grid={1/2} name="foreignCode" type="input" label="会员卡号" requireLabel={true} onBlur={this.foreignCodeBlur} requiredValue={true} pattern={/^\d{10}$/} errors={{requiredValue:'会员卡号为必填项',pattern:'会员卡号应由10位纯数字组成'}}/>
-				<Grid style={{marginTop:30}}>
+        <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" right={20}  requireLabel={true} onBlur={this.foreignCodeBlur} requiredValue={true} pattern={/^\d{10}$/} errors={{requiredValue:'会员卡号为必填项',pattern:'会员卡号应由10位纯数字组成'}}/>
+				<Grid style={{marginTop:30,marginBottom:20}}>
 					<Row>
-						<Col md={12} align="center">
-							<ButtonGroup>
-									<Button  label="确定" type="submit"/>
-									<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />
-							</ButtonGroup>
-						</Col>
+							<ListGroup>
+								<ListGroupItem style={{width:'269px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"/></ListGroupItem>
+								<ListGroupItem style={{width:'254px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} /></ListGroupItem>
+							</ListGroup>
 					</Row>
 				</Grid>
 		  </form>

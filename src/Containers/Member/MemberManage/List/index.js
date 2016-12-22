@@ -190,7 +190,9 @@ export default class List extends Component {
 			submit:true,
 			searchParams :{
 				type:value.filter,
-				value:value.content
+				value:value.content,
+				page :1,
+				pageSize:15
 			}
 		})
 	}
