@@ -33,10 +33,12 @@ export default class  SearchCompanyComponent extends React.Component {
 	onChange(item){
 		let {input,onChange} = this.props;
 		var value = (item && item.value) || '';
+		console.log("item",item);
 		input.onChange(value);
 		onChange && onChange(item);
 	}
 	getOptions(companyText){
+		console.log('ddddd',companyText);
 		return new Promise((resolve, reject) => {
 			Store.dispatch(Actions.callAPI('getCompanyByCompanyText',{ companyText:companyText })).then(function(response){
 				response.forEach(function(item,index){
