@@ -617,7 +617,7 @@ export default class CompanyMembers extends Component {
 			onClose={this.onSubmits}
 			contentStyle={{width:440}}>
 				<div>
-				<p style={{marginTop:55,marginBottom:59,textAlign:'center',color:'#333'}}>请至少选择一个成员  </p>
+				<p style={{marginTop:55,marginBottom:59,textAlign:'center',color:'#333',fontSize:'14px'}}>请至少选择一个成员  </p>
 				<Grid style={{marginBottom:20}}>
 					<Row>
 						<ListGroup>
