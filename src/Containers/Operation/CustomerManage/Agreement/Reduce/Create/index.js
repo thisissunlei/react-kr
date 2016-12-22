@@ -43,11 +43,11 @@ export default class JoinCreate extends Component {
 			formValues: {},
 			openConfirmCreate: false
 		}
+		this.isConfirmSubmiting = false;
 		Store.dispatch(reset('reduceCreateForm'));
 	}
 
 	onCreateSubmit(formValues) {
-		console.log("-00000", formValues);
 		this.setState({
 			formValues
 		});
@@ -61,27 +61,32 @@ export default class JoinCreate extends Component {
 
 	onConfrimSubmit() {
 
+		if(this.isConfirmSubmiting){
+					return ;
+		}
+		this.isConfirmSubmiting = true;
+
 		let {
 			formValues
 		} = this.state;
 		let {
 			params
 		} = this.props;
+		var _this = this;
 		Store.dispatch(Actions.callAPI('getFnaContractRentController', {}, formValues)).then(function(response) {
+			_this.isConfirmSubmiting = false;
 			Notify.show([{
 				message: '创建成功',
 				type: 'success',
 			}]);
 			location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/reduce/" + response.contractId + "/detail";
-
 		}).catch(function(err) {
+			_this.isConfirmSubmiting = false;
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
 			}]);
 		});
-
-		//this.openConfirmCreateDialog();
 	}
 
 	onCancel() {

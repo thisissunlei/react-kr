@@ -30,7 +30,14 @@ export default class  SearchPersonelComponent extends React.Component {
 		let {input} = this.props;
 	}
 
+	onInputChange=()=>{
+
+		console.log('--yayay');
+
+	}
+
 	onChange(item){
+		console.log('----',item);
 		let {input,onChange} = this.props;
 		var value = (item && item.value) || '';
 		input.onChange(value);
@@ -64,6 +71,7 @@ export default class  SearchPersonelComponent extends React.Component {
 					clearable={true}
 					clearAllText="清除"
 					onChange={this.onChange}
+					onInputChange={this.onInputChange}
 					noResultsText=""
 					placeholder={placeholder}/>
 			{touched && error && <div className="error-wrap"> <span>{error}</span> </div>}

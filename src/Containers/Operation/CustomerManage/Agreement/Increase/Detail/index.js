@@ -81,11 +81,11 @@ export default class JoinDetail extends Component {
 			position: 'relative',
 			width: '900px',
 			margin: '0 auto',
-			fontSize:14
+			fontSize: 14
 		}
 		const info = {
 			padding: '30px 70px',
-			paddingBottom:10
+			paddingBottom: 10
 		}
 
 		return (
@@ -126,7 +126,7 @@ export default class JoinDetail extends Component {
 					<KrField component="labelText" label="租赁办公室：" grid={1/2} value={basic.boardroomnum} requireBlue={true} defaultValue="0" requireBlue={true}/>
 
 
-					<KrField component="labelText" label="租赁用途：" value={basic.rentaluse} requireBlue={true}/>
+					
 
 
 					<KrField component="labelText"  label="备注：" value={basic.contractmark} defaultValue="无" requireBlue={true} inline={false}/>

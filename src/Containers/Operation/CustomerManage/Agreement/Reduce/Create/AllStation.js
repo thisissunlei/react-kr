@@ -81,17 +81,17 @@ class SelectStationForm extends Component {
 			selected
 		} = this.state;
 
-		  if(!selected.length){
-		    Notify.show([{
-		        message:'请先选择工位!',
-		        type: 'danger',
-		    }]);
-		    return ;
-		  }
+		if (!selected.length) {
+			Notify.show([{
+				message: '请先选择工位!',
+				type: 'danger',
+			}]);
+			return;
+		}
 
 		value = dateFormat(value, 'yyyy-mm-dd');
 
-		if(!selected.length){
+		if (!selected.length) {
 			Notify.show([{
 				message: '未选择减租工位',
 				type: 'danger',
@@ -147,7 +147,7 @@ class SelectStationForm extends Component {
 	}
 
 	onSubmit() {
-
+		console.log('1223')
 		let {
 			stationVos,
 			selected
@@ -218,12 +218,12 @@ class SelectStationForm extends Component {
 			obj.whereFloor = item.whereFloor;
 			obj.stationType = item.stationType;
 
-			obj.stationBeginDate = dateFormat(item.leaseBeginDate,'yyyy-mm-dd');
-			obj.stationEndDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
+			obj.stationBeginDate = dateFormat(item.leaseBeginDate, 'yyyy-mm-dd');
+			obj.stationEndDate = dateFormat(item.leaseEndDate, 'yyyy-mm-dd');
 
-			obj.leaseBeginDate = dateFormat(item.rentBeginDate,'yyyy-mm-dd');
-			obj.leaseEndDate = dateFormat(item.leaseEndDate,'yyyy-mm-dd');
-			obj.rentBeginDate = dateFormat(item.rentBeginDate,'yyyy-mm-dd');
+			obj.leaseBeginDate = dateFormat(item.rentBeginDate, 'yyyy-mm-dd');
+			obj.leaseEndDate = dateFormat(item.leaseEndDate, 'yyyy-mm-dd');
+			obj.rentBeginDate = dateFormat(item.rentBeginDate, 'yyyy-mm-dd');
 
 
 
@@ -233,26 +233,26 @@ class SelectStationForm extends Component {
 		selectedStationVos = resultStationVos;
 
 
-		    //选择的减租开始日期必须要在工位的起始日期和结束日期范围内
-		    var isOK = 1;
-		    selectedStationVos.map(function(item,index){
-		        var stationBeginDate = Date.parse(dateFormat(item.stationBeginDate,'yyyy-mm-dd')+' 00:00:00');
-		        var stationEndDate = Date.parse(dateFormat(item.stationEndDate,'yyyy-mm-dd')+' 00:00:00');
-		        var rentBeginDate = Date.parse(dateFormat(item.rentBeginDate,'yyyy-mm-dd')+' 00:00:00');
+		//选择的减租开始日期必须要在工位的起始日期和结束日期范围内
+		var isOK = 1;
+		selectedStationVos.map(function(item, index) {
+			var stationBeginDate = Date.parse(dateFormat(item.stationBeginDate, 'yyyy-mm-dd') + ' 00:00:00');
+			var stationEndDate = Date.parse(dateFormat(item.stationEndDate, 'yyyy-mm-dd') + ' 00:00:00');
+			var rentBeginDate = Date.parse(dateFormat(item.rentBeginDate, 'yyyy-mm-dd') + ' 00:00:00');
 
-		        if(stationBeginDate>=rentBeginDate || rentBeginDate>=stationEndDate){
-		           isOK = 0;
-		        }
-		    });
+			if (stationBeginDate >= rentBeginDate || rentBeginDate >= stationEndDate) {
+				isOK = 0;
+			}
+		});
 
-		    if(!isOK){
-		      Notify.show([{
-		        message:'减租开始时间必须要在选择工位的租赁开始日期和结束日期之内',
-		        type: 'danger',
-		        }]);
-		        return false;
-		    }
-		    console.log('---->>>>',selectedStationVos)
+		if (!isOK) {
+			Notify.show([{
+				message: '减租开始时间必须要在选择工位的租赁开始日期和结束日期之内',
+				type: 'danger',
+			}]);
+			return false;
+		}
+		console.log('---->>>>', selectedStationVos)
 
 		Store.dispatch(change('reduceCreateForm', 'leaseBegindate', selectedStationVos[0].leaseEndDate));
 
@@ -293,7 +293,7 @@ class SelectStationForm extends Component {
 		return (
 			<div style={{height:667,marginTop:20}}>
 <form onSubmit={handleSubmit(this.onSubmit)}>
-			<KrField grid={1/1}  name="rentBeginDate" component="date" label="减租开始时间" onChange={this.onChangeRentBeginDate} inline={true}/>
+			<KrField grid={1/1}  name="rentBeginDate" component="date" label="减租开始时间：" onChange={this.onChangeRentBeginDate} inline={true}/>
       <Table onSelect={this.onSelect} style={overfolw}>
         <TableHeader>
           <TableHeaderColumn>类别</TableHeaderColumn>
@@ -321,10 +321,10 @@ class SelectStationForm extends Component {
       </TableBody>
       </Table>
       <Grid>
-      <Row style={{marginTop:30}}>
+      <Row style={{marginTop:30,paddingBottom:24}}>
       <Col md={4}></Col>
-      <Col md={2} align="center"> <Button  label="确定" type="submit" /> </Col>
-      <Col md={2} align="center"> <Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel}/> </Col>
+      <Col md={2} align="center"> <Button  label="确定" type="button" onClick={this.onSubmit}  /> </Col>
+      <Col md={2} align="center"> <Button  label="取消" type="button" cancle={true} onClick={this.onCancel}/> </Col>
       <Col md={4}></Col>
        </Row>
       </Grid>

@@ -287,4 +287,3 @@ export default class AttributeSetting extends Component {
 	}
 
 }
-window.loca

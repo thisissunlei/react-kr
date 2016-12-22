@@ -40,21 +40,40 @@ export default class OrderCreate extends Component {
 
 		this.isOk = false;
 
-		this.state = {
-			loading:true,
-			communityOptions:[],
-			initialValues:{},
-			orderTypeOptions:[
-								{value:'',label:'请选择类型'},
-					  		{value:'STATION',label:'工位服务订单'},
-					  		{value:'INCUBAZION',label:'孵化订单'},
-					  		{value:'REGISTER',label:'注册订单'},
-					  		{value:'INCUSTOM',label:'场内消费订单'},
-					  		{value:'ACTIVITY',label:'广告订单'},
-					  		{value:'ADDEDSERVICE',label:'增值服务订单'},
-					  		{value:'TRAINING',label:'培训订单'},
-					  		{value:'OTHER',label:'其他服务订单'}
-					  	]
+		this.state = {	
+
+			loading: true,
+			communityOptions: [],
+			initialValues: {},
+			orderTypeOptions: [{
+				value: '',
+				label: '请选择类型'
+			}, {
+				value: 'STATION',
+				label: '工位服务订单'
+			}, {
+				value: 'INCUBAZION',
+				label: '孵化订单'
+			}, {
+				value: 'REGISTER',
+				label: '注册订单'
+			}, {
+				value: 'INCUSTOM',
+				label: '场内消费订单'
+			}, {
+				value: 'ACTIVITY',
+				label: '广告订单'
+			}, {
+				value: 'ADDEDSERVICE',
+				label: '增值服务订单'
+			}, {
+				value: 'TRAINING',
+				label: '培训订单'
+			}, {
+				value: 'OTHER',
+				label: '其他服务订单'
+			}]
+
 		}
 		Store.dispatch(Actions.switchSidebarNav(false));
 		Store.dispatch(Actions.switchHeaderNav(false));
@@ -136,7 +155,7 @@ export default class OrderCreate extends Component {
 
 
 		Store.dispatch(Actions.callAPI('get-simple-order', {
-			mainBillId: this.context.params.oriderId
+			mainBillId: this.context.params.orderId
 		}, {})).then(function(response) {
 			let initialValues = {};
 			initialValues = response;
@@ -204,6 +223,10 @@ export default class OrderCreate extends Component {
 // 		initialValues:state.common['get-simple-order'],
 // 		communitys,
 //    	};
+
 // }
 
 
+// export default connect(mapStateToProps)(OrderCreate);
+
+// }
