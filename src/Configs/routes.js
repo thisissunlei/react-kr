@@ -31,9 +31,9 @@ import {
 	Community,
 	Retail,
 	Statistical
-} from './Containers';
+} from '../Containers';
 
-import Master from './master';
+import Master from '../master';
 
 export default (
 
