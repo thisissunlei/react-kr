@@ -39,29 +39,76 @@ export default class Initialize extends Component {
 	Onetable = () => {
 
 		return (
-			<div className="table-list">
-					<table className="one-line">
-						<tr>
-							<th>款项</th>
-							<th>服务期限</th>
-							<th>付款日期</th>
-							<th>付款金额</th>
-						</tr>
-						<tr>
-							<td>履约保证金</td>
-							<td>2015/09/10-2016/10/10</td>
-							<td>2015/09/10</td>
-							<td>1200</td>
-						</tr>
-					</table>
+			<div className="table-one-content">
+				<div className="table-list">
+						<table className="one-line">
+							<thead>
+								<tr>
+									<th>款项</th>
+									<th>服务期限</th>
+									<th>付款日期</th>
+									<th>付款金额</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>履约保证金</td>
+									<td>2015/09/10-2016/10/10</td>
+									<td>2015/09/10</td>
+									<td>1200</td>
+								</tr>
+							</tbody>
+							
+						</table>
+				</div>
 			</div>
+		)
+	}
+
+	Twotable = () => {
+		return (
+			<div className="table-two-list">
+					<div className="two-line">
+						<div className="table-td-content clear">
+								<div className="table-left" style={{marginRight:14}}>
+									<div className="th clear">
+										<div>款项</div>
+										<div>服务期限</div>
+										<div>付款日期</div>
+										<div>付款金额</div>
+									</div>
+									<div className="left-td">
+										<div className="td clear">
+											<div>履约保证金</div>
+											<div>2015/09/10-2016/10/10</div>
+											<div>2015/09/10</div>
+											<div>1200</div>
+										</div>
+									</div>
+								</div>
+								<div className="table-right">
+									<div  className="th clear">
+										<div>款项</div>
+										<div>服务期限</div>
+										<div>付款日期</div>
+										<div>付款金额</div>
+									</div>
+									<div className="right-td">
+										<div className="td clear">
+											<div>履约保证金</div>
+											<div>2015/09/10-2016/10/10</div>
+											<div>2015/09/10</div>
+											<div>1200</div>
+										</div>
+									</div>
+								</div>
+						</div>
+					</div>
+			</div>
+
 
 		)
 	}
-	Twotable = () => {
-
-	}
-
 	render() {
 
 		return (
