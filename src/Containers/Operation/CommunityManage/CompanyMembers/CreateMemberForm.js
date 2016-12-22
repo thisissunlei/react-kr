@@ -253,7 +253,7 @@ import imgLine from './images/line.png'
         <KrField name="jobId"  grid={1/2} component="select" label="职位"  left={20} options={selectOption} requireLabel={true} />
 				<KrField grid={1/2} name="name" type="text" label="姓名" right={20}  requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}}/>
 				<KrField grid={1/2} name="sendMsg" component="group" left={20}  label="发送验证短信" >
-						<KrField name="sendMsg" grid={1/2} label="是" type="radio" value="1"/>
+						<KrField name="sendMsg" grid={1/2} label="是" type="radio" value="1" style={{marginRight:'50px'}}/>
 						<KrField name="sendMsg" grid={1/2} label="否" type="radio" value="0" />
               </KrField>
         <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" right={20}  requireLabel={true} onBlur={this.foreignCodeBlur}/>
