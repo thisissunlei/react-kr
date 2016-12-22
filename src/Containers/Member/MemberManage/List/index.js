@@ -64,7 +64,7 @@ export default class List extends Component {
 				endTime:'',
 				registerSourceId:'',
 				jobId:'',
-				companyId:'',
+				companyId:0,
 				cityId:'',
 				type:'COMP_NAME',
 				value:'',
@@ -168,6 +168,7 @@ export default class List extends Component {
 									type:'COMP_NAME',
 									value:"",
 									status:!_this.state.status,
+									companyId:0,
 								}
 							})
 						}).catch(function(err){
@@ -221,6 +222,7 @@ export default class List extends Component {
 				jobId :values.jobId || '',
 				page:1,
 				pageSize:15,
+				companyId:0,
 			}
 		})
 	}
