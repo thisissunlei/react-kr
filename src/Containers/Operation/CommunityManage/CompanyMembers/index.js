@@ -568,7 +568,8 @@ export default class CompanyMembers extends Component {
 			modal={true}
 			open={this.state.validateMember}
 			onClose={this.validateMember}
-			contentStyle={{width:687}}>
+			contentStyle={{width:687}}
+			padding='10px 0'>
 				<ValidateMember onSubmit={this.validateMemberSubmit} onCancel={this.validateMember} seleced={seleced}/>
 			</Dialog>
 			<Dialog

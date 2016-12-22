@@ -78,7 +78,7 @@ export default class ValidateMember extends Component {
 
 		return (
 			<div className='validate-member' style={{marginTop:20}}>
-				<div>
+				<div style={{padding:'0 50px'}}>
 					<span>发送验证短信：</span>
 					<span className="make-sure">（请确认成员手机号码是否正确，验证单人一天最多发一次）</span>
 				</div>
@@ -110,11 +110,11 @@ export default class ValidateMember extends Component {
 				</div>
 				</div>
 
-				<div className="demo-info">
+				<div className="demo-info" style={{padding:'0 50px'}}>
 					<span className="demo-title">当前短信模板：</span>
 					<span>［氪空间］＃对方姓名＃，＃公司名称＃，入驻氪空间，氪空间邀您关注公众号“氪空间” 进行注册，补全个人信息，以便顺利办理入驻。</span>
 				</div>
-				<Grid style={{marginBottom:20}}>
+				<Grid style={{marginBottom:20,marginLeft:50}}>
 					<Row>
 						<ListGroup>
 							<ListGroupItem style={{width:'270px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="button"  onTouchTap={this.onSubmit} width={90} height={34}/></ListGroupItem>

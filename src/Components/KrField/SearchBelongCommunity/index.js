@@ -11,7 +11,7 @@ import WrapComponent from '../WrapComponent';
 export default class  SearchBelongCommunity extends React.Component {
 
 	static defaultProps = {
-		placeholder:'请输入...'
+		placeholder:'请输入社区名称'
 	}
 
 	static propTypes = {
