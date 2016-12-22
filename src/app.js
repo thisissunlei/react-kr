@@ -15,7 +15,7 @@ import {cyan500, grey200, darkWhite} from 'material-ui/styles/colors';
 
 import { Provider,connect } from 'react-redux';
 
-import routes from './routes';
+import routes from './Configs/routes';
 
 import store from './Redux/Store';
 
