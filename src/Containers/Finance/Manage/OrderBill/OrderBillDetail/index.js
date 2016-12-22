@@ -601,6 +601,7 @@ export default class AttributeSetting extends Component {
 
 	}
 	onConfrimSubmit(params) {
+		console.log('55555',params);
 		let {payWayList} = this.state;
 		params = Object.assign({}, params);
 			params.propJasonStr = {};
