@@ -49,6 +49,7 @@ export default class MemeberEditMemberForm extends Component {
 		this.detail = this.props.detail;
 
 		this.state={
+			status:true,
 			jobList:[],
 			itemData:{},
 			initializeValues:{},
