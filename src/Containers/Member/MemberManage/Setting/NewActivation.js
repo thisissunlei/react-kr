@@ -7,13 +7,11 @@ import {
 } from 'kr/Redux';
 
 import {
-	reduxForm,
-	formValueSelector
-} from 'redux-form';
-import {
 	Actions,
 	Store
 } from 'kr/Redux';
+import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
+
 import {
 	KrField,
 	Grid,
@@ -41,7 +39,11 @@ class NewActivation extends Component {
 
 		this.state = {
 			communityList: [],
-			mainbilltypeList: []
+			mainbilltypeList: [],
+			clearInterCodeStyle:{
+				display:'none'
+			},
+			foreignCode:""
 		}
 
 	}
@@ -96,7 +98,32 @@ class NewActivation extends Component {
 		onCancel && onCancel();
 
 	}
+	InterCodeFocus=(values)=>{
+		if(true){
+			this.setState({
+				clearInterCodeStyle:{
+					display:'block'
+				}
+			})
+		}
+	}
 
+	clearInterCode=()=>{
+		const detail={};
+		detail.interCode="";
+		detail.foreignCode=this.state.foreignCode;
+		Store.dispatch(initialize('NewActivation',detail));
+		this.setState({
+				clearInterCodeStyle:{
+					display:'none'
+				}
+			})
+	}
+	foreignCodeBlur=(values)=>{
+		this.setState({
+				foreignCode:values
+			})
+	}
 	render() {
 		const {
 			error,
@@ -109,8 +136,11 @@ class NewActivation extends Component {
 
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:30}}>
 
-				<KrField  right={27}  left={42} right={42} name="foreignCode" type="text" label="会员卡号"/>
-				<KrField  right={27}  left={42} right={42} name="interCode" type="text" label="会员卡内码"/>
+				<KrField  right={27}  left={42} right={42} name="foreignCode" type="text" label="会员卡号" onBlur={this.foreignCodeBlur}/>
+				<div className="clearInterCode">
+					<KrField  right={27}  left={42} right={42} style={{marginTop:5}} name="interCode" component="input" type="text" label="会员卡内码" onFocus={this.InterCodeFocus}/>
+					<div className="x" style={this.state.clearInterCodeStyle} onClick={this.clearInterCode}></div>
+				</div>
 				<Grid style={{marginTop:10,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">

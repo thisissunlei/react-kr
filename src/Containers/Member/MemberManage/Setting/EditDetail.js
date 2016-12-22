@@ -42,7 +42,10 @@ class EditDetail extends Component {
 
 		this.state = {
 			detail:{},
-			mainbilltypeList: []
+			mainbilltypeList: [],
+			clearInterCodeStyle:{
+				display:'none'
+			}
 		}
 		const detail=props.detail;
 		Store.dispatch(initialize('EditDetail',detail));
@@ -61,7 +64,27 @@ class EditDetail extends Component {
 		} = this.props;
 		onCancel && onCancel();
 	}
+	InterCodeFocus=(values)=>{
+		if(true){
+			this.setState({
+				clearInterCodeStyle:{
+					display:'block'
+				}
+			})
+		}
+	}
 
+	clearInterCode=()=>{
+		const detail={};
+		detail.interCode="";
+		detail.foreignCode=this.props.detail.foreignCode;
+		Store.dispatch(initialize('EditDetail',detail));
+		this.setState({
+				clearInterCodeStyle:{
+					display:'none'
+				}
+			})
+	}
 	render() {
 		const {
 			error,
@@ -73,7 +96,10 @@ class EditDetail extends Component {
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:30}}>
 				<KrField  right={27} style={{}} left={42} right={42} name="foreignCode" type="text" label="会员卡号"/>
-				<KrField  right={27} style={{}} left={42} right={42} name="interCode" type="text" label="会员卡内码" />
+				<div className="clearInterCode">
+					<KrField  right={27}  left={42} right={42} style={{marginTop:5}} name="interCode" component="input" type="text" label="会员卡内码" onFocus={this.InterCodeFocus}/>
+					<div className="x" style={this.state.clearInterCodeStyle} onClick={this.clearInterCode}></div>
+				</div>
 				<Grid style={{marginTop:10,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">

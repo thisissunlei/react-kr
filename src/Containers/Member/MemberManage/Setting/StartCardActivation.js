@@ -45,6 +45,9 @@ import './index.less';
 						open:false,
 						style:{},
 						className:''
+					},
+					clearInterCodeStyle:{
+						display:'none'
 					}
 	    }
 	}
@@ -91,7 +94,6 @@ import './index.less';
 			Store.dispatch(initialize('StartCardActivation',detail));
 		 	_this.props.openMessageBar(err.message,"error");
 		 	setTimeout(function(){
-
 				_this.props.closeMessageBar();
 			},3000)
 		 })
@@ -143,7 +145,26 @@ import './index.less';
 		 const {onCancel} = this.props;
 		onCancel && onCancel();
 	 }
-	 
+	 InterCodeFocus=(values)=>{
+		if(true){
+			this.setState({
+				clearInterCodeStyle:{
+					display:'block'
+				}
+			})
+		}
+	}
+
+	clearInterCode=()=>{
+		const detail={};
+		detail.interCode="";
+		Store.dispatch(initialize('StartCardActivation',detail));
+		this.setState({
+				clearInterCodeStyle:{
+					display:'none'
+				}
+			})
+	}
 
 	render(){
 		const {
@@ -166,7 +187,10 @@ import './index.less';
 						</div>
 						<label className="jump" onClick={this.skipCard}>跳过该号码</label>
 				</div>
-				<KrField  left={71} right={71} name="interCode" type="text" />
+				<div className="clearInterCode">
+					<KrField  left={71} right={71} name="interCode" component="input" type="text" onFocus={this.InterCodeFocus}/>
+					<div className="startX" style={this.state.clearInterCodeStyle} onClick={this.clearInterCode}></div>
+				</div>
 
 
 				<Grid style={{marginTop:18,marginBottom:5}}>

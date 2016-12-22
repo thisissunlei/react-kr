@@ -278,14 +278,14 @@ export default class List extends Component {
 
 											<TableBody >
 													<TableRow >
-													<TableRowColumn name="foreignCode" ></TableRowColumn>
-													<TableRowColumn name="interCode" ></TableRowColumn>
-													<TableRowColumn name="enable" options={[{label:'是',value:'ENABLE'},{label:'否',value:'DISENABLE'}]}></TableRowColumn>
-													<TableRowColumn name="activeTime" type='date' format="yyyy-mm-dd hh:MM:ss" ></TableRowColumn>
-													<TableRowColumn type="operation">
-														  <Button label="编辑"  type="operation"  operation="edit" />
-													 </TableRowColumn>
-												 </TableRow>
+														<TableRowColumn name="foreignCode" ></TableRowColumn>
+														<TableRowColumn name="interCode" ></TableRowColumn>
+														<TableRowColumn name="enable" options={[{label:'是',value:'ENABLE'},{label:'否',value:'DISENABLE'}]}></TableRowColumn>
+														<TableRowColumn name="activeTime" type='date' format="yyyy-mm-dd hh:MM:ss" ></TableRowColumn>
+														<TableRowColumn type="operation">
+															  <Button label="编辑"  type="operation"  operation="edit" />
+														 </TableRowColumn>
+													 </TableRow>
 											</TableBody>
 
 											<TableFooter ></TableFooter>

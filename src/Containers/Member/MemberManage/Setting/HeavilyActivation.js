@@ -125,7 +125,7 @@ import './index.less';
 			<form className="HeavilyActivation" onSubmit={handleSubmit(this.onSubmit)}>
 				<div className="stageImg" ></div>
 				<KrField style={{marginTop:20}} left={71} right={71} name="startNum" component="input" type="text" label="起始号码" onBlur={this.handleStartBlur} />
-				<KrField style={{}} left={71} right={71} name="endNum" component="input" type="text" label="终止号码" onBlur={this.handleEndBlur} />
+				<KrField style={{marginTop:5}} left={71} right={71} name="endNum" component="input" type="text" label="终止号码" onBlur={this.handleEndBlur} />
 				<KrField style={{height:36,marginTop:-15}} left={71} right={71} component="labelText" label="会员卡数量:" value={this.state.cardNum+"张"}/>
 				<Grid style={{marginTop:15,marginBottom:5}}>
 					<Row>
