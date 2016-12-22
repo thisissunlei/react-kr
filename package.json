@@ -13,7 +13,7 @@
     "build": "export NODE_ENV=production  &&  npm run dll && webpack --config ./webpack/webpack-production.config.js --progress --colors",
     "test": "export NODE_ENV=test && npm run dll &&  webpack --config ./webpack/webpack-test.config.js --progress --colors --profile",
     "dll": "webpack --config ./webpack/webpack-dll.config.js --progress --colors --profile",
-    "demo": "export NODE_ENV=production && webpack --config ./webpack/webpack-demo.config.js --progress --colors --profile"
+    "dic": "node ./task/loadDictionary.js"
   },
   "author": "",
   "license": "ISC",
