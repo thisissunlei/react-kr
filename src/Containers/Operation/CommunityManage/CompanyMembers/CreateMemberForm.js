@@ -221,7 +221,6 @@ import imgLine from './images/line.png'
 				//会员卡号已注册
 				if(response.phone != '-1'){
 					Message.warn('此会员卡号已被绑定','error');
-
 				}else{
 					Message.warn('此会员卡号未录入','error');
 
@@ -263,7 +262,11 @@ import imgLine from './images/line.png'
 						<KrField name="sendMsg" grid={1/2} label="否" type="radio" value="0" />
               </KrField>
         <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" right={20}  onBlur={this.foreignCodeBlur}/>
+<<<<<<< HEAD
 				<Grid style={{marginTop:19,marginBottom:20}}>
+=======
+				<Grid style={{marginTop:20,marginBottom:20}}>
+>>>>>>> 123461b03634a835764527a3a8def67e7b761423
 					<Row>
 							<ListGroup>
 								<ListGroupItem style={{width:'269px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"/></ListGroupItem>

@@ -147,7 +147,7 @@ export default class SidebarNav extends Component {
 
 		var isSelected = false;
 
-		isSelected = (item.router === current_router) || item.active;
+		isSelected = item.active;
 
 		if (isSelected) {
 			childStyles.backgroundColor = '#328ECC';
