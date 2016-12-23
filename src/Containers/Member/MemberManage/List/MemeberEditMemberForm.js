@@ -198,7 +198,7 @@ export default class MemeberEditMemberForm extends Component {
 		let images = `./images/all.png`;
 		// itemData.phone = '13314619606';
 		return (
-			<div className="edit-form">
+			<div className="edit-form" style={{paddingBottom:"3"}}>
 				<form onSubmit={handleSubmit(this.onSubmit)} >
 					<div className="person-info">
 						<span className="person-name">{detail.name}</span>
