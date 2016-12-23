@@ -167,8 +167,13 @@ export default class MemeberEditMemberForm extends Component {
 					 onsubmitCode:true
 				 })
 				 return;
+			 }else if(response.phone == '-1'){
+				 Message.warn('会员卡号未录入','error');
+				 _this.setState({
+					 onsubmitCode:false
+				 })
 			 }else{
-				 Message.warn('会员卡号已注册','error');
+			 	Message.warn('会员卡号已注册','error');
 				 _this.setState({
 					 onsubmitCode:false
 				 })
