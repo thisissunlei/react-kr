@@ -48,6 +48,7 @@ import './index.less';
 					endNum:nextProps.detail.endNum,
 					cardNum:nextProps.detail.endNum-nextProps.detail.startNum
 				})
+			console.log(nextProps.detail.startNum,'next')
 		}
 
 	}
