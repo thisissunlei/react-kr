@@ -54,7 +54,9 @@ export default class JoinPrint extends Component {
 			<Agreement.Print.Payment/>
 			<div className="print-text">
 				<span>双方其他约定内容：</span>
-				<p></p>
+				<p className="text-content"></p>
+				<span className="border-b one-text"></span>
+				<span className="border-b two-text"></span>
 			</div>
 			<Agreement.Print.Footer/>
 			

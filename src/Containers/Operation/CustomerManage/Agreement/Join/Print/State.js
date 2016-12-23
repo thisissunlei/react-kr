@@ -18,7 +18,8 @@ let State = observable({
 	syncErrors: {},
 	validations: {},
 	data: [],
-	installmentPlans: []
+	installmentPlans: [],
+	Baseinfo: {},
 });
 
 //action
@@ -28,7 +29,7 @@ State.getBasicInfo = action(function(params) {
 		contractId: params.id
 	})).then(function(response) {
 		console.log('response----', response)
-		_this.data = response.data;
+		_this.Baseinfo = response.data;
 		_this.installmentPlans = response.data.installmentPlans;
 		_this.stationVOs = response.data.stationVOs;
 
