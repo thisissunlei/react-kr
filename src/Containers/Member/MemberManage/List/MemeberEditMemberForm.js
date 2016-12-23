@@ -249,10 +249,6 @@ const validate = values => {
 		errors.companyId = '请输入公司';
 	}
 
-	if (!values.jobId) {
-		errors.jobId = '请输入职位';
-	}
-
 	if (!values.name) {
 		errors.name = '请输入姓名';
 	}
@@ -271,7 +267,7 @@ const validate = values => {
     if (!values.foreignCode) {
         errors.foreignCode = '请输入会员卡号';
     }
-    
+
 	return errors
 }
 MemeberEditMemberForm = reduxForm({
