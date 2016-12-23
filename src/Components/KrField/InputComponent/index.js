@@ -20,6 +20,7 @@ export default class InputComponent extends React.Component{
 		heightStyle:React.PropTypes.object,
 		maxLength:React.PropTypes.number,
 		//自动获取焦点
+
 		autoFocus:React.PropTypes.bool,
 	}
 

@@ -35,6 +35,7 @@ export default  class Input extends React.Component {
 				*/
 				errors:React.PropTypes.object,
 				onError:React.PropTypes.func,
+				autoFocus:React.PropTypes.bool,
 	}
 	componentDidMount(){
 
@@ -141,7 +142,9 @@ export default  class Input extends React.Component {
 		}
 
 		return (
+
 			 <input ref="input"  type={type} name={name} className={classNames}  style={style} placeholder={placeholder} value={value} {...other} disabled={disabled} onChange={this.onChange} onBlur={this.onBlur} onFocus={this.onFocus} />
+
 		);
 	}
 }
