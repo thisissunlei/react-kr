@@ -82,7 +82,6 @@ import './index.less';
 					 },1000)
 
 		 }).catch(function(err) {
-		 	const detail={};
 		 	if (err.message=="该会员卡已被录入") {
 		 		err.message="卡号"+_this.state.detail.startNum+"已存在请跳过！"
 		 	}else if(err.message=="改卡已被激活,请重刷"){
@@ -90,8 +89,7 @@ import './index.less';
 		 	}else{
 
 		 	}
-			detail.interCode="";
-			Store.dispatch(initialize('StartCardActivation',detail));
+			
 		 	_this.props.openMessageBar(err.message,"error");
 		 	setTimeout(function(){
 				_this.props.closeMessageBar();
@@ -137,6 +135,9 @@ import './index.less';
 	 //跳过号码
 	 skipCard=()=>{
 	 	if (+this.state.detail.endNum!=0) {
+	 		const detail={};
+			detail.interCode="";
+			Store.dispatch(initialize('StartCardActivation',detail));
 	 		 this.setState({
 	 		 	oldNum:(+this.state.oldNum)-1,
 	 		 })
