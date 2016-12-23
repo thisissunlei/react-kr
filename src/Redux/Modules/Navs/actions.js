@@ -117,10 +117,11 @@ function setNavsCurrentItems(fatherRouter){
 	}
 }
 
-function setNavsActivity(fatherRouter){
+function setNavsActivity(fatherRouter,childRouter){
 	return {
 		type:Types.SET_NAVS_ACTIVITY,
-		router:fatherRouter
+		router:fatherRouter,
+		childRouter:childRouter
 	}
 
 }
@@ -142,7 +143,7 @@ export function setCurrentNav(router){
 
 			dispatch(setNavsCurrentRoute(router.substr(1)));
 			dispatch(setNavsCurrentItems(fatherRouter));
-			dispatch(setNavsActivity(fatherRouter));
+			dispatch(setNavsActivity(fatherRouter,router.substr(1)));
 	}
 
 }

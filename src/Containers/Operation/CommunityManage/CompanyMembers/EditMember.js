@@ -221,7 +221,7 @@ export default class CreateMemberForm extends Component {
 					<KrField name="email" grid={1/2} label="邮箱:" type="text" left={20}  onBlur={this.EmailonBlur}  requireLabel={true}/>
 					<KrField name="name" grid={1/2}  label="姓名" type="text" right={20}  requireLabel={true} />
 					<KrField name="jobId" grid={1/2} label="职位" defaultValue={detail.jobName} component="select" left={20} options={jobList}/>
-					<Grid style={{margin:'20px 0',marginBottom:0}}>
+					<Grid style={{margin:'20px 0'}}>
 						<Row>
 							<ListGroup>
 								<ListGroupItem style={{width:'269px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"   width={90} height={34}/></ListGroupItem>

@@ -84,6 +84,7 @@ export default class CompanyMembers extends Component {
 			batchDelet:false,
 			value:'',
 			leader:false,
+			name:'',
 			searchParams:{
 				page: 1,
 				companyId:this.companyId,
@@ -132,6 +133,9 @@ export default class CompanyMembers extends Component {
 	}
 	batchDelet=()=>{
 		let {seleced} = this.state;
+		this.setState({
+			name:'要删除的'
+		})
 		if(!seleced.length){
 			this.onSubmits();
 			return;
@@ -194,14 +198,17 @@ export default class CompanyMembers extends Component {
 		let {seleced} = this.state;
 		// console.log(seleced);
 		let list = [];
-		list = seleced.map((item)=>{
+		seleced.map((item)=>{
 			if(!item.checkStatus){
-				return item;
+				list.push(item);
 			}
-			return false;
 		})
-		// console.log(list);
-		if(!seleced.length && !this.state.validateMember){
+		this.setState({
+			seleced:list,
+			name:'未验证'
+		})
+		console.log(list);
+		if(!list.length && !this.state.validateMember){
 			this.onSubmits();
 			return;
 		}
@@ -446,7 +453,7 @@ export default class CompanyMembers extends Component {
 	}
 	renderOther=()=>{
 		return (
-			<div style={{display:'inline-block'}}> 
+			<div style={{display:'inline-block'}}>
 			<a style={{width:80,height:30,background:'#499df1',color:'#fff',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)',marginRight:20,cursor: 'pointer'}}  onClick={this.importData}>批量导入</a>
 			<a style={{width:80,height:30,background:'#fff',color:'#499df1',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)',marginRight:20,border:'1px solid #499df1',cursor:'pointer'}}  onClick={this.batchDelet}>删除成员</a>
 			</div>
@@ -462,15 +469,7 @@ export default class CompanyMembers extends Component {
 
 	render() {
 		let {itemDetail,seleced,open,title,allData} = this.state;
-		// let searchParams ={
-		// 	page:this.state.page,
-		// 	pageSize:this.state.pageSize,
-		// 	companyId:this.state.companyId,
-		// 	value:this.state.value
-
-		// }
-		let {searchParams} = this.state;
-		// console.log('state',searchParams);
+		let {searchParams,name} = this.state;
 		return (
 			<div style={{minHeight:910,background:'#fff'}}>
 
@@ -569,7 +568,8 @@ export default class CompanyMembers extends Component {
 			modal={true}
 			open={this.state.createMember}
 			onClose={this.createMember}
-			contentStyle={{width:687}}>
+			contentStyle={{width:687,paddingBottom:8}}
+			bodyStyle={{paddingBottom:0}}>
 				<CreateMemberForm onSubmit={this.onNewCreateSubmit} params={this.params} onCancel={this.createMember}  detail={allData}/>
 			</Dialog>
 			<Dialog
@@ -586,7 +586,7 @@ export default class CompanyMembers extends Component {
 			open={this.state.validateMember}
 			onClose={this.validateMember}
 			contentStyle={{width:687}}
-			padding='10px 0'>
+			bodyStyle={{padding:'10px 0'}}>
 				<ValidateMember onSubmit={this.validateMemberSubmit} onCancel={this.validateMember} seleced={seleced}/>
 			</Dialog>
 			<Dialog
@@ -594,7 +594,8 @@ export default class CompanyMembers extends Component {
 			modal={true}
 			open={this.state.editMember}
 			onClose={this.editMembers}
-			contentStyle={{width:687}}>
+			contentStyle={{width:687}}
+			bodyStyle={{paddingBottom:0}}>
 				<EditMember onSubmit={this.editMemberForm} params={this.params} onCancel={this.editMembers} detail={itemDetail}/>
 			</Dialog>
 			<Dialog
@@ -628,8 +629,8 @@ export default class CompanyMembers extends Component {
 			onClose={this.onSubmits}
 			contentStyle={{width:440}}>
 				<div>
-				<p style={{marginTop:45,marginBottom:49,textAlign:'center',color:'#333',fontSize:'14px'}}>请至少选择一个成员  </p>
-				<Grid style={{marginBottom:10}}>
+				<p style={{marginTop:45,marginBottom:49,textAlign:'center',color:'#333',fontSize:'14px'}}>请至少选择一个{name}成员  </p>
+				<Grid style={{marginBottom:6}}>
 					<Row>
 						<ListGroup>
 							<ListGroupItem style={{width:'100%',textAlign:'center',padding:0}}><Button  label="确定" type="button"  onTouchTap={this.onSubmits} width={90} height={34}/></ListGroupItem>

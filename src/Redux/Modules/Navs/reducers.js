@@ -23,12 +23,30 @@ export function navs(state = {},action){
 
 			const items = state.items;
 			var router = action.router;
+			var childRouter = action.childRouter;
+
+			console.log('item',items);
 
 			items.forEach(function(item,index){
 				if(item.router && item.router ==  router){
 					item.active = true;
 				}else{
 					item.active = false;
+				}
+				if(item.hasOwnProperty('menuItems') && item.menuItems.length){
+						item.menuItems.forEach(function(child){
+
+								if(child.hasOwnProperty('menuItems') && child.menuItems.length){
+										child.menuItems.forEach(function(children){
+												if(children.router == childRouter){
+														children.active = true;
+												}else{
+													children.active = false;
+												}
+										});
+								}
+
+						});
 				}
 			});
 
@@ -58,18 +76,3 @@ export function navs(state = {},action){
 
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
