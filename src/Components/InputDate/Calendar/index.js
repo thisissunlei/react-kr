@@ -127,6 +127,7 @@ export default class Calendar extends React.Component {
 		year = valueArr[0];
 		month = valueArr[1];
 		date = valueArr[2];
+		date = date.split(' ').shift();
 
 		this.setState({
 			year,
