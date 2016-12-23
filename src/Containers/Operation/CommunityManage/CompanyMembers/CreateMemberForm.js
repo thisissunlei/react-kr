@@ -50,7 +50,7 @@ import imgLine from './images/line.png'
 			jobId:'',
 			name:'',
 			foreignCode:'',
-			sendMsg:'0',
+			sendMsg:'1',
 			foreignCode:''
 		}
 		Store.dispatch(initialize('NewCreateForm',response));
@@ -256,7 +256,7 @@ import imgLine from './images/line.png'
 						<KrField name="sendMsg" grid={1/2} label="是" type="radio" value="1" style={{marginRight:'50px'}}/>
 						<KrField name="sendMsg" grid={1/2} label="否" type="radio" value="0" />
               </KrField>
-        <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" right={20}  requireLabel={true} onBlur={this.foreignCodeBlur}/>
+        <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" right={20}  onBlur={this.foreignCodeBlur}/>
 				<Grid style={{marginTop:30,marginBottom:20}}>
 					<Row>
 							<ListGroup>
@@ -304,15 +304,15 @@ const validate = values => {
     if (!phone.test(values.phone) ) {
         errors.phone = '请输入正确电话号';
     }
-    if (!code.test(values.foreignCode) ) {
+    if (values.foreignCode&&!code.test(values.foreignCode) ) {
         errors.foreignCode = '会员卡号为10位纯数字';
     }
     if (!values.sendMsg ) {
         errors.sendMsg = '请选择是否发送验证短信';
     }
-    if (!values.foreignCode) {
-        errors.foreignCode = '请输入会员卡号';
-    }
+    // if (!values.foreignCode) {
+    //     errors.foreignCode = '请输入会员卡号';
+    // }
     
 	return errors
 }

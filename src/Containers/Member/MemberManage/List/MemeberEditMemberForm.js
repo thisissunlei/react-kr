@@ -207,7 +207,7 @@ export default class MemeberEditMemberForm extends Component {
 
 					<KrField name="communityId" grid={1/2} label="社区" component="searchCommunity" right={30} requiredValue={true}  errors={{requiredValue:'请选择社区'}} requireLabel={true}/>
 
-					<KrField name="foreignCode" grid={1/2} label="会员卡号"   type="text" left={30} onBlur={this.membersByForeignCode} requireLabel={true}/>
+					<KrField name="foreignCode" grid={1/2} label="会员卡号"   type="text" left={30} onBlur={this.membersByForeignCode}/>
 
 					<KrField name="companyId" grid={1/2} label="公司" component="searchCompany"  right={30} requiredValue={true} errors={{requiredValue:'请填选择公司'}} requireLabel={true}/>
 					<KrField name="email" grid={1/2} label="邮箱:" type="text" left={30}  onBlur={this.communityChange}  requireLabel={true}/>
@@ -258,15 +258,15 @@ const validate = values => {
     if (!phone.test(values.phone) ) {
         errors.phone = '请输入正确电话号';
     }
-    if (!code.test(values.foreignCode) ) {
+    if (values.foreignCode && !code.test(values.foreignCode) ) {
         errors.foreignCode = '会员卡号为10位纯数字';
     }
     if (!values.sendMsg ) {
         errors.sendMsg = '请选择是否发送验证短信';
     }
-    if (!values.foreignCode) {
-        errors.foreignCode = '请输入会员卡号';
-    }
+    // if (!values.foreignCode) {
+    //     errors.foreignCode = '请输入会员卡号';
+    // }
 
 	return errors
 }
