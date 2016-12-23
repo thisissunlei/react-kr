@@ -63,6 +63,13 @@ import './index.less';
 		 if(this.state.accomplish){
 			 return;
 		 }
+		var reg=/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8}$/;
+		if (values.interCode&&!reg.test(values.interCode)) {
+
+			Message.error('卡内码由8位的数字和字母组成');
+			return;
+		}
+		
 		 Store.dispatch(Actions.callAPI('CardActivation', {}, params)).then(function(response) {
 					//  Message.success("成功");
 					 const detail={};
@@ -120,7 +127,8 @@ import './index.less';
 				 	}
 				 }
 				 if (this.state.detail.startNum==this.state.detail.endNum) {
-				 	var oldNum=this.state.oldNum==0?this.state.oldNum:this.state.oldNum+1;
+				 	
+				 	var oldNum=this.state.oldNum+1;
 					this.setState({
 	 				 	accomplish:true
 	 			 	})
@@ -175,6 +183,17 @@ import './index.less';
 				}
 			})
 	}
+	cardChange=(value)=>{
+		var cReg=new RegExp("[\\u4E00-\\u9FFF]+","g");
+
+		if(cReg.test(value)){
+		console.log(cReg.test(value),"==")
+
+			Message.error('卡内码内含有中文请切换英文输入法！');
+			return;
+		}
+		
+	}
 
 	render(){
 		const {
@@ -198,7 +217,7 @@ import './index.less';
 						<label className="jump" onClick={this.skipCard}>跳过该号码</label>
 				</div>
 				<div className="clearInterCode">
-					<KrField  left={71} right={71} name="interCode" component="input" type="text" onFocus={this.InterCodeFocus}/>
+					<KrField  left={71} right={71} name="interCode" component="input" type="text" onFocus={this.InterCodeFocus} onChange={this.cardChange}/>
 					<div className="startX" style={this.state.clearInterCodeStyle} onClick={this.clearInterCode}></div>
 				</div>
 
@@ -221,14 +240,12 @@ import './index.less';
 const validate = values =>{
 		
 		const errors = {}
+		
 		var reg=/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8}$/;
-		if(!values.interCode){
-		errors.interCode = '请输入会员卡内码';
-
-		}else if (!reg.test(values.interCode)) {
-
-			errors.interCode = '卡内码由8位的数字和字母组成';
+		if (!reg.test(values.interCode)) {
+			errors.interCode='卡内码由8位的数字和字母组成';
 		}
+		
 		return errors
 	}
 const selector = formValueSelector('StartCardActivation');

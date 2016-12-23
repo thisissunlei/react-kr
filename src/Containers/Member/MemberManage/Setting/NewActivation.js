@@ -20,7 +20,8 @@ import {
 	Button,
 	ButtonGroup,
 	ListGroup,
-	ListGroupItem
+	ListGroupItem,
+	Message
 } from 'kr-ui';
 
 
@@ -124,6 +125,17 @@ class NewActivation extends Component {
 				foreignCode:values
 			})
 	}
+	cardChange=(value)=>{
+		var cReg=new RegExp("[\\u4E00-\\u9FFF]+","g");
+
+		if(cReg.test(value)){
+		console.log(cReg.test(value),"==")
+
+			Message.error('卡内码内含有中文请切换英文输入法！');
+			return;
+		}
+		
+	}
 	render() {
 		const {
 			error,
@@ -138,7 +150,7 @@ class NewActivation extends Component {
 
 				<KrField  right={27}  left={42} right={42} name="foreignCode" type="text" label="会员卡号" onBlur={this.foreignCodeBlur}/>
 				<div className="clearInterCode">
-					<KrField  right={27}  left={42} right={42} style={{marginTop:5}} name="interCode" component="input" type="text" label="会员卡内码" onFocus={this.InterCodeFocus}/>
+					<KrField  right={27}  left={42} right={42} style={{marginTop:5}} name="interCode" component="input" type="text" label="会员卡内码" onChange={this.cardChange} onFocus={this.InterCodeFocus}/>
 					<div className="x" style={this.state.clearInterCodeStyle} onClick={this.clearInterCode}></div>
 				</div>
 				<Grid style={{marginTop:10,marginBottom:5}}>
