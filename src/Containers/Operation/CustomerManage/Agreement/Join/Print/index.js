@@ -47,7 +47,6 @@ export default class JoinPrint extends Component {
 		return (
 
 			<div className="print-section">
-			
 			<Agreement.Print.Header data={State.data} orderInfo="入驻服务协议"/>
 			<Agreement.Print.BaseInfo/>
 			<Agreement.Print.Station/>
@@ -59,7 +58,7 @@ export default class JoinPrint extends Component {
 				<span className="border-b two-text"></span>
 			</div>
 			<Agreement.Print.Footer/>
-			
+
       		</div>
 
 		);
