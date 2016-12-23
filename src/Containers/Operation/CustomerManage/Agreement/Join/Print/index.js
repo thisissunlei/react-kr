@@ -47,7 +47,7 @@ export default class JoinPrint extends Component {
 		return (
 
 			<div className="print-section">
-			
+
 			<Agreement.Print.Header data={State.data}/>
 			<Agreement.Print.BaseInfo/>
 			<Agreement.Print.Station/>
@@ -57,7 +57,7 @@ export default class JoinPrint extends Component {
 				<p></p>
 			</div>
 			<Agreement.Print.Footer/>
-			
+
       		</div>
 
 		);
