@@ -90,7 +90,7 @@ export default class Tooltip extends Component {
 			className+=' height';
 		}
 		if(place === 'right'){
-			style.right = '-'+ (width-5)+'px';
+			style.right = '-'+ (width-5 + offsetRight)+'px';
 			arrowName = 'right-arrow';
 			arrowContentName = 'right-arrows';
 			arrowStyle.borderRightColor = ShadowColor;
