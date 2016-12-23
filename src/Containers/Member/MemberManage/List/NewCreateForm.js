@@ -185,7 +185,13 @@ import imgLine from './images/line.png'
 		 }
 		 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
 				 //会员卡号已注册
- 				Message.warn('该会员卡号已被绑定','error');
+ 				
+ 				
+ 				if(response.phone !='-1'){
+ 					Message.warn('该会员卡号已被绑定','error');
+ 				}else{
+ 					Message.warn('该会员卡号未录入','error');
+ 				}
  				_this.setState({
  					onSubmitCode:false
  				})

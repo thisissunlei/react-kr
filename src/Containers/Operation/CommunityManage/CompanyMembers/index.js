@@ -163,7 +163,8 @@ export default class CompanyMembers extends Component {
 					pageSize:15,
 					companyId:_this.state.companyId,
 					leader:!_this.state.leader
-				}
+				},
+				seleced:[]
 			})
 
 			// window.setTimeout(function() {
@@ -355,7 +356,8 @@ export default class CompanyMembers extends Component {
 					companyId:_this.state.companyId,
 					leader:!_this.state.leader
 
-				}
+				},
+				seleced:[]
 			})
 
 
