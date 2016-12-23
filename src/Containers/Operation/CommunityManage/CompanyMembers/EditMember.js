@@ -101,7 +101,6 @@ export default class CreateMemberForm extends Component {
 				item.value = item.id;
 				item.label = item.jobName;
 			})
-			response.memberInfoVO.jobId = memberId.jobId;
 
 
 			_this.setState({
@@ -212,7 +211,7 @@ export default class CreateMemberForm extends Component {
 					<KrField name="phone" grid={1/2} label="手机号" inline={false} component="labelText" value={detail.phone} />
 					<div className="split-lines"></div>
 					<KrField name="communityId" grid={1/2} label="社区" inline={false} component="labelText" right={20} defaultValue={baseInfo.communityName} requireLabel={true}/>
-					<KrField name="foreignCode" grid={1/2} label="会员卡号" type="text" left={20} onBlur={this.foreignCodeBlur}  requireLabel={true} />
+					<KrField name="foreignCode" grid={1/2} label="会员卡号" type="text" left={20} onBlur={this.foreignCodeBlur}  />
 					<KrField name="companyId" grid={1/2} label="公司" inline={false} component="labelText" defaultValue={baseInfo.companyName}  right={20}  requireLabel={true}/>
 					<KrField name="email" grid={1/2} label="邮箱:" type="text" left={20}  onBlur={this.EmailonBlur}  requireLabel={true}/>
 					<KrField name="name" grid={1/2}  label="姓名" type="text" right={20}  requireLabel={true} />
@@ -267,15 +266,15 @@ const validate = values => {
     if (!phone.test(values.phone) ) {
         errors.phone = '请输入正确电话号';
     }
-    if (!code.test(values.foreignCode) ) {
+    if (values.foreignCode && !code.test(values.foreignCode) ) {
         errors.foreignCode = '会员卡号为10位纯数字';
     }
     if (!values.sendMsg ) {
         errors.sendMsg = '请选择是否发送验证短信';
     }
-    if (!values.foreignCode) {
-        errors.foreignCode = '请输入会员卡号';
-    }
+    // if (!values.foreignCode) {
+    //     errors.foreignCode = '请输入会员卡号';
+    // }
     
 	return errors
 }

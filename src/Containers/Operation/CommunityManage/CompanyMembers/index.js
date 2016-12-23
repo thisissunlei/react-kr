@@ -618,8 +618,8 @@ export default class CompanyMembers extends Component {
 			onClose={this.onSubmits}
 			contentStyle={{width:440}}>
 				<div>
-				<p style={{marginTop:55,marginBottom:59,textAlign:'center',color:'#333',fontSize:'14px'}}>请至少选择一个成员  </p>
-				<Grid style={{marginBottom:20}}>
+				<p style={{marginTop:45,marginBottom:49,textAlign:'center',color:'#333',fontSize:'14px'}}>请至少选择一个成员  </p>
+				<Grid style={{marginBottom:10}}>
 					<Row>
 						<ListGroup>
 							<ListGroupItem style={{width:'100%',textAlign:'center',padding:0}}><Button  label="确定" type="button"  onTouchTap={this.onSubmits} width={90} height={34}/></ListGroupItem>

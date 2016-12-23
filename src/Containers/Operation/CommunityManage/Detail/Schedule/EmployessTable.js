@@ -35,8 +35,10 @@ import {
 	KrField,
 	IframeContent,
 	Notify,
+	Message,
 	ButtonGroup
 } from 'kr-ui';
+import CreateMemberForm from './CreateMemberForm';
 
 class Distribution extends Component {
 	static PropTypes = {
@@ -442,6 +444,20 @@ export default class EmployessTable extends Component {
 
 		}
 	}
+	onNewCreateSubmit=(values)=>{
+		var _this = this;
+		Store.dispatch(Actions.callAPI('membersChange',{},values))
+		.then(function(response){
+			Message.success('成功');
+			_this.onClose();
+			// window.location.reload();
+			// window.location.href = "/#/community/companyMembers/" + _this.params.companyId + "/list/" + _this.params.communityId ;
+		}).catch(function(err){
+			Message.error(err.message);
+			_this.onClose();
+		});
+
+	}
 
 
 
@@ -458,8 +474,17 @@ export default class EmployessTable extends Component {
 		}
 		let {
 			optionValues
-		} = this.state;
 
+		} = this.state;
+		
+		let {
+			customerId,
+			communityId
+		} = this.state;
+		let params = {
+			communityId:communityId,
+			companyId:customerId
+		}
 		const ParamValues = {
 			communityIds: detail.communityId,
 			mainBillId: detail.billId
@@ -548,8 +573,10 @@ export default class EmployessTable extends Component {
 				onClose={this.onClose}
 				contentStyle={{width:620}}
 			>
+				<CreateMemberForm onSubmit={this.onNewCreateSubmit} params={params} onCancel={this.onClose} detail={this.state.itemDetail}/>
+			
 
-				<IframeContent  width={500} height={600} src={this.getStationUrl()}  onClose={this.onIframeClose}  />
+				{/*<IframeContent  width={500} height={600} src={this.getStationUrl()}  onClose={this.onIframeClose}  />*/}
 			</Dialog>
 
 		</div>
