@@ -254,9 +254,9 @@ const validate = values => {
 		errors.companyId = '请输入公司';
 	}
 
-	if (!values.jobId) {
-		errors.jobId = '请输入职位';
-	}
+	// if (!values.jobId) {
+	// 	errors.jobId = '请输入职位';
+	// }
 
 	if (!values.name) {
 		errors.name = '请输入姓名';
