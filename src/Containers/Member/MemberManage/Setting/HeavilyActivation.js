@@ -48,6 +48,7 @@ import './index.less';
 					endNum:nextProps.detail.endNum,
 					cardNum:nextProps.detail.endNum-nextProps.detail.startNum
 				})
+			console.log(nextProps.detail.startNum,'next')
 		}
 
 	}
@@ -120,7 +121,7 @@ import './index.less';
 		 	console.log("不存在")
 			return false;
 		 }
-		 if(isNaN(+card)){
+		 if(isNaN(card)){
 		 	console.log("不是数字")
 
 			 return false;
