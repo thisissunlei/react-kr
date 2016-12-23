@@ -146,7 +146,7 @@ class NewActivation extends Component {
 
 		return (
 
-			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:30}}>
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:0}}>
 
 				<KrField  right={27}  left={42} right={42} name="foreignCode" type="text" label="会员卡号" onBlur={this.foreignCodeBlur}/>
 				<div className="clearInterCode">

@@ -217,7 +217,7 @@ import './index.less';
 						<label className="jump" onClick={this.skipCard}>跳过该号码</label>
 				</div>
 				<div className="clearInterCode">
-					<KrField  left={71} right={71} name="interCode" component="input" type="text" onFocus={this.InterCodeFocus} onChange={this.cardChange}/>
+					<KrField  left={71} right={71} name="interCode" component="input" type="text" onFocus={this.InterCodeFocus} onChange={this.cardChange} autoFocus={true}/>
 					<div className="startX" style={this.state.clearInterCodeStyle} onClick={this.clearInterCode}></div>
 				</div>
 
