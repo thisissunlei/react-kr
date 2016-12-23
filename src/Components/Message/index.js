@@ -7,6 +7,7 @@ import Dialog from '../Dialog';
 
 let containerDOM = '';
 let shadowDOM = '';
+let containerWarnDOM = '';
 
 class Message extends Component{
 
@@ -117,14 +118,14 @@ function warnRender(messages,type,fn){
 		}else if(type == 'warn') {
 			className = 'warn';
 		}
-		console.log("className",'containerDOM',containerDOM);
-		console.log("!containerDOM",!containerDOM);
-		if(!containerDOM){
+		console.log("className",'containerWarnDOM',containerWarnDOM);
+		console.log("!containerDOM",!containerWarnDOM);
+		if(!containerWarnDOM){
 
 			shadowDOM = document.createElement('div');
 			shadowDOM.className = `${className} outer`;
-			containerDOM = document.createElement('div');
-			shadowDOM.appendChild(containerDOM);
+			containerWarnDOM = document.createElement('div');
+			shadowDOM.appendChild(containerWarnDOM);
 			document.body.appendChild(shadowDOM);
 		}
 			ReactDOM.render(<Warn messages={messages} className={className}/>, shadowDOM);
