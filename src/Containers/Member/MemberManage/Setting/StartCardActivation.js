@@ -120,10 +120,11 @@ import './index.less';
 				 	}
 				 }
 				 if (this.state.detail.startNum==this.state.detail.endNum) {
+				 	var oldNum=this.state.oldNum==0?this.state.oldNum:this.state.oldNum+1;
 					this.setState({
 	 				 	accomplish:true
 	 			 	})
-	 			 	Message.success((+this.state.oldNum)+1+"张会员卡激活成功！")
+	 			 	Message.success(oldNum+"张会员卡激活成功！")
 	 			 	this.onCancel();
 					detail.startNum=detail.endNum="0000000000"
 
