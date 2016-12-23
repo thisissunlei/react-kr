@@ -48,7 +48,7 @@ export default class JoinPrint extends Component {
 
 			<div className="print-section">
 			
-			<Agreement.Print.Header data={State.data}/>
+			<Agreement.Print.Header data={State.data} orderInfo="入驻服务协议"/>
 			<Agreement.Print.BaseInfo/>
 			<Agreement.Print.Station/>
 			<Agreement.Print.Payment/>

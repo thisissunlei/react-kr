@@ -23,11 +23,13 @@ import './index.less';
 
 export default class Initialize extends Component {
 	static defaultProps = {
-		Baseinfo: {}
+		Baseinfo: {},
+		orderInfo: ''
 	}
 
 	static propTypes = {
-		Baseinfo: React.PropTypes.object
+		Baseinfo: React.PropTypes.object,
+		orderInfo: React.PropTypes.string,
 	}
 	constructor(props, context) {
 		super(props, context);
@@ -36,7 +38,9 @@ export default class Initialize extends Component {
 
 
 	render() {
-
+		let {
+			orderInfo
+		} = this.props;
 		return (
 
 			<div className="ui-print-header">
@@ -48,7 +52,7 @@ export default class Initialize extends Component {
 						<span>创业大街社区</span>
 					</div>
 				</div>
-				<div className="print-title">入驻服务协议</div>
+				<div className="print-title">{orderInfo}</div>
 				<div className="print-QRCode">
 					
 				</div>	
