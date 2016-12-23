@@ -51,7 +51,7 @@ export default class JoinPrint extends Component {
 
 			<Agreement.Print.Header data={State.data} orderInfo="入驻服务意向书"/>
 			<Agreement.Print.BaseInfo/>
-			<Agreement.Print.Station/>
+			<Agreement.Print.Station orderTime={true}/>
 			<div className="station-after">
 				乙方应于_____年___月___日前与甲方签署《入驻服务协议》，该定金可直接冲抵履约保证金或首期服务费
 			</div>

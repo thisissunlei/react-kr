@@ -30,7 +30,8 @@ export default class Initialize  extends Component{
 	}
 
 	static propTypes = {
-		data: React.PropTypes.array
+		data: React.PropTypes.array,
+		orderTime:React.PropTypes.bool
 	}
 	initBasicClass=()=>{
 
@@ -84,7 +85,7 @@ export default class Initialize  extends Component{
 
 							</tbody>
 						</table>
-						<p className="station-bottom"><span>服务费总计</span><span>¥23456.45</span><span>贰叄肆伍陆</span><span>(签署意向书后5个工作日内支付)</span></p>
+						<p className="station-bottom"><span>服务费总计</span><span>¥23456.45</span><span>贰叄肆伍陆</span>{this.props.orderTime && <span>(签署意向书后5个工作日内支付)</span>}</p>
 
 					</div>
 
