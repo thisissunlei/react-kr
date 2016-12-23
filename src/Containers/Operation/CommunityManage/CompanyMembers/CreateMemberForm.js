@@ -262,7 +262,7 @@ import imgLine from './images/line.png'
 						<KrField name="sendMsg" grid={1/2} label="否" type="radio" value="0" />
               </KrField>
         <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" right={20}  onBlur={this.foreignCodeBlur}/>
-				<Grid style={{marginTop:30,marginBottom:20}}>
+				<Grid style={{marginTop:20,marginBottom:20}}>
 					<Row>
 							<ListGroup>
 								<ListGroupItem style={{width:'269px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"/></ListGroupItem>
