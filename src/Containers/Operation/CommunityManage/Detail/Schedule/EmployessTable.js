@@ -450,7 +450,7 @@ export default class EmployessTable extends Component {
 		.then(function(response){
 			Message.success('成功');
 			_this.onClose();
-			window.location.reload();
+			// window.location.reload();
 			// window.location.href = "/#/community/companyMembers/" + _this.params.companyId + "/list/" + _this.params.communityId ;
 		}).catch(function(err){
 			Message.error(err.message);
