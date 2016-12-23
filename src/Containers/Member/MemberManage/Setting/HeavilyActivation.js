@@ -120,7 +120,7 @@ import './index.less';
 		 	console.log("不存在")
 			return false;
 		 }
-		 if(isNaN(+card)){
+		 if(isNaN(card)){
 		 	console.log("不是数字")
 
 			 return false;
