@@ -256,7 +256,7 @@ import imgLine from './images/line.png'
 				<KrField grid={1/2} name="community" component="labelText" label="社区" inline={false}  defaultValue={communityName} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
         <KrField grid={1/2} name="email" type="text" label="邮箱"  left={20}  requireLabel={true} onBlur={this.EmailonBlur}/>
 				<KrField grid={1/2} name="company" inline={false} component="labelText" label="公司" defaultValue={this.props.detail.companyName} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
-        <KrField name="jobId"  grid={1/2} component="select" label="职位"  left={20} options={selectOption} style={{width:'288px'}}/>
+        <KrField name="jobId"  grid={1/2} component="select" label="职位"  left={20} options={selectOption} />
 				<KrField grid={1/2} name="name" type="text" label="姓名" right={20}  requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}}/>
 				<KrField grid={1/2} name="sendMsg" component="group" left={20}  label="发送验证短信" >
 						<KrField name="sendMsg" grid={1/2} label="是" type="radio" value="1" style={{marginRight:'50px'}}/>

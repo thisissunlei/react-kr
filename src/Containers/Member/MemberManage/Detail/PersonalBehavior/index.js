@@ -93,7 +93,7 @@ export default class PersonalBehavior extends Component {
 		let {searchParams}=this.state;
 			let start=Date.parse(dateFormat(searchParams.startTime,"yyyy-mm-dd hh:MM:ss"));
 			let end=Date.parse(dateFormat(endTime,"yyyy-mm-dd hh:MM:ss"));
-			if(start>end){
+			if(searchParams.startTime&&start>end){
 				Message.error("结束时间要小于开始时间");
 				return ;
 			}
