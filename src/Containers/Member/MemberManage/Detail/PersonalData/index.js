@@ -69,7 +69,7 @@ export default class BasicInfo extends Component {
 			}
 		return (
 
-			<div className='ui-detail-order'>
+			<div className='data-detail-order'>
 			           <KrField grid={1/3} alignRight={true} label="姓名:" component="labelText" value={baseInfo.name} defaultValue="无" style={{marginRight:"20px"}}/>
 
 			           <KrField grid={1/3}  alignRight={true} component="labelText"  label="微信:" value={baseInfo.wechatNick} defaultValue="无" />

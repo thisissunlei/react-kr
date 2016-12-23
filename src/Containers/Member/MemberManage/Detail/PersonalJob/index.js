@@ -41,7 +41,7 @@ export default class BasicInfo extends Component {
 		let workInfo = detail;
 		return (
 
-			<div className='ui-detail-order'>
+			<div className='personJob-detail-order'>
 
 
 			           <KrField grid={1/3} alignRight={true} label="职位:" component="labelText" value={workInfo.jobName} defaultValue="无" style={{marginRight:'20px'}}/>
