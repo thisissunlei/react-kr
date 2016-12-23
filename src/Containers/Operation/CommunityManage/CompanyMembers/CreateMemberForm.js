@@ -114,7 +114,7 @@ import imgLine from './images/line.png'
 		 Store.dispatch(Actions.callAPI('isPhoneRegistered',params)).then(function(response){
 			//  检验response是不是空对象
 				if(!$.isEmptyObject(response)){
-					response.sendMsg = '0';
+					response.sendMsg = '1';
 					Store.dispatch(initialize('NewCreateForm',response));
 					// console.log("response",response);
 					// 此处要有提示
@@ -132,7 +132,7 @@ import imgLine from './images/line.png'
 		 		phone:phone,
 		 		communityId:parseInt(_this.params.communityId),
 				companyId:parseInt(_this.params.companyId),
-				sendMsg:'0'
+				sendMsg:'1'
 		 	}
 		 	if(phoneSame){
 				Store.dispatch(initialize('NewCreateForm',response));
