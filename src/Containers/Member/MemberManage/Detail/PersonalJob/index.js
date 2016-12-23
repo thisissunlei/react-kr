@@ -14,17 +14,9 @@ import {
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import './index.less';
 import {
-	Button,
-	Section,
 	Grid,
-	Row,
-	Col,
-	Notify,
-	List,
-	ListItem,
 	KrField,
 	LabelText,
-	KrDate,
 } from 'kr-ui';
 export default class BasicInfo extends Component {
 	static contextTypes = {

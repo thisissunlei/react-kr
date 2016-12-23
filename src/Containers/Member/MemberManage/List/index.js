@@ -125,6 +125,7 @@ export default class List extends Component {
 		var url = `/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
 		window.location.href = url;
 	}
+    //提交编辑
 	onEditSubmit=(values)=>{
 		var _this = this;
 		Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
