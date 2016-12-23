@@ -143,17 +143,16 @@ class NewCreateForm extends Component{
 	 }
 	 onEndChange=(endTime)=>{
 		 let {searchParams}=this.state;
-			 let start=Date.parse(dateFormat(searchParams.startTime,"yyyy-mm-dd hh:MM:ss"));
-			 let end=Date.parse(dateFormat(endTime,"yyyy-mm-dd hh:MM:ss"));
-			 if(searchParams.startTime&&start>end){
+		 let start=Date.parse(dateFormat(searchParams.startTime,"yyyy-mm-dd hh:MM:ss"));
+		 let end=Date.parse(dateFormat(endTime,"yyyy-mm-dd hh:MM:ss"));
+		 if(searchParams.startTime&&start>end){
 				 Message.error("结束时间要小于开始时间");
 				 return ;
-			 }
-			 Store.dispatch(change('AdvancedQueryForm','endTime',endTime));
-			 searchParams = Object.assign({}, searchParams, {endTime});
-			 this.setState({
+		 }
+		 Store.dispatch(change('AdvancedQueryForm','endTime',endTime));			 searchParams = Object.assign({}, searchParams, {endTime});
+		 this.setState({
 				 searchParams
-			 });
+		 });
 	 }
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
