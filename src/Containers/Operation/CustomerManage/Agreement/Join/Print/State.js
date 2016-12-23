@@ -20,6 +20,7 @@ let State = observable({
 	data: [],
 	installmentPlans: [],
 	Baseinfo: {},
+	stationVOs: [],
 });
 
 //action
@@ -30,7 +31,6 @@ State.getBasicInfo = action(function(params) {
 	})).then(function(response) {
 		console.log('response----', response)
 		_this.Baseinfo = response.data;
-		_this.installmentPlans = response.data.installmentPlans;
 		_this.stationVOs = response.data.stationVOs;
 
 	}).catch(function(err) {
