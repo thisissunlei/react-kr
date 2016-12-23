@@ -89,6 +89,10 @@ import './index.less';
 		 	}else{
 
 		 	}
+		 	if(err.message=="Failed to fetch"){
+		 		Message.error("网络已断开");
+		 		return;
+		 	}
 			
 		 	_this.props.openMessageBar(err.message,"error");
 		 	setTimeout(function(){

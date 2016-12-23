@@ -69,6 +69,10 @@ export default class List extends Component {
 				className:'',
 				barStyle:{}
 			},
+			detail:{
+				startNum:"",
+				endNum:''
+			},
 			isHeavilyClose:true,
 
 
@@ -129,7 +133,18 @@ export default class List extends Component {
 			_this.onFlush();
 			Message.success("激活成功！")
 		}).catch(function(err) {
-			Message.error(err.message)
+			
+			if (err.message=="该会员卡已被录入") {
+		 		err.message="卡号"+_this.state.detail.startNum+"已存在请跳过！"
+		 	}else if(err.message=="改卡已被激活,请重刷"){
+		 		err.message="会员卡"+values.interCode+"已被激活，请重刷！"
+		 	}else{
+
+		 	}
+		 	if(err.message=="Failed to fetch"){
+		 		err.message="网络已断开";
+		 	}
+		 	Message.error(err.message);
 		});
 	}
 
@@ -141,7 +156,7 @@ export default class List extends Component {
 			Message.error('起始号码不能大于终止号码！')
 			return ;
 		}
-		this.setState({detail},function(){
+		this.setState({detail:detail},function(){
 
 				this.openHeavilyActivationDialog();
 				this.onStartCardActivation()

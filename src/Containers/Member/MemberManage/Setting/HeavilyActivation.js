@@ -34,41 +34,48 @@ import './index.less';
 	//数据的初始化设定
 	constructor(props){
 		super(props);
+		var detail= props.detail;
+		var startNum = props.detail.startNum||'';
+		var endNum = props.detail.endNum||'';
+		var cardNum=0;
+		if(startNum&&endNum){
+			cardNum=endNum-startNum;
+		}
 		this.state={
-			startNum:"",
-			endNum:"",
-			cardNum:0
+			startNum:startNum,
+			endNum:endNum,
+			cardNum:cardNum
 		}
-		
 	}
-	componentWillReceiveProps(nextProps){
-		//将外部数据赋值给一个变量
-		var {detail} = nextProps;
-		var startNum = '';
-		var endNum = '';
-		//detail必须为对象
-		if(typeof detail !== 'object'){
-			return ;
-		}
+	// componentWillReceiveProps(nextProps){
+	// 	//将外部数据赋值给一个变量
+	// 	var {detail} = nextProps;
+	// 	var startNum = '';
+	// 	var endNum = '';
+	// 	//detail必须为对象
+	// 	if(typeof detail !== 'object'){
+	// 		return ;
+	// 	}
 		
-		if( detail.hasOwnProperty('startNum') && detail.startNum){
-				startNum = detail.startNum;
-		}
+	// 	if( detail.hasOwnProperty('startNum') && detail.startNum){
+	// 			startNum = detail.startNum;
+	// 	}
 
-		if(detail.hasOwnProperty('endNum') && detail.endNum){
-			endNum = detail.endNum;
-		}
+	// 	if(detail.hasOwnProperty('endNum') && detail.endNum){
+	// 		endNum = detail.endNum;
+	// 	}
 
-		if(startNum && endNum){
-			this.setState({
-					startNum,
-					endNum,
-					cardNum:endNum-startNum
-				})
-		}
+	// 	if(startNum && endNum){
+	// 		return ;
+	// 		this.setState({
+	// 				startNum,
+	// 				endNum,
+	// 				cardNum:endNum-startNum
+	// 			})
+	// 	}
 
 
-	}
+	// }
 
 	 onSubmit=(values)=>{
 		const {onSubmit} = this.props;
@@ -112,7 +119,7 @@ import './index.less';
 					 cardNum:this.state.cardNum
 				 },function(){
 
-		 			console.log(this.state.startNum,this.state.endNum,"all")
+		 			console.log(this.state.startNum,"start",this.state.endNum,"end")
 
 					 _this.calCard();
 				 })
@@ -158,13 +165,15 @@ import './index.less';
 			pristine,
 			reset
 		} = this.props;
+		var cardNum=this.state.cardNum==0?this.state.cardNum:this.state.cardNum+1;
+		
 
 		return (
 			<form className="HeavilyActivation" onSubmit={handleSubmit(this.onSubmit)}>
 				<div className="stageImg" ></div>
 				<KrField style={{marginTop:20}} left={71} right={71} name="startNum" component="input" type="text" label="起始号码" onChange={this.handleStartBlur} />
 				<KrField style={{marginTop:5}} left={71} right={71} name="endNum" component="input" type="text" label="终止号码" onChange={this.handleEndBlur} />
-				<KrField style={{height:36,marginTop:-15}} left={71} right={71} component="labelText" label="会员卡数量:" value={this.state.cardNum+1+"张"}/>
+				<KrField style={{height:36,marginTop:-15}} left={71} right={71} component="labelText" label="会员卡数量:" value={cardNum+"张"}/>
 				<Grid style={{marginTop:15,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">
