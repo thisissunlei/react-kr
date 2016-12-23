@@ -23,11 +23,11 @@
 
  export default class Initialize extends Component {
  	static defaultProps = {
- 		data: []
+ 		Baseinfo: {},
  	}
 
  	static propTypes = {
- 		data: React.PropTypes.array
+ 		Baseinfo: React.PropTypes.object,
  	}
  	constructor(props, context) {
  		super(props, context);
@@ -36,23 +36,25 @@
 
 
  	render() {
-
+ 		let {
+ 			Baseinfo
+ 		} = this.props;
  		return (
 
  			<div className="ui-print-baseinfo">
 				<div className="baseinfo">基础信息</div>
 				<div className="baseinfo-content">
 					<div className="infolist">
-						<div>服务提供方（甲方）：氪空间（北京）信息技术有限公司</div>
-						<div>地址：北京中关村创业大街2号楼3层</div>
-						<div>联系人：胡涛</div>
-						<div>联系电话：18310933000</div>
+						<div>服务提供方（甲方）：{Baseinfo.lessorName}</div>
+						<div>地址：{Baseinfo.lessorAddress}</div>
+						<div>联系人：{Baseinfo.lessorContact}</div>
+						<div>联系电话：{Baseinfo.lessorContacttel}</div>
 					</div>
 					<div className="infolist">
-						<div>服务提供方（甲方）：氪空间（北京）信息技术有限公司</div>
-						<div>地址：北京中关村创业大街2号楼3层</div>
-						<div>联系人：胡涛</div>
-						<div>联系电话：18310933000</div>
+						<div>服务接收方（乙方）：{Baseinfo.leaseName}</div>
+						<div>地址：{Baseinfo.lesseAddress}</div>
+						<div>联系人：{Baseinfo.leaseContact}</div>
+						<div>联系电话：{Baseinfo.leaseContacttel}</div>
 					</div>
 				</div>
 			</div>
