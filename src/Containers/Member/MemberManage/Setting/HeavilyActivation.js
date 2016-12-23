@@ -42,7 +42,7 @@ import './index.less';
 		
 	}
 	componentWillReceiveProps(nextProps){
-
+		//将外部数据赋值给一个变量
 		var {detail} = nextProps;
 		var startNum = '';
 		var endNum = '';
@@ -65,7 +65,6 @@ import './index.less';
 					endNum,
 					cardNum:endNum-startNum
 				})
-			//console.log(nextProps.detail.startNum,'next')
 		}
 
 
