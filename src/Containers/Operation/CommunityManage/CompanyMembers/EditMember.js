@@ -220,7 +220,7 @@ export default class CreateMemberForm extends Component {
 						<Row>
 							<ListGroup>
 								<ListGroupItem style={{width:'269px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"   width={90} height={34}/></ListGroupItem>
-								<ListGroupItem style={{width:'250px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/> </ListGroupItem>
+								<ListGroupItem style={{width:'240px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/> </ListGroupItem>
 							</ListGroup>
 						  </Row>
 					</Grid>
@@ -275,7 +275,7 @@ const validate = values => {
     // if (!values.foreignCode) {
     //     errors.foreignCode = '请输入会员卡号';
     // }
-    
+
 	return errors
 }
 CreateMemberForm = reduxForm({

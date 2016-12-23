@@ -18,7 +18,6 @@ import {
 	Store
 } from 'kr/Redux';
 import dateFormat from 'dateformat';
-import './index.less';
 import {
 	Table,
 	TableBody,

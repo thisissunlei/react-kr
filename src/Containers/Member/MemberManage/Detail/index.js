@@ -25,7 +25,6 @@ export default class memberListDetail extends Component{
   }
   constructor(props, context) {
 		super(props, context);
-    // console.log("this.props",this.props);
     this.state = {
       isLeader:true,
 			params: {
@@ -37,11 +36,6 @@ export default class memberListDetail extends Component{
       baseInfo:{},
       companyInfo:{},
       workInfo:{}
-      // OrganizationChart:{
-      //   page:1,
-      //   pageSize:15,
-      //   companyId:1
-      // }
 		}
     this.getBasicData();
 

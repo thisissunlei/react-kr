@@ -45,45 +45,10 @@ export default class BasicInfo extends Component {
 		}
 	}
 	componentDidMount() {
-    // var _this=this;
-		// let {
-		// 	params,PersonalData
-		// } = this.props;
-		// let baseInfo = PersonalData;
-		// // 会员详情页－－－－基本信息数据
-		// Store.dispatch(Actions.callAPI('getMemberDetailData', {
-		// 	id:this.context.router.params.memberId
-		// })).then(function(response) {
-		// 	// console.log(response.baseInfo,"基本信息response.baseInfo");
-		// 	if(response.baseInfo.gender=="WOMAN"){
-		// 		response.baseInfo.gender  = "女";
-		// 	}else if(response.baseInfo.gender=="MAN"){
-		// 		 response.baseInfo.gender  = "男";
-		// 	}else{
-		// 		response.baseInfo.gender  = "保密";
-		// 	}
-		// 	if(response.baseInfo.maritalStatus=="MARRIED"){
-		// 		response.baseInfo.maritalStatus = "已婚";
-		// 	}else if(response.baseInfo.maritalStatus=="UNMARRIED"){
-		// 		response.baseInfo.maritalStatus = "未婚";
-		// 	}else{
-		// 		response.baseInfo.maritalStatus = "保密";
-		// 	}
-		// 	_this.setState({
-		// 		baseInfo:response.baseInfo,
-		// 	});
-		// }).catch(function(err) {
-		// 	Notify.show([{
-		// 		message: err.message,
-		// 		type: 'danger',
-		// 	}]);
-		// });
+
 	}
 
 	render() {
-		// const {
-		// baseInfo
-		// } = this.state;
 		let {
 			params,detail
 		} = this.props;
@@ -104,7 +69,7 @@ export default class BasicInfo extends Component {
 			}
 		return (
 
-			<div className='ui-detail-order'>
+			<div className='data-detail-order'>
 			           <KrField grid={1/3} alignRight={true} label="姓名:" component="labelText" value={baseInfo.name} defaultValue="无" style={{marginRight:"20px"}}/>
 
 			           <KrField grid={1/3}  alignRight={true} component="labelText"  label="微信:" value={baseInfo.wechatNick} defaultValue="无" />
