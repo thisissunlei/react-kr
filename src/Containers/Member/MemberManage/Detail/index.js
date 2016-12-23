@@ -72,7 +72,7 @@ export default class memberListDetail extends Component{
     if(isLeader){
       return (
         <Tabs>
-        <Tab label="个人资料1111">
+        <Tab label="个人资料">
             <div style={{background:"fff",height:'860'}}>
               <DotTitle title='基本信息' style={{marginBottom:'40'}}/>
                 <PersonalData  detail={this.state.baseInfo}/>
@@ -103,7 +103,7 @@ export default class memberListDetail extends Component{
     }else{
       return(
         <Tabs >
-        <Tab label="个人资料1111">
+        <Tab label="个人资料">
 
             <div style={{background:"fff",height:'860'}}>
               <DotTitle title='基本信息' style={{marginBottom:'40'}}/>
