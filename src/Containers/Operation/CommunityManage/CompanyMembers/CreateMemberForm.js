@@ -222,7 +222,7 @@ import imgLine from './images/line.png'
 				if(response.phone != '-1'){
 					Message.warn('此会员卡号已被绑定','error');
 					
-				}else if{
+				}else{
 					Message.warn('此会员卡号未录入','error');
 
 				}
