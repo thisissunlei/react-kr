@@ -160,7 +160,7 @@ export default class CancleLeader extends Component {
 					{fileName?<span className='file-name'>{fileName}</span>:''}
 					<span className='load-demo icon-template' onClick={this.onLoadDemo}>下载excel模板</span>
 				</div>
-				<Grid style={{marginTop:10}}>
+				<Grid style={{marginTop:10,marginBottom:6}}>
 					<Row>
 						<ListGroup>
 							<ListGroupItem style={{width:'180px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定导入" type="button" width={90} height={34} onClick={this.test}/></ListGroupItem>
