@@ -121,7 +121,7 @@ import './index.less';
 					this.setState({
 	 				 	accomplish:true
 	 			 	})
-	 			 	Message.success(this.state.oldNum+"张会员卡激活成功！")
+	 			 	Message.success((+this.state.oldNum)+"张会员卡激活成功！")
 	 			 	this.onCancel();
 					detail.startNum=detail.endNum="0000000000"
 
@@ -138,7 +138,7 @@ import './index.less';
 	 skipCard=()=>{
 	 	if (+this.state.detail.endNum!=0) {
 	 		 this.setState({
-	 		 	oldNum:this.state.oldNum-1
+	 		 	oldNum:(+this.state.oldNum)-1,
 	 		 })
 		 	this.cardNumAdd(4);
 		 }

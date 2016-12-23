@@ -68,7 +68,9 @@ export default class List extends Component {
 				style:{},
 				className:'',
 				barStyle:{}
-			}
+			},
+			isHeavilyClose:true,
+
 
 		}
 	}
@@ -125,7 +127,7 @@ export default class List extends Component {
 		Store.dispatch(Actions.callAPI('CardActivation', {}, params)).then(function(response) {
 			_this.openNewActivationDialog();
 			_this.onFlush();
-			Message.error("激活成功！")
+			Message.success("激活成功！")
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
@@ -134,6 +136,9 @@ export default class List extends Component {
 	//输入卡号的确定操作
 	onHeavilyActivation=(detail)=> {
 		if(!detail.startNum||!detail.endNum){
+			return ;
+		}else if(detail.endNum-detail.startNum<0){
+			Message.error('起始号码不能大于终止号码！')
 			return ;
 		}
 		this.setState({detail},function(){
@@ -235,7 +240,16 @@ export default class List extends Component {
 			}
 		})
 	}
-
+	isHeavilyCloseOk=()=>{
+		setState({
+			isHeavilyClose:true,
+		})
+	}
+	isHeavilyCloseNone=()=>{
+		setState({
+			isHeavilyClose:false,
+		})
+	}
 		render(){
 			
 			return(
@@ -313,7 +327,7 @@ export default class List extends Component {
 							bodyStyle={{paddingTop:45}}
 							contentStyle={{width:500}}
 						>
-							<HeavilyActivation detail={this.state.detail}  onSubmit={this.onHeavilyActivation} onCancel={this.openHeavilyActivationDialog}/>
+							<HeavilyActivation detail={this.state.detail}  onSubmit={this.onHeavilyActivation} onCancel={this.openHeavilyActivationDialog} isHeavilyCloseNone={this.isHeavilyCloseNone} isHeavilyCloseOk={this.isHeavilyCloseOk}/>
 					  </Dialog>
 
 						<Dialog
