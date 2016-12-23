@@ -10,7 +10,8 @@ import {
 	Col,
 	Button,
 	Notify,
-	ButtonGroup
+	ButtonGroup,
+	Message
 } from 'kr-ui';
 import './index.less';
 
@@ -38,17 +39,14 @@ import './index.less';
 			endNum:"",
 			cardNum:0
 		}
-		// const detail=props.detail;
-		// console.log(detail,"H");
-		//
-		// Store.dispatch(initialize('HeavilyActivation',detail));
+		
 	}
 	componentWillReceiveProps(nextProps){
 		if(nextProps.detail.startNum&&nextProps.detail.endNum){
 			this.setState({
 					startNum:nextProps.detail.startNum,
 					endNum:nextProps.detail.endNum,
-					cardNum:nextProps.detail.endNum-nextProps.detail.startNum+1
+					cardNum:nextProps.detail.endNum-nextProps.detail.startNum
 				})
 		}
 
@@ -66,48 +64,70 @@ import './index.less';
 
 
 	 handleStartBlur=(event)=>{
+
 		 var _this=this;
+		 console.log(event,"event")
+
+		
 		 if(this.isCard(event)){
+
 			 this.setState({
-				startNum:event,
+					startNum:event,
 					 endNum:this.state.endNum,
 					 cardNum:this.state.cardNum
 				 },function(){
+		 			console.log(this.state.startNum,this.state.endNum,"all")
 					 _this.calCard();
 				 })
 		 }
 
 	 }
 	 handleEndBlur=(event)=>{
+
 		 var _this=this;
+		 console.log(event,"event")
+		 console.log(this.isCard(event),"==")
 		 if(this.isCard(event)){
+		 	console.log(1)
 			 this.setState({
 					 startNum:this.state.startNum,
 					 endNum:event,
 					 cardNum:this.state.cardNum
 				 },function(){
+		 	console.log(2)
+
+		 			console.log(this.state.startNum,this.state.endNum,"all")
+
 					 _this.calCard();
 				 })
 		 }
 	 }
 	 //计算卡的多少
 	 calCard=()=>{
+	 	 
 		 if(this.state.startNum&&this.state.endNum){
+			
+
 			 this.setState({
 					 startNum:this.state.startNum,
 					 endNum:this.state.endNum,
-					 cardNum:this.state.endNum-this.state.startNum+1
+					 cardNum:this.state.endNum-this.state.startNum
 				 })
 		 }
 	 }
 	 isCard=(card)=>{
 		 if(!card){
-			 return false;
+		 	console.log("不存在")
+			return false;
 		 }
 		 if(isNaN(+card)){
+		 	console.log("不是数字")
+
 			 return false;
 		 }
 		 if(card.length!=10){
+		 	console.log("长度")
+
 			 return false;
 		 }
 		 return true;
@@ -124,8 +144,8 @@ import './index.less';
 		return (
 			<form className="HeavilyActivation" onSubmit={handleSubmit(this.onSubmit)}>
 				<div className="stageImg" ></div>
-				<KrField style={{marginTop:20}} left={71} right={71} name="startNum" component="input" type="text" label="起始号码" onBlur={this.handleStartBlur} />
-				<KrField style={{marginTop:5}} left={71} right={71} name="endNum" component="input" type="text" label="终止号码" onBlur={this.handleEndBlur} />
+				<KrField style={{marginTop:20}} left={71} right={71} name="startNum" component="input" type="text" label="起始号码" onChange={this.handleStartBlur} />
+				<KrField style={{marginTop:5}} left={71} right={71} name="endNum" component="input" type="text" label="终止号码" onChange={this.handleEndBlur} />
 				<KrField style={{height:36,marginTop:-15}} left={71} right={71} component="labelText" label="会员卡数量:" value={this.state.cardNum+"张"}/>
 				<Grid style={{marginTop:15,marginBottom:5}}>
 					<Row>
