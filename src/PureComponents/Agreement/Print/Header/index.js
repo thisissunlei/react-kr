@@ -20,6 +20,7 @@ import {
 	Col,
 } from 'kr-ui';
 import './index.less';
+import QRCode from 'react-qr-code';
 
 
 export default class Initialize extends Component {
@@ -56,7 +57,7 @@ export default class Initialize extends Component {
 				</div>
 				<div className="print-title">{orderInfo}</div>
 				<div className="print-QRCode">
-					
+					<QRCode value="key"  size={109}/>
 				</div>	
 			</div>
 		);
