@@ -42,14 +42,32 @@ import './index.less';
 		
 	}
 	componentWillReceiveProps(nextProps){
-		if(nextProps.detail.startNum&&nextProps.detail.endNum){
-			this.setState({
-					startNum:nextProps.detail.startNum,
-					endNum:nextProps.detail.endNum,
-					cardNum:nextProps.detail.endNum-nextProps.detail.startNum
-				})
-			console.log(nextProps.detail.startNum,'next')
+
+		var {detail} = nextProps;
+		var startNum = '';
+		var endNum = '';
+
+		if(typeof detail !== 'object'){
+			return ;
 		}
+		
+		if( detail.hasOwnProperty('startNum') && detail.startNum){
+				startNum = detail.startNum;
+		}
+
+		if(detail.hasOwnProperty('endNum') && detail.endNum){
+			endNum = detail.endNum;
+		}
+
+		if(startNum && endNum){
+			this.setState({
+					startNum,
+					endNum,
+					cardNum:endNum-startNum
+				})
+			//console.log(nextProps.detail.startNum,'next')
+		}
+
 
 	}
 
@@ -83,19 +101,17 @@ import './index.less';
 		 }
 
 	 }
-	 handleEndBlur=(event)=>{
+	 handleEndBlur=(value)=>{
 
 		 var _this=this;
-		 console.log(event,"event")
-		 console.log(this.isCard(event),"==")
-		 if(this.isCard(event)){
-		 	console.log(1)
+		 console.log(value,"value")
+		 console.log(this.isCard(value),"==")
+		 if(this.isCard(value)){
 			 this.setState({
 					 startNum:this.state.startNum,
-					 endNum:event,
+					 endNum:value,
 					 cardNum:this.state.cardNum
 				 },function(){
-		 	console.log(2)
 
 		 			console.log(this.state.startNum,this.state.endNum,"all")
 
@@ -105,18 +121,19 @@ import './index.less';
 	 }
 	 //计算卡的多少
 	 calCard=()=>{
+
+	 	var {startNum,endNum} = this.state;
 	 	 
-		 if(this.state.startNum&&this.state.endNum){
+		 if(startNum&&endNum){
 			
 
 			 this.setState({
-					 startNum:this.state.startNum,
-					 endNum:this.state.endNum,
-					 cardNum:this.state.endNum-this.state.startNum
+					 cardNum:endNum-startNum
 				 })
 		 }
 	 }
 	 isCard=(card)=>{
+	 
 		 if(!card){
 		 	console.log("不存在")
 			return false;
@@ -131,6 +148,7 @@ import './index.less';
 
 			 return false;
 		 }
+		 
 		 return true;
 	 }
 
