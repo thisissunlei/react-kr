@@ -84,6 +84,7 @@ export default class CompanyMembers extends Component {
 			batchDelet:false,
 			value:'',
 			leader:false,
+			name:'',
 			searchParams:{
 				page: 1,
 				companyId:this.companyId,
@@ -132,6 +133,9 @@ export default class CompanyMembers extends Component {
 	}
 	batchDelet=()=>{
 		let {seleced} = this.state;
+		this.setState({
+			name:'要删除的'
+		})
 		if(!seleced.length){
 			this.onSubmits();
 			return;
@@ -194,14 +198,17 @@ export default class CompanyMembers extends Component {
 		let {seleced} = this.state;
 		// console.log(seleced);
 		let list = [];
-		list = seleced.map((item)=>{
+		seleced.map((item)=>{
 			if(!item.checkStatus){
-				return item;
+				list.push(item);
 			}
-			return false;
 		})
-		// console.log(list);
-		if(!seleced.length && !this.state.validateMember){
+		this.setState({
+			seleced:list,
+			name:'未验证'
+		})
+		console.log(list);
+		if(!list.length && !this.state.validateMember){
 			this.onSubmits();
 			return;
 		}
@@ -462,15 +469,7 @@ export default class CompanyMembers extends Component {
 
 	render() {
 		let {itemDetail,seleced,open,title,allData} = this.state;
-		// let searchParams ={
-		// 	page:this.state.page,
-		// 	pageSize:this.state.pageSize,
-		// 	companyId:this.state.companyId,
-		// 	value:this.state.value
-
-		// }
-		let {searchParams} = this.state;
-		// console.log('state',searchParams);
+		let {searchParams,name} = this.state;
 		return (
 			<div style={{minHeight:910,background:'#fff'}}>
 
@@ -630,7 +629,7 @@ export default class CompanyMembers extends Component {
 			onClose={this.onSubmits}
 			contentStyle={{width:440}}>
 				<div>
-				<p style={{marginTop:45,marginBottom:49,textAlign:'center',color:'#333',fontSize:'14px'}}>请至少选择一个成员  </p>
+				<p style={{marginTop:45,marginBottom:49,textAlign:'center',color:'#333',fontSize:'14px'}}>请至少选择一个{name}成员  </p>
 				<Grid style={{marginBottom:6}}>
 					<Row>
 						<ListGroup>
