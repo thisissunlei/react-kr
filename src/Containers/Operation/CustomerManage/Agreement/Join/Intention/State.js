@@ -25,7 +25,7 @@ let State = observable({
 //action
 State.getBasicInfo = action(function(params) {
 	var _this = this;
-	Store.dispatch(Actions.callAPI('checkinagreement-print-info', {
+	Store.dispatch(Actions.callAPI('intentletter-print-info', {
 		contractId: params.id
 	})).then(function(response) {
 		console.log('response----', response)
