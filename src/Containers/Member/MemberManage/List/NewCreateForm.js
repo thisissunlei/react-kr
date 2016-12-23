@@ -198,10 +198,18 @@ import imgLine from './images/line.png'
 		 });
 	 }
 	 onChangeSearchCommunity(community) {
-		Store.dispatch(change('NewCreateForm', 'communityId', community.id));
+		let communityId="";
+		if(community!==null){
+			communityId = community.id;
+		}
+		Store.dispatch(change('NewCreateForm', 'communityId', communityId));
 	}
 	onChangeSearchCompany(company) {
-		Store.dispatch(change('NewCreateForm', 'companyId', company.id));
+		let companyId="";
+		if(company!==null){
+			companyId = company.id;
+		}
+		Store.dispatch(change('NewCreateForm', 'companyId', companyId));
 	}
 	render(){
 		const { error, handleSubmit, pristine, reset} = this.props;

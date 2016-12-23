@@ -68,7 +68,7 @@ class Warn extends Component{
     let {messages,className} = this.props;
 		let {isClassName}=this.state;
 		return (
-		<div className="shadows"><div className="container-warn">
+		<div className={`shadows ${className}`}><div className="container-warn">
         	<div className={`ui-messages message_box_warn ${className} ${isClassName?'exit':''}`}>
 				<span className={className} onTouchTap={this.onClose}></span>
 			<span>{messages}</span></div>
@@ -118,12 +118,10 @@ function warnRender(messages,type,fn){
 		}else if(type == 'warn') {
 			className = 'warn';
 		}
-		console.log("className",'containerWarnDOM',containerWarnDOM);
-		console.log("!containerDOM",!containerWarnDOM);
 		if(!containerWarnDOM){
 
 			shadowDOM = document.createElement('div');
-			shadowDOM.className = `${className} outer`;
+			shadowDOM.className = `outer`;
 			containerWarnDOM = document.createElement('div');
 			shadowDOM.appendChild(containerWarnDOM);
 			document.body.appendChild(shadowDOM);

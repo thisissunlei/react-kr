@@ -14,17 +14,9 @@ import {
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import './index.less';
 import {
-	Button,
-	Section,
 	Grid,
-	Row,
-	Col,
-	Notify,
-	List,
-	ListItem,
 	KrField,
 	LabelText,
-	KrDate,
 } from 'kr-ui';
 export default class BasicInfo extends Component {
 	static contextTypes = {
@@ -49,7 +41,7 @@ export default class BasicInfo extends Component {
 		let workInfo = detail;
 		return (
 
-			<div className='ui-detail-order'>
+			<div className='personJob-detail-order'>
 
 
 			           <KrField grid={1/3} alignRight={true} label="职位:" component="labelText" value={workInfo.jobName} defaultValue="无" style={{marginRight:'20px'}}/>

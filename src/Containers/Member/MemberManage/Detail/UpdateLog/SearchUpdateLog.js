@@ -24,9 +24,6 @@ import {
 	ListGroup,
 	ListGroupItem
 } from 'kr-ui';
-
-import './index.less';
-
 class SearchDateForm extends Component {
 
 	static PropTypes = {
