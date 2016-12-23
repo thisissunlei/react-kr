@@ -101,7 +101,6 @@ export default class CreateMemberForm extends Component {
 				item.value = item.id;
 				item.label = item.jobName;
 			})
-			response.memberInfoVO.jobId = memberId.jobId;
 
 
 			_this.setState({
