@@ -2167,7 +2167,7 @@
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.0.8.8@fbjs/lib/shallowEqual.js": {
+    "../node_modules/.0.8.6@fbjs/lib/shallowEqual.js": {
       "id": 178,
       "meta": {},
       "hasStarExport": false,
@@ -2407,7 +2407,7 @@
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.2.1.8@keycode/index.js": {
+    "../node_modules/.2.1.7@keycode/index.js": {
       "id": 18,
       "meta": {},
       "hasStarExport": false,
