@@ -44,7 +44,7 @@ import imgLine from './images/line.png'
 			jobId:'',
 			name:'',
 			foreignCode:'',
-			sendMsg:'0',
+			sendMsg:'1',
 			foreignCode:''
 		}
 		Store.dispatch(initialize('NewCreateForm',response));
@@ -102,7 +102,7 @@ import imgLine from './images/line.png'
 		 Store.dispatch(Actions.callAPI('isPhoneRegistered',params)).then(function(response){
 			//  检验response是不是空对象
 				if(!$.isEmptyObject(response)){
-					response.sendMsg = '0';
+					response.sendMsg = '1';
 					Store.dispatch(initialize('NewCreateForm',response));
 					// console.log("response",response);
 					// 此处要有提示
@@ -120,7 +120,7 @@ import imgLine from './images/line.png'
 		 		phone:phone,
 		 		communityId:'',
 				companyId:'',
-				sendMsg:'0'
+				sendMsg:'1'
 		 	}
 		 	if(phoneSame){
 				Store.dispatch(initialize('NewCreateForm',response));
@@ -225,7 +225,7 @@ import imgLine from './images/line.png'
 						<KrField name="sendMsg" grid={1/2} label="是" type="radio" value="1" style={{marginRight:'50'}}/>
 						<KrField name="sendMsg" grid={1/2} label="否" type="radio" value="0" />
               </KrField>
-        <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" requireLabel={true} onBlur={this.foreignCodeBlur} style={{width:'252px'}} />
+        <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" onBlur={this.foreignCodeBlur} style={{width:'252px'}} />
 
 				<Grid style={{marginTop:30,marginBottom:'20px'}}>
 					<Row>
@@ -274,17 +274,17 @@ const validate = values => {
     if (!phone.test(values.phone) ) {
         errors.phone = '请输入正确电话号';
     }
-    if (!code.test(values.foreignCode) ) {
-        errors.foreignCode = '会员卡号为10位纯数字';
-    }
+    // if (!code.test(values.foreignCode) ) {
+    //     errors.foreignCode = '会员卡号为10位纯数字';
+    // }
     if (!values.sendMsg ) {
         errors.sendMsg = '请选择是否发送验证短信';
 
   }
-  if (!values.foreignCode) {
-      errors.foreignCode = '请输入会员卡号';
-  }
-	if(!/^\d{10}$/.test(values.foreignCode)){
+  // if (!values.foreignCode) {
+  //     errors.foreignCode = '请输入会员卡号';
+  // }
+	if(values.foreignCode && !/^\d{10}$/.test(values.foreignCode)){
 		errors.foreignCode = '请填写10位纯数字会员卡号';
 	}
 
