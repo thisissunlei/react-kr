@@ -108,9 +108,8 @@ export default class Tooltip extends Component {
 
 		}
 		if(place === 'top'){
-			console.log('top-tooltop',offsetTop,height);
 			style.top = '-'+(-5+offsetTop)+'px';
-			// className += ' top-arrow';
+			className += ' top-arrow';
 
 		}
 		if(place === 'bottom'){
