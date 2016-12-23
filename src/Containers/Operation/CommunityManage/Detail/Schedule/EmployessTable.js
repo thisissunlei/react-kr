@@ -35,6 +35,7 @@ import {
 	KrField,
 	IframeContent,
 	Notify,
+	Message,
 	ButtonGroup
 } from 'kr-ui';
 import CreateMemberForm from './CreateMemberForm';
@@ -445,11 +446,15 @@ export default class EmployessTable extends Component {
 	}
 	onNewCreateSubmit=(values)=>{
 		var _this = this;
-			Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){
+		Store.dispatch(Actions.callAPI('membersChange',{},values))
+		.then(function(response){
 			Message.success('成功');
+			_this.onClose();
 			window.location.reload();
 			// window.location.href = "/#/community/companyMembers/" + _this.params.companyId + "/list/" + _this.params.communityId ;
 		}).catch(function(err){
+			Message.error(err.message);
+			_this.onClose();
 		});
 
 	}
