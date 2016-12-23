@@ -13,7 +13,7 @@ import {
 	Message,
 	SnackTip,
 	ListGroup,
-	ListGroupItem 
+	ListGroupItem
 } from 'kr-ui';
 import $ from 'jquery'
 import imgLine from './images/line.png'
@@ -219,7 +219,12 @@ import imgLine from './images/line.png'
 
 		 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
 				//会员卡号已注册
-				Message.warn('此会员卡号已被绑定','error');
+				if(response.phone != '-1'){
+					Message.warn('此会员卡号已被绑定','error');
+				}else{
+					Message.warn('此会员卡号未录入','error');
+
+				}
 				_this.setState({
 					onsubmitCode:false
 				})
@@ -313,7 +318,7 @@ const validate = values => {
     // if (!values.foreignCode) {
     //     errors.foreignCode = '请输入会员卡号';
     // }
-    
+
 	return errors
 }
 const selector = formValueSelector('NewCreateForm');

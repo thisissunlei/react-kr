@@ -25,11 +25,6 @@ export default class UpdateLog extends Component {
 		super(props, context);
 		this.onLoaded = this.onLoaded.bind(this);
 		this.state = {
-      // searchParams:{
-			// 	memberId:this.context.router.params.memberId,
-			// 	page:1,
-			// 	pageSize:15
-			// },
 			item: {},
 			list: {},
 			searchParams: {
@@ -42,10 +37,7 @@ export default class UpdateLog extends Component {
 		}
 	}
   onLoaded(response) {
-		// console.log("更新日志请求地址React.PropTypes",this.props.params.orderId);
-		// console.log('更新日志response',response);
 		let list = response;
-    // console.log(list,"更新日志list");
 		this.setState({
 			list
 		})
@@ -81,11 +73,9 @@ export default class UpdateLog extends Component {
 			list,
       searchParams,
 		} = this.state;
-		// console.log("list更新日志",list);
 		if (!list.totalCount) {
 			list.totalCount = 0;
 		}
-		// console.log(list,"list");
 
     return (
       <div style={{height:'860'}}>

@@ -185,7 +185,13 @@ import imgLine from './images/line.png'
 		 }
 		 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
 				 //会员卡号已注册
- 				Message.warn('该会员卡号已被绑定','error');
+ 				
+ 				
+ 				if(response.phone !='-1'){
+ 					Message.warn('该会员卡号已被绑定','error');
+ 				}else{
+ 					Message.warn('该会员卡号未录入','error');
+ 				}
  				_this.setState({
  					onSubmitCode:false
  				})
@@ -198,10 +204,18 @@ import imgLine from './images/line.png'
 		 });
 	 }
 	 onChangeSearchCommunity(community) {
-		Store.dispatch(change('NewCreateForm', 'communityId', community.id));
+		let communityId="";
+		if(community!==null){
+			communityId = community.id;
+		}
+		Store.dispatch(change('NewCreateForm', 'communityId', communityId));
 	}
 	onChangeSearchCompany(company) {
-		Store.dispatch(change('NewCreateForm', 'companyId', company.id));
+		let companyId="";
+		if(company!==null){
+			companyId = company.id;
+		}
+		Store.dispatch(change('NewCreateForm', 'companyId', companyId));
 	}
 	render(){
 		const { error, handleSubmit, pristine, reset} = this.props;

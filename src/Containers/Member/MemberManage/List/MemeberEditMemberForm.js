@@ -167,8 +167,13 @@ export default class MemeberEditMemberForm extends Component {
 					 onsubmitCode:true
 				 })
 				 return;
+			 }else if(response.phone == '-1'){
+				 Message.warn('会员卡号未录入','error');
+				 _this.setState({
+					 onsubmitCode:false
+				 })
 			 }else{
-				 Message.warn('会员卡号已注册','error');
+			 	Message.warn('会员卡号已注册','error');
 				 _this.setState({
 					 onsubmitCode:false
 				 })
@@ -219,7 +224,7 @@ export default class MemeberEditMemberForm extends Component {
 						<Row>
 							<ListGroup>
 								<ListGroupItem style={{width:'270px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"   width={90} height={34}/></ListGroupItem>
-								<ListGroupItem style={{width:'250px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/> </ListGroupItem>
+								<ListGroupItem style={{width:'240px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/> </ListGroupItem>
 							</ListGroup>
 						  </Row>
 					</Grid>

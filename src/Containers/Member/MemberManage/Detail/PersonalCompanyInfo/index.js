@@ -12,7 +12,6 @@ import {
 	Store
 } from 'kr/Redux';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
-import './index.less';
 import {
 	Button,
 	Section,
