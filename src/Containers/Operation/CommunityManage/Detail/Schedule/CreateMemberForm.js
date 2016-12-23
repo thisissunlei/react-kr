@@ -98,7 +98,7 @@ import imgLine from './images/line.png'
 				selectOption:response.jobList
 			})
 		 }).catch(function(err){
-			 reject(err);
+		 	console.log('ddddd');
 		 });
 	 }
 	//  输入手机号查看该手机号是否绑定
