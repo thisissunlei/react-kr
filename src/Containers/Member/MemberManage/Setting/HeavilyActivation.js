@@ -165,7 +165,10 @@ import './index.less';
 			pristine,
 			reset
 		} = this.props;
-		var cardNum=this.state.cardNum==0?this.state.cardNum:this.state.cardNum+1;
+		var cardNum=this.state.cardNum+1;
+		if(!this.state.startNum||!this.state.endNum){
+			cardNum=0;
+		}
 		
 
 		return (
