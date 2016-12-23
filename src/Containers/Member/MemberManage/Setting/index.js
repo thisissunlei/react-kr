@@ -124,7 +124,6 @@ export default class List extends Component {
 	//新建激活的确定操作
 	onNewActivation=(values)=> {
 		var _this=this;
-		console.log();
 		const params={};
 		params.foreignCode=values.foreignCode;
 		params.interCode=values.interCode;
