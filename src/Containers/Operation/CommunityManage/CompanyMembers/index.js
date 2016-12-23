@@ -90,6 +90,7 @@ export default class CompanyMembers extends Component {
 				pageSize: 15,
 			}
 		}
+		 Store.dispatch(Actions.navActive('plan_table'));
 
 
 	}
