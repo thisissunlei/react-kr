@@ -33,6 +33,7 @@ export default class TableFooter extends React.Component {
 		exportSwitch: React.PropTypes.bool,
 		onImport:React.PropTypes.func,
 		batchDelet:React.PropTypes.func,
+		renderOther:React.PropTypes.func,
 	}
 
 
@@ -139,18 +140,11 @@ export default class TableFooter extends React.Component {
 			<a style={{width:80,height:30,background:'#fff',color:'#499df1',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)',marginRight:20,border:'1px solid #499df1',cursor:'pointer'}}  onClick={this.batchDelet}>删除成员</a>
 		);
 	}
-	renderImport=()=>{
-		let {
-			onImport
-		} = this.props;
-
-		if (!onImport) {
-			return;
-		}
-
-		return (
-			<a style={{width:80,height:30,background:'#499df1',color:'#fff',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)',marginRight:20,cursor:'pointer'}}  onClick={this.onImport}>批量导入</a>
-		);
+	renderOther=()=>{
+		let {renderOther} = this.props;
+		renderOther && renderOther();
+		// return (<span>dddd</span>)
+		console.log('other',renderOther);
 	}
 
 	render() {
@@ -164,6 +158,7 @@ export default class TableFooter extends React.Component {
 			footer,
 			batchDelet,
 			onImport,
+			renderOther,
 			exportSwitch
 		} = this.props;
 
@@ -183,8 +178,7 @@ export default class TableFooter extends React.Component {
 				*/}
 				<TableRowColumn style={{textAlign:'left'}} colSpan={num}>
 					{this.renderExport()}
-					{this.renderImport()}
-                	{this.renderBatchDelet()}
+					{this.renderOther()}
 				</TableRowColumn>
 
 

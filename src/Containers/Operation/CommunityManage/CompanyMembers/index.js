@@ -444,6 +444,11 @@ export default class CompanyMembers extends Component {
 			}]);
 		});
 	}
+	renderOther=()=>{
+		return (
+			<span>dasdasdasdasddas</span>
+			)
+	}
 
 
 
@@ -550,7 +555,7 @@ export default class CompanyMembers extends Component {
 					 </TableRow>
 				</TableBody>
 
-				<TableFooter onImport={this.importData} batchDelet={this.batchDelet}>
+				<TableFooter onImport={this.importData} batchDelet={this.batchDelet} renderOther={this.renderOther}>
 				</TableFooter>
 
 				</Table>
