@@ -5,7 +5,9 @@ import {
 	default as Station
 } from './Station';
 
-
+import {
+	default as Intention
+} from './Intention';
 import {
 	default as Header
 } from './Header';
@@ -21,5 +23,6 @@ module.exports = {
 	Station,
 	Header,
 	Footer,
+	Intention,
 	BaseInfo
 }

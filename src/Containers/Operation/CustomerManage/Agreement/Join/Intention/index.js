@@ -47,13 +47,14 @@ export default class JoinPrint extends Component {
 		return (
 
 			<div className="print-section">
-			
+
 			<Agreement.Print.Header data={State.data}/>
 			<Agreement.Print.BaseInfo/>
 			<Agreement.Print.Station/>
-			
+			<Agreement.Print.Intention/>
+				
 			<Agreement.Print.Footer/>
-			
+
       		</div>
 
 		);
