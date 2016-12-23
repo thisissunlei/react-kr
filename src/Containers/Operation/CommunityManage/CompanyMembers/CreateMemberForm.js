@@ -221,7 +221,6 @@ import imgLine from './images/line.png'
 				//会员卡号已注册
 				if(response.phone != '-1'){
 					Message.warn('此会员卡号已被绑定','error');
-					
 				}else{
 					Message.warn('此会员卡号未录入','error');
 
