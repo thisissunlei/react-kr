@@ -178,6 +178,10 @@ export default class List extends Component {
 			_this.openEditDetailDialog();
 			_this.onFlush();
 		}).catch(function(err) {
+			if(err.message=="卡号错误"){
+				err.message="该卡号已存在"
+			}
+			
 			Message.error(err.message)
 		});
 
