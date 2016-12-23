@@ -69,10 +69,10 @@ export default class DialogBody extends Component {
 
 	render() {
 
-		const { children ,padding} = this.props;
+		const { children ,bodyStyle} = this.props;
 
 		return (
-				<div className="dialog-body" ref="dialogBody" style={{padding:padding}}>
+				<div className="dialog-body" ref="dialogBody" style={bodyStyle}>
 						{children}
 			</div>
 		);
