@@ -35,7 +35,7 @@ export default  class Input extends React.Component {
 				*/
 				errors:React.PropTypes.object,
 				onError:React.PropTypes.func,
-				autoFocus:React:PropTypes.bool,
+				autoFocus:React.PropTypes.bool,
 	}
 
 	constructor(props){
