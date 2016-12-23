@@ -138,6 +138,7 @@
     "object-assign": "4.1.0",
     "polyfills": "2.1.1",
     "react": "0.14.6",
+    "react-art": "^0.15.1",
     "react-dom": "0.14.6",
     "react-form": "0.0.2",
     "react-form-inputs": "0.0.1",
