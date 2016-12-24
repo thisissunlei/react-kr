@@ -59,6 +59,7 @@ import SwitchBtnForm from './SwitchBtnForm';
 import BusinessBtnForm from './BusinessBtnForm';
 import AccountBtnForm from './AccountBtnForm';
 import SupplementBtnForm from './SupplementBtnForm';
+import ShiftBtnForm from './ShiftBtnForm';
 import './index.less';
 
 
@@ -601,7 +602,6 @@ export default class AttributeSetting extends Component {
 
 	}
 	onConfrimSubmit(params) {
-		console.log('55555',params);
 		let {payWayList} = this.state;
 		params = Object.assign({}, params);
 			params.propJasonStr = {};
@@ -612,6 +612,8 @@ export default class AttributeSetting extends Component {
 							delete params[key];
 					}
 			});
+		params.propJasonStr[params.stationPaymentName]=params[params.stationPaymentName];
+		delete params[params.stationPaymentName];
 		var _this = this;
 		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd");
 		Store.dispatch(Actions.callAPI('onNewAccountg', {}, params)).then(function() {
