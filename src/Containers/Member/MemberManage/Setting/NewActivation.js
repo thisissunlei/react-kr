@@ -85,6 +85,7 @@ class NewActivation extends Component {
 
 	}
 	onSubmit(values) {
+		Message.error(values.xxx)
 		const {
 			onSubmit
 		} = this.props;
@@ -163,6 +164,8 @@ class NewActivation extends Component {
 						</Col>
 					</Row>
 				</Grid>
+				<KrField  right={27}  left={42} right={42} name="xxx" type="password" label="xxx" />
+
 			</form>
 		);
 	}
