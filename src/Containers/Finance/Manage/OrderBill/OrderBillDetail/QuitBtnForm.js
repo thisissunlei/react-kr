@@ -112,7 +112,7 @@ class QuitBtnForm extends Component {
 					     <form onSubmit={handleSubmit(this.onSubmit)}>
  
 						    <KrField name="id" type="hidden"/>
-						     <KrField grid={1/2} label="可操作金额"  component="labelText" value={initialValues.fiMoney} inline={false} defaultValue="无"/>
+						    <KrField grid={1/2} label="可操作金额"  component="labelText" value={initialValues.fiMoney} inline={false} defaultValue="无"/>
                             <KrField label="金额（元）"  grid={1/2} right={41}  name="finaflowamount" component="input" type="text" requireLabel={true} style={{marginLeft:-10}}/>
                              <KrField label="上传附件" grid={1/2} name="fileids" style={{marginLeft:-5}} component="file"/>
                             <KrField type="date" grid={1/2} label="退款日期" right={42} name="operatedate" requireLabel={true} style={{marginLeft:-6,marginTop:5}}/>    

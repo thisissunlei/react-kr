@@ -32,11 +32,9 @@ import {
 class ShiftBtnForm extends Component{
 
 	static PropTypes = {
-		onSubmit:React.PropTypes.func,
-		onCancel:React.PropTypes.func,
-		optionList:React.PropTypes.arr,
-		initialValues:React.PropTypes.object,
-  }
+		shiftData:React.PropTypes.arr,
+		initialValuesId:React.PropTypes.object,
+    }
 
 	constructor(props,context){
 		super(props, context);
@@ -49,8 +47,8 @@ class ShiftBtnForm extends Component{
 
 	componentDidMount() {
        let initialValues={
-       	 id:this.props.initialValues.id,
-       	 contractcodeId:'',
+       	flowId:this.props.initialValuesId.id, 
+       	preCode:'0'
        }
 	   Store.dispatch(initialize('shiftBtnForm',initialValues));
 		
@@ -74,63 +72,74 @@ class ShiftBtnForm extends Component{
     
 
 	render(){
-      
-     let heightStyle={
-       	 width:'546',
-       	 height:'72'
-       }
-	let style={
-       	 marginTop:'-18'
-       }
-
-        const { error, handleSubmit, pristine, reset,optionList,initialValues} = this.props;
+       
+        const { error, handleSubmit, pristine, reset,initialValuesId} = this.props;
 		
 
-        
+         let shiftData=[
+        {
+            "id":72726,"propname":"押金"
+        }, 
+         {
+            "id":727,"propname":"定金"
+        }, 
+        {
+            "id":725,"propname":"电费"
+        },  
+        ]
  
 		return(
+          <div style={{marginTop:'35px'}}>
+                 
+					    <form onSubmit={handleSubmit(this.onSubmit)} style={{marginLeft:'30px'}}>
+ 
+						    <KrField name="flowId" type="hidden"/>
+						    <KrField grid={1/2} label="可操作金额"  component="labelText" value={initialValuesId.fiMoney} inline={false} defaultValue="无"/>
+                            <KrField name="preCode" grid={1/2} left={30} component="group"   label="金额正负" style={{marginLeft:'-45px'}}>
+				                <KrField name="preCode" grid={1/2} right={30} label="正" component="radio" type="radio" value="1"/>
+				                <KrField name="preCode"  grid={1/2} left={30}label="负" component="radio" type="radio" value="0"/>
+			                </KrField>
+			                <KrField type="date" grid={1/2} label="转移日期" right={45} name="operatedate" /> 
+                             
+                             {shiftData.map((item,index)=>{
+						      	if(index%2==0){
+									return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={43}  style={{marginLeft:'-14px'}} label={item.propname} component="input" name={item.id} type="text"/>
+						      	}else{
+						      		return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={43}  label={item.propname}  component="input" name={item.id} type="text"/>
+						      	}
 
-			    <div className='ui-switch-wrap'>                 
-					      <form onSubmit={handleSubmit(this.onSubmit)}>                           
-						    <KrField  name="id" type="hidden"/>
-						    <KrField grid={1/2} label="可操作金额" right={29}  component="labelText" value={initialValues.fiMoney} defaultValue="无" inline={false}/>
-                            <KrField grid={1/2} label="合同编号" right={43} name="contractcodeId" type="select" options={optionList} requireLabel={true} style={{marginLeft:-9}}/>
-                            <KrField grid={1/2} label="上传附件" style={{marginLeft:-5}} name="fileids" component="file"/>
-                            <KrField label="备注" style={style} name="finaflowdesc" heightStyle={heightStyle} component="textarea" type="text" placeholder='请输入备注,文字不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/>
-                            
+						      }
+                             )}
+                             <KrField label="上传附件" grid={1/2} name="fileids" style={{marginLeft:-5}} component="file"/>
+                          
+                       
+                           
 
-						   <Grid style={{marginBottom:5,marginLeft:-30}}>
-						<Row>
-							<Col md={12} align="center">
-								<ButtonGroup>
-									<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div> 
-									<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />
-								</ButtonGroup>
-							</Col>
-						</Row>
-					</Grid>
-               </form>
-			</div>		
+				
+						   <Grid style={{marginTop:0,marginBottom:5,marginLeft:-30}}>
+							<Row>
+								<Col md={12} align="center">
+									<ButtonGroup>
+										<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm/></div>
+										<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
+									</ButtonGroup>
+								</Col>
+							</Row>
+						</Grid>
 
+					   
+                    </form>
+			   </div>
+			   
 		);
 
 	}
 
 }
 
-const validate = values =>{
-
-		const errors = {}
-
-		if(!values.contractcodeId){
-			errors.contractcodeId = '请填写合同编号';
-		}
-	
-		return errors
-	}
 
 
-export default reduxForm({form:'shiftBtnForm',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(ShiftBtnForm);
+export default reduxForm({form:'shiftBtnForm',enableReinitialize:true,keepDirtyOnReinitialize:true})(ShiftBtnForm);
 
 
 

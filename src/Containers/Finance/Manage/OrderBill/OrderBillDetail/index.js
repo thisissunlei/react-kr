@@ -199,6 +199,9 @@ export default class AttributeSetting extends Component {
 			accountDetail:[],
 			contractList:[],
 			stationPayment:{},
+
+			//转移
+			shiftData:[],
             
 
 
@@ -209,6 +212,7 @@ export default class AttributeSetting extends Component {
 			openBusinessBtn: false,
 			openAddaccountBtn: false,
 			openSupplementBtn: false,
+			openShift:false,
 			isLoading: true,
 			isInitLoading: true,
 			openView: false,
@@ -389,7 +393,6 @@ export default class AttributeSetting extends Component {
 				list.label = item.accountname;
 				contractList.push(list);
 			});
-			
 			_this.setState({
 				payWayList,
 				accountDetail:response.propData,
@@ -425,6 +428,39 @@ export default class AttributeSetting extends Component {
 			openView: !this.state.openView
 		});
 	}
+	openShiftBtn=()=>{
+	    var _this = this;
+		let items = this.state.selectedList
+		items.map(function(item, index) {
+			if (typeof(item.finaflowAmount) == 'number') {
+				fiMoney = item.finaflowAmount;
+				fiItem = item;
+			}
+		})	
+        if (this.state.listValues.length == 0) {
+			Message.error('请选择一条数据进行转移');
+		} else if (this.state.listValues.length > 1) {
+			Message.error('只能选择一条数据');
+		} else if (fiMoney >= 0) {
+			Message.error('金额必须为负且存在可用金额');
+		} else {
+			  this.setState({
+				openShift:!this.state.openShift
+			  });	
+			  Store.dispatch(Actions.callAPI('getTransferData', {
+					flowId:fiItem.id,
+					mainbillId: _this.props.params.orderId
+				})).then(function(response) {
+			  	  _this.setState({
+					shiftData:response.propData,
+					fiMoney:response.remainMoney
+				  })
+				}).catch(function(err) {
+					  //Message.error(err.message); 
+				});
+		   
+	        }
+        }
 
 	//关闭遮罩层区域
 	closeReceivedDialog() {
@@ -470,6 +506,11 @@ export default class AttributeSetting extends Component {
 		this.setState({
 			openView: !this.state.openView,
 		});
+	}
+	closeShiftBtn=()=>{
+		 this.setState({
+			openShift: !this.state.openShift
+	     });	  
 	}
 
 	//确定提交区域
@@ -603,6 +644,7 @@ export default class AttributeSetting extends Component {
 	}
 	onConfrimSubmit(params) {
 		let {payWayList} = this.state;
+		console.log('eeeee',payWayList);
 		params = Object.assign({}, params);
 			params.propJasonStr = {};
 			payWayList.map(function(item,index){
@@ -646,6 +688,29 @@ export default class AttributeSetting extends Component {
 		if (type == 'view') {
 			this.openViewDialog(itemDetail);
 		}
+	}
+	onShiftBtnSubmit=(params)=>{
+       let {shiftData} = this.state;
+		params = Object.assign({}, params);
+			params.propJasonStr = {};
+			shiftData.map(function(item,index){
+					var key = item.id;
+					if(params.hasOwnProperty(key) && params[key]){
+							params.propJasonStr[key] = params[key];
+							delete params[key];
+					}
+			});
+		var _this = this;
+		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd");
+		Store.dispatch(Actions.callAPI('transferPayment', {}, params)).then(function() {
+			_this.refresh();
+		}).catch(function(err) {
+			  Message.error(err.message); 
+		});
+		this.setState({
+			openShift: !this.state.openShift,
+			isLoading: true,
+		})
 	}
 
 	//
@@ -725,9 +790,7 @@ export default class AttributeSetting extends Component {
 			})).then(function(response) {
 			    setTimeout(function(){
                    _this.setState({
-
 				     isRunningIncome:2,
-
 				     colorClassName:'historyIncomeGray'
 			        });
 			    },1000)
@@ -818,6 +881,7 @@ export default class AttributeSetting extends Component {
 			isInitLoading,
 			colorClassName,
 			fiMoney,
+			shiftData,
 			stationPayment
 		} = this.state;
 
@@ -852,40 +916,47 @@ export default class AttributeSetting extends Component {
 		var buttonArr = [];
 		if (parentBtn == 'PAYMENT' && childBtn == 'basic') {
 			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-       	   	  <Button label="退款"   type="button" joinEditForm onTouchTap={this.openQuitBtn}/></ButtonGroup>);
+       	   	  <Button label="退款"   type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
+       	   	  <Button label="转移"   type="button"  onTouchTap={this.openShiftBtn}/></ButtonGroup>);
 		}
 		if (parentBtn == 'PAYMENT' && childBtn == 'dingjin') {
 			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
        	   	  <Button label="转押金"  type="button"  joinEditForm onTouchTap={this.openSwitchBtn}/>
-       	   	  <Button label="转营收"  type="button" joinEditForm onTouchTap={this.openBusinessBtn}/></ButtonGroup>);
+       	   	  <Button label="转营收"  type="button" joinEditForm onTouchTap={this.openBusinessBtn}/>
+       	   	   <Button label="转移"   type="button"  onTouchTap={this.openShiftBtn}/></ButtonGroup>);
 		}
 		if (parentBtn == 'PAYMENT' && childBtn == 'yajin') {
 			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
        	   	  <Button label="转押金"  type="button"  joinEditForm onTouchTap={this.openSwitchBtn}/>
        	   	  <Button label="转营收"  type="button"  joinEditForm onTouchTap={this.openBusinessBtn}/>
-       	   	  <Button label="退款"  type="button"  joinEditForm onTouchTap={this.openQuitBtn}/></ButtonGroup>);
+       	   	  <Button label="退款"  type="button"  joinEditForm onTouchTap={this.openQuitBtn}/>
+       	   	   <Button label="转移"   type="button"  onTouchTap={this.openShiftBtn}/></ButtonGroup>);
 		}
 		if (parentBtn == 'PAYMENT' && childBtn == 'gongweihuikuan') {
 			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
        	   	  <Button label="转营收"  type="button"  joinEditForm onTouchTap={this.openBusinessBtn}/>
-       	   	  <Button label="退款"  type="button"  joinEditForm onTouchTap={this.openQuitBtn}/></ButtonGroup>);
+       	   	  <Button label="退款"  type="button"  joinEditForm onTouchTap={this.openQuitBtn}/>
+       	   	   <Button label="转移"   type="button"  onTouchTap={this.openShiftBtn}/></ButtonGroup>);
 		}
 		if (parentBtn == 'PAYMENT' && childBtn == 'qitahuikuan') {
 			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
 
        	   	  <Button label="转押金"  type="button"  joinEditForm onTouchTap={this.openSwitchBtn}/>
        	   	  <Button label="转营收"  type="button" joinEditForm onTouchTap={this.openBusinessBtn}/>
-       	   	  <Button label="退款"  type="button"  joinEditForm onTouchTap={this.openQuitBtn}/></ButtonGroup>);
+       	   	  <Button label="退款"  type="button"  joinEditForm onTouchTap={this.openQuitBtn}/>
+       	   	   <Button label="转移"   type="button"  onTouchTap={this.openShiftBtn}/></ButtonGroup>);
 		}
 		if (parentBtn == 'PAYMENT' && childBtn == 'yingshouhuikuan') {
-			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/></ButtonGroup>
+			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
+				 <Button label="转移"   type="button"  onTouchTap={this.openShiftBtn}/></ButtonGroup>
 
 			);
 		}
 		if (parentBtn == 'PAYMENT' && childBtn == 'shenghuoxiaofeihuikuan') {
 			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
 
-       	   	  <Button label="退款"  type="button" joinEditForm onTouchTap={this.openQuitBtn}/></ButtonGroup>);
+       	   	  <Button label="退款"  type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
+       	   	   <Button label="转移"   type="button"  onTouchTap={this.openShiftBtn}/></ButtonGroup>);
 		}
 		if (parentBtn == 'INCOME' && childBtn == 'basic') {
             buttonArr.push(<ButtonGroup><Button label="挂账" type="button" joinEditForm onTouchTap={this.openAccountBtn}/></ButtonGroup>);
@@ -905,7 +976,8 @@ export default class AttributeSetting extends Component {
 		}
 		if (parentBtn == 'PAYMENT' && propInfo == 'NEW') {
 			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-       	   	  <Button label="退款" type="button" joinEditForm onTouchTap={this.openQuitBtn}/></ButtonGroup>);
+       	   	  <Button label="退款" type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
+       	   	   <Button label="转移"   type="button"  onTouchTap={this.openShiftBtn}/></ButtonGroup>);
 		}
 		if (parentBtn == 'INCOME' && propInfo == 'NEW') {
 			buttonArr.push(<ButtonGroup><Button label="挂账"  type="button" joinEditForm onTouchTap={this.openAccountBtn}/></ButtonGroup>);
@@ -1004,6 +1076,16 @@ export default class AttributeSetting extends Component {
 						>
 					   <QuitBtnForm  onSubmit={this.onQuitSubmit} onCancel={this.closeQuitBtn}  initialValues={initialValuesId}/>
 					 </Dialog>
+
+					 <Dialog
+						title="添加转移"
+						open={this.state.openShift}
+						onClose={this.closeShiftBtn}
+						contentStyle ={{ width: '688'}}
+						>
+					   <ShiftBtnForm onSubmit={this.onShiftBtnSubmit}  onCancel={this.closeShiftBtn} initialValuesId={initialValuesId} shiftData={shiftData} />
+					 </Dialog>
+
 
 					 <Dialog
 						title="转押金"

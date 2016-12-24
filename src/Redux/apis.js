@@ -489,6 +489,16 @@
  		url: '/mockjsdata/18/krspace-op-web/finaccount/data/getFlowRemainMoney?flowId={flowId}',
  		method: 'get'
  	},
+ 	//订单明细账－二期－点击转移加载数据
+   'getTransferData': {
+ 		url: '/mockjsdata/18/krspace-op-web/finaccount/data/getTransferData?flowId={flowId}&mainbillId={mainbillId}',
+ 		method: 'get'
+ 	},
+ 	//订单明细账－二期－转移确定
+   'transferPayment': {
+ 		url: '/mockjsdata/18/krspace-op-web/finaccount/opt/transferPayment',
+ 		method: 'post'
+ 	},
  }
 
 
