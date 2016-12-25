@@ -41,12 +41,20 @@ export default class OrderCreate extends Component {
 		this.isOk = false;
 
 		this.state = {
-			loading: true,
-			communityOptions: [],
-			initialValues: {},
-			orderTypeOptions: [],
-
-
+			loading:true,
+			communityOptions:[],
+			initialValues:{},
+			orderTypeOptions:[
+								{value:'',label:'请选择类型'},
+					  		{value:'STATION',label:'工位服务订单'},
+					  		{value:'INCUBAZION',label:'孵化订单'},
+					  		{value:'REGISTER',label:'注册订单'},
+					  		{value:'INCUSTOM',label:'场内消费订单'},
+					  		{value:'ACTIVITY',label:'广告订单'},
+					  		{value:'ADDEDSERVICE',label:'增值服务订单'},
+					  		{value:'TRAINING',label:'培训订单'},
+					  		{value:'OTHER',label:'其他服务订单'}
+					  	]
 		}
 		Store.dispatch(Actions.switchSidebarNav(false));
 		Store.dispatch(Actions.switchHeaderNav(false));
@@ -104,32 +112,23 @@ export default class OrderCreate extends Component {
 		var _this = this;
 		let communityOptions = [];
 		let initialValues = {};
-		let orderTypeOptions = [];
-		Store.dispatch(Actions.callAPI('community-city-selected', {}, {})).then(function(response) {
-			communityOptions = response.communityCity.map((item) => {
-				item.value = String(item.communityId);
-				item.label = item.communityName;
-				return item;
-			});
 
-			orderTypeOptions = response.sysDicPayments.map((item) => {
-				item.value = item.id;
-				item.label = item.dicName;
-				return item;
-			});
+		Store.dispatch(Actions.callAPI('community-city-selected',{},{})).then(function(communityOptions){
+			communityOptions = communityOptions.map((item)=>{
+		  		item.value = String(item.communityId);
+		  		item.label = item.communityName;
+		  		return item;
+		  	});
 
-			_this.setState({
-				communityOptions: communityOptions,
-				orderTypeOptions: orderTypeOptions
-			})
+		  	_this.setState({
+		  		communityOptions
+		  	})
+		 }).catch(function(err){ });
 
 
-		}).catch(function(err) {});
-
-
-		Store.dispatch(Actions.callAPI('get-simple-order', {
-			mainBillId: this.context.params.oriderId
-		}, {})).then(function(response) {
+		Store.dispatch(Actions.callAPI('get-simple-order',{
+			mainBillId:this.context.params.orderId
+		},{})).then(function(response){
 			let initialValues = {};
 			initialValues = response;
 			initialValues.communityid = String(initialValues.communityid);
@@ -165,7 +164,7 @@ export default class OrderCreate extends Component {
 			<div>
 
 		<OrderEditForm onSubmit={this.onSubmit} communityOptions={communityOptions} initialValues={initialValues} orderTypeOptions={orderTypeOptions} onCancel={this.onCancel}/>
-			
+
 	 </div>
 		);
 	}

@@ -130,7 +130,7 @@ export default  class Input extends React.Component {
 		let  classNames = ClassNames('ui-input',className);
 
 		if(disabled){
-		  	classNames = ClassNames('ui-input',className,'disabled');
+		  	classNames = ClassNames('ui-input',className,'input-disabled');
 		}
 
 		return (

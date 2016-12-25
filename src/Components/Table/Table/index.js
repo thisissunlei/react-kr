@@ -469,6 +469,7 @@ export default class Table extends React.Component {
 				onSelectAll: this.onSelectAll,
 				defaultValue: this.state.defaultValue,
 				onSort: this.onSort,
+				allRowsSelected: this.state.allRowsSelected,
 			}
 		);
 	}

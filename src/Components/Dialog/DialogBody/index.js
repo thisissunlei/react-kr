@@ -14,8 +14,7 @@ export default class DialogBody extends Component {
 
 	componentDidMount(){
 
-      window.setTimeout(function(){
-
+    window.setTimeout(function(){
 			this.initializeDialogBodyStyles();
       }.bind(this),200);
 

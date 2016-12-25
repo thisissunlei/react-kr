@@ -21,6 +21,7 @@ import LabelTextComponent from './LabelTextComponent';
 import GroupComponent from './GroupComponent';
 import CityComponent from './CityComponent';
 import EditLabelTextComponent from './EditLabelTextComponent';
+import GroupCheckboxComponent from './GroupCheckboxComponent';
 
 
 export default class KrField extends React.Component {
@@ -85,6 +86,13 @@ export default class KrField extends React.Component {
 				<LabelTextComponent {...this.props} style={WrapStyles} colorStyle={colorStyle}/>
 			);
 		}
+
+		if (component === 'groupCheckbox') {
+			return (
+					<Field {...this.props} component={GroupCheckboxComponent}  style={WrapStyles}/>
+			);
+		}
+
 
 		if (component === 'editLabelText' || type == 'editLabelText') {
 			return (

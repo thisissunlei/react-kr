@@ -565,7 +565,7 @@ export default class AttributeSetting extends Component {
 			delete params.gongweihuikuan;
 			delete params.qitahuikuan;*/
 		}
-		params.receiveDate = dateFormat(params.receiveDate, "yyyy-mm-dd h:MM:ss");
+		params.receiveDate = dateFormat(params.receiveDate, "yyyy-mm-dd hh:MM:ss");
 		var _this = this;
 		Store.dispatch(Actions.callAPI('receiveMoney', {}, params)).then(function(response) {
 			_this.refresh();
@@ -584,7 +584,7 @@ export default class AttributeSetting extends Component {
 	onQuitSubmit(params) {
 		var _this = this;
 		params = Object.assign({}, params);
-		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd h:MM:ss");
+		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
 		Store.dispatch(Actions.callAPI('payBack', {}, params)).then(function(response) {
 			_this.refresh();
 		}).catch(function(err) {

@@ -35,43 +35,24 @@ export default class KrCheckbox extends Component{
 	constructor(props){
 		super(props);
 
-		this.onCheck = this.onCheck.bind(this);
-
-		this.state = {
-			checked:this.props.checked
-		}
-
 	}
 
-  componentWillReceiveProps(nextProps) {
-		if(nextProps.checked !== this.props.checked){
-			  this.setState({
-					checked:nextProps.checked
-				});
-		}
-	}
-
-	onCheck(){
+	onCheck = ()=>{
 
 		let {readOnly} = this.props;
 
 		if(readOnly){
 				return ;
 		}
-
-		this.setState({
-			checked:!this.state.checked
-		});
-
-		const {onCheck} = this.props;
-		onCheck && onCheck();
+		const {onCheck,checked} = this.props;
+		onCheck && onCheck(!checked);
 
 	}
 
 
 	render(){
 
-		let {checked} = this.state;
+		let {checked} = this.props;
 		let {label} = this.props;
 
 		return (
