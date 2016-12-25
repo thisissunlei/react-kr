@@ -38,7 +38,8 @@ import {
 	FieldControl,
 	InputDate,
 	SnackTip,
-	CircleStyle
+	CircleStyle,
+	Drawer
 } from 'kr-ui';
 
 import {
@@ -68,7 +69,8 @@ export default class Demo extends Component {
 		super(props, context);
 
 		this.state = {
-			userNameDefaultValue: ''
+			userNameDefaultValue: '',
+			open:false
 		}
 
 	}
@@ -100,11 +102,21 @@ export default class Demo extends Component {
 	}
     
    
-
+   click=()=>{
+    this.setState({
+		 open:!this.state.open
+	 }); 
+   }
 
 	render() {
 		return (
 			<div>
+                   <Drawer open={this.state.open} width={200} openSecondary={true}>
+                     <div onClick={this.click}>eerer</div>
+                   </Drawer>
+
+                   <div onClick={this.click}>wsl</div>
+
 			        <SnackTip style={{'background':'#499df1'}}  open={true} title='123'/>
 
 					<Section title="demo" description="" >

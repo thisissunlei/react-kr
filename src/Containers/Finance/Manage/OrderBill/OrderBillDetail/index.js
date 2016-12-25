@@ -40,7 +40,8 @@ import {
 	Title,
 	Tooltip,
 	SnackTip,
-    Message
+    Message,
+    Drawer
 } from 'kr-ui';
 import {
 	reduxForm,
@@ -60,6 +61,7 @@ import BusinessBtnForm from './BusinessBtnForm';
 import AccountBtnForm from './AccountBtnForm';
 import SupplementBtnForm from './SupplementBtnForm';
 import ShiftBtnForm from './ShiftBtnForm';
+import ReceiveDetailTop from './ReceiveDetailTop';
 import './index.less';
 
 
@@ -216,6 +218,7 @@ export default class AttributeSetting extends Component {
 			isLoading: true,
 			isInitLoading: true,
 			openView: false,
+			openRight:true,
             colorClassName:'',
             isRunningIncome:0,
 		}
@@ -248,36 +251,15 @@ export default class AttributeSetting extends Component {
 	}
 	openReceivedBtn() {
 		var _this = this;
-		Store.dispatch(Actions.callAPI('findAccountAndPropList', {
-			accountType: 'PAYMENT'
+		Store.dispatch(Actions.callAPI('getPaymentActData', {
+			mainbillId: _this.props.params.orderId
 		})).then(function(response) {
-
-			var receivedList = [];
-			var typeList = [];
-
-			response.account.map(function(item, index) {
-				var list = {}
-				list.value = item.id;
-				list.label = item.accountname;
-				receivedList.push(list);
-			});
-
-			response.property.map(function(item, index) {
-				var list = {}
-				list.value = item.propcode;
-				list.label = item.propname;
-				typeList.push(list);
-			});
-
-			_this.setState({
-				receivedList,
-				typeList
-			});
+             
 		}).catch(function(err) {
 			  Message.error(err.message); 
 		});
 		this.setState({
-			openReceivedBtn: !this.state.openReceivedBtn,
+			openRight: !this.state.openRight,
 		});
 	}
 	openQuitBtn() {
@@ -874,6 +856,91 @@ export default class AttributeSetting extends Component {
     	
     }
 
+    renderReceived=()=>{
+		       return         (<Table style={{marginTop:60}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getAccountNewFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
+							              <TableHeader>
+										          <TableHeaderColumn>交易编号</TableHeaderColumn>
+										          <TableHeaderColumn>交易日期</TableHeaderColumn>
+										          <TableHeaderColumn>代码</TableHeaderColumn>
+										          <TableHeaderColumn>类别</TableHeaderColumn>
+										          <TableHeaderColumn>款项</TableHeaderColumn>
+										          <TableHeaderColumn>金额</TableHeaderColumn>
+										          <TableHeaderColumn>备注</TableHeaderColumn>
+										           <TableHeaderColumn>操作</TableHeaderColumn>
+							              </TableHeader>
+							              <TableBody>
+							                <TableRow>
+							                	<TableRowColumn name="id"></TableRowColumn>
+							                    <TableRowColumn name="operatedate" type="date" format="yyyy-mm-dd"></TableRowColumn>
+							                    <TableRowColumn name="accountName"></TableRowColumn>
+							                    <TableRowColumn name="typeName"></TableRowColumn>
+							                    <TableRowColumn name="propertyName"></TableRowColumn>
+							                    <TableRowColumn name="finaflowAmount"></TableRowColumn>
+							                    <TableRowColumn name="finaflowdesc"></TableRowColumn>
+							                    <TableRowColumn>
+							                        <Button label="查看"  type="operation" operation="view"/>
+							                    </TableRowColumn>
+							                  </TableRow>
+							              </TableBody>
+							              <TableFooter></TableFooter>
+						              </Table>)
+	}
+	renderIncomed=()=>{
+		       return         (<Table style={{marginTop:60}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getAccountNewFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
+							              <TableHeader>
+										          <TableHeaderColumn>交易编号</TableHeaderColumn>
+										          <TableHeaderColumn>交易日期</TableHeaderColumn>
+										          <TableHeaderColumn>代码</TableHeaderColumn>
+										          <TableHeaderColumn>类别</TableHeaderColumn>
+										          <TableHeaderColumn>款项</TableHeaderColumn>
+										          <TableHeaderColumn>金额</TableHeaderColumn>
+										          <TableHeaderColumn>工位</TableHeaderColumn>
+										          <TableHeaderColumn>月租金</TableHeaderColumn>
+										          <TableHeaderColumn>备注</TableHeaderColumn>
+										           <TableHeaderColumn>操作</TableHeaderColumn>
+							              </TableHeader>
+							              <TableBody>
+							                <TableRow>
+							                	<TableRowColumn name="id"></TableRowColumn>
+							                    <TableRowColumn name="operatedate" type="date" format="yyyy-mm-dd"></TableRowColumn>
+							                    <TableRowColumn name="accountName"></TableRowColumn>
+							                    <TableRowColumn name="typeName"></TableRowColumn>
+							                    <TableRowColumn name="propertyName"></TableRowColumn>
+							                    <TableRowColumn name="finaflowAmount"></TableRowColumn>
+							                    <TableRowColumn name="stationNum"></TableRowColumn>
+							                    <TableRowColumn name="monthRent"></TableRowColumn>
+							                    <TableRowColumn name="finaflowdesc"></TableRowColumn>
+							                    <TableRowColumn>
+							                        <Button label="查看"  type="operation" operation="view"/>
+							                    </TableRowColumn>
+							                  </TableRow>
+							              </TableBody>
+							              <TableFooter></TableFooter>
+						             </Table>)
+	}
+
+    typeSelectRender=()=>{
+    	let {
+			params,
+		} = this.state;
+
+		let parentBtn = params.accountType;
+		let childBtn = params.childType;
+    	if(parentBtn == 'INCOME' && childBtn == 'gongweishouru'){
+    		return this.renderIncomed();
+    	}else{
+    		return this.renderReceived();
+    	}
+    }
+   
+    iconClose=()=>{
+     this.setState({
+		 openRight:!this.state.openRight
+	  }); 
+    }
+
+
+
 	render() {
 		
 		let {
@@ -995,7 +1062,8 @@ export default class AttributeSetting extends Component {
 
 		return (
 
-			<div>
+			<div>    
+
 			        {this.renderSnack()}
 					<Title value="订单明细账_财务管理"/>
 					<Section title="订单明细账" description="" style={{marginBottom:-5,minHeight:910}}>
@@ -1016,33 +1084,7 @@ export default class AttributeSetting extends Component {
 								        <Col align="right" md={3} style={{'position':'relative'}}><Button  type='search'  searchClick={this.openSearchDialog}/><span className={colorClassName} onClick={this.historyIncomed}><Tooltip  offsetTop={8} place='top'>补历史收入</Tooltip></span></Col>
 								     </div>
 
-									 <Table style={{marginTop:60}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
-							              <TableHeader>
-										          <TableHeaderColumn>序号</TableHeaderColumn>
-										          <TableHeaderColumn>交易日期</TableHeaderColumn>
-										          <TableHeaderColumn>代码</TableHeaderColumn>
-										          <TableHeaderColumn>类别</TableHeaderColumn>
-										          <TableHeaderColumn>款项</TableHeaderColumn>
-										          <TableHeaderColumn>金额</TableHeaderColumn>
-										          <TableHeaderColumn>备注</TableHeaderColumn>
-										           <TableHeaderColumn>操作</TableHeaderColumn>
-							              </TableHeader>
-							              <TableBody>
-							                <TableRow>
-							                	<TableRowColumn name="id"></TableRowColumn>
-							                    <TableRowColumn name="occuryear" type="date" format="yyyy-mm-dd"></TableRowColumn>
-							                    <TableRowColumn name="accountName"></TableRowColumn>
-							                    <TableRowColumn name="typeName"></TableRowColumn>
-							                    <TableRowColumn name="propertyName"></TableRowColumn>
-							                    <TableRowColumn name="finaflowAmount"></TableRowColumn>
-							                    <TableRowColumn name="finaflowdesc"></TableRowColumn>
-							                    <TableRowColumn>
-							                        <Button label="查看"  type="operation" operation="view"/>
-							                    </TableRowColumn>
-							                  </TableRow>
-							              </TableBody>
-							              <TableFooter></TableFooter>
-						              </Table>
+									 {this.typeSelectRender()}
 								</div>
 
 							</Row>
@@ -1059,14 +1101,13 @@ export default class AttributeSetting extends Component {
 					   <SearchForm onCancel={this.closeSearchDialog} initialValues={searchValue} codeList={this.state.codeList} typeList={this.state.typeList} onSubmit={this.onSubmit}/>
 					 </Dialog>
 
-					 <Dialog
-						title="添加回款"
-						open={this.state.openReceivedBtn}
-						onClose={this.closeReceivedDialog}
-                        contentStyle ={{ width: '688'}}
-						>
-					   <ReceivedBtnForm onSubmit={this.onAddReceivedSubmit}  onCancel={this.closeReceivedDialog} optionList={this.state.receivedList} typeList={this.state.typeList}/>
-					 </Dialog>
+				      <Drawer open={this.state.openRight} width={696} openSecondary={true}>
+				       <div> 
+                        <ReceiveDetailTop iconClose={this.iconClose}/>
+                        <ReceivedBtnForm onSubmit={this.onAddReceivedSubmit}  onCancel={this.closeReceivedDialog} optionList={this.state.receivedList} typeList={this.state.typeList}/>
+                       </div>
+                      </Drawer>
+
 
 					 <Dialog
 						title="退款"

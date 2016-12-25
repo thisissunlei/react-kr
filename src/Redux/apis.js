@@ -499,6 +499,26 @@
  		url: '/mockjsdata/18/krspace-op-web/finaccount/opt/transferPayment',
  		method: 'post'
  	},
+ 	//订单明细账－二期－分页加载流水数据
+   'getAccountNewFlow': {
+ 		url: '/mockjsdata/18/krspace-op-web/finaccount/data/getAccountFlow?accountId={accountId}&accountType={accountType}&orderId={orderId}&endTime={endTime}&page={page}&pageSize={pageSize}&propertyId={propertyId}&startTime={startTime}',
+ 		method: 'get'
+ 	},
+ 	//订单明细账－二期－支付方式
+   'findAccountListTwo': {
+ 		url: '/mockjsdata/18/krspace-op-web/finaccount/data/findAccountList',
+ 		method: 'get'
+ 	},
+ 	//订单明细账－二期－点击回款加载数据
+   'getPaymentActData': {
+ 		url: '/mockjsdata/18/krspace-op-web/finaccount/data/getPaymentActData?mainbillId={mainbillId}',
+ 		method: 'get'
+ 	},
+ 	//订单明细账－二期－点击确定进行回款操作
+   'returnMoneyNew': {
+ 		url: '/mockjsdata/18/krspace-op-web/finaccount/opt/returnMoney',
+ 		method: 'post'
+ 	},
  }
 
 

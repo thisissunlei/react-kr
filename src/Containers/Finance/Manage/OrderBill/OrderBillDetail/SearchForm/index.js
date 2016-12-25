@@ -75,10 +75,10 @@ class SearchForm extends Component{
 					<KrField grid={1} name="orderId" type="hidden"/>
 					<KrField grid={1} name="accountType" type="hidden"/>
 
-					<KrField grid={1/2} name="accountId" right={39} component="select" label="代码" options={codeList}/>
+					<KrField grid={1/2} name="accountId" right={39} component="select" label="支付方式" options={codeList}/>
 					<KrField grid={1/2} name="propertyId" right={39} type="select" label="款项" options={typeList} style={{marginLeft:-11}}/>
 
-
+                    <KrField grid={1/2} name="propertyId" component="input" type="text" label="交易编号" right={40} style={{marginTop:5}}/>
 
 						
 
