@@ -51,7 +51,6 @@ export default class GroupCheckboxComponent extends React.Component {
       options.forEach(function(item,index){
           item.checked = checkedAll;
       });
-      console.log('checke',checkedAll,options);
 
       this.setState({
         options,
