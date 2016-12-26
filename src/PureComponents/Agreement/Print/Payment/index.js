@@ -174,7 +174,7 @@ export default class Initialize extends Component {
 						{
 							payModelList && payModelList.map((item,index)=>{
 								return(
-									<div className="method-list">
+									<div className="method-list" key={index}>
 										<span className={payModel==item.id?"checked":"discheck"}></span>
 										<span>{item.dicName}</span>
 									</div>
