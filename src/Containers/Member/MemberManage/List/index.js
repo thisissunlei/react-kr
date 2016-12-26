@@ -42,7 +42,7 @@ export default class List extends Component {
 		this.openAdvancedQueryDialog = this.openAdvancedQueryDialog.bind(this);
 		this.onLoaded = this.onLoaded.bind(this);
 		this.onOperation = this.onOperation.bind(this);
-		this.onExport = this.onExport.bind(this);
+		// this.onExport = this.onExport.bind(this);
 		this.onSearchSubmit = this.onSearchSubmit.bind(this);
 		this.params = this.context.router.params;
 		this.state = {
@@ -114,7 +114,7 @@ export default class List extends Component {
 		}
 	}
 	// 导出Excle表格
-	onExport(values) {
+	onExport=(values)=>{
 		let ids = [];
 		if (values.length != 0) {
 			values.map((item, value) => {
