@@ -136,8 +136,6 @@ class NewActivation extends Component {
 		var cReg=new RegExp("[\\u4E00-\\u9FFF]+","g");
 
 		if(cReg.test(value)){
-		console.log(cReg.test(value),"==")
-
 			Message.error('卡内码内含有中文请切换英文输入法！');
 			return;
 		}
@@ -179,10 +177,7 @@ class NewActivation extends Component {
 const validate = values =>{
 		var foreignCode=values.foreignCode;
 		var reg=/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8}$/;
-
-		// console.log( "foreignCode",foreignCode,Object.prototype.toString.call(foreignCode));
 		const errors = {}
-
 		if(!values.foreignCode){
 			errors.foreignCode = '请输入会员卡号';
 		}

@@ -183,6 +183,7 @@ import imgLine from './images/line.png'
 			})
 		 	return;
 		 }
+
 		 if(params.code !== undefined){
 			 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
 					 //会员卡号已注册
@@ -202,6 +203,7 @@ import imgLine from './images/line.png'
 				})
 			 });
 		 }
+
 	 }
 	 onChangeSearchCommunity(community) {
 		let communityId="";
