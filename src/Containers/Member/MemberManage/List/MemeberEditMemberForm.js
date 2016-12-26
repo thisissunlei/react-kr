@@ -241,10 +241,6 @@ const validate = values => {
 	let code = /^\d{10}$/;
 	let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
 	let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
-	if (!values.phone) {
-		errors.phone = '请输入电话号码';
-	}
-
 	if (!values.communityId) {
 		errors.communityId = '请输入社区名称';
 	}
@@ -253,28 +249,27 @@ const validate = values => {
 		errors.email = '请输入邮箱';
 	}
 	if (!values.companyId) {
-		errors.companyId = '请输入公司';
+		errors.companyId = '请输入公司名称';
 	}
 
 	if (!values.name) {
 		errors.name = '请输入姓名';
 	}
-	if (!email.test(values.email) ) {
-        errors.email = '请填写正确邮箱';
+	if (values.email &&!email.test(values.email) ) {
+        errors.email = '请输入正确邮箱';
     }
-    if (!phone.test(values.phone) ) {
-        errors.phone = '请输入正确电话号';
-    }
-    if (values.foreignCode && !code.test(values.foreignCode) ) {
-        errors.foreignCode = '会员卡号为10位纯数字';
-    }
-    if (!values.sendMsg ) {
-        errors.sendMsg = '请选择是否发送验证短信';
-    }
+  if (values.phone && !phone.test(values.phone) ) {
+      errors.phone = '请输入正确电话号';
+  }
+  if (values.foreignCode && !code.test(values.foreignCode) ) {
+      errors.foreignCode = '会员卡号为10位纯数字';
+  }
+  if (!values.sendMsg ) {
+      errors.sendMsg = '请选择是否发送验证短信';
+  }
     // if (!values.foreignCode) {
     //     errors.foreignCode = '请输入会员卡号';
     // }
-
 	return errors
 }
 MemeberEditMemberForm = reduxForm({
