@@ -311,12 +311,16 @@ const validate = values => {
     if (!phone.test(values.phone) ) {
         errors.phone = '请输入正确电话号';
     }
+    if (/^\s+$/gi.test(values.name) ) {
+        errors.name = '请输入正确姓名';
+    }
     if (values.foreignCode&&!code.test(values.foreignCode) ) {
         errors.foreignCode = '会员卡号为10位纯数字';
     }
     if (!values.sendMsg ) {
         errors.sendMsg = '请选择是否发送验证短信';
     }
+
     // if (!values.foreignCode) {
     //     errors.foreignCode = '请输入会员卡号';
     // }
