@@ -46,13 +46,35 @@ export default class Initialize  extends Component{
 
 
 			<div className="print-Station">
+				{/*
+					<div className="normal-station-head">
+						<span className="enter-info">入驻信息</span>
+					</div>
+				*/}
+				<div className="supplement-station-head">
+					<div className="method-list">
+						<span className="checked"></span>
+						<span>月度</span>
+					</div>
+					<div className="method-list">
+						<span className="discheck"></span>
+						<span>季度</span>
+					</div>
+					<div className="method-list">
+						<span className="discheck"></span>
+						<span>半年度</span>
+					</div>
 
-					<p>入驻信息</p>
+					<span className="enter-info">入驻信息如下</span>
+					<span className="right-date">日期：自2016年12月25日起</span>
+				</div>
+
+
 					<div className={this.state.isClass?'fixed-height':'auto-height'}>
 						<table>
 							<tbody>
 								<tr>
-									<th>类别</th><th>编号/名称</th><th>单价</th><th>数量</th><th>服务期限</th><th>小计</th><th>备注</th>
+									<th>类别</th><th>编号/名称</th><th>单价(元/月)</th><th>数量</th><th>服务期限</th><th>小计</th><th>备注</th>
 								</tr>
 
 								{/*
