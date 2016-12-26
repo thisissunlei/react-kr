@@ -222,8 +222,8 @@ export default class CityComponent extends React.Component {
 		return (
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
-					<div className="city-component" ref={div=>{this.cityContainer = div}}>
-						<input readOnly="true" value={city} onClick={this.showCity} ref={input=>{this.input = input}}/>
+					<div className="city-component" ref={div=>{this.cityContainer = div}} onClick={this.showCity}>
+						<input readOnly="true" value={city} ref={input=>{this.input = input}}/>
 						<span className="arrow"></span>
 						<div className="city-cantainer" style={cityDiv}>
 							<ul ref={ul=>{this.cityList = ul}}>
