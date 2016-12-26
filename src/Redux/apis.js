@@ -485,12 +485,12 @@
   },
    //订单明细账－二期－添加挂帐
   'onNewAccountg': {
-    url:'/mockjsdata/18/krspace-op-web/finaccount/opt/onAccountg',
+    url:'/api/krspace-op-web/finaccount/opt/onAccountg',
     method: 'post'
   },
   //订单明细账－二期－点击挂帐所需数据
   'getOnNewAccountData': {
-    url:'/mockjsdata/18/krspace-op-web/finaccount/data/getOnAccountData',
+    url:'/api/krspace-op-web/finaccount/data/getOnAccountData',
     method: 'get'
   },
 
@@ -511,37 +511,37 @@
  	},
   //订单明细账－二期－根据选中id来获取金额
    'getFlowRemainMoney': {
- 		url: '/mockjsdata/18/krspace-op-web/finaccount/data/getFlowRemainMoney?flowId={flowId}',
+ 		url: '/api/krspace-op-web/finaccount/data/getFlowRemainMoney?flowId={flowId}',
  		method: 'get'
  	},
  	//订单明细账－二期－点击转移加载数据
    'getTransferData': {
- 		url: '/mockjsdata/18/krspace-op-web/finaccount/data/getTransferData?flowId={flowId}&mainbillId={mainbillId}',
+ 		url: '/api/krspace-op-web/finaccount/data/getTransferData?flowId={flowId}&mainbillId={mainbillId}',
  		method: 'get'
  	},
  	//订单明细账－二期－转移确定
    'transferPayment': {
- 		url: '/mockjsdata/18/krspace-op-web/finaccount/opt/transferPayment',
+ 		url: '/api/krspace-op-web/finaccount/opt/transferPayment',
  		method: 'post'
  	},
  	//订单明细账－二期－分页加载流水数据
    'getAccountNewFlow': {
- 		url: '/mockjsdata/18/krspace-op-web/finaccount/data/getAccountFlow?accountId={accountId}&accountType={accountType}&orderId={orderId}&endTime={endTime}&page={page}&pageSize={pageSize}&propertyId={propertyId}&startTime={startTime}',
+ 		url: '/api/krspace-op-web/finaccount/data/getAccountFlow?accountId={accountId}&accountType={accountType}&orderId={orderId}&endTime={endTime}&page={page}&pageSize={pageSize}&propertyId={propertyId}&startTime={startTime}',
  		method: 'get'
  	},
  	//订单明细账－二期－支付方式
    'findAccountListTwo': {
- 		url: '/mockjsdata/18/krspace-op-web/finaccount/data/findAccountList',
+ 		url: '/api/krspace-op-web/finaccount/data/findAccountList',
  		method: 'get'
  	},
  	//订单明细账－二期－点击回款加载数据
    'getPaymentActData': {
- 		url: '/mockjsdata/18/krspace-op-web/finaccount/data/getPaymentActData?mainbillId={mainbillId}',
+ 		url: '/api/krspace-op-web/finaccount/data/getPaymentActData?mainbillId={mainbillId}',
  		method: 'get'
  	},
  	//订单明细账－二期－点击确定进行回款操作
    'returnMoneyNew': {
- 		url: '/mockjsdata/18/krspace-op-web/finaccount/opt/returnMoney',
+ 		url: '/api/krspace-op-web/finaccount/opt/returnMoney',
  		method: 'post'
  	},
  }

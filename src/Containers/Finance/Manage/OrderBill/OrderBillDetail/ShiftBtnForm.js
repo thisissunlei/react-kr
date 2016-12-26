@@ -73,21 +73,10 @@ class ShiftBtnForm extends Component{
 
 	render(){
        
-        const { error, handleSubmit, pristine, reset,initialValuesId} = this.props;
+        const { error, handleSubmit, pristine, reset,initialValuesId,shiftData} = this.props;
 		
 
-         let shiftData=[
-        {
-            "id":72726,"propname":"押金"
-        }, 
-         {
-            "id":727,"propname":"定金"
-        }, 
-        {
-            "id":725,"propname":"电费"
-        },  
-        ]
- 
+       
 		return(
           <div style={{marginTop:'35px'}}>
                  
@@ -112,7 +101,7 @@ class ShiftBtnForm extends Component{
                              )}
                              <KrField label="上传附件" grid={1/2} name="fileids" style={{marginLeft:-5}} component="file"/>
                           
-                       
+                             <KrField label="备注" grid={1}  heightStyle={heightStyle} name="finaflowdesc" component="textarea" type="text" placeholder='请输入备注，输入字数不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/>
                            
 
 				

@@ -56,9 +56,9 @@ class ReceivedBtnForm extends Component {
 	static PropTypes = {
 		onSubmit: React.PropTypes.func,
 		onCancel: React.PropTypes.func,
-		optionList: React.PropTypes.object,
-		typeList: React.PropTypes.object,
-
+		optionList:React.PropTypes.arr,
+		accountDetail:React.PropTypes.arr,
+		contractReceive:React.PropTypes.arr,
 	}
 
 	constructor(props, context) {
@@ -94,14 +94,55 @@ class ReceivedBtnForm extends Component {
 
 	}
 
-	onCancel() {
+  onCancel() {
 		const {
 			onCancel
 		} = this.props;
 		onCancel && onCancel();
 	}
 
+  twoInputRender=()=>{
+  	return (
+            <div>
+              <KrField label="押金"  grid={1/2} right={21} style={{marginTop:'-6px'}} name="finaflowamount" component="input" type="text" />
+              <KrField label="工位服务费"  grid={1/2} right={21} style={{marginTop:'-6px'}} name="finaflowamount" component="input" type="text"/>
+            </div>
+  		)
+  }
 
+  receiveInputRender=()=>{
+  	        let {accountDetail}=this.props;
+
+            accountDetail.map(function(item,index){
+						      	if(index%2==0){
+									return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={43}  style={{marginLeft:'-14px'}} label={item.propname} component="input" name={item.id} type="text"/>
+						      	}else{
+						      		return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={43}  label={item.propname}  component="input" name={item.id} type="text"/>
+						      	}
+
+			     }
+               )
+         
+  }
+  contractChange=(values)=>{
+  	console.log('3333',values);
+  	var _this=this;
+  	if(!values){
+  		values=[];
+  	}
+  	values.map(function(item,index){
+      if(item.checked==true&&item.value=='333'){
+      	return _this.twoInputRender();
+      }
+      if(item.checked==true&&item.value=='334'){
+      	return _this.twoInputRender();
+      }
+      if(item.checked==true&&item.value==''){
+      	return _this.receiveInputRender();
+      }
+  	})
+
+   }
 
 	render() {
 
@@ -113,11 +154,11 @@ class ReceivedBtnForm extends Component {
 			pristine,
 			reset,
 			optionList,
-			changeValues,
-			typeList
+			contractReceive
 		} = this.props;
 
-		
+		 
+       
 
 		let heightStyle = {
 			width: '546',
@@ -129,6 +170,7 @@ class ReceivedBtnForm extends Component {
           <div className='receive-form-middle'>
 			
 					      <form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:45,marginLeft:'10px'}}>
+					        {this.contractChange()}
                             <KrField  name="mainbillid" type="hidden" component="input"/>
 		                    <KrField  label="支付方式" grid={1/2} right={21} name="accountId" style={{marginBottom:5}} type="select" options={optionList} requireLabel={true}/>
 						     <KrField name="sumSign" grid={1/2} left={21} component="group" style={{marginLeft:-22}}  label="金额正负" requireLabel={true}>
@@ -138,12 +180,16 @@ class ReceivedBtnForm extends Component {
 
 						     <KrField component="date" grid={1/2} right={23} style={{marginTop:'-5px'}}  label="回款日期" name="receiveDate" requireLabel={true}/>
 						     <KrField label="回款总额"  grid={1/2} right={21} style={{marginTop:'-6px'}} name="finaflowamount" component="input" type="text" requireLabel={true}/>
+						     <KrField label="对应合同"  grid={1/2} component="groupCheckbox" defaultValue={contractReceive} requireLabel={true} onChange={this.contractChange}/>
+
+                             {this.contractChange()}
+
 						     <KrField label="上传附件" grid={1/2} left={30}  style={{marginLeft:-30}} name="fileids" component="file" />
                        
-                            <KrField label="备注" grid={1}  heightStyle={heightStyle} name="remark" component="textarea" type="text" placeholder='请输入备注，输入字数不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/>
+                             <KrField label="备注" grid={1}  heightStyle={heightStyle} name="remark" component="textarea" type="text" placeholder='请输入备注，输入字数不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/>
 
 
-						   <Grid style={{marginTop:0,marginBottom:5}}>
+						   <Grid style={{marginTop:0,marginBottom:30}}>
 						<Row>
 							<Col md={12} align="center">
 								<ButtonGroup>
@@ -164,6 +210,5 @@ class ReceivedBtnForm extends Component {
 	}
 
 }
-
 
 export default reduxForm({form:'receivedBtnForm',enableReinitialize:true,keepDirtyOnReinitialize:true})(ReceivedBtnForm);

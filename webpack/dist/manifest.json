@@ -1,1363 +1,792 @@
 {
   "name": "lib",
   "content": {
-    "../node_modules/.npminstall/bowser/1.6.0/bowser/src/bowser.js": {
-      "id": 200,
+    "../node_modules/.0.1.0@simple-assign/index.js": {
+      "id": 1,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/EventListener.js": {
-      "id": 111,
+    "../node_modules/.0.11.9@process/browser.js": {
+      "id": 2,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/ExecutionEnvironment.js": {
-      "id": 8,
+    "../node_modules/.0.14.6@react-dom/index.js": {
+      "id": 7,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/AutoFocusUtils.js": {
       "id": 197,
-=======
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/camelize.js": {
-      "id": 201,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/BeforeInputEventPlugin.js": {
       "id": 198,
-=======
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/camelizeStyleName.js": {
-      "id": 202,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/CSSProperty.js": {
       "id": 110,
-=======
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/containsNode.js": {
-      "id": 112,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/CSSPropertyOperations.js": {
       "id": 199,
-=======
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/createArrayFromMixed.js": {
-      "id": 203,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/CallbackQueue.js": {
       "id": 69,
-=======
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/createNodesFromMarkup.js": {
-      "id": 204,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/ChangeEventPlugin.js": {
       "id": 200,
-=======
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/emptyFunction.js": {
-      "id": 15,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/ClientReactRootIndex.js": {
       "id": 201,
-=======
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/emptyObject.js": {
-      "id": 40,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/DOMChildrenOperations.js": {
       "id": 111,
-=======
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/focusNode.js": {
-      "id": 113,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/getActiveElement.js": {
-      "id": 114,
+    "../node_modules/.0.14.6@react/lib/DOMProperty.js": {
+      "id": 31,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/DOMPropertyOperations.js": {
       "id": 70,
-=======
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/getMarkupWrap.js": {
-      "id": 115,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/Danger.js": {
       "id": 202,
-=======
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/getUnboundedScrollPosition.js": {
-      "id": 205,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/DefaultEventPluginOrder.js": {
       "id": 203,
-=======
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/hyphenate.js": {
-      "id": 206,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/EnterLeaveEventPlugin.js": {
       "id": 204,
-=======
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/hyphenateStyleName.js": {
-      "id": 207,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/invariant.js": {
-      "id": 4,
+    "../node_modules/.0.14.6@react/lib/EventConstants.js": {
+      "id": 22,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/isNode.js": {
-      "id": 208,
+    "../node_modules/.0.14.6@react/lib/EventPluginHub.js": {
+      "id": 40,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/EventPluginRegistry.js": {
       "id": 112,
-=======
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/isTextNode.js": {
-      "id": 209,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/EventPluginUtils.js": {
       "id": 205,
-=======
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/keyMirror.js": {
-      "id": 51,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/keyOf.js": {
-      "id": 28,
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/FallbackCompositionState.js": {
-      "id": 206,
-=======
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/mapObject.js": {
-      "id": 210,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/HTMLDOMPropertyConfig.js": {
-      "id": 207,
-=======
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/memoizeStringOnly.js": {
-      "id": 211,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/LinkedValueUtils.js": {
-      "id": 71,
-=======
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/performance.js": {
-      "id": 212,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/performanceNow.js": {
-      "id": 213,
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/PooledClass.js": {
-      "id": 27,
-=======
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/shallowEqual.js": {
-      "id": 116,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/React.js": {
-      "id": 113,
-=======
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/toArray.js": {
-      "id": 214,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactBrowserComponentMixin.js": {
-      "id": 208,
-=======
-    "../node_modules/.npminstall/fbjs/0.6.1/fbjs/lib/warning.js": {
-      "id": 6,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactBrowserEventEmitter.js": {
-      "id": 50,
-=======
-    "../node_modules/.npminstall/fbjs/0.8.6/fbjs/lib/shallowEqual.js": {
-      "id": 117,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactChildReconciler.js": {
-      "id": 209,
-=======
-    "../node_modules/.npminstall/hyphenate-style-name/1.0.2/hyphenate-style-name/index.js": {
-      "id": 118,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactChildren.js": {
-      "id": 72,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/Prefixer.js": {
-      "id": 215,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactClass.js": {
-      "id": 114,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/plugins/calc.js": {
-      "id": 216,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactComponent.js": {
-      "id": 115,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/plugins/flex.js": {
-      "id": 217,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactComponentBrowserEnvironment.js": {
-      "id": 73,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/plugins/flexboxIE.js": {
-      "id": 218,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactComponentEnvironment.js": {
-      "id": 74,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/plugins/flexboxOld.js": {
-      "id": 219,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactCompositeComponent.js": {
-      "id": 210,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/plugins/grabCursor.js": {
-      "id": 220,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/plugins/gradient.js": {
-      "id": 221,
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactDOM.js": {
-      "id": 116,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/plugins/position.js": {
-      "id": 222,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactDOMButton.js": {
-      "id": 211,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/plugins/sizing.js": {
-      "id": 223,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactDOMComponent.js": {
-      "id": 212,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/plugins/transition.js": {
-      "id": 224,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactDOMFactories.js": {
-      "id": 213,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/plugins/zoomCursor.js": {
-      "id": 225,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactDOMFeatureFlags.js": {
-      "id": 117,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/prefixProps.js": {
-      "id": 226,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactDOMIDOperations.js": {
-      "id": 75,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/static/plugins/calc.js": {
-      "id": 227,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactDOMInput.js": {
-      "id": 214,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/static/plugins/cursor.js": {
-      "id": 228,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactDOMOption.js": {
-      "id": 215,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/static/plugins/flex.js": {
-      "id": 229,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactDOMSelect.js": {
-      "id": 118,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/static/plugins/flexboxIE.js": {
-      "id": 230,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactDOMSelection.js": {
-      "id": 216,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/static/plugins/flexboxOld.js": {
-      "id": 231,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactDOMServer.js": {
-      "id": 217,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/static/plugins/gradient.js": {
-      "id": 232,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactDOMTextComponent.js": {
-      "id": 119,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/static/plugins/position.js": {
-      "id": 233,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactDOMTextarea.js": {
-      "id": 218,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/static/plugins/sizing.js": {
-      "id": 234,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactDefaultBatchingStrategy.js": {
-      "id": 120,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/static/plugins/transition.js": {
-      "id": 235,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactDefaultInjection.js": {
-      "id": 121,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/static/prefixAll.js": {
-      "id": 236,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactDefaultPerf.js": {
-      "id": 219,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/static/prefixProps.js": {
-      "id": 119,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactDefaultPerfAnalysis.js": {
-      "id": 220,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/utils/capitalizeString.js": {
-      "id": 70,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/utils/getBrowserInformation.js": {
-      "id": 237,
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactElementValidator.js": {
-      "id": 122,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/utils/getPrefixedKeyframes.js": {
-      "id": 238,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactEmptyComponent.js": {
-      "id": 123,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/utils/getPrefixedValue.js": {
-      "id": 22,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactEmptyComponentRegistry.js": {
-      "id": 124,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/utils/isPrefixedProperty.js": {
-      "id": 239,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactErrorUtils.js": {
-      "id": 125,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/utils/isPrefixedValue.js": {
-      "id": 71,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactEventEmitterMixin.js": {
-      "id": 221,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/utils/joinPrefixedValue.js": {
-      "id": 52,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactEventListener.js": {
-      "id": 222,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/utils/sortPrefixedStyle.js": {
-      "id": 120,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactFragment.js": {
-      "id": 223,
-=======
-    "../node_modules/.npminstall/inline-style-prefixer/2.0.5/inline-style-prefixer/lib/utils/unprefixProperty.js": {
-      "id": 240,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactInjection.js": {
-      "id": 224,
-=======
-    "../node_modules/.npminstall/keycode/2.1.7/keycode/index.js": {
-      "id": 16,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactInputSelection.js": {
-      "id": 126,
-=======
-    "../node_modules/.npminstall/lodash/4.16.4/lodash/lodash.js": {
-      "id": 198,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactInstanceHandles.js": {
-      "id": 35,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_Hash.js": {
-      "id": 241,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_ListCache.js": {
-      "id": 53,
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactIsomorphic.js": {
-      "id": 225,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_Map.js": {
-      "id": 121,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactMarkupChecksum.js": {
-      "id": 127,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_MapCache.js": {
-      "id": 242,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_Stack.js": {
-      "id": 243,
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactMultiChild.js": {
-      "id": 226,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_Symbol.js": {
-      "id": 122,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactMultiChildUpdateTypes.js": {
-      "id": 128,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_Uint8Array.js": {
-      "id": 244,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactNativeComponent.js": {
-      "id": 129,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_apply.js": {
-      "id": 245,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactNoopUpdateQueue.js": {
-      "id": 130,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_arrayLikeKeys.js": {
-      "id": 246,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactOwner.js": {
-      "id": 227,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_assignMergeValue.js": {
-      "id": 123,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_assignValue.js": {
-      "id": 247,
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactPropTypeLocationNames.js": {
-      "id": 51,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_assocIndexOf.js": {
-      "id": 54,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactPropTypeLocations.js": {
-      "id": 52,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_baseAssignValue.js": {
-      "id": 72,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactPropTypes.js": {
-      "id": 131,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_baseCreate.js": {
-      "id": 248,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.14.6@react/lib/ReactReconcileTransaction.js": {
-      "id": 228,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_baseFor.js": {
-      "id": 249,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_baseGetTag.js": {
+    "../node_modules/.0.14.6@react/lib/EventPropagators.js": {
       "id": 41,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
+    "../node_modules/.0.14.6@react/lib/FallbackCompositionState.js": {
+      "id": 206,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/HTMLDOMPropertyConfig.js": {
+      "id": 207,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/LinkedValueUtils.js": {
+      "id": 71,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/Object.assign.js": {
+      "id": 5,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/PooledClass.js": {
+      "id": 27,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/React.js": {
+      "id": 113,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactBrowserComponentMixin.js": {
+      "id": 208,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactBrowserEventEmitter.js": {
+      "id": 50,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactChildReconciler.js": {
+      "id": 209,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactChildren.js": {
+      "id": 72,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactClass.js": {
+      "id": 114,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactComponent.js": {
+      "id": 115,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactComponentBrowserEnvironment.js": {
+      "id": 73,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactComponentEnvironment.js": {
+      "id": 74,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactCompositeComponent.js": {
+      "id": 210,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactCurrentOwner.js": {
+      "id": 23,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactDOM.js": {
+      "id": 116,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactDOMButton.js": {
+      "id": 211,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactDOMComponent.js": {
+      "id": 212,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactDOMFactories.js": {
+      "id": 213,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactDOMFeatureFlags.js": {
+      "id": 117,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactDOMIDOperations.js": {
+      "id": 75,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactDOMInput.js": {
+      "id": 214,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactDOMOption.js": {
+      "id": 215,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactDOMSelect.js": {
+      "id": 118,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactDOMSelection.js": {
+      "id": 216,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactDOMServer.js": {
+      "id": 217,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactDOMTextComponent.js": {
+      "id": 119,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactDOMTextarea.js": {
+      "id": 218,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactDefaultBatchingStrategy.js": {
+      "id": 120,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactDefaultInjection.js": {
+      "id": 121,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactDefaultPerf.js": {
+      "id": 219,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactDefaultPerfAnalysis.js": {
+      "id": 220,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactElement.js": {
+      "id": 13,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactElementValidator.js": {
+      "id": 122,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactEmptyComponent.js": {
+      "id": 123,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactEmptyComponentRegistry.js": {
+      "id": 124,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactErrorUtils.js": {
+      "id": 125,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactEventEmitterMixin.js": {
+      "id": 221,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactEventListener.js": {
+      "id": 222,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactFragment.js": {
+      "id": 223,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactInjection.js": {
+      "id": 224,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactInputSelection.js": {
+      "id": 126,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactInstanceHandles.js": {
+      "id": 35,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactInstanceMap.js": {
+      "id": 42,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactIsomorphic.js": {
+      "id": 225,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactMarkupChecksum.js": {
+      "id": 127,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactMount.js": {
+      "id": 11,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactMultiChild.js": {
+      "id": 226,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactMultiChildUpdateTypes.js": {
+      "id": 128,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactNativeComponent.js": {
+      "id": 129,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactNoopUpdateQueue.js": {
+      "id": 130,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactOwner.js": {
+      "id": 227,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactPerf.js": {
+      "id": 15,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactPropTypeLocationNames.js": {
+      "id": 51,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactPropTypeLocations.js": {
+      "id": 52,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactPropTypes.js": {
+      "id": 131,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactReconcileTransaction.js": {
+      "id": 228,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.14.6@react/lib/ReactReconciler.js": {
+      "id": 32,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
     "../node_modules/.0.14.6@react/lib/ReactRef.js": {
       "id": 229,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_baseIsArguments.js": {
-      "id": 250,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/ReactRootIndex.js": {
       "id": 132,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_baseIsNative.js": {
-      "id": 251,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/ReactServerBatchingStrategy.js": {
       "id": 230,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_baseIsTypedArray.js": {
-      "id": 252,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/ReactServerRendering.js": {
       "id": 231,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_baseKeysIn.js": {
-      "id": 253,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/ReactServerRenderingTransaction.js": {
       "id": 232,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_baseMerge.js": {
-      "id": 254,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/ReactTransitionChildMapping.js": {
       "id": 233,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_baseMergeDeep.js": {
-      "id": 255,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/ReactTransitionGroup.js": {
       "id": 234,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_baseRest.js": {
-      "id": 256,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/ReactUpdateQueue.js": {
       "id": 76,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_baseSetToString.js": {
-      "id": 257,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_baseTimes.js": {
-      "id": 258,
+    "../node_modules/.0.14.6@react/lib/ReactUpdates.js": {
+      "id": 19,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/ReactVersion.js": {
       "id": 77,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_baseUnary.js": {
-      "id": 259,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/SVGDOMPropertyConfig.js": {
       "id": 235,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_cloneArrayBuffer.js": {
-      "id": 260,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/SelectEventPlugin.js": {
       "id": 236,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_cloneBuffer.js": {
-      "id": 261,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/ServerReactRootIndex.js": {
       "id": 237,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_cloneTypedArray.js": {
-      "id": 262,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/SimpleEventPlugin.js": {
       "id": 238,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_copyArray.js": {
-      "id": 263,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/SyntheticClipboardEvent.js": {
       "id": 239,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_copyObject.js": {
-      "id": 264,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/SyntheticCompositionEvent.js": {
       "id": 240,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_coreJsData.js": {
-      "id": 265,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/SyntheticDragEvent.js": {
       "id": 241,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_createAssigner.js": {
-      "id": 266,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_createBaseFor.js": {
-      "id": 267,
+    "../node_modules/.0.14.6@react/lib/SyntheticEvent.js": {
+      "id": 33,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/SyntheticFocusEvent.js": {
       "id": 242,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_defineProperty.js": {
-      "id": 124,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/SyntheticInputEvent.js": {
       "id": 243,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_freeGlobal.js": {
-      "id": 125,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/SyntheticKeyboardEvent.js": {
       "id": 244,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_getMapData.js": {
-      "id": 55,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/SyntheticMouseEvent.js": {
       "id": 53,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_getNative.js": {
-      "id": 73,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/SyntheticTouchEvent.js": {
       "id": 245,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_getPrototype.js": {
-      "id": 126,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_getRawTag.js": {
-      "id": 268,
+    "../node_modules/.0.14.6@react/lib/SyntheticUIEvent.js": {
+      "id": 43,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/SyntheticWheelEvent.js": {
       "id": 246,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_getValue.js": {
-      "id": 269,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/Transaction.js": {
       "id": 54,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_hashClear.js": {
-      "id": 270,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/ViewportMetrics.js": {
       "id": 133,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_hashDelete.js": {
-      "id": 271,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/accumulateInto.js": {
       "id": 134,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_hashGet.js": {
-      "id": 272,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/adler32.js": {
       "id": 247,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_hashHas.js": {
-      "id": 273,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/canDefineProperty.js": {
       "id": 55,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_hashSet.js": {
-      "id": 274,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/dangerousStyleValue.js": {
       "id": 248,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_initCloneObject.js": {
-      "id": 275,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/deprecated.js": {
       "id": 249,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_isIndex.js": {
-      "id": 127,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/escapeTextContentForBrowser.js": {
       "id": 56,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_isIterateeCall.js": {
-      "id": 276,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/findDOMNode.js": {
       "id": 78,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_isKeyable.js": {
-      "id": 277,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/flattenChildren.js": {
       "id": 135,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_isMasked.js": {
-      "id": 278,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/forEachAccumulated.js": {
       "id": 136,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_isPrototype.js": {
-      "id": 128,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/getEventCharCode.js": {
       "id": 79,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_listCacheClear.js": {
-      "id": 279,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/getEventKey.js": {
       "id": 250,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_listCacheDelete.js": {
-      "id": 280,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/getEventModifierState.js": {
       "id": 80,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_listCacheGet.js": {
-      "id": 281,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/getEventTarget.js": {
       "id": 81,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_listCacheHas.js": {
-      "id": 282,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/getIteratorFn.js": {
       "id": 82,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_listCacheSet.js": {
-      "id": 283,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/getNodeForCharacterOffset.js": {
       "id": 251,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_mapCacheClear.js": {
-      "id": 284,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/getTextContentAccessor.js": {
       "id": 137,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_mapCacheDelete.js": {
-      "id": 285,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/instantiateReactComponent.js": {
       "id": 83,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_mapCacheGet.js": {
-      "id": 286,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/isEventSupported.js": {
       "id": 84,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_mapCacheHas.js": {
-      "id": 287,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/isTextInputElement.js": {
       "id": 138,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_mapCacheSet.js": {
-      "id": 288,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/onlyChild.js": {
       "id": 252,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_nativeCreate.js": {
-      "id": 56,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/quoteAttributeValueForBrowser.js": {
       "id": 253,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_nativeKeysIn.js": {
-      "id": 289,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/renderSubtreeIntoContainer.js": {
       "id": 254,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_nodeUtil.js": {
-      "id": 290,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/setInnerHTML.js": {
       "id": 57,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_objectToString.js": {
-      "id": 291,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/setTextContent.js": {
       "id": 85,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_overArg.js": {
-      "id": 292,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/shouldUpdateReactComponent.js": {
       "id": 86,
       "meta": {},
@@ -1366,2478 +795,1408 @@
     },
     "../node_modules/.0.14.6@react/lib/traverseAllChildren.js": {
       "id": 87,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_overRest.js": {
-      "id": 293,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.14.6@react/lib/validateDOMNesting.js": {
       "id": 88,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_root.js": {
-      "id": 31,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_setToString.js": {
-      "id": 294,
+    "../node_modules/.0.14.6@react/react.js": {
+      "id": 0,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/AppBar/AppBar.js": {
       "id": 255,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_shortOut.js": {
-      "id": 295,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/AppBar/index.js": {
       "id": 256,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_stackClear.js": {
-      "id": 296,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/AutoComplete/AutoComplete.js": {
       "id": 257,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_stackDelete.js": {
-      "id": 297,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/AutoComplete/index.js": {
       "id": 258,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_stackGet.js": {
-      "id": 298,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Avatar/Avatar.js": {
       "id": 259,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_stackHas.js": {
-      "id": 299,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Avatar/index.js": {
       "id": 139,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_stackSet.js": {
-      "id": 300,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Badge/Badge.js": {
       "id": 260,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/_toSource.js": {
-      "id": 301,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Badge/index.js": {
       "id": 261,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/constant.js": {
-      "id": 302,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Card/Card.js": {
       "id": 262,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/debounce.js": {
-      "id": 303,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Card/CardActions.js": {
       "id": 140,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/eq.js": {
-      "id": 57,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Card/CardExpandable.js": {
       "id": 141,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/identity.js": {
-      "id": 129,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Card/CardHeader.js": {
       "id": 142,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/isArguments.js": {
-      "id": 130,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Card/CardMedia.js": {
       "id": 143,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/isArray.js": {
-      "id": 131,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Card/CardText.js": {
       "id": 144,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/isArrayLike.js": {
-      "id": 74,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Card/CardTitle.js": {
       "id": 145,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/isArrayLikeObject.js": {
-      "id": 304,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Card/index.js": {
       "id": 263,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/isBuffer.js": {
-      "id": 132,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Checkbox/Checkbox.js": {
       "id": 264,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/isFunction.js": {
-      "id": 75,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Checkbox/index.js": {
       "id": 89,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/isLength.js": {
-      "id": 133,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Chip/Chip.js": {
       "id": 265,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/isObject.js": {
-      "id": 20,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Chip/index.js": {
       "id": 266,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/isObjectLike.js": {
-      "id": 36,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/CircularProgress/CircularProgress.js": {
       "id": 267,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/isPlainObject.js": {
-      "id": 305,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/CircularProgress/index.js": {
       "id": 268,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/isSymbol.js": {
-      "id": 306,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/DatePicker/Calendar.js": {
       "id": 269,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/isTypedArray.js": {
-      "id": 134,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/DatePicker/CalendarActionButtons.js": {
       "id": 270,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/keysIn.js": {
-      "id": 135,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/DatePicker/CalendarMonth.js": {
       "id": 271,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/merge.js": {
-      "id": 307,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/DatePicker/CalendarToolbar.js": {
       "id": 272,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/now.js": {
-      "id": 308,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/DatePicker/CalendarYear.js": {
       "id": 273,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/stubFalse.js": {
-      "id": 309,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/DatePicker/DateDisplay.js": {
       "id": 274,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/throttle.js": {
-      "id": 310,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/DatePicker/DatePicker.js": {
       "id": 275,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/toNumber.js": {
-      "id": 311,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/DatePicker/DatePickerDialog.js": {
       "id": 276,
-=======
-    "../node_modules/.npminstall/lodash/4.17.2/lodash/toPlainObject.js": {
-      "id": 312,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/DatePicker/DayButton.js": {
       "id": 277,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/AppBar/AppBar.js": {
-      "id": 313,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/DatePicker/YearButton.js": {
       "id": 278,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/AppBar/index.js": {
-      "id": 314,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/DatePicker/dateUtils.js": {
       "id": 36,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/AutoComplete/AutoComplete.js": {
-      "id": 315,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/DatePicker/index.js": {
       "id": 279,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/AutoComplete/index.js": {
-      "id": 316,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Dialog/Dialog.js": {
       "id": 280,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Avatar/Avatar.js": {
-      "id": 317,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Dialog/index.js": {
       "id": 90,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Avatar/index.js": {
-      "id": 136,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Divider/Divider.js": {
       "id": 281,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Badge/Badge.js": {
-      "id": 318,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Divider/index.js": {
       "id": 146,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Badge/index.js": {
-      "id": 319,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Drawer/Drawer.js": {
       "id": 282,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Card/Card.js": {
-      "id": 320,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Drawer/index.js": {
       "id": 283,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Card/CardActions.js": {
-      "id": 137,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/DropDownMenu/DropDownMenu.js": {
       "id": 284,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Card/CardExpandable.js": {
-      "id": 138,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/DropDownMenu/index.js": {
       "id": 147,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Card/CardHeader.js": {
-      "id": 139,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/FlatButton/FlatButton.js": {
       "id": 285,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Card/CardMedia.js": {
-      "id": 140,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/FlatButton/FlatButtonLabel.js": {
       "id": 286,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Card/CardText.js": {
-      "id": 141,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/FlatButton/index.js": {
       "id": 58,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Card/CardTitle.js": {
-      "id": 142,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/FloatingActionButton/FloatingActionButton.js": {
       "id": 287,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Card/index.js": {
-      "id": 321,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/FloatingActionButton/index.js": {
       "id": 288,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Checkbox/Checkbox.js": {
-      "id": 322,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/FontIcon/FontIcon.js": {
       "id": 289,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Checkbox/index.js": {
-      "id": 76,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/FontIcon/index.js": {
       "id": 91,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Chip/Chip.js": {
-      "id": 323,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/GridList/GridList.js": {
       "id": 290,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Chip/index.js": {
-      "id": 324,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/GridList/GridTile.js": {
       "id": 148,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/CircularProgress/CircularProgress.js": {
-      "id": 325,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/GridList/index.js": {
       "id": 291,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/CircularProgress/index.js": {
-      "id": 326,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/IconButton/IconButton.js": {
       "id": 292,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/DatePicker/Calendar.js": {
-      "id": 327,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/DatePicker/CalendarActionButtons.js": {
-      "id": 328,
+    "../node_modules/.0.15.4@material-ui/IconButton/index.js": {
+      "id": 44,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/IconMenu/IconMenu.js": {
       "id": 293,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/DatePicker/CalendarMonth.js": {
-      "id": 329,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/IconMenu/index.js": {
       "id": 294,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/DatePicker/CalendarToolbar.js": {
-      "id": 330,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/LinearProgress/LinearProgress.js": {
       "id": 295,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/DatePicker/CalendarYear.js": {
-      "id": 331,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/LinearProgress/index.js": {
       "id": 296,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/DatePicker/DateDisplay.js": {
-      "id": 332,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/List/List.js": {
       "id": 92,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/DatePicker/DatePicker.js": {
-      "id": 333,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/List/ListItem.js": {
       "id": 93,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/DatePicker/DatePickerDialog.js": {
-      "id": 334,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/List/MakeSelectable.js": {
       "id": 149,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/DatePicker/DayButton.js": {
-      "id": 335,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/List/NestedList.js": {
       "id": 297,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/DatePicker/YearButton.js": {
-      "id": 336,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/List/index.js": {
       "id": 298,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/DatePicker/dateUtils.js": {
-      "id": 37,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Menu/Menu.js": {
       "id": 59,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/DatePicker/index.js": {
-      "id": 337,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Menu/index.js": {
       "id": 150,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Dialog/Dialog.js": {
-      "id": 338,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Menu/menuUtils.js": {
       "id": 299,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Dialog/index.js": {
-      "id": 77,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/MenuItem/MenuItem.js": {
       "id": 94,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Divider/Divider.js": {
-      "id": 339,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/MenuItem/index.js": {
       "id": 95,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Divider/index.js": {
-      "id": 143,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Paper/Paper.js": {
       "id": 300,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Drawer/Drawer.js": {
-      "id": 340,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Drawer/index.js": {
-      "id": 341,
+    "../node_modules/.0.15.4@material-ui/Paper/index.js": {
+      "id": 14,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Popover/Popover.js": {
       "id": 37,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/DropDownMenu/DropDownMenu.js": {
-      "id": 342,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Popover/PopoverAnimationDefault.js": {
       "id": 301,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/DropDownMenu/index.js": {
-      "id": 144,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Popover/PopoverAnimationVertical.js": {
       "id": 96,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/FlatButton/FlatButton.js": {
-      "id": 343,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Popover/index.js": {
       "id": 302,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/FlatButton/FlatButtonLabel.js": {
-      "id": 344,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/RadioButton/RadioButton.js": {
       "id": 303,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/FlatButton/index.js": {
-      "id": 58,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/RadioButton/RadioButtonGroup.js": {
       "id": 151,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/FloatingActionButton/FloatingActionButton.js": {
-      "id": 345,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/RadioButton/index.js": {
       "id": 152,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/FloatingActionButton/index.js": {
-      "id": 346,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/RaisedButton/RaisedButton.js": {
       "id": 304,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/FontIcon/FontIcon.js": {
-      "id": 347,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/RaisedButton/index.js": {
       "id": 305,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/FontIcon/index.js": {
-      "id": 78,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/RefreshIndicator/RefreshIndicator.js": {
       "id": 306,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/GridList/GridList.js": {
-      "id": 348,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/RefreshIndicator/index.js": {
       "id": 307,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/GridList/GridTile.js": {
-      "id": 145,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/SelectField/SelectField.js": {
       "id": 308,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/GridList/index.js": {
-      "id": 349,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/SelectField/index.js": {
       "id": 309,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/IconButton/IconButton.js": {
-      "id": 350,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Slider/Slider.js": {
       "id": 310,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/IconButton/index.js": {
-      "id": 42,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Slider/index.js": {
       "id": 311,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/IconMenu/IconMenu.js": {
-      "id": 351,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Snackbar/Snackbar.js": {
       "id": 312,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/IconMenu/index.js": {
-      "id": 352,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Snackbar/SnackbarBody.js": {
       "id": 313,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/LinearProgress/LinearProgress.js": {
-      "id": 353,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Snackbar/index.js": {
       "id": 314,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/LinearProgress/index.js": {
-      "id": 354,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Stepper/Step.js": {
       "id": 315,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/List/List.js": {
-      "id": 79,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Stepper/StepButton.js": {
       "id": 316,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/List/ListItem.js": {
-      "id": 80,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Stepper/StepConnector.js": {
       "id": 317,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/List/MakeSelectable.js": {
-      "id": 146,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Stepper/StepContent.js": {
       "id": 318,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/List/NestedList.js": {
-      "id": 355,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Stepper/StepLabel.js": {
       "id": 153,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/List/index.js": {
-      "id": 356,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Stepper/Stepper.js": {
       "id": 319,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Menu/Menu.js": {
-      "id": 59,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Subheader/Subheader.js": {
       "id": 320,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Menu/index.js": {
-      "id": 147,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Subheader/index.js": {
       "id": 154,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Menu/menuUtils.js": {
-      "id": 357,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/SvgIcon/SvgIcon.js": {
       "id": 321,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/MenuItem/MenuItem.js": {
-      "id": 81,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/MenuItem/index.js": {
-      "id": 82,
+    "../node_modules/.0.15.4@material-ui/SvgIcon/index.js": {
+      "id": 8,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Table/Table.js": {
       "id": 322,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Paper/Paper.js": {
-      "id": 358,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Table/TableBody.js": {
       "id": 155,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Paper/index.js": {
-      "id": 14,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Table/TableFooter.js": {
       "id": 156,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Popover/Popover.js": {
-      "id": 38,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Table/TableHeader.js": {
       "id": 157,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Popover/PopoverAnimationDefault.js": {
-      "id": 359,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Table/TableHeaderColumn.js": {
       "id": 97,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Popover/PopoverAnimationVertical.js": {
-      "id": 83,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Table/TableRow.js": {
       "id": 158,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Popover/index.js": {
-      "id": 360,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Table/TableRowColumn.js": {
       "id": 60,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/RadioButton/RadioButton.js": {
-      "id": 361,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Table/index.js": {
       "id": 323,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/RadioButton/RadioButtonGroup.js": {
-      "id": 148,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Tabs/InkBar.js": {
       "id": 324,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/RadioButton/index.js": {
-      "id": 149,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Tabs/Tab.js": {
       "id": 159,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/RaisedButton/RaisedButton.js": {
-      "id": 362,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Tabs/TabTemplate.js": {
       "id": 325,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/RaisedButton/index.js": {
-      "id": 363,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Tabs/Tabs.js": {
       "id": 326,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/RefreshIndicator/RefreshIndicator.js": {
-      "id": 364,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Tabs/index.js": {
       "id": 327,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/RefreshIndicator/index.js": {
-      "id": 365,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/TextField/EnhancedTextarea.js": {
       "id": 328,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/SelectField/SelectField.js": {
-      "id": 366,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/TextField/TextField.js": {
       "id": 329,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/SelectField/index.js": {
-      "id": 367,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/TextField/TextFieldHint.js": {
       "id": 330,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Slider/Slider.js": {
-      "id": 368,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/TextField/TextFieldLabel.js": {
       "id": 331,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Slider/index.js": {
-      "id": 369,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/TextField/TextFieldUnderline.js": {
       "id": 332,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Snackbar/Snackbar.js": {
-      "id": 370,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Snackbar/SnackbarBody.js": {
-      "id": 371,
+    "../node_modules/.0.15.4@material-ui/TextField/index.js": {
+      "id": 45,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/TimePicker/Clock.js": {
       "id": 333,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Snackbar/index.js": {
-      "id": 372,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/TimePicker/ClockHours.js": {
       "id": 334,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Stepper/Step.js": {
-      "id": 373,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/TimePicker/ClockMinutes.js": {
       "id": 335,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Stepper/StepButton.js": {
-      "id": 374,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/TimePicker/ClockNumber.js": {
       "id": 160,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Stepper/StepConnector.js": {
-      "id": 375,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/TimePicker/ClockPointer.js": {
       "id": 161,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Stepper/StepContent.js": {
-      "id": 376,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/TimePicker/TimeDisplay.js": {
       "id": 336,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Stepper/StepLabel.js": {
-      "id": 150,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/TimePicker/TimePicker.js": {
       "id": 337,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Stepper/Stepper.js": {
-      "id": 377,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/TimePicker/TimePickerDialog.js": {
       "id": 338,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Subheader/Subheader.js": {
-      "id": 378,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/TimePicker/index.js": {
       "id": 339,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Subheader/index.js": {
-      "id": 151,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/SvgIcon/SvgIcon.js": {
-      "id": 379,
+    "../node_modules/.0.15.4@material-ui/TimePicker/timeUtils.js": {
+      "id": 46,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Toggle/Toggle.js": {
       "id": 340,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/SvgIcon/index.js": {
-      "id": 9,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Toggle/index.js": {
       "id": 341,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Table/Table.js": {
-      "id": 380,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Toolbar/Toolbar.js": {
       "id": 342,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Table/TableBody.js": {
-      "id": 152,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Toolbar/ToolbarGroup.js": {
       "id": 162,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Table/TableFooter.js": {
-      "id": 153,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Toolbar/ToolbarSeparator.js": {
       "id": 163,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Table/TableHeader.js": {
-      "id": 154,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Toolbar/ToolbarTitle.js": {
       "id": 164,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Table/TableHeaderColumn.js": {
-      "id": 84,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/Toolbar/index.js": {
       "id": 343,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Table/TableRow.js": {
-      "id": 155,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/index.js": {
       "id": 195,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Table/TableRowColumn.js": {
-      "id": 60,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/internal/AutoLockScrolling.js": {
       "id": 344,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Table/index.js": {
-      "id": 381,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/internal/BeforeAfterWrapper.js": {
       "id": 345,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Tabs/InkBar.js": {
-      "id": 382,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/internal/CircleRipple.js": {
       "id": 346,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Tabs/Tab.js": {
-      "id": 156,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/internal/ClearFix.js": {
       "id": 347,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Tabs/TabTemplate.js": {
-      "id": 383,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/internal/ClickAwayListener.js": {
       "id": 98,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Tabs/Tabs.js": {
-      "id": 384,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Tabs/index.js": {
-      "id": 385,
+    "../node_modules/.0.15.4@material-ui/internal/EnhancedButton.js": {
+      "id": 20,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/internal/EnhancedSwitch.js": {
       "id": 99,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/TextField/EnhancedTextarea.js": {
-      "id": 386,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/internal/ExpandTransition.js": {
       "id": 348,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/TextField/TextField.js": {
-      "id": 387,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/internal/ExpandTransitionChild.js": {
       "id": 349,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/TextField/TextFieldHint.js": {
-      "id": 388,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/internal/FocusRipple.js": {
       "id": 100,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/TextField/TextFieldLabel.js": {
-      "id": 389,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/internal/Overlay.js": {
       "id": 165,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/TextField/TextFieldUnderline.js": {
-      "id": 390,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/internal/RenderToLayer.js": {
       "id": 166,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/TextField/index.js": {
-      "id": 43,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/internal/ScaleIn.js": {
       "id": 350,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/TimePicker/Clock.js": {
-      "id": 391,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/internal/ScaleInChild.js": {
       "id": 351,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/TimePicker/ClockHours.js": {
-      "id": 392,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/internal/SlideIn.js": {
       "id": 101,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/TimePicker/ClockMinutes.js": {
-      "id": 393,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/internal/SlideInChild.js": {
       "id": 352,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/TimePicker/ClockNumber.js": {
-      "id": 157,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/internal/Tooltip.js": {
       "id": 167,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/TimePicker/ClockPointer.js": {
-      "id": 158,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/internal/TouchRipple.js": {
       "id": 168,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/TimePicker/TimeDisplay.js": {
-      "id": 394,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/styles/MuiThemeProvider.js": {
       "id": 353,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/TimePicker/TimePicker.js": {
-      "id": 395,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/styles/baseThemes/lightBaseTheme.js": {
       "id": 354,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/TimePicker/TimePickerDialog.js": {
-      "id": 396,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/styles/colors.js": {
       "id": 102,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/TimePicker/index.js": {
-      "id": 397,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/styles/getMuiTheme.js": {
       "id": 355,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/TimePicker/timeUtils.js": {
-      "id": 44,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/styles/spacing.js": {
       "id": 356,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Toggle/Toggle.js": {
-      "id": 398,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Toggle/index.js": {
-      "id": 399,
+    "../node_modules/.0.15.4@material-ui/styles/transitions.js": {
+      "id": 3,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/styles/typography.js": {
       "id": 357,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Toolbar/Toolbar.js": {
-      "id": 400,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/styles/zIndex.js": {
       "id": 358,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Toolbar/ToolbarGroup.js": {
-      "id": 159,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/svg-icons/action/check-circle.js": {
       "id": 359,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Toolbar/ToolbarSeparator.js": {
-      "id": 160,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/svg-icons/hardware/keyboard-arrow-down.js": {
       "id": 360,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Toolbar/ToolbarTitle.js": {
-      "id": 161,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/svg-icons/hardware/keyboard-arrow-up.js": {
       "id": 361,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/Toolbar/index.js": {
-      "id": 401,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/svg-icons/navigation/arrow-drop-down.js": {
       "id": 362,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/index.js": {
-      "id": 199,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/svg-icons/navigation/cancel.js": {
       "id": 363,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/internal/AutoLockScrolling.js": {
-      "id": 402,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/svg-icons/navigation/check.js": {
       "id": 364,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/internal/BeforeAfterWrapper.js": {
-      "id": 403,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/svg-icons/navigation/chevron-left.js": {
       "id": 365,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/internal/CircleRipple.js": {
-      "id": 404,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/svg-icons/navigation/chevron-right.js": {
       "id": 366,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/internal/ClearFix.js": {
-      "id": 405,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/svg-icons/navigation/expand-less.js": {
       "id": 367,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/internal/ClickAwayListener.js": {
-      "id": 85,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/svg-icons/navigation/expand-more.js": {
       "id": 368,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/internal/EnhancedButton.js": {
-      "id": 21,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/svg-icons/navigation/menu.js": {
       "id": 369,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/internal/EnhancedSwitch.js": {
-      "id": 86,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/svg-icons/toggle/check-box-outline-blank.js": {
       "id": 370,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/internal/ExpandTransition.js": {
-      "id": 406,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/svg-icons/toggle/check-box.js": {
       "id": 371,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/internal/ExpandTransitionChild.js": {
-      "id": 407,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/svg-icons/toggle/radio-button-checked.js": {
       "id": 372,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/internal/FocusRipple.js": {
-      "id": 87,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/svg-icons/toggle/radio-button-unchecked.js": {
       "id": 373,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/internal/Overlay.js": {
-      "id": 162,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/utils/autoPrefix.js": {
       "id": 28,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/internal/RenderToLayer.js": {
-      "id": 163,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/utils/autoprefixer.js": {
       "id": 374,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/internal/ScaleIn.js": {
-      "id": 408,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/utils/callOnce.js": {
       "id": 375,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/internal/ScaleInChild.js": {
-      "id": 409,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/internal/SlideIn.js": {
-      "id": 88,
+    "../node_modules/.0.15.4@material-ui/utils/childUtils.js": {
+      "id": 47,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/internal/SlideInChild.js": {
-      "id": 410,
+    "../node_modules/.0.15.4@material-ui/utils/colorManipulator.js": {
+      "id": 24,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/internal/Tooltip.js": {
-      "id": 164,
+    "../node_modules/.0.15.4@material-ui/utils/deprecatedPropType.js": {
+      "id": 25,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/utils/dom.js": {
       "id": 169,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/internal/TouchRipple.js": {
-      "id": 165,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/utils/events.js": {
       "id": 103,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/styles/MuiThemeProvider.js": {
-      "id": 411,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/styles/baseThemes/lightBaseTheme.js": {
-      "id": 412,
+    "../node_modules/.0.15.4@material-ui/utils/propTypes.js": {
+      "id": 16,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/utils/rtl.js": {
       "id": 376,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/styles/colors.js": {
-      "id": 89,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.15.4@material-ui/utils/withWidth.js": {
       "id": 377,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/styles/getMuiTheme.js": {
-      "id": 413,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/styles/spacing.js": {
-      "id": 414,
+    "../node_modules/.0.2.1@react-event-listener/lib/index.js": {
+      "id": 26,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.20.2@recompose/compose.js": {
       "id": 378,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/styles/transitions.js": {
-      "id": 3,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.20.2@recompose/createEagerFactory.js": {
       "id": 379,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/styles/typography.js": {
-      "id": 415,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.20.2@recompose/createHelper.js": {
       "id": 170,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/styles/zIndex.js": {
-      "id": 416,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.20.2@recompose/getDisplayName.js": {
       "id": 380,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/svg-icons/action/check-circle.js": {
-      "id": 417,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.20.2@recompose/isClassComponent.js": {
       "id": 381,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/svg-icons/hardware/keyboard-arrow-down.js": {
-      "id": 418,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.20.2@recompose/isReferentiallyTransparentFunctionComponent.js": {
       "id": 382,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/svg-icons/hardware/keyboard-arrow-up.js": {
-      "id": 419,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/svg-icons/navigation/arrow-drop-down.js": {
-      "id": 420,
+    "../node_modules/.0.20.2@recompose/pure.js": {
+      "id": 10,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/svg-icons/navigation/cancel.js": {
-      "id": 421,
+    "../node_modules/.0.20.2@recompose/shallowEqual.js": {
+      "id": 34,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.20.2@recompose/shouldUpdate.js": {
       "id": 383,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/svg-icons/navigation/check.js": {
-      "id": 422,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.20.2@recompose/utils/createEagerElementUtil.js": {
       "id": 384,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/svg-icons/navigation/chevron-left.js": {
-      "id": 423,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.20.2@recompose/wrapDisplayName.js": {
       "id": 385,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/svg-icons/navigation/chevron-right.js": {
-      "id": 424,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.6.1@fbjs/lib/EventListener.js": {
       "id": 171,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/svg-icons/navigation/expand-less.js": {
-      "id": 425,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/svg-icons/navigation/expand-more.js": {
-      "id": 426,
+    "../node_modules/.0.6.1@fbjs/lib/ExecutionEnvironment.js": {
+      "id": 9,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.6.1@fbjs/lib/camelize.js": {
       "id": 386,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/svg-icons/navigation/menu.js": {
-      "id": 427,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.6.1@fbjs/lib/camelizeStyleName.js": {
       "id": 387,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/svg-icons/toggle/check-box-outline-blank.js": {
-      "id": 428,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.6.1@fbjs/lib/containsNode.js": {
       "id": 172,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/svg-icons/toggle/check-box.js": {
-      "id": 429,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.6.1@fbjs/lib/createArrayFromMixed.js": {
       "id": 388,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/svg-icons/toggle/radio-button-checked.js": {
-      "id": 430,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.6.1@fbjs/lib/createNodesFromMarkup.js": {
       "id": 389,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/svg-icons/toggle/radio-button-unchecked.js": {
-      "id": 431,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/utils/autoPrefix.js": {
-      "id": 29,
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/utils/autoprefixer.js": {
-      "id": 432,
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.6.1@fbjs/lib/focusNode.js": {
-      "id": 173,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/utils/callOnce.js": {
-      "id": 433,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.6.1@fbjs/lib/getActiveElement.js": {
-      "id": 174,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/utils/childUtils.js": {
-      "id": 45,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.6.1@fbjs/lib/getMarkupWrap.js": {
-      "id": 175,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/utils/colorManipulator.js": {
-      "id": 23,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.6.1@fbjs/lib/getUnboundedScrollPosition.js": {
-      "id": 390,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/utils/deprecatedPropType.js": {
-      "id": 24,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.6.1@fbjs/lib/hyphenate.js": {
-      "id": 391,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/utils/dom.js": {
-      "id": 166,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
-    "../node_modules/.0.6.1@fbjs/lib/hyphenateStyleName.js": {
-      "id": 392,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/utils/events.js": {
-      "id": 90,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/utils/propTypes.js": {
+    "../node_modules/.0.6.1@fbjs/lib/emptyFunction.js": {
       "id": 17,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
+    "../node_modules/.0.6.1@fbjs/lib/emptyObject.js": {
+      "id": 48,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.6.1@fbjs/lib/focusNode.js": {
+      "id": 173,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.6.1@fbjs/lib/getActiveElement.js": {
+      "id": 174,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.6.1@fbjs/lib/getMarkupWrap.js": {
+      "id": 175,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.6.1@fbjs/lib/getUnboundedScrollPosition.js": {
+      "id": 390,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.6.1@fbjs/lib/hyphenate.js": {
+      "id": 391,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.6.1@fbjs/lib/hyphenateStyleName.js": {
+      "id": 392,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
+    "../node_modules/.0.6.1@fbjs/lib/invariant.js": {
+      "id": 4,
+      "meta": {},
+      "hasStarExport": false,
+      "activeExports": []
+    },
     "../node_modules/.0.6.1@fbjs/lib/isNode.js": {
       "id": 393,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/utils/rtl.js": {
-      "id": 434,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.6.1@fbjs/lib/isTextNode.js": {
       "id": 394,
-=======
-    "../node_modules/.npminstall/material-ui/0.15.4/material-ui/utils/withWidth.js": {
-      "id": 435,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.6.1@fbjs/lib/keyMirror.js": {
       "id": 61,
-=======
-    "../node_modules/.npminstall/process/0.11.9/process/browser.js": {
-      "id": 2,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.6.1@fbjs/lib/keyOf.js": {
       "id": 29,
-=======
-    "../node_modules/.npminstall/react-addons-create-fragment/15.4.1/react-addons-create-fragment/index.js": {
-      "id": 436,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.6.1@fbjs/lib/mapObject.js": {
       "id": 395,
-=======
-    "../node_modules/.npminstall/react-addons-transition-group/15.4.1/react-addons-transition-group/index.js": {
-      "id": 46,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.6.1@fbjs/lib/memoizeStringOnly.js": {
       "id": 396,
-=======
-    "../node_modules/.npminstall/react-dom/0.14.6/react-dom/index.js": {
-      "id": 7,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.6.1@fbjs/lib/performance.js": {
       "id": 397,
-=======
-    "../node_modules/.npminstall/react-event-listener/0.2.1/react-event-listener/lib/index.js": {
-      "id": 25,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.6.1@fbjs/lib/performanceNow.js": {
       "id": 398,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/AutoFocusUtils.js": {
-      "id": 437,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.6.1@fbjs/lib/shallowEqual.js": {
       "id": 176,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/BeforeInputEventPlugin.js": {
-      "id": 438,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.6.1@fbjs/lib/toArray.js": {
       "id": 399,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/CSSProperty.js": {
-      "id": 167,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/react/0.14.6/react/lib/CSSPropertyOperations.js": {
-      "id": 439,
+    "../node_modules/.0.6.1@fbjs/lib/warning.js": {
+      "id": 6,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.0.8.5@fbjs/lib/shallowEqual.js": {
       "id": 177,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/CallbackQueue.js": {
-      "id": 91,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.1.0.1@hyphenate-style-name/index.js": {
       "id": 178,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ChangeEventPlugin.js": {
-      "id": 440,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.1.4.6@bowser/src/bowser.js": {
       "id": 400,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ClientReactRootIndex.js": {
-      "id": 441,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.15.3.2@react-addons-create-fragment/index.js": {
       "id": 401,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/DOMChildrenOperations.js": {
-      "id": 168,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.15.3.2@react-addons-transition-group/index.js": {
       "id": 49,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/DOMProperty.js": {
-      "id": 32,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/Prefixer.js": {
       "id": 402,
       "meta": {},
@@ -3858,842 +2217,448 @@
     },
     "../node_modules/.2.0.4@inline-style-prefixer/lib/plugins/flexboxIE.js": {
       "id": 405,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/DOMPropertyOperations.js": {
-      "id": 92,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/plugins/flexboxOld.js": {
       "id": 406,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/Danger.js": {
-      "id": 442,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/plugins/grabCursor.js": {
       "id": 407,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/DefaultEventPluginOrder.js": {
-      "id": 443,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/plugins/gradient.js": {
       "id": 408,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/EnterLeaveEventPlugin.js": {
-      "id": 444,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/plugins/sizing.js": {
       "id": 409,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/EventConstants.js": {
-      "id": 26,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/plugins/transition.js": {
       "id": 410,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/EventPluginHub.js": {
-      "id": 47,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/plugins/zoomCursor.js": {
       "id": 411,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/EventPluginRegistry.js": {
-      "id": 169,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/prefixProps.js": {
       "id": 412,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/EventPluginUtils.js": {
-      "id": 445,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/static/plugins/calc.js": {
       "id": 413,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/EventPropagators.js": {
-      "id": 48,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/static/plugins/cursor.js": {
       "id": 414,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/FallbackCompositionState.js": {
-      "id": 446,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/static/plugins/flex.js": {
       "id": 415,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/HTMLDOMPropertyConfig.js": {
-      "id": 447,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/static/plugins/flexboxIE.js": {
       "id": 416,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/LinkedValueUtils.js": {
-      "id": 93,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/static/plugins/flexboxOld.js": {
       "id": 417,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/Object.assign.js": {
-      "id": 5,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/static/plugins/gradient.js": {
       "id": 418,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/PooledClass.js": {
-      "id": 30,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/static/plugins/sizing.js": {
       "id": 419,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/React.js": {
-      "id": 170,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/static/plugins/transition.js": {
       "id": 420,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactBrowserComponentMixin.js": {
-      "id": 448,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/static/prefixAll.js": {
       "id": 421,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactBrowserEventEmitter.js": {
-      "id": 61,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/static/prefixProps.js": {
       "id": 179,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactChildReconciler.js": {
-      "id": 449,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/utils/capitalizeString.js": {
       "id": 104,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactChildren.js": {
-      "id": 94,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/utils/getBrowserInformation.js": {
       "id": 422,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactClass.js": {
-      "id": 171,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/utils/getPrefixedKeyframes.js": {
       "id": 423,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactComponent.js": {
-      "id": 172,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/utils/getPrefixedValue.js": {
       "id": 30,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactComponentBrowserEnvironment.js": {
-      "id": 95,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/utils/isPrefixedValue.js": {
       "id": 105,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactComponentEnvironment.js": {
-      "id": 96,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/utils/joinPrefixedValue.js": {
       "id": 62,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactCompositeComponent.js": {
-      "id": 450,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.0.4@inline-style-prefixer/lib/utils/unprefixProperty.js": {
       "id": 424,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactCurrentOwner.js": {
-      "id": 27,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.1.0-beta.21@webpack/buildin/amd-define.js": {
       "id": 425,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactDOM.js": {
-      "id": 173,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.1.0-beta.21@webpack/buildin/global.js": {
       "id": 180,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactDOMButton.js": {
-      "id": 451,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.1.0-beta.21@webpack/buildin/module.js": {
       "id": 63,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactDOMComponent.js": {
-      "id": 452,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.2.1.7@keycode/index.js": {
       "id": 18,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactDOMFactories.js": {
-      "id": 453,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.3.0.0@warning/browser.js": {
       "id": 12,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactDOMFeatureFlags.js": {
-      "id": 174,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_Hash.js": {
       "id": 426,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactDOMIDOperations.js": {
-      "id": 97,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_ListCache.js": {
       "id": 64,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactDOMInput.js": {
-      "id": 454,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_Map.js": {
       "id": 181,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactDOMOption.js": {
-      "id": 455,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_MapCache.js": {
       "id": 427,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactDOMSelect.js": {
-      "id": 175,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_Stack.js": {
       "id": 428,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactDOMSelection.js": {
-      "id": 456,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_Uint8Array.js": {
       "id": 429,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactDOMServer.js": {
-      "id": 457,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_apply.js": {
       "id": 430,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactDOMTextComponent.js": {
-      "id": 176,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_arrayLikeKeys.js": {
       "id": 431,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactDOMTextarea.js": {
-      "id": 458,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_assignMergeValue.js": {
       "id": 182,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactDefaultBatchingStrategy.js": {
-      "id": 177,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_assignValue.js": {
       "id": 432,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactDefaultInjection.js": {
-      "id": 178,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_assocIndexOf.js": {
       "id": 65,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactDefaultPerf.js": {
-      "id": 459,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_baseAssignValue.js": {
       "id": 106,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactDefaultPerfAnalysis.js": {
-      "id": 460,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_baseCreate.js": {
       "id": 433,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactElement.js": {
-      "id": 13,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_baseFor.js": {
       "id": 434,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactElementValidator.js": {
-      "id": 179,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_baseIsArguments.js": {
       "id": 435,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactEmptyComponent.js": {
-      "id": 180,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_baseIsNative.js": {
       "id": 436,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactEmptyComponentRegistry.js": {
-      "id": 181,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_baseIsTypedArray.js": {
       "id": 437,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactErrorUtils.js": {
-      "id": 182,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_baseKeysIn.js": {
       "id": 438,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactEventEmitterMixin.js": {
-      "id": 461,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactEventListener.js": {
-      "id": 462,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_baseMerge.js": {
       "id": 439,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactFragment.js": {
-      "id": 463,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactInjection.js": {
-      "id": 464,
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactInputSelection.js": {
-      "id": 183,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_baseMergeDeep.js": {
       "id": 440,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactInstanceHandles.js": {
-      "id": 39,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_baseRest.js": {
       "id": 441,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactInstanceMap.js": {
-      "id": 49,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactIsomorphic.js": {
-      "id": 465,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_baseSetToString.js": {
       "id": 442,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactMarkupChecksum.js": {
-      "id": 184,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_baseTimes.js": {
       "id": 443,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactMount.js": {
-      "id": 11,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_baseUnary.js": {
       "id": 444,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactMultiChild.js": {
-      "id": 466,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_cloneArrayBuffer.js": {
       "id": 445,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactMultiChildUpdateTypes.js": {
-      "id": 185,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_cloneBuffer.js": {
       "id": 446,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactNativeComponent.js": {
-      "id": 186,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_cloneTypedArray.js": {
       "id": 447,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactNoopUpdateQueue.js": {
-      "id": 187,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_copyArray.js": {
       "id": 448,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactOwner.js": {
-      "id": 467,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_copyObject.js": {
       "id": 449,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactPerf.js": {
-      "id": 18,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_coreJsData.js": {
       "id": 450,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactPropTypeLocationNames.js": {
-      "id": 62,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_createAssigner.js": {
       "id": 451,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactPropTypeLocations.js": {
-      "id": 63,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_createBaseFor.js": {
       "id": 452,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactPropTypes.js": {
-      "id": 188,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_defineProperty.js": {
       "id": 183,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactReconcileTransaction.js": {
-      "id": 468,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_freeGlobal.js": {
       "id": 184,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactReconciler.js": {
-      "id": 33,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_getMapData.js": {
       "id": 66,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactRef.js": {
-      "id": 469,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_getNative.js": {
       "id": 107,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactRootIndex.js": {
-      "id": 189,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_getPrototype.js": {
       "id": 185,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactServerBatchingStrategy.js": {
-      "id": 470,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_getValue.js": {
       "id": 453,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactServerRendering.js": {
-      "id": 471,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_hashClear.js": {
       "id": 454,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactServerRenderingTransaction.js": {
-      "id": 472,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_hashDelete.js": {
       "id": 455,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactTransitionChildMapping.js": {
-      "id": 473,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_hashGet.js": {
       "id": 456,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactTransitionGroup.js": {
-      "id": 474,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_hashHas.js": {
       "id": 457,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactUpdateQueue.js": {
-      "id": 98,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_hashSet.js": {
       "id": 458,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactUpdates.js": {
-      "id": 19,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_initCloneObject.js": {
       "id": 459,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ReactVersion.js": {
-      "id": 99,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_isIndex.js": {
       "id": 186,
       "meta": {},
@@ -4702,625 +2667,312 @@
     },
     "../node_modules/.4.16.4@lodash/_isIterateeCall.js": {
       "id": 460,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/SVGDOMPropertyConfig.js": {
-      "id": 475,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_isKeyable.js": {
       "id": 461,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/SelectEventPlugin.js": {
-      "id": 476,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_isMasked.js": {
       "id": 462,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ServerReactRootIndex.js": {
-      "id": 477,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_isPrototype.js": {
       "id": 187,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/SimpleEventPlugin.js": {
-      "id": 478,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_listCacheClear.js": {
       "id": 463,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/SyntheticClipboardEvent.js": {
-      "id": 479,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_listCacheDelete.js": {
       "id": 464,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/SyntheticCompositionEvent.js": {
-      "id": 480,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_listCacheGet.js": {
       "id": 465,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/SyntheticDragEvent.js": {
-      "id": 481,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_listCacheHas.js": {
       "id": 466,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/SyntheticEvent.js": {
-      "id": 34,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_listCacheSet.js": {
       "id": 467,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/SyntheticFocusEvent.js": {
-      "id": 482,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_mapCacheClear.js": {
       "id": 468,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/SyntheticInputEvent.js": {
-      "id": 483,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_mapCacheDelete.js": {
       "id": 469,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/SyntheticKeyboardEvent.js": {
-      "id": 484,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_mapCacheGet.js": {
       "id": 470,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/SyntheticMouseEvent.js": {
-      "id": 64,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_mapCacheHas.js": {
       "id": 471,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/SyntheticTouchEvent.js": {
-      "id": 485,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_mapCacheSet.js": {
       "id": 472,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/SyntheticUIEvent.js": {
-      "id": 50,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_nativeCreate.js": {
       "id": 67,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/SyntheticWheelEvent.js": {
-      "id": 486,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_nativeKeysIn.js": {
       "id": 473,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/Transaction.js": {
-      "id": 65,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_nodeUtil.js": {
       "id": 474,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/ViewportMetrics.js": {
-      "id": 190,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_overArg.js": {
       "id": 475,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/accumulateInto.js": {
-      "id": 191,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_overRest.js": {
       "id": 476,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/adler32.js": {
-      "id": 487,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_root.js": {
       "id": 38,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/canDefineProperty.js": {
-      "id": 66,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_setToString.js": {
       "id": 477,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/dangerousStyleValue.js": {
-      "id": 488,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_shortOut.js": {
       "id": 478,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/deprecated.js": {
-      "id": 489,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_stackClear.js": {
       "id": 479,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/escapeTextContentForBrowser.js": {
-      "id": 67,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_stackDelete.js": {
       "id": 480,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/findDOMNode.js": {
-      "id": 100,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_stackGet.js": {
       "id": 481,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/flattenChildren.js": {
-      "id": 192,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_stackHas.js": {
       "id": 482,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/forEachAccumulated.js": {
-      "id": 193,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_stackSet.js": {
       "id": 483,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/getEventCharCode.js": {
-      "id": 101,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/_toSource.js": {
       "id": 484,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/getEventKey.js": {
-      "id": 490,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/constant.js": {
       "id": 485,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/getEventModifierState.js": {
-      "id": 102,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/react/0.14.6/react/lib/getEventTarget.js": {
-      "id": 103,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/debounce.js": {
       "id": 486,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/getIteratorFn.js": {
-      "id": 104,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/eq.js": {
       "id": 68,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/getNodeForCharacterOffset.js": {
-      "id": 491,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/react/0.14.6/react/lib/getTextContentAccessor.js": {
-      "id": 194,
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-    "../node_modules/.npminstall/react/0.14.6/react/lib/instantiateReactComponent.js": {
-      "id": 105,
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-    "../node_modules/.npminstall/react/0.14.6/react/lib/isEventSupported.js": {
-      "id": 106,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/identity.js": {
       "id": 188,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/isTextInputElement.js": {
-      "id": 195,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/isArguments.js": {
       "id": 189,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/onlyChild.js": {
-      "id": 492,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/isArray.js": {
       "id": 190,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/quoteAttributeValueForBrowser.js": {
-      "id": 493,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/isArrayLike.js": {
       "id": 108,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/renderSubtreeIntoContainer.js": {
-      "id": 494,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/isArrayLikeObject.js": {
       "id": 487,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/setInnerHTML.js": {
-      "id": 68,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/isBuffer.js": {
       "id": 191,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/setTextContent.js": {
-      "id": 107,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/isFunction.js": {
       "id": 109,
-=======
-    "../node_modules/.npminstall/react/0.14.6/react/lib/shouldUpdateReactComponent.js": {
-      "id": 108,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/react/0.14.6/react/lib/traverseAllChildren.js": {
-      "id": 109,
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-    "../node_modules/.npminstall/react/0.14.6/react/lib/validateDOMNesting.js": {
-      "id": 110,
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-    "../node_modules/.npminstall/react/0.14.6/react/react.js": {
-      "id": 0,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/isLength.js": {
       "id": 192,
-=======
-    "../node_modules/.npminstall/recompose/0.20.2/recompose/compose.js": {
-      "id": 495,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/recompose/0.20.2/recompose/createEagerFactory.js": {
-      "id": 496,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/isObject.js": {
       "id": 21,
-=======
-    "../node_modules/.npminstall/recompose/0.20.2/recompose/createHelper.js": {
-      "id": 196,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/isObjectLike.js": {
       "id": 39,
-=======
-    "../node_modules/.npminstall/recompose/0.20.2/recompose/getDisplayName.js": {
-      "id": 497,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/isPlainObject.js": {
       "id": 488,
-=======
-    "../node_modules/.npminstall/recompose/0.20.2/recompose/isClassComponent.js": {
-      "id": 498,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/isSymbol.js": {
       "id": 489,
-=======
-    "../node_modules/.npminstall/recompose/0.20.2/recompose/isReferentiallyTransparentFunctionComponent.js": {
-      "id": 499,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/isTypedArray.js": {
       "id": 193,
-=======
-    "../node_modules/.npminstall/recompose/0.20.2/recompose/pure.js": {
-      "id": 10,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/keysIn.js": {
       "id": 194,
-=======
-    "../node_modules/.npminstall/recompose/0.20.2/recompose/shallowEqual.js": {
-      "id": 35,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/lodash.js": {
       "id": 196,
-=======
-    "../node_modules/.npminstall/recompose/0.20.2/recompose/shouldUpdate.js": {
-      "id": 500,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/merge.js": {
       "id": 490,
-=======
-    "../node_modules/.npminstall/recompose/0.20.2/recompose/utils/createEagerElementUtil.js": {
-      "id": 501,
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-    "../node_modules/.npminstall/recompose/0.20.2/recompose/wrapDisplayName.js": {
-      "id": 502,
->>>>>>> feature/groupCheckbox
-      "meta": {},
-      "hasStarExport": false,
-      "activeExports": []
-    },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/now.js": {
       "id": 491,
-=======
-    "../node_modules/.npminstall/simple-assign/0.1.0/simple-assign/index.js": {
-      "id": 1,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/stubFalse.js": {
       "id": 492,
-=======
-    "../node_modules/.npminstall/warning/3.0.0/warning/browser.js": {
-      "id": 12,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/throttle.js": {
       "id": 493,
-=======
-    "../node_modules/.npminstall/webpack/2.1.0-beta.21/webpack/buildin/amd-define.js": {
-      "id": 503,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/toNumber.js": {
       "id": 494,
-=======
-    "../node_modules/.npminstall/webpack/2.1.0-beta.21/webpack/buildin/global.js": {
-      "id": 197,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []
     },
-<<<<<<< HEAD
     "../node_modules/.4.16.4@lodash/toPlainObject.js": {
       "id": 495,
-=======
-    "../node_modules/.npminstall/webpack/2.1.0-beta.21/webpack/buildin/module.js": {
-      "id": 69,
->>>>>>> feature/groupCheckbox
       "meta": {},
       "hasStarExport": false,
       "activeExports": []

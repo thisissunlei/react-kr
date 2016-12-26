@@ -202,6 +202,11 @@ export default class AttributeSetting extends Component {
 			contractList:[],
 			stationPayment:{},
 
+			//回款合同
+			contractReceive:[],
+			//回款合同顶部
+			contractTopReceive:[],
+
 			//转移
 			shiftData:[],
             
@@ -254,7 +259,30 @@ export default class AttributeSetting extends Component {
 		Store.dispatch(Actions.callAPI('getPaymentActData', {
 			mainbillId: _this.props.params.orderId
 		})).then(function(response) {
-             
+			var payWayList = [];
+			var contractReceive=[];
+			response.payWay.map(function(item, index) {
+				var list = {}
+				list.value = item.id;
+				list.label = item.accountname;
+				payWayList.push(list);
+			});
+			response.contract.map(function(item, index) {
+				var list = {}
+				list.value = item.detailid;
+				list.label = item.contactName+'-'+item.contractcode;
+				contractReceive.push(list);
+			});
+			    var noContract={
+			    	'value':'','label':'无合同'
+			     }
+			  contractReceive.push(noContract);
+           _this.setState({
+			  payWayList,
+			  accountDetail:response.propData,
+			  contractReceive,
+			  contractTopReceive:response.contract
+		   });  
 		}).catch(function(err) {
 			  Message.error(err.message); 
 		});
@@ -926,7 +954,7 @@ export default class AttributeSetting extends Component {
 
 		let parentBtn = params.accountType;
 		let childBtn = params.childType;
-    	if(parentBtn == 'INCOME' && childBtn == 'gongweishouru'){
+    	if(parentBtn == 'INCOME' && childBtn == 'gongweishouru'||parentBtn == 'INCOME' && childBtn == 'basic'){
     		return this.renderIncomed();
     	}else{
     		return this.renderReceived();
@@ -972,7 +1000,7 @@ export default class AttributeSetting extends Component {
 			//退款等要操作的id
 		let initialValuesId = {
 				id: fiItem.id,
-				fiMoney:123
+				fiMoney:fiMoney
 			}
 			//高级查询
 		let searchValue = {
@@ -1103,8 +1131,8 @@ export default class AttributeSetting extends Component {
 
 				      <Drawer open={this.state.openRight} width={696} openSecondary={true}>
 				       <div> 
-                        <ReceiveDetailTop iconClose={this.iconClose}/>
-                        <ReceivedBtnForm onSubmit={this.onAddReceivedSubmit}  onCancel={this.closeReceivedDialog} optionList={this.state.receivedList} typeList={this.state.typeList}/>
+                        <ReceiveDetailTop iconClose={this.iconClose} contractTopReceive={this.state.contractTopReceive}/>
+                        <ReceivedBtnForm onSubmit={this.onAddReceivedSubmit}  onCancel={this.iconClose} optionList={this.state.payWayList}  accountDetail={this.state.accountDetail} contractReceive={this.state.contractReceive}/>
                        </div>
                       </Drawer>
 

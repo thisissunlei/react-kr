@@ -73,7 +73,7 @@ class AccountBtnForm extends Component{
 	}
 	
 	render(){
-		const {error,handleSubmit,pristine,reset} = this.props;
+		const {error,handleSubmit,pristine,reset,accountDetail,contractList,optionList,stationPayment} = this.props;
 		let style={
        	 marginTop:'6'
        }
@@ -82,40 +82,9 @@ class AccountBtnForm extends Component{
        	 height:'72'
        }
 
-      
-       	 let accountDetail=[
-        {
-            "id":72726,"propname":"押金"
-        }, 
-         {
-            "id":727,"propname":"定金"
-        }, 
-        {
-            "id":727,"propname":"电费"
-        },  
-        ]
-
-        let contractList=[
-        {
-            "value":7,"label":"入驻合同"
-        }, 
-         {
-            "value":6,"label":"增租合同"
-        },  
-        ]
-        let optionList=[
-          {
-          	"value":123,"label":'nihao'
-          }
-        ]
-        
-        let stationPayment={
-        	'id':5,'propname':'工位服务费'
-        }
-
-        
+           
         let stationPaymentName=stationPayment.id;
-        console.log('3333',stationPaymentName);
+
 
 		return(
 			 <div className='ui-quit-wrap' style={{marginLeft:3}}>
