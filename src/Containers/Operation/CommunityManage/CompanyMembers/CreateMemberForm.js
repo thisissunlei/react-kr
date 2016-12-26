@@ -245,7 +245,7 @@ import imgLine from './images/line.png'
 
 
 		return (
-			<div style={{padding:'10px 30px 10px 30px'}}>
+			<div style={{padding:'10px 30px 0 30px'}}>
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:20}}>
 				<KrField grid={1/2} name="phone" type="text" label="手机号" right={20} requireLabel={true} style={{display:'block'}}
 				   onBlur={this.onBlur}/>
@@ -262,7 +262,7 @@ import imgLine from './images/line.png'
 						<KrField name="sendMsg" grid={1/2} label="否" type="radio" value="0" />
               </KrField>
         <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" right={20}  onBlur={this.foreignCodeBlur}/>
-				<Grid style={{marginTop:20,marginBottom:20}}>
+				<Grid style={{marginTop:19,marginBottom:20}}>
 					<Row>
 							<ListGroup>
 								<ListGroupItem style={{width:'269px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"/></ListGroupItem>

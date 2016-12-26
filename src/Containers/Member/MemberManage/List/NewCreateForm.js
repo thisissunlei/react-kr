@@ -185,8 +185,8 @@ import imgLine from './images/line.png'
 		 }
 		 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
 				 //会员卡号已注册
- 				
- 				
+
+
  				if(response.phone !='-1'){
  					Message.warn('该会员卡号已被绑定','error');
  				}else{
@@ -241,7 +241,7 @@ import imgLine from './images/line.png'
               </KrField>
         <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" onBlur={this.foreignCodeBlur} style={{width:'252px'}} />
 
-				<Grid style={{marginTop:30,marginBottom:'20px'}}>
+				<Grid style={{marginTop:19,marginBottom:'4px'}}>
 					<Row>
 						<ListGroup>
 								<ListGroupItem style={{width:'269px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"/></ListGroupItem>
