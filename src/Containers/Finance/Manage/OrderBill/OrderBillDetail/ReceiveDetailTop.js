@@ -45,7 +45,7 @@ export default class ReceiveDetailTop  extends Component{
 		 contractTopReceive
 		} = this.props;
 
-         //console.log('44444',contractTopReceive)
+         console.log('44444',contractTopReceive)
 
 		 
 		return(
@@ -80,7 +80,7 @@ export default class ReceiveDetailTop  extends Component{
 			                      </ul>
 			                      {contractTopReceive.map(function(item,index){
 			                      
-                                        if(item.contractcode=='213213'){
+                                        if(item.detailid=='226'){
                                         	return (
                                           <ul className='admin-ul'>
                                         	 <li>{item.contactName}</li>
@@ -91,7 +91,7 @@ export default class ReceiveDetailTop  extends Component{
                                           </ul>  
                                         	)
                                         }
-                                        if(item.contractcode!='213213'){
+                                        if(item.detailid!='226'){
                                         	return (
                                          <div className='joinBook'>
                                            <ul>	

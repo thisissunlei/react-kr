@@ -223,7 +223,7 @@ export default class AttributeSetting extends Component {
 			isLoading: true,
 			isInitLoading: true,
 			openView: false,
-			openRight:true,
+			openRight:false,
             colorClassName:'',
             isRunningIncome:0,
 		}
@@ -1129,7 +1129,7 @@ export default class AttributeSetting extends Component {
 					   <SearchForm onCancel={this.closeSearchDialog} initialValues={searchValue} codeList={this.state.codeList} typeList={this.state.typeList} onSubmit={this.onSubmit}/>
 					 </Dialog>
 
-				      <Drawer open={this.state.openRight} width={696} openSecondary={true}>
+				      <Drawer open={this.state.openRight} width={650} openSecondary={true}>
 				       <div> 
                         <ReceiveDetailTop iconClose={this.iconClose} contractTopReceive={this.state.contractTopReceive}/>
                         <ReceivedBtnForm onSubmit={this.onAddReceivedSubmit}  onCancel={this.iconClose} optionList={this.state.payWayList}  accountDetail={this.state.accountDetail} contractReceive={this.state.contractReceive}/>

@@ -66,7 +66,8 @@ class ReceivedBtnForm extends Component {
 		this.onCancel = this.onCancel.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 		this.state = {
-
+          changeValue:(<div></div>),
+          
 		}
 
 		//Store.dispatch(reset('ReceivedBtnForm'));
@@ -102,9 +103,16 @@ class ReceivedBtnForm extends Component {
 
   twoInputRender=()=>{
   	return (
+          <div>
+              <KrField label="押金"  grid={1/2} right={21} style={{marginTop:'-6px'}} name="fff" component="input" type="text" />
+              <KrField label="工位服务费"  grid={1/2} right={21} style={{marginTop:'-6px'}} name="yyyy" component="input" type="text"/>
+          </div>
+  		)
+  }
+  oneInputRender=()=>{
+  	return (
             <div>
-              <KrField label="押金"  grid={1/2} right={21} style={{marginTop:'-6px'}} name="finaflowamount" component="input" type="text" />
-              <KrField label="工位服务费"  grid={1/2} right={21} style={{marginTop:'-6px'}} name="finaflowamount" component="input" type="text"/>
+              <KrField label="定金"  grid={1/2} right={21} style={{marginTop:'-6px'}} name="fff" component="input" type="text" />
             </div>
   		)
   }
@@ -112,40 +120,21 @@ class ReceivedBtnForm extends Component {
   receiveInputRender=()=>{
   	        let {accountDetail}=this.props;
 
-            accountDetail.map(function(item,index){
+             accountDetail.map(function(item,index){
 						      	if(index%2==0){
-									return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={43}  style={{marginLeft:'-14px'}} label={item.propname} component="input" name={item.id} type="text"/>
+									return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={43}  label={item.propname} component="input" name={item.id} type="text"/>
 						      	}else{
 						      		return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={43}  label={item.propname}  component="input" name={item.id} type="text"/>
-						      	}
-
+				   }
 			     }
                )
          
   }
-  contractChange=(values)=>{
-  	console.log('3333',values);
-  	var _this=this;
-  	if(!values){
-  		values=[];
-  	}
-  	values.map(function(item,index){
-      if(item.checked==true&&item.value=='333'){
-      	return _this.twoInputRender();
-      }
-      if(item.checked==true&&item.value=='334'){
-      	return _this.twoInputRender();
-      }
-      if(item.checked==true&&item.value==''){
-      	return _this.receiveInputRender();
-      }
-  	})
-
-   }
+ 
 
 	render() {
 
-
+         var _this=this;
 
 		let {
 			error,
@@ -157,19 +146,31 @@ class ReceivedBtnForm extends Component {
 		} = this.props;
 
 		 
-        console.log('55555',contractReceive);
 
 		let heightStyle = {
 			width: '546',
 			height: '72'
 		}
+       
+       console.log('44---',contractReceive);
+       contractReceive.map(function(item,index){
+          if(item.value=='226'){
+          	item.component=_this.oneInputRender
+          }
+          if(item.value!='226'&&item.value!=''){
+          	item.component=_this.twoInputRender
+          }
+          if(item.value==''){
+          	item.component=_this.receiveInputRender
+          }
+       })
 
+        console.log('0000--',contractReceive); 
 
 		return (
           <div className='receive-form-middle'>
 			
 					      <form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:45,marginLeft:'10px'}}>
-					        {this.contractChange()}
                             <KrField  name="mainbillid" type="hidden" component="input"/>
 		                    <KrField  label="支付方式" grid={1/2} right={21} name="accountId" style={{marginBottom:5}} type="select" options={optionList} requireLabel={true}/>
 						     <KrField name="preCode" grid={1/2} left={21} component="group" style={{marginLeft:-22}}  label="金额正负" requireLabel={true}>
@@ -181,7 +182,7 @@ class ReceivedBtnForm extends Component {
 						     <KrField label="回款总额"  grid={1/2} right={21} style={{marginTop:'-6px'}} name="finaflowamount" component="input" type="text" requireLabel={true}/>
 						     <KrField label="对应合同"  grid={1/2} component="groupCheckbox" defaultValue={contractReceive} requireLabel={true} onChange={this.contractChange}/>
 
-                             {this.contractChange()}
+                              
 
 						     <KrField label="上传附件" grid={1/2} left={30}  style={{marginLeft:-30}} name="fileids" component="file" />
                        
