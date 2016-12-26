@@ -31,7 +31,8 @@ export default class Initialize  extends Component{
 
 	static propTypes = {
 		data: React.PropTypes.array,
-		orderTime:React.PropTypes.bool
+		orderTime:React.PropTypes.bool,
+		stationVOs:React.PropTypes.object,
 	}
 	initBasicClass=()=>{
 
@@ -46,6 +47,7 @@ export default class Initialize  extends Component{
 
 
 			<div className="print-Station">
+
 				{/*
 					<div className="normal-station-head">
 						<span className="enter-info">入驻信息</span>
@@ -54,15 +56,15 @@ export default class Initialize  extends Component{
 				<div className="supplement-station-head">
 					<div className="method-list">
 						<span className="checked"></span>
-						<span>月度</span>
+						<span>增加</span>
 					</div>
 					<div className="method-list">
 						<span className="discheck"></span>
-						<span>季度</span>
+						<span>减少</span>
 					</div>
 					<div className="method-list">
 						<span className="discheck"></span>
-						<span>半年度</span>
+						<span>延续服务</span>
 					</div>
 
 					<span className="enter-info">入驻信息如下</span>
@@ -81,10 +83,13 @@ export default class Initialize  extends Component{
 											stationVOs && stationVOs.map((item,index)=>{
 												return(
 													<tr key={index}>
-														<td>item.leaseDate</td>
-														<td>2015/09/10-2016/10/10</td>
-														<td>2015/09/10</td>
+														<td>工位/办公室</td>
+														<td>007141-007149</td>
 														<td>1200</td>
+														<td>9</td>
+														<td>item.lessDate</td>
+														<td>item.lineTotal</td>
+														<td></td>
 
 												</tr>
 
