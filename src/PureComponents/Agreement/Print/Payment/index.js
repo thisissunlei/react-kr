@@ -36,6 +36,9 @@ export default class Initialize extends Component {
 		super(props, context);
 
 	}
+	istable = () => {
+
+	}
 	Onetable = () => {
 
 		return (
