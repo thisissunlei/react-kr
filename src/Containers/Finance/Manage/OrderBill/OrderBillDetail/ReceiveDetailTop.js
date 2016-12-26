@@ -40,52 +40,14 @@ export default class ReceiveDetailTop  extends Component{
 
 
 	render(){
+         
+         let {
+		 contractTopReceive
+		} = this.props;
 
+         //console.log('44444',contractTopReceive)
 
-
-		 let contractTopReceive=[
-          {
-            "contactName":"入驻",
-            "contactType":21707,
-            "contractcode":"123",
-            "deposit":77712,
-            "detailid":26384,
-            "frontmoney":33206,
-            "nDeposit":80437,
-            "nFrontmoney":27103,"nTotalrent":17240,"totalrent":52135
-          },
-          {
-            "contactName":"意向",
-            "contactType":21707,
-            "contractcode":"444",
-            "deposit":77712,
-            "detailid":26384,
-            "frontmoney":33206,
-            "nDeposit":80437,
-            "nFrontmoney":27103,"nTotalrent":17240,"totalrent":52135
-          },
-           {
-            "contactName":"增租",
-            "contactType":21707,
-            "contractcode":"234",
-            "deposit":77712,
-            "detailid":26384,
-            "frontmoney":33206,
-            "nDeposit":80437,
-            "nFrontmoney":27103,"nTotalrent":17240,"totalrent":52135
-          },
-          {
-            "contactName":"续租",
-            "contactType":21707,
-            "contractcode":"235",
-            "deposit":77712,
-            "detailid":26384,
-            "frontmoney":33206,
-            "nDeposit":80437,
-            "nFrontmoney":27103,"nTotalrent":17240,"totalrent":52135
-          }
-        ]
-
+		 
 		return(
 
               <div className='ui-receive-money'>
@@ -118,7 +80,7 @@ export default class ReceiveDetailTop  extends Component{
 			                      </ul>
 			                      {contractTopReceive.map(function(item,index){
 			                      
-                                        if(item.contractcode=='444'){
+                                        if(item.contractcode=='213213'){
                                         	return (
                                           <ul className='admin-ul'>
                                         	 <li>{item.contactName}</li>
@@ -129,7 +91,7 @@ export default class ReceiveDetailTop  extends Component{
                                           </ul>  
                                         	)
                                         }
-                                        if(item.contractcode=='123'){
+                                        if(item.contractcode!='213213'){
                                         	return (
                                          <div className='joinBook'>
                                            <ul>	
@@ -151,46 +113,7 @@ export default class ReceiveDetailTop  extends Component{
                                         }
                                         
 
-                                        if(item.contractcode=='234'){
-                                        	return (
-                                         <div className='increaseBook'>
-                                           <ul>	
-                                        	 <li>{item.contactName}</li>
-                                             <li>押金</li>
-                                             <li>{item.deposit}</li>
-                                             <li>{item.nDeposit}</li>
-                                             <li>合同</li>
-                                           </ul> 
-                                            <ul>	
-                                        	 <li></li>
-                                             <li>租金</li>
-                                             <li>{item.totalrent}</li>
-                                             <li>{item.nTotalrent}</li>
-                                             <li>合同</li>
-                                           </ul> 
-                                          </div>  
-                                        	)
-                                        }
-                                        if(item.contractcode=='235'){
-                                        	return (
-                                         <div className='continueBook'>
-                                           <ul>	
-                                        	 <li>{item.contactName}</li>
-                                             <li>押金</li>
-                                             <li>{item.deposit}</li>
-                                             <li>{item.nDeposit}</li>
-                                             <li>合同</li>
-                                           </ul> 
-                                            <ul>	
-                                        	 <li></li>
-                                             <li>租金</li>
-                                             <li>{item.totalrent}</li>
-                                             <li>{item.nTotalrent}</li>
-                                             <li>合同</li>
-                                           </ul> 
-                                          </div>  
-                                        	)
-                                        }
+                                        
                                                                           
 			                     
 			                         })

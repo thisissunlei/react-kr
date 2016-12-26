@@ -76,12 +76,11 @@ class ReceivedBtnForm extends Component {
 
 
 		let initialValues = {
-			sumSign: '1',
-			autoSplit: '0',
+			preCode:'1',
 			mainbillid: this.context.params.orderId
 		}
 
-		Store.dispatch(initialize('ReceivedBtnForm', initialValues));
+		Store.dispatch(initialize('receivedBtnForm', initialValues));
 
 	}
 
@@ -158,7 +157,7 @@ class ReceivedBtnForm extends Component {
 		} = this.props;
 
 		 
-       
+        console.log('55555',contractReceive);
 
 		let heightStyle = {
 			width: '546',
@@ -173,9 +172,9 @@ class ReceivedBtnForm extends Component {
 					        {this.contractChange()}
                             <KrField  name="mainbillid" type="hidden" component="input"/>
 		                    <KrField  label="支付方式" grid={1/2} right={21} name="accountId" style={{marginBottom:5}} type="select" options={optionList} requireLabel={true}/>
-						     <KrField name="sumSign" grid={1/2} left={21} component="group" style={{marginLeft:-22}}  label="金额正负" requireLabel={true}>
-				                <KrField name="sumSign" grid={1/2}  label="正" component="radio" type="radio" value="0"/>
-				                <KrField name="sumSign"  grid={1/2} label="负" component="radio" type="radio" value="1"/>
+						     <KrField name="preCode" grid={1/2} left={21} component="group" style={{marginLeft:-22}}  label="金额正负" requireLabel={true}>
+				                <KrField name="preCode" grid={1/2}  label="正" component="radio" type="radio" value="0"/>
+				                <KrField name="preCode"  grid={1/2} label="负" component="radio" type="radio" value="1"/>
 			                </KrField>
 
 						     <KrField component="date" grid={1/2} right={23} style={{marginTop:'-5px'}}  label="回款日期" name="receiveDate" requireLabel={true}/>
