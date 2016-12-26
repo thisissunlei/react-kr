@@ -502,9 +502,12 @@ export default class D3Content extends Component {
 
 				{
 					whiteBar && whiteBar.map((item,index)=>{
-						return(
-							<span className="wihiteBar" style={{marginLeft:`${item}%`}} key={index}></span>
-						)
+						if(item<100){
+							return(
+								<span className="wihiteBar" style={{marginLeft:`${item}%`}} key={index}></span>
+							)
+						}
+						
 					})
 				}
 				{

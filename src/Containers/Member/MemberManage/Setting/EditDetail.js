@@ -42,7 +42,7 @@ class EditDetail extends Component {
 		this.onCancel = this.onCancel.bind(this);
 
 		this.state = {
-			detail:{},
+			detail:props.detail,
 			mainbilltypeList: [],
 			clearInterCodeStyle:{
 				display:'none'
@@ -53,6 +53,13 @@ class EditDetail extends Component {
 	}
 
 	onSubmit(values) {
+		if (navigator.onLine) 
+		{ //正常工作
+		} 
+		else { //执行离线状态时的任务
+		 		Message.error("网络已断开")
+		 		return;
+		} 
 		const {
 			onSubmit
 		} = this.props;
@@ -90,8 +97,6 @@ class EditDetail extends Component {
 		var cReg=new RegExp("[\\u4E00-\\u9FFF]+","g");
 
 		if(cReg.test(value)){
-		console.log(cReg.test(value),"==")
-
 			Message.error('卡内码内含有中文请切换英文输入法！');
 			return;
 		}
@@ -106,10 +111,10 @@ class EditDetail extends Component {
 		} = this.props;
 
 		return (
-			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:30}}>
-				<KrField  right={27} style={{}} left={42} right={42} name="foreignCode" type="text" label="会员卡号"/>
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:0}}>
+				<KrField  right={27} style={{}} left={42} right={42} name="foreignCode" component="labelText" label="会员卡号" value={this.state.detail.foreignCode} inline={false} />
 				<div className="clearInterCode">
-					<KrField  right={27}  left={42} right={42} style={{marginTop:5}} name="interCode" component="input" type="text" label="会员卡内码" onFocus={this.InterCodeFocus} onChange={this.cardChange}/>
+					<KrField  right={27}  left={42} right={42} style={{marginTop:5}} name="interCode" component="input" type="text" label="会员卡内码" onFocus={this.InterCodeFocus} onChange={this.cardChange} />
 					<div className="x" style={this.state.clearInterCodeStyle} onClick={this.clearInterCode}></div>
 				</div>
 				<Grid style={{marginTop:10,marginBottom:5}}>
@@ -130,7 +135,6 @@ class EditDetail extends Component {
 const validate = values =>{
 	var foreignCode=values.foreignCode;
 	var reg=/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8}$/;
-	console.log( "foreignCode",foreignCode,Object.prototype.toString.call(foreignCode));
 	const errors = {}
 
 	if(!values.foreignCode){

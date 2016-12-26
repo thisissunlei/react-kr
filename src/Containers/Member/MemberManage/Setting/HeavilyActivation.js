@@ -37,9 +37,17 @@ import './index.less';
 		var detail= props.detail;
 		var startNum = props.detail.startNum||'';
 		var endNum = props.detail.endNum||'';
+
 		var cardNum=0;
+
 		if(startNum&&endNum){
 			cardNum=endNum-startNum;
+		}
+		if(props.path=="index"){
+			startNum='';
+			endNum='';
+			endNum=0;
+
 		}
 		this.state={
 			startNum:startNum,
@@ -47,35 +55,7 @@ import './index.less';
 			cardNum:cardNum
 		}
 	}
-	// componentWillReceiveProps(nextProps){
-	// 	//将外部数据赋值给一个变量
-	// 	var {detail} = nextProps;
-	// 	var startNum = '';
-	// 	var endNum = '';
-	// 	//detail必须为对象
-	// 	if(typeof detail !== 'object'){
-	// 		return ;
-	// 	}
-		
-	// 	if( detail.hasOwnProperty('startNum') && detail.startNum){
-	// 			startNum = detail.startNum;
-	// 	}
-
-	// 	if(detail.hasOwnProperty('endNum') && detail.endNum){
-	// 		endNum = detail.endNum;
-	// 	}
-
-	// 	if(startNum && endNum){
-	// 		return ;
-	// 		this.setState({
-	// 				startNum,
-	// 				endNum,
-	// 				cardNum:endNum-startNum
-	// 			})
-	// 	}
-
-
-	// }
+	
 
 	 onSubmit=(values)=>{
 		const {onSubmit} = this.props;
@@ -91,8 +71,6 @@ import './index.less';
 	 handleStartBlur=(event)=>{
 
 		 var _this=this;
-		 console.log(event,"event")
-
 		
 		 if(this.isCard(event)){
 
@@ -101,7 +79,6 @@ import './index.less';
 					 endNum:this.state.endNum,
 					 cardNum:this.state.cardNum
 				 },function(){
-		 			console.log(this.state.startNum,this.state.endNum,"all")
 					 _this.calCard();
 				 })
 		 }
@@ -110,16 +87,12 @@ import './index.less';
 	 handleEndBlur=(value)=>{
 
 		 var _this=this;
-		 console.log(value,"value")
-		 console.log(this.isCard(value),"==")
 		 if(this.isCard(value)){
 			 this.setState({
 					 startNum:this.state.startNum,
 					 endNum:value,
 					 cardNum:this.state.cardNum
 				 },function(){
-
-		 			console.log(this.state.startNum,"start",this.state.endNum,"end")
 
 					 _this.calCard();
 				 })
@@ -129,8 +102,14 @@ import './index.less';
 	 calCard=()=>{
 
 	 	var {startNum,endNum} = this.state;
+
 	 	 
 		 if(startNum&&endNum){
+		 	if(endNum-startNum<0){
+		 		Message.error('起始号码不能大于终止号码！');
+		 		return;
+		 	}
+
 			
 
 			 this.setState({
@@ -141,17 +120,13 @@ import './index.less';
 	 isCard=(card)=>{
 	 
 		 if(!card){
-		 	console.log("不存在")
 			return false;
 		 }
 		 if(isNaN(card)){
-		 	console.log("不是数字")
 
 			 return false;
 		 }
 		 if(card.length!=10){
-		 	console.log("长度")
-
 			 return false;
 		 }
 		 
@@ -169,7 +144,9 @@ import './index.less';
 		if(!this.state.startNum||!this.state.endNum){
 			cardNum=0;
 		}
-		
+		if(this.state.startNum-this.state.endNum>0){
+			cardNum=0;
+		}
 
 		return (
 			<form className="HeavilyActivation" onSubmit={handleSubmit(this.onSubmit)}>
@@ -213,9 +190,6 @@ const validate = values =>{
 		if(values.endNum&&isNaN(+values.endNum)){
 			errors.endNum = '卡号由十位数字的卡号组成';
 		}
-
-
-
 		return errors
 	}
 const selector = formValueSelector('HeavilyActivation');

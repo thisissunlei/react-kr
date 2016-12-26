@@ -52,6 +52,20 @@ import './index.less';
 	    }
 	}
 	 onSubmit=(values)=>{
+	 	
+
+	 	if (navigator.onLine) 
+		{ //正常工作
+		} 
+		else { //执行离线状态时的任务
+		 		Message.error("网络已断开")
+		 		return;
+		} 
+
+
+
+
+
 		 var _this=this;
 		 var isErr=false;
 		 const params={};
@@ -91,13 +105,12 @@ import './index.less';
 		 }).catch(function(err) {
 		 	if (err.message=="该会员卡已被录入") {
 		 		err.message="卡号"+_this.state.detail.startNum+"已存在请跳过！"
-		 	}else if(err.message=="改卡已被激活,请重刷"){
-		 		err.message="会员卡"+values.interCode+"已被激活，请重刷！"
-		 	}else{
-
+		 	}else if(err.message=="该卡已被激活,请重刷"){
+		 		err.message="会员卡"+values.interCode+"已被激活，请换卡重刷！"
 		 	}
 		 	if(err.message=="Failed to fetch"){
-		 		Message.error("网络已断开");
+		 		err.message="连接不到服务器!";
+		 		Message.error(err.message);
 		 		return;
 		 	}
 			
@@ -185,10 +198,14 @@ import './index.less';
 	}
 	cardChange=(value)=>{
 		var cReg=new RegExp("[\\u4E00-\\u9FFF]+","g");
-
+		if(value.length>8){
+			value=value.slice(8,value.length);
+			const detail={};
+			detail.interCode=value;
+			Store.dispatch(initialize('StartCardActivation',detail));
+			return;
+		}
 		if(cReg.test(value)){
-		console.log(cReg.test(value),"==")
-
 			Message.error('卡内码内含有中文请切换英文输入法！');
 			return;
 		}
@@ -217,7 +234,7 @@ import './index.less';
 						<label className="jump" onClick={this.skipCard}>跳过该号码</label>
 				</div>
 				<div className="clearInterCode">
-					<KrField  left={71} right={71} name="interCode" component="input" type="text" onFocus={this.InterCodeFocus} onChange={this.cardChange}/>
+					<KrField  left={71} right={71} name="interCode" component="input" type="text" onFocus={this.InterCodeFocus} onChange={this.cardChange} autoFocus={true}/>
 					<div className="startX" style={this.state.clearInterCodeStyle} onClick={this.clearInterCode}></div>
 				</div>
 
@@ -232,7 +249,8 @@ import './index.less';
 						</Col>
 					</Row>
 				</Grid>
-
+				
+				
 			</form>
 		);
 	}

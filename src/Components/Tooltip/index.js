@@ -40,6 +40,7 @@ export default class Tooltip extends Component {
 			width:0,
 			height:0,
 			offsetTop:this.props.offsetTop,
+			offsetRight:this.props.offsetRight,
 		}
 
 	}
@@ -75,8 +76,12 @@ export default class Tooltip extends Component {
 		let arrowContentName = '';
 		let style = {};
 		let offsetTop=this.state.offsetTop;
+		let offsetRight=this.state.offsetRight;
 		if(!this.state.offsetTop){
 			offsetTop=0;
+		}
+		if(!this.state.offsetRight){
+			offsetRight=0;
 		}
 		if(place === 'top' || place==='bottom'){
 			className+=' center';
@@ -85,14 +90,14 @@ export default class Tooltip extends Component {
 			className+=' height';
 		}
 		if(place === 'right'){
-			style.right = '-'+ (width-5)+'px';
+			style.right = '-'+ (width-5 + offsetRight)+'px';
 			arrowName = 'right-arrow';
 			arrowContentName = 'right-arrows';
 			arrowStyle.borderRightColor = ShadowColor;
 			arrowContentStyle.borderRightColor = backgroundColor;
 		}
 		if(place === 'left'){
-			style.left = '-'+ (width-5)+'px';
+			style.left = '-'+ (width-5 + offsetRight)+'px';
 			arrowName = 'left-arrow';
 			arrowContentName = 'left-arrows';
 			arrowStyle.borderLeftColor = ShadowColor;
