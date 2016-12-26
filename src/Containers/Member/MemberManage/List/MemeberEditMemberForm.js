@@ -161,7 +161,6 @@ export default class MemeberEditMemberForm extends Component {
 		 open:true
 	 })
 		let {detail} = this.props;
-		console.log("params",codes);
 		if(params.code !== undefined){
 			Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
 				 //会员卡号已注册
