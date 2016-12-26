@@ -312,7 +312,7 @@ const validate = values => {
         errors.phone = '请输入正确电话号';
     }
     if (/^\s+$/gi.test(values.name) ) {
-        errors.name = '不能全为空格';
+        errors.name = '请输入正确姓名';
     }
     if (values.foreignCode&&!code.test(values.foreignCode) ) {
         errors.foreignCode = '会员卡号为10位纯数字';
