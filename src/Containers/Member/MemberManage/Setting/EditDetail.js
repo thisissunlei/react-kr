@@ -53,6 +53,13 @@ class EditDetail extends Component {
 	}
 
 	onSubmit(values) {
+		if (navigator.onLine) 
+		{ //正常工作
+		} 
+		else { //执行离线状态时的任务
+		 		Message.error("网络已断开")
+		 		return;
+		} 
 		const {
 			onSubmit
 		} = this.props;

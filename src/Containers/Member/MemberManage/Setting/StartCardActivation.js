@@ -52,6 +52,20 @@ import './index.less';
 	    }
 	}
 	 onSubmit=(values)=>{
+	 	
+
+	 	if (navigator.onLine) 
+		{ //正常工作
+		} 
+		else { //执行离线状态时的任务
+		 		Message.error("网络已断开")
+		 		return;
+		} 
+
+
+
+
+
 		 var _this=this;
 		 var isErr=false;
 		 const params={};
@@ -93,11 +107,9 @@ import './index.less';
 		 		err.message="卡号"+_this.state.detail.startNum+"已存在请跳过！"
 		 	}else if(err.message=="改卡已被激活,请重刷"){
 		 		err.message="会员卡"+values.interCode+"已被激活，请重刷！"
-		 	}else{
-
 		 	}
 		 	if(err.message=="Failed to fetch"){
-		 		Message.error("网络已断开");
+		 		err.message="连接不到服务器!";
 		 		return;
 		 	}
 			
@@ -232,7 +244,8 @@ import './index.less';
 						</Col>
 					</Row>
 				</Grid>
-
+				
+				
 			</form>
 		);
 	}

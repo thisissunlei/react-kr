@@ -137,11 +137,10 @@ export default class List extends Component {
 		 		err.message="卡号"+_this.state.detail.startNum+"已存在请跳过！"
 		 	}else if(err.message=="改卡已被激活,请重刷"){
 		 		err.message="会员卡"+values.interCode+"已被激活，请重刷！"
+		 	}else if(err.message=="Failed to fetch"){
+		 		err.message="连接不到服务器!";
 		 	}else{
-
-		 	}
-		 	if(err.message=="Failed to fetch"){
-		 		err.message="网络已断开";
+		 		err.message="激活失败";
 		 	}
 		 	Message.error(err.message);
 		});
@@ -180,6 +179,11 @@ export default class List extends Component {
 		}).catch(function(err) {
 			if(err.message=="卡号错误"){
 				err.message="该卡号已存在"
+			}else if(err.message=="Failed to fetch"){
+		 		err.message="连接不到服务器!";
+		 		
+		 	}else{
+		 		err.message="激活失败";
 			}
 			
 			Message.error(err.message)
