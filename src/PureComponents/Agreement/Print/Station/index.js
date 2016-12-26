@@ -33,29 +33,23 @@ export default class Initialize  extends Component{
 		data: React.PropTypes.array,
 		orderTime:React.PropTypes.bool,
 		stationVOs:React.PropTypes.object,
+		Baseinfo:React.PropTypes.object,
 	}
-	initBasicClass=()=>{
-
-	}
-//	componentDidMount() {
-	//	this.initBasicClass()
-//	}
-
-	render(){
-		let {stationVOs}=this.props
-		return(
-
-
-			<div className="print-Station">
-
-				{/*
-					<div className="normal-station-head">
-						<span className="enter-info">入驻信息</span>
-					</div>
-				*/}
+	initBasicClass=(Baseinfo)=>{
+console.log('-------')
+		if(Baseinfo.contractType==2){
+			console.log('11111')
+			return(
+				<div className="normal-station-head">
+					<span className="enter-info">入驻信息</span>
+				</div>
+			)
+		}else if(Baseinfo.contractType==3 || Baseinfo.contractType==4){
+			console.log('13333')
+			return(
 				<div className="supplement-station-head">
 					<div className="method-list">
-						<span className="checked"></span>
+						<span className={Baseinfo.contractType==3?'checked':'discheck'}></span>
 						<span>增加</span>
 					</div>
 					<div className="method-list">
@@ -63,13 +57,28 @@ export default class Initialize  extends Component{
 						<span>减少</span>
 					</div>
 					<div className="method-list">
-						<span className="discheck"></span>
+						<span className={Baseinfo.contractType==4?'checked':'discheck'}></span>
 						<span>延续服务</span>
 					</div>
 
 					<span className="enter-info">入驻信息如下</span>
-					<span className="right-date">日期：自2016年12月25日起</span>
+					<span className="right-date">日期：自{Baseinfo.leaseBegindate}起</span>
 				</div>
+			)
+		}
+	}
+//	componentDidMount() {
+	//	this.initBasicClass()
+//	}
+
+	render(){
+		let {stationVOs,Baseinfo,installmentPlans}=this.props
+		return(
+
+
+			<div className="print-Station">
+				{this.initBasicClass(Baseinfo)}
+
 
 
 					<div className={this.state.isClass?'fixed-height':'auto-height'}>
@@ -114,7 +123,7 @@ export default class Initialize  extends Component{
 
 							</tbody>
 						</table>
-						<p className="station-bottom"><span>服务费总计</span><span>¥23456.45</span><span>贰叄肆伍陆</span>{this.props.orderTime && <span>(签署意向书后5个工作日内支付)</span>}</p>
+						<p className="station-bottom"><span>服务费总计</span><span>{Baseinfo.rentTotal}</span><span>{Baseinfo.rentTotalCN}</span>{this.props.orderTime && <span>(签署意向书后5个工作日内支付)</span>}</p>
 
 					</div>
 
