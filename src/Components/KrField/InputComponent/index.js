@@ -18,7 +18,10 @@ export default class InputComponent extends React.Component{
 		inline:React.PropTypes.bool,
 		simple:React.PropTypes.bool,
 		heightStyle:React.PropTypes.object,
-		maxLength:React.PropTypes.number
+		maxLength:React.PropTypes.number,
+		//自动获取焦点
+
+		autoFocus:React.PropTypes.bool,
 	}
 
 	constructor(props,context){
@@ -64,7 +67,7 @@ export default class InputComponent extends React.Component{
 
 	render(){
 
-		let {input, label, type, meta: { touched, error } ,requireLabel,onChange,onBlur,onFocus,disabled,placeholder,style,inline,simple,heightStyle,...other} = this.props;
+		let {input, label, type, meta: { touched, error } ,requireLabel,onChange,onBlur,onFocus,disabled,placeholder,style,inline,simple,heightStyle,autoFocus,...other} = this.props;
 
 			if(type === 'hidden'){
 				return (
@@ -81,7 +84,7 @@ export default class InputComponent extends React.Component{
 			}
 			return (
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} simple={simple} notifys={this.props.notifys}>
-					<Input {...input} placeholder={placeholder|| label} type={type} disabled={disabled} className={className} style={heightStyle} onChange={this.onChange} onBlur={this.onBlur} onFocus={this.onFocus} {...other} onError={this.onError}/>
+					<Input {...input} placeholder={placeholder|| label} type={type} disabled={disabled} className={className} style={heightStyle} onChange={this.onChange} onBlur={this.onBlur} onFocus={this.onFocus} {...other} onError={this.onError} autoFocus={autoFocus}/>
 					{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				</WrapComponent>
 		);

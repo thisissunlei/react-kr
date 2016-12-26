@@ -81,7 +81,8 @@ export default class GroupSetting  extends Component{
 		params = Object.assign({}, params);
 		if(this.state.noinit){
 			params.templateIdList="";
-			Message.error("模板列表不能为空")
+			Message.error("模板列表不能为空");
+			return;
 
 		}else{
 			params.templateIdList=this.state.templateListIds;
@@ -136,9 +137,6 @@ export default class GroupSetting  extends Component{
 
 					this.openEditDetailDialog();
 				});
-
-
-
 	}
 
 	//编辑

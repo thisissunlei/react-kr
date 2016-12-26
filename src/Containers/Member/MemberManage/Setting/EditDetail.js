@@ -53,6 +53,13 @@ class EditDetail extends Component {
 	}
 
 	onSubmit(values) {
+		if (navigator.onLine) 
+		{ //正常工作
+		} 
+		else { //执行离线状态时的任务
+		 		Message.error("网络已断开")
+		 		return;
+		} 
 		const {
 			onSubmit
 		} = this.props;
@@ -106,10 +113,10 @@ class EditDetail extends Component {
 		} = this.props;
 
 		return (
-			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:30}}>
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:0}}>
 				<KrField  right={27} style={{}} left={42} right={42} name="foreignCode" type="text" label="会员卡号"/>
 				<div className="clearInterCode">
-					<KrField  right={27}  left={42} right={42} style={{marginTop:5}} name="interCode" component="input" type="text" label="会员卡内码" onFocus={this.InterCodeFocus} onChange={this.cardChange}/>
+					<KrField  right={27}  left={42} right={42} style={{marginTop:5}} name="interCode" component="input" type="text" label="会员卡内码" onFocus={this.InterCodeFocus} onChange={this.cardChange} />
 					<div className="x" style={this.state.clearInterCodeStyle} onClick={this.clearInterCode}></div>
 				</div>
 				<Grid style={{marginTop:10,marginBottom:5}}>

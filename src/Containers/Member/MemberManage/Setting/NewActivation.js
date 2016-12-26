@@ -85,6 +85,13 @@ class NewActivation extends Component {
 
 	}
 	onSubmit(values) {
+		if (navigator.onLine) 
+		{ //正常工作
+		} 
+		else { //执行离线状态时的任务
+		 		Message.error("网络已断开")
+		 		return;
+		} 
 		const {
 			onSubmit
 		} = this.props;
@@ -146,7 +153,7 @@ class NewActivation extends Component {
 
 		return (
 
-			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:30}}>
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:0}}>
 
 				<KrField  right={27}  left={42} right={42} name="foreignCode" type="text" label="会员卡号" onBlur={this.foreignCodeBlur}/>
 				<div className="clearInterCode">
@@ -163,6 +170,7 @@ class NewActivation extends Component {
 						</Col>
 					</Row>
 				</Grid>
+
 			</form>
 		);
 	}
@@ -172,7 +180,7 @@ const validate = values =>{
 		var foreignCode=values.foreignCode;
 		var reg=/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8}$/;
 
-		console.log( "foreignCode",foreignCode,Object.prototype.toString.call(foreignCode));
+		// console.log( "foreignCode",foreignCode,Object.prototype.toString.call(foreignCode));
 		const errors = {}
 
 		if(!values.foreignCode){
