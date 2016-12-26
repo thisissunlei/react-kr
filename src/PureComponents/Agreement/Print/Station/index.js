@@ -84,9 +84,9 @@ export default class Initialize  extends Component{
 												return(
 													<tr key={index}>
 														<td>工位/办公室</td>
-														<td>007141-007149</td>
+														<td>item.stationName</td>
 														<td>1200</td>
-														<td>9</td>
+														<td>item.num</td>
 														<td>item.lessDate</td>
 														<td>item.lineTotal</td>
 														<td></td>
