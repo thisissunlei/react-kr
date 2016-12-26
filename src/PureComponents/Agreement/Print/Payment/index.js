@@ -76,34 +76,13 @@ export default class Initialize extends Component {
 			</div>
 		)
 	}
-	one = (installmentPlans) => {
-		installmentPlans.map((item, index) => {
-			return (
-				<tr key={index}>
-					<td>{item.installmentName}</td>
-					<td>{item.leaseDate}</td>
-					<td>{this.getLocalTime(item.installmentReminddate)}</td>
-					<td>{item.installmentAmount}</td>
-				</tr>
-			)
-		})
 
-	}
-	two = (installmentPlans) => {
-		/*installmentPlans.map((item, index) => {
-			return (
-				<tr key={index}>
-					<td>{item.installmentName}</td>
-					<td>{item.leaseDate}</td>
-					<td>{this.getLocalTime(item.installmentReminddate)}</td>
-					<td>{item.installmentAmount}</td>
-				</tr>
-			)
-		})*/
-
-	}
 	Twotable = (installmentPlans) => {
-
+		var plansOne, plansTwo;
+		if (installmentPlans.length > 15) {
+			plansOne = installmentPlans.slice(0, 15);
+			plansTwo = installmentPlans.slice(15, installmentPlans.length);
+		}
 		return (
 			<div className="table-two-list">
 					<div className="two-line">
@@ -116,9 +95,16 @@ export default class Initialize extends Component {
 										<div>付款金额</div>
 									</div>
 									<div className="left-td">
-										{
-											installmentPlans.length>0 && this.one(installmentPlans)
-										}
+										{plansOne.map((item,index)=>{
+											return(
+												<div className="td clear" key={index}>
+													<div>{item.installmentName}</div>
+													<div>{item.leaseDate}</div>
+													<div>{this.getLocalTime(item.installmentReminddate)}</div>
+													<div>{item.installmentAmount}</div>
+												</div>
+											)
+										})}
 										
 									</div>
 								</div>
@@ -130,9 +116,16 @@ export default class Initialize extends Component {
 										<div>付款金额</div>
 									</div>
 									<div className="right-td">
-										{
-											installmentPlans.length>15 && this.two(installmentPlans)
-										}
+										{plansTwo.map((item,index)=>{
+											return(
+												<div className="td clear" key={index}>
+													<div>{item.installmentName}</div>
+													<div>{item.leaseDate}</div>
+													<div>{this.getLocalTime(item.installmentReminddate)}</div>
+													<div>{item.installmentAmount}</div>
+												</div>
+											)
+										})}
 									</div>
 								</div>
 						</div>
@@ -153,6 +146,7 @@ export default class Initialize extends Component {
 			payTypeList,
 			payModel
 		} = this.props.Baseinfo;
+		var len = installmentPlans.length;
 		return (
 
 			<div className="ui-payment">
