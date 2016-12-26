@@ -144,8 +144,8 @@ export default class List extends Component {
 			
 			if (err.message=="该会员卡已被录入") {
 		 		err.message="卡号"+_this.state.detail.startNum+"已存在请跳过！"
-		 	}else if(err.message=="改卡已被激活,请重刷"){
-		 		err.message="会员卡"+values.interCode+"已被激活，请重刷！"
+		 	}else if(err.message=="该卡已被激活,请重刷"){
+		 		err.message="会员卡"+values.interCode+"已被激活，请换卡重刷！"
 		 	}else if(err.message=="Failed to fetch"){
 		 		err.message="连接不到服务器!";
 		 	}
@@ -184,14 +184,14 @@ export default class List extends Component {
 			_this.openEditDetailDialog();
 			_this.onFlush();
 		}).catch(function(err) {
-			if(err.message=="卡号错误"){
-				err.message="该卡号已存在"
-			}else if(err.message=="Failed to fetch"){
+			if (err.message=="该会员卡已被录入") {
+		 		err.message="卡号"+_this.state.detail.startNum+"已存在请跳过！"
+		 	}else if(err.message=="该卡已被激活,请重刷"){
+		 		err.message="会员卡"+values.interCode+"已被激活，请换卡重刷！"
+		 	}else if(err.message=="Failed to fetch"){
 		 		err.message="连接不到服务器!";
-		 		
 		 	}
-			
-			Message.error(err.message)
+			Message.error(err.message);
 		});
 
 	}
