@@ -159,7 +159,6 @@ export default class Initialize extends Component {
 				<div className="payment-title clear">
 					<div className="payment-info">付款信息</div>
 					<div className="method clear">
-						
 						{
 							payTypeList && payTypeList.map((item,index)=>{
 								return(
