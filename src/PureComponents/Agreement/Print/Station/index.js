@@ -36,16 +36,13 @@ export default class Initialize  extends Component{
 		Baseinfo:React.PropTypes.object,
 	}
 	initBasicClass=(Baseinfo)=>{
-console.log('-------')
 		if(Baseinfo.contractType==2){
-			console.log('11111')
 			return(
 				<div className="normal-station-head">
 					<span className="enter-info">入驻信息</span>
 				</div>
 			)
 		}else if(Baseinfo.contractType==3 || Baseinfo.contractType==4){
-			console.log('13333')
 			return(
 				<div className="supplement-station-head">
 					<div className="method-list">
@@ -67,6 +64,13 @@ console.log('-------')
 			)
 		}
 	}
+	BasicType=(stationTypeName)=>{
+		if(stationTypeName==1){
+			return "工位"
+		}else if(stationTypeName==2){
+			return "会议室"
+		}
+	}
 //	componentDidMount() {
 	//	this.initBasicClass()
 //	}
@@ -78,8 +82,6 @@ console.log('-------')
 
 			<div className="print-Station">
 				{this.initBasicClass(Baseinfo)}
-
-
 
 					<div className={this.state.isClass?'fixed-height':'auto-height'}>
 						<table>
@@ -106,7 +108,7 @@ console.log('-------')
 								stationVOs && stationVOs.map((item,index)=>{
 										return(
 											<tr key={index}>
-												<td>{item.stationTypeName}</td>
+												<td>{this.BasicType(item.stationTypeName)}</td>
 												<td>{item.stationName}</td>
 												<td>{item.unitPrice}</td>
 												<td>{item.num}</td>
