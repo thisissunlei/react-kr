@@ -37,12 +37,12 @@ export default class Initialize  extends Component{
 	initBasicClass=()=>{
 
 	}
-	componentDidMount() {
-		this.initBasicClass()
-	}
+//	componentDidMount() {
+	//	this.initBasicClass()
+//	}
 
 	render(){
-
+		let {stationVOs}=this.props
 		return(
 
 
@@ -80,24 +80,6 @@ export default class Initialize  extends Component{
 								</tr>
 
 								{/*
-											stationVOs && stationVOs.map((item,index)=>{
-												return(
-													<tr key={index}>
-														<td>工位/办公室</td>
-														<td>item.stationName</td>
-														<td>1200</td>
-														<td>item.num</td>
-														<td>item.lessDate</td>
-														<td>item.lineTotal</td>
-														<td></td>
-
-												</tr>
-
-												)
-											})
-								*/}
-
-
 									<tr><td>工位/办公室</td><td>007141-007149</td><td>1200</td><td>9</td><td>2015/09/10-2016/09/12</td><td>50,000,42</td><td></td></tr>
 										<tr><td>工位/办公室</td><td>007141-007149</td><td>1200</td><td>9</td><td>2015/09/10-2016/09/12</td><td>50,000,42</td><td></td></tr>
 											<tr><td>工位/办公室</td><td>007141-007149</td><td>1200</td><td>9</td><td>2015/09/10-2016/09/12</td><td>50,000,42</td><td></td></tr>
@@ -108,6 +90,26 @@ export default class Initialize  extends Component{
 																		<tr><td>工位/办公室</td><td>007141-007149</td><td>1200</td><td>9</td><td>2015/09/10-2016/09/12</td><td>50,000,42</td><td></td></tr>
 																			<tr><td>工位/办公室</td><td>007141-007149</td><td>1200</td><td>9</td><td>2015/09/10-2016/09/12</td><td>50,000,42</td><td></td></tr>
 																						<tr><td>工位/办公室</td><td>007141-007149</td><td>1200</td><td>9</td><td>2015/09/10-2016/09/12</td><td>50,000,42</td><td></td></tr>
+
+								*/}
+
+							{
+								stationVOs && stationVOs.map((item,index)=>{
+										return(
+											<tr key={index}>
+												<td>{item.stationTypeName}</td>
+												<td>{item.stationName}</td>
+												<td>{item.unitPrice}</td>
+												<td>{item.num}</td>
+												<td>{item.leaseDate}</td>
+												<td>{item.lineTotal}</td>
+												<td></td>
+
+										</tr>
+
+										)
+									})
+							}
 
 
 							</tbody>
