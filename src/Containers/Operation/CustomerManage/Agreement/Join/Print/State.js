@@ -29,9 +29,10 @@ State.getBasicInfo = action(function(params) {
 	Store.dispatch(Actions.callAPI('checkinagreement-print-info', {
 		contractId: params.id
 	})).then(function(response) {
+		console.log('response----', response.installmentPlans)
 		_this.Baseinfo = response;
 		_this.stationVOs = response.stationVOs;
-		_this.installmentPlans = response.installmentPlans
+		_this.installmentPlans = response.installmentPlans;
 	}).catch(function(err) {
 
 	});
