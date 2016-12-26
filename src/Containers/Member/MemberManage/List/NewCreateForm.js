@@ -254,7 +254,7 @@ const validate = values => {
 	if (!values.companyId) {
 		errors.companyId = '请输入公司';
 	}
-	if (!values.name || /\s/.test(values.name)) {
+	if (!values.name || /^\s+$/.test(values.name)) {
 		errors.name = '请输入姓名';
 	}
 	if (values.email && !email.test(values.email) ) {
