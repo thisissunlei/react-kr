@@ -144,7 +144,9 @@ import './index.less';
 		if(!this.state.startNum||!this.state.endNum){
 			cardNum=0;
 		}
-		
+		if(this.state.startNum-this.state.endNum>0){
+			cardNum=0;
+		}
 
 		return (
 			<form className="HeavilyActivation" onSubmit={handleSubmit(this.onSubmit)}>
