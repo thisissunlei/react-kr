@@ -36,11 +36,8 @@ export default class Initialize extends Component {
 		super(props, context);
 
 	}
-	istable = () => {
 
-	}
 	Onetable = () => {
-
 		return (
 			<div className="table-one-content">
 				<div className="table-list">
@@ -113,7 +110,9 @@ export default class Initialize extends Component {
 		)
 	}
 	render() {
-
+		let {
+			installmentPlans
+		} = this.props;
 		return (
 
 			<div className="ui-payment">
@@ -150,7 +149,7 @@ export default class Initialize extends Component {
 				</div>
 				<div className="payment-content">
 					<div className="table-content">
-						{this.istable()}
+						{installmentPlans && installmentPlans.length > 15 ? this.Twotable(installmentPlans):this.Onetable(installmentPlans)}
 					</div>
 					<div className="reminders">
 						注：每期服务期到期之日前15日支付下期服务费
