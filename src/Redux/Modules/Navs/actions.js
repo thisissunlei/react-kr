@@ -9,24 +9,31 @@ export function navActive(menuCode){
 		var state = getState();
 		var permissionNavs = state.navs.items;
 
-		permissionNavs.forEach(function(item,index){
-
+		permissionNavs = permissionNavs.map(function(item,index){
+			item = Object.assign({},item,{active:false});
 			if(item.hasOwnProperty('menuItems') && item.menuItems.length){
-				item.menuItems.forEach(function(child,key){
+				var itemMenuItems = [];
+				itemMenuItems = item.menuItems.map(function(child,key){
+						child = Object.assign({},child);
 						if(child.hasOwnProperty('menuItems') && child.menuItems.length){
-							child.menuItems.forEach(function(children,i){
-									if(children.menuCode == menuCode){
-										children.active = true;
-									}else{
-										children.active = false;
-									}
+							var menuItems = child.menuItems.map(function(children,i){
+								children = Object.assign({},children,{active:false});
+								if(children.menuCode == menuCode){
+									children.active = true;
+								}else{
+									children.active = false;
+								}
+								return children;
 							});
-						}
+							child.menuItems = menuItems;
 
+						}
+						return child;
 				});
 			}
+			item.menuItems = itemMenuItems;
+			return item;
 		});
-
 		dispatch({
 			type:Types.SET_USER_NAVS,
 			response:permissionNavs
