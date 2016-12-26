@@ -197,10 +197,14 @@ import './index.less';
 	}
 	cardChange=(value)=>{
 		var cReg=new RegExp("[\\u4E00-\\u9FFF]+","g");
-
+		if(value.length>8){
+			value=value.slice(8,value.length);
+			const detail={};
+			detail.interCode=value;
+			Store.dispatch(initialize('StartCardActivation',detail));
+			return;
+		}
 		if(cReg.test(value)){
-		console.log(cReg.test(value),"==")
-
 			Message.error('卡内码内含有中文请切换英文输入法！');
 			return;
 		}
