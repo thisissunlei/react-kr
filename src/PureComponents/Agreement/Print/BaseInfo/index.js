@@ -52,7 +52,7 @@
 					</div>
 					<div className="infolist">
 						<div>服务接收方（乙方）：{Baseinfo.leaseName}</div>
-						<div>地址：{Baseinfo.lesseAddress}</div>
+						<div>地址：{Baseinfo.leaseAddress}</div>
 						<div>联系人：{Baseinfo.leaseContact}</div>
 						<div>联系电话：{Baseinfo.leaseContacttel}</div>
 					</div>

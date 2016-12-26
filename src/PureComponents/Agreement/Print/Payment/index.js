@@ -147,9 +147,9 @@ export default class Initialize extends Component {
 				</div>
 				<div className="payment-content">
 					<div className="table-content">
-						{this.Twotable()}
+						{this.istable()}
 					</div>
-					<div className="reminder">
+					<div className="reminders">
 						注：每期服务期到期之日前15日支付下期服务费
 					</div>
 				</div>	
