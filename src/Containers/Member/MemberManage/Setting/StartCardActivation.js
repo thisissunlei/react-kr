@@ -210,8 +210,11 @@ import './index.less';
 		}
 
 		if(value.length==8&&reg.test(value)){
-			console.log("999")
-			// Store.dispatch(submit('StartCardActivation'));
+			var params={};
+			params.foreignCode=this.state.detail.startNum;
+			params.interCode=value;
+			
+			this.onSubmit(params);
 		}
 		if(cReg.test(value)){
 			Message.error('卡内码内含有中文请切换英文输入法！');
