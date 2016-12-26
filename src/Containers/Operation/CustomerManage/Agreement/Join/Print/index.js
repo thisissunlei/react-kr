@@ -43,7 +43,7 @@ export default class JoinPrint extends Component {
 	}
 
 	render() {
-
+		console.log('Baseinfo---', State)
 		return (
 
 			<div className="print-section">
