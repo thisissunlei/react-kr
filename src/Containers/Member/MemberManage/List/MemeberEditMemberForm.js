@@ -75,7 +75,9 @@ export default class MemeberEditMemberForm extends Component {
 
 	onSubmit=(values)=>{
 		this.communityChange(values.email);
-	 	this.membersByForeignCode(values.foreignCode);
+		if(values.foreignCode){
+			this.membersByForeignCode(values.foreignCode);
+		}
 	 	let {onsubmit,onsubmitCode} = this.state;
 	 	if(onsubmit && onsubmitCode){
 	 		const {onSubmit} = this.props;
@@ -159,33 +161,33 @@ export default class MemeberEditMemberForm extends Component {
 		 open:true
 	 })
 		let {detail} = this.props;
+		if(params.code !== undefined){
+			Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
+				 //会员卡号已注册
+				 if(detail.phone == response.phone){
+					 _this.setState({
+						 onsubmitCode:true
+					 })
+					 return;
+				 }else if(response.phone == '-1'){
+					 Message.warn('会员卡号未录入','error');
+					 _this.setState({
+						 onsubmitCode:false
+					 })
+				 }else{
+				 	Message.warn('会员卡号已注册','error');
+					 _this.setState({
+						 onsubmitCode:false
+					 })
+				 }
+			}).catch(function(err){
+			 //会员卡号未注册
+			 _this.setState({
+				 onsubmitCode:true
+			 })
+			});
+		}
 
-		Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
-			 //会员卡号已注册
-			 if(detail.phone == response.phone){
-				 _this.setState({
-					 onsubmitCode:true
-				 })
-				 return;
-			 }else if(response.phone == '-1'){
-				 Message.warn('会员卡号未录入','error');
-				 _this.setState({
-					 onsubmitCode:false
-				 })
-			 }else{
-			 	Message.warn('会员卡号已注册','error');
-				 _this.setState({
-					 onsubmitCode:false
-				 })
-			 }
-
-
-		}).catch(function(err){
-		 //会员卡号未注册
-		 _this.setState({
-			 onsubmitCode:true
-		 })
-		});
 	}
 
 

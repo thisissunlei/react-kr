@@ -183,25 +183,25 @@ import imgLine from './images/line.png'
 			})
 		 	return;
 		 }
-		 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
-				 //会员卡号已注册
-
-
- 				if(response.phone !='-1'){
- 					Message.warn('该会员卡号已被绑定','error');
- 				}else{
- 					Message.warn('该会员卡号未录入','error');
- 				}
- 				_this.setState({
- 					onSubmitCode:false
- 				})
-		 }).catch(function(err){
-		 	//会员卡号未注册
-			// 	console.log('ddddd',err.message);
-		 	_this.setState({
-				onSubmitCode:true
-			})
-		 });
+		 if(params.code !== undefined){
+			 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
+					 //会员卡号已注册
+	 				if(response.phone !='-1'){
+	 					Message.warn('该会员卡号已被绑定','error');
+	 				}else{
+	 					Message.warn('该会员卡号未录入','error');
+	 				}
+	 				_this.setState({
+	 					onSubmitCode:false
+	 				})
+			 }).catch(function(err){
+			 	//会员卡号未注册
+				// 	console.log('ddddd',err.message);
+			 	_this.setState({
+					onSubmitCode:true
+				})
+			 });
+		 }
 	 }
 	 onChangeSearchCommunity(community) {
 		let communityId="";

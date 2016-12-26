@@ -181,7 +181,7 @@ import imgLine from './images/line.png'
 	 	let _this = this;
 	 	let communityName = '';
 	 	//this.params.communityId
-	 	console.log('getCummityNamegetCummityName');
+		// 	console.log('getCummityNamegetCummityName');
 	 	Store.dispatch(Actions.callAPI('searchCommunityByCommunityText')).then(function(response){
 				response.forEach((item)=>{
 					if(item.id == _this.params.communityId){
@@ -216,26 +216,28 @@ import imgLine from './images/line.png'
 			})
 		 	return;
 		 }
+		 if(params.code !== undefined){
+			 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
+					//会员卡号已注册
+					if(response.phone != '-1'){
+						Message.warn('此会员卡号已被绑定','error');
+					}else{
+						Message.warn('此会员卡号未录入','error');
 
-		 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
-				//会员卡号已注册
-				if(response.phone != '-1'){
-					Message.warn('此会员卡号已被绑定','error');
-				}else{
-					Message.warn('此会员卡号未录入','error');
+					}
+					_this.setState({
+						onsubmitCode:false
+					})
 
-				}
-				_this.setState({
-					onsubmitCode:false
+			 }).catch(function(err){
+			 	//会员卡号未注册
+				// 	console.log('ddddd',err.message);
+			 	_this.setState({
+					onsubmitCode:true
 				})
+			 });
+		 }
 
-		 }).catch(function(err){
-		 	//会员卡号未注册
-			// 	console.log('ddddd',err.message);
-		 	_this.setState({
-				onsubmitCode:true
-			})
-		 });
 	 }
 
 	render(){
@@ -309,12 +311,16 @@ const validate = values => {
     if (!phone.test(values.phone) ) {
         errors.phone = '请输入正确电话号';
     }
+    if (/^\s+$/gi.test(values.name) ) {
+        errors.name = '请输入正确姓名';
+    }
     if (values.foreignCode&&!code.test(values.foreignCode) ) {
         errors.foreignCode = '会员卡号为10位纯数字';
     }
     if (!values.sendMsg ) {
         errors.sendMsg = '请选择是否发送验证短信';
     }
+
     // if (!values.foreignCode) {
     //     errors.foreignCode = '请输入会员卡号';
     // }
