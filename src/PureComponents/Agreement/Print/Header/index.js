@@ -44,6 +44,7 @@ export default class Initialize extends Component {
 			orderInfo,
 			Baseinfo
 		} = this.props;
+		let qRCode = Baseinfo.qRCode || "key"
 		return (
 
 			<div className="ui-print-header">
@@ -57,7 +58,7 @@ export default class Initialize extends Component {
 				</div>
 				<div className="print-title">{orderInfo}</div>
 				<div className="print-QRCode">
-					<QRCode value="key"  size={109}/>
+					<QRCode value={qRCode}  size={109}/>
 				</div>	
 			</div>
 		);

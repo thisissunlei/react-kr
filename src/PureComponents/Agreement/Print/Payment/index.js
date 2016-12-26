@@ -36,8 +36,13 @@ export default class Initialize extends Component {
 		super(props, context);
 
 	}
+	getLocalTime = (time) => {
+		return new Date(parseInt(time)).toLocaleString().substr(0, 10);
+	}
 
-	Onetable = () => {
+
+	Onetable = (installmentPlans) => {
+
 		return (
 			<div className="table-one-content">
 				<div className="table-list">
@@ -51,12 +56,19 @@ export default class Initialize extends Component {
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>履约保证金</td>
-									<td>2015/09/10-2016/10/10</td>
-									<td>2015/09/10</td>
-									<td>1200</td>
-								</tr>
+							{
+								installmentPlans.map((item,index)=>{
+									return(
+										<tr key={index}>
+											<td>{item.installmentName}</td>
+											<td>{item.leaseDate}</td>
+											<td>{this.getLocalTime(item.installmentReminddate)}</td>
+											<td>{item.installmentAmount}</td>
+										</tr>
+										)
+								}) 
+							}
+								
 							</tbody>
 							
 						</table>
@@ -64,8 +76,34 @@ export default class Initialize extends Component {
 			</div>
 		)
 	}
+	one = (installmentPlans) => {
+		installmentPlans.map((item, index) => {
+			return (
+				<tr key={index}>
+					<td>{item.installmentName}</td>
+					<td>{item.leaseDate}</td>
+					<td>{this.getLocalTime(item.installmentReminddate)}</td>
+					<td>{item.installmentAmount}</td>
+				</tr>
+			)
+		})
 
-	Twotable = () => {
+	}
+	two = (installmentPlans) => {
+		/*installmentPlans.map((item, index) => {
+			return (
+				<tr key={index}>
+					<td>{item.installmentName}</td>
+					<td>{item.leaseDate}</td>
+					<td>{this.getLocalTime(item.installmentReminddate)}</td>
+					<td>{item.installmentAmount}</td>
+				</tr>
+			)
+		})*/
+
+	}
+	Twotable = (installmentPlans) => {
+
 		return (
 			<div className="table-two-list">
 					<div className="two-line">
@@ -78,12 +116,10 @@ export default class Initialize extends Component {
 										<div>付款金额</div>
 									</div>
 									<div className="left-td">
-										<div className="td clear">
-											<div>履约保证金</div>
-											<div>2015/09/10-2016/10/10</div>
-											<div>2015/09/10</div>
-											<div>1200</div>
-										</div>
+										{
+											installmentPlans.length>0 && this.one(installmentPlans)
+										}
+										
 									</div>
 								</div>
 								<div className="table-right">
@@ -94,12 +130,9 @@ export default class Initialize extends Component {
 										<div>付款金额</div>
 									</div>
 									<div className="right-td">
-										<div className="td clear">
-											<div>履约保证金</div>
-											<div>2015/09/10-2016/10/10</div>
-											<div>2015/09/10</div>
-											<div>1200</div>
-										</div>
+										{
+											installmentPlans.length>15 && this.two(installmentPlans)
+										}
 									</div>
 								</div>
 						</div>
@@ -111,40 +144,44 @@ export default class Initialize extends Component {
 	}
 	render() {
 		let {
-			installmentPlans
+			installmentPlans,
+			Baseinfo
 		} = this.props;
+		let {
+			payType,
+			payModelList,
+			payTypeList,
+			payModel
+		} = this.props.Baseinfo;
 		return (
 
 			<div className="ui-payment">
 				<div className="payment-title clear">
 					<div className="payment-info">付款信息</div>
 					<div className="method clear">
-						<div className="method-list">
-							<span className="checked"></span>
-							<span>月度</span>
-						</div>
-						<div className="method-list">
-							<span className="discheck"></span>
-							<span>季度</span>
-						</div>
-						<div className="method-list">
-							<span className="discheck"></span>
-							<span>半年度</span>
-						</div>
-						<div className="method-list">
-							<span className="discheck"></span>
-							<span>年度</span>
-						</div>
+						{
+							payTypeList && payTypeList.map((item,index)=>{
+								return(
+									<div className="method-list" key={index}>
+										<span className={payType==item.id?"checked":"discheck"}></span>
+										<span>{item.dicName}</span>
+									</div>
+								)
+							})
+						}
 					</div>
 					<div className="pay-method clear">
-						<div className="method-list">
-							<span className="discheck"></span>
-							<span>转账</span>
-						</div>
-						<div className="method-list">
-							<span className="discheck"></span>
-							<span>其他－支付宝</span>
-						</div>
+						{
+							payModelList && payModelList.map((item,index)=>{
+								return(
+									<div className="method-list">
+										<span className={payModel==item.id?"checked":"discheck"}></span>
+										<span>{item.dicName}</span>
+									</div>
+								)
+							})
+						}
+						
 					</div>
 				</div>
 				<div className="payment-content">
