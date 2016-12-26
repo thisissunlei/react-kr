@@ -17,9 +17,7 @@ import {
 } from 'kr-ui';
 import $ from 'jquery'
 import imgLine from './images/line.png'
-
  class NewCreateForm extends Component{
-
 	constructor(props){
 		super(props);
 		this.state={
@@ -98,13 +96,11 @@ import imgLine from './images/line.png'
 			phone
 	 	})
 		 let _this = this;
-
 		 Store.dispatch(Actions.callAPI('isPhoneRegistered',params)).then(function(response){
 			//  检验response是不是空对象
 				if(!$.isEmptyObject(response)){
 					response.sendMsg = '1';
 					Store.dispatch(initialize('NewCreateForm',response));
-					// console.log("response",response);
 					// 此处要有提示
 					Message.warn('该手机号码已被注册！','error');
 					_this.setState({
@@ -112,7 +108,6 @@ import imgLine from './images/line.png'
 						email:response.email,
 						code:response.foreignCode
 					})
-
 				}
 		 }).catch(function(err){
 		 	let {phoneSame} = _this.state;
@@ -128,8 +123,6 @@ import imgLine from './images/line.png'
 					phoneSame:false,
 					email:''
 				})
-
-
 		 	}
 		 });
 	 }
@@ -143,7 +136,6 @@ import imgLine from './images/line.png'
 	 	})
 		 let _this = this;
 		 if(phoneSame && email == params.email){
-			// 	console.log('phoneSame');
 		 	_this.setState({
 				onsubmit:true
 			})
@@ -155,18 +147,13 @@ import imgLine from './images/line.png'
 				_this.setState({
 					onsubmit:false
 				})
-
 			 }).catch(function(err){
 			 	//邮箱未注册
-				// 	console.log('ddddd',err.message);
 			 	_this.setState({
 					onsubmit:true
 				})
 			 });
 		 }
-		//  console.log('EmailonBlur',phone);
-
-
 	 }
 	 foreignCodeBlur=(codes)=>{
 		 let params = {
@@ -197,7 +184,6 @@ import imgLine from './images/line.png'
 	 				})
 			 }).catch(function(err){
 			 	//会员卡号未注册
-				// 	console.log('ddddd',err.message);
 			 	_this.setState({
 					onSubmitCode:true
 				})
@@ -223,8 +209,6 @@ import imgLine from './images/line.png'
 		const { error, handleSubmit, pristine, reset} = this.props;
 		let communityText = '';
 		let {selectOption} =this.state;
-
-
 		return (
 			<div>
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:20,marginLeft:'40px'}}>
@@ -256,7 +240,6 @@ import imgLine from './images/line.png'
 	}
 }
 const validate = values => {
-
 	const errors = {}
 	let code = /^\d{10}$/;
 	let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
@@ -264,46 +247,36 @@ const validate = values => {
 	if (!values.phone) {
 		errors.phone = '请输入电话号码';
 	}
-	if(!/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/.test(values.phone)){
-		errors.phone = '请输入正确电话号码';
-	}
 	if (!values.communityId) {
 		errors.communityId = '请输入社区名称';
 	}
-
 	if (!values.email) {
 		errors.email = '请输入邮箱';
-	}
-	if(!/^([a-zA-Z0-9\_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(values.email)){
-		errors.email = '请输入正确邮箱';
 	}
 	if (!values.companyId) {
 		errors.companyId = '请输入公司';
 	}
-
-	if (!values.name) {
+	if (!values.name || /^\s+$/.test(values.name)) {
 		errors.name = '请输入姓名';
 	}
-	if (!email.test(values.email) ) {
-        errors.email = '请填写正确邮箱';
-    }
-    if (!phone.test(values.phone) ) {
-        errors.phone = '请输入正确电话号';
-    }
+	if (values.email && !email.test(values.email) ) {
+      errors.email = '请输入正确邮箱';
+  }
+  if (values.phone && !phone.test(values.phone) ) {
+      errors.phone = '请输入正确电话号';
+  }
     // if (!code.test(values.foreignCode) ) {
     //     errors.foreignCode = '会员卡号为10位纯数字';
     // }
-    if (!values.sendMsg ) {
-        errors.sendMsg = '请选择是否发送验证短信';
-
+  if (!values.sendMsg ) {
+    errors.sendMsg = '请选择是否发送验证短信';
   }
   // if (!values.foreignCode) {
   //     errors.foreignCode = '请输入会员卡号';
   // }
-	if(values.foreignCode && !/^\d{10}$/.test(values.foreignCode)){
+	if(values.foreignCode && !code.test(values.foreignCode)){
 		errors.foreignCode = '请填写10位纯数字会员卡号';
 	}
-
 	return errors
 }
 const selector = formValueSelector('NewCreateForm');
