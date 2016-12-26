@@ -527,7 +527,7 @@ const APIS = {
    },
    //电子合同-入驻协议
    'checkinagreement-print-info': {
-      url: '/api/krspace-finance-web/checkinagreement/print-info?contractId={contractId}',
+      url: '/api-sh/krspace-finance-web/checkinagreement/print-info?contractId={contractId}',
       method: 'get'
    },
    //电子合同-入驻意向

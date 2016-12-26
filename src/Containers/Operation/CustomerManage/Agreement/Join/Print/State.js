@@ -30,7 +30,7 @@ State.getBasicInfo = action(function(params) {
 		contractId: params.id
 	})).then(function(response) {
 		console.log('response----', response)
-		_this.Baseinfo = response.data;
+		_this.Baseinfo = response;
 		_this.stationVOs = response.data.stationVOs;
 
 	}).catch(function(err) {
@@ -38,7 +38,6 @@ State.getBasicInfo = action(function(params) {
 	});
 
 
-	this.name = 'haa'
 
 });
 
