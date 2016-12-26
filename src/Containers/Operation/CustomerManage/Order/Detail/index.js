@@ -6,7 +6,6 @@ import {
 	connect
 } from 'kr/Redux';
 
-
 import {
 	reduxForm
 } from 'redux-form';
@@ -22,6 +21,7 @@ import {
 	DotTitle,
 	Dialog,
 	Title,
+	UpLoadList
 } from 'kr-ui';
 
 
@@ -51,8 +51,9 @@ import {
 	FontIcon,
 	DatePicker,
 	Paper,
+	IconButton
 } from 'material-ui';
-
+import IconMenu from 'material-ui/IconMenu';
 
 import {
 	Table,
@@ -239,6 +240,7 @@ export default class OrderDetail extends React.Component {
 			openDelAgreement: false,
 			isShow: false,
 			View: false,
+			openMenu:false,
 			response: {
 				orderBaseInfo: {},
 				installment: {},
@@ -461,6 +463,12 @@ export default class OrderDetail extends React.Component {
 
 
 	}
+	uploadFile(id){
+		this.setState({
+			openMenu:!this.state.openMenu
+		})
+			console.log('uploadfile',id);
+		}
 	change = (form) => {
 		const {
 			orderBaseInfo
@@ -527,6 +535,9 @@ export default class OrderDetail extends React.Component {
 
 		this.onClose();
 	}
+	onChange=(files)=>{
+		console.log('onChange',files);
+	}
 
 	render() {
 
@@ -544,7 +555,7 @@ export default class OrderDetail extends React.Component {
 		if (this.state.loading) {
 			return (<Loading/>);
 		}
-
+		let fileList = ['入.pdf','入议书.pdf','入驻协议书.pdf','入驻协议书.pdf'];
 
 		return (
 			<div>
@@ -592,6 +603,9 @@ export default class OrderDetail extends React.Component {
 					<TableRowColumn>{item.inputUser}</TableRowColumn>
 					<TableRowColumn>
 					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} />
+					<Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)}/>
+					<UpLoadList open={this.state.openMenu} fileList ={fileList} onChange={this.onChange}>Tooltip</UpLoadList>
+
 							{item.contractstate != 'EXECUTE' && item.editFlag && <Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
 
 							{item.contracttype == 'ENTER' && item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }

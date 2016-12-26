@@ -187,7 +187,7 @@ class NewCreateForm extends Component {
 			stationVos
 		} = this.state;
 		stationVos[index].unitprice = value;
-
+		console.log('onStationVosChange',index,value);
 		this.setState({
 			stationVos
 		});
@@ -478,6 +478,9 @@ class NewCreateForm extends Component {
 		})
 
 	}
+	onBlur=(event)=>{
+		console.log('onblur',event.target.value);
+	}
 
 
 	render() {
@@ -559,7 +562,7 @@ class NewCreateForm extends Component {
 									<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
 									<TableRowColumn>{item.stationName}</TableRowColumn>
 									<TableRowColumn>
-											<input type="text" name="age"  valueLink={typeLink} />
+											<input type="text" name="age"  valueLink={typeLink} onBlur={this.onBlur}/>
 									</TableRowColumn>
 									<TableRowColumn> <KrDate value={item.leaseBeginDate}/></TableRowColumn>
 									<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>

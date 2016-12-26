@@ -46,6 +46,7 @@ import InputDate from './InputDate';
 import CircleStyle from './CircleStyle';
 import SnackTip from './SnackTip';
 import Tooltips from './Tooltips';
+import UpLoadList from './UpLoadList';
 
 import {
 	Grid,
@@ -129,6 +130,7 @@ module.exports = {
 	Tab,
 	SearchForms,
 	...Tabs,
+	UpLoadList,
 	PageHeader,
 	Tooltip,
 	CircleStyle,
