@@ -74,6 +74,7 @@ export default class List extends Component {
 				endNum:''
 			},
 			isHeavilyClose:true,
+			goHeavilyActivation:"index"
 
 
 		}
@@ -98,6 +99,11 @@ export default class List extends Component {
 	}
 	//批量激活输入卡号页面开关
 	openHeavilyActivationDialog=()=> {
+		if(this.state.goHeavilyActivation=="StartCardActivation"){
+			this.setState({
+				goHeavilyActivation:"index"
+			})
+		}
 		this.setState({
 			openHeavilyActivation: !this.state.openHeavilyActivation,
 		});
@@ -116,6 +122,9 @@ export default class List extends Component {
 	}
 	//批量激活开始激活页面返回按钮
 	throwBack=()=>{
+		this.setState({
+			goHeavilyActivation:"StartCardActivation"
+		})
 		Store.dispatch(initialize('HeavilyActivation',this.state.detail));
 		this.openStartCardActivationDialog();
 		this.openHeavilyActivationDialog();
@@ -170,7 +179,7 @@ export default class List extends Component {
 		const params={};
 		params.id=values.id;
 		params.foreignCode=values.foreignCode;
-		params.interCode=""+values.interCode;
+		params.interCode=values.interCode;
 		Store.dispatch(Actions.callAPI('CardEdit', {}, params)).then(function(response) {
 			_this.openEditDetailDialog();
 			_this.onFlush();
@@ -180,9 +189,7 @@ export default class List extends Component {
 			}else if(err.message=="Failed to fetch"){
 		 		err.message="连接不到服务器!";
 		 		
-		 	}else{
-		 		err.message="激活失败";
-			}
+		 	}
 			
 			Message.error(err.message)
 		});
@@ -347,7 +354,7 @@ export default class List extends Component {
 							bodyStyle={{paddingTop:45}}
 							contentStyle={{width:500}}
 						>
-							<HeavilyActivation detail={this.state.detail}  onSubmit={this.onHeavilyActivation} onCancel={this.openHeavilyActivationDialog} isHeavilyCloseNone={this.isHeavilyCloseNone} isHeavilyCloseOk={this.isHeavilyCloseOk}/>
+							<HeavilyActivation path={this.state.goHeavilyActivation} detail={this.state.detail}  onSubmit={this.onHeavilyActivation} onCancel={this.openHeavilyActivationDialog} isHeavilyCloseNone={this.isHeavilyCloseNone} isHeavilyCloseOk={this.isHeavilyCloseOk}/>
 					  </Dialog>
 
 						<Dialog
