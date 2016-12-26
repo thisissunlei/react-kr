@@ -36,8 +36,13 @@ export default class Initialize extends Component {
 		super(props, context);
 
 	}
+	getLocalTime = (time) => {
+		return new Date(parseInt(time)).toLocaleString().substr(0, 10);
+	}
 
-	Onetable = () => {
+
+	Onetable = (installmentPlans) => {
+
 		return (
 			<div className="table-one-content">
 				<div className="table-list">
@@ -51,12 +56,19 @@ export default class Initialize extends Component {
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>履约保证金</td>
-									<td>2015/09/10-2016/10/10</td>
-									<td>2015/09/10</td>
-									<td>1200</td>
-								</tr>
+							{
+								installmentPlans.map((item,index)=>{
+									return(
+										<tr key={index}>
+											<td>{item.installmentName}</td>
+											<td>{item.leaseDate}</td>
+											<td>{this.getLocalTime(item.installmentReminddate)}</td>
+											<td>{item.installmentAmount}</td>
+										</tr>
+										)
+								}) 
+							}
+								
 							</tbody>
 							
 						</table>
@@ -65,7 +77,7 @@ export default class Initialize extends Component {
 		)
 	}
 
-	Twotable = () => {
+	Twotable = (installmentPlans) => {
 		return (
 			<div className="table-two-list">
 					<div className="two-line">
