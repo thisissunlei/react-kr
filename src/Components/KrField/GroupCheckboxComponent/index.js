@@ -31,6 +31,7 @@ export default class GroupCheckboxComponent extends React.Component {
     if(!ShallowEqual(this.props.defaultValue,nextProps.defaultValue)){
         this.setState({
           defaultValue:nextProps.defaultValue,
+          options:nextProps.defaultValue
         });
     }
   }
