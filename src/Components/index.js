@@ -46,6 +46,9 @@ import InputDate from './InputDate';
 import CircleStyle from './CircleStyle';
 import SnackTip from './SnackTip';
 import Tooltips from './Tooltips';
+import Dictionary from './Dictionary';
+
+
 
 import {
 	Grid,
@@ -70,7 +73,7 @@ import {
 
 module.exports = {
 	//Components
-
+	Dictionary,
 	FontIcon,
 	Paper,
 	IframeContent,
