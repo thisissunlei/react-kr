@@ -22,7 +22,10 @@ import {
 	KrDate,
 	Title,
 } from 'kr-ui';
-
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 import {
 	Agreement
 } from 'kr/PureComponents';
@@ -41,17 +44,21 @@ export default class JoinPrint extends Component {
 
 		State.getBasicInfo(params);
 	}
+	componentDidMount() {
+		Store.dispatch(Actions.switchSidebarNav(false));
+
+	}
 
 	render() {
 
 		return (
 
-			<div className="print-section">
+			<div className="print-section no-print-section" >
 			<Agreement.Print.Header Baseinfo={State.Baseinfo} orderInfo="入驻服务协议"/>
 			<Agreement.Print.BaseInfo Baseinfo={State.Baseinfo}/>
 
 			<Agreement.Print.Station orderTime={false} stationVOs={State.stationVOs} Baseinfo={State.Baseinfo}/>
-			<Agreement.Print.Payment Baseinfo={State.Baseinfo} installmentPlans={State.installmentPlans}/>
+			<Agreement.Print.Payment Baseinfo={State.Baseinfo} installmentPlans={State.installmentPlans} installmentPlansList={State.installmentPlansList}/>
 			<div className="print-text">
 				<span>双方其他约定内容：</span>
 				<span className="border-b one-text"></span>

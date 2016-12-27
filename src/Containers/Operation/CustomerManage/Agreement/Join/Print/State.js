@@ -21,6 +21,7 @@ let State = observable({
 	installmentPlans: [],
 	Baseinfo: {},
 	stationVOs: [],
+	installmentPlansList: []
 });
 
 //action
@@ -29,7 +30,6 @@ State.getBasicInfo = action(function(params) {
 	Store.dispatch(Actions.callAPI('checkinagreement-print-info', {
 		contractId: params.id
 	})).then(function(response) {
-		console.log('response----', response.installmentPlans)
 		_this.Baseinfo = response;
 		if (response.stationVOs.length >= 7) {
 			_this.stationVOs = response.stationVOs;
@@ -47,10 +47,13 @@ State.getBasicInfo = action(function(params) {
 				stationVOs.push(obj)
 			}
 			_this.stationVOs = stationVOs;
-			console.log('_this.stationVOs', _this.stationVOs)
+
 		}
 
 		_this.installmentPlans = response.installmentPlans;
+
+
+
 	}).catch(function(err) {
 
 	});

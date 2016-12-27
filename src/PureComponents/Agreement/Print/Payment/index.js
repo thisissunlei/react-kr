@@ -76,34 +76,13 @@ export default class Initialize extends Component {
 			</div>
 		)
 	}
-	one = (installmentPlans) => {
-		installmentPlans.map((item, index) => {
-			return (
-				<tr key={index}>
-					<td>{item.installmentName}</td>
-					<td>{item.leaseDate}</td>
-					<td>{this.getLocalTime(item.installmentReminddate)}</td>
-					<td>{item.installmentAmount}</td>
-				</tr>
-			)
-		})
 
-	}
-	two = (installmentPlans) => {
-		/*installmentPlans.map((item, index) => {
-			return (
-				<tr key={index}>
-					<td>{item.installmentName}</td>
-					<td>{item.leaseDate}</td>
-					<td>{this.getLocalTime(item.installmentReminddate)}</td>
-					<td>{item.installmentAmount}</td>
-				</tr>
-			)
-		})*/
-
-	}
 	Twotable = (installmentPlans) => {
-
+		var plansOne, plansTwo;
+		if (installmentPlans.length > 15) {
+			plansOne = installmentPlans.slice(0, 15);
+			plansTwo = installmentPlans.slice(15, installmentPlans.length);
+		}
 		return (
 			<div className="table-two-list">
 					<div className="two-line">
@@ -116,9 +95,16 @@ export default class Initialize extends Component {
 										<div>付款金额</div>
 									</div>
 									<div className="left-td">
-										{
-											installmentPlans.length>0 && this.one(installmentPlans)
-										}
+										{plansOne.map((item,index)=>{
+											return(
+												<div className="td clear" key={index}>
+													<div>{item.installmentName}</div>
+													<div>{item.leaseDate}</div>
+													<div>{this.getLocalTime(item.installmentReminddate)}</div>
+													<div>{item.installmentAmount}</div>
+												</div>
+											)
+										})}
 										
 									</div>
 								</div>
@@ -130,9 +116,16 @@ export default class Initialize extends Component {
 										<div>付款金额</div>
 									</div>
 									<div className="right-td">
-										{
-											installmentPlans.length>15 && this.two(installmentPlans)
-										}
+										{plansTwo.map((item,index)=>{
+											return(
+												<div className="td clear" key={index}>
+													<div>{item.installmentName}</div>
+													<div>{item.leaseDate}</div>
+													<div>{this.getLocalTime(item.installmentReminddate)}</div>
+													<div>{item.installmentAmount}</div>
+												</div>
+											)
+										})}
 									</div>
 								</div>
 						</div>
@@ -142,6 +135,28 @@ export default class Initialize extends Component {
 
 		)
 	}
+	method = () => {
+		let {
+			payModelList,
+			payModel
+		} = this.props.Baseinfo;
+		var reg = /转账/g,
+			methodObj;
+		payModelList && payModelList.map((item, index) => {
+			if (payModel == item.id) {
+				if (!reg.test(item.dicName)) {
+					payModelList.id = item.id;
+					payModelList.dicName = item.dicName;
+				} else {
+					methodObj.id = item.id
+					return methodObj.id;
+				}
+
+			}
+
+			return payModelList;
+		})
+	}
 	render() {
 		let {
 			installmentPlans,
@@ -149,10 +164,12 @@ export default class Initialize extends Component {
 		} = this.props;
 		let {
 			payType,
-			payModelList,
 			payTypeList,
-			payModel
+			payModel,
+			payModelList
 		} = this.props.Baseinfo;
+		var len = installmentPlans.length;
+		this.method();
 		return (
 
 			<div className="ui-payment">
@@ -171,16 +188,15 @@ export default class Initialize extends Component {
 						}
 					</div>
 					<div className="pay-method clear">
-						{
-							payModelList && payModelList.map((item,index)=>{
-								return(
-									<div className="method-list" key={index}>
-										<span className={payModel==item.id?"checked":"discheck"}></span>
-										<span>{item.dicName}</span>
-									</div>
-								)
-							})
-						}
+						<div className="method-list">
+							<span className={payModelList && payModel==payModelList.id?"checked":"discheck"}></span>
+							<span>其他{payModelList && payModel==payModelList.id?`-${payModelList.dicName}`:" "}</span>
+						</div>
+						<div className="method-list">
+							<span className={payModel==this.method()?"checked":"discheck"}></span>
+							<span>转账</span>
+						</div>
+						
 						
 					</div>
 				</div>
