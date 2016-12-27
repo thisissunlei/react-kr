@@ -4,7 +4,6 @@ import * as Types from './types';
 
 
 export function navActive(menuCode){
-
 	return function(dispatch,getState){
 		var state = getState();
 		var permissionNavs = state.navs.items;
@@ -16,16 +15,23 @@ export function navActive(menuCode){
 				itemMenuItems = item.menuItems.map(function(child,key){
 						child = Object.assign({},child);
 						if(child.hasOwnProperty('menuItems') && child.menuItems.length){
-							var menuItems = child.menuItems.map(function(children,i){
+							var menuItems = [];
+						   	menuItems = child.menuItems.map(function(children,i){
 								children = Object.assign({},children,{active:false});
 								if(children.menuCode == menuCode){
+
+									console.log('----...')
 									children.active = true;
 								}else{
 									children.active = false;
 								}
 								return children;
 							});
-							child.menuItems = menuItems;
+
+
+							child.menuItems = [].concat(menuItems);
+
+								console.log('00aaa',child.menuItems);
 
 						}
 						return child;
@@ -34,6 +40,8 @@ export function navActive(menuCode){
 			item.menuItems = itemMenuItems;
 			return item;
 		});
+
+		 console.log('--->>',permissionNavs);
 		dispatch({
 			type:Types.SET_USER_NAVS,
 			response:permissionNavs
