@@ -39,6 +39,7 @@ import './index.less';
 	    this.state={
 					detail:props.detail,
 					accomplish:false,
+					startNum:props.detail.endNum-props.detail.startNum,
 					oldNum:props.detail.endNum-props.detail.startNum,
 					closeMessageBar:{
 						title:'',
@@ -48,7 +49,8 @@ import './index.less';
 					},
 					clearInterCodeStyle:{
 						display:'none'
-					}
+					},
+					num:0,
 	    }
 	}
 	 onSubmit=(values)=>{
@@ -141,6 +143,9 @@ import './index.less';
 				 if (this.state.detail.startNum==this.state.detail.endNum) {
 				 	
 				 	var oldNum=this.state.oldNum+1;
+				 	if(this.state.startNum==this.state.num){
+				 		oldNum=0;
+				 	}
 					this.setState({
 	 				 	accomplish:true
 	 			 	})
@@ -162,9 +167,11 @@ import './index.less';
 	 	if (+this.state.detail.endNum!=0) {
 	 		const detail={};
 			detail.interCode="";
+			var num=this.state.num+1;
 			Store.dispatch(initialize('StartCardActivation',detail));
 	 		 this.setState({
 	 		 	oldNum:(+this.state.oldNum)-1,
+	 		 	num:num
 	 		 })
 		 	this.cardNumAdd(4);
 		 }
@@ -234,16 +241,16 @@ import './index.less';
 		return (
 			<form className="HeavilyActivation" onSubmit={handleSubmit(this.onSubmit)}>
 				<div className="activeImg" ></div>
-				<div style={{textAlign:"right",width:340,margin:"auto",marginTop:10}}>
+				<div style={{textAlign:"right",width:340,margin:"auto",marginTop:10,marginLeft:52}}>
 						<label >{"会员卡数量:"+numbers+"张"}</label>
-						<div style={{height:'60px',marginTop:"15px"}}>
+						<div style={{height:'60px',marginTop:"15px",marginLeft:"4px"}}>
 								<span className="cardNum">{this.numhandle(this.state.detail.startNum,0,4)}</span>
 								<span className="cardNum" style={{padding:"0 10px"}}>{this.numhandle(this.state.detail.startNum,4,6)}</span>
 								<span className="cardNum normal">{this.numhandle(this.state.detail.startNum,6,10)}</span>
 						</div>
-						<label className="jump" onClick={this.skipCard}>跳过该号码</label>
+						<label className="jump" onClick={this.skipCard} style={{fontSize:"14px"}} >跳过该号码</label>
 				</div>
-				<div className="clearInterCode">
+				<div className="clearInterCode" style={{marginLeft:"-4px",marginRight:"4px"}}>
 					<KrField  left={71} right={71} name="interCode"  type="text" onFocus={this.InterCodeFocus} onChange={this.cardChange} autoFocus={true}/>
 					<div className="startX" style={this.state.clearInterCodeStyle} onClick={this.clearInterCode}></div>
 				</div>
