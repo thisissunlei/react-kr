@@ -9,44 +9,29 @@ export function navActive(menuCode){
 		var permissionNavs = state.navs.items;
 
 		permissionNavs = permissionNavs.map(function(item,index){
-			item = Object.assign({},item,{active:false});
-			if(item.hasOwnProperty('menuItems') && item.menuItems.length){
-				var itemMenuItems = [];
-				itemMenuItems = item.menuItems.map(function(child,key){
-						child = Object.assign({},child);
-						if(child.hasOwnProperty('menuItems') && child.menuItems.length){
+			item.active = false;
+			if(item.hasOwnProperty('menuItems') && Object.prototype.toString.call(item.menuItems) === '[object Array]'  && item.menuItems.length){
+				item.menuItems.forEach(function(child,key){
+						if(child.hasOwnProperty('menuItems') && Object.prototype.toString.call(child.menuItems) === '[object Array]'  && child.menuItems.length){
 							var menuItems = [];
-						   	menuItems = child.menuItems.map(function(children,i){
-								children = Object.assign({},children,{active:false});
+						   child.menuItems.forEach(function(children,i){
+								children.active = false;
 								if(children.menuCode == menuCode){
-
-									console.log('----...')
 									children.active = true;
 								}else{
 									children.active = false;
 								}
-								return children;
 							});
-
-
-							child.menuItems = [].concat(menuItems);
-
-								console.log('00aaa',child.menuItems);
-
 						}
-						return child;
+
 				});
 			}
-			item.menuItems = itemMenuItems;
-			return item;
 		});
 
-		 console.log('--->>',permissionNavs);
 		dispatch({
 			type:Types.SET_USER_NAVS,
 			response:permissionNavs
 		});
-
 }
 }
 

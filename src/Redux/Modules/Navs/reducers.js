@@ -5,8 +5,10 @@ export function navs(state = {},action){
 	switch(action.type){
 		//用户navs
 		case Types.SET_USER_NAVS:{
-			console.log('--action----',action)
-			return Object.assign({},state,{items:action.response});
+			var items = [].concat(action.response);
+			var aa = Object.assign({},state,{items});
+			console.log('---a',aa,action.response);
+			return aa;
 		}
 		case Types.SET_NAVS_CURRENT_CHILD_ROUTER:{
 			return {...state,current_child:action.router};
@@ -39,11 +41,9 @@ export function navs(state = {},action){
 								if(child.hasOwnProperty('menuItems') && Object.prototype.toString.call(child.menuItems) === '[object Array]' && child.menuItems && child.menuItems.length){
 										child.menuItems.forEach(function(children){
 												if(children.router == childRouter){
-														//children.active = true;
+														children.active = true;
 												}else{
-													//children.active = false;
-
-													console.log('---->>>>')
+													children.active = false;
 												}
 										});
 								}
@@ -51,7 +51,7 @@ export function navs(state = {},action){
 						});
 				}
 			});
-			
+
 
 			return {...state,items};
 		}
