@@ -210,7 +210,7 @@ export default class AttributeSetting extends Component {
 
 			//转移
 			shiftData:[],
-            
+
 
 
 			openSearch: false,
@@ -300,9 +300,9 @@ export default class AttributeSetting extends Component {
 			 accountDetail:response.propData,
 			 contractReceive:contractReceive,
 			 contractTopReceive:response.contract
-		   }); 
+		   });
 		}).catch(function(err) {
-			  Message.error(err.message); 
+			  Message.error(err.message);
 		});
 		this.setState({
 			openRight: !this.state.openRight,
@@ -331,7 +331,7 @@ export default class AttributeSetting extends Component {
 	}
 
 	openSwitchBtn() {
-	   
+
 		let items = this.state.selectedList
 		var _this = this;
 		items.map(function(item, index) {
@@ -340,7 +340,7 @@ export default class AttributeSetting extends Component {
 				fiItem = item;
 			}
 		})
-		
+
 		if (this.state.listValues.length == 0) {
 			Message.error('请选择一条回款数据进行转押金');
 		} else if (this.state.listValues.length > 1) {
@@ -366,7 +366,7 @@ export default class AttributeSetting extends Component {
 					receivedList: receivedList
 				});
 			}).catch(function(err) {
-				 Message.error(err.message); 
+				 Message.error(err.message);
 			});
 		}
 	}
@@ -378,7 +378,7 @@ export default class AttributeSetting extends Component {
 					fiMoney:response
 				});
 			}).catch(function(err) {
-				 //Message.error(err.message); 
+				 //Message.error(err.message);
 		 });
 
 	}
@@ -406,7 +406,7 @@ export default class AttributeSetting extends Component {
 
 	openAccountBtn() {
 		var _this = this;
-		Store.dispatch(Actions.callAPI('getOnNewAccountData')).then(function(response) {	
+		Store.dispatch(Actions.callAPI('getOnNewAccountData')).then(function(response) {
 			var payWayList = [];
 			var contractList=[];
 			response.payWay.map(function(item, index) {
@@ -428,7 +428,7 @@ export default class AttributeSetting extends Component {
 				stationPayment:response.stationPayment
 			});
 		}).catch(function(err) {
-			 //Message.error(err.message); 
+			 //Message.error(err.message);
 		});
 		this.setState({
 			openAddaccountBtn: !this.state.openAddaccountBtn
@@ -450,7 +450,7 @@ export default class AttributeSetting extends Component {
 			});
 
 		}).catch(function(err) {
-			  Message.error(err.message); 
+			  Message.error(err.message);
 		});
 		this.setState({
 			openView: !this.state.openView
@@ -464,7 +464,7 @@ export default class AttributeSetting extends Component {
 				fiMoney = item.finaflowAmount;
 				fiItem = item;
 			}
-		})	
+		})
         if (this.state.listValues.length == 0) {
 			Message.error('请选择一条数据进行转移');
 		} else if (this.state.listValues.length > 1) {
@@ -474,7 +474,7 @@ export default class AttributeSetting extends Component {
 		} else {
 			  this.setState({
 				openShift:!this.state.openShift
-			  });	
+			  });
 			  Store.dispatch(Actions.callAPI('getTransferData', {
 					flowId:fiItem.id,
 					mainbillId: _this.props.params.orderId
@@ -484,9 +484,9 @@ export default class AttributeSetting extends Component {
 					fiMoney:response.remainMoney
 				  })
 				}).catch(function(err) {
-					  //Message.error(err.message); 
+					  //Message.error(err.message);
 				});
-		   
+
 	        }
         }
 
@@ -538,7 +538,7 @@ export default class AttributeSetting extends Component {
 	closeShiftBtn=()=>{
 		 this.setState({
 			openShift: !this.state.openShift
-	     });	  
+	     });
 	}
 
 	//确定提交区域
@@ -583,8 +583,8 @@ export default class AttributeSetting extends Component {
 		}
 		//回款提交
 	onAddReceivedSubmit(params) {
-		
-		
+
+
 		console.log('nnnnnn',params);
         var conJasonStr1={};
         var conJasonStr2={};
@@ -593,46 +593,46 @@ export default class AttributeSetting extends Component {
 		if(params.l226l2){
           conJasonStr1={'226':{'2':params.l226l2}}
           delete params.l226l2;
-		  
+
 		}
 		if(params.l227l1&&!params.l227l3){
           conJasonStr2={'227':{'1':params.l227l1}}
-		  delete params.l227l1;  
+		  delete params.l227l1;
 		}else if(params.l227l3&&!params.l227l1){
           conJasonStr2={'227':{'3':params.l227l3}}
-		  delete params.l227l3;  
+		  delete params.l227l3;
 		}else if(params.l227l1&&params.l227l3){
           conJasonStr2={'227':{'1':params.l227l1,'3':params.l227l3}}
           delete params.l227l3;
-		  delete params.l227l1;  
+		  delete params.l227l1;
 		}
 		if(params.l228l1&&!params.l228l3){
           conJasonStr3={'228':{'1':params.l228l1}}
-		  delete params.l228l1;  
+		  delete params.l228l1;
 		}else if(params.l228l3&&!params.l228l1){
           conJasonStr3={'228':{'3':params.l228l3}}
-		  delete params.l228l3;  
+		  delete params.l228l3;
 		}else if(params.l228l1&&params.l228l3){
           conJasonStr3={'228':{'1':params.l228l1,'3':params.l228l3}}
           delete params.l228l3;
-		  delete params.l228l1;  
+		  delete params.l228l1;
 		}
 		if(params.l230l1&&!params.l230l3){
           conJasonStr4={'230':{'1':params.l230l1}}
-		  delete params.l230l1;  
+		  delete params.l230l1;
 		}else if(params.l230l3&&!params.l230l1){
           conJasonStr4={'230':{'3':params.l230l3}}
-		  delete params.l230l3;  
+		  delete params.l230l3;
 		}else if(params.l230l1&&params.l230l3){
           conJasonStr4={'230':{'1':params.l230l1,'3':params.l230l3}}
           delete params.l230l3;
-		  delete params.l230l1;  
+		  delete params.l230l1;
 		}
 		params.conJasonStr={conJasonStr1,conJasonStr2,conJasonStr3,conJasonStr4}
 
 		params.conJasonStr = Object.assign({},conJasonStr1,conJasonStr2,conJasonStr3,conJasonStr4);
-        
-      
+
+
         console.log('uuuuu',params);
 		let {accountDetail} = this.state;
 		params = Object.assign({}, params);
@@ -652,13 +652,13 @@ export default class AttributeSetting extends Component {
 		Store.dispatch(Actions.callAPI('returnMoneyNew', {}, params)).then(function(response) {
 			_this.refresh();
 		}).catch(function(err) {
-			 Message.error(err.message); 
+			 Message.error(err.message);
 		});
 		this.setState({
 			openRight: !this.state.openRight,
 			isLoading: true,
 		});
-		
+
 
 	}
 	onQuitSubmit(params) {
@@ -668,7 +668,7 @@ export default class AttributeSetting extends Component {
 		Store.dispatch(Actions.callAPI('payBack', {}, params)).then(function(response) {
 			_this.refresh();
 		}).catch(function(err) {
-		  Message.error(err.message); 
+		  Message.error(err.message);
 		});
 		this.setState({
 			openQuitBtn: !this.state.openQuitBtn,
@@ -681,7 +681,7 @@ export default class AttributeSetting extends Component {
 		Store.dispatch(Actions.callAPI('transToDeposit', {}, params)).then(function(response) {
 			_this.refresh();
 		}).catch(function(err) {
-			 Message.error(err.message); 
+			 Message.error(err.message);
 		});
 		this.setState({
 			openSwitchBtn: !this.state.openSwitchBtn,
@@ -695,7 +695,7 @@ export default class AttributeSetting extends Component {
 		Store.dispatch(Actions.callAPI('transToOperateIncome', {}, params)).then(function(response) {
 			_this.refresh();
 		}).catch(function(err) {
-			  Message.error(err.message); 
+			  Message.error(err.message);
 		});
 
 		this.setState({
@@ -723,7 +723,7 @@ export default class AttributeSetting extends Component {
 		Store.dispatch(Actions.callAPI('onNewAccountg', {}, params)).then(function() {
 			_this.refresh();
 		}).catch(function(err) {
-			  Message.error(err.message); 
+			  Message.error(err.message);
 		});
 		this.setState({
 			openAddaccountBtn: !this.state.openAddaccountBtn,
@@ -737,7 +737,7 @@ export default class AttributeSetting extends Component {
 			})).then(function(response) {
 				_this.refresh();
 			}).catch(function(err) {
-				 Message.error(err.message); 
+				 Message.error(err.message);
 			});
 			_this.setState({
 				openSupplementBtn: !this.state.openSupplementBtn,
@@ -767,7 +767,7 @@ export default class AttributeSetting extends Component {
 		Store.dispatch(Actions.callAPI('transferPayment', {}, params)).then(function() {
 			_this.refresh();
 		}).catch(function(err) {
-			  Message.error(err.message); 
+			  Message.error(err.message);
 		});
 		this.setState({
 			openShift: !this.state.openShift,
@@ -794,7 +794,7 @@ export default class AttributeSetting extends Component {
 				colorClassName:response.isIncomeRunning==2?'historyIncomeGray':'historyIncome'
 			});
 		}).catch(function(err) {
-			 Message.error(err.message); 
+			 Message.error(err.message);
 		});
 	}
 
@@ -830,7 +830,7 @@ export default class AttributeSetting extends Component {
 				typeList,
 			});
 		}).catch(function(err) {
-			 Message.error(err.message); 
+			 Message.error(err.message);
 		});
 	}
 
@@ -862,7 +862,7 @@ export default class AttributeSetting extends Component {
 
 				   isRunningIncome:0
 
-			    }); 
+			    });
 			});
         }
     }
@@ -885,7 +885,7 @@ export default class AttributeSetting extends Component {
 			} = this.props;
 			Store.dispatch(Actions.callAPI('removeRunningTag',{},{
 				mainbillId:params.orderId,
-			})).then(function(response) {              
+			})).then(function(response) {
 				//_this.refresh();
 				  window.location.reload();
 			    _this.setState({
@@ -894,14 +894,14 @@ export default class AttributeSetting extends Component {
 			 });
 
 			}).catch(function(err){
-				  Message.error(err.message); 
+				  Message.error(err.message);
 			});
 
 
     }
 
 	initializeSnack = (open=false,title='正在补历史收入...',titleAfter,color)=>{
-	
+
     	let style={
     	'background':color,
     	'position': 'fixed',
@@ -909,17 +909,17 @@ export default class AttributeSetting extends Component {
         'left': 0,
         'right': 0
     	}
-    	
+
     	   return (
-               
+
     	   	  <SnackTip style={style} open={open} title={title} titleAfter={titleAfter} onClose={this.snackTipClose}/>
-    	  
+
     	   	);
 	}
-    
 
-    
-    
+
+
+
     renderSnack=()=>{
 
 
@@ -932,8 +932,8 @@ export default class AttributeSetting extends Component {
 
     		return this.initializeSnack(true,'补历史收入已完成!','确认','#75c7bc');
     	}
-    	
-    	
+
+
     }
 
     renderReceived=()=>{
@@ -1012,11 +1012,11 @@ export default class AttributeSetting extends Component {
     		return this.renderReceived();
     	}
     }
-   
+
     iconClose=()=>{
      this.setState({
 		 openRight:!this.state.openRight
-	  }); 
+	  });
     }
 
    depositFuction=(values)=>{
@@ -1041,7 +1041,7 @@ export default class AttributeSetting extends Component {
    	let {allSumValue,rightBottomValue,leftBottomValue,compareValue,depositValue,depositAddValue,depositAdminValue,stationAddValue,stationAdminValue}=this.state;
       this.setState({
      	  liveMoneyValue:allSumValue-values-rightBottomValue-leftBottomValue-compareValue-depositValue-stationAddValue-stationAdminValue-depositAddValue-depositAdminValue,
-     	
+
      })
    }
    depositAdminFuction=(values)=>{
@@ -1066,7 +1066,7 @@ export default class AttributeSetting extends Component {
    	let {allSumValue,rightBottomValue,leftBottomValue,compareValue,depositValue,stationAddValue,depositAddValue,depositAdminValue,stationValue}=this.state;
       this.setState({
      	  liveMoneyValue:allSumValue-values-rightBottomValue-leftBottomValue-compareValue-depositValue-stationValue-stationAddValue-depositAddValue-depositAdminValue,
-     	
+
      })
    }
    depositAddFuction=(values)=>{
@@ -1091,14 +1091,14 @@ export default class AttributeSetting extends Component {
    	let {allSumValue,rightBottomValue,leftBottomValue,compareValue,depositValue,stationValue,depositAdminValue,depositAddValue,stationAdminValue}=this.state;
       this.setState({
      	  liveMoneyValue:allSumValue-values-rightBottomValue-leftBottomValue-compareValue-depositValue-depositAdminValue-depositAddValue-stationAdminValue-stationValue,
-     	
+
      })
    }
    compareFuction=(values)=>{
    	 this.setState({
      	  compareValue:values
      })
-   
+
    	if(this.state.allSumValue<=0){
    	 	return ;
    	 }
@@ -1134,7 +1134,7 @@ export default class AttributeSetting extends Component {
    }
    receiveAllMoney=(values)=>{
    	let {allSumValue,leftBottomValue,compareValue,stationValue,depositValue,rightBottomValue}=this.state;
-   	
+
    	 this.setState({
      	 allSumValue:values,
      	 liveMoneyValue:values-leftBottomValue-compareValue-stationValue-depositValue-rightBottomValue
@@ -1142,7 +1142,7 @@ export default class AttributeSetting extends Component {
    }
 
 	render() {
-		
+
 		let {
 			params,
 			isInitLoading,
@@ -1262,12 +1262,12 @@ export default class AttributeSetting extends Component {
 
 		return (
 
-			<div>    
+			<div>
 
 			        {this.renderSnack()}
 					<Title value="订单明细账_财务管理"/>
 					<Section title="订单明细账" description="" style={{marginBottom:-5,minHeight:910}}>
-                          
+
 					      <DotTitle title='订单描述' style={{marginTop:'6',marginBottom:'40'}}/>
 						  <BasicInfo  detail={this.state.basicInfo} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome}/>
 
@@ -1302,14 +1302,14 @@ export default class AttributeSetting extends Component {
 					 </Dialog>
 
 				      <Drawer open={this.state.openRight} width={650} openSecondary={true}>
-				       <div> 
+				       <div>
                         <ReceiveDetailTop iconClose={this.iconClose} contractTopReceive={this.state.contractTopReceive} liveMoneyValue={this.state.liveMoneyValue} allSumValue={this.state.allSumValue}/>
-                        <ReceivedBtnForm 
-                         onSubmit={this.onAddReceivedSubmit} 
-                         onCancel={this.iconClose} 
-                         optionList={this.state.payWayList} 
-                          accountDetail={this.state.accountDetail} 
-                          contractReceive={this.state.contractReceive} 
+                        <ReceivedBtnForm
+                         onSubmit={this.onAddReceivedSubmit}
+                         onCancel={this.iconClose}
+                         optionList={this.state.payWayList}
+                          accountDetail={this.state.accountDetail}
+                          contractReceive={this.state.contractReceive}
                           contractTopReceive={this.state.contractTopReceive}
                           depositFuction={this.depositFuction}
                           stationFuction={this.stationFuction}
