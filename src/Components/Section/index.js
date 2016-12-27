@@ -93,9 +93,9 @@ export default class Section extends Component {
 
 	}
 	touchHeaderTitle(){
-		this.setState({
-			openBody:!this.state.openBody
-		});
+		// this.setState({
+		// 	openBody:!this.state.openBody
+		// });
 	}
 
 	renderSectionTitle(){
