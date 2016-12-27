@@ -24,7 +24,7 @@
 	}
 	.one-text{
 		width:575px;
-		top:18px;
+		top:20px;
 		left:124px;
 	}
 	.two-text{
@@ -35,8 +35,27 @@
 }
 @media print
 {   
+
     .no-print-section
     {
-       margin-top:-80px;
+       margin-top:-1px;
+    }
+   
+    .container{
+    	margin:0 !important;
+    	padding:0  !important;
+    }
+    div{
+    	margin-bottom:0  !important;
+    }
+    .g-footer{
+    	height:0 !important;
+    }
+}
+
+@media print {
+    @page {
+    	background:#ffffff;
+        size: 210mm 297mm;  /* or size: 794px 1123px;   */
     }
 }
