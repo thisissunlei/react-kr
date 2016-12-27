@@ -21,9 +21,7 @@ export default class Initialize  extends Component{
 
 	constructor(props,context){
 		super(props, context);
-		this.state={
-			isClass:false,
-		}
+		
 	}
 	static defaultProps = {
 		data: []
@@ -83,7 +81,7 @@ export default class Initialize  extends Component{
 			<div className="print-Station">
 				{this.initBasicClass(Baseinfo)}
 
-					<div className={this.state.isClass?'fixed-height':'auto-height'}>
+					<div className="auto-height">
 						<table>
 							<tbody>
 								<tr>
