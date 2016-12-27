@@ -4,41 +4,34 @@ import * as Types from './types';
 
 
 export function navActive(menuCode){
-
 	return function(dispatch,getState){
 		var state = getState();
 		var permissionNavs = state.navs.items;
 
 		permissionNavs = permissionNavs.map(function(item,index){
-			item = Object.assign({},item,{active:false});
-			if(item.hasOwnProperty('menuItems') && item.menuItems.length){
-				var itemMenuItems = [];
-				itemMenuItems = item.menuItems.map(function(child,key){
-						child = Object.assign({},child);
-						if(child.hasOwnProperty('menuItems') && child.menuItems.length){
-							var menuItems = child.menuItems.map(function(children,i){
-								children = Object.assign({},children,{active:false});
+			item.active = false;
+			if(item.hasOwnProperty('menuItems') && Object.prototype.toString.call(item.menuItems) === '[object Array]'  && item.menuItems.length){
+				item.menuItems.forEach(function(child,key){
+						if(child.hasOwnProperty('menuItems') && Object.prototype.toString.call(child.menuItems) === '[object Array]'  && child.menuItems.length){
+							var menuItems = [];
+						   child.menuItems.forEach(function(children,i){
+								children.active = false;
 								if(children.menuCode == menuCode){
 									children.active = true;
 								}else{
 									children.active = false;
 								}
-								return children;
 							});
-							child.menuItems = menuItems;
-
 						}
-						return child;
+
 				});
 			}
-			item.menuItems = itemMenuItems;
-			return item;
 		});
+
 		dispatch({
 			type:Types.SET_USER_NAVS,
 			response:permissionNavs
 		});
-
 }
 }
 
