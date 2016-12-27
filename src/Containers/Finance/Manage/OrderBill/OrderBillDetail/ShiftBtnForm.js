@@ -72,6 +72,11 @@ class ShiftBtnForm extends Component{
     
 
 	render(){
+
+		let heightStyle={
+       	 width:'546',
+       	 height:'72'
+       }
        
         const { error, handleSubmit, pristine, reset,initialValuesId,shiftData} = this.props;
 		

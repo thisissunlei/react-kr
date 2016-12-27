@@ -714,6 +714,7 @@ export default class AttributeSetting extends Component {
 			});
 		params.propJasonStr[params.stationPaymentName]=params[params.stationPaymentName];
 		delete params[params.stationPaymentName];
+		params.propJasonStr = JSON.stringify(params.propJasonStr);
 		var _this = this;
 		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd");
 		Store.dispatch(Actions.callAPI('onNewAccountg', {}, params)).then(function() {
@@ -758,6 +759,7 @@ export default class AttributeSetting extends Component {
 							delete params[key];
 					}
 			});
+		params.propJasonStr = JSON.stringify(params.propJasonStr);
 		var _this = this;
 		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd");
 		Store.dispatch(Actions.callAPI('transferPayment', {}, params)).then(function() {
@@ -944,7 +946,7 @@ export default class AttributeSetting extends Component {
 							              </TableHeader>
 							              <TableBody>
 							                <TableRow>
-							                	<TableRowColumn name="id"></TableRowColumn>
+							                	<TableRowColumn name="tradingCode" defaultValue='无'></TableRowColumn>
 							                    <TableRowColumn name="operatedate" type="date" format="yyyy-mm-dd"></TableRowColumn>
 							                    <TableRowColumn name="accountName"></TableRowColumn>
 							                    <TableRowColumn name="typeName"></TableRowColumn>
@@ -975,7 +977,7 @@ export default class AttributeSetting extends Component {
 							              </TableHeader>
 							              <TableBody>
 							                <TableRow>
-							                	<TableRowColumn name="id"></TableRowColumn>
+							                	<TableRowColumn name="tradingCode" defaultValue='无'></TableRowColumn>
 							                    <TableRowColumn name="operatedate" type="date" format="yyyy-mm-dd"></TableRowColumn>
 							                    <TableRowColumn name="accountName"></TableRowColumn>
 							                    <TableRowColumn name="typeName"></TableRowColumn>
