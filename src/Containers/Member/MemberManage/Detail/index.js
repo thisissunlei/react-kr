@@ -138,7 +138,7 @@ export default class memberListDetail extends Component{
 			return <Loading/>
 		}
     return(
-      <div name="memberListDetail" >
+      <div name="memberListDetail" style={{width:1020,margin:'auto'}}>
           {
             this.isLeader()
           }
