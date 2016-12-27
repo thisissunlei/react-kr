@@ -25,8 +25,6 @@ export function navs(state = {},action){
 			var router = action.router;
 			var childRouter = action.childRouter;
 
-			console.log('item',items);
-
 			items.forEach(function(item,index){
 				if(item.router && item.router ==  router){
 					item.active = true;
