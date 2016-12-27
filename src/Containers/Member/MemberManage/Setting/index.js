@@ -290,15 +290,15 @@ export default class List extends Component {
 									<Row >
 									<Col  align="left" style={{marginLeft:0,float:'left'}}> <Button label="新建激活" type='button' joinEditForm onTouchTap={this.openNewActivationDialog}  /> </Col>
 									<Col  align="left" style={{marginLeft:20,float:'left'}}> <Button label="批量激活" type='button' joinEditForm onTouchTap={this.openHeavilyActivationDialog}  /> </Col>
-										<Col  align="right" style={{marginTop:0,float:"right"}}>
-											<ListGroup>
-												<ListGroupItem> <SearchForms placeholder='请输入会员卡号码' onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
-											</ListGroup>
-										</Col>
+									<Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
+										<ListGroup>
+											<ListGroupItem> <SearchForms placeholder='请输入会员卡号码' onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
+										</ListGroup>
+									</Col>
 									</Row>
 								</Grid>
 
-											<Table  style={{marginTop:10}}
+											<Table  style={{marginTop:8}}
 													ajax={true}
 													onOperation={this.onOperation}
 													onProcessData={(state)=>{
