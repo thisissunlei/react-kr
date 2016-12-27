@@ -236,7 +236,7 @@ import './index.less';
 				<div className="activeImg" ></div>
 				<div style={{textAlign:"right",width:340,margin:"auto",marginTop:10}}>
 						<label >{"会员卡数量:"+numbers+"张"}</label>
-						<div style={{height:'60px',marginTop:"15px"}}>
+						<div style={{height:'60px',marginTop:"15px",marginLeft:"4px"}}>
 								<span className="cardNum">{this.numhandle(this.state.detail.startNum,0,4)}</span>
 								<span className="cardNum" style={{padding:"0 10px"}}>{this.numhandle(this.state.detail.startNum,4,6)}</span>
 								<span className="cardNum normal">{this.numhandle(this.state.detail.startNum,6,10)}</span>
