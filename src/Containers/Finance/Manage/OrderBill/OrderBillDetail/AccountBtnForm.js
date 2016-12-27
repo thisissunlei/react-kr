@@ -37,9 +37,9 @@ class AccountBtnForm extends Component{
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
-		optionList:React.PropTypes.arr,
-		accountDetail:React.PropTypes.arr,
-		contractList:React.PropTypes.arr,
+		optionList:React.PropTypes.array,
+		accountDetail:React.PropTypes.array,
+		contractList:React.PropTypes.array,
 		stationPayment:React.PropTypes.object,
 	}
 	constructor(props,context){
@@ -66,7 +66,7 @@ class AccountBtnForm extends Component{
        	 preCode:'0',
        	 mainbillId:this.context.params.orderId,
        	 operatedate:'',
-       	 accountid:''
+       	 accountId:''
        }
 	   Store.dispatch(initialize('AccountBtnForm',initialValues));
 		
@@ -77,7 +77,7 @@ class AccountBtnForm extends Component{
 		let style={
        	 marginTop:'6'
        }
-       let heightStyle={
+       let heightStyle={s
        	 width:'546',
        	 height:'72'
        }
@@ -85,19 +85,18 @@ class AccountBtnForm extends Component{
            
         let stationPaymentName=stationPayment.id;
 
-
 		return(
 			 <div className='ui-quit-wrap' style={{marginLeft:3}}>
 				<form  onSubmit={handleSubmit(this.onSubmit)} style={{marginLeft:31}}>
 					<KrField  name="mainbillId" type="hidden"/>
-					<KrField grid={1/2} name="accountid" right={42} component="select" label="支付方式" options={optionList} requireLabel={true}/> 
+					<KrField grid={1/2} name="accountId" right={42} component="select" label="支付方式" options={optionList} requireLabel={true}/> 
 					<KrField name="preCode" grid={1/2} component="group" label="金额正负" requireLabel={true} style={{marginLeft:-12}}>
 		                <KrField name="preCode" label="正" type="radio" value="0"/>
 		                <KrField name="preCode" label="负" type="radio" value="1" />
 		            </KrField> 
 					<KrField grid={1/2} name="operatedate" right={45} type="date" component="date" label="挂账日期" requireLabel={true} style={{marginTop:3}}/> 
 					<KrField grid={1/2} name="fileids"  component="file" label="上传附件" style={{marginLeft:-12}}/>
-					<KrField grid={1/2} name='stationPaymentName' right={42}  component="input" label={stationPayment.propname} type="text" style={{marginRight:-12}}/> 
+					<KrField grid={1/2} name="stationPaymentName" right={42}  component="input" label={stationPayment.propname} type="text" style={{marginRight:-12}}/> 
 					<KrField grid={1/2} name="contractId" right={42}  component="select" label="工位合同"  options={contractList}/> 
 					
 					   <div>
@@ -142,8 +141,8 @@ const validate = values =>{
 
 		const errors = {}
 
-		if(!values.accountid){
-			errors.accountid = '请填写支付方式';
+		if(!values.accountId){
+			errors.accountId = '请填写支付方式';
 		}
 		if(!values.operatedate){
 			errors.operatedate = '请填写挂帐日期';

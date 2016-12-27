@@ -397,7 +397,9 @@ export default class AttributeSetting extends Component {
 
 	openAccountBtn() {
 		var _this = this;
-		Store.dispatch(Actions.callAPI('getOnNewAccountData')).then(function(response) {
+		Store.dispatch(Actions.callAPI('getOnNewAccountData',{
+			mainbillId: _this.props.params.orderId
+		})).then(function(response) {
 			var payWayList = [];
 			var contractList=[];
 			response.payWay.map(function(item, index) {
@@ -409,7 +411,7 @@ export default class AttributeSetting extends Component {
 			response.contractList.map(function(item, index) {
 				var list = {}
 				list.value = item.id;
-				list.label = item.accountname;
+				list.label = item.contractcode;
 				contractList.push(list);
 			});
 			_this.setState({
@@ -701,19 +703,19 @@ export default class AttributeSetting extends Component {
 
 	}
 	onConfrimSubmit(params) {
-		let {payWayList} = this.state;
-		console.log('eeeee',payWayList);
+		let {stationPayment,accountDetail}=this.state;
+		var contractId=stationPayment.id;
 		params = Object.assign({}, params);
 			params.propJasonStr = {};
-			payWayList.map(function(item,index){
-					var key = item.value;
+			accountDetail.map(function(item,index){
+					var key = item.id;
 					if(params.hasOwnProperty(key) && params[key]){
 							params.propJasonStr[key] = params[key];
 							delete params[key];
 					}
 			});
-		params.propJasonStr[params.stationPaymentName]=params[params.stationPaymentName];
-		delete params[params.stationPaymentName];
+		params.propJasonStr[contractId]=params.stationPaymentName;
+		//delete params.stationPaymentName;
 		params.propJasonStr = JSON.stringify(params.propJasonStr);
 		var _this = this;
 		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd");

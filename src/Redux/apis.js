@@ -485,12 +485,12 @@
   },
    //订单明细账－二期－添加挂帐
   'onNewAccountg': {
-    url:'/api/krspace-finance-web/finaccount/opt/onAccountg',
+    url:'/api/krspace-finance-web/finaccount/opt/onAccount',
     method: 'post'
   },
   //订单明细账－二期－点击挂帐所需数据
   'getOnNewAccountData': {
-    url:'/api/krspace-finance-web/finaccount/data/getOnAccountData',
+    url:'/api/krspace-finance-web/finaccount/data/getOnAccountData?mainbillId={mainbillId}',
     method: 'get'
   },
 
