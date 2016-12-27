@@ -288,8 +288,8 @@ export default class List extends Component {
 						<Section title="会员卡激活" description="" style={{minHeight:"900px"}}>
 								<Grid style={{marginBottom:22,marginTop:2}}>
 									<Row >
-									<Col md={1} align="left"> <Button label="新建激活" type='button' joinEditForm onTouchTap={this.openNewActivationDialog}  /> </Col>
-									<Col md={1} align="left"> <Button label="批量激活" type='button' joinEditForm onTouchTap={this.openHeavilyActivationDialog}  /> </Col>
+									<Col  align="left" style={{marginLeft:0,float:'left'}}> <Button label="新建激活" type='button' joinEditForm onTouchTap={this.openNewActivationDialog}  /> </Col>
+									<Col  align="left" style={{marginLeft:20,float:'left'}}> <Button label="批量激活" type='button' joinEditForm onTouchTap={this.openHeavilyActivationDialog}  /> </Col>
 										<Col md={10} align="right" style={{marginTop:0}}>
 											<ListGroup>
 												<ListGroupItem> <SearchForms placeholder='请输入会员卡号码' onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
@@ -312,11 +312,11 @@ export default class List extends Component {
 												ajaxFieldListName="items"
 												ajaxUrlName='CardActivationList'>
 												<TableHeader>
-													<TableHeaderColumn>卡号</TableHeaderColumn>
-													<TableHeaderColumn>内码</TableHeaderColumn>
-													<TableHeaderColumn>状态</TableHeaderColumn>
-													<TableHeaderColumn>激活时间</TableHeaderColumn>
-													<TableHeaderColumn>操作</TableHeaderColumn>
+													<TableHeaderColumn style={{width:"20%"}}>卡号</TableHeaderColumn>
+													<TableHeaderColumn style={{width:"20%"}}>内码</TableHeaderColumn>
+													<TableHeaderColumn style={{width:"20%"}}>状态</TableHeaderColumn>
+													<TableHeaderColumn style={{width:"20%"}}>激活时间</TableHeaderColumn>
+													<TableHeaderColumn style={{width:"20%"}}>操作</TableHeaderColumn>
 
 											</TableHeader>
 

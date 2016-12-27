@@ -153,7 +153,7 @@ import './index.less';
 				<div className="stageImg" ></div>
 				<KrField style={{marginTop:20}} left={71} right={71} name="startNum" component="input" type="text" label="起始号码" onChange={this.handleStartBlur} />
 				<KrField style={{marginTop:5}} left={71} right={71} name="endNum" component="input" type="text" label="终止号码" onChange={this.handleEndBlur} />
-				<KrField style={{height:36,marginTop:-15}} left={71} right={71} component="labelText" label="会员卡数量:" value={cardNum+"张"}/>
+				<KrField style={{height:36,marginTop:-5}} left={71} right={71} component="labelText" label="会员卡数量:" value={cardNum+"张"}/>
 				<Grid style={{marginTop:15,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">

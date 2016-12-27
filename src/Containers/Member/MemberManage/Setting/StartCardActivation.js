@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
-import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
+import {reduxForm,formValueSelector,initialize,change,submit} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	KrField,
@@ -52,8 +52,7 @@ import './index.less';
 	    }
 	}
 	 onSubmit=(values)=>{
-	 	
-
+		var _this = this;
 	 	if (navigator.onLine) 
 		{ //正常工作
 		} 
@@ -62,28 +61,28 @@ import './index.less';
 		 		return;
 		} 
 
-
-
-
-
-		 var _this=this;
 		 var isErr=false;
 		 const params={};
-		 params.foreignCode=_this.state.detail.startNum;
+		 params.foreignCode=this.state.detail.startNum;
 		 params.interCode=values.interCode;
+
 		 if(!values.interCode){
+
 		 	return;
 		 }
 		 if(this.state.accomplish){
+
 			 return;
 		 }
-		var reg=/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8}$/;
+
+		var reg=/^[0-9a-fA-F]{8}$/;
 		if (values.interCode&&!reg.test(values.interCode)) {
 
-			Message.error('卡内码由8位的数字和字母组成');
+
+			Message.error('内码为8位16进制数');
 			return;
 		}
-		
+
 		 Store.dispatch(Actions.callAPI('CardActivation', {}, params)).then(function(response) {
 					//  Message.success("成功");
 					 const detail={};
@@ -197,19 +196,30 @@ import './index.less';
 			})
 	}
 	cardChange=(value)=>{
+			console.log("999")
+
 		var cReg=new RegExp("[\\u4E00-\\u9FFF]+","g");
+		var reg=/^[0-9a-fA-F]{8}$/;
 		if(value.length>8){
-			value=value.slice(8,value.length);
+			value=value.slice(8,value.length+1);
 			const detail={};
 			detail.interCode=value;
 			Store.dispatch(initialize('StartCardActivation',detail));
+
 			return;
+		}
+
+		if(value.length==8&&reg.test(value)){
+			var params={};
+			params.foreignCode=this.state.detail.startNum;
+			params.interCode=value;
+			
+			this.onSubmit(params);
 		}
 		if(cReg.test(value)){
 			Message.error('卡内码内含有中文请切换英文输入法！');
 			return;
 		}
-		
 	}
 
 	render(){
@@ -226,7 +236,7 @@ import './index.less';
 				<div className="activeImg" ></div>
 				<div style={{textAlign:"right",width:340,margin:"auto",marginTop:10}}>
 						<label >{"会员卡数量:"+numbers+"张"}</label>
-						<div style={{height:'60px'}}>
+						<div style={{height:'60px',marginTop:"15px"}}>
 								<span className="cardNum">{this.numhandle(this.state.detail.startNum,0,4)}</span>
 								<span className="cardNum" style={{padding:"0 10px"}}>{this.numhandle(this.state.detail.startNum,4,6)}</span>
 								<span className="cardNum normal">{this.numhandle(this.state.detail.startNum,6,10)}</span>
@@ -234,7 +244,7 @@ import './index.less';
 						<label className="jump" onClick={this.skipCard}>跳过该号码</label>
 				</div>
 				<div className="clearInterCode">
-					<KrField  left={71} right={71} name="interCode" component="input" type="text" onFocus={this.InterCodeFocus} onChange={this.cardChange} autoFocus={true}/>
+					<KrField  left={71} right={71} name="interCode"  type="text" onFocus={this.InterCodeFocus} onChange={this.cardChange} autoFocus={true}/>
 					<div className="startX" style={this.state.clearInterCodeStyle} onClick={this.clearInterCode}></div>
 				</div>
 
@@ -258,10 +268,10 @@ import './index.less';
 const validate = values =>{
 		
 		const errors = {}
-		
-		var reg=/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8}$/;
+		var reg=/^[0-9a-fA-F]{8}$/;
+		console.log("1233")
 		if (!reg.test(values.interCode)) {
-			errors.interCode='卡内码由8位的数字和字母组成';
+			errors.interCode='内码为8位16进制数';
 		}
 		
 		return errors

@@ -176,7 +176,7 @@ class NewActivation extends Component {
 
 const validate = values =>{
 		var foreignCode=values.foreignCode;
-		var reg=/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8}$/;
+		var reg=/^[0-9a-fA-F]{8}$/;
 		const errors = {}
 		if(!values.foreignCode){
 			errors.foreignCode = '请输入会员卡号';
@@ -193,7 +193,7 @@ const validate = values =>{
 
 		}else if (!reg.test(values.interCode)) {
 
-			errors.interCode = '卡内码由8位的数字和字母组成';
+			errors.interCode = '内码为8位16进制数';
 		}
 		return errors
 	}
