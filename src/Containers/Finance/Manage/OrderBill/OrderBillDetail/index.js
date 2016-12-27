@@ -94,7 +94,7 @@ class ViewForm extends Component {
 					<KrField grid={1/2}  component="labelText" label="代码名称" value={items.accountName} inline={false} defaultValue="无"/>
 					<KrField grid={1/2} label="付款日期" component="labelText" inline={false} value={items.occuryear} defaultValue="无" type="date"/>
 
-					<KrField grid={1/2} label="操作时间" component="labelText" value={items.occuryear} format="yyyy-mm-dd hh:mm:ss" type="date" inline={false} defaultValue="无"/>
+					<KrField grid={1/2} label="操作时间" component="labelText" value={items.operatedate} format="yyyy-mm-dd hh:mm:ss" type="date" inline={false} defaultValue="无"/>
 
 					<KrField grid={1/2}  component="labelText" label="交易编号" value={items.tradingCode} inline={false} defaultValue="无"/>
 					<KrField grid={1/2}  component="labelText" label="操作人"  value={items.optUserName} inline={false} defaultValue="无"/>
@@ -279,25 +279,26 @@ export default class AttributeSetting extends Component {
 			contractReceive = response.contract.map(function(item, index) {
 				var lists = {};
 				lists.label = item.contactName+'-'+item.contractcode;
-				lists.value = item.detailid;
+				lists.value = item.contactType;
                 return lists;
 			});
 			   var noContract={
 			    	'value':'000','label':'无合同'
 			     }
-			  contractReceive.push(noContract);
+			 contractReceive.push(noContract);
            _this.setState({
 			 payWayList,
 			 accountDetail:response.propData,
 			 contractReceive:contractReceive,
-			 contractTopReceive:response.contract
+			 contractTopReceive:response.contract,
 		   });
 		}).catch(function(err) {
 			  Message.error(err.message);
 		});
-		this.setState({
-			openRight: !this.state.openRight,
-		});
+		 this.setState({
+			 openRight:!this.state.openRight
+		  });
+
 	}
 	openQuitBtn() {
 		let items = this.state.selectedList
@@ -369,7 +370,7 @@ export default class AttributeSetting extends Component {
 					fiMoney:response
 				});
 			}).catch(function(err) {
-				 //Message.error(err.message);
+				 Message.error(err.message);
 		 });
 
 	}
@@ -418,14 +419,14 @@ export default class AttributeSetting extends Component {
 				payWayList,
 				accountDetail:response.propData,
 				contractList,
-				stationPayment:response.stationPayment
+				stationPayment:response.stationPayment,
 			});
 		}).catch(function(err) {
-			 //Message.error(err.message);
+			 Message.error(err.message); 
 		});
 		this.setState({
-			openAddaccountBtn: !this.state.openAddaccountBtn
-		})
+				openAddaccountBtn:!this.state.openAddaccountBtn
+		 });
 	}
 	openSupplementBtn() {
 		this.setState({
@@ -477,7 +478,7 @@ export default class AttributeSetting extends Component {
 					fiMoney:response.remainMoney
 				  })
 				}).catch(function(err) {
-					  //Message.error(err.message);
+					  Message.error(err.message);
 				});
 
 	        }
@@ -545,6 +546,7 @@ export default class AttributeSetting extends Component {
 		//高级查询
 	onSubmit(params) {
 		//为了让其保持params原有的参数，同时将自己的参数传过去
+		console.log('44444',params);
 		params = Object.assign({}, this.state.params, params);
 		this.setState({
 			params,
@@ -577,7 +579,9 @@ export default class AttributeSetting extends Component {
 		//回款提交
 	onAddReceivedSubmit(params) {
 
-		
+
+		params = Object.assign({},params);
+       
 		let {totalPayment} = params;
 		let liveMoneyValue = this.state.liveMoneyValue;
 		if(liveMoneyValue<0 || !totalPayment ){
@@ -630,7 +634,6 @@ export default class AttributeSetting extends Component {
 		params.conJasonStr={conJasonStr1,conJasonStr2,conJasonStr3,conJasonStr4}
 
 		params.conJasonStr = Object.assign({},conJasonStr1,conJasonStr2,conJasonStr3,conJasonStr4);
-        console.log('uuuuu',params);
 		let {accountDetail} = this.state;
 		params = Object.assign({}, params);
 			params.propJasonStr = {};
@@ -645,17 +648,22 @@ export default class AttributeSetting extends Component {
 		params.propJasonStr = JSON.stringify(params.propJasonStr);
 		params.conJasonStr = JSON.stringify(params.conJasonStr);
         
+        if(params.propJasonStr=='{}'&&params.conJasonStr=='{}'){
+        	Message.error('回款金额和订单金额不能都为空');
+        	return ;
+        }
 
 		var _this = this;
 		Store.dispatch(Actions.callAPI('returnMoneyNew', {}, params)).then(function(response) {
 			_this.refresh();
+			_this.setState({
+			 openRight: !this.state.openRight,
+			 isLoading: true,
+		});
 		}).catch(function(err) {
 			 Message.error(err.message);
 		});
-		this.setState({
-			openRight: !this.state.openRight,
-			isLoading: true,
-		});
+		
 
 
 	}
@@ -665,26 +673,28 @@ export default class AttributeSetting extends Component {
 		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
 		Store.dispatch(Actions.callAPI('payBack', {}, params)).then(function(response) {
 			_this.refresh();
+		  _this.setState({
+			openQuitBtn: !this.state.openQuitBtn,
+			isLoading: true
+		  });
 		}).catch(function(err) {
 		  Message.error(err.message);
 		});
-		this.setState({
-			openQuitBtn: !this.state.openQuitBtn,
-			isLoading: true
-		});
+		
 
 	}
 	onSwitchSubmit(params) {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('transToDeposit', {}, params)).then(function(response) {
 			_this.refresh();
-		}).catch(function(err) {
-			 Message.error(err.message);
-		});
-		this.setState({
+			_this.setState({
 			openSwitchBtn: !this.state.openSwitchBtn,
 			isLoading: true
 		});
+		}).catch(function(err) {
+			 Message.error(err.message);
+		});
+		
 		receivedList = [];
 
 	}
@@ -692,14 +702,15 @@ export default class AttributeSetting extends Component {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('transToOperateIncome', {}, params)).then(function(response) {
 			_this.refresh();
+			_this.setState({
+			openBusinessBtn: !this.state.openBusinessBtn,
+			isLoading: true
+		});
 		}).catch(function(err) {
 			  Message.error(err.message);
 		});
 
-		this.setState({
-			openBusinessBtn: !this.state.openBusinessBtn,
-			isLoading: true
-		});
+		
 
 	}
 	onConfrimSubmit(params) {
@@ -721,13 +732,14 @@ export default class AttributeSetting extends Component {
 		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd");
 		Store.dispatch(Actions.callAPI('onNewAccountg', {}, params)).then(function() {
 			_this.refresh();
-		}).catch(function(err) {
-			  Message.error(err.message);
-		});
-		this.setState({
+			_this.setState({
 			openAddaccountBtn: !this.state.openAddaccountBtn,
 			isLoading: true,
 		})
+		}).catch(function(err) {
+			  Message.error(err.message);
+		});
+		
 	}
 	onSupplementSubmit() {
 			var _this = this;
@@ -735,13 +747,14 @@ export default class AttributeSetting extends Component {
 				mainbillid: _this.props.params.orderId
 			})).then(function(response) {
 				_this.refresh();
+				_this.setState({
+				openSupplementBtn: !this.state.openSupplementBtn,
+				isLoading: true
+			 })
 			}).catch(function(err) {
 				 Message.error(err.message);
 			});
-			_this.setState({
-				openSupplementBtn: !this.state.openSupplementBtn,
-				isLoading: true
-			})
+			
 
 		}
 		//操作相关
@@ -766,13 +779,14 @@ export default class AttributeSetting extends Component {
 		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd");
 		Store.dispatch(Actions.callAPI('transferPayment', {}, params)).then(function() {
 			_this.refresh();
-		}).catch(function(err) {
-			  Message.error(err.message);
-		});
-		this.setState({
+			_this.setState({
 			openShift: !this.state.openShift,
 			isLoading: true,
 		})
+		}).catch(function(err) {
+			  Message.error(err.message);
+		});
+		
 	}
 
 	//
@@ -869,10 +883,12 @@ export default class AttributeSetting extends Component {
 
 
 
+
 	componentDidMount() {
 		this.initBasicInfo();
 		Store.dispatch(Actions.switchSidebarNav(false));
 	}
+
 
 
 
@@ -918,8 +934,8 @@ export default class AttributeSetting extends Component {
 
 
 
-    renderSnack=()=>{
 
+    renderSnack=()=>{
 
     	let {isRunningIncome} = this.state;
     	if(isRunningIncome == 1){
@@ -1219,13 +1235,12 @@ export default class AttributeSetting extends Component {
                         <ReceiveDetailTop iconClose={this.iconClose} contractTopReceive={this.state.contractTopReceive} liveMoneyValue={this.state.liveMoneyValue}/>
                         <ReceivedBtnForm
                          onSubmit={this.onAddReceivedSubmit}
-                         onCancel={this.iconClose}
-                         optionList={this.state.payWayList}
+                          onCancel={this.iconClose}
+                          optionList={this.state.payWayList}
                           accountDetail={this.state.accountDetail}
                           contractReceive={this.state.contractReceive}
                           contractTopReceive={this.state.contractTopReceive}
                           calcBalance={this.calcBalance}
-
                           />
                        </div>
                       </Drawer>

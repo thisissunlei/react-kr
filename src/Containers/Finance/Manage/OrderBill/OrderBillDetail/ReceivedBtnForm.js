@@ -192,16 +192,16 @@ class ReceivedBtnForm extends Component {
 
 
        contractReceive.map(function(item,index){
-          if(item.value=='226'){
+          if(item.value=='1'){
           	item.component=_this.tenantInputRender
           }
-          if(item.value=='227'){
+          if(item.value=='2'){
           	item.component=_this.joinInputRender
           }
-          if(item.value=='228'){
+          if(item.value=='3'){
           	item.component=_this.increaseInputRender
           }
-          if(item.value=='230'){
+          if(item.value=='4'){
           	item.component=_this.adminInputRender
           }
           if(item.value=='000'){

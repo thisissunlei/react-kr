@@ -48,7 +48,7 @@ class ShiftBtnForm extends Component{
 	componentDidMount() {
        let initialValues={
        	flowId:this.props.initialValuesId.id, 
-       	preCode:'0'
+       	preCode:'1'
        }
 	   Store.dispatch(initialize('shiftBtnForm',initialValues));
 		
@@ -73,6 +73,7 @@ class ShiftBtnForm extends Component{
 
 	render(){
 
+
 		let heightStyle={
        	 width:'546',
        	 height:'72'
@@ -90,8 +91,8 @@ class ShiftBtnForm extends Component{
 						    <KrField name="flowId" type="hidden"/>
 						    <KrField grid={1/2} label="可操作金额"  component="labelText" value={initialValuesId.fiMoney} inline={false} defaultValue="无"/>
                             <KrField name="preCode" grid={1/2} left={30} component="group"   label="金额正负" style={{marginLeft:'-45px'}}>
-				                <KrField name="preCode" grid={1/2} right={30} label="正" component="radio" type="radio" value="1"/>
-				                <KrField name="preCode"  grid={1/2} left={30}label="负" component="radio" type="radio" value="0"/>
+				                <KrField name="preCode" grid={1/2} right={30} label="正" component="radio" type="radio" value="0"/>
+				                <KrField name="preCode"  grid={1/2} left={30}label="负" component="radio" type="radio" value="1"/>
 			                </KrField>
 			                <KrField type="date" grid={1/2} label="转移日期" right={45} name="operatedate" /> 
                              

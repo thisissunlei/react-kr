@@ -77,7 +77,7 @@ class AccountBtnForm extends Component{
 		let style={
        	 marginTop:'6'
        }
-       let heightStyle={s
+       let heightStyle={
        	 width:'546',
        	 height:'72'
        }
