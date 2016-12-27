@@ -14,7 +14,7 @@
   .print-Bottom{
     margin: 0;
     position: relative;
-    padding-top:20px;
+   line-height:60px;
     color: #666;
     width: 100%;
     border-top: 4px solid #2d8dcd;
@@ -39,4 +39,10 @@
       right: 0;
     }
   }
+}
+@media print {
+    .print-Bottom{
+     padding-top:20px;
+     line-height:0px !important;
+    }
 }
