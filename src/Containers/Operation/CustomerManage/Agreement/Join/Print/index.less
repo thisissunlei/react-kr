@@ -37,6 +37,20 @@
 {   
     .no-print-section
     {
-       margin-top:-90px;
+       margin-top:0px;
+    }
+    body{
+    	background:#ffffff !important;
+    }
+    .container{
+    	margin:0 !important;
+    	padding:0  !important;
+    }
+}
+
+@media print {
+    @page {
+    	background:#ffffff;
+        size: 210mm 297mm;  /* or size: 794px 1123px;   */
     }
 }
