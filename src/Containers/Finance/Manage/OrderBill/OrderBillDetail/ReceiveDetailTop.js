@@ -23,9 +23,9 @@ import {
 export default class ReceiveDetailTop  extends Component{
 
 	constructor(props,context){
-		super(props, context);   
+		super(props, context);
 		this.state = {
-         
+
 		}
 	}
 	static PropTypes = {
@@ -37,13 +37,13 @@ export default class ReceiveDetailTop  extends Component{
   	const {iconClose} = this.props;
 	iconClose && iconClose();
   }
-  
- 
+
+
 
 
 
 	render(){
-         
+
          let {
 		 contractTopReceive,
 		 liveMoneyValue,
@@ -51,8 +51,7 @@ export default class ReceiveDetailTop  extends Component{
 
 		
 
-        
-		 
+
 		return(
 
               <div className='ui-receive-money'>
@@ -62,19 +61,19 @@ export default class ReceiveDetailTop  extends Component{
 			                  <div  className='finance-receive-title'>
 							   <Grid>
 									<Row>
-										<Col align="left" md={4} > 
+										<Col align="left" md={4} >
 										 <span className='addReceivePic'>添加回款</span>
-										</Col> 
-										<Col align="right" md={8}> 
+										</Col>
+										<Col align="right" md={8}>
 										  <span className='currentReceivePic'>剩余:</span>
 										  <span className='sumMoneyRange'>{liveMoneyValue}</span>
-										</Col> 
+										</Col>
 									</Row>
 								</Grid>
-                             
-						    
-								          
-			              
+
+
+
+
 			                    <div className='receive-detail-table'>
 			                      <ul className='table-head'>
                                       <li>类型</li>
@@ -84,47 +83,47 @@ export default class ReceiveDetailTop  extends Component{
                                       <li>操作</li>
 			                      </ul>
 			                      {contractTopReceive.map(function(item,index){
-			                      
+
                                         if(item.detailid=='226'){
                                         	return (
-                                          <ul className='admin-ul'>
+                                          <ul className='admin-ul' key={index}>
                                         	 <li>{item.contactName}</li>
                                              <li>定金</li>
                                              <li>{item.frontmoney}</li>
                                              <li>{item.nFrontmoney}</li>
                                              <li>合同</li>
-                                          </ul>  
+                                          </ul>
                                         	)
                                         }
                                         if(item.detailid!='226'){
                                         	return (
-                                         <div className='joinBook'>
-                                           <ul>	
+                                         <div className='joinBook' key={index}>
+                                           <ul>
                                         	 <li>{item.contactName}</li>
                                              <li>押金</li>
                                              <li>{item.deposit}</li>
                                              <li>{item.nDeposit}</li>
                                              <li>合同</li>
                                            </ul>
-                                           <ul>	
+                                           <ul>
                                         	 <li></li>
                                              <li>租金</li>
                                              <li>{item.totalrent}</li>
                                              <li>{item.nTotalrent}</li>
                                              <li>合同</li>
-                                           </ul> 
-                                          </div>   
+                                           </ul>
+                                          </div>
                                         	)
                                         }
-                                        
 
-                                        
-                                                                          
-			                     
+
+
+
+
 			                         })
 			                       }
 
-			                    </div>	                                
+			                    </div>
                         </div>
 				</div>
 		);

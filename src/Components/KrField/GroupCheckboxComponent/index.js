@@ -80,8 +80,8 @@ export default class GroupCheckboxComponent extends React.Component {
     var _this = this;
 
     children = options.map(function(item,index){
-        return <div>
-         <Checkbox  label={item.label} value={item.value} key={index} checked={item.checked} onCheck={(checked)=>{
+        return <div key={index}>
+         <Checkbox  label={item.label} value={item.value} checked={item.checked} onCheck={(checked)=>{
             _this.onChange(checked,index);
           }}/>
           {item.checked && item.component && item.component()}

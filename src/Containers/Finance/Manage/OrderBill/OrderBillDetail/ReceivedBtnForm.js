@@ -54,22 +54,18 @@ class ReceivedBtnForm extends Component {
 		params: React.PropTypes.object.isRequired
 	}
 
-	static PropTypes = {
+	static propTypes = {
 		onSubmit: React.PropTypes.func,
 		onCancel: React.PropTypes.func,
-		optionList:React.PropTypes.arr,
-		accountDetail:React.PropTypes.arr,
-		contractReceive:React.PropTypes.arr,
-		contractTopReceive:React.PropTypes.arr,
+		optionList:React.PropTypes.array,
+		accountDetail:React.PropTypes.array,
+		contractReceive:React.PropTypes.array,
+		contractTopReceive:React.PropTypes.array,
 	}
 
 	constructor(props, context) {
 		super(props, context);
-		this.onCancel = this.onCancel.bind(this);
-		this.onSubmit = this.onSubmit.bind(this);
-		this.state = {
-         
-		}
+		this.state = { }
 
 		//Store.dispatch(reset('ReceivedBtnForm'));
 	}
@@ -87,7 +83,7 @@ class ReceivedBtnForm extends Component {
 	}
 
 
-	onSubmit(values) {
+	onSubmit=(values)=> {
 		const {
 			onSubmit
 		} = this.props;
@@ -95,7 +91,7 @@ class ReceivedBtnForm extends Component {
 
 	}
 
-  onCancel() {
+  onCancel=()=> {
 		const {
 			onCancel
 		} = this.props;
@@ -142,7 +138,7 @@ class ReceivedBtnForm extends Component {
   	  )
   }
   tenantInputRender=()=>{
-  	
+
   	return (
             <div className='depositMoney-render' style={{width:546}}>
               <KrField label="定金"  grid={1/2}  name='l226l2' style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance}/>
@@ -163,9 +159,9 @@ class ReceivedBtnForm extends Component {
                )
 
             return accountTail;
-         
+
   }
- 
+
 
 	render() {
 
@@ -184,17 +180,17 @@ class ReceivedBtnForm extends Component {
 
 
 
-		 
+
 
 		let heightStyle = {
 			width: '546',
 			height: '72'
 		}
-       
-      
-	
 
-	
+
+
+
+
        contractReceive.map(function(item,index){
           if(item.value=='226'){
           	item.component=_this.tenantInputRender
@@ -217,7 +213,7 @@ class ReceivedBtnForm extends Component {
 
 		return (
           <div className='receive-form-middle'>
-			
+
 					      <form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:45,marginLeft:'10px'}}>
                             <KrField  name="mainbillId" type="hidden" component="input"/>
 		                    <KrField  label="支付方式" grid={1/2} right={21} name="accountId" style={{marginBottom:5}} type="select" options={optionList} requireLabel={true}/>
@@ -231,7 +227,7 @@ class ReceivedBtnForm extends Component {
 						     <KrField label="对应合同" name='contract' grid={1/2} component="groupCheckbox" defaultValue={contractReceive} requireLabel={true} />
 
 						     <KrField label="上传附件" grid={1/2} left={30}  style={{marginLeft:-30}} name="fileids" component="file" />
-                       
+
                              <KrField label="备注" grid={1}  heightStyle={heightStyle} name="finaflowdesc" component="textarea" type="text" placeholder='请输入备注，输入字数不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/>
 
 
@@ -271,15 +267,10 @@ const validate = values =>{
 		if(!values.totalPayment){
 			errors.totalPayment = '请填写回款总额';
 		}
-	
+
 		return errors
 	}
 
 
 
 export default reduxForm({form:'receivedBtnForm',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(ReceivedBtnForm);
-
-
-
-
-
