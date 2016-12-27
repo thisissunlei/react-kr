@@ -117,7 +117,7 @@ class EditDetail extends Component {
 					<KrField  right={27}  left={42} right={42} style={{marginTop:5}} name="interCode" component="input" type="text" label="会员卡内码" onFocus={this.InterCodeFocus} onChange={this.cardChange} />
 					<div className="x" style={this.state.clearInterCodeStyle} onClick={this.clearInterCode}></div>
 				</div>
-				<Grid style={{marginTop:10,marginBottom:5}}>
+				<Grid style={{marginTop:15,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
@@ -134,7 +134,7 @@ class EditDetail extends Component {
 
 const validate = values =>{
 	var foreignCode=values.foreignCode;
-	var reg=/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8}$/;
+	var reg=/^[0-9a-fA-F]{8}$/;
 	const errors = {}
 
 	if(!values.foreignCode){
@@ -152,7 +152,7 @@ const validate = values =>{
 
 	}else if (!reg.test(values.interCode)) {
 
-		errors.interCode = '卡内码由8位的数字和字母组成';
+		errors.interCode = '内码为8位16进制数';
 	}
 	return errors
 

@@ -75,11 +75,11 @@ import './index.less';
 			 return;
 		 }
 
-		var reg=/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8}$/;
+		var reg=/^[0-9a-fA-F]{8}$/;
 		if (values.interCode&&!reg.test(values.interCode)) {
 
 
-			Message.error('卡内码由8位的数字和字母组成');
+			Message.error('内码为8位16进制数');
 			return;
 		}
 
@@ -199,7 +199,7 @@ import './index.less';
 			console.log("999")
 
 		var cReg=new RegExp("[\\u4E00-\\u9FFF]+","g");
-		var reg=/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8}$/;
+		var reg=/^[0-9a-fA-F]{8}$/;
 		if(value.length>8){
 			value=value.slice(8,value.length+1);
 			const detail={};
@@ -236,7 +236,7 @@ import './index.less';
 				<div className="activeImg" ></div>
 				<div style={{textAlign:"right",width:340,margin:"auto",marginTop:10}}>
 						<label >{"会员卡数量:"+numbers+"张"}</label>
-						<div style={{height:'60px'}}>
+						<div style={{height:'60px',marginTop:"15px"}}>
 								<span className="cardNum">{this.numhandle(this.state.detail.startNum,0,4)}</span>
 								<span className="cardNum" style={{padding:"0 10px"}}>{this.numhandle(this.state.detail.startNum,4,6)}</span>
 								<span className="cardNum normal">{this.numhandle(this.state.detail.startNum,6,10)}</span>
@@ -268,10 +268,10 @@ import './index.less';
 const validate = values =>{
 		
 		const errors = {}
-		var reg=/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8}$/;
+		var reg=/^[0-9a-fA-F]{8}$/;
 		console.log("1233")
 		if (!reg.test(values.interCode)) {
-			errors.interCode='卡内码由8位的数字和字母组成';
+			errors.interCode='内码为8位16进制数';
 		}
 		
 		return errors
