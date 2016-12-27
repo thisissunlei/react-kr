@@ -39,11 +39,10 @@ export default class memberListDetail extends Component{
 		}
     this.getBasicData();
 
-    Store.dispatch(Actions.navActive('memberList'));
+
   }
   componentDidMount() {
-
-
+  Store.dispatch(Actions.navActive('memberList'));
 	}
   getBasicData=()=>{
     var _this = this;
