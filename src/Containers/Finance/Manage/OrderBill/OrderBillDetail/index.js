@@ -269,7 +269,7 @@ export default class AttributeSetting extends Component {
 		codeList = [];
 	}
 	openReceivedBtn() {
-		Store.dispatch(initialize('receivedBtnForm',{operatedate:''}));
+		Store.dispatch(initialize('receivedBtnForm',{operatedate:'',mainbillId:this.props.params.orderId,preCode:'1'}));
 		var _this = this;
 		Store.dispatch(Actions.callAPI('getPaymentActData', {
 			mainbillId: _this.props.params.orderId
@@ -286,11 +286,8 @@ export default class AttributeSetting extends Component {
 				var lists = {};
 				lists.label = item.contactName+'-'+item.contractcode;
 				lists.value = item.detailid;
-
-				console.log('0000',lists);
                 return lists;
 			});
-			 console.log('tyyyyyyy',contractReceive);
 			   var noContract={
 			    	'value':'000','label':'无合同'
 			     }
@@ -583,8 +580,6 @@ export default class AttributeSetting extends Component {
 		}
 		//回款提交
 	onAddReceivedSubmit(params) {
-
-
 		console.log('nnnnnn',params);
         var conJasonStr1={};
         var conJasonStr2={};
@@ -631,8 +626,6 @@ export default class AttributeSetting extends Component {
 		params.conJasonStr={conJasonStr1,conJasonStr2,conJasonStr3,conJasonStr4}
 
 		params.conJasonStr = Object.assign({},conJasonStr1,conJasonStr2,conJasonStr3,conJasonStr4);
-
-
         console.log('uuuuu',params);
 		let {accountDetail} = this.state;
 		params = Object.assign({}, params);
@@ -647,6 +640,8 @@ export default class AttributeSetting extends Component {
 		params.operatedate= dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
 		params.propJasonStr = JSON.stringify(params.propJasonStr);
 		params.conJasonStr = JSON.stringify(params.conJasonStr);
+        
+        console.log('4444444',params.totalPayment);
 
 		var _this = this;
 		Store.dispatch(Actions.callAPI('returnMoneyNew', {}, params)).then(function(response) {
