@@ -87,7 +87,7 @@ export default class Initialize extends Component {
 			<div className="table-two-list">
 					<div className="two-line">
 						<div className="table-td-content clear">
-								<div className="table-left" style={{marginRight:14}}>
+								<div className="table-left" style={{marginRight:10}}>
 									<div className="th clear">
 										<div>款项</div>
 										<div>服务期限</div>

@@ -58,7 +58,7 @@ export default class Initialize extends Component {
 				</div>
 				<div className="print-title">{orderInfo}</div>
 				<div className="print-QRCode">
-					<QRCode value={qRCode}  size={109}/>
+					<QRCode value={qRCode}  size={80}/>
 				</div>	
 			</div>
 		);
