@@ -269,7 +269,7 @@ export default class AttributeSetting extends Component {
 		codeList = [];
 	}
 	openReceivedBtn() {
-		Store.dispatch(initialize('receivedBtnForm', {operatedate:''));
+		Store.dispatch(initialize('receivedBtnForm',{operatedate:''}));
 		var _this = this;
 		Store.dispatch(Actions.callAPI('getPaymentActData', {
 			mainbillId: _this.props.params.orderId
