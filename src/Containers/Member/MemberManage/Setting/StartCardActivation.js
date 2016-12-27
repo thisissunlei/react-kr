@@ -241,9 +241,9 @@ import './index.less';
 								<span className="cardNum" style={{padding:"0 10px"}}>{this.numhandle(this.state.detail.startNum,4,6)}</span>
 								<span className="cardNum normal">{this.numhandle(this.state.detail.startNum,6,10)}</span>
 						</div>
-						<label className="jump" onClick={this.skipCard}>跳过该号码</label>
+						<label className="jump" onClick={this.skipCard} style={{fontSize:"14px"}} >跳过该号码</label>
 				</div>
-				<div className="clearInterCode">
+				<div className="clearInterCode" style={{marginLeft:"-4px",marginRight:"4px"}}>
 					<KrField  left={71} right={71} name="interCode"  type="text" onFocus={this.InterCodeFocus} onChange={this.cardChange} autoFocus={true}/>
 					<div className="startX" style={this.state.clearInterCodeStyle} onClick={this.clearInterCode}></div>
 				</div>

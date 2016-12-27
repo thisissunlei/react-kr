@@ -158,7 +158,7 @@ class NewActivation extends Component {
 					<KrField  right={27}  left={42} right={42} style={{marginTop:5}} name="interCode" component="input" type="text" label="会员卡内码" onChange={this.cardChange} onFocus={this.InterCodeFocus}/>
 					<div className="x" style={this.state.clearInterCodeStyle} onClick={this.clearInterCode}></div>
 				</div>
-				<Grid style={{marginTop:10,marginBottom:5}}>
+				<Grid style={{marginTop:20,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
