@@ -31,7 +31,7 @@ export function navs(state = {},action){
 				}else{
 					item.active = false;
 				}
-				if(item.hasOwnProperty('menuItems') && item.menuItems.length){
+				if(item.hasOwnProperty('menuItems') && item.menuItems && item.menuItems.length){
 						item.menuItems.forEach(function(child){
 
 								if(child.hasOwnProperty('menuItems') && child.menuItems.length){
