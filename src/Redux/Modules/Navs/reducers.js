@@ -34,7 +34,7 @@ export function navs(state = {},action){
 				if(item.hasOwnProperty('menuItems') && item.menuItems.length){
 						item.menuItems.forEach(function(child){
 
-								if(child.hasOwnProperty('menuItems') && child.menuItems.length){
+								if(child.hasOwnProperty('menuItems') && child.menuItems && child.menuItems.length){
 										child.menuItems.forEach(function(children){
 												if(children.router == childRouter){
 														children.active = true;
