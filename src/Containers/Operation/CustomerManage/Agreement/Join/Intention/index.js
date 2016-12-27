@@ -26,7 +26,10 @@ import {
 import {
 	Agreement
 } from 'kr/PureComponents';
-
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 import State from './State';
 import './index.less';
 
@@ -40,6 +43,10 @@ export default class JoinPrint extends Component {
 		let params = this.context.router.params;
 
 		State.getBasicInfo(params);
+	}
+	componentDidMount() {
+		Store.dispatch(Actions.switchSidebarNav(false));
+
 	}
 
 	render() {

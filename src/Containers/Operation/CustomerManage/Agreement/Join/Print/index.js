@@ -22,7 +22,10 @@ import {
 	KrDate,
 	Title,
 } from 'kr-ui';
-
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 import {
 	Agreement
 } from 'kr/PureComponents';
@@ -40,6 +43,10 @@ export default class JoinPrint extends Component {
 		let params = this.context.router.params;
 
 		State.getBasicInfo(params);
+	}
+	componentDidMount() {
+		Store.dispatch(Actions.switchSidebarNav(false));
+
 	}
 
 	render() {
