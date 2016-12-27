@@ -7,7 +7,6 @@ export function navs(state = {},action){
 		case Types.SET_USER_NAVS:{
 			var items = [].concat(action.response);
 			var aa = Object.assign({},state,{items});
-			console.log('---a',aa,action.response);
 			return aa;
 		}
 		case Types.SET_NAVS_CURRENT_CHILD_ROUTER:{
