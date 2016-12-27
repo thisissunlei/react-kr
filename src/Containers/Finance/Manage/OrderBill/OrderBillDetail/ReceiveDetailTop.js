@@ -24,10 +24,14 @@ export default class ReceiveDetailTop  extends Component{
 
 	constructor(props,context){
 		super(props, context);   
-		
+		this.state = {
+         
+		}
 	}
 	static PropTypes = {
 		contractTopReceive:React.PropTypes.arr,
+		liveMoneyValue:React.PropTypes.number,
+		allSumValue:React.PropTypes.number,
 	}
 
   iconClose=()=>{
@@ -42,11 +46,17 @@ export default class ReceiveDetailTop  extends Component{
 	render(){
          
          let {
-		 contractTopReceive
+		 contractTopReceive,
+		 liveMoneyValue,
+		 allSumValue
 		} = this.props;
 
-         console.log('44444',contractTopReceive)
+		if(allSumValue<=0){
+			liveMoneyValue=0;
+		}
 
+      //console.log('33eeeee',liveMoneyValue,allSumValue);
+        
 		 
 		return(
 
@@ -62,7 +72,7 @@ export default class ReceiveDetailTop  extends Component{
 										</Col> 
 										<Col align="right" md={8}> 
 										  <span className='currentReceivePic'>剩余:</span>
-										  <span className='sumMoneyRange'></span>
+										  <span className='sumMoneyRange'>{liveMoneyValue}</span>
 										</Col> 
 									</Row>
 								</Grid>

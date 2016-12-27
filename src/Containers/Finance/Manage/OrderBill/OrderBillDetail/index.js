@@ -14,7 +14,7 @@ import * as actionCreators from 'kr-ui/../Redux/Actions';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {
 	Actions,
-	Store
+	Store,
 } from 'kr/Redux';
 import dateFormat from 'dateformat';
 import {
@@ -45,7 +45,8 @@ import {
 } from 'kr-ui';
 import {
 	reduxForm,
-	reset
+	reset,
+	initialize
 } from 'redux-form';
 
 import {
@@ -226,6 +227,19 @@ export default class AttributeSetting extends Component {
 			openRight:false,
             colorClassName:'',
             isRunningIncome:0,
+
+            //回款总金额和余额变化
+            depositValue:0,
+            compareValue:0,
+            stationValue:0,
+            leftBottomValue:0,
+            rightBottomValue:0,
+            depositAddValue:0,
+            stationAddValue:0,
+            depositAdminValue:0,
+            stationAdminValue:0,
+            allSumValue:0,
+            liveMoneyValue:0
 		}
 	}
 
@@ -255,34 +269,38 @@ export default class AttributeSetting extends Component {
 		codeList = [];
 	}
 	openReceivedBtn() {
+		Store.dispatch(initialize('receivedBtnForm', {operatedate:''));
 		var _this = this;
 		Store.dispatch(Actions.callAPI('getPaymentActData', {
 			mainbillId: _this.props.params.orderId
 		})).then(function(response) {
 			var payWayList = [];
-			var contractReceive=[];
+			var contractReceive= [];
 			response.payWay.map(function(item, index) {
 				var list = {}
 				list.value = item.id;
 				list.label = item.accountname;
 				payWayList.push(list);
 			});
-			response.contract.map(function(item, index) {
-				var list = {}
-				list.value = item.detailid;
-				list.label = item.contactName+'-'+item.contractcode;
-				contractReceive.push(list);
+			contractReceive = response.contract.map(function(item, index) {
+				var lists = {};
+				lists.label = item.contactName+'-'+item.contractcode;
+				lists.value = item.detailid;
+
+				console.log('0000',lists);
+                return lists;
 			});
-			    var noContract={
-			    	'value':'','label':'无合同'
+			 console.log('tyyyyyyy',contractReceive);
+			   var noContract={
+			    	'value':'000','label':'无合同'
 			     }
 			  contractReceive.push(noContract);
            _this.setState({
-			  payWayList,
-			  accountDetail:response.propData,
-			  contractReceive,
-			  contractTopReceive:response.contract
-		   });  
+			 payWayList,
+			 accountDetail:response.propData,
+			 contractReceive:contractReceive,
+			 contractTopReceive:response.contract
+		   }); 
 		}).catch(function(err) {
 			  Message.error(err.message); 
 		});
@@ -565,48 +583,82 @@ export default class AttributeSetting extends Component {
 		}
 		//回款提交
 	onAddReceivedSubmit(params) {
+		
+		
+		console.log('nnnnnn',params);
+        var conJasonStr1={};
+        var conJasonStr2={};
+        var conJasonStr3={};
+        var conJasonStr4={};
+		if(params.l226l2){
+          conJasonStr1={'226':{'2':params.l226l2}}
+          delete params.l226l2;
+		  
+		}
+		if(params.l227l1&&!params.l227l3){
+          conJasonStr2={'227':{'1':params.l227l1}}
+		  delete params.l227l1;  
+		}else if(params.l227l3&&!params.l227l1){
+          conJasonStr2={'227':{'3':params.l227l3}}
+		  delete params.l227l3;  
+		}else if(params.l227l1&&params.l227l3){
+          conJasonStr2={'227':{'1':params.l227l1,'3':params.l227l3}}
+          delete params.l227l3;
+		  delete params.l227l1;  
+		}
+		if(params.l228l1&&!params.l228l3){
+          conJasonStr3={'228':{'1':params.l228l1}}
+		  delete params.l228l1;  
+		}else if(params.l228l3&&!params.l228l1){
+          conJasonStr3={'228':{'3':params.l228l3}}
+		  delete params.l228l3;  
+		}else if(params.l228l1&&params.l228l3){
+          conJasonStr3={'228':{'1':params.l228l1,'3':params.l228l3}}
+          delete params.l228l3;
+		  delete params.l228l1;  
+		}
+		if(params.l230l1&&!params.l230l3){
+          conJasonStr4={'230':{'1':params.l230l1}}
+		  delete params.l230l1;  
+		}else if(params.l230l3&&!params.l230l1){
+          conJasonStr4={'230':{'3':params.l230l3}}
+		  delete params.l230l3;  
+		}else if(params.l230l1&&params.l230l3){
+          conJasonStr4={'230':{'1':params.l230l1,'3':params.l230l3}}
+          delete params.l230l3;
+		  delete params.l230l1;  
+		}
+		params.conJasonStr={conJasonStr1,conJasonStr2,conJasonStr3,conJasonStr4}
 
-		let {typeList} = this.state;
+		params.conJasonStr = Object.assign({},conJasonStr1,conJasonStr2,conJasonStr3,conJasonStr4);
+        
+      
+        console.log('uuuuu',params);
+		let {accountDetail} = this.state;
 		params = Object.assign({}, params);
-		if (params.autoSplit == 0) {
-			params.jsonStr = {};
-			typeList.map(function(item,index){
-					var key = item.value;
+			params.propJasonStr = {};
+			accountDetail.map(function(item,index){
+					var key = item.id;
 					if(params.hasOwnProperty(key) && params[key]){
-							params.jsonStr[key] = params[key];
+							params.propJasonStr[key] = params[key];
 							delete params[key];
 					}
 			});
-			/*
-			params.jsonStr.yajin = params.yajin;
-			params.jsonStr.yingshouhuikuan = params.yingshouhuikuan;
-			params.jsonStr.shenghuoxiaofeihuikuan = params.shenghuoxiaofeihuikuan;
-			params.jsonStr.gongweihuikuan = params.gongweihuikuan;
-			params.jsonStr.qitahuikuan = params.qitahuikuan;
-			params.jsonStr.dingjin = params.dingjin;
-			
-			params.jsonStr = JSON.stringify(params.jsonStr);
-			delete params.dingjin;
-			delete params.yajin;
-			delete params.yingshouhuikuan;
-			delete params.shenghuoxiaofeihuikuan;
-			delete params.gongweihuikuan;
-			delete params.qitahuikuan;*/
-		}
-		params.receiveDate = dateFormat(params.receiveDate, "yyyy-mm-dd hh:MM:ss");
-		var _this = this;
-		Store.dispatch(Actions.callAPI('receiveMoney', {}, params)).then(function(response) {
-			_this.refresh();
+		params.operatedate= dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
+		params.propJasonStr = JSON.stringify(params.propJasonStr);
+		params.conJasonStr = JSON.stringify(params.conJasonStr);
 
+		var _this = this;
+		Store.dispatch(Actions.callAPI('returnMoneyNew', {}, params)).then(function(response) {
+			_this.refresh();
 		}).catch(function(err) {
 			 Message.error(err.message); 
 		});
 		this.setState({
-			openReceivedBtn: !this.state.openReceivedBtn,
+			openRight: !this.state.openRight,
 			isLoading: true,
 		});
-		receivedList = [];
-		typeList = [];
+		
 
 	}
 	onQuitSubmit(params) {
@@ -967,7 +1019,127 @@ export default class AttributeSetting extends Component {
 	  }); 
     }
 
+   depositFuction=(values)=>{
+   	 this.setState({
+     	 depositValue:values
+     })
+   	 if(this.state.allSumValue<=0){
+   	 	return ;
+   	 }
+   	 let {allSumValue,rightBottomValue,leftBottomValue,compareValue,stationValue,stationAddValue,stationAdminValue,depositAddValue,depositAdminValue}=this.state;
+     this.setState({
+     	 liveMoneyValue:allSumValue-values-rightBottomValue-leftBottomValue-compareValue-stationValue-stationAddValue-stationAdminValue-depositAddValue-depositAdminValue,
+     })
+   }
+   stationFuction=(values)=>{
+   	 this.setState({
+     	  stationValue:values
+     })
+   	if(this.state.allSumValue<=0){
+   	 	return ;
+   	 }
+   	let {allSumValue,rightBottomValue,leftBottomValue,compareValue,depositValue,depositAddValue,depositAdminValue,stationAddValue,stationAdminValue}=this.state;
+      this.setState({
+     	  liveMoneyValue:allSumValue-values-rightBottomValue-leftBottomValue-compareValue-depositValue-stationAddValue-stationAdminValue-depositAddValue-depositAdminValue,
+     	
+     })
+   }
+   depositAdminFuction=(values)=>{
+   	 this.setState({
+     	 depositAdminValue:values
+     })
+   	 if(this.state.allSumValue<=0){
+   	 	return ;
+   	 }
+   	 let {allSumValue,rightBottomValue,leftBottomValue,compareValue,stationValue,depositValue,depositAddValue,stationAddValue,stationAdminValue}=this.state;
+     this.setState({
+     	 liveMoneyValue:allSumValue-values-rightBottomValue-leftBottomValue-compareValue-stationValue-stationAddValue-stationAdminValue-depositValue-depositAddValue,
+     })
+   }
+   stationAdminFuction=(values)=>{
+   	 this.setState({
+     	  stationAdminValue:values
+     })
+   	if(this.state.allSumValue<=0){
+   	 	return ;
+   	 }
+   	let {allSumValue,rightBottomValue,leftBottomValue,compareValue,depositValue,stationAddValue,depositAddValue,depositAdminValue,stationValue}=this.state;
+      this.setState({
+     	  liveMoneyValue:allSumValue-values-rightBottomValue-leftBottomValue-compareValue-depositValue-stationValue-stationAddValue-depositAddValue-depositAdminValue,
+     	
+     })
+   }
+   depositAddFuction=(values)=>{
+   	 this.setState({
+     	 depositAddValue:values
+     })
+   	 if(this.state.allSumValue<=0){
+   	 	return ;
+   	 }
+   	 let {allSumValue,rightBottomValue,leftBottomValue,compareValue,stationValue,depositValue,depositAdminValue,stationAddValue,stationAdminValue}=this.state;
+     this.setState({
+     	 liveMoneyValue:allSumValue-values-rightBottomValue-leftBottomValue-compareValue-stationValue-stationAdminValue-stationAddValue-depositAdminValue-depositValue,
+     })
+   }
+   stationAddFuction=(values)=>{
+   	 this.setState({
+     	  stationAddValue:values
+     })
+   	if(this.state.allSumValue<=0){
+   	 	return ;
+   	 }
+   	let {allSumValue,rightBottomValue,leftBottomValue,compareValue,depositValue,stationValue,depositAdminValue,depositAddValue,stationAdminValue}=this.state;
+      this.setState({
+     	  liveMoneyValue:allSumValue-values-rightBottomValue-leftBottomValue-compareValue-depositValue-depositAdminValue-depositAddValue-stationAdminValue-stationValue,
+     	
+     })
+   }
+   compareFuction=(values)=>{
+   	 this.setState({
+     	  compareValue:values
+     })
+   
+   	if(this.state.allSumValue<=0){
+   	 	return ;
+   	 }
+   	let {allSumValue,rightBottomValue,leftBottomValue,stationValue,depositValue,depositAddValue,depositAdminValue,stationAdminValue,stationAddValue}=this.state;
+      this.setState({
+     	  liveMoneyValue:allSumValue-values-rightBottomValue-leftBottomValue-stationValue-depositValue-depositAddValue-depositAdminValue-stationAdminValue-stationAddValue,
+      })
+   }
+   leftBottomFuction=(values)=>{
+   	this.setState({
+     	  leftBottomValue:values
+     })
+   	if(this.state.allSumValue<=0){
+   	 	return ;
+   	 }
+   	let {allSumValue,rightBottomValue,compareValue,stationValue,depositValue,depositAddValue,depositAdminValue,stationAdminValue,stationAddValue}=this.state;
+      this.setState({
+     	 liveMoneyValue:allSumValue-values-rightBottomValue-compareValue-stationValue-depositValue-depositAddValue-depositAdminValue-stationAdminValue-stationAddValue
+     })
+   }
+   rightBottomFuction=(values)=>{
+   	this.setState({
+     	 rightBottomValue:values
+     })
+   	if(this.state.allSumValue<=0){
+   	 	return ;
+   	 }
 
+   	let {allSumValue,leftBottomValue,compareValue,stationValue,depositValue,depositAddValue,depositAdminValue,stationAdminValue,stationAddValue}=this.state;
+     this.setState({
+     	 liveMoneyValue:allSumValue-values-leftBottomValue-compareValue-stationValue-depositValue-depositAddValue-depositAdminValue-stationAdminValue-stationAddValue,
+     })
+   }
+   receiveAllMoney=(values)=>{
+   	let {allSumValue,leftBottomValue,compareValue,stationValue,depositValue,rightBottomValue}=this.state;
+   	
+   	 this.setState({
+     	 allSumValue:values,
+     	 liveMoneyValue:values-leftBottomValue-compareValue-stationValue-depositValue-rightBottomValue
+     })
+   }
 
 	render() {
 		
@@ -1131,8 +1303,25 @@ export default class AttributeSetting extends Component {
 
 				      <Drawer open={this.state.openRight} width={650} openSecondary={true}>
 				       <div> 
-                        <ReceiveDetailTop iconClose={this.iconClose} contractTopReceive={this.state.contractTopReceive}/>
-                        <ReceivedBtnForm onSubmit={this.onAddReceivedSubmit}  onCancel={this.iconClose} optionList={this.state.payWayList}  accountDetail={this.state.accountDetail} contractReceive={this.state.contractReceive}/>
+                        <ReceiveDetailTop iconClose={this.iconClose} contractTopReceive={this.state.contractTopReceive} liveMoneyValue={this.state.liveMoneyValue} allSumValue={this.state.allSumValue}/>
+                        <ReceivedBtnForm 
+                         onSubmit={this.onAddReceivedSubmit} 
+                         onCancel={this.iconClose} 
+                         optionList={this.state.payWayList} 
+                          accountDetail={this.state.accountDetail} 
+                          contractReceive={this.state.contractReceive} 
+                          contractTopReceive={this.state.contractTopReceive}
+                          depositFuction={this.depositFuction}
+                          stationFuction={this.stationFuction}
+                          depositAddFuction={this.depositAddFuction}
+                          stationAddFuction={this.stationAddFuction}
+                          depositAdminFuction={this.depositAdminFuction}
+                          stationAdminFuction={this.stationAdminFuction}
+                          compareFuction={this.compareFuction}
+                          leftBottomFuction={this.leftBottomFuction}
+                          receiveAllMoney={this.receiveAllMoney}
+                          rightBottomFuction={this.rightBottomFuction}
+                          />
                        </div>
                       </Drawer>
 
