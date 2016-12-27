@@ -71,9 +71,9 @@ export default class memberListDetail extends Component{
     let {isLeader} = this.state;
     if(isLeader){
       return (
-        <Tabs>
+        <Tabs  >
         <Tab label="个人资料">
-            <div style={{background:"fff",height:'860'}}>
+            <div style={{background:"fff",height:'860',width:1020,margin:'auto'}}>
               <DotTitle title='基本信息' style={{marginBottom:'40'}}/>
                 <PersonalData  detail={this.state.baseInfo}/>
               <DotTitle title='工作信息' style={{marginTop:'40',marginBottom:'40'}}/>
@@ -105,7 +105,7 @@ export default class memberListDetail extends Component{
         <Tabs >
         <Tab label="个人资料">
 
-            <div style={{background:"fff",height:'860'}}>
+            <div style={{background:"fff",height:'860',width:1020,margin:'auto'}}>
               <DotTitle title='基本信息' style={{marginBottom:'40'}}/>
                 <PersonalData  detail={this.state.baseInfo}/>
               <DotTitle title='工作信息' style={{marginTop:'40',marginBottom:'40'}}/>
@@ -116,7 +116,7 @@ export default class memberListDetail extends Component{
 
         </Tab>
         <Tab label="个人行为记录">
-          <div>
+          <div >
             <PersonalBehavior/>
           </div>
         </Tab>
@@ -138,7 +138,7 @@ export default class memberListDetail extends Component{
 			return <Loading/>
 		}
     return(
-      <div name="memberListDetail" >
+      <div name="memberListDetail">
           {
             this.isLeader()
           }
