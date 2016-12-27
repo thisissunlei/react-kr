@@ -229,18 +229,12 @@ export default class AttributeSetting extends Component {
             isRunningIncome:0,
 
             //回款总金额和余额变化
-            depositValue:0,
-            compareValue:0,
-            stationValue:0,
-            leftBottomValue:0,
-            rightBottomValue:0,
-            depositAddValue:0,
-            stationAddValue:0,
-            depositAdminValue:0,
-            stationAdminValue:0,
-            allSumValue:0,
             liveMoneyValue:0
 		}
+
+		//回款计算余额所需字段值
+
+		this.receivedBtnFormChangeValues = {};
 	}
 
 
@@ -581,7 +575,13 @@ export default class AttributeSetting extends Component {
 		//回款提交
 	onAddReceivedSubmit(params) {
 		
-		
+		let {totalPayment} = params;
+		let liveMoneyValue = this.state.liveMoneyValue;
+		if(liveMoneyValue<0 || !totalPayment ){
+			Message.error('回款总额金额不对应');
+			return ;
+		}
+
         var conJasonStr1={};
         var conJasonStr2={};
         var conJasonStr3={};
@@ -589,7 +589,6 @@ export default class AttributeSetting extends Component {
 		if(params.l226l2){
           conJasonStr1={'226':{'2':params.l226l2}}
           delete params.l226l2;
-		  
 		}
 		if(params.l227l1&&!params.l227l3){
           conJasonStr2={'227':{'1':params.l227l1}}
@@ -643,7 +642,6 @@ export default class AttributeSetting extends Component {
 		params.propJasonStr = JSON.stringify(params.propJasonStr);
 		params.conJasonStr = JSON.stringify(params.conJasonStr);
         
-        console.log('4444444',params.totalPayment);
 
 		var _this = this;
 		Store.dispatch(Actions.callAPI('returnMoneyNew', {}, params)).then(function(response) {
@@ -893,8 +891,6 @@ export default class AttributeSetting extends Component {
 			}).catch(function(err){
 				  Message.error(err.message); 
 			});
-
-
     }
 
 	initializeSnack = (open=false,title='正在补历史收入...',titleAfter,color)=>{
@@ -1016,128 +1012,42 @@ export default class AttributeSetting extends Component {
 	  }); 
     }
 
-   depositFuction=(values)=>{
-   	 this.setState({
-     	 depositValue:values
-     })
-   	 if(this.state.allSumValue<=0){
-   	 	return ;
-   	 }
-   	 let {allSumValue,rightBottomValue,leftBottomValue,compareValue,stationValue,stationAddValue,stationAdminValue,depositAddValue,depositAdminValue}=this.state;
-     this.setState({
-     	 liveMoneyValue:allSumValue-values-rightBottomValue-leftBottomValue-compareValue-stationValue-stationAddValue-stationAdminValue-depositAddValue-depositAdminValue,
-     })
-   }
-   stationFuction=(values)=>{
-   	 this.setState({
-     	  stationValue:values
-     })
-   	if(this.state.allSumValue<=0){
-   	 	return ;
-   	 }
-   	let {allSumValue,rightBottomValue,leftBottomValue,compareValue,depositValue,depositAddValue,depositAdminValue,stationAddValue,stationAdminValue}=this.state;
-      this.setState({
-     	  liveMoneyValue:allSumValue-values-rightBottomValue-leftBottomValue-compareValue-depositValue-stationAddValue-stationAdminValue-depositAddValue-depositAdminValue,
-     	
-     })
-   }
-   depositAdminFuction=(values)=>{
-   	 this.setState({
-     	 depositAdminValue:values
-     })
-   	 if(this.state.allSumValue<=0){
-   	 	return ;
-   	 }
-   	 let {allSumValue,rightBottomValue,leftBottomValue,compareValue,stationValue,depositValue,depositAddValue,stationAddValue,stationAdminValue}=this.state;
-     this.setState({
-     	 liveMoneyValue:allSumValue-values-rightBottomValue-leftBottomValue-compareValue-stationValue-stationAddValue-stationAdminValue-depositValue-depositAddValue,
-     })
-   }
-   stationAdminFuction=(values)=>{
-   	 this.setState({
-     	  stationAdminValue:values
-     })
-   	if(this.state.allSumValue<=0){
-   	 	return ;
-   	 }
-   	let {allSumValue,rightBottomValue,leftBottomValue,compareValue,depositValue,stationAddValue,depositAddValue,depositAdminValue,stationValue}=this.state;
-      this.setState({
-     	  liveMoneyValue:allSumValue-values-rightBottomValue-leftBottomValue-compareValue-depositValue-stationValue-stationAddValue-depositAddValue-depositAdminValue,
-     	
-     })
-   }
-   depositAddFuction=(values)=>{
-   	 this.setState({
-     	 depositAddValue:values
-     })
-   	 if(this.state.allSumValue<=0){
-   	 	return ;
-   	 }
-   	 let {allSumValue,rightBottomValue,leftBottomValue,compareValue,stationValue,depositValue,depositAdminValue,stationAddValue,stationAdminValue}=this.state;
-     this.setState({
-     	 liveMoneyValue:allSumValue-values-rightBottomValue-leftBottomValue-compareValue-stationValue-stationAdminValue-stationAddValue-depositAdminValue-depositValue,
-     })
-   }
-   stationAddFuction=(values)=>{
-   	 this.setState({
-     	  stationAddValue:values
-     })
-   	if(this.state.allSumValue<=0){
-   	 	return ;
-   	 }
-   	let {allSumValue,rightBottomValue,leftBottomValue,compareValue,depositValue,stationValue,depositAdminValue,depositAddValue,stationAdminValue}=this.state;
-      this.setState({
-     	  liveMoneyValue:allSumValue-values-rightBottomValue-leftBottomValue-compareValue-depositValue-depositAdminValue-depositAddValue-stationAdminValue-stationValue,
-     	
-     })
-   }
-   compareFuction=(values)=>{
-   	 this.setState({
-     	  compareValue:values
-     })
+   calcBalance=(input)=>{
+
+
+   	//console.log('input',input);
+
+   	this.receivedBtnFormChangeValues[input.name] = input.value;
+
+
    
-   	if(this.state.allSumValue<=0){
-   	 	return ;
-   	 }
-   	let {allSumValue,rightBottomValue,leftBottomValue,stationValue,depositValue,depositAddValue,depositAdminValue,stationAdminValue,stationAddValue}=this.state;
-      this.setState({
-     	  liveMoneyValue:allSumValue-values-rightBottomValue-leftBottomValue-stationValue-depositValue-depositAddValue-depositAdminValue-stationAdminValue-stationAddValue,
-      })
-   }
-   leftBottomFuction=(values)=>{
-   	this.setState({
-     	  leftBottomValue:values
-     })
-   	if(this.state.allSumValue<=0){
-   	 	return ;
-   	 }
-   	let {allSumValue,rightBottomValue,compareValue,stationValue,depositValue,depositAddValue,depositAdminValue,stationAdminValue,stationAddValue}=this.state;
-      this.setState({
-     	 liveMoneyValue:allSumValue-values-rightBottomValue-compareValue-stationValue-depositValue-depositAddValue-depositAdminValue-stationAdminValue-stationAddValue
-     })
-   }
-   rightBottomFuction=(values)=>{
-   	this.setState({
-     	 rightBottomValue:values
-     })
-   	if(this.state.allSumValue<=0){
-   	 	return ;
-   	 }
+   	let receivedBtnFormChangeValues = this.receivedBtnFormChangeValues;
+   	let {totalPayment} = receivedBtnFormChangeValues;
+   	let  liveMoneyValue = totalPayment;
 
-   	let {allSumValue,leftBottomValue,compareValue,stationValue,depositValue,depositAddValue,depositAdminValue,stationAdminValue,stationAddValue}=this.state;
-     this.setState({
-     	 liveMoneyValue:allSumValue-values-leftBottomValue-compareValue-stationValue-depositValue-depositAddValue-depositAdminValue-stationAdminValue-stationAddValue,
-     })
-   }
-   receiveAllMoney=(values)=>{
-   	let {allSumValue,leftBottomValue,compareValue,stationValue,depositValue,rightBottomValue}=this.state;
+   	if(totalPayment){
+   		
+   	for(var item in receivedBtnFormChangeValues){
+   		if(receivedBtnFormChangeValues.hasOwnProperty(item) && item !='totalPayment'){
+   			console.log('aay')
+   			liveMoneyValue -= receivedBtnFormChangeValues[item];
+   		}
+   	}
+   	}
+
+   	console.log('--liveMoneyValue-',liveMoneyValue)
+
    	
-   	 this.setState({
-     	 allSumValue:values,
-     	 liveMoneyValue:values-leftBottomValue-compareValue-stationValue-depositValue-rightBottomValue
-     })
-   }
 
+   	 //let {allSumValue,rightBottomValue,leftBottomValue,compareValue,stationValue,stationAddValue,stationAdminValue,depositAddValue,depositAdminValue}=this.state;
+     this.setState({
+     	 liveMoneyValue
+     });
+     // :allSumValue-values-rightBottomValue-leftBottomValue-compareValue-stationValue-stationAddValue-stationAdminValue-depositAddValue-depositAdminValue,
+
+
+   }
+   
 	render() {
 		
 		let {
@@ -1300,7 +1210,7 @@ export default class AttributeSetting extends Component {
 
 				      <Drawer open={this.state.openRight} width={650} openSecondary={true}>
 				       <div> 
-                        <ReceiveDetailTop iconClose={this.iconClose} contractTopReceive={this.state.contractTopReceive} liveMoneyValue={this.state.liveMoneyValue} allSumValue={this.state.allSumValue}/>
+                        <ReceiveDetailTop iconClose={this.iconClose} contractTopReceive={this.state.contractTopReceive} liveMoneyValue={this.state.liveMoneyValue}/>
                         <ReceivedBtnForm 
                          onSubmit={this.onAddReceivedSubmit} 
                          onCancel={this.iconClose} 
@@ -1308,16 +1218,8 @@ export default class AttributeSetting extends Component {
                           accountDetail={this.state.accountDetail} 
                           contractReceive={this.state.contractReceive} 
                           contractTopReceive={this.state.contractTopReceive}
-                          depositFuction={this.depositFuction}
-                          stationFuction={this.stationFuction}
-                          depositAddFuction={this.depositAddFuction}
-                          stationAddFuction={this.stationAddFuction}
-                          depositAdminFuction={this.depositAdminFuction}
-                          stationAdminFuction={this.stationAdminFuction}
-                          compareFuction={this.compareFuction}
-                          leftBottomFuction={this.leftBottomFuction}
-                          receiveAllMoney={this.receiveAllMoney}
-                          rightBottomFuction={this.rightBottomFuction}
+                          calcBalance={this.calcBalance}
+
                           />
                        </div>
                       </Drawer>

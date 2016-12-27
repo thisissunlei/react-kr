@@ -33,7 +33,7 @@ export default class InputComponent extends React.Component{
 		let {input} = this.props;
 		input.onChange(value);
 		const {onChange} = this.props;
-		onChange && onChange(value)
+		onChange && onChange(value,input)
 
 	}
 	onBlur=(value)=>{

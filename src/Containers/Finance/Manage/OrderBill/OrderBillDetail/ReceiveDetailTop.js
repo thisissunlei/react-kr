@@ -31,7 +31,6 @@ export default class ReceiveDetailTop  extends Component{
 	static PropTypes = {
 		contractTopReceive:React.PropTypes.arr,
 		liveMoneyValue:React.PropTypes.number,
-		allSumValue:React.PropTypes.number,
 	}
 
   iconClose=()=>{
@@ -48,14 +47,10 @@ export default class ReceiveDetailTop  extends Component{
          let {
 		 contractTopReceive,
 		 liveMoneyValue,
-		 allSumValue
 		} = this.props;
 
-		if(allSumValue<=0){
-			liveMoneyValue=0;
-		}
+		
 
-      //console.log('33eeeee',liveMoneyValue,allSumValue);
         
 		 
 		return(

@@ -42,6 +42,7 @@ import {
 	LabelText,
 	Dialog,
 	KrField,
+	Message,
 	ButtonGroup
 } from 'kr-ui';
 
@@ -101,97 +102,50 @@ class ReceivedBtnForm extends Component {
 		onCancel && onCancel();
 	}
 
-   depositFuction=(values)=>{
-     const {
-			depositFuction
-		} = this.props;
-		depositFuction && depositFuction(values);
-   }
-   stationFuction=(values)=>{
-     const {
-			stationFuction
-		} = this.props;
-		stationFuction && stationFuction(values);
-   }
+   calcBalance=(value,input)=>{
+   	 let {changeValues,calcBalance} = this.props;
+   	 console.log('changeValues',changeValues);
+   	 if(isNaN(value)){
+   	 	Message.error('只能输入数字')
+   	 	return ;
+   	 }
+   	 input.value = value;
+   	 calcBalance && calcBalance(input);
 
-   depositAddFuction=(values)=>{
-     const {
-			depositAddFuction
-		} = this.props;
-		depositAddFuction && depositAddFuction(values);
-   }
-   stationAddFuction=(values)=>{
-     const {
-			stationAddFuction
-		} = this.props;
-		stationAddFuction && stationAddFuction(values);
-   }
 
-   depositAdminFuction=(values)=>{
-     const {
-			depositAdminFuction
-		} = this.props;
-		depositAdminFuction && depositAdminFuction(values);
+
+  
    }
-   stationAdminFuction=(values)=>{
-     const {
-			stationAdminFuction
-		} = this.props;
-		stationAdminFuction && stationAdminFuction(values);
-   }
-   compareFuction=(values)=>{
-      const {
-			compareFuction
-		} = this.props;
-		compareFuction && compareFuction(values);
-   }
-   leftBottomFuction=(values)=>{
-      const {
-			leftBottomFuction
-		} = this.props;
-		leftBottomFuction && leftBottomFuction(values);
-   }
-   rightBottomFuction=(values)=>{
-      const {
-			rightBottomFuction
-		} = this.props;
-		rightBottomFuction && rightBottomFuction(values);
-   }
-   receiveAllMoney=(values)=>{
-     const {
-			receiveAllMoney
-		} = this.props;
-		receiveAllMoney && receiveAllMoney(values);
-   }
+  
   joinInputRender=()=>{
   	return (
-          <div>
-              <KrField  label="押金"  grid={1/2}  name='l227l1' component="input" type="text" onChange={this.depositFuction}/>
-              <KrField label="工位服务费"  grid={1/2} name='l227l3' component="input" type="text" onChange={this.stationFuction}/>
+          <div style={{width:600,marginTop:10}}>
+              <KrField  label="押金"  grid={1/2}  name='l227l1' style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance}/>
+              <KrField label="工位服务费"  grid={1/2} name='l227l3' style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance}/>
           </div>
   	  )
   }
   increaseInputRender=()=>{
   	return (
-          <div>
-              <KrField  label="押金"  grid={1/2}  name='l228l1' component="input" type="text" onChange={this.depositAddFuction}/>
-              <KrField label="工位服务费"  grid={1/2} name='l228l3' component="input" type="text" onChange={this.stationAddFuction}/>
+          <div style={{width:600,marginTop:10}}>
+              <KrField  label="押金"  grid={1/2}  name='l228l1' style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance}/>
+              <KrField label="工位服务费"  grid={1/2} name='l228l3' style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance}/>
           </div>
   	  )
   }
   adminInputRender=()=>{
   	return (
-          <div>
-              <KrField  label="押金"  grid={1/2}  name='l230l1' component="input" type="text" onChange={this.depositAdminFuction}/>
-              <KrField label="工位服务费"  grid={1/2} name='l230l3' component="input" type="text" onChange={this.stationAdminFuction}/>
+          <div style={{width:600,marginTop:10}}>
+              <KrField  label="押金"  grid={1/2}  name='l230l1' style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance}/>
+              <KrField label="工位服务费"  grid={1/2} name='l230l3'style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance}/>
           </div>
   	  )
   }
   tenantInputRender=()=>{
   	
   	return (
-            <div className='depositMoney-render'>
-              <KrField label="定金"  grid={1/2}  name='l226l2' component="input" type="text" onChange={this.compareFuction}/>
+            <div className='depositMoney-render' style={{width:546}}>
+              <KrField label="定金"  grid={1/2}  name='l226l2' style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance}/>
             </div>
   		)
   }
@@ -201,9 +155,9 @@ class ReceivedBtnForm extends Component {
              var _this=this;
              var accountTail=accountDetail.map(function(item,index){
 						      	if(index%2==0){
-									return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={43}  label={item.propname} component="input" name={item.id} type="text" onChange={_this.leftBottomFuction}/>
+									return <div className='leftBottomValue'><KrField key={index} style={{marginBottom:5,width:261,marginLeft:-9}}  grid={1/2}   label={item.propname} component="input" name={item.id} type="text" onChange={_this.calcBalance}/></div>
 						      	}else{
-						      		return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={43}  label={item.propname}  component="input" name={item.id} type="text" onChange={_this.rightBottomFuction}/>
+						      		return <div className='rightBottomValue'><KrField key={index} style={{marginBottom:5,width:261}} grid={1/2}   label={item.propname}  component="input" name={item.id} type="text" onChange={_this.calcBalance}/></div>
 				   }
 			     }
                )
@@ -273,7 +227,7 @@ class ReceivedBtnForm extends Component {
 			                </KrField>
 
 						     <KrField component="date" grid={1/2} right={23} style={{marginTop:'-5px'}}  label="回款日期" name="operatedate" requireLabel={true}/>
-						     <KrField label="回款总额"  grid={1/2} right={21} style={{marginTop:'-6px'}} name="totalPayment" component="input" type="text" requireLabel={true} onChange={this.receiveAllMoney}/>
+						     <KrField label="回款总额"  grid={1/2} right={21} style={{marginTop:'-6px'}} name="totalPayment" component="input" type="text" requireLabel={true} onChange={this.calcBalance}/>
 						     <KrField label="对应合同" name='contract' grid={1/2} component="groupCheckbox" defaultValue={contractReceive} requireLabel={true} />
 
 						     <KrField label="上传附件" grid={1/2} left={30}  style={{marginLeft:-30}} name="fileids" component="file" />
@@ -301,6 +255,9 @@ class ReceivedBtnForm extends Component {
 
 	}
 }
+
+
+
 const validate = values =>{
 
 		const errors = {}
@@ -317,6 +274,8 @@ const validate = values =>{
 	
 		return errors
 	}
+
+
 
 export default reduxForm({form:'receivedBtnForm',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(ReceivedBtnForm);
 
