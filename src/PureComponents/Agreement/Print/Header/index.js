@@ -23,7 +23,7 @@ import './index.less';
 import QRCode from 'react-qr-code';
 
 
-export default class Initialize extends Component {
+export default class Header extends Component {
 	static defaultProps = {
 		Baseinfo: {},
 		orderInfo: ''
@@ -50,7 +50,7 @@ export default class Initialize extends Component {
 			<div className="ui-print-header">
 				<div className="logo-info">
 					<div className="print-logo"></div>
-					<div  className="print-code" style={{marginBottom:5}}>合同编号：{Baseinfo.contractNO}</div>
+		<div  className="print-code print-code-list">合同编号：{Baseinfo.contractNO}</div>
 					<div  className="print-code">
 						<span style={{marginRight:38}}>{Baseinfo.cityName}</span>
 						<span>{Baseinfo.communityName}</span>

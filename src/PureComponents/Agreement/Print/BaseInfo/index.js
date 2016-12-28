@@ -21,7 +21,7 @@
  } from 'kr-ui';
  import './index.less';
 
- export default class Initialize extends Component {
+ export default class Baseinfo extends Component {
  	static defaultProps = {
  		Baseinfo: {},
  	}

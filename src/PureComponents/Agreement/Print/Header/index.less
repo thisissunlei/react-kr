@@ -2,7 +2,7 @@
 	height:90px;
 	width:700px;
 	margin:0 auto;
-	border-bottom:2px solid #2d8dcd;
+	border-bottom:3px solid #2d8dcd;
 	overflow:hidden;
 	position:relative;
 	.logo-info{
@@ -19,8 +19,11 @@
 	}
 	.print-code{
 		span{
-			font-size:13px;
+			font-size:14px;
 		}
+	}
+	.print-code-list{
+		margin-bottom:5px;
 	}
 	.print-title{
 		position:absolute;
@@ -45,4 +48,10 @@
 	}
 
 }
-
+@media print{
+.ui-print-header{
+	.print-QRCode{
+		margin-top:0px;
+	}
+	}
+}

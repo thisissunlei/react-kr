@@ -1,5 +1,9 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
+import React, {
+	Component
+} from 'react';
+import {
+	connect
+} from 'react-redux';
 import './index.less';
 import {
 	KrField,
@@ -17,9 +21,9 @@ import {
 	Col,
 } from 'kr-ui';
 
-export default class Initialize  extends Component{
+export default class Station extends Component {
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 
 	}
@@ -29,25 +33,25 @@ export default class Initialize  extends Component{
 
 	static propTypes = {
 		data: React.PropTypes.array,
-		orderTime:React.PropTypes.bool,
-		stationVOs:React.PropTypes.object,
-		Baseinfo:React.PropTypes.object,
+		orderTime: React.PropTypes.bool,
+		stationVOs: React.PropTypes.object,
+		Baseinfo: React.PropTypes.object,
 	}
-	initBasicClass=(Baseinfo)=>{
-		if(Baseinfo.contractType==2){
-			return(
+	initBasicClass = (Baseinfo) => {
+		if (Baseinfo.contractType == 2) {
+			return (
 				<div className="normal-station-head">
 					<span className="enter-info">入驻信息</span>
 				</div>
 			)
-		}else if(Baseinfo.contractType==1){
-			return(
+		} else if (Baseinfo.contractType == 1) {
+			return (
 				<div className="normal-station-head">
 					<span className="enter-info">意向入驻信息</span>
 				</div>
 			)
-		}else if(Baseinfo.contractType==3 || Baseinfo.contractType==4){
-			return(
+		} else if (Baseinfo.contractType == 3 || Baseinfo.contractType == 4) {
+			return (
 				<div className="supplement-station-head">
 					<div className="method-list">
 						<span className={Baseinfo.contractType==3?'checked':'discheck'}></span>
@@ -66,8 +70,8 @@ export default class Initialize  extends Component{
 					<span className="right-date">日期：自{Baseinfo.leaseBegindate}起</span>
 				</div>
 			)
-		}else{
-			return(
+		} else {
+			return (
 				<div className="normal-station-head">
 					<span className="enter-info">空空空空</span>
 				</div>
@@ -75,20 +79,24 @@ export default class Initialize  extends Component{
 
 		}
 	}
-	BasicType=(stationTypeName)=>{
-		if(stationTypeName==1){
-			return "工位"
-		}else if(stationTypeName==2){
-			return "会议室"
+	BasicType = (stationTypeName) => {
+			if (stationTypeName == 1) {
+				return "工位"
+			} else if (stationTypeName == 2) {
+				return "会议室"
+			}
 		}
-	}
-//	componentDidMount() {
-	//	this.initBasicClass()
-//	}
+		//	componentDidMount() {
+		//	this.initBasicClass()
+		//	}
 
-	render(){
-		let {stationVOs,Baseinfo,installmentPlans}=this.props
-		return(
+	render() {
+		let {
+			stationVOs,
+			Baseinfo,
+			installmentPlans
+		} = this.props
+		return (
 
 
 			<div className="print-Station">

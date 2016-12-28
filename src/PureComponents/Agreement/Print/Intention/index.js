@@ -1,5 +1,9 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
+import React, {
+	Component
+} from 'react';
+import {
+	connect
+} from 'react-redux';
 import './index.less';
 import {
 	KrField,
@@ -17,17 +21,19 @@ import {
 	Col,
 } from 'kr-ui';
 
-export default class Initialize  extends Component{
+export default class Intention extends Component {
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 	}
 	static propTypes = {
-		stationVOs:React.PropTypes.object,
+		stationVOs: React.PropTypes.object,
 	}
-	render(){
-		let {stationVOs}=this.props
-		return(
+	render() {
+		let {
+			stationVOs
+		} = this.props
+		return (
 
 			<div className="print-Intention">
 						<p>意向条款</p>

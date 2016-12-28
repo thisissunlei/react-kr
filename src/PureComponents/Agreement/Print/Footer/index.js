@@ -21,7 +21,7 @@ import {
 	Col,
 } from 'kr-ui';
 
-export default class Initialize extends Component {
+export default class Footer extends Component {
 
 	constructor(props, context) {
 		super(props, context);
