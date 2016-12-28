@@ -129,7 +129,7 @@ export default class GroupCheckboxComponent extends React.Component {
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} >
 					<div className="ui-group-checkbox">
-              {this.renderSelectAllSwitch()}
+              {/*{this.renderSelectAllSwitch()}*/}
               {this.renderOptions()}
 					</div>
 				</WrapComponent>
