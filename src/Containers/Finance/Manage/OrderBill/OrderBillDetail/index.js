@@ -672,7 +672,7 @@ export default class AttributeSetting extends Component {
         
 		let {totalPayment} = params;
 		let liveMoneyValue = this.state.liveMoneyValue;
-		if(liveMoneyValue<0 || !totalPayment){
+		if(liveMoneyValue<0 || !totalPayment||liveMoneyValue>0){
 			Message.error('回款总额金额不对应');
 			return ;
 		}
