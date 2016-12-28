@@ -79,9 +79,9 @@ export default class Initialize extends Component {
 
 	Twotable = (installmentPlans) => {
 		var plansOne, plansTwo;
-		if (installmentPlans.length > 14) {
-			plansOne = installmentPlans.slice(0, 14);
-			plansTwo = installmentPlans.slice(14, installmentPlans.length);
+		if (installmentPlans.length > 15) {
+			plansOne = installmentPlans.slice(0, 15);
+			plansTwo = installmentPlans.slice(15, installmentPlans.length);
 		}
 		return (
 			<div className="table-two-list">
@@ -202,7 +202,7 @@ export default class Initialize extends Component {
 				</div>
 				<div className="payment-content">
 					<div className="table-content">
-						{installmentPlans && installmentPlans.length > 14 ? this.Twotable(installmentPlans):this.Onetable(installmentPlans)}
+						{installmentPlans && installmentPlans.length > 15 ? this.Twotable(installmentPlans):this.Onetable(installmentPlans)}
 					</div>
 					<div className="reminders">
 						注：每期服务期到期之日前15日支付下期服务费
