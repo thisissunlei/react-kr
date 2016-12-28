@@ -714,6 +714,7 @@ export default class AttributeSetting extends Component {
 
 	}
 	onQuitSubmit(params) {
+		console.log('----55555-',params);
 		var _this = this;
 		params = Object.assign({}, params);
 		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
@@ -1360,7 +1361,7 @@ export default class AttributeSetting extends Component {
 						onClose={this.closeQuitBtn}
 						contentStyle ={{ width: '688'}}
 						>
-					   <QuitBtnForm  onSubmit={this.onQuitSubmit} onCancel={this.closeQuitBtn}  fiMoney={fiMoney}/>
+					   <QuitBtnForm  onSubmit={this.onQuitSubmit} onCancel={this.closeQuitBtn}  fiMoney={fiMoney} initialValuesId={initialValuesId}/>
 					 </Dialog>
 
 					 <Dialog
@@ -1379,7 +1380,7 @@ export default class AttributeSetting extends Component {
 						onClose={this.closeSwitchBtn}
 						contentStyle ={{ width: '688'}}
 						>
-					   <SwitchBtnForm  onSubmit={this.onSwitchSubmit} onCancel={this.closeSwitchBtn} optionList={this.state.receivedList}  fiMoney={fiMoney}/>
+					   <SwitchBtnForm  onSubmit={this.onSwitchSubmit} onCancel={this.closeSwitchBtn} optionList={this.state.receivedList}  fiMoney={fiMoney} initialValuesId={initialValuesId}/>
 					 </Dialog>
 
 					 <Dialog
@@ -1388,7 +1389,7 @@ export default class AttributeSetting extends Component {
 						onClose={this.closeBusinessBtn}
 						contentStyle ={{ width: '688'}}
 						>
-					   <BusinessBtnForm  onSubmit={this.onBusinessSubmit} onCancel={this.closeBusinessBtn}  fiMoney={fiMoney}/>
+					   <BusinessBtnForm  onSubmit={this.onBusinessSubmit} onCancel={this.closeBusinessBtn}  fiMoney={fiMoney} initialValuesId={initialValuesId}/>
 					 </Dialog>
 
 					 <Dialog

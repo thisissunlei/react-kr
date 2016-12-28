@@ -34,6 +34,7 @@ class BusinessBtnForm extends Component{
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
 		fiMoney:React.PropTypes.number,
+		initialValuesId:React.PropTypes.object,
   }
 
 	constructor(props,context){
@@ -47,7 +48,7 @@ class BusinessBtnForm extends Component{
 
 	componentDidMount() {
        let initialValues={
-       	 id:this.props.initialValues.id,
+       	 id:this.props.initialValuesId.id,
        	 finaflowamount:'',
        }
 	   Store.dispatch(initialize('BusinessBtnForm',initialValues));

@@ -36,6 +36,7 @@ class SwitchBtnForm extends Component{
 		onCancel:React.PropTypes.func,
 		optionList:React.PropTypes.array,
 		fiMoney:React.PropTypes.number,
+		initialValuesId:React.PropTypes.object,
   }
 
 	constructor(props,context){
@@ -49,7 +50,7 @@ class SwitchBtnForm extends Component{
 
 	componentDidMount() {
        let initialValues={
-       	 id:this.props.initialValues.id,
+       	 id:this.props.initialValuesId.id,
        	 contractcodeId:'',
        }
 	   Store.dispatch(initialize('SwitchBtnForm',initialValues));

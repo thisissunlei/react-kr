@@ -47,6 +47,7 @@ class QuitBtnForm extends Component {
 		onSubmit: React.PropTypes.func,
 		onCancel: React.PropTypes.func,
 		fiMoney: React.PropTypes.number,
+		initialValuesId:React.PropTypes.object,
 	}
 
 	constructor(props, context) {
@@ -61,7 +62,7 @@ class QuitBtnForm extends Component {
 
 	componentDidMount() {
 		let initialValues={
-       	 id:this.props.initialValues.id,
+       	 id:this.props.initialValuesId.id,
        	 finaflowamount:'',
        	 operatedate:''
        }
@@ -153,7 +154,6 @@ const validate = values => {
 	if (values.finaflowamount && isNaN(values.finaflowamount)) {
 			errors.finaflowamount = '金额必须为数字';
 		}	
-
 	if (!values.operatedate) {
 		errors.operatedate = '请填写退款日期';
 	}
