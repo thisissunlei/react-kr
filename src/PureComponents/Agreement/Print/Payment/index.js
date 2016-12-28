@@ -1,6 +1,7 @@
 import React, {
 	Component
 } from 'react';
+
 import {
 	connect
 } from 'react-redux';
@@ -23,14 +24,6 @@ import {
 import './index.less';
 
 export default class Payment extends Component {
-
-	static defaultProps = {
-		data: []
-	}
-
-	static propTypes = {
-		data: React.PropTypes.array
-	}
 
 	constructor(props, context) {
 		super(props, context);
@@ -147,14 +140,14 @@ export default class Payment extends Component {
 				if (!reg.test(item.dicName)) {
 					payModelList.id = item.id;
 					payModelList.dicName = item.dicName;
+					payModelList.flag = true;
 				} else {
-					methodObj.id = item.id
-					return methodObj.id;
+					payModelList.flag = false;
+					payModelList.id = item.id;
 				}
-
 			}
-
 			return payModelList;
+
 		})
 	}
 	render() {
@@ -162,6 +155,7 @@ export default class Payment extends Component {
 			installmentPlans,
 			baseInfo
 		} = this.props;
+
 		let {
 			payType,
 			payTypeList,
@@ -189,11 +183,11 @@ export default class Payment extends Component {
 					</div>
 					<div className="pay-method clear">
 						<div className="method-list">
-							<span className={payModelList && payModel==payModelList.id?"checked":"discheck"}></span>
-							<span>其他{payModelList && payModel==payModelList.id?`-${payModelList.dicName}`:" "}</span>
+							<span className={payModelList && payModelList.flag && payModel==payModelList.id?"checked":"discheck"}></span>
+							<span>其他{payModelList && payModelList.flag && payModel==payModelList.id?`-${payModelList.dicName}`:" "}</span>
 						</div>
 						<div className="method-list">
-							<span className={payModel==this.method()?"checked":"discheck"}></span>
+							<span className={payModelList && payModel==payModelList.id?"checked":"discheck"}></span>
 							<span>转账</span>
 						</div>
 

@@ -42,12 +42,12 @@ export default class Station extends Component {
 	}
 
 	BasicType = (stationTypeName) => {
-			if (stationTypeName == 1) {
-				return "工位"
-			} else if (stationTypeName == 2) {
-				return "会议室"
-			}
+		if (stationTypeName == 1) {
+			return "工位"
+		} else if (stationTypeName == 2) {
+			return "会议室"
 		}
+
 	getLocalTime=(beginDate)=>{
 	   var now = new Date(beginDate);
 			var yy = now.getFullYear();      //年
@@ -55,6 +55,9 @@ export default class Station extends Component {
 			var dd = now.getDate();          //日
 			return (yy+"年"+mm+"月"+dd+"日")
 	}
+
+	}
+
 
 	render() {
 		let {
