@@ -525,14 +525,19 @@ const APIS = {
       url: '/api/krspace-finance-web/finacontractdetail/plan-table/rate?year={year}&communityids={communityids}',
       method: 'get'
    },
-   //电子合同-入驻协议
+   //电子合同-入驻协议(入驻，增租，续租)
    'checkinagreement-print-info': {
       url: '/api-sh/krspace-finance-web/checkinagreement/print-info?contractId={contractId}',
       method: 'get'
    },
-   //电子合同-入驻意向
+   //电子合同-承租意向
    'intentletter-print-info': {
       url: ' /api-sh/krspace-finance-web/intentletter/print-info?contractId={contractId}',
+      method: 'get'
+   },
+   //电子合同-减租
+   'fnaContractRentController': {
+      url: ' /api-sh/krspace-finance-web/fnaContractRentController/print-info?contractId={contractId}',
       method: 'get'
    },
 }
