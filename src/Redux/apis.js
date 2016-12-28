@@ -301,7 +301,7 @@ const APIS = {
    },
    //财务管理－订单明细账-转押金按钮查询合同编号
    'findContractListById': {
-      url: '/api/krspace-finance-web/finaccount/data/findContractListById?id={id}',
+      url: '/api/krspace-finance-web/finaccount/data/findContractListById?mainbillId={mainbillId}',
       method: 'get'
    },
    //财务管理－订单明细账-转营收

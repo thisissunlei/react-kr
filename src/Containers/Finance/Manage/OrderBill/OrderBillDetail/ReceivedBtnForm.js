@@ -48,7 +48,10 @@ import {
 
 
 
-var arr = [];
+var joinContractId='';
+var adminContractId='';
+var increaseContractId='';
+var tenantContractId='';
 class ReceivedBtnForm extends Component {
 	static contextTypes = {
 		params: React.PropTypes.object.isRequired
@@ -65,7 +68,7 @@ class ReceivedBtnForm extends Component {
 
 	constructor(props, context) {
 		super(props, context);
-		this.state = { }
+		
 
 		//Store.dispatch(reset('ReceivedBtnForm'));
 	}
@@ -116,32 +119,32 @@ class ReceivedBtnForm extends Component {
   joinInputRender=()=>{
   	return (
           <div style={{width:600,marginTop:10}}>
-              <KrField  label="押金"  grid={1/2}  name='l227l1' style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance}/>
-              <KrField label="工位服务费"  grid={1/2} name='l227l3' style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance}/>
+              <KrField  label="押金"  grid={1/2}  name={joinContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance}/>
+              <KrField label="工位服务费"  grid={1/2} name={joinContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance}/>
           </div>
   	  )
   }
   increaseInputRender=()=>{
   	return (
           <div style={{width:600,marginTop:10}}>
-              <KrField  label="押金"  grid={1/2}  name='l228l1' style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance}/>
-              <KrField label="工位服务费"  grid={1/2} name='l228l3' style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance}/>
+              <KrField  label="押金"  grid={1/2}  name={increaseContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance}/>
+              <KrField label="工位服务费"  grid={1/2} name={increaseContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance}/>
           </div>
   	  )
   }
   adminInputRender=()=>{
   	return (
           <div style={{width:600,marginTop:10}}>
-              <KrField  label="押金"  grid={1/2}  name='l230l1' style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance}/>
-              <KrField label="工位服务费"  grid={1/2} name='l230l3'style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance}/>
+              <KrField  label="押金"  grid={1/2}  name={adminContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance}/>
+              <KrField label="工位服务费"  grid={1/2} name={adminContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance}/>
           </div>
   	  )
   }
   tenantInputRender=()=>{
 
   	return (
-            <div className='depositMoney-render' style={{width:546}}>
-              <KrField label="定金"  grid={1/2}  name='l226l2' style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance}/>
+            <div className='depositMoney-render'  style={{width:546}}>
+              <KrField label="定金"  grid={1/2}  name={tenantContractId+'2'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance}/>
             </div>
   		)
   }
@@ -161,7 +164,8 @@ class ReceivedBtnForm extends Component {
             return accountTail;
 
   }
-
+  
+    
 
 	render() {
 
@@ -188,26 +192,30 @@ class ReceivedBtnForm extends Component {
 		}
 
 
-
-
-
-       contractReceive.map(function(item,index){
+      contractReceive.map(function(item,index){
           if(item.value=='1'){
-          	item.component=_this.tenantInputRender
+          	item.component=_this.tenantInputRender;
+            tenantContractId=item.contractId
           }
           if(item.value=='2'){
-          	item.component=_this.joinInputRender
+          	item.component=_this.joinInputRender;
+          	joinContractId=item.contractId
           }
           if(item.value=='3'){
-          	item.component=_this.increaseInputRender
+          	item.component=_this.increaseInputRender;
+          	increaseContractId=item.contractId
           }
           if(item.value=='4'){
-          	item.component=_this.adminInputRender
+          	item.component=_this.adminInputRender;
+          	adminContractId=item.contractId
           }
           if(item.value=='000'){
           	item.component=_this.receiveInputRender
           }
        })
+
+
+      
 
 
 

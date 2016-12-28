@@ -25,11 +25,11 @@ export default class ReceiveDetailTop  extends Component{
 	constructor(props,context){
 		super(props, context);
 		this.state = {
-
+          
 		}
 	}
 	static PropTypes = {
-		contractTopReceive:React.PropTypes.arr,
+		contractTopReceive:React.PropTypes.array,
 		liveMoneyValue:React.PropTypes.number,
 	}
 
@@ -38,8 +38,7 @@ export default class ReceiveDetailTop  extends Component{
 	iconClose && iconClose();
   }
 
-
-
+ 
 
 
 	render(){
@@ -49,7 +48,7 @@ export default class ReceiveDetailTop  extends Component{
 		 liveMoneyValue,
 		} = this.props;
 
-		
+		console.log('4444wwww',contractTopReceive)
 
 
 		return(
@@ -84,18 +83,18 @@ export default class ReceiveDetailTop  extends Component{
 			                      </ul>
 			                      {contractTopReceive.map(function(item,index){
 
-                                        if(item.detailid=='226'){
+                                        if(item.contactType=='1'){
                                         	return (
                                           <ul className='admin-ul' key={index}>
                                         	 <li>{item.contactName}</li>
                                              <li>定金</li>
                                              <li>{item.frontmoney}</li>
                                              <li>{item.nFrontmoney}</li>
-                                             <li>合同</li>
+                                             <li className='receiveTopContract'>合同</li> 
                                           </ul>
                                         	)
                                         }
-                                        if(item.detailid!='226'){
+                                        if(item.contactType!='1'){
                                         	return (
                                          <div className='joinBook' key={index}>
                                            <ul>
@@ -103,14 +102,14 @@ export default class ReceiveDetailTop  extends Component{
                                              <li>押金</li>
                                              <li>{item.deposit}</li>
                                              <li>{item.nDeposit}</li>
-                                             <li>合同</li>
+                                             <li className='receiveTopContract'>合同</li>
                                            </ul>
                                            <ul>
                                         	 <li></li>
                                              <li>租金</li>
                                              <li>{item.totalrent}</li>
                                              <li>{item.nTotalrent}</li>
-                                             <li>合同</li>
+                                             <li className='receiveTopContract'>合同</li>
                                            </ul>
                                           </div>
                                         	)

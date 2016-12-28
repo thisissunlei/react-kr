@@ -227,9 +227,9 @@ export default class AttributeSetting extends Component {
 			openRight:false,
             colorClassName:'',
             isRunningIncome:0,
-
+            
             //回款总金额和余额变化
-            liveMoneyValue:0
+            liveMoneyValue:0,
 		}
 
 		//回款计算余额所需字段值
@@ -276,21 +276,23 @@ export default class AttributeSetting extends Component {
 				list.label = item.accountname;
 				payWayList.push(list);
 			});
-			contractReceive = response.contract.map(function(item, index) {
+			response.contract.map(function(item, index) {
 				var lists = {};
 				lists.label = item.contactName+'-'+item.contractcode;
 				lists.value = item.contactType;
-                return lists;
+				lists.contractId=item.detailid;
+				contractReceive.push(lists);
 			});
-			   var noContract={
+		
+			  var noContract={
 			    	'value':'000','label':'无合同'
 			     }
-			 contractReceive.push(noContract);
+			contractReceive.push(noContract);
            _this.setState({
 			 payWayList,
 			 accountDetail:response.propData,
-			 contractReceive:contractReceive,
 			 contractTopReceive:response.contract,
+			 contractReceive
 		   });
 		}).catch(function(err) {
 			  Message.error(err.message);
@@ -316,6 +318,7 @@ export default class AttributeSetting extends Component {
 		} else if (fiMoney >= 0) {
 			Message.error('金额必须为负且存在可用金额');
 		} else {
+			this.getMoneyALLTrue();
 			this.setState({
 				openQuitBtn: !this.state.openQuitBtn
 			});
@@ -346,7 +349,7 @@ export default class AttributeSetting extends Component {
             this.getMoneyALLTrue();
 			//console.log('2222',fiItem.id);
 			Store.dispatch(Actions.callAPI('findContractListById', {
-				id: fiItem.id
+				mainbillId: _this.props.params.orderId
 			})).then(function(response) {
 				response.map(function(item, index) {
 					var list = {}
@@ -363,8 +366,9 @@ export default class AttributeSetting extends Component {
 		}
 	}
 	getMoneyALLTrue=()=>{
+		var _this=this;
 		Store.dispatch(Actions.callAPI('getFlowRemainMoney', {
-				id: fiItem.id
+				flowId: fiItem.id
 			})).then(function(response) {
 				_this.setState({
 					fiMoney:response
@@ -390,6 +394,7 @@ export default class AttributeSetting extends Component {
 		} else if (fiMoney >= 0) {
 			 Message.error('金额必须为负且存在可用金额');
 		} else {
+			//this.getMoneyALLTrue();
 			this.setState({
 				openBusinessBtn: !this.state.openBusinessBtn
 			});
@@ -579,62 +584,101 @@ export default class AttributeSetting extends Component {
 		//回款提交
 	onAddReceivedSubmit(params) {
 
-
+        console.log('fff888888',params);
+        let {accountDetail,contractTopReceive} = this.state;
 		params = Object.assign({},params);
-       
+        
+        var intentStr={};
+        var joinStr={};
+        var increaseStr={};
+        var adminStr={};
+		contractTopReceive.map(function(item,index){
+					var key = item.detailid;
+					var accountType=item.contactType;
+					if(accountType==2){
+					  var conJasonStre={};
+					  if(params[key+'1']&&!params[key+'3']){
+                         conJasonStre['1'] = params[key+'1'];
+                         joinStr[key]=conJasonStre
+						 delete params[key+'1'];
+					  }else if(params[key+'3']&&!params[key+'1']){
+					  	 conJasonStre['3'] = params[key+'3'];
+					  	 joinStr[key]=conJasonStre
+						 delete params[key+'3'];
+					  }else if(params[key+'3']&&params[key+'1']){
+					  	 conJasonStre['3'] = params[key+'3'];
+					  	 conJasonStre['1'] = params[key+'1'];
+					  	 joinStr[key]=conJasonStre
+						 delete params[key+'3'];
+						 delete params[key+'1'];
+					  }
+					   
+					}
+					if(accountType==3){
+						 var conJasonStre={};
+					  if(params[key+'1']&&!params[key+'3']){
+                         conJasonStre['1'] = params[key+'1'];
+                         increaseStr[key]=conJasonStre
+						 delete params[key+'1'];
+					  }else if(params[key+'3']&&!params[key+'1']){
+					  	 conJasonStre['3'] = params[key+'3'];
+					  	 increaseStr[key]=conJasonStre
+						 delete params[key+'3'];
+					  }else if(params[key+'3']&&params[key+'1']){
+					  	 conJasonStre['3'] = params[key+'3'];
+					  	 conJasonStre['1'] = params[key+'1'];
+					  	 increaseStr[key]=conJasonStre	 
+						 delete params[key+'3'];
+						 delete params[key+'1'];
+					  }
+					   
+					}
+					if(accountType==4){
+						var conJasonStre={};
+					  if(params[key+'1']&&!params[key+'3']){
+                         conJasonStre['1'] = params[key+'1'];
+                         adminStr[key]=conJasonStre	
+						 delete params[key+'1'];
+					  }else if(params[key+'3']&&!params[key+'1']){
+					  	 conJasonStre['3'] = params[key+'3'];
+					  	 adminStr[key]=conJasonStre	
+						 delete params[key+'3'];
+					  }else if(params[key+'3']&&params[key+'1']){
+					  	 conJasonStre['3'] = params[key+'3'];
+					  	 conJasonStre['1'] = params[key+'1'];
+					  	 adminStr[key]=conJasonStre	
+						 delete params[key+'3'];
+						 delete params[key+'1'];
+					  }
+					   
+					}
+					if(accountType==1){
+						var conJasonStre={};
+					  if(params[key+'2']){
+                         conJasonStre['2'] = params[key+'2'];
+                         intentStr[key]=conJasonStre	
+						 delete params[key+'2'];
+					  }
+					   
+					}
+					 
+			});
+         
+        
 		let {totalPayment} = params;
 		let liveMoneyValue = this.state.liveMoneyValue;
-		if(liveMoneyValue<0 || !totalPayment ){
+		if(liveMoneyValue<0 || !totalPayment){
 			Message.error('回款总额金额不对应');
 			return ;
 		}
 
-        var conJasonStr1={};
-        var conJasonStr2={};
-        var conJasonStr3={};
-        var conJasonStr4={};
-		if(params.l226l2){
-          conJasonStr1={'226':{'2':params.l226l2}}
-          delete params.l226l2;
+		params.conJasonStr={intentStr,joinStr,increaseStr,adminStr}
 
-		}
-		if(params.l227l1&&!params.l227l3){
-          conJasonStr2={'227':{'1':params.l227l1}}
-		  delete params.l227l1;
-		}else if(params.l227l3&&!params.l227l1){
-          conJasonStr2={'227':{'3':params.l227l3}}
-		  delete params.l227l3;
-		}else if(params.l227l1&&params.l227l3){
-          conJasonStr2={'227':{'1':params.l227l1,'3':params.l227l3}}
-          delete params.l227l3;
-		  delete params.l227l1;
-		}
-		if(params.l228l1&&!params.l228l3){
-          conJasonStr3={'228':{'1':params.l228l1}}
-		  delete params.l228l1;
-		}else if(params.l228l3&&!params.l228l1){
-          conJasonStr3={'228':{'3':params.l228l3}}
-		  delete params.l228l3;
-		}else if(params.l228l1&&params.l228l3){
-          conJasonStr3={'228':{'1':params.l228l1,'3':params.l228l3}}
-          delete params.l228l3;
-		  delete params.l228l1;
-		}
-		if(params.l230l1&&!params.l230l3){
-          conJasonStr4={'230':{'1':params.l230l1}}
-		  delete params.l230l1;
-		}else if(params.l230l3&&!params.l230l1){
-          conJasonStr4={'230':{'3':params.l230l3}}
-		  delete params.l230l3;
-		}else if(params.l230l1&&params.l230l3){
-          conJasonStr4={'230':{'1':params.l230l1,'3':params.l230l3}}
-          delete params.l230l3;
-		  delete params.l230l1;
-		}
-		params.conJasonStr={conJasonStr1,conJasonStr2,conJasonStr3,conJasonStr4}
 
-		params.conJasonStr = Object.assign({},conJasonStr1,conJasonStr2,conJasonStr3,conJasonStr4);
-		let {accountDetail} = this.state;
+		params.conJasonStr = Object.assign({},intentStr,joinStr,increaseStr,adminStr);
+		
+		console.log('555ttttttt',params.conJasonStr);
+
 		params = Object.assign({}, params);
 			params.propJasonStr = {};
 			accountDetail.map(function(item,index){
@@ -647,6 +691,7 @@ export default class AttributeSetting extends Component {
 		params.operatedate= dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
 		params.propJasonStr = JSON.stringify(params.propJasonStr);
 		params.conJasonStr = JSON.stringify(params.conJasonStr);
+		 console.log('555ttttttt',params.conJasonStr)
         
         if(params.propJasonStr=='{}'&&params.conJasonStr=='{}'){
         	Message.error('回款金额和订单金额不能都为空');
@@ -657,9 +702,9 @@ export default class AttributeSetting extends Component {
 		Store.dispatch(Actions.callAPI('returnMoneyNew', {}, params)).then(function(response) {
 			_this.refresh();
 			_this.setState({
-			 openRight: !this.state.openRight,
+			 openRight: !_this.state.openRight,
 			 isLoading: true,
-		});
+		 });
 		}).catch(function(err) {
 			 Message.error(err.message);
 		});
@@ -674,7 +719,7 @@ export default class AttributeSetting extends Component {
 		Store.dispatch(Actions.callAPI('payBack', {}, params)).then(function(response) {
 			_this.refresh();
 		  _this.setState({
-			openQuitBtn: !this.state.openQuitBtn,
+			openQuitBtn: !_this.state.openQuitBtn,
 			isLoading: true
 		  });
 		}).catch(function(err) {
@@ -688,7 +733,7 @@ export default class AttributeSetting extends Component {
 		Store.dispatch(Actions.callAPI('transToDeposit', {}, params)).then(function(response) {
 			_this.refresh();
 			_this.setState({
-			openSwitchBtn: !this.state.openSwitchBtn,
+			openSwitchBtn: !_this.state.openSwitchBtn,
 			isLoading: true
 		});
 		}).catch(function(err) {
@@ -703,7 +748,7 @@ export default class AttributeSetting extends Component {
 		Store.dispatch(Actions.callAPI('transToOperateIncome', {}, params)).then(function(response) {
 			_this.refresh();
 			_this.setState({
-			openBusinessBtn: !this.state.openBusinessBtn,
+			openBusinessBtn: !_this.state.openBusinessBtn,
 			isLoading: true
 		});
 		}).catch(function(err) {
@@ -729,11 +774,11 @@ export default class AttributeSetting extends Component {
 		//delete params.stationPaymentName;
 		params.propJasonStr = JSON.stringify(params.propJasonStr);
 		var _this = this;
-		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd");
+		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
 		Store.dispatch(Actions.callAPI('onNewAccountg', {}, params)).then(function() {
 			_this.refresh();
 			_this.setState({
-			openAddaccountBtn: !this.state.openAddaccountBtn,
+			openAddaccountBtn: !_this.state.openAddaccountBtn,
 			isLoading: true,
 		})
 		}).catch(function(err) {
@@ -748,7 +793,7 @@ export default class AttributeSetting extends Component {
 			})).then(function(response) {
 				_this.refresh();
 				_this.setState({
-				openSupplementBtn: !this.state.openSupplementBtn,
+				openSupplementBtn: !_this.state.openSupplementBtn,
 				isLoading: true
 			 })
 			}).catch(function(err) {
@@ -776,11 +821,11 @@ export default class AttributeSetting extends Component {
 			});
 		params.propJasonStr = JSON.stringify(params.propJasonStr);
 		var _this = this;
-		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd");
+		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
 		Store.dispatch(Actions.callAPI('transferPayment', {}, params)).then(function() {
 			_this.refresh();
 			_this.setState({
-			openShift: !this.state.openShift,
+			openShift: !_this.state.openShift,
 			isLoading: true,
 		})
 		}).catch(function(err) {
@@ -1123,7 +1168,6 @@ export default class AttributeSetting extends Component {
 		}
 		if (parentBtn == 'PAYMENT' && childBtn == 'yajin') {
 			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-       	   	  <Button label="转押金"  type="button"  joinEditForm onTouchTap={this.openSwitchBtn}/>
        	   	  <Button label="转营收"  type="button"  joinEditForm onTouchTap={this.openBusinessBtn}/>
        	   	  <Button label="退款"  type="button"  joinEditForm onTouchTap={this.openQuitBtn}/>
        	   	   <Button label="转移"   type="button"  onTouchTap={this.openShiftBtn}/></ButtonGroup>);
