@@ -48,25 +48,43 @@ export default class JoinPrint extends Component {
 		Store.dispatch(Actions.switchSidebarNav(false));
 
 	}
+	getLocalTime = (beginDate) => {
+		var now = new Date(beginDate);
+		var yy = now.getFullYear(); //年
+		var mm = now.getMonth() + 1; //月
+		var dd = now.getDate(); //日
+		return (yy + "年" + mm + "月" + dd + "日")
 
+
+	}
 	render() {
 
 		return (
+			<div className="g-exit-print">
+				<div className="print-section no-print-section" >
+				<Agreement.Print.Header 
+					baseInfo={State.Baseinfo} 
+					orderInfo="入驻服务协议"
+				/>
+				<Agreement.Print.BaseInfo baseInfo={State.Baseinfo}/>
 
-			<div className="print-section no-print-section" >
-			<Agreement.Print.Header baseInfo={State.Baseinfo} orderInfo="入驻服务协议"/>
-			<Agreement.Print.BaseInfo baseInfo={State.Baseinfo}/>
+				<Agreement.Print.Station 
+					orderTime={false} 
+					stationVOs={State.stationVOs} baseType={`双方一致同意，自 ${this.getLocalTime(State.Baseinfo.leaseBegindate)}起减少`} 
+					baseInfo={State.Baseinfo}
+				/>
+				
+				<div className="print-text">
+					<span>双方其他约定内容：</span>
+					<span className="border-b one-text"></span>
+					<span className="border-b two-text"></span>
+					<span className="border-b three-text"></span>
+					<span className="border-b four-text"></span>
+				</div>
+				<Agreement.Print.Footer/>
 
-			<Agreement.Print.Station orderTime={false} stationVOs={State.stationVOs} baseType="入驻信息" baseInfo={State.Baseinfo}/>
-			<Agreement.Print.Payment baseInfo={State.Baseinfo} installmentPlans={State.installmentPlans} installmentPlansList={State.installmentPlansList}/>
-			<div className="print-text">
-				<span>双方其他约定内容：</span>
-				<span className="border-b one-text"></span>
-				<span className="border-b two-text"></span>
-			</div>
-			<Agreement.Print.Footer/>
-
-      		</div>
+	      		</div>
+	      	</div>
 
 		);
 	}
