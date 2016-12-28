@@ -23,11 +23,11 @@
 
  export default class Baseinfo extends Component {
  	static defaultProps = {
- 		Baseinfo: {},
+ 		baseInfo: {},
  	}
 
  	static propTypes = {
- 		Baseinfo: React.PropTypes.object,
+ 		baseInfo: React.PropTypes.object,
  	}
  	constructor(props, context) {
  		super(props, context);
@@ -37,7 +37,7 @@
 
  	render() {
  		let {
- 			Baseinfo
+ 			baseInfo
  		} = this.props;
  		return (
 
@@ -45,16 +45,16 @@
 				<div className="baseinfo">基础信息</div>
 				<div className="baseinfo-content">
 					<div className="infolist">
-						<div>服务提供方（甲方）：{Baseinfo.lessorName}</div>
-						<div>地址：{Baseinfo.lessorAddress}</div>
-						<div>联系人：{Baseinfo.lessorContact}</div>
-						<div>联系电话：{Baseinfo.lessorContacttel}</div>
+						<div>服务提供方（甲方）：{baseInfo.lessorName}</div>
+						<div>地址：{baseInfo.lessorAddress}</div>
+						<div>联系人：{baseInfo.lessorContact}</div>
+						<div>联系电话：{baseInfo.lessorContacttel}</div>
 					</div>
 					<div className="infolist">
-						<div>服务接收方（乙方）：{Baseinfo.leaseName}</div>
-						<div>地址：{Baseinfo.leaseAddress}</div>
-						<div>联系人：{Baseinfo.leaseContact}</div>
-						<div>联系电话：{Baseinfo.leaseContacttel}</div>
+						<div>服务接收方（乙方）：{baseInfo.leaseName}</div>
+						<div>地址：{baseInfo.leaseAddress}</div>
+						<div>联系人：{baseInfo.leaseContact}</div>
+						<div>联系电话：{baseInfo.leaseContacttel}</div>
 					</div>
 				</div>
 			</div>
