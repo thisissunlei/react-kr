@@ -187,7 +187,7 @@ export default class Payment extends Component {
 							<span>其他{payModelList && payModelList.flag && payModel==payModelList.id?`-${payModelList.dicName}`:" "}</span>
 						</div>
 						<div className="method-list">
-							<span className={payModelList && payModel==payModelList.id?"checked":"discheck"}></span>
+							<span className={payModelList && !payModelList.flag && payModel==payModelList.id?"checked":"discheck"}></span>
 							<span>转账</span>
 						</div>
 
