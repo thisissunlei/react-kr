@@ -398,7 +398,7 @@ export default class AttributeSetting extends Component {
 		} else if (fiMoney >= 0) {
 			 Message.error('金额必须为负且存在可用金额');
 		} else {
-			//this.getMoneyALLTrue();
+			this.getMoneyALLTrue();
 			this.setState({
 				openBusinessBtn: !this.state.openBusinessBtn
 			});
