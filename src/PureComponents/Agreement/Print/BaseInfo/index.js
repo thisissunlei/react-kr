@@ -4,6 +4,7 @@
  import {
  	connect
  } from 'react-redux';
+
  import {
  	KrField,
  	Table,
@@ -20,6 +21,7 @@
  	Col,
  } from 'kr-ui';
  import './index.less';
+
 
  export default class Baseinfo extends Component {
  	static defaultProps = {

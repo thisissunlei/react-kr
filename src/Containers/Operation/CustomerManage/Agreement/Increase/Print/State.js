@@ -11,12 +11,6 @@ import {
 } from 'kr/Redux';
 
 let State = observable({
-	name: 'dd',
-	values: {},
-	fields: {},
-	initialValues: {},
-	syncErrors: {},
-	validations: {},
 	data: [],
 	installmentPlans: [],
 	Baseinfo: {},

@@ -50,13 +50,11 @@ export default class IncreasePrint extends Component {
 	}
 
 	render() {
-
 		return (
 
 			<div className="print-section no-print-section" >
 			<Agreement.Print.Header baseInfo={State.Baseinfo} orderInfo="入驻服务协议补充协议(增加)"/>
 			<Agreement.Print.BaseInfo baseInfo={State.Baseinfo}/>
-
 			<Agreement.Print.Station orderTime={false} stationVOs={State.stationVOs} baseType="增加入驻信息如下" baseInfo={State.Baseinfo}/>
 			<Agreement.Print.Payment baseInfo={State.Baseinfo} installmentPlans={State.installmentPlans} installmentPlansList={State.installmentPlansList}/>
 			<div className="print-text">
@@ -65,7 +63,7 @@ export default class IncreasePrint extends Component {
 				<span className="border-b two-text"></span>
 			</div>
 			<Agreement.Print.Footer/>
-
+			
       		</div>
 
 		);
