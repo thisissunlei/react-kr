@@ -72,6 +72,7 @@ export default class JoinPrint extends Component {
 					orderTime={false} 
 					stationVOs={State.stationVOs} baseType={`双方一致同意，自 ${this.getLocalTime(State.Baseinfo.leaseBegindate)}起减少`} 
 					baseInfo={State.Baseinfo}
+					info="减少费用总计"
 				/>
 				
 				<div className="print-text">

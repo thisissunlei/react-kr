@@ -24,7 +24,8 @@ import {
 export default class Station extends Component {
 	static defaultProps = {
 		data: [],
-		baseTimeBegin:false,
+		baseTimeBegin: false,
+		info: '服务费总计'
 	}
 
 	static propTypes = {
@@ -34,6 +35,7 @@ export default class Station extends Component {
 		baseInfo: React.PropTypes.object,
 		baseType: React.PropTypes.string,
 		baseTimeBegin: React.PropTypes.bool,
+		info: React.PropTypes.string,
 	}
 	constructor(props, context) {
 		super(props, context);
@@ -47,13 +49,13 @@ export default class Station extends Component {
 		} else if (stationTypeName == 2) {
 			return "会议室"
 		}
-}
-	getLocalTime=(beginDate)=>{
-	   var now = new Date(beginDate);
-			var yy = now.getFullYear();      //年
-			var mm = now.getMonth() + 1;     //月
-			var dd = now.getDate();          //日
-			return (yy+"年"+mm+"月"+dd+"日")
+	}
+	getLocalTime = (beginDate) => {
+		var now = new Date(beginDate);
+		var yy = now.getFullYear(); //年
+		var mm = now.getMonth() + 1; //月
+		var dd = now.getDate(); //日
+		return (yy + "年" + mm + "月" + dd + "日")
 
 
 	}
@@ -66,6 +68,7 @@ export default class Station extends Component {
 			installmentPlans,
 			baseType,
 			baseTimeBegin,
+			info
 		} = this.props
 
 		return (
@@ -104,7 +107,7 @@ export default class Station extends Component {
 
 							</tbody>
 						</table>
-						<p className="station-bottom"><span>服务费总计</span><span>{baseInfo.rentTotal}</span><span>{baseInfo.rentTotalCN}</span>{this.props.orderTime && <span>(签署意向书后5个工作日内支付)</span>}</p>
+						<p className="station-bottom"><span>{info}</span><span>{baseInfo.rentTotal}</span><span>{baseInfo.rentTotalCN}</span>{this.props.orderTime && <span>(签署意向书后5个工作日内支付)</span>}</p>
 
 					</div>
 
