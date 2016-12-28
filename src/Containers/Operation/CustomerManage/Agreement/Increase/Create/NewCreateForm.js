@@ -141,7 +141,6 @@ class NewCreateForm extends Component {
 				boardroomnum++;
 			}
 		});
-
 		Store.dispatch(change('increaseCreateForm', 'stationnum', stationnum));
 		Store.dispatch(change('increaseCreateForm', 'boardroomnum', boardroomnum));
 	}
@@ -582,6 +581,7 @@ class NewCreateForm extends Component {
 					<KrField  grid={1/2}  name="contracttype" type="hidden" component="input" />
 					<KrField  grid={1/2}  name="paymodelName" type="hidden" component="input" />
 					<KrField  grid={1/2}  name="paytypeName" type="hidden" component="input" />
+					<KrField  grid={1/2}  name="boardroomnum" type="hidden" component="input" />
 
 					<KrField  name="leaseId" style={{width:370,marginLeft:70}} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}  />
 					<KrField  style={{width:370,marginLeft:90}}  name="lessorAddress" type="text" inline={false} component="labelText" label="地址" value={changeValues.lessorAddress}  defaultValue="无" />
@@ -630,7 +630,7 @@ class NewCreateForm extends Component {
 
 
 					<KrField style={{width:370,marginLeft:70}}  name="stationnum"  component="labelText"  label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>
-					<KrField style={{width:370,marginLeft:90}}  name="boardroomnum"  component="labelText"  label="租赁会议室" value={changeValues.station} defaultValue="0" requireLabel={true} inline={false}/>
+					<KrField  style={{width:370,marginLeft:90}} name="boardroomnum" component="labelText" type="text" label="租赁会议室" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/>
 
 					
 
