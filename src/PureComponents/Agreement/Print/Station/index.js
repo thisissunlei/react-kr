@@ -22,11 +22,6 @@ import {
 } from 'kr-ui';
 
 export default class Station extends Component {
-
-	constructor(props, context) {
-		super(props, context);
-
-	}
 	static defaultProps = {
 		data: [],
 		baseTimeBegin:false,
@@ -40,6 +35,11 @@ export default class Station extends Component {
 		baseType: React.PropTypes.string,
 		baseTimeBegin: React.PropTypes.bool,
 	}
+	constructor(props, context) {
+		super(props, context);
+
+	}
+
 
 	BasicType = (stationTypeName) => {
 		if (stationTypeName == 1) {
@@ -47,14 +47,14 @@ export default class Station extends Component {
 		} else if (stationTypeName == 2) {
 			return "会议室"
 		}
-
+}
 	getLocalTime=(beginDate)=>{
 	   var now = new Date(beginDate);
 			var yy = now.getFullYear();      //年
 			var mm = now.getMonth() + 1;     //月
 			var dd = now.getDate();          //日
 			return (yy+"年"+mm+"月"+dd+"日")
-	
+
 
 	}
 
@@ -117,5 +117,4 @@ export default class Station extends Component {
 
 		);
 	}
-
 }
