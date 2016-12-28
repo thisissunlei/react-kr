@@ -262,8 +262,10 @@ export default class AttributeSetting extends Component {
 		typeList = [];
 		codeList = [];
 	}
-	openReceivedBtn() {
-		Store.dispatch(initialize('receivedBtnForm',{operatedate:'',mainbillId:this.props.params.orderId,preCode:'1'}));
+	openReceivedBtn(){
+
+		this.receivedBtnFormChangeValues={}
+
 		var _this = this;
 		Store.dispatch(Actions.callAPI('getPaymentActData', {
 			mainbillId: _this.props.params.orderId
@@ -300,6 +302,7 @@ export default class AttributeSetting extends Component {
 		 this.setState({
 			 openRight:!this.state.openRight
 		  });
+
 
 	}
 	openQuitBtn() {
@@ -584,10 +587,11 @@ export default class AttributeSetting extends Component {
 		//回款提交
 	onAddReceivedSubmit(params) {
 
-        console.log('fff888888',params);
+		console.log('444------666',params);
+
         let {accountDetail,contractTopReceive} = this.state;
 		params = Object.assign({},params);
-        
+        params.mainbillId=this.props.params.orderId
         var intentStr={};
         var joinStr={};
         var increaseStr={};
@@ -673,11 +677,8 @@ export default class AttributeSetting extends Component {
 		}
 
 		params.conJasonStr={intentStr,joinStr,increaseStr,adminStr}
-
-
 		params.conJasonStr = Object.assign({},intentStr,joinStr,increaseStr,adminStr);
 		
-		console.log('555ttttttt',params.conJasonStr);
 
 		params = Object.assign({}, params);
 			params.propJasonStr = {};
@@ -691,7 +692,6 @@ export default class AttributeSetting extends Component {
 		params.operatedate= dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
 		params.propJasonStr = JSON.stringify(params.propJasonStr);
 		params.conJasonStr = JSON.stringify(params.conJasonStr);
-		 console.log('555ttttttt',params.conJasonStr)
         
         if(params.propJasonStr=='{}'&&params.conJasonStr=='{}'){
         	Message.error('回款金额和订单金额不能都为空');
@@ -708,8 +708,6 @@ export default class AttributeSetting extends Component {
 		}).catch(function(err) {
 			 Message.error(err.message);
 		});
-		
-
 
 	}
 	onQuitSubmit(params) {
@@ -1074,8 +1072,9 @@ export default class AttributeSetting extends Component {
 
     iconClose=()=>{
      this.setState({
-		 openRight:!this.state.openRight
+		 openRight:!this.state.openRight,
 	  });
+      this.receivedBtnFormChangeValues={}
     }
 
    calcBalance=(input)=>{
@@ -1084,7 +1083,7 @@ export default class AttributeSetting extends Component {
    	//console.log('input',input);
 
    	this.receivedBtnFormChangeValues[input.name] = input.value;
-
+    
 
    
    	let receivedBtnFormChangeValues = this.receivedBtnFormChangeValues;
@@ -1278,12 +1277,11 @@ export default class AttributeSetting extends Component {
 				       <div>
                         <ReceiveDetailTop iconClose={this.iconClose} contractTopReceive={this.state.contractTopReceive} liveMoneyValue={this.state.liveMoneyValue}/>
                         <ReceivedBtnForm
-                         onSubmit={this.onAddReceivedSubmit}
+                          onSubmit={this.onAddReceivedSubmit}
                           onCancel={this.iconClose}
                           optionList={this.state.payWayList}
                           accountDetail={this.state.accountDetail}
                           contractReceive={this.state.contractReceive}
-                          contractTopReceive={this.state.contractTopReceive}
                           calcBalance={this.calcBalance}
                           />
                        </div>

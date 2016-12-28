@@ -63,14 +63,10 @@ class ReceivedBtnForm extends Component {
 		optionList:React.PropTypes.array,
 		accountDetail:React.PropTypes.array,
 		contractReceive:React.PropTypes.array,
-		contractTopReceive:React.PropTypes.array,
 	}
 
 	constructor(props, context) {
 		super(props, context);
-		
-
-		//Store.dispatch(reset('ReceivedBtnForm'));
 	}
 
 	componentDidMount() {
@@ -84,7 +80,9 @@ class ReceivedBtnForm extends Component {
 		Store.dispatch(initialize('receivedBtnForm', initialValues));
 
 	}
-
+     componentWillMount(){
+     	console.log('44444');
+     }
 
 	onSubmit=(values)=> {
 		const {
@@ -178,10 +176,8 @@ class ReceivedBtnForm extends Component {
 			reset,
 			optionList,
 			contractReceive,
-			contractTopReceive
+			accountDetail,	
 		} = this.props;
-
-
 
 
 
@@ -216,8 +212,8 @@ class ReceivedBtnForm extends Component {
 
 
       
-
-
+      
+       
 
 		return (
           <div className='receive-form-middle'>
