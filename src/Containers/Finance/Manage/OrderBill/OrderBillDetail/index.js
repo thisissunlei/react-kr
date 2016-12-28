@@ -226,6 +226,7 @@ export default class AttributeSetting extends Component {
 			isInitLoading: true,
 			openView: false,
 			openRight:false,
+			openContract:false,
             colorClassName:'',
             isRunningIncome:0,
             
@@ -1122,6 +1123,12 @@ export default class AttributeSetting extends Component {
       this.receivedBtnFormChangeValues={}
     }
 
+    contractContinue=()=>{
+       this.setState({
+		 openContract:!this.state.openContract
+	  });
+    }
+
    calcBalance=(input)=>{
 
 
@@ -1318,9 +1325,9 @@ export default class AttributeSetting extends Component {
 					   <SearchForm onCancel={this.closeSearchDialog} initialValues={searchValue} codeList={this.state.codeList} typeList={this.state.typeList} onSubmit={this.onSubmit}/>
 					 </Dialog>
 
-				      <Drawer open={this.state.openRight} width={650} openSecondary={true}>
+				      <Drawer open={this.state.openRight} width={650} openSecondary={true} className='m-finance-drawer' containerStyle={{top:60,paddingBottom:228}}>
 				       <div>
-                        <ReceiveDetailTop iconClose={this.iconClose} contractTopReceive={this.state.contractTopReceive} liveMoneyValue={this.state.liveMoneyValue}/>
+                        <ReceiveDetailTop iconClose={this.iconClose} contractTopReceive={this.state.contractTopReceive} liveMoneyValue={this.state.liveMoneyValue} contractContinue={this.contractContinue}/>
                         <ReceivedBtnForm
                           onSubmit={this.onAddReceivedSubmit}
                           onCancel={this.iconClose}
@@ -1394,6 +1401,8 @@ export default class AttributeSetting extends Component {
 						>
 						<ViewForm detail={this.state.itemDetail}  />
 					 </Dialog>
+
+					 
 
 			</div>
 		);

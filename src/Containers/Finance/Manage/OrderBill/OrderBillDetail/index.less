@@ -37,7 +37,7 @@
   padding-bottom:30px;
 }
 .ui-length-textarea{
-  padding-right:15px !important;
+  padding-right:50px !important;
 }
 .historyIncome{
   position:absolute !important;
@@ -148,6 +148,15 @@
         }
       }
     }
+/*.admin-ul .receiveTopContract,
+.joinBook ul .receiveTopContract,
+{
+   color:#499df1;
+   cursor:pointer;
+}
+.joinBook ul:nth-child(2) .topContract{
+   color:#499df1;
+}*/
     .admin-ul,.joinBook ul:nth-child(2){
       padding:0;
       margin:0;
@@ -207,20 +216,24 @@
 }
 
 .receive-form-middle .ui-group-checkbox>div{
+      margin:3px 0;
      &:last-child{
        width:600px;
+       .ui-checkbox{
+         margin-bottom:11px;
+       }
      }
-   
 }
 .leftBottomValue,.rightBottomValue{
    display:inline-block;
+   .ui-form-item{
+      margin-top:-3px;
+   }
 }
 .rightBottomValue{
   margin-left:28px;
 }
-.receiveTopContract{
-   color:#499df1;
-}
+
 .financeDetail-hover .top-arrow{
    &:after{
      border-top:none;
@@ -231,6 +244,11 @@
 }
 .ui-length-text{
   margin-right:60px;
+}
+.m-textareaText{
+   margin-left:-10px;
+   width:600px;
+   margin-top:-3px;
 }
 
 

@@ -116,7 +116,7 @@ class ReceivedBtnForm extends Component {
   
   joinInputRender=()=>{
   	return (
-          <div style={{width:600,marginTop:10}}>
+          <div style={{width:600,marginTop:8}} className='m-tenantStation'>
               <KrField  label="押金"  grid={1/2}  name={joinContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance}/>
               <KrField label="工位服务费"  grid={1/2} name={joinContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance}/>
           </div>
@@ -124,7 +124,7 @@ class ReceivedBtnForm extends Component {
   }
   increaseInputRender=()=>{
   	return (
-          <div style={{width:600,marginTop:10}}>
+          <div style={{width:600,marginTop:8}} className='m-tenantStation'>
               <KrField  label="押金"  grid={1/2}  name={increaseContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance}/>
               <KrField label="工位服务费"  grid={1/2} name={increaseContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance}/>
           </div>
@@ -132,7 +132,7 @@ class ReceivedBtnForm extends Component {
   }
   adminInputRender=()=>{
   	return (
-          <div style={{width:600,marginTop:10}}>
+          <div style={{width:600,marginTop:8}} className='m-tenantStation'>
               <KrField  label="押金"  grid={1/2}  name={adminContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance}/>
               <KrField label="工位服务费"  grid={1/2} name={adminContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance}/>
           </div>
@@ -150,16 +150,29 @@ class ReceivedBtnForm extends Component {
   receiveInputRender=()=>{
   	        let {accountDetail}=this.props;
              var _this=this;
-             var accountTail=accountDetail.map(function(item,index){
+
+
+		let heightStyle = {
+			width: '546',
+			height: '72'
+		}
+
+              return (
+              	    <div>
+              	       {
+              	       	accountDetail.map(function(item,index){
 						      	if(index%2==0){
 									return <div className='leftBottomValue'><KrField key={index} style={{marginBottom:5,width:261,marginLeft:-9}}  grid={1/2}   label={item.propname} component="input" name={item.id} type="text" onChange={_this.calcBalance}/></div>
 						      	}else{
 						      		return <div className='rightBottomValue'><KrField key={index} style={{marginBottom:5,width:261}} grid={1/2}   label={item.propname}  component="input" name={item.id} type="text" onChange={_this.calcBalance}/></div>
-				   }
-			     }
-               )
-
-            return accountTail;
+						   }
+					     }
+		               )
+              	       }
+              	       <div className='m-textareaText'><KrField label="备注" grid={1}  heightStyle={heightStyle} name="finaflowdesc" component="textarea" type="text" placeholder='请输入备注，输入字数不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/></div>
+              	    </div>
+              	  )
+              
 
   }
   
@@ -182,10 +195,6 @@ class ReceivedBtnForm extends Component {
 
 
 
-		let heightStyle = {
-			width: '546',
-			height: '72'
-		}
 
 
       contractReceive.map(function(item,index){
@@ -232,7 +241,7 @@ class ReceivedBtnForm extends Component {
 
 						     <KrField label="上传附件" grid={1/2} left={30}  style={{marginLeft:-30}} name="fileids" component="file" />
 
-                             <KrField label="备注" grid={1}  heightStyle={heightStyle} name="finaflowdesc" component="textarea" type="text" placeholder='请输入备注，输入字数不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/>
+                            
 
 
 						   <Grid style={{marginTop:0,marginBottom:30}}>

@@ -38,7 +38,12 @@ export default class ReceiveDetailTop  extends Component{
 	iconClose && iconClose();
   }
 
- 
+ contractContinue=()=>{
+       const {
+		  contractContinue
+		} = this.props;
+		contractContinue && contractContinue();
+ }
 
 
 	render(){
@@ -48,14 +53,14 @@ export default class ReceiveDetailTop  extends Component{
 		 liveMoneyValue,
 		} = this.props;
 
-		console.log('4444wwww',contractTopReceive)
-
+		//console.log('4444wwww',contractTopReceive)
+          var _this=this;
 
 		return(
 
               <div className='ui-receive-money'>
 
-						     <div className='receiveRightClose' onClick={this.iconClose}></div>
+						     <div className='receiveRightClose' onClick={_this.iconClose}></div>
 
 			                  <div  className='finance-receive-title'>
 							   <Grid>
@@ -82,7 +87,7 @@ export default class ReceiveDetailTop  extends Component{
                                       <li>操作</li>
 			                      </ul>
 			                      {contractTopReceive.map(function(item,index){
-
+ 
                                         if(item.contactType=='1'){
                                         	return (
                                           <ul className='admin-ul' key={index}>
@@ -109,15 +114,11 @@ export default class ReceiveDetailTop  extends Component{
                                              <li>租金</li>
                                              <li>{item.totalrent}</li>
                                              <li>{item.nTotalrent}</li>
-                                             <li className='receiveTopContract'>合同</li>
+                                             <li className='receiveTopContract topContract'>合同</li>
                                            </ul>
                                           </div>
                                         	)
                                         }
-
-
-
-
 
 			                         })
 			                       }
