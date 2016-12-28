@@ -66,11 +66,11 @@ export default class Payment extends Component {
 											<td>{item.installmentAmount}</td>
 										</tr>
 										)
-								}) 
+								})
 							}
-								
+
 							</tbody>
-							
+
 						</table>
 				</div>
 			</div>
@@ -105,7 +105,7 @@ export default class Payment extends Component {
 												</div>
 											)
 										})}
-										
+
 									</div>
 								</div>
 								<div className="table-right">
@@ -139,7 +139,7 @@ export default class Payment extends Component {
 		let {
 			payModelList,
 			payModel
-		} = this.props.Baseinfo;
+		} = this.props.baseInfo;
 		var reg = /转账/g,
 			methodObj;
 		payModelList && payModelList.map((item, index) => {
@@ -160,14 +160,14 @@ export default class Payment extends Component {
 	render() {
 		let {
 			installmentPlans,
-			Baseinfo
+			baseInfo
 		} = this.props;
 		let {
 			payType,
 			payTypeList,
 			payModel,
 			payModelList
-		} = this.props.Baseinfo;
+		} = this.props.baseInfo;
 		var len = installmentPlans.length;
 		this.method();
 		return (
@@ -196,8 +196,8 @@ export default class Payment extends Component {
 							<span className={payModel==this.method()?"checked":"discheck"}></span>
 							<span>转账</span>
 						</div>
-						
-						
+
+
 					</div>
 				</div>
 				<div className="payment-content">
@@ -207,7 +207,7 @@ export default class Payment extends Component {
 					<div className="reminders">
 						注：每期服务期到期之日前15日支付下期服务费
 					</div>
-				</div>	
+				</div>
 			</div>
 		);
 	}

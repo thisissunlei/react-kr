@@ -38,40 +38,40 @@ export default class Station extends Component {
 		baseInfo: React.PropTypes.object,
 		baseType: React.PropTypes.string,
 	}
-	initBasicClass = (baseInfo) => {
-		if (baseInfo.contractType == 2) {
-			return (
-				<div className="normal-station-head">
-					<span className="enter-info">入驻信息</span>
-				</div>
-			)
-		} else if (baseInfo.contractType == 1) {
-			return (
-				<div className="normal-station-head">
-					<span className="enter-info">意向入驻信息</span>
-				</div>
-			)
-		} else if (baseInfo.contractType == 4 ) {
-			return (
-				<div className="normal-station-head">
-					<span className="enter-info">延续入驻信息如下</span>
-				</div>
-			)
-		}else if(baseInfo.contractType == 3){
-			return (
-				<div className="normal-station-head">
-					<span className="enter-info">延续入驻信息如下</span>
-				</div>
-			)
-		} else {
-			return (
-				<div className="normal-station-head">
-					<span className="enter-info">空空空空</span>
-				</div>
-			)
-
-		}
-	}
+	// initBasicClass = (baseInfo) => {
+	// 	if (baseInfo.contractType == 2) {
+	// 		return (
+	// 			<div className="normal-station-head">
+	// 				<span className="enter-info">入驻信息</span>
+	// 			</div>
+	// 		)
+	// 	} else if (baseInfo.contractType == 1) {
+	// 		return (
+	// 			<div className="normal-station-head">
+	// 				<span className="enter-info">意向入驻信息</span>
+	// 			</div>
+	// 		)
+	// 	} else if (baseInfo.contractType == 4 ) {
+	// 		return (
+	// 			<div className="normal-station-head">
+	// 				<span className="enter-info">延续入驻信息如下</span>
+	// 			</div>
+	// 		)
+	// 	}else if(baseInfo.contractType == 3){
+	// 		return (
+	// 			<div className="normal-station-head">
+	// 				<span className="enter-info">延续入驻信息如下</span>
+	// 			</div>
+	// 		)
+	// 	} else {
+	// 		return (
+	// 			<div className="normal-station-head">
+	// 				<span className="enter-info">空空空空</span>
+	// 			</div>
+	// 		)
+	//
+	// 	}
+	// }
 	BasicType = (stationTypeName) => {
 			if (stationTypeName == 1) {
 				return "工位"
@@ -90,6 +90,7 @@ export default class Station extends Component {
 			installmentPlans,
 			baseType,
 		} = this.props
+		console.log(stationVOs);
 		return (
 
 

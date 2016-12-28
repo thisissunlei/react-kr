@@ -25,12 +25,12 @@ import QRCode from 'react-qr-code';
 
 export default class Header extends Component {
 	static defaultProps = {
-		Baseinfo: {},
+		baseInfo: {},
 		orderInfo: ''
 	}
 
 	static propTypes = {
-		Baseinfo: React.PropTypes.object,
+		baseInfo: React.PropTypes.object,
 		orderInfo: React.PropTypes.string,
 	}
 	constructor(props, context) {
@@ -42,24 +42,24 @@ export default class Header extends Component {
 	render() {
 		let {
 			orderInfo,
-			Baseinfo
+			baseInfo
 		} = this.props;
-		let qRCode = Baseinfo.qRCode || "key"
+		let qRCode = baseInfo.qRCode || "key"
 		return (
 
 			<div className="ui-print-header">
 				<div className="logo-info">
 					<div className="print-logo"></div>
-		<div  className="print-code print-code-list">合同编号：{Baseinfo.contractNO}</div>
+		<div  className="print-code print-code-list">合同编号：{baseInfo.contractNO}</div>
 					<div  className="print-code">
-						<span style={{marginRight:38}}>{Baseinfo.cityName}</span>
-						<span>{Baseinfo.communityName}</span>
+						<span style={{marginRight:38}}>{baseInfo.cityName}</span>
+						<span>{baseInfo.communityName}</span>
 					</div>
 				</div>
 				<div className="print-title">{orderInfo}</div>
 				<div className="print-QRCode">
 					<QRCode value={qRCode}  size={70}/>
-				</div>	
+				</div>
 			</div>
 		);
 	}
