@@ -28,7 +28,8 @@ export default class Station extends Component {
 
 	}
 	static defaultProps = {
-		data: []
+		data: [],
+		baseTimeBegin:false,
 	}
 
 	static propTypes = {
@@ -37,6 +38,7 @@ export default class Station extends Component {
 		stationVOs: React.PropTypes.object,
 		baseInfo: React.PropTypes.object,
 		baseType: React.PropTypes.string,
+		baseTimeBegin: React.PropTypes.bool,
 	}
 
 	BasicType = (stationTypeName) => {
@@ -46,7 +48,13 @@ export default class Station extends Component {
 				return "会议室"
 			}
 		}
-
+	getLocalTime=(beginDate)=>{
+	   var now = new Date(beginDate);
+			var yy = now.getFullYear();      //年
+			var mm = now.getMonth() + 1;     //月
+			var dd = now.getDate();          //日
+			return (yy+"年"+mm+"月"+dd+"日")
+	}
 
 	render() {
 		let {
@@ -54,16 +62,16 @@ export default class Station extends Component {
 			baseInfo,
 			installmentPlans,
 			baseType,
+			baseTimeBegin,
 		} = this.props
-		console.log(stationVOs);
+
 		return (
 
 
 			<div className="print-Station">
-				{/*this.initBasicClass(baseInfo)*/}
 
 				<div className="normal-station-head">
-					<span className="enter-info">{baseType}</span>
+					<span className="enter-info">{baseType}{baseTimeBegin && <span className="right-date">日期：自{this.getLocalTime(baseInfo.leaseBegindate)}起</span>}</span>
 				</div>
 					<div className="auto-height">
 						<table>
