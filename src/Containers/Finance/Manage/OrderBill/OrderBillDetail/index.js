@@ -822,7 +822,7 @@ export default class AttributeSetting extends Component {
 		params.propJasonStr = JSON.stringify(params.propJasonStr);
 
 		  if(params.propJasonStr=='{}'){
-        	Message.error('转移金额分金额不能为空');
+        	Message.error('至少填写一项金额');
         	 return ;
            }
 
