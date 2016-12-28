@@ -401,6 +401,7 @@ class NewCreateForm extends Component {
 			var obj = {};
 			obj.id = item.stationId;
 			obj.type = item.stationType;
+			obj.whereFloor = item.whereFloor;
 			return obj;
 		});
 
@@ -435,17 +436,25 @@ class NewCreateForm extends Component {
 
 	}
 
-	onIframeClose(billList) {
+	onIframeClose(billList,data) {
 		this.openStationDialog();
 		if (!billList) {
 			return;
 		}
 		var _this = this;
+		let {delStationVos} = this.state;
 		let {
 			changeValues
 		} = this.props;
 
 		let stationVos = [];
+            // delStationVos = delStationVos.concat(data.deleteData);
+            data.deleteData.map((item)=>{
+                    var obj = {};
+                    obj.stationId = item.id;
+                    obj.whereFloor = item.whereFloor;
+                    delStationVos.push(obj);
+            })
 
 		try {
 			billList.map(function(item, index) {
@@ -463,7 +472,8 @@ class NewCreateForm extends Component {
 			console.log('billList 租赁明细工位列表为空');
 		}
 		this.setState({
-			stationVos
+			stationVos,
+			delStationVos
 		}, function() {
 			this.calcStationNum();
 		});

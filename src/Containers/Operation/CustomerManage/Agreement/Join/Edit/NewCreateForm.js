@@ -379,6 +379,7 @@ class NewCreateForm extends Component {
 			var obj = {};
 			obj.id = item.stationId;
 			obj.type = item.stationType;
+			obj.whereFloor = item.whereFloor;
 			return obj;
 		});
 
@@ -412,18 +413,26 @@ class NewCreateForm extends Component {
 		});
 	}
 
-	onIframeClose(billList) {
+	onIframeClose(billList,data) {
 		this.openStationDialog();
 		if (!billList) {
 			return;
 		}
+		let {delStationVos} = this.state;
 		var _this = this;
 		let {
 			changeValues
 		} = this.props;
 
 		var stationVos = [];
-
+		console.log(billList,data);
+		// delStationVos = delStationVos.concat(data.deleteData);
+		data.deleteData.map((item)=>{
+			var obj = {};
+			obj.stationId = item.id;
+			obj.whereFloor = item.whereFloor;
+			delStationVos.push(obj);
+		})
 		try {
 			billList.map(function(item, index) {
 				var obj = {};
@@ -441,7 +450,8 @@ class NewCreateForm extends Component {
 		}
 
 		this.setState({
-			stationVos
+			stationVos,
+			delStationVos
 		}, function() {
 			this.calcStationNum();
 		});
