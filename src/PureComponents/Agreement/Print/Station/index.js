@@ -25,7 +25,8 @@ export default class Station extends Component {
 	static defaultProps = {
 		data: [],
 		baseTimeBegin: false,
-		info: '服务费总计'
+		info: '服务费总计',
+		reduceTh: '减租期限',
 	}
 
 	static propTypes = {
@@ -36,6 +37,7 @@ export default class Station extends Component {
 		baseType: React.PropTypes.string,
 		baseTimeBegin: React.PropTypes.bool,
 		info: React.PropTypes.string,
+		reduceTh: React.PropTypes.string,
 	}
 	constructor(props, context) {
 		super(props, context);
@@ -68,7 +70,8 @@ export default class Station extends Component {
 			installmentPlans,
 			baseType,
 			baseTimeBegin,
-			info
+			info,
+			reduceTh,
 		} = this.props
 
 		return (
@@ -83,7 +86,7 @@ export default class Station extends Component {
 						<table>
 							<tbody>
 								<tr>
-									<th>类别</th><th>编号/名称</th><th>单价(元/月)</th><th>数量</th><th>服务期限</th><th>小计</th><th>备注</th>
+									<th>类别</th><th>编号/名称</th><th>单价(元/月)</th><th>数量</th><th>{reduceTh}</th><th>小计</th><th>备注</th>
 								</tr>
 
 							{
