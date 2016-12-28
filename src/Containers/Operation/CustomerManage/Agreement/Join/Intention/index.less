@@ -17,3 +17,33 @@
 	font-family: "[FZLTHJW -GB1-0]";
 	font-size: 14px;
 }
+@media print
+{
+
+    .no-print-section
+    {
+       margin-top:-1px;
+    }
+
+    .container{
+    	margin:0 !important;
+    	padding:0  !important;
+    }
+    div{
+    	margin-bottom:0  !important;
+    }
+    .g-footer{
+    	height:0 !important;
+    }
+    body{
+
+   	background:#ffffff !important;
+
+
+   }
+
+   @page {
+      size: 210mm 297mm;
+      margin:8%;
+   }
+}

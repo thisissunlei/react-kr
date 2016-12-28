@@ -36,7 +36,7 @@ State.getBasicInfo = action(function(params) {
 			_this.stationVOs = response.stationVOs;
 		} else {
 			var stationVOs = response.stationVOs;
-			for (var i = 0, len = 6 - stationVOs.length; i < len; i++) {
+			for (var i = 0, len = 7 - stationVOs.length; i < len; i++) {
 				var obj = {
 					leaseDate: " ",
 					lineTotal: " ",
