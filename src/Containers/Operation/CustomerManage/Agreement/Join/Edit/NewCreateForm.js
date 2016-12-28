@@ -427,7 +427,7 @@ class NewCreateForm extends Component {
 		var stationVos = [];
 		console.log(billList,data);
 		// delStationVos = delStationVos.concat(data.deleteData);
-		data.deleteData.map((item)=>{
+		data.deleteData && data.deleteData && data.deleteData.map((item)=>{
 			var obj = {};
 			obj.stationId = item.id;
 			obj.whereFloor = item.whereFloor;

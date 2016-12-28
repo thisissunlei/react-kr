@@ -449,7 +449,7 @@ class NewCreateForm extends Component {
 
 		let stationVos = [];
             // delStationVos = delStationVos.concat(data.deleteData);
-            data.deleteData.map((item)=>{
+            data.deleteData && data.deleteData.map((item)=>{
                     var obj = {};
                     obj.stationId = item.id;
                     obj.whereFloor = item.whereFloor;

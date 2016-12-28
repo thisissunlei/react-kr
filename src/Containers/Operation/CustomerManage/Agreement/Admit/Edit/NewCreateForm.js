@@ -405,7 +405,7 @@ class NewCreateForm extends Component {
 		let {
 			changeValues
 		} = this.props;
-        data.deleteData.map((item)=>{
+        data.deleteData && data.deleteData.map((item)=>{
                 var obj = {};
                 obj.stationId = item.id;
                 obj.whereFloor = item.whereFloor;
