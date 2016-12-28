@@ -54,7 +54,7 @@ export default class Station extends Component {
 			var mm = now.getMonth() + 1;     //月
 			var dd = now.getDate();          //日
 			return (yy+"年"+mm+"月"+dd+"日")
-	}
+	
 
 	}
 
