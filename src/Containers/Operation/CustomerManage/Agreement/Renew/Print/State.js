@@ -27,10 +27,9 @@ let State = observable({
 //action
 State.getBasicInfo = action(function(params) {
 	var _this = this;
-	Store.dispatch(Actions.callAPI('intentletter-print-info', {
+	Store.dispatch(Actions.callAPI('checkinagreement-print-info', {
 		contractId: params.id
 	})).then(function(response) {
-		console.log(response)
 		_this.Baseinfo = response;
 		if (response.stationVOs.length >= 7) {
 			_this.stationVOs = response.stationVOs;

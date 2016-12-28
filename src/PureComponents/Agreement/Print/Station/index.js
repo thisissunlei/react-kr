@@ -35,39 +35,32 @@ export default class Station extends Component {
 		data: React.PropTypes.array,
 		orderTime: React.PropTypes.bool,
 		stationVOs: React.PropTypes.object,
-		Baseinfo: React.PropTypes.object,
+		baseInfo: React.PropTypes.object,
+		baseType: React.PropTypes.string,
 	}
-	initBasicClass = (Baseinfo) => {
-		if (Baseinfo.contractType == 2) {
+	initBasicClass = (baseInfo) => {
+		if (baseInfo.contractType == 2) {
 			return (
 				<div className="normal-station-head">
 					<span className="enter-info">入驻信息</span>
 				</div>
 			)
-		} else if (Baseinfo.contractType == 1) {
+		} else if (baseInfo.contractType == 1) {
 			return (
 				<div className="normal-station-head">
 					<span className="enter-info">意向入驻信息</span>
 				</div>
 			)
-		} else if (Baseinfo.contractType == 3 || Baseinfo.contractType == 4) {
+		} else if (baseInfo.contractType == 4 ) {
 			return (
-				<div className="supplement-station-head">
-					<div className="method-list">
-						<span className={Baseinfo.contractType==3?'checked':'discheck'}></span>
-						<span>增加</span>
-					</div>
-					<div className="method-list">
-						<span className="discheck"></span>
-						<span>减少</span>
-					</div>
-					<div className="method-list">
-						<span className={Baseinfo.contractType==4?'checked':'discheck'}></span>
-						<span>延续服务</span>
-					</div>
-
-					<span className="enter-info">入驻信息如下</span>
-					<span className="right-date">日期：自{Baseinfo.leaseBegindate}起</span>
+				<div className="normal-station-head">
+					<span className="enter-info">延续入驻信息如下</span>
+				</div>
+			)
+		}else if(baseInfo.contractType == 3){
+			return (
+				<div className="normal-station-head">
+					<span className="enter-info">延续入驻信息如下</span>
 				</div>
 			)
 		} else {
@@ -93,15 +86,19 @@ export default class Station extends Component {
 	render() {
 		let {
 			stationVOs,
-			Baseinfo,
-			installmentPlans
+			baseInfo,
+			installmentPlans,
+			baseType,
 		} = this.props
 		return (
 
 
 			<div className="print-Station">
-				{this.initBasicClass(Baseinfo)}
+				{/*this.initBasicClass(baseInfo)*/}
 
+				<div className="normal-station-head">
+					<span className="enter-info">{baseType}</span>
+				</div>
 					<div className="auto-height">
 						<table>
 							<tbody>
@@ -144,7 +141,7 @@ export default class Station extends Component {
 
 							</tbody>
 						</table>
-						<p className="station-bottom"><span>服务费总计</span><span>{Baseinfo.rentTotal}</span><span>{Baseinfo.rentTotalCN}</span>{this.props.orderTime && <span>(签署意向书后5个工作日内支付)</span>}</p>
+						<p className="station-bottom"><span>服务费总计</span><span>{baseInfo.rentTotal}</span><span>{baseInfo.rentTotalCN}</span>{this.props.orderTime && <span>(签署意向书后5个工作日内支付)</span>}</p>
 
 					</div>
 

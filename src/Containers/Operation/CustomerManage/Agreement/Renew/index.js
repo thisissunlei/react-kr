@@ -6,17 +6,5 @@ module.exports = {
 	Detail,
 	Edit,
 	Create,
+	Print,
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
