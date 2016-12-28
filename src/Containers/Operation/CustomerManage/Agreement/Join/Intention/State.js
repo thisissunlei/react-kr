@@ -20,6 +20,8 @@ let State = observable({
 	data: [],
 	installmentPlans: [],
 	Baseinfo: {},
+	stationVOs: [],
+	installmentPlansList: []
 });
 
 //action
@@ -28,17 +30,36 @@ State.getBasicInfo = action(function(params) {
 	Store.dispatch(Actions.callAPI('intentletter-print-info', {
 		contractId: params.id
 	})).then(function(response) {
-		console.log('response----', response)
-		_this.Baseinfo = response.data;
-		_this.installmentPlans = response.data.installmentPlans;
-		_this.stationVOs = response.data.stationVOs;
+		console.log(response)
+		_this.Baseinfo = response;
+		if (response.stationVOs.length >= 7) {
+			_this.stationVOs = response.stationVOs;
+		} else {
+			var stationVOs = response.stationVOs;
+			for (var i = 0, len = 6 - stationVOs.length; i < len; i++) {
+				var obj = {
+					leaseDate: " ",
+					lineTotal: " ",
+					num: " ",
+					stationName: " ",
+					stationTypeName: " ",
+					unitPrice: " "
+				}
+				stationVOs.push(obj)
+			}
+			_this.stationVOs = stationVOs;
+
+		}
+
+		_this.installmentPlans = response.installmentPlans;
+
+
 
 	}).catch(function(err) {
 
 	});
 
 
-	this.name = 'haa'
 
 });
 

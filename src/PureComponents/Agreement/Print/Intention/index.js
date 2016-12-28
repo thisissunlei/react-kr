@@ -36,8 +36,7 @@ export default class Initialize  extends Component{
 						<p>二、双方因履行本意向书发生争议，应友好协商解决;协商不成的任一方均有权向甲方所在地有管辖权的人民法院提起诉讼。</p>
 						<p>三、本意向书自甲乙双方签字、盖章(签章)且乙方交付定金后生效，一式三份，甲方执二份，乙方执一份（签署《入驻服务协议》时乙方向甲方出示），具有同等法律效力。
 						</p>
-						{/*<div className={`print-text ${stationVOs.length}==7?'fixed-height':'auto-height'`}>*/}
-						<div className=" print-text fixed-height">
+						<div className={`print-text ${stationVOs.length==6?'fixed-height':'auto-height'}`}>
 							<span>四、双方其他约定内容：</span>
 							<p className="text-content"></p>
 							<span className="border-b one-text"></span>

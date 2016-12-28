@@ -532,7 +532,7 @@ const APIS = {
    },
    //电子合同-入驻意向
    'intentletter-print-info': {
-      url: ' /api/krspace-finance-web/intentletter/print-info?contractId={contractId}',
+      url: ' /api-sh/krspace-finance-web/intentletter/print-info?contractId={contractId}',
       method: 'get'
    },
 }

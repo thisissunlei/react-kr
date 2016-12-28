@@ -21,7 +21,7 @@ export default class Initialize  extends Component{
 
 	constructor(props,context){
 		super(props, context);
-		
+
 	}
 	static defaultProps = {
 		data: []
@@ -38,6 +38,12 @@ export default class Initialize  extends Component{
 			return(
 				<div className="normal-station-head">
 					<span className="enter-info">入驻信息</span>
+				</div>
+			)
+		}else if(Baseinfo.contractType==1){
+			return(
+				<div className="normal-station-head">
+					<span className="enter-info">意向入驻信息</span>
 				</div>
 			)
 		}else if(Baseinfo.contractType==3 || Baseinfo.contractType==4){
@@ -60,6 +66,13 @@ export default class Initialize  extends Component{
 					<span className="right-date">日期：自{Baseinfo.leaseBegindate}起</span>
 				</div>
 			)
+		}else{
+			return(
+				<div className="normal-station-head">
+					<span className="enter-info">空空空空</span>
+				</div>
+			)
+
 		}
 	}
 	BasicType=(stationTypeName)=>{
