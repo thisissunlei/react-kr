@@ -370,19 +370,6 @@ export default class AttributeSetting extends Component {
 			});
 		}
 	}
-	getMoneyALLTrue=()=>{
-		var _this=this;
-		Store.dispatch(Actions.callAPI('getFlowRemainMoney', {
-				flowId: fiItem.id
-			})).then(function(response) {
-				_this.setState({
-					fiMoney:response
-				});
-			}).catch(function(err) {
-				 Message.error(err.message);
-		 });
-
-	}
 	openBusinessBtn() {
 		let items = this.state.selectedList
 		var _this = this;
@@ -398,14 +385,28 @@ export default class AttributeSetting extends Component {
 			 Message.error('只能选择一条数据');
 		} else if (fiMoney >= 0) {
 			 Message.error('金额必须为负且存在可用金额');
-		} else {
+		} else {			
 			this.getMoneyALLTrue();
 			this.setState({
-				openBusinessBtn: !this.state.openBusinessBtn
+			  openBusinessBtn: !this.state.openBusinessBtn
 			});
 		}
 	}
 
+	getMoneyALLTrue=()=>{
+		var _this=this;
+		Store.dispatch(Actions.callAPI('getFlowRemainMoney', {
+				flowId: fiItem.id
+			})).then(function(response) {
+				_this.setState({
+					fiMoney:response
+				});
+			}).catch(function(err) {
+				 Message.error(err.message);
+		 });
+
+	}
+	
 	openAccountBtn() {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('getOnNewAccountData',{
@@ -773,6 +774,12 @@ export default class AttributeSetting extends Component {
 		params.propJasonStr[contractId]=params.stationPaymentName;
 		//delete params.stationPaymentName;
 		params.propJasonStr = JSON.stringify(params.propJasonStr);
+        
+         if(params.propJasonStr=='{}'){
+        	Message.error('至少填写一项金额');
+        	 return ;
+           }
+
 		var _this = this;
 		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
 		Store.dispatch(Actions.callAPI('onNewAccountg', {}, params)).then(function() {
@@ -1190,7 +1197,7 @@ export default class AttributeSetting extends Component {
 
 
 
-		//console.log('221111',this.context.router)
+		console.log('221111',fiMoney);
 
 
 		//判断按钮出现与隐藏
@@ -1332,7 +1339,7 @@ export default class AttributeSetting extends Component {
 					   <SearchForm onCancel={this.closeSearchDialog} initialValues={searchValue} codeList={this.state.codeList} typeList={this.state.typeList} onSubmit={this.onSubmit}/>
 					 </Dialog>
 
-				      <Drawer open={this.state.openRight} width={650} openSecondary={true} className='m-finance-drawer' containerStyle={{top:60,paddingBottom:228}}>
+				      <Drawer open={this.state.openRight} width={650} openSecondary={true} className='m-finance-drawer' containerStyle={{top:60,paddingBottom:228,zIndex:20}}>
 				       <div>
                         <ReceiveDetailTop iconClose={this.iconClose} contractTopReceive={this.state.contractTopReceive} liveMoneyValue={this.state.liveMoneyValue} contractContinue={this.contractContinue}/>
                         <ReceivedBtnForm
@@ -1353,7 +1360,7 @@ export default class AttributeSetting extends Component {
 						onClose={this.closeQuitBtn}
 						contentStyle ={{ width: '688'}}
 						>
-					   <QuitBtnForm  onSubmit={this.onQuitSubmit} onCancel={this.closeQuitBtn}  initialValues={initialValuesId}/>
+					   <QuitBtnForm  onSubmit={this.onQuitSubmit} onCancel={this.closeQuitBtn}  fiMoney={fiMoney}/>
 					 </Dialog>
 
 					 <Dialog
@@ -1372,7 +1379,7 @@ export default class AttributeSetting extends Component {
 						onClose={this.closeSwitchBtn}
 						contentStyle ={{ width: '688'}}
 						>
-					   <SwitchBtnForm  onSubmit={this.onSwitchSubmit} onCancel={this.closeSwitchBtn} optionList={this.state.receivedList} initialValues={initialValuesId}/>
+					   <SwitchBtnForm  onSubmit={this.onSwitchSubmit} onCancel={this.closeSwitchBtn} optionList={this.state.receivedList}  fiMoney={fiMoney}/>
 					 </Dialog>
 
 					 <Dialog
@@ -1381,7 +1388,7 @@ export default class AttributeSetting extends Component {
 						onClose={this.closeBusinessBtn}
 						contentStyle ={{ width: '688'}}
 						>
-					   <BusinessBtnForm  onSubmit={this.onBusinessSubmit} onCancel={this.closeBusinessBtn}  initialValues={initialValuesId}/>
+					   <BusinessBtnForm  onSubmit={this.onBusinessSubmit} onCancel={this.closeBusinessBtn}  fiMoney={fiMoney}/>
 					 </Dialog>
 
 					 <Dialog
@@ -1407,6 +1414,14 @@ export default class AttributeSetting extends Component {
 						onClose={this.closeViewDialog}
 						>
 						<ViewForm detail={this.state.itemDetail}  />
+					 </Dialog>
+
+					 <Dialog
+						title="合同详情"
+						open={this.state.openContract}
+						onClose={this.contractContinue}
+						>
+						<div className='m-continueGo'>正在开发中，敬请期待...</div>
 					 </Dialog>
 
 					 

@@ -87,7 +87,7 @@ export default class ReceiveDetailTop  extends Component{
                                       <li>操作</li>
 			                      </ul>
 			                      {contractTopReceive.map(function(item,index){
- 
+    
                                         if(item.contactType=='1'){
                                         	return (
                                           <ul className='admin-ul' key={index}>
@@ -95,7 +95,7 @@ export default class ReceiveDetailTop  extends Component{
                                              <li>定金</li>
                                              <li>{item.frontmoney}</li>
                                              <li>{item.nFrontmoney}</li>
-                                             <li className='receiveTopContract'>合同</li> 
+                                             <li className='receiveTopContract' onClick={_this.contractContinue}>合同</li> 
                                           </ul>
                                         	)
                                         }
@@ -107,14 +107,14 @@ export default class ReceiveDetailTop  extends Component{
                                              <li>押金</li>
                                              <li>{item.deposit}</li>
                                              <li>{item.nDeposit}</li>
-                                             <li className='receiveTopContract'>合同</li>
+                                             <li className='receiveTopContract' onClick={_this.contractContinue}>合同</li>
                                            </ul>
                                            <ul>
                                         	 <li></li>
                                              <li>租金</li>
                                              <li>{item.totalrent}</li>
                                              <li>{item.nTotalrent}</li>
-                                             <li className='receiveTopContract topContract'>合同</li>
+                                             <li className='receiveTopContract topContract' onClick={_this.contractContinue}>合同</li>
                                            </ul>
                                           </div>
                                         	)

@@ -34,8 +34,8 @@ class SwitchBtnForm extends Component{
 	static PropTypes = {
 		onSubmit:React.PropTypes.func,
 		onCancel:React.PropTypes.func,
-		optionList:React.PropTypes.arr,
-		initialValues:React.PropTypes.object,
+		optionList:React.PropTypes.array,
+		fiMoney:React.PropTypes.number,
   }
 
 	constructor(props,context){
@@ -83,9 +83,9 @@ class SwitchBtnForm extends Component{
        	 marginTop:'-18'
        }
 
-        const { error, handleSubmit, pristine, reset,optionList,initialValues} = this.props;
+        const { error, handleSubmit, pristine, reset,optionList,fiMoney} = this.props;
 		
-
+   
         
  
 		return(
@@ -93,7 +93,7 @@ class SwitchBtnForm extends Component{
 			    <div className='ui-switch-wrap'>                 
 					      <form onSubmit={handleSubmit(this.onSubmit)}>                           
 						    <KrField  name="id" type="hidden"/>
-						    <KrField grid={1/2} label="可操作金额" right={29}  component="labelText" value={initialValues.fiMoney} defaultValue="无" inline={false}/>
+						    <KrField grid={1/2} label="可操作金额" right={29}  component="labelText" value={fiMoney} defaultValue="无" inline={false}/>
                             <KrField grid={1/2} label="合同编号" right={43} name="contractcodeId" type="select" options={optionList} requireLabel={true} style={{marginLeft:-9}}/>
                             <KrField grid={1/2} label="上传附件" style={{marginLeft:-5}} name="fileids" component="file"/>
                             <KrField label="备注" style={style} name="finaflowdesc" heightStyle={heightStyle} component="textarea" type="text" placeholder='请输入备注,文字不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/>
