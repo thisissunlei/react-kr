@@ -409,6 +409,7 @@ class NewCreateForm extends Component {
                 var obj = {};
                 obj.stationId = item.id;
                 obj.whereFloor = item.whereFloor;
+                obj.stationType = item.type;
                 delStationVos.push(obj);
         })
 
