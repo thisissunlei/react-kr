@@ -22,7 +22,7 @@ import {
 
 import './index.less';
 
-export default class Initialize extends Component {
+export default class Payment extends Component {
 
 	static defaultProps = {
 		data: []

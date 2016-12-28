@@ -23,7 +23,7 @@ import './index.less';
 import QRCode from 'react-qr-code';
 
 
-export default class Initialize extends Component {
+export default class Header extends Component {
 	static defaultProps = {
 		Baseinfo: {},
 		orderInfo: ''
