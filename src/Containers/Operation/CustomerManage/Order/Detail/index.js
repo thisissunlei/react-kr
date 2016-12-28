@@ -241,6 +241,7 @@ export default class OrderDetail extends React.Component {
 			isShow: false,
 			View: false,
 			openMenu:false,
+			openId:0,
 			response: {
 				orderBaseInfo: {},
 				installment: {},
@@ -465,9 +466,9 @@ export default class OrderDetail extends React.Component {
 	}
 	uploadFile(id){
 		this.setState({
-			openMenu:!this.state.openMenu
+			openMenu:!this.state.openMenu,
+			openId:id
 		})
-			console.log('uploadfile',id);
 		}
 	change = (form) => {
 		const {
@@ -604,7 +605,7 @@ export default class OrderDetail extends React.Component {
 					<TableRowColumn>
 					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} />
 					<Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)}/>
-					<UpLoadList open={this.state.openMenu} fileList ={fileList} onChange={this.onChange}>Tooltip</UpLoadList>
+					<UpLoadList open={[this.state.openMenu,this.state.openId]} fileList ={fileList} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
 
 							{item.contractstate != 'EXECUTE' && item.editFlag && <Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
 

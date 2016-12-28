@@ -32,7 +32,7 @@ export default class UpLoadList extends Component {
 		/**
 		 * 与box-shadow的阴影色相同
 		 */
-		open:React.PropTypes.bool
+		open:React.PropTypes.array
 
 
 	}
@@ -67,12 +67,12 @@ export default class UpLoadList extends Component {
 		}
 	}
 	renderHover=()=>{
-		// let {tipName} = this.props;
+		let {detail} = this.props;
 		let node = ReactDOM.findDOMNode(this.tooltip);
 		let parent = node.parentNode;
 		// node.style.backgroundColor = backgroundColor;
 		let {open} = this.props;
-		if(open){
+		if(open[1] == detail.id && open[0]){
 			node.style.visibility = 'visible';
 		}else{
 			node.style.visibility = 'hidden';
