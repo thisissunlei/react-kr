@@ -91,7 +91,7 @@ class ViewForm extends Component {
 
 		return (
 			<div className='ui-watch-detail'>
-					<KrField grid={1/2}  component="labelText" label="代码名称" value={items.accountName} inline={false} defaultValue="无"/>
+					<KrField grid={1/2}  component="labelText" label="支付方式" value={items.accountName} inline={false} defaultValue="无"/>
 					<KrField grid={1/2} label="付款日期" component="labelText" inline={false} value={items.occuryear} defaultValue="无" type="date"/>
 
 					<KrField grid={1/2} label="操作时间" component="labelText" value={items.operatedate} format="yyyy-mm-dd hh:mm:ss" type="date" inline={false} defaultValue="无"/>
@@ -177,7 +177,8 @@ export default class AttributeSetting extends Component {
 				orderId: this.props.params.orderId,
 				page: 1,
 				pageSize: 30,
-				index:''
+				index:'',
+				tradingCode:''
 			},
 			itemDetail: {},
 			//为了判断和获取选中的条的id
@@ -553,8 +554,6 @@ export default class AttributeSetting extends Component {
 	}
 		//高级查询
 	onSubmit(params) {
-		//为了让其保持params原有的参数，同时将自己的参数传过去
-		console.log('44444',params);
 		params = Object.assign({}, this.state.params, params);
 		this.setState({
 			params,
@@ -590,8 +589,9 @@ export default class AttributeSetting extends Component {
 		console.log('444------666',params);
 
         let {accountDetail,contractTopReceive} = this.state;
+
 		params = Object.assign({},params);
-        params.mainbillId=this.props.params.orderId
+      
         var intentStr={};
         var joinStr={};
         var increaseStr={};
@@ -856,10 +856,12 @@ export default class AttributeSetting extends Component {
 	}
 
 	searchUpperFun() {
+
 		var _this = this;
 		let {
 			params
 		} = this.state;
+         
 		Store.dispatch(Actions.callAPI('findAccountAndPropList', {
 			accountType: params.accountType
 		})).then(function(response) {
@@ -882,6 +884,7 @@ export default class AttributeSetting extends Component {
 			params.accountId='';
 			params.startTime='';
 			params.endTime='';
+			params.tradingCode='';
 			_this.setState({
 				codeList,
 				typeList,
@@ -998,7 +1001,7 @@ export default class AttributeSetting extends Component {
 							              <TableHeader>
 										          <TableHeaderColumn>交易编号</TableHeaderColumn>
 										          <TableHeaderColumn>交易日期</TableHeaderColumn>
-										          <TableHeaderColumn>代码</TableHeaderColumn>
+										          <TableHeaderColumn>支付方式</TableHeaderColumn>
 										          <TableHeaderColumn>类别</TableHeaderColumn>
 										          <TableHeaderColumn>款项</TableHeaderColumn>
 										          <TableHeaderColumn>金额</TableHeaderColumn>
@@ -1007,13 +1010,33 @@ export default class AttributeSetting extends Component {
 							              </TableHeader>
 							              <TableBody>
 							                <TableRow>
-							                	<TableRowColumn name="tradingCode" defaultValue='无'></TableRowColumn>
+							                	<TableRowColumn name="tradingCode" defaultValue='无' style={{width:160,overflow:"visible"}} component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }}></TableRowColumn>
 							                    <TableRowColumn name="operatedate" type="date" format="yyyy-mm-dd"></TableRowColumn>
 							                    <TableRowColumn name="accountName"></TableRowColumn>
 							                    <TableRowColumn name="typeName"></TableRowColumn>
 							                    <TableRowColumn name="propertyName"></TableRowColumn>
 							                    <TableRowColumn name="finaflowAmount"></TableRowColumn>
-							                    <TableRowColumn name="finaflowdesc"></TableRowColumn>
+							                    <TableRowColumn name="finaflowdesc" style={{width:160,overflow:"visible"}} component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }}></TableRowColumn>
 							                    <TableRowColumn>
 							                        <Button label="查看"  type="operation" operation="view"/>
 							                    </TableRowColumn>
@@ -1027,7 +1050,7 @@ export default class AttributeSetting extends Component {
 							              <TableHeader>
 										          <TableHeaderColumn>交易编号</TableHeaderColumn>
 										          <TableHeaderColumn>交易日期</TableHeaderColumn>
-										          <TableHeaderColumn>代码</TableHeaderColumn>
+										          <TableHeaderColumn>支付方式</TableHeaderColumn>
 										          <TableHeaderColumn>类别</TableHeaderColumn>
 										          <TableHeaderColumn>款项</TableHeaderColumn>
 										          <TableHeaderColumn>金额</TableHeaderColumn>
@@ -1038,7 +1061,17 @@ export default class AttributeSetting extends Component {
 							              </TableHeader>
 							              <TableBody>
 							                <TableRow>
-							                	<TableRowColumn name="tradingCode" defaultValue='无'></TableRowColumn>
+							                	<TableRowColumn name="tradingCode" defaultValue='无' style={{width:160,overflow:"visible"}} component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }}></TableRowColumn>
 							                    <TableRowColumn name="operatedate" type="date" format="yyyy-mm-dd"></TableRowColumn>
 							                    <TableRowColumn name="accountName"></TableRowColumn>
 							                    <TableRowColumn name="typeName"></TableRowColumn>
@@ -1046,7 +1079,17 @@ export default class AttributeSetting extends Component {
 							                    <TableRowColumn name="finaflowAmount"></TableRowColumn>
 							                    <TableRowColumn name="stationNum"></TableRowColumn>
 							                    <TableRowColumn name="monthRent"></TableRowColumn>
-							                    <TableRowColumn name="finaflowdesc"></TableRowColumn>
+							                    <TableRowColumn name="finaflowdesc" style={{width:160,overflow:"visible"}} component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }}></TableRowColumn>
 							                    <TableRowColumn>
 							                        <Button label="查看"  type="operation" operation="view"/>
 							                    </TableRowColumn>
@@ -1071,8 +1114,10 @@ export default class AttributeSetting extends Component {
     }
 
     iconClose=()=>{
+     Store.dispatch(initialize('receivedBtnForm',{totalPayment:'',preCode:'1'}));
      this.setState({
 		 openRight:!this.state.openRight,
+		 liveMoneyValue:0
 	  });
       this.receivedBtnFormChangeValues={}
     }

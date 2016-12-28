@@ -511,7 +511,7 @@ const APIS = {
  	},
  	//订单明细账－二期－分页加载流水数据
    'getAccountNewFlow': {
- 		url: '/api/krspace-finance-web/finaccount/data/getAccountFlow?accountId={accountId}&accountType={accountType}&orderId={orderId}&endTime={endTime}&page={page}&pageSize={pageSize}&propertyId={propertyId}&startTime={startTime}',
+ 		url: '/api/krspace-finance-web/finaccount/data/getAccountFlow?accountId={accountId}&accountType={accountType}&orderId={orderId}&endTime={endTime}&page={page}&pageSize={pageSize}&propertyId={propertyId}&startTime={startTime}&tradingCode={tradingCode}',
  		method: 'get'
  	},
  	//订单明细账－二期－支付方式
