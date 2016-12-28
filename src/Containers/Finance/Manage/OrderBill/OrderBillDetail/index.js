@@ -587,11 +587,12 @@ export default class AttributeSetting extends Component {
 		//回款提交
 	onAddReceivedSubmit(params) {
 
-		console.log('444------666',params);
 
         let {accountDetail,contractTopReceive} = this.state;
 
 		params = Object.assign({},params);
+
+		params.mainbillId=this.props.params.orderId
       
         var intentStr={};
         var joinStr={};
@@ -819,6 +820,12 @@ export default class AttributeSetting extends Component {
 					}
 			});
 		params.propJasonStr = JSON.stringify(params.propJasonStr);
+
+		  if(params.propJasonStr=='{}'){
+        	Message.error('转移金额分金额不能为空');
+        	 return ;
+           }
+
 		var _this = this;
 		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
 		Store.dispatch(Actions.callAPI('transferPayment', {}, params)).then(function() {
