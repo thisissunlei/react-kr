@@ -87,6 +87,11 @@ export default class CompanyMembers extends Component {
 			tab
 		});
 	}
+	renderOther=()=>{
+		return (
+			<span>dasdasdasdasddas</span>
+			)
+	}
 
 
 
@@ -121,7 +126,6 @@ export default class CompanyMembers extends Component {
 				<span className="line"></span>
 				 <Tabs className="tabs">
 					<Tab label="计划表" onActive={this.planTable} style={tableStyle}>
-
 					</Tab>
 					<Tab label="平面图"  onActive={this.Floorplan} style={planStyle}>
 

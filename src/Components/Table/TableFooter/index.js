@@ -31,6 +31,7 @@ export default class TableFooter extends React.Component {
 		onExport: React.PropTypes.func,
 		onPageChange: React.PropTypes.func,
 		exportSwitch: React.PropTypes.bool,
+		renderOther:React.PropTypes.func,
 	}
 
 
@@ -116,7 +117,12 @@ export default class TableFooter extends React.Component {
 		return (
 			<TableRowColumn style={{textAlign:'left'}} colSpan={2}> <a style={{width:80,height:30,background:'#499df1',color:'#fff',cursor:'pointer',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)'}}  onClick={this.onExport}>导&nbsp;&nbsp;出</a> </TableRowColumn>
 		);
-
+	}
+	renderOther=()=>{
+		let {renderOther} = this.props;
+		renderOther && renderOther();
+		// return (<span>dddd</span>)
+		console.log('other',renderOther);
 	}
 
 	render() {
@@ -140,8 +146,14 @@ export default class TableFooter extends React.Component {
 				{/*
                   {this.renderCheckbox()}
 				*/}
-				
-                {this.renderExport()}
+				<TableRowColumn style={{textAlign:'left'}} colSpan={num}>
+					{this.renderExport()}
+					{this.renderOther()}
+				</TableRowColumn>
+
+
+
+
 
 				    <TableRowColumn  colSpan={100} align="right">
 						{this.renderPagination()}
