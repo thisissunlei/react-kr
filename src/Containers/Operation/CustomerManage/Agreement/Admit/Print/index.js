@@ -46,7 +46,10 @@ export default class JoinPrint extends Component {
 	}
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(false));
-
+		setTimeout(function() {
+			window.print();
+			window.close();
+		}, 1000)
 	}
 
 	render() {
