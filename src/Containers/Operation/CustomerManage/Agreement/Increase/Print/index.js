@@ -46,6 +46,10 @@ export default class IncreasePrint extends Component {
 	}
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(false));
+		setTimeout(function() {
+			window.print();
+			window.close();
+		}, 1000)
 
 	}
 
@@ -63,7 +67,7 @@ export default class IncreasePrint extends Component {
 				<span className="border-b two-text"></span>
 			</div>
 			<Agreement.Print.Footer/>
-			
+
       		</div>
 
 		);
