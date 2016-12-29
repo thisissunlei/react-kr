@@ -23,6 +23,7 @@ import {
 	LabelText,
 	Dialog,
 	KrField,
+	Message,
 	ButtonGroup
 } from 'kr-ui';
 
@@ -67,7 +68,12 @@ class ShiftBtnForm extends Component{
 	 }
 	
     
-	  
+	 moneyShiftCheck=(value)=>{
+		if(isNaN(value)){
+          Message.error('金额只能为数字');
+          return ;
+		}
+	} 
 
     
 
@@ -91,16 +97,16 @@ class ShiftBtnForm extends Component{
 						    <KrField name="flowId" type="hidden"/>
 						    <KrField grid={1/2} label="可操作金额"  component="labelText" value={initialValuesId.fiMoney} inline={false} defaultValue="无"/>
                             <KrField name="preCode" grid={1/2} left={30} component="group"   label="金额正负" style={{marginLeft:'-45px'}}>
-				                <KrField name="preCode" grid={1/2} right={30} label="正" component="radio" type="radio" value="0"/>
+				                <KrField name="preCode" grid={1/2} right={30} label="正" component="radio" type="radio" value="0" style={{marginTop:'4px',width:'auto',display:'inline-block'}}/>
 				                <KrField name="preCode"  grid={1/2} left={30}label="负" component="radio" type="radio" value="1"/>
 			                </KrField>
 			                <KrField type="date" grid={1/2} label="转移日期" right={45} name="operatedate" /> 
                              
                              {shiftData.map((item,index)=>{
 						      	if(index%2==0){
-									return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={43}  style={{marginLeft:'-14px'}} label={item.propname} component="input" name={item.id} type="text"/>
+									return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={43}  style={{marginLeft:'-14px'}} label={item.propname} component="input" name={item.id} type="text" onBlur={this.moneyShiftCheck}/>
 						      	}else{
-						      		return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={43}  label={item.propname}  component="input" name={item.id} type="text"/>
+						      		return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={43}  label={item.propname}  component="input" name={item.id} type="text" onBlur={this.moneyShiftCheck}/>
 						      	}
 
 						      }

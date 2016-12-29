@@ -24,6 +24,7 @@ import {
 	Form,
 	Dialog,
 	KrField,
+	Message,
 	ButtonGroup,
 } from 'kr-ui';
 
@@ -71,6 +72,13 @@ class AccountBtnForm extends Component{
 	   Store.dispatch(initialize('AccountBtnForm',initialValues));
 		
 	}
+
+	moneyCheck=(value)=>{
+		if(isNaN(value)){
+          Message.error('金额只能为数字');
+          return ;
+		}
+	}
 	
 	render(){
 		const {error,handleSubmit,pristine,reset,accountDetail,contractList,optionList,stationPayment} = this.props;
@@ -81,8 +89,8 @@ class AccountBtnForm extends Component{
        	 width:'546',
        	 height:'72'
        }
-
-           
+       
+            
         let stationPaymentName=stationPayment.id;
 
 		return(
@@ -91,8 +99,8 @@ class AccountBtnForm extends Component{
 					<KrField  name="mainbillId" type="hidden"/>
 					<KrField grid={1/2} name="accountId" right={42} component="select" label="支付方式" options={optionList} requireLabel={true}/> 
 					<KrField name="preCode" grid={1/2} component="group" label="金额正负" requireLabel={true} style={{marginLeft:-12}}>
-		                <KrField name="preCode" label="正" type="radio" value="0"/>
-		                <KrField name="preCode" label="负" type="radio" value="1" />
+		                <KrField name="preCode" label="正" type="radio" value="0" style={{marginTop:5,display:'inline-block',marginRight:-209}}/>
+		                <KrField name="preCode" label="负" type="radio" value="1"/>
 		            </KrField> 
 					<KrField grid={1/2} name="operatedate" right={45} type="date" component="date" label="挂账日期" requireLabel={true} style={{marginTop:3}}/> 
 					<KrField grid={1/2} name="fileids"  component="file" label="上传附件" style={{marginLeft:-12}}/>
@@ -103,10 +111,10 @@ class AccountBtnForm extends Component{
 						      {accountDetail.map((item,index)=>{
 						      	 
 						      	if(index%2==0){
-									return <KrField key={index}   grid={1/2} style={{marginTop:5,marginRight:-12}} right={42} label={item.propname} component="input" name={item.id} type="text"/>
+									return <KrField key={index}   grid={1/2} style={{marginTop:5,marginRight:-12}} right={42} label={item.propname} component="input" name={item.id} type="text" onBlur={this.moneyCheck}/>
 									        
 						      	}else{
-						      		return <KrField key={index}   grid={1/2}  style={{marginTop:5}} right={42} label={item.propname} component="input" name={item.id} type="text"/>
+						      		return <KrField key={index}   grid={1/2}  style={{marginTop:5}} right={42} label={item.propname} component="input" name={item.id} type="text" onBlur={this.moneyCheck}/>
 						      	}
 
 						        }
@@ -146,12 +154,6 @@ const validate = values =>{
 		}
 		if(!values.operatedate){
 			errors.operatedate = '请填写挂帐日期';
-		}
-		if(!values.finaflowamount){
-			errors.finaflowamount = '请填写金额';
-		}
-		if (values.finaflowamount && isNaN(values.finaflowamount)) {
-			errors.finaflowamount = '金额必须为数字';
 		}
 		if (!values.stationPaymentName&&values.contractId) {
 			errors.stationPaymentName = '必须填写工位服务费金额';

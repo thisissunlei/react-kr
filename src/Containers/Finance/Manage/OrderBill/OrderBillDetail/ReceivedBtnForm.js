@@ -92,6 +92,13 @@ class ReceivedBtnForm extends Component {
 
 	}
 
+	moneyCheck=(value)=>{
+		if(isNaN(value)){
+          Message.error('金额只能为数字');
+          return ;
+		}
+	}
+
   onCancel=()=> {
 		const {
 			onCancel
@@ -106,10 +113,6 @@ class ReceivedBtnForm extends Component {
        return ; 
      }
    	 let {changeValues,calcBalance} = this.props;
-   	 if(isNaN(value)){
-   	 	Message.error('只能输入数字')
-   	 	return ;
-   	 }
    	 input.value = value;
    	 calcBalance && calcBalance(input);
   
@@ -118,24 +121,24 @@ class ReceivedBtnForm extends Component {
   joinInputRender=()=>{
   	return (
           <div style={{width:600,marginTop:8}} className='m-tenantStation'>
-              <KrField  label="押金"  grid={1/2}  name={joinContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance}/>
-              <KrField label="工位服务费"  grid={1/2} name={joinContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance}/>
+              <KrField  label="押金"  grid={1/2}  name={joinContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+              <KrField label="工位服务费"  grid={1/2} name={joinContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
           </div>
   	  )
   }
   increaseInputRender=()=>{
   	return (
           <div style={{width:600,marginTop:8}} className='m-tenantStation'>
-              <KrField  label="押金"  grid={1/2}  name={increaseContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance}/>
-              <KrField label="工位服务费"  grid={1/2} name={increaseContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance}/>
+              <KrField  label="押金"  grid={1/2}  name={increaseContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+              <KrField label="工位服务费"  grid={1/2} name={increaseContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
           </div>
   	  )
   }
   adminInputRender=()=>{
   	return (
           <div style={{width:600,marginTop:8}} className='m-tenantStation'>
-              <KrField  label="押金"  grid={1/2}  name={adminContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance}/>
-              <KrField label="工位服务费"  grid={1/2} name={adminContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance}/>
+              <KrField  label="押金"  grid={1/2}  name={adminContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+              <KrField label="工位服务费"  grid={1/2} name={adminContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
           </div>
   	  )
   }
@@ -143,7 +146,7 @@ class ReceivedBtnForm extends Component {
 
   	return (
             <div className='depositMoney-render'  style={{width:546}}>
-              <KrField label="定金"  grid={1/2}  name={tenantContractId+'2'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance}/>
+              <KrField label="定金"  grid={1/2}  name={tenantContractId+'2'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
             </div>
   		)
   }
@@ -163,9 +166,9 @@ class ReceivedBtnForm extends Component {
               	       {
               	       	accountDetail.map(function(item,index){
 						      	if(index%2==0){
-									return <div className='leftBottomValue'><KrField key={index} style={{marginBottom:5,width:261,marginLeft:-9}}  grid={1/2}   label={item.propname} component="input" name={item.id} type="text" onChange={_this.calcBalance}/></div>
+									return <div className='leftBottomValue'><KrField key={index} style={{marginBottom:5,width:261,marginLeft:-9}}  grid={1/2}   label={item.propname} component="input" name={item.id} type="text" onChange={_this.calcBalance} onBlur={this.moneyCheck}/></div>
 						      	}else{
-						      		return <div className='rightBottomValue'><KrField key={index} style={{marginBottom:5,width:261}} grid={1/2}   label={item.propname}  component="input" name={item.id} type="text" onChange={_this.calcBalance}/></div>
+						      		return <div className='rightBottomValue'><KrField key={index} style={{marginBottom:5,width:261}} grid={1/2}   label={item.propname}  component="input" name={item.id} type="text" onChange={_this.calcBalance} onBlur={this.moneyCheck}/></div>
 						   }
 					     }
 		               )
@@ -280,6 +283,9 @@ const validate = values =>{
 		}
 		if(!values.totalPayment){
 			errors.totalPayment = '请填写回款总额';
+		}
+		if(values.totalPayment&&isNaN(values.totalPayment)){
+			errors.totalPayment = '金额只能为数字'; 
 		}
 
 		return errors
