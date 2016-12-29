@@ -239,7 +239,7 @@ export default class AttributeSetting extends Component {
 		this.receivedBtnFormChangeValues = {};
 	}
 
-
+   
 
 	refresh() {
 			//console.log('00000')
@@ -1139,13 +1139,15 @@ export default class AttributeSetting extends Component {
       this.receivedBtnFormChangeValues={}
     }
 
+
+
     contractContinue=()=>{
        this.setState({
 		 openContract:!this.state.openContract
 	  });
     }
 
-   calcBalance=(input)=>{
+    calcBalance=(input)=>{
     
    
    	//console.log('input',input);
@@ -1200,7 +1202,7 @@ export default class AttributeSetting extends Component {
 
 
 
-
+        
 		
 
 
@@ -1304,7 +1306,7 @@ export default class AttributeSetting extends Component {
 
 		return (
 
-			<div>
+			<div className='m-orderBillDetail'>
 
 			        {this.renderSnack()}
 					<Title value="订单明细账_财务管理"/>
@@ -1342,8 +1344,15 @@ export default class AttributeSetting extends Component {
 						>
 					   <SearchForm onCancel={this.closeSearchDialog} initialValues={searchValue} codeList={this.state.codeList} typeList={this.state.typeList} onSubmit={this.onSubmit}/>
 					 </Dialog>
+                   
 
-				      <Drawer open={this.state.openRight} width={650} openSecondary={true} className='m-finance-drawer' containerStyle={{top:60,paddingBottom:228,zIndex:20}}>
+				      <Drawer 
+				        open={this.state.openRight} 
+				        width={650} 
+				        openSecondary={true}
+				        className='m-finance-drawer' 
+				        containerStyle={{top:60,paddingBottom:228,zIndex:20}} 
+				        >
 				       <div>
                         <ReceiveDetailTop iconClose={this.iconClose} contractTopReceive={this.state.contractTopReceive} liveMoneyValue={this.state.liveMoneyValue} contractContinue={this.contractContinue}/>
                         <ReceivedBtnForm
@@ -1356,6 +1365,10 @@ export default class AttributeSetting extends Component {
                           />
                        </div>
                       </Drawer>
+             
+
+
+                     {this.state.openRight&&<div className='trasparent' onClick={this.iconClose}></div>}
 
 
 					 <Dialog
