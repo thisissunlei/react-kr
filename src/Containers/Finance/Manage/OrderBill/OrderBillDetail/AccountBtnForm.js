@@ -78,6 +78,10 @@ class AccountBtnForm extends Component{
           Message.error('金额只能为数字');
           return ;
 		}
+		if(value<=0){
+		  Message.error('金额只能为正数');
+          return ;	
+		}
 	}
 	
 	render(){
