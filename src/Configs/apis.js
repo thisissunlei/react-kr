@@ -527,7 +527,7 @@ const APIS = {
 	},
     //获取附件列表
    'getFileList':{
-      url: '/api/krspace-op-web/finacontractdetail/fileList-show?detailId={detailId}',
+      url: '/api/krspace-finance-web/finacontractdetail/fileList-show?detailId={detailId}',
       method: 'get'
    },
 }

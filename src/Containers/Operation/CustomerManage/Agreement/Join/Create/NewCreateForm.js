@@ -245,7 +245,8 @@ class NewCreateForm extends Component {
 		stationVos.map((item)=>{
 			allRent += _this.getSingleRent(item);
 		})
-		allRent = allRent.toFixed(2);
+		allRent = parseFloat(allRent).toFixed(2)*1;
+		console.log('onStationUnitPrice',allRent);
 
 
 
@@ -275,7 +276,7 @@ class NewCreateForm extends Component {
 		stationVos.map((item)=>{
 			allRent += _this.getSingleRent(item);
 		})
-		allRent =allRent.toFixed(2);
+		allRent = parseFloat(allRent).toFixed(2)*1;
 
 		this.setState({
 			stationVos,
@@ -448,8 +449,10 @@ class NewCreateForm extends Component {
 			}
 			
 		})
+		console.log(allMoney);
 		//Math.ceil(((item.unitprice*12)/365)*100)/100
-		allMoney = allMoney.toFixed(2);
+		allMoney = parseFloat(allMoney).toFixed(2)*1;
+		console.log(allMoney,'allMoney',typeof allMoney);
 		this.setState({
 			allRent:allMoney
 		})
@@ -487,8 +490,8 @@ class NewCreateForm extends Component {
 		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
-		allRent = allRent.toFixed(2);
-		console.log('allRent',allRent,rentPriceByDay);
+		allRent = allRent.toFixed(2)*1;
+		console.log('allRent',typeof allRent,rentPriceByDay);
 		return allRent;
 	}
 

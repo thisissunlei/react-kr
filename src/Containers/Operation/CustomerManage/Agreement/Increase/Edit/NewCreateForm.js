@@ -124,7 +124,7 @@ class NewCreateForm extends Component {
 			openStation: false,
 			openStationUnitPrice: false,
 			HeightAuto: false,
-			allRent:0
+			allRent:'-1'
 		}
 		console.log('===>',this.props);
 	}
@@ -184,7 +184,8 @@ class NewCreateForm extends Component {
 
 		this.setState({
 			stationVos: [],
-			delStationVos: stationVos
+			delStationVos: stationVos,
+			allRent:0
 		}, function() {
 			this.getStationUrl();
 			this.calcStationNum();
@@ -203,7 +204,8 @@ class NewCreateForm extends Component {
 
 		this.setState({
 			stationVos: [],
-			delStationVos: stationVos
+			delStationVos: stationVos,
+			allRent:0
 		}, function() {
 			this.getStationUrl();
 			this.calcStationNum();
@@ -254,7 +256,7 @@ class NewCreateForm extends Component {
 		stationVos.map((item)=>{
 			allMoney += _this.getSingleRent(item);
 		})
-		allMoney = allMoney.toFixed(2);
+		allMoney = parseFloat(allMoney).toFixed(2)*1;
 
 
 		this.setState({
@@ -286,7 +288,7 @@ class NewCreateForm extends Component {
 		stationVos.map((item)=>{
 			allMoney += _this.getSingleRent(item);
 		})
-		allMoney = allMoney.toFixed(2);
+		allMoney = parseFloat(allMoney).toFixed(2)*1;
 
 		this.setState({
 			stationVos,
@@ -502,7 +504,7 @@ class NewCreateForm extends Component {
 			}
 			
 		})
-		allMoney = allMoney.toFixed(2);
+		allMoney = parseFloat(allMoney).toFixed(2)*1;
 		this.setState({
 			allRent:allMoney
 		})
@@ -540,7 +542,7 @@ class NewCreateForm extends Component {
 		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
-		allRent = allRent.toFixed(2);
+		allRent = allRent.toFixed(2)*1;
 		console.log('allRent',allRent,rentPriceByDay);
 		return allRent;
 	}
@@ -575,7 +577,7 @@ class NewCreateForm extends Component {
 			HeightAuto,
 			allRent
 		} = this.state;
-		allRent = allRent?allRent:initialValues.totalrent;
+		allRent = (allRent!='-1')?allRent:initialValues.totalrent;
 		var nzhcn = nzh.cn;
 		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
 
