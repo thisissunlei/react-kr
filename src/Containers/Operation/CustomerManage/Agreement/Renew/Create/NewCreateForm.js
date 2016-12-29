@@ -15,7 +15,7 @@ import {
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import dateFormat from 'dateformat';
-
+import nzh from 'nzh';
 import {
 	reduxForm,
 	formValueSelector,
@@ -154,6 +154,7 @@ class NewCreateForm extends Component {
 		stationVos.map(item=>{
 			allRent += _this.getSingleRent(item);
 		})
+		allRent = allRent.toFixed(2);
 		this.setState({
 			stationVos,
 			allRent
@@ -179,8 +180,8 @@ class NewCreateForm extends Component {
 
 			}else{
 				let mounthIndex = 0;
-				if(rentEnd[1]=0){
-					mounthIndex = 12
+				if(rentEnd[1]==1){
+					mounthIndex = 11;
 				}else{
 					mounthIndex = rentEnd[1]-1;
 				}
@@ -193,7 +194,7 @@ class NewCreateForm extends Component {
 		}
 		console.log('day',rentMounth,rentDay);
 		//计算日单价
-		let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
+		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
 		console.log('allRent',allRent,rentPriceByDay);
@@ -215,8 +216,15 @@ class NewCreateForm extends Component {
 			}
 			return true;
 		});
+		let _this = this;
+		let allRent = 0;
+		stationVos.map(item=>{
+			allRent += _this.getSingleRent(item);
+		})
+		allRent = allRent.toFixed(2);
 		this.setState({
-			stationVos
+			stationVos,
+			allRent
 		});
 	}
 
@@ -273,7 +281,7 @@ class NewCreateForm extends Component {
 
 		form.stationVos = JSON.stringify(stationVos);
 		form.contractVersionType = 'NEW';
-
+		form.totalrent = this.state.allRent;
 		const {
 			onSubmit
 		} = this.props;
@@ -311,8 +319,11 @@ class NewCreateForm extends Component {
 		});
 
 		let {
-			stationVos
+			stationVos,
+			allRent
 		} = this.state;
+		var nzhcn = nzh.cn;
+		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
 
 		return (
 			<Paper width={968}>
@@ -359,9 +370,13 @@ class NewCreateForm extends Component {
 						})}
 						</TableBody>
 						</Table>
+
 						</div>
 
+					
                      </DotTitle>
+                     <div style={{marginTop:'-20px',marginBottom:60}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
+
                      </div>
 				</CircleStyle>
 				<CircleStyle num={2} info='合同文本信息' circle='bottom'>
@@ -399,7 +414,7 @@ class NewCreateForm extends Component {
 				<KrField style={{width:370,marginLeft:70}}   name="signdate"  component="date"  label="签署时间" requireLabel={true} />
 
 
-				<KrField style={{width:370,marginLeft:90}}   name="totalrent" type="text" component="input" label="租金总额" requireLabel={true}
+				<KrField style={{width:370,marginLeft:90}}   name="totalrent" type="text" component="labelText" label="租金总额" requireLabel={true} value={allRent} inline={false} defaultValue='0'
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 
 				<KrField style={{width:370,marginLeft:70}}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true}
