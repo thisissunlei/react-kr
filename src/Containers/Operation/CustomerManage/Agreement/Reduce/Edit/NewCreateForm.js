@@ -284,7 +284,8 @@ class NewCreateForm extends Component {
 		form = Object.assign({}, form);
 
 		let {
-			changeValues
+			changeValues,
+			initialValues
 		} = this.props;
 		let {
 			stationVos
@@ -295,7 +296,7 @@ class NewCreateForm extends Component {
 
 		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
-		form.rentamount = this.state.allRent;
+		form.rentamount = this.state.allRent?this.state.allRent:initialValues.rentamount;
 		form.lessorAddress = changeValues.lessorAddress;
 		// form.lessorContactid = 111;
 		var _this = this;
