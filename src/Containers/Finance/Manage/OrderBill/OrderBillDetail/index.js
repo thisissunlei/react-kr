@@ -433,7 +433,7 @@ export default class AttributeSetting extends Component {
 				stationPayment:response.stationPayment,
 			});
 		}).catch(function(err) {
-			 Message.error(err.message); 
+			 Message.error(err.message);
 		});
 		this.setState({
 				openAddaccountBtn:!this.state.openAddaccountBtn
@@ -717,7 +717,7 @@ export default class AttributeSetting extends Component {
 		console.log('----55555-',params);
 		var _this = this;
 		params = Object.assign({}, params);
-		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
+		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd h:MM:ss");
 		Store.dispatch(Actions.callAPI('payBack', {}, params)).then(function(response) {
 			_this.refresh();
 		  _this.setState({
@@ -867,7 +867,7 @@ export default class AttributeSetting extends Component {
 				colorClassName:response.isIncomeRunning==2?'historyIncomeGray':'historyIncome'
 			});
 		}).catch(function(err) {
-			 Message.error(err.message);
+			 Message.error(err.message);		
 		});
 	}
 
@@ -950,6 +950,7 @@ export default class AttributeSetting extends Component {
 		this.initBasicInfo();
 		Store.dispatch(Actions.switchSidebarNav(false));
 	}
+
 
 
 
@@ -1199,6 +1200,7 @@ export default class AttributeSetting extends Component {
 
 
 
+
 		
 
 
@@ -1309,7 +1311,7 @@ export default class AttributeSetting extends Component {
 					<Section title="订单明细账" description="" style={{marginBottom:-5,minHeight:910}}>
 
 					      <DotTitle title='订单描述' style={{marginTop:'6',marginBottom:'40'}}/>
-						  <BasicInfo  detail={this.state.basicInfo} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome}/>
+						  <BasicInfo  detail={this.state.basicInfo}  />
 
 						  <DotTitle title='订单明细账' style={{marginTop:'28',marginBottom:'62'}}/>
 						  <div className='ui-detail-bottom'>

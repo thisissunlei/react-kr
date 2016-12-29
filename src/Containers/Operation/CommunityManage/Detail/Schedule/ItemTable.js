@@ -129,7 +129,7 @@ export default class ItemTable extends Component {
 
   //查看员工跳转地址
   onhref() {
-    window.open("/krspace_member_web/member/companyMembers?companyId=" + this.state.detail.companyId + "&communityId=" + this.state.detail.communityId + "&mid=111");
+    window.open("/new/#/community/companyMembers/" + this.state.detail.companyId + "/list/" + this.state.detail.communityId);
   }
 
   renderOrder() {

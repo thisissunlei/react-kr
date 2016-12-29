@@ -73,7 +73,7 @@ class NewCreateForm extends Component {
 
 	}
 
-	
+
 	onSubmit(values) {
 		const {
 			onSubmit
@@ -138,8 +138,6 @@ class NewCreateForm extends Component {
 		);
 	}
 }
-
-
 export default reduxForm({
 	form: 'newCreateForm'
 })(NewCreateForm);

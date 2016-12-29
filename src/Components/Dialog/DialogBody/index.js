@@ -13,14 +13,14 @@ export default class DialogBody extends Component {
 	}
 
 	componentDidMount(){
-
-    window.setTimeout(function(){
 			this.initializeDialogBodyStyles();
-      }.bind(this),200);
-
 			window.addEventListener('resize',function(){
 				this.initializeDialogBodyStyles();
 			}.bind(this));
+	}
+
+	componentDidUpdate(){
+			this.initializeDialogBodyStyles();
 	}
 
 
@@ -69,10 +69,10 @@ export default class DialogBody extends Component {
 
 	render() {
 
-		const { children } = this.props;
+		const { children ,bodyStyle} = this.props;
 
 		return (
-				<div className="dialog-body" ref="dialogBody">
+				<div className="dialog-body" ref="dialogBody" style={bodyStyle}>
 						{children}
 			</div>
 		);

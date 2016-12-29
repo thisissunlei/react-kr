@@ -5,7 +5,9 @@ export function navs(state = {},action){
 	switch(action.type){
 		//用户navs
 		case Types.SET_USER_NAVS:{
-			return {...state,items:action.response};
+			var items = [].concat(action.response);
+			var aa = Object.assign({},state,{items});
+			return aa;
 		}
 		case Types.SET_NAVS_CURRENT_CHILD_ROUTER:{
 			return {...state,current_child:action.router};
@@ -21,8 +23,10 @@ export function navs(state = {},action){
 
 		case Types.SET_NAVS_ACTIVITY:{
 
-			const items = state.items;
+			let items = state.items;
+
 			var router = action.router;
+			var childRouter = action.childRouter;
 
 			items.forEach(function(item,index){
 				if(item.router && item.router ==  router){
@@ -30,7 +34,23 @@ export function navs(state = {},action){
 				}else{
 					item.active = false;
 				}
+				if(item.hasOwnProperty('menuItems')&& Object.prototype.toString.call(item.menuItems) === '[object Array]' && item.menuItems.length){
+						item.menuItems.forEach(function(child){
+
+								if(child.hasOwnProperty('menuItems') && Object.prototype.toString.call(child.menuItems) === '[object Array]' && child.menuItems && child.menuItems.length){
+										child.menuItems.forEach(function(children){
+												if(children.router == childRouter){
+														children.active = true;
+												}else{
+													children.active = false;
+												}
+										});
+								}
+
+						});
+				}
 			});
+
 
 			return {...state,items};
 		}
@@ -58,18 +78,3 @@ export function navs(state = {},action){
 
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -31,9 +31,9 @@ import {
 	Community,
 	Retail,
 	Statistical
-} from './Containers';
+} from '../Containers';
 
-import Master from './master';
+import Master from '../master';
 
 export default (
 
@@ -60,8 +60,15 @@ export default (
 
 		{/*会员中心*/}
 		<Route path="member" component={Basic}>
-			<Route path="index" component={Member.Home}/>
-			<Route path="list"  component={Member.List}/>
+             <IndexRedirect to="memberManage/list" />
+
+		<Route path="memberManage" component={Basic}>
+				<Route path="list"  component={Member.MemberManage.List}/>
+				<Route path=":memberId/detail/:companyId"  component={Member.MemberManage.Detail}/>
+				<Route path="setting"  component={Member.MemberManage.Setting}/>
+
+			</Route>
+
 		</Route>
 
 		{/*统计看板*/}
@@ -235,10 +242,8 @@ export default (
 	*/}
 
 	<Route path="personalCenter" component={Permission.PersonalCenter}/>
-	<Redirect from="permission" to="permission/personalCenter" />
-
+			<Redirect from="permission" to="permission/personalCenter" />
 		</Route>
-
 
 		{/*文档管理*/}
 		<Route path="document" component={Basic}>

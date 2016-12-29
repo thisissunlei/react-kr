@@ -3,6 +3,38 @@ import * as Types from './types';
 
 
 
+export function navActive(menuCode){
+	return function(dispatch,getState){
+		var state = getState();
+		var permissionNavs = state.navs.items;
+
+		permissionNavs = permissionNavs.map(function(item,index){
+			item.active = false;
+			if(item.hasOwnProperty('menuItems') && Object.prototype.toString.call(item.menuItems) === '[object Array]'  && item.menuItems.length){
+				item.menuItems.forEach(function(child,key){
+						if(child.hasOwnProperty('menuItems') && Object.prototype.toString.call(child.menuItems) === '[object Array]'  && child.menuItems.length){
+							var menuItems = [];
+						   child.menuItems.forEach(function(children,i){
+								children.active = false;
+								if(children.menuCode == menuCode){
+									children.active = true;
+								}else{
+									children.active = false;
+								}
+							});
+						}
+
+				});
+			}
+		});
+
+		dispatch({
+			type:Types.SET_USER_NAVS,
+			response:permissionNavs
+		});
+}
+}
+
 //当前用户有哪些导航权限
 
 export function setUserNavs(navcodes){
@@ -69,6 +101,8 @@ function setRouterParent(parentRouter){
 }
 
 
+
+
 function setRouterChild(childRouter){
 	return {
 		type:Types.SET_NAVS_CURRENT_CHILD_ROUTER,
@@ -83,10 +117,11 @@ function setNavsCurrentItems(fatherRouter){
 	}
 }
 
-function setNavsActivity(fatherRouter){
+function setNavsActivity(fatherRouter,childRouter){
 	return {
 		type:Types.SET_NAVS_ACTIVITY,
-		router:fatherRouter
+		router:fatherRouter,
+		childRouter:childRouter
 	}
 
 }
@@ -97,6 +132,10 @@ export function setCurrentNav(router){
 	let fatherRouter = router.substring(2).split('/').shift();
 	let childRouter = router.substring(2).split('/')[1];
 
+	// if(typeof childRouter !== 'undefined' && childRouter.indexOf('?') !==-1){
+	// 	childRouter = childRouter.split('?').shift();
+	// }
+
 	return function(dispatch){
 
 			dispatch(setRouterParent(fatherRouter));
@@ -104,7 +143,7 @@ export function setCurrentNav(router){
 
 			dispatch(setNavsCurrentRoute(router.substr(1)));
 			dispatch(setNavsCurrentItems(fatherRouter));
-			dispatch(setNavsActivity(fatherRouter));
+			dispatch(setNavsActivity(fatherRouter,router.substr(1)));
 	}
 
 }

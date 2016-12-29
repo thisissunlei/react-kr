@@ -1,6 +1,12 @@
-import React, {Component, PropTypes} from 'react';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
 
-import {Actions,Store} from 'kr/Redux';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 import dateFormat from 'dateformat';
 import {
 	Table,
@@ -22,73 +28,80 @@ import {
 } from 'kr-ui';
 import './index.less';
 
-export default class ConfirmFormDetail  extends Component{
+export default class ConfirmFormDetail extends Component {
 
 
 	static propTypes = {
-		detail:React.PropTypes.object,
-		onSubmit:React.PropTypes.func,
-		onCancel:React.PropTypes.func,
+		detail: React.PropTypes.object,
+		onSubmit: React.PropTypes.func,
+		onCancel: React.PropTypes.func,
 	}
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 
 		this.onSubmit = this.onSubmit.bind(this);
-		this.onCancel  = this.onCancel.bind(this);
+		this.onCancel = this.onCancel.bind(this);
 
 	}
 
-	onSubmit(form){
+	onSubmit(form) {
 
 		console.log(form.stationVos);
 
-		 form = Object.assign({},form);
-		const {onSubmit} = this.props;
+		form = Object.assign({}, form);
+		const {
+			onSubmit
+		} = this.props;
 		onSubmit && onSubmit(form);
 	}
 
-	onCancel(){
+	onCancel() {
 
-		const {onCancel} = this.props;
+		const {
+			onCancel
+		} = this.props;
 		onCancel && onCancel();
 	}
 
-	render(){
+	render() {
 
-		let {detail,optionValues} = this.props;
+		let {
+			detail,
+			optionValues
+		} = this.props;
 
-		detail = Object.assign({},detail);
+		detail = Object.assign({}, detail);
 
-		 var leasorName ;
-		 optionValues.fnaCorporationList && optionValues.fnaCorporationList.map((item)=>{
-	        	if(item.value === detail.leaseId){
-	        		return leasorName = item.label;
-	        	}
-	        });
-	        var payment;
-	      optionValues.paymentList && optionValues.paymentList.map((item)=>{
-	        	if(item.value === detail.paymodel){
-	        		return payment = item.dicName;
-	        	}
+		var leasorName;
+		optionValues.fnaCorporationList && optionValues.fnaCorporationList.map((item) => {
+			if (item.value === detail.leaseId) {
+				return leasorName = item.label;
+			}
+		});
+		var payment;
+		optionValues.paymentList && optionValues.paymentList.map((item) => {
+			if (item.value === detail.paymodel) {
+				return payment = item.dicName;
+			}
 
-	        })
-	        var paytypes;
-	        optionValues.payTypeList && optionValues.payTypeList.map((item)=>{
-	        	if(item.id === detail.paytype){
-	        		return paytypes = item.dicName;
-	        	}
+		})
+		var paytypes;
+		optionValues.payTypeList && optionValues.payTypeList.map((item) => {
+			if (item.id === detail.paytype) {
+				return paytypes = item.dicName;
+			}
 
-	        })
-	        detail.leaseBegindate=dateFormat(detail.leaseBegindate,"yyyy-mm-dd ");
-	        detail.leaseEnddate=dateFormat(detail.leaseEnddate,"yyyy-mm-dd ");
-	        detail.firstpaydate=dateFormat(detail.firstpaydate,"yyyy-mm-dd ");
-	        detail.signdate=dateFormat(detail.signdate,"yyyy-mm-dd ");
+		})
+		detail.leaseBegindate = dateFormat(detail.leaseBegindate, "yyyy-mm-dd ");
+		detail.leaseEnddate = dateFormat(detail.leaseEnddate, "yyyy-mm-dd ");
+		detail.firstpaydate = dateFormat(detail.firstpaydate, "yyyy-mm-dd ");
+		detail.signdate = dateFormat(detail.signdate, "yyyy-mm-dd ");
 
 
-	  return (
+		return (
 
-		  <div className="lyh-create">
+			<div className="lyh-create">
 								<KrField name="leaseId"  grid={1/2} component="labelText" label="出租方" value={leasorName} inline={false}/>
 
 								 <KrField grid={1/2}  name="lessorAddress"  component="labelText" label="地址" value={detail.lessorAddress} inline={false}/>
@@ -120,7 +133,7 @@ export default class ConfirmFormDetail  extends Component{
 							 <KrField grid={1/2}  name="stationnum"  component="labelText" label="租赁工位" value={detail.stationnum} defaultValue="0" inline={false}/>
 							 <KrField grid={1/2}  name="boardroomnum"  component="labelText" label="租赁会议室" value={detail.boardroomnum} defaultValue="0" inline={false}/>
 
-							 <KrField grid={1}  name="rentaluse"  component="labelText" label="租赁用途" placeholder="办公使用" value={detail.rentaluse} inline={false} />
+							 
 
 							 <KrField grid={1/2}  name="totalrent" component="labelText"  label="租金总额" placeholder="" value={detail.totalrent}  defaultValue="0" inline={false}/>
 							 <KrField grid={1/2}  name="totaldeposit"  component="labelText" label="押金总额" value={detail.totaldeposit} defaultValue="0" inline={false}/>

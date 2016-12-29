@@ -139,6 +139,10 @@ class Header extends Component {
 			height: 60,
 		}
 
+		if(!item){
+			return ;
+		}
+
 		if (item.active) {
 			styles.borderBottom = '2px solid #fff';
 			styles.borderLeft = '1px solid #3F93CA';
@@ -233,7 +237,9 @@ class Header extends Component {
 							vertical: 'top'
 						}
 					} >
-					{this.props.user.nick && 	<MenuItem primaryText={this.props.user.nick} />}
+					{this.props.user.nick && 	<MenuItem primaryText={this.props.user.nick} onTouchTap={(event)=>{
+						window.location.hash = 'permission/personalCenter';
+				}} />}
 
 					 < MenuItem primaryText = "退出"
 					onTouchTap = {

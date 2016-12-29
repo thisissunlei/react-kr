@@ -24,6 +24,7 @@ import {
 } from 'kr-ui';
 
 import NewCreateForm from './NewCreateForm';
+import './index.less';
 
 export default class JoinCreate extends Component {
 
@@ -53,9 +54,9 @@ export default class JoinCreate extends Component {
 
 	onCreateSubmit(formValues) {
 
-			if(this.isConfirmSubmiting){
-				return ;
-			}
+		if (this.isConfirmSubmiting) {
+			return;
+		}
 
 		let {
 			params
@@ -166,7 +167,7 @@ export default class JoinCreate extends Component {
 				initialValues.boardroomnum = response.boardroomnum;
 				initialValues.wherefloor = response.wherefloor;
 				initialValues.rentaluse = response.rentaluse;
-				initialValues.contractmark = response.contractmark ||'';
+				initialValues.contractmark = response.contractmark || '';
 				initialValues.totalrent = response.totalrent;
 				initialValues.totaldeposit = response.totaldeposit;
 

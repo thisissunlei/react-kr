@@ -54,7 +54,7 @@ class SearchForm extends Component{
 		onCancel && onCancel();
 	};
 	onSubmit(forms){
-        
+
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(forms);
 	}
@@ -80,7 +80,8 @@ class SearchForm extends Component{
 
                     <KrField grid={1/2} name="tradingCode" component="input" type="text" label="交易编号" right={40} style={{marginTop:5}}/>
 
-						
+
+
 
 					<KrField grid={1/1}  component="group" label="日期" style={{marginTop:3}}>
 					<div className='ui-listDate'><ListGroup>
@@ -90,7 +91,6 @@ class SearchForm extends Component{
 						</ListGroup>
 	                    </div>
 				   </KrField>
-
 
 
 					<Grid style={{marginTop:8,marginBottom:5,marginLeft:-35}}>
@@ -118,4 +118,3 @@ class SearchForm extends Component{
 export default reduxForm({
 	form: 'searchForm'
 })(SearchForm);
-

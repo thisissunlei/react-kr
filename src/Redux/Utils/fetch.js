@@ -2,7 +2,7 @@
 import fetch from 'isomorphic-fetch';
 import URLSearchParams from 'url-search-params';
 import { browserHistory } from 'react-router';
-import APIS from '../apis';
+import APIS from '../../Configs/apis';
 
 import ES6Promise from 'es6-promise';
 ES6Promise.polyfill();
@@ -30,13 +30,14 @@ function getUrl(path, params = {},mode = false) {
     }
     */
 
-
+    
     try {
         server += APIS[path].url;
     } catch(err) {
         console.error(`${path} not defined in apis.js`);
         return false;
     }
+    
 
     if(Object.keys(params).length){
         for (let item in params) {

@@ -93,11 +93,11 @@ class ReceivedBtnForm extends Component {
 	}
 
 	moneyCheck=(value)=>{
-		if(isNaN(value)){
+		if(value&&isNaN(value)){
           Message.error('金额只能为数字');
           return ;
 		}
-		if(value<=0){
+		if(value&&value<=0){
 		  Message.error('金额只能为正数');
           return ;	
 		}
@@ -170,9 +170,9 @@ class ReceivedBtnForm extends Component {
               	       {
               	       	accountDetail.map(function(item,index){
 						      	if(index%2==0){
-									return <div className='leftBottomValue'><KrField key={index} style={{marginBottom:5,width:261,marginLeft:-9}}  grid={1/2}   label={item.propname} component="input" name={item.id} type="text" onChange={_this.calcBalance} onBlur={this.moneyCheck}/></div>
+									return <div className='leftBottomValue'><KrField key={index} style={{marginBottom:5,width:261,marginLeft:-9}}  grid={1/2}   label={item.propname} component="input" name={item.id} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
 						      	}else{
-						      		return <div className='rightBottomValue'><KrField key={index} style={{marginBottom:5,width:261}} grid={1/2}   label={item.propname}  component="input" name={item.id} type="text" onChange={_this.calcBalance} onBlur={this.moneyCheck}/></div>
+						      		return <div className='rightBottomValue'><KrField key={index} style={{marginBottom:5,width:261}} grid={1/2}   label={item.propname}  component="input" name={item.id} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
 						   }
 					     }
 		               )

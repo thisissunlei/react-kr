@@ -59,24 +59,24 @@ import {
 
 	render(){
 
-		
+
 
 		const { error, handleSubmit, pristine, reset} = this.props;
 
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
-				<KrField name="id" type="hidden" label="id"/> 
-				<KrField grid={1/2} name="accountcode" type="text" label="科目编码" requireLabel={true} disabled={true}/> 
-				<KrField grid={1/2} name="accountname" type="text" label="科目名称" requireLabel={true}/> 
+				<KrField name="id" type="hidden" label="id"/>
+				<KrField grid={1/2} name="accountcode" type="text" label="科目编码" requireLabel={true} disabled={true}/>
+				<KrField grid={1/2} name="accountname" type="text" label="科目名称" requireLabel={true}/>
 				<KrField grid={1/2} name="accounttype" type="select" label="科目类别" options={[ {value:'PAYMENT',label:'回款'}, {value:'INCOME',label:'收入'}, ]} requireLabel={true} />
-				<KrField grid={1/2} name="ordernum" type="text" label="排序号" requireLabel={true}/> 
+				<KrField grid={1/2} name="ordernum" type="text" label="排序号" requireLabel={true}/>
 				<KrField grid={1/2} name="enableflag" component="group" label="是否启用" requireLabel={true}>
 						<KrField name="enableflag" label="是" component="radio" type="radio" value="ENABLE"/>
 						<KrField name="enableflag" label="否"  component="radio"  type="radio" value="DISENABLE" />
-			  </KrField> 
+			  </KrField>
 
-			<KrField name="accountdesc" component="textarea" label="描述"  /> 
+			<KrField name="accountdesc" component="textarea" label="描述"  />
 
 				<Grid style={{marginTop:30}}>
 					<Row>

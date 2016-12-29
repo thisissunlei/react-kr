@@ -7,6 +7,13 @@
 	padding-left:10px;
 
 
+	&:hover{
+		.ui-form-notify{
+			display:block;
+		}
+	}
+
+
 	&.inline{
 		display:inline-block;
 		min-width: 100px;
@@ -68,7 +75,8 @@
 	.error-wrap {
 		color:red;
 		padding:10px 0;
-		padding-top: 20px;
+		padding-bottom: 0;
+		// padding-top: 20px;
 	}
 
 	select,
@@ -123,7 +131,7 @@
 		.error-input{
 			font-size:16px;
 				border:1px solid red !important;
-				box-shadow: 0 0 3px red;
+				box-shadow: 0 0 3px red !important;
 		}
 
 		input[type=text]{

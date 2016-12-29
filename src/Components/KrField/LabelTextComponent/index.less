@@ -3,6 +3,7 @@
 		height:30px;
 		line-height:30px;
 		padding-left:5px;
+		display:inline-block;
 
 		a{
 			color:#499df1;
@@ -18,8 +19,21 @@
 		p{
 			color:#fff;
 		}
-		.__react_component_tooltip{
-			padding:4px 21px !important;
-		}
+		
 	}
+	.ui-form-item,.ui-form-controller {
+		display:inline-block;
+	}
+}
+.__react_component_tooltip{
+			padding:10px 21px !important;
+		}
+.ui-form-controller.inline {
+	.ui-label-text{
+	margin-top:13px !important;
+	line-height:16px;
+	}
+}
+.ui-label-text{
+	display:inline-block;
 }

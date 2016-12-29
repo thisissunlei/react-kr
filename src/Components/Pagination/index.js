@@ -378,7 +378,7 @@ export default class Pagination extends Component {
 			<div className="item-total-count">
 				<span>共</span>
 				<span className="num">{totalCount}</span>
-				<span>记录</span>
+				<span>条记录</span>
 			</div>
 		);
 	}

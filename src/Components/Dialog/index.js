@@ -28,6 +28,7 @@ export default class DialogComponent extends Component {
 		*标题
 		*/
 		title: React.PropTypes.string,
+		bodyStyle: React.PropTypes.object,
 		/**
 		*显示遮罩层
 		*/
@@ -136,6 +137,7 @@ export default class DialogComponent extends Component {
 			autoDetectWindowHeight,
 			autoScrollBodyContent,
 			children,
+			bodyStyle,
 			contentStyle,
 			...other
 		} = this.props;
@@ -157,7 +159,8 @@ export default class DialogComponent extends Component {
 								<div className="dialog-header-title"> {title} </div>
 								<span className="close" onClick={this.onClose}></span>
 						</div>
-						{open && <DialogBody> {children} </DialogBody>}
+						{open && <DialogBody bodyStyle={bodyStyle}> {children} </DialogBody>}
+
 				</div>
 			</div>
 		);

@@ -37,9 +37,11 @@ import {
 	Field,
 	FieldControl,
 	InputDate,
-	SnackTip,
 	CircleStyle,
-	Drawer
+	SearchForm,
+	SnackTip,
+	Drawer,
+	Dictionary
 } from 'kr-ui';
 
 
@@ -70,7 +72,8 @@ import {
 } from 'react-router';
 
 
- class Demo extends Component{
+
+export default class Demo extends Component {
 
 
 	static contextTypes = {
@@ -85,14 +88,6 @@ import {
 			open:false
 		}
 
-	}
-
-	componentDidMount() {
-		/*
-		this.setState({
-			userNameDefaultValue:'aahahh'
-		});
-		*/
 	}
 
 
@@ -123,6 +118,7 @@ import {
 	render() {
 		return (
 			<div>
+
                    <Drawer open={this.state.open} width={200} openSecondary={true}>
                      <div onClick={this.click}>eerer</div>
                    </Drawer>
@@ -142,11 +138,3 @@ import {
 		);
 	}
 }
-
-Demo = reduxForm({
-	form: 'admitCreateForm',
-	enableReinitialize: true,
-	keepDirtyOnReinitialize: true
-})(Demo);
-
-export default connect()(Demo);

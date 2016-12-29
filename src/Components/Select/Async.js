@@ -189,8 +189,14 @@ export default class Async extends Component {
 			options: (isLoading && loadingPlaceholder) ? [] : options,
 			ref: (ref) => (this.select = ref),
 			onChange: (newValues) => {
+
+				try{
+
 				if (this.props.value && (newValues.length > this.props.value.length)) {
 					this.clearOptions();
+				}
+				}catch(err){
+
 				}
 				this.props.onChange(newValues);
 			}

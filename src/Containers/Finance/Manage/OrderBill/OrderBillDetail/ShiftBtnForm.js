@@ -69,11 +69,11 @@ class ShiftBtnForm extends Component{
 	
     
 	 moneyShiftCheck=(value)=>{
-		if(isNaN(value)){
+		if(value&&isNaN(value)){
           Message.error('金额只能为数字');
           return ;
 		}
-		if(value<=0){
+		if(value&&value<=0){
 		  Message.error('金额只能为正数');
           return ;	
 		}

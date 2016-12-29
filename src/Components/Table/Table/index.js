@@ -399,7 +399,7 @@ export default class Table extends React.Component {
 			this.onSelect();
 		});
 
-		if (event.target.nodeName.toLowerCase() == 'input') {
+		if (event.hasOwnProperty('target') && event.target.nodeName.toLowerCase() == 'input') {
 			return;
 		}
 		//显示子元素
