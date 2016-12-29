@@ -73,7 +73,8 @@ export default class JoinPrint extends Component {
 
 				<Agreement.Print.Station
 					orderTime={false}
-					stationVOs={State.stationVOs} baseType={`双方一致同意，自 ${this.getLocalTime(State.baseInfo.leaseBegindate)}起减少`}
+					stationVOs={State.stationVOs} 
+					baseType={`双方一致同意，自 ${this.getLocalTime(State.baseInfo.leaseBegindate)}起减少`}
 					baseInfo={State.baseInfo}
 					reduceTh="减租期限"
 					info="减少费用总计"
