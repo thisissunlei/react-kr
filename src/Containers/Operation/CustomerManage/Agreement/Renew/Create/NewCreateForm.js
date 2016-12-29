@@ -111,6 +111,7 @@ class NewCreateForm extends Component {
 			selectedStation: [],
 			openStation: false,
 			openStationUnitPrice: false,
+			allRent:0
 		}
 	}
 
@@ -147,11 +148,56 @@ class NewCreateForm extends Component {
 	}
 
 	onStationSubmit(stationVos) {
+		console.log('stationVos',stationVos);
+		let _this = this;
+		let allRent = 0;
+		stationVos.map(item=>{
+			allRent += _this.getSingleRent(item);
+		})
 		this.setState({
-			stationVos
+			stationVos,
+			allRent
 		});
 
 		this.openStationDialog();
+	}
+	getSingleRent=(item)=>{
+		//年月日
+		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
+		let rentBegin = dateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
+		let rentEnd = dateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
+		let rentDay = 0;
+		let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
+		let years = rentEnd[0];
+		if(rentBegin[2]-rentEnd[2] == 1){
+			rentDay = 0;
+		}else{
+			let a =rentEnd[2]-rentBegin[2];
+			console.log('a',a);
+			if(a>=0){
+				rentDay = a+1;
+
+			}else{
+				let mounthIndex = 0;
+				if(rentEnd[1]=0){
+					mounthIndex = 12
+				}else{
+					mounthIndex = rentEnd[1]-1;
+				}
+				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[0]==2 ){
+					rentDay = mounth[mounthIndex]+2+a;
+				}
+				rentDay = mounth[mounthIndex]+1+a;
+				rentMounth = rentMounth-1;
+			}
+		}
+		console.log('day',rentMounth,rentDay);
+		//计算日单价
+		let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
+		//工位总价钱
+		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
+		console.log('allRent',allRent,rentPriceByDay);
+		return allRent;
 	}
 
 
@@ -226,6 +272,7 @@ class NewCreateForm extends Component {
 		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
 
 		form.stationVos = JSON.stringify(stationVos);
+		form.contractVersionType = 'NEW';
 
 		const {
 			onSubmit

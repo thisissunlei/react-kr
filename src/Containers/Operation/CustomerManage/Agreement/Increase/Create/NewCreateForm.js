@@ -15,7 +15,7 @@ import {
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import dateFormat from 'dateformat';
-
+import nzh from 'nzh';
 
 import {
 	reduxForm,
@@ -122,6 +122,7 @@ class NewCreateForm extends Component {
 			openStation: false,
 			openStationUnitPrice: false,
 			HeightAuto: false,
+			allRent:0,
 		}
 	}
 
@@ -222,6 +223,8 @@ class NewCreateForm extends Component {
 			stationVos,
 			selectedStation
 		} = this.state;
+		let _this = this;
+		let allMoney = 0;
 
 		stationVos = stationVos.map(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
@@ -229,9 +232,13 @@ class NewCreateForm extends Component {
 			}
 			return item;
 		});
+		stationVos.map((item)=>{
+			allMoney += _this.getSingleRent(item);
+		})
 
 		this.setState({
-			stationVos
+			stationVos,
+			allRent:allMoney
 		});
 
 		this.openStationUnitPriceDialog();
@@ -347,7 +354,8 @@ class NewCreateForm extends Component {
 
 
 		let {
-			billList
+			billList,
+			allRent
 		} = this.state;
 
 		let {
@@ -360,8 +368,8 @@ class NewCreateForm extends Component {
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
-
-
+		form.contractVersionType = 'NEW';
+		form.totalrent = allRent;
 		form.stationVos = stationVos;
 
 		//form.stationVos = JSON.stringify(stationVos);
@@ -488,6 +496,9 @@ class NewCreateForm extends Component {
 			}
 			
 		})
+		this.setState({
+			allRent:allMoney
+		})
 		
 	}
 	getSingleRent=(item)=>{
@@ -557,8 +568,12 @@ class NewCreateForm extends Component {
 		let {
 			billList,
 			stationVos,
-			HeightAuto
+			HeightAuto,
+			allRent,
 		} = this.state;
+		var nzhcn = nzh.cn;
+		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
+		console.log('allRent',allRent);
 
 		return (
 
@@ -622,7 +637,7 @@ class NewCreateForm extends Component {
 						</Table>
 						</div>
 						{stationVos.length>5?<div className="Btip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'Toprow':'Bottomrow'}></span></p></div>:''}
-
+						{allRent?<span>{allRent}{allRentName}</span>:''}
                    </DotTitle>
                    </div>
 					</CircleStyle>
@@ -633,6 +648,8 @@ class NewCreateForm extends Component {
 					<KrField  grid={1/2}  name="contracttype" type="hidden" component="input" />
 					<KrField  grid={1/2}  name="paymodelName" type="hidden" component="input" />
 					<KrField  grid={1/2}  name="paytypeName" type="hidden" component="input" />
+					<KrField  grid={1/2}  name="contractVersionType" type="hidden" component="input" />
+					
 
 					<KrField  name="leaseId" style={{width:370,marginLeft:70}} component="select" label="出租方" options={optionValues.fnaCorporationList} requireLabel={true}  />
 					<KrField  style={{width:370,marginLeft:90}}  name="lessorAddress" type="text" inline={false} component="labelText" label="地址" value={changeValues.lessorAddress}  defaultValue="无" />
@@ -685,7 +702,7 @@ class NewCreateForm extends Component {
 
 					
 
-					<KrField  style={{width:370,marginLeft:70}}  name="totalrent" type="text" component="input"  label="租金总额" placeholder="" requireLabel={true}
+					<KrField  style={{width:370,marginLeft:70}}  name="totalrent" type="text" component="labelText"  label="租金总额" placeholder="" value={allRent} defaultValue="0" inline={false} requireLabel={true}
 					requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}}  />
 					<KrField  style={{width:370,marginLeft:90}}  name="totaldeposit" type="text" component="input"  label="押金总额" requireLabel={true}
 					requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />

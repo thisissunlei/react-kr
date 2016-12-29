@@ -89,6 +89,9 @@ export default class Demo extends Component {
 
 
 	render() {
+		var nzhcn = nzh.cn;
+		console.log(nzhcn.encodeS(100111.09));
+		console.log(nzhcn.encodeB(100111.09));
 		return (
 			<div>
 			</div>
