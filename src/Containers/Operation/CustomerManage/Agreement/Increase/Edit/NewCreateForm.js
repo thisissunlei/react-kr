@@ -126,6 +126,7 @@ class NewCreateForm extends Component {
 			HeightAuto: false,
 			allRent:0
 		}
+		console.log('===>',this.props);
 	}
 
 	componentDidMount() {
@@ -358,7 +359,8 @@ class NewCreateForm extends Component {
 			billList
 		} = this.state;
 		let {
-			changeValues
+			changeValues,
+			initialValues
 		} = this.props;
 		let unitprice = true;
 		stationVos.map(function(item, index) {
@@ -381,7 +383,7 @@ class NewCreateForm extends Component {
 
 		form.stationVos = JSON.stringify(stationVos);
 		form.delStationVos = JSON.stringify(delStationVos);
-		form.totalrent = this.state.allRent;
+		form.totalrent = this.state.allRent?this.state.allRent:initialValues.totalrent;
 		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
@@ -538,6 +540,7 @@ class NewCreateForm extends Component {
 		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
+		allRent = allRent.toFixed(2);
 		console.log('allRent',allRent,rentPriceByDay);
 		return allRent;
 	}

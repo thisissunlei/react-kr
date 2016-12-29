@@ -339,6 +339,7 @@ class NewCreateForm extends Component {
 		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
+		allRent = allRent.toFixed(2);
 		console.log('allRent',allRent,rentPriceByDay);
 		return allRent;
 	}
@@ -397,7 +398,8 @@ class NewCreateForm extends Component {
 			delStationVos
 		} = this.state;
 		let {
-			changeValues
+			changeValues,
+			initialValues
 		} = this.props;
 
 		form.lessorAddress = changeValues.lessorAddress;
@@ -411,7 +413,8 @@ class NewCreateForm extends Component {
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
-		form.totalrent = this.state.allRent;
+		form.totalrent = this.state.allRent?this.state.allRent:initialValues.totalrent;
+		
 		const {
 			onSubmit
 		} = this.props;

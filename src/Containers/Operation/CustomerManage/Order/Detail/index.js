@@ -465,6 +465,16 @@ export default class OrderDetail extends React.Component {
 
 	}
 	uploadFile(id){
+		Store.dispatch(Actions.callAPI('getFileList', {
+			detailId: id
+		})).then(function(response) {
+			console.log('getFileList',response);
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
 		this.setState({
 			openMenu:!this.state.openMenu,
 			openId:id

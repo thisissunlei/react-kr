@@ -192,6 +192,7 @@ class NewCreateForm extends Component {
 		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
+		allRent = allRent.toFixed(2);
 		console.log('allRent',allRent,rentPriceByDay);
 		return allRent;
 	}
