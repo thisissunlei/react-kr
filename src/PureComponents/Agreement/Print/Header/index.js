@@ -51,7 +51,7 @@ export default class Header extends Component {
 			<div className="ui-print-header">
 				<div className="logo-info">
 					<div className="print-logo"></div>
-		<div  className="print-code print-code-list">合同编号：{baseInfo.contractNO}</div>
+					<div  className="print-code print-code-list">合同编号：{baseInfo.contractNO}</div>
 					<div  className="print-code">
 						<span style={{marginRight:38}}>{baseInfo.cityName}</span>
 						<span>{baseInfo.communityName}</span>
