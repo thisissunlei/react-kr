@@ -1145,12 +1145,13 @@ export default class AttributeSetting extends Component {
     }
 
    calcBalance=(input)=>{
-
-
+    
+   
    	//console.log('input',input);
+   	input.value=Math.round((input.value*100)) 
 
    	this.receivedBtnFormChangeValues[input.name] = input.value;
-    
+
 
    
    	let receivedBtnFormChangeValues = this.receivedBtnFormChangeValues;
@@ -1161,7 +1162,7 @@ export default class AttributeSetting extends Component {
    		
    	for(var item in receivedBtnFormChangeValues){
    		if(receivedBtnFormChangeValues.hasOwnProperty(item) && item !='totalPayment'){
-   			console.log('aay')
+
    			liveMoneyValue -= receivedBtnFormChangeValues[item];
    		}
    	}
@@ -1198,7 +1199,7 @@ export default class AttributeSetting extends Component {
 
 
 
-		console.log('221111',fiMoney);
+		
 
 
 		//判断按钮出现与隐藏

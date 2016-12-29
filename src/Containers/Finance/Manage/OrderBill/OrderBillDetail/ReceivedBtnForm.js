@@ -110,11 +110,8 @@ class ReceivedBtnForm extends Component {
    	 	Message.error('只能输入数字')
    	 	return ;
    	 }
-   	 input.value = value*100;
+   	 input.value = value;
    	 calcBalance && calcBalance(input);
-
-
-
   
    }
   
