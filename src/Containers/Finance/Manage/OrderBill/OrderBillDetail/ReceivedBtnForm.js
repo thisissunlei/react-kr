@@ -100,13 +100,17 @@ class ReceivedBtnForm extends Component {
 	}
 
    calcBalance=(value,input)=>{
+     var lastValue=value.split('.')[1]
+     if(lastValue&&lastValue.length>2){
+       Message.error('最多到小数点后两位');
+       return ; 
+     }
    	 let {changeValues,calcBalance} = this.props;
-   	 console.log('changeValues',changeValues);
    	 if(isNaN(value)){
    	 	Message.error('只能输入数字')
    	 	return ;
    	 }
-   	 input.value = value;
+   	 input.value = value*100;
    	 calcBalance && calcBalance(input);
 
 

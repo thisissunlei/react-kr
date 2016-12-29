@@ -1167,10 +1167,10 @@ export default class AttributeSetting extends Component {
    	}
    	}
 
-   	console.log('--liveMoneyValue-',liveMoneyValue)
+   
 
    	
-
+    liveMoneyValue=liveMoneyValue/100;
   
    	 //let {allSumValue,rightBottomValue,leftBottomValue,compareValue,stationValue,stationAddValue,stationAdminValue,depositAddValue,depositAdminValue}=this.state;
      this.setState({
