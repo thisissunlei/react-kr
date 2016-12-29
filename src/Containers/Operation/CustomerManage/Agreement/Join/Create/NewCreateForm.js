@@ -472,15 +472,11 @@ class NewCreateForm extends Component {
 				rentDay = a+1;
 
 			}else{
-				let mounthIndex = 0;
-				if(rentEnd[1]==1){
-					mounthIndex = 11;
-				}else{
-					mounthIndex = rentEnd[1]-1;
-				}
-				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[0]==2 ){
+				let mounthIndex = rentEnd[1]-1;
+				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
 					rentDay = mounth[mounthIndex]+2+a;
 				}
+				console.log('mounthIndex',mounth[mounthIndex]);
 				rentDay = mounth[mounthIndex]+1+a;
 				rentMounth = rentMounth-1;
 			}

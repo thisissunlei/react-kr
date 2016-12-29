@@ -525,6 +525,11 @@ const APIS = {
 		url: '/api/krspace-finance-web/finacontractdetail/plan-table/rate?year={year}&communityids={communityids}',
 		method: 'get'
 	},
+   //获取附件列表
+   'getFileList':{
+      url: '/api/krspace-op-web/finacontractdetail/fileList-show',
+      method: 'get'
+   },
 }
 
 module.exports = APIS;
