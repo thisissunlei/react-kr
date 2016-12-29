@@ -58,14 +58,25 @@ export default class JoinPrint extends Component {
 
 			<div className="print-section no-print-section">
 
-
-				<Agreement.Print.Header baseInfo={State.baseInfo} orderInfo="入驻服务意向书" />
-				<Agreement.Print.BaseInfo baseInfo={State.baseInfo} />
-				<Agreement.Print.Station orderTime={true} stationVOs={State.stationVOs} baseType="意向入驻信息" baseInfo={State.baseInfo} />
+				<Agreement.Print.Header
+					  baseInfo={State.Baseinfo}
+						orderInfo="入驻服务意向书"
+				/>
+				<Agreement.Print.BaseInfo baseInfo={State.Baseinfo} />
+				<Agreement.Print.Station
+						orderTime={true}
+						stationVOs={State.stationVOs}
+						baseType="意向入驻信息"
+						baseInfo={State.Baseinfo}
+				/>
 				<div className="station-after">
 					乙方应于_____年___月___日前与甲方签署《入驻服务协议》，该定金可直接冲抵履约保证金或首期服务费
 				</div>
-				<Agreement.Print.Intention stationVOs={State.stationVOs} baseInfo={State.baseInfo} />
+				<Agreement.Print.Intention
+						stationVOs={State.stationVOs}
+						baseInfo={State.Baseinfo}
+				/>
+
 
 				<Agreement.Print.Footer />
 
