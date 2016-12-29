@@ -19,7 +19,7 @@ let State = observable({
 	validations: {},
 	data: [],
 	installmentPlans: [],
-	Baseinfo: {},
+	baseInfo: {},
 	stationVOs: [],
 	installmentPlansList: []
 });
@@ -31,7 +31,7 @@ State.getBasicInfo = action(function(params) {
 		contractId: params.id
 	})).then(function(response) {
 		console.log(response)
-		_this.Baseinfo = response;
+		_this.baseInfo = response;
 		if (response.stationVOs.length >= 7) {
 			_this.stationVOs = response.stationVOs;
 		} else {

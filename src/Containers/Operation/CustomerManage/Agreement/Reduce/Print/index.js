@@ -66,15 +66,15 @@ export default class JoinPrint extends Component {
 			<div className="g-exit-print">
 				<div className="print-section no-print-section" >
 				<Agreement.Print.Header
-					baseInfo={State.Baseinfo}
+					baseInfo={State.baseInfo}
 					orderInfo="入驻服务协议"
 				/>
-				<Agreement.Print.BaseInfo baseInfo={State.Baseinfo}/>
+				<Agreement.Print.BaseInfo baseInfo={State.baseInfo}/>
 
 				<Agreement.Print.Station
 					orderTime={false}
-					stationVOs={State.stationVOs} baseType={`双方一致同意，自 ${this.getLocalTime(State.Baseinfo.leaseBegindate)}起减少`}
-					baseInfo={State.Baseinfo}
+					stationVOs={State.stationVOs} baseType={`双方一致同意，自 ${this.getLocalTime(State.baseInfo.leaseBegindate)}起减少`}
+					baseInfo={State.baseInfo}
 					reduceTh="减租期限"
 					info="减少费用总计"
 				/>

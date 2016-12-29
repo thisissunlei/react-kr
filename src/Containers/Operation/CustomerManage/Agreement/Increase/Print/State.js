@@ -13,7 +13,7 @@ import {
 let State = observable({
 	data: [],
 	installmentPlans: [],
-	Baseinfo: {},
+	baseInfo: {},
 	stationVOs: [],
 	installmentPlansList: []
 });
@@ -24,7 +24,7 @@ State.getBasicInfo = action(function(params) {
 	Store.dispatch(Actions.callAPI('checkinagreement-print-info', {
 		contractId: params.id
 	})).then(function(response) {
-		_this.Baseinfo = response;
+		_this.baseInfo = response;
 		if (response.stationVOs.length >= 7) {
 			_this.stationVOs = response.stationVOs;
 		} else {
