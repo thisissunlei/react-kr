@@ -58,7 +58,6 @@ export default class JoinPrint extends Component {
 
 			<div className="print-section no-print-section">
 
-
 				<Agreement.Print.Header
 					  baseInfo={State.Baseinfo}
 						orderInfo="入驻服务意向书"
@@ -77,6 +76,7 @@ export default class JoinPrint extends Component {
 						stationVOs={State.stationVOs}
 						baseInfo={State.Baseinfo}
 				/>
+
 
 				<Agreement.Print.Footer />
 
