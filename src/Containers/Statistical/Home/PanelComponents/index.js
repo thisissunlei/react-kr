@@ -76,13 +76,11 @@ export default class PanelComponents  extends Component{
 					if(childComponentName){
 						props.key = index;
 						props.todayDate=todayDate;
-						/*
-						renderComponent.push(React.cloneElement(childComponentName,{
+						renderComponent.push(React.createElement(childComponentName,{
 							...props
 						}));
-						*/
 					}
-					renderComponent.push(childComponentName);
+					//renderComponent.push(childComponentName);
 
 				});
 
