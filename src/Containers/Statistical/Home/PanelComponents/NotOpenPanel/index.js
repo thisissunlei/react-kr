@@ -39,6 +39,7 @@ export default class NotOpenPanel  extends Component{
 	constructor(props,context){
 		super(props, context);
 
+		alert('ahahahah');
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	    this.state = {
 			searchParams: {

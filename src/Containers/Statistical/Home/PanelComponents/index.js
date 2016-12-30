@@ -30,6 +30,7 @@ import PanelsDic from './PanelsDic';
 
 export default class PanelComponents  extends Component{
 
+	static displayName = 'PanelComponents';
 	static defaultProps = {
 		panels:[{templateName:'张三',templateNo:''},{latemplateNamebel:'里斯',templateNo:'dddd'}]
 	}

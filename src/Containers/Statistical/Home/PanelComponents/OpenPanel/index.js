@@ -39,7 +39,7 @@ export default class OpenPanel  extends Component{
 	constructor(props,context){
 		super(props, context);
 
-		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+		alert('ahahahha--=-');
 	    this.state = {
 			searchParams: {
 				groupId:this.props.groupId,
