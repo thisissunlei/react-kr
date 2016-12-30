@@ -42,7 +42,6 @@ export default class NotOpenPanel  extends Component{
 	constructor(props,context){
 		super(props, context);
 
-		alert('ahahahah');
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	    this.state = {
 			searchParams: {
@@ -77,8 +76,6 @@ export default class NotOpenPanel  extends Component{
 	    	this.setState({
 				searchParams
 			},function(){
-			console.log(searchParams,this.state.endValue,"uuu")
-
 			});
 
 
@@ -91,7 +88,6 @@ export default class NotOpenPanel  extends Component{
         let end=Date.parse(dateFormat(endD,"yyyy-mm-dd hh:MM:ss"));
         this.setState({
         	endValue:endD
-
         },function () {
 
         	if(start>end){
@@ -103,9 +99,6 @@ export default class NotOpenPanel  extends Component{
 	    	this.setState({
 				searchParams
 			},function(){
-			console.log(searchParams,"uuu")
-
-
 			});
 
         })
