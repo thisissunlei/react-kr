@@ -69,11 +69,11 @@ export default class PanelComponents  extends Component{
 					groupId
 				};
 
-				console.log('---',panels);
+				var _this = this;
 				panels.map(function(item,index){
 						props.key = index;
 						props.todayDate=todayDate;
-						renderComponent.push(this.createPanelComponent(item.id,props));
+						renderComponent.push(_this.createPanelComponent(item.id,props));
 				});
 
 				return renderComponent;
