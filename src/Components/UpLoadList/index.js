@@ -70,6 +70,11 @@ export default class UpLoadList extends Component {
 			
 		}
 	}
+	componentWillUnmount(){
+		console.log('componentWillUnmount');
+		let node = ReactDOM.findDOMNode(this.tooltip);
+		node.style.visibility = 'hidden';
+	}
 	renderHover=()=>{
 		let {detail} = this.props;
 		let node = ReactDOM.findDOMNode(this.tooltip);
@@ -90,19 +95,41 @@ export default class UpLoadList extends Component {
 	}
 	getFileList=(id)=>{
 		let _this = this;
+		let {open} = this.props;
+		if(open[1] != id){
+			return ;
+		}
 		Store.dispatch(Actions.callAPI('getFileList', {
 			detailId: id
 		})).then(function(response) {
 			_this.setState({
 				files:response
 			})
-			console.log('getFileList-ui',response);
 		}).catch(function(err) {
 			alert(err.message);
 		});
 	}
+	saveFileList=(id)=>{
+		let _this = this;
+		Store.dispatch(Actions.callAPI('saveFileList', {
+			detailId: _this.props.detail.id,
+			fileId:id
+		})).then(function(response) {
+		}).catch(function(err) {
+			alert(err.message);
+		});
+	}
+
 	delete(id){
-		console.log('id',id);
+		let _this = this;
+		Store.dispatch(Actions.callAPI('deleteFileList', {
+			detailId: _this.props.detail.id,
+			fileId:id.id
+		})).then(function(response) {
+			_this.getFileList(_this.props.detail.id);
+		}).catch(function(err) {
+			alert(err.message);
+		});
 	}
 	onError(message) {
 		message = message || '上传文件失败';
@@ -136,8 +163,8 @@ export default class UpLoadList extends Component {
 
 		// files.unshift(response);
 		files.push(response);
+		this.saveFileList(response.id);
 
-		console.log('files', files);
 		this.setState({
 			files,
 			progress: 0,
@@ -154,7 +181,6 @@ export default class UpLoadList extends Component {
 		let {
 			input
 		} = this.props;
-		console.log('fsadd');
 		let fileIds = [];
 		files.forEach(function(item, index) {
 			fileIds.push(item.id);
@@ -180,7 +206,6 @@ export default class UpLoadList extends Component {
 
 
 		let file = event.target.files[0];
-		console.log('file-----', file)
 		if (!file) {
 			return;
 		}
@@ -194,7 +219,7 @@ export default class UpLoadList extends Component {
 		if (file) {
 			var progress = 0;
 			var timer = window.setInterval(function() {
-				if (progress >= 100) {
+				if (progress >= 90) {
 					window.clearInterval(timer);
 					_this.setState({
 						progress: 0,
@@ -205,7 +230,7 @@ export default class UpLoadList extends Component {
 				_this.setState({
 					progress
 				});
-			}, 300);
+			}, 100);
 
 
 		}
@@ -270,7 +295,7 @@ export default class UpLoadList extends Component {
 	}
 	renderLoad=()=>{
 		let {files} = this.state;
-		if(files.length<=6){
+		if(files.length<6){
 			return (
 				<li className="ui-file">
 					<div className="file-button">
@@ -297,7 +322,7 @@ export default class UpLoadList extends Component {
 						<li key={index}>
 						
 						<span className="file-name">{item.fileName}</span>
-						<span className="file-delete" onClick={this.delete.bind(this,item)}>ddd</span>
+						<span className="file-delete icon-delete" onClick={this.delete.bind(this,item)}></span>
 						</li>
 						)
 				})}

@@ -242,6 +242,8 @@ export default class OrderDetail extends React.Component {
 			View: false,
 			openMenu:false,
 			openId:0,
+			opretionId:0,
+			opretionOpen:false,
 			response: {
 				orderBaseInfo: {},
 				installment: {},
@@ -462,21 +464,20 @@ export default class OrderDetail extends React.Component {
 
 	}
 	uploadFile(id){
-		Store.dispatch(Actions.callAPI('getFileList', {
-			detailId: id
-		})).then(function(response) {
-			console.log('getFileList',response);
-		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
-		this.setState({
-			openMenu:!this.state.openMenu,
-			openId:id
-		})
+		let fileId = this.state.openId;
+		if(fileId == id){
+			this.setState({
+				openMenu:!this.state.openMenu,
+				openId:id
+			})
+		}else{
+			this.setState({
+				openMenu:true,
+				openId:id
+			})
 		}
+	}
+		
 	change = (form) => {
 		const {
 			orderBaseInfo
@@ -546,6 +547,21 @@ export default class OrderDetail extends React.Component {
 	onChange=(files)=>{
 		console.log('onChange',files);
 	}
+	showMoreOpretion(id){
+		let {opretionId} = this.state;
+		if(opretionId == id){
+			this.setState({
+				opretionId:id,
+				opretionOpen:!this.state.opretionOpen
+			})
+		}else{
+			this.setState({
+				opretionId:id,
+				opretionOpen:true
+			})
+		}
+		
+	}
 
 	render() {
 
@@ -598,6 +614,9 @@ export default class OrderDetail extends React.Component {
 
 			{contractList.map((item,index)=>{
 				
+				let {opretionOpen,opretionId} = this.state;
+				let showOpretion = (item.id == opretionId && opretionOpen)?'visible':'hidden';
+				
 				return (
 					<TableRow key={index}>
 					{this.getAgrementType(item.contracttype)}
@@ -612,11 +631,16 @@ export default class OrderDetail extends React.Component {
 					<TableRowColumn>
 					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} />
 					<Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)}/>
+					
+					{(item.contractstate != 'EXECUTE' && item.editFlag)?<Button  type="link" label="..." href="javascript:void(0)" onTouchTap={this.showMoreOpretion.bind(this,item.id)}/>:<Button  type="link" label="打印" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)}/>}
 					<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
+					<div style={{visibility:showOpretion}} className="m-operation" >
+						{item.contractstate != 'EXECUTE' && item.editFlag && <span style={{display:'block'}}><a  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}>编辑</a></span> }
+						<span  style={{display:'block'}}>打印</span>
 
-							{item.contractstate != 'EXECUTE' && item.editFlag && <Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
-
-							{item.contracttype == 'ENTER' && item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
+						{item.contracttype == 'ENTER' && item.contractstate != 'EXECUTE' && item.editFlag  && <span  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</span> }
+					</div>
+							
 						{/*
 							{item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除" onTouchTap={this.delArgument.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
 
