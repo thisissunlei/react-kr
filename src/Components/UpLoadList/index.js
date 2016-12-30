@@ -309,6 +309,10 @@ export default class UpLoadList extends Component {
 			return ;
 		}
 	}
+	download(item){
+		console.log('download',item);
+		window.location.href = item.fileUrl;
+	}
 	render() {
 		let {isUploading,progress,files,fileName} = this.state;
 		let className = 'upload-list';
@@ -321,7 +325,7 @@ export default class UpLoadList extends Component {
 					return (
 						<li key={index}>
 						
-						<span className="file-name">{item.fileName}</span>
+						<span className="file-name" onClick={this.download.bind(this,item)}>{item.fileName}</span>
 						<span className="file-delete icon-delete" onClick={this.delete.bind(this,item)}></span>
 						</li>
 						)

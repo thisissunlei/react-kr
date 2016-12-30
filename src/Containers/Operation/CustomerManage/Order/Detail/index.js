@@ -468,12 +468,14 @@ export default class OrderDetail extends React.Component {
 		if(fileId == id){
 			this.setState({
 				openMenu:!this.state.openMenu,
-				openId:id
+				openId:id,
+				opretionOpen:false
 			})
 		}else{
 			this.setState({
 				openMenu:true,
-				openId:id
+				openId:id,
+				opretionOpen:false
 			})
 		}
 	}
@@ -552,11 +554,13 @@ export default class OrderDetail extends React.Component {
 		if(opretionId == id){
 			this.setState({
 				opretionId:id,
+				openMenu:false,
 				opretionOpen:!this.state.opretionOpen
 			})
 		}else{
 			this.setState({
 				opretionId:id,
+				openMenu:false,
 				opretionOpen:true
 			})
 		}
