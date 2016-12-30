@@ -49,7 +49,7 @@ export default class PanelComponents  extends Component{
 
 	}
 
-	renderPanelComponents = (){
+	renderGroupComponent = (){
 
 				let {panels,groupId}=this.props;
 
@@ -92,7 +92,7 @@ export default class PanelComponents  extends Component{
 
 									ahahahahah
 						</Section>
-			    	{this.renderPanelComponent()}
+			    	{this.renderGroupComponent()}
 			</div>
 		);
 	}
