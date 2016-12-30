@@ -341,6 +341,13 @@ class NewCreateForm extends Component {
 			}]);
 			return;
 		}
+		if(new Date(leaseEnddate)<new Date(leaseBegindate)){
+			Notify.show([{
+				message: '结束时间不能小于开始时间',
+				type: 'danger',
+			}]);
+			return;
+		}
 
 		this.getStationUrl();
 
