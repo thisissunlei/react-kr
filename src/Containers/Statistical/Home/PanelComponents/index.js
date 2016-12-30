@@ -72,12 +72,12 @@ export default class PanelComponents  extends Component{
 
 				var _this = this;
 				panels.map(function(item,index){
+					console.log('item',item);
 						props.key = index;
 						//props.todayDate=todayDate;
-						renderComponent.push(_this.createPanelComponent(item.id,props));
+						renderComponent.push(_this.createPanelComponent(1,props));
 				});
 
-				console.log('--->>>',renderComponent);
 				return renderComponent;
 	}
 
@@ -93,7 +93,9 @@ export default class PanelComponents  extends Component{
 					component = <NotOpenPanel {...props}/>
 					break;
 				}
-				default:
+				default:{
+					component = null;
+				}
 			}
 			return component;
 	}
