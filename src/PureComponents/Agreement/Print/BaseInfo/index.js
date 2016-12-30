@@ -46,7 +46,7 @@
  			<div className="ui-print-baseinfo">
 				<div className="baseinfo">基础信息</div>
 				<div className="baseinfo-content">
-					<div className="infolist">
+					<div className="infolist" style={{minWidth:"50%"}}>
 						<div>服务提供方（甲方）：{baseInfo.lessorName}</div>
 						<div>地址：{baseInfo.lessorAddress}</div>
 						<div>联系人：{baseInfo.lessorContact}</div>
