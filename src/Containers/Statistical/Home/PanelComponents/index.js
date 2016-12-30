@@ -63,19 +63,18 @@ export default class PanelComponents  extends Component{
 						}
 		var todayDate=dateYear+'-'+dateMonth+'-'+dateDay;
 
-
 				var renderComponent = [];
 				var props = {
 						groupId:groupId,
-						todayDate:'2017-1-1',
+						todayDate:'',
 				};
 
 				var _this = this;
 				panels.map(function(item,index){
 					console.log('item',item);
 						props.key = index;
-						//props.todayDate=todayDate;
-						renderComponent.push(_this.createPanelComponent(1,props));
+						props.todayDate=todayDate;
+						renderComponent.push(_this.createPanelComponent(item.id,props));
 				});
 
 				return renderComponent;
