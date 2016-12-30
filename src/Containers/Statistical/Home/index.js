@@ -145,7 +145,6 @@ export default class Home  extends Component{
 			Message.error(err);
 		});
 
-
 		Store.dispatch(Actions.switchSidebarNav(false));
 
 	}
@@ -160,7 +159,7 @@ export default class Home  extends Component{
 		}
 
 		return(
-			<div>
+			<div className="g-statistical">
 					{this.renderGroupTabs()}
 			</div>
 

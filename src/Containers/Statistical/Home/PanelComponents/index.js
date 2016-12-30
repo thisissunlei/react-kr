@@ -70,6 +70,10 @@ export default class PanelComponents  extends Component{
 
 				panels.map(function(item,index){
 					var childComponentName = PanelsDic[item.id];
+					alert(JSON.stringify(item));
+
+					alert(childComponentName);
+
 					if(childComponentName){
 						props.key = index;
 						props.todayDate=todayDate;
@@ -87,10 +91,6 @@ export default class PanelComponents  extends Component{
 		return(
 			<div>
 			    <Title value="数据统计"/>
-						<Section title="数据统计">
-
-									ahahahahah
-						</Section>
 			    	{this.renderGroupComponent()}
 			</div>
 		);
