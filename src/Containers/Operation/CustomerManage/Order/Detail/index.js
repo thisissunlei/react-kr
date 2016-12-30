@@ -287,10 +287,7 @@ export default class OrderDetail extends React.Component {
 				window.location.reload();
 			}, 100)
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			console.log(err.message);
 		});
 
 
@@ -615,7 +612,7 @@ export default class OrderDetail extends React.Component {
 					<TableRowColumn>
 					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} />
 					<Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)}/>
-					<UpLoadList open={[this.state.openMenu,this.state.openId]} fileList ={fileList} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
+					<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
 
 							{item.contractstate != 'EXECUTE' && item.editFlag && <Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
 

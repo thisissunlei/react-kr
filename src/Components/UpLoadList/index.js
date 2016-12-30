@@ -7,6 +7,10 @@ import {
 	FontIcon,
 	Notify,
 } from 'kr-ui';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 import ReactDOM from 'react-dom';
 import './index.less';
 import {ShallowEqual} from 'kr/Utils';
@@ -47,7 +51,7 @@ export default class UpLoadList extends Component {
 			isUploading: false,
 			isInit: true,
 			form: {},
-			files:this.props.fileList,
+			files:[],
 			offsetTop:this.props.offsetTop,
 			fileName:''
 		}
@@ -70,6 +74,7 @@ export default class UpLoadList extends Component {
 		let {detail} = this.props;
 		let node = ReactDOM.findDOMNode(this.tooltip);
 		let parent = node.parentNode;
+		this.getFileList(detail.id);
 		// node.style.backgroundColor = backgroundColor;
 		let {open} = this.props;
 		if(open[1] == detail.id && open[0]){
@@ -82,6 +87,19 @@ export default class UpLoadList extends Component {
 			width:node.offsetWidth,
 			height:node.offsetHeight
 		})
+	}
+	getFileList=(id)=>{
+		let _this = this;
+		Store.dispatch(Actions.callAPI('getFileList', {
+			detailId: id
+		})).then(function(response) {
+			_this.setState({
+				files:response
+			})
+			console.log('getFileList-ui',response);
+		}).catch(function(err) {
+			alert(err.message);
+		});
 	}
 	delete(id){
 		console.log('id',id);
@@ -117,7 +135,7 @@ export default class UpLoadList extends Component {
 		} = this.state;
 
 		// files.unshift(response);
-		files.push('0');
+		files.push(response);
 
 		console.log('files', files);
 		this.setState({
@@ -278,7 +296,7 @@ export default class UpLoadList extends Component {
 					return (
 						<li key={index}>
 						
-						<span className="file-name">{item}</span>
+						<span className="file-name">{item.fileName}</span>
 						<span className="file-delete" onClick={this.delete.bind(this,item)}>ddd</span>
 						</li>
 						)
