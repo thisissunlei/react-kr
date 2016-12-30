@@ -68,11 +68,13 @@ export default class PanelComponents  extends Component{
 					groupId
 				};
 
+				console.log('---',panels);
 				panels.map(function(item,index){
 					var childComponentName = PanelsDic[item.id];
 					alert(JSON.stringify(item));
+					console.log(item);
 
-					alert(childComponentName);
+					//alert(childComponentName);
 
 					if(childComponentName){
 						props.key = index;
