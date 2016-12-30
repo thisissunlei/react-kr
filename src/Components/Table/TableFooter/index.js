@@ -61,6 +61,14 @@ export default class TableFooter extends React.Component {
 		} = this.props;
 		onExport && onExport();
 	}
+	onImport=()=>{
+		const {onImport}=this.props;
+		onImport && onImport();
+	}
+	batchDelet=()=>{
+		const {batchDelet} = this.props;
+		batchDelet && batchDelet();
+	}
 
 	onPageChange(page) {
 		const {
@@ -109,13 +117,11 @@ export default class TableFooter extends React.Component {
 		} = this.props;
 
 		if (!exportSwitch) {
-			return (
-				<TableRowColumn></TableRowColumn>
-			);
+			return;
 		}
 
 		return (
-			<TableRowColumn style={{textAlign:'left'}} colSpan={2}> <a style={{width:80,height:30,background:'#499df1',color:'#fff',cursor:'pointer',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)'}}  onClick={this.onExport}>导&nbsp;&nbsp;出</a> </TableRowColumn>
+			<a style={{width:80,height:30,background:'#499df1',color:'#fff',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)',marginRight:20,cursor: 'pointer'}}  onClick={this.onExport}>导&nbsp;&nbsp;出</a>
 		);
 	}
 	renderOther=()=>{
@@ -133,11 +139,19 @@ export default class TableFooter extends React.Component {
 			totalCount,
 			page,
 			pageSize,
-			footer
+			footer,
+			batchDelet,
+			onImport,
+			renderOther,
+			exportSwitch
 		} = this.props;
 
 		if (!footer) {
 			return null;
+		}
+		let num = 1;
+		if(onImport && batchDelet && exportSwitch){
+			num = 4;
 		}
 
 		return (
@@ -148,7 +162,7 @@ export default class TableFooter extends React.Component {
 				*/}
 				<TableRowColumn style={{textAlign:'left'}} colSpan={num}>
 					{this.renderExport()}
-					{this.renderOther()}
+					{renderOther && renderOther()}
 				</TableRowColumn>
 
 

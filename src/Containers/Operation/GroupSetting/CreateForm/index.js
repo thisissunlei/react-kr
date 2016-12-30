@@ -3,6 +3,8 @@ import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
+import {ShallowEqual} from 'kr/Utils';
+
 import {
 	KrField,
 	Grid,
@@ -24,10 +26,17 @@ class Switchover extends Component{
 			okData:this.props.okData,
     }
   }
+
+	componentWillReceiveProps(nextProps){
+		if(!ShallowEqual(nextProps.allData,this.state.allData)){
+			this.setState({
+				allData:nextProps.allData,
+			});
+		}
+	}
 	//向右边添加
 	rightAdd=(value)=>{
 		var _this=this;
-
 		var arr=this.state.okData;
 		arr.push(value);
 		this.setState({okData:arr},function(){
@@ -39,11 +48,9 @@ class Switchover extends Component{
 	leftAdd=(value)=>{
 		var _this=this;
 		var arr=this.state.allData;
-		console.log(value,"??-----??",arr);
 		arr.push(value);
 		this.setState({allData:arr},function(){
 			_this.props.changeMudle(_this.state.okData)
-
 		});
 	}
 	//右边全部数据添加到左边
@@ -67,13 +74,13 @@ class Switchover extends Component{
 	}
 	//数组的状态
 	swapItems =(arr, index1, index2)=> {
-
 			var _this=this;
        arr[index1] = arr.splice(index2, 1, arr[index1])[0];
        this.setState({okData:arr},function(){
 	 			_this.props.changeMudle(_this.state.okData)
 	 		});
    }
+
   render(){
 		var boxStyle={
 			marginLeft:"10px",
@@ -158,12 +165,11 @@ class ZhuanHuan extends React.Component{
 
     var remove=arr.splice(index,1)[0];
     _this.setState({mouldSort:arr});
-		console.log(remove,"???????");
     _this.props.addOther(remove);
   }
 
   render(){
-		console.log(this.props.Data,this.props.kk);
+
     var _this=this;
     var boxStyle={
       border:"1px solid #dfdfdf",
@@ -175,6 +181,11 @@ class ZhuanHuan extends React.Component{
       overflow:"auto",
 			borderRadius:"3px",
     }
+
+    if (!this.state.mouldSort) {
+		dd=[];
+    }
+
     var arr=this.state.mouldSort.map(function(item,index){
       var j=index;
 
@@ -228,7 +239,7 @@ class ZhuanHuan extends React.Component{
   */
   class KrMould extends Component{
     render(){
-      var upShow,downShow;
+      var upShow,downShow,className="ui-KrMould";
 
       if(this.props.iconShow=="false"){
         upShow="hidden";
@@ -242,36 +253,41 @@ class ZhuanHuan extends React.Component{
           width:"100%",
           height:"26px",
           lineHeight:"26px",
+          marginTop:"-1px",
           paddingLeft:"10px",
           cursor:"pointer",
           fontSize:"14px",
-          color:"#666666",
+          paddingLeft:"5px",
+          paddingRight:"5px",
+
           boxSizing:"border-box",
       }
       //上移箭头的样式
       var upStyle={
+      	position:"absolute",
         display:"inline-block",
         cursor:"pointer",
 				width:"10px",
         float:"right",
 				height:"26px",
-        marginRight:"30px",
+        right:"70px",
         visibility:upShow
       }
       //下移箭头的样式
       var downShow={
+      	position:"absolute",
         cursor:"pointer",
         float:"right",
 				height:"26px",
 				width:"10px",
-        marginRight:"30px",
+        right:"30px",
 
         visibility:downShow
       }
 
       return(
         <div className="ui-groupMould " style={contentStyle} onClick={this.props.onClick}>
-          <span >{this.props.text}</span>
+          <span className={className}>{this.props.text}</span>
           <span className="ui-iconDown" onClick={this.props.downMove} style={downShow}></span>
           <span className="ui-iconUp"  onClick={this.props.upMoves} style={upStyle}></span>
 
@@ -296,15 +312,29 @@ class ZhuanHuan extends React.Component{
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
 		this.state={
+			okData:[],
 			moduleData:this.props.detail,
 			valuesErr:"",
 			isErr:false,
-
 		};
 	}
-	componentDidMount(){
-	 Store.dispatch(change('newCreateForm','enable','ENABLE'));
+	componentWillReceiveProps(nextProps){
+				Store.dispatch(initialize('newCreateForm',nextProps.detail));
 	}
+	componentDidMount(){
+	 	Store.dispatch(change('newCreateForm','enable','ENABLE'));
+	}
+
+	componentWillReceiveProps(nextProps){
+
+		if(nextProps.open != this.props.open){
+			this.setState({
+				moduleData:nextProps.detail,
+				okData:[]
+			});
+		}
+	}
+
  onSubmit(values){
 
 		const {onSubmit} = this.props;
@@ -317,17 +347,15 @@ class ZhuanHuan extends React.Component{
 	 }
 	 //分组名实时校验
 	 groupNameCheck=(values)=>{
-		 if(this.state.isErr){
+		 if(this.state.isErr&&values){
 			 var _this=this;
 			 values=this.Trim(values);
 			 Store.dispatch(Actions.callAPI('groupNameCheck',{groupName:values,id:''})).then(function(data) {
 
 			 }).catch(function(err) {
 
-				 Notify.show([{
-					 message: err.message,
-					 type: 'danger',
-				 }]);
+				 Message.error(err.message)
+
 			 });
 
 		 }
@@ -343,11 +371,8 @@ class ZhuanHuan extends React.Component{
 			 Store.dispatch(Actions.callAPI('sortCheck',{sort:values,id:''})).then(function(data) {
 
 			 }).catch(function(err) {
+				 Message.error(err.message)
 
-				 Notify.show([{
-					 message: err.message,
-					 type: 'danger',
-				 }]);
 			 });
 		 }
 
@@ -363,6 +388,7 @@ class ZhuanHuan extends React.Component{
 
 
 
+
 	 //去除前后空格
 	Trim=(str)=>{
 					return str.replace(/(^\s*)|(\s*$)/g, "");
@@ -373,29 +399,31 @@ class ZhuanHuan extends React.Component{
 		const { error, handleSubmit, pristine, reset} = this.props;
 
 		return (
-			<form onSubmit={handleSubmit(this.onSubmit)}>
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginLeft:25}}>
 
 				<KrField name="id" type="hidden" label="id"/>
 
 
-				<KrField grid={1/2} style={{marginTop:25}} right={25} name="groupName" type="text" label="分组名称" requireLabel={true} onBlur={this.groupNameCheck} onFocus={this.inputFocus}/>
-				<KrField grid={1/2} right={25} name="sort" type="text" label="排序" requireLabel={true} style={{marginTop:25}} onBlur={this.sortCheck}/>
+
+				<KrField grid={1/2} maxLength={20} style={{marginTop:30}} right={43} name="groupName" type="text" label="分组名称" requireLabel={true} onBlur={this.groupNameCheck} onFocus={this.inputFocus} />
+				<KrField grid={1/2} right={43} name="sort" type="text" label="排序" requireLabel={true} style={{marginTop:30,marginLeft:-10}} onBlur={this.sortCheck} onFocus={this.inputFocus}/>
+
 				<KrField grid={1} name="enable" component="group" label="启用状态" requireLabel={true}>
 							 <KrField name="enable" label="是" type="radio" value="ENABLE" checked={true}/>
 							 <KrField name="enable" label="否" type="radio" value="DISENABLE" />
 				</KrField>
 				<KrField grid={1/2} label="数据模板" requireLabel={true} name="groupDesc" component="labelText"/>
-				<Switchover allData={this.state.moduleData} okData={[]} changeMudle={this.props.changeMudle}/>
+				<Switchover allData={this.state.moduleData} okData={this.state.okData} changeMudle={this.props.changeMudle}/>
 
 
-			<KrField name="groupDesc" style={{width:558}} component="textarea" label="分组描述"  />
+			<KrField name="groupDesc" style={{width:558}} heightStyle={{height:"80px"}} component="textarea" label="分组描述" maxSize={100}  />
 
 				<Grid style={{marginTop:0,marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
 								<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div>
-								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
+								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel}  />
 							</ButtonGroup>
 						</Col>
 					</Row>
@@ -424,8 +452,5 @@ const validate = values =>{
 
 		return errors
 	}
-const selector = formValueSelector('newCreateForm');
-
-
 
 export default reduxForm({ form: 'newCreateForm', validate,enableReinitialize:true, keepDirtyOnReinitialize:true })(NewCreateForm);

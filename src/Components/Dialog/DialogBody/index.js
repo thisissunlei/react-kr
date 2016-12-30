@@ -42,7 +42,7 @@ export default class DialogBody extends Component {
 		    eleBoxStyle = {width:0,height:0};
     }
 
-		ele.style.maxHeight = page.height-200+'px';
+		ele.style.maxHeight = page.height-100+'px';
 		ele.style.minHeight = 100 +'px';
 
 		if(eleBoxStyle.height > page.height-200){
@@ -69,10 +69,10 @@ export default class DialogBody extends Component {
 
 	render() {
 
-		const { children } = this.props;
+		const { children ,bodyStyle} = this.props;
 
 		return (
-				<div className="dialog-body" ref="dialogBody">
+				<div className="dialog-body" ref="dialogBody" style={bodyStyle}>
 						{children}
 			</div>
 		);

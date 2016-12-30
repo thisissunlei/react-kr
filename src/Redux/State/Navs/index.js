@@ -48,7 +48,7 @@ module.exports = {
 			menuItems: [{
 				primaryText: '计划表',
 				menuCode: 'plan_table',
-				router: '/community/communityManage/detail'
+				router: '/community/communityManage/detail',
 			}, {
 				primaryText: '访客记录',
 				menuCode: 'sysVisitRecord',
@@ -147,15 +147,51 @@ module.exports = {
 		primaryText: "会员中心",
 		router: 'member',
 		menuCode: 'member',
-		originUrl: '/krspace_member_web/member/toMemberList?mid=94',
-		menuItems: [{
+		originUrl: '#/member/memberManage/list?mid=94',
+		menuItems: [
+			/*
+			{
 			primaryText: '会员管理',
 			iconName: 'icon-vip',
 			iconColor: '#2b8dcd',
 			menuCode: 'memberAdmin',
 			router: 'memberAdmin',
 			originUrl: '/krspace_member_web/member/toMemberList?mid=94'
-		}]
+		}
+		*/
+			{
+				primaryText: '会员管理',
+				iconName: 'icon-vip',
+				iconColor: '#2b8dcd',
+				menuCode: 'memberAdmin',
+				router: '/member/memberManage/list',
+				menuItems: [
+					{
+					primaryText: "会员看板",
+					router: '/member/memberManage/board',
+					menuCode: 'index',
+					},
+					{
+					primaryText: "会员列表",
+					router: '/member/memberManage/list',
+					menuCode: 'memberList',
+				},
+					{
+					primaryText: "会员卡管理",
+					router: '/member/memberManage/card',
+					menuCode: 'index',
+				},
+					{
+					primaryText: "会员配置",
+					router: '/member/memberManage/setting',
+					menuCode: 'memberSetting',
+				},
+
+		]
+		}
+
+	],
+
 	}, {
 		primaryText: "财务系统",
 		router: 'finance',

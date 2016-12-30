@@ -53,6 +53,8 @@ export default class PanelComponents  extends Component{
          
 		let {panels,groupId}=this.props;
 		
+		//console.log('222----',groupId);
+
 		var  dateT=new Date();
 		var dateYear=dateT.getFullYear();
 		var dateMonth=dateT.getMonth()+1;
@@ -67,7 +69,7 @@ export default class PanelComponents  extends Component{
 		var props = {
 			groupId
 		};
-
+        
 		panels.map(function(item,index){
 			var childComponentName = PanelsDic[item.id];
 			if(childComponentName){

@@ -38,6 +38,50 @@ export default class DateComponent extends React.Component {
 		this.supplementZero = this.supplementZero.bind(this);
 
 		this.formatDate = this.formatDate.bind(this);
+		this.setInputValue = this.setInputValue.bind(this);
+
+		this.isInit = false;
+		this.state = {
+			value: ''
+		}
+
+	}
+
+	setDefaultDate(value) {
+
+		if (!value) {
+			return;
+		}
+
+		if (typeof value === 'string') {
+			value = new Date(Date.parse(value));
+			this.setInputValue(value);
+		}
+
+		if (typeof value === 'number') {
+			this.setInputValue(value);
+			value = new Date(value);
+		}
+
+		this.setState({
+			value
+		});
+
+		this.isInit = true;
+	}
+
+	setInputValue(value) {
+
+		let {
+			input
+		} = this.props;
+
+		if(this.props.flag=='true'){
+			return ;
+		}
+		value = DateFormat(value, "yyyy-mm-dd") + ' 00:00:00';
+		input.onChange(value);
+
 
 	}
 
@@ -77,11 +121,12 @@ export default class DateComponent extends React.Component {
 			return;
 		}
 
-		let { input, onChange } = this.props;
+		let { input, onChange} = this.props;
 
 		var result = this.formatDate(value);
+		
 
-		input.onChange(result);
+		this.setInputValue(result);
 
 		onChange && onChange(result);
 	}
@@ -103,7 +148,7 @@ export default class DateComponent extends React.Component {
 			placeholder,
 			style,
 			defaultValue,
-			inline
+			inline,
 		} = this.props;
 
 

@@ -138,8 +138,6 @@ class NewCreateForm extends Component {
 		);
 	}
 }
-
-
 export default reduxForm({
 	form: 'newCreateForm'
 })(NewCreateForm);

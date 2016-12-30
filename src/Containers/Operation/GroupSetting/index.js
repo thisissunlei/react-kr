@@ -21,7 +21,10 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Notify,
-	Tooltip
+	Tooltip,
+	Message,
+	Title,
+	KrDate
 
 } from 'kr-ui';
 import NewCreateForm from './CreateForm';
@@ -30,7 +33,10 @@ import SearchUpperForm from './SearchUpperFrom'
 import './index.less';
 
 
-export default class Initialize  extends Component{
+import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
+
+
+export default class GroupSetting  extends Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -50,6 +56,7 @@ export default class Initialize  extends Component{
 			accountname: {},
 			//已选模板列表
 			templateList:[],
+			templateListIds:[],
 			//未选模板列表
 			unselectedList:[],
 			allData:{},
@@ -74,8 +81,11 @@ export default class Initialize  extends Component{
 		params = Object.assign({}, params);
 		if(this.state.noinit){
 			params.templateIdList="";
+			Message.error("模板列表不能为空");
+			return;
+
 		}else{
-			params.templateIdList=this.state.templateList;
+			params.templateIdList=this.state.templateListIds;
 		}
 
 		Store.dispatch(Actions.callAPI('GroupNewAndEidt', {}, params)).then(function(response) {
@@ -85,8 +95,8 @@ export default class Initialize  extends Component{
 				other:!_this.state.searchParams.other,
 				groupName:_this.state.searchText,
 
-			}
-			console.log(obj)
+			};
+
 			_this.setState({
 				openNewCreate: false,
 				openEditDetail: false,
@@ -98,10 +108,7 @@ export default class Initialize  extends Component{
 			if(!params.templateIdList){
 				err.message="模板列表不能为空";
 			}
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			Message.error(err.message)
 		});
 
 
@@ -127,16 +134,20 @@ export default class Initialize  extends Component{
 				this.setState({
 					id:itemDetail.id
 				},function(){
-					this.openEditDetailDialog();
-				})
 
+					this.openEditDetailDialog();
+				});
 	}
 
 	//编辑
 	openEditDetailDialog=()=> {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('MouldGroupDetails',{id:this.state.id})).then(function(data) {
+
 			_this.changeMudle(data.templateList)
+
+			Store.dispatch(initialize('newCreateForm',data));
+
 			_this.setState({
 					itemDetail:data,
 			},function(){
@@ -181,10 +192,10 @@ export default class Initialize  extends Component{
 		var _this=this;
 
 		let obj = {
-			groupName:searchParams.groupName,
+			groupName:searchParams.groupName||"",
 			pageSize:15,
 			page: 1,
-			enable:searchParams.enable
+			enable:searchParams.enable||""
 		}
 		this.setState({
 			searchParams: obj
@@ -195,12 +206,15 @@ export default class Initialize  extends Component{
 	}
 	//新建
 	openNewCreateDialog=()=> {
+		Store.dispatch(initialize('newCreateForm',{
+			enable:'ENABLE'
+		}));
 		var _this = this;
 		Store.dispatch(Actions.callAPI('GroupNewModule')).then(function(data) {
 			_this.setState({
 					templateList:data.templateList,
 			},function(){
-				_this.setState({
+				this.setState({
 					openNewCreate: !_this.state.openNewCreate
 				});
 			});
@@ -226,7 +240,7 @@ export default class Initialize  extends Component{
 		for(var i=0;i<arr.length;i++){
 				ids.push(arr[i].id);
 		}
-		this.setState({templateList:ids,noinit:false})
+		this.setState({templateListIds:ids,noinit:false})
 	}
 
 
@@ -235,8 +249,10 @@ export default class Initialize  extends Component{
 
 	render(){
 		return(
-			<div>
-					<Section title="分组配置" description="" >
+			<div className="switchhover">
+			<Title value="数据模板管理_基础配置"/>
+
+					<Section title="模板分组" description="" style={{minHeight:"900px"}}>
 							<Grid style={{marginBottom:22,marginTop:2}}>
 								<Row >
 									<Col md={4} align="left"> <Button label="新建" type='button' joinEditForm onTouchTap={this.openNewCreateDialog}  /> </Col>
@@ -272,23 +288,52 @@ export default class Initialize  extends Component{
 												<TableHeaderColumn>创建时间</TableHeaderColumn>
 												<TableHeaderColumn>启用状态</TableHeaderColumn>
 												<TableHeaderColumn>操作</TableHeaderColumn>
+
 										</TableHeader>
 
 										<TableBody >
 												<TableRow >
-												<TableRowColumn name="groupName" ></TableRowColumn>
-												<TableRowColumn name="sort" ></TableRowColumn>
 
+												<TableRowColumn style={{overflow:"visible",textAlign: "center"}} name="groupName" component={(value,oldValue)=>{
+														var TooltipStyle="";
+														var lest='';
+														if(value.length>=10){
+															value=value.substring(0,10);
+															lest="..."
+														}
 
-												<TableRowColumn style={{width:160,overflow:"visible"}} name="groupDesc" component={(value,oldValue)=>{
-														var TooltipStyle=""
 														if(value.length==""){
 															TooltipStyle="none"
 
 														}else{
 															TooltipStyle="block";
 														}
-														 return (<div style={{display:TooltipStyle}}><span className='tableOver'>{value}</span><Tooltip offsetTop={10} place='top'>{value}</Tooltip></div>)
+
+														 return (<div style={{display:TooltipStyle}}><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}<span style={{display:"inline-block",transform:"translateY(-5px)"}}>{lest}</span></span>
+														 	<Tooltip offsetTop={10} place='top'>
+																<div style={{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{oldValue}</div>
+														 	</Tooltip></div>)
+													 }} ></TableRowColumn>
+												<TableRowColumn name="sort" ></TableRowColumn>
+
+
+												<TableRowColumn style={{overflow:"visible",textAlign: "center"}} name="groupDesc" component={(value,oldValue)=>{
+														var TooltipStyle="";
+														var lest='';
+														if(value.length>=10){
+															value=value.substring(0,10);
+															lest="..."
+														}
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="block";
+														}
+														 return (<div style={{display:TooltipStyle}}><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}<span style={{display:"inline-block",transform:"translateY(-5px)"}}>{lest}</span></span>
+														 	<Tooltip offsetTop={10} place='top'>
+																<div style={{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{oldValue}</div>
+														 	</Tooltip></div>)
 													 }} ></TableRowColumn>
 
 
@@ -297,7 +342,8 @@ export default class Initialize  extends Component{
 
 												<TableRowColumn name="templateNum"></TableRowColumn>
 												<TableRowColumn name="creator"></TableRowColumn>
-												<TableRowColumn name="createTime" type='date' format="yyyy-mm-dd" ></TableRowColumn>
+
+												<TableRowColumn name="createTime" type='date' format="yyyy-mm-dd hh:MM:ss" ></TableRowColumn>
 												<TableRowColumn name="enable" options={[{label:'启用',value:'ENABLE'},{label:'禁用',value:'DISABLE'}]}
 												component={(value,oldValue)=>{
 													var fontColor="";
@@ -340,10 +386,8 @@ export default class Initialize  extends Component{
 						// detail={this.state.templateList}
 						open={this.state.openNewCreate}
 						onClose={this.openNewCreateDialog}
-
-
 					>
-						<NewCreateForm changeMudle={this.changeMudle}  detail={this.state.templateList} onSubmit={this.onCreateSubmit} onCancel={this.openNewCreateDialog} />
+						<NewCreateForm changeMudle={this.changeMudle}  		open={this.state.openNewCreate} detail={this.state.templateList} onSubmit={this.onCreateSubmit} onCancel={this.openNewCreateDialog} />
 
 				  </Dialog>
 

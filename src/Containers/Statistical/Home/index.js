@@ -58,7 +58,7 @@ export default class Home  extends Component{
 			action:index,
 			groupId:id
 		},function(){
-			
+			//console.log('----22222',this.state.groupId);
 		});      
 	}
     
@@ -77,21 +77,25 @@ export default class Home  extends Component{
 			borderBottom: "1px solid #eee",
 			fontSize:16
 		}
-              
-
 		return (
 		 <div className='backStatic'>
 	      <div className='static-tabWrap'>
-		   <span className="line"></span>
 		   <Tabs tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={{background: '-webkit-linear-gradient(right, #03ec56, #499df1)',position:'absolute',top:0,height:3}} style={{background:'#fff',position:'relative',paddingLeft:'20',paddingRight:'20'}}>
 					{groupList.map((item,index)=>{
 						    var activeStyle={}
 							if(this.state.action==index){
 								activeStyle=activeTab;
+								var activeTabPanel=(<PanelComponents panels={item.templateList} groupId={this.state.groupId}/>)
 							}else{
 								activeStyle=commenTab;
 							}
-						    return (<Tab label={item.groupName} key={index} onActive={this.activeTable.bind(this,index,item.id)} style={activeStyle}><div className='tabWrap_section'><PanelComponents panels={item.templateList} groupId={this.state.groupId}/></div></Tab>)
+							return (
+				             <Tab label={item.groupName} key={index} onActive={this.activeTable.bind(this,index,item.id)} style={activeStyle}>
+				               <div className='tabWrap_section'>
+				                {activeTabPanel}
+				               </div>
+				             </Tab>
+    		                )
 						})
 				   }
 	 	    </Tabs> 
@@ -99,8 +103,8 @@ export default class Home  extends Component{
 	 	  </div>
 		);
 	}
-
-
+    
+ 
 	renderGroupSingle = ()=>{
 
 		let {groupList} = this.state;
@@ -121,6 +125,7 @@ export default class Home  extends Component{
 	componentDidMount() {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('get-my-groups')).then(function(response) {
+			//console.log('----0000',response);
 		   _this.setState({
 		   	 groupList:response.groupList,
 		   	 groupId:response.groupList[0].id

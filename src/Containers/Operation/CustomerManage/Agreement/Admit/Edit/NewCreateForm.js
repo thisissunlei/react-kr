@@ -416,6 +416,7 @@ class NewCreateForm extends Component {
 			var obj = {};
 			obj.id = item.stationId;
 			obj.type = item.stationType;
+			obj.whereFloor = item.whereFloor;
 			return obj;
 		});
 
@@ -450,7 +451,7 @@ class NewCreateForm extends Component {
 	}
 
 
-	onIframeClose(billList) {
+	onIframeClose(billList,data) {
 
 		this.openStationDialog();
 
@@ -460,11 +461,18 @@ class NewCreateForm extends Component {
 		}
 
 		var _this = this;
-
+		let {delStationVos} = this.state;
 
 		let {
 			changeValues
 		} = this.props;
+        data.deleteData && data.deleteData.map((item)=>{
+                var obj = {};
+                obj.stationId = item.id;
+                obj.whereFloor = item.whereFloor;
+                obj.stationType = item.type;
+                delStationVos.push(obj);
+        })
 
 		try {
 			billList && billList.map(function(item, index) {
@@ -484,7 +492,8 @@ class NewCreateForm extends Component {
 
 
 		this.setState({
-			stationVos: billList
+			stationVos: billList,
+			delStationVos
 		}, function() {
 			this.calcStationNum();
 		});

@@ -180,8 +180,7 @@ import imgLine from './images/line.png'
 	 getCummityName=()=>{
 	 	let _this = this;
 	 	let communityName = '';
-	 	//this.params.communityId
-	 	console.log('getCummityNamegetCummityName');
+
 	 	Store.dispatch(Actions.callAPI('searchCommunityByCommunityText')).then(function(response){
 				response.forEach((item)=>{
 					if(item.id == _this.params.communityId){
@@ -216,21 +215,28 @@ import imgLine from './images/line.png'
 			})
 		 	return;
 		 }
+		 if(params.code !== undefined){
+			 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
+					//会员卡号已注册
+					if(response.phone != '-1'){
+						Message.warn('此会员卡号已被绑定','error');
+					}else{
+						Message.warn('此会员卡号未录入','error');
 
-		 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
-				//会员卡号已注册
-				Message.warn('此会员卡号已被绑定','error');
-				_this.setState({
-					onsubmitCode:false
+					}
+					_this.setState({
+						onsubmitCode:false
+					})
+
+			 }).catch(function(err){
+			 	//会员卡号未注册
+				// 	console.log('ddddd',err.message);
+			 	_this.setState({
+					onsubmitCode:true
 				})
+			 });
+		 }
 
-		 }).catch(function(err){
-		 	//会员卡号未注册
-			// 	console.log('ddddd',err.message);
-		 	_this.setState({
-				onsubmitCode:true
-			})
-		 });
 	 }
 
 	render(){
@@ -240,7 +246,7 @@ import imgLine from './images/line.png'
 
 
 		return (
-			<div style={{padding:'10px 30px 10px 30px'}}>
+			<div style={{padding:'10px 30px 0 30px'}}>
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:20}}>
 				<KrField grid={1/2} name="phone" type="text" label="手机号" right={20} requireLabel={true} style={{display:'block'}}
 				   onBlur={this.onBlur}/>
@@ -257,7 +263,7 @@ import imgLine from './images/line.png'
 						<KrField name="sendMsg" grid={1/2} label="否" type="radio" value="0" />
               </KrField>
         <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" right={20}  onBlur={this.foreignCodeBlur}/>
-				<Grid style={{marginTop:30,marginBottom:20}}>
+				<Grid style={{marginTop:19,marginBottom:20}}>
 					<Row>
 							<ListGroup>
 								<ListGroupItem style={{width:'269px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"/></ListGroupItem>
@@ -303,6 +309,9 @@ const validate = values => {
     }
     if (!phone.test(values.phone) ) {
         errors.phone = '请输入正确电话号';
+    }
+    if (/^\s+$/gi.test(values.name) ) {
+        errors.name = '请输入正确姓名';
     }
     if (values.foreignCode&&!code.test(values.foreignCode) ) {
         errors.foreignCode = '会员卡号为10位纯数字';

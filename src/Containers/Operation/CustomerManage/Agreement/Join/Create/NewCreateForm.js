@@ -734,8 +734,6 @@ class NewCreateForm extends Component {
 					Store.dispatch(change('joinCreateForm','contractFileList',files));
 				}} />
 
-
-
 						<Grid>
 						<Row style={{paddingBottom:50}}>
 						<Col md={12} align="center">
