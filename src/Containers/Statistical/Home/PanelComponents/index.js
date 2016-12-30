@@ -67,13 +67,13 @@ export default class PanelComponents  extends Component{
 				var renderComponent = [];
 				var props = {
 					groupId,
-					todayDate:'',
+					todayDate:'2017-1-1',
 				};
 
 				var _this = this;
 				panels.map(function(item,index){
 						props.key = index;
-						props.todayDate=todayDate;
+						//props.todayDate=todayDate;
 						renderComponent.push(_this.createPanelComponent(item.id,props));
 				});
 
