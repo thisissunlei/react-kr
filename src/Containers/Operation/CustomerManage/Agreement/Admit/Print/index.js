@@ -59,16 +59,16 @@ export default class JoinPrint extends Component {
 			<div className="print-section no-print-section">
 
 				<Agreement.Print.Header
-					  baseInfo={State.Baseinfo}
+					  baseInfo={State.baseInfo}
 						orderInfo="入驻服务意向书"
 				/>
-				<Agreement.Print.BaseInfo baseInfo={State.Baseinfo} />
+				<Agreement.Print.BaseInfo baseInfo={State.baseInfo} />
 
 				<Agreement.Print.Station
 						orderTime={true}
 						stationVOs={State.stationVOs}
 						baseType="意向入驻信息"
-						baseInfo={State.Baseinfo}
+						baseInfo={State.baseInfo}
 				/>
 
 				<div className="station-after">
@@ -77,7 +77,7 @@ export default class JoinPrint extends Component {
 				
 				<Agreement.Print.Intention
 						stationVOs={State.stationVOs}
-						baseInfo={State.Baseinfo}
+						baseInfo={State.baseInfo}
 				/>
 
 				<Agreement.Print.Footer />
