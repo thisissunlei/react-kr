@@ -38,7 +38,7 @@ export default class Home  extends Component{
 
 		this.state = {
 				groupList:[
-				  
+
 				],
 				groupId:'',
 				action:0,
@@ -53,15 +53,15 @@ export default class Home  extends Component{
        let {
 			action,
 			groupId
-		} = this.state; 
-        
+		} = this.state;
+
         this.setState({
 			action:index,
 			groupId:id
 		},function(){
-		});      
+		});
 	}
-    
+
 
 	renderGroupTabs = ()=>{
 
@@ -80,12 +80,12 @@ export default class Home  extends Component{
 		return (
 		 <div className='backStatic'>
 	      <div className='static-tabWrap'>
-		   <Tabs 
-		   		tabItemContainerStyle={{background:'#FFF'}} 
+		   <Tabs
+		   		tabItemContainerStyle={{background:'#FFF'}}
 		   		inkBarStyle={{
 		   						background: '-webkit-linear-gradient(right, #03ec56, #499df1)',
 		   						position:'absolute',top:0,height:3
-		   					}} 
+		   					}}
 		   		style={{
 		   				background:'#fff',
 		   				position:'relative',
@@ -110,18 +110,18 @@ export default class Home  extends Component{
     		                )
 						})
 				   }
-	 	    </Tabs> 
+	 	    </Tabs>
 	 	   </div>
 	 	  </div>
 		);
 	}
-    
- 
+
+
 	renderGroupSingle = ()=>{
 
 		let {groupList} = this.state;
 		let groupItem = groupList[0];
-		
+
 
 		return(
 		  <div className='static-section'>
@@ -137,29 +137,28 @@ export default class Home  extends Component{
 	componentDidMount() {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('get-my-groups')).then(function(response) {
-			//console.log('----0000',response);
 		   _this.setState({
 		   	 groupList:response.groupList,
 		   	 groupId:response.groupList[0].id
-		   })	   
+		   })
 		}).catch(function(err) {
 			Message.error(err);
 		});
 
-		
+
 		Store.dispatch(Actions.switchSidebarNav(false));
-	
+
 	}
 
 	render(){
 
 		let {groupList} = this.state;
-        
-		
+
+
 		if(groupList.length == 1){
 				return this.renderGroupSingle();
 		}
-	
+
 		return(
 			<div>
 					{this.renderGroupTabs()}

@@ -32,7 +32,8 @@ module.exports = {
 			menuCode: 'dataStat',
 			menuItems: [{
 				primaryText: "集团经营",
-				router: '/statistical/index'
+				router: '/statistical/index',
+				menuCode: 'dataStat',
 			},]
 		}, ]
 	},{
