@@ -87,6 +87,7 @@ export default class UpLoadList extends Component {
 		}else{
 			node.style.visibility = 'hidden';
 		}
+
 		parent.style.position = "relative";
 		this.setState({
 			width:node.offsetWidth,
@@ -105,8 +106,12 @@ export default class UpLoadList extends Component {
 			_this.setState({
 				files:response
 			})
+
 		}).catch(function(err) {
-			alert(err.message);
+			let node = ReactDOM.findDOMNode(_this.tooltip);
+			node.style.visibility = 'hidden';
+			console.log(err.message);
+
 		});
 	}
 	saveFileList=(id)=>{
@@ -116,7 +121,10 @@ export default class UpLoadList extends Component {
 			fileId:id
 		})).then(function(response) {
 		}).catch(function(err) {
-			alert(err.message);
+			
+			// let node = ReactDOM.findDOMNode(_this.tooltip);
+			// node.style.visibility = 'hidden';
+			// console.log(err.message);
 		});
 	}
 
@@ -311,17 +319,19 @@ export default class UpLoadList extends Component {
 	}
 	download(item){
 		console.log('download',item);
-		window.location.href = item.fileUrl;
+		window.location.href = 'http://'+item.fileUrl;
 	}
 	render() {
 		let {isUploading,progress,files,fileName} = this.state;
 		let className = 'upload-list';
+		let showUl = files.length?'visible':'hidden';
+
 		let style = {};
 
 		return(
 			<div className={className} ref={div=>{this.tooltip = div}} style={style}>
 				<ul>
-				{files.map((item,index)=>{
+				{ files.map((item,index)=>{
 					return (
 						<li key={index}>
 						
