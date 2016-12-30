@@ -49,7 +49,7 @@ export default class PanelComponents  extends Component{
 
 	}
 
-	renderGroupComponent = (){
+	renderGroupComponent = ()=>{
 
 				let {panels,groupId}=this.props;
 
@@ -70,7 +70,6 @@ export default class PanelComponents  extends Component{
 
 				panels.map(function(item,index){
 					var childComponentName = PanelsDic[item.id];
-					alert('hahah',JSON.stringify(item));
 					if(childComponentName){
 						props.key = index;
 						props.todayDate=todayDate;
