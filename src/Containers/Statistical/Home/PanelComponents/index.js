@@ -87,7 +87,7 @@ export default class PanelComponents  extends Component{
 		return(
 			<div>
 			    <Title value="数据统计"/>
-						<Section>
+						<Section title="数据统计">
 
 									ahahahahah
 						</Section>
