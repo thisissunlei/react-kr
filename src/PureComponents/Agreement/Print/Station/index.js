@@ -26,7 +26,7 @@ export default class Station extends Component {
 		data: [],
 		baseTimeBegin: false,
 		info: '服务费总计',
-		reduceTh: '减租期限',
+		reduceTh: '服务期限',
 	}
 
 	static propTypes = {
