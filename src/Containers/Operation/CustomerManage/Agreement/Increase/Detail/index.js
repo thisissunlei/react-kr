@@ -126,7 +126,7 @@ export default class JoinDetail extends Component {
 					<KrField component="labelText" label="租赁办公室：" grid={1/2} value={basic.boardroomnum} requireBlue={true} defaultValue="0" requireBlue={true}/>
 
 
-					
+
 
 
 					<KrField component="labelText"  label="备注：" value={basic.contractmark} defaultValue="无" requireBlue={true} inline={false}/>
@@ -178,7 +178,12 @@ export default class JoinDetail extends Component {
 
 	};
 
+	print = () => {
+		const params = this.props.params;
+		let url = `/#/operation/customerManage/${params.customerId}/order/${params.orderId}/agreement/increase/${params.id}/print`
+		var newWindow = window.open(url);
 
+	}
 	render() {
 
 		if (this.state.loading) {
@@ -216,9 +221,10 @@ export default class JoinDetail extends Component {
 			{this.BasicRender(basic)}
 			  <Grid>
 				  <Row>
-					  <Col md={5} align="center"></Col>
+					  <Col md={4} align="center"></Col>
 					 	<Col md={2} align="center">  <Button  label="返回"  type="href" joinEditForm href={getOrderUrl()} width={100} height={40} fontSize={16}/></Col>
-					  <Col md={5} align="center"></Col>
+						<Col md={2} align="center"><Button  label="打印"   backgroundColor="#499df1" width={100} height={40} fontSize={16} onClick={this.print}/> </Col>
+				  <Col md={4} align="center"></Col>
 				  </Row>
 			  </Grid>
 
