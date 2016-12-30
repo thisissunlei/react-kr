@@ -78,7 +78,6 @@ export default (
 		</Route>
 
 
-
 		{/*社区经营*/}
 		<Route path="community" component={Basic}>
              <IndexRedirect to="communityManage/detail" />

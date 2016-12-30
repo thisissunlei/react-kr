@@ -22,7 +22,8 @@ import {
 	Dialog,
 	Tabs,
 	Tab,
-	Title
+	Title,
+	Message
 } from 'kr-ui';
 
 import PanelComponents from './PanelComponents';
@@ -37,11 +38,13 @@ export default class Home  extends Component{
 
 		this.state = {
 				groupList:[
-				  
+
 				],
 				groupId:'',
 				action:0,
 		}
+
+		console.log('----')
 	}
 
 	getInitData = ()=>{
@@ -52,16 +55,16 @@ export default class Home  extends Component{
        let {
 			action,
 			groupId
-		} = this.state; 
-        
+		} = this.state;
+
         this.setState({
 			action:index,
 			groupId:id
 		},function(){
 			//console.log('----22222',this.state.groupId);
-		});      
+		});
 	}
-    
+
 
 	renderGroupTabs = ()=>{
 
@@ -98,23 +101,23 @@ export default class Home  extends Component{
     		                )
 						})
 				   }
-	 	    </Tabs> 
+	 	    </Tabs>
 	 	   </div>
 	 	  </div>
 		);
 	}
-    
- 
+
+
 	renderGroupSingle = ()=>{
 
 		let {groupList} = this.state;
 		let groupItem = groupList[0];
-		
+
 
 		return(
 		  <div className='static-section'>
 			<Section title={groupItem.groupName} style={{background:'none'}} headerStyle={{background:'#fff'}}>
-			    <div className='static-section-inner'>
+			    <div className='static-section-inner' style={{borderTop:'solid 1px #e8e9e9'}}>
 					<PanelComponents panels={groupItem.templateList} groupId={groupItem.id}/>
 				</div>
 			</Section>
@@ -129,25 +132,25 @@ export default class Home  extends Component{
 		   _this.setState({
 		   	 groupList:response.groupList,
 		   	 groupId:response.groupList[0].id
-		   })	   
+		   })
 		}).catch(function(err) {
 			Message.error(err);
 		});
 
-		
+
 		Store.dispatch(Actions.switchSidebarNav(false));
-	
+
 	}
 
 	render(){
 
 		let {groupList} = this.state;
-        
-		
+
+
 		if(groupList.length == 1){
 				return this.renderGroupSingle();
 		}
-	
+
 		return(
 			<div>
 					{this.renderGroupTabs()}

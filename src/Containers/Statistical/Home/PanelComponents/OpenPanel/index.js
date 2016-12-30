@@ -29,7 +29,7 @@ import './index.less';
 import SearchDateForm from './SearchDateForm';
 
 export default class Initialize  extends Component{
-
+     
     static propTypes = {
 		 groupId:React.PropTypes.number,
 		 todayDate:React.PropTypes.string
@@ -44,39 +44,68 @@ export default class Initialize  extends Component{
 				groupId:this.props.groupId,
 				startDate:this.props.todayDate,
 				endDate:this.props.todayDate
-			}
-
+			},
+			startValue:'',
+			endValue:''
 		}
-
+		
 	}
-
-    onStartChange=(startDate)=>{
+    
+   
+    onStartChange=(startD)=>{
     	let {searchParams}=this.state;
-        let start=Date.parse(dateFormat(startDate,"yyyy-mm-dd hh:MM:ss"));
+        let start=Date.parse(dateFormat(startD,"yyyy-mm-dd hh:MM:ss"));
+	       
+        
         let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
-        if(start>end){
-         Message.error('开始时间不能大于结束时间');
-          return ;
-        }
-    	searchParams = Object.assign({}, searchParams, {startDate});
-    	this.setState({
-			searchParams
-		});
-    }
-    onEndChange=(endDate)=>{
-    	let {searchParams}=this.state;
-        let start=Date.parse(dateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
-        let end=Date.parse(dateFormat(endDate,"yyyy-mm-dd hh:MM:ss"));
-        if(start>end){
-          Message.error('开始时间不能大于结束时间');
-          return ;
-        }
-        searchParams = Object.assign({}, searchParams, {endDate});
-    	this.setState({
-			searchParams
-		});
-    }
+         console.log(start,end,"====")
+        this.setState({
+        	startValue:startD
 
+        },function () {
+        	
+        	if(start>end){  
+	         Message.error('开始时间不能大于结束时间');        
+	          return ; 
+	        }
+	        let startDate=this.state.startValue;
+	    	searchParams = Object.assign({}, searchParams, {startDate:this.state.startValue,endDate:this.state.endValue||searchParams.endDate});
+	    	this.setState({
+				searchParams
+			},function(){
+			console.log(searchParams,this.state.endValue,"uuu")
+
+			});
+			
+
+        })
+        
+    }
+    onEndChange=(endD)=>{
+    	let {searchParams}=this.state;	
+        let start=Date.parse(dateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
+        let end=Date.parse(dateFormat(endD,"yyyy-mm-dd hh:MM:ss"));
+        this.setState({
+        	endValue:endD
+
+        },function () {
+        	
+        	if(start>end){  
+	         Message.error('开始时间不能大于结束时间');        
+	          return ; 
+	        }
+	        let endDate=this.state.endValue;
+	    	searchParams = Object.assign({}, searchParams, {startDate:this.state.startValue||searchParams.startDate,endDate:this.state.endValue,});
+	    	this.setState({
+				searchParams
+			},function(){
+			console.log(searchParams,"uuu")
+
+
+			});
+
+        })
+    }
    
  
     componentWillReceiveProps(nextProps){
@@ -99,14 +128,14 @@ export default class Initialize  extends Component{
 			<div className='ui-open-info'>
 				   <Grid style={{height:'76'}}>
 						<Row>
-							<Col align="left" md={4} style={{marginTop:'25'}}>
+							<Col align="left" md={4} style={{marginTop:'25'}}> 
 							 <span  className='ui-pic-open'>招商数据统计-</span>
-							 <span  className='static-openCompany'>已开业</span>
-							 <span  className='static-upload'>实时更新</span>
-							</Col>
-							<Col align="right" md={8}>
+							 <span  className='static-openCompany'>已开业</span>	
+							 <span  className='static-upload'>实时更新</span>	
+							</Col> 
+							<Col align="right" md={8}> 
 							  <SearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange} todayDate={searchParams.startDate} todayEndDate={searchParams.endDate}/>
-							</Col>
+							</Col> 
 						</Row>
 					</Grid>
 
@@ -141,7 +170,11 @@ export default class Initialize  extends Component{
 						 <TableRow>
 						<TableRowColumn name="cityName"></TableRowColumn>
 						<TableRowColumn name="communityName"  component={(value,oldValue)=>{
-                             return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
+							 var maxWidth=6;
+							 if(value.length>maxWidth){
+							 	value = value.substring(0,6)+"...";  
+							 }
+                             return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 						}} ></TableRowColumn>
 						<TableRowColumn name="totalStation"></TableRowColumn>
 						<TableRowColumn name="unUsedStation" ></TableRowColumn>

@@ -45,7 +45,9 @@ export default class Initialize  extends Component{
 				groupId:this.props.groupId,
 				startDate:this.props.todayDate,
 				endDate:this.props.todayDate
-			}
+			},
+			startValue:'',
+			endValue:''
 
 		}
 
@@ -53,31 +55,59 @@ export default class Initialize  extends Component{
     
     
 
-    onStartNotChange=(startDate)=>{
+    onStartNotChange=(startD)=>{
     	let {searchParams}=this.state;
-        let start=Date.parse(dateFormat(startDate,"yyyy-mm-dd hh:MM:ss"));
+        let start=Date.parse(dateFormat(startD,"yyyy-mm-dd hh:MM:ss"));
+	       
+        
         let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
-        if(start>end){  
-          Message.error('开始时间不能大于结束时间');
-          return ;
-        }
-    	searchParams = Object.assign({}, searchParams, {startDate});
-    	this.setState({
-			searchParams
-		});
+         console.log(start,end,"====")
+        this.setState({
+        	startValue:startD
+
+        },function () {
+        	
+        	if(start>end){  
+	         Message.error('开始时间不能大于结束时间');        
+	          return ; 
+	        }
+	        let startDate=this.state.startValue;
+	    	searchParams = Object.assign({}, searchParams, {startDate:this.state.startValue,endDate:this.state.endValue||searchParams.endDate});
+	    	this.setState({
+				searchParams
+			},function(){
+			console.log(searchParams,this.state.endValue,"uuu")
+
+			});
+			
+
+        })
+        
     }
-    onEndNotChange=(endDate)=>{
+    onEndNotChange=(endD)=>{
     	let {searchParams}=this.state;	
         let start=Date.parse(dateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
-        let end=Date.parse(dateFormat(endDate,"yyyy-mm-dd hh:MM:ss"))
-        if(start>end){  
-          Message.error('开始时间不能大于结束时间');
-          return ;        
-        }
-    	searchParams = Object.assign({}, searchParams, {endDate});
-    	this.setState({
-			searchParams
-		});
+        let end=Date.parse(dateFormat(endD,"yyyy-mm-dd hh:MM:ss"));
+        this.setState({
+        	endValue:endD
+
+        },function () {
+        	
+        	if(start>end){  
+	         Message.error('开始时间不能大于结束时间');        
+	          return ; 
+	        }
+	        let endDate=this.state.endValue;
+	    	searchParams = Object.assign({}, searchParams, {startDate:this.state.startValue||searchParams.startDate,endDate:this.state.endValue,});
+	    	this.setState({
+				searchParams
+			},function(){
+			console.log(searchParams,"uuu")
+
+
+			});
+
+        })
     }
 
      componentWillReceiveProps(nextProps){
@@ -137,7 +167,11 @@ export default class Initialize  extends Component{
 						 <TableRow>
 						<TableRowColumn name="cityName" ></TableRowColumn>
 						<TableRowColumn name="communityName"  component={(value,oldValue)=>{
-                             return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
+							 var maxWidth=6;
+							 if(value.length>maxWidth){
+							 	value = value.substring(0,6)+"...";  
+							 }
+                             return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 						}} ></TableRowColumn>
 						<TableRowColumn name="totalStation"></TableRowColumn>
 						<TableRowColumn name="unUsedStation"></TableRowColumn>
