@@ -66,7 +66,8 @@ export default class PanelComponents  extends Component{
 
 				var renderComponent = [];
 				var props = {
-					groupId
+					groupId,
+					todayDate:'',
 				};
 
 				var _this = this;

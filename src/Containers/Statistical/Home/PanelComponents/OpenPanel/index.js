@@ -31,6 +31,10 @@ import SearchDateForm from './SearchDateForm';
 export default class OpenPanel  extends Component{
 
 		static displayName = 'OpenPanel';
+		static defaultProps = {
+			todayDate:'2017-1-1'
+	}
+
     static propTypes = {
 		 groupId:React.PropTypes.number,
 		 todayDate:React.PropTypes.string

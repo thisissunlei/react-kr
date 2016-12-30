@@ -31,6 +31,9 @@ import SearchNotDateForm from './SearchNotDateForm';
 
 export default class NotOpenPanel  extends Component{
 		static displayName = 'NotOpenPanel';
+		static defaultProps = {
+				todayDate:'2017-1-1'
+		}
     static propTypes = {
 		groupId:React.PropTypes.number,
 		todayDate:React.PropTypes.string
