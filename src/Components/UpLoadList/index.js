@@ -5,8 +5,8 @@ import React, {
 import $ from 'jquery';
 import {
 	FontIcon,
-	Notify,
 } from 'kr-ui';
+import Notify from '../Notify';
 import {
 	Actions,
 	Store
@@ -121,6 +121,10 @@ export default class UpLoadList extends Component {
 			fileId:id
 		})).then(function(response) {
 		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
 			
 			// let node = ReactDOM.findDOMNode(_this.tooltip);
 			// node.style.visibility = 'hidden';
@@ -136,7 +140,10 @@ export default class UpLoadList extends Component {
 		})).then(function(response) {
 			_this.getFileList(_this.props.detail.id);
 		}).catch(function(err) {
-			alert(err.message);
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
 		});
 	}
 	onError(message) {
@@ -146,7 +153,10 @@ export default class UpLoadList extends Component {
 			progress: 0,
 			isUploading: false
 		});
-		alert(message);
+		Notify.show([{
+			message: message,
+			type: 'danger',
+		}]);
 	}
 
 	onSuccess(response) {
@@ -319,7 +329,7 @@ export default class UpLoadList extends Component {
 	}
 	download(item){
 		console.log('download',item);
-		window.location.href = 'http://'+item.fileUrl;
+		window.location.href = item.fileUrl;
 	}
 	render() {
 		let {isUploading,progress,files,fileName} = this.state;
