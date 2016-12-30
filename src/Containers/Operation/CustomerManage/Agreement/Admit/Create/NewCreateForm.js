@@ -9,7 +9,7 @@ import {
 	Store
 } from 'kr/Redux';
 
-
+import nzh from 'nzh';
 import ReactMixin from "react-mixin";
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import dateFormat from 'dateformat';
@@ -50,7 +50,6 @@ import {
 	Button,
 	Notify,
 	IframeContent,
-	Date,
 	Paper,
 	DotTitle,
 	ButtonGroup,
@@ -116,6 +115,7 @@ class NewCreateForm extends Component {
 			openStation: false,
 			openStationUnitPrice: false,
 			HeightAuto: false,
+			allRent:0,
 		}
 	}
 
@@ -233,6 +233,56 @@ class NewCreateForm extends Component {
 	componentWillReceiveProps(nextProps) {
 
 	}
+	openPreStationUnitPriceDialog=()=> {
+		let {
+			selectedStation
+		} = this.state;
+		if (!selectedStation.length) {
+			Notify.show([{
+				message: '请先选择要录入单价的工位',
+				type: 'danger',
+			}]);
+			return;
+		}
+		this.openStationUnitPriceDialog();
+	}
+
+	//录入单价dialog
+	openStationUnitPriceDialog=()=> {
+		this.setState({
+			openStationUnitPrice: !this.state.openStationUnitPrice
+		});
+	}
+
+	//录入单价
+	onStationUnitPrice=(form)=> {
+
+		var value = form.price;
+		let {
+			stationVos,
+			selectedStation
+		} = this.state;
+		let _this = this;
+		let allMoney = 0;
+
+		stationVos = stationVos.map(function(item, index) {
+			if (selectedStation.indexOf(index) != -1) {
+				item.unitprice = value;
+			}
+			return item;
+		});
+		stationVos.map((item)=>{
+			allMoney += _this.getSingleRent(item);
+		})
+		allMoney = parseFloat(allMoney).toFixed(2)*1;
+
+		this.setState({
+			stationVos,
+			allRent:allMoney
+		});
+
+		this.openStationUnitPriceDialog();
+	}
 
 	onSubmit(form) {
 
@@ -245,7 +295,8 @@ class NewCreateForm extends Component {
 
 
 		let {
-			billList
+			billList,
+			allRent
 		} = this.state;
 
 		let {
@@ -267,6 +318,7 @@ class NewCreateForm extends Component {
 
 		// form.stationVos = JSON.stringify(form.stationVos);
 		form.contractVersionType = 'NEW';
+		form.totalrent = allRent;
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
@@ -438,6 +490,57 @@ class NewCreateForm extends Component {
 		Store.dispatch(change('admitCreateForm', 'lessorContacttel', personel.mobile));
 		Store.dispatch(change('admitCreateForm', 'lessorContactName', personel.lastname));
 	}
+	onBlur=(item)=>{
+		let {stationVos} = this.state;
+		let allMoney = 0;
+		console.log('stationVos',stationVos);
+		stationVos.map((item)=>{
+			if(item.unitprice){
+				allMoney += this.getSingleRent(item);
+			}
+			
+		})
+		allMoney = parseFloat(allMoney).toFixed(2)*1;
+		this.setState({
+			allRent:allMoney
+		})
+		
+	}
+	getSingleRent=(item)=>{
+		//年月日
+		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
+		let rentBegin = dateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
+		let rentEnd = dateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
+		let rentDay = 0;
+		let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
+		let years = rentEnd[0];
+		if(rentBegin[2]-rentEnd[2] == 1){
+			rentDay = 0;
+		}else{
+			let a =rentEnd[2]-rentBegin[2];
+			console.log('a',a);
+			if(a>=0){
+				rentDay = a+1;
+
+			}else{
+				let mounthIndex = rentEnd[1]-1;
+				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
+					rentDay = mounth[mounthIndex]+2+a;
+				}
+				rentDay = mounth[mounthIndex]+1+a;
+				rentMounth = rentMounth-1;
+			}
+		}
+		console.log('day',rentMounth,rentDay);
+		//计算日单价
+		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
+		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
+		//工位总价钱
+		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
+		allRent = allRent.toFixed(2)*1;
+		console.log('allRent',allRent,rentPriceByDay);
+		return allRent;
+	}
 	render() {
 		let {
 			error,
@@ -463,8 +566,11 @@ class NewCreateForm extends Component {
 		let {
 			billList,
 			stationVos,
-			HeightAuto
+			HeightAuto,
+			allRent
 		} = this.state;
+		var nzhcn = nzh.cn;
+		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
 
 		return (
 
@@ -491,6 +597,7 @@ class NewCreateForm extends Component {
 							<Row>
 								<Col align="right">
 									<ButtonGroup>
+										<Button label="批量录入单价"  width={100}  onTouchTap={this.openPreStationUnitPriceDialog} />
 										<Button label="选择工位"  onTouchTap={this.openStationDialog} />
 										<Button label="删除" height={27} cancle={true} type="button" onTouchTap={this.onStationDelete} />
 								  </ButtonGroup>
@@ -503,16 +610,24 @@ class NewCreateForm extends Component {
 									<TableHeader>
 											<TableHeaderColumn>类别</TableHeaderColumn>
 											<TableHeaderColumn>编号／名称</TableHeaderColumn>
+											<TableHeaderColumn>单价(元/月)</TableHeaderColumn>
 											<TableHeaderColumn>租赁开始时间</TableHeaderColumn>
 											<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
 									</TableHeader>
 									<TableBody>
 										{
 											stationVos && stationVos.map((item,index)=>{
+												var typeLink = {
+													value: this.state.stationVos[index].unitprice,
+													requestChange: this.onStationVosChange.bind(null, index)
+												}
 											return (
 												<TableRow key={index}>
 													<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
 													<TableRowColumn>{item.stationName}</TableRowColumn>
+													<TableRowColumn>
+											<input type="text" name="age"  valueLink={typeLink} onBlur={this.onBlur.bind(this,item)}/>
+									</TableRowColumn>
 													<TableRowColumn> <KrDate value={item.leaseBeginDate}/></TableRowColumn>
 													<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
 												</TableRow>
@@ -523,6 +638,8 @@ class NewCreateForm extends Component {
 							 </div>
 							{stationVos.length>5?<div className="Btip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'Toprow':'Bottomrow'}></span></p></div>:''}
                			</DotTitle>
+                     <div style={{marginTop:'-20px',marginBottom:60}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
+
                			</div>
 					</CircleStyle>
 					<CircleStyle num="2" info="合同文本信息" circle="bottom">
@@ -599,6 +716,13 @@ class NewCreateForm extends Component {
 						onClose={this.onCloseStation}
 						 >
 							<IframeContent src={this.getStationUrl()} onClose={this.onIframeClose}/>
+					  </Dialog>
+					<Dialog
+						title="录入单价"
+						autoScrollBodyContent={true}
+						open={this.state.openStationUnitPrice} contentStyle={{width:430}}
+						onClose={this.openStationUnitPriceDialog}>
+								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
 
 			</div>);
