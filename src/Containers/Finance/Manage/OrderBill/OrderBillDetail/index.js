@@ -433,7 +433,7 @@ export default class AttributeSetting extends Component {
 				stationPayment:response.stationPayment,
 			});
 		}).catch(function(err) {
-			 Message.error(err.message);
+			 Message.error(err.message); 
 		});
 		this.setState({
 				openAddaccountBtn:!this.state.openAddaccountBtn
@@ -717,7 +717,7 @@ export default class AttributeSetting extends Component {
 		console.log('----55555-',params);
 		var _this = this;
 		params = Object.assign({}, params);
-		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd h:MM:ss");
+		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
 		Store.dispatch(Actions.callAPI('payBack', {}, params)).then(function(response) {
 			_this.refresh();
 		  _this.setState({
@@ -1437,6 +1437,7 @@ export default class AttributeSetting extends Component {
 						title="合同详情"
 						open={this.state.openContract}
 						onClose={this.contractContinue}
+						contentStyle ={{ width: '443',height:'236'}}
 						>
 						<div className='m-continueGo'>正在开发中，敬请期待...</div>
 					 </Dialog>
