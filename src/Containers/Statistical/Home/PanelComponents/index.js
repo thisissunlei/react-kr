@@ -5,6 +5,7 @@ import {bindActionCreators} from 'redux';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
+
 import {
 	KrField,
 	Table,
@@ -70,21 +71,29 @@ export default class PanelComponents  extends Component{
 
 				console.log('---',panels);
 				panels.map(function(item,index){
-					var childComponentName = PanelsDic[item.id];
-					console.log('----',item,childComponentName);
-
-					if(childComponentName){
 						props.key = index;
 						props.todayDate=todayDate;
-						renderComponent.push(React.createElement(childComponentName,{
-							...props
-						}));
-					}
-					//renderComponent.push(childComponentName);
-
+						renderComponent.push(this.createPanelComponent(item.id,props));
 				});
 
 				return renderComponent;
+	}
+
+	createPanelComponent = (value,props)=>{
+
+			var component = null;
+			switch (value) {
+				case 1:{
+					component = <OpenPanel {...props}/>
+					break;
+				}
+				case 2:{
+					component = <NotOpenPanel {...props}/>
+					break;
+				}
+				default:
+			}
+			return component;
 	}
 
 	render(){
