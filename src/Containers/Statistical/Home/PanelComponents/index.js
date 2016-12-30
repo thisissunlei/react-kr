@@ -70,20 +70,20 @@ export default class PanelComponents  extends Component{
 
 				console.log('---',panels);
 				panels.map(function(item,index){
-					//var childComponentName = PanelsDic[item.id];
-					console.log('----',item,PanelsDic);
+					var childComponentName = PanelsDic[item.id];
+					console.log('----',item,childComponentName);
 
-					//alert(childComponentName);
-
-					/*
 					if(childComponentName){
 						props.key = index;
 						props.todayDate=todayDate;
+						/*
 						renderComponent.push(React.cloneElement(childComponentName,{
 							...props
 						}));
+						*/
 					}
-					*/
+					renderComponent.push(childComponentName);
+
 				});
 
 				return renderComponent;
