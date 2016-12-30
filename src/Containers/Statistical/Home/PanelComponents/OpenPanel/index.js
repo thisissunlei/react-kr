@@ -29,7 +29,7 @@ import './index.less';
 import SearchDateForm from './SearchDateForm';
 
 export default class Initialize  extends Component{
-     
+
     static propTypes = {
 		 groupId:React.PropTypes.number,
 		 todayDate:React.PropTypes.string
@@ -48,11 +48,13 @@ export default class Initialize  extends Component{
 			startValue:'',
 			endValue:''
 		}
-		
+
 	}
+
     
    
     onStartChange=(startD)=>{
+
     	let {searchParams}=this.state;
         let start=Date.parse(dateFormat(startD,"yyyy-mm-dd hh:MM:ss"));
 	       
@@ -105,7 +107,9 @@ export default class Initialize  extends Component{
 			});
 
         })
+
     }
+
    
  
     componentWillReceiveProps(nextProps){
@@ -128,14 +132,14 @@ export default class Initialize  extends Component{
 			<div className='ui-open-info'>
 				   <Grid style={{height:'76'}}>
 						<Row>
-							<Col align="left" md={4} style={{marginTop:'25'}}> 
+							<Col align="left" md={4} style={{marginTop:'25'}}>
 							 <span  className='ui-pic-open'>招商数据统计-</span>
-							 <span  className='static-openCompany'>已开业</span>	
-							 <span  className='static-upload'>实时更新</span>	
-							</Col> 
-							<Col align="right" md={8}> 
+							 <span  className='static-openCompany'>已开业</span>
+							 <span  className='static-upload'>实时更新</span>
+							</Col>
+							<Col align="right" md={8}>
 							  <SearchDateForm onStartChange={this.onStartChange} onEndChange={this.onEndChange} todayDate={searchParams.startDate} todayEndDate={searchParams.endDate}/>
-							</Col> 
+							</Col>
 						</Row>
 					</Grid>
 

@@ -58,10 +58,7 @@ export default class Initialize  extends Component{
     onStartNotChange=(startD)=>{
     	let {searchParams}=this.state;
         let start=Date.parse(dateFormat(startD,"yyyy-mm-dd hh:MM:ss"));
-	       
-        
         let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
-         console.log(start,end,"====")
         this.setState({
         	startValue:startD
 
@@ -123,9 +120,6 @@ export default class Initialize  extends Component{
     render(){
     	
     	let {searchParams}=this.state;
-        //console.log('7777---',searchParams.startDate)
-
-            
 		return(
           <div className='notOpenBack' style={{background:'#fff',marginBottom:'20'}}>
 			<div className='ui-open-in'>

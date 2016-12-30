@@ -38,13 +38,11 @@ export default class Home  extends Component{
 
 		this.state = {
 				groupList:[
-
+				  
 				],
 				groupId:'',
 				action:0,
 		}
-
-		console.log('----')
 	}
 
 	getInitData = ()=>{
@@ -55,16 +53,15 @@ export default class Home  extends Component{
        let {
 			action,
 			groupId
-		} = this.state;
-
+		} = this.state; 
+        
         this.setState({
 			action:index,
 			groupId:id
 		},function(){
-			//console.log('----22222',this.state.groupId);
-		});
+		});      
 	}
-
+    
 
 	renderGroupTabs = ()=>{
 
@@ -83,7 +80,19 @@ export default class Home  extends Component{
 		return (
 		 <div className='backStatic'>
 	      <div className='static-tabWrap'>
-		   <Tabs tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={{background: '-webkit-linear-gradient(right, #03ec56, #499df1)',position:'absolute',top:0,height:3}} style={{background:'#fff',position:'relative',paddingLeft:'20',paddingRight:'20'}}>
+		   <Tabs 
+		   		tabItemContainerStyle={{background:'#FFF'}} 
+		   		inkBarStyle={{
+		   						background: '-webkit-linear-gradient(right, #03ec56, #499df1)',
+		   						position:'absolute',top:0,height:3
+		   					}} 
+		   		style={{
+		   				background:'#fff',
+		   				position:'relative',
+		   				paddingLeft:'20',
+		   				paddingRight:'20'
+		   			}}
+		   	>
 					{groupList.map((item,index)=>{
 						    var activeStyle={}
 							if(this.state.action==index){
@@ -101,18 +110,18 @@ export default class Home  extends Component{
     		                )
 						})
 				   }
-	 	    </Tabs>
+	 	    </Tabs> 
 	 	   </div>
 	 	  </div>
 		);
 	}
-
-
+    
+ 
 	renderGroupSingle = ()=>{
 
 		let {groupList} = this.state;
 		let groupItem = groupList[0];
-
+		
 
 		return(
 		  <div className='static-section'>
@@ -132,25 +141,25 @@ export default class Home  extends Component{
 		   _this.setState({
 		   	 groupList:response.groupList,
 		   	 groupId:response.groupList[0].id
-		   })
+		   })	   
 		}).catch(function(err) {
 			Message.error(err);
 		});
 
-
+		
 		Store.dispatch(Actions.switchSidebarNav(false));
-
+	
 	}
 
 	render(){
 
 		let {groupList} = this.state;
-
-
+        
+		
 		if(groupList.length == 1){
 				return this.renderGroupSingle();
 		}
-
+	
 		return(
 			<div>
 					{this.renderGroupTabs()}
