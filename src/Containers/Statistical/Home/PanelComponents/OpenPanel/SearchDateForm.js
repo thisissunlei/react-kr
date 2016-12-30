@@ -75,7 +75,9 @@ class SearchDateForm extends Component {
 			handleSubmit,
 			pristine,
 			reset,
-			date_2
+			date_2,
+			todayDate,
+			todayEndDate
 		} = this.props;
 
 
@@ -89,13 +91,9 @@ class SearchDateForm extends Component {
 					<ListGroup>
 							<span className='statis-date-title'>时间：</span>
 
-							{/*
 					<ListGroupItem><div className='statis-date-start'><KrField  style={{marginLeft:-10}} name="startDate" component="date" onChange={this.props.onStartChange}  dateNoSecond='true' placeholder={todayDate}/></div></ListGroupItem>
-								*/}
 					<div className='ui-line-down-list'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-					{/*
-				<ListGroupItem><div className='statis-date-end'><KrField  name="endDate" component="date" onChange={this.props.onEndChange} placeholder={todayEndDate} dateNoSecond='true' /></div></ListGroupItem>
-						*/}
+					<ListGroupItem><div className='statis-date-end'><KrField  name="endDate" component="date" onChange={this.props.onEndChange} placeholder={todayEndDate} dateNoSecond='true' /></div></ListGroupItem>
 				</ListGroup>
 
 				</div>
