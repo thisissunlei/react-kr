@@ -247,7 +247,7 @@ class ReceivedBtnForm extends Component {
 						     <KrField label="回款总额"  grid={1/2} right={30} style={{marginTop:'-6px'}} name="totalPayment" component="input" type="text" requireLabel={true} onChange={this.calcBalance}/>
 						     <KrField label="对应合同" name='contract' grid={1/2} component="groupCheckbox" defaultValue={contractReceive} requireLabel={true}/>
 
-						     <KrField label="上传附件" grid={1/2} left={30}  style={{marginLeft:-30}} name="fileids" component="file" />
+						     <KrField label="上传附件" grid={1/2} left={30}  style={{marginLeft:-30}} name="fileids" component="file"/>
 
                             
 
