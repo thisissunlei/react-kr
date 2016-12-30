@@ -28,8 +28,9 @@ import {
 import './index.less';
 import SearchDateForm from './SearchDateForm';
 
-export default class Initialize  extends Component{
+export default class OpenPanel  extends Component{
 
+		static displayName = 'OpenPanel';
     static propTypes = {
 		 groupId:React.PropTypes.number,
 		 todayDate:React.PropTypes.string
@@ -51,24 +52,24 @@ export default class Initialize  extends Component{
 
 	}
 
-    
-   
+
+
     onStartChange=(startD)=>{
 
     	let {searchParams}=this.state;
         let start=Date.parse(dateFormat(startD,"yyyy-mm-dd hh:MM:ss"));
-	       
-        
+
+
         let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
          console.log(start,end,"====")
         this.setState({
         	startValue:startD
 
         },function () {
-        	
-        	if(start>end){  
-	         Message.error('开始时间不能大于结束时间');        
-	          return ; 
+
+        	if(start>end){
+	         Message.error('开始时间不能大于结束时间');
+	          return ;
 	        }
 	        let startDate=this.state.startValue;
 	    	searchParams = Object.assign({}, searchParams, {startDate:this.state.startValue,endDate:this.state.endValue||searchParams.endDate});
@@ -78,23 +79,23 @@ export default class Initialize  extends Component{
 			console.log(searchParams,this.state.endValue,"uuu")
 
 			});
-			
+
 
         })
-        
+
     }
     onEndChange=(endD)=>{
-    	let {searchParams}=this.state;	
+    	let {searchParams}=this.state;
         let start=Date.parse(dateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
         let end=Date.parse(dateFormat(endD,"yyyy-mm-dd hh:MM:ss"));
         this.setState({
         	endValue:endD
 
         },function () {
-        	
-        	if(start>end){  
-	         Message.error('开始时间不能大于结束时间');        
-	          return ; 
+
+        	if(start>end){
+	         Message.error('开始时间不能大于结束时间');
+	          return ;
 	        }
 	        let endDate=this.state.endValue;
 	    	searchParams = Object.assign({}, searchParams, {startDate:this.state.startValue||searchParams.startDate,endDate:this.state.endValue,});
@@ -110,8 +111,8 @@ export default class Initialize  extends Component{
 
     }
 
-   
- 
+
+
     componentWillReceiveProps(nextProps){
 		 this.setState({
 		 	searchParams:{
@@ -122,11 +123,11 @@ export default class Initialize  extends Component{
 		})
 	 }
 
-    render(){   	
-    	let {searchParams}=this.state;	
+    render(){
+    	let {searchParams}=this.state;
 
     	//console.log('888888888',searchParams);
-        
+
 	return(
          <div className='open-back' style={{background:'#fff',marginBottom:'20'}}>
 			<div className='ui-open-info'>
@@ -176,7 +177,7 @@ export default class Initialize  extends Component{
 						<TableRowColumn name="communityName"  component={(value,oldValue)=>{
 							 var maxWidth=6;
 							 if(value.length>maxWidth){
-							 	value = value.substring(0,6)+"...";  
+							 	value = value.substring(0,6)+"...";
 							 }
                              return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 						}} ></TableRowColumn>

@@ -88,11 +88,6 @@ export default class PanelComponents  extends Component{
 			<div>
 			    <Title value="数据统计"/>
 			    	{renderComponent}
-			  {/*
-	            <NotOpenPanel groupId={this.props.groupId} currentDate={currentDate}/>
-				<OpenPanel groupId={this.props.groupId} currentDate={currentDate}/></div>
-			*/}
-
 			</div>
 		);
 	}
