@@ -77,6 +77,7 @@ export default class PanelComponents  extends Component{
 						renderComponent.push(_this.createPanelComponent(item.id,props));
 				});
 
+				console.log('--->>>',renderComponent);
 				return renderComponent;
 	}
 

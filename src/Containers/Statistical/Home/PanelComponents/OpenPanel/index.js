@@ -43,7 +43,6 @@ export default class OpenPanel  extends Component{
 	constructor(props,context){
 		super(props, context);
 
-		alert('ahahahha--=-');
 	    this.state = {
 			searchParams: {
 				groupId:this.props.groupId,
