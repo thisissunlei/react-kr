@@ -70,12 +70,12 @@ export default class PanelComponents  extends Component{
 
 				console.log('---',panels);
 				panels.map(function(item,index){
-					var childComponentName = PanelsDic[item.id];
-					alert(JSON.stringify(item));
-					console.log(item);
+					//var childComponentName = PanelsDic[item.id];
+					console.log('----',item,PanelsDic);
 
 					//alert(childComponentName);
 
+					/*
 					if(childComponentName){
 						props.key = index;
 						props.todayDate=todayDate;
@@ -83,6 +83,7 @@ export default class PanelComponents  extends Component{
 							...props
 						}));
 					}
+					*/
 				});
 
 				return renderComponent;
