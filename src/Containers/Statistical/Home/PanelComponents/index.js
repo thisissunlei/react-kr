@@ -49,46 +49,50 @@ export default class PanelComponents  extends Component{
 
 	}
 
+	renderPanelComponents = (){
+
+				let {panels,groupId}=this.props;
+
+				var  dateT=new Date();
+				var dateYear=dateT.getFullYear();
+				var dateMonth=dateT.getMonth()+1;
+				var dateDay=dateT.getDate();
+						if(dateDay<10){
+							dateDay='0'+dateDay
+						}
+						var todayDate=dateYear+'-'+dateMonth+'-'+dateDay;
+
+
+				var renderComponent = [];
+				var props = {
+					groupId
+				};
+
+				panels.map(function(item,index){
+					var childComponentName = PanelsDic[item.id];
+					alert('hahah',JSON.stringify(item));
+					if(childComponentName){
+						props.key = index;
+						props.todayDate=todayDate;
+						renderComponent.push(React.cloneElement(childComponentName,{
+							...props
+						}));
+					}
+				});
+
+				return renderComponent;
+	}
+
 	render(){
-
-
-		let {panels,groupId}=this.props;
-
-		//console.log('222----',groupId);
-
-		var  dateT=new Date();
-		var dateYear=dateT.getFullYear();
-		var dateMonth=dateT.getMonth()+1;
-		var dateDay=dateT.getDate();
-        if(dateDay<10){
-        	dateDay='0'+dateDay
-        }
-        var todayDate=dateYear+'-'+dateMonth+'-'+dateDay;
-
-
-		var renderComponent = [];
-		var props = {
-			groupId
-		};
-
-		panels.map(function(item,index){
-			var childComponentName = PanelsDic[item.id];
-			alert('hahah',JSON.stringify(item));
-			if(childComponentName){
-				props.key = index;
-				props.todayDate=todayDate;
-				renderComponent.push(React.cloneElement(childComponentName,{
-					...props
-				}));
-			}
-		});
-
-		//<div key={index}>{childComponentName}</div>
 
 		return(
 			<div>
 			    <Title value="数据统计"/>
-			    	{renderComponent}
+						<Section>
+
+									ahahahahah
+						</Section>
+			    	{this.renderPanelComponent()}
 			</div>
 		);
 	}

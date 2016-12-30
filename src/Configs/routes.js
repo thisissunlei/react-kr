@@ -74,7 +74,9 @@ export default (
 		{/*统计看板*/}
 		<Route path="statistical" component={Basic}>
 			<Route path="index" component={Statistical.Home}/>
-			<IndexRedirect to="index" />
+			{/*
+				<IndexRedirect to="index" />
+				*/}
 		</Route>
 
 
