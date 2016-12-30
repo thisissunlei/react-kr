@@ -27,7 +27,7 @@ import {
 import NotOpenPanel from './NotOpenPanel';
 import OpenPanel from './OpenPanel';
 
-import PanelsDic from './PanelsDic';
+//import PanelsDic from './PanelsDic';
 
 export default class PanelComponents  extends Component{
 
@@ -61,13 +61,13 @@ export default class PanelComponents  extends Component{
 						if(dateDay<10){
 							dateDay='0'+dateDay
 						}
-						var todayDate=dateYear+'-'+dateMonth+'-'+dateDay;
+		var todayDate=dateYear+'-'+dateMonth+'-'+dateDay;
 
 
 				var renderComponent = [];
 				var props = {
-					groupId,
-					todayDate:'2017-1-1',
+						groupId:groupId,
+						todayDate:'2017-1-1',
 				};
 
 				var _this = this;
