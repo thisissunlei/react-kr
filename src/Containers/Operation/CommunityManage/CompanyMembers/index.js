@@ -259,10 +259,6 @@ export default class CompanyMembers extends Component {
 			}else{
 				_this.cancleLeaders();
 			}
-			// Notify.show([{
-			// 	message: '设置成功',
-			// 	type: 'success',
-			// }]);
 			Message.success('设置成功');
 
 

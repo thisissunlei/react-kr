@@ -6,7 +6,6 @@ import {
 	connect
 } from 'kr/Redux';
 
-
 import {
 	reduxForm
 } from 'redux-form';
@@ -22,6 +21,7 @@ import {
 	DotTitle,
 	Dialog,
 	Title,
+	UpLoadList
 } from 'kr-ui';
 
 
@@ -51,8 +51,9 @@ import {
 	FontIcon,
 	DatePicker,
 	Paper,
+	IconButton
 } from 'material-ui';
-
+import IconMenu from 'material-ui/IconMenu';
 
 import {
 	Table,
@@ -239,6 +240,10 @@ export default class OrderDetail extends React.Component {
 			openDelAgreement: false,
 			isShow: false,
 			View: false,
+			openMenu:false,
+			openId:0,
+			opretionId:0,
+			opretionOpen:false,
 			response: {
 				orderBaseInfo: {},
 				installment: {},
@@ -284,10 +289,7 @@ export default class OrderDetail extends React.Component {
 				window.location.reload();
 			}, 100)
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
+			console.log(err.message);
 		});
 
 
@@ -461,6 +463,23 @@ export default class OrderDetail extends React.Component {
 
 
 	}
+	uploadFile(id){
+		let fileId = this.state.openId;
+		if(fileId == id){
+			this.setState({
+				openMenu:!this.state.openMenu,
+				openId:id,
+				opretionOpen:false
+			})
+		}else{
+			this.setState({
+				openMenu:true,
+				openId:id,
+				opretionOpen:false
+			})
+		}
+	}
+		
 	change = (form) => {
 		const {
 			orderBaseInfo
@@ -527,6 +546,26 @@ export default class OrderDetail extends React.Component {
 
 		this.onClose();
 	}
+	onChange=(files)=>{
+		console.log('onChange',files);
+	}
+	showMoreOpretion(id){
+		let {opretionId} = this.state;
+		if(opretionId == id){
+			this.setState({
+				opretionId:id,
+				openMenu:false,
+				opretionOpen:!this.state.opretionOpen
+			})
+		}else{
+			this.setState({
+				opretionId:id,
+				openMenu:false,
+				opretionOpen:true
+			})
+		}
+		
+	}
 
 	render() {
 
@@ -544,7 +583,7 @@ export default class OrderDetail extends React.Component {
 		if (this.state.loading) {
 			return (<Loading/>);
 		}
-
+		let fileList = ['入.pdf','入议书.pdf','入驻协议书.pdf','入驻协议书.pdf'];
 
 		return (
 			<div>
@@ -579,6 +618,9 @@ export default class OrderDetail extends React.Component {
 
 			{contractList.map((item,index)=>{
 				
+				let {opretionOpen,opretionId} = this.state;
+				let showOpretion = (item.id == opretionId && opretionOpen)?'visible':'hidden';
+				
 				return (
 					<TableRow key={index}>
 					{this.getAgrementType(item.contracttype)}
@@ -592,9 +634,17 @@ export default class OrderDetail extends React.Component {
 					<TableRowColumn>{item.inputUser}</TableRowColumn>
 					<TableRowColumn>
 					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} />
-							{item.contractstate != 'EXECUTE' && item.editFlag && <Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
+					<Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)}/>
+					
+					{(item.contractstate != 'EXECUTE' && item.editFlag)?<Button  type="link" label="..." href="javascript:void(0)" onTouchTap={this.showMoreOpretion.bind(this,item.id)}/>:<Button  type="link" label="打印" href="javascript:void(0)" />}
+					<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
+					<div style={{visibility:showOpretion}} className="m-operation" >
+						{item.contractstate != 'EXECUTE' && item.editFlag && <span style={{display:'block'}}><a  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}>编辑</a></span> }
+						<span  style={{display:'block'}}>打印</span>
 
-							{item.contracttype == 'ENTER' && item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
+						{item.contracttype == 'ENTER' && item.contractstate != 'EXECUTE' && item.editFlag  && <span  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</span> }
+					</div>
+							
 						{/*
 							{item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除" onTouchTap={this.delArgument.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
 
