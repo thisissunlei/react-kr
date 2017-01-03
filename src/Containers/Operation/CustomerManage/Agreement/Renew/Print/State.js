@@ -30,7 +30,7 @@ State.getBasicInfo = action(function(params) {
 	Store.dispatch(Actions.callAPI('checkinagreement-print-info', {
 		contractId: params.id
 	})).then(function(response) {
-		_this.baseInfo = response;
+
 		if (response.stationVOs.length >= 7) {
 			_this.stationVOs = response.stationVOs;
 		} else {
@@ -51,7 +51,7 @@ State.getBasicInfo = action(function(params) {
 		}
 
 		_this.installmentPlans = response.installmentPlans;
-
+		_this.baseInfo = response;
 
 
 	}).catch(function(err) {
