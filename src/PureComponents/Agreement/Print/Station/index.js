@@ -73,7 +73,7 @@ export default class Station extends Component {
 			info,
 			reduceTh,
 		} = this.props
-		console.log('baseInfo---', baseInfo)
+
 		return (
 
 

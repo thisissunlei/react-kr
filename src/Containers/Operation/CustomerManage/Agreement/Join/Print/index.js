@@ -74,7 +74,7 @@ export default class JoinPrint extends Component {
 			<Agreement.Print.Payment 
 				baseInfo={State.baseInfo} 
 				installmentPlans={State.installmentPlans} 
-				installmentPlansList={State.installmentPlansList}
+				
 			/>
 			<div className="print-text">
 				<span>双方其他约定内容：</span>
