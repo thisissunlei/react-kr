@@ -111,6 +111,7 @@ class NewCreateForm extends Component {
 			selectedStation: [],
 			openStation: false,
 			openStationUnitPrice: false,
+			allRent:'-1'
 		}
 	}
 
@@ -296,7 +297,7 @@ class NewCreateForm extends Component {
 
 		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
-		form.rentamount = this.state.allRent?this.state.allRent:initialValues.rentamount;
+		form.rentamount = (this.state.allRent!='-1')?this.state.allRent:initialValues.rentamount;
 		form.lessorAddress = changeValues.lessorAddress;
 		// form.lessorContactid = 111;
 		var _this = this;
@@ -345,7 +346,7 @@ class NewCreateForm extends Component {
 			params,
 			allRent
 		} = this.state;
-		allRent = allRent?allRent:initialValues.rentamount;
+		allRent = (allRent!='-1')?allRent:initialValues.rentamount;
 		var nzhcn = nzh.cn;
 		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
 

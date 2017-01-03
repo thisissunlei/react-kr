@@ -111,7 +111,7 @@ class NewCreateForm extends Component {
 			selectedStation: [],
 			openStation: false,
 			openStationUnitPrice: false,
-			allRent:0
+			allRent:'-1'
 		}
 
 	}
@@ -299,7 +299,7 @@ class NewCreateForm extends Component {
 		form.lessorAddress = changeValues.lessorAddress;
 		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorContactid = form.lessorContactid;
-		form.totalrent = this.state.allRent?_this.state.allRent:initialValues.totalrent;
+		form.totalrent = (this.state.allRent!='-1')?this.state.allRent:initialValues.totalrent;
 
 		form.stationVos = JSON.stringify(stationVos);
 		form.delStationVos = JSON.stringify(delStationVos);
@@ -344,7 +344,7 @@ class NewCreateForm extends Component {
 			stationVos,
 			allRent
 		} = this.state;
-		allRent = allRent?allRent:initialValues.totalrent;
+		allRent = (allRent!='-1')?allRent:initialValues.totalrent;
 		var nzhcn = nzh.cn;
 		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
 

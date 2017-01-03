@@ -63,7 +63,6 @@ import {
 	KrDate,
 	CircleStyle
 } from 'kr-ui';
-import Date from 'kr-ui/Date';
 
 @ReactMixin.decorate(LinkedStateMixin)
 class NewCreateForm extends Component {

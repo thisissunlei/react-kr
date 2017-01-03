@@ -279,7 +279,7 @@ class NewCreateForm extends Component {
 
 
 		form.stationVos = stationVos;
-		form.rentamount = this.state.allRent;
+		form.rentamount = (this.state.allRent).toFixed(2);
 		form.stationVos = JSON.stringify(form.stationVos);
 		form.contractVersionType = 'NEW';
 
