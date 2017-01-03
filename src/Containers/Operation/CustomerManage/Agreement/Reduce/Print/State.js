@@ -30,7 +30,7 @@ State.getBasicInfo = action(function(params) {
 	Store.dispatch(Actions.callAPI('fnaContractRentController', {
 		contractId: params.id
 	})).then(function(response) {
-		_this.baseInfo = response;
+
 
 		if (response.stationVOs.length >= 7) {
 			_this.stationVOs = response.stationVOs;
@@ -50,7 +50,7 @@ State.getBasicInfo = action(function(params) {
 			_this.stationVOs = stationVOs;
 
 		}
-
+		_this.baseInfo = response;
 
 
 	}).catch(function(err) {

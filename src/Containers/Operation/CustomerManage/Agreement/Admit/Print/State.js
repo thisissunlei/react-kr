@@ -31,7 +31,7 @@ State.getBasicInfo = action(function(params) {
 		contractId: params.id
 	})).then(function(response) {
 		console.log(response)
-		_this.baseInfo = response;
+
 		if (response.stationVOs.length >= 7) {
 			_this.stationVOs = response.stationVOs;
 		} else {
@@ -52,7 +52,7 @@ State.getBasicInfo = action(function(params) {
 		}
 
 		_this.installmentPlans = response.installmentPlans;
-
+		_this.baseInfo = response;
 
 
 	}).catch(function(err) {
