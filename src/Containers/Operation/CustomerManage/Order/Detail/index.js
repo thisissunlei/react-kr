@@ -650,6 +650,7 @@ export default class OrderDetail extends React.Component {
 			{contractList.map((item,index)=>{
 				
 				let {opretionOpen,opretionId} = this.state;
+				let showPrint = (item.contracttype == 'QUITRENT')?'hidden':'visible';
 				let showOpretion = (item.id == opretionId && opretionOpen)?'visible':'hidden';
 				
 				return (
@@ -667,11 +668,11 @@ export default class OrderDetail extends React.Component {
 					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} />
 					<Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)}/>
 					
-					{(item.contractstate != 'EXECUTE' && item.editFlag)?<Button  type="link" label="..." href="javascript:void(0)" onTouchTap={this.showMoreOpretion.bind(this,item.id)}/>:<Button  type="link" label="打印" href="javascript:void(0)" onClick={this.print.bind(this,item)}/>}
+					{(item.contractstate != 'EXECUTE' && item.editFlag)?<Button  type="link" label="..." href="javascript:void(0)" onTouchTap={this.showMoreOpretion.bind(this,item.id)}/>:<span style={{visibility:showPrint}} ><Button type="link" label="打印" href="javascript:void(0)" onClick={this.print.bind(this,item)}/></span>}
 					<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
 					<div style={{visibility:showOpretion}} className="m-operation" >
 						{item.contractstate != 'EXECUTE' && item.editFlag && <span style={{display:'block'}}><a  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}>编辑</a></span> }
-						<span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>
+						{ item.contractstate ==  'QUITRENT' && <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
 
 						{item.contracttype == 'ENTER' && item.contractstate != 'EXECUTE' && item.editFlag  && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
 					</div>
