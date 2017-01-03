@@ -342,15 +342,16 @@ export default class UpLoadList extends Component {
 			<div className={className} ref={div=>{this.tooltip = div}} style={style}>
 				<ul>
 				{ files.map((item,index)=>{
+					let bottom = (index==5)?'10px':'0';
 					return (
-						<li key={index}>
+						<li key={index} style={{marginBottom:bottom}}>
 						
 						<span className="file-name" onClick={this.download.bind(this,item)}>{item.fileName}</span>
 						<span className="file-delete icon-delete" onClick={this.delete.bind(this,item)}></span>
 						</li>
 						)
 				})}
-				{isUploading && <li className="loading-progress"><span className="progress" style={{width:`${progress}%`}}>{progress}%</span><span>{fileName}</span></li>}
+				{isUploading && <li className="loading-progress"><span className="progress" style={{width:`${progress}%`}}>{progress}%</span><span className="file-name-load">{fileName}</span></li>}
 
 				{this.renderLoad()}
 				</ul>
