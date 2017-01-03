@@ -232,11 +232,12 @@ export default class BasicTable extends Component {
 		this.onSetState = this.onSetState.bind(this);
 		var dt = new Date(); 
 		this.currentYear = dt.getFullYear();
+		let currentYear = dt.getFullYear();
 
 
 
 		this.state = {
-			currentYear: this.currentYear,
+			currentYear: currentYear,
 			dismantling: false,
 			formValues: {},
 			Installmentplan: [],
