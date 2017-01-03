@@ -630,16 +630,6 @@ const APIS = {
     method:'get'
   },
 
-  //个人中心-获取个人信息
-  'PersonalCenterData': {
-    url:' /mockjsdata/15/krspace_isso_web/sys/sysOwn/getPersonalInfo',
-    method: 'get'
-  },
-  //个人中心-身份验证
-  'PersonalCenterVerifyId': {
-    url:' /mockjsdata/15/krspace_isso_web/sys/sysOwn/verifyIdentity',
-    method: 'get'
-  },
   //获取指定公司会员列表
   'getCompanyMemberList':{
   	url:'/api/krspace-finance-web/member/company-team?companyId={companyId}&page={page}&pageSize={pageSize}',
@@ -709,15 +699,6 @@ const APIS = {
     url:'/api/krspace-finance-web/finaccount/opt/removeRunningTag',
     method: 'post'
   },
-
-  //个人中心-获取验证码
-  'PersonalCenterGetVerificationCode': {
-    url:'/mockjsdata/15/krspace_isso_web/sys/sysOwn/getVerifyCode',
-    method:'get'
-  },
-
-
-
 
  	//财务管理－订单明细账-分页获得财务流水
  	'getPageAccountFlow': {
@@ -872,16 +853,7 @@ const APIS = {
  		url: '/api/krspace-finance-web/stat/group/sort/actions/check?sort={sort}&id={id}',
  		method: 'get'
  	},
- 	//个人中心-获取个人信息
- 	'PersonalCenterData': {
- 		url: ' /api/krspace_isso_web/sys/sysOwn/getPersonalInfo',
- 		method: 'get'
- 	},
- 	//个人中心-身份验证
- 	'PersonalCenterVerifyId': {
- 		url: ' /api/krspace_isso_web/sys/sysOwn/verifyIdentity',
- 		method: 'get'
- 	},
+
  	//合同详情-修改订单名字
  	'edit-order-name': {
  		url: ' /api/krspace-finance-web/edit-order-name',
