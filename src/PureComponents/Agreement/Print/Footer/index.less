@@ -1,0 +1,52 @@
+.print-Footer{
+  width: 700px;
+  position: relative;
+  margin: 0 auto;
+  //overflow: hidden;
+  p:nth-child(1){
+    font-size: 13px;
+    color: #333;
+    line-height: 30px;
+    text-align: right;
+    margin: 0;
+
+  }
+  .print-Bottom{
+    margin: 0;
+    position: relative;
+   line-height:80px;
+    color: #666;
+    width: 100%;
+    border-top: 3px solid #2d8dcd;
+    text-align: center;
+    span{
+      font-size: 14px;
+    }
+    .dott{
+      width: 0;
+      height: 0;
+      font-size: 0;
+      display: inline-block;
+      position: absolute;
+      top:40px;
+      border:1.5px solid #666;
+      border-radius: 100%;
+      font-family: "FZLTHJW  GB1 0";
+    }
+    .tel{
+      font-size: 13px;
+      position: absolute;
+      right: 0;
+    }
+  }
+}
+@media print {
+    .print-Bottom{
+    line-height:0px !important;
+    padding-top:25px;
+     .dott{
+       margin-top: -15px;
+
+     }
+    }
+}

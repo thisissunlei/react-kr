@@ -1,5 +1,10 @@
-import {Link} from 'react-router';
-import React, {Component, PropTypes} from 'react';
+import {
+	Link
+} from 'react-router';
+import React, {
+	Component,
+	PropTypes
+} from 'react';
 
 import './index.less';
 
@@ -20,12 +25,18 @@ import {
 
 
 import ActionInvertColors from 'material-ui/svg-icons/action/invert-colors';
-import {blue500, yellow600,red500,pink500,purple500} from 'material-ui/styles/colors';
+import {
+	blue500,
+	yellow600,
+	red500,
+	pink500,
+	purple500
+} from 'material-ui/styles/colors';
 
-export default class Footer extends Component{
+export default class Footer extends Component {
 
 
-	render(){
+	render() {
 
 		const style = {
 			height: 90,
@@ -35,7 +46,7 @@ export default class Footer extends Component{
 		};
 
 		return (
-			<div className="g-footer">
+			<div className="g-footer no-print">
 				<p> © 2011~2016 36氪 | 京ICP备12031756号 | 京公网安备11010802012285号 </p>
 			</div>
 		);
