@@ -21,7 +21,7 @@ import {
 	Col,
 } from 'kr-ui';
 import './index.less';
-import QRCode from 'react-qr-code';
+import QRCode from 'qrcode.react';
 
 
 export default class Header extends Component {
