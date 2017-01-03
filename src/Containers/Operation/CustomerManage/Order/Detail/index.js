@@ -593,9 +593,8 @@ export default class OrderDetail extends React.Component {
 			}
 		});
 		const params = this.props.params;
-		let url = `/#/operation/customerManage/${params.customerId}/order/${params.orderId}/agreement/${name}/${item.id}/print`
+		let url = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/agreement/${name}/${item.id}/print`
 		var newWindow = window.open(url);
-		// console.log('url',url);
 
 	}
 

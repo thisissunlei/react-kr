@@ -94,7 +94,7 @@ export default class ReduceDetail extends Component {
 	}
 	print = () => {
 		const params = this.props.params;
-		let url = `/#/operation/customerManage/${params.customerId}/order/${params.orderId}/agreement/reduce/${params.id}/print`
+		let url = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/agreement/reduce/${params.id}/print`
 		var newWindow = window.open(url);
 
 	}

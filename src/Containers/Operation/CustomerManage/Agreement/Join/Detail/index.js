@@ -197,7 +197,7 @@ export default class JoinDetail extends Component {
 
 	print = () => {
 		const params = this.props.params;
-		let url = `/#/operation/customerManage/${params.customerId}/order/${params.orderId}/agreement/join/${params.id}/print`
+		let url = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/agreement/join/${params.id}/print`
 		var newWindow = window.open(url);
 
 	}
