@@ -539,7 +539,8 @@ class NewCreateForm extends Component {
 
 
 		this.setState({
-			stationVos: billList
+			stationVos: billList,
+			allRent:0
 		}, function() {
 			this.calcStationNum();
 		});
