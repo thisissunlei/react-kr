@@ -231,6 +231,16 @@ class NewCreateForm extends Component {
 
 	//录入单价dialog
 	openStationUnitPriceDialog() {
+		let {
+			selectedStation
+		} = this.state;
+		if (!selectedStation.length) {
+			Notify.show([{
+				message: '请先选择要录入单价的工位',
+				type: 'danger',
+			}]);
+			return;
+		}
 		this.setState({
 			openStationUnitPrice: !this.state.openStationUnitPrice
 		});
