@@ -59,7 +59,7 @@ export default class Header extends Component {
 				</div>
 				<div className="print-title">{orderInfo}</div>
 				<div className="print-QRCode">
-					<QRCode value={qRCode}  size={70}/>
+					<QRCode value={qRCode}  size={82}/>
 				</div>
 			</div>
 		);
