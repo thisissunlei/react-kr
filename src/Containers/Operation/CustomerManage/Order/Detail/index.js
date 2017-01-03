@@ -569,8 +569,8 @@ export default class OrderDetail extends React.Component {
 	print(id){
 		const params = this.props.params;
 		let url = `/#/operation/customerManage/${params.customerId}/order/${params.orderId}/agreement/admit/${id}/print`
-		// var newWindow = window.open(url);
-		console.log('url',url);
+		var newWindow = window.open(url);
+		// console.log('url',url);
 
 	}
 
