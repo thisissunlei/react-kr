@@ -921,6 +921,21 @@ const APIS = {
       url: '/api/krspace-finance-web/finacontractdetail/fileList-delete?detailId={detailId}&fileId={fileId}',
       method: 'delete'
    },
+    //电子合同-入驻协议(入驻，增租，续租)
+   'checkinagreement-print-info': {
+      url: '/api/krspace-finance-web/checkinagreement/print-info?contractId={contractId}',
+      method: 'get'
+   },
+   //电子合同-承租意向
+   'intentletter-print-info': {
+      url: ' /api/krspace-finance-web/intentletter/print-info?contractId={contractId}',
+      method: 'get'
+   },
+   //电子合同-减租
+   'fnaContractRentController': {
+      url: ' /api/krspace-finance-web/fnaContractRentController/print-info?contractId={contractId}',
+      method: 'get'
+   },
 
  }
 
