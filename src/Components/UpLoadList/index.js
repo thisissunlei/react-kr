@@ -315,7 +315,7 @@ export default class UpLoadList extends Component {
 		let {files} = this.state;
 		if(files.length<6){
 			return (
-				<li className="ui-file">
+				<li className="ui-files">
 					<div className="file-button">
 						<span className="file-icon">+</span>
 						<input type="file" name="file" onChange={this.onChange} />
