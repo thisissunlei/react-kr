@@ -905,7 +905,23 @@ const APIS = {
  'CardEdit': {
    url:'/api/krspace-finance-web/member/card/mbr-card',
    method:'put'
- }
+ },
+   //获取附件列表
+   'getFileList':{
+      url: '/api/krspace-finance-web/finacontractdetail/fileList-show?detailId={detailId}',
+      method: 'get'
+   },
+   //附件列表保存附件
+   'saveFileList':{
+      url: '/api/krspace-finance-web/finacontractdetail/fileList-save?detailId={detailId}&fileId={fileId}',
+      method: 'post'
+   },
+   //附件列表删除附件
+   'deleteFileList':{
+      url: '/api/krspace-finance-web/finacontractdetail/fileList-delete?detailId={detailId}&fileId={fileId}',
+      method: 'delete'
+   },
+
  }
 
  module.exports = APIS;
