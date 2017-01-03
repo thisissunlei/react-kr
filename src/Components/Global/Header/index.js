@@ -226,16 +226,10 @@ class Header extends Component {
 						<IconButton><MoreVertIcon /></IconButton>
 					}
 					targetOrigin = {
-						{
-							horizontal: 'right',
-							vertical: 'top'
-						}
+						{horizontal: 'right',vertical: 'top'}
 					}
 					anchorOrigin = {
-						{
-							horizontal: 'right',
-							vertical: 'top'
-						}
+						{horizontal: 'right',vertical: 'top'}
 					} > {
 						this.props.user.nick && < MenuItem primaryText = {
 							this.props.user.nick

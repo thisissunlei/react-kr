@@ -152,8 +152,8 @@ export default class Payment extends Component {
 	}
 	render() {
 		let {
-			installmentPlans,
-			baseInfo
+			baseInfo,
+			installmentPlans
 		} = this.props;
 
 		let {
@@ -162,8 +162,11 @@ export default class Payment extends Component {
 			payModel,
 			payModelList
 		} = this.props.baseInfo;
-		var len = installmentPlans.length;
+
+
 		this.method();
+
+
 		return (
 
 			<div className="ui-payment">
