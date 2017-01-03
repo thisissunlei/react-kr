@@ -46,10 +46,10 @@ export default class JoinPrint extends Component {
 	}
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(false));
-		/*setTimeout(function() {
+		setTimeout(function() {
 			window.print();
 			window.close();
-		}, 1000)*/
+		}, 1000)
 	}
 	getLocalTime = (beginDate) => {
 		var now = new Date(beginDate);
