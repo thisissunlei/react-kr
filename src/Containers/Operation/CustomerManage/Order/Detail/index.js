@@ -667,8 +667,9 @@ export default class OrderDetail extends React.Component {
 					<TableRowColumn>
 					<Button  type="link" label="查看" href={this.getAgrementDetailUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} />
 					<Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)}/>
-					
-					{(item.contractstate != 'EXECUTE' && item.editFlag)?<Button  type="link" label="..." href="javascript:void(0)" onTouchTap={this.showMoreOpretion.bind(this,item.id)}/>:<span style={{visibility:showPrint}} ><Button type="link" label="打印" href="javascript:void(0)" onClick={this.print.bind(this,item)}/></span>}
+					{item.contractstate != 'EXECUTE' && item.editFlag && item.contracttype == 'QUITRENT' && <Button  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
+
+					{(item.contractstate != 'EXECUTE' && item.editFlag && item.contracttype !=  'QUITRENT')?<Button  type="link" label="..." href="javascript:void(0)" onTouchTap={this.showMoreOpretion.bind(this,item.id)}/>:<span style={{visibility:showPrint}} ><Button type="link" label="打印" href="javascript:void(0)" onClick={this.print.bind(this,item)}/></span>}
 					<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
 					<div style={{visibility:showOpretion}} className="m-operation" >
 						{item.contractstate != 'EXECUTE' && item.editFlag && <span style={{display:'block'}}><a  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}>编辑</a></span> }
