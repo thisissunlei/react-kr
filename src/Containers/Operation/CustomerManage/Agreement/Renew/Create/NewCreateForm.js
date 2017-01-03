@@ -277,7 +277,7 @@ class NewCreateForm extends Component {
 
 		form.stationVos = JSON.stringify(stationVos);
 		form.contractVersionType = 'NEW';
-		form.totalrent = this.state.allRent;
+		form.totalrent = (this.state.allRent).toFixed(2);
 		const {
 			onSubmit
 		} = this.props;
