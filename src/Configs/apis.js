@@ -374,54 +374,55 @@ const APIS = {
       url: '/api/krspace-finance-web/finacontractdetail/getInstallmentplan?year={year}&communityids={communityids}&page={page}&pageSize={pageSize}&type={type}&value={value}',
       method: 'get'
    },
+
    //权限管理-权限管理-数据模板管理数据
-   'getDataGrouplis': {
-      url: '/mockjsdata/13/krspace-finance-web/stat/group/group-list',
-      method: 'get'
-   },
-   //数据统计-集团经营-招商数据已开业
-   'openCompanyData': {
-      url: '/api/krspace-finance-web/stat/merchant/actions/open?groupId={groupId}&endDate={endDate}&startDate={startDate}',
-      method: 'get'
-   },
-   //数据统计-集团经营-获取当前登陆人的组合模块
-   'get-my-groups': {
-      url: '/api/krspace-finance-web/stat/group/actions/get-my-groups',
-      method: 'get'
-   },
-   //数据统计-集团经营-招商数据未开业
-   'notOpenCompanyData': {
-      url: '/api/krspace-finance-web/stat/merchant/actions/notopen?groupId={groupId}&endDate={endDate}&startDate={startDate}',
-      method: 'get'
-   },
-   //数据统计-模板分组-模板列表
-   'MouldGroupList': {
-      url: '/api/krspace-finance-web/stat/group/group-list?page={page}&pageSize={pageSize}&groupName={groupName}&enable={enable}',
-      method: 'get'
-   },
-   //数据统计-模板分组-分组详情
-   'MouldGroupDetails': {
-      url: '/api/krspace-finance-web/stat/group/actions/view?id={id}',
-      method: 'get'
-   },
-   //数据统计-模板分组-修改与新建
-   'GroupNewAndEidt': {
-      url: '/api/krspace-finance-web/stat/group/actions/add-or-update',
-      method: 'post'
-   },
-   //数据统计-模板分组-新建时获取所有模板的数据
-   'GroupNewModule': {
-      url: '/api/krspace-finance-web/stat/template/list',
-      method: 'get'
-   },
-   'groupNameCheck': {
-      url: '/api/krspace-finance-web/stat/group/name/actions/check?groupName={groupName}&id={id}',
-      method: 'get'
-   },
-   'sortCheck': {
-      url: '/api/krspace-finance-web/stat/group/sort/actions/check?sort={sort}&id={id}',
-      method: 'get'
-   },
+    'getDataGrouplis': {
+       url: '/mockjsdata/13/krspace-finance-web/stat/group/group-list',
+       method: 'get'
+    },
+    //数据统计-集团经营-招商数据已开业
+    'openCompanyData': {
+       url: '/api/krspace-finance-web/stat/merchant/actions/open?groupId={groupId}&endDate={endDate}&startDate={startDate}',
+       method: 'get'
+    },
+    //数据统计-集团经营-获取当前登陆人的组合模块
+    'get-my-groups': {
+       url: '/api/krspace-finance-web/stat/group/actions/get-my-groups',
+       method: 'get'
+    },
+    //数据统计-集团经营-招商数据未开业
+    'notOpenCompanyData': {
+       url: '/api/krspace-finance-web/stat/merchant/actions/notopen?groupId={groupId}&endDate={endDate}&startDate={startDate}',
+       method: 'get'
+    },
+    //数据统计-模板分组-模板列表
+    'MouldGroupList': {
+       url: '/api/krspace-finance-web/stat/group/group-list?page={page}&pageSize={pageSize}&groupName={groupName}&enable={enable}',
+       method: 'get'
+    },
+    //数据统计-模板分组-分组详情
+    'MouldGroupDetails': {
+       url: '/api/krspace-finance-web/stat/group/actions/view?id={id}',
+       method: 'get'
+    },
+    //数据统计-模板分组-修改与新建
+    'GroupNewAndEidt': {
+       url: '/api/krspace-finance-web/stat/group/actions/add-or-update',
+       method: 'post'
+    },
+    //数据统计-模板分组-新建时获取所有模板的数据
+    'GroupNewModule': {
+       url: '/api/krspace-finance-web/stat/template/list',
+       method: 'get'
+    },
+    'groupNameCheck': {
+       url: '/api/krspace-finance-web/stat/group/name/actions/check?groupName={groupName}&id={id}',
+       method: 'get'
+    },
+    'sortCheck': {
+       url: '/api/krspace-finance-web/stat/group/sort/actions/check?sort={sort}&id={id}',
+       method: 'get'
+    },
    //订单明细账－补历史收入
    'runStationIncome': {
       url: '/api/krspace-finance-web/finaccount/opt/runStationIncome?mainbillId={mainbillId}',
@@ -629,16 +630,6 @@ const APIS = {
     method:'get'
   },
 
-  //个人中心-获取个人信息
-  'PersonalCenterData': {
-    url:' /mockjsdata/15/krspace_isso_web/sys/sysOwn/getPersonalInfo',
-    method: 'get'
-  },
-  //个人中心-身份验证
-  'PersonalCenterVerifyId': {
-    url:' /mockjsdata/15/krspace_isso_web/sys/sysOwn/verifyIdentity',
-    method: 'get'
-  },
   //获取指定公司会员列表
   'getCompanyMemberList':{
   	url:'/api/krspace-finance-web/member/company-team?companyId={companyId}&page={page}&pageSize={pageSize}',
@@ -708,15 +699,6 @@ const APIS = {
     url:'/api/krspace-finance-web/finaccount/opt/removeRunningTag',
     method: 'post'
   },
-
-  //个人中心-获取验证码
-  'PersonalCenterGetVerificationCode': {
-    url:'/mockjsdata/15/krspace_isso_web/sys/sysOwn/getVerifyCode',
-    method:'get'
-  },
-
-
-
 
  	//财务管理－订单明细账-分页获得财务流水
  	'getPageAccountFlow': {
@@ -871,16 +853,7 @@ const APIS = {
  		url: '/api/krspace-finance-web/stat/group/sort/actions/check?sort={sort}&id={id}',
  		method: 'get'
  	},
- 	//个人中心-获取个人信息
- 	'PersonalCenterData': {
- 		url: ' /api/krspace_isso_web/sys/sysOwn/getPersonalInfo',
- 		method: 'get'
- 	},
- 	//个人中心-身份验证
- 	'PersonalCenterVerifyId': {
- 		url: ' /api/krspace_isso_web/sys/sysOwn/verifyIdentity',
- 		method: 'get'
- 	},
+
  	//合同详情-修改订单名字
  	'edit-order-name': {
  		url: ' /api/krspace-finance-web/edit-order-name',

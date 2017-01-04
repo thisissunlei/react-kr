@@ -54,8 +54,10 @@ class SearchForm extends Component {
 		super(props);
 
 		this.onSubmit = this.onSubmit.bind(this);
+		var dt = new Date(); 
+		let currentYear = dt.getFullYear();
 		this.state = {
-			currentYear: '2016',
+			currentYear: currentYear,
 			dismantling: false,
 			formValues: {},
 			Installmentplan: [],
@@ -228,11 +230,14 @@ export default class BasicTable extends Component {
 		this.onStation = this.onStation.bind(this);
 		this.scrollLoading = this.scrollLoading.bind(this);
 		this.onSetState = this.onSetState.bind(this);
+		var dt = new Date(); 
+		this.currentYear = dt.getFullYear();
+		let currentYear = dt.getFullYear();
 
 
 
 		this.state = {
-			currentYear: '2016',
+			currentYear: currentYear,
 			dismantling: false,
 			formValues: {},
 			Installmentplan: [],
@@ -255,7 +260,7 @@ export default class BasicTable extends Component {
 
 		};
 
-		this.currentYear = '2016';
+		
 
 	}
 
