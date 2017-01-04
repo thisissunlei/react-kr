@@ -303,7 +303,7 @@ class NewCreateForm extends Component {
 		this.setState({
 			stationVos,
 			delStationVos,
-			allMoney
+			allRent:allMoney
 		}, function() {
 			this.calcStationNum();
 		});

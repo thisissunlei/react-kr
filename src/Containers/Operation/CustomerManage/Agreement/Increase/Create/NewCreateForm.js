@@ -266,6 +266,7 @@ class NewCreateForm extends Component {
 		allMoney = parseFloat(allMoney).toFixed(2)*1;
 		this.setState({
 			stationVos,
+			allRent:allMoney
 		}, function() {
 			this.calcStationNum();
 		});
