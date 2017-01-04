@@ -238,17 +238,8 @@ export default class List extends Component {
 			list.totalCount = 0;
 		}
 		let options = [{
-			label: '公司名称',
-			value: 'COMP_NAME'
-		}, {
-			label: '手机号',
-			value: 'PHONE'
-		}, {
-			label: '微信',
-			value: 'WECHAT'
-		}, {
-			label: '姓名',
-			value: 'NAME'
+			label: '门禁',
+			value: 'doorLock'
 		}];
 		return (
 			    <div style={{minHeight:'910',backgroundColor:"#fff"}}>

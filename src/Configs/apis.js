@@ -905,7 +905,13 @@ const APIS = {
  'CardEdit': {
    url:'/api/krspace-finance-web/member/card/mbr-card',
    method:'put'
+ },
+ //运营平台-基础配置-设备定义-设备列表
+ 'equipmentList': {
+   url:'/api/krspace-finance-web/getSysDeviceDefinitionListListByAjax',
+   method:'get'
  }
+
  }
 
  module.exports = APIS;

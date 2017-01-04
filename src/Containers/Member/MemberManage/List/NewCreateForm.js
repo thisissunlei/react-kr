@@ -209,6 +209,19 @@ import imgLine from './images/line.png'
 		const { error, handleSubmit, pristine, reset} = this.props;
 		let communityText = '';
 		let {selectOption} =this.state;
+		let options = [{
+				label: '公司名称',
+				value: 'COMP_NAME'
+			}, {
+				label: '手机号',
+				value: 'PHONE'
+			}, {
+				label: '微信',
+				value: 'WECHAT'
+			}, {
+				label: '姓名',
+				value: 'NAME'
+			}];
 		return (
 			<div>
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:20,marginLeft:'40px'}}>

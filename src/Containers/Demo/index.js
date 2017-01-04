@@ -40,7 +40,8 @@ import {
 	CircleStyle,
 	SearchForm,
 	SnackTip,
-	Dictionary
+	Dictionary,
+	CommunityList
 } from 'kr-ui';
 
 
@@ -97,6 +98,7 @@ export default class Demo extends Component {
 				<Section title="haha">
 					<Dictionary type="ContractType" value="ADDRENT"/>
 				</Section>
+				<CommunityList/>
 			</div>
 
 		);
