@@ -30,7 +30,8 @@ import {
 	Member,
 	Community,
 	Retail,
-	Statistical
+	Statistical,
+	customerManage
 } from '../Containers';
 
 import Master from '../master';
@@ -109,11 +110,13 @@ export default (
 		{/*运营管理*/}
 		<Route path="operation" component={Basic}>
 				<Route path="index" component={Operation.Home}/>
-                 {/*分组模版管理*/}
-                <Route path="groupSetting" component={Operation.GroupSetting}/>
-                 {/*客户管理*/}
+        {/*分组模版管理*/}
+        <Route path="groupSetting" component={Operation.GroupSetting}/>
+        {/*客户管理*/}
 				<Route path="customerManage" component={Basic}>
-					<Route path="List" component={Operation.CustomerManage.List} name="customerManage_list"/>
+					<Route path="customerList" component={Operation.CustomerManage.CustomerList} />
+
+					<Route path="list" component={Operation.CustomerManage.List} />
 
 					<Route path=":customerId/" component={Basic} >
 
