@@ -76,7 +76,6 @@ export default class Tooltip extends Component {
 		let arrowContentName = '';
 		let style = {};
 		let	offsetRight = this.props.offsetRight;
-		console.log(offsetRight);
 		let offsetTop=this.state.offsetTop;
 		if(!this.state.offsetTop){
 			offsetTop=0;
