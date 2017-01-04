@@ -13,10 +13,14 @@ export default class DialogBody extends Component {
 	}
 
 	componentDidMount(){
-			this.initializeDialogBodyStyles();
+			// this.initializeDialogBodyStyles();
 			window.addEventListener('resize',function(){
 				this.initializeDialogBodyStyles();
 			}.bind(this));
+			let _this = this;
+			window.setTimeout(function(){
+				_this.initializeDialogBodyStyles();
+			},300)
 	}
 
 	componentDidUpdate(){
