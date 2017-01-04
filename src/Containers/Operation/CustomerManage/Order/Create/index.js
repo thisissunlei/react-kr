@@ -40,6 +40,7 @@ export default class OrderCreate extends Component {
 
 		this.isOk = false;
 
+
 		this.state = {
 			loading: true,
 			communityOptions: [],
@@ -225,6 +226,8 @@ export default class OrderCreate extends Component {
 // }
 
 
+
 // export default connect(mapStateToProps)(OrderCreate);
 
 // }
+

@@ -789,7 +789,7 @@ export default class AttributeSetting extends Component {
 
 
 
-		//console.log('221111',this.context.router)
+		console.log('221111',this.context.router)
 
 
 		//判断按钮出现与隐藏
@@ -896,7 +896,7 @@ export default class AttributeSetting extends Component {
 					<Section title="订单明细账" description="" style={{marginBottom:-5,minHeight:910}}>
 
 					      <DotTitle title='订单描述' style={{marginTop:'6',marginBottom:'40'}}/>
-						  <BasicInfo  detail={this.state.basicInfo} detailPayment={this.state.detailPayment} detailIncome={this.state.detailIncome}/>
+						  <BasicInfo  detail={this.state.basicInfo}  />
 
 						  <DotTitle title='订单明细账' style={{marginTop:'28',marginBottom:'62'}}/>
 						  <div className='ui-detail-bottom'>

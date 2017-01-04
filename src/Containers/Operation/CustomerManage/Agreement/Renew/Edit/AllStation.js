@@ -290,7 +290,7 @@ class SelectStationForm extends Component {
 			<div style={{height:667,marginTop:20}}>
 <form onSubmit={handleSubmit(this.onSubmit)}>
 			<KrField grid={1/2}  name="rentBeginDate" component="date" label="续租结束时间：" onChange={this.onChangeRentBeginDate} inline={true}/>
-			<KrField grid={1/2} left={60} name="leaseBegindate"  component="labelText" type="date" label="租赁期限起始时间：" value={changeValues.leaseBegindate} defaultValue="无"/>
+			<KrField grid={1/2} name="leaseBegindate"  component="labelText" type="date" label="租赁期限起始时间：" value={changeValues.leaseBegindate} defaultValue="无"/>
       <Table onSelect={this.onSelect} style={overfolw}>
         <TableHeader>
           <TableHeaderColumn>类别</TableHeaderColumn>

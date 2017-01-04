@@ -40,7 +40,7 @@ export default class OrderCreate extends Component {
 
 		this.isOk = false;
 
-		this.state = {
+		this.state = {	
 
 			loading: true,
 			communityOptions: [],

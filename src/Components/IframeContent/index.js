@@ -60,7 +60,7 @@ export default class IframeContent extends React.Component {
 
 	onClose(data){
 		const {onClose} = this.props;
-		onClose && onClose(data.data);
+		onClose && onClose(data.data,data);
 	}
 
 	onLoad(){

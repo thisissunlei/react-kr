@@ -24,6 +24,7 @@ import Paper from './Paper';
 import SplitLine from './SplitLine';
 import FontIcon from './FontIcon';
 import SearchForms from './SearchForms';
+import SearchForm from './SearchForm';
 import List from './List';
 import AppBar from './AppBar';
 import Divider from './Divider';
@@ -39,13 +40,17 @@ import RadioGroup from './RadioGroup';
 import Message from './Message';
 import DemoComponent from './Demo';
 import Textarea from './Textarea';
-import DatePicker from './DatePicker';
-import Tooltip from './Tooltip';
-import KrForm from './KrForm';
-import InputDate from './InputDate';
 import CircleStyle from './CircleStyle';
-import SnackTip from './SnackTip';
-import Tooltips from './Tooltips';
+import UpLoadList from './UpLoadList';
+import 	DatePicker from './DatePicker';
+import 	Tooltip from './Tooltip';
+import 	Tooltips from './Tooltips';
+import 	KrForm from './KrForm';
+import 	InputDate from './InputDate';
+import  SnackTip from './SnackTip';
+import Dictionary from './Dictionary';
+
+
 
 import {
 	Grid,
@@ -70,7 +75,7 @@ import {
 
 module.exports = {
 	//Components
-
+	Dictionary,
 	FontIcon,
 	Paper,
 	IframeContent,
@@ -129,8 +134,11 @@ module.exports = {
 	Tab,
 	SearchForms,
 	...Tabs,
+	UpLoadList,
 	PageHeader,
-	Tooltip,
 	CircleStyle,
+	SearchForm,
 	Tooltips,
+	Tooltip
 }
+

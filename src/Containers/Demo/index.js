@@ -7,7 +7,7 @@ import {
 import {
 	bindActionCreators
 } from 'redux';
-
+import nzh from 'nzh'
 import {
 	Checkbox,
 	DatePicker,
@@ -37,8 +37,10 @@ import {
 	Field,
 	FieldControl,
 	InputDate,
+	CircleStyle,
+	SearchForm,
 	SnackTip,
-	CircleStyle
+	Dictionary
 } from 'kr-ui';
 
 
@@ -68,6 +70,7 @@ import {
 	History
 } from 'react-router';
 
+
 export default class Demo extends Component {
 
 	static contextTypes = {
@@ -89,8 +92,14 @@ export default class Demo extends Component {
 
 
 	render() {
+		var nzhcn = nzh.cn;
+		console.log(nzhcn.encodeS(100111.09));
+		console.log(nzhcn.encodeB(100111.09));
 		return (
 			<div>
+				<Section title="haha">
+					<Dictionary type="ContractType" value="ADDRENT"/>
+				</Section>
 			</div>
 
 		);
