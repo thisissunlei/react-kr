@@ -551,6 +551,26 @@ class NewCreateForm extends Component {
 		console.log('allRent',allRent,rentPriceByDay);
 		return allRent;
 	}
+	dealRentName=()=>{
+		let {allRent} = this.state;
+		let name = '';
+		var nzhcn = nzh.cn;
+		if(!allRent){
+			return '零';
+		}
+		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
+		let allRentNameArray = allRentName.split('点');
+		if(allRentNameArray.length==1){
+			name = allRentNameArray[0] + '元整';
+		}else{
+			let xiaoshu = allRentNameArray[1];
+			name = allRentNameArray[0]+'元'+xiaoshu[0]+'角';
+			if(xiaoshu[1]){
+				name = name+xiaoshu[1]+'分';
+			}
+		}
+		return name;
+	}
 
 
 
@@ -583,20 +603,7 @@ class NewCreateForm extends Component {
 			HeightAuto,
 			allRent,
 		} = this.state;
-		var nzhcn = nzh.cn;
-		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
-		let allRentNameArray = allRentName.split('点');
-		// if(allRentNameArray[1]){
-		// 	let a = allRentNameArray[1];
-		// 	let c = (a[0]+'角');
-		// 	let b = '';
-		// 	if(a[1]){
-		// 		console.log('a[1]',a[1]);
-		// 		b = (a[1]+'分');
-		// 	}
-		// 	console.log('a',c+b);
-		// }
-		// console.log('allRent',allRent);
+		let allRentName = this.dealRentName();
 		
 
 		return (

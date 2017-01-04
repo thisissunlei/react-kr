@@ -556,6 +556,25 @@ class NewCreateForm extends Component {
 		})
 
 	}
+	dealRentName=(allRent)=>{
+		let name = '';
+		var nzhcn = nzh.cn;
+		if(!allRent){
+			return '零';
+		}
+		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
+		let allRentNameArray = allRentName.split('点');
+		if(allRentNameArray.length==1){
+			name = allRentNameArray[0] + '元整';
+		}else{
+			let xiaoshu = allRentNameArray[1];
+			name = allRentNameArray[0]+'元'+xiaoshu[0]+'角';
+			if(xiaoshu[1]){
+				name = name+xiaoshu[1]+'分';
+			}
+		}
+		return name;
+	}
 
 	render() {
 		var _this = this;
@@ -586,8 +605,7 @@ class NewCreateForm extends Component {
 			HeightAuto,
 			allRent
 		} = this.state;
-		var nzhcn = nzh.cn;
-		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
+		let  allRentName = this.dealRentName(allRent);
 
 
 
