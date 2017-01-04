@@ -110,7 +110,12 @@ export default class Station extends Component {
 
 							</tbody>
 						</table>
-						<p className="station-bottom"><span>{info}</span><span>{baseInfo.rentTotal}</span><span>{baseInfo.rentTotalCN}</span>{this.props.orderTime && <span>(签署意向书后5个工作日内支付)</span>}</p>
+						<p className="station-bottom">
+							<span>{info}</span>
+							<span>{baseInfo.rentTotal}</span>
+							<span>{baseInfo.rentTotalCN}</span>
+							{this.props.orderTime && <span>(签署意向书后5个工作日内支付)</span>}
+						</p>
 
 					</div>
 
