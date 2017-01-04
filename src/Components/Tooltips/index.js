@@ -64,9 +64,11 @@ export default class Tooltip extends Component {
 
 		// parent.style.position = "relative";
 		parent.onmouseover = function(){
+			console.log('onmouseover');
 			node.style.visibility = 'visible';
 		}
 		parent.onmouseout = function(){
+			console.log('onmouseout');
 			node.style.visibility = 'hidden';
 		}
 		this.setState({

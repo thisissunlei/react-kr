@@ -140,7 +140,7 @@ export default class ItemTable extends Component {
       contractTypeVo
     } = this.state;
     return (
-        <Tooltip place="right" type="dark" offsetRight={85} effect="solid" id={`${detail.billId}${detail.billName}`}>
+        <Tooltip place="right" type="dark" offsetRight={108} effect="solid" id={`${detail.billId}${detail.billName}`}>
           <ul style={{marginTop:20}}>
            {contractTypeVo.map((item, index) => {
                 if (!item.contractCount) {

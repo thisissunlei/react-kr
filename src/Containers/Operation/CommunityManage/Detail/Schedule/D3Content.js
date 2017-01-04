@@ -31,6 +31,7 @@ import {
 	Col,
 	Dialog,
 	Tooltips,
+	Tooltip,
 	BreadCrumbs
 } from 'kr-ui';
 
@@ -392,7 +393,7 @@ export default class D3Content extends Component {
 					<div key={i} className="react-tooltip-content">
 						<span>{value.contractName}分期催款</span>
 						<p>{dateFormat(itemData.pointDate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
-						<p>工位:<span className='red-content'>{value.stationnum}</span> &nbsp; 会议室:<span className='red-content'>{value.boardroomNum}</span>({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
+						<p>工位:<span className='red-content'>{value.stationnum}</span> &nbsp; 会议室:<span className='red-content'>{value.boardroomNum}</span> &nbsp; ({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
 						<p>负责人：<span className='red-content'>{value.name?value.name:'—'}</span></p>
 						<p>电话：<span className='red-content'>{value.phone?value.phone:'—'}</span></p>
 						<p>催款金额：<span className='red-content'>{value.installmentAmount}</span></p>
@@ -478,7 +479,28 @@ export default class D3Content extends Component {
 
 			<div className="d3-container">
 			<div className="year">
-				{list.map((item,index)=>{
+				{list.length == 2 && list.map((item,index)=>{
+					if(index == 0 ){
+						return(
+							<div className='white' style={{'width':`${item.width*100}%`}} key={index}>
+								{item.content?<span></span>:''}	
+							</div>
+							)
+					}else if(index<nodeList && index !== 0){
+						return(
+							<div className='grey' style={{'width':`${item.width*100}%`,marginLeft:`${item.left}%`}} key={index} >
+							<Tooltips place='top' offsetTop={40}><div className='only-one'>只有一个分期</div></Tooltips>
+							</div>
+						)
+					}else{
+						return (
+							<div className='blue' style={{'width':`${item.width*100}%`,marginLeft:`${item.left}%`}} key={index}>
+							<Tooltips place='top' offsetTop={40}><div className='only-one'>只有一个分期</div></Tooltips></div>
+						)
+					}
+				})}
+
+				{list.length>2 && list.map((item,index)=>{
 						if(index == 0 ){
 							return(
 								<div className='white' style={{'width':`${item.width*100}%`}} key={index}>
