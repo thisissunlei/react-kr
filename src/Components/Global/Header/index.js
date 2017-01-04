@@ -220,10 +220,11 @@ class Header extends Component {
 				}
 
 				iconElementRight = {
-
+					<div>
+					<span className="icon-com information-logo"><span className="info-num">35</span></span>
 					< IconMenu
 					iconButtonElement = {
-						<IconButton><MoreVertIcon /></IconButton>
+						<IconButton ><MoreVertIcon color="#fff"/></IconButton>
 					}
 					targetOrigin = {
 						{
@@ -248,7 +249,7 @@ class Header extends Component {
 						}
 					}
 					/>
-					< /IconMenu >
+					< /IconMenu ></div>
 				}
 				/>
 			);

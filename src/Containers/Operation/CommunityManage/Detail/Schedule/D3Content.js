@@ -489,13 +489,13 @@ export default class D3Content extends Component {
 					}else if(index<nodeList && index !== 0){
 						return(
 							<div className='grey' style={{'width':`${item.width*100}%`,marginLeft:`${item.left}%`}} key={index} >
-							<Tooltips place='top' offsetTop={40}><div className='only-one'>只有一个分期</div></Tooltips>
+							<Tooltips place='top' offsetTop={40}><div className='only-one'>一次性付款</div></Tooltips>
 							</div>
 						)
 					}else{
 						return (
 							<div className='blue' style={{'width':`${item.width*100}%`,marginLeft:`${item.left}%`}} key={index}>
-							<Tooltips place='top' offsetTop={40}><div className='only-one'>只有一个分期</div></Tooltips></div>
+							<Tooltips place='top' offsetTop={40}><div className='only-one'>一次性付款</div></Tooltips></div>
 						)
 					}
 				})}
