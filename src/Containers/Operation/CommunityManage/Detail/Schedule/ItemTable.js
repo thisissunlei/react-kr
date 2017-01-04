@@ -140,14 +140,16 @@ export default class ItemTable extends Component {
       contractTypeVo
     } = this.state;
     return (
-        <Tooltip place="right" type="dark" offsetRight={108} effect="solid" id={`${detail.billId}${detail.billName}`}>
+        <Tooltip place="right" type="dark" effect="solid" offsetRight={110} id={`${detail.billId}${detail.billName}`}>
           <ul style={{marginTop:20}}>
+            <li style={{borderLeft:'none'}}>所有工位数：{contractTypeVo.length}个</li>
            {contractTypeVo.map((item, index) => {
                 if (!item.contractCount) {
                   return (
-                    
                         <li key={index} className="company-order-zero" key={index}>
                          <p className="name">{item.contractName}</p>
+                         <p className="zero-circle">2016-10-10-2016-12-12 <a>查看详情</a></p>
+                         <p>工位：个 &nbsp;&nbsp;会议室：个</p>
                         </li>
                       
                   )
@@ -155,6 +157,8 @@ export default class ItemTable extends Component {
                   return (
                       <li key={index} className="company-order" key={index}>
                         <p className="name">{item.contractName}</p>
+                        <p>2016-10-10-2016-12-12 <a>查看详情</a></p>
+                         <p>工位：个 &nbsp;&nbsp;会议室：个</p>
                       </li>
                   )
                 } else {

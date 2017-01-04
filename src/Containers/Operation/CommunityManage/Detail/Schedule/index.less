@@ -266,6 +266,7 @@ a,button,button:hover{
 			padding: 5px;
 			list-style: none;
 			margin-left: 5px;
+			text-align: left;
 			p{
 				margin:0;
 				// border-left:1px solid #999;
@@ -273,6 +274,7 @@ a,button,button:hover{
 				line-height: 20px;
 				min-width: 90px;
 				text-align: left;
+				display: block;
 
 			}
 			li{
@@ -280,14 +282,15 @@ a,button,button:hover{
 				padding-bottom: 10px;
 				padding-left: 10px;
 				position: relative;
-				.name{
-					float: left;
+				a{
+					color:#499df1;
+					cursor: pointer;
 				}
 				
 			}
 			.company-order-zero{
 				margin-top: 5px;
-				height: 25px;
+				// height: 25px;
 				&:before{
 					content:'';
 					float: left;
@@ -301,15 +304,19 @@ a,button,button:hover{
 				}
 				.name{
 					margin-top: -9px;
+					position: absolute;
 				}
 				p{
 					color:rgba(255,255,255,.6);
 					text-align: left;
 				}
+				.zero-circle{
+					padding-top: 15px;
+				}
 			}
 			.company-order{
 				// height: 50px;
-				height: 25px;
+				// height: 25px;
 				// margin-top: -4px;
 				&:before{
 					content:'';
