@@ -20,7 +20,11 @@ export default class DialogBody extends Component {
 	}
 
 	componentDidUpdate(){
-			this.initializeDialogBodyStyles();
+		let _this = this;
+		window.setTimeout(function(){
+			_this.initializeDialogBodyStyles();
+		},300)
+			
 	}
 
 

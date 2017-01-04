@@ -587,7 +587,8 @@ class NewCreateForm extends Component {
 		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
 		let allRentNameArray = allRentName.split('点');
 		if(allRentNameArray[1]){
-			console.log('a');
+			let a = allRentNameArray[1];
+			console.log('a',a[0]+'角');
 		}
 		console.log('allRent',allRent);
 		
