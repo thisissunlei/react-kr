@@ -585,7 +585,12 @@ class NewCreateForm extends Component {
 		} = this.state;
 		var nzhcn = nzh.cn;
 		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
+		let allRentNameArray = allRentName.split('点');
+		if(allRentNameArray[1]){
+			console.log('a');
+		}
 		console.log('allRent',allRent);
+		
 
 		return (
 
