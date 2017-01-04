@@ -82,6 +82,7 @@ class Header extends Component {
 		this.state = {
 			bottomNav: false,
 			toggle: true,
+			information:false
 		}
 
 	}
@@ -164,6 +165,12 @@ class Header extends Component {
 		);
 
 	}
+	showInfo=()=>{
+		this.setState({
+			information:!this.state.information
+		})
+		console.log('dasdaddadasd');
+	}
 
 	render() {
 
@@ -221,7 +228,7 @@ class Header extends Component {
 
 				iconElementRight = {
 					<div>
-					<span className="icon-com information-logo"><span className="info-num">35</span></span>
+					<span className="icon-info information-logo" onClick={this.showInfo}></span>
 					< IconMenu
 					iconButtonElement = {
 						<IconButton ><MoreVertIcon color="#fff"/></IconButton>
@@ -266,6 +273,9 @@ class Header extends Component {
 				<SidebarNav items={this.props.navs_current_items} current_router={this.props.current_router} current_parent={this.props.current_parent} current_child={this.props.current_child}/>
 
 				</Drawer>
+			<Drawer open={this.state.information} width={300} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+				<div>dsadasdasdasd</div>
+			</Drawer>
 
 
 
