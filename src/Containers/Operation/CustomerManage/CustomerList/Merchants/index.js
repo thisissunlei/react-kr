@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
 import {
+	observer
+} from 'mobx-react';
+import {
 	KrField,
 	Table,
 	TableBody,
@@ -23,16 +26,17 @@ import {
   SearchForms
 
 } from 'kr-ui';
-
+import State from './State';
+@observer
 export default class Merchants extends Component{
 
 	constructor(props,context){
 		super(props, context);
-    this.state={
-      searchParams:{
-
-      }
-    }
+		this.state={
+			searchParams:{}
+		}
+    let params="12"
+		State.getBasicInfo(params);
 
 	}
 
@@ -42,21 +46,19 @@ export default class Merchants extends Component{
 
 		return(
 
-      <div className="switchhover">
+      <div className="switchhover" style={{paddingTop:45}}>
       <Title value="会员配置"/>
 
-          <Section title="会员卡激活" description="" style={{minHeight:"900px"}}>
-              <Grid style={{marginBottom:22,marginTop:2}}>
+
                 <Row >
-                <Col  align="left" style={{marginLeft:0,float:'left'}}> <Button label="新建激活" type='button' joinEditForm onTouchTap={this.openNewActivationDialog}  /> </Col>
-                <Col  align="left" style={{marginLeft:20,float:'left'}}> <Button label="批量激活" type='button' joinEditForm onTouchTap={this.openHeavilyActivationDialog}  /> </Col>
+                <Col  align="left" style={{marginLeft:0,float:'left'}}> <Button label="新建客户" type='button' joinEditForm onTouchTap={this.openNewActivationDialog}  /> </Col>
                 <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
                   <ListGroup>
                     <ListGroupItem> <SearchForms placeholder='请输入会员卡号码' onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
                   </ListGroup>
                 </Col>
                 </Row>
-              </Grid>
+
 
                     <Table  style={{marginTop:8}}
                         ajax={true}
@@ -93,9 +95,8 @@ export default class Merchants extends Component{
                     </TableBody>
 
                     <TableFooter ></TableFooter>
-
+										<h1>rrere</h1>
                     </Table>
-          </Section>
 
       </div>
 		);
