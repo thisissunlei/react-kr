@@ -674,14 +674,6 @@ export default class AttributeSetting extends Component {
         
 		let {totalPayment} = params;
 		let liveMoneyValue = this.state.liveMoneyValue;
-		if(liveMoneyValue<0){
-			Message.error('拆分金额大于回款总额');
-			return ;
-		}
-		if(liveMoneyValue>0){
-			Message.error('回款总额有剩余');
-			return ;
-		}
 
 		params.conJasonStr={intentStr,joinStr,increaseStr,adminStr}
 		params.conJasonStr = Object.assign({},intentStr,joinStr,increaseStr,adminStr);
@@ -700,10 +692,22 @@ export default class AttributeSetting extends Component {
 		params.propJasonStr = JSON.stringify(params.propJasonStr);
 		params.conJasonStr = JSON.stringify(params.conJasonStr);
         
+        if(!params.contract){
+            Message.error('请选择对应合同');
+            return ;	
+        }
         if(params.propJasonStr=='{}'&&params.conJasonStr=='{}'){
-        	Message.error('回款金额和订单金额不能都为空');
+        	Message.error('回款不能为空');
         	return ;
         }
+        if(liveMoneyValue<0){
+			Message.error('拆分金额大于回款总额');
+			return ;
+		}
+		if(liveMoneyValue>0){
+			Message.error('回款总额有剩余');
+			return ;
+		}
 
 		var _this = this;
 		Store.dispatch(Actions.callAPI('returnMoneyNew', {}, params)).then(function(response) {
