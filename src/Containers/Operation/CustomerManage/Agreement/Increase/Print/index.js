@@ -57,30 +57,31 @@ export default class IncreasePrint extends Component {
 		return (
 
 			<div className="print-section no-print-section" >
-			<Agreement.Print.Header 
-				baseInfo={State.baseInfo} 
-				orderInfo="入驻服务协议补充协议(增加)"
-			/>
-			<Agreement.Print.BaseInfo baseInfo={State.baseInfo}/>
-			<Agreement.Print.Station 
-				orderTime={false} 
-				stationVOs={State.stationVOs} 
-				baseType="增加入驻信息如下" 
-				baseInfo={State.baseInfo}
-			/>
-			<Agreement.Print.Payment 
-				baseInfo={State.baseInfo} 
-				installmentPlans={State.installmentPlans} 
-				installmentPlansList={State.installmentPlansList}
-			/>
-			<div className="print-text">
-				<span>双方其他约定内容：</span>
-				<span className="border-b one-text"></span>
-				<span className="border-b two-text"></span>
-			</div>
-			<Agreement.Print.Footer/>
+				<Title value={`${State.baseInfo.leaseName}-入驻服务协议补充协议(增加)`}/>
+				<Agreement.Print.Header
+					baseInfo={State.baseInfo}
+					orderInfo="入驻服务协议补充协议(增加)"
+				/>
+				<Agreement.Print.BaseInfo baseInfo={State.baseInfo}/>
+				<Agreement.Print.Station
+					orderTime={false}
+					stationVOs={State.stationVOs}
+					baseType="增加入驻信息如下"
+					baseInfo={State.baseInfo}
+				/>
+				<Agreement.Print.Payment
+					baseInfo={State.baseInfo}
+					installmentPlans={State.installmentPlans}
+					installmentPlansList={State.installmentPlansList}
+				/>
+				<div className="print-text">
+					<span>双方其他约定内容：</span>
+					<span className="border-b one-text"></span>
+					<span className="border-b two-text"></span>
+				</div>
+				<Agreement.Print.Footer/>
 
-      		</div>
+      </div>
 
 		);
 	}

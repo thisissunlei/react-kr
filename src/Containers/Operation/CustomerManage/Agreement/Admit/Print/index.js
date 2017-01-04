@@ -57,7 +57,7 @@ export default class JoinPrint extends Component {
 		return (
 
 			<div className="print-section no-print-section">
-
+				<Title value={`${State.baseInfo.leaseName}-入驻服务意向书`}/>
 				<Agreement.Print.Header
 					  baseInfo={State.baseInfo}
 						orderInfo="入驻服务意向书"
@@ -69,12 +69,13 @@ export default class JoinPrint extends Component {
 						stationVOs={State.stationVOs}
 						baseType="意向入驻信息"
 						baseInfo={State.baseInfo}
+						info="定金总计"
 				/>
 
 				<div className="station-after">
 					乙方应于_____年___月___日前与甲方签署《入驻服务协议》，该定金可直接冲抵履约保证金或首期服务费
 				</div>
-				
+
 				<Agreement.Print.Intention
 						stationVOs={State.stationVOs}
 						baseInfo={State.baseInfo}
