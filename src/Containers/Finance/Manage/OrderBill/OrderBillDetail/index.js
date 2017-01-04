@@ -674,8 +674,12 @@ export default class AttributeSetting extends Component {
         
 		let {totalPayment} = params;
 		let liveMoneyValue = this.state.liveMoneyValue;
-		if(liveMoneyValue<0 || !totalPayment||liveMoneyValue>0){
-			Message.error('回款总额金额不对应');
+		if(liveMoneyValue<0){
+			Message.error('拆分金额大于回款总额');
+			return ;
+		}
+		if(liveMoneyValue>0){
+			Message.error('回款总额有剩余');
 			return ;
 		}
 
@@ -714,7 +718,6 @@ export default class AttributeSetting extends Component {
 
 	}
 	onQuitSubmit(params) {
-		console.log('----55555-',params);
 		var _this = this;
 		params = Object.assign({}, params);
 		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");

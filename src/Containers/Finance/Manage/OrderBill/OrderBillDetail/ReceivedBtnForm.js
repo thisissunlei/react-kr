@@ -81,7 +81,7 @@ class ReceivedBtnForm extends Component {
 
 	}
      componentWillMount(){
-     	console.log('44444');
+     	
      }
 
 	onSubmit=(values)=> {
@@ -94,11 +94,15 @@ class ReceivedBtnForm extends Component {
 
 	moneyCheck=(value)=>{
 		if(value&&isNaN(value)){
-          Message.error('金额只能为数字');
+          Message.error('需填写数字');
           return ;
 		}
-		if(value&&value<=0){
-		  Message.error('金额只能为正数');
+		if(value&&value<0){
+		  Message.error('不能填写负数');
+          return ;	
+		}
+		if(value&&value==0){
+		  Message.error('不能为0');
           return ;	
 		}
 	}
