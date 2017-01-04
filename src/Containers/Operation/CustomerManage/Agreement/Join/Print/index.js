@@ -46,10 +46,10 @@ export default class JoinPrint extends Component {
 	}
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(false));
-		setTimeout(function() {
-			window.print();
-			window.close();
-		}, 1000)
+		// setTimeout(function() {
+		// 	window.print();
+		// 	window.close();
+		// }, 1000)
 
 
 	}
@@ -59,21 +59,22 @@ export default class JoinPrint extends Component {
 		return (
 
 			<div className="print-section no-print-section" >
-			<Agreement.Print.Header 
-				baseInfo={State.baseInfo} 
+					<Title value={`${State.baseInfo.leaseName}-入驻信息`}/>
+			<Agreement.Print.Header
+				baseInfo={State.baseInfo}
 				orderInfo="入驻服务协议"
 			/>
 			<Agreement.Print.BaseInfo baseInfo={State.baseInfo}/>
 
-			<Agreement.Print.Station 
-				orderTime={false} 
+			<Agreement.Print.Station
+				orderTime={false}
 				stationVOs={State.stationVOs}
-				baseType="入驻信息" 
+				baseType="入驻信息"
 				baseInfo={State.baseInfo}
 			/>
-			<Agreement.Print.Payment 
-				baseInfo={State.baseInfo} 
-				installmentPlans={State.installmentPlans} 
+			<Agreement.Print.Payment
+				baseInfo={State.baseInfo}
+				installmentPlans={State.installmentPlans}
 				installmentPlansList={State.installmentPlansList}
 			/>
 			<div className="print-text">
