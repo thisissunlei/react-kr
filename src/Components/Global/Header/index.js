@@ -79,13 +79,42 @@ class Header extends Component {
 		this.showBottomNav = this.showBottomNav.bind(this);
 		this.handleRequestClose = this.handleRequestClose.bind(this);
 		this.touchTitle = this.touchTitle.bind(this);
-
+		this.inforShowList = this.inforShowList.bind(this);
 		this.state = {
 			bottomNav: false,
 			toggle: true,
-			information:false
+			information:false,
+			inforLogoShow:false,
+			url:window.location.hash,
+			infoTab:''
 		}
+		// this.inforShowList();
 
+	}
+	componentWillMount() {
+		this.inforShowList();
+  	}
+  	componentWillReceiveProps(next,state){
+  		this.inforShowList();
+  	}
+
+	inforShowList(){
+		let url = window.location.hash;
+		url = url.split('/')[1];
+		let _this = this;
+		let hasInfoListTab = ['community'];
+		hasInfoListTab.map((item)=>{
+			if(item == url){
+				_this.setState({
+					inforLogoShow:true,
+					infoTab:url
+				})
+			}else{
+				_this.setState({
+					inforLogoShow:false
+				})
+			}
+		})
 	}
 
 
@@ -166,11 +195,11 @@ class Header extends Component {
 		);
 
 	}
+
 	showInfo=()=>{
 		this.setState({
 			information:!this.state.information
 		})
-		console.log('dasdaddadasd');
 	}
 	onClose=()=>{
 		this.setState({
@@ -202,6 +231,8 @@ class Header extends Component {
 		if (switch_value) {
 			//styles.paddingLeft = 50;
 		}
+		let {inforLogoShow,infoTab} = this.state;
+		let showInfoLogo = inforLogoShow?'inline-block':'none';
 
 
 		const HeaderBar = (props) => {
@@ -238,7 +269,7 @@ class Header extends Component {
 
 				iconElementRight = {
 					<div>
-					<span className="icon-info information-logo" onClick={this.showInfo}></span>
+					<span className="icon-info information-logo" style={{display:showInfoLogo}} onClick={this.showInfo}></span>
 					< IconMenu
 					iconButtonElement = {
 						<IconButton ><MoreVertIcon color="#fff"/></IconButton>
@@ -284,7 +315,7 @@ class Header extends Component {
 
 				</Drawer>
 			<Drawer open={this.state.information} width={width} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
-				<InfoList onClose={this.onClose}/>
+				<InfoList onClose={this.onClose} infoTab={infoTab}/>
 			</Drawer>
 
 

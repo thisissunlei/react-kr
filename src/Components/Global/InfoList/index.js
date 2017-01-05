@@ -55,6 +55,7 @@ export default class InfoList extends Component {
 				date:'20124616'
 			},
 		]
+		let {infoTab} = this.props;
 
 		if (!pagination) {
 			return null;
