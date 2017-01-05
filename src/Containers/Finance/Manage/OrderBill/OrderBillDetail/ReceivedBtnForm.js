@@ -74,15 +74,12 @@ class ReceivedBtnForm extends Component {
 
 		let initialValues = {
 			preCode:'1',
-			mainbillId:this.context.params.orderId
-		}
-
+			mainbillId:this.context.params.orderId,
+		};
 		Store.dispatch(initialize('receivedBtnForm', initialValues));
 
 	}
-     componentWillMount(){
-     	
-     }
+
 
 	onSubmit=(values)=> {
 		const {
@@ -102,7 +99,7 @@ class ReceivedBtnForm extends Component {
           return ;	
 		}
 		if(value&&value==0){
-		  Message.error('不能为0');
+		  Message.error('金额不能为0');
           return ;	
 		}
 	}

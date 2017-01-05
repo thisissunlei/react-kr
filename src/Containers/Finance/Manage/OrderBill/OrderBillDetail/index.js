@@ -83,11 +83,10 @@ class ViewForm extends Component {
 	}
 	render() {
 		let items = this.props.detail
+
 		if (!items.fileList) {
 			items.fileList = []
 		}
-
-
 
 		return (
 			<div className='m-watch-detail'>
@@ -172,13 +171,11 @@ export default class AttributeSetting extends Component {
 			params: {
 				accountType: 'PAYMENT',
 				childType: 'basic',
-				propertyId: '',
 				propInfo: 'SETTLED',
 				orderId: this.props.params.orderId,
 				page: 1,
 				pageSize: 30,
 				index:'',
-				tradingCode:''
 			},
 			itemDetail: {},
 			//为了判断和获取选中的条的id
@@ -253,9 +250,8 @@ export default class AttributeSetting extends Component {
 			});
 
 		}
-		//打开遮罩层区域
 
-
+	//打开遮罩层区域
 	openSearchDialog() {
 		this.searchUpperFun();
 		this.setState({
@@ -267,6 +263,7 @@ export default class AttributeSetting extends Component {
 	openReceivedBtn(){
 
 		this.receivedBtnFormChangeValues={}
+		Store.dispatch(initialize('receivedBtnForm',{totalPayment:'',preCode:'1',operatedate:''}));
 
 		var _this = this;
 		Store.dispatch(Actions.callAPI('getPaymentActData', {
@@ -556,7 +553,8 @@ export default class AttributeSetting extends Component {
 	}
 		//高级查询
 	onSubmit(params) {
-		params = Object.assign({}, this.state.params, params);
+		params = Object.assign({},this.state.params, params);
+		console.log('---8888--',params);
 		this.setState({
 			params,
 			openSearch: !this.state.openSearch
@@ -587,12 +585,8 @@ export default class AttributeSetting extends Component {
 		}
 		//回款提交
 	onAddReceivedSubmit(params) {
-
-
         let {accountDetail,contractTopReceive} = this.state;
-
 		params = Object.assign({},params);
-
 		params.mainbillId=this.props.params.orderId
       
         var intentStr={};
@@ -692,6 +686,7 @@ export default class AttributeSetting extends Component {
 		params.propJasonStr = JSON.stringify(params.propJasonStr);
 		params.conJasonStr = JSON.stringify(params.conJasonStr);
         
+       
         if(!params.contract){
             Message.error('请选择对应合同');
             return ;	
@@ -729,7 +724,8 @@ export default class AttributeSetting extends Component {
 			_this.refresh();
 		  _this.setState({
 			openQuitBtn: !_this.state.openQuitBtn,
-			isLoading: true
+			isLoading: true,
+			listValues:''
 		  });
 		}).catch(function(err) {
 		  Message.error(err.message);
@@ -743,7 +739,8 @@ export default class AttributeSetting extends Component {
 			_this.refresh();
 			_this.setState({
 			openSwitchBtn: !_this.state.openSwitchBtn,
-			isLoading: true
+			isLoading: true,
+			listValues:''
 		});
 		}).catch(function(err) {
 			 Message.error(err.message);
@@ -758,7 +755,8 @@ export default class AttributeSetting extends Component {
 			_this.refresh();
 			_this.setState({
 			openBusinessBtn: !_this.state.openBusinessBtn,
-			isLoading: true
+			isLoading: true,
+			listValues:''
 		});
 		}).catch(function(err) {
 			  Message.error(err.message);
@@ -848,6 +846,7 @@ export default class AttributeSetting extends Component {
 			_this.setState({
 			openShift: !_this.state.openShift,
 			isLoading: true,
+			listValues:''
 		})
 		}).catch(function(err) {
 			  Message.error(err.message);
@@ -884,6 +883,12 @@ export default class AttributeSetting extends Component {
 		let {
 			params
 		} = this.state;
+
+		delete params.endTime;
+		delete params.startTime;
+		delete params.tradingCode;
+		delete params.propertyId;
+		delete params.accountId;
          
 		Store.dispatch(Actions.callAPI('findAccountAndPropList', {
 			accountType: params.accountType
@@ -903,11 +908,6 @@ export default class AttributeSetting extends Component {
 				list.label = item.propname;
 				typeList.push(list);
 			})
-			params.propertyId='';
-			params.accountId='';
-			params.startTime='';
-			params.endTime='';
-			params.tradingCode='';
 			_this.setState({
 				codeList,
 				typeList,
@@ -928,7 +928,6 @@ export default class AttributeSetting extends Component {
 			} = this.props;
 			_this.setState({
 				 isRunningIncome:1
-
 			 });
 			Store.dispatch(Actions.callAPI('runStationIncome',{
 				mainbillId:params.orderId,
@@ -1021,6 +1020,7 @@ export default class AttributeSetting extends Component {
     }
 
     renderReceived=()=>{
+    	       console.log('---yyyy',this.state.params);
 		       return         (<Table style={{marginTop:60}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getAccountNewFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
 							              <TableHeader>
 										          <TableHeaderColumn>交易编号</TableHeaderColumn>
@@ -1138,7 +1138,6 @@ export default class AttributeSetting extends Component {
     }
 
     iconClose=()=>{
-     Store.dispatch(initialize('receivedBtnForm',{totalPayment:'',preCode:'1'}));
      this.setState({
 		 openRight:!this.state.openRight,
 		 liveMoneyValue:0
@@ -1157,7 +1156,6 @@ export default class AttributeSetting extends Component {
     calcBalance=(input)=>{
     
    
-   	//console.log('input',input);
    	input.value=Math.round((input.value*100)) 
 
    	this.receivedBtnFormChangeValues[input.name] = input.value;
@@ -1183,12 +1181,10 @@ export default class AttributeSetting extends Component {
    	
     liveMoneyValue=liveMoneyValue/100;
   
-   	 //let {allSumValue,rightBottomValue,leftBottomValue,compareValue,stationValue,stationAddValue,stationAdminValue,depositAddValue,depositAdminValue}=this.state;
      this.setState({
      	 liveMoneyValue
      });
-     // :allSumValue-values-rightBottomValue-leftBottomValue-compareValue-stationValue-stationAddValue-stationAdminValue-depositAddValue-depositAdminValue,
-
+  
 
    }
    
@@ -1209,7 +1205,6 @@ export default class AttributeSetting extends Component {
 
 
 
-        
 		
 
 
