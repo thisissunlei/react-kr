@@ -94,8 +94,6 @@ class SearchUpperForm extends Component {
     }
 	render() {
 
-
-
 		const {
 			error,
 			handleSubmit,

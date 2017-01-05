@@ -225,14 +225,11 @@ export default class AttributeSetting extends Component {
 			openRight:false,
 			openContract:false,
             colorClassName:'',
-            isRunningIncome:0,
-            
+            isRunningIncome:0,         
             //回款总金额和余额变化
             liveMoneyValue:0,
 		}
-
 		//回款计算余额所需字段值
-
 		this.receivedBtnFormChangeValues = {};
 	}
 
@@ -1252,15 +1249,13 @@ export default class AttributeSetting extends Component {
 		}
 		if (parentBtn == 'PAYMENT' && childBtn == 'qitahuikuan') {
 			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-
-       	   	  <Button label="转押金"  type="button"  joinEditForm onTouchTap={this.openSwitchBtn}/>
        	   	  <Button label="转营收"  type="button" joinEditForm onTouchTap={this.openBusinessBtn}/>
        	   	  <Button label="退款"  type="button"  joinEditForm onTouchTap={this.openQuitBtn}/>
        	   	   <Button label="转移"   type="button"  onTouchTap={this.openShiftBtn}/></ButtonGroup>);
 		}
 		if (parentBtn == 'PAYMENT' && childBtn == 'yingshouhuikuan') {
 			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-				 <Button label="转移"   type="button"  onTouchTap={this.openShiftBtn}/></ButtonGroup>
+				</ButtonGroup>
 
 			);
 		}
