@@ -1,68 +1,15 @@
+.clear:after {
+	clear:both;
+	content:'.';
+	display:block;
+	width: 0;
+	height: 0;
+	visibility:hidden;
+}
 .print-Station{
   width: 700px;
   margin: 0 auto;
   font-size: 10px;
-
-    .supplement-station-head{
-      line-height: 26px;
-      border-top: 2px solid #499cd4;
-      span{
-        font-size: 10px;
-      }
-      .method-list{
-
-        display: inline-block;
-        .discheck{
-          margin-left: 10px;
-      		width:8px;
-      		height:8px;
-      		display:inline-block;
-      		border:1px solid #ababab;
-      		border-radius: 2px;
-      		margin-right:5px;
-      		vertical-align: middle;
-      	}
-      	.checked{
-          margin-left: 10px;
-      		width:10px;
-      		height:10px;
-      		display:inline-block;
-      		border-radius: 2px;
-      		margin-right:5px;
-      		vertical-align: middle;
-      		background:#2d8dcd;
-      		position:relative;
-      	}
-      	.checked:after{
-      	    content: '';
-      	    position: absolute;
-      	    width: 5px;
-      	    height: 2px;
-      	    background: transparent;
-      	    top: 2px;
-      	    left: 2px;
-      	    border: 2px solid #ffffff;
-      	    border-top: none;
-      	    border-right: none;
-      		-webkit-transform: rotate(-45deg);
-      		-moz-transform: rotate(-45deg);
-      		-o-transform: rotate(-45deg);
-      		-ms-transform: rotate(-45deg);
-      		transform: rotate(-45deg);
-      	}
-      }
-      .method-list:nth-child(1){
-        margin-left: 2px;
-      }
-      .right-date{
-        float: right;
-      }
-      .enter-info{
-        color: #2d8dcd;
-        font-family: "FZLTZHJW -GB1-0";
-        padding-left: 16px;
-      }
-    }
     .normal-station-head{
       line-height: 26px;
       font-size: 12px;
@@ -78,6 +25,20 @@
       .right-date{
         float: right;
         color: #333;
+      }
+      .pay-method{
+        float:right;
+        width:178px;
+        color:#333333;
+        font-size:12px;
+        div{
+          float:right;
+          padding:0 8px;
+          span{
+            font-size:12px;
+          }
+        }
+
       }
     }
     p{
@@ -184,5 +145,41 @@
       color: #666;
 
       line-height: 30px;
+    }
+    .discheck{
+      width:8px;
+      height:8px;
+      display:inline-block;
+      border:1px solid #ababab;
+      border-radius: 2px;
+      margin-right:5px;
+      vertical-align: middle;
+    }
+    .checked{
+      width:10px;
+      height:10px;
+      display:inline-block;
+      border-radius: 2px;
+      margin-right:5px;
+      vertical-align: middle;
+      background:#2d8dcd;
+      position:relative;
+    }
+    .checked:after{
+        content: '';
+        position: absolute;
+        width: 5px;
+        height: 2px;
+        background: transparent;
+        top: 2px;
+        left: 2px;
+        border: 2px solid #ffffff;
+        border-top: none;
+        border-right: none;
+      -webkit-transform: rotate(-45deg);
+      -moz-transform: rotate(-45deg);
+      -o-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+      transform: rotate(-45deg);
     }
 }
