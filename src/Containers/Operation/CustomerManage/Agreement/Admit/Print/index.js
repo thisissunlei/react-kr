@@ -70,6 +70,7 @@ export default class JoinPrint extends Component {
 						baseType="意向入驻信息"
 						baseInfo={State.baseInfo}
 						info="定金总计"
+						method={true}
 				/>
 
 				<div className="station-after">
