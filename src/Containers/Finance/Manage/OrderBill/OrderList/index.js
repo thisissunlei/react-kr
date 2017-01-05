@@ -147,20 +147,19 @@ export default class AttributeSetting extends Component {
 	onSearchSubmit(searchParams) {
 		let obj = {
 			mainbillname: searchParams.content,
-			pageSize:15
+			pageSize: 15
 		}
 		this.setState({
 			searchParams: obj
 		});
 	}
-	onSearchCancel() {
-	}
-	//新建
+	onSearchCancel() {}
+		//新建
 	openNewCreateDialog() {
 		this.setState({
 			openNewCreate: !this.state.openNewCreate,
-			searchParams:{
-				pageSize:'15'
+			searchParams: {
+				pageSize: '15'
 			}
 		});
 	}
@@ -282,7 +281,7 @@ export default class AttributeSetting extends Component {
 														}else{
 															TooltipStyle="block";
 														}
-														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 													 }} ></TableRowColumn>
 						<TableRowColumn name="mainBillTypeName" options={[{label:'工位入驻订单',value:'STATION'}]}></TableRowColumn>
@@ -294,7 +293,7 @@ export default class AttributeSetting extends Component {
 														}else{
 															TooltipStyle="block";
 														}
-														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 											}} ></TableRowColumn>
 						<TableRowColumn name="stationnum"></TableRowColumn>

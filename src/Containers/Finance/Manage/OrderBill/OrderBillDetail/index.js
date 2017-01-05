@@ -1020,7 +1020,6 @@ export default class AttributeSetting extends Component {
     }
 
     renderReceived=()=>{
-    	       console.log('---yyyy',this.state.params);
 		       return         (<Table style={{marginTop:60}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getAccountNewFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
 							              <TableHeader>
 										          <TableHeaderColumn>交易编号</TableHeaderColumn>
@@ -1059,7 +1058,7 @@ export default class AttributeSetting extends Component {
 															TooltipStyle="block";
 														}
 														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
-														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+														 	<Tooltip offsetTop={5} place='top'><div style={{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{value}</div></Tooltip></div>)
 													 }}></TableRowColumn>
 							                    <TableRowColumn>
 							                        <Button label="查看"  type="operation" operation="view"/>
@@ -1112,7 +1111,7 @@ export default class AttributeSetting extends Component {
 															TooltipStyle="block";
 														}
 														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
-														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+														 	<Tooltip offsetTop={5} place='top'><div style={{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{value}</div></Tooltip></div>)
 													 }}></TableRowColumn>
 							                    <TableRowColumn>
 							                        <Button label="查看"  type="operation" operation="view"/>
