@@ -46,7 +46,6 @@ export default  class SearchForm extends Component{
 
 		return (
 		  <SearchForms onSubmit={this.onSubmit}/>
-
 		);
 	}
 }

@@ -29,8 +29,6 @@ const APIS = {
       url: '/api/krspace-finance-web/checkinagreement/checkin-agreement/actions/show?id={id}',
       method: 'get'
    },
-
-
    //获取文件token
    'getSourceServiceToken': {
       url: '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken',
