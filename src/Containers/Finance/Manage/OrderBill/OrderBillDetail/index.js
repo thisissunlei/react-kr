@@ -408,23 +408,33 @@ export default class AttributeSetting extends Component {
 		})).then(function(response) {
 			var payWayList = [];
 			var contractList=[];
+			var stationPayment={};
 			response.payWay.map(function(item, index) {
 				var list = {}
 				list.value = item.id;
 				list.label = item.accountname;
 				payWayList.push(list);
 			});
-			response.contractList.map(function(item, index) {
+			if(response.contractList){
+                response.contractList.map(function(item, index) {
 				var list = {}
 				list.value = item.id;
 				list.label = item.contractcode;
 				contractList.push(list);
-			});
+			   }); 
+			 }else if(!response.contractList){
+			 	contractList='无' 
+			 }	
+			  if(response.stationPayment){
+                stationPayment=response.stationPayment;
+			  }else if(!response.stationPayment){
+                stationPayment='无'
+			  }
 			_this.setState({
 				payWayList,
 				accountDetail:response.propData,
 				contractList,
-				stationPayment:response.stationPayment,
+				stationPayment:stationPayment,
 			});
 		}).catch(function(err) {
 			 Message.error(err.message); 
@@ -551,7 +561,6 @@ export default class AttributeSetting extends Component {
 		//高级查询
 	onSubmit(params) {
 		params = Object.assign({},this.state.params, params);
-		console.log('---8888--',params);
 		this.setState({
 			params,
 			openSearch: !this.state.openSearch
@@ -881,11 +890,11 @@ export default class AttributeSetting extends Component {
 			params
 		} = this.state;
 
-		delete params.endTime;
-		delete params.startTime;
-		delete params.tradingCode;
-		delete params.propertyId;
-		delete params.accountId;
+		params.endTime='';
+		params.startTime='';
+		params.tradingCode='';
+		params.propertyId='';
+		params.accountId='';
          
 		Store.dispatch(Actions.callAPI('findAccountAndPropList', {
 			accountType: params.accountType
@@ -1233,19 +1242,19 @@ export default class AttributeSetting extends Component {
 			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
        	   	  <Button label="转押金"  type="button"  joinEditForm onTouchTap={this.openSwitchBtn}/>
        	   	  <Button label="转营收"  type="button" joinEditForm onTouchTap={this.openBusinessBtn}/>
-       	   	   <Button label="转移"   type="button"  onTouchTap={this.openShiftBtn}/></ButtonGroup>);
+       	   	 </ButtonGroup>);
 		}
 		if (parentBtn == 'PAYMENT' && childBtn == 'yajin') {
 			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
        	   	  <Button label="转营收"  type="button"  joinEditForm onTouchTap={this.openBusinessBtn}/>
        	   	  <Button label="退款"  type="button"  joinEditForm onTouchTap={this.openQuitBtn}/>
-       	   	   <Button label="转移"   type="button"  onTouchTap={this.openShiftBtn}/></ButtonGroup>);
+       	   	  </ButtonGroup>);
 		}
 		if (parentBtn == 'PAYMENT' && childBtn == 'gongweihuikuan') {
 			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
        	   	  <Button label="转营收"  type="button"  joinEditForm onTouchTap={this.openBusinessBtn}/>
        	   	  <Button label="退款"  type="button"  joinEditForm onTouchTap={this.openQuitBtn}/>
-       	   	   <Button label="转移"   type="button"  onTouchTap={this.openShiftBtn}/></ButtonGroup>);
+       	   	  </ButtonGroup>);
 		}
 		if (parentBtn == 'PAYMENT' && childBtn == 'qitahuikuan') {
 			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>

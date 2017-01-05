@@ -72,6 +72,13 @@ class AccountBtnForm extends Component{
 	   Store.dispatch(initialize('AccountBtnForm',initialValues));
 		
 	}
+    
+    contractRender=()=>{
+    	if(this.props.contractList!='无'&&this.props.stationPayment!='无'){
+               return    <div style={{marginTop:-5,marginBottom:6}}><KrField grid={1/2} name="stationPaymentName" right={42}  component="input" label={this.props.stationPayment.propname} type="text" style={{marginRight:-12}}/> 
+						      <KrField grid={1/2} name="contractId" right={42}  component="select" label="工位合同"  options={this.props.contractList}/></div>
+    	}
+    }
 
 	moneyCheck=(value)=>{
 		if(value&&isNaN(value)){
@@ -94,8 +101,10 @@ class AccountBtnForm extends Component{
        	 height:'72'
        }
        
-            
-        let stationPaymentName=stationPayment.id;
+        if(stationPayment!=[]){
+          let stationPaymentName=stationPayment.id;	
+        }
+       
 
 		return(
 			 <div className='ui-quit-wrap' style={{marginLeft:3}}>
@@ -108,10 +117,11 @@ class AccountBtnForm extends Component{
 		            </KrField> 
 					<KrField grid={1/2} name="operatedate" right={45} type="date" component="date" label="挂账日期" requireLabel={true} style={{marginTop:3}}/> 
 					<KrField grid={1/2} name="fileids"  component="file" label="上传附件" style={{marginLeft:-12}}/>
-					<KrField grid={1/2} name="stationPaymentName" right={42}  component="input" label={stationPayment.propname} type="text" style={{marginRight:-12}}/> 
-					<KrField grid={1/2} name="contractId" right={42}  component="select" label="工位合同"  options={contractList}/> 
 					
-					   <div>
+					
+					{this.contractRender()}
+					
+					   <div style={{marginTop:-8}}>
 						      {accountDetail.map((item,index)=>{
 						      	 
 						      	if(index%2==0){

@@ -99,7 +99,7 @@ class ShiftBtnForm extends Component{
 					    <form onSubmit={handleSubmit(this.onSubmit)} style={{marginLeft:'30px'}}>
  
 						    <KrField name="flowId" type="hidden"/>
-						    <KrField grid={1/2} label="可操作金额"  component="labelText" value={initialValuesId.fiMoney} inline={false} defaultValue="无"/>
+						    <KrField grid={1/2} label="可操作金额"  component="labelText" value={initialValuesId.fiMoney} inline={false} defaultValue="0"/>
                             <KrField name="preCode" grid={1/2} left={30} component="group"   label="金额正负" style={{marginLeft:'-45px'}} requireLabel={true}>
 				                <KrField name="preCode" grid={1/2} right={30} label="正" component="radio" type="radio" value="0" style={{marginTop:'4px',width:'auto',display:'inline-block'}}/>
 				                <KrField name="preCode"  grid={1/2} left={30}label="负" component="radio" type="radio" value="1"/>
