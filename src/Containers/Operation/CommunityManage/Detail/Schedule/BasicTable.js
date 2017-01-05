@@ -280,10 +280,7 @@ export default class BasicTable extends Component {
 	}
 
 	scrollLoading() {
-
 		var _this = this;
-		
-		// console.log('dataLoading',dataLoading);
 		$(window).bind('scroll', function() {
 			var top = $(window).scrollTop() || 0;
 			var height = $(window).height() || 0;
@@ -291,7 +288,6 @@ export default class BasicTable extends Component {
 			var scrollBottom = top - num;
 			var {dataLoading} = _this.state;
 			var isOutBoundary = scrollBottom >= -300;
-			console.log(dataLoading,isOutBoundary);
 
 			if (isOutBoundary && !dataLoading) {
 				let {
@@ -428,7 +424,6 @@ export default class BasicTable extends Component {
 
 		var _this = this;
 		_this.getRate(id);
-		console.log('id',id);
 
 		Store.dispatch(Actions.callAPI('getInstallmentplan', {
 			communityids: id,
@@ -495,7 +490,6 @@ export default class BasicTable extends Component {
 				dataLoading: false
 			});
 			if(response.vo.totalPages == response.vo.page){
-				console.log('fss======dfsd');
 				_this.setState({
 					istip:true
 				})
@@ -582,7 +576,6 @@ export default class BasicTable extends Component {
 		})
 		if(!id && id != 0){
 			id = communityids;
-			console.log('dsadasda');
 		}
 
 
@@ -660,9 +653,7 @@ export default class BasicTable extends Component {
 				var totalCount = 0;
 				var totalPages = 0;
 			}
-			console.log('response',response.vo.totalPages,response.vo.page);
 			if(response.vo.totalPages == response.vo.page){
-				console.log('fss======dfsd');
 				_this.setState({
 					istip:true
 				})
@@ -724,7 +715,6 @@ export default class BasicTable extends Component {
 
 		var _this = this;
 		const id = communityids;
-		console.log('show',dataLoading,showNone);
 
 		if (dataLoading) {
 			return (
