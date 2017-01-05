@@ -9,6 +9,9 @@ import TableRow from '../TableRow';
 import TableRowColumn from '../TableRowColumn';
 import Notify from '../../Notify';
 
+
+import {ShallowEqual} from 'kr/Utils';
+
 import './index.less';
 
 export default class Table extends React.Component {
@@ -128,8 +131,7 @@ export default class Table extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-
-		if (!_.isEqual(this.props.ajaxParams, nextProps.ajaxParams)) {
+		if (!ShallowEqual(this.props.ajaxParams, nextProps.ajaxParams)) {
 			this.setState({
 				isLoaded: false
 			});
@@ -150,7 +152,7 @@ export default class Table extends React.Component {
 		}
 
 
-		if (!_.isEqual(this.props.initialValues, nextProps.initialValues)) {
+		if (!ShallowEqual(this.props.initialValues, nextProps.initialValues)) {
 				this.onInitial(nextProps.initialValues);
 		}
 
@@ -158,7 +160,7 @@ export default class Table extends React.Component {
 
 	shouldComponentUpdate(nextProps, nextState) {
 
-		if (!_.isEqual(this.props.ajaxParams, nextProps.ajaxParams)) {
+		if (!ShallowEqual(this.props.ajaxParams, nextProps.ajaxParams)) {
 			return true;
 		}
 		if (nextProps.page != this.props.page) {

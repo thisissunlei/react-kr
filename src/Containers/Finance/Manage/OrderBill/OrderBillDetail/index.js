@@ -298,8 +298,6 @@ export default class AttributeSetting extends Component {
 		 this.setState({
 			 openRight:!this.state.openRight
 		  });
-
-
 	}
 	openQuitBtn() {
 		let items = this.state.selectedList
@@ -561,6 +559,7 @@ export default class AttributeSetting extends Component {
 		//高级查询
 	onSubmit(params) {
 		params = Object.assign({},this.state.params, params);
+		params.time=+new Date();
 		this.setState({
 			params,
 			openSearch: !this.state.openSearch
