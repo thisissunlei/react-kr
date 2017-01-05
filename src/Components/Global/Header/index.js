@@ -190,6 +190,10 @@ class Header extends Component {
 			height: "60px",
 			zIndex: 10
 		};
+		let width = document.body.clientWidth * 0.4;
+		if(width<570){
+			width = 570;
+		}
 
 		var {
 			switch_value
@@ -279,7 +283,7 @@ class Header extends Component {
 				<SidebarNav items={this.props.navs_current_items} current_router={this.props.current_router} current_parent={this.props.current_parent} current_child={this.props.current_child}/>
 
 				</Drawer>
-			<Drawer open={this.state.information} width={570} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+			<Drawer open={this.state.information} width={width} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 				<InfoList onClose={this.onClose}/>
 			</Drawer>
 
