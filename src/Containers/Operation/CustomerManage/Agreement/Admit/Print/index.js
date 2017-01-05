@@ -9,17 +9,6 @@ import {
 import {
 	Menu,
 	MenuItem,
-	BreadCrumbs,
-	Loading,
-	Notify,
-	Section,
-	Button,
-	SplitLine,
-	DotTitle,
-	KrField,
-	LabelText,
-	PaperBack,
-	KrDate,
 	Title,
 } from 'kr-ui';
 
@@ -34,7 +23,7 @@ import State from './State';
 import './index.less';
 
 @observer
-export default class JoinPrint extends Component {
+export default class AdmitPrint extends Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
 	}

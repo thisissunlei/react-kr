@@ -1,25 +1,8 @@
 import React, {
 	Component
 } from 'react';
-import {
-	connect
-} from 'react-redux';
+
 import './index.less';
-import {
-	KrField,
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Button,
-	Section,
-	Grid,
-	Row,
-	Col,
-} from 'kr-ui';
 
 export default class Station extends Component {
 	static defaultProps = {
@@ -67,10 +50,11 @@ export default class Station extends Component {
 
 		})
 	}
-	BasicType = (stationTypeName) => {
+	basicType = (stationTypeName) => {
 		if (stationTypeName == 1) {
 			return "工位"
-		} else if (stationTypeName == 2) {
+		}
+		if (stationTypeName == 2) {
 			return "会议室"
 		}
 	}
@@ -109,7 +93,7 @@ export default class Station extends Component {
 		return (
 
 
-			<div className="print-Station">
+			<div className="ui-print-Station">
 
 				<div className="normal-station-head">
 					<span className="enter-info">
@@ -140,7 +124,7 @@ export default class Station extends Component {
 								stationVOs && stationVOs.map((item,index)=>{
 										return(
 											<tr key={index}>
-												<td>{this.BasicType(item.stationTypeName)}</td>
+												<td>{this.basicType(item.stationTypeName)}</td>
 												<td>{item.stationName}</td>
 												<td>{item.unitPrice}</td>
 												<td>{item.num}</td>

@@ -1,25 +1,8 @@
 import React, {
 	Component
 } from 'react';
-import {
-	connect
-} from 'react-redux';
+
 import './index.less';
-import {
-	KrField,
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Button,
-	Section,
-	Grid,
-	Row,
-	Col,
-} from 'kr-ui';
 
 export default class Intention extends Component {
 
@@ -35,7 +18,7 @@ export default class Intention extends Component {
 		} = this.props
 		return (
 
-			<div className="print-Intention">
+			<div className="ui-print-Intention">
 						<p>意向条款</p>
 						<p>一、甲乙双方同意本意向仅作为双方的意向性法律文件，双方应于本意向书所约定的日期内签订正式的《入驻服务协议》，以明确双方权利、义务。如乙方未在规定时间内签署《入驻服务协议》的，则定金不予退还，如甲方未在规定时间内签署《入驻服务协议》的，应双倍返还乙方定金。
 						</p>

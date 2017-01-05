@@ -2,25 +2,6 @@ import React, {
 	Component
 } from 'react';
 
-import {
-	connect
-} from 'react-redux';
-import {
-	KrField,
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Button,
-	Section,
-	Grid,
-	Row,
-	Col,
-} from 'kr-ui';
-
 import './index.less';
 
 export default class Payment extends Component {
@@ -169,7 +150,7 @@ export default class Payment extends Component {
 
 		return (
 
-			<div className="ui-payment">
+			<div className="ui-print-payment">
 				<div className="payment-title clear">
 					<div className="payment-info">付款信息</div>
 					<div className="method clear">

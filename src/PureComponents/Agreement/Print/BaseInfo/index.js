@@ -1,25 +1,7 @@
  import React, {
  	Component
  } from 'react';
- import {
- 	connect
- } from 'react-redux';
 
- import {
- 	KrField,
- 	Table,
- 	TableBody,
- 	TableHeader,
- 	TableHeaderColumn,
- 	TableRow,
- 	TableRowColumn,
- 	TableFooter,
- 	Button,
- 	Section,
- 	Grid,
- 	Row,
- 	Col,
- } from 'kr-ui';
  import './index.less';
 
 
