@@ -552,7 +552,8 @@ export default class AttributeSetting extends Component {
 	//切换
 	onSearch(params) {
 			this.setState({
-				params
+				params,
+				listValues:''
 			});
 
 	}
