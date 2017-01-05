@@ -62,6 +62,7 @@ import './index.less';
 
 
 import SidebarNav from '../SidebarNav';
+import InfoList from '../InfoList';
 
 
 class Header extends Component {
@@ -171,6 +172,11 @@ class Header extends Component {
 		})
 		console.log('dasdaddadasd');
 	}
+	onClose=()=>{
+		this.setState({
+			information:!this.state.information
+		})
+	}
 
 	render() {
 
@@ -273,8 +279,8 @@ class Header extends Component {
 				<SidebarNav items={this.props.navs_current_items} current_router={this.props.current_router} current_parent={this.props.current_parent} current_child={this.props.current_child}/>
 
 				</Drawer>
-			<Drawer open={this.state.information} width={300} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
-				<div>dsadasdasdasd</div>
+			<Drawer open={this.state.information} width={570} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+				<InfoList onClose={this.onClose}/>
 			</Drawer>
 
 

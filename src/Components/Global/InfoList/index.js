@@ -29,6 +29,7 @@ import {
 	List,
 	ListItem
 } from 'kr-ui';
+import Pagination from '../../Pagination';
 
 import './index.less';
 
@@ -53,7 +54,7 @@ import {
 import Avatar from 'material-ui/Avatar';
 import Subheader from 'material-ui/Subheader';
 
-export default class SidebarNav extends Component {
+export default class InfoList extends Component {
 
 	PropTypes = {
 		items: React.PropTypes.isArray,
@@ -64,10 +65,62 @@ export default class SidebarNav extends Component {
 	constructor(props, context) {
 		super(props, context);
 	}
+	onPageChange=()=>{
+		console.log('onPageChange');
+	}
+	onClose=()=>{
+		let {onClose} = this.props;
+		onClose && onClose();
+	}
+	render(){
+		let pagination = 10;
+		let totalCount = 100;
+		let pageSize = 10;
+		let page = 2;
+		let infoList = [
+			{
+				info:'123',
+				date:'20124616'
+			},
+			{
+				info:'123',
+				date:'20124616'
+			},
+			{
+				info:'123',
+				date:'20124616'
+			},
+			{
+				info:'123',
+				date:'20124616'
+			},
+		]
 
-	
-	return (
-		
-	);
+		if (!pagination) {
+			return null;
+		}
+		return (
+			<div className="ui-info-list">
+				<div style={{padding:'36px 30px'}}>
+					<span className="close-info icon-close" onClick={this.onClose}></span>
+					<p style={{marginBottom:30}}>
+					<span className="icon-info ui-m-info-logo"></span>
+					<span className="ui-m-info-title">合同到期信息提醒 :</span>
+					</p>
+					{infoList.map((item)=>{
+						return(
+							<p className="ui-m-info-content">
+								<span className="ui-m-info-contents">{item.info}</span>
+								<span className="ui-m-info-date">{item.date}</span>
+							</p>
+						)
+					})}
+				</div>
+				<div style={{paddingRight:'15px'}}>
+				<Pagination totalCount={totalCount} page={page} pageSize={pageSize} onPageChange={this.onPageChange} pageJump={3}/>
+				</div>
+			</div>
+		);
+	}
 
 }
