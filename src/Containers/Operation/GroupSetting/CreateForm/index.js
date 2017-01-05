@@ -27,13 +27,13 @@ class Switchover extends Component{
     }
   }
 
-	componentWillReceiveProps(nextProps){
-		if(!ShallowEqual(nextProps.allData,this.state.allData)){
-			this.setState({
-				allData:nextProps.allData,
-			});
-		}
-	}
+	// componentWillReceiveProps(nextProps){
+	// 	if(!ShallowEqual(nextProps.allData,this.state.allData)){
+	// 		this.setState({
+	// 			allData:nextProps.allData,
+	// 		});
+	// 	}
+	// }
 	//向右边添加
 	rightAdd=(value)=>{
 		var _this=this;
@@ -267,22 +267,24 @@ class ZhuanHuan extends React.Component{
       	position:"absolute",
         display:"inline-block",
         cursor:"pointer",
-				width:"10px",
+		width:"50px",
         float:"right",
-				height:"26px",
+		height:"26px",
         right:"70px",
-        visibility:upShow
+        visibility:upShow,
+        transform:'translateX(20px)'
       }
       //下移箭头的样式
       var downShow={
       	position:"absolute",
         cursor:"pointer",
         float:"right",
-				height:"26px",
-				width:"10px",
+		height:"26px",
+		width:"50px",
         right:"30px",
-
-        visibility:downShow
+        visibility:downShow,
+        transform:'translateX(20px)'
+        
       }
 
       return(
@@ -365,7 +367,7 @@ class ZhuanHuan extends React.Component{
 	 //排序实时校验
 	 sortCheck=(values)=>{
 
-		 if(this.state.isErr&&+values>0){
+		 if(this.state.isErr&&+values>0&&values.length<=4){
 			 var _this=this;
 			 values=this.Trim(values);
 			 Store.dispatch(Actions.callAPI('sortCheck',{sort:values,id:''})).then(function(data) {
@@ -410,7 +412,7 @@ class ZhuanHuan extends React.Component{
 
 				<KrField grid={1} name="enable" component="group" label="启用状态" requireLabel={true}>
 							 <KrField name="enable" label="是" type="radio" value="ENABLE" checked={true}/>
-							 <KrField name="enable" label="否" type="radio" value="DISENABLE" />
+							 <KrField name="enable" label="否" type="radio" value="DISABLE" />
 				</KrField>
 				<KrField grid={1/2} label="数据模板" requireLabel={true} name="groupDesc" component="labelText"/>
 				<Switchover allData={this.state.moduleData} okData={this.state.okData} changeMudle={this.props.changeMudle}/>
@@ -438,13 +440,15 @@ const validate = values =>{
 			errors.groupName = '请填写分组名称';
 		}
 		if (!values.sort) {
-
 			errors.sort = '请填写排序号';
 		}else if(isNaN(+values.sort)){
 			errors.sort = '请输入数字';
 		}else if(+values.sort<=0){
 			errors.sort = '请输入正整数';
+		}else if(values.sort.length>=5){
+			errors.sort = '最多可输入4位数字';
 		}
+
 		if (!values.enable) {
 			errors.enable = '请先选择是否启用';
 		}
