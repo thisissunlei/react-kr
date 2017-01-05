@@ -13,23 +13,26 @@ export default class DialogBody extends Component {
 	}
 
 	componentDidMount(){
-			// this.initializeDialogBodyStyles();
 			window.addEventListener('resize',function(){
 				this.initializeDialogBodyStyles();
 			}.bind(this));
 			let _this = this;
-				_this.initializeDialogBodyStyles();
+			_this.initializeDialogBodyStyles();
 	}
 
 	componentDidUpdate(){
-		let _this = this;
-			_this.initializeDialogBodyStyles();
+		this.initializeDialogBodyStyles();
 	}
 
 
 	initializeDialogBodyStyles = ()=>{
 
-		var ele = this.refs.dialogBody;
+		var ele = null;
+		try{
+		   ele = this.refs.dialogBody;
+		}catch(err){
+			ele = null;
+		}
 		const {autoScrollBodyContent} = this.props;
 
 		if(!ele){

@@ -51,8 +51,8 @@ import {
 			<form onSubmit={handleSubmit(this.onSubmit)}>
 
 				<KrField name="id" type="hidden" label="id"/>
-				<KrField grid={1/2} right={25} style={{marginTop:-10}} name="groupName" type="text" label="分组名称"  />
-				<KrField grid={1/2} right={25} style={{marginTop:-10}} name="enable" type="select" label="启用状态" options={[ {value:'ENABLE',label:'启用'}, {value:'DISABLE',label:'禁用'}, ]}  />
+				<KrField grid={1/2} right={25} style={{marginTop:25}} name="groupName" type="text" label="分组名称"  />
+				<KrField grid={1/2} right={25} style={{marginTop:25}} name="enable" type="select" label="启用状态" options={[{value:'',label:'全部'},{value:'ENABLE',label:'启用'}, {value:'DISABLE',label:'禁用'} ]}  />
 
 
 
@@ -81,7 +81,7 @@ const validate = values =>{
 
 		return errors
 	}
-const selector = formValueSelector('newCreateForm');
+const selector = formValueSelector('SearchUpperForm');
 
 
 
