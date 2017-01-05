@@ -414,7 +414,7 @@ class NewCreateForm extends Component {
 						</Table>
 						</div>
 						</DotTitle>
-                     <div style={{marginTop:'-20px',marginBottom:60}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
+                     <div style={{marginTop:'-20px',marginBottom:60}}>减少费用总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
 
 						 </div>
 					</CircleStyle>
