@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
 import {
+	observer
+} from 'mobx-react';
+import {
 	KrField,
 	Table,
 	TableBody,
@@ -17,28 +20,25 @@ import {
 	Row,
 	Col,
 	Dialog,
+	Drawer
 
 } from 'kr-ui';
-
- class SignedClient extends Component{
+import State from './State';
+@observer
+class EditMerchants extends Component{
 
 	constructor(props,context){
 		super(props, context);
 
-		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
-
-
-
 	render(){
-
 		return(
-
 			<div>
-					<h1>111111111</h1>
+          <h1>222222</h1>
+    			<h2>{State.name}</h2>
 			</div>
 		);
 	}
 
 }
-export default SignedClient;
+export default EditMerchants;

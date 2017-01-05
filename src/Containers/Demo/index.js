@@ -69,7 +69,7 @@ import {
 	hashHistory,
 	History
 } from 'react-router';
-
+var data="123";
 
 export default class Demo extends Component {
 
@@ -87,16 +87,22 @@ export default class Demo extends Component {
 	}
 
 
-	componentDidMount() {}
+	componentDidMount(){
+		console.log(this.refs.m,"======")
 
+	}
+	mOver=(event)=>{
+		console.log(event,"++++++++",data)
+	}
 
 
 	render() {
 		return (
 			<div>
-				<Section title="haha">
-					<Dictionary type="ContractType" value="ADDRENT"/>
-				</Section>
+				<h1 ref="m" onMouseOver={this.mOver}>1</h1>
+				<h1 ref="m">2</h1>
+				<h1 ref="m">3</h1>
+				<h1 ref="m">4</h1>
 			</div>
 
 		);

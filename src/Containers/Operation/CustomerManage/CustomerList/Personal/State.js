@@ -12,7 +12,7 @@ import {
 
 let State = observable({
 	name: 'dd',
-	values: {},
+	values: false,
 	fields: {},
 	initialValues: {},
 	syncErrors: {},
@@ -28,5 +28,8 @@ let State = observable({
 State.getBasicInfo = action(function(params) {
 	this.name="nihao";
 });
-
+State.witchs = action(function(params) {
+	this.values=!this.values;
+	console.log(this,"------");
+});
 module.exports = State;
