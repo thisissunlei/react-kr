@@ -102,19 +102,28 @@ class Header extends Component {
 		let url = window.location.hash;
 		url = url.split('/')[1];
 		let _this = this;
-		let hasInfoListTab = ['community'];
+		let currentTab = false;
+		let hasInfoListTab = ['community','member'];
 		hasInfoListTab.map((item)=>{
+			console.log('hasInfoListTab',item,url);
 			if(item == url){
-				_this.setState({
-					inforLogoShow:true,
-					infoTab:url
-				})
-			}else{
-				_this.setState({
-					inforLogoShow:false
-				})
+				currentTab = true;
 			}
 		})
+		if(currentTab){
+			_this.setState({
+				inforLogoShow:true,
+				infoTab:url
+			})
+		}else{
+			_this.setState({
+				inforLogoShow:false,
+				information:false,
+				infoTab:''
+			},function(){
+				alert('ddd');
+			})
+		}
 	}
 
 
@@ -232,6 +241,7 @@ class Header extends Component {
 			//styles.paddingLeft = 50;
 		}
 		let {inforLogoShow,infoTab} = this.state;
+		console.log('header',infoTab);
 		let showInfoLogo = inforLogoShow?'inline-block':'none';
 
 
@@ -268,8 +278,10 @@ class Header extends Component {
 				}
 
 				iconElementRight = {
-					<div>
-					<span className="icon-info information-logo" style={{display:showInfoLogo}} onClick={this.showInfo}></span>
+					<div style={{minWidth:70,textAlign:'right'}}>
+					<div style={{display:showInfoLogo}}>
+						<span className="icon-info information-logo"  onClick={this.showInfo}></span>
+					</div>
 					< IconMenu
 					iconButtonElement = {
 						<IconButton ><MoreVertIcon color="#fff"/></IconButton>
@@ -315,7 +327,7 @@ class Header extends Component {
 
 				</Drawer>
 			<Drawer open={this.state.information} width={width} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
-				<InfoList onClose={this.onClose} infoTab={infoTab}/>
+				<InfoList onClose={this.onClose} infoTab={this.state.infoTab}/>
 			</Drawer>
 
 

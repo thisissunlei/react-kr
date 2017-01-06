@@ -24,6 +24,9 @@ export default class InfoList extends Component {
 
 	constructor(props, context) {
 		super(props, context);
+		this.state= {
+			infoTab:this.props.infoTab
+		}
 	}
 	onPageChange=()=>{
 		console.log('onPageChange');
@@ -32,6 +35,29 @@ export default class InfoList extends Component {
 		let {onClose} = this.props;
 		onClose && onClose();
 	}
+	componentWillMount() {
+		console.log('pppppp',this.props.infoTab);
+
+  	}
+  	getInfoData=()=>{
+  		let {infoTab} = this.state;
+  		console.log('getInfoData',infoTab);
+  		if(!infoTab){
+  			return;
+  		}
+  		if(infoTab == 'community'){
+  			console.log('community');
+  		}
+  	}
+  	componentWillReceiveProps(next,state){
+  		if(next != this.state.infoTab){
+  			this.setState({
+  				infoTab:next.infoTab
+  			})
+  		}
+  		// console.log('pppppp');
+  		this.getInfoData();
+  	}
 	render(){
 		let pagination = 10;
 		let totalCount = 100;
