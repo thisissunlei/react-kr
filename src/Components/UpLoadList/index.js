@@ -67,7 +67,7 @@ export default class UpLoadList extends Component {
 				open:nextProps.open
 			},function(){
 				this.renderHover();;
-				// document.addEventListener('click', this.docClick)
+				document.addEventListener('click', this.docClick)
 				
 			})
 			
@@ -102,7 +102,7 @@ export default class UpLoadList extends Component {
 	docClick = (event) => {
 		event = event || window.event;
 		var target = event.target;
-		console.log('target',target.className,close);
+		console.log('target',target);
 		if (target && target.className && (target.className.indexOf('upload') !== -1 || target.className.indexOf('file') !== -1)) {
 			return;
 		}
