@@ -857,7 +857,7 @@ const validate = values => {
 		errors.totalrent = '租金总额必须为数字';
 	}
 
-	if (!String(values.totaldeposit)) {
+	if (!values.totaldeposit) {
 		errors.totaldeposit = '请填写押金总额';
 	}
 

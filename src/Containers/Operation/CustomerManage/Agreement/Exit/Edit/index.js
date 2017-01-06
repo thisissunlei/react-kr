@@ -133,6 +133,7 @@ export default class EditCreate extends Component {
         initialValues.leaseContact = response.leaseContact;
         initialValues.lessorContacttel = response.lessorContacttel;
         initialValues.leaseContacttel = response.leaseContacttel;
+        initialValues.contractVersionType = response.contractVersion;
         if (response.payType) {
           initialValues.paytype = response.payType.id;
 

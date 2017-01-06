@@ -518,7 +518,7 @@ const validate = values => {
 		errors.totalrent = '请填写租金总额';
 	}
 
-	if (!String(values.totaldeposit)) {
+	if (!values.totaldeposit) {
 		errors.totaldeposit = '请填写押金总额';
 	}
 
@@ -532,6 +532,10 @@ const validate = values => {
 
 	if (!values.signdate) {
 		errors.signdate = '请填写签署时间';
+	}
+
+	if (!values.firstpaydate) {
+		errors.firstpaydate = '请填写首付款时间';
 	}
 
 	if (!values.stationnum && !values.boardroomnum) {
