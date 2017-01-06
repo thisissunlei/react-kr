@@ -48,13 +48,14 @@ export default  class ItemDetail extends Component{
 
 		return (
 
-			<div>
-               <KrField component="labelText" label="属性编码" value={detail.propcode}/>
-               <KrField component="labelText" label="属性名称" value={detail.propname}/>
-               <KrField component="labelText" label="属性类别" value={detail.type}/>
-               <KrField component="labelText" label="排序号" value={detail.ordernum}/>
-               <KrField component="labelText" label="是否启用"  value={detail.flag}/>
-               <KrField component="labelText" label="描述" value={detail.propdesc}/>
+			<div style={{marginLeft:30,marginTop:35}}>
+               <KrField component="labelText" grid={1/2} label="属性编码" value={detail.propcode} inline={false}/>
+               <KrField component="labelText" grid={1/2} label="排序号" value={detail.ordernum} inline={false}/>
+               <KrField component="labelText" grid={1/2} label="属性名称" value={detail.propname} inline={false}/>
+                <KrField component="labelText" grid={1/2} label="是否启用"  value={detail.flag} inline={false}/>
+               <KrField component="labelText" grid={1} label="属性类别" value={detail.type} inline={false}/>    
+              
+               <KrField component="labelText" grid={1} label="描述" value={detail.propdesc} inline={false}/>
 			</div>
 
 		);

@@ -1050,7 +1050,7 @@ export default class AttributeSetting extends Component {
 														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 													 }}></TableRowColumn>
-							                    <TableRowColumn name="operatedate" type="date" format="yyyy-mm-dd"></TableRowColumn>
+							                    <TableRowColumn name="occuryear" type="date" format="yyyy-mm-dd"></TableRowColumn>
 							                    <TableRowColumn name="accountName"></TableRowColumn>
 							                    <TableRowColumn name="typeName"></TableRowColumn>
 							                    <TableRowColumn name="propertyName"></TableRowColumn>
@@ -1101,7 +1101,7 @@ export default class AttributeSetting extends Component {
 														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 													 }}></TableRowColumn>
-							                    <TableRowColumn name="operatedate" type="date" format="yyyy-mm-dd"></TableRowColumn>
+							                    <TableRowColumn name="occuryear" type="date" format="yyyy-mm-dd"></TableRowColumn>
 							                    <TableRowColumn name="accountName"></TableRowColumn>
 							                    <TableRowColumn name="typeName"></TableRowColumn>
 							                    <TableRowColumn name="propertyName"></TableRowColumn>
