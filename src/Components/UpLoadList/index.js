@@ -53,7 +53,8 @@ export default class UpLoadList extends Component {
 			form: {},
 			files:[],
 			offsetTop:this.props.offsetTop,
-			fileName:''
+			fileName:'',
+			close:false
 		}
 
 	}
@@ -65,7 +66,9 @@ export default class UpLoadList extends Component {
 			this.setState({
 				open:nextProps.open
 			},function(){
-				this.renderHover();
+				this.renderHover();;
+				document.addEventListener('click', this.docClick)
+				
 			})
 			
 		}
@@ -86,6 +89,8 @@ export default class UpLoadList extends Component {
 			node.style.visibility = 'visible';
 		}else{
 			node.style.visibility = 'hidden';
+			// document.removeEventListener('click', this.docClick);
+
 		}
 
 		parent.style.position = "relative";
@@ -93,6 +98,15 @@ export default class UpLoadList extends Component {
 			width:node.offsetWidth,
 			height:node.offsetHeight
 		})
+	}
+	docClick = (event) => {
+		event = event || window.event;
+		var target = event.target;
+		console.log('target',target);
+		if (target && target.className && (target.className.indexOf('upload') !== -1 || target.className.indexOf('file') !== -1)) {
+			return;
+		}
+
 	}
 	getFileList=(id)=>{
 		let _this = this;
@@ -192,6 +206,7 @@ export default class UpLoadList extends Component {
 		// this.onSetInputValue();
 		onChange && onChange(files);
 	}
+
 	onSetInputValue() {
 		let {
 			files
@@ -313,9 +328,13 @@ export default class UpLoadList extends Component {
 	}
 	renderLoad=()=>{
 		let {files} = this.state;
+		let className = 'ui-files';
+		if(!files.length){
+			className += ' only-upload';
+		}
 		if(files.length<6){
 			return (
-				<li className="ui-files">
+				<li className={className}>
 					<div className="file-button">
 						<span className="file-icon">+</span>
 						<input type="file" name="file" onChange={this.onChange} />
@@ -340,18 +359,18 @@ export default class UpLoadList extends Component {
 
 		return(
 			<div className={className} ref={div=>{this.tooltip = div}} style={style}>
-				<ul>
+				<ul className="upload-ul">
 				{ files.map((item,index)=>{
 					let bottom = (index==5)?'10px':'0';
 					return (
-						<li key={index} style={{marginBottom:bottom}}>
+						<li className="upload-li" key={index} style={{marginBottom:bottom}}>
 						
 						<span className="file-name" onClick={this.download.bind(this,item)}>{item.fileName}</span>
 						<span className="file-delete icon-delete" onClick={this.delete.bind(this,item)}></span>
 						</li>
 						)
 				})}
-				{isUploading && <li className="loading-progress"><span className="progress" style={{width:`${progress}%`}}>{progress}%</span><span className="file-name-load">{fileName}</span></li>}
+				{isUploading && <li className="loading-progress" style={{position:'relative'}}><span className="progress" style={{width:`${progress}%`,height:'33px',position:'absolute',top:0,lineHeight:'33px'}}>{progress}%</span><span className="file-name-load">{fileName}</span></li>}
 
 				{this.renderLoad()}
 				</ul>

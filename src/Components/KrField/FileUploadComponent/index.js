@@ -209,7 +209,7 @@ export default class FileUploadComponent extends React.Component {
 		if (file) {
 			var progress = 0;
 			var timer = window.setInterval(function() {
-				if (progress >= 100) {
+				if (progress >= 90) {
 					window.clearInterval(timer);
 					_this.setState({
 						progress: 0,
@@ -317,7 +317,7 @@ export default class FileUploadComponent extends React.Component {
 						<span className="file-icon">+</span>
 						<input type="file" name="file" onChange={this.onChange}  multiple={multiple?'multiple':null} accept={accept} />
 						添加文件
-						{isUploading && <span className="progress" style={{width:progress}}></span>}
+						{isUploading && <span className="progress" style={{width:progress}}>{progress}%</span>}
 					</div>
 				</div>
 				<ul className="file-list">

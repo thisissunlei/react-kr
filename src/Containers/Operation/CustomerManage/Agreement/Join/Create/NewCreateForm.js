@@ -843,7 +843,7 @@ const validate = values => {
 	}
 
 
-	if (!String(values.totaldeposit)) {
+	if (!values.totaldeposit) {
 		errors.totaldeposit = '请输入押金总额';
 	}
 
