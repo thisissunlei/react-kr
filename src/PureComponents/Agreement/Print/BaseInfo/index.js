@@ -37,7 +37,7 @@
 						</div>
 						<div >
 							<div className="username long">地址：</div>
-							<div className="namelist">
+							<div className="namelist address">
 							{baseInfo.lessorAddress}
 							</div>
 						</div>
@@ -53,7 +53,7 @@
 						</div>
 						<div>
 							<div className="username long">地址：</div>
-								<div className="namelist">
+								<div className="namelist address">
 									{baseInfo.leaseAddress}
 								</div>
 							</div>
