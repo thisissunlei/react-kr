@@ -69,6 +69,7 @@ export default class UpLoadList extends Component {
 				this.renderHover();;
 				document.addEventListener('click', this.docClick)
 				
+				
 			})
 			
 		}
