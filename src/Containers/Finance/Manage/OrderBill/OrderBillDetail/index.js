@@ -985,7 +985,7 @@ export default class AttributeSetting extends Component {
     	let style={
     	'background':color,
     	'position': 'fixed',
-        'top': '-40px',
+        'top': '10px',
         'left': 0,
         'right': 0
     	}
@@ -1326,7 +1326,7 @@ export default class AttributeSetting extends Component {
 								 <div className='detail-right'>
 								     <div>
 								        <Col align="left" md={9} className='btn-left'>{buttonArr}</Col>
-								        <Col align="right" md={3} style={{'position':'relative'}}><Button  type='search'  searchClick={this.openSearchDialog}/><span className={colorClassName} onClick={this.historyIncomed}><Tooltip  offsetTop={8} place='top'>补历史收入</Tooltip></span></Col>
+								        <Col align="right" md={3} style={{'position':'relative'}}><Button  type='search'  searchClick={this.openSearchDialog}/><span className={colorClassName} onClick={this.historyIncomed}><Tooltip  offsetTop={8} place='top'>重跑历史收入</Tooltip></span></Col>
 								     </div>
 
 									 {this.typeSelectRender()}

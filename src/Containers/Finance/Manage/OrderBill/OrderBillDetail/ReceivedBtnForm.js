@@ -61,11 +61,11 @@ class ReceivedBtnForm extends Component {
 	componentDidMount() {
 
 
-		let initialValues = {
+		/*let initialValues = {
 			preCode:'1',
 			mainbillId:this.context.params.orderId,
 		};
-		Store.dispatch(initialize('receivedBtnForm', initialValues));
+		Store.dispatch(initialize('receivedBtnForm', initialValues));*/
 
 	}
 
@@ -80,11 +80,11 @@ class ReceivedBtnForm extends Component {
 
 	componentWillReceiveProps(nextProps){
 		 if(!nextProps.open){
-
+           Store.dispatch(change('receivedBtnForm','accountId',''));
            Store.dispatch(change('receivedBtnForm','totalPayment',''));
            Store.dispatch(change('receivedBtnForm','preCode','1'));
            Store.dispatch(change('receivedBtnForm','operatedate',''));
-
+           Store.dispatch(change('receivedBtnForm','mainbillId',this.context.params.orderId));
 		 }
 		 
 	}
@@ -171,9 +171,9 @@ class ReceivedBtnForm extends Component {
               	       {
               	       	accountDetail.map(function(item,index){
 						      	if(index%2==0){
-									return <div className='leftBottomValue'><KrField key={index} style={{marginBottom:5,width:261,marginLeft:-9}}  grid={1/2}   label={item.propname} component="input" name={item.id} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
+									return <div className='leftBottomValue'><KrField key={index} style={{marginBottom:5,width:261,marginLeft:-9}}  grid={1/2}   label={item.propname} component="input" name={String(item.id)} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
 						      	}else{
-						      		return <div className='rightBottomValue'><KrField key={index} style={{marginBottom:5,width:261}} grid={1/2}   label={item.propname}  component="input" name={item.id} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
+						      		return <div className='rightBottomValue'><KrField key={index} style={{marginBottom:5,width:261}} grid={1/2}   label={item.propname}  component="input" name={String(item.id)} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
 						   }
 					     }
 		               )

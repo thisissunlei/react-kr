@@ -32,7 +32,7 @@ export default class KrField extends React.Component {
 		right: 0,
 	}
 
-	static PropTypes = {
+	static propTypes = {
 		type: React.PropTypes.string,
 		name: React.PropTypes.string,
 		label: React.PropTypes.string,

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Actions,Store} from 'kr/Redux';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
-import {reduxForm,formValueSelector,initialize} from 'redux-form';
+import {reduxForm,formValueSelector,initialize,registerField} from 'redux-form';
 import {
 	Table,
  	TableBody,
@@ -51,7 +51,7 @@ class ShiftBtnForm extends Component{
        	flowId:this.props.initialValuesId.id, 
        	preCode:'1'
        }
-	   Store.dispatch(initialize('shiftBtnForm',initialValues));
+	   //Store.dispatch(initialize('shiftBtnForm',initialValues));
 		
 	}
     
@@ -79,7 +79,21 @@ class ShiftBtnForm extends Component{
 		}
 	} 
 
-    
+    renderShiftData=()=>{
+
+    	let {shiftData}=this.props;
+         return   shiftData.map((item,index)=>{
+
+				    if(index%2==0){
+							return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={43}  style={{marginLeft:'-14px'}} label={item.propname} component="input" name={String(item.id)} type="text" onBlur={this.moneyShiftCheck}/>
+						      	}else{
+						      		return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={43}  label={item.propname}  component="input" name={String(item.id)} type="text" onBlur={this.moneyShiftCheck}/>
+						      	}
+
+						      }
+              )
+
+    }
 
 	render(){
 
@@ -106,16 +120,9 @@ class ShiftBtnForm extends Component{
 			                </KrField>
 			                <KrField type="date" grid={1/2} label="转移日期" right={45} name="operatedate" requireLabel={true}/> 
                              
-                             {shiftData.map((item,index)=>{
-						      	if(index%2==0){
-									return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={43}  style={{marginLeft:'-14px'}} label={item.propname} component="input" name={item.id} type="text" onBlur={this.moneyShiftCheck}/>
-						      	}else{
-						      		return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={43}  label={item.propname}  component="input" name={item.id} type="text" onBlur={this.moneyShiftCheck}/>
-						      	}
+                             {this.renderShiftData()}
 
-						      }
-                             )}
-                             <KrField label="上传附件" grid={1/2} name="fileids" style={{marginLeft:-5}} component="file"/>
+                             <KrField label="上传附件" grid={1/2} name="fileids" style={{marginLeft:-15}} component="file"/>
                           
                              <div style={{marginTop:-15}}><KrField label="备注" grid={1}  heightStyle={heightStyle} name="finaflowdesc" component="textarea" type="text" placeholder='请输入备注，输入字数不能超过100字' maxSize={100} lengthClass='ui-length-text'/></div>
                            
@@ -143,6 +150,8 @@ class ShiftBtnForm extends Component{
 }
 
 const validate = values =>{
+
+	    console.log('---oooo',values.operatedate);
 
 		const errors = {}
 		if(!values.operatedate){
