@@ -905,7 +905,18 @@ const APIS = {
  'CardEdit': {
    url:'/api/krspace-finance-web/member/card/mbr-card',
    method:'put'
- }
+ },
+ //获取消息列表
+ 'getInfoList': {
+   url:'/api/krspace-finance-web/remind-notice?page={page}&pageSize={pageSize}',
+   method:'get'
+ },
+ //消息设为已读
+ 'setInfoReaded': {
+   url:'/api/krspace-finance-web/remind-notice-view?id={id}',
+   method:'put'
+ },
+
  }
 
  module.exports = APIS;
