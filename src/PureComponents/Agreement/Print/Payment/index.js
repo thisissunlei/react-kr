@@ -11,9 +11,12 @@ export default class Payment extends Component {
 
 	}
 	getLocalTime = (time) => {
-		return new Date(parseInt(time)).toLocaleString().substr(0, 10);
+		var now = new Date(time);
+		var yy = now.getFullYear(); //年
+		var mm = now.getMonth() + 1; //月
+		var dd = now.getDate(); //日
+		return (yy + "/" + mm + "/" + dd )
 	}
-
 
 	Onetable = (installmentPlans) => {
 
