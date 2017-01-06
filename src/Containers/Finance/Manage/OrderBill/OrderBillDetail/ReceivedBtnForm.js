@@ -11,7 +11,6 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import * as actionCreators from 'kr-ui/../Redux/Actions';
 import {
 	reduxForm,
 	formValueSelector,
@@ -20,27 +19,15 @@ import {
 	arrayPush,
 	arrayInsert,
 	FieldArray,
-	reset
+	reset,
+	destroy
 } from 'redux-form';
 
 import {
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
 	Button,
-	Section,
 	Grid,
 	Row,
 	Col,
-	Notify,
-	List,
-	ListItem,
-	LabelText,
-	Dialog,
 	KrField,
 	Message,
 	ButtonGroup
@@ -48,10 +35,7 @@ import {
 
 
 
-var joinContractId='';
-var adminContractId='';
-var increaseContractId='';
-var tenantContractId='';
+
 class ReceivedBtnForm extends Component {
 	static contextTypes = {
 		params: React.PropTypes.object.isRequired
@@ -67,6 +51,11 @@ class ReceivedBtnForm extends Component {
 
 	constructor(props, context) {
 		super(props, context);
+
+		this.joinContractId='';
+		this.adminContractId='';
+		this.increaseContractId='';
+		this.tenantContractId='';
 	}
 
 	componentDidMount() {
@@ -87,6 +76,17 @@ class ReceivedBtnForm extends Component {
 		} = this.props;
 		onSubmit && onSubmit(values);
 
+	}
+
+	componentWillReceiveProps(nextProps){
+		 if(!nextProps.open){
+
+           Store.dispatch(change('receivedBtnForm','totalPayment',''));
+           Store.dispatch(change('receivedBtnForm','preCode','1'));
+           Store.dispatch(change('receivedBtnForm','operatedate',''));
+
+		 }
+		 
 	}
 
 	moneyCheck=(value)=>{
@@ -126,24 +126,24 @@ class ReceivedBtnForm extends Component {
   joinInputRender=()=>{
   	return (
           <div style={{width:600,marginTop:8}} className='m-tenantStation'>
-              <KrField  label="押金"  grid={1/2}  name={joinContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
-              <KrField label="工位服务费"  grid={1/2} name={joinContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+              <KrField  label="押金"  grid={1/2}  name={this.joinContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+              <KrField label="工位服务费"  grid={1/2} name={this.joinContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
           </div>
   	  )
   }
   increaseInputRender=()=>{
   	return (
           <div style={{width:600,marginTop:8}} className='m-tenantStation'>
-              <KrField  label="押金"  grid={1/2}  name={increaseContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
-              <KrField label="工位服务费"  grid={1/2} name={increaseContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+              <KrField  label="押金"  grid={1/2}  name={this.increaseContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+              <KrField label="工位服务费"  grid={1/2} name={this.increaseContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
           </div>
   	  )
   }
   adminInputRender=()=>{
   	return (
           <div style={{width:600,marginTop:8}} className='m-tenantStation'>
-              <KrField  label="押金"  grid={1/2}  name={adminContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
-              <KrField label="工位服务费"  grid={1/2} name={adminContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+              <KrField  label="押金"  grid={1/2}  name={this.adminContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+              <KrField label="工位服务费"  grid={1/2} name={this.adminContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
           </div>
   	  )
   }
@@ -151,7 +151,7 @@ class ReceivedBtnForm extends Component {
 
   	return (
             <div className='depositMoney-render'  style={{width:546}}>
-              <KrField label="定金"  grid={1/2}  name={tenantContractId+'2'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+              <KrField label="定金"  grid={1/2}  name={this.tenantContractId+'2'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
             </div>
   		)
   }
@@ -207,22 +207,27 @@ class ReceivedBtnForm extends Component {
 
 
       contractReceive.map(function(item,index){
+      	   //意向书
           if(item.value=='1'){
           	item.component=_this.tenantInputRender;
-            tenantContractId=item.contractId
+            _this.tenantContractId=item.contractId
           }
+            //入驻协议书
           if(item.value=='2'){
           	item.component=_this.joinInputRender;
-          	joinContractId=item.contractId
+          	_this.joinContractId=item.contractId
           }
+           //增租协议书
           if(item.value=='3'){
           	item.component=_this.increaseInputRender;
-          	increaseContractId=item.contractId
+          	_this.increaseContractId=item.contractId
           }
+           //续租协议书
           if(item.value=='4'){
           	item.component=_this.adminInputRender;
-          	adminContractId=item.contractId
+          	_this.adminContractId=item.contractId
           }
+           //无合同
           if(item.value=='000'){
           	item.component=_this.receiveInputRender
           }
@@ -239,7 +244,7 @@ class ReceivedBtnForm extends Component {
 					      <form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:45,marginLeft:'10px',width:580}}>
                             <KrField  name="mainbillId" type="hidden" component="input"/>
 		                    <KrField  label="支付方式" grid={1/2} right={30} name="accountId" style={{marginBottom:5}} type="select" options={optionList} requireLabel={true}/>
-						     <KrField name="preCode" grid={1/2} left={30} component="group" style={{marginLeft:-30}}  label="金额正负" requireLabel={true}>
+						    <KrField name="preCode" grid={1/2} left={30} component="group" style={{marginLeft:-30}}  label="金额正负" requireLabel={true}>
 				                <KrField name="preCode" grid={1/2}  label="正" component="radio" type="radio" value="0"/>
 				                <KrField name="preCode"  grid={1/2} label="负" component="radio" type="radio" value="1"/>
 			                </KrField>
@@ -257,7 +262,7 @@ class ReceivedBtnForm extends Component {
 						<Row>
 							<Col md={12} align="center">
 								<ButtonGroup>
-									<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div>
+									<div  className='ui-btn-center'><Button  label="确定" type="submit" /></div>
 									<Button  label="取消" type="button" cancle={true}  onTouchTap={this.onCancel} />
 								</ButtonGroup>
 							</Col>
@@ -277,6 +282,7 @@ class ReceivedBtnForm extends Component {
 
 
 const validate = values =>{
+
 
 		const errors = {}
 
@@ -298,4 +304,5 @@ const validate = values =>{
 
 
 
-export default reduxForm({form:'receivedBtnForm',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(ReceivedBtnForm);
+export default reduxForm({form:'receivedBtnForm',validate,enableReinitialize: true,
+	keepDirtyOnReinitialize: true,})(ReceivedBtnForm);

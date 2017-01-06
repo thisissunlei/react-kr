@@ -10,8 +10,6 @@ import {
 import {
 	LabelText
 } from 'kr-ui';
-import * as actionCreators from 'kr-ui/../Redux/Actions';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {
 	Actions,
 	Store,
@@ -254,8 +252,8 @@ export default class AttributeSetting extends Component {
 	}
 	openReceivedBtn(){
 
-		this.receivedBtnFormChangeValues={}
-		Store.dispatch(initialize('receivedBtnForm',{totalPayment:'',preCode:'1',operatedate:''}));
+		this.receivedBtnFormChangeValues={};
+		//Store.dispatch(reset('receivedBtnForm',{totalPayment:'',preCode:'1',operatedate:''}));
 
 		var _this = this;
 		Store.dispatch(Actions.callAPI('getPaymentActData', {
@@ -821,8 +819,8 @@ export default class AttributeSetting extends Component {
 		}
 	}
 	onShiftBtnSubmit=(params)=>{
-       let {shiftData} = this.state;
-		params = Object.assign({}, params);
+           let {shiftData} = this.state;
+		    params = Object.assign({}, params);
 			params.propJasonStr = {};
 			shiftData.map(function(item,index){
 					var key = item.id;
@@ -1359,6 +1357,7 @@ export default class AttributeSetting extends Component {
 				       <div>
                         <ReceiveDetailTop iconClose={this.iconClose} contractTopReceive={this.state.contractTopReceive} liveMoneyValue={this.state.liveMoneyValue} contractContinue={this.contractContinue}/>
                         <ReceivedBtnForm
+                          open={this.state.openRight} 
                           onSubmit={this.onAddReceivedSubmit}
                           onCancel={this.iconClose}
                           optionList={this.state.payWayList}
