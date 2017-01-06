@@ -550,7 +550,7 @@ export default class OrderDetail extends React.Component {
 		console.log('onChange',files);
 	}
 	showMoreOpretion(id){
-		let {opretionId} = this.state;
+		let {opretionId,opretionOpen} = this.state;
 		if(opretionId == id){
 			this.setState({
 				opretionId:id,
@@ -564,7 +564,25 @@ export default class OrderDetail extends React.Component {
 				opretionOpen:true
 			})
 		}
+		if(!opretionOpen){
+			console.log('dddddddd');
+			document.addEventListener('click', this.docClick)
+		}
 		
+	}
+	docClick = (event) => {
+		event = event || window.event;
+		var target = event.target;
+		console.log('target',target);
+		if(target.className == 'icon-more'){
+			return ;
+		}
+		this.setState({
+			openMenu:false,
+			opretionOpen:false
+		})
+		document.removeEventListener('click', this.docClick)
+
 	}
 	print(item){
 		var typeList = [{

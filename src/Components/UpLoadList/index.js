@@ -64,9 +64,10 @@ export default class UpLoadList extends Component {
 	componentWillReceiveProps(nextProps){
 		if(!ShallowEqual(this.state.open,nextProps.open)){
 			this.setState({
-				open:nextProps.open
+				open:nextProps.open,
+				close:!this.state.close
 			},function(){
-				this.renderHover();;
+				this.renderHover();
 				document.addEventListener('click', this.docClick)
 				
 				
@@ -84,13 +85,12 @@ export default class UpLoadList extends Component {
 		let node = ReactDOM.findDOMNode(this.tooltip);
 		let parent = node.parentNode;
 		this.getFileList(detail.id);
-		// node.style.backgroundColor = backgroundColor;
 		let {open} = this.props;
-		if(open[1] == detail.id && open[0]){
+		if(open[1] == detail.id){
 			node.style.visibility = 'visible';
 		}else{
 			node.style.visibility = 'hidden';
-			// document.removeEventListener('click', this.docClick);
+			document.removeEventListener('click', this.docClick)
 
 		}
 
@@ -103,10 +103,17 @@ export default class UpLoadList extends Component {
 	docClick = (event) => {
 		event = event || window.event;
 		var target = event.target;
-		console.log('target',target);
+		if(target.innerHTML == '附件'){
+			return;
+		}
 		if (target && target.className && (target.className.indexOf('upload') !== -1 || target.className.indexOf('file') !== -1)) {
 			return;
 		}
+		let node = ReactDOM.findDOMNode(this.tooltip);
+		node.style.visibility = 'hidden';
+		document.removeEventListener('click', this.docClick)
+
+		// document.addEventListener('click', this.docClick);
 
 	}
 	getFileList=(id)=>{
