@@ -9,6 +9,7 @@ import React, {
 import {
 	connect
 } from 'react-redux';
+import {Actions,Store} from 'kr/Redux';
 
 import Pagination from '../../Pagination';
 
@@ -25,19 +26,52 @@ export default class InfoList extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state= {
-			infoTab:this.props.infoTab
+			infoTab:this.props.infoTab,
+			url:'',
+			readedUrl:'',
+			params:{
+				page:1,
+				pageSize:20
+			}
 		}
 	}
 	onPageChange=()=>{
-		console.log('onPageChange');
+		let {url,params} =this.state;
+		console.log('params',params);
+		let page = ++params.page;
+		let pageSize = params.pageSize;
+		this.getDataList(url, params);
+
+		console.log('onPageChange',params);
+		this.setState({
+			params:{
+				page:page,
+				pageSize:pageSize
+			}
+		})
 	}
 	onClose=()=>{
 		let {onClose} = this.props;
 		onClose && onClose();
 	}
 	componentWillMount() {
+		this.getInfoData();
 		console.log('pppppp',this.props.infoTab);
 
+  	}
+  	componentWillReceiveProps(next,state){
+  		console.log('componentWillReceiveProps',next.infoTab,this.props.infoTab);
+  		if(next.infoTab != this.props.infoTab){
+  			this.setState({
+  				infoTab:next.infoTab
+  			},function(){
+  				console.log('next.infoTab',next.infoTab,this.state.infoTab);
+  				this.getInfoData();
+  			})
+  			
+  		}
+  		// console.log('pppppp');
+  		
   	}
   	getInfoData=()=>{
   		let {infoTab} = this.state;
@@ -46,18 +80,44 @@ export default class InfoList extends Component {
   			return;
   		}
   		if(infoTab == 'community'){
-  			console.log('community');
-  		}
-  	}
-  	componentWillReceiveProps(next,state){
-  		if(next != this.state.infoTab){
+  			this.getDataList('getInfoList',{page:1,pageSize:20});
   			this.setState({
-  				infoTab:next.infoTab
+  				url:'getInfoList',
+  				readedUrl:'setInfoReaded'
   			})
+  			// alert('community');
+  			console.log('community');
+  			
   		}
-  		// console.log('pppppp');
-  		this.getInfoData();
+  		if(infoTab == 'member'){
+  			this.setState({
+  				url:'2222',
+  				readedUrl:'2222'
+  			})
+  			// alert('member');
+  		}
+  		this.setState({
+  				url:'',
+  				readedUrl:''
+  			})
   	}
+  	getDataList =(url,params)=>{
+  		Store.dispatch(Actions.callAPI(url,params)).then(function(response){
+  				console.log('ddd');
+			}).catch(function(err){
+				console.log(err);
+			});
+  	}
+  	readed(item){
+  		console.log('item',item);
+  		let {readedUrl} =this.state;
+  		Store.dispatch(Actions.callAPI(readedUrl,{id:item.id})).then(function(response){
+  			console.log('ddd');
+		}).catch(function(err){
+			console.log(err);
+		});
+  	}
+  	
 	render(){
 		let pagination = 10;
 		let totalCount = 100;
@@ -66,19 +126,23 @@ export default class InfoList extends Component {
 		let infoList = [
 			{
 				info:'123',
-				date:'20124616'
+				date:'20124616',
+				id:1
 			},
 			{
 				info:'123',
-				date:'20124616'
+				date:'20124616',
+				id:9
 			},
 			{
 				info:'123',
-				date:'20124616'
+				date:'20124616',
+				id:8
 			},
 			{
 				info:'123',
-				date:'20124616'
+				date:'20124616',
+				id:6
 			},
 		]
 		let {infoTab} = this.props;
@@ -97,7 +161,7 @@ export default class InfoList extends Component {
 					{infoList.map((item,index)=>{
 						return(
 							<p className="ui-m-info-content" key={index}>
-								<span className="ui-m-info-contents">{item.info}</span>
+								<span className="ui-m-info-contents" onClick={this.readed.bind(this,item)}>{item.info}</span>
 								<span className="ui-m-info-date">{item.date}</span>
 							</p>
 						)
