@@ -68,7 +68,7 @@ export default class UpLoadList extends Component {
 				close:!this.state.close
 			},function(){
 				this.renderHover();
-				document.addEventListener('click', this.docClick)
+				// document.addEventListener('click', this.docClick)
 				
 				
 			})
@@ -86,11 +86,11 @@ export default class UpLoadList extends Component {
 		let parent = node.parentNode;
 		this.getFileList(detail.id);
 		let {open} = this.props;
-		if(open[1] == detail.id){
+		if(open[1] == detail.id && open[0]){
 			node.style.visibility = 'visible';
 		}else{
 			node.style.visibility = 'hidden';
-			document.removeEventListener('click', this.docClick)
+			// document.removeEventListener('click', this.docClick)
 
 		}
 
