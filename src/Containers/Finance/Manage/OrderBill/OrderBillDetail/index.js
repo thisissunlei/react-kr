@@ -1039,11 +1039,13 @@ export default class AttributeSetting extends Component {
 							              </TableHeader>
 							              <TableBody>
 							                <TableRow>
-							                	<TableRowColumn name="tradingCode" defaultValue='无' style={{width:160,overflow:"visible"}} component={(value,oldValue)=>{
+							                	<TableRowColumn name="tradingCode" style={{width:160,overflow:"visible"}} component={(value,oldValue)=>{
 														var TooltipStyle=""
+														if(value==''){
+                                                           value='无'
+														 }
 														if(value.length==""){
 															TooltipStyle="none"
-
 														}else{
 															TooltipStyle="block";
 														}
@@ -1090,8 +1092,11 @@ export default class AttributeSetting extends Component {
 							              </TableHeader>
 							              <TableBody>
 							                <TableRow>
-							                	<TableRowColumn name="tradingCode" defaultValue='无' style={{width:160,overflow:"visible"}} component={(value,oldValue)=>{
+							                	<TableRowColumn name="tradingCode"  style={{width:160,overflow:"visible"}} component={(value,oldValue)=>{
 														var TooltipStyle=""
+														if(value==''){
+                                                           value='无'
+														 }
 														if(value.length==""){
 															TooltipStyle="none"
 
