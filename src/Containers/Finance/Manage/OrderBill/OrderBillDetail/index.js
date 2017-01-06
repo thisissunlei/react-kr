@@ -67,12 +67,9 @@ import './index.less';
 
 
 
-//代码列表
-var codeList = [];
-//款项列表和分拆金额
-var typeList = [];
-//回款的代码列表,合同的合同编号
-var receivedList = [];
+
+
+
 //获取单条的金额
 var fiMoney = '';
 //得到单条数据
@@ -186,7 +183,7 @@ export default class AttributeSetting extends Component {
 			detailPayment: [],
 			detailIncome: [],
 			detailBalance: '',
-			//这三个是全局的
+			//高级查询
 			codeList: [],
 			typeList: [],
 			receivedList: [],
@@ -254,8 +251,6 @@ export default class AttributeSetting extends Component {
 		this.setState({
 			openSearch: !this.state.openSearch
 		});
-		typeList = [];
-		codeList = [];
 	}
 	openReceivedBtn(){
 
@@ -348,6 +343,7 @@ export default class AttributeSetting extends Component {
 			Store.dispatch(Actions.callAPI('findContractListById', {
 				mainbillId: _this.props.params.orderId
 			})).then(function(response) {
+				var receivedList=[];
 				response.map(function(item, index) {
 					var list = {}
 					list.value = item.id;
@@ -502,23 +498,18 @@ export default class AttributeSetting extends Component {
 		this.setState({
 			openReceivedBtn: !this.state.openReceivedBtn,
 		});
-		receivedList = [];
-		typeList = [];
 	}
 
 	closeSearchDialog() {
 		this.setState({
 			openSearch: !this.state.openSearch
 		});
-		typeList = [];
-		codeList = [];
 	}
 
 	closeSwitchBtn() {
 		this.setState({
 			openSwitchBtn: !this.state.openSwitchBtn,
 		});
-		receivedList = [];
 	}
 	closeBusinessBtn() {
 		this.setState({
@@ -534,8 +525,6 @@ export default class AttributeSetting extends Component {
 		this.setState({
 			openAddaccountBtn: !this.state.openAddaccountBtn
 		})
-
-		receivedList = [];
 	}
 	closeViewDialog() {
 		this.setState({
@@ -551,9 +540,15 @@ export default class AttributeSetting extends Component {
 	//确定提交区域
 	//切换
 	onSearch(params) {
+		    var listValues='';
+		    if(params.index==this.state.params.index&&params.accountType==this.state.params.accountType){
+		    	listValues=this.state.listValues
+		    }else{
+		    	listValues=''
+		    }
 			this.setState({
 				params,
-				listValues:''
+				listValues:listValues
 			});
 
 	}
@@ -751,8 +746,6 @@ export default class AttributeSetting extends Component {
 		}).catch(function(err) {
 			 Message.error(err.message);
 		});
-		
-		receivedList = [];
 
 	}
 	onBusinessSubmit(params) {
@@ -838,7 +831,7 @@ export default class AttributeSetting extends Component {
 							delete params[key];
 					}
 			});
-		params.propJasonStr = JSON.stringify(params.propJasonStr);
+		  params.propJasonStr = JSON.stringify(params.propJasonStr);
 
 		  if(params.propJasonStr=='{}'){
         	Message.error('至少填写一项金额');
@@ -1431,6 +1424,7 @@ export default class AttributeSetting extends Component {
 						title="补收入"
 						open={this.state.openSupplementBtn}
 						onClose={this.openSupplementBtn}
+						contentStyle ={{ width: '445',height:'236'}}
 						>
 					   <SupplementBtnForm  onSubmit={this.onSupplementSubmit} mainbillid="{params.orderId}" onCancel={this.openSupplementBtn} />
 					 </Dialog>
