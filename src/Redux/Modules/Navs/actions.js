@@ -8,12 +8,11 @@ export function navActive(menuCode){
 		var state = getState();
 		var permissionNavs = state.navs.items;
 
-		permissionNavs = permissionNavs.map(function(item,index){
+	permissionNavs.forEach(function(item,index){
 			item.active = false;
 			if(item.hasOwnProperty('menuItems') && Object.prototype.toString.call(item.menuItems) === '[object Array]'  && item.menuItems.length){
-				item.menuItems.forEach(function(child,key){
+					item.menuItems.forEach(function(child,key){
 						if(child.hasOwnProperty('menuItems') && Object.prototype.toString.call(child.menuItems) === '[object Array]'  && child.menuItems.length){
-							var menuItems = [];
 						   child.menuItems.forEach(function(children,i){
 								children.active = false;
 								if(children.menuCode == menuCode){
