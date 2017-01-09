@@ -103,7 +103,7 @@ class Header extends Component {
 		url = url.split('/')[1];
 		let _this = this;
 		let currentTab = false;
-		let hasInfoListTab = ['community','member'];
+		let hasInfoListTab = ['community'];
 		hasInfoListTab.map((item)=>{
 			// console.log('hasInfoListTab',item,url);
 			if(item == url){
@@ -113,13 +113,15 @@ class Header extends Component {
 		if(currentTab){
 			_this.setState({
 				inforLogoShow:true,
-				infoTab:url
+				infoTab:url,
+				information:false
 			})
 		}else{
 			_this.setState({
 				inforLogoShow:false,
 				information:false,
-				infoTab:'local'
+				infoTab:'local',
+				information:false
 			})
 		}
 	}

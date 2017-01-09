@@ -89,13 +89,13 @@ export default class InfoList extends Component {
   			console.log('community');
   			
   		}
-  		if(infoTab == 'member'){
-  			this.setState({
-  				url:'2222',
-  				readedUrl:'2222'
-  			})
-  			// alert('member');
-  		}
+  		// if(infoTab == 'member'){
+  		// 	this.setState({
+  		// 		url:'2222',
+  		// 		readedUrl:'2222'
+  		// 	})
+  		// 	// alert('member');
+  		// }
   		this.setState({
   				url:'',
   				readedUrl:''
