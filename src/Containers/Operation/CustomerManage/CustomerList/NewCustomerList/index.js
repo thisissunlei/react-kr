@@ -99,10 +99,10 @@ import './index.less'
 								/>
 								<KrField grid={1/2} label="公司规模" name="propcode" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
 								<KrField grid={1/2} label="融资金额" name="propcode" style={{width:252,marginLeft:15}} component="input" requireLabel={false}/>
-								<KrField grid={1/2} name="enableflag" component="group" label="是否启用" style={{width:252,marginLeft:15}} requireLabel={true}>
-		              	<KrField name="enableflag" label="是" type="radio" value="ENABLE" checked={true}/>
-		             		<KrField name="enableflag" label="否" type="radio" value="DISENABLE" />
-		            </KrField>
+								<KrField grid={1/2} label="是否已有办公室" name="enableflag" style={{width:252,marginLeft:15}} component="group" requireLabel={true}>
+					              	<KrField name="enableflag1" label="是" type="radio" value="ENABLE" checked={true}/>
+					             	<KrField name="enableflag1" label="否" type="radio" value="DISENABLE" />
+					            </KrField>
 								<KrField grid={1/2} label="项目名称" name="propcode" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
 								<KrField grid={1/2} label="所属地区" name="proptype" component="select" style={{width:252,marginLeft:15}} options={[
 										 {value:'PAYMENT',label:'回款'},
@@ -137,7 +137,7 @@ import './index.less'
 								<KrField grid={1/2} label="联系人" name="propcode" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
 
 
-								<KrField grid={1/2} label="是否跟进" name="enableflag" component="group"  style={{width:252,marginLeft:15}} requireLabel={true}>
+								<KrField grid={1/2} label="是否继续跟进" name="enableflag" component="group"  style={{width:252,marginLeft:15}} requireLabel={true}>
 										<KrField name="enableflag" label="是" type="radio" value="ENABLE" checked={true}/>
 										<KrField name="enableflag" label="否" type="radio" value="DISENABLE" />
 								</KrField>
