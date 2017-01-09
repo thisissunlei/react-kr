@@ -14,29 +14,33 @@ export default class InputComponent extends React.Component{
 	static contextTypes =  {
 	    _reduxForm: React.PropTypes.object.isRequired,
 	}
-	static PropTypes = {
+	static propTypes = {
 		inline:React.PropTypes.bool,
 		simple:React.PropTypes.bool,
 		heightStyle:React.PropTypes.object,
 		maxLength:React.PropTypes.number,
 		//自动获取焦点
-
 		autoFocus:React.PropTypes.bool,
 	}
 
 	constructor(props,context){
 		super(props,context)
-
 	}
 
 	componentDidMount(){
 	}
 
 	onChange = (value)=>{
+
+
+
 		let {input} = this.props;
 		input.onChange(value);
 		const {onChange} = this.props;
+
 		onChange && onChange(value,input)
+
+
 
 	}
 	onBlur=(value)=>{

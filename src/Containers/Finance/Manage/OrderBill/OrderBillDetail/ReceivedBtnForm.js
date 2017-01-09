@@ -112,6 +112,7 @@ class ReceivedBtnForm extends Component {
 	}
 
    calcBalance=(value,input)=>{
+   	console.log('---->>.');
      var lastValue=value.split('.')[1]
      if(lastValue&&lastValue.length>2){
        Message.error('最多到小数点后两位');

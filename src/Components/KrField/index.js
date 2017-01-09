@@ -180,6 +180,7 @@ export default class KrField extends React.Component {
 		}
 
 		if (!component || component === 'input') {
+
 			return (
 				<Field {...this.props} component={InputComponent}  style={WrapStyles}/>
 			);
