@@ -22,7 +22,7 @@ module.exports = {
 		originUrl: '/'
 	}, {
 		primaryText: "数据统计",
-		menuCode: 'dataStat',
+		menuCode: 'stat',
 		router:'statistical',
 		menuItems: [{
 			primaryText: "数据统计",
@@ -32,7 +32,8 @@ module.exports = {
 			menuCode: 'dataStat',
 			menuItems: [{
 				primaryText: "集团经营",
-				router: '/statistical/index'
+				router: '/statistical/index',
+				menuCode: 'dataStat',
 			},]
 		}, ]
 	},{
@@ -46,7 +47,7 @@ module.exports = {
 			iconColor: '#2b8dcd',
 			menuCode: 'community_manage',
 			menuItems: [{
-				primaryText: '计划表',
+				primaryText: '销控表',
 				menuCode: 'plan_table',
 				router: '/community/communityManage/detail',
 			}, {

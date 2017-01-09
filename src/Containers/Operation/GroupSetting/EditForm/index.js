@@ -263,27 +263,29 @@ class ZhuanHuan extends React.Component{
           marginTop:"-1px",
           boxSizing:"border-box",
       }
-      //上移箭头的样式
+     //上移箭头的样式
       var upStyle={
         position:"absolute",
         display:"inline-block",
         cursor:"pointer",
-				width:"10px",
+        width:"50px",
         float:"right",
-				height:"26px",
+        height:"26px",
         right:"70px",
-        visibility:upShow
+        visibility:upShow,
+        transform:'translateX(20px)'
       }
       //下移箭头的样式
       var downShow={
         position:"absolute",
         cursor:"pointer",
         float:"right",
-				height:"26px",
-				width:"10px",
+        height:"26px",
+        width:"50px",
         right:"30px",
-
-        visibility:downShow
+        visibility:downShow,
+        transform:'translateX(20px)'
+        
       }
 
       return(
@@ -317,9 +319,6 @@ class ZhuanHuan extends React.Component{
 		}
 	}
 
-	componentWillReceiveProps(nextProps){
-	}
-
 	 onSubmit(values){
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
@@ -346,7 +345,7 @@ class ZhuanHuan extends React.Component{
 
 	 //排序实时校验
 	 sortCheck=(values)=>{
-		 if(+values>0){
+		 if(+values>0&&values.length<=4){
 		 var _this=this;
 		 values=this.Trim(values);
 		 Store.dispatch(Actions.callAPI('sortCheck',{sort:values,id:this.props.detail.id})).then(function(data) {
@@ -370,11 +369,10 @@ class ZhuanHuan extends React.Component{
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginLeft:25}}>
 
 				<KrField name="id" type="hidden" label="id"/>
-
 				<KrField grid={1/2} maxLength={20} style={{marginTop:30}} right={43} name="groupName" type="text" label="分组名称" requireLabel={true} onBlur={this.groupNameCheck} onFocus={this.inputFocus} />
 				<KrField grid={1/2} right={43} name="sort" type="text" label="排序" requireLabel={true} style={{marginTop:30,marginLeft:-10}} onBlur={this.sortCheck} onFocus={this.inputFocus}/>
 				<KrField grid={1} name="enable" component="group" label="启用状态" requireLabel={true}>
-					<KrField name="enable" label="是" component="radio" type="radio" value="ENABLE"/>
+					  <KrField name="enable" label="是" component="radio" type="radio" value="ENABLE"/>
 						<KrField name="enable" label="否"  component="radio"  type="radio" value="DISABLE" />
 				</KrField>
 				<KrField grid={1/2} label="数据模板" requireLabel={true} component="labelText"/>
@@ -410,7 +408,9 @@ const validate = values =>{
 			errors.sort = '请输入数字';
 		}else if(+values.sort<=0){
 			errors.sort = '请输入正整数';
-		}
+		}else if(values.sort.length>4){
+      errors.sort = '最多可输入4位数字';
+    }
 
 		if (!values.accounttype) {
 			errors.accounttype = '请填写科目类别';

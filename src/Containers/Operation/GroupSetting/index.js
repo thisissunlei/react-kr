@@ -174,12 +174,14 @@ export default class GroupSetting  extends Component{
 			pageSize:15,
 			page: 1,
 		}
+			Store.dispatch(initialize('SearchUpperForm',obj));
 
 		this.setState({
 			searchParams: obj,
 			searchText:searchParams.content,
 
 		});
+
 
 	}
 
@@ -197,6 +199,7 @@ export default class GroupSetting  extends Component{
 			page: 1,
 			enable:searchParams.enable||""
 		}
+
 		this.setState({
 			searchParams: obj
 		});
@@ -309,7 +312,8 @@ export default class GroupSetting  extends Component{
 															TooltipStyle="block";
 														}
 
-														 return (<div style={{display:TooltipStyle}}><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}<span style={{display:"inline-block",transform:"translateY(-5px)"}}>{lest}</span></span>
+														 return (<div style={{display:TooltipStyle}}><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}<span style={{display:"inline-block"}}>{lest}</span></span>
+
 														 	<Tooltip offsetTop={10} place='top'>
 																<div style={{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{oldValue}</div>
 														 	</Tooltip></div>)
@@ -330,7 +334,7 @@ export default class GroupSetting  extends Component{
 														}else{
 															TooltipStyle="block";
 														}
-														 return (<div style={{display:TooltipStyle}}><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}<span style={{display:"inline-block",transform:"translateY(-5px)"}}>{lest}</span></span>
+														 return (<div style={{display:TooltipStyle}}><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}<span style={{display:"inline-block"}}>{lest}</span></span>
 														 	<Tooltip offsetTop={10} place='top'>
 																<div style={{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{oldValue}</div>
 														 	</Tooltip></div>)
