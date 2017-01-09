@@ -50,7 +50,6 @@ import 	KrForm from './KrForm';
 import 	InputDate from './InputDate';
 import  SnackTip from './SnackTip';
 import Dictionary from './Dictionary';
-import CommunityList from './CommunityList';
 import UploadImage from './UploadImage';
 
 import {
@@ -140,7 +139,6 @@ module.exports = {
 	SearchForm,
 	Tooltips,
 	Tooltip,
-	CommunityList,
 	UploadImage,
 }
 

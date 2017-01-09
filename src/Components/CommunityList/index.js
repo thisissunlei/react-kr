@@ -1,7 +1,12 @@
 import React, {
 	Component
 } from 'react';
+import {
+	Field,
+	reduxForm
+} from 'redux-form';
 import ReactDOM from 'react-dom';
+import { default as CommunityListData } from './CommunityListData.json';
 import Input from '../Input'
 import './index.less';
 export default class CommunityList extends Component {
@@ -34,9 +39,22 @@ export default class CommunityList extends Component {
 	componentWillReceiveProps(nextProps) {
 	}
 	showChildCommunity=()=>{
-		this.setState(
-			openChildCommunityList = !this.state.openChildCommunityList,
-		)
+		
+	}
+	getCityList=()=>{
+		var cityList = [];
+		cityList = CommunityListData.map((item)=>{
+			
+			var obj = {};
+			obj.cityName = item.cityName;
+			return obj;
+		})
+		return cityList;
+	}
+	getCommunityList=()=>{
+		for(var i=0;i<CommunityListData.length;i++){
+			console.log(CommunityListData.length)
+		}
 	}
 	render() {
 		let {
@@ -44,7 +62,9 @@ export default class CommunityList extends Component {
 			...other
 		} = this.props;
 		let childCommunityList ={};
-		childCommunityList.display = openChildCommunityList?'block':'none';
+		let cityList=this.getCityList();
+		console.log("cityList",cityList)
+		let communityList = this.getCommunityList();
 		return (
 			<div className="ui-community-list-box" style={style}>
 				<div className="ui-community-list-left">
@@ -55,16 +75,16 @@ export default class CommunityList extends Component {
 							<span></span>	
 						</div>
 						<div className="ui-community-list-all-table">
-							<ul>
-								<li onclick={this.showChildCommunity}>北京
-									<ul >
-										<li>北京大街社区</li>
-										<li>北京科技产业园社区</li>
-									</ul>
-								</li>
-								<li>上海</li>
-								<li>杭州</li>
-								<li>武汉</li>
+							<ul className="ui-community-list-all-ul">
+								{cityList.map((item,index)=>{
+									return (<li className='ui-community-list-all-cityLi' key={item.cityName}>
+												<span>{item.cityName}</span>
+												<ul>
+													
+												</ul>
+											</li>
+									)
+								})}
 							</ul>
 						</div>
 					</div>
@@ -75,3 +95,6 @@ export default class CommunityList extends Component {
 		
 	}
 }
+
+
+

@@ -43,7 +43,7 @@ export default class EquipmentDefinition extends Component {
     this.state = {
       openNewCreateDefinition: false,
       openEquipmentAdvancedQuery: false,
-      openBatchUpload: true,
+      openBatchUpload: false,
       content: '',
       filter: 'doorNum',
       equipmentParams: {
@@ -114,9 +114,7 @@ export default class EquipmentDefinition extends Component {
     console.log("values",values);
   }
   render() {
-    let {
-      list,itemDetail,seleced
-    } = this.state;
+    let {list,itemDetail,seleced} = this.state;
     // if (!list.totalCount) {
     //   list.totalCount = 0;
     // }
@@ -296,8 +294,12 @@ export default class EquipmentDefinition extends Component {
                   open={this.state.openBatchUpload}
                   onClose={this.openBatchUploadDialog}
                   contentStyle={{width:687}}
+                  
                 >
-                  <BatchUploadImageForm/>
+                  <BatchUploadImageForm 
+                    onCancel={this.openBatchUploadDialog}
+                    onSubmit={this.onBatchUpload}
+                  />
                 </Dialog>
         </div>
     );

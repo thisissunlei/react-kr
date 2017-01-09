@@ -22,7 +22,7 @@ import GroupComponent from './GroupComponent';
 import CityComponent from './CityComponent';
 import SearchCompanyComponent from './SearchCompanyComponent';
 import EditLabelTextComponent from './EditLabelTextComponent';
-
+import DoorCardComponent from './DoorCardComponent';
 
 export default class KrField extends React.Component {
 
@@ -97,6 +97,12 @@ export default class KrField extends React.Component {
 		if (component === 'file') {
 			return (
 				<Field {...this.props} component={FileUploadComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+
+		if (component === 'doorCard') {
+			return (
+				<Field {...this.props} component={DoorCardComponent}  style={WrapStyles} {...other}/>
 			);
 		}
 
