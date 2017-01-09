@@ -151,7 +151,6 @@ class ShiftBtnForm extends Component{
 
 const validate = values =>{
 
-	    console.log('---oooo',values.operatedate);
 
 		const errors = {}
 		if(!values.operatedate){

@@ -85,6 +85,7 @@ class ReceivedBtnForm extends Component {
            Store.dispatch(change('receivedBtnForm','preCode','1'));
            Store.dispatch(change('receivedBtnForm','operatedate',''));
            Store.dispatch(change('receivedBtnForm','mainbillId',this.context.params.orderId));
+           //Store.dispatch(change('receivedBtnForm','fileids',''));
 		 }
 		 
 	}
@@ -112,7 +113,6 @@ class ReceivedBtnForm extends Component {
 	}
 
    calcBalance=(value,input)=>{
-   	console.log('---->>.');
      var lastValue=value.split('.')[1]
      if(lastValue&&lastValue.length>2){
        Message.error('最多到小数点后两位');

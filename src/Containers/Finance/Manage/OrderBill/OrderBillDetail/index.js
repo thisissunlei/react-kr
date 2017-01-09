@@ -206,6 +206,8 @@ export default class AttributeSetting extends Component {
 
 
 
+
+
 			openSearch: false,
 			openReceivedBtn: false,
 			openQuitBtn: false,
@@ -554,6 +556,16 @@ export default class AttributeSetting extends Component {
 	onSubmit(params) {
 		params = Object.assign({},this.state.params, params);
 		params.time=+new Date();
+		if(params.startTime!=''&&params.endTime!=''&&params.endTime<params.startTime){
+			 Message.error('开始时间不能大于结束时间');
+	         return ;
+		}
+		if(params.startTime==''&&params.endTime!=''){
+			params.startTime=params.endTime
+		}
+		if(params.startTime!=''&&params.endTime==''){
+			params.endTime=params.startTime
+		}
 		this.setState({
 			params,
 			openSearch: !this.state.openSearch
@@ -1188,7 +1200,8 @@ export default class AttributeSetting extends Component {
   
 
    }
-   
+
+
 	render() {
 
 		let {
@@ -1217,12 +1230,12 @@ export default class AttributeSetting extends Component {
 		let initialValues = {
 				mainbillid: params.orderId,
 			}
-			//退款等要操作的id
+		//退款等要操作的id
 		let initialValuesId = {
 				id: fiItem.id,
 				fiMoney:fiMoney
 			}
-			//高级查询
+		//高级查询
 		let searchValue = {
 			accountType: params.accountType,
 			orderId: params.orderId
@@ -1343,7 +1356,7 @@ export default class AttributeSetting extends Component {
 						onClose={this.closeSearchDialog}
 						contentStyle ={{ width: '686'}}
 						>
-					   <SearchForm onCancel={this.closeSearchDialog} initialValues={searchValue} codeList={this.state.codeList} typeList={this.state.typeList} onSubmit={this.onSubmit}/>
+					   <SearchForm  onCancel={this.closeSearchDialog} initialValues={searchValue} codeList={this.state.codeList} typeList={this.state.typeList} onSubmit={this.onSubmit}/>
 					 </Dialog>
                    
 

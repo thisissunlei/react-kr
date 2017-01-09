@@ -60,17 +60,15 @@ class AccountBtnForm extends Component{
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
 	}
-	componentDidMount() {
-
-    
+	componentDidMount() {  
       let initialValues={
        	 preCode:'0',
        	 mainbillId:this.context.params.orderId,
        	 operatedate:'',
        	 accountId:''
        }
-	   Store.dispatch(initialize('AccountBtnForm',initialValues));
-		
+	   Store.dispatch(initialize('AccountBtnForm',initialValues));	
+
 	}
     
     contractRender=()=>{
