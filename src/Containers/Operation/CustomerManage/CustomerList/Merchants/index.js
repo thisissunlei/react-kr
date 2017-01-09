@@ -28,9 +28,10 @@ import {
 
 } from 'kr-ui';
 import State from './State';
-import NewMerchants from './NewMerchants';
-import EditMerchants from './EditMerchants';
-import LookMerchants from './LookMerchants';
+
+import NewCustomerList from '../NewCustomerList';
+import EditCustomerList from '../EditCustomerList';
+import LookCustomerList from '../LookCustomerList';
 import './index.less'
 @observer
 class Merchants extends Component{
@@ -40,8 +41,6 @@ class Merchants extends Component{
 		this.state={
 			searchParams:{}
 		}
-    let params="12"
-		State.getBasicInfo(params);
 	}
 
 	//新建提交按钮
@@ -63,9 +62,9 @@ class Merchants extends Component{
 		State.switchEditMerchants();
 	}
 	//查看页的开关
-	switchLookMerchants=()=>{
-		State.switchLookMerchants();
-		console.log("55")
+	switchLookCustomerList=()=>{
+		State.switchLookCustomerList();
+		
 	}
 	closeAllMerchants=()=>{
 		State.closeAllMerchants();
@@ -86,13 +85,6 @@ class Merchants extends Component{
 											type='button'
 										 	joinEditForm
 											onTouchTap={this.switchNewMerchants}
-									/>
-									<span>44444444</span>
-									<Button
-											label="查看"
-											type='button'
-										 	joinEditForm
-											onTouchTap={this.switchLookMerchants}
 									/>
 							</Col>
 			        <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
@@ -141,12 +133,12 @@ class Merchants extends Component{
 					{/*新建*/}
 					<Drawer
 			        open={State.openNewMerchants}
-			        width={900}
+			        width={700}
 			        openSecondary={true}
 			        className='m-finance-drawer'
 			        containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 			     >
-								<NewMerchants
+								<NewCustomerList
 										onSubmit={this.onNewMerchants}
 										onCancel={this.switchNewMerchants}
 								/>
@@ -156,12 +148,12 @@ class Merchants extends Component{
 					{/*编辑*/}
 					<Drawer
 							open={State.openEditMerchants}
-							width={900}
+							width={700}
 							openSecondary={true}
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					>
-								<EditMerchants
+								<EditCustomerList
 										onSubmit={this.onEditMerchants}
 										onCancel={this.switchEditMerchants}
 								/>
@@ -169,14 +161,14 @@ class Merchants extends Component{
 
 					{/*查看*/}
 					<Drawer
-							open={State.openLookMerchants}
-							width={900}
+							open={false}
+							width={700}
 							openSecondary={true}
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
-								<LookMerchants
-										onCancel={this.switchLookMerchants}
+								<LookCustomerList
+										onCancel={this.switchLookCustomerList}
 								/>
 					</Drawer>
 					{
@@ -184,8 +176,7 @@ class Merchants extends Component{
 							State.openEditMerchants||
 							State.openLookMerchants
 						)&&
-							<
-								div className="mask"
+							<div className="mask"
 								onClick={this.closeAllMerchants}
 							>
 							</div>

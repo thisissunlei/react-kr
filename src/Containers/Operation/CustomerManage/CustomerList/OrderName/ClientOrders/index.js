@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
+import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	observer
@@ -28,49 +29,40 @@ import {
 
 } from 'kr-ui';
 import State from './State';
-import './index.less'
+import NewOrders from './NewOrders';
+
+import './index.less';
 @observer
-class Personal extends Component{
+class clientOrders extends Component{
 
 	constructor(props,context){
 		super(props, context);
 		this.state={
 			searchParams:{}
 		}
-
 	}
-
-
-
-	//新建页面的开关
-	switchNewMerchants=()=>{
-		State.switchNewMerchants();
+	switchNewOrders = () => {
+		State.switchNewOrders();
 	}
-	//编辑页面的开关
-	switchEditMerchants=()=>{
-		State.switchEditMerchants();
-	}
-	//查看页的开关
-	switchLookPersonal=()=>{
-		State.switchLookPersonal();
+	onNewOrders = (prames) => {
+
 	}
 
 	render(){
 
 		return(
-      <div className="m-merchants" style={{paddingTop:45}}>
+      <div className="m-clientOrders" style={{paddingTop:45}}>
       		<Title value="会员配置"/>
 	        <Row >
 			        <Col
 									align="left"
 									style={{marginLeft:0,float:'left'}}
 							>
-
 									<Button
-											label="查看"
+											label="新建订单"
 											type='button'
 										 	joinEditForm
-											onTouchTap={this.switchLookPersonal}
+											onTouchTap={this.switchNewOrders}
 									/>
 							</Col>
 			        <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
@@ -115,29 +107,19 @@ class Personal extends Component{
 
           			<TableFooter ></TableFooter>
           </Table>
+					{State.openNewOrders&&
+						<div
+								className="other-page"
+						>
+								<NewOrders
+										onSubmit={this.onNewOrders}
+										onCancel={this.switchNewOrders}
+								/>
+					</div>}
 
-
-
-					{/*查看*/}
-					<Drawer
-							open={State.openLookPersonal}
-							width={900}
-							openSecondary={true}
-							className='m-finance-drawer'
-							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
-					 >
-					 		
-					</Drawer>
-					{State.openLookPersonal&&
-							<
-								div className="mask"
-								onClick={this.switchLookPersonal}
-							>
-							</div>
-					}
       </div>
 		);
 	}
 
 }
-export default Personal;
+export default clientOrders;

@@ -38,7 +38,8 @@ import Merchants from './Merchants';
 import Personal from './Personal';
 //签约客户
 import SignedClient from './SignedClient';
-export default class CommunityManage extends Component {
+
+class CustomerList extends Component {
 	static childContextTypes = {
 		onSetCommunity: React.PropTypes.func.isRequired,
 		communityId: React.PropTypes.string.isRequired,
@@ -53,8 +54,6 @@ export default class CommunityManage extends Component {
 
 	constructor(props, context) {
 		super(props, context);
-		this.planTable = this.planTable.bind(this);
-		this.Floorplan = this.Floorplan.bind(this);
 		this.state = {
 			tab: 'table',
 			communityId: ''
@@ -73,27 +72,36 @@ export default class CommunityManage extends Component {
 		});
 	}
 
-	Floorplan() {
+	merchants = () => {
 		let {
 			tab
 		} = this.state;
-		tab = 'floorplan';
+		tab = 'merchants';
 		this.setState({
 			tab
 		});
 	}
 
-	planTable() {
+	personal = () => {
 		let {
 			tab
 		} = this.state;
 
-		tab = 'table';
+		tab = 'personal';
 		this.setState({
 			tab
 		});
 	}
+	signedClient = () => {
+		let {
+			tab
+		} = this.state;
 
+		tab = 'signedClient';
+		this.setState({
+			tab
+		});
+	}
 
 
 	render() {
@@ -109,8 +117,9 @@ export default class CommunityManage extends Component {
 			color: '#000',
 			borderBottom: "1px solid #eee"
 		}
-		let tableStyle = (tab == 'table') ? activeTab : commenTab;
-		let planStyle = (tab == 'floorplan') ? activeTab : commenTab;
+		let merchantsStyle = (tab == 'merchants') ? activeTab : commenTab;
+		let personalStyle = (tab == 'personal') ? activeTab : commenTab;
+		let signedClientStyle=(tab == 'signedClient')? activeTab : commenTab;
 		const inkBarStyle = {
 			background: '-moz-linear-gradient(right, #03ec56, #499df1)',
 			background: '-webkit-linear-gradient(right, #03ec56, #499df1)',
@@ -122,25 +131,25 @@ export default class CommunityManage extends Component {
 		return (
 
 			<div className="tab-container" style={{minHeight:910}}>
-			<Title value="计划表_社区经营"/>
+			<Title value="客户列表"/>
 		 	<BreadCrumbs children={['系统运营','社区管理','计划表']}/>
 				<span className="line"></span>
 				 <Tabs className="tabs">
-					<Tab label="招商线索" onActive={this.planTable} style={tableStyle}>
+					<Tab label="招商线索" onActive={this.merchants} style={merchantsStyle}>
 						{/*
 							<Schedule tab={tab}/>
 
 							*/}
 							<Merchants />
 					</Tab>
-					<Tab label="个人客户"  onActive={this.Floorplan} style={planStyle}>
+					<Tab label="个人客户"  onActive={this.personal} style={personalStyle}>
 						{/*
 							<FloorPlan tab={tab} />
 
 							*/}
 							<Personal />
 					</Tab>
-					<Tab label="签约客户"  onActive={this.Floorplan} style={planStyle}>
+					<Tab label="签约客户"  onActive={this.signedClient} style={signedClientStyle}>
 						{/*
 							<FloorPlan tab={tab} />
 
@@ -150,8 +159,8 @@ export default class CommunityManage extends Component {
 			</Tabs>
 
 
-
 		</div>
 		);
 	}
 }
+export default CustomerList;

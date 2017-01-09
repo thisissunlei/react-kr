@@ -17,10 +17,6 @@ let State = observable({
 		openLookMerchants:false,
 });
 
-//action
-State.getBasicInfo = action(function(params) {
-	this.name="nihao";
-});
 //新建页的开关
 State.switchNewMerchants = action(function() {
 	this.openNewMerchants=!this.openNewMerchants;

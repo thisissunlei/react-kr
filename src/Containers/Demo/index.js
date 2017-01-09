@@ -1,21 +1,13 @@
-import React, {
-	Component
-} from 'react';
+import React,{Component} from 'react';
+import { connect } from 'react-redux';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import {Actions,Store} from 'kr/Redux';
 import {
-	connect
-} from 'react-redux';
+	observer
+} from 'mobx-react';
 import {
-	bindActionCreators
-} from 'redux';
-
-import {
-	Checkbox,
-	DatePicker,
-	Form,
 	KrField,
 	Table,
-	Tabs,
-	Tab,
 	TableBody,
 	TableHeader,
 	TableHeaderColumn,
@@ -24,53 +16,20 @@ import {
 	TableFooter,
 	Button,
 	Section,
-	FontIcon,
-	SearchForms,
-	Title,
-	Input,
-	CheckboxGroup,
-	RadioGroup,
-	Message,
-	Tooltip,
-	KrForm,
-	DemoComponent,
-	Field,
-	FieldControl,
-	InputDate,
-	CircleStyle,
-	SearchForm,
-	SnackTip,
-	Dictionary
+	Grid,
+	Row,
+	Col,
+	Dialog,
+  Title,
+  ListGroup,
+  ListGroupItem,
+  SearchForms,
+	Drawer
+
 } from 'kr-ui';
-
-
-import {
-	reduxForm,
-	formValueSelector,
-	initialize,
-	arrayPush,
-	arrayInsert,
-	FieldArray,
-	Fields,
-	change
-} from 'redux-form';
-
-
-import './index.less';
-
-import LocationMap from 'kr-ui/Global/LocationMap';
-
-import {
-	List,
-	ListItem
-} from 'material-ui/List';
-
-import {
-	hashHistory,
-	History
-} from 'react-router';
-var data="123";
-
+import State from './State';
+import './index.less'
+@observer
 export default class Demo extends Component {
 
 	static contextTypes = {
@@ -83,26 +42,18 @@ export default class Demo extends Component {
 		this.state = {
 			userNameDefaultValue: ''
 		}
+		State.switchNewMerchants();
 
 	}
 
 
-	componentDidMount(){
-		console.log(this.refs.m,"======")
+	componentDidMount() {}
 
-	}
-	mOver=(event)=>{
-		console.log(event,"++++++++",data)
-	}
 
 
 	render() {
 		return (
 			<div>
-				<h1 ref="m" onMouseOver={this.mOver}>1</h1>
-				<h1 ref="m">2</h1>
-				<h1 ref="m">3</h1>
-				<h1 ref="m">4</h1>
 			</div>
 
 		);

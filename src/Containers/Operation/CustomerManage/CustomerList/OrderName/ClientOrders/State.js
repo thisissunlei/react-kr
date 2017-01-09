@@ -11,12 +11,12 @@ import {
 } from 'kr/Redux';
 
 let State = observable({
-		openLookPersonal:false,
+		openNewOrders:false,
 });
 
 //action
-State.switchLookPersonal = action(function(params) {
-		this.openLookPersonal=!this.openLookPersonal;
+State.switchNewOrders = action(function(params) {
+		this.openNewOrders=!this.openNewOrders;
 });
 
 module.exports = State;
