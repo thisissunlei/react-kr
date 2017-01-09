@@ -142,30 +142,24 @@ export default class ItemTable extends Component {
     return (
         <Tooltip place="right" type="dark" effect="solid" offsetRight={110} id={`${detail.billId}${detail.billName}`}>
           <ul style={{marginTop:20}}>
-            <li style={{borderLeft:'none'}}>所有工位数：{contractTypeVo.length}个</li>
+            <li style={{borderLeft:'none'}}>所有工位数：{contractTypeVo.orderStaionNum}个</li>
            {contractTypeVo.map((item, index) => {
-                if (!item.contractCount) {
+            // console.log('renderOrder',detail.billId,item.id);
+                if (!item.valid) {
                   return (
                         <li key={index} className="company-order-zero" key={index}>
-                         <p className="name">{item.contractName}</p>
-                         <p className="zero-circle">2016-10-10-2016-12-12 <a>查看详情</a></p>
-                         <p>工位：个 &nbsp;&nbsp;会议室：个</p>
+                         <p className="name">{item.contractType}</p>
+                         <p className="zero-circle">{item.leaseBegindate}-{item.leaseEnddate} <a href="#/operation/customerManage/1000/order/250/agreement/admit/528/detail">查看详情</a></p>
+                         <p>工位：{item.stationNum}个 &nbsp;&nbsp;会议室：{item.meetingNum}个</p>
                         </li>
                       
                   )
-                } else if (item.contractCount === 1) {
-                  return (
-                      <li key={index} className="company-order" key={index}>
-                        <p className="name">{item.contractName}</p>
-                        <p>2016-10-10-2016-12-12 <a>查看详情</a></p>
-                         <p>工位：个 &nbsp;&nbsp;会议室：个</p>
-                      </li>
-                  )
                 } else {
                   return (
-                    <li key={index} className="company-order">
-                        
-                        <p className="name">{item.contractName}({item.contractCount})</p>
+                      <li key={index} className="company-order" key={index}>
+                        <p className="name">{item.contractType}</p>
+                        <p className="zero-circle">{item.leaseBegindate}-{item.leaseEnddate} <a href="#/operation/customerManage/1000/order/250/agreement/admit/528/detail">查看详情</a></p>
+                        <p>工位：{item.stationNum}个 &nbsp;&nbsp;会议室：{item.meetingNum}个</p>
                       </li>
                   )
                 }
@@ -178,10 +172,8 @@ export default class ItemTable extends Component {
   }
   getShowData(billId){
     let _this =this;
-    Store.dispatch(Actions.callAPI('getBillContract',{billId:billId})).then(function(response) {
-
-      
-
+    Store.dispatch(Actions.callAPI('getBillContract',{billId:billId}))
+      .then(function(response) {
       _this.setState({
         contractTypeVo:response,
       },function(){
@@ -198,6 +190,8 @@ export default class ItemTable extends Component {
       }]);
     });
   }
+
+  
   render() {
 
 
