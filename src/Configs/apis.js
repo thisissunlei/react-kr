@@ -339,22 +339,22 @@ const APIS = {
       url: '/api/krspace-finance-web/finaccount/data/getAccountFlowDetail?id={id}',
       method: 'get'
    },
-   //客户管理-计划表-分配工位-list
+   //客户管理-销控表-分配工位-list
    'getStation': {
       url: '/api/krspace-finance-web/find-contract-station/station?communityIds={communityIds}&mainBillId={mainBillId}',
       method: 'get'
    },
-   //客户管理-计划表-撤场日期修改
+   //客户管理-销控表-撤场日期修改
    'updateLeaveDate': {
       url: '/api/krspace-finance-web/fina-contract-mainbill/action/update-leaveDate',
       method: 'post'
    },
-   //客户管理-计划表-分配员工-获取所有客户
+   //客户管理-销控表-分配员工-获取所有客户
    'getmembers': {
       url: '/api/krspace-finance-web/fina-contract-mainbill/members?customerId={customerId}',
       method: 'get'
    },
-   //客户管理-计划表-分配员工-保存更改信息
+   //客户管理-销控表-分配员工-保存更改信息
    'changeStation': {
       url: '/api/krspace-finance-web/find-contract-station/action/change-station',
       method: 'post'
@@ -369,7 +369,7 @@ const APIS = {
       url: '/api-old/krspace_operate_web/commnuity/communityBase/getCommunityFloors?communityId={communityId}',
       method: 'get'
    },
-   // 计划表获取数据
+   // 销控表获取数据
    'getInstallmentplan': {
       url: '/api/krspace-finance-web/finacontractdetail/getInstallmentplan?year={year}&communityids={communityids}&page={page}&pageSize={pageSize}&type={type}&value={value}',
       method: 'get'
@@ -501,12 +501,12 @@ const APIS = {
   	method:'get'
   },
 
-  // 计划表获取合同数据
+  // 销控表获取合同数据
 	'getRedPoint': {
 		url: '/api/krspace-finance-web/finacontractdetail/plan-table/redPoint?billId={billId}&remindDate={remindDate}',
 		method: 'get'
 	},
-  // 计划表获取合同数据
+  // 销控表获取合同数据
 	'getBluePoint': {
 		url: '/api/krspace-finance-web/finacontractdetail/plan-table/bluePoint?billId={billId}&detailId={detailId}',
 		method: 'get'
@@ -565,7 +565,7 @@ const APIS = {
 		url: '/api/krspace-finance-web/stat/group/name/actions/check?groupName={groupName}&id={id}',
   		method: 'get'
 	},
-  // 计划表获取合同数据
+  // 销控表获取合同数据
 	'getBillContract': {
 		url: '/api/krspace-finance-web/finacontractdetail/plan-table/billContract?billId={billId}',
 		method: 'get'
@@ -770,22 +770,22 @@ const APIS = {
  		url: '/api/krspace-finance-web/finaccount/data/getAccountFlowDetail?id={id}',
  		method: 'get'
  	},
- 	//客户管理-计划表-分配工位-list
+ 	//客户管理-销控表-分配工位-list
  	'getStation': {
  		url: '/api/krspace-finance-web/find-contract-station/station?communityIds={communityIds}&mainBillId={mainBillId}',
  		method: 'get'
  	},
- 	//客户管理-计划表-撤场日期修改
+ 	//客户管理-销控表-撤场日期修改
  	'updateLeaveDate': {
  		url: '/api/krspace-finance-web/fina-contract-mainbill/action/update-leaveDate',
  		method: 'post'
  	},
- 	//客户管理-计划表-分配员工-获取所有客户
+ 	//客户管理-销控表-分配员工-获取所有客户
  	'getmembers': {
  		url: '/api/krspace-finance-web/fina-contract-mainbill/members?customerId={customerId}',
  		method: 'get'
  	},
- 	//客户管理-计划表-分配员工-保存更改信息
+ 	//客户管理-销控表-分配员工-保存更改信息
  	'changeStation': {
  		url: '/api/krspace-finance-web/find-contract-station/action/change-station',
  		method: 'post'
@@ -800,7 +800,7 @@ const APIS = {
  		url: '/api-old/krspace_operate_web/commnuity/communityBase/getCommunityFloors?communityId={communityId}',
  		method: 'get'
  	},
- 	// 计划表获取数据
+ 	// 销控表获取数据
  	'getInstallmentplan': {
  		url: '/api/krspace-finance-web/finacontractdetail/getInstallmentplan?year={year}&communityids={communityids}&page={page}&pageSize={pageSize}&type={type}&value={value}',
  		method: 'get'

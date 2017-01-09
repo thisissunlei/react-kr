@@ -81,7 +81,7 @@ export default (
 		{/*社区经营*/}
 		<Route path="community" component={Basic}>
              <IndexRedirect to="communityManage/detail" />
-			{/*计划表*/}
+			{/*销控表*/}
 
 			<Route path="communityManage" component={Basic}>
 					<Route path="detail" component={Operation.CommunityManage.Detail}/>
