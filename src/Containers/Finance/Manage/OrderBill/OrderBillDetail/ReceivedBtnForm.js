@@ -127,24 +127,24 @@ class ReceivedBtnForm extends Component {
   joinInputRender=()=>{
   	return (
           <div style={{width:600,marginTop:8}} className='m-tenantStation'>
-              <KrField  label="押金"  grid={1/2}  name={this.joinContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
-              <KrField label="工位服务费"  grid={1/2} name={this.joinContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+              <KrField  label="押金"  grid={1/2}  name={'fix'+this.joinContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+              <KrField label="工位服务费"  grid={1/2} name={'fix'+this.joinContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
           </div>
   	  )
   }
   increaseInputRender=()=>{
   	return (
           <div style={{width:600,marginTop:8}} className='m-tenantStation'>
-              <KrField  label="押金"  grid={1/2}  name={this.increaseContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
-              <KrField label="工位服务费"  grid={1/2} name={this.increaseContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+              <KrField  label="押金"  grid={1/2}  name={'fix'+this.increaseContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+              <KrField label="工位服务费"  grid={1/2} name={'fix'+this.increaseContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
           </div>
   	  )
   }
   adminInputRender=()=>{
   	return (
           <div style={{width:600,marginTop:8}} className='m-tenantStation'>
-              <KrField  label="押金"  grid={1/2}  name={this.adminContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
-              <KrField label="工位服务费"  grid={1/2} name={this.adminContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+              <KrField  label="押金"  grid={1/2}  name={'fix'+this.adminContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+              <KrField label="工位服务费"  grid={1/2} name={'fix'+this.adminContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
           </div>
   	  )
   }
@@ -152,7 +152,7 @@ class ReceivedBtnForm extends Component {
 
   	return (
             <div className='depositMoney-render'  style={{width:546}}>
-              <KrField label="定金"  grid={1/2}  name={this.tenantContractId+'2'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+              <KrField label="定金"  grid={1/2}  name={'fix'+this.tenantContractId+'2'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
             </div>
   		)
   }
@@ -164,7 +164,8 @@ class ReceivedBtnForm extends Component {
 
 		let heightStyle = {
 			width: '546',
-			height: '72'
+			height: '72',
+			marginBottom:-10
 		}
 
               return (
@@ -254,7 +255,7 @@ class ReceivedBtnForm extends Component {
 						     <KrField label="回款总额"  grid={1/2} right={30} style={{marginTop:'-6px'}} name="totalPayment" component="input" type="text" requireLabel={true} onChange={this.calcBalance}/>
 						     <KrField label="对应合同" name='contract' grid={1/2} component="groupCheckbox" defaultValue={contractReceive} requireLabel={true}/>
 
-						     <KrField label="上传附件" grid={1/2} left={30}  style={{marginLeft:-30}} name="fileids" component="file"/>
+						     <KrField label="上传附件" grid={1} left={30}  style={{marginLeft:-30,marginTop:-10}} name="fileids" component="file"/>
 
                             
 

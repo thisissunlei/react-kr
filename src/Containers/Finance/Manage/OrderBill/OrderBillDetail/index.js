@@ -597,67 +597,67 @@ export default class AttributeSetting extends Component {
 					var accountType=item.contactType;
 					if(accountType==2){
 					  var conJasonStre={};
-					  if(params[key+'1']&&!params[key+'3']){
-                         conJasonStre['1'] = params[key+'1'];
+					  if(params['fix'+key+'1']&&!params['fix'+key+'3']){
+                         conJasonStre['1'] = params['fix'+key+'1'];
                          joinStr[key]=conJasonStre
-						 delete params[key+'1'];
-					  }else if(params[key+'3']&&!params[key+'1']){
-					  	 conJasonStre['3'] = params[key+'3'];
+						 delete params['fix'+key+'1'];
+					  }else if(params['fix'+key+'3']&&!params['fix'+key+'1']){
+					  	 conJasonStre['3'] = params['fix'+key+'3'];
 					  	 joinStr[key]=conJasonStre
-						 delete params[key+'3'];
-					  }else if(params[key+'3']&&params[key+'1']){
-					  	 conJasonStre['3'] = params[key+'3'];
-					  	 conJasonStre['1'] = params[key+'1'];
+						 delete params['fix'+key+'3'];
+					  }else if(params['fix'+key+'3']&&params['fix'+key+'1']){
+					  	 conJasonStre['3'] = params['fix'+key+'3'];
+					  	 conJasonStre['1'] = params['fix'+key+'1'];
 					  	 joinStr[key]=conJasonStre
-						 delete params[key+'3'];
-						 delete params[key+'1'];
+						 delete params['fix'+key+'3'];
+						 delete params['fix'+key+'1'];
 					  }
 					   
 					}
 					if(accountType==3){
 						 var conJasonStre={};
-					  if(params[key+'1']&&!params[key+'3']){
-                         conJasonStre['1'] = params[key+'1'];
+					  if(params['fix'+key+'1']&&!params['fix'+key+'3']){
+                         conJasonStre['1'] = params['fix'+key+'1'];
                          increaseStr[key]=conJasonStre
-						 delete params[key+'1'];
-					  }else if(params[key+'3']&&!params[key+'1']){
-					  	 conJasonStre['3'] = params[key+'3'];
+						 delete params['fix'+key+'1'];
+					  }else if(params['fix'+key+'3']&&!params['fix'+key+'1']){
+					  	 conJasonStre['3'] = params['fix'+key+'3'];
 					  	 increaseStr[key]=conJasonStre
-						 delete params[key+'3'];
-					  }else if(params[key+'3']&&params[key+'1']){
-					  	 conJasonStre['3'] = params[key+'3'];
-					  	 conJasonStre['1'] = params[key+'1'];
+						 delete params['fix'+key+'3'];
+					  }else if(params['fix'+key+'3']&&params['fix'+key+'1']){
+					  	 conJasonStre['3'] = params['fix'+key+'3'];
+					  	 conJasonStre['1'] = params['fix'+key+'1'];
 					  	 increaseStr[key]=conJasonStre	 
-						 delete params[key+'3'];
-						 delete params[key+'1'];
+						 delete params['fix'+key+'3'];
+						 delete params['fix'+key+'1'];
 					  }
 					   
 					}
 					if(accountType==4){
 						var conJasonStre={};
-					  if(params[key+'1']&&!params[key+'3']){
-                         conJasonStre['1'] = params[key+'1'];
+					  if(params['fix'+key+'1']&&!params['fix'+key+'3']){
+                         conJasonStre['1'] = params['fix'+key+'1'];
                          adminStr[key]=conJasonStre	
-						 delete params[key+'1'];
-					  }else if(params[key+'3']&&!params[key+'1']){
-					  	 conJasonStre['3'] = params[key+'3'];
+						 delete params['fix'+key+'1'];
+					  }else if(params['fix'+key+'3']&&!params['fix'+key+'1']){
+					  	 conJasonStre['3'] = params['fix'+key+'3'];
 					  	 adminStr[key]=conJasonStre	
-						 delete params[key+'3'];
-					  }else if(params[key+'3']&&params[key+'1']){
-					  	 conJasonStre['3'] = params[key+'3'];
-					  	 conJasonStre['1'] = params[key+'1'];
+						 delete params['fix'+key+'3'];
+					  }else if(params['fix'+key+'3']&&params['fix'+key+'1']){
+					  	 conJasonStre['3'] = params['fix'+key+'3'];
+					  	 conJasonStre['1'] = params['fix'+key+'1'];
 					  	 adminStr[key]=conJasonStre	
-						 delete params[key+'3'];
-						 delete params[key+'1'];
+						 delete params['fix'+key+'3'];
+						 delete params['fix'+key+'1'];
 					  }
 					   
 					}
 					if(accountType==1){
 						var conJasonStre={};
-					  if(params[key+'2']){
-                         conJasonStre['2'] = params[key+'2'];
+					  if(params['fix'+key+'2']){
+                         conJasonStre['2'] = params['fix'+key+'2'];
                          intentStr[key]=conJasonStre	
-						 delete params[key+'2'];
+						 delete params['fix'+key+'2'];
 					  }
 					   
 					}
@@ -769,9 +769,9 @@ export default class AttributeSetting extends Component {
 			params.propJasonStr = {};
 			accountDetail.map(function(item,index){
 					var key = item.id;
-					if(params.hasOwnProperty(key) && params[key]){
-							params.propJasonStr[key] = params[key];
-							delete params[key];
+					if(params.hasOwnProperty('fix'+key) && params['fix'+key]){
+							params.propJasonStr[key] = params['fix'+key];
+							delete params['fix'+key];
 					}
 			});
 		params.propJasonStr[contractId]=params.stationPaymentName;
@@ -824,9 +824,9 @@ export default class AttributeSetting extends Component {
 			params.propJasonStr = {};
 			shiftData.map(function(item,index){
 					var key = item.id;
-					if(params.hasOwnProperty(key) && params[key]){
-							params.propJasonStr[key] = params[key];
-							delete params[key];
+					if(params.hasOwnProperty('fix'+key) && params['fix'+key]){
+							params.propJasonStr[key] = params['fix'+key];
+							delete params['fix'+key];
 					}
 			});
 		  params.propJasonStr = JSON.stringify(params.propJasonStr);

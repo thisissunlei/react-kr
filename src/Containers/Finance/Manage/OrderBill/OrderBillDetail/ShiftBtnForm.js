@@ -51,7 +51,7 @@ class ShiftBtnForm extends Component{
        	flowId:this.props.initialValuesId.id, 
        	preCode:'1'
        }
-	   //Store.dispatch(initialize('shiftBtnForm',initialValues));
+	   Store.dispatch(initialize('shiftBtnForm',initialValues));
 		
 	}
     
@@ -85,9 +85,9 @@ class ShiftBtnForm extends Component{
          return   shiftData.map((item,index)=>{
 
 				    if(index%2==0){
-							return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={43}  style={{marginLeft:'-14px'}} label={item.propname} component="input" name={String(item.id)} type="text" onBlur={this.moneyShiftCheck}/>
+							return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={43}  style={{marginLeft:'-14px'}} label={item.propname} component="input" name={'fix'+item.id} type="text" onBlur={this.moneyShiftCheck}/>
 						      	}else{
-						      		return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={43}  label={item.propname}  component="input" name={String(item.id)} type="text" onBlur={this.moneyShiftCheck}/>
+						      		return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={43}  label={item.propname}  component="input" name={'fix'+item.id} type="text" onBlur={this.moneyShiftCheck}/>
 						      	}
 
 						      }

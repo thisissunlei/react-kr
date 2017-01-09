@@ -125,10 +125,10 @@ class AccountBtnForm extends Component{
 						      {accountDetail.map((item,index)=>{
 						      	 
 						      	if(index%2==0){
-									return <KrField key={index}   grid={1/2} style={{marginTop:5,marginRight:-12}} right={42} label={item.propname} component="input" name={String(item.id)} type="text" onBlur={this.moneyCheck}/>
+									return <KrField key={index}   grid={1/2} style={{marginTop:5,marginRight:-12}} right={42} label={item.propname} component="input" name={'fix'+item.id} type="text" onBlur={this.moneyCheck}/>
 									        
 						      	}else{
-						      		return <KrField key={index}   grid={1/2}  style={{marginTop:5}} right={42} label={item.propname} component="input" name={String(item.id)} type="text" onBlur={this.moneyCheck}/>
+						      		return <KrField key={index}   grid={1/2}  style={{marginTop:5}} right={42} label={item.propname} component="input" name={'fix'+item.id} type="text" onBlur={this.moneyCheck}/>
 						      	}
 
 						        }
