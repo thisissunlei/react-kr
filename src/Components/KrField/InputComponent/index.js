@@ -32,8 +32,7 @@ export default class InputComponent extends React.Component{
 
 	onChange = (value)=>{
 
-
-
+        
 		let {input} = this.props;
 		input.onChange(value);
 		const {onChange} = this.props;

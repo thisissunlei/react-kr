@@ -85,7 +85,6 @@ class ReceivedBtnForm extends Component {
            Store.dispatch(change('receivedBtnForm','preCode','1'));
            Store.dispatch(change('receivedBtnForm','operatedate',''));
            Store.dispatch(change('receivedBtnForm','mainbillId',this.context.params.orderId));
-           //Store.dispatch(change('receivedBtnForm','fileids',''));
 		 }
 		 
 	}
@@ -255,8 +254,7 @@ class ReceivedBtnForm extends Component {
 						     <KrField label="回款总额"  grid={1/2} right={30} style={{marginTop:'-6px'}} name="totalPayment" component="input" type="text" requireLabel={true} onChange={this.calcBalance}/>
 						     <KrField label="对应合同" name='contract' grid={1/2} component="groupCheckbox" defaultValue={contractReceive} requireLabel={true}/>
 
-						     <KrField label="上传附件" grid={1} left={30}  style={{marginLeft:-30,marginTop:-10}} name="fileids" component="file"/>
-
+                             <KrField  grid={1} left={30}  style={{marginLeft:-30,marginTop:-10}} name="fileids" component="file" label="上传附件"  defaultValue={[]} />
                             
 
 

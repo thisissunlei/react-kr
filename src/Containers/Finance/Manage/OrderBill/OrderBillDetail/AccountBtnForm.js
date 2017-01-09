@@ -49,8 +49,11 @@ class AccountBtnForm extends Component{
 		this.onSubmit=this.onSubmit.bind(this);
 		this.state={
           Addaccount:false,
-
 		}
+		this.blockStyle={
+			display:'none'
+		}
+
 	};
 	onCancel(){
 		const {onCancel} = this.props;
@@ -70,11 +73,26 @@ class AccountBtnForm extends Component{
 	   Store.dispatch(initialize('AccountBtnForm',initialValues));	
 
 	}
+
+	stationMoneyChange=(value)=>{
+      if(value!=undefined&&value!=''){
+      	this.blockStyle={
+			display:'inline-block',
+		}
+      }else{
+      	this.blockStyle={
+			display:'none'
+		}
+      }
+	}
+
     
     contractRender=()=>{
     	if(this.props.contractList!='无'&&this.props.stationPayment!='无'){
-               return    <div style={{marginTop:-5,marginBottom:6}}><KrField grid={1/2} name="stationPaymentName" right={42}  component="input" label={this.props.stationPayment.propname} type="text" style={{marginRight:-12}}/> 
-						      <KrField grid={1/2} name="contractId" right={42}  component="select" label="工位合同"  options={this.props.contractList}/></div>
+               return    <div style={{marginTop:3,marginBottom:6}}>
+                             <KrField grid={1/2} name="stationPaymentName" right={42}  component="input" label={this.props.stationPayment.propname} type="text" style={{marginRight:-12}} onChange={this.stationMoneyChange}/> 
+						     <KrField grid={1/2} name="contractId" right={42}  component="select" label="工位合同" style={this.blockStyle} options={this.props.contractList}/>
+						 </div>
     	}
     }
 
@@ -92,7 +110,7 @@ class AccountBtnForm extends Component{
 	render(){
 		const {error,handleSubmit,pristine,reset,accountDetail,contractList,optionList,stationPayment} = this.props;
 		let style={
-       	 marginTop:'6'
+       	 
        }
        let heightStyle={
        	 width:'546',
@@ -114,10 +132,9 @@ class AccountBtnForm extends Component{
 		                <KrField name="preCode" label="负" type="radio" value="1"/>
 		            </KrField> 
 					<KrField grid={1/2} name="operatedate" right={45} type="date" component="date" label="挂账日期" requireLabel={true} style={{marginTop:3}}/> 
-					<KrField grid={1/2} name="fileids"  component="file" label="上传附件" style={{marginLeft:-12}}/>
+					<KrField grid={1/2} name="fileids"  component="file" label="上传附件" style={{marginLeft:-12}} defaultValue={[]}/>
 					
 					
-					{this.contractRender()}
 					
 					   <div style={{marginTop:-8}}>
 						      {accountDetail.map((item,index)=>{
@@ -134,8 +151,10 @@ class AccountBtnForm extends Component{
 						       )}
 					    </div>
 					
+					{this.contractRender()}
+		
 				
-					<KrField grid={1} style={style} label="备注" name="finaflowdesc" style={{marginTop:5}} type="text" heightStyle={heightStyle} component="textarea"  placeholder='请输入备注,文字不能超过100字' maxSize={100} lengthClass='ui-length-text'/> 
+					<KrField grid={1} style={style} label="备注" name="finaflowdesc"  type="text" heightStyle={heightStyle} component="textarea"  placeholder='请输入备注,文字不能超过100字' maxSize={100} lengthClass='ui-length-text'/> 
 
 
 					

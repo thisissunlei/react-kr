@@ -96,7 +96,7 @@ class SwitchBtnForm extends Component{
 					      <form onSubmit={handleSubmit(this.onSubmit)}>                           
 						    <KrField  name="id" type="hidden"/>
 						    <KrField grid={1/2} label="可操作金额" right={29}  component="labelText" value={fiMoney} defaultValue="0" inline={false} requireLabel={true}/>        
-                            <KrField grid={1/2} label="上传附件" style={{marginLeft:-5}} name="fileids" component="file" style={{marginTop:-1}}/>
+                            <KrField grid={1/2} label="上传附件" style={{marginLeft:-5}} name="fileids" component="file" style={{marginTop:-1}} defaultValue={[]}/>
                              <KrField grid={1/2} label="合同编号" right={43} name="contractcodeId" type="select" options={optionList} requireLabel={true} style={{marginTop:-12}}/>
                             <KrField label="备注" style={style} name="finaflowdesc" heightStyle={heightStyle} component="textarea" type="text" placeholder='请输入备注,文字不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/>
                             

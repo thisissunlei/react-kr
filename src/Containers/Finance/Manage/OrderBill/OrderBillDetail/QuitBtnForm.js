@@ -118,7 +118,7 @@ class QuitBtnForm extends Component {
 						    <KrField grid={1/2} label="可操作金额"  component="labelText" value={fiMoney} inline={false} defaultValue="0"/>
                             <KrField label="金额（元）"  grid={1/2} right={41}  name="finaflowamount" component="input" type="text" requireLabel={true} style={{marginLeft:-10,marginTop:-2}}/>
                             <KrField type="date" grid={1/2} label="退款日期" right={42} name="operatedate" requireLabel={true} style={{marginTop:4,marginBottom:15}}/> 
-                            <KrField label="上传附件" grid={1/2} name="fileids" style={{marginLeft:-10,marginTop:2}} component="file"/>   
+                            <KrField label="上传附件" grid={1/2} name="fileids" style={{marginLeft:-10,marginTop:2}} component="file" defaultValue={[]}/>   
                             <KrField label="备注" style={style} name="finaflowdesc" component="textarea" heightStyle={heightStyle} placeholder='请输入备注,文字不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/>
                            
 

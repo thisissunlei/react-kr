@@ -122,7 +122,7 @@ class ShiftBtnForm extends Component{
                              
                              {this.renderShiftData()}
 
-                             <KrField label="上传附件" grid={1/2} name="fileids" style={{marginLeft:-15}} component="file"/>
+                             <KrField label="上传附件" grid={1/2} name="fileids" style={{marginLeft:-15}} component="file" defaultValue={[]}/>
                           
                              <div style={{marginTop:-15}}><KrField label="备注" grid={1}  heightStyle={heightStyle} name="finaflowdesc" component="textarea" type="text" placeholder='请输入备注，输入字数不能超过100字' maxSize={100} lengthClass='ui-length-text'/></div>
                            
