@@ -44,16 +44,16 @@ class Merchants extends Component{
 
 	//新建页面的开关
 	switchNewMerchants=()=>{
-		State.switchNewMerchants();
+		State.switchNewCustomerList();
 	}
 
 
-	//查看页的开关
-	switchLookCustomerList=()=>{
-		State.switchLookCustomerList();
-		
-	}
-
+    //查看相关操作
+    onOperation=(type, itemDetail)=>{
+      if(type=='watch'){
+      	State.switchLookCustomerList();
+      }
+    }
 	//新建提交按钮
 	onNewMerchants=(params)=>{
 
@@ -121,7 +121,7 @@ class Merchants extends Component{
 			                <TableRowColumn name="receiveName"></TableRowColumn>
 			                <TableRowColumn name="receiveTime" type='date' format="yyyy-mm-dd HH:MM:ss" ></TableRowColumn>
 			                <TableRowColumn type="operation">
-			                    <Button label="查看"  type="operation"  operation="edit" />
+			                    <Button label="查看"  type="operation"  operation="watch" />
 			                 </TableRowColumn>
 			               </TableRow>
 			        </TableBody>
@@ -146,14 +146,14 @@ class Merchants extends Component{
 
 					{/*查看*/}
 					<Drawer
-							open={false}
+							open={State.openLookMerchants}
 							width={700}
 							openSecondary={true}
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
 								<LookCustomerList
-										onCancel={this.switchLookCustomerList}
+										
 								/>
 					</Drawer>
 					{

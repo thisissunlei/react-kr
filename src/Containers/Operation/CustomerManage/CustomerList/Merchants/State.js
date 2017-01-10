@@ -17,11 +17,11 @@ let State = observable({
 });
 
 //新建页的开关
-State.switchNewMerchants = action(function() {
+State.switchNewCustomerList = action(function() {
 	this.openNewMerchants=!this.openNewMerchants;
 });
 //查看页面的开关
-State.switchLookMerchants = action(function() {
+State.switchLookCustomerList = action(function() {
 	this.openLookMerchants=!this.openLookMerchants;
 });
 State.closeAllMerchants = action(function() {
