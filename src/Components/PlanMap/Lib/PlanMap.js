@@ -387,15 +387,25 @@ PlanMap.prototype.onDragStationBegin = function(){
 
   var canvasElement = this.canvasElement;
   Log.debug('拖拽工位开始了');
-  //选中的工位
-  var stations = this.getStations();
+
   var selected = [];
-  stations.map(function(item,index){
-    if(item.checked){
-      var station = new Station(item.x,item.y,item.width,item.height,item.basic,item.index);
-      selected.push(station);
+  if(this.single){
+    var downPosition = this.getPosition('down');
+    var selectedStation = this.hasPositionStation(downPosition);
+
+    if(selectedStation.checked){
+      selected.push(selectedStation);
     }
-  });
+  }else{
+    //选中的工位
+    var stations = this.getStations();
+    stations.map(function(item,index){
+      if(item.checked){
+        var station = new Station(item.x,item.y,item.width,item.height,item.basic,item.index);
+        selected.push(station);
+      }
+    });
+  }
   this.selectedStations = selected;
 }
 
@@ -610,8 +620,6 @@ PlanMap.prototype.calcScale = function(){
 	  y:loc.y * this.scaleY
  };
 
-
-
   var translateX = this.translateX-defaultTranslate;
   var translateY = this.translateY-defaultTranslate;
 
@@ -692,7 +700,6 @@ PlanMap.prototype.initializeEvents = function(){
 		window.setTimeout(function(){
 				canvasElement.addEventListener('mousemove',canvasMouseMove,false);
 				},10);
-
 	}
 	//鼠标移动
 	var canvasMouseMove = function(e){
@@ -726,7 +733,6 @@ PlanMap.prototype.initializeEvents = function(){
 
 	//mousedown
 	canvasElement.addEventListener('mousedown',canvasMouseDown,false);
-
 
 	//mouseup
 	canvasElement.addEventListener('mouseup',function(event){
@@ -885,10 +891,6 @@ PlanMap.prototype.onCheckedStation = function(loc){
 	}
 
 	this.clickStation = clickStation;
-
-	if(this.single){
-		this.cancelCheckedAllStation();
-	}
 
 	clickStation.checked = !clickStation.checked;
 	stations.splice(clickStation.getIndex(),1,clickStation);
