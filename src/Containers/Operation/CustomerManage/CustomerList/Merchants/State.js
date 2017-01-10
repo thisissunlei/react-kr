@@ -13,17 +13,12 @@ import {
 let State = observable({
 		searchParams:{},
 		openNewMerchants:false,
-		openEditMerchants:false,
 		openLookMerchants:false,
 });
 
 //新建页的开关
 State.switchNewMerchants = action(function() {
 	this.openNewMerchants=!this.openNewMerchants;
-});
-//编辑页的开关
-State.switchEditMerchants = action(function() {
-	this.openEditMerchants=!this.openEditMerchants;
 });
 //查看页面的开关
 State.switchLookMerchants = action(function() {
@@ -32,6 +27,5 @@ State.switchLookMerchants = action(function() {
 State.closeAllMerchants = action(function() {
 	this.openLookMerchants=false;
 	this.openNewMerchants=false;
-	this.openEditMerchants=false;
 });
 module.exports = State;

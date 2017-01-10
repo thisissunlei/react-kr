@@ -88,9 +88,7 @@ class Personal extends Component{
 	            displayCheckbox={false}
 	            onExport={this.onExport}
 	            ajaxParams={this.state.searchParams}
-
-	            ajaxFieldListName="items"
-	            ajaxUrlName='CardActivationList'
+	            ajaxUrlName='shareCustomers'
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn style={{width:"20%"}}>卡号</TableHeaderColumn>
