@@ -1,10 +1,9 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {Actions,Store} from 'kr/Redux';
+import React, {
+	Component
+} from 'react';
 import {
-	observer
-} from 'mobx-react';
+	connect
+} from 'react-redux';
 import {
 	bindActionCreators
 } from 'redux';
@@ -15,6 +14,8 @@ import {
 	Form,
 	KrField,
 	Table,
+	Tabs,
+	Tab,
 	TableBody,
 	TableHeader,
 	TableHeaderColumn,
@@ -23,20 +24,53 @@ import {
 	TableFooter,
 	Button,
 	Section,
-	Grid,
-	Row,
-	Col,
-	Dialog,
-  Title,
-  ListGroup,
-  ListGroupItem,
-  SearchForms,
-	Drawer
-
+	FontIcon,
+	SearchForms,
+	Title,
+	Input,
+	CheckboxGroup,
+	RadioGroup,
+	Message,
+	Tooltip,
+	KrForm,
+	DemoComponent,
+	Field,
+	FieldControl,
+	InputDate,
+	CircleStyle,
+	SearchForm,
+	SnackTip,
+	Dictionary
 } from 'kr-ui';
-import State from './State';
-import './index.less'
-@observer
+
+
+import {
+	reduxForm,
+	formValueSelector,
+	initialize,
+	arrayPush,
+	arrayInsert,
+	FieldArray,
+	Fields,
+	change
+} from 'redux-form';
+
+
+import './index.less';
+
+import LocationMap from 'kr-ui/Global/LocationMap';
+
+import {
+	List,
+	ListItem
+} from 'material-ui/List';
+
+import {
+	hashHistory,
+	History
+} from 'react-router';
+
+
 export default class Demo extends Component {
 
 	static contextTypes = {
@@ -49,7 +83,6 @@ export default class Demo extends Component {
 		this.state = {
 			userNameDefaultValue: ''
 		}
-		State.switchNewMerchants();
 
 	}
 
@@ -64,6 +97,9 @@ export default class Demo extends Component {
 		console.log(nzhcn.encodeB(100111.09));
 		return (
 			<div>
+				<Section title="haha">
+					<Dictionary type="ContractType" value="ADDRENT"/>
+				</Section>
 			</div>
 
 		);
