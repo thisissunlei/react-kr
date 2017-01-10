@@ -18,8 +18,8 @@ var Station = function(x,y,width,height,basic,index){
   //工位信息
   this.basic = basic;
   this.default = {
-      x:x,
-      y:y
+      x:Number(x),
+      y:Number(y)
   };
 
   //dom

@@ -429,35 +429,16 @@ PlanMap.prototype.createDragStationCanvas = function(){
   this.drawStations();
   this.createDragStationCanvasModal();
 
-  var origin = this.getPosition('down');
   var move = this.getPosition('move');
-  var x = move.x - origin.x;
-  var y = move.y - origin.y;
 
-  var translateX = x;
-  var translateY = y;
-
-  //context.translate(Number(x)/Number(this.scaleX),Number(y)/Number(this.scaleY));
-  console.log('--->>>',);
-
-
-/*
-  var positionX = x/this.scaleX+this.translateX;
-  var positionY = move.y ;
-
-  context.beginPath();
-  context.rect(positionX,positionY,10,10);
-  context.strokeStyle = 'red';
-  context.stroke();
-
-*/
   var _this = this;
 
   //选中的工位
   selectedStations.map(function(station){
-    console.log('de',move.x/_this.scaleX,station.x+station.width/2, Number(move.x)-Number(station.x));
-    var positionX  = Number(station.default.x) +  Number(move.x)/_this.scaleX-Number(station.x) ;
-    var positionY = Number(station.default.y) + Number(move.y)/_this.scaleY-Number(station.y);
+
+    var positionX  = station.default.x + move.x / _this.scaleX - station.x;
+    var positionY = station.default.y + move.y / _this.scaleY - station.y;
+
     station.position(positionX,positionY);
     station.create(context);
   });
