@@ -272,7 +272,7 @@ class extends React.Component {
 
 ##  12.排序
 
->1.  class extends React.Component 的顺序：  </br>
+** class extends React.Component 的顺序：**
 >1.  static静态方法  </br>
 >2.  constructor  </br>
 >3.  getChildContext  </br>
