@@ -225,33 +225,9 @@ export default class TreeComponent extends React.Component {
 		return (
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
-					<div className="city-component" ref={div=>{this.cityContainer = div}} onClick={this.showCity}>
-						<input readOnly="true" value={city} ref={input=>{this.input = input}}/>
-						<span className="arrow"></span>
-						<div className="city-cantainer" style={cityDiv}>
-							<ul ref={ul=>{this.cityList = ul}}>
-								<li className="firstCity">
-									{firstCity.map((item,index)=>{
-										hoverColor = (item.id == firstId)?selectedCity:cityStyle;
-										return (<div key={index} className='city-name' style={hoverColor} data-for={item.id} onMouseOver={this.selectFirstCity} ><span >{item.name}</span><span className="scroll-div"></span></div>)
-									})}
-								</li>
-								<li className="secondCity">
-									{secondCity.map((item,index)=>{
-										hoverColor = (item.id == secondId)?selectedCity:cityStyle;
-										return (<div key={index} className='city-name' style={hoverColor} data-for={item.id} onMouseOver={this.selectSecondCity}><span >{item.name}</span><span className="scroll-div"></span></div>)
-									})}
-								</li>
-								<li className="thirdCity">
-									{thirdCity.map((item,index)=>{
-										hoverColor = (item.id == thirdId)?selectedCity:cityStyle;
-										return (<div key={index} className='city-name' style={hoverColor} data-for={item.id} onMouseOver={this.selected}  onClick={this.onSubmit}><span >{item.name}</span><span className="scroll-div"></span></div>)
-									})}
-								</li>
-							</ul>
-						</div>
-					</div>
-				</WrapComponent>
+					
+
+			</WrapComponent>
 		);
 	}
 

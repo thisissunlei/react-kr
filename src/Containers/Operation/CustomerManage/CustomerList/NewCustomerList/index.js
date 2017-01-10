@@ -99,7 +99,7 @@ import './index.less'
 						</div>
 
 						<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">公司信息</label></div>
-						<div className="small-cheek">
+						<div className="small-cheek" >
 								<KrField grid={1/2} label="公司名称" name="propcode" component="input" style={{width:252,marginLeft:15}}  requireLabel={true}/>
 								<KrField grid={1/2} label="投资轮次" name="proptype" component="select" style={{width:252,marginLeft:15}} options={[
 										 {value:'PAYMENT',label:'回款'},
@@ -128,7 +128,7 @@ import './index.less'
 								<div className="middle-round"></div>
 						</div>
 						<div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">拜访记录</label></div>
-						<div className="small-cheek">
+						<div className="small-cheek" style={{paddingBottom:0}}>
 								<KrField grid={1/2} label="拜访方式" name="proptype" component="select" style={{width:252,marginLeft:15}} options={[
 										 {value:'PAYMENT',label:'回款'},
 										 {value:'INCOME',label:'收入'},]}
