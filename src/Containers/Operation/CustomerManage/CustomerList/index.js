@@ -155,7 +155,7 @@ class CustomerList extends Component {
 						{/*
 							<FloorPlan tab={tab} />
 
-							*/}
+						 */}
 							<SignedClient />
 					</Tab>
 			</Tabs>

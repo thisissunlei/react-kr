@@ -30,6 +30,7 @@ import State from './State';
 
 import NewCustomerList from '../NewCustomerList';
 import LookCustomerList from '../LookCustomerList';
+import SearchUpperForm from '../SearchUpperForm';
 import './index.less'
 @observer
 class Merchants extends Component{
@@ -58,6 +59,10 @@ class Merchants extends Component{
 	onNewMerchants=(params)=>{
 
 	}
+	//高级查询
+	openSearchUpperDialog=()=>{
+      State.searchUpperCustomer();
+	}
 
 	closeAllMerchants=()=>{
 		State.closeAllMerchants();
@@ -83,7 +88,7 @@ class Merchants extends Component{
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
 				          <ListGroup>
 				            <ListGroupItem><SearchForms placeholder='请输入客户名称' onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
-				            <ListGroupItem><Button searchClick={this.openNewCreateDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
+				            <ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
 				          </ListGroup>
 			          </Col>
 	        </Row>
@@ -92,7 +97,7 @@ class Merchants extends Component{
 			    style={{marginTop:8}}
                 ajax={true}
                 onOperation={this.onOperation}
-	            displayCheckbox={false}
+	            displayCheckbox={true}
 	            ajaxParams={this.state.searchParams}
 	            ajaxUrlName='shareCustomers'
 	            ajaxFieldListName="list"
@@ -156,6 +161,19 @@ class Merchants extends Component{
 										
 								/>
 					</Drawer>
+
+                    {/*高级查询*/}
+                    <Dialog
+						title="高级查询"
+						modal={true}
+						open={State.openSearchUpper}
+					>
+						<SearchUpperForm  
+						    onCancel={this.openSearchUpperDialog}
+						/>
+				    </Dialog>
+
+
 					{
 						(State.openNewMerchants||
 							State.openEditMerchants||

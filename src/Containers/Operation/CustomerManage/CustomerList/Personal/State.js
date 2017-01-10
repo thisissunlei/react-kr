@@ -11,12 +11,28 @@ import {
 } from 'kr/Redux';
 
 let State = observable({
-		openLookPersonal:false,
+		searchParams:{},
+		openNewMerchants:false,
+		openLookMerchants:false,
+		openSearchUpper:false
 });
 
-//action
-State.switchLookPersonal = action(function(params) {
-		this.openLookPersonal=!this.openLookPersonal;
+//新建页的开关
+State.switchNewCustomerList = action(function() {
+	this.openNewMerchants=!this.openNewMerchants;
+});
+//查看页面的开关
+State.switchLookCustomerList = action(function() {
+	this.openLookMerchants=!this.openLookMerchants;
+});
+//高级查询的开关
+State.searchUpperCustomer = action(function() {
+	this.openSearchUpper=!this.openSearchUpper;
 });
 
+State.closeAllMerchants = action(function() {
+	this.openLookMerchants=false;
+	this.openNewMerchants=false;
+	this.openSearchUpper=false;
+});
 module.exports = State;
