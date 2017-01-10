@@ -275,9 +275,7 @@ PlanMap.prototype.reset = function(){
 
   context.drawImage(this.backgroundImage,0,0,this.backgroundImage.width,this.backgroundImage.height);
 
-
 }
-
 
 //平面图-外观样式
 
@@ -367,10 +365,7 @@ PlanMap.prototype.onDragStation = function(){
 
   var clickStation = this.clickStation;
 
-  console.log('thi',clickStation.getChecked())
-
   if(this.selectedStations.length && clickStation &&  clickStation.getChecked()){
-    console.log('jianj');
     this.createDragStationCanvas();
   }
 
@@ -442,13 +437,27 @@ PlanMap.prototype.createDragStationCanvas = function(){
   var translateX = x;
   var translateY = y;
 
-  //context.translate(translateX,translateY);
-  var positionX = move.x;
-  var positionY = move.y;
+  //context.translate(Number(x)/Number(this.scaleX),Number(y)/Number(this.scaleY));
+  console.log('--->>>',);
+
+
+/*
+  var positionX = x/this.scaleX+this.translateX;
+  var positionY = move.y ;
+
+  context.beginPath();
+  context.rect(positionX,positionY,10,10);
+  context.strokeStyle = 'red';
+  context.stroke();
+
+*/
   var _this = this;
 
   //选中的工位
   selectedStations.map(function(station){
+    console.log('de',move.x/_this.scaleX,station.x+station.width/2, Number(move.x)-Number(station.x));
+    var positionX  = Number(station.default.x) +  Number(move.x)/_this.scaleX-Number(station.x) ;
+    var positionY = Number(station.default.y) + Number(move.y)/_this.scaleY-Number(station.y);
     station.position(positionX,positionY);
     station.create(context);
   });
@@ -997,7 +1006,7 @@ PlanMap.prototype.drawStations = function(context){
 	stations.forEach(function(station,index){
 			station.position(Number(station.default.x),Number(station.default.y));
 			station.create(context);
-			});
+	});
 }
 
 //平面图-鼠标位置
