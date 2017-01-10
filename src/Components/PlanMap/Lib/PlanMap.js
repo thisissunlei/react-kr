@@ -57,6 +57,7 @@ var PlanMap = function(elementIdName,Configs,Plugins){
       //move
       move:0,
       //drag
+      isJudgeDrag:0,
       drag:0,
       dragBegin:0,
       dragEnd:0,
@@ -356,7 +357,6 @@ PlanMap.prototype.mapEndDrawStation = function(){
 //拖动工位
 PlanMap.prototype.onDragStation = function(){
 
-
   //判断是否有权限
 
   var permission = this.permission;
@@ -365,10 +365,12 @@ PlanMap.prototype.onDragStation = function(){
     return ;
   }
 
-  var position = this.getPosition('down');
-  var downStation = this.hasPositionStation(position);
+  var clickStation = this.clickStation;
 
-  if(this.selectedStations.length && downStation.checked){
+  console.log('thi',clickStation.getChecked())
+
+  if(this.selectedStations.length && clickStation &&  clickStation.getChecked()){
+    console.log('jianj');
     this.createDragStationCanvas();
   }
 
@@ -385,23 +387,21 @@ PlanMap.prototype.onDragStation = function(){
 }
 
 PlanMap.prototype.onDragStationBegin = function(){
-
   var canvasElement = this.canvasElement;
   Log.debug('拖拽工位开始了');
-
   var selected = [];
   if(this.single){
     var downPosition = this.getPosition('down');
     var selectedStation = this.hasPositionStation(downPosition);
 
-    if(selectedStation.checked){
+    if(selectedStation.getChecked()){
       selected.push(selectedStation);
     }
   }else{
     //选中的工位
     var stations = this.getStations();
     stations.map(function(item,index){
-      if(item.checked){
+      if(item.getChecked()){
         var station = new Station(item.x,item.y,item.width,item.height,item.basic,item.index);
         selected.push(station);
       }
@@ -432,7 +432,7 @@ PlanMap.prototype.createDragStationCanvas = function(){
   var position = this.getPosition('move');
 
   this.drawStations();
-  //this.createDragStationCanvasModal();
+  this.createDragStationCanvasModal();
 
   var origin = this.getPosition('down');
   var move = this.getPosition('move');
@@ -442,11 +442,14 @@ PlanMap.prototype.createDragStationCanvas = function(){
   var translateX = x;
   var translateY = y;
 
-  context.translate(translateX,translateY);
+  //context.translate(translateX,translateY);
+  var positionX = move.x;
+  var positionY = move.y;
   var _this = this;
+
   //选中的工位
   selectedStations.map(function(station){
-    station.position(Number(station.default.x),Number(station.default.y));
+    station.position(positionX,positionY);
     station.create(context);
   });
 }
@@ -455,8 +458,6 @@ PlanMap.prototype.createDragStationCanvas = function(){
 PlanMap.prototype.swapStationStaff = function(originStation,targetStation){
 
 	var Plugns = this.plugins;
-
-console.log('--',Plugns);
 
 	Plugns && Plugns.swapStationStaff && Plugns.swapStationStaff(originStation.getBasicInfo(),targetStation.getBasicInfo());
 
@@ -487,6 +488,8 @@ PlanMap.prototype.onDragStationEnd = function(){
 		this.swapStationStaff(originStation,targetStation);
 	}
 
+  this.selectedStations = [];
+
 }
 
 //默认前一个值
@@ -516,19 +519,6 @@ PlanMap.prototype.translate = function(translateX,translateY){
 }
 
 
-//判断是拖拽工位还是map
-PlanMap.prototype.judgeDragStationOrMap = function(){
-
-  var mouseDownPosition = this.getPosition('down');
-  var isStation = false;
-  if(this.hasPositionStation(this.getPosition('down'))){
-        isStation = true;
-  }
-
-
-  this.setEvent('dragStation',Number(isStation));
-  this.setEvent('dragMap',Number(!isStation));
-}
 
 
 PlanMap.prototype.onLeftEventClick = function(){
@@ -769,9 +759,25 @@ PlanMap.prototype.judgeClick = function(){
 
 }
 
+//判断是拖拽工位还是map
+PlanMap.prototype.judgeDragStationOrMap = function(){
+
+  var mouseDownPosition = this.getPosition('down');
+  var isStation = false;
+  if(this.hasPositionStation(this.getPosition('down'))){
+        isStation = true;
+  }
+
+  this.setEvent('dragStation',Number(isStation));
+  this.setEvent('dragMap',Number(!isStation));
+  this.setEvent('isJudgeDrag',1);
+}
+
 PlanMap.prototype.onDrag = function(){
 
-	this.judgeDragStationOrMap();
+  if(!this.getEvent('isJudgeDrag')){
+	   this.judgeDragStationOrMap();
+  }
 
 	if(this.getEvent('drag') && this.getEvent('dragMap')){
 		this.onDragMap();
@@ -785,6 +791,7 @@ PlanMap.prototype.onDrag = function(){
 }
 
 PlanMap.prototype.onDragBegin = function(){
+  console.log('---???')
 	this.onDragMapBegin();
 }
 
@@ -794,6 +801,7 @@ PlanMap.prototype.onDragEnd = function(){
 	this.drawStations();
 
 
+  console.log('end');
 	if(this.getEvent('drag') && this.getEvent('dragBegin') && this.getEvent('dargMap')){
 		this.onDragMapEnd();
 	}
@@ -807,7 +815,7 @@ PlanMap.prototype.onDragEnd = function(){
 	this.setEvent('dragEnd',1);
 	this.setEvent('dragMap',0);
 	this.setEvent('dragStation',0);
-
+  this.setEvent('isJudgeDrag',0);
 }
 
 //拖动平面图
@@ -852,7 +860,7 @@ PlanMap.prototype.onDragMap = function(){
 	this.setEvent('drag',1);
 	this.setEvent('dragBegin',1);
 
-	this.onDragBegin();
+	//this.onDragBegin();
 
 }
 
@@ -880,22 +888,33 @@ PlanMap.prototype.cancelCheckedAllStation = function(){
 	this.setStations(stations);
 }
 
+PlanMap.prototype.setClickStation = function(clickStation){
+    this.clickStation = clickStation;
+}
+
+PlanMap.prototype.getClickStation = function(){
+  return this.clickStation;
+}
+
 //点击选中
 PlanMap.prototype.onCheckedStation = function(loc){
-  
+
+
 	let stations = this.getStations();
 	//关闭所有station dialog
 	this.closeAllStationDialog();
+
 
 	let clickStation = this.hasPositionStation(loc);
 	if(!clickStation){
 		return ;
 	}
 
-	this.clickStation = clickStation;
-
-	clickStation.checked = !clickStation.checked;
+  clickStation.setChecked(!clickStation.getChecked());
 	stations.splice(clickStation.getIndex(),1,clickStation);
+
+  this.setClickStation(clickStation);
+
 
 	this.setStations(stations);
 

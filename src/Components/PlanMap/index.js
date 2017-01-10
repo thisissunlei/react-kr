@@ -28,6 +28,8 @@ export default  class PlanMapComponent extends React.Component {
 			startDate: React.PropTypes.string,
 			endDate: React.PropTypes.string,
 			contractId: React.PropTypes.any,
+			//选中的工位
+			checkedStations:React.PropTypes.array
 	}
 
 
