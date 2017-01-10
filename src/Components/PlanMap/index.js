@@ -34,14 +34,27 @@ export default  class PlanMapComponent extends React.Component {
 	constructor(props){
 		super(props)
 		this.state = {
-				configs:{}
+				configs:{},
+				plugns:{
+					onCheckedStation:this.onCheckedStation,
+					swapStationStaff:this.swapStationStaff
+				}
 		}
 
 	}
 
+	//点选工位
+	onCheckedStation = (clickStation,selectedStations)=>{
+			console.log('se',selectedStations);
+	}
+	//交换工位员工信息
+	swapStationStaff = (originStation,targetStation)=>{
+		console.log('---<<',originStation,targetStation);
+	}
+
 	drawCanvas = ()=>{
-		var configs = this.state.configs;
-		var planMap = new PlanMap('planMapCanvas',configs);
+		const {configs,plugns} = this.state;
+		var planMap = new PlanMap('planMapCanvas',configs,plugns);
 	}
 
 	initializeStyle = ()=>{
@@ -64,8 +77,6 @@ export default  class PlanMapComponent extends React.Component {
 	getBasicInfo = ()=>{
 
 		var _this = this;
-
-		console.log('---',this.props);
 	 	Store.dispatch(Actions.callAPI('planMap',Object.assign({},this.props))).then(function(response){
 	           var data  = response.shift();
 	          var stationsDataOrigin = data.figures;
@@ -107,7 +118,6 @@ export default  class PlanMapComponent extends React.Component {
 	componentDidMount(){
 			this.getBasicInfo();
 			window.addEventListener("resize",function(){
-				console.log('----')
 				//this.initializeStyle();
 			},false);
 	}

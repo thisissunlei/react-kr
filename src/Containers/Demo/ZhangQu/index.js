@@ -41,6 +41,7 @@ export default class ZhangQu extends Component {
 						title="平面图"
 						contentStyle={{width:1000}}
 						onClose={this.close}
+						bodyStyle={{paddingLeft:0,paddingRight:0}}
 						open={this.state.open} >
 								<PlanMap />
 

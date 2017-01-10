@@ -8,6 +8,7 @@ import Log from './Log';
 var PlanMap = function(elementIdName,Configs,Plugins){
 
     this.configs = Configs;
+    this.plugins = Plugins;
     //dom信息
     this.elementIdName = elementIdName;
     this.canvasElement = document.getElementById(elementIdName);
@@ -431,7 +432,7 @@ PlanMap.prototype.createDragStationCanvas = function(){
   var position = this.getPosition('move');
 
   this.drawStations();
-  this.createDragStationCanvasModal();
+  //this.createDragStationCanvasModal();
 
   var origin = this.getPosition('down');
   var move = this.getPosition('move');
@@ -453,7 +454,9 @@ PlanMap.prototype.createDragStationCanvas = function(){
 //交换工位上的员工信息
 PlanMap.prototype.swapStationStaff = function(originStation,targetStation){
 
-	var Plugns = this.Plugins;
+	var Plugns = this.plugins;
+
+console.log('--',Plugns);
 
 	Plugns && Plugns.swapStationStaff && Plugns.swapStationStaff(originStation.getBasicInfo(),targetStation.getBasicInfo());
 
@@ -879,9 +882,8 @@ PlanMap.prototype.cancelCheckedAllStation = function(){
 
 //点击选中
 PlanMap.prototype.onCheckedStation = function(loc){
-
+  
 	let stations = this.getStations();
-
 	//关闭所有station dialog
 	this.closeAllStationDialog();
 
@@ -899,6 +901,24 @@ PlanMap.prototype.onCheckedStation = function(loc){
 
 	this.drawStations();
 
+  var plugins = this.plugins;
+
+  plugins.onCheckedStation && plugins.onCheckedStation(clickStation,this.getCheckedStations());
+
+}
+
+PlanMap.prototype.getCheckedStations = function(){
+  var stations = this.stations;
+
+  var checkedStations = [];
+
+  stations.map(function(station){
+    if(station.getChecked()){
+      checkedStations.push(station);
+    }
+  });
+
+  return checkedStations;
 }
 
 //关闭所有的stations dialog
