@@ -50,7 +50,7 @@ import 	KrForm from './KrForm';
 import 	InputDate from './InputDate';
 import  SnackTip from './SnackTip';
 import Dictionary from './Dictionary';
-
+import UploadImage from './UploadImage';
 
 import {
 	Grid,
@@ -138,6 +138,7 @@ module.exports = {
 	CircleStyle,
 	SearchForm,
 	Tooltips,
-	Tooltip
+	Tooltip,
+	UploadImage,
 }
 

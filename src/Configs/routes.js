@@ -62,7 +62,7 @@ export default (
 		<Route path="member" component={Basic}>
              <IndexRedirect to="memberManage/list" />
 
-		<Route path="memberManage" component={Basic}>
+			<Route path="memberManage" component={Basic}>
 				<Route path="list"  component={Member.MemberManage.List}/>
 				<Route path=":memberId/detail/:companyId"  component={Member.MemberManage.Detail}/>
 				<Route path="setting"  component={Member.MemberManage.Setting}/>
@@ -109,6 +109,10 @@ export default (
 				<Route path="index" component={Operation.Home}/>
                  {/*分组模版管理*/}
                 <Route path="groupSetting" component={Operation.GroupSetting}/>
+            	{/*基础配置*/}
+                <Route path="basicConfig" component={Basic}>
+                	<Route path="EquipmentDefinition" component={Operation.BasicConfig.EquipmentDefinition} name="EquipmentDefinition"/>
+                </Route>
                  {/*客户管理*/}
 				<Route path="customerManage" component={Basic}>
 					<Route path="List" component={Operation.CustomerManage.List} name="customerManage_list"/>
