@@ -20,17 +20,15 @@ import {
 	Row,
 	Col,
 	Dialog,
-  Title,
-  ListGroup,
-  ListGroupItem,
-  SearchForms,
+    Title,
+    ListGroup,
+    ListGroupItem,
+    SearchForms,
 	Drawer
-
 } from 'kr-ui';
 import State from './State';
 
 import NewCustomerList from '../NewCustomerList';
-import EditCustomerList from '../EditCustomerList';
 import LookCustomerList from '../LookCustomerList';
 import './index.less'
 @observer
@@ -43,29 +41,24 @@ class Merchants extends Component{
 		}
 	}
 
-	//新建提交按钮
-	onNewMerchants=(params)=>{
-
-	}
-
-	//编辑页提交按钮
-	onEditMerchants=(params)=>{
-
-	}
 
 	//新建页面的开关
 	switchNewMerchants=()=>{
 		State.switchNewMerchants();
 	}
-	//编辑页面的开关
-	switchEditMerchants=()=>{
-		State.switchEditMerchants();
-	}
+
+
 	//查看页的开关
 	switchLookCustomerList=()=>{
 		State.switchLookCustomerList();
 		
 	}
+
+	//新建提交按钮
+	onNewMerchants=(params)=>{
+
+	}
+
 	closeAllMerchants=()=>{
 		State.closeAllMerchants();
 	}
@@ -73,91 +66,83 @@ class Merchants extends Component{
 	render(){
 
 		return(
-      <div className="m-merchants" style={{paddingTop:45}}>
-      		<Title value="会员配置"/>
-	        <Row >
-			        <Col
-									align="left"
-									style={{marginLeft:0,float:'left'}}
-							>
+      <div className="m-merchants" style={{paddingTop:25}}>
+      		<Title value="运营平台"/>
+	        <Row style={{marginBottom:21}}>
+			          <Col
+					     align="left"
+					     style={{float:'left'}}
+					   >
 									<Button
 											label="新建客户"
 											type='button'
-										 	joinEditForm
 											onTouchTap={this.switchNewMerchants}
 									/>
-							</Col>
-			        <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
-			          <ListGroup>
-			            <ListGroupItem> <SearchForms placeholder='请输入会员卡号码' onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
-			          </ListGroup>
-			        </Col>
-	        </Row>
-          <Table
-							style={{marginTop:8}}
-              ajax={true}
-              onOperation={this.onOperation}
-              onProcessData={(state)=>{return state;}
-	            }
-	            displayCheckbox={false}
-	            onExport={this.onExport}
-	            ajaxParams={this.state.searchParams}
+					  </Col>
 
-	            ajaxFieldListName="items"
-	            ajaxUrlName='CardActivationList'
+			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
+				          <ListGroup>
+				            <ListGroupItem><SearchForms placeholder='请输入客户名称' onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
+				            <ListGroupItem><Button searchClick={this.openNewCreateDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
+				          </ListGroup>
+			          </Col>
+	        </Row>
+
+            <Table
+			    style={{marginTop:8}}
+                ajax={true}
+                onOperation={this.onOperation}
+	            displayCheckbox={false}
+	            ajaxParams={this.state.searchParams}
+	            ajaxUrlName='shareCustomers'
+	            ajaxFieldListName="list"
 					  >
 		            <TableHeader>
-		              <TableHeaderColumn style={{width:"20%"}}>卡号</TableHeaderColumn>
-		              <TableHeaderColumn style={{width:"20%"}}>内码</TableHeaderColumn>
-		              <TableHeaderColumn style={{width:"20%"}}>状态</TableHeaderColumn>
-		              <TableHeaderColumn style={{width:"20%"}}>激活时间</TableHeaderColumn>
-		              <TableHeaderColumn style={{width:"20%"}}>操作</TableHeaderColumn>
+		              <TableHeaderColumn>公司名称</TableHeaderColumn>
+		              <TableHeaderColumn>意向城市</TableHeaderColumn>
+		              <TableHeaderColumn>意向社区</TableHeaderColumn>
+		              <TableHeaderColumn>意向工位数</TableHeaderColumn>
+		              <TableHeaderColumn>来源</TableHeaderColumn>
+		              <TableHeaderColumn>客户分类</TableHeaderColumn>
+		              <TableHeaderColumn>领取人</TableHeaderColumn>
+		              <TableHeaderColumn>创建时间</TableHeaderColumn>
+		              <TableHeaderColumn>操作</TableHeaderColumn>
 
 		          	</TableHeader>
 
-			          <TableBody >
+			        <TableBody >
 			              <TableRow >
-			                <TableRowColumn name="foreignCode" ></TableRowColumn>
-			                <TableRowColumn name="interCode" ></TableRowColumn>
-			                <TableRowColumn name="enable" options={[{label:'已激活',value:'true'},{label:'未激活',value:'false'}]}></TableRowColumn>
-			                <TableRowColumn name="activeTime" type='date' format="yyyy-mm-dd HH:MM:ss" ></TableRowColumn>
+			                <TableRowColumn name="customerCompany" ></TableRowColumn>
+			                <TableRowColumn name="intentionCityName" ></TableRowColumn>
+			                <TableRowColumn name="intentionCommunityName"></TableRowColumn>
+			                <TableRowColumn name="stationNum"></TableRowColumn>
+			                <TableRowColumn name="sourceName"></TableRowColumn>
+			                <TableRowColumn name="levelName"></TableRowColumn>
+			                <TableRowColumn name="receiveName"></TableRowColumn>
+			                <TableRowColumn name="receiveTime" type='date' format="yyyy-mm-dd HH:MM:ss" ></TableRowColumn>
 			                <TableRowColumn type="operation">
-			                    <Button label="编辑"  type="operation"  operation="edit" />
+			                    <Button label="查看"  type="operation"  operation="edit" />
 			                 </TableRowColumn>
 			               </TableRow>
-			          </TableBody>
+			        </TableBody>
+           </Table>
 
-          			<TableFooter ></TableFooter>
-          </Table>
 
 					{/*新建*/}
 					<Drawer
-			        open={State.openNewMerchants}
-			        width={700}
-			        openSecondary={true}
-			        className='m-finance-drawer'
-			        containerStyle={{top:60,paddingBottom:228,zIndex:20}}
-			     >
+				        open={State.openNewMerchants}
+				        width={700}
+				        openSecondary={true}
+				        className='m-finance-drawer'
+				        containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+			        >
 								<NewCustomerList
 										onSubmit={this.onNewMerchants}
 										onCancel={this.switchNewMerchants}
 								/>
 
-		      </Drawer>
+		           </Drawer>
 
-					{/*编辑*/}
-					<Drawer
-							open={State.openEditMerchants}
-							width={700}
-							openSecondary={true}
-							className='m-finance-drawer'
-							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
-					>
-								<EditCustomerList
-										onSubmit={this.onEditMerchants}
-										onCancel={this.switchEditMerchants}
-								/>
-					</Drawer>
 
 					{/*查看*/}
 					<Drawer
@@ -181,7 +166,7 @@ class Merchants extends Component{
 							>
 							</div>
 					}
-      </div>
+        </div>
 		);
 	}
 

@@ -111,11 +111,13 @@ class CustomerList extends Component {
 
 		const activeTab = {
 			color: '#2b8dcd',
-			borderBottom: "1px solid #eee"
+			borderBottom: "1px solid #eee",
+			fontSize:'16px'
 		}
 		const commenTab = {
-			color: '#000',
-			borderBottom: "1px solid #eee"
+			color: '#666',
+			borderBottom: "1px solid #eee",
+            fontSize:'16px'
 		}
 		let merchantsStyle = (tab == 'merchants') ? activeTab : commenTab;
 		let personalStyle = (tab == 'personal') ? activeTab : commenTab;
