@@ -20,6 +20,7 @@ import SearchBelongCommunity from './SearchBelongCommunity';
 import LabelTextComponent from './LabelTextComponent';
 import GroupComponent from './GroupComponent';
 import CityComponent from './CityComponent';
+import TreeComponent from './CityComponent';
 import SearchCompanyComponent from './SearchCompanyComponent';
 import EditLabelTextComponent from './EditLabelTextComponent';
 
@@ -136,6 +137,12 @@ export default class KrField extends React.Component {
 		if (component === 'city' || type == 'city') {
 			return (
 				<CityComponent {...this.props} style={WrapStyles}/>
+			);
+		}
+
+		if (component === 'tree' || type == 'tree') {
+			return (
+				<TreeComponent {...this.props} style={WrapStyles}/>
 			);
 		}
 

@@ -65,12 +65,12 @@ import './index.less'
 							<div className="titleBar"><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
 							<div className="small-cheek">
 
-									<KrField grid={1/2} label="客户来源" name="proptype" style={{width:252,marginLeft:15}} component="select" options={[
+									<KrField grid={1/2} label="客户来源" name="sourceId" style={{width:252,marginLeft:15}} component="select" options={[
 											{value:'PAYMENT',label:'回款'},
 										   {value:'INCOME',label:'收入'},]}
 											 requireLabel={true}
 									/>
-									<KrField grid={1/2} label="意向工位个数" name="propcode" style={{width:252,marginLeft:15}} component="input" requireLabel={true}>
+									<KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:252,marginLeft:15}} component="input" requireLabel={true}>
 										<span>个</span>
 									</KrField>
 									<KrField grid={1/2} label="联系人姓名" name="propcode" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>

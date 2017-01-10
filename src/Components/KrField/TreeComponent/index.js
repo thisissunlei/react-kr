@@ -10,7 +10,7 @@ import $ from 'jquery';
 import WrapComponent from '../WrapComponent';
 import { default as CityData } from './CityData.json';
 
-export default class CityComponent extends React.Component {
+export default class TreeComponent extends React.Component {
 
 	static displayName = 'DateComponent';
 
