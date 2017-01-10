@@ -164,18 +164,6 @@ JSX 的属性都采用双引号，其他的 JS 都使用单引号。eslint: jsx-
   phoneNumber={12345678}
 />
 ```
-**当属性值等于true的时候，省略该属性的赋值。 eslint: react/jsx-boolean-value**
-```jsx
-// bad
-<Foo
-  hidden={true}
-/>
-
-// good
-<Foo
-  hidden
-/>
-```
 
 
 ## 9.大括号
@@ -284,21 +272,21 @@ class extends React.Component {
 
 ##  12.排序
 
->class extends React.Component 的顺序：  </br>
->static静态方法  </br>
->constructor  </br>
->getChildContext  </br>
->componentWillMount  </br>
->componentDidMount  </br>
->componentWillReceiveProps  </br>
->shouldComponentUpdate  </br>
->componentWillUpdate  </br>
->componentDidUpdate  </br>
->componentWillUnmount  </br>
->点击回调或者事件回调 比如 onClickSubmit() 或者 onChangeDescription()  </br>
->render函数中的 getter 方法 比如 getSelectReason() 或者 getFooterContent()  </br>
->可选的 render 方法 比如 renderNavigation() 或者 renderProfilePicture()  </br>
->render  </br>
+>1.  class extends React.Component 的顺序：  </br>
+>1.  static静态方法  </br>
+>2.  constructor  </br>
+>3.  getChildContext  </br>
+>4.  componentWillMount  </br>
+>5.  componentDidMount  </br>
+>6.  componentWillReceiveProps  </br>
+>7.  shouldComponentUpdate  </br>
+>8.  componentWillUpdate  </br>
+>9.  componentDidUpdate  </br>
+>10.  componentWillUnmount  </br>
+>11.  点击回调或者事件回调 比如 onClickSubmit() 或者 onChangeDescription()  </br>
+>12.  render函数中的 getter 方法 比如 getSelectReason() 或者 getFooterContent()  </br>
+>13.  可选的 render 方法 比如 renderNavigation() 或者 renderProfilePicture()  </br>
+>14.  render  </br>
 
 ##  13.isMounted
 不要使用 isMounted. eslint: react/no-is-mounted
