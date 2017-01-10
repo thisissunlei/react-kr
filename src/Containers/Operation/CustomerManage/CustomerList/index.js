@@ -132,7 +132,7 @@ class CustomerList extends Component {
 
 		return (
 
-			<div className="tab-container" style={{minHeight:910}}>
+			<div className="tab-container" style={{minHeight:910,background:'#fff'}}>
 			<Title value="客户列表"/>
 		 	<BreadCrumbs children={['系统运营','社区管理','计划表']}/>
 				<span className="line"></span>
