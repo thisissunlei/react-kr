@@ -267,7 +267,8 @@ PlanMap.prototype.reset = function(){
 
   canvasElement.width = canvasElement.width;
 
-  this.setTransform();
+  //context.setTransform(1,0,0,1,this.translateX,this.translateY);
+  context.setTransform(this.scaleX,0,0,this.scaleY,this.translateX,this.translateY);
 
   context.clearRect(0,0,canvasElement.width,canvasElement.height);
   context.fillStyle = '#fff';
@@ -583,28 +584,41 @@ PlanMap.prototype.isPositionInStation = function(loc){
 
 PlanMap.prototype.calcScale = function(){
 
-  var loc  = this.getPosition('move');
-  var defaultScale = 0.1;
-  var defaultTranslate = 100;
+  var move  = this.getPosition('move');
 
-  if(this.getEvent('whell') && this.getEvent('whellDown')){
-    defaultScale = 0.1;
-    defaultTranslate = 100;
-  }else if(this.getEvent('whell') && this.getEvent('whellUp')){
+  var defaultScale = 0.1;
+
+  //缩小
+   if(this.getEvent('whell') && this.getEvent('whellUp')){
     defaultScale = -defaultScale;
-    defaultTranslate = -defaultTranslate;
   }
 
   var scaleX = this.scaleX+defaultScale;
   var scaleY = this.scaleY+defaultScale;
 
-  var dp = {
-	  x:loc.x * this.scaleX,
-	  y:loc.y * this.scaleY
- };
 
-  var translateX = this.translateX-defaultTranslate;
-  var translateY = this.translateY-defaultTranslate;
+  var defaultTranslateX = Number(move.x)*Number(defaultScale);
+  //- Number(move.x);
+  var defaultTranslateY = Number(move.y)*Number(defaultScale);
+  // - Number(move.y);
+
+
+  //放大
+  if(this.getEvent('whell') && this.getEvent('whellDown')){
+    defaultTranslateX = -defaultTranslateX;
+    defaultTranslateY = -defaultTranslateY;
+    //缩小
+  }else if(this.getEvent('whell') && this.getEvent('whellUp')){
+    defaultTranslateX = -defaultTranslateX;
+    defaultTranslateY = -defaultTranslateY;
+  }
+
+  console.log(defaultTranslateX,move.x,defaultScale,defaultTranslateY);
+
+
+var translateX = this.translateX + defaultTranslateX;
+var translateY = this.translateY + defaultTranslateY;
+
 
 	if(scaleX<0.6 || scaleX >10){
 		return ;
