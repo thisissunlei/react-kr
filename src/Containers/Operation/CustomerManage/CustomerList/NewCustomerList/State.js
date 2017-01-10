@@ -9,29 +9,33 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-
 let State = observable({
 		detail:[],
-		
+		matureTime:false,
+		selectData:{
+			communityBaselist:[],
+			customerSourceList:[],
+			giveupList:[],
+			levelList:[],
+			roundList:[],
+			stationTypeList:[],
+			visitTypeList:[]
+		}
 
 
 });
+//select下拉数组的初始化
+State.selectDataInit=action(function(params) {
+	this.selectData=params;
+});
+//显示到期时间
+State.showMatureTime = action(function() {
+	this.matureTime=true;
+});
 
-//新建页的开关
-State.switchNewMerchants = action(function() {
-	this.openNewMerchants=!this.openNewMerchants;
+//不显示到期时间
+State.noShowMatureTime = action(function() {
+	this.matureTime=false;
 });
-//编辑页的开关
-State.switchEditMerchants = action(function() {
-	this.openEditMerchants=!this.openEditMerchants;
-});
-//查看页面的开关
-State.switchLookMerchants = action(function() {
-	this.openLookMerchants=!this.openLookMerchants;
-});
-State.closeAllMerchants = action(function() {
-	this.openLookMerchants=false;
-	this.openNewMerchants=false;
-	this.openEditMerchants=false;
-});
+
 module.exports = State;

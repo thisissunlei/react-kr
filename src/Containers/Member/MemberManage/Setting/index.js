@@ -210,7 +210,7 @@ export default class List extends Component {
 			searchParams: obj
 		});
 	}
-	 //打开弹跳
+	 //打开弹条
 	 openMessageBar=(text,type)=>{
 	 	var style={};
 	 	var className="";
