@@ -30,11 +30,10 @@ import {
 	Member,
 	Community,
 	Retail,
-	Statistical,
-	customerManage
-} from '../Containers';
+	Statistical
+} from './Containers';
 
-import Master from '../master';
+import Master from './master';
 
 export default (
 
@@ -61,28 +60,22 @@ export default (
 
 		{/*会员中心*/}
 		<Route path="member" component={Basic}>
-             <IndexRedirect to="memberManage/list" />
-
-		<Route path="memberManage" component={Basic}>
-				<Route path="list"  component={Member.MemberManage.List}/>
-				<Route path=":memberId/detail/:companyId"  component={Member.MemberManage.Detail}/>
-				<Route path="setting"  component={Member.MemberManage.Setting}/>
-
-			</Route>
-
+			<Route path="index" component={Member.Home}/>
+			<Route path="list"  component={Member.List}/>
 		</Route>
 
 		{/*统计看板*/}
 		<Route path="statistical" component={Basic}>
 			<Route path="index" component={Statistical.Home}/>
-				<IndexRedirect to="index" />
+			<IndexRedirect to="index" />
 		</Route>
+
 
 
 		{/*社区经营*/}
 		<Route path="community" component={Basic}>
              <IndexRedirect to="communityManage/detail" />
-			{/*销控表*/}
+			{/*计划表*/}
 
 			<Route path="communityManage" component={Basic}>
 					<Route path="detail" component={Operation.CommunityManage.Detail}/>
@@ -108,13 +101,11 @@ export default (
 		{/*运营管理*/}
 		<Route path="operation" component={Basic}>
 				<Route path="index" component={Operation.Home}/>
-        {/*分组模版管理*/}
-        <Route path="groupSetting" component={Operation.GroupSetting}/>
-        {/*客户管理*/}
+                 {/*分组模版管理*/}
+                <Route path="groupSetting" component={Operation.GroupSetting}/>
+                 {/*客户管理*/}
 				<Route path="customerManage" component={Basic}>
-					<Route path="customerList" component={Operation.CustomerManage.CustomerList} />
-
-					<Route path="list" component={Operation.CustomerManage.List} />
+					<Route path="List" component={Operation.CustomerManage.List} name="customerManage_list"/>
 
 					<Route path=":customerId/" component={Basic} >
 
@@ -133,7 +124,6 @@ export default (
 																		<Route path=":id/edit" component={Operation.CustomerManage.Agreement.Join.Edit}/>
 																		<Route path=":id/detail" component={Operation.CustomerManage.Agreement.Join.Detail}/>
 																		<Route path="create" component={Operation.CustomerManage.Agreement.Join.Create}/>
-																		<Route path=":id/print" component={Operation.CustomerManage.Agreement.Join.Print}/>
 																	</Route>
 
 																	{/*承租意向书*/}
@@ -141,7 +131,6 @@ export default (
 																		<Route path="create" component={Operation.CustomerManage.Agreement.Admit.Create}/>
 																		<Route path=":id/edit" component={Operation.CustomerManage.Agreement.Admit.Edit}/>
 																		<Route path=":id/detail" component={Operation.CustomerManage.Agreement.Admit.Detail}/>
-																		<Route path=":id/print" component={Operation.CustomerManage.Agreement.Admit.Print}/>
 																	</Route>
 
 																	{/*增租协议书*/}
@@ -149,7 +138,6 @@ export default (
 																		<Route path="create" component={Operation.CustomerManage.Agreement.Increase.Create}/>
 																		<Route path=":id/edit" component={Operation.CustomerManage.Agreement.Increase.Edit}/>
 																		<Route path=":id/detail" component={Operation.CustomerManage.Agreement.Increase.Detail}/>
-																		<Route path=":id/print" component={Operation.CustomerManage.Agreement.Increase.Print}/>
 																	</Route>
 
 																	{/*续租协议书*/}
@@ -157,7 +145,6 @@ export default (
 																		<Route path="create" component={Operation.CustomerManage.Agreement.Renew.Create}/>
 																		<Route path=":id/edit" component={Operation.CustomerManage.Agreement.Renew.Edit}/>
 																		<Route path=":id/detail" component={Operation.CustomerManage.Agreement.Renew.Detail}/>
-																		<Route path=":id/print" component={Operation.CustomerManage.Agreement.Renew.Print}/>
 																	</Route>
 
 																	{/*减租协议书*/}
@@ -165,8 +152,6 @@ export default (
 																		<Route path="create" component={Operation.CustomerManage.Agreement.Reduce.Create}/>
 																		<Route path=":id/edit" component={Operation.CustomerManage.Agreement.Reduce.Edit}/>
 																		<Route path=":id/detail" component={Operation.CustomerManage.Agreement.Reduce.Detail}/>
-																		<Route path=":id/print" component={Operation.CustomerManage.Agreement.Reduce.Print}/>
-																		
 																	</Route>
 
 																	{/*退租协议书*/}

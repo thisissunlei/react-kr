@@ -13,14 +13,15 @@ export default class DialogBody extends Component {
 	}
 
 	componentDidMount(){
-				this.initializeDialogBodyStyles();
 			window.addEventListener('resize',function(){
 				this.initializeDialogBodyStyles();
 			}.bind(this));
+			let _this = this;
+			_this.initializeDialogBodyStyles();
 	}
 
 	componentDidUpdate(){
-				this.initializeDialogBodyStyles();
+		this.initializeDialogBodyStyles();
 	}
 
 
@@ -47,10 +48,12 @@ export default class DialogBody extends Component {
 		    eleBoxStyle = {width:0,height:0};
     }
 
-		ele.style.maxHeight = page.height-100+'px';
+		console.log('=-=-',page,eleBoxStyle);
+
+		ele.style.maxHeight = page.height-200+'px';
 		ele.style.minHeight = 100 +'px';
 
-		if(eleBoxStyle.height > page.height-200){
+		if(eleBoxStyle.height >= page.height-250){
 			ele.style.overflowY = 'scroll';
 		}
 

@@ -1,27 +1,8 @@
 import React, {
 	Component
 } from 'react';
-import {
-	connect
-} from 'react-redux';
-
-import {
-	KrField,
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Button,
-	Section,
-	Grid,
-	Row,
-	Col,
-} from 'kr-ui';
 import './index.less';
-import QRCode from 'react-qr-code';
+import QRCode from 'qrcode.react';
 
 
 export default class Header extends Component {
@@ -59,7 +40,7 @@ export default class Header extends Component {
 				</div>
 				<div className="print-title">{orderInfo}</div>
 				<div className="print-QRCode">
-					<QRCode value={qRCode}  size={70}/>
+					<QRCode value={qRCode}  size={70} />
 				</div>
 			</div>
 		);

@@ -114,7 +114,7 @@ class NewCreateForm extends Component {
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:sss");
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
-
+		form.contractVersionType = 'NEW';
 		const {
 			onSubmit
 		} = this.props;
@@ -305,7 +305,7 @@ const validate = values => {
 		errors.contractcode = '请填写合同编号';
 	}
 
-	if (!String(values.totalreturn)) {
+	if (!values.totalreturn) {
 		errors.totalreturn = '请填写退租金总额';
 	}
 
@@ -313,7 +313,7 @@ const validate = values => {
 		errors.totalreturn = '退租金总额必须为数字';
 	}
 
-	if (!String(values.depositamount)) {
+	if (!values.depositamount) {
 		errors.depositamount = '请填写退押金总额';
 	}
 

@@ -78,7 +78,7 @@ export default class AdmitDetail extends Component {
 	}
 	print = () => {
 		const params = this.props.params;
-		let url = `/#/operation/customerManage/${params.customerId}/order/${params.orderId}/agreement/admit/${params.id}/print`
+		let url = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/agreement/admit/${params.id}/print`
 		var newWindow = window.open(url);
 
 	}
@@ -222,13 +222,11 @@ export default class AdmitDetail extends Component {
 				<BasicRender/>
 
 
-				<Grid>
-				  <Row>
-					  <Col md={4} align="center"></Col>
-					  <Col md={2} align="center"> <Button  label="返回"  type="href" joinEditForm href={getOrderUrl()} width={100} height={40} fontSize={16}/> </Col>
-					  <Col md={2} align="center"> <Button  label="打印"   backgroundColor="#499df1" width={100} height={40} fontSize={16} onClick={this.print}/>  </Col>
-					  <Col md={4} align="center"></Col>
-				  </Row>
+				<Grid style={{margin:"0 auto",width:230}}>
+				  <Row style={{width:230}}>
+					  <Col  align="center" style={{marginRight:30,float:"left"}}> <Button  label="返回"  type="href" joinEditForm href={getOrderUrl()} width={100} height={40} fontSize={16}/> </Col>
+					  <Col  align="center" style={{float:"left"}}> <Button  label="打印"   backgroundColor="#499df1" width={100} height={40} fontSize={16} onClick={this.print}/>  </Col>
+				</Row>
 			  </Grid>
 
 			</Section>

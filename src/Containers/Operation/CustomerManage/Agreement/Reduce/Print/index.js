@@ -9,17 +9,6 @@ import {
 import {
 	Menu,
 	MenuItem,
-	BreadCrumbs,
-	Loading,
-	Notify,
-	Section,
-	Button,
-	SplitLine,
-	DotTitle,
-	KrField,
-	LabelText,
-	PaperBack,
-	KrDate,
 	Title,
 } from 'kr-ui';
 import {
@@ -64,33 +53,35 @@ export default class JoinPrint extends Component {
 
 		return (
 			<div className="g-exit-print">
+				<Title value={`${State.baseInfo.leaseName}-入驻服务协议补充协议(减少)`}/>
 				<div className="print-section no-print-section" >
-				<Agreement.Print.Header
-					baseInfo={State.baseInfo}
-					orderInfo="入驻服务协议"
-				/>
-				<Agreement.Print.BaseInfo baseInfo={State.baseInfo}/>
 
-				<Agreement.Print.Station
-					orderTime={false}
-					stationVOs={State.stationVOs} 
-					baseType={`双方一致同意，自 ${this.getLocalTime(State.baseInfo.leaseBegindate)}起减少`}
-					baseInfo={State.baseInfo}
-					reduceTh="减租期限"
-					info="减少费用总计"
-				/>
+					<Agreement.Print.Header
+						baseInfo={State.baseInfo}
+						orderInfo="入驻服务协议补充协议(减少)"
+					/>
+					<Agreement.Print.BaseInfo baseInfo={State.baseInfo}/>
 
-				<div className="print-text">
-					<span>双方其他约定内容：</span>
-					<span className="border-b one-text"></span>
-					<span className="border-b two-text"></span>
-					<span className="border-b three-text"></span>
-					<span className="border-b four-text"></span>
-				</div>
-				<Agreement.Print.Footer/>
+					<Agreement.Print.Station
+						orderTime={false}
+						stationVOs={State.stationVOs}
+						baseType={`双方一致同意，自 ${this.getLocalTime(State.baseInfo.leaseBegindate)}起减少`}
+						baseInfo={State.baseInfo}
+						reduceTh="减租期限"
+						info="减少费用总计"
+					/>
 
-	      		</div>
-	      	</div>
+					<div className="print-text">
+						<span>双方其他约定内容：</span>
+						<span className="border-b one-text"></span>
+						<span className="border-b two-text"></span>
+						<span className="border-b three-text"></span>
+						<span className="border-b four-text"></span>
+					</div>
+					<Agreement.Print.Footer/>
+
+	    </div>
+	  </div>
 
 		);
 	}

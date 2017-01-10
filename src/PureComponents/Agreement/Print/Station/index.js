@@ -1,25 +1,8 @@
 import React, {
 	Component
 } from 'react';
-import {
-	connect
-} from 'react-redux';
+
 import './index.less';
-import {
-	KrField,
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Button,
-	Section,
-	Grid,
-	Row,
-	Col,
-} from 'kr-ui';
 
 export default class Station extends Component {
 	static defaultProps = {
@@ -27,6 +10,7 @@ export default class Station extends Component {
 		baseTimeBegin: false,
 		info: '服务费总计',
 		reduceTh: '服务期限',
+		method: false,
 	}
 
 	static propTypes = {
@@ -44,11 +28,33 @@ export default class Station extends Component {
 
 	}
 
+	method = () => {
+		let {
+			payModelList,
+			payModel
+		} = this.props.baseInfo;
+		var reg = /转账/g,
+			methodObj;
+		payModelList && payModelList.map((item, index) => {
+			if (payModel == item.id) {
+				if (!reg.test(item.dicName)) {
+					payModelList.id = item.id;
+					payModelList.dicName = item.dicName;
+					payModelList.flag = true;
+				} else {
+					payModelList.flag = false;
+					payModelList.id = item.id;
+				}
+			}
+			return payModelList;
 
-	BasicType = (stationTypeName) => {
+		})
+	}
+	basicType = (stationTypeName) => {
 		if (stationTypeName == 1) {
 			return "工位"
-		} else if (stationTypeName == 2) {
+		}
+		if (stationTypeName == 2) {
 			return "会议室"
 		}
 	}
@@ -58,8 +64,6 @@ export default class Station extends Component {
 		var mm = now.getMonth() + 1; //月
 		var dd = now.getDate(); //日
 		return (yy + "年" + mm + "月" + dd + "日")
-
-
 	}
 
 
@@ -72,15 +76,40 @@ export default class Station extends Component {
 			baseTimeBegin,
 			info,
 			reduceTh,
-		} = this.props
-		console.log('baseInfo---', baseInfo)
+			method,
+		} = this.props;
+
+		let {
+			payType,
+			payTypeList,
+			payModel,
+			payModelList
+		} = this.props.baseInfo;
+
+		this.method();
+
 		return (
 
 
-			<div className="print-Station">
+			<div className="ui-print-Station">
 
 				<div className="normal-station-head">
-					<span className="enter-info">{baseType}{baseTimeBegin && <span className="right-date">日期：自{this.getLocalTime(baseInfo.leaseBegindate)}起</span>}</span>
+					<span className="enter-info">
+						{baseType}
+
+						{baseTimeBegin && <span className="right-date">日期：自{this.getLocalTime(baseInfo.leaseBegindate)}起</span>}
+					</span>
+					{method &&
+						<div className="pay-method clear">
+							<div className="method-list">
+								<span className={payModelList && payModelList.flag && payModel==payModelList.id?"checked":"discheck"}></span>
+								<span>其他{payModelList && payModelList.flag && payModel==payModelList.id?`-${payModelList.dicName}`:" "}</span>
+							</div>
+							<div className="method-list">
+								<span className={payModelList && !payModelList.flag && payModel==payModelList.id?"checked":"discheck"}></span>
+								<span>转账</span>
+							</div>
+						</div>}
 				</div>
 					<div className="auto-height">
 						<table>
@@ -93,7 +122,7 @@ export default class Station extends Component {
 								stationVOs && stationVOs.map((item,index)=>{
 										return(
 											<tr key={index}>
-												<td>{this.BasicType(item.stationTypeName)}</td>
+												<td>{this.basicType(item.stationTypeName)}</td>
 												<td>{item.stationName}</td>
 												<td>{item.unitPrice}</td>
 												<td>{item.num}</td>
@@ -110,7 +139,12 @@ export default class Station extends Component {
 
 							</tbody>
 						</table>
-						<p className="station-bottom"><span>{info}</span><span>{baseInfo.rentTotal}</span><span>{baseInfo.rentTotalCN}</span>{this.props.orderTime && <span>(签署意向书后5个工作日内支付)</span>}</p>
+						<p className="station-bottom">
+							<span>{info}</span>
+							<span>{baseInfo.rentTotal}</span>
+							<span>{baseInfo.rentTotalCN}</span>
+							{this.props.orderTime && <span>(签署意向书后5个工作日内支付)</span>}
+						</p>
 
 					</div>
 

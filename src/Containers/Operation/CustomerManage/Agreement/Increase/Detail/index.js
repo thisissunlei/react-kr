@@ -180,7 +180,7 @@ export default class JoinDetail extends Component {
 
 	print = () => {
 		const params = this.props.params;
-		let url = `/#/operation/customerManage/${params.customerId}/order/${params.orderId}/agreement/increase/${params.id}/print`
+		let url = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/agreement/increase/${params.id}/print`
 		var newWindow = window.open(url);
 
 	}
@@ -219,12 +219,10 @@ export default class JoinDetail extends Component {
 			<Section title="增租协议书" description="" bodyPadding={"20px 20px 150px 20px"}>
 
 			{this.BasicRender(basic)}
-			  <Grid>
-				  <Row>
-					  <Col md={4} align="center"></Col>
-					 	<Col md={2} align="center">  <Button  label="返回"  type="href" joinEditForm href={getOrderUrl()} width={100} height={40} fontSize={16}/></Col>
-						<Col md={2} align="center"><Button  label="打印"   backgroundColor="#499df1" width={100} height={40} fontSize={16} onClick={this.print}/> </Col>
-				  <Col md={4} align="center"></Col>
+			  <Grid style={{margin:"0 auto",width:230}}>
+				  <Row style={{width:230}}>
+					 	<Col style={{marginRight:30,float:"left"}} align="center">  <Button  label="返回"  type="href" joinEditForm href={getOrderUrl()} width={100} height={40} fontSize={16}/></Col>
+						<Col style={{float:"left"}} align="center"><Button  label="打印"   backgroundColor="#499df1" width={100} height={40} fontSize={16} onClick={this.print}/> </Col>
 				  </Row>
 			  </Grid>
 

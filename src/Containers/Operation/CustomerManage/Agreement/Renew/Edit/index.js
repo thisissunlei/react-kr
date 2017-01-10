@@ -56,6 +56,7 @@ export default class JoinCreate extends Component {
     let {
       params
     } = this.props;
+    console.log('dasdasdasd');
 
     Store.dispatch(Actions.callAPI('addOrEditContinueContract', {}, formValues)).then(function(response) {
       Notify.show([{
@@ -159,6 +160,7 @@ export default class JoinCreate extends Component {
         initialValues.rentaluse = response.rentaluse;
         initialValues.contractmark = response.contractmark;
         initialValues.totalrent = response.totalrent;
+        initialValues.contractVersionType = response.contractVersion;
         if (response.rentamount) {
           rentamount = response.rentamount;
           _this.setState({

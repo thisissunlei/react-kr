@@ -226,26 +226,15 @@ class Header extends Component {
 						<IconButton><MoreVertIcon /></IconButton>
 					}
 					targetOrigin = {
-						{
-							horizontal: 'right',
-							vertical: 'top'
-						}
+						{horizontal: 'right',vertical: 'top'}
 					}
 					anchorOrigin = {
-						{
-							horizontal: 'right',
-							vertical: 'top'
-						}
-					} > {
-						this.props.user.nick && < MenuItem primaryText = {
-							this.props.user.nick
-						}
-						onTouchTap = {
-							(event) => {
+						{horizontal: 'right',vertical: 'top'}
+					} >
+
+					{ this.props.user.nick && < MenuItem primaryText = { this.props.user.nick } onTouchTap = {event => {
 								window.location.hash = 'permission/personalCenter';
-							}
-						}
-						/>}
+							}} />}
 
 						< MenuItem primaryText = "退出"
 						onTouchTap = {
@@ -253,7 +242,8 @@ class Header extends Component {
 								window.location.href = '/logout/logout';
 							}
 						}
-						/> < /IconMenu >
+						/>
+					 < /IconMenu >
 					}
 					/>
 				);

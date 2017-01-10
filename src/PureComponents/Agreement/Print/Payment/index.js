@@ -2,25 +2,6 @@ import React, {
 	Component
 } from 'react';
 
-import {
-	connect
-} from 'react-redux';
-import {
-	KrField,
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Button,
-	Section,
-	Grid,
-	Row,
-	Col,
-} from 'kr-ui';
-
 import './index.less';
 
 export default class Payment extends Component {
@@ -30,9 +11,12 @@ export default class Payment extends Component {
 
 	}
 	getLocalTime = (time) => {
-		return new Date(parseInt(time)).toLocaleString().substr(0, 10);
+		var now = new Date(time);
+		var yy = now.getFullYear(); //年
+		var mm = now.getMonth() + 1; //月
+		var dd = now.getDate(); //日
+		return (yy + "/" + mm + "/" + dd )
 	}
-
 
 	Onetable = (installmentPlans) => {
 
@@ -80,7 +64,7 @@ export default class Payment extends Component {
 			<div className="table-two-list">
 					<div className="two-line">
 						<div className="table-td-content clear">
-								<div className="table-left" style={{marginRight:10}}>
+								<div className="table-left" style={{marginRight:8}}>
 									<div className="th clear">
 										<div>款项</div>
 										<div>服务期限</div>
@@ -152,8 +136,8 @@ export default class Payment extends Component {
 	}
 	render() {
 		let {
-			installmentPlans,
-			baseInfo
+			baseInfo,
+			installmentPlans
 		} = this.props;
 
 		let {
@@ -162,11 +146,14 @@ export default class Payment extends Component {
 			payModel,
 			payModelList
 		} = this.props.baseInfo;
-		var len = installmentPlans.length;
+
+
 		this.method();
+
+
 		return (
 
-			<div className="ui-payment">
+			<div className="ui-print-payment">
 				<div className="payment-title clear">
 					<div className="payment-info">付款信息</div>
 					<div className="method clear">
