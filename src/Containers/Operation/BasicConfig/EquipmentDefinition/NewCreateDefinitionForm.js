@@ -232,7 +232,9 @@ const validate = values=>{
 		errors.property = '属性为必填项';
 	}
 	if(values.property == "meetingRoom" || values.property == "functionRoom" ){
-		// if(value)
+		if(!values.correspondingLocation){
+			errors.correspondingLocation = '对应位置为必填项';
+		}
 	}
 	if(!values.correspondingFunction){
 		errors.correspondingFunction = '对应功能为必填项';

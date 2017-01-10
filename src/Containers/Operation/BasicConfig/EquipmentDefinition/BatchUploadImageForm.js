@@ -22,32 +22,32 @@ class BatchUploadImageForm extends Component{
 							{"cityName": "北京", 
 								"children": [
 								{"communityName": "北京创业大街社区","children": [{
-									"id":"1","hardwareid":"7550099_84C2E4F1DAEE"
+									"id":"1","hardwareid":"1550099_84C2E4F1DAEE"
 									}]
 								},
 								{"communityName": "北京天创社区","children": [{
-									"id":"2","hardwareid":"7550099_84C2E4F1DAEE"
+									"id":"2","hardwareid":"2550099_84C2E4F1DAEE"
 									}]
 								}
 							]
 							},
 							{"cityName": "上海", "children": [
 								{"communityName": "上海梦想小镇社区","children": [{
-									"id":"3","hardwareid":"7550099_84C2E4F1DAEE"
+									"id":"3","hardwareid":"3550099_84C2E4F1DAEE"
 									}]
 								},
 								{"communityName": "上海文三社区","children": [{
-									"id":"4","hardwareid":"7550099_84C2E4F1DAEE"
+									"id":"4","hardwareid":"4550099_84C2E4F1DAEE"
 									}]
 								}
 							]},
 							{"cityName": "天津", "children": [
 								{"communityName": "天津绿地社区","children": [{
-									"id":"5","hardwareid":"7550099_84C2E4F1DAEE"
+									"id":"5","hardwareid":"5550099_84C2E4F1DAEE"
 									}]
 								},
 								{"communityName": "天津浦东社区","children": [{
-									"id":"6","hardwareid":"7550099_84C2E4F1DAEE"
+									"id":"6","hardwareid":"6550099_84C2E4F1DAEE"
 									}]
 								}
 							]},
@@ -58,7 +58,7 @@ class BatchUploadImageForm extends Component{
 									}]
 								},
 								{"communityName": "江苏天创社区","children": [{
-									"id":"2","hardwareid":"7550099_84C2E4F1DAEE"
+									"id":"2","hardwareid":"8550099_84C2E4F1DAEE"
 									}]
 								}
 							]
@@ -100,7 +100,6 @@ class BatchUploadImageForm extends Component{
 								}
 							]}
 						]
-
 		}
 	}
 	onCancel=()=>{
