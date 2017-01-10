@@ -107,9 +107,9 @@ export default (
 		{/*运营管理*/}
 		<Route path="operation" component={Basic}>
 				<Route path="index" component={Operation.Home}/>
-                 {/*分组模版管理*/}
-                <Route path="groupSetting" component={Operation.GroupSetting}/>
-                 {/*客户管理*/}
+        {/*分组模版管理*/}
+        <Route path="groupSetting" component={Operation.GroupSetting}/>
+        {/*客户管理*/}
 				<Route path="customerManage" component={Basic}>
 					<Route path="List" component={Operation.CustomerManage.List} name="customerManage_list"/>
 
