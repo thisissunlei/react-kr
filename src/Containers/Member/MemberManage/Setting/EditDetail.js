@@ -49,10 +49,14 @@ class EditDetail extends Component {
 			}
 		}
 		const detail=props.detail;
+		console.log(detail,">>>>>>")
 		Store.dispatch(initialize('EditDetail',detail));
 	}
 
 	onSubmit(values) {
+		var oldInterCode=this.props.detail.interCode;
+		console.log("99",oldInterCode)
+
 		if (navigator.onLine) 
 		{ //正常工作
 		} 
@@ -60,6 +64,7 @@ class EditDetail extends Component {
 		 		Message.error("网络已断开")
 		 		return;
 		} 
+		
 		const {
 			onSubmit
 		} = this.props;
