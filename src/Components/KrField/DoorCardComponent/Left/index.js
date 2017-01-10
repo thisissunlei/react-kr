@@ -35,7 +35,6 @@ export default class Left extends React.Component{
 		addCommunity && addCommunity(detailCommunityInfo);
 	}
 	onSearchCommunity=(value)=>{
-		// console.log("value",value);
 		if(value !== ""){
 			let allCommunity = this.state.communitys;
 			let epmtyCommunityBox = [];

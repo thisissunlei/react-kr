@@ -1,4 +1,3 @@
-
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
@@ -12,7 +11,6 @@ import {
 	ListGroupItem,
 	Button
 } from 'kr-ui';
-
 class BatchUploadImageForm extends Component{
 	constructor(props,context){
 		super(props,context);
@@ -106,9 +104,9 @@ class BatchUploadImageForm extends Component{
 		let {onCancel} = this.props;
 		onCancel && onCancel();
 	}
+	// 提交
 	onSubmit=(values)=>{
-		console.log(values);
-		let valuesList = this.state.selectedCommunitys;
+		console.log("values",values);
 		let {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
 	}
@@ -117,28 +115,33 @@ class BatchUploadImageForm extends Component{
 		const {handleSubmit}=this.props;
 		return(
 			<div>
-			<form onSubmit={handleSubmit(this.onSubmit)}>
-				<UploadImage style={{marginTop:10}} photoSize={'212*136'} pictureFormat={'JPG'} pictureMemory={'32K'}/>
-				<KrField name="communitys" 
-					options={communitys} 
-					component="doorCard" 
-					defaultValue={communitys}
-					getList={this.getList}
-				/>
-				<Grid style={{marginTop:25,marginBottom:'4px'}}>
-					<Row>
-						<ListGroup>
-							<ListGroupItem style={{width:'305px',textAlign:'right',padding:0,paddingRight:15}}>
-								<Button  label="确定" type="submit"/>
-							</ListGroupItem>
-							<ListGroupItem style={{width:'254px',textAlign:'left',padding:0,paddingLeft:15}}>
-								<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />
-							</ListGroupItem>
-						</ListGroup>					
-					</Row>
-				</Grid>
-			</form>
-				
+				<form onSubmit={handleSubmit(this.onSubmit)}>
+					<KrField name="uploadImage" 
+						component="uploadImage" 
+						style={{marginTop:10}} 
+						photoSize={'212*136'} 
+						pictureFormat={'JPG'} 
+						pictureMemory={'32K'} 
+					/>
+					<KrField name="communitys" 
+						options={communitys} 
+						component="doorCard" 
+						defaultValue={communitys}
+						getList={this.getList}
+					/>
+					<Grid style={{marginTop:25,marginBottom:'4px'}}>
+						<Row>
+							<ListGroup>
+								<ListGroupItem style={{width:'305px',textAlign:'right',padding:0,paddingRight:15}}>
+									<Button  label="开始上传" type="submit"/>
+								</ListGroupItem>
+								<ListGroupItem style={{width:'254px',textAlign:'left',padding:0,paddingLeft:15}}>
+									<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />
+								</ListGroupItem>
+							</ListGroup>					
+						</Row>
+					</Grid>
+				</form>
 			</div>
 		);
 	}

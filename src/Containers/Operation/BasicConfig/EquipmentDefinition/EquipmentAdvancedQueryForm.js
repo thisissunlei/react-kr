@@ -91,7 +91,7 @@ class EquipmentAdvancedQueryForm extends Component{
 			label: '全部',
 			value: ''
 		}]
-		console.log("filter",filter,"content",content);
+		// console.log("filter",filter,"content",content);
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px',marginLeft:'40px'}}>
 				<ListGroup >

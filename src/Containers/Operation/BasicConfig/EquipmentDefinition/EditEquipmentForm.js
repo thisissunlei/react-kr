@@ -11,7 +11,7 @@ import {
 	ListGroupItem,
 	Button
 } from 'kr-ui';
-class NewCreateDefinitionForm extends Component{
+class EditEquipmentForm extends Component{
 	constructor(props,context){
 		super(props,context);
 		this.state={
@@ -32,8 +32,12 @@ class NewCreateDefinitionForm extends Component{
     	Store.dispatch(change('NewCreateDefinitionForm', 'communityName', community.communityName));
     	// Store.dispatch(Actions.callAPI('',community.id)).then(function(response){
     	// 	console.log("response",response);
+    		// let a=[];
+    		// response.data.whereFloors.forEach(function(item,index){
+    		// 	a.push({label:item,value:item});
+    		// })
     	// 	_this.setState({
-    	// 		floorsOptions : response.data.whereFloors
+    	// 		floorsOptions : a
     	// 	})
     	// })
   	}
@@ -87,7 +91,6 @@ class NewCreateDefinitionForm extends Component{
 	    // })
 	}
 	onSubmit=(values)=>{
-		console.log("values",values);
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
 	}
@@ -259,7 +262,7 @@ const validate = values=>{
 	}
 	return errors;
 }
-export default NewCreateDefinitionForm = reduxForm({
-	form: 'NewCreateDefinitionForm',
+export default EditEquipmentForm = reduxForm({
+	form: 'EditEquipmentForm',
 	validate,
-})(NewCreateDefinitionForm);
+})(EditEquipmentForm);

@@ -1,16 +1,11 @@
 import React, {
 	Component
 } from 'react';
-// import $ from 'jquery';
-// import {
-// 	FontIcon,
-// } from 'kr-ui';
 import ReactDOM from 'react-dom';
 import './index.less';
-// import {ShallowEqual} from 'kr/Utils';
 import refresh from "./images/refresh.svg"
 import deleteImg from "./images/deleteImg.svg"
-export default class UploadImage extends Component {
+export default class UploadImageComponent extends Component {
 	static defaultProps = {
 		
 	}
@@ -52,12 +47,11 @@ export default class UploadImage extends Component {
 		this.setState({
 			imgSrc: "",
 			operateImg :false,
-			imgUpload :false
-		})
-		let _this = this;
-		_this.setState({
+			imgUpload :false,
 			errorHide: true
 		})
+		let image = '';
+		let _this = this;
   		let input = event.target;
   		let imgType = event.target.files[0].type;
   		let imgSize = Math.round(event.target.files[0].size/1024*100)/100;
@@ -80,7 +74,7 @@ export default class UploadImage extends Component {
   		if (FileReader) {
 			var reader = new FileReader();
 			reader.onload =function(evt){
-		  		var image = new Image();
+		  		image = new Image();
                 image.onload=function(){
                     if(image.width !== 212 && image.height !== 136){
                     	_this.setState({
@@ -98,6 +92,10 @@ export default class UploadImage extends Component {
 			}
 			reader.readAsDataURL(event.target.files[0]);
 		}
+		// 在此处上传图片
+		// Store.dispatch(Actions.callAPI('getMemberBasicData',image)).then(function(response){
+
+		// }
 		this.setState({
 			imgUpload :true
 		})
