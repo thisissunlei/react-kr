@@ -40,12 +40,12 @@ export default class ZhangQu extends Component {
 					<Dialog
 						title="平面图"
 						contentStyle={{width:1000}}
+						actions={<Button label="确定"/>}
 						onClose={this.close}
 						bodyStyle={{paddingLeft:0,paddingRight:0}}
 						open={this.state.open} >
 								<PlanMap />
 
-							<Button label="确定"/>
 				</Dialog>
 			</div>
 
