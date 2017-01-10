@@ -82,7 +82,7 @@ export default class ReceiveDetailTop  extends Component{
 			                      <ul className='table-head'>
                                       <li>类型</li>
                                       <li>款项</li>
-                                      <li>金额</li>
+                                      <li>应收</li>
                                       <li>未回款</li>
                                       <li>操作</li>
 			                      </ul>
