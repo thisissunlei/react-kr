@@ -661,7 +661,7 @@ const APIS = {
  },
 
  'planMap': {
-   url:'/api-old/krspace_operate_web/commnuity/communityFloorPlan/getCommunityFloorPlanSelData?communityId=4&wherefloor=3&mainBillId=521&startDate=2016-12-30&endDate=2016-12-31&contractId=',
+   url:'/api-old/krspace_operate_web/commnuity/communityFloorPlan/getCommunityFloorPlanSelData?communityId={communityId}&wherefloor={wherefloor}&mainBillId={mainBillId}&startDate={startDate}&endDate={endDate}&contractId={contractId}',
    method:'get'
  },
 

@@ -12,19 +12,27 @@ export default  class PlanMapComponent extends React.Component {
 
 	static displayName = 'PlanMapComponent';
 
-	static defaultPorps = {
-		value:'',
+	static defaultProps = {
+		communityId:4,
+		wherefloor:3,
+		mainBillId:521,
+		startDate:'2016-12-30',
+		endDate:'2016-12-31',
+		contractId:''
 	}
 
 	static propTypes = {
-				name: React.PropTypes.string,
+			communityId: React.PropTypes.any,
+			wherefloor: React.PropTypes.any,
+			mainBillId: React.PropTypes.any,
+			startDate: React.PropTypes.string,
+			endDate: React.PropTypes.string,
+			contractId: React.PropTypes.any,
 	}
 
 
 	constructor(props){
 		super(props)
-
-
 		this.state = {
 				configs:{}
 		}
@@ -40,10 +48,9 @@ export default  class PlanMapComponent extends React.Component {
 		var planMapWrap = this.refs.planMapWrap;
 
 		var loc = planMapWrap.getBoundingClientRect();
-		console.log('loc',loc);
 		var configs = this.state.configs;
 		configs.width = loc.width;
-		configs.height = 500;
+		configs.height = 800;
 
 		this.setState({
 			configs
@@ -58,7 +65,8 @@ export default  class PlanMapComponent extends React.Component {
 
 		var _this = this;
 
-	 	Store.dispatch(Actions.callAPI('planMap')).then(function(response){
+		console.log('---',this.props);
+	 	Store.dispatch(Actions.callAPI('planMap',Object.assign({},this.props))).then(function(response){
 	           var data  = response.shift();
 	          var stationsDataOrigin = data.figures;
 	          var stations = [];
