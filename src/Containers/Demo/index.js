@@ -1,107 +1,163 @@
 import React, {
-	Component
+	Component,
+	PropTypes
 } from 'react';
 import {
 	connect
-} from 'react-redux';
-import {
-	bindActionCreators
-} from 'redux';
-import nzh from 'nzh'
-import {
-	Checkbox,
-	DatePicker,
-	Form,
-	KrField,
-	Table,
-	Tabs,
-	Tab,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Button,
-	Section,
-	FontIcon,
-	SearchForms,
-	Title,
-	Input,
-	CheckboxGroup,
-	RadioGroup,
-	Message,
-	Tooltip,
-	KrForm,
-	DemoComponent,
-	Field,
-	FieldControl,
-	InputDate,
-	CircleStyle,
-	SearchForm,
-	SnackTip,
-	Dictionary
-} from 'kr-ui';
-
-
+} from 'kr/Redux';
 import {
 	reduxForm,
-	formValueSelector,
-	initialize,
-	arrayPush,
-	arrayInsert,
-	FieldArray,
-	Fields,
-	change
+	submitForm,
+	change,
+	reset
 } from 'redux-form';
-
-
-import './index.less';
-
-import LocationMap from 'kr-ui/Global/LocationMap';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
+import http from 'kr/Redux/Utils/fetch';
 
 import {
-	List,
-	ListItem
-} from 'material-ui/List';
+	Tabs,
+	Tab,
+	Dialog,
+	Section,
+	Grid,
+	Notify,
+	Button,
+	KrField,
+	Form,
+	BreadCrumbs,
+	Title
+} from 'kr-ui';
+import './index.less'
 
-import {
-	hashHistory,
-	History
-} from 'react-router';
 
+class CustomerList extends Component {
+	static childContextTypes = {
+		onSetCommunity: React.PropTypes.func.isRequired,
+		communityId: React.PropTypes.string.isRequired,
+	}
 
-export default class Demo extends Component {
-
-	static contextTypes = {
-		router: React.PropTypes.object.isRequired
+	getChildContext() {
+		return {
+			onSetCommunity: this.onSetCommunity,
+			communityId: this.state.communityId
+		};
 	}
 
 	constructor(props, context) {
 		super(props, context);
-
 		this.state = {
-			userNameDefaultValue: ''
+			tab: 'table',
+			communityId: ''
 		}
 
 	}
 
+	componentDidMount() {
+		Store.dispatch(Actions.switchSidebarNav(true));
 
-	componentDidMount() {}
+	}
 
+	onSetCommunity = (communityId) => {
+		this.setState({
+			communityId
+		});
+	}
+
+	merchants = () => {
+		let {
+			tab
+		} = this.state;
+		tab = 'merchants';
+		this.setState({
+			tab
+		});
+	}
+
+	personal = () => {
+		let {
+			tab
+		} = this.state;
+
+		tab = 'personal';
+		this.setState({
+			tab
+		});
+	}
+	signedClient = () => {
+		let {
+			tab
+		} = this.state;
+
+		tab = 'signedClient';
+		this.setState({
+			tab
+		});
+	}
 
 
 	render() {
-		var nzhcn = nzh.cn;
-		console.log(nzhcn.encodeS(100111.09));
-		console.log(nzhcn.encodeB(100111.09));
-		return (
-			<div>
-				<Section title="haha">
-					<Dictionary type="ContractType" value="ADDRENT"/>
-				</Section>
-			</div>
+		let {
+			tab
+		} = this.state;
 
+		const activeTab = {
+			color: '#2b8dcd',
+			borderBottom: "1px solid #eee",
+			fontSize:'16px'
+		}
+		const commenTab = {
+			color: '#666',
+			borderBottom: "1px solid #eee",
+            fontSize:'16px'
+		}
+		let merchantsStyle = (tab == 'merchants') ? activeTab : commenTab;
+		let personalStyle = (tab == 'personal') ? activeTab : commenTab;
+		let signedClientStyle=(tab == 'signedClient')? activeTab : commenTab;
+		const inkBarStyle = {
+			background: '-moz-linear-gradient(right, #03ec56, #499df1)',
+			background: '-webkit-linear-gradient(right, #03ec56, #499df1)',
+			background: '-ms-linear-gradient(right, #03ec56, #499df1)',
+			position: 'absolute',
+			top: 0,
+		}
+
+		return (
+
+			<div className="tab-container" style={{minHeight:910,background:'#fff'}}>
+			<Title value="客户列表"/>
+		 	<BreadCrumbs children={['系统运营','社区管理','计划表']}/>
+				<span className="line"></span>
+				 <Tabs className="tabs"
+				 	tabItemContainerStyle={{background:'#FFF'}}
+
+			   		
+			   		style={{
+			   				background:'#fff',
+			   				position:'relative',
+			   				paddingLeft:'20',
+			   				paddingRight:'20'
+			   			}}
+				 >
+					<Tab label="招商线索" onActive={this.merchants} style={merchantsStyle} >
+						
+							<h1>1</h1>
+					</Tab>
+					<Tab label="个人客户"  onActive={this.personal} style={personalStyle}>
+						
+							<h1>2</h1>
+					</Tab>
+					<Tab label="签约客户"  onActive={this.signedClient} style={signedClientStyle}>
+						
+							<h1>3</h1>
+					</Tab>
+			</Tabs>
+
+
+		</div>
 		);
 	}
 }
+export default CustomerList;
