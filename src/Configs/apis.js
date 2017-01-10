@@ -879,7 +879,13 @@ const APIS = {
  'CardEdit': {
    url:'/api/krspace-finance-web/member/card/mbr-card',
    method:'put'
- }
+ },
+  //客户管理－招商线索列表
+ 'CardEdit': {
+   url:'/mockjsdata/23/krspace-finance-web/customer/share-customers',
+   method:'get'
+ }, 
+  
  }
 
  module.exports = APIS;
