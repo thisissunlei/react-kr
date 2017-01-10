@@ -4,7 +4,7 @@
 ### 项目启动
 
 1. npm i 
-2. npm start 
+2. npm run dev:{dev}  //{dev}为联调环境
 
 
 
