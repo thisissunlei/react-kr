@@ -45,7 +45,8 @@ export default  class PlanMapComponent extends React.Component {
 
 	//点选工位
 	onCheckedStation = (clickStation,selectedStations)=>{
-			console.log('se',selectedStations);
+			const {onCheckedStation} = this.props;
+			onCheckedStation && onCheckedStation(clickStation,selectedStations);
 	}
 	//交换工位员工信息
 	swapStationStaff = (originStation,targetStation)=>{

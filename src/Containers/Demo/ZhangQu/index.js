@@ -21,7 +21,8 @@ export default class ZhangQu extends Component {
 		super(props, context);
 
 		this.state = {
-			open:true
+			open:true,
+			checkedStations:[],
 		}
 
 	}
@@ -32,6 +33,17 @@ export default class ZhangQu extends Component {
 		})
 	}
 
+	confirm = ()=>{
+		this.close();
+		console.log('resule:',this.state.checkedStations);
+	}
+
+	onCheckedStation =(clickStation,checkedStations)=>{
+		this.setState({
+			checkedStations
+		});
+	}
+
 	componentDidMount() {}
 
 	render() {
@@ -40,12 +52,11 @@ export default class ZhangQu extends Component {
 					<Dialog
 						title="平面图"
 						contentStyle={{width:1000}}
-						actions={<Button label="确定"/>}
+						actions={<Button label="确定" onTouchTap={this.confirm}/>}
 						onClose={this.close}
 						bodyStyle={{paddingLeft:0,paddingRight:0}}
 						open={this.state.open} >
-								<PlanMap />
-
+								<PlanMap onCheckedStation={this.onCheckedStation} />
 				</Dialog>
 			</div>
 
