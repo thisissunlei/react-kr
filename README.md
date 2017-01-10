@@ -38,7 +38,7 @@ class Listing extends React.Component {
 ```
 
 ##  3.命名
-扩展名：React 组件使用.js扩展名；
+**扩展名：React 组件使用.js扩展名；**
 文件名：文件名使用帕斯卡命名。 例如： ReservationCard.jsx。
 引用命名：React 组件使用帕斯卡命名，引用实例采用骆驼命名。 eslint: react/jsx-pascal-case
 
@@ -57,7 +57,7 @@ const reservationItem = <ReservationCard />;
 ```
 
 
-##  4.组件命名：组件名称应该和文件名一致， 例如： ReservationCard.jsx 应该有一个ReservationCard的引用名称。 但是， 如果是在目录中的组件， 应该使用 index.jsx 作为文件名 并且使用文件夹名称作为组件名：
+**组件命名：组件名称应该和文件名一致**
 
 ```js
 // bad
@@ -71,7 +71,7 @@ import Footer from './Footer';
 ```
 
 
-##  5.声明
+##  4.声明
 不要使用｀displayName｀属性来命名组件，应该使用类的引用名称。
 
 ```js
@@ -87,7 +87,7 @@ export default class ReservationCard extends React.Component {
 ```
 
 
-## 6.对齐
+## 5.对齐
 为 JSX 语法使用下列的对其方式。eslint: react/jsx-closing-bracket-location
 ```jsx
 // bad
@@ -113,7 +113,7 @@ export default class ReservationCard extends React.Component {
 ```
 
 
-## 7.引号
+## 6.引号
 JSX 的属性都采用双引号，其他的 JS 都使用单引号。eslint: jsx-quotes
 为什么这样做？JSX 属性 不能包含转义的引号, 所以当输入"don't"这类的缩写的时候用双引号会更方便。
 标准的 HTML 属性通常也会使用双引号，所以 JSX 属性也会遵守这样的约定。
@@ -131,7 +131,7 @@ JSX 的属性都采用双引号，其他的 JS 都使用单引号。eslint: jsx-
 <Foo style= />
 ```
 
-##  8.空格
+##  7.空格
 终始在自闭合标签前面添加一个空格。
 ```jsx
 // bad
@@ -149,7 +149,7 @@ JSX 的属性都采用双引号，其他的 JS 都使用单引号。eslint: jsx-
 ```
 
 
-##  9.属性
+##  8.属性
 属性名称始终使用骆驼命名法。
 ```jsx
 // bad
@@ -178,7 +178,7 @@ JSX 的属性都采用双引号，其他的 JS 都使用单引号。eslint: jsx-
 ```
 
 
-## 10.大括号
+## 9.大括号
 用括号包裹多行 JSX 标签。 eslint: react/wrap-multilines
 ```jsx
 // bad
@@ -205,7 +205,7 @@ render() {
 ```
 
 
-##  11.标签
+##  10.标签
 当标签没有子元素时，始终时候自闭合标签。 eslint: react/self-closing-comp
 ```jsx
 // bad
@@ -228,7 +228,7 @@ render() {
   baz="baz"
 />
 ```
-##  12.方法
+##  11.方法
 在 render 方法中事件的回调函数，应该在构造函数中进行bind绑定。 eslint: react/jsx-no-bind
 为什么这样做? 在 render 方法中的 bind 调用每次调用 render 的时候都会创建一个全新的函数。
 ```jsx
@@ -282,25 +282,25 @@ class extends React.Component {
 }
 ```
 
-##  13.排序
+##  12.排序
 
->class extends React.Component 的顺序：
->static静态方法
->constructor
->getChildContext
->componentWillMount
->componentDidMount
->componentWillReceiveProps
->shouldComponentUpdate
->componentWillUpdate
->componentDidUpdate
->componentWillUnmount
->点击回调或者事件回调 比如 onClickSubmit() 或者 onChangeDescription()
->render函数中的 getter 方法 比如 getSelectReason() 或者 getFooterContent()
->可选的 render 方法 比如 renderNavigation() 或者 renderProfilePicture()
->render
+>class extends React.Component 的顺序：  </br>
+>static静态方法  </br>
+>constructor  </br>
+>getChildContext  </br>
+>componentWillMount  </br>
+>componentDidMount  </br>
+>componentWillReceiveProps  </br>
+>shouldComponentUpdate  </br>
+>componentWillUpdate  </br>
+>componentDidUpdate  </br>
+>componentWillUnmount  </br>
+>点击回调或者事件回调 比如 onClickSubmit() 或者 onChangeDescription()  </br>
+>render函数中的 getter 方法 比如 getSelectReason() 或者 getFooterContent()  </br>
+>可选的 render 方法 比如 renderNavigation() 或者 renderProfilePicture()  </br>
+>render  </br>
 
-##  14.isMounted
+##  13.isMounted
 不要使用 isMounted. eslint: react/no-is-mounted
 
 
