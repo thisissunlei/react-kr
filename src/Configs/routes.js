@@ -74,16 +74,14 @@ export default (
 		{/*统计看板*/}
 		<Route path="statistical" component={Basic}>
 			<Route path="index" component={Statistical.Home}/>
-			{/*
 				<IndexRedirect to="index" />
-				*/}
 		</Route>
 
 
 		{/*社区经营*/}
 		<Route path="community" component={Basic}>
              <IndexRedirect to="communityManage/detail" />
-			{/*计划表*/}
+			{/*销控表*/}
 
 			<Route path="communityManage" component={Basic}>
 					<Route path="detail" component={Operation.CommunityManage.Detail}/>
