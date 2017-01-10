@@ -658,7 +658,13 @@ const APIS = {
  'CardEdit': {
    url:'/api/krspace-finance-web/member/card/mbr-card',
    method:'put'
- }
- }
+ },
+
+ 'planMap': {
+   url:'/api-old/krspace_operate_web/commnuity/communityFloorPlan/getCommunityFloorPlanSelData?communityId=4&wherefloor=3&mainBillId=521&startDate=2016-12-30&endDate=2016-12-31&contractId=',
+   method:'get'
+ },
+
+  }
 
  module.exports = APIS;

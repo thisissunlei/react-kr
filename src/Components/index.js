@@ -1,4 +1,5 @@
 //Components
+import PlanMap from './PlanMap';
 import Calendar from './Calendar';
 import Dialog from './Dialog';
 import DotTitle from './DotTitle';
@@ -75,6 +76,7 @@ import {
 
 module.exports = {
 	//Components
+	PlanMap,
 	Dictionary,
 	FontIcon,
 	Paper,

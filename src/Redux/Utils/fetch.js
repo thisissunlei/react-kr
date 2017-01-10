@@ -13,7 +13,10 @@ function getUrl(path, params = {},mode = false) {
 
     let server = '';
 
-	if(env ==='development'){
+
+	if(env ==='test'){
+		server = 'http://optest.krspace.cn';
+	}if(env ==='development'){
 		server = 'http://optest.krspace.cn';
 	}else if(env ==='test01'){
 		server = 'http://optest01.krspace.cn';
