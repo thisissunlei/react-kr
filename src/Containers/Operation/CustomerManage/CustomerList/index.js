@@ -138,24 +138,15 @@ class CustomerList extends Component {
 				<span className="line"></span>
 				 <Tabs className="tabs">
 					<Tab label="招商线索" onActive={this.merchants} style={merchantsStyle}>
-						{/*
-							<Schedule tab={tab}/>
-
-							*/}
+						
 							<Merchants />
 					</Tab>
 					<Tab label="个人客户"  onActive={this.personal} style={personalStyle}>
-						{/*
-							<FloorPlan tab={tab} />
-
-							*/}
+						
 							<Personal />
 					</Tab>
 					<Tab label="签约客户"  onActive={this.signedClient} style={signedClientStyle}>
-						{/*
-							<FloorPlan tab={tab} />
-
-							*/}
+						
 							<SignedClient />
 					</Tab>
 			</Tabs>

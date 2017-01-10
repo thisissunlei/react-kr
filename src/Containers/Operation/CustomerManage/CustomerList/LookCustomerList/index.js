@@ -31,25 +31,24 @@ class LookMerchants extends Component{
 		super(props, context);
 
 	}
+	onSubmit = (values) => {
+		const {onSubmit} = this.props;
+		onSubmit && onSubmit(values);
+	}
+
+	onCancel = () => {
+		const {onCancel} = this.props;
+		onCancel && onCancel();
+	}
 	render(){
 		return(
-      <div className="m-lookMerchants">
+      <div className="m-newMerchants">
+      	<div className="title">
+			<div><span className="new-icon"></span><label className="title-text">新建客户</label></div>
+			<div className="close" onClick={this.onCancel}></div>
+		</div>
         <div >
-            <h1>查看数据</h1>
-            <KrField style={State.messageBarStyle} component="labelText" label="属性编码" value={"12"}/>
-            <KrField style={State.messageBarStyle} component="labelText" label="属性编码" value={"12"}/>
-            <KrField style={State.messageBarStyle} component="labelText" label="属性编码" value={"12"}/>
-            <KrField style={State.messageBarStyle} component="labelText" label="属性编码" value={"12"}/>
-            <KrField style={State.messageBarStyle} component="labelText" label="属性编码" value={"12"}/>
-            <KrField style={State.messageBarStyle} component="labelText" label="属性编码" value={"12"}/>
-            <KrField style={State.messageBarStyle} component="labelText" label="属性编码" value={"12"}/>
-            <KrField style={State.messageBarStyle} component="labelText" label="属性编码" value={"12"}/>
-            <KrField style={State.messageBarStyle} component="labelText" label="属性编码" value={"12"}/>
-            <KrField style={State.messageBarStyle} component="labelText" label="属性编码" value={"12"}/>
-            <KrField style={State.messageBarStyle} component="labelText" label="属性编码" value={"12"}/>
-            <KrField style={State.messageBarStyle} component="labelText" label="属性编码" value={"12"}/>
-            <KrField style={State.messageBarStyle} component="labelText" label="属性编码" value={"12"}/>
-            <KrField style={State.messageBarStyle} component="labelText" label="属性编码" value={"12"}/>
+            
         </div>
       </div>
 
