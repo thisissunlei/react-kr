@@ -63,6 +63,10 @@ import './index.less'
 
 		}
 	}
+	
+	componentDidMount(){
+	 	Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
+	}
 
 
 	render(){
@@ -115,8 +119,8 @@ import './index.less'
 								<KrField grid={1/2} label="公司规模" name="teamNum" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
 								<KrField grid={1/2} label="融资金额" name="amount" style={{width:252,marginLeft:15}} component="input" requireLabel={false}/>
 								<KrField grid={1/2} label="是否已有办公室" name="hasOffice" style={{width:252,marginLeft:15}} component="group" requireLabel={true}>
-					              	<KrField name="enableflag1" label="是" type="radio" value="HAS" onClick={this.hasOfficeClick}/>
-					             	<KrField name="enableflag1" label="否" type="radio" value="NOHAS" onClick={this.hasOfficeClick}/>
+					              	<KrField name="hasOffice" label="是" type="radio" value="HAS" onClick={this.hasOfficeClick}/>
+					             	<KrField name="hasOffice" label="否" type="radio" value="NOHAS" onClick={this.hasOfficeClick}/>
 					            </KrField>
 
 								{State.matureTime && <KrField grid={1/2} label="到期时间" name="deadline" style={{width:252,marginLeft:15}} component="date" requireLabel={true}/>}
@@ -158,9 +162,6 @@ const validate = values =>{
 		const errors = {};
 		let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
 		let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
-
-		console.log(values.hasOffice,"<<<<<<<")
-
 		if(!values.sourceId){
 			errors.sourceId = '请填写客户来源';
 		}
@@ -211,6 +212,10 @@ const validate = values =>{
 
 		if (!values.teamNum) {
 			errors.teamNum = '请填写公司规模';
+		}
+
+		if(values.hasOffice && !values.deadline){
+			errors.deadline='请填写到期时间';
 		}
 
 		if (!values.projectName) {
