@@ -145,7 +145,6 @@ class CustomerList extends Component {
 							<Personal />
 					</Tab>
 					<Tab label="签约客户"  onActive={this.signedClient} style={signedClientStyle}>
-						
 							<SignedClient />
 					</Tab>
 			</Tabs>
