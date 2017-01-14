@@ -20,15 +20,23 @@ import {
 	Row,
 	Col,
 	Dialog,
-	Drawer
+	Drawer,
+	Tabs,
+	Tab
 
 } from 'kr-ui';
+import './index.less'
+
 import State from './State';
+import LookDetailed from "./LookDetailed";
 @observer
-class LookMerchants extends Component{
+class LookCustomerList extends Component{
 
 	constructor(props,context){
 		super(props, context);
+		let {comeFrom}=this.props;
+		State.initComeFrom(comeFrom);
+
 
 	}
 	onSubmit = (values) => {
@@ -40,20 +48,44 @@ class LookMerchants extends Component{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
+
+	isHaveTabs = () => {
+		if(State.comeFrom=="Merchants"){
+
+			return  (<LookDetailed  />)
+		}else {
+
+			return (<Tabs className="tabs"
+			  inkBarStyle={{background:"#499df1",top:0}}
+			>
+				<Tab label="客户订单" >
+					
+						<h1>1</h1>
+				</Tab>
+				<Tab label="客户详情" >
+					
+						<LookDetailed  />
+				</Tab>
+			</Tabs>)
+
+		}
+	}
 	render(){
+		
 		return(
-      <div className="m-newMerchants">
+      <div className="m-lookCustomerList m-newMerchants">
       	<div className="title">
 			<div><span className="new-icon"></span><label className="title-text">新建客户</label></div>
 			<div className="close" onClick={this.onCancel}></div>
 		</div>
-        <div >
-            
-        </div>
+		<div style={{height:5}}></div>
+		{this.isHaveTabs()}
+        
+        
       </div>
 
 		);
 	}
 
 }
-export default LookMerchants;
+export default LookCustomerList;

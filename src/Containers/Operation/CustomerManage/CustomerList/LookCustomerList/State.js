@@ -11,15 +11,11 @@ import {
 } from 'kr/Redux';
 
 let State = observable({
-		searchParams:{},
-		messageBarStyle:{
-        background:"red",
-        width:"33.33%",
-        float:"left",
-        textAlign:"center"
-    }
+	comeFrom:"Merchants"
+});
+State.initComeFrom = action(function(comeFrom) {
+	this.comeFrom=comeFrom||this.comeFrom;
 });
 
-//action
 
 module.exports = State;
