@@ -44,6 +44,7 @@ import './index.less'
 
 	onCancel = () => {
 		const {onCancel} = this.props;
+		console.log("33333333",onCancel)
 
 		onCancel && onCancel();
 	}

@@ -56,13 +56,13 @@ class LookCustomerList extends Component{
 		State.lookListId(nextProps.listId);
 	}
 
-	isHaveTabs = (comeFrom,editsSwitch) => {
+	isHaveTabs = (comeFrom,editsSwitch,IndentSwitch) => {
 		
 
 		
 		if(comeFrom=="Merchant"){
 
-			return  (<LookDetailed  detail={State.detail} editsSwitch={editsSwitch}/>)
+			return  (<LookDetailed  detail={State.detail} editsSwitch={editsSwitch} IndentSwitch={IndentSwitch}/>)
 		}else {
 
 			return (<Tabs className="tabs"
@@ -74,7 +74,7 @@ class LookCustomerList extends Component{
 				</Tab>
 				<Tab label="客户详情" >
 					
-						<LookDetailed  detail={State.detail} editsSwitch={editsSwitch} />
+						<LookDetailed  detail={State.detail} editsSwitch={editsSwitch} IndentSwitch={IndentSwitch} />
 				</Tab>
 			</Tabs>)
 
@@ -82,7 +82,7 @@ class LookCustomerList extends Component{
 	}
 
 	render(){
-		let {comeFrom,data,dataReady,editsSwitch}=this.props;
+		let {comeFrom,data,dataReady,editsSwitch,IndentSwitch}=this.props;
 				                 
 
       
@@ -94,7 +94,7 @@ class LookCustomerList extends Component{
 					<div className="close" onClick={this.onCancel}></div>
 				</div>
 				<div style={{height:5}}></div>
-				{this.isHaveTabs(comeFrom,editsSwitch)}
+				{this.isHaveTabs(comeFrom,editsSwitch,IndentSwitch)}
 		        
 		      </div>
 

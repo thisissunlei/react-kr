@@ -58,7 +58,7 @@ class LookDetail extends Component{
 	render(){
 		let unifyStyle={width:300,marginLeft:-10}
 		let detail=State.detail;
-		let {editsSwitch}=this.props;
+		let {editsSwitch,IndentSwitch}=this.props;
 
 		
 		return(
@@ -91,7 +91,7 @@ class LookDetail extends Component{
 				<li className="everyText" style={{width:660}}><span className="blueDrop" style={{height:5}}></span><span style={{display:"inline-block",paddingLeft:5}}>备注:</span>
 					<p style={{padding:"0 10px"}}>{detail.remark}</p>
 				</li>
-				<div style={{textAlign: "center",marginTop:15}}><Button  label="编辑" type="submit" style={{margin:"auto"}} onTouchTap={this.props.editsSwitch} /></div>
+				<div style={{textAlign: "center",marginTop:15}}><Button  label="编辑" type="submit" style={{margin:"auto"}} onTouchTap={editsSwitch} /></div>
 				
 				<div className="visitRecord">
 						<span className="visitRecordTitle">拜访记录</span>
@@ -137,7 +137,7 @@ class LookDetail extends Component{
 
 						
 				</div>
-				<div style={{textAlign: "center",marginTop:30}}><Button  label="新增拜访记录" type="button" style={{width:120}} /></div>
+				<div style={{textAlign: "center",marginTop:30}}><Button  label="新增拜访记录" type="button" style={{width:120}} onTouchTap={IndentSwitch} /></div>
 				
 			
 	      </div>

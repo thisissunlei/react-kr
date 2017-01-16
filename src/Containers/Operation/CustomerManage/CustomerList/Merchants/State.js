@@ -16,6 +16,7 @@ let State = observable({
 		openLookMerchants:false,
 		openSearchUpper:false,
 		openEditCustomerList:false,
+		openNewCustomerIndent:false,
 		listId:"",
 });
 
@@ -33,10 +34,13 @@ State.searchUpperCustomer = action(function() {
 });
 
 //编辑页面的开关
-State.switcEditCustomerList = action(function() {
+State.switchEditCustomerList = action(function() {
 	this.openEditCustomerList=!this.openEditCustomerList;
 })
-
+//新增排放记录的开关
+State.switchCustomerIndent = action(function() {
+	this.openNewCustomerIndent=!this.openNewCustomerIndent;
+})
 //高级查询的提交
 State.searchUpperSubmit= action(function(value) {
 	console.log('nnnmmmmm',value);
@@ -46,6 +50,7 @@ State.closeAllMerchants = action(function() {
 	this.openNewMerchants=false;
 	this.openSearchUpper=false;
 	this.openEditCustomerList=false;
+	this.NewCustomerIndent=false;
 });
 State.MerchantsListId = action(function(params) {
 	this.listId=params;

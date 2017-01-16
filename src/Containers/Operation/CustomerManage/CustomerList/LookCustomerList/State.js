@@ -12,7 +12,7 @@ import {
 
 let State = observable({
 	openEditCustomerList:false,
-	comeFrom:"Merchants2",
+	comeFrom:"Merchants",
 	searchParams:{},
 	isDevelop:true,
 	listId:"",

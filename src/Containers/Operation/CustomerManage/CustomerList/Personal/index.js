@@ -52,6 +52,18 @@ class Personal extends Component{
 		State.switchLookCustomerList();
 	}
 
+	//查看页面开关
+	switchLookCustomerList=() => {
+      	State.switchLookCustomerList();
+	}
+	//客户编辑页面开关
+	switchEditCustomerList=() => {
+		State.switchEditCustomerList();
+	}
+	//新增拜访记录的开关
+	switchCustomerIndent = () =>{
+		State.switchCustomerIndent();
+	}
     //查看相关操作
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
@@ -165,14 +177,19 @@ class Personal extends Component{
 					{/*查看*/}
 					<Drawer
 							open={State.openLookMerchants}
-							width={650}
+							width={750}
 							openSecondary={true}
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
-								<NewCustomerIndent
-										
-								/>
+							<LookCustomerList
+				                 comeFrom="Merchant"
+								 onCancel={this.switchLookCustomerList}
+				                 listId={State.listId}
+				                 dataReady={dataReady}
+				                 editsSwitch={this.switchEditCustomerList}
+				                 IndentSwitch={this.switchCustomerIndent}
+							/>
 					</Drawer>
 
                     {/*高级查询*/}

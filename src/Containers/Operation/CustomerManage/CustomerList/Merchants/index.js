@@ -34,6 +34,7 @@ import NewCustomerList from '../NewCustomerList';
 import LookCustomerList from '../LookCustomerList';
 import SearchUpperForm from '../SearchUpperForm';
 import EditCustomerList from "../EditCustomerList";
+import NewCustomerIndent from "../NewCustomerIndent";
 import './index.less'
 @observer
 class Merchants extends Component{
@@ -59,16 +60,19 @@ class Merchants extends Component{
 
 	}
 
-
 	//查看页面开关
 	switchLookCustomerList=() => {
       	State.switchLookCustomerList();
 	}
-	switcEditCustomerList = () => {
-		console.log("123")
-		State.switcEditCustomerList();
+	//客户编辑页面开关
+	switchEditCustomerList=() => {
+		console.log("444444")
+		State.switchEditCustomerList();
 	}
-	
+	//新增拜访记录的开关
+	switchCustomerIndent = () =>{
+		State.switchCustomerIndent();
+	}
 
     
     //选中几项领取，转移等
@@ -128,9 +132,7 @@ class Merchants extends Component{
 	render(){
       
 
-      let {dataReady}=this.props;
-      console.log("+++++",State.openEditCustomerList);
-	
+     
       let {dataReady,searchParams}=this.props;
       var blockStyle={};
       if(this.state.openDialog==true){
@@ -244,7 +246,8 @@ class Merchants extends Component{
 								 onCancel={this.switchLookCustomerList}
 				                 listId={State.listId}
 				                 dataReady={dataReady}
-				                 editsSwitch={this.switcEditCustomerList}
+				                 editsSwitch={this.switchEditCustomerList}
+				                 IndentSwitch={this.switchCustomerIndent}
 							/>
 					</Drawer>
 
@@ -260,6 +263,23 @@ class Merchants extends Component{
 						<EditCustomerList
 			                 comeFrom="Merchant"
 							 onCancel={this.switchEditCustomerList}
+			                 listId={State.listId}
+			                 dataReady={dataReady}
+						/>
+					</Drawer>
+
+				{/*新增拜访记录*/}
+					<Drawer
+							open={State.openNewCustomerIndent}
+							width={750}
+
+							openSecondary={true}
+							className='m-finance-drawer'
+							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+					 >
+						<NewCustomerIndent
+			                 comeFrom="Merchant"
+							 onCancel={this.switchCustomerIndent}
 			                 listId={State.listId}
 			                 dataReady={dataReady}
 						/>
@@ -287,7 +307,8 @@ class Merchants extends Component{
 						(State.openNewMerchants||
 							State.openEditMerchants||
 							State.openLookMerchants||
-							State.openEditCustomerList
+							State.openEditCustomerList||
+							State.openNewCustomerIndent
 						)&&
 							<div className="mask"
 								onClick={this.closeAllMerchants}
