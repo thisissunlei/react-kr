@@ -28,7 +28,7 @@ import {
 } from 'kr-ui';
 
 import State from './State';
-
+import SearchForm from '../SearchForms';
 import NewCustomerList from '../NewCustomerList';
 import LookCustomerList from '../LookCustomerList';
 import SearchUpperForm from '../SearchUpperForm';
@@ -62,10 +62,29 @@ class SignedClient extends Component{
 	onNewMerchants=(params)=>{
 
 	}
+
+	//搜索
+	onSearchSubmit=(params)=>{
+        let obj = {
+			company:params.content,
+		}
+		this.setState({
+			searchParams: obj
+		});
+	}
+
 	//高级查询
 	openSearchUpperDialog=()=>{
       State.searchUpperCustomer();
 	}
+
+	//高级查询提交
+     onSearchUpperSubmit=(value)=>{
+      	this.setState({
+      	  searchParams:value
+      	})
+      	State.searchUpperCustomer();
+     }
 
 	//导出
 	onExport=(value)=>{
@@ -89,7 +108,7 @@ class SignedClient extends Component{
 			         
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
 				          <ListGroup>
-				            <ListGroupItem><SearchForms placeholder='请输入客户名称' onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
+				            <ListGroupItem><SearchForms placeholder='请输入客户名称' onSubmit={this.onSearchSubmit}/></ListGroupItem>
 				            <ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
 				          </ListGroup>
 			          </Col>
@@ -177,13 +196,14 @@ class SignedClient extends Component{
 					>
 						<SearchUpperForm  
 						    onCancel={this.openSearchUpperDialog}
+						    onSubmit={this.onSearchUpperSubmit}
 						    flag='签约'
 						    searchSignParams={searchSignParams}
 						/>
 				    </Dialog>
 
 
-					{/*
+					{
 						(State.openNewMerchants||
 							State.openEditMerchants||
 							State.openLookMerchants
@@ -192,7 +212,7 @@ class SignedClient extends Component{
 								onClick={this.closeAllMerchants}
 							>
 							</div>
-					*/}
+					}
         </div>
 		);
 	}
