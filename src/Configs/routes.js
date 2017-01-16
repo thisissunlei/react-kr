@@ -81,7 +81,7 @@ export default (
 		{/*社区经营*/}
 		<Route path="community" component={Basic}>
              <IndexRedirect to="communityManage/detail" />
-			{/*计划表*/}
+			{/*销控表*/}
 
 			<Route path="communityManage" component={Basic}>
 					<Route path="detail" component={Operation.CommunityManage.Detail}/>
@@ -107,9 +107,9 @@ export default (
 		{/*运营管理*/}
 		<Route path="operation" component={Basic}>
 				<Route path="index" component={Operation.Home}/>
-                 {/*分组模版管理*/}
-                <Route path="groupSetting" component={Operation.GroupSetting}/>
-                 {/*客户管理*/}
+        {/*分组模版管理*/}
+        <Route path="groupSetting" component={Operation.GroupSetting}/>
+        {/*客户管理*/}
 				<Route path="customerManage" component={Basic}>
 					<Route path="List" component={Operation.CustomerManage.List} name="customerManage_list"/>
 

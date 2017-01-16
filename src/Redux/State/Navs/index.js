@@ -47,7 +47,7 @@ module.exports = {
 			iconColor: '#2b8dcd',
 			menuCode: 'community_manage',
 			menuItems: [{
-				primaryText: '计划表',
+				primaryText: '销控表',
 				menuCode: 'plan_table',
 				router: '/community/communityManage/detail',
 			}, {

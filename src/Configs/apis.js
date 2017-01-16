@@ -340,6 +340,11 @@ const APIS = {
 		url: '/api/krspace-finance-web/finacontractdetail/plan-table/rate?year={year}&communityids={communityids}',
 		method: 'get'
 	},
+	//数据统计-模板分组-修改与新建
+	'GroupNewAndEidt': {
+		url: '/api/krspace-finance-web/stat/group/actions/add-or-update',
+		method: 'post'
+	},
   // 计划表获取合同数据
 	'getBillContract': {
 		url: '/api/krspace-finance-web/finacontractdetail/plan-table/billContract?billId={billId}',
@@ -609,11 +614,6 @@ const APIS = {
  		url: '/api/krspace-finance-web/stat/group/actions/view?id={id}',
  		method: 'get'
  	},
- 	//数据统计-模板分组-修改与新建
- 	'GroupNewAndEidt': {
- 		url: '/api/krspace-finance-web/stat/group/actions/add-or-update',
- 		method: 'post'
- 	},
  	//数据统计-模板分组-新建时获取所有模板的数据
  	'GroupNewModule': {
  		url: '/api/krspace-finance-web/stat/template/list',
@@ -643,7 +643,8 @@ const APIS = {
    url:'/api/krspace-finance-web/member/card/mbr-card?foreignCode={foreignCode}&page={page}&pageSize={pageSize}',
    method:'get'
  },
- //运营平台-会员管理-会员配置-会员卡激活-会卡批量激活&&运营平台-会员管理-会员配置-会员卡激活-会卡新建激活
+ //运营平台-会员管理-会员配置-会员卡激活-会卡批量激活
+ //&&运营平台-会员管理-会员配置-会员卡激活-会卡新建激活
  'CardActivation': {
    url:'/api/krspace-finance-web/member/card/mbr-card',
    method:'post'
