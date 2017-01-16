@@ -127,6 +127,7 @@ class SignedClient extends Component{
 			                 </TableRowColumn>
 			               </TableRow>
 			        </TableBody>
+			        <TableFooter></TableFooter>
            </Table>
 
 
@@ -167,6 +168,7 @@ class SignedClient extends Component{
 					>
 						<SearchUpperForm  
 						    onCancel={this.openSearchUpperDialog}
+						    flag='签约'
 						/>
 				    </Dialog>
 
@@ -186,4 +188,5 @@ class SignedClient extends Component{
 	}
 
 }
+
 export default SignedClient;
