@@ -69,7 +69,9 @@ class Merchants extends Component{
 	}
 
 	render(){
-
+      
+      let {dataReady}=this.props;
+      console.log('88888yyyyy',this.props.dataReady);
 		return(
       <div className="m-merchants" style={{paddingTop:25}}>
       		<Title value="运营平台"/>
@@ -144,6 +146,7 @@ class Merchants extends Component{
 								<NewCustomerList
 										onSubmit={this.onNewMerchants}
 										onCancel={this.switchNewMerchants}
+										dataReady={dataReady}
 								/>
 
 		           </Drawer>
@@ -158,7 +161,7 @@ class Merchants extends Component{
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
 								<LookCustomerList
-										
+				                 dataReady={dataReady}						
 								/>
 					</Drawer>
 

@@ -5,12 +5,9 @@ import React, {
 import {
 	connect
 } from 'kr/Redux';
-
 import {
-	reduxForm,
-	formValueSelector,
-	change
-} from 'redux-form';
+	observer
+} from 'mobx-react';
 import {
 	Actions,
 	Store
@@ -27,7 +24,8 @@ import {
 } from 'kr-ui';
 
 import './index.less';
-
+import State from './State';
+@observer
 class SearchUpperForm extends Component {
 
 	static propTypes = {
@@ -37,35 +35,22 @@ class SearchUpperForm extends Component {
 
 	constructor(props) {
 		super(props);
-
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
-
 	}
 	
 
 	onSubmit(values) {
-		const {
-			onSubmit
-		} = this.props;
-		onSubmit && onSubmit(values);
+	  State.searchUpperSubmit();	
 	}
 
 	onCancel() {
-		const {
-			onCancel
-		} = this.props;
-
-		onCancel && onCancel();
-
+	  State.searchUpperCancel();		
 	}
 
 	renderSigned=()=>{
 		const {
-			error,
 			handleSubmit,
-			pristine,
-			reset
 		} = this.props;
 		return (
 
@@ -101,10 +86,7 @@ class SearchUpperForm extends Component {
 
 	renderOther=()=>{
 		const {
-			error,
 			handleSubmit,
-			pristine,
-			reset
 		} = this.props;
 		return (
 
@@ -154,3 +136,4 @@ class SearchUpperForm extends Component {
 	}
 }
 
+export default SearchUpperForm;

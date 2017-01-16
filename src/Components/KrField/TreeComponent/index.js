@@ -56,7 +56,6 @@ export default class TreeComponent extends React.Component {
 		let treeArr=this.state.tree;
 		// console.log(event,currentValue,"mmm")
 		let newParent=event.target.attributes[1].value;
-		let newValue=currentValue;
 		
 		
 		if(this.state.prevValue!=parent&&treeArr.length>=1){
@@ -93,7 +92,6 @@ export default class TreeComponent extends React.Component {
 	selectList=(data,oldValue,oldParent)=>{
 		var _this=this;
 		let newParent=oldValue;
-		let oldParent=oldParent;
 		let list=data.map(function(item,index){
 			return (<span 
 						className="ui-everyTree"

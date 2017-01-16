@@ -12,6 +12,9 @@ import {
 	reset
 } from 'redux-form';
 import {
+	observer
+} from 'mobx-react';
+import {
 	Actions,
 	Store
 } from 'kr/Redux';
@@ -31,14 +34,14 @@ import {
 	Title
 } from 'kr-ui';
 import './index.less'
-
+import State from './State';
 //招商线索
 import Merchants from './Merchants';
 //个人客户
 import Personal from './Personal';
 //签约客户
 import SignedClient from './SignedClient';
-
+@observer
 class CustomerList extends Component {
 	static childContextTypes = {
 		onSetCommunity: React.PropTypes.func.isRequired,
@@ -58,7 +61,7 @@ class CustomerList extends Component {
 			tab: 'table',
 			communityId: ''
 		}
-
+		State.dataReady();
 	}
 
 	componentDidMount() {
@@ -105,6 +108,7 @@ class CustomerList extends Component {
 
 
 	render() {
+
 		let {
 			tab
 		} = this.state;
@@ -138,7 +142,7 @@ class CustomerList extends Component {
 			<Tabs className="tabs">
 					<Tab label="招商线索" onActive={this.merchants} style={merchantsStyle}>
 						
-							<Merchants />
+							<Merchants dataReady={State.dataRead}/>
 					</Tab>
 					<Tab label="个人客户"  onActive={this.personal} style={personalStyle}>
 						
