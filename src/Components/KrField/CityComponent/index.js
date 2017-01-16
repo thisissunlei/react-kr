@@ -45,7 +45,6 @@ export default class CityComponent extends React.Component {
 			thirdName:'',
 			city:'请选择',
 		}
-	console.log(CityData,"[[[[[")
 		
 
 	}

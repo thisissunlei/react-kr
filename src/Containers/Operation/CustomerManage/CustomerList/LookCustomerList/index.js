@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+    import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
@@ -35,9 +35,9 @@ class LookCustomerList extends Component{
 
 	constructor(props,context){
 		super(props, context);
-		let {comeFrom}=this.props;
+		let {comeFrom,data}=this.props;
 		State.initComeFrom(comeFrom);
-
+		State.lookListId(props.listId);
 
 	}
 	onSubmit = (values) => {
@@ -49,11 +49,20 @@ class LookCustomerList extends Component{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
+	
+	
 
-	isHaveTabs = () => {
-		if(State.comeFrom=="Merchants"){
+	componentWillReceiveProps(nextProps){
+		State.lookListId(nextProps.listId);
+	}
 
-			return  (<LookDetailed  />)
+	isHaveTabs = (comeFrom,editsSwitch) => {
+		
+
+		
+		if(comeFrom=="Merchant"){
+
+			return  (<LookDetailed  detail={State.detail} editsSwitch={editsSwitch}/>)
 		}else {
 
 			return (<Tabs className="tabs"
@@ -65,25 +74,29 @@ class LookCustomerList extends Component{
 				</Tab>
 				<Tab label="客户详情" >
 					
-						<LookDetailed  />
+						<LookDetailed  detail={State.detail} editsSwitch={editsSwitch} />
 				</Tab>
 			</Tabs>)
 
 		}
 	}
+
 	render(){
+		let {comeFrom,data,dataReady,editsSwitch}=this.props;
+				                 
+
+      
 		
 		return(
-      <div className="m-lookCustomerList m-newMerchants">
-      	<div className="title">
-			<div><span className="new-icon"></span><label className="title-text">新建客户</label></div>
-			<div className="close" onClick={this.onCancel}></div>
-		</div>
-		<div style={{height:5}}></div>
-		{this.isHaveTabs()}
-        
-        
-      </div>
+		      <div className="m-lookCustomerList m-newMerchants">
+		      	<div className="title">
+					<div><span className="new-icon"></span><label className="title-text">新建客户</label></div>
+					<div className="close" onClick={this.onCancel}></div>
+				</div>
+				<div style={{height:5}}></div>
+				{this.isHaveTabs(comeFrom,editsSwitch)}
+		        
+		      </div>
 
 		);
 	}

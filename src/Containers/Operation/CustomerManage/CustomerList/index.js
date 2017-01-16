@@ -146,10 +146,10 @@ class CustomerList extends Component {
 					</Tab>
 					<Tab label="个人客户"  onActive={this.personal} style={personalStyle}>
 						
-							<Personal />
+							<Personal dataReady={State.dataRead}/>
 					</Tab>
 					<Tab label="签约客户"  onActive={this.signedClient} style={signedClientStyle}>
-							<SignedClient />
+							<SignedClient dataReady={State.dataRead}/>
 					</Tab>
 			</Tabs>
 

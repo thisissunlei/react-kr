@@ -72,6 +72,7 @@ class SignedClient extends Component{
 	}
 
 	render(){
+		let {dataReady}=this.props;
 
 		return(
       <div className="m-merchants" style={{paddingTop:25}}>
@@ -142,6 +143,8 @@ class SignedClient extends Component{
 								<NewCustomerList
 										onSubmit={this.onNewMerchants}
 										onCancel={this.switchNewMerchants}
+										dataReady={dataReady}
+										come={"3"}
 								/>
 
 		           </Drawer>
@@ -156,6 +159,10 @@ class SignedClient extends Component{
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
 								<LookCustomerList
+									comeFrom="Merchant"
+									onCancel={this.switchLookCustomerList}
+					                listId={State.listId}
+					                dataReady={dataReady}
 										
 								/>
 					</Drawer>

@@ -2,6 +2,8 @@ import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
+import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
+
 import {
 	observer
 } from 'mobx-react';
@@ -31,6 +33,7 @@ import State from './State';
 import NewCustomerList from '../NewCustomerList';
 import LookCustomerList from '../LookCustomerList';
 import SearchUpperForm from '../SearchUpperForm';
+import EditCustomerList from "../EditCustomerList";
 import './index.less'
 @observer
 class Merchants extends Component{
@@ -41,23 +44,35 @@ class Merchants extends Component{
 			searchParams:{}
 		}
 	}
-
-
+	
 	//新建页面的开关
-	switchNewMerchants=()=>{
+	switchNewMerchants= (params) => {
+		
+		Store.dispatch(initialize('NewCustomerList',{}));
 		State.switchNewCustomerList();
+
 	}
 
+	//查看页面开关
+	switchLookCustomerList=() => {
+      	State.switchLookCustomerList();
+	}
+	switcEditCustomerList = () => {
+		console.log("123")
+		State.switcEditCustomerList();
+	}
+	
 
     //查看相关操作
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
+      	State.MerchantsListId(itemDetail.id);
       	State.switchLookCustomerList();
       }
     }
 	//新建提交按钮
 	onNewMerchants=(params)=>{
-
+		switchNewMerchants(params);
 	}
 	//高级查询
 	openSearchUpperDialog=()=>{
@@ -67,13 +82,12 @@ class Merchants extends Component{
 	closeAllMerchants=()=>{
 		State.closeAllMerchants();
 	}
-
 	render(){
       
       let {dataReady}=this.props;
-      console.log('88888yyyyy',this.props.dataReady);
-		return(
-      <div className="m-merchants" style={{paddingTop:25}}>
+      console.log("+++++",State.openEditCustomerList);
+	return(
+      <div className="m-merchants" style={{paddingTop:25}} onClick={this.cccc}>
       		<Title value="运营平台"/>
 	        <Row style={{marginBottom:21}}>
 			          <Col
@@ -143,11 +157,12 @@ class Merchants extends Component{
 				        className='m-finance-drawer'
 				        containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 			        >
-								<NewCustomerList
-										onSubmit={this.onNewMerchants}
-										onCancel={this.switchNewMerchants}
-										dataReady={dataReady}
-								/>
+						<NewCustomerList
+								onSubmit={this.onNewMerchants}
+								onCancel={this.switchNewMerchants}
+								dataReady={dataReady}
+								come={"1"}
+						/>
 
 		           </Drawer>
 
@@ -155,15 +170,37 @@ class Merchants extends Component{
 					{/*查看*/}
 					<Drawer
 							open={State.openLookMerchants}
-							width={700}
+							width={750}
 							openSecondary={true}
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
-								<LookCustomerList
-				                 dataReady={dataReady}						
-								/>
+							<LookCustomerList
+				                 comeFrom="Merchant"
+								 onCancel={this.switchLookCustomerList}
+				                 listId={State.listId}
+				                 dataReady={dataReady}
+				                 editsSwitch={this.switcEditCustomerList}
+							/>
 					</Drawer>
+
+					{/*编辑*/}
+					<Drawer
+							open={State.openEditCustomerList}
+							width={750}
+
+							openSecondary={true}
+							className='m-finance-drawer'
+							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+					 >
+						<EditCustomerList
+			                 comeFrom="Merchant"
+							 onCancel={this.switchEditCustomerList}
+			                 listId={State.listId}
+			                 dataReady={dataReady}
+						/>
+					</Drawer>
+
 
                     {/*高级查询*/}
                     <Dialog
@@ -172,8 +209,7 @@ class Merchants extends Component{
 						open={State.openSearchUpper}
 					>
 						<SearchUpperForm  
-						    onCancel={this.openSearchUpperDialog}
-						    flag='招商'
+					        dataReady={dataReady}
 						/>
 				    </Dialog>
 
@@ -181,7 +217,8 @@ class Merchants extends Component{
 					{
 						(State.openNewMerchants||
 							State.openEditMerchants||
-							State.openLookMerchants
+							State.openLookMerchants||
+							State.openEditCustomerList
 						)&&
 							<div className="mask"
 								onClick={this.closeAllMerchants}

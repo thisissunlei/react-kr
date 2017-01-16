@@ -72,7 +72,7 @@ class Personal extends Component{
 	}
 
 	render(){
-
+		let {dataReady}=this.props;
 		return(
       <div className="m-merchants" style={{paddingTop:25}}>
       		<Title value="运营平台"/>
@@ -81,11 +81,11 @@ class Personal extends Component{
 					     align="left"
 					     style={{float:'left'}}
 					   >
-									<Button
-											label="新建客户"
-											type='button'
-											onTouchTap={this.switchNewMerchants}
-									/>
+						<Button
+								label="新建客户"
+								type='button'
+								onTouchTap={this.switchNewMerchants}
+						/>
 					  </Col>
 
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
@@ -148,6 +148,8 @@ class Personal extends Component{
 								<NewCustomerList
 										onSubmit={this.onNewMerchants}
 										onCancel={this.switchNewMerchants}
+										dataReady={dataReady}
+										come={"2"}
 								/>
 
 		           </Drawer>

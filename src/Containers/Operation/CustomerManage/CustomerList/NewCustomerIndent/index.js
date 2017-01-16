@@ -39,7 +39,6 @@ import './index.less'
 			visitTypeList:[]
 		};
 		let selectData=props.selectData||selectDatas;
-		console.log(props.selectData,";;;;;;")
 		State.selectDataInit(selectData);
 	}
 
@@ -65,7 +64,7 @@ import './index.less'
 	}
 	
 	componentDidMount(){
-	 	Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
+	 	
 	}
 
 
