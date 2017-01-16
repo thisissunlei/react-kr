@@ -30,11 +30,10 @@ State.searchUpperCustomer = action(function() {
 	this.openSearchUpper=!this.openSearchUpper;
 });
 //导出
-State.exportData = action(function(values) {
-	    console.log('bbbhhhhh',values);
-		let idList = [];
-		if (values.length != 0) {
-			values.map((item, value) => {
+State.exportData = action(function(value) {
+		let customerIds = [];
+		if (value.length != 0) {
+			value.map((item, value) => {
 				customerIds.push(item.id)
 			});
 		}

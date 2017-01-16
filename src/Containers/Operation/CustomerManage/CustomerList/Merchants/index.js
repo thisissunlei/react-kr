@@ -39,9 +39,12 @@ class Merchants extends Component{
 		super(props, context);
 		this.state={
 			searchParams:{
-				page:1,
-				pageSize:15
-			}
+				
+			},
+			//控制复选框的选中与否
+			openDialog:false,
+			//选中的数量
+			dialogNum:0
 		}
 	}
 
@@ -50,7 +53,26 @@ class Merchants extends Component{
 	switchNewMerchants=()=>{
 		State.switchNewCustomerList();
 	}
-
+    
+    //选中几项领取，转移等
+    onSelect=(value)=>{
+      if(value.length>0){
+        this.setState({
+         openDialog:true,
+         dialogNum:value.length	
+        })	
+      }else{
+      	this.setState({
+         openDialog:false,
+        })	
+      }
+    }
+    //领取浮框的关闭
+    merClose=()=>{
+        this.setState({
+         openDialog:false,
+        })		
+    }
 
     //查看相关操作
     onOperation=(type, itemDetail)=>{
@@ -62,6 +84,7 @@ class Merchants extends Component{
 	onNewMerchants=(params)=>{
 
 	}
+	
 	//搜索
 	onSearchSubmit=(params)=>{
         let obj = {
@@ -71,10 +94,16 @@ class Merchants extends Component{
 			searchParams: obj
 		});
 	}
+
 	//高级查询
 	openSearchUpperDialog=()=>{
       State.searchUpperCustomer();
 	}
+    //高级查询提交
+     onSearchUpperSubmit=(value)=>{
+      State.searchUpperSubmit(value);	
+     }
+
 
 	closeAllMerchants=()=>{
 		State.closeAllMerchants();
@@ -83,15 +112,24 @@ class Merchants extends Component{
 	render(){
       
       let {dataReady,searchParams}=this.props;
-
-
+      var blockStyle={};
+      if(this.state.openDialog==true){
+        blockStyle={
+        	display:'inline-block'
+        }
+      }else{
+      	blockStyle={
+        	display:'none'
+        }
+      }
+      
 		return(
       <div className="m-merchants" style={{paddingTop:25}}>
       		<Title value="运营平台"/>
-      		<div className='merchants-dialog'>
-      		  <div className='selectCheck'>已选中<span className='dialog-number'>1</span>项</div>
+      		<div className='merchants-dialog' style={blockStyle}>
+      		  <div className='selectCheck'>已选中<span className='dialog-number'>{this.state.dialogNum}</span>项</div>
       		  <Button  label="领取" type="button"/>
-      		  <span className='mer-close'></span>
+      		  <span className='mer-close' onClick={this.merClose}></span>
       		</div>
 	        <Row style={{marginBottom:21}}>
 			          <Col
@@ -118,6 +156,7 @@ class Merchants extends Component{
                 ajax={true}
                 onOperation={this.onOperation}
 	            displayCheckbox={true}
+	            onSelect={this.onSelect}
 	            ajaxParams={this.state.searchParams}
 	            ajaxUrlName='shareCustomers'
 	            ajaxFieldListName="list"

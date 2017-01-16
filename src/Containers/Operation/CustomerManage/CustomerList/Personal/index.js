@@ -67,8 +67,8 @@ class Personal extends Component{
       State.searchUpperCustomer();
 	}
 	//导出
-	onExport=()=>{
-	    State.exportData();	
+	onExport=(value)=>{
+	    State.exportData(value);	
 	}
 
 	closeAllMerchants=()=>{
@@ -190,7 +190,7 @@ class Personal extends Component{
 				    </Dialog>
 
 
-					{
+					{/*
 						(State.openNewMerchants||
 							State.openEditMerchants||
 							State.openLookMerchants
@@ -199,7 +199,7 @@ class Personal extends Component{
 								onClick={this.closeAllMerchants}
 							>
 							</div>
-					}
+					*/}
         </div>
 		);
 	}

@@ -122,10 +122,10 @@ class SearchUpperForm extends Component {
 				<KrField  grid={1/2} right={34} name="mainbilltype" type="select" style={{marginTop:4}} label="所属社区" options={belongCommunity}></KrField></div>) 
 		       }else{
                  selectData=(<div><KrField grid={1/2} right={34}  name="mainbillname" type="text" label="公司名称"/>
-                <KrField right={34} grid={1/2} style={{marginLeft:-5}} name="communityid" type="select" label="意向城市" options={cityList}/>
-				<KrField  grid={1/2} right={34} name="mainbilltype" style={{marginTop:4}} type="select"  label="意向社区" options={communityList}></KrField>
-				<KrField  grid={1/2} right={34} style={{marginLeft:-5,marginTop:4}}  name="mainbilltype" type="select"  label="客户分类" options={levelList} />
-				<KrField  grid={1/2} right={34} name="mainbilltype" type="select"  style={{marginTop:4}} label="客户来源" options={sourceList}></KrField></div>)
+                <KrField right={34} grid={1/2} style={{marginLeft:-5}} name="community" type="select" label="意向城市" options={cityList}/>
+				<KrField  grid={1/2} right={34} name="mainbillt" style={{marginTop:4}} type="select"  label="意向社区" options={communityList}></KrField>
+				<KrField  grid={1/2} right={34} style={{marginLeft:-5,marginTop:4}}  name="mainbilltyp" type="select"  label="客户分类" options={levelList} />
+				<KrField  grid={1/2} right={34} name="mainbi" type="select"  style={{marginTop:4}} label="客户来源" options={sourceList}></KrField></div>)
 		       }		       
 		
 		return (             

@@ -52,17 +52,16 @@ export default class TableBody extends React.Component {
 
 	toggleInsertElement(event) {
 
-		if(!event.hasOwnProperty('target')){
+		if(event&&!event.hasOwnProperty('target')){
 				return ;
-		}
+		}   
 
-		let target = event.target;
-		let nodeName = target.nodeName.toLowerCase();
+		let target = event&&event.target;
+		let nodeName =target&&target.nodeName.toLowerCase();
 
 		if (nodeName === 'input') {
 			return false;
 		}
-
 		this.setState({
 			showInsertElement: !this.state.showInsertElement
 		});

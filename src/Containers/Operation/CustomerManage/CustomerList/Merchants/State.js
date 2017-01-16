@@ -29,6 +29,10 @@ State.switchLookCustomerList = action(function() {
 State.searchUpperCustomer = action(function() {
 	this.openSearchUpper=!this.openSearchUpper;
 });
+//高级查询的提交
+State.searchUpperSubmit= action(function(value) {
+	console.log('nnnmmmmm',value);
+});
 
 State.closeAllMerchants = action(function() {
 	this.openLookMerchants=false;

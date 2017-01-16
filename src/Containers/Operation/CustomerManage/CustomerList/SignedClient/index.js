@@ -67,6 +67,11 @@ class SignedClient extends Component{
       State.searchUpperCustomer();
 	}
 
+	//导出
+	onExport=(value)=>{
+	    State.exportData(value);	
+	}
+
 	closeAllMerchants=()=>{
 		State.closeAllMerchants();
 	}
@@ -94,6 +99,7 @@ class SignedClient extends Component{
                 onOperation={this.onOperation}
 	            displayCheckbox={true}
 	            exportSwitch={true}
+	            onExport={this.onExport}
 	            ajaxParams={this.state.searchParams}
 	            ajaxUrlName='signCustomers'
 	            ajaxFieldListName="list"
@@ -156,7 +162,7 @@ class SignedClient extends Component{
 				    </Dialog>
 
 
-					{
+					{/*
 						(State.openNewMerchants||
 							State.openEditMerchants||
 							State.openLookMerchants
@@ -165,7 +171,7 @@ class SignedClient extends Component{
 								onClick={this.closeAllMerchants}
 							>
 							</div>
-					}
+					*/}
         </div>
 		);
 	}
