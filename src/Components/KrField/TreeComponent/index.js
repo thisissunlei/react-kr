@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom';
 import './index.less';
 import $ from 'jquery';
 import WrapComponent from '../WrapComponent';
-import { default as CityData } from './CityData.json';
+import TreeAll from './TreeData.json';
 
 export default class TreeComponent extends React.Component {
 
@@ -32,201 +32,102 @@ export default class TreeComponent extends React.Component {
 
 		this.isInit = false;
 		this.state = {
-			value: '',
-			showCity:false,
-			secondCity:[],
-			first:true,
-			thirdCity:[],
-			firstId:0,
-			secondId:0,
-			thirdId:0,
-			firstName:'',
-			secondName:'',
-			thirdName:'',
-			city:'请选择',
+			showTreeList:false,
+			tree:[],
+			prevValue:"All"
 		}
-	console.log(CityData,"[[[[[")
 		
 
 	}
 
-	componentDidMount() {
-		// this.setDefaultDate(this.props.input.value);
-	}
+	
 
 	componentWillReceiveProps(nextProps) {
 		// if (!this.isInit && nextProps.input.value) {
 		// 	this.setDefaultDate(nextProps.input.value);
 		// }
 	}
+	clicks=(value)=>{
 
-	firstCityList=()=>{
-		var firstCity = [];
-		firstCity = CityData.map((item)=>{
-			var obj = {};
-			obj.id = item.id;
-			obj.name = item.name;
-			return obj;
-
-		})
-		return firstCity;
-
+		// console.log("tree"+value,"pppp")
 
 	}
-
-	secondCityList=(id)=>{
-		var secondCity = [];
-		CityData.map(item=>{
-			if(item.id == id){
-				secondCity = item.children;
-			}
-		})
-		return secondCity;
-	}
-	thirdCityList=(secondCity,id)=>{
-		var thirdCity = [];
-		secondCity.map(item=>{
-			if(item.id == id){
-				thirdCity = item.children;
-			}
-		})
-		return thirdCity;
-	}
-	
-
-	selected=(event)=>{
-		event.target.style.background = '#f5f5f5';
-		let thirdId = event.target.getAttribute('data-for');
-		const target = event.target.getElementsByTagName('span')[0];
-		this.setState({
-			thirdId,
-		});
-	}
-	leave=(event)=>{
-		event.target.style.background = '#fff';
-	}
-	selectFirstCity=(event)=>{
-		let firstCityId = event.target.getAttribute('data-for');
-		event.target.style.background = '#f5f5f5';
-		const second = ReactDOM.findDOMNode(this.cityList);
-		const SecondCity = second.getElementsByClassName('secondCity')[0];
-		const target = event.target.getElementsByTagName('span')[0];
-		SecondCity.style.display = 'inline-block';
-		const ThirdCity = second.getElementsByClassName('thirdCity')[0];
-		ThirdCity.style.display = 'none';
-		let secondCity = this.secondCityList(firstCityId);
-
-		this.setState({
-			secondCity,
-			firstId:firstCityId,
-			firstName:target.innerHTML
-		})
-
-	}
-	selectSecondCity=(event)=>{
-		let {secondCity} = this.state;
-		event.target.style.background = '#f5f5f5';
-		let secondCityId = event.target.getAttribute('data-for');
-		const third = ReactDOM.findDOMNode(this.cityList);
-		const ThirdCity = third.getElementsByClassName('thirdCity')[0];
-		ThirdCity.style.display = 'inline-block';
-		let thirdCity = this.thirdCityList(secondCity,secondCityId);
-		const target = event.target.getElementsByTagName('span')[0];
-		if(!thirdCity.length){
-			console.log('none');
+	seover=(data,newValue,oldValue,oldParent,event)=>{
+		let treeArr=this.state.tree;
+		// console.log(event,currentValue,"mmm")
+		let newParent=event.target.attributes[1].value;
+		let newValue=currentValue;
+		
+		
+		if(this.state.prevValue!=parent&&treeArr.length>=1){
+			treeArr.length=treeArr.length-1;
 		}
-
-		this.setState({
-			thirdCity,
-			secondId:secondCityId,
-			secondName:target.innerHTML
-		})
-
-
-	}
-
-	showCity=()=>{
-		let {showCity} = this.state;
-		if(showCity){
+		if(data.length==0){
 			return;
 		}
-		this.bodyEvent();
+		treeArr.push(this.selectList(data,newValue,newParent));
 		this.setState({
-			showCity:true
-		})	
+			tree:treeArr,
+			prevValue:currentValue
+
+
+		})
 	}
+	imitateInputClick=()=>{
+		let treeArr=this.state.tree;
+		if(treeArr.length==0){
 
-	onSubmit=(event)=>{
-		let {thirdId} = this.state;
-		const target = event.target.getElementsByTagName('span')[0];
-		let {thirdName,firstName,secondName} = this.state;
-		let city = `${firstName}/${secondName}/${target.innerHTML}`;
-		this.setState({
-			city,
-			showCity:false
-		});
-
-		let {onSubmit} = this.props;
-		onSubmit && onSubmit(thirdId);
-
-
-	}
-	bodyEvent=()=>{
-		let _this = this;
-		$('body').click(function(event){
-			if(event.target.className !='city-name'){
-				_this.setState({
-					showCity:false
-				});
-			}
-		});
-	}
-
-
-
-	render() {
-
-		let {
-			style,
-			left,
-			right,
-			grid = 1,
-			className,
-			children,
-			inline,
-			component,
-			type,
-			requireLabel,
-			label,
-			value,
-			search,
-			colorStyle,
-			heightStyle,
-			lengthClass,
-			...other
-		} = this.props;
-		let {showCity} = this.state;
-		let cityDiv = {};
-		cityDiv.display = showCity?'block':'none';
-		let firstCity = this.firstCityList();
-		let {secondCity,thirdCity,firstId,secondId,city,thirdId} = this.state;
-		let cityStyle= {
-			background:'#fff'
-		};
-		let selectedCity = {
-			background:'#f5f5f5'
+		
+			treeArr.push(this.selectList(TreeAll,"All","All"))
+			this.setState({
+				showTreeList:!this.state.showTreeList,
+				tree:treeArr
+			})
 		}
-		let hoverColor = {};
 		
 
-
 		
+	}
+
+
+	selectList=(data,oldValue,oldParent)=>{
+		var _this=this;
+		let newParent=oldValue;
+		let oldParent=oldParent;
+		let list=data.map(function(item,index){
+			return (<span 
+						className="ui-everyTree"
+						data-parent={newParent}
+						onClick={
+							_this.clicks.bind(_this,item.codeName)
+						}
+						onMouseOver={
+							_this.seover.bind(_this,item.children,item.codeName,oldValue,oldParent)
+						}
+					>
+						{item.codeName}
+					</span>)
+		})
+		
+		return (<div style={{float:"left"}}>{list}</div>);
+		
+	}
+	
+	render() {
+		let {label,style,requireLabel,inline,search}=this.props;
+		let imitateInputStyle="ui-imitateInput";
+		let showTreeList=this.state.showTreeList;
 
 		return (
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
-					
-
+				<div ref="ui-imitateInput" className={imitateInputStyle} onClick={this.imitateInputClick}>
+					<input readOnly="true" className="ui-treeInput" />
+					<span className="ui-treeArrow"></span>
+				</div>
+				{this.state.showTreeList && <div className="ui-treeList">
+					{this.state.tree} 
+				</div>}
 			</WrapComponent>
 		);
 	}

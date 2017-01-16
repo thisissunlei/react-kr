@@ -20,7 +20,7 @@ import SearchBelongCommunity from './SearchBelongCommunity';
 import LabelTextComponent from './LabelTextComponent';
 import GroupComponent from './GroupComponent';
 import CityComponent from './CityComponent';
-import TreeComponent from './CityComponent';
+import TreeComponent from './TreeComponent';
 import SearchCompanyComponent from './SearchCompanyComponent';
 import EditLabelTextComponent from './EditLabelTextComponent';
 
