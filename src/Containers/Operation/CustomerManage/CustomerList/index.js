@@ -152,13 +152,16 @@ class CustomerList extends Component {
 					<Tab label="个人客户"  onActive={this.personal} style={personalStyle}>
 						
 							<Personal 
-							   searchParams={State.searchParams}
+								dataReady={State.dataRead}
+								searchParams={State.searchParams}
 							/>
 					</Tab>
 					<Tab label="签约客户"  onActive={this.signedClient} style={signedClientStyle}>
 							<SignedClient 
-							   searchSignParams={State.searchSignParams}
+									dataReady={State.dataRead}
+									searchSignParams={State.searchSignParams}
 							/>
+
 					</Tab>
 			</Tabs>
 

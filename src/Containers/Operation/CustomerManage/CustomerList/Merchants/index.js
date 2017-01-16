@@ -2,6 +2,8 @@ import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
+import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
+
 import {
 	observer
 } from 'mobx-react';
@@ -31,6 +33,8 @@ import SearchForm from '../SearchForms';
 import NewCustomerList from '../NewCustomerList';
 import LookCustomerList from '../LookCustomerList';
 import SearchUpperForm from '../SearchUpperForm';
+import EditCustomerList from "../EditCustomerList";
+import NewCustomerIndent from "../NewCustomerIndent";
 import './index.less'
 @observer
 class Merchants extends Component{
@@ -48,12 +52,29 @@ class Merchants extends Component{
 			dialogNum:0
 		}
 	}
-
-
+	
 	//新建页面的开关
-	switchNewMerchants=()=>{
+	switchNewMerchants= (params) => {
+		
+		Store.dispatch(initialize('NewCustomerList',{}));
 		State.switchNewCustomerList();
+
 	}
+
+	//查看页面开关
+	switchLookCustomerList=() => {
+      	State.switchLookCustomerList();
+	}
+	//客户编辑页面开关
+	switchEditCustomerList=() => {
+		console.log("444444")
+		State.switchEditCustomerList();
+	}
+	//新增拜访记录的开关
+	switchCustomerIndent = () =>{
+		State.switchCustomerIndent();
+	}
+
     
     //选中几项领取，转移等
     onSelect=(value)=>{
@@ -74,16 +95,16 @@ class Merchants extends Component{
          openDialog:false,
         })		
     }
-
     //查看相关操作
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
+      	State.MerchantsListId(itemDetail.id);
       	State.switchLookCustomerList();
       }
     }
 	//新建提交按钮
 	onNewMerchants=(params)=>{
-
+		switchNewMerchants(params);
 	}
 	
 	//搜索
@@ -113,9 +134,10 @@ class Merchants extends Component{
 	closeAllMerchants=()=>{
 		State.closeAllMerchants();
 	}
-
 	render(){
       
+
+     
       let {dataReady,searchParams}=this.props;
       var blockStyle={};
       if(this.state.openDialog==true){
@@ -206,11 +228,12 @@ class Merchants extends Component{
 				        className='m-finance-drawer'
 				        containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 			        >
-								<NewCustomerList
-										onSubmit={this.onNewMerchants}
-										onCancel={this.switchNewMerchants}
-										dataReady={dataReady}
-								/>
+						<NewCustomerList
+								onSubmit={this.onNewMerchants}
+								onCancel={this.switchNewMerchants}
+								dataReady={dataReady}
+								come={"1"}
+						/>
 
 		           </Drawer>
 
@@ -218,15 +241,55 @@ class Merchants extends Component{
 					{/*查看*/}
 					<Drawer
 							open={State.openLookMerchants}
-							width={700}
+							width={750}
 							openSecondary={true}
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
-								<LookCustomerList
-				                 dataReady={dataReady}						
-								/>
+							<LookCustomerList
+				                 comeFrom="Merchant"
+								 onCancel={this.switchLookCustomerList}
+				                 listId={State.listId}
+				                 dataReady={dataReady}
+				                 editsSwitch={this.switchEditCustomerList}
+				                 IndentSwitch={this.switchCustomerIndent}
+							/>
 					</Drawer>
+
+					{/*编辑*/}
+					<Drawer
+							open={State.openEditCustomerList}
+							width={750}
+
+							openSecondary={true}
+							className='m-finance-drawer'
+							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+					 >
+						<EditCustomerList
+			                 comeFrom="Merchant"
+							 onCancel={this.switchEditCustomerList}
+			                 listId={State.listId}
+			                 dataReady={dataReady}
+						/>
+					</Drawer>
+
+				{/*新增拜访记录*/}
+					<Drawer
+							open={State.openNewCustomerIndent}
+							width={750}
+
+							openSecondary={true}
+							className='m-finance-drawer'
+							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+					 >
+						<NewCustomerIndent
+			                 comeFrom="Merchant"
+							 onCancel={this.switchCustomerIndent}
+			                 listId={State.listId}
+			                 dataReady={dataReady}
+						/>
+					</Drawer>
+
 
                     {/*高级查询*/}
                     <Dialog
@@ -248,7 +311,9 @@ class Merchants extends Component{
 					{
 						(State.openNewMerchants||
 							State.openEditMerchants||
-							State.openLookMerchants
+							State.openLookMerchants||
+							State.openEditCustomerList||
+							State.openNewCustomerIndent
 						)&&
 							<div className="mask"
 								onClick={this.closeAllMerchants}

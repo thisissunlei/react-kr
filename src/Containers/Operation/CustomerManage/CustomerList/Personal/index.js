@@ -52,6 +52,18 @@ class Personal extends Component{
 		State.switchLookCustomerList();
 	}
 
+	//查看页面开关
+	switchLookCustomerList=() => {
+      	State.switchLookCustomerList();
+	}
+	//客户编辑页面开关
+	switchEditCustomerList=() => {
+		State.switchEditCustomerList();
+	}
+	//新增拜访记录的开关
+	switchCustomerIndent = () =>{
+		State.switchCustomerIndent();
+	}
     //查看相关操作
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
@@ -95,10 +107,9 @@ class Personal extends Component{
 	}
     
 	render(){
-     
-     let {searchParams}=this.props;
+		let {dataReady,searchParams}=this.props;
+		return(
 
-	return(
       <div className="m-merchants" style={{paddingTop:25}}>
       		<Title value="运营平台"/>
 	        <Row style={{marginBottom:21}}>
@@ -106,11 +117,11 @@ class Personal extends Component{
 					     align="left"
 					     style={{float:'left'}}
 					   >
-									<Button
-											label="新建客户"
-											type='button'
-											onTouchTap={this.switchNewMerchants}
-									/>
+						<Button
+								label="新建客户"
+								type='button'
+								onTouchTap={this.switchNewMerchants}
+						/>
 					  </Col>
 
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
@@ -175,6 +186,8 @@ class Personal extends Component{
 								<NewCustomerList
 										onSubmit={this.onNewMerchants}
 										onCancel={this.switchNewMerchants}
+										dataReady={dataReady}
+										come={"2"}
 								/>
 
 		           </Drawer>
@@ -183,14 +196,19 @@ class Personal extends Component{
 					{/*查看*/}
 					<Drawer
 							open={State.openLookMerchants}
-							width={650}
+							width={750}
 							openSecondary={true}
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
-								<NewCustomerIndent
-										
-								/>
+							<LookCustomerList
+				                 comeFrom="Merchant"
+								 onCancel={this.switchLookCustomerList}
+				                 listId={State.listId}
+				                 dataReady={dataReady}
+				                 editsSwitch={this.switchEditCustomerList}
+				                 IndentSwitch={this.switchCustomerIndent}
+							/>
 					</Drawer>
 
                     {/*高级查询*/}

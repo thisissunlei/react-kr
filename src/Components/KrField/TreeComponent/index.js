@@ -50,7 +50,6 @@ export default class TreeComponent extends React.Component {
 	}
 	clicks=(value)=>{
 
-		// console.log("tree"+value,"pppp")
 
 	}
 	seover=(data,newValue,event)=>{
@@ -58,7 +57,6 @@ export default class TreeComponent extends React.Component {
 		let newParent=event.target.attributes[1].value;
 
 		let {oldValue,oldParent}=this.state;
-		console.log(newValue,newParent,oldValue,oldParent,"mmm")
 
 
 		if(data.length==0){

@@ -96,8 +96,10 @@ class SignedClient extends Component{
 	}
 
 	render(){
+
      
-       let {searchSignParams}=this.props; 
+       let {searchSignParams,dataReady}=this.props; 
+
 
 		return(
       <div className="m-merchants" style={{paddingTop:25}}>
@@ -148,8 +150,23 @@ class SignedClient extends Component{
 			        <TableFooter></TableFooter>
            </Table>
 
+					{/*新建*/}
+					<Drawer
+				        open={State.openNewMerchants}
+				        width={700}
+				        openSecondary={true}
+				        className='m-finance-drawer'
+				        containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+			        >
+								<NewCustomerList
+										onSubmit={this.onNewMerchants}
+										onCancel={this.switchNewMerchants}
+										dataReady={dataReady}
+										come={"3"}
+								/>
 
-					
+		           </Drawer>
+
 
 
 					{/*查看*/}
@@ -161,6 +178,10 @@ class SignedClient extends Component{
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
 								<LookCustomerList
+									comeFrom="Merchant"
+									onCancel={this.switchLookCustomerList}
+					                listId={State.listId}
+					                dataReady={dataReady}
 										
 								/>
 					</Drawer>

@@ -29,28 +29,22 @@ import './index.less'
 
 	constructor(props){
 		super(props);
-		let selectDatas={
-			communityBaselist:[],
-			customerSourceList:[],
-			giveupList:[],
-			levelList:[],
-			roundList:[],
-			stationTypeList:[],
-			visitTypeList:[]
-		};
-		let selectData=props.selectData||selectDatas;
-		State.selectDataInit(selectData);
+		let {dataReady,come}=props;
+		State.selectDataInit(dataReady,come);
+
 	}
 
 
 
 	onSubmit = (values) => {
 		const {onSubmit} = this.props;
+		State.onSubmitData(values);
 		onSubmit && onSubmit(values);
 	}
 
 	onCancel = () => {
 		const {onCancel} = this.props;
+
 		onCancel && onCancel();
 	}
 
@@ -69,8 +63,10 @@ import './index.less'
 
 
 	render(){
-		const { error, handleSubmit, pristine, reset} = this.props;
 
+		const { error, handleSubmit, pristine, reset,dataReady} = this.props;
+		
+		
 		return (
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)}>
@@ -83,7 +79,7 @@ import './index.less'
 							<div className="small-cheek">
 
 									<KrField grid={1/2} label="客户来源" name="sourceId" style={{width:252,marginLeft:15}} component="select" 
-											options={State.selectData.customerSourceList}
+											options={dataReady.customerSourceList}
 											requireLabel={true}
 									/>
 									<KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:252,marginLeft:15}} component="input" requireLabel={true}>
@@ -91,7 +87,7 @@ import './index.less'
 									</KrField>
 									<KrField grid={1/2} label="联系人姓名" name="customerName" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
 									<KrField grid={1/2} label="意向工位类型" name="staiontypeId" component="select" style={{width:252,marginLeft:15}} 
-											options={State.selectData.stationTypeList}
+											options={dataReady.stationTypeList}
 											requireLabel={true}
 									/>
 									<KrField grid={1/2} label="联系人电话" name="customerTel" style={{width:252,marginLeft:15}} component="input"  requireLabel={true}/>
@@ -100,7 +96,7 @@ import './index.less'
 									</KrField>
 									<KrField grid={1/2} label="联系人邮箱"  name="customerMail" style={{width:252,marginLeft:15}} component="input" requireLabel={false}/>
 									<KrField grid={1/2} label="意向入驻社区" name="intentionCommunityId" component="select" style={{width:252,marginLeft:15}} 
-											options={State.selectData.communityBaselist}
+											options={dataReady.communityBaselist}
 											requireLabel={true}
 									/>
 									<KrField grid={1/2} label="联系人微信" name="customerWechat" style={{width:252,marginLeft:15}} component="input" requireLabel={false}/>
@@ -112,7 +108,7 @@ import './index.less'
 						<div className="small-cheek" style={{paddingBottom:0}}>
 								<KrField grid={1/2} label="公司名称" name="customerCompany" component="input" style={{width:252,marginLeft:15}}  requireLabel={true}/>
 								<KrField grid={1/2} label="投资轮次" name="roundId" component="select" style={{width:252,marginLeft:15}} 
-										options={State.selectData.roundList}
+										options={dataReady.roundList}
 										requireLabel={false}
 								/>
 								<KrField grid={1/2} label="公司规模" name="teamNum" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
@@ -169,15 +165,22 @@ const validate = values =>{
 			errors.stationNum = '请填写意向工位个数';
 		}else if(isNaN(+values.stationNum)){
 			errors.stationNum = '意向工位个数为数字格式';
+		}else if(values.stationNum.length>8){
+			errors.stationNum = '最多输入8个字符';
 		}
+
 
 		if (!values.customerName) {
 			errors.customerName = '请填写联系人姓名';
+		}else if(values.customerName.length>20){
+			errors.customerName = '最多输入20个字符';
 		}
+
 
 		if (!values.staiontypeId) {
 			errors.staiontypeId = '请填写意向工位类型';
 		}
+
 
 		if (!values.customerTel) {
 			errors.customerTel = '请填写联系人电话';
@@ -185,20 +188,25 @@ const validate = values =>{
 			errors.customerTel = '联系人电话格式错误';
 		}
 
-		if(!phone.test(values.customerMail)){
-			errors.customerMail = '联系人邮箱格式错误';
-		}
-
 		if (!values.staionPrice) {
 			errors.staionPrice = '请填写意向工位价格';
 		}else if(isNaN(+values.staionPrice)){
 			errors.staionPrice = '意向工位价格为数字格式';
+		}else if(values.staionPrice.length>11){
+			errors.staionPrice = '最多输入11个字符';
 		}
-		if(isNaN(+values.amount)){
-			errors.amount = '融资金额为数字格式';
+
+
+		if(!email.test(values.customerMail)){
+			errors.customerMail = '联系人邮箱格式错误';
 		}
-		if (!values.intentionCommunityId) {
-			errors.intentionCommunityId = '请填写意向入驻社区';
+
+		if(!values.intentionCommunityId){
+			errors.intentionCommunityId="意向工位类型不能为空";
+		}
+
+		if(values.customerWechat&&values.customerWechat.length>50){
+			errors.customerWechat="最多输入50个字符";
 		}
 
 		if (!values.inTime) {
@@ -207,10 +215,23 @@ const validate = values =>{
 
 		if (!values.customerCompany) {
 			errors.customerCompany = '请填写公司名称';
+		}else if(values.customerCompany.length>25){
+			errors.customerCompany = '最多输入25个字符';
 		}
 
 		if (!values.teamNum) {
 			errors.teamNum = '请填写公司规模';
+		}else if(values.teamNum.length>8){
+			errors.teamNum = '最多输入8个字符';
+		}
+
+
+		if(values.amount&&values.amount.length>20){
+			errors.amount = '最多输入20个字符';
+		}
+
+		if (!values.intentionCommunityId) {
+			errors.intentionCommunityId = '请填写意向入驻社区';
 		}
 
 		if(values.hasOffice && !values.deadline){
@@ -219,6 +240,8 @@ const validate = values =>{
 
 		if (!values.projectName) {
 			errors.projectName = '请填写项目名称';
+		}else if(values.projectName.length>25){
+			errors.projectName = '最多输入25个字符';
 		}
 
 		if (!values.districtId) {
@@ -231,12 +254,17 @@ const validate = values =>{
 
 		if (!values.detailAddress) {
 			errors.detailAddress = '请填写详细地址';
+		}else if(values.detailAddress.length>25){
+			errors.detailAddress = '最多输入25个字符';
 		}
 
+		if(values.website&&values.website.length>50){
+			errors.website = '最多输入50个字符';
 
+		}
 		if (!values.companyIntroduce) {
 			errors.companyIntroduce = '请填写公司简介';
 		}
 		return errors
 	}
-export default reduxForm({ form: 'NewCustomerList',validate})(NewCustomerList);
+export default reduxForm({ form: 'NewCustomerList',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCustomerList);

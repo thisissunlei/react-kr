@@ -10,15 +10,19 @@ import {
 	Store
 } from 'kr/Redux';
 let State = observable({
-		detail:[],
 		matureTime:false,
-		detail:{}
+		detail:{},
+		selectData:{
+			communityBaselist:[],
+			customerSourceList:[],
+			giveupList:[],
+			levelList:[],
+			roundList:[],
+			stationTypeList:[],
+			visitTypeList:[]
+		}
 
 
-});
-//select下拉数组的初始化
-State.selectDataInit=action(function(params) {
-	this.detail=params;
 });
 //
 State.isMatureTime = action(function(hasOffice) {
@@ -36,6 +40,19 @@ State.showMatureTime = action(function() {
 //不显示到期时间
 State.noShowMatureTime = action(function() {
 	this.matureTime=false;
+});
+State.editListId= action(function(params) {
+	console.log("sdff",params)
+	var _this=this;
+	Store.dispatch(Actions.callAPI('get-edit-info',{id:params})).then(function(response) {
+		_this.detail=response;
+		console.log(response,"999999999999");
+
+	}).catch(function(err) {
+		console.log(err,"999999999999");
+
+		//Message.error(err.message);
+	});
 });
 
 module.exports = State;
