@@ -170,6 +170,7 @@ class Merchants extends Component{
 					>
 						<SearchUpperForm  
 						    onCancel={this.openSearchUpperDialog}
+						    flag='招商'
 						/>
 				    </Dialog>
 

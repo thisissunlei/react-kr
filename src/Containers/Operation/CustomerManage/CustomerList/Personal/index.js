@@ -130,6 +130,7 @@ class Personal extends Component{
 			                 </TableRowColumn>
 			               </TableRow>
 			        </TableBody>
+			        <TableFooter></TableFooter>
            </Table>
 
 
@@ -170,6 +171,7 @@ class Personal extends Component{
 					>
 						<SearchUpperForm  
 						    onCancel={this.openSearchUpperDialog}
+						    flag='个人'
 						/>
 				    </Dialog>
 
