@@ -41,7 +41,13 @@ class Merchants extends Component{
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			searchParams:{}
+			searchParams:{
+				
+			},
+			//控制复选框的选中与否
+			openDialog:false,
+			//选中的数量
+			dialogNum:0
 		}
 	}
 	
@@ -53,6 +59,7 @@ class Merchants extends Component{
 
 	}
 
+
 	//查看页面开关
 	switchLookCustomerList=() => {
       	State.switchLookCustomerList();
@@ -63,6 +70,26 @@ class Merchants extends Component{
 	}
 	
 
+    
+    //选中几项领取，转移等
+    onSelect=(value)=>{
+      if(value.length>0){
+        this.setState({
+         openDialog:true,
+         dialogNum:value.length	
+        })	
+      }else{
+      	this.setState({
+         openDialog:false,
+        })	
+      }
+    }
+    //领取浮框的关闭
+    merClose=()=>{
+        this.setState({
+         openDialog:false,
+        })		
+    }
     //查看相关操作
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
@@ -74,21 +101,56 @@ class Merchants extends Component{
 	onNewMerchants=(params)=>{
 		switchNewMerchants(params);
 	}
+	
+	//搜索
+	onSearchSubmit=(params)=>{
+        let obj = {
+			mainbillname: params.content,
+		}
+		this.setState({
+			searchParams: obj
+		});
+	}
+
 	//高级查询
 	openSearchUpperDialog=()=>{
       State.searchUpperCustomer();
 	}
+    //高级查询提交
+     onSearchUpperSubmit=(value)=>{
+      State.searchUpperSubmit(value);	
+     }
+
 
 	closeAllMerchants=()=>{
 		State.closeAllMerchants();
 	}
 	render(){
       
+
       let {dataReady}=this.props;
       console.log("+++++",State.openEditCustomerList);
-	return(
-      <div className="m-merchants" style={{paddingTop:25}} onClick={this.cccc}>
+	
+      let {dataReady,searchParams}=this.props;
+      var blockStyle={};
+      if(this.state.openDialog==true){
+        blockStyle={
+        	display:'inline-block'
+        }
+      }else{
+      	blockStyle={
+        	display:'none'
+        }
+      }
+      
+		return(
+      <div className="m-merchants" style={{paddingTop:25}}>
       		<Title value="运营平台"/>
+      		<div className='merchants-dialog' style={blockStyle}>
+      		  <div className='selectCheck'>已选中<span className='dialog-number'>{this.state.dialogNum}</span>项</div>
+      		  <Button  label="领取" type="button"/>
+      		  <span className='mer-close' onClick={this.merClose}></span>
+      		</div>
 	        <Row style={{marginBottom:21}}>
 			          <Col
 					     align="left"
@@ -114,6 +176,7 @@ class Merchants extends Component{
                 ajax={true}
                 onOperation={this.onOperation}
 	            displayCheckbox={true}
+	            onSelect={this.onSelect}
 	            ajaxParams={this.state.searchParams}
 	            ajaxUrlName='shareCustomers'
 	            ajaxFieldListName="list"
@@ -146,6 +209,7 @@ class Merchants extends Component{
 			                 </TableRowColumn>
 			               </TableRow>
 			        </TableBody>
+			        <TableFooter></TableFooter>
            </Table>
 
 
@@ -206,10 +270,15 @@ class Merchants extends Component{
                     <Dialog
 						title="高级查询"
 						modal={true}
+						onClose={this.openSearchUpperDialog}
 						open={State.openSearchUpper}
+						contentStyle ={{ width: '666'}}
 					>
 						<SearchUpperForm  
-					        dataReady={dataReady}
+						    onCancel={this.openSearchUpperDialog}
+						    onSubmit={this.onSearchUpperSubmit}
+						    flag='招商'
+						    searchParams={searchParams}
 						/>
 				    </Dialog>
 

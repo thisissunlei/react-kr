@@ -666,12 +666,12 @@ const APIS = {
  },
   //客户管理－招商线索列表
  'shareCustomers': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/share-customers',
+   url:'/mockjsdata/23/krspace-finance-web/customer/share-customers?page={page}&pageSize={pageSize}',
    method:'get'
  },
   //客户管理－个人客户列表
  'personalCustomers': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/personal-customers',
+   url:'/mockjsdata/23/krspace-finance-web/customer/personal-customers?page={page}&pageSize={pageSize}',
    method:'get'
  },
   //客户管理－个人客户列表－导出
@@ -711,7 +711,7 @@ const APIS = {
  },
   //客户管理－签约客户列表
  'signCustomers': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/sign-customers',
+   url:'/mockjsdata/23/krspace-finance-web/customer/sign-customers?page={page}&pageSize={pageSize}',
    method:'get'
  },
  //客户管理－签约客户列表－导出
@@ -743,6 +743,16 @@ const APIS = {
  'receive-customer': {
    url:'/mockjsdata/23/krspace-finance-web/customer/actions/receive',
    method:'post'
+ },
+ //客户管理－招商和个人高级查询准备
+ 'search-conditions': {
+   url:'/mockjsdata/23/krspace-finance-web/customer/personal-customers/search-conditions',
+   method:'get'
+ },
+  //客户管理－签约高级查询准备
+ 'sign-search-conditions': {
+   url:'/mockjsdata/23/krspace-finance-web/customer/sign-customers/search-conditions',
+   method:'get'
  },
 
   

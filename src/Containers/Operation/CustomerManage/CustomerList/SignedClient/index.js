@@ -67,28 +67,26 @@ class SignedClient extends Component{
       State.searchUpperCustomer();
 	}
 
+	//导出
+	onExport=(value)=>{
+	    State.exportData(value);	
+	}
+
 	closeAllMerchants=()=>{
 		State.closeAllMerchants();
 	}
 
 	render(){
-		let {dataReady}=this.props;
+
+     
+       let {searchSignParams,dataReady}=this.props; 
+
 
 		return(
       <div className="m-merchants" style={{paddingTop:25}}>
       		<Title value="运营平台"/>
 	        <Row style={{marginBottom:21}}>
-			          <Col
-					     align="left"
-					     style={{float:'left'}}
-					   >
-									<Button
-											label="新建客户"
-											type='button'
-											onTouchTap={this.switchNewMerchants}
-									/>
-					  </Col>
-
+			         
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
 				          <ListGroup>
 				            <ListGroupItem><SearchForms placeholder='请输入客户名称' onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
@@ -102,6 +100,8 @@ class SignedClient extends Component{
                 ajax={true}
                 onOperation={this.onOperation}
 	            displayCheckbox={true}
+	            exportSwitch={true}
+	            onExport={this.onExport}
 	            ajaxParams={this.state.searchParams}
 	            ajaxUrlName='signCustomers'
 	            ajaxFieldListName="list"
@@ -131,7 +131,6 @@ class SignedClient extends Component{
 			        <TableFooter></TableFooter>
            </Table>
 
-
 					{/*新建*/}
 					<Drawer
 				        open={State.openNewMerchants}
@@ -148,6 +147,7 @@ class SignedClient extends Component{
 								/>
 
 		           </Drawer>
+
 
 
 					{/*查看*/}
@@ -171,16 +171,19 @@ class SignedClient extends Component{
                     <Dialog
 						title="高级查询"
 						modal={true}
+						onClose={this.openSearchUpperDialog}
 						open={State.openSearchUpper}
+						contentStyle ={{ width: '666'}}
 					>
 						<SearchUpperForm  
 						    onCancel={this.openSearchUpperDialog}
 						    flag='签约'
+						    searchSignParams={searchSignParams}
 						/>
 				    </Dialog>
 
 
-					{
+					{/*
 						(State.openNewMerchants||
 							State.openEditMerchants||
 							State.openLookMerchants
@@ -189,7 +192,7 @@ class SignedClient extends Component{
 								onClick={this.closeAllMerchants}
 							>
 							</div>
-					}
+					*/}
         </div>
 		);
 	}

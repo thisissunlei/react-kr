@@ -66,14 +66,19 @@ class Personal extends Component{
 	openSearchUpperDialog=()=>{
       State.searchUpperCustomer();
 	}
+	//导出
+	onExport=(value)=>{
+	    State.exportData(value);	
+	}
 
 	closeAllMerchants=()=>{
 		State.closeAllMerchants();
 	}
-
+    
 	render(){
-		let {dataReady}=this.props;
+		let {dataReady,searchParams}=this.props;
 		return(
+
       <div className="m-merchants" style={{paddingTop:25}}>
       		<Title value="运营平台"/>
 	        <Row style={{marginBottom:21}}>
@@ -101,6 +106,8 @@ class Personal extends Component{
                 ajax={true}
                 onOperation={this.onOperation}
 	            displayCheckbox={true}
+	            exportSwitch={true}
+	            onExport={this.onExport}
 	            ajaxParams={this.state.searchParams}
 	            ajaxUrlName='personalCustomers'
 	            ajaxFieldListName="list"
@@ -119,7 +126,7 @@ class Personal extends Component{
 		          	</TableHeader>
 
 			        <TableBody >
-			              <TableRow >
+			              <TableRow displayCheckbox={true}>
 			                <TableRowColumn name="customerCompany" ></TableRowColumn>
 			                <TableRowColumn name="intentionCityName" ></TableRowColumn>
 			                <TableRowColumn name="intentionCommunityName"></TableRowColumn>
@@ -172,16 +179,19 @@ class Personal extends Component{
                     <Dialog
 						title="高级查询"
 						modal={true}
+						onClose={this.openSearchUpperDialog}
 						open={State.openSearchUpper}
+						contentStyle ={{ width: '666'}}
 					>
 						<SearchUpperForm  
 						    onCancel={this.openSearchUpperDialog}
 						    flag='个人'
+						    searchParams={searchParams}
 						/>
 				    </Dialog>
 
 
-					{
+					{/*
 						(State.openNewMerchants||
 							State.openEditMerchants||
 							State.openLookMerchants
@@ -190,7 +200,7 @@ class Personal extends Component{
 								onClick={this.closeAllMerchants}
 							>
 							</div>
-					}
+					*/}
         </div>
 		);
 	}

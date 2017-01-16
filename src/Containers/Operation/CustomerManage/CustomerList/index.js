@@ -62,6 +62,8 @@ class CustomerList extends Component {
 			communityId: ''
 		}
 		State.dataReady();
+		State.searchPersonalReady();
+		State.searchSignReady();
 	}
 
 	componentDidMount() {
@@ -142,14 +144,24 @@ class CustomerList extends Component {
 			<Tabs className="tabs">
 					<Tab label="招商线索" onActive={this.merchants} style={merchantsStyle}>
 						
-							<Merchants dataReady={State.dataRead}/>
+							<Merchants 
+								dataReady={State.dataRead} 
+								searchParams={State.searchParams}
+							/>
 					</Tab>
 					<Tab label="个人客户"  onActive={this.personal} style={personalStyle}>
 						
-							<Personal dataReady={State.dataRead}/>
+							<Personal 
+								dataReady={State.dataRead}
+								searchParams={State.searchParams}
+							/>
 					</Tab>
 					<Tab label="签约客户"  onActive={this.signedClient} style={signedClientStyle}>
-							<SignedClient dataReady={State.dataRead}/>
+							<SignedClient 
+									dataReady={State.dataRead}
+									searchSignParams={State.searchSignParams}
+							/>
+
 					</Tab>
 			</Tabs>
 
