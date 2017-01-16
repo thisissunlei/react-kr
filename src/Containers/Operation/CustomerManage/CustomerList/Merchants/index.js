@@ -70,8 +70,9 @@ class Merchants extends Component{
 
 	render(){
       
-      let {dataReady}=this.props;
-      console.log('88888yyyyy',this.props.dataReady);
+      let {dataReady,searchParams}=this.props;
+
+
 		return(
       <div className="m-merchants" style={{paddingTop:25}}>
       		<Title value="运营平台"/>
@@ -169,11 +170,15 @@ class Merchants extends Component{
                     <Dialog
 						title="高级查询"
 						modal={true}
+						onClose={this.openSearchUpperDialog}
 						open={State.openSearchUpper}
+						contentStyle ={{ width: '666'}}
 					>
 						<SearchUpperForm  
 						    onCancel={this.openSearchUpperDialog}
+						    onSubmit={this.onSearchUpperSubmit}
 						    flag='招商'
+						    searchParams={searchParams}
 						/>
 				    </Dialog>
 

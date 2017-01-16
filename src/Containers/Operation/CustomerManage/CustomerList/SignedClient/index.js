@@ -72,22 +72,14 @@ class SignedClient extends Component{
 	}
 
 	render(){
+     
+       let {searchSignParams}=this.props; 
 
 		return(
       <div className="m-merchants" style={{paddingTop:25}}>
       		<Title value="运营平台"/>
 	        <Row style={{marginBottom:21}}>
-			          <Col
-					     align="left"
-					     style={{float:'left'}}
-					   >
-									<Button
-											label="新建客户"
-											type='button'
-											onTouchTap={this.switchNewMerchants}
-									/>
-					  </Col>
-
+			         
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
 				          <ListGroup>
 				            <ListGroupItem><SearchForms placeholder='请输入客户名称' onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
@@ -131,20 +123,7 @@ class SignedClient extends Component{
            </Table>
 
 
-					{/*新建*/}
-					<Drawer
-				        open={State.openNewMerchants}
-				        width={700}
-				        openSecondary={true}
-				        className='m-finance-drawer'
-				        containerStyle={{top:60,paddingBottom:228,zIndex:20}}
-			        >
-								<NewCustomerList
-										onSubmit={this.onNewMerchants}
-										onCancel={this.switchNewMerchants}
-								/>
-
-		           </Drawer>
+					
 
 
 					{/*查看*/}
@@ -164,11 +143,14 @@ class SignedClient extends Component{
                     <Dialog
 						title="高级查询"
 						modal={true}
+						onClose={this.openSearchUpperDialog}
 						open={State.openSearchUpper}
+						contentStyle ={{ width: '666'}}
 					>
 						<SearchUpperForm  
 						    onCancel={this.openSearchUpperDialog}
 						    flag='签约'
+						    searchSignParams={searchSignParams}
 						/>
 				    </Dialog>
 

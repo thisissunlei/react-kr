@@ -12,6 +12,7 @@ import {
 
 let State = observable({
 		searchParams:{},
+		searchSignParams:{},
 		dataRead:{}
 });
 
@@ -24,5 +25,22 @@ State.dataReady= action(function() {
 			//Message.error(err.message);
 		});
 });
-
+//招商和个人的高级查询的数据准备
+State.searchPersonalReady= action(function() {
+	  var _this=this;
+       Store.dispatch(Actions.callAPI('search-conditions')).then(function(response) {
+			_this.searchParams=response;	
+			 }).catch(function(err){
+				 //Message.error(err.message);
+			});
+});
+//签约的高级查询的数据准备
+State.searchSignReady= action(function() {
+	  var _this=this;
+       Store.dispatch(Actions.callAPI('sign-search-conditions')).then(function(response) {
+			_this.searchSignParams=response;	
+			 }).catch(function(err){
+				 //Message.error(err.message);
+			});
+});
 module.exports = State;

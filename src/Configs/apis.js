@@ -744,6 +744,16 @@ const APIS = {
    url:'/mockjsdata/23/krspace-finance-web/customer/actions/receive',
    method:'post'
  },
+ //客户管理－招商和个人高级查询准备
+ 'search-conditions': {
+   url:'/mockjsdata/23/krspace-finance-web/customer/personal-customers/search-conditions',
+   method:'get'
+ },
+  //客户管理－签约高级查询准备
+ 'sign-search-conditions': {
+   url:'/mockjsdata/23/krspace-finance-web/customer/sign-customers/search-conditions',
+   method:'get'
+ },
 
   
  }

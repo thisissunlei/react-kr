@@ -72,8 +72,10 @@ class Personal extends Component{
 	}
 
 	render(){
+     
+     let {searchParams}=this.props;
 
-		return(
+	return(
       <div className="m-merchants" style={{paddingTop:25}}>
       		<Title value="运营平台"/>
 	        <Row style={{marginBottom:21}}>
@@ -170,11 +172,14 @@ class Personal extends Component{
                     <Dialog
 						title="高级查询"
 						modal={true}
+						onClose={this.openSearchUpperDialog}
 						open={State.openSearchUpper}
+						contentStyle ={{ width: '666'}}
 					>
 						<SearchUpperForm  
 						    onCancel={this.openSearchUpperDialog}
 						    flag='个人'
+						    searchParams={searchParams}
 						/>
 				    </Dialog>
 
