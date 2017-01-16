@@ -29,6 +29,18 @@ State.switchLookCustomerList = action(function() {
 State.searchUpperCustomer = action(function() {
 	this.openSearchUpper=!this.openSearchUpper;
 });
+//导出
+State.exportData = action(function(values) {
+	    console.log('bbbhhhhh',values);
+		let idList = [];
+		if (values.length != 0) {
+			values.map((item, value) => {
+				customerIds.push(item.id)
+			});
+		}
+		var url = `/api/krspace-finance-web/customer/personal-customers-export?customerIds=${customerIds}`
+		window.location.href = url;
+});
 
 State.closeAllMerchants = action(function() {
 	this.openLookMerchants=false;

@@ -93,6 +93,7 @@ class SignedClient extends Component{
                 ajax={true}
                 onOperation={this.onOperation}
 	            displayCheckbox={true}
+	            exportSwitch={true}
 	            ajaxParams={this.state.searchParams}
 	            ajaxUrlName='signCustomers'
 	            ajaxFieldListName="list"

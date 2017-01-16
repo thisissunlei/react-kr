@@ -66,11 +66,15 @@ class Personal extends Component{
 	openSearchUpperDialog=()=>{
       State.searchUpperCustomer();
 	}
+	//导出
+	onExport=()=>{
+	    State.exportData();	
+	}
 
 	closeAllMerchants=()=>{
 		State.closeAllMerchants();
 	}
-
+    
 	render(){
      
      let {searchParams}=this.props;
@@ -103,6 +107,8 @@ class Personal extends Component{
                 ajax={true}
                 onOperation={this.onOperation}
 	            displayCheckbox={true}
+	            exportSwitch={true}
+	            onExport={this.onExport}
 	            ajaxParams={this.state.searchParams}
 	            ajaxUrlName='personalCustomers'
 	            ajaxFieldListName="list"
@@ -121,7 +127,7 @@ class Personal extends Component{
 		          	</TableHeader>
 
 			        <TableBody >
-			              <TableRow >
+			              <TableRow displayCheckbox={true}>
 			                <TableRowColumn name="customerCompany" ></TableRowColumn>
 			                <TableRowColumn name="intentionCityName" ></TableRowColumn>
 			                <TableRowColumn name="intentionCommunityName"></TableRowColumn>

@@ -38,7 +38,10 @@ class Merchants extends Component{
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			searchParams:{}
+			searchParams:{
+				page:1,
+				pageSize:15
+			}
 		}
 	}
 
@@ -59,6 +62,15 @@ class Merchants extends Component{
 	onNewMerchants=(params)=>{
 
 	}
+	//搜索
+	onSearchSubmit=(params)=>{
+        let obj = {
+			mainbillname: params.content,
+		}
+		this.setState({
+			searchParams: obj
+		});
+	}
 	//高级查询
 	openSearchUpperDialog=()=>{
       State.searchUpperCustomer();
@@ -76,6 +88,11 @@ class Merchants extends Component{
 		return(
       <div className="m-merchants" style={{paddingTop:25}}>
       		<Title value="运营平台"/>
+      		<div className='merchants-dialog'>
+      		  <div className='selectCheck'>已选中<span className='dialog-number'>1</span>项</div>
+      		  <Button  label="领取" type="button"/>
+      		  <span className='mer-close'></span>
+      		</div>
 	        <Row style={{marginBottom:21}}>
 			          <Col
 					     align="left"
@@ -133,6 +150,7 @@ class Merchants extends Component{
 			                 </TableRowColumn>
 			               </TableRow>
 			        </TableBody>
+			        <TableFooter></TableFooter>
            </Table>
 
 

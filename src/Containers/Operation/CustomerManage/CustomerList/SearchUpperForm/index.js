@@ -145,11 +145,11 @@ class SearchUpperForm extends Component {
 			<div style={{marginTop:35,marginLeft:26}} className='customer-searchUpper'>
 			    <form onSubmit={handleSubmit(this.onSubmit)}>
 				    {this.renderSigned()}
-				  <KrField grid={1/1}  component="group" label="创建时间" style={{marginTop:3}}>
+				<KrField grid={1/1}  component="group" label="创建时间" style={{marginTop:3}}>
 				<div className='ui-listDate'><ListGroup>
-					<ListGroupItem><div className='ui-date-start'><KrField  right={6} style={{marginLeft:-10}} name="startDate" component="date" /></div></ListGroupItem>
+					<ListGroupItem><div className='ui-date-start'><KrField  right={6} style={{marginLeft:-10,marginTop:2}} name="startDate" component="date" /></div></ListGroupItem>
 						<div className='ui-line-down'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-						<ListGroupItem><div className='ui-date-end'><KrField  right={6} name="endDate" component="date" /></div></ListGroupItem>
+						<ListGroupItem><div className='ui-date-end'><KrField  right={6} name="endDate" style={{marginTop:2}} component="date" /></div></ListGroupItem>
 					</ListGroup>
                 </div>
 				</KrField>

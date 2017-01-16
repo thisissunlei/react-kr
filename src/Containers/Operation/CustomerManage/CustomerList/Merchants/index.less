@@ -1,4 +1,5 @@
 .m-merchants{
+ position:relative;
   .mask{
     background: transparent;
     position: fixed;
@@ -6,7 +7,32 @@
     left: 0px;
     right: 700px;
     bottom: 0px;
-    z-index: 10;
-    
+    z-index: 10; 
+  }
+  .merchants-dialog{
+  	width:100%;
+  	height:60px;
+  	background:#f2f2f2;
+  	border:solid 1px #d9ecff;
+  	position:absolute;
+  	z-index:20;
+  	margin-top: -17px;
+  	.selectCheck{
+  		margin-left:20px;
+  		display:inline-block;
+  		line-height:60px;
+  		font-size:14px;
+  		color:#666;
+  		margin-right:20px;
+  		.dialog-number{
+  			color:#499df1;
+  		}
+  	}
+  	.mer-close{
+  		width:15px;
+  		height:15px;
+  		display:inline-block;
+  		background:url(../images/guanbi.png) no-repeat center;
+  	}
   }
 }
