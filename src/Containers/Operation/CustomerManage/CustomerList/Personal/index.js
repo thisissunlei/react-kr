@@ -32,6 +32,9 @@ import State from './State';
 import NewCustomerList from '../NewCustomerList';
 import LookCustomerList from '../LookCustomerList';
 import SearchUpperForm from '../SearchUpperForm';
+import NewCustomerIndent from '../NewCustomerIndent';
+
+
 import './index.less'
 @observer
 class Personal extends Component{
@@ -46,7 +49,7 @@ class Personal extends Component{
 
 	//新建页面的开关
 	switchNewMerchants=()=>{
-		State.switchNewCustomerList();
+		State.switchLookCustomerList();
 	}
 
     //查看相关操作
@@ -153,12 +156,12 @@ class Personal extends Component{
 					{/*查看*/}
 					<Drawer
 							open={State.openLookMerchants}
-							width={700}
+							width={650}
 							openSecondary={true}
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
-								<LookCustomerList
+								<NewCustomerIndent
 										
 								/>
 					</Drawer>

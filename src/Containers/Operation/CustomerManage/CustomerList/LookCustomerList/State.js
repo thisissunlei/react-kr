@@ -11,10 +11,15 @@ import {
 } from 'kr/Redux';
 
 let State = observable({
-	comeFrom:"Merchants"
+	comeFrom:"Merchants2",
+	searchParams:{},
+	isDevelop:true,
 });
 State.initComeFrom = action(function(comeFrom) {
 	this.comeFrom=comeFrom||this.comeFrom;
+});
+State.switchDevelop = action(function(comeFrom) {
+	this.isDevelop=!this.isDevelop;
 });
 
 
