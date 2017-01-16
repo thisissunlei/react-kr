@@ -16,7 +16,7 @@ import {
 } from 'kr-ui';
 
 
-export default  class SearchForms extends Component{
+export default  class SearchForm extends Component{
 
 	 static PropTypes = {
 		 onSubmit:React.PropTypes.func,
@@ -31,7 +31,10 @@ export default  class SearchForms extends Component{
 	 	const {onSubmit} = this.props;
 	    onSubmit && onSubmit(form);
 	 }
-
+     
+     componentWillReceiveProps(nextProps){
+     	
+     }
 	
 
 	render(){

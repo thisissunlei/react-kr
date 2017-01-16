@@ -27,7 +27,7 @@ import {
 	Drawer
 } from 'kr-ui';
 import State from './State';
-
+import SearchForm from '../SearchForms';
 import NewCustomerList from '../NewCustomerList';
 import LookCustomerList from '../LookCustomerList';
 import SearchUpperForm from '../SearchUpperForm';
@@ -39,7 +39,8 @@ class Merchants extends Component{
 		super(props, context);
 		this.state={
 			searchParams:{
-				
+				page:1,
+				pageSize:15
 			},
 			//控制复选框的选中与否
 			openDialog:false,
@@ -87,8 +88,9 @@ class Merchants extends Component{
 	
 	//搜索
 	onSearchSubmit=(params)=>{
+		console.log('bbbbb',params);
         let obj = {
-			mainbillname: params.content,
+			company: params.content,
 		}
 		this.setState({
 			searchParams: obj
@@ -101,7 +103,10 @@ class Merchants extends Component{
 	}
     //高级查询提交
      onSearchUpperSubmit=(value)=>{
-      State.searchUpperSubmit(value);	
+      	this.setState({
+      	  searchParams:value
+      	})
+      	State.searchUpperCustomer();
      }
 
 
@@ -145,7 +150,7 @@ class Merchants extends Component{
 
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
 				          <ListGroup>
-				            <ListGroupItem><SearchForms placeholder='请输入客户名称' onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
+				            <ListGroupItem><SearchForms placeholder='请输入客户名称' onSubmit={this.onSearchSubmit}/></ListGroupItem>
 				            <ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
 				          </ListGroup>
 			          </Col>
