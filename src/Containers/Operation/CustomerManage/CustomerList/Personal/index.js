@@ -67,6 +67,7 @@ class Personal extends Component{
     //查看相关操作
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
+      	State.MerchantsListId(itemDetail.id)
       	State.switchLookCustomerList();
       }
     }
@@ -183,7 +184,7 @@ class Personal extends Component{
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
 							<LookCustomerList
-				                 comeFrom="Merchant"
+				                 comeFrom="Personal"
 								 onCancel={this.switchLookCustomerList}
 				                 listId={State.listId}
 				                 dataReady={dataReady}
@@ -208,16 +209,18 @@ class Personal extends Component{
 				    </Dialog>
 
 
-					{/*
+					{
 						(State.openNewMerchants||
 							State.openEditMerchants||
-							State.openLookMerchants
+							State.openLookMerchants||
+							State.openEditCustomerList||
+							State.openNewCustomerIndent
 						)&&
 							<div className="mask"
 								onClick={this.closeAllMerchants}
 							>
 							</div>
-					*/}
+					}
         </div>
 		);
 	}

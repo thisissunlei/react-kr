@@ -38,6 +38,7 @@ class LookCustomerList extends Component{
 		let {comeFrom,data}=this.props;
 		State.initComeFrom(comeFrom);
 		State.lookListId(props.listId);
+		console.log(props.listId,"---------")
 
 	}
 	onSubmit = (values) => {
