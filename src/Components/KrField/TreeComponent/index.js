@@ -34,7 +34,8 @@ export default class TreeComponent extends React.Component {
 		this.state = {
 			showTreeList:false,
 			tree:[],
-			prevValue:"All"
+			oldValue:"All",
+			oldParent:"window"
 		}
 		
 
@@ -52,25 +53,28 @@ export default class TreeComponent extends React.Component {
 		// console.log("tree"+value,"pppp")
 
 	}
-	seover=(data,newValue,oldValue,oldParent,event)=>{
+	seover=(data,newValue,event)=>{
 		let treeArr=this.state.tree;
-		// console.log(event,currentValue,"mmm")
 		let newParent=event.target.attributes[1].value;
-		let newValue=currentValue;
-		
-		
-		if(this.state.prevValue!=parent&&treeArr.length>=1){
-			treeArr.length=treeArr.length-1;
-		}
+		let {oldValue,oldParent}=this.state;
+		console.log(newValue,newParent,oldValue,oldParent,"mmm")
+
 		if(data.length==0){
 			return;
 		}
-		treeArr.push(this.selectList(data,newValue,newParent));
+		if(newParent==oldValue){
+			treeArr.length=treeArr.length;
+		}
+		if(newValue==oldParent){
+			treeArr.length=treeArr.length-2;
+		}else if(newParent==oldParent){
+			treeArr.length=treeArr.length-1
+		}
+		treeArr.push(this.selectList(data,newValue));
 		this.setState({
 			tree:treeArr,
-			prevValue:currentValue
-
-
+			oldValue:newValue,
+			oldParent:newParent
 		})
 	}
 	imitateInputClick=()=>{
@@ -78,7 +82,7 @@ export default class TreeComponent extends React.Component {
 		if(treeArr.length==0){
 
 		
-			treeArr.push(this.selectList(TreeAll,"All","All"))
+			treeArr.push(this.selectList(TreeAll,"All"))
 			this.setState({
 				showTreeList:!this.state.showTreeList,
 				tree:treeArr
@@ -90,19 +94,17 @@ export default class TreeComponent extends React.Component {
 	}
 
 
-	selectList=(data,oldValue,oldParent)=>{
+	selectList=(data,parent)=>{
 		var _this=this;
-		let newParent=oldValue;
-		let oldParent=oldParent;
 		let list=data.map(function(item,index){
 			return (<span 
 						className="ui-everyTree"
-						data-parent={newParent}
+						data-parent={parent}
 						onClick={
 							_this.clicks.bind(_this,item.codeName)
 						}
 						onMouseOver={
-							_this.seover.bind(_this,item.children,item.codeName,oldValue,oldParent)
+							_this.seover.bind(_this,item.children,item.codeName)
 						}
 					>
 						{item.codeName}

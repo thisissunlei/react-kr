@@ -29,6 +29,7 @@ import './index.less'
 
 import State from './State';
 import LookDetailed from "./LookDetailed";
+import CustomerIndent from "./CustomerIndent";
 @observer
 class LookCustomerList extends Component{
 
@@ -60,7 +61,7 @@ class LookCustomerList extends Component{
 			>
 				<Tab label="客户订单" >
 					
-						<h1>1</h1>
+						<CustomerIndent />
 				</Tab>
 				<Tab label="客户详情" >
 					

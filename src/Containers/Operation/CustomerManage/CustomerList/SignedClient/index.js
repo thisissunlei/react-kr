@@ -48,7 +48,10 @@ class SignedClient extends Component{
 	switchNewMerchants=()=>{
 		State.switchNewCustomerList();
 	}
-
+	//新建页面的开关
+	switchNewMerchants=()=>{
+		State.switchNewCustomerList();
+	}
     //查看相关操作
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
