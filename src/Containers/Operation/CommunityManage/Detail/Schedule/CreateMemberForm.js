@@ -58,7 +58,7 @@ import imgLine from './images/line.png'
 	// 点确定提交时候如果有错误提示返回，否则提交,,如果邮箱存在有错误提示，不能提交
 	 onSubmit=(values)=>{
 	 	this.EmailonBlur(values.email);
-	 	this.foreignCodeBlur(values.foreignCode);
+	 	values.foreignCode && this.foreignCodeBlur(values.foreignCode);
 	 	let {onsubmit,onsubmitCode} = this.state;
 		// 	console.log(onsubmit,onsubmitCode);
 		console.log('values',values);
@@ -202,6 +202,9 @@ import imgLine from './images/line.png'
 		 });
 	 }
 	 foreignCodeBlur=(codes)=>{
+	 	if(!codes){
+	 		return;
+	 	}
 		 let params = {
 			 code :codes
 		 }
@@ -210,7 +213,7 @@ import imgLine from './images/line.png'
 		 this.setState({
 	 		open:true
 	 	})
-		 if(phoneSame && code == params.code){
+		 if(phoneSame && codes == params.code){
 		 	_this.setState({
 				onsubmitCode:true
 			})
