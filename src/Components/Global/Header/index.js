@@ -53,7 +53,7 @@ class Header extends Component {
 			inforLogoShow:false,
 			url:window.location.hash,
 			infoTab:'',
-			hasUnRead:10
+			hasUnRead:0
 		}
 		this.hasInfoListTab = [
 			{url:'community',code:'111'}
@@ -205,6 +205,12 @@ class Header extends Component {
 			information:!this.state.information
 		})
 	}
+	changeCount=()=>{
+		let hasUnRead = --this.state.hasUnRead;
+		this.setState({
+			hasUnRead:hasUnRead
+		})
+	}
 
 	render() {
 
@@ -270,7 +276,7 @@ class Header extends Component {
 					<div style={{minWidth:70,textAlign:'right'}}>
 					<div style={{display:showInfoLogo,position:'relative'}}>
 						<span className="icon-info information-logo"  onClick={this.showInfo}></span>
-						<span className="ui-un-read-count">{hasUnRead}</span>
+						<span className="ui-un-read-count" style={{visibility:hasUnRead>0?'visible':'hidden'}}>{hasUnRead}</span>
 					</div>
 					< IconMenu
 					iconButtonElement = {
@@ -313,7 +319,7 @@ class Header extends Component {
 					<SidebarNav items={this.props.navs_current_items} current_router={this.props.current_router} current_parent={this.props.current_parent} current_child={this.props.current_child}/>
 				</Drawer>
 				<Drawer open={this.state.information} width={width} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
-					<InfoList onClose={this.onClose} infoTab={infoTab}/>
+					<InfoList onClose={this.onClose} infoTab={infoTab} changeCount={this.changeCount}/>
 				</Drawer>
 			</div>
 		);

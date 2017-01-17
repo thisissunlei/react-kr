@@ -351,7 +351,7 @@ const APIS = {
 	},
   // 计划表获取合同数据
 	'getBillContract': {
-		url: '/api/krspace-finance-web/finacontractdetail/plan-table/bill-contract?billId={billId}',
+		url: '/apixr/krspace-finance-web/finacontractdetail/plan-table/bill-contract?billId={billId}',
 		method: 'get'
 	},
   //获取出租率

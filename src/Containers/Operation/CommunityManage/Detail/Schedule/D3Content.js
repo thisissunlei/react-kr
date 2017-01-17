@@ -415,7 +415,7 @@ export default class D3Content extends Component {
 		let id = this.props.id;
 		return (
 			<Tooltips  place="top" type="dark" effect="solid" id={`${item.pointDate}${id}sameblue`} offsetTop={130}>
-					<div className="react-tooltip-content">
+					<div className="react-tooltip-content" style={{width:'250px'}}>
 						<span>工位变更</span>
 						<p>{item.finaName}({dateFormat(item.leaseBeginDate, "yyyy.mm.dd")}-{dateFormat(item.leaseEndDate, "yyyy.mm.dd")})</p>
 						<p>变更前工位：<span className='blue-content'>{item.oldStationNum}</span> &nbsp; 会议室：<span className='blue-content'>{item.oldBoardroomNum}</span></p>

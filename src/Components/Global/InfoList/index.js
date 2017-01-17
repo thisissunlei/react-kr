@@ -6,6 +6,7 @@ import { Actions, Store } from 'kr/Redux';
 import { reduxForm, change } from 'redux-form';
 import Pagination from '../../Pagination';
 import KrField from '../../KrField';
+import {ListGroup,ListGroupItem} from '../../ListGroup';
 import dateFormat from 'dateformat';
 import $ from 'jquery';
 import './index.less';
@@ -72,6 +73,10 @@ export default class InfoList extends Component {
         // console.log('pppppp');
 
     }
+    click=()=>{
+    	let {changeCount} = this.props;
+    	changeCount && changeCount();
+    }
 
     getInfoData = () => {
         let {infoTab} = this.state;
@@ -129,6 +134,10 @@ export default class InfoList extends Component {
         Store.dispatch(Actions.callAPI(readedUrl, {
             id: item.msgInfoId
         })).then(function(response) {
+        	
+        	if(item.msgStatu == 'UNREAD'){
+        		_this.click();
+        	}
         	_this.getDataList(url, {
                 page: _this.state.currentPage,
                 pageSize:15,
@@ -169,7 +178,7 @@ export default class InfoList extends Component {
     dataNone=()=>{
     	return (
     		<div className="ui-m-nothing">
-    			<div className="icon"></div>
+    			<div className="icon" onClick={this.click}></div>
 				<p className="tip">暂时还没有数据呦~</p>
     		</div>
     	)
@@ -198,8 +207,13 @@ export default class InfoList extends Component {
 					<span className="ui-m-info-title">信息提醒 :</span>
 					</div>
 					<form>
-						<KrField name="start" component="date" grid={1/2} simple={true}  onChange={this.startDate}/>
-						<KrField name="end" component="date" simple={true} grid={1/2}   onChange={this.endDate}/>
+						<ListGroup>
+						<ListGroupItem style={{width:200,marginTop:'-3px',marginLeft:'-3px',textAlign:'left'}}><KrField name="start" component="date"  simple={true}  onChange={this.startDate}/></ListGroupItem>
+						<ListGroupItem style={{marginLeft:'10px',textAlign:'left'}}><span style={{display:'inline-block',lineHeight:'45px'}}>至</span></ListGroupItem>
+						<ListGroupItem  style={{width:200,marginTop:'-3px',textAlign:'left'}}> <KrField name="end" component="date" simple={true}  onChange={this.endDate}/> </ListGroupItem>
+						</ListGroup>
+						
+						
 					</form>
 					{infoList.map((item, index) => {
 		                return (
