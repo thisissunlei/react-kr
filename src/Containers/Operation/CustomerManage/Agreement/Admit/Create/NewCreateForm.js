@@ -469,7 +469,7 @@ class NewCreateForm extends Component {
 
 	<form onSubmit={handleSubmit(this.onSubmit)} >
 				<CircleStyle num="1" info="租赁明细">
-				
+
 					<KrField name="wherefloor" style={{width:370,marginLeft:70}}  component="select" label="所属楼层" options={optionValues.floorList} multi={true}  requireLabel={true}/>
 					 <KrField style={{width:370,marginLeft:90}} left={20} component="group" label="租赁期限" requireLabel={true}>
 										<ListGroup>
@@ -519,7 +519,7 @@ class NewCreateForm extends Component {
                			</div>
 					</CircleStyle>
 					<CircleStyle num="2" info="合同文本信息" circle="bottom">
-					
+
 								<KrField grid={1/2}  name="stationnum" type="hidden" component="input" />
 								<KrField grid={1/2}  name="boardroomnum" type="hidden" component="input" />
 
@@ -543,7 +543,7 @@ class NewCreateForm extends Component {
 								 <KrField style={{width:370,marginLeft:70}} component="labelText" label="所属社区" value={optionValues.communityName} inline={false}/>
 
 
-								 
+
 
 
 								 <KrField style={{width:370,marginLeft:90}}  name="signdate"  component="date" label="签署日期"  requireLabel={true}/>
@@ -554,7 +554,7 @@ class NewCreateForm extends Component {
 																 requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'定金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 								 <KrField style={{width:370,marginLeft:70}} name="paymentId" type="text" component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true}/>
 
-								
+
 
                                <KrField  name="templockday" style={{width:370,marginLeft:90}} component="input" type="text" label="保留天数" requireLabel={true}
 															 requiredValue={true} pattern={/^\d{0,3}$/} errors={{requiredValue:'保留天数为必填项',pattern:'请输入三位以内正整数'}} />
@@ -568,9 +568,9 @@ class NewCreateForm extends Component {
 							<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
 								Store.dispatch(change('admitCreateForm','contractFileList',files));
 							}} />
-							 
 
-							
+
+
 						<Grid style={{paddingBottom:50}}>
 						<Row>
 						<ListGroup>

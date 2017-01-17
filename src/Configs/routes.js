@@ -242,6 +242,8 @@ export default (
 
 	<Route path="personalCenter" component={Permission.PersonalCenter}/>
 			<Redirect from="permission" to="permission/personalCenter" />
+	<Route path="login" component={Permission.Login}/>
+			<Redirect from="permission" to="permission/login" />
 		</Route>
 
 		{/*文档管理*/}

@@ -1,0 +1,330 @@
+.g-permission-login{
+  input{
+    border: none;
+  }
+    #canvas{
+      position:absolute;
+      z-index:0;
+      width: 100%;
+      height: 100%;
+    }
+    .content {
+    	width: 100%;
+    	overflow: hidden;
+    	height:90%;
+    	padding-bottom: 15px;
+    	position:relative;
+    	z-index:100;
+      .content-wrap {
+      	width:40%;
+      	margin: 0 auto;
+      	width:720px;
+      	text-align:center;
+
+        .login-title {
+        	color: #ffffff;
+        	font-size:32px;
+        	margin-top: 11.11111%;
+        	margin-bottom: 6.48148%;
+        }
+        .login-box{
+          width:100%;
+        	height: 432px;
+        	position:relative;
+        	background: #fff;
+        	filter: progid:DXImageTransform.Microsoft.Shadow(color=#3d5d6e,
+        		direction=120, strength=4 ); /*ie*/
+        	box-shadow: 2px 2px 20px #3d5d6e; /*opera或ie9*/
+        	border-radius: 4px; /* W3C syntax */
+          .logos {
+          	width: 56px;
+          	height: 56px;
+          	position:absolute;
+          	left:50%;
+          	top:-28px;
+          	margin-left:-28px;
+          	background: url(images/logo_01.png) no-repeat;
+          	background-size:100% 100%;
+          }
+          .login-tip {
+          	color: #57a9f9;
+          	font-size: 24px;
+          	padding-top: 62px;
+          }
+          .login-content-ul {
+          	width:320px;
+          	margin-left:auto;
+          	margin-right:auto;
+          	font-family: "微软雅黑", "黑体";
+          	padding-left:5px;
+          	position:relative;
+
+          .info {
+          	padding: 11px 0;
+          	color: #ff0000;
+          	font-size: 12px;
+          }
+
+          .input-txt {
+          	width:99%;
+          	height: 50px;
+          	border: 1px solid #dfdfdf;
+          	border-radius: 4px; /* W3C syntax */
+          	text-indent: 56px;
+            position: relative;
+            .input-txt input {
+            	width:80%;
+            	height: 24px;
+            	color: #333;
+            	font-size: 16px;
+            	font-family: "微软雅黑", "黑体";
+            	margin-top:12px;
+            }
+            .redErr{
+              color:#ff3030;
+              position: absolute;
+              top: 50%;
+              left:108%;
+              display: inline-table;
+              text-indent:0;
+              transform: translateY(-50%);
+            }
+          }
+          .loginname {
+          	background: url(images/2_07.jpg) 10px center no-repeat;
+          	margin-bottom: 16px;
+
+          }
+
+          .loginpwd {
+          	background: url(images/1_07.jpg) 10px center
+          		no-repeat;
+          	margin-bottom: 16px;
+          }
+          .loginpwds{
+          	background: url(images/2_07.jpg) 10px center no-repeat !important;
+          	margin-bottom: 16px;
+          }
+
+          .login-btn {
+            width:100%;
+            height: 50px;
+            color: #fff;
+            background: #499df1;
+            font-family: "微软雅黑", "黑体";
+            font-size: 18px;
+            cursor:pointer;
+            -moz-border-radius: 4px; /* Gecko browsers */
+            -webkit-border-radius: 4px; /* Webkit browsers */
+            border-radius:4px;
+            -webkit-box-shadow:0 17px 56px #c1e3fa;
+              -moz-box-shadow:0 17px 56px #c1e3fa;
+              box-shadow:0 17px 56px #c1e3fa;
+            line-height:50px;
+          }
+          .login-pwdinfo {
+          	margin-top: 20px;
+          	font-size: 14px;
+          	color: #57a9f9;
+          	font-size: 12px;
+          	margin-bottom: 20px;
+          	text-align:left;
+          }
+
+
+        }
+
+        /*验证页面*/
+        .verifyTotal{
+
+          .tabList{
+          	width:320px;
+          	height:35px;
+          	margin-left:auto;
+          	margin-right:auto;
+          	padding-top:50px;
+            p{
+            	width:49%;
+            	height:35px;
+            	float:left;
+            	font-size:25px;
+            	color:#999999;
+            	cursor: pointer;
+            }
+            .pl{
+            	border-right:2px solid #999999;
+            }
+            .activeTitle{
+            	color:#57a9f9 !important;
+            }
+          }
+          .login-content{
+            .login-content-ul{
+              width:320px;
+            	margin-left:auto;
+            	margin-right:auto;
+            	font-family: "微软雅黑", "黑体";
+            	padding-left:5px;
+            	position:relative;
+              .info {
+              	padding: 11px 0;
+              	color: #ff0000;
+              	font-size: 12px;
+              }
+              .input-txt {
+              	width:99%;
+              	height: 50px;
+              	border: 1px solid #dfdfdf;
+              	-moz-border-radius: 4px; /* Gecko browsers */
+              	-webkit-border-radius: 4px; /* Webkit browsers */
+              	border-radius: 4px; /* W3C syntax */
+              	text-indent: 56px;
+              	overflow:hidden;
+              }
+              .input-txt input {
+              	width:80%;
+              	height: 24px;
+              	color: #333;
+              	font-size: 16px;
+              	font-family: "微软雅黑", "黑体";
+              	margin-top:12px;
+                padding-left: 0;
+              }
+              .clearfix{
+                .input-verifycode{
+                  width: 121px;
+                  height: 50px;
+                  border: 1px solid #dfdfdf;
+                  border-radius: 4px; /* W3C syntax */
+                  margin-bottom:15px;
+                  background: url(images/code_1.png) 10px center no-repeat;
+                  padding-left:51px;
+                  float: left;
+                  input{
+                    width: 92%;
+                  	height: 50px;
+                  	color: #333;
+                  	font-family: "微软雅黑", "黑体";
+                  	font-size: 16px;
+                    background: none;
+                  }
+                  .codes{
+                  	width: 100% !important;
+                  	padding-left:9px;
+                  }
+                }
+                .sendCode{
+                  width:100px;
+                	height: 50px;
+                	background:#499df1;
+                	color:#fff;
+                	display:inline-block;
+                	border-radius: 4px; /* W3C syntax */
+                	line-height:50px;
+                	font-size:16px;
+                	margin-left:40px;
+                	text-align:center;
+                	cursor: pointer;
+                }
+                .fl{
+
+                }
+              }
+            }
+          }
+        }
+
+    /*重置密码*/
+        .editPwd{
+          .login-tip {
+          	color: #57a9f9;
+          	font-size: 24px;
+          	padding-top: 62px;
+          }
+          .login-content-ul {
+          	width:320px;
+          	margin-left:auto;
+          	margin-right:auto;
+          	font-family: "微软雅黑", "黑体";
+          	padding-left:5px;
+          	position:relative;
+          .info {
+          	padding: 11px 0;
+          	color: #ff0000;
+          	font-size: 12px;
+          }
+          .input-txt {
+          	width:99%;
+          	height: 50px;
+          	border: 1px solid #dfdfdf;
+          	border-radius: 4px; /* W3C syntax */
+          	text-indent: 56px;
+            position: relative;
+            .input-txt input {
+            	width:80%;
+            	height: 24px;
+            	color: #333;
+            	font-size: 16px;
+            	font-family: "微软雅黑", "黑体";
+            	margin-top:12px;
+              }
+              .redErr{
+                color:#ff3030;
+                position: absolute;
+                top: 50%;
+                left:108%;
+                display: inline-table;
+                text-indent:0;
+                transform: translateY(-50%);
+              }
+            }
+            .pwd{
+            	margin-bottom:15px !important;
+            	position:relative;
+              input{
+              	width:80% !important;
+              	height: 24px !important;
+              	color: #333;
+              	font-size: 16px;
+              	font-family: "微软雅黑", "黑体";
+              	margin-top:12px;
+              }
+              span{
+                display:inline-block;
+              	width:32px;
+              	height:32px;
+              	position:absolute;
+              	right:10px;
+              	top:10px;
+              	background:url(images/show_10.jpg) center center no-repeat;
+              }
+              .hidePwd{
+              	background:url(images/close1_05.jpg) center center no-repeat !important;
+              }
+            }
+
+             .pwdtwo{
+            	background:url(images/pwd_06.jpg) 10px center no-repeat;
+            }
+            .pwdone{
+            	background:url(images/pwd_03.jpg) 10px center no-repeat;
+            }
+
+
+    }
+
+}}}}
+
+    .footer-wrap {
+    	width: 100%;
+    	text-align: center;
+    	position:absolute;
+    	left:0;
+    	bottom:2.77778%;
+    	z-index:100;
+    }
+    .footer-wrap p{
+    	color:#fff;
+    	font-size:11px;
+    }
+}
