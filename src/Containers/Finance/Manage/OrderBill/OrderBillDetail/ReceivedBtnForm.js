@@ -161,14 +161,9 @@ class ReceivedBtnForm extends Component {
              var _this=this;
 
 
-		let heightStyle = {
-			width: '546',
-			height: '72',
-			marginBottom:-10
-		}
 
               return (
-              	    <div>
+              	    <div style={{marginBottom:-7}}>
               	       {
               	       	accountDetail.map(function(item,index){
 						      	if(index%2==0){
@@ -179,7 +174,6 @@ class ReceivedBtnForm extends Component {
 					     }
 		               )
               	       }
-              	       <div className='m-textareaText'><KrField label="备注" grid={1}  heightStyle={heightStyle} name="finaflowdesc" component="textarea" type="text" placeholder='请输入备注，输入字数不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/></div>
               	    </div>
               	  )
               
@@ -202,7 +196,10 @@ class ReceivedBtnForm extends Component {
 			accountDetail,	
 		} = this.props;
 
-
+        let heightStyle = {
+			width: '546',
+			height: '72',
+		}
 
 
 
@@ -253,6 +250,8 @@ class ReceivedBtnForm extends Component {
 						     <KrField component="date" grid={1/2} right={30} style={{marginTop:'-5px'}}  label="回款日期" name="operatedate" requireLabel={true}/>
 						     <KrField label="回款总额"  grid={1/2} right={30} style={{marginTop:'-6px'}} name="totalPayment" component="input" type="text" requireLabel={true} onChange={this.calcBalance}/>
 						     <KrField label="对应合同" name='contract' grid={1/2} component="groupCheckbox" defaultValue={contractReceive} requireLabel={true}/>
+                             
+              	             <div className='m-textareaText'><KrField label="备注" grid={1}  heightStyle={heightStyle} name="finaflowdesc" component="textarea" type="text" placeholder='请输入备注，输入字数不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/></div>
 
                              <KrField  grid={1} left={30}  style={{marginLeft:-30,marginTop:-10}} name="fileids" component="file" label="上传附件"  defaultValue={[]} />
                             
