@@ -169,7 +169,8 @@ class NewCreateForm extends Component {
 		}
 
 		this.setState({
-			stationVos: []
+			stationVos: [],
+			allRent:0
 		});
 
 	}
@@ -186,7 +187,8 @@ class NewCreateForm extends Component {
 		}
 
 		this.setState({
-			stationVos: []
+			stationVos: [],
+			allRent:0
 		});
 
 	}
