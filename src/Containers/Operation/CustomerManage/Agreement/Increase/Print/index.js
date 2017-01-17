@@ -57,6 +57,7 @@ export default class IncreasePrint extends Component {
 					stationVOs={State.stationVOs}
 					baseType="增加入驻信息如下"
 					baseInfo={State.baseInfo}
+					baseTimeBegin={true}
 				/>
 				<Agreement.Print.Payment
 					baseInfo={State.baseInfo}
