@@ -622,7 +622,7 @@ export default class BasicTable extends Component {
 		});
 	}
 
-	//获取计划表数据
+	//获取销控表数据
 	getInstallmentplan() {
 		var _this = this;
 
