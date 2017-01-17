@@ -36,7 +36,7 @@ import {
 	Title,
 } from 'kr-ui';
 
-
+import './index.less';
 import NewCreateForm from './NewCreateForm';
 import SearchForm from './SearchForm';
 import ItemDetail from './ItemDetail';
@@ -234,9 +234,10 @@ export default class AttributeSetting extends Component {
 					</Section>
 
 					<Dialog
-						title="新建"
+						title="新建科目"
 						open={this.state.openNewCreate}
 						onClose={this.openNewCreateDialog}
+						contentStyle ={{ width: '688'}}
 					>
 						<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 
@@ -244,10 +245,11 @@ export default class AttributeSetting extends Component {
 
 
 					<Dialog
-						title="编辑"
+						title="编辑科目"
 						modal={true}
 						open={this.state.openEditDetail}
 						onClose={this.openEditDetailDialog}
+						contentStyle ={{ width: '688'}}
 					>
 						<EditDetailForm  detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog} />
 				  </Dialog>

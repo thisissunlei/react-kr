@@ -1,65 +1,73 @@
-
-.ui-watch-detail{
-	margin-top:46px;
+.m-orderBillDetail{
+.m-watch-detail{
+  margin-top:46px;
+  margin-left:30px;
 }
 .ui-detail-bottom{
-	max-width:1334px;
-	margin:0 auto;
-	.detail-left{
-		display:inline-block;
-		margin-right:34px;
-		float:left;
-		margin-top: 33px;
-	}
-	.detail-right{
-		display:inline-block;
-		width:74%;
-		.btn-left{
-			float:left;
-		}
-	}
+  max-width:1334px;
+  margin:0 auto;
+  .detail-left{
+    display:inline-block;
+    margin-right:34px;
+    float:left;
+    margin-top: 33px;
+  }
+  .detail-right{
+    display:inline-block;
+    width:74%;
+    .btn-left{
+      float:left;
+    }
+  }
 }
 .ui-btn-center{
-	margin-right:30px;
-	display:inline-block;
+  margin-right:30px;
+  display:inline-block;
 }
 .ui-quit-wrap{
-	margin-top:45px !important;
+  margin-top:35px !important;
+}
+.ui-switch-wrap{
+  margin-top:35px !important;
+  margin-left:34px;
 }
 .ui-receive-money{
-	//margin-left: -14px;
+  //margin-left: -14px;
+  width:100%;
+  border-bottom:solid 1px #d7d7d7;
+  padding-bottom:30px;
 }
 .ui-length-textarea{
-	padding-right:25px !important;
+  padding-right:50px !important;
 }
 .historyIncome{
-	position:absolute !important;
-	cursor:pointer;
-	display:inline-block;
-	right: 35px;
+  position:absolute !important;
+  cursor:pointer;
+  display:inline-block;
+  right: 35px;
     top: -0.5px;
-	width:80px;
-	height:23px;
-	background:url(images/incomed.svg) no-repeat right center;
+  width:80px;
+  height:23px;
+  background:url(images/incomed.svg) no-repeat right center;
 }
 .historyIncomeGray{
-	position:absolute !important;
-	display:inline-block;
-	right: 35px;
-    top: -0.5px;
-	width:80px;
-	height:23px;
-	background:url(images/incomedGray.svg) no-repeat right center;
+  position:absolute !important;
+  display:inline-block;
+  right: 35px;
+  top: -0.5px;
+  width:80px;
+  height:23px;
+  background:url(images/incomedGray.svg) no-repeat right center;
 }
 .historyIncome .ui-tooltip.center,.historyIncomeGray .ui-tooltip.center{
-	left:0%;
-	width: 70px;
-	  .top-arrow:after {
+  left:0%;
+  width: 90px;
+    .top-arrow:after {
     border-top: 5px solid rgba(0, 0, 0, 0);
 }
 }
 .historyIncome .ui-tooltip,.historyIncomeGray .ui-tooltip{
-	top: -40px !important;
+    top: -40px !important;
     margin-left: 60px;
     padding: 7px 10px;
     .top-arrow:after {
@@ -67,9 +75,217 @@
 }
 }
 
+.receiveRightClose{
+  width:21px;
+  height:18px;
+  background:url(images/closeIcon.svg) no-repeat right center;
+  position:absolute;
+  right:40px;
+  top:25px;
+  cursor:pointer;
+}
+.finance-receive-title{
+   margin-top:53px;
+   margin-left:39px;
+   margin-right:40px;
+}
+.addReceivePic{
+  width:74px;
+  height:42px;
+  background:url(images/receive-detail.png) no-repeat left center;
+  padding-left:52px;
+  display:inline-block;
+  font-size:18px;
+  color:#333;
+  line-height:42px;
+  font-weight:500;
+  font-family: 'Adobe 黑体 Std R';
+}
+.currentReceivePic{
+  margin-top:8px;
+  margin-right:12px;
+  width:47px;
+  height:26px;
+  background:url(images/self.png) no-repeat left center;
+  padding-left:23px;
+  display:inline-block;
+  font-size:18px;
+  color:#333;
+  line-height:26px;
+  font-weight:500;
+  font-family: 'Adobe 黑体 Std R';
+}
+.sumMoneyRange{
+   display:inline-block;
+  font-size:18px;
+  color:#333;
+  font-family: 'Adobe 黑体 Std R';
+  line-height:26px;
+}
+.receive-detail-table{
+  width:100%;
+    margin-top:28px;
+    border:solid 1px #dfdfdf;
+    border-bottom:none;
+    .table-head{
+      background:#f2f2f2;
+      line-height:36px;
+      height:36px;
+      margin:0;
+      padding:0;
+      border-bottom:solid 1px #dfdfdf;
+      li{
+        width:20%;
+        float:left;
+        font-size:14px;
+        color:#333;
+        font-weight:500;
+        box-sizing: border-box;
+        font-family: 'Adobe 黑体 Std R';
+        text-align: center;
+        border-right:solid 1px #eee;
+        &:last-child{
+         border-right:none; 
+        }
+      }
+    }
+.admin-ul .receiveTopContract,
+.joinBook ul .receiveTopContract,
+{
+   color:#499df1;
+   cursor:pointer;
+}
+.joinBook ul:nth-child(2) .topContract{
+   color:#499df1;
+}
+    .admin-ul,.joinBook ul:nth-child(2){
+      padding:0;
+      margin:0;
+      height:30px;
+      border-bottom:solid 1px #dfdfdf;
+      li{
+         width:20%;
+         float:left;
+         font-size:14px;
+        color:#666;
+        line-height:30px;
+        height:30px;
+        font-weight:500;
+        box-sizing: border-box;
+        font-family: 'Adobe 黑体 Std R';
+        text-align: center;
+        border-right:solid 1px #eee;
+        &:last-child{
+         border-right:none; 
+        } 
+      }
+    }
+}
+.joinBook ul:nth-child(1){
+  padding:0;
+      margin:0;
+      height:30px;
+      li{
+         width:20%;
+         float:left;
+         font-size:14px;
+        color:#666;
+        line-height:30px;
+        height:30px;
+        font-weight:500;
+        box-sizing: border-box;
+        font-family: 'Adobe 黑体 Std R';
+        text-align: center;
+        border-right:solid 1px #eee;
+        border-bottom:solid 1px #dfdfdf;
+        &:first-child{
+         border-bottom:none;
+         line-height:60px;  
+        } 
+      }
+    }
+.receive-form-middle{
+   margin-top:30px;
+   margin-left:35px;
+   margin-right:40px;
+   .ui-checkbox{
+     display:block;
+   }
+   .file-list{
+     margin-top:-5px;
+   }
+}
+.depositMoney-render{
+   margin-top:10px;
+}
+.receive-form-middle .ui-group-checkbox>div{
+      margin:3px 0;
+     &:last-child{
+       width:600px;
+       .ui-checkbox{
+         margin-bottom:11px;
+       }
+     }
+}
+.leftBottomValue,.rightBottomValue{
+   display:inline-block;
+   .ui-form-item{
+      margin-top:-3px;
+   }
+}
+.rightBottomValue{
+  margin-left:28px;
+}
 
-
-
+.financeDetail-hover .top-arrow{
+   &:after{
+     border-top:none;
+   }
+}
+.financeDetail-hover .ui-tooltip{
+   padding:10px 10px 8px 10px;
+}
+.ui-length-text{
+  margin-right:50px;
+}
+.m-textareaText{
+   margin-left:-10px;
+   width:600px;
+   margin-top:-3px;
+}
+.m-continueGo{
+   width:100%;
+   text-align:center;
+   line-height:160px;
+}
+.trasparent{
+    background:transparent;
+    position: fixed;
+    top: 0;
+    z-index:1000;
+    left:0;
+    top: 60px;
+    right: 650px;
+    bottom: 0;
+ }
+.tableOver{
+  display:block;
+  max-width: 160px ;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    background-color:transparent;
+}
+ Table .ui-tooltip.center{
+  left:50%;
+ }
+ .sureIncome{
+   font-size:14px;
+   color:#333;
+   text-align: center;
+   margin-top: 42px;
+   margin-bottom: 55px;
+ }
+}
 
 
 

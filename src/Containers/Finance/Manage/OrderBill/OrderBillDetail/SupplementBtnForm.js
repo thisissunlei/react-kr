@@ -59,7 +59,7 @@ export default class SupplementBtnForm extends Component{
 		return(
 				
 				<div>
-					<p>是否确定补挂延期收入？</p>
+					<p className='sureIncome'>是否确定补挂延期收入？</p>
 					
 
 					   <Grid style={{marginTop:20}}>

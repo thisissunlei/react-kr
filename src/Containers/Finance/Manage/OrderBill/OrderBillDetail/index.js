@@ -10,11 +10,9 @@ import {
 import {
 	LabelText
 } from 'kr-ui';
-import * as actionCreators from 'kr-ui/../Redux/Actions';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {
 	Actions,
-	Store
+	Store,
 } from 'kr/Redux';
 import dateFormat from 'dateformat';
 import {
@@ -40,11 +38,13 @@ import {
 	Title,
 	Tooltip,
 	SnackTip,
-    Message
+    Message,
+    Drawer
 } from 'kr-ui';
 import {
 	reduxForm,
-	reset
+	reset,
+	initialize
 } from 'redux-form';
 
 import {
@@ -59,16 +59,15 @@ import SwitchBtnForm from './SwitchBtnForm';
 import BusinessBtnForm from './BusinessBtnForm';
 import AccountBtnForm from './AccountBtnForm';
 import SupplementBtnForm from './SupplementBtnForm';
+import ShiftBtnForm from './ShiftBtnForm';
+import ReceiveDetailTop from './ReceiveDetailTop';
 import './index.less';
 
 
 
-//代码列表
-var codeList = [];
-//款项列表和分拆金额
-var typeList = [];
-//回款的代码列表,合同的合同编号
-var receivedList = [];
+
+
+
 //获取单条的金额
 var fiMoney = '';
 //得到单条数据
@@ -79,15 +78,14 @@ class ViewForm extends Component {
 	}
 	render() {
 		let items = this.props.detail
+
 		if (!items.fileList) {
 			items.fileList = []
 		}
 
-
-
 		return (
-			<div className='ui-watch-detail'>
-					<KrField grid={1/2}  component="labelText" label="代码名称" value={items.accountName} inline={false} defaultValue="无"/>
+			<div className='m-watch-detail'>
+					<KrField grid={1/2}  component="labelText" label="支付方式" value={items.accountName} inline={false} defaultValue="无"/>
 					<KrField grid={1/2} label="付款日期" component="labelText" inline={false} value={items.occuryear} defaultValue="无" type="date"/>
 
 					<KrField grid={1/2} label="操作时间" component="labelText" value={items.operatedate} format="yyyy-mm-dd hh:mm:ss" type="date" inline={false} defaultValue="无"/>
@@ -168,12 +166,11 @@ export default class AttributeSetting extends Component {
 			params: {
 				accountType: 'PAYMENT',
 				childType: 'basic',
-				propertyId: '',
 				propInfo: 'SETTLED',
 				orderId: this.props.params.orderId,
 				page: 1,
 				pageSize: 30,
-				index:''
+				index:'',
 			},
 			itemDetail: {},
 			//为了判断和获取选中的条的id
@@ -184,7 +181,7 @@ export default class AttributeSetting extends Component {
 			detailPayment: [],
 			detailIncome: [],
 			detailBalance: '',
-			//这三个是全局的
+			//高级查询
 			codeList: [],
 			typeList: [],
 			receivedList: [],
@@ -193,6 +190,21 @@ export default class AttributeSetting extends Component {
 			list: [],
 			selectedList: [],
 			listValues: [],
+
+			payWayList:[],
+			accountDetail:[],
+			contractList:[],
+			stationPayment:{},
+
+			//回款合同
+			contractReceive:[],
+			//回款合同顶部
+			contractTopReceive:[],
+
+			//转移
+			shiftData:[],
+
+
 
 
 
@@ -203,15 +215,22 @@ export default class AttributeSetting extends Component {
 			openBusinessBtn: false,
 			openAddaccountBtn: false,
 			openSupplementBtn: false,
+			openShift:false,
 			isLoading: true,
 			isInitLoading: true,
 			openView: false,
+			openRight:false,
+			openContract:false,
             colorClassName:'',
-            isRunningIncome:0,
+            isRunningIncome:0,         
+            //回款总金额和余额变化
+            liveMoneyValue:0,
 		}
+		//回款计算余额所需字段值
+		this.receivedBtnFormChangeValues = {};
 	}
 
-
+   
 
 	refresh() {
 			//console.log('00000')
@@ -225,50 +244,55 @@ export default class AttributeSetting extends Component {
 			});
 
 		}
-		//打开遮罩层区域
 
-
+	//打开遮罩层区域
 	openSearchDialog() {
 		this.searchUpperFun();
 		this.setState({
 			openSearch: !this.state.openSearch
 		});
-		typeList = [];
-		codeList = [];
 	}
-	openReceivedBtn() {
+	openReceivedBtn(){
+
+		this.receivedBtnFormChangeValues={};
+		//Store.dispatch(reset('receivedBtnForm',{totalPayment:'',preCode:'1',operatedate:''}));
+
 		var _this = this;
-		Store.dispatch(Actions.callAPI('findAccountAndPropList', {
-			accountType: 'PAYMENT'
+		Store.dispatch(Actions.callAPI('getPaymentActData', {
+			mainbillId: _this.props.params.orderId
 		})).then(function(response) {
-
-			var receivedList = [];
-			var typeList = [];
-
-			response.account.map(function(item, index) {
+			var payWayList = [];
+			var contractReceive= [];
+			response.payWay.map(function(item, index) {
 				var list = {}
 				list.value = item.id;
 				list.label = item.accountname;
-				receivedList.push(list);
+				payWayList.push(list);
 			});
-
-			response.property.map(function(item, index) {
-				var list = {}
-				list.value = item.propcode;
-				list.label = item.propname;
-				typeList.push(list);
+			response.contract.map(function(item, index) {
+				var lists = {};
+				lists.label = item.contactName+'-'+item.contractcode;
+				lists.value = item.contactType;
+				lists.contractId=item.detailid;
+				contractReceive.push(lists);
 			});
-
-			_this.setState({
-				receivedList,
-				typeList
-			});
+		
+			  var noContract={
+			    	'value':'000','label':'无合同'
+			     }
+			contractReceive.push(noContract);
+           _this.setState({
+			 payWayList,
+			 accountDetail:response.propData,
+			 contractTopReceive:response.contract,
+			 contractReceive
+		   });
 		}).catch(function(err) {
 			  Message.error(err.message);
 		});
-		this.setState({
-			openReceivedBtn: !this.state.openReceivedBtn,
-		});
+		 this.setState({
+			 openRight:!this.state.openRight
+		  });
 	}
 	openQuitBtn() {
 		let items = this.state.selectedList
@@ -286,6 +310,7 @@ export default class AttributeSetting extends Component {
 		} else if (fiMoney >= 0) {
 			Message.error('金额必须为负且存在可用金额');
 		} else {
+			this.getMoneyALLTrue();
 			this.setState({
 				openQuitBtn: !this.state.openQuitBtn
 			});
@@ -293,6 +318,7 @@ export default class AttributeSetting extends Component {
 	}
 
 	openSwitchBtn() {
+
 		let items = this.state.selectedList
 		var _this = this;
 		items.map(function(item, index) {
@@ -301,6 +327,7 @@ export default class AttributeSetting extends Component {
 				fiItem = item;
 			}
 		})
+
 		if (this.state.listValues.length == 0) {
 			Message.error('请选择一条回款数据进行转押金');
 		} else if (this.state.listValues.length > 1) {
@@ -309,14 +336,14 @@ export default class AttributeSetting extends Component {
 			Message.error('金额必须为负且存在可用金额');
 		} else {
 			this.setState({
-				openSwitchBtn: !this.state.openSwitchBtn
+				openSwitchBtn: !this.state.openSwitchBtn,
 			});
-
-
+            this.getMoneyALLTrue();
 			//console.log('2222',fiItem.id);
 			Store.dispatch(Actions.callAPI('findContractListById', {
-				id: fiItem.id
+				mainbillId: _this.props.params.orderId
 			})).then(function(response) {
+				var receivedList=[];
 				response.map(function(item, index) {
 					var list = {}
 					list.value = item.id;
@@ -346,33 +373,69 @@ export default class AttributeSetting extends Component {
 			 Message.error('只能选择一条数据');
 		} else if (fiMoney >= 0) {
 			 Message.error('金额必须为负且存在可用金额');
-		} else {
+		} else {			
+			this.getMoneyALLTrue();
 			this.setState({
-				openBusinessBtn: !this.state.openBusinessBtn
+			  openBusinessBtn: !this.state.openBusinessBtn
 			});
 		}
 	}
 
+	getMoneyALLTrue=()=>{
+		var _this=this;
+		Store.dispatch(Actions.callAPI('getFlowRemainMoney', {
+				flowId: fiItem.id
+			})).then(function(response) {
+				_this.setState({
+					fiMoney:response
+				});
+			}).catch(function(err) {
+				 Message.error(err.message);
+		 });
+
+	}
+	
 	openAccountBtn() {
 		var _this = this;
-		Store.dispatch(Actions.callAPI('findAccountList', {
-			accountType: 'INCOME'
+		Store.dispatch(Actions.callAPI('getOnNewAccountData',{
+			mainbillId: _this.props.params.orderId
 		})).then(function(response) {
-			response.map(function(item, index) {
+			var payWayList = [];
+			var contractList=[];
+			var stationPayment={};
+			response.payWay.map(function(item, index) {
 				var list = {}
 				list.value = item.id;
 				list.label = item.accountname;
-				receivedList.push(list);
-			})
+				payWayList.push(list);
+			});
+			if(response.contractList){
+                response.contractList.map(function(item, index) {
+				var list = {}
+				list.value = item.id;
+				list.label = item.contractcode;
+				contractList.push(list);
+			   }); 
+			 }else if(!response.contractList){
+			 	contractList='无' 
+			 }	
+			  if(response.stationPayment){
+                stationPayment=response.stationPayment;
+			  }else if(!response.stationPayment){
+                stationPayment='无'
+			  }
 			_this.setState({
-				receivedList: receivedList
+				payWayList,
+				accountDetail:response.propData,
+				contractList,
+				stationPayment:stationPayment,
 			});
 		}).catch(function(err) {
-			 Message.error(err.message);
+			 Message.error(err.message); 
 		});
 		this.setState({
-			openAddaccountBtn: !this.state.openAddaccountBtn
-		})
+				openAddaccountBtn:!this.state.openAddaccountBtn
+		 });
 	}
 	openSupplementBtn() {
 		this.setState({
@@ -396,29 +459,57 @@ export default class AttributeSetting extends Component {
 			openView: !this.state.openView
 		});
 	}
+	openShiftBtn=()=>{
+	    var _this = this;
+		let items = this.state.selectedList
+		items.map(function(item, index) {
+			if (typeof(item.finaflowAmount) == 'number') {
+				fiMoney = item.finaflowAmount;
+				fiItem = item;
+			}
+		})
+        if (this.state.listValues.length == 0) {
+			Message.error('请选择一条数据进行转移');
+		} else if (this.state.listValues.length > 1) {
+			Message.error('只能选择一条数据');
+		} else if (fiMoney >= 0) {
+			Message.error('金额必须为负且存在可用金额');
+		} else {
+			  this.setState({
+				openShift:!this.state.openShift
+			  });
+			  Store.dispatch(Actions.callAPI('getTransferData', {
+					flowId:fiItem.id,
+					mainbillId: _this.props.params.orderId
+				})).then(function(response) {
+			  	  _this.setState({
+					shiftData:response.propData,
+					fiMoney:response.remainMoney
+				  })
+				}).catch(function(err) {
+					  Message.error(err.message);
+				});
+
+	        }
+        }
 
 	//关闭遮罩层区域
 	closeReceivedDialog() {
 		this.setState({
 			openReceivedBtn: !this.state.openReceivedBtn,
 		});
-		receivedList = [];
-		typeList = [];
 	}
 
 	closeSearchDialog() {
 		this.setState({
 			openSearch: !this.state.openSearch
 		});
-		typeList = [];
-		codeList = [];
 	}
 
 	closeSwitchBtn() {
 		this.setState({
 			openSwitchBtn: !this.state.openSwitchBtn,
 		});
-		receivedList = [];
 	}
 	closeBusinessBtn() {
 		this.setState({
@@ -434,27 +525,47 @@ export default class AttributeSetting extends Component {
 		this.setState({
 			openAddaccountBtn: !this.state.openAddaccountBtn
 		})
-
-		receivedList = [];
 	}
 	closeViewDialog() {
 		this.setState({
 			openView: !this.state.openView,
 		});
 	}
+	closeShiftBtn=()=>{
+		 this.setState({
+			openShift: !this.state.openShift
+	     });
+	}
 
 	//确定提交区域
 	//切换
 	onSearch(params) {
+		    var listValues='';
+		    if(params.index==this.state.params.index&&params.accountType==this.state.params.accountType){
+		    	listValues=this.state.listValues
+		    }else{
+		    	listValues=''
+		    }
 			this.setState({
-				params
+				params,
+				listValues:listValues
 			});
 
 	}
-		//高级查询
+    //高级查询
 	onSubmit(params) {
-		//为了让其保持params原有的参数，同时将自己的参数传过去
-		params = Object.assign({}, this.state.params, params);
+		params = Object.assign({},this.state.params, params);
+		params.time=+new Date();
+		if(params.startTime!=''&&params.endTime!=''&&params.endTime<params.startTime){
+			 Message.error('开始时间不能大于结束时间');
+	         return ;
+		}
+		if(params.startTime==''&&params.endTime!=''){
+			params.startTime=params.endTime
+		}
+		if(params.startTime!=''&&params.endTime==''){
+			params.endTime=params.startTime
+		}
 		this.setState({
 			params,
 			openSearch: !this.state.openSearch
@@ -485,110 +596,217 @@ export default class AttributeSetting extends Component {
 		}
 		//回款提交
 	onAddReceivedSubmit(params) {
+        let {accountDetail,contractTopReceive} = this.state;
+		params = Object.assign({},params);
+		params.mainbillId=this.props.params.orderId
+      
+        var intentStr={};
+        var joinStr={};
+        var increaseStr={};
+        var adminStr={};
+		contractTopReceive.map(function(item,index){
+					var key = item.detailid;
+					var accountType=item.contactType;
+					if(accountType==2){
+					  var conJasonStre={};
+					  if(params['fix'+key+'1']&&!params['fix'+key+'3']){
+                         conJasonStre['1'] = params['fix'+key+'1'];
+                         joinStr[key]=conJasonStre
+						 delete params['fix'+key+'1'];
+					  }else if(params['fix'+key+'3']&&!params['fix'+key+'1']){
+					  	 conJasonStre['3'] = params['fix'+key+'3'];
+					  	 joinStr[key]=conJasonStre
+						 delete params['fix'+key+'3'];
+					  }else if(params['fix'+key+'3']&&params['fix'+key+'1']){
+					  	 conJasonStre['3'] = params['fix'+key+'3'];
+					  	 conJasonStre['1'] = params['fix'+key+'1'];
+					  	 joinStr[key]=conJasonStre
+						 delete params['fix'+key+'3'];
+						 delete params['fix'+key+'1'];
+					  }
+					   
+					}
+					if(accountType==3){
+						 var conJasonStre={};
+					  if(params['fix'+key+'1']&&!params['fix'+key+'3']){
+                         conJasonStre['1'] = params['fix'+key+'1'];
+                         increaseStr[key]=conJasonStre
+						 delete params['fix'+key+'1'];
+					  }else if(params['fix'+key+'3']&&!params['fix'+key+'1']){
+					  	 conJasonStre['3'] = params['fix'+key+'3'];
+					  	 increaseStr[key]=conJasonStre
+						 delete params['fix'+key+'3'];
+					  }else if(params['fix'+key+'3']&&params['fix'+key+'1']){
+					  	 conJasonStre['3'] = params['fix'+key+'3'];
+					  	 conJasonStre['1'] = params['fix'+key+'1'];
+					  	 increaseStr[key]=conJasonStre	 
+						 delete params['fix'+key+'3'];
+						 delete params['fix'+key+'1'];
+					  }
+					   
+					}
+					if(accountType==4){
+						var conJasonStre={};
+					  if(params['fix'+key+'1']&&!params['fix'+key+'3']){
+                         conJasonStre['1'] = params['fix'+key+'1'];
+                         adminStr[key]=conJasonStre	
+						 delete params['fix'+key+'1'];
+					  }else if(params['fix'+key+'3']&&!params['fix'+key+'1']){
+					  	 conJasonStre['3'] = params['fix'+key+'3'];
+					  	 adminStr[key]=conJasonStre	
+						 delete params['fix'+key+'3'];
+					  }else if(params['fix'+key+'3']&&params['fix'+key+'1']){
+					  	 conJasonStre['3'] = params['fix'+key+'3'];
+					  	 conJasonStre['1'] = params['fix'+key+'1'];
+					  	 adminStr[key]=conJasonStre	
+						 delete params['fix'+key+'3'];
+						 delete params['fix'+key+'1'];
+					  }
+					   
+					}
+					if(accountType==1){
+						var conJasonStre={};
+					  if(params['fix'+key+'2']){
+                         conJasonStre['2'] = params['fix'+key+'2'];
+                         intentStr[key]=conJasonStre	
+						 delete params['fix'+key+'2'];
+					  }
+					   
+					}
+					 
+			});
+         
+        
+		let {totalPayment} = params;
+		let liveMoneyValue = this.state.liveMoneyValue;
 
-		let {typeList} = this.state;
+		params.conJasonStr={intentStr,joinStr,increaseStr,adminStr}
+		params.conJasonStr = Object.assign({},intentStr,joinStr,increaseStr,adminStr);
+		
+
 		params = Object.assign({}, params);
-		if (params.autoSplit == 0) {
-			params.jsonStr = {};
-			typeList.map(function(item,index){
-					var key = item.value;
+			params.propJasonStr = {};
+			accountDetail.map(function(item,index){
+					var key = item.id;
 					if(params.hasOwnProperty(key) && params[key]){
-							params.jsonStr[key] = params[key];
+							params.propJasonStr[key] = params[key];
 							delete params[key];
 					}
 			});
-			/*
-			params.jsonStr.yajin = params.yajin;
-			params.jsonStr.yingshouhuikuan = params.yingshouhuikuan;
-			params.jsonStr.shenghuoxiaofeihuikuan = params.shenghuoxiaofeihuikuan;
-			params.jsonStr.gongweihuikuan = params.gongweihuikuan;
-			params.jsonStr.qitahuikuan = params.qitahuikuan;
-			params.jsonStr.dingjin = params.dingjin;
-			*/
-			params.jsonStr = JSON.stringify(params.jsonStr);
-			delete params.dingjin;
-			delete params.yajin;
-			delete params.yingshouhuikuan;
-			delete params.shenghuoxiaofeihuikuan;
-			delete params.gongweihuikuan;
-			delete params.qitahuikuan;
+		params.operatedate= dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
+		params.propJasonStr = JSON.stringify(params.propJasonStr);
+		params.conJasonStr = JSON.stringify(params.conJasonStr);
+        
+       
+        if(!params.contract){
+            Message.error('请选择对应合同');
+            return ;	
+        }
+        if(params.propJasonStr=='{}'&&params.conJasonStr=='{}'){
+        	Message.error('回款不能为空');
+        	return ;
+        }
+        if(liveMoneyValue<0){
+			Message.error('拆分金额大于回款总额');
+			return ;
 		}
-		params.receiveDate = dateFormat(params.receiveDate, "yyyy-mm-dd h:MM:ss");
-		var _this = this;
-		Store.dispatch(Actions.callAPI('receiveMoney', {}, params)).then(function(response) {
-			_this.refresh();
+		if(liveMoneyValue>0){
+			Message.error('回款总额有剩余');
+			return ;
+		}
 
+		var _this = this;
+		Store.dispatch(Actions.callAPI('returnMoneyNew', {}, params)).then(function(response) {
+			_this.refresh();
+			_this.setState({
+			 openRight: !_this.state.openRight,
+			 isLoading: true,
+		 });
 		}).catch(function(err) {
 			 Message.error(err.message);
 		});
-		this.setState({
-			openReceivedBtn: !this.state.openReceivedBtn,
-			isLoading: true,
-		});
-		receivedList = [];
-		typeList = [];
 
 	}
 	onQuitSubmit(params) {
 		var _this = this;
 		params = Object.assign({}, params);
-		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd h:MM:ss");
+		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
 		Store.dispatch(Actions.callAPI('payBack', {}, params)).then(function(response) {
 			_this.refresh();
+		  _this.setState({
+			openQuitBtn: !_this.state.openQuitBtn,
+			isLoading: true,
+			listValues:''
+		  });
 		}).catch(function(err) {
 		  Message.error(err.message);
 		});
-		this.setState({
-			openQuitBtn: !this.state.openQuitBtn,
-			isLoading: true
-		});
+		
 
 	}
 	onSwitchSubmit(params) {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('transToDeposit', {}, params)).then(function(response) {
 			_this.refresh();
+			_this.setState({
+			openSwitchBtn: !_this.state.openSwitchBtn,
+			isLoading: true,
+			listValues:''
+		});
 		}).catch(function(err) {
 			 Message.error(err.message);
 		});
-		this.setState({
-			openSwitchBtn: !this.state.openSwitchBtn,
-			isLoading: true
-		});
-		receivedList = [];
 
 	}
 	onBusinessSubmit(params) {
 		var _this = this;
 		Store.dispatch(Actions.callAPI('transToOperateIncome', {}, params)).then(function(response) {
 			_this.refresh();
+			_this.setState({
+			openBusinessBtn: !_this.state.openBusinessBtn,
+			isLoading: true,
+			listValues:''
+		});
 		}).catch(function(err) {
 			  Message.error(err.message);
 		});
 
-		this.setState({
-			openBusinessBtn: !this.state.openBusinessBtn,
-			isLoading: true
-		});
+		
 
 	}
-	onConfrimSubmit(formValues) {
+	onConfrimSubmit(params) {
+		let {stationPayment,accountDetail}=this.state;
+		var contractId=stationPayment.id;
+		params = Object.assign({}, params);
+			params.propJasonStr = {};
+			accountDetail.map(function(item,index){
+					var key = item.id;
+					if(params.hasOwnProperty('fix'+key) && params['fix'+key]){
+							params.propJasonStr[key] = params['fix'+key];
+							delete params['fix'+key];
+					}
+			});
+		params.propJasonStr[contractId]=params.stationPaymentName;
+		//delete params.stationPaymentName;
+		params.propJasonStr = JSON.stringify(params.propJasonStr);
+        
+         if(params.propJasonStr=='{}'){
+        	Message.error('至少填写一项金额');
+        	 return ;
+           }
+
 		var _this = this;
-		Store.dispatch(Actions.callAPI('supplementIncome', {}, formValues)).then(function() {
-			Notify.show([{
-				message: '操作成功',
-				type: 'success',
-			}]);
+		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
+		Store.dispatch(Actions.callAPI('onNewAccountg', {}, params)).then(function() {
 			_this.refresh();
+			_this.setState({
+			openAddaccountBtn: !_this.state.openAddaccountBtn,
+			isLoading: true,
+		})
 		}).catch(function(err) {
 			  Message.error(err.message);
 		});
-		this.setState({
-			openAddaccountBtn: !this.state.openAddaccountBtn,
-			isLoading: true,
-		})
-		receivedList = [];
-
+		
 	}
 	onSupplementSubmit() {
 			var _this = this;
@@ -596,13 +814,14 @@ export default class AttributeSetting extends Component {
 				mainbillid: _this.props.params.orderId
 			})).then(function(response) {
 				_this.refresh();
+				_this.setState({
+				openSupplementBtn: !_this.state.openSupplementBtn,
+				isLoading: true
+			 })
 			}).catch(function(err) {
 				 Message.error(err.message);
 			});
-			_this.setState({
-				openSupplementBtn: !this.state.openSupplementBtn,
-				isLoading: true
-			})
+			
 
 		}
 		//操作相关
@@ -610,6 +829,38 @@ export default class AttributeSetting extends Component {
 		if (type == 'view') {
 			this.openViewDialog(itemDetail);
 		}
+	}
+	onShiftBtnSubmit=(params)=>{
+           let {shiftData} = this.state;
+		    params = Object.assign({}, params);
+			params.propJasonStr = {};
+			shiftData.map(function(item,index){
+					var key = item.id;
+					if(params.hasOwnProperty('fix'+key) && params['fix'+key]){
+							params.propJasonStr[key] = params['fix'+key];
+							delete params['fix'+key];
+					}
+			});
+		  params.propJasonStr = JSON.stringify(params.propJasonStr);
+
+		  if(params.propJasonStr=='{}'){
+        	Message.error('至少填写一项金额');
+        	 return ;
+           }
+
+		var _this = this;
+		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
+		Store.dispatch(Actions.callAPI('transferPayment', {}, params)).then(function() {
+			_this.refresh();
+			_this.setState({
+			openShift: !_this.state.openShift,
+			isLoading: true,
+			listValues:''
+		})
+		}).catch(function(err) {
+			  Message.error(err.message);
+		});
+		
 	}
 
 	//
@@ -627,21 +878,27 @@ export default class AttributeSetting extends Component {
 				detailIncome: response.incomedata,
 				detailBalance: response.balance,
 				isInitLoading: false,
-
 				isRunningIncome:response.isIncomeRunning,
-
 				colorClassName:response.isIncomeRunning==2?'historyIncomeGray':'historyIncome'
 			});
 		}).catch(function(err) {
-			 Message.error(err.message);
+			 Message.error(err.message);		
 		});
 	}
 
 	searchUpperFun() {
+
 		var _this = this;
 		let {
 			params
 		} = this.state;
+
+		params.endTime='';
+		params.startTime='';
+		params.tradingCode='';
+		params.propertyId='';
+		params.accountId='';
+         
 		Store.dispatch(Actions.callAPI('findAccountAndPropList', {
 			accountType: params.accountType
 		})).then(function(response) {
@@ -660,10 +917,6 @@ export default class AttributeSetting extends Component {
 				list.label = item.propname;
 				typeList.push(list);
 			})
-			params.propertyId='';
-			params.accountId='';
-			params.startTime='';
-			params.endTime='';
 			_this.setState({
 				codeList,
 				typeList,
@@ -683,18 +936,14 @@ export default class AttributeSetting extends Component {
 				params
 			} = this.props;
 			_this.setState({
-
 				 isRunningIncome:1
-
 			 });
 			Store.dispatch(Actions.callAPI('runStationIncome',{
 				mainbillId:params.orderId,
 			})).then(function(response) {
 			    setTimeout(function(){
                    _this.setState({
-
 				     isRunningIncome:2,
-
 				     colorClassName:'historyIncomeGray'
 			        });
 			    },1000)
@@ -718,7 +967,11 @@ export default class AttributeSetting extends Component {
 	}
 
 
+
+
+
 	 snackTipClose=()=>{
+
 
     	   var _this = this;
 	        let {
@@ -727,17 +980,16 @@ export default class AttributeSetting extends Component {
 			Store.dispatch(Actions.callAPI('removeRunningTag',{},{
 				mainbillId:params.orderId,
 			})).then(function(response) {
-				_this.refresh();
+				//_this.refresh();
+				  window.location.reload();
 			    _this.setState({
-
 				 isRunningIncome:0,
-
 				 colorClassName:'historyIncome'
 			 });
+
 			}).catch(function(err){
 				  Message.error(err.message);
 			});
-
     }
 
 	initializeSnack = (open=false,title='正在补历史收入...',titleAfter,color)=>{
@@ -745,7 +997,7 @@ export default class AttributeSetting extends Component {
     	let style={
     	'background':color,
     	'position': 'fixed',
-        'top': '-40px',
+        'top': '10px',
         'left': 0,
         'right': 0
     	}
@@ -756,6 +1008,7 @@ export default class AttributeSetting extends Component {
 
     	   	);
 	}
+
 
 
 
@@ -775,12 +1028,189 @@ export default class AttributeSetting extends Component {
 
     }
 
+    renderReceived=()=>{
+		       return         (<Table style={{marginTop:60}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getAccountNewFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
+							              <TableHeader>
+										          <TableHeaderColumn>交易编号</TableHeaderColumn>
+										          <TableHeaderColumn>交易日期</TableHeaderColumn>
+										          <TableHeaderColumn>支付方式</TableHeaderColumn>
+										          <TableHeaderColumn>类别</TableHeaderColumn>
+										          <TableHeaderColumn>款项</TableHeaderColumn>
+										          <TableHeaderColumn>金额</TableHeaderColumn>
+										          <TableHeaderColumn>备注</TableHeaderColumn>
+										           <TableHeaderColumn>操作</TableHeaderColumn>
+							              </TableHeader>
+							              <TableBody>
+							                <TableRow>
+							                	<TableRowColumn name="tradingCode" style={{width:160,overflow:"visible"}} component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value==''){
+                                                           value='无'
+														 }
+														if(value.length==""){
+															TooltipStyle="none"
+														}else{
+															TooltipStyle="block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }}></TableRowColumn>
+							                    <TableRowColumn name="occuryear" type="date" format="yyyy-mm-dd"></TableRowColumn>
+							                    <TableRowColumn name="accountName"></TableRowColumn>
+							                    <TableRowColumn name="typeName"></TableRowColumn>
+							                    <TableRowColumn name="propertyName"></TableRowColumn>
+							                    <TableRowColumn name="finaflowAmount"></TableRowColumn>
+							                    <TableRowColumn name="finaflowdesc" style={{width:160,overflow:"visible"}} component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'><div style={{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{value}</div></Tooltip></div>)
+													 }}></TableRowColumn>
+							                    <TableRowColumn>
+							                        <Button label="查看"  type="operation" operation="view"/>
+							                    </TableRowColumn>
+							                  </TableRow>
+							              </TableBody>
+							              <TableFooter></TableFooter>
+						              </Table>)
+	}
+	renderIncomed=()=>{
+		       return         (<Table style={{marginTop:60}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getAccountNewFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
+							              <TableHeader>
+										          <TableHeaderColumn>交易编号</TableHeaderColumn>
+										          <TableHeaderColumn>交易日期</TableHeaderColumn>
+										          <TableHeaderColumn>支付方式</TableHeaderColumn>
+										          <TableHeaderColumn>类别</TableHeaderColumn>
+										          <TableHeaderColumn>款项</TableHeaderColumn>
+										          <TableHeaderColumn>金额</TableHeaderColumn>
+										          <TableHeaderColumn>工位</TableHeaderColumn>
+										          <TableHeaderColumn>月租金</TableHeaderColumn>
+										          <TableHeaderColumn>备注</TableHeaderColumn>
+										           <TableHeaderColumn>操作</TableHeaderColumn>
+							              </TableHeader>
+							              <TableBody>
+							                <TableRow>
+							                	<TableRowColumn name="tradingCode"  style={{width:160,overflow:"visible"}} component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value==''){
+                                                           value='无'
+														 }
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }}></TableRowColumn>
+							                    <TableRowColumn name="occuryear" type="date" format="yyyy-mm-dd"></TableRowColumn>
+							                    <TableRowColumn name="accountName"></TableRowColumn>
+							                    <TableRowColumn name="typeName"></TableRowColumn>
+							                    <TableRowColumn name="propertyName"></TableRowColumn>
+							                    <TableRowColumn name="finaflowAmount"></TableRowColumn>
+							                    <TableRowColumn name="stationNum"></TableRowColumn>
+							                    <TableRowColumn name="monthRent"></TableRowColumn>
+							                    <TableRowColumn name="finaflowdesc" style={{width:160,overflow:"visible"}} component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'><div style={{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{value}</div></Tooltip></div>)
+													 }}></TableRowColumn>
+							                    <TableRowColumn>
+							                        <Button label="查看"  type="operation" operation="view"/>
+							                    </TableRowColumn>
+							                  </TableRow>
+							              </TableBody>
+							              <TableFooter></TableFooter>
+						             </Table>)
+	}
+
+    typeSelectRender=()=>{
+    	let {
+			params,
+		} = this.state;
+
+		let parentBtn = params.accountType;
+		let childBtn = params.childType;
+    	if(parentBtn == 'INCOME' && childBtn == 'gongweishouru'||parentBtn == 'INCOME' && childBtn == 'basic'){
+    		return this.renderIncomed();
+    	}else{
+    		return this.renderReceived();
+    	}
+    }
+
+    iconClose=()=>{
+     this.setState({
+		 openRight:!this.state.openRight,
+		 liveMoneyValue:0
+	  });
+      this.receivedBtnFormChangeValues={}
+    }
+
+
+
+    contractContinue=()=>{
+       this.setState({
+		 openContract:!this.state.openContract
+	  });
+    }
+
+    calcBalance=(input)=>{
+    
+   
+   	input.value=Math.round((input.value*100)) 
+
+   	this.receivedBtnFormChangeValues[input.name] = input.value;
+
+
+   
+   	let receivedBtnFormChangeValues = this.receivedBtnFormChangeValues;
+   	let {totalPayment} = receivedBtnFormChangeValues;
+   	let  liveMoneyValue = totalPayment;
+
+   	if(totalPayment){
+   		
+   	for(var item in receivedBtnFormChangeValues){
+   		if(receivedBtnFormChangeValues.hasOwnProperty(item) && item !='totalPayment'){
+
+   			liveMoneyValue -= receivedBtnFormChangeValues[item];
+   		}
+   	  }
+   	}
+
+   
+
+   	
+    liveMoneyValue=liveMoneyValue/100;
+  
+     this.setState({
+     	 liveMoneyValue
+     });
+  
+
+   }
+
+
 	render() {
 
 		let {
 			params,
 			isInitLoading,
 			colorClassName,
+			fiMoney,
+			shiftData,
+			stationPayment
 		} = this.state;
 
 		if (isInitLoading) {
@@ -789,7 +1219,7 @@ export default class AttributeSetting extends Component {
 
 
 
-		console.log('221111',this.context.router)
+		
 
 
 		//判断按钮出现与隐藏
@@ -799,18 +1229,13 @@ export default class AttributeSetting extends Component {
 		//回款传订单id
 		let initialValues = {
 				mainbillid: params.orderId,
-
 			}
-			//退款等要操作的id
+		//退款等要操作的id
 		let initialValuesId = {
-				id: fiItem.id
+				id: fiItem.id,
+				fiMoney:fiMoney
 			}
-			//挂账按钮操作
-		let propId = {
-				propid: params.propertyId,
-				mainbillid: params.orderId
-			}
-			//高级查询
+		//高级查询
 		let searchValue = {
 			accountType: params.accountType,
 			orderId: params.orderId
@@ -819,43 +1244,47 @@ export default class AttributeSetting extends Component {
 		var buttonArr = [];
 		if (parentBtn == 'PAYMENT' && childBtn == 'basic') {
 			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-       	   	  <Button label="退款"   type="button" joinEditForm onTouchTap={this.openQuitBtn}/></ButtonGroup>);
+       	   	  <Button label="退款"   type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
+       	   	  <Button label="转移"   type="button"  onTouchTap={this.openShiftBtn}/></ButtonGroup>);
 		}
 		if (parentBtn == 'PAYMENT' && childBtn == 'dingjin') {
 			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
        	   	  <Button label="转押金"  type="button"  joinEditForm onTouchTap={this.openSwitchBtn}/>
-       	   	  <Button label="转营收"  type="button" joinEditForm onTouchTap={this.openBusinessBtn}/></ButtonGroup>);
+       	   	  <Button label="转营收"  type="button" joinEditForm onTouchTap={this.openBusinessBtn}/>
+       	   	 </ButtonGroup>);
 		}
 		if (parentBtn == 'PAYMENT' && childBtn == 'yajin') {
 			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-       	   	  <Button label="转押金"  type="button"  joinEditForm onTouchTap={this.openSwitchBtn}/>
        	   	  <Button label="转营收"  type="button"  joinEditForm onTouchTap={this.openBusinessBtn}/>
-       	   	  <Button label="退款"  type="button"  joinEditForm onTouchTap={this.openQuitBtn}/></ButtonGroup>);
+       	   	  <Button label="退款"  type="button"  joinEditForm onTouchTap={this.openQuitBtn}/>
+       	   	  </ButtonGroup>);
 		}
 		if (parentBtn == 'PAYMENT' && childBtn == 'gongweihuikuan') {
 			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
        	   	  <Button label="转营收"  type="button"  joinEditForm onTouchTap={this.openBusinessBtn}/>
-       	   	  <Button label="退款"  type="button"  joinEditForm onTouchTap={this.openQuitBtn}/></ButtonGroup>);
+       	   	  <Button label="退款"  type="button"  joinEditForm onTouchTap={this.openQuitBtn}/>
+       	   	  </ButtonGroup>);
 		}
 		if (parentBtn == 'PAYMENT' && childBtn == 'qitahuikuan') {
 			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-
-       	   	  <Button label="转押金"  type="button"  joinEditForm onTouchTap={this.openSwitchBtn}/>
        	   	  <Button label="转营收"  type="button" joinEditForm onTouchTap={this.openBusinessBtn}/>
-       	   	  <Button label="退款"  type="button"  joinEditForm onTouchTap={this.openQuitBtn}/></ButtonGroup>);
+       	   	  <Button label="退款"  type="button"  joinEditForm onTouchTap={this.openQuitBtn}/>
+       	   	   <Button label="转移"   type="button"  onTouchTap={this.openShiftBtn}/></ButtonGroup>);
 		}
 		if (parentBtn == 'PAYMENT' && childBtn == 'yingshouhuikuan') {
-			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/></ButtonGroup>
+			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
+				</ButtonGroup>
 
 			);
 		}
 		if (parentBtn == 'PAYMENT' && childBtn == 'shenghuoxiaofeihuikuan') {
 			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
 
-       	   	  <Button label="退款"  type="button" joinEditForm onTouchTap={this.openQuitBtn}/></ButtonGroup>);
+       	   	  <Button label="退款"  type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
+       	   	   <Button label="转移"   type="button"  onTouchTap={this.openShiftBtn}/></ButtonGroup>);
 		}
 		if (parentBtn == 'INCOME' && childBtn == 'basic') {
-
+            buttonArr.push(<ButtonGroup><Button label="挂账" type="button" joinEditForm onTouchTap={this.openAccountBtn}/></ButtonGroup>);
 		}
 		if (parentBtn == 'INCOME' && childBtn == 'gongweishouru') {
 			buttonArr.push(<ButtonGroup><Button label="挂账"  type="button" joinEditForm onTouchTap={this.openAccountBtn}/>
@@ -872,7 +1301,8 @@ export default class AttributeSetting extends Component {
 		}
 		if (parentBtn == 'PAYMENT' && propInfo == 'NEW') {
 			buttonArr.push(<ButtonGroup><Button label="回款"  type="button" joinEditForm onTouchTap={this.openReceivedBtn}/>
-       	   	  <Button label="退款" type="button" joinEditForm onTouchTap={this.openQuitBtn}/></ButtonGroup>);
+       	   	  <Button label="退款" type="button" joinEditForm onTouchTap={this.openQuitBtn}/>
+       	   	   <Button label="转移"   type="button"  onTouchTap={this.openShiftBtn}/></ButtonGroup>);
 		}
 		if (parentBtn == 'INCOME' && propInfo == 'NEW') {
 			buttonArr.push(<ButtonGroup><Button label="挂账"  type="button" joinEditForm onTouchTap={this.openAccountBtn}/></ButtonGroup>);
@@ -890,7 +1320,8 @@ export default class AttributeSetting extends Component {
 
 		return (
 
-			<div>
+			<div className='m-orderBillDetail'>
+
 			        {this.renderSnack()}
 					<Title value="订单明细账_财务管理"/>
 					<Section title="订单明细账" description="" style={{marginBottom:-5,minHeight:910}}>
@@ -908,36 +1339,10 @@ export default class AttributeSetting extends Component {
 								 <div className='detail-right'>
 								     <div>
 								        <Col align="left" md={9} className='btn-left'>{buttonArr}</Col>
-								        <Col align="right" md={3} style={{'position':'relative'}}><Button  type='search'  searchClick={this.openSearchDialog}/><span className={colorClassName} onClick={this.historyIncomed}><Tooltip  offsetTop={8} place='top'>补历史收入</Tooltip></span></Col>
+								        <Col align="right" md={3} style={{'position':'relative'}}><Button  type='search'  searchClick={this.openSearchDialog}/><span className={colorClassName} onClick={this.historyIncomed}><Tooltip  offsetTop={8} place='top'>重跑历史收入</Tooltip></span></Col>
 								     </div>
 
-									 <Table style={{marginTop:60}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getPageAccountFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
-							              <TableHeader>
-										          <TableHeaderColumn>序号</TableHeaderColumn>
-										          <TableHeaderColumn>交易日期</TableHeaderColumn>
-										          <TableHeaderColumn>代码</TableHeaderColumn>
-										          <TableHeaderColumn>类别</TableHeaderColumn>
-										          <TableHeaderColumn>款项</TableHeaderColumn>
-										          <TableHeaderColumn>金额</TableHeaderColumn>
-										          <TableHeaderColumn>备注</TableHeaderColumn>
-										           <TableHeaderColumn>操作</TableHeaderColumn>
-							              </TableHeader>
-							              <TableBody>
-							                <TableRow>
-							                	<TableRowColumn name="id"></TableRowColumn>
-							                    <TableRowColumn name="occuryear" type="date" format="yyyy-mm-dd"></TableRowColumn>
-							                    <TableRowColumn name="accountName"></TableRowColumn>
-							                    <TableRowColumn name="typeName"></TableRowColumn>
-							                    <TableRowColumn name="propertyName"></TableRowColumn>
-							                    <TableRowColumn name="finaflowAmount"></TableRowColumn>
-							                    <TableRowColumn name="finaflowdesc"></TableRowColumn>
-							                    <TableRowColumn>
-							                        <Button label="查看"  type="operation" operation="view"/>
-							                    </TableRowColumn>
-							                  </TableRow>
-							              </TableBody>
-							              <TableFooter></TableFooter>
-						              </Table>
+									 {this.typeSelectRender()}
 								</div>
 
 							</Row>
@@ -951,17 +1356,35 @@ export default class AttributeSetting extends Component {
 						onClose={this.closeSearchDialog}
 						contentStyle ={{ width: '686'}}
 						>
-					   <SearchForm onCancel={this.closeSearchDialog} initialValues={searchValue} codeList={this.state.codeList} typeList={this.state.typeList} onSubmit={this.onSubmit}/>
+					   <SearchForm  onCancel={this.closeSearchDialog} initialValues={searchValue} codeList={this.state.codeList} typeList={this.state.typeList} onSubmit={this.onSubmit}/>
 					 </Dialog>
+                   
 
-					 <Dialog
-						title="添加回款"
-						open={this.state.openReceivedBtn}
-						onClose={this.closeReceivedDialog}
-                        contentStyle ={{ width: '688'}}
-						>
-					   <ReceivedBtnForm onSubmit={this.onAddReceivedSubmit}  onCancel={this.closeReceivedDialog} optionList={this.state.receivedList} typeList={this.state.typeList}/>
-					 </Dialog>
+				      <Drawer 
+				        open={this.state.openRight} 
+				        width={650} 
+				        openSecondary={true}
+				        className='m-finance-drawer' 
+				        containerStyle={{top:60,paddingBottom:228,zIndex:20}} 
+				        >
+				       <div>
+                        <ReceiveDetailTop iconClose={this.iconClose} contractTopReceive={this.state.contractTopReceive} liveMoneyValue={this.state.liveMoneyValue} contractContinue={this.contractContinue}/>
+                        <ReceivedBtnForm
+                          open={this.state.openRight} 
+                          onSubmit={this.onAddReceivedSubmit}
+                          onCancel={this.iconClose}
+                          optionList={this.state.payWayList}
+                          accountDetail={this.state.accountDetail}
+                          contractReceive={this.state.contractReceive}
+                          calcBalance={this.calcBalance}
+                          />
+                       </div>
+                      </Drawer>
+             
+
+
+                     {this.state.openRight&&<div className='trasparent' onClick={this.iconClose}></div>}
+
 
 					 <Dialog
 						title="退款"
@@ -969,8 +1392,18 @@ export default class AttributeSetting extends Component {
 						onClose={this.closeQuitBtn}
 						contentStyle ={{ width: '688'}}
 						>
-					   <QuitBtnForm  onSubmit={this.onQuitSubmit} onCancel={this.closeQuitBtn}  initialValues={initialValuesId}/>
+					   <QuitBtnForm  onSubmit={this.onQuitSubmit} onCancel={this.closeQuitBtn}  fiMoney={fiMoney} initialValuesId={initialValuesId}/>
 					 </Dialog>
+
+					 <Dialog
+						title="添加转移"
+						open={this.state.openShift}
+						onClose={this.closeShiftBtn}
+						contentStyle ={{ width: '688'}}
+						>
+					   <ShiftBtnForm onSubmit={this.onShiftBtnSubmit}  onCancel={this.closeShiftBtn} initialValuesId={initialValuesId} shiftData={shiftData} />
+					 </Dialog>
+
 
 					 <Dialog
 						title="转押金"
@@ -978,7 +1411,7 @@ export default class AttributeSetting extends Component {
 						onClose={this.closeSwitchBtn}
 						contentStyle ={{ width: '688'}}
 						>
-					   <SwitchBtnForm  onSubmit={this.onSwitchSubmit} onCancel={this.closeSwitchBtn} optionList={this.state.receivedList} initialValues={initialValuesId}/>
+					   <SwitchBtnForm  onSubmit={this.onSwitchSubmit} onCancel={this.closeSwitchBtn} optionList={this.state.receivedList}  fiMoney={fiMoney} initialValuesId={initialValuesId}/>
 					 </Dialog>
 
 					 <Dialog
@@ -987,7 +1420,7 @@ export default class AttributeSetting extends Component {
 						onClose={this.closeBusinessBtn}
 						contentStyle ={{ width: '688'}}
 						>
-					   <BusinessBtnForm  onSubmit={this.onBusinessSubmit} onCancel={this.closeBusinessBtn} fiMoney={fiMoney} initialValues={initialValuesId}/>
+					   <BusinessBtnForm  onSubmit={this.onBusinessSubmit} onCancel={this.closeBusinessBtn}  fiMoney={fiMoney} initialValuesId={initialValuesId}/>
 					 </Dialog>
 
 					 <Dialog
@@ -996,13 +1429,14 @@ export default class AttributeSetting extends Component {
 						onClose={this.closeAddaccount}
 						contentStyle ={{ width: '688'}}
 						>
-					   <AccountBtnForm  onSubmit={this.onConfrimSubmit}  onCancel={this.closeAddaccount}  optionList={this.state.receivedList} initialValues={propId}/>
+					   <AccountBtnForm  onSubmit={this.onConfrimSubmit}  onCancel={this.closeAddaccount}  optionList={this.state.payWayList}  accountDetail={this.state.accountDetail} contractList={this.state.contractList} stationPayment={stationPayment}/>
 					 </Dialog>
 
 					 <Dialog
 						title="补收入"
 						open={this.state.openSupplementBtn}
 						onClose={this.openSupplementBtn}
+						contentStyle ={{ width: '445',height:'236'}}
 						>
 					   <SupplementBtnForm  onSubmit={this.onSupplementSubmit} mainbillid="{params.orderId}" onCancel={this.openSupplementBtn} />
 					 </Dialog>
@@ -1014,6 +1448,17 @@ export default class AttributeSetting extends Component {
 						>
 						<ViewForm detail={this.state.itemDetail}  />
 					 </Dialog>
+
+					 <Dialog
+						title="合同详情"
+						open={this.state.openContract}
+						onClose={this.contractContinue}
+						contentStyle ={{ width: '443',height:'236'}}
+						>
+						<div className='m-continueGo'>正在开发中，敬请期待...</div>
+					 </Dialog>
+
+					 
 
 			</div>
 		);

@@ -59,15 +59,13 @@ export default  class ItemDetail extends Component{
 
 		return (
 
-			<div>
-               <KrField component="labelText" label="科目编码" value={detail.accountcode} inline={false}/>
-               <KrField component="labelText" label="科目名称" value={detail.accountname} inline={false}/>
-               <KrField component="labelText" label="科目类别" value={detail.type} inline={false}/>
-               <KrField component="labelText" label="排序号" value={detail.ordernum} inline={false}/>
-
-               <KrField component="labelText" label="是否启用"  value={detail.flag} inline={false}/>
-
-               <KrField component="labelText" label="描述" value={detail.accountdesc} inline={false}/>
+			<div style={{marginTop:35,marginLeft:30}}>
+               <KrField grid={1/2} component="labelText" label="科目编码" value={detail.accountcode} inline={false}/>
+                <KrField grid={1/2} component="labelText" label="排序号" value={detail.ordernum} inline={false}/>
+               <KrField grid={1/2} component="labelText" label="科目名称" value={detail.accountname} inline={false}/>
+                 <KrField grid={1/2} component="labelText" label="是否启用"  value={detail.flag} inline={false}/>
+               <KrField grid={1} component="labelText" label="科目类别" value={detail.type} inline={false}/>
+               <KrField grid={1} component="labelText" label="描述" value={detail.accountdesc} inline={false}/>
 
 
 			</div>
