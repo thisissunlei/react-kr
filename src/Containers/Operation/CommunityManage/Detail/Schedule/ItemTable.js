@@ -1,39 +1,14 @@
-import React, {
-  Component,
-  PropTypes
-} from 'react';
-import {
-  connect
-} from 'kr/Redux';
-import {
-  reduxForm,
-  submitForm,
-  change,
-  reset
-} from 'redux-form';
-import {
-  Actions,
-  Store
-} from 'kr/Redux';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'kr/Redux';
+import { reduxForm, submitForm, change, reset } from 'redux-form';
+import { Actions, Store } from 'kr/Redux';
 
-import {
-  Tabs,
-  Tab,
-  Dialog,
-  Section,
-  Grid,
-  Button,
-  Notify,
-  BreadCrumbs,
-  Tooltip
-} from 'kr-ui';
+import { Tabs, Tab, Dialog, Section, Grid, Button, Notify, BreadCrumbs, Tooltip } from 'kr-ui';
 
 import './index.less';
 import _ from 'lodash';
 
-import {
-  findDOMNode
-} from 'react-dom'
+import { findDOMNode } from 'react-dom'
 import ReactTooltip from 'react-tooltip'
 import EmployessTable from './EmployessTable';
 import D3Content from './D3Content';
@@ -139,17 +114,31 @@ export default class ItemTable extends Component {
       detail,
       contractTypeVo
     } = this.state;
+    let orderKind= [
+      {type:'INTENTION',name:'意向协议书',kind:'admit'},
+      {type:'ENTER',name:'入驻协议书',kind:'join'},
+      {type:'ADDRENT',name:'增租协议书',kind:'increase'},
+      {type:'RENEW',name:'续租租协议书',kind:'renew'},
+      {type:'LESSRENT',name:'减租协议书',kind:'reduce'},
+      {type:'QUITRENT',name:'退租协议书',kind:'exit'},
+    ]
     return (
         <Tooltip place="right" type="dark" effect="solid" offsetRight={110} id={`${detail.billId}${detail.billName}`}>
-          <ul style={{marginTop:20}}>
+          <ul>
             <li style={{borderLeft:'none'}}>所有工位数：{contractTypeVo.orderStaionNum}个</li>
-           {contractTypeVo.map((item, index) => {
-            // console.log('renderOrder',detail.billId,item.id);
+           {contractTypeVo.contractList && contractTypeVo.contractList.map((item, index) => {
+                let order = {};
+                orderKind.map((value)=>{
+                  if(value.type == item.contractType){
+                    return order = value;
+                  }
+                })
+                let orderDetail = `#/operation/customerManage/${item.customId}/order/${detail.billId}/agreement/${order.kind}/${item.id}/detail`
                 if (!item.valid) {
                   return (
                         <li key={index} className="company-order-zero" key={index}>
-                         <p className="name">{item.contractType}</p>
-                         <p className="zero-circle">{item.leaseBegindate}-{item.leaseEnddate} <a href="#/operation/customerManage/1000/order/250/agreement/admit/528/detail">查看详情</a></p>
+                         <p className="name">{order.name}</p>
+                         <p className="zero-circle">{dateFormat(item.leaseBegindate,'yyyy.mm.dd')}-{dateFormat(item.leaseEnddate ,'yyyy.mm.dd')} <a href={orderDetail} target="_blank">查看详情</a></p>
                          <p>工位：{item.stationNum}个 &nbsp;&nbsp;会议室：{item.meetingNum}个</p>
                         </li>
                       
@@ -157,8 +146,8 @@ export default class ItemTable extends Component {
                 } else {
                   return (
                       <li key={index} className="company-order" key={index}>
-                        <p className="name">{item.contractType}</p>
-                        <p className="zero-circle">{item.leaseBegindate}-{item.leaseEnddate} <a href="#/operation/customerManage/1000/order/250/agreement/admit/528/detail">查看详情</a></p>
+                        <p className="name">{order.name}</p>
+                        <p className="zero-circle">{dateFormat(item.leaseBegindate,'yyyy.mm.dd')}-{dateFormat(item.leaseEnddate ,'yyyy.mm.dd')} <a href={orderDetail} target="_blank">查看详情</a></p>
                         <p>工位：{item.stationNum}个 &nbsp;&nbsp;会议室：{item.meetingNum}个</p>
                       </li>
                   )
@@ -167,7 +156,6 @@ export default class ItemTable extends Component {
           }
           </ul>
         </Tooltip>
-
       )
   }
   getShowData(billId){

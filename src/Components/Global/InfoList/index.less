@@ -1,4 +1,4 @@
-.ui-info-list{
+.ui-info-list-myself{
 	p{
 		margin:0;
 	}
@@ -45,8 +45,15 @@
 			margin-top: 13px;
 
 		}
+		a{
+			text-decoration: none;
+		}
 		.ui-m-info-contents{
 			padding-left: 10px;
+			display: inline-block;
+			cursor: pointer;
+			color:#333;
+			max-width: 78%;
 		}
 		.ui-m-info-date{
 			position: absolute;
@@ -56,5 +63,27 @@
 	}
 	.ui-m-info-content-readed{
 		color: #999;
+		.ui-m-info-contents{
+			padding-left: 10px;
+			display: inline-block;
+			cursor: pointer;
+			max-width: 78%;
+			color:#999;
+		}
+	}
+	.ui-m-nothing{
+		text-align: center;
+		margin-top: 100px;
+		.icon{
+			width:139px;
+			height:196px;
+			display: inline-block;
+			background:url('images/nothings.png') no-repeat center center;
+			background-size:100% 100%;
+		}
+		.tip{
+			font-size:18px;
+			color:#666666;
+		}
 	}
 }

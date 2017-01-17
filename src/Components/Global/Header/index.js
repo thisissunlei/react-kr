@@ -1,55 +1,21 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
-import {
-	bindActionCreators
-} from 'redux';
-import {
-	connect
-} from 'react-redux';
-import {
-	Link
-} from 'react-router';
-
+import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
+import { Actions, Store } from 'kr/Redux';
 import * as actionCreators from '../../../Redux/Actions';
 
-import {
-	AppBar,
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	IconButton,
-	RaisedButton,
-	Drawer,
-	Divider,
-	FontIcon,
-	FlatButton,
-	List,
-	ListItem,
-	FileFolder,
-	Avatar,
-	FloatingActionButton
-} from 'material-ui';
+import { AppBar, Menu, MenuItem, DropDownMenu, IconMenu, IconButton, RaisedButton, Drawer, Divider, FontIcon, FlatButton, List, ListItem, FileFolder, Avatar, FloatingActionButton } from 'material-ui';
 
 
 import ActionHome from 'material-ui/svg-icons/action/home';
 
-import {
-	Popover,
-	PopoverAnimationVertical
-} from 'material-ui/Popover';
+import { Popover, PopoverAnimationVertical } from 'material-ui/Popover';
 
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 
-import {
-	Toolbar,
-	ToolbarGroup,
-	ToolbarSeparator,
-	ToolbarTitle
-} from 'material-ui/Toolbar';
+import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
 
 
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
@@ -86,8 +52,12 @@ class Header extends Component {
 			information:false,
 			inforLogoShow:false,
 			url:window.location.hash,
-			infoTab:''
+			infoTab:'',
+			hasUnRead:false
 		}
+		this.hasInfoListTab = [
+			{url:'community',code:'111'}
+		]
 		// this.inforShowList();
 
 	}
@@ -103,14 +73,15 @@ class Header extends Component {
 		url = url.split('/')[1];
 		let _this = this;
 		let currentTab = false;
-		let hasInfoListTab = ['community'];
-		hasInfoListTab.map((item)=>{
+		// let hasInfoListTab = ['community'];
+		this.hasInfoListTab.map((item)=>{
 			// console.log('hasInfoListTab',item,url);
-			if(item == url){
+			if(item.url == url){
 				currentTab = true;
 			}
 		})
 		if(currentTab){
+			_this.getUnReadInfo();
 			_this.setState({
 				inforLogoShow:true,
 				infoTab:url,
@@ -124,6 +95,25 @@ class Header extends Component {
 				information:false
 			})
 		}
+	}
+	//获取未读消息数
+	getUnReadInfo=()=>{
+		let _this = this;
+		Store.dispatch(Actions.callAPI('getUnReadInfo', {
+            startTime: '',endTime:''
+        })).then(function(response) {
+            if(response.msgCount){
+            	_this.setState({
+            		hasUnRead:true
+            	})
+            }else{
+            	_this.setState({
+            		hasUnRead:false
+            	})
+            }
+        }).catch(function(err) {
+            console.log(err);
+        });
 	}
 
 
@@ -240,15 +230,14 @@ class Header extends Component {
 		if (switch_value) {
 			//styles.paddingLeft = 50;
 		}
-		let {inforLogoShow,infoTab} = this.state;
-		console.log('header',infoTab);
+		let {inforLogoShow,infoTab,hasUnRead} = this.state;
+		console.log('header',infoTab,hasUnRead);
 		let showInfoLogo = inforLogoShow?'inline-block':'none';
 
 
 		const HeaderBar = (props) => {
 
 			var iconClassName = '';
-
 			let sidebarNavSwitch = this.props.sidebar_nav.switch_value;
 			if (sidebarNavSwitch) {
 				iconClassName = "hide-heng";
@@ -279,7 +268,7 @@ class Header extends Component {
 
 				iconElementRight = {
 					<div style={{minWidth:70,textAlign:'right'}}>
-					<div style={{display:showInfoLogo}}>
+					<div style={{display:showInfoLogo}} className={hasUnRead?"redLogo":'fff'}>
 						<span className="icon-info information-logo"  onClick={this.showInfo}></span>
 					</div>
 					< IconMenu

@@ -351,7 +351,7 @@ const APIS = {
 	},
   // 计划表获取合同数据
 	'getBillContract': {
-		url: '/api/krspace-finance-web/finacontractdetail/plan-table/billContract?billId={billId}',
+		url: '/api/krspace-finance-web/finacontractdetail/plan-table/bill-contract?billId={billId}',
 		method: 'get'
 	},
   //获取出租率
@@ -661,13 +661,18 @@ const APIS = {
  },
  //获取消息列表
  'getInfoList': {
-   url:'/api/krspace-finance-web/remind-notice?page={page}&pageSize={pageSize}',
+   url:'/apixr/krspace-finance-web/msg/msg-info?page={page}&pageSize={pageSize}&endTime={endTime}&startTime={startTime}',
    method:'get'
  },
  //消息设为已读
  'setInfoReaded': {
-   url:'/api/krspace-finance-web/remind-notice-view?id={id}',
+   url:'/apixr/krspace-finance-web/msg/msg-read?id={id}',
    method:'put'
+ },
+ //获取未读消息数
+ 'getUnReadInfo': {
+   url:'/apixr/krspace-finance-web/msg/msg-count?&endTime={endTime}&startTime={startTime}',
+   method:'get'
  },
 
  }

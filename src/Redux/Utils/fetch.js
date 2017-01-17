@@ -24,13 +24,16 @@ function getUrl(path, params = {},mode = false) {
   }
 
 
+
 	/*
     if (path.match(/^http/) != 'null') {
         return path;
     }
     */
-
-
+    let url = APIS[path].url;
+    if(url.indexOf('apixr')){
+    	server = ''
+    }
     try {
         server += APIS[path].url;
     } catch(err) {
