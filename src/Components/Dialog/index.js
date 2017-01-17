@@ -164,7 +164,7 @@ export default class DialogComponent extends Component {
 								<span className="close" onClick={this.onClose}></span>
 						</div>
 						{open && <DialogBody bodyStyle={bodyStyle}> {children} </DialogBody>}
-						{open && <DialogFooter footerStyle={footerStyle}> {actions} </DialogFooter>}
+						{open && actions &&  <DialogFooter footerStyle={footerStyle}> {actions} </DialogFooter>}
 				</div>
 			</div>
 		);
