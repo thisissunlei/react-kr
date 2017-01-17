@@ -131,7 +131,7 @@ export default class InfoList extends Component {
         })).then(function(response) {
         	_this.getDataList(url, {
                 page: _this.state.currentPage,
-                pageSize: 15,
+                pageSize:15,
                 startTime:_this.state.startTime,
                 endTime:_this.state.endTime,
             });
@@ -183,11 +183,12 @@ export default class InfoList extends Component {
         //     return null;
         // }
         return (
-            <div className="ui-info-list-myself">
+            <div className="ui-info-list-myself" style={{position:'relative'}}>
 				<div style={{
 	                padding: '30px',
 	                minHeight: height,
-	                paddingBottom:'20px'
+	                paddingBottom:'20px',
+	                marginBottom:'100px'
 	            }}>
 					<span className="close-info icon-close" onClick={this.onClose}></span>
 					<div style={{
@@ -210,7 +211,7 @@ export default class InfoList extends Component {
 		            })}
 		            {!infoList.length && this.dataNone()}
 				</div> 
-				< div style = {{paddingRight: '15px',visibility:pagination?'visible':'hidden'}} >
+				< div style = {{paddingRight: '15px',visibility:pagination?'visible':'hidden',position:'absolute',bottom:'-27px',left:'25px'}} >
 				<Pagination totalCount={totalCount} page={currentPage} pageSize={pageSize} onPageChange={this.onPageChange} pageJump={4}/> 
 				< /div>
 				 < /div >

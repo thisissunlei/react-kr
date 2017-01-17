@@ -53,7 +53,7 @@ class Header extends Component {
 			inforLogoShow:false,
 			url:window.location.hash,
 			infoTab:'',
-			hasUnRead:false
+			hasUnRead:10
 		}
 		this.hasInfoListTab = [
 			{url:'community',code:'111'}
@@ -104,11 +104,11 @@ class Header extends Component {
         })).then(function(response) {
             if(response.msgCount){
             	_this.setState({
-            		hasUnRead:true
+            		hasUnRead:response.msgCount
             	})
             }else{
             	_this.setState({
-            		hasUnRead:false
+            		hasUnRead:0
             	})
             }
         }).catch(function(err) {
@@ -268,8 +268,9 @@ class Header extends Component {
 
 				iconElementRight = {
 					<div style={{minWidth:70,textAlign:'right'}}>
-					<div style={{display:showInfoLogo}} className={hasUnRead?"redLogo":'fff'}>
+					<div style={{display:showInfoLogo,position:'relative'}}>
 						<span className="icon-info information-logo"  onClick={this.showInfo}></span>
+						<span className="ui-un-read-count">{hasUnRead}</span>
 					</div>
 					< IconMenu
 					iconButtonElement = {
