@@ -28,7 +28,6 @@ import {
 } from 'kr-ui';
 
 import State from './State';
-import SearchForm from '../SearchForms';
 import NewCustomerList from '../NewCustomerList';
 import LookCustomerList from '../LookCustomerList';
 import SearchUpperForm from '../SearchUpperForm';
@@ -39,7 +38,10 @@ class SignedClient extends Component{
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			searchParams:{}
+			searchParams:{
+				page:1,
+				pageSize:15
+			}
 		}
 	}
 
@@ -141,7 +143,7 @@ class SignedClient extends Component{
 			                <TableRowColumn name="customerCompany" ></TableRowColumn>
 			                <TableRowColumn name="contractTotalamount"></TableRowColumn>
 			                <TableRowColumn name="contractBackamount"></TableRowColumn>
-			                <TableRowColumn name="unBackamount"></TableRowColumn>
+			                <TableRowColumn name="unBackamount" style={{color:'#ff6868'}}></TableRowColumn>
 			                <TableRowColumn type="operation">
 			                    <Button label="查看"  type="operation"  operation="watch" />
 			                 </TableRowColumn>

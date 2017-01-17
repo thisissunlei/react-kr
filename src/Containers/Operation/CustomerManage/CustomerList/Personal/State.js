@@ -9,6 +9,9 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
+import {
+    Message
+} from 'kr-ui';
 
 let State = observable({
 		searchParams:{},
@@ -16,6 +19,9 @@ let State = observable({
 		openLookMerchants:false,
 		openSearchUpper:false,
 		openEditCustomerList:false,
+		openSwitch:false,
+		openQuit:false,
+		openPersonDialog:false,
 		openNewCustomerIndent:false,
 		listId:"",
 });
@@ -40,6 +46,14 @@ State.switchCustomerIndent = action(function() {
 State.searchUpperCustomer = action(function() {
 	this.openSearchUpper=!this.openSearchUpper;
 });
+//转移开关
+State.openSwitchGoDialog= action(function() {
+	this.openSwitch=!this.openSwitch;
+});
+//取消客户跟进
+State.openQuitContinue= action(function() {
+	this.openQuit=!this.openQuit;
+});
 //导出
 State.exportData = action(function(value) {
 		let customerIds = [];
@@ -50,6 +64,30 @@ State.exportData = action(function(value) {
 		}
 		var url = `/api/krspace-finance-web/customer/personal-customers-export?customerIds=${customerIds}`
 		window.location.href = url;
+});
+
+//转移提交
+State.switchSureSubmit= action(function(value) {
+	var _this=this;
+	Store.dispatch(Actions.callAPI('customerTransfer',{},{value})).then(function(response) {
+		 _this.openSwitch=false;
+         Message.success('转移成功');
+         _this.openPersonDialog=false;
+	}).catch(function(err) {
+		 Message.error(err.message);
+	});		
+});
+//取消客户跟进提交
+State.quitSubmit= action(function(arrItem) {
+	var ids=arrItem;
+	var _this=this;
+	Store.dispatch(Actions.callAPI('customerGiveBack',{},{ids})).then(function(response) {
+		 _this.openQuit=false;
+         Message.success('取消成功');
+         _this.openPersonDialog=false;
+	}).catch(function(err) {
+		 Message.error(err.message);
+	});		
 });
 
 State.closeAllMerchants = action(function() {

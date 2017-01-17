@@ -29,12 +29,12 @@ import {
 	Drawer
 } from 'kr-ui';
 import State from './State';
-import SearchForm from '../SearchForms';
 import NewCustomerList from '../NewCustomerList';
 import LookCustomerList from '../LookCustomerList';
 import SearchUpperForm from '../SearchUpperForm';
 import EditCustomerList from "../EditCustomerList";
 import NewCustomerIndent from "../NewCustomerIndent";
+import CatchMerchants from './CatchMerchants';
 import './index.less'
 @observer
 class Merchants extends Component{
@@ -46,10 +46,12 @@ class Merchants extends Component{
 				page:1,
 				pageSize:15
 			},
-			//控制复选框的选中与否
-			openDialog:false,
 			//选中的数量
-			dialogNum:0
+			dialogNum:0,
+			//加载后的数据
+			loadData:[],
+			//选中的值
+			arrItem:[]
 		}
 	}
 	
@@ -67,7 +69,6 @@ class Merchants extends Component{
 	}
 	//客户编辑页面开关
 	switchEditCustomerList=() => {
-		console.log("444444")
 		State.switchEditCustomerList();
 	}
 	//新增拜访记录的开关
@@ -78,22 +79,32 @@ class Merchants extends Component{
     
     //选中几项领取，转移等
     onSelect=(value)=>{
+    	var arrItem=[]
+    	let {loadData}=this.state;
+        for(var i=0;i<value.length;i++){
+        	var allId=value[i];
+        	arrItem.push(loadData[allId].id)
+        }
       if(value.length>0){
+      	State.openDialog=true;	
         this.setState({
-         openDialog:true,
-         dialogNum:value.length	
+         dialogNum:value.length,
+         arrItem
         })	
       }else{
-      	this.setState({
-         openDialog:false,
-        })	
+      	State.openDialog=false;	
       }
+    }
+    //加载所有数据
+    onLoaded=(value)=>{
+       let loadData = value.list;
+	   this.setState({
+			 loadData
+		 })
     }
     //领取浮框的关闭
     merClose=()=>{
-        this.setState({
-         openDialog:false,
-        })		
+        State.openDialog=false;	
     }
     //查看相关操作
     onOperation=(type, itemDetail)=>{
@@ -130,17 +141,23 @@ class Merchants extends Component{
       	State.searchUpperCustomer();
      }
 
+     //领取开关
+     openCatchDialog=()=>{
+     	State.openCatchGoDialog();
+     }
+     //领取确定
+     catchGoSubmit=()=>{
+     	let {arrItem}=this.state;
+     	State.catchSubmit(arrItem);
+     }
 
 	closeAllMerchants=()=>{
 		State.closeAllMerchants();
 	}
 	render(){
-      
-
-     
       let {dataReady,searchParams}=this.props;
       var blockStyle={};
-      if(this.state.openDialog==true){
+      if(State.openDialog==true){
         blockStyle={
         	display:'inline-block'
         }
@@ -149,13 +166,14 @@ class Merchants extends Component{
         	display:'none'
         }
       }
+
       
 		return(
       <div className="m-merchants" style={{paddingTop:25}}>
       		<Title value="运营平台"/>
       		<div className='merchants-dialog' style={blockStyle}>
       		  <div className='selectCheck'>已选中<span className='dialog-number'>{this.state.dialogNum}</span>项</div>
-      		  <Button  label="领取" type="button"/>
+      		  <Button  label="领取" type="button" onTouchTap={this.openCatchDialog}/>
       		  <span className='mer-close' onClick={this.merClose}></span>
       		</div>
 	        <Row style={{marginBottom:21}}>
@@ -184,6 +202,7 @@ class Merchants extends Component{
                 onOperation={this.onOperation}
 	            displayCheckbox={true}
 	            onSelect={this.onSelect}
+	            onLoaded={this.onLoaded}
 	            ajaxParams={this.state.searchParams}
 	            ajaxUrlName='shareCustomers'
 	            ajaxFieldListName="list"
@@ -307,6 +326,21 @@ class Merchants extends Component{
 						/>
 				    </Dialog>
 
+				    {/*领取*/}
+                    <Dialog
+						title="提示"
+						modal={true}
+						onClose={this.openCatchDialog}
+						open={State.openCatch}
+						contentStyle ={{ width: '445',height:'230'}}
+					>
+						<CatchMerchants 
+						  onSubmit={this.catchGoSubmit} 
+						  onCancel={this.openCatchDialog}
+						  customerIds={this.state.dialogNum}
+						  />
+				    </Dialog>
+ 
 
 					{
 						(State.openNewMerchants||
