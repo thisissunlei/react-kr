@@ -178,7 +178,7 @@ export default class InfoList extends Component {
     dataNone=()=>{
     	return (
     		<div className="ui-m-nothing">
-    			<div className="icon" onClick={this.click}></div>
+    			<div className="icon"></div>
 				<p className="tip">暂时还没有数据呦~</p>
     		</div>
     	)

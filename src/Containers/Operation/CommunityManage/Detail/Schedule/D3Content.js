@@ -411,17 +411,16 @@ export default class D3Content extends Component {
 	}
 	renderBlueInfo=()=>{
 		let {BlueinfoList} = this.state;
-		let item = BlueinfoList || [];
+		let items =  BlueinfoList || [];
 		let id = this.props.id;
 		return (
-			<Tooltips  place="top" type="dark" effect="solid" id={`${item.pointDate}${id}sameblue`} offsetTop={130}>
+			<Tooltips  place="top" type="dark" effect="solid" id={`${items.pointDate}${id}sameblue`} offsetTop={130}>
 					<div className="react-tooltip-content" style={{width:'250px'}}>
 						<span>工位变更</span>
-						<p>{item.finaName}({dateFormat(item.leaseBeginDate, "yyyy.mm.dd")}-{dateFormat(item.leaseEndDate, "yyyy.mm.dd")})</p>
-						<p>变更前工位：<span className='blue-content'>{item.oldStationNum}</span> &nbsp; 会议室：<span className='blue-content'>{item.oldBoardroomNum}</span></p>
-						<p>变更后工位：<span className='blue-content'>{item.newStationNum}</span> &nbsp; 会议室：<span className='blue-content'>{item.newBoardroomNum}</span></p>
-					</div>
-											
+						<p>{items.finaName}({dateFormat(items.leaseBeginDate, "yyyy.mm.dd")}-{dateFormat(items.leaseEndDate, "yyyy.mm.dd")})</p>
+						<p>变更前工位：<span className='blue-content'>{items.oldStationNum}</span> &nbsp; 会议室：<span className='blue-content'>{items.oldBoardroomNum}</span></p>
+						<p>变更后工位：<span className='blue-content'>{items.newStationNum}</span> &nbsp; 会议室：<span className='blue-content'>{items.newBoardroomNum}</span></p>
+					</div>						
 			</Tooltips>
 		)
 	}

@@ -28,14 +28,11 @@ export default class ItemTable extends Component {
 
   constructor(props, context) {
     super(props, context);
-
     this.onStation = this.onStation.bind(this);
     this.onDismantlingDialog = this.onDismantlingDialog.bind(this);
     // this.onDismantling = this.onDismantling.bind(this);
     this.renderOrder = this.renderOrder.bind(this);
     this.onhref = this.onhref.bind(this);
-
-
     this.state = {
       detail: this.props.detail,
       //activity: false,
@@ -49,15 +46,11 @@ export default class ItemTable extends Component {
 
 
   componentWillReceiveProps(nextProps) {
-
-
     if (!_.isEqual(this.props.detail, nextProps.detail)) {
       this.setState({
         detail: nextProps.detail
       });
     }
-
-
   }
 
   componentDidMount() {
@@ -65,31 +58,19 @@ export default class ItemTable extends Component {
     }
     //撤场
   onDismantling(detail) {
-
       const {
         onDismantling
       } = this.props;
-
       onDismantling && onDismantling(detail);
-
     }
     //分配工位
   onStation() {
-
-    let {
-      detail
-    } = this.state;
-
+    let {detail} = this.state;
     detail.activity = !detail.activity;
-
     this.setState({
       detail
-    });
-
-    let {
-      onStation
-    } = this.props;
-
+    })
+    let {onStation} = this.props;
     onStation && onStation()
 
 
@@ -109,11 +90,7 @@ export default class ItemTable extends Component {
 
   renderOrder() {
 
-    let {
-      show,
-      detail,
-      contractTypeVo
-    } = this.state;
+    let {show, detail, contractTypeVo} = this.state;
     let orderKind= [
       {type:'INTENTION',name:'意向协议书',kind:'admit'},
       {type:'ENTER',name:'入驻协议书',kind:'join'},
@@ -123,9 +100,9 @@ export default class ItemTable extends Component {
       {type:'QUITRENT',name:'退租协议书',kind:'exit'},
     ]
     return (
-        <Tooltip place="right" type="dark" effect="solid" offsetRight={110} id={`${detail.billId}${detail.billName}`}>
+        <Tooltip place="right" type="dark" effect="solid" offsetRight={10} id={`${detail.billId}${detail.billName}`}>
           <ul>
-            <li style={{borderLeft:'none'}}>所有工位数：{contractTypeVo.orderStaionNum}个</li>
+            {contractTypeVo.contractList?<li style={{borderLeft:'none'}}>所有工位数：{contractTypeVo.orderStaionNum}个</li>:<div style={{width:'220px'}}>数据加载中...请耐心等候</div>}
            {contractTypeVo.contractList && contractTypeVo.contractList.map((item, index) => {
                 let order = {};
                 orderKind.map((value)=>{
@@ -167,11 +144,7 @@ export default class ItemTable extends Component {
       },function(){
         this.renderOrder()
       });
-      
-
-
     }).catch(function(err) {
-
       Notify.show([{
         message: err.message,
         type: 'danger',
@@ -181,29 +154,13 @@ export default class ItemTable extends Component {
 
   
   render() {
-
-
-    let {
-      show,
-      detail,
-      contractTypeVo
-    } = this.state;
-
-    let {
-      communityids,
-      activity,
-      width,
-      currentYear
-    } = this.props;
-
+    let {show, detail, contractTypeVo} = this.state;
+    let {communityids, activity, width, currentYear} = this.props;
     var _this = this;
     var id = communityids;
-
     return (
-
       <tr className="last-td"   >
 						<td className="company-list">
-
 							<div className="company-name" onMouseOver={this.getShowData.bind(this,detail.billId)}> 
               {
                 detail.billName
@@ -237,12 +194,9 @@ export default class ItemTable extends Component {
                             查看员工 <span className = "bArrow"></span>
                       </div>
                     </div>
-                      
                   </div>
-                
 						</td>
 					</tr>
-
     );
   }
 }

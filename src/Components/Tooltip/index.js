@@ -1,18 +1,14 @@
-import React, {
-	Component
-} from 'react';
+import React, { Component } from 'react';
 
 import $ from 'jquery';
-import {
-	FontIcon,
-} from 'kr-ui';
+import { FontIcon, } from 'kr-ui';
 import ReactDOM from 'react-dom';
 import './index.less';
 export default class Tooltip extends Component {
 
 	static defaultProps = {
 		backgroundColor:"rgba(0,0,0,.7)",
-		ShadowColor:'transparent'
+		ShadowColor:'transparent',
 	}
 
 	static PropTypes = {
@@ -48,7 +44,6 @@ export default class Tooltip extends Component {
 		this.renderHover();
 	}
 	renderHover=()=>{
-		// let {tipName} = this.props;
 		let node = ReactDOM.findDOMNode(this.tooltip);
 		let parent = node.parentNode;
 		// node.style.backgroundColor = backgroundColor;
