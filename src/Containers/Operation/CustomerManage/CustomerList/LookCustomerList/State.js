@@ -52,7 +52,6 @@ State.lookListId=action(function(params) {
 	Store.dispatch(Actions.callAPI('get-detail-info',{id:params})).then(function(response) {
          _this.detail=response;
 		}).catch(function(err) {
-
 			Message.error(err.message);
 		});
 })
