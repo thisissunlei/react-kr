@@ -1,41 +1,11 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
-import {
-	connect
-} from 'kr/Redux';
-import {
-	reduxForm,
-	submitForm,
-	change,
-	reset
-} from 'redux-form';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
-
-import {
-	Tabs,
-	Tab,
-	Dialog,
-	Section,
-	Grid,
-	Button,
-	Notify,
-	BreadCrumbs,
-	KrField,
-	Form,
-	Row,
-	Col,
-	SearchForms,
-	Loading,
-} from 'kr-ui';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'kr/Redux';
+import { reduxForm, submitForm, change, reset } from 'redux-form';
+import { Actions, Store } from 'kr/Redux';
+import { Tabs, Tab, Dialog, Section, Grid, Button, Notify, BreadCrumbs, KrField, Form, Row, Col, SearchForms, Loading, } from 'kr-ui';
 import $ from 'jquery';
 import './index.less';
 import ReactDOM from 'react-dom';
-
 import EmployessTable from './EmployessTable';
 import ItemTable from './ItemTable';
 import DismantlingForm from './DismantlingForm';
@@ -108,12 +78,7 @@ class SearchForm extends Component {
 	}
 	getcommunity() {
 		let _this = this;
-		let {
-			communityIdList,
-			page,
-			pageSize,
-			type
-		} = this.state;
+		let {communityIdList, page, pageSize, type} = this.state;
 		Store.dispatch(Actions.callAPI('getCommunity')).then(function(response) {
 
 			communityIdList = response.communityInfoList.map(function(item, index) {
@@ -259,26 +224,19 @@ export default class BasicTable extends Component {
 			communityids: 0,
 
 		};
-
-		
-
 	}
 
-
 	componentDidMount() {
-			this.getRate();
-
+		this.getRate();
 		this.getInstallmentplan();
 	}
 
 
 
 	componentWillReceiveProps(nextProps) {
-
 		if (nextProps.community !== this.props.communityids) {
 			this.setState({
 				communityids: nextProps.community
-
 			});
 			this.getInstallmentplan();
 		}
@@ -293,7 +251,6 @@ export default class BasicTable extends Component {
 			var scrollBottom = top - num;
 			var {dataLoading} = _this.state;
 			var isOutBoundary = scrollBottom >= -300;
-
 			if (isOutBoundary && !dataLoading) {
 				let {
 					communityids,
@@ -339,23 +296,16 @@ export default class BasicTable extends Component {
 							pageSize: 15,
 							year: currentYear
 						})).then(function(response) {
-
 							if (response.vo) {
-
 								var list = Installmentplan.concat(response.vo.items);
 								// var list = $.extend(Installmentplan,response.vo.items);
-
-
 							} else {
 								var list = [];
 							}
-
-
 							_this.setState({
 								Installmentplan: list, //response.vo.items,
 								// rate: response.rate,
 							});
-
 							if (_this.state.page < _this.state.totalPages) {
 
 								_this.setState({
@@ -366,28 +316,17 @@ export default class BasicTable extends Component {
 									_this.setState({
 										isLoading: !_this.state.isLoading
 									})
-								
 							}, 10)
-
 						}).catch(function(err) {
 							Notify.show([{
 								message: err.message,
 								type: 'danger',
 							}]);
 						});
-
-
 					}
-
-
 				}
-
-
-
 			}
 		})
-
-
 	}
 
 
