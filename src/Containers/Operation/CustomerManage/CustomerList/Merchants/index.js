@@ -35,7 +35,8 @@ import SearchUpperForm from '../SearchUpperForm';
 import EditCustomerList from "../EditCustomerList";
 import NewCustomerIndent from "../NewCustomerIndent";
 import CatchMerchants from './CatchMerchants';
-import './index.less'
+import './index.less';
+import OrderDelete from '../OrderDelete';
 @observer
 class Merchants extends Component{
 
@@ -151,6 +152,11 @@ class Merchants extends Component{
      	State.catchSubmit(arrItem);
      }
 
+     //订单删除
+     openDeleteDialog=()=>{
+     	State.openDeleteOrder();
+     }
+
 	closeAllMerchants=()=>{
 		State.closeAllMerchants();
 	}
@@ -197,6 +203,8 @@ class Merchants extends Component{
 				          </ListGroup>
 			          </Col>
 	        </Row>
+
+	        <div onClick={this.openDeleteDialog}>123</div>
 
             <Table
 			    style={{marginTop:8}}
@@ -340,6 +348,21 @@ class Merchants extends Component{
 						  onSubmit={this.catchGoSubmit} 
 						  onCancel={this.openCatchDialog}
 						  customerIds={this.state.dialogNum}
+						  />
+				    </Dialog>
+
+
+				    {/*删除*/}
+                    <Dialog
+						title="提示"
+						modal={true}
+						onClose={this.openDeleteDialog}
+						open={State.openDelete}
+						contentStyle ={{ width: '445',height:'230'}}
+					>
+						<OrderDelete 
+						   onCancel={this.openDeleteDialog}
+						   orderId='1'
 						  />
 				    </Dialog>
  

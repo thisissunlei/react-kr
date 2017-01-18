@@ -19,6 +19,7 @@ let State = observable({
 		openLookMerchants:false,
 		openSearchUpper:false,
 		openCatch:false,
+		openDelete:false,
 		openEditCustomerList:false,
 		openNewCustomerIndent:false,
 		openDialog:false,
@@ -62,7 +63,10 @@ State.switchEditCustomerList = action(function() {
 State.switchCustomerIndent = action(function() {
 	this.openNewCustomerIndent=!this.openNewCustomerIndent;
 })
-
+//删除订单
+State.openDeleteOrder= action(function() {
+	this.openDelete=!this.openDelete;
+})
 State.closeAllMerchants = action(function() {
 	this.openLookMerchants=false;
 	this.openNewMerchants=false;
