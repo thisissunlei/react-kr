@@ -23,6 +23,7 @@ import {
 	Drawer,
 	Tabs,
 	Tab,
+	Tooltip,
 	ButtonGroup
 
 } from 'kr-ui';
@@ -49,18 +50,23 @@ class LookDetail extends Component{
 		onCancel && onCancel();
 	}
 	isDevelopClick = () =>{
-		State.switchDevelop();
+	
+		State.recordDevelopChange();
 	}
 
 	switchEditCustomerList = () =>{
 		State.switchEditCustomerList();
 	}
+
+	
 	render(){
 		let unifyStyle={width:300,marginLeft:-10}
 		let detail=State.detail;
 		let {editsSwitch,IndentSwitch}=this.props;
-
+		let recordDevelop=State.recordDevelop;
+		let isOverflow=recordDevelop?{height:295,}:{height:"auto",paddingBottom:20};
 		
+		let tooltipTextStyle={width:"224px",whiteSpace:"normal",wordWrap:"break-word",height:"auto",lineHeight:"22px",overflow:"hidden"};
 		return(
 	      <div className="m-LookDetailed">
 		    
@@ -92,9 +98,9 @@ class LookDetail extends Component{
 					<p style={{padding:"0 10px"}}>{detail.remark}</p>
 				</li>
 				<div style={{textAlign: "center",marginTop:15}}><Button  label="编辑" type="submit" style={{margin:"auto"}} onTouchTap={editsSwitch} /></div>
-				
-				<div className="visitRecord">
-						<span className="visitRecordTitle">拜访记录</span>
+				<span className="visitRecordTitle">拜访记录</span>
+				<div className="visitRecord" style={isOverflow}>
+						
 						<Table
 						    style={{marginTop:8}}
 			                ajax={true}
@@ -118,21 +124,26 @@ class LookDetail extends Component{
 
 						        <TableBody >
 						              <TableRow >
-						                <TableRowColumn name="linkTel " ></TableRowColumn>
-						                <TableRowColumn name="visitTime " type='date' format="yyyy-mm-dd HH:MM:ss" ></TableRowColumn>
-						                <TableRowColumn name="linkName "></TableRowColumn>
-						                <TableRowColumn name="linkTel "></TableRowColumn>
-						                <TableRowColumn name="levelName "></TableRowColumn>
-						                <TableRowColumn name="visitDetail "></TableRowColumn>
-						                <TableRowColumn name="isContinue "></TableRowColumn>
-						                <TableRowColumn name="reasonName "  ></TableRowColumn>
+						                <TableRowColumn name="linkTel" ></TableRowColumn>
+						                <TableRowColumn name="visitTime" type='date' format="yyyy-mm-dd HH:MM:ss" ></TableRowColumn>
+						                <TableRowColumn name="linkName"></TableRowColumn>
+						                <TableRowColumn name="linkTel"></TableRowColumn>
+						                <TableRowColumn name="levelName"></TableRowColumn>
+						                <TableRowColumn name="visitDetail"></TableRowColumn>
+						                <TableRowColumn name="isContinue"></TableRowColumn>
+						                <TableRowColumn name="reasonName" component={(value,oldValue)=>{
+														 return (<div><span className='tableOver'>{value}</span>
+														 	<Tooltip offsetTop={10} place='top'>
+																<div style={tooltipTextStyle}>{oldValue}</div>
+														 	</Tooltip></div>)
+													 }} ></TableRowColumn>
 						                
 						               </TableRow>
 						        </TableBody>
 			           </Table>
 			           <div className="isDevelop" onClick={this.isDevelopClick}>
-			           		{State.isDevelop&&<span className="recordDevelop">展开</span>}
-			           		{!State.isDevelop&&<span className="recordClose">收起</span>}
+			           		{State.isDevelop&&<span className="recordDevelop" >展开</span>}
+			           		{!State.isDevelop&&<span className="recordClose" >收起</span>}
 			           </div>
 
 						

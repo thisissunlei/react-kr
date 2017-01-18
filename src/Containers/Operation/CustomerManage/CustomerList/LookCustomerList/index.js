@@ -38,8 +38,7 @@ class LookCustomerList extends Component{
 		let {comeFrom,data}=this.props;
 		State.initComeFrom(comeFrom);
 		State.lookListId(props.listId);
-		console.log(props.listId,"---------")
-
+		State.orderList(props.listId);
 	}
 	onSubmit = (values) => {
 		const {onSubmit} = this.props;
@@ -55,9 +54,10 @@ class LookCustomerList extends Component{
 
 	componentWillReceiveProps(nextProps){
 		State.lookListId(nextProps.listId);
+		State.orderList(nextProps.listId);
 	}
 
-	isHaveTabs = (comeFrom,editsSwitch,IndentSwitch) => {
+	isHaveTabs = (comeFrom,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch) => {
 		
 
 		
@@ -71,7 +71,7 @@ class LookCustomerList extends Component{
 			>
 				<Tab label="客户订单" >
 					
-						<CustomerIndent />
+						<CustomerIndent newIndentSwitch={newIndentSwitch} editIndentSwitch={editIndentSwitch}/>
 				</Tab>
 				<Tab label="客户详情" >
 					
@@ -83,7 +83,7 @@ class LookCustomerList extends Component{
 	}
 
 	render(){
-		let {comeFrom,data,dataReady,editsSwitch,IndentSwitch}=this.props;
+		let {comeFrom,data,dataReady,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch}=this.props;
 				                 
 
       
@@ -95,7 +95,7 @@ class LookCustomerList extends Component{
 					<div className="close" onClick={this.onCancel}></div>
 				</div>
 				<div style={{height:5}}></div>
-				{this.isHaveTabs(comeFrom,editsSwitch,IndentSwitch)}
+				{this.isHaveTabs(comeFrom,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch)}
 		        
 		      </div>
 

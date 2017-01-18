@@ -32,9 +32,12 @@ import SearchForm from '../SearchForms';
 import NewCustomerList from '../NewCustomerList';
 import LookCustomerList from '../LookCustomerList';
 import SearchUpperForm from '../SearchUpperForm';
-import NewCustomerIndent from '../NewCustomerIndent';
+import EditCustomerList from "../EditCustomerList";
+import NewIndent from "../NewIndent";
+import EditIndent from "../EditIndent";
 
 
+import NewCustomerIndent from "../NewCustomerIndent";
 import './index.less'
 @observer
 class Personal extends Component{
@@ -49,7 +52,7 @@ class Personal extends Component{
 
 	//新建页面的开关
 	switchNewMerchants=()=>{
-		State.switchLookCustomerList();
+		State.switchNewCustomerList();
 	}
 
 	//查看页面开关
@@ -64,6 +67,15 @@ class Personal extends Component{
 	switchCustomerIndent = () =>{
 		State.switchCustomerIndent();
 	}
+	//新建订单页面的开关
+	switchNewIndent=()=>{
+		State.switchNewIndent();
+	}
+	//编辑订单页面的开关
+	switchEditIndent=()=>{
+		State.switchEditIndent();
+	}
+	
     //查看相关操作
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
@@ -78,7 +90,6 @@ class Personal extends Component{
 
 	//搜索
 	onSearchSubmit=(params)=>{
-		console.log('gggggg',params);
         let obj = {
 			company: params.content,
 		}
@@ -188,7 +199,6 @@ class Personal extends Component{
 										onSubmit={this.onNewMerchants}
 										onCancel={this.switchNewMerchants}
 										dataReady={dataReady}
-										come={"2"}
 								/>
 
 		           </Drawer>
@@ -209,7 +219,72 @@ class Personal extends Component{
 				                 dataReady={dataReady}
 				                 editsSwitch={this.switchEditCustomerList}
 				                 IndentSwitch={this.switchCustomerIndent}
+				                 newIndentSwitch={this.switchNewIndent}
+				                 editIndentSwitch={this.switchEditIndent}
 							/>
+					</Drawer>
+
+					{/*编辑*/}
+					<Drawer
+							open={State.openEditCustomerList}
+							width={750}
+
+							openSecondary={true}
+							className='m-finance-drawer'
+							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+					 >
+						<EditCustomerList
+			                 comeFrom="Merchant"
+							 onCancel={this.switchEditCustomerList}
+			                 listId={State.listId}
+			                 dataReady={dataReady}
+						/>
+					</Drawer>
+
+					{/*新建订单*/}
+					<Drawer
+							open={State.openNewIndent}
+							width={750}
+							openSecondary={true}
+							className='m-finance-drawer'
+							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+					 >
+						<NewIndent
+							 onCancel={this.switchNewIndent}
+			                 dataReady={dataReady}
+						/>
+					</Drawer>
+					
+
+					{/*编辑订单*/}
+					<Drawer
+							open={State.openEditIndent}
+							width={750}
+							openSecondary={true}
+							className='m-finance-drawer'
+							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+					 >
+						<EditIndent
+							 onCancel={this.switchEditIndent}
+			                 dataReady={dataReady}
+						/>
+					</Drawer>
+
+					{/*新增拜访记录*/}
+					<Drawer
+							open={State.openNewCustomerIndent}
+							width={750}
+
+							openSecondary={true}
+							className='m-finance-drawer'
+							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+					 >
+						<NewCustomerIndent
+			                 comeFrom="Merchant"
+							 onCancel={this.switchCustomerIndent}
+			                 listId={State.listId}
+			                 dataReady={dataReady}
+						/>
 					</Drawer>
 
                     {/*高级查询*/}
@@ -234,7 +309,9 @@ class Personal extends Component{
 							State.openEditMerchants||
 							State.openLookMerchants||
 							State.openEditCustomerList||
-							State.openNewCustomerIndent
+							State.openNewCustomerIndent||
+							State.openNewIndent||
+							State.openEditIndent
 						)&&
 							<div className="mask"
 								onClick={this.closeAllMerchants}
