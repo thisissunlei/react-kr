@@ -26,6 +26,7 @@ let State = observable({
 		openNewIndent:false,
 		openEditIndent:false,
 		listId:"",
+		companyName:''
 });
 
 //新建页的开关

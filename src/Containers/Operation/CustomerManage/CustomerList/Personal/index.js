@@ -34,7 +34,7 @@ import SearchUpperForm from '../SearchUpperForm';
 import EditCustomerList from "../EditCustomerList";
 import NewIndent from "../NewIndent";
 import EditIndent from "../EditIndent";
-import NewCustomerIndent from '../NewCustomerIndent';
+import NewVisitIndent from '../NewVisitIndent';
 import SwitchPerson from '../SwitchPerson';
 import QuitContinue from './QuitContinue';
 import './index.less'
@@ -89,11 +89,12 @@ class Personal extends Component{
       if(type=='watch'){
       	State.MerchantsListId(itemDetail.id)
       	State.switchLookCustomerList();
+      	State.companyName=itemDetail.company
       }
     }
 	//新建提交按钮
 	onNewMerchants=(params)=>{
-
+      
 	}
 
 	 //选中几项领取，转移等
@@ -151,9 +152,10 @@ class Personal extends Component{
       State.searchUpperCustomer();
 	}
 	//高级查询提交
-     onSearchUpperSubmit=(value)=>{
+     onSearchUpperSubmit=(searchParams)=>{
+     	searchParams = Object.assign({}, this.state.searchParams, searchParams);
       	this.setState({
-      	  searchParams:value
+      	  searchParams
       	})
       	State.searchUpperCustomer();
      }
@@ -182,7 +184,6 @@ class Personal extends Component{
     
 	render(){
 		let {dataReady,searchParams}=this.props;
-
        var blockStyle={};
       if(State.openPersonDialog==true){
         blockStyle={
@@ -235,7 +236,7 @@ class Personal extends Component{
 	            onExport={this.onExport}
 	            ajaxParams={this.state.searchParams}
 	            ajaxUrlName='personalCustomers'
-	            ajaxFieldListName="list"
+	            ajaxFieldListName="items"
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>
@@ -252,7 +253,7 @@ class Personal extends Component{
 
 			        <TableBody >
 			              <TableRow displayCheckbox={true}>
-			                <TableRowColumn name="customerCompany" ></TableRowColumn>
+			                <TableRowColumn name="company" ></TableRowColumn>
 			                <TableRowColumn name="intentionCityName" ></TableRowColumn>
 			                <TableRowColumn name="intentionCommunityName"></TableRowColumn>
 			                <TableRowColumn name="stationNum"></TableRowColumn>
@@ -355,17 +356,17 @@ class Personal extends Component{
 					{/*新增拜访记录*/}
 					<Drawer
 							open={State.openNewCustomerIndent}
-							width={750}
-
+							width={650}
 							openSecondary={true}
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
-						<NewCustomerIndent
+						<NewVisitIndent
 			                 comeFrom="Merchant"
 							 onCancel={this.switchCustomerIndent}
 			                 listId={State.listId}
-			                 dataReady={dataReady}
+			                 selectDatas={dataReady}
+			                 companyName={State.companyName}
 						/>
 					</Drawer>
 

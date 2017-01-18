@@ -11,31 +11,27 @@ import {
 } from 'kr/Redux';
 let State = observable({
 		detail:[],
-		matureTime:false,
-		selectData:{
-			communityBaselist:[],
-			customerSourceList:[],
-			giveupList:[],
-			levelList:[],
-			roundList:[],
-			stationTypeList:[],
-			visitTypeList:[]
-		}
-
+     	matureTime:false,
+     	otherContinue:false
 
 });
-//select下拉数组的初始化
-State.selectDataInit=action(function(params) {
-	this.selectData=params;
-});
-//显示到期时间
+
+//显示取消跟进
 State.showMatureTime = action(function() {
 	this.matureTime=true;
 });
-
-//不显示到期时间
+//不显示取消跟进
 State.noShowMatureTime = action(function() {
 	this.matureTime=false;
 });
+//显示其他
+State.showOtherContinue = action(function() {
+	this.otherContinue=true;
+});
+//不显示其他
+State.noShowOtherContinue = action(function() {
+	this.otherContinue=false;
+});
+
 
 module.exports = State;

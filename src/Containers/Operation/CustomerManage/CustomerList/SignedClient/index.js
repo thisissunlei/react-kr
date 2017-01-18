@@ -120,9 +120,10 @@ class SignedClient extends Component{
 	}
 
 	//高级查询提交
-     onSearchUpperSubmit=(value)=>{
+     onSearchUpperSubmit=(searchParams)=>{
+     	searchParams = Object.assign({}, this.state.searchParams, searchParams);
       	this.setState({
-      	  searchParams:value
+      	  searchParams
       	})
       	State.searchUpperCustomer();
      }
@@ -194,7 +195,7 @@ class SignedClient extends Component{
 	            onExport={this.onExport}
 	            ajaxParams={this.state.searchParams}
 	            ajaxUrlName='signCustomers'
-	            ajaxFieldListName="list"
+	            ajaxFieldListName="items"
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>所属城市</TableHeaderColumn>

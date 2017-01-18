@@ -33,7 +33,7 @@ import NewCustomerList from '../NewCustomerList';
 import LookCustomerList from '../LookCustomerList';
 import SearchUpperForm from '../SearchUpperForm';
 import EditCustomerList from "../EditCustomerList";
-import NewCustomerIndent from "../NewCustomerIndent";
+import NewVisitIndent from '../NewVisitIndent';
 import CatchMerchants from './CatchMerchants';
 import './index.less';
 import OrderDelete from '../OrderDelete';
@@ -80,12 +80,14 @@ class Merchants extends Component{
     
     //选中几项领取，转移等
     onSelect=(value)=>{
+        var value=Array.prototype.slice.call(value);
     	var arrItem=[]
     	let {loadData}=this.state;
         for(var i=0;i<value.length;i++){
         	var allId=value[i];
         	arrItem.push(loadData[allId].id)
         }
+
       if(value.length>0){
       	State.openDialog=true;	
         this.setState({
@@ -98,7 +100,7 @@ class Merchants extends Component{
     }
     //加载所有数据
     onLoaded=(value)=>{
-       let loadData = value.list;
+       let loadData = value.items;
 	   this.setState({
 			 loadData
 		 })
@@ -135,9 +137,10 @@ class Merchants extends Component{
       State.searchUpperCustomer();
 	}
     //高级查询提交
-     onSearchUpperSubmit=(value)=>{
+     onSearchUpperSubmit=(searchParams)=>{
+     	searchParams = Object.assign({}, this.state.searchParams, searchParams);
       	this.setState({
-      	  searchParams:value
+      	  searchParams
       	})
       	State.searchUpperCustomer();
      }
@@ -173,8 +176,6 @@ class Merchants extends Component{
         }
       }
 
-      console.log('ooooo',this.state.searchParams);
-
       
 		return(
       <div className="m-merchants" style={{paddingTop:25}}>
@@ -204,7 +205,7 @@ class Merchants extends Component{
 			          </Col>
 	        </Row>
 
-	        <div onClick={this.openDeleteDialog}>123</div>
+	        {/*<div onClick={this.openDeleteDialog}>123</div>*/}
 
             <Table
 			    style={{marginTop:8}}
@@ -215,7 +216,7 @@ class Merchants extends Component{
 	            onLoaded={this.onLoaded}
 	            ajaxParams={this.state.searchParams}
 	            ajaxUrlName='shareCustomers'
-	            ajaxFieldListName="list"
+	            ajaxFieldListName="items"
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>
@@ -232,14 +233,14 @@ class Merchants extends Component{
 
 			        <TableBody >
 			              <TableRow >
-			                <TableRowColumn name="customerCompany" ></TableRowColumn>
+			                <TableRowColumn name="company" ></TableRowColumn>
 			                <TableRowColumn name="intentionCityName" ></TableRowColumn>
 			                <TableRowColumn name="intentionCommunityName"></TableRowColumn>
 			                <TableRowColumn name="stationNum"></TableRowColumn>
 			                <TableRowColumn name="sourceName"></TableRowColumn>
 			                <TableRowColumn name="levelName"></TableRowColumn>
 			                <TableRowColumn name="receiveName"></TableRowColumn>
-			                <TableRowColumn name="receiveTime" type='date' format="yyyy-mm-dd HH:MM:ss" ></TableRowColumn>
+			                <TableRowColumn name="createDate" type='date' format="yyyy-mm-dd HH:MM:ss"></TableRowColumn>
 			                <TableRowColumn type="operation">
 			                    <Button label="查看"  type="operation"  operation="watch" />
 			                 </TableRowColumn>
@@ -302,8 +303,8 @@ class Merchants extends Component{
 						/>
 					</Drawer>
 
-				{/*新增拜访记录*/}
-					<Drawer
+				    {/*新增拜访记录*/}
+					{/*<Drawer
 							open={State.openNewCustomerIndent}
 							width={750}
 
@@ -311,13 +312,13 @@ class Merchants extends Component{
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
-						<NewCustomerIndent
+						<NewVisitIndent
 			                 comeFrom="Merchant"
 							 onCancel={this.switchCustomerIndent}
 			                 listId={State.listId}
 			                 dataReady={dataReady}
 						/>
-					</Drawer>
+					</Drawer>*/}
 
 
                     {/*高级查询*/}
@@ -363,7 +364,7 @@ class Merchants extends Component{
 						<OrderDelete 
 						   onCancel={this.openDeleteDialog}
 						   orderId='1'
-						  />
+						 />
 				    </Dialog>
  
 
