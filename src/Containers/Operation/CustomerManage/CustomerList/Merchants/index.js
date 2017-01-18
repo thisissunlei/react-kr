@@ -167,6 +167,8 @@ class Merchants extends Component{
         }
       }
 
+      console.log('ooooo',this.state.searchParams);
+
       
 		return(
       <div className="m-merchants" style={{paddingTop:25}}>

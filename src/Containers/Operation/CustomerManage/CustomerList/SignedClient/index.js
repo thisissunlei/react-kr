@@ -31,6 +31,7 @@ import State from './State';
 import NewCustomerList from '../NewCustomerList';
 import LookCustomerList from '../LookCustomerList';
 import SearchUpperForm from '../SearchUpperForm';
+import SwitchPerson from '../SwitchPerson';
 import './index.less'
 @observer
 class SignedClient extends Component{
@@ -41,7 +42,13 @@ class SignedClient extends Component{
 			searchParams:{
 				page:1,
 				pageSize:15
-			}
+			},
+			//选中的数量
+			dialogNum:0,
+			//加载后的数据
+			loadData:[],
+			//选中的值
+			arrItem:[]
 		}
 	}
 
@@ -65,6 +72,38 @@ class SignedClient extends Component{
 
 	}
 
+	 //选中几项领取，转移等
+    onSelect=(value)=>{
+    	var arrItem=[]
+    	let {loadData}=this.state;
+        for(var i=0;i<value.length;i++){
+        	var allId=value[i];
+        	arrItem.push(loadData[allId].id)
+        }
+      if(value.length>0){
+      	State.openPersonDialog=true;
+        this.setState({
+         dialogNum:value.length,
+         arrItem
+        })	
+      }else{
+        State.openPersonDialog=false;
+      }
+    }
+
+    //加载所有数据
+    onLoaded=(value)=>{
+       let loadData = value.list;
+	   this.setState({
+			 loadData
+		 })
+    }
+
+    //领取浮框的关闭
+    merClose=()=>{
+       State.openPersonDialog=false; 	
+    }
+
 	//搜索
 	onSearchSubmit=(params)=>{
         let obj = {
@@ -87,6 +126,19 @@ class SignedClient extends Component{
       	})
       	State.searchUpperCustomer();
      }
+     //转移客户
+	openSwitchDialog=()=>{
+		State.openSwitchGoDialog();
+	}
+	//转移确定
+     switchPersonSubmit=(params)=>{
+       let {arrItem}=this.state;
+       var switchData={
+         receiveId:params.receiveId,
+         ids:arrItem
+       }
+       State.switchSureSubmit(switchData);
+    }
 
 	//导出
 	onExport=(value)=>{
@@ -101,11 +153,26 @@ class SignedClient extends Component{
 
      
        let {searchSignParams,dataReady}=this.props; 
-
+        
+       var blockStyle={};
+      if(State.openPersonDialog==true){
+        blockStyle={
+        	display:'inline-block'
+        }
+      }else{
+      	blockStyle={
+        	display:'none'
+        }
+      }
 
 		return(
-      <div className="m-merchants" style={{paddingTop:25}}>
+      <div className="m-signed" style={{paddingTop:25}}>
       		<Title value="运营平台"/>
+      		<div className='merchants-dialog' style={blockStyle}>
+      		  <div className='selectCheck'>已选中<span className='dialog-number'>{this.state.dialogNum}</span>项</div>
+      		  <Button  label="转移" type="button" onTouchTap={this.openSwitchDialog}/>
+      		  <span className='mer-close' onClick={this.merClose}></span>
+      		</div>
 	        <Row style={{marginBottom:21}}>
 			         
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
@@ -122,6 +189,8 @@ class SignedClient extends Component{
                 onOperation={this.onOperation}
 	            displayCheckbox={true}
 	            exportSwitch={true}
+	            onSelect={this.onSelect}
+	            onLoaded={this.onLoaded}
 	            onExport={this.onExport}
 	            ajaxParams={this.state.searchParams}
 	            ajaxUrlName='signCustomers'
@@ -201,6 +270,21 @@ class SignedClient extends Component{
 						    onSubmit={this.onSearchUpperSubmit}
 						    flag='签约'
 						    searchSignParams={searchSignParams}
+						/>
+				    </Dialog>
+
+				    {/*转移*/}
+                    <Dialog
+						title="转移客户"
+						modal={true}
+						onClose={this.openSwitchDialog}
+						open={State.openSwitch}
+						contentStyle ={{ width: '444',height:'284'}}
+					>
+						<SwitchPerson 
+						  onSubmit={this.switchPersonSubmit}
+						  onCancel={this.openSwitchDialog}
+						  customerIds={this.state.dialogNum}
 						/>
 				    </Dialog>
 
