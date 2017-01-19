@@ -93,7 +93,7 @@ class SignedClient extends Component{
 
     //加载所有数据
     onLoaded=(value)=>{
-       let loadData = value.list;
+       let loadData = value.items;
 	   this.setState({
 			 loadData
 		 })
@@ -116,13 +116,31 @@ class SignedClient extends Component{
 
 	//高级查询
 	openSearchUpperDialog=()=>{
+	  let {searchParams}=this.state;
+	  searchParams.company='';
+      searchParams.cityId='';
+      searchParams.communityId='';
+      searchParams.signEndDate='';
+      searchParams.signStartDate='';
       State.searchUpperCustomer();
 	}
 
 	//高级查询提交
-     onSearchUpperSubmit=(value)=>{
+     onSearchUpperSubmit=(searchParams)=>{
+     	searchParams = Object.assign({}, this.state.searchParams, searchParams);
+      	searchParams.time=+new Date();
+		if(searchParams.signStartDate!=''&&searchParams.signEndDate!=''&&searchParams.signEndDate<searchParams.signStartDate){
+			 Message.error('开始时间不能大于结束时间');
+	         return ;
+		}
+		if(searchParams.signStartDate==''&&searchParams.signEndDate!=''){
+			searchParams.signStartDate=searchParams.signEndDate
+		}
+		if(searchParams.signStartDate!=''&&searchParams.signEndDate==''){
+			searchParams.signEndDate=searchParams.signStartDate
+		}
       	this.setState({
-      	  searchParams:value
+      	  searchParams
       	})
       	State.searchUpperCustomer();
      }

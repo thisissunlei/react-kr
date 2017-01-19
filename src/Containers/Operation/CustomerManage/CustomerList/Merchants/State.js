@@ -9,6 +9,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
+import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
     Message
 } from 'kr-ui';
@@ -19,10 +20,12 @@ let State = observable({
 		openLookMerchants:false,
 		openSearchUpper:false,
 		openCatch:false,
+		openDelete:false,
 		openEditCustomerList:false,
 		openNewCustomerIndent:false,
 		openDialog:false,
 		listId:"",
+		companyName:''
 });
 
 //新建页的开关
@@ -58,11 +61,15 @@ State.catchSubmit= action(function(arrItem){
 State.switchEditCustomerList = action(function() {
 	this.openEditCustomerList=!this.openEditCustomerList;
 })
-//新增排放记录的开关
+//新增拜访记录的开关
 State.switchCustomerIndent = action(function() {
+	//Store.dispatch(change('NewVisitIndent','isContinue','YES'}));
 	this.openNewCustomerIndent=!this.openNewCustomerIndent;
 })
-
+//删除订单
+State.openDeleteOrder= action(function() {
+	this.openDelete=!this.openDelete;
+})
 State.closeAllMerchants = action(function() {
 	this.openLookMerchants=false;
 	this.openNewMerchants=false;

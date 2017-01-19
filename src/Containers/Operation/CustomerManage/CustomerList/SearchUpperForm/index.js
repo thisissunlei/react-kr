@@ -66,55 +66,18 @@ class SearchUpperForm extends Component {
 	}
 
 	renderSigned=()=>{
-		   var cityList=[];
-		   var communityList=[];
-		   var levelList=[];
-		   var sourceList=[];
-		   var belongCity=[];
-		   var belongCommunity=[];
 		   let {flag,searchParams,searchSignParams}=this.props;
 		    if(searchParams){
-		    	searchParams.intentionCities.map(function(item, index) {
-				var list = {}
-				list.value = item.cityId;
-				list.label = item.cityName;
-				cityList.push(list);
-			 })
-			searchParams.intentionCommunities.map(function(item, index) {
-				var list = {}
-				list.value = item.id;
-				list.label = item.communityname;
-				communityList.push(list);
-			})
-			searchParams.levelIds.map(function(item, index) {
-				var list = {}
-				list.value = item.id;
-				list.label = item.codeName;
-				levelList.push(list);
-			})
-			searchParams.sourceIds.map(function(item, index) {
-				var list = {}
-				list.value = item.id;
-				list.label = item.codeName;
-				sourceList.push(list);
-			})
+		    	var cityList=searchParams.intentionCities;
+			    var communityList=searchParams.intentionCommunities;
+			    var levelList=searchParams.levelIds;
+			    var sourceList=searchParams.sourceIds;
 		    }
 		    if(searchSignParams){
-		    	searchSignParams.cities.map(function(item, index) {
-				var list = {}
-				list.value = item.cityId;
-				list.label = item.cityName;
-				belongCity.push(list);
-			})
-			searchSignParams.communities.map(function(item, index) {
-				var list = {}
-				list.value = item.id;
-				list.label = item.communityname;
-				belongCommunity.push(list);
-			})
+		    	var belongCity=searchSignParams.cities;
+			    var belongCommunity=searchSignParams.communities
 		    }
 			
-
 		      var selectData='';
               if(flag=='签约'){
 			     selectData=(<div> <KrField grid={1/2} right={34}  name="company" type="text" label="公司名称"/> 

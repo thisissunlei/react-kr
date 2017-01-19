@@ -666,17 +666,17 @@ const APIS = {
  },
   //客户管理－招商线索列表
  'shareCustomers': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/share-customers?page={page}&pageSize={pageSize}&company={company}&createEndDate={createEndDate}&createStartDate={createStartDate}&intentionCityId={intentionCityId}&intentionCommunityId={intentionCommunityId}&levelId={levelId}&sourceId={sourceId}',
+   url:'/api/krspace-finance-web/customer/share-customers?page={page}&pageSize={pageSize}&company={company}&createEndDate={createEndDate}&createStartDate={createStartDate}&intentionCityId={intentionCityId}&intentionCommunityId={intentionCommunityId}&levelId={levelId}&sourceId={sourceId}',
    method:'get'
  },
   //客户管理－个人客户列表
  'personalCustomers': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/personal-customers?page={page}&pageSize={pageSize}&company={company}&createEndDate={createEndDate}&createStartDate={createStartDate}&intentionCityId={intentionCityId}&intentionCommunityId={intentionCommunityId}&levelId={levelId}&sourceId={sourceId}',
+   url:'/api/krspace-finance-web/customer/personal-customers?page={page}&pageSize={pageSize}&company={company}&createEndDate={createEndDate}&createStartDate={createStartDate}&intentionCityId={intentionCityId}&intentionCommunityId={intentionCommunityId}&levelId={levelId}&sourceId={sourceId}',
    method:'get'
  },
   //客户管理－个人客户列表－导出
  'personalCustomersExport': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/personal-customers-export',
+   url:'/api/krspace-finance-web/customer/personal-customers-export',
    method:'get'
  },
  //客户管理－取消客户跟进
@@ -701,7 +701,7 @@ const APIS = {
  },
  //客户管理－新增拜访记录
  'customerVisitRecord': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/visit-record/actions/add',
+   url:'/mockjsdata/23/krspace-finance-web/customer/visit-log/actions/add',
    method:'post'
  },
   //客户管理－根据客户获取订单列表
@@ -746,12 +746,12 @@ const APIS = {
  },
  //客户管理－招商和个人高级查询准备
  'search-conditions': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/personal-customers/search-conditions',
+   url:'/api/krspace-finance-web/customer/personal-customers/search-conditions',
    method:'get'
  },
   //客户管理－签约高级查询准备
  'sign-search-conditions': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/sign-customers/search-conditions',
+   url:'/api/krspace-finance-web/customer/sign-customers/search-conditions',
    method:'get'
  },
 
