@@ -63,7 +63,6 @@ State.switchEditCustomerList = action(function() {
 })
 //新增拜访记录的开关
 State.switchCustomerIndent = action(function() {
-	//Store.dispatch(change('NewVisitIndent','isContinue','YES'}));
 	this.openNewCustomerIndent=!this.openNewCustomerIndent;
 })
 //删除订单

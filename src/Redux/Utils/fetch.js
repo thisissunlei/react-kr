@@ -13,7 +13,10 @@ function getUrl(path, params = {},mode = false) {
 
     let server = '';
 
-	if(env ==='development'){
+
+	if(env ==='test'){
+		server = 'http://optest.krspace.cn';
+	}if(env ==='development'){
 		server = 'http://optest.krspace.cn';
 	}else if(env ==='test01'){
 		server = 'http://optest01.krspace.cn';
@@ -31,6 +34,7 @@ function getUrl(path, params = {},mode = false) {
     */
 
 
+
     var url = APIS[path].url;
 
     if(url.indexOf('mockjsdata') !==-1){
@@ -43,6 +47,7 @@ function getUrl(path, params = {},mode = false) {
         console.error(`${path} not defined in apis.js`);
         return false;
     }
+    
 
     if(Object.keys(params).length){
         for (let item in params) {

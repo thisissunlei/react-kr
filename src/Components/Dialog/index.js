@@ -6,6 +6,7 @@ import './index.less';
 import ReactDOM from 'react-dom';
 
 import DialogBody from './DialogBody';
+import DialogFooter from './DialogFooter';
 
 export default class DialogComponent extends Component {
 
@@ -41,6 +42,7 @@ export default class DialogComponent extends Component {
 		* 内容出现滚动条
 		*/
 		autoScrollBodyContent: React.PropTypes.bool,
+		actions: React.PropTypes.node,
 	}
 
 	componentDidMount(){
@@ -121,6 +123,8 @@ export default class DialogComponent extends Component {
 			children,
 			bodyStyle,
 			contentStyle,
+			footerStyle,
+			actions,
 			...other
 		} = this.props;
 
@@ -142,7 +146,7 @@ export default class DialogComponent extends Component {
 								<span className="close" onClick={this.onClose}></span>
 						</div>
 						{open && <DialogBody bodyStyle={bodyStyle}> {children} </DialogBody>}
-
+						{open && actions &&  <DialogFooter footerStyle={footerStyle}> {actions} </DialogFooter>}
 				</div>
 			</div>
 		);

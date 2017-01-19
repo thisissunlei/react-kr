@@ -160,7 +160,7 @@ export default class FileUploadComponent extends React.Component {
 		} = this.state;
 
 		files.unshift(response);
-
+        
 		console.log('files', files);
 		this.setState({
 			files,

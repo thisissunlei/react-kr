@@ -9,7 +9,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-let State = observable({
+let StateIn = observable({
 		detail:[],
      	matureTime:false,
      	otherContinue:false
@@ -17,21 +17,21 @@ let State = observable({
 });
 
 //显示取消跟进
-State.showMatureTime = action(function() {
+StateIn.showMatureTime = action(function() {
 	this.matureTime=true;
 });
 //不显示取消跟进
-State.noShowMatureTime = action(function() {
+StateIn.noShowMatureTime = action(function() {
 	this.matureTime=false;
 });
 //显示其他
-State.showOtherContinue = action(function() {
+StateIn.showOtherContinue = action(function() {
 	this.otherContinue=true;
 });
 //不显示其他
-State.noShowOtherContinue = action(function() {
+StateIn.noShowOtherContinue = action(function() {
 	this.otherContinue=false;
 });
 
 
-module.exports = State;
+module.exports = StateIn;

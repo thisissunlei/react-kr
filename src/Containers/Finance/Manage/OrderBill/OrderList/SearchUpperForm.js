@@ -28,7 +28,7 @@ import {
 
 import './index.less';
 
-class NewCreateForm extends Component {
+class SearchUpperForm extends Component {
 
 	static propTypes = {
 		onSubmit: React.PropTypes.func,
@@ -90,11 +90,9 @@ class NewCreateForm extends Component {
 
 	}
     onChangeCommunity=(community)=>{
-		Store.dispatch(change('newCreateForm','communityid',community.id));
+		Store.dispatch(change('searchUpperForm','communityid',community.id));
     }
 	render() {
-
-
 
 		const {
 			error,
@@ -114,9 +112,9 @@ class NewCreateForm extends Component {
 				</KrField>
 				<KrField grid={1/1}  component="group" label="查询区间" style={{marginTop:3}}>
 				<div className='ui-listDate'><ListGroup>
-						<ListGroupItem><div className='ui-date-start'><KrField  right={6} style={{marginLeft:-10}} name="startDate" component="date" /></div></ListGroupItem>
+						<ListGroupItem><div className='order-date-start'><KrField  right={6} style={{marginLeft:-10}} name="startDate" component="date" /></div></ListGroupItem>
 						<div className='ui-line-down'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-						<ListGroupItem><div className='ui-date-end'><KrField  right={6} name="endDate" component="date" /></div></ListGroupItem>
+						<ListGroupItem><div className='order-date-end'><KrField  right={6} name="endDate" component="date" /></div></ListGroupItem>
 					</ListGroup>
                     </div>
 				</KrField>
@@ -139,5 +137,5 @@ class NewCreateForm extends Component {
 	}
 }
 export default reduxForm({
-	form: 'newCreateForm'
-})(NewCreateForm);
+	form: 'searchUpperForm'
+})(SearchUpperForm);

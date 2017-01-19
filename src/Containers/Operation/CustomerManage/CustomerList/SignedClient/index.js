@@ -28,6 +28,7 @@ import {
 } from 'kr-ui';
 
 import State from './State';
+import StateIn from '../NewVisitIndent/State.js';
 import NewCustomerList from '../NewCustomerList';
 import LookCustomerList from '../LookCustomerList';
 import SearchUpperForm from '../SearchUpperForm';

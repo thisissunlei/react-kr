@@ -315,7 +315,7 @@ module.exports = {
 		primaryText: "OA办公",
 		menuCode: 'oa',
 		router: 'oa',
-		originUrl: '/krspace_oa_web/hrm/hrmOrganization/main?mid=40',
+		originUrl: '/krspace_oa_web/hrm/hrmResource/toHrmResourceListActive?mid=45',
 		menuItems: [{
 			primaryText: '组织架构',
 			iconName: 'icon-schema',
