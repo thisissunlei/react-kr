@@ -1,15 +1,14 @@
 import React from 'react';
-import {
-	Field,
-	reduxForm
-} from 'redux-form';
+
 import ReactDOM from 'react-dom';
 
 import './index.less';
-import $ from 'jquery';
 import WrapComponent from '../WrapComponent';
 import TreeAll from './TreeData.json';
 import ProjectType from "./ProjectType";
+import {stopSubmit,submit,blur,stopAsyncValidation,touch} from 'redux-form';
+
+
 export default class TreeComponent extends React.Component {
 
 	static displayName = 'DateComponent';
@@ -37,16 +36,11 @@ export default class TreeComponent extends React.Component {
 			listId:"",
 			listValue:props.placeholder||"请选择项目类型"
 		}
-
 	}
 
 	
 
-	componentWillReceiveProps(nextProps) {
-		// if (!this.isInit && nextProps.input.value) {
-		// 	this.setDefaultDate(nextProps.input.value);
-		// }
-	}
+	
 	
 	
 	imitateInputClick=(value,listId)=>{
@@ -80,7 +74,7 @@ export default class TreeComponent extends React.Component {
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 				<div ref="ui-imitateInput" className={imitateInputStyle} onClick={this.imitateInputClick}>
-					<input readOnly="true" className="ui-treeInput" value={this.state.listValue} />
+					<input readOnly="true" className="ui-treeInput" value={this.state.listValue} onChange={this.onChange} />
 					<span className="ui-treeArrow"></span>
 				</div>
 				

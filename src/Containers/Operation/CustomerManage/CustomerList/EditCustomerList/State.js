@@ -42,16 +42,11 @@ State.noShowMatureTime = action(function() {
 	this.matureTime=false;
 });
 State.editListId= action(function(params) {
-	console.log("sdff",params)
 	var _this=this;
 	Store.dispatch(Actions.callAPI('get-edit-info',{id:params})).then(function(response) {
 		_this.detail=response;
-		console.log(response,"999999999999");
-
 	}).catch(function(err) {
-		console.log(err,"999999999999");
-
-		//Message.error(err.message);
+		
 	});
 });
 

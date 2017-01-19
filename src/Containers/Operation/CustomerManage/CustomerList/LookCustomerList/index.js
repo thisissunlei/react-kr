@@ -57,7 +57,7 @@ class LookCustomerList extends Component{
 		State.orderList(nextProps.listId);
 	}
 
-	isHaveTabs = (comeFrom,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch) => {
+	isHaveTabs = (comeFrom,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch,DeleteSwitch) => {
 		
 
 		
@@ -71,7 +71,7 @@ class LookCustomerList extends Component{
 			>
 				<Tab label="客户订单" >
 					
-						<CustomerIndent newIndentSwitch={newIndentSwitch} editIndentSwitch={editIndentSwitch}/>
+						<CustomerIndent newIndentSwitch={newIndentSwitch} editIndentSwitch={editIndentSwitch} DeleteSwitch={DeleteSwitch}/>
 				</Tab>
 				<Tab label="客户详情" >
 					
@@ -83,7 +83,7 @@ class LookCustomerList extends Component{
 	}
 
 	render(){
-		let {comeFrom,data,dataReady,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch}=this.props;
+		let {comeFrom,data,dataReady,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch,DeleteSwitch}=this.props;
 				                 
 
       
@@ -95,7 +95,7 @@ class LookCustomerList extends Component{
 					<div className="close" onClick={this.onCancel}></div>
 				</div>
 				<div style={{height:5}}></div>
-				{this.isHaveTabs(comeFrom,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch)}
+				{this.isHaveTabs(comeFrom,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch,DeleteSwitch)}
 		        
 		      </div>
 

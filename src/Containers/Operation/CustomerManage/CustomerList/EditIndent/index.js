@@ -40,7 +40,6 @@ import './index.less'
 			visitTypeList:[]
 		};
 		let selectData=props.selectData||selectDatas;
-		console.log(props.selectData,";;;;;;")
 		State.selectDataInit(selectData);
 	}
 

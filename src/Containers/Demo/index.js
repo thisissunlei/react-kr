@@ -58,9 +58,10 @@ class CustomerList extends Component {
 	render() {
 		
 		return (
+			<div>23
 			<KrField grid={1/2} label="所属地区" name="districtId"  style={{width:252,marginLeft:15}} component="tree" />
-
+			</div>
 		);
 	}
 }
-export default CustomerList;
+export default reduxForm({ form: 'CustomerList',enableReinitialize:true,keepDirtyOnReinitialize:true})(CustomerList);

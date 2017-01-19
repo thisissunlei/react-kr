@@ -51,11 +51,11 @@ class CustomerIndent extends Component{
 	isDevelopClick = () =>{
 		State.switchDevelop();
 	}
+	
 	orderInnerList = () =>{
 		let unifyStyle={width:300,marginLeft:-10}
 		let detail=State.orderDetail;
-		let {editIndentSwitch}=this.props;
-		console.log("9999")
+		let {editIndentSwitch,DeleteSwitch}=this.props;
 		let listArray=detail.map(function(item,index){
 			return (
 				<div>
@@ -75,7 +75,7 @@ class CustomerIndent extends Component{
 						<span className="interval"></span></span>
 						<Button  label="查看" type="button" cancle={true} />
 						<span className="interval"></span>
-						<Button  label="删除" type="button" cancle={true}/>
+						<Button  label="删除" type="button" cancle={true} onTouchTap={DeleteSwitch} />
 					</div>
 
 				</div>

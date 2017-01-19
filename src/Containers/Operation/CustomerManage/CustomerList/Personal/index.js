@@ -41,6 +41,7 @@ import EditIndent from "../EditIndent";
 import NewVisitIndent from '../NewVisitIndent';
 import SwitchPerson from '../SwitchPerson';
 import QuitContinue from './QuitContinue';
+import OrderDelete from '../OrderDelete';
 import './index.less'
 @observer
 class Personal extends Component{
@@ -217,6 +218,11 @@ class Personal extends Component{
 		let {arrItem}=this.state;
 		State.quitSubmit(arrItem);
 	}
+	//订单删除
+     openDeleteDialog=()=>{
+     	State.openDeleteOrder();
+     }
+
     
 	render(){
 		let {dataReady,searchParams}=this.props;
@@ -360,6 +366,7 @@ class Personal extends Component{
 				                 IndentSwitch={this.switchCustomerIndent}
 				                 newIndentSwitch={this.switchNewIndent}
 				                 editIndentSwitch={this.switchEditIndent}
+				                 DeleteSwitch={this.openDeleteDialog}
 							/>
 					</Drawer>
 
@@ -470,6 +477,21 @@ class Personal extends Component{
 						  onCancel={this.openQuitDialog}
 						  />
 				    </Dialog>
+
+				     {/*删除*/}
+                    <Dialog
+						title="提示"
+						modal={true}
+						onClose={this.openDeleteDialog}
+						open={State.openDelete}
+						contentStyle ={{ width: '445',height:'230'}}
+					>
+						<OrderDelete 
+						   onCancel={this.openDeleteDialog}
+						   orderId='1'
+						 />
+				    </Dialog>
+ 
 
 
 

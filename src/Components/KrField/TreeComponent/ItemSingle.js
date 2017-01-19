@@ -42,6 +42,7 @@ export default class ItemSingle extends React.Component {
 		let {treeClose}=this.props;
 		event.stopPropagation();
 		let {value,listId}=this.props;
+		
 		if(typeof(value)=="string"){
 			this.setState({
 				value:value,
