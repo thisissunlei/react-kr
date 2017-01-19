@@ -347,7 +347,7 @@ class Merchants extends Component{
 			                <TableRowColumn name="createDate" type='date' format="yyyy-mm-dd HH:MM:ss"></TableRowColumn>
 			                <TableRowColumn type="operation">
 			                    <Button label="查看"  type="operation"  operation="watch" />
-			                 </TableRowColumn>
+			                </TableRowColumn>
 			               </TableRow>
 			        </TableBody>
 			        <TableFooter></TableFooter>
@@ -357,7 +357,7 @@ class Merchants extends Component{
 					{/*新建*/}
 					<Drawer
 				        open={State.openNewMerchants}
-				        width={700}
+				        width={750}
 				        openSecondary={true}
 				        className='m-finance-drawer'
 				        containerStyle={{top:60,paddingBottom:228,zIndex:20}}
