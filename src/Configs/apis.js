@@ -29,8 +29,6 @@ const APIS = {
       url: '/api/krspace-finance-web/checkinagreement/checkin-agreement/actions/show?id={id}',
       method: 'get'
    },
-
-
    //获取文件token
    'getSourceServiceToken': {
       url: '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken',
@@ -226,8 +224,6 @@ const APIS = {
       url: '/krspace-finance-web/finaccount/property/viewFinaFinaflowProperty',
       method: 'get'
    },
-
-
    //财务管理－订单账单列表-分页获取订单
    'getFinaDataByList': {
       url: '/api/krspace-finance-web/finaccount/data/getFinaDataByAjax?page={page}&pageSize={pageSize}&mainbillname={mainbillname}&startDate={startDate}&endDate={endDate}&mainbilltype={mainbilltype}&communityid={communityid}',
@@ -649,6 +645,7 @@ const APIS = {
  		url: ' /api/krspace-finance-web/action/get-order-station?mainBillId={mainBillId}',
  		method: 'get'
  	},
+
   //运营平台-会员管理-会员配置-会员卡激活-会卡列表
  'CardActivationList': {
    url:'/api/krspace-finance-web/member/card/mbr-card?foreignCode={foreignCode}&page={page}&pageSize={pageSize}',
@@ -737,7 +734,7 @@ const APIS = {
  //客户管理－订单删除
  'order-delete': {
    url:'/mockjsdata/23/krspace-finance-web/fina-contract-mainbill/actions/delete?id={id}',
-   method:'get'
+   method:'delete'
  },
  //客户管理－领取客户
  'receive-customer': {
@@ -754,8 +751,56 @@ const APIS = {
    url:'/api/krspace-finance-web/customer/sign-customers/search-conditions',
    method:'get'
  },
+  //订单明细账－二期－添加挂帐
+  'onNewAccountg': {
+    url:'/api/krspace-finance-web/finaccount/opt/onAccount',
+    method: 'post'
+  },
+  //订单明细账－二期－点击挂帐所需数据
+  'getOnNewAccountData': {
+    url:'/api/krspace-finance-web/finaccount/data/getOnAccountData?mainbillId={mainbillId}',
+    method: 'get'
+  },
+  //订单明细账－二期－根据选中id来获取金额
+   'getFlowRemainMoney': {
+      url: '/api/krspace-finance-web/finaccount/data/getFlowRemainMoney?flowId={flowId}',
+      method: 'get'
+   },
+   //订单明细账－二期－点击转移加载数据
+   'getTransferData': {
+      url: '/api/krspace-finance-web/finaccount/data/getTransferData?flowId={flowId}&mainbillId={mainbillId}',
+      method: 'get'
+   },
+   //订单明细账－二期－转移确定
+   'transferPayment': {
+      url: '/api/krspace-finance-web/finaccount/opt/transferPayment',
+      method: 'post'
+   },
+   //订单明细账－二期－分页加载流水数据
+   'getAccountNewFlow': {
+      url: '/api/krspace-finance-web/finaccount/data/getAccountFlow?accountId={accountId}&accountType={accountType}&orderId={orderId}&endTime={endTime}&page={page}&pageSize={pageSize}&propertyId={propertyId}&startTime={startTime}&tradingCode={tradingCode}',
+      method: 'get'
+   },
+   //订单明细账－二期－支付方式
+   'findAccountListTwo': {
+      url: '/api/krspace-finance-web/finaccount/data/findAccountList',
+      method: 'get'
+   },
+   //订单明细账－二期－点击回款加载数据
+   'getPaymentActData': {
+      url: '/api/krspace-finance-web/finaccount/data/getPaymentActData?mainbillId={mainbillId}',
+      method: 'get'
+   },
+   //订单明细账－二期－点击确定进行回款操作
+   'returnMoneyNew': {
+      url: '/api/krspace-finance-web/finaccount/opt/returnMoney',
+      method: 'post'
+   },
 
-  
+ 'planMap': {
+   url:'/api-old/krspace_operate_web/commnuity/communityFloorPlan/getCommunityFloorPlanSelData?communityId={communityId}&wherefloor={wherefloor}&mainBillId={mainBillId}&startDate={startDate}&endDate={endDate}&contractId={contractId}',
+   method:'get'
+ },
  }
 
  module.exports = APIS;

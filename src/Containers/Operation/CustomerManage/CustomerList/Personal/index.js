@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
+import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	observer
@@ -30,6 +31,7 @@ import {
 } from 'kr-ui';
 
 import State from './State';
+import StateIn from '../NewVisitIndent/State.js';
 import NewCustomerList from '../NewCustomerList';
 import LookCustomerList from '../LookCustomerList';
 import SearchUpperForm from '../SearchUpperForm';
@@ -76,6 +78,19 @@ class Personal extends Component{
 	}
 	//新增拜访记录的开关
 	switchCustomerIndent = () =>{
+		   Store.dispatch(change('NewVisitIndent','customerId',State.listId));
+		   Store.dispatch(change('NewVisitIndent','visitType',''));
+           Store.dispatch(change('NewVisitIndent','visitTime',''));
+           Store.dispatch(change('NewVisitIndent','isContinue','YES'));
+           Store.dispatch(change('NewVisitIndent','linkName',''));
+           Store.dispatch(change('NewVisitIndent','linkTel',''));
+           Store.dispatch(change('NewVisitIndent','visitDetail',''));
+           Store.dispatch(change('NewVisitIndent','levelId',''));
+           Store.dispatch(change('NewVisitIndent','remark',''));
+           Store.dispatch(change('NewVisitIndent','reasonId',''));
+           Store.dispatch(change('NewVisitIndent','reasonOther',''));
+        StateIn.noShowMatureTime();
+        StateIn.noShowOtherContinue();
 		State.switchCustomerIndent();
 	}
 	//新建订单页面的开关

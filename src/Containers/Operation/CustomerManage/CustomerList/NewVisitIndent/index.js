@@ -16,7 +16,7 @@ import {
 	ButtonGroup,
 	Message
 } from 'kr-ui';
-import State from './State';
+import StateIn from './State';
 import './index.less'
 @observer
  class NewVisitIndent extends Component{
@@ -32,25 +32,8 @@ import './index.less'
 		super(props);
 	}
 
-	componentWillReceiveProps(nextProps){
-		 if(!nextProps.open){
-           Store.dispatch(change('NewVisitIndent','visitType',''));
-           Store.dispatch(change('NewVisitIndent','visitTime',''));
-           Store.dispatch(change('NewVisitIndent','isContinue','YES'));
-           Store.dispatch(change('NewVisitIndent','linkName',''));
-           Store.dispatch(change('NewVisitIndent','linkTel',''));
-           Store.dispatch(change('NewVisitIndent','visitDetail',''));
-           Store.dispatch(change('NewVisitIndent','levelId',''));
-           Store.dispatch(change('NewVisitIndent','remark',''));
-           Store.dispatch(change('NewVisitIndent','reasonId',''));
-           Store.dispatch(change('NewVisitIndent','reasonOther',''));
-           Store.dispatch(change('NewVisitIndent','customerId',''));
-		 }
-		 
-	}
+	
 
-
-    
 	onSubmit = (values) => {
 		 var _this=this;
 	     Store.dispatch(Actions.callAPI('customerVisitRecord',{},values)).then(function(response) {
@@ -68,36 +51,36 @@ import './index.less'
 	hasSelectClick = (params) =>{
 		if(params.value=="NO"){
 			Store.dispatch(change('NewVisitIndent','reasonId',''));
-			State.showMatureTime();
+			StateIn.showMatureTime();
 		}else if(params.value=="YES"){
-			State.noShowMatureTime();
-            State.noShowOtherContinue();
+			StateIn.noShowMatureTime();
+            StateIn.noShowOtherContinue();
 		}
 	}
 
 	otherContinue=(value)=>{
 		if(value){
 		    if(value.label=='qwerrtt'){	
-			  State.showOtherContinue();	
+			  StateIn.showOtherContinue();	
 			}else{
-			  State.noShowOtherContinue();
+			  StateIn.noShowOtherContinue();
 			}	
 		}else{
-			  State.noShowOtherContinue();
+			  StateIn.noShowOtherContinue();
 		}
 		
 	}
 
 	componentDidMount(){
-	  State.noShowMatureTime();
-      State.noShowOtherContinue();
+	  StateIn.noShowMatureTime();
+      StateIn.noShowOtherContinue();
 	}
 	
 
 	renderContinue=()=>{
 		let {selectDatas}=this.props;
 		var content='';
-		if(State.matureTime){
+		if(StateIn.matureTime){
 			content=(<KrField grid={1/2} label="放弃原因" name="reasonId" style={{width:261,marginLeft:-6}} component="select" 
 							options={selectDatas.giveupList}
 							requireLabel={true}
@@ -109,7 +92,7 @@ import './index.less'
 
 	renderOtherContinue=()=>{
 		var content='';
-		if(State.otherContinue){
+		if(StateIn.otherContinue){
 			content=(<KrField grid={1/2} label="其他原因" name="reasonOther" style={{width:261,marginLeft:29}} component="input" 
 							requireLabel={true}
 					/>)

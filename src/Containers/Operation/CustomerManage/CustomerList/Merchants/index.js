@@ -31,6 +31,7 @@ import {
 	Message
 } from 'kr-ui';
 import State from './State';
+import StateIn from '../NewVisitIndent/State.js';
 import NewCustomerList from '../NewCustomerList';
 import LookCustomerList from '../LookCustomerList';
 import SearchUpperForm from '../SearchUpperForm';
@@ -94,6 +95,19 @@ class Merchants extends Component{
 	}
 	//新增拜访记录的开关
 	switchCustomerIndent = () =>{
+		   Store.dispatch(change('NewVisitIndent','customerId',State.listId));
+		   Store.dispatch(change('NewVisitIndent','visitType',''));
+           Store.dispatch(change('NewVisitIndent','visitTime',''));
+           Store.dispatch(change('NewVisitIndent','isContinue','YES'));
+           Store.dispatch(change('NewVisitIndent','linkName',''));
+           Store.dispatch(change('NewVisitIndent','linkTel',''));
+           Store.dispatch(change('NewVisitIndent','visitDetail',''));
+           Store.dispatch(change('NewVisitIndent','levelId',''));
+           Store.dispatch(change('NewVisitIndent','remark',''));
+           Store.dispatch(change('NewVisitIndent','reasonId',''));
+           Store.dispatch(change('NewVisitIndent','reasonOther',''));
+        StateIn.noShowMatureTime();
+        StateIn.noShowOtherContinue();
 		State.switchCustomerIndent();
 	}
 
@@ -198,8 +212,11 @@ class Merchants extends Component{
 	closeAllMerchants=()=>{
 		State.closeAllMerchants();
 	}
+
+
 	render(){
       let {dataReady,searchParams}=this.props;
+
       var blockStyle={};
       if(State.openDialog==true){
         blockStyle={
@@ -267,7 +284,7 @@ class Merchants extends Component{
 		          	</TableHeader>
 
 			        <TableBody >
-			              <TableRow >
+			              <TableRow>
 			                <TableRowColumn name="company" component={(value,oldValue)=>{
 														var TooltipStyle=""
 														if(value.length==""){
@@ -292,8 +309,28 @@ class Merchants extends Component{
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 													 }} ></TableRowColumn>
 			                <TableRowColumn name="stationNum"></TableRowColumn>
-			                <TableRowColumn name="sourceName"></TableRowColumn>
-			                <TableRowColumn name="levelName"></TableRowColumn>
+			                <TableRowColumn name="sourceName" component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }}></TableRowColumn>
+			                <TableRowColumn name="levelName" component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }}></TableRowColumn>
 			                <TableRowColumn name="receiveName"></TableRowColumn>
 			                <TableRowColumn name="createDate" type='date' format="yyyy-mm-dd HH:MM:ss"></TableRowColumn>
 			                <TableRowColumn type="operation">

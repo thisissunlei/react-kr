@@ -20,9 +20,11 @@ export default class DialogBody extends Component {
 			_this.initializeDialogBodyStyles();
 	}
 
+
 	componentDidUpdate(){
 		this.initializeDialogBodyStyles();
 	}
+
 
 
 	initializeDialogBodyStyles = ()=>{

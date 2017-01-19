@@ -11,7 +11,6 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-import * as actionCreators from 'kr-ui/../Redux/Actions';
 import {
 	reduxForm,
 	formValueSelector,
@@ -20,73 +19,58 @@ import {
 	arrayPush,
 	arrayInsert,
 	FieldArray,
-	reset
+	reset,
+	destroy
 } from 'redux-form';
 
 import {
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
 	Button,
-	Section,
 	Grid,
 	Row,
 	Col,
-	Notify,
-	List,
-	ListItem,
-	LabelText,
-	Dialog,
 	KrField,
+	Message,
 	ButtonGroup
 } from 'kr-ui';
 
 
 
-var arr = [];
+
 class ReceivedBtnForm extends Component {
 	static contextTypes = {
 		params: React.PropTypes.object.isRequired
 	}
 
-	static PropTypes = {
+	static propTypes = {
 		onSubmit: React.PropTypes.func,
 		onCancel: React.PropTypes.func,
-		optionList: React.PropTypes.object,
-		typeList: React.PropTypes.object,
-
+		optionList:React.PropTypes.array,
+		accountDetail:React.PropTypes.array,
+		contractReceive:React.PropTypes.array,
 	}
 
 	constructor(props, context) {
 		super(props, context);
-		this.onCancel = this.onCancel.bind(this);
-		this.onSubmit = this.onSubmit.bind(this);
-		this.state = {
 
-		}
-
-		//Store.dispatch(reset('ReceivedBtnForm'));
+		this.joinContractId='';
+		this.adminContractId='';
+		this.increaseContractId='';
+		this.tenantContractId='';
 	}
 
 	componentDidMount() {
 
 
-		let initialValues = {
-			sumSign: '1',
-			autoSplit: '0',
-			mainbillid: this.context.params.orderId
-		}
-
-		Store.dispatch(initialize('ReceivedBtnForm', initialValues));
+		/*let initialValues = {
+			preCode:'1',
+			mainbillId:this.context.params.orderId,
+		};
+		Store.dispatch(initialize('receivedBtnForm', initialValues));*/
 
 	}
 
 
-	onSubmit(values) {
+	onSubmit=(values)=> {
 		const {
 			onSubmit
 		} = this.props;
@@ -94,18 +78,113 @@ class ReceivedBtnForm extends Component {
 
 	}
 
-	onCancel() {
+	componentWillReceiveProps(nextProps){
+		 if(!nextProps.open){
+           Store.dispatch(change('receivedBtnForm','accountId',''));
+           Store.dispatch(change('receivedBtnForm','totalPayment',''));
+           Store.dispatch(change('receivedBtnForm','preCode','1'));
+           Store.dispatch(change('receivedBtnForm','operatedate',''));
+           Store.dispatch(change('receivedBtnForm','mainbillId',this.context.params.orderId));
+		 }
+		 
+	}
+
+	moneyCheck=(value)=>{
+		if(value&&isNaN(value)){
+          Message.error('需填写数字');
+          return ;
+		}
+		if(value&&value<0){
+		  Message.error('不能填写负数');
+          return ;	
+		}
+		if(value&&value==0){
+		  Message.error('金额不能为0');
+          return ;	
+		}
+	}
+
+  onCancel=()=> {
 		const {
 			onCancel
 		} = this.props;
 		onCancel && onCancel();
 	}
 
+   calcBalance=(value,input)=>{
+     var lastValue=value.split('.')[1]
+     if(lastValue&&lastValue.length>2){
+       Message.error('最多到小数点后两位');
+       return ; 
+     }
+   	 let {changeValues,calcBalance} = this.props;
+   	 input.value = value;
+   	 calcBalance && calcBalance(input);
+  
+   }
+  
+  joinInputRender=()=>{
+  	return (
+          <div style={{width:600,marginTop:8}} className='m-tenantStation'>
+              <KrField  label="押金"  grid={1/2}  name={'fix'+this.joinContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+              <KrField label="工位服务费"  grid={1/2} name={'fix'+this.joinContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+          </div>
+  	  )
+  }
+  increaseInputRender=()=>{
+  	return (
+          <div style={{width:600,marginTop:8}} className='m-tenantStation'>
+              <KrField  label="押金"  grid={1/2}  name={'fix'+this.increaseContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+              <KrField label="工位服务费"  grid={1/2} name={'fix'+this.increaseContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+          </div>
+  	  )
+  }
+  adminInputRender=()=>{
+  	return (
+          <div style={{width:600,marginTop:8}} className='m-tenantStation'>
+              <KrField  label="押金"  grid={1/2}  name={'fix'+this.adminContractId+'1'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+              <KrField label="工位服务费"  grid={1/2} name={'fix'+this.adminContractId+'3'} style={{width:261,marginLeft:28}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+          </div>
+  	  )
+  }
+  tenantInputRender=()=>{
 
+  	return (
+            <div className='depositMoney-render'  style={{width:546}}>
+              <KrField label="定金"  grid={1/2}  name={'fix'+this.tenantContractId+'2'} style={{width:261,marginLeft:-9}} component="input" type="text" onChange={this.calcBalance} onBlur={this.moneyCheck}/>
+            </div>
+  		)
+  }
+
+  receiveInputRender=()=>{
+  	        let {accountDetail}=this.props;
+             var _this=this;
+
+
+
+              return (
+              	    <div style={{marginBottom:-7}}>
+              	       {
+              	       	accountDetail.map(function(item,index){
+						      	if(index%2==0){
+									return <div className='leftBottomValue'><KrField key={index} style={{marginBottom:5,width:261,marginLeft:-9}}  grid={1/2}   label={item.propname} component="input" name={String(item.id)} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
+						      	}else{
+						      		return <div className='rightBottomValue'><KrField key={index} style={{marginBottom:5,width:261}} grid={1/2}   label={item.propname}  component="input" name={String(item.id)} type="text" onChange={_this.calcBalance} onBlur={_this.moneyCheck}/></div>
+						   }
+					     }
+		               )
+              	       }
+              	    </div>
+              	  )
+              
+
+  }
+  
+    
 
 	render() {
 
-
+         var _this=this;
 
 		let {
 			error,
@@ -113,67 +192,76 @@ class ReceivedBtnForm extends Component {
 			pristine,
 			reset,
 			optionList,
-			changeValues,
-			typeList
+			contractReceive,
+			accountDetail,	
 		} = this.props;
 
-		console.log('----',typeList);
-
-		let heightStyle = {
+        let heightStyle = {
 			width: '546',
-			height: '72'
+			height: '72',
 		}
 
 
+
+
+      contractReceive.map(function(item,index){
+      	   //意向书
+          if(item.value=='1'){
+          	item.component=_this.tenantInputRender;
+            _this.tenantContractId=item.contractId
+          }
+            //入驻协议书
+          if(item.value=='2'){
+          	item.component=_this.joinInputRender;
+          	_this.joinContractId=item.contractId
+          }
+           //增租协议书
+          if(item.value=='3'){
+          	item.component=_this.increaseInputRender;
+          	_this.increaseContractId=item.contractId
+          }
+           //续租协议书
+          if(item.value=='4'){
+          	item.component=_this.adminInputRender;
+          	_this.adminContractId=item.contractId
+          }
+           //无合同
+          if(item.value=='000'){
+          	item.component=_this.receiveInputRender
+          }
+       })
+
+
+      
+      
+       
+
 		return (
+          <div className='receive-form-middle'>
 
-			<div className='ui-receive-money'>
-
-					      <form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:45,marginLeft:'10px'}}>
-                            <KrField  name="mainbillid" type="hidden" component="input"/>
-		                    <KrField  label="代码名称" grid={1/2} right={30} name="accountId" style={{marginBottom:5}} type="select" options={optionList} requireLabel={true}/>
-						     <KrField name="sumSign" grid={1/2} left={30} component="group" style={{marginBottom:5,marginLeft:-30}}  label="金额正负" requireLabel={true}>
-				                <KrField name="sumSign" grid={1/2} right={30} label="正" component="radio" type="radio" value="0"/>
-				                <KrField name="sumSign"  grid={1/2} left={30}label="负" component="radio" type="radio" value="1"/>
+					      <form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:45,marginLeft:'10px',width:580}}>
+                            <KrField  name="mainbillId" type="hidden" component="input"/>
+		                    <KrField  label="支付方式" grid={1/2} right={30} name="accountId" style={{marginBottom:5}} type="select" options={optionList} requireLabel={true}/>
+						    <KrField name="preCode" grid={1/2} left={30} component="group" style={{marginLeft:-30}}  label="金额正负" requireLabel={true}>
+				                <KrField name="preCode" grid={1/2}  label="正" component="radio" type="radio" value="0"/>
+				                <KrField name="preCode"  grid={1/2} label="负" component="radio" type="radio" value="1"/>
 			                </KrField>
 
-						    <KrField component="date" grid={1/2} right={30} style={{marginTop:'-5px'}}  label="回款日期" name="receiveDate" requireLabel={true}/>
-						     <KrField label="上传附件" grid={1/2} left={30}  style={{marginTop:'-5px',marginLeft:-30}} name="fileids" component="file" />
-                             <KrField label="交易编号" grid={1/2} right={30} style={{marginBottom:5}}  placeholder='请输入交易编号'   name="dealCode"  component="input" type="text" requireLabel={true}/>
-                             <KrField label="是否自动拆分" grid={1/2} left={30} style={{marginBottom:5,marginLeft:-30}} name="autoSplit" component="select" options={
-						    	[{label:"是",value:"1"},{label:"否",value:"0"}]
-						    } requireLabel={true}/>
+						     <KrField component="date" grid={1/2} right={30} style={{marginTop:'-5px'}}  label="回款日期" name="operatedate" requireLabel={true}/>
+						     <KrField label="回款总额"  grid={1/2} right={30} style={{marginTop:'-6px'}} name="totalPayment" component="input" type="text" requireLabel={true} onChange={this.calcBalance}/>
+						     <KrField label="对应合同" name='contract' grid={1/2} component="groupCheckbox" defaultValue={contractReceive} requireLabel={true}/>
+                             
+              	             <div className='m-textareaText'><KrField label="备注" grid={1}  heightStyle={heightStyle} name="finaflowdesc" component="textarea" type="text" placeholder='请输入备注，输入字数不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/></div>
 
-						    {parseInt(changeValues.autoSplit)?<div>
-						    	 <KrField label="金额（元） " grid={1/2} style={{marginBottom:5}} right={30} name="sum" component="input" type="text" requireLabel={true} placeholder='请输入金额'/>
-						    </div>:<div>
-						      {typeList.map((item,index)=>{
-						      	if(index%2==0){
-									return <KrField key={index} style={{marginBottom:5}}  grid={1/2}  right={30} label={item.label} component="input" name={item.value} type="text"/>
-						      	}else{
-						      		return <KrField key={index} style={{marginBottom:5}}  grid={1/2} style={{marginLeft:-30}} left={30} label={item.label} component="input" name={item.value} type="text"/>
-						      	}
-
-						      }
-
-						       )}
-						    </div>}
+                             <KrField  grid={1} left={30}  style={{marginLeft:-30,marginTop:-10}} name="fileids" component="file" label="上传附件"  defaultValue={[]} />
+                            
 
 
-
-
-
-
-
-
-                            <KrField label="备注" grid={1}  heightStyle={heightStyle} name="remark" component="textarea" type="text" placeholder='请输入备注，输入字数不能超过100字' maxSize={100} lengthClass='ui-length-textarea'/>
-
-
-						   <Grid style={{marginTop:0,marginBottom:5}}>
+						   <Grid style={{marginTop:0,marginBottom:30}}>
 						<Row>
 							<Col md={12} align="center">
 								<ButtonGroup>
-									<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div>
+									<div  className='ui-btn-center'><Button  label="确定" type="submit" /></div>
 									<Button  label="取消" type="button" cancle={true}  onTouchTap={this.onCancel} />
 								</ButtonGroup>
 							</Col>
@@ -188,54 +276,32 @@ class ReceivedBtnForm extends Component {
 		);
 
 	}
-
 }
 
-const validate = values => {
-
-	const errors = {}
 
 
+const validate = values =>{
 
-	if (!values.accountId) {
-		errors.accountId = '请填写代码名称';
+
+		const errors = {}
+
+		if(!values.accountId){
+			errors.accountId = '请填写支付方式';
+		}
+		if(!values.operatedate){
+			errors.operatedate = '请填写回款日期';
+		}
+		if(!values.totalPayment){
+			errors.totalPayment = '请填写回款总额';
+		}
+		if(values.totalPayment&&isNaN(values.totalPayment)){
+			errors.totalPayment = '金额只能为数字'; 
+		}
+
+		return errors
 	}
 
-	if (!values.receiveDate) {
-		errors.receiveDate = '请填写回款日期';
-	}
 
-	if (!values.dealCode) {
-		errors.dealCode = '请填写交易编号';
-	}
-	if (!values.sum) {
-		errors.sum = '请填写金额';
-	}
 
-	if (values.sum && isNaN(values.sum)) {
-		errors.sum = '金额必须为数字';
-	}
-
-	return errors
-}
-
-const selector = formValueSelector('ReceivedBtnForm');
-
-ReceivedBtnForm = reduxForm({
-	form: 'ReceivedBtnForm',
-	validate,
-	enableReinitialize: true,
-	keepDirtyOnReinitialize: true
-})(ReceivedBtnForm);
-
-export default connect((state) => {
-
-	let changeValues = {};
-
-	changeValues.autoSplit = selector(state, 'autoSplit');
-
-	return {
-		changeValues
-	}
-
-})(ReceivedBtnForm);
+export default reduxForm({form:'receivedBtnForm',validate,enableReinitialize: true,
+	keepDirtyOnReinitialize: true,})(ReceivedBtnForm);

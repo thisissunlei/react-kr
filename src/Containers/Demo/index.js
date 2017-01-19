@@ -30,7 +30,6 @@ import {
 	BreadCrumbs,
 	Title,
 } from 'kr-ui';
-import './index.less'
 
 
 class CustomerList extends Component {

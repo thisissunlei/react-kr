@@ -177,6 +177,12 @@ export default class List extends Component {
 	onEditDetail=(values)=>{
 		var _this=this;
 		const params={};
+		console.log(this.state.itemDetail.interCode,"ll",values.interCode)
+		if(values.interCode==this.state.itemDetail.interCode){
+			
+			this.openEditDetailDialog();
+			return;
+		}
 		params.id=values.id;
 		params.foreignCode=values.foreignCode;
 		params.interCode=values.interCode;
