@@ -41,7 +41,6 @@ State.orderList=action(function(params) {
     var _this=this;
 	Store.dispatch(Actions.callAPI('customerOrdersList',{id:params})).then(function(response) {
          _this.orderDetail=response;
-         console.log(response,"333333")
 		}).catch(function(err) {
 			Message.error(err.message);
 		});

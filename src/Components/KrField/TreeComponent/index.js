@@ -9,7 +9,7 @@ import './index.less';
 import $ from 'jquery';
 import WrapComponent from '../WrapComponent';
 import TreeAll from './TreeData.json';
-
+import ProjectType from "./ProjectType";
 export default class TreeComponent extends React.Component {
 
 	static displayName = 'DateComponent';
@@ -24,6 +24,7 @@ export default class TreeComponent extends React.Component {
 		onSubmit: React.PropTypes.func,
 		inline: React.PropTypes.bool,
 		search: React.PropTypes.bool,
+		placeholder:React.PropTypes.string
 	}
 
 	constructor(props) {
@@ -33,11 +34,9 @@ export default class TreeComponent extends React.Component {
 		this.isInit = false;
 		this.state = {
 			showTreeList:false,
-			tree:[],
-			oldValue:"All",
-			oldParent:"window"
+			listId:"",
+			listValue:props.placeholder||"请选择项目类型"
 		}
-		
 
 	}
 
@@ -48,73 +47,29 @@ export default class TreeComponent extends React.Component {
 		// 	this.setDefaultDate(nextProps.input.value);
 		// }
 	}
-	clicks=(value)=>{
-
-
-	}
-	seover=(data,newValue,event)=>{
-		let treeArr=this.state.tree;
-		let newParent=event.target.attributes[1].value;
-
-		let {oldValue,oldParent}=this.state;
-
-
-		if(data.length==0){
-			return;
-		}
-		if(newParent==oldValue){
-			treeArr.length=treeArr.length;
-		}
-		if(newValue==oldParent){
-			treeArr.length=treeArr.length-2;
-		}else if(newParent==oldParent){
-			treeArr.length=treeArr.length-1
-		}
-		treeArr.push(this.selectList(data,newValue));
-		this.setState({
-			tree:treeArr,
-			oldValue:newValue,
-			oldParent:newParent
-		})
-	}
-	imitateInputClick=()=>{
-		let treeArr=this.state.tree;
-		if(treeArr.length==0){
-
-		
-			treeArr.push(this.selectList(TreeAll,"All"))
+	
+	
+	imitateInputClick=(value,listId)=>{
+			let {input}=this.props;
+			if(typeof(value)=="string"){
+				this.setState({
+					listId:listId,
+					listValue:value,
+					showTreeList:!this.state.showTreeList,
+				})
+				// return;
+			}
 			this.setState({
+				
 				showTreeList:!this.state.showTreeList,
-				tree:treeArr
 			})
-		}
-		
+			input.onChange(listId);
 
-		
+			
 	}
 
 
-	selectList=(data,parent)=>{
-		var _this=this;
-
-		let list=data.map(function(item,index){
-			return (<span 
-						className="ui-everyTree"
-						data-parent={parent}
-						onClick={
-							_this.clicks.bind(_this,item.codeName)
-						}
-						onMouseOver={
-							_this.seover.bind(_this,item.children,item.codeName)
-						}
-					>
-						{item.codeName}
-					</span>)
-		})
-		
-		return (<div style={{float:"left"}}>{list}</div>);
-		
-	}
+	
 	
 	render() {
 		let {label,style,requireLabel,inline,search}=this.props;
@@ -125,12 +80,14 @@ export default class TreeComponent extends React.Component {
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 				<div ref="ui-imitateInput" className={imitateInputStyle} onClick={this.imitateInputClick}>
-					<input readOnly="true" className="ui-treeInput" />
+					<input readOnly="true" className="ui-treeInput" value={this.state.listValue} />
 					<span className="ui-treeArrow"></span>
 				</div>
-				{this.state.showTreeList && <div className="ui-treeList">
-					{this.state.tree} 
-				</div>}
+				
+					{this.state.showTreeList&&<div className="ui-treeList">
+						<ProjectType data={TreeAll} num={true} treeClose={this.imitateInputClick} />
+					</div>}
+				
 			</WrapComponent>
 		);
 	}

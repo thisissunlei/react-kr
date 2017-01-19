@@ -194,7 +194,7 @@ class SignedClient extends Component{
 	            onExport={this.onExport}
 	            ajaxParams={this.state.searchParams}
 	            ajaxUrlName='signCustomers'
-	            ajaxFieldListName="list"
+	            ajaxFieldListName="items"
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>所属城市</TableHeaderColumn>

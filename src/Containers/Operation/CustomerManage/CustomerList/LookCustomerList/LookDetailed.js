@@ -66,7 +66,7 @@ class LookDetail extends Component{
 		let recordDevelop=State.recordDevelop;
 		let isOverflow=recordDevelop?{height:295,}:{height:"auto",paddingBottom:20};
 		
-		let tooltipTextStyle={width:"224px",whiteSpace:"normal",wordWrap:"break-word",height:"auto",lineHeight:"22px",overflow:"hidden"};
+		let tooltipTextStyle={maxWidth:"224px",whiteSpace:"normal",wordWrap:"break-word",height:"auto",lineHeight:"22px",overflow:"hidden"};
 		return(
 	      <div className="m-LookDetailed">
 		    

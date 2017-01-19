@@ -37,7 +37,6 @@ import EditIndent from "../EditIndent";
 import NewCustomerIndent from '../NewCustomerIndent';
 import SwitchPerson from '../SwitchPerson';
 import QuitContinue from './QuitContinue';
-import NewCustomerIndent from "../NewCustomerIndent";
 import './index.less'
 @observer
 class Personal extends Component{
@@ -236,7 +235,7 @@ class Personal extends Component{
 	            onExport={this.onExport}
 	            ajaxParams={this.state.searchParams}
 	            ajaxUrlName='personalCustomers'
-	            ajaxFieldListName="list"
+	            ajaxFieldListName="items"
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>
