@@ -101,7 +101,7 @@ export default class SearchForms extends Component{
 
 		} else {
 			let searchName = '';
-			let {searchFilter} = this.props;
+			let {searchFilter,inputName} = this.props;
 			let filterValue = '';
 
 			const filterDom = document.getElementsByClassName('search-name');
@@ -113,12 +113,14 @@ export default class SearchForms extends Component{
 					}
 				})
 			}
-			var searchWord = document.getElementById("keywords").value;
+			if(!inputName){
+				inputName='keywords';
+			}
+			var searchWord = document.getElementById(inputName).value||document.getElementById("keywords").value;
 				let value = {
 					filter:filterValue || '',
 					content:searchWord || ''
 				};
-
 				let {onSubmit} = this.props;
 				onSubmit && onSubmit(value);
 			// if(this.hasClass(searchForm, 'show-form')){
@@ -256,14 +258,18 @@ export default class SearchForms extends Component{
 	render(){
 		var placeholder=this.props.placeholder||"请输入查找内容"
 
-		let {style} = this.props;
+		let {style,inputName} = this.props;
+
+		if(!inputName){
+			inputName='keywords';
+		}
 		return (
 			<div className="search-form" ref={div=>{this.form = div}} name="search-form" style={style}>
 				<div className="search-status" >
 					{this.renderFilter()}
 
 					<div className="search-content">
-						<input type="text" autoComplete="off" className="search-val" placeholder={placeholder}  name="keywords" id="keywords"/>
+						<input type="text" autoComplete="off" className="search-val" placeholder={placeholder}  name={inputName||"keywords"} id={inputName||"keywords"}/>
 					</div>
 				</div>
 				<span className="icon-searching" onClick={this.click}></span>

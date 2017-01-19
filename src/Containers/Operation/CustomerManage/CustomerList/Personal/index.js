@@ -255,7 +255,7 @@ class Personal extends Component{
 
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
 				          <ListGroup>
-				            <ListGroupItem><SearchForms placeholder='请输入客户名称' onSubmit={this.onSearchSubmit} nameFlag='123'/></ListGroupItem>
+				            <ListGroupItem><SearchForms placeholder='请输入客户名称' inputName='per' onSubmit={this.onSearchSubmit}/></ListGroupItem>
 				            <ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
 				          </ListGroup>
 			          </Col>
