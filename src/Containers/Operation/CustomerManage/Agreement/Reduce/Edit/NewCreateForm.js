@@ -238,7 +238,8 @@ class NewCreateForm extends Component {
 			changeValues
 		} = this.props;
 		let {
-			stationVos
+			stationVos,
+			delStationVos
 		} = this.state;
 
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
@@ -246,7 +247,7 @@ class NewCreateForm extends Component {
 
 		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
-
+		form.delStationVos = delStationVos;
 		form.lessorAddress = changeValues.lessorAddress;
 		// form.lessorContactid = 111;
 		var _this = this;
@@ -254,6 +255,7 @@ class NewCreateForm extends Component {
 		form.stationVos = stationVos;
 
 		form.stationVos = JSON.stringify(form.stationVos);
+		form.delStationVos = JSON.stringify(form.delStationVos);
 		console.log('form111', form);
 		const {
 			onSubmit
