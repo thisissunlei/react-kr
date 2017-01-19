@@ -30,6 +30,7 @@ import {
 	Button,
 	KrField,
 	Form,
+	Loading,
 	BreadCrumbs,
 	Title
 } from 'kr-ui';
@@ -59,7 +60,8 @@ class CustomerList extends Component {
 		super(props, context);
 		this.state = {
 			tab: 'table',
-			communityId: ''
+			communityId: '',
+			initSearch:''
 		}
 		State.dataReady();
 		State.searchPersonalReady();
@@ -68,7 +70,6 @@ class CustomerList extends Component {
 
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(true));
-
 	}
 
 	onSetCommunity = (communityId) => {
@@ -77,34 +78,41 @@ class CustomerList extends Component {
 		});
 	}
 
-	merchants = () => {
+	merchants = () => {     
 		let {
-			tab
+			tab,
+			initSearch
 		} = this.state;
 		tab = 'merchants';
+		initSearch='m';
 		this.setState({
-			tab
+			tab,
+			initSearch
 		});
 	}
 
 	personal = () => {
 		let {
-			tab
+			tab,
+			initSearch
 		} = this.state;
-
 		tab = 'personal';
+		initSearch='p';
 		this.setState({
-			tab
+			tab,
+			initSearch
 		});
 	}
 	signedClient = () => {
 		let {
-			tab
+			tab,
+			initSearch
 		} = this.state;
-
 		tab = 'signedClient';
+		initSearch='s';
 		this.setState({
-			tab
+			tab,
+			initSearch
 		});
 	}
 
@@ -112,9 +120,11 @@ class CustomerList extends Component {
 	render() {
 
 		let {
-			tab
+			tab,
+			initSearch
 		} = this.state;
 
+		
 		const activeTab = {
 			color: '#2b8dcd',
 			borderBottom: "1px solid #eee",
@@ -125,9 +135,17 @@ class CustomerList extends Component {
 			borderBottom: "1px solid #eee",
             fontSize:'16px'
 		}
+		if(tab=='table'){
+			tab = 'merchants';
+			this.setState({
+				tab
+			});
+		}
+
 		let merchantsStyle = (tab == 'merchants') ? activeTab : commenTab;
 		let personalStyle = (tab == 'personal') ? activeTab : commenTab;
 		let signedClientStyle=(tab == 'signedClient')? activeTab : commenTab;
+		
 		const inkBarStyle = {
 			background: '-moz-linear-gradient(right, #03ec56, #499df1)',
 			background: '-webkit-linear-gradient(right, #03ec56, #499df1)',
@@ -147,6 +165,7 @@ class CustomerList extends Component {
 							<Merchants 
 								dataReady={State.dataRead} 
 								searchParams={State.searchParams}
+								initSearch={initSearch}
 							/>
 					</Tab>
 					<Tab label="个人客户"  onActive={this.personal} style={personalStyle}>
@@ -154,12 +173,14 @@ class CustomerList extends Component {
 							<Personal 
 								dataReady={State.dataRead}
 								searchParams={State.searchParams}
+								initSearch={initSearch}
 							/>
 					</Tab>
 					<Tab label="签约客户"  onActive={this.signedClient} style={signedClientStyle}>
 							<SignedClient 
 									dataReady={State.dataRead}
 									searchSignParams={State.searchSignParams}
+									initSearch={initSearch}
 							/>
 
 					</Tab>

@@ -51,7 +51,7 @@ class Personal extends Component{
 		this.state={
 			searchParams:{
 				page:1,
-				pageSize:15
+				pageSize:15,
 			},			
 			//选中的数量
 			dialogNum:0,
@@ -115,6 +115,9 @@ class Personal extends Component{
       
 	}
 
+	
+
+
 	 //选中几项领取，转移等
     onSelect=(value)=>{
     	var arrItem=[]
@@ -156,6 +159,17 @@ class Personal extends Component{
 			searchParams: obj
 		});
 	}
+
+	componentWillReceiveProps(nextProps){
+		this.setState({
+			searchParams: {
+			  company:'',
+			  page:1,
+			  pageSize:15,	 
+			}
+		});
+	}
+
     //转移确定
      switchPersonSubmit=(params)=>{
        let {arrItem}=this.state;

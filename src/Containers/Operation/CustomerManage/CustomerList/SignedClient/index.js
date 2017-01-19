@@ -114,6 +114,15 @@ class SignedClient extends Component{
 			searchParams: obj
 		});
 	}
+	componentWillReceiveProps(nextProps){
+		this.setState({
+			searchParams: {
+			  company:'',
+			  page:1,
+			  pageSize:15,	 
+			}
+		});
+	}
 
 	//高级查询
 	openSearchUpperDialog=()=>{

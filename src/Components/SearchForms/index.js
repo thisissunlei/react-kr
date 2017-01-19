@@ -116,7 +116,7 @@ export default class SearchForms extends Component{
 			if(!inputName){
 				inputName='keywords';
 			}
-			var searchWord = document.getElementById(inputName).value||document.getElementById("keywords").value;
+			var searchWord = document.getElementById(inputName).value;
 				let value = {
 					filter:filterValue || '',
 					content:searchWord || ''
@@ -269,7 +269,7 @@ export default class SearchForms extends Component{
 					{this.renderFilter()}
 
 					<div className="search-content">
-						<input type="text" autoComplete="off" className="search-val" placeholder={placeholder}  name={inputName||"keywords"} id={inputName||"keywords"}/>
+						<input type="text" autoComplete="off" className="search-val" placeholder={placeholder}  name={inputName} id={inputName}/>
 					</div>
 				</div>
 				<span className="icon-searching" onClick={this.click}></span>

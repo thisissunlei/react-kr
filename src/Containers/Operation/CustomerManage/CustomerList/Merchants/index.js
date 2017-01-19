@@ -166,6 +166,16 @@ class Merchants extends Component{
 		});
 	}
 
+	componentWillReceiveProps(nextProps){
+		this.setState({
+			searchParams: {
+			 company:'',
+			 page:1,
+			 pageSize:15,	 
+			}
+		});
+	}
+
 	//高级查询
 	openSearchUpperDialog=()=>{
 	  let {searchParams}=this.state;
@@ -212,6 +222,8 @@ class Merchants extends Component{
 	closeAllMerchants=()=>{
 		State.closeAllMerchants();
 	}
+
+
 
 
 	render(){
