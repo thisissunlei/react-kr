@@ -116,6 +116,7 @@ class Merchants extends Component{
       if(type=='watch'){
       	State.MerchantsListId(itemDetail.id);
       	State.switchLookCustomerList();
+      	State.companyName=itemDetail.company;
       }
     }
 	//新建提交按钮
@@ -281,7 +282,7 @@ class Merchants extends Component{
 			                <TableRowColumn name="sourceName"></TableRowColumn>
 			                <TableRowColumn name="levelName"></TableRowColumn>
 			                <TableRowColumn name="receiveName"></TableRowColumn>
-			                <TableRowColumn name="createDate" type='date' format="yyyy-mm-dd HH:MM:ss" ></TableRowColumn>
+			                <TableRowColumn name="createDate" type='date' format="yyyy-mm-dd HH:MM:ss"></TableRowColumn>
 			                <TableRowColumn type="operation">
 			                    <Button label="查看"  type="operation"  operation="watch" />
 			                 </TableRowColumn>
@@ -345,10 +346,9 @@ class Merchants extends Component{
 					</Drawer>
 
 				    {/*新增拜访记录*/}
-					{/*<Drawer
+					<Drawer
 							open={State.openNewCustomerIndent}
-							width={750}
-
+							width={650}
 							openSecondary={true}
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
@@ -357,9 +357,10 @@ class Merchants extends Component{
 			                 comeFrom="Merchant"
 							 onCancel={this.switchCustomerIndent}
 			                 listId={State.listId}
-			                 dataReady={dataReady}
+			                 selectDatas={dataReady}
+			                 companyName={State.companyName}
 						/>
-					</Drawer>*/}
+					</Drawer>
 
 
                     {/*高级查询*/}

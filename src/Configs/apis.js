@@ -701,7 +701,7 @@ const APIS = {
  },
  //客户管理－新增拜访记录
  'customerVisitRecord': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/visit-record/actions/add',
+   url:'/mockjsdata/23/krspace-finance-web/customer/visit-log/actions/add',
    method:'post'
  },
   //客户管理－根据客户获取订单列表

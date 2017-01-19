@@ -35,12 +35,10 @@ import './index.less'
 
     
 	onSubmit = (values) => {
-		 console.log('66gggg',values);
 		 var _this=this;
-	     Store.dispatch(Actions.callAPI('customerVisitRecord',{},{values})).then(function(response) {
+	     Store.dispatch(Actions.callAPI('customerVisitRecord',{},values)).then(function(response) {
 		   _this.onCancel();
 		 }).catch(function(err) {
-		 	console.log('kkknnnnn666',err);
 		 	Message.error(err.message);
 		 });
 	}
@@ -51,10 +49,10 @@ import './index.less'
 	}
 
 	hasSelectClick = (params) =>{
-		if(params.value=="YES"){
+		if(params.value=="NO"){
 			Store.dispatch(change('NewVisitIndent','reasonId',''));
 			State.showMatureTime();
-		}else if(params.value=="NO"){
+		}else if(params.value=="YES"){
 			State.noShowMatureTime();
             State.noShowOtherContinue();
 		}
@@ -108,14 +106,14 @@ import './index.less'
 
 			<form className="m-newVisitIndent" onSubmit={handleSubmit(this.onSubmit)}>
 				<div className="title">
-						<div><span className="new-icon"></span><label className="title-text">{this.props.companyName}</label></div>
+						<div><span className="new-icon"></span><label className="title-text" style={{marginLeft:7}}>{this.props.companyName}</label></div>
 						<div className="close" onClick={this.onCancel}></div>
 				</div>
 				
 				<div className="kk" style={{marginTop:27}}>	
 				    <KrField name="customerId" type='hidden'/> 	
 					<KrField grid={1/2} label="拜访方式" name="visitType" style={{width:261,marginLeft:-6}} component="select" 
-							options={selectDatas.visitTypeList}
+						    options={selectDatas.visitTypeList}
 							requireLabel={true}
 					/>
 					
