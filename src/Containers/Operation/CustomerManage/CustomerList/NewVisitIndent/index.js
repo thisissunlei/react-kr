@@ -32,6 +32,23 @@ import './index.less'
 		super(props);
 	}
 
+	componentWillReceiveProps(nextProps){
+		 if(!nextProps.open){
+           Store.dispatch(change('NewVisitIndent','visitType',''));
+           Store.dispatch(change('NewVisitIndent','visitTime',''));
+           Store.dispatch(change('NewVisitIndent','isContinue','YES'));
+           Store.dispatch(change('NewVisitIndent','linkName',''));
+           Store.dispatch(change('NewVisitIndent','linkTel',''));
+           Store.dispatch(change('NewVisitIndent','visitDetail',''));
+           Store.dispatch(change('NewVisitIndent','levelId',''));
+           Store.dispatch(change('NewVisitIndent','remark',''));
+           Store.dispatch(change('NewVisitIndent','reasonId',''));
+           Store.dispatch(change('NewVisitIndent','reasonOther',''));
+           Store.dispatch(change('NewVisitIndent','customerId',''));
+		 }
+		 
+	}
+
 
     
 	onSubmit = (values) => {
@@ -47,7 +64,7 @@ import './index.less'
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
-
+    
 	hasSelectClick = (params) =>{
 		if(params.value=="NO"){
 			Store.dispatch(change('NewVisitIndent','reasonId',''));
@@ -69,6 +86,11 @@ import './index.less'
 			  State.noShowOtherContinue();
 		}
 		
+	}
+
+	componentDidMount(){
+	  State.noShowMatureTime();
+      State.noShowOtherContinue();
 	}
 	
 
@@ -127,12 +149,12 @@ import './index.less'
 					/>
 					<KrField grid={1/2} label="联系方式" name="linkTel" style={{width:261,marginLeft:-6}} component="input" requireLabel={true}/>
 					<KrField grid={1/2} label="是否继续跟进" name="isContinue" style={{width:261,marginLeft:29}} component="group" requireLabel={true}>
-		              	<KrField  name="isContinue" label="是" type="radio" value="YES" onClick={this.hasSelectClick}/>
-		             	<KrField  name="isContinue" label="否" type="radio" value="NO" onClick={this.hasSelectClick}/>
+		              	<KrField  name="isContinue" label="是"  value="YES" component="radio"  type="radio" onClick={this.hasSelectClick}/>
+		             	<KrField  name="isContinue" label="否"  value="NO" component="radio" type="radio" onClick={this.hasSelectClick}/>
 		            </KrField>
 		            {this.renderContinue()}
 					{this.renderOtherContinue()}
-					<div className='speakInfo'><KrField grid={1} label="沟通情况" name="visitDetail" style={{marginLeft:-6,marginTop:3}} heightStyle={{height:"80px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={true} placeholder='请输入订单描述' lengthClass='visit-length-textarea'/></div>
+					<div className='speakInfo'><KrField grid={1} label="沟通情况" name="visitDetail" style={{marginLeft:-6,marginTop:3}} heightStyle={{height:"80px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={true} placeholder='请输入订单描述' lengthClass='order-textarea'/></div>
 					<KrField grid={1} label="备注" name="remark" style={{marginLeft:-6,marginTop:-17}} heightStyle={{height:"80px",width:'543px'}}  component="textarea"  maxSize={100} placeholder='请输入订单描述' lengthClass='visit-length-textarea'/>
 				</div>		
 				<Grid>

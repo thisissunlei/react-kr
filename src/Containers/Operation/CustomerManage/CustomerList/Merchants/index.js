@@ -355,6 +355,7 @@ class Merchants extends Component{
 					 >
 						<NewVisitIndent
 			                 comeFrom="Merchant"
+			                 open={State.openNewCustomerIndent}
 							 onCancel={this.switchCustomerIndent}
 			                 listId={State.listId}
 			                 selectDatas={dataReady}
