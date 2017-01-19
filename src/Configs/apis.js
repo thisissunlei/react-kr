@@ -308,6 +308,16 @@ const APIS = {
   url:'/api-old/sys/sysOwn/editPassword',
   method:'post'
 },
+//权限--登录
+'personalLogin':{
+  url:'/mockjsdata/6/login/loginsubmit',
+  method:'post'
+},
+//权限--发送验证码
+'loginGetVerifyCode':{
+  url:'/mockjsdata/6/login/findPassword/checkVerifyCode',
+  method:'post'
+},
 //新建编辑会员的准备数据
   'getMemberBasicData':{
   	url:'/api/krspace-finance-web/member/member-add-edit?companyId={companyId}&memberId={memberId}&communityId={communityId}',

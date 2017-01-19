@@ -24,6 +24,7 @@ import {
   ListGroup,
   ListGroupItem,
   Message,
+	Notify,
 } from 'kr-ui';
 
 import State from './State';
@@ -38,15 +39,35 @@ class Login extends Component {
 	constructor(props, context) {
 		super(props, context);
     this.state={
-      forgetPwd:false,
-      verifyByMail:true,
-      verifyByMobile:false,
-      noneName:false,
+			noneName:false,
       nonePwd:false,
+			errThree:false,
+			//验证
+      forgetPwd:false,
+			timedisabled:'S后重新获取',
+			//邮箱
+      verifyByMail:true,
+			togetMailtest: true,
+			gettingMail: false,
+			MailTimeDisabledState:false,
+			timeminMail:60,
+			regettestMailState:false,
+			//手机
+      verifyByMobile:false,
+			togetMobiletest: true,
+			gettingMobile:false,
+			MobileTimeDisabledState:false,
+			regettestMobileState:false,
+			timeminMobile:60,
+			//重置
       editPwd:false,
       canLogin:true,
       pwdOneHide:true,
       pwdTwoHide:true,
+			notSame:false,
+			//重置成功
+			edited:false,
+			timeToLogin:3,
     }
 	}
 	componentDidMount() {
@@ -153,12 +174,53 @@ class Login extends Component {
 
     animation();
   }
+	//登录部分
+	submitLogin=()=>{
+		if(!this.refs.loginName.value){
+			this.setState({
+				noneName:true,
+			})
+
+		}
+		if(!this.refs.loginPwds.value){
+			this.setState({
+				nonePwd:true,
+			})
+		}
+		if(this.refs.loginName.value && this.refs.loginPwds.value){
+			this.setState({
+				forgetPwd:false,
+				canLogin:true,
+				verifyByMail:true,
+				nonePwd:false,
+				noneName:false,
+			})
+		}
+		var _this = this;
+		Store.dispatch(Actions.callAPI('personalLogin', {},{
+			loginName:_this.refs.loginName,
+			loginPwds:_this.refs.loginPwds,
+		})).then(function(response) {
+		}).catch(function(err) {
+			// if(err.code<0){
+			// 	Message.error(err.message)
+			// }
+		});
+	}
+	goToVerify=()=>{
+		this.setState({
+			forgetPwd:true,
+			editPwd:false,
+			verifyByMail:true,
+		})
+	}
   forgetPwd=()=>{
     this.setState({
       forgetPwd:true,
       canLogin:false,
     })
   }
+	//验证部分
   mailTitleClick=()=>{
     this.setState({
       verifyByMail:true,
@@ -170,36 +232,182 @@ class Login extends Component {
     })
   }
   goToLogin=()=>{
-    this.setState({
-      forgetPwd:false,
-      canLogin:true,
-      verifyByMail:true,
-    })
+		this.setState({
+			forgetPwd:false,
+			canLogin:true,
+			verifyByMail:true,
+			nonePwd:false,
+			noneName:false,
+		})
   }
-  goToVerify=()=>{
-    this.setState({
-      forgetPwd:true,
-      editPwd:false,
-      verifyByMail:true,
-    })
-  }
-  toEditPwd=()=>{
+	//邮箱验证
+	togetMailtestCode=()=>{
+		this.refs.verifyCode.value='';
+		this.setState({
+			gettingMail:true,
+			regettestMailState:false,
+			togetMailtest:false,
+		},function(){
+			var _this = this;
+			Store.dispatch(Actions.callAPI('loginGetVerifyCode', {},{
+				codeType:'MAIL',
+				email:_this.refs.loginMail.value,
+			})).then(function(response) {
+				_this.togetMailtest()
+			}).catch(function(err) {
+				if(err.code<0){
+					Message.error(err.message)
+				}
+				_this.setState({
+					gettingMail:false,
+					togetMailtest:true,
+				})
+			});
+		})
+	}
+	//邮箱验证点击获取验证码函数
+	togetMailtest =()=>{
+		window.clearTimeout(this.timerMail);
+		var _this = this;
+		this.setState({
+			MailTimeDisabledState:true,
+			regettestMailState:false,
+			timeminMail:60,
+			gettingMail:false,
+		},function(){
+			time()
+		})
+		function time() {
+				if (_this.state.timeminMail == 0) {
+						_this.setState({
+							regettestMailState:true,
+							MailTimeDisabledState:false,
+							togetMailtest:false,
+						})
+				} else {
+					_this.setState({
+						timeminMail:--_this.state.timeminMail,
+					})
+					_this.timerMail =	window.setTimeout(function() {
+								time()
+						},
+						1000)
+				}
+		}
+	}
+	//手机验证
+	togetMobiletestCode=()=>{
+		this.refs.verifyCode.value='';
+		this.setState({
+			regettestMobileState:false,
+			gettingMobile:true,
+			togetMobiletest:false,
+		},function(){
+			var _this = this;
+			Store.dispatch(Actions.callAPI('loginGetVerifyCode', {},{
+				codeType:'SMS',
+				mobile:_this.refs.loginMobile.value,
+			})).then(function(response) {
+				_this.togetMobiletest()
+			}).catch(function(err) {
+				if(err.code<0){
+					Message.error(err.message)
+				}
+				_this.setState({
+					gettingMobile:false,
+					togetMobiletest:true,
+				})
+			});
+		})
+	}
+	//手机验证点击获取验证码函数old
+	togetMobiletest =()=>{
+		window.clearTimeout(this.timer);
+		var _this = this;
+		this.setState({
+			togettest:true,
+			gettingMobile:false,
+			MobileTimeDisabledState:true,
+			regettestMobileState:false,
+			timeminMobile:60,
+		},function(){
+			time()
+		})
+		function time() {
+        if (_this.state.timeminMobile == 0) {
+            _this.setState({
+							regettestMobileState:true,
+							MobileTimeDisabledState:false,
+							togetMobiletest:false,
+						})
+        } else {
+					_this.setState({
+						timeminMobile:--_this.state.timeminMobile,
+					})
+            _this.timer = window.setTimeout(function() {
+                time()
+            },
+            1000)
+        }
+    }
+	}
+	//重置密码
+	toEditPwd=()=>{
     this.setState({
       editPwd:true,
       forgetPwd:false,
       canLogin:false,
     })
   }
-  showPwdOne=()=>{
-    this.setState({
-      pwdOneHide:!this.state.pwdOneHide,
-    })
-  }
-  showPwdTwo=()=>{
-    this.setState({
-      pwdTwoHide:!this.state.pwdTwoHide,
-    })
-  }
+	showPwdOne=()=>{
+		this.setState({
+			pwdOneHide:!this.state.pwdOneHide,
+		})
+	}
+	showPwdTwo=()=>{
+		this.setState({
+			pwdTwoHide:!this.state.pwdTwoHide,
+		})
+	}
+	//重置密码完成
+	goToEdited=()=>{
+		this.setState({
+			notSame:fasle,
+		})
+		var _this = this;
+		if(_this.refs.onePwd!==_this.refs.twoPwd){
+			_this.setState({
+				notSame:true,
+			})
+			return;
+		}
+		if(_this.refs.onePwd.value==_this.refs.twoPwd){
+
+			return;
+		}
+		window.clearTimeout(this.timerLogin)
+
+		this.setState({
+			edited:true,
+			editPwd:false,
+			timeToLogin:3,
+		},function(){
+			time()
+		})
+		function time(){
+			if (_this.state.timeToLogin == 0) {
+					window.location.reload();
+			} else {
+				_this.setState({
+					timeToLogin:--_this.state.timeToLogin,
+				})
+				_this.timerLogin =	window.setTimeout(function() {
+							time()
+					},
+					1000)
+			}
+		}
+	}
 	render() {
 
 		return (
@@ -212,25 +420,30 @@ class Login extends Component {
               </div>
               <div className="login-box">
                 <div className="logos"></div>
-
                 { this.state.canLogin &&
                   <div>
                   <div className="login-tip">登录</div>
                   <div className="login-content">
-
                      <ul className="login-content-ul">
-                      <li className="info" id="showMsg">&nbsp;</li>
                        <li className="input-txt loginname">
-                         <Input style={{width:"80%",marginTop:5}} type="text" name="loginname" placeholder="请输入手机号或者邮箱"/>
+                         <Input style={{width:"80%",marginTop:5}} type="text" ref="loginName" placeholder="请输入手机号或者邮箱"/>
                          { this.state.noneName && <span className="redErr">请输入您的手机号/邮箱</span>}
                        </li>
                        <li className="input-txt loginpwd">
-                         <Input style={{width:"80%",marginTop:5}} name="stationnum" component="input" type="password" placeholder="请输入密码"/>
+                         <Input style={{width:"80%",marginTop:5}} ref="loginPwds" component="input" type="password" placeholder="请输入密码"/>
                            { this.state.nonePwd && <span className="redErr">请输入密码</span>}
                        </li>
 
+											 { this.state.errThree &&
+												 <li className="clearfix">
+				                   <div className="input-verifycode">
+					                   <Input type="text" placeholder="请输入验证码"/>
+				                   </div>
+				                   <div className="input-verifycode-img"></div>
+			                 	</li>
+										 	 }
                        <li>
-                          <p  className="login-btn" onClick={this.submit}>登&nbsp;&nbsp;&nbsp;录</p>
+                          <p  className="login-btn" onClick={this.submitLogin}>登&nbsp;&nbsp;&nbsp;录</p>
                        </li>
                        <li onClick={this.forgetPwd} className="login-pwdinfo">
                          忘记密码?
@@ -249,17 +462,19 @@ class Login extends Component {
 
                   		<div className="login-content">
                   			 <ul className="login-content-ul">
-                  					<li className="info J_msg" >&nbsp;</li>
                   			         <li className="input-txt loginpwds">
-
-                  			         	<Input type="text"   placeholder="请输入邮箱"/>
+                  			         	<Input type="text" ref="loginMail" placeholder="请输入邮箱"/>
                   			         </li>
                   				     <li className="clearfix">
                   				          <div className="input-verifycode fl">
-                  					            <Input type="text" className="codes" id="verifyCode" name="verifyCode"  placeholder="请输入验证码"/>
+                  					            <Input type="text" className="codes" ref="verifyCode" placeholder="请输入验证码"/>
                   				          </div>
-                  				          <span className="sendCode" id="sendVerifyCodeLabel"  >发送验证码</span>
-                  				     </li>
+
+																			{ this.state.togetMailtest && <span className="sendCode" onClick={this.togetMailtestCode} >发送验证码</span>}
+																			{ this.state.gettingMail && <span className="timeout">正在发送...</span>}
+																			{ this.state.MailTimeDisabledState && <span className="timeout">{this.state.timeminMail+this.state.timedisabled}</span>}
+																			{ this.state.regettestMailState && <span className="sendCode" onClick={this.togetMailtestCode} >重新获取</span>}
+																 </li>
                   			         <li>
                   			             <Input onClick={this.toEditPwd} type="button" value="下一步" className="login-btn next"  />
                   			         </li>
@@ -276,18 +491,21 @@ class Login extends Component {
 
                   		<div className="login-content">
                   			 <ul className="login-content-ul">
-                  					<li className="info J_msg" id="showMsg" >&nbsp;</li>
                   			         <li className="input-txt loginpwds">
-                  			         	<Input type="text" placeholder="请输入手机"/>
+                  			         	<Input type="text" ref="loginMobile" placeholder="请输入手机"/>
                   			         </li>
                   				     <li className="clearfix">
                   				          <div className="input-verifycode fl">
-                  					            <input type="text" className="codes" id="verifyCode" name="verifyCode"  placeholder="请输入验证码"/>
+                  					            <Input type="text" className="codes" ref="verifyCode" placeholder="请输入验证码"/>
                   				          </div>
-                  				          <span className="sendCode" id="sendVerifyCodeLabel"  >发送验证码</span>
+																			{ this.state.togetMobiletest && <span className="sendCode" onClick={this.togetMobiletestCode} >发送验证码</span>}
+																			{ this.state.gettingMobile && <span className="timeout">正在发送...</span>}
+																			{ this.state.MobileTimeDisabledState && <span className="timeout">{this.state.timeminMobile+this.state.timedisabled}</span>}
+																			{this.state.regettestMobileState && <span onClick={this.togetMobiletestCode} className="sendCode">重新获取</span>}
+
                   				     </li>
                   			         <li>
-                  			             <input type="button" value="下一步" onClick={this.toEditPwd} className="login-btn next"  />
+                  			             <Input type="button" value="下一步" onClick={this.toEditPwd} className="login-btn next"  />
                   			         </li>
                   			         <li onClick={this.goToLogin} className="login-pwdinfo">
                   			             返回登录
@@ -302,43 +520,99 @@ class Login extends Component {
                     <div className="login-tip">重置密码</div>
                       <div className="login-content">
                 					 <ul className="login-content-ul">
-            				         <input type="hidden" name="loginkey" id="loginkey"/>
-            					 		   <li className="info" id="showMsg"  ></li>
-            					       <li className="input-txt pwdone pwd">
-                                   <Input
+														 <form >
+            					    {/*
+														<li className="input-txt pwdone pwd">
+                                   <KrField
                                        type={this.state.pwdOneHide?'password':'text'}
-                                       className="J_pwd"
+																			 name="onePwd"
                                        ref="onePwd"
-                                       name="onePwd"
                                        placeholder="请输入密码"
+																			 notifys={['6-20位字符','只能包含大小写字母、数字以及标点符号（除空格）','大写字母、小写字母、数字和标点符号至少包含两种']}
                                     />
-                                  <span
+
+                                  <p
                                       className={this.state.pwdOneHide?'hidePwd':' '}
                                       onClick={this.showPwdOne}>
-                                  </span>
+                                  </p>
             					       </li>
-            						     <li className="input-txt pwdtwo pwd">
-                                      <Input
-                                          type={this.state.pwdTwoHide?'password':'text'}
-                                          className="J_pwdTwo"
-                                          ref="twoPwd"
-                                          placeholder="请再次输入密码"
-                                      />
-                                    <span
-                                        className={this.state.pwdTwoHide?'hidePwd':' '}
-                                        onClick={this.showPwdTwo}>
-                                    </span>
-            						     </li>
+														*/}
+														<li className="hideInput">
+															<input type="text" />
+														</li>
+														 <li className="inputtest">
+															 <KrField
+																	 type={this.state.pwdOneHide?'password':'text'}
+																	 component="input"
+																	 name="onePwdadsfasdf"
+																	 autoComplete="off"
+																	 ref="onePwd"
+																	 placeholder="请输入密码"
+																	 notifys={['6-20位字符','只能包含大小写字母、数字以及标点符号（除空格）','大写字母、小写字母、数字和标点符号至少包含两种']}
+																/>
+																<p
+																		className={this.state.pwdOneHide?'hidePwd':' '}
+																		onClick={this.showPwdOne}>
+																</p>
+														 </li>
+														 <li className="inputtesttwo">
+															 <KrField
+																 	 component="input"
+																	 autoComplete="off"
+																	 type={this.state.pwdTwoHide?'password':'text'}
+																	 name="twoPwd"
+																	 ref="twoPwd"
+																	 placeholder="请再次输入密码"
+																/>
+																<p
+																		className={this.state.pwdTwoHide?'hidePwd':' '}
+																		onClick={this.showPwdTwo}>
+																</p>
+														 </li>
+														 {this.state.notSame &&
+															 <li className="notSame">
+																 两次输入的密码不一致 请重新输入
+															 </li>
+														 }
+
+            						{/*
+													<li className="input-txt pwdtwo pwd">
+																			<KrField
+																					type={this.state.pwdTwoHide?'password':'text'}
+																					ref="twoPwd"
+																					name="twoPwd"
+																					component="input"
+																					placeholder="请再次输入密码"
+																			/>
+																		<p
+																				className={this.state.pwdTwoHide?'hidePwd':' '}
+																				onClick={this.showPwdTwo}>
+																		</p>
+														 </li>
+													*/}
           					         <li>
-          					             <input type="button" value="完成并登录" className="login-btn J_login" />
+          					             <input type="button" onClick={this.goToEdited} value="完成并登录" className="login-btn J_login" />
           					         </li>
           					         <li onClick={this.goToVerify} className="login-pwdinfo">
           					              返回上一步
           					         </li>
+														 </form>
                 					 </ul>
                   </div>
                 </div>
                 }
+								{ this.state.edited &&
+                  <div className="edited">
+                    <div className="login-tip">重置完成</div>
+                      <div className="login-content">
+                					 <ul className="login-content-ul">
+            				        	<li className="editOk"><span>重置成功，请牢记新的登录密码</span></li>
+															<li className="timeToLogin"><span>该页面在{this.state.timeToLogin}秒后自动跳转到登陆页</span></li>
+                					 </ul>
+                  </div>
+                </div>
+                }
+
 
               </div>
             </div>

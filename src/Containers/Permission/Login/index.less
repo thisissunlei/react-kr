@@ -1,6 +1,14 @@
 .g-permission-login{
+  font-family: "Microsoft YaHei", "黑体";
   input{
     border: none;
+  }
+  input:-webkit-autofill {
+  //-webkit-box-shadow: 0 0 0px 1000px white inset !important;
+  //-webkit-text-fill-color: #333 !important;
+  }
+  .ui-form-notify{
+    text-align: left;
   }
     #canvas{
       position:absolute;
@@ -50,6 +58,7 @@
           	color: #57a9f9;
           	font-size: 24px;
           	padding-top: 62px;
+            margin-bottom: 35px;
           }
           .login-content-ul {
           	width:320px;
@@ -58,7 +67,6 @@
           	font-family: "微软雅黑", "黑体";
           	padding-left:5px;
           	position:relative;
-
           .info {
           	padding: 11px 0;
           	color: #ff0000;
@@ -105,7 +113,35 @@
           	background: url(images/2_07.jpg) 10px center no-repeat !important;
           	margin-bottom: 16px;
           }
-
+          .clearfix{
+            .input-verifycode{
+              width: 121px;
+              height: 50px;
+              border: 1px solid #dfdfdf;
+              border-radius: 4px; /* W3C syntax */
+              margin-bottom:15px;
+              background: url(images/code_1.png) 10px center no-repeat;
+              padding-left:51px;
+              float: left;
+              input{
+                width: 92%;
+                height: 50px;
+                color: #333;
+                font-family: "微软雅黑", "黑体";
+                font-size: 16px;
+                background: none;
+              }
+              .codes{
+                width: 100% !important;
+                padding-left:9px;
+              }
+            }
+            .input-verifycode-img {
+              	width:45%;
+              	height:50px;
+                float: right;
+              }
+          }
           .login-btn {
             width:100%;
             height: 50px;
@@ -226,6 +262,19 @@
                 	text-align:center;
                 	cursor: pointer;
                 }
+                .timeout{
+                  width:100px;
+                	height: 50px;
+                	background:#bfbfbf;
+                	color:#fff;
+                	display:inline-block;
+                	border-radius: 4px; /* W3C syntax */
+                	line-height:50px;
+                	font-size:14px;
+                	margin-left:40px;
+                	text-align:center;
+                	cursor: pointer;
+                }
                 .fl{
 
                 }
@@ -281,22 +330,86 @@
             .pwd{
             	margin-bottom:15px !important;
             	position:relative;
-              input{
+              input:nth-child(1){
               	width:80% !important;
-              	height: 24px !important;
               	color: #333;
               	font-size: 16px;
+                border: none;
               	font-family: "微软雅黑", "黑体";
-              	margin-top:12px;
+              	margin-top:-4px;
               }
-              span{
+              p{
                 display:inline-block;
               	width:32px;
               	height:32px;
               	position:absolute;
               	right:10px;
-              	top:10px;
+              	top:-6px;
               	background:url(images/show_10.jpg) center center no-repeat;
+              }
+              .hidePwd{
+              	background:url(images/close1_05.jpg) center center no-repeat !important;
+              }
+            }
+            .hideInput{
+              width: 0;
+              height: 0;
+            }
+            .inputtest{
+              position: relative;
+              input{
+                background:url(images/pwd_03.jpg) 10px center no-repeat;
+                margin-bottom:15px !important;
+                width: 103%;
+              	height: 50px;
+              	border: 1px solid #dfdfdf;
+              	border-radius: 4px; /* W3C syntax */
+              	text-indent: 56px;
+                position: relative;
+                margin-left: -10px;
+              }
+               input:-webkit-autofill {
+                 -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+                 -webkit-text-fill-color: #333 !important;
+               }
+              p{
+                display:inline-block;
+                width:32px;
+                height:32px;
+                position:absolute;
+                right:12px;
+                top:5px;
+                background:url(images/show_10.jpg) center center no-repeat;
+              }
+              .hidePwd{
+              	background:url(images/close1_05.jpg) center center no-repeat !important;
+              }
+            }
+            .inputtesttwo{
+              position: relative;
+              input{
+                background:url(images/pwd_06.jpg) 10px center no-repeat;
+                margin-bottom:15px !important;
+                width: 103%;
+              	height: 50px;
+              	border: 1px solid #dfdfdf;
+              	border-radius: 4px; /* W3C syntax */
+              	text-indent: 56px;
+                position: relative;
+                margin-left: -10px;
+              }
+              input:-webkit-autofill {
+              -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+              -webkit-text-fill-color: red !important;
+              }
+              p{
+                display:inline-block;
+                width:32px;
+                height:32px;
+                position:absolute;
+                right:12px;
+                top:5px;
+                background:url(images/show_10.jpg) center center no-repeat;
               }
               .hidePwd{
               	background:url(images/close1_05.jpg) center center no-repeat !important;
@@ -309,11 +422,66 @@
             .pwdone{
             	background:url(images/pwd_03.jpg) 10px center no-repeat;
             }
+            .notSame{
+              color: #ff3030;
+              font-size: 12px;
+              width: 123px;
+              position: absolute;
+              right: -140px;
+              top: 110px;
+            }
 
 
     }
 
-}}}}
+  }
+      .edited{
+        .login-tip {
+          color: #57a9f9;
+          font-size: 24px;
+          padding-top: 62px;
+        }
+        .login-content-ul {
+          width:320px;
+          margin-left:auto;
+          margin-right:auto;
+          font-family: "微软雅黑", "黑体";
+          padding-left:5px;
+          position:relative;
+          .editOk{
+            margin: 0 auto;
+            width: 225px;
+            height: 150px;
+            margin-top: 10px;
+            background: url(images/littletrue.svg)  center top no-repeat;
+            background-size: 90px 90px;
+            text-align: center;
+            position: relative;
+            span{
+              font-weight: 600;
+              font-size: 16px;
+              width: 100%;
+              position: absolute;
+              bottom: 0;
+              text-align: center;
+              display: block;
+            }
+          }
+          .timeToLogin{
+            width: 225px;
+            line-height: 40px;
+            color: #666666;
+            font-size: 14px;
+            margin: 0 auto;
+          }
+
+        }
+      }
+
+
+    }
+  }
+}
 
     .footer-wrap {
     	width: 100%;

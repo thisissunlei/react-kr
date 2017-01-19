@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run dev:webpack",
+    "start": "npm run dev:test",
     "dev": "export NODE_ENV=development  && nodemon --debug -L ./server.js",
     "dev:webpack": " export NODE_ENV=development  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile --hot --watch  --inline",
     "dev:test": " export NODE_ENV=test  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile --hot --watch  --inline",
