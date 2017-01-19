@@ -1,5 +1,6 @@
 import React from 'react';
 import {stopSubmit,submit,blur,stopAsyncValidation,touch} from 'redux-form';
+import {Actions,Store} from 'kr/Redux';
 import plus from "../images/plus.svg";
 import toright from "../images/toright.svg";
 import Input from "../../../Input"
@@ -14,13 +15,21 @@ export default class Left extends React.Component{
 		this.state = {
 			communitys:[],
 			newArrayCommunity:[],
-			isIncommunity:''
+			isIncommunity:'',
+			communitys: []
 		}
 	}
 	componentDidMount(){
-		this.setState({
-			communitys:this.props.communitys
-		})
+		let _this = this;
+		Store.dispatch(Actions.callAPI('getCommunityEquipment',""))
+	      .then(function(response){
+	      	_this.setState({
+	      		communitys : response.items
+	      	})
+
+	    }).catch(function(err){
+	        Message.error(err.message);
+	    });
 	}
 	chooseAllCommunity=()=>{
 		const {chooseAllCommunity}=this.props;
@@ -34,6 +43,7 @@ export default class Left extends React.Component{
 		let {addCommunity}= this.props;
 		addCommunity && addCommunity(detailCommunityInfo);
 	}
+	// 输入搜索社区
 	onSearchCommunity=(value)=>{
 		if(value !== ""){
 			let allCommunity = this.state.communitys;

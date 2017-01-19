@@ -31,12 +31,20 @@ function getUrl(path, params = {},mode = false) {
     */
 
 
+    var url = APIS[path].url;
+
+    if(url.indexOf('api-th') != -1){
+    	server = '';
+    }
+
     try {
         server += APIS[path].url;
     } catch(err) {
         console.error(`${path} not defined in apis.js`);
         return false;
     }
+
+
 
     if(Object.keys(params).length){
         for (let item in params) {

@@ -9,119 +9,209 @@ import {
 	Row,
 	ListGroup,
 	ListGroupItem,
-	Button
+	Button,
+	Dialog,
+	Notify
 } from 'kr-ui';
+import "./index.less";
 class BatchUploadImageForm extends Component{
 	constructor(props,context){
 		super(props,context);
 		this.state={
+			picUrl:'',
 			selectedCommunitys:[],
-			communitys: [
-							{"cityName": "北京", 
-								"children": [
-								{"communityName": "北京创业大街社区","children": [{
-									"id":"1","hardwareid":"1550099_84C2E4F1DAEE"
-									}]
-								},
-								{"communityName": "北京天创社区","children": [{
-									"id":"2","hardwareid":"2550099_84C2E4F1DAEE"
-									}]
-								}
-							]
-							},
-							{"cityName": "上海", "children": [
-								{"communityName": "上海梦想小镇社区","children": [{
-									"id":"3","hardwareid":"3550099_84C2E4F1DAEE"
-									}]
-								},
-								{"communityName": "上海文三社区","children": [{
-									"id":"4","hardwareid":"4550099_84C2E4F1DAEE"
-									}]
-								}
-							]},
-							{"cityName": "天津", "children": [
-								{"communityName": "天津绿地社区","children": [{
-									"id":"5","hardwareid":"5550099_84C2E4F1DAEE"
-									}]
-								},
-								{"communityName": "天津浦东社区","children": [{
-									"id":"6","hardwareid":"6550099_84C2E4F1DAEE"
-									}]
-								}
-							]},
-							{"cityName": "江苏", 
-								"children": [
-								{"communityName": "江苏创业大街社区","children": [{
-									"id":"1","hardwareid":"7550099_84C2E4F1DAEE"
-									}]
-								},
-								{"communityName": "江苏天创社区","children": [{
-									"id":"2","hardwareid":"8550099_84C2E4F1DAEE"
-									}]
-								}
-							]
-							},
-							{"cityName": "湖北", "children": [
-								{"communityName": "湖北小镇社区","children": [{
-									"id":"3","hardwareid":"7550099_84C2E4F1DAEE"
-									}]
-								},
-								{"communityName": "湖北三社区","children": [{
-									"id":"4","hardwareid":"7550099_84C2E4F1DAEE"
-									}]
-								}
-							]},
-							{"cityName": "深圳", "children": [
-								{"communityName": "深圳地社区","children": [{
-									"id":"5","hardwareid":"7550099_84C2E4F1DAEE"
-									}]
-								},
-								{"communityName": "深圳浦东社区","children": [{
-									"id":"6","hardwareid":"7550099_84C2E4F1DAEE"
-									}]
-								},
-								{"communityName": "深圳地社区","children": [{
-									"id":"5","hardwareid":"7550099_84C2E4F1DAEE"
-									}]
-								},
-								{"communityName": "深圳浦东社区","children": [{
-									"id":"6","hardwareid":"7550099_84C2E4F1DAEE"
-									}]
-								},
-								{"communityName": "深圳地社区","children": [{
-									"id":"5","hardwareid":"7550099_84C2E4F1DAEE"
-									}]
-								},
-								{"communityName": "深圳浦东社区","children": [{
-									"id":"6","hardwareid":"7550099_84C2E4F1DAEE"
-									}]
-								}
-							]}
-						]
+			batchUploadNum :false,
+			openSchedule : false,
+			submitValues : '',
+			submitNum : 0,
+			innerBoxWidth :0,
+			uploadedNum:0,
+			totalNum:0,
+			submitValuesParams:{},
+			requestURI:"postEquipmentImg",
+			communitys: []
 		}
+	}
+	componentDidMount(){
+		let _this = this;
+		Store.dispatch(Actions.callAPI('getCommunityEquipment',""))
+	      .then(function(response){
+	      	_this.setState({
+	      		communitys : response.items
+	      	})
+
+	    }).catch(function(err){
+	        Message.error(err.message);
+	    });
 	}
 	onCancel=()=>{
 		let {onCancel} = this.props;
 		onCancel && onCancel();
 	}
-	// 提交
+	closeBatchUpload=()=>{
+		let {closeBatchUpload}=this.props;
+		closeBatchUpload && closeBatchUpload();
+	}
+	openFinishTable=()=>{
+		const {openFinishTable}=this.props;
+		openFinishTable && openFinishTable();
+	}
+	// 提交(获取总共上传社区个数)
 	onSubmit=(values)=>{
-		console.log("values",values);
-		let {onSubmit} = this.props;
-		onSubmit && onSubmit(values);
+		// console.log("上传图片获取真实设备数传值",values)
+		let _this =this;
+		if(!values.uploadImage){
+			const {tipOpen} = this.props;
+			tipOpen && tipOpen();
+			return
+		};
+		if(!values.communitys){
+			const {tipCommunityOpen} = this.props;
+			tipCommunityOpen && tipCommunityOpen();
+			return
+		};
+		this.setState({
+			submitValuesParams : values,
+			selectedCommunitys : values.communitys,
+			picUrl : values.uploadImage
+		})
+		_this.getRealEquipment(values);
+	}
+	// 获取真实设备数
+	getRealEquipment=(values)=>{
+		let _this =this;
+		let valuesParams = {
+			deviceId:values.communitys
+		}
+		Store.dispatch(Actions.callAPI('getEquipmentNum',{},valuesParams))
+	      .then(function(response){
+	      	if(response.length == 0){
+	      		const {seleletZero} = _this.props;
+	      		seleletZero && seleletZero();
+	      		return;
+	      	}
+	      	_this.setState({
+	      		submitCommunitys : response,
+	      		submitNum : response.length,
+	      		totalNum : response.length
+	      	},function(){
+	      		this.openBatchUploadNum();
+	      	})
+
+	      }).catch(function(err){
+	        Notify.show([{
+	          message: err.message,
+	          type: 'danger',
+	        }])
+	    });
+	    
+	}
+	// 是否打开确定上传窗口
+	openBatchUploadNum=()=>{
+		this.setState({
+			batchUploadNum : !this.state.batchUploadNum
+		})
+	}
+	// 关闭进度条
+	closeSchedule=()=>{
+		this.setState({
+			openSchedule : false
+		})
+	}
+	// 是否打开进度条
+	openScheduleDiv=()=>{
+		this.setState({
+			openSchedule : !this.state.openSchedule
+		})
+	}
+	// 确定开始上传
+	confirmSubmit=()=>{
+		// console.log("this.state",this.state);
+		let _this = this;
+		_this.openBatchUploadNum();
+		// console.log("_this",_this);
+		let sendRealEquipment = {
+			deviceId : _this.state.selectedCommunitys,
+			picUrl : _this.state.picUrl
+		}
+		// this.openBatchUploadNum();
+		// console.log("sendRealEquipment",sendRealEquipment);
+
+	    Store.dispatch(Actions.callAPI('oploadImgToEquipment',{},sendRealEquipment))
+	      .then(function(response){
+	      	// console.log("____",response);
+	      }).catch(function(err){
+	        Notify.show([{
+	          message: err.message,
+	          type: 'danger',
+	        }])
+	    });
+	    _this.openBatchUploadNum();
+	    _this.openScheduleDiv();
+		var timer = setInterval(function(){
+			Store.dispatch(Actions.callAPI('getPushImgRes',""))
+			.then(function(response){
+				// console.log("获取成功数失败数",response);
+				response = response.split("|");
+				_this.setState({
+					innerBoxWidth : Number((response[0]/response[1])*298),
+					uploadedNum:response[0],
+					totalNum:response[1]
+				})
+				if(response[0] == response[1]){
+					_this.setState({
+						openSchedule : false
+					});
+					
+					window.clearInterval(timer);
+					timer = null;
+					// console.log("timer",timer);
+					if(timer == null){
+						_this.closeSchedule();
+						_this.closeBatchUpload();
+						_this.openFinishTable();
+					}
+				}
+			})
+		},300);
+		// var timeout = false; //启动及关闭按钮 
+		// time(); 
+		// function time(){  
+		//   if(timeout) return;  
+		//   Store.dispatch(Actions.callAPI('getPushImgRes',""))
+		// 	.then(function(response){
+		// 		// console.log("获取成功数失败数",response);
+		// 		response = response.split("|");
+		// 		_this.setState({
+		// 			innerBoxWidth : Number((response[0]/response[1])*298)
+		// 		})
+		// 		if(response[0] == response[1]){
+		// 			timeout = true;
+		// 			_this.setState({
+		// 				openSchedule : false
+		// 			});
+		// 			_this.closeSchedule();
+		// 			_this.closeBatchUpload();
+		// 			_this.openFinishTable();
+		// 		}
+		// 	})  
+		//   	setTimeout(time,100); //time是指本身,延时递归调用自己,100为间隔调用时间,单位毫秒  
+		// } 
 	}
 	render(){
-		let communitys = this.state.communitys;
-		const {handleSubmit}=this.props;
+		// console.log("是否打开提示窗口",this.state.batchUploadNum);
+		let {communitys}=this.state;
+		const {handleSubmit,detail}=this.props;
 		return(
-			<div>
+			
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 					<KrField name="uploadImage" 
 						component="uploadImage" 
 						style={{marginTop:10}} 
 						photoSize={'212*136'} 
 						pictureFormat={'JPG'} 
-						pictureMemory={'32K'} 
+						pictureMemory={'32K'}
+						requestURI = {this.state.requestURI}
 					/>
 					<KrField name="communitys" 
 						options={communitys} 
@@ -141,25 +231,45 @@ class BatchUploadImageForm extends Component{
 							</ListGroup>					
 						</Row>
 					</Grid>
+					<Dialog
+			          title="提示"
+			          open={this.state.batchUploadNum}
+			          onClose={this.openBatchUploadNum}
+			          contentStyle={{width:443,height:237,left:-293}}
+		        	>
+			        	<div style={{marginTop:45}}>
+			        		<p style={{fontSize:14,color:"#333333",textAlign:"center"}}>本次将上传{this.state.submitNum}台大门门禁设备，确定上传图片？</p>
+			        		<Grid style={{marginTop:60,marginBottom:'4px'}}>
+								<Row>
+									<ListGroup>
+										<ListGroupItem style={{width:'171px',textAlign:'right',padding:0,paddingRight:15}}>
+											<Button  label="确定" type="button" onClick={this.confirmSubmit}/>
+										</ListGroupItem>
+										<ListGroupItem style={{width:'171px',textAlign:'left',padding:0,paddingLeft:15}}>
+											<Button  label="取消" type="button"  cancle={true} onTouchTap={this.openBatchUploadNum} />
+										</ListGroupItem>
+									</ListGroup>					
+								</Row>
+							</Grid>
+			        	</div>
+			        </Dialog>
+			        <div className="uploadImageNum" style={{display:this.state.openSchedule?"block":"none"}}>
+			        	<div className="uploadImageNumBox" >
+			        		<p className="uploadImageProgress" >{this.state.uploadedNum}/{this.state.totalNum}上传中...</p>
+				        	<div className="uploadImageProgressBar">
+				        		<div className="uploadImageProgressBarIndex" style={{width:this.state.innerBoxWidth}}></div>
+				        	</div>
+			        	</div>
+			        </div>
 				</form>
-			</div>
+			
 		);
 	}
 }
-// const validate = values=>{
-// 	const errors={};
-// 	if(!values.communityName){
-// 		errors.communityName = '社区名称为必填项';
-// 	}
-// 	if(!values.floor){
-// 		errors.floor = '楼层为必填项';
-// 	}
-// 	if(!values.showTitle){
-// 		errors.showTitle = '展示标题为必填项';
-// 	}
-// 	return errors;
-// }
 export default BatchUploadImageForm = reduxForm({
 	form: 'BatchUploadImageForm',
 	// validate,
 })(BatchUploadImageForm);
+
+
+

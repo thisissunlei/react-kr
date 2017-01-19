@@ -53,7 +53,7 @@ import {
 	arrayInsert,
 	FieldArray,
 	Fields,
-	change
+	change,
 } from 'redux-form';
 
 
@@ -72,35 +72,43 @@ import {
 } from 'react-router';
 
 
-export default class Demo extends Component {
-
+class Demo extends Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
 	}
-
 	constructor(props, context) {
 		super(props, context);
 
 		this.state = {
 			userNameDefaultValue: ''
 		}
+	}
+	onSubmit=(values)=>{
 
 	}
-
-
+	onChangeTitle=(showTitle)=>{
+		console.log("111")
+	}
 	componentDidMount() {}
-
-
-
 	render() {
+		const { error,handleSubmit,pristine,reset,detail} = this.props;
 		return (
-			<div>
-				<Section title="haha">
-					<Dictionary type="ContractType" value="ADDRENT"/>
-				</Section>
-				<CommunityList/>
-			</div>
+			<form onSubmit={handleSubmit(this.onSubmit)}>
+					<KrField grid={1/2} name="showTitle" 
+						component="input"
+						type="text" 
+						label="展示标题" 
+						requireLabel={true} 
+						requiredValue={true} 
+						errors={{requiredValue:'展示标题为必填项'}} 
+						style={{width:'252px',margin:'0 35px 5px 0'}}
+						onChange = {this.onChangeTitle}
+					/>
+			</form>		
 
 		);
 	}
 }
+export default Demo = reduxForm({
+	form: 'Demo',
+})(Demo);

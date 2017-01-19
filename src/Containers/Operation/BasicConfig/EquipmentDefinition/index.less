@@ -14,18 +14,74 @@
     	margin-right:9px;
     }
 }
-.upload-img-box{
-	.upload-img-title{
-		width:100%;
-		margin-top:15px;
-		text-align:center;
-		.upload-img-right{
-			width:18px;
-			vertical-align:middle;
-			margin-right:8px;
+.upload-img-outer-box{
+	width:100%;
+	text-align:center;
+	.upload-img-box{
+		display:inline-block;
+		width:560px;
+		.upload-img-title{
+			width:100%;
+			margin-top:15px;
+			text-align:center;
+			.upload-img-right{
+				width:18px;
+				vertical-align:middle;
+				margin-right:8px;
+			}
+			.upload-img-tip{
+				color:#5cbd5c;
+			}
 		}
-		.upload-img-tip{
-			color:#5cbd5c;
+		.upload-img-body{
+			.upload-img-finish-tabs{
+				.upload-img-tab{
+					background:#fff;
+					color:#666666;
+				}
+				.upload-img-victory{
+					border: solid 1px #dfdfdf;
+					border-top:none;
+				}
+			}
 		}
+	}
+}
+.uploadImageNum{
+	position:fixed;
+	top:0;
+	left:0;
+	height:100%;
+	width:100%;
+	background:rgba(0,0,0,0.2);
+	.uploadImageNumBox{
+		width:300px;
+		margin:0 auto;
+		margin-top:222px;
+		.uploadImageProgress{
+			width:298p;
+			text-align:center;
+			color:#333333;
+			font-size:14px;
+		}
+		.uploadImageProgressBar{
+			position:relative;
+			width:298px;
+			height:18px;
+			border:solid 1px #c0c0c0;
+			border-radius:9.5px;
+			background:#fff;
+		}
+		.uploadImageProgressBarIndex{
+			position: absolute;
+			top:-1px;
+			left:0;
+			height:18px;
+			border-bottom: solid 1px #6ca7e2;
+			border-top:    solid 1px #6ca7e2;
+			border-radius:9.5px;
+			background:#7fbaf5;
+		}
+
 	}
 }

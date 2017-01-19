@@ -26,13 +26,15 @@ import {
   Grid,
   ListGroup,
   ListGroupItem,
-  Row
+  Row,
+  Message
 } from 'kr-ui';
 import NewCreateDefinitionForm from './NewCreateDefinitionForm';
 import EquipmentAdvanceQueryForm from './EquipmentAdvancedQueryForm';
 import BatchUploadImageForm from './BatchUploadImageForm';
 import EditEquipmentForm from "./EditEquipmentForm";
 import FinishUploadImgForm from "./FinishUploadImgForm";
+import SingleUploadImgForm from "./SingleUploadImgForm";
 import {Actions,Store} from 'kr/Redux';
 import './index.less';
 import error2 from "./images/error2.png"
@@ -48,34 +50,64 @@ export default class EquipmentDefinition extends Component {
       openEquipmentAdvancedQuery: false,
       openBatchUpload: false,
       openEditEquipment: false,
-      openFinishUpload: true,
+      openFinishUpload: false,
+      onLineOpen:false,
+      openOffline :false,
+      openSingleUpload: false,
       content: '',
-      filter: 'doorNum',
+      singleRequestURI :'',
+      filter: 'deviceCode',
       openTipWarn : false,
       tipText:"",
+      onLined : false,
+      timer :'',
+      itemDetail : {},
       equipmentParams: {
-        filter: "doorNum",
-        content: ''
-      }
+        filter: "deviceCode",
+        content: '',
+        page : 1,
+        pageSize: 15
+      },
+      onlineOfflineParams:{}
     }
   }
-
   onLoaded=(response)=>{
     let list = response;
     this.setState({
       list
     })
+    // console.log("this.state.list",this.state.list);
   }
   //操作相关
-  onOperation=(type, itemDetail)=>{
+  onOperation=(itemDetail)=>{
+    console.log("opertation  itemDetail",itemDetail);
     this.setState({
       itemDetail
     });
-    if (type == 'view') {
-      window.open(`./#/member/MemberManage/${itemDetail.id}/detail/${itemDetail.companyId}`, itemDetail.id);
-    } else if (type == 'edit') {
-      this.openEditEquipmentDialog();
-    }
+    // if (type == 'view') {
+    //   window.open(`./#/member/MemberManage/${itemDetail.id}/detail/${itemDetail.companyId}`, itemDetail.id);
+    // } else if (type == 'edit') {
+    //   this.openEditEquipmentDialog();
+    // }
+  }
+  // 是否打开上线确认窗口
+  openOnLineDialog=()=>{
+    this.setState({
+      onLineOpen : !this.state.onLineOpen
+    })
+  }
+  // 是否打开下线确认窗口
+  openOffLineDialog=()=>{
+    this.setState({
+      openOffline : !this.state.openOffline
+    })
+  }
+  // 是否打开单张上传图片
+  openSingleUploadDialog=(itemDetail)=>{
+    this.setState({
+      openSingleUpload : !this.state.openSingleUpload,
+      itemDetail : itemDetail
+    })
   }
   // 是否打开新增设备定义
   openNewCreateDefinitionDialog=()=>{
@@ -95,89 +127,291 @@ export default class EquipmentDefinition extends Component {
       openBatchUpload : !this.state.openBatchUpload
     })
   }
-  // 是否打开编辑
-  openEditEquipmentDialog=()=>{
+  // 关闭批量上传
+  closeBatchUpload=()=>{
     this.setState({
-      openEditEquipment : !this.state.openEditEquipment
+      openBatchUpload : false
+    })
+  }
+  // 是否打开编辑
+  openEditEquipmentDialog=(item)=>{
+    // console.log("编辑item",item);
+    this.setState({
+      openEditEquipment : !this.state.openEditEquipment,
+      itemDetail : item
+
     })
   }
   // 是否打开上传图片完成
   openFinishUploadDialog=()=>{
+    // console.log("完成回西安",this.state.openFinishUpload);
     this.setState({
       openFinishUpload : !this.state.openFinishUpload
     })
   }
-  // 搜索
+  // 是否打开提示上传图片
+  tipOpen=()=>{
+    let _this =this;
+    _this.setState({
+      openTipWarn : true,
+      tipText :"请上传图片!"
+    });
+    setTimeout(function(){
+      _this.setState({
+        openTipWarn : false
+      })
+    },3000)
+  }
+  tipCommunityOpen=()=>{
+    let _this =this;
+    _this.setState({
+      openTipWarn : true,
+      tipText :"请选择社区!"
+    });
+    setTimeout(function(){
+      _this.setState({
+        openTipWarn : false
+      })
+    },3000)
+  }
+  // 查询
   onSearchSubmit=(value)=>{
-    this.setState({
-      filter: value.filter,
-      content: value.content,
-      equipmentParams: {
+    if(value.filter == "deviceCode"){
+      this.setState({
         filter: value.filter,
-        content: value.content
+        content: value.content,
+        equipmentParams: {
+          deviceCode: value.content,
+        }
+      })
+    }else{
+      this.setState({
+        filter: value.filter,
+        content: value.content,
+        equipmentParams: {
+          hardwareId: value.content,
+        }
+      })
+    }
+  }
+  // 高级查询修改选择器
+  onFilterState=(search)=>{
+    this.setState({
+      filter : search.value,
+      content : search.content,
+      equipmentParams: {
+        filter : search.value,
+        content : search.content
       }
     })
   }
   // 高级查询重置
   onEquipmentAdvanceSearchReset=()=>{
     this.setState({
-      filter: 'doorNum',
+      filter: 'deviceCode',
       content: '',
       equipmentParams: {
-        filter: "doorNum",
+        filter: "deviceCode",
         content: ''
       }
     })
   }
   // 设备高级查询提交
   onEquipmentAdvanceSearchSubmit=(values)=>{
+    let _this = this;
     // console.log("values",values);
-    // Store.dispatch(Actions.callAPI(),function(response){
-
-    // })
     this.openEquipmentAdvancedQueryDialog();
+    
+    if(values.type=="hardwareId"){
+      _this.setState({
+        filter : values.value,
+        content : values.content,
+        equipmentParams:{
+          communityId :values.communityId || "",
+          hardwareId : values.value || "",
+          floor : values.floor || "",
+          functionId : values.functionId || "",
+          propertyId : values.propertyId || ""
+        }
+      })
+    }else{
+      _this.setState({
+        filter : values.value,
+        content : values.content,
+        timer : new Date(),
+        equipmentParams:{
+          communityId :values.communityId || "",
+          deviceCode : values.value || "",
+          floor : values.floor || "",
+          functionId : values.functionId || "",
+          propertyId : values.propertyId || "",
+          typeId : values.typeId|| ""
+        }
+      })
+    }
   }
   // 提交---批量上传
   onBatchUpload=(values)=>{
+    // console.log("批量上传图片",values);
     let _this = this;
-    console.log("页面values",values);
-    if(!values.communitys){
-      _this.setState({
-        openTipWarn : true,
-        tipText :"请选择社区!"
-      });
+    if(!values.uploadImage){
+      this.tipOpen();
       return;
-      setTimeout(function(){
-        _this.setState({
-          openTipWarn : false
-        })
-      },3000)
     }
-    Store.dispatch(Actions.callAPI('membersChange',{},values)).then(function(response){});
+    if(!values.communitys){
+      this.tipCommunityOpen();
+      return;
+    }
+  }
+  //校验门编号存在
+  isDoorNumHas=()=>{
+    let _this = this;
+    _this.setState({
+      openTipWarn : true,
+      tipText :"门编号已经存在!"
+    });
+    setTimeout(function(){
+      _this.setState({
+        openTipWarn : false
+      })
+    },3000)
+  }
+  // 校验硬件ID是否存在
+  hardwareIdHas=()=>{
+    let _this = this;
+    _this.setState({
+      openTipWarn : true,
+      tipText :"硬件ID已经存在!"
+    });
+    setTimeout(function(){
+      _this.setState({
+        openTipWarn : false
+      })
+    },3000)
+  }
+  //  选择社区为零  
+  seleletZero=()=>{
+    let _this = this;
+    _this.setState({
+      openTipWarn : true,
+      tipText :"您选择的设备不存在，请重新选择!"
+    });
+    setTimeout(function(){
+      _this.setState({
+        openTipWarn : false
+      })
+    },3000)
   }
   // 提交---->新建
   onSubmitNewCreateEquipment=(values)=>{
     let _this = this;
-    // Store.dispatch(Actions.callAPI('……',searchParamPosition))
-    //   .then(function(response){
-    //     _this.setState({
-    //       openFinishUpload:!_this.state.openFinishUpload
-    //     });
-    //   })
+    Store.dispatch(Actions.callAPI('equipmentNewCreateOrEdit',{},values))
+      .then(function(response){
+        Message.success("新增设备成功");
+      }).catch(function(err){
+        Message.error(err.message);
+     });
+    this.setState({
+      content: '',
+      filter: 'deviceCode',
+      timer : new Date(),
+      openEditEquipment : false,
+      openNewCreateDefinition : false,
+      equipmentParams: {
+        filter: "deviceCode",
+        content: '',
+        page : 1,
+        pageSize: 15,
+        timer : new Date()
+      }
+    })
+    
+  }
+  // 保存并添加---新建
+  saveAndNewCreate=(values)=>{
+    console.log("values保存并且添加",values);
+    Store.dispatch(Actions.callAPI('equipmentNewCreateOrEdit',{},values))
+      .then(function(response){
+        Message.success("新增设备成功");
+      }).catch(function(err){
+        Message.error(err.message);
+     });
+    this.setState({
+      content: '',
+      filter: 'deviceCode',
+      timer : new Date(),
+      openEditEquipment : false,
+      equipmentParams: {
+        filter: "deviceCode",
+        content: '',
+        page : 1,
+        pageSize: 15,
+        timer : new Date()
+      }
+    })
+    
+  }
+  // 打开上线
+  onlineOrOffline=(itemData)=>{
+    this.openOnLineDialog();
+    this.setState({
+      onlineOfflineParams : {
+        deviceId : itemData.id,
+        status : "ONLINE"
+      }
+    })
+  }
+  // 打开下线
+  offlineOrOnline=(itemData)=>{
+    this.openOffLineDialog();
+    this.setState({
+      onlineOfflineParams : {
+        deviceId : itemData.id,
+        status : "OFFLINE"
+      }
+    })
+  }
+  // 最终确定确定上线
+  confirmOnline=()=>{
+    let onlineOfflineParams = this.state.onlineOfflineParams
+    Store.dispatch(Actions.callAPI('onlineOrOffline',{},onlineOfflineParams))
+      .then(function(response){
+        Message.success("上线成功");
+      }).catch(function(err){
+        Notify.show([{
+          message: err.message,
+          type: 'danger',
+        }])
+     });
+    this.setState({
+      onLineOpen : false,
+      openOffline : false,
+      equipmentParams: {
+        filter: "deviceCode",
+        content: '',
+        page : 1,
+        pageSize: 15,
+        timer : new Date()
+      },
+    })
+  }
+  openFinishTable=()=>{
+    // console.log("上传完成");
+    this.openFinishUploadDialog();
   }
   render() {
     let {list,itemDetail,seleced,openTipWarn,tipText} = this.state;
+    // console.log("list",list);
     // if (!list.totalCount) {
     //   list.totalCount = 0;
     // }
     let options=[{
       label:"门编号",
-      value:"doorNum"
+      value:"deviceCode"
     },{
       label:"硬件编号",
-      value:"hardwareNums"
+      value:"hardwareId"
     }]
-    // console.log("openTipWarn",openTipWarn)
     return (
       <div style={{minHeight:'910',backgroundColor:"#fff"}}>
         <div className="uploadWarn" style={{display:openTipWarn?"block":"none"}}><img src={error2} className="tipImg"/>{tipText}</div>
@@ -217,7 +451,7 @@ export default class EquipmentDefinition extends Component {
               return state;
               }}
             onOperation={this.onOperation}
-            exportSwitch={true}
+            exportSwitch={false}
             onExport={this.onExport}
             ajaxFieldListName='items'
             ajaxUrlName='equipmentList'
@@ -237,65 +471,97 @@ export default class EquipmentDefinition extends Component {
           </TableHeader>
           <TableBody style={{position:'inherit'}}>
               <TableRow displayCheckbox={true}>
-              <TableRowColumn name="phone"
+              <TableRowColumn name="communityName" 
               component={(value,oldValue)=>{
                 if(value==""){
                   value="-"
                 }
                 return (<span>{value}</span>)}}
               ></TableRowColumn>
-              <TableRowColumn name="name"
+              <TableRowColumn name="showTitle" style={{overflow:"hidden"}}
               component={(value,oldValue)=>{
                 if(value==""){
                   value="-"
                 }
                 return (<span>{value}</span>)}}
                ></TableRowColumn>
-              <TableRowColumn name="wechatNick"
+              <TableRowColumn name="deviceCode" style={{overflow:"hidden"}}
               component={(value,oldValue)=>{
                 if(value==""){
                   value="-"
                 }
                 return (<span>{value}</span>)}}
               ></TableRowColumn>
-              <TableRowColumn name="email"
+              <TableRowColumn name="hardwareId" style={{overflow:"hidden"}}
               component={(value,oldValue)=>{
                 if(value==""){
                   value="-"
                 }
                 return (<span>{value}</span>)}}
               ></TableRowColumn>
-              <TableRowColumn name="jobName"
+              <TableRowColumn name="typeName"
               component={(value,oldValue)=>{
                 if(value==""){
                   value="-"
                 }
                 return (<span>{value}</span>)}}
               ></TableRowColumn>
-              <TableRowColumn name="cityName"
+              <TableRowColumn name="propertyName"
               component={(value,oldValue)=>{
                 if(value==""){
                   value="-"
                 }
                 return (<span>{value}</span>)}}
               ></TableRowColumn>
-              <TableRowColumn name="companyName"
+              <TableRowColumn name="functionName"
               component={(value,oldValue)=>{
                 if(value==""){
                   value="-"
                 }
                 return (<span>{value}</span>)}}
               ></TableRowColumn>
-              <TableRowColumn name="registerName"
+              <TableRowColumn name="enable"
               component={(value,oldValue)=>{
-                if(value==""){
-                  value="-"
+                var spanColorOnline=""; 
+                if(value=="OFFLINE"){
+                  value="未上线";
+                  spanColorOnline = "#ff6868";
+                }else if(value=="ONLINE"){
+                  value="已上线";
                 }
-                return (<span>{value}</span>)}}></TableRowColumn>
-              <TableRowColumn name="registerTime" type="date" format="yyyy-mm-dd"></TableRowColumn>
-              <TableRowColumn type="operation">
-                  <Button label="编辑"  type="operation" operation="edit"/>
-               </TableRowColumn>
+                return (<span style={{color:spanColorOnline}}>{value}</span>)}}></TableRowColumn>
+              <TableRowColumn name="activityTypeId"
+
+              component={(value,oldValue)=>{
+                var spanColor = "";
+                if(value=="UNLINK"){
+                  value="未连接";
+                  spanColor = "#ff6868";
+                }else if(value=="LINK"){
+                  value="已连接";
+                }
+                return (<span style={{color:spanColor}}>{value}</span>)}}></TableRowColumn>
+              <TableRowColumn type="operation" name="enable" options={[{label:'已上线',value:'ONLINE'},{label:'未上线',value:'OFFLINE'}]} 
+              component={(value,oldValue,itemData)=>{
+                  if(value=="未上线"){
+                    return (
+                      <span>
+                      <Button label="上线"  type="operation" operation="online" onClick={this.onlineOrOffline.bind(this,itemData)}/>
+                      <Button label="编辑"  type="operation" operation="edit" onClick={this.openEditEquipmentDialog.bind(this,itemData)}/>
+                      <Button label="上传图片"  type="operation" operation="singleUpload" onClick={this.openSingleUploadDialog.bind(this,itemData)}/>
+                      </span>
+                    )
+                  }
+                  if(value=="已上线"){
+                    return (
+                      <span>
+                      <Button label="下线"  type="operation" operation="offline" onClick={this.offlineOrOnline.bind(this,itemData)}/>
+                      <Button label="上传图片"  type="operation" operation="singleUpload" onClick={this.openSingleUploadDialog.bind(this,itemData)}/>
+                      </span>
+                    )
+                  }
+              }}>    
+              </TableRowColumn>
              </TableRow>
           </TableBody>
           <TableFooter></TableFooter>
@@ -309,10 +575,11 @@ export default class EquipmentDefinition extends Component {
         >
           <NewCreateDefinitionForm  
             onCancel={this.openNewCreateDefinitionDialog} 
-            style ={{paddingTop:'35px'}} 
-            detail={itemDetail}
-            onSubmitOpenNew= {this.onSubmitOpenNew}
+            style ={{paddingTop:'35px'}}
             onSubmit = {this.onSubmitNewCreateEquipment}
+            isDoorNumHas= {this.isDoorNumHas}
+            hardwareIdHas ={this.hardwareIdHas}
+            saveAndNewCreate= {this.saveAndNewCreate}
           /> 
         </Dialog>
         <Dialog
@@ -322,10 +589,12 @@ export default class EquipmentDefinition extends Component {
           contentStyle={{width:687}}
         >
           <EditEquipmentForm 
-            onSubmit={this.onSubmitNewCreateEquipment} 
-            params={this.params} 
-            onCancel={this.openEditEquipmentDialog} 
             detail={itemDetail}
+            onSubmit = {this.onSubmitNewCreateEquipment}
+            isDoorNumHas= {this.isDoorNumHas}
+            hardwareIdHas ={this.hardwareIdHas}
+            saveAndNewCreate= {this.saveAndNewCreate}
+            closeEditEquipment = {this.openEditEquipmentDialog}
           />
         </Dialog>
         <Dialog
@@ -339,7 +608,7 @@ export default class EquipmentDefinition extends Component {
             onReset = {this.onEquipmentAdvanceSearchReset}
             params={this.params} 
             onCancel={this.openEquipmentAdvancedQueryDialog} 
-            detail={itemDetail} 
+            onFilterState = {this.onFilterState}
             style={{marginTop:37}} 
             content={this.state.content} 
             filter={this.state.filter}
@@ -352,18 +621,82 @@ export default class EquipmentDefinition extends Component {
           contentStyle={{width:687}}
         >
           <BatchUploadImageForm 
+            tipCommunityOpen = {this.tipCommunityOpen}
+            tipOpen = {this.tipOpen}
             onCancel= {this.openBatchUploadDialog}
             onSubmit= {this.onBatchUpload}
+            seleletZero ={this.seleletZero}
+            closeBatchUpload = {this.closeBatchUpload}
+            openFinishTable = {this.openFinishTable}
+            finishUpload = {this.finishUpload}
           />
         </Dialog>
         <Dialog
-          title="上传图片完成"
+          title="上传图片"
           open={this.state.openFinishUpload}
           onClose={this.openFinishUploadDialog}
           contentStyle={{width:687}}
         >
           <FinishUploadImgForm 
+            closeUploadImg = {this.openFinishUploadDialog}
             onCancel= {this.openFinishUploadDialog}
+          />
+        </Dialog>
+        <Dialog
+          title="提示"
+          open={this.state.onLineOpen}
+          onClose={this.openOnLineDialog}
+          contentStyle={{width:443,height:236}}
+        >
+          <div style={{marginTop:45}}>
+            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>确定要上线吗？</p>
+            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+                  <Row>
+                    <ListGroup>
+                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+                        <Button  label="确定" type="submit" onClick={this.confirmOnline} />
+                      </ListGroupItem>
+                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openOnLineDialog} />
+                      </ListGroupItem>
+                    </ListGroup>          
+                  </Row>
+                </Grid>
+          </div>
+        </Dialog>
+        <Dialog
+          title="提示"
+          open={this.state.openOffline}
+          onClose={this.openOffLineDialog}
+          contentStyle={{width:443,height:236}}
+        >
+          <div style={{marginTop:45}}>
+            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>确定要下线吗？</p>
+            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+                  <Row>
+                    <ListGroup>
+                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+                        <Button  label="确定" type="submit" onClick={this.confirmOnline} />
+                      </ListGroupItem>
+                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openOffLineDialog} />
+                      </ListGroupItem>
+                    </ListGroup>          
+                  </Row>
+                </Grid>
+          </div>
+        </Dialog>
+        <Dialog
+          title="上传图片"
+          open={this.state.openSingleUpload}
+          onClose={this.openSingleUploadDialog}
+          contentStyle={{width:443}}
+        >
+          <SingleUploadImgForm 
+            tipOpen={this.tipOpen}
+            detail={itemDetail} 
+            onCancel = {this.openSingleUploadDialog}
+            openSingleUploadDialog ={this.openSingleUploadDialog}
           />
         </Dialog>
       </div>

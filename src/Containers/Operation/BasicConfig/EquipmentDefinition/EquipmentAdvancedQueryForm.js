@@ -20,7 +20,8 @@ class EquipmentAdvancedQueryForm extends Component{
 	constructor(props){
 		super(props);
 		this.state={
-			searchForm: false
+			searchForm: false,
+			floorsOptions:[{label:"",value:""}]
 		}
 	}
 	onSubmit=(values)=>{
@@ -33,9 +34,10 @@ class EquipmentAdvancedQueryForm extends Component{
 		if(!values.type){
 			values.type = filter;
 		}
-		const {onSubmit} = this.props;
+		const {onSubmit} =this.props;
 		onSubmit && onSubmit(values);
 	}
+	// 重置
 	onReset=()=>{
 		Store.dispatch(reset('EquipmentAdvancedQueryForm',''));
 		const {onReset} = this.props;
@@ -45,20 +47,48 @@ class EquipmentAdvancedQueryForm extends Component{
 		this.setState({searchForm:true});
 		Store.dispatch(change('EquipmentAdvancedQueryForm','type',search.value));
 		Store.dispatch(change('EquipmentAdvancedQueryForm','value',search.content));
+		let {onFilterState}=this.props;
+		onFilterState && onFilterState(search);
+	}
+	// 查询楼层
+	onSearchFloor=(community)=>{
+		let _this = this;
+		console.log("community",community);
+		if(community == null){
+			return;
+		}
+		let CommunityId = {
+			communityId : community.id
+		}
+    	Store.dispatch(Actions.callAPI('getFloorByComunity',CommunityId))
+    	.then(function(response){
+    		console.log("response",response);
+    		var arrNew = []
+    		for (var i=0;i<response.whereFloors.length;i++){
+    			arrNew[i] = {label:response.whereFloors[i],value:response.whereFloors[i]}
+    		}
+    		console.log("arrNew",arrNew);
+    		_this.setState({
+    			floorsOptions : arrNew
+    		})
+    	}).catch(function(err){
+    	})
 	}
 	render(){
+		let {floorsOptions}=this.state;
+		console.log("floorsOptions",floorsOptions);
 		const { error, handleSubmit,content,filter} = this.props;
 		let options=[{
 	      label:"门编号",
-	      value:"doorNum"
+	      value:"deviceCode"
 	    },{
 	      label:"硬件编号",
-	      value:"hardwareNums"
+	      value:"hardwareId"
 	    }]
 	    // 类型待选项
 		let typeOptions = [{
 			label: '门禁',
-			value: 'doorLock'
+			value: 1
 		}, {
 			label: '全部',
 			value: ''
@@ -66,13 +96,13 @@ class EquipmentAdvancedQueryForm extends Component{
 		// 属性待选项
 		let propertyOption=[{
 			label: '大门',
-			value: 'bigDoor'
+			value: 1
 		},{
 			label: '会议室',
-			value: 'meetingRoom'
+			value: 2
 		},{
 			label: '功能室',
-			value: 'functionRoom'
+			value: 3
 		},{
 			label: '全部',
 			value: ''
@@ -80,13 +110,13 @@ class EquipmentAdvancedQueryForm extends Component{
 		// 对应功能选项
 		let correspondingFunction =[{
 			label: '开门',
-			value: 'openDoor'
+			value: 1
 		},{
 			label: '开门／预定',
-			value: 'openOrReserve'
+			value: 2
 		},{
 			label: '预定',
-			value: 'reserve'
+			value: 3
 		},{
 			label: '全部',
 			value: ''
@@ -105,44 +135,40 @@ class EquipmentAdvancedQueryForm extends Component{
 						/>
 					</ListGroupItem>
 				</ListGroup>
-				<KrField name="communityName" 
+				<KrField name="communityId" 
 					component="searchCommunity" 
 					onChange = {this.onChangeSearchCommunity}
 					label="社区名称"    
 					style={{width:'252px',margin:'0 35px 5px 0'}}
+					onChange = {this.onSearchFloor}
 				/>
 				<KrField name="floor" 
-					component="searchCommunity" 
+					component="select" 
 					label="楼层" 
+					options = {floorsOptions}
+					errors={{requiredValue:'社区为必填项'}} 
 					style={{width:'252px'}}
 				/>
-				<KrField name="equipmentType" 
+				<KrField name="typeId" 
 					component="select" 
 					label="类型" 
 					onChange = {this.onchooseType}
 					options={typeOptions} 
 					style={{width:'252px',margin:'0 35px 5px 0'}}
 				/>
-				<KrField name="property" 
+				<KrField name="propertyId" 
 					component="select" 
 					label="属性"
 					onChange = {this.onchooseProperty}
 					options={propertyOption}  
 					style={{width:'252px'}}
 				/>
-				<KrField name="correspondingFunction" 
+				<KrField name="functionId" 
 					component="select" 
 					options={correspondingFunction}
 					label="对应功能"
 					onChange = {this.onchooseCorrespondingFunction}
 					style={{width:'252px',margin:'0 35px 5px 0'}}
-				/>
-				<KrField name="correspondingLocation" 
-					component="select" 
-					options={correspondingFunction}
-					label="对应位置"
-					onChange = {this.onchooseCorrespondingLocation}  
-					style={{width:'252px'}}
 				/>
 				<Grid style={{margin:"20px 0 3px -10px"}}>
 					<Row>

@@ -9,14 +9,31 @@ import {
 	Row,
 	ListGroup,
 	ListGroupItem,
-	Button
+	Button,
+	Notify,
+	err
 } from 'kr-ui';
 class NewCreateDefinitionForm extends Component{
 	constructor(props,context){
 		super(props,context);
 		this.state={
 			locationOpen:false,
-			floorsOptions:[{label:1,value:1},{label:2,value:2}]
+			floorsOptions:[],
+			locationOptions:[],
+			confirmSubmit : false,
+			doorNumHas:false,
+			communityId :'',
+			propertyOption :[{label:"",value:""}],
+			propertyId :"",
+			hardwareidHas : false,
+			isOnlines:true,
+			showTitle :'',
+			deviceCode:'',
+			hardwareId:'',
+			typeId : '',
+			propertyId :  '',
+			functionId :  '',
+			locationId : ''
 		}
 	}
 	onCancel=()=>{
@@ -25,106 +42,280 @@ class NewCreateDefinitionForm extends Component{
 	}
 	// 社区模糊查询
   	onChangeSearchCommunity=(community)=>{
+  		// console.log("cummunity",community)
   		let _this = this;
   		if(community == null){
+  			_this.setState({
+  				locationOpen : false,
+  				floorsOptions : []
+  			})
+  			Store.dispatch(change('NewCreateDefinitionForm', 'propertyId', ""))
 			return;
 		}
-    	Store.dispatch(change('NewCreateDefinitionForm', 'communityName', community.communityName));
-    	// Store.dispatch(Actions.callAPI('',community.id)).then(function(response){
-    	// 	console.log("response",response);
-    	// 	_this.setState({
-    	// 		floorsOptions : response.data.whereFloors
-    	// 	})
-    	// })
+		let CommunityId = {
+			communityId : community.id
+		}
+		this.setState({
+			communityId :community.id
+		})
+    	Store.dispatch(change('NewCreateDefinitionForm', 'communityId', community.communityId));
+    	Store.dispatch(Actions.callAPI('getFloorByComunity',CommunityId))
+    	.then(function(response){
+    		var arrNew = []
+    		for (var i=0;i<response.whereFloors.length;i++){
+    			arrNew[i] = {label:response.whereFloors[i],value:response.whereFloors[i]}
+    		}
+    		_this.setState({
+    			floorsOptions : arrNew
+    		})
+    	}).catch(function(err){
+    	})
   	}
   	//选择类型
-  	onchooseType=(equipmentType)=>{
-  		if(equipmentType == null){
+  	onchooseType=(typeId)=>{
+  		this.setState({
+  			typeId :typeId.value
+  		})
+  		if(typeId == null){
 			return;
 		}
-    	Store.dispatch(change('NewCreateDefinitionForm','equipmentType',equipmentType.value));
+    	Store.dispatch(change('NewCreateDefinitionForm','typeId',typeId.value));
   	}
-  	//选择属性
-	onchooseProperty=(property)=>{
+  	//选择属性(会议室／大门)
+	onchooseProperty=(propertyId)=>{
+		// console.log("propertyId",propertyId);
 		let _this = this;
-		if(property == null){
+		if(propertyId == null){
 			_this.setState({
   				locationOpen : false
   			})
 			return;
 		}
-    	Store.dispatch(change('NewCreateDefinitionForm','property',property.value));
-  		if(property.value == "meetingRoom" || property.value == "functionRoom" ){
+  		if(propertyId.value == "2" || propertyId.value == "3" ){
   			_this.setState({
   				locationOpen : true
   			})
+  			// console.log("_this.state   floorNum communityId",this.state);
+  			let SearchLocationParams = {communityId:_this.state.communityId,whereFloor:_this.state.floorNum}
+  			
+  			Store.dispatch(Actions.callAPI('getLocationByProperty',SearchLocationParams)).
+			then(function(response){
+				// console.log("response",response);
+				var locationArr = []
+	    		for (var i=0;i<response.length;i++){
+	    			locationArr[i] = {label:response[i].boardroomname,value:response[i].id}
+	    		}
+	    		_this.setState({
+	    			locationOptions : locationArr
+	    		})
+			});	
   		}else{
   			_this.setState({
   				locationOpen : false
   			})
   		}
+  		this.setState({
+  			propertyId : propertyId.value
+  		})
+  		Store.dispatch(change('NewCreateDefinitionForm','propertyId',propertyId.value));
+  		// console.log("this.state属性",this.state);
+  		// Store.dispatch(Actions.callAPI("getLocationByProperty",).then(function(response){
+  		// 	console.log("response",response);
+  		// }))
   	}
 	//选择对应功能
-	onchooseCorrespondingFunction=(correspondingFunction)=>{
-		if(correspondingFunction == null){
+	onchooseCorrespondingFunction=(functionId)=>{
+		this.setState({
+			functionId : functionId.value
+		})
+		if(functionId == null){
 			return;
 		}
-    	Store.dispatch(change('NewCreateDefinitionForm','correspondingFunction',correspondingFunction.value));
+    	Store.dispatch(change('NewCreateDefinitionForm','functionId',functionId.value));
 	}
 	// 选择对应位置
-	onchooseCorrespondingLocation=(correspondingLocation)=>{
-		if(correspondingLocation == null){
+	onchooseCorrespondingLocation=(locationId)=>{
+		console.log("locationId",locationId);
+		this.setState({
+			locationId : locationId.value
+		})
+		if(locationId == null){
 			return;
 		}
-		Store.dispatch(change('NewCreateDefinitionForm','correspondingLocation',correspondingLocation.value));
+		Store.dispatch(change('NewCreateDefinitionForm','locationId',locationId.value));
 	}
-	// 保存并添加
-	onSubmitOpenNew=(values)=>{
-		// Store.dispatch(Actions.callAPI(),function(response){
-
-	    // }).then(function(){
-	    // 	Store.dispatch(reset('NewCreateDefinitionForm',''));
-	    // })
+	// 选择楼层
+	getFloor=(floor)=>{
+		let _this = this;
+		if(!floor){
+			_this.setState({
+				propertyOption :[{label: '',value: ''}],
+				locationOpen :false,
+			})
+			Store.dispatch(change('NewCreateDefinitionForm', 'propertyId', ""));
+		}else{
+			_this.setState({
+				floorNum : floor.value
+			},function(){
+				_this.setState({
+					propertyOption :[{label: '大门',value: '1'},{label: '会议室',value: '2'},{label: '功能室',value: '3'}]
+				})
+			})
+		}
+		
 	}
+	onChangeTitle=(showTitle)=>{
+		this.setState({
+			showTitle : showTitle 
+		})
+	}
+	// 判断门编号是否存在
+	doorNumHas=(deviceCode)=>{
+		this.setState({
+			doorNumHas:false,
+			deviceCode : deviceCode
+		})
+		if(!deviceCode || /^\s+$/.test(deviceCode)){
+			return;
+		}
+		let _this = this;
+		let params = {
+			code :deviceCode,
+			type :"deviceCode",
+			id : ''
+		}
+		Store.dispatch(Actions.callAPI('doorNumberAndHardwareId',params)).
+		then(function(response){
+			 // console.log("response",response);	
+		}).catch(function(err){
+		 	// console.log("err",err);
+		 	// console.log("err.code",err.code);
+		 	if(err.code == -1){
+		 		let {isDoorNumHas} = _this.props;
+		 		isDoorNumHas && isDoorNumHas();
+		 		_this.setState({
+		 			doorNumHas:true
+		 		})
+		 	}
+		});
+	}
+	// 判断智能硬件ID是否存在
+	hardwareIdHas=(hardwareId)=>{
+		this.setState({
+			hardwareidHas:false,
+			hardwareId :hardwareId
+		})
+		if(!hardwareId || /^\s+$/.test(hardwareId)){
+			return;
+		}
+		let _this = this;
+		let hardwareIdparams = {
+			code :hardwareId,
+			type :"hardwareid",
+			id : ''
+		}
+		Store.dispatch(Actions.callAPI('doorNumberAndHardwareId',hardwareIdparams))
+		.then(function(response){
+		}).catch(function(err){
+		 	if(err.code == -1){
+		 		let {hardwareIdHas} = _this.props;
+		 		hardwareIdHas && hardwareIdHas();
+		 		_this.setState({
+		 			hardwareidHas : true,
+		 			defaultChecked : true
+		 		})	
+		 	}
+		});
+	}
+	chooseONLINE=(e)=>{
+		// console.log("enable",e.target.value);
+		this.setState({
+			isOnlines : !this.state.isOnlines
+		},function(){
+			Store.dispatch(change('NewCreateDefinitionForm','enable',this.state.isOnlines));
+		})
+		
+	}
+	// 保存并添加设备定义
+	// onSubmitOpenNew=()=>{
+	// 	let _this =this;
+	// 	if(this.state.hardwareidHas){
+	// 		let {hardwareIdHas} =this.hardwareIdHas;
+	// 		hardwareIdHas && hardwareIdHas();
+	// 		return;
+	// 	}else if(this.state.doorNumHas){
+	// 		let {isDoorNumHas} =this.props;
+	// 		isDoorNumHas && isDoorNumHas();
+	// 		return;
+	// 	}
+	// 	let addAndNewCreateParams = {
+	// 		communityId : _this.state.communityId,
+	// 		floorNum : _this.state.floorNum,
+	// 		showTitle : _this.state.showTitle,
+	// 		deviceCode : _this.state.deviceCode,
+	// 		hardwareId : _this.state.hardwareId,
+	// 		typeId : _this.state.typeId,
+	// 		propertyId :  _this.state.propertyId,
+	// 		functionId :  _this.state.functionId,
+	// 		locationId : _this.state.locationId
+	// 	}
+	// 	const {saveAndNewCreate}= this.props;
+	// 	saveAndNewCreate && saveAndNewCreate(addAndNewCreateParams);
+	// 	Store.dispatch(reset('NewCreateDefinitionForm',''));
+	// 	this.setState({
+	// 		communityId : '',
+	// 		floorNum : '',
+	// 		showTitle : '',
+	// 		deviceCode : '',
+	// 		hardwareId : '',
+	// 		typeId : '',
+	// 		propertyId :  '',
+	// 		functionId :  '',
+	// 		locationId : ''
+	// 	})
+	// }
+	// 新增设备定义
 	onSubmit=(values)=>{
-		console.log("values",values);
+		// console.log("values",values);
+		let _this = this;
+		values.enable = this.state.isOnlines?"ONLINE":"OFFLINE";
+		// console.log("values",values);
+		if(this.state.hardwareidHas){
+			let {hardwareIdHas} =this.hardwareIdHas;
+			hardwareIdHas && hardwareIdHas();
+			return;
+		}else if(this.state.doorNumHas){
+			let {isDoorNumHas} =this.props;
+			isDoorNumHas && isDoorNumHas();
+			return;
+		}
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
 	}
 	render(){
-		let {floorsOptions} =this.state;
+		let {floorsOptions,propertyOption,propertyId,locationOptions,defaultChecked} =this.state;
 		// 类型待选项
 		let typeOptions = [{
 			label: '门禁',
-			value: 'doorLock'
+			value: 1
 		}];
-		// 属性待选项
-		let propertyOption=[{
-			label: '大门',
-			value: 'bigDoor'
-		},{
-			label: '会议室',
-			value: 'meetingRoom'
-		},{
-			label: '功能室',
-			value: 'functionRoom'
-		}]
+
 		// 对应功能选项
 		let correspondingFunction =[{
 			label: '开门',
-			value: 'openDoor'
+			value: 1
 		},{
 			label: '开门／预定',
-			value: 'openOrReserve'
+			value: 2
 		},{
 			label: '预定',
-			value: 'reserve'
+			value: 3
 		}]
 		const { error, handleSubmit, pristine, reset} = this.props;
 		return(
 			<div style={{padding:'35px 0 0 35px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
-					<KrField name="communityName" 
+					<KrField name="communityId" 
 						component="searchCommunity" 
 						onChange = {this.onChangeSearchCommunity}
 						label="社区名称"  
@@ -141,6 +332,7 @@ class NewCreateDefinitionForm extends Component{
 						requiredValue={true} 
 						errors={{requiredValue:'社区为必填项'}} 
 						style={{width:'252px'}}
+						onChange = {this.getFloor}
 					/>
 					<KrField grid={1/2} name="showTitle" 
 						type="text" 
@@ -149,24 +341,27 @@ class NewCreateDefinitionForm extends Component{
 						requiredValue={true} 
 						errors={{requiredValue:'展示标题为必填项'}} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
+						onChange = {this.onChangeTitle}
 					/>
-					<KrField grid={1/2} name="doorNum" 
+					<KrField grid={1/2} name="deviceCode" 
 						type="text" 
 						label="门编号" 
 						requireLabel={true} 
 						requiredValue={true} 
 						errors={{requiredValue:'门编号为必填项'}} 
 						style={{width:'252px'}}
+						onChange = {this.doorNumHas}
 					/>
-					<KrField grid={1/2} name="hardwareID" 
+					<KrField grid={1/2} name="hardwareId" 
 						type="text" 
 						label="智能硬件ID" 
 						requireLabel={true} 
 						requiredValue={true} 
 						errors={{requiredValue:'智能硬件ID为必填项'}} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
+						onChange = {this.hardwareIdHas}
 					/>
-					<KrField name="equipmentType" 
+					<KrField name="typeId" 
 						component="select" 
 						label="类型" 
 						onChange = {this.onchooseType}
@@ -176,7 +371,7 @@ class NewCreateDefinitionForm extends Component{
 						errors={{requiredValue:'类型为必填项'}} 
 						style={{width:'252px'}}
 					/>
-					<KrField name="property" 
+					<KrField name="propertyId" 
 						component="select" 
 						label="属性"
 						onChange = {this.onchooseProperty}
@@ -186,7 +381,7 @@ class NewCreateDefinitionForm extends Component{
 						errors={{requiredValue:'属性为必填项'}} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 					/>
-					<KrField name="correspondingFunction" 
+					<KrField name="functionId" 
 						component="select" 
 						options={correspondingFunction}
 						label="对应功能"
@@ -196,25 +391,27 @@ class NewCreateDefinitionForm extends Component{
 						errors={{requiredValue:'对应功能为必填项'}} 
 						style={{width:'252px'}}
 					/>
-					<KrField name="correspondingLocation" 
+					<KrField name="locationId" 
 						component="select" 
-						options={correspondingFunction}
+						options={locationOptions}
 						label="对应位置"
 						onChange = {this.onchooseCorrespondingLocation}  
-						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'对应位置为必填项'}} 
 						style={{width:'252px',display:this.state.locationOpen?'block':'none'}}
 					/>
+					<div>
+						<input type="checkbox"  defaultChecked={this.state.isOnlines} onChange={this.chooseONLINE}/> 
+						<span style={{fontSize:14,color:"#333333"}} >保存后自动上线</span>
+					</div>
+					
 					<Grid style={{marginTop:19,marginBottom:'4px'}}>
 						<Row style={{textAlign:'center'}}>
 							<ListGroup >
 								<ListGroupItem style={{padding:0,display:'inline-block',marginRight:30}}>
 									<Button  label="提交" type="submit"/>
 								</ListGroupItem>
-								<ListGroupItem style={{padding:0,display:'inline-block',marginRight:30}}>
-									<Button  label="保存并添加" type="submit"  cancle={true} onTouchTap={this.onSubmitOpenNew} />
-								</ListGroupItem>
+								{/*<ListGroupItem style={{padding:0,display:'inline-block',marginRight:30}}>
+									<Button  label="保存并添加" type="button"  cancle={true} onTouchTap={this.onSubmitOpenNew} />
+								</ListGroupItem>*/}
 								<ListGroupItem style={{padding:0,display:'inline-block',marginRight:3}}>
 									<Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} />
 								</ListGroupItem>
@@ -228,34 +425,34 @@ class NewCreateDefinitionForm extends Component{
 }
 const validate = values=>{
 	const errors={};
-	if(!values.communityName){
-		errors.communityName = '社区名称为必填项';
+	if(!values.communityId){
+		errors.communityId = '社区名称为必填项';
 	}
 	if(!values.floor){
 		errors.floor = '楼层为必填项';
 	}
-	if(!values.showTitle){
+	if(!values.showTitle || /^\s+$/.test(values.showTitle)){
 		errors.showTitle = '展示标题为必填项';
 	}
-	if(!values.doorNum){
-		errors.doorNum = '门编号为必填项';
+	if(!values.deviceCode || /^\s+$/.test(values.deviceCode)){
+		errors.deviceCode = '门编号为必填项';
 	}
-	if(!values.hardwareID){
-		errors.hardwareID = '智能硬件ID为必填项';
+	if(!values.hardwareId || /^\s+$/.test(values.hardwareId)){
+		errors.hardwareId = '智能硬件ID为必填项';
 	}
-	if(!values.equipmentType){
-		errors.equipmentType = '类型为必填项';
+	if(!values.typeId){
+		errors.typeId = '类型为必填项';
 	}
-	if(!values.property){
-		errors.property = '属性为必填项';
+	if(!values.propertyId){
+		errors.propertyId = '属性必填，先选择社区和楼层再选属性';
 	}
-	if(values.property == "meetingRoom" || values.property == "functionRoom" ){
-		if(!values.correspondingLocation){
-			errors.correspondingLocation = '对应位置为必填项';
-		}
-	}
-	if(!values.correspondingFunction){
-		errors.correspondingFunction = '对应功能为必填项';
+	// if(values.property == "meetingRoom" || values.property == "functionRoom" ){
+	// 	if(!values.locationId){
+	// 		errors.locationId = '对应位置为必填项';
+	// 	}
+	// }
+	if(!values.functionId){
+		errors.functionId = '对应功能为必填项';
 	}
 	return errors;
 }
