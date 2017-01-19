@@ -676,7 +676,7 @@ const APIS = {
  },
   //客户管理－个人客户列表－导出
  'personalCustomersExport': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/personal-customers-export',
+   url:'/api/krspace-finance-web/customer/personal-customers-export',
    method:'get'
  },
  //客户管理－取消客户跟进
