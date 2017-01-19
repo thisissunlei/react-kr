@@ -20,7 +20,7 @@ let State = observable({
 		openLookMerchants:false,
 		openSearchUpper:false,
 		openCatch:false,
-		openDelete:false,
+		
 		openEditCustomerList:false,
 		openNewCustomerIndent:false,
 		openDialog:false,
@@ -66,10 +66,7 @@ State.switchCustomerIndent = action(function() {
 	//Store.dispatch(change('NewVisitIndent','isContinue','YES'}));
 	this.openNewCustomerIndent=!this.openNewCustomerIndent;
 })
-//删除订单
-State.openDeleteOrder= action(function() {
-	this.openDelete=!this.openDelete;
-})
+
 State.closeAllMerchants = action(function() {
 	this.openLookMerchants=false;
 	this.openNewMerchants=false;

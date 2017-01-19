@@ -1,5 +1,3 @@
-
-
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
@@ -16,6 +14,7 @@ import {
 	Button,
 	Notify,
 	ButtonGroup,
+	Message
 } from 'kr-ui';
 import State from './State';
 import './index.less'
@@ -31,39 +30,38 @@ import './index.less'
 
 	constructor(props){
 		super(props);
-
+		let {listId}=props;
+		
 	}
 
 
 
 	onSubmit = (values) => {
-		const {onSubmit} = this.props;
-		State.onSubmitData(values);
-		onSubmit && onSubmit(values);
+		let _this=this;
+		Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
+         	_this.onCancel();
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
 
 	onCancel = () => {
 		const {onCancel} = this.props;
-		console.log("33333333",onCancel)
 
 		onCancel && onCancel();
 	}
 
 	hasOfficeClick = (params) =>{
-		if(params.value=="HAS"){
+		if(params.value=="YES"){
 			State.showMatureTime();
-		}else if(params.value=="NOHAS"){
+		}else if(params.value=="NO"){
 			State.noShowMatureTime();
 
 		}
 	}
 	
 	componentDidMount(){
-	 	Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
-
-	}
-	componentWillReceiveProps(nextProps){
-		State.editListId(nextProps.listId);
+	 	Store.dispatch(change('EditCustomerList','hasOffice','NOHAS'));
 	}
 
 
@@ -76,7 +74,7 @@ import './index.less'
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)}>
 				<div className="title">
-						<div><span className="new-icon"></span><label className="title-text">编辑客户</label></div>
+						<div><span className="new-icon"></span><label className="title-text">新建客户</label></div>
 						<div className="close" onClick={this.onCancel}></div>
 				</div>
 				<div className="cheek">
@@ -87,18 +85,17 @@ import './index.less'
 											options={dataReady.customerSourceList}
 											requireLabel={true}
 									/>
-									<KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:252,marginLeft:15}} component="input" requireLabel={true}>
-										<span>个</span>
-									</KrField>
+									<div className="krFlied-box"><KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:215,marginLeft:15}} component="input" requireLabel={true}>
+										
+									</KrField><span className="unit">个</span></div>
 									<KrField grid={1/2} label="联系人姓名" name="customerName" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
 									<KrField grid={1/2} label="意向工位类型" name="staiontypeId" component="select" style={{width:252,marginLeft:15}} 
 											options={dataReady.stationTypeList}
 											requireLabel={true}
 									/>
-									<KrField grid={1/2} label="联系人电话" name="customerTel" style={{width:252,marginLeft:15}} component="input"  requireLabel={true}/>
-									<KrField grid={1/2} label="意向工位价格" name="staionPrice" style={{width:252,marginLeft:15}} component="input"  requireLabel={true}>
-										<span>元/个/月</span>
-									</KrField>
+									<KrField grid={1/2} label="联系人电话" name="customerTel" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
+									<div className="krFlied-box"><KrField grid={1/2} label="意向工位价格" name="staionPrice" style={{width:175,marginLeft:15}} component="input"  requireLabel={true}>
+									</KrField><span className="unit">元/个/月</span></div>
 									<KrField grid={1/2} label="联系人邮箱"  name="customerMail" style={{width:252,marginLeft:15}} component="input" requireLabel={false}/>
 									<KrField grid={1/2} label="意向入驻社区" name="intentionCommunityId" component="select" style={{width:252,marginLeft:15}} 
 											options={dataReady.communityBaselist}
@@ -117,25 +114,21 @@ import './index.less'
 										requireLabel={false}
 								/>
 								<KrField grid={1/2} label="公司规模" name="teamNum" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
+
 								<KrField grid={1/2} label="融资金额" name="amount" style={{width:252,marginLeft:15}} component="input" requireLabel={false}/>
+								<KrField grid={1/2} label="所属地区" name="districtId"  style={{width:252,marginLeft:15,zIndex:2}} component="city" onSubmit={this.city}/>
+								<KrField grid={1/2} label="项目名称" name="projectName" style={{width:252,marginLeft:15}} component="input" requireLabel={true} />
+								<KrField grid={1/2} label="项目类型" name="projectCategoryId"  style={{width:252,marginLeft:15,zIndex:1}} component="tree" placeholder="请选择项目类型"/>
+								<KrField grid={1/2} label="详细地址" name="detailAddress" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
+
+
 								<KrField grid={1/2} label="是否已有办公室" name="hasOffice" style={{width:252,marginLeft:15}} component="group" requireLabel={true}>
-					              	<KrField name="hasOffice" label="是" type="radio" value="HAS" onClick={this.hasOfficeClick}/>
-					             	<KrField name="hasOffice" label="否" type="radio" value="NOHAS" onClick={this.hasOfficeClick}/>
+					              	<KrField name="hasOffice" label="是" type="radio" value="YES" onClick={this.hasOfficeClick}/>
+					             	<KrField name="hasOffice" label="否" type="radio" value="NO" onClick={this.hasOfficeClick}/>
 					            </KrField>
 
 								{State.matureTime && <KrField grid={1/2} label="到期时间" name="deadline" style={{width:252,marginLeft:15}} component="date" requireLabel={true}/>}
-								<KrField grid={1/2} label="项目名称" name="projectName" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
-
-								<KrField grid={1/2} label="所属地区" name="districtId"  style={{width:252,marginLeft:15}} component="city" onSubmit={this.city}/>
-
-								<KrField grid={1/2} label="项目类型" name="projectCategoryId" component="select" style={{width:252,marginLeft:15}} 
-										options={[
-											{value:'PAYMENT',label:'回款'},
-										  	{value:'INCOME',label:'收入'},
-										]}
-										requireLabel={true}
-								/>
-								<KrField grid={1/2} label="详细地址" name="detailAddress" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
+								
 								<KrField grid={1/2} label="公司网址" name="website" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
 								<KrField grid={1/2} label="公司简介" name="companyIntroduce" style={{width:520,marginLeft:15}} heightStyle={{height:"80px"}}  component="textarea"  maxSize={100} requireLabel={true} />
 								<KrField grid={1/2} label="备注" name="remark" style={{width:520,marginLeft:15,marginTop:-15}} heightStyle={{height:"80px"}}  component="textarea"  maxSize={100} requireLabel={false} />
@@ -161,7 +154,9 @@ const validate = values =>{
 
 		const errors = {};
 		let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
+		let checkTel=/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
 		let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
+		let RMB=/^(([1-9]\d*)|0)(\.\d{2})?$/
 		if(!values.sourceId){
 			errors.sourceId = '请填写客户来源';
 		}
@@ -189,16 +184,14 @@ const validate = values =>{
 
 		if (!values.customerTel) {
 			errors.customerTel = '请填写联系人电话';
-		}else if(!phone.test(values.customerTel)){
+		}else if(!phone.test(values.customerTel)||!checkTel.test(values.customerTel)){
 			errors.customerTel = '联系人电话格式错误';
 		}
 
 		if (!values.staionPrice) {
 			errors.staionPrice = '请填写意向工位价格';
-		}else if(isNaN(+values.staionPrice)){
-			errors.staionPrice = '意向工位价格为数字格式';
-		}else if(values.staionPrice.length>11){
-			errors.staionPrice = '最多输入11个字符';
+		}else if(!RMB.test(values.staionPrice)){
+			errors.staionPrice = '工位价格不得超过1亿';
 		}
 
 
@@ -220,19 +213,23 @@ const validate = values =>{
 
 		if (!values.customerCompany) {
 			errors.customerCompany = '请填写公司名称';
-		}else if(values.customerCompany.length>25){
-			errors.customerCompany = '最多输入25个字符';
+		}else if(values.customerCompany.length>20){
+			errors.customerCompany = '最多输入20个字符';
 		}
 
 		if (!values.teamNum) {
 			errors.teamNum = '请填写公司规模';
+		}else if(isNaN(values.teamNum)){
+			errors.teamNum = '请输入数字';
 		}else if(values.teamNum.length>8){
 			errors.teamNum = '最多输入8个字符';
 		}
 
 
-		if(values.amount&&values.amount.length>20){
+		if(values.amount&&values.amount.length>12){
 			errors.amount = '最多输入20个字符';
+		}else if(values.amount&&isNaN(values.amount)){
+			errors.amount = '请输入数字';
 		}
 
 		if (!values.intentionCommunityId) {
@@ -245,8 +242,8 @@ const validate = values =>{
 
 		if (!values.projectName) {
 			errors.projectName = '请填写项目名称';
-		}else if(values.projectName.length>25){
-			errors.projectName = '最多输入25个字符';
+		}else if(values.projectName.length>20){
+			errors.projectName = '最多输入20个字符';
 		}
 
 		if (!values.districtId) {
@@ -259,8 +256,8 @@ const validate = values =>{
 
 		if (!values.detailAddress) {
 			errors.detailAddress = '请填写详细地址';
-		}else if(values.detailAddress.length>25){
-			errors.detailAddress = '最多输入25个字符';
+		}else if(values.detailAddress.length>60){
+			errors.detailAddress = '最多输入60个字符';
 		}
 
 		if(values.website&&values.website.length>50){

@@ -38,7 +38,6 @@ import EditCustomerList from "../EditCustomerList";
 import NewVisitIndent from '../NewVisitIndent';
 import CatchMerchants from './CatchMerchants';
 import './index.less';
-import OrderDelete from '../OrderDelete';
 @observer
 class Merchants extends Component{
 
@@ -70,9 +69,28 @@ class Merchants extends Component{
 	switchLookCustomerList=() => {
       	State.switchLookCustomerList();
 	}
+
+
+	openEditCustomerList=()=>{
+		let listId=State.listId;
+		
+		Store.dispatch(Actions.callAPI('get-edit-info',{id:listId})).then(function(response) {
+			console.log(response,"Lllllll")
+			Store.dispatch(initialize('EditCustomerList',response));
+			
+		}).catch(function(err) {
+			
+		});
+		State.switchEditCustomerList();
+	}
+
+	
 	//客户编辑页面开关
 	switchEditCustomerList=() => {
+		
 		State.switchEditCustomerList();
+
+
 	}
 	//新增拜访记录的开关
 	switchCustomerIndent = () =>{
@@ -126,7 +144,6 @@ class Merchants extends Component{
 	
 	//搜索
 	onSearchSubmit=(params)=>{
-		console.log('bbbbb',params);
         let obj = {
 			company: params.content,
 		}
@@ -177,11 +194,7 @@ class Merchants extends Component{
      	State.catchSubmit(arrItem);
      }
 
-     //订单删除
-     openDeleteDialog=()=>{
-     	State.openDeleteOrder();
-     }
-
+     
 	closeAllMerchants=()=>{
 		State.closeAllMerchants();
 	}
@@ -323,8 +336,9 @@ class Merchants extends Component{
 								 onCancel={this.switchLookCustomerList}
 				                 listId={State.listId}
 				                 dataReady={dataReady}
-				                 editsSwitch={this.switchEditCustomerList}
+				                 editsSwitch={this.openEditCustomerList}
 				                 IndentSwitch={this.switchCustomerIndent}
+				                 
 							/>
 					</Drawer>
 
@@ -396,20 +410,7 @@ class Merchants extends Component{
 				    </Dialog>
 
 
-				    {/*删除*/}
-                    <Dialog
-						title="提示"
-						modal={true}
-						onClose={this.openDeleteDialog}
-						open={State.openDelete}
-						contentStyle ={{ width: '445',height:'230'}}
-					>
-						<OrderDelete 
-						   onCancel={this.openDeleteDialog}
-						   orderId='1'
-						 />
-				    </Dialog>
- 
+				   
 
 					{
 						(State.openNewMerchants||

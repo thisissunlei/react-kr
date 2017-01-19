@@ -37,12 +37,4 @@ State.showMatureTime = action(function() {
 State.noShowMatureTime = action(function() {
 	this.matureTime=false;
 });
-//新建编辑的数据准备
-State.onSubmitData= action(function(params) {
-	Store.dispatch(Actions.callAPI('customerDataEdit',{},{params})).then(function(response) {
-         
-		}).catch(function(err) {
-			//Message.error(err.message);
-		});
-});
 module.exports = State;

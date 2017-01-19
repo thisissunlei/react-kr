@@ -141,8 +141,9 @@ export default class KrField extends React.Component {
 		}
 
 		if (component === 'tree' || type == 'tree') {
+
 			return (
-				<TreeComponent {...this.props} style={WrapStyles}/>
+				<Field  {...this.props} component={TreeComponent}  style={WrapStyles}/>
 			);
 		}
 

@@ -26,7 +26,6 @@ export default class InputComponent extends React.Component{
 
 	constructor(props,context){
 		super(props,context)
-
 	}
 
 	componentDidMount(){

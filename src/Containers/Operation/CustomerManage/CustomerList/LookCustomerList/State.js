@@ -42,7 +42,7 @@ State.orderList=action(function(params) {
 	Store.dispatch(Actions.callAPI('customerOrdersList',{id:params})).then(function(response) {
          _this.orderDetail=response;
 		}).catch(function(err) {
-			Message.error(err.message);
+			// Message.error(err.message);
 		});
 })
 //获取详情页数据
@@ -51,7 +51,7 @@ State.lookListId=action(function(params) {
 	Store.dispatch(Actions.callAPI('get-detail-info',{id:params})).then(function(response) {
          _this.detail=response;
 		}).catch(function(err) {
-			Message.error(err.message);
+			// Message.error(err.message);
 		});
 })
 

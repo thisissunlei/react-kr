@@ -14,6 +14,7 @@ import {
 	Button,
 	Notify,
 	ButtonGroup,
+	Message
 } from 'kr-ui';
 import State from './State';
 import './index.less'
@@ -29,17 +30,19 @@ import './index.less'
 
 	constructor(props){
 		super(props);
-		let {dataReady,come}=props;
-		State.selectDataInit(dataReady,come);
 
 	}
 
 
 
 	onSubmit = (values) => {
-		const {onSubmit} = this.props;
-		State.onSubmitData(values);
-		onSubmit && onSubmit(values);
+		console.log("11")
+		let _this=this;
+		Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
+         	_this.onCancel();
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
 
 	onCancel = () => {
@@ -49,9 +52,9 @@ import './index.less'
 	}
 
 	hasOfficeClick = (params) =>{
-		if(params.value=="HAS"){
+		if(params.value=="YES"){
 			State.showMatureTime();
-		}else if(params.value=="NOHAS"){
+		}else if(params.value=="NO"){
 			State.noShowMatureTime();
 
 		}
@@ -82,18 +85,17 @@ import './index.less'
 											options={dataReady.customerSourceList}
 											requireLabel={true}
 									/>
-									<KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:252,marginLeft:15}} component="input" requireLabel={true}>
-										<span>个</span>
-									</KrField>
+									<div className="krFlied-box"><KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:215,marginLeft:15}} component="input" requireLabel={true}>
+										
+									</KrField><span className="unit">个</span></div>
 									<KrField grid={1/2} label="联系人姓名" name="customerName" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
 									<KrField grid={1/2} label="意向工位类型" name="staiontypeId" component="select" style={{width:252,marginLeft:15}} 
 											options={dataReady.stationTypeList}
 											requireLabel={true}
 									/>
-									<KrField grid={1/2} label="联系人电话" name="customerTel" style={{width:252,marginLeft:15}} component="input"  requireLabel={true}/>
-									<KrField grid={1/2} label="意向工位价格" name="staionPrice" style={{width:252,marginLeft:15}} component="input"  requireLabel={true}>
-										<span>元/个/月</span>
-									</KrField>
+									<KrField grid={1/2} label="联系人电话" name="customerTel" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
+									<div className="krFlied-box"><KrField grid={1/2} label="意向工位价格" name="staionPrice" style={{width:175,marginLeft:15}} component="input"  requireLabel={true}>
+									</KrField><span className="unit">元/个/月</span></div>
 									<KrField grid={1/2} label="联系人邮箱"  name="customerMail" style={{width:252,marginLeft:15}} component="input" requireLabel={false}/>
 									<KrField grid={1/2} label="意向入驻社区" name="intentionCommunityId" component="select" style={{width:252,marginLeft:15}} 
 											options={dataReady.communityBaselist}
@@ -121,8 +123,8 @@ import './index.less'
 
 
 								<KrField grid={1/2} label="是否已有办公室" name="hasOffice" style={{width:252,marginLeft:15}} component="group" requireLabel={true}>
-					              	<KrField name="hasOffice" label="是" type="radio" value="HAS" onClick={this.hasOfficeClick}/>
-					             	<KrField name="hasOffice" label="否" type="radio" value="NOHAS" onClick={this.hasOfficeClick}/>
+					              	<KrField name="hasOffice" label="是" type="radio" value="YES" onClick={this.hasOfficeClick}/>
+					             	<KrField name="hasOffice" label="否" type="radio" value="NO" onClick={this.hasOfficeClick}/>
 					            </KrField>
 
 								{State.matureTime && <KrField grid={1/2} label="到期时间" name="deadline" style={{width:252,marginLeft:15}} component="date" requireLabel={true}/>}

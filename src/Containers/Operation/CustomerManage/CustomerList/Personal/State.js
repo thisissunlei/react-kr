@@ -26,7 +26,8 @@ let State = observable({
 		openNewIndent:false,
 		openEditIndent:false,
 		listId:"",
-		companyName:''
+		companyName:'',
+		openDelete:false,
 });
 
 //新建页的开关
@@ -65,6 +66,10 @@ State.openSwitchGoDialog= action(function() {
 State.openQuitContinue= action(function() {
 	this.openQuit=!this.openQuit;
 });
+//删除订单
+State.openDeleteOrder= action(function() {
+	this.openDelete=!this.openDelete;
+})
 //导出
 State.exportData = action(function(value) {
 		let customerIds = [];
