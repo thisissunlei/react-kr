@@ -65,13 +65,15 @@ import './index.less'
 	componentDidMount(){
 	 	Store.dispatch(change('EditCustomerList','hasOffice','NOHAS'));
 	}
+    
 
 
 	render(){
 
 		const { error, handleSubmit, pristine, reset,dataReady} = this.props;
-		
-		
+        
+
+
 		return (
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)}>

@@ -678,22 +678,22 @@ const APIS = {
  },
  //客户管理－取消客户跟进
  'customerGiveBack': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/actions/give-back',
+   url:'/api/krspace-finance-web/customer/actions/give-back',
    method:'post'
  },
  //客户管理－客户转移
  'customerTransfer': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/actions/transfer',
+   url:'/api/krspace-finance-web/customer/actions/transfer',
    method:'post'
  },
  //客户管理－新增与编辑数据准备
  'customerDataAddList': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/actions/data-list',
+   url:'/api/krspace-finance-web/customer/actions/data-list',
    method:'get'
  },
  //客户管理－新增或编辑客户
  'customerDataEdit': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/actions/edit',
+   url:'/api/krspace-finance-web/customer/actions/edit',
    method:'post'
  },
  //客户管理-公司名称实时校验
@@ -703,12 +703,12 @@ const APIS = {
  },
  //客户管理－新增拜访记录
  'customerVisitRecord': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/visit-log/actions/add',
+   url:'/api/krspace-finance-web/customer/visit-log/actions/add',
    method:'post'
  },
   //客户管理－根据客户获取订单列表
  'customerOrdersList': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/orders?customerId={customerId}',
+   url:'/api/krspace-finance-web/customer/orders?customerId={customerId}',
    method:'get'
  },
   //客户管理－签约客户列表
@@ -723,27 +723,27 @@ const APIS = {
  },
  //客户管理－获取客户编辑信息
  'get-edit-info': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/actions/get-edit-info?id={id}',
+   url:'/api/krspace-finance-web/customer/actions/get-edit-info?id={id}',
    method:'get'
  },
  //客户管理－获取客户详情
  'get-detail-info': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/actions/get-detail-info?id={id}',
+   url:'/api/krspace-finance-web/customer/actions/get-detail-info?id={id}',
    method:'get'
  },
  //客户管理－获取项目类型树
  'get-project-types': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/actions/get-project-types',
+   url:'/api/krspace-finance-web/customer/actions/get-project-types',
    method:'get'
  },
  //客户管理－订单删除
  'order-delete': {
-   url:'/mockjsdata/23/krspace-finance-web/fina-contract-mainbill/actions/delete?id={id}',
+   url:'/api/krspace-finance-web/fina-contract-mainbill/actions/delete?id={id}',
    method:'delete'
  },
  //客户管理－领取客户
  'receive-customer': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/actions/receive',
+   url:'/api/krspace-finance-web/customer/actions/receive',
    method:'post'
  },
  //客户管理－招商和个人高级查询准备

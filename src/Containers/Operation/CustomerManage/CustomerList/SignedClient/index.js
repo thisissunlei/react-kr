@@ -286,7 +286,7 @@ class SignedClient extends Component{
 			        <TableBody >
 			              <TableRow >
 			                <TableRowColumn name="signCityName" ></TableRowColumn>
-			                <TableRowColumn name="customerCompany" ></TableRowColumn>
+			                <TableRowColumn name="company" ></TableRowColumn>
 			                <TableRowColumn name="contractTotalamount"></TableRowColumn>
 			                <TableRowColumn name="contractBackamount"></TableRowColumn>
 			                <TableRowColumn name="unBackamount" style={{color:'#ff6868'}}></TableRowColumn>
