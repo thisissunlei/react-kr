@@ -223,12 +223,15 @@ class NewCreateForm extends Component {
 	componentWillReceiveProps(nextProps) {
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
+			let delStationVos = stationVos;
+			console.log('dddd',delStationVos)
 			this.setState({
-				stationVos
+				stationVos,
 			});
 			this.isInit = true;
 		};
 	}
+
 
 	onSubmit(form) {
 
@@ -238,8 +241,12 @@ class NewCreateForm extends Component {
 			changeValues
 		} = this.props;
 		let {
-			stationVos
+			stationVos,
+			delStationVos
 		} = this.state;
+
+
+		form.delStationVos = JSON.stringify(delStationVos);
 
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
