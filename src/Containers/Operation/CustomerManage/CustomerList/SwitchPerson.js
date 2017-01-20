@@ -52,7 +52,7 @@ class SwitchPerson extends Component{
                  <form onSubmit={handleSubmit(this.onSubmit)}>
 				       
                        <div className='person-switchText'>您即将转移<span>{this.props.customerIds}</span>个客户,操作之后，该客户会转移到对应人员，无法恢复</div>
-					   <KrField  left={63} right={72} name="receiveId" style={{marginTop:'12px'}} component="searchPersonel" inline={false} label="新负责人" onChange={this.onChangePerson} placeholder='请输入新负责人'/>
+					   <KrField  left={63} right={72} name="receiveId" style={{marginTop:'12px'}} component="searchLeader" inline={false} label="新负责人" onChange={this.onChangePerson} placeholder='请输入新负责人'/>
 					   <Grid style={{marginTop:18}}>
 						<Row>
 							<Col md={12} align="center">

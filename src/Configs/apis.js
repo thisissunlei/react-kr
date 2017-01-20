@@ -801,6 +801,12 @@ const APIS = {
    url:'/api-old/krspace_operate_web/commnuity/communityFloorPlan/getCommunityFloorPlanSelData?communityId={communityId}&wherefloor={wherefloor}&mainBillId={mainBillId}&startDate={startDate}&endDate={endDate}&contractId={contractId}',
    method:'get'
  },
+ //获取招商人员列表
+ 'get-receive-list': {
+   url:'/api/krspace-finance-web/customer/actions/get-receive-list?searchKey={searchKey}',
+   method:'get'
+ },
+
  }
 
  module.exports = APIS;

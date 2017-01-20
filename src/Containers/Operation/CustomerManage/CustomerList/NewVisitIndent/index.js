@@ -60,7 +60,7 @@ import './index.less'
 
 	otherContinue=(value)=>{
 		if(value){
-		    if(value.label=='qwerrtt'){	
+		    if(value.label=='其他'){	
 			  StateIn.showOtherContinue();	
 			}else{
 			  StateIn.noShowOtherContinue();
@@ -82,8 +82,7 @@ import './index.less'
 		var content='';
 		if(StateIn.matureTime){
 			content=(<KrField grid={1/2} label="放弃原因" name="reasonId" style={{width:261,marginLeft:-6}} component="select" 
-							//options={selectDatas.giveupList}
-							options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
+							options={selectDatas.giveupList}
 							requireLabel={true}
 							onChange={this.otherContinue}
 					/>)
@@ -106,7 +105,6 @@ import './index.less'
 
 		const { error, handleSubmit, pristine, reset,selectDatas} = this.props;
 
-		
 
 		return (
 
@@ -119,8 +117,7 @@ import './index.less'
 				<div className="kk" style={{marginTop:27}}>	
 				    <KrField name="customerId" type='hidden'/> 	
 					<KrField grid={1/2} label="拜访方式" name="visitType" style={{width:261,marginLeft:-6}} component="select" 
-						    //options={selectDatas.visitTypeList}
-						    options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
+						    options={selectDatas.visitTypeList}
 							requireLabel={true}
 					/>
 					
@@ -129,8 +126,7 @@ import './index.less'
 					<KrField grid={1/2} label="联系人" name="linkName" style={{width:261,marginLeft:-6}} component="input" requireLabel={true}/>
 
 					<KrField grid={1/2} label="客户分类" name="levelId" component="select" style={{width:261,marginLeft:29}} 
-							//options={selectDatas.levelList}
-							options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
+							options={selectDatas.levelList}
 							requireLabel={true}
 					/>
 					<KrField grid={1/2} label="联系方式" name="linkTel" style={{width:261,marginLeft:-6}} component="input" requireLabel={true}/>

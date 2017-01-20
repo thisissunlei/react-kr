@@ -76,7 +76,6 @@ class Merchants extends Component{
 		let listId=State.listId;
 		
 		Store.dispatch(Actions.callAPI('get-edit-info',{id:listId})).then(function(response) {
-			console.log(response,"Lllllll")
 			Store.dispatch(initialize('EditCustomerList',response));
 			
 		}).catch(function(err) {
@@ -239,7 +238,7 @@ class Merchants extends Component{
         	display:'none'
         }
       }
-
+     
       
 		return(
       <div className="m-merchants" style={{paddingTop:25}}>
