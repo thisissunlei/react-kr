@@ -20,7 +20,8 @@ let State = observable({
 			roundList:[],
 			stationTypeList:[],
 			visitTypeList:[]
-		}
+		},
+		isCorpName:false,
 
 
 });
@@ -37,4 +38,20 @@ State.showMatureTime = action(function() {
 State.noShowMatureTime = action(function() {
 	this.matureTime=false;
 });
+//公司名称检验
+State.corpNameCheck = action(function(params){
+	var _this=this;
+	let data={};
+	data.id="";
+	data.companyName=params;
+	Store.dispatch(Actions.callAPI('corpNameCheck',data)).then(function(response) {
+		 _this.isCorpName=false;
+         // console.log('取消成功');
+	}).catch(function(err) {
+		if(err.message.indexOf("该名称已存在")==0){
+			 _this.isCorpName=true;
+		}
+		
+	});	
+})
 module.exports = State;

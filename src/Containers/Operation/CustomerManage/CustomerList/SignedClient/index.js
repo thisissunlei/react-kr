@@ -2,6 +2,8 @@ import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
+import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
+
 import {
 	observer
 } from 'mobx-react';
@@ -32,7 +34,12 @@ import StateIn from '../NewVisitIndent/State.js';
 import NewCustomerList from '../NewCustomerList';
 import LookCustomerList from '../LookCustomerList';
 import SearchUpperForm from '../SearchUpperForm';
+import EditCustomerList from "../EditCustomerList";
+import NewIndent from "../NewIndent";
+import EditIndent from "../EditIndent";
+import NewVisitIndent from '../NewVisitIndent';
 import SwitchPerson from '../SwitchPerson';
+import OrderDelete from '../OrderDelete';
 import './index.less'
 @observer
 class SignedClient extends Component{
@@ -54,24 +61,66 @@ class SignedClient extends Component{
 	}
 
 
-	//新建页面的开关
-	switchNewMerchants=()=>{
-		State.switchNewCustomerList();
+	//查看页面开关
+	switchLookCustomerList=() => {
+      	State.switchLookCustomerList();
 	}
-	//新建页面的开关
-	switchNewMerchants=()=>{
-		State.switchNewCustomerList();
-	}
+	
     //查看相关操作
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
       	State.switchLookCustomerList();
       }
     }
-	//新建提交按钮
-	onNewMerchants=(params)=>{
-
+    //客户编辑页面开关
+	switchEditCustomerList=() => {
+		State.switchEditCustomerList();
 	}
+	//新增拜访记录的开关
+	switchCustomerIndent = () =>{
+		   Store.dispatch(change('NewVisitIndent','customerId',State.listId));
+		   Store.dispatch(change('NewVisitIndent','visitType',''));
+           Store.dispatch(change('NewVisitIndent','visitTime',''));
+           Store.dispatch(change('NewVisitIndent','isContinue','YES'));
+           Store.dispatch(change('NewVisitIndent','linkName',''));
+           Store.dispatch(change('NewVisitIndent','linkTel',''));
+           Store.dispatch(change('NewVisitIndent','visitDetail',''));
+           Store.dispatch(change('NewVisitIndent','levelId',''));
+           Store.dispatch(change('NewVisitIndent','remark',''));
+           Store.dispatch(change('NewVisitIndent','reasonId',''));
+           Store.dispatch(change('NewVisitIndent','reasonOther',''));
+        StateIn.noShowMatureTime();
+        StateIn.noShowOtherContinue();
+		State.switchCustomerIndent();
+	}
+
+	//打开新建订单页
+	openNewIndent=()=>{
+		// let _this=this;
+		// let listId=State.listId;
+		// Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
+  //        	State.indentReady(response);
+		// }).catch(function(err) {
+		// 	Message.error(err.message);
+		// });
+
+		State.switchNewIndent();
+	}
+
+	//新建订单页面的开关
+	switchNewIndent=()=>{
+		State.switchNewIndent();
+	}
+
+	//编辑订单页面的开关
+	switchEditIndent=()=>{
+		State.switchEditIndent();
+	}
+	//订单删除
+     openDeleteDialog=()=>{
+     	State.openDeleteOrder();
+     }
+
 
 	 //选中几项领取，转移等
     onSelect=(value)=>{
@@ -249,40 +298,91 @@ class SignedClient extends Component{
 			        <TableFooter></TableFooter>
            </Table>
 
-					{/*新建*/}
-					<Drawer
-				        open={State.openNewMerchants}
-				        width={700}
-				        openSecondary={true}
-				        className='m-finance-drawer'
-				        containerStyle={{top:60,paddingBottom:228,zIndex:20}}
-			        >
-								<NewCustomerList
-										onSubmit={this.onNewMerchants}
-										onCancel={this.switchNewMerchants}
-										dataReady={dataReady}
-										come={"3"}
-								/>
-
-		           </Drawer>
-
-
-
+					
 					{/*查看*/}
 					<Drawer
 							open={State.openLookMerchants}
-							width={700}
+							width={750}
 							openSecondary={true}
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
 								<LookCustomerList
-									comeFrom="Merchant"
+									comeFrom="SignedClient"
 									onCancel={this.switchLookCustomerList}
 					                listId={State.listId}
 					                dataReady={dataReady}
+				                 	editsSwitch={this.switchEditCustomerList}
+				                 	IndentSwitch={this.switchCustomerIndent}
+				                 	newIndentSwitch={this.openNewIndent}
+				                	editIndentSwitch={this.switchEditIndent}
+				                 	DeleteSwitch={this.openDeleteDialog}
+									
 										
 								/>
+					</Drawer>
+
+					{/*编辑*/}
+					<Drawer
+							open={State.openEditCustomerList}
+							width={750}
+
+							openSecondary={true}
+							className='m-finance-drawer'
+							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+					 >
+						<EditCustomerList
+			                 comeFrom="Merchant"
+							 onCancel={this.switchEditCustomerList}
+			                 listId={State.listId}
+			                 dataReady={dataReady}
+						/>
+					</Drawer>
+
+					{/*新建订单*/}
+					<Drawer
+							open={State.openNewIndent}
+							width={750}
+							openSecondary={true}
+							className='m-finance-drawer'
+							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+					 >
+						<NewIndent
+							 onCancel={this.switchNewIndent}
+							 listId={State.listId}
+			                 indentReady={State.indentReady}
+						/>
+					</Drawer>
+
+					{/*新增拜访记录*/}
+					<Drawer
+							open={State.openNewCustomerIndent}
+							width={750}
+							openSecondary={true}
+							className='m-finance-drawer'
+							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+					 >
+						<NewVisitIndent
+			                 comeFrom="Merchant"
+							 onCancel={this.switchCustomerIndent}
+			                 listId={State.listId}
+			                 selectDatas={dataReady}
+			                 companyName={State.companyName}
+						/>
+					</Drawer>
+
+					{/*编辑订单*/}
+					<Drawer
+							open={State.openEditIndent}
+							width={750}
+							openSecondary={true}
+							className='m-finance-drawer'
+							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+					 >
+						<EditIndent
+							 onCancel={this.switchEditIndent}
+			                 dataReady={dataReady}
+						/>
 					</Drawer>
 
                     {/*高级查询*/}
@@ -299,6 +399,21 @@ class SignedClient extends Component{
 						    flag='签约'
 						    searchSignParams={searchSignParams}
 						/>
+				    </Dialog>
+
+
+				    {/*删除*/}
+                    <Dialog
+						title="提示"
+						modal={true}
+						onClose={this.openDeleteDialog}
+						open={State.openDelete}
+						contentStyle ={{ width: '445',height:'230'}}
+					>
+						<OrderDelete 
+						   onCancel={this.openDeleteDialog}
+						   orderId='1'
+						 />
 				    </Dialog>
 
 				    {/*转移*/}

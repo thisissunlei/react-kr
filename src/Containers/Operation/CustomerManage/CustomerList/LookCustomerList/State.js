@@ -38,12 +38,20 @@ State.switchEditCustomerList = action(function(comeFrom) {
 });
 //获取订单数据列表
 State.orderList=action(function(params) {
+	// if(!params){
+	// 	return;
+	// }
     var _this=this;
-	Store.dispatch(Actions.callAPI('customerOrdersList',{id:params})).then(function(response) {
-         _this.orderDetail=response;
+	Store.dispatch(Actions.callAPI('customerOrdersList',{customerId:params})).then(function(response) {
+
+         _this.orderDetail=response.items;
 		}).catch(function(err) {
+
 			// Message.error(err.message);
 		});
+})
+State.initListId=action(function(params){
+	this.listId=params;
 })
 //获取详情页数据
 State.lookListId=action(function(params) {

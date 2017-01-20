@@ -70,6 +70,7 @@ State.openQuitContinue= action(function() {
 State.openDeleteOrder= action(function() {
 	this.openDelete=!this.openDelete;
 })
+
 //导出
 State.exportData = action(function(value) {
 		let customerIds = [];
@@ -105,6 +106,12 @@ State.quitSubmit= action(function(arrItem) {
 		 Message.error(err.message);
 	});		
 });
+
+
+
+
+
+//
 
 State.closeAllMerchants = action(function() {
 	this.openLookMerchants=false;

@@ -35,12 +35,12 @@ import './index.less'
 	
 
 	onSubmit = (values) => {
-		 var _this=this;
-	     Store.dispatch(Actions.callAPI('customerVisitRecord',{},values)).then(function(response) {
-		   _this.onCancel();
-		 }).catch(function(err) {
-		 	Message.error(err.message);
-		 });
+		 // var _this=this;
+	  //    Store.dispatch(Actions.callAPI('customerVisitRecord',{},values)).then(function(response) {
+		 //   _this.onCancel();
+		 // }).catch(function(err) {
+		 // 	Message.error(err.message);
+		 // });
 	}
 
 	onCancel = () => {

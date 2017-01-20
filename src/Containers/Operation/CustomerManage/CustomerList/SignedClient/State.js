@@ -16,9 +16,15 @@ let State = observable({
 		searchParams:{},
 		openNewMerchants:false,
 		openLookMerchants:false,
+		openEditCustomerList:false,
+		openNewCustomerIndent:false,
+		openNewIndent:false,
+		openEditIndent:false,
+		openDelete:false,
 		openSearchUpper:false,
 		openSwitch:false,
 		openPersonDialog:false,
+		indentReady:{}
 });
 
 //新建页的开关
@@ -29,6 +35,22 @@ State.switchNewCustomerList = action(function() {
 State.switchLookCustomerList = action(function() {
 	this.openLookMerchants=!this.openLookMerchants;
 });
+//编辑页面的开关
+State.switchEditCustomerList = action(function() {
+	this.openEditCustomerList=!this.openEditCustomerList;
+})
+//新增排放记录的开关
+State.switchCustomerIndent = action(function() {
+	this.openNewCustomerIndent=!this.openNewCustomerIndent;
+})
+//新建订单的开关
+State.switchNewIndent = action(function() {
+	this.openNewIndent=!this.openNewIndent;
+})
+//编辑订单的开关
+State.switchEditIndent=action(function() {
+	this.openEditIndent=!this.openEditIndent;
+})
 //高级查询的开关
 State.searchUpperCustomer = action(function() {
 	this.openSearchUpper=!this.openSearchUpper;
@@ -37,6 +59,14 @@ State.searchUpperCustomer = action(function() {
 State.openSwitchGoDialog= action(function() {
 	this.openSwitch=!this.openSwitch;
 });
+//删除订单
+State.openDeleteOrder= action(function() {
+	this.openDelete=!this.openDelete;
+})
+//新建订单页得数据准备
+State.indentReady= action(function(params) {
+	this.indentReady=params;
+})
 //转移提交
 State.switchSureSubmit= action(function(value) {
 	var _this=this;
@@ -64,5 +94,9 @@ State.closeAllMerchants = action(function() {
 	this.openLookMerchants=false;
 	this.openNewMerchants=false;
 	this.openSearchUpper=false;
+	this.openEditCustomerList=false;
+	this.openNewCustomerIndent=false;
+	this.openNewIndent=false;
+	this.openEditIndent=false;
 });
 module.exports = State;

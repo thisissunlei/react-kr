@@ -14,6 +14,8 @@ import {
 	Button,
 	Notify,
 	ButtonGroup,
+    Message
+
 } from 'kr-ui';
 import State from './State';
 import './index.less'
@@ -38,15 +40,25 @@ import './index.less'
 			stationTypeList:[],
 			visitTypeList:[]
 		};
-		let selectData=props.selectData||selectDatas;
-		State.selectDataInit(selectData);
+
 	}
 
 
 
 	onSubmit = (values) => {
-		const {onSubmit} = this.props;
-		onSubmit && onSubmit(values);
+		console.log("dsdsdfs",values);
+		let listId=this.props.listId;
+		let _this=this;
+		values.customerid=listId;
+		values.mainbillcode="3333";
+		console.log("0000000",values)
+
+		// return;
+		Store.dispatch(Actions.callAPI('enter-order',{},values)).then(function(response) {
+         	_this.onCancel();
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
 
 	onCancel = () => {
@@ -62,15 +74,31 @@ import './index.less'
 
 		}
 	}
+	componentWillReceiveProps(nextProps){
+
+			if(typeof(nextProps.orderReady)=="function"){
+				return;
+			}
+			if(State.isInit){
+				return;
+			}
+			State.orderReady(nextProps.orderReady)
+	}
 	
 	componentDidMount(){
 	 	Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
 	}
+	communityChange=(value)=>{
+		console.log(value,"<><><>")
+	}
 
 
 	render(){
+		// console(State.city.constructor == Array,"+++++++>")
+		// console.log(State.city,"<++++++>");
 		const { error, handleSubmit, pristine, reset} = this.props;
 
+		// console.log('<<<<<<---->>',orderReady.sysDicPayments);
 		return (
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)}>
@@ -80,6 +108,16 @@ import './index.less'
 				</div>
 				
 				<div className="kk" style={{marginTop:30}}>		
+<<<<<<< HEAD
+					<KrField grid={1/2} label="订单类型" name="mainbilltype" style={{width:252,marginLeft:15}} component="select" 
+							options={State.orderFound}
+							//options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
+							requireLabel={true}
+					/>
+					<KrField grid={1/2} label="所在社区" name="communityid" component="select" style={{width:252,marginLeft:15}} 
+							options={State.community}
+							// options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
+=======
 					<KrField grid={1/2} label="订单类型" name="sourceId" style={{width:252,marginLeft:15}} component="select" 
 							//options={State.selectData.customerSourceList}
 							options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
@@ -88,17 +126,24 @@ import './index.less'
 					<KrField grid={1/2} label="所在社区" name="staiontypeId" component="select" style={{width:252,marginLeft:15}} 
 							//options={State.selectData.stationTypeList}
 							options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
+>>>>>>> 89ced9f3d8aa34f1a4fab27bab6fd23829689c87
 							requireLabel={true}
+							onChange={this.communityChange}
 					/>
 					
 
+<<<<<<< HEAD
+					<KrField grid={1/2} label="所在城市" name="communityid" component="select" style={{width:252,marginLeft:15}} 
+
+=======
 					<KrField grid={1/2} label="所在城市" name="intentionCommunityId" component="select" style={{width:252,marginLeft:15}} 
+>>>>>>> 89ced9f3d8aa34f1a4fab27bab6fd23829689c87
 							//options={State.selectData.communityBaselist}
 							options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
 							requireLabel={false}
 					/>
-					<KrField grid={1/2} label="订单名称" name="customerWechat" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
-					<KrField grid={1/2} label="订单描述" name="remark" style={{width:520,marginLeft:15}} heightStyle={{height:"80px"}}  component="textarea"  maxSize={100} requireLabel={false} />
+					<KrField grid={1/2} label="订单名称" name="mainbillname" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
+					<KrField grid={1/2} label="订单描述" name="mainbilldesc" style={{width:520,marginLeft:15}} heightStyle={{height:"80px"}}  component="textarea"  maxSize={100} requireLabel={false} />
 				</div>		
 				<Grid style={{marginTop:30}}>
 					<Row>

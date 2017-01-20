@@ -32,11 +32,7 @@ import './index.less'
 		super(props);
 
 	}
-
-
-
 	onSubmit = (values) => {
-		console.log("11")
 		let _this=this;
 		Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
          	_this.onCancel();
@@ -47,7 +43,6 @@ import './index.less'
 
 	onCancel = () => {
 		const {onCancel} = this.props;
-
 		onCancel && onCancel();
 	}
 
@@ -59,7 +54,9 @@ import './index.less'
 
 		}
 	}
-	
+	corpNameChange = (value) =>{
+		State.corpNameCheck(value);
+	}
 	componentDidMount(){
 	 	Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
 	}
@@ -111,7 +108,7 @@ import './index.less'
 
 						<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">公司信息</label></div>
 						<div className="small-cheek" style={{paddingBottom:0}}>
-								<KrField grid={1/2} label="公司名称" name="customerCompany" component="input" style={{width:262,marginLeft:15}}  requireLabel={true}/>
+								<KrField grid={1/2} label="公司名称" name="customerCompany" component="input" style={{width:262,marginLeft:15}}  requireLabel={true} onChange={this.corpNameChange} />
 								<KrField grid={1/2} label="投资轮次" name="roundId" component="select" style={{width:262,marginLeft:28}} 
 										//options={dataReady.roundList}
 										options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
@@ -214,11 +211,13 @@ const validate = values =>{
 		if (!values.inTime) {
 			errors.inTime = '请填写预计入驻时间';
 		}
-
+		console.log("?????????",State.isCorpName);
 		if (!values.customerCompany) {
 			errors.customerCompany = '请填写公司名称';
 		}else if(values.customerCompany.length>20){
 			errors.customerCompany = '最多输入20个字符';
+		}else if(State.isCorpName){
+			errors.customerCompany = '该公司名称已存在';
 		}
 
 		if (!values.teamNum) {

@@ -93,10 +93,17 @@ class Personal extends Component{
         StateIn.noShowOtherContinue();
 		State.switchCustomerIndent();
 	}
+	//打开新建订单页
+	openNewIndent=()=>{
+
+		State.switchNewIndent();
+	}
 	//新建订单页面的开关
 	switchNewIndent=()=>{
 		State.switchNewIndent();
 	}
+
+
 	//编辑订单页面的开关
 	switchEditIndent=()=>{
 		State.switchEditIndent();
@@ -239,7 +246,7 @@ class Personal extends Component{
 
     
 	render(){
-		let {dataReady,searchParams}=this.props;
+		let {dataReady,searchParams,orderReady}=this.props;
        var blockStyle={};
       if(State.openPersonDialog==true){
         blockStyle={
@@ -398,7 +405,7 @@ class Personal extends Component{
 				                 dataReady={dataReady}
 				                 editsSwitch={this.switchEditCustomerList}
 				                 IndentSwitch={this.switchCustomerIndent}
-				                 newIndentSwitch={this.switchNewIndent}
+				                 newIndentSwitch={this.openNewIndent}
 				                 editIndentSwitch={this.switchEditIndent}
 				                 DeleteSwitch={this.openDeleteDialog}
 							/>
@@ -431,7 +438,8 @@ class Personal extends Component{
 					 >
 						<NewIndent
 							 onCancel={this.switchNewIndent}
-			                 dataReady={dataReady}
+			                 orderReady={orderReady}
+			                 listId={State.listId}
 						/>
 					</Drawer>
 					
@@ -446,7 +454,9 @@ class Personal extends Component{
 					 >
 						<EditIndent
 							 onCancel={this.switchEditIndent}
-			                 dataReady={dataReady}
+							 listId={State.listId}
+			                 orderReady={orderReady}
+
 						/>
 					</Drawer>
 
