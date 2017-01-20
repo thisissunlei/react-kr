@@ -86,7 +86,7 @@ State.exportData = action(function(value) {
 				customerIds.push(item.id)
 			});
 		}
-		var url = `/api/krspace-finance-web/customer/sign-customers-export?customerIds=${customerIds}`
+		var url = `http://optest.krspace.cn/api/krspace-finance-web/customer/sign-customers-export?customerIds=${customerIds}`
 		window.location.href = url;
 });
 

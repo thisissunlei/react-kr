@@ -163,6 +163,15 @@ class SignedClient extends Component{
 			searchParams: obj
 		});
 	}
+	componentWillReceiveProps(nextProps){
+		this.setState({
+			searchParams: {
+			  company:'',
+			  page:1,
+			  pageSize:15,	 
+			}
+		});
+	}
 
 	//高级查询
 	openSearchUpperDialog=()=>{
@@ -245,7 +254,7 @@ class SignedClient extends Component{
 			         
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
 				          <ListGroup>
-				            <ListGroupItem><SearchForms placeholder='请输入客户名称' onSubmit={this.onSearchSubmit}/></ListGroupItem>
+				            <ListGroupItem><SearchForms placeholder='请输入客户名称' inputName='sign' onSubmit={this.onSearchSubmit}/></ListGroupItem>
 				            <ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
 				          </ListGroup>
 			          </Col>

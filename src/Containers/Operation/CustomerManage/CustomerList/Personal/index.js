@@ -51,7 +51,7 @@ class Personal extends Component{
 		this.state={
 			searchParams:{
 				page:1,
-				pageSize:15
+				pageSize:15,
 			},			
 			//选中的数量
 			dialogNum:0,
@@ -120,6 +120,9 @@ class Personal extends Component{
       
 	}
 
+	
+
+
 	 //选中几项领取，转移等
     onSelect=(value)=>{
     	var arrItem=[]
@@ -161,6 +164,17 @@ class Personal extends Component{
 			searchParams: obj
 		});
 	}
+
+	componentWillReceiveProps(nextProps){
+		this.setState({
+			searchParams: {
+			  company:'',
+			  page:1,
+			  pageSize:15,	 
+			}
+		});
+	}
+
     //转移确定
      switchPersonSubmit=(params)=>{
        let {arrItem}=this.state;
@@ -266,7 +280,7 @@ class Personal extends Component{
 
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
 				          <ListGroup>
-				            <ListGroupItem><SearchForms placeholder='请输入客户名称' onSubmit={this.onSearchSubmit} nameFlag='123'/></ListGroupItem>
+				            <ListGroupItem><SearchForms placeholder='请输入客户名称' inputName='per' onSubmit={this.onSearchSubmit}/></ListGroupItem>
 				            <ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
 				          </ListGroup>
 			          </Col>
@@ -324,8 +338,28 @@ class Personal extends Component{
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 													 }} ></TableRowColumn>
 			                <TableRowColumn name="stationNum"></TableRowColumn>
-			                <TableRowColumn name="sourceName"></TableRowColumn>
-			                <TableRowColumn name="levelName"></TableRowColumn>
+			                <TableRowColumn name="sourceName" component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }}></TableRowColumn>
+			                <TableRowColumn name="levelName" component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }}></TableRowColumn>
 			                <TableRowColumn name="receiveName"></TableRowColumn>
 			                <TableRowColumn name="createDate" type='date' format="yyyy-mm-dd HH:MM:ss"></TableRowColumn>
 			                <TableRowColumn type="operation">

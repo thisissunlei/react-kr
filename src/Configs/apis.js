@@ -708,12 +708,12 @@ const APIS = {
  },
   //客户管理－签约客户列表
  'signCustomers': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/sign-customers?page={page}&pageSize={pageSize}&cityId={cityId}&communityId={communityId}&company={company}&signEndDate={signEndDate}&signStartDate={signStartDate}',
+   url:'/api/krspace-finance-web/customer/sign-customers?page={page}&pageSize={pageSize}&cityId={cityId}&communityId={communityId}&company={company}&signEndDate={signEndDate}&signStartDate={signStartDate}',
    method:'get'
  },
  //客户管理－签约客户列表－导出
  'signCustomersExport': {
-   url:'/mockjsdata/23/krspace-finance-web/customer/sign-customers-export',
+   url:'/api/krspace-finance-web/customer/sign-customers-export',
    method:'get'
  },
  //客户管理－获取客户编辑信息

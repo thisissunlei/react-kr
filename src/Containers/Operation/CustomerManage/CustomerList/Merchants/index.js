@@ -166,6 +166,16 @@ class Merchants extends Component{
 		});
 	}
 
+	componentWillReceiveProps(nextProps){
+		this.setState({
+			searchParams: {
+			 company:'',
+			 page:1,
+			 pageSize:15,	 
+			}
+		});
+	}
+
 	//高级查询
 	openSearchUpperDialog=()=>{
 	  let {searchParams}=this.state;
@@ -214,6 +224,8 @@ class Merchants extends Component{
 	}
 
 
+
+
 	render(){
       let {dataReady,searchParams}=this.props;
 
@@ -251,7 +263,7 @@ class Merchants extends Component{
 
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
 				          <ListGroup>
-				            <ListGroupItem><SearchForms placeholder='请输入客户名称' onSubmit={this.onSearchSubmit}/></ListGroupItem>
+				            <ListGroupItem><SearchForms placeholder='请输入客户名称' inputName='mr' onSubmit={this.onSearchSubmit}/></ListGroupItem>
 				            <ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
 				          </ListGroup>
 			          </Col>
@@ -335,7 +347,7 @@ class Merchants extends Component{
 			                <TableRowColumn name="createDate" type='date' format="yyyy-mm-dd HH:MM:ss"></TableRowColumn>
 			                <TableRowColumn type="operation">
 			                    <Button label="查看"  type="operation"  operation="watch" />
-			                 </TableRowColumn>
+			                </TableRowColumn>
 			               </TableRow>
 			        </TableBody>
 			        <TableFooter></TableFooter>
@@ -345,7 +357,7 @@ class Merchants extends Component{
 					{/*新建*/}
 					<Drawer
 				        open={State.openNewMerchants}
-				        width={700}
+				        width={750}
 				        openSecondary={true}
 				        className='m-finance-drawer'
 				        containerStyle={{top:60,paddingBottom:228,zIndex:20}}
