@@ -55,6 +55,7 @@ class CustomerIndent extends Component{
 	orderInnerList = () =>{
 		let unifyStyle={width:300,marginLeft:-10}
 		let detail=State.orderDetail;
+		console.log("?????????")
 		let {editIndentSwitch,DeleteSwitch}=this.props;
 		let listArray=detail.map(function(item,index){
 			return (

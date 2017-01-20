@@ -183,12 +183,12 @@ const APIS = {
       url: '/api/krspace-finance-web/action/community-city-selected',
       method: 'get'
    },
-
+   //下拉菜单
    'community-city-selected': {
       url: '/api/krspace-finance-web/action/community-city-selected',
       method: 'get'
    },
-   //订单基本信息
+   //订单基本信息名字
    'get-customName-orderName': {
       url: '/api/krspace-finance-web/action/get-customName-orderName?customerId={customerId}',
       method: 'get'
@@ -202,7 +202,7 @@ const APIS = {
       url: '/api/krspace-finance-web/action/edit-order',
       method: 'put'
    },
-   //订单基本信息
+   //订单基本信息编辑信息获取
    'get-simple-order': {
       url: '/api/krspace-finance-web/action/get-simple-order?mainBillId={mainBillId}',
       method: 'get'

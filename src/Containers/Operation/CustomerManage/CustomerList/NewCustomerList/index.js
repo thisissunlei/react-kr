@@ -32,11 +32,7 @@ import './index.less'
 		super(props);
 
 	}
-
-
-
 	onSubmit = (values) => {
-		console.log("11")
 		let _this=this;
 		Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
          	_this.onCancel();
@@ -47,7 +43,6 @@ import './index.less'
 
 	onCancel = () => {
 		const {onCancel} = this.props;
-
 		onCancel && onCancel();
 	}
 

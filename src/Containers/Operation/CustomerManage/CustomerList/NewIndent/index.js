@@ -38,8 +38,7 @@ import './index.less'
 			stationTypeList:[],
 			visitTypeList:[]
 		};
-		let selectData=props.selectData||selectDatas;
-		State.selectDataInit(selectData);
+		
 	}
 
 
@@ -62,6 +61,15 @@ import './index.less'
 
 		}
 	}
+	componentWillReceiveProps(nextProps){
+			// if(typeof(nextProps.orderReady)=="function"){
+			// 	return;
+			// }
+			// if(State.isInit){
+			// 	return;
+			// }
+			// State.orderReady(nextProps.orderReady)
+	}
 	
 	componentDidMount(){
 	 	Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
@@ -70,7 +78,6 @@ import './index.less'
 
 	render(){
 		const { error, handleSubmit, pristine, reset} = this.props;
-
 		return (
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)}>
@@ -81,17 +88,17 @@ import './index.less'
 				
 				<div className="kk" style={{marginTop:30}}>		
 					<KrField grid={1/2} label="订单类型" name="sourceId" style={{width:252,marginLeft:15}} component="select" 
-							options={State.selectData.customerSourceList}
+							options={[{value:"22",lable:"333"}]}
 							requireLabel={true}
 					/>
 					<KrField grid={1/2} label="所在社区" name="staiontypeId" component="select" style={{width:252,marginLeft:15}} 
-							options={State.selectData.stationTypeList}
+							options={[{value:"22",lable:"333"}]}
 							requireLabel={true}
 					/>
 					
 
 					<KrField grid={1/2} label="所在城市" name="intentionCommunityId" component="select" style={{width:252,marginLeft:15}} 
-							options={State.selectData.communityBaselist}
+							options={[{value:"22",lable:"333"}]}
 							requireLabel={false}
 					/>
 					<KrField grid={1/2} label="订单名称" name="customerWechat" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>

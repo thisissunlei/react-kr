@@ -13,14 +13,23 @@ import {
 let State = observable({
 		searchParams:{},
 		searchSignParams:{},
-		dataRead:{}
+		dataReady:{},
+		orderReady:{}
 });
-
+//订单新建编辑的数据准备
+State.orderReady= action(function() {
+	var _this=this;
+	Store.dispatch(Actions.callAPI('community-city-selected')).then(function(response) {
+         _this.orderReady=response;
+		}).catch(function(err) {
+			//Message.error(err.message);
+		});
+});
 //新建编辑的数据准备
 State.dataReady= action(function() {
 	var _this=this;
 	Store.dispatch(Actions.callAPI('customerDataAddList')).then(function(response) {
-         _this.dataRead=response;
+         _this.dataReady=response;
 		}).catch(function(err) {
 			//Message.error(err.message);
 		});

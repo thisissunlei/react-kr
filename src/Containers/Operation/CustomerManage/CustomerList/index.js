@@ -64,6 +64,7 @@ class CustomerList extends Component {
 		State.dataReady();
 		State.searchPersonalReady();
 		State.searchSignReady();
+		State.orderReady();
 	}
 
 	componentDidMount() {
@@ -110,7 +111,6 @@ class CustomerList extends Component {
 
 
 	render() {
-
 		let {
 			tab
 		} = this.state;
@@ -145,21 +145,24 @@ class CustomerList extends Component {
 					<Tab label="招商线索" onActive={this.merchants} style={merchantsStyle}>
 						
 							<Merchants 
-								dataReady={State.dataRead} 
+								dataReady={State.dataReady} 
 								searchParams={State.searchParams}
 							/>
 					</Tab>
 					<Tab label="个人客户"  onActive={this.personal} style={personalStyle}>
 						
 							<Personal 
-								dataReady={State.dataRead}
+								dataReady={State.dataReady}
 								searchParams={State.searchParams}
+								orderReady={State.orderReady}
 							/>
 					</Tab>
 					<Tab label="签约客户"  onActive={this.signedClient} style={signedClientStyle}>
 							<SignedClient 
-									dataReady={State.dataRead}
+									dataReady={State.dataReady}
 									searchSignParams={State.searchSignParams}
+									orderReady={State.orderReady}
+
 							/>
 
 					</Tab>
