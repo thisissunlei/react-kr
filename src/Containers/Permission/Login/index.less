@@ -1,5 +1,9 @@
 .g-permission-login{
   font-family: "Microsoft YaHei", "黑体";
+  .hideInput{
+    width: 0;
+    height: 0;
+  }
   input{
     border: none;
   }
@@ -72,7 +76,63 @@
           	color: #ff0000;
           	font-size: 12px;
           }
-
+          .loginName{
+          //  margin-bottom: 16px;
+            position: relative;
+            input{
+              background:url(images/2_07.jpg) 10px center no-repeat;
+              width: 103%;
+              height: 50px;
+              border: 1px solid #dfdfdf;
+              border-radius: 4px; /* W3C syntax */
+              text-indent: 56px;
+              margin-left: -10px;
+              font-size: 16px;
+            	font-family: "微软雅黑", "黑体";
+            }
+             input:-webkit-autofill {
+               -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+               -webkit-text-fill-color: #333 !important;
+             }
+             .redErr{
+               color:#ff3030;
+               position: absolute;
+               top: 42%;
+               left:108%;
+               display: inline-table;
+               text-indent:0;
+               transform: translateY(-50%);
+             }
+          }
+          .loginPwd{
+          //  margin-bottom: 16px;
+            position: relative;
+            input{
+              background:url(images/1_07.jpg) 10px center no-repeat;
+              margin-bottom:15px !important;
+              width: 103%;
+              height: 50px;
+              border: 1px solid #dfdfdf;
+              border-radius: 4px; /* W3C syntax */
+              text-indent: 56px;
+              margin-left: -10px;
+              font-size: 16px;
+            	font-family: "微软雅黑", "黑体";
+            }
+             input:-webkit-autofill {
+               -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+               -webkit-text-fill-color: #333 !important;
+             }
+             .redErr{
+               color:#ff3030;
+               position: absolute;
+               top: 42%;
+               left:108%;
+               display: inline-table;
+               text-indent:0;
+               transform: translateY(-50%);
+             }
+          }
           .input-txt {
           	width:99%;
           	height: 50px;
@@ -98,28 +158,21 @@
               transform: translateY(-50%);
             }
           }
-          .loginname {
-          	background: url(images/2_07.jpg) 10px center no-repeat;
-          	margin-bottom: 16px;
-
-          }
-
           .loginpwd {
-          	background: url(images/1_07.jpg) 10px center
-          		no-repeat;
+          	background: url(images/1_07.jpg) 10px center no-repeat;
+
           	margin-bottom: 16px;
           }
-          .loginpwds{
-          	background: url(images/2_07.jpg) 10px center no-repeat !important;
-          	margin-bottom: 16px;
-          }
+          //.loginpwds{
+          	//background: url(images/2_07.jpg) 10px center no-repeat !important;
+          	//margin-bottom: 16px;
+          //}
           .clearfix{
             .input-verifycode{
               width: 121px;
               height: 50px;
               border: 1px solid #dfdfdf;
               border-radius: 4px; /* W3C syntax */
-              margin-bottom:15px;
               background: url(images/code_1.png) 10px center no-repeat;
               padding-left:51px;
               float: left;
@@ -225,6 +278,11 @@
               	font-family: "微软雅黑", "黑体";
               	margin-top:12px;
                 padding-left: 0;
+              }
+              .loginpwds {
+              	background: url(images/2_07.jpg) 10px center no-repeat;
+
+              	margin-bottom: 16px;
               }
               .clearfix{
                 .input-verifycode{
@@ -351,10 +409,7 @@
               	background:url(images/close1_05.jpg) center center no-repeat !important;
               }
             }
-            .hideInput{
-              width: 0;
-              height: 0;
-            }
+
             .inputtest{
               position: relative;
               input{
@@ -366,6 +421,8 @@
               	border-radius: 4px; /* W3C syntax */
               	text-indent: 56px;
                 position: relative;
+                font-size: 16px;
+              	font-family: "微软雅黑", "黑体";
                 margin-left: -10px;
               }
                input:-webkit-autofill {
@@ -397,6 +454,8 @@
               	text-indent: 56px;
                 position: relative;
                 margin-left: -10px;
+                font-size: 16px;
+              	font-family: "微软雅黑", "黑体";
               }
               input:-webkit-autofill {
               -webkit-box-shadow: 0 0 0px 1000px white inset !important;

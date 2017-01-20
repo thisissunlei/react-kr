@@ -425,16 +425,49 @@ class Login extends Component {
                   <div className="login-tip">登录</div>
                   <div className="login-content">
                      <ul className="login-content-ul">
-                       <li className="input-txt loginname">
+                    {/*
+											<li className="input-txt loginname">
                          <Input style={{width:"80%",marginTop:5}} type="text" ref="loginName" placeholder="请输入手机号或者邮箱"/>
                          { this.state.noneName && <span className="redErr">请输入您的手机号/邮箱</span>}
+
                        </li>
-                       <li className="input-txt loginpwd">
+											*/}
+											<li className="hideInput">
+												<input type="text" />
+											</li>
+											 <li className="loginName">
+
+												 <KrField
+														 type='text'
+														 component="input"
+														 name="loginNamesdaf"
+														 autoComplete="off"
+														 ref="loginName"
+														 placeholder="请输入手机号或者邮箱"
+													/>
+												{ this.state.noneName && <span className="redErr">请输入您的手机号/邮箱</span>}
+												</li>
+                				{/*
+												<li className="input-txt loginpwd">
                          <Input style={{width:"80%",marginTop:5}} ref="loginPwds" component="input" type="password" placeholder="请输入密码"/>
                            { this.state.nonePwd && <span className="redErr">请输入密码</span>}
-                       </li>
-
-											 { this.state.errThree &&
+                       	</li>
+											 */}
+											 <li className="hideInput">
+ 												<input type="text" />
+ 												</li>
+											 <li className="loginPwd">
+												 <KrField
+														 type='password'
+														 component="input"
+														 name="loginPwdsadsfds"
+														 autoComplete="off"
+														 ref="loginPwds"
+														 placeholder="请输入密码"
+													/>
+												{ this.state.nonePwd && <span className="redErr">请输入密码</span>}
+												</li>
+											 { !this.state.errThree &&
 												 <li className="clearfix">
 				                   <div className="input-verifycode">
 					                   <Input type="text" placeholder="请输入验证码"/>
