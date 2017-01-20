@@ -76,23 +76,26 @@ import './index.less'
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)}>
 				<div className="title">
-						<div><span className="new-icon"></span><label className="title-text">新建订单E</label></div>
+						<div><span className="new-icon"></span><label className="title-text">新建订单</label></div>
 						<div className="close" onClick={this.onCancel}></div>
 				</div>
 				
 				<div className="kk" style={{marginTop:30}}>		
 					<KrField grid={1/2} label="订单类型" name="sourceId" style={{width:252,marginLeft:15}} component="select" 
-							options={State.selectData.customerSourceList}
+							//options={State.selectData.customerSourceList}
+							options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
 							requireLabel={true}
 					/>
 					<KrField grid={1/2} label="所在社区" name="staiontypeId" component="select" style={{width:252,marginLeft:15}} 
-							options={State.selectData.stationTypeList}
+							//options={State.selectData.stationTypeList}
+							options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
 							requireLabel={true}
 					/>
 					
 
 					<KrField grid={1/2} label="所在城市" name="intentionCommunityId" component="select" style={{width:252,marginLeft:15}} 
-							options={State.selectData.communityBaselist}
+							//options={State.selectData.communityBaselist}
+							options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
 							requireLabel={false}
 					/>
 					<KrField grid={1/2} label="订单名称" name="customerWechat" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>

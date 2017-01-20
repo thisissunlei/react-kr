@@ -75,7 +75,6 @@ State.closeAllMerchants = action(function() {
 });
 State.MerchantsListId = action(function(params) {
 	this.listId=params;
-	
 });
 
 module.exports = State;

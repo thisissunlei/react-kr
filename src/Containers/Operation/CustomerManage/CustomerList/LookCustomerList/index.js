@@ -35,10 +35,6 @@ class LookCustomerList extends Component{
 
 	constructor(props,context){
 		super(props, context);
-		let {comeFrom,data}=this.props;
-		State.initComeFrom(comeFrom);
-		State.lookListId(props.listId);
-		State.orderList(props.listId);
 	}
 	onSubmit = (values) => {
 		const {onSubmit} = this.props;
@@ -53,8 +49,16 @@ class LookCustomerList extends Component{
 	
 
 	componentWillReceiveProps(nextProps){
+
+		if(!nextProps.listId){
+			return;
+		}
+		if(State.listId===nextProps.listId){
+			return;
+		}
 		State.lookListId(nextProps.listId);
 		State.orderList(nextProps.listId);
+		State.initListId(nextProps.listId);
 	}
 
 	isHaveTabs = (comeFrom,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch,DeleteSwitch) => {

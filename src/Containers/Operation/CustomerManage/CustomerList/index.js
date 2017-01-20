@@ -135,14 +135,9 @@ class CustomerList extends Component {
 			borderBottom: "1px solid #eee",
             fontSize:'16px'
 		}
-		if(tab=='table'){
-			tab = 'merchants';
-			this.setState({
-				tab
-			});
-		}
+		
 
-		let merchantsStyle = (tab == 'merchants') ? activeTab : commenTab;
+		let merchantsStyle = (tab == 'merchants'||tab=='table') ? activeTab : commenTab;
 		let personalStyle = (tab == 'personal') ? activeTab : commenTab;
 		let signedClientStyle=(tab == 'signedClient')? activeTab : commenTab;
 		

@@ -50,4 +50,21 @@ State.editListId= action(function(params) {
 	});
 });
 
+//公司名称检验
+State.corpNameCheck = action(function(params){
+	var _this=this;
+	let data={};
+	data.id="";
+	data.companyName=params;
+	Store.dispatch(Actions.callAPI('corpNameCheck',data)).then(function(response) {
+		 _this.isCorpName=false;
+         // console.log('取消成功');
+	}).catch(function(err) {
+		if(err.message.indexOf("该名称已存在")==0){
+			 _this.isCorpName=true;
+		}
+		
+	});	
+})
+
 module.exports = State;

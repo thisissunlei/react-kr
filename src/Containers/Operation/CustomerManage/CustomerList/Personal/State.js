@@ -107,6 +107,12 @@ State.quitSubmit= action(function(arrItem) {
 	});		
 });
 
+
+
+
+
+//
+
 State.closeAllMerchants = action(function() {
 	this.openLookMerchants=false;
 	this.openNewMerchants=false;

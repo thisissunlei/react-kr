@@ -696,6 +696,11 @@ const APIS = {
    url:'/mockjsdata/23/krspace-finance-web/customer/actions/edit',
    method:'post'
  },
+ //客户管理-公司名称实时校验
+ 'corpNameCheck':{
+   url:'/api/krspace-finance-web/customer/check/company?id={id}&companyName={companyName}',
+   method:'get'
+ },
  //客户管理－新增拜访记录
  'customerVisitRecord': {
    url:'/mockjsdata/23/krspace-finance-web/customer/visit-log/actions/add',

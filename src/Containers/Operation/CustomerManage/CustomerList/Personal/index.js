@@ -102,6 +102,8 @@ class Personal extends Component{
 	switchNewIndent=()=>{
 		State.switchNewIndent();
 	}
+
+
 	//编辑订单页面的开关
 	switchEditIndent=()=>{
 		State.switchEditIndent();
@@ -374,7 +376,7 @@ class Personal extends Component{
 					{/*新建*/}
 					<Drawer
 				        open={State.openNewMerchants}
-				        width={700}
+				        width={750}
 				        openSecondary={true}
 				        className='m-finance-drawer'
 				        containerStyle={{top:60,paddingBottom:228,zIndex:20}}
@@ -437,6 +439,7 @@ class Personal extends Component{
 						<NewIndent
 							 onCancel={this.switchNewIndent}
 			                 orderReady={orderReady}
+			                 listId={State.listId}
 						/>
 					</Drawer>
 					

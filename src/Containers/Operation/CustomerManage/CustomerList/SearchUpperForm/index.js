@@ -81,14 +81,32 @@ class SearchUpperForm extends Component {
 		      var selectData='';
               if(flag=='签约'){
 			     selectData=(<div> <KrField grid={1/2} right={34}  name="company" type="text" label="公司名称"/> 
-				<KrField right={34} grid={1/2}  style={{marginLeft:-5}} name="cityId" type="select" label="所属城市" options={belongCity}/>
-				<KrField  grid={1/2} right={34} name="communityId" type="select" style={{marginTop:4}} label="所属社区" options={belongCommunity}></KrField></div>) 
+				<KrField right={34} grid={1/2}  style={{marginLeft:-5}} name="cityId" type="select" label="所属城市" 
+				 //options={belongCity}
+				 options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
+				/>
+				<KrField  grid={1/2} right={34} name="communityId" type="select" style={{marginTop:4}} label="所属社区" 
+				 //options={belongCommunity}
+				 options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
+				></KrField></div>) 
 		       }else{
                  selectData=(<div><KrField grid={1/2} right={34}  name="company" type="text" label="公司名称"/>
-                <KrField right={34} grid={1/2} style={{marginLeft:-5}} name="intentionCityId" type="select" label="意向城市" options={cityList}/>
-				<KrField  grid={1/2} right={34} name="intentionCommunityId" style={{marginTop:4}} type="select"  label="意向社区" options={communityList}></KrField>
-				<KrField  grid={1/2} right={34} style={{marginLeft:-5,marginTop:4}}  name="levelId" type="select"  label="客户分类" options={levelList} />
-				<KrField  grid={1/2} right={34} name="sourceId" type="select"  style={{marginTop:4}} label="客户来源" options={sourceList}></KrField></div>)
+                <KrField right={34} grid={1/2} style={{marginLeft:-5}} name="intentionCityId" type="select" label="意向城市" 
+                 //options={cityList}
+                 options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
+                />
+				<KrField  grid={1/2} right={34} name="intentionCommunityId" style={{marginTop:4}} type="select"  label="意向社区" 
+				 //options={communityList}
+				 options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
+				></KrField>
+				<KrField  grid={1/2} right={34} style={{marginLeft:-5,marginTop:4}}  name="levelId" type="select"  label="客户分类" 
+				 //options={levelList} 
+				 options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
+				/>
+				<KrField  grid={1/2} right={34} name="sourceId" type="select"  style={{marginTop:4}} label="客户来源" 
+				  //options={sourceList}
+				  options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
+				></KrField></div>)
 		       }		       
 		
 		return (             
