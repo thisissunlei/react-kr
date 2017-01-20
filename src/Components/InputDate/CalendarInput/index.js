@@ -39,6 +39,10 @@ export default class CalendarInput extends React.Component {
 	componentWillReceiveProps(nextProps) {
 
 		let {year,month,date} = nextProps;
+
+		var temp = new Date(year,month,0);
+		date = (date<temp.getDate())?date:temp.getDate();
+
 		let value = year+'-'+month+'-'+date;
 
 		this.setState({
