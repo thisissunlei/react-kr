@@ -228,9 +228,23 @@ class EditEquipmentForm extends Component{
 		
 	}
 	onChangeTitle=(showTitle)=>{
+		console.log("改变showtitle",showTitle);
+
 		this.setState({
 			showTitle : showTitle
+		},function(){
+			Store.dispatch(change('EditEquipmentForm','showTitle',showTitle));
 		})
+		
+	}
+	onBlurShowTitle=()=>{
+		Store.dispatch(change('EditEquipmentForm','showTitle',this.state.showTitle));
+	}
+	onBlurDeviceCode=()=>{
+		Store.dispatch(change('EditEquipmentForm','deviceCode',this.state.deviceCode));
+	}
+	onBlurHardwareId=()=>{
+		Store.dispatch(change('EditEquipmentForm','hardwareId',this.state.hardwareId));
 	}
 	// 判断门编号是否存在
 	doorNumHas=(deviceCode)=>{
@@ -359,7 +373,8 @@ class EditEquipmentForm extends Component{
 						style={{width:'252px'}}
 						onChange = {this.getFloor}
 					/>
-					<KrField grid={1/2} name="showTitle" 
+					<KrField grid={1/2} name="showTitle"
+						ref = "showTitleInput" 
 						type="text" 
 						label="展示标题" 
 						requireLabel={true} 
@@ -367,6 +382,7 @@ class EditEquipmentForm extends Component{
 						errors={{requiredValue:'展示标题为必填项'}} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 						onChange = {this.onChangeTitle}
+						onBlur = {this.onBlurShowTitle}
 					/>
 					<KrField grid={1/2} name="deviceCode" 
 						type="text" 
@@ -376,6 +392,8 @@ class EditEquipmentForm extends Component{
 						errors={{requiredValue:'门编号为必填项'}} 
 						style={{width:'252px'}}
 						onChange = {this.doorNumHas}
+						onBlur = {this.onBlurDeviceCode}
+
 					/>
 					<KrField grid={1/2} name="hardwareId" 
 						type="text" 
@@ -385,6 +403,7 @@ class EditEquipmentForm extends Component{
 						errors={{requiredValue:'智能硬件ID为必填项'}} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 						onChange = {this.hardwareIdHas}
+						onBlur = {this.onBlurHardwareId}
 					/>
 					<KrField name="typeId" 
 						component="select" 
@@ -484,4 +503,6 @@ const validate = values=>{
 export default EditEquipmentForm = reduxForm({
 	form: 'EditEquipmentForm',
 	validate,
+	enableReinitialize: true,
+	keepDirtyOnReinitialize: true,
 })(EditEquipmentForm);

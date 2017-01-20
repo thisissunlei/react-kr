@@ -76,7 +76,6 @@ export default class EquipmentDefinition extends Component {
     this.setState({
       list
     })
-    // console.log("this.state.list",this.state.list);
   }
   //操作相关
   onOperation=(itemDetail)=>{
@@ -84,11 +83,6 @@ export default class EquipmentDefinition extends Component {
     this.setState({
       itemDetail
     });
-    // if (type == 'view') {
-    //   window.open(`./#/member/MemberManage/${itemDetail.id}/detail/${itemDetail.companyId}`, itemDetail.id);
-    // } else if (type == 'edit') {
-    //   this.openEditEquipmentDialog();
-    // }
   }
   // 是否打开上线确认窗口
   openOnLineDialog=()=>{
@@ -135,7 +129,6 @@ export default class EquipmentDefinition extends Component {
   }
   // 是否打开编辑
   openEditEquipmentDialog=(item)=>{
-    // console.log("编辑item",item);
     this.setState({
       openEditEquipment : !this.state.openEditEquipment,
       itemDetail : item
@@ -144,7 +137,6 @@ export default class EquipmentDefinition extends Component {
   }
   // 是否打开上传图片完成
   openFinishUploadDialog=()=>{
-    // console.log("完成回西安",this.state.openFinishUpload);
     this.setState({
       openFinishUpload : !this.state.openFinishUpload
     })
@@ -219,7 +211,6 @@ export default class EquipmentDefinition extends Component {
   // 设备高级查询提交
   onEquipmentAdvanceSearchSubmit=(values)=>{
     let _this = this;
-    // console.log("values",values);
     this.openEquipmentAdvancedQueryDialog();
     
     if(values.type=="hardwareId"){
@@ -252,7 +243,6 @@ export default class EquipmentDefinition extends Component {
   }
   // 提交---批量上传
   onBatchUpload=(values)=>{
-    // console.log("批量上传图片",values);
     let _this = this;
     if(!values.uploadImage){
       this.tipOpen();
@@ -329,7 +319,6 @@ export default class EquipmentDefinition extends Component {
   }
   // 保存并添加---新建
   saveAndNewCreate=(values)=>{
-    console.log("values保存并且添加",values);
     Store.dispatch(Actions.callAPI('equipmentNewCreateOrEdit',{},values))
       .then(function(response){
         Message.success("新增设备成功");
@@ -378,10 +367,28 @@ export default class EquipmentDefinition extends Component {
       .then(function(response){
         Message.success("上线成功");
       }).catch(function(err){
-        Notify.show([{
-          message: err.message,
-          type: 'danger',
-        }])
+        Message.error(err.message);
+     });
+    this.setState({
+      onLineOpen : false,
+      openOffline : false,
+      equipmentParams: {
+        filter: "deviceCode",
+        content: '',
+        page : 1,
+        pageSize: 15,
+        timer : new Date()
+      },
+    })
+  }
+  // 最终确定下线
+  confirmOffline=()=>{
+    let onlineOfflineParams = this.state.onlineOfflineParams
+    Store.dispatch(Actions.callAPI('onlineOrOffline',{},onlineOfflineParams))
+      .then(function(response){
+        Message.success("下线成功");
+      }).catch(function(err){
+        Message.error(err.message);
      });
     this.setState({
       onLineOpen : false,
@@ -396,15 +403,10 @@ export default class EquipmentDefinition extends Component {
     })
   }
   openFinishTable=()=>{
-    // console.log("上传完成");
     this.openFinishUploadDialog();
   }
   render() {
     let {list,itemDetail,seleced,openTipWarn,tipText} = this.state;
-    // console.log("list",list);
-    // if (!list.totalCount) {
-    //   list.totalCount = 0;
-    // }
     let options=[{
       label:"门编号",
       value:"deviceCode"
@@ -676,7 +678,7 @@ export default class EquipmentDefinition extends Component {
                   <Row>
                     <ListGroup>
                       <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
-                        <Button  label="确定" type="submit" onClick={this.confirmOnline} />
+                        <Button  label="确定" type="submit" onClick={this.confirmOffline} />
                       </ListGroupItem>
                       <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
                         <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openOffLineDialog} />

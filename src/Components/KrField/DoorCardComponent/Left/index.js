@@ -88,12 +88,15 @@ export default class Left extends React.Component{
 							<img src={plus} className="ui-door-card-select-all" onClick={this.chooseAllCommunity}/>
 						</div>
 						<div className="ui-door-card-community-list">
-							{communitys && communitys.map((item,index)=>{
-								return <LeftItem  community={item} key={index} 
-											selectCommunityByCity={this.selectCommunityByCity} 
-											addCommunity={this.addCommunity}
-											newArrayCommunity={this.state.newArrayCommunity}/>
-							})}
+							<div className="ui-door-card-community-list-inner">
+								{communitys && communitys.map((item,index)=>{
+									return <LeftItem  community={item} key={index} 
+												selectCommunityByCity={this.selectCommunityByCity} 
+												addCommunity={this.addCommunity}
+												newArrayCommunity={this.state.newArrayCommunity}/>
+								})}
+							</div>
+							
 						</div>
 						
 					</div>
