@@ -393,7 +393,7 @@ class Merchants extends Component{
 					{/*编辑*/}
 					<Drawer
 							open={State.openEditCustomerList}
-							width={700}
+							width={750}
 
 							openSecondary={true}
 							className='m-finance-drawer'

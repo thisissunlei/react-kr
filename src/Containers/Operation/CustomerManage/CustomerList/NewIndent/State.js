@@ -47,18 +47,22 @@ State.orderReady = action(function(params) {
 	}
 	let communityArr=[];
 	let cityArr=[];
+	let isCity={}
 	for (var i =0 ; i < params.communityCity.length; i++) {
 		let communityObject={};
 		let cityObject={};
 		communityObject.value=params.communityCity[i].communityId;
 		communityObject.label=params.communityCity[i].communityName;
-		cityObject.value=params.communityCity[i].cityId;
-		cityObject.label=params.communityCity[i].cityName;
-		this.city.push(cityObject);
 		this.community.push(communityObject);
+		if(!isCity[params.communityCity[i].cityName]){
+			cityObject.value=params.communityCity[i].cityId;
+			cityObject.label=params.communityCity[i].cityName;
+			this.city.push(cityObject);
+			isCity[params.communityCity[i].cityName]=true;
+		}
+
 
 	}
-	
 	for(var i=0;i<params.sysDicPayments.length;i++){
 		let orderFoundOb={};
 		orderFoundOb.value=params.sysDicPayments[i].id;

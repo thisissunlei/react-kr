@@ -57,11 +57,15 @@ class CustomerIndent extends Component{
 	isDevelopClick = () =>{
 		State.switchDevelop();
 	}
+	editIndentClick = (id) =>{
+		this.props.editIndentSwitch(id);
+	}
 	
 	orderInnerList = () =>{
 		let unifyStyle={width:300,marginLeft:-10}
 		let detail=State.orderDetail;
 		let {editIndentSwitch,DeleteSwitch}=this.props;
+		let _this=this;
 		let listArray=detail.map(function(item,index){
 			return (
 				<div>
@@ -77,7 +81,7 @@ class CustomerIndent extends Component{
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="离开日期:" style={unifyStyle} component="labelText" value={item.ucontractLeavedate} inline={true} /></li>
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="未回款额:" style={unifyStyle} component="labelText" value={item.unBackamount} inline={true} /></li>
 					<div style={{marginTop:20,textAlign: "center"}}>
-						<span><Button  label="编辑" type="button" cancle={true} onTouchTap={editIndentSwitch}/>
+						<span><Button  label="编辑" type="button" cancle={true} onTouchTap={_this.editIndentClick.bind(this,item.id)}/>
 						<span className="interval"></span></span>
 						<Button  label="查看" type="button" cancle={true} />
 						<span className="interval"></span>

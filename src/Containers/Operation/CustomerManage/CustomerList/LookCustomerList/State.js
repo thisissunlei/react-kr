@@ -9,7 +9,10 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-
+import {
+	Message
+} 
+from "kr-ui";
 let State = observable({
 	openEditCustomerList:false,
 	comeFrom:"Merchants",
@@ -38,16 +41,12 @@ State.switchEditCustomerList = action(function(comeFrom) {
 });
 //获取订单数据列表
 State.orderList=action(function(params) {
-	// if(!params){
-	// 	return;
-	// }
     var _this=this;
 	Store.dispatch(Actions.callAPI('customerOrdersList',{customerId:params})).then(function(response) {
-
          _this.orderDetail=response.items;
 		}).catch(function(err) {
 
-			// Message.error(err.message);
+			Message.error(err.message);
 		});
 })
 State.initListId=action(function(params){
