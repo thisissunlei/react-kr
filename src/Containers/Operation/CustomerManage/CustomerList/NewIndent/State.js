@@ -24,6 +24,8 @@ let State = observable({
 		orderReady:[],
 		community:[],
 		city:[],
+		cityLable:"",
+		cityId:"",
 		orderFound:[],
 		isInit:false,
 
@@ -39,6 +41,10 @@ State.showMatureTime = action(function() {
 State.noShowMatureTime = action(function() {
 	this.matureTime=false;
 });
+//所在城市
+State.cityLableChange = action(function(params){
+	this.cityLable=params;
+})
 
 //下拉框的数据初始化
 State.orderReady = action(function(params) {

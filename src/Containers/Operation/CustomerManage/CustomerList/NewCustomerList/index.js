@@ -34,7 +34,6 @@ import './index.less'
 
 	}
 	onSubmit = (values) => {
-		console.log('hhhh新建');
 		let _this=this;
 		Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
          	_this.onCancel();

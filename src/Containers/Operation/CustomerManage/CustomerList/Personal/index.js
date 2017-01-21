@@ -96,6 +96,7 @@ class Personal extends Component{
 	//打开新建订单页
 	openNewIndent=()=>{
 		Store.dispatch(initialize('NewIndent',{}));
+		State.orderNameInit(State.listId);
 		State.switchNewIndent();
 	}
 	//新建订单页面的开关
@@ -115,7 +116,8 @@ class Personal extends Component{
 			for(var i=0;i<orderReady.communityCity.length;i++){
 				if(orderReady.communityCity[i].communityId==response.communityid){
 					response.cityid=orderReady.communityCity[i].cityId;
-					
+					State.cityChange(orderReady.communityCity[i].cityName);
+
 					break;
 				}
 			}
@@ -125,6 +127,7 @@ class Personal extends Component{
 			data.mainbilltype=response.mainbilltype;
 			data.mainbilldesc=response.mainbilldesc;
 			Store.dispatch(initialize('EditIndent',data));
+			State.orderNameChange(response.mainbillname);
 
 		}).catch(function(err) {
 			 Message.error(err.message);
@@ -467,6 +470,7 @@ class Personal extends Component{
 							 onCancel={this.switchNewIndent}
 			                 orderReady={orderReady}
 			                 listId={State.listId}
+			                 orderName={State.orderName}
 						/>
 					</Drawer>
 					
@@ -487,7 +491,8 @@ class Personal extends Component{
 			                 orderReady={orderReady}
 			                 editIndentData={State.editIndentData}
 			                 editIndentId={State.editIndentId}
-
+			                 orderName={State.orderName}
+			                 cityname={State.cityname}
 						/>
 					</Drawer>
 

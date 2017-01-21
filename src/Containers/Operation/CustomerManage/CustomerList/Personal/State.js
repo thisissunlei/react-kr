@@ -30,7 +30,9 @@ let State = observable({
 		openDelete:false,
 		editIndentData:{},
 		editIndentId:'',
-		companyName:""
+		companyName:"",
+		orderName:"",
+		cityname:"",
 });
 
 //新建页的开关
@@ -76,10 +78,28 @@ State.openDeleteOrder= action(function() {
 State.editIndentIdChange=action(function(params){
 	this.editIndentId=params;
 })
+
 State.companyNameChange=action(function(params){
 	this.companyName=params;
 })
 
+State.orderNameChange=action(function(params){
+	this.orderName=params;
+})
+
+//获取订单名称
+State.orderNameInit= action(function(value) {
+	var _this=this;
+	let data={};
+	data.customerId=value;
+
+	Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {
+		_this.orderName=response.mainbillname;
+
+	}).catch(function(err) {
+		 Message.error(err.message);
+	});		
+});
 
 //导出
 State.exportData = action(function(value) {
@@ -95,7 +115,6 @@ State.exportData = action(function(value) {
 
 //转移提交
 State.switchSureSubmit= action(function(value) {
-	console.log('6666444va',value);
 	var _this=this;
 	Store.dispatch(Actions.callAPI('customerTransfer',{},value)).then(function(response) {
 		 _this.openSwitch=false;
@@ -117,7 +136,10 @@ State.quitSubmit= action(function(arrItem) {
 		 Message.error(err.message);
 	});		
 });
-
+//城市改变
+State.cityChange=action(function(params){
+	this.cityname=params;
+})
 
 
 State.closeAllMerchants = action(function() {
