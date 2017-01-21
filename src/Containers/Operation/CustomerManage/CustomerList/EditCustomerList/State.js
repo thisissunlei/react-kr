@@ -20,7 +20,8 @@ let State = observable({
 			roundList:[],
 			stationTypeList:[],
 			visitTypeList:[]
-		}
+		},
+		isCorpName:false,
 
 
 });
