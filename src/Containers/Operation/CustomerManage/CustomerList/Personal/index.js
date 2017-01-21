@@ -102,10 +102,40 @@ class Personal extends Component{
 	switchNewIndent=()=>{
 		State.switchNewIndent();
 	}
+	//打开编辑页
+	openEditIndent=(editIndentId)=>{
+		var data={};
+		var {orderReady}=this.props;
 
+		data.mainBillId=editIndentId;
+
+		var _this=this;
+		Store.dispatch(Actions.callAPI('get-simple-order',data)).then(function(response) {
+			for(var i=0;i<orderReady.communityCity.length;i++){
+				if(orderReady.communityCity[i].communityId==response.communityid){
+					response.cityid=orderReady.communityCity[i].cityId;
+					
+					break;
+				}
+			}
+			data.cityid=orderReady.communityCity[i].cityId;
+			data.mainbillname=response.mainbillname;
+			data.communityid=""+response.communityid;
+			data.mainbilltype=response.mainbilltype;
+			data.mainbilldesc=response.mainbilldesc;
+			Store.dispatch(initialize('EditIndent',data));
+
+		}).catch(function(err) {
+			 Message.error(err.message);
+		});
+		State.switchEditIndent();
+
+	}
 
 	//编辑订单页面的开关
-	switchEditIndent=()=>{
+	switchEditIndent=(data)=>{
+		// Store.dispatch(initialize('EditIndent',data));
+		
 		State.switchEditIndent();
 	}
 	
@@ -117,13 +147,6 @@ class Personal extends Component{
       	State.companyName=itemDetail.company
       }
     }
-	//新建提交按钮
-	onNewMerchants=(params)=>{
-      
-	}
-
-	
-
 
 	 //选中几项领取，转移等
     onSelect=(value)=>{
@@ -408,7 +431,7 @@ class Personal extends Component{
 				                 editsSwitch={this.switchEditCustomerList}
 				                 IndentSwitch={this.switchCustomerIndent}
 				                 newIndentSwitch={this.openNewIndent}
-				                 editIndentSwitch={this.switchEditIndent}
+				                 editIndentSwitch={this.openEditIndent}
 				                 DeleteSwitch={this.openDeleteDialog}
 							/>
 					</Drawer>
@@ -452,12 +475,14 @@ class Personal extends Component{
 							width={750}
 							openSecondary={true}
 							className='m-finance-drawer'
+							listId={State.listId}
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
 						<EditIndent
 							 onCancel={this.switchEditIndent}
 							 listId={State.listId}
 			                 orderReady={orderReady}
+			                 editIndentData={State.editIndentData}
 
 						/>
 					</Drawer>

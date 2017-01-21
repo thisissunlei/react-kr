@@ -88,8 +88,19 @@ import './index.less'
 	componentDidMount(){
 	 	Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
 	}
-	communityChange=(value)=>{
-		console.log(value,"<><><>")
+	communityChange=(value)=>{ 
+		// console.log(value,"<><>>>>>>")
+		if(!value){
+			return;
+		}
+		var community=State.orderReady.communityCity
+		for(var i=0;i<community.length;i++){
+			if(community[i].communityName==value.label){
+				Store.dispatch(change('NewIndent','cityid',community[i].cityId));
+			}
+
+		}
+		// console.log(value,"<><><>")
 	}
 
 
@@ -108,7 +119,6 @@ import './index.less'
 				</div>
 				
 				<div className="kk" style={{marginTop:30}}>		
-
 					<KrField grid={1/2} label="订单类型" name="mainbilltype" style={{width:252,marginLeft:15}} component="select" 
 							options={State.orderFound}
 							requireLabel={true}

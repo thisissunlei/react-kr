@@ -12,7 +12,6 @@ import {
 import {
 	Message
 } from 'kr-ui';
-
 let State = observable({
 	openEditCustomerList:false,
 	comeFrom:"Merchants",
@@ -46,7 +45,6 @@ State.orderList=action(function(params) {
 	}
     var _this=this;
 	Store.dispatch(Actions.callAPI('customerOrdersList',{customerId:params})).then(function(response) {
-
          _this.orderDetail=response.items;
 		}).catch(function(err) {
 			Message.error(err.message);

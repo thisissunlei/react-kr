@@ -28,6 +28,7 @@ let State = observable({
 		listId:"",
 		companyName:'',
 		openDelete:false,
+		editIndentData:{}
 });
 
 //新建页的开关
@@ -109,10 +110,6 @@ State.quitSubmit= action(function(arrItem) {
 });
 
 
-
-
-
-//
 
 State.closeAllMerchants = action(function() {
 	this.openLookMerchants=false;
