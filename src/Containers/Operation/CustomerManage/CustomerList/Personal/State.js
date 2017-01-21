@@ -85,8 +85,9 @@ State.exportData = action(function(value) {
 
 //转移提交
 State.switchSureSubmit= action(function(value) {
+	console.log('6666444va',value);
 	var _this=this;
-	Store.dispatch(Actions.callAPI('customerTransfer',{},{value})).then(function(response) {
+	Store.dispatch(Actions.callAPI('customerTransfer',{},value)).then(function(response) {
 		 _this.openSwitch=false;
          Message.success('转移成功');
          _this.openPersonDialog=false;

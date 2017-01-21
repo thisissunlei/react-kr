@@ -25,7 +25,7 @@ State.orderReady= action(function() {
 	Store.dispatch(Actions.callAPI('community-city-selected')).then(function(response) {
          _this.orderReady=response;
 		}).catch(function(err) {
-			//Message.error(err.message);
+			Message.error(err.message);
 		});
 });
 //新建编辑的数据准备

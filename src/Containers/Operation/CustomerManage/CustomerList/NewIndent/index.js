@@ -108,38 +108,19 @@ import './index.less'
 				</div>
 				
 				<div className="kk" style={{marginTop:30}}>		
-<<<<<<< HEAD
+
 					<KrField grid={1/2} label="订单类型" name="mainbilltype" style={{width:252,marginLeft:15}} component="select" 
 							options={State.orderFound}
-							//options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
 							requireLabel={true}
 					/>
 					<KrField grid={1/2} label="所在社区" name="communityid" component="select" style={{width:252,marginLeft:15}} 
 							options={State.community}
-							// options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
-=======
-					<KrField grid={1/2} label="订单类型" name="sourceId" style={{width:252,marginLeft:15}} component="select" 
-							//options={State.selectData.customerSourceList}
-							options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
-							requireLabel={true}
-					/>
-					<KrField grid={1/2} label="所在社区" name="staiontypeId" component="select" style={{width:252,marginLeft:15}} 
-							//options={State.selectData.stationTypeList}
-							options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
->>>>>>> 89ced9f3d8aa34f1a4fab27bab6fd23829689c87
 							requireLabel={true}
 							onChange={this.communityChange}
 					/>
 					
-
-<<<<<<< HEAD
-					<KrField grid={1/2} label="所在城市" name="communityid" component="select" style={{width:252,marginLeft:15}} 
-
-=======
-					<KrField grid={1/2} label="所在城市" name="intentionCommunityId" component="select" style={{width:252,marginLeft:15}} 
->>>>>>> 89ced9f3d8aa34f1a4fab27bab6fd23829689c87
-							//options={State.selectData.communityBaselist}
-							options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
+					<KrField grid={1/2} label="所在城市" name="cityid" component="select" style={{width:252,marginLeft:15}} 
+							options={State.city}
 							requireLabel={false}
 					/>
 					<KrField grid={1/2} label="订单名称" name="mainbillname" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>

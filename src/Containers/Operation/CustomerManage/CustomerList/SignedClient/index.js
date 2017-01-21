@@ -210,6 +210,9 @@ class SignedClient extends Component{
 	//转移确定
      switchPersonSubmit=(params)=>{
        let {arrItem}=this.state;
+       if(!params.receiveId){
+       	  return ;
+       }
        var switchData={
          receiveId:params.receiveId,
          ids:arrItem
@@ -274,7 +277,7 @@ class SignedClient extends Component{
 	            ajaxFieldListName="items"
 					  >
 		            <TableHeader>
-		              <TableHeaderColumn>所属城市</TableHeaderColumn>
+		              <TableHeaderColumn>签约城市</TableHeaderColumn>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>
 		              <TableHeaderColumn>订单总额</TableHeaderColumn>
 		              <TableHeaderColumn>已回款额</TableHeaderColumn>

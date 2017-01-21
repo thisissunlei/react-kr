@@ -90,6 +90,14 @@ class CustomerIndent extends Component{
 
 				)
 		})
+        if(listArray.length==0){
+         listArray.push(<div style={{textAlign:'center',paddingTop:100,paddingBottom:100}}>
+								<div className="ui-nothing">
+									<div className="icon"></div>
+									<p className="tip">暂时还没有数据呦~</p>
+								</div>
+						</div>)
+        }
 		return listArray;
 	}
 

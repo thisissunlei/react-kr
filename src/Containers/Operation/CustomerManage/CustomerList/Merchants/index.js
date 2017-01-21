@@ -90,7 +90,6 @@ class Merchants extends Component{
 		
 		State.switchEditCustomerList();
 
-
 	}
 	//新增拜访记录的开关
 	switchCustomerIndent = () =>{

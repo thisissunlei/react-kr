@@ -33,6 +33,7 @@ import './index.less'
 
 	}
 	onSubmit = (values) => {
+		console.log('hhhh新建');
 		let _this=this;
 		Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
          	_this.onCancel();
@@ -79,8 +80,7 @@ import './index.less'
 							<div className="small-cheek">
 
 									<KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="select" 
-											//options={dataReady.customerSourceList}
-											options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
+											options={dataReady.customerSourceList}
 											requireLabel={true}
 									/>
 									<div className="krFlied-box"><KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:239,marginLeft:28}} component="input" requireLabel={true}>
@@ -88,8 +88,7 @@ import './index.less'
 									</KrField><span className="unit">个</span></div>
 									<KrField grid={1/2} label="联系人姓名" name="customerName" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 									<KrField grid={1/2} label="意向工位类型" name="staiontypeId" component="select" style={{width:262,marginLeft:28}} 
-											//options={dataReady.stationTypeList}
-											options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
+											options={dataReady.stationTypeList}
 											requireLabel={true}
 									/>
 									<KrField grid={1/2} label="联系人电话" name="customerTel" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
@@ -97,8 +96,7 @@ import './index.less'
 									</KrField><span className="unit">元/个/月</span></div>
 									<KrField grid={1/2} label="联系人邮箱"  name="customerMail" style={{width:262,marginLeft:15}} component="input" requireLabel={false}/>
 									<KrField grid={1/2} label="意向入驻社区" name="intentionCommunityId" component="select" style={{width:262,marginLeft:28}} 
-											//options={dataReady.communityBaselist}
-											options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
+											options={dataReady.communityBaselist}
 											requireLabel={true}
 									/>
 									<KrField grid={1/2} label="联系人微信" name="customerWechat" style={{width:262,marginLeft:15}} component="input" requireLabel={false}/>
@@ -110,8 +108,7 @@ import './index.less'
 						<div className="small-cheek" style={{paddingBottom:0}}>
 								<KrField grid={1/2} label="公司名称" name="customerCompany" component="input" style={{width:262,marginLeft:15}}  requireLabel={true} onChange={this.corpNameChange} />
 								<KrField grid={1/2} label="投资轮次" name="roundId" component="select" style={{width:262,marginLeft:28}} 
-										//options={dataReady.roundList}
-										options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
+										options={dataReady.roundList}
 										requireLabel={false}
 								/>
 								<KrField grid={1/2} label="公司规模" name="teamNum" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
@@ -141,7 +138,7 @@ import './index.less'
 							<Row>
 								<Col md={12} align="center">
 									<ButtonGroup>
-										<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div>
+										<div  className='ui-btn-center'><Button  label="确定" type="submit"/></div>
 										<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 									</ButtonGroup>
 								</Col>
@@ -158,6 +155,7 @@ const validate = values =>{
 		let checkTel=/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
 		let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
 		let RMB=/^(([1-9]\d*)|0)(\.\d{2})?$/
+
 		if(!values.sourceId){
 			errors.sourceId = '请填写客户来源';
 		}
