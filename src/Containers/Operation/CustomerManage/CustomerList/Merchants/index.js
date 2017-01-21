@@ -409,7 +409,7 @@ class Merchants extends Component{
 				    {/*新增拜访记录*/}
 					<Drawer
 							open={State.openNewCustomerIndent}
-							width={650}
+							width={750}
 							openSecondary={true}
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}

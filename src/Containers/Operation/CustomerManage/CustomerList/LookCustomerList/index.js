@@ -56,6 +56,7 @@ class LookCustomerList extends Component{
 		if(State.listId===nextProps.listId){
 			return;
 		}
+		console.log('gggyyyy',nextProps.listId);
 		State.lookListId(nextProps.listId);
 		State.orderList(nextProps.listId);
 		State.initListId(nextProps.listId);
@@ -88,9 +89,7 @@ class LookCustomerList extends Component{
 
 	render(){
 		let {comeFrom,data,dataReady,editsSwitch,IndentSwitch,newIndentSwitch,editIndentSwitch,DeleteSwitch,companyName}=this.props;
-				                 
-
-      
+				                       
 		
 		return(
 		      <div className="m-lookCustomerList m-newMerchants">
