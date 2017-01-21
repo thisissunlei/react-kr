@@ -28,7 +28,9 @@ let State = observable({
 		listId:"",
 		companyName:'',
 		openDelete:false,
-		editIndentData:{}
+		editIndentData:{},
+		editIndentId:'',
+		companyName:""
 });
 
 //新建页的开关
@@ -71,6 +73,13 @@ State.openQuitContinue= action(function() {
 State.openDeleteOrder= action(function() {
 	this.openDelete=!this.openDelete;
 })
+State.editIndentIdChange=action(function(params){
+	this.editIndentId=params;
+})
+State.companyNameChange=action(function(params){
+	this.companyName=params;
+})
+
 
 //导出
 State.exportData = action(function(value) {

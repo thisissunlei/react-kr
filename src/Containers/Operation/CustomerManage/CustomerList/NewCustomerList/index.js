@@ -17,6 +17,7 @@ import {
 	Message
 } from 'kr-ui';
 import State from './State';
+
 import './index.less'
 @observer
  class NewCustomerList extends Component{
@@ -209,7 +210,6 @@ const validate = values =>{
 		if (!values.inTime) {
 			errors.inTime = '请填写预计入驻时间';
 		}
-		console.log("?????????",State.isCorpName);
 		if (!values.customerCompany) {
 			errors.customerCompany = '请填写公司名称';
 		}else if(values.customerCompany.length>20){

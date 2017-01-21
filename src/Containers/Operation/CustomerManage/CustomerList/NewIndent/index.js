@@ -18,6 +18,7 @@ import {
 
 } from 'kr-ui';
 import State from './State';
+import flushData from "../LookCustomerList/State";
 import './index.less'
 @observer
  class NewIndent extends Component{
@@ -42,19 +43,13 @@ import './index.less'
 		};
 
 	}
-
-
-
 	onSubmit = (values) => {
-		console.log("dsdsdfs",values);
+		delete values.cityid;
 		let listId=this.props.listId;
 		let _this=this;
 		values.customerid=listId;
-		values.mainbillcode="3333";
-		console.log("0000000",values)
-
-		// return;
 		Store.dispatch(Actions.callAPI('enter-order',{},values)).then(function(response) {
+			flushData.orderList(_this.props.listId);
          	_this.onCancel();
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -89,7 +84,6 @@ import './index.less'
 	 	Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
 	}
 	communityChange=(value)=>{ 
-		// console.log(value,"<><>>>>>>")
 		if(!value){
 			return;
 		}
@@ -100,21 +94,17 @@ import './index.less'
 			}
 
 		}
-		// console.log(value,"<><><>")
 	}
 
 
 	render(){
-		// console(State.city.constructor == Array,"+++++++>")
-		// console.log(State.city,"<++++++>");
-		const { error, handleSubmit, pristine, reset} = this.props;
+		const { error, handleSubmit, pristine, reset,companyName} = this.props;
 
-		// console.log('<<<<<<---->>',orderReady.sysDicPayments);
 		return (
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)}>
 				<div className="title">
-						<div><span className="new-icon"></span><label className="title-text">新建订单</label></div>
+						<div><span className="new-icon"></span><label className="title-text">{companyName}</label></div>
 						<div className="close" onClick={this.onCancel}></div>
 				</div>
 				

@@ -58,7 +58,7 @@ class Personal extends Component{
 			//加载后的数据
 			loadData:[],
 			//选中的值
-			arrItem:[]
+			arrItem:[],
 		}
 	}
 
@@ -95,7 +95,7 @@ class Personal extends Component{
 	}
 	//打开新建订单页
 	openNewIndent=()=>{
-
+		Store.dispatch(initialize('NewIndent',{}));
 		State.switchNewIndent();
 	}
 	//新建订单页面的开关
@@ -106,6 +106,7 @@ class Personal extends Component{
 	openEditIndent=(editIndentId)=>{
 		var data={};
 		var {orderReady}=this.props;
+		State.editIndentIdChange(editIndentId);
 
 		data.mainBillId=editIndentId;
 
@@ -134,8 +135,6 @@ class Personal extends Component{
 
 	//编辑订单页面的开关
 	switchEditIndent=(data)=>{
-		// Store.dispatch(initialize('EditIndent',data));
-		
 		State.switchEditIndent();
 	}
 	
@@ -144,7 +143,8 @@ class Personal extends Component{
       if(type=='watch'){
       	State.MerchantsListId(itemDetail.id)
       	State.switchLookCustomerList();
-      	State.companyName=itemDetail.company
+      	State.companyNameChange(itemDetail.company);
+      	State.companyName=itemDetail.company;
       }
     }
 
@@ -425,6 +425,7 @@ class Personal extends Component{
 					 >
 							<LookCustomerList
 				                 comeFrom="Personal"
+				                 companyName={State.companyName}
 								 onCancel={this.switchLookCustomerList}
 				                 listId={State.listId}
 				                 dataReady={dataReady}
@@ -462,6 +463,7 @@ class Personal extends Component{
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
 						<NewIndent
+							 companyName={State.companyName}
 							 onCancel={this.switchNewIndent}
 			                 orderReady={orderReady}
 			                 listId={State.listId}
@@ -479,10 +481,12 @@ class Personal extends Component{
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
 						<EditIndent
+							 companyName={State.companyName}
 							 onCancel={this.switchEditIndent}
 							 listId={State.listId}
 			                 orderReady={orderReady}
 			                 editIndentData={State.editIndentData}
+			                 editIndentId={State.editIndentId}
 
 						/>
 					</Drawer>

@@ -50,9 +50,13 @@ import './index.less'
 	onSubmit = (values) => {
 		delete values.cityid;
 		values.customerid=this.props.listId;
+		values.id=this.props.editIndentId;
+		values.mainbillcode="";
+		console.log(values);
+
 		let _this=this;
 		Store.dispatch(Actions.callAPI('edit-order',{},values)).then(function(response) {
-			// flushData.State.orderList(this.props.listId);
+			 flushData.orderList(_this.props.listId);
          	_this.onCancel();
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -83,7 +87,6 @@ import './index.less'
 			State.orderReady(nextProps.orderReady)
 	}
 	communityChange=(value)=>{ 
-		// console.log(value,"<><>>>>>>")
 		if(!value){
 			return;
 		}
@@ -94,7 +97,6 @@ import './index.less'
 			}
 
 		}
-		// console.log(value,"<><><>")
 	}
 	componentDidMount(){
 	 	// Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
@@ -102,13 +104,13 @@ import './index.less'
 
 
 	render(){
-		const { error, handleSubmit, pristine, reset} = this.props;
+		const { error, handleSubmit, pristine, reset,companyName} = this.props;
 
 		return (
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)}>
 				<div className="title">
-						<div><span className="new-icon"></span><label className="title-text">编辑订单</label></div>
+						<div><span className="new-icon"></span><label className="title-text">{companyName}</label></div>
 						<div className="close" onClick={this.onCancel}></div>
 				</div>
 				
