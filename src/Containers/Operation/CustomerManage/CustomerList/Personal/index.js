@@ -203,10 +203,12 @@ class Personal extends Component{
     //转移确定
      switchPersonSubmit=(params)=>{
        let {arrItem}=this.state;
-       var switchData={
-         receiveId:params.receiveId,
-         ids:arrItem
+       if(!params.receiveId){
+       	  return ;
        }
+       let switchData={};
+       switchData.receiveId=params.receiveId;
+       switchData.ids=arrItem; 
        State.switchSureSubmit(switchData);
     }
 	//高级查询

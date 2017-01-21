@@ -1,7 +1,8 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {reduxForm,formValueSelector,initialize} from 'redux-form';
+import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
+import {Actions,Store} from 'kr/Redux';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import {
 	Button,
@@ -38,7 +39,7 @@ class SwitchPerson extends Component{
 	}
 
 	onChangePerson=(person)=>{
-		Store.dispatch(change('switchPerson','receiveId',person.sysloginid));
+		Store.dispatch(change('switchPerson','receiveId',person.value));
     }
 	
 	render(){

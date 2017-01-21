@@ -111,21 +111,16 @@ import './index.less'
 				<div className="kk" style={{marginTop:30}}>		
 					<KrField grid={1/2} label="订单类型" name="mainbilltype" style={{width:252,marginLeft:15}} component="select" 
 							options={State.orderFound}
-							//options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
 							requireLabel={true}
 					/>
 					<KrField grid={1/2} label="所在社区" name="communityid" component="select" style={{width:252,marginLeft:15}} 
 							options={State.community}
-							// options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
 							requireLabel={true}
 							onChange={this.communityChange}
 					/>
 					
-
 					<KrField grid={1/2} label="所在城市" name="cityid" component="select" style={{width:252,marginLeft:15}} 
-
 							options={State.city}
-							// options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
 							requireLabel={false}
 					/>
 					<KrField grid={1/2} label="订单名称" name="mainbillname" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
