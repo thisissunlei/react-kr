@@ -41,7 +41,7 @@ State.switchEditCustomerList = action(function(comeFrom) {
 //获取订单数据列表
 State.orderList=action(function(params) {
 	if(!params){
-	 return;
+	 return ;
 	}
     var _this=this;
 	Store.dispatch(Actions.callAPI('customerOrdersList',{customerId:params})).then(function(response) {
@@ -56,9 +56,12 @@ State.initListId=action(function(params){
 //获取详情页数据
 State.lookListId=action(function(params) {
 	if(!params){
-	 return;
+	 return ;
 	}
     var _this=this;
+    _this.searchParams={
+    	id:params
+    }
 	Store.dispatch(Actions.callAPI('get-detail-info',{id:params})).then(function(response) {
          _this.detail=response;
 		}).catch(function(err) {
