@@ -48,11 +48,7 @@ class Personal extends Component{
 
 	constructor(props,context){
 		super(props, context);
-		this.state={
-			searchParams:{
-				page:1,
-				pageSize:15,
-			},			
+		this.state={		
 			//选中的数量
 			dialogNum:0,
 			//加载后的数据
@@ -65,6 +61,7 @@ class Personal extends Component{
 
 	//新建页面的开关
 	switchNewMerchants=()=>{
+		Store.dispatch(initialize('NewCustomerList',{hasOffice:'NO'}));
 		State.switchNewCustomerList();
 	}
 
@@ -98,9 +95,12 @@ class Personal extends Component{
 		Store.dispatch(initialize('NewIndent',{}));
 		State.orderNameInit(State.listId);
 		State.switchNewIndent();
+		State.isOpenIndent=true;
+
 	}
 	//新建订单页面的开关
 	switchNewIndent=()=>{
+		State.isOpenIndent=false;
 		State.switchNewIndent();
 	}
 	//打开编辑页
@@ -146,7 +146,6 @@ class Personal extends Component{
       if(type=='watch'){
       	State.MerchantsListId(itemDetail.id)
       	State.switchLookCustomerList();
-      	State.companyNameChange(itemDetail.company);
       	State.companyName=itemDetail.company;
       }
     }
@@ -188,19 +187,18 @@ class Personal extends Component{
         let obj = {
 			company: params.content,
 		}
-		this.setState({
-			searchParams: obj
-		});
+		State.searchParams=obj
 	}
 
 	componentWillReceiveProps(nextProps){
-		this.setState({
-			searchParams: {
+		if(nextProps.initSearch=='p'){
+			State.searchParams={
+			  time:+new Date(),
 			  company:'',
 			  page:1,
 			  pageSize:15,	 
 			}
-		});
+		 }
 	}
 
     //转移确定
@@ -216,19 +214,18 @@ class Personal extends Component{
     }
 	//高级查询
 	openSearchUpperDialog=()=>{
-	  let {searchParams}=this.state;
-	  searchParams.company='';
-      searchParams.createEndDate='';
-      searchParams.createStartDate='';
-      searchParams.intentionCityId='';
-      searchParams.intentionCommunityId='';
-      searchParams.levelId='';
-      searchParams.sourceId='';
+	  State.searchParams.company='';
+      State.searchParams.createEndDate='';
+      State.searchParams.createStartDate='';
+      State.searchParams.intentionCityId='';
+      State.searchParams.intentionCommunityId='';
+      State.searchParams.levelId='';
+      State.searchParams.sourceId='';
       State.searchUpperCustomer();
 	}
 	//高级查询提交
      onSearchUpperSubmit=(searchParams)=>{
-     	searchParams = Object.assign({}, this.state.searchParams, searchParams);
+     	searchParams = Object.assign({}, State.searchParams, searchParams);
       	searchParams.time=+new Date();
 		if(searchParams.createStartDate!=''&&searchParams.createEndDate!=''&&searchParams.createEndDate<searchParams.createStartDate){
 			 Message.error('开始时间不能大于结束时间');
@@ -240,9 +237,7 @@ class Personal extends Component{
 		if(searchParams.createStartDate!=''&&searchParams.createEndDate==''){
 			searchParams.createEndDate=searchParams.createStartDate
 		}
-      	this.setState({
-      	  searchParams
-      	})
+      	State.searchParams=searchParams;
       	State.searchUpperCustomer();
      }
 	//导出
@@ -325,7 +320,7 @@ class Personal extends Component{
 	            onSelect={this.onSelect}
 	            onLoaded={this.onLoaded}
 	            onExport={this.onExport}
-	            ajaxParams={this.state.searchParams}
+	            ajaxParams={State.searchParams}
 	            ajaxUrlName='personalCustomers'
 	            ajaxFieldListName="items"
 					  >
@@ -391,7 +386,17 @@ class Personal extends Component{
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 													 }}></TableRowColumn>
 			                <TableRowColumn name="receiveName"></TableRowColumn>
-			                <TableRowColumn name="createDate" type='date' format="yyyy-mm-dd HH:MM:ss"></TableRowColumn>
+			                <TableRowColumn name="createDate" type='date' format="yyyy-mm-dd HH:MM:ss" component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:120,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }}></TableRowColumn>
 			                <TableRowColumn type="operation">
 			                    <Button label="查看"  type="operation"  operation="watch" />
 			                 </TableRowColumn>
@@ -471,6 +476,7 @@ class Personal extends Component{
 			                 orderReady={orderReady}
 			                 listId={State.listId}
 			                 orderName={State.orderName}
+			                 isOpenIndent={State.orderName}
 						/>
 					</Drawer>
 					
@@ -499,7 +505,7 @@ class Personal extends Component{
 					{/*新增拜访记录*/}
 					<Drawer
 							open={State.openNewCustomerIndent}
-							width={650}
+							width={750}
 							openSecondary={true}
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}

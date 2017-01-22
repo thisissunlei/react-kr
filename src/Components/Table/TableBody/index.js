@@ -205,7 +205,6 @@ export default class TableBody extends React.Component {
 
 
 		let cloneElement;
-
 		React.Children.map(this.props.children, (child) => {
 			cloneElement = child;
 		});

@@ -14,7 +14,10 @@ import {
 } from 'kr-ui';
 
 let State = observable({
-		searchParams:{},
+		searchParams:{
+			page:1,
+			pageSize:15,
+		},
 		openNewMerchants:false,
 		openLookMerchants:false,
 		openSearchUpper:false,
@@ -30,9 +33,9 @@ let State = observable({
 		openDelete:false,
 		editIndentData:{},
 		editIndentId:'',
-		companyName:"",
 		orderName:"",
 		cityname:"",
+		isOpenIndent:false,
 });
 
 //新建页的开关
@@ -54,6 +57,7 @@ State.switchCustomerIndent = action(function() {
 //新建订单的开关
 State.switchNewIndent = action(function() {
 	this.openNewIndent=!this.openNewIndent;
+
 })
 //编辑订单的开关
 State.switchEditIndent=action(function() {
@@ -75,14 +79,12 @@ State.openQuitContinue= action(function() {
 State.openDeleteOrder= action(function() {
 	this.openDelete=!this.openDelete;
 })
+//编辑定点id
 State.editIndentIdChange=action(function(params){
 	this.editIndentId=params;
 })
 
-State.companyNameChange=action(function(params){
-	this.companyName=params;
-})
-
+//订单名称
 State.orderNameChange=action(function(params){
 	this.orderName=params;
 })
@@ -121,6 +123,11 @@ State.switchSureSubmit= action(function(value) {
 		 _this.openSwitch=false;
          Message.success('转移成功');
          _this.openPersonDialog=false;
+         _this.searchParams={
+         	page:1,
+			pageSize:15,
+			time:+new Date()
+         }
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});		
@@ -133,6 +140,11 @@ State.quitSubmit= action(function(arrItem) {
 		 _this.openQuit=false;
          Message.success('取消成功');
          _this.openPersonDialog=false;
+          _this.searchParams={
+         	page:1,
+			pageSize:15,
+			time:+new Date()
+         }
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});		

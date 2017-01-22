@@ -13,7 +13,10 @@ import {
     Message
 } from 'kr-ui';
 let State = observable({
-		searchParams:{},
+		searchParams:{
+			page:1,
+			pageSize:15,
+		},
 		openNewMerchants:false,
 		openLookMerchants:false,
 		openEditCustomerList:false,
@@ -24,7 +27,14 @@ let State = observable({
 		openSearchUpper:false,
 		openSwitch:false,
 		openPersonDialog:false,
-		indentReady:{}
+		indentReady:{},
+		listId:"",
+		companyName:'',
+		openDelete:false,
+		editIndentData:{},
+		editIndentId:'',
+		orderName:"",
+		cityname:"",
 });
 
 //新建页的开关
@@ -67,6 +77,32 @@ State.openDeleteOrder= action(function() {
 State.indentReady= action(function(params) {
 	this.indentReady=params;
 })
+
+//编辑定点id
+State.editIndentIdChange=action(function(params){
+	this.editIndentId=params;
+})
+//订单名称
+State.orderNameChange=action(function(params){
+	this.orderName=params;
+})
+
+//获取订单名称
+State.orderNameInit= action(function(value) {
+	var _this=this;
+	let data={};
+	
+	data.customerId=value;
+
+	Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {
+		_this.orderName=response.mainbillname;
+
+	}).catch(function(err) {
+		 Message.error(err.message);
+	});		
+});
+
+
 //转移提交
 State.switchSureSubmit= action(function(value) {
 	var _this=this;
@@ -74,6 +110,11 @@ State.switchSureSubmit= action(function(value) {
 		 _this.openSwitch=false;
          Message.success('转移成功');
          _this.openPersonDialog=false;
+         _this.searchParams={
+         	page:1,
+			pageSize:15,
+			time:+new Date()
+         }
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});		
@@ -89,7 +130,10 @@ State.exportData = action(function(value) {
 		var url = `http://optest.krspace.cn/api/krspace-finance-web/customer/sign-customers-export?customerIds=${customerIds}`
 		window.location.href = url;
 });
-
+//城市改变
+State.cityChange=action(function(params){
+	this.cityname=params;
+})
 State.closeAllMerchants = action(function() {
 	this.openLookMerchants=false;
 	this.openNewMerchants=false;
@@ -98,5 +142,9 @@ State.closeAllMerchants = action(function() {
 	this.openNewCustomerIndent=false;
 	this.openNewIndent=false;
 	this.openEditIndent=false;
+});
+State.MerchantsListId = action(function(params) {
+	this.listId=params;
+	
 });
 module.exports = State;

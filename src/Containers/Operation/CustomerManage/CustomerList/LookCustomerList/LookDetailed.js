@@ -27,6 +27,7 @@ import {
 	ButtonGroup
 
 } from 'kr-ui';
+import DateFormat from "kr/Utils";
 import './index.less'
 
 import State from './State';
@@ -57,6 +58,52 @@ class LookDetail extends Component{
 
 	switchEditCustomerList = () =>{
 		State.switchEditCustomerList();
+	}
+	visitRecordList = () =>{
+		if(!State.detail.records){
+			return;
+		}
+		let tr="";
+		let tds="";
+		for(let i=0;i<State.detail.records.length;i++){
+			let everyTr=State.detail.records[i];
+			tds+="<td></td>"
+			
+			tr="<tr>"+tds+"</tr>"	
+		}
+		var arr=State.detail.records.map(function(item,index) {
+
+			var table=(
+					<table>
+						<tr>
+							<th>拜访方式</th>
+							<th>拜访方式</th>
+							<th>拜访方式</th>
+							<th>拜访方式</th>
+							<th>拜访方式</th>
+							<th>拜访方式</th>
+							<th>拜访方式</th>
+						</tr>
+						
+					</table>
+				)
+
+			return (
+			{/*<TableRow >
+			<TableRowColumn name="visitTypeName">{item.visitTypeName}</TableRowColumn>
+            <TableRowColumn name="visitTime" type='date' format="yyyy-mm-dd HH:MM:ss" >{item.visitTime}</TableRowColumn>
+            <TableRowColumn name="linkName">{item.linkName}</TableRowColumn>
+            <TableRowColumn name="linkTel">{item.linkTel}</TableRowColumn>
+            <TableRowColumn name="levelName">{item.levelName}</TableRowColumn>
+            <TableRowColumn name="visitDetail">{item.visitDetail}</TableRowColumn>
+            <TableRowColumn name="isContinue">{item.isContinue}</TableRowColumn>
+            <TableRowColumn name="reasonName">{item.reasonName}</TableRowColumn>
+            </TableRow >*/}
+				
+            )
+
+		})
+		return arr;
 	}
 
 	
@@ -125,13 +172,35 @@ class LookDetail extends Component{
 					          	</TableHeader>
 
 						        <TableBody >
-						              <TableRow >
-						                <TableRowColumn name="linkTel" ></TableRowColumn>
-						                <TableRowColumn name="visitTime" type='date' format="yyyy-mm-dd HH:MM:ss" ></TableRowColumn>
+						               <TableRow >
+						               <TableRowColumn name="linkTel" component={(value,oldValue)=>{
+														 return (<div><span className='tableOver'>{value}</span>
+														 	<Tooltip offsetTop={10} place='top'>
+																<div style={tooltipTextStyle}>{oldValue}</div>
+														 	</Tooltip></div>)
+													 }}
+
+						                ></TableRowColumn>
+						                <TableRowColumn name="visitTime" type='date' format="yyyy-mm-dd HH:MM:ss" component={(value,oldValue)=>{
+						                				 // value=Date.parse(DateFormat(value,"yyyy-mm-dd hh:MM:ss"))
+														 return (<div><span className='tableOver'>{value}</span>
+														 	<Tooltip offsetTop={10} place='top' style={{left:50}}>
+																<div style={tooltipTextStyle}>{oldValue}</div>
+														 	</Tooltip></div>)
+													 }}
+
+						                ></TableRowColumn>
 						                <TableRowColumn name="linkName"></TableRowColumn>
 						                <TableRowColumn name="linkTel"></TableRowColumn>
 						                <TableRowColumn name="levelName"></TableRowColumn>
-						                <TableRowColumn name="visitDetail"></TableRowColumn>
+						                <TableRowColumn name="visitDetail" component={(value,oldValue)=>{
+														 return (<div><span className='tableOver'>{value}</span>
+														 	<Tooltip offsetTop={10} place='top'>
+																<div style={tooltipTextStyle}>{oldValue}</div>
+														 	</Tooltip></div>)
+													 }}
+
+						                ></TableRowColumn>
 						                <TableRowColumn name="isContinue"></TableRowColumn>
 						                <TableRowColumn name="reasonName" component={(value,oldValue)=>{
 														 return (<div><span className='tableOver'>{value}</span>
@@ -139,8 +208,7 @@ class LookDetail extends Component{
 																<div style={tooltipTextStyle}>{oldValue}</div>
 														 	</Tooltip></div>)
 													 }} ></TableRowColumn>
-						                
-						               </TableRow>
+						               </TableRow >
 						        </TableBody>
 			           </Table>}
 			           <div className="isDevelop" onClick={this.isDevelopClick}>
@@ -150,6 +218,7 @@ class LookDetail extends Component{
 
 						
 				</div>
+					
 				<div style={{textAlign: "center",marginTop:30}}><Button  label="新增拜访记录" type="button" style={{width:120}} onTouchTap={IndentSwitch} /></div>
 				
 			

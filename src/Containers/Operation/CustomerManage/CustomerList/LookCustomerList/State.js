@@ -59,8 +59,6 @@ State.lookListId=action(function(params) {
 	if(!params){
 	 return ;
 	}
-	console.log("<<<<",params);
-
     var _this=this;
     _this.searchParams={
     	id:params

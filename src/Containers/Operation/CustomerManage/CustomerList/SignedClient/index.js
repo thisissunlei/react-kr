@@ -47,10 +47,6 @@ class SignedClient extends Component{
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			searchParams:{
-				page:1,
-				pageSize:15
-			},
 			//选中的数量
 			dialogNum:0,
 			//加载后的数据
@@ -70,6 +66,8 @@ class SignedClient extends Component{
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
       	State.switchLookCustomerList();
+      	State.MerchantsListId(itemDetail.id)
+      	State.companyName=itemDetail.company;
       }
     }
     //客户编辑页面开关
@@ -96,17 +94,16 @@ class SignedClient extends Component{
 
 	//打开新建订单页
 	openNewIndent=()=>{
-		// let _this=this;
-		// let listId=State.listId;
-		// Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
-  //        	State.indentReady(response);
-		// }).catch(function(err) {
-		// 	Message.error(err.message);
-		// });
-
+		Store.dispatch(initialize('NewIndent',{}));
+		State.orderNameInit(State.listId);
 		State.switchNewIndent();
 	}
-
+	//打开新建订单页
+	openNewIndent=()=>{
+		Store.dispatch(initialize('NewIndent',{}));
+		State.orderNameInit(State.listId);
+		State.switchNewIndent();
+	}
 	//新建订单页面的开关
 	switchNewIndent=()=>{
 		State.switchNewIndent();
@@ -116,6 +113,41 @@ class SignedClient extends Component{
 	switchEditIndent=()=>{
 		State.switchEditIndent();
 	}
+
+	//打开编辑页
+	openEditIndent=(editIndentId)=>{
+		var data={};
+		var {orderReady}=this.props;
+		State.editIndentIdChange(editIndentId);
+
+		data.mainBillId=editIndentId;
+		
+		var _this=this;
+		Store.dispatch(Actions.callAPI('get-simple-order',data)).then(function(response) {
+			for(var i=0;i<orderReady.communityCity.length;i++){
+				if(orderReady.communityCity[i].communityId==response.communityid){
+					response.cityid=orderReady.communityCity[i].cityId;
+					State.cityChange(orderReady.communityCity[i].cityName);
+
+					break;
+				}
+			}
+			data.cityid=orderReady.communityCity[i].cityId;
+			data.mainbillname=response.mainbillname;
+			data.communityid=""+response.communityid;
+			data.mainbilltype=response.mainbilltype;
+			data.mainbilldesc=response.mainbilldesc;
+			Store.dispatch(initialize('EditIndent',data));
+			State.orderNameChange(response.mainbillname);
+
+		}).catch(function(err) {
+			 Message.error(err.message);
+		});
+		State.switchEditIndent();
+
+	}
+
+
 	//订单删除
      openDeleteDialog=()=>{
      	State.openDeleteOrder();
@@ -159,34 +191,33 @@ class SignedClient extends Component{
         let obj = {
 			company:params.content,
 		}
-		this.setState({
-			searchParams: obj
-		});
+		
+		State.searchParams=obj
+		
 	}
 	componentWillReceiveProps(nextProps){
-		this.setState({
-			searchParams: {
+		if(nextProps.initSearch=='s'){
+			State.searchParams={
 			  company:'',
 			  page:1,
 			  pageSize:15,	 
 			}
-		});
+		}
 	}
 
 	//高级查询
 	openSearchUpperDialog=()=>{
-	  let {searchParams}=this.state;
-	  searchParams.company='';
-      searchParams.cityId='';
-      searchParams.communityId='';
-      searchParams.signEndDate='';
-      searchParams.signStartDate='';
+	  State.searchParams.company='';
+      State.searchParams.cityId='';
+      State.searchParams.communityId='';
+      State.searchParams.signEndDate='';
+      State.searchParams.signStartDate='';
       State.searchUpperCustomer();
 	}
 
 	//高级查询提交
      onSearchUpperSubmit=(searchParams)=>{
-     	searchParams = Object.assign({}, this.state.searchParams, searchParams);
+     	searchParams = Object.assign({}, State.searchParams, searchParams);
       	searchParams.time=+new Date();
 		if(searchParams.signStartDate!=''&&searchParams.signEndDate!=''&&searchParams.signEndDate<searchParams.signStartDate){
 			 Message.error('开始时间不能大于结束时间');
@@ -198,9 +229,7 @@ class SignedClient extends Component{
 		if(searchParams.signStartDate!=''&&searchParams.signEndDate==''){
 			searchParams.signEndDate=searchParams.signStartDate
 		}
-      	this.setState({
-      	  searchParams
-      	})
+      	  State.searchParams=searchParams;
       	State.searchUpperCustomer();
      }
      //转移客户
@@ -232,8 +261,8 @@ class SignedClient extends Component{
 	render(){
 
      
-       let {searchSignParams,dataReady}=this.props; 
-        
+       let {searchSignParams,dataReady,orderReady}=this.props; 
+        console.log(State.companyName,">>>>>>>")
        var blockStyle={};
       if(State.openPersonDialog==true){
         blockStyle={
@@ -272,7 +301,7 @@ class SignedClient extends Component{
 	            onSelect={this.onSelect}
 	            onLoaded={this.onLoaded}
 	            onExport={this.onExport}
-	            ajaxParams={this.state.searchParams}
+	            ajaxParams={State.searchParams}
 	            ajaxUrlName='signCustomers'
 	            ajaxFieldListName="items"
 					  >
@@ -312,16 +341,16 @@ class SignedClient extends Component{
 					 >
 								<LookCustomerList
 									comeFrom="SignedClient"
+									companyName={State.companyName}
 									onCancel={this.switchLookCustomerList}
 					                listId={State.listId}
 					                dataReady={dataReady}
 				                 	editsSwitch={this.switchEditCustomerList}
 				                 	IndentSwitch={this.switchCustomerIndent}
 				                 	newIndentSwitch={this.openNewIndent}
-				                	editIndentSwitch={this.switchEditIndent}
+				                	editIndentSwitch={this.openEditIndent}
 				                 	DeleteSwitch={this.openDeleteDialog}
-									
-										
+																	
 								/>
 					</Drawer>
 
@@ -354,6 +383,9 @@ class SignedClient extends Component{
 							 onCancel={this.switchNewIndent}
 							 listId={State.listId}
 			                 indentReady={State.indentReady}
+			                 orderName={State.orderName}
+			                 companyName={State.companyName}
+
 						/>
 					</Drawer>
 
@@ -383,8 +415,14 @@ class SignedClient extends Component{
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
 						<EditIndent
+							 companyName={State.companyName}
 							 onCancel={this.switchEditIndent}
-			                 dataReady={dataReady}
+							 listId={State.listId}
+			                 orderReady={orderReady}
+			                 editIndentData={State.editIndentData}
+			                 editIndentId={State.editIndentId}
+			                 orderName={State.orderName}
+			                 cityname={State.cityname}
 						/>
 					</Drawer>
 
