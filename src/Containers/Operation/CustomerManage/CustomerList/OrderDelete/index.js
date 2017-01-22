@@ -43,7 +43,7 @@ export default class OrderDelete extends Component{
 		var _this=this;
 		Store.dispatch(Actions.callAPI('order-delete',{id:this.props.orderId})).then(function(response) {
 	         _this.onCancel();
-	         Message.success('领取成功');
+	         Message.success('删除成功');
 		}).catch(function(err) {
 			 Message.error(err.message);
 		});	
