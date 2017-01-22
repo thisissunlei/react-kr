@@ -39,6 +39,7 @@ import './index.less'
 		let _this=this; 
 		let {operType}=this.props;
 		values.operType=this.props.operType;
+		
 
 		Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
 			if(operType=="SHARE"){
@@ -229,12 +230,10 @@ const validate = values =>{
 		}else if(values.stationNum.length>8){
 			errors.stationNum = '最多输入8个字符';
 		}
-
-
-		if (!values.customerName) {
-			errors.customerName = '请填写联系人姓名';
-		}else if(values.customerName.length>20){
-			errors.customerName = '最多输入20个字符';
+		if (!values.name) {
+			errors.name = '请填写联系人姓名';
+		}else if(values.name.length>20){
+			errors.name = '最多输入20个字符';
 		}
 
 

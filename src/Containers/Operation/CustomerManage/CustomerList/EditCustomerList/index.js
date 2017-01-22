@@ -17,6 +17,7 @@ import {
 	Message
 } from 'kr-ui';
 import State from './State';
+import dateFormat from "dateformat";
 import './index.less'
 import merchants from "../Merchants/State";
 import personal from "../Personal/State";
@@ -36,37 +37,71 @@ import signedClient from "../SignedClient/State";
 		let {listId}=props;
 		
 	}
+	supplementZero(value) {
+		if (value < 10) {
+			value = '0' + value;
+		}
+		return value
+	}
+
+	formatDate(value) {
+
+		var dt = new Date(value);
+		var year = dt.getFullYear();
+		var month = this.supplementZero(1 + dt.getMonth());
+		var date = this.supplementZero(dt.getDate());
+		var hours = this.supplementZero(dt.getHours());
+		var minutes = this.supplementZero(dt.getMinutes());
+		var seconds = this.supplementZero(dt.getSeconds());
+
+		var result = `${year}-${month}-${date} 00:00:00`;
+
+		if(this.props.dateNoSecond=='true'){
+		 var result = `${year}-${month}-${date}`;
+		}
+
+		return result;
+	}
 
 
 
 	onSubmit = (values) => {
+		
+
 		console.log("12>>>")
-		let {operType}=ths.props;
+		let {operType}=this.props;
 		let _this=this;
 		values.operType=operType;
-		console.log("13>>>")
+		if(!isNaN(values.inTime)){
+			// console.log("PPPPPPPPPPqqqqqqq",this.formatDate(values.inTime))
+			values.inTime=this.formatDate(values.inTime);
+		}
+		if(!isNaN(values.deadline)){
+			// console.log("PPPPPPPPPPqqqqqqq",this.formatDate(values.inTime))
+			values.deadline=this.formatDate(values.deadline);
+		}
 		Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
-			// if(operType=="SHARE"){
-			// 	merchants.searchParams={
-		 //         	page:1,
-			// 		pageSize:15,
-			// 		time:+new Date()
-		 //         }
-			// }
-   //       	if(operType=="PERSON"){
-   //       		personal.searchParams={
-		 //         	page:1,
-			// 		pageSize:15,
-			// 		time:+new Date()
-		 //        }
-   //       	}
-   //       	if(operType=="SIGN"){
-   //       		signedClient.searchParams={
-		 //         	page:1,
-			// 		pageSize:15,
-			// 		time:+new Date()
-		 //        }
-   //       	}
+			if(operType=="SHARE"){
+				merchants.searchParams={
+		         	page:1,
+					pageSize:15,
+					time:+new Date()
+		         }
+			}
+         	if(operType=="PERSON"){
+         		personal.searchParams={
+		         	page:1,
+					pageSize:15,
+					time:+new Date()
+		        }
+         	}
+         	if(operType=="SIGN"){
+         		signedClient.searchParams={
+		         	page:1,
+					pageSize:15,
+					time:+new Date()
+		        }
+         	}
 		
 		console.log("14>>>")
 		
@@ -87,10 +122,20 @@ import signedClient from "../SignedClient/State";
 
 	hasOfficeClick = (params) =>{
 		if(params.value=="YES"){
-			State.showMatureTime();
+			if(this.props.operType=="SHARE"){
+				merchants.hasOfficeChange(true);
+			}
+			if(this.props.operType=="PERSON"){
+				personal.hasOfficeChange(true);
+			}
+			
 		}else if(params.value=="NO"){
-			State.noShowMatureTime();
-
+			if(this.props.operType=="SHARE"){
+				merchants.hasOfficeChange(false);
+			}
+			if(this.props.operType=="PERSON"){
+				personal.hasOfficeChange(false);
+			}
 		}
 	}
 	corpNameChange = (value) =>{
@@ -99,8 +144,7 @@ import signedClient from "../SignedClient/State";
 	
 	render(){
 
-		const { error, handleSubmit, pristine, reset,dataReady} = this.props;
-        
+		const { error, handleSubmit, pristine, reset,dataReady,hasOffice} = this.props;
 
 
 		return (
@@ -160,7 +204,7 @@ import signedClient from "../SignedClient/State";
 					             	<KrField name="hasOffice" label="否" type="radio" value="NO" onClick={this.hasOfficeClick}/>
 					            </KrField>
 
-								{State.matureTime && <KrField grid={1/2} label="到期时间" name="deadline" style={{width:252,marginLeft:15}} component="date" requireLabel={true}/>}
+								{hasOffice && <KrField grid={1/2} label="到期时间" name="deadline" style={{width:252,marginLeft:15}} component="date" requireLabel={true}/>}
 								
 								<KrField grid={1/2} label="公司网址" name="website" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
 								<KrField grid={1/2} label="公司简介" name="companyIntroduce" style={{width:520,marginLeft:15}} heightStyle={{height:"80px"}}  component="textarea"  maxSize={100} requireLabel={true} />

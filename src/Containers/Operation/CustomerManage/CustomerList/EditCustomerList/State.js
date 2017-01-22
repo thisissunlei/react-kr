@@ -10,7 +10,7 @@ import {
 	Store
 } from 'kr/Redux';
 let State = observable({
-		matureTime:false,
+		matureTime:"",
 		detail:{},
 		selectData:{
 			communityBaselist:[],
