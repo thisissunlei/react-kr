@@ -701,27 +701,27 @@ const APIS = {
    },
    //会员卡列表
    'memberCardList': {
-      url: '/api/krspace-finance-web/member/card/card-list?page={page}&pageSize={pageSize}&type={type}&value={value}',
+      url: '/apixr/krspace-finance-web/member/card/card-list?page={page}&pageSize={pageSize}&type={type}&value={value}',
       method: 'get'
    },
    //会员卡批量入库
    'memberCardImport': {
-      url: '/api/krspace-finance-web/member/card/actions/storage?endForeignCode={endForeignCode}&endForeignCode={endForeignCode}',
+      url: '/apixr/krspace-finance-web/member/card/actions/storage?endForeignCode={endForeignCode}&endForeignCode={endForeignCode}',
       method: 'put'
    },
    //会员卡领用
    'memberCardUse': {
-      url: '/api/krspace-finance-web/member/card/actions/receive?endForeignCode={endForeignCode}&endForeignCode={endForeignCode}&receiveId={receiveId}&communityId={communityId}',
+      url: '/apixr/krspace-finance-web/member/card/actions/receive?endForeignCode={endForeignCode}&endForeignCode={endForeignCode}&receiveId={receiveId}&communityId={communityId}',
       method: 'post'
    },
    //会员卡删除
    'memberCardDelete': {
-      url: '/api/krspace-finance-web/member/card/actions/delete?id={id}',
+      url: '/apixr/krspace-finance-web/member/card/actions/delete?id={id}',
       method: 'delete'
    },
    //会员卡查看
    'memberCardView': {
-      url: '/api/krspace-finance-web/member/card/bound-detail?id={id}',
+      url: '/apixr/krspace-finance-web/member/card/bound-detail?id={id}',
       method: 'get'
    },
  }
