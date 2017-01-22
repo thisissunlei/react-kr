@@ -114,32 +114,34 @@ State.exportData = action(function(value) {
 	    search.intentionCommunityId=this.searchParams.intentionCommunityId;
 	    search.levelId=this.searchParams.levelId;
 	    search.sourceId=this.searchParams.sourceId;
+	    if(!search.company){
+	    	search.company='';
+	    }
 	    if(!search.createEndDate){
-	    	search.createEndDate=null;
+	    	search.createEndDate='';
 	    }
 	    if(!search.createStartDate){
-	    	search.createStartDate=null;
+	    	search.createStartDate='';
 	    }
 	    if(!search.intentionCityId){
-	    	search.intentionCityId=null;
+	    	search.intentionCityId='';
 	    }
 	    if(!search.intentionCommunityId){
-	    	search.intentionCommunityId=null;
+	    	search.intentionCommunityId='';
 	    }
 	    if(!search.levelId){
-	    	search.levelId=null;
+	    	search.levelId='';
 	    }
 	    if(!search.sourceId){
-	    	search.sourceId=null;
+	    	search.sourceId='';
 	    }
-	    console.log('666yyyyy',search.company,search);
 		let customerIds = [];
 		if (value.length != 0) {
 			value.map((item, value) => {
 				customerIds.push(item.id)
 			});
 		}
-		var url = `http://optest.krspace.cn/api/krspace-finance-web/customer/personal-customers-export?customerIds=${customerIds}&company={search.company}`
+		var url = `http://optest.krspace.cn/api/krspace-finance-web/customer/personal-customers-export?customerIds=${customerIds}&company=${search.company}&createEndDate=${search.createEndDate}&createStartDate=${search.createStartDate}&intentionCityId=${search.intentionCityId}&intentionCommunityId=${search.intentionCommunityId}&levelId=${search.levelId}&sourceId=${search.sourceId}`
 		window.location.href = url;
 });
 

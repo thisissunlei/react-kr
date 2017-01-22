@@ -127,14 +127,28 @@ State.exportData = action(function(value) {
 	    search.communityId=this.searchParams.communityId;
 	    search.signEndDate=this.searchParams.signEndDate;
 	    search.signStartDate=this.searchParams.signStartDate;
-	    console.log('666yyyyy',search);
+	    if(!search.company){
+	    	search.company='';
+	    }
+	    if(!search.cityId){
+	    	search.cityId='';
+	    }
+	    if(!search.signStartDate){
+	    	search.signStartDate='';
+	    }
+	    if(!search.communityId){
+	    	search.communityId='';
+	    }
+	    if(!search.signEndDate){
+	    	search.signEndDate='';
+	    }
 		let customerIds = [];
 		if (value.length != 0) {
 			value.map((item, value) => {
 				customerIds.push(item.id)
 			});
 		}
-		var url = `http://optest.krspace.cn/api/krspace-finance-web/customer/sign-customers-export?customerIds=${customerIds}&search={search}`
+		var url = `http://optest.krspace.cn/api/krspace-finance-web/customer/sign-customers-export?customerIds=${customerIds}&company=${search.company}&cityId=${search.cityId}&signStartDate=${search.signStartDate}&communityId=${search.communityId}&signEndDate=${search.signEndDate}`
 		window.location.href = url;
 });
 //城市改变
