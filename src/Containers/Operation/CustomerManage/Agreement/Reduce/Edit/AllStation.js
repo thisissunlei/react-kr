@@ -320,7 +320,7 @@ class SelectStationForm extends Component {
           <TableHeaderColumn>编号／名称</TableHeaderColumn>
           <TableHeaderColumn>单价（元／月）</TableHeaderColumn>
           <TableHeaderColumn>起始日期</TableHeaderColumn>
-          <TableHeaderColumn>减租开始日期</TableHeaderColumn>
+          <TableHeaderColumn>结束日期</TableHeaderColumn>
           <TableHeaderColumn>减租结束日期</TableHeaderColumn>
       </TableHeader>
       <TableBody>
