@@ -23,6 +23,7 @@ import {
 	Col,
 	Dialog,
     Title,
+    Tooltip,
     ListGroup,
     ListGroupItem,
     SearchForms,
@@ -253,7 +254,8 @@ class SignedClient extends Component{
        }
        var switchData={
          receiveId:params.receiveId,
-         ids:arrItem
+         ids:arrItem,
+         operType:'SIGN'
        }
        State.switchSureSubmit(switchData);
     }
@@ -326,8 +328,28 @@ class SignedClient extends Component{
 
 			        <TableBody >
 			              <TableRow >
-			                <TableRowColumn name="signCityName" ></TableRowColumn>
-			                <TableRowColumn name="company" ></TableRowColumn>
+			                <TableRowColumn name="signCityName" component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }}></TableRowColumn>
+			                <TableRowColumn name="company" component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }}></TableRowColumn>
 			                <TableRowColumn name="contractTotalamount"></TableRowColumn>
 			                <TableRowColumn name="contractBackamount"></TableRowColumn>
 			                <TableRowColumn name="unBackamount" style={{color:'#ff6868'}}></TableRowColumn>
