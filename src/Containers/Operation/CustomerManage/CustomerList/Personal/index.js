@@ -442,6 +442,7 @@ class Personal extends Component{
 				                 newIndentSwitch={this.openNewIndent}
 				                 editIndentSwitch={this.openEditIndent}
 				                 DeleteSwitch={this.openDeleteDialog}
+				                 operType="PERSON"
 							/>
 					</Drawer>
 
