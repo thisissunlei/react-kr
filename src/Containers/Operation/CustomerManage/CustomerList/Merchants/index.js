@@ -73,6 +73,11 @@ class Merchants extends Component{
 		let listId=State.listId;
 		Store.dispatch(Actions.callAPI('get-edit-info',{id:listId})).then(function(response) {
 			Store.dispatch(initialize('EditCustomerList',response));
+			if(response.hasOffice=="YES"){
+				State.hasOfficeChange(true);
+			}else{
+				State.hasOfficeChange(false);
+			}
 			
 		}).catch(function(err) {
 			
@@ -416,6 +421,7 @@ class Merchants extends Component{
 			                 listId={State.listId}
 			                 dataReady={dataReady}
 			                 operType="SHARE"
+			                 hasOffice={State.ishasOffice}
 						/>
 					</Drawer>
 

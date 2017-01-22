@@ -64,6 +64,11 @@ class Personal extends Component{
 	switchNewMerchants=()=>{
 		Store.dispatch(initialize('NewCustomerList',{hasOffice:'NO'}));
 		State.switchNewCustomerList();
+		if(response.hasOffice=="YES"){
+			State.hasOfficeChange(true);
+		}else{
+			State.hasOfficeChange(false);
+		}
 	}
 
 	//查看页面开关
@@ -474,6 +479,9 @@ class Personal extends Component{
 							 onCancel={this.switchEditCustomerList}
 			                 listId={State.listId}
 			                 dataReady={dataReady}
+				             operType="PERSON"
+
+			                 hasOffice={State.ishasOffice}
 						/>
 					</Drawer>
 
