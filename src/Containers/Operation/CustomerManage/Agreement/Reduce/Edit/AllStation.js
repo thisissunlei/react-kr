@@ -313,7 +313,6 @@ class SelectStationForm extends Component {
 			<div style={{height:667,marginTop:20}}>
 <form onSubmit={handleSubmit(this.onSubmit)}>
 			<KrField grid={1/2}  name="rentBeginDate" component="date" label="减租开始时间：" onChange={this.onChangeRentBeginDate} inline={true}/>
-			<KrField grid={1/2} name="leaseEnddate"  component="labelText" type="date" label="租赁期限终止时间：" value={changeValues.leaseEnddate} defaultValue="无"/>
 
       <Table onSelect={this.onSelect} style={overfolw}>
         <TableHeader>
@@ -321,8 +320,8 @@ class SelectStationForm extends Component {
           <TableHeaderColumn>编号／名称</TableHeaderColumn>
           <TableHeaderColumn>单价（元／月）</TableHeaderColumn>
           <TableHeaderColumn>起始日期</TableHeaderColumn>
-          <TableHeaderColumn>结束日期</TableHeaderColumn>
           <TableHeaderColumn>减租开始日期</TableHeaderColumn>
+          <TableHeaderColumn>减租结束日期</TableHeaderColumn>
       </TableHeader>
       <TableBody>
       {stationVos && stationVos.map((item,index)=>{
