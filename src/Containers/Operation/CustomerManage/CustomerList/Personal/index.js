@@ -384,7 +384,17 @@ class Personal extends Component{
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 													 }}></TableRowColumn>
 			                <TableRowColumn name="receiveName"></TableRowColumn>
-			                <TableRowColumn name="createDate" type='date' format="yyyy-mm-dd HH:MM:ss"></TableRowColumn>
+			                <TableRowColumn name="createDate" type='date' format="yyyy-mm-dd HH:MM:ss" component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:120,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }}></TableRowColumn>
 			                <TableRowColumn type="operation">
 			                    <Button label="查看"  type="operation"  operation="watch" />
 			                 </TableRowColumn>
