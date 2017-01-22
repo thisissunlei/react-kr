@@ -24,7 +24,8 @@ import {
 	Tabs,
 	Tab,
 	Tooltip,
-	ButtonGroup
+	ButtonGroup,
+	KrDate
 
 } from 'kr-ui';
 import DateFormat from "kr/Utils";
@@ -158,6 +159,8 @@ class LookDetail extends Component{
 				            ajaxParams={State.searchParams}
 				            ajaxUrlName='get-detail-info'
 				            ajaxFieldListName="records"
+				            fold={true}
+				            foldSize="1"
 								  >
 					            <TableHeader>
 					              <TableHeaderColumn>拜访方式</TableHeaderColumn>
@@ -182,10 +185,15 @@ class LookDetail extends Component{
 
 						                ></TableRowColumn>
 						                <TableRowColumn name="visitTime" type='date' format="yyyy-mm-dd HH:MM:ss" component={(value,oldValue)=>{
-						                				 // value=Date.parse(DateFormat(value,"yyyy-mm-dd hh:MM:ss"))
-														 return (<div><span className='tableOver'>{value}</span>
-														 	<Tooltip offsetTop={10} place='top' style={{left:50}}>
-																<div style={tooltipTextStyle}>{oldValue}</div>
+						                				let show="block";
+						                				if(value.length==0){
+						                					show="none";
+						                				}else{
+						                					show="block";
+						                				}
+														 return (<div><span className='tableOver'><KrDate value={value}/></span>
+														 	<Tooltip offsetTop={10} place='top' style={{left:50,display:show}}>
+																<div style={tooltipTextStyle}><KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
 														 	</Tooltip></div>)
 													 }}
 
@@ -194,18 +202,30 @@ class LookDetail extends Component{
 						                <TableRowColumn name="linkTel"></TableRowColumn>
 						                <TableRowColumn name="levelName"></TableRowColumn>
 						                <TableRowColumn name="visitDetail" component={(value,oldValue)=>{
-														 return (<div><span className='tableOver'>{value}</span>
-														 	<Tooltip offsetTop={10} place='top'>
-																<div style={tooltipTextStyle}>{oldValue}</div>
+						                				 let show="block";
+						                				if(value.length==0){
+						                					show="none";
+						                				}else{
+						                					show="block";
+						                				}
+														 return (<div><span className='tableOver' >{value}</span>
+														 	<Tooltip offsetTop={10} place='top' style={{display:"none"}}>
+																<div style={tooltipTextStyle}>{value}</div>
 														 	</Tooltip></div>)
 													 }}
 
 						                ></TableRowColumn>
-						                <TableRowColumn name="isContinue"></TableRowColumn>
+						                <TableRowColumn name="isContinue" options={[{label:'是',value:'YES'},{label:'否',value:'NO'}]}></TableRowColumn>
 						                <TableRowColumn name="reasonName" component={(value,oldValue)=>{
-														 return (<div><span className='tableOver'>{value}</span>
-														 	<Tooltip offsetTop={10} place='top'>
-																<div style={tooltipTextStyle}>{oldValue}</div>
+							                				let show=true;
+							                				if(value.length==0){
+							                					show=false;
+							                				}else{
+							                					show=true;
+							                				}
+														 return (show && <div><span className='tableOver' >{value}</span>
+														 	<Tooltip offsetTop={10} place='top' >
+																<div style={tooltipTextStyle}>{value}</div>
 														 	</Tooltip></div>)
 													 }} ></TableRowColumn>
 						               </TableRow >

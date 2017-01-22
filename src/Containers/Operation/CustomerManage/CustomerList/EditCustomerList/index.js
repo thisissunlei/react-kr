@@ -73,7 +73,7 @@ import './index.less'
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)}>
 				<div className="title">
-						<div><span className="new-icon"></span><label className="title-text">新建客户</label></div>
+						<div><span className="new-icon"></span><label className="title-text">编辑客户</label></div>
 						<div className="close" onClick={this.onCancel}></div>
 				</div>
 				<div className="cheek">
@@ -81,45 +81,41 @@ import './index.less'
 							<div className="small-cheek">
 
 									<KrField grid={1/2} label="客户来源" name="sourceId" style={{width:252,marginLeft:15}} component="select" 
-											//options={dataReady.customerSourceList}
-											options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
+											options={dataReady.customerSourceList}
 											requireLabel={true}
 									/>
 									<div className="krFlied-box"><KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:215,marginLeft:15}} component="input" requireLabel={true}>
 										
 									</KrField><span className="unit">个</span></div>
-									<KrField grid={1/2} label="联系人姓名" name="customerName" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
-									<KrField grid={1/2} label="意向工位类型" name="staiontypeId" component="select" style={{width:252,marginLeft:15}} 
-											//options={dataReady.stationTypeList}
-											options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
+									<KrField grid={1/2} label="联系人姓名" name="name" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
+									<KrField grid={1/2} label="意向工位类型" name="staionTypeId" component="select" style={{width:252,marginLeft:15}} 
+											options={dataReady.stationTypeList}
 											requireLabel={true}
 									/>
-									<KrField grid={1/2} label="联系人电话" name="customerTel" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
+									<KrField grid={1/2} label="联系人电话" name="tel" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
 									<div className="krFlied-box"><KrField grid={1/2} label="意向工位价格" name="staionPrice" style={{width:175,marginLeft:15}} component="input"  requireLabel={true}>
 									</KrField><span className="unit">元/个/月</span></div>
-									<KrField grid={1/2} label="联系人邮箱"  name="customerMail" style={{width:252,marginLeft:15}} component="input" requireLabel={false}/>
+									<KrField grid={1/2} label="联系人邮箱"  name="mail" style={{width:252,marginLeft:15}} component="input" requireLabel={false}/>
 									<KrField grid={1/2} label="意向入驻社区" name="intentionCommunityId" component="select" style={{width:252,marginLeft:15}} 
-											//options={dataReady.communityBaselist}
-											options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
+											options={dataReady.communityBaselist}
 											requireLabel={true}
 									/>
-									<KrField grid={1/2} label="联系人微信" name="customerWechat" style={{width:252,marginLeft:15}} component="input" requireLabel={false}/>
+									<KrField grid={1/2} label="联系人微信" name="wechat" style={{width:252,marginLeft:15}} component="input" requireLabel={false}/>
 									<KrField grid={1/2} label="预计入驻时间" name="inTime" style={{width:252,marginLeft:15}} component="date"    requireLabel={true}/>
 									<div className="middle-round"></div>
 						</div>
 
 						<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">公司信息</label></div>
 						<div className="small-cheek" style={{paddingBottom:0}}>
-								<KrField grid={1/2} label="公司名称" name="customerCompany" component="input" style={{width:252,marginLeft:15}} requireLabel={true} onChange={this.corpNameChange}/>
+								<KrField grid={1/2} label="公司名称" name="company" component="input" style={{width:252,marginLeft:15}} requireLabel={true} onChange={this.corpNameChange}/>
 								<KrField grid={1/2} label="投资轮次" name="roundId" component="select" style={{width:252,marginLeft:15}} 
-										//options={dataReady.roundList}
-										options={[{value:'123',label:'rt'},{value:'12',label:'rt5'}]}
+										options={dataReady.roundList}
 										requireLabel={false}
 								/>
 								<KrField grid={1/2} label="公司规模" name="teamNum" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
 
 								<KrField grid={1/2} label="融资金额" name="amount" style={{width:252,marginLeft:15}} component="input" requireLabel={false}/>
-								<KrField grid={1/2} label="所属地区" name="districtId"  style={{width:252,marginLeft:15,zIndex:2}} component="city" onSubmit={this.city}/>
+								<KrField grid={1/2} label="所属地区" name="distinctId"  style={{width:252,marginLeft:15,zIndex:2}} component="city" onSubmit={this.city}/>
 								<KrField grid={1/2} label="项目名称" name="projectName" style={{width:252,marginLeft:15}} component="input" requireLabel={true} />
 								<KrField grid={1/2} label="项目类型" name="projectCategoryId"  style={{width:252,marginLeft:15,zIndex:1}} component="tree" placeholder="请选择项目类型"/>
 								<KrField grid={1/2} label="详细地址" name="detailAddress" style={{width:252,marginLeft:15}} component="input" requireLabel={true}/>
