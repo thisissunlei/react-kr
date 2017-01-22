@@ -111,6 +111,9 @@ class Merchants extends Component{
     	let {loadData}=this.state;
         for(var i=0;i<value.length;i++){
         	var allId=value[i];
+        	if(!loadData[allId].id){
+        		return ;
+        	}     	
         	arrItem.push(loadData[allId].id)
         }
 
