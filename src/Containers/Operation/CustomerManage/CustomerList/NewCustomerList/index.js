@@ -43,7 +43,7 @@ import './index.less'
 	}
 
     cityValue=(value)=>{
-      Store.dispatch(change('NewCustomerList','cityId',value));
+      Store.dispatch(change('NewCustomerList','distinctId',value));
     }
 
 	onCancel = () => {
@@ -150,7 +150,7 @@ import './index.less'
 								<KrField grid={1/2} label="公司规模" name="teamNum" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 
 								<KrField grid={1/2} label="融资金额" name="amount" style={{width:262,marginLeft:28}} component="input" requireLabel={false}/>
-								<KrField grid={1/2} label="所属地区" name="cityId"  style={{width:262,marginLeft:15,zIndex:2}} component="city" onSubmit={this.cityValue} requireLabel={true}/>
+								<KrField grid={1/2} label="所属地区" name="distinctId"  style={{width:262,marginLeft:15,zIndex:2}} component="city" onSubmit={this.cityValue} requireLabel={true}/>
 								<KrField grid={1/2} label="项目名称" name="projectName" style={{width:262,marginLeft:28}} component="input" requireLabel={true} />
 								<KrField grid={1/2} label="项目类型" name="projectCategoryId"  style={{width:262,marginLeft:15,zIndex:1}} component="tree" placeholder="请选择项目类型" requireLabel={true}/>
 								<KrField grid={1/2} label="详细地址" name="detailAddress" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
@@ -165,12 +165,12 @@ import './index.less'
 								
 								<KrField grid={1/2} label="公司网址" name="website" style={{width:262,marginLeft:15}} component="input"/>
 								<div className='speakInfo'><KrField grid={1} label="公司简介" name="companyIntroduce" style={{marginLeft:15}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={true} placeholder='请输入公司简介' lengthClass='cus-length-textarea'/></div>
-								<KrField grid={1} label="备注" name="remark" style={{marginLeft:15,marginTop:-15}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={false} placeholder='请输入备注' lengthClass='cus-textarea'/>
+								<div className='remaskInfo'><KrField grid={1} label="备注" name="remark" style={{marginLeft:15,marginTop:-15}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={false} placeholder='请输入备注' lengthClass='cus-textarea'/></div>
 						</div>
 						
 						<div className="end-round"></div>
 				</div>
-						<Grid style={{marginTop:18}}>
+						<Grid style={{marginTop:30}}>
 							<Row>
 								<Col md={12} align="center">
 									<ButtonGroup>

@@ -88,7 +88,7 @@ class CustomerIndent extends Component{
 				)
 		})
         if(listArray.length==0){
-         listArray.push(<div style={{textAlign:'center',paddingTop:100,paddingBottom:100}}>
+         listArray.push(<div style={{textAlign:'center',marginTop:-10,paddingBottom:100}}>
 								<div className="ui-nothing">
 									<div className="icon"></div>
 									<p className="tip">暂时还没有数据呦~</p>
@@ -105,7 +105,7 @@ class CustomerIndent extends Component{
 		
 		return(
 	    	<div className="m-CustomerIndent">
-				<div style={{margin:30}}><Button  label="新建订单" type="button" onTouchTap={newIndentSwitch}/></div>
+				<div style={{marginTop:20}}><Button  label="新建订单" type="button" onTouchTap={newIndentSwitch}/></div>
 				{this.orderInnerList()}
 	    	</div>
 		    
