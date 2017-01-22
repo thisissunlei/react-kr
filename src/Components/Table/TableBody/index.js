@@ -54,7 +54,7 @@ export default class TableBody extends React.Component {
 
 		if(event&&!event.hasOwnProperty('target')){
 				return ;
-		}   
+		}
 
 		let target = event&&event.target;
 		let nodeName =target&&target.nodeName.toLowerCase();
@@ -68,12 +68,14 @@ export default class TableBody extends React.Component {
 	}
 
 	renderInsertElement() {
+
 		let {
 			insertElement,
 			colSpan
 		} = this.props;
+
 		if (!insertElement || !this.state.showInsertElement) {
-			return null;
+			return null ;
 		}
 		return (
 			<TableRow>
@@ -179,7 +181,7 @@ export default class TableBody extends React.Component {
 			this.createRowCheckboxColumn(Object.assign({}, props, handlers)),
 		];
 
-		if (React.isValidElement(child)) {
+		if(React.isValidElement(child)) {
 			React.Children.forEach(child.props.children, (child) => {
 				children.push(child);
 			});
@@ -214,7 +216,10 @@ export default class TableBody extends React.Component {
 			let element = React.cloneElement(cloneElement, {
 				key: i
 			});
-			rows.push(this.createRowElement(element, i));
+
+			if(React.isValidElement(element)){
+				rows.push(this.createRowElement(element, i));
+			}
 		}
 
 		return rows;
@@ -246,6 +251,8 @@ export default class TableBody extends React.Component {
 
 	isRowVisibility(rowNumber) {
 
+			console.log('----',rowNumber,this.props.visibilityRows,this.props.visibilityRows[rowNumber]);
+
 		if (parseInt(this.props.visibilityRows[rowNumber])) {
 			return true;
 		}
@@ -270,7 +277,7 @@ export default class TableBody extends React.Component {
 		return (
 			<tbody  className={className} style={{borderBottom:"solid 1px #eee"}}>
 			{this.renderRows()}
-			{this.renderInsertElement()}
+			{/*this.renderInsertElement()*/}
 			</tbody>
 		);
 
