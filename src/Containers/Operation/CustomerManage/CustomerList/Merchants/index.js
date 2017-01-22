@@ -382,6 +382,8 @@ class Merchants extends Component{
 					 >
 							<LookCustomerList
 				                 comeFrom="Merchant"
+				                 operType="SHARE"
+				                 companyName={State.companyName}
 								 onCancel={this.switchLookCustomerList}
 				                 listId={State.listId}
 				                 dataReady={dataReady}

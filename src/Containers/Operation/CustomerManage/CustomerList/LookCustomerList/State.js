@@ -21,9 +21,12 @@ let State = observable({
 	listId:"",
 	detail:{},
 	recordDevelop:true,
+	operType:"",
 });
-State.initComeFrom = action(function(comeFrom) {
-	this.comeFrom=comeFrom||this.comeFrom;
+State.initComeFrom = action(function(comeFroms,operTypes) {
+	this.comeFrom=comeFroms||this.comeFrom;
+	this.operType=operTypes;
+	console.log(this.operType,"++++++++")
 });
 State.recordDevelopChange = action(function(comeFrom) {
 	this.recordDevelop=!this.recordDevelop;
@@ -55,15 +58,28 @@ State.initListId=action(function(params){
 	this.listId=params;
 })
 //获取详情页数据
-State.lookListId=action(function(params) {
+State.lookListId=action(function(params,operType) {
+
+	this.operType=operType;
 	if(!params){
 	 return ;
 	}
+	if(!operType){
+		return;
+	}
+	let data={}
+	operType=this.operType||operType;
     var _this=this;
     _this.searchParams={
-    	id:params
+    	id:params,
+    	operType:operType,
     }
-	Store.dispatch(Actions.callAPI('get-detail-info',{id:params})).then(function(response) {
+    data.id=params;
+    data.operType=operType;
+	console.log(data,"??????????")
+	
+
+	Store.dispatch(Actions.callAPI('get-detail-info',data)).then(function(response) {
          _this.detail=response;
 		}).catch(function(err) {
 			Message.error(err.message);

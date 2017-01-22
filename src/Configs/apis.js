@@ -728,7 +728,7 @@ const APIS = {
  },
  //客户管理－获取客户详情
  'get-detail-info': {
-   url:'/api/krspace-finance-web/customer/actions/get-detail-info?id={id}',
+   url:'/api/krspace-finance-web/customer/actions/get-detail-info?id={id}&operType={operType}',
    method:'get'
  },
  //客户管理－获取项目类型树

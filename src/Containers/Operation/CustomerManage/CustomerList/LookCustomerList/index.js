@@ -35,6 +35,9 @@ class LookCustomerList extends Component{
 
 	constructor(props,context){
 		super(props, context);
+	console.log(props.operType,"><><><")
+
+		State.initComeFrom(props.comeFrom,props.operType)
 	}
 	onSubmit = (values) => {
 		const {onSubmit} = this.props;
@@ -56,7 +59,7 @@ class LookCustomerList extends Component{
 		if(State.listId===nextProps.listId){
 			return;
 		}
-		State.lookListId(nextProps.listId);
+		State.lookListId(nextProps.listId,this.props.operType);
 		State.orderList(nextProps.listId);
 		State.initListId(nextProps.listId);
 	}
