@@ -27,7 +27,8 @@ let State = observable({
 		openSearchUpper:false,
 		openSwitch:false,
 		openPersonDialog:false,
-		indentReady:{}
+		indentReady:{},
+		companyName:''
 });
 
 //新建页的开关

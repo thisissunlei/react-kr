@@ -17,6 +17,7 @@ import {
 	Message
 } from 'kr-ui';
 import StateIn from './State';
+import State from '../LookCustomerList/State.js';
 import './index.less'
 @observer
  class NewVisitIndent extends Component{
@@ -37,7 +38,8 @@ import './index.less'
 	onSubmit = (values) => {
 		 var _this=this;
 	       Store.dispatch(Actions.callAPI('customerVisitRecord',{},values)).then(function(response) {
-		  _this.onCancel();
+		    _this.onCancel();
+		    State.lookListId();
 		  }).catch(function(err) {
 		 	Message.error(err.message);
 		 });

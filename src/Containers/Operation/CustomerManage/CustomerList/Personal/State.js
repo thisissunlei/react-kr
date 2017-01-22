@@ -33,7 +33,6 @@ let State = observable({
 		openDelete:false,
 		editIndentData:{},
 		editIndentId:'',
-		companyName:"",
 		orderName:"",
 		cityname:"",
 });
@@ -80,10 +79,6 @@ State.openDeleteOrder= action(function() {
 })
 State.editIndentIdChange=action(function(params){
 	this.editIndentId=params;
-})
-
-State.companyNameChange=action(function(params){
-	this.companyName=params;
 })
 
 State.orderNameChange=action(function(params){

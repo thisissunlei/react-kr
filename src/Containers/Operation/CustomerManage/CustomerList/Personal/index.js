@@ -143,7 +143,6 @@ class Personal extends Component{
       if(type=='watch'){
       	State.MerchantsListId(itemDetail.id)
       	State.switchLookCustomerList();
-      	State.companyNameChange(itemDetail.company);
       	State.companyName=itemDetail.company;
       }
     }

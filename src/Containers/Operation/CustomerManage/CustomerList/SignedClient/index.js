@@ -66,6 +66,7 @@ class SignedClient extends Component{
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
       	State.switchLookCustomerList();
+      	State.companyName=itemDetail.company;
       }
     }
     //客户编辑页面开关
@@ -305,6 +306,7 @@ class SignedClient extends Component{
 					 >
 								<LookCustomerList
 									comeFrom="SignedClient"
+									companyName={State.companyName}
 									onCancel={this.switchLookCustomerList}
 					                listId={State.listId}
 					                dataReady={dataReady}
@@ -313,8 +315,7 @@ class SignedClient extends Component{
 				                 	newIndentSwitch={this.openNewIndent}
 				                	editIndentSwitch={this.switchEditIndent}
 				                 	DeleteSwitch={this.openDeleteDialog}
-									
-										
+																	
 								/>
 					</Drawer>
 
