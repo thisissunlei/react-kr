@@ -17,7 +17,9 @@ import {
 	Message
 } from 'kr-ui';
 import State from './State';
-
+import merchants from "../Merchants/State";
+import personal from "../Personal/State";
+import signedClient from "../SignedClient/State";
 import './index.less'
 @observer
  class NewCustomerList extends Component{
@@ -35,8 +37,31 @@ import './index.less'
 	}
 	onSubmit = (values) => {
 		let _this=this; 
+		let {operType}=this.props;
 		values.operType=this.props.operType;
+
 		Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
+			if(operType=="SHARE"){
+				merchants.searchParams={
+		         	page:1,
+					pageSize:15,
+					time:+new Date()
+		         }
+			}
+         	if(operType=="PERSON"){
+         		personal.searchParams={
+		         	page:1,
+					pageSize:15,
+					time:+new Date()
+		        }
+         	}
+         	if(operType=="SIGN"){
+         		signedClient.searchParams={
+		         	page:1,
+					pageSize:15,
+					time:+new Date()
+		        }
+         	}
          	_this.onCancel();
 		}).catch(function(err) {
 			Message.error(err.message);

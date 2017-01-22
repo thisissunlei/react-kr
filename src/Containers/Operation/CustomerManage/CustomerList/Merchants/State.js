@@ -18,6 +18,7 @@ let State = observable({
 		searchParams:{
 			page:1,
 			pageSize:15,
+			
 		},
 		openNewMerchants:false,
 		openLookMerchants:false,

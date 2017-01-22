@@ -399,7 +399,7 @@ class Merchants extends Component{
 					<Drawer
 							open={State.openEditCustomerList}
 							width={750}
-
+				            operType="SHARE"
 							openSecondary={true}
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
@@ -409,6 +409,7 @@ class Merchants extends Component{
 							 onCancel={this.switchEditCustomerList}
 			                 listId={State.listId}
 			                 dataReady={dataReady}
+			                 operType="SHARE"
 						/>
 					</Drawer>
 
