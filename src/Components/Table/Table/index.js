@@ -29,7 +29,7 @@ export default class Table extends React.Component {
 		footer: false,
 		exportSwitch: false,
 		defaultSelectedRows: [],
-		fold:false,
+		fold:true,
 		foldSize:10,
 		foldOpen:false,
 	}
@@ -115,6 +115,7 @@ export default class Table extends React.Component {
 			allRowsSelected: false,
 			selectedRows: [],
 			visibilityRows: [],
+			fold:false,
 			foldOpen:this.props.foldOpen,
 			defaultValue: {
 				checkboxWidth: 50
@@ -722,13 +723,14 @@ export default class Table extends React.Component {
 			className,
 			children,
 			style,
-			ajax
+			ajax,
+			fold
 		} = this.props;
 		let {
 			listData,
 			loading
 		} = this.state;
-
+		fold=fold||this.state.fold;
 		if (loading) {
 			return this.renderLoading();
 		}

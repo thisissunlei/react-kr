@@ -271,6 +271,7 @@ class Merchants extends Component{
 	            ajaxParams={State.searchParams}
 	            ajaxUrlName='shareCustomers'
 	            ajaxFieldListName="items"
+	            fold={false}
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>
@@ -367,6 +368,7 @@ class Merchants extends Component{
 								onCancel={this.switchNewMerchants}
 								dataReady={dataReady}
 								come={"1"}
+								operType="SHARE"
 						/>
 
 		           </Drawer>
@@ -382,6 +384,8 @@ class Merchants extends Component{
 					 >
 							<LookCustomerList
 				                 comeFrom="Merchant"
+				                 operType="SHARE"
+				                 companyName={State.companyName}
 								 onCancel={this.switchLookCustomerList}
 				                 listId={State.listId}
 				                 dataReady={dataReady}

@@ -418,6 +418,7 @@ class Personal extends Component{
 										onSubmit={this.onNewMerchants}
 										onCancel={this.switchNewMerchants}
 										dataReady={dataReady}
+									    operType="PERSON"
 								/>
 
 		           </Drawer>
@@ -442,6 +443,7 @@ class Personal extends Component{
 				                 newIndentSwitch={this.openNewIndent}
 				                 editIndentSwitch={this.openEditIndent}
 				                 DeleteSwitch={this.openDeleteDialog}
+				                 operType="PERSON"
 							/>
 					</Drawer>
 
