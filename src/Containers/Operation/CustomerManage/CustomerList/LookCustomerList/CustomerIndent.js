@@ -35,7 +35,6 @@ class CustomerIndent extends Component{
 	constructor(props,context){
 		super(props, context);
 		let {comeFrom}=this.props;
-		// State.initComeFrom(comeFrom);
 
 
 	}
@@ -43,12 +42,6 @@ class CustomerIndent extends Component{
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
 	}
-	componentWillReceiveProps(nextProps) {
-			// State.orderList()
-			// this.setState({mouldSort: nextProps.Data});
-			// State.initComeFrom(comeFrom);
-
-	 }
 
 	onCancel = () => {
 		const {onCancel} = this.props;

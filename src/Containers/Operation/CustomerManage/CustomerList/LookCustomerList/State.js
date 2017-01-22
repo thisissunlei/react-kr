@@ -43,6 +43,7 @@ State.orderList=action(function(params) {
 	if(!params){
 	 return ;
 	}
+
     var _this=this;
 	Store.dispatch(Actions.callAPI('customerOrdersList',{customerId:params})).then(function(response) {
          _this.orderDetail=response.items;
@@ -58,6 +59,8 @@ State.lookListId=action(function(params) {
 	if(!params){
 	 return ;
 	}
+	console.log("<<<<",params);
+
     var _this=this;
     _this.searchParams={
     	id:params

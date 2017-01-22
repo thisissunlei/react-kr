@@ -62,12 +62,7 @@ import './index.less'
 	corpNameChange = (value) =>{
 		State.corpNameCheck(value);
 	}
-	componentDidMount(){
-	 	Store.dispatch(change('EditCustomerList','hasOffice','NOHAS'));
-	}
-    
-
-
+	
 	render(){
 
 		const { error, handleSubmit, pristine, reset,dataReady} = this.props;

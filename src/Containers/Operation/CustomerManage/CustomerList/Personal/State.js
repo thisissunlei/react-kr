@@ -91,6 +91,7 @@ State.orderNameChange=action(function(params){
 State.orderNameInit= action(function(value) {
 	var _this=this;
 	let data={};
+	
 	data.customerId=value;
 
 	Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {

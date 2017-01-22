@@ -99,14 +99,10 @@ import './index.less'
 
 		}
 	}
-	componentDidMount(){
-	 	// Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
-	}
-
+	
 
 	render(){
 		const { error, handleSubmit, pristine, reset,companyName,orderName,cityname} = this.props;
-		// console.log(city,"===");
 		let citys=State.cityLable||cityname;
 			citys=!citys?"无":citys;
 		return (

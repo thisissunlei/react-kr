@@ -56,7 +56,6 @@ class LookCustomerList extends Component{
 		if(State.listId===nextProps.listId){
 			return;
 		}
-		console.log('gggyyyy',nextProps.listId);
 		State.lookListId(nextProps.listId);
 		State.orderList(nextProps.listId);
 		State.initListId(nextProps.listId);

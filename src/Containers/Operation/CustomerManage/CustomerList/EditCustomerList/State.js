@@ -43,6 +43,7 @@ State.noShowMatureTime = action(function() {
 	this.matureTime=false;
 });
 State.editListId= action(function(params) {
+
 	var _this=this;
 	Store.dispatch(Actions.callAPI('get-edit-info',{id:params})).then(function(response) {
 		_this.detail=response;
@@ -59,7 +60,6 @@ State.corpNameCheck = action(function(params){
 	data.companyName=params;
 	Store.dispatch(Actions.callAPI('corpNameCheck',data)).then(function(response) {
 		 _this.isCorpName=false;
-         // console.log('取消成功');
 	}).catch(function(err) {
 		if(err.message.indexOf("该名称已存在")==0){
 			 _this.isCorpName=true;

@@ -36,6 +36,7 @@ class LookDetail extends Component{
 	constructor(props,context){
 		super(props, context);
 		let {comeFrom}=this.props;
+
 		State.initComeFrom(comeFrom);
 
 
@@ -102,7 +103,7 @@ class LookDetail extends Component{
 				<span className="visitRecordTitle">拜访记录</span>
 				<div className="visitRecord" style={isOverflow}>
 						
-						<Table
+						{State.listId&&<Table
 						    style={{marginTop:8}}
 			                ajax={true}
 			                onOperation={this.onOperation}
@@ -141,7 +142,7 @@ class LookDetail extends Component{
 						                
 						               </TableRow>
 						        </TableBody>
-			           </Table>
+			           </Table>}
 			           <div className="isDevelop" onClick={this.isDevelopClick}>
 			           		{State.isDevelop&&<span className="recordDevelop" >展开</span>}
 			           		{!State.isDevelop&&<span className="recordClose" >收起</span>}

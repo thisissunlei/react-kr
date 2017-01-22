@@ -74,7 +74,6 @@ class Merchants extends Component{
 
 	openEditCustomerList=()=>{
 		let listId=State.listId;
-		
 		Store.dispatch(Actions.callAPI('get-edit-info',{id:listId})).then(function(response) {
 			Store.dispatch(initialize('EditCustomerList',response));
 			

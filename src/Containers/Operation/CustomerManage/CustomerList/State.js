@@ -21,6 +21,7 @@ let State = observable({
 });
 //订单新建编辑的数据准备
 State.orderReady= action(function() {
+	
 	var _this=this;
 	Store.dispatch(Actions.callAPI('community-city-selected')).then(function(response) {
          _this.orderReady=response;

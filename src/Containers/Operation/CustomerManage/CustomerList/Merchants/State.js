@@ -49,6 +49,7 @@ State.openCatchGoDialog= action(function() {
 State.catchSubmit= action(function(arrItem){
 	var ids=arrItem;
     var _this=this;
+    
 	Store.dispatch(Actions.callAPI('receive-customer',{},{ids})).then(function(response) {
 		 _this.openCatch=!_this.openCatch;
          Message.success('领取成功');

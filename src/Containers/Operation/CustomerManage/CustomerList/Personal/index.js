@@ -110,7 +110,7 @@ class Personal extends Component{
 		State.editIndentIdChange(editIndentId);
 
 		data.mainBillId=editIndentId;
-
+		
 		var _this=this;
 		Store.dispatch(Actions.callAPI('get-simple-order',data)).then(function(response) {
 			for(var i=0;i<orderReady.communityCity.length;i++){

@@ -57,6 +57,7 @@ State.orderReady = action(function(params) {
 	if(this.isInit){
 		return;
 	}
+	
 	let communityArr=[];
 	let cityArr=[];
 	let isCity={}
