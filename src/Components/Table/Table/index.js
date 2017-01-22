@@ -29,8 +29,8 @@ export default class Table extends React.Component {
 		footer: false,
 		exportSwitch: false,
 		defaultSelectedRows: [],
-		fold:true,
-		foldSize:5,
+		fold:false,
+		foldSize:10,
 		foldOpen:false,
 	}
 
