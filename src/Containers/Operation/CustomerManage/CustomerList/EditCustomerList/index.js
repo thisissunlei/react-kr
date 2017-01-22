@@ -18,6 +18,9 @@ import {
 } from 'kr-ui';
 import State from './State';
 import './index.less'
+import merchants from "../Merchants/State";
+import personal from "../Personal/State";
+import signedClient from "../SignedClient/State";
 @observer
  class EditCustomerList extends Component{
 
@@ -37,10 +40,41 @@ import './index.less'
 
 
 	onSubmit = (values) => {
+		console.log("12>>>")
+		let {operType}=ths.props;
 		let _this=this;
+		values.operType=operType;
+		console.log("13>>>")
 		Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
+			// if(operType=="SHARE"){
+			// 	merchants.searchParams={
+		 //         	page:1,
+			// 		pageSize:15,
+			// 		time:+new Date()
+		 //         }
+			// }
+   //       	if(operType=="PERSON"){
+   //       		personal.searchParams={
+		 //         	page:1,
+			// 		pageSize:15,
+			// 		time:+new Date()
+		 //        }
+   //       	}
+   //       	if(operType=="SIGN"){
+   //       		signedClient.searchParams={
+		 //         	page:1,
+			// 		pageSize:15,
+			// 		time:+new Date()
+		 //        }
+   //       	}
+		
+		console.log("14>>>")
+		
+
          	_this.onCancel();
 		}).catch(function(err) {
+		console.log("15>>>")
+
 			Message.error(err.message);
 		});
 	}

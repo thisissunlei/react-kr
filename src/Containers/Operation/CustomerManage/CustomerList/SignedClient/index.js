@@ -388,7 +388,7 @@ class SignedClient extends Component{
 					<Drawer
 							open={State.openEditCustomerList}
 							width={750}
-
+							operType="SIGN"	
 							openSecondary={true}
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
