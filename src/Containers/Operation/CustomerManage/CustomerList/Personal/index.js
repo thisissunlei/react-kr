@@ -98,9 +98,12 @@ class Personal extends Component{
 		Store.dispatch(initialize('NewIndent',{}));
 		State.orderNameInit(State.listId);
 		State.switchNewIndent();
+		State.isOpenIndent=true;
+
 	}
 	//新建订单页面的开关
 	switchNewIndent=()=>{
+		State.isOpenIndent=false;
 		State.switchNewIndent();
 	}
 	//打开编辑页
@@ -146,7 +149,6 @@ class Personal extends Component{
       if(type=='watch'){
       	State.MerchantsListId(itemDetail.id)
       	State.switchLookCustomerList();
-      	State.companyNameChange(itemDetail.company);
       	State.companyName=itemDetail.company;
       }
     }
@@ -471,6 +473,7 @@ class Personal extends Component{
 			                 orderReady={orderReady}
 			                 listId={State.listId}
 			                 orderName={State.orderName}
+			                 isOpenIndent={State.orderName}
 						/>
 					</Drawer>
 					

@@ -71,7 +71,6 @@ import './index.less'
 		}
 	}
 	componentWillReceiveProps(nextProps){
-
 			if(typeof(nextProps.orderReady)=="function"){
 				return;
 			}
@@ -79,10 +78,6 @@ import './index.less'
 				return;
 			}
 			State.orderReady(nextProps.orderReady)
-	}
-	
-	componentDidMount(){
-	 	Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
 	}
 	communityChange=(value)=>{ 
 		if(!value){
@@ -100,9 +95,13 @@ import './index.less'
 
 
 	render(){
-		const { error, handleSubmit, pristine, reset,companyName,orderName} = this.props;
+		const { error, handleSubmit, pristine, reset,companyName,orderName,isOpenIndent} = this.props;
 		let city=State.cityLable;
 			city=!city?"无":city;
+			console.log("123",isOpenIndent);
+		if(!isOpenIndent){
+			city="无"
+		}
 		return (
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)}>
@@ -147,10 +146,10 @@ const validate = values =>{
 		const errors = {};
 
 		if(!values.mainbilltype){
-			errors.sourceId = '请选择订单类型';
+			errors.mainbilltype = '请选择订单类型';
 		}
 		if(!values.communityid){
-			errors.sourceId = '请选择所在社区';
+			errors.communityid = '请选择所在社区';
 		}
 		
 

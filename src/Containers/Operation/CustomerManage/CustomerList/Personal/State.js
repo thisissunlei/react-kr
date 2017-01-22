@@ -33,6 +33,7 @@ let State = observable({
 		companyName:"",
 		orderName:"",
 		cityname:"",
+		isOpenIndent:false,
 });
 
 //新建页的开关
@@ -54,6 +55,7 @@ State.switchCustomerIndent = action(function() {
 //新建订单的开关
 State.switchNewIndent = action(function() {
 	this.openNewIndent=!this.openNewIndent;
+
 })
 //编辑订单的开关
 State.switchEditIndent=action(function() {
@@ -75,14 +77,11 @@ State.openQuitContinue= action(function() {
 State.openDeleteOrder= action(function() {
 	this.openDelete=!this.openDelete;
 })
+//编辑定点id
 State.editIndentIdChange=action(function(params){
 	this.editIndentId=params;
 })
-
-State.companyNameChange=action(function(params){
-	this.companyName=params;
-})
-
+//订单名称
 State.orderNameChange=action(function(params){
 	this.orderName=params;
 })

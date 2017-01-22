@@ -70,6 +70,8 @@ class SignedClient extends Component{
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
       	State.switchLookCustomerList();
+      	State.MerchantsListId(itemDetail.id)
+      	State.companyName=itemDetail.company;
       }
     }
     //客户编辑页面开关
@@ -96,17 +98,16 @@ class SignedClient extends Component{
 
 	//打开新建订单页
 	openNewIndent=()=>{
-		// let _this=this;
-		// let listId=State.listId;
-		// Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
-  //        	State.indentReady(response);
-		// }).catch(function(err) {
-		// 	Message.error(err.message);
-		// });
-
+		Store.dispatch(initialize('NewIndent',{}));
+		State.orderNameInit(State.listId);
 		State.switchNewIndent();
 	}
-
+	//打开新建订单页
+	openNewIndent=()=>{
+		Store.dispatch(initialize('NewIndent',{}));
+		State.orderNameInit(State.listId);
+		State.switchNewIndent();
+	}
 	//新建订单页面的开关
 	switchNewIndent=()=>{
 		State.switchNewIndent();
@@ -116,6 +117,41 @@ class SignedClient extends Component{
 	switchEditIndent=()=>{
 		State.switchEditIndent();
 	}
+
+	//打开编辑页
+	openEditIndent=(editIndentId)=>{
+		var data={};
+		var {orderReady}=this.props;
+		State.editIndentIdChange(editIndentId);
+
+		data.mainBillId=editIndentId;
+		
+		var _this=this;
+		Store.dispatch(Actions.callAPI('get-simple-order',data)).then(function(response) {
+			for(var i=0;i<orderReady.communityCity.length;i++){
+				if(orderReady.communityCity[i].communityId==response.communityid){
+					response.cityid=orderReady.communityCity[i].cityId;
+					State.cityChange(orderReady.communityCity[i].cityName);
+
+					break;
+				}
+			}
+			data.cityid=orderReady.communityCity[i].cityId;
+			data.mainbillname=response.mainbillname;
+			data.communityid=""+response.communityid;
+			data.mainbilltype=response.mainbilltype;
+			data.mainbilldesc=response.mainbilldesc;
+			Store.dispatch(initialize('EditIndent',data));
+			State.orderNameChange(response.mainbillname);
+
+		}).catch(function(err) {
+			 Message.error(err.message);
+		});
+		State.switchEditIndent();
+
+	}
+
+
 	//订单删除
      openDeleteDialog=()=>{
      	State.openDeleteOrder();
@@ -232,8 +268,8 @@ class SignedClient extends Component{
 	render(){
 
      
-       let {searchSignParams,dataReady}=this.props; 
-        
+       let {searchSignParams,dataReady,orderReady}=this.props; 
+        console.log(State.companyName,">>>>>>>")
        var blockStyle={};
       if(State.openPersonDialog==true){
         blockStyle={
@@ -318,7 +354,7 @@ class SignedClient extends Component{
 				                 	editsSwitch={this.switchEditCustomerList}
 				                 	IndentSwitch={this.switchCustomerIndent}
 				                 	newIndentSwitch={this.openNewIndent}
-				                	editIndentSwitch={this.switchEditIndent}
+				                	editIndentSwitch={this.openEditIndent}
 				                 	DeleteSwitch={this.openDeleteDialog}
 									
 										
@@ -354,6 +390,9 @@ class SignedClient extends Component{
 							 onCancel={this.switchNewIndent}
 							 listId={State.listId}
 			                 indentReady={State.indentReady}
+			                 orderName={State.orderName}
+			                 companyName={State.companyName}
+
 						/>
 					</Drawer>
 
@@ -383,8 +422,14 @@ class SignedClient extends Component{
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
 						<EditIndent
+							 companyName={State.companyName}
 							 onCancel={this.switchEditIndent}
-			                 dataReady={dataReady}
+							 listId={State.listId}
+			                 orderReady={orderReady}
+			                 editIndentData={State.editIndentData}
+			                 editIndentId={State.editIndentId}
+			                 orderName={State.orderName}
+			                 cityname={State.cityname}
 						/>
 					</Drawer>
 
