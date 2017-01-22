@@ -47,10 +47,6 @@ class SignedClient extends Component{
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			searchParams:{
-				page:1,
-				pageSize:15
-			},
 			//选中的数量
 			dialogNum:0,
 			//加载后的数据
@@ -195,34 +191,33 @@ class SignedClient extends Component{
         let obj = {
 			company:params.content,
 		}
-		this.setState({
-			searchParams: obj
-		});
+		
+		State.searchParams=obj
+		
 	}
 	componentWillReceiveProps(nextProps){
-		this.setState({
-			searchParams: {
+		if(nextProps.initSearch=='s'){
+			State.searchParams={
 			  company:'',
 			  page:1,
 			  pageSize:15,	 
 			}
-		});
+		}
 	}
 
 	//高级查询
 	openSearchUpperDialog=()=>{
-	  let {searchParams}=this.state;
-	  searchParams.company='';
-      searchParams.cityId='';
-      searchParams.communityId='';
-      searchParams.signEndDate='';
-      searchParams.signStartDate='';
+	  State.searchParams.company='';
+      State.searchParams.cityId='';
+      State.searchParams.communityId='';
+      State.searchParams.signEndDate='';
+      State.searchParams.signStartDate='';
       State.searchUpperCustomer();
 	}
 
 	//高级查询提交
      onSearchUpperSubmit=(searchParams)=>{
-     	searchParams = Object.assign({}, this.state.searchParams, searchParams);
+     	searchParams = Object.assign({}, State.searchParams, searchParams);
       	searchParams.time=+new Date();
 		if(searchParams.signStartDate!=''&&searchParams.signEndDate!=''&&searchParams.signEndDate<searchParams.signStartDate){
 			 Message.error('开始时间不能大于结束时间');
@@ -234,9 +229,7 @@ class SignedClient extends Component{
 		if(searchParams.signStartDate!=''&&searchParams.signEndDate==''){
 			searchParams.signEndDate=searchParams.signStartDate
 		}
-      	this.setState({
-      	  searchParams
-      	})
+      	  State.searchParams=searchParams;
       	State.searchUpperCustomer();
      }
      //转移客户
@@ -308,7 +301,7 @@ class SignedClient extends Component{
 	            onSelect={this.onSelect}
 	            onLoaded={this.onLoaded}
 	            onExport={this.onExport}
-	            ajaxParams={this.state.searchParams}
+	            ajaxParams={State.searchParams}
 	            ajaxUrlName='signCustomers'
 	            ajaxFieldListName="items"
 					  >
@@ -348,6 +341,7 @@ class SignedClient extends Component{
 					 >
 								<LookCustomerList
 									comeFrom="SignedClient"
+									companyName={State.companyName}
 									onCancel={this.switchLookCustomerList}
 					                listId={State.listId}
 					                dataReady={dataReady}
@@ -356,8 +350,7 @@ class SignedClient extends Component{
 				                 	newIndentSwitch={this.openNewIndent}
 				                	editIndentSwitch={this.openEditIndent}
 				                 	DeleteSwitch={this.openDeleteDialog}
-									
-										
+																	
 								/>
 					</Drawer>
 

@@ -15,7 +15,10 @@ import {
 } from 'kr-ui';
 
 let State = observable({
-		searchParams:{},
+		searchParams:{
+			page:1,
+			pageSize:15,
+		},
 		openNewMerchants:false,
 		openLookMerchants:false,
 		openSearchUpper:false,
@@ -54,6 +57,11 @@ State.catchSubmit= action(function(arrItem){
 		 _this.openCatch=!_this.openCatch;
          Message.success('领取成功');
          _this.openDialog=false;
+         _this.searchParams={
+         	page:1,
+			pageSize:15,
+			time:+new Date()
+         }
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});	
