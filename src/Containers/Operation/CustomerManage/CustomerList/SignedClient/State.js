@@ -13,7 +13,10 @@ import {
     Message
 } from 'kr-ui';
 let State = observable({
-		searchParams:{},
+		searchParams:{
+			page:1,
+			pageSize:15,
+		},
 		openNewMerchants:false,
 		openLookMerchants:false,
 		openEditCustomerList:false,
@@ -74,6 +77,11 @@ State.switchSureSubmit= action(function(value) {
 		 _this.openSwitch=false;
          Message.success('转移成功');
          _this.openPersonDialog=false;
+         _this.searchParams={
+         	page:1,
+			pageSize:15,
+			time:+new Date()
+         }
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});		

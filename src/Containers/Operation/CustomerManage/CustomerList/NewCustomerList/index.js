@@ -170,7 +170,7 @@ import './index.less'
 						
 						<div className="end-round"></div>
 				</div>
-						<Grid>
+						<Grid style={{marginTop:18}}>
 							<Row>
 								<Col md={12} align="center">
 									<ButtonGroup>

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
-
 import {
 	observer
 } from 'mobx-react';
@@ -45,10 +44,6 @@ class Merchants extends Component{
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			searchParams:{
-				page:1,
-				pageSize:15,
-			},
 			//选中的数量
 			dialogNum:0,
 			//加载后的数据
@@ -61,7 +56,7 @@ class Merchants extends Component{
 	//新建页面的开关
 	switchNewMerchants= (params) => {
 		
-		Store.dispatch(initialize('NewCustomerList',{}));
+		Store.dispatch(initialize('NewCustomerList',{hasOffice:'NO'}));
 		State.switchNewCustomerList();
 
 	}
@@ -157,37 +152,35 @@ class Merchants extends Component{
 	onSearchSubmit=(params)=>{
         let obj = {
 			company: params.content,
-		}
-		this.setState({
-			searchParams: obj
-		});
+		}	
+		State.searchParams=obj	
 	}
 
-	componentWillReceiveProps(nextProps){
-		this.setState({
-			searchParams: {
+	componentWillReceiveProps(nextProps){	
+		if(nextProps.initSearch=='m'){
+			State.searchParams={
+			 time:+new Date(),
 			 company:'',
 			 page:1,
 			 pageSize:15,	 
-			}
-		});
+			}		
+		}		
 	}
 
 	//高级查询
 	openSearchUpperDialog=()=>{
-	  let {searchParams}=this.state;
-      searchParams.company='';
-      searchParams.createEndDate='';
-      searchParams.createStartDate='';
-      searchParams.intentionCityId='';
-      searchParams.intentionCommunityId='';
-      searchParams.levelId='';
-      searchParams.sourceId='';
+      State.searchParams.company='';
+      State.searchParams.createEndDate='';
+      State.searchParams.createStartDate='';
+      State.searchParams.intentionCityId='';
+      State.searchParams.intentionCommunityId='';
+      State.searchParams.levelId='';
+      State.searchParams.sourceId='';
       State.searchUpperCustomer();
 	}
     //高级查询提交
      onSearchUpperSubmit=(searchParams)=>{
-     	searchParams = Object.assign({}, this.state.searchParams, searchParams);
+     	searchParams = Object.assign({},State.searchParams, searchParams);
      	searchParams.time=+new Date();
 		if(searchParams.createStartDate!=''&&searchParams.createEndDate!=''&&searchParams.createEndDate<searchParams.createStartDate){
 			 Message.error('开始时间不能大于结束时间');
@@ -199,9 +192,9 @@ class Merchants extends Component{
 		if(searchParams.createStartDate!=''&&searchParams.createEndDate==''){
 			searchParams.createEndDate=searchParams.createStartDate
 		}
-      	this.setState({
-      	  searchParams
-      	})
+      	
+      	  State.searchParams=searchParams;
+      	
       	State.searchUpperCustomer();
      }
 
@@ -224,6 +217,7 @@ class Merchants extends Component{
 
 
 	render(){
+
       let {dataReady,searchParams}=this.props;
 
       var blockStyle={};
@@ -236,8 +230,8 @@ class Merchants extends Component{
         	display:'none'
         }
       }
-     
-      
+       
+
 		return(
       <div className="m-merchants" style={{paddingTop:25}}>
       		<Title value="运营平台"/>
@@ -266,7 +260,6 @@ class Merchants extends Component{
 			          </Col>
 	        </Row>
 
-	        {/*<div onClick={this.openDeleteDialog}>123</div>*/}
 
             <Table
 			    style={{marginTop:8}}
@@ -275,7 +268,7 @@ class Merchants extends Component{
 	            displayCheckbox={true}
 	            onSelect={this.onSelect}
 	            onLoaded={this.onLoaded}
-	            ajaxParams={this.state.searchParams}
+	            ajaxParams={State.searchParams}
 	            ajaxUrlName='shareCustomers'
 	            ajaxFieldListName="items"
 					  >
