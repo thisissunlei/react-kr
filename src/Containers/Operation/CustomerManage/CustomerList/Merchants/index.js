@@ -367,6 +367,7 @@ class Merchants extends Component{
 								onCancel={this.switchNewMerchants}
 								dataReady={dataReady}
 								come={"1"}
+								operType="SHARE"
 						/>
 
 		           </Drawer>

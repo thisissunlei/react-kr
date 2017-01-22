@@ -34,7 +34,8 @@ import './index.less'
 
 	}
 	onSubmit = (values) => {
-		let _this=this;
+		let _this=this; 
+		values.operType=this.props.operType;
 		Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
          	_this.onCancel();
 		}).catch(function(err) {

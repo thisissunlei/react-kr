@@ -418,6 +418,7 @@ class Personal extends Component{
 										onSubmit={this.onNewMerchants}
 										onCancel={this.switchNewMerchants}
 										dataReady={dataReady}
+									    operType="PERSON"
 								/>
 
 		           </Drawer>
