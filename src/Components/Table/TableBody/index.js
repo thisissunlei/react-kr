@@ -250,7 +250,6 @@ export default class TableBody extends React.Component {
 
 	isRowVisibility(rowNumber) {
 
-			console.log('----',rowNumber,this.props.visibilityRows,this.props.visibilityRows[rowNumber]);
 
 		if (parseInt(this.props.visibilityRows[rowNumber])) {
 			return true;
