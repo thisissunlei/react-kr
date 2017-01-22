@@ -106,13 +106,40 @@ State.orderNameInit= action(function(value) {
 
 //导出
 State.exportData = action(function(value) {
+	    var search={};
+	    search.company= this.searchParams.company;
+	    search.createEndDate=this.searchParams.createEndDate;
+	    search.createStartDate=this.searchParams.createStartDate;
+	    search.intentionCityId=this.searchParams.intentionCityId;
+	    search.intentionCommunityId=this.searchParams.intentionCommunityId;
+	    search.levelId=this.searchParams.levelId;
+	    search.sourceId=this.searchParams.sourceId;
+	    if(!search.createEndDate){
+	    	search.createEndDate=null;
+	    }
+	    if(!search.createStartDate){
+	    	search.createStartDate=null;
+	    }
+	    if(!search.intentionCityId){
+	    	search.intentionCityId=null;
+	    }
+	    if(!search.intentionCommunityId){
+	    	search.intentionCommunityId=null;
+	    }
+	    if(!search.levelId){
+	    	search.levelId=null;
+	    }
+	    if(!search.sourceId){
+	    	search.sourceId=null;
+	    }
+	    console.log('666yyyyy',search.company,search);
 		let customerIds = [];
 		if (value.length != 0) {
 			value.map((item, value) => {
 				customerIds.push(item.id)
 			});
 		}
-		var url = `http://optest.krspace.cn/api/krspace-finance-web/customer/personal-customers-export?customerIds=${customerIds}`
+		var url = `http://optest.krspace.cn/api/krspace-finance-web/customer/personal-customers-export?customerIds=${customerIds}&company={search.company}`
 		window.location.href = url;
 });
 

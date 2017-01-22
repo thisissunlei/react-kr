@@ -121,13 +121,20 @@ State.switchSureSubmit= action(function(value) {
 });
 //导出
 State.exportData = action(function(value) {
+	    var search={};
+	    search.company= this.searchParams.company;
+	    search.cityId=this.searchParams.cityId;
+	    search.communityId=this.searchParams.communityId;
+	    search.signEndDate=this.searchParams.signEndDate;
+	    search.signStartDate=this.searchParams.signStartDate;
+	    console.log('666yyyyy',search);
 		let customerIds = [];
 		if (value.length != 0) {
 			value.map((item, value) => {
 				customerIds.push(item.id)
 			});
 		}
-		var url = `http://optest.krspace.cn/api/krspace-finance-web/customer/sign-customers-export?customerIds=${customerIds}`
+		var url = `http://optest.krspace.cn/api/krspace-finance-web/customer/sign-customers-export?customerIds=${customerIds}&search={search}`
 		window.location.href = url;
 });
 //城市改变

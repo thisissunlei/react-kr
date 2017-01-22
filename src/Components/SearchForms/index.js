@@ -264,7 +264,7 @@ export default class SearchForms extends Component{
 			inputName='keywords';
 		}
 		return (
-			<div className="search-form" ref={div=>{this.form = div}} name="search-form" style={style}>
+			<div className="search-form " ref={div=>{this.form = div}} name="search-form" style={style}>
 				<div className="search-status" >
 					{this.renderFilter()}
 
