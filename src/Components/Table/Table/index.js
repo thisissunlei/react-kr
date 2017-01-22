@@ -700,6 +700,20 @@ export default class Table extends React.Component {
 		);
 	}
 
+	renderFold = ()=>{
+
+		const {fold} = this.props;
+
+		if(!fold){
+			return null ;
+		}
+
+		return (
+				<div className="btn-collapse" onClick={this.onFold}>{this.state.foldOpen?'收起':'展开'}</div>
+		);
+
+	}
+
 	render() {
 
 
@@ -730,7 +744,7 @@ export default class Table extends React.Component {
 					{this.renderTableBody()}
 					{this.renderTableFooter()}
 				</table>
-				<div className="btn-collapse" onClick={this.onFold}>{this.state.foldOpen?'收起':'展开'}</div>
+				{this.renderFold()}
 			</div>
 		);
 
