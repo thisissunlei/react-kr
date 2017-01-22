@@ -39,7 +39,7 @@ import './index.less'
 		let _this=this; 
 		let {operType}=this.props;
 		values.operType=this.props.operType;
-		
+
 
 		Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
 			if(operType=="SHARE"){
@@ -237,15 +237,15 @@ const validate = values =>{
 		}
 
 
-		if (!values.staiontypeId) {
-			errors.staiontypeId = '请填写意向工位类型';
+		if (!values.staionTypeId) {
+			errors.staionTypeId = '请填写意向工位类型';
 		}
 
 
-		if (!values.customerTel) {
-			errors.customerTel = '请填写联系人电话';
-		}else if(!phone.test(values.customerTel)||!checkTel.test(values.customerTel)){
-			errors.customerTel = '联系人电话格式错误';
+		if (!values.tel) {
+			errors.tel = '请填写联系人电话';
+		}else if(!phone.test(values.tel)||!checkTel.test(values.tel)){
+			errors.tel = '联系人电话格式错误';
 		}
 
 		if (!values.staionPrice) {
@@ -255,27 +255,27 @@ const validate = values =>{
 		}
 
 
-		if(!email.test(values.customerMail)){
-			errors.customerMail = '联系人邮箱格式错误';
+		if(!email.test(values.mail)){
+			errors.mail = '联系人邮箱格式错误';
 		}
 
 		if(!values.intentionCommunityId){
-			errors.intentionCommunityId="意向工位类型不能为空";
+			errors.intentionCommunityId="意向社区类型不能为空";
 		}
 
-		if(values.customerWechat&&values.customerWechat.length>50){
-			errors.customerWechat="最多输入50个字符";
+		if(values.wechat&&values.wechat.length>50){
+			errors.wechat="最多输入50个字符";
 		}
 
 		if (!values.inTime) {
 			errors.inTime = '请填写预计入驻时间';
 		}
-		if (!values.customerCompany) {
-			errors.customerCompany = '请填写公司名称';
-		}else if(values.customerCompany.length>20){
-			errors.customerCompany = '最多输入20个字符';
+		if (!values.company) {
+			errors.company = '请填写公司名称';
+		}else if(values.company.length>20){
+			errors.company = '最多输入20个字符';
 		}else if(State.isCorpName){
-			errors.customerCompany = '该公司名称已存在';
+			errors.company = '该公司名称已存在';
 		}
 
 		if (!values.teamNum) {
@@ -293,9 +293,7 @@ const validate = values =>{
 			errors.amount = '请输入数字';
 		}
 
-		if (!values.intentionCommunityId) {
-			errors.intentionCommunityId = '请填写意向入驻社区';
-		}
+		
 
 		if(values.hasOffice && !values.deadline){
 			errors.deadline='请填写到期时间';
@@ -307,8 +305,8 @@ const validate = values =>{
 			errors.projectName = '最多输入20个字符';
 		}
 
-		if (!values.districtId) {
-			errors.districtId = '请填写所属地区';
+		if (!values.distinctId) {
+			errors.distinctId = '请填写所属地区';
 		}
 
 		if (!values.projectCategoryId) {
