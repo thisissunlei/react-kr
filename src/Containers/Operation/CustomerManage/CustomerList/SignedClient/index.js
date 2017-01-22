@@ -254,7 +254,8 @@ class SignedClient extends Component{
        }
        var switchData={
          receiveId:params.receiveId,
-         ids:arrItem
+         ids:arrItem,
+         operType:'SIGN'
        }
        State.switchSureSubmit(switchData);
     }

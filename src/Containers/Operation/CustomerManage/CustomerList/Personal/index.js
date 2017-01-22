@@ -220,6 +220,7 @@ class Personal extends Component{
        let switchData={};
        switchData.receiveId=params.receiveId;
        switchData.ids=arrItem; 
+       switchData.operType='PERSON';
        State.switchSureSubmit(switchData);
     }
 	//高级查询
