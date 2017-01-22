@@ -39,6 +39,14 @@ class ImportCard extends Component{
 	getDetailData=()=>{
 		let {detail} = this.props;
 		console.log(detail);
+		let params = {
+			id:detail.cardId
+		}
+		Store.dispatch(Actions.callAPI('memberCardView', params)).then(function(response) {
+			console.log('response',response);
+		}).catch(function(err) {
+		 	Message.error(err.message);
+		});
 	}
 	onCancel=()=>{
 		let {onCancel} = this.props;

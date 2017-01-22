@@ -40,9 +40,20 @@ class ImportCard extends Component{
 		onCancel && onCancel();
 	}
 	 onSubmit=(values)=>{
+	 	let params = {
+	 		startForeignCode:values.begin,
+	 		endForeignCode:values.end,
+	 		receiveId:values.user,
+	 		communityId:values.community
+	 	}
+	 	Store.dispatch(Actions.callAPI('memberCardUse',{}, params)).then(function(response) {
+			console.log('response',response);
+		}).catch(function(err) {
+		 	Message.error(err.message);
+		});
 		console.log(values);
-		 // const {onSubmit} = this.props;
-		 // onSubmit && onSubmit(values);
+		 const {onSubmit} = this.props;
+		 onSubmit && onSubmit(values);
 	 }
 	 setBeginCard=(person)=>{
 	 	let {endCard} = this.state;

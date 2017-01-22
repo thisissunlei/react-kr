@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import {Actions,Store} from 'kr/Redux';
 import ImportCard from './ImportCard';
 import UsingCard from './UsingCard';
 import DeleteCard from './DeleteCard';
 import ViewCard from './ViewCard';
-import { Title,Dialog, Section,Grid,Row,Col, ListGroup,ListGroupItem,Form, KrField, Table,SearchForms, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter, Button, } from 'kr-ui';
+import { Title,Message,Dialog, Section,Grid,Row,Col, ListGroup,ListGroupItem,Form, KrField, Table,SearchForms, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter, Button, } from 'kr-ui';
 export default class Card extends Component {
 
     constructor(props, context) {
@@ -32,6 +33,17 @@ export default class Card extends Component {
 		}
     }
     onSearchSubmit=(value)=>{
+    	let params = {
+	        type: value.filter,
+	        value:value.content,
+	        page:1,
+	        pageSize:15
+	    }
+	    Store.dispatch(Actions.callAPI('memberCardList', params)).then(function(response) {
+	        console.log('response', response);
+	    }).catch(function(err) {
+	        Message.error(err.message);
+	    });
     	console.log('value',value);
     }
     openImportCardDialog=()=>{
@@ -73,19 +85,19 @@ export default class Card extends Component {
     	let options = [
 		    {
 		        label: '卡号',
-		        value: 1
+		        value: 'CARD'
 		    },
 		    {
 		        label: '社区',
-		        value: 2
+		        value: 'COMMUNITY'
 		    },
 		    {
 		        label: '领用人',
-		        value: 3
+		        value: 'RECEIVE'
 		    },
 		    {
 		        label: '客户名称',
-		        value: 4
+		        value: 'CUSTOMER'
 		    },
 		]
 
@@ -144,8 +156,18 @@ export default class Card extends Component {
 									)
 								}
 								}}></TableRowColumn>
-							<TableRowColumn name="email"></TableRowColumn>
-							<TableRowColumn name="jobName"></TableRowColumn>
+							<TableRowColumn name="email"
+							component={(value,oldValue)=>{
+								if(value==""){
+									value="-"
+								}
+								return (<span>{value}</span>)}}></TableRowColumn>
+							<TableRowColumn name="jobName" 
+								component={(value,oldValue)=>{
+								if(value==""){
+									value="-"
+								}
+								return (<span>{value}</span>)}}></TableRowColumn>
 							<TableRowColumn name="cityName"></TableRowColumn>
 							<TableRowColumn name='checkStatus'
 								options={[{label:'isLeader',value:'true'},{label:'setLeader',value:'false'}]}
@@ -184,7 +206,7 @@ export default class Card extends Component {
 					onClose={this.openUsingCardDialog}
 					contentStyle={{width:480}}
 				>
-					<UsingCard onSubmit={this.onAdvanceSearchSubmit} onCancel={this.openUsingCardDialog} />
+					<UsingCard onSubmit={this.openUsingCardDialog} onCancel={this.openUsingCardDialog} />
 			    </Dialog>
 			    <Dialog
 					title="删除"
@@ -193,7 +215,7 @@ export default class Card extends Component {
 					onClose={this.openDeleteDialog}
 					contentStyle={{width:400}}
 				>
-					<DeleteCard onSubmit={this.onAdvanceSearchSubmit} onCancel={this.openDeleteDialog} />
+					<DeleteCard onSubmit={this.openDeleteDialog} onCancel={this.openDeleteDialog} detail={this.state.item}/>
 			    </Dialog>
 			    <Dialog
 					title="查看"
@@ -202,7 +224,7 @@ export default class Card extends Component {
 					onClose={this.openViewDialog}
 					contentStyle={{width:400}}
 				>
-					<ViewCard onSubmit={this.onAdvanceSearchSubmit} onCancel={this.openViewDialog} detail={this.state.detailItem}/>
+					<ViewCard onSubmit={this.openViewDialog} onCancel={this.openViewDialog} detail={this.state.detailItem}/>
 			    </Dialog>
 			</div>
             );

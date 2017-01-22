@@ -706,12 +706,12 @@ const APIS = {
    },
    //会员卡批量入库
    'memberCardImport': {
-      url: '/apixr/krspace-finance-web/member/card/actions/storage?endForeignCode={endForeignCode}&endForeignCode={endForeignCode}',
+      url: '/apixr/krspace-finance-web/member/card/actions/storage?startForeignCode={startForeignCode}&endForeignCode={endForeignCode}',
       method: 'put'
    },
    //会员卡领用
    'memberCardUse': {
-      url: '/apixr/krspace-finance-web/member/card/actions/receive?endForeignCode={endForeignCode}&endForeignCode={endForeignCode}&receiveId={receiveId}&communityId={communityId}',
+      url: '/apixr/krspace-finance-web/member/card/actions/receive',
       method: 'post'
    },
    //会员卡删除

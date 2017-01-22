@@ -40,6 +40,15 @@ class ImportCard extends Component{
 		onCancel && onCancel();
 	}
 	 onSubmit=(values)=>{
+	 	let params = {
+	 		startForeignCode:values.begin,
+	 		endForeignCode:values.end
+	 	};
+	 	Store.dispatch(Actions.callAPI('memberCardImport' , params)).then(function(response) {
+			console.log('response',response);
+		}).catch(function(err) {
+		 	Message.error(err.message);
+		});
 		console.log(values);
 		 // const {onSubmit} = this.props;
 		 // onSubmit && onSubmit(values);

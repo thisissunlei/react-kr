@@ -3,19 +3,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
-import {
-	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
-	Notify,
-	ButtonGroup,
-  ListGroup,
-  ListGroupItem,
-	SearchForm,
-	Message,
-} from 'kr-ui';
+import { KrField, Grid, Row, Col, Button, Notify, ButtonGroup, ListGroup, ListGroupItem, SearchForm, Message, } from 'kr-ui';
 import dateFormat from 'dateformat';
 import $ from 'jquery'
 class ImportCard extends Component{
@@ -39,11 +27,20 @@ class ImportCard extends Component{
 		let {onCancel} = this.props;
 		onCancel && onCancel();
 	}
-	 onSubmit=(values)=>{
-		console.log(values);
-		 // const {onSubmit} = this.props;
-		 // onSubmit && onSubmit(values);
-	 }
+		
+	onSubmit = (values) => {
+	    let params = {
+	        id: this.props.detail.cardId
+	    }
+	    Store.dispatch(Actions.callAPI('memberCardDelete', params)).then(function(response) {
+	        console.log('response', response);
+	    }).catch(function(err) {
+	        Message.error(err.message);
+	    });
+	    console.log(values);
+	    const {onSubmit} = this.props;
+	    onSubmit && onSubmit(values);
+	}
 
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
