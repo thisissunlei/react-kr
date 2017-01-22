@@ -502,9 +502,11 @@ export default class D3Content extends Component {
 
 				{
 					whiteBar && whiteBar.map((item,index)=>{
-						return(
-							<span className="wihiteBar" style={{marginLeft:`${item}%`}} key={index}></span>
-						)
+						if(item<100){
+                         	return(
+                            	<span className="wihiteBar" style={{marginLeft:`${item}%`}} key={index}></span>
+                            )
+                        }
 					})
 				}
 				{
@@ -523,8 +525,10 @@ export default class D3Content extends Component {
 						
 						let nodeKind = item.color===1?'grey-circle':'red-node';
 						let left = this.getLeft(item.pointDate);
-
-						
+						let marginLeft = (Math.round((item.pointDay/365)*100)/100)*100;
+						if(marginLeft<0){
+							return;
+						}
 						return (
 							<span className={`${nodeKind}`} key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`,left:left,position:'absolute'}} data-tip data-for={`${item.pointDate}${id}`} onMouseOver={this.getRedInfo.bind(this,item)}>
 								{this.renderRedInfo(item)}
