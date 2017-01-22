@@ -20,6 +20,7 @@ import {
 	Grid,
 	Row,
 	Col,
+	KrDate,
 	Dialog,
     Title,
     ListGroup,
@@ -29,7 +30,7 @@ import {
 	Message,
 	Tooltip
 } from 'kr-ui';
-
+import DateFormat from "kr/Utils";
 import State from './State';
 import StateIn from '../NewVisitIndent/State.js';
 import NewCustomerList from '../NewCustomerList';
@@ -397,16 +398,17 @@ class Personal extends Component{
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 													 }}></TableRowColumn>
 			                <TableRowColumn name="receiveName"></TableRowColumn>
-			                <TableRowColumn name="createDate" type='date' format="yyyy-mm-dd HH:MM:ss" component={(value,oldValue)=>{
-														var TooltipStyle=""
-														if(value.length==""){
-															TooltipStyle="none"
-
-														}else{
-															TooltipStyle="block";
-														}
-														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:120,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+			                <TableRowColumn name="createDate" type='date' component={(value,oldValue)=>{
+						                				let show="block";
+						                				if(value.length==0){
+						                					show="none";
+						                				}else{
+						                					show="block";
+						                				}
+														 return (<div><span className='tableOver' style={{maxWidth:120,marginTop:5,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}><KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></span>
+														 	<Tooltip offsetTop={10} place='top' style={{left:50,display:show}}>
+																<div><KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
+														 	</Tooltip></div>)
 													 }}></TableRowColumn>
 			                <TableRowColumn type="operation">
 			                    <Button label="查看"  type="operation"  operation="watch" />

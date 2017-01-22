@@ -18,6 +18,7 @@ import {
 	Button,
 	Section,
 	Grid,
+	KrDate,
 	Row,
 	Col,
 	Dialog,
@@ -29,6 +30,7 @@ import {
 	Tooltip,
 	Message
 } from 'kr-ui';
+import DateFormat from "kr/Utils";
 import State from './State';
 import StateIn from '../NewVisitIndent/State.js';
 import NewCustomerList from '../NewCustomerList';
@@ -338,7 +340,18 @@ class Merchants extends Component{
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 													 }}></TableRowColumn>
 			                <TableRowColumn name="receiveName"></TableRowColumn>
-			                <TableRowColumn name="createDate" type='date' format="yyyy-mm-dd HH:MM:ss"></TableRowColumn>
+			                <TableRowColumn name="createDate" type='date' component={(value,oldValue)=>{
+						                				let show="block";
+						                				if(value.length==0){
+						                					show="none";
+						                				}else{
+						                					show="block";
+						                				}
+														 return (<div><span className='tableOver' style={{maxWidth:120,marginTop:5,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}><KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></span>
+														 	<Tooltip offsetTop={10} place='top' style={{left:50,display:show}}>
+																<div><KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
+														 	</Tooltip></div>)
+													 }}></TableRowColumn>
 			                <TableRowColumn type="operation">
 			                    <Button label="查看"  type="operation"  operation="watch" />
 			                </TableRowColumn>

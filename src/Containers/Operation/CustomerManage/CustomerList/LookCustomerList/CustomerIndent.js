@@ -53,6 +53,9 @@ class CustomerIndent extends Component{
 	editIndentClick = (id) =>{
 		this.props.editIndentSwitch(id);
 	}
+	locationWatch=(id)=>{
+		window.location.href=`./#/operation/customerManage/${State.listId}/order/${id}/detail`;
+	}
 	
 	orderInnerList = () =>{
 		let unifyStyle={width:300,marginLeft:-10}
@@ -76,7 +79,7 @@ class CustomerIndent extends Component{
 					<div style={{marginTop:20,textAlign: "center"}}>
 						<span><Button  label="编辑" type="button" cancle={true} onTouchTap={_this.editIndentClick.bind(this,item.id)}/>
 						<span className="interval"></span></span>
-						<Button  label="查看" type="button" cancle={true} />
+						<Button  label="查看" type="button" cancle={true} onTouchTap={_this.locationWatch.bind(this,item.id)}/>
 						<span className="interval"></span>
 						<Button  label="删除" type="button" cancle={true} onTouchTap={DeleteSwitch} />
 					</div>
