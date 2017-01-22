@@ -115,6 +115,7 @@ export default class Table extends React.Component {
 			allRowsSelected: false,
 			selectedRows: [],
 			visibilityRows: [],
+			fold:false,
 			foldOpen:this.props.foldOpen,
 			defaultValue: {
 				checkboxWidth: 50
@@ -708,13 +709,14 @@ export default class Table extends React.Component {
 			className,
 			children,
 			style,
-			ajax
+			ajax,
+			fold
 		} = this.props;
 		let {
 			listData,
 			loading
 		} = this.state;
-
+		fold=fold||this.state.fold;
 		if (loading) {
 			return this.renderLoading();
 		}
@@ -730,7 +732,7 @@ export default class Table extends React.Component {
 					{this.renderTableBody()}
 					{this.renderTableFooter()}
 				</table>
-				<div className="btn-collapse" onClick={this.onFold}>{this.state.foldOpen?'收起':'展开'}</div>
+				{fold&&<div className="btn-collapse" onClick={this.onFold}>{this.state.foldOpen?'收起':'展开'}</div>}
 			</div>
 		);
 

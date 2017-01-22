@@ -271,6 +271,7 @@ class Merchants extends Component{
 	            ajaxParams={State.searchParams}
 	            ajaxUrlName='shareCustomers'
 	            ajaxFieldListName="items"
+	            fold={false}
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>
