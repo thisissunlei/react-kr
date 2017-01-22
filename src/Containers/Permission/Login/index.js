@@ -467,7 +467,7 @@ class Login extends Component {
 													/>
 												{ this.state.nonePwd && <span className="redErr">请输入密码</span>}
 												</li>
-											 { !this.state.errThree &&
+											 { this.state.errThree &&
 												 <li className="clearfix">
 				                   <div className="input-verifycode">
 					                   <Input type="text" placeholder="请输入验证码"/>
