@@ -86,7 +86,7 @@ function wrapState(ComposedComponent) {
 				}
 				selectedItemStyle = {
 					{
-						backgroundColor: '#328ECC',
+						backgroundColor: '#394457',
 						color: '#fff'
 					}
 				} > {
@@ -125,7 +125,7 @@ export default class SidebarNav extends Component {
 			marginTop: '0px',
 			marginLeft: '-20px',
 			width: "180px",
-			color: '#999'
+			color: '#79859a'
 		};
 
 
@@ -150,10 +150,11 @@ export default class SidebarNav extends Component {
 		isSelected = item.active;
 
 		if (isSelected) {
-			childStyles.backgroundColor = '#328ECC';
+			childStyles.backgroundColor = '#283243';
 			childStyles.color = '#fff';
 		} else {
-			childStyles.backgroundColor = '#fff';
+			childStyles.backgroundColor = '#394457';
+			childStyles.color = '#c8d2d9';
 		}
 /*
 		if (item.router === current_router) {
