@@ -42,6 +42,10 @@ import './index.less'
 		});
 	}
 
+    cityValue=(value)=>{
+      Store.dispatch(change('NewCustomerList','cityId',value));
+    }
+
 	onCancel = () => {
 		const {onCancel} = this.props;
 		onCancel && onCancel();
@@ -58,10 +62,29 @@ import './index.less'
 	}
 
 	renderSource=()=>{
+		let {dataReady}=this.props;
 		var content='';
         if(State.sourceCustomer==true){
-			content=(<div><KrField grid={1/2} label="介绍人姓名" name="recommendName" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
-				   <KrField grid={1/2} label="介绍人电话" name="recommendTel" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/></div>)     
+			content=(<div><KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="select" 
+											options={dataReady.customerSourceList}
+											requireLabel={true}
+											onChange={this.sourceCustomer}
+									/>
+				   <KrField grid={1/2} label="介绍人姓名" name="recommendName" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
+				   <KrField grid={1/2} label="介绍人电话" name="recommendTel" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
+				   <div className="krFlied-box" 
+				         style={{position:'absolute',
+                            right: '40px',
+                            top: '103px'}}>
+                    <KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:239,marginLeft:28}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div></div>)     
+        }else{
+        	content=(<div><KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="select" 
+											options={dataReady.customerSourceList}
+											requireLabel={true}
+											onChange={this.sourceCustomer}
+			              />
+			             <div className="krFlied-box"><KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:239,marginLeft:28}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>
+			        </div>)
         }
         return content		
 	}
@@ -96,19 +119,11 @@ import './index.less'
 				</div>
 				<div className="cheek">
 							<div className="titleBar"><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
-							<div className="small-cheek">
-
-									<KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="select" 
-											options={dataReady.customerSourceList}
-											requireLabel={true}
-											onChange={this.sourceCustomer}
-									/>
+							<div className="small-cheek">						
                                     {this.renderSource()}
-									<div className="krFlied-box"><KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:239,marginLeft:28}} component="input" requireLabel={true}>
-										
-									</KrField><span className="unit">个</span></div>
+																										
 									<KrField grid={1/2} label="联系人姓名" name="name" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
-									<KrField grid={1/2} label="意向工位类型" name="staiontypeId" component="select" style={{width:262,marginLeft:28}} 
+									<KrField grid={1/2} label="意向工位类型" name="staionTypeId" component="select" style={{width:262,marginLeft:28}} 
 											options={dataReady.stationTypeList}
 											requireLabel={true}
 									/>
@@ -135,9 +150,9 @@ import './index.less'
 								<KrField grid={1/2} label="公司规模" name="teamNum" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 
 								<KrField grid={1/2} label="融资金额" name="amount" style={{width:262,marginLeft:28}} component="input" requireLabel={false}/>
-								<KrField grid={1/2} label="所属地区" name="cityId"  style={{width:262,marginLeft:15,zIndex:2}} component="city" onSubmit={this.city}/>
+								<KrField grid={1/2} label="所属地区" name="cityId"  style={{width:262,marginLeft:15,zIndex:2}} component="city" onSubmit={this.cityValue} requireLabel={true}/>
 								<KrField grid={1/2} label="项目名称" name="projectName" style={{width:262,marginLeft:28}} component="input" requireLabel={true} />
-								<KrField grid={1/2} label="项目类型" name="projectCategoryId"  style={{width:262,marginLeft:15,zIndex:1}} component="tree" placeholder="请选择项目类型"/>
+								<KrField grid={1/2} label="项目类型" name="projectCategoryId"  style={{width:262,marginLeft:15,zIndex:1}} component="tree" placeholder="请选择项目类型" requireLabel={true}/>
 								<KrField grid={1/2} label="详细地址" name="detailAddress" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
 
 
@@ -148,7 +163,7 @@ import './index.less'
 
 								{State.matureTime && <KrField grid={1/2} label="到期时间" name="deadline" style={{width:262,marginLeft:15}} component="date" requireLabel={true}/>}
 								
-								<KrField grid={1/2} label="公司网址" name="website" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
+								<KrField grid={1/2} label="公司网址" name="website" style={{width:262,marginLeft:15}} component="input"/>
 								<div className='speakInfo'><KrField grid={1} label="公司简介" name="companyIntroduce" style={{marginLeft:15}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={true} placeholder='请输入公司简介' lengthClass='cus-length-textarea'/></div>
 								<KrField grid={1} label="备注" name="remark" style={{marginLeft:15,marginTop:-15}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={false} placeholder='请输入备注' lengthClass='cus-textarea'/>
 						</div>
