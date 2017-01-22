@@ -106,6 +106,7 @@ class NewCreateForm extends Component {
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 		this.state = {
+			originStationVos:[],
 			stationVos: [],
 			delStationVos: [],
 			selectedStation: [],
@@ -220,8 +221,10 @@ class NewCreateForm extends Component {
 	componentWillReceiveProps(nextProps) {
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
+			let originStationVos = [].concat(stationVos);
 			this.setState({
-				stationVos
+				stationVos,
+				originStationVos
 			});
 			this.isInit = true;
 		};
@@ -236,8 +239,20 @@ class NewCreateForm extends Component {
 		} = this.props;
 		let {
 			stationVos,
-			delStationVos
+			delStationVos,
+			originStationVos
 		} = this.state;
+
+
+		delStationVos = originStationVos.filter(function(origin){
+				var isOk = true;
+				stationVos.map(function(station){
+						if(station.id == origin.id){
+								isOk = false;
+						}
+				});
+				return isOk;
+		});
 
 		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");

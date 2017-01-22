@@ -106,6 +106,7 @@ class NewCreateForm extends Component {
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 		this.state = {
+			originStationVos:[],
 			stationVos: [],
 			delStationVos: [],
 			selectedStation: [],
@@ -222,11 +223,14 @@ class NewCreateForm extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (!this.isInit && nextProps.stationVos.length) {
+
 			let stationVos = nextProps.stationVos;
-			let delStationVos = stationVos;
-			console.log('dddd',delStationVos)
+
+			let originStationVos = [].concat(stationVos);
+
 			this.setState({
 				stationVos,
+				originStationVos
 			});
 			this.isInit = true;
 		};
@@ -242,9 +246,20 @@ class NewCreateForm extends Component {
 		} = this.props;
 		let {
 			stationVos,
-			delStationVos
+			delStationVos,
+			originStationVos
 		} = this.state;
 
+
+		delStationVos = originStationVos.filter(function(origin){
+				var isOk = true;
+				stationVos.map(function(station){
+						if(station.id == origin.id){
+								isOk = false;
+						}
+				});
+				return isOk;
+		});
 
 		form.delStationVos = JSON.stringify(delStationVos);
 
@@ -390,7 +405,7 @@ class NewCreateForm extends Component {
 				</CircleStyle>
 				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} requireLabel={true}/>
 
-				  
+
 
 						<Grid style={{padding:"10px 0 50px"}}>
 						<Row >
