@@ -59,7 +59,7 @@ State.initListId=action(function(params){
 })
 //获取详情页数据
 State.lookListId=action(function(params,operType) {
-
+	console.log(params,operType,">>>>>>>")
 	this.operType=operType;
 	if(!params){
 	 return ;
@@ -76,7 +76,6 @@ State.lookListId=action(function(params,operType) {
     }
     data.id=params;
     data.operType=operType;
-	console.log(data,"??????????")
 	
 
 	Store.dispatch(Actions.callAPI('get-detail-info',data)).then(function(response) {

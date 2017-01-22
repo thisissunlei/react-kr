@@ -284,6 +284,8 @@ class Personal extends Component{
      	State.openDeleteOrder();
      }
 
+
+
     
 	render(){
 		let {dataReady,searchParams,orderReady}=this.props;
@@ -297,6 +299,8 @@ class Personal extends Component{
         	display:'none'
         }
       }
+
+      console.log('99999',State.editIndentId);
 
 		return(
 
@@ -480,7 +484,6 @@ class Personal extends Component{
 			                 listId={State.listId}
 			                 dataReady={dataReady}
 				             operType="PERSON"
-
 			                 hasOffice={State.ishasOffice}
 						/>
 					</Drawer>
@@ -537,6 +540,7 @@ class Personal extends Component{
 			                 comeFrom="Merchant"
 							 onCancel={this.switchCustomerIndent}
 			                 listId={State.listId}
+			                 operType="PERSON"
 			                 selectDatas={dataReady}
 			                 companyName={State.companyName}
 						/>
@@ -597,7 +601,11 @@ class Personal extends Component{
 					>
 						<OrderDelete 
 						   onCancel={this.openDeleteDialog}
-						   orderId='1'
+						   orderId={State.deleteId}
+				           operType="PERSON"
+						   listId={State.listId}
+
+
 						 />
 				    </Dialog>
  

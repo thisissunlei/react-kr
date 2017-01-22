@@ -33,6 +33,7 @@ let State = observable({
 		openDelete:false,
 		editIndentData:{},
 		editIndentId:'',
+		deleteId:'',
 		orderName:"",
 		cityname:"",
 		isOpenIndent:false,

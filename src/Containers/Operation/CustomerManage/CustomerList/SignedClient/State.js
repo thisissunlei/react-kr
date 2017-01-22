@@ -29,6 +29,7 @@ let State = observable({
 		openPersonDialog:false,
 		indentReady:{},
 		listId:"",
+		deleteId:'',
 		companyName:'',
 		openDelete:false,
 		editIndentData:{},

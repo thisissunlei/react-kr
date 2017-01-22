@@ -438,6 +438,7 @@ class Merchants extends Component{
 			                 open={State.openNewCustomerIndent}
 							 onCancel={this.switchCustomerIndent}
 			                 listId={State.listId}
+			                 operType="SHARE"
 			                 selectDatas={dataReady}
 			                 companyName={State.companyName}
 						/>
