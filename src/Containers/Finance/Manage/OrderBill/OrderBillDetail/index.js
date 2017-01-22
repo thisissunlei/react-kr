@@ -1191,7 +1191,7 @@ export default class AttributeSetting extends Component {
 		} else if (type == 6) {
 			orderType = 'exit';
 		}
-		location.href = `/#/operation/customerManage/${basicInfo.customerid}/order/${params.orderId}/agreement/${orderType}/${detailid}/detail`
+		location.href = `./#/operation/customerManage/${basicInfo.customerid}/order/${params.orderId}/agreement/${orderType}/${detailid}/detail`
 	}
 
 	calcBalance = (input) => {
