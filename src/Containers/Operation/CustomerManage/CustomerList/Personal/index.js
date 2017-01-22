@@ -69,6 +69,16 @@ class Personal extends Component{
 	switchLookCustomerList=() => {
       	State.switchLookCustomerList();
 	}
+	openEditCustomerList=()=>{
+		let listId=State.listId;
+		Store.dispatch(Actions.callAPI('get-edit-info',{id:listId})).then(function(response) {
+			Store.dispatch(initialize('EditCustomerList',response));
+			
+		}).catch(function(err) {
+			
+		});
+		State.switchEditCustomerList();
+	}
 	//客户编辑页面开关
 	switchEditCustomerList=() => {
 		State.switchEditCustomerList();

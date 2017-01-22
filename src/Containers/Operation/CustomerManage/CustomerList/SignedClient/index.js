@@ -108,7 +108,16 @@ class SignedClient extends Component{
 	switchNewIndent=()=>{
 		State.switchNewIndent();
 	}
-
+	openEditCustomerList=()=>{
+		let listId=State.listId;
+		Store.dispatch(Actions.callAPI('get-edit-info',{id:listId})).then(function(response) {
+			Store.dispatch(initialize('EditCustomerList',response));
+			
+		}).catch(function(err) {
+			
+		});
+		State.switchEditCustomerList();
+	}
 	//编辑订单页面的开关
 	switchEditIndent=()=>{
 		State.switchEditIndent();
