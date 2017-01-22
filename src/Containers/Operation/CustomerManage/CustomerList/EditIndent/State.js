@@ -27,7 +27,7 @@ let State = observable({
 		orderFound:[],
 		isInit:false,
 		everyid:'',
-
+		cityLable:"",
 
 });
 //select下拉数组的初始化
@@ -46,6 +46,10 @@ State.noShowMatureTime = action(function() {
 //
 State.changeEveryid=action(function(params){
 	this.everyid=params;
+})
+//所在城市
+State.cityLableChange = action(function(params){
+	this.cityLable=params;
 })
 
 //下拉框的数据初始化
