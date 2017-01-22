@@ -244,6 +244,8 @@ export default (
 			<Redirect from="permission" to="permission/personalCenter" />
 	<Route path="login" component={Permission.Login}/>
 			<Redirect from="permission" to="permission/login" />
+	<Route path="AccountList" component={Permission.AccountList}/>
+			<Redirect from="permission" to="permission/AccountList"/>
 		</Route>
 
 		{/*文档管理*/}

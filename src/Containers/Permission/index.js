@@ -10,6 +10,7 @@ import { default as CompanyInstitution } from './CompanyInstitution';
 import { default as SNSActivity } from './SNSActivity';
 import { default as PersonalCenter } from './PersonalCenter';
 import { default as Login } from './Login';
+import { default as AccountList } from './AccountList';
 
 module.exports = {
 	Home,
@@ -24,4 +25,5 @@ module.exports = {
 	Login,
 	Order,
 	PersonalCenter,
+	AccountList,
 }
