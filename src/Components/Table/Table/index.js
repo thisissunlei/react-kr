@@ -29,7 +29,7 @@ export default class Table extends React.Component {
 		footer: false,
 		exportSwitch: false,
 		defaultSelectedRows: [],
-		fold:true,
+		fold:false,
 		foldSize:10,
 		foldOpen:false,
 	}
@@ -716,8 +716,6 @@ export default class Table extends React.Component {
 	}
 
 	render() {
-
-
 
 		let {
 			className,
