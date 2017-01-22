@@ -193,7 +193,7 @@ const validate = values =>{
 		let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
 		let RMB=/^(([1-9]\d*)|0)(\.\d{2})?$/
 
-		/*if(!values.sourceId){
+		if(!values.sourceId){
 			errors.sourceId = '请填写客户来源';
 		}
 
@@ -303,7 +303,7 @@ const validate = values =>{
 		}
 		if (!values.companyIntroduce) {
 			errors.companyIntroduce = '请填写公司简介';
-		}*/
+		}
 		return errors
 	}
 export default reduxForm({ form: 'NewCustomerList',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCustomerList);
