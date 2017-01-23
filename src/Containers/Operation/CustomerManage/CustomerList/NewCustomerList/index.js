@@ -39,6 +39,7 @@ import './index.less'
 		let _this=this; 
 		let {operType}=this.props;
 		values.operType=this.props.operType;
+		console.log("PPPPP",values)
 
 
 		Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
@@ -79,6 +80,10 @@ import './index.less'
 	}
 
 	sourceCustomer=(value)=>{
+	  if(!value){
+	  	return;
+	  }
+
 	  var param=value.label;
       if(param.indexOf('介绍')!=-1){
          State.sourceCustomer=true;
@@ -88,33 +93,7 @@ import './index.less'
 
 	}
 
-	renderSource=()=>{
-		let {dataReady}=this.props;
-		var content='';
-        if(State.sourceCustomer==true){
-			content=(<div><KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="select" 
-											options={dataReady.customerSourceList}
-											requireLabel={true}
-											onChange={this.sourceCustomer}
-									/>
-				   <KrField grid={1/2} label="介绍人姓名" name="recommendName" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
-				   <KrField grid={1/2} label="介绍人电话" name="recommendTel" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
-				   <div className="krFlied-box" 
-				         style={{position:'absolute',
-                            right: '40px',
-                            top: '103px'}}>
-                    <KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:239,marginLeft:28}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div></div>)     
-        }else{
-        	content=(<div><KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="select" 
-											options={dataReady.customerSourceList}
-											requireLabel={true}
-											onChange={this.sourceCustomer}
-			              />
-			             <div className="krFlied-box"><KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:239,marginLeft:28}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>
-			        </div>)
-        }
-        return content		
-	}
+	
 
 	hasOfficeClick = (params) =>{
 		if(params.value=="YES"){
@@ -146,8 +125,17 @@ import './index.less'
 				</div>
 				<div className="cheek">
 							<div className="titleBar"><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
-							<div className="small-cheek">						
-                                    {this.renderSource()}
+							<div className="small-cheek">
+									<KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="select" 
+											options={dataReady.customerSourceList}
+											requireLabel={true}
+											onChange={this.sourceCustomer}
+									/>						
+                                    
+                                    {State.sourceCustomer&&<KrField grid={1/2} label="介绍人姓名" name="recommendName" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>}
+				   					{State.sourceCustomer&&<KrField grid={1/2} label="介绍人电话" name="recommendTel" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>}
+				   
+			             			<div className="krFlied-box"><KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:239,marginLeft:28}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>
 																										
 									<KrField grid={1/2} label="联系人姓名" name="name" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 									<KrField grid={1/2} label="意向工位类型" name="staionTypeId" component="select" style={{width:262,marginLeft:28}} 
@@ -221,6 +209,15 @@ const validate = values =>{
 
 		if(!values.sourceId){
 			errors.sourceId = '请填写客户来源';
+		}
+		if(!values.recommendName){
+			errors.recommendName='请填写介绍人姓名'
+		}
+
+		if(!values.recommendTel){
+			errors.recommendTel='请填写介绍人电话'
+		}else if(!phone.test(values.recommendTel)||!checkTel.test(values.recommendTel)){
+			errors.recommendTel='介绍人电话错误'
 		}
 
 		if (!values.stationNum) {

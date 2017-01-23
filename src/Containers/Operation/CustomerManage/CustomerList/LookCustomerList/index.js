@@ -94,8 +94,8 @@ class LookCustomerList extends Component{
 				                       
 		
 		return(
-		      <div className="m-lookCustomerList m-newMerchants">
-		      	<div className="title">
+		      <div className="m-lookCustomerList m-newMerchants" style={{paddingLeft:5}}>
+		      	<div className="title" >
 					<div><span className="new-icon"></span><label className="title-text">{companyName}</label></div>
 					<div className="close" onClick={this.onCancel}></div>
 				</div>
