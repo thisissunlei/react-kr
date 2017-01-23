@@ -65,9 +65,17 @@ class CustomerIndent extends Component{
 		let unifyStyle={width:300,marginLeft:-10}
 		let detail=State.orderDetail;
 		let {editIndentSwitch,DeleteSwitch,operType}=this.props;
-		console.log('7777op',operType);
+		if(!detail.items){
+			return;
+		}
 		let _this=this;
-		let listArray=detail.map(function(item,index){
+		let isEdit=true;
+		let listArray=detail.items.map(function(item,index){
+			if(item.contractSize>0){
+				isEdit=false;
+			}else{
+				isEdit=true;
+			}
 			return (
 				<div>
 				<div className="indentList">
@@ -82,11 +90,11 @@ class CustomerIndent extends Component{
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="离开日期:" style={unifyStyle} component="labelText" value={item.ucontractLeavedate} inline={true} /></li>
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="未回款额:" style={unifyStyle} component="labelText" value={item.unBackamount} inline={true} /></li>
 					<div style={{marginTop:20,textAlign: "center"}}>
-						<span><Button  label="编辑" type="button" cancle={true} onTouchTap={_this.editIndentClick.bind(this,item.id)}/>
-						<span className="interval"></span></span>
+						{isEdit&&<span><Button  label="编辑" type="button" cancle={true} onTouchTap={_this.editIndentClick.bind(this,item.id)}/>
+						<span className="interval"></span></span>}
 						<Button  label="查看" type="button" cancle={true} onTouchTap={_this.locationWatch.bind(this,item.id)}/>
 						<span className="interval"></span>
-						<Button  label="删除" type="button" cancle={true} onTouchTap={()=>{
+						{item.deleteBtn && <Button  label="删除" type="button" cancle={true} onTouchTap={()=>{
 																			if(operType=="PERSON"){
 																			   personal.deleteId=item.id;
 
@@ -98,7 +106,7 @@ class CustomerIndent extends Component{
 
 																			
 																			DeleteSwitch();
-																		}} />
+																		}} />}
 					</div>
 
 				</div>
@@ -121,11 +129,11 @@ class CustomerIndent extends Component{
 
 	render(){
 		let {newIndentSwitch}=this.props;
-		
+		let detail=State.orderDetail;
 		
 		return(
 	    	<div className="m-CustomerIndent">
-				<div style={{marginTop:20,marginBottom:20}}><Button  label="新建订单" type="button" onTouchTap={newIndentSwitch}/></div>
+				{detail.hasOrderRight&&<div style={{marginTop:20,marginBottom:20}}><Button  label="新建订单" type="button" onTouchTap={newIndentSwitch}/></div>}
 				{this.orderInnerList()}
 	    	</div>
 		    

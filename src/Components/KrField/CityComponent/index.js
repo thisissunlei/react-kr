@@ -202,6 +202,7 @@ export default class CityComponent extends React.Component {
 			colorStyle,
 			heightStyle,
 			lengthClass,
+			cityName,
 			...other
 		} = this.props;
 		let {showCity} = this.state;
@@ -217,11 +218,15 @@ export default class CityComponent extends React.Component {
 			background:'#f5f5f5'
 		}
 		let hoverColor = {};
-		if(!city){
-			if(this.props.city){
-				city=this.props.city;
+		if(city=="请选择"){
+			if(!cityName){
+				console.log("123444555")
+
+			}else if(cityName.length!=0){
+				city=cityName;
 			}
 		}
+		console.log(city,cityName,"#444444")
 		
 
 
