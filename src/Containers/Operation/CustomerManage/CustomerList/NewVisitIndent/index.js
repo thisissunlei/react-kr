@@ -17,7 +17,11 @@ import {
 	Message
 } from 'kr-ui';
 import StateIn from './State';
+import merchants from "../Merchants/State";
+import personal from "../Personal/State";
+import signedClient from "../SignedClient/State";
 import flushData from "../LookCustomerList/State";
+
 
 import './index.less'
 @observer
@@ -41,6 +45,27 @@ import './index.less'
 		 var _this=this;
 	       Store.dispatch(Actions.callAPI('customerVisitRecord',{},values)).then(function(response) {	       	
 				flushData.lookListId(listId,operType);
+				if(operType=="SHARE"){
+				merchants.searchParams={
+			         	page:1,
+						pageSize:15,
+						time:+new Date()
+			         }
+				}
+	         	if(operType=="PERSON"){
+	         		personal.searchParams={
+			         	page:1,
+						pageSize:15,
+						time:+new Date()
+			        }
+	         	}
+	         	if(operType=="SIGN"){
+	         		signedClient.searchParams={
+			         	page:1,
+						pageSize:15,
+						time:+new Date()
+			        }
+	         	}
 			
 		    _this.onCancel();
 		    

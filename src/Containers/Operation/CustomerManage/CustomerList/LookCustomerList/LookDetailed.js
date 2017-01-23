@@ -71,7 +71,7 @@ class LookDetail extends Component{
 		}else{
 			show=true;
 		}
-		return (<Tooltip style={{padding:10}} offsetTop={5} place='top'>{value}</Tooltip>)
+		return (<Tooltip style={{padding:10, maxWidth:224}} offsetTop={5} place='top'><div style={{maxWidth:224}}>{value}</div></Tooltip>)
 	}
 	
 	visitRecordList = () =>{
@@ -80,37 +80,20 @@ class LookDetail extends Component{
 		}
 
 		let tr=[];
-		let len=State.detail.records.length;
-		if(len==0){
-			return (<div className="tableDiv">
-						<div className="tr-title">
-							<span>拜访方式</span>
-							<span>拜访时间</span>
-							<span>联系人</span>
-							<span>联系方式</span>
-							<span>客户分类</span>
-							<span>沟通情况</span>
-							<span>是否跟进</span>
-							<span>原因</span>
-						</div>
-						{tr}
-						
-					</div>)
-		}
-		if(State.recordDevelop){
-			len=State.visitLen;
-		}
-		if(!State.recordDevelop && State.visitLen>State.detail.records.length){
-			len=State.detail.records.length;
+		let records=State.detail.records;
+		console.log("=========",records)
+		
+		if(State.recordDevelop&&records.length>State.visitLen){
+			records.length=State.visitLen;
 		}
 		
 		
 
-		for(let i=0;i<State.detail.records.length;i++){
+		for(let i=0;i<records.length;i++){
 
 
 			let tds=[];
-			let everyTr=State.detail.records[i];
+			let everyTr=records[i];
 			console.log()
 			let text=everyTr.isContinue;
 			if(text=="YES"){
