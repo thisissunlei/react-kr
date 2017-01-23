@@ -80,7 +80,9 @@ class Demo extends Component {
 		super(props, context);
 
 		this.state = {
-			userNameDefaultValue: ''
+			userNameDefaultValue: '',
+			listArr :[{L:600,price:20},{L:300,price:30}],
+			priceNow : 20 
 		}
 	}
 	onSubmit=(values)=>{
@@ -92,18 +94,10 @@ class Demo extends Component {
 	componentDidMount() {}
 	render() {
 		const { error,handleSubmit,pristine,reset,detail} = this.props;
+		const {listArr,priceNow}=this.state;
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)}>
-					<KrField grid={1/2} name="showTitle" 
-						component="input"
-						type="text" 
-						label="展示标题" 
-						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'展示标题为必填项'}} 
-						style={{width:'252px',margin:'0 35px 5px 0'}}
-						onChange = {this.onChangeTitle}
-					/>
+				
 			</form>		
 
 		);

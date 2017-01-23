@@ -30,16 +30,13 @@ export default class InputComponent extends React.Component{
 		}
 	}
 	onChange=(selectedCommunitys)=>{
-		// console.log("selectedCommunitys",selectedCommunitys)
 		let sendValues = "";
-		console.log("selectedCommunitys提交",selectedCommunitys);
 		for(var i=0;i<selectedCommunitys.length;i++){
 			for(var j=0;j<selectedCommunitys[i].children.length;j++){
 				sendValues = sendValues + ","+selectedCommunitys[i].children[j].hardwareId
 			}
 		}
 		sendValues = sendValues.substring(1);
-		console.log("sendValues",sendValues);
 		const {input}=this.props;
 		input.onChange(sendValues);
 	}
@@ -50,20 +47,10 @@ export default class InputComponent extends React.Component{
 		})
 	}
 	// 添加全部社区
-	chooseAllCommunity=()=>{
-
-		var a = this.props.options.concat();
-		var c=[];
-		a.forEach(function(item,index){
-			let b = item.children;
-			b.forEach(function(item,index){
-				c.push(item);
-			})
-		})
+	chooseAllCommunity=(newArrayAllCommunitys)=>{
 		this.setState({
-			selectedCommunitys :c
+			selectedCommunitys :newArrayAllCommunitys
 		},function(){
-			console.log("this.state.selectedCommunitys",this.state.selectedCommunitys)
 			this.onChange(this.state.selectedCommunitys);
 		})
 	}
@@ -72,7 +59,6 @@ export default class InputComponent extends React.Component{
 		this.setState({
 			selectedCommunitys:[]
 		},function(){
-			console.log("this.state.selectedCommunitys",this.state.selectedCommunitys)
 			this.onChange(this.state.selectedCommunitys);
 		})
 	}
@@ -90,7 +76,6 @@ export default class InputComponent extends React.Component{
 		this.setState({
 			selectedCommunitys:nowSelectedCommunitys
 		},function(){
-			console.log("this.state.selectedCommunitys",this.state.selectedCommunitys)
 			this.onChange(this.state.selectedCommunitys);
 		})
 	}
@@ -107,7 +92,6 @@ export default class InputComponent extends React.Component{
 		this.setState({
 			selectedCommunitys:nowSelectedCommunitys
 		},function(){
-			console.log("this.state.selectedCommunitys",this.state.selectedCommunitys)
 			this.onChange(this.state.selectedCommunitys);
 		});
 	}
@@ -119,7 +103,6 @@ export default class InputComponent extends React.Component{
 		this.setState({
 			selectedCommunitys:nowSelectedCommunitys
 		},function(){
-			console.log("this.state.selectedCommunitys",this.state.selectedCommunitys)
 			this.onChange(this.state.selectedCommunitys);
 		})
 	}

@@ -37,30 +37,8 @@ class SingleUploadImgDefinitionForm extends Component{
 	}
 	//首次加载，只执行一次
 	componentWillMount() {
-		console.log("首次加载",this.detail)
 	}
 	componentDidMount(){
-		this.getBasicData(this.detail);
-		console.log("this.detail",this.detail);
-		// this.setState({
-		// 	itemDetail
-		// })
-		// let _this = this;
-		// Store.dispatch(Actions.callAPI('getCommunityEquipment',""))
-	 //      .then(function(response){
-	 //      	console.log("response设备列表",response);
-	 //      	// _this.setState({
-	 //      	// 	communitys : response.items
-	 //      	// })
-	 //      }).catch(function(err){
-	 //        Notify.show([{
-	 //          message: err.message,
-	 //          type: 'danger',
-	 //        }])
-	 //    });
-	}
-	getBasicData=(detail)=>{
-		console.log()
 	}
 	onCancel=()=>{
 		let {onCancel} = this.props;
@@ -68,9 +46,6 @@ class SingleUploadImgDefinitionForm extends Component{
 	}
 	// 提交(获取总共上传社区个数)
 	onSubmit=(values)=>{
-		console.log("this.detail.hardwareId",this.detail.hardwareId);
-		console.log("this.state",this.state);
-		console.log("values单个上传",values);
 		let _this =this;
 		if(!values.uploadImage){
 			const {tipOpen} = this.props;
@@ -85,11 +60,9 @@ class SingleUploadImgDefinitionForm extends Component{
 			deviceId : this.detail.hardwareId,
 			picUrl : values.uploadImage
 		}
-		console.log("valuesParams",valuesParams);
 		// 向指定社区推送图片
 		Store.dispatch(Actions.callAPI('oploadImgToEquipment',{},valuesParams))
 	      .then(function(response){
-	      	// console.log("response上传单张图片",response);
 	      	Message.success("上传图片成功");
 	      	const {openSingleUploadDialog} = _this.props;
 	      	openSingleUploadDialog && openSingleUploadDialog();
@@ -102,14 +75,6 @@ class SingleUploadImgDefinitionForm extends Component{
 	      	const {openSingleUploadDialog} = _this.props;
 	      	openSingleUploadDialog && openSingleUploadDialog();
 	    });
-		// Store.dispatch(Actions.callAPI('getMemberBasicData',submitParams)).then(function(response){
-		// 	console.log("response",response);
-		// 	var arrarSubmitN = values.communitys.split(','); 
-		// 	this.setState({
-		// 		submitNum : arrarSubmitN.length,
-		// 		submitValues: values.communitys,
-		// 	})
-		// })
 		this.openBatchUploadNum();
 	}
 	// 是否打开确定上传窗口
@@ -120,45 +85,14 @@ class SingleUploadImgDefinitionForm extends Component{
 	}
 	// 确定开始上传
 	confirmSubmit=()=>{
-		// let values = {
-		// 	deviceId:this.state.submitValuesParams.communitys,
-		// 	picUrl : this.state.submitValuesParams.uploadImage
-		// }
-		// Store.dispatch(Actions.callAPI('oploadImgToEquipment',{},values)).then(function(response){
-		// 	console.log("response上传",response);
-		// })
 		let _this = this;
-		console.log("_this",_this);
 		var submitParams = this.state.submitValues;
 		this.openBatchUploadNum();
-		// var timer = setInterval(function(){
-		// 	console.log("+++++")
-		// 	// 此处请求数据
-		// 	Store.dispatch(Actions.callAPI('getMemberBasicData',submitParams)).then(function(response){
-		// 		var response = "2|3";
-		// 		response = respons.split("|");
-		// 		_this.setState({
-		// 			uploadedNum : response[0],
-		// 			totalNum  : response[1],
-		// 			innerBoxWidth : (response[0]/response[1])*300
-		// 		})
-		// 	})
-		// 全部上传完成
-		// 	if(this.state.uploadedNum == this.state.totalNum){
-			// 	window.clearInterval(timer);
-			// 	_this.openBatchUploadNum();
-			// }
-			// const {finishUpload} = _this.props;
-			// finishUpload && finishUpload();
-		// },10000000);
-		
 		this.setState({
 			openSchedule : !_this.state.openSchedule
 		})
 	}
 	render(){
-		// console.log("是否打开提示窗口",this.state.batchUploadNum);
-		// let {communitys}=this.state;
 		const {handleSubmit}=this.props;
 		return(
 			<div>

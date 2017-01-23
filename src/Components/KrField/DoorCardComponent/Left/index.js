@@ -14,11 +14,29 @@ export default class Left extends React.Component{
 		super(props,context);
 		this.state = {
 			communitys:[],
+			// [{"cityId":1,"cityName":"北京市","children":[{"children":[{"id":2,"hardwareId":"11112"}],"communityName":"北京天创科技社区","communityId":2}]},
+			// 			{"cityId":88,"cityName":"杭州市","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"武汉","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":74,"cityName":"上海市","children":[{"children":[{"id":1,"hardwareId":"111101"}],"communityName":"上海凤城巷社区","communityId":11}]}
+			// 			],
 			newArrayCommunity:[],
-			isIncommunity:'',
-			communitys: []
+			isIncommunity:''
 		}
 	}
+	// 首次加载获取社区列表
 	componentDidMount(){
 		let _this = this;
 		Store.dispatch(Actions.callAPI('getCommunityEquipment',""))
@@ -32,8 +50,15 @@ export default class Left extends React.Component{
 	    });
 	}
 	chooseAllCommunity=()=>{
+		let _this = this;
+		var newArrayAllCommunitys = [];
+			for(var i = 0 ;i<this.state.communitys.length;i++){
+			for(var j = 0;j<this.state.communitys[i].children.length;j++){
+				newArrayAllCommunitys.push(this.state.communitys[i].children[j])
+			}
+		}
 		const {chooseAllCommunity}=this.props;
-		chooseAllCommunity && chooseAllCommunity();
+		chooseAllCommunity && chooseAllCommunity(newArrayAllCommunitys);
 	}
 	selectCommunityByCity=(thisCity)=>{
 		let {selectCommunityByCity} = this.props;
@@ -72,7 +97,8 @@ export default class Left extends React.Component{
 		}
 	}
 	render(){
-		let {communitys} = this.props;
+		// let {communitys} = this.props;
+		let {communitys} = this.state;
 		return (
 				<div className="ui-door-card-left-part">
 					<div className="ui-door-card-left-search-box">

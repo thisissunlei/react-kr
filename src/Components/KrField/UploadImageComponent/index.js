@@ -54,7 +54,6 @@ export default class UploadImageComponent extends Component {
 		});
 	}
 	onChange=(event)=>{
-		// console.log("this",this);
 		this.setState({
 			imgSrc: "",
 			operateImg :false,
@@ -63,11 +62,9 @@ export default class UploadImageComponent extends Component {
 		})
 		let _this = this;
 		let file = event.target.files[0];
-		// console.log('file-----', file)
 		if (!file) {
 			return;
 		}
-		
 		if (file) {
 			var progress = 0;
 			var timer = window.setInterval(function() {
@@ -84,10 +81,12 @@ export default class UploadImageComponent extends Component {
 				});
 			}, 300);
 		}
-		// console.log("file",file);
 		let imgType = file.type;
 		let imgSize = Math.round(file.size/1024*100)/100;
 		if(imgType!== "image/jpg" && imgType!== "image/jpeg"){
+			this.refs.inputImg.value ="";
+			this.refs.inputImgNew.value ="";
+			this.refs.uploadImage.src="";
 			_this.setState({
   				errorHide: false,
   				errorTip:"请上传正确格式的图片"
@@ -95,7 +94,10 @@ export default class UploadImageComponent extends Component {
   			return;
 		}
 		if(imgSize>30){
-			this.setState({
+			this.refs.inputImg.value ="";
+			this.refs.inputImgNew.value ="";
+			this.refs.uploadImage.src="";
+			_this.setState({
 				errorHide: false,
 				errorTip:"图片尺寸不得大于30K"
 			})
@@ -108,6 +110,7 @@ export default class UploadImageComponent extends Component {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
 					var response = xhr.response.data;
+					console.log("response",response);
 					form.append('sourceservicetoken', response.token);
 					form.append('docTypeCode', response.docTypeCode);
 					form.append('operater', response.operater);
@@ -122,19 +125,16 @@ export default class UploadImageComponent extends Component {
 							var fileResponse = xhrfile.response;
 							if (xhrfile.status === 200) {
 								if (fileResponse && fileResponse.code > 0) {
-									// console.log("xhr.response__",xhrfile.response);
-									// console.log("xhr.response__",xhrfile.response.data);
 									_this.refs.uploadImage.src = xhrfile.response.data;
 									const {input}=_this.props;
 									input.onChange(xhrfile.response.data);
-									// _this.onSuccess(fileResponse.data);
 								} else {
-									// _this.onError(fileResponse.msg);
+									_this.onError(fileResponse.msg);
 								}
 							} else if (xhrfile.status == 413) {
 								// _this.onError('您上传的文件过大！');
 							} else {
-								// _this.onError('后台报错请联系管理员！');
+								_this.onError('后台报错请联系管理员！');
 							}
 						}
 					};
@@ -160,76 +160,6 @@ export default class UploadImageComponent extends Component {
 			imgUpload: true
 		});
 	}
-	// onChange=(event)=>{
-	// 	console.log("event",event);
-	// 	// console.log("event[SyntheticEvent]",event[SyntheticEvent]);
-	// 	this.setState({
-	// 		imgSrc: "",
-	// 		operateImg :false,
-	// 		imgUpload :false,
-	// 		errorHide: true
-	// 	})
-	// 	let image = '';
-	// 	let _this = this;
- //  		// let input = event.target;
- //  		let imgType = event.target.files[0].type;
- //  		let imgSize = Math.round(event.target.files[0].size/1024*100)/100;
- //  		if(imgType!== "image/jpg" && imgType!== "image/jpeg"){
- //  			_this.setState({
- //  				errorHide: false,
- //  				errorTip:"请上传正确格式的图片"
- //  			})
- //  			return;
- //  		}
- //  		if(imgSize>30){
-	// 		this.setState({
-	// 			errorHide: false,
-	// 			errorTip:"图片尺寸不得大于30K"
-	// 		})
-	// 		this.refs.inputImg.value ="";
-	// 		this.refs.inputImgNew.value ="";
-	// 		return;
-	// 	}
- //  		if (FileReader) {
-	// 		var reader = new FileReader();
-			
-	// 		reader.onload =function(evt){
-	// 	  		var imageNew = new Image();
- //                imageNew.onload=function(){
- //                    if(imageNew.width !== 212 && image.height !== 136){
- //                    	_this.setState({
-	// 		  				errorHide: false,
-	// 		  				errorTip:"请上传尺寸为212*136的图片"
- //                    	})
- //                    	return;
- //                    }else{
- //                    	_this.setState({
-	// 			  			imgSrc: evt.target.result
-	// 			  		})
- //                    }
- //                 };
- //                image = evt.target.result;
- //                url = evt.target.result;
- //                _this.refs.uploadImage.src = evt.target.result;
-	// 		}
-	// 		let url = event.target.files[0];
-	// 		console.log("image",image,url);
-	// 		reader.readAsDataURL(event.target.files[0]);
-	// 		console.log("image",event.target.files[0]);
- //      //       Store.dispatch(Actions.callAPI(_this.props.requestURI,{},{file:url}))
-	// 	    //   	.then(function(response){
-	// 	    //   		console.log("response",response);
-	// 	    //   	}).catch(function(err){
-	// 	    //     	console.log("上传失败啦，呜呜")
-	// 	    // });
-	// 	}
-		
-	// 	// var {input} = _this.props;
-	// 	// input.onChange("image");
-	// 	this.setState({
-	// 		imgUpload :true
-	// 	})
-	// }
 	// 删除图片
 	deleteImg=()=>{
 		this.setState({

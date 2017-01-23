@@ -91,6 +91,7 @@ module.exports = {
 				primaryText: '设备列表',
 				menuCode: 'communityDeviceList',
 				originUrl: '/krspace_operate_web/community/device/toDeviceList?mid=75'
+
 			}, {
 				primaryText: '工位列表',
 				menuCode: 'communityStationList',
@@ -136,7 +137,8 @@ module.exports = {
 			}, {
 				primaryText: '设备定义',
 				menuCode: 'sysDeviceDefinitionList',
-				originUrl: '/krspace_operate_web/community/sysDeviceDefinition/toSysDeviceDefinitionList?mid=105'
+				// originUrl: '/krspace_operate_web/community/sysDeviceDefinition/toSysDeviceDefinitionList?mid=105'
+				router: '/operation/basicconfig/equipmentdefinition'
 			},{
 				primaryText: '分组管理',
 				menuCode: 'groupManage',

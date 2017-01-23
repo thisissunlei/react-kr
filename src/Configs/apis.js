@@ -724,11 +724,7 @@ const APIS = {
    url:'/api-th/krspace-finance-web/community/sysDeviceDefinition/getSendResult',
    method:'get'
  },
- //运营平台-基础配置-设备定义-获取上传图片成功／失败数据
-  'exportFailAndSuccData': {
-   url:'/api-th/krspace-finance-web/community/sysDeviceDefinition/upload-data-excel',
-   method:'get'
- },
+
 
 
 

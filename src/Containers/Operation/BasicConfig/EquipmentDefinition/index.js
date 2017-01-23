@@ -27,7 +27,8 @@ import {
   ListGroup,
   ListGroupItem,
   Row,
-  Message
+  Message,
+  Tooltip
 } from 'kr-ui';
 import NewCreateDefinitionForm from './NewCreateDefinitionForm';
 import EquipmentAdvanceQueryForm from './EquipmentAdvancedQueryForm';
@@ -54,9 +55,10 @@ export default class EquipmentDefinition extends Component {
       onLineOpen:false,
       openOffline :false,
       openSingleUpload: false,
-      content: '',
+      
       singleRequestURI :'',
       filter: 'deviceCode',
+      content: '',
       openTipWarn : false,
       tipText:"",
       onLined : false,
@@ -79,7 +81,6 @@ export default class EquipmentDefinition extends Component {
   }
   //操作相关
   onOperation=(itemDetail)=>{
-    console.log("opertation  itemDetail",itemDetail);
     this.setState({
       itemDetail
     });
@@ -154,6 +155,7 @@ export default class EquipmentDefinition extends Component {
       })
     },3000)
   }
+  // 是否打开提示选择社区
   tipCommunityOpen=()=>{
     let _this =this;
     _this.setState({
@@ -186,49 +188,40 @@ export default class EquipmentDefinition extends Component {
       })
     }
   }
-  // 高级查询修改选择器
-  onFilterState=(search)=>{
-    this.setState({
-      filter : search.value,
-      content : search.content,
-      equipmentParams: {
-        filter : search.value,
-        content : search.content
-      }
-    })
-  }
+
   // 高级查询重置
   onEquipmentAdvanceSearchReset=()=>{
+    this.refs.inputFilter.refs.realInput.value = "";
     this.setState({
       filter: 'deviceCode',
       content: '',
       equipmentParams: {
-        filter: "deviceCode",
-        content: ''
+        deviceCode: "",
       }
     })
   }
   // 设备高级查询提交
   onEquipmentAdvanceSearchSubmit=(values)=>{
+    this.refs.inputFilter.refs.realInput.value = "";
     let _this = this;
     this.openEquipmentAdvancedQueryDialog();
-    
     if(values.type=="hardwareId"){
       _this.setState({
-        filter : values.value,
-        content : values.content,
+        filter : "deviceCode",
+        content : "",
         equipmentParams:{
           communityId :values.communityId || "",
           hardwareId : values.value || "",
           floor : values.floor || "",
           functionId : values.functionId || "",
-          propertyId : values.propertyId || ""
+          propertyId : values.propertyId || "",
+          typeId : values.typeId|| ""
         }
       })
     }else{
       _this.setState({
-        filter : values.value,
-        content : values.content,
+        filter : "deviceCode",
+        content : "",
         timer : new Date(),
         equipmentParams:{
           communityId :values.communityId || "",
@@ -238,6 +231,13 @@ export default class EquipmentDefinition extends Component {
           propertyId : values.propertyId || "",
           typeId : values.typeId|| ""
         }
+      })
+    }
+    if(!values.value){
+
+      this.refs.inputFilter.refs.realInput.value = "";
+      _this.setState({
+        filter:"deviceCode"
       })
     }
   }
@@ -266,12 +266,13 @@ export default class EquipmentDefinition extends Component {
       })
     },3000)
   }
-  // 校验硬件ID是否存在
+  // 硬件ID已经存在，则提示窗口显示
   hardwareIdHas=()=>{
     let _this = this;
     _this.setState({
       openTipWarn : true,
       tipText :"硬件ID已经存在!"
+    },function(){
     });
     setTimeout(function(){
       _this.setState({
@@ -279,7 +280,7 @@ export default class EquipmentDefinition extends Component {
       })
     },3000)
   }
-  //  选择社区为零  
+  //  并没有选择社区 
   seleletZero=()=>{
     let _this = this;
     _this.setState({
@@ -294,27 +295,52 @@ export default class EquipmentDefinition extends Component {
   }
   // 提交---->新建
   onSubmitNewCreateEquipment=(values)=>{
+    if(!values.locationId){
+      values.locationId=0;
+    }
     let _this = this;
     Store.dispatch(Actions.callAPI('equipmentNewCreateOrEdit',{},values))
       .then(function(response){
-        Message.success("新增设备成功");
+        if(values.id){
+          Message.success("编辑设备成功");
+        }else{
+          Message.success("新增设备成功");
+        }
+        
       }).catch(function(err){
         Message.error(err.message);
      });
-    this.setState({
-      content: '',
-      filter: 'deviceCode',
-      timer : new Date(),
-      openEditEquipment : false,
-      openNewCreateDefinition : false,
-      equipmentParams: {
-        filter: "deviceCode",
-        content: '',
-        page : 1,
-        pageSize: 15,
-        timer : new Date()
-      }
-    })
+
+    if(this.state.filter =="deviceCode"){
+      _this.setState({
+        content:_this.state.content,
+        filter:  _this.state.filter,
+        timer : new Date(),
+        openEditEquipment : false,
+        openNewCreateDefinition : false,
+        equipmentParams: {
+          deviceCode: _this.state.content,
+          page : 1,
+          pageSize: 15,
+          timer : new Date()
+        }
+      })
+    }else if(this.state.filter =="hardwareId"){
+      _this.setState({
+        content:_this.state.content,
+        filter:  _this.state.filter,
+        timer : new Date(),
+        openEditEquipment : false,
+        openNewCreateDefinition : false,
+        equipmentParams: {
+          hardwareId: _this.state.content,
+          page : 1,
+          pageSize: 15,
+          timer : new Date()
+        }
+      })
+    }
+    
     
   }
   // 保存并添加---新建
@@ -402,10 +428,11 @@ export default class EquipmentDefinition extends Component {
       },
     })
   }
-  openFinishTable=()=>{
-    this.openFinishUploadDialog();
-  }
+  // openFinishTable=()=>{
+  //   this.openFinishUploadDialog();
+  // }
   render() {
+    // console.log("页面中this.state.equipmentParams",this.state.equipmentParams);
     let {list,itemDetail,seleced,openTipWarn,tipText} = this.state;
     let options=[{
       label:"门编号",
@@ -434,7 +461,7 @@ export default class EquipmentDefinition extends Component {
                     <Button type='search' searchClick={this.openEquipmentAdvancedQueryDialog} 
                         searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}
                     />
-                  <SearchForms onSubmit={this.onSearchSubmit}  
+                  <SearchForms onSubmit={this.onSearchSubmit}  ref = "inputFilter" 
                     style={{marginTop:5,zIndex:10000}} 
                     content={this.state.content} 
                     searchFilter={options}
@@ -473,34 +500,55 @@ export default class EquipmentDefinition extends Component {
           </TableHeader>
           <TableBody style={{position:'inherit'}}>
               <TableRow displayCheckbox={true}>
-              <TableRowColumn name="communityName" 
+              <TableRowColumn name="communityName"
               component={(value,oldValue)=>{
                 if(value==""){
                   value="-"
                 }
                 return (<span>{value}</span>)}}
               ></TableRowColumn>
-              <TableRowColumn name="showTitle" style={{overflow:"hidden"}}
-              component={(value,oldValue)=>{
-                if(value==""){
-                  value="-"
-                }
-                return (<span>{value}</span>)}}
-               ></TableRowColumn>
-              <TableRowColumn name="deviceCode" style={{overflow:"hidden"}}
+              
+
+
+
+              <TableRowColumn style={{width:160,overflow:"visible"}} name="showTitle" component={(value,oldValue)=>{
+                            var TooltipStyle=""
+                            if(value.length==""){
+                              TooltipStyle="none"
+
+                            }else{
+                              TooltipStyle="block";
+                            }
+                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+              }} ></TableRowColumn>
+
+              
+
+
+              <TableRowColumn name="deviceCode" 
               component={(value,oldValue)=>{
                 if(value==""){
                   value="-"
                 }
                 return (<span>{value}</span>)}}
               ></TableRowColumn>
-              <TableRowColumn name="hardwareId" style={{overflow:"hidden"}}
+
+
+
+
+              <TableRowColumn  name="hardwareId"
               component={(value,oldValue)=>{
                 if(value==""){
                   value="-"
                 }
                 return (<span>{value}</span>)}}
               ></TableRowColumn>
+
+
+
+
+            
               <TableRowColumn name="typeName"
               component={(value,oldValue)=>{
                 if(value==""){
@@ -533,7 +581,6 @@ export default class EquipmentDefinition extends Component {
                 }
                 return (<span style={{color:spanColorOnline}}>{value}</span>)}}></TableRowColumn>
               <TableRowColumn name="activityTypeId"
-
               component={(value,oldValue)=>{
                 var spanColor = "";
                 if(value=="UNLINK"){
@@ -544,6 +591,7 @@ export default class EquipmentDefinition extends Component {
                 }
                 return (<span style={{color:spanColor}}>{value}</span>)}}></TableRowColumn>
               <TableRowColumn type="operation" name="enable" options={[{label:'已上线',value:'ONLINE'},{label:'未上线',value:'OFFLINE'}]} 
+             
               component={(value,oldValue,itemData)=>{
                   if(value=="未上线"){
                     return (
@@ -629,7 +677,7 @@ export default class EquipmentDefinition extends Component {
             onSubmit= {this.onBatchUpload}
             seleletZero ={this.seleletZero}
             closeBatchUpload = {this.closeBatchUpload}
-            openFinishTable = {this.openFinishTable}
+            openFinishTable = {this.openFinishUploadDialog}
             finishUpload = {this.finishUpload}
           />
         </Dialog>

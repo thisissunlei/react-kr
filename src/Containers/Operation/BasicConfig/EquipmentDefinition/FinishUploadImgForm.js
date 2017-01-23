@@ -4,6 +4,8 @@ import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import isRight from "./images/isRight.svg";
+import happy from "./images/happy.svg";
+import sad from "./images/sad.svg";
 import './index.less';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {
@@ -36,13 +38,25 @@ export default class FinishUploadImgForm extends Component{
 	      success : '',
 	      failed : '',
 	      rightfontColor : false,
-	      leftfontColor : true
+	      leftfontColor : true,
+	      successZero : false,
+	      failedZero : false
 	    };
 	}
 	componentDidMount(){
 		let _this = this;
 		Store.dispatch(Actions.callAPI('getSuccedOrErrData',""))
 	      .then(function(response){
+	      	if(response.success.length<1){
+	      		_this.setState({
+	      			successZero : true
+	      		})
+	      	}
+	      	if(response.failed.length<1){
+	      		_this.setState({
+	      			failedZero : true
+	      		})
+	      	}
 	      	_this.setState({
 	      		success : response.success,
 	      		failed : response.failed,
@@ -56,18 +70,6 @@ export default class FinishUploadImgForm extends Component{
 	        }])
 	     });
 	}
-	// 导出Excle表格
-	onExport=(values)=>{
-		let ids = [];
-		if (values.length != 0) {
-			values.map((item, value) => {
-				ids.push(item.id)
-			});
-		}
-		ids = String(ids);
-		var url = `/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
-		window.location.href = url;
-	}
 	closeUploadImg=()=>{
 		let {closeUploadImg} = this.props;
 		closeUploadImg && closeUploadImg();
@@ -78,10 +80,9 @@ export default class FinishUploadImgForm extends Component{
 			rightfontColor : !this.state.rightfontColor
 		})
 	}
+	// 导出excle表格
 	exportData=()=>{
-		console.log("导出");
 		window.location.href=`/api-th/krspace-finance-web/community/sysDeviceDefinition/upload-data-excel`
-		
 	}
 	render(){
 		let {sucNum,errNum,success,failed,rightfontColor,leftfontColor}=this.state;
@@ -99,38 +100,52 @@ export default class FinishUploadImgForm extends Component{
 					        inkBarStyle = {{background:"#499ef1"}}
 					    >
 					        <Tab className="upload-img-tab" label={`成功设备（ ${sucNum} ）`} value="a" style={{fontSize:14,fontWeight: "normal",color:leftfontColor?"#499ef1":"#333333",background:"#fff"}} onActive={this.onActive}>
-					          <div style={{borderRight:"solid 1px #dfdfdf",borderLeft:"solid 1px #dfdfdf"}} 
-					          	className="upload-img-victory">
-					            <Table
-					            	onProcessData={(state)=>{
-              							return state;
-              						}}
-					            	pagination = {false}
-					            	displayCheckbox={false}
-					            >
-									<TableHeader >
-										<TableHeaderColumn style={{fontSize:14}}>社区</TableHeaderColumn>
-										<TableHeaderColumn style={{fontSize:14}}>门编号</TableHeaderColumn>
-										<TableHeaderColumn style={{fontSize:14}}>智能硬件ID</TableHeaderColumn>
-									</TableHeader>
-									<TableBody style={{position:'inherit'}}>
-										{
-											success && success.map((item,index)=>{
-												return(
-													<TableRow displayCheckbox={false} key={index}>
-															<TableRowColumn><span>{item.communityName}</span></TableRowColumn>
-															<TableRowColumn><span>{item.deviceCode}</span></TableRowColumn>
-															<TableRowColumn><span>{item.hardwareId}</span></TableRowColumn>	
-													</TableRow>
-													)
-											})
-										}	
-									</TableBody>
-									<TableFooter></TableFooter>
-								</Table>
+					          	<div style={{height:328,overFlow:"scroll"}} className="upload-img-victory">
+						            <div>	
+							            <Table
+							            	onProcessData={(state)=>{
+		              							return state;
+		              						}}
+							            	pagination = {false}
+							            	displayCheckbox={false}
+							            	style={{borderRight:"solid 1px #dfdfdf",borderLeft:"solid 1px #dfdfdf"}}
+							            >
+											<TableHeader >
+												<TableHeaderColumn style={{fontSize:14}}>社区</TableHeaderColumn>
+												<TableHeaderColumn style={{fontSize:14}}>门编号</TableHeaderColumn>
+												<TableHeaderColumn style={{fontSize:14}}>智能硬件ID</TableHeaderColumn>
+											</TableHeader>
+											<TableBody style={{position:'inherit'}} 
+							            	>
+												{
+													success && success.map((item,index)=>{
+														return(
+															<TableRow displayCheckbox={false} key={index}>
 
-					          	</div>
-					          	<div onClick={this.exportData} style={{fontSize:14,color:"#499ef1",marginTop:10}}>导出数据</div>
+																	<TableRowColumn><span>{item.communityName}</span></TableRowColumn>
+																	<TableRowColumn><span>{item.deviceCode}</span></TableRowColumn>
+																	<TableRowColumn><span>{item.hardwareId}</span></TableRowColumn>	
+																	
+															</TableRow>
+															)
+													})
+												}	
+											</TableBody>
+											<TableFooter></TableFooter>
+										</Table>
+									
+						          	</div>
+
+						          	<div 
+										style={{display:this.state.successZero?"block":"none",textAlign:"center",border:"solid 1px #dfdfdf",borderTop:'none',height:160,paddingTop:120,}}
+									>
+										<img className="upload-img-right" src={sad} style={{width:20,verticalAlign:"top"}}/>
+										<span style={{color:"#333"}}>很遗憾,一张照片也没传上……</span>
+									</div>
+
+								</div>
+					          	<div onClick={this.exportData} style={{fontSize:14,color:"#499ef1",marginTop:10,width:56,cursor: "pointer"}}>导出数据</div>
+
 					          	<Grid style={{marginTop:30,marginBottom:'4px'}}>
 									<Row>
 										<ListGroup>
@@ -146,39 +161,48 @@ export default class FinishUploadImgForm extends Component{
 								
 					        </Tab>
 					        <Tab label={`失败设备（ ${errNum} ）`} value="b" style={{fontSize:14,fontWeight: "normal",color:rightfontColor?"#499ef1":"#333333",background:"#fff"}} onActive={this.onActive}>
-					          	<div style={{borderRight:"solid 1px #dfdfdf",borderLeft:"solid 1px #dfdfdf"}} 
-					          		className="upload-img-victory">
-						          	<Table 
-						          	exportSwitch={true}
-					            	pagination = {false}
-					            	displayCheckbox = {false}
-						          	>
-										<TableHeader >
-											<TableHeaderColumn style={{fontSize:14}}>社区门编号</TableHeaderColumn>
-											<TableHeaderColumn style={{fontSize:14}}>门编号</TableHeaderColumn>
-											<TableHeaderColumn style={{fontSize:14}}>智能硬件ID</TableHeaderColumn>
-										</TableHeader>
-										<TableBody style={{position:'inherit'}}>
-											
-											{
-												failed && failed.map((item,index)=>{
-													return(
-														<TableRow displayCheckbox={false} key={index}>
-																<TableRowColumn><span>{item.communityName}</span></TableRowColumn>
-																<TableRowColumn><span>{item.deviceCode}</span></TableRowColumn>
-																<TableRowColumn><span>{item.hardwareId}</span></TableRowColumn>
-																
-														</TableRow>
-														)
-												})
-											}
-										</TableBody>
-										<TableFooter></TableFooter>
-									</Table>
-									
-								</div>
-								<div onClick={this.exportData} style={{fontSize:14,color:"#499ef1",marginTop:10}}>导出数据</div>
-								<Grid style={{marginTop:30,marginBottom:'4px'}}>
+					          	<div style={{height:334,overFlow:"scroll"}} className="upload-img-victory">
+						            <div> 
+							          	<Table 
+							          	exportSwitch={true}
+						            	pagination = {false}
+						            	displayCheckbox = {false}
+						            	style={{borderRight:"solid 1px #dfdfdf",borderLeft:"solid 1px #dfdfdf"}}
+							          	>
+											<TableHeader >
+												<TableHeaderColumn style={{fontSize:14}}>社区门编号</TableHeaderColumn>
+												<TableHeaderColumn style={{fontSize:14}}>门编号</TableHeaderColumn>
+												<TableHeaderColumn style={{fontSize:14}}>智能硬件ID</TableHeaderColumn>
+											</TableHeader>
+											<TableBody style={{position:'inherit'}}>
+												
+												{
+													failed && failed.map((item,index)=>{
+														return(
+															<TableRow displayCheckbox={false} key={index}>
+																	<TableRowColumn><span>{item.communityName}</span></TableRowColumn>
+																	<TableRowColumn><span>{item.deviceCode}</span></TableRowColumn>
+																	<TableRowColumn><span>{item.hardwareId}</span></TableRowColumn>
+																	
+															</TableRow>
+															)
+													})
+												}
+											</TableBody>
+											<TableFooter></TableFooter>
+										</Table>
+										
+									</div>
+									<div 
+										style={{display:this.state.failedZero?"block":"none",textAlign:"center",border:"solid 1px #dfdfdf",borderTop:'none',height:160,paddingTop:120,}}
+									>
+										<img className="upload-img-right" src={happy} style={{width:20,verticalAlign:"top"}}/>
+										<span style={{color:"#333"}}>恭喜您，所有照片都上传成功了</span>
+									</div>
+						        </div>
+						        <div onClick={this.exportData} style={{fontSize:14,color:"#499ef1",marginTop:10,width:56,cursor: "pointer"}}>导出数据</div>
+
+					          	<Grid style={{marginTop:30,marginBottom:'4px'}}>
 									<Row>
 										<ListGroup>
 											<ListGroupItem style={{width:255,textAlign:'right',padding:0,paddingRight:15}}>
@@ -199,9 +223,4 @@ export default class FinishUploadImgForm extends Component{
 		);
 	}
 }
-// export default FinishUploadImgForm = reduxForm({
-// 	form: 'FinishUploadImgForm',
-	// validate,
-	// enableReinitialize: true,
-	// keepDirtyOnReinitialize: true,
-// })(FinishUploadImgForm);
+

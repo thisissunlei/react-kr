@@ -32,17 +32,8 @@ class BatchUploadImageForm extends Component{
 			communitys: []
 		}
 	}
+	// 首次加载获取社区列表
 	componentDidMount(){
-		let _this = this;
-		Store.dispatch(Actions.callAPI('getCommunityEquipment',""))
-	      .then(function(response){
-	      	_this.setState({
-	      		communitys : response.items
-	      	})
-
-	    }).catch(function(err){
-	        Message.error(err.message);
-	    });
 	}
 	onCancel=()=>{
 		let {onCancel} = this.props;
@@ -58,7 +49,6 @@ class BatchUploadImageForm extends Component{
 	}
 	// 提交(获取总共上传社区个数)
 	onSubmit=(values)=>{
-		// console.log("上传图片获取真实设备数传值",values)
 		let _this =this;
 		if(!values.uploadImage){
 			const {tipOpen} = this.props;
@@ -126,20 +116,14 @@ class BatchUploadImageForm extends Component{
 	}
 	// 确定开始上传
 	confirmSubmit=()=>{
-		// console.log("this.state",this.state);
 		let _this = this;
 		_this.openBatchUploadNum();
-		// console.log("_this",_this);
 		let sendRealEquipment = {
 			deviceId : _this.state.selectedCommunitys,
 			picUrl : _this.state.picUrl
 		}
-		// this.openBatchUploadNum();
-		// console.log("sendRealEquipment",sendRealEquipment);
-
 	    Store.dispatch(Actions.callAPI('oploadImgToEquipment',{},sendRealEquipment))
 	      .then(function(response){
-	      	// console.log("____",response);
 	      }).catch(function(err){
 	        Notify.show([{
 	          message: err.message,
@@ -151,7 +135,6 @@ class BatchUploadImageForm extends Component{
 		var timer = setInterval(function(){
 			Store.dispatch(Actions.callAPI('getPushImgRes',""))
 			.then(function(response){
-				// console.log("获取成功数失败数",response);
 				response = response.split("|");
 				_this.setState({
 					innerBoxWidth : Number((response[0]/response[1])*298),
@@ -165,7 +148,6 @@ class BatchUploadImageForm extends Component{
 					
 					window.clearInterval(timer);
 					timer = null;
-					// console.log("timer",timer);
 					if(timer == null){
 						_this.closeSchedule();
 						_this.closeBatchUpload();
@@ -174,32 +156,8 @@ class BatchUploadImageForm extends Component{
 				}
 			})
 		},300);
-		// var timeout = false; //启动及关闭按钮 
-		// time(); 
-		// function time(){  
-		//   if(timeout) return;  
-		//   Store.dispatch(Actions.callAPI('getPushImgRes',""))
-		// 	.then(function(response){
-		// 		// console.log("获取成功数失败数",response);
-		// 		response = response.split("|");
-		// 		_this.setState({
-		// 			innerBoxWidth : Number((response[0]/response[1])*298)
-		// 		})
-		// 		if(response[0] == response[1]){
-		// 			timeout = true;
-		// 			_this.setState({
-		// 				openSchedule : false
-		// 			});
-		// 			_this.closeSchedule();
-		// 			_this.closeBatchUpload();
-		// 			_this.openFinishTable();
-		// 		}
-		// 	})  
-		//   	setTimeout(time,100); //time是指本身,延时递归调用自己,100为间隔调用时间,单位毫秒  
-		// } 
 	}
 	render(){
-		// console.log("是否打开提示窗口",this.state.batchUploadNum);
 		let {communitys}=this.state;
 		const {handleSubmit,detail}=this.props;
 		return(

@@ -21,10 +21,19 @@ class EquipmentAdvancedQueryForm extends Component{
 		super(props);
 		this.state={
 			searchForm: false,
-			floorsOptions:[{label:"",value:""}]
+			floorsOptions:[{label:"",value:""}],
 		}
 	}
+	componentWillReceiveProps(){
+	}
+	componentDidMount(){
+		let _this = this;
+		Store.dispatch(change('EquipmentAdvancedQueryForm','type',this.props.filter));
+		Store.dispatch(change('EquipmentAdvancedQueryForm','value',this.props.content));
+	}
+	// 提交
 	onSubmit=(values)=>{
+		// console.log("values",values);
 		let {content,filter} = this.props;
 		let {searchForm} = this.state;
 		if (!searchForm){
@@ -34,26 +43,36 @@ class EquipmentAdvancedQueryForm extends Component{
 		if(!values.type){
 			values.type = filter;
 		}
+		// console.log("values",values);
 		const {onSubmit} =this.props;
 		onSubmit && onSubmit(values);
 	}
 	// 重置
 	onReset=()=>{
 		Store.dispatch(reset('EquipmentAdvancedQueryForm',''));
+		// console.log("this.refs.IndexsearchForm.refs.componentSearchInput",this.refs.IndexsearchForm.refs.componentSearchInput)
+		this.refs.IndexsearchForm.refs.componentSearchInput.value = "";
+		Store.dispatch(change('EquipmentAdvancedQueryForm','type',"deviceCode"));
 		const {onReset} = this.props;
 		onReset && onReset();
+
 	}
+	// 过滤器失去焦点执行
 	onFilter=(search)=>{
+		console.log("search",search);
 		this.setState({searchForm:true});
-		Store.dispatch(change('EquipmentAdvancedQueryForm','type',search.value));
-		Store.dispatch(change('EquipmentAdvancedQueryForm','value',search.content));
-		let {onFilterState}=this.props;
-		onFilterState && onFilterState(search);
+		if(search.content){
+			Store.dispatch(change('EquipmentAdvancedQueryForm','type',search.value));
+			Store.dispatch(change('EquipmentAdvancedQueryForm','value',search.content));
+
+		}else{
+			Store.dispatch(change('EquipmentAdvancedQueryForm','type',search.value));
+			Store.dispatch(change('EquipmentAdvancedQueryForm','value',''));
+		}
 	}
 	// 查询楼层
 	onSearchFloor=(community)=>{
 		let _this = this;
-		console.log("community",community);
 		if(community == null){
 			return;
 		}
@@ -62,21 +81,19 @@ class EquipmentAdvancedQueryForm extends Component{
 		}
     	Store.dispatch(Actions.callAPI('getFloorByComunity',CommunityId))
     	.then(function(response){
-    		console.log("response",response);
     		var arrNew = []
     		for (var i=0;i<response.whereFloors.length;i++){
     			arrNew[i] = {label:response.whereFloors[i],value:response.whereFloors[i]}
     		}
-    		console.log("arrNew",arrNew);
     		_this.setState({
     			floorsOptions : arrNew
     		})
     	}).catch(function(err){
     	})
 	}
+
 	render(){
 		let {floorsOptions}=this.state;
-		console.log("floorsOptions",floorsOptions);
 		const { error, handleSubmit,content,filter} = this.props;
 		let options=[{
 	      label:"门编号",
@@ -89,9 +106,6 @@ class EquipmentAdvancedQueryForm extends Component{
 		let typeOptions = [{
 			label: '门禁',
 			value: 1
-		}, {
-			label: '全部',
-			value: ''
 		}];
 		// 属性待选项
 		let propertyOption=[{
@@ -103,9 +117,6 @@ class EquipmentAdvancedQueryForm extends Component{
 		},{
 			label: '功能室',
 			value: 3
-		},{
-			label: '全部',
-			value: ''
 		}]
 		// 对应功能选项
 		let correspondingFunction =[{
@@ -117,11 +128,7 @@ class EquipmentAdvancedQueryForm extends Component{
 		},{
 			label: '预定',
 			value: 3
-		},{
-			label: '全部',
-			value: ''
 		}]
-		// console.log("filter",filter,"content",content);
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px',marginLeft:'40px'}}>
 				<ListGroup >
@@ -132,6 +139,7 @@ class EquipmentAdvancedQueryForm extends Component{
 							defaultFilter={filter} 
 							defaultContent={content} 
 							onSubmit={this.onFilter}
+							ref ="IndexsearchForm"
 						/>
 					</ListGroupItem>
 				</ListGroup>

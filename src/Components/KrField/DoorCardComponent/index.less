@@ -98,8 +98,6 @@
 		}
 	}
 	}
-
-
 	.ui-door-card-right-part{
 		display:inline-block;
 		.ui-door-card-right-selected-num{
@@ -132,7 +130,7 @@
 				}
 			}
 			.ui-door-card-selected-community-list{
-				position:absolute;
+				position:relative;
 				font-size:14px;
 				padding: 5px 16px 0 16px;
 				height: 244px;
@@ -157,6 +155,11 @@
 						}
 
 					}
+				}
+				ui-door-card-selected-community-list-inner{
+					position:absolute;
+					height: 244px;
+	    			overflow-y: scroll;
 				}
 
 			}
