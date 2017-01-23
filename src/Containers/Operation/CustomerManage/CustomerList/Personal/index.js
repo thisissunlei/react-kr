@@ -31,6 +31,8 @@ import {
 	Tooltip
 } from 'kr-ui';
 import DateFormat from "kr/Utils";
+import editsourceCustomer from "../EditCustomerList/State";
+
 import State from './State';
 import StateIn from '../NewVisitIndent/State.js';
 import NewCustomerList from '../NewCustomerList';
@@ -82,8 +84,7 @@ class Personal extends Component{
 	openEditCustomerList=()=>{
 		let listId=State.listId;
 		Store.dispatch(Actions.callAPI('get-edit-info',{id:listId})).then(function(response) {
-			console.log("KKKkkkkkkkkkkk")
-			
+
 			Store.dispatch(initialize('EditCustomerList',response));
 			if(!response.countyName){
 				State.editCity=`${response.provinceName}/${response.cityName}`
@@ -91,6 +92,12 @@ class Personal extends Component{
 				State.editCity="";
 			}else{
 				State.editCity=`${response.provinceName}/${response.cityName}/${response.countyName}`
+			}
+			 if(response.sourceName.indexOf("介绍")!=-1){
+
+			 	editsourceCustomer.sourceCustomer=true;
+			}else{
+			 	editsourceCustomer.sourceCustomer=false;
 			}
 			State.editprojectName=response.projectName;
 		}).catch(function(err) {

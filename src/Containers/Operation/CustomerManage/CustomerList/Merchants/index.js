@@ -32,6 +32,7 @@ import {
 } from 'kr-ui';
 import DateFormat from "kr/Utils";
 import State from './State';
+import editsourceCustomer from "../EditCustomerList/State";
 import StateIn from '../NewVisitIndent/State.js';
 import NewCustomerList from '../NewCustomerList';
 import LookCustomerList from '../LookCustomerList';
@@ -90,6 +91,13 @@ class Merchants extends Component{
 				State.editCity=`${response.provinceName}/${response.cityName}/${response.countyName}`
 			}
 			State.editprojectName=response.projectName;
+			console.log(response.sourceName.indexOf("介绍"),">>>>>>>>>>>")
+			 if(response.sourceName.indexOf("介绍")!=-1){
+
+			 	editsourceCustomer.sourceCustomer=true;
+			}else{
+			 	editsourceCustomer.sourceCustomer=false;
+			}
 			if(response.hasOffice=="YES"){
 				State.hasOfficeChange(true);
 			}else{
@@ -441,6 +449,7 @@ class Merchants extends Component{
 			                 hasOffice={State.ishasOffice}
 			                 cityName={State.editCity}
 			                 listValue={State.editprojectName}
+			      
 						/>
 					</Drawer>
 

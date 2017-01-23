@@ -22,6 +22,7 @@ let State = observable({
 			visitTypeList:[]
 		},
 		isCorpName:false,
+		sourceCustomer:false
 
 
 });

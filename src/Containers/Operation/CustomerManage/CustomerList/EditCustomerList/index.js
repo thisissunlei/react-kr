@@ -37,6 +37,7 @@ import flushData from "../LookCustomerList/State";
 	constructor(props){
 		super(props);
 		let {listId}=props;
+		console.log("================");
 		
 	}
 	supplementZero(value) {
@@ -113,6 +114,19 @@ import flushData from "../LookCustomerList/State";
 			Message.error(err.message);
 		});
 	}
+	sourceCustomer=(value)=>{
+	  if(!value){
+	  	return;
+	  }
+
+	  var param=value.label;
+      if(param.indexOf('介绍')!=-1){
+         State.sourceCustomer=true;
+      }else{
+      	 State.sourceCustomer=false;
+      }
+
+	}
 
 	onCancel = () => {
 		const {onCancel} = this.props;
@@ -161,6 +175,7 @@ import flushData from "../LookCustomerList/State";
 									<KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="select" 
 											options={dataReady.customerSourceList}
 											requireLabel={true}
+											onChange={this.sourceCustomer}
 									/>
 
 									{State.sourceCustomer&&<KrField grid={1/2} label="介绍人姓名" name="recommendName" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>}

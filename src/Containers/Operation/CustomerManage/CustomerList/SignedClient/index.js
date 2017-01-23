@@ -39,6 +39,7 @@ import EditCustomerList from "../EditCustomerList";
 import NewIndent from "../NewIndent";
 import EditIndent from "../EditIndent";
 import NewVisitIndent from '../NewVisitIndent';
+import editsourceCustomer from "../EditCustomerList/State";
 import SwitchPerson from '../SwitchPerson';
 import OrderDelete from '../OrderDelete';
 import './index.less'
@@ -120,8 +121,13 @@ class SignedClient extends Component{
 			}else{
 				State.editCity=`${response.provinceName}/${response.cityName}/${response.countyName}`
 			}
+			 if(response.sourceName.indexOf("介绍")!=-1){
+
+			 	editsourceCustomer.sourceCustomer=true;
+			}else{
+			 	editsourceCustomer.sourceCustomer=false;
+			}
 			State.editprojectName=response.projectName;
-			console.log(response.projectName,"MMMMMMMMMM")
 		}).catch(function(err) {
 			
 		});
@@ -285,7 +291,6 @@ class SignedClient extends Component{
 
      
        let {searchSignParams,dataReady,orderReady}=this.props; 
-        console.log(State.companyName,">>>>>>>")
        var blockStyle={};
       if(State.openPersonDialog==true){
         blockStyle={
