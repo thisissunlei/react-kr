@@ -711,9 +711,9 @@ export default class Table extends React.Component {
 
 		return (
 		<div>
-				<div className="btn-collapse" onClick={this.onFold}>{this.state.foldOpen?'收起':'展开'}</div>
-				{this.state.foldOpen&&<span className="recordDevelop" >展开</span>}
-			    {!this.state.foldOpen&&<span className="recordClose" >收起</span>}
+				<div className="btn-collapse" onClick={this.onFold}></div>
+				{this.state.foldOpen&&<span className="recordDevelop" onClick={this.onFold}>展开</span>}
+			    {!this.state.foldOpen&&<span className="recordClose" onClick={this.onFold}>收起</span>}
 		</div>
 
 		);

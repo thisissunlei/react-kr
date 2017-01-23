@@ -271,7 +271,7 @@ class LookDetail extends Component{
 						
 				</div>
 					
-				<div style={{textAlign: "center",marginTop:30}}><Button  label="新增拜访记录" type="button" style={{width:120}} onTouchTap={IndentSwitch} /></div>
+				<div className='look-addVisitBtn' style={{textAlign: "center",marginTop:30}}><Button  label="新增拜访记录" type="button" style={{width:120}} onTouchTap={IndentSwitch} /></div>
 				
 			
 	      </div>
