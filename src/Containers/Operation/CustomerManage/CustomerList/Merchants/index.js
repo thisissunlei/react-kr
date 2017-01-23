@@ -51,7 +51,7 @@ class Merchants extends Component{
 			//加载后的数据
 			loadData:[],
 			//选中的值
-			arrItem:[]
+			arrItem:[],
 		}
 	}
 	//新建页面的开关
@@ -82,6 +82,7 @@ class Merchants extends Component{
 
 		Store.dispatch(Actions.callAPI('get-edit-info',{id:listId})).then(function(response) {
 			Store.dispatch(initialize('EditCustomerList',response));
+<<<<<<< HEAD
 			if(!response.countyName){
 				State.editCity=`${response.provinceName}/${response.cityName}`
 			}else if(!response.countyName&&!response.cityName&&!response.countyName){
@@ -89,6 +90,9 @@ class Merchants extends Component{
 			}else{
 				State.editCity=`${response.provinceName}/${response.cityName}/${response.countyName}`
 			}
+=======
+			State.editCity=`${response.provinceName}/${response.cityName}/${response.countyName}`
+>>>>>>> 1a055c7e35605ac0f1727c57186b5a5e2dfa48ab
 			State.editprojectName=response.projectName;
 			console.log(response.projectName,"><  ><")
 			if(response.hasOffice=="YES"){
@@ -131,15 +135,14 @@ class Merchants extends Component{
     
     //选中几项领取，转移等
     onSelect=(value)=>{
-        var value=Array.prototype.slice.call(value);
     	var arrItem=[]
     	let {loadData}=this.state;
+    	if(value.length>15){
+           value=value.splice(0,15);
+    	}
         for(var i=0;i<value.length;i++){
         	var allId=value[i];
-        	if(!loadData[allId].id){
-        		return ;
-        	}     	
-        	arrItem.push(loadData[allId].id)
+            arrItem.push(loadData[allId].id)
         }
 
       if(value.length>0){
@@ -156,7 +159,7 @@ class Merchants extends Component{
     onLoaded=(value)=>{
        let loadData = value.items;
 	   this.setState({
-			 loadData
+			 loadData,
 		 })
     }
     //领取浮框的关闭

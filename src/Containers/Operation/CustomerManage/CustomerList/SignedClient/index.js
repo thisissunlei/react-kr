@@ -169,6 +169,9 @@ class SignedClient extends Component{
     onSelect=(value)=>{
     	var arrItem=[]
     	let {loadData}=this.state;
+    	if(value.length>15){
+           value=value.splice(0,15);
+    	}
         for(var i=0;i<value.length;i++){
         	var allId=value[i];
         	arrItem.push(loadData[allId].id)
