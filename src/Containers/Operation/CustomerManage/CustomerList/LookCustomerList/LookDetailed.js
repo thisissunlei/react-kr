@@ -169,6 +169,7 @@ class LookDetail extends Component{
 				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="意向入驻社区:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.intentionCommunityName} inline={true} /></li>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="联系人微信:" style={unifyStyle} component="labelText" value={detail.wechat} inline={true} /></li>
 				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="预计入驻时间:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={<KrDate style={{marginTop:5}} value={detail.inTime} format="yyyy-mm-dd"/>} inline={true} /></li>
+
 				<div className="bottomWire"></div>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="公司名称:" style={unifyStyle} component="labelText" value={detail.company} inline={true} /></li>
 				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="投资轮次:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.roundName} inline={true} /></li>
