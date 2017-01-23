@@ -54,11 +54,15 @@ class Merchants extends Component{
 			arrItem:[]
 		}
 	}
-	
+	//新建页面的开关
+	opNewMerchants=()=>{
+		Store.dispatch(initialize('NewCustomerList',{hasOffice:'NO'}));
+		State.switchNewCustomerList();
+	}
 	//新建页面的开关
 	switchNewMerchants= (params) => {
 		
-		Store.dispatch(initialize('NewCustomerList',{hasOffice:'NO'}));
+		
 		State.switchNewCustomerList();
 
 	}
@@ -258,7 +262,7 @@ class Merchants extends Component{
 									<Button
 											label="新建客户"
 											type='button'
-											onTouchTap={this.switchNewMerchants}
+											onTouchTap={this.opNewMerchants}
 									/>
 					  </Col>
 

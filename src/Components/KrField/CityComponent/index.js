@@ -209,6 +209,7 @@ export default class CityComponent extends React.Component {
 		cityDiv.display = showCity?'block':'none';
 		let firstCity = this.firstCityList();
 		let {secondCity,thirdCity,firstId,secondId,city,thirdId} = this.state;
+
 		let cityStyle= {
 			background:'#fff'
 		};
@@ -216,6 +217,11 @@ export default class CityComponent extends React.Component {
 			background:'#f5f5f5'
 		}
 		let hoverColor = {};
+		if(!city){
+			if(this.props.city){
+				city=this.props.city;
+			}
+		}
 		
 
 

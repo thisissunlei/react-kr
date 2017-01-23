@@ -160,7 +160,7 @@ class LookDetail extends Component{
 				            ajaxUrlName='get-detail-info'
 				            ajaxFieldListName="records"
 				            fold={true}
-				            foldSize="1"
+				            foldSize="5"
 								  >
 					            <TableHeader>
 					              <TableHeaderColumn>拜访方式</TableHeaderColumn>
@@ -176,39 +176,71 @@ class LookDetail extends Component{
 
 						        <TableBody >
 						               <TableRow >
-						               <TableRowColumn name="linkTel" component={(value,oldValue)=>{
-														 return (<div><span className='tableOver'>{value}</span>
-														 	<Tooltip offsetTop={10} place='top'>
-																<div style={tooltipTextStyle}>{oldValue}</div>
+						               <TableRowColumn name="linkTel"  component={(value,oldValue)=>{
+						                				 let show=false;
+						                				if(value.length==0){
+						                					show=false;
+						                				}else{
+						                					show=true;
+						                				}
+														 return (show && <div><span className='tableOver' >{value}</span>
+														 	<Tooltip offsetTop={10} place='top' style={{display:"none"}}>
+																<div style={tooltipTextStyle}>{value}</div>
 														 	</Tooltip></div>)
 													 }}
 
 						                ></TableRowColumn>
 						                <TableRowColumn name="visitTime" type='date' format="yyyy-mm-dd HH:MM:ss" component={(value,oldValue)=>{
-						                				let show="block";
+						                				let show=false
 						                				if(value.length==0){
-						                					show="none";
+						                					show=true
 						                				}else{
-						                					show="block";
+						                					show=false;
 						                				}
-														 return (<div><span className='tableOver'><KrDate value={value}/></span>
+														 return (show && <div><span className='tableOver'><KrDate value={value}/></span>
 														 	<Tooltip offsetTop={10} place='top' style={{left:50,display:show}}>
 																<div style={tooltipTextStyle}><KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
 														 	</Tooltip></div>)
 													 }}
 
 						                ></TableRowColumn>
-						                <TableRowColumn name="linkName"></TableRowColumn>
-						                <TableRowColumn name="linkTel"></TableRowColumn>
-						                <TableRowColumn name="levelName"></TableRowColumn>
-						                <TableRowColumn name="visitDetail" component={(value,oldValue)=>{
-						                				 let show="block";
+						                <TableRowColumn name="linkName" component={(value,oldValue)=>{
+						                				 let show=false;
 						                				if(value.length==0){
-						                					show="none";
+						                					show=false;
 						                				}else{
-						                					show="block";
+						                					show=true;
 						                				}
-														 return (<div><span className='tableOver' >{value}</span>
+														 return (show && <div><span className='tableOver' >{value}</span>
+														 	<Tooltip offsetTop={10} place='top' style={{display:"none"}}>
+																<div style={tooltipTextStyle}>{value}</div>
+														 	</Tooltip></div>)
+													 }}
+
+						                ></TableRowColumn>
+						                <TableRowColumn name="linkTel"></TableRowColumn>
+						                <TableRowColumn name="levelName"  component={(value,oldValue)=>{
+						                				 let show=false;
+						                				if(value.length==0){
+						                					show=false;
+						                				}else{
+						                					show=true;
+						                				}
+														 return (show && <div><span className='tableOver' >{value}</span>
+														 	<Tooltip offsetTop={10} place='top' style={{display:"none"}}>
+																<div style={tooltipTextStyle}>{value}</div>
+														 	</Tooltip></div>)
+													 }}
+
+						                ></TableRowColumn>
+						                <TableRowColumn name="visitDetail"  component={(value,oldValue)=>{
+						                				 let show=false;
+						                				if(value.length==0){
+						                					show=false;
+						                				}else{
+						                					show=true;
+						                				}
+														 return (show && <div><span className='tableOver' >{value}</span>
 														 	<Tooltip offsetTop={10} place='top' style={{display:"none"}}>
 																<div style={tooltipTextStyle}>{value}</div>
 														 	</Tooltip></div>)
@@ -231,10 +263,10 @@ class LookDetail extends Component{
 						               </TableRow >
 						        </TableBody>
 			           </Table>}
-			           <div className="isDevelop" onClick={this.isDevelopClick}>
+			           {/*<div className="isDevelop" onClick={this.isDevelopClick}>
 			           		{State.isDevelop&&<span className="recordDevelop" >展开</span>}
 			           		{!State.isDevelop&&<span className="recordClose" >收起</span>}
-			           </div>
+			           </div>*/}
 
 						
 				</div>

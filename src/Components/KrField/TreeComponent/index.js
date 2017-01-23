@@ -68,7 +68,10 @@ export default class TreeComponent extends React.Component {
 	render() {
 		let {label,style,requireLabel,inline,search}=this.props;
 		let imitateInputStyle="ui-imitateInput";
-		let showTreeList=this.state.showTreeList;
+		let {listValue,showTreeList}=this.state;
+		if(!listValue&&this.props.listValue){
+			listValue=this.props.listValue;
+		}
 
 		return (
 
