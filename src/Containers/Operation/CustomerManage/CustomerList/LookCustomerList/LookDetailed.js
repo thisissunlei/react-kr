@@ -89,7 +89,6 @@ class LookDetail extends Component{
 		
 		let tr=[];
 		for(let i=0;i<State.detail.records.length;i++){
-		console.log(len,State.detail.records[i],"??????////")
 
 
 			let tds=[];
