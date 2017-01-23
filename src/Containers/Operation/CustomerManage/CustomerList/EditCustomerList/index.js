@@ -22,6 +22,8 @@ import './index.less'
 import merchants from "../Merchants/State";
 import personal from "../Personal/State";
 import signedClient from "../SignedClient/State";
+import flushData from "../LookCustomerList/State";
+
 @observer
  class EditCustomerList extends Component{
 
@@ -102,10 +104,8 @@ import signedClient from "../SignedClient/State";
 					time:+new Date()
 		        }
          	}
+         	flushData.lookListId(_this.props.listId,operType);
 		
-		console.log("14>>>")
-		
-
          	_this.onCancel();
 		}).catch(function(err) {
 		console.log("15>>>")
@@ -199,7 +199,7 @@ import signedClient from "../SignedClient/State";
 								<KrField grid={1/2} label="融资金额" name="amount" style={{width:262,marginLeft:28}} component="input" requireLabel={false}/>
 								<KrField grid={1/2} label="所属地区" name="distinctId"  style={{width:262,marginLeft:15,zIndex:2}} component="city" onSubmit={this.city} requireLabel={true} cityName={cityName}/>
 								<KrField grid={1/2} label="项目名称" name="projectName" style={{width:262,marginLeft:28}} component="input" requireLabel={true} />
-								<KrField grid={1/2} label="项目类型" name="projectCategoryId"  style={{width:262,marginLeft:15,zIndex:1}} component="tree" placeholder="请选择项目类型" requireLabel={true} listValue={listValue}/>
+								<KrField grid={1/2} label="项目类型" name="projectCategoryId"  style={{width:262,marginLeft:15,zIndex:1}} component="tree" placeholder="请选择项目类型" requireLabel={true} listValueName={listValue}/>
 								<KrField grid={1/2} label="详细地址" name="detailAddress" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
 
 

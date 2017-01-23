@@ -65,11 +65,15 @@ export default class TreeComponent extends React.Component {
 		let {listValue,showTreeList}=this.state;
 		if(listValue=="请选择项目类型"||listValue==placeholder){
 			if(!listValueName){
+		console.log("1")
 
 			}else if(listValueName.length!=0){
 				listValue=listValueName;
+		console.log("2")
+
 			}
 		}
+		console.log("3")
 
 		return (
 

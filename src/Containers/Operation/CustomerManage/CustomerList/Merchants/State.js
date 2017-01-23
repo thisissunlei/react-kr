@@ -29,7 +29,8 @@ let State = observable({
 		companyName:'',
 		ishasOffice:false,
 		editCity:'',
-		editprojectName:''
+		editprojectName:'',
+		sourceCustomer:false,
 
 });
 State.hasOfficeChange=action(function(params){

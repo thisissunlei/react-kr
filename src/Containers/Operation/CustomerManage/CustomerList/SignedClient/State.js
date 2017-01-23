@@ -35,6 +35,8 @@ let State = observable({
 		editIndentId:'',
 		orderName:"",
 		cityname:"",
+		editCity:'',
+		editprojectName:''
 });
 
 //新建页的开关

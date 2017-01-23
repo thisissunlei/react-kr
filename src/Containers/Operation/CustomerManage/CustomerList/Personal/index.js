@@ -82,8 +82,16 @@ class Personal extends Component{
 	openEditCustomerList=()=>{
 		let listId=State.listId;
 		Store.dispatch(Actions.callAPI('get-edit-info',{id:listId})).then(function(response) {
+			console.log("KKKkkkkkkkkkkk")
+			
 			Store.dispatch(initialize('EditCustomerList',response));
-			State.editCity=`${response.provinceName}/${response.cityName}/${response.countyName}`
+			if(!response.countyName){
+				State.editCity=`${response.provinceName}/${response.cityName}`
+			}else if(!response.countyName&&!response.cityName&&!response.countyName){
+				State.editCity="";
+			}else{
+				State.editCity=`${response.provinceName}/${response.cityName}/${response.countyName}`
+			}
 			State.editprojectName=response.projectName;
 		}).catch(function(err) {
 			
@@ -468,7 +476,7 @@ class Personal extends Component{
 								 onCancel={this.switchLookCustomerList}
 				                 listId={State.listId}
 				                 dataReady={dataReady}
-				                 editsSwitch={this.switchEditCustomerList}
+				                 editsSwitch={this.openEditCustomerList}
 				                 IndentSwitch={this.switchCustomerIndent}
 				                 newIndentSwitch={this.openNewIndent}
 				                 editIndentSwitch={this.openEditIndent}
@@ -534,7 +542,8 @@ class Personal extends Component{
 			                 editIndentData={State.editIndentData}
 			                 editIndentId={State.editIndentId}
 			                 orderName={State.orderName}
-			                 cityname={State.cityname}
+			                 cityName={State.editCity}
+			                 listValue={State.editprojectName}
 						/>
 					</Drawer>
 

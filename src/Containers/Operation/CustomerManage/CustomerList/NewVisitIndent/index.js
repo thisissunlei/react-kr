@@ -40,11 +40,7 @@ import './index.less'
 		  let {listId,operType}=this.props;
 		 var _this=this;
 	       Store.dispatch(Actions.callAPI('customerVisitRecord',{},values)).then(function(response) {	       	
-				flushData.searchParams={
-		         	id:listId,
-    	            operType:operType,
-					time:+new Date()
-		         }
+				flushData.lookListId(listId,operType);
 			
 		    _this.onCancel();
 		    
@@ -146,8 +142,8 @@ import './index.less'
 		            </KrField>
 		            {this.renderContinue()}
 					{this.renderOtherContinue()}
-					<div className='speakInfo'><KrField grid={1} label="沟通情况" name="visitDetail" style={{marginLeft:-6,marginTop:3}} heightStyle={{height:"80px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={true} placeholder='请输入订单描述' lengthClass='order-textarea'/></div>
-					<KrField grid={1} label="备注" name="remark" style={{marginLeft:-6,marginTop:-17}} heightStyle={{height:"80px",width:'543px'}}  component="textarea"  maxSize={100} placeholder='请输入订单描述' lengthClass='visit-length-textarea'/>
+					<div className='speakInfo'><KrField grid={1} label="沟通情况" name="visitDetail" style={{marginLeft:-6,marginTop:3}} heightStyle={{height:"80px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={true} placeholder='请输入沟通情况' lengthClass='order-textarea'/></div>
+					<KrField grid={1} label="备注" name="remark" style={{marginLeft:-6,marginTop:-17}} heightStyle={{height:"80px",width:'543px'}}  component="textarea"  maxSize={100} placeholder='请输入描述' lengthClass='visit-length-textarea'/>
 				</div>		
 				<Grid style={{marginRight:30}}>
 					<Row>
