@@ -60,7 +60,7 @@ module.exports = {
 		primaryText: "运营平台",
 		router: 'operation',
 		menuCode: 'operate',
-		originUrl: '/#/operation/customerManage/customerList',
+		originUrl: '#/operation/customerManage/customerList',
 		menuItems: [{
 			primaryText: "客户管理",
 			iconName: 'icon-user',
@@ -69,7 +69,7 @@ module.exports = {
 			menuCode: 'coustomerInfoList',
 			menuItems: [{
 				primaryText: '客户列表',
-				originUrl: '/#/operation/customerManage/customerList',
+				originUrl: '#/operation/customerManage/customerList',
 				menuCode: 'coustomerInfoList',
 			}, ]
 		}, {
