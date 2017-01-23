@@ -22,6 +22,7 @@ let State = observable({
 	detail:{},
 	recordDevelop:true,
 	operType:"",
+	visitLen:5,
 });
 State.initComeFrom = action(function(comeFroms,operTypes) {
 	this.comeFrom=comeFroms||this.comeFrom;

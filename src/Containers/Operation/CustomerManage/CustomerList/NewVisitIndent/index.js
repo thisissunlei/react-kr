@@ -198,7 +198,10 @@ const validate = values =>{
 
 		if (!values.reasonOther) {
 			errors.reasonOther = '请填写其他原因';
+		}else if(values.reasonOther.length>50){
+			errors.reasonOther = '其他原因最多填写50个字';
 		}
+
 
 		if (!values.visitDetail) {
 			errors.visitDetail = '请填写沟通情况';
