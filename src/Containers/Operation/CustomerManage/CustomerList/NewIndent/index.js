@@ -105,28 +105,28 @@ import './index.less'
 		}
 		return (
 
-			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)}>
+			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:7}}>
 				<div className="title">
-						<div><span className="new-icon"></span><label className="title-text">{companyName}</label></div>
-						<div className="close" onClick={this.onCancel}></div>
+						<div><span className="order-new-icon"></span><label className="title-text">{companyName}</label></div>
+						<div className="order-close" onClick={this.onCancel}></div>
 				</div>
 				
-				<div className="kk" style={{marginTop:30}}>		
-					<KrField grid={1/2} label="订单类型" name="mainbilltype" style={{width:252,marginLeft:15}} component="select" 
+				<div className="kk" style={{marginTop:30,paddingLeft:20}}>		
+					<KrField grid={1/2} label="订单类型" name="mainbilltype" style={{width:262,marginLeft:15}} component="select" 
 							options={State.orderFound}
 							requireLabel={true}
 					/>
-					<KrField grid={1/2} label="所在社区" name="communityid" component="select" style={{width:252,marginLeft:30}} 
+					<KrField grid={1/2} label="所在社区" name="communityid" component="select" style={{width:262,marginLeft:30}} 
 							options={State.community}
 							requireLabel={true}
 							onChange={this.communityChange}
 					/>
 					
-					<KrField grid={1/2} label="所在城市" name="cityid" component="labelText" style={{width:252,marginLeft:15}} value={city} inline={false}/>
-					<KrField grid={1/2} label="订单名称" name="mainbillname" style={{width:252,marginLeft:30}} component="labelText" value={orderName} requireLabel={true} inline={false}/>
-					<KrField grid={1/2} label="订单描述" name="mainbilldesc" style={{width:535,marginLeft:15,marginTop:-5}} heightStyle={{height:"80px"}}  component="textarea"  maxSize={100} requireLabel={false} />
+					<KrField grid={1/2} label="所在城市" name="cityid" component="labelText" style={{width:262,marginLeft:15}} value={city} inline={false}/>
+					<KrField grid={1/2} label="订单名称" name="mainbillname" style={{width:262,marginLeft:30}} component="labelText" value={orderName} requireLabel={true} inline={false}/>
+					<KrField grid={1/2} label="订单描述" name="mainbilldesc" style={{width:555,marginLeft:15,marginTop:-5}} heightStyle={{height:"80px"}}  component="textarea"  maxSize={100} requireLabel={false} />
 				</div>		
-				<Grid style={{marginTop:0}}>
+				<Grid style={{marginTop:0,marginRight:40}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>

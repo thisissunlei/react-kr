@@ -208,6 +208,7 @@ class SignedClient extends Component{
 	componentWillReceiveProps(nextProps){
 		if(nextProps.initSearch=='s'){
 			State.searchParams={
+			  time:+new Date(),
 			  company:'',
 			  page:1,
 			  pageSize:15,	 

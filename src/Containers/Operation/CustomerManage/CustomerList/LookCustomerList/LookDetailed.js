@@ -142,10 +142,10 @@ class LookDetail extends Component{
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="详细地址:" style={unifyStyle} component="labelText" value={detail.detailAddress} inline={true} /></li>
 				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="公司网址:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.website} inline={true} /></li>
 				<li className="everyText" style={{width:660,marginTop:7}}><span className="blueDrop" style={{height:5}}></span><span style={{display:"inline-block",paddingLeft:5}}>公司简介:</span>
-					<p style={{padding:"0 10px"}}>{detail.companyIntroduce}</p>
+					<p style={{padding:"0 10px 0 15px"}}>{detail.companyIntroduce}</p>
 				</li>
 				<li className="everyText" style={{width:660}}><span className="blueDrop" style={{height:5}}></span><span style={{display:"inline-block",paddingLeft:5}}>备注:</span>
-					<p style={{padding:"0 10px"}}>{detail.remark}</p>
+					<p style={{padding:"0 10px 0 15px"}}>{detail.remark}</p>
 				</li>
 				{detail.showEdit && <div style={{textAlign: "center",marginTop:15}}><Button  label="编辑" type="submit" style={{margin:"auto"}} onTouchTap={editsSwitch} /></div>}
 				<span className="visitRecordTitle">拜访记录</span>
