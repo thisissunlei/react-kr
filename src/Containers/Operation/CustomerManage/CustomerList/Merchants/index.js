@@ -56,8 +56,12 @@ class Merchants extends Component{
 	}
 	//新建页面的开关
 	opNewMerchants=()=>{
-		Store.dispatch(initialize('NewCustomerList',{hasOffice:'NO'}));
-		State.switchNewCustomerList();
+		var customerItem=['sourceId','recommendName','recommendTel','stationNum','name','staionTypeId','tel','staionPrice','mail','intentionCommunityId','wechat','inTime','company','roundId','teamNum','amount','distinctId','projectName','projectCategoryId','detailAddress','deadline','website','companyIntroduce','remark'];
+		customerItem.map(function(item,index){
+          Store.dispatch(change('NewCustomerList',item,''));
+		})
+		 Store.dispatch(change('NewCustomerList','hasOffice','NO'));
+		 State.switchNewCustomerList();
 	}
 	//新建页面的开关
 	switchNewMerchants= (params) => {
@@ -88,8 +92,7 @@ class Merchants extends Component{
 			}
 			
 		}).catch(function(err) {
-		console.log("OOOOOOOOOOO")
-			
+			Message.error(err.message);			
 		});
 		State.switchEditCustomerList();
 	}
@@ -177,11 +180,11 @@ class Merchants extends Component{
 
 	componentWillReceiveProps(nextProps){	
 		if(nextProps.initSearch=='m'){
+			State.openDialog=false;
 			State.searchParams={
 			 time:+new Date(),
 			 company:'',
 			 page:1,
-			 pageSize:15,	 
 			}		
 		}		
 	}

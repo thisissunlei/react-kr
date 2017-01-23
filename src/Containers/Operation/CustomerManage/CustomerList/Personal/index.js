@@ -62,7 +62,11 @@ class Personal extends Component{
 
 	//新建页面的开关
 	switchNewMerchants=()=>{
-		Store.dispatch(initialize('NewCustomerList',{hasOffice:'NO'}));
+		var customerItem=['sourceId','recommendName','recommendTel','stationNum','name','staionTypeId','tel','staionPrice','mail','intentionCommunityId','wechat','inTime','company','roundId','teamNum','amount','distinctId','projectName','projectCategoryId','detailAddress','deadline','website','companyIntroduce','remark'];
+		customerItem.map(function(item,index){
+          Store.dispatch(change('NewCustomerList',item,''));
+		})
+		Store.dispatch(change('NewCustomerList','hasOffice','NO'));
 		State.switchNewCustomerList();
 		if(response.hasOffice=="YES"){
 			State.hasOfficeChange(true);
@@ -208,12 +212,12 @@ class Personal extends Component{
 	}
 
 	componentWillReceiveProps(nextProps){
+		State.openPersonDialog=false;
 		if(nextProps.initSearch=='p'){
 			State.searchParams={
 			  time:+new Date(),
 			  company:'',
 			  page:1,
-			  pageSize:15,	 
 			}
 		 }
 	}

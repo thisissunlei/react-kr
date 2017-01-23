@@ -16,15 +16,12 @@ import {
 
 let State = observable({
 		searchParams:{
-			page:1,
-			pageSize:15,
-			
+			page:1,		
 		},
 		openNewMerchants:false,
 		openLookMerchants:false,
 		openSearchUpper:false,
-		openCatch:false,
-		
+		openCatch:false,		
 		openEditCustomerList:false,
 		openNewCustomerIndent:false,
 		openDialog:false,
@@ -66,7 +63,6 @@ State.catchSubmit= action(function(arrItem){
          _this.openDialog=false;
          _this.searchParams={
          	page:1,
-			pageSize:15,
 			time:+new Date()
          }
 	}).catch(function(err) {

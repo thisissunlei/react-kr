@@ -206,11 +206,12 @@ class SignedClient extends Component{
 		
 	}
 	componentWillReceiveProps(nextProps){
+		State.openPersonDialog=false;
 		if(nextProps.initSearch=='s'){
 			State.searchParams={
+			  time:+new Date(),
 			  company:'',
 			  page:1,
-			  pageSize:15,	 
 			}
 		}
 	}

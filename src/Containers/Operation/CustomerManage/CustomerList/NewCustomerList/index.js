@@ -118,10 +118,10 @@ import './index.less'
 		
 		return (
 
-			<form className="m-newMerchants" style={{paddingLeft:7}} onSubmit={handleSubmit(this.onSubmit)}>
+			<form className="m-newMerchants" style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}>
 				<div className="title">
 						<div><span className="new-icon"></span><label className="title-text">新建客户</label></div>
-						<div className="close" onClick={this.onCancel}></div>
+						<div className="customer-close" onClick={this.onCancel}></div>
 				</div>
 				<div className="cheek">
 							<div className="titleBar"><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
