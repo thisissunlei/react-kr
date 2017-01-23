@@ -253,10 +253,10 @@ class NewCreateForm extends Component {
 				});
 				return isOk;
 		});
-		if(form.contractmark){
+		// form.contractmark = '';
+		if(typeof form.contractmark == 'undefined'){
 			form.contractmark = '';
 		}
-		
 
 		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
