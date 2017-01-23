@@ -190,7 +190,7 @@ class LookDetail extends Component{
 													 }}
 
 						                ></TableRowColumn>
-						                <TableRowColumn name="visitTime" type='date' format="yyyy-mm-dd HH:MM:ss" component={(value,oldValue)=>{
+						                <TableRowColumn name="visitTime" type='date' component={(value,oldValue)=>{
 						                				let show=false
 						                				if(value.length==0){
 						                					show=true
