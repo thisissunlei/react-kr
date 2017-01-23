@@ -154,6 +154,12 @@ class LookDetail extends Component{
 		let detail=State.detail;
 		let {editsSwitch,IndentSwitch}=this.props;
 		let recordDevelop=State.recordDevelop;
+		let hasOffice=detail.hasOffice;
+		if(hasOffice=="YES"){
+			hasOffice="是";
+		}else{
+			hasOffice="否";
+		}
 		
 		let tooltipTextStyle={maxWidth:"224px",whiteSpace:"normal",wordWrap:"break-word",height:"auto",lineHeight:"22px",overflow:"hidden"};
 		return(
@@ -162,7 +168,7 @@ class LookDetail extends Component{
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="客户来源:" style={unifyStyle} component="labelText" value={detail.sourceName} inline={true} /></li>
 				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="意向工位数:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.stationNum+"个"} inline={true} /></li>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="联系人姓名:" style={unifyStyle} component="labelText" value={detail.name} inline={true} /></li>
-				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="意向工位类型:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.staiontypeName} inline={true} /></li>
+				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="意向工位类型:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.staionTypeName} inline={true} /></li>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="联系人电话:" style={unifyStyle} component="labelText" value={detail.tel} inline={true} /></li>
 				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="意向工位价格:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.staionPrice+"元"} inline={true} /></li>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="联系人邮箱:" style={unifyStyle} component="labelText" value={detail.mail} inline={true} /></li>
@@ -175,7 +181,7 @@ class LookDetail extends Component{
 				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="投资轮次:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.roundName} inline={true} /></li>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="公司规模:" style={unifyStyle} component="labelText" value={detail.teamNum+"人"} inline={true} /></li>
 				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="融资金额:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.amount+"元"} inline={true} /></li>
-				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="办公室情况:" style={unifyStyle} component="labelText" value={detail.hasOffice} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="办公室情况:" style={unifyStyle} component="labelText" value={hasOffice} inline={true} /></li>
 				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="项目名称:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.projectName} inline={true} /></li>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="所属地区:" style={unifyStyle} component="labelText" value={detail.distinctName} inline={true} /></li>
 				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="项目类型:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.projectCategoryName} inline={true} /></li>

@@ -57,6 +57,13 @@ State.orderReady = action(function(params) {
 	let communityArr=[];
 	let cityArr=[];
 	let isCity={}
+	if( !params.communityCity){
+		return;
+	}
+	if(!params.sysDicPayments){
+		return;
+	}
+	console.log("%%%%%%%%%%%%%",params.communityCity);
 	for (var i =0 ; i < params.communityCity.length; i++) {
 		let communityObject={};
 		let cityObject={};
