@@ -49,7 +49,10 @@ class ImportCard extends Component{
 		let {count} =this.state;
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px'}}>
-				<p style={{textAlign:'center',fontSize:'14px',color:"#000",marginBottom:40}}>确认删除该会员卡？</p>
+				<KrField name="originUser" component="searchPersonel" label="原领用人"/>
+				<KrField name="nowUser" component="searchPersonel" label="领用人"/>
+				<KrField name="count" component="labelText" label="转移数量"/>
+
 				<Grid style={{margin:"20px 0 3px -10px"}}>
 					<Row>
 						<ListGroup>

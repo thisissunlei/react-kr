@@ -724,6 +724,11 @@ const APIS = {
       url: '/apixr/krspace-finance-web/member/card/bound-detail?id={id}',
       method: 'get'
    },
+   //会员卡录入，卡号重复性判断
+   'memberCardJudge': {
+      url: '/apixr/krspace-finance-web/member/card/bound-detail?id={id}',
+      method: 'get'
+   },
  }
 
  module.exports = APIS;

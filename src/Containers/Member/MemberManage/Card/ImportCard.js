@@ -50,8 +50,8 @@ class ImportCard extends Component{
 		 	Message.error(err.message);
 		});
 		console.log(values);
-		 // const {onSubmit} = this.props;
-		 // onSubmit && onSubmit(values);
+		 const {onSubmit} = this.props;
+		 onSubmit && onSubmit(values);
 	 }
 	 setBeginCard=(person)=>{
 	 	let {endCard} = this.state;
