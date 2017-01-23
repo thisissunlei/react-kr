@@ -277,7 +277,6 @@ class SignedClient extends Component{
 
      
        let {searchSignParams,dataReady,orderReady}=this.props; 
-        console.log(State.companyName,">>>>>>>")
        var blockStyle={};
       if(State.openPersonDialog==true){
         blockStyle={

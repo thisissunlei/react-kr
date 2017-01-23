@@ -64,9 +64,7 @@ class Merchants extends Component{
 		 State.switchNewCustomerList();
 	}
 	//新建页面的开关
-	switchNewMerchants= (params) => {
-		
-		
+	switchNewMerchants= (params) => {		
 		State.switchNewCustomerList();
 
 	}
