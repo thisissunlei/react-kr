@@ -116,13 +116,13 @@ class LookDetail extends Component{
 				<div className="tableDiv">
 						<div className="tr-title">
 							<span>拜访方式</span>
-							<span>拜访方式</span>
-							<span>拜访方式</span>
-							<span>拜访方式</span>
-							<span>拜访方式</span>
-							<span>拜访方式</span>
-							<span>拜访方式</span>
-							<span>拜访方式</span>
+							<span>拜访时间</span>
+							<span>联系人</span>
+							<span>联系方式</span>
+							<span>客户分类</span>
+							<span>沟通情况</span>
+							<span>是否跟进</span>
+							<span>原因</span>
 						</div>
 						{tr}
 						

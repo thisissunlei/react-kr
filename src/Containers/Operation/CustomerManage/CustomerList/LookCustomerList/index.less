@@ -1,5 +1,23 @@
 .m-lookCustomerList{
-    
+    .look-close{
+      position: absolute;
+      display: block;
+      width: 20px;
+      height: 20px;
+      right: 0px;
+      top:0px;
+      cursor: pointer;
+      background: url(../images/closeIcon.svg) no-repeat;
+      background-position: center center;    
+    }
+    .look-new-icon{
+      display: inline-block;
+      width: 42px;
+      height: 42px;
+      vertical-align:middle;
+      background: url(../images/company.svg) no-repeat;
+      background-position: center center;
+    }
     .ui-tabs .tabs-lines{
     	border-right:0px;
     }
@@ -8,15 +26,18 @@
     }
     .everyText{
     	display: inline-block;
-    	width: 325px;
         .ui-form-item{
             min-height: 34px;
             line-height: 34px;
+            .ui-form-controller.inline{
+                padding-top:8px;
+            }
             .ui-form-controller.inline .ui-label-text{
                 width:226px;
                 position:static;
                 white-space: normal;
                 word-wrap: break-word;
+                line-height: 18px;
             }
         }
         .ui-form-label.inline{
@@ -27,7 +48,7 @@
     .spetial{
        display: inline-block;
        width: 283px; 
-       padding-left:42px;
+       padding-left:63px;
     }
     .blueDrop{
     	display: inline-block;
@@ -48,7 +69,7 @@
     }
     .bottomWire{
     	height: 2px;
-    	margin-top: 18px;
+    	margin-top: 15px;
     	margin-bottom: 20px;
     	width: 720px;
     	margin-left: -30px;
@@ -115,7 +136,7 @@
     .recordDevelop,.recordClose{
        width: 65px;
         display: inline-block;
-
+        color:#499df1;
         text-align: left;
         margin-left: -29px;
     }
