@@ -118,7 +118,7 @@ import './index.less'
 		
 		return (
 
-			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)}>
+			<form className="m-newMerchants" style={{paddingLeft:7}} onSubmit={handleSubmit(this.onSubmit)}>
 				<div className="title">
 						<div><span className="new-icon"></span><label className="title-text">新建客户</label></div>
 						<div className="close" onClick={this.onCancel}></div>

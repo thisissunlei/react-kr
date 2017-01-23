@@ -69,7 +69,7 @@ module.exports = {
 			menuCode: 'coustomerInfoList',
 			menuItems: [{
 				primaryText: '客户列表',
-				originUrl: '/operation/customerManage/customerList',
+				router: '/operation/customerManage/customerList',
 				menuCode: 'coustomerInfoList',
 			}, ]
 		}, {

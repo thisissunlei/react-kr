@@ -190,7 +190,7 @@ class LookDetail extends Component{
 													 }}
 
 						                ></TableRowColumn>
-						                <TableRowColumn name="visitTime" type='date' format="yyyy-mm-dd HH:MM:ss" component={(value,oldValue)=>{
+						                <TableRowColumn name="visitTime" type='date' component={(value,oldValue)=>{
 						                				let show=false
 						                				if(value.length==0){
 						                					show=true
@@ -271,7 +271,7 @@ class LookDetail extends Component{
 						
 				</div>
 					
-				<div style={{textAlign: "center",marginTop:30}}><Button  label="新增拜访记录" type="button" style={{width:120}} onTouchTap={IndentSwitch} /></div>
+				<div className='look-addVisitBtn' style={{textAlign: "center",marginTop:30}}><Button  label="新增拜访记录" type="button" style={{width:120}} onTouchTap={IndentSwitch} /></div>
 				
 			
 	      </div>

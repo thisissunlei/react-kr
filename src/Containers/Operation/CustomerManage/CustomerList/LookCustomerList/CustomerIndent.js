@@ -116,7 +116,7 @@ class CustomerIndent extends Component{
 				)
 		})
         if(listArray.length==0){
-         listArray.push(<div style={{textAlign:'center',marginTop:-30,paddingBottom:100}}>
+         listArray.push(<div style={{textAlign:'center',marginTop:-30}}>
 								<div className="ui-nothing">
 									<div className="icon"></div>
 									<p className="tip">暂时还没有数据呦~</p>
