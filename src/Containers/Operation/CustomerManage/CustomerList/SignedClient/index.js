@@ -113,7 +113,7 @@ class SignedClient extends Component{
 		let listId=State.listId;
 		Store.dispatch(Actions.callAPI('get-edit-info',{id:listId})).then(function(response) {
 			Store.dispatch(initialize('EditCustomerList',response));
-			
+			State.editCity=`${response.provinceName}/${response.cityName}/${response.countyName}`
 		}).catch(function(err) {
 			
 		});
@@ -399,6 +399,7 @@ class SignedClient extends Component{
 							 onCancel={this.switchEditCustomerList}
 			                 listId={State.listId}
 			                 dataReady={dataReady}
+			                 cityName={State.editCity}
 						/>
 					</Drawer>
 

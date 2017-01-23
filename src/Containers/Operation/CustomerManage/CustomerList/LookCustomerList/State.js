@@ -15,7 +15,7 @@ import {
 let State = observable({
 	openEditCustomerList:false,
 	comeFrom:"Merchants",
-	orderDetail:[],
+	orderDetail:{},
 	searchParams:{},
 	isDevelop:true,
 	listId:"",
@@ -49,7 +49,7 @@ State.orderList=action(function(params) {
 
     var _this=this;
 	Store.dispatch(Actions.callAPI('customerOrdersList',{customerId:params})).then(function(response) {
-         _this.orderDetail=response.items;
+         _this.orderDetail=response;
 		}).catch(function(err) {
 			Message.error(err.message);
 		});

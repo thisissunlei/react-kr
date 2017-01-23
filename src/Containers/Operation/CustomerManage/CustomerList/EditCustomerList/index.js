@@ -144,7 +144,7 @@ import signedClient from "../SignedClient/State";
 	
 	render(){
 
-		const { error, handleSubmit, pristine, reset,dataReady,hasOffice} = this.props;
+		const { error, handleSubmit, pristine, reset,dataReady,hasOffice,cityName,listValue} = this.props;
 
 
 		return (
@@ -193,9 +193,9 @@ import signedClient from "../SignedClient/State";
 								<KrField grid={1/2} label="公司规模" name="teamNum" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 
 								<KrField grid={1/2} label="融资金额" name="amount" style={{width:262,marginLeft:15}} component="input" requireLabel={false}/>
-								<KrField grid={1/2} label="所属地区" name="distinctId"  style={{width:262,marginLeft:15,zIndex:2}} component="city" onSubmit={this.city}/>
+								<KrField grid={1/2} label="所属地区" name="distinctId"  style={{width:262,marginLeft:15,zIndex:2}} component="city" onSubmit={this.city} cityName={cityName}/>
 								<KrField grid={1/2} label="项目名称" name="projectName" style={{width:262,marginLeft:15}} component="input" requireLabel={true} />
-								<KrField grid={1/2} label="项目类型" name="projectCategoryId"  style={{width:262,marginLeft:15,zIndex:1}} component="tree" placeholder="请选择项目类型"/>
+								<KrField grid={1/2} label="项目类型" name="projectCategoryId"  style={{width:262,marginLeft:15,zIndex:1}} component="tree" placeholder="请选择项目类型" listValue={"listValue"}/>
 								<KrField grid={1/2} label="详细地址" name="detailAddress" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 
 

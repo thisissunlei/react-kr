@@ -75,8 +75,11 @@ class Merchants extends Component{
 
 	openEditCustomerList=()=>{
 		let listId=State.listId;
+
 		Store.dispatch(Actions.callAPI('get-edit-info',{id:listId})).then(function(response) {
 			Store.dispatch(initialize('EditCustomerList',response));
+			State.editCity=`${response.provinceName}/${response.cityName}/${response.countyName}`
+			State.editprojectName=response.projectName;
 			if(response.hasOffice=="YES"){
 				State.hasOfficeChange(true);
 			}else{
@@ -84,6 +87,7 @@ class Merchants extends Component{
 			}
 			
 		}).catch(function(err) {
+		console.log("OOOOOOOOOOO")
 			
 		});
 		State.switchEditCustomerList();
@@ -426,6 +430,8 @@ class Merchants extends Component{
 			                 dataReady={dataReady}
 			                 operType="SHARE"
 			                 hasOffice={State.ishasOffice}
+			                 cityName={State.editCity}
+			                 listValue={State.editprojectName}
 						/>
 					</Drawer>
 
