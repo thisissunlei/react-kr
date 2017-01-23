@@ -433,6 +433,7 @@ class SignedClient extends Component{
 							 onCancel={this.switchCustomerIndent}
 			                 listId={State.listId}
 			                 selectDatas={dataReady}
+			                 operType="SIGN"	
 			                 companyName={State.companyName}
 						/>
 					</Drawer>
@@ -484,7 +485,9 @@ class SignedClient extends Component{
 					>
 						<OrderDelete 
 						   onCancel={this.openDeleteDialog}
-						   orderId='1'
+						   orderId={State.deleteId}
+				           operType="SIGN"
+				           listId={State.listId}
 						 />
 				    </Dialog>
 

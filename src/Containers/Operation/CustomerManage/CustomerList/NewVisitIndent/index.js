@@ -17,7 +17,8 @@ import {
 	Message
 } from 'kr-ui';
 import StateIn from './State';
-import State from '../LookCustomerList/State.js';
+import flushData from "../LookCustomerList/State";
+
 import './index.less'
 @observer
  class NewVisitIndent extends Component{
@@ -36,10 +37,17 @@ import './index.less'
 	
 
 	onSubmit = (values) => {
+		  let {listId,operType}=this.props;
 		 var _this=this;
-	       Store.dispatch(Actions.callAPI('customerVisitRecord',{},values)).then(function(response) {
+	       Store.dispatch(Actions.callAPI('customerVisitRecord',{},values)).then(function(response) {	       	
+				flushData.searchParams={
+		         	id:listId,
+    	            operType:operType,
+					time:+new Date()
+		         }
+			
 		    _this.onCancel();
-		    State.lookListId();
+		    
 		  }).catch(function(err) {
 		 	Message.error(err.message);
 		 });

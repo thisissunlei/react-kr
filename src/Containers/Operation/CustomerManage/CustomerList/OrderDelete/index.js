@@ -19,7 +19,10 @@ import {
 } from 'kr-ui';
 
 import './index.less';
+import flushData from "../LookCustomerList/State";
 
+import personal from "../Personal/State";
+import signedClient from "../SignedClient/State";
 export default class OrderDelete extends Component{
 	
 	static PropTypes = {
@@ -41,7 +44,9 @@ export default class OrderDelete extends Component{
 	};
 	onSubmit(){
 		var _this=this;
+		let {operType}=this.props;
 		Store.dispatch(Actions.callAPI('order-delete',{id:this.props.orderId})).then(function(response) {
+	         flushData.orderList(_this.props.listId);
 	         _this.onCancel();
 	         Message.success('删除成功');
 		}).catch(function(err) {

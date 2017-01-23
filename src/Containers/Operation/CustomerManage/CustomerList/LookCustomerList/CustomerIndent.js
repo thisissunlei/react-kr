@@ -29,6 +29,9 @@ import {
 import './index.less'
 
 import State from './State';
+import personal from "../Personal/State";
+import signedClient from "../SignedClient/State";
+
 @observer
 class CustomerIndent extends Component{
 
@@ -57,10 +60,12 @@ class CustomerIndent extends Component{
 		window.location.href=`./#/operation/customerManage/${State.listId}/order/${id}/detail`;
 	}
 	
+	
 	orderInnerList = () =>{
 		let unifyStyle={width:300,marginLeft:-10}
 		let detail=State.orderDetail;
-		let {editIndentSwitch,DeleteSwitch}=this.props;
+		let {editIndentSwitch,DeleteSwitch,operType}=this.props;
+		console.log('7777op',operType);
 		let _this=this;
 		let listArray=detail.map(function(item,index){
 			return (
@@ -81,7 +86,19 @@ class CustomerIndent extends Component{
 						<span className="interval"></span></span>
 						<Button  label="查看" type="button" cancle={true} onTouchTap={_this.locationWatch.bind(this,item.id)}/>
 						<span className="interval"></span>
-						<Button  label="删除" type="button" cancle={true} onTouchTap={DeleteSwitch} />
+						<Button  label="删除" type="button" cancle={true} onTouchTap={()=>{
+																			if(operType=="PERSON"){
+																			   personal.deleteId=item.id;
+
+																			}
+																			if(operType=="SIGN"){
+																			   signedClient.deleteId=item.id;
+																				
+																			}
+
+																			
+																			DeleteSwitch();
+																		}} />
 					</div>
 
 				</div>
