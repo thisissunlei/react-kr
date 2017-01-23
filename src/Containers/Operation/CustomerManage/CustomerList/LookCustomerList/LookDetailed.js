@@ -62,34 +62,52 @@ class LookDetail extends Component{
 	}
 	everyTd=(value)=>{
 		var show=false;
-		// var tooltipTextStyle={maxWidth:"224px",whiteSpace:"normal",wordWrap:"break-word",height:"auto",lineHeight:"22px",overflow:"hidden"};
+		if(!value){
+			return;
+		}
 		if(value.length==0){
 			show=false;
 
 		}else{
 			show=true;
 		}
-		return (show && <div className="m-tooltipBox" style={{display:"inline-block"}}><span className='tableOver' >{value}</span>
-				<div className="m-tooltip">{"rrrfffffffffffffffffffffffffffffffffffff"}<span className="bottomJiao"></span></div>
-			 	</div>)
+		return (<Tooltip style={{padding:10}} offsetTop={5} place='top'>{value}</Tooltip>)
 	}
 	
 	visitRecordList = () =>{
 		if(!State.detail.records){
 			return;
 		}
+		let len=0;
+		if(State.recordDevelop){
+			len=State.visitLen;
+		}
+		if(!State.recordDevelop && State.visitLen>State.detail.records.length){
+			len=State.detail.records.length;
+		}
+		
+		
 		let tr=[];
 		for(let i=0;i<State.detail.records.length;i++){
+		console.log(len,State.detail.records[i],"??????////")
+
+
 			let tds=[];
 			let everyTr=State.detail.records[i];
-			tds.push(<div className="div-td">{everyTr.visitTypeName}</div>);
-			tds.push(<div className="div-td">{this.everyTd(everyTr.visitTime)}</div>);
-			tds.push(<div className="div-td">{everyTr.linkName}</div>);
-			tds.push(<div className="div-td">{everyTr.linkTel}</div>);
-			tds.push(<div className="div-td">{everyTr.levelName}</div>);
-			tds.push(<div className="div-td">{everyTr.visitDetail}</div>);
-			tds.push(<div className="div-td">{everyTr.isContinue}</div>);
-			tds.push(<div className="div-td">{everyTr.reasonName}</div>);
+			let text=everyTr.isContinue
+			if(text=="YES"){
+				text="是";
+			}else{
+				text="否";
+			}
+			tds.push(<div className="div-td"><span className="tableOver">{everyTr.visitTypeName}</span>{this.everyTd(everyTr.visitTypeName)}</div>);
+			tds.push(<div className="div-td"><span className="tableOver">{everyTr.visitTime}</span>{this.everyTd(everyTr.visitTime)}</div>);
+			tds.push(<div className="div-td"><span className="tableOver">{everyTr.linkName}</span>{this.everyTd(everyTr.linkName)}</div>);
+			tds.push(<div className="div-td"><span className="tableOver">{everyTr.linkTel}</span>{this.everyTd(everyTr.linkTel)}</div>);
+			tds.push(<div className="div-td"><span className="tableOver">{everyTr.levelName}</span>{this.everyTd(everyTr.levelName)}</div>);
+			tds.push(<div className="div-td"><span className="tableOver">{everyTr.visitDetail}</span>{this.everyTd(everyTr.visitDetail)}</div>);
+			tds.push(<div className="div-td"><span className="tableOver">{text}</span></div>);
+			tds.push(<div className="div-td"><span className="tableOver">{everyTr.reasonName}</span>{this.everyTd(everyTr.reasonName)}</div>);
 			
 			tr.push(<div className="tr-content">{tds}</div>);	
 		}
@@ -118,7 +136,6 @@ class LookDetail extends Component{
 		let detail=State.detail;
 		let {editsSwitch,IndentSwitch}=this.props;
 		let recordDevelop=State.recordDevelop;
-		let isOverflow=recordDevelop?{height:295,}:{height:"auto",paddingBottom:20};
 		
 		let tooltipTextStyle={maxWidth:"224px",whiteSpace:"normal",wordWrap:"break-word",height:"auto",lineHeight:"22px",overflow:"hidden"};
 		return(
@@ -153,7 +170,7 @@ class LookDetail extends Component{
 				</li>
 				{detail.showEdit && <div style={{textAlign: "center",marginTop:15}}><Button  label="编辑" type="submit" style={{margin:"auto"}} onTouchTap={editsSwitch} /></div>}
 				<span className="visitRecordTitle">拜访记录</span>
-				<div className="visitRecord" style={isOverflow}>
+				<div className="visitRecord">
 						
 						
 			           {this.visitRecordList()}

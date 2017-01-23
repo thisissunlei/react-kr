@@ -114,6 +114,7 @@ class SignedClient extends Component{
 		Store.dispatch(Actions.callAPI('get-edit-info',{id:listId})).then(function(response) {
 			Store.dispatch(initialize('EditCustomerList',response));
 			State.editCity=`${response.provinceName}/${response.cityName}/${response.countyName}`
+			State.editprojectName=response.projectName;
 		}).catch(function(err) {
 			
 		});
@@ -403,6 +404,7 @@ class SignedClient extends Component{
 			                 listId={State.listId}
 			                 dataReady={dataReady}
 			                 cityName={State.editCity}
+			                 listValue={State.editprojectName}
 						/>
 					</Drawer>
 
