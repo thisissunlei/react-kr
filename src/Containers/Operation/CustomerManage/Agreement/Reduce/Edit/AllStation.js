@@ -149,6 +149,12 @@ class SelectStationForm extends Component {
 			pagesize: 100,
 			contractId: params.id
 		})).then(function(response) {
+			response.items = response.items.map((item)=>{
+				if(item.show){
+					item.rentBeginDate = item.lastEditDate;
+				}
+				return item;
+			})
 			_this.setState({
 				stationVos: response.items
 			});
@@ -321,7 +327,7 @@ class SelectStationForm extends Component {
           <TableHeaderColumn>单价（元／月）</TableHeaderColumn>
           <TableHeaderColumn>起始日期</TableHeaderColumn>
           <TableHeaderColumn>结束日期</TableHeaderColumn>
-          <TableHeaderColumn>减租结束日期</TableHeaderColumn>
+          <TableHeaderColumn>减租开始日期</TableHeaderColumn>
       </TableHeader>
       <TableBody>
       {stationVos && stationVos.map((item,index)=>{
