@@ -63,14 +63,50 @@ class CustomerList extends Component {
 			communityId: '',
 			initSearch:''
 		}
-		State.dataReady();
-		State.searchPersonalReady();
-		State.searchSignReady();
-		State.orderReady();
+		this.allDataReady();
+		this.allOrderReady();
+		this.searchPerson();
+		this.searchSign();
 	}
 
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(true));
+	}
+    //新建编辑的数据准备
+	allDataReady=()=>{
+		var _this=this;
+	    Store.dispatch(Actions.callAPI('customerDataAddList')).then(function(response) {
+         State.dataReady=response;
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+   //订单新建编辑的数据准备
+	allOrderReady=()=>{
+		var _this=this;
+	    Store.dispatch(Actions.callAPI('community-city-selected')).then(function(response) {
+         State.orderReady=response;
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+    //招商和个人的高级查询的数据准备
+	searchPerson=()=>{
+		var _this=this;
+       Store.dispatch(Actions.callAPI('search-conditions')).then(function(response) {
+		     State.searchParams=response;	
+			 }).catch(function(err){
+				 Message.error(err.message);
+			});
+	}
+   //签约的高级查询的数据准备
+	searchSign=()=>{
+		var _this=this;
+       Store.dispatch(Actions.callAPI('sign-search-conditions')).then(function(response) {
+		      State.searchSignParams=response;	
+			 }).catch(function(err){
+				 Message.error(err.message);
+			});
 	}
 
 	onSetCommunity = (communityId) => {
