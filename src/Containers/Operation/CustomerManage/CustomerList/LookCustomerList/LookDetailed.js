@@ -60,51 +60,55 @@ class LookDetail extends Component{
 	switchEditCustomerList = () =>{
 		State.switchEditCustomerList();
 	}
+	everyTd=(value)=>{
+		var show=false;
+		// var tooltipTextStyle={maxWidth:"224px",whiteSpace:"normal",wordWrap:"break-word",height:"auto",lineHeight:"22px",overflow:"hidden"};
+		if(value.length==0){
+			show=false;
+
+		}else{
+			show=true;
+		}
+		return (show && <div className="m-tooltipBox" style={{display:"inline-block"}}><span className='tableOver' >{value}</span>
+				<div className="m-tooltip">{"rrrfffffffffffffffffffffffffffffffffffff"}<span className="bottomJiao"></span></div>
+			 	</div>)
+	}
+	
 	visitRecordList = () =>{
 		if(!State.detail.records){
 			return;
 		}
-		let tr="";
-		let tds="";
+		let tr=[];
 		for(let i=0;i<State.detail.records.length;i++){
+			let tds=[];
 			let everyTr=State.detail.records[i];
-			tds+="<td></td>"
+			tds.push(<div className="div-td">{everyTr.visitTypeName}</div>);
+			tds.push(<div className="div-td">{this.everyTd(everyTr.visitTime)}</div>);
+			tds.push(<div className="div-td">{everyTr.linkName}</div>);
+			tds.push(<div className="div-td">{everyTr.linkTel}</div>);
+			tds.push(<div className="div-td">{everyTr.levelName}</div>);
+			tds.push(<div className="div-td">{everyTr.visitDetail}</div>);
+			tds.push(<div className="div-td">{everyTr.isContinue}</div>);
+			tds.push(<div className="div-td">{everyTr.reasonName}</div>);
 			
-			tr="<tr>"+tds+"</tr>"	
+			tr.push(<div className="tr-content">{tds}</div>);	
 		}
-		var arr=State.detail.records.map(function(item,index) {
-
-			var table=(
-					<table>
-						<tr>
-							<th>拜访方式</th>
-							<th>拜访方式</th>
-							<th>拜访方式</th>
-							<th>拜访方式</th>
-							<th>拜访方式</th>
-							<th>拜访方式</th>
-							<th>拜访方式</th>
-						</tr>
-						
-					</table>
-				)
-
+		
 			return (
-			{/*<TableRow >
-			<TableRowColumn name="visitTypeName">{item.visitTypeName}</TableRowColumn>
-            <TableRowColumn name="visitTime" type='date' format="yyyy-mm-dd HH:MM:ss" >{item.visitTime}</TableRowColumn>
-            <TableRowColumn name="linkName">{item.linkName}</TableRowColumn>
-            <TableRowColumn name="linkTel">{item.linkTel}</TableRowColumn>
-            <TableRowColumn name="levelName">{item.levelName}</TableRowColumn>
-            <TableRowColumn name="visitDetail">{item.visitDetail}</TableRowColumn>
-            <TableRowColumn name="isContinue">{item.isContinue}</TableRowColumn>
-            <TableRowColumn name="reasonName">{item.reasonName}</TableRowColumn>
-            </TableRow >*/}
-				
-            )
-
-		})
-		return arr;
+				<div className="tableDiv">
+						<div className="tr-title">
+							<span>拜访方式</span>
+							<span>拜访方式</span>
+							<span>拜访方式</span>
+							<span>拜访方式</span>
+							<span>拜访方式</span>
+							<span>拜访方式</span>
+							<span>拜访方式</span>
+							<span>拜访方式</span>
+						</div>
+						{tr}
+						
+					</div>)
 	}
 
 	
@@ -151,122 +155,12 @@ class LookDetail extends Component{
 				<span className="visitRecordTitle">拜访记录</span>
 				<div className="visitRecord" style={isOverflow}>
 						
-						{State.listId&&<Table
-						    style={{marginTop:8}}
-			                ajax={true}
-			                onOperation={this.onOperation}
-				            displayCheckbox={false}
-				            ajaxParams={State.searchParams}
-				            ajaxUrlName='get-detail-info'
-				            ajaxFieldListName="records"
-				            fold={true}
-				            foldSize="5"
-								  >
-					            <TableHeader>
-					              <TableHeaderColumn>拜访方式</TableHeaderColumn>
-					              <TableHeaderColumn>拜访时间</TableHeaderColumn>
-					              <TableHeaderColumn>联系人</TableHeaderColumn>
-					              <TableHeaderColumn>联系方式</TableHeaderColumn>
-					              <TableHeaderColumn>客户分类</TableHeaderColumn>
-					              <TableHeaderColumn>沟通情况</TableHeaderColumn>
-					              <TableHeaderColumn>是否跟进</TableHeaderColumn>
-					              <TableHeaderColumn>原因</TableHeaderColumn>
-
-					          	</TableHeader>
-
-						        <TableBody >
-						               <TableRow >
-						               <TableRowColumn name="linkTel"  component={(value,oldValue)=>{
-						                				 let show=false;
-						                				if(value.length==0){
-						                					show=false;
-						                				}else{
-						                					show=true;
-						                				}
-														 return (show && <div><span className='tableOver' >{value}</span>
-														 	<Tooltip offsetTop={10} place='top' style={{display:"none"}}>
-																<div style={tooltipTextStyle}>{value}</div>
-														 	</Tooltip></div>)
-													 }}
-
-						                ></TableRowColumn>
-						                <TableRowColumn name="visitTime" type='date' component={(value,oldValue)=>{
-						                				let show=false
-						                				if(value.length==0){
-						                					show=true
-						                				}else{
-						                					show=false;
-						                				}
-														 return (show && <div><span className='tableOver'><KrDate value={value}/></span>
-														 	<Tooltip offsetTop={10} place='top' style={{left:50,display:show}}>
-																<div style={tooltipTextStyle}><KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
-														 	</Tooltip></div>)
-													 }}
-
-						                ></TableRowColumn>
-						                <TableRowColumn name="linkName" component={(value,oldValue)=>{
-						                				 let show=false;
-						                				if(value.length==0){
-						                					show=false;
-						                				}else{
-						                					show=true;
-						                				}
-														 return (show && <div><span className='tableOver' >{value}</span>
-														 	<Tooltip offsetTop={10} place='top' style={{display:"none"}}>
-																<div style={tooltipTextStyle}>{value}</div>
-														 	</Tooltip></div>)
-													 }}
-
-						                ></TableRowColumn>
-						                <TableRowColumn name="linkTel"></TableRowColumn>
-						                <TableRowColumn name="levelName"  component={(value,oldValue)=>{
-						                				 let show=false;
-						                				if(value.length==0){
-						                					show=false;
-						                				}else{
-						                					show=true;
-						                				}
-														 return (show && <div><span className='tableOver' >{value}</span>
-														 	<Tooltip offsetTop={10} place='top' style={{display:"none"}}>
-																<div style={tooltipTextStyle}>{value}</div>
-														 	</Tooltip></div>)
-													 }}
-
-						                ></TableRowColumn>
-						                <TableRowColumn name="visitDetail"  component={(value,oldValue)=>{
-						                				 let show=false;
-						                				if(value.length==0){
-						                					show=false;
-						                				}else{
-						                					show=true;
-						                				}
-														 return (show && <div><span className='tableOver' >{value}</span>
-														 	<Tooltip offsetTop={10} place='top' style={{display:"none"}}>
-																<div style={tooltipTextStyle}>{value}</div>
-														 	</Tooltip></div>)
-													 }}
-
-						                ></TableRowColumn>
-						                <TableRowColumn name="isContinue" options={[{label:'是',value:'YES'},{label:'否',value:'NO'}]}></TableRowColumn>
-						                <TableRowColumn name="reasonName" component={(value,oldValue)=>{
-							                				let show=true;
-							                				if(value.length==0){
-							                					show=false;
-							                				}else{
-							                					show=true;
-							                				}
-														 return (show && <div><span className='tableOver' >{value}</span>
-														 	<Tooltip offsetTop={10} place='top' >
-																<div style={tooltipTextStyle}>{value}</div>
-														 	</Tooltip></div>)
-													 }} ></TableRowColumn>
-						               </TableRow >
-						        </TableBody>
-			           </Table>}
-			           {/*<div className="isDevelop" onClick={this.isDevelopClick}>
+						
+			           {this.visitRecordList()}
+			           <div className="isDevelop" onClick={this.isDevelopClick}>
 			           		{State.isDevelop&&<span className="recordDevelop" >展开</span>}
 			           		{!State.isDevelop&&<span className="recordClose" >收起</span>}
-			           </div>*/}
+			           </div>
 
 						
 				</div>
@@ -280,4 +174,4 @@ class LookDetail extends Component{
 	}
 
 }
-export default LookDetail;
+export default LookDetail

@@ -79,6 +79,7 @@ class Merchants extends Component{
 		Store.dispatch(Actions.callAPI('get-edit-info',{id:listId})).then(function(response) {
 			Store.dispatch(initialize('EditCustomerList',response));
 			State.editCity=`${response.provinceName}/${response.cityName}/${response.countyName}`
+			console.log(response.provinceName,"???.......>>>>>")
 			State.editprojectName=response.projectName;
 			if(response.hasOffice=="YES"){
 				State.hasOfficeChange(true);

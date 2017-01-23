@@ -63,12 +63,7 @@
             display:none;
         }
 
-        .tableOver{
-            max-width:75px;
-            display:inline-block;
-            text-overflow:ellipsis;
-            overflow: hidden;
-        }
+        
         .top-arrow:after{
             border:0px;
         }
@@ -118,8 +113,10 @@
 
    	}
     .recordDevelop,.recordClose{
-        margin-left:-2px; 	
-      	color: #499df1;
+       width: 65px;
+        display: inline-block;
+        text-align: left;
+        margin-left: -29px;
     }
     .recordDevelop{
     	background: url(images/develop.svg) no-repeat;
@@ -133,6 +130,94 @@
     .ui-tabs-contents{
 		padding: 0 0px;
 	}
+    .tableDiv{
+        width: 100%;
+        height: auto;
+        // background: red;
+    }
+    .tr-title{
+
+        width: 100%;
+        border-top:1px solid #eee;
+        height: 50px;
+        line-height: 50px;
+
+    }
+    .tr-content{
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+    }
+    .tr-title span{
+        height: 50px;
+        line-height: 50px;
+        display: inline-block;
+        text-align: center;
+        width: 12.5%;
+    }
+    .tr-content .div-td{
+        height: 50px;
+        line-height: 50px;
+        display: block;
+        float: left;
+        
+        width: 12.5%;
+    }
+    .m-tooltipBox{
+        position: absolute;
+        display: inline-block;
+        height: 50px;
+    }
+    
+    .m-tooltipBox:hover .tooltip{
+        display: none;
+    }
+    .tr-content:nth-of-type(2n){
+        background: #f2f2f2;
+    }
+
+    .tableOver{
+            display: inline-block;
+            width: 100%;
+            position: relative;
+            text-overflow:ellipsis;
+            white-space:nowrap; 
+            text-align: center;
+            overflow: hidden;
+            
+            
+
+            
+            
+        }
+        
+        .m-tooltip{
+            position: absolute;
+            color: #fff;
+            max-width: 224px;
+            white-space: normal;
+            word-wrap: break-word;
+            height: auto;
+            line-height: 22px;
+            text-align: center;
+            background: red;
+            overflow: hidden;
+            display: block;
+            border-radius: 4px;
+            transform: translateX(-50%) translateY(-100%);
+            background: rgba(0, 0, 0, 0.7);
+                .bottomJiao{
+                    position: absolute;
+                    left: 50%;
+                    transform:translateX(-50%);
+                    bottom:-5px;
+                    width: 0;
+                    height: 0;
+                    border-left: 7px solid transparent;
+                    border-right: 7px solid transparent;
+                    border-top: 5px solid rgba(0, 0, 0, 0.7);
+                }
+        }
 	
     
 }

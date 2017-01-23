@@ -37,12 +37,6 @@ export default class TreeComponent extends React.Component {
 			listValue:props.placeholder||"请选择项目类型"
 		}
 	}
-
-	
-
-	
-	
-	
 	imitateInputClick=(value,listId)=>{
 			let {input}=this.props;
 			if(typeof(value)=="string"){
@@ -66,18 +60,22 @@ export default class TreeComponent extends React.Component {
 	
 	
 	render() {
-		let {label,style,requireLabel,inline,search}=this.props;
+		let {label,style,requireLabel,inline,search,listValueName,placeholder}=this.props;
 		let imitateInputStyle="ui-imitateInput";
 		let {listValue,showTreeList}=this.state;
-		if(!listValue&&this.props.listValue){
-			listValue=this.props.listValue;
+		if(listValue=="请选择项目类型"||listValue==placeholder){
+			if(!listValueName){
+
+			}else if(listValueName.length!=0){
+				listValue=listValueName;
+			}
 		}
 
 		return (
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 				<div ref="ui-imitateInput" className={imitateInputStyle} onClick={this.imitateInputClick}>
-					<input readOnly="true" className="ui-treeInput" value={this.state.listValue} onChange={this.onChange} />
+					<input readOnly="true" className="ui-treeInput" value={listValue} onChange={this.onChange} />
 					<span className="ui-treeArrow"></span>
 				</div>
 				

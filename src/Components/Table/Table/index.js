@@ -344,6 +344,7 @@ export default class Table extends React.Component {
 		var {visibilityRows} = this.state;
 
 		var foldOpen = !this.state.foldOpen;
+		console.log(visibilityRows,"qweewrerttyrtyyutyi");
 
 		visibilityRows = visibilityRows.toString().replace(/,/gi,'');
 
@@ -711,9 +712,10 @@ export default class Table extends React.Component {
 
 		return (
 		<div>
-				<div className="btn-collapse" onClick={this.onFold}></div>
+				<div className="btn-collapse">
 				{this.state.foldOpen&&<span className="recordDevelop" onClick={this.onFold}>展开</span>}
 			    {!this.state.foldOpen&&<span className="recordClose" onClick={this.onFold}>收起</span>}
+			    </div>
 		</div>
 
 		);
