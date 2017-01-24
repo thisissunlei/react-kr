@@ -70,11 +70,11 @@ class Personal extends Component{
 		})
 		Store.dispatch(change('NewCustomerList','hasOffice','NO'));
 		State.switchNewCustomerList();
-		if(response.hasOffice=="YES"){
-			State.hasOfficeChange(true);
-		}else{
-			State.hasOfficeChange(false);
-		}
+		// if(response.hasOffice=="YES"){
+		// 	State.hasOfficeChange(true);
+		// }else{
+		// 	State.hasOfficeChange(false);
+		// }
 	}
 
 	//查看页面开关
