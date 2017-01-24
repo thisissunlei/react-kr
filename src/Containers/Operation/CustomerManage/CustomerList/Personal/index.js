@@ -70,11 +70,12 @@ class Personal extends Component{
 		})
 		Store.dispatch(change('NewCustomerList','hasOffice','NO'));
 		State.switchNewCustomerList();
-		if(response.hasOffice=="YES"){
-			State.hasOfficeChange(true);
-		}else{
-			State.hasOfficeChange(false);
-		}
+		// if(response)
+		// if(response.hasOffice=="YES"){
+		// 	State.hasOfficeChange(true);
+		// }else{
+		// 	State.hasOfficeChange(false);
+		// }
 	}
 
 	//查看页面开关
@@ -325,7 +326,7 @@ class Personal extends Component{
 		return(
 
       <div className="m-personal" style={{paddingTop:25}}>
-      		<Title value="运营平台"/>
+			<Title value="客户列表"/>
       		<div className='merchants-dialog' style={blockStyle}>
       		  <div className='selectCheck'>已选中<span className='dialog-number'>{this.state.dialogNum}</span>项</div>
       		  <div style={{marginRight:20,display:'inline-block'}}><Button  label="转移" type="button" onTouchTap={this.openSwitchDialog}/></div>
@@ -573,9 +574,12 @@ class Personal extends Component{
                     <Dialog
 						title="高级查询"
 						modal={true}
+			            operType="PERSON"
 						onClose={this.openSearchUpperDialog}
 						open={State.openSearchUpper}
 						contentStyle ={{ width: '666'}}
+						bodyStyle={{overflow:"auto"}}
+
 					>
 						<SearchUpperForm  
 						    onCancel={this.openSearchUpperDialog}

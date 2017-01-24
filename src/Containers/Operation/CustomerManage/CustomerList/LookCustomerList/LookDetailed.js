@@ -6,6 +6,9 @@ import {
 	observer
 } from 'mobx-react';
 import {
+	DateFormat
+} from 'kr/Utils';
+import {
 	KrField,
 	Table,
 	TableBody,
@@ -28,9 +31,7 @@ import {
 	KrDate
 
 } from 'kr-ui';
-import DateFormat from "kr/Utils";
 import './index.less'
-
 import State from './State';
 @observer
 class LookDetail extends Component{
@@ -71,7 +72,7 @@ class LookDetail extends Component{
 		}else{
 			show=true;
 		}
-		return (<Tooltip className="tooltipTextStyle" style={{padding:10, maxWidth:224,}} offsetTop={0} place='top'><div style={{width:160,minHeight:20,wordWrap:"break-word",padding:"10px",whiteSpace:"normal",lineHeight:"22px"}}>{value}</div></Tooltip>)
+		return (<Tooltip className="tooltipTextStyle" style={{padding:10, maxWidth:224,}} offsetTop={5} place='top'><div style={{width:160,minHeight:20,wordWrap:"break-word",padding:"10px",whiteSpace:"normal",lineHeight:"22px"}}>{value}</div></Tooltip>)
 	}
 	
 	visitRecordList = () =>{
@@ -101,7 +102,7 @@ class LookDetail extends Component{
 				text="否";
 			}
 			tds.push(<div className="div-td"><span className="tableOver">{everyTr.visitTypeName}</span>{this.everyTd(everyTr.visitTypeName)}</div>);
-			tds.push(<div className="div-td"><span className="tableOver">{everyTr.visitTime}</span>{this.everyTd(everyTr.visitTime)}</div>);
+			tds.push(<div className="div-td"><span className="tableOver">{DateFormat(everyTr.visitTime,"yyyy-mm-dd")}</span>{this.everyTd(DateFormat(everyTr.visitTime,"yyyy-mm-dd HH:MM:ss"))}</div>);
 			tds.push(<div className="div-td"><span className="tableOver">{everyTr.linkName}</span>{this.everyTd(everyTr.linkName)}</div>);
 			tds.push(<div className="div-td"><span className="tableOver">{everyTr.linkTel}</span>{this.everyTd(everyTr.linkTel)}</div>);
 			tds.push(<div className="div-td"><span className="tableOver">{everyTr.levelName}</span>{this.everyTd(everyTr.levelName)}</div>);

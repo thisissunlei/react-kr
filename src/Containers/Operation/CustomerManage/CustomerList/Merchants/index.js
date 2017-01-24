@@ -268,7 +268,7 @@ class Merchants extends Component{
 
 		return(
       <div className="m-merchants" style={{paddingTop:25}}>
-      		<Title value="运营平台"/>
+			<Title value="客户列表"/>
       		<div className='merchants-dialog' style={blockStyle}>
       		  <div className='selectCheck'>已选中<span className='dialog-number'>{this.state.dialogNum}</span>项</div>
       		  <Button  label="领取" type="button" onTouchTap={this.openCatchDialog}/>
@@ -475,6 +475,7 @@ class Merchants extends Component{
                     {/*高级查询*/}
                     <Dialog
 						title="高级查询"
+						operType="SHARE"
 						modal={true}
 						onClose={this.openSearchUpperDialog}
 						open={State.openSearchUpper}

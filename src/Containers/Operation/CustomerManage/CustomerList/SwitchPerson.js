@@ -25,9 +25,6 @@ class SwitchPerson extends Component{
 		super(props,context);
 		this.onCancel=this.onCancel.bind(this);
 		this.onSubmit=this.onSubmit.bind(this);
-		this.state={
-          
-		}
 	};
 	onCancel(){
 		const {onCancel} = this.props;

@@ -304,7 +304,7 @@ class SignedClient extends Component{
 
 		return(
       <div className="m-signed" style={{paddingTop:25}}>
-      		<Title value="运营平台"/>
+      		<Title value="客户列表"/>
       		<div className='merchants-dialog' style={blockStyle}>
       		  <div className='selectCheck'>已选中<span className='dialog-number'>{this.state.dialogNum}</span>项</div>
       		  <Button  label="转移" type="button" onTouchTap={this.openSwitchDialog}/>
@@ -412,10 +412,12 @@ class SignedClient extends Component{
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
 						<EditCustomerList
-			                 comeFrom="Merchant"
+			                comeFrom="Merchant"
 							 onCancel={this.switchEditCustomerList}
 			                 listId={State.listId}
 			                 dataReady={dataReady}
+				             operType="PERSON"
+			                 hasOffice={State.ishasOffice}
 			                 cityName={State.editCity}
 			                 listValue={State.editprojectName}
 						/>
@@ -430,11 +432,14 @@ class SignedClient extends Component{
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
 						<NewIndent
-							 onCancel={this.switchNewIndent}
-							 listId={State.listId}
-			                 indentReady={State.indentReady}
-			                 orderName={State.orderName}
-			                 companyName={State.companyName}
+							 comeFrom="Merchant"
+							 onCancel={this.switchEditCustomerList}
+			                 listId={State.listId}
+			                 dataReady={dataReady}
+				             operType="PERSON"
+			                 hasOffice={State.ishasOffice}
+			                 cityName={State.editCity}
+			                 listValue={State.editprojectName}
 
 						/>
 					</Drawer>
@@ -485,6 +490,8 @@ class SignedClient extends Component{
 						onClose={this.openSearchUpperDialog}
 						open={State.openSearchUpper}
 						contentStyle ={{ width: '666'}}
+						bodyStyle={{overflow:"auto"}}
+						operType="SIGN"	
 					>
 						<SearchUpperForm  
 						    onCancel={this.openSearchUpperDialog}

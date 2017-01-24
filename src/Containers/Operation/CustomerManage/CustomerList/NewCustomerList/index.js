@@ -249,7 +249,7 @@ const validate = values =>{
 		}
 
 
-		if(!email.test(values.mail)){
+		if(values.mail&&!email.test(values.mail)){
 			errors.mail = '联系人邮箱格式错误';
 		}
 

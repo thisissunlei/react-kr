@@ -5,6 +5,7 @@ import React, {
 import $ from 'jquery';
 import {
 	FontIcon,
+	KrDate
 } from 'kr-ui';
 import ReactDOM from 'react-dom';
 import './index.less';

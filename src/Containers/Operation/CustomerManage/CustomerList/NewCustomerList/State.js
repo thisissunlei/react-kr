@@ -49,9 +49,10 @@ State.corpNameCheck = action(function(params){
 	Store.dispatch(Actions.callAPI('corpNameCheck',data)).then(function(response) {
 		 _this.isCorpName=false;
 	}).catch(function(err) {
-		if(err.message.indexOf("该名称已存在")==0){
+		 if(err.message.indexOf("该名称已存在")==0){
 			 _this.isCorpName=true;
 		}
+
 		
 	});	
 })

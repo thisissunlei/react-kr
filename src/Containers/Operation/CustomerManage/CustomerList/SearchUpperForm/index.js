@@ -50,7 +50,8 @@ class SearchUpperForm extends Component {
 		this.onCancel = this.onCancel.bind(this);
 		this.state={
 			dateBoxDevelop:false,
-			dateBoxStyle:{marginTop:35,marginLeft:26 ,height:"auto"}
+			dateBoxStyle:{marginTop:35,marginLeft:26 ,height:"auto"},
+			operType:props.operType
 		}
 
 	}
@@ -114,7 +115,15 @@ class SearchUpperForm extends Component {
 		);
 	}
 	componentDidUpdate(prevProps, prevState){
-		var top=$('.m-merchants .dialog-body').scrollTop(558);
+		
+			$('.m-merchants .dialog-body').scrollTop(558);
+
+		
+			$('.m-personal .dialog-body').scrollTop(558);
+
+		
+			$('.m-signed .dialog-body').scrollTop(558);
+		
 	}
 	clickDiv=(event)=>{
 		this.setState({
@@ -136,11 +145,11 @@ class SearchUpperForm extends Component {
 
 	   let {handleSubmit}=this.props;
 	   let {dateBoxStyle,dateBoxDevelop}=this.state;
-	   if(dateBoxDevelop){
-	   	dateBoxStyle.width="558px";
-	   }else{
-	   	dateBoxStyle.width="auto";
-	   }
+	   // if(dateBoxDevelop){
+	   // 	dateBoxStyle.width="558px";
+	   // }else{
+	   // 	dateBoxStyle.width="auto";
+	   // }
 	   // console.log(dateBoxDevelop,">>>>>>")
 
 
