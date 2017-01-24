@@ -27,7 +27,6 @@ let State = observable({
 State.initComeFrom = action(function(comeFroms,operTypes) {
 	this.comeFrom=comeFroms||this.comeFrom;
 	this.operType=operTypes;
-	console.log(this.operType,"++++++++")
 });
 State.recordDevelopChange = action(function(comeFrom) {
 	this.recordDevelop=!this.recordDevelop;
@@ -60,7 +59,6 @@ State.initListId=action(function(params){
 })
 //获取详情页数据
 State.lookListId=action(function(params,operType) {
-	console.log(params,operType,">>>>>>>")
 	this.operType=operType;
 	if(!params){
 	 return ;

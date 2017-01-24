@@ -12,6 +12,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
+import $ from 'jquery';
 import {
 	reduxForm,
 	formValueSelector,
@@ -47,6 +48,10 @@ class SearchUpperForm extends Component {
 		super(props);
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
+		this.state={
+			dateBoxDevelop:false,
+			dateBoxStyle:{marginTop:35,marginLeft:26 ,height:"auto"}
+		}
 
 	}
 	
@@ -108,24 +113,47 @@ class SearchUpperForm extends Component {
 			selectData   				
 		);
 	}
+	componentDidUpdate(prevProps, prevState){
+		var top=$('.m-merchants .dialog-body').scrollTop(558);
+	}
+	clickDiv=(event)=>{
+		this.setState({
+			dateBoxDevelop:!this.state.dateBoxDevelop,
+		})
 
+		// var tt=$('.m-merchants .dialog-body').;
+	}
+	customerClick=()=>{
+
+		this.setState({
+			dateBoxDevelop:false,
+		})
+	}
 
 	
 
 	render() {
 
 	   let {handleSubmit}=this.props;
+	   let {dateBoxStyle,dateBoxDevelop}=this.state;
+	   if(dateBoxDevelop){
+	   	dateBoxStyle.width="558px";
+	   }else{
+	   	dateBoxStyle.width="auto";
+	   }
+	   // console.log(dateBoxDevelop,">>>>>>")
 
 
 		return(
-			<div style={{marginTop:35,marginLeft:26}} className='customer-searchUpper'>
+			<div style={dateBoxStyle} className='customer-searchUpper' onclick={this.customerClick}>
 			    <form onSubmit={handleSubmit(this.onSubmit)}>
 				    {this.renderSigned()}
 				<KrField grid={1/1}  component="group" label="创建时间" style={{marginTop:3}}>
-				<div className='ui-listDate'><ListGroup>
-					<ListGroupItem><div className='ui-date-start'><KrField  right={6} style={{marginLeft:-10,marginTop:2}} name="createStartDate" component="date" /></div></ListGroupItem>
-						<div className='ui-line-down'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-						<ListGroupItem><div className='ui-date-end'><KrField  right={6} name="createEndDate" style={{marginTop:2}} component="date" /></div></ListGroupItem>
+				<div className='ui-listDate' onClick={this.clickDiv}>
+					<ListGroup>
+						<ListGroupItem><div className='ui-date-start' style={{width:250}} ><KrField  style={{width:250,marginLeft:-10,marginTop:2}} name="createStartDate" component="date" /></div></ListGroupItem>
+							<div className='ui-line-down'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
+						<ListGroupItem><div className='ui-date-end'><KrField name="createEndDate" style={{width:250,marginTop:2}} component="date" /></div></ListGroupItem>
 					</ListGroup>
                 </div>
 				</KrField>

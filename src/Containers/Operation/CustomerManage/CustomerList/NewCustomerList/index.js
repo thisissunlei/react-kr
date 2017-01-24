@@ -39,9 +39,6 @@ import './index.less'
 		let _this=this; 
 		let {operType}=this.props;
 		values.operType=this.props.operType;
-		console.log("PPPPP",values)
-
-
 		Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
 			if(operType=="SHARE"){
 				merchants.searchParams={

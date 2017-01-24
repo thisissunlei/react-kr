@@ -71,7 +71,7 @@ class LookDetail extends Component{
 		}else{
 			show=true;
 		}
-		return (<Tooltip style={{padding:10, maxWidth:224}} offsetTop={5} place='top'><div style={{maxWidth:224}}>{value}</div></Tooltip>)
+		return (<Tooltip className="tooltipTextStyle" style={{padding:10, maxWidth:224,}} offsetTop={0} place='top'><div style={{width:160,minHeight:20,wordWrap:"break-word",padding:"10px",whiteSpace:"normal",lineHeight:"22px"}}>{value}</div></Tooltip>)
 	}
 	
 	visitRecordList = () =>{
@@ -80,21 +80,20 @@ class LookDetail extends Component{
 		}
 
 		let tr=[];
+
 		let records=State.detail.records;
-		console.log("=========",records)
-		
+		let len=records.length;
 		if(State.recordDevelop&&records.length>State.visitLen){
-			records.length=State.visitLen;
+			len=State.visitLen;
 		}
 		
 		
 
-		for(let i=0;i<records.length;i++){
+		for(let i=0;i<len;i++){
 
 
 			let tds=[];
 			let everyTr=records[i];
-			console.log()
 			let text=everyTr.isContinue;
 			if(text=="YES"){
 				text="是";
@@ -171,7 +170,7 @@ class LookDetail extends Component{
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="详细地址:" style={unifyStyle} component="labelText" value={detail.detailAddress} inline={true} /></li>
 				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="公司网址:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.website} inline={true} /></li>
 				<li className="everyText" style={{width:660,marginTop:7}}><span className="blueDrop" style={{height:5}}></span><span style={{display:"inline-block",paddingLeft:5}}>公司简介:</span>
-					<p style={{padding:"0 10px 0 15px"}}>{detail.companyIntroduce}</p>
+					<p style={{padding:"0 10px 0 15px",color:"#666666"}}>{detail.companyIntroduce}</p>
 				</li>
 				<li className="everyText" style={{width:660}}><span className="blueDrop" style={{height:5}}></span><span style={{display:"inline-block",paddingLeft:5}}>备注:</span>
 					<p style={{padding:"0 10px 0 15px"}}>{detail.remark}</p>

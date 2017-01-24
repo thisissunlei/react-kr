@@ -91,7 +91,6 @@ class Merchants extends Component{
 				State.editCity=`${response.provinceName}/${response.cityName}/${response.countyName}`
 			}
 			State.editprojectName=response.projectName;
-			console.log(response.sourceName.indexOf("介绍"),">>>>>>>>>>>")
 			 if(response.sourceName.indexOf("介绍")!=-1){
 
 			 	editsourceCustomer.sourceCustomer=true;
@@ -480,6 +479,8 @@ class Merchants extends Component{
 						onClose={this.openSearchUpperDialog}
 						open={State.openSearchUpper}
 						contentStyle ={{ width: '666'}}
+						bodyStyle={{overflow:"auto"}}
+
 					>
 						<SearchUpperForm  
 						    onCancel={this.openSearchUpperDialog}

@@ -344,8 +344,6 @@ export default class Table extends React.Component {
 		var {visibilityRows} = this.state;
 
 		var foldOpen = !this.state.foldOpen;
-		console.log(visibilityRows,"qweewrerttyrtyyutyi");
-
 		visibilityRows = visibilityRows.toString().replace(/,/gi,'');
 
 		if(foldOpen){
@@ -369,8 +367,6 @@ export default class Table extends React.Component {
 		this.onLoadData();
 
 		const {foldOpen,fold,foldSize} = this.props;
-
-		console.log(fold,foldOpen,foldSize);
 
 		var visibilityRows = new Array(this.maxRows + 1).join(1);
 

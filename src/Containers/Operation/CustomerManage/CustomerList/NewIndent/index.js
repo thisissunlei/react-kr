@@ -99,7 +99,6 @@ import './index.less'
 		const { error, handleSubmit, pristine, reset,companyName,orderName,isOpenIndent} = this.props;
 		let city=State.cityLable;
 			city=!city?"无":city;
-			console.log("123",isOpenIndent);
 		if(!isOpenIndent){
 			city="无"
 		}

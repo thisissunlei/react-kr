@@ -17,7 +17,7 @@ export default class SelectComponent extends React.Component {
 	static PropTypes = {
 		onChange: React.PropTypes.func,
 		inline: React.PropTypes.bool,
-		search: React.PropTypes.bool
+		search: React.PropTypes.bool,
 	}
 
 	constructor(props) {
@@ -74,7 +74,6 @@ export default class SelectComponent extends React.Component {
 			input,
 			onChange
 		} = this.props;
-		console.log(">>>>>",input);
 		var value = (item && item.value) || '';
 		input.onChange(value);
 		onChange && onChange(item);
@@ -100,8 +99,6 @@ render() {
 			multi,
 			...other
 		} = this.props;
-		// console.log('select',options);
-
 		if (multi) {
 			return (
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>

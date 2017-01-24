@@ -37,7 +37,6 @@ import flushData from "../LookCustomerList/State";
 	constructor(props){
 		super(props);
 		let {listId}=props;
-		console.log("================");
 		
 	}
 	supplementZero(value) {
@@ -69,18 +68,13 @@ import flushData from "../LookCustomerList/State";
 
 
 	onSubmit = (values) => {
-		
-
-		console.log("12>>>")
 		let {operType}=this.props;
 		let _this=this;
 		values.operType=operType;
 		if(!isNaN(values.inTime)){
-			// console.log("PPPPPPPPPPqqqqqqq",this.formatDate(values.inTime))
 			values.inTime=this.formatDate(values.inTime);
 		}
 		if(!isNaN(values.deadline)){
-			// console.log("PPPPPPPPPPqqqqqqq",this.formatDate(values.inTime))
 			values.deadline=this.formatDate(values.deadline);
 		}
 		Store.dispatch(Actions.callAPI('customerDataEdit',{},values)).then(function(response) {
@@ -109,8 +103,6 @@ import flushData from "../LookCustomerList/State";
 		
          	_this.onCancel();
 		}).catch(function(err) {
-		console.log("15>>>")
-
 			Message.error(err.message);
 		});
 	}

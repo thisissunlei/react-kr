@@ -132,7 +132,6 @@ export default class CityComponent extends React.Component {
 		let thirdCity = this.thirdCityList(secondCity,secondCityId);
 		const target = event.target.getElementsByTagName('span')[0];
 		if(!thirdCity.length){
-			console.log('none');
 		}
 
 		this.setState({
@@ -220,18 +219,10 @@ export default class CityComponent extends React.Component {
 		let hoverColor = {};
 		if(city=="请选择"){
 			if(!cityName){
-				console.log("123444555")
-
 			}else if(cityName.length!=0){
 				city=cityName;
 			}
 		}
-		console.log(city,cityName,"#444444")
-		
-
-
-		
-
 		return (
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>

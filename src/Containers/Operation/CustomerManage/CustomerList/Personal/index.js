@@ -322,9 +322,6 @@ class Personal extends Component{
         	display:'none'
         }
       }
-
-      console.log('99999',State.editIndentId);
-
 		return(
 
       <div className="m-personal" style={{paddingTop:25}}>
