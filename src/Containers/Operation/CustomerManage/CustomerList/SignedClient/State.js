@@ -36,9 +36,12 @@ let State = observable({
 		orderName:"",
 		cityname:"",
 		editCity:'',
-		editprojectName:''
+		editprojectName:'',
+		ishasOffice:false,
 });
-
+State.hasOfficeChange=action(function(params){
+	this.ishasOffice=params;
+})
 //新建页的开关
 State.switchNewCustomerList = action(function() {
 	this.openNewMerchants=!this.openNewMerchants;

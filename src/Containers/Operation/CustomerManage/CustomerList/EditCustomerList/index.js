@@ -134,6 +134,9 @@ import flushData from "../LookCustomerList/State";
 			if(this.props.operType=="PERSON"){
 				personal.hasOfficeChange(true);
 			}
+			if(this.props.operType=="SIGN"){
+				signedClient.hasOfficeChange(true);
+			}
 			
 		}else if(params.value=="NO"){
 			if(this.props.operType=="SHARE"){
@@ -141,6 +144,10 @@ import flushData from "../LookCustomerList/State";
 			}
 			if(this.props.operType=="PERSON"){
 				personal.hasOfficeChange(false);
+			}
+			if(this.props.operType=="SIGN"){
+				signedClient.hasOfficeChange(false);
+
 			}
 		}
 	}

@@ -102,7 +102,7 @@ class LookDetail extends Component{
 				text="否";
 			}
 			tds.push(<div className="div-td"><span className="tableOver">{everyTr.visitTypeName}</span>{this.everyTd(everyTr.visitTypeName)}</div>);
-			tds.push(<div className="div-td"><span className="tableOver">{DateFormat(everyTr.visitTime,"yyyy-mm-dd")}</span>{this.everyTd(DateFormat(everyTr.visitTime,"yyyy-mm-dd HH:MM:ss"))}</div>);
+			tds.push(<div className="div-td"><span className="tableOver">{DateFormat(everyTr.visitTime,"yyyy-mm-dd")}</span>{this.everyTd(DateFormat(everyTr.visitTime,"yyyy-mm-dd"))}</div>);
 			tds.push(<div className="div-td"><span className="tableOver">{everyTr.linkName}</span>{this.everyTd(everyTr.linkName)}</div>);
 			tds.push(<div className="div-td"><span className="tableOver">{everyTr.linkTel}</span>{this.everyTd(everyTr.linkTel)}</div>);
 			tds.push(<div className="div-td"><span className="tableOver">{everyTr.levelName}</span>{this.everyTd(everyTr.levelName)}</div>);

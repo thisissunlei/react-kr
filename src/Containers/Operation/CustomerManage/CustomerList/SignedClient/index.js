@@ -416,7 +416,7 @@ class SignedClient extends Component{
 							 onCancel={this.switchEditCustomerList}
 			                 listId={State.listId}
 			                 dataReady={dataReady}
-				             operType="PERSON"
+				             operType="SIGN"
 			                 hasOffice={State.ishasOffice}
 			                 cityName={State.editCity}
 			                 listValue={State.editprojectName}
@@ -432,14 +432,12 @@ class SignedClient extends Component{
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
 						<NewIndent
-							 comeFrom="Merchant"
-							 onCancel={this.switchEditCustomerList}
+							 companyName={State.companyName}
+							 onCancel={this.switchNewIndent}
+			                 orderReady={orderReady}
 			                 listId={State.listId}
-			                 dataReady={dataReady}
-				             operType="PERSON"
-			                 hasOffice={State.ishasOffice}
-			                 cityName={State.editCity}
-			                 listValue={State.editprojectName}
+			                 orderName={State.orderName}
+			                 isOpenIndent={State.orderName}
 
 						/>
 					</Drawer>
