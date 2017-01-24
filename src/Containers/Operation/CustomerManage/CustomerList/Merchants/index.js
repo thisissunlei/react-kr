@@ -90,12 +90,15 @@ class Merchants extends Component{
 			}else{
 				State.editCity=`${response.provinceName}/${response.cityName}/${response.countyName}`
 			}
-			State.editprojectName=response.projectName;
+			State.editprojectName=response.projectCategoryName;
 			 if(response.sourceName.indexOf("介绍")!=-1){
 
 			 	editsourceCustomer.sourceCustomer=true;
 			}else{
 			 	editsourceCustomer.sourceCustomer=false;
+			}
+			if(!response){
+				return;
 			}
 			if(response.hasOffice=="YES"){
 				State.hasOfficeChange(true);

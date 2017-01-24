@@ -155,15 +155,16 @@ export default class CityComponent extends React.Component {
 	}
 
 	onSubmit=(event)=>{
+
 		let {thirdId} = this.state;
 		const target = event.target.getElementsByTagName('span')[0];
 		let {thirdName,firstName,secondName} = this.state;
 		let city = `${firstName}/${secondName}/${target.innerHTML}`;
+
 		this.setState({
 			city,
 			showCity:false
 		});
-
 		let {onSubmit} = this.props;
 		onSubmit && onSubmit(thirdId);
 

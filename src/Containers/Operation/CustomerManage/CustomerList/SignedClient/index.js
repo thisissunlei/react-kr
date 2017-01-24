@@ -127,7 +127,15 @@ class SignedClient extends Component{
 			}else{
 			 	editsourceCustomer.sourceCustomer=false;
 			}
-			State.editprojectName=response.projectName;
+			if(!response){
+				return;
+			}
+			if(response.hasOffice=="YES"){
+				State.hasOfficeChange(true);
+			}else{
+				State.hasOfficeChange(false);
+			}
+			State.editprojectName=response.projectCategoryName;
 		}).catch(function(err) {
 			
 		});
@@ -138,7 +146,7 @@ class SignedClient extends Component{
 		State.switchEditIndent();
 	}
 
-	//打开编辑页
+	//打开订单编辑页
 	openEditIndent=(editIndentId)=>{
 		var data={};
 		var {orderReady}=this.props;

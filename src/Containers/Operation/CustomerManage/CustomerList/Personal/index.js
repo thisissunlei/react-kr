@@ -99,7 +99,15 @@ class Personal extends Component{
 			}else{
 			 	editsourceCustomer.sourceCustomer=false;
 			}
-			State.editprojectName=response.projectName;
+			if(!response){
+				return;
+			}
+			if(response.hasOffice=="YES"){
+				State.hasOfficeChange(true);
+			}else{
+				State.hasOfficeChange(false);
+			}
+			State.editprojectName=response.projectCategoryName;
 		}).catch(function(err) {
 			
 		});
