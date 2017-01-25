@@ -47,6 +47,7 @@ class BatchUploadImageForm extends Component{
 		const {openFinishTable}=this.props;
 		openFinishTable && openFinishTable();
 	}
+	
 	// 提交(获取总共上传社区个数)
 	onSubmit=(values)=>{
 		let _this =this;
@@ -193,7 +194,7 @@ class BatchUploadImageForm extends Component{
 			          title="提示"
 			          open={this.state.batchUploadNum}
 			          onClose={this.openBatchUploadNum}
-			          contentStyle={{width:443,height:237,left:-293}}
+			          contentStyle={{width:443,height:237,position:"absolute",left:"123",top:"43%"}}
 		        	>
 			        	<div style={{marginTop:45}}>
 			        		<p style={{fontSize:14,color:"#333333",textAlign:"center"}}>本次将上传{this.state.submitNum}台大门门禁设备，确定上传图片？</p>

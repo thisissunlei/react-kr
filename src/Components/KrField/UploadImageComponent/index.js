@@ -26,25 +26,41 @@ export default class UploadImageComponent extends Component {
 			// 图片是否已经上传到界面
 			imgUpload: false,
 			timer :"",
-			operateImg :false
+			operateImg :false,
+			files :{},
+			imageStatus : true
 		}
+	}
+	componentWillUnmount() {
+		this.setState({
+			files: []
+		});
 	}
 	componentDidMount() {
 
 	}
 	componentWillReceiveProps(nextProps){
 	}
+	onTokenError() {
+		Notify.show([{
+			message: '初始化上传文件失败,请重新上传',
+			type: 'danger',
+		}]);
+	}
 	operationImg=()=>{
+		// console.log("鼠标移入")
+		// console.log("this.state.imgUpload",this.state.imgUpload,"this.state.operateIm",this.state.operateImg);
 		if(this.state.imgUpload){
 			this.setState({
-				operateImg :!this.state.operateImg
+				operateImg :true
 			})
 		}
 	}
 	notOperateImg=()=>{
+		// console.log("鼠标移出去")
 		if(this.state.imgUpload){
 			this.setState({
-				operateImg :!this.state.operateImg
+				operateImg :false
 			})
 		}
 	}
@@ -62,9 +78,12 @@ export default class UploadImageComponent extends Component {
 		})
 		let _this = this;
 		let file = event.target.files[0];
+
 		if (!file) {
 			return;
 		}
+
+		
 		if (file) {
 			var progress = 0;
 			var timer = window.setInterval(function() {
@@ -93,13 +112,13 @@ export default class UploadImageComponent extends Component {
   			})
   			return;
 		}
-		if(imgSize>30){
+		if(imgSize>32){
 			this.refs.inputImg.value ="";
 			this.refs.inputImgNew.value ="";
 			this.refs.uploadImage.src="";
 			_this.setState({
 				errorHide: false,
-				errorTip:"图片尺寸不得大于30K"
+				errorTip:"图片尺寸不得大于32K"
 			})
 			return;
 		}
@@ -110,7 +129,7 @@ export default class UploadImageComponent extends Component {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
 					var response = xhr.response.data;
-					console.log("response",response);
+					// console.log("response",response);
 					form.append('sourceservicetoken', response.token);
 					form.append('docTypeCode', response.docTypeCode);
 					form.append('operater', response.operater);
@@ -125,14 +144,12 @@ export default class UploadImageComponent extends Component {
 							var fileResponse = xhrfile.response;
 							if (xhrfile.status === 200) {
 								if (fileResponse && fileResponse.code > 0) {
-									_this.refs.uploadImage.src = xhrfile.response.data;
-									const {input}=_this.props;
-									input.onChange(xhrfile.response.data);
+									_this.functionHeightWidth(file,xhrfile);
 								} else {
 									_this.onError(fileResponse.msg);
 								}
 							} else if (xhrfile.status == 413) {
-								// _this.onError('您上传的文件过大！');
+								_this.onError('您上传的文件过大！');
 							} else {
 								_this.onError('后台报错请联系管理员！');
 							}
@@ -157,8 +174,52 @@ export default class UploadImageComponent extends Component {
 		xhr.responseType = 'json';
 		xhr.send(null);
 		_this.setState({
-			imgUpload: true
+			imgUpload: true,
+			operateImg : false
 		});
+	}
+	// 校验宽高
+	functionHeightWidth=(file,xhrfile)=>{
+		let _this = this;
+		if(file ){
+                var fileData = file;
+                 //读取图片数据
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                 	// console.log("e",e);
+                    var data = e.target.result;
+                     //加载图片获取图片真实宽度和高度
+                    var image = new Image();
+                    image.onload=function(){
+                         var width = image.width;
+                         var height = image.height;
+                         if(width !== 212 || height !== 136){
+                         	_this.refs.inputImg.value ="";
+							_this.refs.inputImgNew.value ="";
+							_this.refs.uploadImage.src="";
+                         	_this.setState({
+								errorHide: false,
+								errorTip:"图片宽度必须是212*136",
+								imageStatus : false,
+								imgUpload : false
+							});
+                        }else{
+                        	_this.refs.uploadImage.src = xhrfile.response.data;
+                        	_this.setState({
+								imageStatus : true,
+								imgUpload : true,
+								operateImg : false
+							});
+							const {input}=_this.props;
+							input.onChange(xhrfile.response.data);
+                        }
+
+                    };
+                    image.src= data;
+                 };
+                 reader.readAsDataURL(fileData);
+ 
+             }
 	}
 	// 删除图片
 	deleteImg=()=>{
@@ -170,9 +231,13 @@ export default class UploadImageComponent extends Component {
 		this.refs.inputImg.value ="";
 		this.refs.inputImgNew.value ="";
 		this.refs.uploadImage.src="";
+		const {input}=this.props;
+		input.onChange("");
 	}
 	render() {
 		let {children,className,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,requestURI,...other} = this.props;
+		let {operateImg} = this.state;
+		// console.log("this.state.operateImg",this.state.operateImg)
 		return(
 			<div className="ui-uploadimg-box" style={style}>
 				<div className='ui-uploadimg-outbox' >

@@ -60,10 +60,11 @@ class SingleUploadImgDefinitionForm extends Component{
 			deviceId : this.detail.hardwareId,
 			picUrl : values.uploadImage
 		}
+		// console.log("valuesParams",valuesParams);
 		// 向指定社区推送图片
-		Store.dispatch(Actions.callAPI('oploadImgToEquipment',{},valuesParams))
+		Store.dispatch(Actions.callAPI('uploadImgToEquipmentSingle',{},valuesParams))
 	      .then(function(response){
-	      	Message.success("上传图片成功");
+	      	Message.success("推送图片成功");
 	      	const {openSingleUploadDialog} = _this.props;
 	      	openSingleUploadDialog && openSingleUploadDialog();
 	      	_this.setState({

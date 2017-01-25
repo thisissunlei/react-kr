@@ -100,17 +100,17 @@ export default class FinishUploadImgForm extends Component{
 					        inkBarStyle = {{background:"#499ef1"}}
 					    >
 					        <Tab className="upload-img-tab" label={`成功设备（ ${sucNum} ）`} value="a" style={{fontSize:14,fontWeight: "normal",color:leftfontColor?"#499ef1":"#333333",background:"#fff"}} onActive={this.onActive}>
-					          	<div style={{height:328,overFlow:"scroll"}} className="upload-img-victory">
-						            <div>	
+					          	<div style={{height:328,marginTop:20,border:" solid 1px #dfdfdf"}} className="upload-img-victory">
+						            <div  style={{height:328,overflow:"scroll",}}>	
 							            <Table
 							            	onProcessData={(state)=>{
 		              							return state;
 		              						}}
 							            	pagination = {false}
 							            	displayCheckbox={false}
-							            	style={{borderRight:"solid 1px #dfdfdf",borderLeft:"solid 1px #dfdfdf"}}
+							            	style={{margin:0}}
 							            >
-											<TableHeader >
+											<TableHeader style={{borderTop:"none"}}>
 												<TableHeaderColumn style={{fontSize:14}}>社区</TableHeaderColumn>
 												<TableHeaderColumn style={{fontSize:14}}>门编号</TableHeaderColumn>
 												<TableHeaderColumn style={{fontSize:14}}>智能硬件ID</TableHeaderColumn>
@@ -133,19 +133,20 @@ export default class FinishUploadImgForm extends Component{
 											</TableBody>
 											<TableFooter></TableFooter>
 										</Table>
-									
+										<div 
+											style={{display:this.state.successZero?"block":"none",textAlign:"center",height:137,paddingTop:120,}}
+										>
+
+											<img className="upload-img-right" src={sad} style={{width:20,verticalAlign:"top"}}/>
+											<span style={{color:"#333"}}>很遗憾,一张照片也没传上……</span>
+										</div>
 						          	</div>
 
-						          	<div 
-										style={{display:this.state.successZero?"block":"none",textAlign:"center",border:"solid 1px #dfdfdf",borderTop:'none',height:160,paddingTop:120,}}
-									>
-										<img className="upload-img-right" src={sad} style={{width:20,verticalAlign:"top"}}/>
-										<span style={{color:"#333"}}>很遗憾,一张照片也没传上……</span>
-									</div>
+						          	
+									<div onClick={this.exportData} style={{fontSize:14,color:"#499ef1",marginTop:10,width:56,cursor: "pointer"}}>导出数据</div>
 
 								</div>
-					          	<div onClick={this.exportData} style={{fontSize:14,color:"#499ef1",marginTop:10,width:56,cursor: "pointer"}}>导出数据</div>
-
+					          	
 					          	<Grid style={{marginTop:30,marginBottom:'4px'}}>
 									<Row>
 										<ListGroup>
@@ -161,15 +162,15 @@ export default class FinishUploadImgForm extends Component{
 								
 					        </Tab>
 					        <Tab label={`失败设备（ ${errNum} ）`} value="b" style={{fontSize:14,fontWeight: "normal",color:rightfontColor?"#499ef1":"#333333",background:"#fff"}} onActive={this.onActive}>
-					          	<div style={{height:334,overFlow:"scroll"}} className="upload-img-victory">
-						            <div> 
+					          	<div style={{height:334,marginTop:20,border:" solid 1px #dfdfdf"}} className="upload-img-victory">
+						            <div style={{height:334,overflow:"scroll"}}> 
 							          	<Table 
 							          	exportSwitch={true}
 						            	pagination = {false}
 						            	displayCheckbox = {false}
-						            	style={{borderRight:"solid 1px #dfdfdf",borderLeft:"solid 1px #dfdfdf"}}
+						            	style={{margin:0}}
 							          	>
-											<TableHeader >
+											<TableHeader style={{borderTop:"none"}}>
 												<TableHeaderColumn style={{fontSize:14}}>社区门编号</TableHeaderColumn>
 												<TableHeaderColumn style={{fontSize:14}}>门编号</TableHeaderColumn>
 												<TableHeaderColumn style={{fontSize:14}}>智能硬件ID</TableHeaderColumn>
@@ -191,17 +192,19 @@ export default class FinishUploadImgForm extends Component{
 											</TableBody>
 											<TableFooter></TableFooter>
 										</Table>
+										<div 
+											style={{display:this.state.failedZero?"block":"none",textAlign:"center",height:137,paddingTop:120,}}
+										>
+											<img className="upload-img-right" src={happy} style={{width:20,verticalAlign:"top"}}/>
+											<span style={{color:"#333"}}>恭喜您，所有照片都上传成功了</span>
+										</div>
+									</div>
+									
 										
-									</div>
-									<div 
-										style={{display:this.state.failedZero?"block":"none",textAlign:"center",border:"solid 1px #dfdfdf",borderTop:'none',height:160,paddingTop:120,}}
-									>
-										<img className="upload-img-right" src={happy} style={{width:20,verticalAlign:"top"}}/>
-										<span style={{color:"#333"}}>恭喜您，所有照片都上传成功了</span>
-									</div>
-						        </div>
-						        <div onClick={this.exportData} style={{fontSize:14,color:"#499ef1",marginTop:10,width:56,cursor: "pointer"}}>导出数据</div>
+									<div onClick={this.exportData} style={{fontSize:14,color:"#499ef1",marginTop:10,width:56,cursor: "pointer"}}>导出数据</div>
 
+						        </div>
+						        
 					          	<Grid style={{marginTop:30,marginBottom:'4px'}}>
 									<Row>
 										<ListGroup>

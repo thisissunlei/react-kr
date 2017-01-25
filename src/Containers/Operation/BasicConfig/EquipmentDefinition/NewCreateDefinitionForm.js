@@ -230,20 +230,35 @@ class NewCreateDefinitionForm extends Component{
 	}
 	// 新增设备定义
 	onSubmit=(values)=>{
+		// console.log("values",values);
 		let _this = this;
-		values.enable = this.state.isOnlines?"ONLINE":"OFFLINE";
-		if(this.state.doorNumHasStatus){
-			let {isDoorNumHas} =this.props;
-			isDoorNumHas && isDoorNumHas(values.deviceCode);
-			return;
+		values.enable = _this.state.isOnlines?"ONLINE":"OFFLINE";
+		let deviceCodeParams = {
+			code :values.devicecode,
+			type :"deviceCode",
+			id : ''
 		}
-		if(this.state.hardwareidHasStatus){
-			let {hardwareIdHas} =_this.props;
-			hardwareIdHas && hardwareIdHas();
-			return;
+		let hardwareIdParams  = {
+			code :values.hardwareId,
+			type :"hardwareid",
+			id :''
 		}
-		const {onSubmit} = this.props;
-		onSubmit && onSubmit(values);
+// 此处判断门编号是否存在
+		Store.dispatch(Actions.callAPI('doorNumberAndHardwareId',deviceCodeParams)).
+		then(function(response){
+			Store.dispatch(Actions.callAPI('doorNumberAndHardwareId',hardwareIdParams)).
+			then(function(response){
+				const  {onSubmit} = _this.props;
+				onSubmit && onSubmit(values);
+ 
+			}).catch(function(err){
+		 		let { hardwareIdHas} = _this.props;
+		 		 hardwareIdHas &&  hardwareIdHas();
+			});
+		}).catch(function(err){
+	 		let {isDoorNumHas} = _this.props;
+	 		isDoorNumHas && isDoorNumHas();
+		});		
 	}
 	render(){
 		let {floorsOptions,propertyOption,propertyId,locationOptions,defaultChecked} =this.state;

@@ -3,8 +3,6 @@ import React, {
 } from 'react';
 import {
   Title,
-  DatePicker,
-  Form,
   KrField,
   Table,
   TableBody,
@@ -15,14 +13,8 @@ import {
   TableFooter,
   Button,
   Section,
-  DotTitle,
-  BraceWidth,
-  SelfAdaption,
-  LineText,
-  SplitLine,
   SearchForms,
   Dialog,
-  Notify,
   Grid,
   ListGroup,
   ListGroupItem,
@@ -40,12 +32,8 @@ import {Actions,Store} from 'kr/Redux';
 import './index.less';
 import error2 from "./images/error2.png"
 export default class EquipmentDefinition extends Component {
-  // static contextTypes = {
-  //   router: React.PropTypes.object.isRequired
-  // }
   constructor(props, context) {
     super(props, context);
-    // this.params = this.context.router.params;
     this.state = {
       openNewCreateDefinition: false,
       openEquipmentAdvancedQuery: false,
@@ -140,6 +128,12 @@ export default class EquipmentDefinition extends Component {
   openFinishUploadDialog=()=>{
     this.setState({
       openFinishUpload : !this.state.openFinishUpload
+    })
+  }
+  // 最终必须打开成功/失败的Table
+  openFinishUploadDialogLast=()=>{
+    this.setState({
+      openFinishUpload : true
     })
   }
   // 是否打开提示上传图片
@@ -295,6 +289,7 @@ export default class EquipmentDefinition extends Component {
   }
   // 提交---->新建
   onSubmitNewCreateEquipment=(values)=>{
+    
     if(!values.locationId){
       values.locationId=0;
     }
@@ -306,66 +301,31 @@ export default class EquipmentDefinition extends Component {
         }else{
           Message.success("新增设备成功");
         }
-        
+        _this.setState({
+          openEditEquipment : false,
+          openNewCreateDefinition : false,
+          equipmentParams: {
+            deviceCode: "",
+            page : 1,
+            pageSize: 15,
+            timer : new Date()
+          }
+        })
       }).catch(function(err){
         Message.error(err.message);
-     });
+        _this.setState({
+          openEditEquipment : false,
+          openNewCreateDefinition : false,
+          equipmentParams: {
+            deviceCode: "",
+            page : 1,
+            pageSize: 15,
+            timer : new Date()
+          }
+        })
+      });
+  }
 
-    if(this.state.filter =="deviceCode"){
-      _this.setState({
-        content:_this.state.content,
-        filter:  _this.state.filter,
-        timer : new Date(),
-        openEditEquipment : false,
-        openNewCreateDefinition : false,
-        equipmentParams: {
-          deviceCode: _this.state.content,
-          page : 1,
-          pageSize: 15,
-          timer : new Date()
-        }
-      })
-    }else if(this.state.filter =="hardwareId"){
-      _this.setState({
-        content:_this.state.content,
-        filter:  _this.state.filter,
-        timer : new Date(),
-        openEditEquipment : false,
-        openNewCreateDefinition : false,
-        equipmentParams: {
-          hardwareId: _this.state.content,
-          page : 1,
-          pageSize: 15,
-          timer : new Date()
-        }
-      })
-    }
-    
-    
-  }
-  // 保存并添加---新建
-  saveAndNewCreate=(values)=>{
-    Store.dispatch(Actions.callAPI('equipmentNewCreateOrEdit',{},values))
-      .then(function(response){
-        Message.success("新增设备成功");
-      }).catch(function(err){
-        Message.error(err.message);
-     });
-    this.setState({
-      content: '',
-      filter: 'deviceCode',
-      timer : new Date(),
-      openEditEquipment : false,
-      equipmentParams: {
-        filter: "deviceCode",
-        content: '',
-        page : 1,
-        pageSize: 15,
-        timer : new Date()
-      }
-    })
-    
-  }
   // 打开上线
   onlineOrOffline=(itemData)=>{
     this.openOnLineDialog();
@@ -428,11 +388,7 @@ export default class EquipmentDefinition extends Component {
       },
     })
   }
-  // openFinishTable=()=>{
-  //   this.openFinishUploadDialog();
-  // }
   render() {
-    // console.log("页面中this.state.equipmentParams",this.state.equipmentParams);
     let {list,itemDetail,seleced,openTipWarn,tipText} = this.state;
     let options=[{
       label:"门编号",
@@ -526,7 +482,7 @@ export default class EquipmentDefinition extends Component {
               
 
 
-              <TableRowColumn name="deviceCode" 
+              <TableRowColumn name="deviceCode" style={{overflow:"hidden"}}
               component={(value,oldValue)=>{
                 if(value==""){
                   value="-"
@@ -537,13 +493,18 @@ export default class EquipmentDefinition extends Component {
 
 
 
-              <TableRowColumn  name="hardwareId"
-              component={(value,oldValue)=>{
-                if(value==""){
-                  value="-"
-                }
-                return (<span>{value}</span>)}}
-              ></TableRowColumn>
+            
+              <TableRowColumn style={{width:160,overflow:"visible"}} name="hardwareId" component={(value,oldValue)=>{
+                            var TooltipStyle=""
+                            if(value.length==""){
+                              TooltipStyle="none"
+
+                            }else{
+                              TooltipStyle="block";
+                            }
+                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+              }} ></TableRowColumn>
 
 
 
@@ -677,7 +638,7 @@ export default class EquipmentDefinition extends Component {
             onSubmit= {this.onBatchUpload}
             seleletZero ={this.seleletZero}
             closeBatchUpload = {this.closeBatchUpload}
-            openFinishTable = {this.openFinishUploadDialog}
+            openFinishTable = {this.openFinishUploadDialogLast}
             finishUpload = {this.finishUpload}
           />
         </Dialog>

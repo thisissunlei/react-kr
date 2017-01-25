@@ -694,12 +694,12 @@ const APIS = {
    url:'/api-th/krspace-finance-web/community/sysDeviceDefinition/editOnlineForSysDeviceDefinition',
    method:'post'
  },
- //运营平台-基础配置-设备定义-获取设备详情
- // 'getDetailEquipment': {
- //   url:'/api-th/krspace-finance-web/community/sysDeviceDefinition/device-edit-data?id={id}',
- //   method:'get'
- // },
- //运营平台-基础配置-设备定义-向指定社区推送图片
+ //运营平台-基础配置-设备定义-向指定社区推送图片(单张)
+  'uploadImgToEquipmentSingle': {
+   url:'/api-th/krspace-finance-web/community/sysDeviceDefinition/single-push-device',
+   method:'post'
+ },
+ //运营平台-基础配置-设备定义-向指定社区推送图片（多张）
  'oploadImgToEquipment': {
    url:'/api-th/krspace-finance-web/community/sysDeviceDefinition/push-device',
    method:'post'
