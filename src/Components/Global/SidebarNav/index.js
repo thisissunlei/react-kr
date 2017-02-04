@@ -127,7 +127,7 @@ export default class SidebarNav extends Component {
 			width: "180px",
 			color: '#79859a',
 			paddingBottom: '3px',
-			paddingTop: '16px'
+			paddingTop: '11px'
 		};
 
 
@@ -181,7 +181,7 @@ export default class SidebarNav extends Component {
 					autoGenerateNestedIndicator={false}
 					disabled={true}
 
-					leftIcon={<FontIcon  className={item.iconName} color={item.iconColor} style={{fontSize:18,position: 'absolute',margin:'15px 0 0 39px' }}/>
+					leftIcon={<FontIcon  className={item.iconName} color={item.iconColor} style={{fontSize:18,position: 'absolute',margin:'11px 0 0 39px' }}/>
 			}
 
 			nestedItems = {
