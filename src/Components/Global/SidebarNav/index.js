@@ -146,7 +146,6 @@ export default class SidebarNav extends Component {
 		childStyles.color = '#333';
 		childStyles.paddingLeft = "20px";
 		childStyles.width = "180px";
-		childStyles.lineHeight = '13px';
 		var isSelected = false;
 
 		isSelected = item.active;
