@@ -122,12 +122,12 @@ export default class SidebarNav extends Component {
 		let initiallyOpen = false;
 		let parentStyles = {
 			fontSize: '16px',
-			marginTop: '-10px',
+			marginTop: '-8px',
 			marginLeft: '-20px',
 			width: "180px",
 			color: '#79859a',
 			paddingBottom: '3px',
-			paddingTop: '27px'
+			paddingTop: '22px'
 		};
 
 
@@ -181,7 +181,7 @@ export default class SidebarNav extends Component {
 					autoGenerateNestedIndicator={false}
 					disabled={true}
 
-					leftIcon={<FontIcon  className={item.iconName} color={item.iconColor} style={{fontSize:18,position: 'absolute',margin:'25px 0 0 39px' }}/>
+					leftIcon={<FontIcon  className={item.iconName} color={item.iconColor} style={{fontSize:18,position: 'absolute',margin:'22px 0 0 39px' }}/>
 			}
 
 			nestedItems = {
@@ -221,7 +221,7 @@ render() {
 
 	return (
 
-		<div style={{marginTop:"-5px"}}>
+		<div >
 						<SelectableList defaultValue={1000} >
 				{/*
 
