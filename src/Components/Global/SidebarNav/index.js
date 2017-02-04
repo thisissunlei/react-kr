@@ -125,7 +125,8 @@ export default class SidebarNav extends Component {
 			marginTop: '0px',
 			marginLeft: '-20px',
 			width: "180px",
-			color: '#79859a'
+			color: '#79859a',
+			paddingBottom: '0px'
 		};
 
 
@@ -156,14 +157,14 @@ export default class SidebarNav extends Component {
 			childStyles.backgroundColor = '#394457';
 			childStyles.color = '#c8d2d9';
 		}
-/*
-		if (item.router === current_router) {
-			childStyles.backgroundColor = '#328ECC';
-			childStyles.color = '#fff';
-		} else {
-			childStyles.backgroundColor = '#fff';
-		}
-		*/
+		/*
+				if (item.router === current_router) {
+					childStyles.backgroundColor = '#328ECC';
+					childStyles.color = '#fff';
+				} else {
+					childStyles.backgroundColor = '#fff';
+				}
+				*/
 
 		if (item.menuItems && item.menuItems.length) {
 			return (
