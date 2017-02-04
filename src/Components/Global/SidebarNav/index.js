@@ -126,7 +126,8 @@ export default class SidebarNav extends Component {
 			marginLeft: '-20px',
 			width: "180px",
 			color: '#79859a',
-			paddingBottom: '0px'
+			paddingBottom: '0px',
+			paddingTop: '13px'
 		};
 
 
