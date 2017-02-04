@@ -191,9 +191,9 @@ class EditEquipmentForm extends Component{
   		}
   		Store.dispatch(change('EditEquipmentForm','propertyId',propertyId.value));
   		Store.dispatch(change('EditEquipmentForm','locationId',""));
-  		this.setState({
-			statusClick : 1
-		})
+  // 		this.setState({
+		// 	statusClick : 1
+		// })
   	}
 	//选择对应功能
 	onchooseCorrespondingFunction=(functionId)=>{
