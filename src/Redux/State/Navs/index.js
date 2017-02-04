@@ -99,10 +99,6 @@ module.exports = {
 					primaryText: '平面图配置',
 					menuCode: 'communityFloorPlanList',
 					originUrl: '/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityFloorPlan&mid=90'
-				}, {
-					primaryText: '访客记录',
-					menuCode: 'sysVisitRecordList',
-					originUrl: '/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=102'
 				}
 
 
