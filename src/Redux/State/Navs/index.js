@@ -23,7 +23,7 @@ module.exports = {
 	}, {
 		primaryText: "数据统计",
 		menuCode: 'stat',
-		router:'statistical',
+		router: 'statistical',
 		menuItems: [{
 			primaryText: "数据统计",
 			router: 'statistical',
@@ -34,9 +34,9 @@ module.exports = {
 				primaryText: "集团经营",
 				router: '/statistical/index',
 				menuCode: 'dataStat',
-			},]
+			}, ]
 		}, ]
-	},{
+	}, {
 		primaryText: "社区经营",
 		router: 'community',
 		menuCode: 'op_manage',
@@ -80,33 +80,33 @@ module.exports = {
 			router: 'communityManage',
 			menuCode: 'communityBaseAdmin',
 			menuItems: [{
-				primaryText: '社区列表',
-				menuCode: 'communityBaseList',
-				originUrl: '/krspace_operate_web/commnuity/communityBase/toCommunityBaseList?mid=65'
-			}, {
-				primaryText: '会议室列表',
-				menuCode: 'communityBoardroomList',
-				originUrl: '/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityBoardroom&mid=66'
-			}, {
-				primaryText: '设备列表',
-				menuCode: 'communityDeviceList',
-				originUrl: '/krspace_operate_web/community/device/toDeviceList?mid=75'
-			}, {
-				primaryText: '工位列表',
-				menuCode: 'communityStationList',
-				originUrl: '/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityStation&mid=83'
-			}, {
-				primaryText: '平面图配置',
-				menuCode: 'communityFloorPlanList',
-				originUrl: '/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityFloorPlan&mid=90'
-			}, {
-				primaryText: '访客记录',
-				menuCode: 'sysVisitRecordList',
-				originUrl: '/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=102'
-			}
+					primaryText: '社区列表',
+					menuCode: 'communityBaseList',
+					originUrl: '/krspace_operate_web/commnuity/communityBase/toCommunityBaseList?mid=65'
+				}, {
+					primaryText: '会议室列表',
+					menuCode: 'communityBoardroomList',
+					originUrl: '/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityBoardroom&mid=66'
+				}, {
+					primaryText: '设备列表',
+					menuCode: 'communityDeviceList',
+					originUrl: '/krspace_operate_web/community/device/toDeviceList?mid=75'
+				}, {
+					primaryText: '工位列表',
+					menuCode: 'communityStationList',
+					originUrl: '/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityStation&mid=83'
+				}, {
+					primaryText: '平面图配置',
+					menuCode: 'communityFloorPlanList',
+					originUrl: '/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityFloorPlan&mid=90'
+				}, {
+					primaryText: '访客记录',
+					menuCode: 'sysVisitRecordList',
+					originUrl: '/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=102'
+				}
 
 
-		 ]
+			]
 		}, {
 			primaryText: "基础配置",
 			iconName: 'icon-basis',
@@ -118,9 +118,9 @@ module.exports = {
 				menuCode: 'agreement_setting',
 				router: '/operation/customerManage/agreement/setting/list',
 			}, {
-				primaryText: '参数配置',
-				menuCode: 'retail_sysparamadmin',
-				originUrl: '/krspace_operate_web/sys/sysParam/toSysParamList?mid=60'
+				primaryText: "参数配置",
+				menuCode: 'operate_sysparamadmin',
+				router: '/krspace_operate_web/sys/sysParam/toSysParamList?mid=60',
 			}, {
 				primaryText: '代码分类',
 				menuCode: 'codeCategoryList',
@@ -137,12 +137,11 @@ module.exports = {
 				primaryText: '设备定义',
 				menuCode: 'sysDeviceDefinitionList',
 				originUrl: '/krspace_operate_web/community/sysDeviceDefinition/toSysDeviceDefinitionList?mid=105'
-			},{
+			}, {
 				primaryText: '分组管理',
 				menuCode: 'groupManage',
 				router: '/operation/groupSetting'
-			}
-		]
+			}]
 		}, ]
 	}, {
 		primaryText: "会员中心",
@@ -166,32 +165,28 @@ module.exports = {
 				iconColor: '#79859a',
 				menuCode: 'memberAdmin',
 				router: '/member/memberManage/list',
-				menuItems: [
-					{
-					primaryText: "会员看板",
-					router: '/member/memberManage/board',
-					menuCode: 'index',
+				menuItems: [{
+						primaryText: "会员看板",
+						router: '/member/memberManage/board',
+						menuCode: 'index',
+					}, {
+						primaryText: "会员列表",
+						router: '/member/memberManage/list',
+						menuCode: 'memberList',
+					}, {
+						primaryText: "会员卡管理",
+						router: '/member/memberManage/card',
+						menuCode: 'index',
+					}, {
+						primaryText: "会员配置",
+						router: '/member/memberManage/setting',
+						menuCode: 'memberSetting',
 					},
-					{
-					primaryText: "会员列表",
-					router: '/member/memberManage/list',
-					menuCode: 'memberList',
-				},
-					{
-					primaryText: "会员卡管理",
-					router: '/member/memberManage/card',
-					menuCode: 'index',
-				},
-					{
-					primaryText: "会员配置",
-					router: '/member/memberManage/setting',
-					menuCode: 'memberSetting',
-				},
 
-		]
-		}
+				]
+			}
 
-	],
+		],
 
 	}, {
 		primaryText: "财务系统",
