@@ -15,7 +15,7 @@ export default class SnackTip extends Component {
 		/**
 		*标题
 		*/
-		title: React.PropTypes.string,
+		title: React.PropTypes.any,
 		titleAfter: React.PropTypes.string,
 		/**
 		*样式

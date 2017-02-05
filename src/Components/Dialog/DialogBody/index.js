@@ -13,20 +13,20 @@ export default class DialogBody extends Component {
 	}
 
 	componentDidMount(){
-			this.initializeDialogBodyStyles();
+				this.initializeDialogBodyStyles();
 			window.addEventListener('resize',function(){
 				this.initializeDialogBodyStyles();
 			}.bind(this));
 	}
 
-	componentDidUpdate(){
-			this.initializeDialogBodyStyles();
-	}
-
-
 	initializeDialogBodyStyles = ()=>{
 
-		var ele = this.refs.dialogBody;
+		var ele = null;
+		try{
+		   ele = this.refs.dialogBody;
+		}catch(err){
+			ele = null;
+		}
 		const {autoScrollBodyContent} = this.props;
 
 		if(!ele){
@@ -42,7 +42,7 @@ export default class DialogBody extends Component {
 		    eleBoxStyle = {width:0,height:0};
     }
 
-		ele.style.maxHeight = page.height-200+'px';
+		ele.style.maxHeight = page.height-100+'px';
 		ele.style.minHeight = 100 +'px';
 
 		if(eleBoxStyle.height > page.height-200){

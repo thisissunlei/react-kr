@@ -190,9 +190,11 @@ export default class OrderCreate extends Component {
 
 
 		return (
-
+            
+           <div> 
 			<OrderEditForm onSubmit={this.onSubmit} communityOptions={communityOptions} initialValues={initialValues} orderTypeOptions={orderTypeOptions} onCancel={this.onCancel}/>
 
+           </div>
 
 		);
 	}

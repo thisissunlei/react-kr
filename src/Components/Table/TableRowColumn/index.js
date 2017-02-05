@@ -22,6 +22,7 @@ export default class TableRowColumn extends React.Component {
 		format: React.PropTypes.string,
 		onFormatData:React.PropTypes.func,
 		component: React.PropTypes.func,
+		defaultValue:React.PropTypes.any,
 	}
 
 	constructor(props) {
@@ -73,7 +74,7 @@ export default class TableRowColumn extends React.Component {
 
 	renderValue = ()=>{
 
-		let { value, options, component ,itemData} = this.props;
+		let { value, options, component ,itemData,defaultValue} = this.props;
 
 		let oldValue = value;
 
@@ -92,7 +93,7 @@ export default class TableRowColumn extends React.Component {
 		 	return component(value,oldValue,itemData);
 		}
 
-		return value;
+		return value ||defaultValue;
 
 	}
 

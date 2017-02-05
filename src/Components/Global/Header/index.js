@@ -139,6 +139,10 @@ class Header extends Component {
 			height: 60,
 		}
 
+		if(!item){
+			return ;
+		}
+
 		if (item.active) {
 			styles.borderBottom = '2px solid #fff';
 			styles.borderLeft = '1px solid #3F93CA';

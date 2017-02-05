@@ -48,27 +48,37 @@ import {
 
 	render(){
 
+	   let style={
+       	 marginTop:3
+       }
+       let heightStyle={
+       	 width:'546',
+       	 height:'72',
+       	 marginTop:'-2'
+       }
+
 		const { error, handleSubmit, pristine, reset} = this.props;
 
 		return (
 
-			<form onSubmit={handleSubmit(this.onSubmit)}>
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:35,marginLeft:35}}>
 
-				<KrField grid={1/2} name="accountcode" type="text" label="科目编码" requireLabel={true}/> 
-				<KrField grid={1/2} name="accountname" type="text" label="科目名称" requireLabel={true}/> 
-				<KrField grid={1/2} name="accounttype" type="select" label="科目类别" options={[
+				<KrField grid={1/2} name="accountcode" right={41} style={{marginRight:-10}} type="text" label="科目编码" requireLabel={true}/> 
+				<KrField grid={1/2} name="accountname" right={41} type="text" label="科目名称" requireLabel={true}/> 
+				<KrField grid={1/2} name="accounttype" right={41} style={{marginRight:-10,marginTop:4}} type="select" label="科目类别" options={[
 						{value:'INCOME',label:'收入'},
 						{value:'PAYMENT ',label:'回款'},
 				]} requireLabel={true}>
 				</KrField>
-				<KrField grid={1/2} name="ordernum" type="text" label="排序号" requireLabel={true}/> 
+				<KrField grid={1/2} name="ordernum" type="text" right={41} style={{marginTop:3}} label="排序号" requireLabel={true}/> 
 				<KrField grid={1/2} name="enableflag" component="group" label="是否启用" requireLabel={true}>
 						<KrField name="enableflag" grid={1/2} label="是" type="radio" value="ENABLE"/>
 						<KrField name="enableflag" grid={1/2} label="否" type="radio" value="DISENABLE" />
               </KrField> 
-				<KrField name="accountdesc" component="textarea" label="描述"  /> 
+		
+			  <KrField label="描述" style={style} name="accountdesc" component="textarea" heightStyle={heightStyle} placeholder='请输入备注,文字不能超过100字' maxSize={100} lengthClass='subject-length-textarea'/>
 
-				<Grid style={{marginTop:30}}>
+				<Grid style={{marginTop:-2,marginBottom:5,marginLeft:-30}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>

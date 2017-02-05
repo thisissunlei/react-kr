@@ -709,7 +709,7 @@ export default class PersonalCenter extends Component{
 										{ this.state.regettestNewMobileState && <span onTouchTap={this.testrevisemobile} className="regettest">{this.state.regettest}</span>}
 									</span>
 								</div>
-								{ this.state.togettest && <span className="geted">&emsp;&ensp;验证码已发送到你的手机，30分钟内输入有效,验证码等同于密码，打死也不能告诉别人。</span>}
+								{ this.state.togettest && <span className="geted">&emsp;&ensp;&ensp;验证码已发送到你的手机，30分钟内输入有效,验证码等同于密码，打死也不能告诉别人。</span>}
 
 								<Grid>
 									<Row >

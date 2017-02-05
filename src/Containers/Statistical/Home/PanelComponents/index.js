@@ -5,6 +5,7 @@ import {bindActionCreators} from 'redux';
 import * as actionCreators from 'kr-ui/../Redux/Actions';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions,Store} from 'kr/Redux';
+
 import {
 	KrField,
 	Table,
@@ -26,10 +27,11 @@ import {
 import NotOpenPanel from './NotOpenPanel';
 import OpenPanel from './OpenPanel';
 
-import PanelsDic from './PanelsDic';
+//import PanelsDic from './PanelsDic';
 
 export default class PanelComponents  extends Component{
 
+	static displayName = 'PanelComponents';
 	static defaultProps = {
 		panels:[{templateName:'张三',templateNo:''},{latemplateNamebel:'里斯',templateNo:'dddd'}]
 	}
@@ -41,57 +43,68 @@ export default class PanelComponents  extends Component{
 
 	constructor(props,context){
 		super(props, context);
-		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this); 
+		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
 
 	componentDidMount() {
-		
+
+	}
+
+	renderGroupComponent = ()=>{
+
+				let {panels,groupId}=this.props;
+
+				var  dateT=new Date();
+				var dateYear=dateT.getFullYear();
+				var dateMonth=dateT.getMonth()+1;
+				var dateDay=dateT.getDate();
+						if(dateDay<10){
+							dateDay='0'+dateDay
+						}
+		var todayDate=dateYear+'-'+dateMonth+'-'+dateDay;
+
+				var renderComponent = [];
+				var props = {
+						groupId:groupId,
+						todayDate:'',
+				};
+
+				var _this = this;
+				panels.map(function(item,index){
+					console.log('item',item);
+						props.key = index;
+						props.todayDate=todayDate;
+						renderComponent.push(_this.createPanelComponent(item.id,props));
+				});
+
+				return renderComponent;
+	}
+
+	createPanelComponent = (value,props)=>{
+
+			var component = null;
+			switch (value) {
+				case 1:{
+					component = <OpenPanel {...props}/>
+					break;
+				}
+				case 2:{
+					component = <NotOpenPanel {...props}/>
+					break;
+				}
+				default:{
+					component = null;
+				}
+			}
+			return component;
 	}
 
 	render(){
-        
-         
-		let {panels,groupId}=this.props;
-		
-		//console.log('222----',groupId);
 
-		var  dateT=new Date();
-		var dateYear=dateT.getFullYear();
-		var dateMonth=dateT.getMonth()+1;
-		var dateDay=dateT.getDate();	
-        if(dateDay<10){
-        	dateDay='0'+dateDay
-        }
-        var todayDate=dateYear+'-'+dateMonth+'-'+dateDay;
-		
-		
-		var renderComponent = [];
-		var props = {
-			groupId
-		};
-        
-		panels.map(function(item,index){
-			var childComponentName = PanelsDic[item.id];
-			if(childComponentName){
-				props.key = index;
-				props.todayDate=todayDate;
-				renderComponent.push(React.cloneElement(childComponentName,{
-					...props
-				}));
-			}
-		});
-         
-		//<div key={index}>{childComponentName}</div>
-		
 		return(
 			<div>
 			    <Title value="数据统计"/>
-			    	{renderComponent}
-			  {/*
-	            <NotOpenPanel groupId={this.props.groupId} currentDate={currentDate}/>
-				<OpenPanel groupId={this.props.groupId} currentDate={currentDate}/></div>			
-			*/}
-		
+			    	{this.renderGroupComponent()}
 			</div>
 		);
 	}
