@@ -5,6 +5,7 @@ import {
 	Field,
 	reduxForm
 } from 'redux-form';
+import Notify from '../../Notify';
 import ReactDOM from 'react-dom';
 import './index.less';
 import refresh from "./images/refresh.svg";
@@ -48,8 +49,7 @@ export default class UploadImageComponent extends Component {
 		}]);
 	}
 	operationImg=()=>{
-		// console.log("鼠标移入")
-		// console.log("this.state.imgUpload",this.state.imgUpload,"this.state.operateIm",this.state.operateImg);
+		// console.log("this.state.imgUpload)",this.state.imgUpload);
 		if(this.state.imgUpload){
 			this.setState({
 				operateImg :true
@@ -57,7 +57,6 @@ export default class UploadImageComponent extends Component {
 		}
 	}
 	notOperateImg=()=>{
-		// console.log("鼠标移出去")
 		if(this.state.imgUpload){
 			this.setState({
 				operateImg :false
@@ -67,6 +66,18 @@ export default class UploadImageComponent extends Component {
 	onTokenSuccess(form) {
 		this.setState({
 			form
+		});
+	}
+	onError=(message)=>{
+		message = message || '上传文件失败';
+		Notify.show([{
+			message: message,
+			type: 'danger',
+		}]);
+
+		this.setState({
+			progress: 0,
+			imgUpload: false
 		});
 	}
 	onChange=(event)=>{
@@ -81,9 +92,7 @@ export default class UploadImageComponent extends Component {
 
 		if (!file) {
 			return;
-		}
-
-		
+		}		
 		if (file) {
 			var progress = 0;
 			var timer = window.setInterval(function() {

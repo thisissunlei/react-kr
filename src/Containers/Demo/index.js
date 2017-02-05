@@ -91,13 +91,21 @@ class Demo extends Component {
 	onChangeTitle=(showTitle)=>{
 		console.log("111")
 	}
+	onClick=()=>{
+		console.log("111");
+	}
 	componentDidMount() {}
 	render() {
 		const { error,handleSubmit,pristine,reset,detail} = this.props;
 		const {listArr,priceNow}=this.state;
 		return (
-			<form onSubmit={handleSubmit(this.onSubmit)}>
-				
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:100}}>
+			<div>
+				<input type="text" defaultValue="111" name="communityName" onClick={this.onClick} id="thisInputs" placeholder="请输入"/>
+				<input type="text" name="communityName" defaultValue="222"   />
+				<input type="text" name="communityName" defaultValue="333"     />
+				<input type="text" name="communityName" defaultValue="444"    />
+			</div>
 			</form>		
 
 		);
