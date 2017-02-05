@@ -133,6 +133,8 @@
     "babelify": "7.2.0",
     "formsy-material-ui": "0.5.0",
     "formsy-react": "0.18.1",
+    "mobx": "^3.1.0",
+    "mobx-react": "^4.1.0",
     "node-fetch": "1.5.3",
     "normalizr": "2.2.1",
     "nzh": "^0.0.4",
