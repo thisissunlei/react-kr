@@ -331,7 +331,7 @@ class Merchants extends Component{
 															TooltipStyle="none"
 
 														}else{
-															TooltipStyle="block";
+															TooltipStyle="inline-block";
 														}
 														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
@@ -343,7 +343,7 @@ class Merchants extends Component{
 															TooltipStyle="none"
 
 														}else{
-															TooltipStyle="block";
+															TooltipStyle="inline-block";
 														}
 														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
@@ -355,7 +355,7 @@ class Merchants extends Component{
 															TooltipStyle="none"
 
 														}else{
-															TooltipStyle="block";
+															TooltipStyle="inline-block";
 														}
 														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
@@ -366,20 +366,20 @@ class Merchants extends Component{
 															TooltipStyle="none"
 
 														}else{
-															TooltipStyle="block";
+															TooltipStyle="inline-block";
 														}
 														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 													 }}></TableRowColumn>
 			                <TableRowColumn name="receiveName"></TableRowColumn>
 			                <TableRowColumn name="createDate" type='date' component={(value,oldValue)=>{
-						                				let show="block";
+						                				let show="inline-block";
 						                				if(value.length==0){
 						                					show="none";
 						                				}else{
-						                					show="block";
+						                					show="inline-block";
 						                				}
-														 return (<div><span className='tableOver' style={{maxWidth:120,marginTop:5,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}><KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></span>
+														 return (<div style={{display:"inline-block"}}><span className='tableOver' style={{maxWidth:120,marginTop:5,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}><KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></span>
 														 	<Tooltip offsetTop={10} place='top' style={{left:50,display:show}}>
 																<div><KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
 														 	</Tooltip></div>)

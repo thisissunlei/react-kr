@@ -359,7 +359,7 @@ class SignedClient extends Component{
 															TooltipStyle="none"
 
 														}else{
-															TooltipStyle="block";
+															TooltipStyle="inline-block";
 														}
 														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
@@ -370,7 +370,7 @@ class SignedClient extends Component{
 															TooltipStyle="none"
 
 														}else{
-															TooltipStyle="block";
+															TooltipStyle="inline-block";
 														}
 														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
