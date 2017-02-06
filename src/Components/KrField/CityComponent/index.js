@@ -198,6 +198,10 @@ export default class CityComponent extends React.Component {
 			requireLabel,
 			label,
 			value,
+			meta: {
+				touched,
+				error
+			},
 			search,
 			colorStyle,
 			heightStyle,
@@ -253,6 +257,7 @@ export default class CityComponent extends React.Component {
 							</ul>
 						</div>
 					</div>
+					{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				</WrapComponent>
 		);
 	}

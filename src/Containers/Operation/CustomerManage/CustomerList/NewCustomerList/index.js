@@ -33,10 +33,8 @@ import './index.less'
 
 	constructor(props){
 		super(props);
-
 	}
 	onSubmit = (values) => {
-		console.log("values",values);
 		let _this=this; 
 		let {operType}=this.props;
 		values.operType=this.props.operType;
@@ -107,12 +105,11 @@ import './index.less'
 	componentDidMount(){
 	 	Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
 	}
-
+    
 
 	render(){
 
 		const { error, handleSubmit, pristine, reset,dataReady} = this.props;
-		
 		
 		return (
 
@@ -163,9 +160,9 @@ import './index.less'
 								<KrField grid={1/2} label="公司规模" name="teamNum" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 
 								<KrField grid={1/2} label="融资金额" name="amount" style={{width:262,marginLeft:28}} component="input" requireLabel={false}/>
-								<KrField grid={1/2} label="所属地区" name="distinctId"  style={{width:262,marginLeft:15,zIndex:2}} component="city" onSubmit={this.cityValue} requireLabel={true}/>
+								<KrField grid={1/2} label="所属地区" name="distinctId"  style={{width:262,marginLeft:15,zIndex:2}} component="city" onSubmit={this.cityValue} requireLabel={true} />
 								<KrField grid={1/2} label="项目名称" name="projectName" style={{width:262,marginLeft:28}} component="input" requireLabel={true} />
-								<KrField grid={1/2} label="项目类型" name="projectCategoryId"  style={{width:262,marginLeft:15,zIndex:1}} component="tree" placeholder="请选择项目类型" requireLabel={true}/>
+								<KrField grid={1/2} label="项目类型" name="projectCategoryId"  style={{width:262,marginLeft:15,zIndex:1}} component="tree" placeholder="请选择项目类型" requireLabel={true} />
 								<KrField grid={1/2} label="详细地址" name="detailAddress" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
 
 
@@ -239,6 +236,14 @@ const validate = values =>{
 		if (!values.staionTypeId) {
 			errors.staionTypeId = '请填写意向工位类型';
 		}
+        
+        if (!values.distinctId) {
+			errors.distinctId= '请填写所属地区';
+		}
+
+		if (!values.projectCategoryId) {
+			errors.projectCategoryId = '请填写项目类型';
+		}
 
 
 		if (!values.tel) {
@@ -311,14 +316,7 @@ const validate = values =>{
 			errors.projectName = '最多输入20个字符';
 		}
 
-		if (!values.distinctId) {
-			errors.distinctId = '请填写所属地区';
-		}
-
-		if (!values.projectCategoryId) {
-			errors.projectCategoryId = '请填写项目类型';
-		}
-
+		
 		if (!values.detailAddress) {
 			errors.detailAddress = '请填写详细地址';
 		}else if(values.detailAddress.length>60){

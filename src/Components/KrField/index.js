@@ -168,7 +168,7 @@ export default class KrField extends React.Component {
 
 		if (component === 'city' || type == 'city') {
 			return (
-				<CityComponent {...this.props} style={WrapStyles}/>
+				<Field {...this.props} component={CityComponent} style={WrapStyles}/>
 			);
 		}
 

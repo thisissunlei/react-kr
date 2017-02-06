@@ -22,8 +22,8 @@ let State = observable({
 			visitTypeList:[]
 		},
 		isCorpName:false,
-		sourceCustomer:false
-
+		sourceCustomer:false,
+        projectStyle:''
 
 });
 //select下拉数组的初始化
