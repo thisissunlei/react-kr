@@ -57,7 +57,7 @@ class CustomerIndent extends Component{
 		this.props.editIndentSwitch(id);
 	}
 	locationWatch=(id)=>{
-		window.location.href=`./#/operation/customerManage/${State.listId}/order/${id}/detail`;
+		window.open(`./#/operation/customerManage/${State.listId}/order/${id}/detail`,'123');
 	}
 	
 	
