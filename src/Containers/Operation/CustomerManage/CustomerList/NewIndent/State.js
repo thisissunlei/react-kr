@@ -28,6 +28,8 @@ let State = observable({
 		cityId:"",
 		orderFound:[],
 		isInit:false,
+		orderName:"",
+
 
 
 });
@@ -86,7 +88,7 @@ State.orderReady = action(function(params) {
 		
 	}
 	this.orderReady=params;
-	
+	console.log(params,"??????")
 	this.isInit=true;
 	
 });

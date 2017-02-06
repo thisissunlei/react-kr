@@ -42,14 +42,17 @@ import './index.less'
 			stationTypeList:[],
 			visitTypeList:[]
 		};
-
+		
 	}
 	onSubmit = (values) => {
 		delete values.cityid;
 		let listId=this.props.listId;
 		let _this=this;
+		if(!values.mainbilldesc){
+			values.mainbilldesc="";
+		}
 		values.customerid=listId;
-		values.mainbillname=this.props.orderName;
+		values.mainbillname=State.orderName;
 		Store.dispatch(Actions.callAPI('enter-order',{},values)).then(function(response) {
 			flushData.orderList(_this.props.listId);
          	_this.onCancel();
@@ -72,6 +75,7 @@ import './index.less'
 		}
 	}
 	componentWillReceiveProps(nextProps){
+		
 			if(typeof(nextProps.orderReady)=="function"){
 				return;
 			}
@@ -93,15 +97,20 @@ import './index.less'
 
 		}
 	}
+	mainbilltypeChange=(value)=>{
+		State.orderName=this.props.customerName+value.label+this.props.orderCount;
+
+	}
 
 
 	render(){
-		const { error, handleSubmit, pristine, reset,companyName,orderName,isOpenIndent} = this.props;
+		const { error, handleSubmit, pristine, reset,companyName,isOpenIndent,customerName,orderCount} = this.props;
+		
 		let city=State.cityLable;
 			city=!city?"无":city;
-		if(!isOpenIndent){
-			city="无"
-		}
+		// if(!isOpenIndent){
+		// 	city="无"
+		// }
 		return (
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:7}}>
@@ -114,6 +123,7 @@ import './index.less'
 					<KrField grid={1/2} label="订单类型" name="mainbilltype" style={{width:262,marginLeft:15}} component="select" 
 							options={State.orderFound}
 							requireLabel={true}
+							onChange={this.mainbilltypeChange}
 					/>
 					<KrField grid={1/2} label="所在社区" name="communityid" component="select" style={{width:262,marginLeft:30}} 
 							options={State.community}
@@ -122,7 +132,7 @@ import './index.less'
 					/>
 					
 					<KrField grid={1/2} label="所在城市" name="cityid" component="labelText" style={{width:262,marginLeft:15}} value={city} inline={false}/>
-					<KrField grid={1/2} label="订单名称" name="mainbillname" style={{width:262,marginLeft:30}} component="labelText" value={orderName} requireLabel={true} inline={false}/>
+					<KrField grid={1/2} label="订单名称" name="mainbillname" style={{width:262,marginLeft:30}} component="labelText" value={State.orderName?State.orderName:customerName+orderCount} requireLabel={true} inline={false}/>
 					<KrField grid={1/2} label="订单描述" name="mainbilldesc" style={{width:555,marginLeft:15,marginTop:-5}} heightStyle={{height:"80px"}}  component="textarea"  maxSize={100} requireLabel={false} />
 				</div>		
 				<Grid style={{marginTop:0,marginRight:40}}>

@@ -33,11 +33,14 @@ let State = observable({
 		openDelete:false,
 		editIndentData:{},
 		editIndentId:'',
-		orderName:"",
+		customerName:"",
+		orderCount:"",
+		mainbillname:"",
 		cityname:"",
 		editCity:'',
 		editprojectName:'',
 		ishasOffice:false,
+		editIndentState:"",
 });
 State.hasOfficeChange=action(function(params){
 	this.ishasOffice=params;
@@ -100,7 +103,8 @@ State.orderNameInit= action(function(value) {
 	data.customerId=value;
 
 	Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {
-		_this.orderName=response.mainbillname;
+		_this.customerName=response.customerName;
+		_this.orderCount=response.orderCount;
 
 	}).catch(function(err) {
 		 Message.error(err.message);

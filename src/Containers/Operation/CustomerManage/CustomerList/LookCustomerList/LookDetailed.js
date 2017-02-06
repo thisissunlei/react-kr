@@ -133,15 +133,18 @@ class LookDetail extends Component{
 	
 	render(){
 
-		let unifyStyle={width:300,marginLeft:-10}
+		let unifyStyle={marginLeft:-10}
 		let detail=State.detail;
+		let isDeadline=false;
 		let {editsSwitch,IndentSwitch}=this.props;
 		let recordDevelop=State.recordDevelop;
 		let hasOffice=detail.hasOffice;
 		if(hasOffice=="YES"){
-			hasOffice="是";
+			hasOffice="是 ";
+			isDeadline=true;
 		}else{
 			hasOffice="否";
+			isDeadline=false;
 		}
 		
 		let tooltipTextStyle={maxWidth:"224px",whiteSpace:"normal",wordWrap:"break-word",height:"auto",lineHeight:"22px",overflow:"hidden"};
@@ -149,31 +152,32 @@ class LookDetail extends Component{
 	      <div className="m-LookDetailed" style={{marginTop:8}}>
 		    
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="客户来源:" style={unifyStyle} component="labelText" value={detail.sourceName} inline={true} /></li>
-				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="意向工位数:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.stationNum+"个"} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="意向工位数:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.stationNum+"个"} inline={true} /></li>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="联系人姓名:" style={unifyStyle} component="labelText" value={detail.name} inline={true} /></li>
-				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="意向工位类型:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.staionTypeName} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="意向工位类型:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.staionTypeName} inline={true} /></li>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="联系人电话:" style={unifyStyle} component="labelText" value={detail.tel} inline={true} /></li>
-				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="意向工位价格:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.staionPrice+"元"} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="意向工位价格:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.staionPrice+"元"} inline={true} /></li>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="联系人邮箱:" style={unifyStyle} component="labelText" value={detail.mail} inline={true} /></li>
-				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="意向入驻社区:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.intentionCommunityName} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="意向入驻社区:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.intentionCommunityName} inline={true} /></li>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="联系人微信:" style={unifyStyle} component="labelText" value={detail.wechat} inline={true} /></li>
-				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="预计入驻时间:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={<KrDate style={{marginTop:5}} value={detail.inTime} format="yyyy-mm-dd"/>} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="预计入驻时间:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={<KrDate style={{marginTop:5}} value={detail.inTime} format="yyyy-mm-dd"/>} inline={true} /></li>
 
 				<div className="bottomWire"></div>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="公司名称:" style={unifyStyle} component="labelText" value={detail.company} inline={true} /></li>
-				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="投资轮次:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.roundName} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="投资轮次:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.roundName} inline={true} /></li>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="公司规模:" style={unifyStyle} component="labelText" value={detail.teamNum+"人"} inline={true} /></li>
-				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="融资金额:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.amount+"元"} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="融资金额:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.amount+"元"} inline={true} /></li>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="办公室情况:" style={unifyStyle} component="labelText" value={hasOffice} inline={true} /></li>
-				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="项目名称:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.projectName} inline={true} /></li>
+				{isDeadline&&<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="到期时间:" style={unifyStyle} component="labelText" value={DateFormat(detail.deadline,"yyyy-mm-dd")} inline={true} /></li>}
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="项目名称:" style={unifyStyle} component="labelText" value={detail.projectName} inline={true} /></li>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="所属地区:" style={unifyStyle} component="labelText" value={detail.distinctName} inline={true} /></li>
-				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="项目类型:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.projectCategoryName} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="项目类型:" style={unifyStyle} component="labelText" value={detail.projectCategoryName} inline={true} /></li>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="详细地址:" style={unifyStyle} component="labelText" value={detail.detailAddress} inline={true} /></li>
-				<li className="everyText spetial"><span className="blueDrop"></span><KrField grid={1/2} label="公司网址:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.website} inline={true} /></li>
-				<li className="everyText" style={{width:660,marginTop:7}}><span className="blueDrop" style={{height:5}}></span><span style={{display:"inline-block",paddingLeft:5}}>公司简介:</span>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="公司网址:" style={{marginLeft:-10,width:'auto'}} component="labelText" value={detail.website} inline={true} /></li>
+				<li className="everyText" style={{width:660,marginTop:7,paddingLeft:0}}><span className="blueDrop" style={{height:5}}></span><span style={{display:"inline-block",paddingLeft:5}}>公司简介:</span>
 					<p style={{padding:"0 10px 0 15px",color:"#666666"}}>{detail.companyIntroduce}</p>
 				</li>
-				<li className="everyText" style={{width:660}}><span className="blueDrop" style={{height:5}}></span><span style={{display:"inline-block",paddingLeft:5}}>备注:</span>
+				<li className="everyText" style={{width:660,paddingLeft:0}}><span className="blueDrop" style={{height:5}}></span><span style={{display:"inline-block",paddingLeft:5}}>备注:</span>
 					<p style={{padding:"0 10px 0 15px"}}>{detail.remark}</p>
 				</li>
 				{detail.showEdit && <div style={{textAlign: "center",marginTop:15}}><Button  label="编辑" type="submit" style={{margin:"auto"}} onTouchTap={editsSwitch} /></div>}

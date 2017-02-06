@@ -27,7 +27,8 @@ import {
     ListGroup,
     ListGroupItem,
     SearchForms,
-	Drawer
+	Drawer,
+	Message
 } from 'kr-ui';
 
 import State from './State';
@@ -42,6 +43,9 @@ import NewVisitIndent from '../NewVisitIndent';
 import editsourceCustomer from "../EditCustomerList/State";
 import SwitchPerson from '../SwitchPerson';
 import OrderDelete from '../OrderDelete';
+import editIndentState from "../EditIndent/State";
+import newIndentState from "../NewIndent/State";
+
 import './index.less'
 @observer
 class SignedClient extends Component{
@@ -99,13 +103,9 @@ class SignedClient extends Component{
 		Store.dispatch(initialize('NewIndent',{}));
 		State.orderNameInit(State.listId);
 		State.switchNewIndent();
+		newIndentState.cityLable="";
 	}
-	//打开新建订单页
-	openNewIndent=()=>{
-		Store.dispatch(initialize('NewIndent',{}));
-		State.orderNameInit(State.listId);
-		State.switchNewIndent();
-	}
+	
 	//新建订单页面的开关
 	switchNewIndent=()=>{
 		State.switchNewIndent();
@@ -153,13 +153,14 @@ class SignedClient extends Component{
 		State.editIndentIdChange(editIndentId);
 
 		data.mainBillId=editIndentId;
+		editIndentState.orderName="";
 		
 		var _this=this;
 		Store.dispatch(Actions.callAPI('get-simple-order',data)).then(function(response) {
 			for(var i=0;i<orderReady.communityCity.length;i++){
 				if(orderReady.communityCity[i].communityId==response.communityid){
 					response.cityid=orderReady.communityCity[i].cityId;
-					State.cityChange(orderReady.communityCity[i].cityName);
+					State.editIndentState=orderReady.communityCity[i].cityName;
 
 					break;
 				}
@@ -170,7 +171,9 @@ class SignedClient extends Component{
 			data.mainbilltype=response.mainbilltype;
 			data.mainbilldesc=response.mainbilldesc;
 			Store.dispatch(initialize('EditIndent',data));
-			State.orderNameChange(response.mainbillname);
+			State.mainbillname=response.mainbillname;
+			State.customerName=response.customerName;
+			State.orderCount=response.orderCount;
 
 		}).catch(function(err) {
 			 Message.error(err.message);
@@ -444,7 +447,8 @@ class SignedClient extends Component{
 							 onCancel={this.switchNewIndent}
 			                 orderReady={orderReady}
 			                 listId={State.listId}
-			                 orderName={State.orderName}
+			                 customerName={State.customerName}
+			                 orderCount={State.orderCount}
 			                 isOpenIndent={State.orderName}
 
 						/>
@@ -483,7 +487,9 @@ class SignedClient extends Component{
 			                 orderReady={orderReady}
 			                 editIndentData={State.editIndentData}
 			                 editIndentId={State.editIndentId}
-			                 orderName={State.orderName}
+			                 customerName={State.customerName}
+			                 orderCount={State.orderCount}
+			                 mainbillname={State.mainbillname}
 			                 cityName={State.editCity}
 			                 listValue={State.editprojectName}
 						/>

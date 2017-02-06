@@ -76,7 +76,6 @@ class CustomerIndent extends Component{
 			}else{
 				isEdit=true;
 			}
-
 			return (
 				<div>
 				<div className="indentList">

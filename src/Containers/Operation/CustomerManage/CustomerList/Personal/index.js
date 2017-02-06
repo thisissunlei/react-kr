@@ -45,6 +45,8 @@ import NewVisitIndent from '../NewVisitIndent';
 import SwitchPerson from '../SwitchPerson';
 import QuitContinue from './QuitContinue';
 import OrderDelete from '../OrderDelete';
+import editIndentState from "../EditIndent/State";
+import newIndentState from "../NewIndent/State";
 import './index.less'
 @observer
 class Personal extends Component{
@@ -140,6 +142,7 @@ class Personal extends Component{
 		State.orderNameInit(State.listId);
 		State.switchNewIndent();
 		State.isOpenIndent=true;
+		newIndentState.cityLable="";
 
 	}
 	//新建订单页面的开关
@@ -147,12 +150,13 @@ class Personal extends Component{
 		State.isOpenIndent=false;
 		State.switchNewIndent();
 	}
-	//打开编辑页
+	//打开编辑订单页
 	openEditIndent=(editIndentId)=>{
 		var data={};
 		var {orderReady}=this.props;
 		State.editIndentIdChange(editIndentId);
-
+		editIndentState.orderName="";
+		editIndentState.cityLable="";
 		data.mainBillId=editIndentId;
 		
 		var _this=this;
@@ -160,7 +164,7 @@ class Personal extends Component{
 			for(var i=0;i<orderReady.communityCity.length;i++){
 				if(orderReady.communityCity[i].communityId==response.communityid){
 					response.cityid=orderReady.communityCity[i].cityId;
-					State.cityChange(orderReady.communityCity[i].cityName);
+					State.cityNameIndent=orderReady.communityCity[i].cityName;
 
 					break;
 				}
@@ -171,7 +175,9 @@ class Personal extends Component{
 			data.mainbilltype=response.mainbilltype;
 			data.mainbilldesc=response.mainbilldesc;
 			Store.dispatch(initialize('EditIndent',data));
-			State.orderNameChange(response.mainbillname);
+			State.mainbillname=response.mainbillname;
+			State.customerName=response.customerName;
+			State.orderCount=response.orderCount;
 
 		}).catch(function(err) {
 			 Message.error(err.message);
@@ -531,7 +537,8 @@ class Personal extends Component{
 							 onCancel={this.switchNewIndent}
 			                 orderReady={orderReady}
 			                 listId={State.listId}
-			                 orderName={State.orderName}
+			                 customerName={State.customerName}
+			                 orderCount={State.orderCount}
 			                 isOpenIndent={State.orderName}
 						/>
 					</Drawer>
@@ -553,8 +560,11 @@ class Personal extends Component{
 			                 orderReady={orderReady}
 			                 editIndentData={State.editIndentData}
 			                 editIndentId={State.editIndentId}
-			                 orderName={State.orderName}
-			                 cityName={State.editCity}
+
+			                 customerName={State.customerName}
+			                 orderCount={State.orderCount}
+			                 mainbillname={State.mainbillname}
+			                 cityNameIndent={State.cityNameIndent}
 			                 listValue={State.editprojectName}
 						/>
 					</Drawer>
