@@ -13,7 +13,8 @@ export default class Left extends React.Component{
 	constructor(props,context){
 		super(props,context);
 		this.state = {
-			communitys:[],
+			communitys:
+				[],
 			// [{"cityId":1,"cityName":"北京市","children":[{"children":[{"id":2,"hardwareId":"11112"}],"communityName":"北京天创科技社区","communityId":2}]},
 			// 			{"cityId":88,"cityName":"杭州市","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
 			// 			{"cityId":88,"cityName":"武汉","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
