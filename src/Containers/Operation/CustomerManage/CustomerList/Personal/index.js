@@ -46,6 +46,7 @@ import SwitchPerson from '../SwitchPerson';
 import QuitContinue from './QuitContinue';
 import OrderDelete from '../OrderDelete';
 import editIndentState from "../EditIndent/State";
+import newIndentState from "../NewIndent/State";
 import './index.less'
 @observer
 class Personal extends Component{
@@ -141,6 +142,7 @@ class Personal extends Component{
 		State.orderNameInit(State.listId);
 		State.switchNewIndent();
 		State.isOpenIndent=true;
+		newIndentState.cityLable="";
 
 	}
 	//新建订单页面的开关
@@ -154,7 +156,7 @@ class Personal extends Component{
 		var {orderReady}=this.props;
 		State.editIndentIdChange(editIndentId);
 		editIndentState.orderName="";
-
+		editIndentState.cityLable="";
 		data.mainBillId=editIndentId;
 		
 		var _this=this;
@@ -162,7 +164,7 @@ class Personal extends Component{
 			for(var i=0;i<orderReady.communityCity.length;i++){
 				if(orderReady.communityCity[i].communityId==response.communityid){
 					response.cityid=orderReady.communityCity[i].cityId;
-					State.cityChange(orderReady.communityCity[i].cityName);
+					State.cityNameIndent=orderReady.communityCity[i].cityName;
 
 					break;
 				}
@@ -562,7 +564,7 @@ class Personal extends Component{
 			                 customerName={State.customerName}
 			                 orderCount={State.orderCount}
 			                 mainbillname={State.mainbillname}
-			                 cityName={State.editCity}
+			                 cityNameIndent={State.cityNameIndent}
 			                 listValue={State.editprojectName}
 						/>
 					</Drawer>

@@ -44,6 +44,7 @@ import editsourceCustomer from "../EditCustomerList/State";
 import SwitchPerson from '../SwitchPerson';
 import OrderDelete from '../OrderDelete';
 import editIndentState from "../EditIndent/State";
+import newIndentState from "../NewIndent/State";
 
 import './index.less'
 @observer
@@ -102,13 +103,9 @@ class SignedClient extends Component{
 		Store.dispatch(initialize('NewIndent',{}));
 		State.orderNameInit(State.listId);
 		State.switchNewIndent();
+		newIndentState.cityLable="";
 	}
-	//打开新建订单页
-	openNewIndent=()=>{
-		Store.dispatch(initialize('NewIndent',{}));
-		State.orderNameInit(State.listId);
-		State.switchNewIndent();
-	}
+	
 	//新建订单页面的开关
 	switchNewIndent=()=>{
 		State.switchNewIndent();
@@ -163,7 +160,7 @@ class SignedClient extends Component{
 			for(var i=0;i<orderReady.communityCity.length;i++){
 				if(orderReady.communityCity[i].communityId==response.communityid){
 					response.cityid=orderReady.communityCity[i].cityId;
-					State.cityChange(orderReady.communityCity[i].cityName);
+					State.editIndentState=orderReady.communityCity[i].cityName;
 
 					break;
 				}

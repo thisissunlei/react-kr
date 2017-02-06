@@ -106,8 +106,8 @@ import './index.less'
 	
 
 	render(){
-		const { error, handleSubmit, pristine, reset,companyName,customerName,orderCount,mainbillname,cityname} = this.props;
-		let citys=State.cityLable||cityname;
+		const { error, handleSubmit, pristine, reset,companyName,customerName,orderCount,mainbillname,cityNameIndent} = this.props;
+		let citys=State.cityLable||cityNameIndent;
 			citys=!citys?"无":citys;
 		return (
 

@@ -108,9 +108,9 @@ import './index.less'
 		
 		let city=State.cityLable;
 			city=!city?"无":city;
-		if(!isOpenIndent){
-			city="无"
-		}
+		// if(!isOpenIndent){
+		// 	city="无"
+		// }
 		return (
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:7}}>

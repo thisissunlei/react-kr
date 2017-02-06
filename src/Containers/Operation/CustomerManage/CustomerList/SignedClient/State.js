@@ -40,6 +40,7 @@ let State = observable({
 		editCity:'',
 		editprojectName:'',
 		ishasOffice:false,
+		editIndentState:"",
 });
 State.hasOfficeChange=action(function(params){
 	this.ishasOffice=params;
