@@ -322,7 +322,7 @@ class SignedClient extends Component{
 			         
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
 				          <ListGroup>
-				            <ListGroupItem><SearchForms placeholder='请输入客户名称' inputName='sign' onSubmit={this.onSearchSubmit}/></ListGroupItem>
+				            <ListGroupItem><SearchForms placeholder='请输入公司名称' inputName='sign' onSubmit={this.onSearchSubmit}/></ListGroupItem>
 				            <ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
 				          </ListGroup>
 			          </Col>
