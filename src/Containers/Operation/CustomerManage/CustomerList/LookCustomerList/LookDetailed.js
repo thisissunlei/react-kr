@@ -133,7 +133,7 @@ class LookDetail extends Component{
 	
 	render(){
 
-		let unifyStyle={marginLeft:-10}
+		let unifyStyle={width:270,marginLeft:-10}
 		let detail=State.detail;
 		let isDeadline=false;
 		let {editsSwitch,IndentSwitch}=this.props;
