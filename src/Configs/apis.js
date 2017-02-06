@@ -733,7 +733,7 @@ const APIS = {
  },
  //客户管理－获取项目类型树
  'get-project-types': {
-   url:'/api/krspace-finance-web/customer/actions/get-project-types',
+   url:'/api-old/krspace_operate_web/codecategory/actions/get-project-types',
    method:'get'
  },
  //客户管理－订单删除

@@ -22,7 +22,8 @@ let State = observable({
 			visitTypeList:[]
 		},
 		isCorpName:false,
-		sourceCustomer:false
+		sourceCustomer:false,
+		treeAll:''
 
 
 });
@@ -62,9 +63,22 @@ State.corpNameCheck = action(function(params){
 	Store.dispatch(Actions.callAPI('corpNameCheck',data)).then(function(response) {
 		 _this.isCorpName=false;
 	}).catch(function(err) {
-		if(err.message.indexOf("该名称已存在")==0){
+		if(err.message.indexOf("该名称已存在")!=-1){
 			 _this.isCorpName=true;
+		}else{
+			_this.isCorpName=false;
 		}
+
+		
+	});	
+})
+
+//获取树状图的数据
+State.treeAllData = action(function(){
+	var _this=this;
+	Store.dispatch(Actions.callAPI('get-project-types')).then(function(response) {
+		 _this.treeAll=response.items;
+	}).catch(function(err) {
 		
 	});	
 })

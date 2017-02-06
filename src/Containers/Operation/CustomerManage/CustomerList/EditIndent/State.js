@@ -26,6 +26,7 @@ let State = observable({
 		city:[],
 		orderFound:[],
 		isInit:false,
+		orderName:"",
 		everyid:'',
 		cityLable:"",
 

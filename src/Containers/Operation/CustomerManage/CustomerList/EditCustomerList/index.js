@@ -37,6 +37,7 @@ import flushData from "../LookCustomerList/State";
 	constructor(props){
 		super(props);
 		let {listId}=props;
+		State.treeAllData();
 		
 	}
 	supplementZero(value) {
@@ -205,18 +206,22 @@ import flushData from "../LookCustomerList/State";
 
 						<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">公司信息</label></div>
 						<div className="small-cheek" style={{paddingBottom:0}}>
+								<div>
 								<KrField grid={1/2} label="公司名称" name="company" component="input" style={{width:262,marginLeft:15}} requireLabel={true} onChange={this.corpNameChange}/>
 								<KrField grid={1/2} label="投资轮次" name="roundId" component="select" style={{width:262,marginLeft:28}} 
 										options={dataReady.roundList}
 										requireLabel={false}
 								/>
+								{State.isCorpName && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该公司名称已存在</div>}
+
+								</div>
 								<KrField grid={1/2} label="公司规模" name="teamNum" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 
 
 								<KrField grid={1/2} label="融资金额" name="amount" style={{width:262,marginLeft:28}} component="input" requireLabel={false}/>
 								<KrField grid={1/2} label="所属地区" name="distinctId"  style={{width:262,marginLeft:15,zIndex:2}} component="city" onSubmit={this.cityValue} requireLabel={true} cityName={cityName}/>
 								<KrField grid={1/2} label="项目名称" name="projectName" style={{width:262,marginLeft:28}} component="input" requireLabel={true} />
-								<KrField grid={1/2} label="项目类型" name="projectCategoryId"  style={{width:262,marginLeft:15,zIndex:1}} component="tree" placeholder="请选择项目类型" requireLabel={true} listValueName={listValue}/>
+								<KrField grid={1/2} label="项目类型" name="projectCategoryId"  style={{width:262,marginLeft:15,zIndex:1}} component="tree" placeholder="请选择项目类型" requireLabel={true} listValueName={listValue} treeAll={State.treeAll}/>
 								<KrField grid={1/2} label="详细地址" name="detailAddress" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
 
 
@@ -318,8 +323,6 @@ const validate = values =>{
 			errors.customerCompany = '请填写公司名称';
 		}else if(values.customerCompany.length>20){
 			errors.customerCompany = '最多输入20个字符';
-		}else if(State.isCorpName){
-			errors.customerCompany = '该公司名称已存在';
 		}
 
 		if (!values.teamNum) {

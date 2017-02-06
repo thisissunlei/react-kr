@@ -51,7 +51,7 @@ import './index.less'
 		delete values.cityid;
 		values.customerid=this.props.listId;
 		values.id=this.props.editIndentId;
-		values.mainbillname=this.props.orderName;
+		values.mainbillname=State.orderName||this.props.mainbillname;
 		values.mainbillcode="";
 		let _this=this;
 		Store.dispatch(Actions.callAPI('edit-order',{},values)).then(function(response) {
@@ -99,10 +99,14 @@ import './index.less'
 
 		}
 	}
+	mainbilltypeChange=(value)=>{
+		State.orderName=this.props.customerName+value.label+this.props.orderCount;
+
+	}
 	
 
 	render(){
-		const { error, handleSubmit, pristine, reset,companyName,orderName,cityname} = this.props;
+		const { error, handleSubmit, pristine, reset,companyName,customerName,orderCount,mainbillname,cityname} = this.props;
 		let citys=State.cityLable||cityname;
 			citys=!citys?"无":citys;
 		return (
@@ -117,6 +121,7 @@ import './index.less'
 					<KrField grid={1/2} label="订单类型" name="mainbilltype" style={{width:262,marginLeft:15}} component="select" 
 							options={State.orderFound}
 							requireLabel={true}
+							onChange={this.mainbilltypeChange}
 					/>
 					<KrField grid={1/2} label="所在社区" name="communityid" component="select" style={{width:262,marginLeft:30}} 
 							options={State.community}
@@ -125,7 +130,7 @@ import './index.less'
 					/>
 					
 					<KrField grid={1/2} label="所在城市" name="cityid" component="labelText" style={{width:262,marginLeft:15}} value={citys} inline={false}/>
-					<KrField grid={1/2} label="订单名称" name="mainbillname" style={{width:262,marginLeft:30}} component="labelText" value={orderName} requireLabel={true} inline={false}/>
+					<KrField grid={1/2} label="订单名称" name="mainbillname" style={{width:262,marginLeft:30}} component="labelText" value={State.orderName?State.orderName:mainbillname} requireLabel={true} inline={false}/>
 					<KrField grid={1/2} label="订单描述" name="mainbilldesc" style={{width:555,marginLeft:15,marginTop:-5}} heightStyle={{height:"80px"}}  component="textarea"  maxSize={100} requireLabel={false} />
 				</div>		
 				<Grid style={{marginTop:0,marginRight:40}}>

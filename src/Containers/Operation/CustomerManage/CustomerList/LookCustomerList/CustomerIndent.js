@@ -76,6 +76,7 @@ class CustomerIndent extends Component{
 			}else{
 				isEdit=true;
 			}
+			// console.log(detail.items,"[][][][][]")
 			return (
 				<div>
 				<div className="indentList">

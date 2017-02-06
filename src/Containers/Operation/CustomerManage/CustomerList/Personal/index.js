@@ -45,6 +45,7 @@ import NewVisitIndent from '../NewVisitIndent';
 import SwitchPerson from '../SwitchPerson';
 import QuitContinue from './QuitContinue';
 import OrderDelete from '../OrderDelete';
+import editIndentState from "../EditIndent/State";
 import './index.less'
 @observer
 class Personal extends Component{
@@ -147,11 +148,12 @@ class Personal extends Component{
 		State.isOpenIndent=false;
 		State.switchNewIndent();
 	}
-	//打开编辑页
+	//打开编辑订单页
 	openEditIndent=(editIndentId)=>{
 		var data={};
 		var {orderReady}=this.props;
 		State.editIndentIdChange(editIndentId);
+		editIndentState.orderName="";
 
 		data.mainBillId=editIndentId;
 		
@@ -171,7 +173,9 @@ class Personal extends Component{
 			data.mainbilltype=response.mainbilltype;
 			data.mainbilldesc=response.mainbilldesc;
 			Store.dispatch(initialize('EditIndent',data));
-			State.orderNameChange(response.mainbillname);
+			State.mainbillname=response.mainbillname;
+			State.customerName=response.customerName;
+			State.orderCount=response.orderCount;
 
 		}).catch(function(err) {
 			 Message.error(err.message);
@@ -531,7 +535,8 @@ class Personal extends Component{
 							 onCancel={this.switchNewIndent}
 			                 orderReady={orderReady}
 			                 listId={State.listId}
-			                 orderName={State.orderName}
+			                 customerName={State.customerName}
+			                 orderCount={State.orderCount}
 			                 isOpenIndent={State.orderName}
 						/>
 					</Drawer>
@@ -553,7 +558,10 @@ class Personal extends Component{
 			                 orderReady={orderReady}
 			                 editIndentData={State.editIndentData}
 			                 editIndentId={State.editIndentId}
-			                 orderName={State.orderName}
+
+			                 customerName={State.customerName}
+			                 orderCount={State.orderCount}
+			                 mainbillname={State.mainbillname}
 			                 cityName={State.editCity}
 			                 listValue={State.editprojectName}
 						/>
