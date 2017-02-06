@@ -68,6 +68,7 @@ import flushData from "../LookCustomerList/State";
 
 
 	onSubmit = (values) => {
+		console.log("values",values);
 		let {operType}=this.props;
 		let _this=this;
 		values.operType=operType;
@@ -278,8 +279,13 @@ const validate = values =>{
 			errors.staiontypeId = '请填写意向工位类型';
 		}
 
-
-		if (!values.customerTel) {
+		if(!values.tel) {
+			errors.tel = "请填写联系人电话"
+		}
+		if(!values.name) {
+			errors.name = "请填写联系人姓名"
+		}
+		if (!values.customerTel ) {
 			errors.customerTel = '请填写联系人电话';
 		}else if(!phone.test(values.customerTel)||!checkTel.test(values.customerTel)){
 			errors.customerTel = '联系人电话格式错误';

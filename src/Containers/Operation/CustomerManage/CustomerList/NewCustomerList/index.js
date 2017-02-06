@@ -36,6 +36,7 @@ import './index.less'
 
 	}
 	onSubmit = (values) => {
+		console.log("values",values);
 		let _this=this; 
 		let {operType}=this.props;
 		values.operType=this.props.operType;
@@ -176,8 +177,8 @@ import './index.less'
 								{State.matureTime && <KrField grid={1/2} label="到期时间" name="deadline" style={{width:262,marginLeft:15}} component="date" requireLabel={true}/>}
 								
 								<KrField grid={1/2} label="公司网址" name="website" style={{width:262,marginLeft:15}} component="input"/>
-								<div className='speakInfo'><KrField grid={1} label="公司简介" name="companyIntroduce" style={{marginLeft:15}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={true} placeholder='请输入公司简介' lengthClass='cus-length-textarea'/></div>
-								<div className='remaskInfo'><KrField grid={1} label="备注" name="remark" style={{marginLeft:15,marginTop:-15}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={false} placeholder='请输入备注' lengthClass='cus-textarea'/></div>
+								<div className='speakInfo'><KrField grid={1} label="公司简介" name="companyIntroduce" style={{marginLeft:15}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={200} requireLabel={true} placeholder='请输入公司简介' lengthClass='cus-length-textarea'/></div>
+								<div className='remaskInfo'><KrField grid={1} label="备注" name="remark" style={{marginLeft:15,marginTop:-15}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={200} requireLabel={false} placeholder='请输入备注' lengthClass='cus-textarea'/></div>
 						</div>
 						
 						<div className="end-round"></div>
@@ -202,7 +203,9 @@ const validate = values =>{
 		let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
 		let checkTel=/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
 		let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
-		let RMB=/^(([1-9]\d*)|0)(\.\d{2})?$/
+		let RMB=/^(([1-9]\d*)|0)(\.\d{2})?$/;
+		let stationN = /^([1-9][0-9]{0,7})$/;
+		let staionPriceReg = /^([1-9][0-9]{0,7})$|^\d{1,8}(\.\d{1,2})?$/;
 
 		if(!values.sourceId){
 			errors.sourceId = '请填写客户来源';
@@ -216,7 +219,9 @@ const validate = values =>{
 		}else if(!phone.test(values.recommendTel)||!checkTel.test(values.recommendTel)){
 			errors.recommendTel='介绍人电话错误'
 		}
-
+		if(!stationN.test(values.stationNum)){
+			errors.stationNum = '请输入8位以内正整数,不能以0开头';
+		}
 		if (!values.stationNum) {
 			errors.stationNum = '请填写意向工位个数';
 		}else if(isNaN(+values.stationNum)){
@@ -244,10 +249,14 @@ const validate = values =>{
 
 		if (!values.staionPrice) {
 			errors.staionPrice = '请填写意向工位价格';
-		}else if(!RMB.test(values.staionPrice)){
-			errors.staionPrice = '工位价格不得超过1亿';
 		}
+		// else if(!RMB.test(values.staionPrice)){
+		// 	errors.staionPrice = '工位价格不得超过1亿';
+		// }
 
+		if(!staionPriceReg.test(values.staionPrice)){
+			errors.staionPrice = '小数点前最多8位，小数点后最多2位';
+		}
 
 		if(values.mail&&!email.test(values.mail)){
 			errors.mail = '联系人邮箱格式错误';
@@ -278,6 +287,9 @@ const validate = values =>{
 			errors.teamNum = '请输入数字';
 		}else if(values.teamNum.length>8){
 			errors.teamNum = '最多输入8个字符';
+		}
+		if(!stationN.test(values.teamNum)){
+			errors.teamNum = '请输入8位以内正整数,不能以0开头';
 		}
 
 
@@ -313,10 +325,10 @@ const validate = values =>{
 			errors.detailAddress = '最多输入60个字符';
 		}
 
-		if(values.website&&values.website.length>50){
+		if(values.website&&values.website.length>100){
 			errors.website = '最多输入50个字符';
-
 		}
+
 		if (!values.companyIntroduce) {
 			errors.companyIntroduce = '请填写公司简介';
 		}
