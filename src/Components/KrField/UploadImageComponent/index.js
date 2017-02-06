@@ -69,7 +69,7 @@ export default class UploadImageComponent extends Component {
 		});
 	}
 	onError=(message)=>{
-		message = message || '上传文件失败';
+		message = message || '上传文件失败，请重新上传';
 		Notify.show([{
 			message: message,
 			type: 'danger',
@@ -156,6 +156,7 @@ export default class UploadImageComponent extends Component {
 									_this.functionHeightWidth(file,xhrfile);
 								} else {
 									_this.onError(fileResponse.msg);
+									return;
 								}
 							} else if (xhrfile.status == 413) {
 								_this.onError('您上传的文件过大！');

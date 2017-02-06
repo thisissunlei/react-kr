@@ -306,16 +306,16 @@ class EditEquipmentForm extends Component{
 		values.id = this.state.id;
 		let _this = this;
 		values.enable = this.state.isOnlines?"ONLINE":"OFFLINE";
-		if(this.state.doorNumHasStatus){
-			let {isDoorNumHas} =this.props;
-			isDoorNumHas && isDoorNumHas();
-			return;
-		}
-		if(this.state.hardwareidHasStatus){
-			let {hardwareIdHas} =this.props;
-			hardwareIdHas && hardwareIdHas();
-			return;
-		}
+		// if(this.state.doorNumHasStatus){
+		// 	let {isDoorNumHas} =this.props;
+		// 	isDoorNumHas && isDoorNumHas();
+		// 	return;
+		// }
+		// if(this.state.hardwareidHasStatus){
+		// 	let {hardwareIdHas} =this.props;
+		// 	hardwareIdHas && hardwareIdHas();
+		// 	return;
+		// }
 		let EditParams = {
 				communityId : values.communityId,
 				deviceCode : values.deviceCode,
@@ -329,8 +329,38 @@ class EditEquipmentForm extends Component{
 				showTitle : values.showTitle,
 				typeId : values.typeId
 			}
-		const {onSubmit} = this.props;
-		onSubmit && onSubmit(EditParams);
+		// 此处判断门编号是否存在
+		let deviceCodeParams = {
+			code :values.deviceCode,
+			type :"deviceCode",
+			id : values.id
+		}
+		let hardwareIdParams  = {
+			code :values.hardwareId,
+			type :"hardwareid",
+			id :values.id
+		}
+		Store.dispatch(Actions.callAPI('doorNumberAndHardwareId',deviceCodeParams)).
+		then(function(response){
+			console.log("门编号不存在")
+			Store.dispatch(Actions.callAPI('doorNumberAndHardwareId',hardwareIdParams)).
+			then(function(response){
+
+				console.log("硬件ID不存在")
+				const  {onSubmit} = _this.props;
+				onSubmit && onSubmit(EditParams);
+ 
+			}).catch(function(err){
+				console.log("硬件ID存在")
+		 		let {hardwareIdHas} = _this.props;
+		 		 hardwareIdHas &&  hardwareIdHas();
+			});
+		}).catch(function(err){
+			console.log("门编号存在")
+	 		let {isDoorNumHas} = _this.props;
+	 		isDoorNumHas && isDoorNumHas();
+		});	
+		
 	}
 	// 关闭编辑窗口
 	closeEditEquipment =()=>{

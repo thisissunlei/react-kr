@@ -249,6 +249,7 @@ export default class EquipmentDefinition extends Component {
   }
   //校验门编号存在
   isDoorNumHas=()=>{
+    console.log("在index已经执行")
     let _this = this;
     _this.setState({
       openTipWarn : true,

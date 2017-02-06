@@ -230,11 +230,11 @@ class NewCreateDefinitionForm extends Component{
 	}
 	// 新增设备定义
 	onSubmit=(values)=>{
-		// console.log("values",values);
+		console.log("values",values);
 		let _this = this;
 		values.enable = _this.state.isOnlines?"ONLINE":"OFFLINE";
 		let deviceCodeParams = {
-			code :values.devicecode,
+			code :values.deviceCode,
 			type :"deviceCode",
 			id : ''
 		}
@@ -252,7 +252,7 @@ class NewCreateDefinitionForm extends Component{
 				onSubmit && onSubmit(values);
  
 			}).catch(function(err){
-		 		let { hardwareIdHas} = _this.props;
+		 		let {hardwareIdHas} = _this.props;
 		 		 hardwareIdHas &&  hardwareIdHas();
 			});
 		}).catch(function(err){
