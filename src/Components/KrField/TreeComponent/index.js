@@ -60,11 +60,13 @@ export default class TreeComponent extends React.Component {
 	
 	
 	render() {
-		let {label,style,requireLabel,inline,search,listValueName,placeholder,treeAll}=this.props;
+		let {label,style,requireLabel,inline,search,listValueName,placeholder,treeAll,meta: {
+				touched,
+				error
+			}}=this.props;
 		if(!treeAll){
 			treeAll='';
 		}
-		// treeAll=TreeAll;
 		let imitateInputStyle="ui-imitateInput";
 		let {listValue,showTreeList}=this.state;
 		if(listValue=="请选择项目类型"||listValue==placeholder){
@@ -86,7 +88,7 @@ export default class TreeComponent extends React.Component {
 					{this.state.showTreeList&&<div className="ui-treeList">
 						<ProjectType data={treeAll} num={true} treeClose={this.imitateInputClick} />
 					</div>}
-				
+				{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 			</WrapComponent>
 		);
 	}

@@ -71,6 +71,13 @@ class SearchUpperForm extends Component {
 		onCancel && onCancel();		
 	}
 
+	onChangeIntend=(person)=>{
+		Store.dispatch(change('SearchUpperForm','intentionCommunityId',person.value));
+    }
+    onChangeSign=(person)=>{
+		Store.dispatch(change('SearchUpperForm','communityId',person.value));
+    }
+
 	renderSigned=()=>{
 		   let {flag,searchParams,searchSignParams}=this.props;
 		    if(searchParams){
@@ -91,17 +98,13 @@ class SearchUpperForm extends Component {
 				<KrField right={34} grid={1/2}  style={{marginLeft:-5}} name="cityId" type="select" label="签约城市" 
 				 options={belongCity}
 				/>
-				<KrField  grid={1/2} right={34} name="communityId" type="select" style={{marginTop:4}} label="签约社区" 
-				 options={belongCommunity}
-				></KrField></div>) 
+				<KrField  grid={1/2} right={34} name="communityId"  style={{marginTop:4}} component='searchSign' label="签约社区" inline={false} onChange={this.onChangeSign} placeholder='请输入社区名称'/></div>) 
 		       }else{
                  selectData=(<div><KrField grid={1/2} right={34}  name="company" type="text" label="公司名称"/>
                 <KrField right={34} grid={1/2} style={{marginLeft:-5}} name="intentionCityId" type="select" label="意向城市" 
                  options={cityList}
                 />
-				<KrField  grid={1/2} right={34} name="intentionCommunityId" style={{marginTop:4}} type="select"  label="意向社区" 
-				 options={communityList}
-				></KrField>
+				<KrField  grid={1/2} right={34} name="intentionCommunityId" style={{marginTop:4}} component='searchIntend'  label="意向社区" inline={false} onChange={this.onChangeIntend} placeholder='请输入社区名称'/>
 				<KrField  grid={1/2} right={34} style={{marginLeft:-5,marginTop:4}}  name="levelId" type="select"  label="客户分类" 
 				 options={levelList} 
 				/>

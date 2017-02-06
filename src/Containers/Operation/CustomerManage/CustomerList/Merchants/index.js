@@ -399,7 +399,7 @@ class Merchants extends Component{
 				        width={750}
 				        openSecondary={true}
 				        className='m-finance-drawer'
-				        containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+				        containerStyle={{top:60,paddingBottom:420,zIndex:20}}
 			        >
 						<NewCustomerList
 								onSubmit={this.onNewMerchants}
@@ -440,7 +440,7 @@ class Merchants extends Component{
 				            operType="SHARE"
 							openSecondary={true}
 							className='m-finance-drawer'
-							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+							containerStyle={{top:60,paddingBottom:410,zIndex:20}}
 					 >
 						<EditCustomerList
 			                 comeFrom="Merchant"

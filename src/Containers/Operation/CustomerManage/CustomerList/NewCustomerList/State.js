@@ -24,8 +24,6 @@ let State = observable({
 		isCorpName:false,
 		sourceCustomer:false,
 		treeAll:'',
-
-
 });
 //select下拉数组的初始化
 State.selectDataInit=action(function(params,come) {
