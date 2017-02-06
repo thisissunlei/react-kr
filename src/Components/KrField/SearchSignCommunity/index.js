@@ -8,7 +8,7 @@ import {Actions,Store} from 'kr/Redux';
 
 import WrapComponent from '../WrapComponent';
 
-export default class  SearchLeaderComponent extends React.Component {
+export default class  SearchSignCommunity extends React.Component {
 
 	static defaultProps = {
 		placeholder:'请输入...'
@@ -44,8 +44,8 @@ export default class  SearchLeaderComponent extends React.Component {
 
 	getOptions(searchKey){
 		return new Promise((resolve, reject) => {
-			Store.dispatch(Actions.callAPI('get-receive-list',{searchKey:searchKey })).then(function(response){
-				resolve({options:response});
+			Store.dispatch(Actions.callAPI('sign-search-conditions',{searchKey:searchKey })).then(function(response){
+				resolve({options:response.communities});
 			}).catch(function(err){
 				reject(err);
 			});

@@ -17,6 +17,8 @@ import TextareaComponent from './TextareaComponent';
 import FileUploadComponent from './FileUploadComponent';
 import SearchPersonelComponent from './SearchPersonelComponent';
 import SearchLeaderComponent from './SearchLeaderComponent';
+import SearchIntendCommunity from './SearchIntendCommunity';
+import SearchSignCommunity from './SearchSignCommunity';
 import SearchBelongCommunity from './SearchBelongCommunity';
 import LabelTextComponent from './LabelTextComponent';
 import GroupComponent from './GroupComponent';
@@ -132,6 +134,20 @@ export default class KrField extends React.Component {
 			return (
 
 				<Field {...this.props} component={SearchLeaderComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+
+		if (component === 'searchIntend') {
+			return (
+
+				<Field {...this.props} component={SearchIntendCommunity}  style={WrapStyles} {...other}/>
+			);
+		}
+
+		if (component === 'searchSign') {
+			return (
+
+				<Field {...this.props} component={SearchSignCommunity}  style={WrapStyles} {...other}/>
 			);
 		}
 
