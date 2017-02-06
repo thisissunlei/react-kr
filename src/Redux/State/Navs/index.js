@@ -114,13 +114,13 @@ module.exports = {
 			router: 'BaseManage',
 			menuCode: 'basic_config',
 			menuItems: [{
+				primaryText: '参数配置',
+				menuCode: 'operate_sysparamadmin',
+				originUrl: '/krspace_operate_web/sys/sysParam/toSysParamList?mid=60'
+			},{
 				primaryText: "合同配置",
 				menuCode: 'agreement_setting',
 				router: '/operation/customerManage/agreement/setting/list',
-			}, {
-				primaryText: '参数配置',
-				menuCode: 'retail_sysparamadmin',
-				originUrl: '/krspace_operate_web/sys/sysParam/toSysParamList?mid=60'
 			}, {
 				primaryText: '代码分类',
 				menuCode: 'codeCategoryList',
