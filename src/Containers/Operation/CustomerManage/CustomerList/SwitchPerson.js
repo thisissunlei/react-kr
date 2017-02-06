@@ -45,7 +45,7 @@ class SwitchPerson extends Component{
 		
 		return(
 				
-				<div>
+				<div className='switchP'>
 					
                  <form onSubmit={handleSubmit(this.onSubmit)}>
 				       
