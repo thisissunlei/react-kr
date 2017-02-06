@@ -76,19 +76,20 @@ class CustomerIndent extends Component{
 			}else{
 				isEdit=true;
 			}
+
 			return (
 				<div>
 				<div className="indentList">
 					<div className="orderNumber">{index+1}</div>
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="订单名称:" style={unifyStyle} component="labelText" value={item.mainbillname} inline={true} /></li>
-					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="合同总数:" style={unifyStyle} component="labelText" value={item.contractSize} inline={true} /></li>
-					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="工位总数:" style={unifyStyle} component="labelText" value={item.stationnum} inline={true} /></li>
+					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="合同总数:" style={unifyStyle} component="labelText" value={item.contractSize} defaultValue='0' inline={true} /></li>
+					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="工位总数:" style={unifyStyle} component="labelText" value={item.stationnum} defaultValue='0' inline={true} /></li>
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="社区:" style={unifyStyle} component="labelText" value={item.communityName} inline={true} /></li>
-					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="订单总额:" style={unifyStyle} component="labelText" value={item.contractTotalamount} inline={true} /></li>
+					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="订单总额:" style={unifyStyle} component="labelText" value={item.contractTotalamount} defaultValue='0' inline={true} /></li>
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="入驻时间:" style={unifyStyle} component="labelText" value={item.ucontractEntrydate} inline={true} /></li>
-					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="已回款额:" style={unifyStyle} component="labelText" value={item.contractBackamount} inline={true} /></li>
+					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="已回款额:" style={unifyStyle} component="labelText" value={item.contractBackamount} defaultValue='0' inline={true} /></li>
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="离开日期:" style={unifyStyle} component="labelText" value={item.ucontractLeavedate} inline={true} /></li>
-					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="未回款额:" style={unifyStyle} component="labelText" value={item.unBackamount} inline={true} /></li>
+					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="未回款额:" style={unifyStyle} component="labelText" value={item.unBackamount} defaultValue='0' inline={true} /></li>
 					<div style={{marginTop:20,textAlign: "center"}}>
 						{isEdit&&<span><Button  label="编辑" type="button" cancle={true} onTouchTap={_this.editIndentClick.bind(this,item.id)}/>
 						<span className="interval"></span></span>}
