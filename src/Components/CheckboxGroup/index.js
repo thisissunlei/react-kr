@@ -19,7 +19,9 @@ export default class CheckboxGroup extends Component{
 		/**
 		 * Checkbox 选中时值为true
 		 */
+		checked:React.PropTypes.bool,
 		options:React.PropTypes.array,
+		style:React.PropTypes.object,
 	};
 
 	constructor(props){
@@ -34,11 +36,11 @@ export default class CheckboxGroup extends Component{
 
 	render(){
 
-	   let {options,name} = this.props;
+	   let {options,name,checked,style} = this.props;
 
 		return (
 		    <div>
-            {options && options.map((item,index)=><Checkbox label={item.label} name={name} key={index} {...item}/>)}
+            {options && options.map((item,index)=><Checkbox label={item.label} style={style} name={name} checked={checked} key={index} {...item}/>)}
         </div>
 		);
 

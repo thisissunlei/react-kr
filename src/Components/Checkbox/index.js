@@ -29,7 +29,9 @@ export default class KrCheckbox extends Component{
 		/**
 		*是否只读
 		*/
-		readOnly:React.PropTypes.bool
+		readOnly:React.PropTypes.bool,
+		style:React.PropTypes.object,
+		heightStyle:React.PropTypes.object,
 	};
 
 	constructor(props){
@@ -72,12 +74,12 @@ export default class KrCheckbox extends Component{
 	render(){
 
 		let {checked} = this.state;
-		let {label} = this.props;
+		let {label,style,heightStyle} = this.props;
 
 		return (
-			<span className="ui-checkbox">
+			<span style={style} className="ui-checkbox">
 					<input type="checkbox" onChange={this.onCheck} checked={checked}/>
-					{label && <span className="label">{label}</span>}
+					{label && <span style={heightStyle} className="label">{label}</span>}
 			</span>
 
 		);
