@@ -160,9 +160,9 @@ class SearchUpperForm extends Component {
 				<KrField grid={1/1}  component="group" label="创建时间" style={{marginTop:3}}>
 				<div className='ui-listDate' onClick={this.clickDiv}>
 					<ListGroup>
-						<ListGroupItem><div className='ui-date-start' style={{width:250}} ><KrField  style={{width:250,marginLeft:-10,marginTop:2}} name="createStartDate" component="date" /></div></ListGroupItem>
+						<ListGroupItem><div className='ui-date-start' style={{width:260}} ><KrField  style={{width:260,marginLeft:-10,marginTop:2}} name="createStartDate" component="date" /></div></ListGroupItem>
 							<div className='ui-line-down'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-						<ListGroupItem><div className='ui-date-end'><KrField name="createEndDate" style={{width:250,marginTop:2}} component="date" /></div></ListGroupItem>
+						<ListGroupItem><div className='ui-date-end'><KrField name="createEndDate" style={{width:260,marginTop:2}} component="date" /></div></ListGroupItem>
 					</ListGroup>
                 </div>
 				</KrField>
