@@ -602,7 +602,7 @@ class Personal extends Component{
 						modal={true}
 						onClose={this.openSwitchDialog}
 						open={State.openSwitch}
-						contentStyle ={{ width: '444',height:'284'}}
+						contentStyle ={{ width: '444',height:'284',overflow:'visible'}}
 					>
 						<SwitchPerson 
 						  onSubmit={this.switchPersonSubmit}
