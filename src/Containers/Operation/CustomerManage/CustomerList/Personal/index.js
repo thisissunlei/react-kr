@@ -37,6 +37,7 @@ import State from './State';
 import StateIn from '../NewVisitIndent/State.js';
 import NewCustomerList from '../NewCustomerList';
 import LookCustomerList from '../LookCustomerList';
+import LookCustomerState from '../LookCustomerList/State';
 import SearchUpperForm from '../SearchUpperForm';
 import EditCustomerList from "../EditCustomerList";
 import NewIndent from "../NewIndent";
@@ -199,6 +200,7 @@ class Personal extends Component{
     //查看相关操作
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
+        LookCustomerState.orderList(itemDetail.id);
       	State.MerchantsListId(itemDetail.id)
       	State.switchLookCustomerList();
       	State.companyName=itemDetail.company;
