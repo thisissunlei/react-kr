@@ -69,9 +69,12 @@ import flushData from "../LookCustomerList/State";
 
 
 	onSubmit = (values) => {
-		console.log("values",values);
+		// console.log("values",values);
 		let {operType}=this.props;
 		let _this=this;
+		if(!values.company){
+			return;
+		}
 		values.operType=operType;
 		if(!isNaN(values.inTime)){
 			values.inTime=this.formatDate(values.inTime);
@@ -319,10 +322,10 @@ const validate = values =>{
 			errors.inTime = '请填写预计入驻时间';
 		}
 
-		if (!values.customerCompany) {
-			errors.customerCompany = '请填写公司名称';
-		}else if(values.customerCompany.length>20){
-			errors.customerCompany = '最多输入20个字符';
+		if (!values.company) {
+			errors.company = '请填写公司名称';
+		}else if(values.company.length>20){
+			errors.company = '最多输入20个字符';
 		}
 
 		if (!values.teamNum) {

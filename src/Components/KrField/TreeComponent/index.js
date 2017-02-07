@@ -64,9 +64,13 @@ export default class TreeComponent extends React.Component {
 				touched,
 				error
 			}}=this.props;
+		// let showTreeList=this.state.showTreeList;
 		if(!treeAll){
 			treeAll='';
 		}
+		// if(isClose){
+		// 	showTreeList=false;
+		// }
 		let imitateInputStyle="ui-imitateInput";
 		let {listValue,showTreeList}=this.state;
 		if(listValue=="请选择项目类型"||listValue==placeholder){
