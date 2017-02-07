@@ -69,7 +69,6 @@ import flushData from "../LookCustomerList/State";
 
 
 	onSubmit = (values) => {
-		// console.log("values",values);
 		let {operType}=this.props;
 		let _this=this;
 		if(!values.company){

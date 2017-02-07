@@ -106,15 +106,17 @@ import './index.less'
 	componentDidMount(){
 	 	Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
 	}
-    
+    closemm=()=>{
+    	State.isCloseProject=true;
+    }
 
 	render(){
 
-		const { error, handleSubmit, pristine, reset,dataReady} = this.props;
+		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
 		
 		return (
 
-			<form className="m-newMerchants" style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}>
+			<form className="m-newMerchants" style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)} isClose={State.isCloseProject} onClick={this.closemm}>
 				<div className="title">
 						<div><span className="new-icon"></span><label className="title-text">新建客户</label></div>
 						<div className="customer-close" onClick={this.onCancel}></div>
@@ -167,7 +169,7 @@ import './index.less'
 								<KrField grid={1/2} label="融资金额" name="amount" style={{width:262,marginLeft:28}} component="input" requireLabel={false}/>
 								<KrField grid={1/2} label="所属地区" name="distinctId"  style={{width:262,marginLeft:15,zIndex:2}} component="city" onSubmit={this.cityValue} requireLabel={true} />
 								<KrField grid={1/2} label="项目名称" name="projectName" style={{width:262,marginLeft:28}} component="input" requireLabel={true} />
-								<KrField grid={1/2} label="项目类型" name="projectCategoryId"  style={{width:262,marginLeft:15,zIndex:1}} component="tree" placeholder="请选择项目类型" requireLabel={true} treeAll={State.treeAll}/>
+								<KrField grid={1/2} label="项目类型" name="projectCategoryId"  style={{width:262,marginLeft:15,zIndex:1}} component="tree" placeholder="请选择项目类型" requireLabel={true} treeAll={State.treeAll} open={open}/>
 								<KrField grid={1/2} label="详细地址" name="detailAddress" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
 
 

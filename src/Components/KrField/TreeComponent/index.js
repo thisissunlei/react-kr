@@ -7,8 +7,11 @@ import WrapComponent from '../WrapComponent';
 import TreeAll from './TreeData.json';
 import ProjectType from "./ProjectType";
 import {stopSubmit,submit,blur,stopAsyncValidation,touch} from 'redux-form';
-
-
+import {
+	observer
+} from 'mobx-react';
+import State from './State';
+@observer
 export default class TreeComponent extends React.Component {
 
 	static displayName = 'DateComponent';
@@ -36,10 +39,12 @@ export default class TreeComponent extends React.Component {
 			listId:"",
 			listValue:props.placeholder||"请选择项目类型",
 		}
+		State.listValue=props.placeholder||"请选择项目类型";
 	}
 	imitateInputClick=(value,listId)=>{
 			let {input}=this.props;
 			if(typeof(value)=="string"){
+				State.listValue=value;
 				this.setState({
 					listId:listId,
 					listValue:value,
@@ -52,8 +57,6 @@ export default class TreeComponent extends React.Component {
 				showTreeList:!this.state.showTreeList,
 			})
 			input.onChange(listId);
-
-			
 	}
 
 
@@ -64,15 +67,12 @@ export default class TreeComponent extends React.Component {
 				touched,
 				error
 			}}=this.props;
-		// let showTreeList=this.state.showTreeList;
 		if(!treeAll){
 			treeAll='';
 		}
-		// if(isClose){
-		// 	showTreeList=false;
-		// }
 		let imitateInputStyle="ui-imitateInput";
-		let {listValue,showTreeList}=this.state;
+		let {showTreeList}=this.state;
+		let listValue=State.listValue
 		if(listValue=="请选择项目类型"||listValue==placeholder){
 			if(!listValueName){
 
@@ -81,6 +81,10 @@ export default class TreeComponent extends React.Component {
 
 			}
 		}
+		// if(open){
+		// 	listValue="请选择项目类型";
+		// 	open=!open;
+		// }
 		return (
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>

@@ -48,7 +48,10 @@ import QuitContinue from './QuitContinue';
 import OrderDelete from '../OrderDelete';
 import editIndentState from "../EditIndent/State";
 import newIndentState from "../NewIndent/State";
-import './index.less'
+import './index.less';
+import treeData from "../../../../../Components/KrField/TreeComponent/State";
+import cityData from "../../../../../Components/KrField/CityComponent/State";
+
 @observer
 class Personal extends Component{
 
@@ -78,6 +81,8 @@ class Personal extends Component{
 		// }else{
 		// 	State.hasOfficeChange(false);
 		// }
+		treeData.listValue="请选择项目类型"
+		cityData.city="请选择";
 	}
 
 	//查看页面开关
