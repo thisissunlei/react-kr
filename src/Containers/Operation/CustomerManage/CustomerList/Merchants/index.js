@@ -36,6 +36,7 @@ import editsourceCustomer from "../EditCustomerList/State";
 import StateIn from '../NewVisitIndent/State.js';
 import NewCustomerList from '../NewCustomerList';
 import LookCustomerList from '../LookCustomerList';
+import LookCustomerState from '../LookCustomerList/State';
 import SearchUpperForm from '../SearchUpperForm';
 import EditCustomerList from "../EditCustomerList";
 import NewVisitIndent from '../NewVisitIndent';
@@ -175,6 +176,7 @@ class Merchants extends Component{
     //查看相关操作
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
+      	LookCustomerState.lookListId(itemDetail.id,'SHARE');
       	State.MerchantsListId(itemDetail.id);
       	State.switchLookCustomerList();
       	State.companyName=itemDetail.company;

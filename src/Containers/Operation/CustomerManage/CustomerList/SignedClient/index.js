@@ -35,6 +35,7 @@ import State from './State';
 import StateIn from '../NewVisitIndent/State.js';
 import NewCustomerList from '../NewCustomerList';
 import LookCustomerList from '../LookCustomerList';
+import LookCustomerState from '../LookCustomerList/State';
 import SearchUpperForm from '../SearchUpperForm';
 import EditCustomerList from "../EditCustomerList";
 import NewIndent from "../NewIndent";
@@ -71,6 +72,7 @@ class SignedClient extends Component{
     //查看相关操作
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
+      	LookCustomerState.lookListId(itemDetail.id,'SIGN');
       	State.switchLookCustomerList();
       	State.MerchantsListId(itemDetail.id)
       	State.companyName=itemDetail.company;
