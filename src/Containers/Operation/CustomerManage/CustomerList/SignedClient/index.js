@@ -72,7 +72,7 @@ class SignedClient extends Component{
     //查看相关操作
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
-      	LookCustomerState.lookListId(itemDetail.id,'SIGN');
+      	LookCustomerState.orderList(itemDetail.id);
       	State.switchLookCustomerList();
       	State.MerchantsListId(itemDetail.id)
       	State.companyName=itemDetail.company;
