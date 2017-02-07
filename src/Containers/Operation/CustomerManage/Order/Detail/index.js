@@ -307,7 +307,6 @@ export default class OrderDetail extends React.Component {
 		Store.dispatch(Actions.callAPI('get-order-detail', {
 			mainBillId: this.props.params.orderId
 		})).then(function(response) {
-			console.log('response----', response)
 			_this.setState({
 				response: response
 			});

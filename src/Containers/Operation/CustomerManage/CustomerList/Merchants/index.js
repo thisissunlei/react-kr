@@ -30,6 +30,7 @@ import {
 	Tooltip,
 	Message
 } from 'kr-ui';
+import $ from 'jquery';
 import DateFormat from "kr/Utils";
 import State from './State';
 import editsourceCustomer from "../EditCustomerList/State";
@@ -40,6 +41,8 @@ import SearchUpperForm from '../SearchUpperForm';
 import EditCustomerList from "../EditCustomerList";
 import NewVisitIndent from '../NewVisitIndent';
 import CatchMerchants from './CatchMerchants';
+import treeData from "../../../../../Components/KrField/TreeComponent/State";
+import cityData from "../../../../../Components/KrField/CityComponent/State";
 import './index.less';
 @observer
 class Merchants extends Component{
@@ -63,13 +66,12 @@ class Merchants extends Component{
 		})
 		 Store.dispatch(change('NewCustomerList','hasOffice','NO'));
 		 State.switchNewCustomerList();
+		 treeData.listValue="请选择项目类型";
+		 cityData.city="请选择";
 	}
 	//新建页面的开关
 	switchNewMerchants= (params) => {
-		
-		
 		State.switchNewCustomerList();
-
 	}
 
 	//查看页面开关
@@ -405,6 +407,7 @@ class Merchants extends Component{
 								onSubmit={this.onNewMerchants}
 								onCancel={this.switchNewMerchants}
 								dataReady={dataReady}
+								open={State.openNewMerchants}
 								come={"1"}
 								operType="SHARE"
 						/>

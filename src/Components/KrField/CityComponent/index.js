@@ -9,6 +9,11 @@ import './index.less';
 import $ from 'jquery';
 import WrapComponent from '../WrapComponent';
 import { default as CityData } from './CityData.json';
+import {
+	observer
+} from 'mobx-react';
+import State from './State';
+@observer
 
 export default class CityComponent extends React.Component {
 
@@ -160,9 +165,8 @@ export default class CityComponent extends React.Component {
 		const target = event.target.getElementsByTagName('span')[0];
 		let {thirdName,firstName,secondName} = this.state;
 		let city = `${firstName}/${secondName}/${target.innerHTML}`;
-
+		State.city=city;
 		this.setState({
-			city,
 			showCity:false
 		});
 		let {onSubmit} = this.props;
@@ -213,8 +217,8 @@ export default class CityComponent extends React.Component {
 		let cityDiv = {};
 		cityDiv.display = showCity?'block':'none';
 		let firstCity = this.firstCityList();
-		let {secondCity,thirdCity,firstId,secondId,city,thirdId} = this.state;
-
+		let {secondCity,thirdCity,firstId,secondId,thirdId} = this.state;
+		let city=State.city;
 		let cityStyle= {
 			background:'#fff'
 		};
