@@ -183,6 +183,7 @@ export default class UploadImageComponent extends Component {
 		xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
 		xhr.responseType = 'json';
 		xhr.send(null);
+		// 暂时觉得此处用不着了，等连上服务器需要再检查一下
 		_this.setState({
 			imgUpload: true,
 			operateImg : false
