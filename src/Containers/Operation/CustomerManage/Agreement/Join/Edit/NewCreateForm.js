@@ -246,10 +246,11 @@ class NewCreateForm extends Component {
 			}
 			return item;
 		});
-		stationVos.map((item)=>{
-			allRent += _this.getSingleRent(item);
-		})
-		allRent = parseFloat(allRent).toFixed(2)*1;
+		this.setAllRent(stationVos);
+		// stationVos.map((item)=>{
+		// 	allRent += _this.getSingleRent(item);
+		// })
+		// allRent = parseFloat(allRent).toFixed(2)*1;
 		this.setState({
 			stationVos,
 			allRent
@@ -560,20 +561,30 @@ class NewCreateForm extends Component {
 		})
 
 	}
+	setAllRent=(list)=>{
+		let _this = this;
+		list = list.map((item)=>{
+			if(!item.unitprice){
+				item.unitprice = 0;
+			}
+			return item;
+		})
+		Store.dispatch(Actions.callAPI('getAllRent',{stationList:JSON.stringify(list)})).then(function(response) {
+			_this.setState({
+				allRent:response
+			})
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+	}
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let allMoney = 0;
-		console.log('stationVos',stationVos);
-		stationVos.map((item)=>{
-			if(item.unitprice){
-				allMoney += this.getSingleRent(item);
-			}
-			
-		})
-		allMoney = allMoney.toFixed(2)*1;
-		this.setState({
-			allRent:allMoney
-		})
+		this.setAllRent(stationVos);
+		console.log('stationVos',this.setAllRent(stationVos));
 		
 	}
 	dealRentName=(allRent)=>{

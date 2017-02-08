@@ -826,6 +826,11 @@ const APIS = {
    url:'/api/krspace-finance-web/customer/actions/get-receive-list?searchKey={searchKey}',
    method:'get'
  },
+ //计算工位总价
+ 'getAllRent':{
+   url:'/api/krspace-finance-web/finacontractdetail/fina-contract-all/line-total?stationList={stationList}',
+   method:'get'
+ }
 
  }
 

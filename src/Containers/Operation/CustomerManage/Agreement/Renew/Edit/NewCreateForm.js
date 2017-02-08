@@ -179,6 +179,19 @@ class NewCreateForm extends Component {
 
 		this.openStationDialog();
 	}
+	setAllRent=(list)=>{
+		let _this = this;
+		Store.dispatch(Actions.callAPI('getAllRent',{stationList:JSON.stringify(list)})).then(function(response) {
+			_this.setState({
+				allRent:response
+			})
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+	}
 	getSingleRent=(item)=>{
 		//年月日
 		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
