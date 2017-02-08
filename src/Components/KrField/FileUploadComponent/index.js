@@ -47,7 +47,7 @@ export default class FileUploadComponent extends React.Component {
 			form: {},
 			files: defaultValue,
 			isUploading: false,
-			progress: 0
+			progress: 10
 		}
 
 	}
@@ -163,7 +163,7 @@ export default class FileUploadComponent extends React.Component {
 		this.setState({
 			files,
 			progress: 0,
-			isUploading: false
+			isUploading: true
 		});
 
 		this.onSetInputValue();
@@ -204,12 +204,12 @@ export default class FileUploadComponent extends React.Component {
 
 
 		if (file) {
-			var progress = 0;
+			var progress = 10;
 			var timer = window.setInterval(function() {
 				if (progress >= 90) {
 					window.clearInterval(timer);
 					_this.setState({
-						progress: 0,
+						progress: 10,
 						isUploading: false
 					});
 				}
@@ -302,7 +302,7 @@ export default class FileUploadComponent extends React.Component {
 			progress,
 			isUploading
 		} = this.state;
-		console.log('upload',progress);
+		console.log('upload',progress,isUploading);
 
 		let fileBgStyles = {};
 		// let showList = (files.length>=6)?'hidden':'visible';
