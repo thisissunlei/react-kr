@@ -211,8 +211,11 @@ class Personal extends Component{
     onSelect=(value)=>{
     	var arrItem=[]
     	let {loadData}=this.state;
-    	if(value.length>15){
+    	if(loadData.length>15){
            value=value.splice(0,15);
+    	}
+    	if(loadData.length<=15){
+    	   value=value.splice(0,loadData.length);
     	}
         for(var i=0;i<value.length;i++){
         	var allId=value[i];
@@ -413,7 +416,7 @@ class Personal extends Component{
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 													 }} ></TableRowColumn>
 			                <TableRowColumn name="intentionCityName" ></TableRowColumn>
-			                <TableRowColumn name="intentionCommunityName" component={(value,oldValue)=>{
+			                <TableRowColumn name="intentionCommunityName"  component={(value,oldValue)=>{
 														var TooltipStyle=""
 														if(value.length==""){
 															TooltipStyle="none"
@@ -424,8 +427,8 @@ class Personal extends Component{
 														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 													 }} ></TableRowColumn>
-			                <TableRowColumn name="stationNum"></TableRowColumn>
-			                <TableRowColumn name="sourceName" component={(value,oldValue)=>{
+			                <TableRowColumn name="stationNum"  ></TableRowColumn>
+			                <TableRowColumn name="sourceName"  component={(value,oldValue)=>{
 														var TooltipStyle=""
 														if(value.length==""){
 															TooltipStyle="none"
@@ -436,7 +439,7 @@ class Personal extends Component{
 														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 													 }}></TableRowColumn>
-			                <TableRowColumn name="levelName" component={(value,oldValue)=>{
+			                <TableRowColumn name="levelName"  component={(value,oldValue)=>{
 														var TooltipStyle=""
 														if(value.length==""){
 															TooltipStyle="none"
@@ -460,7 +463,7 @@ class Personal extends Component{
 																<div><KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
 														 	</Tooltip></div>)
 													 }}></TableRowColumn>
-			                <TableRowColumn type="operation">
+			                <TableRowColumn type="operation" >
 			                    <Button label="查看"  type="operation"  operation="watch" />
 			                 </TableRowColumn>
 			               </TableRow>
@@ -601,8 +604,7 @@ class Personal extends Component{
 			            operType="PERSON"
 						onClose={this.openSearchUpperDialog}
 						open={State.openSearchUpper}
-						contentStyle ={{ width: '666'}}
-						bodyStyle={{overflow:"auto"}}
+						contentStyle ={{ width: '666',height:'458px',overflow:'visible'}}
 
 					>
 						<SearchUpperForm  

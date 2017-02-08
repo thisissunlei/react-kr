@@ -145,8 +145,11 @@ class Merchants extends Component{
     onSelect=(value)=>{
     	var arrItem=[]
     	let {loadData}=this.state;
-    	if(value.length>15){
+    	if(loadData.length>15){
            value=value.splice(0,15);
+    	}
+    	if(loadData.length<=15){
+    	   value=value.splice(0,loadData.length);
     	}
         for(var i=0;i<value.length;i++){
         	var allId=value[i];
@@ -486,7 +489,7 @@ class Merchants extends Component{
 						modal={true}
 						onClose={this.openSearchUpperDialog}
 						open={State.openSearchUpper}
-						contentStyle ={{ width: '666'}}
+						contentStyle ={{ width: '666',height:'458px',overflow:'visible'}}
 					>
 						<SearchUpperForm  
 						    onCancel={this.openSearchUpperDialog}
