@@ -385,7 +385,7 @@ class SignedClient extends Component{
 													 }}></TableRowColumn>
 			                <TableRowColumn name="contractTotalamount"></TableRowColumn>
 			                <TableRowColumn name="contractBackamount"></TableRowColumn>
-			                <TableRowColumn name="unBackamount" style={{color:'#ff6868'}}></TableRowColumn>
+			                <TableRowColumn name="unBackamount"></TableRowColumn>
 			                <TableRowColumn type="operation">
 			                    <Button label="查看"  type="operation"  operation="watch" />
 			                 </TableRowColumn>
@@ -507,7 +507,6 @@ class SignedClient extends Component{
 						onClose={this.openSearchUpperDialog}
 						open={State.openSearchUpper}
 						contentStyle ={{ width: '666',height:'385px',overflow:'visible'}}
-						bodyStyle={{overflow:"auto"}}
 						operType="SIGN"	
 					>
 						<SearchUpperForm  
