@@ -77,7 +77,7 @@ class LookCustomerList extends Component{
 			>
 				<Tab label="客户订单" >
 					
-						<CustomerIndent newIndentSwitch={newIndentSwitch} editIndentSwitch={editIndentSwitch} DeleteSwitch={DeleteSwitch} operType={operType}/>
+						<CustomerIndent newIndentSwitch={newIndentSwitch} editIndentSwitch={editIndentSwitch} DeleteSwitch={DeleteSwitch} operType={operType} listId={this.props.listId}/>
 				</Tab>
 				<Tab label="客户详情" >
 					
