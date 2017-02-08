@@ -145,14 +145,16 @@ class Merchants extends Component{
     
     //选中几项领取，转移等
     onSelect=(value)=>{
-        var value=Array.prototype.slice.call(value);
     	var arrItem=[]
     	let {loadData}=this.state;
+    	if(loadData.length>15){
+           value=value.splice(0,15);
+    	}
+    	if(loadData.length<=15){
+    	   value=value.splice(0,loadData.length);
+    	}
         for(var i=0;i<value.length;i++){
         	var allId=value[i];
-        	if(!loadData[allId].id){
-        		return ;
-        	}     	
         	arrItem.push(loadData[allId].id)
         }
 
@@ -488,9 +490,7 @@ class Merchants extends Component{
 						modal={true}
 						onClose={this.openSearchUpperDialog}
 						open={State.openSearchUpper}
-						contentStyle ={{ width: '666'}}
-						bodyStyle={{overflow:"auto"}}
-
+						contentStyle ={{ width: '666',height:'458px',overflow:'visible'}}
 					>
 						<SearchUpperForm  
 						    onCancel={this.openSearchUpperDialog}

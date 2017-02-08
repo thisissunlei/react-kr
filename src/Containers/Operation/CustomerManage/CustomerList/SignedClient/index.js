@@ -195,8 +195,11 @@ class SignedClient extends Component{
     onSelect=(value)=>{
     	var arrItem=[]
     	let {loadData}=this.state;
-    	if(value.length>15){
+    	if(loadData.length>15){
            value=value.splice(0,15);
+    	}
+    	if(loadData.length<=15){
+    	   value=value.splice(0,loadData.length);
     	}
         for(var i=0;i<value.length;i++){
         	var allId=value[i];
@@ -382,7 +385,7 @@ class SignedClient extends Component{
 													 }}></TableRowColumn>
 			                <TableRowColumn name="contractTotalamount"></TableRowColumn>
 			                <TableRowColumn name="contractBackamount"></TableRowColumn>
-			                <TableRowColumn name="unBackamount" style={{color:'#ff6868'}}></TableRowColumn>
+			                <TableRowColumn name="unBackamount"></TableRowColumn>
 			                <TableRowColumn type="operation">
 			                    <Button label="查看"  type="operation"  operation="watch" />
 			                 </TableRowColumn>
@@ -503,8 +506,7 @@ class SignedClient extends Component{
 						modal={true}
 						onClose={this.openSearchUpperDialog}
 						open={State.openSearchUpper}
-						contentStyle ={{ width: '666'}}
-						bodyStyle={{overflow:"auto"}}
+						contentStyle ={{ width: '666',height:'385px',overflow:'visible'}}
 						operType="SIGN"	
 					>
 						<SearchUpperForm  
