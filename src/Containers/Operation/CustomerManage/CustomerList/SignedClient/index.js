@@ -304,7 +304,7 @@ class SignedClient extends Component{
 	}
 
 	render(){
-
+       
      
        let {searchSignParams,dataReady,orderReady}=this.props; 
        var blockStyle={};
