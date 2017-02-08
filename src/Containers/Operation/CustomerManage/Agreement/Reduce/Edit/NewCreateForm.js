@@ -296,11 +296,12 @@ class NewCreateForm extends Component {
 		form = Object.assign({}, form);
 
 		let {
-			changeValues,
-			initialValues
+			changeValues
 		} = this.props;
 		let {
-			stationVos
+			stationVos,
+			delStationVos,
+			allRent
 		} = this.state;
 
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
@@ -308,15 +309,16 @@ class NewCreateForm extends Component {
 
 		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
-		form.rentamount = (this.state.allRent!='-1')?this.state.allRent:initialValues.rentamount;
+		form.delStationVos = delStationVos;
 		form.lessorAddress = changeValues.lessorAddress;
+		form.rentamount = (this.state.allRent!='-1')?this.state.allRent:initialValues.rentamount;
 		// form.lessorContactid = 111;
 		var _this = this;
 
 		form.stationVos = stationVos;
 
 		form.stationVos = JSON.stringify(form.stationVos);
-		console.log('form111', form);
+		form.delStationVos = JSON.stringify(form.delStationVos);
 		const {
 			onSubmit
 		} = this.props;
