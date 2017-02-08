@@ -185,6 +185,7 @@ class Merchants extends Component{
       	LookCustomerState.orderList(itemDetail.id);
       	State.MerchantsListId(itemDetail.id);
       	State.switchLookCustomerList();
+      	LookCustomerState.lookListId(State.listId,"SHARE");
       	State.companyName=itemDetail.company;
       }
     }
