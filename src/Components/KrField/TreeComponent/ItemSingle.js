@@ -89,13 +89,14 @@ export default class ItemSingle extends React.Component {
 			let every=$(this).html();
 			for(let i=0;i<State.uiList3.length;i++){
 				if(every==State.uiList3[i].codeName){
-					State.uiList4=State.uiList2[i].children;
+					State.uiList4=State.uiList3[i].children;
 					break;
 				}
 			}
             // $(".ui-list2").show(); 
             State.isUiList4=true;
         },function(){  
+        	State.uiList4=[];
             // $(".ui-list2").hide();  
             // State.uiList4=[]; State.uiList2=[];
 
