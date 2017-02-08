@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ReactDOM from 'react-dom';
+import $ from 'jquery';
 
 import './index.less';
 import WrapComponent from '../WrapComponent';
@@ -11,6 +12,8 @@ import {
 	observer
 } from 'mobx-react';
 import State from './State';
+import ItemSingle from './ItemSingle';
+
 @observer
 export default class TreeComponent extends React.Component {
 
@@ -38,8 +41,17 @@ export default class TreeComponent extends React.Component {
 			showTreeList:false,
 			listId:"",
 			listValue:props.placeholder||"请选择项目类型",
+			uiList1:TreeAll,
+			
+			uiList3:[],
+			uiList4:[],
 		}
 		State.listValue=props.placeholder||"请选择项目类型";
+
+	}
+	componentDidMount() {
+
+
 	}
 	imitateInputClick=(value,listId)=>{
 			let {input}=this.props;
@@ -57,6 +69,42 @@ export default class TreeComponent extends React.Component {
 				showTreeList:!this.state.showTreeList,
 			})
 			input.onChange(listId);
+	}
+	uiList1Ele=()=>{
+		let {treeAll}=this.props;
+
+		let _this=this;
+		let arr=treeAll.map(function(item,index){
+			return (<ItemSingle value={item.codeName} data={item.children} listId={item.id} treeClose={_this.imitateInputClick} treeAll={treeAll}/>);
+		})
+		return arr;
+	}
+	uiList2Ele=()=>{
+		let {treeAll}=this.props;
+
+		let _this=this;
+		let arr=State.uiList2.map(function(item,index){
+			return (<ItemSingle value={item.codeName} data={item.children} listId={item.id} treeClose={_this.imitateInputClick} treeAll={treeAll}/>);
+		})
+		return arr;
+	}
+	uiList3Ele=()=>{
+		let {treeAll}=this.props;
+
+		let _this=this;
+		let arr=State.uiList3.map(function(item,index){
+			return (<ItemSingle value={item.codeName} data={item.children} listId={item.id} treeClose={_this.imitateInputClick} treeAll={treeAll}/>);
+		})
+		return arr;
+	}
+	uiList4Ele=()=>{
+		let {treeAll}=this.props;
+
+		let _this=this;
+		let arr=State.uiList4.map(function(item,index){
+			return (<ItemSingle value={item.codeName} data={item.children} listId={item.id} treeClose={_this.imitateInputClick} treeAll={treeAll}/>);
+		})
+		return arr;
 	}
 
 
@@ -81,10 +129,6 @@ export default class TreeComponent extends React.Component {
 
 			}
 		}
-		// if(open){
-		// 	listValue="请选择项目类型";
-		// 	open=!open;
-		// }
 		return (
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
@@ -93,9 +137,23 @@ export default class TreeComponent extends React.Component {
 					<span className="ui-treeArrow"></span>
 				</div>
 				
-					{this.state.showTreeList&&<div className="ui-treeList">
-						<ProjectType data={treeAll} num={true} treeClose={this.imitateInputClick} />
+					{showTreeList && <div className="ui-treeList">
+						<div className="ui-list1">
+							{this.uiList1Ele()}
+						</div>
+						{State.uiList2.length!=0 && <div className="ui-list2">
+							{this.uiList2Ele()}
+						</div>}
+						{State.uiList3.length!=0 && <div className="ui-list3">
+							{this.uiList3Ele()}
+						</div>}
+						{State.uiList4.length!=0 && <div className="ui-list4">
+							{this.uiList4Ele()}
+						</div>}
 					</div>}
+
+				{/*<ProjectType data={treeAll} num={true} treeClose={this.imitateInputClick} />*/}
+
 				{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 			</WrapComponent>
 		);

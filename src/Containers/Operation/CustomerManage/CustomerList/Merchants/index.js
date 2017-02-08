@@ -61,11 +61,13 @@ class Merchants extends Component{
 	}
 	//新建页面的开关
 	opNewMerchants=()=>{
-		var customerItem=['sourceId','recommendName','recommendTel','stationNum','name','staionTypeId','tel','staionPrice','mail','intentionCommunityId','wechat','inTime','company','roundId','teamNum','amount','distinctId','projectName','projectCategoryId','detailAddress','deadline','website','companyIntroduce','remark'];
-		customerItem.map(function(item,index){
-          Store.dispatch(change('NewCustomerList',item,''));
-		})
-		 Store.dispatch(change('NewCustomerList','hasOffice','NO'));
+		// var customerItem=['sourceId','recommendName','recommendTel','stationNum','name','staionTypeId','tel','staionPrice','mail','intentionCommunityId','wechat','inTime','company','roundId','teamNum','amount','distinctId','projectName','projectCategoryId','detailAddress','deadline','website','companyIntroduce','remark'];
+		// customerItem.map(function(item,index){
+  //         Store.dispatch(change('NewCustomerList',item,''));
+		// })
+		Store.dispatch(initialize('NewCustomerList',{hasOffice:'NO'}));
+
+		 // Store.dispatch(change('NewCustomerList','hasOffice','NO'));
 		 State.switchNewCustomerList();
 		 treeData.listValue="请选择项目类型";
 		 cityData.city="请选择";
@@ -312,7 +314,6 @@ class Merchants extends Component{
 	            ajaxParams={State.searchParams}
 	            ajaxUrlName='shareCustomers'
 	            ajaxFieldListName="items"
-	            fold={false}
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>
