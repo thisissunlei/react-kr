@@ -163,7 +163,7 @@ export default class FileUploadComponent extends React.Component {
 		this.setState({
 			files,
 			progress: 0,
-			isUploading: true
+			isUploading: false
 		});
 
 		this.onSetInputValue();
