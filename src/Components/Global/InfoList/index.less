@@ -1,0 +1,89 @@
+.ui-info-list-myself{
+	p{
+		margin:0;
+	}
+	.ui-m-info-logo{
+		width: 40px;
+		height: 40px;
+		background: #ff6868;
+		border-radius: 20px;
+		overflow: hidden;
+		text-align: center;
+		line-height: 40px;
+		color: #fff;
+		font-size: 20px;
+		display: inline-block;
+	}
+	.ui-m-info-title{
+		font-size: 18px;
+		line-height: 40px;
+		vertical-align: top;
+		margin-left: 20px;
+		color:#333333;
+	}
+	.close-info{
+		position: absolute;
+		right: 29px;
+		top: 30px;
+		color:#666;
+		cursor: pointer;
+	}
+
+	.ui-m-info-content, .ui-m-info-content-readed{
+		margin:0;
+		font-size: 14px;
+		line-height: 29px;
+		color: #333;
+		position: relative;
+		&:before{
+			content:'';
+			border:2px solid #499df1;
+			border-radius: 2px;
+			width: 0px;
+			height: 0px;
+			position: absolute;
+			margin-top: 13px;
+
+		}
+		a{
+			text-decoration: none;
+		}
+		.ui-m-info-contents{
+			padding-left: 10px;
+			display: inline-block;
+			cursor: pointer;
+			color:#333;
+			max-width: 78%;
+		}
+		.ui-m-info-date{
+			position: absolute;
+			right: 10px;
+			color:#666666;
+		}
+	}
+	.ui-m-info-content-readed{
+		color: #999;
+		.ui-m-info-contents{
+			padding-left: 10px;
+			display: inline-block;
+			cursor: pointer;
+			max-width: 78%;
+			color:#999;
+		}
+	}
+	.ui-m-nothing{
+		text-align: center;
+		margin-top: 100px;
+		.icon{
+			width:139px;
+			height:196px;
+			display: inline-block;
+			background:url('images/nothings.png') no-repeat center center;
+			background-size:100% 100%;
+		}
+		.tip{
+			font-size:18px;
+			color:#666666;
+		}
+	}
+}

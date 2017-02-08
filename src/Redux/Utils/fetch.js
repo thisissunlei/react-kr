@@ -27,13 +27,18 @@ function getUrl(path, params = {},mode = false) {
   }
 
 
+
 	/*
     if (path.match(/^http/) != 'null') {
         return path;
     }
     */
+    //本地联调接口
+    // let url = APIS[path].url;
+    // if(url.indexOf('apixr')){
+    // 	server = ''
+    // }
 
-    
     try {
         server += APIS[path].url;
     } catch(err) {

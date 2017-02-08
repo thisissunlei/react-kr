@@ -1,10 +1,18 @@
 @font-face {
   font-family: 'icomoon';
+<<<<<<< HEAD
   src:  url('fonts/icomoon.eot?sxop49');
   src:  url('fonts/icomoon.eot?sxop49#iefix') format('embedded-opentype'),
     url('fonts/icomoon.ttf?sxop49') format('truetype'),
     url('fonts/icomoon.woff?sxop49') format('woff'),
     url('fonts/icomoon.svg?sxop49#icomoon') format('svg');
+=======
+  src:  url('fonts/icomoon.eot?v4kcv8');
+  src:  url('fonts/icomoon.eot?v4kcv8#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?v4kcv8') format('truetype'),
+    url('fonts/icomoon.woff?v4kcv8') format('woff'),
+    url('fonts/icomoon.svg?v4kcv8#icomoon') format('svg');
+>>>>>>> feature/ji2.0
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +32,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+<<<<<<< HEAD
+=======
+.icon-close:before {
+  content: "\e919";
+}
+.icon-info:before {
+  content: "\e918";
+}
+>>>>>>> feature/ji2.0
 .icon-more:before {
   content: "\e917";
 }
