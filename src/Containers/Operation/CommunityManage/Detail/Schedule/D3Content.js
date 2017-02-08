@@ -495,13 +495,14 @@ export default class D3Content extends Component {
 						
 						let nodeKind = item.color===1?'grey-circle':'red-node';
 						let left = this.getLeft(item.pointDate);
-
+						let marginLeft = (Math.round((item.pointDay/365)*100)/100)*100;
+						if(marginLeft>0){
 						
 						return (
-							<span className={`${nodeKind}`} key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`,left:left,position:'absolute'}} data-tip data-for={`${item.pointDate}${id}`} onMouseOver={this.getRedInfo.bind(this,item)}>
+							<span className={`${nodeKind}`} key={index} style={{marginLeft:`${marginLeft}%`,left:left,position:'absolute'}} data-tip data-for={`${item.pointDate}${id}`} onMouseOver={this.getRedInfo.bind(this,item)}>
 								{this.renderRedInfo(item)}
 							</span>
-						)
+						)}
 					})
 				}
 				{
