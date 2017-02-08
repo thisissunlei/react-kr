@@ -65,6 +65,7 @@ export default class TextareaComponent extends React.Component {
 		let {
 			inputSize
 		} = this.state;
+		inputSize=this.props.input.value.length||1;
 
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>

@@ -484,6 +484,47 @@ const APIS = {
   url:'/api-old/sys/sysOwn/editPassword',
   method:'post'
 },
+//新建编辑会员的准备数据
+  'getMemberBasicData':{
+  	url:'/api/krspace-finance-web/member/member-add-edit?companyId={companyId}&memberId={memberId}&communityId={communityId}',
+  	method:'get'
+  },
+  //根据邮箱判断手否存在
+ 'membersByEmail':{
+   url:'/api/krspace-finance-web/member/member-mail?email={email}',
+   method:'get'
+ },
+ //根据会员卡号判断手否存在
+  'membersByForeignCode':{
+  	url:'/api/krspace-finance-web/member/member-foreigncode?code={code}&codeType=foreign',
+  	method:'get'
+  },
+
+  // 计划表获取合同数据
+	'getRedPoint': {
+		url: '/api/krspace-finance-web/finacontractdetail/plan-table/redPoint?billId={billId}&remindDate={remindDate}',
+		method: 'get'
+	},
+  // 计划表获取合同数据
+	'getBluePoint': {
+		url: '/api/krspace-finance-web/finacontractdetail/plan-table/bluePoint?billId={billId}&detailId={detailId}',
+		method: 'get'
+	},
+  //车场接口
+	'getLeaveDate': {
+		url: '/api/krspace-finance-web/finacontractdetail/plan-table/leaveDate?billId={billId}',
+		method: 'get'
+	},
+  // 计划表获取合同数据
+	'getBillContract': {
+		url: '/api/krspace-finance-web/finacontractdetail/plan-table/billContract?billId={billId}',
+		method: 'get'
+	},
+  //获取出租率
+	'getRate':{
+		url: '/api/krspace-finance-web/finacontractdetail/plan-table/rate?year={year}&communityids={communityids}',
+		method: 'get'
+	},
    //订单明细账－二期－添加挂帐
   'onNewAccountg': {
     url:'/api/krspace-finance-web/finaccount/opt/onAccount',
@@ -533,4 +574,5 @@ const APIS = {
 
 
  module.exports = APIS;
+
 
