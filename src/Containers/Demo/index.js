@@ -57,7 +57,7 @@ import {
 } from 'redux-form';
 
 
-import './index.less';
+// import './index.less';
 
 import LocationMap from 'kr-ui/Global/LocationMap';
 

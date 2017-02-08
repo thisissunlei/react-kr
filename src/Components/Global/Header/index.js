@@ -283,30 +283,35 @@ class Header extends Component {
 						<IconButton ><MoreVertIcon color="#fff"/></IconButton>
 					}
 					targetOrigin = {
-						{horizontal: 'right',vertical: 'top'}
+						{
+							horizontal: 'right',
+							vertical: 'top'
+						}
 					}
 					anchorOrigin = {
-						{horizontal: 'right',vertical: 'top'}
-					} >
-
-					{ this.props.user.nick && < MenuItem primaryText = { this.props.user.nick } onTouchTap = {event => {
-								window.location.hash = 'permission/personalCenter';
-							}} />}
-
-						< MenuItem primaryText = "退出"
-						onTouchTap = {
-							(event) => {
-								window.location.href = '/logout/logout';
-							}
+						{
+							horizontal: 'right',
+							vertical: 'top'
 						}
-						/>
-					 < /IconMenu ></div>
+					} >
+					{this.props.user.nick && 	<MenuItem primaryText={this.props.user.nick} onTouchTap={(event)=>{
+						window.location.hash = 'permission/personalCenter';
+				}} />}
+
+					 < MenuItem primaryText = "退出"
+					onTouchTap = {
+						(event) => {
+							window.location.href = '/logout/logout';
+						}
 					}
 					/>
-				);
-			}
+					< /IconMenu ></div>
+				}
+				/>
+			);
+		}
 
-			return (
+		return (
 
 			<div >
 				{this.props.header_nav.switch_value && <HeaderBar/>}
@@ -320,50 +325,55 @@ class Header extends Component {
 		);
 	}
 
+}
 
 
-	function mapStateToProps(state) {
 
-		return {
-			header_nav: state.header_nav,
-			sidebar_nav: state.sidebar_nav,
-			navs_items: state.navs.items,
-			navs_current_items: state.navs.current_items,
-			bottom_nav: state.bottom_nav,
-			current_router: state.navs.current_router,
-			current_parent: state.navs.current_parent,
-			current_child: state.navs.current_child,
-			user: state.user
-		};
-	}
+function mapStateToProps(state) {
 
-	function mapDispatchToProps(dispatch) {
-		return {
-			actions: bindActionCreators(Object.assign({}, actionCreators), dispatch)
-		};
-	}
+	return {
+		header_nav: state.header_nav,
+		sidebar_nav: state.sidebar_nav,
+		navs_items: state.navs.items,
+		navs_current_items: state.navs.current_items,
+		bottom_nav: state.bottom_nav,
+		current_router: state.navs.current_router,
+		current_parent: state.navs.current_parent,
+		current_child: state.navs.current_child,
+		user: state.user
+	};
+}
 
-	export default connect(mapStateToProps, mapDispatchToProps)(Header);
+function mapDispatchToProps(dispatch) {
+	return {
+		actions: bindActionCreators(Object.assign({}, actionCreators), dispatch)
+	};
+}
 
-	/*
-				<FloatingActionButton onTouchTap={this.showBottomNav} style={{position:'fixed',bottom:20,right:10,zIndex:888}} secondary={true} >
-				<ContentAdd />
-				</FloatingActionButton>
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
 
-				<Popover
-				open={this.props.bottom_nav.switch_value}
-				anchorEl={this.props.bottom_nav.anchor_el}
-				anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-				targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
-				onRequestClose={this.handleRequestClose}
-				animation={PopoverAnimationVertical}
-				>
-				<Menu>
-				<MenuItem primaryText="Refresh" />
-				<MenuItem primaryText="Help &amp; feedback" />
-				<MenuItem primaryText="Settings" />
-				<MenuItem primaryText="Sign out" />
-				</Menu>
-				</Popover>
+/*
+			<FloatingActionButton onTouchTap={this.showBottomNav} style={{position:'fixed',bottom:20,right:10,zIndex:888}} secondary={true} >
+			<ContentAdd />
+			</FloatingActionButton>
+
+			<Popover
+			open={this.props.bottom_nav.switch_value}
+			anchorEl={this.props.bottom_nav.anchor_el}
+			anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+			targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
+			onRequestClose={this.handleRequestClose}
+			animation={PopoverAnimationVertical}
+			>
+			<Menu>
+			<MenuItem primaryText="Refresh" />
+			<MenuItem primaryText="Help &amp; feedback" />
+			<MenuItem primaryText="Settings" />
+			<MenuItem primaryText="Sign out" />
+			</Menu>
+			</Popover>
+
+*/
+/*<Popover>
 
 	*/
