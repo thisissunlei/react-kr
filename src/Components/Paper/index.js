@@ -1,22 +1,30 @@
-import React,{Component} from 'react';
+import React, {
+	Component
+} from 'react';
 import './index.less';
 
-export default class Paper extends Component{
+export default class Paper extends Component {
 
 	static defaultProps = {
-		width: '100%',marginTop:"60px"
+		width: '100%',
+		marginTop: "60px",
+		zIndex: 9
 	};
 
 	static propTypes = {
 		children: React.PropTypes.node,
-		width: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number]),
+		width: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
 	};
 
-	render(){
+	render() {
 
-		let {width,children,style} = this.props;
+		let {
+			width,
+			children,
+			style
+		} = this.props;
 
-		let styles =Object.assign({},style);
+		let styles = Object.assign({}, style);
 		styles.width = width;
 
 		return (
