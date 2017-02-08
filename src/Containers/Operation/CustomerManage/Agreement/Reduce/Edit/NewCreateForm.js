@@ -222,10 +222,21 @@ class NewCreateForm extends Component {
 	onStationSubmit(stationVos) {
 		let _this = this;
 		let allRent = 0;
-		console.log('stationVos',stationVos);
 		this.setAllRent(stationVos);
+		let stationVosList = this.state.stationVos;
+		console.log('delStationVos',stationVosList,stationVos);
+		stationVosList.forEach((item,index)=>{
+			stationVos.map((value)=>{
+				if(item.stationId == value.stationId){
+					stationVosList.splice(index,1);
+				}
+			})
+		})
+		console.log('index',stationVosList);
+
 		this.setState({
-			stationVos
+			stationVos,
+			delStationVos:stationVosList
 		});
 		this.openStationDialog();
 	}
