@@ -264,62 +264,91 @@ const APIS = {
       url: '/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/exportExcel?idList={idList}',
       method: 'get'
    },
+   //获取附件列表
+   'getFileList': {
+      url: '/api/krspace-finance-web/finacontractdetail/fileList-show?detailId={detailId}',
+      method: 'get'
+   },
+   //附件列表保存附件
+   'saveFileList': {
+      url: '/api/krspace-finance-web/finacontractdetail/fileList-save?detailId={detailId}&fileId={fileId}',
+      method: 'post'
+   },
+   //附件列表删除附件
+   'deleteFileList': {
+      url: '/api/krspace-finance-web/finacontractdetail/fileList-delete?detailId={detailId}&fileId={fileId}',
+      method: 'delete'
+   },
+   //电子合同-入驻协议(入驻，增租，续租)
+   'checkinagreement-print-info': {
+      url: '/api/krspace-finance-web/checkinagreement/print-info?contractId={contractId}',
+      method: 'get'
+   },
+   //电子合同-承租意向
+   'intentletter-print-info': {
+      url: '/api/krspace-finance-web/intentletter/print-info?contractId={contractId}',
+      method: 'get'
+   },
+   //电子合同-减租
+   'fnaContractRentController': {
+      url: '/api/krspace-finance-web/fnaContractRentController/print-info?contractId={contractId}',
+      method: 'get'
+   },
    //个人中心-获取个人信息
-'PersonalCenterData': {
-  url:'/api-old/sys/sysOwn/getPersonalInfo',
-  method: 'get'
-},
-//个人中心-身份验证手机
-'PersonalCenterVerifyIdByMobile': {
-  url:'/api-old/sys/sysOwn/verifyMobile?verifyCode={verifyCode}',
-  method: 'get'
-},
-//个人中心-身份验证邮箱
-'PersonalCenterVerifyIdByMail': {
-  url:'/api-old/sys/sysOwn/verifyEmail?verifyCode={verifyCode}',
-  method: 'get'
-},
-//个人中心-获取手机验证码
-'PersonalCenterGetMobileVerificationCode': {
-  url:'/api-old/sys/sysOwn/getVerifyCodeByMobile',
-  method:'get'
-},
-//个人中心-获取邮箱验证码
-'PersonalCenterGetMailVerificationCode': {
-  url:'/api-old/sys/sysOwn/getVerifyCodeByEmail',
-  method:'get'
-},
-//个人中心-修改手机号时新手机号获取验证码
-'PersonalCenterGetNewMobileVerificationCode': {
-  url:'/api-old/sys/sysOwn/getVerifyCodeByNewMobile?mobile={mobile}',
-  method:'get'
-},
-//个人中心-验证修改手机号验证码
-'PersonalCenterVerifyReviseMobileVerificationCode': {
-  url:'/api-old/sys/sysOwn/editMobile',
-  method:'post'
-},
-//个人中心-修改密码
-'PersonalCenterVerifyRevisePwd': {
-  url:'/api-old/sys/sysOwn/editPassword',
-  method:'post'
-},
-//新建编辑会员的准备数据
-  'getMemberBasicData':{
-  	url:'/api/krspace-finance-web/member/member-add-edit?companyId={companyId}&memberId={memberId}&communityId={communityId}',
-  	method:'get'
-  },
-  //根据邮箱判断手否存在
- 'membersByEmail':{
-   url:'/api/krspace-finance-web/member/member-mail?email={email}',
-   method:'get'
- },
- //根据会员卡号判断手否存在
-  'membersByForeignCode':{
-  	url:'/api/krspace-finance-web/member/member-foreigncode?code={code}&codeType=foreign',
-  	method:'get'
-  },
-
+   'PersonalCenterData': {
+      url: '/api-old/sys/sysOwn/getPersonalInfo',
+      method: 'get'
+   },
+   //个人中心-身份验证手机
+   'PersonalCenterVerifyIdByMobile': {
+      url: '/api-old/sys/sysOwn/verifyMobile?verifyCode={verifyCode}',
+      method: 'get'
+   },
+   //个人中心-身份验证邮箱
+   'PersonalCenterVerifyIdByMail': {
+      url: '/api-old/sys/sysOwn/verifyEmail?verifyCode={verifyCode}',
+      method: 'get'
+   },
+   //个人中心-获取手机验证码
+   'PersonalCenterGetMobileVerificationCode': {
+      url: '/api-old/sys/sysOwn/getVerifyCodeByMobile',
+      method: 'get'
+   },
+   //个人中心-获取邮箱验证码
+   'PersonalCenterGetMailVerificationCode': {
+      url: '/api-old/sys/sysOwn/getVerifyCodeByEmail',
+      method: 'get'
+   },
+   //个人中心-修改手机号时新手机号获取验证码
+   'PersonalCenterGetNewMobileVerificationCode': {
+      url: '/api-old/sys/sysOwn/getVerifyCodeByNewMobile?mobile={mobile}',
+      method: 'get'
+   },
+   //个人中心-验证修改手机号验证码
+   'PersonalCenterVerifyReviseMobileVerificationCode': {
+      url: '/api-old/sys/sysOwn/editMobile',
+      method: 'post'
+   },
+   //个人中心-修改密码
+   'PersonalCenterVerifyRevisePwd': {
+      url: '/api-old/sys/sysOwn/editPassword',
+      method: 'post'
+   },
+   //新建编辑会员的准备数据
+   'getMemberBasicData': {
+      url: '/api/krspace-finance-web/member/member-add-edit?companyId={companyId}&memberId={memberId}&communityId={communityId}',
+      method: 'get'
+   },
+   //根据邮箱判断手否存在
+   'membersByEmail': {
+      url: '/api/krspace-finance-web/member/member-mail?email={email}',
+      method: 'get'
+   },
+   //根据会员卡号判断手否存在
+   'membersByForeignCode': {
+      url: '/api/krspace-finance-web/member/member-foreigncode?code={code}&codeType=foreign',
+      method: 'get'
+   },
   // 计划表获取合同数据
 	'getRedPoint': {
 		url: '/api/krspace-finance-web/finacontractdetail/plan-table/redPoint?billId={billId}&remindDate={remindDate}',
@@ -347,7 +376,7 @@ const APIS = {
 	},
   // 计划表获取合同数据
 	'getBillContract': {
-		url: '/api/krspace-finance-web/finacontractdetail/plan-table/billContract?billId={billId}',
+		url: '/apixr/krspace-finance-web/finacontractdetail/plan-table/bill-contract?billId={billId}',
 		method: 'get'
 	},
   //获取出租率
@@ -410,70 +439,70 @@ const APIS = {
     method:'get'
   },
 
-  //获取指定公司会员列表
-  'getCompanyMemberList':{
-  	url:'/api/krspace-finance-web/member/company-team?companyId={companyId}&page={page}&pageSize={pageSize}',
-  	method:'get'
-  },
-  //设置Leader
-  'setLeader':{
-  	url:'/api/krspace-finance-web/member/work/leader?companyId={companyId}&isLeader={isLeader}&memberIds={memberIds}',
-  	method:'put'
-  },
-  //新建编辑会员的准备数据
-  'getMemberBasicData':{
-  	url:'/api/krspace-finance-web/member/member-add-edit?companyId={companyId}&memberId={memberId}&communityId={communityId}',
-  	method:'get'
-  },
-  //新建编辑会员
-  'membersChange':{
-  	url:'/api/krspace-finance-web/member/member',
-  	method:'post'
-  },
-  'editMembersChange':{
-  	url:'/api/krspace-finance-web/member/member?companyId={companyId}&email={email}&communityId={communityId}&foreignCode={foreignCode}&jobId={jobId}&name={name}&phone={phone}&sendMsg={sendMsg}',
-  	method:'put'
-  },
-  //验证成员
-  'validMember':{
-  	url:'/api/krspace-finance-web/member/actions/set-as-valid?memberIds={memberIds}&companyId={companyId}',
-  	method:'post'
-  },
-  //指定公司下的会员数据导出
-  'companyMemberExcel':{
-  	url:'/api/krspace-finance-web/member/member-company-excel?ids={ids}&companyId={companyId}',
-  	method:'get'
-  },
-  //根据邮箱判断手否存在
-  'membersByEmail':{
-  	url:'/api/krspace-finance-web/member/member-mail?email={email}',
-  	method:'get'
-  },
-  //根据会员卡号判断手否存在
-  'membersByForeignCode':{
-  	url:'/api/krspace-finance-web/member/member-foreigncode?code={code}&codeType=foreign',
-  	method:'get'
-  },
-  //下载导入模板
-  'importExcelDemo':{
-  	url:'/api/krspace-finance-web/member/member-templet-excel?companyId={companyId}',
-  	method:'get'
-  },
-  //上传会员数据
-  'importMemberExcel':{
-  	url:'/api/krspace-finance-web/member/member-excel',
-  	method:'post'
-  },
-  //批量删除
-  'deleteMembers':{
-  	url:'/api/krspace-finance-web/member/actions/unbind-from-company?memberIds={memberIds}',
-  	method:'delete'
-  },
-  //订单明细账－补历史收入
-  'runStationIncome': {
-    url:'/api/krspace-finance-web/finaccount/opt/runStationIncome?mainbillId={mainbillId}',
-    method: 'get'
-  },
+   //获取指定公司会员列表
+   'getCompanyMemberList': {
+      url: '/api/krspace-finance-web/member/company-team?companyId={companyId}&page={page}&pageSize={pageSize}',
+      method: 'get'
+   },
+   //设置Leader
+   'setLeader': {
+      url: '/api/krspace-finance-web/member/work/leader?companyId={companyId}&isLeader={isLeader}&memberIds={memberIds}',
+      method: 'put'
+   },
+   //新建编辑会员的准备数据
+   'getMemberBasicData': {
+      url: '/api/krspace-finance-web/member/member-add-edit?companyId={companyId}&memberId={memberId}&communityId={communityId}',
+      method: 'get'
+   },
+   //新建编辑会员
+   'membersChange': {
+      url: '/api/krspace-finance-web/member/member',
+      method: 'post'
+   },
+   'editMembersChange': {
+      url: '/api/krspace-finance-web/member/member?companyId={companyId}&email={email}&communityId={communityId}&foreignCode={foreignCode}&jobId={jobId}&name={name}&phone={phone}&sendMsg={sendMsg}',
+      method: 'put'
+   },
+   //验证成员
+   'validMember': {
+      url: '/api/krspace-finance-web/member/actions/set-as-valid?memberIds={memberIds}&companyId={companyId}',
+      method: 'post'
+   },
+   //指定公司下的会员数据导出
+   'companyMemberExcel': {
+      url: '/api/krspace-finance-web/member/member-company-excel?ids={ids}&companyId={companyId}',
+      method: 'get'
+   },
+   //根据邮箱判断手否存在
+   'membersByEmail': {
+      url: '/api/krspace-finance-web/member/member-mail?email={email}',
+      method: 'get'
+   },
+   //根据会员卡号判断手否存在
+   'membersByForeignCode': {
+      url: '/api/krspace-finance-web/member/member-foreigncode?code={code}&codeType=foreign',
+      method: 'get'
+   },
+   //下载导入模板
+   'importExcelDemo': {
+      url: '/api/krspace-finance-web/member/member-templet-excel?companyId={companyId}',
+      method: 'get'
+   },
+   //上传会员数据
+   'importMemberExcel': {
+      url: '/api/krspace-finance-web/member/member-excel',
+      method: 'post'
+   },
+   //批量删除
+   'deleteMembers': {
+      url: '/api/krspace-finance-web/member/actions/unbind-from-company?memberIds={memberIds}',
+      method: 'delete'
+   },
+   //订单明细账－补历史收入
+   'runStationIncome': {
+      url: '/api/krspace-finance-web/finaccount/opt/runStationIncome?mainbillId={mainbillId}',
+      method: 'get'
+   },
    //订单明细账－补充完成之后
   'removeRunningTag': {
     url:'/api/krspace-finance-web/finaccount/opt/removeRunningTag',
@@ -704,6 +733,22 @@ const APIS = {
    url:'/api-old/krspace_operate_web/commnuity/communityFloorPlan/getCommunityFloorPlanSelData?communityId={communityId}&wherefloor={wherefloor}&mainBillId={mainBillId}&startDate={startDate}&endDate={endDate}&contractId={contractId}',
    method:'get'
  },
+ //获取消息列表
+ 'getInfoList': {
+   url:'/apixr/krspace-finance-web/msg/msg-info?page={page}&pageSize={pageSize}&endTime={endTime}&startTime={startTime}',
+   method:'get'
+ },
+ //消息设为已读
+ 'setInfoReaded': {
+   url:'/apixr/krspace-finance-web/msg/msg-read?id={id}',
+   method:'put'
+ },
+ //获取未读消息数
+ 'getUnReadInfo': {
+   url:'/apixr/krspace-finance-web/msg/msg-count?&endTime={endTime}&startTime={startTime}',
+   method:'get'
+ },
+
  }
 
- module.exports = APIS;
+module.exports = APIS;

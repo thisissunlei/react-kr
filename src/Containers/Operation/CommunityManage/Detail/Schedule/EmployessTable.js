@@ -446,10 +446,20 @@ export default class EmployessTable extends Component {
 	}
 	onNewCreateSubmit=(values)=>{
 		var _this = this;
+		let form = {};
+		form.stationId = this.state.stationId;
+		form.customerId = this.state.customerId;
+		form.communityId = this.state.communityId;
 		Store.dispatch(Actions.callAPI('membersChange',{},values))
 		.then(function(response){
 			Message.success('成功');
+			
+			form.memberId = response;
+			console.log('onDistributionSubmit',response);
+			_this.onDistributionSubmit(form);
+
 			_this.onClose();
+			_this.onDistributionCancel()
 			// window.location.reload();
 			// window.location.href = "/#/community/companyMembers/" + _this.params.companyId + "/list/" + _this.params.communityId ;
 		}).catch(function(err){

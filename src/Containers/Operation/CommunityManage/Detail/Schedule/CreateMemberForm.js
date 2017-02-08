@@ -1,20 +1,9 @@
 
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
-import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
-import {
-	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
-	ButtonGroup,
-	Message,
-	SnackTip,
-	ListGroup,
-	ListGroupItem 
-} from 'kr-ui';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'kr/Redux';
+import { reduxForm, formValueSelector, change, initialize, arrayPush, arrayInsert, FieldArray, reset } from 'redux-form';
+import { Actions, Store } from 'kr/Redux';
+import { KrField, Grid, Row, Col, Button, ButtonGroup, Message, SnackTip, ListGroup, ListGroupItem } from 'kr-ui';
 import $ from 'jquery'
 import imgLine from './images/line.png'
 
@@ -58,7 +47,7 @@ import imgLine from './images/line.png'
 	// 点确定提交时候如果有错误提示返回，否则提交,,如果邮箱存在有错误提示，不能提交
 	 onSubmit=(values)=>{
 	 	this.EmailonBlur(values.email);
-	 	this.foreignCodeBlur(values.foreignCode);
+	 	values.foreignCode && this.foreignCodeBlur(values.foreignCode);
 	 	let {onsubmit,onsubmitCode} = this.state;
 		// 	console.log(onsubmit,onsubmitCode);
 		console.log('values',values);
@@ -202,6 +191,9 @@ import imgLine from './images/line.png'
 		 });
 	 }
 	 foreignCodeBlur=(codes)=>{
+	 	if(!codes){
+	 		return;
+	 	}
 		 let params = {
 			 code :codes
 		 }
@@ -210,7 +202,7 @@ import imgLine from './images/line.png'
 		 this.setState({
 	 		open:true
 	 	})
-		 if(phoneSame && code == params.code){
+		 if(phoneSame && codes == params.code){
 		 	_this.setState({
 				onsubmitCode:true
 			})
@@ -249,15 +241,15 @@ import imgLine from './images/line.png'
 						<img src={imgLine}/>
 				</div>
 				<KrField grid={1/2} name="community" component="labelText" label="社区" inline={false}  defaultValue={communityName} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
-        <KrField grid={1/2} name="email" type="text" label="邮箱"  left={20}  requireLabel={true} onBlur={this.EmailonBlur}/>
+        		<KrField grid={1/2} name="email" type="text" label="邮箱"  left={20}  requireLabel={true} onBlur={this.EmailonBlur}/>
 				<KrField grid={1/2} name="company" inline={false} component="labelText" label="公司" defaultValue={this.props.detail.companyName} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}}/>
-        <KrField name="jobId"  grid={1/2} component="select" label="职位"  left={20} options={selectOption} />
+        		<KrField name="jobId"  grid={1/2} component="select" label="职位"  left={20} options={selectOption} />
 				<KrField grid={1/2} name="name" type="text" label="姓名" right={20}  requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}}/>
 				<KrField grid={1/2} name="sendMsg" component="group" left={20}  label="发送验证短信" >
-						<KrField name="sendMsg" grid={1/2} label="是" type="radio" value="1" style={{marginRight:'50px'}}/>
-						<KrField name="sendMsg" grid={1/2} label="否" type="radio" value="0" />
-              </KrField>
-        <KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" right={20}  onBlur={this.foreignCodeBlur}/>
+					<KrField name="sendMsg" grid={1/2} label="是" type="radio" value="1" style={{marginRight:'50px'}}/>
+					<KrField name="sendMsg" grid={1/2} label="否" type="radio" value="0" />
+                </KrField>
+        		<KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" right={20}  onBlur={this.foreignCodeBlur}/>
 				<Grid style={{marginTop:30,marginBottom:20}}>
 					<Row>
 							<ListGroup>

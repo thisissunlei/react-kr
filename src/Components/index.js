@@ -42,6 +42,7 @@ import Message from './Message';
 import DemoComponent from './Demo';
 import Textarea from './Textarea';
 import CircleStyle from './CircleStyle';
+import UpLoadList from './UpLoadList';
 import 	DatePicker from './DatePicker';
 import 	Tooltip from './Tooltip';
 import 	Tooltips from './Tooltips';
@@ -135,6 +136,7 @@ module.exports = {
 	Tab,
 	SearchForms,
 	...Tabs,
+	UpLoadList,
 	PageHeader,
 	CircleStyle,
 	SearchForm,
