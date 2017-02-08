@@ -232,13 +232,9 @@ class NewCreateForm extends Component {
 		let _this = this;
 		let allRent = 0;
 		console.log('stationVos',stationVos);
-		stationVos.map(item=>{
-			allRent += _this.getSingleRent(item);
-		})
-		allRent = parseFloat(allRent).toFixed(2)*1;
+		this.setAllRent(stationVos);
 		this.setState({
-			stationVos,
-			allRent
+			stationVos
 		});
 	}
 
