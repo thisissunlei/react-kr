@@ -24,7 +24,7 @@ function getUrl(path, params = {},mode = false) {
 		server = 'http://optest02.krspace.cn';
 	}else {
 		server = '';
-  }
+  	}
 
 
 
@@ -39,6 +39,12 @@ function getUrl(path, params = {},mode = false) {
     // 	server = ''
     // }
 
+
+    var url = APIS[path].url;
+
+    if(url.indexOf('mockjsdata') !==-1){
+    	server='';
+    }
     try {
         server += APIS[path].url;
     } catch(err) {

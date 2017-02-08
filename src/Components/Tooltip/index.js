@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 
 import $ from 'jquery';
-import { FontIcon, } from 'kr-ui';
+
+import {
+	FontIcon,
+	KrDate
+} from 'kr-ui';
 import ReactDOM from 'react-dom';
 import './index.less';
 export default class Tooltip extends Component {

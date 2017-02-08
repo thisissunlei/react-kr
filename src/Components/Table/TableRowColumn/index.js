@@ -112,6 +112,7 @@ export default class TableRowColumn extends React.Component {
 			itemData,
 			options,
 			format,
+			component,
 			...other,
 		} = this.props;
 
@@ -123,6 +124,14 @@ export default class TableRowColumn extends React.Component {
 
 		if (name) {
 
+			if (type == 'date' && typeof component === 'function') {
+				return (
+					<td className={className} style={style} {...handlers} {...other}>
+						{this.renderValue()}
+					</td>
+				);
+			}
+
 			if (type == 'date') {
 				return (
 					<td className={className} style={style} {...handlers} {...other}>
@@ -130,6 +139,7 @@ export default class TableRowColumn extends React.Component {
 					</td>
 				);
 			}
+
 			return (
 				<td className={className} style={style} {...handlers} {...other}>
 						{this.renderValue()}

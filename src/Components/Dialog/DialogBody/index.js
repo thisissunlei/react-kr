@@ -19,7 +19,9 @@ export default class DialogBody extends Component {
 			let _this = this;
 			_this.initializeDialogBodyStyles();
 	}
-
+	componentDidUpdate(){
+		this.initializeDialogBodyStyles();
+	}
 	initializeDialogBodyStyles = ()=>{
 
 		var ele = null;
