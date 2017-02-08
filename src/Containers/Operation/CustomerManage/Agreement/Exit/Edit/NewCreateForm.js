@@ -204,6 +204,7 @@ class NewCreateForm extends Component {
 				<KrField   name="mainbillid" type="hidden" component="input" />
 				<KrField   name="contractstate" type="hidden" component="input" />
 				<KrField   name="contracttype" type="hidden" component="input" />
+				<KrField grid={1}  name="contractVersionType" type="hidden" component="input" label="会议室"/>
 
 				<KrField name="leaseId" style={{width:370,marginLeft:70}} component="select" label="出租方" options={optionValues.fnaCorporationList}  requireLabel={true}/>
 				<KrField style={{width:370,marginLeft:90}} name="lessorAddress" type="text" component="labelText" label="地址" inline={false}  value={changeValues.lessorAddress}  defaultValue="无"/>

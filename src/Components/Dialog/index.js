@@ -47,11 +47,8 @@ export default class DialogComponent extends Component {
 
 	componentDidMount(){
 			this.initializeStyles();
-			//this.initializeDialogBodyStyles();
-
 			window.addEventListener('resize',function(){
 				this.initializeStyles();
-				//this.initializeDialogBodyStyles();
 			}.bind(this));
 	}
 
@@ -59,30 +56,6 @@ export default class DialogComponent extends Component {
 	componentWillReceiveProps() {
 	}
 
-	initializeDialogBodyStyles = ()=>{
-
-		var ele = this.refs.dialogBody;
-		const {autoScrollBodyContent} = this.props;
-
-		var page = this.getPageWidthOrHeight();
-		var eleBoxStyle = ele.getBoundingClientRect();
-
-/*
-		if(autoScrollBodyContent){
-			ele.style.overflowY = 'scroll';
-		}
-		*/
-
-
-		ele.style.maxHeight = page.height-200+'px';
-		ele.style.minHeight = 100 +'px';
-
-		if(eleBoxStyle.height > page.height-200){
-			ele.style.overflowY = 'scroll';
-		}
-
-
-	}
 
 	getPageWidthOrHeight = ()=>{
 
@@ -101,7 +74,16 @@ export default class DialogComponent extends Component {
 
 	initializeStyles = ()=>{
 
-			var ele = ReactDOM.findDOMNode(this);
+			// var ele = ReactDOM.findDOMNode(this);
+			var ele;
+			try{
+				ele = this.refs.dialog;
+			}catch(err){
+				ele = null;
+			}
+			if(!ele){
+				return;
+			}
 
 			var position = {};
 

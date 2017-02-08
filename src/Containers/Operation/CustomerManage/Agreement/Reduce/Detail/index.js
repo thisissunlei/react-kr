@@ -92,7 +92,12 @@ export default class ReduceDetail extends Component {
 	componentWillMount() {
 
 	}
+	print = () => {
+		const params = this.props.params;
+		let url = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/agreement/reduce/${params.id}/print`
+		var newWindow = window.open(url);
 
+	}
 
 	render() {
 
@@ -127,7 +132,7 @@ export default class ReduceDetail extends Component {
 			}
 			const info = {
 				padding: '30px 70px',
-				paddingBottom:10
+				paddingBottom: 10
 			}
 
 			console.log('basic', basic)
@@ -218,12 +223,11 @@ export default class ReduceDetail extends Component {
 
 			<Section title="减租协议书" description="" bodyPadding={"20px 20px 150px 20px"}>
 				<BasicRender/>
-				<Grid>
-				  <Row>
-					  <Col md={5} align="center"></Col>
-					  <Col md={2} align="center"> <Button  label="返回"  type="href"  href={getOrderUrl()} width={100} height={40} fontSize={16}/> </Col>
-					  <Col md={5} align="center"></Col>
-				  </Row>
+				<Grid style={{margin:"0 auto",width:230}}>
+				  <Row style={{width:230}}>
+					  <Col style={{marginRight:30,float:"left"}} align="center"> <Button  label="返回"  type="href"  href={getOrderUrl()} width={100} height={40} fontSize={16}/> </Col>
+					  <Col style={{float:"left"}} align="center"> <Button  label="打印"   backgroundColor="#499df1" width={100} height={40} fontSize={16} onClick={this.print}/>  </Col>
+				</Row>
 			  </Grid>
 			</Section>
       </div>
