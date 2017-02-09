@@ -208,7 +208,6 @@ export default class InfoList extends Component {
             <div className="ui-info-list-myself" style={{position:'relative',borderTop:'1px solid rgb(216, 212, 212)'}}>
 				<div style={{
 	                padding: '30px',
-	                minHeight: height,
 	                paddingBottom:'20px',
 	                marginBottom:'100px'
 	            }}>
