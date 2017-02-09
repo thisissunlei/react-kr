@@ -183,6 +183,19 @@ export default class InfoList extends Component {
     		</div>
     	)
     }
+    clearTime=()=>{
+        Store.dispatch(change('time','end',''));
+        Store.dispatch(change('time','start',''));
+
+        let {url} = this.state;
+        let params = {
+            startTime:'',
+            endTime:'',
+            page:1,
+            pageSize:15
+        }
+        this.getDataList(url, params);
+    }
 
     render() {
         let {currentPage, pageSize,totalCount,pagination,infoList} = this.state;
@@ -199,7 +212,7 @@ export default class InfoList extends Component {
 	                paddingBottom:'20px',
 	                marginBottom:'100px'
 	            }}>
-					<span className="close-info icon-close" onClick={this.onClose}></span>
+					<span className="close-info icon-close" onClick={this.clearTime}></span>
 					<div style={{
 		                marginBottom: 10
 		            }}>

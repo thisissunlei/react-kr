@@ -49,7 +49,7 @@ class Header extends Component {
 		this.state = {
 			bottomNav: false,
 			toggle: true,
-			information:false,
+			right_bar:false,
 			inforLogoShow:false,
 			url:window.location.hash,
 			infoTab:'',
@@ -85,14 +85,13 @@ class Header extends Component {
 			_this.setState({
 				inforLogoShow:true,
 				infoTab:url,
-				information:false
+				right_bar:false
 			})
 		}else{
 			_this.setState({
 				inforLogoShow:false,
-				information:false,
+				right_bar:false,
 				infoTab:'local',
-				information:false
 			})
 		}
 	}
@@ -196,12 +195,12 @@ class Header extends Component {
 
 	showInfo=()=>{
 		this.setState({
-			information:!this.state.information
+			right_bar:!this.state.right_bar
 		})
 	}
 	onClose=()=>{
 		this.setState({
-			information:!this.state.information
+			right_bar:!this.state.right_bar
 		})
 	}
 	changeCount=()=>{
@@ -273,7 +272,7 @@ class Header extends Component {
 
 				iconElementRight = {
 					<div style={{minWidth:70,textAlign:'right'}}>
-					<div style={{display:showInfoLogo,position:'relative'}}>
+					<div style={{display:showInfoLogo,position:'relative',marginRight:5}}>
 						<span className="icon-info information-logo"  onClick={this.showInfo}></span>
 						<span className="ui-un-read-count" style={{visibility:hasUnRead>0?'visible':'hidden'}}>{hasUnRead}</span>
 					</div>
@@ -320,7 +319,7 @@ class Header extends Component {
 					<SidebarNav items={this.props.navs_current_items} current_router={this.props.current_router} current_parent={this.props.current_parent} current_child={this.props.current_child}/>
 
 				</Drawer>
-				<Drawer open={this.state.information} width={width} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+				<Drawer open={this.state.right_bar} width={width} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 					<InfoList onClose={this.onClose} infoTab={infoTab} changeCount={this.changeCount}/>
 				</Drawer>
 			</div>
@@ -336,6 +335,7 @@ function mapStateToProps(state) {
 	return {
 		header_nav: state.header_nav,
 		sidebar_nav: state.sidebar_nav,
+		right_bar:state.right_bar,
 		navs_items: state.navs.items,
 		navs_current_items: state.navs.current_items,
 		bottom_nav: state.bottom_nav,

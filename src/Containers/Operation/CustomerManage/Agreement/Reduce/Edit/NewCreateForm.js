@@ -502,7 +502,7 @@ class NewCreateForm extends Component {
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'减租金额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 				<KrField style={{width:830,marginLeft:70}}  name="contractmark" component="textarea" label="备注" maxSize={200}/>
 				</CircleStyle>
-				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} requireLabel={true}/>
+				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList}/>
 
 
 
@@ -571,12 +571,6 @@ const validate = values => {
 	if (!values.leaseContact) {
 		errors.leaseContact = '请填写承租方联系人';
 	}
-
-	if (!values.fileIdList) {
-		errors.fileIdList = '请填写合同附件';
-	}
-
-
 
 	if (!values.signdate) {
 		errors.signdate = '请填写签署时间';

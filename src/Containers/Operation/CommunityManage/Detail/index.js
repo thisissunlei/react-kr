@@ -81,6 +81,7 @@ export default class CommunityManage extends Component {
 	}
 
 	planTable() {
+		Store.dispatch(Actions.switchRightBar(false));
 		let {
 			tab
 		} = this.state;

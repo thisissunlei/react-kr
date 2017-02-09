@@ -750,7 +750,7 @@ class NewCreateForm extends Component {
 
 					</CircleStyle>
 					<KrField  grid={1}  name="contractFileList" component="input"  type="hidden" label="合同附件"/>
-					<KrField style={{width:830,marginLeft:80,marginTop:'-20px'}}  name="fileIdList" component="file" label="上传附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
+					<KrField style={{width:830,marginLeft:80,marginTop:'-20px'}}  name="fileIdList" component="file" label="上传附件" defaultValue={[]} onChange={(files)=>{
 						Store.dispatch(change('increaseCreateForm','contractFileList',files));
 					}} />
 
@@ -869,10 +869,6 @@ const validate = values => {
 
 	if (values.totaldeposit && isNaN(values.totaldeposit)) {
 		errors.totaldeposit = '押金总额必须为数字';
-	}
-
-	if (!values.fileIdList) {
-		errors.fileIdList = '请填写合同附件';
 	}
 
 	if (!values.wherefloor) {
