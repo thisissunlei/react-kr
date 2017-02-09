@@ -50,7 +50,7 @@ export default class CityComponent extends React.Component {
 			thirdName:'',
 			city:'请选择',
 		}
-		
+
 
 	}
 
@@ -96,7 +96,7 @@ export default class CityComponent extends React.Component {
 		})
 		return thirdCity;
 	}
-	
+
 
 	selected=(event)=>{
 		event.target.style.background = '#f5f5f5';
@@ -156,7 +156,7 @@ export default class CityComponent extends React.Component {
 		this.bodyEvent();
 		this.setState({
 			showCity:true
-		})	
+		})
 	}
 
 	onSubmit=(event)=>{
