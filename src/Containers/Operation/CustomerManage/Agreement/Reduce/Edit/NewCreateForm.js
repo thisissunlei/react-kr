@@ -106,6 +106,7 @@ class NewCreateForm extends Component {
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 		this.state = {
+			originStationVos:[],
 			stationVos: [],
 			delStationVos: [],
 			selectedStation: [],
@@ -153,6 +154,25 @@ class NewCreateForm extends Component {
 		});
 
 		this.openStationUnitPriceDialog();
+	}
+	setAllRent=(list)=>{
+		let _this = this;
+		let stationList = list.map((item)=>{
+			if(!item.unitprice){
+				item.unitprice = 0;
+			}
+			return item;
+		})
+		Store.dispatch(Actions.callAPI('getAllRent',{stationList:JSON.stringify(list)})).then(function(response) {
+			_this.setState({
+				allRent:response
+			})
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
 	}
 	getSingleRent=(item)=>{
 		//年月日
@@ -203,14 +223,21 @@ class NewCreateForm extends Component {
 	onStationSubmit(stationVos) {
 		let _this = this;
 		let allRent = 0;
-		console.log('stationVos',stationVos);
-		stationVos.map(item=>{
-			allRent += _this.getSingleRent(item);
+		this.setAllRent(stationVos);
+		let stationVosList = this.state.stationVos;
+		console.log('delStationVos',stationVosList,stationVos);
+		stationVosList.forEach((item,index)=>{
+			stationVos.map((value)=>{
+				if(item.stationId == value.stationId){
+					stationVosList.splice(index,1);
+				}
+			})
 		})
-		allRent = parseFloat(allRent).toFixed(2)*1;
+		console.log('index',stationVosList);
+
 		this.setState({
 			stationVos,
-			allRent
+			delStationVos:stationVosList
 		});
 		this.openStationDialog();
 	}
@@ -240,13 +267,9 @@ class NewCreateForm extends Component {
 		let _this = this;
 		let allRent = 0;
 		console.log('stationVos',stationVos);
-		stationVos.map(item=>{
-			allRent += _this.getSingleRent(item);
-		})
-		allRent = parseFloat(allRent).toFixed(2)*1;
+		this.setAllRent(stationVos);
 		this.setState({
 			stationVos,
-			allRent,
 			delStationVos
 		});
 	}
@@ -272,44 +295,67 @@ class NewCreateForm extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (!this.isInit && nextProps.stationVos.length) {
+
 			let stationVos = nextProps.stationVos;
+
+			let originStationVos = [].concat(stationVos);
+
 			this.setState({
-				stationVos
+				stationVos,
+				originStationVos
 			});
 			this.isInit = true;
 		};
 	}
+
 
 	onSubmit(form) {
 
 		form = Object.assign({}, form);
 
 		let {
-			changeValues,
-			initialValues
+			changeValues
 		} = this.props;
 		let {
-			stationVos
+			stationVos,
+			delStationVos,
+			allRent,
+			originStationVos
 		} = this.state;
+
+
+		delStationVos = originStationVos.filter(function(origin){
+				var isOk = true;
+				stationVos.map(function(station){
+						if(station.id == origin.id){
+								isOk = false;
+						}
+				});
+				return isOk;
+		});
+
+		form.delStationVos = JSON.stringify(delStationVos);
 
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
 
 		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
-		form.rentamount = (this.state.allRent!='-1')?this.state.allRent:initialValues.rentamount;
+		form.delStationVos = delStationVos;
 		form.lessorAddress = changeValues.lessorAddress;
+		form.rentamount = (this.state.allRent!='-1')?this.state.allRent:initialValues.rentamount;
 		// form.lessorContactid = 111;
 		var _this = this;
 
 		form.stationVos = stationVos;
 
 		form.stationVos = JSON.stringify(form.stationVos);
+		form.delStationVos = JSON.stringify(form.delStationVos);
 		console.log('form111', form);
 		const {
 			onSubmit
 		} = this.props;
-		onSubmit && onSubmit(form);
+		onSubmit && onSubmit(form);q
 	}
 
 	onCancel() {
@@ -392,8 +438,8 @@ class NewCreateForm extends Component {
 				<TableHeaderColumn>类别</TableHeaderColumn>
 				<TableHeaderColumn>编号／名称</TableHeaderColumn>
 				<TableHeaderColumn>单价(元/月)</TableHeaderColumn>
-					<TableHeaderColumn>开始时间</TableHeaderColumn>
-						<TableHeaderColumn>减租开始日期</TableHeaderColumn>
+					<TableHeaderColumn>减租开始日期</TableHeaderColumn>
+						<TableHeaderColumn>减租结束日期</TableHeaderColumn>
 						</TableHeader>
 						<TableBody>
 						{stationVos.map((item,index)=>{
@@ -458,7 +504,7 @@ class NewCreateForm extends Component {
 				</CircleStyle>
 				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} requireLabel={true}/>
 
-				  
+
 
 						<Grid style={{padding:"10px 0 50px"}}>
 						<Row >

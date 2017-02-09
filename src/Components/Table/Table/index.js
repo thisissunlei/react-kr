@@ -472,10 +472,13 @@ export default class Table extends React.Component {
 			visibilityRows
 		} = this.state;
 
+		var allRowsSelected = true;
 		var result = [];
 		visibilityRows.forEach(function(item, index) {
 			if (item && parseInt(selectedRows[index])) {
 				result.push(index);
+			}else{
+				allRowsSelected = false;
 			}
 		});
 
@@ -483,6 +486,10 @@ export default class Table extends React.Component {
 			onSelect
 		} = this.props;
 		onSelect && onSelect(result);
+
+		this.setState({
+			allRowsSelected
+		});
 	}
 
 	onSelectAll() {

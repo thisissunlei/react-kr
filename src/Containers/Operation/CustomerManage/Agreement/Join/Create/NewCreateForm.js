@@ -244,10 +244,11 @@ class NewCreateForm extends Component {
 			}
 			return item;
 		});
-		stationVos.map((item)=>{
-			allRent += _this.getSingleRent(item);
-		})
-		allRent = parseFloat(allRent).toFixed(2)*1;
+		this.setAllRent(stationVos);
+		// stationVos.map((item)=>{
+		// 	allRent += _this.getSingleRent(item);
+		// })
+		// allRent = parseFloat(allRent).toFixed(2)*1;
 		console.log('onStationUnitPrice',allRent);
 
 
@@ -433,7 +434,8 @@ class NewCreateForm extends Component {
 			goalBoardroomNum: changeValues.boardroomnum,
 			selectedObjs: JSON.stringify(stationVos),
 			startDate: dateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
-			endDate: dateFormat(changeValues.leaseEnddate, "yyyy-mm-dd")
+			endDate: dateFormat(changeValues.leaseEnddate, "yyyy-mm-dd"),
+			unitprice:0
 
 		};
 
@@ -453,20 +455,27 @@ class NewCreateForm extends Component {
 		let {stationVos} = this.state;
 		let allMoney = 0;
 		console.log('stationVos',stationVos);
-		stationVos.map((item)=>{
-			if(item.unitprice){
-				allMoney += this.getSingleRent(item);
-			}
-			
-		})
-		console.log(allMoney);
-		//Math.ceil(((item.unitprice*12)/365)*100)/100
-		allMoney = parseFloat(allMoney).toFixed(2)*1;
-		console.log(allMoney,'allMoney',typeof allMoney);
-		this.setState({
-			allRent:allMoney
-		})
+		this.setAllRent(stationVos);
 		
+	}
+	setAllRent=(list)=>{
+		let _this = this;
+		let stationList = list.map((item)=>{
+			if(!item.unitprice){
+				item.unitprice = 0;
+			}
+			return item;
+		})
+		Store.dispatch(Actions.callAPI('getAllRent',{stationList:JSON.stringify(list)})).then(function(response) {
+			_this.setState({
+				allRent:response
+			})
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
 	}
 	getSingleRent=(item)=>{
 		//年月日

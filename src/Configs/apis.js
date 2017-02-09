@@ -361,7 +361,7 @@ const APIS = {
    },
    // 计划表获取合同数据
    'getBillContract': {
-      url: '/api/krspace-finance-web/finacontractdetail/plan-table/billContract?billId={billId}',
+      url: '/api/krspace-finance-web/finacontractdetail/plan-table/bill-contract?billId={billId}',
       method: 'get'
    },
    //会员中心-新增会员-根据邮箱查询会员是否存在
@@ -826,6 +826,11 @@ const APIS = {
    url:'/api/krspace-finance-web/customer/actions/get-receive-list?searchKey={searchKey}',
    method:'get'
  },
+ //计算工位总价
+ 'getAllRent':{
+   url:'/api/krspace-finance-web/finacontractdetail/fina-contract-all/line-total?stationList={stationList}',
+   method:'get'
+ }
 
  }
 
