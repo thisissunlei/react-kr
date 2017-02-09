@@ -106,6 +106,7 @@ class NewCreateForm extends Component {
 		this.onChangeSearchPersonel = this.onChangeSearchPersonel.bind(this);
 		this.onStationVosChange = this.onStationVosChange.bind(this);
 		this.state = {
+			originStationVos:[],
 			stationVos: [],
 			delStationVos: [],
 			selectedStation: [],
@@ -294,13 +295,19 @@ class NewCreateForm extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (!this.isInit && nextProps.stationVos.length) {
+
 			let stationVos = nextProps.stationVos;
+
+			let originStationVos = [].concat(stationVos);
+
 			this.setState({
-				stationVos
+				stationVos,
+				originStationVos
 			});
 			this.isInit = true;
 		};
 	}
+
 
 	onSubmit(form) {
 
@@ -312,8 +319,22 @@ class NewCreateForm extends Component {
 		let {
 			stationVos,
 			delStationVos,
-			allRent
+			allRent,
+			originStationVos
 		} = this.state;
+
+
+		delStationVos = originStationVos.filter(function(origin){
+				var isOk = true;
+				stationVos.map(function(station){
+						if(station.id == origin.id){
+								isOk = false;
+						}
+				});
+				return isOk;
+		});
+
+		form.delStationVos = JSON.stringify(delStationVos);
 
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
@@ -417,8 +438,8 @@ class NewCreateForm extends Component {
 				<TableHeaderColumn>类别</TableHeaderColumn>
 				<TableHeaderColumn>编号／名称</TableHeaderColumn>
 				<TableHeaderColumn>单价(元/月)</TableHeaderColumn>
-					<TableHeaderColumn>开始时间</TableHeaderColumn>
-						<TableHeaderColumn>减租开始日期</TableHeaderColumn>
+					<TableHeaderColumn>减租开始日期</TableHeaderColumn>
+						<TableHeaderColumn>减租结束日期</TableHeaderColumn>
 						</TableHeader>
 						<TableBody>
 						{stationVos.map((item,index)=>{
@@ -483,7 +504,7 @@ class NewCreateForm extends Component {
 				</CircleStyle>
 				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} requireLabel={true}/>
 
-				  
+
 
 						<Grid style={{padding:"10px 0 50px"}}>
 						<Row >
