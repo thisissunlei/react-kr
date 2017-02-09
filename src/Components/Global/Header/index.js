@@ -222,10 +222,11 @@ class Header extends Component {
 			height: "60px",
 			zIndex: 10
 		};
-		let width = document.body.clientWidth * 0.4;
-		if(width<570){
-			width = 570;
-		}
+		// let width = document.body.clientWidth * 0.4;
+		// if(width<570){
+		// 	width = 570;
+		// }
+		let width = 570;
 
 		var {
 			switch_value
