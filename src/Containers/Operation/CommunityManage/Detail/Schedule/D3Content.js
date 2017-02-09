@@ -503,7 +503,7 @@ export default class D3Content extends Component {
 							<span className={`${nodeKind}`} key={index} style={{marginLeft:`${marginLeft}%`,left:left,position:'absolute'}} data-tip data-for={`${item.pointDate}${id}`} onMouseOver={this.getRedInfo.bind(this,item)}>
 								{this.renderRedInfo(item)}
 							</span>
-						)}
+						)
 					})
 				}
 				{
