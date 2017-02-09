@@ -347,10 +347,11 @@ class NewCreateForm extends Component {
 			}
 			return item;
 		});
-		stationVos.map((item)=>{
-			allMoney += _this.getSingleRent(item);
-		})
-		allMoney = parseFloat(allMoney).toFixed(2)*1;
+		this.setAllRent(stationVos);
+		// stationVos.map((item)=>{
+		// 	allMoney += _this.getSingleRent(item);
+		// })
+		// allMoney = parseFloat(allMoney).toFixed(2)*1;
 
 		this.setState({
 			stationVos,
@@ -515,17 +516,21 @@ class NewCreateForm extends Component {
 		let {stationVos} = this.state;
 		let allMoney = 0;
 		console.log('stationVos',stationVos);
-		stationVos.map((item)=>{
-			if(item.unitprice){
-				allMoney += this.getSingleRent(item);
-			}
-			
-		})
-		allMoney = parseFloat(allMoney).toFixed(2)*1;
-		this.setState({
-			allRent:allMoney
-		})
+		this.setAllRent(stationVos);
 		
+	}
+	setAllRent=(list)=>{
+		let _this = this;
+		Store.dispatch(Actions.callAPI('getAllRent',{stationList:JSON.stringify(list)})).then(function(response) {
+			_this.setState({
+				allRent:response
+			})
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
 	}
 	getSingleRent=(item)=>{
 		//年月日

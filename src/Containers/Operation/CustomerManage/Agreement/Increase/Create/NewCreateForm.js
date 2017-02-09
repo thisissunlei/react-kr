@@ -134,6 +134,7 @@ class NewCreateForm extends Component {
 
 		var stationnum = 0;
 		var boardroomnum = 0;
+		console.log('calcStationNum',stationVos);
 
 		stationVos.forEach(function(item, index) {
 			if (item.stationType == 1) {
@@ -223,7 +224,6 @@ class NewCreateForm extends Component {
 			selectedStation
 		} = this.state;
 		let _this = this;
-		let allMoney = 0;
 
 		stationVos = stationVos.map(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
@@ -231,14 +231,10 @@ class NewCreateForm extends Component {
 			}
 			return item;
 		});
-		stationVos.map((item)=>{
-			allMoney += _this.getSingleRent(item);
-		})
-		allMoney = parseFloat(allMoney).toFixed(2)*1;
+		this.setAllRent(stationVos);
 
 		this.setState({
 			stationVos,
-			allRent:allMoney
 		});
 
 		this.openStationUnitPriceDialog();
@@ -430,7 +426,7 @@ class NewCreateForm extends Component {
 			goalBoardroomNum: changeValues.boardroomnum,
 			selectedObjs: JSON.stringify(stationVos),
 			startDate: dateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
-			endDate: dateFormat(changeValues.leaseEnddate, "yyyy-mm-dd")
+			endDate: dateFormat(changeValues.leaseEnddate, "yyyy-mm-dd"),
 
 		};
 
@@ -504,17 +500,27 @@ class NewCreateForm extends Component {
 		let {stationVos} = this.state;
 		let allMoney = 0;
 		console.log('stationVos',stationVos);
-		stationVos.map((item)=>{
-			if(item.unitprice){
-				allMoney += this.getSingleRent(item);
-			}
-			
-		})
-		allMoney = parseFloat(allMoney).toFixed(2)*1;
-		this.setState({
-			allRent:allMoney
-		})
+		this.setAllRent(stationVos);
 		
+	}
+	setAllRent=(list)=>{
+		let _this = this;
+		let stationList = list.map((item)=>{
+			if(!item.unitprice){
+				item.unitprice = 0;
+			}
+			return item;
+		})
+		Store.dispatch(Actions.callAPI('getAllRent',{stationList:JSON.stringify(stationList)})).then(function(response) {
+			_this.setState({
+				allRent:response
+			})
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
 	}
 	getSingleRent=(item)=>{
 		//年月日

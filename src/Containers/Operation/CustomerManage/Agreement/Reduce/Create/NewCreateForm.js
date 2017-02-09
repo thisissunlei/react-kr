@@ -153,16 +153,31 @@ class NewCreateForm extends Component {
 		let _this = this;
 		let allRent = 0;
 		console.log('stationVos',stationVos);
-		stationVos.map(item=>{
-			allRent += _this.getSingleRent(item);
-		})
-		allRent = parseFloat(allRent).toFixed(2)*1;
+		this.setAllRent(stationVos);
 
 		this.setState({
 			stationVos,
-			allRent
 		});
 		this.openStationDialog();
+	}
+	setAllRent=(list)=>{
+		let _this = this;
+		let stationList = list.map((item)=>{
+			if(!item.unitprice){
+				item.unitprice = 0;
+			}
+			return item;
+		})
+		Store.dispatch(Actions.callAPI('getAllRent',{stationList:JSON.stringify(list)})).then(function(response) {
+			_this.setState({
+				allRent:response
+			})
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
 	}
 	getSingleRent=(item)=>{
 		//年月日
@@ -217,13 +232,9 @@ class NewCreateForm extends Component {
 		let _this = this;
 		let allRent = 0;
 		console.log('stationVos',stationVos);
-		stationVos.map(item=>{
-			allRent += _this.getSingleRent(item);
-		})
-		allRent = parseFloat(allRent).toFixed(2)*1;
+		this.setAllRent(stationVos);
 		this.setState({
-			stationVos,
-			allRent
+			stationVos
 		});
 	}
 
