@@ -42,16 +42,20 @@ class ImportCard extends Component{
 	    });
 	    
 	}
+	changeName=(values)=>{
+		console.log(values);
+	}
 
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
 		let communityText = '';
 		let {count} =this.state;
+		let nameList = [{value:1,label:'aa'},{value:2,label:'bb'},{value:3,label:'ab'},{value:5,label:'cd'}]
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px'}}>
-				<KrField name="originUser" component="searchPersonel" label="原领用人"/>
+				<KrField name="originUser" component="SearchList" label="原领用人" options={nameList} onChange={this.changeName}/>
 				<KrField name="nowUser" component="searchPersonel" label="领用人"/>
-				<KrField name="count" component="labelText" label="转移数量"/>
+				<KrField name="count" component="labelText" label="转移数量" value={count}/>
 
 				<Grid style={{margin:"20px 0 3px -10px"}}>
 					<Row>
@@ -65,9 +69,26 @@ class ImportCard extends Component{
 		);
 	}
 }
+const validate = values => {
+
+	const errors = {}
+
+	
+	
+	if (!values.originUser) {
+		errors.originUser = '请选择原领用人';
+	}
+	if (!values.nowUser) {
+		errors.nowUser = '请选择领用人';
+	}
+
+	
+
+	return errors
+}
 export default ImportCard = reduxForm({
 	form: 'ImportCardForm',
-	// validate,
+	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
 })(ImportCard);

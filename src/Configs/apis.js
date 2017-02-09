@@ -705,32 +705,32 @@ const APIS = {
  },
    //会员卡列表
    'memberCardList': {
-      url: '/apixr/krspace-finance-web/member/card/card-list?page={page}&pageSize={pageSize}&type={type}&value={value}',
+      url: '/api/krspace-finance-web/member/card/card-list?page={page}&pageSize={pageSize}&type={type}&value={value}',
       method: 'get'
    },
    //会员卡批量入库
    'memberCardImport': {
-      url: '/apixr/krspace-finance-web/member/card/actions/storage?startForeignCode={startForeignCode}&endForeignCode={endForeignCode}',
+      url: '/api/krspace-finance-web/member/card/actions/storage?startForeignCode={startForeignCode}&endForeignCode={endForeignCode}',
       method: 'put'
    },
    //会员卡领用
    'memberCardUse': {
-      url: '/apixr/krspace-finance-web/member/card/actions/receive',
+      url: '/api/krspace-finance-web/member/card/actions/receive',
       method: 'post'
    },
    //会员卡删除
    'memberCardDelete': {
-      url: '/apixr/krspace-finance-web/member/card/actions/delete?id={id}',
+      url: '/api/krspace-finance-web/member/card/actions/delete?id={id}',
       method: 'delete'
    },
    //会员卡查看
    'memberCardView': {
-      url: '/apixr/krspace-finance-web/member/card/bound-detail?id={id}',
+      url: '/api/krspace-finance-web/member/card/bound-detail?id={id}',
       method: 'get'
    },
    //会员卡录入，卡号重复性判断
    'memberCardJudge': {
-      url: '/apixr/krspace-finance-web/member/card/bound-detail?id={id}',
+      url: '/api/krspace-finance-web/member/card/bound-detail?id={id}',
       method: 'get'
    },
  //运营平台-基础配置-设备定义-设备列表
