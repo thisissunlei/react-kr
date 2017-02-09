@@ -172,7 +172,7 @@ module.exports = {
 					}, {
 						primaryText: "会员卡管理",
 						router: '/member/memberManage/card',
-						menuCode: 'index',
+						menuCode: 'memberCardList',
 					}, {
 						primaryText: "会员配置",
 						router: '/member/memberManage/setting',

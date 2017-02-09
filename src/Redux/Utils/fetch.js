@@ -32,7 +32,10 @@ function getUrl(path, params = {},mode = false) {
         return path;
     }
     */
-
+    let url = APIS[path].url;
+    if(url.indexOf('apixr')){
+    	server = ''
+    }
     
     try {
         server += APIS[path].url;

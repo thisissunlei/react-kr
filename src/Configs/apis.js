@@ -699,11 +699,40 @@ const APIS = {
       url: '/api/krspace-finance-web/finaccount/opt/returnMoney',
       method: 'post'
    },
-
  'planMap': {
    url:'/api-old/krspace_operate_web/commnuity/communityFloorPlan/getCommunityFloorPlanSelData?communityId={communityId}&wherefloor={wherefloor}&mainBillId={mainBillId}&startDate={startDate}&endDate={endDate}&contractId={contractId}',
    method:'get'
  },
+   //会员卡列表
+   'memberCardList': {
+      url: '/apixr/krspace-finance-web/member/card/card-list?page={page}&pageSize={pageSize}&type={type}&value={value}',
+      method: 'get'
+   },
+   //会员卡批量入库
+   'memberCardImport': {
+      url: '/apixr/krspace-finance-web/member/card/actions/storage?startForeignCode={startForeignCode}&endForeignCode={endForeignCode}',
+      method: 'put'
+   },
+   //会员卡领用
+   'memberCardUse': {
+      url: '/apixr/krspace-finance-web/member/card/actions/receive',
+      method: 'post'
+   },
+   //会员卡删除
+   'memberCardDelete': {
+      url: '/apixr/krspace-finance-web/member/card/actions/delete?id={id}',
+      method: 'delete'
+   },
+   //会员卡查看
+   'memberCardView': {
+      url: '/apixr/krspace-finance-web/member/card/bound-detail?id={id}',
+      method: 'get'
+   },
+   //会员卡录入，卡号重复性判断
+   'memberCardJudge': {
+      url: '/apixr/krspace-finance-web/member/card/bound-detail?id={id}',
+      method: 'get'
+   },
  }
 
  module.exports = APIS;
