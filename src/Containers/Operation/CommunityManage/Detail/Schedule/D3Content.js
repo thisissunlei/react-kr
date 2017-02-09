@@ -341,8 +341,8 @@ export default class D3Content extends Component {
 				return(
 					<div key={i} className="react-tooltip-content">
 						<span>{value.contractName}分期催款</span>
-						<p>{dateFormat(itemData.pointDate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
-						<p>工位:<span className='red-content'>{value.stationnum}</span> &nbsp; 会议室:<span className='red-content'>{value.boardroomNum}</span> &nbsp; ({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
+						<p style={{width:'310px'}}>{dateFormat(itemData.pointDate, "yyyy.mm.dd")}日催款&nbsp;({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
+						<p>工位:<span className='red-content' style={{marginRight:5}}>{value.stationnum}</span>&nbsp;会议室:<span className='red-content'>{value.boardroomNum}</span> &nbsp; ({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
 						<p>负责人：<span className='red-content'>{value.name?value.name:'—'}</span></p>
 						<p>电话：<span className='red-content'>{value.phone?value.phone:'—'}</span></p>
 						<p>催款金额：<span className='red-content'>{value.installmentAmount}</span></p>
