@@ -178,7 +178,6 @@ class SearchUpperForm extends Component {
 			<div style={dateBoxStyle} className='customer-searchUpper' onclick={this.customerClick}>
 			    <form onSubmit={handleSubmit(this.onSubmit)}>
 				    {this.renderSigned()}
-				
 
 				<Grid style={{marginTop:7,marginBottom:5,marginLeft:-24}}>
 					<Row>

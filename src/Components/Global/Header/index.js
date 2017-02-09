@@ -164,7 +164,7 @@ class Header extends Component {
 	renderHeaderNav(item, index) {
 
 		let styles = {
-			color: '#fff',
+			color: '#666666',
 			width: 'auto',
 			height: 60,
 		}
@@ -174,9 +174,8 @@ class Header extends Component {
 		}
 
 		if (item.active) {
-			styles.borderBottom = '2px solid #fff';
-			styles.borderLeft = '1px solid #3F93CA';
-			styles.borderRight = '1px solid #3F93CA';
+			styles.color = '#394457';
+			styles.fontWeight='600';
 		}
 
 
@@ -190,7 +189,7 @@ class Header extends Component {
 
 
 		return (
-			<FlatButton label={item.primaryText} key={index} style={styles} href={jumpUrl} labelStyle={{lineHeight:'60px',fontSize:"16px"}} />
+			<FlatButton label={item.primaryText} key={index} style={styles} href={jumpUrl} labelStyle={{lineHeight:'60px',fontSize:"16px",fontWeight:0}} />
 		);
 
 	}
@@ -220,7 +219,7 @@ class Header extends Component {
 			top: 0,
 			left: 0,
 			right: 0,
-			backgroundColor: '#328ECC',
+			backgroundColor: '#FFFFFF',
 			height: "60px",
 			zIndex: 10
 		};
@@ -279,6 +278,7 @@ class Header extends Component {
 						<span className="ui-un-read-count" style={{visibility:hasUnRead>0?'visible':'hidden'}}>{hasUnRead}</span>
 					</div>
 					< IconMenu
+					iconStyle={{fill:'#394457'}}
 					iconButtonElement = {
 						<IconButton ><MoreVertIcon color="#fff"/></IconButton>
 					}
@@ -313,7 +313,7 @@ class Header extends Component {
 
 		return (
 
-			<div >
+			<div className="no-print">
 				{this.props.header_nav.switch_value && <HeaderBar/>}
 				<Drawer open={this.props.sidebar_nav.switch_value} width={180} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 					<SidebarNav items={this.props.navs_current_items} current_router={this.props.current_router} current_parent={this.props.current_parent} current_child={this.props.current_child}/>
