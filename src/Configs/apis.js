@@ -733,6 +733,12 @@ const APIS = {
       url: '/apixr/krspace-finance-web/member/card/bound-detail?id={id}',
       method: 'get'
    },
+ //运营平台-基础配置-设备定义-设备列表
+ 'equipmentList': {
+   url:'/api/krspace-finance-web/getSysDeviceDefinitionListListByAjax',
+   method:'get'
+ }
+
  }
 
  module.exports = APIS;
