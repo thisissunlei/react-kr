@@ -1,5 +1,5 @@
 import { default as ZhangQu } from './ZhangQu';
-
+import React, { Component } from 'react';
 import {
 	Checkbox,
 	DatePicker,
