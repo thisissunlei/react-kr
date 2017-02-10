@@ -2,7 +2,7 @@ import React from 'react';
 
 import ReactSelect from '../../Select/Select';
 import Input from '../../Input';
-
+import {Actions,Store} from 'kr/Redux';
 import WrapComponent from '../WrapComponent';
 import './index.less';
 import $ from 'jquery';
@@ -34,23 +34,41 @@ export default class SelectComponent extends React.Component {
 
 		this.state = {
 			value: [],
-			options:this.props.options,
+			options:[],
 			showCity:false,
-			optionsList:this.props.options
+			optionsList:[],
+			name:''
 		}
 	}
 
 	componentDidMount() {
 		this.setInitValue(this.props.input.value);
+		this.getMenberList();
+	}
+	getMenberList=()=>{
+		let _this = this;
+		Store.dispatch(Actions.callAPI('memberRecvList'))
+		.then(function(response){
+			console.log('response',response);
+			let option = [];
+			option = response.map((item)=>{
+				item.value = item.id ;
+				item.label = item.name;
+				return item;
+			})
+			_this.setState({
+				options:option,
+				optionsList:option
+			},function(){
+				console.log('dddddd',_this.state)
+			})
+		}).catch(function(err){
+			console.log('err',err);
+		});
 	}
 
 
 	componentWillReceiveProps(nextProps){
-		if(!ShallowEqual(this.props.options,nextProps.options)){
-			this.props.options = nextProps.options;
-			// Store.dispatch(initialize('createMemberForm', nextProps.detail));
-
-		}
 	}
 
 	setInitValue(value) {
@@ -114,9 +132,17 @@ export default class SelectComponent extends React.Component {
 	}
 	selectList=(e)=>{
 		console.log(e.target.id,e.target.innerHTML);
+		let select = this.refs.input;
+		let nameId = e.target.id.split('-')[2];
+		console.log(select.value);
+		select.value = e.target.innerHTML;
+
 		this.setState({
-			showCity:false
+			showCity:false,
+			value:nameId,
+			name:e.target.innerHTML
 		});
+		let {onSubmit} = this.props;
 	}
 	bodyEvent=()=>{
 		// let _this = this;
@@ -142,13 +168,13 @@ render() {
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 				<div className="ui-list-compontent">
-					<input ref={input=>{this.input = input}} onFocus={this.onfocus} onChange={this.onChange}/>
+					<input ref='input' onFocus={this.onfocus} onChange={this.onChange}/>
 					<span className="arrow"></span>
 
 					<div className="ui-list-cantainer" style={cityDiv}>
 					{optionsList.map(item=>{
 						return (
-							<div className="ui-list-content" id={`ui-list-${item.value}`} onClick={this.selectList}>{item.label}</div>
+							<div className="ui-list-content" id={`ui-list-${item.value}`} onClick={this.selectList} ref='selectContent'>{item.label}</div>
 						)
 					})}
 					</div>
