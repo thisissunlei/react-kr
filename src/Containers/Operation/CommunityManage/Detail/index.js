@@ -124,7 +124,7 @@ class CommunityManage extends Component {
 		return (
 
 			<div className="tab-container" style={{minHeight:910}}>
-			{this.props.changeValues.openRight && <div className="hidden-div" onClick={this.hiddenRight}></div>}
+			{this.props.changeValues && <div className="hidden-div" onClick={this.hiddenRight}></div>}
 			<Title value="销控表_社区经营"/>
 		 	<BreadCrumbs children={['系统运营','社区管理','销控表']}/>
 				<span className="line"></span>
@@ -153,9 +153,9 @@ export default connect((state) => {
 
 	// changeValues.lessorId = selector(state, 'tab');
 	// changeValues.openRight = state.tab;
-	changeValues.openRight = state.right_bar.switch_value || false;
+	changeValues = state.right_bar.switch_value || false;
 	
-
+	console.log(state);
 	return {
 		changeValues
 	}
