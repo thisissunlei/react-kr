@@ -186,7 +186,8 @@ export default class InfoList extends Component {
     clearTime=()=>{
         Store.dispatch(change('time','end',''));
         Store.dispatch(change('time','start',''));
-
+        Store.dispatch(Actions.switchRightBar(false));
+        
         let {url} = this.state;
         let params = {
             startTime:'',
