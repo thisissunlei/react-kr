@@ -282,7 +282,7 @@ class Header extends Component {
 
 				iconElementRight = {
 					<div style={{minWidth:70,textAlign:'right'}}>
-					<div style={{display:showInfoLogo,position:'relative',marginRight:10}} onClick={this.showInfo}>
+					<div style={{display:showInfoLogo,position:'relative',marginRight:10,cursor: 'pointer'}} onClick={this.showInfo}>
 						<span className="icon-info information-logo"  ></span>
 						<span className="ui-un-read-count" style={{visibility:hasUnRead>0?'visible':'hidden'}}>{hasUnRead}</span>
 					</div>
