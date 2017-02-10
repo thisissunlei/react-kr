@@ -49,7 +49,7 @@ class Header extends Component {
 		this.state = {
 			bottomNav: false,
 			toggle: true,
-			right_bar:false,
+			right_bar:{switch_value:false},
 			inforLogoShow:false,
 			url:window.location.hash,
 			infoTab:'',
@@ -85,12 +85,12 @@ class Header extends Component {
 			_this.setState({
 				inforLogoShow:true,
 				infoTab:url,
-				right_bar:false
+				right_bar:{switch_value:false}
 			})
 		}else{
 			_this.setState({
 				inforLogoShow:false,
-				right_bar:false,
+				right_bar:{switch_value:false},
 				infoTab:'local',
 			})
 		}
@@ -194,13 +194,22 @@ class Header extends Component {
 	}
 
 	showInfo=()=>{
-		this.setState({
-			right_bar:!this.state.right_bar
-		})
+		var {
+			actions,
+			sidebar_nav,
+			flag,
+			right_bar
+		} = this.props;
+		// let {right_bar} = this.state;
+		actions.switchRightBar(!!!right_bar.switch_value);
+
+		// this.setState({
+		// 	right_bar:!this.state.right_bar.switch_value
+		// })
 	}
 	onClose=()=>{
 		this.setState({
-			right_bar:!this.state.right_bar
+			right_bar:!this.state.right_bar.switch_value
 		})
 	}
 	changeCount=()=>{
@@ -320,7 +329,7 @@ class Header extends Component {
 					<SidebarNav items={this.props.navs_current_items} current_router={this.props.current_router} current_parent={this.props.current_parent} current_child={this.props.current_child}/>
 
 				</Drawer>
-				<Drawer open={this.state.right_bar} width={width} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+				<Drawer open={this.props.right_bar.switch_value} width={width} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 					<InfoList onClose={this.onClose} infoTab={infoTab} changeCount={this.changeCount}/>
 				</Drawer>
 			</div>
