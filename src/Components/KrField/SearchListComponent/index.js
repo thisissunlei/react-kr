@@ -6,7 +6,7 @@ import Input from '../../Input';
 import WrapComponent from '../WrapComponent';
 import './index.less';
 import $ from 'jquery';
-
+import {ShallowEqual} from 'kr/Utils';
 //import 'react-select/dist/react-select.css';
 
 export default class SelectComponent extends React.Component {
@@ -45,9 +45,11 @@ export default class SelectComponent extends React.Component {
 	}
 
 
-	componentWillReceiveProps(nextProps) {
-		if (!this.isInit && nextProps.input.value) {
-			this.setInitValue(nextProps.input.value);
+	componentWillReceiveProps(nextProps){
+		if(!ShallowEqual(this.props.options,nextProps.options)){
+			this.props.options = nextProps.options;
+			// Store.dispatch(initialize('createMemberForm', nextProps.detail));
+
 		}
 	}
 
@@ -83,6 +85,7 @@ export default class SelectComponent extends React.Component {
 		input.onChange(value);
 		onChange && onChange(item);
 	}
+	
 
 	onfocus=()=>{
 		let {showCity} = this.state;
@@ -131,7 +134,7 @@ render() {
 
 		let {input, label, inline, search, type, meta: {touched, error}, children, disabled, style, requireLabel, multi, ...other} = this.props;
 		let {options,optionsList} = this.state;
-		console.log('options',options);
+		console.log('options',optionsList);
 		let {showCity} = this.state;
 		let cityDiv = {};
 		cityDiv.display = showCity?'block':'none';
