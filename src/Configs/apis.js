@@ -833,7 +833,7 @@ const APIS = {
  },
  //减租计算工位总价
  'reduceGetAllRent':{
-   url:'/api/krspace-finance-web/finacontractdetail/fina-contract-all/reduc-line-total?stationList={stationList}',
+   url:'/api/krspace-finance-web/finacontractdetail/fina-contract-all/reduc-line-total?stationList={stationList}&billId={billId}',
    method:'get'
  },
 
