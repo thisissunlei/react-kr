@@ -35,7 +35,7 @@ import Schedule from './Schedule';
 import FloorPlan from './FloorPlan';
 import $ from 'jquery';
 import './index.less'
-export default class CommunityManage extends Component {
+class CommunityManage extends Component {
 	static childContextTypes = {
 		onSetCommunity: React.PropTypes.func.isRequired,
 		communityId: React.PropTypes.string.isRequired,
@@ -110,6 +110,7 @@ export default class CommunityManage extends Component {
 			color: '#000',
 			borderBottom: "1px solid #eee"
 		}
+		console.log('=======>props',this.props);
 		let tableStyle = (tab == 'table') ? activeTab : commenTab;
 		let planStyle = (tab == 'floorplan') ? activeTab : commenTab;
 		const inkBarStyle = {
@@ -146,3 +147,18 @@ export default class CommunityManage extends Component {
 		);
 	}
 }
+export default connect((state) => {
+
+	let changeValues = {};
+
+	// changeValues.lessorId = selector(state, 'tab');
+	// changeValues.openRight = state.tab;
+	changeValues.openRight = state.right_bar.switch_value || false;
+	console.log('-------->state',state.right_bar);
+	
+
+	return {
+		changeValues
+	}
+
+})(CommunityManage);
