@@ -35,13 +35,16 @@ class ImportCard extends Component{
 	}
 		
 	onSubmit = (values) => {
+		console.log('values',values);
 	    let params = {
-	        id: this.props.detail.id
+	    	fromId:values.originUser,
+	    	toId:values.nowUser
 	    }
 	    let _this = this;
-	    Store.dispatch(Actions.callAPI('memberCardDelete', params)).then(function(response) {
+	    Store.dispatch(Actions.callAPI('transferMemberCard', params))
+	    .then(function(response) {
 	        const {onSubmit} = _this.props;
-	    	onSubmit && onSubmit();
+		    onSubmit && onSubmit(values);
 	        
 	    }).catch(function(err) {
 	        Message.error(err.message);
@@ -50,6 +53,20 @@ class ImportCard extends Component{
 	}
 	changeName=(values)=>{
 		console.log(values);
+	}
+	selectOldUser=(value)=>{
+		console.log('selectOldUser',value);
+		let _this = this;
+		Store.dispatch(change('ImportCardForm', 'originUser', value));
+
+		Store.dispatch(Actions.callAPI('memberCardNum', {receiveId:value})).then(function(response) {
+	       _this.setState({
+	       		count:response
+	       })
+	        
+	    }).catch(function(err) {
+	        Message.error(err.message);
+	    });
 	}
 	
 
@@ -60,7 +77,7 @@ class ImportCard extends Component{
 		let nameList = [{value:1,label:'aa'},{value:2,label:'bb'},{value:3,label:'ab'},{value:5,label:'cd'}]
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px'}}>
-				<KrField name="originUser" component="SearchList" label="原领用人" onChange={this.changeName}/>
+				<KrField name="originUser" component="SearchList" label="原领用人" onChange={this.changeName} onSubmit={this.selectOldUser}/>
 				<KrField name="nowUser" component="searchPersonel" label="领用人"/>
 				<KrField name="count" component="labelText" label="转移数量" value={count}/>
 

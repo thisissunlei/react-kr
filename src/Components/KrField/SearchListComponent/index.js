@@ -33,7 +33,7 @@ export default class SelectComponent extends React.Component {
 		this.isInit = false;
 
 		this.state = {
-			value: [],
+			value: '',
 			options:[],
 			showCity:false,
 			optionsList:[],
@@ -143,17 +143,26 @@ export default class SelectComponent extends React.Component {
 			name:e.target.innerHTML
 		});
 		let {onSubmit} = this.props;
+		onSubmit && onSubmit(nameId);
+	}
+	onBlur=()=>{
+		let {value} = this.state;
+		let select = this.refs.input;
+		console.log('--->',value);
+		if(!value){
+			select.value = '';
+		}
 	}
 	bodyEvent=()=>{
-		// let _this = this;
-		// $('body').click(function(event){
-		// 	if(event.target.className !='city-name'){
-		// 		console.log('body',event.target.className);
-		// 		_this.setState({
-		// 			showCity:false
-		// 		});
-		// 	}
-		// });
+		let _this = this;
+		$('body').click(function(event){
+			if(event.target.id.indexOf('ui-selectlist')){
+				console.log('body',event.target);
+				_this.setState({
+					showCity:false
+				});
+			}
+		});
 	}
 
 render() {
@@ -168,13 +177,13 @@ render() {
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 				<div className="ui-list-compontent">
-					<input ref='input' onFocus={this.onfocus} onChange={this.onChange}/>
+					<input ref='input' id='ui-selectlist-input'  onFocus={this.onfocus} onChange={this.onChange} placeholder="请输入..." onBlur={this.onBlur}/>
 					<span className="arrow"></span>
 
 					<div className="ui-list-cantainer" style={cityDiv}>
 					{optionsList.map(item=>{
 						return (
-							<div className="ui-list-content" id={`ui-list-${item.value}`} onClick={this.selectList} ref='selectContent'>{item.label}</div>
+							<div className="ui-list-content" id={`ui-selectlist-${item.value}`} onClick={this.selectList} ref='selectContent'>{item.label}</div>
 						)
 					})}
 					</div>

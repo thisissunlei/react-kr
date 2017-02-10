@@ -50,6 +50,12 @@ export default class Card extends Component {
     		openChange:!this.state.openChange
     	})
     }
+    submitChangeDialog=()=>{
+    	Message.success("操作成功");
+    	this.setState({
+    		openChange:!this.state.openChange
+    	})
+    }
     openUsingCardDialog=()=>{
     	this.setState({
     		openUsingCard:!this.state.openUsingCard
@@ -294,7 +300,7 @@ export default class Card extends Component {
 					onClose={this.openChangeDialog}
 					contentStyle={{width:400}}
 				>
-					<ChangeCard onSubmit={this.openViewDialog} onCancel={this.openChangeDialog}/>
+					<ChangeCard onSubmit={this.submitChangeDialog} onCancel={this.openChangeDialog}/>
 			    </Dialog>
 			</div>
             );
