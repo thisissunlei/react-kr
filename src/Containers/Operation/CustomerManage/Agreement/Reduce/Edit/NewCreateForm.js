@@ -314,15 +314,16 @@ class NewCreateForm extends Component {
 		form = Object.assign({}, form);
 
 		let {
-			changeValues
+			changeValues,
+			initialValues
 		} = this.props;
 		let {
 			stationVos,
 			delStationVos,
 			allRent,
-			originStationVos
-		} = this.state;
+			originStationVos,
 
+		} = this.state;
 
 		delStationVos = originStationVos.filter(function(origin){
 				var isOk = true;
@@ -334,24 +335,19 @@ class NewCreateForm extends Component {
 				return isOk;
 		});
 
-		form.delStationVos = JSON.stringify(delStationVos);
-
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
 
 		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
-		form.delStationVos = delStationVos;
 		form.lessorAddress = changeValues.lessorAddress;
 		form.rentamount = (this.state.allRent!='-1')?this.state.allRent:initialValues.rentamount;
-		// form.lessorContactid = 111;
 		var _this = this;
 
 		form.stationVos = stationVos;
 
 		form.stationVos = JSON.stringify(form.stationVos);
 		form.delStationVos = JSON.stringify(form.delStationVos);
-		console.log('form111', form);
 		const {
 			onSubmit
 		} = this.props;
@@ -540,6 +536,7 @@ const validate = values => {
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
 	}
+	console.log('fffffffff');
 
 	if (!values.lessorContactid) {
 		errors.lessorContactid = '请填写出租方联系人';
