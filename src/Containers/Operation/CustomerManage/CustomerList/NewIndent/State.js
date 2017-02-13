@@ -29,10 +29,16 @@ let State = observable({
 		orderFound:[],
 		isInit:false,
 		orderName:"",
+		submitState:true,
 
 
 
 });
+// submit可提交
+State. ChangeSubmitState = action(function() {
+	this.submitState=false;
+});
+// submit不可提交
 
 //显示到期时间
 State.showMatureTime = action(function() {
