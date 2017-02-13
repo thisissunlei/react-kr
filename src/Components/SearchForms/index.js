@@ -263,7 +263,7 @@ export default class SearchForms extends Component{
 					{this.renderFilter()}
 
 					<div className="search-content">
-						<input type="text" autoComplete="off" className="search-val" placeholder={placeholder}  name="keywords" id="keywords"/>
+						<input type="text" autoComplete="off" className="search-val" placeholder={placeholder}  name="keywords" id="keywords" ref="realInput"/>
 					</div>
 				</div>
 				<span className="icon-searching" onClick={this.click}></span>

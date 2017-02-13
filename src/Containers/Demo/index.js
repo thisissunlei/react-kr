@@ -45,7 +45,7 @@ import {
 	arrayInsert,
 	FieldArray,
 	Fields,
-	change
+	change,
 } from 'redux-form';
 
 
@@ -64,35 +64,45 @@ import {
 } from 'react-router';
 
 
-export default class Demo extends Component {
-
+class Demo extends Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
 	}
-
 	constructor(props, context) {
 		super(props, context);
 
 		this.state = {
-			userNameDefaultValue: ''
+			userNameDefaultValue: '',
+			listArr :[{L:600,price:20},{L:300,price:30}],
+			priceNow : 20 
 		}
+	}
+	onSubmit=(values)=>{
 
 	}
-
-
+	onChangeTitle=(showTitle)=>{
+		console.log("111")
+	}
+	onClick=()=>{
+		console.log("111");
+	}
 	componentDidMount() {}
-
-
-
 	render() {
+		const { error,handleSubmit,pristine,reset,detail} = this.props;
+		const {listArr,priceNow}=this.state;
 		return (
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:100}}>
 			<div>
-				<Section title="haha">
-					<Dictionary type="ContractType" value="ADDRENT"/>
-				</Section>
-				<CommunityList/>
+				<input type="text" defaultValue="111" name="communityName" onClick={this.onClick} id="thisInputs" placeholder="请输入"/>
+				<input type="text" name="communityName" defaultValue="222"   />
+				<input type="text" name="communityName" defaultValue="333"     />
+				<input type="text" name="communityName" defaultValue="444"    />
 			</div>
+			</form>		
 
 		);
 	}
 }
+export default Demo = reduxForm({
+	form: 'Demo',
+})(Demo);

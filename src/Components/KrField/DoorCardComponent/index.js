@@ -14,6 +14,14 @@ export default class InputComponent extends React.Component{
 		defaultValue:React.PropTypes.string,
 		selected:React.PropTypes.array
 	}
+	static childContextTypes =  {
+        onChange: React.PropTypes.func.isRequired,
+  	}
+	getChildContext() {
+		return {
+			onChange:this.onChange,
+		};
+	}
 	constructor(props,context){
 		super(props,context)
 		this.state={
@@ -21,32 +29,40 @@ export default class InputComponent extends React.Component{
 			selectedCommunitys:[]
 		}
 	}
+	onChange=(selectedCommunitys)=>{
+		let sendValues = "";
+		for(var i=0;i<selectedCommunitys.length;i++){
+			for(var j=0;j<selectedCommunitys[i].children.length;j++){
+				sendValues = sendValues + ","+selectedCommunitys[i].children[j].hardwareId
+			}
+		}
+		sendValues = sendValues.substring(1);
+		const {input}=this.props;
+		input.onChange(sendValues);
+	}
 	componentDidMount=()=>{
 		let _this = this;
 		this.setState({
 			options:_this.props.options
 		})
 	}
-
-
-	chooseAllCommunity=()=>{
-		var a = this.state.options.concat();
-		var c=[];
-		a.forEach(function(item,index){
-			let b = item.children;
-			b.forEach(function(item,index){
-				c.push(item);
-			})
-		})
+	// 添加全部社区
+	chooseAllCommunity=(newArrayAllCommunitys)=>{
 		this.setState({
-			selectedCommunitys :c
+			selectedCommunitys :newArrayAllCommunitys
+		},function(){
+			this.onChange(this.state.selectedCommunitys);
 		})
 	}
+	// 去除全部社区
 	chooseCommunityZero=()=>{
 		this.setState({
 			selectedCommunitys:[]
+		},function(){
+			this.onChange(this.state.selectedCommunitys);
 		})
 	}
+	// 通过城市添加社区
 	selectCommunityByCity=(thisCity)=>{
 		let nowSelectedCommunitys =this.state.selectedCommunitys;
 		thisCity.children.map(function(item,index){
@@ -59,8 +75,11 @@ export default class InputComponent extends React.Component{
 		})
 		this.setState({
 			selectedCommunitys:nowSelectedCommunitys
+		},function(){
+			this.onChange(this.state.selectedCommunitys);
 		})
 	}
+	//点击单个社区添加
 	addCommunity=(detailCommunityInfo)=>{
 		let nowSelectedCommunitys =this.state.selectedCommunitys;
 		let sendValues="";
@@ -72,22 +91,22 @@ export default class InputComponent extends React.Component{
 		nowSelectedCommunitys.push(detailCommunityInfo);
 		this.setState({
 			selectedCommunitys:nowSelectedCommunitys
+		},function(){
+			this.onChange(this.state.selectedCommunitys);
 		});
-		for(var i=0;i<nowSelectedCommunitys.length;i++){
-			sendValues = sendValues + "+++"+nowSelectedCommunitys[i].children[0].hardwareid
-		}
-		const {input}=this.props;
-		input.onChange(sendValues);
 	}
+	// 点击单个社区减少
 	reduceCommunity=(reducedCommunity)=>{
 		let nowSelectedCommunitys =this.state.selectedCommunitys;
 		let location = nowSelectedCommunitys.indexOf(reducedCommunity);
 		nowSelectedCommunitys.splice(location, 1);
 		this.setState({
 			selectedCommunitys:nowSelectedCommunitys
+		},function(){
+			this.onChange(this.state.selectedCommunitys);
 		})
 	}
-	
+
 	render(){
 		const {options,defaultValue} = this.props;
 		let selectedCommunitys = this.state

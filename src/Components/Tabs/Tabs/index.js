@@ -105,8 +105,8 @@ export default class TabsComponent extends Component {
 	}
 
 	render() {
-
-
+		let {inkBarStyle}=this.props;
+		const initInkBarStyle={background: '-webkit-linear-gradient(right, #03ec56, #499df1)',position:'absolute',top:0,height:3}
 		const {children}  = this.props;
 		const activeTab = {
 			color: '#2b8dcd',
@@ -116,11 +116,12 @@ export default class TabsComponent extends Component {
 			color: '#000',
 			borderBottom: "1px solid #eee"
 		}
+		inkBarStyle=inkBarStyle?inkBarStyle:initInkBarStyle;
 
 		return(
 			<div className='ui-tabs'>
 				{this.renderLines()}
-				<Tabs className="tabs" tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={{background: '-webkit-linear-gradient(right, #03ec56, #499df1)',position:'absolute',top:0,height:3}} style={{background:'#fff',position:'relative'}}>
+				<Tabs className="tabs" tabItemContainerStyle={{background:'#FFF'}} inkBarStyle={inkBarStyle} style={{background:'#fff',position:'relative'}}>
 				{this.renderTabs()}
 				</Tabs>
 			</div>

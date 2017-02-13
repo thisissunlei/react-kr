@@ -11,7 +11,6 @@ export default class Right extends React.Component{
 	}
 	chooseCommunityZero=()=>{
 		let {chooseCommunityZero} = this.props;
-		// console.log("chooseCommunityZero Right",chooseCommunityZero);
 		chooseCommunityZero && chooseCommunityZero();
 	}
 	reduceCommunity=(reducedCommunity)=>{
@@ -31,9 +30,12 @@ export default class Right extends React.Component{
 								<img src={reduce} className="ui-door-card-not-select-all" onClick={this.chooseCommunityZero}/>
 							</div>
 							<div className="ui-door-card-selected-community-list">
-								{selectedCommunitys && selectedCommunitys.map((item,index)=>{
-									return <RightItem  selectedCommunity={item} key={index} reduceCommunity={this.reduceCommunity}/>
-								})}
+								<div className="ui-door-card-selected-community-list-inner">
+									{selectedCommunitys && selectedCommunitys.map((item,index)=>{
+										return <RightItem  selectedCommunity={item} key={index} reduceCommunity={this.reduceCommunity}/>
+									})}
+								</div>
+								
 							</div>
 					</div>
 				</div>	

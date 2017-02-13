@@ -19,7 +19,7 @@ export default class OrganizationChart extends Component {
 	static PropTypes = {
 		displayCheckbox: false,
 	}
-  constructor(props, context) {
+  	constructor(props, context) {
 		super(props, context);
 		this.params = this.context.router.params;
 		this.state = {

@@ -1,5 +1,6 @@
 import React from 'react';
 import {stopSubmit,submit,blur,stopAsyncValidation,touch} from 'redux-form';
+import {Actions,Store} from 'kr/Redux';
 import plus from "../images/plus.svg";
 import toright from "../images/toright.svg";
 import Input from "../../../Input"
@@ -12,19 +13,53 @@ export default class Left extends React.Component{
 	constructor(props,context){
 		super(props,context);
 		this.state = {
-			communitys:[],
+			communitys:
+				[],
+			// [{"cityId":1,"cityName":"北京市","children":[{"children":[{"id":2,"hardwareId":"11112"}],"communityName":"北京天创科技社区","communityId":2}]},
+			// 			{"cityId":88,"cityName":"杭州市","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"武汉","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":88,"cityName":"深圳","children":[{"children":[{"id":5,"hardwareId":"11115"}],"communityName":"杭州梦想小镇社区","communityId":5}]},
+			// 			{"cityId":74,"cityName":"上海市","children":[{"children":[{"id":1,"hardwareId":"111101"}],"communityName":"上海凤城巷社区","communityId":11}]}
+			// 			],
 			newArrayCommunity:[],
 			isIncommunity:''
 		}
 	}
+	// 首次加载获取社区列表
 	componentDidMount(){
-		this.setState({
-			communitys:this.props.communitys
-		})
+		let _this = this;
+		Store.dispatch(Actions.callAPI('getCommunityEquipment',""))
+	      .then(function(response){
+	      	_this.setState({
+	      		communitys : response.items
+	      	})
+
+	    }).catch(function(err){
+	        Message.error(err.message);
+	    });
 	}
 	chooseAllCommunity=()=>{
+		let _this = this;
+		var newArrayAllCommunitys = [];
+			for(var i = 0 ;i<this.state.communitys.length;i++){
+			for(var j = 0;j<this.state.communitys[i].children.length;j++){
+				newArrayAllCommunitys.push(this.state.communitys[i].children[j])
+			}
+		}
 		const {chooseAllCommunity}=this.props;
-		chooseAllCommunity && chooseAllCommunity();
+		chooseAllCommunity && chooseAllCommunity(newArrayAllCommunitys);
 	}
 	selectCommunityByCity=(thisCity)=>{
 		let {selectCommunityByCity} = this.props;
@@ -34,8 +69,8 @@ export default class Left extends React.Component{
 		let {addCommunity}= this.props;
 		addCommunity && addCommunity(detailCommunityInfo);
 	}
+	// 输入搜索社区
 	onSearchCommunity=(value)=>{
-		// console.log("value",value);
 		if(value !== ""){
 			let allCommunity = this.state.communitys;
 			let epmtyCommunityBox = [];
@@ -63,7 +98,8 @@ export default class Left extends React.Component{
 		}
 	}
 	render(){
-		let {communitys} = this.props;
+		// let {communitys} = this.props;
+		let {communitys} = this.state;
 		return (
 				<div className="ui-door-card-left-part">
 					<div className="ui-door-card-left-search-box">
@@ -79,12 +115,15 @@ export default class Left extends React.Component{
 							<img src={plus} className="ui-door-card-select-all" onClick={this.chooseAllCommunity}/>
 						</div>
 						<div className="ui-door-card-community-list">
-							{communitys && communitys.map((item,index)=>{
-								return <LeftItem  community={item} key={index} 
-											selectCommunityByCity={this.selectCommunityByCity} 
-											addCommunity={this.addCommunity}
-											newArrayCommunity={this.state.newArrayCommunity}/>
-							})}
+							<div className="ui-door-card-community-list-inner">
+								{communitys && communitys.map((item,index)=>{
+									return <LeftItem  community={item} key={index} 
+												selectCommunityByCity={this.selectCommunityByCity} 
+												addCommunity={this.addCommunity}
+												newArrayCommunity={this.state.newArrayCommunity}/>
+								})}
+							</div>
+							
 						</div>
 						
 					</div>

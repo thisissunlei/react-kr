@@ -25,6 +25,7 @@ import SearchCompanyComponent from './SearchCompanyComponent';
 import EditLabelTextComponent from './EditLabelTextComponent';
 import GroupCheckboxComponent from './GroupCheckboxComponent';
 import DoorCardComponent from './DoorCardComponent';
+import UploadImageComponent from './UploadImageComponent';
 
 export default class KrField extends React.Component {
 
@@ -112,6 +113,11 @@ export default class KrField extends React.Component {
 		if (component === 'doorCard') {
 			return (
 				<Field {...this.props} component={DoorCardComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+		if (component === 'uploadImage') {
+			return (
+				<Field {...this.props} component={UploadImageComponent}  style={WrapStyles} {...other}/>
 			);
 		}
 

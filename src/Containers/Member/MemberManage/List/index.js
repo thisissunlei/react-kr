@@ -238,8 +238,17 @@ export default class List extends Component {
 			list.totalCount = 0;
 		}
 		let options = [{
-			label: '门禁',
-			value: 'doorLock'
+			label: '公司名称',
+			value: 'COMP_NAME'
+		}, {
+			label: '手机号',
+			value: 'PHONE'
+		}, {
+			label: '微信',
+			value: 'WECHAT'
+		}, {
+			label: '姓名',
+			value: 'NAME'
 		}];
 		return (
 			    <div style={{minHeight:'910',backgroundColor:"#fff"}}>
@@ -303,7 +312,7 @@ export default class List extends Component {
 												}
 												return (<span>{value}</span>)}}
 											></TableRowColumn>
-											<TableRowColumn name="email"
+											<TableRowColumn name="email" style={{overflow:"hidden"}}
 											component={(value,oldValue)=>{
 												if(value==""){
 													value="-"
@@ -324,7 +333,7 @@ export default class List extends Component {
 												}
 												return (<span>{value}</span>)}}
 											></TableRowColumn>
-											<TableRowColumn name="companyName"
+											<TableRowColumn name="companyName" style={{overflow:"hidden"}}
 											component={(value,oldValue)=>{
 												if(value==""){
 													value="-"
