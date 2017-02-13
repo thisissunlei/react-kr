@@ -59,13 +59,8 @@ class ReceivedBtnForm extends Component {
 	}
 
 	componentDidMount() {
-
-
-		/*let initialValues = {
-			preCode:'1',
-			mainbillId:this.context.params.orderId,
-		};
-		Store.dispatch(initialize('receivedBtnForm', initialValues));*/
+	
+		  Store.dispatch(change('receivedBtnForm','preCode','1'));
 
 	}
 
@@ -79,14 +74,13 @@ class ReceivedBtnForm extends Component {
 	}
 
 	componentWillReceiveProps(nextProps){
-		 if(!nextProps.open){
+		 /*if(!nextProps.open){
            Store.dispatch(change('receivedBtnForm','accountId',''));
            Store.dispatch(change('receivedBtnForm','totalPayment',''));
            Store.dispatch(change('receivedBtnForm','preCode','1'));
            Store.dispatch(change('receivedBtnForm','operatedate',''));
            Store.dispatch(change('receivedBtnForm','mainbillId',this.context.params.orderId));
-		 }
-		 
+		 }*/		 
 	}
 
 	moneyCheck=(value)=>{
