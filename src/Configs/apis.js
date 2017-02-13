@@ -735,10 +735,10 @@ const APIS = {
       method: 'get'
    },
   //运营平台-基础配置-设备定义-设备列表
-   'equipmentList': {
-     url:'/api/krspace-finance-web/community/sysDeviceDefinition/device-list',
-     method:'get'
-   },
+   // 'equipmentList': {
+   //   url:'/api/krspace-finance-web/community/sysDeviceDefinition/device-list',
+   //   method:'get'
+   // },
    //会员卡原领用人列表
   'memberRecvList': {
      url:'/api/krspace-finance-web/member/card/recv-list',
@@ -753,71 +753,71 @@ const APIS = {
    'transferMemberCard':{
     url:'/api/krspace-finance-web/member/card/actions/transfer?fromId={fromId}&toId={toId}',
     method:'put'
-   }
+   },
 
  //运营平台-基础配置-设备定义-设备列表
  'equipmentList': {
-   url:'/api-th/krspace-finance-web/community/sysDeviceDefinition/device-list?communityId={communityId}&deviceCode={deviceCode}&floor={floor}&functionId={functionId}&hardwareId={hardwareId}&page={page}&pageSize={pageSize}&propertyId={propertyId}&typeId={typeId}',
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/device-list?communityId={communityId}&deviceCode={deviceCode}&floor={floor}&functionId={functionId}&hardwareId={hardwareId}&page={page}&pageSize={pageSize}&propertyId={propertyId}&typeId={typeId}',
    method:'get'
  },
   //运营平台-基础配置-设备定义-新增或编辑
  'equipmentNewCreateOrEdit': {
-   url:'/api-th/krspace-finance-web/community/sysDeviceDefinition/device-definition',
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/device-definition',
    method:'post'
  },
   //运营平台-基础配置-设备定义-门编号、智能硬件ID判重
  'doorNumberAndHardwareId': {
-   url:'/api-th/krspace-finance-web/community/sysDeviceDefinition/door-hardware-repetition?type={type}&code={code}&id={id}',
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/door-hardware-repetition?type={type}&code={code}&id={id}',
    method:'get'
  },
  //运营平台-基础配置-设备定义-获取楼层
  'getFloorByComunity': {
-   url:'/api-th/krspace-finance-web/community/sysDeviceDefinition/getWherefloor?communityId={communityId}',
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/getWherefloor?communityId={communityId}',
    method:'get'
  },
  //运营平台-基础配置-设备定义-根据属性获取对应位置
  'getLocationByProperty': {
-   url:'/api-th/krspace-finance-web/community/community-boardroom?communityId={communityId}&whereFloor={whereFloor}',
+   url:'/api/krspace-finance-web/community/community-boardroom?communityId={communityId}&whereFloor={whereFloor}',
    method:'get'
  },
  //运营平台-基础配置-设备定义-传图片
  'postEquipmentImg': {
-   url:'/api-th/krspace-finance-web/community/sysDeviceDefinition/upload-pic',
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic',
    method:'post'
  },
  //运营平台-基础配置-设备定义-根据设备上下线
  'onlineOrOffline': {
-   url:'/api-th/krspace-finance-web/community/sysDeviceDefinition/editOnlineForSysDeviceDefinition',
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/editOnlineForSysDeviceDefinition',
    method:'post'
  },
  //运营平台-基础配置-设备定义-向指定社区推送图片(单张)
   'uploadImgToEquipmentSingle': {
-   url:'/api-th/krspace-finance-web/community/sysDeviceDefinition/single-push-device',
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/single-push-device',
    method:'post'
  },
  //运营平台-基础配置-设备定义-向指定社区推送图片（多张）
  'oploadImgToEquipment': {
-   url:'/api-th/krspace-finance-web/community/sysDeviceDefinition/push-device',
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/push-device',
    method:'post'
  },
  //运营平台-基础配置-设备定义-获取真实设备ID
  'getEquipmentNum': {
-   url:'/api-th/krspace-finance-web/community/sysDeviceDefinition/device-filter',
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/device-filter',
    method:'post'
  },
   //运营平台-基础配置-设备定义-获取社区机器之下设备
   'getCommunityEquipment': {
-   url:'/api-th/krspace-finance-web/community/sysDeviceDefinition/community-hardware',
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/community-hardware',
    method:'get'
  },
   //运营平台-基础配置-设备定义-轮询获取推送结果
   'getPushImgRes': {
-   url:'/api-th/krspace-finance-web/community/sysDeviceDefinition/getPollingResult',
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/getPollingResult',
    method:'get'
  },
  //运营平台-基础配置-设备定义-获取上传图片成功／失败数据
   'getSuccedOrErrData': {
-   url:'/api-th/krspace-finance-web/community/sysDeviceDefinition/getSendResult',
+   url:'/api/krspace-finance-web/community/sysDeviceDefinition/getSendResult',
    method:'get'
  },
 
