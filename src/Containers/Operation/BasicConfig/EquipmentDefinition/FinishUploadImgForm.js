@@ -82,7 +82,7 @@ export default class FinishUploadImgForm extends Component{
 	}
 	// 导出excle表格
 	exportData=()=>{
-		window.location.href=`/api-th/krspace-finance-web/community/sysDeviceDefinition/upload-data-excel`
+		window.location.href=`/api/krspace-finance-web/community/sysDeviceDefinition/upload-data-excel`
 	}
 	render(){
 		let {sucNum,errNum,success,failed,rightfontColor,leftfontColor}=this.state;

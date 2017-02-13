@@ -168,7 +168,7 @@ export default class UploadImageComponent extends Component {
 					xhrfile.onerror = function(e) {
 						console.error(xhr.statusText);
 					};
-					xhrfile.open('POST', '/api-th/krspace-finance-web/community/sysDeviceDefinition/upload-pic', true);
+					xhrfile.open('POST', '/api/krspace-finance-web/community/sysDeviceDefinition/upload-pic', true);
 					xhrfile.responseType = 'json';
 					xhrfile.send(form);
 				} else {
