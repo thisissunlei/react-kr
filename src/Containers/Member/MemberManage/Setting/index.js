@@ -222,11 +222,11 @@ export default class List extends Component {
 	 	var className="";
 	 	var barStyle={};
 	 	if(type=="ok"){
-	 		style={position:'fixed',right:0,display:"inline-block",height:40,color:"#000",top:20};
+	 		style={position:'fixed',right:0,height:40,color:"#000",top:20};
 	 		barStyle={display:"inline-block",backgroundColor:"#edffe2",borderRadius:3,padding:'0px 8px',border:"1px solid #cce6a0"};
 	 		className="messagesBarIconOk"
 	 	}else{
-	 		style={position:'fixed',right:0,display:"inline-block",height:40,color:"#000",top:20};
+	 		style={position:'fixed',right:0,height:40,color:"#000",top:20};
 	 		barStyle={display:"inline-block",backgroundColor:"#ffe9e9",borderRadius:3,padding:'0px 8px',border:"1px solid #ffb8b8"};
 	 		className="messagesBarIconError";
 	 	}
