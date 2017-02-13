@@ -94,7 +94,7 @@ class SearchUpperForm extends Component {
 			
 		      var selectData='';
               if(flag=='签约'){
-			     selectData=(<div> <KrField grid={1/2} right={34}  name="company" type="text" label="公司名称"/> 
+			     selectData=(<div><KrField grid={1/2} right={34}  name="company" type="text" label="公司名称"/> 
 				<KrField right={34} grid={1/2}  style={{marginLeft:-5}} name="cityId" type="select" label="签约城市" 
 				 options={belongCity}
 				/>
