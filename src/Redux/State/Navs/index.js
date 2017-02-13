@@ -80,28 +80,7 @@ module.exports = {
 			router: 'communityManage',
 			menuCode: 'communityBaseAdmin',
 			menuItems: [{
-<<<<<<< HEAD
-					primaryText: '社区列表',
-					menuCode: 'communityBaseList',
-					originUrl: '/krspace_operate_web/commnuity/communityBase/toCommunityBaseList?mid=65'
-				}, {
-					primaryText: '会议室列表',
-					menuCode: 'communityBoardroomList',
-					originUrl: '/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityBoardroom&mid=66'
-				}, {
-					primaryText: '设备列表',
-					menuCode: 'communityDeviceList',
-					originUrl: '/krspace_operate_web/community/device/toDeviceList?mid=75'
-				}, {
-					primaryText: '工位列表',
-					menuCode: 'communityStationList',
-					originUrl: '/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityStation&mid=83'
-				}, {
-					primaryText: '平面图配置',
-					menuCode: 'communityFloorPlanList',
-					originUrl: '/krspace_operate_web/commnuity/communityBase/toCityCommunityList?jumpType=toCommunityFloorPlan&mid=90'
-				}
-=======
+
 				primaryText: '社区列表',
 				menuCode: 'communityBaseList',
 				originUrl: '/krspace_operate_web/commnuity/communityBase/toCommunityBaseList?mid=65'
@@ -127,7 +106,6 @@ module.exports = {
 				menuCode: 'sysVisitRecordList',
 				originUrl: '/krspace_operate_web/community/sysVisitRecord/toSysVisitrecordList?mid=102'
 			}
->>>>>>> feature/equipment
 
 
 			]
@@ -160,14 +138,11 @@ module.exports = {
 			}, {
 				primaryText: '设备定义',
 				menuCode: 'sysDeviceDefinitionList',
-<<<<<<< HEAD
-				router: '/operation/basicconfig/equipmentdefinition'
-			}, {
-=======
+
 				// originUrl: '/krspace_operate_web/community/sysDeviceDefinition/toSysDeviceDefinitionList?mid=105'
 				router: '/operation/basicconfig/equipmentdefinition'
 			},{
->>>>>>> feature/equipment
+
 				primaryText: '分组管理',
 				menuCode: 'groupManage',
 				router: '/operation/groupSetting'

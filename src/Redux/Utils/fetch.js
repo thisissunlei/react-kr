@@ -32,13 +32,13 @@ function getUrl(path, params = {},mode = false) {
         return path;
     }
     */
-<<<<<<< HEAD
-    let url = APIS[path].url;
-    if(url.indexOf('apixr')){
-    	server = ''
-    }
+
+    // let url = APIS[path].url;
+    // if(url.indexOf('apixr')){
+    // 	server = ''
+    // }
     
-=======
+
 
 
     var url = APIS[path].url;
@@ -47,7 +47,7 @@ function getUrl(path, params = {},mode = false) {
     	server = '';
     }
 
->>>>>>> feature/equipment
+
     try {
         server += APIS[path].url;
     } catch(err) {
