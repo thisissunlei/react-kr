@@ -182,7 +182,6 @@ class Merchants extends Component{
     //查看相关操作
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
-      	LookCustomerState.orderList(itemDetail.id);
       	State.MerchantsListId(itemDetail.id);
       	State.switchLookCustomerList();
       	LookCustomerState.lookListId(State.listId,"SHARE");

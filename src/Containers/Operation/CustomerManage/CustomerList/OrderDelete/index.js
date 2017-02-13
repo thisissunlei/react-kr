@@ -50,6 +50,7 @@ export default class OrderDelete extends Component{
 	         _this.onCancel();
 	         Message.success('删除成功');
 		}).catch(function(err) {
+			 _this.onCancel();
 			 Message.error(err.message);
 		});	
 	}

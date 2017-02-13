@@ -201,6 +201,7 @@ class Personal extends Component{
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
         LookCustomerState.orderList(itemDetail.id);
+        LookCustomerState.lookListId(itemDetail.id,'PERSON');
       	State.MerchantsListId(itemDetail.id)
       	State.switchLookCustomerList();
       	State.companyName=itemDetail.company;
