@@ -49,7 +49,7 @@ class Header extends Component {
 		this.state = {
 			bottomNav: false,
 			toggle: true,
-			information:false,
+			right_bar:{switch_value:false},
 			inforLogoShow:false,
 			url:window.location.hash,
 			infoTab:'',
@@ -85,14 +85,13 @@ class Header extends Component {
 			_this.setState({
 				inforLogoShow:true,
 				infoTab:url,
-				information:false
+				right_bar:{switch_value:false}
 			})
 		}else{
 			_this.setState({
 				inforLogoShow:false,
-				information:false,
+				right_bar:{switch_value:false},
 				infoTab:'local',
-				information:false
 			})
 		}
 	}
@@ -195,13 +194,22 @@ class Header extends Component {
 	}
 
 	showInfo=()=>{
-		this.setState({
-			information:!this.state.information
-		})
+		var {
+			actions,
+			sidebar_nav,
+			flag,
+			right_bar
+		} = this.props;
+		// let {right_bar} = this.state;
+		actions.switchRightBar(!!!right_bar.switch_value);
+
+		// this.setState({
+		// 	right_bar:!this.state.right_bar.switch_value
+		// })
 	}
 	onClose=()=>{
 		this.setState({
-			information:!this.state.information
+			right_bar:!this.state.right_bar.switch_value
 		})
 	}
 	changeCount=()=>{
@@ -223,10 +231,11 @@ class Header extends Component {
 			height: "60px",
 			zIndex: 10
 		};
-		let width = document.body.clientWidth * 0.4;
-		if(width<570){
-			width = 570;
-		}
+		// let width = document.body.clientWidth * 0.4;
+		// if(width<570){
+		// 	width = 570;
+		// }
+		let width = 570;
 
 		var {
 			switch_value
@@ -273,8 +282,8 @@ class Header extends Component {
 
 				iconElementRight = {
 					<div style={{minWidth:70,textAlign:'right'}}>
-					<div style={{display:showInfoLogo,position:'relative'}}>
-						<span className="icon-info information-logo"  onClick={this.showInfo}></span>
+					<div style={{display:showInfoLogo,position:'relative',marginRight:10,cursor: 'pointer'}} onClick={this.showInfo}>
+						<span className="icon-info information-logo"  ></span>
 						<span className="ui-un-read-count" style={{visibility:hasUnRead>0?'visible':'hidden'}}>{hasUnRead}</span>
 					</div>
 					< IconMenu
@@ -315,10 +324,12 @@ class Header extends Component {
 
 			<div className="no-print">
 				{this.props.header_nav.switch_value && <HeaderBar/>}
-				<Drawer open={this.props.sidebar_nav.switch_value} width={180} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+				<Drawer open={this.props.sidebar_nav.switch_value} width={180} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10,background:'#394457'}}>
+
 					<SidebarNav items={this.props.navs_current_items} current_router={this.props.current_router} current_parent={this.props.current_parent} current_child={this.props.current_child}/>
+
 				</Drawer>
-				<Drawer open={this.state.information} width={width} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+				<Drawer open={this.props.right_bar.switch_value} width={width} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
 					<InfoList onClose={this.onClose} infoTab={infoTab} changeCount={this.changeCount}/>
 				</Drawer>
 			</div>
@@ -334,6 +345,7 @@ function mapStateToProps(state) {
 	return {
 		header_nav: state.header_nav,
 		sidebar_nav: state.sidebar_nav,
+		right_bar:state.right_bar,
 		navs_items: state.navs.items,
 		navs_current_items: state.navs.current_items,
 		bottom_nav: state.bottom_nav,

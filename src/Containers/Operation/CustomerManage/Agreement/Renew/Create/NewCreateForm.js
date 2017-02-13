@@ -151,16 +151,31 @@ class NewCreateForm extends Component {
 		console.log('stationVos',stationVos);
 		let _this = this;
 		let allRent = 0;
-		stationVos.map(item=>{
-			allRent += _this.getSingleRent(item);
-		})
-		allRent = parseFloat(allRent).toFixed(2)*1;
+		this.setAllRent(stationVos);
 		this.setState({
-			stationVos,
-			allRent
+			stationVos
 		});
 
 		this.openStationDialog();
+	}
+	setAllRent=(list)=>{
+		let _this = this;
+		let stationList = list.map((item)=>{
+			if(!item.unitprice){
+				item.unitprice = 0;
+			}
+			return item;
+		})
+		Store.dispatch(Actions.callAPI('getAllRent',{stationList:JSON.stringify(list)})).then(function(response) {
+			_this.setState({
+				allRent:response
+			})
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
 	}
 	getSingleRent=(item)=>{
 		//年月日
@@ -214,13 +229,9 @@ class NewCreateForm extends Component {
 		});
 		let _this = this;
 		let allRent = 0;
-		stationVos.map(item=>{
-			allRent += _this.getSingleRent(item);
-		})
-		allRent = parseFloat(allRent).toFixed(2)*1;
+		this.setAllRent(stationVos);
 		this.setState({
 			stationVos,
-			allRent
 		});
 	}
 
@@ -437,7 +448,7 @@ class NewCreateForm extends Component {
 				<KrField style={{width:830,marginLeft:70}}  name="contractmark" component="textarea" label="备注" maxSize={200}/>
 				</CircleStyle>
 				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="contractFileList" component="input" type="hidden" label="合同附件"/>
-				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}  name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
+				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}  name="fileIdList" component="file" label="合同附件" defaultValue={[]} onChange={(files)=>{
 					Store.dispatch(change('reduceCreateForm','contractFileList',files));
 				}} />
 
@@ -505,9 +516,9 @@ const validate = values => {
 		errors.leaseAddress = '承租方地址不能为数字';
 	}
 
-	if (!values.fileIdList) {
-		errors.fileIdList = '请填写合同附件';
-	}
+	// if (!values.fileIdList) {
+	// 	errors.fileIdList = '请填写合同附件';
+	// }
 	if (!values.contractcode) {
 		errors.contractcode = '请填写合同编号';
 	}

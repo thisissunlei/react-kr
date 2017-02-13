@@ -661,9 +661,9 @@ class NewCreateForm extends Component {
 							<Row>
 								<Col align="right">
 									<ButtonGroup>
-									    <Button label="批量录入单价"  onTouchTap={this.openPreStationUnitPriceDialog} />
-										<Button label="删除"  onTouchTap={this.onStationDelete} />
 										<Button label="选择工位"  onTouchTap={this.openStationDialog} />
+									    <Button label="批量录入单价"  width={100} onTouchTap={this.openPreStationUnitPriceDialog} />
+										<Button label="删除" cancle={true} type="button"  onTouchTap={this.onStationDelete} />
 								  </ButtonGroup>
 								</Col>
 							</Row>
@@ -758,7 +758,7 @@ class NewCreateForm extends Component {
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 				<KrField style={{width:830,marginLeft:70}}  name="contractmark" component="textarea" label="备注" maxSize={200}/>
 				</CircleStyle>
-				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} requireLabel={true}/>
+				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList}/>
 
 				<Grid style={{paddingBottom:50}}>
 						<Row >
@@ -835,12 +835,6 @@ const validate = values => {
 	if (values.leaseAddress && !isNaN(values.leaseAddress)) {
 		errors.leaseAddress = '承租方地址不能为数字';
 	}
-
-	if (!values.fileIdList) {
-		errors.fileIdList = '请填写合同附件';
-	}
-
-
 
 	if (!String(values.totalrent)) {
 		errors.totalrent = '请输入租金总额';

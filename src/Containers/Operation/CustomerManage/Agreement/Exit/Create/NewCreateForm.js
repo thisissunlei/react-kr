@@ -250,7 +250,7 @@ class NewCreateForm extends Component {
 				<KrField style={{width:830,marginLeft:70}} name="contractmark" component="textarea" label="备注" maxSize={200}/>
 				</CircleStyle>
 				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="contractFileList" component="input" type="hidden" label="合同附件"/>
-				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
+				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={[]} onChange={(files)=>{
 					Store.dispatch(change('exitCreateForm','contractFileList',files));
 				}} />
 
@@ -328,12 +328,6 @@ const validate = values => {
 	if (!values.signdate) {
 		errors.signdate = '请填写签署时间';
 	}
-
-	if (!values.fileIdList) {
-		errors.fileIdList = '请填写合同附件';
-	}
-
-
 
 	return errors
 }

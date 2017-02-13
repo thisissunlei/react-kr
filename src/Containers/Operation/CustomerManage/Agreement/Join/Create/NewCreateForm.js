@@ -760,7 +760,7 @@ class NewCreateForm extends Component {
 				</CircleStyle>
 
 				<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="contractFileList" component="input" type="hidden" label="合同附件"/>
-				<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
+				<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={[]} onChange={(files)=>{
 					Store.dispatch(change('joinCreateForm','contractFileList',files));
 				}} />
 
@@ -839,11 +839,6 @@ const validate = values => {
 	if (values.leaseAddress && !isNaN(values.leaseAddress)) {
 		errors.leaseAddress = '承租方地址不能为数字';
 	}
-
-	if (!values.fileIdList) {
-		errors.fileIdList = '请输入合同附件';
-	}
-
 
 	if (!String(values.totalrent)) {
 		errors.totalrent = '请输入租金总额';

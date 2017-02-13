@@ -83,6 +83,7 @@ class Master extends Component {
 export default connect((state)=>{
 	return {
 		header_nav:state.header_nav,
-		sidebar_nav:state.sidebar_nav
+		sidebar_nav:state.sidebar_nav,
+		right_bar:state.right_bar
 	};
 })(Master);
