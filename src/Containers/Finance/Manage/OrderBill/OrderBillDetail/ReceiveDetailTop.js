@@ -1,7 +1,14 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
+import React, {
+	Component
+} from 'react';
+import {
+	connect
+} from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {Actions,Store} from 'kr/Redux';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 import {
 	KrField,
 	Table,
@@ -20,45 +27,47 @@ import {
 
 } from 'kr-ui';
 
-export default class ReceiveDetailTop  extends Component{
+export default class ReceiveDetailTop extends Component {
 
-	constructor(props,context){
+	constructor(props, context) {
 		super(props, context);
 		this.state = {
-          
+
 		}
 	}
 	static PropTypes = {
-		contractTopReceive:React.PropTypes.array,
-		liveMoneyValue:React.PropTypes.number,
+		contractTopReceive: React.PropTypes.array,
+		liveMoneyValue: React.PropTypes.number,
 	}
 
-  iconClose=()=>{
-  	const {iconClose} = this.props;
-	iconClose && iconClose();
-  }
-
- contractContinue=()=>{
-       const {
-		  contractContinue
+	iconClose = () => {
+		const {
+			iconClose
 		} = this.props;
-		contractContinue && contractContinue();
- }
+		iconClose && iconClose();
+	}
+
+	contractContinue = (contactType, detailid) => {
+		const {
+			contractContinue
+		} = this.props;
+		contractContinue && contractContinue(contactType, detailid);
+	}
 
 
-	render(){
+	render() {
 
-         let {
-		 contractTopReceive,
-		 liveMoneyValue,
+		let {
+			contractTopReceive,
+			liveMoneyValue,
 		} = this.props;
 
 		//console.log('4444wwww',contractTopReceive)
-          var _this=this;
+		var _this = this;
 
-		return(
+		return (
 
-              <div className='ui-receive-money'>
+			<div className='ui-receive-money'>
 
 						     <div className='receiveRightClose' onClick={_this.iconClose}></div>
 
@@ -95,7 +104,7 @@ export default class ReceiveDetailTop  extends Component{
                                              <li>定金</li>
                                              <li>{item.frontmoney}</li>
                                              <li>{item.nFrontmoney}</li>
-                                             <li className='receiveTopContract' onClick={_this.contractContinue}>合同</li> 
+                                             <li className='receiveTopContract' onClick={_this.contractContinue.bind(this,item.contactType,item.detailid)}>合同</li> 
                                           </ul>
                                         	)
                                         }
@@ -107,14 +116,14 @@ export default class ReceiveDetailTop  extends Component{
                                              <li>押金</li>
                                              <li>{item.deposit}</li>
                                              <li>{item.nDeposit}</li>
-                                             <li className='receiveTopContract' onClick={_this.contractContinue}>合同</li>
+                                             <li className='receiveTopContract' onClick={_this.contractContinue.bind(this,item.contactType,item.detailid)}>合同</li>
                                            </ul>
                                            <ul>
                                         	 <li></li>
                                              <li>租金</li>
                                              <li>{item.totalrent}</li>
                                              <li>{item.nTotalrent}</li>
-                                             <li className='receiveTopContract topContract' onClick={_this.contractContinue}>合同</li>
+                                             <li className='receiveTopContract topContract' onClick={_this.contractContinue.bind(this,item.contactType,item.detailid)}>合同</li>
                                            </ul>
                                           </div>
                                         	)

@@ -699,11 +699,60 @@ const APIS = {
       url: '/api/krspace-finance-web/finaccount/opt/returnMoney',
       method: 'post'
    },
-
  'planMap': {
    url:'/api-old/krspace_operate_web/commnuity/communityFloorPlan/getCommunityFloorPlanSelData?communityId={communityId}&wherefloor={wherefloor}&mainBillId={mainBillId}&startDate={startDate}&endDate={endDate}&contractId={contractId}',
    method:'get'
  },
+   //会员卡列表
+   'memberCardList': {
+      url: '/api/krspace-finance-web/member/card/card-list?page={page}&pageSize={pageSize}&type={type}&value={value}',
+      method: 'get'
+   },
+   //会员卡批量入库
+   'memberCardImport': {
+      url: '/api/krspace-finance-web/member/card/actions/storage?startForeignCode={startForeignCode}&endForeignCode={endForeignCode}',
+      method: 'put'
+   },
+   //会员卡领用
+   'memberCardUse': {
+      url: '/api/krspace-finance-web/member/card/actions/receive',
+      method: 'post'
+   },
+   //会员卡删除
+   'memberCardDelete': {
+      url: '/api/krspace-finance-web/member/card/actions/delete?id={id}',
+      method: 'delete'
+   },
+   //会员卡查看
+   'memberCardView': {
+      url: '/api/krspace-finance-web/member/card/bound-detail?id={id}',
+      method: 'get'
+   },
+   //会员卡录入，卡号重复性判断
+   'memberCardJudge': {
+      url: '/api/krspace-finance-web/member/card/bound-detail?id={id}',
+      method: 'get'
+   },
+  //运营平台-基础配置-设备定义-设备列表
+   'equipmentList': {
+     url:'/api/krspace-finance-web/getSysDeviceDefinitionListListByAjax',
+     method:'get'
+   },
+   //会员卡原领用人列表
+  'memberRecvList': {
+     url:'/api/krspace-finance-web/member/card/recv-list',
+     method:'get'
+   },
+   //查询领用人的会员卡数
+   'memberCardNum': {
+     url:'/api/krspace-finance-web/member/card/actions/count-recvcard?receiveId={receiveId}',
+     method:'get'
+   },
+   //会员卡转移
+   'transferMemberCard':{
+    url:'/api/krspace-finance-web/member/card/actions/transfer?fromId={fromId}&toId={toId}',
+    method:'put'
+   }
  }
 
  module.exports = APIS;
