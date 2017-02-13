@@ -177,7 +177,7 @@ render() {
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 				<div className="ui-list-compontent">
-					<input ref='input' id='ui-selectlist-input'  onFocus={this.onfocus} onChange={this.onChange} placeholder="请输入..." onBlur={this.onBlur}/>
+					<input ref='input' id='ui-selectlist-input' autoComplete="off" onFocus={this.onfocus} onChange={this.onChange} placeholder="请输入..." onBlur={this.onBlur}/>
 					<span className="arrow"></span>
 
 					<div className="ui-list-cantainer" style={cityDiv}>
