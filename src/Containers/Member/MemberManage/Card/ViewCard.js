@@ -86,7 +86,7 @@ class ImportCard extends Component{
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px',marginBottom:25}}>
 					<KrField name="person"  grid={1/1} component="labelText" label="绑定人：" value={infoData.memberName}/>
 					<KrField name="phone"  grid={1/1} component="labelText" label="手机号：" value={infoData.boundTel}/>
-					<KrField name="bindTime"  grid={1/1} component="labelText" label="绑定时间：" value={infoData.boundTime}/>
+					<KrField name="bindTime"  grid={1/1} component="labelText" label="绑定时间：" value={dateFormat(infoData.boundTime, "yyyy-mm-dd hh:MM:ss")}/>
 			  </form>
 			);
 		}
