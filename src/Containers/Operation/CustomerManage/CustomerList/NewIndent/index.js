@@ -57,6 +57,9 @@ import './index.less'
 		Store.dispatch(Actions.callAPI('enter-order',{},values)).then(function(response) {
 			flushData.orderList(_this.props.listId);
          	_this.onCancel();
+         	setTimeout(function(){
+         		State.ChangeCanSubmitState();
+         	},1000)
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -140,7 +143,7 @@ import './index.less'
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-								{State.submitState?<div  className='ui-btn-center'><Button  label="确定" type="submit" /></div>:<div  className='ui-btn-center'><Button  label="确定" type="button" /></div>}
+								{State.submitState?<div  className='ui-btn-center'><Button  label="确定" type="submit" /></div>:<div  className='ui-btn-center'><Button  label="确定1" type="button" /></div>}
 								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 							</ButtonGroup>
 						</Col>
