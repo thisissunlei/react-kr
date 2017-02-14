@@ -250,8 +250,8 @@ export default class AttributeSetting extends Component {
 	openReceivedBtn() {
 
 		this.receivedBtnFormChangeValues = {};
-		Store.dispatch(initialize('receivedBtnForm', {}));
 
+		Store.dispatch(initialize('receivedBtnForm', {}));
 		var _this = this;
 		Store.dispatch(Actions.callAPI('getPaymentActData', {
 			mainbillId: _this.props.params.orderId
@@ -703,9 +703,12 @@ export default class AttributeSetting extends Component {
 		params.propJasonStr = JSON.stringify(params.propJasonStr);
 		params.conJasonStr = JSON.stringify(params.conJasonStr);
 
+
 		console.log('params.contract', params.contract);
 		console.log('params.propJasonStr', params.propJasonStr);
 		console.log('liveMoneyValue', liveMoneyValue);
+
+
 		if (!params.contract) {
 			Message.error('请选择对应合同');
 			return;
@@ -1172,10 +1175,29 @@ export default class AttributeSetting extends Component {
 
 
 
-	contractContinue = () => {
-		this.setState({
-			openContract: !this.state.openContract
-		});
+	contractContinue = (type, detailid) => {
+		let {
+			basicInfo,
+		} = this.state;
+		let {
+			params
+		} = this.props;
+		var orderType;
+		if (type == 1) {
+			orderType = 'admit';
+		} else if (type == 2) {
+			orderType = 'join';
+		} else if (type == 3) {
+			orderType = 'increase';
+		} else if (type == 4) {
+			orderType = 'renew';
+		} else if (type == 5) {
+			orderType = 'reduce';
+		} else if (type == 6) {
+			orderType = 'exit';
+		}
+		var url = `./#/operation/customerManage/${basicInfo.customerid}/order/${params.orderId}/agreement/${orderType}/${detailid}/detail`;
+		window.open(url)
 	}
 
 	calcBalance = (input) => {
@@ -1184,9 +1206,6 @@ export default class AttributeSetting extends Component {
 		input.value = Math.round((input.value * 100))
 
 		this.receivedBtnFormChangeValues[input.name] = input.value;
-
-
-
 		let receivedBtnFormChangeValues = this.receivedBtnFormChangeValues;
 		let {
 			totalPayment
