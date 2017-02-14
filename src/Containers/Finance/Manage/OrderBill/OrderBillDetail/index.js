@@ -703,7 +703,9 @@ export default class AttributeSetting extends Component {
 		params.propJasonStr = JSON.stringify(params.propJasonStr);
 		params.conJasonStr = JSON.stringify(params.conJasonStr);
 
-
+		console.log('params.contract', params.contract);
+		console.log('params.propJasonStr', params.propJasonStr);
+		console.log('liveMoneyValue', liveMoneyValue);
 		if (!params.contract) {
 			Message.error('请选择对应合同');
 			return;
