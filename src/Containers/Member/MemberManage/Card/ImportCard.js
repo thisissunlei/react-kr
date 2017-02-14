@@ -90,12 +90,12 @@ class ImportCard extends Component{
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
 		let communityText = '';
 		let {count} =this.state;
-		count = count=='0'?'0':count+1;
+		count = count==='0'?'0':count+1;
 
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{margin:'0 40px',marginTop:'37px'}}>
-				<KrField name="begin" component="input" label="起始号码" onBlur={this.setBeginCard}/>
-				<KrField name="end"  grid={1/1} component="input" label="终止号码" onBlur={this.setEndCard}/>
+				<KrField name="begin" type="text" component="input" component="input" label="起始号码" onBlur={this.setBeginCard}/>
+				<KrField name="end"  grid={1/1} type="text" component="input" label="终止号码" onBlur={this.setEndCard}/>
 				<KrField name="count"  grid={1/1} component="labelText" label="数量" value={count}/>
 				<Grid style={{margin:"20px 0 3px -10px"}}>
 					<Row>

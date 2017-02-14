@@ -219,10 +219,19 @@ import imgLine from './images/line.png'
 
 		 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
 				//会员卡号已注册
-				Message.warn('此会员卡号已被绑定','error');
-				_this.setState({
-					onsubmitCode:false
-				})
+				// Message.warn('此会员卡号已被绑定','error');
+				// _this.setState({
+				// 	onsubmitCode:false
+				// })
+				if(response.phone !='-1' && response.id){
+						Message.warn('此会员卡号已被绑定','error');
+					}else{
+						Message.warn(response.name,'error');
+
+					}
+					_this.setState({
+						onsubmitCode:false
+					})
 
 		 }).catch(function(err){
 		 	//会员卡号未注册

@@ -53,7 +53,7 @@ export default class SnackTip extends Component {
 		}
 
 		if(!open){
-			className = 'none';	
+			className = 'ui-snackTap-none';	
 		} 
 
 		return (

@@ -51,8 +51,17 @@ export default class Card extends Component {
     	})
     }
     submitChangeDialog=()=>{
+    	let {searchParams} = this.state;
+    	let params = {
+	        type: searchParams.type,
+	        value:searchParams.value,
+	        page:searchParams.page,
+	        pageSize:15,
+	        time:new Date().getTime()
+	    }
     	Message.success("操作成功");
     	this.setState({
+    		searchParams:params,
     		openChange:!this.state.openChange
     	})
     }

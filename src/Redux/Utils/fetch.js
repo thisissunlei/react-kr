@@ -33,19 +33,13 @@ function getUrl(path, params = {},mode = false) {
     }
     */
 
-    // let url = APIS[path].url;
-    // if(url.indexOf('apixr')){
-    // 	server = ''
-    // }
-    
-
 
 
     var url = APIS[path].url;
 
-    if(url.indexOf('api-th') != -1){
-    	server = '';
-    }
+    // if(url.indexOf('api-th') != -1){
+    // 	server = '';
+    // }
 
 
     try {
