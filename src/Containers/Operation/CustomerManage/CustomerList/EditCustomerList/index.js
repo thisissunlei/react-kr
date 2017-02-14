@@ -197,10 +197,8 @@ import flushData from "../LookCustomerList/State";
 									<div className="krFlied-box"><KrField grid={1/2} label="意向工位价格" name="staionPrice" style={{width:202,marginLeft:28}} component="input"  requireLabel={true}>
 									</KrField><span className="unit">元/个/月</span></div>
 									<KrField grid={1/2} label="联系人邮箱"  name="mail" style={{width:262,marginLeft:15}} component="input" requireLabel={false}/>
-									<KrField grid={1/2} label="意向入驻社区" name="intentionCommunityId" component="select" style={{width:262,marginLeft:28}} 
-											options={dataReady.communityBaselist}
-											requireLabel={true}
-									/>
+									
+									<KrField  grid={1/2}  name="intentionCommunityId" style={{width:262,marginLeft:28}} component='searchIntend'  label="意向入驻社区" inline={false} onChange={this.onChangeIntend} placeholder='请输入社区名称' requireLabel={true}/>
 									<KrField grid={1/2} label="联系人微信" name="wechat" style={{width:262,marginLeft:15}} component="input" requireLabel={false}/>
 									<KrField grid={1/2} label="预计入驻时间" name="inTime" style={{width:260,marginLeft:28}} component="date"    requireLabel={true}/>
 									<div className="middle-round"></div>
@@ -210,7 +208,7 @@ import flushData from "../LookCustomerList/State";
 						<div className="small-cheek" style={{paddingBottom:0}}>
 								<div>
 								<KrField grid={1/2} label="公司名称" name="company" component="input" style={{width:262,marginLeft:15}} requireLabel={true} onChange={this.corpNameChange}/>
-								<KrField grid={1/2} label="投资轮次" name="roundId" component="select" style={{width:262,marginLeft:28}} 
+								<KrField grid={1/2} label="融资轮次" name="roundId" component="select" style={{width:262,marginLeft:28}} 
 										options={dataReady.roundList}
 										requireLabel={false}
 								/>
