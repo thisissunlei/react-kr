@@ -57,6 +57,9 @@ import './index.less'
 		Store.dispatch(Actions.callAPI('enter-order',{},values)).then(function(response) {
 			flushData.orderList(_this.props.listId);
          	_this.onCancel();
+         	setTimeout(function(){
+         		State.ChangeCanSubmitState();
+         	},1000)
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
