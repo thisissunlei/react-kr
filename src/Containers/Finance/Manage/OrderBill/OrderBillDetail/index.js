@@ -38,8 +38,8 @@ import {
 	Title,
 	Tooltip,
 	SnackTip,
-    Message,
-    Drawer
+	Message,
+	Drawer
 } from 'kr-ui';
 import {
 	reduxForm,
@@ -62,9 +62,6 @@ import SupplementBtnForm from './SupplementBtnForm';
 import ShiftBtnForm from './ShiftBtnForm';
 import ReceiveDetailTop from './ReceiveDetailTop';
 import './index.less';
-
-
-
 
 
 
@@ -163,87 +160,85 @@ export default class AttributeSetting extends Component {
 
 
 		this.state = {
-			params: {
-				accountType: 'PAYMENT',
-				childType: 'basic',
-				propInfo: 'SETTLED',
-				orderId: this.props.params.orderId,
-				page: 1,
-				pageSize: 30,
-				index:'',
-			},
-			itemDetail: {},
-			//为了判断和获取选中的条的id
-			fiMoney: '',
-			fiItem: '',
-			//这几个是上下的数据
-			basicInfo: {},
-			detailPayment: [],
-			detailIncome: [],
-			detailBalance: '',
-			//高级查询
-			codeList: [],
-			typeList: [],
-			receivedList: [],
+				params: {
+					accountType: 'PAYMENT',
+					childType: 'basic',
+					propInfo: 'SETTLED',
+					orderId: this.props.params.orderId,
+					page: 1,
+					pageSize: 30,
+					index: '',
+				},
+				itemDetail: {},
+				//为了判断和获取选中的条的id
+				fiMoney: '',
+				fiItem: '',
+				//这几个是上下的数据
+				basicInfo: {},
+				detailPayment: [],
+				detailIncome: [],
+				detailBalance: '',
+				//高级查询
+				codeList: [],
+				typeList: [],
+				receivedList: [],
 
-			//这三个是为了挑出选定的那个复选框
-			list: [],
-			selectedList: [],
-			listValues: [],
+				//这三个是为了挑出选定的那个复选框
+				list: [],
+				selectedList: [],
+				listValues: [],
 
-			payWayList:[],
-			accountDetail:[],
-			contractList:[],
-			stationPayment:{},
+				payWayList: [],
+				accountDetail: [],
+				contractList: [],
+				stationPayment: {},
 
-			//回款合同
-			contractReceive:[],
-			//回款合同顶部
-			contractTopReceive:[],
+				//回款合同
+				contractReceive: [],
+				//回款合同顶部
+				contractTopReceive: [],
 
-			//转移
-			shiftData:[],
-
-
+				//转移
+				shiftData: [],
 
 
 
-			openSearch: false,
-			openReceivedBtn: false,
-			openQuitBtn: false,
-			openSwitchBtn: false,
-			openBusinessBtn: false,
-			openAddaccountBtn: false,
-			openSupplementBtn: false,
-			openShift:false,
-			isLoading: true,
-			isInitLoading: true,
-			openView: false,
-			openRight:false,
-			openContract:false,
-            colorClassName:'',
-            isRunningIncome:0,         
-            //回款总金额和余额变化
-            liveMoneyValue:0,
-		}
-		//回款计算余额所需字段值
+				openSearch: false,
+				openReceivedBtn: false,
+				openQuitBtn: false,
+				openSwitchBtn: false,
+				openBusinessBtn: false,
+				openAddaccountBtn: false,
+				openSupplementBtn: false,
+				openShift: false,
+				isLoading: true,
+				isInitLoading: true,
+				openView: false,
+				openRight: false,
+				openContract: false,
+				colorClassName: '',
+				isRunningIncome: 0,
+				//回款总金额和余额变化
+				liveMoneyValue: 0,
+			}
+			//回款计算余额所需字段值
 		this.receivedBtnFormChangeValues = {};
 	}
 
-   
+
 
 	refresh() {
-			//console.log('00000')
-			var _this = this;
-			this.setState({
-				isInitLoading: true
-			}, function() {
-				window.setTimeout(function() {
-					_this.initBasicInfo();
-				}, 1000)
-			});
+		//console.log('00000')
+		var _this = this;
+		this.setState({
+			isInitLoading: true
+		}, function() {
+			window.setTimeout(function() {
+				_this.initBasicInfo();
+			}, 1000)
+		});
 
-		}
+	}
 
 	//打开遮罩层区域
 	openSearchDialog() {
@@ -252,17 +247,17 @@ export default class AttributeSetting extends Component {
 			openSearch: !this.state.openSearch
 		});
 	}
-	openReceivedBtn(){
+	openReceivedBtn() {
 
-		this.receivedBtnFormChangeValues={};
-		//Store.dispatch(reset('receivedBtnForm',{totalPayment:'',preCode:'1',operatedate:''}));
+		this.receivedBtnFormChangeValues = {};
+		Store.dispatch(initialize('receivedBtnForm', {}));
 
 		var _this = this;
 		Store.dispatch(Actions.callAPI('getPaymentActData', {
 			mainbillId: _this.props.params.orderId
 		})).then(function(response) {
 			var payWayList = [];
-			var contractReceive= [];
+			var contractReceive = [];
 			response.payWay.map(function(item, index) {
 				var list = {}
 				list.value = item.id;
@@ -271,28 +266,29 @@ export default class AttributeSetting extends Component {
 			});
 			response.contract.map(function(item, index) {
 				var lists = {};
-				lists.label = item.contactName+'-'+item.contractcode;
+				lists.label = item.contactName + '-' + item.contractcode;
 				lists.value = item.contactType;
-				lists.contractId=item.detailid;
+				lists.contractId = item.detailid;
 				contractReceive.push(lists);
 			});
-		
-			  var noContract={
-			    	'value':'000','label':'无合同'
-			     }
+
+			var noContract = {
+				'value': '000',
+				'label': '无合同'
+			}
 			contractReceive.push(noContract);
-           _this.setState({
-			 payWayList,
-			 accountDetail:response.propData,
-			 contractTopReceive:response.contract,
-			 contractReceive
-		   });
+			_this.setState({
+				payWayList,
+				accountDetail: response.propData,
+				contractTopReceive: response.contract,
+				contractReceive
+			});
 		}).catch(function(err) {
-			  Message.error(err.message);
+			Message.error(err.message);
 		});
-		 this.setState({
-			 openRight:!this.state.openRight
-		  });
+		this.setState({
+			openRight: !this.state.openRight
+		});
 	}
 	openQuitBtn() {
 		let items = this.state.selectedList
@@ -338,12 +334,12 @@ export default class AttributeSetting extends Component {
 			this.setState({
 				openSwitchBtn: !this.state.openSwitchBtn,
 			});
-            this.getMoneyALLTrue();
+			this.getMoneyALLTrue();
 			//console.log('2222',fiItem.id);
 			Store.dispatch(Actions.callAPI('findContractListById', {
 				mainbillId: _this.props.params.orderId
 			})).then(function(response) {
-				var receivedList=[];
+				var receivedList = [];
 				response.map(function(item, index) {
 					var list = {}
 					list.value = item.id;
@@ -354,7 +350,7 @@ export default class AttributeSetting extends Component {
 					receivedList: receivedList
 				});
 			}).catch(function(err) {
-				 Message.error(err.message);
+				Message.error(err.message);
 			});
 		}
 	}
@@ -368,74 +364,74 @@ export default class AttributeSetting extends Component {
 			}
 		})
 		if (this.state.listValues.length == 0) {
-            Message.error('请选择一条回款数据进行转营收');
+			Message.error('请选择一条回款数据进行转营收');
 		} else if (this.state.listValues.length > 1) {
-			 Message.error('只能选择一条数据');
+			Message.error('只能选择一条数据');
 		} else if (fiMoney >= 0) {
-			 Message.error('金额必须为负且存在可用金额');
-		} else {			
+			Message.error('金额必须为负且存在可用金额');
+		} else {
 			this.getMoneyALLTrue();
 			this.setState({
-			  openBusinessBtn: !this.state.openBusinessBtn
+				openBusinessBtn: !this.state.openBusinessBtn
 			});
 		}
 	}
 
-	getMoneyALLTrue=()=>{
-		var _this=this;
+	getMoneyALLTrue = () => {
+		var _this = this;
 		Store.dispatch(Actions.callAPI('getFlowRemainMoney', {
-				flowId: fiItem.id
-			})).then(function(response) {
-				_this.setState({
-					fiMoney:response
-				});
-			}).catch(function(err) {
-				 Message.error(err.message);
-		 });
+			flowId: fiItem.id
+		})).then(function(response) {
+			_this.setState({
+				fiMoney: response
+			});
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 
 	}
-	
+
 	openAccountBtn() {
 		var _this = this;
-		Store.dispatch(Actions.callAPI('getOnNewAccountData',{
+		Store.dispatch(Actions.callAPI('getOnNewAccountData', {
 			mainbillId: _this.props.params.orderId
 		})).then(function(response) {
 			var payWayList = [];
-			var contractList=[];
-			var stationPayment={};
+			var contractList = [];
+			var stationPayment = {};
 			response.payWay.map(function(item, index) {
 				var list = {}
 				list.value = item.id;
 				list.label = item.accountname;
 				payWayList.push(list);
 			});
-			if(response.contractList){
-                response.contractList.map(function(item, index) {
-				var list = {}
-				list.value = item.id;
-				list.label = item.contractcode;
-				contractList.push(list);
-			   }); 
-			 }else if(!response.contractList){
-			 	contractList='无' 
-			 }	
-			  if(response.stationPayment){
-                stationPayment=response.stationPayment;
-			  }else if(!response.stationPayment){
-                stationPayment='无'
-			  }
+			if (response.contractList) {
+				response.contractList.map(function(item, index) {
+					var list = {}
+					list.value = item.id;
+					list.label = item.contractcode;
+					contractList.push(list);
+				});
+			} else if (!response.contractList) {
+				contractList = '无'
+			}
+			if (response.stationPayment) {
+				stationPayment = response.stationPayment;
+			} else if (!response.stationPayment) {
+				stationPayment = '无'
+			}
 			_this.setState({
 				payWayList,
-				accountDetail:response.propData,
+				accountDetail: response.propData,
 				contractList,
-				stationPayment:stationPayment,
+				stationPayment: stationPayment,
 			});
 		}).catch(function(err) {
-			 Message.error(err.message); 
+			Message.error(err.message);
 		});
 		this.setState({
-				openAddaccountBtn:!this.state.openAddaccountBtn
-		 });
+			openAddaccountBtn: !this.state.openAddaccountBtn
+		});
 	}
 	openSupplementBtn() {
 		this.setState({
@@ -453,14 +449,14 @@ export default class AttributeSetting extends Component {
 			});
 
 		}).catch(function(err) {
-			  Message.error(err.message);
+			Message.error(err.message);
 		});
 		this.setState({
 			openView: !this.state.openView
 		});
 	}
-	openShiftBtn=()=>{
-	    var _this = this;
+	openShiftBtn = () => {
+		var _this = this;
 		let items = this.state.selectedList
 		items.map(function(item, index) {
 			if (typeof(item.finaflowAmount) == 'number') {
@@ -468,30 +464,30 @@ export default class AttributeSetting extends Component {
 				fiItem = item;
 			}
 		})
-        if (this.state.listValues.length == 0) {
+		if (this.state.listValues.length == 0) {
 			Message.error('请选择一条数据进行转移');
 		} else if (this.state.listValues.length > 1) {
 			Message.error('只能选择一条数据');
 		} else if (fiMoney >= 0) {
 			Message.error('金额必须为负且存在可用金额');
 		} else {
-			  this.setState({
-				openShift:!this.state.openShift
-			  });
-			  Store.dispatch(Actions.callAPI('getTransferData', {
-					flowId:fiItem.id,
-					mainbillId: _this.props.params.orderId
-				})).then(function(response) {
-			  	  _this.setState({
-					shiftData:response.propData,
-					fiMoney:response.remainMoney
-				  })
-				}).catch(function(err) {
-					  Message.error(err.message);
-				});
+			this.setState({
+				openShift: !this.state.openShift
+			});
+			Store.dispatch(Actions.callAPI('getTransferData', {
+				flowId: fiItem.id,
+				mainbillId: _this.props.params.orderId
+			})).then(function(response) {
+				_this.setState({
+					shiftData: response.propData,
+					fiMoney: response.remainMoney
+				})
+			}).catch(function(err) {
+				Message.error(err.message);
+			});
 
-	        }
-        }
+		}
+	}
 
 	//关闭遮罩层区域
 	closeReceivedDialog() {
@@ -531,40 +527,40 @@ export default class AttributeSetting extends Component {
 			openView: !this.state.openView,
 		});
 	}
-	closeShiftBtn=()=>{
-		 this.setState({
+	closeShiftBtn = () => {
+		this.setState({
 			openShift: !this.state.openShift
-	     });
+		});
 	}
 
 	//确定提交区域
 	//切换
 	onSearch(params) {
-		    var listValues='';
-		    if(params.index==this.state.params.index&&params.accountType==this.state.params.accountType){
-		    	listValues=this.state.listValues
-		    }else{
-		    	listValues=''
-		    }
+			var listValues = '';
+			if (params.index == this.state.params.index && params.accountType == this.state.params.accountType) {
+				listValues = this.state.listValues
+			} else {
+				listValues = ''
+			}
 			this.setState({
 				params,
-				listValues:listValues
+				listValues: listValues
 			});
 
-	}
-    //高级查询
+		}
+		//高级查询
 	onSubmit(params) {
-		params = Object.assign({},this.state.params, params);
-		params.time=+new Date();
-		if(params.startTime!=''&&params.endTime!=''&&params.endTime<params.startTime){
-			 Message.error('开始时间不能大于结束时间');
-	         return ;
+		params = Object.assign({}, this.state.params, params);
+		params.time = +new Date();
+		if (params.startTime != '' && params.endTime != '' && params.endTime < params.startTime) {
+			Message.error('开始时间不能大于结束时间');
+			return;
 		}
-		if(params.startTime==''&&params.endTime!=''){
-			params.startTime=params.endTime
+		if (params.startTime == '' && params.endTime != '') {
+			params.startTime = params.endTime
 		}
-		if(params.startTime!=''&&params.endTime==''){
-			params.endTime=params.startTime
+		if (params.startTime != '' && params.endTime == '') {
+			params.endTime = params.startTime
 		}
 		this.setState({
 			params,
@@ -596,134 +592,144 @@ export default class AttributeSetting extends Component {
 		}
 		//回款提交
 	onAddReceivedSubmit(params) {
-        let {accountDetail,contractTopReceive} = this.state;
-		params = Object.assign({},params);
-		params.mainbillId=this.props.params.orderId
-      
-        var intentStr={};
-        var joinStr={};
-        var increaseStr={};
-        var adminStr={};
-		contractTopReceive.map(function(item,index){
-					var key = item.detailid;
-					var accountType=item.contactType;
-					if(accountType==2){
-					  var conJasonStre={};
-					  if(params['fix'+key+'1']&&!params['fix'+key+'3']){
-                         conJasonStre['1'] = params['fix'+key+'1'];
-                         joinStr[key]=conJasonStre
-						 delete params['fix'+key+'1'];
-					  }else if(params['fix'+key+'3']&&!params['fix'+key+'1']){
-					  	 conJasonStre['3'] = params['fix'+key+'3'];
-					  	 joinStr[key]=conJasonStre
-						 delete params['fix'+key+'3'];
-					  }else if(params['fix'+key+'3']&&params['fix'+key+'1']){
-					  	 conJasonStre['3'] = params['fix'+key+'3'];
-					  	 conJasonStre['1'] = params['fix'+key+'1'];
-					  	 joinStr[key]=conJasonStre
-						 delete params['fix'+key+'3'];
-						 delete params['fix'+key+'1'];
-					  }
-					   
-					}
-					if(accountType==3){
-						 var conJasonStre={};
-					  if(params['fix'+key+'1']&&!params['fix'+key+'3']){
-                         conJasonStre['1'] = params['fix'+key+'1'];
-                         increaseStr[key]=conJasonStre
-						 delete params['fix'+key+'1'];
-					  }else if(params['fix'+key+'3']&&!params['fix'+key+'1']){
-					  	 conJasonStre['3'] = params['fix'+key+'3'];
-					  	 increaseStr[key]=conJasonStre
-						 delete params['fix'+key+'3'];
-					  }else if(params['fix'+key+'3']&&params['fix'+key+'1']){
-					  	 conJasonStre['3'] = params['fix'+key+'3'];
-					  	 conJasonStre['1'] = params['fix'+key+'1'];
-					  	 increaseStr[key]=conJasonStre	 
-						 delete params['fix'+key+'3'];
-						 delete params['fix'+key+'1'];
-					  }
-					   
-					}
-					if(accountType==4){
-						var conJasonStre={};
-					  if(params['fix'+key+'1']&&!params['fix'+key+'3']){
-                         conJasonStre['1'] = params['fix'+key+'1'];
-                         adminStr[key]=conJasonStre	
-						 delete params['fix'+key+'1'];
-					  }else if(params['fix'+key+'3']&&!params['fix'+key+'1']){
-					  	 conJasonStre['3'] = params['fix'+key+'3'];
-					  	 adminStr[key]=conJasonStre	
-						 delete params['fix'+key+'3'];
-					  }else if(params['fix'+key+'3']&&params['fix'+key+'1']){
-					  	 conJasonStre['3'] = params['fix'+key+'3'];
-					  	 conJasonStre['1'] = params['fix'+key+'1'];
-					  	 adminStr[key]=conJasonStre	
-						 delete params['fix'+key+'3'];
-						 delete params['fix'+key+'1'];
-					  }
-					   
-					}
-					if(accountType==1){
-						var conJasonStre={};
-					  if(params['fix'+key+'2']){
-                         conJasonStre['2'] = params['fix'+key+'2'];
-                         intentStr[key]=conJasonStre	
-						 delete params['fix'+key+'2'];
-					  }
-					   
-					}
-					 
-			});
-         
-        
-		let {totalPayment} = params;
+		let {
+			accountDetail,
+			contractTopReceive
+		} = this.state;
+		params = Object.assign({}, params);
+		params.mainbillId = this.props.params.orderId
+
+		var intentStr = {};
+		var joinStr = {};
+		var increaseStr = {};
+		var adminStr = {};
+		contractTopReceive.map(function(item, index) {
+			var key = item.detailid;
+			var accountType = item.contactType;
+			if (accountType == 2) {
+				var conJasonStre = {};
+				if (params['fix' + key + '1'] && !params['fix' + key + '3']) {
+					conJasonStre['1'] = params['fix' + key + '1'];
+					joinStr[key] = conJasonStre
+					delete params['fix' + key + '1'];
+				} else if (params['fix' + key + '3'] && !params['fix' + key + '1']) {
+					conJasonStre['3'] = params['fix' + key + '3'];
+					joinStr[key] = conJasonStre
+					delete params['fix' + key + '3'];
+				} else if (params['fix' + key + '3'] && params['fix' + key + '1']) {
+					conJasonStre['3'] = params['fix' + key + '3'];
+					conJasonStre['1'] = params['fix' + key + '1'];
+					joinStr[key] = conJasonStre
+					delete params['fix' + key + '3'];
+					delete params['fix' + key + '1'];
+				}
+
+			}
+			if (accountType == 3) {
+				var conJasonStre = {};
+				if (params['fix' + key + '1'] && !params['fix' + key + '3']) {
+					conJasonStre['1'] = params['fix' + key + '1'];
+					increaseStr[key] = conJasonStre
+					delete params['fix' + key + '1'];
+				} else if (params['fix' + key + '3'] && !params['fix' + key + '1']) {
+					conJasonStre['3'] = params['fix' + key + '3'];
+					increaseStr[key] = conJasonStre
+					delete params['fix' + key + '3'];
+				} else if (params['fix' + key + '3'] && params['fix' + key + '1']) {
+					conJasonStre['3'] = params['fix' + key + '3'];
+					conJasonStre['1'] = params['fix' + key + '1'];
+					increaseStr[key] = conJasonStre
+					delete params['fix' + key + '3'];
+					delete params['fix' + key + '1'];
+				}
+
+			}
+			if (accountType == 4) {
+				var conJasonStre = {};
+				if (params['fix' + key + '1'] && !params['fix' + key + '3']) {
+					conJasonStre['1'] = params['fix' + key + '1'];
+					adminStr[key] = conJasonStre
+					delete params['fix' + key + '1'];
+				} else if (params['fix' + key + '3'] && !params['fix' + key + '1']) {
+					conJasonStre['3'] = params['fix' + key + '3'];
+					adminStr[key] = conJasonStre
+					delete params['fix' + key + '3'];
+				} else if (params['fix' + key + '3'] && params['fix' + key + '1']) {
+					conJasonStre['3'] = params['fix' + key + '3'];
+					conJasonStre['1'] = params['fix' + key + '1'];
+					adminStr[key] = conJasonStre
+					delete params['fix' + key + '3'];
+					delete params['fix' + key + '1'];
+				}
+
+			}
+			if (accountType == 1) {
+				var conJasonStre = {};
+				if (params['fix' + key + '2']) {
+					conJasonStre['2'] = params['fix' + key + '2'];
+					intentStr[key] = conJasonStre
+					delete params['fix' + key + '2'];
+				}
+
+			}
+
+		});
+
+
+		let {
+			totalPayment
+		} = params;
 		let liveMoneyValue = this.state.liveMoneyValue;
 
-		params.conJasonStr={intentStr,joinStr,increaseStr,adminStr}
-		params.conJasonStr = Object.assign({},intentStr,joinStr,increaseStr,adminStr);
-		
+		params.conJasonStr = {
+			intentStr,
+			joinStr,
+			increaseStr,
+			adminStr
+		}
+		params.conJasonStr = Object.assign({}, intentStr, joinStr, increaseStr, adminStr);
+
 
 		params = Object.assign({}, params);
-			params.propJasonStr = {};
-			accountDetail.map(function(item,index){
-					var key = item.id;
-					if(params.hasOwnProperty(key) && params[key]){
-							params.propJasonStr[key] = params[key];
-							delete params[key];
-					}
-			});
-		params.operatedate= dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
+		params.propJasonStr = {};
+		accountDetail.map(function(item, index) {
+			var key = item.id;
+			if (params.hasOwnProperty(key) && params[key]) {
+				params.propJasonStr[key] = params[key];
+				delete params[key];
+			}
+		});
+		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
 		params.propJasonStr = JSON.stringify(params.propJasonStr);
 		params.conJasonStr = JSON.stringify(params.conJasonStr);
-        
-       
-        if(!params.contract){
-            Message.error('请选择对应合同');
-            return ;	
-        }
-        if(params.propJasonStr=='{}'&&params.conJasonStr=='{}'){
-        	Message.error('回款不能为空');
-        	return ;
-        }
-        if(liveMoneyValue<0){
-			Message.error('拆分金额大于回款总额');
-			return ;
+
+
+		if (!params.contract) {
+			Message.error('请选择对应合同');
+			return;
 		}
-		if(liveMoneyValue>0){
+		if (params.propJasonStr == '{}' && params.conJasonStr == '{}') {
+			Message.error('回款不能为空');
+			return;
+		}
+		if (liveMoneyValue < 0) {
+			Message.error('拆分金额大于回款总额');
+			return;
+		}
+		if (liveMoneyValue > 0) {
 			Message.error('回款总额有剩余');
-			return ;
+			return;
 		}
 
 		var _this = this;
 		Store.dispatch(Actions.callAPI('returnMoneyNew', {}, params)).then(function(response) {
 			_this.refresh();
 			_this.setState({
-			 openRight: !_this.state.openRight,
-			 isLoading: true,
-		 });
+				openRight: !_this.state.openRight,
+				isLoading: true,
+			});
 		}).catch(function(err) {
-			 Message.error(err.message);
+			Message.error(err.message);
 		});
 
 	}
@@ -733,15 +739,15 @@ export default class AttributeSetting extends Component {
 		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
 		Store.dispatch(Actions.callAPI('payBack', {}, params)).then(function(response) {
 			_this.refresh();
-		  _this.setState({
-			openQuitBtn: !_this.state.openQuitBtn,
-			isLoading: true,
-			listValues:''
-		  });
+			_this.setState({
+				openQuitBtn: !_this.state.openQuitBtn,
+				isLoading: true,
+				listValues: ''
+			});
 		}).catch(function(err) {
-		  Message.error(err.message);
+			Message.error(err.message);
 		});
-		
+
 
 	}
 	onSwitchSubmit(params) {
@@ -749,12 +755,12 @@ export default class AttributeSetting extends Component {
 		Store.dispatch(Actions.callAPI('transToDeposit', {}, params)).then(function(response) {
 			_this.refresh();
 			_this.setState({
-			openSwitchBtn: !_this.state.openSwitchBtn,
-			isLoading: true,
-			listValues:''
-		});
+				openSwitchBtn: !_this.state.openSwitchBtn,
+				isLoading: true,
+				listValues: ''
+			});
 		}).catch(function(err) {
-			 Message.error(err.message);
+			Message.error(err.message);
 		});
 
 	}
@@ -763,50 +769,53 @@ export default class AttributeSetting extends Component {
 		Store.dispatch(Actions.callAPI('transToOperateIncome', {}, params)).then(function(response) {
 			_this.refresh();
 			_this.setState({
-			openBusinessBtn: !_this.state.openBusinessBtn,
-			isLoading: true,
-			listValues:''
-		});
+				openBusinessBtn: !_this.state.openBusinessBtn,
+				isLoading: true,
+				listValues: ''
+			});
 		}).catch(function(err) {
-			  Message.error(err.message);
+			Message.error(err.message);
 		});
 
-		
+
 
 	}
 	onConfrimSubmit(params) {
-		let {stationPayment,accountDetail}=this.state;
-		var contractId=stationPayment.id;
+		let {
+			stationPayment,
+			accountDetail
+		} = this.state;
+		var contractId = stationPayment.id;
 		params = Object.assign({}, params);
-			params.propJasonStr = {};
-			accountDetail.map(function(item,index){
-					var key = item.id;
-					if(params.hasOwnProperty('fix'+key) && params['fix'+key]){
-							params.propJasonStr[key] = params['fix'+key];
-							delete params['fix'+key];
-					}
-			});
-		params.propJasonStr[contractId]=params.stationPaymentName;
+		params.propJasonStr = {};
+		accountDetail.map(function(item, index) {
+			var key = item.id;
+			if (params.hasOwnProperty('fix' + key) && params['fix' + key]) {
+				params.propJasonStr[key] = params['fix' + key];
+				delete params['fix' + key];
+			}
+		});
+		params.propJasonStr[contractId] = params.stationPaymentName;
 		//delete params.stationPaymentName;
 		params.propJasonStr = JSON.stringify(params.propJasonStr);
-        
-         if(params.propJasonStr=='{}'){
-        	Message.error('至少填写一项金额');
-        	 return ;
-           }
+
+		if (params.propJasonStr == '{}') {
+			Message.error('至少填写一项金额');
+			return;
+		}
 
 		var _this = this;
 		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
 		Store.dispatch(Actions.callAPI('onNewAccountg', {}, params)).then(function() {
 			_this.refresh();
 			_this.setState({
-			openAddaccountBtn: !_this.state.openAddaccountBtn,
-			isLoading: true,
-		})
+				openAddaccountBtn: !_this.state.openAddaccountBtn,
+				isLoading: true,
+			})
 		}).catch(function(err) {
-			  Message.error(err.message);
+			Message.error(err.message);
 		});
-		
+
 	}
 	onSupplementSubmit() {
 			var _this = this;
@@ -815,13 +824,13 @@ export default class AttributeSetting extends Component {
 			})).then(function(response) {
 				_this.refresh();
 				_this.setState({
-				openSupplementBtn: !_this.state.openSupplementBtn,
-				isLoading: true
-			 })
+					openSupplementBtn: !_this.state.openSupplementBtn,
+					isLoading: true
+				})
 			}).catch(function(err) {
-				 Message.error(err.message);
+				Message.error(err.message);
 			});
-			
+
 
 		}
 		//操作相关
@@ -830,42 +839,44 @@ export default class AttributeSetting extends Component {
 			this.openViewDialog(itemDetail);
 		}
 	}
-	onShiftBtnSubmit=(params)=>{
-           let {shiftData} = this.state;
-		    params = Object.assign({}, params);
-			params.propJasonStr = {};
-			shiftData.map(function(item,index){
-					var key = item.id;
-					if(params.hasOwnProperty('fix'+key) && params['fix'+key]){
-							params.propJasonStr[key] = params['fix'+key];
-							delete params['fix'+key];
-					}
-			});
-		  params.propJasonStr = JSON.stringify(params.propJasonStr);
+	onShiftBtnSubmit = (params) => {
+		let {
+			shiftData
+		} = this.state;
+		params = Object.assign({}, params);
+		params.propJasonStr = {};
+		shiftData.map(function(item, index) {
+			var key = item.id;
+			if (params.hasOwnProperty('fix' + key) && params['fix' + key]) {
+				params.propJasonStr[key] = params['fix' + key];
+				delete params['fix' + key];
+			}
+		});
+		params.propJasonStr = JSON.stringify(params.propJasonStr);
 
-		  if(params.propJasonStr=='{}'){
-        	Message.error('至少填写一项金额');
-        	 return ;
-           }
+		if (params.propJasonStr == '{}') {
+			Message.error('至少填写一项金额');
+			return;
+		}
 
 		var _this = this;
 		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
 		Store.dispatch(Actions.callAPI('transferPayment', {}, params)).then(function() {
 			_this.refresh();
 			_this.setState({
-			openShift: !_this.state.openShift,
-			isLoading: true,
-			listValues:''
-		})
+				openShift: !_this.state.openShift,
+				isLoading: true,
+				listValues: ''
+			})
 		}).catch(function(err) {
-			  Message.error(err.message);
+			Message.error(err.message);
 		});
-		
+
 	}
 
 	//
 	initBasicInfo() {
-			var _this = this;
+		var _this = this;
 		let {
 			params
 		} = this.props;
@@ -878,11 +889,11 @@ export default class AttributeSetting extends Component {
 				detailIncome: response.incomedata,
 				detailBalance: response.balance,
 				isInitLoading: false,
-				isRunningIncome:response.isIncomeRunning,
-				colorClassName:response.isIncomeRunning==2?'historyIncomeGray':'historyIncome'
+				isRunningIncome: response.isIncomeRunning,
+				colorClassName: response.isIncomeRunning == 2 ? 'historyIncomeGray' : 'historyIncome'
 			});
 		}).catch(function(err) {
-			 Message.error(err.message);		
+			Message.error(err.message);
 		});
 	}
 
@@ -893,12 +904,12 @@ export default class AttributeSetting extends Component {
 			params
 		} = this.state;
 
-		params.endTime='';
-		params.startTime='';
-		params.tradingCode='';
-		params.propertyId='';
-		params.accountId='';
-         
+		params.endTime = '';
+		params.startTime = '';
+		params.tradingCode = '';
+		params.propertyId = '';
+		params.accountId = '';
+
 		Store.dispatch(Actions.callAPI('findAccountAndPropList', {
 			accountType: params.accountType
 		})).then(function(response) {
@@ -922,42 +933,43 @@ export default class AttributeSetting extends Component {
 				typeList,
 			});
 		}).catch(function(err) {
-			 Message.error(err.message);
+			Message.error(err.message);
 		});
 	}
 
 
-      historyIncomed=()=>{
-       let {isRunningIncome} = this.state;
-       if(isRunningIncome==0){
+	historyIncomed = () => {
+		let {
+			isRunningIncome
+		} = this.state;
+		if (isRunningIncome == 0) {
 
-       	 var _this = this;
-	        let {
+			var _this = this;
+			let {
 				params
 			} = this.props;
 			_this.setState({
-				 isRunningIncome:1
-			 });
-			Store.dispatch(Actions.callAPI('runStationIncome',{
-				mainbillId:params.orderId,
-			})).then(function(response) {
-			    setTimeout(function(){
-                   _this.setState({
-				     isRunningIncome:2,
-				     colorClassName:'historyIncomeGray'
-			        });
-			    },1000)
-			}).catch(function(err) {
-				 Message.error(err.message);
-				 _this.setState({
-
-				   isRunningIncome:0
-
-			    });
+				isRunningIncome: 1
 			});
-        }
-    }
+			Store.dispatch(Actions.callAPI('runStationIncome', {
+				mainbillId: params.orderId,
+			})).then(function(response) {
+				setTimeout(function() {
+					_this.setState({
+						isRunningIncome: 2,
+						colorClassName: 'historyIncomeGray'
+					});
+				}, 1000)
+			}).catch(function(err) {
+				Message.error(err.message);
+				_this.setState({
 
+					isRunningIncome: 0
+
+				});
+			});
+		}
+	}
 
 
 
@@ -968,68 +980,66 @@ export default class AttributeSetting extends Component {
 
 
 
+	snackTipClose = () => {
 
 
-	 snackTipClose=()=>{
-
-
-    	   var _this = this;
-	        let {
-				params
-			} = this.props;
-			Store.dispatch(Actions.callAPI('removeRunningTag',{},{
-				mainbillId:params.orderId,
-			})).then(function(response) {
-				//_this.refresh();
-				  window.location.reload();
-			    _this.setState({
-				 isRunningIncome:0,
-				 colorClassName:'historyIncome'
-			 });
-
-			}).catch(function(err){
-				  Message.error(err.message);
+		var _this = this;
+		let {
+			params
+		} = this.props;
+		Store.dispatch(Actions.callAPI('removeRunningTag', {}, {
+			mainbillId: params.orderId,
+		})).then(function(response) {
+			//_this.refresh();
+			window.location.reload();
+			_this.setState({
+				isRunningIncome: 0,
+				colorClassName: 'historyIncome'
 			});
-    }
 
-	initializeSnack = (open=false,title='正在补历史收入...',titleAfter,color)=>{
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
 
-    	let style={
-    	'background':color,
-    	'position': 'fixed',
-        'top': '10px',
-        'left': 0,
-        'right': 0
-    	}
+	initializeSnack = (open = false, title = '正在补历史收入...', titleAfter, color) => {
 
-    	   return (
+		let style = {
+			'background': color,
+			'position': 'fixed',
+			'top': '10px',
+			'left': 0,
+			'right': 0
+		}
 
-    	   	  <SnackTip style={style} open={open} title={title} titleAfter={titleAfter} onClose={this.snackTipClose}/>
+		return (
 
-    	   	);
+			<SnackTip style={style} open={open} title={title} titleAfter={titleAfter} onClose={this.snackTipClose}/>
+
+		);
 	}
 
 
 
+	renderSnack = () => {
+
+		let {
+			isRunningIncome
+		} = this.state;
+		if (isRunningIncome == 1) {
+			return this.initializeSnack(true, '正在补历史收入...', '', '#69bbf0');
+		} else if (isRunningIncome == 0) {
+			return this.initializeSnack(false, '未完成');
+		} else if (isRunningIncome == 2) {
+
+			return this.initializeSnack(true, '补历史收入已完成!', '确认', '#75c7bc');
+		}
 
 
-    renderSnack=()=>{
+	}
 
-    	let {isRunningIncome} = this.state;
-    	if(isRunningIncome == 1){
-    		return this.initializeSnack(true,'正在补历史收入...','','#69bbf0');
-    	}else if(isRunningIncome==0){
-    		return this.initializeSnack(false,'未完成');
-    	}else if(isRunningIncome==2){
-
-    		return this.initializeSnack(true,'补历史收入已完成!','确认','#75c7bc');
-    	}
-
-
-    }
-
-    renderReceived=()=>{
-		       return         (<Table style={{marginTop:60}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getAccountNewFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
+	renderReceived = () => {
+		return (<Table style={{marginTop:60}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getAccountNewFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
 							              <TableHeader>
 										          <TableHeaderColumn>交易编号</TableHeaderColumn>
 										          <TableHeaderColumn>交易日期</TableHeaderColumn>
@@ -1079,8 +1089,8 @@ export default class AttributeSetting extends Component {
 							              <TableFooter></TableFooter>
 						              </Table>)
 	}
-	renderIncomed=()=>{
-		       return         (<Table style={{marginTop:60}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getAccountNewFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
+	renderIncomed = () => {
+		return (<Table style={{marginTop:60}} ajax={true} loading={this.state.isLoading} onSelect={this.onSelect} onLoaded={this.onLoaded} ajaxUrlName='getAccountNewFlow' ajaxParams={this.state.params} onOperation={this.onOperation}>
 							              <TableHeader>
 										          <TableHeaderColumn>交易编号</TableHeaderColumn>
 										          <TableHeaderColumn>交易日期</TableHeaderColumn>
@@ -1136,70 +1146,71 @@ export default class AttributeSetting extends Component {
 						             </Table>)
 	}
 
-    typeSelectRender=()=>{
-    	let {
+	typeSelectRender = () => {
+		let {
 			params,
 		} = this.state;
 
 		let parentBtn = params.accountType;
 		let childBtn = params.childType;
-    	if(parentBtn == 'INCOME' && childBtn == 'gongweishouru'||parentBtn == 'INCOME' && childBtn == 'basic'){
-    		return this.renderIncomed();
-    	}else{
-    		return this.renderReceived();
-    	}
-    }
+		if (parentBtn == 'INCOME' && childBtn == 'gongweishouru' || parentBtn == 'INCOME' && childBtn == 'basic') {
+			return this.renderIncomed();
+		} else {
+			return this.renderReceived();
+		}
+	}
 
-    iconClose=()=>{
-     this.setState({
-		 openRight:!this.state.openRight,
-		 liveMoneyValue:0
-	  });
-      this.receivedBtnFormChangeValues={}
-    }
-
-
-
-    contractContinue=()=>{
-       this.setState({
-		 openContract:!this.state.openContract
-	  });
-    }
-
-    calcBalance=(input)=>{
-    
-   
-   	input.value=Math.round((input.value*100)) 
-
-   	this.receivedBtnFormChangeValues[input.name] = input.value;
+	iconClose = () => {
+		this.setState({
+			openRight: !this.state.openRight,
+			liveMoneyValue: 0
+		});
+		this.receivedBtnFormChangeValues = {}
+	}
 
 
-   
-   	let receivedBtnFormChangeValues = this.receivedBtnFormChangeValues;
-   	let {totalPayment} = receivedBtnFormChangeValues;
-   	let  liveMoneyValue = totalPayment;
 
-   	if(totalPayment){
-   		
-   	for(var item in receivedBtnFormChangeValues){
-   		if(receivedBtnFormChangeValues.hasOwnProperty(item) && item !='totalPayment'){
+	contractContinue = () => {
+		this.setState({
+			openContract: !this.state.openContract
+		});
+	}
 
-   			liveMoneyValue -= receivedBtnFormChangeValues[item];
-   		}
-   	  }
-   	}
+	calcBalance = (input) => {
 
-   
 
-   	
-    liveMoneyValue=liveMoneyValue/100;
-  
-     this.setState({
-     	 liveMoneyValue
-     });
-  
+		input.value = Math.round((input.value * 100))
 
-   }
+		this.receivedBtnFormChangeValues[input.name] = input.value;
+
+
+
+		let receivedBtnFormChangeValues = this.receivedBtnFormChangeValues;
+		let {
+			totalPayment
+		} = receivedBtnFormChangeValues;
+		let liveMoneyValue = totalPayment;
+
+		if (totalPayment) {
+
+			for (var item in receivedBtnFormChangeValues) {
+				if (receivedBtnFormChangeValues.hasOwnProperty(item) && item != 'totalPayment') {
+
+					liveMoneyValue -= receivedBtnFormChangeValues[item];
+				}
+			}
+		}
+
+
+
+		liveMoneyValue = liveMoneyValue / 100;
+
+		this.setState({
+			liveMoneyValue
+		});
+
+
+	}
 
 
 	render() {
@@ -1219,9 +1230,6 @@ export default class AttributeSetting extends Component {
 
 
 
-		
-
-
 		//判断按钮出现与隐藏
 		let childBtn = params.childType;
 		let parentBtn = params.accountType;
@@ -1230,12 +1238,12 @@ export default class AttributeSetting extends Component {
 		let initialValues = {
 				mainbillid: params.orderId,
 			}
-		//退款等要操作的id
+			//退款等要操作的id
 		let initialValuesId = {
 				id: fiItem.id,
-				fiMoney:fiMoney
+				fiMoney: fiMoney
 			}
-		//高级查询
+			//高级查询
 		let searchValue = {
 			accountType: params.accountType,
 			orderId: params.orderId
@@ -1284,7 +1292,7 @@ export default class AttributeSetting extends Component {
        	   	   <Button label="转移"   type="button"  onTouchTap={this.openShiftBtn}/></ButtonGroup>);
 		}
 		if (parentBtn == 'INCOME' && childBtn == 'basic') {
-            buttonArr.push(<ButtonGroup><Button label="挂账" type="button" joinEditForm onTouchTap={this.openAccountBtn}/></ButtonGroup>);
+			buttonArr.push(<ButtonGroup><Button label="挂账" type="button" joinEditForm onTouchTap={this.openAccountBtn}/></ButtonGroup>);
 		}
 		if (parentBtn == 'INCOME' && childBtn == 'gongweishouru') {
 			buttonArr.push(<ButtonGroup><Button label="挂账"  type="button" joinEditForm onTouchTap={this.openAccountBtn}/>
