@@ -734,11 +734,7 @@ const APIS = {
       url: '/api/krspace-finance-web/member/card/bound-detail?id={id}',
       method: 'get'
    },
-  //运营平台-基础配置-设备定义-设备列表
-   // 'equipmentList': {
-   //   url:'/api/krspace-finance-web/community/sysDeviceDefinition/device-list',
-   //   method:'get'
-   // },
+
    //会员卡原领用人列表
   'memberRecvList': {
      url:'/api/krspace-finance-web/member/card/recv-list',
