@@ -143,7 +143,7 @@ import './index.less'
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-								{State.submitState?<div  className='ui-btn-center'><Button  label="确定" type="submit" /></div>:<div  className='ui-btn-center'><Button  label="确定1" type="button" /></div>}
+								{State.submitState?<div  className='ui-btn-center'><Button  label="确定" type="submit" /></div>:<div  className='ui-btn-center'><Button  label="确定" type="button" /></div>}
 								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 							</ButtonGroup>
 						</Col>
