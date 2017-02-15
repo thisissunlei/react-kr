@@ -64,7 +64,7 @@ export default class TreeComponent extends React.Component {
 				target = target.parentNode;
 			}
 			_this.setState({
-				treeShow:false,
+				showTreeList:false,
 			})
 		}
 
@@ -153,6 +153,24 @@ export default class TreeComponent extends React.Component {
 
 			}
 		}
+        var blockListStyle={};
+		if(State.uiList2.length==0){
+          blockListStyle={
+          	 width:'130px'
+          }
+		}else if(State.uiList2.length!=0&&State.uiList3.length==0){
+		   blockListStyle={
+          	 width:'255px'
+          }	 
+		}else if(State.uiList2.length!=0&&State.uiList3.length!=0&&State.uiList4.length==0){
+			blockListStyle={
+          	 width:'375px'
+          }	 
+		}else if(State.uiList2.length!=0&&State.uiList3.length!=0&&State.uiList4.length!=0){
+			blockListStyle={
+          	 width:'495px'
+          }	  
+		}
 		return (
          
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
@@ -162,7 +180,7 @@ export default class TreeComponent extends React.Component {
 					<span className="ui-treeArrow"></span>
 				</div>
 				
-					{showTreeList && <div className="ui-treeList">
+					{showTreeList && <div className="ui-treeList" style={blockListStyle}>
 						<div className="ui-list1">
 							{this.uiList1Ele()}
 						</div>
