@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-const buildPath = path.join(process.cwd(), '/webpack/dist');
+const buildPath = path.join(process.cwd(), '/dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -24,10 +24,11 @@ const config = {
 	*/
 	output: {
 		path: buildPath,
-		filename: '[name].[chunkhash].js',
+		filename: 'scripts/[name].[chunkhash].js',
 		publicPath:"./"
 	},
 	plugins: [
+
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: JSON.stringify('production'),
@@ -35,10 +36,9 @@ const config = {
 		}),
 		new webpack.DllReferencePlugin({
 						 context:__dirname,
-						 manifest: require('./dist/manifest.json'),
+						 manifest:require(path.resolve(buildPath,'manifest.json')),
 						 name:'lib'
 		}),
-
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
 				warnings: true,
@@ -47,7 +47,6 @@ const config = {
 				comments: false,
 			},
 		}),
-
 		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.optimize.AggressiveMergingPlugin({
@@ -63,7 +62,7 @@ const config = {
 				minChunkSize: 10000
 			}),
 			new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
-		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
+		new ExtractTextPlugin({ filename: 'styles/app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
 			title: '氪空间后台管理系统',
 			filename: 'index.html',
