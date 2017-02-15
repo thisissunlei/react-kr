@@ -229,16 +229,16 @@ export default (
 			</Route>
 
 
-		{/*权限管理*/}
-		<Route path="permission" component={Basic}>
-{/*
+		
+		{/*<Route path="permission" component={Basic}>
+
 	<Route path="index" component={Permission.Home}/>
 	<Route path="notify" component={Permission.Notify}/>
 	<Route path="memo" component={Permission.Memo}/>
 	<Route path="docs" component={Permission.Docs}/>
-	<Route path="order" component={Permission.Order}/>
-
-	*/}
+	<Route path="order" component={Permission.Order}/>*/}
+	
+	
 
 	<Route path="personalCenter" component={Permission.PersonalCenter}/>
 			<Redirect from="permission" to="permission/personalCenter" />
@@ -247,19 +247,26 @@ export default (
 	<Route path="AccountList" component={Permission.AccountList}/>
 			<Redirect from="permission" to="permission/AccountList"/>
 		</Route>
+		<Route path="AccountList" component={Permission.Operation}/>
+			<Redirect from="permission" to="permission/Operation"/>
+		</Route>
 
-		{/*文档管理*/}
-		<Route path="document" component={Basic}>
+
+	{ /*文档管理*/ }
+	<Route path="document" component={Basic}>
 			<Route path="index" component={Document.Home}/>
 		</Route>
 
-		{/*帮助*/}
-		<Route path="help" component={Help}/>
+	{ /*帮助*/ }
+	<Route path="help" component={Help}/>
 
-		{/*404*/}
-		<Route path="undefined" component={Undefined}/>
-		<Route path="*" component={Undefined}/>
+	{ /*404*/ }
+	<Route path="undefined" component={Undefined}/> < Route path = "*"
+	component = {
+		Undefined
+	}
+	/>
 
-	</Route>
+	< /Route>
 
 );
