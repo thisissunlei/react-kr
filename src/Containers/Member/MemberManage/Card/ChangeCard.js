@@ -55,7 +55,7 @@ class ImportCard extends Component{
 		console.log(values);
 	}
 	selectOldUser=(value)=>{
-		console.log('selectOldUser',value);
+		console.log('======>selectOldUser',value);
 		let _this = this;
 		Store.dispatch(change('ImportCardForm', 'originUser', value));
 

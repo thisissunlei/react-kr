@@ -25,7 +25,6 @@ export default class SelectComponent extends React.Component {
 	constructor(props) {
 		super(props)
 
-		this.onChange = this.onChange.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 
 		this.setInitValue = this.setInitValue.bind(this);
@@ -37,7 +36,8 @@ export default class SelectComponent extends React.Component {
 			options:[],
 			showCity:false,
 			optionsList:[],
-			name:''
+			name:'',
+			selected:false
 		}
 	}
 
@@ -94,15 +94,6 @@ export default class SelectComponent extends React.Component {
 		input.onChange(value);
 	}
 
-	onChange(item) {
-		let {
-			input,
-			onChange
-		} = this.props;
-		var value = (item && item.value) || '';
-		input.onChange(value);
-		onChange && onChange(item);
-	}
 	
 
 	onfocus=()=>{
@@ -117,7 +108,7 @@ export default class SelectComponent extends React.Component {
 		console.log('onfocus');
 	}
 	onChange=(e)=>{
-		console.log(e.target.value);
+		console.log('onChange',e.target.value);
 		let key = e.target.value;
 		let {options} = this.state;
 		let optionsList = [];
@@ -127,7 +118,8 @@ export default class SelectComponent extends React.Component {
 			}
 		})
 		this.setState({
-			optionsList
+			optionsList,
+			selected:false
 		})
 	}
 	selectList=(e)=>{
@@ -140,7 +132,8 @@ export default class SelectComponent extends React.Component {
 		this.setState({
 			showCity:false,
 			value:nameId,
-			name:e.target.innerHTML
+			name:e.target.innerHTML,
+			selected:true
 		});
 		let {onSubmit} = this.props;
 		onSubmit && onSubmit(nameId);
@@ -148,15 +141,25 @@ export default class SelectComponent extends React.Component {
 	onBlur=()=>{
 		let {value} = this.state;
 		let select = this.refs.input;
-		console.log('--->',value);
 		if(!value){
 			select.value = '';
 		}
 	}
 	bodyEvent=()=>{
 		let _this = this;
+		let select = this.refs.input;
+		let {onSubmit} = this.props;
 		$('body').click(function(event){
 			if(event.target.id.indexOf('ui-selectlist')){
+				if(!_this.state.selected){
+					select.value = null;
+					_this.setState({
+						value:''
+					},function(){
+						onSubmit && onSubmit(0);
+					})
+
+				}
 				_this.setState({
 					showCity:false
 				});
