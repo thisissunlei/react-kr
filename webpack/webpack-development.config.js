@@ -4,6 +4,7 @@ const buildPath = path.join(process.cwd(), '/dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 var env = process.env.NODE_ENV || 'development';
 
@@ -27,7 +28,7 @@ const config = {
 		},
 	},
 	devServer: {
-	  contentBase: "./static",
+	  contentBase: buildPath,
     devtool: 'eval',
     hot: true,
     inline: true,
@@ -40,15 +41,16 @@ const config = {
 	devtool: 'eval',
 	output: {
 		path: buildPath,
-		filename: '[name].js',
+		filename: 'scripts/[name].js',
 		publicPath:"/"
 	},
 	noParse:['/node_modules/'],
 	plugins:[
+		new CleanWebpackPlugin([path.resolve(buildPath)]),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.DllReferencePlugin({
              context:__dirname,
-           	 manifest: require('./dist/manifest.json'),
+          	 manifest:require(path.resolve(buildPath,'manifest.json')),
            	 name:'lib'
         }),
 	/*
@@ -74,7 +76,7 @@ const config = {
 			'process.env.NODE_ENV': JSON.stringify(env)
 		}),
 		new webpack.optimize.CommonsChunkPlugin({name:'common',filename:'common.js',chunks: ["app", "vendor"],minChunks: Infinity}),
-		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
+		new ExtractTextPlugin({ filename: 'styles/app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
 			title: '氪空间后台管理系统',
 			filename: 'index.html',
