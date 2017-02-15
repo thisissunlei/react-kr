@@ -177,7 +177,7 @@ import './index.less'
 					             	<KrField name="hasOffice" label="否" type="radio" value="NO" onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:53}}/>
 					            </KrField>
 
-								{State.matureTime && <KrField grid={1/2} label="到期时间" name="deadline" style={{width:262,marginLeft:15}} component="date" requireLabel={true}/>}
+								{State.matureTime && <KrField grid={1/2} label="到期时间" name="deadline" style={{width:262,marginLeft:15}} component="date"/>}
 
 								<KrField grid={1/2} label="公司网址" name="website" style={{width:262,marginLeft:15}} component="input"/>
 								<div className='speakInfo'><KrField grid={1} label="公司简介" name="companyIntroduce" style={{marginLeft:15}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} placeholder='请输入公司简介' lengthClass='cus-length-textarea'/></div>
@@ -302,13 +302,9 @@ const validate = values =>{
 		}else if(values.amount&&isNaN(values.amount)){
 			errors.amount = '请输入数字';
 		}
+        
 
-
-
-		if(values.hasOffice && !values.deadline){
-			errors.deadline='请填写到期时间';
-		}
-
+		
 		if(values.projectName&&values.projectName.length>20){
 			errors.projectName = '最多输入20个字符';
 		}
