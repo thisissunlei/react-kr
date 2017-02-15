@@ -44,14 +44,12 @@ class ImportCard extends Component{
 	 		startForeignCode:values.begin,
 	 		endForeignCode:values.end
 	 	};
+	 	const {onSubmit} = this.props;
 	 	Store.dispatch(Actions.callAPI('memberCardImport' , params)).then(function(response) {
-			console.log('response',response);
+		 	onSubmit && onSubmit(values);
 		}).catch(function(err) {
 		 	Message.error(err.message);
 		});
-		console.log(values);
-		 const {onSubmit} = this.props;
-		 onSubmit && onSubmit(values);
 	 }
 	 setBeginCard=(person)=>{
 	 	let {endCard} = this.state;
