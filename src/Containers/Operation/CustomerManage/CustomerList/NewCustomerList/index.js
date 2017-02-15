@@ -36,6 +36,9 @@ import './index.less'
 		State.treeAllData();
 	}
 	onSubmit = (values) => {
+		if(values.projectCategoryId&& typeof values.projectCategoryId!='number'){
+			 values.projectCategoryId='';
+		}
 		let _this=this;
 		let {operType}=this.props;
 		values.operType=this.props.operType;

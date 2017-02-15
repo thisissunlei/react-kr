@@ -80,8 +80,7 @@ export default class TreeComponent extends React.Component {
 				})
 				// return;
 			}
-			this.setState({
-				
+			this.setState({			
 				showTreeList:!this.state.showTreeList,
 			})
 			input.onChange(listId);
