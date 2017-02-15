@@ -20,7 +20,7 @@ import State from './State';
 import dateFormat from "dateformat";
 import './index.less'
 import merchants from "../Merchants/State";
-import personal from "../Personal/State";
+import personal from '../Personal/State';
 import signedClient from "../SignedClient/State";
 import flushData from "../LookCustomerList/State";
 
@@ -104,7 +104,9 @@ import flushData from "../LookCustomerList/State";
 		        }
          	}
          	flushData.lookListId(_this.props.listId,operType);
-		
+		    merchants.openDialog=false;
+		    personal.openPersonDialog=false;
+		    signedClient.openPersonDialog=false;
          	_this.onCancel();
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -238,12 +240,12 @@ import flushData from "../LookCustomerList/State";
 						</div>
 						
 						<div className="end-round"></div>
-				</div>
+				        </div>
 						<Grid style={{marginTop:30}}>
 							<Row>
 								<Col md={12} align="center">
 									<ButtonGroup>
-										<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div>
+										<div  className='ui-btn-center'><Button  label="确定" type="submit"/></div>
 										<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 									</ButtonGroup>
 								</Col>

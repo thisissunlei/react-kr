@@ -72,7 +72,6 @@ export default class TreeComponent extends React.Component {
 	}
 	uiList1Ele=()=>{
 		let {treeAll}=this.props;
-
 		let _this=this;
 		let arr=treeAll.map(function(item,index){
 			return (<ItemSingle value={item.codeName} data={item.children} listId={item.id} treeClose={_this.imitateInputClick} treeAll={treeAll}/>);

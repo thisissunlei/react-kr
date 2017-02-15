@@ -386,7 +386,7 @@ class Merchants extends Component{
 						                				}else{
 						                					show="inline-block";
 						                				}
-														 return (<div style={{display:"inline-block"}}><span className='tableOver' style={{maxWidth:120,marginTop:5,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}><KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></span>
+														 return (<div style={{display:"inline-block"}}><span className='tableOver' style={{maxWidth:104,marginTop:5,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}><KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></span>
 														 	<Tooltip offsetTop={10} place='top' style={{left:50,display:show}}>
 																<div><KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
 														 	</Tooltip></div>)
