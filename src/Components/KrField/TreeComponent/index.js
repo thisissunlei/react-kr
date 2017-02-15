@@ -154,22 +154,30 @@ export default class TreeComponent extends React.Component {
 			}
 		}
         var blockListStyle={};
+        var heightList1='0';
+        var $treeUi=document.getElementsByClassName('ui-treeList')[0];
+        var $Weight=document.getElementsByClassName('ui-list1')[0];
+        if($treeUi){
+            heightList1=$Weight.offsetWidth;
+        }
+
+       
 		if(State.uiList2.length==0){
-          blockListStyle={
-          	 width:'130px'
-          }
+		 if($treeUi){
+		    $treeUi.style.width=heightList1+'px';
+		  }
 		}else if(State.uiList2.length!=0&&State.uiList3.length==0){
-		   blockListStyle={
-          	 width:'255px'
-          }	 
+		  if($treeUi){
+		    $treeUi.style.width=heightList1*2+5+'px';
+		   }
 		}else if(State.uiList2.length!=0&&State.uiList3.length!=0&&State.uiList4.length==0){
-			blockListStyle={
-          	 width:'375px'
-          }	 
+		  if($treeUi){
+			$treeUi.style.width=heightList1*3+5+'px';
+		   }
 		}else if(State.uiList2.length!=0&&State.uiList3.length!=0&&State.uiList4.length!=0){
-			blockListStyle={
-          	 width:'495px'
-          }	  
+		  if($treeUi){
+			$treeUi.style.width=heightList1*4+5+'px';
+		   }
 		}
 		return (
          
@@ -180,7 +188,7 @@ export default class TreeComponent extends React.Component {
 					<span className="ui-treeArrow"></span>
 				</div>
 				
-					{showTreeList && <div className="ui-treeList" style={blockListStyle}>
+					{showTreeList && <div className="ui-treeList">
 						<div className="ui-list1">
 							{this.uiList1Ele()}
 						</div>
