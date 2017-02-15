@@ -734,6 +734,7 @@ const APIS = {
       url: '/api/krspace-finance-web/member/card/bound-detail?id={id}',
       method: 'get'
    },
+
    //会员卡原领用人列表
   'memberRecvList': {
      url:'/api/krspace-finance-web/member/card/recv-list',
