@@ -157,7 +157,6 @@ export default class SelectComponent extends React.Component {
 		let _this = this;
 		$('body').click(function(event){
 			if(event.target.id.indexOf('ui-selectlist')){
-				console.log('body',event.target);
 				_this.setState({
 					showCity:false
 				});
