@@ -1200,11 +1200,8 @@ export default class AttributeSetting extends Component {
 		window.open(url)
 	}
 
-	calcBalance = (input) => {
-
-
+	calcBalance = (input, name, nameList) => {
 		input.value = Math.round((input.value * 100))
-
 		this.receivedBtnFormChangeValues[input.name] = input.value;
 		let receivedBtnFormChangeValues = this.receivedBtnFormChangeValues;
 		let {
@@ -1212,12 +1209,26 @@ export default class AttributeSetting extends Component {
 		} = receivedBtnFormChangeValues;
 		let liveMoneyValue = totalPayment;
 
+
+		if (input.value === 0) {
+			var name1 = `${name}1`,
+				name2 = `${name}3`;
+			receivedBtnFormChangeValues[name1] = 0;
+			receivedBtnFormChangeValues[name2] = 0;
+			if (nameList && nameList.length > 0) {
+				nameList.map((item, index) => {
+					receivedBtnFormChangeValues[item] = 0;
+				})
+			}
+
+		}
+
 		if (totalPayment) {
 
 			for (var item in receivedBtnFormChangeValues) {
 				if (receivedBtnFormChangeValues.hasOwnProperty(item) && item != 'totalPayment') {
-
 					liveMoneyValue -= receivedBtnFormChangeValues[item];
+
 				}
 			}
 		}
