@@ -26,7 +26,6 @@ import {
 	OA,
 	Initialize,
 	Demo,
-	WSL,
 	Finance,
 	Member,
 	Community,

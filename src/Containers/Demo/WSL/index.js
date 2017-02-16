@@ -17,7 +17,6 @@ import {
 	Row,
 	Col,
 	Dialog,
-
 } from 'kr-ui';
 import './index.less';
 
