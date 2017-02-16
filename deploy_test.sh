@@ -19,4 +19,4 @@ fi
 
 echo $target_site
 
-rsync -cza --delete-before  -e "ssh -p ${target_site_port}"  ./webpack/dist/* ${target_site}:/data/work/frontend/kr-admin >/dev/null
+rsync -cza --delete-before  -e "ssh -p ${target_site_port}"  ./dist/* ${target_site}:/data/work/frontend/kr-admin >/dev/null
