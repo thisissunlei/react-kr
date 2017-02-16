@@ -158,28 +158,26 @@ export default class TreeComponent extends React.Component {
         var heightList1='0';
         var $treeUi=document.getElementsByClassName('ui-treeList')[0];
         var $Weight=document.getElementsByClassName('ui-list1')[0];
+        let {uiList2,uiList3,uiList4}=State;
         if($treeUi){
             heightList1=$Weight.offsetWidth;
         }
 
-       
-		if(State.uiList2.length==0){
+       	
+		if(uiList4.length!=0){
 		 if($treeUi){
-		    $treeUi.style.width=heightList1+'px';
+		    $treeUi.style.width=heightList1*4+5+'px';
 		  }
-		}else if(State.uiList2.length!=0&&State.uiList3.length==0){
+		}else if(uiList3.length!=0){
 		  if($treeUi){
-		    $treeUi.style.width=heightList1*2+5+'px';
+		    $treeUi.style.width=heightList1*3+5+'px';
 		   }
-		}else if(State.uiList2.length!=0&&State.uiList3.length!=0&&State.uiList4.length==0){
+		}else if(uiList2.length!=0){
 		  if($treeUi){
-			$treeUi.style.width=heightList1*3+5+'px';
-		   }
-		}else if(State.uiList2.length!=0&&State.uiList3.length!=0&&State.uiList4.length!=0){
-		  if($treeUi){
-			$treeUi.style.width=heightList1*4+5+'px';
+			$treeUi.style.width=heightList1*2+5+'px';
 		   }
 		}
+	
 		return (
          
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
