@@ -56,7 +56,9 @@ export default (
 		<Route path="initialize" component={Initialize}/>
 
 		{/*demo*/}
-		<Route path="demo" component={Demo} name="demo"/>
+		<Route path="demo" component={Basic}>
+			<Route path="liuyihao"  component={Demo.LiuYiHao}/>
+		</Route>
 
 		{/*会员中心*/}
 		<Route path="member" component={Basic}>
