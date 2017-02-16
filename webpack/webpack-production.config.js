@@ -64,7 +64,7 @@ const config = {
     		minChunkSize: 10000
   		}),
   		new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
-		new ExtractTextPlugin({ filename: 'styles/app.css', disable: false, allChunks: true }),
+		new ExtractTextPlugin({ filename: 'app.css', disable: false, allChunks: true }),
 		new HtmlWebpackPlugin({
 			publicPath: '/',
 			title: '氪空间后台管理系统',
