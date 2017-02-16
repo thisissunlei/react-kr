@@ -107,7 +107,7 @@ const config = {
 			},
 			{
 				test: /\.(png|jpg|gif)$/,
-				loader: 'file?name=font/[name].[ext]?[hash]'
+				loader: 'file?name=images/[name].[hash].[ext]'
 			},
 			{
 				test: /\.eot/,
