@@ -255,6 +255,7 @@ export default class AttributeSetting extends Component {
 						modal={true}
 						open={this.state.openNewCreate}
 						onClose={this.openNewCreateDialog}
+						contentStyle ={{ width: '688'}}
 					>
 						<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 
@@ -266,6 +267,7 @@ export default class AttributeSetting extends Component {
 						modal={true}
 						open={this.state.openEditDetail}
 						onClose={this.openEditDetailDialog}
+						contentStyle ={{ width: '688'}}
 					>
 						<EditDetailForm  detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog} />
 				  </Dialog>

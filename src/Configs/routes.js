@@ -57,7 +57,14 @@ export default (
 
 		{/*demo*/}
 		<Route path="demo" component={Basic}>
-			<Route path="liuyihao"  component={Demo.LiuYiHao}/>
+
+			<Route path="zhangqu" component={Demo.ZhangQu}/>
+			<Route path="machaoyue" component={Demo.MaChaoYue}/>
+			<Route path="dongfanai" component={Demo.DongFanAi}/>
+			<Route path="liuyihao" component={Demo.LiuYiHao}/>
+			<Route path="zhangchi" component={Demo.ZhangChi}/>
+			<Route path="tanlinlin" component={Demo.TanLinLin}/>
+			<Route path="wushulin" component={Demo.WuShuLin}/>
 		</Route>
 
 		{/*会员中心*/}

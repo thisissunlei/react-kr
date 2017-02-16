@@ -1,9 +1,10 @@
 const webpack = require('webpack');
 const path = require('path');
-const buildPath = path.join(process.cwd(), '/webpack/dist');
+const buildPath = path.join(process.cwd(), '/dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TransferWebpackPlugin = require('transfer-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const config = {
 	entry:{
@@ -19,12 +20,13 @@ const config = {
 	// 出口文件配置
 	output: {
 		path: buildPath,
-		filename: '[name].[chunkhash].js',
+		filename: 'scripts/[name].[chunkhash].js',
 	},
 	externals: {
 		React:true
 	},
 	plugins: [
+
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: JSON.stringify('production'),
@@ -32,7 +34,7 @@ const config = {
 		}),
 		new webpack.DllReferencePlugin({
              context:__dirname,
-           	 manifest: require('./dist/manifest.json'),
+						 manifest:require(path.resolve(buildPath,'manifest.json')),
            	 name:'lib'
     }),
 
@@ -105,23 +107,23 @@ const config = {
 			},
 			{
 				test: /\.(png|jpg|gif)$/,
-				loader: 'file?name=[name].[ext]?[hash]'
+				loader: 'file?name=images/[name].[hash].[ext]'
 			},
 			{
 				test: /\.eot/,
-				loader : 'file?prefix=font/'
+				loader : 'file?prefix=font/&name=font/[name].[hash].[ext]'
 			},
 			{
 				test: /\.woff/,
-				loader : 'file?prefix=font/&limit=10000&mimetype=application/font-woff'
+				loader : 'file?prefix=font/&limit=10000&mimetype=application/font-woff&name=font/[name].[hash].[ext]'
 			},
 			{
 				test: /\.ttf/,
-				loader : 'file?prefix=font/'
+				loader : 'file?prefix=font/&name=font/[name].[hash].[ext]'
 			},
 			{
 				test: /\.svg/,
-				loader : 'file?prefix=font/'
+				loader : 'file?prefix=font/&name=font/[name].[hash].[ext]'
 			}
 		],
 	},

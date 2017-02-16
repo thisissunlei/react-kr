@@ -46,27 +46,34 @@ import {
 	 }
 
 	render(){
-
+        
+        let style={
+       	 marginTop:3
+       }
+       let heightStyle={
+       	 width:'546',
+       	 height:'72',
+       	 marginTop:'-2'
+       }
 		const { error, handleSubmit, pristine, reset,detail} = this.props;
 
 		return (
-			<form onSubmit={handleSubmit(this.onSubmit)}>
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:35,marginLeft:35}}>
 				<KrField name="id" type="hidden" label="id"/>
-				<KrField grid={1/2} name="propcode" type="text" label="属性编码" requireLabel={true}/>
-				<KrField grid={1/2} name="propname" type="text" label="属性名称" requireLabel={true} />
-				<KrField grid={1/2} name="proptype" type="select" label="属性类别" options={[
+				<KrField grid={1/2} name="propcode" type="text" right={41} style={{marginRight:-10}} label="属性编码" requireLabel={true}/>
+				<KrField grid={1/2} name="propname" type="text" right={41} label="属性名称" requireLabel={true} />
+				<KrField grid={1/2} name="proptype" type="select" right={41} style={{marginRight:-10,marginTop:4}} label="属性类别" options={[
 						{value:'PAYMENT',label:'回款'},
 					   {value:'INCOME',label:'收入'},
 				]} requireLabel={true} >
 				</KrField>
-				<KrField grid={1/2} name="ordernum" type="text" label="排序号"  requireLabel={true}/>
+				<KrField grid={1/2} name="ordernum" type="text" label="排序号" right={41} style={{marginTop:3}} requireLabel={true}/>
 				<KrField grid={1/2} component="group" label="是否启用" requireLabel={true}>
 						<KrField name="enableflag" grid={1/2} label="是" component="radio" type="radio" value="ENABLE"/>
 						<KrField name="enableflag" grid={1/2} label="否" component="radio" type="radio"  value="DISENABLE"/>
               </KrField>
-				<KrField name="propdesc" component="textarea" label="描述"  />
-
-				<Grid style={{marginTop:30}}>
+               <KrField label="描述" style={style} name="propdesc" component="textarea" heightStyle={heightStyle} placeholder='请输入备注,文字不能超过100字' maxSize={100} lengthClass='subject-length-textarea'/>
+				<Grid style={{marginTop:-2,marginBottom:5,marginLeft:-30}}>
 					<Row>
 						<Col md={12} align="center">
 							<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div>
