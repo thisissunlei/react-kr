@@ -166,8 +166,7 @@ import './index.less'
 								/>
 								{State.isCorpName && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该公司名称已存在</div>}
 								</div>
-								<KrField grid={1/2} label="公司规模" name="teamNum" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
-
+                                <div className="krFlied-box"><KrField grid={1/2} label="公司规模" name="teamNum" style={{width:239,marginLeft:16}} component="input" requireLabel={true}></KrField><span className="unit">人</span></div>
 								<KrField grid={1/2} label="融资金额" name="amount" style={{width:262,marginLeft:28}} component="input" requireLabel={false}/>
 								<KrField grid={1/2} label="所属地区" name="distinctId"  style={{width:262,marginLeft:15,zIndex:2}} component="city" onSubmit={this.cityValue} requireLabel={true} />
 								<KrField grid={1/2} label="项目名称" name="projectName" style={{width:262,marginLeft:28}} component="input"/>
