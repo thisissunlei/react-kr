@@ -217,7 +217,7 @@ export default class InfoList extends Component {
 		                marginBottom: 10
 		            }}>
 					<span className="icon-info ui-m-info-logo"></span>
-					<span className="ui-m-info-title">消息提醒 :</span>
+					<span className="ui-m-info-title">消息提醒</span>
 					</div>
 					<form>
 						<ListGroup>
