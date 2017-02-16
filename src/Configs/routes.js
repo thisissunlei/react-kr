@@ -230,27 +230,27 @@ export default (
 
 
 		
-		{/*<Route path="permission" component={Basic}>
+	<Route path="permission" component={Basic}>
 
-	<Route path="index" component={Permission.Home}/>
-	<Route path="notify" component={Permission.Notify}/>
-	<Route path="memo" component={Permission.Memo}/>
-	<Route path="docs" component={Permission.Docs}/>
-	<Route path="order" component={Permission.Order}/>*/}
-	
-	
-
-	<Route path="personalCenter" component={Permission.PersonalCenter}/>
-			<Redirect from="permission" to="permission/personalCenter" />
-	<Route path="login" component={Permission.Login}/>
-			<Redirect from="permission" to="permission/login" />
-	<Route path="AccountList" component={Permission.AccountList}/>
-			<Redirect from="permission" to="permission/AccountList"/>
+		{/*<Route path="index" component={Permission.Home}/>
+		<Route path="notify" component={Permission.Notify}/>
+		<Route path="memo" component={Permission.Memo}/>
+		<Route path="docs" component={Permission.Docs}/>
+		<Route path="order" component={Permission.Order}/>*/}
+			
+		
+		<Route path="operation" component={Permission.Operations}/>
+		<Route path="personalCenter" component={Permission.PersonalCenter}/>
+				<Redirect from="permission" to="permission/personalCenter" />
+		<Route path="login" component={Permission.Login}/>
+				<Redirect from="permission" to="permission/login" />
+		<Route path="AccountList" component={Permission.AccountList}>
+				<Redirect from="permission" to="permission/AccountList"/>
 		</Route>
-		<Route path="AccountList" component={Permission.Operation}/>
-			<Redirect from="permission" to="permission/Operation"/>
+		<Route path="operations" component={Permission.Operations}>
+			<Redirect from="permission" to="permission/operations"/>
 		</Route>
-
+	</Route>
 
 	{ /*文档管理*/ }
 	<Route path="document" component={Basic}>

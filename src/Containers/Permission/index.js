@@ -38,8 +38,8 @@ import {
 	default as AccountList
 } from './AccountList';
 import {
-	default as Operation
-} from './Operation';
+	default as Operations
+} from './Operations';
 
 module.exports = {
 	Home,
@@ -55,5 +55,5 @@ module.exports = {
 	Order,
 	PersonalCenter,
 	AccountList,
-	Operation
+	Operations
 }
