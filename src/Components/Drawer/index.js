@@ -13,6 +13,7 @@ export default class DrawerSimpleExample extends React.Component {
 
   render() {
     let {children,open} = this.props;
+    let content="";
     if(!open){
      return null;
     }
