@@ -147,7 +147,7 @@ render() {
 
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
-					<select {...input}  disabled={disabled}>
+					<select {...input}  disabled={disabled}>@@
 									{children}
 					</select>
 					{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
