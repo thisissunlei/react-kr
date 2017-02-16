@@ -98,6 +98,8 @@ const config = {
 			*/
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
+		new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
+		new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000})
 	],
 	watch: true,
   keepalive: true,
