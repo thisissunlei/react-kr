@@ -1,7 +1,7 @@
 #!/bin/bash
 
 npm run dll
-npm run build 
+npm run test 
 
 target_site=www@10.1.60.201
 target_site_port=9830
