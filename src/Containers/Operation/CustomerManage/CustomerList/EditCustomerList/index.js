@@ -20,7 +20,7 @@ import State from './State';
 import dateFormat from "dateformat";
 import './index.less'
 import merchants from "../Merchants/State";
-import personal from "../Personal/State";
+import personal from '../Personal/State';
 import signedClient from "../SignedClient/State";
 import flushData from "../LookCustomerList/State";
 
@@ -104,7 +104,9 @@ import flushData from "../LookCustomerList/State";
 		        }
          	}
          	flushData.lookListId(_this.props.listId,operType);
-		
+		    merchants.openDialog=false;
+		    personal.openPersonDialog=false;
+		    signedClient.openPersonDialog=false;
          	_this.onCancel();
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -197,12 +199,10 @@ import flushData from "../LookCustomerList/State";
 									<div className="krFlied-box"><KrField grid={1/2} label="意向工位价格" name="staionPrice" style={{width:202,marginLeft:28}} component="input"  requireLabel={true}>
 									</KrField><span className="unit">元/个/月</span></div>
 									<KrField grid={1/2} label="联系人邮箱"  name="mail" style={{width:262,marginLeft:15}} component="input" requireLabel={false}/>
-									<KrField grid={1/2} label="意向入驻社区" name="intentionCommunityId" component="select" style={{width:262,marginLeft:28}} 
-											options={dataReady.communityBaselist}
-											requireLabel={true}
-									/>
+									
+									<KrField  grid={1/2}  name="intentionCommunityId" style={{width:262,marginLeft:28}} component='searchIntend'  label="意向入驻社区" inline={false} onChange={this.onChangeIntend} placeholder='请输入社区名称' requireLabel={true}/>
 									<KrField grid={1/2} label="联系人微信" name="wechat" style={{width:262,marginLeft:15}} component="input" requireLabel={false}/>
-									<KrField grid={1/2} label="预计入驻时间" name="inTime" style={{width:260,marginLeft:28}} component="date"    requireLabel={true}/>
+									<KrField grid={1/2} label="预计入驻时间" name="inTime" style={{width:260,marginLeft:28}} component="date"/>
 									<div className="middle-round"></div>
 						</div>
 
@@ -210,7 +210,7 @@ import flushData from "../LookCustomerList/State";
 						<div className="small-cheek" style={{paddingBottom:0}}>
 								<div>
 								<KrField grid={1/2} label="公司名称" name="company" component="input" style={{width:262,marginLeft:15}} requireLabel={true} onChange={this.corpNameChange}/>
-								<KrField grid={1/2} label="投资轮次" name="roundId" component="select" style={{width:262,marginLeft:28}} 
+								<KrField grid={1/2} label="融资轮次" name="roundId" component="select" style={{width:262,marginLeft:28}} 
 										options={dataReady.roundList}
 										requireLabel={false}
 								/>
@@ -222,30 +222,30 @@ import flushData from "../LookCustomerList/State";
 
 								<KrField grid={1/2} label="融资金额" name="amount" style={{width:262,marginLeft:28}} component="input" requireLabel={false}/>
 								<KrField grid={1/2} label="所属地区" name="distinctId"  style={{width:262,marginLeft:15,zIndex:2}} component="city" onSubmit={this.cityValue} requireLabel={true} cityName={cityName}/>
-								<KrField grid={1/2} label="项目名称" name="projectName" style={{width:262,marginLeft:28}} component="input" requireLabel={true} />
-								<KrField grid={1/2} label="项目类型" name="projectCategoryId"  style={{width:262,marginLeft:15,zIndex:1}} component="tree" placeholder="请选择项目类型" requireLabel={true} listValueName={listValue} treeAll={State.treeAll}/>
-								<KrField grid={1/2} label="详细地址" name="detailAddress" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
+								<KrField grid={1/2} label="项目名称" name="projectName" style={{width:262,marginLeft:28}} component="input"/>
+								<KrField grid={1/2} label="项目类型" name="projectCategoryId"  style={{width:262,marginLeft:15,zIndex:1}} component="tree" placeholder="请选择项目类型"  listValueName={listValue} treeAll={State.treeAll}/>
+								<KrField grid={1/2} label="详细地址" name="detailAddress" style={{width:262,marginLeft:28}} component="input"/>
 
 
-								<KrField grid={1/2} label="是否已有办公室" name="hasOffice" style={{width:262,marginLeft:15,marginRight:13}} component="group" requireLabel={true}>
+								<KrField grid={1/2} label="是否已有办公室" name="hasOffice" style={{width:262,marginLeft:15,marginRight:13}} component="group">
 					              	<KrField name="hasOffice" label="是" type="radio" value="YES" onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
 					             	<KrField name="hasOffice" label="否" type="radio" value="NO" onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:53}}/>
 					            </KrField>
 
-								{hasOffice && <KrField grid={1/2} label="到期时间" name="deadline" style={{width:262,marginLeft:15}} component="date" requireLabel={true}/>}
+								{hasOffice && <KrField grid={1/2} label="到期时间" name="deadline" style={{width:262,marginLeft:15}} component="date"/>}
 								
 								<KrField grid={1/2} label="公司网址" name="website" style={{width:262,marginLeft:15}} component="input"/>
-								<div className='speakInfo'><KrField grid={1} label="公司简介" name="companyIntroduce" style={{marginLeft:15}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={true} placeholder='请输入公司简介' lengthClass='cus-length-textarea'/></div>
+								<div className='speakInfo'><KrField grid={1} label="公司简介" name="companyIntroduce" style={{marginLeft:15}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} placeholder='请输入公司简介' lengthClass='cus-length-textarea'/></div>
 								<div className='remaskInfo'><KrField grid={1} label="备注" name="remark" style={{marginLeft:15,marginTop:-15}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={false} placeholder='请输入备注' lengthClass='cus-textarea'/></div>
 						</div>
 						
 						<div className="end-round"></div>
-				</div>
+				        </div>
 						<Grid style={{marginTop:30}}>
 							<Row>
 								<Col md={12} align="center">
 									<ButtonGroup>
-										<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div>
+										<div  className='ui-btn-center'><Button  label="确定" type="submit"/></div>
 										<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 									</ButtonGroup>
 								</Col>
@@ -317,9 +317,7 @@ const validate = values =>{
 			errors.customerWechat="最多输入50个字符";
 		}
 
-		if (!values.inTime) {
-			errors.inTime = '请填写预计入驻时间';
-		}
+		
 
 		if (!values.company) {
 			errors.company = '请填写公司名称';
@@ -346,13 +344,8 @@ const validate = values =>{
 			errors.intentionCommunityId = '请填写意向入驻社区';
 		}
 
-		if(values.hasOffice && !values.deadline){
-			errors.deadline='请填写到期时间';
-		}
 
-		if (!values.projectName) {
-			errors.projectName = '请填写项目名称';
-		}else if(values.projectName.length>20){
+		if(values.projectName&&values.projectName.length>20){
 			errors.projectName = '最多输入20个字符';
 		}
 
@@ -360,13 +353,9 @@ const validate = values =>{
 			errors.districtId = '请填写所属地区';
 		}
 
-		if (!values.projectCategoryId) {
-			errors.projectCategoryId = '请填写项目类型';
-		}
+		
 
-		if (!values.detailAddress) {
-			errors.detailAddress = '请填写详细地址';
-		}else if(values.detailAddress.length>60){
+		if(values.detailAddress&&values.detailAddress.length>60){
 			errors.detailAddress = '最多输入60个字符';
 		}
 
@@ -374,9 +363,7 @@ const validate = values =>{
 			errors.website = '最多输入50个字符';
 
 		}
-		if (!values.companyIntroduce) {
-			errors.companyIntroduce = '请填写公司简介';
-		}
+		
 		return errors
 	}
 export default reduxForm({ form: 'EditCustomerList',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(EditCustomerList);

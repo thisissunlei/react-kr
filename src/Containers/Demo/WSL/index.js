@@ -19,13 +19,12 @@ import {
 	Dialog,
 
 } from 'kr-ui';
+import './index.less';
 
 export default class Initialize  extends Component{
 
 	constructor(props,context){
 		super(props, context);
-
-		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 	}
 
 
@@ -35,9 +34,7 @@ export default class Initialize  extends Component{
 		return(
 
 			<div>
-					<Section title="订单账单列表" description="" >
-						ERWER
-					</Section>
+               123
 			</div>
 		);
 	}

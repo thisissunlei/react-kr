@@ -320,12 +320,14 @@ export default class Table extends React.Component {
 				totalCount: response.totalCount,
 				isLoaded: true,
 				loading:false,
+				allRowsSelected:false
 			});
 		}).catch(function(err) {
 
 			_this.onInitial({
 				isLoaded: true,
 				loading:false,
+				allRowsSelected:false
 			});
 
 			Notify.show([{

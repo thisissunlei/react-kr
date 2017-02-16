@@ -226,7 +226,9 @@ export default class CityComponent extends React.Component {
 			background:'#f5f5f5'
 		}
 		let hoverColor = {};
+		let color="#666";
 		if(city=="请选择"){
+			color="#ccc"
 			if(!cityName){
 			}else if(cityName.length!=0){
 				city=cityName;
@@ -236,7 +238,7 @@ export default class CityComponent extends React.Component {
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 					<div className="city-component" ref={div=>{this.cityContainer = div}} onClick={this.showCity}>
-						<input readOnly="true" value={city} ref={input=>{this.input = input}}/>
+						<input readOnly="true" value={city} style={{color:color}} ref={input=>{this.input = input}}/>
 						<span className="arrow"></span>
 						<div className="city-cantainer" style={cityDiv}>
 							<ul ref={ul=>{this.cityList = ul}}>

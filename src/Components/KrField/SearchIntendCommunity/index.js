@@ -55,7 +55,7 @@ export default class  SearchIntendCommunity extends React.Component {
 	render(){
 
 		let { input, label, type, meta: { touched, error },placeholder,children,disabled,style,requireLabel,...other} = this.props;
-		
+
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync
