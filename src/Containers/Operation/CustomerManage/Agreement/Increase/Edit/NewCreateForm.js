@@ -653,9 +653,9 @@ class NewCreateForm extends Component {
 							<Row>
 								<Col align="right">
 									<ButtonGroup>
-									    <Button label="批量录入单价"  onTouchTap={this.openStationUnitPriceDialog} />
-										<Button label="删除"  onTouchTap={this.onStationDelete} />
 										<Button label="选择工位"  onTouchTap={this.openStationDialog} />
+									    <Button label="批量录入单价" width={100} onTouchTap={this.openStationUnitPriceDialog} />
+										<Button label="删除" cancle={true} type="button" onTouchTap={this.onStationDelete} />
 								  </ButtonGroup>
 								</Col>
 							</Row>
@@ -747,7 +747,7 @@ class NewCreateForm extends Component {
 
 					
 				 </CircleStyle>
-				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} requireLabel={true}/>
+				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList}/>
 					<Grid style={{padding:"10px 0 50px"}}>
 						<Row >
 						<ListGroup>
@@ -850,10 +850,6 @@ const validate = values => {
 
 	if (values.totaldeposit && isNaN(values.totaldeposit)) {
 		errors.totaldeposit = '押金总额必须为数字';
-	}
-
-	if (!values.fileIdList) {
-		errors.fileIdList = '请填写合同附件';
 	}
 
 	if (!values.wherefloor) {

@@ -42,6 +42,20 @@ export function bottom_nav (state={},action){
 	}
 }
 
+export function right_bar (state={},action){
+
+	switch(action.type){
+
+		case 'SWITCH_RIGHT_BAR':{
+			return Object.assign({},state,{switch_value:action.data});
+		}
+
+		default:{
+			return state;
+		}
+	}
+}
+
 
 
 

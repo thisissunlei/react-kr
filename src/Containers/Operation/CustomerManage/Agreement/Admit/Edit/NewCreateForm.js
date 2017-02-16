@@ -715,7 +715,7 @@ class NewCreateForm extends Component {
 				<KrField style={{width:830,marginLeft:70}}  name="contractmark" component="textarea" label="备注"
 				 maxSize={200} />
 				 </CircleStyle>
-				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}   name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList} requireLabel={true}/>
+				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}   name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList}/>
 
                
                
@@ -793,10 +793,6 @@ const validate = values => {
 
 	if (!values.leaseContact) {
 		errors.leaseContact = '请填写承租方联系人';
-	}
-
-	if (!values.fileIdList) {
-		errors.fileIdList = '请填写合同附件';
 	}
 
 	if (!values.paymodel) {

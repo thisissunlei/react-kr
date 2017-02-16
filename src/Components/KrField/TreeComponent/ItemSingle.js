@@ -96,7 +96,7 @@ export default class ItemSingle extends React.Component {
             // $(".ui-list2").show(); 
             State.isUiList4=true;
         },function(){  
-        	State.uiList4=[];
+        	//State.uiList4=[];
             // $(".ui-list2").hide();  
             // State.uiList4=[]; State.uiList2=[];
 

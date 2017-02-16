@@ -94,13 +94,13 @@ class SearchUpperForm extends Component {
 			
 		      var selectData='';
               if(flag=='签约'){
-			     selectData=(<div> <KrField grid={1/2} right={34}  name="company" type="text" label="公司名称"/> 
+			     selectData=(<div><KrField grid={1/2} right={34}  name="company" type="text" label="公司名称"/> 
 				<KrField right={34} grid={1/2}  style={{marginLeft:-5}} name="cityId" type="select" label="签约城市" 
 				 options={belongCity}
 				/>
 				<KrField  grid={1/2} right={34} name="communityId"  style={{marginTop:4}} component='searchSign' label="签约社区" inline={false} onChange={this.onChangeSign} placeholder='请输入社区名称'/>
 				<KrField grid={1/1}  component="group" label="签约时间" style={{marginTop:3}}>
-				<div className='ui-listDate' onClick={this.clickDiv}>
+				<div className='ui-listDate'>
 					<ListGroup>
 						<ListGroupItem><div className='ui-date-start' style={{width:260}} ><KrField  style={{width:260,marginLeft:-10,marginTop:2}} name="signStartDate" component="date" /></div></ListGroupItem>
 							<div className='ui-line-down'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
@@ -121,7 +121,7 @@ class SearchUpperForm extends Component {
 				  options={sourceList}
 				></KrField>
 				<KrField grid={1/1}  component="group" label="创建时间" style={{marginTop:3}}>
-				<div className='ui-listDate' onClick={this.clickDiv}>
+				<div className='ui-listDate'>
 					<ListGroup>
 						<ListGroupItem><div className='ui-date-start' style={{width:260}} ><KrField  style={{width:260,marginLeft:-10,marginTop:2}} name="createStartDate" component="date" /></div></ListGroupItem>
 							<div className='ui-line-down'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>

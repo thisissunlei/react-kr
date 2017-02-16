@@ -169,13 +169,9 @@ class NewCreateForm extends Component {
 	onStationSubmit(stationVos) {
 		let _this = this;
 		let allRent = 0;
-		stationVos.map(item=>{
-			allRent += _this.getSingleRent(item);
-		})
-		allRent = parseFloat(allRent).toFixed(2)*1;
+		this.setAllRent(stationVos);
 		this.setState({
-			stationVos,
-			allRent
+			stationVos
 		});
 
 		this.openStationDialog();
@@ -247,10 +243,7 @@ class NewCreateForm extends Component {
 		});
 		let _this = this;
 		let allRent = 0;
-		stationVos.map(item=>{
-			allRent += _this.getSingleRent(item);
-		})
-		allRent = parseFloat(allRent).toFixed(2)*1;
+		this.setAllRent(stationVos);
 
 
 		this.setState({
@@ -490,7 +483,7 @@ class NewCreateForm extends Component {
 
 				<KrField style={{width:830,marginLeft:70}} name="contractmark" component="textarea" label="备注" maxSize={200}/>
 				</CircleStyle>
-				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={optionValues.contractFileList}/>
+				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList}/>
 				<Grid style={{padding:'10px 0 50px'}}>
 						<Row >
 						<ListGroup>
@@ -555,9 +548,9 @@ const validate = values => {
 		errors.leaseContact = '请填写承租方联系人';
 	}
 
-	if (!values.fileIdList) {
-		errors.fileIdList = '请填写合同附件';
-	}
+	// if (!values.fileIdList) {
+	// 	errors.fileIdList = '请填写合同附件';
+	// }
 
 	if (!values.paymodel) {
 		errors.paymodel = '请填写付款方式';

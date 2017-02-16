@@ -160,7 +160,7 @@ export default class TableFooter extends React.Component {
 				{/*
                   {this.renderCheckbox()}
 				*/}
-				<TableRowColumn style={{textAlign:'left'}} colSpan={num}>
+				<TableRowColumn style={{textAlign:'left',position:'absolute'}} colSpan={num}>
 					{this.renderExport()}
 					{renderOther && renderOther()}
 				</TableRowColumn>

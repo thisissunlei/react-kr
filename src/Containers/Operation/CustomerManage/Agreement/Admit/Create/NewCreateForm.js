@@ -693,7 +693,7 @@ class NewCreateForm extends Component {
 							<KrField style={{width:370,marginLeft:70}}  name="stationnum"  component="labelText" label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>
 							 <KrField style={{width:370,marginLeft:90}}  name="boardroomnum"  component="labelText" label="租赁会议室" value={changeValues.boardroomnum} defaultValue="0" requireLabel={true} inline={false}/>
 							 </CircleStyle>
-							<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
+							<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={[]} onChange={(files)=>{
 								Store.dispatch(change('admitCreateForm','contractFileList',files));
 							}} />
 							 
@@ -771,10 +771,6 @@ const validate = values => {
 
 	if (!values.leaseContact) {
 		errors.leaseContact = '请填写承租方联系人';
-	}
-
-	if (!values.fileIdList) {
-		errors.fileIdList = '请填写合同附件';
 	}
 
 	if (!values.paymodel) {

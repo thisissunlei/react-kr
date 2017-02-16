@@ -183,6 +183,20 @@ export default class InfoList extends Component {
     		</div>
     	)
     }
+    clearTime=()=>{
+        Store.dispatch(change('time','end',''));
+        Store.dispatch(change('time','start',''));
+        Store.dispatch(Actions.switchRightBar(false));
+        
+        let {url} = this.state;
+        let params = {
+            startTime:'',
+            endTime:'',
+            page:1,
+            pageSize:15
+        }
+        this.getDataList(url, params);
+    }
 
     render() {
         let {currentPage, pageSize,totalCount,pagination,infoList} = this.state;
@@ -192,14 +206,13 @@ export default class InfoList extends Component {
         //     return null;
         // }
         return (
-            <div className="ui-info-list-myself" style={{position:'relative'}}>
+            <div className="ui-info-list-myself" style={{position:'relative',borderTop:'1px solid rgb(216, 212, 212)'}}>
 				<div style={{
 	                padding: '30px',
-	                minHeight: height,
 	                paddingBottom:'20px',
 	                marginBottom:'100px'
 	            }}>
-					<span className="close-info icon-close" onClick={this.onClose}></span>
+					<span className="close-info icon-close" onClick={this.clearTime}></span>
 					<div style={{
 		                marginBottom: 10
 		            }}>

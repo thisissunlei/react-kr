@@ -66,7 +66,9 @@ import './index.less'
 						time:+new Date()
 			        }
 	         	}
-			
+	        merchants.openDialog=false;
+		    personal.openPersonDialog=false;
+		    signedClient.openPersonDialog=false;			
 		    _this.onCancel();
 		    
 		  }).catch(function(err) {

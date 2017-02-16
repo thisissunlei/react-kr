@@ -14,7 +14,7 @@ export default class DrawerSimpleExample extends React.Component {
   render() {
     let {children,open} = this.props;
     if(!open){
-      return null;
+     return null;
     }
     return (
         <Drawer {...this.props}>

@@ -51,11 +51,15 @@ import './index.less'
 		if(!values.mainbilldesc){
 			values.mainbilldesc="";
 		}
+		State.ChangeSubmitState();
 		values.customerid=listId;
 		values.mainbillname=State.orderName;
 		Store.dispatch(Actions.callAPI('enter-order',{},values)).then(function(response) {
 			flushData.orderList(_this.props.listId);
          	_this.onCancel();
+         	setTimeout(function(){
+         		State.ChangeCanSubmitState();
+         	},1000)
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -139,7 +143,7 @@ import './index.less'
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div>
+								{State.submitState?<div  className='ui-btn-center'><Button  label="确定" type="submit" /></div>:<div  className='ui-btn-center'><Button  label="确定" type="button" /></div>}
 								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 							</ButtonGroup>
 						</Col>

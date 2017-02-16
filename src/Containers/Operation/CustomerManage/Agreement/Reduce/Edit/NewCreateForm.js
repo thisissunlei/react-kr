@@ -163,7 +163,7 @@ class NewCreateForm extends Component {
 			}
 			return item;
 		})
-		Store.dispatch(Actions.callAPI('getAllRent',{stationList:JSON.stringify(list)})).then(function(response) {
+		Store.dispatch(Actions.callAPI('reduceGetAllRent',{stationList:JSON.stringify(list),billId:_this.props.params.orderId})).then(function(response) {
 			_this.setState({
 				allRent:response
 			})
@@ -314,15 +314,16 @@ class NewCreateForm extends Component {
 		form = Object.assign({}, form);
 
 		let {
-			changeValues
+			changeValues,
+			initialValues
 		} = this.props;
 		let {
 			stationVos,
 			delStationVos,
 			allRent,
-			originStationVos
-		} = this.state;
+			originStationVos,
 
+		} = this.state;
 
 		delStationVos = originStationVos.filter(function(origin){
 				var isOk = true;
@@ -334,24 +335,19 @@ class NewCreateForm extends Component {
 				return isOk;
 		});
 
-		form.delStationVos = JSON.stringify(delStationVos);
-
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorAddress = changeValues.lessorAddress;
 
 		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
-		form.delStationVos = delStationVos;
 		form.lessorAddress = changeValues.lessorAddress;
 		form.rentamount = (this.state.allRent!='-1')?this.state.allRent:initialValues.rentamount;
-		// form.lessorContactid = 111;
 		var _this = this;
 
 		form.stationVos = stationVos;
 
 		form.stationVos = JSON.stringify(form.stationVos);
-		form.delStationVos = JSON.stringify(form.delStationVos);
-		console.log('form111', form);
+		form.delStationVos = JSON.stringify(delStationVos);
 		const {
 			onSubmit
 		} = this.props;
@@ -502,7 +498,7 @@ class NewCreateForm extends Component {
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'减租金额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 				<KrField style={{width:830,marginLeft:70}}  name="contractmark" component="textarea" label="备注" maxSize={200}/>
 				</CircleStyle>
-				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList} requireLabel={true}/>
+				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList}/>
 
 
 
@@ -540,6 +536,7 @@ const validate = values => {
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
 	}
+	console.log('fffffffff');
 
 	if (!values.lessorContactid) {
 		errors.lessorContactid = '请填写出租方联系人';
@@ -571,12 +568,6 @@ const validate = values => {
 	if (!values.leaseContact) {
 		errors.leaseContact = '请填写承租方联系人';
 	}
-
-	if (!values.fileIdList) {
-		errors.fileIdList = '请填写合同附件';
-	}
-
-
 
 	if (!values.signdate) {
 		errors.signdate = '请填写签署时间';
