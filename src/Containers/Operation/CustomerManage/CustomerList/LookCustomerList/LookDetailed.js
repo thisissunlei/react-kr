@@ -180,7 +180,7 @@ class LookDetail extends Component{
 				<li className="everyText" style={{width:660,paddingLeft:0}}><span className="blueDrop" style={{height:5}}></span><span style={{display:"inline-block",paddingLeft:5}}>备注:</span>
 					<p style={{padding:"0 10px 0 15px"}}>{detail.remark}</p>
 				</li>
-				{detail.showEdit && <div style={{textAlign: "center",marginTop:15}}><Button  label="编辑" type="submit" style={{margin:"auto"}} onTouchTap={editsSwitch} /></div>}
+				{detail.showEdit && <div style={{textAlign: "center",marginTop:15}}><Button className='d-editBtn' label="编辑" type="submit" style={{margin:"auto",minWidth:'80px',height:'30px'}} onTouchTap={editsSwitch} /></div>}
 				<span className="visitRecordTitle">拜访记录</span>
 				<div className="visitRecord">
 						
