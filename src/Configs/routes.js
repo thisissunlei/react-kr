@@ -59,6 +59,7 @@ export default (
 		{/*demo*/}
 		<Route path="demo" component={Basic}>
 			<Route path="zhangqu" component={Demo.ZhangQu}/>
+			<Route path="wusuling" component={Demo.WSL}/>
 		</Route>
 
 		{/*会员中心*/}

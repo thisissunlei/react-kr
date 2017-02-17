@@ -265,7 +265,7 @@ const validate = values =>{
 		// }
 
 		if(!staionPriceReg.test(values.staionPrice)){
-			errors.staionPrice = '小数点前最多8位，小数点后最多2位';
+			errors.staionPrice = '小数点前8位，小数点后2位';
 		}
 
 		if(values.mail&&!email.test(values.mail)){

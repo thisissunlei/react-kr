@@ -82,14 +82,15 @@ class CustomerIndent extends Component{
 					<div className="orderNumber">{index+1}</div>
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="订单名称:" style={unifyStyle} component="labelText" value={item.mainbillname} inline={true} /></li>
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="合同总数:" style={unifyStyle} component="labelText" value={item.contractSize} defaultValue='0' inline={true} /></li>
+					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="城市:" style={unifyStyle} component="labelText" value={item.cityStr} defaultValue='0' inline={true} /></li>
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="工位总数:" style={unifyStyle} component="labelText" value={item.stationnum} defaultValue='0' inline={true} /></li>
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="社区:" style={unifyStyle} component="labelText" value={item.communityName} inline={true} /></li>
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="订单总额:" style={unifyStyle} component="labelText" value={item.contractTotalamount} defaultValue='0' inline={true} /></li>
-					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="入驻时间:" style={unifyStyle} component="labelText" value={item.ucontractEntrydate} inline={true} /></li>
+					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="入驻日期:" style={unifyStyle} component="labelText" value={item.ucontractEntrydate} inline={true} /></li>
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="已回款额:" style={unifyStyle} component="labelText" value={item.contractBackamount} defaultValue='0' inline={true} /></li>
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="离开日期:" style={unifyStyle} component="labelText" value={item.ucontractLeavedate} inline={true} /></li>
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="未回款额:" style={unifyStyle} component="labelText" value={item.unBackamount} defaultValue='0' inline={true} /></li>
-					<div style={{marginTop:20,textAlign: "center"}}>
+					<div style={{marginTop:20,textAlign: "center"}} className='btnBoxShadow'>
 						{isEdit&&<span><Button  label="编辑" type="button" cancle={true} onTouchTap={_this.editIndentClick.bind(this,item.id)}/>
 						<span className="interval"></span></span>}
 						<Button  label="查看" type="button" cancle={true} onTouchTap={_this.locationWatch.bind(this,item.id)}/>
@@ -118,8 +119,8 @@ class CustomerIndent extends Component{
         if(listArray.length==0){
          listArray.push(<div style={{textAlign:'center',marginTop:-30}}>
 								<div className="ui-nothing">
-									<div className="icon"></div>
-									<p className="tip">暂时还没有数据呦~</p>
+									<div className="icon" style={{width:88,height:123,margin:'0 auto'}}></div>
+									<p className="tip" style={{fontSize:'14px',fontFamily:'MicrosoftYaHei',paddingLeft:20}}>暂时还没有订单呦~</p>
 								</div>
 						</div>)
         }

@@ -16,28 +16,34 @@ import {
 	Grid,
 	Row,
 	Col,
+	Paper,
 	Dialog,
-
 } from 'kr-ui';
+import './index.less';
 
 export default class Initialize  extends Component{
 
 	constructor(props,context){
 		super(props, context);
-
-		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+		this.state={
+			open:false
+		}
 	}
-
+     
+     slideClick=()=>{
+       this.setState({
+       	  open:!this.state.open
+       }) 
+     }
 
 
 	render(){
-
+        let {open}=this.state;
 		return(
 
-			<div>
-					<Section title="订单账单列表" description="" >
-					  123
-					</Section>
+			<div style={{marginTop:'100px'}}>
+               <div onClick={this.slideClick}>123</div>
+               {open&&<div className='slideGo'>策划</div>}
 			</div>
 		);
 	}
