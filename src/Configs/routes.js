@@ -118,6 +118,12 @@ export default (
 				<Route path="index" component={Operation.Home}/>
         {/*分组模版管理*/}
         <Route path="groupSetting" component={Operation.GroupSetting}/>
+        
+        {/*社区配置*/}
+        <Route path="communityAllocation" component={Basic}>
+				<Route path="communityList" component={Operation.CommunityAllocation.CommunityList}/>
+        </Route>
+
         {/*客户管理*/}
 				<Route path="customerManage" component={Basic}>
 					<Route path="customerList" component={Operation.CustomerManage.CustomerList} />
