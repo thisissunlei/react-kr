@@ -1207,7 +1207,7 @@ export default class AttributeSetting extends Component {
 		let {
 			totalPayment
 		} = receivedBtnFormChangeValues;
-		let liveMoneyValue = totalPayment;
+		let liveMoneyValue = totalPayment ? totalPayment : 0;
 
 
 		if (input.value === 0) {
