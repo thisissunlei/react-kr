@@ -1223,13 +1223,12 @@ export default class AttributeSetting extends Component {
 
 		}
 
-		if (totalPayment) {
 
-			for (var item in receivedBtnFormChangeValues) {
-				if (receivedBtnFormChangeValues.hasOwnProperty(item) && item != 'totalPayment') {
-					liveMoneyValue -= receivedBtnFormChangeValues[item];
 
-				}
+		for (var item in receivedBtnFormChangeValues) {
+			if (receivedBtnFormChangeValues.hasOwnProperty(item) && item != 'totalPayment') {
+				liveMoneyValue -= receivedBtnFormChangeValues[item];
+
 			}
 		}
 
