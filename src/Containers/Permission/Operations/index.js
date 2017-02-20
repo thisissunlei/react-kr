@@ -37,6 +37,7 @@ import {
 	SearchForms
 } from 'kr-ui';
 import './index.less';
+import Deletedialog from './Deletedialog';
 class SearchForm extends Component {
 	constructor(props) {
 		super(props);
@@ -131,11 +132,35 @@ class Operations extends Component {
 				page: 1,
 				pageSize: 15
 			},
+			itemDetail: '',
+			openDeleteDialog: false
 		}
+	}
+
+	//操作相关
+	onOperation = (type, itemDetail) => {
+
+		this.setState({
+			itemDetail
+		});
+
+		if (type == 'delete') {
+			this.openDeleteDialog();
+		} else if (type == 'edit') {
+			this.openEditDetailDialog();
+		}
+	}
+	openDeleteDialog = () => {
+		this.setState({
+			openDeleteDialog: !this.state.openDeleteDialog
+		})
 	}
 
 
 	render() {
+		let {
+			openDeleteDialog
+		} = this.state;
 		return (
 			<div className="g-operation">
 				<Section title="操作项" >
@@ -176,17 +201,16 @@ class Operations extends Component {
 							<TableRowColumn name="moduleName"></TableRowColumn>
 							<TableRowColumn name="createTime"></TableRowColumn>
 							<TableRowColumn>
-									<Button label="编辑" onTouchTap=''  type="operation" operation="view"/>
-									<Button label="删除"  type="operation" operation="view"/>
+									<Button label="编辑" onTouchTap=''  type="operation" operation="edit"/>
+									<Button label="删除"  type="operation" operation="delete"/>
 							 </TableRowColumn>
 						 </TableRow>
 					</TableBody>
-
 					<TableFooter></TableFooter>
-
 					</Table>
+					{openDeleteDialog?<Deletedialog />:''}
 				</Section>
-				
+					
 			</div>
 		);
 	}
