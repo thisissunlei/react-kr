@@ -234,6 +234,8 @@ export default class CityComponent extends React.Component {
 				city=cityName;
 			}
 		}
+
+		
 		return (
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
