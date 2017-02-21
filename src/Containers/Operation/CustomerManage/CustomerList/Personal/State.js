@@ -151,7 +151,7 @@ State.exportData = action(function(value) {
 				customerIds.push(item.id)
 			});
 		}
-		var url = `http://optest.krspace.cn/api/krspace-finance-web/customer/personal-customers-export?customerIds=${customerIds}&company=${search.company}&createEndDate=${search.createEndDate}&createStartDate=${search.createStartDate}&intentionCityId=${search.intentionCityId}&intentionCommunityId=${search.intentionCommunityId}&levelId=${search.levelId}&sourceId=${search.sourceId}`
+		var url = `/api/krspace-finance-web/customer/personal-customers-export?customerIds=${customerIds}&company=${search.company}&createEndDate=${search.createEndDate}&createStartDate=${search.createStartDate}&intentionCityId=${search.intentionCityId}&intentionCommunityId=${search.intentionCommunityId}&levelId=${search.levelId}&sourceId=${search.sourceId}`
 		window.location.href = url;
 });
 
