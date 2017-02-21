@@ -156,7 +156,7 @@ State.exportData = action(function(value) {
 				customerIds.push(item.id)
 			});
 		}
-		var url = `http://optest.krspace.cn/api/krspace-finance-web/customer/sign-customers-export?customerIds=${customerIds}&company=${search.company}&cityId=${search.cityId}&signStartDate=${search.signStartDate}&communityId=${search.communityId}&signEndDate=${search.signEndDate}`
+		var url = `/api/krspace-finance-web/customer/sign-customers-export?customerIds=${customerIds}&company=${search.company}&cityId=${search.cityId}&signStartDate=${search.signStartDate}&communityId=${search.communityId}&signEndDate=${search.signEndDate}`
 		window.location.href = url;
 });
 //城市改变
