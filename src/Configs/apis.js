@@ -836,6 +836,11 @@ const APIS = {
    url:'/api/krspace-finance-web/finacontractdetail/fina-contract-all/reduc-line-total?stationList={stationList}&billId={billId}',
    method:'get'
  },
+ //社区配置－社区列表
+  'communitySearch':{
+   url:'/mockjsdata/31/krspace-finance-web/cmt/community/list/type/search?businessAreaId={businessAreaId}&businessBegin={businessBegin}&businessEnd={businessEnd}&cityId={cityId}&countyId={countyId}&opened={opened}&searchKey={searchKey}&searchType={searchType}&pageSize={pageSize}&page={page}',
+   method:'get'
+ },
 
  }
 
