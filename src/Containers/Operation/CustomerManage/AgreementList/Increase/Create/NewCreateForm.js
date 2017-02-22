@@ -135,7 +135,6 @@ class NewCreateForm extends Component {
 
 		var stationnum = 0;
 		var boardroomnum = 0;
-		console.log('calcStationNum',stationVos);
 
 		stationVos.forEach(function(item, index) {
 			if (item.stationType == 1) {
@@ -189,7 +188,6 @@ class NewCreateForm extends Component {
 			stationVos
 		} = this.state;
 		stationVos[index].unitprice = value;
-		console.log('onStationVosChange',index,value);
 		this.setState({
 			stationVos
 		});
@@ -448,7 +446,6 @@ class NewCreateForm extends Component {
 
 		this.openStationDialog();
 
-		console.log('data', billList);
 
 		if (!billList) {
 			return;
@@ -475,7 +472,6 @@ class NewCreateForm extends Component {
 				stationVos.push(obj);
 			});
 		} catch (err) {
-			console.log('billList 租赁明细工位列表为空');
 		}
 
 		this.setState({
@@ -500,7 +496,6 @@ class NewCreateForm extends Component {
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let allMoney = 0;
-		console.log('stationVos',stationVos);
 		this.setAllRent(stationVos);
 		
 	}
@@ -535,7 +530,6 @@ class NewCreateForm extends Component {
 			rentDay = 0;
 		}else{
 			let a =rentEnd[2]-rentBegin[2];
-			console.log('a',a);
 			if(a>=0){
 				rentDay = a+1;
 
@@ -548,14 +542,12 @@ class NewCreateForm extends Component {
 				rentMounth = rentMounth-1;
 			}
 		}
-		console.log('day',rentMounth,rentDay);
 		//计算日单价
 		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
 		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
 		allRent = allRent.toFixed(2)*1;
-		console.log('allRent',allRent,rentPriceByDay);
 		return allRent;
 	}
 	dealRentName=()=>{
@@ -616,10 +608,10 @@ class NewCreateForm extends Component {
 		return (
 
 
-			<Paper width={615}>
+			<div style={{width:615}}>
 
 <form className="m-increase-form" onSubmit={handleSubmit(this.onSubmit)}  >
-				<div className="cheek" style={{paddingLeft:0,marginLeft:0}}>
+				<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
 					<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
 					<div className="small-cheek" style={{paddingBottom:"0px"}}>
 
@@ -632,7 +624,7 @@ class NewCreateForm extends Component {
 						</ListGroup>
 					</KrField>
 					<div className="detailList" style={{marginTop:"-35px",width:"620px",marginLeft:"35px"}}>	
-					<DotTitle title='租赁明细'>
+					<DotTitle title='租赁明细' style={{marginTop:53,marginBottom:25}}>
 
 				<Grid style={{marginTop:"-28px",marginBottom:"10px"}}>
 							<Row>
@@ -679,6 +671,7 @@ class NewCreateForm extends Component {
 						</div>
 						{stationVos.length>5?<div className="Btip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'Toprow':'Bottomrow'}></span></p></div>:''}
                    </DotTitle>
+                     <div style={{marginTop:'0px',marginBottom:60}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
                    
                    </div>
 
@@ -803,7 +796,7 @@ class NewCreateForm extends Component {
 								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
 
-			</Paper>);
+			</div>);
 	}
 }
 

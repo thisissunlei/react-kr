@@ -181,7 +181,7 @@ export default class JoinCreate extends Component {
 		return (
 
 
-			<div>
+			<div >
 
 		 	<BreadCrumbs children={['系统运营','客户管理','承租协议']}/>
 			<div style={{marginTop:10}}>

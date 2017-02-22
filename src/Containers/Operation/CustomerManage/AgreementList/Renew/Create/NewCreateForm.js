@@ -148,7 +148,6 @@ class NewCreateForm extends Component {
 	}
 
 	onStationSubmit(stationVos) {
-		console.log('stationVos',stationVos);
 		let _this = this;
 		let allRent = 0;
 		this.setAllRent(stationVos);
@@ -189,7 +188,6 @@ class NewCreateForm extends Component {
 			rentDay = 0;
 		}else{
 			let a =rentEnd[2]-rentBegin[2];
-			console.log('a',a);
 			if(a>=0){
 				rentDay = a+1;
 
@@ -202,13 +200,11 @@ class NewCreateForm extends Component {
 				rentMounth = rentMounth-1;
 			}
 		}
-		console.log('day',rentMounth,rentDay);
 		//计算日单价
 		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
 		allRent = allRent.toFixed(2)*1;
-		console.log('allRent',allRent,rentPriceByDay);
 		return allRent;
 	}
 
@@ -351,13 +347,15 @@ class NewCreateForm extends Component {
 		let allRentName = this.dealRentName(allRent);
 
 		return (
-			<Paper width={968}>
+		<div style={{width:615}}>
 
-<form onSubmit={handleSubmit(this.onSubmit)} >
-			<CircleStyle num={1} info='租赁明细'  >
-				<div className="detailList" style={{marginTop:'-50px'}}>
-				<DotTitle title='租赁明细'>
-				      <Grid style={{marginTop:'-40px'}}>
+<form className="m-new-renew" onSubmit={handleSubmit(this.onSubmit)} >
+			<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
+				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
+				<div className="small-cheek">
+				<div className="detailList" style={{marginTop:"-35px",width:"620px",marginLeft:"35px"}}>
+				<DotTitle title='租赁明细' style={{marginTop:53,marginBottom:25}}>
+				      <Grid style={{marginTop:"-28px",marginBottom:"10px"}}>
 							<Row>
 								<Col align="right">
 									<ButtonGroup>
@@ -400,64 +398,70 @@ class NewCreateForm extends Component {
 
 					
                      </DotTitle>
-                     <div style={{marginTop:'-20px',marginBottom:60}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
+                     <div style={{marginTop:'0px',marginBottom:25}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
 
-                     </div>
-				</CircleStyle>
-				<CircleStyle num={2} info='合同文本信息' circle='bottom'>
+                    </div>
+
+			<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">2</span><span className="wire"></span><label className="small-title">公司信息</label></div>
+				<div className="small-cheek" style={{paddingBottom:0}}>
+					
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
 				<KrField grid={1/2}  name="leaseBegindate" type="hidden" component="input" />
 
-				<KrField style={{width:370,marginLeft:70}}  name="leaseId"   component="select" label="出租方" options={optionValues.fnaCorporationList}  requireLabel={true} />
-				<KrField style={{width:370,marginLeft:90}}   name="lessorAddress" type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress}  defaultValue="无"/>
-				<KrField style={{width:370,marginLeft:70}}   name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} />
-				<KrField style={{width:370,marginLeft:90}}   name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
+				<KrField style={{width:262,marginLeft:25}}  name="leaseId"   component="select" label="出租方" options={optionValues.fnaCorporationList}  requireLabel={true} />
+				<KrField style={{width:262,marginLeft:25}}   name="lessorAddress" type="text" component="labelText" inline={false} label="地址" value={changeValues.lessorAddress}  defaultValue="无"/>
+				<KrField style={{width:262,marginLeft:25}}   name="lessorContactid" component="searchPersonel" label="联系人" onChange={this.onChangeSearchPersonel} requireLabel={true} />
+				<KrField style={{width:262,marginLeft:25}}   name="lessorContacttel" type="text" component="input" label="电话" requireLabel={true}
 				requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
 
-				<KrField style={{width:370,marginLeft:70}}   component="labelText" label="承租方" value={optionValues.customerName} inline={false}/>
+				<KrField style={{width:262,marginLeft:25}}   component="labelText" label="承租方" value={optionValues.customerName} inline={false}/>
 
-				<KrField style={{width:370,marginLeft:90}}   name="leaseAddress" type="text" component="input" label="地址" requireLabel={true}
+				<KrField style={{width:262,marginLeft:25}}   name="leaseAddress" type="text" component="input" label="地址" requireLabel={true}
 				requiredValue={true} pattern={/^.{0,120}$/} errors={{requiredValue:'地址为必填项',pattern:'地址最大60位'}} />
 
-				<KrField style={{width:370,marginLeft:70}}   name="leaseContact" type="text" component="input" label="联系人" requireLabel={true}
+				<KrField style={{width:262,marginLeft:25}}   name="leaseContact" type="text" component="input" label="联系人" requireLabel={true}
 				requiredValue={true} pattern={/^.{0,20}$/} errors={{requiredValue:'联系人为必填项',pattern:'联系人最大20位'}} />
-				<KrField style={{width:370,marginLeft:90}}  name="leaseContacttel" type="text" component="input" label="电话" requireLabel={true}
+				<KrField style={{width:262,marginLeft:25}}  name="leaseContacttel" type="text" component="input" label="电话" requireLabel={true}
 				requiredValue={true} pattern={/(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/} errors={{requiredValue:'电话号码为必填项',pattern:'请输入正确电话号'}}/>
 
-				<KrField style={{width:370,marginLeft:70}}  name="communityid" component="labelText" label="所属社区" inline={false} value={optionValues.communityName} />
+				<KrField style={{width:262,marginLeft:25}}  name="communityid" component="labelText" label="所属社区" inline={false} value={optionValues.communityName} />
 
-				<KrField style={{width:370,marginLeft:90}}   name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} requireLabel={true} />
-				<KrField style={{width:370,marginLeft:70}}   name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
+				<KrField style={{width:262,marginLeft:25}}   name="communityAddress" component="labelText" label="地址" inline={false} value={optionValues.communityAddress} requireLabel={true} />
+				<KrField style={{width:262,marginLeft:25}}   name="contractcode" type="text" component="input" label="合同编号"  requireLabel={true}
 				requiredValue={true} pattern={/^.{0,50}$/} errors={{requiredValue:'合同编号为必填项',pattern:'合同编号最大50位'}} />
 
-				<KrField style={{width:370,marginLeft:90}}  name="paymodel"   component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true} />
-				<KrField style={{width:370,marginLeft:70}}  name="paytype"   component="select" label="支付方式" options={optionValues.payTypeList} requireLabel={true} />
-				<KrField style={{width:370,marginLeft:90}}  name="firstpaydate"  component="date" label="首付款时间"  requireLabel={true} />
+				<KrField style={{width:262,marginLeft:25}}  name="paymodel"   component="select" label="付款方式" options={optionValues.paymentList} requireLabel={true} />
+				<KrField style={{width:262,marginLeft:25}}  name="paytype"   component="select" label="支付方式" options={optionValues.payTypeList} requireLabel={true} />
+				<KrField style={{width:262,marginLeft:25}}  name="firstpaydate"  component="date" label="首付款时间"  requireLabel={true} />
 
-				<KrField style={{width:370,marginLeft:70}}   name="signdate"  component="date"  label="签署时间" requireLabel={true} />
+				<KrField style={{width:262,marginLeft:25}}   name="signdate"  component="date"  label="签署时间" requireLabel={true} />
 
 
-				<KrField style={{width:370,marginLeft:90}}   name="totalrent" type="text" component="labelText" label="租金总额" requireLabel={true} value={allRent} inline={false} defaultValue='0'
+				<KrField style={{width:262,marginLeft:25}}   name="totalrent" type="text" component="labelText" label="租金总额" requireLabel={true} value={allRent} inline={false} defaultValue='0'
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 
-				<KrField style={{width:370,marginLeft:70}}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true}
+				<KrField style={{width:262,marginLeft:25}}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true}
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 
-				<KrField style={{width:830,marginLeft:70}}  name="contractmark" component="textarea" label="备注" maxSize={200}/>
-				</CircleStyle>
-				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="contractFileList" component="input" type="hidden" label="合同附件"/>
-				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}  name="fileIdList" component="file" label="合同附件" defaultValue={[]} onChange={(files)=>{
+				<KrField style={{width:545,marginLeft:25}}  name="contractmark" component="textarea" label="备注" maxSize={200}/>
+				</div>
+
+				<div className="end-round"></div>
+		</div>
+	</div>
+				<KrField style={{width:545,marginLeft:25,marginTop:'-20px'}} name="contractFileList" component="input" type="hidden" label="合同附件"/>
+				<KrField style={{width:545,marginLeft:25,marginTop:'-20px'}}  name="fileIdList" component="file" label="合同附件" defaultValue={[]} onChange={(files)=>{
 					Store.dispatch(change('reduceCreateForm','contractFileList',files));
 				}} />
 
 
-						<Grid style={{padding:'10px 0 50px'}}>
+						<Grid style={{paddingBottom:50,textAlign:"center"}}>
 						<Row >
 						<ListGroup>
-							<ListGroupItem style={{width:'45%',textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit"  width={100} height={40} fontSize={16}/></ListGroupItem>
-							<ListGroupItem style={{width:'45%',textAlign:'left',paddingLeft:15}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}  width={100} height={40} fontSize={16}/></ListGroupItem>
+							<ListGroupItem style={{textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit"  width={81} height={30} fontSize={16}/></ListGroupItem>
+							<ListGroupItem style={{textAlign:'left',paddingLeft:15}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}  width={81} height={30} fontSize={16}/></ListGroupItem>
 						</ListGroup>
 						</Row>
 						<Col md={4}></Col>
@@ -477,7 +481,7 @@ class NewCreateForm extends Component {
 					  </Dialog>
 
 
-			</Paper>);
+			</div>);
 	}
 }
 

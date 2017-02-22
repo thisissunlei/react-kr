@@ -171,7 +171,6 @@ class NewCreateForm extends Component {
 	}
 
 	onChangeSearchPersonel(personel) {
-		console.log('personel', personel)
 		Store.dispatch(change('exitCreateForm', 'lessorContacttel', personel.mobile));
 		Store.dispatch(change('exitCreateForm', 'lessorContactName', personel.lastname));
 	}
@@ -204,10 +203,10 @@ class NewCreateForm extends Component {
 		return (
 
 
-			<Paper width={615}>
+			<div style={{width:615}}>
 
 <form onSubmit={handleSubmit(this.onSubmit)}  style={{marginTop:50}}>
-			<div className="cheek" style={{paddingLeft:0,marginLeft:0}}>
+			<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
 				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
 				<div className="small-cheek">
 				
@@ -270,7 +269,7 @@ class NewCreateForm extends Component {
 
 			</form>
 
-			</Paper>);
+			</div>);
 	}
 }
 const validate = values => {

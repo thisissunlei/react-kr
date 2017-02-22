@@ -472,7 +472,6 @@ class NewCreateForm extends Component {
 				item.whereFloor = item.wherefloor;
 			});
 		} catch (err) {
-			console.log('billList 租赁明细工位列表为空');
 		}
 
 		this.setState({
@@ -523,7 +522,6 @@ class NewCreateForm extends Component {
 			rentDay = 0;
 		}else{
 			let a =rentEnd[2]-rentBegin[2];
-			console.log('a',a);
 			if(a>=0){
 				rentDay = a+1;
 
@@ -536,14 +534,12 @@ class NewCreateForm extends Component {
 				rentMounth = rentMounth-1;
 			}
 		}
-		console.log('day',rentMounth,rentDay);
 		//计算日单价
 		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
 		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
 		allRent = allRent.toFixed(2)*1;
-		console.log('allRent',allRent,rentPriceByDay);
 		return allRent;
 	}
 	render() {
@@ -580,13 +576,13 @@ class NewCreateForm extends Component {
 		return (
 
 
-			<div>
+	<div>
 
 
 	<div style={{width:615}}>
 
 	<form className="m-new-create" onSubmit={handleSubmit(this.onSubmit)} >
-				<div className="cheek" style={{paddingLeft:0,marginLeft:0}}>
+				<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
 					<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
 					<div className="small-cheek">
 					<KrField name="wherefloor" style={{width:262,marginLeft:25}}  component="select" label="所属楼层" options={optionValues.floorList} multi={true}  requireLabel={true}/>
@@ -644,7 +640,7 @@ class NewCreateForm extends Component {
 							 </div>
 							{stationVos.length>5?<div className="Btip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'Toprow':'Bottomrow'}></span></p></div>:''}
                			</DotTitle>
-                     <div style={{marginTop:'-20px',marginBottom:60,display:'none'}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
+                     <div style={{marginTop:'0px',marginBottom:25,display:'none'}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
 
                			</div>
 

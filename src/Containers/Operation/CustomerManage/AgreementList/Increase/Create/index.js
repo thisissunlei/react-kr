@@ -117,7 +117,6 @@ export default class JoinCreate extends Component {
 			mainBillId: params.orderId,
 			communityId: 1
 		})).then(function(response) {
-			console.log(response)
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
 
