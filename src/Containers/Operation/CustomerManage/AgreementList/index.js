@@ -397,17 +397,17 @@ class Merchants extends Component{
 						<ReduceDetail 
 						 params={{id:1,customerId:2,orderId:4}}
                          onCancel={this.cancelAgreementDetail}
-						/>*/}
+						/>
 
 						<RenewDetail 
 						 params={{id:1,customerId:2,orderId:4}}
                          onCancel={this.cancelAgreementDetail}
-						/>
+						/>*/}
 
-						{/*<IncreaseDetail 
+						<IncreaseDetail 
 						 params={{id:1,customerId:2,orderId:4}}
                          onCancel={this.cancelAgreementDetail}
-						/>*/}
+						/>
 
 		           </Drawer>
 
