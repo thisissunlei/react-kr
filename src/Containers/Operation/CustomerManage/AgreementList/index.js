@@ -40,11 +40,16 @@ import TwoNewAgreement from "./TwoNewAgreement";
 import EditAgreementList from "./EditAgreementList";
 import Admit from "./Admit";
 import Create from './Admit/Create';
+
+
 import AdmitDetail from './Admit/Detail';
 import ExitDetail from './Exit/Detail';
 import ReduceDetail from './Reduce/Detail';
 import RenewDetail from './Renew/Detail';
 import IncreaseDetail from './Increase/Detail';
+import JoinDetail from './Join/Detail';
+
+
 import './index.less';
 @observer
 class Merchants extends Component{
@@ -402,6 +407,16 @@ class Merchants extends Component{
 						/>
 
 						<RenewDetail 
+						 params={{id:1,customerId:2,orderId:4}}
+                         onCancel={this.cancelAgreementDetail}
+						/>
+
+						<IncreaseDetail 
+						 params={{id:1,customerId:2,orderId:4}}
+                         onCancel={this.cancelAgreementDetail}
+						/>
+
+						<JoinDetail 
 						 params={{id:1,customerId:2,orderId:4}}
                          onCancel={this.cancelAgreementDetail}
 						/>*/}
