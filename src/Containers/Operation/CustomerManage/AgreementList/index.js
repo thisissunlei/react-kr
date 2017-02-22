@@ -421,7 +421,7 @@ class Merchants extends Component{
                          onCancel={this.cancelAgreementDetail}
 						/>*/}
 
-						<IncreaseDetail 
+						<AdmitDetail 
 						 params={{id:1,customerId:2,orderId:4}}
                          onCancel={this.cancelAgreementDetail}
 						/>

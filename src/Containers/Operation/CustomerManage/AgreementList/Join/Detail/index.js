@@ -60,12 +60,34 @@ export default class JoinDetail extends Component {
 			loading: true,
 			basic: {
 				payment: {},
-			}
+			},
+			oldBasicStationVos:[],
+			openAdd:false,
+			openMinus:false,
+			newBasicStationVos:[]
 		}
 
 		this.BasicRender = this.BasicRender.bind(this);
 		this.getOrderUrl = this.getOrderUrl.bind(this);
 
+	}
+
+	addClick=()=>{
+      let {oldBasicStationVos,newBasicStationVos,openMinus,openAdd}=this.state;
+	   this.setState({
+	  	 newBasicStationVos:oldBasicStationVos,
+	  	 openMinus:true,
+	  	 openAdd:false
+	    })
+	}
+
+	minusClick=()=>{
+      let {oldBasicStationVos,newBasicStationVos,openAdd,openMinus}=this.state;
+	   this.setState({
+	  	 newBasicStationVos:oldBasicStationVos.slice(0,5),
+	  	 openAdd:true,
+	  	 openMinus:false
+	    })
 	}
 
 	componentDidMount() {
@@ -77,7 +99,20 @@ export default class JoinDetail extends Component {
 			.then(function(response) {
 				_this.setState({
 					basic: response,
-					loading: false
+					loading: false,
+					oldBasicStationVos:response.stationVos
+				},function(){
+					let {newBasicStationVos,oldBasicStationVos,openAdd}=_this.state;
+			       if(oldBasicStationVos&&oldBasicStationVos.length>5){
+			            _this.setState({
+			            	newBasicStationVos:oldBasicStationVos.slice(0,5),
+			            	openAdd:true
+			            })    	
+			        }else{
+			        	_this.setState({
+			        		openAdd:false
+			        	})
+			       }     	   
 				});
 			}).catch(function(err) {
 				Notify.show([{
@@ -92,6 +127,35 @@ export default class JoinDetail extends Component {
 
 	}
 
+	componentWillReceiveProps(){
+    	let {newBasicStationVos,oldBasicStationVos,openAdd}=this.state;
+       if(oldBasicStationVos&&oldBasicStationVos.length>5){
+            this.setState({
+            	newBasicStationVos:oldBasicStationVos.slice(0,5),
+            	openAdd:true
+            })    	
+        }else{
+        	this.setState({
+        		openAdd:false
+        	})
+        }     	     
+    }
+
+     addRender=()=>{
+    	    var _this=this;
+            let add='';
+             add=(<div onClick={_this.addClick} className='arrow-wrap'><span className='arrow-open'>展开</span><span className='arrow-pic'></span></div>)
+            return add
+        }
+
+     minusRender=()=>{
+    	 var _this=this;
+            let minus='';
+             minus=(<div onClick={_this.minusClick} className='arrow-wrap'><span className='arrow-open'>收起</span><span className='arrow-pic-do'></span></div>)
+            return minus
+    }
+
+
 	onCancel = () => {
 		const {onCancel} = this.props;
 		onCancel && onCancel();
@@ -101,7 +165,8 @@ export default class JoinDetail extends Component {
 		const params = this.props.params;
 		return `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
 	}
-	BasicRender(basic) {
+	BasicRender(basic,newBasicStationVos,openAdd,openMinus) {
+		var _this=this;
 		const content = {
 			position: 'relative',
 			width: '100%',
@@ -131,7 +196,7 @@ export default class JoinDetail extends Component {
 							<TableBody>
 
 							{
-								basic.stationVos && basic.stationVos.map((item,index)=>{
+								newBasicStationVos && newBasicStationVos.map((item,index)=>{
 
 								return (
 									<TableRow key={index}>
@@ -151,6 +216,10 @@ export default class JoinDetail extends Component {
 
 							</TableBody>
 						</Table>
+
+						 {openAdd&&_this.addRender()}
+			             {openMinus&&_this.minusRender()}
+
 
 					</DotTitle>
 
@@ -223,7 +292,10 @@ export default class JoinDetail extends Component {
 
 
 		const {
-			basic
+			basic,
+			newBasicStationVos,
+			openAdd,
+			openMinus
 		} = this.state;
 
 
@@ -238,7 +310,7 @@ export default class JoinDetail extends Component {
 			<BreadCrumbs children={['社区运营',,'合同详情','入驻合同查看']}/>
 
 
-			{this.BasicRender(basic)}
+			{this.BasicRender(basic,newBasicStationVos,openAdd,openMinus)}
 			 <Grid style={{marginTop:5,marginBottom:50}}>
 				  <Row>
 					  <Col md={5} align="center"></Col>

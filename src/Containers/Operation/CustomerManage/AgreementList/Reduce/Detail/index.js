@@ -65,33 +65,97 @@ export default class ReduceDetail extends Component {
 			basic: {
 				payment: {},
 				stationVos: []
-			}
+			},
+			oldBasicStationVos:[],
+			openAdd:false,
+			openMinus:false,
+			newBasicStationVos:[]
 		}
 
+	}
+     
+    addClick=()=>{
+      let {oldBasicStationVos,newBasicStationVos,openMinus,openAdd}=this.state;
+	   this.setState({
+	  	 newBasicStationVos:oldBasicStationVos,
+	  	 openMinus:true,
+	  	 openAdd:false
+	    })
+	}
+
+	minusClick=()=>{
+      let {oldBasicStationVos,newBasicStationVos,openAdd,openMinus}=this.state;
+	   this.setState({
+	  	 newBasicStationVos:oldBasicStationVos.slice(0,5),
+	  	 openAdd:true,
+	  	 openMinus:false
+	    })
+	}
+
+	componentDidMount() {     
 		var _this = this;
-		console.log(this.props.params);
 		Store.dispatch(Actions.callAPI('showFnaContractRentController', {
 			id: this.props.params.id,
 			communityId: this.props.params.orderId,
 			customerId: this.props.params.customerId
 		})).then(function(response) {
 			_this.setState({
-				basic: response
+				basic: response,
+				oldBasicStationVos:response.stationVos
+			},function(){
+				 let {newBasicStationVos,oldBasicStationVos,openAdd}=_this.state;
+			       if(oldBasicStationVos&&oldBasicStationVos.length>5){
+			            _this.setState({
+			            	newBasicStationVos:oldBasicStationVos.slice(0,5),
+			            	openAdd:true
+			            })    	
+			        }else{
+			        	_this.setState({
+			        		openAdd:false
+			        	})
+			       }     	   
 			});
 		});
-
 		setTimeout(function() {
 			_this.setState({
 				loading: false
 			});
 		}, 0);
-
-
 	}
+
+
 
 	componentWillMount() {
 
 	}
+
+	componentWillReceiveProps(){
+    	let {newBasicStationVos,oldBasicStationVos,openAdd}=this.state;
+       if(oldBasicStationVos&&oldBasicStationVos.length>5){
+            this.setState({
+            	newBasicStationVos:oldBasicStationVos.slice(0,5),
+            	openAdd:true
+            })    	
+        }else{
+        	this.setState({
+        		openAdd:false
+        	})
+        }     	     
+    }
+
+     addRender=()=>{
+    	    var _this=this;
+            let add='';
+             add=(<div onClick={_this.addClick} className='arrow-wrap'><span className='arrow-open'>展开</span><span className='arrow-pic'></span></div>)
+            return add
+        }
+
+     minusRender=()=>{
+    	 var _this=this;
+            let minus='';
+             minus=(<div onClick={_this.minusClick} className='arrow-wrap'><span className='arrow-open'>收起</span><span className='arrow-pic-do'></span></div>)
+            return minus
+    }
 
 	onCancel = () => {
 		const {onCancel} = this.props;
@@ -115,7 +179,10 @@ export default class ReduceDetail extends Component {
 		const contractList = [];
 
 		const {
-			basic
+			basic,
+			newBasicStationVos,
+			openAdd,
+			openMinus
 		} = this.state;
 		const params = this.props.params;
 
@@ -157,7 +224,7 @@ export default class ReduceDetail extends Component {
 															</TableHeader>
 															<TableBody>
 
-															{basic.stationVos && basic.stationVos.map((item,index)=>{
+															{newBasicStationVos && newBasicStationVos.map((item,index)=>{
 																return (
 																	 <TableRow key={index}>
 																	<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
@@ -175,6 +242,9 @@ export default class ReduceDetail extends Component {
 
 														   </TableBody>
 													 </Table>
+
+													  {openAdd&&this.addRender()}
+			                                          {openMinus&&this.minusRender()}
 
 											  </DotTitle>
 
