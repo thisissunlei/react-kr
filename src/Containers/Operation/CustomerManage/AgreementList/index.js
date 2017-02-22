@@ -39,6 +39,11 @@ import OneNewAgreement from "./OneNewAgreement";
 import TwoNewAgreement from "./TwoNewAgreement";
 import Admit from "./Admit";
 import Create from './Admit/Create';
+import AdmitDetail from './Admit/Detail';
+import ExitDetail from './Exit/Detail';
+import ReduceDetail from './Reduce/Detail';
+import RenewDetail from './Renew/Detail';
+import IncreaseDetail from './Increase/Detail';
 import './index.less';
 @observer
 class Merchants extends Component{
@@ -119,12 +124,14 @@ class Merchants extends Component{
     //查看相关操作
     onOperation=(type, itemDetail)=>{
       if(type=='watch'){
-      	State.MerchantsListId(itemDetail.id);
-      	State.switchLookCustomerList();
-      	LookCustomerState.lookListId(State.listId,"SHARE");
-      	State.companyName=itemDetail.company;
+      	 State.agreementDetail();
       }
     }
+     
+     cancelAgreementDetail=()=>{
+     	State.agreementDetail();
+     }
+
 	//新建提交按钮
 	onNewMerchants=(params)=>{
 		switchNewMerchants(params);
@@ -372,6 +379,36 @@ class Merchants extends Component{
 			        >
 						
 			       <TwoNewAgreement onCancel={this.closeAgreement}/>
+		           </Drawer>
+
+                   {/*查看*/}
+		            <Drawer
+				        open={State.openAgreementDetail}
+				        width={750}
+				        openSecondary={true}
+				        //className='m-finance-drawer'
+				        containerStyle={{top:60,paddingBottom:48,zIndex:8}}
+			        >
+						{/*<ExitDetail 
+						 params={{id:1,customerId:2,orderId:4}}
+                         onCancel={this.cancelAgreementDetail}
+						/>
+
+						<ReduceDetail 
+						 params={{id:1,customerId:2,orderId:4}}
+                         onCancel={this.cancelAgreementDetail}
+						/>*/}
+
+						<RenewDetail 
+						 params={{id:1,customerId:2,orderId:4}}
+                         onCancel={this.cancelAgreementDetail}
+						/>
+
+						{/*<IncreaseDetail 
+						 params={{id:1,customerId:2,orderId:4}}
+                         onCancel={this.cancelAgreementDetail}
+						/>*/}
+
 		           </Drawer>
 
 					

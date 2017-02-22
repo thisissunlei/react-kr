@@ -1,4 +1,76 @@
 .m-agreement-list{
+	.split-line{
+		height:45px;
+		 .line {
+		     width: 96%;
+		     left: 14px;
+		     top:21px;
+		}
+	}
+	 
+  .ui-title{
+  	width: 100%;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    padding: 0 45px;
+  }
+  .customer-close{
+      position: absolute;
+      display: block;
+      width: 20px;
+      height: 20px;
+      right: 42px;
+      top:25px;
+      cursor: pointer;
+      background: url(images/closeIcon.svg) no-repeat;
+      background-position: center center;    
+    }
+  .ui-form-controller.inline .ui-label-text {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+     &>span{
+     	margin-bottom:-2px;
+     }
+    .ui-tooltip.center {
+     left: 50%;
+    }
+}
+   .content-title{
+	margin-top:62px;
+	margin-bottom:27px;
+	margin-right:auto;
+	margin-left:auto;
+	margin-left: 50%;
+	font-family: '方正兰亭黑简体';
+	&:before{
+		content:'';
+		width: 145px;
+		height: 34px;
+		position: absolute;
+		top: 17px;
+		left: -165px;
+		border-top: 1px solid #eee;
+	}
+	&:after{
+		content:'';
+		width: 145px;
+		height: 34px;
+		position: absolute;
+		top: 17px;
+		right: -165px;
+		border-top: 1px solid #eee;
+	}
+}
+
+ .detail-first,.detail-second{
+ 	width: 752px;
+    box-sizing: border-box;
+    padding: 0 42px 0 55px;
+ }
 
 	.m-agreementList-searchForm{
 		.searchForm-col{

@@ -22,11 +22,18 @@ let State = observable({
 		openNewAgreement:false,
 		agreementList:[],
 		otherFunction:false,
+		//查看
+		openAgreementDetail:false
 
 });
 State.hasOfficeChange=action(function(params){
 	this.ishasOffice=params;
 })
+//查看开关
+State.agreementDetail=action(function(params){
+	this.openAgreementDetail=!this.openAgreementDetail;
+})
+
 
 
 
