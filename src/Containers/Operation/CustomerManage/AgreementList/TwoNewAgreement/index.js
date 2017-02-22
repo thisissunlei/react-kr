@@ -1,0 +1,101 @@
+    import React,{Component} from 'react';
+import { connect } from 'react-redux';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import {Actions,Store} from 'kr/Redux';
+import {
+	observer
+} from 'mobx-react';
+import {
+	KrField,
+	Table,
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
+	TableRowColumn,
+	TableFooter,
+	Button,
+	Section,
+	Grid,
+	Row,
+	Col,
+	Dialog,
+	Drawer,
+	Tabs,
+	Tab
+
+} from 'kr-ui';
+import './index.less';
+import Create from "../Admit/Create";
+import Exit from "../Exit/Create";
+import Increase from "../Increase/Create";
+import Join from "../Join/Create";
+
+@observer
+class LookCustomerList extends Component{
+
+	constructor(props,context){
+		super(props, context);
+
+	}
+	onSubmit = (values) => {
+		const {onSubmit} = this.props;
+		onSubmit && onSubmit(values);
+	}
+
+	onCancel = () => {
+		const {onCancel} = this.props;
+		onCancel && onCancel();
+	}
+	
+	
+
+	componentWillReceiveProps(nextProps){
+		
+	}
+
+	
+
+	render(){
+				                       
+		
+		return(
+		      <div className="m-lookCustomerList m-newMerchants" style={{paddingLeft:8}}>
+		      	<div className="title" >
+					<div className="look-close" onClick={this.onCancel}></div>
+				</div>
+				<div style={{height:5}}></div>
+				<Tabs className="tabs"
+			 		 inkBarStyle={{background:"#499df1",top:0}}
+				>
+				<Tab label="承租意向书" >
+					<Create params={{customerId:1,orderId:1}}/>
+				</Tab>
+				<Tab label="入驻协议书" >
+					<Join params={{customerId:1,orderId:1}}/>
+				</Tab>
+					
+				<Tab label="增租协议书" >
+					<Increase params={{customerId:1,orderId:1}}/>
+				</Tab>
+				<Tab label="减租协议书" >
+					<h1>4</h1>
+				</Tab>
+					
+				<Tab label="续租协议书" >
+					<h1>5</h1>
+				</Tab>
+				<Tab label="退租协议书" >
+					<Exit params={{customerId:1,orderId:1}}/>
+				</Tab>
+					
+				
+			</Tabs>
+		        
+		      </div>
+
+		);
+	}
+
+}
+export default LookCustomerList;

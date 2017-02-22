@@ -836,7 +836,7 @@ const APIS = {
    url:'/api/krspace-finance-web/finacontractdetail/fina-contract-all/reduc-line-total?stationList={stationList}&billId={billId}',
    method:'get'
  },
-
+ //合同列表-列表接口
  }
 
  module.exports = APIS;

@@ -123,6 +123,7 @@ export default class TabsComponent extends Component {
 			<div className='ui-tabs'>
 				{this.renderLines()}
 				<Tabs className="tabs" tabItemContainerStyle={tabItemContainerStyle} inkBarStyle={inkBarStyle} style={{background:'#fff',position:'relative',borderBottom:0}}>
+
 				{this.renderTabs()}
 				</Tabs>
 			</div>
