@@ -46,14 +46,15 @@ class ImportCard extends Component{
 	 		receiveId:values.user,
 	 		communityId:values.community
 	 	}
+	 	const {onSubmit} = this.props;
 	 	Store.dispatch(Actions.callAPI('memberCardUse',{}, params)).then(function(response) {
 			console.log('response',response);
+			onSubmit && onSubmit(values);
 		}).catch(function(err) {
 		 	Message.error(err.message);
 		});
-		console.log(values);
-		 const {onSubmit} = this.props;
-		 onSubmit && onSubmit(values);
+		 
+		 
 	 }
 	 setBeginCard=(person)=>{
 	 	let {endCard} = this.state;

@@ -78,7 +78,7 @@ class EditEquipmentForm extends Component{
 	    			floorsOptions : arrNew,
 	    			floor : detail.floor,
 	    			communityId : detail.communityId,
-	    			propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2},{label: '功能室',value: 3}],
+	    			propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2},{label: '独立办公室',value: 3}],
 	    		})
 	    	}).catch(function(err){
     	})
@@ -158,7 +158,7 @@ class EditEquipmentForm extends Component{
 		if(propertyId == null){
 			_this.setState({
   				locationOpen : false,
-  				propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2},{label: '功能室',value: 3}],
+  				propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2},{label: '独立办公室',value: 3}],
 
   			})
   			return;
@@ -167,7 +167,7 @@ class EditEquipmentForm extends Component{
   			_this.setState({
   				locationOpen : true,
   				propertyId : propertyId.value,
-  				propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2},{label: '功能室',value: 3}],
+  				propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2},{label: '独立办公室',value: 3}],
 
   			})
   			let SearchLocationParams = {communityId:_this.state.communityId,whereFloor:_this.state.floor}
@@ -185,7 +185,7 @@ class EditEquipmentForm extends Component{
   			_this.setState({
   				locationOpen : false,
   				propertyId : propertyId.value,
-  				propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2},{label: '功能室',value: 3}],
+  				propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2},{label: '独立办公室',value: 3}],
 
   			})
   		}
@@ -228,7 +228,7 @@ class EditEquipmentForm extends Component{
 		}else{
 			_this.setState({
 				floor : floor.value,
-				propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2},{label: '功能室',value: 3}]
+				propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2},{label: '独立办公室',value: 3}]
 			})
 		}
 	}

@@ -19,6 +19,7 @@ class ImportCard extends Component{
 			options:[],
 			selectSourceOption:[],
 			searchForm:false,
+			oldUser:'',
 			searchParams:{
 
 			},
@@ -33,6 +34,14 @@ class ImportCard extends Component{
 		let {onCancel} = this.props;
 		onCancel && onCancel();
 	}
+	checkName=(person)=>{
+		console.log(person);
+		let {oldUser} = this.state;
+		if(oldUser && person.value && person.value==oldUser){
+	    	Message.warn('原领用人和领用人不能为同一人','error');
+	    }
+		
+	}
 		
 	onSubmit = (values) => {
 		console.log('values',values);
@@ -40,6 +49,14 @@ class ImportCard extends Component{
 	    	fromId:values.originUser,
 	    	toId:values.nowUser
 	    }
+	    if(values.nowUser && values.originUser && values.nowUser==values.originUser){
+	    	Message.warn('原领用人和领用人不能为同一人','error');
+	    	console.log('原领用人和领用人不能为同一人');
+	    	return;
+	    }
+
+	    
+
 	    let _this = this;
 	    Store.dispatch(Actions.callAPI('transferMemberCard', params))
 	    .then(function(response) {
@@ -55,13 +72,12 @@ class ImportCard extends Component{
 		console.log(values);
 	}
 	selectOldUser=(value)=>{
-		console.log('selectOldUser',value);
 		let _this = this;
 		Store.dispatch(change('ImportCardForm', 'originUser', value));
-
 		Store.dispatch(Actions.callAPI('memberCardNum', {receiveId:value})).then(function(response) {
 	       _this.setState({
-	       		count:response
+	       		count:response,
+	       		oldUser:value
 	       })
 	        
 	    }).catch(function(err) {
@@ -78,7 +94,7 @@ class ImportCard extends Component{
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px'}}>
 				<KrField name="originUser" component="SearchList" label="原领用人" onChange={this.changeName} onSubmit={this.selectOldUser}/>
-				<KrField name="nowUser" component="searchPersonel" label="领用人"/>
+				<KrField name="nowUser" component="searchPersonel" label="领用人" onChange={this.checkName}/>
 				<KrField name="count" component="labelText" label="转移数量" value={count}/>
 
 				<Grid style={{margin:"20px 0 3px -10px"}}>
