@@ -349,45 +349,76 @@ export default class EquipmentDefinition extends Component {
   }
   // 最终确定确定上线
   confirmOnline=()=>{
+    let _this = this;
     let onlineOfflineParams = this.state.onlineOfflineParams
     Store.dispatch(Actions.callAPI('onlineOrOffline',{},onlineOfflineParams))
       .then(function(response){
         Message.success("上线成功");
+        _this.setState({
+          onLineOpen : false,
+          openOffline : false,
+          equipmentParams: {
+            filter: "deviceCode",
+            content: '',
+            page : 1,
+            pageSize: 15,
+            timer : new Date()
+          },
+        })
       }).catch(function(err){
         Message.error(err.message);
+        _this.setState({
+          onLineOpen : false,
+          openOffline : false,
+          equipmentParams: {
+            filter: "deviceCode",
+            content: '',
+            page : 1,
+            pageSize: 15,
+            timer : new Date()
+          },
+        })
+        
+        
      });
-    this.setState({
-      onLineOpen : false,
-      openOffline : false,
-      equipmentParams: {
-        filter: "deviceCode",
-        content: '',
-        page : 1,
-        pageSize: 15,
-        timer : new Date()
-      },
-    })
+
+      
+    
   }
   // 最终确定下线
   confirmOffline=()=>{
+    let _this = this;
+
     let onlineOfflineParams = this.state.onlineOfflineParams
     Store.dispatch(Actions.callAPI('onlineOrOffline',{},onlineOfflineParams))
       .then(function(response){
         Message.success("下线成功");
+        _this.setState({
+          onLineOpen : false,
+          openOffline : false,
+          equipmentParams: {
+            filter: "deviceCode",
+            content: '',
+            page : 1,
+            pageSize: 15,
+            timer : new Date()
+          },
+        })
       }).catch(function(err){
         Message.error(err.message);
+        _this.setState({
+          onLineOpen : false,
+          openOffline : false,
+          equipmentParams: {
+            filter: "deviceCode",
+            content: '',
+            page : 1,
+            pageSize: 15,
+            timer : new Date()
+          },
+        })
      });
-    this.setState({
-      onLineOpen : false,
-      openOffline : false,
-      equipmentParams: {
-        filter: "deviceCode",
-        content: '',
-        page : 1,
-        pageSize: 15,
-        timer : new Date()
-      },
-    })
+    
   }
   render() {
     let {list,itemDetail,seleced,openTipWarn,tipText} = this.state;
