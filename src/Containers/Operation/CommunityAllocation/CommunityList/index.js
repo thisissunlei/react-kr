@@ -35,6 +35,7 @@ import {
 	Grid,
 	Row,
 	Col,
+	Drawer,
 	Notify,
 	SearchForms,
 	Button,
@@ -44,11 +45,14 @@ import {
 	BreadCrumbs,
 	Title,
 	ListGroup,
-	ListGroupItem
+	ListGroupItem,
+	Message
 } from 'kr-ui';
 
 import './index.less'
 import State from './State';
+import NewCommunityList from './NewCommunityList'; 
+import SearchUpperForm from './SearchUpperForm'; 
 @observer
 class CommunityList  extends Component{
 
@@ -56,18 +60,65 @@ class CommunityList  extends Component{
 		super(props, context);
 	}
 
+   //新建社区开关
+   openAddCommunity=()=>{
+      State.switchNewCommunityList();
+   }
+   //新建社区提交
+   onNewCommunitySubmit=()=>{
+      State.onCommunitySubmit();
+   }
+   //查询
+   onSearchSubmit=(params)=>{
+   	  let obj = {
+			searchKey: params.content,
+			searchType:params.filter
+		}	
+		State.searchParams=obj	
+   }
+   
+   //高级查询
+	openSearchUpperDialog=()=>{
+	  State.searchDataHere();
+      State.searchParams.opened='';
+      State.searchParams.openDateEnd='';
+      State.searchParams.openDateBegin='';
+      State.searchParams.businessAreaId='';
+      State.searchParams.portalShow='';
+      State.searchParams.cityId='';
+      State.searchParams.countyId='';
+      State.searchUpperCustomer();
+	}
 
+   //高级查询提交
+     onSearchUpperSubmit=(searchParams)=>{
+     	searchParams = Object.assign({},State.searchParams, searchParams);
+     	searchParams.time=+new Date();
+		if(searchParams.openDateBegin!=''&&searchParams.openDateEnd!=''&&searchParams.openDateEnd<searchParams.openDateBegin){
+			 Message.error('开始时间不能大于结束时间');
+	         return ;
+		}
+		if(searchParams.openDateBegin==''&&searchParams.openDateEnd!=''){
+			searchParams.openDateBegin=searchParams.openDateEnd
+		}
+		if(searchParams.openDateBegin!=''&&searchParams.openDateEnd==''){
+			searchParams.openDateEnd=searchParams.openDateBegin
+		}
+      	
+      	State.searchParams=searchParams;
+      	State.searchUpperCustomer();
+     }
 
 	render(){
 
 		let searchFilter=[
             {
             	label:'社区名称',
-            	value:'123'
+            	value:'NAME'
             },
             {
             	label:'社区编码',
-            	value:'1'
+            	value:'CODE'
             },
 
 		]
@@ -87,7 +138,7 @@ class CommunityList  extends Component{
 									<Button
 											label="新建社区"
 											type='button'
-											onTouchTap={this.opNewMerchants}
+											onTouchTap={this.openAddCommunity}
 									/>
 					  </Col>
            
@@ -109,7 +160,7 @@ class CommunityList  extends Component{
 	            onLoaded={this.onLoaded}
 	            ajaxParams={State.searchParams}
 	            ajaxUrlName='communitySearch'
-	            ajaxFieldListName="communitys"
+	            ajaxFieldListName="items"
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>社区名编码</TableHeaderColumn>
@@ -140,11 +191,44 @@ class CommunityList  extends Component{
 			        </TableBody>
 			        <TableFooter></TableFooter>
             </Table>
+
+                   {/*新建*/}
+					<Drawer
+				        open={State.openNewCommunity}
+				        width={750}
+				        openSecondary={true}
+				        //className='m-finance-drawer'
+				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+			        >
+						<NewCommunityList
+								onSubmit={this.onNewCommunitySubmit}
+								onCancel={this.openAddCommunity}
+								
+						/>
+
+		            </Drawer>
+
+                    {/*高级查询*/}
+                    <Dialog
+						title="高级查询"
+						operType="SHARE"
+						modal={true}
+						onClose={this.openSearchUpperDialog}
+						open={State.openSearchUpper}
+						contentStyle ={{ width: '666',height:'458px',overflow:'visible'}}
+					>
+						<SearchUpperForm  
+						    onCancel={this.openSearchUpperDialog}
+						    onSubmit={this.onSearchUpperSubmit}
+						/>
+				    </Dialog>
+
+
        
        </Section>
 
 	 </div>
-		);
+	 );
 	}
 
 }

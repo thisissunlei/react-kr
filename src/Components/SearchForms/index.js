@@ -229,7 +229,7 @@ export default class SearchForms extends Component{
 			select = searchFilter[0].label;
 		}
 		
-		// console.log('searchFilter',searchFilter);
+		//console.log('searchFilter',searchFilter);
 		if(searchFilter){
 			
 			return(

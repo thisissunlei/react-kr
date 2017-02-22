@@ -838,9 +838,15 @@ const APIS = {
  },
  //社区配置－社区列表
   'communitySearch':{
-   url:'/mockjsdata/31/krspace-finance-web/cmt/community/list/type/search?businessAreaId={businessAreaId}&businessBegin={businessBegin}&businessEnd={businessEnd}&cityId={cityId}&countyId={countyId}&opened={opened}&searchKey={searchKey}&searchType={searchType}&pageSize={pageSize}&page={page}',
+   url:'/mockjsdata/31/krspace-finance-web/cmt/community/list/type/search?businessAreaId={businessAreaId}&openDateBegin={openDateBegin}&openDateEnd={openDateEnd}&cityId={cityId}&countyId={countyId}&opened={opened}&searchKey={searchKey}&searchType={searchType}&pageSize={pageSize}&page={page}&portalShow={portalShow}',
    method:'get'
  },
+  //社区配置－社区列表数据准备
+  'list-param-data':{
+   url:'/mockjsdata/31/krspace-finance-web/cmt/community/list-param-data',
+   method:'get'
+ },
+
 
  }
 
