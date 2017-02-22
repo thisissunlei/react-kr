@@ -30,7 +30,7 @@ import {
 	Actions,
 	Store
 } from 'kr/Redux';
-
+import "./index.less";
 import UnitPriceForm from './UnitPriceForm';
 
 import {
@@ -603,25 +603,26 @@ class NewCreateForm extends Component {
 		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
 
 
-		console.log('3wwwwww', optionValues);
 		return (
 
 
 			<div>
 <div style={{width:615}}>
-<form onSubmit={handleSubmit(this.onSubmit)}>
-				<CircleStyle num="1" info="租赁明细">
+<form className="m-edit-reduce" onSubmit={handleSubmit(this.onSubmit)}>
+			<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
+				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
+				<div className="small-cheek">
 				<KrField  name="wherefloor" style={{width:262,marginLeft:25}} component="select" label="所在楼层" options={optionValues.floorList} requireLabel={true} multi={true} />
-				<KrField style={{width:262,marginLeft:25}} left={20} component="group" label="租赁期限" requireLabel={true}>
+				<KrField style={{width:343,marginLeft:25,position:"absolute"}} component="group" label="租赁期限" requireLabel={true}>
 					<ListGroup>
-						<ListGroupItem style={{width:'45%',padding:0,marginLeft:'-10px',marginTop:'-10px'}}> <KrField  simple={true} name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate}/>  </ListGroupItem>
-						<ListGroupItem style={{width:'5%',textAlign:'center',padding:0,marginLeft:10,marginTop:'-10px'}} ><span style={{display:'inline-block',lineHeight:'60px',width:'33px',textAlign:'center',left:'5px'}}>至</span></ListGroupItem>
-						<ListGroupItem style={{width:'45%',padding:0,marginTop:'-10px'}}> <KrField simple={true}  name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} />  </ListGroupItem>
+						<ListGroupItem style={{width:'141',padding:0,marginLeft:'-10px',marginTop:'-10px'}}> <KrField  simple={true} style={{width:141}} name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate}/>  </ListGroupItem>
+						<ListGroupItem style={{width:'31',textAlign:'center',padding:0,marginLeft:10,marginTop:'-10px'}} ><span style={{display:'inline-block',lineHeight:'60px',width:'31px',textAlign:'center',left:'10px',position:"relative"}}>至</span></ListGroupItem>
+						<ListGroupItem style={{width:'141',padding:0,marginTop:'-10px'}}> <KrField simple={true}  name="leaseEnddate" style={{width:141}} component="date" onChange={this.onChangeLeaseEndDate} />  </ListGroupItem>
 					</ListGroup>
 				</KrField>
-				<div className="detailList" style={{marginTop:"-35px"}}>
-				 <DotTitle title='租赁明细'>
-				       <Grid style={{marginTop:"-40px"}}>
+				<div className="detailList" style={{marginTop:"-35px",width:"620px",marginLeft:"35px"}}>
+				 <DotTitle title='租赁明细' style={{marginTop:53,marginBottom:25}}>
+				       <Grid style={{marginTop:"-28px",marginBottom:"10px"}}>
 							<Row>
 								<Col align="right">
 									<ButtonGroup>
@@ -670,8 +671,9 @@ class NewCreateForm extends Component {
                      {/*<div style={{marginTop:'-20px',marginBottom:60}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>*/}
 
 					 </div>
-					 </CircleStyle>
-					<CircleStyle num="2" info="合同文本信息" circle="bottom">
+		<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">2</span><span className="wire"></span><label className="small-title">公司信息</label></div>
+				<div className="small-cheek" style={{paddingBottom:0}}>
+					
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
 				<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
@@ -708,13 +710,17 @@ class NewCreateForm extends Component {
 				
 				<KrField style={{width:545,marginLeft:25}} component="group" label="租赁项目" requireLabel={true}>
 								<KrField style={{width:262}}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} defaultValue={0} />
-								<KrField style={{width:262,marginLeft:25}}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum} defaultValue={0} />
+								<KrField style={{width:240,marginLeft:25}}  name="boardroomnum" type="text" component="labelText" label="会议室" value={changeValues.boardroomnum} defaultValue={0} />
 				</KrField>
 				<KrField  name="templockday"  style={{width:262,marginLeft:25}} component="input" type="text" label="保留天数" requireLabel={true}
 				requiredValue={true} pattern={/^\d{0,3}$/} errors={{requiredValue:'保留天数为必填项',pattern:'请输入三位以内正整数'}} />
 				<KrField style={{width:545,marginLeft:25}}  name="contractmark" component="textarea" label="备注"
 				 maxSize={200} />
-				 </CircleStyle>
+				</div>
+
+				<div className="end-round"></div>
+		</div>
+	</div>
 				<KrField style={{width:545,marginLeft:25,marginTop:'-20px'}}   name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList}/>
 
                
