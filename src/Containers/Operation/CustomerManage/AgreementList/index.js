@@ -37,6 +37,7 @@ import State from './State';
 import SearchForm from "./SearchForm";
 import OneNewAgreement from "./OneNewAgreement";
 import TwoNewAgreement from "./TwoNewAgreement";
+import EditAgreementList from "./EditAgreementList";
 import Admit from "./Admit";
 import Create from './Admit/Create';
 import AdmitDetail from './Admit/Detail';
@@ -378,7 +379,8 @@ class Merchants extends Component{
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 			        >
 						
-			       <TwoNewAgreement onCancel={this.closeAgreement}/>
+			      	{/*<TwoNewAgreement onCancel={this.closeAgreement}/>*/}
+			      	<EditAgreementList onCancel={this.closeAgreement}/>
 		           </Drawer>
 
                    {/*查看*/}

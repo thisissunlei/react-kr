@@ -26,15 +26,15 @@ import {
 
 } from 'kr-ui';
 import './index.less';
-import Admit from "../Admit/Create";
-import Exit from "../Exit/Create";
-import Increase from "../Increase/Create";
-import Join from "../Join/Create";
-import Reduce from "../Reduce/Create";
-import Renew from "../Renew/Create";
+import Admit from "../Admit/Edit";
+import Exit from "../Exit/Edit";
+import Increase from "../Increase/Edit";
+import Join from "../Join/Edit";
+import Reduce from "../Reduce/Edit";
+import Renew from "../Renew/Edit";
 
 @observer
-class LookCustomerList extends Component{
+class EditAgreementList extends Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -67,32 +67,10 @@ class LookCustomerList extends Component{
 					<div className="look-close" onClick={this.onCancel}></div>
 				</div>
 				<div style={{height:30}}></div>
-				<Tabs className="tabs"
-			 		 inkBarStyle={{background:"#499df1",top:0}}
-				>
-				<Tab label="承租意向书" >
-					<Admit params={{customerId:1,orderId:1}}/>
-				</Tab>
-				<Tab label="入驻协议书" >
-					<Join params={{customerId:1,orderId:1}}/>
-				</Tab>
-					
-				<Tab label="增租协议书" >
-					<Increase params={{customerId:1,orderId:1}}/>
-				</Tab>
-				<Tab label="减租协议书" >
-					<Reduce params={{customerId:1,orderId:1}}/>
-				</Tab>
-					
-				<Tab label="续租协议书" >
-					<Renew params={{customerId:1,orderId:1}}/>
-				</Tab>
-				<Tab label="退租协议书" >
-					<Exit params={{customerId:1,orderId:1}}/>
-				</Tab>
+				<Admit params={{customerId:1,orderId:1,contractId:1,id:1}} />
 					
 				
-			</Tabs>
+			
 		        
 		      </div>
 
@@ -100,4 +78,4 @@ class LookCustomerList extends Component{
 	}
 
 }
-export default LookCustomerList;
+export default EditAgreementList;

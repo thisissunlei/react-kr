@@ -149,7 +149,6 @@ class NewCreateForm extends Component {
 			}
 		});
 
-		console.log('--->>', stationnum, boardroomnum);
 
 		Store.dispatch(change('joinCreateForm', 'stationnum', stationnum));
 		Store.dispatch(change('joinCreateForm', 'boardroomnum', boardroomnum));
@@ -249,7 +248,6 @@ class NewCreateForm extends Component {
 		// 	allRent += _this.getSingleRent(item);
 		// })
 		// allRent = parseFloat(allRent).toFixed(2)*1;
-		console.log('onStationUnitPrice',allRent);
 
 
 
@@ -454,7 +452,6 @@ class NewCreateForm extends Component {
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let allMoney = 0;
-		console.log('stationVos',stationVos);
 		this.setAllRent(stationVos);
 		
 	}
@@ -489,7 +486,6 @@ class NewCreateForm extends Component {
 			rentDay = 0;
 		}else{
 			let a =rentEnd[2]-rentBegin[2];
-			console.log('a',a);
 			if(a>=0){
 				rentDay = a+1;
 
@@ -498,19 +494,16 @@ class NewCreateForm extends Component {
 				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
 					rentDay = mounth[mounthIndex]+2+a;
 				}
-				console.log('mounthIndex',mounth[mounthIndex]);
 				rentDay = mounth[mounthIndex]+1+a;
 				rentMounth = rentMounth-1;
 			}
 		}
-		console.log('day',rentMounth,rentDay);
 		//计算日单价
 		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
 		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
 		//工位总价钱
 		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
 		allRent = allRent.toFixed(2)*1;
-		console.log('allRent',typeof allRent,rentPriceByDay);
 		return allRent;
 	}
 
@@ -518,7 +511,6 @@ class NewCreateForm extends Component {
 
 		this.openStationDialog();
 
-		console.log('--->>选择的工位', billList);
 
 		if (!billList) {
 			return;
@@ -623,26 +615,26 @@ class NewCreateForm extends Component {
 		return (
 
 
-			<Paper width={615}>
+			<div style={{width:615}}>
 
 		<form className="join-form" onSubmit={handleSubmit(this.onSubmit)} >
-		<div className="cheek" style={{paddingLeft:0,marginLeft:0}}>
+		<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
 			<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
 			<div className="small-cheek">
 				<KrField name="wherefloor" style={{width:262,marginLeft:25}} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true}/>
-				<KrField style={{width:262,marginLeft:25}} left={20}  component="group" label="租赁期限" requireLabel={true}>
+				<KrField style={{width:343,marginLeft:25,position:"absolute"}} component="group" label="租赁期限" requireLabel={true}>
 					<ListGroup>
-						<ListGroupItem style={{width:'47%',padding:0,marginLeft:'-10px',marginTop:'-10px'}}> <KrField name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/></ListGroupItem>
-						<ListGroupItem style={{width:'6%',textAlign:'center',padding:0,marginLeft:10,marginTop:'-10px'}}><span style={{display:'inline-block',lineHeight:'58px'}}>至</span></ListGroupItem>
-						<ListGroupItem style={{width:'45%',padding:0,marginTop:'-10px'}}> <KrField name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} simple={true}/> </ListGroupItem>
+						<ListGroupItem style={{width:'141',padding:0,marginLeft:'-10px',marginTop:'-10px'}}> <KrField name="leaseBegindate" style={{width:141}} component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/></ListGroupItem>
+						<ListGroupItem style={{width:'31',textAlign:'center',padding:0,marginLeft:10,marginTop:'-10px'}}><span style={{display:'inline-block',lineHeight:'60px',width:'31px',textAlign:'center',left:'10px',position:"relative"}}>至</span></ListGroupItem>
+						<ListGroupItem style={{width:'141',padding:0,marginTop:'-10px'}}> <KrField style={{width:141}} name="leaseEnddate" component="date" onChange={this.onChangeLeaseEndDate} simple={true}/> </ListGroupItem>
 					</ListGroup>
 				</KrField>
 
-				<div className="detail-list" style={{marginTop:"-35px"}}>
+				<div className="detail-list" style={{marginTop:"-35px",marginLeft:"30px",width:"621px"}}>
 
-				<DotTitle title='租赁明细'>
+				<DotTitle title='租赁明细' style={{marginTop:53,marginBottom:25}}>
 
-				       <Grid style={{marginTop:"-40px"}}>
+				       <Grid style={{marginTop:"-28px",marginBottom:"10px"}}>
 							<Row>
 								<Col align="right">
 									<ButtonGroup>
@@ -690,6 +682,8 @@ class NewCreateForm extends Component {
 						{stationVos.length>5?<div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}
 
                         </DotTitle>
+                     <div style={{marginTop:'0px',marginBottom:60}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
+
 					</div>
 
 				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">2</span><span className="wire"></span><label className="small-title">公司信息</label></div>
@@ -803,7 +797,7 @@ class NewCreateForm extends Component {
 								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
 
-			</Paper>);
+			</div>);
 	}
 }
 
@@ -886,7 +880,6 @@ const validate = values => {
 		errors.leaseEnddate = '请输入租赁结束时间';
 	}
 
-	console.log('进来了')
 
 	return errors
 }

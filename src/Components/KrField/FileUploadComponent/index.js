@@ -302,7 +302,6 @@ export default class FileUploadComponent extends React.Component {
 			progress,
 			isUploading
 		} = this.state;
-		console.log('upload',progress,isUploading);
 
 		let fileBgStyles = {};
 		// let showList = (files.length>=6)?'hidden':'visible';
