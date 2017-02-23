@@ -23,7 +23,9 @@ let State = observable({
 		agreementList:[],
 		otherFunction:false,
 		//查看
-		openAgreementDetail:false
+		openAgreementDetail:false,
+		loading:false,
+		contractList:[],
 
 });
 State.hasOfficeChange=action(function(params){

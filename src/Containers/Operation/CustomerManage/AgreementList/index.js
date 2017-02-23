@@ -56,13 +56,26 @@ class Merchants extends Component{
 
 	constructor(props,context){
 		super(props, context);
-		this.state={
-			//选中的数量
-			dialogNum:0,
-			//加载后的数据
-			loadData:[],
-			//选中的值
-			arrItem:[]
+		this.state = {
+			open: false,
+			loading: true,
+			delAgreementId: 0,
+			openCreateAgreement: false,
+			openDelAgreement: false,
+			isShow: false,
+			View: false,
+			openMenu:false,
+			openId:0,
+			opretionId:0,
+			opretionOpen:false,
+			response: {
+				orderBaseInfo: {},
+				installment: {},
+				earnest: {},
+				contractList: [],
+				antecedent: [],
+			},
+			staionsList: []
 		}
 	}
 	//打开第二新建页面
@@ -213,10 +226,41 @@ class Merchants extends Component{
 		var newWindow = window.open(url);
 
 	}
+	componentDidMount() {
+		var _this = this;
+		let data={
+			cityId:'',
+			communityId:'',
+			createDateBegin:'',
+			createDateEnd:'',
+			createrId:'',
+			customerId:'',
+			page:'',
+			pageSize:'',
+			salerId:''
+		}
+
+		Store.dispatch(Actions.callAPI('contract-list', data)).then(function(response) {
+			State.contractList=response.items;
+			setTimeout(function() {
+					loading: false
+			}, 0);
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+
+		});
+		Store.dispatch(Actions.switchSidebarNav(false));
+
+	}
 
 	render(){
 
       let {dataReady,searchParams}=this.props;
+      let {contractList}=State;
 
       var blockStyle={};
       if(State.openDialog==true){
@@ -258,16 +302,9 @@ class Merchants extends Component{
 
             <Table
 			    style={{marginTop:8}}
-                ajax={true}
-                onOperation={this.onOperation}
 	            displayCheckbox={true}
 	            exportSwitch={true}
-			    onExport={this.onExport}
-	            onSelect={this.onSelect}
-	            onLoaded={this.onLoaded}
-	            ajaxParams={State.searchParams}
-	            ajaxUrlName='contract-list'
-	            ajaxFieldListName="items"
+			   
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>
@@ -287,44 +324,39 @@ class Merchants extends Component{
 		          	</TableHeader>
 
 			        <TableBody >
-			              <TableRow>
-			                <TableRowColumn name="company" component={(value,oldValue)=>{
-														var TooltipStyle=""
-														if(value.length==""){
-															TooltipStyle="none"
+			        	{contractList.map((item,index)=>{
+			        		return (
+				        		<TableRow>
+					                <TableRowColumn>{item.company}</TableRowColumn>
+					                <TableRowColumn>{item.cityName}</TableRowColumn>
+					                <TableRowColumn>{item.communityName}</TableRowColumn>
+					                <TableRowColumn>{item.contracttype}</TableRowColumn>
+					                <TableRowColumn><KrDate value={item.leaseBegindate}/></TableRowColumn>
+					                <TableRowColumn><KrDate value={item.leaseEnddate}/></TableRowColumn>
+					                <TableRowColumn>{item.stationnum}</TableRowColumn>
+					                <TableRowColumn>{item.boardroomnum}</TableRowColumn>
+									<TableRowColumn>{item.totalrent}</TableRowColumn>
+									<TableRowColumn>{item.saler}</TableRowColumn>
+									<TableRowColumn>{item.inputUser}</TableRowColumn>
+									<TableRowColumn><KrDate value={item.createdate}/></TableRowColumn>
+					                <TableRowColumn>
+					                    <Button label="查看"  type="operation"  operation="watch" />
+					                    <span className='upload-button'><Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)}/></span>
+										<Button  type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>}/>
+										
+										{/*<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
+										<div style={{visibility:showOpretion}} className="m-operation" >
+											{item.contractstate != 'EXECUTE' && item.editFlag && <span style={{display:'block'}}><a  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}>编辑</a></span> }
+											{ item.contracttype !=  'QUITRENT' && <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
 
-														}else{
-															TooltipStyle="inline-block";
-														}
-														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-													 }} ></TableRowColumn>
-			                <TableRowColumn name="cityName" ></TableRowColumn>
-			                <TableRowColumn name="communityName"></TableRowColumn>
-			                <TableRowColumn name="contracttype"></TableRowColumn>
-			                <TableRowColumn name="leaseBegindate"></TableRowColumn>
-			                <TableRowColumn name="leaseEnddate"></TableRowColumn>
-			                <TableRowColumn name="stationnum"></TableRowColumn>
-			                <TableRowColumn name="boardroomnum"></TableRowColumn>
-							<TableRowColumn name="totalrent"></TableRowColumn>
-							<TableRowColumn name="saler"></TableRowColumn>
-							<TableRowColumn name="inputUser"></TableRowColumn>
-							<TableRowColumn name="createdate"></TableRowColumn>
-			                <TableRowColumn type="operation">
-			                    <Button label="查看"  type="operation"  operation="watch" />
-
-			                    <span className='upload-button' style={{position:"relative",top:"-2px"}}><Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,1)} operation="upload"/></span>
-								{(true)?<Button  type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,1)} operation="upload"/>:''}
-								
-								<UpLoadList open={[]} onChange={this.onChange} detail={[]}>Tooltip</UpLoadList>
-								<div style={{}} className="m-operation" >
-									{false && <span style={{display:'block'}}><a  type="link" label="编辑" href="#" disabled={true}>编辑</a></span> }
-									{false && <span  style={{display:'block'}} onClick={this.print.bind(this,[])}>打印</span>}
-									{false  && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,1)} disabled={true}>删除</a> </span>}
-								</div>
-								
-			                </TableRowColumn>
-			               </TableRow>
+											{item.contracttype == 'ENTER' && item.contractstate != 'EXECUTE' && item.editFlag  && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
+										</div>*/}
+					                    
+					                </TableRowColumn>
+					            </TableRow>
+					          	);
+			        	})}
+			              
 			        </TableBody>
 			        <TableFooter></TableFooter>
            </Table>
