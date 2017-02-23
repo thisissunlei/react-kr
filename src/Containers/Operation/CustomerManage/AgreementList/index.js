@@ -173,7 +173,7 @@ class Merchants extends Component{
 	onChange=()=>{
 
 	}
-	uploadFile=(id)=>{
+	uploadFile = (id) => {
 		let fileId = this.state.openId;
 		if(fileId == id){
 			this.setState({
@@ -181,20 +181,68 @@ class Merchants extends Component{
 				openId:id,
 				opretionOpen:false
 			})
+			console.log("123")
 		}else{
 			this.setState({
 				openMenu:true,
 				openId:id,
 				opretionOpen:false
 			})
+			console.log("456")
+
 		}
 	}
-	showMoreOpretion=(id)=>{
-		
+
+	showMoreOpretion = (id) => {
+		let {opretionId,opretionOpen} = this.state;
+		if(opretionId == id){
+			this.setState({
+				opretionId:id,
+				openMenu:false,
+				opretionOpen:!this.state.opretionOpen
+			})
+		}else{
+			this.setState({
+				opretionId:id,
+				openMenu:false,
+				opretionOpen:true
+			})
+		}
+		// if(!opretionOpen){
+		// 	document.addEventListener('click', this.docClick)
+		// }
 		
 	}
-	setDelAgreementId(delAgreementId) {
+	docClick = (event) => {
+		event = event || window.event;
+		var target = event.target;
+		console.log('target',target);
+		if(target.className == 'icon-more'){
+			return ;
+		}
+		this.setState({
+			openMenu:false,
+			opretionOpen:false
+		})
+		document.removeEventListener('click', this.docClick)
+
+	}
+
+	openDelAgreementDialog = () => {
+		this.setState({
+			openDelAgreement: !this.state.openDelAgreement
+		});
+	}
+	setDelAgreementId = (delAgreementId) => {
 		
+			this.setState({
+				delAgreementId,
+			}, function() {
+				this.openDelAgreementDialog();
+			});
+
+		
+
 
 	}
 
@@ -250,44 +298,43 @@ class Merchants extends Component{
 	}
 
 	render(){
-
-      let {dataReady,searchParams}=this.props;
       let {contractList}=State;
 
       var blockStyle={};
-      if(State.openDialog==true){
-        blockStyle={
-        	display:'inline-block'
-        }
-      }else{
-      	blockStyle={
-        	display:'none'
-        }
-      }
-       
+      const {
+			orderBaseInfo,
+			earnest,
+			installmentPlan,
+			contractStatusCount,
 
+		} = this.state.response;
+		let {
+			isShow
+		} = this.state
+		let {opretionId,opretionOpen}=this.state;
+		console.log(opretionOpen,"=======>")
 		return(
       <div className="m-agreement-list">
 			<Title value="合同列表"/>
       		<Section title="合同列表" description="" style={{marginBottom:-5,minHeight:910}}>
 	        <Row style={{marginBottom:18,marginTop:-4}}>
-			          <Col
-					     style={{float:'left',marginTop:6}}
-					   >
-									<Button
-											label="新建合同"
-											type='button'
-											onTouchTap={this.openAgreement}
-									/>
+	          	<Col
+			     	style={{float:'left',marginTop:6}}
+			   	>
+					<Button
+						label="新建合同"
+						type='button'
+						onTouchTap={this.openAgreement}
+					/>
 
-					  </Col>
-					  <Col
-					  	style={{float:'right',width:"90%"}}
-					  >
+			 	 </Col>
+			  	<Col
+			  		style={{float:'right',width:"90%"}}
+			  	>
 
-					  		<SearchForm />
-					 		
-					  </Col>
+			  		<SearchForm />
+			 		
+			  	</Col>
 			          
 	        </Row>
 
@@ -317,6 +364,7 @@ class Merchants extends Component{
 
 			        <TableBody >
 			        	{contractList.map((item,index)=>{
+			        		let showOpretion = (item.id == opretionId && opretionOpen)?'visible':'hidden';
 			        		return (
 				        		<TableRow>
 					                <TableRowColumn><span className="tableOver">{item.company}</span>{this.everyTd(item.company)}</TableRowColumn>
@@ -334,15 +382,15 @@ class Merchants extends Component{
 					                <TableRowColumn>
 					                    <Button label="查看" type='button' onClick={this.onOperation} />
 					                    <span className='upload-button'><Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)}/></span>
-										<Button  type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>}/>
+										<Button  type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)}/>
+										<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
 										
-										{/*<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
 										<div style={{visibility:showOpretion}} className="m-operation" >
-											{item.contractstate != 'EXECUTE' && item.editFlag && <span style={{display:'block'}}><a  type="link" label="编辑" href={this.getAgrementEditUrl(item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}>编辑</a></span> }
-											{ item.contracttype !=  'QUITRENT' && <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
-
-											{item.contracttype == 'ENTER' && item.contractstate != 'EXECUTE' && item.editFlag  && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
-										</div>*/}
+											{<span style={{display:'block'}}>编辑</span> }
+											{ <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
+											{<span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
+						
+										</div>
 					                    
 					                </TableRowColumn>
 					            </TableRow>
