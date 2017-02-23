@@ -112,7 +112,12 @@ class NewCreateForm extends Component {
 			selectedStation: [],
 			openStation: false,
 			openStationUnitPrice: false,
-			allRent:'-1'
+			allRent:'-1',
+
+			oldBasicStationVos:[],
+			openAdd:false,
+			openMinus:false,
+
 		}
 	}
 
@@ -293,7 +298,42 @@ class NewCreateForm extends Component {
 		Store.dispatch(initialize('reduceCreateForm', initialValues));
 	}
 
+	 addClick=()=>{
+      let {oldBasicStationVos,stationVos,openMinus,openAdd}=this.state;
+	   this.setState({
+	  	 stationVos:oldBasicStationVos,
+	  	 openMinus:true,
+	  	 openAdd:false
+	    })
+	}
+
+	minusClick=()=>{
+      let {oldBasicStationVos,stationVos,openAdd,openMinus}=this.state;
+	   this.setState({
+	  	 stationVos:oldBasicStationVos.slice(0,5),
+	  	 openAdd:true,
+	  	 openMinus:false
+	    })
+	}
+
+	addRender=()=>{
+    	    var _this=this;
+            let add='';
+             add=(<div onClick={_this.addClick} className='arrow-wrap'><span className='arrow-open'>展开</span><span className='arrow-pic'></span></div>)
+            return add
+        }
+
+     minusRender=()=>{
+    	 var _this=this;
+            let minus='';
+             minus=(<div onClick={_this.minusClick} className='arrow-wrap'><span className='arrow-open'>收起</span><span className='arrow-pic-do'></span></div>)
+            return minus
+    }
+
+
+
 	componentWillReceiveProps(nextProps) {
+		var _this=this;
 		if (!this.isInit && nextProps.stationVos.length) {
 
 			let stationVos = nextProps.stationVos;
@@ -302,7 +342,22 @@ class NewCreateForm extends Component {
 
 			this.setState({
 				stationVos,
-				originStationVos
+				originStationVos,
+				oldBasicStationVos:stationVos
+			},function(){
+				   let {stationVos,oldBasicStationVos,openAdd}=_this.state;
+			       if(oldBasicStationVos&&oldBasicStationVos.length>5){
+			            _this.setState({
+			            	stationVos:oldBasicStationVos.slice(0,5),
+			            	openAdd:true
+			            })    	
+			        }
+			        if(oldBasicStationVos&&oldBasicStationVos.length<=5){
+			        	_this.setState({
+			        		stationVos:oldBasicStationVos,
+			        		openAdd:false
+			        	})
+			        }     	     
 			});
 			this.isInit = true;
 		};
@@ -405,7 +460,9 @@ class NewCreateForm extends Component {
 		let {
 			stationVos,
 			params,
-			allRent
+			allRent,
+			openAdd,
+			openMinus
 		} = this.state;
 		allRent = (allRent!='-1')?allRent:initialValues.rentamount;
 		let allRentName = this.dealRentName(allRent);
@@ -457,6 +514,10 @@ class NewCreateForm extends Component {
 						</TableBody>
 						</Table>
 						</div>
+                        
+                         {openAdd&&this.addRender()}
+			             {openMinus&&this.minusRender()}
+
 						</DotTitle>
                      <div style={{marginTop:'0px',marginBottom:25}}>减少费用总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
 

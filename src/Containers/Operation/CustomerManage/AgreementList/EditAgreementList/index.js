@@ -68,13 +68,13 @@ class EditAgreementList extends Component{
 				</div>
 				<span className="content-title">减租协议书详情页</span>
 
-				{/*<Admit params={{customerId:1,orderId:1,contractId:1,id:1}} />*/}
+				{/*<Admit params={{customerId:1,orderId:1,contractId:1,id:985}} />*/}
 					
 				{/*<Exit params={{customerId:1,orderId:1,contractId:1,id:1}} />*/}
-				{/*<Increase params={{customerId:1,orderId:1,contractId:1,id:1}} />*/}
+				<Increase params={{customerId:1,orderId:1,contractId:1,id:1}} />
 				{/*<Join params={{customerId:1,orderId:1,contractId:1,id:1}} />*/}
 				{/*<Reduce params={{customerId:1,orderId:1,contractId:1,id:1}} />*/}
-				<Renew params={{customerId:1,orderId:1,contractId:1,id:1}} />
+				{/*<Renew params={{customerId:1,orderId:1,contractId:1,id:1}} />*/}
 			
 		        
 		      </div>

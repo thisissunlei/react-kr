@@ -121,8 +121,8 @@ class NewCreateForm extends Component {
 			openStationUnitPrice: false,
 			HeightAuto: false,
 			allRent:'-1',
+
 		}
-		console.log(this.props);
 	}
 	calcStationNum() {
 		let {
@@ -291,6 +291,10 @@ class NewCreateForm extends Component {
 		});
 	}
 
+	 
+
+
+
 	componentDidMount() {
 		let {
 			initialValues
@@ -302,9 +306,7 @@ class NewCreateForm extends Component {
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
 			this.setState({
-				stationVos
-			}, function() {
-				this.calcStationNum();
+				stationVos,
 			});
 			this.isInit = true;
 		}
@@ -596,7 +598,7 @@ class NewCreateForm extends Component {
 		let {
 			stationVos,
 			HeightAuto,
-			allRent
+			allRent,
 		} = this.state;
 		allRent = (allRent!='-1')?allRent:initialValues.totalrent;
 		var nzhcn = nzh.cn;
@@ -667,6 +669,8 @@ class NewCreateForm extends Component {
 						</Table>
 						 </div>
 							{stationVos.length>5?<div className="Btip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'Toprow':'Bottomrow'}></span></p></div>:''}
+                            
+
 					 </DotTitle>
                      {/*<div style={{marginTop:'-20px',marginBottom:60}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>*/}
 
