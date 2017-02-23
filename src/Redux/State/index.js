@@ -24,6 +24,9 @@ module.exports = {
 		switch_value:false,
 		anchor_el:undefined
 	},
+	right_bar:{
+		switch_value:false,
+	},
 }
 
 

@@ -123,7 +123,12 @@ export default class TableFooter extends React.Component {
 		return (
 			<a style={{width:80,height:30,background:'#499df1',color:'#fff',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)',marginRight:20,cursor: 'pointer'}}  onClick={this.onExport}>导&nbsp;&nbsp;出</a>
 		);
-
+	}
+	renderOther=()=>{
+		let {renderOther} = this.props;
+		renderOther && renderOther();
+		// return (<span>dddd</span>)
+		console.log('other',renderOther);
 	}
 
 	render() {
@@ -155,7 +160,7 @@ export default class TableFooter extends React.Component {
 				{/*
                   {this.renderCheckbox()}
 				*/}
-				<TableRowColumn style={{textAlign:'left'}} colSpan={num}>
+				<TableRowColumn style={{textAlign:'left',position:'absolute'}} colSpan={num}>
 					{this.renderExport()}
 					{renderOther && renderOther()}
 				</TableRowColumn>
