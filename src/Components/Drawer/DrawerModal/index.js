@@ -10,7 +10,7 @@ export default class DrawerModal extends React.Component {
   render() {
 
     return (
-      <div className="drawer-modal"> </div>
+      <div className="drawer-modal" onClick={this.props.onClose}> </div>
     );
   }
 }
