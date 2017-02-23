@@ -50,26 +50,103 @@ export default class JoinDetail extends Component {
 			basic: {
 				payment: {},
 				stationVos: []
-			}
+			},
+			oldBasicStationVos:[],
+			openAdd:false,
+			openMinus:false,
+			newBasicStationVos:[]
 		}
 
-		var _this = this;
+		
+	}
 
+	componentDidMount() {
+		var _this = this;
 		Store.dispatch(Actions.callAPI('show-checkin-agreement', {
-				id: _this.props.params.id
+				id: this.props.params.id
 			}))
 			.then(function(response) {
-
 				_this.setState({
-					basic: response
+					basic: response,
+					loading: false,
+					oldBasicStationVos:response.stationVos
+				},function(){
+					let {newBasicStationVos,oldBasicStationVos,openAdd}=_this.state;
+			       if(oldBasicStationVos&&oldBasicStationVos.length>5){
+			            _this.setState({
+			            	newBasicStationVos:oldBasicStationVos.slice(0,5),
+			            	openAdd:true
+			            })    	
+			        }
+			        if(oldBasicStationVos&&oldBasicStationVos.length<=5){
+			        	_this.setState({
+			        		newBasicStationVos:oldBasicStationVos,
+			        		openAdd:false
+			        	})
+			        }     	     	        
 				});
+			}).catch(function(err) {
+				Notify.show([{
+					message: err.message,
+					type: 'danger'
+				}]);
 			});
+	  }
 
+	   componentWillReceiveProps(){
+    	let {newBasicStationVos,oldBasicStationVos,openAdd}=this.state;
+       if(oldBasicStationVos&&oldBasicStationVos.length>5){
+            this.setState({
+            	newBasicStationVos:oldBasicStationVos.slice(0,5),
+            	openAdd:true
+            })    	
+        }
+        if(oldBasicStationVos&&oldBasicStationVos.length<=5){
+        	this.setState({
+        		newBasicStationVos:oldBasicStationVos,
+        		openAdd:false
+        	})
+        }     		     
+    }
+    
+
+	addClick=()=>{
+      let {oldBasicStationVos,newBasicStationVos,openMinus,openAdd}=this.state;
+	   this.setState({
+	  	 newBasicStationVos:oldBasicStationVos,
+	  	 openMinus:true,
+	  	 openAdd:false
+	    })
+	}
+
+	minusClick=()=>{
+      let {oldBasicStationVos,newBasicStationVos,openAdd,openMinus}=this.state;
+	   this.setState({
+	  	 newBasicStationVos:oldBasicStationVos.slice(0,5),
+	  	 openAdd:true,
+	  	 openMinus:false
+	    })
 	}
 
 	componentWillMount() {
 
 	}
+
+
+	 addRender=()=>{
+    	    var _this=this;
+            let add='';
+             add=(<div onClick={_this.addClick} className='arrow-wrap'><span className='arrow-open'>展开</span><span className='arrow-pic'></span></div>)
+            return add
+        }
+
+     minusRender=()=>{
+    	 var _this=this;
+            let minus='';
+             minus=(<div onClick={_this.minusClick} className='arrow-wrap'><span className='arrow-open'>收起</span><span className='arrow-pic-do'></span></div>)
+            return minus
+    }
+
 
 	onCancel = () => {
 		const {onCancel} = this.props;
@@ -100,7 +177,10 @@ export default class JoinDetail extends Component {
 		}
 
 		const {
-			basic
+			basic,
+			newBasicStationVos,
+			openAdd,
+			openMinus
 		} = this.state;
 
 		const BasicRender = (props) => {
@@ -131,7 +211,7 @@ export default class JoinDetail extends Component {
 															</TableHeader>
 															<TableBody>
 
-																{basic.stationVos.length && basic.stationVos.map((item,index)=>{
+																{newBasicStationVos && newBasicStationVos.map((item,index)=>{
 																	console.log('item',item);
 																	return (
 																		 <TableRow key={index}>
@@ -156,6 +236,9 @@ export default class JoinDetail extends Component {
 
 														   </TableBody>
 													 </Table>
+
+													  {openAdd&&this.addRender()}
+			                                          {openMinus&&this.minusRender()}
 											  </DotTitle>
 
 				  	<div className="content-info" style={info} >
