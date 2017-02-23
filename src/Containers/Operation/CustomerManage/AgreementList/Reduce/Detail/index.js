@@ -109,11 +109,13 @@ export default class ReduceDetail extends Component {
 			            	newBasicStationVos:oldBasicStationVos.slice(0,5),
 			            	openAdd:true
 			            })    	
-			        }else{
+			        }
+			        if(oldBasicStationVos&&oldBasicStationVos.length<=5){
 			        	_this.setState({
+			        		newBasicStationVos:oldBasicStationVos,
 			        		openAdd:false
 			        	})
-			       }     	   
+			        }     	  	   
 			});
 		});
 		setTimeout(function() {
@@ -136,11 +138,13 @@ export default class ReduceDetail extends Component {
             	newBasicStationVos:oldBasicStationVos.slice(0,5),
             	openAdd:true
             })    	
-        }else{
+        }
+        if(oldBasicStationVos&&oldBasicStationVos.length<=5){
         	this.setState({
+        		newBasicStationVos:oldBasicStationVos,
         		openAdd:false
         	})
-        }     	     
+        }     			     
     }
 
      addRender=()=>{

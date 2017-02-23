@@ -77,11 +77,13 @@ export default class JoinDetail extends Component {
 			            	newBasicStationVos:oldBasicStationVos.slice(0,5),
 			            	openAdd:true
 			            })    	
-			        }else{
+			        }
+			        if(oldBasicStationVos&&oldBasicStationVos.length<=5){
 			        	_this.setState({
+			        		newBasicStationVos:oldBasicStationVos,
 			        		openAdd:false
 			        	})
-			        }     	        
+			        }     	     	        
 				});
 			}).catch(function(err) {
 				Notify.show([{
@@ -98,11 +100,13 @@ export default class JoinDetail extends Component {
             	newBasicStationVos:oldBasicStationVos.slice(0,5),
             	openAdd:true
             })    	
-        }else{
+        }
+        if(oldBasicStationVos&&oldBasicStationVos.length<=5){
         	this.setState({
+        		newBasicStationVos:oldBasicStationVos,
         		openAdd:false
         	})
-        }     	     
+        }     		     
     }
     
 

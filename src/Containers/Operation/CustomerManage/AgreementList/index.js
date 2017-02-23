@@ -231,11 +231,9 @@ class Merchants extends Component{
        
 
 		return(
-      <div className="m-agreement-list" style={{paddingTop:25}}>
-
-
-			<Title value="客户列表"/>
-      		
+      <div className="m-agreement-list">
+			<Title value="合同列表"/>
+      		<Section title="合同列表" description="" style={{marginBottom:-5,minHeight:910}}>
 	        <Row style={{marginBottom:21}}>
 			          <Col
 					     align="left"
@@ -363,7 +361,7 @@ class Merchants extends Component{
 			        <TableFooter></TableFooter>
            </Table>
 
-
+          </Section>
 					
 					<Drawer
 				        open={State.openNewAgreement}
@@ -409,10 +407,10 @@ class Merchants extends Component{
 						<RenewDetail 
 						 params={{id:1,customerId:2,orderId:4}}
                          onCancel={this.cancelAgreementDetail}
-						/>
+						/>						
 
-						<IncreaseDetail 
-						 params={{id:1,customerId:2,orderId:4}}
+						<AdmitDetail 
+						 params={{id:985,customerId:2,orderId:4}}
                          onCancel={this.cancelAgreementDetail}
 						/>
 
@@ -421,7 +419,7 @@ class Merchants extends Component{
                          onCancel={this.cancelAgreementDetail}
 						/>*/}
 
-						<AdmitDetail 
+						<IncreaseDetail 
 						 params={{id:1,customerId:2,orderId:4}}
                          onCancel={this.cancelAgreementDetail}
 						/>
