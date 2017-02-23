@@ -610,11 +610,10 @@ class NewCreateForm extends Component {
 
 			<div style={{width:615}}>
 
-<form className="m-increase-form" onSubmit={handleSubmit(this.onSubmit)}  >
+<form className="m-increase-form" onSubmit={handleSubmit(this.onSubmit)} >
 				<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
 					<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
 					<div className="small-cheek" style={{paddingBottom:"0px"}}>
-
 					<KrField  name="wherefloor" style={{width:262,marginLeft:25}} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} />
 					<KrField style={{width:343,marginLeft:25,position:"absolute"}} component="group" label="租赁期限"  requireLabel={true}>
 						<ListGroup>

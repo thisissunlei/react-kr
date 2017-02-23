@@ -67,11 +67,14 @@ class EditAgreementList extends Component{
 					<div className="look-close" onClick={this.onCancel}></div>
 				</div>
 				<span className="content-title">减租协议书详情页</span>
-				<div style={{height:30}}></div>
 
-				<Admit params={{customerId:1,orderId:1,contractId:1,id:1}} />
+				{/*<Admit params={{customerId:1,orderId:1,contractId:1,id:1}} />*/}
 					
-				
+				{/*<Exit params={{customerId:1,orderId:1,contractId:1,id:1}} />*/}
+				{/*<Increase params={{customerId:1,orderId:1,contractId:1,id:1}} />*/}
+				{/*<Join params={{customerId:1,orderId:1,contractId:1,id:1}} />*/}
+				{/*<Reduce params={{customerId:1,orderId:1,contractId:1,id:1}} />*/}
+				<Renew params={{customerId:1,orderId:1,contractId:1,id:1}} />
 			
 		        
 		      </div>

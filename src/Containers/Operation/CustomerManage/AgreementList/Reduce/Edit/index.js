@@ -219,9 +219,9 @@ export default class JoinCreate extends Component {
 
 			<div>
 		 	<BreadCrumbs children={['系统运营','客户管理','入驻协议']}/>
-			<Section title="减租协议书" description="">
+			<div style={{marginTop:10}}>
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos} params={this.props.params}/>
-			</Section>
+			</div>
 		</div>
 		);
 	}
