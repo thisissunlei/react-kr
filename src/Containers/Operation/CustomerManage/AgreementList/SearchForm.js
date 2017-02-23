@@ -165,23 +165,20 @@ class SearchForm extends Component {
 
 		return (
 			
-			<form name="searchForm" className="m-agreementList-searchForm" style={{marginBottom:10,marginTop:12,height:30 }}>
+			<form name="searchForm" className="m-agreementList-searchForm" style={{height:30 }}>
 				{/*<KrField  name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} left={60}/>*/}
 				<div className="searchForm-col" style={{marginTop:"7px"}}>
-				    <SearchForms placeholder='请输入公司名称' inputName='mr' onSubmit={this.onSearchSubmit}/>
+				    <SearchForms placeholder='请输入公司名称' searchFilter={[{label:'公司名称',value:'1'},{label:'社区',value:'2'}]} onSubmit={this.onSearchSubmit}/>
 				</div>
-				<div className="searchForm-col" style={{marginLeft:"77px",marginTop:"-40px"}}>
-					<KrField name="community" type="select" search={true}  inline={true} style={{marginLeft:'-54px'}} />
-				</div>
-				<div className="searchForm-col" style={{marginTop:"0px"}}>
-					<KrField grid={1/2} label="" name="inTime" style={{marginLeft:28,width:"265px"}}  component="date" inline={true}/>
+				<div className="searchForm-col" style={{marginTop:"0px",marginRight:10}}>
+					<KrField grid={1/2} label="" name="inTime" style={{marginLeft:28,width:"213px"}}  component="date" inline={true}/>
 				</div>
 				<div className="searchForm-col" style={{marginTop:"-40px",position:"relative",left:30,top:50}}>
 					<span>至</span>
 				</div>
 
 				<div className="searchForm-col" style={{marginTop:"0px"}}>
-					<KrField grid={1/2} label="" name="inTime" style={{marginLeft:28,width:"265px"}} component="date"  inline={true}/>
+					<KrField grid={1/2} label="" name="inTime" style={{marginLeft:28,width:"213px"}} component="date"  inline={true}/>
 
 				</div>
 				<div className="searchForm-col" style={{marginTop:"8px",marginRight:"-38px"}}>

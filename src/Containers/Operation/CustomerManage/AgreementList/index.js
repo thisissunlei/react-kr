@@ -234,13 +234,12 @@ class Merchants extends Component{
       <div className="m-agreement-list">
 			<Title value="合同列表"/>
       		<Section title="合同列表" description="" style={{marginBottom:-5,minHeight:910}}>
-	        <Row style={{marginBottom:21}}>
+	        <Row style={{marginBottom:18,marginTop:-4}}>
 			          <Col
-					     align="left"
-					     style={{float:'left'}}
+					     style={{float:'left',marginTop:6}}
 					   >
 									<Button
-											label="新建客户"
+											label="新建合同"
 											type='button'
 											onTouchTap={this.openAgreement}
 									/>
@@ -262,20 +261,26 @@ class Merchants extends Component{
                 ajax={true}
                 onOperation={this.onOperation}
 	            displayCheckbox={true}
+	            exportSwitch={true}
+			    onExport={this.onExport}
 	            onSelect={this.onSelect}
 	            onLoaded={this.onLoaded}
 	            ajaxParams={State.searchParams}
-	            ajaxUrlName='shareCustomers'
+	            ajaxUrlName='contract-list'
 	            ajaxFieldListName="items"
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>
-		              <TableHeaderColumn>意向城市</TableHeaderColumn>
-		              <TableHeaderColumn>意向社区</TableHeaderColumn>
-		              <TableHeaderColumn>意向工位数</TableHeaderColumn>
-		              <TableHeaderColumn>来源</TableHeaderColumn>
-		              <TableHeaderColumn>客户分类</TableHeaderColumn>
-		              <TableHeaderColumn>领取人</TableHeaderColumn>
+		              <TableHeaderColumn>城市</TableHeaderColumn>
+		              <TableHeaderColumn>社区</TableHeaderColumn>
+		              <TableHeaderColumn>合同类型</TableHeaderColumn>
+		              <TableHeaderColumn>起始时间</TableHeaderColumn>
+		              <TableHeaderColumn>结束时间</TableHeaderColumn>
+		              <TableHeaderColumn>工位数</TableHeaderColumn>
+		              <TableHeaderColumn>独立空间</TableHeaderColumn>
+		              <TableHeaderColumn>服务费总额</TableHeaderColumn>
+		              <TableHeaderColumn>销售员</TableHeaderColumn>
+		              <TableHeaderColumn>录入人</TableHeaderColumn>
 		              <TableHeaderColumn>创建时间</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
 
@@ -294,54 +299,17 @@ class Merchants extends Component{
 														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 													 }} ></TableRowColumn>
-			                <TableRowColumn name="intentionCityName" ></TableRowColumn>
-			                <TableRowColumn name="intentionCommunityName" component={(value,oldValue)=>{
-														var TooltipStyle=""
-														if(value.length==""){
-															TooltipStyle="none"
-
-														}else{
-															TooltipStyle="inline-block";
-														}
-														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-													 }} ></TableRowColumn>
-			                <TableRowColumn name="stationNum"></TableRowColumn>
-			                <TableRowColumn name="sourceName" component={(value,oldValue)=>{
-														var TooltipStyle=""
-														if(value.length==""){
-															TooltipStyle="none"
-
-														}else{
-															TooltipStyle="inline-block";
-														}
-														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-													 }}></TableRowColumn>
-			                <TableRowColumn name="levelName" component={(value,oldValue)=>{
-														var TooltipStyle=""
-														if(value.length==""){
-															TooltipStyle="none"
-
-														}else{
-															TooltipStyle="inline-block";
-														}
-														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-													 }}></TableRowColumn>
-			                <TableRowColumn name="receiveName"></TableRowColumn>
-			                <TableRowColumn name="createDate" type='date' component={(value,oldValue)=>{
-						                				let show="inline-block";
-						                				if(value.length==0){
-						                					show="none";
-						                				}else{
-						                					show="inline-block";
-						                				}
-														 return (<div style={{display:"inline-block"}}><span className='tableOver' style={{maxWidth:130,marginTop:5,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}><KrDate value={value} format="yyyy-mm-dd"/><span>...</span></span>
-														 	<Tooltip offsetTop={10} place='top' style={{left:50,display:show}}>
-																<div><KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/></div>
-														 	</Tooltip></div>)
-													 }}></TableRowColumn>
+			                <TableRowColumn name="cityName" ></TableRowColumn>
+			                <TableRowColumn name="communityName"></TableRowColumn>
+			                <TableRowColumn name="contracttype"></TableRowColumn>
+			                <TableRowColumn name="leaseBegindate"></TableRowColumn>
+			                <TableRowColumn name="leaseEnddate"></TableRowColumn>
+			                <TableRowColumn name="stationnum"></TableRowColumn>
+			                <TableRowColumn name="boardroomnum"></TableRowColumn>
+							<TableRowColumn name="totalrent"></TableRowColumn>
+							<TableRowColumn name="saler"></TableRowColumn>
+							<TableRowColumn name="inputUser"></TableRowColumn>
+							<TableRowColumn name="createdate"></TableRowColumn>
 			                <TableRowColumn type="operation">
 			                    <Button label="查看"  type="operation"  operation="watch" />
 
