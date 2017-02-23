@@ -350,8 +350,8 @@ class Merchants extends Component{
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 			        >
 						
-			      	{/*<TwoNewAgreement onCancel={this.closeAgreement}/>*/}
-			      	<EditAgreementList onCancel={this.closeAgreement}/>
+			      	<TwoNewAgreement onCancel={this.closeAgreement}/>
+			      	{/*<EditAgreementList onCancel={this.closeAgreement}/>*/}
 		           </Drawer>
 
                    {/*查看*/}
