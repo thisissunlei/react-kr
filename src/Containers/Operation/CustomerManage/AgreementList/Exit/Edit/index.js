@@ -197,12 +197,12 @@ export default class EditCreate extends Component {
     console.log('stationVos', stationVos)
     return (
 
-      <div>
+      <div style={{marginLeft:22}}>
       <Title value="编辑退租协议书_财务管理"/>
       <BreadCrumbs children={['系统运营','客户管理','退租协议']}/>
-      <Section title="退租协议书" description="">
+     <div style={{marginTop:10}}>
           <NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
-      </Section>
+      </div>
     </div>
     );
   }
