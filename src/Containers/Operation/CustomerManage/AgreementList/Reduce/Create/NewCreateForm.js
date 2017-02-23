@@ -110,6 +110,7 @@ class NewCreateForm extends Component {
 			openStation: false,
 			openStationUnitPrice: false,
 			allRent:0,
+			HeightAuto: false,
 		}
 	}
 
@@ -121,6 +122,13 @@ class NewCreateForm extends Component {
 		this.setState({
 			stationVos
 		});
+	}
+
+	showMore = () => {
+		this.setState({
+			HeightAuto: !this.state.HeightAuto
+		})
+
 	}
 
 	onChangeSearchPersonel(personel) {
@@ -341,11 +349,12 @@ class NewCreateForm extends Component {
 
 		let {
 			stationVos,
-			allRent
+			allRent,
+			HeightAuto
 		} = this.state;
 		let allRentName = this.dealRentName(allRent);
 		return (
-			<div style={{width:615}}>
+			<div className={HeightAuto?'auto':'station-list'} style={{width:615,marginTop:'-10px'}}>
 
 	<form className="m-new-reduce" onSubmit={handleSubmit(this.onSubmit)}>
 		<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
@@ -391,6 +400,8 @@ class NewCreateForm extends Component {
 						</Table>
 						</div>
 
+                       {stationVos.length>5?<div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}
+                     
                      </DotTitle>
                      <div style={{marginTop:'0px',marginBottom:25}}>减少费用总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
 

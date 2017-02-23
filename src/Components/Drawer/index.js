@@ -16,10 +16,17 @@ export default class DrawerSimpleExample extends React.Component {
     open:React.PropTypes.bool,
     width:React.PropTypes.number,
     contentStyle:React.PropTypes.object,
+    onClose:React.PropTypes.func,
   }
 
   constructor(props) {
     super(props);
+  }
+
+
+  onClose =()=>{
+    const {onClose} = this.props;
+    onClose && onClose();
   }
 
   render() {
@@ -30,7 +37,6 @@ export default class DrawerSimpleExample extends React.Component {
       return null;
     }
 
-
     contentStyle = Object.assign({},contentStyle);
 
     if(width){
@@ -39,7 +45,7 @@ export default class DrawerSimpleExample extends React.Component {
 
     return (
       <div className="ui-drawer">
-        <DrawerModal />
+        <DrawerModal onClose={this.onClose}/>
         <DrawerBody style={contentStyle}> {children} </DrawerBody>
       </div>
     );
