@@ -73,6 +73,7 @@ class ReceivedBtnForm extends Component {
 
 	}
 
+
 	componentWillReceiveProps(nextProps) {
 
 		if (nextProps.open) {
@@ -82,6 +83,7 @@ class ReceivedBtnForm extends Component {
 			//Store.dispatch(change('receivedBtnForm', 'operatedate', ''));
 			Store.dispatch(change('receivedBtnForm', 'mainbillId', this.context.params.orderId));
 		}
+
 
 	}
 

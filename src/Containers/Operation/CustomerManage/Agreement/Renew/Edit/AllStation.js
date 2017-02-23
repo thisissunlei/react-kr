@@ -1,50 +1,14 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
-import {
-	connect
-} from 'kr/Redux';
-import {
-	Binder
-} from 'react-binding';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'kr/Redux';
+import { Binder } from 'react-binding';
 
-import {
-	DateFormat
-} from 'kr/Utils';
+import { DateFormat } from 'kr/Utils';
 
-import {
-	reduxForm,
-	formValueSelector,
-	change,
-	initialize,
-	arrayPush,
-	arrayInsert,
-	FieldArray
-} from 'redux-form';
+import { reduxForm, formValueSelector, change, initialize, arrayPush, arrayInsert, FieldArray } from 'redux-form';
 
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
+import { Actions, Store } from 'kr/Redux';
 
-import {
-	Form,
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	KrField,
-	Grid,
-	Row,
-	Col,
-	Button,
-	Notify,
-	KrDate,
-} from 'kr-ui';
+import { Form, Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter, KrField, Grid, Row, Col, Button, Notify, KrDate, } from 'kr-ui';
 
 class SelectStationForm extends Component {
 
@@ -90,13 +54,13 @@ class SelectStationForm extends Component {
 		let beginDate = Date.parse(DateFormat(leaseBegindate, 'yyyy-mm-dd') + ' 00:00:00');
 		let rentBeginDate = Date.parse(value);
 
-		if (beginDate > rentBeginDate) {
-			Notify.show([{
-				message: '选择的续租开始时间小于租赁期限的起始时间',
-				type: 'danger',
-			}]);
-			return false;
-		}
+		// if (beginDate > rentBeginDate) {
+		// 	Notify.show([{
+		// 		message: '选择的续租开始时间小于租赁期限的起始时间',
+		// 		type: 'danger',
+		// 	}]);
+		// 	return false;
+		// }
 
 
 		let {
@@ -131,10 +95,19 @@ class SelectStationForm extends Component {
 			pagesize: 100,
 			contractId: params.id
 		})).then(function(response) {
+			console.log('response',response);
+			response.items = response.items.map((item)=>{
+				if(item.show){
+					item.rentBeginDate = item.lastEditDate;
+				}
+				return item;
+			})
+			console.log('response.items',response.items);
 			_this.setState({
 				stationVos: response.items
 			});
 		}).catch(function(err) {
+			console.log(err);
 			Notify.show([{
 				message: '后台出错请联系管理员',
 				type: 'danger',
@@ -187,7 +160,7 @@ class SelectStationForm extends Component {
 
 		if (!someStartDate) {
 			Notify.show([{
-				message: '选择的工位必须要有续租结束时间',
+				message: '选择的工位必须要有相同的续租结束时间',
 				type: 'danger',
 			}]);
 			return;
@@ -290,7 +263,6 @@ class SelectStationForm extends Component {
 			<div style={{height:667,marginTop:20}}>
 <form onSubmit={handleSubmit(this.onSubmit)}>
 			<KrField grid={1/2}  name="rentBeginDate" component="date" label="续租结束时间：" onChange={this.onChangeRentBeginDate} inline={true}/>
-			<KrField grid={1/2} left={60} name="leaseBegindate"  component="labelText" type="date" label="租赁期限起始时间：" value={changeValues.leaseBegindate} defaultValue="无"/>
       <Table onSelect={this.onSelect} style={overfolw}>
         <TableHeader>
           <TableHeaderColumn>类别</TableHeaderColumn>
@@ -309,7 +281,7 @@ class SelectStationForm extends Component {
           <TableRowColumn >{item.unitprice}</TableRowColumn>
           <TableRowColumn ><KrDate value={item.leaseBeginDate}/></TableRowColumn>
           <TableRowColumn ><KrDate value={item.leaseEndDate}/></TableRowColumn>
-          <TableRowColumn>
+          <TableRowColumn >
 				{item.rentBeginDate&& DateFormat(item.rentBeginDate,'yyyy-mm-dd')}
           </TableRowColumn>
          </TableRow>

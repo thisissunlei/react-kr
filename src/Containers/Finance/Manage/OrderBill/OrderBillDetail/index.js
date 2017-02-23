@@ -250,7 +250,6 @@ export default class AttributeSetting extends Component {
 	openReceivedBtn() {
 
 		this.receivedBtnFormChangeValues = {};
-
 		Store.dispatch(initialize('receivedBtnForm', {}));
 		var _this = this;
 		Store.dispatch(Actions.callAPI('getPaymentActData', {

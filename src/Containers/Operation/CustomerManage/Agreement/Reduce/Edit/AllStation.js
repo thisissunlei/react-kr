@@ -149,6 +149,12 @@ class SelectStationForm extends Component {
 			pagesize: 100,
 			contractId: params.id
 		})).then(function(response) {
+			response.items = response.items.map((item)=>{
+				if(item.show){
+					item.rentBeginDate = item.lastEditDate;
+				}
+				return item;
+			})
 			_this.setState({
 				stationVos: response.items
 			});
@@ -313,7 +319,6 @@ class SelectStationForm extends Component {
 			<div style={{height:667,marginTop:20}}>
 <form onSubmit={handleSubmit(this.onSubmit)}>
 			<KrField grid={1/2}  name="rentBeginDate" component="date" label="减租开始时间：" onChange={this.onChangeRentBeginDate} inline={true}/>
-			<KrField grid={1/2} name="leaseEnddate"  component="labelText" type="date" label="租赁期限终止时间：" value={changeValues.leaseEnddate} defaultValue="无"/>
 
       <Table onSelect={this.onSelect} style={overfolw}>
         <TableHeader>

@@ -130,6 +130,7 @@ export default class ConfirmFormDetail  extends Component{
 									<TableHeader>
 											<TableHeaderColumn>类别</TableHeaderColumn>
 											<TableHeaderColumn>编号／名称</TableHeaderColumn>
+											<TableHeaderColumn>单价(元/月)</TableHeaderColumn>
 											<TableHeaderColumn>租赁开始时间</TableHeaderColumn>
 											<TableHeaderColumn>租赁结束时间</TableHeaderColumn>
 									</TableHeader>
@@ -140,6 +141,7 @@ export default class ConfirmFormDetail  extends Component{
 												<TableRow key={index}>
 													<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
 													<TableRowColumn>{item.stationName}</TableRowColumn>
+													<TableRowColumn>{item.unitprice}</TableRowColumn>
 
 												<TableRowColumn>
 													<KrDate value={item.leaseBeginDate} format="yyyy-mm-dd"/>

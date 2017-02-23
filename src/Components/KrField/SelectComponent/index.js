@@ -17,7 +17,7 @@ export default class SelectComponent extends React.Component {
 	static PropTypes = {
 		onChange: React.PropTypes.func,
 		inline: React.PropTypes.bool,
-		search: React.PropTypes.bool
+		search: React.PropTypes.bool,
 	}
 
 	constructor(props) {
@@ -99,8 +99,6 @@ render() {
 			multi,
 			...other
 		} = this.props;
-		// console.log('select',options);
-
 		if (multi) {
 			return (
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
@@ -149,7 +147,7 @@ render() {
 
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
-					<select {...input}  disabled={disabled}>
+					<select {...input}  disabled={disabled}>@@
 									{children}
 					</select>
 					{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
