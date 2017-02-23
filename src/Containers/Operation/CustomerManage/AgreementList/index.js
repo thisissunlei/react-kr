@@ -75,7 +75,10 @@ class Merchants extends Component{
 				contractList: [],
 				antecedent: [],
 			},
-			staionsList: []
+			staionsList: [],
+            
+           
+           
 		}
 	}
 	//打开第二新建页面
@@ -141,10 +144,10 @@ class Merchants extends Component{
         State.openDialog=false;	
     }
     //查看相关操作
-    onOperation=(type, itemDetail)=>{
-      if(type=='watch'){
+    onOperation=()=>{
+     
       	 State.agreementDetail();
-      }
+     
     }
      
      cancelAgreementDetail=()=>{
@@ -227,34 +230,23 @@ class Merchants extends Component{
 
 	}
 	componentDidMount() {
-		var _this = this;
-		let data={
-			cityId:'',
-			communityId:'',
-			createDateBegin:'',
-			createDateEnd:'',
-			createrId:'',
-			customerId:'',
-			page:'',
-			pageSize:'',
-			salerId:''
+		State.ajaxListData(State.searchParams);
+	}
+
+
+	
+	everyTd=(value)=>{
+		var show=false;
+		if(!value){
+			return;
 		}
+		if(value.length==0){
+			show=false;
 
-		Store.dispatch(Actions.callAPI('contract-list', data)).then(function(response) {
-			State.contractList=response.items;
-			setTimeout(function() {
-					loading: false
-			}, 0);
-
-		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-
-		});
-		Store.dispatch(Actions.switchSidebarNav(false));
-
+		}else{
+			show=true;
+		}
+		return (<Tooltip className="tooltipTextStyle" style={{padding:10, maxWidth:224,}} offsetTop={5} place='top'><div style={{width:160,minHeight:20,wordWrap:"break-word",padding:"10px",whiteSpace:"normal",lineHeight:"22px"}}>{value}</div></Tooltip>)
 	}
 
 	render(){
@@ -327,20 +319,20 @@ class Merchants extends Component{
 			        	{contractList.map((item,index)=>{
 			        		return (
 				        		<TableRow>
-					                <TableRowColumn>{item.company}</TableRowColumn>
-					                <TableRowColumn>{item.cityName}</TableRowColumn>
-					                <TableRowColumn>{item.communityName}</TableRowColumn>
-					                <TableRowColumn>{item.contracttype}</TableRowColumn>
-					                <TableRowColumn><KrDate value={item.leaseBegindate}/></TableRowColumn>
-					                <TableRowColumn><KrDate value={item.leaseEnddate}/></TableRowColumn>
-					                <TableRowColumn>{item.stationnum}</TableRowColumn>
-					                <TableRowColumn>{item.boardroomnum}</TableRowColumn>
-									<TableRowColumn>{item.totalrent}</TableRowColumn>
-									<TableRowColumn>{item.saler}</TableRowColumn>
-									<TableRowColumn>{item.inputUser}</TableRowColumn>
-									<TableRowColumn><KrDate value={item.createdate}/></TableRowColumn>
+					                <TableRowColumn><span className="tableOver">{item.company}</span>{this.everyTd(item.company)}</TableRowColumn>
+					                <TableRowColumn><span className="tableOver">{item.cityName}</span>{this.everyTd(item.cityName)}</TableRowColumn>
+					                <TableRowColumn><span className="tableOver">{item.communityName}</span>{this.everyTd(item.communityName)}</TableRowColumn>
+					                <TableRowColumn><span className="tableOver">{item.contracttype}</span>{this.everyTd(item.contracttype)}</TableRowColumn>
+					                <TableRowColumn><span className="tableOver"><KrDate value={item.leaseBegindate}/></span>{this.everyTd(item.leaseBegindate)}</TableRowColumn>
+					                <TableRowColumn><span className="tableOver"><KrDate value={item.leaseEnddate}/></span>{this.everyTd(item.leaseEnddate)}</TableRowColumn>
+					                <TableRowColumn><span className="tableOver">{item.stationnum}</span>{this.everyTd(item.stationnum)}</TableRowColumn>
+					                <TableRowColumn><span className="tableOver">{item.boardroomnum}</span>{this.everyTd(item.boardroomnum)}</TableRowColumn>
+									<TableRowColumn><span className="tableOver">{item.totalrent}</span>{this.everyTd(item.totalrent)}</TableRowColumn>
+									<TableRowColumn><span className="tableOver">{item.saler}</span>{this.everyTd(item.saler)}</TableRowColumn>
+									<TableRowColumn><span className="tableOver">{item.inputUser}</span>{this.everyTd(item.inputUser)}</TableRowColumn>
+									<TableRowColumn><span className="tableOver"><KrDate value={item.createdate}/></span>{this.everyTd(item.createdate)}</TableRowColumn>
 					                <TableRowColumn>
-					                    <Button label="查看"  type="operation"  operation="watch" />
+					                    <Button label="查看" type='button' onClick={this.onOperation} />
 					                    <span className='upload-button'><Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)}/></span>
 										<Button  type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>}/>
 										

@@ -12,13 +12,15 @@ import {
 	FieldArray,
 	change
 } from 'redux-form';
-
+import dateFormat from 'dateformat';
 import {
 	Actions,
 	Store,
 	connect
 } from 'kr/Redux';
-
+import {
+	observer
+} from 'mobx-react';
 import {
 	Section,
 	KrField,
@@ -33,9 +35,12 @@ import {
 	ListGroup,
 	ListGroupItem,
 	SearchDateForm,
-	SearchForms
+	SearchForms,
+	Message
 } from 'kr-ui';
 import './index.less';
+import State from './State';
+@observer
 class SearchForm extends Component {
 	
 
@@ -47,11 +52,6 @@ class SearchForm extends Component {
 		let currentYear = dt.getFullYear();
 		
 		this.state = {
-			searchParams: {
-				groupId:this.props.groupId,
-				startDate:this.props.todayDate,
-				endDate:this.props.todayDate
-			},
 			startValue:'',
 			endValue:''
 		}
@@ -105,12 +105,9 @@ class SearchForm extends Component {
 		} = this.props;ss
 	}
 	onStartChange=(startD)=>{
-
-    	let {searchParams}=this.state;
+		console.log('999ffffstart',startD);
         let start=Date.parse(dateFormat(startD,"yyyy-mm-dd hh:MM:ss"));
-
-
-        let end=Date.parse(dateFormat(searchParams.endDate,"yyyy-mm-dd hh:MM:ss"))
+        let end=Date.parse(dateFormat(State.searchParams.createDateEnd,"yyyy-mm-dd hh:MM:ss"))
         this.setState({
         	startValue:startD
 
@@ -121,20 +118,12 @@ class SearchForm extends Component {
 	          return ;
 	        }
 	        let startDate=this.state.startValue;
-	    	searchParams = Object.assign({}, searchParams, {startDate:this.state.startValue,endDate:this.state.endValue||searchParams.endDate});
-	    	this.setState({
-				searchParams
-			},function(){
-			console.log(searchParams,this.state.endValue,"uuu")
-
-			});
-
-
+	    	State.searchParams = Object.assign({}, State.searchParams, {createDateBegin:this.state.startValue,createDateEnd:this.state.endValue||State.searchParams.createDateEnd});
+	    	State.ajaxListData(State.searchParams);
         })
     }
     onEndChange=(endD)=>{
-    	let {searchParams}=this.state;
-        let start=Date.parse(dateFormat(searchParams.startDate,"yyyy-mm-dd hh:MM:ss"));
+        let start=Date.parse(dateFormat(State.searchParams.createDateBegin,"yyyy-mm-dd hh:MM:ss"));
         let end=Date.parse(dateFormat(endD,"yyyy-mm-dd hh:MM:ss"));
         this.setState({
         	endValue:endD
@@ -146,13 +135,8 @@ class SearchForm extends Component {
 	          return ;
 	        }
 	        let endDate=this.state.endValue;
-	    	searchParams = Object.assign({}, searchParams, {startDate:this.state.startValue||searchParams.startDate,endDate:this.state.endValue,});
-	    	this.setState({
-				searchParams
-			},function(){
-
-			});
-
+	    	State.searchParams = Object.assign({}, State.searchParams, {createDateBegin:this.state.startValue||State.searchParams.createDateBegin,createDateEnd:this.state.endValue,});
+            State.ajaxListData(State.searchParams);
         })
 
     }
@@ -171,14 +155,14 @@ class SearchForm extends Component {
 				    <SearchForms placeholder='请输入公司名称' searchFilter={[{label:'公司名称',value:'1'},{label:'社区',value:'2'}]} onSubmit={this.onSearchSubmit}/>
 				</div>
 				<div className="searchForm-col" style={{marginTop:"0px",marginRight:10}}>
-					<KrField grid={1/2} label="" name="inTime" style={{marginLeft:28,width:"213px"}}  component="date" inline={true}/>
+					<KrField grid={1/2} label="" name="createDateBegin" style={{marginLeft:28,width:"253px"}}  component="date" inline={true} onChange={this.onEndChange} placeholder={State.searchParams.createDateBegin}/>
 				</div>
 				<div className="searchForm-col" style={{marginTop:"-40px",position:"relative",left:30,top:50}}>
 					<span>至</span>
 				</div>
 
 				<div className="searchForm-col" style={{marginTop:"0px"}}>
-					<KrField grid={1/2} label="" name="inTime" style={{marginLeft:28,width:"213px"}} component="date"  inline={true}/>
+					<KrField grid={1/2} label="" name="createDateEnd" style={{marginLeft:28,width:"253px"}} component="date"  inline={true} onChange={this.onStartChange} placeholder={State.searchParams.createDateEnd}/>
 
 				</div>
 				<div className="searchForm-col" style={{marginTop:"8px",marginRight:"-38px"}}>
