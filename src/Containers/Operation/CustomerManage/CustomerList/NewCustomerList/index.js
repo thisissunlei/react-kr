@@ -284,7 +284,7 @@ const validate = values =>{
 		if (!values.company) {
 			errors.company = '请填写公司名称';
 		}else if(values.company.length>20){
-			errors.company = '最多输入20个字符';
+			errors.company = '最多输入40个字符';
 		}
 
 		if (!values.teamNum) {
