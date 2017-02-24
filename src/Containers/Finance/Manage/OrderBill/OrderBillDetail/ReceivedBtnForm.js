@@ -172,14 +172,14 @@ class ReceivedBtnForm extends Component {
 			var len = options.length - 1;
 			if (item.checked == false) {
 				name = `fix${item.contractId}`;
-				Store.dispatch(change('receivedBtnForm', `fix${item.contractId}1`, ' '));
-				Store.dispatch(change('receivedBtnForm', `fix${item.contractId}3`, ' '));
+				Store.dispatch(change('receivedBtnForm', `fix${item.contractId}1`, ''));
+				Store.dispatch(change('receivedBtnForm', `fix${item.contractId}3`, ''));
 				calcBalance && calcBalance(input, name);
 			}
 			if (options[len].checked == false) {
 				accountDetail.map((item, index) => {
 					nameList.push(item, item.id)
-					Store.dispatch(change('receivedBtnForm', item.id, ' '));
+					Store.dispatch(change('receivedBtnForm', item.id, ''));
 				})
 				calcBalance && calcBalance(input, '', nameList);
 			}
