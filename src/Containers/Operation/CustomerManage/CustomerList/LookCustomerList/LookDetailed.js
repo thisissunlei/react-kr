@@ -133,7 +133,10 @@ class LookDetail extends Component{
 	
 	render(){
 
-		let unifyStyle={width:"280px",marginLeft:-10}
+		let evenStyle={width:'280px',marginLeft:-10}
+		let oddStyle={width:'290px',marginLeft:-10}
+		let unifyStyle={};
+		let uniStyle={};
 		let detail=State.detail;
 		let isDeadline=false;
 		let {editsSwitch,IndentSwitch}=this.props;
@@ -163,7 +166,13 @@ class LookDetail extends Component{
 		}
 
 			
-		
+		if(isDeadline){
+          unifyStyle=oddStyle;
+          uniStyle=evenStyle;
+		}else{
+          unifyStyle=evenStyle;
+          uniStyle=oddStyle;
+		}
 			
 		
 		
@@ -173,28 +182,28 @@ class LookDetail extends Component{
 		return(
 	      <div className="m-LookDetailed" style={{marginTop:8}}>
 		    
-				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="客户来源:" style={unifyStyle} component="labelText" value={detail.sourceName} inline={true} /></li>
-				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="意向工位数:" style={unifyStyle} component="labelText" value={(detail.stationNum=='')?detail.stationNum:detail.stationNum+"个"} inline={true}/></li>
-				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="联系人姓名:" style={unifyStyle} component="labelText" value={detail.name} inline={true} /></li>
-				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="意向工位类型:" style={unifyStyle} component="labelText" value={detail.staionTypeName} inline={true} /></li>
-				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="联系人电话:" style={unifyStyle} component="labelText" value={detail.tel} inline={true} /></li>
-				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="意向工位价格:" style={unifyStyle} component="labelText" value={(detail.staionPrice=='')?detail.staionPrice:detail.staionPrice+"元"} inline={true} /></li>
-				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="联系人邮箱:" style={unifyStyle} component="labelText" value={detail.mail} inline={true} /></li>
-				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="意向入驻社区:" style={unifyStyle} component="labelText" value={detail.intentionCommunityName} inline={true} /></li>
-				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="联系人微信:" style={unifyStyle} component="labelText" value={detail.wechat} inline={true} /></li>
-				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="预计入驻时间:" style={unifyStyle} component="labelText" value={<KrDate style={{marginTop:5}} value={detail.inTime} format="yyyy-mm-dd"/>} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="客户来源:" style={oddStyle} component="labelText" value={detail.sourceName} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="意向工位数:" style={evenStyle} component="labelText" value={(detail.stationNum=='')?detail.stationNum:detail.stationNum+"个"} inline={true}/></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="联系人姓名:" style={oddStyle} component="labelText" value={detail.name} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="意向工位类型:" style={evenStyle} component="labelText" value={detail.staionTypeName} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="联系人电话:" style={oddStyle} component="labelText" value={detail.tel} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="意向工位价格:" style={evenStyle} component="labelText" value={(detail.staionPrice=='')?detail.staionPrice:detail.staionPrice+"元"} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="联系人邮箱:" style={oddStyle} component="labelText" value={detail.mail} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="意向入驻社区:" style={evenStyle} component="labelText" value={detail.intentionCommunityName} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="联系人微信:" style={oddStyle} component="labelText" value={detail.wechat} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="预计入驻时间:" style={evenStyle} component="labelText" value={<KrDate style={{marginTop:5}} value={detail.inTime} format="yyyy-mm-dd"/>} inline={true} /></li>
 
 				<div className="bottomWire"></div>
-				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="公司名称:" style={unifyStyle} component="labelText" value={detail.company} inline={true} /></li>
-				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="融资轮次:" style={unifyStyle} component="labelText" value={detail.roundName} inline={true} /></li>
-				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="公司规模:" style={unifyStyle} component="labelText" value={(detail.teamNum=='')?detail.teamNum:detail.teamNum+"人"} inline={true} /></li>
-				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="融资金额:" style={unifyStyle} component="labelText" value={(detail.amount=='')?detail.amount:detail.amount+"元"} inline={true} /></li>
-				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="办公室情况:" style={unifyStyle} component="labelText" value={hasOffice} inline={true} /></li>
-				{isDeadline&&<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="到期时间:" style={unifyStyle} component="labelText" value={DateFormat(detail.deadline,"yyyy-mm-dd")} inline={true} /></li>}
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="公司名称:" style={oddStyle} component="labelText" value={detail.company} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="融资轮次:" style={evenStyle} component="labelText" value={detail.roundName} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="公司规模:" style={oddStyle} component="labelText" value={(detail.teamNum=='')?detail.teamNum:detail.teamNum+"人"} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="融资金额:" style={evenStyle} component="labelText" value={(detail.amount=='')?detail.amount:detail.amount+"元"} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="办公室情况:" style={oddStyle} component="labelText" value={hasOffice} inline={true} /></li>
+				{isDeadline&&<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="到期时间:" style={evenStyle} component="labelText" value={DateFormat(detail.deadline,"yyyy-mm-dd")} inline={true} /></li>}
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="项目名称:" style={unifyStyle} component="labelText" value={detail.projectName} inline={true} /></li>
-				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="所属地区:" style={unifyStyle} component="labelText" value={detail.distinctName} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="所属地区:" style={uniStyle} component="labelText" value={detail.distinctName} inline={true} /></li>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="项目类型:" style={unifyStyle} component="labelText" value={detail.projectCategoryName} inline={true} /></li>
-				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="详细地址:" style={unifyStyle} component="labelText" value={detail.detailAddress} inline={true} /></li>
+				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="详细地址:" style={uniStyle} component="labelText" value={detail.detailAddress} inline={true} /></li>
 				<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="公司网址:" style={unifyStyle} component="labelText" value={detail.website} inline={true} /></li>
 				<li className="everyText" style={{width:660,marginTop:7,paddingLeft:0}}><span className="blueDrop" style={{height:5}}></span><span style={{display:"inline-block",paddingLeft:5}}>公司简介:</span>
 					<p style={{padding:"0 10px 0 15px",color:"#666666"}}>{detail.companyIntroduce}</p>
