@@ -20,6 +20,7 @@ import SearchLeaderComponent from './SearchLeaderComponent';
 import SearchIntendCommunity from './SearchIntendCommunity';
 import SearchSignCommunity from './SearchSignCommunity';
 import SearchBelongCommunity from './SearchBelongCommunity';
+import SearchCompanyName from "./SearchCompanyName";
 import LabelTextComponent from './LabelTextComponent';
 import GroupComponent from './GroupComponent';
 import CityComponent from './CityComponent';
@@ -27,6 +28,7 @@ import TreeComponent from './TreeComponent';
 import SearchCompanyComponent from './SearchCompanyComponent';
 import EditLabelTextComponent from './EditLabelTextComponent';
 import GroupCheckboxComponent from './GroupCheckboxComponent';
+
 
 
 export default class KrField extends React.Component {
@@ -156,6 +158,12 @@ export default class KrField extends React.Component {
 		if (component === 'searchCompany') {
 			return (
 				<Field {...this.props} component={SearchCompanyComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+
+		if (component === 'companyName') {
+			return (
+				<Field {...this.props} component={SearchCompanyName}  style={WrapStyles} {...other}/>
 			);
 		}
 

@@ -48,6 +48,7 @@ import ReduceDetail from './Reduce/Detail';
 import RenewDetail from './Renew/Detail';
 import IncreaseDetail from './Increase/Detail';
 import JoinDetail from './Join/Detail';
+// import NewIndent from "./NewIndent";
 
 
 import './index.less';
@@ -85,7 +86,7 @@ class Merchants extends Component{
 	openAgreement=()=>{
 		State.openAgreement=true;
 	}
-	//打开第二新建页面
+	//关闭第二新建页面
 	closeAgreement=()=>{
 		State.openAgreement=false;
 	}
@@ -149,7 +150,7 @@ class Merchants extends Component{
       	 State.agreementDetail();
      
     }
-     
+    
      cancelAgreementDetail=()=>{
      	State.agreementDetail();
      }
@@ -312,7 +313,6 @@ class Merchants extends Component{
 			isShow
 		} = this.state
 		let {opretionId,opretionOpen}=this.state;
-		console.log(opretionOpen,"=======>")
 		return(
       <div className="m-agreement-list">
 			<Title value="合同列表"/>
@@ -324,7 +324,7 @@ class Merchants extends Component{
 					<Button
 						label="新建合同"
 						type='button'
-						onTouchTap={this.openAgreement}
+						onTouchTap={this.openOneAgreement}
 					/>
 
 			 	 </Col>
@@ -380,7 +380,7 @@ class Merchants extends Component{
 									<TableRowColumn><span className="tableOver">{item.inputUser}</span>{this.everyTd(item.inputUser)}</TableRowColumn>
 									<TableRowColumn><span className="tableOver"><KrDate value={item.createdate}/></span>{this.everyTd(item.createdate)}</TableRowColumn>
 					                <TableRowColumn>
-					                    <Button label="查看" type='button' onClick={this.onOperation} />
+					                    <Button label="查看"  type='operation' onClick={this.onOperation} />
 					                    <span className='upload-button'><Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)}/></span>
 										<Button  type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)}/>
 										<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
@@ -402,7 +402,7 @@ class Merchants extends Component{
            </Table>
 
           </Section>
-					
+					//新建合同的第一页
 					<Drawer
 				        open={State.openNewAgreement}
 				        width={750}
@@ -413,7 +413,7 @@ class Merchants extends Component{
 						
 			        <OneNewAgreement onCancel={this.closeOneAgreement}/>
 		           </Drawer>
-
+		           //编辑合同
 		           <Drawer
 				        open={State.openAgreement}
 				        width={750}
@@ -422,10 +422,29 @@ class Merchants extends Component{
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 			        >
 						
-			      	<TwoNewAgreement onCancel={this.closeAgreement}/>
-			      	{/*<EditAgreementList onCancel={this.closeAgreement}/>*/}
+			      	{/*<NewIndent onCancel={this.closeAgreement}/>*/}
+			      	<EditAgreementList onCancel={this.closeAgreement}/>
 		           </Drawer>
 
+					{/*新建订单*/}
+					<Drawer
+							open={State.openNewIndent}
+							width={750}
+							openSecondary={true}
+							className='m-finance-drawer'
+							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+					 >
+						<NewIndent
+							 companyName={State.companyName}
+							 onCancel={this.switchNewIndent}
+			                 orderReady={orderReady}
+			                 listId={State.listId}
+			                 customerName={State.customerName}
+			                 orderCount={State.orderCount}
+			                 isOpenIndent={State.orderName}
+						/>
+					</Drawer>
+				  
                    {/*查看*/}
 		            <Drawer
 				        open={State.openAgreementDetail}

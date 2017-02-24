@@ -118,11 +118,9 @@ export default class Button extends Component {
 
 
 		if (type == 'link') {
-
 			if (disabled) {
 				delete other.href;
 			}
-
 			return (
 				<div className="ui-button">
 					<FlatButton backgroundColor={backgroundColor} labelColor={labelColor} label={label} primary={true} style={{minWidth:30,color:'#499df1'}}  {...other}  />

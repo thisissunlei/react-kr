@@ -841,6 +841,16 @@ const APIS = {
    url:'/mockjsdata/29/krspace-finance-web/finacontractdetail/contract-list?cityId={cityId}&communityId={communityId}&createDateBegin={createDateBegin}&createDateEnd={createDateEnd}&createrId={createrId}&customerId={customerId}&page={page}&pageSize={pageSize}&salerId={salerId}',
    method:'get'
    },
+//合同列表-客户订单下拉接口
+   'orders-names':{
+   url:'/ipi/krspace-finance-web/customer/orders-names?customerId={customerId}',
+   method:'get'
+   },
+//合同列表-客户名称下拉接口
+   'customers-names':{
+      url:'/ipi//krspace-finance-web/customer/my-customers?company={company}',
+      method:'get'
+   },
  }
 
  module.exports = APIS;

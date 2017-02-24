@@ -17,8 +17,9 @@ import {
 	Message
 } from 'kr-ui';
 import './index.less';
+import State from './State';
 @observer
- class NewCustomerList extends Component{
+ class OneNewAgreement extends Component{
 
 
 
@@ -29,6 +30,9 @@ import './index.less';
 
 	constructor(props){
 		super(props);
+		this.state={
+			orderList:[],
+		}
 	}
 	
 	componentDidMount(){
@@ -40,9 +44,43 @@ import './index.less';
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
+	 onChangeSign=(person)=>{
+		Store.dispatch(change('OneNewAgreement','communityId',person.id));
+		// console.log(person,">>>>>>>>");
+		this.fetchCustomer({customerId:person.id});
+    }
+    fetchCustomer=(customerId)=>{
+    	var _this = this;
+		Store.dispatch(Actions.callAPI('orders-names', customerId)).then(function(response) {
+			let label="",value='';
+			let orderList=[];
+			let order={}; 
+			for(let i=0;i<response.orderList.length;i++){
+				order.value=response.orderList[i].id;
+				order.label=response.orderList[i].mainbillname;
+				orderList.push(order)
+			}
+			console.log(response.orderList,"???????")
+			orderList.push({label:"新建订单",value:""});
+			_this.setState({
+				orderList
+			})
+
+			
+		}).catch(function(err) {
+
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+
+		});
+    }
+
 
 	render(){
 		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
+		let {orderList}=this.state;
 
 		return (
 
@@ -51,16 +89,11 @@ import './index.less';
 						<div><span className="new-icon"></span><label className="title-text">新建客户</label></div>
 						<div className="customer-close" onClick={this.onCancel}></div>
 				</div>
-				
-						<KrField grid={1/2} label="客户名称" name="sourceId" style={{width:262,marginLeft:15}} component="select"
-								options={[]}
-								requireLabel={true}
-						/>
-
+						<KrField  grid={1/2}  name="companyId" style={{width:262,marginLeft:28}} component='companyName'  label="客户名称" inline={false} onChange={this.onChangeSign} placeholder='请输入社区名称' requireLabel={true}/>
 
 
 						<KrField grid={1/2} label="订单名称" name="staionTypeId" component="select" style={{width:262,marginLeft:28}}
-								options={[]}
+								options={orderList}
 								requireLabel={true}
 						/>
 
@@ -79,9 +112,7 @@ import './index.less';
 	}
 }
 const validate = values =>{
-
-
-		
-		return errors
-	}
-export default reduxForm({ form: 'NewCustomerList',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCustomerList);
+	const errors = {};
+	return errors;
+}
+export default reduxForm({ form: 'OneNewAgreement',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(OneNewAgreement);

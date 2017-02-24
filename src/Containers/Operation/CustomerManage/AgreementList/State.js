@@ -40,6 +40,8 @@ let State = observable({
 		openAgreementDetail:false,
 		loading:false,
 		contractList:[],
+		//新建订单
+		openNewIndent:false,
 
 });
 State.hasOfficeChange=action(function(params){
@@ -67,6 +69,8 @@ State.ajaxListData=action(function(ajaxData){
 		});
 		Store.dispatch(Actions.switchSidebarNav(false));
 })
+
+
 
 
 
