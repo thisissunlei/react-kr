@@ -38,6 +38,11 @@ let State = observable({
 		//订单号
 		orderCount:"",
 
+		//查看id
+		//查看客户id
+		//查看订单id
+
+
 });
 State.hasOfficeChange=action(function(params){
 	this.ishasOffice=params;
@@ -56,11 +61,7 @@ State.ajaxListData=action(function(ajaxData){
 			}, 0);
 
 		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-
+			Message.error(err.message);
 		});
 		Store.dispatch(Actions.switchSidebarNav(false));
 })

@@ -165,7 +165,8 @@ class Merchants extends Component{
   
    
     //查看相关操作
-    onOperation=()=>{    
+    onOperation=(type, itemDetail)=>{          
+    	console.log('pppwatch',type, itemDetail);
       	State.agreementDetail();    
     }
 
@@ -455,7 +456,7 @@ class Merchants extends Component{
             <Table
 			    style={{marginTop:8}}
 	            displayCheckbox={true}
-	            
+	            onOperation={this.onOperation}
 			   
 					  >
 		            <TableHeader>
@@ -493,7 +494,7 @@ class Merchants extends Component{
 									<TableRowColumn><span className="tableOver">{item.inputUser}</span>{this.everyTd(item.inputUser)}</TableRowColumn>
 									<TableRowColumn><span className="tableOver"><KrDate value={item.createdate}/></span>{this.everyTd(item.createdate)}</TableRowColumn>
 					                <TableRowColumn>
-					                    <Button label="查看"  type='operation' onClick={this.onOperation} />
+					                    <Button label="查看"  type='operation'  operation='watch'/>
 					                    <span className='upload-button'><Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)}/></span>
 										<Button  type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)}/>
 										<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
@@ -576,7 +577,6 @@ class Merchants extends Component{
 				        open={State.openAgreementDetail}
 				        width={750}
 				        openSecondary={true}
-				        //className='m-finance-drawer'
 				        containerStyle={{top:60,paddingBottom:48,zIndex:8}}
 			        >
 						{/*<ExitDetail 
