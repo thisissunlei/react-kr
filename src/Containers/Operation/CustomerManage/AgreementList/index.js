@@ -78,8 +78,11 @@ class Merchants extends Component{
 				antecedent: [],
 			},
 			staionsList: [],
-
+           
+            //日期查询
 		    todayDate:'',
+		    startValue:'',
+		    endValue:'',
 
 		    searchParams:{
 			   page:1,	
@@ -193,13 +196,7 @@ class Merchants extends Component{
 		switchNewMerchants(params);
 	}
 	
-	//搜索
-	onSearchSubmit=(params)=>{
-        let obj = {
-			company: params.content,
-		}	
-		State.searchParams=obj	
-	}
+	
 
 	componentWillReceiveProps(nextProps){	
 			
@@ -324,44 +321,49 @@ class Merchants extends Component{
    
      //日期开始
 	 onStartChange=(startD)=>{
-	 	let {searchParams}=this.state;
-        let start=startD;
-        let end=searchParams.createDateEnd;
+	   var _this=this;
+       let {searchParams}=this.state;
+       let start=startD;
+       let end=searchParams.createDateEnd
+       this.setState({
+       	 startValue:startD
+       },function(){
+       	 if(start>end){
+       	  Message.error('开始日期不能大于结束日期');
+       	  return ;
+       }
+        searchParams = Object.assign({}, searchParams,{createDateBegin:this.state.startValue,createDateEnd:this.state.endValue||searchParams.createDateEnd});
+        State.ajaxListData(searchParams);       
+       }) 
         this.setState({
-        	startValue:startD
-        },function () {
-             console.log('000ffff-----8888',this.state.startValue);
-        	if(start>end){
-	          Message.error('开始时间不能大于结束时间');
-	          return ;
-	        }
-	        this.setState({
-	        	searchParams:{
-	        		createDateBegin:this.state.startValue,
-	        		createDateEnd:this.state.endValue||searchParams.createDateEnd
-	        	}
-	        })
-	    	searchParams = Object.assign({},searchParams,{createDateBegin:this.state.startValue,createDateEnd:this.state.endValue||searchParams.createDateEnd});          
-	        State.ajaxListData(searchParams);
-        })
-    }
+           searchParams
+        },function(){
+           console.log('pppstart',this.state.searchParams)
+        })  
+
+     }
 
     //日期结束
     onEndChange=(endD)=>{
-    	let {searchParams}=this.state;
-        let start=searchParams.createDateBegin;
-        let end=endD;
-        this.setState({
-        	endValue:endD
-        },function () {
-        	if(start>end){
-	         Message.error('开始时间不能大于结束时间');
-	          return ;
-	        }
-	    	searchParams = Object.assign({}, searchParams, {createDateBegin:this.state.startValue||searchParams.createDateBegin,createDateEnd:this.state.endValue})
-            State.ajaxListData(searchParams);
-        })
-
+       let {searchParams}=this.state;
+       console.log('endsearchparams',searchParams);
+       let start=searchParams.createDateBegin;
+       let end=endD;
+       this.setState({
+       	 endValue:endD
+       },function(){
+       	 console.log('endend',start,end);
+       	 if(start>end){
+       	  Message.error('开始日期不能大于结束日期');
+       	  return ;
+       }
+       searchParams = Object.assign({}, searchParams,{createDateBegin:this.state.startValue||searchParams.createDateBegin,createDateEnd:this.state.endValue});
+       this.setState({
+		  searchParams
+		});
+       State.ajaxListData(searchParams);
+        
+       })    
     }
 
    //搜索提交
