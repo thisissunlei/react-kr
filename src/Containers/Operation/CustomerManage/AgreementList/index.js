@@ -317,11 +317,8 @@ class Merchants extends Component{
         searchParams = Object.assign({}, searchParams,{createDateBegin:this.state.startValue,createDateEnd:this.state.endValue||searchParams.createDateEnd});
         State.ajaxListData(searchParams);       
        }) 
-        
-        console.log('pppstart----',this.state.searchParams)
-
         this.setState({
-          searchParams
+           searchParams
         },function(){
            console.log('pppstart',this.state.searchParams)
         })  
