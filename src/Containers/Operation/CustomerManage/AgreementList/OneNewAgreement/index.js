@@ -18,6 +18,8 @@ import {
 } from 'kr-ui';
 import './index.less';
 import State from './State';
+import allState from '../State';
+
 @observer
  class OneNewAgreement extends Component{
 
@@ -40,15 +42,24 @@ import State from './State';
 		 // Store.dispatch(change('NewCustomerList','hasOffice','NO'));
 
 	}
+	//下一步被点击
+	onSubmit = () => {
+		
+		allState.openTowAgreement=true;
+		this.onCancel();
+	}
 	onCancel = () => {
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
 	 onChangeSign=(person)=>{
 		Store.dispatch(change('OneNewAgreement','communityId',person.id));
-		// console.log(person,">>>>>>>>");
 		this.fetchCustomer({customerId:person.id});
+		allState.companyName=person.company;
+		allState.listId=person.id;
+		this.orderNameInit(person.id)
     }
+
     fetchCustomer=(customerId)=>{
     	var _this = this;
 		Store.dispatch(Actions.callAPI('orders-names', customerId)).then(function(response) {
@@ -58,9 +69,8 @@ import State from './State';
 			for(let i=0;i<response.orderList.length;i++){
 				order.value=response.orderList[i].id;
 				order.label=response.orderList[i].mainbillname;
-				orderList.push(order)
+				orderList.push(order);
 			}
-			console.log(response.orderList,"???????")
 			orderList.push({label:"新建订单",value:""});
 			_this.setState({
 				orderList
@@ -77,6 +87,32 @@ import State from './State';
 		});
     }
 
+    //获取订单名称
+	orderNameInit = (value) => {
+		var _this=this;
+		let data={};
+		
+		data.customerId=value;
+
+		Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {
+			allState.customerName=response.customerName;
+			allState.orderCount=response.orderCount;
+		}).catch(function(err) {
+			 Message.error(err.message);
+		});		
+	}
+	//
+    orderListChange = (value) =>{
+    	if(value.label=="新建订单"){
+    		allState.openNewIndent=true;
+    	}else{
+
+    	}
+    }
+    //下一步被点击
+    nextClick = () =>{
+    	this.onCancel();
+    }
 
 	render(){
 		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
@@ -84,7 +120,7 @@ import State from './State';
 
 		return (
 
-			<form className="m-newMerchants" style={{paddingLeft:9}} >
+			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:9}} >
 				<div className="title" style={{marginBottom:"30px"}}>
 						<div><span className="new-icon"></span><label className="title-text">新建客户</label></div>
 						<div className="customer-close" onClick={this.onCancel}></div>
@@ -95,6 +131,7 @@ import State from './State';
 						<KrField grid={1/2} label="订单名称" name="staionTypeId" component="select" style={{width:262,marginLeft:28}}
 								options={orderList}
 								requireLabel={true}
+								onChange={this.orderListChange}
 						/>
 
 						<Grid style={{marginTop:30}}>
@@ -113,6 +150,12 @@ import State from './State';
 }
 const validate = values =>{
 	const errors = {};
+	if(!values.companyId){
+		errors.companyId = '客户名称不能为空';
+	}
+	if(!values.staionTypeId){
+		errors.companyId = '订单名称不能为空';
+	}
 	return errors;
 }
 export default reduxForm({ form: 'OneNewAgreement',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(OneNewAgreement);

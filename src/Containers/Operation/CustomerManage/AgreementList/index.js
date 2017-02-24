@@ -6,6 +6,7 @@ import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
 	observer
 } from 'mobx-react';
+import dateFormat from 'dateformat';
 import {
 	KrField,
 	Table,
@@ -48,7 +49,7 @@ import ReduceDetail from './Reduce/Detail';
 import RenewDetail from './Renew/Detail';
 import IncreaseDetail from './Increase/Detail';
 import JoinDetail from './Join/Detail';
-// import NewIndent from "./NewIndent";
+import NewIndent from "./NewIndent";
 
 
 import './index.less';
@@ -77,37 +78,62 @@ class Merchants extends Component{
 				antecedent: [],
 			},
 			staionsList: [],
-            
-           
+
+		    todayDate:'',
+
+		    searchParams:{
+			   page:1,	
+			   pageSize:15,
+			   createDateBegin:'',
+			   createDateEnd:''
+		     },
            
 		}
+		 this.allOrderReady();
+	}
+
+	//新建订单的数据准备
+	allOrderReady=()=>{
+		var _this=this;
+	    Store.dispatch(Actions.callAPI('community-city-selected')).then(function(response) {
+         State.orderReady=response;
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
 	//打开第二新建页面
-	openAgreement=()=>{
-		State.openAgreement=true;
+	openTwoAgreement = () => {
+		State.openTowAgreement=true;
 	}
 	//关闭第二新建页面
-	closeAgreement=()=>{
-		State.openAgreement=false;
+	closeTwoAgreement = () => {
+		State.openTowAgreement=false;
 	}
 
 	//打开第一新建页面
-	openOneAgreement=()=>{
-		State.openNewAgreement=true;
+	openOneAgreement = () => {
+		State.openOneAgreement=true;
 	}
 	//关闭第一新建页面
-	closeOneAgreement=()=>{
-		State.openNewAgreement=false;
+	closeOneAgreement = () => {
+		State.openOneAgreement=false;
 	}
-
-
-	//客户编辑页面开关
-	switchEditCustomerList=() => {
-		
-		State.switchEditCustomerList();
-
+	//打开编辑页
+	openEditAgreement = () => {
+		State.openEditAgreement=true;
 	}
-    
+	//关闭编辑页
+	closeEditAgreement = () =>{
+		State.openEditAgreement=false;
+	}
+	//新建订单打开
+    openNewIndent = () => {
+    	State.openNewIndent=true;
+    }
+    //关闭新建订单
+    closeNewIndent = () =>{
+    	State.openNewIndent=false;
+    }
     //选中几项领取，转移等
     onSelect=(value)=>{
     	var arrItem=[]
@@ -133,28 +159,35 @@ class Merchants extends Component{
       	State.openDialog=false;	
       }
     }
-    //加载所有数据
-    onLoaded=(value)=>{
-       let loadData = value.items;
-	   this.setState({
-			 loadData
-		 })
-    }
-    //领取浮框的关闭
-    merClose=()=>{
-        State.openDialog=false;	
-    }
+  
+   
     //查看相关操作
-    onOperation=()=>{
-     
-      	 State.agreementDetail();
-     
+    onOperation=()=>{    
+      	State.agreementDetail();    
     }
-    
-     cancelAgreementDetail=()=>{
-     	State.agreementDetail();
-     }
 
+    componentWillMount(){
+    	var  dateT=new Date();
+		var dateYear=dateT.getFullYear();
+		var dateMonth=dateT.getMonth()+1;
+		var dateDay=dateT.getDate();
+				if(dateDay<10){
+					dateDay='0'+dateDay
+				}
+				if(dateMonth<10){
+					dateMonth='0'+dateMonth
+				}
+	    var todayDate=dateYear+'-'+dateMonth+'-'+dateDay;
+
+	    this.setState({
+	    	todayDate:todayDate,
+	    })
+    }    
+    //查看关闭
+	cancelAgreementDetail=()=>{
+		State.agreementDetail();
+	}
+    //
 	//新建提交按钮
 	onNewMerchants=(params)=>{
 		switchNewMerchants(params);
@@ -171,9 +204,10 @@ class Merchants extends Component{
 	componentWillReceiveProps(nextProps){	
 			
 	}
-	onChange=()=>{
 
-	}
+
+
+
 	uploadFile = (id) => {
 		let fileId = this.state.openId;
 		if(fileId == id){
@@ -182,17 +216,17 @@ class Merchants extends Component{
 				openId:id,
 				opretionOpen:false
 			})
-			console.log("123")
 		}else{
 			this.setState({
 				openMenu:true,
 				openId:id,
 				opretionOpen:false
 			})
-			console.log("456")
 
 		}
 	}
+
+
 
 	showMoreOpretion = (id) => {
 		let {opretionId,opretionOpen} = this.state;
@@ -209,11 +243,9 @@ class Merchants extends Component{
 				opretionOpen:true
 			})
 		}
-		// if(!opretionOpen){
-		// 	document.addEventListener('click', this.docClick)
-		// }
-		
 	}
+
+
 	docClick = (event) => {
 		event = event || window.event;
 		var target = event.target;
@@ -234,6 +266,8 @@ class Merchants extends Component{
 			openDelAgreement: !this.state.openDelAgreement
 		});
 	}
+
+
 	setDelAgreementId = (delAgreementId) => {
 		
 			this.setState({
@@ -241,11 +275,8 @@ class Merchants extends Component{
 			}, function() {
 				this.openDelAgreementDialog();
 			});
-
-		
-
-
 	}
+
 
 	print=(item)=>{
 		var typeList = [{
@@ -278,10 +309,85 @@ class Merchants extends Component{
 		var newWindow = window.open(url);
 
 	}
-	componentDidMount() {
-		State.ajaxListData(State.searchParams);
-	}
 
+
+	componentDidMount() {
+		State.ajaxListData(this.state.searchParams);
+		let {todayDate}=this.state;
+		this.setState({
+			searchParams:{
+				createDateBegin:todayDate,
+				createDateEnd:todayDate
+			}
+		})  
+	}
+   
+     //日期开始
+	 onStartChange=(startD)=>{
+	 	let {searchParams}=this.state;
+        let start=startD;
+        let end=searchParams.createDateEnd;
+        this.setState({
+        	startValue:startD
+        },function () {
+             console.log('000ffff-----8888',this.state.startValue);
+        	if(start>end){
+	          Message.error('开始时间不能大于结束时间');
+	          return ;
+	        }
+	        this.setState({
+	        	searchParams:{
+	        		createDateBegin:this.state.startValue,
+	        		createDateEnd:this.state.endValue||searchParams.createDateEnd
+	        	}
+	        })
+	    	searchParams = Object.assign({},searchParams,{createDateBegin:this.state.startValue,createDateEnd:this.state.endValue||searchParams.createDateEnd});          
+	        State.ajaxListData(searchParams);
+        })
+    }
+
+    //日期结束
+    onEndChange=(endD)=>{
+    	let {searchParams}=this.state;
+        let start=searchParams.createDateBegin;
+        let end=endD;
+        this.setState({
+        	endValue:endD
+        },function () {
+        	if(start>end){
+	         Message.error('开始时间不能大于结束时间');
+	          return ;
+	        }
+	    	searchParams = Object.assign({}, searchParams, {createDateBegin:this.state.startValue||searchParams.createDateBegin,createDateEnd:this.state.endValue})
+            State.ajaxListData(searchParams);
+        })
+
+    }
+
+   //搜索提交
+   onSearchSubmit=(value)=>{
+   	 let {searchParams}=this.state;
+      if(value.filter=='company'){
+        searchParams.customerName=value.content;
+        State.ajaxListData(searchParams);
+     }
+      if(value.filter=='city'){
+        searchParams.cityName=value.content;
+        State.ajaxListData(searchParams);
+     }
+      if(value.filter=='community'){
+        searchParams.communityName=value.content;
+        State.ajaxListData(searchParams);
+     }
+      if(value.filter=='people'){
+        searchParams.salerName=value.content;
+        State.ajaxListData(searchParams);
+     }
+      if(value.filter=='write'){
+        searchParams.createrName=value.content;
+        State.ajaxListData(searchParams);
+     }
+   }
 
 	
 	everyTd=(value)=>{
@@ -299,25 +405,25 @@ class Merchants extends Component{
 	}
 
 	render(){
-      let {contractList}=State;
+      
 
-      var blockStyle={};
-      const {
+      	let {contractList}=State;
+      	var blockStyle={};
+       	const {
 			orderBaseInfo,
 			earnest,
 			installmentPlan,
 			contractStatusCount,
-
 		} = this.state.response;
-		let {
-			isShow
-		} = this.state
-		let {opretionId,opretionOpen}=this.state;
+
+		
+		let {opretionId,opretionOpen,isShow,searchParams,todayDate}=this.state;
+
 		return(
       <div className="m-agreement-list">
 			<Title value="合同列表"/>
       		<Section title="合同列表" description="" style={{marginBottom:-5,minHeight:910}}>
-	        <Row style={{marginBottom:18,marginTop:-4}}>
+	        <Row style={{marginBottom:18,marginTop:-4,zIndex:6,position:'relative'}}>
 	          	<Col
 			     	style={{float:'left',marginTop:6}}
 			   	>
@@ -332,7 +438,12 @@ class Merchants extends Component{
 			  		style={{float:'right',width:"90%"}}
 			  	>
 
-			  		<SearchForm />
+			  		<SearchForm  
+			  		  onStartChange={this.onStartChange} 
+			  		  onEndChange={this.onEndChange} 
+			  		  todayDate={todayDate}
+                      onSearchSubmit={this.onSearchSubmit}
+			  		 />
 			 		
 			  	</Col>
 			          
@@ -342,7 +453,7 @@ class Merchants extends Component{
             <Table
 			    style={{marginTop:8}}
 	            displayCheckbox={true}
-	            exportSwitch={true}
+	            
 			   
 					  >
 		            <TableHeader>
@@ -398,32 +509,45 @@ class Merchants extends Component{
 			        	})}
 			              
 			        </TableBody>
-			        <TableFooter></TableFooter>
+			       
            </Table>
 
           </Section>
-					//新建合同的第一页
+					{/*新建合同的第一页*/}
 					<Drawer
-				        open={State.openNewAgreement}
+				        open={State.openOneAgreement}
 				        width={750}
 				        openSecondary={true}
 				        className='m-finance-drawer'
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 			        >
 						
-			        <OneNewAgreement onCancel={this.closeOneAgreement}/>
-		           </Drawer>
-		           //编辑合同
+			       	 	<OneNewAgreement onCancel={this.closeOneAgreement}/>
+		           	</Drawer>
+
+		            {/*新建合同的第二页*/}
+		           	<Drawer
+				        open={State.openTowAgreement}
+				        width={750}
+				        openSecondary={true}
+				        className='m-finance-drawer'
+				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+			        >
+						
+			       	 	<OneNewAgreement onCancel={this.closeTwoAgreement}/>
+		           	</Drawer>
+
+		           {/*编辑合同*/}
 		           <Drawer
-				        open={State.openAgreement}
+				        open={State.openEditAgreement}
 				        width={750}
 				        openSecondary={true}
 				        className='m-finance-drawer'
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 			        >
 						
-			      	{/*<NewIndent onCancel={this.closeAgreement}/>*/}
-			      	<EditAgreementList onCancel={this.closeAgreement}/>
+			      	
+			      	<EditAgreementList onCancel={this.closeEditAgreement}/>
 		           </Drawer>
 
 					{/*新建订单*/}
@@ -434,15 +558,15 @@ class Merchants extends Component{
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
-						<NewIndent
-							 companyName={State.companyName}
-							 onCancel={this.switchNewIndent}
-			                 orderReady={orderReady}
-			                 listId={State.listId}
-			                 customerName={State.customerName}
-			                 orderCount={State.orderCount}
-			                 isOpenIndent={State.orderName}
-						/>
+						{State.openNewIndent&&
+							<NewIndent
+								companyName={State.companyName}
+								onCancel={this.closeNewIndent}
+				                orderReady={State.orderReady}
+				                listId={State.listId}
+				                customerName={State.customerName}
+				                orderCount={State.orderCount}
+						/>}
 					</Drawer>
 				  
                    {/*查看*/}
@@ -483,11 +607,7 @@ class Merchants extends Component{
                          onCancel={this.cancelAgreementDetail}
 						/>
 
-		           </Drawer>
-
-					
-
-					
+		           </Drawer>	
         </div>
 		);
 	}

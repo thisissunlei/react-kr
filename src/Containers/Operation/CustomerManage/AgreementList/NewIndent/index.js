@@ -18,8 +18,7 @@ import {
 
 } from 'kr-ui';
 import State from './State';
-import flushData from "../LookCustomerList/State";
-
+import allState from '../State';
 import './index.less'
 @observer
  class NewIndent extends Component{
@@ -45,17 +44,19 @@ import './index.less'
 		
 	}
 	onSubmit = (values) => {
+		console.log("???????")
+
 		delete values.cityid;
 		let listId=this.props.listId;
 		let _this=this;
 		if(!values.mainbilldesc){
 			values.mainbilldesc="";
 		}
+
 		State.ChangeSubmitState();
 		values.customerid=listId;
 		values.mainbillname=State.orderName;
 		Store.dispatch(Actions.callAPI('enter-order',{},values)).then(function(response) {
-			flushData.orderList(_this.props.listId);
          	_this.onCancel();
          	setTimeout(function(){
          		State.ChangeCanSubmitState();
@@ -63,6 +64,18 @@ import './index.less'
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
+
+
+
+
+		let data={};
+		data.customerId=allState.listId;
+		Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {
+			allState.customerName=response.customerName;
+			allState.orderCount=response.orderCount;
+		}).catch(function(err) {
+			 Message.error(err.message);
+		});	
 	}
 
 	onCancel = () => {
@@ -108,7 +121,7 @@ import './index.less'
 
 
 	render(){
-		const { error, handleSubmit, pristine, reset,companyName,isOpenIndent,customerName,orderCount} = this.props;
+		const { error, handleSubmit, pristine, reset,companyName,customerName,orderCount} = this.props;
 		
 		let city=State.cityLable;
 			city=!city?"无":city;
