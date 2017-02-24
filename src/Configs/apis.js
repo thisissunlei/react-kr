@@ -838,7 +838,7 @@ const APIS = {
  },
  //合同列表-列表接口
    'contract-list':{
-   url:'/mockjsdata/29/krspace-finance-web/finacontractdetail/contract-list?cityId={cityId}&communityId={communityId}&createDateBegin={createDateBegin}&createDateEnd={createDateEnd}&createrId={createrId}&customerId={customerId}&page={page}&pageSize={pageSize}&salerId={salerId}',
+   url:'/mockjsdata/29/krspace-finance-web/finacontractdetail/contract-list?cityName={cityName}&communityName={communityName}&createDateBegin={createDateBegin}&createDateEnd={createDateEnd}&createrName={createrName}&customerName={customerName}&page={page}&pageSize={pageSize}&salerName={salerName}',
    method:'get'
    },
  }

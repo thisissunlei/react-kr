@@ -6,6 +6,7 @@ import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
 	observer
 } from 'mobx-react';
+import dateFormat from 'dateformat';
 import {
 	KrField,
 	Table,
@@ -76,8 +77,15 @@ class Merchants extends Component{
 				antecedent: [],
 			},
 			staionsList: [],
-            
-           
+
+		    todayDate:'',
+
+		    searchParams:{
+			   page:1,	
+			   pageSize:15,
+			   createDateBegin:'',
+			   createDateEnd:''
+		     },
            
 		}
 	}
@@ -132,24 +140,32 @@ class Merchants extends Component{
       	State.openDialog=false;	
       }
     }
-    //加载所有数据
-    onLoaded=(value)=>{
-       let loadData = value.items;
-	   this.setState({
-			 loadData
-		 })
-    }
-    //领取浮框的关闭
-    merClose=()=>{
-        State.openDialog=false;	
-    }
+  
+   
     //查看相关操作
-    onOperation=()=>{
-     
-      	 State.agreementDetail();
-     
+    onOperation=()=>{    
+      	State.agreementDetail();    
+    }
+
+    componentWillMount(){
+    	var  dateT=new Date();
+		var dateYear=dateT.getFullYear();
+		var dateMonth=dateT.getMonth()+1;
+		var dateDay=dateT.getDate();
+				if(dateDay<10){
+					dateDay='0'+dateDay
+				}
+				if(dateMonth<10){
+					dateMonth='0'+dateMonth
+				}
+	    var todayDate=dateYear+'-'+dateMonth+'-'+dateDay;
+
+	    this.setState({
+	    	todayDate:todayDate,
+	    })
     }
      
+     //查看关闭
      cancelAgreementDetail=()=>{
      	State.agreementDetail();
      }
@@ -170,9 +186,10 @@ class Merchants extends Component{
 	componentWillReceiveProps(nextProps){	
 			
 	}
-	onChange=()=>{
 
-	}
+
+
+
 	uploadFile = (id) => {
 		let fileId = this.state.openId;
 		if(fileId == id){
@@ -181,17 +198,17 @@ class Merchants extends Component{
 				openId:id,
 				opretionOpen:false
 			})
-			console.log("123")
 		}else{
 			this.setState({
 				openMenu:true,
 				openId:id,
 				opretionOpen:false
 			})
-			console.log("456")
 
 		}
 	}
+
+
 
 	showMoreOpretion = (id) => {
 		let {opretionId,opretionOpen} = this.state;
@@ -208,11 +225,9 @@ class Merchants extends Component{
 				opretionOpen:true
 			})
 		}
-		// if(!opretionOpen){
-		// 	document.addEventListener('click', this.docClick)
-		// }
-		
 	}
+
+
 	docClick = (event) => {
 		event = event || window.event;
 		var target = event.target;
@@ -233,6 +248,8 @@ class Merchants extends Component{
 			openDelAgreement: !this.state.openDelAgreement
 		});
 	}
+
+
 	setDelAgreementId = (delAgreementId) => {
 		
 			this.setState({
@@ -240,11 +257,8 @@ class Merchants extends Component{
 			}, function() {
 				this.openDelAgreementDialog();
 			});
-
-		
-
-
 	}
+
 
 	print=(item)=>{
 		var typeList = [{
@@ -277,10 +291,85 @@ class Merchants extends Component{
 		var newWindow = window.open(url);
 
 	}
-	componentDidMount() {
-		State.ajaxListData(State.searchParams);
-	}
 
+
+	componentDidMount() {
+		State.ajaxListData(this.state.searchParams);
+		let {todayDate}=this.state;
+		this.setState({
+			searchParams:{
+				createDateBegin:todayDate,
+				createDateEnd:todayDate
+			}
+		})  
+	}
+   
+     //日期开始
+	 onStartChange=(startD)=>{
+	 	let {searchParams}=this.state;
+        let start=startD;
+        let end=searchParams.createDateEnd;
+        this.setState({
+        	startValue:startD
+        },function () {
+             console.log('000ffff-----8888',this.state.startValue);
+        	if(start>end){
+	          Message.error('开始时间不能大于结束时间');
+	          return ;
+	        }
+	        this.setState({
+	        	searchParams:{
+	        		createDateBegin:this.state.startValue,
+	        		createDateEnd:this.state.endValue||searchParams.createDateEnd
+	        	}
+	        })
+	    	searchParams = Object.assign({},searchParams,{createDateBegin:this.state.startValue,createDateEnd:this.state.endValue||searchParams.createDateEnd});          
+	        State.ajaxListData(searchParams);
+        })
+    }
+
+    //日期结束
+    onEndChange=(endD)=>{
+    	let {searchParams}=this.state;
+        let start=searchParams.createDateBegin;
+        let end=endD;
+        this.setState({
+        	endValue:endD
+        },function () {
+        	if(start>end){
+	         Message.error('开始时间不能大于结束时间');
+	          return ;
+	        }
+	    	searchParams = Object.assign({}, searchParams, {createDateBegin:this.state.startValue||searchParams.createDateBegin,createDateEnd:this.state.endValue})
+            State.ajaxListData(searchParams);
+        })
+
+    }
+
+   //搜索提交
+   onSearchSubmit=(value)=>{
+   	 let {searchParams}=this.state;
+      if(value.filter=='company'){
+        searchParams.customerName=value.content;
+        State.ajaxListData(searchParams);
+     }
+      if(value.filter=='city'){
+        searchParams.cityName=value.content;
+        State.ajaxListData(searchParams);
+     }
+      if(value.filter=='community'){
+        searchParams.communityName=value.content;
+        State.ajaxListData(searchParams);
+     }
+      if(value.filter=='people'){
+        searchParams.salerName=value.content;
+        State.ajaxListData(searchParams);
+     }
+      if(value.filter=='write'){
+        searchParams.createrName=value.content;
+        State.ajaxListData(searchParams);
+     }
+   }
 
 	
 	everyTd=(value)=>{
@@ -298,26 +387,25 @@ class Merchants extends Component{
 	}
 
 	render(){
+      
+
       let {contractList}=State;
 
       var blockStyle={};
-      const {
+       const {
 			orderBaseInfo,
 			earnest,
 			installmentPlan,
 			contractStatusCount,
-
 		} = this.state.response;
-		let {
-			isShow
-		} = this.state
-		let {opretionId,opretionOpen}=this.state;
-		console.log(opretionOpen,"=======>")
+		
+		let {opretionId,opretionOpen,isShow,searchParams,todayDate}=this.state;
+
 		return(
       <div className="m-agreement-list">
 			<Title value="合同列表"/>
       		<Section title="合同列表" description="" style={{marginBottom:-5,minHeight:910}}>
-	        <Row style={{marginBottom:18,marginTop:-4}}>
+	        <Row style={{marginBottom:18,marginTop:-4,zIndex:6,position:'relative'}}>
 	          	<Col
 			     	style={{float:'left',marginTop:6}}
 			   	>
@@ -332,7 +420,12 @@ class Merchants extends Component{
 			  		style={{float:'right',width:"90%"}}
 			  	>
 
-			  		<SearchForm />
+			  		<SearchForm  
+			  		  onStartChange={this.onStartChange} 
+			  		  onEndChange={this.onEndChange} 
+			  		  todayDate={todayDate}
+                      onSearchSubmit={this.onSearchSubmit}
+			  		 />
 			 		
 			  	</Col>
 			          
@@ -342,7 +435,7 @@ class Merchants extends Component{
             <Table
 			    style={{marginTop:8}}
 	            displayCheckbox={true}
-	            exportSwitch={true}
+	            
 			   
 					  >
 		            <TableHeader>
@@ -398,7 +491,7 @@ class Merchants extends Component{
 			        	})}
 			              
 			        </TableBody>
-			        <TableFooter></TableFooter>
+			       
            </Table>
 
           </Section>
@@ -464,11 +557,7 @@ class Merchants extends Component{
                          onCancel={this.cancelAgreementDetail}
 						/>
 
-		           </Drawer>
-
-					
-
-					
+		           </Drawer>	
         </div>
 		);
 	}

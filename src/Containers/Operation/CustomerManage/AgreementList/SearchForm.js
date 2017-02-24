@@ -12,7 +12,7 @@ import {
 	FieldArray,
 	change
 } from 'redux-form';
-import dateFormat from 'dateformat';
+
 import {
 	Actions,
 	Store,
@@ -46,123 +46,60 @@ class SearchForm extends Component {
 
 	constructor(props) {
 		super(props);
-
-		this.onSubmit = this.onSubmit.bind(this);
-		var dt = new Date(); 
-		let currentYear = dt.getFullYear();
-		
-		this.state = {
-			startValue:'',
-			endValue:''
-		}
 	}
-
-
-	onSubmit(form) {
-
-		// let {
-		// 	page,
-		// 	pageSize,
-		// 	communityids,
-		// 	ids,
-		// 	formValues,
-		// 	istip
-		// } = this.state
-
-		// formValues = {
-		// 	type: form.filter || 'BILL',
-		// 	value: form.content,
-		// 	communityids: communityids || 0,
-		// 	page: page,
-		// 	pageSize: pageSize
-
-		// }
-
-		// const {
-		// 	onSubmit
-		// } = this.props;
-		// onSubmit && onSubmit(formValues, istip);
-
-
-
+	
+	
+   //搜索下拉
+	onSearchSubmit=(value)=>{
+      const {
+			onSearchSubmit
+		} = this.props;
+		onSearchSubmit && onSearchSubmit(value);
 	}
-	selectCommunity(personel) {
-		let id = 0;
-		if (!personel) {
-			this.setState({
-				communityids: 0
-			})
-		} else {
-			id = personel.value;
-			this.setState({
-				communityids: personel.value,
-			})
-		}
-
-		// this.context.onSetCommunity(id);
-		const {
-			onChange
-		} = this.props;ss
-	}
-	onStartChange=(startD)=>{
-		console.log('999ffffstart',startD);
-        let start=Date.parse(dateFormat(startD,"yyyy-mm-dd hh:MM:ss"));
-        let end=Date.parse(dateFormat(State.searchParams.createDateEnd,"yyyy-mm-dd hh:MM:ss"))
-        this.setState({
-        	startValue:startD
-
-        },function () {
-
-        	if(start>end){
-	         Message.error('开始时间不能大于结束时间');
-	          return ;
-	        }
-	        let startDate=this.state.startValue;
-	    	State.searchParams = Object.assign({}, State.searchParams, {createDateBegin:this.state.startValue,createDateEnd:this.state.endValue||State.searchParams.createDateEnd});
-	    	State.ajaxListData(State.searchParams);
-        })
+    
+    //日期开始
+	 onStartChange=(value)=>{
+      const {
+			onStartChange
+		} = this.props;
+		onStartChange && onStartChange(value);
     }
-    onEndChange=(endD)=>{
-        let start=Date.parse(dateFormat(State.searchParams.createDateBegin,"yyyy-mm-dd hh:MM:ss"));
-        let end=Date.parse(dateFormat(endD,"yyyy-mm-dd hh:MM:ss"));
-        this.setState({
-        	endValue:endD
-
-        },function () {
-
-        	if(start>end){
-	         Message.error('开始时间不能大于结束时间');
-	          return ;
-	        }
-	        let endDate=this.state.endValue;
-	    	State.searchParams = Object.assign({}, State.searchParams, {createDateBegin:this.state.startValue||State.searchParams.createDateBegin,createDateEnd:this.state.endValue,});
-            State.ajaxListData(State.searchParams);
-        })
-
-    }
-
+    //日期结束
+     onEndChange=(value)=>{
+      const {
+			onEndChange
+		} = this.props;
+		onEndChange && onEndChange(value);
+     }
 
 
 	render() {
 
-		
+		let {todayDate}=this.props;
+
+		let options=[
+		 {label:'公司名称',value:'company'},
+		 {label:'城市',value:'city'},
+		 {label:'社区',value:'community'},
+		 {label:'销售员',value:'people'},
+		 {label:'录入人',value:'write'},
+		]
 
 		return (
 			
 			<form name="searchForm" className="m-agreementList-searchForm" style={{height:30 }}>
-				{/*<KrField  name="wherefloor"  grid={1/2} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} left={60}/>*/}
 				<div className="searchForm-col" style={{marginTop:"7px"}}>
-				    <SearchForms placeholder='请输入公司名称' searchFilter={[{label:'公司名称',value:'1'},{label:'社区',value:'2'}]} onSubmit={this.onSearchSubmit}/>
+				    <SearchForms placeholder='请输入关键字' searchFilter={options} onSubmit={this.onSearchSubmit} onFilter={this.onFilter}/>
 				</div>
 				<div className="searchForm-col" style={{marginTop:"0px",marginRight:10}}>
-					<KrField grid={1/2} label="" name="createDateBegin" style={{marginLeft:28,width:"253px"}}  component="date" inline={true} onChange={this.onEndChange} placeholder={State.searchParams.createDateBegin}/>
+					<KrField grid={1/2} label="" name="createDateBegin" style={{marginLeft:28,width:"253px"}}  component="date" inline={true} onChange={this.onEndChange} placeholder={todayDate}/>
 				</div>
 				<div className="searchForm-col" style={{marginTop:"-40px",position:"relative",left:30,top:50}}>
 					<span>至</span>
 				</div>
 
 				<div className="searchForm-col" style={{marginTop:"0px"}}>
-					<KrField grid={1/2} label="" name="createDateEnd" style={{marginLeft:28,width:"253px"}} component="date"  inline={true} onChange={this.onStartChange} placeholder={State.searchParams.createDateEnd}/>
+					<KrField grid={1/2} label="" name="createDateEnd" style={{marginLeft:28,width:"253px"}} component="date"  inline={true} onChange={this.onStartChange} placeholder={todayDate}/>
 
 				</div>
 				<div className="searchForm-col" style={{marginTop:"8px",marginRight:"-38px"}}>

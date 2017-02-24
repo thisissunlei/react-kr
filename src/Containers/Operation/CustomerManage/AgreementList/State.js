@@ -13,25 +13,9 @@ import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
     Message
 } from 'kr-ui';
-    var  dateT=new Date();
-	var dateYear=dateT.getFullYear();
-	var dateMonth=dateT.getMonth()+1;
-	var dateDay=dateT.getDate();
-			if(dateDay<10){
-				dateDay='0'+dateDay
-			}
-			if(dateMonth<10){
-				dateMonth='0'+dateMonth
-			}
-    var todayDate=dateYear+'-'+dateMonth+'-'+dateDay;
 
 let State = observable({
-		searchParams:{
-			page:1,	
-			pageSize:15,
-			createDateEnd:todayDate,
-			createDateBegin:todayDate	
-		},
+	   
 		openAgreement:false,
 		openNewAgreement:false,
 		agreementList:[],
@@ -49,7 +33,7 @@ State.hasOfficeChange=action(function(params){
 State.agreementDetail=action(function(params){
 	this.openAgreementDetail=!this.openAgreementDetail;
 })
-
+//列表数据请求
 State.ajaxListData=action(function(ajaxData){
 	    var _this = this;
 		Store.dispatch(Actions.callAPI('contract-list', ajaxData)).then(function(response) {
