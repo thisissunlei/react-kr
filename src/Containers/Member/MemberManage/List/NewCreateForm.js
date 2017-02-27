@@ -231,7 +231,7 @@ import imgLine from './images/line.png'
 						<img src={imgLine}/>
 				</div>
 				<KrField grid={1/2} name="communityId" component="searchCommunity" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}} style={{width:'252px',marginRight:'30'}}/>
-        <KrField grid={1/2} name="email" type="text" label="邮箱" requireLabel={true} onBlur={this.EmailonBlur} style={{width:'252px'}}/>
+        <KrField grid={1/2} name="email" type="text" label="邮箱"  onBlur={this.EmailonBlur} style={{width:'252px'}}/>
 				<KrField grid={1/2} name="companyId" component="searchCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true} errors={{requiredValue:'公司为必填项'}} style={{width:'252px',marginRight:'30'}}/>
         <KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} style={{width:'252px'}}/>
 				<KrField grid={1/2} name="name" type="text" label="姓名" requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}} style={{width:'252px',marginRight:'30'}}/>
@@ -264,9 +264,9 @@ const validate = values => {
 	if (!values.communityId) {
 		errors.communityId = '请输入社区名称';
 	}
-	if (!values.email) {
-		errors.email = '请输入邮箱';
-	}
+	// if (!values.email) {
+	// 	errors.email = '请输入邮箱';
+	// }
 	if (!values.companyId) {
 		errors.companyId = '请输入公司';
 	}

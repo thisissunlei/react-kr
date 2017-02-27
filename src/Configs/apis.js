@@ -935,6 +935,21 @@ const APIS = {
    'memberCardView': {
       url: '/api/krspace-finance-web/member/card/bound-detail?id={id}',
       method: 'get'
+   },
+   // 会员卡原领用人列表
+   'memberRecvList':{
+      url: '/api/krspace-finance-web/member/card/recv-list',
+      method: 'get'
+   },
+   //查询领用人的会员卡数
+   'memberCardNum':{
+      url: '/api/krspace-finance-web/member/card/actions/count-recvcard?receiveId={receiveId}',
+      method: 'get'
+   },
+   //会员卡转移
+   'transferMemberCard':{
+      url: '/api/krspace-finance-web/member/card/actions/transfer?formId={formId}&toId={toId}',
+      method: 'get'
    }
 
  }
