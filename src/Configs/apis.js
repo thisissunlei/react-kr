@@ -848,7 +848,7 @@ const APIS = {
    },
  //合同列表-客户名称下拉接口
    'customers-names':{
-      url:'/ipi//krspace-finance-web/customer/my-customers?company={company}',
+      url:'/ipi/krspace-finance-web/customer/my-customers?company={company}',
       method:'get'
    },
  //合同列表-获取合同是否可创建

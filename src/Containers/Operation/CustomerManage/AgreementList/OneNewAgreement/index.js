@@ -106,7 +106,7 @@ import allState from '../State';
     	if(value.label=="新建订单"){
     		allState.openNewIndent=true;
     	}else{
-
+            
     	}
     }
     //下一步被点击
