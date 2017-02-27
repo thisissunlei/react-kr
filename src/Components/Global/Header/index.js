@@ -146,6 +146,10 @@ class Header extends Component {
 
 	renderHeaderNav(item, index) {
 
+		if(!item.permission){
+			return null;
+		}
+		
 		let styles = {
 			color: '#666666',
 			width: 'auto',

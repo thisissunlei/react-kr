@@ -113,6 +113,9 @@ export default class SidebarNav extends Component {
 
 	renderMenuItem(item, index, parentIndex) {
 
+		if(!item.permission){
+			return null;
+		}
 
 		let {
 			current_router,
