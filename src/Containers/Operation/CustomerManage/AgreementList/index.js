@@ -307,7 +307,10 @@ class Merchants extends Component{
 		var newWindow = window.open(url);
 
 	}
+ 
+    ajaxRebd=()=>{
 
+    }
 
 	componentDidMount() {
 		State.ajaxListData(this.state.searchParams);
@@ -323,12 +326,11 @@ class Merchants extends Component{
      //日期开始
 	 onStartChange=(startD)=>{
     	let {searchParams}=this.state;
-        let start=startD.createDateBegin;
+        let start=startD;
         let end=searchParams.createDateEnd;
         this.setState({
         	startValue:startD
         },function () {
-            console.log('555555---',startD,start,end);
         	if(start>end){
 	         Message.error('开始时间不能大于结束时间');
 	          return ;
@@ -338,24 +340,20 @@ class Merchants extends Component{
 	    	this.setState({
 				searchParams
 			},function(){
-			console.log(searchParams,this.state.endValue,"uuu")
-
+			    State.ajaxListData(searchParams);
 			});
-
-
+            
         })
-
     }
 
     //日期结束
     onEndChange=(endD)=>{
     	let {searchParams}=this.state;
         let start=searchParams.createDateBegin;
-        let end=endD.createDateEnd;
+        let end=endD;
         this.setState({
         	endValue:endD
         },function () {
-            console.log('555555---end',endD,start,end);
         	if(start>end){
 	         Message.error('开始时间不能大于结束时间');
 	          return ;
@@ -365,9 +363,9 @@ class Merchants extends Component{
 	    	this.setState({
 				searchParams
 			},function(){
-
+                State.ajaxListData(searchParams);
 			});
-
+			
         })
 
     }
@@ -424,7 +422,6 @@ class Merchants extends Component{
 			contractStatusCount,
 		} = this.state.response;
 
-		console.log('///iiiii=====',this.state.searchParams);
 
 		let {opretionId,opretionOpen,isShow,searchParams,todayDate}=this.state;
 
@@ -443,9 +440,9 @@ class Merchants extends Component{
 					/>
 
 			 	 </Col>
-			  	<Col
+			  	 <Col
 			  		style={{float:'right',width:"90%"}}
-			  	>
+			  	 >
 
 			  		<SearchForm  
 			  		  onStartChange={this.onStartChange} 
@@ -462,8 +459,7 @@ class Merchants extends Component{
             <Table
 			    style={{marginTop:8}}
 	            displayCheckbox={true}
-	            onOperation={this.onOperation}
-			   
+	            onOperation={this.onOperation}			   
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>

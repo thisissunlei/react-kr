@@ -59,23 +59,17 @@ class SearchForm extends Component {
     
     //日期开始
 	 onStartChange=(value)=>{
-	  let values={
-      	 createDateBegin:value
-      }
       const {
 			onStartChange
 		} = this.props;
-		onStartChange && onStartChange(values);
+		onStartChange && onStartChange(value);
     }
     //日期结束
      onEndChange=(value)=>{
-      let values={
-      	 createDateEnd:value
-      }
       const {
 			onEndChange
 		} = this.props;
-		onEndChange && onEndChange(values);
+		onEndChange && onEndChange(value);
      }
 
 
