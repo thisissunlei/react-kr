@@ -841,14 +841,19 @@ const APIS = {
    url:'/mockjsdata/29/krspace-finance-web/finacontractdetail/contract-list?cityName={cityName}&communityName={communityName}&createDateBegin={createDateBegin}&createDateEnd={createDateEnd}&createrName={createrName}&customerName={customerName}&page={page}&pageSize={pageSize}&salerName={salerName}',
    method:'get'
    },
-//合同列表-客户订单下拉接口
+ //合同列表-客户订单下拉接口
    'orders-names':{
    url:'/ipi/krspace-finance-web/customer/orders-names?customerId={customerId}',
    method:'get'
    },
-//合同列表-客户名称下拉接口
+ //合同列表-客户名称下拉接口
    'customers-names':{
       url:'/ipi/krspace-finance-web/customer/my-customers?company={company}',
+      method:'get'
+   },
+ //合同列表-获取合同是否可创建
+   'contracts-creation':{
+      url:'/mockjsdata/29/fina-contract-mainbill/contracts-creation?mainBillId={mainBillId}',
       method:'get'
    },
  }
