@@ -163,7 +163,7 @@ class NewCreateForm extends Component {
 			}
 			return item;
 		})
-		Store.dispatch(Actions.callAPI('reduceGetAllRent',{stationList:JSON.stringify(list),billId:_this.props.params.orderId})).then(function(response) {
+		Store.dispatch(Actions.callAPI('reduceGetAllRent',{},{stationList:JSON.stringify(list),billId:_this.props.params.orderId})).then(function(response) {
 			_this.setState({
 				allRent:response
 			})

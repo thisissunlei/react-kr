@@ -34,6 +34,7 @@ export default class DrawerSimpleExample extends React.Component {
     let {children,open,contentStyle,width} = this.props;
 
     if(!open){
+
       return null;
     }
 
@@ -44,10 +45,12 @@ export default class DrawerSimpleExample extends React.Component {
     }
 
     return (
+
       <div className="ui-drawer">
         <DrawerModal onClose={this.onClose}/>
         <DrawerBody style={contentStyle}> {children} </DrawerBody>
       </div>
+
     );
   }
 }

@@ -828,13 +828,13 @@ const APIS = {
  },
  //计算工位总价
  'getAllRent':{
-   url:'/api/krspace-finance-web/finacontractdetail/fina-contract-all/line-total?stationList={stationList}',
-   method:'get'
+   url:'/api/krspace-finance-web/finacontractdetail/fina-contract-all/line-total',
+   method:'post'
  },
  //减租计算工位总价
  'reduceGetAllRent':{
-   url:'/api/krspace-finance-web/finacontractdetail/fina-contract-all/reduc-line-total?stationList={stationList}&billId={billId}',
-   method:'get'
+   url:'/api/krspace-finance-web/finacontractdetail/fina-contract-all/reduc-line-total',
+   method:'post'
  },
  //合同列表-列表接口
    'contract-list':{
