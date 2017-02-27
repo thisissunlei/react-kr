@@ -1,8 +1,9 @@
 #!/bin/bash
 
 npm run dll
-npm run test 
+npm run test
 
+buildEnvDir=$1
 target_site=www@10.1.60.201
 target_site_port=9830
 
@@ -19,4 +20,4 @@ fi
 
 echo $target_site
 
-rsync -cza --delete-before  -e "ssh -p ${target_site_port}"  ./dist/* ${target_site}:/data/work/frontend/kr-admin >/dev/null
+rsync -cza --delete-before  -e "ssh -p ${target_site_port}"  ./dist/* ${target_site}:/data/work/frontend/kr-admin/${buildEnvDir} >/dev/null
