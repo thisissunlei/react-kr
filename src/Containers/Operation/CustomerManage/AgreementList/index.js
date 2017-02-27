@@ -322,49 +322,54 @@ class Merchants extends Component{
    
      //日期开始
 	 onStartChange=(startD)=>{
-	   var _this=this;
-       let {searchParams}=this.state;
-       let start=startD;
-       let end=searchParams.createDateEnd
-       this.setState({
-       	 startValue:startD
-       },function(){
-       	 if(start>end){
-       	  Message.error('开始日期不能大于结束日期');
-       	  return ;
-       }
-        searchParams = Object.assign({}, searchParams,{createDateBegin:this.state.startValue,createDateEnd:this.state.endValue||searchParams.createDateEnd});
-        State.ajaxListData(searchParams);       
-       }) 
+    	let {searchParams}=this.state;
+        let start=startD.createDateBegin;
+        let end=searchParams.createDateEnd;
         this.setState({
-           searchParams
-        },function(){
-           console.log('pppstart',this.state.searchParams)
-        })  
+        	startValue:startD
+        },function () {
+            console.log('555555---',startD,start,end);
+        	if(start>end){
+	         Message.error('开始时间不能大于结束时间');
+	          return ;
+	        }
+	        let createDateBegin=this.state.startValue;
+	    	searchParams = Object.assign({}, searchParams, {createDateBegin:this.state.startValue,createDateEnd:this.state.endValue||searchParams.createDateEnd});
+	    	this.setState({
+				searchParams
+			},function(){
+			console.log(searchParams,this.state.endValue,"uuu")
 
-     }
+			});
+
+
+        })
+
+    }
 
     //日期结束
     onEndChange=(endD)=>{
-       let {searchParams}=this.state;
-       console.log('endsearchparams',searchParams);
-       let start=searchParams.createDateBegin;
-       let end=endD;
-       this.setState({
-       	 endValue:endD
-       },function(){
-       	 console.log('endend',start,end);
-       	 if(start>end){
-       	  Message.error('开始日期不能大于结束日期');
-       	  return ;
-       }
-       searchParams = Object.assign({}, searchParams,{createDateBegin:this.state.startValue||searchParams.createDateBegin,createDateEnd:this.state.endValue});
-       this.setState({
-		  searchParams
-		});
-       State.ajaxListData(searchParams);
-        
-       })    
+    	let {searchParams}=this.state;
+        let start=searchParams.createDateBegin;
+        let end=endD.createDateEnd;
+        this.setState({
+        	endValue:endD
+        },function () {
+            console.log('555555---end',endD,start,end);
+        	if(start>end){
+	         Message.error('开始时间不能大于结束时间');
+	          return ;
+	        }
+	        let createDateEnd=this.state.endValue;
+	    	searchParams = Object.assign({}, searchParams, {createDateBegin:this.state.startValue||searchParams.createDateBegin,createDateEnd:this.state.endValue,});
+	    	this.setState({
+				searchParams
+			},function(){
+
+			});
+
+        })
+
     }
 
    //搜索提交
@@ -419,7 +424,8 @@ class Merchants extends Component{
 			contractStatusCount,
 		} = this.state.response;
 
-		
+		console.log('///iiiii=====',this.state.searchParams);
+
 		let {opretionId,opretionOpen,isShow,searchParams,todayDate}=this.state;
 
 		return(
