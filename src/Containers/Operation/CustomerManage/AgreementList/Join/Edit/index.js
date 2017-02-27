@@ -25,6 +25,7 @@ import {
 
 import NewCreateForm from './NewCreateForm';
 import './index.less';
+import allState from "../../State";
 
 export default class JoinCreate extends Component {
 
@@ -71,9 +72,11 @@ export default class JoinCreate extends Component {
 				type: 'success',
 			}]);
 
-			window.setTimeout(function() {
-				window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/join/" + response.contractId + "/detail";
-			}, 0);
+			allState.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
+
+			// window.setTimeout(function() {
+			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/join/" + response.contractId + "/detail";
+			// }, 0);
 
 
 		}).catch(function(err) {
@@ -90,7 +93,7 @@ export default class JoinCreate extends Component {
 		let {
 			params
 		} = this.context;
-		window.location.href = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
+		//window.location.href = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
 	}
 
 	componentDidMount() {

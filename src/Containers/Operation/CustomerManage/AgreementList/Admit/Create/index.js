@@ -81,10 +81,11 @@ export default class JoinCreate extends Component {
 				message: '创建成功',
 				type: 'success',
 			}]);
+			allState.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
 
-			window.setTimeout(function() {
-				window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
-			}, 0);
+			// window.setTimeout(function() {
+			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
+			// }, 0);
 
 
 		}).catch(function(err) {
@@ -95,11 +96,13 @@ export default class JoinCreate extends Component {
 			}]);
 		});
 
-		//this.openConfirmCreateDialog();
+		this.openConfirmCreateDialog();
 	}
 
 	onCancel() {
-		window.history.back();
+		//window.history.back();
+		allState.openTowAgreement=false;
+		allState.openOneAgreement=false;
 	}
 
 	openConfirmCreateDialog() {

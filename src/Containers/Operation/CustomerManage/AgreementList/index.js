@@ -50,8 +50,7 @@ import RenewDetail from './Renew/Detail';
 import IncreaseDetail from './Increase/Detail';
 import JoinDetail from './Join/Detail';
 import NewIndent from "./NewIndent";
-
-
+import DelAgreementNotify from './DelAgreementNotify';
 import './index.less';
 @observer
 class Merchants extends Component{
@@ -275,6 +274,27 @@ class Merchants extends Component{
 			});
 	}
 
+	confirmDelAgreement() {
+
+		this.openDelAgreementDialog(0);
+
+		let {
+			delAgreementId
+		} = this.state;
+		Store.dispatch(Actions.callAPI('delete-enter-contract', {
+			contractId: delAgreementId
+		})).then(function(response) {
+			Notify.show([{
+				message: '删除成功!',
+				type: 'success',
+			}]);
+			window.setTimeout(function() {
+				window.location.reload();
+			}, 100)
+		}).catch(function(err) {
+			console.log(err.message);
+		});
+	}
 
 	print=(item)=>{
 		var typeList = [{
@@ -612,6 +632,14 @@ class Merchants extends Component{
 						/>
 
 		           </Drawer>	
+		           <Dialog
+					title="删除合同"
+					modal={true}
+					onClose={this.openDelAgreementDialog}
+					open={this.state.openDelAgreement}
+					contentStyle={{width:445,height:236}}>
+						<DelAgreementNotify onSubmit={this.confirmDelAgreement} onCancel={this.openDelAgreementDialog.bind(this,0)}/>
+					</Dialog>
         </div>
 		);
 	}

@@ -70,9 +70,6 @@ class LookCustomerList extends Component{
 				<Tabs className="tabs"
 			 		 inkBarStyle={{background:"#499df1",top:0}}
 				>
-				<Tab label="承租意向书" >
-					<Admit params={{customerId:1,orderId:1}}/>
-				</Tab>
 				<Tab label="入驻协议书" >
 					<Join params={{customerId:1,orderId:1}}/>
 				</Tab>

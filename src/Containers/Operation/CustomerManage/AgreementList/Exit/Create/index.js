@@ -27,6 +27,7 @@ import {
 
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
+import allState from "../../State";
 
 export default class JoinCreate extends Component {
 
@@ -77,7 +78,9 @@ export default class JoinCreate extends Component {
 				message: '创建成功',
 				type: 'success',
 			}]);
-			location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/exit/" + response.contractId + "/detail";
+			allState.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
+
+			// location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/exit/" + response.contractId + "/detail";
 
 		}).catch(function(err) {
 			_this.isConfirmSubmiting = false;
@@ -91,7 +94,10 @@ export default class JoinCreate extends Component {
 	}
 
 	onCancel() {
-		window.history.back();
+		console.log("0000000")
+		allState.openTowAgreement=false;
+		allState.openOneAgreement=false;
+		// window.history.back();
 	}
 
 	openConfirmCreateDialog() {
