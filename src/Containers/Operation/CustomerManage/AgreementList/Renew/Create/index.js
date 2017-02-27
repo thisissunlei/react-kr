@@ -26,7 +26,7 @@ import {
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
 import './index.less';
-
+import allState from "../../State";
 export default class JoinCreate extends Component {
 
 	constructor(props, context) {
@@ -69,7 +69,9 @@ export default class JoinCreate extends Component {
 				message: '创建成功',
 				type: 'success',
 			}]);
-			location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/renew/" + response.contractId + "/detail";
+			allState.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
+
+			// location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/renew/" + response.contractId + "/detail";
 
 		}).catch(function(err) {
 			Notify.show([{
@@ -82,7 +84,9 @@ export default class JoinCreate extends Component {
 	}
 
 	onCancel() {
-		window.history.back();
+		//window.history.back();
+		allState.openTowAgreement=false;
+		allState.openOneAgreement=false;
 	}
 
 	openConfirmCreateDialog() {

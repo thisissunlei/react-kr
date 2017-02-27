@@ -25,6 +25,8 @@ import {
 
 import NewCreateForm from './NewCreateForm';
 import ConfirmFormDetail from './ConfirmFormDetail';
+import allState from "../../State";
+
 
 
 export default class JoinCreate extends Component {
@@ -79,7 +81,9 @@ export default class JoinCreate extends Component {
 				message: '更新成功',
 				type: 'success',
 			}]);
-			location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
+			allState.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
+
+			// location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
 
 		}).catch(function(err) {
 			Notify.show([{
@@ -88,14 +92,14 @@ export default class JoinCreate extends Component {
 			}]);
 		});
 
-		//this.openConfirmCreateDialog();
+		this.openConfirmCreateDialog();
 	}
 
 	onCancel() {
 		let {
 			params
 		} = this.context;
-		window.location.href = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
+		// window.location.href = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
 	}
 
 	openConfirmCreateDialog() {

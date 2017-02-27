@@ -56,9 +56,7 @@ class CustomerIndent extends Component{
 	editIndentClick = (id) =>{
 		this.props.editIndentSwitch(id);
 	}
-	locationWatch=(id)=>{
-		window.open(`./#/operation/customerManage/${this.props.listId}/order/${id}/detail`,'123');
-	}
+	
 	
 	
 	orderInnerList = () =>{
@@ -93,7 +91,9 @@ class CustomerIndent extends Component{
 					<div style={{marginTop:20,textAlign: "center"}} className='btnBoxShadow'>
 						{isEdit&&<span><Button  label="编辑" type="button" cancle={true} onTouchTap={_this.editIndentClick.bind(this,item.id)}/>
 						<span className="interval"></span></span>}
-						<Button  label="查看" type="button" cancle={true} onTouchTap={_this.locationWatch.bind(this,item.id)}/>
+						<Button  label="查看" type="button" cancle={true}>
+						  <a className='watchGo' href={`./#/operation/customerManage/${_this.props.listId}/order/${item.id}/detail`} target='_blank'/> 
+						</Button>
 						<span className="interval"></span>
 						{item.deleteBtn && <Button  label="删除" type="button" cancle={true} onTouchTap={()=>{
 																			if(operType=="PERSON"){
