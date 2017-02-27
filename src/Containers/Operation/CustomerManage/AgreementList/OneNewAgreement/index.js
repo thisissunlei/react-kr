@@ -46,7 +46,26 @@ import allState from '../State';
 	onSubmit = () => {
 		
 		allState.openTowAgreement=true;
-		// this.onCancel();
+		
+	 //    var _this = this;
+		// Store.dispatch(Actions.callAPI('contracts-creation', {mainBillId:allState.mainBillId})).then(function(response) {
+		// //入驻合同是否可创建	
+		// // allState.enter=response.enter;
+		// // //增租合同是否可创建
+		// // allState.increase=response.increase;
+
+		// // //减租合同是否可创建
+		// // allState.reduce=response.reduce;
+		// // //续租合同是否可创建
+		// // allState.relet=response.relet;
+		// // //退组合同是否可创建
+		// // allState.returnRent=response.returnRent;
+
+			
+		// }).catch(function(err) {
+		// 	Message.error(err.message);
+		// });
+		// Store.dispatch(Actions.switchSidebarNav(false));
 	}
 	onCancel = () => {
 		const {onCancel} = this.props;
@@ -102,12 +121,14 @@ import allState from '../State';
 		});		
 	}
 	//
-    orderListChange = (value) =>{
-    	if(value.label=="新建订单"){
+    orderListChange = (data) =>{
+    	if(data.label=="新建订单"){
     		allState.openNewIndent=true;
     	}else{
-            
+          allState.mainBillId=data.value;
+          
     	}
+    	console.log("33333>",data)
     }
     //下一步被点击
     nextClick = () =>{

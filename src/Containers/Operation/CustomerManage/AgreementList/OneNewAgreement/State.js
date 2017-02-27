@@ -16,9 +16,7 @@ let State = observable({
 });
 
 //客户名称下拉
-State.ordersNames = action(function(customerId) {
 
-});
 
 
 module.exports = State;

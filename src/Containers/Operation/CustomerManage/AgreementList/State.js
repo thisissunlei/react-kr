@@ -39,6 +39,20 @@ let State = observable({
 		orderCount:"",
 		//合同类型
 		argumentType:'',
+		//订单id
+		mainBillId:'',
+		
+		//入驻合同是否可创建	
+		enter:true,
+		//增租合同是否可创建	
+		increase:true,
+		//减租合同是否可创建
+		reduce:true,
+		//续租合同是否可创建
+		relet:true,
+		//退组合同是否可创建
+		returnRent:true,
+
 
 		//查看id
 		//查看客户id
