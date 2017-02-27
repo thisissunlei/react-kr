@@ -32,6 +32,7 @@ import Increase from "../Increase/Create";
 import Join from "../Join/Create";
 import Reduce from "../Reduce/Create";
 import Renew from "../Renew/Create";
+import allState from "../State";
 
 @observer
 class LookCustomerList extends Component{

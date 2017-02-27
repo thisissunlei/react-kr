@@ -41,7 +41,9 @@ let State = observable({
 		argumentType:'',
 		//订单id
 		mainBillId:'',
-		
+		//合同id
+		agreementId:'',
+
 		//入驻合同是否可创建	
 		enter:true,
 		//增租合同是否可创建	

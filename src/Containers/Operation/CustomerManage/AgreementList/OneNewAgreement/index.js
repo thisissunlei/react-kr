@@ -130,7 +130,6 @@ import allState from '../State';
           allState.mainBillId=data.value;
           
     	}
-    	console.log("33333>",data)
     }
     //下一步被点击
     nextClick = () =>{

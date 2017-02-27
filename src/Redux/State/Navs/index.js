@@ -71,7 +71,9 @@ module.exports = {
 				primaryText: '客户列表',
 				router: '/operation/customerManage/customerList',
 				menuCode: 'coustomerInfoList',
-			}, ]
+			}
+
+			 ]
 		}, {
 			primaryText: "社区配置",
 			iconName: 'icon-community',

@@ -300,6 +300,8 @@ class Merchants extends Component{
 	}
 
 	print=(item)=>{
+		console.log("//////////")
+		
 		var typeList = [{
 			name: 'INTENTION',
 			value: 'admit'
