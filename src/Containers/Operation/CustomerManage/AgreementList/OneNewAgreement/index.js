@@ -38,7 +38,7 @@ import allState from '../State';
 	}
 	
 	componentDidMount(){
-	 	// Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
+	 	 // Store.dispatch(change('NewCustomerList','hasOffice','NOHAS'));
 		 // Store.dispatch(change('NewCustomerList','hasOffice','NO'));
 
 	}
@@ -72,7 +72,7 @@ import allState from '../State';
 		onCancel && onCancel();
 	}
 	 onChangeSign=(person)=>{
-		Store.dispatch(change('OneNewAgreement','communityId',person.id));
+		Store.dispatch(change('OneNewAgreement','customerId',person.id));
 		this.fetchCustomer({customerId:person.id});
 		allState.companyName=person.company;
 		allState.listId=person.id;
@@ -84,18 +84,20 @@ import allState from '../State';
 		Store.dispatch(Actions.callAPI('orders-names', customerId)).then(function(response) {
 			let label="",value='';
 			let orderList=[];
-			let order={}; 
 			for(let i=0;i<response.orderList.length;i++){
+			    let order={}; 
 				order.value=response.orderList[i].id;
 				order.label=response.orderList[i].mainbillname;
 				orderList.push(order);
 			}
-			orderList.push({label:"新建订单",value:""});
+			var noContract = {
+				'value': '-1',
+				'label': '新建订单'
+			}
+			orderList.push(noContract);
 			_this.setState({
 				orderList
 			})
-
-			
 		}).catch(function(err) {
 
 			Notify.show([{
@@ -175,7 +177,7 @@ const validate = values =>{
 		errors.companyId = '客户名称不能为空';
 	}
 	if(!values.staionTypeId){
-		errors.companyId = '订单名称不能为空';
+		errors.staionTypeId = '订单名称不能为空';
 	}
 	return errors;
 }
