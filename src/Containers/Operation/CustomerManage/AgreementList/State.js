@@ -53,6 +53,8 @@ State.agreementDetail=action(function(params){
 })
 //列表数据请求
 State.ajaxListData=action(function(ajaxData){
+	    //错误到了这一层要深究
+		ajaxData = Object.assign({},ajaxData);
 	    var _this = this;
 		Store.dispatch(Actions.callAPI('contract-list', ajaxData)).then(function(response) {
 			_this.contractList=response.items;
