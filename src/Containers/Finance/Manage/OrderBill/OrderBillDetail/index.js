@@ -250,8 +250,7 @@ export default class AttributeSetting extends Component {
 	openReceivedBtn() {
 
 		this.receivedBtnFormChangeValues = {};
-		//Store.dispatch(reset('receivedBtnForm',{totalPayment:'',preCode:'1',operatedate:''}));
-
+		Store.dispatch(initialize('receivedBtnForm', {}));
 		var _this = this;
 		Store.dispatch(Actions.callAPI('getPaymentActData', {
 			mainbillId: _this.props.params.orderId
@@ -702,6 +701,11 @@ export default class AttributeSetting extends Component {
 		params.operatedate = dateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
 		params.propJasonStr = JSON.stringify(params.propJasonStr);
 		params.conJasonStr = JSON.stringify(params.conJasonStr);
+
+
+		console.log('params.contract', params.contract);
+		console.log('params.propJasonStr', params.propJasonStr);
+		console.log('liveMoneyValue', liveMoneyValue);
 
 
 		if (!params.contract) {
@@ -1191,31 +1195,39 @@ export default class AttributeSetting extends Component {
 		} else if (type == 6) {
 			orderType = 'exit';
 		}
-		location.href = `./#/operation/customerManage/${basicInfo.customerid}/order/${params.orderId}/agreement/${orderType}/${detailid}/detail`
+		var url = `./#/operation/customerManage/${basicInfo.customerid}/order/${params.orderId}/agreement/${orderType}/${detailid}/detail`;
+		window.open(url)
 	}
 
-	calcBalance = (input) => {
-
-
+	calcBalance = (input, name, nameList) => {
 		input.value = Math.round((input.value * 100))
-
 		this.receivedBtnFormChangeValues[input.name] = input.value;
-
-
-
 		let receivedBtnFormChangeValues = this.receivedBtnFormChangeValues;
 		let {
 			totalPayment
 		} = receivedBtnFormChangeValues;
-		let liveMoneyValue = totalPayment;
+		let liveMoneyValue = totalPayment ? totalPayment : 0;
 
-		if (totalPayment) {
 
-			for (var item in receivedBtnFormChangeValues) {
-				if (receivedBtnFormChangeValues.hasOwnProperty(item) && item != 'totalPayment') {
+		if (input.value === 0) {
+			var name1 = `${name}1`,
+				name2 = `${name}3`;
+			receivedBtnFormChangeValues[name1] = 0;
+			receivedBtnFormChangeValues[name2] = 0;
+			if (nameList && nameList.length > 0) {
+				nameList.map((item, index) => {
+					receivedBtnFormChangeValues[item] = 0;
+				})
+			}
 
-					liveMoneyValue -= receivedBtnFormChangeValues[item];
-				}
+		}
+
+
+
+		for (var item in receivedBtnFormChangeValues) {
+			if (receivedBtnFormChangeValues.hasOwnProperty(item) && item != 'totalPayment') {
+				liveMoneyValue -= receivedBtnFormChangeValues[item];
+
 			}
 		}
 

@@ -32,12 +32,10 @@ export default class  SearchPersonelComponent extends React.Component {
 
 	onInputChange=()=>{
 
-		console.log('--yayay');
 
 	}
 
 	onChange(item){
-		console.log('----',item);
 		let {input,onChange} = this.props;
 		var value = (item && item.value) || '';
 		input.onChange(value);

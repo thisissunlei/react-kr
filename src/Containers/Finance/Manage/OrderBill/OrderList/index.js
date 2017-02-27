@@ -60,8 +60,8 @@ export default class AttributeSetting extends Component {
 		}
 	}
 
-	
-   
+
+
    //导出
 	onExport=(values)=> {
 		var searchParams = this.state.searchParams;
@@ -109,7 +109,7 @@ export default class AttributeSetting extends Component {
 			}
 		});
 	}
-   
+
    //高级搜索提交
 	onSearchUpperSubmit=(searchParams)=>{
 		searchParams = Object.assign({}, this.state.searchParams, searchParams);
@@ -120,7 +120,7 @@ export default class AttributeSetting extends Component {
 
 	}
 
-	
+
     //加载完将所有的table数据都获取过来了
 	onLoaded=(response)=>{
 		let list = response;

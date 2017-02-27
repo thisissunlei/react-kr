@@ -5,6 +5,7 @@ import * as Types from './types';
 
 export function navActive(menuCode){
 	return function(dispatch,getState){
+		console.log("11111");
 		var state = getState();
 		var permissionNavs = state.navs.items;
 

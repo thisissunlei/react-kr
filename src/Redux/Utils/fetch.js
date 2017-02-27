@@ -24,7 +24,8 @@ function getUrl(path, params = {},mode = false) {
 		server = 'http://optest02.krspace.cn';
 	}else {
 		server = '';
-  }
+  	}
+
 
 
 	/*
@@ -32,8 +33,18 @@ function getUrl(path, params = {},mode = false) {
         return path;
     }
     */
+    //本地联调接口
+    // let url = APIS[path].url;
+    // if(url.indexOf('apixr')){
+    // 	server = ''
+    // }
 
-    
+
+    var url = APIS[path].url;
+
+    if(url.indexOf('mockjsdata') !==-1){
+    	server='';
+    }
     try {
         server += APIS[path].url;
     } catch(err) {
