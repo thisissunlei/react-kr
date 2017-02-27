@@ -32,6 +32,7 @@ import Increase from "../Increase/Edit";
 import Join from "../Join/Edit";
 import Reduce from "../Reduce/Edit";
 import Renew from "../Renew/Edit";
+import allState from "../State";
 
 @observer
 class EditAgreementList extends Component{
@@ -59,7 +60,22 @@ class EditAgreementList extends Component{
 	
 
 	render(){
-				                       
+		var content="";
+		if(allState.argumentType==""){
+			content=(<Exit params={{customerId:1,orderId:1,contractId:1,id:1}} />)
+		}
+		if(allState.argumentType==""){
+			content=(<Increase params={{customerId:1,orderId:1,contractId:1,id:1}} />)
+		}
+		if(allState.argumentType==""){
+			content=(<Join params={{customerId:1,orderId:1,contractId:1,id:1}} />)
+		}
+		if(allState.argumentType==""){
+			content=(<Reduce params={{customerId:1,orderId:1,contractId:1,id:1}} />)
+		}
+		if(allState.argumentType==""){
+			content=(<Renew params={{customerId:1,orderId:1,contractId:1,id:1}} />)
+		}	                       
 		
 		return(
 		      <div className="m-lookCustomerList m-newMerchants" style={{paddingLeft:0,marginLeft:10}}>
@@ -67,16 +83,7 @@ class EditAgreementList extends Component{
 					<div className="look-close" onClick={this.onCancel}></div>
 				</div>
 				<span className="content-title">减租协议书详情页</span>
-
-				{/*<Admit params={{customerId:1,orderId:1,contractId:1,id:985}} />*/}
-					
-				{/*<Exit params={{customerId:1,orderId:1,contractId:1,id:1}} />*/}
-				<Increase params={{customerId:1,orderId:1,contractId:1,id:1}} />
-				{/*<Join params={{customerId:1,orderId:1,contractId:1,id:1}} />*/}
-				{/*<Reduce params={{customerId:1,orderId:1,contractId:1,id:1}} />*/}
-				{/*<Renew params={{customerId:1,orderId:1,contractId:1,id:1}} />*/}
-			
-		        
+				{content}
 		      </div>
 
 		);

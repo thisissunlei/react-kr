@@ -94,7 +94,6 @@ export default class JoinCreate extends Component {
 	}
 
 	onCancel() {
-		console.log("0000000")
 		allState.openTowAgreement=false;
 		allState.openOneAgreement=false;
 		// window.history.back();

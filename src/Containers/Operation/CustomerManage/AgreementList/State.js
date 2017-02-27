@@ -37,6 +37,8 @@ let State = observable({
 		orderReady:[],
 		//订单号
 		orderCount:"",
+		//合同类型
+		argumentType:'',
 
 		//查看id
 		//查看客户id

@@ -266,17 +266,17 @@ class Merchants extends Component{
 
 
 	setDelAgreementId = (delAgreementId) => {
-		
+		var _this=this;
 			this.setState({
 				delAgreementId,
 			}, function() {
-				this.openDelAgreementDialog();
+				_this.openDelAgreementDialog();
 			});
 	}
 
-	confirmDelAgreement() {
+	confirmDelAgreement=()=>{
 
-		this.openDelAgreementDialog(0);
+		this.openDelAgreementDialog();
 
 		let {
 			delAgreementId
@@ -288,12 +288,15 @@ class Merchants extends Component{
 				message: '删除成功!',
 				type: 'success',
 			}]);
-			window.setTimeout(function() {
-				window.location.reload();
-			}, 100)
+
+			// window.setTimeout(function() {
+			// 	window.location.reload();
+			// }, 100)
 		}).catch(function(err) {
 			console.log(err.message);
 		});
+		State.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
+
 	}
 
 	print=(item)=>{
@@ -323,7 +326,7 @@ class Merchants extends Component{
 			}
 		});
 		const params = this.props.params;
-		let url = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/agreement/${name}/${item.id}/print`
+		let url = `./#/operation/customerManage/${item.customerId}/order/${item.mainbillid}/agreement/${name}/${item.id}/print`
 		var newWindow = window.open(url);
 
 	}
@@ -429,6 +432,17 @@ class Merchants extends Component{
 		}
 		return (<Tooltip className="tooltipTextStyle" style={{padding:10, maxWidth:224,}} offsetTop={5} place='top'><div style={{width:160,minHeight:20,wordWrap:"break-word",padding:"10px",whiteSpace:"normal",lineHeight:"22px"}}>{value}</div></Tooltip>)
 	}
+	editClick=(value)=>{
+		console.log('222')
+		// State.argumentType=value;
+		State.openEditAgreement=true;
+	}
+	maskClock=()=>{
+		State.openOneAgreement=false;
+		State.openTowAgreement=false;
+		State.openEditAgreement=false;
+		State.openAgreementDetail=false;
+	}
 
 	render(){
       
@@ -517,13 +531,13 @@ class Merchants extends Component{
 									<TableRowColumn><span className="tableOver"><KrDate value={item.createdate}/></span>{this.everyTd(item.createdate)}</TableRowColumn>
 					                <TableRowColumn>
 					                    <Button label="查看"  type='operation'  operation='watch'/>
-					                    <Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)} linkTrue labelStyleLink={{paddingLeft:0,paddingRight:0,fontWeight:0}}/>
-										<Button  type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)} linkTrue/>
+					                    <Button type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)} linkTrue labelStyleLink={{paddingLeft:0,paddingRight:0,fontWeight:0}}/>
+										<Button type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)} linkTrue/>
 										<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
 										
 										<div style={{visibility:showOpretion}} className="m-operation" >
-											{<span style={{display:'block'}}>编辑</span> }
-											{ <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
+											{<span style={{display:'block'}} onClick={this.editClick.bind(this,item.contracttype)}>编辑</span> }
+											{<span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
 											{<span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
 						
 										</div>
@@ -640,6 +654,13 @@ class Merchants extends Component{
 					contentStyle={{width:445,height:236}}>
 						<DelAgreementNotify onSubmit={this.confirmDelAgreement} onCancel={this.openDelAgreementDialog.bind(this,0)}/>
 					</Dialog>
+
+					{(
+						State.openOneAgreement||
+						State.openTowAgreement||
+						State.openEditAgreement||
+						State.openAgreementDetail
+						)&&<div className="mask" onClick={this.maskClock}></div>}
         </div>
 		);
 	}
