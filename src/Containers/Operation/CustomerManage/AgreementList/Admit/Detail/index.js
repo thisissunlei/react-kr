@@ -161,6 +161,8 @@ export default class AdmitDetail extends Component {
 
 	render() {
 
+		console.log('----00000',this.props.params);
+
 		let {
 			isLoading
 		} = this.state;

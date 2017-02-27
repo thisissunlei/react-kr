@@ -45,27 +45,22 @@ import allState from '../State';
 	//下一步被点击
 	onSubmit = () => {
 		
-		allState.openTowAgreement=true;
-		
-	 //    var _this = this;
-		// Store.dispatch(Actions.callAPI('contracts-creation', {mainBillId:allState.mainBillId})).then(function(response) {
-		// //入驻合同是否可创建	
-		// // allState.enter=response.enter;
-		// // //增租合同是否可创建
-		// // allState.increase=response.increase;
-
-		// // //减租合同是否可创建
-		// // allState.reduce=response.reduce;
-		// // //续租合同是否可创建
-		// // allState.relet=response.relet;
-		// // //退组合同是否可创建
-		// // allState.returnRent=response.returnRent;
-
-			
-		// }).catch(function(err) {
-		// 	Message.error(err.message);
-		// });
-		// Store.dispatch(Actions.switchSidebarNav(false));
+		allState.openTowAgreement=true;		
+	    var _this = this;
+		Store.dispatch(Actions.callAPI('contracts-creation', {mainBillId:allState.mainBillId})).then(function(response) {
+		//入驻合同是否可创建	
+		allState.enter=response.enter;
+		//增租合同是否可创建
+		allState.increase=response.increase;
+		//减租合同是否可创建
+		allState.reduce=response.reduce;
+		//续租合同是否可创建
+		allState.relet=response.relet;
+		//退组合同是否可创建
+		allState.returnRent=response.returnRent;			
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
 	onCancel = () => {
 		const {onCancel} = this.props;

@@ -164,9 +164,12 @@ class Merchants extends Component{
   
    
     //查看相关操作
-    onOperation=(type, itemDetail)=>{          
-    	console.log('pppwatch',type, itemDetail);
-      	State.agreementDetail();    
+    lookClick=(values)=>{
+    	State.listId=values.customerid;
+    	State.agreementId=values.id;
+    	State.mainBillId=values.mainbillid;
+    	State.argumentType=values.contracttype;
+    	State.openAgreementDetail=true;
     }
 
     componentWillMount(){
@@ -300,7 +303,6 @@ class Merchants extends Component{
 	}
 
 	print=(item)=>{
-		console.log("//////////")
 		
 		var typeList = [{
 			name: 'INTENTION',
@@ -435,7 +437,6 @@ class Merchants extends Component{
 		return (<Tooltip className="tooltipTextStyle" style={{padding:10, maxWidth:224,}} offsetTop={5} place='top'><div style={{width:160,minHeight:20,wordWrap:"break-word",padding:"10px",whiteSpace:"normal",lineHeight:"22px"}}>{value}</div></Tooltip>)
 	}
 	editClick=(value)=>{
-		console.log('222')
 		// State.argumentType=value;
 		State.openEditAgreement=true;
 	}
@@ -446,9 +447,57 @@ class Merchants extends Component{
 		State.openAgreementDetail=false;
 	}
 
-	render(){
-      
 
+	contractRender=()=>{
+		         let contractSelect='';
+			      if(State.argumentType=='INTENTION'){
+                            contractSelect=<AdmitDetail 
+						    params={{id:State.agreementId,customerId:State.listId,orderId:State.mainBillId}}
+                            onCancel={this.cancelAgreementDetail}
+						  />
+			           	 }
+                         
+                         if(State.argumentType=='ENTER'){
+                            contractSelect=<JoinDetail 
+						 params={{id:State.agreementId,customerId:State.listId,orderId:State.mainBillId}}
+                         onCancel={this.cancelAgreementDetail}
+						/>
+			           	 }
+
+			           	  if(State.argumentType=='ADDRENT'){
+                            contractSelect=<IncreaseDetail 
+						 params={{id:State.agreementId,customerId:State.listId,orderId:State.mainBillId}}
+                         onCancel={this.cancelAgreementDetail}
+						/>
+			           	 }
+
+
+			           	 if(State.argumentType=='LESSRENT'){
+                            contractSelect=<ReduceDetail 
+						 params={{id:State.agreementId,customerId:State.listId,orderId:State.mainBillId}}
+                         onCancel={this.cancelAgreementDetail}
+						/>
+			           	 }
+
+
+			           	 if(State.argumentType=='QUITRENT'){
+                            contractSelect=<ExitDetail 
+						 params={{id:State.agreementId,customerId:State.listId,orderId:State.mainBillId}}
+                         onCancel={this.cancelAgreementDetail}
+						/>
+			           	 }
+
+                          if(State.argumentType=='RENEW'){
+                            contractSelect=<RenewDetail 
+						 params={{id:State.agreementId,customerId:State.listId,orderId:State.mainBillId}}
+                         onCancel={this.cancelAgreementDetail}
+						/>		
+			           	 }
+
+			     return contractSelect
+	}
+
+	render(){     
       	let {contractList}=State;
       	var blockStyle={};
        	const {
@@ -495,7 +544,7 @@ class Merchants extends Component{
             <Table
 			    style={{marginTop:8}}
 	            displayCheckbox={true}
-	            onOperation={this.onOperation}			   
+
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>
@@ -532,7 +581,7 @@ class Merchants extends Component{
 									<TableRowColumn><span className="tableOver">{item.inputUser}</span>{this.everyTd(item.inputUser)}</TableRowColumn>
 									<TableRowColumn><span className="tableOver"><KrDate value={item.createdate}/></span>{this.everyTd(item.createdate)}</TableRowColumn>
 					                <TableRowColumn>
-					                    <Button label="查看"  type='operation'  operation='watch'/>
+					                    <Button label="查看"  type='operation'  onClick={this.lookClick.bind(this,item)}/>
 					                    <Button type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)} linkTrue labelStyleLink={{paddingLeft:0,paddingRight:0,fontWeight:0}}/>
 										<Button type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)} linkTrue/>
 										<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
@@ -550,6 +599,7 @@ class Merchants extends Component{
 			        	})}
 			              
 			        </TableBody>
+			        <TableFooter></TableFooter>
 			       
            </Table>
 
@@ -617,36 +667,8 @@ class Merchants extends Component{
 				        openSecondary={true}
 				        containerStyle={{top:60,paddingBottom:48,zIndex:8}}
 			        >
-						{/*<ExitDetail 
-						 params={{id:1,customerId:2,orderId:4}}
-                         onCancel={this.cancelAgreementDetail}
-						/>
-
-						<ReduceDetail 
-						 params={{id:1,customerId:2,orderId:4}}
-                         onCancel={this.cancelAgreementDetail}
-						/>
-
-						<RenewDetail 
-						 params={{id:1,customerId:2,orderId:4}}
-                         onCancel={this.cancelAgreementDetail}
-						/>						
-
-						<JoinDetail 
-						 params={{id:1,customerId:2,orderId:4}}
-                         onCancel={this.cancelAgreementDetail}
-						/>
-
-						<IncreaseDetail 
-						 params={{id:1,customerId:2,orderId:4}}
-                         onCancel={this.cancelAgreementDetail}
-						/>*/}
-
-						<AdmitDetail 
-						 params={{id:985,customerId:2,orderId:4}}
-                         onCancel={this.cancelAgreementDetail}
-						/>
-
+                        {this.contractRender()}
+			           
 		           </Drawer>	
 		           <Dialog
 					title="删除合同"
