@@ -46,7 +46,7 @@ import allState from '../State';
 	onSubmit = () => {
 		
 		allState.openTowAgreement=true;
-		this.onCancel();
+		// this.onCancel();
 	}
 	onCancel = () => {
 		const {onCancel} = this.props;

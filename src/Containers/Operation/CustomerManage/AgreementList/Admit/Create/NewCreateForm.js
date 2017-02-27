@@ -586,7 +586,7 @@ class NewCreateForm extends Component {
 	<div style={{width:615}}>
 
 	<form className="m-new-create" onSubmit={handleSubmit(this.onSubmit)} >
-				<div className="cheek" style={{paddingLeft:0,marginLeft:0}}>
+				<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
 					<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
 					<div className="small-cheek">
 					<KrField name="wherefloor" style={{width:262,marginLeft:25}}  component="select" label="所属楼层" options={optionValues.floorList} multi={true}  requireLabel={true}/>
