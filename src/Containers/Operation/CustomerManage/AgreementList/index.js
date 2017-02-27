@@ -539,7 +539,7 @@ class Merchants extends Component{
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 			        >
 						
-			       	 	<OneNewAgreement onCancel={this.closeTwoAgreement}/>
+			       	 	<TwoNewAgreement onCancel={this.closeTwoAgreement}/>
 		           	</Drawer>
 
 		           {/*编辑合同*/}

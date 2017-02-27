@@ -356,7 +356,7 @@ class NewCreateForm extends Component {
 		let allRentName = this.dealRentName(allRent);
 
 		return (
-		<div className={HeightAuto?'auto':'station-list'} style={{width:615,marginTop:'-10px'}}>
+		<div style={{width:615,marginTop:'-10px'}}>
 
 <form className="m-new-renew" onSubmit={handleSubmit(this.onSubmit)} >
 			<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>

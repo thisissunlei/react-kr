@@ -205,6 +205,7 @@ import './index.less'
 const validate = values =>{
 
 		const errors = {};
+		let phone1=/^(0\\d{2,3}-\d{7,8}(-\d{3,5}){0,1})|((\+86)?(1[35847]\d{9}))$/;
 		let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
 		let checkTel=/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
 		let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
@@ -220,9 +221,12 @@ const validate = values =>{
 
 		if(!values.recommendTel){
 			errors.recommendTel='请填写介绍人电话'
-		}else if(!phone.test(values.recommendTel)||!checkTel.test(values.recommendTel)){
+		}else if(!phone1.test(values.recommendTel)){
 			errors.recommendTel='介绍人电话错误'
 		}
+		// if(!phone.test(values.recommendTel)||!checkTel.test(values.recommendTel)){
+
+		
 		if(!stationN.test(values.stationNum)){
 			errors.stationNum = '请输入8位以内正整数,不能以0开头';
 		}
