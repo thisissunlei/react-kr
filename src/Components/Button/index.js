@@ -84,12 +84,14 @@ export default class Button extends Component {
 			disabled,
 			backgroundColor,
 			labelColor,
+			labelStyleLink,
 			cancle,
 			width,
 			height,
 			fontSize,
 			searchStyle,
 			searchClick,
+			linkTrue,
 			...other
 		} = this.props;
 		let border = 'none';
@@ -117,13 +119,31 @@ export default class Button extends Component {
 		}
 
 
+		
+
+        let linkStyles={
+        	minWidth:30,
+        	color:'#499df1'
+        }
+        let heightLinkStyle={
+        	minWidth:30,
+        	color:'#499df1',
+        	height:'36px',
+        	lineHeight:'32px'
+        }
 		if (type == 'link') {
 			if (disabled) {
 				delete other.href;
 			}
+			let style={}
+			if(linkTrue){
+             style=heightLinkStyle
+			}else{
+			 style=linkStyles
+			}
 			return (
 				<div className="ui-button">
-					<FlatButton backgroundColor={backgroundColor} labelColor={labelColor} label={label} primary={true} style={{minWidth:30,color:'#499df1'}}  {...other}  />
+					<FlatButton backgroundColor={backgroundColor} labelColor={labelColor} labelStyle={labelStyleLink} label={label} primary={true} style={style}  {...other}  />
 				</div>
 			);
 		}
