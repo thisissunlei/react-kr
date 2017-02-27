@@ -87,7 +87,7 @@ class Merchants extends Component{
 			   page:1,	
 			   pageSize:15,
 			   createDateBegin:'',
-			   createDateEnd:''
+			   createDateEnd:'',
 		     },
            
 		}
@@ -190,7 +190,7 @@ class Merchants extends Component{
 	cancelAgreementDetail=()=>{
 		State.agreementDetail();
 	}
-    //
+    
 	//新建提交按钮
 	onNewMerchants=(params)=>{
 		switchNewMerchants(params);
@@ -343,7 +343,7 @@ class Merchants extends Component{
 		this.setState({
 			searchParams:{
 				createDateBegin:todayDate,
-				createDateEnd:todayDate
+				createDateEnd:todayDate,
 			}
 		})  
 	}
@@ -632,18 +632,18 @@ class Merchants extends Component{
                          onCancel={this.cancelAgreementDetail}
 						/>						
 
-						<AdmitDetail 
-						 params={{id:985,customerId:2,orderId:4}}
+						<JoinDetail 
+						 params={{id:1,customerId:2,orderId:4}}
                          onCancel={this.cancelAgreementDetail}
 						/>
 
-						<JoinDetail 
+						<IncreaseDetail 
 						 params={{id:1,customerId:2,orderId:4}}
                          onCancel={this.cancelAgreementDetail}
 						/>*/}
 
-						<IncreaseDetail 
-						 params={{id:1,customerId:2,orderId:4}}
+						<AdmitDetail 
+						 params={{id:985,customerId:2,orderId:4}}
                          onCancel={this.cancelAgreementDetail}
 						/>
 
