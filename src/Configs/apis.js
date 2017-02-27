@@ -948,8 +948,8 @@ const APIS = {
    },
    //会员卡转移
    'transferMemberCard':{
-      url: '/api/krspace-finance-web/member/card/actions/transfer?formId={formId}&toId={toId}',
-      method: 'get'
+      url: '/api/krspace-finance-web/member/card/actions/transfer?fromId={fromId}&toId={toId}',
+      method: 'put'
    }
 
  }
