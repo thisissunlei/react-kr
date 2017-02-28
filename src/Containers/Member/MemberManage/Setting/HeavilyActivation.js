@@ -106,7 +106,7 @@ import './index.less';
 	 	 
 		 if(startNum&&endNum){
 		 	if(endNum-startNum<0){
-		 		Message.warntimeout('起始号码不能大于终止号码！');
+		 		Message.error('起始号码不能大于终止号码！');
 		 		return;
 		 	}
 

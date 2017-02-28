@@ -182,6 +182,7 @@ export default class List extends Component {
 		if(values.interCode==this.state.itemDetail.interCode){
 			
 			this.openEditDetailDialog();
+			Message.success("编辑成功");
 			return;
 		}
 		params.id=values.id;
