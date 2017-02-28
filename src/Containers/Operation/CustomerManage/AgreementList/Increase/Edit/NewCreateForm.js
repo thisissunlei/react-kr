@@ -682,7 +682,7 @@ class NewCreateForm extends Component {
 									<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
 									<TableRowColumn>{item.stationName}</TableRowColumn>
 									<TableRowColumn>
-											<input type="text" name="age"  valueLink={typeLink} onBlur={this.onBlur.bind(this,item)}/>
+											<input type="text" name="age"  valueLink={typeLink} onBlur={this.onBlur.bind(this,item)} style={{maxWidth:'128px'}}/>
 									</TableRowColumn>
 									<TableRowColumn> <KrDate value={item.leaseBeginDate}/></TableRowColumn>
 									<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
