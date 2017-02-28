@@ -82,7 +82,7 @@ export default class JoinCreate extends Component {
 				type: 'success',
 			}]);
 			allState.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
-
+			allState.openTowAgreement=false;
 			// window.setTimeout(function() {
 			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
 			// }, 0);

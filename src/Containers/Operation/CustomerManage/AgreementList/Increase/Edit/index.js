@@ -61,6 +61,7 @@ export default class JoinCreate extends Component {
 				type: 'success',
 			}]);
 			allState.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
+			allState.openTowAgreement=false;
 			
 			//location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/increase/" + response.contractId + "/detail";
 
