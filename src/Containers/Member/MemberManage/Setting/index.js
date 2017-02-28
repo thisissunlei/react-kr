@@ -190,6 +190,8 @@ export default class List extends Component {
 		Store.dispatch(Actions.callAPI('CardEdit', {}, params)).then(function(response) {
 			_this.openEditDetailDialog();
 			_this.onFlush();
+			Message.success("编辑成功");
+			
 		}).catch(function(err) {
 			if (err.message=="该会员卡已被录入") {
 		 		err.message="卡号"+_this.state.detail.startNum+"已存在请跳过！"

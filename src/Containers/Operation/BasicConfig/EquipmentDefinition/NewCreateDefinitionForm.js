@@ -402,11 +402,20 @@ const validate = values=>{
 	if(!values.showTitle || /^\s+$/.test(values.showTitle)){
 		errors.showTitle = '展示标题为必填项';
 	}
+	if(values.showTitle && values.showTitle.length>13){
+		errors.showTitle = '展示标题最多13个字符';
+	}
 	if(!values.deviceCode || /^\s+$/.test(values.deviceCode)){
 		errors.deviceCode = '门编号为必填项';
 	}
+	if(values.deviceCode  && values.deviceCode.length>50){
+		errors.deviceCode = '门编号最多50个字符';
+	}
 	if(!values.hardwareId || /^\s+$/.test(values.hardwareId)){
 		errors.hardwareId = '智能硬件ID为必填项';
+	}
+	if(values.hardwareId && values.hardwareId.length>50){
+		errors.hardwareId = '智能硬件ID最多50个字符';
 	}
 	if(!values.typeId){
 		errors.typeId = '类型为必填项';
