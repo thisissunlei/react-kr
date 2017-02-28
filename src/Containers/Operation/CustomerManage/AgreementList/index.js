@@ -90,6 +90,7 @@ class Merchants extends Component{
 			   createDateBegin:'',
 			   createDateEnd:'',
 		     },
+
            
 		}
 		 this.allOrderReady();
@@ -137,6 +138,11 @@ class Merchants extends Component{
     closeNewIndent = () =>{
     	State.openNewIndent=false;
     }
+
+    detailOpenAgreement=()=>{
+    	State.agreementDetail();
+    }
+
     //选中几项领取，转移等
     onSelect=(value)=>{
     	var arrItem=[]
@@ -175,21 +181,6 @@ class Merchants extends Component{
 
     componentWillMount(){
     	State.createContract();
-    	var  dateT=new Date();
-		var dateYear=dateT.getFullYear();
-		var dateMonth=dateT.getMonth()+1;
-		var dateDay=dateT.getDate();
-				if(dateDay<10){
-					dateDay='0'+dateDay
-				}
-				if(dateMonth<10){
-					dateMonth='0'+dateMonth
-				}
-	    var todayDate=dateYear+'-'+dateMonth+'-'+dateDay;
-
-	    this.setState({
-	    	todayDate:todayDate,
-	    })
     }    
     //查看关闭
 	cancelAgreementDetail=()=>{
@@ -339,13 +330,6 @@ class Merchants extends Component{
 
 	componentDidMount() {
 		State.ajaxListData(this.state.searchParams);
-		let {todayDate}=this.state;
-		this.setState({
-			searchParams:{
-				createDateBegin:todayDate+' 00:00:00',
-				createDateEnd:todayDate+' 00:00:00',
-			}
-		})  
 	}
    
      //日期开始
@@ -529,6 +513,23 @@ class Merchants extends Component{
 			     return contractSelect
 	}
 
+    noDataRender=()=>{
+       let {contractList}=State;
+       var render='';
+       if(contractList.length==0){
+         render=<div style={{textAlign:'center',paddingTop:100,paddingBottom:100}}>
+								<div className="ui-nothing">
+									<div className="icon"></div>
+									<p className="tip">暂时还没有数据呦~</p>
+								</div>
+				</div>
+          }else{
+          	render=<div style={{display:'none'}}></div>
+          }	
+        return render
+    }
+
+
 	render(){     
       	let {contractList}=State;
       	var blockStyle={};
@@ -538,12 +539,33 @@ class Merchants extends Component{
 			installmentPlan,
 			contractStatusCount,
 		} = this.state.response;
-        
-       contractList.map((item,index)=>{
-         console.log('------0000-----',typeof item); 
-       }) 
-        console.log('------000item',contractList); 
-	    let {opretionId,opretionOpen,isShow,searchParams,todayDate}=this.state;
+         
+         
+	    let {opretionId,opretionOpen,isShow,searchParams,todayDate,noDataOpen}=this.state;
+        let rowStyle={};
+        let rowLineStyle={};
+        let rowFootStyle={};
+	    if(contractList.length==0){
+	    	rowStyle={
+	    		marginTop:8
+	    	}
+	    	rowLineStyle={
+	    		display:'none',
+	    	}
+	    	rowFootStyle={
+	    		display:'none',
+	    	}
+	    }else{
+	    	rowStyle={
+	    		display:'none',	    		
+	    	}
+	    	rowLineStyle={
+	    		marginTop:8
+	    	}
+	    	rowFootStyle={
+	    		display:'block',
+	    	}
+	    }
 
 		return(
       <div className="m-agreement-list">
@@ -574,12 +596,40 @@ class Merchants extends Component{
 			  	</Col>
 			          
 	        </Row>
-
+       
 
             <Table
-			    style={{marginTop:8}}
+			    style={rowStyle}
+	            displayCheckbox={false}
+					  >
+		            <TableHeader>
+		              <TableHeaderColumn>公司名称</TableHeaderColumn>
+		              <TableHeaderColumn>城市</TableHeaderColumn>
+		              <TableHeaderColumn>社区</TableHeaderColumn>
+		              <TableHeaderColumn>合同类型</TableHeaderColumn>
+		              <TableHeaderColumn>起始时间</TableHeaderColumn>
+		              <TableHeaderColumn>结束时间</TableHeaderColumn>
+		              <TableHeaderColumn>工位数</TableHeaderColumn>
+		              <TableHeaderColumn>独立空间</TableHeaderColumn>
+		              <TableHeaderColumn>服务费总额</TableHeaderColumn>
+		              <TableHeaderColumn>销售员</TableHeaderColumn>
+		              <TableHeaderColumn>录入人</TableHeaderColumn>
+		              <TableHeaderColumn>创建时间</TableHeaderColumn>
+		              <TableHeaderColumn>操作</TableHeaderColumn>
+		          	</TableHeader>
+				<TableBody className='noDataBody'>
+					<TableRow style={{backgroundColor:'#fff'}}>
+						<TableRowColumn colSpan={100} >
+							 {this.noDataRender()}
+						</TableRowColumn>
+					</TableRow>
+				</TableBody>
+			</Table>
+           
+            
+            <Table
+			    style={rowLineStyle}
 	            displayCheckbox={true}
-
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>
@@ -598,7 +648,7 @@ class Merchants extends Component{
 
 		          	</TableHeader>
 
-			        <TableBody >
+			        <TableBody>
 			        	{contractList.map((item,index)=>{
 			        		let type='';
 			        		if(item.contracttype=='INTENTION'){
@@ -658,7 +708,7 @@ class Merchants extends Component{
 			       
            </Table>
 
-           <div style={{padding:'50px 0'}}><Pagination  totalCount={State.totalPaper} page={State.page} pageSize={State.pageSize} onPageChange={this.onPageChange}/></div>
+           <div className='footPage' style={rowFootStyle}><Pagination  totalCount={State.totalPaper} page={State.page} pageSize={State.pageSize} onPageChange={this.onPageChange}/></div>
 
            </Section>
 					{/*新建合同的第一页*/}
@@ -666,6 +716,7 @@ class Merchants extends Component{
 				        open={State.openOneAgreement}
 				        width={750}
 				        openSecondary={true}
+				        onClose={this.closeOneAgreement}
 				        className='m-finance-drawer'
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 			        >
@@ -678,6 +729,7 @@ class Merchants extends Component{
 				        open={State.openTowAgreement}
 				        width={750}
 				        openSecondary={true}
+				        onClose={this.closeTwoAgreement}
 				        className='m-finance-drawer'
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 			        >
@@ -689,6 +741,7 @@ class Merchants extends Component{
 		           <Drawer
 				        open={State.openEditAgreement}
 				        width={750}
+				        onClose={this.closeEditAgreement}
 				        openSecondary={true}
 				        className='m-finance-drawer'
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
@@ -703,6 +756,7 @@ class Merchants extends Component{
 							open={State.openNewIndent}
 							width={750}
 							openSecondary={true}
+							onClose={this.closeNewIndent}
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
@@ -721,6 +775,7 @@ class Merchants extends Component{
 		            <Drawer
 				        open={State.openAgreementDetail}
 				        width={750}
+				        onClose={this.detailOpenAgreement}
 				        openSecondary={true}
 				        containerStyle={{top:60,paddingBottom:48,zIndex:8}}
 			        >

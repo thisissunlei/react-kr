@@ -67,7 +67,7 @@ State.hasOfficeChange=action(function(params){
 	this.ishasOffice=params;
 })
 //查看开关
-State.agreementDetail=action(function(params){
+State.agreementDetail=action(function(){
 	this.openAgreementDetail=!this.openAgreementDetail;
 })
 //列表数据请求
