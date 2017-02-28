@@ -90,6 +90,7 @@ class Merchants extends Component{
 			   createDateBegin:'',
 			   createDateEnd:'',
 		     },
+
            
 		}
 		 this.allOrderReady();
@@ -344,6 +345,8 @@ class Merchants extends Component{
 			searchParams:{
 				createDateBegin:todayDate+' 00:00:00',
 				createDateEnd:todayDate+' 00:00:00',
+				page:1,
+				pageSize:15
 			}
 		})  
 	}
@@ -398,6 +401,7 @@ class Merchants extends Component{
    //搜索提交
    onSearchSubmit=(value)=>{
    	 let {searchParams}=this.state;
+   	 console.log('pppppp------',searchParams);
       if(value.filter=='company'){
         searchParams.customerName=value.content;
         searchParams.cityName='';
@@ -529,6 +533,23 @@ class Merchants extends Component{
 			     return contractSelect
 	}
 
+    noDataRender=()=>{
+       let {contractList}=State;
+       var render='';
+       if(contractList.length==0){
+         render=<div style={{textAlign:'center',paddingTop:100,paddingBottom:100}}>
+								<div className="ui-nothing">
+									<div className="icon"></div>
+									<p className="tip">暂时还没有数据呦~</p>
+								</div>
+				</div>
+          }else{
+          	render=<div style={{display:'none'}}></div>
+          }	
+        return render
+    }
+
+
 	render(){     
       	let {contractList}=State;
       	var blockStyle={};
@@ -538,12 +559,26 @@ class Merchants extends Component{
 			installmentPlan,
 			contractStatusCount,
 		} = this.state.response;
-        
-       contractList.map((item,index)=>{
-         console.log('------0000-----',typeof item); 
-       }) 
-        console.log('------000item',contractList); 
-	    let {opretionId,opretionOpen,isShow,searchParams,todayDate}=this.state;
+         
+         
+	    let {opretionId,opretionOpen,isShow,searchParams,todayDate,noDataOpen}=this.state;
+        let rowStyle={};
+        let rowLineStyle={};
+	    if(contractList.length==0){
+	    	rowStyle={
+	    		marginTop:8
+	    	}
+	    	rowLineStyle={
+	    		display:'none',
+	    	}
+	    }else{
+	    	rowStyle={
+	    		display:'none',	    		
+	    	}
+	    	rowLineStyle={
+	    		marginTop:8
+	    	}
+	    }
 
 		return(
       <div className="m-agreement-list">
@@ -574,12 +609,40 @@ class Merchants extends Component{
 			  	</Col>
 			          
 	        </Row>
-
+       
 
             <Table
-			    style={{marginTop:8}}
+			    style={rowStyle}
+	            displayCheckbox={false}
+					  >
+		            <TableHeader>
+		              <TableHeaderColumn>公司名称</TableHeaderColumn>
+		              <TableHeaderColumn>城市</TableHeaderColumn>
+		              <TableHeaderColumn>社区</TableHeaderColumn>
+		              <TableHeaderColumn>合同类型</TableHeaderColumn>
+		              <TableHeaderColumn>起始时间</TableHeaderColumn>
+		              <TableHeaderColumn>结束时间</TableHeaderColumn>
+		              <TableHeaderColumn>工位数</TableHeaderColumn>
+		              <TableHeaderColumn>独立空间</TableHeaderColumn>
+		              <TableHeaderColumn>服务费总额</TableHeaderColumn>
+		              <TableHeaderColumn>销售员</TableHeaderColumn>
+		              <TableHeaderColumn>录入人</TableHeaderColumn>
+		              <TableHeaderColumn>创建时间</TableHeaderColumn>
+		              <TableHeaderColumn>操作</TableHeaderColumn>
+		          	</TableHeader>
+				<TableBody className='noDataBody'>
+					<TableRow style={{backgroundColor:'#fff'}}>
+						<TableRowColumn colSpan={100} >
+							 {this.noDataRender()}
+						</TableRowColumn>
+					</TableRow>
+				</TableBody>
+			</Table>
+           
+            
+            <Table
+			    style={rowLineStyle}
 	            displayCheckbox={true}
-
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>
@@ -598,7 +661,7 @@ class Merchants extends Component{
 
 		          	</TableHeader>
 
-			        <TableBody >
+			        <TableBody>
 			        	{contractList.map((item,index)=>{
 			        		let type='';
 			        		if(item.contracttype=='INTENTION'){
