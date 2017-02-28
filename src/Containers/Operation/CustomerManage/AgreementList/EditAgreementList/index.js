@@ -61,20 +61,20 @@ class EditAgreementList extends Component{
 
 	render(){
 		var content="";
-		if(allState.argumentType==""){
-			content=(<Exit params={{customerId:1,orderId:1,contractId:1,id:1}} />)
+		if(allState.argumentType=="QUITRENT"){
+			content=(<div><span className="content-title">退租协议书详情页</span><Exit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
 		}
-		if(allState.argumentType==""){
-			content=(<Increase params={{customerId:1,orderId:1,contractId:1,id:1}} />)
+		if(allState.argumentType=="ADDRENT"){
+			content=(<div><span className="content-title">增租协议书详情页</span><Increase params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
 		}
-		if(allState.argumentType==""){
-			content=(<Join params={{customerId:1,orderId:1,contractId:1,id:1}} />)
+		if(allState.argumentType=="ENTER"){
+			content=(<div><span className="content-title">入驻协议书详情页</span><Join params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
 		}
-		if(allState.argumentType==""){
-			content=(<Reduce params={{customerId:1,orderId:1,contractId:1,id:1}} />)
+		if(allState.argumentType=="LESSRENT"){
+			content=(<div><span className="content-title">减租协议书详情页</span><Reduce params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
 		}
-		if(allState.argumentType==""){
-			content=(<Renew params={{customerId:1,orderId:1,contractId:1,id:1}} />)
+		if(allState.argumentType=="RENEW"){
+			content=(<div><span className="content-title">续租协议书详情页</span><Renew params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
 		}	                       
 		
 		return(
@@ -82,7 +82,6 @@ class EditAgreementList extends Component{
 		      	<div className="title" >
 					<div className="look-close" onClick={this.onCancel}></div>
 				</div>
-				<span className="content-title">减租协议书详情页</span>
 				{content}
 		      </div>
 

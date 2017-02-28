@@ -344,8 +344,8 @@ class Merchants extends Component{
 		let {todayDate}=this.state;
 		this.setState({
 			searchParams:{
-				createDateBegin:todayDate,
-				createDateEnd:todayDate,
+				createDateBegin:todayDate+' 00:00:00',
+				createDateEnd:todayDate+' 00:00:00',
 			}
 		})  
 	}
@@ -353,8 +353,8 @@ class Merchants extends Component{
      //日期开始
 	 onStartChange=(startD)=>{
     	let {searchParams}=this.state;
-        let start=startD;
-        let end=searchParams.createDateEnd;
+        let start=Date.parse(dateFormat(startD,"yyyy-mm-dd hh:MM:ss"));
+        let end=Date.parse(dateFormat(searchParams.createDateEnd,"yyyy-mm-dd hh:MM:ss"));
         this.setState({
         	startValue:startD
         },function () {
@@ -376,8 +376,8 @@ class Merchants extends Component{
     //日期结束
     onEndChange=(endD)=>{
     	let {searchParams}=this.state;
-        let start=searchParams.createDateBegin;
-        let end=endD;
+        let start=Date.parse(dateFormat(searchParams.createDateBegin,"yyyy-mm-dd hh:MM:ss"));
+        let end=Date.parse(dateFormat(endD,"yyyy-mm-dd hh:MM:ss"));
         this.setState({
         	endValue:endD
         },function () {
@@ -436,8 +436,11 @@ class Merchants extends Component{
 		}
 		return (<Tooltip className="tooltipTextStyle" style={{padding:10, maxWidth:224,}} offsetTop={5} place='top'><div style={{width:160,minHeight:20,wordWrap:"break-word",padding:"10px",whiteSpace:"normal",lineHeight:"22px"}}>{value}</div></Tooltip>)
 	}
-	editClick=(value)=>{
-		// State.argumentType=value;
+	editClick=(values)=>{
+		State.argumentType=values.contracttype;
+		State.listId=values.customerid;
+    	State.agreementId=values.id;
+    	State.mainBillId=values.mainbillid;
 		State.openEditAgreement=true;
 	}
 	maskClock=()=>{
@@ -587,7 +590,7 @@ class Merchants extends Component{
 										<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
 										
 										<div style={{visibility:showOpretion}} className="m-operation" >
-											{<span style={{display:'block'}} onClick={this.editClick.bind(this,item.contracttype)}>编辑</span> }
+											{<span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span> }
 											{<span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
 											{<span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
 						

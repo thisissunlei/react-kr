@@ -76,6 +76,7 @@ export default class JoinCreate extends Component {
 		let {
 			params
 		} = this.context;
+		allState.openEditAgreement=false;
 		//window.location.href = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
 	}
 
