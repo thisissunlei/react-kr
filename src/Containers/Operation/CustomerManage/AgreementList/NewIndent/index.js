@@ -19,7 +19,7 @@ import {
 } from 'kr-ui';
 import State from './State';
 import allState from '../State';
-import oneState from '../oneNewAgreement/State';
+import oneState from '../OneNewAgreement/State';
 import './index.less';
 @observer
  class NewIndent extends Component{
