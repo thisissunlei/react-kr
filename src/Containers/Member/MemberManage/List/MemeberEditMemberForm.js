@@ -138,7 +138,7 @@ export default class MemeberEditMemberForm extends Component {
 					 })
 				 return;
 			 }else{
-				 Message.warn('该邮箱已被绑定','error');
+				 Message.warntimeout('该邮箱已被绑定','error');
 
 					 _this.setState({
 						 onsubmit:false
@@ -171,12 +171,12 @@ export default class MemeberEditMemberForm extends Component {
 					 })
 					 return;
 				 }else if(response.phone !='-1' && response.id){
-					 Message.warn('会员卡号已注册','error');
+					 Message.warntimeout('会员卡号已注册','error');
 					 _this.setState({
 						 onsubmitCode:false
 					 })
 				 }else{
-				 	Message.warn(response.name,'error');
+				 	Message.warntimeout(response.name,'error');
 					 _this.setState({
 						 onsubmitCode:false
 					 })

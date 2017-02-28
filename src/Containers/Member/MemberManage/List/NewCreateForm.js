@@ -102,7 +102,7 @@ import imgLine from './images/line.png'
 					response.sendMsg = '1';
 					Store.dispatch(initialize('NewCreateForm',response));
 					// 此处要有提示
-					Message.warn('该手机号码已被注册！','error');
+					Message.warntimeout('该手机号码已被注册！','error');
 					_this.setState({
 						phoneSame:true,
 						email:response.email,
@@ -143,7 +143,7 @@ import imgLine from './images/line.png'
 		 }else{
 		 	Store.dispatch(Actions.callAPI('isEmailRegistered',params)).then(function(response){
 				//邮箱已注册
-				Message.warn('该邮箱已被绑定','error');
+				Message.warntimeout('该邮箱已被绑定','error');
 				_this.setState({
 					onsubmit:false
 				})
@@ -175,9 +175,9 @@ import imgLine from './images/line.png'
 			 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
 					 //会员卡号已注册
 	 				if(response.phone !='-1' && response.id){
-	 					Message.warn('该会员卡号已被绑定','error');
+	 					Message.warntimeout('该会员卡号已被绑定','error');
 	 				}else{
-	 					Message.warn(response.name,'error');
+	 					Message.warntimeout(response.name,'error');
 
 	 				}
 	 				_this.setState({
