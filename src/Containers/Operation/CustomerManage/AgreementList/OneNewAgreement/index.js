@@ -44,7 +44,6 @@ import allState from '../State';
 	}
 	//下一步被点击
 	onSubmit = () => {
-		
 		allState.openTowAgreement=true;		
 	    var _this = this;
 		Store.dispatch(Actions.callAPI('contracts-creation', {mainBillId:allState.mainBillId})).then(function(response) {
@@ -57,6 +56,7 @@ import allState from '../State';
 		//续租合同是否可创建
 		allState.relet=response.relet;
 		//退组合同是否可创建
+
 		allState.returnRent=response.returnRent;			
 		}).catch(function(err) {
 			Message.error(err.message);

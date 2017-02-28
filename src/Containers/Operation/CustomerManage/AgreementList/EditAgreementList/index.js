@@ -56,12 +56,10 @@ class EditAgreementList extends Component{
 	componentWillReceiveProps(nextProps){
 		
 	}
-
-	
-
 	render(){
 		var content="";
 		if(allState.argumentType=="QUITRENT"){
+
 			content=(<div><span className="content-title">退租协议书详情页</span><Exit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
 		}
 		if(allState.argumentType=="ADDRENT"){
