@@ -604,16 +604,16 @@ class Merchants extends Component{
                                type='入驻协议书'
 			        		}
 			        		if(item.contracttype=='ADDRENT'){
-                               type='增租意向书'
+                               type='增租协议书'
 			        		}
 			        		if(item.contracttype=='LESSRENT'){
-                               type='减租意向书'
+                               type='减租协议书'
 			        		}
 			        		if(item.contracttype=='QUITRENT'){
-                               type='退租意向书'
+                               type='退租协议书'
 			        		}
 			        		if(item.contracttype=='RENEW'){
-                               type='续租意向书'
+                               type='续租协议书'
 			        		}
 			        		let showOpretion = (item.id == opretionId && opretionOpen)?'visible':'hidden';
 			        		return (
@@ -637,7 +637,7 @@ class Merchants extends Component{
 										<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
 										
 										<div style={{visibility:showOpretion}} className="m-operation" >
-											{<span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span> }
+											{item.editFlag&&<span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span> }
 											{<span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
 											{<span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
 						
