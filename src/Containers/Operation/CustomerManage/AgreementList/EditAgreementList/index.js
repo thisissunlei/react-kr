@@ -56,24 +56,21 @@ class EditAgreementList extends Component{
 	componentWillReceiveProps(nextProps){
 		
 	}
-
-	
-
 	render(){
 		var content="";
-		if(allState.argumentType==""){
+		if(allState.argumentType=="QUITRENT"){
 			content=(<Exit params={{customerId:1,orderId:1,contractId:1,id:1}} />)
 		}
-		if(allState.argumentType==""){
+		if(allState.argumentType=="ADDRENT"){
 			content=(<Increase params={{customerId:1,orderId:1,contractId:1,id:1}} />)
 		}
-		if(allState.argumentType==""){
+		if(allState.argumentType=="ENTER"){
 			content=(<Join params={{customerId:1,orderId:1,contractId:1,id:1}} />)
 		}
-		if(allState.argumentType==""){
+		if(allState.argumentType=="LESSRENT"){
 			content=(<Reduce params={{customerId:1,orderId:1,contractId:1,id:1}} />)
 		}
-		if(allState.argumentType==""){
+		if(allState.argumentType=="RENEW"){
 			content=(<Renew params={{customerId:1,orderId:1,contractId:1,id:1}} />)
 		}	                       
 		

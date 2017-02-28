@@ -47,25 +47,25 @@ import allState from '../State';
 		
 		allState.openTowAgreement=true;
 		
-	 //    var _this = this;
-		// Store.dispatch(Actions.callAPI('contracts-creation', {mainBillId:allState.mainBillId})).then(function(response) {
-		// //入驻合同是否可创建	
-		// // allState.enter=response.enter;
-		// // //增租合同是否可创建
-		// // allState.increase=response.increase;
+	    var _this = this;
+		Store.dispatch(Actions.callAPI('contracts-creation', {mainBillId:allState.mainBillId})).then(function(response) {
+		入驻合同是否可创建	
+		allState.enter=response.enter;
+		//增租合同是否可创建
+		allState.increase=response.increase;
 
-		// // //减租合同是否可创建
-		// // allState.reduce=response.reduce;
-		// // //续租合同是否可创建
-		// // allState.relet=response.relet;
-		// // //退组合同是否可创建
-		// // allState.returnRent=response.returnRent;
+		//减租合同是否可创建
+		allState.reduce=response.reduce;
+		//续租合同是否可创建
+		allState.relet=response.relet;
+		//退组合同是否可创建
+		allState.returnRent=response.returnRent;
 
 			
-		// }).catch(function(err) {
-		// 	Message.error(err.message);
-		// });
-		// Store.dispatch(Actions.switchSidebarNav(false));
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+		Store.dispatch(Actions.switchSidebarNav(false));
 	}
 	onCancel = () => {
 		const {onCancel} = this.props;

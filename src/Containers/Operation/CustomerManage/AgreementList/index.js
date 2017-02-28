@@ -657,12 +657,6 @@ class Merchants extends Component{
 						<DelAgreementNotify onSubmit={this.confirmDelAgreement} onCancel={this.openDelAgreementDialog.bind(this,0)}/>
 					</Dialog>
 
-					{(
-						State.openOneAgreement||
-						State.openTowAgreement||
-						State.openEditAgreement||
-						State.openAgreementDetail
-						)&&<div className="mask" onClick={this.maskClock}></div>}
         </div>
 		);
 	}
