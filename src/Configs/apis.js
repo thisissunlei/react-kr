@@ -853,7 +853,7 @@ const APIS = {
    },
  //合同列表-获取合同是否可创建
    'contracts-creation':{
-      url:'/api/fina-contract-mainbill/contracts-creation?mainBillId={mainBillId}',
+      url:'/api//krspace-finance-web/fina-contract-mainbill/contracts-creation?mainBillId={mainBillId}',
       method:'get'
    },
  }

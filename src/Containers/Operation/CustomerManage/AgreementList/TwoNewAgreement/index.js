@@ -26,6 +26,7 @@ import {
 
 } from 'kr-ui';
 import './index.less';
+import $ from 'jquery';
 import Admit from "../Admit/Create";
 import Exit from "../Exit/Create";
 import Increase from "../Increase/Create";
@@ -56,9 +57,19 @@ class LookCustomerList extends Component{
 	componentWillReceiveProps(nextProps){
 		
 	}
-
-	
-
+	componentDidMount(){
+		var elem1=$(".ddd");
+		var elem=$(".入驻协议书");
+		console.log(elem.html());
+		// elem.css("display","none");
+		elem1.click(function () {
+			console.log('33333');
+			elem.mouseup().mousedown();
+		})
+	}
+	h1Click=()=>{
+		console.log("h1Click");
+	}
 	render(){
 		let num="";
 		let text="";
@@ -91,6 +102,8 @@ class LookCustomerList extends Component{
 				<div style={{height:30}}></div>
 				<Tabs className="tabs"
 			 		 inkBarStyle={{background:"#499df1",top:0}}
+			 		 initialSelectedIndex={-1}
+			 		 style={{width:100}}
 				>
 				<Tab label="入驻协议书" >
 					<Join params={{customerId:1,orderId:1}}/>
