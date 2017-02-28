@@ -856,6 +856,11 @@ const APIS = {
       url:'/api/krspace-finance-web/fina-contract-mainbill/contracts-creation?mainBillId={mainBillId}',
       method:'get'
    },
+   //合同列表-获取登录人是否有创建合同的权限
+   'edit-right':{
+      url:'/api/krspace-finance-web/finacontractdetail/contract-list/edit-right',
+      method:'get'
+   },
  }
 
  module.exports = APIS;

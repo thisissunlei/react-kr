@@ -57,7 +57,10 @@ let State = observable({
 
 		totalPaper:'',
 		page:'',
-		pageSize:''
+		pageSize:'',
+
+		//权限
+		editRight:''
 
 });
 State.hasOfficeChange=action(function(params){
@@ -80,11 +83,20 @@ State.ajaxListData=action(function(ajaxData){
 			setTimeout(function() {
 					loading: false
 			}, 0);
-
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
 		Store.dispatch(Actions.switchSidebarNav(false));
+})
+
+//获取登录人是否有创建合同的权限
+State.createContract=action(function(){
+	    var _this = this;
+		Store.dispatch(Actions.callAPI('edit-right')).then(function(response) {
+		  _this.editRight=response.hasEditRight
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 })
 
 

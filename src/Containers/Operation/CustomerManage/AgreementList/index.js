@@ -174,6 +174,7 @@ class Merchants extends Component{
     }
 
     componentWillMount(){
+    	State.createContract();
     	var  dateT=new Date();
 		var dateYear=dateT.getFullYear();
 		var dateMonth=dateT.getMonth()+1;
@@ -537,9 +538,12 @@ class Merchants extends Component{
 			installmentPlan,
 			contractStatusCount,
 		} = this.state.response;
-
-
-		let {opretionId,opretionOpen,isShow,searchParams,todayDate}=this.state;
+        
+       contractList.map((item,index)=>{
+         console.log('------0000-----',typeof item); 
+       }) 
+        console.log('------000item',contractList); 
+	    let {opretionId,opretionOpen,isShow,searchParams,todayDate}=this.state;
 
 		return(
       <div className="m-agreement-list">
@@ -549,11 +553,11 @@ class Merchants extends Component{
 	          	<Col
 			     	style={{float:'left',marginTop:6}}
 			   	>
-					<Button
+					{State.editRight&&<Button
 						label="新建合同"
 						type='button'
 						onTouchTap={this.openOneAgreement}
-					/>
+					/>}
 
 			 	 </Col>
 			  	 <Col
@@ -616,6 +620,7 @@ class Merchants extends Component{
                                type='续租协议书'
 			        		}
 			        		let showOpretion = (item.id == opretionId && opretionOpen)?'visible':'hidden';
+
 			        		return (
 				        		<TableRow>
 					                <TableRowColumn><span className="tableOver">{item.company}</span>{this.everyTd(item.company)}</TableRowColumn>
@@ -637,9 +642,9 @@ class Merchants extends Component{
 										<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
 										
 										<div style={{visibility:showOpretion}} className="m-operation" >
-											{item.editFlag&&<span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span> }
+											{State.editRight&&item.editFlag&&<span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span> }
 											{<span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
-											{<span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
+											{State.editRight&&<span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
 						
 										</div>
 					                    
@@ -655,7 +660,7 @@ class Merchants extends Component{
 
            <div style={{padding:'50px 0'}}><Pagination  totalCount={State.totalPaper} page={State.page} pageSize={State.pageSize} onPageChange={this.onPageChange}/></div>
 
-          </Section>
+           </Section>
 					{/*新建合同的第一页*/}
 					<Drawer
 				        open={State.openOneAgreement}
