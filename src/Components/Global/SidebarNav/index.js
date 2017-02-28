@@ -113,6 +113,9 @@ export default class SidebarNav extends Component {
 
 	renderMenuItem(item, index, parentIndex) {
 
+		if(!item.permission){
+			return null;
+		}
 
 		let {
 			current_router,
@@ -218,27 +221,14 @@ render() {
 		width: 120,
 	};
 
+	console.log('items',this.props.items)
 
 	return (
 
 		<div >
-						<SelectableList defaultValue={1000} >
-				{/*
-
-						  <ListItem
-							value={1}
-							primaryText="Brendan Lim"
-							nestedItems={[
-							  <ListItem
-								value={2}
-								primaryText="Grace Ng"
-							  />,
-							]}
-						  />
-				*/}
-
-					{this.props.items.map((item,index)=>this.renderMenuItem(item,index))}
-						</SelectableList>
+			<SelectableList defaultValue={1000} >
+		{this.props.items.map((item,index)=>this.renderMenuItem(item,index))}
+			</SelectableList>
 			</div>
 	);
 
