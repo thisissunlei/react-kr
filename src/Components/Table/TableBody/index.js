@@ -269,11 +269,22 @@ export default class TableBody extends React.Component {
 	render() {
 
 		let {
-			className
+			className,
+			borderBodyStyle
 		} = this.props;
+        let styleBody={};
+		if(borderBodyStyle){
+			styleBody={
+				borderBottom:'none'
+			}
+		}else{
+			styleBody={
+				borderBottom:"solid 1px #eee"
+			}
+		}
 
 		return (
-			<tbody  className={className} style={{borderBottom:"solid 1px #eee"}}>
+			<tbody  className={className} style={styleBody}>
 			{this.renderRows()}
 			{/*this.renderInsertElement()*/}
 			</tbody>

@@ -617,7 +617,7 @@ class Merchants extends Component{
 		              <TableHeaderColumn>创建时间</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
 		          	</TableHeader>
-				<TableBody className='noDataBody'>
+				<TableBody className='noDataBody' borderBodyStyle>
 					<TableRow style={{backgroundColor:'#fff'}}>
 						<TableRowColumn colSpan={100} >
 							 {this.noDataRender()}
@@ -694,7 +694,7 @@ class Merchants extends Component{
 										<div style={{visibility:showOpretion}} className="m-operation" >
 											{State.editRight&&item.editFlag&&<span style={{display:'block'}} onClick={this.editClick.bind(this,item)}>编辑</span> }
 											{<span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
-											{State.editRight&&item.editFlag&&<span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
+											{State.editRight&&item.editFlag&&item.contracttype!='ENTER'&&<span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
 						
 										</div>
 					                    
