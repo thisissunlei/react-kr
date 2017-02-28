@@ -44,23 +44,18 @@ import './index.less'
 		
 	}
 	onSubmit = (values) => {
-		console.log("???????")
-
 		delete values.cityid;
 		let listId=this.props.listId;
 		let _this=this;
 		if(!values.mainbilldesc){
 			values.mainbilldesc="";
 		}
-
-		State.ChangeSubmitState();
 		values.customerid=listId;
 		values.mainbillname=State.orderName;
+		
 		Store.dispatch(Actions.callAPI('enter-order',{},values)).then(function(response) {
          	_this.onCancel();
-         	setTimeout(function(){
-         		State.ChangeCanSubmitState();
-         	},1000)
+         	
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -156,7 +151,7 @@ import './index.less'
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-								{State.submitState?<div  className='ui-btn-center'><Button  label="确定" type="submit" /></div>:<div  className='ui-btn-center'><Button  label="确定" type="button" /></div>}
+								<div  className='ui-btn-center'><Button  label="确定" type="submit" /></div>
 								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 							</ButtonGroup>
 						</Col>

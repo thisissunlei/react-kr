@@ -67,6 +67,7 @@ export default class EditCreate extends Component {
 
   onCancel() {
     //window.history.back();
+    allState.openEditAgreement=false;
   }
 
   componentDidMount() {
