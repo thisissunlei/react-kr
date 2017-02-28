@@ -55,11 +55,9 @@ let State = observable({
 		//退组合同是否可创建
 		returnRent:true,
 
-
-		//查看id
-		//查看客户id
-		//查看订单id
-
+		totalPaper:'',
+		page:'',
+		pageSize:''
 
 });
 State.hasOfficeChange=action(function(params){
@@ -73,11 +71,12 @@ State.agreementDetail=action(function(params){
 State.ajaxListData=action(function(ajaxData){
 	    //错误到了这一层要深究
 		ajaxData = Object.assign({},ajaxData);
-		//ajaxData.page='1';
-		ajaxData.pageSize='15';
 	    var _this = this;
 		Store.dispatch(Actions.callAPI('contract-list', ajaxData)).then(function(response) {
 			_this.contractList=response.items;
+			_this.totalPaper=response.totalCount;
+			_this.page=response.page;
+			_this.pageSize=response.pageSize;
 			setTimeout(function() {
 					loading: false
 			}, 0);

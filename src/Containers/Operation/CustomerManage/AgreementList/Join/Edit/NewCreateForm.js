@@ -647,7 +647,7 @@ class NewCreateForm extends Component {
 
 <form className="m-edit-join" onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:-15}}>
 	<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
-		<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
+		<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">租赁明细</label></div>
 			<div className="small-cheek">
 			<KrField  name="wherefloor" style={{width:262,marginLeft:25}} component="select" label="所在楼层" options={optionValues.floorList} multi={true}  requireLabel={true} />
 			<KrField style={{width:343,marginLeft:25,position:"absolute"}}  left={10} component="group" label="租赁期限" requireLabel={true}>
@@ -706,7 +706,7 @@ class NewCreateForm extends Component {
                      <div style={{marginTop:'0px',marginBottom:25,display:'none'}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
 
 						 </div>
-				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">2</span><span className="wire"></span><label className="small-title">公司信息</label></div>
+				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">2</span><span className="wire"></span><label className="small-title">合同基本信息</label></div>
 					<div className="small-cheek" style={{paddingBottom:0}}>
 					
 				<KrField  grid={1/2}  name="mainbillid" type="hidden" component="input" />

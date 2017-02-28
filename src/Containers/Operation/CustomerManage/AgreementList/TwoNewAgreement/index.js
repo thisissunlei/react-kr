@@ -62,27 +62,36 @@ class LookCustomerList extends Component{
 	render(){
 		let num="";
 		let text="";
+        
+        let dialogDiv=[];
+
 		if(!allState.enter){
 			num="50px";
 			text="入驻协议书"
+			dialogDiv.push(<div className="m-noneClick" style={{left:num}}>{text}</div>)
 		}	
 		if(!allState.increase){
 			num="181px";
 			text="增租协议书"
+			dialogDiv.push(<div className="m-noneClick" style={{left:num}}>{text}</div>)
 		}	
 		if(!allState.reduce){
 			num="312px";
 			text="减租协议书"
+			dialogDiv.push(<div className="m-noneClick" style={{left:num}}>{text}</div>)
 		}
 		if(!allState.relet){
 			num="443px";
 			text="续租协议书"
+			dialogDiv.push(<div className="m-noneClick" style={{left:num}}>{text}</div>)
 		}
 		if(!allState.returnRent){
 			num="574px";
 			text="退租协议书"
+			dialogDiv.push(<div className="m-noneClick" style={{left:num}}>{text}</div>)
 		}	                       
 		
+
 		return(
 		      <div className="m-lookCustomerList m-newMerchants" style={{paddingLeft:8}}>
 		      	<div className="title" >
@@ -112,7 +121,7 @@ class LookCustomerList extends Component{
 					
 				
 			</Tabs>
-			<div className="m-noneClick" style={{left:num}}>{text}</div>
+			 {dialogDiv}
 		        
 		    </div>
 

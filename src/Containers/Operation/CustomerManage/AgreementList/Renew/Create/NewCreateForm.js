@@ -360,7 +360,7 @@ class NewCreateForm extends Component {
 
 <form className="m-new-renew" onSubmit={handleSubmit(this.onSubmit)} >
 			<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
-				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
+				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">租赁明细</label></div>
 				<div className="small-cheek">
 				<div className="detailList" style={{marginTop:"-35px",width:"620px",marginLeft:"35px"}}>
 				<DotTitle title='租赁明细' style={{marginTop:53,marginBottom:25}}>
@@ -411,7 +411,7 @@ class NewCreateForm extends Component {
 
                     </div>
 
-			<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">2</span><span className="wire"></span><label className="small-title">公司信息</label></div>
+			<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">2</span><span className="wire"></span><label className="small-title">合同基本信息</label></div>
 				<div className="small-cheek" style={{paddingBottom:0}}>
 					
 				<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
