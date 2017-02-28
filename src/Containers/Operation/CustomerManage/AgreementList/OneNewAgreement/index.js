@@ -48,11 +48,13 @@ import allState from '../State';
 	    var _this = this;
 		Store.dispatch(Actions.callAPI('contracts-creation', {mainBillId:allState.mainBillId})).then(function(response) {
 		//入驻合同是否可创建	
+		// allState.enter=true;
 		allState.enter=response.enter;
 		//增租合同是否可创建
 		allState.increase=response.increase;
 		//减租合同是否可创建
 		allState.reduce=response.reduce;
+		// allState.reduce=true;
 		//续租合同是否可创建
 		allState.relet=response.relet;
 		//退组合同是否可创建
