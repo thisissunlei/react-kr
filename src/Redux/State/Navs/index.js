@@ -73,7 +73,7 @@ module.exports = {
 				menuCode: 'coustomerInfoList',
 			},{
 				primaryText: '合同列表',
-				router: '/operation/customerManage/AgreementList',
+				router: '/operation/customerManage/agreementList',
 				menuCode: 'contractList',
 			},]
 		}, {

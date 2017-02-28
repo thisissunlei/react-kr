@@ -86,7 +86,7 @@ State.ajaxListData=action(function(ajaxData){
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
-		Store.dispatch(Actions.switchSidebarNav(false));
+		//Store.dispatch(Actions.switchSidebarNav(false));
 })
 
 //获取登录人是否有创建合同的权限
