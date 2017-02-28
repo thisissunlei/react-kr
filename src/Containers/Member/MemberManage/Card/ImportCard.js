@@ -59,7 +59,7 @@ class ImportCard extends Component{
 	 	}
 	 	if(count<0){
 	 		count = '0';
-	 		Message.warn('起始号码不能小于终止号码','error');
+	 		Message.warntimeout('起始号码不能小于终止号码','error');
 	 		
 	 	}
 	 	this.setState({
@@ -75,7 +75,7 @@ class ImportCard extends Component{
 	 	}
 	 	if(count<0){
 	 		count = '0';
-	 		Message.warn('起始号码不能小于终止号码','error');
+	 		Message.warntimeout('起始号码不能小于终止号码','error');
 	 		
 	 	}
 	 	this.setState({
