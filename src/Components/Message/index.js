@@ -84,6 +84,11 @@ function commonTimeout(){
 		ReactDOM.render(<div className='hide'></div>, shadowDOM);
 	},1000)
 }
+function commonTimeoutWarn(){
+	setTimeout(function(){
+		ReactDOM.render(<div className='hide'></div>, shadowDOM);
+	},3000)
+}
 
 /**
 * type success error normal
@@ -148,7 +153,7 @@ Message.warn = function (messages,type,fn) {
 	  warnRender(messages,type,fn);
 };
 Message.warntimeout = function (messages,type) {
-	  warnRender(messages,type,commonTimeout);
+	  warnRender(messages,type,commonTimeoutWarn);
 };
 
 
