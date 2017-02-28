@@ -103,7 +103,7 @@ class SearchForm extends Component {
 
 				</div>
 				<div className="searchForm-col" style={{marginTop:"8px",marginRight:"-38px"}}>
-					<span>时间:</span>
+					<span>创建时间:</span>
 				</div>
 			
 			</form>
