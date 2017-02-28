@@ -838,7 +838,7 @@ const APIS = {
  },
  //合同列表-列表接口
    'contract-list':{
-   url:'/api/krspace-finance-web/finacontractdetail/contract-list?createDateBegin={createDateBegin}&createDateEnd={createDateEnd}&page={page}&pageSize={pageSize}',
+   url:'/api/krspace-finance-web/finacontractdetail/contract-list?createDateBegin={createDateBegin}&createDateEnd={createDateEnd}&page={page}&pageSize={pageSize}&cityName={cityName}&communityName={communityName}&createrName={createrName}&customerName={customerName}&salerName={salerName}',
    method:'get'
    },
  //合同列表-客户订单下拉接口
@@ -853,7 +853,7 @@ const APIS = {
    },
  //合同列表-获取合同是否可创建
    'contracts-creation':{
-      url:'/api/fina-contract-mainbill/contracts-creation?mainBillId={mainBillId}',
+      url:'/api/krspace-finance-web/fina-contract-mainbill/contracts-creation?mainBillId={mainBillId}',
       method:'get'
    },
  }
