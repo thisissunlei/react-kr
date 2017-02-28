@@ -138,6 +138,11 @@ class Merchants extends Component{
     closeNewIndent = () =>{
     	State.openNewIndent=false;
     }
+
+    detailOpenAgreement=()=>{
+    	State.agreementDetail();
+    }
+
     //选中几项领取，转移等
     onSelect=(value)=>{
     	var arrItem=[]
@@ -176,21 +181,6 @@ class Merchants extends Component{
 
     componentWillMount(){
     	State.createContract();
-    	var  dateT=new Date();
-		var dateYear=dateT.getFullYear();
-		var dateMonth=dateT.getMonth()+1;
-		var dateDay=dateT.getDate();
-				if(dateDay<10){
-					dateDay='0'+dateDay
-				}
-				if(dateMonth<10){
-					dateMonth='0'+dateMonth
-				}
-	    var todayDate=dateYear+'-'+dateMonth+'-'+dateDay;
-
-	    this.setState({
-	    	todayDate:todayDate,
-	    })
     }    
     //查看关闭
 	cancelAgreementDetail=()=>{
@@ -340,15 +330,6 @@ class Merchants extends Component{
 
 	componentDidMount() {
 		State.ajaxListData(this.state.searchParams);
-		let {todayDate}=this.state;
-		this.setState({
-			searchParams:{
-				createDateBegin:todayDate+' 00:00:00',
-				createDateEnd:todayDate+' 00:00:00',
-				page:1,
-				pageSize:15
-			}
-		})  
 	}
    
      //日期开始
@@ -401,7 +382,6 @@ class Merchants extends Component{
    //搜索提交
    onSearchSubmit=(value)=>{
    	 let {searchParams}=this.state;
-   	 console.log('pppppp------',searchParams);
       if(value.filter=='company'){
         searchParams.customerName=value.content;
         searchParams.cityName='';
@@ -564,11 +544,15 @@ class Merchants extends Component{
 	    let {opretionId,opretionOpen,isShow,searchParams,todayDate,noDataOpen}=this.state;
         let rowStyle={};
         let rowLineStyle={};
+        let rowFootStyle={};
 	    if(contractList.length==0){
 	    	rowStyle={
 	    		marginTop:8
 	    	}
 	    	rowLineStyle={
+	    		display:'none',
+	    	}
+	    	rowFootStyle={
 	    		display:'none',
 	    	}
 	    }else{
@@ -577,6 +561,9 @@ class Merchants extends Component{
 	    	}
 	    	rowLineStyle={
 	    		marginTop:8
+	    	}
+	    	rowFootStyle={
+	    		display:'block',
 	    	}
 	    }
 
@@ -721,7 +708,7 @@ class Merchants extends Component{
 			       
            </Table>
 
-           <div style={{padding:'50px 0'}}><Pagination  totalCount={State.totalPaper} page={State.page} pageSize={State.pageSize} onPageChange={this.onPageChange}/></div>
+           <div className='footPage' style={rowFootStyle}><Pagination  totalCount={State.totalPaper} page={State.page} pageSize={State.pageSize} onPageChange={this.onPageChange}/></div>
 
            </Section>
 					{/*新建合同的第一页*/}
@@ -729,6 +716,7 @@ class Merchants extends Component{
 				        open={State.openOneAgreement}
 				        width={750}
 				        openSecondary={true}
+				        onClose={this.closeOneAgreement}
 				        className='m-finance-drawer'
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 			        >
@@ -741,6 +729,7 @@ class Merchants extends Component{
 				        open={State.openTowAgreement}
 				        width={750}
 				        openSecondary={true}
+				        onClose={this.closeTwoAgreement}
 				        className='m-finance-drawer'
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 			        >
@@ -752,6 +741,7 @@ class Merchants extends Component{
 		           <Drawer
 				        open={State.openEditAgreement}
 				        width={750}
+				        onClose={this.closeEditAgreement}
 				        openSecondary={true}
 				        className='m-finance-drawer'
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
@@ -766,6 +756,7 @@ class Merchants extends Component{
 							open={State.openNewIndent}
 							width={750}
 							openSecondary={true}
+							onClose={this.closeNewIndent}
 							className='m-finance-drawer'
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					 >
@@ -784,6 +775,7 @@ class Merchants extends Component{
 		            <Drawer
 				        open={State.openAgreementDetail}
 				        width={750}
+				        onClose={this.detailOpenAgreement}
 				        openSecondary={true}
 				        containerStyle={{top:60,paddingBottom:48,zIndex:8}}
 			        >

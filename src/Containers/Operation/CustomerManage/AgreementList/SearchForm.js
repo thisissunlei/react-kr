@@ -92,14 +92,14 @@ class SearchForm extends Component {
 				    <SearchForms placeholder='请输入关键字' searchFilter={options} onSubmit={this.onSearchSubmit} onFilter={this.onFilter}/>
 				</div>
 				<div className="searchForm-col" style={{marginTop:"0px",marginRight:10}}>
-					<KrField grid={1/2} label="" name="createDateBegin" style={{marginLeft:28,width:"253px"}}  component="date" inline={true} onChange={this.onEndChange} placeholder={todayDate}/>
+					<KrField grid={1/2} label="" name="createDateBegin" style={{marginLeft:28,width:"253px"}}  component="date" inline={true} onChange={this.onEndChange} placeholder='日期'/>
 				</div>
 				<div className="searchForm-col" style={{marginTop:"-40px",position:"relative",left:30,top:50}}>
 					<span>至</span>
 				</div>
 
 				<div className="searchForm-col" style={{marginTop:"0px"}}>
-					<KrField grid={1/2} label="" name="createDateEnd" style={{marginLeft:28,width:"253px"}} component="date"  inline={true} onChange={this.onStartChange} placeholder={todayDate}/>
+					<KrField grid={1/2} label="" name="createDateEnd" style={{marginLeft:28,width:"253px"}} component="date"  inline={true} onChange={this.onStartChange} placeholder='日期'/>
 
 				</div>
 				<div className="searchForm-col" style={{marginTop:"8px",marginRight:"-38px"}}>
