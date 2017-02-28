@@ -19,7 +19,8 @@ import {
 } from 'kr-ui';
 import State from './State';
 import allState from '../State';
-import './index.less'
+import oneState from '../oneNewAgreement/State';
+import './index.less';
 @observer
  class NewIndent extends Component{
 
@@ -50,24 +51,13 @@ import './index.less'
 		if(!values.mainbilldesc){
 			values.mainbilldesc="";
 		}
-		values.customerid=listId;
-		values.mainbillname=State.orderName;
-		
-		Store.dispatch(Actions.callAPI('enter-order',{},values)).then(function(response) {
-         	_this.onCancel();
-         	
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-
-
-
-
 		let data={};
 		data.customerId=allState.listId;
 		Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {
 			allState.customerName=response.customerName;
 			allState.orderCount=response.orderCount;
+			oneState.ordersListData({customerId:allState.listId})
+			_this.onCancel();
 		}).catch(function(err) {
 			 Message.error(err.message);
 		});	

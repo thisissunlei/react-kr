@@ -6,6 +6,14 @@ import {Actions,Store} from 'kr/Redux';
 import {
 	observer
 } from 'mobx-react';
+import mobx, {
+	observable,
+	action,
+	asMap,
+	computed,
+	extendObservable,
+	toJS
+} from 'mobx';
 import {
 	KrField,
 	Grid,
@@ -77,36 +85,12 @@ import allState from '../State';
 		this.fetchCustomer({customerId:person.id});
 		allState.companyName=person.company;
 		allState.listId=person.id;
-		this.orderNameInit(person.id)
+		this.orderNameInit(person.id);
     }
 
     fetchCustomer=(customerId)=>{
-    	var _this = this;
-		Store.dispatch(Actions.callAPI('orders-names', customerId)).then(function(response) {
-			let label="",value='';
-			let orderList=[];
-			for(let i=0;i<response.orderList.length;i++){
-			    let order={}; 
-				order.value=response.orderList[i].id;
-				order.label=response.orderList[i].mainbillname;
-				orderList.push(order);
-			}
-			var noContract = {
-				'value': '-1',
-				'label': '新建订单'
-			}
-			orderList.push(noContract);
-			_this.setState({
-				orderList
-			})
-		}).catch(function(err) {
-
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-
-		});
+    	State.orderList=[];
+    	State.ordersListData(customerId);
     }
 
     //获取订单名称
@@ -140,7 +124,6 @@ import allState from '../State';
 	render(){
 		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
 		let {orderList}=this.state;
-
 		return (
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:9}} >
@@ -152,7 +135,7 @@ import allState from '../State';
 
 
 						<KrField grid={1/2} label="订单名称" name="staionTypeId" component="select" style={{width:262,marginLeft:28}}
-								options={orderList}
+								options={toJS(State.orderList)}
 								requireLabel={true}
 								onChange={this.orderListChange}
 						/>

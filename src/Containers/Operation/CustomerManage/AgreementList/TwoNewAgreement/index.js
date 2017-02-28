@@ -85,8 +85,8 @@ class LookCustomerList extends Component{
 				num="50px";
 			}
 			text="入驻协议书"
-			dialogDiv.push(<div className="m-noneClick" style={{left:num}}>{text}</div>)
-			noneTab.push(
+			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
+			noneTab.unshift(
 				<Tab label="入驻协议书" >
 					<Join params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
@@ -118,8 +118,8 @@ class LookCustomerList extends Component{
 				num="50px";
 			}
 			text="增租协议书"
-			dialogDiv.push(<div className="m-noneClick" style={{left:num}}>{text}</div>)
-			noneTab.push(
+			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
+			noneTab.unshift(
 				<Tab label="增租协议书" >
 					<Increase params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
@@ -149,8 +149,8 @@ class LookCustomerList extends Component{
 				num="50px";
 			}
 			text="减租协议书"
-			dialogDiv.push(<div className="m-noneClick" style={{left:num}}>{text}</div>)
-			noneTab.push(
+			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
+			noneTab.unshift(
 				<Tab label="减租协议书" >
 					<Reduce params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
@@ -180,8 +180,8 @@ class LookCustomerList extends Component{
 				num="50px";
 			}
 			text="续租协议书"
-			dialogDiv.push(<div className="m-noneClick" style={{left:num}}>{text}</div>)
-			noneTab.push(
+			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
+			noneTab.unshift(
 				<Tab label="续租协议书" >
 					<Renew params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
@@ -212,8 +212,8 @@ class LookCustomerList extends Component{
 				num="574px";
 			}
 			text="退租协议书"
-			dialogDiv.push(<div className="m-noneClick" style={{left:num}}>{text}</div>)
-			noneTab.push(
+			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
+			noneTab.unshift(
 				<Tab label="退租协议书" >
 					<Exit params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
