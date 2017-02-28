@@ -147,6 +147,9 @@ Message.error = function (messages) {
 Message.warn = function (messages,type,fn) {
 	  warnRender(messages,type,fn);
 };
+Message.warntimeout = function (messages,type) {
+	  warnRender(messages,type,commonTimeout);
+};
 
 
 

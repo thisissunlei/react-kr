@@ -111,7 +111,6 @@ import './index.less';
 		 	}
 
 			
-
 			 this.setState({
 					 cardNum:endNum-startNum
 				 })

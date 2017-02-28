@@ -38,7 +38,7 @@ class ImportCard extends Component{
 		console.log(person);
 		let {oldUser} = this.state;
 		if(oldUser && person.value && person.value==oldUser){
-	    	Message.warn('原领用人和领用人不能为同一人','error');
+	    	Message.warntimeout('原领用人和领用人不能为同一人','error');
 	    }
 		
 	}
@@ -50,7 +50,7 @@ class ImportCard extends Component{
 	    	toId:values.nowUser
 	    }
 	    if(values.nowUser && values.originUser && values.nowUser==values.originUser){
-	    	Message.warn('原领用人和领用人不能为同一人','error');
+	    	Message.warntimeout('原领用人和领用人不能为同一人','error');
 	    	console.log('原领用人和领用人不能为同一人');
 	    	return;
 	    }
