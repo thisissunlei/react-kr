@@ -32,6 +32,7 @@ import {
 	Message,
 	UpLoadList,
 	FontIcon,
+	Pagination
 } from 'kr-ui';
 import DateFormat from "kr/Utils";
 import State from './State';
@@ -287,16 +288,12 @@ class Merchants extends Component{
 		Store.dispatch(Actions.callAPI('delete-enter-contract', {
 			contractId: delAgreementId
 		})).then(function(response) {
-			Notify.show([{
-				message: '删除成功!',
-				type: 'success',
-			}]);
-
-			// window.setTimeout(function() {
-			// 	window.location.reload();
-			// }, 100)
+			 Message.success('删除成功');
+			window.setTimeout(function() {
+				window.location.reload();
+			}, 100)
 		}).catch(function(err) {
-			console.log(err.message);
+            Message.error(err.message);
 		});
 		State.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
 
@@ -330,7 +327,7 @@ class Merchants extends Component{
 			}
 		});
 		const params = this.props.params;
-		let url = `./#/operation/customerManage/${item.customerId}/order/${item.mainbillid}/agreement/${name}/${item.id}/print`
+		let url = `./#/operation/customerManage/${item.customerid}/order/${item.mainbillid}/agreement/${name}/${item.id}/print`
 		var newWindow = window.open(url);
 
 	}
@@ -402,22 +399,42 @@ class Merchants extends Component{
    	 let {searchParams}=this.state;
       if(value.filter=='company'){
         searchParams.customerName=value.content;
+        searchParams.cityName='';
+        searchParams.communityName='';
+        searchParams.salerName='';
+        searchParams.createrName='';
         State.ajaxListData(searchParams);
      }
       if(value.filter=='city'){
         searchParams.cityName=value.content;
+        searchParams.customerName='';
+        searchParams.communityName='';
+        searchParams.salerName='';
+        searchParams.createrName='';
         State.ajaxListData(searchParams);
      }
       if(value.filter=='community'){
         searchParams.communityName=value.content;
+        searchParams.customerName='';
+        searchParams.cityName='';
+        searchParams.salerName='';
+        searchParams.createrName='';
         State.ajaxListData(searchParams);
      }
       if(value.filter=='people'){
         searchParams.salerName=value.content;
+        searchParams.customerName='';
+        searchParams.cityName='';
+        searchParams.communityName='';
+        searchParams.createrName='';
         State.ajaxListData(searchParams);
      }
       if(value.filter=='write'){
         searchParams.createrName=value.content;
+        searchParams.customerName='';
+        searchParams.cityName='';
+        searchParams.communityName='';
+        searchParams.salerName='';
         State.ajaxListData(searchParams);
      }
    }
@@ -436,6 +453,17 @@ class Merchants extends Component{
 		}
 		return (<Tooltip className="tooltipTextStyle" style={{padding:10, maxWidth:224,}} offsetTop={5} place='top'><div style={{width:160,minHeight:20,wordWrap:"break-word",padding:"10px",whiteSpace:"normal",lineHeight:"22px"}}>{value}</div></Tooltip>)
 	}
+
+    onPageChange=(page)=>{
+    	let {searchParams}=this.state;
+        searchParams.page=page;
+        searchParams.pageSize='15';
+    	State.ajaxListData(searchParams);
+	}
+
+
+
+
 	editClick=(values)=>{
 		State.argumentType=values.contracttype;
 		State.listId=values.customerid;
@@ -568,21 +596,40 @@ class Merchants extends Component{
 
 			        <TableBody >
 			        	{contractList.map((item,index)=>{
+			        		let type='';
+			        		if(item.contracttype=='INTENTION'){
+                               type='承租意向书'
+			        		}
+			        		if(item.contracttype=='ENTER'){
+                               type='入驻协议书'
+			        		}
+			        		if(item.contracttype=='ADDRENT'){
+                               type='增租意向书'
+			        		}
+			        		if(item.contracttype=='LESSRENT'){
+                               type='减租意向书'
+			        		}
+			        		if(item.contracttype=='QUITRENT'){
+                               type='退租意向书'
+			        		}
+			        		if(item.contracttype=='RENEW'){
+                               type='续租意向书'
+			        		}
 			        		let showOpretion = (item.id == opretionId && opretionOpen)?'visible':'hidden';
 			        		return (
 				        		<TableRow>
 					                <TableRowColumn><span className="tableOver">{item.company}</span>{this.everyTd(item.company)}</TableRowColumn>
 					                <TableRowColumn><span className="tableOver">{item.cityName}</span>{this.everyTd(item.cityName)}</TableRowColumn>
 					                <TableRowColumn><span className="tableOver">{item.communityName}</span>{this.everyTd(item.communityName)}</TableRowColumn>
-					                <TableRowColumn><span className="tableOver">{item.contracttype}</span>{this.everyTd(item.contracttype)}</TableRowColumn>
-					                <TableRowColumn><span className="tableOver"><KrDate value={item.leaseBegindate}/></span>{this.everyTd(item.leaseBegindate)}</TableRowColumn>
-					                <TableRowColumn><span className="tableOver"><KrDate value={item.leaseEnddate}/></span>{this.everyTd(item.leaseEnddate)}</TableRowColumn>
+					                <TableRowColumn><span className="tableOver">{type}</span>{this.everyTd(type)}</TableRowColumn>
+					                <TableRowColumn><span className="tableOver"><KrDate value={item.leaseBegindate}/></span>{this.everyTd(<KrDate value={item.leaseBegindate}/>)}</TableRowColumn>
+					                <TableRowColumn><span className="tableOver"><KrDate value={item.leaseEnddate}/></span>{this.everyTd(<KrDate value={item.leaseEnddate}/>)}</TableRowColumn>
 					                <TableRowColumn><span className="tableOver">{item.stationnum}</span>{this.everyTd(item.stationnum)}</TableRowColumn>
 					                <TableRowColumn><span className="tableOver">{item.boardroomnum}</span>{this.everyTd(item.boardroomnum)}</TableRowColumn>
 									<TableRowColumn><span className="tableOver">{item.totalrent}</span>{this.everyTd(item.totalrent)}</TableRowColumn>
 									<TableRowColumn><span className="tableOver">{item.saler}</span>{this.everyTd(item.saler)}</TableRowColumn>
 									<TableRowColumn><span className="tableOver">{item.inputUser}</span>{this.everyTd(item.inputUser)}</TableRowColumn>
-									<TableRowColumn><span className="tableOver"><KrDate value={item.createdate}/></span>{this.everyTd(item.createdate)}</TableRowColumn>
+									<TableRowColumn><span className="tableOver"><KrDate value={item.createdate}/></span>{this.everyTd(<KrDate value={item.createdate}/>)}</TableRowColumn>
 					                <TableRowColumn>
 					                    <Button label="查看"  type='operation'  onClick={this.lookClick.bind(this,item)}/>
 					                    <Button type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)} linkTrue labelStyleLink={{paddingLeft:0,paddingRight:0,fontWeight:0}}/>
@@ -602,9 +649,11 @@ class Merchants extends Component{
 			        	})}
 			              
 			        </TableBody>
-			        <TableFooter></TableFooter>
+			  
 			       
            </Table>
+
+           <div style={{padding:'50px 0'}}><Pagination  totalCount={State.totalPaper} page={State.page} pageSize={State.pageSize} onPageChange={this.onPageChange}/></div>
 
           </Section>
 					{/*新建合同的第一页*/}

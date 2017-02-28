@@ -58,42 +58,176 @@ class LookCustomerList extends Component{
 		
 	}
 	componentDidMount(){
-		var elem1=$(".ddd");
-		var elem=$(".入驻协议书");
-		console.log(elem.html());
-		// elem.css("display","none");
-		elem1.click(function () {
-			console.log('33333');
-			elem.mouseup().mousedown();
-		})
-	}
-	h1Click=()=>{
-		console.log("h1Click");
+		
 	}
 	render(){
 		let num="";
 		let text="";
+        
+        let dialogDiv=[];
+        let showTab=[];
+        let noneTab=[];
+
 		if(!allState.enter){
-			num="50px";
+			if(noneTab.length==0){
+				num="574px";
+			}
+			if(noneTab.length==1){
+				num="443px";
+			}
+			if(noneTab.length==2){
+				num="312px";
+			}
+			if(noneTab.length==3){
+				num="181px";
+			}
+			if(noneTab.length==4){
+				num="50px";
+			}
 			text="入驻协议书"
-		}	
-		if(!allState.increase){
-			num="181px";
-			text="增租协议书"
-		}	
-		if(!allState.reduce){
-			num="312px";
-			text="减租协议书"
+			dialogDiv.push(<div className="m-noneClick" style={{left:num}}>{text}</div>)
+			noneTab.push(
+				<Tab label="入驻协议书" >
+					<Join params={{customerId:1,orderId:1}}/>
+				</Tab>
+			)
+		}else{
+			showTab.push(
+				<Tab label="入驻协议书" >
+					<Join params={{customerId:1,orderId:1}}/>
+				</Tab>
+			);
 		}
+
+
+		if(!allState.increase){
+
+			if(noneTab.length==0){
+				num="574px";
+			}
+			if(noneTab.length==1){
+				num="443px";
+			}
+			if(noneTab.length==2){
+				num="312px";
+			}
+			if(noneTab.length==3){
+				num="181px";
+			}
+			if(noneTab.length==4){
+				num="50px";
+			}
+			text="增租协议书"
+			dialogDiv.push(<div className="m-noneClick" style={{left:num}}>{text}</div>)
+			noneTab.push(
+				<Tab label="增租协议书" >
+					<Increase params={{customerId:1,orderId:1}}/>
+				</Tab>
+			)
+		}else{
+			showTab.push(
+				<Tab label="增租协议书" >
+					<Increase params={{customerId:1,orderId:1}}/>
+				</Tab>
+			);
+		}	
+
+		if(!allState.reduce){
+			if(noneTab.length==0){
+				num="574px";
+			}
+			if(noneTab.length==1){
+				num="443px";
+			}
+			if(noneTab.length==2){
+				num="312px";
+			}
+			if(noneTab.length==3){
+				num="181px";
+			}
+			if(noneTab.length==4){
+				num="50px";
+			}
+			text="减租协议书"
+			dialogDiv.push(<div className="m-noneClick" style={{left:num}}>{text}</div>)
+			noneTab.push(
+				<Tab label="减租协议书" >
+					<Reduce params={{customerId:1,orderId:1}}/>
+				</Tab>
+			)
+		}else{
+			showTab.push(
+				<Tab label="减租协议书" >
+					<Reduce params={{customerId:1,orderId:1}}/>
+				</Tab>
+			);
+		}
+
 		if(!allState.relet){
-			num="443px";
+			if(noneTab.length==0){
+				num="574px";
+			}
+			if(noneTab.length==1){
+				num="443px";
+			}
+			if(noneTab.length==2){
+				num="312px";
+			}
+			if(noneTab.length==3){
+				num="181px";
+			}
+			if(noneTab.length==4){
+				num="50px";
+			}
 			text="续租协议书"
+			dialogDiv.push(<div className="m-noneClick" style={{left:num}}>{text}</div>)
+			noneTab.push(
+				<Tab label="续租协议书" >
+					<Renew params={{customerId:1,orderId:1}}/>
+				</Tab>
+			)
+
+		}else{
+			showTab.push(
+				<Tab label="续租协议书" >
+					<Renew params={{customerId:1,orderId:1}}/>
+				</Tab>
+			);
+
 		}
 		if(!allState.returnRent){
-			num="574px";
+			if(noneTab.length==0){
+				num="50px";
+			}
+			if(noneTab.length==1){
+				num="181px";
+			}
+			if(noneTab.length==2){
+				num="312px";
+			}
+			if(noneTab.length==3){
+				num="443px";
+			}
+			if(noneTab.length==4){
+				num="574px";
+			}
 			text="退租协议书"
+			dialogDiv.push(<div className="m-noneClick" style={{left:num}}>{text}</div>)
+			noneTab.push(
+				<Tab label="退租协议书" >
+					<Exit params={{customerId:1,orderId:1}}/>
+				</Tab>
+			)
+		}else{
+			showTab.push(
+				<Tab label="退租协议书" >
+					<Exit params={{customerId:1,orderId:1}}/>
+				</Tab>
+			);
+
 		}	                       
 		
+
 		return(
 		      <div className="m-lookCustomerList m-newMerchants" style={{paddingLeft:8}}>
 		      	<div className="title" >
@@ -105,29 +239,15 @@ class LookCustomerList extends Component{
 			 		 initialSelectedIndex={-1}
 			 		 style={{width:100}}
 				>
-				<Tab label="入驻协议书" >
-					<Join params={{customerId:1,orderId:1}}/>
-				</Tab>
-					
-				<Tab label="增租协议书" >
-					<Increase params={{customerId:1,orderId:1}}/>
-				</Tab>
-				<Tab label="减租协议书" >
-					<Reduce params={{customerId:1,orderId:1}}/>
-				</Tab>
-					
-				<Tab label="续租协议书" >
-					<Renew params={{customerId:1,orderId:1}}/>
-				</Tab>
-				<Tab label="退租协议书" >
-					<Exit params={{customerId:1,orderId:1}}/>
-				</Tab>
+				{showTab}
+				{noneTab}
 					
 				
 			</Tabs>
-			<div className="m-noneClick" style={{left:num}}>{text}</div>
+			 {dialogDiv}
 		        
 		    </div>
+				
 
 		);
 	}

@@ -96,6 +96,7 @@ export default class Pagination extends Component {
 		this.onPageChange(1);
 	}
 	onLast() {
+
 		let {
 			pageSize,
 			totalCount
@@ -112,15 +113,18 @@ export default class Pagination extends Component {
 			totalCount
 		} = this.props;
 
+
+
+
 		if (page == Math.ceil(totalCount / pageSize)) {
 			return;
 		}
+        
 
 
 		if (page > 0 && page < Math.ceil(totalCount / pageSize)) {
 			page++;
 		}
-
 		this.onPageChange(page);
 	}
 
@@ -162,12 +166,13 @@ export default class Pagination extends Component {
 	}
 
 	renderPrev() {
-
+   
 		let {
 			page,
 			pageSize,
 			totalCount
 		} = this.props;
+
 
 		return (
 			<div className="item-prev">

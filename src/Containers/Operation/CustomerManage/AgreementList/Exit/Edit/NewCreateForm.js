@@ -201,7 +201,7 @@ class NewCreateForm extends Component {
 
 <form onSubmit={handleSubmit(this.onSubmit)}  style={{marginTop:-15}}>
 			<div className="cheek" style={{paddingLeft:0,marginLeft:23}}>
-				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
+				<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">租赁明细</label></div>
 				<div className="small-cheek">
 				<KrField   name="mainbillid" type="hidden" component="input" />
 				<KrField   name="contractstate" type="hidden" component="input" />
