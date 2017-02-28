@@ -148,7 +148,7 @@ import allState from '../State';
 						<div><span className="new-icon"></span><label className="title-text">新建客户</label></div>
 						<div className="customer-close" onClick={this.onCancel}></div>
 				</div>
-						<KrField  grid={1/2}  name="companyId" style={{width:262,marginLeft:28}} component='companyName'  label="客户名称" inline={false} onChange={this.onChangeSign} placeholder='请输入社区名称' requireLabel={true}/>
+						<KrField  grid={1/2}  name="companyId" style={{width:262,marginLeft:28}} component='companyName'  label="客户名称" inline={false} onChange={this.onChangeSign} placeholder='请输入客户名称' requireLabel={true}/>
 
 
 						<KrField grid={1/2} label="订单名称" name="staionTypeId" component="select" style={{width:262,marginLeft:28}}
