@@ -1,12 +1,12 @@
-/Users/tmac_zc/Code/kr-admin/src/Containers/Permission/AccountList/index.js: Unexpected token, expected ( (189:6)
-SyntaxError: /Users/tmac_zc/Code/kr-admin/src/Containers/Permission/AccountList/index.js: Unexpected token, expected ( (189:6)
-[0m [90m 187 | [39m	render
- [90m 188 | [39m
-[31m[1m>[22m[39m[90m 189 | [39m		let {searchParams} [33m=[39m [36mthis[39m[33m.[39mstate[33m;[39m
- [90m     | [39m		    [31m[1m^[22m[39m
- [90m 190 | [39m		console[33m.[39mlog(searchParams)[33m;[39m
- [90m 191 | [39m		let options[33m=[39m[
- [90m 192 | [39m		 {label[33m:[39m[32m'登录名'[39m[33m,[39mvalue[33m:[39m[32m'company'[39m}[33m,[39m[0m
+/Users/tmac_zc/Code/kr-admin/src/Containers/Permission/AccountList/index.js: Unexpected token, expected ( (183:9)
+SyntaxError: /Users/tmac_zc/Code/kr-admin/src/Containers/Permission/AccountList/index.js: Unexpected token, expected ( (183:9)
+[0m [90m 181 | [39m	render
+ [90m 182 | [39m
+[31m[1m>[22m[39m[90m 183 | [39m		console[33m.[39mlog(searchParams)[33m;[39m
+ [90m     | [39m		       [31m[1m^[22m[39m
+ [90m 184 | [39m		let options[33m=[39m[
+ [90m 185 | [39m		 {label[33m:[39m[32m'登录名'[39m[33m,[39mvalue[33m:[39m[32m'company'[39m}[33m,[39m
+ [90m 186 | [39m		 {label[33m:[39m[32m'姓名'[39m[33m,[39mvalue[33m:[39m[32m'city'[39m}[33m,[39m[0m
     at Parser.pp$5.raise (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:4246:13)
     at Parser.pp.unexpected (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1627:8)
     at Parser.pp.expect (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1615:33)
