@@ -1,0 +1,35 @@
+'use strict';
+
+var _mobx = require('mobx');
+
+var _mobx2 = _interopRequireDefault(_mobx);
+
+var _Redux = require('kr/Redux');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var StateIn = (0, _mobx.observable)({
+	detail: [],
+	matureTime: false,
+	otherContinue: false
+
+});
+
+//显示取消跟进
+StateIn.showMatureTime = (0, _mobx.action)(function () {
+	this.matureTime = true;
+});
+//不显示取消跟进
+StateIn.noShowMatureTime = (0, _mobx.action)(function () {
+	this.matureTime = false;
+});
+//显示其他
+StateIn.showOtherContinue = (0, _mobx.action)(function () {
+	this.otherContinue = true;
+});
+//不显示其他
+StateIn.noShowOtherContinue = (0, _mobx.action)(function () {
+	this.otherContinue = false;
+});
+
+module.exports = StateIn;

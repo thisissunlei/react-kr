@@ -1,0 +1,135 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _simpleAssign = require('simple-assign');
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _redux = require('redux');
+
+var _reactRouter = require('react-router');
+
+var _Actions = require('kr-ui/../Redux/Actions');
+
+var actionCreators = _interopRequireWildcard(_Actions);
+
+var _Section = require('kr-ui/Section');
+
+var _Section2 = _interopRequireDefault(_Section);
+
+var _Calendar = require('kr-ui/Calendar');
+
+var _Calendar2 = _interopRequireDefault(_Calendar);
+
+var _inbox = require('material-ui/svg-icons/content/inbox');
+
+var _inbox2 = _interopRequireDefault(_inbox);
+
+var _timeline = require('material-ui/svg-icons/action/timeline');
+
+var _timeline2 = _interopRequireDefault(_timeline);
+
+var _colors = require('material-ui/styles/colors');
+
+var _materialUi = require('material-ui');
+
+var _List = require('material-ui/List');
+
+require('./index.less');
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TodoManage = function (_Component) {
+	_inherits(TodoManage, _Component);
+
+	function TodoManage(props, context) {
+		_classCallCheck(this, TodoManage);
+
+		var _this = _possibleConstructorReturn(this, (TodoManage.__proto__ || Object.getPrototypeOf(TodoManage)).call(this, props, context));
+
+		_this.toNotifyPage = _this.toNotifyPage.bind(_this);
+
+		return _this;
+	}
+
+	_createClass(TodoManage, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			var actions = this.props.actions;
+
+			actions.loadNotify();
+		}
+	}, {
+		key: 'toNotifyPage',
+		value: function toNotifyPage() {
+			this.context.router.push('/notify');
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+
+			return _react2.default.createElement(
+				_Section2.default,
+				{ title: '\u5F85\u529E\u4E8B\u9879', description: '',
+
+					leftIcon: _react2.default.createElement(_materialUi.Avatar, { icon: _react2.default.createElement(_timeline2.default, null), backgroundColor: _colors.blue500, size: 25 }),
+					rightMenu: _react2.default.createElement(
+						_materialUi.Menu,
+						null,
+						_react2.default.createElement(_materialUi.MenuItem, { primaryText: '\u6392\u5E8F' }),
+						_react2.default.createElement(_materialUi.MenuItem, { primaryText: '\u66F4\u591A', onTouchTap: this.toNotifyPage })
+					) },
+				_react2.default.createElement(
+					_List.List,
+					null,
+					this.props.items.map(function (item, index) {
+						return _react2.default.createElement(_List.ListItem, { primaryText: item.content, key: index, leftIcon: _react2.default.createElement(_inbox2.default, null) });
+					}),
+					_react2.default.createElement(_List.ListItem, { primaryText: '\u67E5\u770B\u66F4\u591A', onTouchTap: this.toNotifyPage })
+				)
+			);
+		}
+	}]);
+
+	return TodoManage;
+}(_react.Component);
+
+TodoManage.contextTypes = {
+	router: _react.PropTypes.object.isRequired
+};
+
+
+function mapStateToProps(state) {
+
+	return {
+		notify: state.notify,
+		items: state.notify.items
+	};
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		actions: (0, _redux.bindActionCreators)((0, _simpleAssign2.default)({}, actionCreators), dispatch)
+	};
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TodoManage);

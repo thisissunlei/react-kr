@@ -1,0 +1,202 @@
+'use strict';
+
+var _mobx = require('mobx');
+
+var _mobx2 = _interopRequireDefault(_mobx);
+
+var _Redux = require('kr/Redux');
+
+var _krUi = require('kr-ui');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var State = (0, _mobx.observable)({
+	searchParams: {
+		page: 1
+	},
+	openNewMerchants: false,
+	openLookMerchants: false,
+	openSearchUpper: false,
+	openEditCustomerList: false,
+	openSwitch: false,
+	openQuit: false,
+	openPersonDialog: false,
+	openNewCustomerIndent: false,
+	openNewIndent: false,
+	openEditIndent: false,
+	listId: "",
+	companyName: '',
+	openDelete: false,
+	editIndentData: {},
+	editIndentId: '',
+	deleteId: '',
+
+	customerName: "",
+	orderCount: "",
+	mainbillname: "",
+
+	cityname: "",
+	isOpenIndent: false,
+	ishasOffice: false,
+	editCity: '',
+	editprojectName: '',
+	cityNameIndent: ""
+});
+State.hasOfficeChange = (0, _mobx.action)(function (params) {
+	this.ishasOffice = params;
+});
+//新建页的开关
+State.switchNewCustomerList = (0, _mobx.action)(function () {
+	this.openNewMerchants = !this.openNewMerchants;
+});
+//查看页面的开关
+State.switchLookCustomerList = (0, _mobx.action)(function () {
+	this.openLookMerchants = !this.openLookMerchants;
+});
+//编辑页面的开关
+State.switchEditCustomerList = (0, _mobx.action)(function () {
+	this.openEditCustomerList = !this.openEditCustomerList;
+});
+//新增排放记录的开关
+State.switchCustomerIndent = (0, _mobx.action)(function () {
+	this.openNewCustomerIndent = !this.openNewCustomerIndent;
+});
+//新建订单的开关
+State.switchNewIndent = (0, _mobx.action)(function () {
+	this.openNewIndent = !this.openNewIndent;
+});
+//编辑订单的开关
+State.switchEditIndent = (0, _mobx.action)(function () {
+	this.openEditIndent = !this.openEditIndent;
+});
+//高级查询的开关
+State.searchUpperCustomer = (0, _mobx.action)(function () {
+	this.openSearchUpper = !this.openSearchUpper;
+});
+//转移开关
+State.openSwitchGoDialog = (0, _mobx.action)(function () {
+	this.openSwitch = !this.openSwitch;
+});
+//取消客户跟进
+State.openQuitContinue = (0, _mobx.action)(function () {
+	this.openQuit = !this.openQuit;
+});
+//删除订单
+State.openDeleteOrder = (0, _mobx.action)(function () {
+	this.openDelete = !this.openDelete;
+});
+//编辑定点id
+State.editIndentIdChange = (0, _mobx.action)(function (params) {
+	this.editIndentId = params;
+});
+
+//订单名称
+State.orderNameChange = (0, _mobx.action)(function (params) {
+	this.orderName = params;
+});
+
+//获取订单名称
+State.orderNameInit = (0, _mobx.action)(function (value) {
+	var _this = this;
+	var data = {};
+
+	data.customerId = value;
+
+	_Redux.Store.dispatch(_Redux.Actions.callAPI('get-customName-orderName', data)).then(function (response) {
+		_this.customerName = response.customerName;
+		_this.orderCount = response.orderCount;
+	}).catch(function (err) {
+		_krUi.Message.error(err.message);
+	});
+});
+
+//导出
+State.exportData = (0, _mobx.action)(function (value) {
+	var search = {};
+	search.company = this.searchParams.company;
+	search.createEndDate = this.searchParams.createEndDate;
+	search.createStartDate = this.searchParams.createStartDate;
+	search.intentionCityId = this.searchParams.intentionCityId;
+	search.intentionCommunityId = this.searchParams.intentionCommunityId;
+	search.levelId = this.searchParams.levelId;
+	search.sourceId = this.searchParams.sourceId;
+	if (!search.company) {
+		search.company = '';
+	}
+	if (!search.createEndDate) {
+		search.createEndDate = '';
+	}
+	if (!search.createStartDate) {
+		search.createStartDate = '';
+	}
+	if (!search.intentionCityId) {
+		search.intentionCityId = '';
+	}
+	if (!search.intentionCommunityId) {
+		search.intentionCommunityId = '';
+	}
+	if (!search.levelId) {
+		search.levelId = '';
+	}
+	if (!search.sourceId) {
+		search.sourceId = '';
+	}
+	var customerIds = [];
+	if (value.length != 0) {
+		value.map(function (item, value) {
+			customerIds.push(item.id);
+		});
+	}
+	var url = '/api/krspace-finance-web/customer/personal-customers-export?customerIds=' + customerIds + '&company=' + search.company + '&createEndDate=' + search.createEndDate + '&createStartDate=' + search.createStartDate + '&intentionCityId=' + search.intentionCityId + '&intentionCommunityId=' + search.intentionCommunityId + '&levelId=' + search.levelId + '&sourceId=' + search.sourceId;
+	window.location.href = url;
+});
+
+//转移提交
+State.switchSureSubmit = (0, _mobx.action)(function (value) {
+	var _this = this;
+	_Redux.Store.dispatch(_Redux.Actions.callAPI('customerTransfer', {}, value)).then(function (response) {
+		_this.openSwitch = false;
+		_krUi.Message.success('转移成功');
+		_this.openPersonDialog = false;
+		_this.searchParams = {
+			page: 1,
+			time: +new Date()
+		};
+	}).catch(function (err) {
+		_krUi.Message.error(err.message);
+	});
+});
+//取消客户跟进提交
+State.quitSubmit = (0, _mobx.action)(function (arrItem) {
+	var ids = arrItem;
+	var _this = this;
+	_Redux.Store.dispatch(_Redux.Actions.callAPI('customerGiveBack', {}, { ids: ids })).then(function (response) {
+		_this.openQuit = false;
+		_krUi.Message.success('取消成功');
+		_this.openPersonDialog = false;
+		_this.searchParams = {
+			page: 1,
+			time: +new Date()
+		};
+	}).catch(function (err) {
+		_krUi.Message.error(err.message);
+	});
+});
+//城市改变
+State.cityChange = (0, _mobx.action)(function (params) {
+	this.cityname = params;
+});
+
+State.closeAllMerchants = (0, _mobx.action)(function () {
+	this.openLookMerchants = false;
+	this.openNewMerchants = false;
+	this.openSearchUpper = false;
+	this.openEditCustomerList = false;
+	this.openNewCustomerIndent = false;
+	this.openNewIndent = false;
+	this.openEditIndent = false;
+});
+State.MerchantsListId = (0, _mobx.action)(function (params) {
+	this.listId = params;
+});
+module.exports = State;

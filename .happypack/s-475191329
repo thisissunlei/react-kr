@@ -1,0 +1,19 @@
+/Users/joneyphair/Code/kr-admin-new/src/Containers/Operation/CustomerManage/Agreement/Renew/Print/index.js: Missing class properties transform.
+SyntaxError: /Users/joneyphair/Code/kr-admin-new/src/Containers/Operation/CustomerManage/Agreement/Renew/Print/index.js: Missing class properties transform.
+[0m [90m 25 | [39m[37m[41m[1m@[22m[49m[39mobserver
+ [90m 26 | [39m[36mexport[39m [36mdefault[39m [36mclass[39m [33mRenewPrint[39m [36mextends[39m [33mComponent[39m {
+[31m[1m>[22m[39m[90m 27 | [39m	static contextTypes [33m=[39m {
+ [90m    | [39m	[31m[1m^[22m[39m
+ [90m 28 | [39m		router[33m:[39m [33mReact[39m[33m.[39m[33mPropTypes[39m[33m.[39mobject[33m.[39misRequired
+ [90m 29 | [39m	}
+ [90m 30 | [39m	constructor(props[33m,[39m context) {[0m
+    at File.buildCodeFrameError (/Users/joneyphair/Code/kr-admin-new/node_modules/.6.7.7@babel-core/lib/transformation/file/index.js:407:15)
+    at NodePath.buildCodeFrameError (/Users/joneyphair/Code/kr-admin-new/node_modules/.6.23.1@babel-traverse/lib/path/index.js:140:26)
+    at ClassTransformer.pushBody (/Users/joneyphair/Code/kr-admin-new/node_modules/.6.23.0@babel-plugin-transform-es2015-classes/lib/vanilla.js:262:20)
+    at ClassTransformer.buildBody (/Users/joneyphair/Code/kr-admin-new/node_modules/.6.23.0@babel-plugin-transform-es2015-classes/lib/vanilla.js:229:10)
+    at ClassTransformer.run (/Users/joneyphair/Code/kr-admin-new/node_modules/.6.23.0@babel-plugin-transform-es2015-classes/lib/vanilla.js:143:10)
+    at PluginPass.ClassExpression (/Users/joneyphair/Code/kr-admin-new/node_modules/.6.23.0@babel-plugin-transform-es2015-classes/lib/index.js:48:60)
+    at newFn (/Users/joneyphair/Code/kr-admin-new/node_modules/.6.23.1@babel-traverse/lib/visitors.js:276:21)
+    at NodePath._call (/Users/joneyphair/Code/kr-admin-new/node_modules/.6.23.1@babel-traverse/lib/path/context.js:76:18)
+    at NodePath.call (/Users/joneyphair/Code/kr-admin-new/node_modules/.6.23.1@babel-traverse/lib/path/context.js:48:17)
+    at NodePath.visit (/Users/joneyphair/Code/kr-admin-new/node_modules/.6.23.1@babel-traverse/lib/path/context.js:105:12)

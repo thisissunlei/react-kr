@@ -1,0 +1,196 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _krUi = require('kr-ui');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var EditDetail = function (_Component) {
+	_inherits(EditDetail, _Component);
+
+	function EditDetail(props) {
+		_classCallCheck(this, EditDetail);
+
+		var _this = _possibleConstructorReturn(this, (EditDetail.__proto__ || Object.getPrototypeOf(EditDetail)).call(this, props));
+
+		_initialiseProps.call(_this);
+
+		_this.onSubmit = _this.onSubmit.bind(_this);
+		_this.onCancel = _this.onCancel.bind(_this);
+
+		_this.state = {
+			detail: props.detail,
+			mainbilltypeList: [],
+			clearInterCodeStyle: {
+				display: 'none'
+			}
+		};
+		var detail = props.detail;
+		console.log(detail, ">>>>>>");
+		_Redux.Store.dispatch((0, _reduxForm.initialize)('EditDetail', detail));
+		return _this;
+	}
+
+	_createClass(EditDetail, [{
+		key: 'onSubmit',
+		value: function onSubmit(values) {
+			var oldInterCode = this.props.detail.interCode;
+			console.log("99", oldInterCode);
+
+			if (navigator.onLine) {//正常工作
+			} else {
+				//执行离线状态时的任务
+				_krUi.Message.error("网络已断开");
+				return;
+			}
+
+			var onSubmit = this.props.onSubmit;
+
+			onSubmit && onSubmit(values);
+		}
+	}, {
+		key: 'onCancel',
+		value: function onCancel() {
+			var onCancel = this.props.onCancel;
+
+			onCancel && onCancel();
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _React$createElement, _React$createElement2;
+
+			var _props = this.props,
+			    error = _props.error,
+			    handleSubmit = _props.handleSubmit,
+			    pristine = _props.pristine,
+			    reset = _props.reset;
+
+
+			return _react2.default.createElement(
+				'form',
+				{ onSubmit: handleSubmit(this.onSubmit), style: { marginTop: 0 } },
+				_react2.default.createElement(_krUi.KrField, (_React$createElement = { right: 27, left: 42 }, _defineProperty(_React$createElement, 'right', 42), _defineProperty(_React$createElement, 'name', 'foreignCode'), _defineProperty(_React$createElement, 'component', 'labelText'), _defineProperty(_React$createElement, 'label', '\u4F1A\u5458\u5361\u53F7'), _defineProperty(_React$createElement, 'value', this.state.detail.foreignCode), _defineProperty(_React$createElement, 'inline', false), _React$createElement)),
+				_react2.default.createElement(
+					'div',
+					{ className: 'clearInterCode' },
+					_react2.default.createElement(_krUi.KrField, (_React$createElement2 = { right: 27, left: 42 }, _defineProperty(_React$createElement2, 'right', 42), _defineProperty(_React$createElement2, 'style', { marginTop: 5 }), _defineProperty(_React$createElement2, 'name', 'interCode'), _defineProperty(_React$createElement2, 'component', 'input'), _defineProperty(_React$createElement2, 'type', 'text'), _defineProperty(_React$createElement2, 'label', '\u4F1A\u5458\u5361\u5185\u7801'), _defineProperty(_React$createElement2, 'onFocus', this.InterCodeFocus), _defineProperty(_React$createElement2, 'onChange', this.cardChange), _React$createElement2)),
+					_react2.default.createElement('div', { className: 'x', style: this.state.clearInterCodeStyle, onClick: this.clearInterCode })
+				),
+				_react2.default.createElement(
+					_krUi.Grid,
+					{ style: { marginTop: 19, marginBottom: 5 } },
+					_react2.default.createElement(
+						_krUi.Row,
+						null,
+						_react2.default.createElement(
+							_krUi.Col,
+							{ md: 12, align: 'center' },
+							_react2.default.createElement(
+								_krUi.ButtonGroup,
+								null,
+								_react2.default.createElement(
+									'div',
+									{ className: 'ui-btn-center' },
+									_react2.default.createElement(_krUi.Button, { label: '\u786E\u5B9A', type: 'submit', joinEditForm: true })
+								),
+								_react2.default.createElement(_krUi.Button, { label: '\u53D6\u6D88', type: 'button', cancle: true, onTouchTap: this.onCancel })
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return EditDetail;
+}(_react.Component);
+
+EditDetail.propTypes = {
+	onSubmit: _react2.default.PropTypes.func,
+	onCancel: _react2.default.PropTypes.func
+};
+
+var _initialiseProps = function _initialiseProps() {
+	var _this2 = this;
+
+	this.InterCodeFocus = function (values) {
+		if (true) {
+			_this2.setState({
+				clearInterCodeStyle: {
+					display: 'block'
+				}
+			});
+		}
+	};
+
+	this.clearInterCode = function () {
+		var detail = {};
+		detail.interCode = "";
+		detail.foreignCode = _this2.props.detail.foreignCode;
+		_Redux.Store.dispatch((0, _reduxForm.initialize)('EditDetail', detail));
+		_this2.setState({
+			clearInterCodeStyle: {
+				display: 'none'
+			}
+		});
+	};
+
+	this.cardChange = function (value) {
+		var cReg = new RegExp('[\\u4E00-\\u9FFF]+', "g");
+
+		if (cReg.test(value)) {
+			_krUi.Message.error('卡内码内含有中文请切换英文输入法！');
+			return;
+		}
+	};
+};
+
+var validate = function validate(values) {
+	var foreignCode = values.foreignCode;
+	var reg = /^[0-9a-fA-F]{8}$/;
+	var errors = {};
+
+	if (!values.foreignCode) {
+		errors.foreignCode = '请输入会员卡号';
+	}
+	if (foreignCode && foreignCode.length != 10) {
+		errors.foreignCode = '请输入10位会员卡号';
+	}
+	if (isNaN(+foreignCode)) {
+		errors.foreignCode = '卡号由十位数字的卡号组成';
+	}
+	if (!values.interCode) {
+		errors.interCode = '请输入会员卡内码';
+	} else if (!reg.test(values.interCode)) {
+
+		errors.interCode = '内码为8位16进制数';
+	}
+	return errors;
+};
+var selector = (0, _reduxForm.formValueSelector)('EditDetail');
+
+exports.default = (0, _reduxForm.reduxForm)({
+	form: 'EditDetail', validate: validate
+})(EditDetail);

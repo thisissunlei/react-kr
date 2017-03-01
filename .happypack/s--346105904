@@ -1,0 +1,253 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Input = require('../Input');
+
+var _Input2 = _interopRequireDefault(_Input);
+
+var _KrDate = require('../KrDate');
+
+var _KrDate2 = _interopRequireDefault(_KrDate);
+
+var _Calendar = require('./Calendar');
+
+var _Calendar2 = _interopRequireDefault(_Calendar);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+require('./index.less');
+
+require('./animate.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+window.calendars = [];
+
+var InputDate = function (_React$Component) {
+	_inherits(InputDate, _React$Component);
+
+	_createClass(InputDate, [{
+		key: 'getChildContext',
+		value: function getChildContext() {
+			return {
+				openCalendarDialog: this.openCalendarDialog,
+				onChange: this.onChange
+			};
+		}
+	}]);
+
+	function InputDate(props) {
+		_classCallCheck(this, InputDate);
+
+		var _this2 = _possibleConstructorReturn(this, (InputDate.__proto__ || Object.getPrototypeOf(InputDate)).call(this, props));
+
+		_this2.setDefaultValue = function (value) {
+
+			if (typeof value === 'undefined' || !value) {
+				_this2.setState({
+					value: ''
+				});
+				return '';
+			}
+
+			if (!isNaN(value)) {
+				var nowTime = new Date(value);
+				var year = nowTime.getFullYear();
+				var month = nowTime.getMonth() + 1;
+				var date = nowTime.getDate();
+
+				_this2.setState({
+					value: year + '-' + month + '-' + date
+				});
+
+				return;
+			}
+
+			if (typeof value === 'string' && value.indexOf('-') !== -1) {
+				_this2.setState({
+					value: value
+				});
+				return;
+			}
+
+			if (typeof value === 'string' && value.indexOf('/') !== -1) {
+				_this2.setState({
+					value: value.replace('/', '-')
+				});
+				return;
+			}
+		};
+
+		_this2.docClick = function (event) {
+			event = event || window.event;
+			var target = event.target;
+
+			while (target) {
+				if (target && target.className && target.className.indexOf('calendar') !== -1) {
+					return;
+				}
+				target = target.parentNode;
+			}
+
+			var openCalendar = _this2.props.openCalendar;
+
+
+			_this2.closeCalendarDialog();
+		};
+
+		_this2.openCalendarDialog = function () {
+
+			_this2.setState({
+				openCalendar: !_this2.state.openCalendar
+			}, function () {
+				if (this.state.openCalendar) {
+					document.addEventListener('click', this.docClick);
+					this.closeOtherAllCalendar();
+				}
+			});
+		};
+
+		_this2.closeOtherAllCalendar = function () {
+
+			var calendars = window.calendars;
+			var _this = _this2;
+			calendars.map(function (item, index) {
+				if (item != _this) {
+					item.closeCalendarDialog();
+				}
+			});
+		};
+
+		_this2.onChange = function (value) {
+
+			var year;
+			var month;
+			var date;
+			var valueArr = [];
+
+			//校验格式
+			if (value.indexOf('-') !== -1) {
+				valueArr = value.split('-');
+			} else if (value.indexOf('/') !== -1) {
+				valueArr = value.split('/');
+			}
+
+			year = valueArr[0];
+			month = valueArr[1];
+			date = valueArr[2];
+
+			if (!year) {
+				return;
+			}
+
+			if (!date || date > 31) {
+				return;
+			}
+
+			if (!month || month < -1 || month > 12) {
+				return;
+			}
+			value = year + '-' + month + '-' + date;
+			_this2.setState({
+				value: value
+			});
+			var onChange = _this2.props.onChange;
+
+			onChange && onChange(value);
+		};
+
+		_this2.closeCalendarDialog = function () {
+			_this2.setState({
+				openCalendar: false
+			}, function () {
+				document.removeEventListener('click', this.docClick);
+			});
+		};
+
+		_this2.state = {
+			openCalendar: false,
+			value: ''
+		};
+		return _this2;
+	}
+
+	_createClass(InputDate, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			this.setDefaultValue(this.props.value);
+			window.calendars.push(this);
+		}
+	}, {
+		key: 'componentWillReceiveProps',
+		value: function componentWillReceiveProps(nextProps) {
+			if (nextProps.value != this.props.value) {
+				this.setDefaultValue(nextProps.value);
+			}
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var openCalendar = this.state.openCalendar;
+
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'ui-calendar', ref: 'calendar' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'calendar-content', onClick: this.openCalendarDialog },
+					_react2.default.createElement(
+						'div',
+						{ className: 'calendar-value' },
+						this.state.value && _react2.default.createElement(_KrDate2.default, { value: this.state.value }) || this.props.placeholder,
+						' '
+					),
+					_react2.default.createElement('span', { className: 'icon' })
+				),
+				openCalendar && _react2.default.createElement(_Calendar2.default, { onChange: this.onChange, value: this.state.value })
+			);
+		}
+	}]);
+
+	return InputDate;
+}(_react2.default.Component);
+
+InputDate.displayName = 'InputDate';
+InputDate.defaultProps = {
+	placeholder: '日期',
+	defaultValue: +new Date()
+};
+InputDate.propTypes = {
+	/**
+  *样式class类名
+  */
+	className: _react2.default.PropTypes.string,
+	/**
+  * 样式
+  */
+	style: _react2.default.PropTypes.object,
+	placeholder: _react2.default.PropTypes.string
+};
+InputDate.childContextTypes = {
+	openCalendarDialog: _react2.default.PropTypes.func.isRequired,
+	onChange: _react2.default.PropTypes.func.isRequired
+};
+exports.default = InputDate;

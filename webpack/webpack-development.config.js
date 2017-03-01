@@ -5,6 +5,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HappyPack = require('happypack');
+
+const node_modules_dir = path.join(process.cwd(),'node_modules');
+
 
 var env = process.env.NODE_ENV || 'development';
 
@@ -20,11 +24,17 @@ const config = {
 		app:path.join(process.cwd(), '/src/app.js')
 	},
 	resolve: {
-		root:path.join(process.cwd(), '/src'),
-		extensions: ['', '.js','.less'],
+		extensions: ['', '.js','.less','.png','.jpg','.svg'],
 		alias: {
 			'kr-ui': path.join(process.cwd(), '/src/Components'),
 			'kr': path.join(process.cwd(), '/src'),
+			'redux':path.join(node_modules_dir,'redux'),
+			'react-redux':path.join(node_modules_dir,'react-redux'),
+			'mobx':path.join(node_modules_dir,'mobx'),
+			'mobx-react':path.join(node_modules_dir,'mobx-react'),
+			'react-router':path.join(node_modules_dir,'react-router'),
+			'material-ui':path.join(node_modules_dir,'material-ui'),
+			'lodash':path.join(node_modules_dir,'lodash'),
 		},
 	},
 	devServer: {
@@ -53,6 +63,13 @@ const config = {
           	 manifest:require(path.resolve(buildPath,'manifest.json')),
            	 name:'lib'
         }),
+        new HappyPack({
+			 id: 'jsx',
+			 threadPool: HappyPack.ThreadPool({ size: 6 }),
+   			 loaders: [ 'babel-loader?cacheDirectory=true' ],
+   			 verbose: false
+  		}),
+
 	/*
 	 	new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
@@ -110,7 +127,7 @@ const config = {
 			{
 				test: /\.jsx?$/,
 				loaders: [
-					'babel-loader',
+					'happypack/loader?id=jsx'
 				],
 				include: [
                		 path.join(process.cwd(), './src'),

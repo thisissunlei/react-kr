@@ -1,0 +1,108 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _mobxReact = require('mobx-react');
+
+var _krUi = require('kr-ui');
+
+var _Redux = require('kr/Redux');
+
+var _PureComponents = require('kr/PureComponents');
+
+var _State = require('./State');
+
+var _State2 = _interopRequireDefault(_State);
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var RenewPrint = (0, _mobxReact.observer)(_class = function (_Component) {
+	_inherits(RenewPrint, _Component);
+
+	function RenewPrint(props, context) {
+		_classCallCheck(this, RenewPrint);
+
+		var _this = _possibleConstructorReturn(this, (RenewPrint.__proto__ || Object.getPrototypeOf(RenewPrint)).call(this, props, context));
+
+		var params = _this.context.router.params;
+
+		_State2.default.getBasicInfo(params);
+		return _this;
+	}
+
+	_createClass(RenewPrint, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			_Redux.Store.dispatch(_Redux.Actions.switchSidebarNav(false));
+			setTimeout(function () {
+				window.print();
+				window.close();
+			}, 1000);
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'print-section no-print-section' },
+				_react2.default.createElement(_krUi.Title, { value: _State2.default.baseInfo.leaseName + '-\u5165\u9A7B\u670D\u52A1\u534F\u8BAE\u8865\u5145\u534F\u8BAE(\u5EF6\u7EED)' }),
+				_react2.default.createElement(_PureComponents.Agreement.Print.Header, {
+					baseInfo: _State2.default.baseInfo,
+					orderInfo: '\u5165\u9A7B\u670D\u52A1\u534F\u8BAE\u8865\u5145\u534F\u8BAE(\u5EF6\u7EED)'
+				}),
+				_react2.default.createElement(_PureComponents.Agreement.Print.BaseInfo, { baseInfo: _State2.default.baseInfo }),
+				_react2.default.createElement(_PureComponents.Agreement.Print.Station, {
+					orderTime: false,
+					stationVOs: _State2.default.stationVOs,
+					baseInfo: _State2.default.baseInfo,
+					baseTimeBegin: true,
+					baseType: '\u5EF6\u7EED\u5165\u9A7B\u4FE1\u606F\u5982\u4E0B'
+				}),
+				_react2.default.createElement(_PureComponents.Agreement.Print.Payment, {
+					baseInfo: _State2.default.baseInfo,
+					installmentPlans: _State2.default.installmentPlans,
+					installmentPlansList: _State2.default.installmentPlansList
+				}),
+				_react2.default.createElement(
+					'div',
+					{ className: 'print-text' },
+					_react2.default.createElement(
+						'span',
+						null,
+						'\u53CC\u65B9\u5176\u4ED6\u7EA6\u5B9A\u5185\u5BB9\uFF1A'
+					),
+					_react2.default.createElement('span', { className: 'border-b one-text' }),
+					_react2.default.createElement('span', { className: 'border-b two-text' })
+				),
+				_react2.default.createElement(_PureComponents.Agreement.Print.Footer, null)
+			);
+		}
+	}]);
+
+	return RenewPrint;
+}(_react.Component)) || _class;
+
+RenewPrint.contextTypes = {
+	router: _react2.default.PropTypes.object.isRequired
+};
+exports.default = RenewPrint;

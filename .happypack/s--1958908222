@@ -1,0 +1,341 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _simpleAssign = require('simple-assign');
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _reactAddonsPureRenderMixin = require('react-addons-pure-render-mixin');
+
+var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+
+var _Redux = require('kr/Redux');
+
+var _dateformat = require('dateformat');
+
+var _dateformat2 = _interopRequireDefault(_dateformat);
+
+var _krUi = require('kr-ui');
+
+require('./index.less');
+
+var _SearchDateForm = require('./SearchDateForm');
+
+var _SearchDateForm2 = _interopRequireDefault(_SearchDateForm);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var OpenPanel = function (_Component) {
+	_inherits(OpenPanel, _Component);
+
+	function OpenPanel(props, context) {
+		_classCallCheck(this, OpenPanel);
+
+		var _this = _possibleConstructorReturn(this, (OpenPanel.__proto__ || Object.getPrototypeOf(OpenPanel)).call(this, props, context));
+
+		_this.onStartChange = function (startD) {
+			var searchParams = _this.state.searchParams;
+
+			var start = Date.parse((0, _dateformat2.default)(startD, "yyyy-mm-dd hh:MM:ss"));
+
+			var end = Date.parse((0, _dateformat2.default)(searchParams.endDate, "yyyy-mm-dd hh:MM:ss"));
+			_this.setState({
+				startValue: startD
+
+			}, function () {
+
+				if (start > end) {
+					_krUi.Message.error('开始时间不能大于结束时间');
+					return;
+				}
+				var startDate = this.state.startValue;
+				searchParams = (0, _simpleAssign2.default)({}, searchParams, { startDate: this.state.startValue, endDate: this.state.endValue || searchParams.endDate });
+				this.setState({
+					searchParams: searchParams
+				}, function () {
+					console.log(searchParams, this.state.endValue, "uuu");
+				});
+			});
+		};
+
+		_this.onEndChange = function (endD) {
+			var searchParams = _this.state.searchParams;
+
+			var start = Date.parse((0, _dateformat2.default)(searchParams.startDate, "yyyy-mm-dd hh:MM:ss"));
+			var end = Date.parse((0, _dateformat2.default)(endD, "yyyy-mm-dd hh:MM:ss"));
+			_this.setState({
+				endValue: endD
+
+			}, function () {
+
+				if (start > end) {
+					_krUi.Message.error('开始时间不能大于结束时间');
+					return;
+				}
+				var endDate = this.state.endValue;
+				searchParams = (0, _simpleAssign2.default)({}, searchParams, { startDate: this.state.startValue || searchParams.startDate, endDate: this.state.endValue });
+				this.setState({
+					searchParams: searchParams
+				}, function () {});
+			});
+		};
+
+		_this.state = {
+			searchParams: {
+				groupId: _this.props.groupId,
+				startDate: _this.props.todayDate,
+				endDate: _this.props.todayDate
+			},
+			startValue: '',
+			endValue: ''
+		};
+		return _this;
+	}
+
+	_createClass(OpenPanel, [{
+		key: 'componentWillReceiveProps',
+		value: function componentWillReceiveProps(nextProps) {
+			this.setState({
+				searchParams: {
+					groupId: nextProps.groupId,
+					startDate: this.props.todayDate,
+					endDate: this.props.todayDate
+				}
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var searchParams = this.state.searchParams;
+
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'open-back', style: { background: '#fff', marginBottom: '20' } },
+				_react2.default.createElement(
+					'div',
+					{ className: 'ui-open-info' },
+					_react2.default.createElement(
+						_krUi.Grid,
+						{ style: { height: '76' } },
+						_react2.default.createElement(
+							_krUi.Row,
+							null,
+							_react2.default.createElement(
+								_krUi.Col,
+								{ align: 'left', md: 4, style: { marginTop: '25' } },
+								_react2.default.createElement(
+									'span',
+									{ className: 'ui-pic-open' },
+									'\u62DB\u5546\u6570\u636E\u7EDF\u8BA1-'
+								),
+								_react2.default.createElement(
+									'span',
+									{ className: 'static-openCompany' },
+									'\u5DF2\u5F00\u4E1A'
+								),
+								_react2.default.createElement(
+									'span',
+									{ className: 'static-upload' },
+									'\u5B9E\u65F6\u66F4\u65B0'
+								)
+							),
+							_react2.default.createElement(
+								_krUi.Col,
+								{ align: 'right', md: 8 },
+								_react2.default.createElement(_SearchDateForm2.default, { onStartChange: this.onStartChange, onEndChange: this.onEndChange, todayDate: searchParams.startDate, todayEndDate: searchParams.endDate })
+							)
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'ui-table-wrap' },
+						_react2.default.createElement(
+							_krUi.Table,
+							{ style: { marginTop: 0 },
+								displayCheckbox: false,
+								ajax: true,
+								ajaxUrlName: 'openCompanyData',
+								ajaxFieldListName: 'list',
+								ajaxParams: this.state.searchParams
+							},
+							'}',
+							_react2.default.createElement(
+								_krUi.TableHeader,
+								null,
+								_react2.default.createElement(
+									_krUi.TableHeaderColumn,
+									null,
+									'\u57CE\u5E02'
+								),
+								_react2.default.createElement(
+									_krUi.TableHeaderColumn,
+									null,
+									'\u793E\u533A'
+								),
+								_react2.default.createElement(
+									_krUi.TableHeaderColumn,
+									null,
+									'\u603B\u5DE5\u4F4D'
+								),
+								_react2.default.createElement(
+									_krUi.TableHeaderColumn,
+									null,
+									'\u53EF\u51FA\u79DF\u5DE5\u4F4D'
+								),
+								_react2.default.createElement(
+									_krUi.TableHeaderColumn,
+									null,
+									'\u5DF2\u51FA\u79DF\u5DE5\u4F4D'
+								),
+								_react2.default.createElement(
+									_krUi.TableHeaderColumn,
+									null,
+									'\u5269\u4F59\u5DE5\u4F4D'
+								),
+								_react2.default.createElement(
+									_krUi.TableHeaderColumn,
+									null,
+									'\u51FA\u79DF\u7387'
+								),
+								_react2.default.createElement(
+									_krUi.TableHeaderColumn,
+									null,
+									'\u4E0A\u671F\u51FA\u79DF\u7387'
+								),
+								_react2.default.createElement(
+									_krUi.TableHeaderColumn,
+									null,
+									'\u51FA\u79DF\u7387\u53D8\u5316'
+								),
+								_react2.default.createElement(
+									_krUi.TableHeaderColumn,
+									{ style: { textAlign: 'center' } },
+									_react2.default.createElement(
+										'span',
+										{ style: { display: 'inline-block', lineHeight: '16px' } },
+										'\u51FA\u79DF\u7387'
+									),
+									_react2.default.createElement(
+										'span',
+										{ style: { display: 'inline-block', lineHeight: '16px' } },
+										'(\u4E0D\u542B\u610F\u5411)'
+									)
+								),
+								_react2.default.createElement(
+									_krUi.TableHeaderColumn,
+									null,
+									'\u73AF\u6BD4'
+								),
+								_react2.default.createElement(
+									_krUi.TableHeaderColumn,
+									{ style: { textAlign: 'center' } },
+									_react2.default.createElement(
+										'span',
+										{ style: { display: 'inline-block', lineHeight: '16px' } },
+										'\u65B0\u589E'
+									),
+									_react2.default.createElement(
+										'span',
+										{ style: { display: 'inline-block', lineHeight: '16px' } },
+										'\u610F\u5411\u5DE5\u4F4D'
+									)
+								),
+								_react2.default.createElement(
+									_krUi.TableHeaderColumn,
+									{ style: { textAlign: 'center' } },
+									_react2.default.createElement(
+										'span',
+										{ style: { display: 'inline-block', lineHeight: '16px' } },
+										'\u7D2F\u8BA1'
+									),
+									_react2.default.createElement(
+										'span',
+										{ style: { display: 'inline-block', lineHeight: '16px' } },
+										'\u610F\u5411\u5DE5\u4F4D'
+									)
+								),
+								_react2.default.createElement(
+									_krUi.TableHeaderColumn,
+									null,
+									'\u5E73\u5747\u5355\u4EF7'
+								)
+							),
+							_react2.default.createElement(
+								_krUi.TableBody,
+								null,
+								_react2.default.createElement(
+									_krUi.TableRow,
+									null,
+									_react2.default.createElement(_krUi.TableRowColumn, { name: 'cityName' }),
+									_react2.default.createElement(_krUi.TableRowColumn, { name: 'communityName', component: function component(value, oldValue) {
+											var maxWidth = 6;
+											if (value.length > maxWidth) {
+												value = value.substring(0, 6) + "...";
+											}
+											return _react2.default.createElement(
+												'div',
+												{ style: { paddingTop: '5px' }, className: 'tooltipParent' },
+												_react2.default.createElement(
+													'span',
+													{ className: 'tableOver' },
+													value
+												),
+												_react2.default.createElement(
+													_krUi.Tooltip,
+													{ offsetTop: 8, place: 'top' },
+													oldValue
+												)
+											);
+										} }),
+									_react2.default.createElement(_krUi.TableRowColumn, { name: 'totalStation' }),
+									_react2.default.createElement(_krUi.TableRowColumn, { name: 'unUsedStation' }),
+									_react2.default.createElement(_krUi.TableRowColumn, { name: 'usedStation' }),
+									_react2.default.createElement(_krUi.TableRowColumn, { name: 'leftStation' }),
+									_react2.default.createElement(_krUi.TableRowColumn, { name: 'rateAll' }),
+									_react2.default.createElement(_krUi.TableRowColumn, { name: 'lastRate' }),
+									_react2.default.createElement(_krUi.TableRowColumn, { name: 'rateChange' }),
+									_react2.default.createElement(_krUi.TableRowColumn, { name: 'rate' }),
+									_react2.default.createElement(_krUi.TableRowColumn, { name: 'chainRate' }),
+									_react2.default.createElement(_krUi.TableRowColumn, { name: 'newIntention' }),
+									_react2.default.createElement(_krUi.TableRowColumn, { name: 'totalIntention' }),
+									_react2.default.createElement(_krUi.TableRowColumn, { name: 'averagePrice' })
+								)
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return OpenPanel;
+}(_react.Component);
+
+OpenPanel.displayName = 'OpenPanel';
+OpenPanel.defaultProps = {
+	todayDate: '2017-1-1'
+};
+OpenPanel.propTypes = {
+	groupId: _react2.default.PropTypes.number,
+	todayDate: _react2.default.PropTypes.string
+};
+exports.default = OpenPanel;

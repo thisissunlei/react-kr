@@ -1,0 +1,286 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _mobxReact = require('mobx-react');
+
+var _jquery = require('jquery');
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+var _reduxForm = require('redux-form');
+
+var _krUi = require('kr-ui');
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SearchUpperForm = (0, _mobxReact.observer)(_class = function (_Component) {
+	_inherits(SearchUpperForm, _Component);
+
+	function SearchUpperForm(props) {
+		_classCallCheck(this, SearchUpperForm);
+
+		var _this = _possibleConstructorReturn(this, (SearchUpperForm.__proto__ || Object.getPrototypeOf(SearchUpperForm)).call(this, props));
+
+		_this.onChangeIntend = function (person) {
+			_Redux.Store.dispatch((0, _reduxForm.change)('SearchUpperForm', 'intentionCommunityId', person.value));
+		};
+
+		_this.onChangeSign = function (person) {
+			_Redux.Store.dispatch((0, _reduxForm.change)('SearchUpperForm', 'communityId', person.value));
+		};
+
+		_this.renderSigned = function () {
+			var _this$props = _this.props,
+			    flag = _this$props.flag,
+			    searchParams = _this$props.searchParams,
+			    searchSignParams = _this$props.searchSignParams;
+
+			if (searchParams) {
+				var cityList = searchParams.intentionCities;
+				var communityList = searchParams.intentionCommunities;
+				var levelList = searchParams.levelIds;
+				var sourceList = searchParams.sourceIds;
+			}
+			if (searchSignParams) {
+				var belongCity = searchSignParams.cities;
+				var belongCommunity = searchSignParams.communities;
+			}
+
+			var selectData = '';
+			if (flag == '签约') {
+				selectData = _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, right: 34, name: 'company', type: 'text', label: '\u516C\u53F8\u540D\u79F0' }),
+					_react2.default.createElement(_krUi.KrField, { right: 34, grid: 1 / 2, style: { marginLeft: -5 }, name: 'cityId', type: 'select', label: '\u7B7E\u7EA6\u57CE\u5E02',
+						options: belongCity
+					}),
+					_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, right: 34, name: 'communityId', style: { marginTop: 4 }, component: 'searchSign', label: '\u7B7E\u7EA6\u793E\u533A', inline: false, onChange: _this.onChangeSign, placeholder: '\u8BF7\u8F93\u5165\u793E\u533A\u540D\u79F0' }),
+					_react2.default.createElement(
+						_krUi.KrField,
+						{ grid: 1 / 1, component: 'group', label: '\u7B7E\u7EA6\u65F6\u95F4', style: { marginTop: 3 } },
+						_react2.default.createElement(
+							'div',
+							{ className: 'ui-listDate' },
+							_react2.default.createElement(
+								_krUi.ListGroup,
+								null,
+								_react2.default.createElement(
+									_krUi.ListGroupItem,
+									null,
+									_react2.default.createElement(
+										'div',
+										{ className: 'ui-date-start', style: { width: 260 } },
+										_react2.default.createElement(_krUi.KrField, { style: { width: 260, marginLeft: -10, marginTop: 2 }, name: 'signStartDate', component: 'date' })
+									)
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'ui-line-down' },
+									_react2.default.createElement(
+										'span',
+										{ style: { display: 'inline-block', color: '#666', fontSize: '14' } },
+										'\u81F3'
+									)
+								),
+								_react2.default.createElement(
+									_krUi.ListGroupItem,
+									null,
+									_react2.default.createElement(
+										'div',
+										{ className: 'ui-date-end' },
+										_react2.default.createElement(_krUi.KrField, { name: 'signEndDate', style: { width: 260, marginTop: 2 }, component: 'date' })
+									)
+								)
+							)
+						)
+					)
+				);
+			} else {
+				selectData = _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, right: 34, name: 'company', type: 'text', label: '\u516C\u53F8\u540D\u79F0' }),
+					_react2.default.createElement(_krUi.KrField, { right: 34, grid: 1 / 2, style: { marginLeft: -5 }, name: 'intentionCityId', type: 'select', label: '\u610F\u5411\u57CE\u5E02',
+						options: cityList
+					}),
+					_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, right: 34, name: 'intentionCommunityId', style: { marginTop: 4 }, component: 'searchIntend', label: '\u610F\u5411\u793E\u533A', inline: false, onChange: _this.onChangeIntend, placeholder: '\u8BF7\u8F93\u5165\u793E\u533A\u540D\u79F0' }),
+					_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, right: 34, style: { marginLeft: -5, marginTop: 4 }, name: 'levelId', type: 'select', label: '\u5BA2\u6237\u5206\u7C7B',
+						options: levelList
+					}),
+					_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, right: 34, name: 'sourceId', type: 'select', style: { marginTop: 4 }, label: '\u5BA2\u6237\u6765\u6E90',
+						options: sourceList
+					}),
+					_react2.default.createElement(
+						_krUi.KrField,
+						{ grid: 1 / 1, component: 'group', label: '\u521B\u5EFA\u65F6\u95F4', style: { marginTop: 3 } },
+						_react2.default.createElement(
+							'div',
+							{ className: 'ui-listDate' },
+							_react2.default.createElement(
+								_krUi.ListGroup,
+								null,
+								_react2.default.createElement(
+									_krUi.ListGroupItem,
+									null,
+									_react2.default.createElement(
+										'div',
+										{ className: 'ui-date-start', style: { width: 260 } },
+										_react2.default.createElement(_krUi.KrField, { style: { width: 260, marginLeft: -10, marginTop: 2 }, name: 'createStartDate', component: 'date' })
+									)
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'ui-line-down' },
+									_react2.default.createElement(
+										'span',
+										{ style: { display: 'inline-block', color: '#666', fontSize: '14' } },
+										'\u81F3'
+									)
+								),
+								_react2.default.createElement(
+									_krUi.ListGroupItem,
+									null,
+									_react2.default.createElement(
+										'div',
+										{ className: 'ui-date-end' },
+										_react2.default.createElement(_krUi.KrField, { name: 'createEndDate', style: { width: 260, marginTop: 2 }, component: 'date' })
+									)
+								)
+							)
+						)
+					)
+				);
+			}
+
+			return selectData;
+		};
+
+		_this.clickDiv = function (event) {
+			_this.setState({
+				dateBoxDevelop: !_this.state.dateBoxDevelop
+			});
+
+			// var tt=$('.m-merchants .dialog-body').;
+		};
+
+		_this.customerClick = function () {
+
+			_this.setState({
+				dateBoxDevelop: false
+			});
+		};
+
+		_this.onSubmit = _this.onSubmit.bind(_this);
+		_this.onCancel = _this.onCancel.bind(_this);
+		_this.state = {
+			dateBoxDevelop: false,
+			dateBoxStyle: { marginTop: 35, marginLeft: 26, height: "auto" },
+			operType: props.operType
+		};
+
+		return _this;
+	}
+
+	_createClass(SearchUpperForm, [{
+		key: 'onSubmit',
+		value: function onSubmit(values) {
+			var onSubmit = this.props.onSubmit;
+
+			onSubmit && onSubmit(values);
+		}
+	}, {
+		key: 'onCancel',
+		value: function onCancel() {
+			var onCancel = this.props.onCancel;
+
+			onCancel && onCancel();
+		}
+	}, {
+		key: 'componentDidUpdate',
+		value: function componentDidUpdate(prevProps, prevState) {
+
+			(0, _jquery2.default)('.m-merchants .dialog-body').scrollTop(558);
+
+			(0, _jquery2.default)('.m-personal .dialog-body').scrollTop(558);
+
+			(0, _jquery2.default)('.m-signed .dialog-body').scrollTop(558);
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var handleSubmit = this.props.handleSubmit;
+			var _state = this.state,
+			    dateBoxStyle = _state.dateBoxStyle,
+			    dateBoxDevelop = _state.dateBoxDevelop;
+			// if(dateBoxDevelop){
+			// 	dateBoxStyle.width="558px";
+			// }else{
+			// 	dateBoxStyle.width="auto";
+			// }
+			// console.log(dateBoxDevelop,">>>>>>")
+
+
+			return _react2.default.createElement(
+				'div',
+				{ style: dateBoxStyle, className: 'customer-searchUpper', onclick: this.customerClick },
+				_react2.default.createElement(
+					'form',
+					{ onSubmit: handleSubmit(this.onSubmit) },
+					this.renderSigned(),
+					_react2.default.createElement(
+						_krUi.Grid,
+						{ style: { marginTop: 7, marginBottom: 5, marginLeft: -24 } },
+						_react2.default.createElement(
+							_krUi.Row,
+							null,
+							_react2.default.createElement(
+								_krUi.Col,
+								{ md: 12, align: 'center' },
+								_react2.default.createElement(
+									_krUi.ButtonGroup,
+									null,
+									_react2.default.createElement(
+										'div',
+										{ className: 'ui-btn-center' },
+										_react2.default.createElement(_krUi.Button, { label: '\u786E\u5B9A', type: 'submit', joinEditForm: true })
+									),
+									_react2.default.createElement(_krUi.Button, { label: '\u53D6\u6D88', type: 'button', cancle: true, onTouchTap: this.onCancel })
+								)
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return SearchUpperForm;
+}(_react.Component)) || _class;
+
+SearchUpperForm.propTypes = {
+	onSubmit: _react2.default.PropTypes.func,
+	onCancel: _react2.default.PropTypes.func
+};
+exports.default = (0, _reduxForm.reduxForm)({ form: 'searchUpperForm', enableReinitialize: true, keepDirtyOnReinitialize: true })(SearchUpperForm);
