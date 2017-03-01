@@ -163,9 +163,9 @@ class LookCustomerList extends Component{
 
 		if(!allState.admit){
 			
-			num=50+noneTab.length*109.16;
+			num=50+(5-noneTab.length)*109.16;
 			
-			text="退租协议书"
+			text="承租意向书"
 			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
 			noneTab.unshift(
 				<Tab label="承租意向书" >
