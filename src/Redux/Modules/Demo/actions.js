@@ -26,6 +26,12 @@ export function switchBottomNav(value){
 	}
 
 }
+export function switchRightBar(value){
+	return{
+		type:'SWITCH_RIGHT_BAR',
+		data:value
+	}
+}
 
 
 

@@ -39,6 +39,10 @@ export default class CalendarInput extends React.Component {
 	componentWillReceiveProps(nextProps) {
 
 		let {year,month,date} = nextProps;
+
+		var temp = new Date(year,month,0);
+		date = (date<temp.getDate())?date:temp.getDate();
+
 		let value = year+'-'+month+'-'+date;
 
 		this.setState({
@@ -49,9 +53,10 @@ export default class CalendarInput extends React.Component {
 
 	onChange = (event)=>{
 		var value = event.target.value;
-		this.setState({
-			value
-		});
+
+		if(value.length>10){
+				return ;
+		}
 		let [year,month,date] = value.split('-');
 		const {onSetDate} = this.context;
 		//校验正确性
@@ -62,6 +67,10 @@ export default class CalendarInput extends React.Component {
 		if(date>31){
 			return ;
 		}
+		
+		this.setState({
+			value
+		});
 
 		if(year && month && date){
 			onSetDate && onSetDate(year,month,date);

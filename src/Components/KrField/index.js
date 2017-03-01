@@ -16,12 +16,17 @@ import SelectComponent from './SelectComponent';
 import TextareaComponent from './TextareaComponent';
 import FileUploadComponent from './FileUploadComponent';
 import SearchPersonelComponent from './SearchPersonelComponent';
+import SearchLeaderComponent from './SearchLeaderComponent';
+import SearchIntendCommunity from './SearchIntendCommunity';
+import SearchSignCommunity from './SearchSignCommunity';
 import SearchBelongCommunity from './SearchBelongCommunity';
 import LabelTextComponent from './LabelTextComponent';
 import GroupComponent from './GroupComponent';
 import CityComponent from './CityComponent';
+import TreeComponent from './TreeComponent';
 import SearchCompanyComponent from './SearchCompanyComponent';
 import EditLabelTextComponent from './EditLabelTextComponent';
+import GroupCheckboxComponent from './GroupCheckboxComponent';
 
 
 export default class KrField extends React.Component {
@@ -31,14 +36,14 @@ export default class KrField extends React.Component {
 		right: 0,
 	}
 
-	static PropTypes = {
+	static propTypes = {
 		type: React.PropTypes.string,
 		name: React.PropTypes.string,
 		label: React.PropTypes.string,
 		component: React.PropTypes.string,
 		disabled: React.PropTypes.bool,
 		grid: React.PropTypes.number,
-		value: React.PropTypes.string,
+		// value: React.PropTypes.string,
 		inline: React.PropTypes.bool,
 		search: React.PropTypes.bool,
 		left: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
@@ -87,6 +92,13 @@ export default class KrField extends React.Component {
 			);
 		}
 
+		if (component === 'groupCheckbox') {
+			return (
+					<Field {...this.props} component={GroupCheckboxComponent}  style={WrapStyles}/>
+			);
+		}
+
+
 		if (component === 'editLabelText' || type == 'editLabelText') {
 			return (
 				<EditLabelTextComponent {...this.props} style={WrapStyles} colorStyle={colorStyle}/>
@@ -117,6 +129,27 @@ export default class KrField extends React.Component {
 				<Field {...this.props} component={SearchBelongCommunity}  style={WrapStyles} {...other}/>
 			);
 		}
+       
+       if (component === 'searchLeader') {
+			return (
+
+				<Field {...this.props} component={SearchLeaderComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+
+		if (component === 'searchIntend') {
+			return (
+
+				<Field {...this.props} component={SearchIntendCommunity}  style={WrapStyles} {...other}/>
+			);
+		}
+
+		if (component === 'searchSign') {
+			return (
+
+				<Field {...this.props} component={SearchSignCommunity}  style={WrapStyles} {...other}/>
+			);
+		}
 
 
 
@@ -135,7 +168,14 @@ export default class KrField extends React.Component {
 
 		if (component === 'city' || type == 'city') {
 			return (
-				<CityComponent {...this.props} style={WrapStyles}/>
+				<Field {...this.props} component={CityComponent} style={WrapStyles}/>
+			);
+		}
+
+		if (component === 'tree' || type == 'tree') {
+
+			return (
+				<Field  {...this.props} component={TreeComponent}  style={WrapStyles}/>
 			);
 		}
 
@@ -172,6 +212,7 @@ export default class KrField extends React.Component {
 		}
 
 		if (!component || component === 'input') {
+
 			return (
 				<Field {...this.props} component={InputComponent}  style={WrapStyles}/>
 			);

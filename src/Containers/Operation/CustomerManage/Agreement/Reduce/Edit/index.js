@@ -154,6 +154,7 @@ export default class JoinCreate extends Component {
 				initialValues.lessorContactName = response.lessorContactName;
 				initialValues.leaseContact = response.leaseContact;
 				initialValues.leaseContacttel = response.leaseContacttel;
+        initialValues.contractVersionType = response.contractVersion;
 				initialValues.lessorContactid = response.lessorContactid;
 				// initialValues.paymodel = response.payment.id;
 				// initialValues.stationnum = response.stationnum;
@@ -214,13 +215,12 @@ export default class JoinCreate extends Component {
 			stationVos,
 			params
 		} = this.state;
-
 		return (
 
 			<div>
 		 	<BreadCrumbs children={['系统运营','客户管理','入驻协议']}/>
 			<Section title="减租协议书" description="">
-					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
+					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos} params={this.props.params}/>
 			</Section>
 		</div>
 		);

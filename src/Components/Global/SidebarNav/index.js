@@ -86,7 +86,7 @@ function wrapState(ComposedComponent) {
 				}
 				selectedItemStyle = {
 					{
-						backgroundColor: '#328ECC',
+						backgroundColor: '#394457',
 						color: '#fff'
 					}
 				} > {
@@ -113,6 +113,9 @@ export default class SidebarNav extends Component {
 
 	renderMenuItem(item, index, parentIndex) {
 
+		if(!item.permission){
+			return null;
+		}
 
 		let {
 			current_router,
@@ -122,10 +125,12 @@ export default class SidebarNav extends Component {
 		let initiallyOpen = false;
 		let parentStyles = {
 			fontSize: '16px',
-			marginTop: '0px',
+			marginTop: '-8px',
 			marginLeft: '-20px',
 			width: "180px",
-			color: '#999'
+			color: '#79859a',
+			paddingBottom: '3px',
+			paddingTop: '22px'
 		};
 
 
@@ -144,25 +149,26 @@ export default class SidebarNav extends Component {
 		childStyles.color = '#333';
 		childStyles.paddingLeft = "20px";
 		childStyles.width = "180px";
-
+		childStyles.lineHeight = "16px";
 		var isSelected = false;
 
 		isSelected = item.active;
 
 		if (isSelected) {
-			childStyles.backgroundColor = '#328ECC';
+			childStyles.backgroundColor = '#283243';
 			childStyles.color = '#fff';
 		} else {
-			childStyles.backgroundColor = '#fff';
+			childStyles.backgroundColor = '#394457';
+			childStyles.color = '#c8d2d9';
 		}
-/*
-		if (item.router === current_router) {
-			childStyles.backgroundColor = '#328ECC';
-			childStyles.color = '#fff';
-		} else {
-			childStyles.backgroundColor = '#fff';
-		}
-		*/
+		/*
+				if (item.router === current_router) {
+					childStyles.backgroundColor = '#328ECC';
+					childStyles.color = '#fff';
+				} else {
+					childStyles.backgroundColor = '#fff';
+				}
+				*/
 
 		if (item.menuItems && item.menuItems.length) {
 			return (
@@ -178,7 +184,7 @@ export default class SidebarNav extends Component {
 					autoGenerateNestedIndicator={false}
 					disabled={true}
 
-					leftIcon={<FontIcon  className={item.iconName} color={item.iconColor} style={{fontSize:18,position: 'absolute',margin:'15px 0 0 44px' }}/>
+					leftIcon={<FontIcon  className={item.iconName} color={item.iconColor} style={{fontSize:18,position: 'absolute',margin:'22px 0 0 39px' }}/>
 			}
 
 			nestedItems = {
@@ -215,27 +221,14 @@ render() {
 		width: 120,
 	};
 
+	console.log('items',this.props.items)
 
 	return (
 
-		<div>
-						<SelectableList defaultValue={1000} >
-				{/*
-
-						  <ListItem
-							value={1}
-							primaryText="Brendan Lim"
-							nestedItems={[
-							  <ListItem
-								value={2}
-								primaryText="Grace Ng"
-							  />,
-							]}
-						  />
-				*/}
-
-					{this.props.items.map((item,index)=>this.renderMenuItem(item,index))}
-						</SelectableList>
+		<div >
+			<SelectableList defaultValue={1000} >
+		{this.props.items.map((item,index)=>this.renderMenuItem(item,index))}
+			</SelectableList>
 			</div>
 	);
 

@@ -49,10 +49,14 @@ class EditDetail extends Component {
 			}
 		}
 		const detail=props.detail;
+		console.log(detail,">>>>>>")
 		Store.dispatch(initialize('EditDetail',detail));
 	}
 
 	onSubmit(values) {
+		var oldInterCode=this.props.detail.interCode;
+		console.log("99",oldInterCode)
+
 		if (navigator.onLine) 
 		{ //正常工作
 		} 
@@ -60,6 +64,7 @@ class EditDetail extends Component {
 		 		Message.error("网络已断开")
 		 		return;
 		} 
+		
 		const {
 			onSubmit
 		} = this.props;
@@ -112,7 +117,7 @@ class EditDetail extends Component {
 
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:0}}>
-				<KrField  right={27} style={{}} left={42} right={42} name="foreignCode" component="labelText" label="会员卡号" value={this.state.detail.foreignCode} inline={false} />
+				<KrField  right={27}  left={42} right={42} name="foreignCode" component="labelText" label="会员卡号" value={this.state.detail.foreignCode} inline={false} />
 				<div className="clearInterCode">
 					<KrField  right={27}  left={42} right={42} style={{marginTop:5}} name="interCode" component="input" type="text" label="会员卡内码" onFocus={this.InterCodeFocus} onChange={this.cardChange} />
 					<div className="x" style={this.state.clearInterCodeStyle} onClick={this.clearInterCode}></div>

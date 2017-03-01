@@ -35,7 +35,7 @@ import Schedule from './Schedule';
 import FloorPlan from './FloorPlan';
 import $ from 'jquery';
 import './index.less'
-export default class CommunityManage extends Component {
+class CommunityManage extends Component {
 	static childContextTypes = {
 		onSetCommunity: React.PropTypes.func.isRequired,
 		communityId: React.PropTypes.string.isRequired,
@@ -81,6 +81,7 @@ export default class CommunityManage extends Component {
 	}
 
 	planTable() {
+		// Store.dispatch(Actions.switchRightBar(false));
 		let {
 			tab
 		} = this.state;
@@ -89,6 +90,9 @@ export default class CommunityManage extends Component {
 		this.setState({
 			tab
 		});
+	}
+	hiddenRight=()=>{
+		Store.dispatch(Actions.switchRightBar(false));
 	}
 
 
@@ -106,6 +110,7 @@ export default class CommunityManage extends Component {
 			color: '#000',
 			borderBottom: "1px solid #eee"
 		}
+		console.log('=======>props',this.props);
 		let tableStyle = (tab == 'table') ? activeTab : commenTab;
 		let planStyle = (tab == 'floorplan') ? activeTab : commenTab;
 		const inkBarStyle = {
@@ -119,11 +124,12 @@ export default class CommunityManage extends Component {
 		return (
 
 			<div className="tab-container" style={{minHeight:910}}>
-			<Title value="计划表_社区经营"/>
-		 	<BreadCrumbs children={['系统运营','社区管理','计划表']}/>
+			{this.props.changeValues && <div className="hidden-div" onClick={this.hiddenRight}></div>}
+			<Title value="销控表_社区经营"/>
+		 	<BreadCrumbs children={['系统运营','社区管理','销控表']}/>
 				<span className="line"></span>
 				 <Tabs className="tabs">
-					<Tab label="计划表" onActive={this.planTable} style={tableStyle}>
+					<Tab label="销控表" onActive={this.planTable} style={tableStyle}>
 						<Schedule tab={tab}/>
 
 					</Tab>
@@ -141,3 +147,17 @@ export default class CommunityManage extends Component {
 		);
 	}
 }
+export default connect((state) => {
+
+	let changeValues = {};
+
+	// changeValues.lessorId = selector(state, 'tab');
+	// changeValues.openRight = state.tab;
+	changeValues = state.right_bar.switch_value || false;
+	
+	console.log(state);
+	return {
+		changeValues
+	}
+
+})(CommunityManage);

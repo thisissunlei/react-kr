@@ -73,12 +73,10 @@ export default  class Input extends React.Component {
 			if (maxLength) {
 					value = value.slice(0,maxLength);
 			}
-
+            
 			this.setState({
 				value
 			});
-
-
 			onChange && onChange(value);
 
 		let message = this.onValidate(value);

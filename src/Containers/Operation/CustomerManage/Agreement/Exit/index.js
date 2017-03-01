@@ -5,8 +5,5 @@ import Detail from './Detail';
 module.exports = {
 	Detail,
 	Edit,
-	Create
+	Create,
 }
-
-
-

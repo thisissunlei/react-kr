@@ -1,4 +1,5 @@
 //Components
+import PlanMap from './PlanMap';
 import Calendar from './Calendar';
 import Dialog from './Dialog';
 import DotTitle from './DotTitle';
@@ -34,15 +35,13 @@ import KrDate from './KrDate';
 import PaperBack from './PaperBack';
 import Title from './Title';
 import Input from './Input';
-import Alert from './Alert';
 import CheckboxGroup from './CheckboxGroup';
 import RadioGroup from './RadioGroup';
 import Message from './Message';
 import DemoComponent from './Demo';
 import Textarea from './Textarea';
-
 import CircleStyle from './CircleStyle';
-
+import UpLoadList from './UpLoadList';
 import 	DatePicker from './DatePicker';
 import 	Tooltip from './Tooltip';
 import 	Tooltips from './Tooltips';
@@ -50,6 +49,7 @@ import 	KrForm from './KrForm';
 import 	InputDate from './InputDate';
 import  SnackTip from './SnackTip';
 import Dictionary from './Dictionary';
+
 
 
 import {
@@ -75,6 +75,7 @@ import {
 
 module.exports = {
 	//Components
+	PlanMap,
 	Dictionary,
 	FontIcon,
 	Paper,
@@ -110,7 +111,6 @@ module.exports = {
 	KrDate,
 	Title,
 	Input,
-	Alert,
 	CheckboxGroup,
 	RadioGroup,
 	Message,
@@ -134,10 +134,10 @@ module.exports = {
 	Tab,
 	SearchForms,
 	...Tabs,
+	UpLoadList,
 	PageHeader,
 	CircleStyle,
 	SearchForm,
 	Tooltips,
 	Tooltip
 }
-

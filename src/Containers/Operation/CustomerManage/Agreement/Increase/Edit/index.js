@@ -130,6 +130,7 @@ export default class JoinCreate extends Component {
 			Store.dispatch(Actions.callAPI('show-checkin-agreement', {
 				id: params.id
 			})).then(function(response) {
+				console.log('response',response);
 
 
 				optionValues.lessorContactName = response.lessorContactName;
@@ -139,7 +140,7 @@ export default class JoinCreate extends Component {
 				initialValues.id = response.id;
 				initialValues.leaseId = response.leaseId;
 				initialValues.contractcode = response.contractcode;
-
+				initialValues.contractVersionType = response.contractVersion;
 
 				initialValues.lessorContactid = response.lessorContactid;
 				initialValues.lessorContactName = response.lessorContactName;
