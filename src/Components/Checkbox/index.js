@@ -64,7 +64,7 @@ export default class KrCheckbox extends Component {
 
 		let {
 			checked
-		} = this.state;
+		} = this.props;
 		let {
 			label,
 			style,
