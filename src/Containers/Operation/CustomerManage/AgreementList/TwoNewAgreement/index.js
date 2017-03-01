@@ -87,7 +87,9 @@ class LookCustomerList extends Component{
 
 
 		if(!allState.increase){
-            num=50+(5-noneTab.length)*109.16;
+
+			num=50+(5-noneTab.length)*109.16;
+			
 			text="增租协议书"
 			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
 			noneTab.unshift(
@@ -105,6 +107,7 @@ class LookCustomerList extends Component{
 
 		if(!allState.reduce){
 			num=50+(5-noneTab.length)*109.16;
+			
 			text="减租协议书"
 			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
 			noneTab.unshift(
@@ -122,6 +125,7 @@ class LookCustomerList extends Component{
 
 		if(!allState.relet){
 			num=50+(5-noneTab.length)*109.16;
+			
 			text="续租协议书"
 			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
 			noneTab.unshift(
@@ -140,56 +144,41 @@ class LookCustomerList extends Component{
 		}
 		if(!allState.returnRent){
 			num=50+(5-noneTab.length)*109.16;
-			text="退租协议书"
-			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
-			noneTab.unshift(
-				<Tab label="退租协议书" >
-					<Exit params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
-				</Tab>
-			)
-		}else{
-			showTab.push(
-				<Tab label="退租协议书" >
-					<Exit params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
-				</Tab>
-			);
-
-		}	                       
-		
-		if(!allState.returnRent){		
- 	
-			num=50+noneTab.length*109.16;
- 	
 			
- 	
 			text="退租协议书"
- 	
 			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
- 	
 			noneTab.unshift(
- 	
-				<Tab label="承租意向书" >
- 	
-					<Admit params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
-	
+				<Tab label="退租协议书" >
+					<Exit params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
-	
 			)
- 	
 		}else{
- 	
 			showTab.push(
- 	
-				<Tab label="承租意向书" >
- 	
-			<Admit params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
- 	
+				<Tab label="退租协议书" >
+					<Exit params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
 				</Tab>
-	
 			);
- 	
 
- 	
+		}	
+
+		if(!allState.admit){
+			
+			num=50+noneTab.length*109.16;
+			
+			text="退租协议书"
+			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
+			noneTab.unshift(
+				<Tab label="承租意向书" >
+					<Admit params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+				</Tab>
+			)
+		}else{
+			showTab.push(
+				<Tab label="承租意向书" >
+					<Admit params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+				</Tab>
+			);
+
 		}	         
 
 		return(

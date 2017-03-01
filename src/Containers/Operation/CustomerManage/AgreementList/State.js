@@ -43,7 +43,8 @@ let State = observable({
 		mainBillId:'',
 		//合同id
 		agreementId:'',
-
+		//承租意向书是否可创建
+		admit:true,
 		//入驻合同是否可创建	
 		enter:true,
 		//增租合同是否可创建	

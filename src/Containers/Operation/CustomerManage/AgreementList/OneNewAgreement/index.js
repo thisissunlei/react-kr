@@ -57,7 +57,10 @@ import newIndentState from "../NewIndent/State";
 			
 	    var _this = this;
 		Store.dispatch(Actions.callAPI('contracts-creation', {mainBillId:allState.mainBillId})).then(function(response) {
+		//承租意向
+		allState.admit=response.intention;
 		//入驻合同是否可创建	
+
 		// allState.enter=true;
 		allState.enter=response.enter;
 		//增租合同是否可创建
