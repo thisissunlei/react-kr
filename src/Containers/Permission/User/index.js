@@ -34,7 +34,8 @@ import {
 	ListGroupItem,
 	ListGroup,
 	Dialog,
-	SearchForms
+	SearchForms,
+	KrDate
 } from 'kr-ui';
 import './index.less';
 class SearchForm extends Component {
@@ -159,14 +160,14 @@ class Operations extends Component {
 		} = this.state;
 		return (
 			<div className="g-operation">
-				<Section title="操作项" >
+				<Section title="角色列表" >
 					<SearchForm  /> {/*onSubmit={this.onSubmit} Ids={communityids} onChange={this.onChange} onFilter={this.onFilter}*/}
 	        		<Table
 							style={{marginTop:10}}
 							displayCheckbox={false}
 							onLoaded={this.onLoaded}
 							ajax={true}
-							ajaxUrlName='findPage'
+							ajaxUrlName='UserfindPage'
 							ajaxParams={this.state.searchParams}
 							onOperation={this.onOperation}
 							  >
@@ -183,7 +184,11 @@ class Operations extends Component {
 							<TableRowColumn name="code"></TableRowColumn>
 							<TableRowColumn name="name" ></TableRowColumn>
 							<TableRowColumn name="creater"></TableRowColumn>
-							<TableRowColumn name="createTime"></TableRowColumn>
+							<TableRowColumn name="createTime" type="date" component={(value)=>{
+								return (
+									<KrDate value={value} />
+								)
+							}}></TableRowColumn>
 							<TableRowColumn>
 									<Button label="编辑" onTouchTap=''  type="operation" operation="edit"/>
 									<Button label="删除"  type="operation" operation="delete"/>

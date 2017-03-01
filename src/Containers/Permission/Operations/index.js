@@ -34,7 +34,8 @@ import {
 	ListGroupItem,
 	ListGroup,
 	Dialog,
-	SearchForms
+	SearchForms,
+	KrDate,
 } from 'kr-ui';
 import './index.less';
 import Deletedialog from './Deletedialog';
@@ -196,7 +197,11 @@ class Operations extends Component {
 							<TableRowColumn name="code"></TableRowColumn>
 							<TableRowColumn name="creater"></TableRowColumn>
 							<TableRowColumn name="moduleName"></TableRowColumn>
-							<TableRowColumn name="createTime"></TableRowColumn>
+							<TableRowColumn type="date" name="createTime" component={(value)=>{
+								return (
+									<KrDate value={value} />
+								)
+							}}> </TableRowColumn>
 							<TableRowColumn>
 									<Button label="编辑" onTouchTap=''  type="operation" operation="edit"/>
 									<Button label="删除"  type="operation" operation="delete"/>

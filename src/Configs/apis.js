@@ -834,69 +834,74 @@ const APIS = {
     method: 'get'
   },
   //权限--登录
-  'loginSubmit':{
-    url:'http://sso.krspace.cn/api/krspace-sso-web/sso/login/loginSubmit',
-    method:'post'
+  'loginSubmit': {
+    url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/login/loginSubmit',
+    method: 'post'
   },
   //权限--手机获取验证码
-  'getVcodeByPhone':{
-    url:'http://sso.krspace.cn/api/krspace-sso-web/sso/login/getVcodeByPhone?mobile={mobile}',
-    method:'get'
+  'getVcodeByPhone': {
+    url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/login/getVcodeByPhone?mobile={mobile}',
+    method: 'get'
   },
   //权限--邮箱获取验证码
-  'getVcodeByMail':{
-    url:'http://sso.krspace.cn/api/krspace-sso-web/sso/login/getVcodeByMail?email={email}',
-    method:'get'
+  'getVcodeByMail': {
+    url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/login/getVcodeByMail?email={email}',
+    method: 'get'
   },
   //权限--提交手机验证码
-  'validPhoneCode':{
-    url:'http://sso.krspace.cn/api/krspace-sso-web/sso/login/validPhoneCode',
-    method:'post'
+  'validPhoneCode': {
+    url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/login/validPhoneCode',
+    method: 'post'
   },
   //权限--提交邮箱验证码
-  'validEmailCode':{
-    url:'http://sso.krspace.cn/api/krspace-sso-web/sso/login/validEmailCode',
-    method:'post'
+  'validEmailCode': {
+    url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/login/validEmailCode',
+    method: 'post'
   },
   //权限--提交新密码
-  'setNewPwd':{
-    url:'http://sso.krspace.cn/api/krspace-sso-web/sso/login/setNewPwd',
-    method:'post'
+  'setNewPwd': {
+    url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/login/setNewPwd',
+    method: 'post'
   },
   //权限--账户列表--获取账户列表
-  'getSsoUserList':{
-    url:'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/getSsoUserList?accountName={accountName}&email={email}&mobilePhone={mobilePhone}&realName={realName}&page={page}&pageSize={pageSize}&accountStatus={accountStatus}',
-    method:'get'
+  'getSsoUserList': {
+    url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/getSsoUserList?accountName={accountName}&email={email}&mobilePhone={mobilePhone}&realName={realName}&page={page}&pageSize={pageSize}&accountStatus={accountStatus}',
+    method: 'get'
   },
   //权限--账户列表--获取数据权限
-  'findRoleData':{
-    url:'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/findRoleData?id={id}',
-    method:'get'
+  'findRoleData': {
+    url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/findRoleData?id={id}',
+    method: 'get'
   },
   //权限--账户列表--删除
-  'delSsoUser':{
-    url:'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/delSsoUser?id={id}',
-    method:'delete'
+  'delSsoUser': {
+    url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/delSsoUser?id={id}',
+    method: 'delete'
   },
   //权限--账户列表--加锁
-  'lockAccount':{
-    url:'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/lockAccount',
-    method:'post'
+  'lockAccount': {
+    url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/lockAccount',
+    method: 'post'
   },
   //权限--账户列表--解锁
-  'unlockAccount':{
-    url:'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/unlockAccount',
-    method:'post'
+  'unlockAccount': {
+    url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/unlockAccount',
+    method: 'post'
   },
   //权限--账户列表--重置密码
-  'resetPassword':{
-    url:'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/resetPassword',
-    method:'post'
+  'resetPassword': {
+    url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/resetPassword',
+    method: 'post'
   },
   //权限--账户列表--编辑登录账户
-  'editSsoUser':{
-    url:'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/editSsoUser',
-    method:'post'
+  'editSsoUser': {
+    url: 'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/editSsoUser',
+    method: 'post'
+  },
+  //权限--角色列表--获取角色列表
+  'UserfindPage': {
+    url: '/api/krspace-sso-web/sso/role/findPage?page={page}&pageSize={pageSize}',
+    method: 'get'
   },
 }
 
