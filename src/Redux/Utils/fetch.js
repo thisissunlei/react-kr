@@ -1,4 +1,4 @@
- import Promise from 'promise-polyfill';
+import Promise from 'promise-polyfill';
 import fetch from 'isomorphic-fetch';
 import URLSearchParams from 'url-search-params';
 import { browserHistory } from 'react-router';
@@ -13,7 +13,10 @@ function getUrl(path, params = {},mode = false) {
 
     let server = '';
 
-	if(env ==='development'){
+
+	if(env ==='test'){
+		server = 'http://optest.krspace.cn';
+	}if(env ==='development'){
 		server = 'http://optest.krspace.cn';
 	}else if(env ==='test01'){
 		server = 'http://optest01.krspace.cn';
@@ -21,8 +24,7 @@ function getUrl(path, params = {},mode = false) {
 		server = 'http://optest02.krspace.cn';
 	}else {
 		server = '';
-  }
-
+  	}
 
 
 
@@ -31,19 +33,25 @@ function getUrl(path, params = {},mode = false) {
         return path;
     }
     */
+    //本地联调接口
+    // let url = APIS[path].url;
+    // if(url.indexOf('apixr')){
+    // 	server = ''
+    // }
+
 
     var url = APIS[path].url;
 
-    if(url.indexOf('http') !== -1){
-         server = '';
+    if(url.indexOf('mockjsdata') !==-1){
+    	server='';
     }
-
     try {
-        server += url;
+        server += APIS[path].url;
     } catch(err) {
         console.error(`${path} not defined in apis.js`);
         return false;
     }
+
 
     if(Object.keys(params).length){
         for (let item in params) {

@@ -1,16 +1,45 @@
-import { default as Home } from './Home';
-import { default as Basic } from './Basic';
-import { default as Notify } from './Notify';
-import { default as Collect } from './Collect';
-import { default as Todo } from './Todo';
-import { default as Memo } from './Memo';
-import { default as Docs } from './Docs';
-import { default as Order } from './Order';
-import { default as CompanyInstitution } from './CompanyInstitution';
-import { default as SNSActivity } from './SNSActivity';
-import { default as PersonalCenter } from './PersonalCenter';
-import { default as Login } from './Login';
-import { default as AccountList } from './AccountList';
+import {
+	default as Home
+} from './Home';
+import {
+	default as Basic
+} from './Basic';
+import {
+	default as Notify
+} from './Notify';
+import {
+	default as Collect
+} from './Collect';
+import {
+	default as Todo
+} from './Todo';
+import {
+	default as Memo
+} from './Memo';
+import {
+	default as Docs
+} from './Docs';
+import {
+	default as Order
+} from './Order';
+import {
+	default as CompanyInstitution
+} from './CompanyInstitution';
+import {
+	default as SNSActivity
+} from './SNSActivity';
+import {
+	default as PersonalCenter
+} from './PersonalCenter';
+import {
+	default as Login
+} from './Login';
+import {
+	default as AccountList
+} from './AccountList';
+import {
+	default as Operations
+} from './Operations';
 
 module.exports = {
 	Home,
@@ -26,4 +55,5 @@ module.exports = {
 	Order,
 	PersonalCenter,
 	AccountList,
+	Operations
 }
