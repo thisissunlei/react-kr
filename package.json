@@ -48,6 +48,7 @@
     "fbjs": "0.8.5",
     "fetch-sync": "2.0.0",
     "file-loader": "0.8.5",
+    "happypack": "^3.0.3",
     "history": "2.0.0",
     "html-webpack-plugin": "2.22.0",
     "immutable": "3.8.1",
