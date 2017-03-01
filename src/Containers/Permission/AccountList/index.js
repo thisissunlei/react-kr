@@ -113,6 +113,12 @@ class AccountList  extends Component{
 			}).catch(function(err) {
 				Message.error(err.message);
 			});
+		} else if (type=='reset') {
+			Store.dispatch(Actions.callAPI('resetPassword',{},{id:itemDetail.id})).then(function(response) {
+				Message.success('重置成功')
+			}).catch(function(err) {
+				Message.error(err.message);
+			});
 		}
 	}
 	onNewCreateSubmit(searchParams) {
@@ -302,7 +308,7 @@ class AccountList  extends Component{
 
 							<TableRowColumn>
 									<Button label="修改" onTouchTap={this.openNewCreate}  type="operation" operation="view"/>
-								  <Button label="重置密码"  type="operation" operation="view"/>
+								  <Button label="重置密码"  type="operation" operation="reset"/>
 									<Button label="加锁"  type="operation" operation="view"/>
 									<Button label="删除"  type="operation" operation="dele"/>
 									<Button label="数据" onTouchTap={this.openDataPermission} type="operation" operation="data"/>

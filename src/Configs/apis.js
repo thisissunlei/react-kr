@@ -367,6 +367,11 @@ const APIS = {
   url:'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/resetPassword',
   method:'post'
 },
+//权限--账户列表--编辑登录账户
+'editSsoUser':{
+  url:'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/editSsoUser',
+  method:'post'
+},
 //新建编辑会员的准备数据
   'getMemberBasicData':{
   	url:'/api/krspace-finance-web/member/member-add-edit?companyId={companyId}&memberId={memberId}&communityId={communityId}',
