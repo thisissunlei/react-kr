@@ -1,0 +1,113 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SnackTip = function (_Component) {
+	_inherits(SnackTip, _Component);
+
+	function SnackTip(props) {
+		_classCallCheck(this, SnackTip);
+
+		return _possibleConstructorReturn(this, (SnackTip.__proto__ || Object.getPrototypeOf(SnackTip)).call(this, props));
+	}
+
+	_createClass(SnackTip, [{
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    title = _props.title,
+			    style = _props.style,
+			    children = _props.children,
+			    open = _props.open,
+			    titleAfter = _props.titleAfter,
+			    onClose = _props.onClose,
+			    other = _objectWithoutProperties(_props, ['title', 'style', 'children', 'open', 'titleAfter', 'onClose']);
+
+			var className = 'snackTap';
+
+			var titleAfterStyle = {
+				color: '#265e97',
+				fontSize: '16px',
+				marginLeft: '10px',
+				display: "inline-block"
+			};
+			var zIndex = {
+				zIndex: this.props.zIndex || 10
+
+			};
+
+			if (!open) {
+				className = 'none';
+			}
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'ui-snackTap', style: zIndex },
+				_react2.default.createElement(
+					'div',
+					{ className: className, style: style, onClick: onClose },
+					_react2.default.createElement(
+						'span',
+						null,
+						title
+					),
+					_react2.default.createElement(
+						'span',
+						{ style: titleAfterStyle },
+						titleAfter
+					)
+				)
+			);
+		}
+	}]);
+
+	return SnackTip;
+}(_react.Component);
+
+SnackTip.displayName = 'SnackTip';
+SnackTip.propTypes = {
+	/**
+ *标题
+ */
+	title: _react2.default.PropTypes.any,
+	titleAfter: _react2.default.PropTypes.string,
+	/**
+ *样式
+ */
+	style: _react2.default.PropTypes.object,
+	onClose: _react2.default.PropTypes.func,
+	open: _react2.default.PropTypes.bool
+};
+exports.default = SnackTip;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(SnackTip, 'SnackTip', '/Users/smile/Documents/kr-admin/src/Components/SnackTip/index.js');
+}();
+
+;

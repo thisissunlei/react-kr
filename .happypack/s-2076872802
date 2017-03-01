@@ -1,0 +1,87 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _redux = require('redux');
+
+var _Redux = require('kr/Redux');
+
+var _Actions = require('kr-ui/../Redux/Actions');
+
+var actionCreators = _interopRequireWildcard(_Actions);
+
+require('./index.less');
+
+var _krUi = require('kr-ui');
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var BasicInfo = function (_Component) {
+	_inherits(BasicInfo, _Component);
+
+	function BasicInfo(props, context) {
+		_classCallCheck(this, BasicInfo);
+
+		return _possibleConstructorReturn(this, (BasicInfo.__proto__ || Object.getPrototypeOf(BasicInfo)).call(this, props, context));
+	}
+
+	_createClass(BasicInfo, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {}
+	}, {
+		key: 'render',
+		value: function render() {
+			var detail = this.props.detail;
+
+			var workInfo = detail;
+			return _react2.default.createElement(
+				'div',
+				{ className: 'personJob-detail-order' },
+				_react2.default.createElement(_krUi.KrField, { grid: 1 / 3, alignRight: true, label: '\u804C\u4F4D:', component: 'labelText', value: workInfo.jobName, defaultValue: '\u65E0', style: { marginRight: '20px' } }),
+				_react2.default.createElement(_krUi.KrField, { grid: 1 / 3, alignRight: true, component: 'labelText', label: '\u793E\u533A:', value: workInfo.communityName, defaultValue: '\u65E0' }),
+				_react2.default.createElement(_krUi.KrField, { grid: 1 / 3, alignRight: true, label: '\u516C\u53F8:', component: 'labelText', value: workInfo.customerCompany, defaultValue: '\u65E0', style: { marginLeft: '-20px' } }),
+				_react2.default.createElement(_krUi.KrField, { grid: 1 / 3, alignRight: true, label: '\u5165\u804C\u65F6\u95F4:', component: 'labelText', type: 'date', value: workInfo.entryTime, defaultValue: '\u65E0', style: { marginRight: '20px' } }),
+				_react2.default.createElement(_krUi.KrField, { grid: 1 / 3, alignRight: true, label: '\u5DE5\u4F5C\u5730\u70B9:', component: 'labelText', value: workInfo.cityName, defaultValue: '\u65E0' })
+			);
+		}
+	}]);
+
+	return BasicInfo;
+}(_react.Component);
+
+BasicInfo.contextTypes = {
+	router: _react2.default.PropTypes.object.isRequired
+};
+BasicInfo.defaultProps = {};
+BasicInfo.PropTypes = {};
+exports.default = BasicInfo;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(BasicInfo, 'BasicInfo', '/Users/smile/Documents/kr-admin/src/Containers/Member/MemberManage/Detail/PersonalJob/index.js');
+}();
+
+;

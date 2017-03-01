@@ -1,0 +1,192 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reduxForm = require('redux-form');
+
+var _Redux = require('kr/Redux');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FormComponent = function (_React$Component) {
+	_inherits(FormComponent, _React$Component);
+
+	function FormComponent(props, context) {
+		_classCallCheck(this, FormComponent);
+
+		var _this = _possibleConstructorReturn(this, (FormComponent.__proto__ || Object.getPrototypeOf(FormComponent)).call(this, props, context));
+
+		_this.onSubmit = _this.onSubmit.bind(_this);
+		return _this;
+	}
+
+	_createClass(FormComponent, [{
+		key: 'onSubmit',
+		value: function onSubmit(values) {
+			var onSubmit = this.props.onSubmit;
+
+			onSubmit && onSubmit(values);
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    children = _props.children,
+			    error = _props.error,
+			    handleSubmit = _props.handleSubmit,
+			    pristine = _props.pristine,
+			    reset = _props.reset,
+			    submitting = _props.submitting;
+
+
+			return _react2.default.createElement(
+				'form',
+				{ onSubmit: handleSubmit(this.onSubmit) },
+				children
+			);
+		}
+	}]);
+
+	return FormComponent;
+}(_react2.default.Component);
+
+FormComponent.propTypes = {
+	onSubmit: _react2.default.PropTypes.func,
+	name: _react2.default.PropTypes.string
+};
+
+var Form = function (_React$Component2) {
+	_inherits(Form, _React$Component2);
+
+	function Form(props, context) {
+		_classCallCheck(this, Form);
+
+		var _this2 = _possibleConstructorReturn(this, (Form.__proto__ || Object.getPrototypeOf(Form)).call(this, props, context));
+
+		_this2.onSubmit = _this2.onSubmit.bind(_this2);
+		_this2.onValidate = _this2.onValidate.bind(_this2);
+		return _this2;
+	}
+
+	_createClass(Form, [{
+		key: 'onSubmit',
+		value: function onSubmit(values) {
+			var onSubmit = this.props.onSubmit;
+
+			onSubmit && onSubmit(values);
+		}
+	}, {
+		key: 'onValidate',
+		value: function onValidate(values) {
+			var errors = {};
+			var validations = this.props.validations;
+
+
+			if (!validations) {
+				return errors;
+			}
+
+			var validateInfo = {};
+
+			for (var item in validations) {
+				if (validations.hasOwnProperty(item)) {
+
+					validateInfo = validations[item];
+					var val = values[item];
+
+					//require
+					if (validateInfo.hasOwnProperty('required') && !val) {
+						errors[item] = validateInfo['required'].message;
+						return errors;
+					}
+
+					//minLength
+					if (validateInfo.hasOwnProperty('minLength')) {
+						var minLength = validateInfo['minLength'].value;
+						if (parseInt(val.length) < parseInt(minLength)) {
+							errors[item] = validateInfo['minLength'].message;
+							return errors;
+						}
+					}
+
+					//maxLength
+					if (validateInfo.hasOwnProperty('maxLength')) {
+						var maxLength = validateInfo['maxLength'].value;
+						if (parseInt(val.length) > parseInt(maxLength)) {
+							errors[item] = validateInfo['maxLength'].message;
+							return errors;
+						}
+					}
+				}
+			}
+
+			return errors;
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _props2 = this.props,
+			    children = _props2.children,
+			    initialValues = _props2.initialValues,
+			    name = _props2.name;
+
+
+			FormComponent = (0, _reduxForm.reduxForm)({
+				form: name,
+				shouldAsyncValidate: function shouldAsyncValidate() {
+					return false;
+				},
+				enableReinitialize: true,
+				keepDirtyOnReinitialize: true,
+				initialValues: initialValues,
+				validate: this.onValidate
+			})(FormComponent);
+
+			return _react2.default.createElement(
+				FormComponent,
+				_extends({ onSubmit: this.onSubmit }, this.props),
+				children
+			);
+		}
+	}]);
+
+	return Form;
+}(_react2.default.Component);
+
+Form.PropTypes = {
+	name: _react2.default.PropTypes.string,
+	initialValues: _react2.default.PropTypes.object,
+	onSubmit: _react2.default.PropTypes.func,
+	validations: _react2.default.PropTypes.object
+};
+exports.default = Form;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(FormComponent, 'FormComponent', '/Users/smile/Documents/kr-admin/src/Components/Form/Form/index.js');
+
+	__REACT_HOT_LOADER__.register(Form, 'Form', '/Users/smile/Documents/kr-admin/src/Components/Form/Form/index.js');
+}();
+
+;

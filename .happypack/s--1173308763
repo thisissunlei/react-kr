@@ -1,0 +1,187 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _Utils = require('kr/Utils');
+
+var _reduxForm = require('redux-form');
+
+var _reactDom = require('react-dom');
+
+var _dateformat = require('dateformat');
+
+var _dateformat2 = _interopRequireDefault(_dateformat);
+
+var _reactTooltip = require('react-tooltip');
+
+var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
+
+var _krUi = require('kr-ui');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DismantlingForm = function (_Component) {
+	_inherits(DismantlingForm, _Component);
+
+	function DismantlingForm(props, context) {
+		_classCallCheck(this, DismantlingForm);
+
+		var _this2 = _possibleConstructorReturn(this, (DismantlingForm.__proto__ || Object.getPrototypeOf(DismantlingForm)).call(this, props, context));
+
+		_this2.getBasicData = function () {
+			var _this = _this2;
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('getLeaveDate', { billId: _this.billId })).then(function (response) {
+
+				_this.setState({
+					detail: response
+				});
+			}).catch(function (err) {
+				console.log(err, err);
+			});
+		};
+
+		_this2.onSubmit = _this2.onSubmit.bind(_this2);
+		_this2.onCancel = _this2.onCancel.bind(_this2);
+		_this2.billId = _this2.props.detail.billId;
+		_this2.state = {
+			detail: {}
+		};
+		_this2.getBasicData();
+
+		return _this2;
+	}
+
+	_createClass(DismantlingForm, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			//const {detail}= this.props;
+
+		}
+	}, {
+		key: 'onSubmit',
+		value: function onSubmit(form) {
+			var formValues = {
+				actualLeaveDate: form.actualLeaveDate,
+				mainBillId: this.props.detail.billId
+			};
+
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('updateLeaveDate', {}, formValues)).then(function (response) {
+				_krUi.Notify.show([{
+					message: '修改成功',
+					type: 'success'
+				}]);
+				window.setTimeout(function () {
+					window.location.reload();
+				}, 2000);
+			}).catch(function (err) {
+				_krUi.Notify.show([{
+					message: err.message,
+					type: 'danger'
+				}]);
+			});
+		}
+	}, {
+		key: 'onCancel',
+		value: function onCancel() {
+			var onCancel = this.props.onCancel;
+
+			onCancel && onCancel();
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    error = _props.error,
+			    handleSubmit = _props.handleSubmit,
+			    pristine = _props.pristine,
+			    reset = _props.reset,
+			    submitting = _props.submitting,
+			    initialValues = _props.initialValues;
+			var detail = this.state.detail;
+
+
+			var time = (0, _Utils.DateFormat)(detail.actualLeavedate, "yyyy-mm-dd");
+			return _react2.default.createElement(
+				'form',
+				{ className: 'DismantlingForm', onSubmit: handleSubmit(this.onSubmit) },
+				_react2.default.createElement(
+					'div',
+					{ style: { textAlign: 'center', marginBottom: '14px', paddingTop: '20px', color: '#333333', fontSize: '14px' } },
+					detail.companyName
+				),
+				_react2.default.createElement(
+					'div',
+					{ style: _defineProperty({ textAlign: 'center', marginBottom: '14px', color: '#333333', fontSize: '14px' }, 'fontSize', '14px') },
+					'\u5408\u540C\u5230\u671F\u65F6\u95F4\u4E3A\uFF1A',
+					(0, _dateformat2.default)(detail.endTime, "yyyy.mm.dd")
+				),
+				detail.editFlag ? _react2.default.createElement(_krUi.KrField, { name: 'actualLeaveDate', component: 'date', label: '\u5B9E\u9645\u64A4\u573A\u65F6\u95F4\uFF1A', value: '', inline: true }) : _react2.default.createElement(_krUi.KrField, { component: 'labelText', label: '\u5B9E\u9645\u7684\u64A4\u573A\u65F6\u95F4\u4E3A\uFF1A', value: time }),
+				detail.editFlag ? _react2.default.createElement(
+					_krUi.Grid,
+					null,
+					_react2.default.createElement(
+						_krUi.Row,
+						{ style: { marginTop: 30, marginBottom: 15 } },
+						_react2.default.createElement(
+							_krUi.Col,
+							{ md: 12, align: 'center' },
+							_react2.default.createElement(
+								_krUi.ButtonGroup,
+								null,
+								_react2.default.createElement(
+									'div',
+									{ className: 'ui-btn-center' },
+									_react2.default.createElement(_krUi.Button, { label: '\u786E\u5B9A', type: 'submit', joinEditForm: true, height: 34, width: 90 })
+								),
+								_react2.default.createElement(_krUi.Button, { label: '\u53D6\u6D88', type: 'button', onTouchTap: this.onCancel, cancle: true, height: 33, width: 90 })
+							)
+						)
+					)
+				) : _react2.default.createElement('p', { style: { marginBottom: 30 } })
+			);
+		}
+	}]);
+
+	return DismantlingForm;
+}(_react.Component);
+
+DismantlingForm.defaultProps = {
+	mainBillId: 290
+};
+
+var _default = (0, _reduxForm.reduxForm)({
+	form: 'DismantlingForm'
+})(DismantlingForm);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(DismantlingForm, 'DismantlingForm', '/Users/smile/Documents/kr-admin/src/Containers/Operation/CommunityManage/Detail/Schedule/DismantlingForm.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/smile/Documents/kr-admin/src/Containers/Operation/CommunityManage/Detail/Schedule/DismantlingForm.js');
+}();
+
+;

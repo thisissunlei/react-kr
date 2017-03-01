@@ -1,0 +1,142 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Async = require('../../Select/Async');
+
+var _Async2 = _interopRequireDefault(_Async);
+
+var _Redux = require('kr/Redux');
+
+var _WrapComponent = require('../WrapComponent');
+
+var _WrapComponent2 = _interopRequireDefault(_WrapComponent);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SearchLeaderComponent = function (_React$Component) {
+	_inherits(SearchLeaderComponent, _React$Component);
+
+	function SearchLeaderComponent(props) {
+		_classCallCheck(this, SearchLeaderComponent);
+
+		var _this = _possibleConstructorReturn(this, (SearchLeaderComponent.__proto__ || Object.getPrototypeOf(SearchLeaderComponent)).call(this, props));
+
+		_this.onInputChange = function () {};
+
+		_this.onChange = _this.onChange.bind(_this);
+		_this.getOptions = _this.getOptions.bind(_this);
+		return _this;
+	}
+
+	_createClass(SearchLeaderComponent, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			var input = this.props.input;
+		}
+	}, {
+		key: 'onChange',
+		value: function onChange(item) {
+			var _props = this.props,
+			    input = _props.input,
+			    onChange = _props.onChange;
+
+			var value = item && item.value || '';
+			input.onChange(value);
+			onChange && onChange(item);
+		}
+	}, {
+		key: 'getOptions',
+		value: function getOptions(searchKey) {
+			return new Promise(function (resolve, reject) {
+				_Redux.Store.dispatch(_Redux.Actions.callAPI('get-receive-list', { searchKey: searchKey })).then(function (response) {
+					resolve({ options: response });
+				}).catch(function (err) {
+					reject(err);
+				});
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _props2 = this.props,
+			    input = _props2.input,
+			    label = _props2.label,
+			    type = _props2.type,
+			    _props2$meta = _props2.meta,
+			    touched = _props2$meta.touched,
+			    error = _props2$meta.error,
+			    placeholder = _props2.placeholder,
+			    children = _props2.children,
+			    disabled = _props2.disabled,
+			    style = _props2.style,
+			    requireLabel = _props2.requireLabel,
+			    other = _objectWithoutProperties(_props2, ['input', 'label', 'type', 'meta', 'placeholder', 'children', 'disabled', 'style', 'requireLabel']);
+
+			return _react2.default.createElement(
+				_WrapComponent2.default,
+				{ label: label, wrapStyle: style, requireLabel: requireLabel },
+				_react2.default.createElement(_Async2.default, {
+					name: input.name,
+					value: input.value,
+					loadOptions: this.getOptions,
+					clearable: true,
+					clearAllText: '\u6E05\u9664',
+					onChange: this.onChange,
+					onInputChange: this.onInputChange,
+					noResultsText: '',
+					placeholder: placeholder }),
+				touched && error && _react2.default.createElement(
+					'div',
+					{ className: 'error-wrap' },
+					' ',
+					_react2.default.createElement(
+						'span',
+						null,
+						error
+					),
+					' '
+				)
+			);
+		}
+	}]);
+
+	return SearchLeaderComponent;
+}(_react2.default.Component);
+
+SearchLeaderComponent.defaultProps = {
+	placeholder: '请输入...'
+};
+SearchLeaderComponent.PropTypes = {
+	placeholder: _react2.default.PropTypes.string,
+	inline: _react2.default.PropTypes.bool
+};
+exports.default = SearchLeaderComponent;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(SearchLeaderComponent, 'SearchLeaderComponent', '/Users/smile/Documents/kr-admin/src/Components/KrField/SearchLeaderComponent/index.js');
+}();
+
+;

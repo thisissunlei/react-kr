@@ -1,0 +1,335 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reduxForm = require('redux-form');
+
+var _Redux = require('kr/Redux');
+
+var _krUi = require('kr-ui');
+
+require('./index.less');
+
+var _Utils = require('kr/Utils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var MemeberEditMemberForm = function (_Component) {
+	_inherits(MemeberEditMemberForm, _Component);
+
+	function MemeberEditMemberForm(props, context) {
+		_classCallCheck(this, MemeberEditMemberForm);
+
+		var _this2 = _possibleConstructorReturn(this, (MemeberEditMemberForm.__proto__ || Object.getPrototypeOf(MemeberEditMemberForm)).call(this, props, context));
+
+		_this2.onSubmit = function (values) {
+			_this2.communityChange(values.email);
+			if (values.foreignCode) {
+				_this2.membersByForeignCode(values.foreignCode);
+			}
+			var _this2$state = _this2.state,
+			    onsubmit = _this2$state.onsubmit,
+			    onsubmitCode = _this2$state.onsubmitCode;
+
+			if (onsubmit && onsubmitCode) {
+				var onSubmit = _this2.props.onSubmit;
+
+				onSubmit && onSubmit(values);
+			}
+		};
+
+		_this2.onCancel = function () {
+			var onCancel = _this2.props.onCancel;
+
+			onCancel && onCancel();
+		};
+
+		_this2.getBasicData = function (memberId) {
+			var url = _this2.props.params;
+			var params = {
+				communityId: '',
+				companyId: '',
+				memberId: memberId.id || ''
+			};
+			var _this = _this2;
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('getMemberBasicData', params)).then(function (response) {
+				// response.memberInfoVO.jobId= 11411;
+				response.jobList.forEach(function (item) {
+					item.value = item.id;
+					item.label = item.jobName;
+				});
+				_Redux.Store.dispatch((0, _reduxForm.initialize)('memeberEditMemberForm', response.memberInfoVO));
+
+				_this.setState({
+					jobList: response.jobList,
+					itemData: response.memberInfoVO,
+					phone: response.memberInfoVO.phone,
+					code: response.memberInfoVO.foreignCode
+				});
+			}).catch(function (err) {
+				_krUi.Notify.show([{
+					message: err.message,
+					type: 'danger'
+				}]);
+			});
+		};
+
+		_this2.communityChange = function (mail) {
+			var params = {
+				email: mail
+			};
+			_this2.setState({
+				open: true
+			});
+			var detail = _this2.props.detail;
+
+			var _this = _this2;
+
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('isEmailRegistered', params)).then(function (response) {
+				//邮箱已注册
+				if (detail.phone == response.phone) {
+					_this.setState({
+						onsubmit: true
+					});
+					return;
+				} else {
+					_krUi.Message.warn('该邮箱已被绑定', 'error');
+
+					_this.setState({
+						onsubmit: false
+					});
+				}
+			}).catch(function (err) {
+				//邮箱未注册
+				_this.setState({
+					onsubmit: true
+				});
+			});
+		};
+
+		_this2.membersByForeignCode = function (codes) {
+			var params = {
+				code: codes
+			};
+			var _this = _this2;
+			_this2.setState({
+				open: true
+			});
+			var detail = _this2.props.detail;
+
+			if (params.code !== undefined) {
+				_Redux.Store.dispatch(_Redux.Actions.callAPI('membersByForeignCode', params)).then(function (response) {
+					//会员卡号已注册
+					if (detail.phone == response.phone) {
+						_this.setState({
+							onsubmitCode: true
+						});
+						return;
+					} else if (response.phone == '-1') {
+						_krUi.Message.warn('会员卡号未录入', 'error');
+						_this.setState({
+							onsubmitCode: false
+						});
+					} else {
+						_krUi.Message.warn('会员卡号已注册', 'error');
+						_this.setState({
+							onsubmitCode: false
+						});
+					}
+				}).catch(function (err) {
+					//会员卡号未注册
+					_this.setState({
+						onsubmitCode: true
+					});
+				});
+			}
+		};
+
+		_this2.detail = _this2.props.detail;
+
+		_this2.state = {
+			status: true,
+			jobList: [],
+			itemData: {},
+			initializeValues: {},
+			open: 'false',
+			onsubmit: true,
+			phoneSame: 'true',
+			onsubmitCode: true,
+			code: '',
+			email: ''
+		};
+		return _this2;
+	}
+	//首次加载，只执行一次
+
+
+	_createClass(MemeberEditMemberForm, [{
+		key: 'componentWillMount',
+		value: function componentWillMount() {
+			this.getBasicData(this.detail);
+		}
+	}, {
+		key: 'componentWillReceiveProps',
+		value: function componentWillReceiveProps(nextProps) {
+			if (!(0, _Utils.ShallowEqual)(this.state.initializeValues, nextProps.detail)) {
+				this.setState({
+					initializeValues: nextProps.detail
+				});
+			}
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    detail = _props.detail,
+			    handleSubmit = _props.handleSubmit;
+			var _state = this.state,
+			    itemData = _state.itemData,
+			    jobList = _state.jobList;
+
+			var images = './images/all.png';
+			// itemData.phone = '13314619606';
+			return _react2.default.createElement(
+				'div',
+				{ className: 'edit-form', style: { paddingBottom: "3" } },
+				_react2.default.createElement(
+					'form',
+					{ onSubmit: handleSubmit(this.onSubmit) },
+					_react2.default.createElement(
+						'div',
+						{ className: 'person-info' },
+						_react2.default.createElement(
+							'span',
+							{ className: 'person-name' },
+							detail.name
+						),
+						detail.checkStatus ? _react2.default.createElement(
+							'span',
+							{ className: 'person-status-not' },
+							'\u5DF2\u9A8C\u8BC1'
+						) : _react2.default.createElement(
+							'span',
+							{ className: 'person-status' },
+							'\u672A\u9A8C\u8BC1'
+						),
+						_react2.default.createElement(
+							'span',
+							{ className: 'person-id' },
+							'\uFF08\u5458\u5DE5UserID\uFF1A',
+							detail.id,
+							'\uFF09'
+						)
+					),
+					_react2.default.createElement(_krUi.KrField, { name: 'phone', grid: 1 / 2, label: '\u624B\u673A\u53F7', inline: false, component: 'labelText', value: detail.phone }),
+					_react2.default.createElement('div', { className: 'split-lines' }),
+					_react2.default.createElement(_krUi.KrField, { name: 'communityId', grid: 1 / 2, label: '\u793E\u533A', component: 'searchCommunity', right: 30, requiredValue: true, errors: { requiredValue: '请选择社区' }, requireLabel: true }),
+					_react2.default.createElement(_krUi.KrField, { name: 'foreignCode', grid: 1 / 2, label: '\u4F1A\u5458\u5361\u53F7', type: 'text', left: 30, onBlur: this.membersByForeignCode }),
+					_react2.default.createElement(_krUi.KrField, { name: 'companyId', grid: 1 / 2, label: '\u516C\u53F8', component: 'searchCompany', right: 30, requiredValue: true, errors: { requiredValue: '请填选择公司' }, requireLabel: true }),
+					_react2.default.createElement(_krUi.KrField, { name: 'email', grid: 1 / 2, label: '\u90AE\u7BB1:', type: 'text', left: 30, onBlur: this.communityChange, requireLabel: true }),
+					_react2.default.createElement(_krUi.KrField, { name: 'name', grid: 1 / 2, label: '\u59D3\u540D', type: 'text', right: 30, requireLabel: true, requiredValue: true, errors: { requiredValue: '请填写会员卡号' } }),
+					_react2.default.createElement(_krUi.KrField, { name: 'jobId', grid: 1 / 2, label: '\u804C\u4F4D', component: 'select', left: 30, options: jobList }),
+					_react2.default.createElement(
+						_krUi.Grid,
+						{ style: { margin: '20px 0', marginBottom: '0' } },
+						_react2.default.createElement(
+							_krUi.Row,
+							null,
+							_react2.default.createElement(
+								_krUi.ListGroup,
+								null,
+								_react2.default.createElement(
+									_krUi.ListGroupItem,
+									{ style: { width: '270px', textAlign: 'right', padding: 0, paddingRight: 15 } },
+									_react2.default.createElement(_krUi.Button, { label: '\u786E\u5B9A', type: 'submit', width: 90, height: 34 })
+								),
+								_react2.default.createElement(
+									_krUi.ListGroupItem,
+									{ style: { width: '240px', textAlign: 'left', padding: 0, paddingLeft: 15 } },
+									_react2.default.createElement(_krUi.Button, { label: '\u53D6\u6D88', type: 'button', cancle: true, onTouchTap: this.onCancel, width: 90, height: 34 }),
+									' '
+								)
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return MemeberEditMemberForm;
+}(_react.Component);
+
+exports.default = MemeberEditMemberForm;
+
+var validate = function validate(values) {
+
+	var errors = {};
+	var code = /^\d{10}$/;
+	var phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
+	var email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
+	if (!values.communityId) {
+		errors.communityId = '请输入社区名称';
+	}
+
+	if (!values.email) {
+		errors.email = '请输入邮箱';
+	}
+	if (!values.companyId) {
+		errors.companyId = '请输入公司名称';
+	}
+
+	if (!values.name || /^\s+$/.test(values.name)) {
+		errors.name = '请输入姓名';
+	}
+	if (values.email && !email.test(values.email)) {
+		errors.email = '请输入正确邮箱';
+	}
+	if (values.phone && !phone.test(values.phone)) {
+		errors.phone = '请输入正确电话号';
+	}
+	if (values.foreignCode && !code.test(values.foreignCode)) {
+		errors.foreignCode = '会员卡号为10位纯数字';
+	}
+	if (!values.sendMsg) {
+		errors.sendMsg = '请选择是否发送验证短信';
+	}
+	// if (!values.foreignCode) {
+	//     errors.foreignCode = '请输入会员卡号';
+	// }
+	return errors;
+};
+exports.default = MemeberEditMemberForm = (0, _reduxForm.reduxForm)({
+	form: 'memeberEditMemberForm',
+	validate: validate,
+	enableReinitialize: true,
+	keepDirtyOnReinitialize: true
+})(MemeberEditMemberForm);
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(MemeberEditMemberForm, 'MemeberEditMemberForm', '/Users/smile/Documents/kr-admin/src/Containers/Member/MemberManage/List/MemeberEditMemberForm.js');
+
+	__REACT_HOT_LOADER__.register(validate, 'validate', '/Users/smile/Documents/kr-admin/src/Containers/Member/MemberManage/List/MemeberEditMemberForm.js');
+}();
+
+;

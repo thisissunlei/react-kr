@@ -1,0 +1,348 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _simpleAssign = require('simple-assign');
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _redux = require('redux');
+
+var _Actions = require('kr-ui/../Redux/Actions');
+
+var actionCreators = _interopRequireWildcard(_Actions);
+
+var _Section = require('kr-ui/Section');
+
+var _Section2 = _interopRequireDefault(_Section);
+
+var _Calendar = require('kr-ui/Calendar');
+
+var _Calendar2 = _interopRequireDefault(_Calendar);
+
+var _inbox = require('material-ui/svg-icons/content/inbox');
+
+var _inbox2 = _interopRequireDefault(_inbox);
+
+var _dateRange = require('material-ui/svg-icons/action/date-range');
+
+var _dateRange2 = _interopRequireDefault(_dateRange);
+
+var _colors = require('material-ui/styles/colors');
+
+var _keyboardArrowDown = require('material-ui/svg-icons/hardware/keyboard-arrow-down');
+
+var _keyboardArrowDown2 = _interopRequireDefault(_keyboardArrowDown);
+
+var _assignment = require('material-ui/svg-icons/action/assignment');
+
+var _assignment2 = _interopRequireDefault(_assignment);
+
+var _formsyReact = require('formsy-react');
+
+var _formsyReact2 = _interopRequireDefault(_formsyReact);
+
+var _lib = require('formsy-material-ui/lib');
+
+var _materialUi = require('material-ui');
+
+var _List = require('material-ui/List');
+
+require('./index.less');
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PlanManage = function (_Component) {
+	_inherits(PlanManage, _Component);
+
+	function PlanManage(props, context) {
+		_classCallCheck(this, PlanManage);
+
+		var _this = _possibleConstructorReturn(this, (PlanManage.__proto__ || Object.getPrototypeOf(PlanManage)).call(this, props, context));
+
+		_this.calendarChange = _this.calendarChange.bind(_this);
+		_this.closeDialog = _this.closeDialog.bind(_this);
+		_this.openDialog = _this.openDialog.bind(_this);
+		_this.submitForm = _this.submitForm.bind(_this);
+		_this.confirmSubmit = _this.confirmSubmit.bind(_this);
+
+		_this.renderPlan = _this.renderPlan.bind(_this);
+
+		var actions = _this.props.actions;
+
+
+		_this.state = {
+			open: false
+		};
+
+		_this.styles = {
+			paperStyle: {
+				width: 300,
+				margin: 'auto',
+				padding: 20
+			},
+			switchStyle: {
+				marginBottom: 16
+			},
+			submitStyle: {
+				marginTop: 32
+			}
+		};
+
+		_this.errorMessages = {
+			wordsError: "Please only use letters",
+			numericError: "Please provide a number",
+			urlError: "Please provide a valid URL"
+		};
+
+		return _this;
+	}
+
+	_createClass(PlanManage, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {}
+	}, {
+		key: 'calendarChange',
+		value: function calendarChange(value) {
+			var actions = this.props.actions;
+
+			console.log('--->>>', value);
+			actions.setNowDate(value);
+		}
+	}, {
+		key: 'openDialog',
+		value: function openDialog() {
+
+			this.setState({
+				open: !this.state.open
+			});
+		}
+	}, {
+		key: 'enableButton',
+		value: function enableButton() {
+			this.setState({
+				canSubmit: true
+			});
+		}
+	}, {
+		key: 'submitForm',
+		value: function submitForm(data) {
+			console.log(data);
+			this.setState({ open: false });
+			var actions = this.props.actions;
+
+
+			actions.createPlan(data);
+		}
+	}, {
+		key: 'confirmSubmit',
+		value: function confirmSubmit() {
+			var form = this.refs.myForm;
+			form.submit();
+		}
+	}, {
+		key: 'closeDialog',
+		value: function closeDialog() {
+			this.setState({ open: false });
+		}
+	}, {
+		key: 'renderPlan',
+		value: function renderPlan() {
+
+			if (!this.props.plan.now_trip.length) {
+				return null;
+			}
+
+			return _react2.default.createElement(
+				_materialUi.Paper,
+				{ zDepth: 1, style: { marginTop: 20 } },
+				_react2.default.createElement(
+					_List.List,
+					null,
+					_react2.default.createElement(
+						_materialUi.Subheader,
+						null,
+						'\u65E5\u7A0B'
+					),
+					_react2.default.createElement(_materialUi.Divider, null),
+					this.props.plan.now_trip.map(function (item, index) {
+						return _react2.default.createElement(_List.ListItem, { primaryText: item.title, key: index,
+							leftIcon: _react2.default.createElement(_materialUi.Avatar, { icon: _react2.default.createElement(_assignment2.default, null), backgroundColor: _colors.yellow600, color: '#fff', size: 25 }),
+							rightIcon: _react2.default.createElement(_keyboardArrowDown2.default, null)
+						});
+					})
+				)
+			);
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _styles = this.styles,
+			    paperStyle = _styles.paperStyle,
+			    switchStyle = _styles.switchStyle,
+			    submitStyle = _styles.submitStyle;
+			var _errorMessages = this.errorMessages,
+			    wordsError = _errorMessages.wordsError,
+			    numericError = _errorMessages.numericError,
+			    urlError = _errorMessages.urlError;
+
+
+			var actions = [_react2.default.createElement(_materialUi.FlatButton, {
+				label: '\u53D6\u6D88',
+				joinEditForm: true,
+				onTouchTap: this.closeDialog
+			}), _react2.default.createElement(_materialUi.FlatButton, {
+				label: '\u63D0\u4EA4',
+				joinEditForm: true,
+				keyboardFocused: true,
+				onTouchTap: this.confirmSubmit
+			})];
+
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					_Section2.default,
+					{ title: '\u65E5\u7A0B\u7BA1\u7406',
+						description: '',
+						leftIcon: _react2.default.createElement(_materialUi.Avatar, { icon: _react2.default.createElement(_dateRange2.default, null), backgroundColor: _colors.purple500, size: 25 }),
+						rightMenu: _react2.default.createElement(
+							_materialUi.Menu,
+							null,
+							_react2.default.createElement(_materialUi.MenuItem, { primaryText: '\u5199\u5907\u5FD8', onTouchTap: this.openDialog }),
+							_react2.default.createElement(_materialUi.MenuItem, { primaryText: '\u5176\u4ED6' })
+						) },
+					_react2.default.createElement(_Calendar2.default, { value: this.props.now_date, onChange: this.calendarChange, active: true, items: this.props.items }),
+					this.renderPlan()
+				),
+				_react2.default.createElement(
+					_materialUi.Dialog,
+					{
+						title: '\u5199\u5907\u5FD8',
+						modal: false,
+						open: this.state.open,
+						onRequestClose: this.closeDialog,
+						autoScrollBodyContent: true,
+						actions: actions
+					},
+					_react2.default.createElement(
+						'div',
+						{ className: 'form' },
+						_react2.default.createElement(
+							_formsyReact2.default.Form,
+							{
+								onValidSubmit: this.submitForm,
+								ref: 'myForm'
+							},
+							_react2.default.createElement(
+								'div',
+								{ className: 'form-group' },
+								_react2.default.createElement(
+									'label',
+									{ 'for': '', className: 'label-control' },
+									'\u5907\u5FD8\u5185\u5BB9'
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'form-control' },
+									_react2.default.createElement(_lib.FormsyText, {
+										name: 'content',
+										required: true,
+										fullWidth: true,
+										hintText: '\u5907\u5FD8\u5185\u5BB9' })
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'form-group' },
+								_react2.default.createElement(
+									'label',
+									{ 'for': '', className: 'label-control' },
+									'\u65F6\u95F4'
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'form-control' },
+									_react2.default.createElement(_lib.FormsyDate, {
+										name: 'date',
+										required: true,
+										hintText: '\u65E5\u671F',
+										okLabel: '\u786E\u5B9A',
+										cancelLabel: '\u53D6\u6D88'
+									})
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'item' },
+									_react2.default.createElement(_lib.FormsyTime, {
+										name: 'time',
+										hintText: '\u65F6\u95F4',
+										required: true,
+										okLabel: '\u786E\u5B9A',
+										cancelLabel: '\u53D6\u6D88'
+									})
+								)
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return PlanManage;
+}(_react.Component);
+
+function mapStateToProps(state) {
+
+	return {
+		plan: state.plan,
+		items: state.plan.items,
+		now_date: state.plan.now_date
+	};
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		actions: (0, _redux.bindActionCreators)((0, _simpleAssign2.default)({}, actionCreators), dispatch)
+	};
+}
+
+var _default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PlanManage);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(PlanManage, 'PlanManage', '/Users/smile/Documents/kr-admin/src/Containers/Permission/Home/PlanManage/index.js');
+
+	__REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/smile/Documents/kr-admin/src/Containers/Permission/Home/PlanManage/index.js');
+
+	__REACT_HOT_LOADER__.register(mapDispatchToProps, 'mapDispatchToProps', '/Users/smile/Documents/kr-admin/src/Containers/Permission/Home/PlanManage/index.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/smile/Documents/kr-admin/src/Containers/Permission/Home/PlanManage/index.js');
+}();
+
+;

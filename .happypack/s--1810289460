@@ -1,0 +1,148 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _TableHeaderColumn = require('../TableHeaderColumn');
+
+var _TableHeaderColumn2 = _interopRequireDefault(_TableHeaderColumn);
+
+var _Checkbox = require('../../Checkbox');
+
+var _Checkbox2 = _interopRequireDefault(_Checkbox);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TableHeader = function (_React$Component) {
+	_inherits(TableHeader, _React$Component);
+
+	function TableHeader(props) {
+		_classCallCheck(this, TableHeader);
+
+		var _this = _possibleConstructorReturn(this, (TableHeader.__proto__ || Object.getPrototypeOf(TableHeader)).call(this, props));
+
+		_this.onSort = _this.onSort.bind(_this);
+
+		_this.renderCheckbox = _this.renderCheckbox.bind(_this);
+		_this.createTableHeaderColumn = _this.createTableHeaderColumn.bind(_this);
+
+		return _this;
+	}
+
+	_createClass(TableHeader, [{
+		key: 'onSort',
+		value: function onSort(name) {
+			var onSort = this.props.onSort;
+
+			if (!name) {
+				return;
+			}
+			onSort && onSort(name);
+		}
+	}, {
+		key: 'renderCheckbox',
+		value: function renderCheckbox() {
+			var _props = this.props,
+			    onSelectAll = _props.onSelectAll,
+			    displayCheckbox = _props.displayCheckbox,
+			    onCellClick = _props.onCellClick,
+			    allRowsSelected = _props.allRowsSelected;
+
+
+			if (!displayCheckbox) {
+				return null;
+			}
+
+			//return ( <TableHeaderColumn width={this.props.defaultValue.checkboxWidth}></TableHeaderColumn>);
+			return _react2.default.createElement(
+				_TableHeaderColumn2.default,
+				{ width: this.props.defaultValue.checkboxWidth },
+				' ',
+				_react2.default.createElement(_Checkbox2.default, { onCheck: onSelectAll, checked: allRowsSelected })
+			);
+		}
+	}, {
+		key: 'createTableHeaderColumn',
+		value: function createTableHeaderColumn(base, index) {
+			return _react2.default.cloneElement(base, {
+				key: index,
+				onSort: this.onSort
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _this2 = this;
+
+			var _props2 = this.props,
+			    className = _props2.className,
+			    children = _props2.children;
+
+
+			var tHeader = [];
+			_react2.default.Children.forEach(children, function (child, index) {
+				if (!_react2.default.isValidElement(child)) return;
+				var _child$type = child.type,
+				    muiName = _child$type.muiName,
+				    name = _child$type.name,
+				    displayName = _child$type.displayName;
+
+
+				if (displayName === 'TableHeaderColumn') {
+					tHeader.push(_this2.createTableHeaderColumn(child, index));
+				}
+			});
+
+			return _react2.default.createElement(
+				'thead',
+				{ className: className },
+				_react2.default.createElement(
+					'tr',
+					null,
+					this.renderCheckbox(),
+					tHeader
+				)
+			);
+		}
+	}]);
+
+	return TableHeader;
+}(_react2.default.Component);
+
+TableHeader.displayName = 'TableHeader';
+TableHeader.propTypes = {
+	className: _react2.default.PropTypes.string,
+	children: _react2.default.PropTypes.node,
+	onSelectAll: _react2.default.PropTypes.func,
+	displayCheckbox: _react2.default.PropTypes.bool,
+	defaultValue: _react2.default.PropTypes.object,
+	onSort: _react2.default.PropTypes.func,
+	allRowsSelected: _react2.default.PropTypes.bool
+
+};
+exports.default = TableHeader;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(TableHeader, 'TableHeader', '/Users/smile/Documents/kr-admin/src/Components/Table/TableHeader/index.js');
+}();
+
+;

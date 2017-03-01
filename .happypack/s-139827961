@@ -1,0 +1,38 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var SET_NAVS_CURRENT_ROUTER = exports.SET_NAVS_CURRENT_ROUTER = 'SET_NAVS_CURRENT_ROUTER';
+var SET_NAVS_CURRENT_ITEMS = exports.SET_NAVS_CURRENT_ITEMS = 'SET_NAVS_CURRENT_ITEMS';
+var SET_NAVS_CURRENT_ITEM_ACTIVE = exports.SET_NAVS_CURRENT_ITEM_ACTIVE = 'SET_NAVS_CURRENT_ITEMS_ACTIVE';
+
+var SET_NAVS_ACTIVITY = exports.SET_NAVS_ACTIVITY = 'SET_NAVS_ACTIVITY';
+
+var SET_NAVS_CURRENT_PARENT_ROUTER = exports.SET_NAVS_CURRENT_PARENT_ROUTER = 'SET_NAVS_CURRENT_PARENT_ROUTER';
+var SET_NAVS_CURRENT_CHILD_ROUTER = exports.SET_NAVS_CURRENT_CHILD_ROUTER = 'SET_NAVS_CURRENT_CHILD_ROUTER';
+
+var SET_USER_NAVS = exports.SET_USER_NAVS = 'SET_USER_NAVS';
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(SET_NAVS_CURRENT_ROUTER, 'SET_NAVS_CURRENT_ROUTER', '/Users/smile/Documents/kr-admin/src/Redux/Modules/Navs/types.js');
+
+  __REACT_HOT_LOADER__.register(SET_NAVS_CURRENT_ITEMS, 'SET_NAVS_CURRENT_ITEMS', '/Users/smile/Documents/kr-admin/src/Redux/Modules/Navs/types.js');
+
+  __REACT_HOT_LOADER__.register(SET_NAVS_CURRENT_ITEM_ACTIVE, 'SET_NAVS_CURRENT_ITEM_ACTIVE', '/Users/smile/Documents/kr-admin/src/Redux/Modules/Navs/types.js');
+
+  __REACT_HOT_LOADER__.register(SET_NAVS_ACTIVITY, 'SET_NAVS_ACTIVITY', '/Users/smile/Documents/kr-admin/src/Redux/Modules/Navs/types.js');
+
+  __REACT_HOT_LOADER__.register(SET_NAVS_CURRENT_PARENT_ROUTER, 'SET_NAVS_CURRENT_PARENT_ROUTER', '/Users/smile/Documents/kr-admin/src/Redux/Modules/Navs/types.js');
+
+  __REACT_HOT_LOADER__.register(SET_NAVS_CURRENT_CHILD_ROUTER, 'SET_NAVS_CURRENT_CHILD_ROUTER', '/Users/smile/Documents/kr-admin/src/Redux/Modules/Navs/types.js');
+
+  __REACT_HOT_LOADER__.register(SET_USER_NAVS, 'SET_USER_NAVS', '/Users/smile/Documents/kr-admin/src/Redux/Modules/Navs/types.js');
+}();
+
+;

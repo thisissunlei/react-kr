@@ -1,0 +1,1190 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _Section = require('kr-ui/Section');
+
+var _Section2 = _interopRequireDefault(_Section);
+
+var _DelAgreementNotify = require('./DelAgreementNotify');
+
+var _DelAgreementNotify2 = _interopRequireDefault(_DelAgreementNotify);
+
+var _krUi = require('kr-ui');
+
+var _Grid = require('kr-ui/Grid');
+
+var _materialUi = require('material-ui');
+
+var _circle = require('./circle');
+
+var _circle2 = _interopRequireDefault(_circle);
+
+require('./active.less');
+
+var _IconMenu = require('material-ui/IconMenu');
+
+var _IconMenu2 = _interopRequireDefault(_IconMenu);
+
+var _Table = require('kr-ui/Table');
+
+var _List = require('material-ui/List');
+
+var _reactTooltip = require('react-tooltip');
+
+var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NewCreatForm = function (_Component) {
+	_inherits(NewCreatForm, _Component);
+
+	function NewCreatForm(props, context) {
+		_classCallCheck(this, NewCreatForm);
+
+		return _possibleConstructorReturn(this, (NewCreatForm.__proto__ || Object.getPrototypeOf(NewCreatForm)).call(this, props, context));
+	}
+
+	_createClass(NewCreatForm, [{
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    contractStatusCount = _props.contractStatusCount,
+			    params = _props.params;
+
+
+			return _react2.default.createElement(
+				_Grid.Grid,
+				{ style: { paddingBottom: 20 } },
+				_react2.default.createElement(
+					_Grid.Row,
+					null,
+					_react2.default.createElement(
+						_Grid.Col,
+						{ md: 4, align: 'center' },
+						contractStatusCount.enterTotoal > 0 ? _react2.default.createElement(
+							'span',
+							{ className: 'createButton disabled' },
+							'\u627F\u79DF\u610F\u5411\u4E66'
+						) : _react2.default.createElement(
+							'a',
+							{ className: 'createButton', href: "./#/operation/customerManage/" + params.customerId + "/order/" + this.props.params.orderId + "/agreement/admit/create" },
+							'\u627F\u79DF\u610F\u5411\u4E66'
+						)
+					),
+					_react2.default.createElement(
+						_Grid.Col,
+						{ md: 4, align: 'center' },
+						contractStatusCount.enterTotoal > 0 ? _react2.default.createElement(
+							'span',
+							{ className: 'createButton disabled' },
+							'\u5165\u9A7B\u534F\u8BAE\u4E66'
+						) : _react2.default.createElement(
+							'a',
+							{ className: 'createButton', href: "./#/operation/customerManage/" + this.props.params.customerId + "/order/" + this.props.params.orderId + "/agreement/join/create" },
+							'\u5165\u9A7B\u534F\u8BAE\u4E66'
+						)
+					),
+					_react2.default.createElement(
+						_Grid.Col,
+						{ md: 4, align: 'center' },
+						contractStatusCount.enterTotoal > 0 && contractStatusCount.enterFlag ? _react2.default.createElement(
+							'a',
+							{ className: 'createButton', href: "./#/operation/customerManage/" + this.props.params.customerId + "/order/" + this.props.params.orderId + "/agreement/increase/create" },
+							'\u589E\u79DF\u534F\u8BAE\u4E66'
+						) : _react2.default.createElement(
+							'span',
+							{ className: 'createButton disabled' },
+							'\u589E\u79DF\u534F\u8BAE\u4E66'
+						)
+					)
+				),
+				_react2.default.createElement(
+					_Grid.Row,
+					{ style: { marginTop: 10 } },
+					_react2.default.createElement(
+						_Grid.Col,
+						{ md: 4, align: 'center' },
+						contractStatusCount.enterTotoal > 0 && contractStatusCount.enterFlag ? _react2.default.createElement(
+							'a',
+							{ className: 'createButton', href: "./#/operation/customerManage/" + this.props.params.customerId + "/order/" + this.props.params.orderId + "/agreement/renew/create" },
+							'\u7EED\u79DF\u534F\u8BAE\u4E66'
+						) : _react2.default.createElement(
+							'span',
+							{ className: 'createButton disabled' },
+							'\u7EED\u79DF\u534F\u8BAE\u4E66'
+						)
+					),
+					_react2.default.createElement(
+						_Grid.Col,
+						{ md: 4, align: 'center' },
+						contractStatusCount.enterTotoal > 0 && contractStatusCount.enterFlag ? _react2.default.createElement(
+							'a',
+							{ className: 'createButton', href: "./#/operation/customerManage/" + this.props.params.customerId + "/order/" + this.props.params.orderId + "/agreement/reduce/create" },
+							'\u51CF\u79DF\u534F\u8BAE\u4E66'
+						) : _react2.default.createElement(
+							'span',
+							{ className: 'createButton disabled' },
+							'\u51CF\u79DF\u534F\u8BAE\u4E66'
+						)
+					),
+					_react2.default.createElement(
+						_Grid.Col,
+						{ md: 4, align: 'center' },
+						contractStatusCount.enterTotoal > 0 && contractStatusCount.enterFlag ? _react2.default.createElement(
+							'a',
+							{ className: 'createButton', href: "./#/operation/customerManage/" + this.props.params.customerId + "/order/" + this.props.params.orderId + "/agreement/exit/create" },
+							'\u9000\u79DF\u534F\u8BAE\u4E66'
+						) : _react2.default.createElement(
+							'span',
+							{ className: 'createButton disabled' },
+							'\u9000\u79DF\u534F\u8BAE\u4E66'
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return NewCreatForm;
+}(_react.Component);
+
+NewCreatForm.PropTypes = {
+	contractStatusCount: _react2.default.PropTypes.object,
+	params: _react2.default.PropTypes.object
+
+};
+
+var StaionInfo = function (_Component2) {
+	_inherits(StaionInfo, _Component2);
+
+	function StaionInfo(props, context) {
+		_classCallCheck(this, StaionInfo);
+
+		var _this3 = _possibleConstructorReturn(this, (StaionInfo.__proto__ || Object.getPrototypeOf(StaionInfo)).call(this, props, context));
+
+		_this3.close = function () {
+			_this3.setState({
+				isClassName: 'leave'
+			}, function () {
+				var onClose = this.props.onClose;
+
+				onClose && onClose();
+			});
+		};
+
+		_this3.state = {
+			isClassName: ''
+		};
+		return _this3;
+	}
+
+	_createClass(StaionInfo, [{
+		key: 'render',
+		value: function render() {
+			var _this = this;
+			var _props2 = this.props,
+			    detail = _props2.detail,
+			    className = _props2.className,
+			    isShow = _props2.isShow;
+			var isClassName = this.state.isClassName;
+
+			var Name = isShow ? 'actives' : isClassName;
+
+			return _react2.default.createElement(
+				'div',
+				{ className: className + ' ' + Name },
+				_react2.default.createElement('div', { className: 'close-btn', onTouchTap: this.close }),
+				_react2.default.createElement(
+					'div',
+					{ className: 'showHeader' },
+					_react2.default.createElement('span', { className: 'icon' }),
+					_react2.default.createElement(
+						'span',
+						{ className: 'title' },
+						'\u5DE5\u4F4D\u7F16\u53F7 :'
+					)
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'info-con' },
+					detail && detail.map(function (item, index) {
+						return _react2.default.createElement(
+							'div',
+							{ className: 'infoList', key: index },
+							_react2.default.createElement(
+								'div',
+								{ className: 'h-title' },
+								_react2.default.createElement('span', { className: 'circle' }),
+								item.detailName
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'listCon' },
+								item.stationIds.length > 0 ? item.stationIds.map(function (v, i) {
+									return _react2.default.createElement(
+										'div',
+										{ className: 'list', key: i },
+										'\u5DE5\u4F4D\u7F16\u53F7\uFF1A',
+										v
+									);
+								}) : _react2.default.createElement(
+									'div',
+									{ className: 'list' },
+									'\u8BE5\u5BA2\u6237\u7684\u6240\u6709\u5DE5\u4F4D\u5DF2\u9000\u79DF'
+								)
+							)
+						);
+					})
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'close-btn-n', onTouchTap: this.close },
+					'\u5173\u95ED'
+				)
+			);
+		}
+	}]);
+
+	return StaionInfo;
+}(_react.Component);
+
+StaionInfo.PropTypes = {
+	detail: _react2.default.PropTypes.object
+
+};
+
+var OrderDetail = function (_React$Component) {
+	_inherits(OrderDetail, _React$Component);
+
+	function OrderDetail(props, context) {
+		_classCallCheck(this, OrderDetail);
+
+		var _this4 = _possibleConstructorReturn(this, (OrderDetail.__proto__ || Object.getPrototypeOf(OrderDetail)).call(this, props, context));
+
+		_this4.change = function (form) {
+			var orderBaseInfo = _this4.state.response.orderBaseInfo;
+
+			if (orderBaseInfo.mainbillname === form) {
+				return;
+			}
+			if (form && orderBaseInfo.id) {
+				_Redux.Store.dispatch(_Redux.Actions.callAPI('edit-order-name', {}, {
+					mainbillName: form,
+					mainBillId: orderBaseInfo.id
+				})).then(function (response) {
+					_krUi.Notify.show([{
+						message: '修改成功!',
+						type: 'success'
+					}]);
+				}).catch(function (err) {
+					_krUi.Notify.show([{
+						message: err.message,
+						type: 'danger'
+					}]);
+				});
+			} else {
+				_krUi.Notify.show([{
+					message: '订单名称不能为空',
+					type: 'danger'
+				}]);
+			}
+		};
+
+		_this4.onClose = function () {
+
+			_this4.setState({
+				isShow: !_this4.state.isShow
+			});
+		};
+
+		_this4.onView = function () {
+			var _this = _this4;
+			var orderBaseInfo = _this4.state.response.orderBaseInfo;
+			var _this4$state = _this4.state,
+			    isShow = _this4$state.isShow,
+			    View = _this4$state.View;
+
+			if (!isShow) {
+				_Redux.Store.dispatch(_Redux.Actions.callAPI('get-order-station', {
+					mainBillId: orderBaseInfo.id
+				})).then(function (response) {
+					_this.setState({
+						staionsList: response
+					});
+				}).catch(function (err) {
+					_krUi.Notify.show([{
+						message: err.message,
+						type: 'danger'
+					}]);
+				});
+			}
+
+			_this4.onClose();
+		};
+
+		_this4.onChange = function (files) {
+			console.log('onChange', files);
+		};
+
+		_this4.docClick = function (event) {
+			event = event || window.event;
+			var target = event.target;
+			console.log('target', target);
+			if (target.className == 'icon-more') {
+				return;
+			}
+			_this4.setState({
+				openMenu: false,
+				opretionOpen: false
+			});
+			document.removeEventListener('click', _this4.docClick);
+		};
+
+		_this4.openCreateAgreementDialog = _this4.openCreateAgreementDialog.bind(_this4);
+		_this4.getAgrementDetailUrl = _this4.getAgrementDetailUrl.bind(_this4);
+		_this4.getAgrementEditUrl = _this4.getAgrementEditUrl.bind(_this4);
+		_this4.renderTableItem = _this4.renderTableItem.bind(_this4);
+		_this4.getAgrementType = _this4.getAgrementType.bind(_this4);
+
+		_this4.confirmDelAgreement = _this4.confirmDelAgreement.bind(_this4);
+		_this4.openDelAgreementDialog = _this4.openDelAgreementDialog.bind(_this4);
+
+		_this4.state = {
+			open: false,
+			loading: true,
+			delAgreementId: 0,
+			openCreateAgreement: false,
+			openDelAgreement: false,
+			isShow: false,
+			View: false,
+			openMenu: false,
+			openId: 0,
+			opretionId: 0,
+			opretionOpen: false,
+			response: {
+				orderBaseInfo: {},
+				installment: {},
+				earnest: {},
+				contractList: [],
+				antecedent: []
+			},
+			staionsList: []
+		};
+
+		return _this4;
+	}
+
+	_createClass(OrderDetail, [{
+		key: 'openDelAgreementDialog',
+		value: function openDelAgreementDialog() {
+			this.setState({
+				openDelAgreement: !this.state.openDelAgreement
+			});
+		}
+	}, {
+		key: 'setDelAgreementId',
+		value: function setDelAgreementId(delAgreementId) {
+			this.setState({
+				delAgreementId: delAgreementId
+			}, function () {
+				this.openDelAgreementDialog();
+			});
+		}
+	}, {
+		key: 'confirmDelAgreement',
+		value: function confirmDelAgreement() {
+
+			this.openDelAgreementDialog(0);
+
+			var delAgreementId = this.state.delAgreementId;
+
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('delete-enter-contract', {
+				contractId: delAgreementId
+			})).then(function (response) {
+				_krUi.Notify.show([{
+					message: '删除成功!',
+					type: 'success'
+				}]);
+				window.setTimeout(function () {
+					window.location.reload();
+				}, 100);
+			}).catch(function (err) {
+				console.log(err.message);
+			});
+		}
+	}, {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			var closeAll = this.props.location.query.closeAll;
+			if (closeAll) {
+				_Redux.Store.dispatch(_Redux.Actions.switchSidebarNav(false));
+				_Redux.Store.dispatch(_Redux.Actions.switchHeaderNav(false));
+			}
+
+			var _this = this;
+
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('get-order-detail', {
+				mainBillId: this.props.params.orderId
+			})).then(function (response) {
+				_this.setState({
+					response: response
+				});
+
+				setTimeout(function () {
+					_this.setState({
+						loading: false
+					});
+				}, 0);
+			}).catch(function (err) {
+				_krUi.Notify.show([{
+					message: err.message,
+					type: 'danger'
+				}]);
+			});
+			_Redux.Store.dispatch(_Redux.Actions.switchSidebarNav(false));
+		}
+	}, {
+		key: 'openCreateAgreementDialog',
+		value: function openCreateAgreementDialog() {
+			var contractStatusCount = this.state.response.contractStatusCount;
+
+
+			if (contractStatusCount.quitRentTotoal) {
+				_krUi.Notify.show([{
+					message: '您已经签约了退租合同！',
+					type: 'danger'
+				}]);
+
+				return;
+			}
+
+			this.setState({
+				openCreateAgreement: !this.state.openCreateAgreement
+			});
+		}
+	}, {
+		key: 'getAgrementEditUrl',
+		value: function getAgrementEditUrl(customerId, orderId, typeId, agreementId) {
+
+			var typeArray = [{
+				label: 'INTENTION',
+				value: 'admit'
+			}, {
+				label: 'ENTER',
+				value: 'join'
+			}, {
+				label: 'RENEW',
+				value: 'renew'
+			}, {
+				label: 'LESSRENT',
+				value: 'reduce'
+			}, {
+				label: 'QUITRENT',
+				value: 'exit'
+			}, {
+				label: 'ADDRENT',
+				value: 'increase'
+			}];
+			var typeValue = '';
+			typeArray.map(function (value) {
+				if (typeId === value.label) {
+					typeValue = value.value;
+				}
+			});
+			return './#/operation/customerManage/' + customerId + '/order/' + orderId + '/agreement/' + typeValue + '/' + agreementId + '/edit';
+		}
+	}, {
+		key: 'getAgrementDetailUrl',
+		value: function getAgrementDetailUrl(customerId, orderId, typeId, agreementId) {
+			var typeArray = [{
+				label: 'INTENTION',
+				value: 'admit'
+			}, {
+				label: 'ENTER',
+				value: 'join'
+			}, {
+				label: 'RENEW',
+				value: 'renew'
+			}, {
+				label: 'LESSRENT',
+				value: 'reduce'
+			}, {
+				label: 'QUITRENT',
+				value: 'exit'
+			}, {
+				label: 'ADDRENT',
+				value: 'increase'
+			}];
+			var typeValue = '';
+			typeArray.map(function (value) {
+				if (typeId === value.label) {
+					typeValue = value.value;
+				}
+			});
+			return './#/operation/customerManage/' + customerId + '/order/' + orderId + '/agreement/' + typeValue + '/' + agreementId + '/detail';
+		}
+	}, {
+		key: 'getAgrementType',
+		value: function getAgrementType(type) {
+			var typeList = [{
+				name: 'INTENTION',
+				value: '意向书'
+			}, {
+				name: 'ENTER',
+				value: '入驻协议'
+			}, {
+				name: 'ADDRENT',
+				value: '增租协议'
+			}, {
+				name: 'LESSRENT',
+				value: '减租协议'
+			}, {
+				name: 'QUITRENT',
+				value: '退租协议'
+			}, {
+				name: 'RENEW',
+				value: '续租协议'
+			}];
+			var name = '';
+			typeList.map(function (value) {
+				if (value.name === type) {
+					name = value.value;
+				}
+			});
+			return _react2.default.createElement(
+				_Table.TableRowColumn,
+				null,
+				name
+			);
+		}
+	}, {
+		key: 'delArgument',
+		value: function delArgument(id) {}
+	}, {
+		key: 'renderTableItem',
+		value: function renderTableItem(item) {
+			var _this = this;
+			if (item) {
+
+				return _react2.default.createElement(
+					_Grid.Row,
+					null,
+					_react2.default.createElement(
+						_Grid.Col,
+						{ md: 3, align: 'left', className: 'ContractName' },
+						_react2.default.createElement(_circle2.default, { type: item.payStatus }),
+						'\u6B3E\u9879\uFF1A',
+						item.installmentName
+					),
+					_react2.default.createElement(
+						_Grid.Col,
+						{ md: 3, align: 'left', className: 'ContractName' },
+						'\u8BA1\u5212\u4ED8\u6B3E\u65E5\u671F\uFF1A',
+						_react2.default.createElement(_krUi.KrDate, { value: item.installmentReminddate })
+					),
+					_react2.default.createElement(
+						_Grid.Col,
+						{ md: 3, align: 'left', className: 'ContractName' },
+						'\u8BA1\u5212\u4ED8\u6B3E\u91D1\u989D\uFF1A',
+						item.installmentAmount
+					),
+					item.installmentBackamount > 0 ? _react2.default.createElement(
+						_Grid.Col,
+						{ md: 3, align: 'left', className: 'ContractName' },
+						'\u5B9E\u9645\u4ED8\u6B3E\u91D1\u989D\uFF1A',
+						item.installmentBackamount
+					) : _react2.default.createElement(
+						_Grid.Col,
+						{ md: 3, align: 'left', className: 'ContractName' },
+						'\u5B9E\u9645\u4ED8\u6B3E\u91D1\u989D\uFF1A',
+						_react2.default.createElement(
+							'span',
+							{ style: { color: 'red' } },
+							item.installmentBackamount
+						)
+					)
+				);
+			}
+
+			return null;
+		}
+	}, {
+		key: 'uploadFile',
+		value: function uploadFile(id) {
+			var fileId = this.state.openId;
+			if (fileId == id) {
+				this.setState({
+					openMenu: !this.state.openMenu,
+					openId: id,
+					opretionOpen: false
+				});
+			} else {
+				this.setState({
+					openMenu: true,
+					openId: id,
+					opretionOpen: false
+				});
+			}
+		}
+	}, {
+		key: 'showMoreOpretion',
+		value: function showMoreOpretion(id) {
+			var _state = this.state,
+			    opretionId = _state.opretionId,
+			    opretionOpen = _state.opretionOpen;
+
+			if (opretionId == id) {
+				this.setState({
+					opretionId: id,
+					openMenu: false,
+					opretionOpen: !this.state.opretionOpen
+				});
+			} else {
+				this.setState({
+					opretionId: id,
+					openMenu: false,
+					opretionOpen: true
+				});
+			}
+			if (!opretionOpen) {
+				console.log('dddddddd');
+				document.addEventListener('click', this.docClick);
+			}
+		}
+	}, {
+		key: 'print',
+		value: function print(item) {
+			var typeList = [{
+				name: 'INTENTION',
+				value: 'admit'
+			}, {
+				name: 'ENTER',
+				value: 'join'
+			}, {
+				name: 'ADDRENT',
+				value: 'increase'
+			}, {
+				name: 'LESSRENT',
+				value: 'reduce'
+			}, {
+				name: 'QUITRENT',
+				value: 'exit'
+			}, {
+				name: 'RENEW',
+				value: 'renew'
+			}];
+			var name = '';
+			typeList.map(function (value) {
+				if (value.name === item.contracttype) {
+					name = value.value;
+				}
+			});
+			var params = this.props.params;
+			var url = './#/operation/customerManage/' + params.customerId + '/order/' + params.orderId + '/agreement/' + name + '/' + item.id + '/print';
+			var newWindow = window.open(url);
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _this5 = this;
+
+			var _state$response = this.state.response,
+			    orderBaseInfo = _state$response.orderBaseInfo,
+			    earnest = _state$response.earnest,
+			    contractList = _state$response.contractList,
+			    installmentPlan = _state$response.installmentPlan,
+			    contractStatusCount = _state$response.contractStatusCount;
+			var isShow = this.state.isShow;
+
+			if (this.state.loading) {
+				return _react2.default.createElement(_krUi.Loading, null);
+			}
+			var fileList = ['入.pdf', '入议书.pdf', '入驻协议书.pdf', '入驻协议书.pdf'];
+
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(_krUi.Title, { value: '\u5BA2\u6237\u8BA2\u5355\u8BE6\u60C5_\u8D22\u52A1\u7BA1\u7406' }),
+				_react2.default.createElement(_krUi.BreadCrumbs, { children: ['系统运营', '财务管理'], hide: !!this.props.location.query.closeAll }),
+				_react2.default.createElement(
+					_Section2.default,
+					{ title: '\u5BA2\u6237\u8BA2\u5355\u8BE6\u60C5', description: '', hide: !!this.props.location.query.closeAll, bodyPadding: '20px 20px 50px 20px' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'content' },
+						_react2.default.createElement(_krUi.Button, { label: '\u65B0\u5EFA\u5408\u540C', onTouchTap: this.openCreateAgreementDialog, style: { width: 160, height: 40, fontSize: '18px !important' } }),
+						_react2.default.createElement('span', { className: 'border-top', style: { marginTop: '20px !important' } }),
+						_react2.default.createElement(_krUi.DotTitle, { title: '\u5408\u540C\u5217\u8868', style: { marginTop: 40, marginBottom: 30 } }),
+						_react2.default.createElement(
+							_Table.Table,
+							{ className: 'orders', pageSize: contractList.length, displayCheckbox: false },
+							_react2.default.createElement(
+								_Table.TableHeader,
+								null,
+								_react2.default.createElement(
+									_Table.TableHeaderColumn,
+									null,
+									'\u5408\u540C\u7C7B\u578B'
+								),
+								_react2.default.createElement(
+									_Table.TableHeaderColumn,
+									null,
+									'\u79DF\u91D1\u91D1\u989D'
+								),
+								_react2.default.createElement(
+									_Table.TableHeaderColumn,
+									null,
+									'\u5DE5\u4F4D\u4E2A\u6570'
+								),
+								_react2.default.createElement(
+									_Table.TableHeaderColumn,
+									null,
+									'\u4F1A\u8BAE\u5BA4\u4E2A\u6570'
+								),
+								_react2.default.createElement(
+									_Table.TableHeaderColumn,
+									null,
+									'\u8D77\u59CB\u65E5\u671F'
+								),
+								_react2.default.createElement(
+									_Table.TableHeaderColumn,
+									null,
+									'\u7EC8\u6B62\u65E5\u671F'
+								),
+								_react2.default.createElement(
+									_Table.TableHeaderColumn,
+									null,
+									'\u5DE5\u4F4D/\u4F1A\u8BAE\u5BA4\u5747\u4EF7(\u6708)'
+								),
+								_react2.default.createElement(
+									_Table.TableHeaderColumn,
+									null,
+									'\u9500\u552E\u5458'
+								),
+								_react2.default.createElement(
+									_Table.TableHeaderColumn,
+									null,
+									'\u5F55\u5165\u4EBA'
+								),
+								_react2.default.createElement(
+									_Table.TableHeaderColumn,
+									null,
+									'\u64CD\u4F5C'
+								)
+							),
+							_react2.default.createElement(
+								_Table.TableBody,
+								null,
+								contractList.map(function (item, index) {
+									var _state2 = _this5.state,
+									    opretionOpen = _state2.opretionOpen,
+									    opretionId = _state2.opretionId;
+
+									var showMoreOnExit = false;
+									var showPrint = item.contracttype == 'QUITRENT' ? 'hidden' : 'visible';
+									var showOpretion = item.id == opretionId && opretionOpen ? 'visible' : 'hidden';
+									if (item.contracttype == 'QUITRENT' && item.contractstate != 'EXECUTE' && item.editFlag) {
+										showMoreOnExit = true;
+									}
+									return _react2.default.createElement(
+										_Table.TableRow,
+										{ key: index },
+										_this5.getAgrementType(item.contracttype),
+										_react2.default.createElement(
+											_Table.TableRowColumn,
+											null,
+											item.totalrent
+										),
+										_react2.default.createElement(
+											_Table.TableRowColumn,
+											null,
+											item.stationnum
+										),
+										_react2.default.createElement(
+											_Table.TableRowColumn,
+											null,
+											item.boardroomnum
+										),
+										_react2.default.createElement(
+											_Table.TableRowColumn,
+											null,
+											_react2.default.createElement(_krUi.KrDate, { value: item.leaseBegindate })
+										),
+										_react2.default.createElement(
+											_Table.TableRowColumn,
+											null,
+											_react2.default.createElement(_krUi.KrDate, { value: item.leaseEnddate })
+										),
+										_react2.default.createElement(
+											_Table.TableRowColumn,
+											null,
+											item.staionOrMeetingPrice
+										),
+										_react2.default.createElement(
+											_Table.TableRowColumn,
+											null,
+											item.saler
+										),
+										_react2.default.createElement(
+											_Table.TableRowColumn,
+											null,
+											item.inputUser
+										),
+										_react2.default.createElement(
+											_Table.TableRowColumn,
+											null,
+											_react2.default.createElement(_krUi.Button, { type: 'link', label: '\u67E5\u770B', href: _this5.getAgrementDetailUrl(item.customerid, _this5.props.params.orderId, item.contracttype, item.id) }),
+											_react2.default.createElement(
+												'span',
+												{ className: 'upload-button' },
+												_react2.default.createElement(_krUi.Button, { type: 'link', label: '\u9644\u4EF6', href: 'javascript:void(0)', onTouchTap: _this5.uploadFile.bind(_this5, item.id) })
+											),
+											item.contracttype != 'QUITRENT' || showMoreOnExit ? _react2.default.createElement(_krUi.Button, { type: 'link', href: 'javascript:void(0)', icon: _react2.default.createElement(_materialUi.FontIcon, { className: 'icon-more', style: { fontSize: '16px' } }), onTouchTap: _this5.showMoreOpretion.bind(_this5, item.id) }) : '',
+											_react2.default.createElement(
+												_krUi.UpLoadList,
+												{ open: [_this5.state.openMenu, _this5.state.openId], onChange: _this5.onChange, detail: item },
+												'Tooltip'
+											),
+											_react2.default.createElement(
+												'div',
+												{ style: { visibility: showOpretion }, className: 'm-operation' },
+												item.contractstate != 'EXECUTE' && item.editFlag && _react2.default.createElement(
+													'span',
+													{ style: { display: 'block' } },
+													_react2.default.createElement(
+														'a',
+														{ type: 'link', label: '\u7F16\u8F91', href: _this5.getAgrementEditUrl(item.customerid, _this5.props.params.orderId, item.contracttype, item.id), disabled: item.contractstate == 'EXECUTE' },
+														'\u7F16\u8F91'
+													)
+												),
+												item.contracttype != 'QUITRENT' && _react2.default.createElement(
+													'span',
+													{ style: { display: 'block' }, onClick: _this5.print.bind(_this5, item) },
+													'\u6253\u5370'
+												),
+												item.contracttype == 'ENTER' && item.contractstate != 'EXECUTE' && item.editFlag && _react2.default.createElement(
+													'span',
+													{ style: { display: 'block' } },
+													_react2.default.createElement(
+														'a',
+														{ type: 'link', label: '\u5220\u9664', href: 'javascript:void(0)', onTouchTap: _this5.setDelAgreementId.bind(_this5, item.id), disabled: item.contractstate == 'EXECUTE' },
+														'\u5220\u9664'
+													),
+													' '
+												)
+											)
+										)
+									);
+								})
+							)
+						),
+						_react2.default.createElement(_krUi.DotTitle, { title: '\u5206\u671F\u8BA1\u5212', style: { marginTop: 40, marginBottom: 30 } }),
+						_react2.default.createElement(
+							'div',
+							{ className: 'ui-remark' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'ui-circle-remark' },
+								_react2.default.createElement('span', { className: 'circle-color circle-color-top over-circle' }),
+								_react2.default.createElement(
+									'span',
+									{ className: 'remark-green-text' },
+									'\u5DF2\u5B8C\u6210'
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'ui-circle-remark' },
+								_react2.default.createElement('span', { className: 'circle-color circle-color-top section-circle' }),
+								_react2.default.createElement(
+									'span',
+									{ className: 'remark-green-text' },
+									'\u4ED8\u90E8\u5206\u6B3E'
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'ui-circle-remark' },
+								_react2.default.createElement('span', { className: 'circle-color circle-color-top no-pay' }),
+								_react2.default.createElement(
+									'span',
+									{ className: 'remark-green-text' },
+									'\u672A\u4ED8\u6B3E'
+								)
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'planList' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'headerList' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'type' },
+									'\u7C7B\u578B'
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'fund' },
+									'\u6B3E\u9879'
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'Begindate' },
+									'\u5206\u671F\u5F00\u59CB\u65F6\u95F4'
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'Enddate' },
+									'\u5206\u671F\u7ED3\u675F\u65F6\u95F4'
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'planMoney' },
+									'\u8BA1\u5212\u4ED8\u6B3E\u91D1\u989D'
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'actualMoney' },
+									'\u5B9E\u9645\u4ED8\u6B3E\u91D1\u989D'
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'status' },
+									'\u72B6\u6001'
+								)
+							),
+							installmentPlan && installmentPlan.map(function (item, index) {
+								return _react2.default.createElement(
+									'div',
+									{ className: 'contentList', key: index },
+									_react2.default.createElement(
+										'div',
+										{ className: 'type' },
+										_react2.default.createElement(
+											'div',
+											{ className: 'typeCon' },
+											_react2.default.createElement(
+												'div',
+												{ className: 'p' },
+												item.detailName,
+												item.detailStart,
+												'\u81F3',
+												item.detailEnd
+											)
+										)
+									),
+									_react2.default.createElement(
+										'div',
+										{ className: 'conlist' },
+										item.installment && item.installment.map(function (items, indexs) {
+											return _react2.default.createElement(
+												'div',
+												{ className: 'list', key: indexs },
+												_react2.default.createElement(
+													'div',
+													{ className: 'fund' },
+													items.installmentName
+												),
+												_react2.default.createElement(
+													'div',
+													{ className: 'Begindate' },
+													_react2.default.createElement(_krUi.KrDate, { value: items.installmentBegindate })
+												),
+												_react2.default.createElement(
+													'div',
+													{ className: 'Enddate' },
+													_react2.default.createElement(_krUi.KrDate, { value: items.installmentEnddate })
+												),
+												_react2.default.createElement(
+													'div',
+													{ className: 'planMoney' },
+													items.installmentAmount
+												),
+												_react2.default.createElement(
+													'div',
+													{ className: 'actualMoney' },
+													items.installmentBackamount
+												),
+												_react2.default.createElement(
+													'div',
+													{ className: 'status' },
+													_react2.default.createElement(_circle2.default, { type: items.payStatus })
+												)
+											);
+										})
+									)
+								);
+							})
+						),
+						_react2.default.createElement(_krUi.DotTitle, { title: '\u8BA2\u5355\u63CF\u8FF0', style: { marginTop: 24 } }),
+						_react2.default.createElement(
+							'div',
+							{ className: 'orderList' },
+							_react2.default.createElement(
+								_Grid.Grid,
+								{ style: { marginTop: 40 } },
+								_react2.default.createElement(
+									_Grid.Row,
+									null,
+									_react2.default.createElement(
+										_Grid.Col,
+										{ md: 4 },
+										_react2.default.createElement(_krUi.KrField, { label: '\u793E\u533A\u540D\u79F0', component: 'labelText', value: orderBaseInfo.communityName, defaultValue: '\u65E0', alignRight: true, tooltip: orderBaseInfo.communityName })
+									),
+									_react2.default.createElement(
+										_Grid.Col,
+										{ md: 4 },
+										_react2.default.createElement(_krUi.KrField, { label: '\u5BA2\u6237\u540D\u79F0', component: 'labelText', value: orderBaseInfo.customerName, alignRight: true, tooltip: orderBaseInfo.customerName })
+									),
+									_react2.default.createElement(
+										_Grid.Col,
+										{ md: 4 },
+										_react2.default.createElement(_krUi.KrField, { label: '\u8BA2\u5355\u540D\u79F0', oldText: orderBaseInfo.mainbillname, component: 'editLabelText', tooltip: orderBaseInfo.mainbillname, alignRight: true, save: this.change })
+									)
+								),
+								_react2.default.createElement(
+									_Grid.Row,
+									null,
+									_react2.default.createElement(
+										_Grid.Col,
+										{ md: 4 },
+										_react2.default.createElement(_krUi.KrField, { label: '\u5F53\u524D\u5DE5\u4F4D\u6570', component: 'labelText', value: orderBaseInfo.stationnum, defaultValue: '0', alignRight: true })
+									),
+									_react2.default.createElement(
+										_Grid.Col,
+										{ md: 4 },
+										_react2.default.createElement(_krUi.KrField, { label: '\u8BA2\u5355\u7F16\u53F7', component: 'labelText', value: orderBaseInfo.mainbillcode, defaultValue: '\u65E0', alignRight: true })
+									),
+									_react2.default.createElement(
+										_Grid.Col,
+										{ md: 4 },
+										_react2.default.createElement(_krUi.KrField, { label: '\u8D77\u59CB\u65E5\u671F', component: 'labelText', value: orderBaseInfo.contractEntrydate, type: 'date', defaultValue: '\u65E0', alignRight: true })
+									)
+								),
+								_react2.default.createElement(
+									_Grid.Row,
+									null,
+									_react2.default.createElement(
+										_Grid.Col,
+										{ md: 4 },
+										_react2.default.createElement(_krUi.KrField, { label: '\u7ED3\u675F\u65E5\u671F', component: 'labelText', value: orderBaseInfo.contractLeavedate, type: 'date', defaultValue: '\u65E0', alignRight: true })
+									),
+									_react2.default.createElement(
+										_Grid.Col,
+										{ md: 4 },
+										_react2.default.createElement(_krUi.KrField, { label: '\u64A4\u573A\u65E5\u671F', component: 'labelText', value: orderBaseInfo.actualLeavedate, type: 'date', defaultValue: '\u65E0', alignRight: true })
+									),
+									_react2.default.createElement(
+										_Grid.Col,
+										{ md: 4 },
+										_react2.default.createElement(_krUi.KrField, { label: '\u8BA2\u5355\u603B\u989D', component: 'labelText', value: orderBaseInfo.contractTotalamount, defaultValue: '0', alignRight: true })
+									)
+								),
+								_react2.default.createElement(
+									_Grid.Row,
+									null,
+									_react2.default.createElement(
+										_Grid.Col,
+										{ md: 4 },
+										_react2.default.createElement(_krUi.KrField, { label: '\u56DE\u6B3E\u603B\u989D', component: 'labelText', value: orderBaseInfo.contractBackamount, defaultValue: '0', alignRight: true })
+									),
+									_react2.default.createElement(
+										_Grid.Col,
+										{ md: 4 },
+										_react2.default.createElement(_krUi.KrField, { label: '\u672A\u56DE\u6B3E\u989D', component: 'labelText', value: orderBaseInfo.unBackamount, defaultValue: '0', alignRight: true })
+									),
+									_react2.default.createElement(
+										_Grid.Col,
+										{ md: 4 },
+										_react2.default.createElement(_krUi.KrField, { label: '\u5DE5\u4F4D\u56DE\u6B3E', component: 'labelText', value: orderBaseInfo.paidrent, defaultValue: '0', alignRight: true })
+									)
+								),
+								_react2.default.createElement(
+									_Grid.Row,
+									null,
+									_react2.default.createElement(
+										_Grid.Col,
+										{ md: 4 },
+										_react2.default.createElement(_krUi.KrField, { label: '\u5B9E\u6536\u62BC\u91D1', component: 'labelText', value: orderBaseInfo.realdeposit, defaultValue: '0', alignRight: true })
+									),
+									_react2.default.createElement(
+										_Grid.Col,
+										{ md: 4 },
+										_react2.default.createElement(_krUi.KrField, { label: '\u5B9E\u6536\u5B9A\u91D1', component: 'labelText', value: orderBaseInfo.realdownpayment, defaultValue: '0', alignRight: true })
+									),
+									_react2.default.createElement(
+										_Grid.Col,
+										{ md: 4 },
+										_react2.default.createElement(_krUi.KrField, { label: '\u5176\u4ED6\u56DE\u6B3E', component: 'labelText', value: orderBaseInfo.refundamount, defaultValue: '0', alignRight: true })
+									)
+								)
+							)
+						),
+						_react2.default.createElement('span', { className: 'border-bottom', style: { marginTop: 60 } })
+					)
+				),
+				_react2.default.createElement(
+					_krUi.Dialog,
+					{
+						title: '\u65B0\u5EFA\u5408\u540C',
+						modal: true,
+						onClose: this.openCreateAgreementDialog,
+						open: this.state.openCreateAgreement,
+						contentStyle: { width: 687 } },
+					_react2.default.createElement(NewCreatForm, { contractStatusCount: contractStatusCount, params: this.props.params })
+				),
+				_react2.default.createElement(
+					_krUi.Dialog,
+					{
+						title: '\u5220\u9664\u5408\u540C',
+						modal: true,
+						onClose: this.openDelAgreementDialog,
+						open: this.state.openDelAgreement,
+						contentStyle: { width: 445, height: 236 } },
+					_react2.default.createElement(_DelAgreementNotify2.default, { onSubmit: this.confirmDelAgreement, onCancel: this.openDelAgreementDialog.bind(this, 0) })
+				)
+			);
+		}
+	}]);
+
+	return OrderDetail;
+}(_react2.default.Component);
+
+exports.default = OrderDetail;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(NewCreatForm, 'NewCreatForm', '/Users/smile/Documents/kr-admin/src/Containers/Operation/CustomerManage/Order/Detail/index.js');
+
+	__REACT_HOT_LOADER__.register(StaionInfo, 'StaionInfo', '/Users/smile/Documents/kr-admin/src/Containers/Operation/CustomerManage/Order/Detail/index.js');
+
+	__REACT_HOT_LOADER__.register(OrderDetail, 'OrderDetail', '/Users/smile/Documents/kr-admin/src/Containers/Operation/CustomerManage/Order/Detail/index.js');
+}();
+
+;

@@ -1,0 +1,64 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.switchHeaderNav = switchHeaderNav;
+exports.switchSidebarNav = switchSidebarNav;
+exports.switchBottomNav = switchBottomNav;
+exports.switchRightBar = switchRightBar;
+
+var _nodeFetch = require('node-fetch');
+
+var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
+
+var _jqueryParam = require('jquery-param');
+
+var _jqueryParam2 = _interopRequireDefault(_jqueryParam);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function switchHeaderNav(value) {
+	return {
+		type: 'SWITCH_HEADER_NAV',
+		data: value
+	};
+}
+
+function switchSidebarNav(value) {
+	return {
+		type: 'SWITCH_SIDEBAR_NAV',
+		data: value
+	};
+}
+
+function switchBottomNav(value) {
+
+	return {
+		type: 'SWITCH_BOTTOM_NAV',
+		data: value
+	};
+}
+function switchRightBar(value) {
+	return {
+		type: 'SWITCH_RIGHT_BAR',
+		data: value
+	};
+}
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(switchHeaderNav, 'switchHeaderNav', '/Users/smile/Documents/kr-admin/src/Redux/Modules/Demo/actions.js');
+
+	__REACT_HOT_LOADER__.register(switchSidebarNav, 'switchSidebarNav', '/Users/smile/Documents/kr-admin/src/Redux/Modules/Demo/actions.js');
+
+	__REACT_HOT_LOADER__.register(switchBottomNav, 'switchBottomNav', '/Users/smile/Documents/kr-admin/src/Redux/Modules/Demo/actions.js');
+
+	__REACT_HOT_LOADER__.register(switchRightBar, 'switchRightBar', '/Users/smile/Documents/kr-admin/src/Redux/Modules/Demo/actions.js');
+}();
+
+;

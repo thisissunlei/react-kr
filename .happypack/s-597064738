@@ -1,0 +1,195 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _jquery = require('jquery');
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+var _krUi = require('kr-ui');
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+require('./index.less');
+
+var _Utils = require('kr/Utils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Tooltip = function (_Component) {
+	_inherits(Tooltip, _Component);
+
+	function Tooltip(props) {
+		_classCallCheck(this, Tooltip);
+
+		var _this = _possibleConstructorReturn(this, (Tooltip.__proto__ || Object.getPrototypeOf(Tooltip)).call(this, props));
+
+		_this.renderHover = function () {
+			// let {tipName} = this.props;
+			var node = _reactDom2.default.findDOMNode(_this.tooltip);
+			var parent = node.parentNode;
+			// node.style.backgroundColor = backgroundColor;
+
+			// parent.style.position = "relative";
+			parent.onmouseover = function () {
+				node.style.visibility = 'visible';
+			};
+			parent.onmouseout = function () {
+				node.style.visibility = 'hidden';
+			};
+			_this.setState({
+				width: node.offsetWidth,
+				height: node.offsetHeight
+			});
+		};
+
+		_this.state = {
+			width: 0,
+			height: 0,
+			offsetTop: _this.props.offsetTop,
+			offsetRight: _this.props.offsetRight
+		};
+
+		return _this;
+	}
+
+	_createClass(Tooltip, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			this.renderHover();
+		}
+	}, {
+		key: 'componentWillReceiveProps',
+		value: function componentWillReceiveProps(nextProps) {
+			if (!(0, _Utils.ShallowEqual)(this.props.offsetTop, nextProps.offsetTop)) {
+				this.renderHover();
+			}
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _this2 = this;
+
+			var _props = this.props,
+			    children = _props.children,
+			    place = _props.place,
+			    backgroundColor = _props.backgroundColor,
+			    boxShadow = _props.boxShadow,
+			    ShadowColor = _props.ShadowColor,
+			    scroll = _props.scroll;
+			var _state = this.state,
+			    width = _state.width,
+			    height = _state.height;
+
+			var className = 'ui-tooltips';
+			var arrowStyle = {};
+			var arrowContentStyle = {};
+			var arrowName = '';
+			var arrowContentName = '';
+			var style = {};
+			var offsetTop = this.state.offsetTop;
+			var offsetRight = this.state.offsetRight;
+			if (!this.state.offsetRight) {
+				offsetRight = 0;
+			}
+			if (!this.state.offsetTop) {
+				offsetTop = 0;
+			}
+			if (place === 'top' || place === 'bottom') {
+				className += ' center';
+			}
+			if (place === 'right' || place === 'left') {
+				className += ' height';
+			}
+			if (place === 'right') {
+				style.right = '-' + (width - 5 + offsetRight) + 'px';
+				className += ' right-arrow';
+			}
+			if (place === 'left') {
+				style.left = '-' + (width - 5) + 'px';
+				// className += ' left-arrow';
+			}
+			if (place === 'top') {
+				style.top = '-' + (-5 + offsetTop) + 'px';
+				className += ' top-arrow';
+			}
+			if (place === 'bottom') {
+				style.top = 10 + 'px';
+				className += ' bottom-arrows';
+			}
+			if (scroll) {
+				style.maxHeight = '250px';
+			} else {
+				style.maxHeight = 'auto';
+			}
+			style.background = backgroundColor;
+			// style.boxShadow = '0 0 3px #499df1';
+			style.boxShadow = boxShadow;
+
+			return _react2.default.createElement(
+				'div',
+				{ className: className, ref: function ref(div) {
+						_this2.tooltip = div;
+					}, style: style },
+				_react2.default.createElement('span', { className: arrowName, style: arrowStyle }),
+				_react2.default.createElement('span', { className: arrowContentName, style: arrowContentStyle }),
+				children
+			);
+		}
+	}]);
+
+	return Tooltip;
+}(_react.Component);
+
+Tooltip.defaultProps = {
+	backgroundColor: "rgba(0,0,0,.7)",
+	ShadowColor: 'transparent',
+	scroll: false
+};
+Tooltip.PropTypes = {
+	className: _react2.default.PropTypes.string,
+	children: _react2.default.PropTypes.node,
+	/**
+  * place有四个参数值top,bottom,left,right
+  */
+	place: _react2.default.PropTypes.string,
+	backgroundColor: _react2.default.PropTypes.string,
+	/**
+  * tooltip内容的阴影，box-shadow的参数
+  */
+	boxShadow: _react2.default.PropTypes.string,
+	/**
+  * 与box-shadow的阴影色相同
+  */
+	scroll: _react2.default.PropTypes.bool
+
+};
+exports.default = Tooltip;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(Tooltip, 'Tooltip', '/Users/smile/Documents/kr-admin/src/Components/Tooltips/index.js');
+}();
+
+;

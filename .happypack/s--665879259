@@ -1,0 +1,1031 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _simpleAssign = require('simple-assign');
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _krUi = require('kr-ui');
+
+var _jquery = require('jquery');
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+require('./index.less');
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _EmployessTable = require('./EmployessTable');
+
+var _EmployessTable2 = _interopRequireDefault(_EmployessTable);
+
+var _ItemTable = require('./ItemTable');
+
+var _ItemTable2 = _interopRequireDefault(_ItemTable);
+
+var _DismantlingForm = require('./DismantlingForm');
+
+var _DismantlingForm2 = _interopRequireDefault(_DismantlingForm);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SearchForm = function (_Component) {
+	_inherits(SearchForm, _Component);
+
+	function SearchForm(props) {
+		_classCallCheck(this, SearchForm);
+
+		var _this2 = _possibleConstructorReturn(this, (SearchForm.__proto__ || Object.getPrototypeOf(SearchForm)).call(this, props));
+
+		_this2.onFilter = function (value) {
+			var onFilter = _this2.props.onFilter;
+
+			onFilter && onFilter(value);
+		};
+
+		_this2.onSubmit = _this2.onSubmit.bind(_this2);
+		var dt = new Date();
+		var currentYear = dt.getFullYear();
+		_this2.state = {
+			currentYear: currentYear,
+			dismantling: false,
+			formValues: {},
+			Installmentplan: [],
+			rate: ['0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%'],
+			communityIdList: [],
+			page: 1,
+			pageSize: 15,
+			type: 'BILL',
+			ids: '',
+			istip: false
+
+		};
+		_this2.getcommunity = _this2.getcommunity.bind(_this2);
+		_this2.selectCommunity = _this2.selectCommunity.bind(_this2);
+		_this2.getcommunity();
+
+		return _this2;
+	}
+	// static contextTypes = {
+	// 	onSetCommunity: React.PropTypes.func.isRequired,
+	// 	communityId: React.PropTypes.string.isRequired,
+	// }
+
+
+	_createClass(SearchForm, [{
+		key: 'onSubmit',
+		value: function onSubmit(form) {
+			var _state = this.state,
+			    page = _state.page,
+			    pageSize = _state.pageSize,
+			    communityids = _state.communityids,
+			    ids = _state.ids,
+			    formValues = _state.formValues,
+			    istip = _state.istip;
+
+
+			formValues = {
+				type: form.filter || 'BILL',
+				value: form.content,
+				communityids: communityids || 0,
+				page: page,
+				pageSize: pageSize
+
+			};
+
+			var onSubmit = this.props.onSubmit;
+
+			onSubmit && onSubmit(formValues, istip);
+		}
+	}, {
+		key: 'getcommunity',
+		value: function getcommunity() {
+			var _this = this;
+			var _state2 = this.state,
+			    communityIdList = _state2.communityIdList,
+			    page = _state2.page,
+			    pageSize = _state2.pageSize,
+			    type = _state2.type;
+
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('getCommunity')).then(function (response) {
+
+				communityIdList = response.communityInfoList.map(function (item, index) {
+
+					item.value = item.id;
+					item.label = item.name;
+					return item;
+				});
+				communityIdList.unshift({
+					label: '请选择',
+					value: '0'
+				});
+
+				_this.setState({
+					communityIdList: communityIdList
+				});
+			}).catch(function (err) {
+
+				_krUi.Notify.show([{
+					message: err.message,
+					type: 'danger'
+				}]);
+			});
+		}
+	}, {
+		key: 'selectCommunity',
+		value: function selectCommunity(personel) {
+			var id = 0;
+			if (!personel) {
+				this.setState({
+					communityids: 0
+				});
+			} else {
+				id = personel.value;
+				this.setState({
+					communityids: personel.value
+				});
+			}
+
+			// this.context.onSetCommunity(id);
+			var onChange = this.props.onChange;
+
+
+			onChange && onChange(id);
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    error = _props.error,
+			    handleSubmit = _props.handleSubmit,
+			    pristine = _props.pristine,
+			    reset = _props.reset;
+			var communityIdList = this.state.communityIdList;
+
+			var options = [{
+				label: '订单名称',
+				value: 'BILL'
+			}, {
+				label: '员工姓名',
+				value: 'MEMBER'
+			}, {
+				label: '手机号',
+				value: 'PHONE'
+			}];
+
+			return _react2.default.createElement(
+				'form',
+				{ name: 'searchForm', className: 'searchForm searchList', style: { marginBottom: 10, marginTop: 12, height: 45 } },
+				_react2.default.createElement(_krUi.SearchForms, { onSubmit: this.onSubmit, searchFilter: options, style: { marginTop: 5 }, onFilter: this.onFilter }),
+				_react2.default.createElement(_krUi.KrField, { name: 'community', grid: 1 / 5, component: 'select', label: '\u793E\u533A', search: true, options: communityIdList, onChange: this.selectCommunity })
+			);
+		}
+	}]);
+
+	return SearchForm;
+}(_react.Component);
+
+SearchForm.defaultProps = {
+	tab: '',
+	Ids: _react2.default.PropTypes.string
+};
+
+
+SearchForm = (0, _reduxForm.reduxForm)({
+	form: 'searchForm'
+})(SearchForm);
+
+var BasicTable = function (_Component2) {
+	_inherits(BasicTable, _Component2);
+
+	// static contextTypes = {
+	// 	onSetCommunity: React.PropTypes.func.isRequired,
+	// 	communityId: React.PropTypes.string.isRequired,
+	// }
+
+
+	function BasicTable(props, context) {
+		_classCallCheck(this, BasicTable);
+
+		var _this3 = _possibleConstructorReturn(this, (BasicTable.__proto__ || Object.getPrototypeOf(BasicTable)).call(this, props, context));
+
+		_initialiseProps.call(_this3);
+
+		_this3.onPreYear = _this3.onPreYear.bind(_this3);
+		_this3.onNextYear = _this3.onNextYear.bind(_this3);
+		_this3.onCancel = _this3.onCancel.bind(_this3);
+
+		_this3.openDismantlingDialog = _this3.openDismantlingDialog.bind(_this3);
+		_this3.onDismantling = _this3.onDismantling.bind(_this3);
+		_this3.getInstallmentplan = _this3.getInstallmentplan.bind(_this3);
+		_this3.onSubmit = _this3.onSubmit.bind(_this3);
+		_this3.onChange = _this3.onChange.bind(_this3);
+		_this3.onStation = _this3.onStation.bind(_this3);
+		_this3.scrollLoading = _this3.scrollLoading.bind(_this3);
+		_this3.onSetState = _this3.onSetState.bind(_this3);
+		var dt = new Date();
+		_this3.currentYear = dt.getFullYear();
+		var currentYear = dt.getFullYear();
+
+		_this3.state = {
+			currentYear: currentYear,
+			dismantling: false,
+			formValues: {},
+			Installmentplan: [],
+			rate: ['0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%'],
+			value: '',
+			communityIdList: [],
+			page: 1,
+			pageSize: 15,
+			type: 'BILL',
+			detail: {},
+			activity: false,
+			nowDate: '',
+			isIscroll: true,
+			totalCount: '',
+			isLoading: false,
+			totalPages: '',
+			istip: false,
+			dataLoading: true,
+			communityids: 0
+
+		};
+		return _this3;
+	}
+
+	_createClass(BasicTable, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			this.getRate();
+			this.getInstallmentplan();
+		}
+	}, {
+		key: 'componentWillReceiveProps',
+		value: function componentWillReceiveProps(nextProps) {
+			if (nextProps.community !== this.props.communityids) {
+				this.setState({
+					communityids: nextProps.community
+				});
+				this.getInstallmentplan();
+			}
+		}
+	}, {
+		key: 'scrollLoading',
+		value: function scrollLoading() {
+			var _this = this;
+			(0, _jquery2.default)(window).bind('scroll', function () {
+				var top = (0, _jquery2.default)(window).scrollTop() || 0;
+				var height = (0, _jquery2.default)(window).height() || 0;
+				var num = (0, _jquery2.default)(document).height() - (0, _jquery2.default)(window).height();
+				var scrollBottom = top - num;
+				var dataLoading = _this.state.dataLoading;
+
+				var isOutBoundary = scrollBottom >= -300;
+				if (isOutBoundary && !dataLoading) {
+					var step;
+					var len;
+
+					(function () {
+						var _this$state = _this.state,
+						    communityids = _this$state.communityids,
+						    type = _this$state.type,
+						    page = _this$state.page,
+						    pageSize = _this$state.pageSize,
+						    value = _this$state.value,
+						    Installmentplan = _this$state.Installmentplan,
+						    isIscroll = _this$state.isIscroll,
+						    totalCount = _this$state.totalCount,
+						    totalPages = _this$state.totalPages,
+						    istip = _this$state.istip,
+						    currentYear = _this$state.currentYear,
+						    dataLoading = _this$state.dataLoading;
+
+
+						if (isIscroll) {
+							_this.setState({
+								isIscroll: !_this.state.isIscroll
+							});
+
+							step = 1;
+							len = page;
+
+							if (totalPages - page == 1) {
+								window.setTimeout(function () {
+									_this.setState({
+										istip: !_this.state.istip
+									});
+								}, 2000);
+							}
+
+							if (totalPages > page) {
+								len += step;
+								_this.setState({
+									page: len,
+									isLoading: !_this.state.isLoading
+								});
+								_Redux.Store.dispatch(_Redux.Actions.callAPI('getInstallmentplan', {
+									communityids: communityids,
+									value: value,
+									type: type,
+									page: len,
+									pageSize: 15,
+									year: currentYear
+								})).then(function (response) {
+									if (response.vo) {
+										var list = Installmentplan.concat(response.vo.items);
+										// var list = $.extend(Installmentplan,response.vo.items);
+									} else {
+										var list = [];
+									}
+									_this.setState({
+										Installmentplan: list });
+									if (_this.state.page < _this.state.totalPages) {
+
+										_this.setState({
+											isIscroll: !_this.state.isIscroll
+										});
+									}
+									window.setTimeout(function () {
+										_this.setState({
+											isLoading: !_this.state.isLoading
+										});
+									}, 10);
+								}).catch(function (err) {
+									_krUi.Notify.show([{
+										message: err.message,
+										type: 'danger'
+									}]);
+								});
+							}
+						}
+					})();
+				}
+			});
+		}
+
+		//撤场
+
+	}, {
+		key: 'onDismantling',
+		value: function onDismantling(detail) {
+			this.setState({
+				detail: detail
+			});
+			this.openDismantlingDialog();
+		}
+	}, {
+		key: 'onCancel',
+		value: function onCancel() {}
+
+		//分配工位显示
+
+	}, {
+		key: 'onStation',
+		value: function onStation() {
+			this.setState({
+				activity: !this.state.activity
+			});
+		}
+	}, {
+		key: 'onChange',
+		value: function onChange(id) {
+			this.setState({
+				page: 1,
+				isIscroll: true
+			});
+			var _state3 = this.state,
+			    type = _state3.type,
+			    page = _state3.page,
+			    pageSize = _state3.pageSize,
+			    totalPages = _state3.totalPages,
+			    isIscroll = _state3.isIscroll,
+			    value = _state3.value,
+			    currentYear = _state3.currentYear;
+
+
+			var _this = this;
+			_this.getRate(id);
+
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('getInstallmentplan', {
+				communityids: id,
+				value: value,
+				type: type,
+				page: 1,
+				pageSize: pageSize,
+				year: currentYear
+			})).then(function (response) {
+				_this.setState({
+					Installmentplan: response.vo.items || [],
+					// rate: response.rate,
+					communityids: id,
+					totalPages: response.vo.totalPages
+				});
+				if (response.vo.totalPages == response.vo.page) {
+					_this.setState({
+						istip: true
+					});
+				} else {
+					_this.setState({
+						istip: false
+					});
+				}
+			}).catch(function (err) {
+				_krUi.Notify.show([{
+					message: err.message,
+					type: 'danger'
+				}]);
+			});
+		}
+	}, {
+		key: 'onSubmit',
+		value: function onSubmit(formValues, istip) {
+			var year = this.state.currentYear;
+			var _this = this;
+			var activity = true;
+			if (formValues.type == "BILL") {
+				activity = false;
+			}
+			formValues.year = year;
+
+			this.setState({
+				istip: istip
+			});
+
+			this.setState({
+				value: formValues.value,
+				type: formValues.type,
+				dataLoading: true
+			});
+
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('getInstallmentplan', formValues)).then(function (response) {
+
+				var Installmentplan = response.vo.items;
+				Installmentplan.forEach(function (item, index) {
+					item.activity = activity;
+				});
+
+				_this.setState({
+					Installmentplan: Installmentplan,
+					// rate: response.rate,
+					totalPages: response.vo.totalPages,
+					dataLoading: false
+				});
+				if (response.vo.totalPages == response.vo.page) {
+					_this.setState({
+						istip: true
+					});
+				}
+			}).catch(function (err) {
+				_krUi.Notify.show([{
+					message: err.message,
+					type: 'danger'
+				}]);
+			});
+		}
+	}, {
+		key: 'openDismantlingDialog',
+		value: function openDismantlingDialog() {
+			this.setState({
+				dismantling: !this.state.dismantling
+			});
+		}
+	}, {
+		key: 'onPreYear',
+		value: function onPreYear() {
+			var currentYear = this.state.currentYear;
+
+			currentYear--;
+			this.setState({
+				currentYear: currentYear,
+				istip: false,
+				page: 1,
+				dataLoading: true
+			}, function () {
+				this.getInstallmentplan();
+				this.getRate();
+			});
+		}
+	}, {
+		key: 'onNextYear',
+		value: function onNextYear() {
+			var _state4 = this.state,
+			    currentYear = _state4.currentYear,
+			    isLoading = _state4.isLoading;
+
+			var _this = this;
+			currentYear++;
+
+			this.setState({
+				currentYear: currentYear,
+				istip: false,
+				page: 1,
+				dataLoading: true
+			}, function () {
+				this.getRate();
+				this.getInstallmentplan();
+			});
+		}
+	}, {
+		key: 'onSetState',
+		value: function onSetState(state) {
+
+			if (this.currentYear != this.state.currentYear) {
+				return;
+			}
+			this.setState(state);
+		}
+		//获取年份出租率
+
+	}, {
+		key: 'getInstallmentplan',
+
+
+		//获取销控表数据
+		value: function getInstallmentplan() {
+			var _this = this;
+
+			var community = this.props.community;
+			var _state5 = this.state,
+			    type = _state5.type,
+			    page = _state5.page,
+			    value = _state5.value,
+			    pageSize = _state5.pageSize,
+			    communityids = _state5.communityids,
+			    dataLoading = _state5.dataLoading;
+
+
+			var year = _this.state.currentYear;
+
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('getInstallmentplan', {
+				communityids: communityids,
+				value: value,
+				type: type,
+				page: page,
+				pageSize: 15,
+				year: year
+			})).then(function (response) {
+
+				_this.currentYear = response.year;
+
+				var state = {};
+
+				if (response.vo) {
+					var list = response.vo.items;
+					var totalCount = response.vo.totalCount;
+					var totalPages = response.vo.totalPages;
+				} else {
+					var list = [];
+					var totalCount = 0;
+					var totalPages = 0;
+				}
+				if (response.vo.totalPages == response.vo.page) {
+					_this.setState({
+						istip: true
+					});
+				}
+				_this.setState({
+					dataLoading: false
+				});
+
+				state = {
+					Installmentplan: list,
+					// rate: response.rate,
+					totalCount: totalCount,
+					totalPages: totalPages,
+					dataLoading: false
+				};
+
+				if (totalPages > page) {
+					state.isIscroll = true;
+				}
+
+				_this.onSetState(state);
+			}).catch(function (err) {
+
+				_krUi.Notify.show([{
+					message: err.message,
+					type: 'danger'
+				}]);
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _this4 = this;
+
+			var _state6 = this.state,
+			    currentYear = _state6.currentYear,
+			    Installmentplan = _state6.Installmentplan,
+			    rate = _state6.rate,
+			    communityids = _state6.communityids,
+			    totalCount = _state6.totalCount,
+			    isLoading = _state6.isLoading,
+			    dataLoading = _state6.dataLoading,
+			    totalPages = _state6.totalPages,
+			    istip = _state6.istip,
+			    page = _state6.page,
+			    isIscroll = _state6.isIscroll;
+
+			var _this = this;
+
+			var tab = this.props.tab;
+
+			if (tab === 'table') {
+
+				(0, _jquery2.default)(window).bind('scroll.table', this.scrollLoading());
+			} else {
+				(0, _jquery2.default)(window).off('scroll.table', this.scrollLoading());
+			}
+			var showNone = void 0;
+			if (Installmentplan.length) {
+				showNone = true;
+			} else {
+				showNone = false;
+			}
+
+			return _react2.default.createElement(
+				'div',
+				{ style: { position: 'relative', minHeight: 908 } },
+				isLoading && !dataLoading ? _react2.default.createElement(
+					'div',
+					{ style: { position: 'fixed', left: '50%', top: '40%', zIndex: 100 } },
+					_react2.default.createElement(_krUi.Loading, null)
+				) : '',
+				istip && !dataLoading && !isLoading ? _react2.default.createElement(
+					'div',
+					{ style: { width: 640, color: '#999', fontSize: '14px', position: 'absolute', left: '50%', bottom: '-103px', marginLeft: '-320px', zIndex: 100 } },
+					_react2.default.createElement('p', { style: { width: 260, borderBottom: '1px solid #cccccc', height: 9, float: 'left' } }),
+					_react2.default.createElement(
+						'p',
+						{ style: { float: 'left', paddingLeft: '15px', paddingRight: '15px' } },
+						'\u6211\u662F\u6709\u5E95\u7EBF\u7684'
+					),
+					_react2.default.createElement('p', { style: { width: 260, height: 9, borderBottom: '1px solid #cccccc', float: 'left' } })
+				) : '',
+				_react2.default.createElement(
+					'div',
+					{ className: 'basic-con' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'legend' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'legend-left' },
+							_react2.default.createElement(
+								'p',
+								null,
+								_react2.default.createElement(
+									'span',
+									{ className: 'txts bule-div' },
+									'\u5F53\u524D\u65F6\u95F4'
+								),
+								_react2.default.createElement(
+									'span',
+									{ className: 'txts grey-div' },
+									'\u8FC7\u53BB\u65F6\u95F4'
+								),
+								_react2.default.createElement('span', { className: 'circle red' }),
+								_react2.default.createElement(
+									'span',
+									{ className: 'txt' },
+									'\u50AC\u6B3E\u56DE\u6B3E'
+								),
+								_react2.default.createElement('span', { className: 'circle green' }),
+								_react2.default.createElement(
+									'span',
+									{ className: 'txt' },
+									'\u5DE5\u4F4D\u53D8\u66F4'
+								),
+								_react2.default.createElement('span', { className: 'circle grey-span' }),
+								_react2.default.createElement(
+									'span',
+									{ className: 'txt' },
+									'\u56DE\u6B3E\u5B8C\u6210'
+								)
+							)
+						)
+					),
+					_react2.default.createElement(SearchForm, { onSubmit: this.onSubmit, Ids: communityids, onChange: this.onChange, onFilter: this.onFilter })
+				),
+				_react2.default.createElement(
+					'table',
+					{ className: 'basic-table' },
+					_react2.default.createElement(
+						'thead',
+						null,
+						_react2.default.createElement(
+							'tr',
+							{ ref: function ref(tr) {
+									_this4.trLength = tr;
+								} },
+							_react2.default.createElement(
+								'th',
+								{ onClick: this.onPreYear, className: 'pre-year' },
+								currentYear - 1,
+								'\u5E74 ',
+								_react2.default.createElement('span', { className: 'prev' })
+							),
+							_react2.default.createElement(
+								'th',
+								null,
+								'1\u6708'
+							),
+							_react2.default.createElement(
+								'th',
+								null,
+								'2\u6708'
+							),
+							_react2.default.createElement(
+								'th',
+								null,
+								'3\u6708'
+							),
+							_react2.default.createElement(
+								'th',
+								null,
+								'4\u6708'
+							),
+							_react2.default.createElement(
+								'th',
+								null,
+								'5\u6708'
+							),
+							_react2.default.createElement(
+								'th',
+								null,
+								'6\u6708'
+							),
+							_react2.default.createElement(
+								'th',
+								null,
+								'7\u6708'
+							),
+							_react2.default.createElement(
+								'th',
+								null,
+								'8\u6708'
+							),
+							_react2.default.createElement(
+								'th',
+								null,
+								'9\u6708'
+							),
+							_react2.default.createElement(
+								'th',
+								null,
+								'10\u6708'
+							),
+							_react2.default.createElement(
+								'th',
+								null,
+								'11\u6708'
+							),
+							_react2.default.createElement(
+								'th',
+								null,
+								'12\u6708'
+							),
+							_react2.default.createElement(
+								'th',
+								{ onClick: this.onNextYear, className: 'next-year' },
+								currentYear * 1 + 1,
+								'\u5E74 ',
+								_react2.default.createElement('span', { className: 'next' })
+							)
+						)
+					),
+					this.renderNone(showNone)
+				),
+				_react2.default.createElement(
+					_krUi.Dialog,
+					{
+						title: '\u64A4\u573A\u65E5\u671F',
+						modal: true,
+						onClose: this.openDismantlingDialog,
+						open: this.state.dismantling,
+						contentStyle: { width: 445 }
+					},
+					_react2.default.createElement(_DismantlingForm2.default, { onCancel: this.openDismantlingDialog, detail: this.state.detail })
+				)
+			);
+		}
+	}]);
+
+	return BasicTable;
+}(_react.Component);
+
+var _initialiseProps = function _initialiseProps() {
+	var _this5 = this;
+
+	this.getRate = function (id) {
+		var _state7 = _this5.state,
+		    type = _state7.type,
+		    page = _state7.page,
+		    value = _state7.value,
+		    pageSize = _state7.pageSize,
+		    communityids = _state7.communityids,
+		    dataLoading = _state7.dataLoading;
+
+		_this5.setState({
+			rate: ['0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%']
+		});
+		if (!id && id != 0) {
+			id = communityids;
+		}
+
+		var _this = _this5;
+		var year = _this5.state.currentYear;
+
+		_Redux.Store.dispatch(_Redux.Actions.callAPI('getRate', {
+			communityids: id,
+			year: year
+		})).then(function (response) {
+			if (!response.rate.length) {
+				_this.setState({
+					rate: ['0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%', '0.00%']
+				});
+			} else {
+				_this.setState({
+					rate: response.rate
+				});
+			}
+		}).catch(function (err) {
+
+			_krUi.Notify.show([{
+				message: err.message,
+				type: 'danger'
+			}]);
+		});
+	};
+
+	this.onFilter = function (value) {
+		_this5.setState({
+			type: value
+		});
+	};
+
+	this.renderNone = function (showNone) {
+		var _state8 = _this5.state,
+		    currentYear = _state8.currentYear,
+		    Installmentplan = _state8.Installmentplan,
+		    rate = _state8.rate,
+		    communityids = _state8.communityids,
+		    totalCount = _state8.totalCount,
+		    isLoading = _state8.isLoading,
+		    dataLoading = _state8.dataLoading,
+		    totalPages = _state8.totalPages,
+		    istip = _state8.istip,
+		    page = _state8.page,
+		    isIscroll = _state8.isIscroll;
+
+
+		var _this = _this5;
+		var id = communityids;
+
+		if (dataLoading) {
+			return _react2.default.createElement(
+				'tbody',
+				null,
+				_react2.default.createElement(
+					'tr',
+					{ style: { height: 200, position: 'relative' } },
+					_react2.default.createElement(
+						'td',
+						{ colSpan: 14, style: { border: 'none' } },
+						_react2.default.createElement(
+							'div',
+							{ style: { left: '50%', top: '40%', zIndex: 100 } },
+							_react2.default.createElement(_krUi.Loading, null)
+						)
+					)
+				)
+			);
+		}
+
+		if (!showNone || dataLoading) {
+			return _react2.default.createElement(
+				'tbody',
+				null,
+				_react2.default.createElement(
+					'tr',
+					{ className: 'header-td' },
+					_react2.default.createElement(
+						'td',
+						{ className: 'white' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'header-title' },
+							_react2.default.createElement(
+								'p',
+								{ className: 'title-right' },
+								'\u51FA\u79DF\u7387'
+							)
+						)
+					),
+					rate.map(function (value, index) {
+						return _react2.default.createElement(
+							'td',
+							{ key: index },
+							value
+						);
+					}),
+					_react2.default.createElement('td', { className: 'last' })
+				),
+				_react2.default.createElement(
+					'tr',
+					{ style: { height: 200 }, className: 'nothing' },
+					_react2.default.createElement(
+						'td',
+						{ colSpan: 14, style: { border: 'none' } },
+						_react2.default.createElement(
+							'div',
+							{ style: { textAlign: 'center' } },
+							_react2.default.createElement(
+								'div',
+								{ className: 'ui-nothing' },
+								_react2.default.createElement('div', { className: 'icon' }),
+								_react2.default.createElement(
+									'p',
+									{ className: 'tip' },
+									'\u6682\u65F6\u8FD8\u6CA1\u6709\u6570\u636E\u5466~'
+								)
+							)
+						)
+					)
+				)
+			);
+		}
+		if (showNone && !dataLoading) {
+			return _react2.default.createElement(
+				'tbody',
+				null,
+				_react2.default.createElement(
+					'tr',
+					{ className: 'header-td' },
+					_react2.default.createElement(
+						'td',
+						{ className: 'white' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'header-title' },
+							_react2.default.createElement(
+								'p',
+								{ className: 'title-right' },
+								'\u51FA\u79DF\u7387'
+							)
+						)
+					),
+					rate.map(function (value, index) {
+						return _react2.default.createElement(
+							'td',
+							{ key: index },
+							value
+						);
+					}),
+					_react2.default.createElement('td', { className: 'last' })
+				),
+				showNone && Installmentplan.map(function (item, index) {
+					var itemData = (0, _simpleAssign2.default)(item);
+					return _react2.default.createElement(_ItemTable2.default, { onDismantling: _this5.onDismantling, communityids: id, detail: itemData, key: index, onStation: _this5.onStation, activity: _this5.state.activity, currentYear: currentYear });
+				})
+			);
+		}
+	};
+};
+
+exports.default = BasicTable;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(SearchForm, 'SearchForm', '/Users/smile/Documents/kr-admin/src/Containers/Operation/CommunityManage/Detail/Schedule/BasicTable.js');
+
+	__REACT_HOT_LOADER__.register(BasicTable, 'BasicTable', '/Users/smile/Documents/kr-admin/src/Containers/Operation/CommunityManage/Detail/Schedule/BasicTable.js');
+}();
+
+;

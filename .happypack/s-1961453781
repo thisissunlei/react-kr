@@ -1,0 +1,60 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.companys = companys;
+function companys() {
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	var action = arguments[1];
+
+
+	switch (action.type) {
+
+		case 'GET_COMPANYS_LOADING':
+			{
+				return state;
+			}
+
+		case 'SET_COMPANYS_DATA':
+			{
+				return action.data;
+			}
+
+		case 'LOAD_COMPANYS_REQUEST':
+			{
+				return _extends({}, state);
+			}
+
+		case 'LOAD_COMPANYS_SUCCESS':
+			{
+				console.log('------response', action.response);
+				return _extends({}, state, action.response);
+			}
+
+		case 'LOAD_COMPANYS_ERROR':
+			{
+				return action.error;
+			}
+
+		default:
+			{
+				return state;
+			}
+
+	}
+}
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(companys, 'companys', '/Users/smile/Documents/kr-admin/src/Redux/Modules/Company/reducers.js');
+}();
+
+;

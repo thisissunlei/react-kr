@@ -1,0 +1,310 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _jquery = require('jquery');
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+require('./index.less');
+
+var _WrapComponent = require('../WrapComponent');
+
+var _WrapComponent2 = _interopRequireDefault(_WrapComponent);
+
+var _TreeData = require('./TreeData.json');
+
+var _TreeData2 = _interopRequireDefault(_TreeData);
+
+var _ProjectType = require('./ProjectType');
+
+var _ProjectType2 = _interopRequireDefault(_ProjectType);
+
+var _reduxForm = require('redux-form');
+
+var _mobxReact = require('mobx-react');
+
+var _State = require('./State');
+
+var _State2 = _interopRequireDefault(_State);
+
+var _ItemSingle = require('./ItemSingle');
+
+var _ItemSingle2 = _interopRequireDefault(_ItemSingle);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TreeComponent = (0, _mobxReact.observer)(_class = function (_React$Component) {
+	_inherits(TreeComponent, _React$Component);
+
+	function TreeComponent(props) {
+		_classCallCheck(this, TreeComponent);
+
+		var _this2 = _possibleConstructorReturn(this, (TreeComponent.__proto__ || Object.getPrototypeOf(TreeComponent)).call(this, props));
+
+		_this2.imitateInputClick = function (value, listId) {
+			var input = _this2.props.input;
+
+			if (typeof value == "string") {
+				_State2.default.listValue = value;
+				_this2.setState({
+					listId: listId,
+					listValue: value,
+					showTreeList: !_this2.state.showTreeList
+				});
+				// return;
+			}
+			_this2.setState({
+				showTreeList: !_this2.state.showTreeList
+			});
+			input.onChange(listId);
+		};
+
+		_this2.uiList1Ele = function () {
+			var treeAll = _this2.props.treeAll;
+
+			if (!treeAll) {
+				return;
+			}
+			var _this = _this2;
+			var arr = treeAll.map(function (item, index) {
+				return _react2.default.createElement(_ItemSingle2.default, { value: item.codeName, data: item.children, listId: item.id, treeClose: _this.imitateInputClick, treeAll: treeAll });
+			});
+			return arr;
+		};
+
+		_this2.uiList2Ele = function () {
+			var treeAll = _this2.props.treeAll;
+
+			if (!treeAll) {
+				return;
+			}
+			var _this = _this2;
+			var arr = _State2.default.uiList2.map(function (item, index) {
+				return _react2.default.createElement(_ItemSingle2.default, { value: item.codeName, data: item.children, listId: item.id, treeClose: _this.imitateInputClick, treeAll: treeAll });
+			});
+			return arr;
+		};
+
+		_this2.uiList3Ele = function () {
+			var treeAll = _this2.props.treeAll;
+
+			if (!treeAll) {
+				return;
+			}
+			var _this = _this2;
+			var arr = _State2.default.uiList3.map(function (item, index) {
+				return _react2.default.createElement(_ItemSingle2.default, { value: item.codeName, data: item.children, listId: item.id, treeClose: _this.imitateInputClick, treeAll: treeAll });
+			});
+			return arr;
+		};
+
+		_this2.uiList4Ele = function () {
+			var treeAll = _this2.props.treeAll;
+
+			if (!treeAll) {
+				return;
+			}
+			var _this = _this2;
+			var arr = _State2.default.uiList4.map(function (item, index) {
+				return _react2.default.createElement(_ItemSingle2.default, { value: item.codeName, data: item.children, listId: item.id, treeClose: _this.imitateInputClick, treeAll: treeAll });
+			});
+			return arr;
+		};
+
+		_this2.isInit = false;
+		_this2.state = {
+			showTreeList: false,
+			listId: "",
+			listValue: props.placeholder || "请选择项目类型",
+			uiList1: _TreeData2.default,
+
+			uiList3: [],
+			uiList4: []
+		};
+		_State2.default.listValue = props.placeholder || "请选择项目类型";
+
+		return _this2;
+	}
+
+	_createClass(TreeComponent, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+
+			var _this = this;
+			var bodyElem = document.getElementsByTagName("body")[0];
+			bodyElem.onclick = function (event) {
+				event = event || window.event;
+				var target = event.target;
+
+				while (target) {
+					if (target && target.className && target.className.indexOf('tree-communityTree') !== -1) {
+						return;
+					}
+					target = target.parentNode;
+				}
+				_this.setState({
+					showTreeList: false
+				});
+			};
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    label = _props.label,
+			    style = _props.style,
+			    requireLabel = _props.requireLabel,
+			    inline = _props.inline,
+			    search = _props.search,
+			    listValueName = _props.listValueName,
+			    placeholder = _props.placeholder,
+			    treeAll = _props.treeAll,
+			    _props$meta = _props.meta,
+			    touched = _props$meta.touched,
+			    error = _props$meta.error;
+
+			if (!treeAll) {
+				treeAll = '';
+			}
+			var imitateInputStyle = "ui-imitateInput";
+			var showTreeList = this.state.showTreeList;
+
+			var listValue = _State2.default.listValue;
+			var color = "#666";
+			if (listValue == "请选择项目类型" || listValue == placeholder) {
+				color = "#ccc";
+				if (!listValueName) {} else if (listValueName.length != 0) {
+					listValue = listValueName;
+				}
+			}
+
+			if (listValue != "请选择项目类型" && listValue != placeholder) {
+				color = "#666";
+			}
+
+			var blockListStyle = {};
+			var heightList1 = '0';
+			var $treeUi = document.getElementsByClassName('ui-treeList')[0];
+			var $Weight = document.getElementsByClassName('ui-list1')[0];
+			var uiList2 = _State2.default.uiList2,
+			    uiList3 = _State2.default.uiList3,
+			    uiList4 = _State2.default.uiList4;
+
+			if ($treeUi) {
+				heightList1 = $Weight.offsetWidth;
+			}
+
+			if (uiList4.length != 0) {
+				if ($treeUi) {
+					$treeUi.style.width = heightList1 * 4 + 5 + 'px';
+				}
+			} else if (uiList3.length != 0) {
+				if ($treeUi) {
+					$treeUi.style.width = heightList1 * 3 + 5 + 'px';
+				}
+			} else if (uiList2.length != 0) {
+				if ($treeUi) {
+					$treeUi.style.width = heightList1 * 2 + 5 + 'px';
+				}
+			}
+
+			return _react2.default.createElement(
+				_WrapComponent2.default,
+				{ label: label, wrapStyle: style, requireLabel: requireLabel, inline: inline, search: search },
+				_react2.default.createElement(
+					'div',
+					{ className: 'tree-communityTree' },
+					_react2.default.createElement(
+						'div',
+						{ ref: 'ui-imitateInput', className: imitateInputStyle, onClick: this.imitateInputClick },
+						_react2.default.createElement('input', { readOnly: 'true', className: 'ui-treeInput', style: { color: color }, value: listValue, onChange: this.onChange }),
+						_react2.default.createElement('span', { className: 'ui-treeArrow' })
+					),
+					showTreeList && _react2.default.createElement(
+						'div',
+						{ className: 'ui-treeList' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'ui-list1' },
+							this.uiList1Ele()
+						),
+						_State2.default.uiList2.length != 0 && _react2.default.createElement(
+							'div',
+							{ className: 'ui-list2' },
+							this.uiList2Ele()
+						),
+						_State2.default.uiList3.length != 0 && _react2.default.createElement(
+							'div',
+							{ className: 'ui-list3' },
+							this.uiList3Ele()
+						),
+						_State2.default.uiList4.length != 0 && _react2.default.createElement(
+							'div',
+							{ className: 'ui-list4' },
+							this.uiList4Ele()
+						)
+					),
+					touched && error && _react2.default.createElement(
+						'div',
+						{ className: 'error-wrap' },
+						' ',
+						_react2.default.createElement(
+							'span',
+							null,
+							error
+						),
+						' '
+					)
+				)
+			);
+		}
+	}]);
+
+	return TreeComponent;
+}(_react2.default.Component)) || _class;
+
+TreeComponent.displayName = 'DateComponent';
+TreeComponent.defaultProps = {
+	inline: false
+};
+TreeComponent.PropTypes = {
+	defaultValue: _react2.default.PropTypes.string,
+	onSubmit: _react2.default.PropTypes.func,
+	inline: _react2.default.PropTypes.bool,
+	search: _react2.default.PropTypes.bool,
+	placeholder: _react2.default.PropTypes.string
+};
+exports.default = TreeComponent;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(TreeComponent, 'TreeComponent', '/Users/smile/Documents/kr-admin/src/Components/KrField/TreeComponent/index.js');
+}();
+
+;

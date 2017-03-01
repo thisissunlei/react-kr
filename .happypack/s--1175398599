@@ -1,0 +1,90 @@
+'use strict';
+
+var _Welcome = require('./Welcome');
+
+var _Welcome2 = _interopRequireDefault(_Welcome);
+
+var _Permission = require('./Permission');
+
+var _Permission2 = _interopRequireDefault(_Permission);
+
+var _Help = require('./Help');
+
+var _Help2 = _interopRequireDefault(_Help);
+
+var _Undefined = require('./Undefined');
+
+var _Undefined2 = _interopRequireDefault(_Undefined);
+
+var _Document = require('./Document');
+
+var _Document2 = _interopRequireDefault(_Document);
+
+var _Operation = require('./Operation');
+
+var _Operation2 = _interopRequireDefault(_Operation);
+
+var _Basic = require('./Basic');
+
+var _Basic2 = _interopRequireDefault(_Basic);
+
+var _Initialize = require('./Initialize');
+
+var _Initialize2 = _interopRequireDefault(_Initialize);
+
+var _Demo = require('./Demo');
+
+var _Demo2 = _interopRequireDefault(_Demo);
+
+var _Finance = require('./Finance');
+
+var _Finance2 = _interopRequireDefault(_Finance);
+
+var _Member = require('./Member');
+
+var _Member2 = _interopRequireDefault(_Member);
+
+var _Community = require('./Community');
+
+var _Community2 = _interopRequireDefault(_Community);
+
+var _Retail = require('./Retail');
+
+var _Retail2 = _interopRequireDefault(_Retail);
+
+var _OA = require('./OA');
+
+var _OA2 = _interopRequireDefault(_OA);
+
+var _Statistical = require('./Statistical');
+
+var _Statistical2 = _interopRequireDefault(_Statistical);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = {
+	Welcome: _Welcome2.default,
+	Permission: _Permission2.default,
+	Document: _Document2.default,
+	Undefined: _Undefined2.default,
+	Help: _Help2.default,
+	Operation: _Operation2.default,
+	Basic: _Basic2.default,
+	Initialize: _Initialize2.default,
+	Demo: _Demo2.default,
+	Finance: _Finance2.default,
+	Member: _Member2.default,
+	Community: _Community2.default,
+	Retail: _Retail2.default,
+	OA: _OA2.default,
+	Statistical: _Statistical2.default
+};
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+}();
+
+;

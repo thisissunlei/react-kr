@@ -1,0 +1,20 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+//加载基础数据
+
+var SET_USER_BASIC_INFO = exports.SET_USER_BASIC_INFO = 'SET_USER_BASIC_INFO';
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(SET_USER_BASIC_INFO, 'SET_USER_BASIC_INFO', '/Users/smile/Documents/kr-admin/src/Redux/Modules/User/types.js');
+}();
+
+;

@@ -1,0 +1,152 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _krUi = require('kr-ui');
+
+var _CreateMemberForm = require('./CreateMemberForm');
+
+var _CreateMemberForm2 = _interopRequireDefault(_CreateMemberForm);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Distribution = function (_Component) {
+	_inherits(Distribution, _Component);
+
+	function Distribution(props, context) {
+		_classCallCheck(this, Distribution);
+
+		var _this = _possibleConstructorReturn(this, (Distribution.__proto__ || Object.getPrototypeOf(Distribution)).call(this, props, context));
+
+		_this.onSubmit = _this.onSubmit.bind(_this);
+		_this.onCancel = _this.onCancel.bind(_this);
+
+		return _this;
+	}
+
+	_createClass(Distribution, [{
+		key: 'onCancel',
+		value: function onCancel() {
+			var onCancel = this.props.onCancel;
+
+			onCancel && onCancel();
+		}
+	}, {
+		key: 'onSubmit',
+		value: function onSubmit(form) {
+			if (form.memberId) {
+				var onSubmit = this.props.onSubmit;
+
+				onSubmit && onSubmit(form);
+			} else {
+				_krUi.Notify.show([{
+					message: '请选择分配人员',
+					type: 'danger'
+				}]);
+			}
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    optionValues = _props.optionValues,
+			    stationId = _props.stationId,
+			    customerId = _props.customerId,
+			    communityId = _props.communityId,
+			    detail = _props.detail;
+
+			var initialValues = {};
+			initialValues.stationId = stationId;
+			initialValues.customerId = customerId;
+			initialValues.communityId = communityId;
+
+			return _react2.default.createElement(
+				_krUi.Form,
+				{ name: 'jyayayoinForm', initialValues: initialValues, onSubmit: this.onSubmit },
+				_react2.default.createElement(_krUi.KrField, { name: 'id', type: 'hidden' }),
+				_react2.default.createElement(_krUi.KrField, { name: 'customerId', type: 'hidden' }),
+				_react2.default.createElement(_krUi.KrField, { name: 'communityId', type: 'hidden' }),
+				_react2.default.createElement(
+					'div',
+					{ style: { textAlign: "center", marginTop: '45px', fontSize: '14px' } },
+					_react2.default.createElement(
+						'div',
+						{ className: 'info', style: { paddingBottom: 10, color: '#333333' } },
+						detail.stationCode,
+						'\u5206\u914D\u4E3A\uFF1A '
+					),
+					_react2.default.createElement(_krUi.KrField, { name: 'memberId', component: 'select', grid: 2 / 3, inline: false, options: optionValues.member })
+				),
+				_react2.default.createElement(
+					_krUi.Grid,
+					{ style: { margin: '52px 0' } },
+					_react2.default.createElement(
+						_krUi.Row,
+						null,
+						_react2.default.createElement(
+							_krUi.Col,
+							{ md: 2, align: 'right' },
+							'  '
+						),
+						_react2.default.createElement(
+							_krUi.Col,
+							{ md: 2, align: 'right' },
+							'  '
+						),
+						_react2.default.createElement(
+							_krUi.Col,
+							{ md: 12, align: 'center' },
+							_react2.default.createElement(
+								_krUi.ButtonGroup,
+								null,
+								_react2.default.createElement(
+									'div',
+									{ className: 'ui-btn-center' },
+									_react2.default.createElement(_krUi.Button, { label: '\u786E\u5B9A', type: 'submit', onSubmit: this.onSubmit, width: 90, height: 34 })
+								),
+								_react2.default.createElement(_krUi.Button, { label: '\u53D6\u6D88', type: 'button', onTouchTap: this.onCancel, cancle: true, height: 32, width: 90 })
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return Distribution;
+}(_react.Component);
+
+Distribution.PropTypes = {
+	detail: _react2.default.PropTypes.object
+};
+exports.default = Distribution;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(Distribution, 'Distribution', '/Users/smile/Documents/kr-admin/src/Containers/Operation/CommunityManage/Detail/Schedule/Distribution.js');
+}();
+
+;

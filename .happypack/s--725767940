@@ -1,0 +1,113 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _mobxReact = require('mobx-react');
+
+var _krUi = require('kr-ui');
+
+var _PureComponents = require('kr/PureComponents');
+
+var _Redux = require('kr/Redux');
+
+var _State = require('./State');
+
+var _State2 = _interopRequireDefault(_State);
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AdmitPrint = (0, _mobxReact.observer)(_class = function (_Component) {
+	_inherits(AdmitPrint, _Component);
+
+	function AdmitPrint(props, context) {
+		_classCallCheck(this, AdmitPrint);
+
+		var _this = _possibleConstructorReturn(this, (AdmitPrint.__proto__ || Object.getPrototypeOf(AdmitPrint)).call(this, props, context));
+
+		var params = _this.context.router.params;
+
+		_State2.default.getBasicInfo(params);
+		return _this;
+	}
+
+	_createClass(AdmitPrint, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			_Redux.Store.dispatch(_Redux.Actions.switchSidebarNav(false));
+			setTimeout(function () {
+				window.print();
+				window.close();
+			}, 1000);
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'print-section no-print-section' },
+				_react2.default.createElement(_krUi.Title, { value: _State2.default.baseInfo.leaseName + '-\u5165\u9A7B\u670D\u52A1\u610F\u5411\u4E66' }),
+				_react2.default.createElement(_PureComponents.Agreement.Print.Header, {
+					baseInfo: _State2.default.baseInfo,
+					orderInfo: '\u5165\u9A7B\u670D\u52A1\u610F\u5411\u4E66'
+				}),
+				_react2.default.createElement(_PureComponents.Agreement.Print.BaseInfo, { baseInfo: _State2.default.baseInfo }),
+				_react2.default.createElement(_PureComponents.Agreement.Print.Station, {
+					orderTime: true,
+					stationVOs: _State2.default.stationVOs,
+					baseType: '\u610F\u5411\u5165\u9A7B\u4FE1\u606F',
+					baseInfo: _State2.default.baseInfo,
+					info: '\u5B9A\u91D1\u603B\u8BA1',
+					method: true
+				}),
+				_react2.default.createElement(
+					'div',
+					{ className: 'station-after' },
+					'\u4E59\u65B9\u5E94\u4E8E_____\u5E74___\u6708___\u65E5\u524D\u4E0E\u7532\u65B9\u7B7E\u7F72\u300A\u5165\u9A7B\u670D\u52A1\u534F\u8BAE\u300B\uFF0C\u8BE5\u5B9A\u91D1\u53EF\u76F4\u63A5\u51B2\u62B5\u5C65\u7EA6\u4FDD\u8BC1\u91D1\u6216\u9996\u671F\u670D\u52A1\u8D39'
+				),
+				_react2.default.createElement(_PureComponents.Agreement.Print.Intention, {
+					stationVOs: _State2.default.stationVOs,
+					baseInfo: _State2.default.baseInfo
+				}),
+				_react2.default.createElement(_PureComponents.Agreement.Print.Footer, null)
+			);
+		}
+	}]);
+
+	return AdmitPrint;
+}(_react.Component)) || _class;
+
+AdmitPrint.contextTypes = {
+	router: _react2.default.PropTypes.object.isRequired
+};
+exports.default = AdmitPrint;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(AdmitPrint, 'AdmitPrint', '/Users/smile/Documents/kr-admin/src/Containers/Operation/CustomerManage/Agreement/Admit/Print/index.js');
+}();
+
+;

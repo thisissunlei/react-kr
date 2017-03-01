@@ -1,0 +1,259 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _krUi = require('kr-ui');
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var HeavilyActivation = function (_Component) {
+	_inherits(HeavilyActivation, _Component);
+
+	//数据的初始化设定
+	function HeavilyActivation(props) {
+		_classCallCheck(this, HeavilyActivation);
+
+		var _this2 = _possibleConstructorReturn(this, (HeavilyActivation.__proto__ || Object.getPrototypeOf(HeavilyActivation)).call(this, props));
+
+		_initialiseProps.call(_this2);
+
+		var detail = props.detail;
+		var startNum = props.detail.startNum || '';
+		var endNum = props.detail.endNum || '';
+
+		var cardNum = 0;
+
+		if (startNum && endNum) {
+			cardNum = endNum - startNum;
+		}
+		if (props.path == "index") {
+			startNum = '';
+			endNum = '';
+			endNum = 0;
+		}
+		_this2.state = {
+			startNum: startNum,
+			endNum: endNum,
+			cardNum: cardNum
+		};
+		return _this2;
+	}
+	//节点的暴露
+
+	//计算卡的多少
+
+
+	_createClass(HeavilyActivation, [{
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    error = _props.error,
+			    handleSubmit = _props.handleSubmit,
+			    pristine = _props.pristine,
+			    reset = _props.reset;
+
+			var cardNum = this.state.cardNum + 1;
+			if (!this.state.startNum || !this.state.endNum) {
+				cardNum = 0;
+			}
+			if (this.state.startNum - this.state.endNum > 0) {
+				cardNum = 0;
+			}
+
+			return _react2.default.createElement(
+				'form',
+				{ className: 'HeavilyActivation', onSubmit: handleSubmit(this.onSubmit) },
+				_react2.default.createElement('div', { className: 'stageImg' }),
+				_react2.default.createElement(_krUi.KrField, { style: { marginTop: 20 }, left: 71, right: 71, name: 'startNum', component: 'input', type: 'text', label: '\u8D77\u59CB\u53F7\u7801', onChange: this.handleStartBlur }),
+				_react2.default.createElement(_krUi.KrField, { style: { marginTop: 5 }, left: 71, right: 71, name: 'endNum', component: 'input', type: 'text', label: '\u7EC8\u6B62\u53F7\u7801', onChange: this.handleEndBlur }),
+				_react2.default.createElement(_krUi.KrField, { style: { height: 36, marginTop: -5 }, left: 71, right: 71, component: 'labelText', label: '\u4F1A\u5458\u5361\u6570\u91CF:', value: cardNum + "张" }),
+				_react2.default.createElement(
+					_krUi.Grid,
+					{ style: { marginTop: 15, marginBottom: 5 } },
+					_react2.default.createElement(
+						_krUi.Row,
+						null,
+						_react2.default.createElement(
+							_krUi.Col,
+							{ md: 12, align: 'center' },
+							_react2.default.createElement(
+								_krUi.ButtonGroup,
+								null,
+								_react2.default.createElement(
+									'div',
+									{ style: { marginLeft: "30" }, className: 'ui-btn-center' },
+									_react2.default.createElement(_krUi.Button, { label: '\u5F00\u59CB\u6FC0\u6D3B', type: 'submit', joinEditForm: true })
+								)
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return HeavilyActivation;
+}(_react.Component);
+
+HeavilyActivation.defaultProps = {
+	stage: 'importNum'
+};
+HeavilyActivation.PropTypes = {
+	onSubmit: _react2.default.PropTypes.func,
+	onCancel: _react2.default.PropTypes.func,
+	detail: _react2.default.PropTypes.object,
+	/**
+  * stage表示批量修改所处的阶段
+  * 允许填入的值为 importNum|| activeCard
+  */
+	stage: _react2.default.PropTypes.string
+};
+
+var _initialiseProps = function _initialiseProps() {
+	var _this3 = this;
+
+	this.onSubmit = function (values) {
+		var onSubmit = _this3.props.onSubmit;
+
+		onSubmit && onSubmit(values);
+	};
+
+	this.onCancel = function () {
+		var onCancel = _this3.props.onCancel;
+
+		onCancel && onCancel();
+	};
+
+	this.handleStartBlur = function (event) {
+
+		var _this = _this3;
+
+		if (_this3.isCard(event)) {
+
+			_this3.setState({
+				startNum: event,
+				endNum: _this3.state.endNum,
+				cardNum: _this3.state.cardNum
+			}, function () {
+				_this.calCard();
+			});
+		}
+	};
+
+	this.handleEndBlur = function (value) {
+
+		var _this = _this3;
+		if (_this3.isCard(value)) {
+			_this3.setState({
+				startNum: _this3.state.startNum,
+				endNum: value,
+				cardNum: _this3.state.cardNum
+			}, function () {
+
+				_this.calCard();
+			});
+		}
+	};
+
+	this.calCard = function () {
+		var _state = _this3.state,
+		    startNum = _state.startNum,
+		    endNum = _state.endNum;
+
+
+		if (startNum && endNum) {
+			if (endNum - startNum < 0) {
+				_krUi.Message.error('起始号码不能大于终止号码！');
+				return;
+			}
+
+			_this3.setState({
+				cardNum: endNum - startNum
+			});
+		}
+	};
+
+	this.isCard = function (card) {
+
+		if (!card) {
+			return false;
+		}
+		if (isNaN(card)) {
+
+			return false;
+		}
+		if (card.length != 10) {
+			return false;
+		}
+
+		return true;
+	};
+};
+
+var validate = function validate(values) {
+
+	var errors = {};
+
+	if (!values.startNum) {
+		errors.startNum = '请输入起始号码';
+	}
+	if (!isNaN(+values.startNum) && values.startNum && values.startNum.length != 10) {
+		errors.startNum = '请输入10位会员卡号';
+	}
+	if (values.startNum && isNaN(+values.startNum)) {
+
+		errors.startNum = '卡号由十位数字的卡号组成';
+	}
+	if (!values.endNum) {
+		errors.endNum = '请输入终止号码';
+	}
+	if (!isNaN(+values.endNum) && values.endNum && values.endNum.length != 10) {
+		errors.endNum = '请输入10位会员卡号';
+	}
+	if (values.endNum && isNaN(+values.endNum)) {
+		errors.endNum = '卡号由十位数字的卡号组成';
+	}
+	return errors;
+};
+var selector = (0, _reduxForm.formValueSelector)('HeavilyActivation');
+
+var _default = (0, _reduxForm.reduxForm)({ form: 'HeavilyActivation', validate: validate })(HeavilyActivation);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(HeavilyActivation, 'HeavilyActivation', '/Users/smile/Documents/kr-admin/src/Containers/Member/MemberManage/Setting/HeavilyActivation.js');
+
+	__REACT_HOT_LOADER__.register(validate, 'validate', '/Users/smile/Documents/kr-admin/src/Containers/Member/MemberManage/Setting/HeavilyActivation.js');
+
+	__REACT_HOT_LOADER__.register(selector, 'selector', '/Users/smile/Documents/kr-admin/src/Containers/Member/MemberManage/Setting/HeavilyActivation.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/smile/Documents/kr-admin/src/Containers/Member/MemberManage/Setting/HeavilyActivation.js');
+}();
+
+;

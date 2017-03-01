@@ -1,0 +1,172 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _simpleAssign = require('simple-assign');
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _redux = require('redux');
+
+var _Actions = require('kr-ui/../Redux/Actions');
+
+var actionCreators = _interopRequireWildcard(_Actions);
+
+var _Section = require('kr-ui/Section');
+
+var _Section2 = _interopRequireDefault(_Section);
+
+var _Calendar = require('kr-ui/Calendar');
+
+var _Calendar2 = _interopRequireDefault(_Calendar);
+
+var _inbox = require('material-ui/svg-icons/content/inbox');
+
+var _inbox2 = _interopRequireDefault(_inbox);
+
+var _materialUi = require('material-ui');
+
+var _Table = require('material-ui/Table');
+
+var _List = require('material-ui/List');
+
+require('./index.less');
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Todo = function (_Component) {
+	_inherits(Todo, _Component);
+
+	function Todo(props, context) {
+		_classCallCheck(this, Todo);
+
+		return _possibleConstructorReturn(this, (Todo.__proto__ || Object.getPrototypeOf(Todo)).call(this, props, context));
+	}
+
+	_createClass(Todo, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {}
+	}, {
+		key: 'render',
+		value: function render() {
+
+			return _react2.default.createElement(
+				_Section2.default,
+				{ title: '\u901A\u77E5\u516C\u544A', description: '',
+					rightMenu: _react2.default.createElement(
+						_materialUi.Menu,
+						null,
+						_react2.default.createElement(_materialUi.MenuItem, { primaryText: '\u6392\u5E8F' }),
+						_react2.default.createElement(_materialUi.MenuItem, { primaryText: '\u66F4\u591A', onTouchTap: this.toNotifyPage })
+					) },
+				_react2.default.createElement(
+					_Table.Table,
+					null,
+					_react2.default.createElement(
+						_Table.TableHeader,
+						{ displaySelectAll: false, adjustForCheckbox: false },
+						_react2.default.createElement(
+							_Table.TableRow,
+							null,
+							_react2.default.createElement(
+								_Table.TableHeaderColumn,
+								null,
+								'\u516C\u544A\u6807\u9898'
+							),
+							_react2.default.createElement(
+								_Table.TableHeaderColumn,
+								null,
+								'\u53D1\u5E03\u4EBA'
+							),
+							_react2.default.createElement(
+								_Table.TableHeaderColumn,
+								null,
+								'\u53D1\u5E03\u65F6\u95F4'
+							)
+						)
+					),
+					_react2.default.createElement(
+						_Table.TableBody,
+						{ displayRowCheckbox: false },
+						this.props.items.map(function (item, index) {
+
+							return _react2.default.createElement(
+								_Table.TableRow,
+								{ key: index },
+								_react2.default.createElement(
+									_Table.TableRowColumn,
+									null,
+									item.content
+								),
+								_react2.default.createElement(
+									_Table.TableRowColumn,
+									null,
+									item.author
+								),
+								_react2.default.createElement(
+									_Table.TableRowColumn,
+									null,
+									item.createAt
+								)
+							);
+						})
+					)
+				)
+			);
+		}
+	}]);
+
+	return Todo;
+}(_react.Component);
+
+function mapStateToProps(state) {
+	return {
+		notify: state.notify,
+		items: state.notify.items
+	};
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		actions: (0, _redux.bindActionCreators)((0, _simpleAssign2.default)({}, actionCreators), dispatch)
+	};
+}
+
+var _default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Todo);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(Todo, 'Todo', '/Users/smile/Documents/kr-admin/src/Containers/Permission/Todo/index.js');
+
+	__REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/smile/Documents/kr-admin/src/Containers/Permission/Todo/index.js');
+
+	__REACT_HOT_LOADER__.register(mapDispatchToProps, 'mapDispatchToProps', '/Users/smile/Documents/kr-admin/src/Containers/Permission/Todo/index.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/smile/Documents/kr-admin/src/Containers/Permission/Todo/index.js');
+}();
+
+;

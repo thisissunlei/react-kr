@@ -1,0 +1,150 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _krUi = require('kr-ui');
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SearchDateForm = function (_Component) {
+	_inherits(SearchDateForm, _Component);
+
+	function SearchDateForm(props) {
+		_classCallCheck(this, SearchDateForm);
+
+		var _this = _possibleConstructorReturn(this, (SearchDateForm.__proto__ || Object.getPrototypeOf(SearchDateForm)).call(this, props));
+
+		_this.onStartChange = function (value) {
+			var values = {
+				startDate: value
+			};
+			var onStartChange = _this.props.onStartChange;
+
+			onStartChange && onStartChange(values);
+		};
+
+		_this.onEndChange = function (value) {
+			var values = {
+				endDate: value
+			};
+			var onEndChange = _this.props.onEndChange;
+
+			onEndChange && onEndChange(values);
+		};
+
+		return _this;
+	}
+
+	_createClass(SearchDateForm, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    error = _props.error,
+			    handleSubmit = _props.handleSubmit,
+			    pristine = _props.pristine,
+			    reset = _props.reset,
+			    date_2 = _props.date_2,
+			    todayDate = _props.todayDate,
+			    todayEndDate = _props.todayEndDate;
+
+
+			return _react2.default.createElement(
+				'form',
+				{ style: { marginTop: -9 } },
+				_react2.default.createElement(
+					'div',
+					{ className: 's-date-search' },
+					_react2.default.createElement(
+						_krUi.ListGroup,
+						null,
+						_react2.default.createElement(
+							'span',
+							{ className: 'statis-date-title' },
+							'\u65F6\u95F4\uFF1A'
+						),
+						_react2.default.createElement(
+							_krUi.ListGroupItem,
+							null,
+							_react2.default.createElement(
+								'div',
+								{ className: 'statis-date-start' },
+								_react2.default.createElement(_krUi.KrField, { style: { marginLeft: -10 }, name: 'startDate', component: 'date', onChange: this.props.onStartChange, dateNoSecond: 'true', placeholder: todayDate })
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'ui-line-down-list' },
+							_react2.default.createElement(
+								'span',
+								{ style: { display: 'inline-block', color: '#666', fontSize: '14' } },
+								'\u81F3'
+							)
+						),
+						_react2.default.createElement(
+							_krUi.ListGroupItem,
+							null,
+							_react2.default.createElement(
+								'div',
+								{ className: 'statis-date-end' },
+								_react2.default.createElement(_krUi.KrField, { name: 'endDate', component: 'date', onChange: this.props.onEndChange, placeholder: todayEndDate, dateNoSecond: 'true' })
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return SearchDateForm;
+}(_react.Component);
+
+SearchDateForm.defaultProps = {
+	todayDate: '2017-1-1'
+};
+SearchDateForm.PropTypes = {
+	onStartChange: _react2.default.PropTypes.func,
+	onEndChange: _react2.default.PropTypes.func,
+	date_2: _react2.default.PropTypes.string
+};
+
+var _default = (0, _reduxForm.reduxForm)({
+	form: 'SearchDateForm'
+})(SearchDateForm);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(SearchDateForm, 'SearchDateForm', '/Users/smile/Documents/kr-admin/src/Containers/Statistical/Home/PanelComponents/OpenPanel/SearchDateForm.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/smile/Documents/kr-admin/src/Containers/Statistical/Home/PanelComponents/OpenPanel/SearchDateForm.js');
+}();
+
+;

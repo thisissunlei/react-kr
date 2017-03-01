@@ -1,0 +1,534 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _krUi = require('kr-ui');
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Switchover = function (_Component) {
+  _inherits(Switchover, _Component);
+
+  function Switchover(props) {
+    _classCallCheck(this, Switchover);
+
+    var _this2 = _possibleConstructorReturn(this, (Switchover.__proto__ || Object.getPrototypeOf(Switchover)).call(this, props));
+
+    _this2.swapItems = function (arr, index1, index2) {
+
+      var _this = _this2;
+      arr[index1] = arr.splice(index2, 1, arr[index1])[0];
+      _this2.setState({ okData: arr }, function () {
+        _this.props.changeMudle(_this.state.okData);
+      });
+    };
+
+    _this2.leftToAll = function () {
+      var _this = _this2;
+      var arr = _this2.state.allData.concat(_this2.state.okData);
+      _this2.setState({ allData: arr, okData: [] }, function () {
+        _this.props.changeMudle(_this.state.okData);
+      });
+    };
+
+    _this2.rightToAll = function () {
+      var _this = _this2;
+      var allArr = _this2.state.allData;
+      var okArr = _this2.state.okData;
+      var arr = allArr.concat(okArr);
+      _this2.setState({ allData: [], okData: arr }, function () {
+        _this.props.changeMudle(_this.state.okData);
+      });
+    };
+
+    _this2.state = {
+      allData: _this2.props.allData,
+      okData: _this2.props.okData
+    };
+    return _this2;
+  }
+
+  _createClass(Switchover, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      this.setState({
+        allData: nextProps.allData,
+        okData: nextProps.okData
+      });
+    }
+  }, {
+    key: 'rightAdd',
+    value: function rightAdd(value) {
+      var _this = this;
+      var arr = this.state.okData;
+      arr.push(value);
+      this.setState({ okData: arr }, function () {
+        _this.props.changeMudle(_this.state.okData);
+      });
+    }
+  }, {
+    key: 'leftAdd',
+    value: function leftAdd(value) {
+      var _this = this;
+      var arr = this.state.allData;
+      arr.push(value);
+      this.setState({ allData: arr }, function () {
+        _this.props.changeMudle(_this.state.okData);
+      });
+    }
+    //数组的状态
+
+    //右边全部数据添加到左边
+
+    //左边全部数据添加到右边
+
+  }, {
+    key: 'render',
+    value: function render() {
+      var boxStyle = {
+        marginLeft: "10px",
+        width: "auto",
+        display: "inline-block",
+        position: "relative",
+        marginBottom: "15px"
+      };
+      var moddleStyle = {
+        display: "inline-block",
+        width: "40px",
+        height: "48px",
+        float: "left",
+        marginTop: "90px",
+        textAlign: "center"
+
+      };
+
+      return _react2.default.createElement(
+        'div',
+        { style: boxStyle },
+        _react2.default.createElement(ZhuanHuan, { iconShow: 'false',
+          Data: this.state.allData,
+          addOther: this.rightAdd.bind(this)
+
+        }),
+        _react2.default.createElement(
+          'div',
+          { className: 'ui-moveIcon', style: moddleStyle },
+          _react2.default.createElement('span', { className: 'moveRight', onClick: this.rightToAll }),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement('span', { className: 'moveLeft', onClick: this.leftToAll })
+        ),
+        _react2.default.createElement(ZhuanHuan, { iconShow: 'true',
+          Data: this.state.okData,
+          addOther: this.leftAdd.bind(this),
+          swapItems: this.swapItems
+        })
+      );
+    }
+  }]);
+
+  return Switchover;
+}(_react.Component);
+
+var ZhuanHuan = function (_React$Component) {
+  _inherits(ZhuanHuan, _React$Component);
+
+  function ZhuanHuan(props) {
+    _classCallCheck(this, ZhuanHuan);
+
+    var _this3 = _possibleConstructorReturn(this, (ZhuanHuan.__proto__ || Object.getPrototypeOf(ZhuanHuan)).call(this, props));
+
+    _this3.upMove = function (index, event) {
+      if (index == 0) {
+        return;
+      }
+      _this3.props.swapItems(_this3.state.mouldSort, index, index - 1);
+    };
+
+    _this3.downMove = function (index, event) {
+      if (index == _this3.state.mouldSort.length - 1) {
+        return;
+      }
+      _this3.props.swapItems(_this3.state.mouldSort, index, index + 1);
+    };
+
+    _this3.state = {
+      mouldSort: _this3.props.Data
+    };
+    return _this3;
+  }
+
+  _createClass(ZhuanHuan, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      this.setState({ mouldSort: nextProps.Data });
+    }
+  }, {
+    key: 'swapItems',
+    value: function swapItems(arr, index1, index2) {
+
+      arr[index1] = arr.splice(index2, 1, arr[index1])[0];
+      this.setState({ mouldSort: arr });
+    }
+    //上移
+
+    //下移
+
+  }, {
+    key: 'upArrow',
+    value: function upArrow(index) {
+      return index > 0 ? true : false;
+    }
+  }, {
+    key: 'downArrow',
+    value: function downArrow(index) {
+      return index < this.state.mouldSort.length - 1 ? true : false;
+    }
+    //点击删除
+
+  }, {
+    key: 'removeMould',
+    value: function removeMould(_this, arr, index) {
+
+      var remove = arr.splice(index, 1)[0];
+      _this.setState({ mouldSort: arr });
+
+      _this.props.addOther(remove);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this = this;
+      var boxStyle = {
+        border: "1px solid #dfdfdf",
+        width: "252px",
+        float: "left",
+        height: "250px",
+        lineHeight: "26px",
+        display: 'inline-block',
+        overflow: "auto",
+        borderRadius: "3px"
+      };
+      var dd = this.state.mouldSort;
+      if (!this.state.mouldSort) {
+        dd = [];
+      }
+
+      var arr = dd.map(function (item, index) {
+        var j = index;
+
+        return _react2.default.createElement(KrMould, {
+          upMoves: function upMoves(event, index) {
+
+            _this.upMove(j);
+            event.stopPropagation();
+          },
+
+          downMove: function downMove(event, index) {
+
+            _this.downMove(j);
+
+            event.stopPropagation();
+          },
+          iconShow: _this.props.iconShow,
+          upShow: _this.upArrow(index),
+          downShow: _this.downArrow(index),
+          text: item.templateName,
+          onClick: _this.removeMould.bind(this, _this, _this.state.mouldSort, index)
+        });
+      });
+
+      return _react2.default.createElement(
+        'div',
+        { style: boxStyle },
+        arr
+      );
+    }
+  }]);
+
+  return ZhuanHuan;
+}(_react2.default.Component);
+
+/**
+ * 模板条组件
+ * @return {[type]} [description]
+ */
+
+
+var KrMould = function (_Component2) {
+  _inherits(KrMould, _Component2);
+
+  function KrMould() {
+    _classCallCheck(this, KrMould);
+
+    return _possibleConstructorReturn(this, (KrMould.__proto__ || Object.getPrototypeOf(KrMould)).apply(this, arguments));
+  }
+
+  _createClass(KrMould, [{
+    key: 'render',
+    value: function render() {
+      var upShow,
+          downShow,
+          className = "ui-KrMould";
+
+      if (this.props.iconShow == "false") {
+        upShow = "hidden";
+        downShow = "hidden";
+      }
+      if (this.props.iconShow == "true") {
+        upShow = this.props.upShow == true ? "visible" : "hidden";
+        downShow = this.props.downShow == true ? "visible" : "hidden";
+      }
+      var contentStyle = {
+        width: "100%",
+        height: "26px",
+        lineHeight: "26px",
+        paddingLeft: "10px",
+        cursor: "pointer",
+        fontSize: "14px",
+        color: "#666666",
+        marginTop: "-1px",
+        boxSizing: "border-box"
+      };
+      //上移箭头的样式
+      var upStyle = {
+        position: "absolute",
+        display: "inline-block",
+        cursor: "pointer",
+        width: "50px",
+        float: "right",
+        height: "26px",
+        right: "70px",
+        visibility: upShow,
+        transform: 'translateX(20px)'
+      };
+      //下移箭头的样式
+      var downShow = {
+        position: "absolute",
+        cursor: "pointer",
+        float: "right",
+        height: "26px",
+        width: "50px",
+        right: "30px",
+        visibility: downShow,
+        transform: 'translateX(20px)'
+
+      };
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'ui-groupMould ', style: contentStyle, onClick: this.props.onClick },
+        _react2.default.createElement(
+          'span',
+          { className: className },
+          this.props.text
+        ),
+        _react2.default.createElement('span', { className: 'ui-iconDown', onClick: this.props.downMove, style: downShow }),
+        _react2.default.createElement('span', { className: 'ui-iconUp', onClick: this.props.upMoves, style: upStyle })
+      );
+    }
+  }]);
+
+  return KrMould;
+}(_react.Component);
+
+var NewCreateForm = function (_Component3) {
+  _inherits(NewCreateForm, _Component3);
+
+  function NewCreateForm(props) {
+    _classCallCheck(this, NewCreateForm);
+
+    var _this5 = _possibleConstructorReturn(this, (NewCreateForm.__proto__ || Object.getPrototypeOf(NewCreateForm)).call(this, props));
+
+    _this5.groupNameCheck = function (values) {
+      if (values) {
+        var _this = _this5;
+        values = _this5.Trim(values);
+        _Redux.Store.dispatch(_Redux.Actions.callAPI('groupNameCheck', { groupName: values, id: _this5.props.detail.id })).then(function (data) {}).catch(function (err) {
+          _krUi.Message.error(err.message);
+        });
+      }
+    };
+
+    _this5.sortCheck = function (values) {
+      if (+values > 0 && values.length <= 4) {
+        var _this = _this5;
+        values = _this5.Trim(values);
+        _Redux.Store.dispatch(_Redux.Actions.callAPI('sortCheck', { sort: values, id: _this5.props.detail.id })).then(function (data) {}).catch(function (err) {
+          _krUi.Message.error(err.message);
+        });
+      }
+    };
+
+    _this5.Trim = function (str) {
+      str = str.toString();
+      return str.replace(/(^\s*)|(\s*$)/g, "");
+    };
+
+    _this5.onSubmit = _this5.onSubmit.bind(_this5);
+    _this5.onCancel = _this5.onCancel.bind(_this5);
+    _this5.state = {
+      detail: _this5.props.detail
+    };
+    return _this5;
+  }
+
+  _createClass(NewCreateForm, [{
+    key: 'onSubmit',
+    value: function onSubmit(values) {
+      var onSubmit = this.props.onSubmit;
+
+      onSubmit && onSubmit(values);
+    }
+  }, {
+    key: 'onCancel',
+    value: function onCancel() {
+      var onCancel = this.props.onCancel;
+
+      onCancel && onCancel();
+    }
+
+    //分组名实时校验
+
+
+    //排序实时校验
+
+    //去除前后空格
+
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          error = _props.error,
+          handleSubmit = _props.handleSubmit,
+          pristine = _props.pristine,
+          reset = _props.reset;
+
+      return _react2.default.createElement(
+        'form',
+        { onSubmit: handleSubmit(this.onSubmit), style: { marginLeft: 25 } },
+        _react2.default.createElement(_krUi.KrField, { name: 'id', type: 'hidden', label: 'id' }),
+        _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, maxLength: 20, style: { marginTop: 30 }, right: 43, name: 'groupName', type: 'text', label: '\u5206\u7EC4\u540D\u79F0', requireLabel: true, onBlur: this.groupNameCheck, onFocus: this.inputFocus }),
+        _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, right: 43, name: 'sort', type: 'text', label: '\u6392\u5E8F', requireLabel: true, style: { marginTop: 30, marginLeft: -10 }, onBlur: this.sortCheck, onFocus: this.inputFocus }),
+        _react2.default.createElement(
+          _krUi.KrField,
+          { grid: 1, name: 'enable', component: 'group', label: '\u542F\u7528\u72B6\u6001', requireLabel: true },
+          _react2.default.createElement(_krUi.KrField, { name: 'enable', label: '\u662F', component: 'radio', type: 'radio', value: 'ENABLE' }),
+          _react2.default.createElement(_krUi.KrField, { name: 'enable', label: '\u5426', component: 'radio', type: 'radio', value: 'DISABLE' })
+        ),
+        _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u6570\u636E\u6A21\u677F', requireLabel: true, component: 'labelText' }),
+        _react2.default.createElement(Switchover, { allData: this.props.detail.unselectedList, okData: this.props.detail.templateList, changeMudle: this.props.changeMudle }),
+        _react2.default.createElement(_krUi.KrField, { style: { width: 558 }, heightStyle: { height: "80px" }, name: 'groupDesc', component: 'textarea', label: '\u5206\u7EC4\u63CF\u8FF0', maxSize: 100 }),
+        _react2.default.createElement(
+          _krUi.Grid,
+          { style: { marginTop: 0, marginBottom: 5 } },
+          _react2.default.createElement(
+            _krUi.Row,
+            null,
+            _react2.default.createElement(
+              _krUi.Col,
+              { md: 12, align: 'center' },
+              _react2.default.createElement(
+                _krUi.ButtonGroup,
+                null,
+                _react2.default.createElement(
+                  'div',
+                  { className: 'ui-btn-center' },
+                  _react2.default.createElement(_krUi.Button, { label: '\u786E\u5B9A', type: 'submit', joinEditForm: true })
+                ),
+                _react2.default.createElement(_krUi.Button, { label: '\u53D6\u6D88', type: 'button', cancle: true, onTouchTap: this.onCancel })
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return NewCreateForm;
+}(_react.Component);
+
+NewCreateForm.PropTypes = {
+  onSubmit: _react2.default.PropTypes.func,
+  onCancel: _react2.default.PropTypes.func,
+  detail: _react2.default.PropTypes.object
+};
+
+var validate = function validate(values) {
+
+  var errors = {};
+
+  if (!values.groupName) {
+    errors.groupName = '请填写分组名称';
+  }
+
+  if (!values.sort) {
+    errors.sort = '请填写排序号';
+  } else if (isNaN(+values.sort)) {
+    errors.sort = '请输入数字';
+  } else if (+values.sort <= 0) {
+    errors.sort = '请输入正整数';
+  } else if (values.sort.length > 4) {
+    errors.sort = '最多可输入4位数字';
+  }
+
+  if (!values.accounttype) {
+    errors.accounttype = '请填写科目类别';
+  }
+
+  if (!values.ordernum) {
+    errors.ordernum = '请填写排序号';
+  }
+  if (!values.enableflag) {
+    errors.enableflag = '请先选择是否启用';
+  }
+
+  return errors;
+};
+var selector = (0, _reduxForm.formValueSelector)('newCreateForm');
+
+var _default = (0, _reduxForm.reduxForm)({ form: 'newCreateForm', validate: validate, enableReinitialize: true, keepDirtyOnReinitialize: true })(NewCreateForm);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(Switchover, 'Switchover', '/Users/smile/Documents/kr-admin/src/Containers/Operation/GroupSetting/EditForm/index.js');
+
+  __REACT_HOT_LOADER__.register(ZhuanHuan, 'ZhuanHuan', '/Users/smile/Documents/kr-admin/src/Containers/Operation/GroupSetting/EditForm/index.js');
+
+  __REACT_HOT_LOADER__.register(KrMould, 'KrMould', '/Users/smile/Documents/kr-admin/src/Containers/Operation/GroupSetting/EditForm/index.js');
+
+  __REACT_HOT_LOADER__.register(NewCreateForm, 'NewCreateForm', '/Users/smile/Documents/kr-admin/src/Containers/Operation/GroupSetting/EditForm/index.js');
+
+  __REACT_HOT_LOADER__.register(validate, 'validate', '/Users/smile/Documents/kr-admin/src/Containers/Operation/GroupSetting/EditForm/index.js');
+
+  __REACT_HOT_LOADER__.register(selector, 'selector', '/Users/smile/Documents/kr-admin/src/Containers/Operation/GroupSetting/EditForm/index.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/smile/Documents/kr-admin/src/Containers/Operation/GroupSetting/EditForm/index.js');
+}();
+
+;

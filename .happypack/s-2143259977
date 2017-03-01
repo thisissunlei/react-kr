@@ -1,0 +1,182 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _redux = require('redux');
+
+var _Redux = require('kr/Redux');
+
+var _Actions = require('kr-ui/../Redux/Actions');
+
+var actionCreators = _interopRequireWildcard(_Actions);
+
+var _reduxForm = require('redux-form');
+
+var _krUi = require('kr-ui');
+
+require('./index.less');
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SearchForm = function (_Component) {
+	_inherits(SearchForm, _Component);
+
+	function SearchForm(props, context) {
+		_classCallCheck(this, SearchForm);
+
+		var _this = _possibleConstructorReturn(this, (SearchForm.__proto__ || Object.getPrototypeOf(SearchForm)).call(this, props, context));
+
+		_this.onCancel = _this.onCancel.bind(_this);
+		_this.onSubmit = _this.onSubmit.bind(_this);
+		_this.state = {};
+		return _this;
+	}
+
+	_createClass(SearchForm, [{
+		key: 'onCancel',
+		value: function onCancel() {
+			var onCancel = this.props.onCancel;
+
+			onCancel && onCancel();
+		}
+	}, {
+		key: 'onSubmit',
+		value: function onSubmit(forms) {
+			var onSubmit = this.props.onSubmit;
+
+			onSubmit && onSubmit(forms);
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    typeList = _props.typeList,
+			    codeList = _props.codeList,
+			    initialValues = _props.initialValues,
+			    handleSubmit = _props.handleSubmit;
+
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'ui-search' },
+				_react2.default.createElement(
+					'form',
+					{ onSubmit: handleSubmit(this.onSubmit), initialValues: initialValues },
+					_react2.default.createElement(_krUi.KrField, { grid: 1, name: 'orderId', type: 'hidden' }),
+					_react2.default.createElement(_krUi.KrField, { grid: 1, name: 'accountType', type: 'hidden' }),
+					_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, name: 'accountId', right: 39, component: 'select', label: '\u652F\u4ED8\u65B9\u5F0F', options: codeList }),
+					_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, name: 'propertyId', right: 39, type: 'select', label: '\u6B3E\u9879', options: typeList, style: { marginLeft: -11 } }),
+					_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, name: 'tradingCode', component: 'input', type: 'text', label: '\u4EA4\u6613\u7F16\u53F7', right: 40, style: { marginTop: 5 } }),
+					_react2.default.createElement(
+						_krUi.KrField,
+						{ grid: 1 / 1, component: 'group', label: '\u65E5\u671F', style: { marginTop: 3 } },
+						_react2.default.createElement(
+							'div',
+							{ className: 'ui-listDate' },
+							_react2.default.createElement(
+								_krUi.ListGroup,
+								null,
+								_react2.default.createElement(
+									_krUi.ListGroupItem,
+									null,
+									_react2.default.createElement(
+										'div',
+										{ className: 'ui-date-start' },
+										_react2.default.createElement(_krUi.KrField, { right: 6, style: { marginLeft: -10 }, name: 'startTime', component: 'date' })
+									)
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'ui-line-down' },
+									_react2.default.createElement(
+										'span',
+										{ style: { display: 'inline-block', color: '#666', fontSize: '14' } },
+										'\u81F3'
+									)
+								),
+								_react2.default.createElement(
+									_krUi.ListGroupItem,
+									null,
+									_react2.default.createElement(
+										'div',
+										{ className: 'ui-date-end' },
+										_react2.default.createElement(_krUi.KrField, { right: 6, name: 'endTime', component: 'date' })
+									)
+								)
+							)
+						)
+					),
+					_react2.default.createElement(
+						_krUi.Grid,
+						{ style: { marginTop: 8, marginBottom: 5, marginLeft: -35 } },
+						_react2.default.createElement(
+							_krUi.Row,
+							null,
+							_react2.default.createElement(
+								_krUi.Col,
+								{ md: 12, align: 'center' },
+								_react2.default.createElement(
+									_krUi.ButtonGroup,
+									null,
+									_react2.default.createElement(
+										'div',
+										{ className: 'ui-btn-center' },
+										_react2.default.createElement(_krUi.Button, { label: '\u786E\u5B9A', type: 'submit', joinEditForm: true })
+									),
+									_react2.default.createElement(_krUi.Button, { label: '\u53D6\u6D88', type: 'button', cancle: true, onTouchTap: this.onCancel })
+								)
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return SearchForm;
+}(_react.Component);
+
+SearchForm.PropTypes = {
+	onSubmit: _react2.default.PropTypes.func,
+	onCancel: _react2.default.PropTypes.func,
+	codeList: _react2.default.PropTypes.arr,
+	typeList: _react2.default.PropTypes.arr,
+	initialValues: _react2.default.PropTypes.object
+};
+
+var _default = (0, _reduxForm.reduxForm)({
+	form: 'searchForm'
+})(SearchForm);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(SearchForm, 'SearchForm', '/Users/smile/Documents/kr-admin/src/Containers/Finance/Manage/OrderBill/OrderBillDetail/SearchForm/index.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/smile/Documents/kr-admin/src/Containers/Finance/Manage/OrderBill/OrderBillDetail/SearchForm/index.js');
+}();
+
+;

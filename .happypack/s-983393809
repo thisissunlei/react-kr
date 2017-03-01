@@ -1,0 +1,314 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _CalendarInput = require('../CalendarInput');
+
+var _CalendarInput2 = _interopRequireDefault(_CalendarInput);
+
+var _CalendarDayDisplay = require('../CalendarDayDisplay');
+
+var _CalendarDayDisplay2 = _interopRequireDefault(_CalendarDayDisplay);
+
+var _CalendarMonthDate = require('../CalendarMonthDate');
+
+var _CalendarMonthDate2 = _interopRequireDefault(_CalendarMonthDate);
+
+var _CalendarToolbar = require('../CalendarToolbar');
+
+var _CalendarToolbar2 = _interopRequireDefault(_CalendarToolbar);
+
+var _CalendarYearSelector = require('../CalendarYearSelector');
+
+var _CalendarYearSelector2 = _interopRequireDefault(_CalendarYearSelector);
+
+var _CalendarMonthSelector = require('../CalendarMonthSelector');
+
+var _CalendarMonthSelector2 = _interopRequireDefault(_CalendarMonthSelector);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Calendar = function (_React$Component) {
+	_inherits(Calendar, _React$Component);
+
+	_createClass(Calendar, [{
+		key: 'getChildContext',
+		value: function getChildContext() {
+			return {
+				onSelectedDate: this.onSelectedDate,
+				onSelectedYear: this.onSelectedYear,
+				onSelectedMonth: this.onSelectedMonth,
+				onPrevMonth: this.onPrevMonth,
+				onNextMonth: this.onNextMonth,
+				onSetDate: this.onSetDate
+			};
+		}
+	}]);
+
+	function Calendar(props) {
+		_classCallCheck(this, Calendar);
+
+		var _this = _possibleConstructorReturn(this, (Calendar.__proto__ || Object.getPrototypeOf(Calendar)).call(this, props));
+
+		_this.setInitValue = function (value) {
+
+			var year = void 0;
+			var month = void 0;
+			var date = void 0;
+			var valueArr = [];
+
+			if (!value) {
+				var nowDate = new Date();
+				value = nowDate.getFullYear() + '-' + (nowDate.getMonth() + 1) + '-' + nowDate.getDate();
+			}
+
+			if (!isNaN(value)) {
+
+				var nowTime = new Date(value);
+
+				valueArr.push(nowTime.getFullYear());
+				valueArr.push(nowTime.getMonth());
+				valueArr.push(nowTime.getDate());
+			}
+
+			if (typeof value === 'string' && value.indexOf('-') !== -1) {
+				valueArr = value.split('-');
+			}
+
+			if (typeof value === 'string' && value.indexOf('/') !== -1) {
+				valueArr = value.split('/');
+			}
+
+			year = valueArr[0];
+			month = valueArr[1];
+			date = valueArr[2];
+			date = date.split(' ').shift();
+
+			_this.setState({
+				year: year,
+				month: month,
+				date: date
+			});
+		};
+
+		_this.onSetDate = function (year, month, date) {
+			_this.setState({
+				year: year,
+				month: month,
+				date: date
+			});
+		};
+
+		_this.onNextYear = function () {
+			var year = _this.state.year;
+
+			year++;
+			_this.setState({
+				year: year
+			});
+		};
+
+		_this.onPrevYear = function () {
+			var year = _this.state.year;
+
+			year--;
+			_this.setState({
+				year: year
+			});
+		};
+
+		_this.onNextMonth = function () {
+			var _this$state = _this.state,
+			    year = _this$state.year,
+			    month = _this$state.month;
+
+			month++;
+			if (month > 12) {
+				_this.onNextYear();
+				month = 1;
+			}
+			_this.setState({
+				month: month
+			});
+		};
+
+		_this.onPrevMonth = function () {
+			var month = _this.state.month;
+
+			month--;
+			if (month < 1) {
+				_this.onPrevYear();
+				month = 12;
+			}
+			_this.setState({
+				month: month
+			});
+		};
+
+		_this.onSelectedYear = function (year) {
+			_this.setState({
+				year: year,
+				openYearSelector: false
+			});
+		};
+
+		_this.openYearSelectorDialog = function () {
+			_this.setState({
+				openYearSelector: !_this.state.openYearSelector
+			});
+		};
+
+		_this.openMonthSelectorDialog = function () {
+			_this.setState({
+				openMonthSelector: !_this.state.openMonthSelector
+			});
+		};
+
+		_this.onSelectedMonth = function (month) {
+			_this.setState({
+				month: month,
+				openMonthSelector: false
+			});
+		};
+
+		_this.onSelectedDate = function (date) {
+			_this.setState({ date: date });
+			var onChange = _this.props.onChange;
+			var _this$state2 = _this.state,
+			    year = _this$state2.year,
+			    month = _this$state2.month;
+
+			onChange && onChange(year + '-' + month + '-' + date);
+			var openCalendarDialog = _this.context.openCalendarDialog;
+
+			openCalendarDialog && openCalendarDialog();
+		};
+
+		_this.state = {
+			year: _this.props.year,
+			month: _this.props.month,
+			date: _this.props.date,
+			openYearSelector: false,
+			openMonthSelector: false
+		};
+
+		return _this;
+	}
+
+	_createClass(Calendar, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			var value = this.props.value;
+
+			this.setInitValue(value);
+
+			var ele = _reactDom2.default.findDOMNode(this);
+			var position = {};
+			var winWidth = window.innerWidth;
+			if (ele.getClientRects().length) {
+				position = ele.getBoundingClientRect();
+			}
+
+			if (position && position.right && position.right > winWidth) {
+				ele.style.right = '0px';
+				ele.style.left = 'auto';
+			}
+		}
+	}, {
+		key: 'componentWillReceiveProps',
+		value: function componentWillReceiveProps(nextProps) {
+			if (nextProps.value !== this.props.value) {
+				this.setInitValue(nextProps.value);
+			}
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _state = this.state,
+			    year = _state.year,
+			    month = _state.month,
+			    date = _state.date,
+			    openYearSelector = _state.openYearSelector,
+			    openMonthSelector = _state.openMonthSelector;
+
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'calendar-wrap' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'calendar  animated slideInDown', style: { 'animationDuration': '0.2s' } },
+					_react2.default.createElement(_CalendarInput2.default, { year: year, month: month, date: date }),
+					_react2.default.createElement(_CalendarToolbar2.default, { year: year, month: month, openYearSelectorDialog: this.openYearSelectorDialog, openMonthSelectorDialog: this.openMonthSelectorDialog }),
+					_react2.default.createElement(_CalendarDayDisplay2.default, null),
+					year && month && date && _react2.default.createElement(_CalendarMonthDate2.default, { year: year, month: month, date: date }),
+					openYearSelector && _react2.default.createElement(_CalendarYearSelector2.default, { onSelected: this.onSelectedYear, year: year }),
+					openMonthSelector && _react2.default.createElement(_CalendarMonthSelector2.default, { onSelected: this.onSelectedMonth, month: month })
+				)
+			);
+		}
+	}]);
+
+	return Calendar;
+}(_react2.default.Component);
+
+Calendar.displayName = 'Calendar';
+Calendar.defaultProps = {
+	value: '2016-12-7'
+};
+Calendar.propTypes = {
+	/**
+ *样式class类名
+ */
+	className: _react2.default.PropTypes.string,
+	/**
+ * 样式
+ */
+	style: _react2.default.PropTypes.object,
+	open: _react2.default.PropTypes.bool,
+	onChange: _react2.default.PropTypes.func,
+	value: _react2.default.PropTypes.any
+};
+Calendar.contextTypes = {
+	openCalendarDialog: _react2.default.PropTypes.func.isRequired
+};
+Calendar.childContextTypes = {
+	onSelectedYear: _react2.default.PropTypes.func.isRequired,
+	onSelectedMonth: _react2.default.PropTypes.func.isRequired,
+	onSelectedDate: _react2.default.PropTypes.func.isRequired,
+	onPrevMonth: _react2.default.PropTypes.func.isRequired,
+	onNextMonth: _react2.default.PropTypes.func.isRequired,
+	onSetDate: _react2.default.PropTypes.func.isRequired
+
+};
+exports.default = Calendar;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(Calendar, 'Calendar', '/Users/smile/Documents/kr-admin/src/Components/InputDate/Calendar/index.js');
+}();
+
+;

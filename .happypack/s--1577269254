@@ -1,0 +1,21 @@
+"use strict";
+
+var Log = {
+  debug: function debug(message) {
+    //console.log('debug:',arguments);
+    //console.log('debug:',message);
+  }
+};
+
+module.exports = Log;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(Log, "Log", "/Users/smile/Documents/kr-admin/src/Components/PlanMap/Lib/Log.js");
+}();
+
+;

@@ -1,0 +1,360 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _redux = require('redux');
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _krUi = require('kr-ui');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ReceivedBtnForm = function (_Component) {
+	_inherits(ReceivedBtnForm, _Component);
+
+	function ReceivedBtnForm(props, context) {
+		_classCallCheck(this, ReceivedBtnForm);
+
+		var _this2 = _possibleConstructorReturn(this, (ReceivedBtnForm.__proto__ || Object.getPrototypeOf(ReceivedBtnForm)).call(this, props, context));
+
+		_this2.onSubmit = function (values) {
+			var onSubmit = _this2.props.onSubmit;
+
+			onSubmit && onSubmit(values);
+		};
+
+		_this2.moneyCheck = function (value) {
+			if (value && isNaN(value)) {
+				_krUi.Message.error('需填写数字');
+				return;
+			}
+			if (value && value < 0) {
+				_krUi.Message.error('不能填写负数');
+				return;
+			}
+			if (value && value == 0) {
+				_krUi.Message.error('金额不能为0');
+				return;
+			}
+		};
+
+		_this2.onCancel = function () {
+			var onCancel = _this2.props.onCancel;
+
+			onCancel && onCancel();
+		};
+
+		_this2.calcBalance = function (value, input) {
+			var lastValue = value.split('.')[1];
+			if (lastValue && lastValue.length > 2) {
+				_krUi.Message.error('最多到小数点后两位');
+				return;
+			}
+			var _this2$props = _this2.props,
+			    changeValues = _this2$props.changeValues,
+			    calcBalance = _this2$props.calcBalance;
+
+			input.value = value;
+			calcBalance && calcBalance(input);
+		};
+
+		_this2.joinInputRender = function (index) {
+			return _react2.default.createElement(
+				'div',
+				{ style: { width: 600, marginTop: 8 }, className: 'm-tenantStation' },
+				_react2.default.createElement(_krUi.KrField, { label: '\u62BC\u91D1', grid: 1 / 2, name: 'fix' + _this2.joinContractId[index] + '1', style: { width: 261, marginLeft: -9 }, component: 'input', type: 'text', onChange: _this2.calcBalance, onBlur: _this2.moneyCheck }),
+				_react2.default.createElement(_krUi.KrField, { label: '\u5DE5\u4F4D\u670D\u52A1\u8D39', grid: 1 / 2, name: 'fix' + _this2.joinContractId[index] + '3', style: { width: 261, marginLeft: 28 }, component: 'input', type: 'text', onChange: _this2.calcBalance, onBlur: _this2.moneyCheck })
+			);
+		};
+
+		_this2.increaseInputRender = function (index) {
+			return _react2.default.createElement(
+				'div',
+				{ style: { width: 600, marginTop: 8 }, className: 'm-tenantStation' },
+				_react2.default.createElement(_krUi.KrField, { label: '\u62BC\u91D1', grid: 1 / 2, name: 'fix' + _this2.increaseContractId[index] + '1', style: { width: 261, marginLeft: -9 }, component: 'input', type: 'text', onChange: _this2.calcBalance, onBlur: _this2.moneyCheck }),
+				_react2.default.createElement(_krUi.KrField, { label: '\u5DE5\u4F4D\u670D\u52A1\u8D39', grid: 1 / 2, name: 'fix' + _this2.increaseContractId[index] + '3', style: { width: 261, marginLeft: 28 }, component: 'input', type: 'text', onChange: _this2.calcBalance, onBlur: _this2.moneyCheck })
+			);
+		};
+
+		_this2.adminInputRender = function (index) {
+			return _react2.default.createElement(
+				'div',
+				{ style: { width: 600, marginTop: 8 }, className: 'm-tenantStation' },
+				_react2.default.createElement(_krUi.KrField, { label: '\u62BC\u91D1', grid: 1 / 2, name: 'fix' + _this2.adminContractId[index] + '1', style: { width: 261, marginLeft: -9 }, component: 'input', type: 'text', onChange: _this2.calcBalance, onBlur: _this2.moneyCheck }),
+				_react2.default.createElement(_krUi.KrField, { label: '\u5DE5\u4F4D\u670D\u52A1\u8D39', grid: 1 / 2, name: 'fix' + _this2.adminContractId[index] + '3', style: { width: 261, marginLeft: 28 }, component: 'input', type: 'text', onChange: _this2.calcBalance, onBlur: _this2.moneyCheck })
+			);
+		};
+
+		_this2.tenantInputRender = function () {
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'depositMoney-render', style: { width: 546 } },
+				_react2.default.createElement(_krUi.KrField, { label: '\u5B9A\u91D1', grid: 1 / 2, name: 'fix' + _this2.tenantContractId + '2', style: { width: 261, marginLeft: -9 }, component: 'input', type: 'text', onChange: _this2.calcBalance, onBlur: _this2.moneyCheck })
+			);
+		};
+
+		_this2.argreementChecked = function (options) {
+			console.log('checked----', options);
+			var name,
+			    input = {
+				value: 0
+			},
+			    nameList = [];
+			var _this2$props2 = _this2.props,
+			    calcBalance = _this2$props2.calcBalance,
+			    accountDetail = _this2$props2.accountDetail;
+
+
+			options.map(function (item, index) {
+				var len = options.length - 1;
+				if (item.checked == false) {
+					name = 'fix' + item.contractId;
+					_Redux.Store.dispatch((0, _reduxForm.change)('receivedBtnForm', 'fix' + item.contractId + '1', ''));
+					_Redux.Store.dispatch((0, _reduxForm.change)('receivedBtnForm', 'fix' + item.contractId + '3', ''));
+					calcBalance && calcBalance(input, name);
+				}
+				if (options[len].checked == false) {
+					accountDetail.map(function (item, index) {
+						nameList.push(item, item.id);
+						_Redux.Store.dispatch((0, _reduxForm.change)('receivedBtnForm', item.id, ''));
+					});
+					calcBalance && calcBalance(input, '', nameList);
+				}
+			});
+		};
+
+		_this2.receiveInputRender = function () {
+			var accountDetail = _this2.props.accountDetail;
+
+			var _this = _this2;
+
+			return _react2.default.createElement(
+				'div',
+				{ style: { marginBottom: -7 } },
+				accountDetail.map(function (item, index) {
+					if (index % 2 == 0) {
+						return _react2.default.createElement(
+							'div',
+							{ className: 'leftBottomValue' },
+							_react2.default.createElement(_krUi.KrField, { key: index, style: { marginBottom: 5, width: 261, marginLeft: -9 }, grid: 1 / 2, label: item.propname, component: 'input', name: String(item.id), type: 'text', onChange: _this.calcBalance, onBlur: _this.moneyCheck })
+						);
+					} else {
+						return _react2.default.createElement(
+							'div',
+							{ className: 'rightBottomValue' },
+							_react2.default.createElement(_krUi.KrField, { key: index, style: { marginBottom: 5, width: 261 }, grid: 1 / 2, label: item.propname, component: 'input', name: String(item.id), type: 'text', onChange: _this.calcBalance, onBlur: _this.moneyCheck })
+						);
+					}
+				})
+			);
+		};
+
+		_this2.joinContractId = [];
+		_this2.adminContractId = [];
+		_this2.increaseContractId = [];
+		_this2.tenantContractId = [];
+		_this2.index = 0;
+		return _this2;
+	}
+
+	_createClass(ReceivedBtnForm, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {}
+	}, {
+		key: 'componentWillReceiveProps',
+		value: function componentWillReceiveProps(nextProps) {
+
+			if (nextProps.open) {
+				//Store.dispatch(change('receivedBtnForm', 'accountId', ''));
+				//Store.dispatch(change('receivedBtnForm', 'totalPayment', ''));
+				_Redux.Store.dispatch((0, _reduxForm.change)('receivedBtnForm', 'preCode', '1'));
+				//Store.dispatch(change('receivedBtnForm', 'operatedate', ''));
+				_Redux.Store.dispatch((0, _reduxForm.change)('receivedBtnForm', 'mainbillId', this.context.params.orderId));
+			}
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+
+			var _this = this;
+
+			var _props = this.props,
+			    error = _props.error,
+			    handleSubmit = _props.handleSubmit,
+			    pristine = _props.pristine,
+			    reset = _props.reset,
+			    optionList = _props.optionList,
+			    contractReceive = _props.contractReceive,
+			    accountDetail = _props.accountDetail;
+
+
+			var heightStyle = {
+				width: '546',
+				height: '72'
+			};
+
+			contractReceive.map(function (item, index) {
+				//意向书
+				if (item.value == '1') {
+					if (_this.tenantContractId.indexOf(item.contractId) == -1) {
+						_this.tenantContractId[index] = item.contractId;
+					}
+					item.component = _this.tenantInputRender.bind(this, index);
+				}
+				//入驻协议书
+				if (item.value == '2') {
+					if (_this.joinContractId.indexOf(item.contractId) == -1) {
+						_this.joinContractId[index] = item.contractId;
+					}
+					item.component = _this.joinInputRender.bind(this, index);
+				}
+				//增租协议书
+				if (item.value == '3') {
+					if (_this.increaseContractId.indexOf(item.contractId) == -1) {
+						_this.increaseContractId[index] = item.contractId;
+					}
+					//_this.increaseContractId = item.contractId;
+					item.component = _this.increaseInputRender.bind(this, index);
+				}
+				//续租协议书
+				if (item.value == '4') {
+					if (_this.adminContractId.indexOf(item.contractId) == -1) {
+						_this.adminContractId[index] = item.contractId;
+					}
+					//_this.adminContractId = item.contractId;
+					item.component = _this.adminInputRender.bind(this, index);
+				}
+				//无合同
+				if (item.value == '000') {
+					item.component = _this.receiveInputRender;
+				}
+			});
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'receive-form-middle' },
+				_react2.default.createElement(
+					'form',
+					{ onSubmit: handleSubmit(this.onSubmit), style: { marginTop: 45, marginLeft: '10px', width: 580 } },
+					_react2.default.createElement(_krUi.KrField, { name: 'mainbillId', type: 'hidden', component: 'input' }),
+					_react2.default.createElement(_krUi.KrField, { label: '\u652F\u4ED8\u65B9\u5F0F', grid: 1 / 2, right: 30, name: 'accountId', style: { marginBottom: 5 }, type: 'select', options: optionList, requireLabel: true }),
+					_react2.default.createElement(
+						_krUi.KrField,
+						{ name: 'preCode', grid: 1 / 2, left: 30, component: 'group', style: { marginLeft: -30 }, label: '\u91D1\u989D\u6B63\u8D1F', requireLabel: true },
+						_react2.default.createElement(_krUi.KrField, { name: 'preCode', grid: 1 / 2, label: '\u6B63', component: 'radio', type: 'radio', value: '0' }),
+						_react2.default.createElement(_krUi.KrField, { name: 'preCode', grid: 1 / 2, label: '\u8D1F', component: 'radio', type: 'radio', value: '1' })
+					),
+					_react2.default.createElement(_krUi.KrField, { component: 'date', grid: 1 / 2, right: 30, style: { marginTop: '-5px' }, label: '\u56DE\u6B3E\u65E5\u671F', name: 'operatedate', requireLabel: true }),
+					_react2.default.createElement(_krUi.KrField, { label: '\u56DE\u6B3E\u603B\u989D', grid: 1 / 2, right: 30, style: { marginTop: '-6px' }, name: 'totalPayment', component: 'input', type: 'text', requireLabel: true, onChange: this.calcBalance }),
+					_react2.default.createElement(_krUi.KrField, { label: '\u5BF9\u5E94\u5408\u540C', name: 'contract', grid: 1 / 2, component: 'groupCheckbox', defaultValue: contractReceive, requireLabel: true, onChange: this.argreementChecked }),
+					_react2.default.createElement(
+						'div',
+						{ className: 'm-textareaText' },
+						_react2.default.createElement(_krUi.KrField, { label: '\u5907\u6CE8', grid: 1, heightStyle: heightStyle, name: 'finaflowdesc', component: 'textarea', type: 'text', placeholder: '\u8BF7\u8F93\u5165\u5907\u6CE8\uFF0C\u8F93\u5165\u5B57\u6570\u4E0D\u80FD\u8D85\u8FC7100\u5B57', maxSize: 100, lengthClass: 'ui-length-textarea' })
+					),
+					_react2.default.createElement(_krUi.KrField, { grid: 1, left: 30, style: { marginLeft: -30, marginTop: -10 }, name: 'fileids', component: 'file', label: '\u4E0A\u4F20\u9644\u4EF6', defaultValue: [] }),
+					_react2.default.createElement(
+						_krUi.Grid,
+						{ style: { marginTop: 0, marginBottom: 30 } },
+						_react2.default.createElement(
+							_krUi.Row,
+							null,
+							_react2.default.createElement(
+								_krUi.Col,
+								{ md: 12, align: 'center' },
+								_react2.default.createElement(
+									_krUi.ButtonGroup,
+									null,
+									_react2.default.createElement(
+										'div',
+										{ className: 'ui-btn-center' },
+										_react2.default.createElement(_krUi.Button, { label: '\u786E\u5B9A', type: 'submit' })
+									),
+									_react2.default.createElement(_krUi.Button, { label: '\u53D6\u6D88', type: 'button', cancle: true, onTouchTap: this.onCancel })
+								)
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return ReceivedBtnForm;
+}(_react.Component);
+
+ReceivedBtnForm.contextTypes = {
+	params: _react2.default.PropTypes.object.isRequired
+};
+ReceivedBtnForm.propTypes = {
+	onSubmit: _react2.default.PropTypes.func,
+	onCancel: _react2.default.PropTypes.func,
+	optionList: _react2.default.PropTypes.array,
+	accountDetail: _react2.default.PropTypes.array,
+	contractReceive: _react2.default.PropTypes.array
+};
+
+
+var validate = function validate(values) {
+
+	var errors = {};
+
+	if (!values.accountId) {
+		errors.accountId = '请填写支付方式';
+	}
+	if (!values.operatedate) {
+		errors.operatedate = '请填写回款日期';
+	}
+	if (!values.totalPayment) {
+		errors.totalPayment = '请填写回款总额';
+	}
+	if (values.totalPayment && isNaN(values.totalPayment)) {
+		errors.totalPayment = '金额只能为数字';
+	}
+
+	return errors;
+};
+
+var _default = (0, _reduxForm.reduxForm)({
+	form: 'receivedBtnForm',
+	validate: validate,
+	enableReinitialize: true,
+	keepDirtyOnReinitialize: true
+})(ReceivedBtnForm);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(ReceivedBtnForm, 'ReceivedBtnForm', '/Users/smile/Documents/kr-admin/src/Containers/Finance/Manage/OrderBill/OrderBillDetail/ReceivedBtnForm.js');
+
+	__REACT_HOT_LOADER__.register(validate, 'validate', '/Users/smile/Documents/kr-admin/src/Containers/Finance/Manage/OrderBill/OrderBillDetail/ReceivedBtnForm.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/smile/Documents/kr-admin/src/Containers/Finance/Manage/OrderBill/OrderBillDetail/ReceivedBtnForm.js');
+}();
+
+;

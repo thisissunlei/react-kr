@@ -1,0 +1,107 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var KrCheckbox = function (_Component) {
+	_inherits(KrCheckbox, _Component);
+
+	function KrCheckbox(props) {
+		_classCallCheck(this, KrCheckbox);
+
+		var _this = _possibleConstructorReturn(this, (KrCheckbox.__proto__ || Object.getPrototypeOf(KrCheckbox)).call(this, props));
+
+		_this.onCheck = function () {
+			var readOnly = _this.props.readOnly;
+
+
+			if (readOnly) {
+				return;
+			}
+			var _this$props = _this.props,
+			    onCheck = _this$props.onCheck,
+			    checked = _this$props.checked;
+
+			onCheck && onCheck(!checked);
+		};
+
+		return _this;
+	}
+
+	_createClass(KrCheckbox, [{
+		key: 'render',
+		value: function render() {
+			var checked = this.props.checked;
+			var label = this.props.label;
+
+
+			return _react2.default.createElement(
+				'span',
+				{ className: 'ui-checkbox' },
+				_react2.default.createElement('input', { type: 'checkbox', onChange: this.onCheck, checked: checked }),
+				label && _react2.default.createElement(
+					'span',
+					{ className: 'label' },
+					label
+				)
+			);
+		}
+	}]);
+
+	return KrCheckbox;
+}(_react.Component);
+
+KrCheckbox.displayName = 'KrCheckbox';
+KrCheckbox.defaultProps = {
+	checked: false,
+	label: '',
+	readOnly: false
+};
+KrCheckbox.propTypes = {
+	/**
+  * Checkbox 选中时值为true
+  */
+	checked: _react2.default.PropTypes.bool,
+	/**
+  * 点选时回调该方法
+  */
+	onCheck: _react2.default.PropTypes.func,
+	/**
+ * label
+ */
+	label: _react2.default.PropTypes.string,
+	/**
+ *是否只读
+ */
+	readOnly: _react2.default.PropTypes.bool
+};
+exports.default = KrCheckbox;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(KrCheckbox, 'KrCheckbox', '/Users/smile/Documents/kr-admin/src/Components/Checkbox/index.js');
+}();
+
+;
