@@ -51,11 +51,17 @@ import './index.less';
 		if(!values.mainbilldesc){
 			values.mainbilldesc="";
 		}
-		let data={};
-		data.customerId=allState.listId;
-		Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {
-			allState.customerName=response.customerName;
-			allState.orderCount=response.orderCount;
+		State.ChangeSubmitState();
+
+		values.customerid=listId;
+		values.mainbillname=State.orderName;
+		Store.dispatch(Actions.callAPI('enter-order',{},values)).then(function(response) {
+			// flushData.orderList(_this.props.listId);
+         	setTimeout(function(){
+         		State.ChangeCanSubmitState();
+         	},1000)
+			console.log("2222")
+
 			oneState.ordersListData({customerId:allState.listId})
 			_this.onCancel();
 		}).catch(function(err) {

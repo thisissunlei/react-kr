@@ -27,6 +27,8 @@ import {
 import './index.less';
 import State from './State';
 import allState from '../State';
+import NewIndent from "../NewIndent";
+import newIndentState from "../NewIndent/State";
 
 @observer
  class OneNewAgreement extends Component{
@@ -87,6 +89,7 @@ import allState from '../State';
 		allState.companyName=person.company;
 		allState.listId=person.id;
 		this.orderNameInit(person.id);
+
     }
 
     fetchCustomer=(customerId)=>{
@@ -112,11 +115,28 @@ import allState from '../State';
     orderListChange = (data) =>{
     	if(data.label=="新建订单"){
     		allState.openNewIndent=true;
+    		this.openNewIndent();
+
     	}else{
           allState.mainBillId=data.value;
           
     	}
     }
+    //打开新建订单
+    openNewIndent=()=>{
+		Store.dispatch(initialize('NewIndent',{}));
+		var _this=this;
+		let data={};
+		data.customerId=allState.listId;
+
+		Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {
+			allState.customerName=response.customerName;
+			allState.orderCount=response.orderCount;
+			newIndentState.orderName="";
+		}).catch(function(err) {
+			 Message.error(err.message);
+		});		
+	}
     //下一步被点击
     nextClick = () =>{
     	this.onCancel();
@@ -129,7 +149,7 @@ import allState from '../State';
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:9}} >
 				<div className="title" style={{marginBottom:"30px"}}>
-						<div><span className="new-icon"></span><label className="title-text">新建客户</label></div>
+						<div><span className="new-icon"></span><label className="title-text">新建合同</label></div>
 						<div className="customer-close" onClick={this.onCancel}></div>
 				</div>
 						<KrField  grid={1/2}  name="companyId" style={{width:262,marginLeft:28}} component='companyName'  label="客户名称" inline={false} onChange={this.onChangeSign} placeholder='请输入客户名称' requireLabel={true}/>

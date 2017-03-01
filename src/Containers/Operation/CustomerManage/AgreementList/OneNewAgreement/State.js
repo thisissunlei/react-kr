@@ -13,7 +13,25 @@ import {
 let State = observable({
 		detail:[],
 		ordersNames:[],
-		orderList:[]
+		orderList:[],
+		customerName:"",
+		orderCount:'',
+
+});
+//获取订单名称
+State.orderNameInit= action(function(value) {
+	var _this=this;
+	let data={};
+	console.log("ddsfsd")
+	
+	data.customerId=value;
+
+	Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {
+		_this.customerName=response.customerName;
+		_this.orderCount=response.orderCount;
+	}).catch(function(err) {
+		 Message.error(err.message);
+	});		
 });
 
 //客户名称下拉

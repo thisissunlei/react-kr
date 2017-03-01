@@ -35,6 +35,14 @@ let State = observable({
 
 });
 
+// submit不可提交
+State. ChangeSubmitState = action(function() {
+	this.submitState=false;
+});
+// submit可提交
+State. ChangeCanSubmitState = action(function() {
+	this.submitState=true;
+});
 
 //显示到期时间
 State.showMatureTime = action(function() {

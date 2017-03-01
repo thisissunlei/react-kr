@@ -69,21 +69,7 @@ class LookCustomerList extends Component{
         let noneTab=[];
 
 		if(!allState.enter){
-			if(noneTab.length==0){
-				num="574px";
-			}
-			if(noneTab.length==1){
-				num="443px";
-			}
-			if(noneTab.length==2){
-				num="312px";
-			}
-			if(noneTab.length==3){
-				num="181px";
-			}
-			if(noneTab.length==4){
-				num="50px";
-			}
+			num=50+(5-noneTab.length)*109.16;
 			text="入驻协议书"
 			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
 			noneTab.unshift(
@@ -101,22 +87,7 @@ class LookCustomerList extends Component{
 
 
 		if(!allState.increase){
-
-			if(noneTab.length==0){
-				num="574px";
-			}
-			if(noneTab.length==1){
-				num="443px";
-			}
-			if(noneTab.length==2){
-				num="312px";
-			}
-			if(noneTab.length==3){
-				num="181px";
-			}
-			if(noneTab.length==4){
-				num="50px";
-			}
+            num=50+(5-noneTab.length)*109.16;
 			text="增租协议书"
 			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
 			noneTab.unshift(
@@ -133,21 +104,7 @@ class LookCustomerList extends Component{
 		}	
 
 		if(!allState.reduce){
-			if(noneTab.length==0){
-				num="574px";
-			}
-			if(noneTab.length==1){
-				num="443px";
-			}
-			if(noneTab.length==2){
-				num="312px";
-			}
-			if(noneTab.length==3){
-				num="181px";
-			}
-			if(noneTab.length==4){
-				num="50px";
-			}
+			num=50+(5-noneTab.length)*109.16;
 			text="减租协议书"
 			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
 			noneTab.unshift(
@@ -164,21 +121,7 @@ class LookCustomerList extends Component{
 		}
 
 		if(!allState.relet){
-			if(noneTab.length==0){
-				num="574px";
-			}
-			if(noneTab.length==1){
-				num="443px";
-			}
-			if(noneTab.length==2){
-				num="312px";
-			}
-			if(noneTab.length==3){
-				num="181px";
-			}
-			if(noneTab.length==4){
-				num="50px";
-			}
+			num=50+(5-noneTab.length)*109.16;
 			text="续租协议书"
 			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
 			noneTab.unshift(
@@ -196,21 +139,7 @@ class LookCustomerList extends Component{
 
 		}
 		if(!allState.returnRent){
-			if(noneTab.length==0){
-				num="50px";
-			}
-			if(noneTab.length==1){
-				num="181px";
-			}
-			if(noneTab.length==2){
-				num="312px";
-			}
-			if(noneTab.length==3){
-				num="443px";
-			}
-			if(noneTab.length==4){
-				num="574px";
-			}
+			num=50+(5-noneTab.length)*109.16;
 			text="退租协议书"
 			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
 			noneTab.unshift(
@@ -227,6 +156,41 @@ class LookCustomerList extends Component{
 
 		}	                       
 		
+		if(!allState.returnRent){		
+ 	
+			num=50+noneTab.length*109.16;
+ 	
+			
+ 	
+			text="退租协议书"
+ 	
+			dialogDiv.unshift(<div className="m-noneClick" style={{left:num}}>{text}</div>)
+ 	
+			noneTab.unshift(
+ 	
+				<Tab label="承租意向书" >
+ 	
+					<Admit params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+	
+				</Tab>
+	
+			)
+ 	
+		}else{
+ 	
+			showTab.push(
+ 	
+				<Tab label="承租意向书" >
+ 	
+			<Admit params={{customerId:allState.listId,orderId:allState.mainBillId}}/>
+ 	
+				</Tab>
+	
+			);
+ 	
+
+ 	
+		}	         
 
 		return(
 		      <div className="m-lookCustomerList m-newMerchants" style={{paddingLeft:8}}>

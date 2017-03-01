@@ -242,8 +242,8 @@ export default class AdmitDetail extends Component {
 											   </TableBody>
 										 </Table>
 
-										   {openAdd&&_this.addRender()}
-			                               {openMinus&&_this.minusRender()}
+										   {openAdd&&this.addRender()}
+			                               {openMinus&&this.minusRender()}
 
 								  </DotTitle>
 
