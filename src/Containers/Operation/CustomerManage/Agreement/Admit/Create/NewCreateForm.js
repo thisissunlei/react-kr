@@ -323,6 +323,9 @@ class NewCreateForm extends Component {
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
+		// if(!form.hasOwnProperty('agreement')){
+		// 	form.agreement = '无';
+		// }
 		const {
 			onSubmit
 		} = this.props;
@@ -688,6 +691,7 @@ class NewCreateForm extends Component {
 															 requiredValue={true} pattern={/^\d{0,3}$/} errors={{requiredValue:'保留天数为必填项',pattern:'请输入三位以内正整数'}} />
 
 							 <KrField style={{width:830,marginLeft:70}}  name="contractmark" type="textarea" component="textarea" label="备注" maxSize={200}/>
+							 <KrField style={{width:830,marginLeft:70}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
 
 							 <KrField style={{width:830,marginLeft:70}}  name="contractFileList" component="input" type="hidden" label="合同附件"/>
 							<KrField style={{width:370,marginLeft:70}}  name="stationnum"  component="labelText" label="租赁工位" value={changeValues.stationnum} defaultValue="0" requireLabel={true} inline={false}/>

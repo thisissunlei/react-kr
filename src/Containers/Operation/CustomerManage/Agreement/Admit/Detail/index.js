@@ -164,6 +164,7 @@ export default class AdmitDetail extends Component {
 <KrField label="保留天数："   grid={1/2} component="labelText" left={60} value={basic.templockday} defaultValue="0" requireBlue={true}/>
 
 <KrField label="备注："   grid={1/1} component="labelText" value={basic.contractmark} defaultValue="无" requireBlue={true} inline={false}/>
+<KrField label="双方其他约定内容："   grid={1/1} component="labelText" value={basic.agreement} defaultValue="无" requireBlue={true} inline={false}/>
 
 					<KrField component="group" label="上传附件：" requireBlue={true}>
 							{basic.contractFileList && basic.contractFileList.map((item,index)=>{
