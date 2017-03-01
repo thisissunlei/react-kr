@@ -20,6 +20,7 @@ import {
 import State from './State';
 import allState from '../State';
 import oneState from '../OneNewAgreement/State';
+import OneNewAgreement from '../OneNewAgreement';
 import './index.less';
 @observer
  class NewIndent extends Component{
@@ -60,9 +61,11 @@ import './index.less';
          	setTimeout(function(){
          		State.ChangeCanSubmitState();
          	},1000)
-			console.log("2222")
-
 			oneState.ordersListData({customerId:allState.listId})
+			setTimeout(function(){
+				Store.dispatch(change('OneNewAgreement','customerId',response.mainBillId));
+			},50)
+			
 			_this.onCancel();
 		}).catch(function(err) {
 			 Message.error(err.message);

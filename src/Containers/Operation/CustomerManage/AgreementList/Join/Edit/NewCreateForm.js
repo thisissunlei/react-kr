@@ -569,7 +569,7 @@ class NewCreateForm extends Component {
 			}
 			return item;
 		})
-		Store.dispatch(Actions.callAPI('getAllRent',{stationList:JSON.stringify(list)})).then(function(response) {
+		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
 			_this.setState({
 				allRent:response
 			})
@@ -690,7 +690,7 @@ class NewCreateForm extends Component {
 									<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
 									<TableRowColumn>{item.stationName}</TableRowColumn>
 									<TableRowColumn>
-											<input type="text" name="age"  valueLink={typeLink} onBlur={this.onBlur.bind(this,item)} style={{maxWidth:'128px'}}/>
+											<input type="text" name="age"  valueLink={typeLink} onBlur={this.onBlur.bind(this,item)}/>
 									</TableRowColumn>
 									<TableRowColumn> <KrDate value={item.leaseBeginDate}/></TableRowColumn>
 									<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>

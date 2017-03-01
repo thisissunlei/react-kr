@@ -87,7 +87,10 @@ import newIndentState from "../NewIndent/State";
 		onCancel && onCancel();
 	}
 	 onChangeSign=(person)=>{
-		Store.dispatch(change('OneNewAgreement','customerId',person.id));
+	 	if(person.length==0){
+	 		return;
+	 	}
+	
 		this.fetchCustomer({customerId:person.id});
 		allState.companyName=person.company;
 		allState.listId=person.id;
