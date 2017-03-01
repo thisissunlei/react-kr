@@ -387,6 +387,13 @@ class NewCreateForm extends Component {
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.contractVersionType = 'NEW';
 		form.totalrent = (this.state.allRent).toFixed(2);
+		if(form.totalrent == 0){
+			Notify.show([{
+				message: '服务费不能为零',
+				type: 'danger',
+			}]);
+			return;
+		}
 
 		var _this = this;
 
