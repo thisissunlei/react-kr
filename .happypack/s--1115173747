@@ -42,6 +42,15 @@ var Login = (0, _mobxReact.observer)(_class = function (_Component) {
 
 		var _this2 = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props, context));
 
+		_this2.HandleTabKey = function (evt) {
+			document.onkeydown = function () {
+				if (event.keyCode == 9) {
+					//如果是其它键，换上相应在ascii 码即可。
+					return false; //非常重要
+				}
+			};
+		};
+
 		_this2.getCanvas = function () {
 			var canvas = document.getElementById('canvas'),
 			    ctx = canvas.getContext('2d'),
@@ -163,13 +172,18 @@ var Login = (0, _mobxReact.observer)(_class = function (_Component) {
 				});
 			}
 			var _this = _this2;
-			_Redux.Store.dispatch(_Redux.Actions.callAPI('personalLogin', {}, {
-				loginName: _this.refs.loginName,
-				loginPwds: _this.refs.loginPwds
-			})).then(function (response) {}).catch(function (err) {
-				// if(err.code<0){
-				// 	Message.error(err.message)
-				// }
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('loginSubmit', {}, {
+				loginName: _this.refs.loginName.value,
+				loginPwd: _this.refs.loginPwds.value
+			})).then(function (response) {
+				//跳转？
+			}).catch(function (err) {
+				if (err.code == -1) {
+					_krUi.Message.error(err.message);
+				}
+				if (err.code == -2) {
+					_krUi.Message.error(err.message);
+				}
 			});
 		};
 
@@ -211,17 +225,18 @@ var Login = (0, _mobxReact.observer)(_class = function (_Component) {
 		};
 
 		_this2.togetMailtestCode = function () {
-			_this2.refs.verifyCode.value = '';
+			_this2.refs.verifyCodeByMail.value = '';
+			var _this = _this2;
+			console.log(_this.refs.loginMail.value);
 			_this2.setState({
 				gettingMail: true,
 				regettestMailState: false,
 				togetMailtest: false
 			}, function () {
-				var _this = this;
-				_Redux.Store.dispatch(_Redux.Actions.callAPI('loginGetVerifyCode', {}, {
-					codeType: 'MAIL',
+
+				_Redux.Store.dispatch(_Redux.Actions.callAPI('getVcodeByMail', {
 					email: _this.refs.loginMail.value
-				})).then(function (response) {
+				}, {})).then(function (response) {
 					_this.togetMailtest();
 				}).catch(function (err) {
 					if (err.code < 0) {
@@ -264,16 +279,46 @@ var Login = (0, _mobxReact.observer)(_class = function (_Component) {
 			}
 		};
 
+		_this2.submitIdByMail = function () {
+			if (_this2.refs.verifyCodeByMail.value) {
+				_this2.submitVerifyIDbyMail();
+			} else {
+				_krUi.Message.error("请填写验证码");
+			}
+		};
+
+		_this2.submitVerifyIDbyMail = function () {
+			var _this = _this2;
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('validEmailCode', {}, {
+				email: _this.refs.loginMail.value,
+				code: _this.refs.verifyCodeByMail.value
+			})).then(function (response) {
+				_this.setState({
+					isLegal: true,
+					//timeminMobile:"",//
+					//timeminMail:"",//
+					saltStr: response.saltStr,
+					editPwd: true,
+					forgetPwd: false,
+					canLogin: false
+				});
+			}).catch(function (err) {
+				if (err.code < 0) {
+					_krUi.Message.error(err.message);
+					//           	console.log(err)
+				}
+			});
+		};
+
 		_this2.togetMobiletestCode = function () {
-			_this2.refs.verifyCode.value = '';
+			_this2.refs.verifyCodeByMobile.value = '';
 			_this2.setState({
 				regettestMobileState: false,
 				gettingMobile: true,
 				togetMobiletest: false
 			}, function () {
 				var _this = this;
-				_Redux.Store.dispatch(_Redux.Actions.callAPI('loginGetVerifyCode', {}, {
-					codeType: 'SMS',
+				_Redux.Store.dispatch(_Redux.Actions.callAPI('getVcodeByPhone', {
 					mobile: _this.refs.loginMobile.value
 				})).then(function (response) {
 					_this.togetMobiletest();
@@ -319,11 +364,61 @@ var Login = (0, _mobxReact.observer)(_class = function (_Component) {
 			}
 		};
 
-		_this2.toEditPwd = function () {
-			_this2.setState({
-				editPwd: true,
-				forgetPwd: false,
-				canLogin: false
+		_this2.submitIdByMobile = function () {
+			if (_this2.refs.verifyCodeByMobile.value) {
+				//console.log("111",document.getElementsByClassName("code")[0].value);
+				_this2.submitVerifyIDbyMobile();
+			} else {
+				_krUi.Message.error("请填写验证码");
+			}
+		};
+
+		_this2.submitVerifyIDbyMobile = function () {
+			var _this = _this2;
+			//console.log("1",this.state.regettestMobileState);
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('validPhoneCode', {}, {
+				mobile: _this.refs.loginMobile.value,
+				code: _this.refs.verifyCodeByMobile.value
+			})).then(function (response) {
+				_this.setState({
+					isLegal: true,
+					//timeminMobile:"",//
+					//timeminMail:"",//
+					saltStr: response.saltStr,
+					editPwd: true,
+					forgetPwd: false,
+					canLogin: false
+				}, function () {
+					//	console.log("2",this.state.regettestMobileState);
+					_this.setState({});
+				});
+			}).catch(function (err) {
+				if (err.code < 0) {
+					_krUi.Message.error(err.message);
+					//           	console.log(err)
+					//          	console.log(err);
+				}
+			});
+		};
+
+		_this2.submitPwd = function (values) {
+			console.log(values.new);
+			var _this = _this2;
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('setNewPwd', {}, {
+				pwd: values.new,
+				rePwd: values.newagain,
+				saltStr: _this.state.saltStr
+			})).then(function (response) {
+				_krUi.Message.success("修改成功");
+				_this.goToEdited();
+				// window.setTimeout(function(){
+				// 	window.location.href="/login/login"
+				// }
+				// 	,1000)
+			}).catch(function (err) {
+				if (err.code < 0) {
+					_krUi.Message.error(err.message);
+				}
 			});
 		};
 
@@ -340,20 +435,21 @@ var Login = (0, _mobxReact.observer)(_class = function (_Component) {
 		};
 
 		_this2.goToEdited = function () {
-			_this2.setState({
-				notSame: fasle
-			});
+			// this.setState({
+			// 	notSame:fasle,
+			// })
+			// var _this = this;
+			// if(_this.refs.onePwd!==_this.refs.twoPwd){
+			// 	_this.setState({
+			// 		notSame:true,
+			// 	})
+			// 	return;
+			// }
+			// if(_this.refs.onePwd.value==_this.refs.twoPwd){
+			//
+			// 	return;
+			// }
 			var _this = _this2;
-			if (_this.refs.onePwd !== _this.refs.twoPwd) {
-				_this.setState({
-					notSame: true
-				});
-				return;
-			}
-			if (_this.refs.onePwd.value == _this.refs.twoPwd) {
-
-				return;
-			}
 			window.clearTimeout(_this2.timerLogin);
 
 			_this2.setState({
@@ -384,6 +480,7 @@ var Login = (0, _mobxReact.observer)(_class = function (_Component) {
 			//验证
 			forgetPwd: false,
 			timedisabled: 'S后重新获取',
+			saltStr: '',
 			//邮箱
 			verifyByMail: true,
 			togetMailtest: true,
@@ -416,26 +513,43 @@ var Login = (0, _mobxReact.observer)(_class = function (_Component) {
 		value: function componentDidMount() {
 			_Redux.Store.dispatch(_Redux.Actions.switchSidebarNav(false));
 			this.getCanvas();
+			this.HandleTabKey();
 		}
+		//屏蔽tab
+
 		//登录部分
 
 		//验证部分
 
 		//邮箱验证
 
-		//邮箱验证点击获取验证码函数
+		//邮箱验证点击获取验证码函数zhangchi@krspace.cn
+
+		//身份验证By邮箱点击确认后
+
+		//邮箱身份验证点击确定
 
 		//手机验证
 
 		//手机验证点击获取验证码函数old
 
-		//重置密码
+
+		//手机身份验证点击确定
+
+		// onSubmit(form){
+		// 	const {
+		// 		onSubmit
+		// 	} = this.props;
+		//  onSubmit && onSubmit(form);
+		// }
+		//修改密码点击确定后的函数ing
 
 		//重置密码完成
 
 	}, {
 		key: 'render',
 		value: function render() {
+			var handleSubmit = this.props.handleSubmit;
 
 			return _react2.default.createElement(
 				'div',
@@ -478,11 +592,9 @@ var Login = (0, _mobxReact.observer)(_class = function (_Component) {
 										_react2.default.createElement(
 											'li',
 											{ className: 'loginName' },
-											_react2.default.createElement(_krUi.KrField, {
+											_react2.default.createElement('input', {
 												type: 'text',
-												component: 'input',
-												name: 'loginNamesdaf',
-												autoComplete: 'off',
+												name: 'loginName',
 												ref: 'loginName',
 												placeholder: '\u8BF7\u8F93\u5165\u624B\u673A\u53F7\u6216\u8005\u90AE\u7BB1'
 											}),
@@ -500,11 +612,9 @@ var Login = (0, _mobxReact.observer)(_class = function (_Component) {
 										_react2.default.createElement(
 											'li',
 											{ className: 'loginPwd' },
-											_react2.default.createElement(_krUi.KrField, {
+											_react2.default.createElement('input', {
 												type: 'password',
-												component: 'input',
-												name: 'loginPwdsadsfds',
-												autoComplete: 'off',
+												name: 'loginPwds',
 												ref: 'loginPwds',
 												placeholder: '\u8BF7\u8F93\u5165\u5BC6\u7801'
 											}),
@@ -535,7 +645,7 @@ var Login = (0, _mobxReact.observer)(_class = function (_Component) {
 										),
 										_react2.default.createElement(
 											'li',
-											{ onClick: this.forgetPwd, className: 'login-pwdinfo' },
+											{ onClick: this.forgetPwd, className: 'login-pwdinfo pointer' },
 											'\u5FD8\u8BB0\u5BC6\u7801?'
 										)
 									)
@@ -567,7 +677,7 @@ var Login = (0, _mobxReact.observer)(_class = function (_Component) {
 										_react2.default.createElement(
 											'li',
 											{ className: 'input-txt loginpwds' },
-											_react2.default.createElement(_krUi.Input, { type: 'text', ref: 'loginMail', placeholder: '\u8BF7\u8F93\u5165\u90AE\u7BB1' })
+											_react2.default.createElement('input', { type: 'text', ref: 'loginMail', placeholder: '\u8BF7\u8F93\u5165\u90AE\u7BB1' })
 										),
 										_react2.default.createElement(
 											'li',
@@ -575,7 +685,7 @@ var Login = (0, _mobxReact.observer)(_class = function (_Component) {
 											_react2.default.createElement(
 												'div',
 												{ className: 'input-verifycode fl' },
-												_react2.default.createElement(_krUi.Input, { type: 'text', className: 'codes', ref: 'verifyCode', placeholder: '\u8BF7\u8F93\u5165\u9A8C\u8BC1\u7801' })
+												_react2.default.createElement('input', { type: 'text', className: 'codes', ref: 'verifyCodeByMail', placeholder: '\u8BF7\u8F93\u5165\u9A8C\u8BC1\u7801' })
 											),
 											this.state.togetMailtest && _react2.default.createElement(
 												'span',
@@ -601,11 +711,11 @@ var Login = (0, _mobxReact.observer)(_class = function (_Component) {
 										_react2.default.createElement(
 											'li',
 											null,
-											_react2.default.createElement(_krUi.Input, { onClick: this.toEditPwd, type: 'button', value: '\u4E0B\u4E00\u6B65', className: 'login-btn next' })
+											_react2.default.createElement('input', { onClick: this.submitIdByMail, type: 'button', value: '\u4E0B\u4E00\u6B65', className: 'login-btn next' })
 										),
 										_react2.default.createElement(
 											'li',
-											{ onClick: this.goToLogin, className: 'login-pwdinfo' },
+											{ onClick: this.goToLogin, className: 'login-pwdinfo pointer' },
 											'\u8FD4\u56DE\u767B\u5F55'
 										)
 									)
@@ -619,7 +729,7 @@ var Login = (0, _mobxReact.observer)(_class = function (_Component) {
 										_react2.default.createElement(
 											'li',
 											{ className: 'input-txt loginpwds' },
-											_react2.default.createElement(_krUi.Input, { type: 'text', ref: 'loginMobile', placeholder: '\u8BF7\u8F93\u5165\u624B\u673A' })
+											_react2.default.createElement('input', { type: 'text', ref: 'loginMobile', placeholder: '\u8BF7\u8F93\u5165\u624B\u673A' })
 										),
 										_react2.default.createElement(
 											'li',
@@ -627,7 +737,7 @@ var Login = (0, _mobxReact.observer)(_class = function (_Component) {
 											_react2.default.createElement(
 												'div',
 												{ className: 'input-verifycode fl' },
-												_react2.default.createElement(_krUi.Input, { type: 'text', className: 'codes', ref: 'verifyCode', placeholder: '\u8BF7\u8F93\u5165\u9A8C\u8BC1\u7801' })
+												_react2.default.createElement('input', { type: 'text', className: 'codes', ref: 'verifyCodeByMobile', placeholder: '\u8BF7\u8F93\u5165\u9A8C\u8BC1\u7801' })
 											),
 											this.state.togetMobiletest && _react2.default.createElement(
 												'span',
@@ -653,7 +763,7 @@ var Login = (0, _mobxReact.observer)(_class = function (_Component) {
 										_react2.default.createElement(
 											'li',
 											null,
-											_react2.default.createElement(_krUi.Input, { type: 'button', value: '\u4E0B\u4E00\u6B65', onClick: this.toEditPwd, className: 'login-btn next' })
+											_react2.default.createElement('input', { type: 'button', value: '\u4E0B\u4E00\u6B65', onClick: this.submitIdByMobile, className: 'login-btn next' })
 										),
 										_react2.default.createElement(
 											'li',
@@ -667,19 +777,19 @@ var Login = (0, _mobxReact.observer)(_class = function (_Component) {
 								'div',
 								{ className: 'editPwd' },
 								_react2.default.createElement(
-									'div',
-									{ className: 'login-tip' },
-									'\u91CD\u7F6E\u5BC6\u7801'
-								),
-								_react2.default.createElement(
-									'div',
-									{ className: 'login-content' },
+									'form',
+									{ onSubmit: handleSubmit(this.submitPwd) },
 									_react2.default.createElement(
-										'ul',
-										{ className: 'login-content-ul' },
+										'div',
+										{ className: 'login-tip' },
+										'\u91CD\u7F6E\u5BC6\u7801'
+									),
+									_react2.default.createElement(
+										'div',
+										{ className: 'login-content' },
 										_react2.default.createElement(
-											'form',
-											null,
+											'ul',
+											{ className: 'login-content-ul' },
 											_react2.default.createElement(
 												'li',
 												{ className: 'hideInput' },
@@ -691,7 +801,7 @@ var Login = (0, _mobxReact.observer)(_class = function (_Component) {
 												_react2.default.createElement(_krUi.KrField, {
 													type: this.state.pwdOneHide ? 'password' : 'text',
 													component: 'input',
-													name: 'onePwdadsfasdf',
+													name: 'new',
 													autoComplete: 'off',
 													ref: 'onePwd',
 													placeholder: '\u8BF7\u8F93\u5165\u5BC6\u7801',
@@ -708,7 +818,7 @@ var Login = (0, _mobxReact.observer)(_class = function (_Component) {
 													component: 'input',
 													autoComplete: 'off',
 													type: this.state.pwdTwoHide ? 'password' : 'text',
-													name: 'twoPwd',
+													name: 'newagain',
 													ref: 'twoPwd',
 													placeholder: '\u8BF7\u518D\u6B21\u8F93\u5165\u5BC6\u7801'
 												}),
@@ -724,7 +834,7 @@ var Login = (0, _mobxReact.observer)(_class = function (_Component) {
 											_react2.default.createElement(
 												'li',
 												null,
-												_react2.default.createElement('input', { type: 'button', onClick: this.goToEdited, value: '\u5B8C\u6210\u5E76\u767B\u5F55', className: 'login-btn J_login' })
+												_react2.default.createElement('input', { value: '\u5B8C\u6210\u5E76\u767B\u5F55', type: 'submit', className: 'login-btn J_login' })
 											),
 											_react2.default.createElement(
 												'li',
@@ -787,7 +897,28 @@ Login.contextTypes = {
 
 };
 
-var _default = (0, _reduxForm.reduxForm)({ form: 'Login', enableReinitialize: true, keepDirtyOnReinitialize: true })(Login);
+var validate = function validate(values) {
+
+	var errors = {};
+
+	if (!values.new) {
+		errors.new = '请填写新密码';
+	}
+
+	if (!values.newagain) {
+		errors.newagain = '请再次输入新的登录密码';
+	}
+
+	if (values.newagain && values.new && values.new !== values.newagain) {
+		errors.newagain = '两次密码输入不一致';
+	}
+
+	return errors;
+};
+//export default reduxForm({form:'Login',validate})(Login);
+var selector = (0, _reduxForm.formValueSelector)('Login');
+
+var _default = (0, _reduxForm.reduxForm)({ form: 'Login', validate: validate })(Login);
 
 exports.default = _default;
 ;
@@ -798,6 +929,10 @@ var _temp = function () {
 	}
 
 	__REACT_HOT_LOADER__.register(Login, 'Login', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Permission/Login/index.js');
+
+	__REACT_HOT_LOADER__.register(validate, 'validate', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Permission/Login/index.js');
+
+	__REACT_HOT_LOADER__.register(selector, 'selector', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Permission/Login/index.js');
 
 	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Permission/Login/index.js');
 }();

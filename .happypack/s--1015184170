@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 exports.default = undefined;
 
@@ -32,92 +32,100 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var DataPermission = function (_Component) {
-  _inherits(DataPermission, _Component);
+	_inherits(DataPermission, _Component);
 
-  function DataPermission(props, context) {
-    _classCallCheck(this, DataPermission);
+	function DataPermission(props, context) {
+		_classCallCheck(this, DataPermission);
 
-    var _this2 = _possibleConstructorReturn(this, (DataPermission.__proto__ || Object.getPrototypeOf(DataPermission)).call(this, props, context));
+		var _this2 = _possibleConstructorReturn(this, (DataPermission.__proto__ || Object.getPrototypeOf(DataPermission)).call(this, props, context));
 
-    _this2.onCancel = function () {
-      var onCancel = _this2.props.onCancel;
+		_this2.renderData = function (item, index) {
+			// return (
+			// 	<div key={index}>
+			// 		<CheckboxGroup
+			// 				style={{display:'block',textAlign:'left',lineHeight:'32px',color:'#333'}}
+			// 				name={item.name}
+			// 				options={}
+			// 				checked={item.ownFlag==1?true:false}
+			// 		/>
+			//
+			// 	</div>
+			// );
+		};
 
-      onCancel && onCancel();
-    };
+		_this2.onCancel = function () {
+			var onCancel = _this2.props.onCancel;
 
-    _this2.allSelect = function () {
-      console.log(111);
-      _this2.setState({
-        citySelect: !_this2.state.citySelect
-      });
-    };
+			onCancel && onCancel();
+		};
 
-    _this2.state = {
-      mainbilltypeList: [],
-      citySelect: false
-    };
-    return _this2;
-  }
+		_this2.allSelect = function () {
+			console.log(111);
+			_this2.setState({
+				citySelect: !_this2.state.citySelect
+			});
+		};
 
-  _createClass(DataPermission, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
+		_this2.state = {
+			roleList: [],
+			citySelect: false
 
-      var _this = this;
-      _Redux.Store.dispatch(_Redux.Actions.callAPI('getMainBillTypeList')).then(function (response) {
+		};
+		_this2.onCancel = _this2.onCancel.bind(_this2);
+		return _this2;
+	}
 
-        var mainbilltypeList = response.mainbilltypeList;
+	_createClass(DataPermission, [{
+		key: 'componentWillReceiveProps',
+		value: function componentWillReceiveProps(nextProps) {
+			var roleList = this.state.roleList;
 
-        mainbilltypeList.map(function (item, index) {
-          item.label = item.mainBillTypeDesc;
-          item.value = item.mainBillTypeValue;
-          return item;
-        });
+			if (nextProps.detail) {
+				var id = nextProps.detail.id;
+				var _this = this;
+				_Redux.Store.dispatch(_Redux.Actions.callAPI('findRoleData', { id: id })).then(function (response) {
+					_this.setState({
+						roleList: response.roleList
+					});
+				}).catch(function (err) {});
+			}
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var roleList = this.state.roleList;
 
-        _this.setState({
-          mainbilltypeList: mainbilltypeList
-        });
-      }).catch(function (err) {
-        Notify.show([{
-          message: '报错了',
-          type: 'danger'
-        }]);
-      });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
+			console.log("cccc", roleList);
+			return _react2.default.createElement(
+				'div',
+				{ className: 'g-DataPermission' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'leftSec' },
+					_react2.default.createElement(_krUi.Checkbox, { label: '\u5168\u9009', style: { color: '#333' }, onCheck: this.allSelect }),
+					_react2.default.createElement(_krUi.CheckboxGroup, {
+						style: { display: 'block', textAlign: 'left', lineHeight: '32px', color: '#333' },
+						name: roleList.name,
+						options: roleList,
+						checked: item.ownFlag == 1 ? true : false
+					})
+				)
+			);
+		}
+	}]);
 
-      return _react2.default.createElement(
-        'div',
-        { className: 'g-DataPermission' },
-        _react2.default.createElement(
-          'div',
-          { className: 'leftSec' },
-          _react2.default.createElement(_krUi.Checkbox, { label: '\u5168\u9009', style: { color: '#333' }, onCheck: this.allSelect }),
-          _react2.default.createElement(_krUi.CheckboxGroup, {
-            style: { display: 'block', textAlign: 'left', lineHeight: '32px', color: '#333' },
-            name: '123123sadf',
-            options: this.state.mainbilltypeList,
-            checked: this.state.citySelect
-          })
-        )
-      );
-    }
-  }]);
-
-  return DataPermission;
+	return DataPermission;
 }(_react.Component);
 
 exports.default = DataPermission;
 ;
 
 var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
 
-  __REACT_HOT_LOADER__.register(DataPermission, 'DataPermission', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Permission/AccountList/DataPermission.js');
+	__REACT_HOT_LOADER__.register(DataPermission, 'DataPermission', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Permission/AccountList/DataPermission.js');
 }();
 
 ;

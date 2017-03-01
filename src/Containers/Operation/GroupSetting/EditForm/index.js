@@ -1,8 +1,7 @@
 import React, {Component, PropTypes} from 'react';
-import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
-import {Actions,Store} from 'kr/Redux';
+import {Actions,Store,connect} from 'kr/Redux';
 import {
 	KrField,
 	Grid,
@@ -285,7 +284,7 @@ class ZhuanHuan extends React.Component{
         right:"30px",
         visibility:downShow,
         transform:'translateX(20px)'
-        
+
       }
 
       return(

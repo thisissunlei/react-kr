@@ -1,4 +1,6 @@
-const APIS = {
+'use strict';
+
+var APIS = {
   'delete-enter-contract': {
     url: '/api/krspace-finance-web/checkinagreement/delete-enter-contract?contractId={contractId}',
     method: 'delete'
@@ -834,6 +836,17 @@ const APIS = {
     method: 'get'
   }
 
-}
+};
 
 module.exports = APIS;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(APIS, 'APIS', '/Users/dongfanai/Desktop/project/kr-admin/src/Configs/apis.js');
+}();
+
+;

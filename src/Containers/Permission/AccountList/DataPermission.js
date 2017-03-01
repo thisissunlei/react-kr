@@ -29,36 +29,40 @@ export default class DataPermission extends Component{
 	constructor(props,context){
 		super(props, context);
     this.state = {
-      mainbilltypeList: [],
+      roleList: [],
       citySelect:false,
-    }
+
+    };
+		this.onCancel = this.onCancel.bind(this);
 	}
-  componentDidMount() {
+  componentWillReceiveProps(nextProps) {
+		let {roleList}=this.state;
+		if(nextProps.detail){
+			let id=nextProps.detail.id;
+			var _this = this;
+			Store.dispatch(Actions.callAPI('findRoleData',{id:id})).then(function(response) {
+        _this.setState({
+					roleList: response.roleList
+				});
+			}).catch(function(err) {
 
-    var _this = this;
-    Store.dispatch(Actions.callAPI('getMainBillTypeList')).then(function(response) {
-
-      const mainbilltypeList = response.mainbilltypeList
-
-      mainbilltypeList.map(function(item, index) {
-        item.label = item.mainBillTypeDesc;
-        item.value = item.mainBillTypeValue;
-        return item;
-      });
-
-      _this.setState({
-        mainbilltypeList
-      });
-
-    }).catch(function(err) {
-      Notify.show([{
-        message: '报错了',
-        type: 'danger',
-      }]);
-    });
-
+			});
+		}
 
   }
+renderData=(item,index)=>{
+	// return (
+	// 	<div key={index}>
+	// 		<CheckboxGroup
+	// 				style={{display:'block',textAlign:'left',lineHeight:'32px',color:'#333'}}
+	// 				name={item.name}
+	// 				options={}
+	// 				checked={item.ownFlag==1?true:false}
+	// 		/>
+	//
+	// 	</div>
+	// );
+}
 onCancel=()=>{
   const {
     onCancel
@@ -74,17 +78,20 @@ allSelect=()=>{
 
 	render(){
 
+		let {roleList}=this.state;
+		console.log("cccc",roleList);
 		return(
 
 			<div className="g-DataPermission">
           <div className="leftSec">
             <Checkbox label="全选" style={{color:'#333'}} onCheck={this.allSelect}/>
-            <CheckboxGroup
-                style={{display:'block',textAlign:'left',lineHeight:'32px',color:'#333'}}
-                name="123123sadf"
-                options={this.state.mainbilltypeList}
-                checked={this.state.citySelect}
-            />
+							<CheckboxGroup
+									style={{display:'block',textAlign:'left',lineHeight:'32px',color:'#333'}}
+									name={roleList.name}
+									options={roleList}
+									checked={item.ownFlag==1?true:false}
+							/>
+			      {/*roleList.map((item,index)=>{return this.renderData(item,index)})*/}
           </div>
 			</div>
 		);
