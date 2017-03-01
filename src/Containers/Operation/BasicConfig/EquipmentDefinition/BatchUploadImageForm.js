@@ -156,7 +156,7 @@ class BatchUploadImageForm extends Component{
 					}
 				}
 			})
-		},300);
+		},1000);
 	}
 	render(){
 		let {communitys}=this.state;
