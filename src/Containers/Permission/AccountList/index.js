@@ -147,6 +147,7 @@ class AccountList  extends Component{
 	//搜索
 	onSearchSubmit=(value)=>{
 		let {searchParams}=this.state;
+		console.log(searchParams);
 		 if(value.filter=='company'){
 			 this.setState({
 				searchParams:{
@@ -185,7 +186,7 @@ class AccountList  extends Component{
 		}
 	}
 	render(){
-
+		let {searchParams}=this.state;
 		let options=[
 		 {label:'登录名',value:'company'},
 		 {label:'姓名',value:'city'},
@@ -228,6 +229,7 @@ class AccountList  extends Component{
 							<TableRowColumn>
 									<Button label="修改" onTouchTap={this.openNewCreate}  type="operation" operation="view"/>
 								  <Button label="重置密码"  type="operation" operation="reset"/>
+
 									<Button label="删除" type="operation" operation="dele"/>
 									<Button label="数据" onTouchTap={this.openDataPermission} type="operation" operation="data"/>
 							 </TableRowColumn>
