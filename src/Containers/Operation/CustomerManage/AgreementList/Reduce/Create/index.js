@@ -29,6 +29,16 @@ import './index.less';
 import allState from "../../State";
 export default class JoinCreate extends Component {
 
+	static childContextTypes = {
+        params: React.PropTypes.object.isRequired
+     }
+
+	getChildContext() {
+		    return {
+		        params: this.props.params
+		      }
+		    }
+
 	constructor(props, context) {
 		super(props, context);
 
