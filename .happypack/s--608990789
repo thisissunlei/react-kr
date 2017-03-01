@@ -1,0 +1,128 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _simpleAssign = require('simple-assign');
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _transitions = require('../styles/transitions');
+
+var _transitions2 = _interopRequireDefault(_transitions);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function getStyles(props) {
+  var defaultStyles = {
+    position: 'absolute',
+    lineHeight: '22px',
+    top: 38,
+    transition: _transitions2.default.easeOut(),
+    zIndex: 1, // Needed to display label above Chrome's autocomplete field background
+    transform: 'scale(1) translate(0, 0)',
+    transformOrigin: 'left top',
+    pointerEvents: 'auto',
+    userSelect: 'none'
+  };
+
+  var shrinkStyles = props.shrink ? (0, _simpleAssign2.default)({
+    transform: 'scale(0.75) translate(0, -28px)',
+    pointerEvents: 'none'
+  }, props.shrinkStyle) : null;
+
+  return {
+    root: (0, _simpleAssign2.default)(defaultStyles, props.style, shrinkStyles)
+  };
+}
+
+var TextFieldLabel = function TextFieldLabel(props) {
+  var muiTheme = props.muiTheme,
+      className = props.className,
+      children = props.children,
+      htmlFor = props.htmlFor,
+      onTouchTap = props.onTouchTap;
+  var prepareStyles = muiTheme.prepareStyles;
+
+  var styles = getStyles(props);
+
+  return _react2.default.createElement(
+    'label',
+    {
+      className: className,
+      style: prepareStyles(styles.root),
+      htmlFor: htmlFor,
+      onTouchTap: onTouchTap
+    },
+    children
+  );
+};
+
+TextFieldLabel.propTypes = {
+  /**
+   * The label contents.
+   */
+  children: _react.PropTypes.node,
+  /**
+   * The css class name of the root element.
+   */
+  className: _react.PropTypes.string,
+  /**
+   * Disables the label if set to true.
+   */
+  disabled: _react.PropTypes.bool,
+  /**
+   * The id of the target element that this label should refer to.
+   */
+  htmlFor: _react.PropTypes.string,
+  /**
+   * @ignore
+   * The material-ui theme applied to this component.
+   */
+  muiTheme: _react.PropTypes.object.isRequired,
+  /**
+   * Callback function for when the label is selected via a touch tap.
+   */
+  onTouchTap: _react.PropTypes.func,
+  /**
+   * True if the floating label should shrink.
+   */
+  shrink: _react.PropTypes.bool,
+  /**
+   * Override the inline-styles of the root element when shrunk.
+   */
+  shrinkStyle: _react.PropTypes.object,
+  /**
+   * Override the inline-styles of the root element.
+   */
+  style: _react.PropTypes.object
+};
+
+TextFieldLabel.defaultProps = {
+  disabled: false,
+  shrink: false
+};
+
+var _default = TextFieldLabel;
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(getStyles, 'getStyles', '/Users/tmac_zc/Code/kr-admin/src/Components/DatePicker/TextField/TextFieldLabel.js');
+
+  __REACT_HOT_LOADER__.register(TextFieldLabel, 'TextFieldLabel', '/Users/tmac_zc/Code/kr-admin/src/Components/DatePicker/TextField/TextFieldLabel.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/tmac_zc/Code/kr-admin/src/Components/DatePicker/TextField/TextFieldLabel.js');
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9Db21wb25lbnRzL0RhdGVQaWNrZXIvVGV4dEZpZWxkL1RleHRGaWVsZExhYmVsLmpzIl0sIm5hbWVzIjpbImdldFN0eWxlcyIsInByb3BzIiwiZGVmYXVsdFN0eWxlcyIsInBvc2l0aW9uIiwibGluZUhlaWdodCIsInRvcCIsInRyYW5zaXRpb24iLCJlYXNlT3V0IiwiekluZGV4IiwidHJhbnNmb3JtIiwidHJhbnNmb3JtT3JpZ2luIiwicG9pbnRlckV2ZW50cyIsInVzZXJTZWxlY3QiLCJzaHJpbmtTdHlsZXMiLCJzaHJpbmsiLCJzaHJpbmtTdHlsZSIsInJvb3QiLCJzdHlsZSIsIlRleHRGaWVsZExhYmVsIiwibXVpVGhlbWUiLCJjbGFzc05hbWUiLCJjaGlsZHJlbiIsImh0bWxGb3IiLCJvblRvdWNoVGFwIiwicHJlcGFyZVN0eWxlcyIsInN0eWxlcyIsInByb3BUeXBlcyIsIm5vZGUiLCJzdHJpbmciLCJkaXNhYmxlZCIsImJvb2wiLCJvYmplY3QiLCJpc1JlcXVpcmVkIiwiZnVuYyIsImRlZmF1bHRQcm9wcyJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7OztBQUFBOzs7O0FBQ0E7Ozs7OztBQUVBLFNBQVNBLFNBQVQsQ0FBbUJDLEtBQW5CLEVBQTBCO0FBQ3hCLE1BQU1DLGdCQUFnQjtBQUNwQkMsY0FBVSxVQURVO0FBRXBCQyxnQkFBWSxNQUZRO0FBR3BCQyxTQUFLLEVBSGU7QUFJcEJDLGdCQUFZLHNCQUFZQyxPQUFaLEVBSlE7QUFLcEJDLFlBQVEsQ0FMWSxFQUtUO0FBQ1hDLGVBQVcsMEJBTlM7QUFPcEJDLHFCQUFpQixVQVBHO0FBUXBCQyxtQkFBZSxNQVJLO0FBU3BCQyxnQkFBWTtBQVRRLEdBQXRCOztBQVlBLE1BQU1DLGVBQWVaLE1BQU1hLE1BQU4sR0FBZSw0QkFBYztBQUNoREwsZUFBVyxpQ0FEcUM7QUFFaERFLG1CQUFlO0FBRmlDLEdBQWQsRUFHakNWLE1BQU1jLFdBSDJCLENBQWYsR0FHRyxJQUh4Qjs7QUFLQSxTQUFPO0FBQ0xDLFVBQU0sNEJBQWNkLGFBQWQsRUFBNkJELE1BQU1nQixLQUFuQyxFQUEwQ0osWUFBMUM7QUFERCxHQUFQO0FBR0Q7O0FBRUQsSUFBTUssaUJBQWlCLFNBQWpCQSxjQUFpQixDQUFDakIsS0FBRCxFQUFXO0FBQUEsTUFFOUJrQixRQUY4QixHQU81QmxCLEtBUDRCLENBRTlCa0IsUUFGOEI7QUFBQSxNQUc5QkMsU0FIOEIsR0FPNUJuQixLQVA0QixDQUc5Qm1CLFNBSDhCO0FBQUEsTUFJOUJDLFFBSjhCLEdBTzVCcEIsS0FQNEIsQ0FJOUJvQixRQUo4QjtBQUFBLE1BSzlCQyxPQUw4QixHQU81QnJCLEtBUDRCLENBSzlCcUIsT0FMOEI7QUFBQSxNQU05QkMsVUFOOEIsR0FPNUJ0QixLQVA0QixDQU05QnNCLFVBTjhCO0FBQUEsTUFTekJDLGFBVHlCLEdBU1JMLFFBVFEsQ0FTekJLLGFBVHlCOztBQVVoQyxNQUFNQyxTQUFTekIsVUFBVUMsS0FBVixDQUFmOztBQUVBLFNBQ0U7QUFBQTtBQUFBO0FBQ0UsaUJBQVdtQixTQURiO0FBRUUsYUFBT0ksY0FBY0MsT0FBT1QsSUFBckIsQ0FGVDtBQUdFLGVBQVNNLE9BSFg7QUFJRSxrQkFBWUM7QUFKZDtBQU1HRjtBQU5ILEdBREY7QUFVRCxDQXRCRDs7QUF3QkFILGVBQWVRLFNBQWYsR0FBMkI7QUFDekI7OztBQUdBTCxZQUFVLGlCQUFVTSxJQUpLO0FBS3pCOzs7QUFHQVAsYUFBVyxpQkFBVVEsTUFSSTtBQVN6Qjs7O0FBR0FDLFlBQVUsaUJBQVVDLElBWks7QUFhekI7OztBQUdBUixXQUFTLGlCQUFVTSxNQWhCTTtBQWlCekI7Ozs7QUFJQVQsWUFBVSxpQkFBVVksTUFBVixDQUFpQkMsVUFyQkY7QUFzQnpCOzs7QUFHQVQsY0FBWSxpQkFBVVUsSUF6Qkc7QUEwQnpCOzs7QUFHQW5CLFVBQVEsaUJBQVVnQixJQTdCTztBQThCekI7OztBQUdBZixlQUFhLGlCQUFVZ0IsTUFqQ0U7QUFrQ3pCOzs7QUFHQWQsU0FBTyxpQkFBVWM7QUFyQ1EsQ0FBM0I7O0FBd0NBYixlQUFlZ0IsWUFBZixHQUE4QjtBQUM1QkwsWUFBVSxLQURrQjtBQUU1QmYsVUFBUTtBQUZvQixDQUE5Qjs7ZUFLZUksYzs7Ozs7Ozs7O2dDQTVGTmxCLFM7O2dDQXVCSGtCLGMiLCJmaWxlIjoiVGV4dEZpZWxkTGFiZWwuanMiLCJzb3VyY2VSb290IjoiL1VzZXJzL3RtYWNfemMvQ29kZS9rci1hZG1pbiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCwge1Byb3BUeXBlc30gZnJvbSAncmVhY3QnO1xuaW1wb3J0IHRyYW5zaXRpb25zIGZyb20gJy4uL3N0eWxlcy90cmFuc2l0aW9ucyc7XG5cbmZ1bmN0aW9uIGdldFN0eWxlcyhwcm9wcykge1xuICBjb25zdCBkZWZhdWx0U3R5bGVzID0ge1xuICAgIHBvc2l0aW9uOiAnYWJzb2x1dGUnLFxuICAgIGxpbmVIZWlnaHQ6ICcyMnB4JyxcbiAgICB0b3A6IDM4LFxuICAgIHRyYW5zaXRpb246IHRyYW5zaXRpb25zLmVhc2VPdXQoKSxcbiAgICB6SW5kZXg6IDEsIC8vIE5lZWRlZCB0byBkaXNwbGF5IGxhYmVsIGFib3ZlIENocm9tZSdzIGF1dG9jb21wbGV0ZSBmaWVsZCBiYWNrZ3JvdW5kXG4gICAgdHJhbnNmb3JtOiAnc2NhbGUoMSkgdHJhbnNsYXRlKDAsIDApJyxcbiAgICB0cmFuc2Zvcm1PcmlnaW46ICdsZWZ0IHRvcCcsXG4gICAgcG9pbnRlckV2ZW50czogJ2F1dG8nLFxuICAgIHVzZXJTZWxlY3Q6ICdub25lJyxcbiAgfTtcblxuICBjb25zdCBzaHJpbmtTdHlsZXMgPSBwcm9wcy5zaHJpbmsgPyBPYmplY3QuYXNzaWduKHtcbiAgICB0cmFuc2Zvcm06ICdzY2FsZSgwLjc1KSB0cmFuc2xhdGUoMCwgLTI4cHgpJyxcbiAgICBwb2ludGVyRXZlbnRzOiAnbm9uZScsXG4gIH0sIHByb3BzLnNocmlua1N0eWxlKSA6IG51bGw7XG5cbiAgcmV0dXJuIHtcbiAgICByb290OiBPYmplY3QuYXNzaWduKGRlZmF1bHRTdHlsZXMsIHByb3BzLnN0eWxlLCBzaHJpbmtTdHlsZXMpLFxuICB9O1xufVxuXG5jb25zdCBUZXh0RmllbGRMYWJlbCA9IChwcm9wcykgPT4ge1xuICBjb25zdCB7XG4gICAgbXVpVGhlbWUsXG4gICAgY2xhc3NOYW1lLFxuICAgIGNoaWxkcmVuLFxuICAgIGh0bWxGb3IsXG4gICAgb25Ub3VjaFRhcCxcbiAgfSA9IHByb3BzO1xuXG4gIGNvbnN0IHtwcmVwYXJlU3R5bGVzfSA9IG11aVRoZW1lO1xuICBjb25zdCBzdHlsZXMgPSBnZXRTdHlsZXMocHJvcHMpO1xuXG4gIHJldHVybiAoXG4gICAgPGxhYmVsXG4gICAgICBjbGFzc05hbWU9e2NsYXNzTmFtZX1cbiAgICAgIHN0eWxlPXtwcmVwYXJlU3R5bGVzKHN0eWxlcy5yb290KX1cbiAgICAgIGh0bWxGb3I9e2h0bWxGb3J9XG4gICAgICBvblRvdWNoVGFwPXtvblRvdWNoVGFwfVxuICAgID5cbiAgICAgIHtjaGlsZHJlbn1cbiAgICA8L2xhYmVsPlxuICApO1xufTtcblxuVGV4dEZpZWxkTGFiZWwucHJvcFR5cGVzID0ge1xuICAvKipcbiAgICogVGhlIGxhYmVsIGNvbnRlbnRzLlxuICAgKi9cbiAgY2hpbGRyZW46IFByb3BUeXBlcy5ub2RlLFxuICAvKipcbiAgICogVGhlIGNzcyBjbGFzcyBuYW1lIG9mIHRoZSByb290IGVsZW1lbnQuXG4gICAqL1xuICBjbGFzc05hbWU6IFByb3BUeXBlcy5zdHJpbmcsXG4gIC8qKlxuICAgKiBEaXNhYmxlcyB0aGUgbGFiZWwgaWYgc2V0IHRvIHRydWUuXG4gICAqL1xuICBkaXNhYmxlZDogUHJvcFR5cGVzLmJvb2wsXG4gIC8qKlxuICAgKiBUaGUgaWQgb2YgdGhlIHRhcmdldCBlbGVtZW50IHRoYXQgdGhpcyBsYWJlbCBzaG91bGQgcmVmZXIgdG8uXG4gICAqL1xuICBodG1sRm9yOiBQcm9wVHlwZXMuc3RyaW5nLFxuICAvKipcbiAgICogQGlnbm9yZVxuICAgKiBUaGUgbWF0ZXJpYWwtdWkgdGhlbWUgYXBwbGllZCB0byB0aGlzIGNvbXBvbmVudC5cbiAgICovXG4gIG11aVRoZW1lOiBQcm9wVHlwZXMub2JqZWN0LmlzUmVxdWlyZWQsXG4gIC8qKlxuICAgKiBDYWxsYmFjayBmdW5jdGlvbiBmb3Igd2hlbiB0aGUgbGFiZWwgaXMgc2VsZWN0ZWQgdmlhIGEgdG91Y2ggdGFwLlxuICAgKi9cbiAgb25Ub3VjaFRhcDogUHJvcFR5cGVzLmZ1bmMsXG4gIC8qKlxuICAgKiBUcnVlIGlmIHRoZSBmbG9hdGluZyBsYWJlbCBzaG91bGQgc2hyaW5rLlxuICAgKi9cbiAgc2hyaW5rOiBQcm9wVHlwZXMuYm9vbCxcbiAgLyoqXG4gICAqIE92ZXJyaWRlIHRoZSBpbmxpbmUtc3R5bGVzIG9mIHRoZSByb290IGVsZW1lbnQgd2hlbiBzaHJ1bmsuXG4gICAqL1xuICBzaHJpbmtTdHlsZTogUHJvcFR5cGVzLm9iamVjdCxcbiAgLyoqXG4gICAqIE92ZXJyaWRlIHRoZSBpbmxpbmUtc3R5bGVzIG9mIHRoZSByb290IGVsZW1lbnQuXG4gICAqL1xuICBzdHlsZTogUHJvcFR5cGVzLm9iamVjdCxcbn07XG5cblRleHRGaWVsZExhYmVsLmRlZmF1bHRQcm9wcyA9IHtcbiAgZGlzYWJsZWQ6IGZhbHNlLFxuICBzaHJpbms6IGZhbHNlLFxufTtcblxuZXhwb3J0IGRlZmF1bHQgVGV4dEZpZWxkTGFiZWw7XG4iXX0=

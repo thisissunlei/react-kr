@@ -1,0 +1,48 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var horizontal = _react.PropTypes.oneOf(['left', 'middle', 'right']);
+var vertical = _react.PropTypes.oneOf(['top', 'center', 'bottom']);
+
+var _default = {
+
+  corners: _react.PropTypes.oneOf(['bottom-left', 'bottom-right', 'top-left', 'top-right']),
+
+  horizontal: horizontal,
+
+  vertical: vertical,
+
+  origin: _react.PropTypes.shape({
+    horizontal: horizontal,
+    vertical: vertical
+  }),
+
+  cornersAndCenter: _react.PropTypes.oneOf(['bottom-center', 'bottom-left', 'bottom-right', 'top-center', 'top-left', 'top-right']),
+
+  stringOrNumber: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number]),
+
+  zDepth: _react.PropTypes.oneOf([0, 1, 2, 3, 4, 5])
+
+};
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(horizontal, 'horizontal', '/Users/tmac_zc/Code/kr-admin/src/Components/DatePicker/utils/propTypes.js');
+
+  __REACT_HOT_LOADER__.register(vertical, 'vertical', '/Users/tmac_zc/Code/kr-admin/src/Components/DatePicker/utils/propTypes.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/tmac_zc/Code/kr-admin/src/Components/DatePicker/utils/propTypes.js');
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9Db21wb25lbnRzL0RhdGVQaWNrZXIvdXRpbHMvcHJvcFR5cGVzLmpzIl0sIm5hbWVzIjpbImhvcml6b250YWwiLCJvbmVPZiIsInZlcnRpY2FsIiwiY29ybmVycyIsIm9yaWdpbiIsInNoYXBlIiwiY29ybmVyc0FuZENlbnRlciIsInN0cmluZ09yTnVtYmVyIiwib25lT2ZUeXBlIiwic3RyaW5nIiwibnVtYmVyIiwiekRlcHRoIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQTs7QUFFQSxJQUFNQSxhQUFhLGlCQUFVQyxLQUFWLENBQWdCLENBQUMsTUFBRCxFQUFTLFFBQVQsRUFBbUIsT0FBbkIsQ0FBaEIsQ0FBbkI7QUFDQSxJQUFNQyxXQUFXLGlCQUFVRCxLQUFWLENBQWdCLENBQUMsS0FBRCxFQUFRLFFBQVIsRUFBa0IsUUFBbEIsQ0FBaEIsQ0FBakI7O2VBRWU7O0FBRWJFLFdBQVMsaUJBQVVGLEtBQVYsQ0FBZ0IsQ0FDdkIsYUFEdUIsRUFFdkIsY0FGdUIsRUFHdkIsVUFIdUIsRUFJdkIsV0FKdUIsQ0FBaEIsQ0FGSTs7QUFTYkQsY0FBWUEsVUFUQzs7QUFXYkUsWUFBVUEsUUFYRzs7QUFhYkUsVUFBUSxpQkFBVUMsS0FBVixDQUFnQjtBQUN0QkwsZ0JBQVlBLFVBRFU7QUFFdEJFLGNBQVVBO0FBRlksR0FBaEIsQ0FiSzs7QUFrQmJJLG9CQUFrQixpQkFBVUwsS0FBVixDQUFnQixDQUNoQyxlQURnQyxFQUVoQyxhQUZnQyxFQUdoQyxjQUhnQyxFQUloQyxZQUpnQyxFQUtoQyxVQUxnQyxFQU1oQyxXQU5nQyxDQUFoQixDQWxCTDs7QUEyQmJNLGtCQUFnQixpQkFBVUMsU0FBVixDQUFvQixDQUNsQyxpQkFBVUMsTUFEd0IsRUFFbEMsaUJBQVVDLE1BRndCLENBQXBCLENBM0JIOztBQWdDYkMsVUFBUSxpQkFBVVYsS0FBVixDQUFnQixDQUFDLENBQUQsRUFBSSxDQUFKLEVBQU8sQ0FBUCxFQUFVLENBQVYsRUFBYSxDQUFiLEVBQWdCLENBQWhCLENBQWhCOztBQWhDSyxDOzs7Ozs7Ozs7Z0NBSFRELFU7O2dDQUNBRSxRIiwiZmlsZSI6InByb3BUeXBlcy5qcyIsInNvdXJjZVJvb3QiOiIvVXNlcnMvdG1hY196Yy9Db2RlL2tyLWFkbWluIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtQcm9wVHlwZXN9IGZyb20gJ3JlYWN0JztcblxuY29uc3QgaG9yaXpvbnRhbCA9IFByb3BUeXBlcy5vbmVPZihbJ2xlZnQnLCAnbWlkZGxlJywgJ3JpZ2h0J10pO1xuY29uc3QgdmVydGljYWwgPSBQcm9wVHlwZXMub25lT2YoWyd0b3AnLCAnY2VudGVyJywgJ2JvdHRvbSddKTtcblxuZXhwb3J0IGRlZmF1bHQge1xuXG4gIGNvcm5lcnM6IFByb3BUeXBlcy5vbmVPZihbXG4gICAgJ2JvdHRvbS1sZWZ0JyxcbiAgICAnYm90dG9tLXJpZ2h0JyxcbiAgICAndG9wLWxlZnQnLFxuICAgICd0b3AtcmlnaHQnLFxuICBdKSxcblxuICBob3Jpem9udGFsOiBob3Jpem9udGFsLFxuXG4gIHZlcnRpY2FsOiB2ZXJ0aWNhbCxcblxuICBvcmlnaW46IFByb3BUeXBlcy5zaGFwZSh7XG4gICAgaG9yaXpvbnRhbDogaG9yaXpvbnRhbCxcbiAgICB2ZXJ0aWNhbDogdmVydGljYWwsXG4gIH0pLFxuXG4gIGNvcm5lcnNBbmRDZW50ZXI6IFByb3BUeXBlcy5vbmVPZihbXG4gICAgJ2JvdHRvbS1jZW50ZXInLFxuICAgICdib3R0b20tbGVmdCcsXG4gICAgJ2JvdHRvbS1yaWdodCcsXG4gICAgJ3RvcC1jZW50ZXInLFxuICAgICd0b3AtbGVmdCcsXG4gICAgJ3RvcC1yaWdodCcsXG4gIF0pLFxuXG4gIHN0cmluZ09yTnVtYmVyOiBQcm9wVHlwZXMub25lT2ZUeXBlKFtcbiAgICBQcm9wVHlwZXMuc3RyaW5nLFxuICAgIFByb3BUeXBlcy5udW1iZXIsXG4gIF0pLFxuXG4gIHpEZXB0aDogUHJvcFR5cGVzLm9uZU9mKFswLCAxLCAyLCAzLCA0LCA1XSksXG5cbn07XG4iXX0=

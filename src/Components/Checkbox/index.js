@@ -1,80 +1,76 @@
-import React,{Component} from 'react';
+import React, {
+	Component
+} from 'react';
 
 import './index.less';
 
 
-export default class KrCheckbox extends Component{
+export default class KrCheckbox extends Component {
 
 	static displayName = 'KrCheckbox';
 
 	static defaultProps = {
-		checked:false,
-		label:'',
-		readOnly:false,
+		checked: false,
+		label: '',
+		readOnly: false,
 	}
 
 	static propTypes = {
 		/**
 		 * Checkbox 选中时值为true
 		 */
-		checked:React.PropTypes.bool,
+		checked: React.PropTypes.bool,
 		/**
 		 * 点选时回调该方法
 		 */
-		onCheck:React.PropTypes.func,
+		onCheck: React.PropTypes.func,
 		/**
-		* label
-		*/
-		label:React.PropTypes.string,
+		 * label
+		 */
+		label: React.PropTypes.string,
 		/**
-		*是否只读
-		*/
-		readOnly:React.PropTypes.bool,
-		style:React.PropTypes.object,
-		heightStyle:React.PropTypes.object,
+		 *是否只读
+		 */
+		readOnly: React.PropTypes.bool,
+		style: React.PropTypes.object,
+		heightStyle: React.PropTypes.object,
 	};
 
-	constructor(props){
+	constructor(props) {
 		super(props);
 
-		this.onCheck = this.onCheck.bind(this);
-
-		this.state = {
-			checked:this.props.checked
-		}
-
 	}
 
-  componentWillReceiveProps(nextProps) {
-		if(nextProps.checked !== this.props.checked){
-			  this.setState({
-					checked:nextProps.checked
-				});
+	onCheck = () => {
+
+		let {
+			readOnly
+		} = this.props;
+
+		if (readOnly) {
+			return;
 		}
-	}
-
-	onCheck(){
-
-		let {readOnly} = this.props;
-
-		if(readOnly){
-				return ;
-		}
-
-		this.setState({
-			checked:!this.state.checked
-		});
-
-		const {onCheck} = this.props;
-		onCheck && onCheck();
+		const {
+			onCheck,
+			checked
+		} = this.props;
+		onCheck && onCheck(!checked);
 
 	}
 
 
-	render(){
+	render() {
 
-		let {checked} = this.state;
-		let {label,style,heightStyle} = this.props;
+
+		let {
+			checked
+		} = this.state;
+		let {
+			label,
+			style,
+			heightStyle
+		} = this.props;
+
 
 		return (
 			<span style={style} className="ui-checkbox">

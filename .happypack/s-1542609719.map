@@ -1,0 +1,1 @@
+{"version":3,"sources":["src/Redux/Utils/index.js"],"names":["module","exports","fetch"],"mappings":";;AAAA;;;;;;AAGAA,OAAOC,OAAP,GAAiB;AAChBC;AADgB,CAAjB","file":"index.js","sourceRoot":"/Users/tmac_zc/Code/kr-admin","sourcesContent":["import { default as fetch } from './fetch';\n\n\nmodule.exports = {\n\tfetch,\n}\n\n\n\n\n\n\n\n\n\n\n"]}

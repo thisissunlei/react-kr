@@ -1,0 +1,1 @@
+{"version":3,"sources":["src/PureComponents/index.js"],"names":["module","exports","Agreement"],"mappings":";;AAAA;;;;;;AAEAA,OAAOC,OAAP,GAAiB;AAChBC;AADgB,CAAjB","file":"index.js","sourceRoot":"/Users/tmac_zc/Code/kr-admin","sourcesContent":["import Agreement from './Agreement';\n\nmodule.exports = {\n\tAgreement,\n}"]}

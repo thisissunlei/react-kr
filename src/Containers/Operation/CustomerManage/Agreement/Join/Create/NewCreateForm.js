@@ -9,7 +9,7 @@ import {
 } from 'kr/Redux';
 
 import Param from 'jquery-param';
-
+import nzh from 'nzh';
 import {
 	Fields
 } from 'redux-form';
@@ -128,6 +128,8 @@ class NewCreateForm extends Component {
 			openStation: false,
 			openStationUnitPrice: false,
 			HeightAuto: false,
+			allRent:0,
+
 		}
 	}
 
@@ -167,7 +169,8 @@ class NewCreateForm extends Component {
 		}
 
 		this.setState({
-			stationVos: []
+			stationVos: [],
+			allRent:0
 		});
 
 	}
@@ -184,7 +187,8 @@ class NewCreateForm extends Component {
 		}
 
 		this.setState({
-			stationVos: []
+			stationVos: [],
+			allRent:0
 		});
 
 	}
@@ -231,6 +235,8 @@ class NewCreateForm extends Component {
 			stationVos,
 			selectedStation
 		} = this.state;
+		let allRent = 0;
+		let _this = this;
 
 		stationVos = stationVos.map(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
@@ -238,9 +244,18 @@ class NewCreateForm extends Component {
 			}
 			return item;
 		});
+		this.setAllRent(stationVos);
+		// stationVos.map((item)=>{
+		// 	allRent += _this.getSingleRent(item);
+		// })
+		// allRent = parseFloat(allRent).toFixed(2)*1;
+		console.log('onStationUnitPrice',allRent);
+
+
 
 		this.setState({
-			stationVos
+			stationVos,
+			allRent
 		});
 
 		this.openStationUnitPriceDialog();
@@ -248,19 +263,27 @@ class NewCreateForm extends Component {
 
 	//删除工位
 	onStationDelete() {
+		let _this = this;
 
 		let {
 			selectedStation,
 			stationVos
 		} = this.state;
+		let allRent = 0;
 		stationVos = stationVos.filter(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
 				return false;
 			}
 			return true;
 		});
+		stationVos.map((item)=>{
+			allRent += _this.getSingleRent(item);
+		})
+		allRent = parseFloat(allRent).toFixed(2)*1;
+
 		this.setState({
 			stationVos,
+			allRent
 		}, function() {
 			this.calcStationNum();
 		});
@@ -303,6 +326,14 @@ class NewCreateForm extends Component {
 		if (!leaseEnddate) {
 			Notify.show([{
 				message: '请选择租赁结束时间',
+				type: 'danger',
+			}]);
+			return;
+		}
+
+		if(new Date(leaseEnddate)<new Date(leaseBegindate)){
+			Notify.show([{
+				message: '结束时间不能小于开始时间',
 				type: 'danger',
 			}]);
 			return;
@@ -354,7 +385,8 @@ class NewCreateForm extends Component {
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
-
+		form.contractVersionType = 'NEW';
+		form.totalrent = (this.state.allRent).toFixed(2);
 
 		var _this = this;
 
@@ -402,7 +434,8 @@ class NewCreateForm extends Component {
 			goalBoardroomNum: changeValues.boardroomnum,
 			selectedObjs: JSON.stringify(stationVos),
 			startDate: dateFormat(changeValues.leaseBegindate, "yyyy-mm-dd"),
-			endDate: dateFormat(changeValues.leaseEnddate, "yyyy-mm-dd")
+			endDate: dateFormat(changeValues.leaseEnddate, "yyyy-mm-dd"),
+			unitprice:0
 
 		};
 
@@ -417,6 +450,68 @@ class NewCreateForm extends Component {
 		}
 
 		return url;
+	}
+	onBlur=(item)=>{
+		let {stationVos} = this.state;
+		let allMoney = 0;
+		console.log('stationVos',stationVos);
+		this.setAllRent(stationVos);
+		
+	}
+	setAllRent=(list)=>{
+		let _this = this;
+		let stationList = list.map((item)=>{
+			if(!item.unitprice){
+				item.unitprice = 0;
+			}
+			return item;
+		})
+		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
+			_this.setState({
+				allRent:response
+			})
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+	}
+	getSingleRent=(item)=>{
+		//年月日
+		let mounth = [31,28,31,30,31,30,31,31,30,31,30,31];
+		let rentBegin = dateFormat(item.leaseBeginDate, "yyyy-mm-dd").split('-');
+		let rentEnd = dateFormat(item.leaseEndDate, "yyyy-mm-dd").split('-');
+		let rentDay = 0;
+		let rentMounth = (rentEnd[0]-rentBegin[0])*12+(rentEnd[1]-rentBegin[1]);
+		let years = rentEnd[0];
+		if(rentBegin[2]-rentEnd[2] == 1){
+			rentDay = 0;
+		}else{
+			let a =rentEnd[2]-rentBegin[2];
+			console.log('a',a);
+			if(a>=0){
+				rentDay = a+1;
+
+			}else{
+				let mounthIndex = rentEnd[1]-1;
+				if((years%4==0 && years%100!=0)||(years%400==0) && rentEnd[1]==2 ){
+					rentDay = mounth[mounthIndex]+2+a;
+				}
+				console.log('mounthIndex',mounth[mounthIndex]);
+				rentDay = mounth[mounthIndex]+1+a;
+				rentMounth = rentMounth-1;
+			}
+		}
+		console.log('day',rentMounth,rentDay);
+		//计算日单价
+		// let rentPriceByDay = Math.ceil(((item.unitprice*12)/365)*100)/100;
+		let rentPriceByDay = ((item.unitprice*12)/365).toFixed(6);
+		//工位总价钱
+		let allRent = (rentPriceByDay * rentDay) + (rentMounth*item.unitprice);
+		allRent = allRent.toFixed(2)*1;
+		console.log('allRent',typeof allRent,rentPriceByDay);
+		return allRent;
 	}
 
 	onIframeClose(billList) {
@@ -455,7 +550,8 @@ class NewCreateForm extends Component {
 
 
 		this.setState({
-			stationVos: billList
+			stationVos: billList,
+			allRent:0
 		}, function() {
 			this.calcStationNum();
 		});
@@ -470,6 +566,25 @@ class NewCreateForm extends Component {
 			HeightAuto: !this.state.HeightAuto
 		})
 
+	}
+	dealRentName=(allRent)=>{
+		let name = '';
+		var nzhcn = nzh.cn;
+		if(!allRent){
+			return '零';
+		}
+		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
+		let allRentNameArray = allRentName.split('点');
+		if(allRentNameArray.length==1){
+			name = allRentNameArray[0] + '元整';
+		}else{
+			let xiaoshu = allRentNameArray[1];
+			name = allRentNameArray[0]+'元'+xiaoshu[0]+'角';
+			if(xiaoshu[1]){
+				name = name+xiaoshu[1]+'分';
+			}
+		}
+		return name;
 	}
 
 	render() {
@@ -498,8 +613,10 @@ class NewCreateForm extends Component {
 		let {
 			billList,
 			stationVos,
-			HeightAuto
+			HeightAuto,
+			allRent
 		} = this.state;
+		let  allRentName = this.dealRentName(allRent);
 
 
 
@@ -557,7 +674,7 @@ class NewCreateForm extends Component {
 										<TableRowColumn>{(item.stationType == 1) ?'工位':'会议室'}</TableRowColumn>
 										<TableRowColumn>{item.stationName}</TableRowColumn>
 										<TableRowColumn>
-												<input type="text" name="age"  valueLink={typeLink} />
+												<input type="text" name="age"  valueLink={typeLink}  onBlur={this.onBlur.bind(this,item)}/>
 										</TableRowColumn>
 										<TableRowColumn> <KrDate value={item.leaseBeginDate}/></TableRowColumn>
 										<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
@@ -572,6 +689,8 @@ class NewCreateForm extends Component {
 						{stationVos.length>5?<div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}
 
                         </DotTitle>
+                     <div style={{marginTop:'-20px',marginBottom:60}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
+                        
 					</div>
 					</CircleStyle>
 				<CircleStyle num="2" info="合同文本信息" circle="bottom">
@@ -629,7 +748,8 @@ class NewCreateForm extends Component {
 
 
 
-					<KrField  style={{width:370,marginLeft:90}} name="totalrent" type="text" component="input" label="租金总额" placeholder="" requireLabel={true}
+					<KrField  style={{width:370,marginLeft:90}} name="totalrent" type="text" component="labelText" label="租金总额" placeholder="" requireLabel={true}
+					value={allRent} defaultValue='0' inline={false}
 					requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 					<KrField  style={{width:370,marginLeft:70}}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true}
 					requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
@@ -640,7 +760,7 @@ class NewCreateForm extends Component {
 				</CircleStyle>
 
 				<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="contractFileList" component="input" type="hidden" label="合同附件"/>
-				<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" requireLabel={true} defaultValue={[]} onChange={(files)=>{
+				<KrField  style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="合同附件" defaultValue={[]} onChange={(files)=>{
 					Store.dispatch(change('joinCreateForm','contractFileList',files));
 				}} />
 
@@ -720,11 +840,6 @@ const validate = values => {
 		errors.leaseAddress = '承租方地址不能为数字';
 	}
 
-	if (!values.fileIdList) {
-		errors.fileIdList = '请输入合同附件';
-	}
-
-
 	if (!String(values.totalrent)) {
 		errors.totalrent = '请输入租金总额';
 	}
@@ -734,7 +849,7 @@ const validate = values => {
 	}
 
 
-	if (!String(values.totaldeposit)) {
+	if (!values.totaldeposit) {
 		errors.totaldeposit = '请输入押金总额';
 	}
 

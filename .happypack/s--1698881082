@@ -1,0 +1,23 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _default = {
+  set: function set(style, key, value) {
+    style[key] = value;
+  }
+};
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_default, "default", "/Users/tmac_zc/Code/kr-admin/src/Components/DatePicker/utils/autoPrefix.js");
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9Db21wb25lbnRzL0RhdGVQaWNrZXIvdXRpbHMvYXV0b1ByZWZpeC5qcyJdLCJuYW1lcyI6WyJzZXQiLCJzdHlsZSIsImtleSIsInZhbHVlIl0sIm1hcHBpbmdzIjoiOzs7OztlQUFlO0FBQ2JBLEtBRGEsZUFDVEMsS0FEUyxFQUNGQyxHQURFLEVBQ0dDLEtBREgsRUFDVTtBQUNyQkYsVUFBTUMsR0FBTixJQUFhQyxLQUFiO0FBQ0Q7QUFIWSxDIiwiZmlsZSI6ImF1dG9QcmVmaXguanMiLCJzb3VyY2VSb290IjoiL1VzZXJzL3RtYWNfemMvQ29kZS9rci1hZG1pbiIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0IHtcbiAgc2V0KHN0eWxlLCBrZXksIHZhbHVlKSB7XG4gICAgc3R5bGVba2V5XSA9IHZhbHVlO1xuICB9LFxufTtcbiJdfQ==

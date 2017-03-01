@@ -1,0 +1,235 @@
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _NowtifyItem = require('./NowtifyItem');
+
+var _NowtifyItem2 = _interopRequireDefault(_NowtifyItem);
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var defaultConfig = {
+  localPath: '/node_modules/react-nowtify/',
+  containerID: 'nowtify-wrapper',
+  displayTimeout: 2000,
+  transition: 'growl',
+  sound: true,
+  dismissible: true,
+  keepHistory: false
+};
+
+var defaultNotificationSound = require('file!./notification-sound.mp3');
+
+var _notifications = [];
+var _config = defaultConfig;
+
+var NowtifyBox = function (_React$Component) {
+  _inherits(NowtifyBox, _React$Component);
+
+  function NowtifyBox(props) {
+    _classCallCheck(this, NowtifyBox);
+
+    var _this = _possibleConstructorReturn(this, (NowtifyBox.__proto__ || Object.getPrototypeOf(NowtifyBox)).call(this, props));
+
+    _this.state = {
+      notificationSound: new Audio(defaultNotificationSound)
+    };
+    return _this;
+  }
+
+  _createClass(NowtifyBox, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.handleNewNotifications(this.props.notifications);
+    }
+  }, {
+    key: 'componentWillUpdate',
+    value: function componentWillUpdate(props) {
+      this.handleNewNotifications(props.notifications);
+    }
+
+    /**
+     * Dispatch notifications
+     * @param  [] notifications Array of formatted notifications (JSON)
+     * @return {[type]}               [description]
+     */
+
+  }, {
+    key: 'handleNewNotifications',
+    value: function handleNewNotifications(notifications) {
+      notifications.map(function (notification) {
+        this.addNotification(notification);
+      }.bind(this));
+    }
+
+    /**
+     * Display a notification
+     * @param  {} notification JSON formatted notification
+     * @return  inject new notification to the component notifications pool.
+     */
+
+  }, {
+    key: 'addNotification',
+    value: function addNotification(notification) {
+      return _notifications.push(notification);
+    }
+
+    /**
+     * TODO
+     * Remove a notification
+     * @param  {} notification JSON formatted notification
+     * @return  inject new notification to the component notifications pool.
+     */
+
+  }, {
+    key: 'removeNotification',
+    value: function removeNotification(id) {
+      // TODO
+      // HINT: ajouter les notifications avec un systeme key:value ou (key est un timestamp)
+      /*
+      
+       if(!this.state.keepHistory){
+      }*/
+      return true;
+    }
+
+    /**
+     * Play soung on new notification
+     * @return {[type]} [description]
+     */
+
+  }, {
+    key: 'playNotificationSound',
+    value: function playNotificationSound(notificationSound) {
+      if (notificationSound || this.props.config.sound) {
+        return this.state.notificationSound.play();
+      }
+      return false;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var notificationNodes = _notifications.map(function (notification, index) {
+        var _this2 = this;
+
+        return _react2.default.createElement(_NowtifyItem2.default, {
+          key: index,
+          data: notification,
+          position: index,
+          displayTimeout: this.props.config.displayTimeout,
+          onRemove: function onRemove(id) {
+            return _this2.removeNotification(id);
+          },
+          playSound: function playSound() {
+            return _this2.playNotificationSound(notification.sound);
+          }
+        });
+      }.bind(this));
+      return _react2.default.createElement(
+        'div',
+        { className: 'nowtify-box' },
+        _react2.default.createElement(
+          'div',
+          { className: 'nowtify-box__notification-list' },
+          notificationNodes
+        )
+      );
+    }
+  }]);
+
+  return NowtifyBox;
+}(_react2.default.Component);
+
+;
+
+/**
+ * Init Nowtify
+ * @param  {} config configuration JSON formatted
+ * @return {[type]}        [description]
+ */
+function init(config) {
+  return setConfig(config);
+}
+
+/**
+ * Show an array of notifications
+ * @param  [] notifications Array of formated notifications.
+ * @return {[type]}               [description]
+ */
+function show(notifications) {
+  _reactDom2.default.render(_react2.default.createElement(NowtifyBox, { config: _config, notifications: notifications }), document.getElementById(_config.containerID));
+};
+
+/**
+ * Set Nowtify configuration
+ * @param {} config JSON object
+ */
+function setConfig(config) {
+  _config = {
+    localPath: config.localPath ? config.localPath : _config.localPath,
+    containerID: config.containerID ? config.containerID : _config.containerID,
+    displayTimeout: config.displayTimeout ? config.displayTimeout : _config.displayTimeout,
+    transition: config.transition ? config.transisiton : _config.transition,
+    sound: config.sound ? config.sound : _config.sound,
+    dismissible: config.dismissible ? config.dismissible : _config.dismissible,
+    keepHistory: config.dismissible ? config.dismissible : _config.keepHistory
+  };
+  return _config;
+}
+
+/**
+ * Get Nowtify configuration
+ * @return {} config JSON object
+ */
+function getConfig() {
+  return _config;
+}
+
+module.exports = {
+  init: init,
+  getConfig: getConfig,
+  setConfig: setConfig,
+  show: show
+};
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(defaultConfig, 'defaultConfig', '/Users/tmac_zc/Code/kr-admin/src/Components/Notify/index.js');
+
+  __REACT_HOT_LOADER__.register(_notifications, '_notifications', '/Users/tmac_zc/Code/kr-admin/src/Components/Notify/index.js');
+
+  __REACT_HOT_LOADER__.register(_config, '_config', '/Users/tmac_zc/Code/kr-admin/src/Components/Notify/index.js');
+
+  __REACT_HOT_LOADER__.register(NowtifyBox, 'NowtifyBox', '/Users/tmac_zc/Code/kr-admin/src/Components/Notify/index.js');
+
+  __REACT_HOT_LOADER__.register(init, 'init', '/Users/tmac_zc/Code/kr-admin/src/Components/Notify/index.js');
+
+  __REACT_HOT_LOADER__.register(show, 'show', '/Users/tmac_zc/Code/kr-admin/src/Components/Notify/index.js');
+
+  __REACT_HOT_LOADER__.register(setConfig, 'setConfig', '/Users/tmac_zc/Code/kr-admin/src/Components/Notify/index.js');
+
+  __REACT_HOT_LOADER__.register(getConfig, 'getConfig', '/Users/tmac_zc/Code/kr-admin/src/Components/Notify/index.js');
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9Db21wb25lbnRzL05vdGlmeS9pbmRleC5qcyJdLCJuYW1lcyI6WyJkZWZhdWx0Q29uZmlnIiwibG9jYWxQYXRoIiwiY29udGFpbmVySUQiLCJkaXNwbGF5VGltZW91dCIsInRyYW5zaXRpb24iLCJzb3VuZCIsImRpc21pc3NpYmxlIiwia2VlcEhpc3RvcnkiLCJkZWZhdWx0Tm90aWZpY2F0aW9uU291bmQiLCJyZXF1aXJlIiwiX25vdGlmaWNhdGlvbnMiLCJfY29uZmlnIiwiTm93dGlmeUJveCIsInByb3BzIiwic3RhdGUiLCJub3RpZmljYXRpb25Tb3VuZCIsIkF1ZGlvIiwiaGFuZGxlTmV3Tm90aWZpY2F0aW9ucyIsIm5vdGlmaWNhdGlvbnMiLCJtYXAiLCJub3RpZmljYXRpb24iLCJhZGROb3RpZmljYXRpb24iLCJiaW5kIiwicHVzaCIsImlkIiwiY29uZmlnIiwicGxheSIsIm5vdGlmaWNhdGlvbk5vZGVzIiwiaW5kZXgiLCJyZW1vdmVOb3RpZmljYXRpb24iLCJwbGF5Tm90aWZpY2F0aW9uU291bmQiLCJDb21wb25lbnQiLCJpbml0Iiwic2V0Q29uZmlnIiwic2hvdyIsInJlbmRlciIsImRvY3VtZW50IiwiZ2V0RWxlbWVudEJ5SWQiLCJ0cmFuc2lzaXRvbiIsImdldENvbmZpZyIsIm1vZHVsZSIsImV4cG9ydHMiXSwibWFwcGluZ3MiOiI7Ozs7QUFBQTs7OztBQUNBOzs7O0FBQ0E7Ozs7QUFlQTs7Ozs7Ozs7OztBQVpBLElBQU1BLGdCQUFnQjtBQUNwQkMsYUFBVyw4QkFEUztBQUVwQkMsZUFBYSxpQkFGTztBQUdwQkMsa0JBQWdCLElBSEk7QUFJcEJDLGNBQVksT0FKUTtBQUtwQkMsU0FBTyxJQUxhO0FBTXBCQyxlQUFhLElBTk87QUFPcEJDLGVBQWE7QUFQTyxDQUF0Qjs7QUFVQSxJQUFNQywyQkFBMkJDLFFBQVEsK0JBQVIsQ0FBakM7O0FBS0EsSUFBSUMsaUJBQWlCLEVBQXJCO0FBQ0EsSUFBSUMsVUFBVVgsYUFBZDs7SUFJTVksVTs7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QUFlb0IsT0FBT3BCLEtBQXRCLEdBQThCTSxRQUFRTixLQUxwQztBQU1UQyxpQkFBYW1CLE9BQU9uQixXQUFQLEdBQXFCbUIsT0FBT25CLFdBQTVCLEdBQTBDSyxRQUFRTCxXQU50RDtBQU9UQyxpQkFBYWtCLE9BQU9uQixXQUFQLEdBQXFCbUIsT0FBT25CLFdBQTVCLEdBQTBDSyxRQUFRSjtBQVB0RCxHQUFYO0FBU0EsU0FBT0ksT0FBUDtBQUNEOztBQUVEOzs7O0FBSUEsU0FBUzRCLFNBQVQsR0FBb0I7QUFDbEIsU0FBTzVCLE9BQVA7QUFDRDs7QUFFRDZCLE9BQU9DLE9BQVAsR0FBa0I7QUFDaEJULFlBRGdCO0FBRWhCTyxzQkFGZ0I7QUFHaEJOLHNCQUhnQjtBQUloQkM7QUFKZ0IsQ0FBbEI7Ozs7Ozs7O2dDQTNKTWxDLGE7O2dDQWVGVSxjOztnQ0FDQUMsTzs7Z0NBSUVDLFU7O2dDQTZGR29CLEk7O2dDQVNBRSxJOztnQ0FZQUQsUzs7Z0NBaUJBTSxTIiwiZmlsZSI6ImluZGV4LmpzIiwic291cmNlUm9vdCI6Ii9Vc2Vycy90bWFjX3pjL0NvZGUva3ItYWRtaW4iLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnO1xuaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbSc7XG5pbXBvcnQgTm93dGlmeUl0ZW0gZnJvbSAnLi9Ob3d0aWZ5SXRlbSc7XG5cblxuY29uc3QgZGVmYXVsdENvbmZpZyA9IHtcbiAgbG9jYWxQYXRoOiAnL25vZGVfbW9kdWxlcy9yZWFjdC1ub3d0aWZ5LycsXG4gIGNvbnRhaW5lcklEOiAnbm93dGlmeS13cmFwcGVyJyxcbiAgZGlzcGxheVRpbWVvdXQ6IDIwMDAsXG4gIHRyYW5zaXRpb246ICdncm93bCcsXG4gIHNvdW5kOiB0cnVlLFxuICBkaXNtaXNzaWJsZTogdHJ1ZSxcbiAga2VlcEhpc3Rvcnk6IGZhbHNlLFxufTtcblxuY29uc3QgZGVmYXVsdE5vdGlmaWNhdGlvblNvdW5kID0gcmVxdWlyZSgnZmlsZSEuL25vdGlmaWNhdGlvbi1zb3VuZC5tcDMnKTtcblxuaW1wb3J0ICcuL2luZGV4Lmxlc3MnO1xuXG5cbmxldCBfbm90aWZpY2F0aW9ucyA9IFtdO1xubGV0IF9jb25maWcgPSBkZWZhdWx0Q29uZmlnO1xuXG5cblxuY2xhc3MgTm93dGlmeUJveCBleHRlbmRzIFJlYWN0LkNvbXBvbmVudCB7XG5cbiAgICBjb25zdHJ1Y3Rvcihwcm9wcyl7XG4gICAgICBzdXBlcihwcm9wcyk7XG4gICAgICB0aGlzLnN0YXRlID0ge1xuICAgICAgICBub3RpZmljYXRpb25Tb3VuZDogbmV3IEF1ZGlvKGRlZmF1bHROb3RpZmljYXRpb25Tb3VuZClcbiAgICAgIH07XG4gICAgfVxuICAgIFxuICAgIGNvbXBvbmVudFdpbGxNb3VudCgpe1xuICAgICAgdGhpcy5oYW5kbGVOZXdOb3RpZmljYXRpb25zKHRoaXMucHJvcHMubm90aWZpY2F0aW9ucyk7XG4gICAgfVxuXG4gICAgY29tcG9uZW50V2lsbFVwZGF0ZShwcm9wcyl7XG4gICAgICB0aGlzLmhhbmRsZU5ld05vdGlmaWNhdGlvbnMocHJvcHMubm90aWZpY2F0aW9ucyk7XG4gICAgfVxuICAgIFxuICAgIC8qKlxuICAgICAqIERpc3BhdGNoIG5vdGlmaWNhdGlvbnNcbiAgICAgKiBAcGFyYW0gIFtdIG5vdGlmaWNhdGlvbnMgQXJyYXkgb2YgZm9ybWF0dGVkIG5vdGlmaWNhdGlvbnMgKEpTT04pXG4gICAgICogQHJldHVybiB7W3R5cGVdfSAgICAgICAgICAgICAgIFtkZXNjcmlwdGlvbl1cbiAgICAgKi9cbiAgICBoYW5kbGVOZXdOb3RpZmljYXRpb25zKG5vdGlmaWNhdGlvbnMpe1xuICAgICAgbm90aWZpY2F0aW9ucy5tYXAoZnVuY3Rpb24obm90aWZpY2F0aW9uKXtcbiAgICAgICAgdGhpcy5hZGROb3RpZmljYXRpb24obm90aWZpY2F0aW9uKVxuICAgICAgfS5iaW5kKHRoaXMpKTtcbiAgICB9XG5cbiAgICAvKipcbiAgICAgKiBEaXNwbGF5IGEgbm90aWZpY2F0aW9uXG4gICAgICogQHBhcmFtICB7fSBub3RpZmljYXRpb24gSlNPTiBmb3JtYXR0ZWQgbm90aWZpY2F0aW9uXG4gICAgICogQHJldHVybiAgaW5qZWN0IG5ldyBub3RpZmljYXRpb24gdG8gdGhlIGNvbXBvbmVudCBub3RpZmljYXRpb25zIHBvb2wuXG4gICAgICovXG4gICAgYWRkTm90aWZpY2F0aW9uKG5vdGlmaWNhdGlvbil7XG4gICAgICByZXR1cm4gX25vdGlmaWNhdGlvbnMucHVzaChub3RpZmljYXRpb24pO1xuICAgIH1cblxuICAgIC8qKlxuICAgICAqIFRPRE9cbiAgICAgKiBSZW1vdmUgYSBub3RpZmljYXRpb25cbiAgICAgKiBAcGFyYW0gIHt9IG5vdGlmaWNhdGlvbiBKU09OIGZvcm1hdHRlZCBub3RpZmljYXRpb25cbiAgICAgKiBAcmV0dXJuICBpbmplY3QgbmV3IG5vdGlmaWNhdGlvbiB0byB0aGUgY29tcG9uZW50IG5vdGlmaWNhdGlvbnMgcG9vbC5cbiAgICAgKi9cbiAgICByZW1vdmVOb3RpZmljYXRpb24oaWQpe1xuICAgICAgLy8gVE9ET1xuICAgICAgLy8gSElOVDogYWpvdXRlciBsZXMgbm90aWZpY2F0aW9ucyBhdmVjIHVuIHN5c3RlbWUga2V5OnZhbHVlIG91IChrZXkgZXN0IHVuIHRpbWVzdGFtcClcbiAgICAgIC8qXG4gICAgICBcbiAgICAgICBpZighdGhpcy5zdGF0ZS5rZWVwSGlzdG9yeSl7XG4gICAgICB9Ki9cbiAgICAgIHJldHVybiB0cnVlO1xuICAgIH1cblxuICAgIC8qKlxuICAgICAqIFBsYXkgc291bmcgb24gbmV3IG5vdGlmaWNhdGlvblxuICAgICAqIEByZXR1cm4ge1t0eXBlXX0gW2Rlc2NyaXB0aW9uXVxuICAgICAqL1xuICAgIHBsYXlOb3RpZmljYXRpb25Tb3VuZChub3RpZmljYXRpb25Tb3VuZCl7XG4gICAgICBpZiAobm90aWZpY2F0aW9uU291bmQgfHwgdGhpcy5wcm9wcy5jb25maWcuc291bmQgKXtcbiAgICAgICAgcmV0dXJuIHRoaXMuc3RhdGUubm90aWZpY2F0aW9uU291bmQucGxheSgpO1xuICAgICAgfVxuICAgICAgcmV0dXJuIGZhbHNlO1xuICAgIH1cblxuICAgIHJlbmRlcigpIHtcbiAgICAgIGxldCBub3RpZmljYXRpb25Ob2RlcyA9IF9ub3RpZmljYXRpb25zLm1hcChmdW5jdGlvbihub3RpZmljYXRpb24sIGluZGV4KXtcbiAgICAgICAgcmV0dXJuIChcbiAgICAgICAgICA8Tm93dGlmeUl0ZW0gXG4gICAgICAgICAgICBrZXk9e2luZGV4fSBcbiAgICAgICAgICAgIGRhdGE9e25vdGlmaWNhdGlvbn0gXG4gICAgICAgICAgICBwb3NpdGlvbj17aW5kZXh9IFxuICAgICAgICAgICAgZGlzcGxheVRpbWVvdXQ9e3RoaXMucHJvcHMuY29uZmlnLmRpc3BsYXlUaW1lb3V0fVxuICAgICAgICAgICAgb25SZW1vdmU9eyhpZCkgPT4gdGhpcy5yZW1vdmVOb3RpZmljYXRpb24oaWQpfVxuICAgICAgICAgICAgcGxheVNvdW5kPXsoKSA9PiB0aGlzLnBsYXlOb3RpZmljYXRpb25Tb3VuZChub3RpZmljYXRpb24uc291bmQpfSBcbiAgICAgICAgICAvPlxuICAgICAgKTtcbiAgICB9LmJpbmQodGhpcykpO1xuICAgICAgcmV0dXJuIChcbiAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJub3d0aWZ5LWJveFwiPiAgICAgICBcbiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cIm5vd3RpZnktYm94X19ub3RpZmljYXRpb24tbGlzdFwiPlxuICAgICAgICAgICAge25vdGlmaWNhdGlvbk5vZGVzfVxuICAgICAgICAgIDwvZGl2PiAgICAgICAgICAgICBcbiAgICAgICAgPC9kaXY+XG4gICAgICApO1xuICAgIH1cbn07XG5cblxuLyoqXG4gKiBJbml0IE5vd3RpZnlcbiAqIEBwYXJhbSAge30gY29uZmlnIGNvbmZpZ3VyYXRpb24gSlNPTiBmb3JtYXR0ZWRcbiAqIEByZXR1cm4ge1t0eXBlXX0gICAgICAgIFtkZXNjcmlwdGlvbl1cbiAqL1xuZnVuY3Rpb24gaW5pdChjb25maWcpe1xuICByZXR1cm4gc2V0Q29uZmlnKGNvbmZpZyk7XG59XG5cbi8qKlxuICogU2hvdyBhbiBhcnJheSBvZiBub3RpZmljYXRpb25zXG4gKiBAcGFyYW0gIFtdIG5vdGlmaWNhdGlvbnMgQXJyYXkgb2YgZm9ybWF0ZWQgbm90aWZpY2F0aW9ucy5cbiAqIEByZXR1cm4ge1t0eXBlXX0gICAgICAgICAgICAgICBbZGVzY3JpcHRpb25dXG4gKi9cbmZ1bmN0aW9uIHNob3cobm90aWZpY2F0aW9ucyl7XG4gIFJlYWN0RE9NLnJlbmRlcihcbiAgICA8Tm93dGlmeUJveCBjb25maWc9e19jb25maWd9IG5vdGlmaWNhdGlvbnM9e25vdGlmaWNhdGlvbnN9Lz4sXG4gICAgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoX2NvbmZpZy5jb250YWluZXJJRClcbiAgKTtcbn07XG5cblxuLyoqXG4gKiBTZXQgTm93dGlmeSBjb25maWd1cmF0aW9uXG4gKiBAcGFyYW0ge30gY29uZmlnIEpTT04gb2JqZWN0XG4gKi9cbmZ1bmN0aW9uIHNldENvbmZpZyhjb25maWcpe1xuICBfY29uZmlnID0gIHtcbiAgICBsb2NhbFBhdGg6IGNvbmZpZy5sb2NhbFBhdGggPyBjb25maWcubG9jYWxQYXRoIDogX2NvbmZpZy5sb2NhbFBhdGgsXG4gICAgY29udGFpbmVySUQ6IGNvbmZpZy5jb250YWluZXJJRCA/IGNvbmZpZy5jb250YWluZXJJRCA6IF9jb25maWcuY29udGFpbmVySUQsXG4gICAgZGlzcGxheVRpbWVvdXQ6IGNvbmZpZy5kaXNwbGF5VGltZW91dCA/IGNvbmZpZy5kaXNwbGF5VGltZW91dCA6IF9jb25maWcuZGlzcGxheVRpbWVvdXQsXG4gICAgdHJhbnNpdGlvbjogY29uZmlnLnRyYW5zaXRpb24gPyBjb25maWcudHJhbnNpc2l0b24gOl9jb25maWcudHJhbnNpdGlvbixcbiAgICBzb3VuZDogY29uZmlnLnNvdW5kID8gY29uZmlnLnNvdW5kIDogX2NvbmZpZy5zb3VuZCxcbiAgICBkaXNtaXNzaWJsZTogY29uZmlnLmRpc21pc3NpYmxlID8gY29uZmlnLmRpc21pc3NpYmxlIDogX2NvbmZpZy5kaXNtaXNzaWJsZSxcbiAgICBrZWVwSGlzdG9yeTogY29uZmlnLmRpc21pc3NpYmxlID8gY29uZmlnLmRpc21pc3NpYmxlIDogX2NvbmZpZy5rZWVwSGlzdG9yeSxcbiAgfTtcbiAgcmV0dXJuIF9jb25maWc7XG59XG5cbi8qKlxuICogR2V0IE5vd3RpZnkgY29uZmlndXJhdGlvblxuICogQHJldHVybiB7fSBjb25maWcgSlNPTiBvYmplY3RcbiAqL1xuZnVuY3Rpb24gZ2V0Q29uZmlnKCl7XG4gIHJldHVybiBfY29uZmlnO1xufVxuXG5tb2R1bGUuZXhwb3J0cyA9ICB7IFxuICBpbml0LCBcbiAgZ2V0Q29uZmlnLCBcbiAgc2V0Q29uZmlnLFxuICBzaG93IFxufTtcbiJdfQ==

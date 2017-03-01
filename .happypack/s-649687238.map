@@ -1,0 +1,1 @@
+{"version":3,"sources":["src/Containers/Operation/CustomerManage/Agreement/Setting/index.js"],"names":["module","exports","List"],"mappings":";;AAAA;;;;;;AAEAA,OAAOC,OAAP,GAAiB;AAChBC;AADgB,CAAjB","file":"index.js","sourceRoot":"/Users/tmac_zc/Code/kr-admin","sourcesContent":["import List from './List';\n\nmodule.exports = {\n\tList,\n}\n"]}

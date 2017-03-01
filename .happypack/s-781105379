@@ -1,0 +1,60 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _krUi = require('kr-ui');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Home = function (_Component) {
+	_inherits(Home, _Component);
+
+	function Home(props, context) {
+		_classCallCheck(this, Home);
+
+		return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props, context));
+	}
+
+	_createClass(Home, [{
+		key: 'render',
+		value: function render() {
+
+			var initialValues = {
+				age: ''
+			};
+
+			return _react2.default.createElement('div', null);
+		}
+	}]);
+
+	return Home;
+}(_react.Component);
+
+exports.default = Home;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(Home, 'Home', '/Users/tmac_zc/Code/kr-admin/src/Containers/Community/Home/index.js');
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9Db250YWluZXJzL0NvbW11bml0eS9Ib21lL2luZGV4LmpzIl0sIm5hbWVzIjpbIkhvbWUiLCJwcm9wcyIsImNvbnRleHQiLCJpbml0aWFsVmFsdWVzIiwiYWdlIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7QUFBQTs7OztBQUtBOzs7Ozs7Ozs7O0lBcUJxQkEsSTs7O0FBR3BCLGVBQVlDLEtBQVosRUFBbUJDLE9BQW5CLEVBQTRCO0FBQUE7O0FBQUEscUdBQ3JCRCxLQURxQixFQUNkQyxPQURjO0FBRTNCOzs7OzJCQUtROztBQUVSLE9BQUlDLGdCQUFnQjtBQUNuQkMsU0FBSztBQURjLElBQXBCOztBQUlBLFVBRUssMENBRkw7QUFPQTs7Ozs7O2tCQXZCbUJKLEk7Ozs7Ozs7OytCQUFBQSxJIiwiZmlsZSI6ImluZGV4LmpzIiwic291cmNlUm9vdCI6Ii9Vc2Vycy90bWFjX3pjL0NvZGUva3ItYWRtaW4iLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QsIHtcblx0Q29tcG9uZW50XG59IGZyb20gJ3JlYWN0JztcblxuXG5pbXBvcnQge1xuXHREYXRlUGlja2VyLFxuXHRGb3JtLFxuXHRLckZpZWxkLFxuXHRUYWJsZSxcblx0VGFibGVCb2R5LFxuXHRUYWJsZUhlYWRlcixcblx0VGFibGVIZWFkZXJDb2x1bW4sXG5cdFRhYmxlUm93LFxuXHRUYWJsZVJvd0NvbHVtbixcblx0VGFibGVGb290ZXIsXG5cdEJ1dHRvbixcblx0U2VjdGlvbixcblx0RG90VGl0bGUsXG5cdEJyYWNlV2lkdGgsXG5cdFNlbGZBZGFwdGlvbixcblx0TGluZVRleHQsXG5cdFNwbGl0TGluZSxcbn0gZnJvbSAna3ItdWknO1xuXG5cbmV4cG9ydCBkZWZhdWx0IGNsYXNzIEhvbWUgZXh0ZW5kcyBDb21wb25lbnQge1xuXG5cblx0Y29uc3RydWN0b3IocHJvcHMsIGNvbnRleHQpIHtcblx0XHRzdXBlcihwcm9wcywgY29udGV4dCk7XG5cdH1cblxuXG5cblxuXHRyZW5kZXIoKSB7XG5cblx0XHRsZXQgaW5pdGlhbFZhbHVlcyA9IHtcblx0XHRcdGFnZTogJydcblx0XHR9XG5cblx0XHRyZXR1cm4gKFxuXG5cdFx0XHQgICAgPGRpdiA+XG5cblx0XHRcdFx0PC9kaXY+XHRcblx0XHQpO1xuXG5cdH1cblxufVxuXG5cblxuIl19

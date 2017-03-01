@@ -1,42 +1,9 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
-import {
-	connect
-} from 'kr/Redux';
-import {
-	reduxForm,
-	submitForm,
-	change,
-	reset
-} from 'redux-form';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
-
-import {
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Button,
-	Section,
-	Grid,
-	Row,
-	Col,
-	Dialog,
-	Tooltips,
-	BreadCrumbs
-} from 'kr-ui';
-
-import {
-	findDOMNode
-} from 'react-dom'
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'kr/Redux';
+import { reduxForm, submitForm, change, reset } from 'redux-form';
+import { Actions, Store } from 'kr/Redux';
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter, Button, Section, Grid, Row, Col, Dialog, Tooltips, Tooltip, BreadCrumbs } from 'kr-ui';
+import { findDOMNode } from 'react-dom'
 import ReactTooltip from 'react-tooltip'
 import dateFormat from 'dateformat';
 import $ from 'jquery';
@@ -117,12 +84,10 @@ export default class D3Content extends Component {
 			var {
 				currentYear
 			} = this.props;
-			let year = `${currentYear}-1-1`;
-			// var initial = (new Date('2016-1-1')).getTime();
+			let year = `${currentYear}/1/1`;
 			var initial = (new Date(year)).getTime();
 			var offset = date - initial;
-			return (offset / 24 / 3600 / 1e3) + 1;
-			// return Math.ceil(offset / 24 / 3600) + 1;
+			return Math.ceil(offset / 24 / 3600/ 1e3) + 1;
 		}
 		// 处理时间段
 	dealTime() {
@@ -156,13 +121,11 @@ export default class D3Content extends Component {
 				item.end = _this.countDays(item.enddate);
 				item.Begindate = dateFormat(item.begindate, "yyyy.mm.dd");
 				item.Enddate = dateFormat(item.enddate, "yyyy.mm.dd");
-				// item.width = parseInt((item.end - item.start) / 365 * width); //时间段的长度
 				width = (item.end - item.start) / 365; //时间段的长度
-				// item.width = Math.ceil(width*100)/100;
-				// item.left = Math.ceil((item.start*10000/365)*100)/10000 ;
 				item.width = (width * 100) / 100;
 				item.left = ((item.start * 10000 / 365) * 100) / 10000;
-				item.left = item.left;
+				item.left = (item.left).toFixed(2);
+				item.width = (item.width).toFixed(2);
 				return item;
 			});
 			return timeList;
@@ -170,12 +133,10 @@ export default class D3Content extends Component {
 		// 获取分期前的空白时间段
 	getSpace(timeList) {
 		let whiteLength;
-		// var whiteWidth = parseInt((timeList[0].start) / 365 * width);
 		var whiteWidth = (timeList[0].start) / 365;
 		var whiteNode = {
 			start: 0,
 			end: timeList[0].start,
-			// width: Math.ceil(whiteWidth*100)/100
 			width: (whiteWidth * 100) / 100
 		}
 		return whiteNode;
@@ -199,8 +160,7 @@ export default class D3Content extends Component {
 	timeNode(date) {
 			var days = this.countDays(date);
 			var marginLeft = days / 365;
-			marginLeft = Math.round(marginLeft * 100) / 100
-				// var marginLeft = parseInt(days / 365 * width);
+			marginLeft = Math.round(marginLeft * 100) / 100;
 			return marginLeft;
 		}
 		// 获取相同时间节点天数(天)
@@ -250,7 +210,16 @@ export default class D3Content extends Component {
 			})
 
 		}
-
+		var {
+				currentYear
+			} = this.props;
+		let year = `${currentYear}/1/1`;
+		var initial = (new Date(year)).getTime();
+		finaRedPointVoList.map((item,index)=>{
+			if(item.pointDate<initial){
+				finaRedPointVoList.splice(index,1);
+			}
+		})
 		var unique = {};
 		sameNode.forEach(function(a) {
 			unique[JSON.stringify(a)] = 1
@@ -302,22 +271,6 @@ export default class D3Content extends Component {
 				finaRedPointVoList.splice(j, 1);
 			}
 		};
-		//判断时间点是否重合,若重合，合并数据
-		// if (finaRedPointVoList.length === 1) {
-		// 	finaRedPointVoList[0].arr = [];
-		// 	finaRedPointVoList[0].arr = finaRedPointVoList[0].arr.concat(finaRedPointVoList[0].plan);
-		// }	
-		// for (var i = 0; i <= finaRedPointVoList.length - 1; i++) {
-		// 	finaRedPointVoList[i].arr = [];
-		// 	finaRedPointVoList[i].arr = finaRedPointVoList[i].arr.concat(finaRedPointVoList[i].plan);
-		// 	for (var j = finaRedPointVoList.length - 1; j >= 0; j--) {
-		// 		if (finaRedPointVoList[i].pointDate === finaRedPointVoList[j].pointDate && i != j) {
-		// 			finaRedPointVoList[i].arr = finaRedPointVoList[i].arr.concat(finaRedPointVoList[j].plan);
-		// 		}
-		// 	}
-		// }
-
-
 		return finaRedPointVoList;
 
 	}
@@ -329,11 +282,8 @@ export default class D3Content extends Component {
 		whiteBar = whiteBar.map((item) => {
 				let days = that.countDays(item);
 				let num = (days * 10000 / 365) / 10000 * 100;
-				// let num = Math.ceil((days*10000/365)/10000*100) ;
 				return num;
 			})
-			// if(whiteBar.length>1){whiteBar.pop();}
-
 		return whiteBar;
 	}
 	getLeft=(value)=>{
@@ -378,11 +328,11 @@ export default class D3Content extends Component {
 		let {infoList} = this.state;
 		let item = infoList || [];
 		let id = this.props.id;
-		let top = 250;
+		let top = 225;
 		let place = 'top';
 		if(item.length>1){
 			place = 'bottom';
-			top = 250*item.length;
+			top = 220*item.length;
 		}
 		return (
 			<Tooltips  place={place} type="dark" effect="solid" scroll={false} id={`${item.pointDate}${id}`} offsetTop={top}>
@@ -391,14 +341,13 @@ export default class D3Content extends Component {
 				return(
 					<div key={i} className="react-tooltip-content">
 						<span>{value.contractName}分期催款</span>
-						<p>{dateFormat(itemData.pointDate, "yyyy.mm.dd")}日催款({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
-						<p>工位:<span className='red-content'>{value.stationnum}</span> &nbsp; 会议室:<span className='red-content'>{value.boardroomNum}</span>({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
+						<p style={{width:'310px'}}>{dateFormat(itemData.pointDate, "yyyy.mm.dd")}日催款&nbsp;({dateFormat(value.installmentBegindate, "yyyy.mm.dd")}-{dateFormat(value.installmentEnddate, "yyyy.mm.dd")})</p>
+						<p>工位:<span className='red-content' style={{marginRight:5}}>{value.stationnum}</span>&nbsp;会议室:<span className='red-content'>{value.boardroomNum}</span> &nbsp; ({dateFormat(value.billStartDate, "yyyy.mm.dd")}-{dateFormat(value.billEndDate, "yyyy.mm.dd")})</p>
 						<p>负责人：<span className='red-content'>{value.name?value.name:'—'}</span></p>
 						<p>电话：<span className='red-content'>{value.phone?value.phone:'—'}</span></p>
 						<p>催款金额：<span className='red-content'>{value.installmentAmount}</span></p>
 						<span className="content-lines"></span>
 						<p>回款金额：<span className='red-content'>{value.installmentBackamount}</span></p>
-						<p>回款时间：<span className='red-content'>{value.installmentBackamountDate?dateFormat(value.installmentBackamountDate, "yyyy.mm.dd"):'—'}</span></p>
 					</div>
 				)
 			})}
@@ -427,17 +376,16 @@ export default class D3Content extends Component {
 	}
 	renderBlueInfo=()=>{
 		let {BlueinfoList} = this.state;
-		let item = BlueinfoList || [];
+		let items =  BlueinfoList || [];
 		let id = this.props.id;
 		return (
-			<Tooltips  place="top" type="dark" effect="solid" id={`${item.pointDate}${id}sameblue`} offsetTop={130}>
-					<div className="react-tooltip-content">
+			<Tooltips  place="top" type="dark" effect="solid" id={`${items.pointDate}${id}sameblue`} offsetTop={130}>
+					<div className="react-tooltip-content" style={{width:'250px'}}>
 						<span>工位变更</span>
-						<p>{item.finaName}({dateFormat(item.leaseBeginDate, "yyyy.mm.dd")}-{dateFormat(item.leaseEndDate, "yyyy.mm.dd")})</p>
-						<p>变更前工位：<span className='blue-content'>{item.oldStationNum}</span> &nbsp; 会议室：<span className='blue-content'>{item.oldBoardroomNum}</span></p>
-						<p>变更后工位：<span className='blue-content'>{item.newStationNum}</span> &nbsp; 会议室：<span className='blue-content'>{item.newBoardroomNum}</span></p>
-					</div>
-											
+						<p>{items.finaName}({dateFormat(items.leaseBeginDate, "yyyy.mm.dd")}-{dateFormat(items.leaseEndDate, "yyyy.mm.dd")})</p>
+						<p>变更前工位：<span className='blue-content'>{items.oldStationNum}</span> &nbsp; 会议室：<span className='blue-content'>{items.oldBoardroomNum}</span></p>
+						<p>变更后工位：<span className='blue-content'>{items.newStationNum}</span> &nbsp; 会议室：<span className='blue-content'>{items.newBoardroomNum}</span></p>
+					</div>						
 			</Tooltips>
 		)
 	}
@@ -478,7 +426,28 @@ export default class D3Content extends Component {
 
 			<div className="d3-container">
 			<div className="year">
-				{list.map((item,index)=>{
+				{list.length == 2 && list.map((item,index)=>{
+					if(index == 0 ){
+						return(
+							<div className='white' style={{'width':`${item.width*100}%`}} key={index}>
+								{item.content?<span></span>:''}	
+							</div>
+							)
+					}else if(index<nodeList && index !== 0){
+						return(
+							<div className='grey' style={{'width':`${item.width*100}%`,marginLeft:`${item.left}%`}} key={index} >
+							<Tooltips place='top' offsetTop={40}><div className='only-one'>一次性付款</div></Tooltips>
+							</div>
+						)
+					}else{
+						return (
+							<div className='blue' style={{'width':`${item.width*100}%`,marginLeft:`${item.left}%`}} key={index}>
+							<Tooltips place='top' offsetTop={40}><div className='only-one'>一次性付款</div></Tooltips></div>
+						)
+					}
+				})}
+
+				{list.length>2 && list.map((item,index)=>{
 						if(index == 0 ){
 							return(
 								<div className='white' style={{'width':`${item.width*100}%`}} key={index}>
@@ -502,9 +471,11 @@ export default class D3Content extends Component {
 
 				{
 					whiteBar && whiteBar.map((item,index)=>{
-						return(
-							<span className="wihiteBar" style={{marginLeft:`${item}%`}} key={index}></span>
-						)
+						if(item<100){
+                         	return(
+                            	<span className="wihiteBar" style={{marginLeft:`${item}%`}} key={index}></span>
+                            )
+                        }
 					})
 				}
 				{
@@ -523,10 +494,12 @@ export default class D3Content extends Component {
 						
 						let nodeKind = item.color===1?'grey-circle':'red-node';
 						let left = this.getLeft(item.pointDate);
-
-						
+						let marginLeft = (Math.round((item.pointDay/365)*100)/100)*100;
+						if(marginLeft<0){
+							return;
+						}
 						return (
-							<span className={`${nodeKind}`} key={index} style={{marginLeft:`${(Math.round((item.pointDay/365)*100)/100)*100}%`,left:left,position:'absolute'}} data-tip data-for={`${item.pointDate}${id}`} onMouseOver={this.getRedInfo.bind(this,item)}>
+							<span className={`${nodeKind}`} key={index} style={{marginLeft:`${marginLeft}%`,left:left,position:'absolute'}} data-tip data-for={`${item.pointDate}${id}`} onMouseOver={this.getRedInfo.bind(this,item)}>
 								{this.renderRedInfo(item)}
 							</span>
 						)

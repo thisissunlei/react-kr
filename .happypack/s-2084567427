@@ -1,0 +1,22 @@
+"use strict";
+
+var Log = {
+  debug: function debug(message) {
+    //console.log('debug:',arguments);
+    //console.log('debug:',message);
+  }
+};
+
+module.exports = Log;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(Log, "Log", "/Users/tmac_zc/Code/kr-admin/src/Components/PlanMap/Lib/Log.js");
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9Db21wb25lbnRzL1BsYW5NYXAvTGliL0xvZy5qcyJdLCJuYW1lcyI6WyJMb2ciLCJkZWJ1ZyIsIm1lc3NhZ2UiLCJtb2R1bGUiLCJleHBvcnRzIl0sIm1hcHBpbmdzIjoiOztBQUFFLElBQUlBLE1BQU07QUFDUkMsU0FBTSxlQUFTQyxPQUFULEVBQWlCO0FBQ25CO0FBQ0E7QUFDSDtBQUpPLENBQVY7O0FBUUZDLE9BQU9DLE9BQVAsR0FBaUJKLEdBQWpCOzs7Ozs7OztnQ0FSTUEsRyIsImZpbGUiOiJMb2cuanMiLCJzb3VyY2VSb290IjoiL1VzZXJzL3RtYWNfemMvQ29kZS9rci1hZG1pbiIsInNvdXJjZXNDb250ZW50IjpbIiAgdmFyIExvZyA9IHtcbiAgICBkZWJ1ZzpmdW5jdGlvbihtZXNzYWdlKXtcbiAgICAgICAgLy9jb25zb2xlLmxvZygnZGVidWc6Jyxhcmd1bWVudHMpO1xuICAgICAgICAvL2NvbnNvbGUubG9nKCdkZWJ1ZzonLG1lc3NhZ2UpO1xuICAgIH1cbiAgfVxuXG5cbm1vZHVsZS5leHBvcnRzID0gTG9nO1xuIl19

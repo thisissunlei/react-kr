@@ -4,7 +4,7 @@ import Drawer from 'material-ui/Drawer';
 export default class DrawerSimpleExample extends React.Component {
 
   static propTypes = {
-    open:React.PropTypes.bool
+    open: React.PropTypes.bool
   }
 
   constructor(props) {
@@ -12,9 +12,17 @@ export default class DrawerSimpleExample extends React.Component {
   }
 
   render() {
-    let {children} = this.props;
+
+    let {
+      children,
+      open
+    } = this.props;
+    let content = "";
+    if (!open) {
+      return null;
+    }
     return (
-        <Drawer {...this.props}>
+      <Drawer {...this.props}>
           {children}
         </Drawer>
     );

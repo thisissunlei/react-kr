@@ -1,0 +1,93 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _simpleAssign = require('simple-assign');
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _transitions = require('../styles/transitions');
+
+var _transitions2 = _interopRequireDefault(_transitions);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function getStyles(props) {
+  var hintColor = props.muiTheme.textField.hintColor,
+      show = props.show;
+
+
+  return {
+    root: {
+      position: 'absolute',
+      opacity: show ? 1 : 0,
+      color: hintColor,
+      transition: _transitions2.default.easeOut(),
+      bottom: 12
+    }
+  };
+}
+
+var TextFieldHint = function TextFieldHint(props) {
+  var prepareStyles = props.muiTheme.prepareStyles,
+      style = props.style,
+      text = props.text;
+
+
+  var styles = getStyles(props);
+
+  return _react2.default.createElement(
+    'div',
+    { style: prepareStyles((0, _simpleAssign2.default)(styles.root, style)) },
+    text
+  );
+};
+
+TextFieldHint.propTypes = {
+  /**
+   * @ignore
+   * The material-ui theme applied to this component.
+   */
+  muiTheme: _react.PropTypes.object.isRequired,
+  /**
+   * True if the hint text should be visible.
+   */
+  show: _react.PropTypes.bool,
+  /**
+   * Override the inline-styles of the root element.
+   */
+  style: _react.PropTypes.object,
+  /**
+   * The hint text displayed.
+   */
+  text: _react.PropTypes.node
+};
+
+TextFieldHint.defaultProps = {
+  show: true
+};
+
+var _default = TextFieldHint;
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(getStyles, 'getStyles', '/Users/tmac_zc/Code/kr-admin/src/Components/DatePicker/TextField/TextFieldHint.js');
+
+  __REACT_HOT_LOADER__.register(TextFieldHint, 'TextFieldHint', '/Users/tmac_zc/Code/kr-admin/src/Components/DatePicker/TextField/TextFieldHint.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/tmac_zc/Code/kr-admin/src/Components/DatePicker/TextField/TextFieldHint.js');
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9Db21wb25lbnRzL0RhdGVQaWNrZXIvVGV4dEZpZWxkL1RleHRGaWVsZEhpbnQuanMiXSwibmFtZXMiOlsiZ2V0U3R5bGVzIiwicHJvcHMiLCJoaW50Q29sb3IiLCJtdWlUaGVtZSIsInRleHRGaWVsZCIsInNob3ciLCJyb290IiwicG9zaXRpb24iLCJvcGFjaXR5IiwiY29sb3IiLCJ0cmFuc2l0aW9uIiwiZWFzZU91dCIsImJvdHRvbSIsIlRleHRGaWVsZEhpbnQiLCJwcmVwYXJlU3R5bGVzIiwic3R5bGUiLCJ0ZXh0Iiwic3R5bGVzIiwicHJvcFR5cGVzIiwib2JqZWN0IiwiaXNSZXF1aXJlZCIsImJvb2wiLCJub2RlIiwiZGVmYXVsdFByb3BzIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7O0FBQUE7Ozs7QUFDQTs7Ozs7O0FBRUEsU0FBU0EsU0FBVCxDQUFtQkMsS0FBbkIsRUFBMEI7QUFBQSxNQUlsQkMsU0FKa0IsR0FRcEJELEtBUm9CLENBRXRCRSxRQUZzQixDQUdwQkMsU0FIb0IsQ0FJbEJGLFNBSmtCO0FBQUEsTUFPdEJHLElBUHNCLEdBUXBCSixLQVJvQixDQU90QkksSUFQc0I7OztBQVV4QixTQUFPO0FBQ0xDLFVBQU07QUFDSkMsZ0JBQVUsVUFETjtBQUVKQyxlQUFTSCxPQUFPLENBQVAsR0FBVyxDQUZoQjtBQUdKSSxhQUFPUCxTQUhIO0FBSUpRLGtCQUFZLHNCQUFZQyxPQUFaLEVBSlI7QUFLSkMsY0FBUTtBQUxKO0FBREQsR0FBUDtBQVNEOztBQUVELElBQU1DLGdCQUFnQixTQUFoQkEsYUFBZ0IsQ0FBQ1osS0FBRCxFQUFXO0FBQUEsTUFHM0JhLGFBSDJCLEdBTzNCYixLQVAyQixDQUU3QkUsUUFGNkIsQ0FHM0JXLGFBSDJCO0FBQUEsTUFLN0JDLEtBTDZCLEdBTzNCZCxLQVAyQixDQUs3QmMsS0FMNkI7QUFBQSxNQU03QkMsSUFONkIsR0FPM0JmLEtBUDJCLENBTTdCZSxJQU42Qjs7O0FBUy9CLE1BQU1DLFNBQVNqQixVQUFVQyxLQUFWLENBQWY7O0FBRUEsU0FDRTtBQUFBO0FBQUEsTUFBSyxPQUFPYSxjQUFjLDRCQUFjRyxPQUFPWCxJQUFyQixFQUEyQlMsS0FBM0IsQ0FBZCxDQUFaO0FBQ0dDO0FBREgsR0FERjtBQUtELENBaEJEOztBQWtCQUgsY0FBY0ssU0FBZCxHQUEwQjtBQUN4Qjs7OztBQUlBZixZQUFVLGlCQUFVZ0IsTUFBVixDQUFpQkMsVUFMSDtBQU14Qjs7O0FBR0FmLFFBQU0saUJBQVVnQixJQVRRO0FBVXhCOzs7QUFHQU4sU0FBTyxpQkFBVUksTUFiTztBQWN4Qjs7O0FBR0FILFFBQU0saUJBQVVNO0FBakJRLENBQTFCOztBQW9CQVQsY0FBY1UsWUFBZCxHQUE2QjtBQUMzQmxCLFFBQU07QUFEcUIsQ0FBN0I7O2VBSWVRLGE7Ozs7Ozs7OztnQ0EvRE5iLFM7O2dDQXFCSGEsYSIsImZpbGUiOiJUZXh0RmllbGRIaW50LmpzIiwic291cmNlUm9vdCI6Ii9Vc2Vycy90bWFjX3pjL0NvZGUva3ItYWRtaW4iLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QsIHtQcm9wVHlwZXN9IGZyb20gJ3JlYWN0JztcbmltcG9ydCB0cmFuc2l0aW9ucyBmcm9tICcuLi9zdHlsZXMvdHJhbnNpdGlvbnMnO1xuXG5mdW5jdGlvbiBnZXRTdHlsZXMocHJvcHMpIHtcbiAgY29uc3Qge1xuICAgIG11aVRoZW1lOiB7XG4gICAgICB0ZXh0RmllbGQ6IHtcbiAgICAgICAgaGludENvbG9yLFxuICAgICAgfSxcbiAgICB9LFxuICAgIHNob3csXG4gIH0gPSBwcm9wcztcblxuICByZXR1cm4ge1xuICAgIHJvb3Q6IHtcbiAgICAgIHBvc2l0aW9uOiAnYWJzb2x1dGUnLFxuICAgICAgb3BhY2l0eTogc2hvdyA/IDEgOiAwLFxuICAgICAgY29sb3I6IGhpbnRDb2xvcixcbiAgICAgIHRyYW5zaXRpb246IHRyYW5zaXRpb25zLmVhc2VPdXQoKSxcbiAgICAgIGJvdHRvbTogMTIsXG4gICAgfSxcbiAgfTtcbn1cblxuY29uc3QgVGV4dEZpZWxkSGludCA9IChwcm9wcykgPT4ge1xuICBjb25zdCB7XG4gICAgbXVpVGhlbWU6IHtcbiAgICAgIHByZXBhcmVTdHlsZXMsXG4gICAgfSxcbiAgICBzdHlsZSxcbiAgICB0ZXh0LFxuICB9ID0gcHJvcHM7XG5cbiAgY29uc3Qgc3R5bGVzID0gZ2V0U3R5bGVzKHByb3BzKTtcblxuICByZXR1cm4gKFxuICAgIDxkaXYgc3R5bGU9e3ByZXBhcmVTdHlsZXMoT2JqZWN0LmFzc2lnbihzdHlsZXMucm9vdCwgc3R5bGUpKX0+XG4gICAgICB7dGV4dH1cbiAgICA8L2Rpdj5cbiAgKTtcbn07XG5cblRleHRGaWVsZEhpbnQucHJvcFR5cGVzID0ge1xuICAvKipcbiAgICogQGlnbm9yZVxuICAgKiBUaGUgbWF0ZXJpYWwtdWkgdGhlbWUgYXBwbGllZCB0byB0aGlzIGNvbXBvbmVudC5cbiAgICovXG4gIG11aVRoZW1lOiBQcm9wVHlwZXMub2JqZWN0LmlzUmVxdWlyZWQsXG4gIC8qKlxuICAgKiBUcnVlIGlmIHRoZSBoaW50IHRleHQgc2hvdWxkIGJlIHZpc2libGUuXG4gICAqL1xuICBzaG93OiBQcm9wVHlwZXMuYm9vbCxcbiAgLyoqXG4gICAqIE92ZXJyaWRlIHRoZSBpbmxpbmUtc3R5bGVzIG9mIHRoZSByb290IGVsZW1lbnQuXG4gICAqL1xuICBzdHlsZTogUHJvcFR5cGVzLm9iamVjdCxcbiAgLyoqXG4gICAqIFRoZSBoaW50IHRleHQgZGlzcGxheWVkLlxuICAgKi9cbiAgdGV4dDogUHJvcFR5cGVzLm5vZGUsXG59O1xuXG5UZXh0RmllbGRIaW50LmRlZmF1bHRQcm9wcyA9IHtcbiAgc2hvdzogdHJ1ZSxcbn07XG5cbmV4cG9ydCBkZWZhdWx0IFRleHRGaWVsZEhpbnQ7XG4iXX0=

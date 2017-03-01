@@ -6,13 +6,14 @@ export default class TableHeader extends React.Component {
 
 	static displayName = 'TableHeader';
 
-	static PropTypes = {
+	static propTypes = {
 		className: React.PropTypes.string,
 		children: React.PropTypes.node,
     onSelectAll:React.PropTypes.func,
 		displayCheckbox:React.PropTypes.bool,
 		defaultValue:React.PropTypes.object,
 		onSort:React.PropTypes.func,
+		allRowsSelected:React.PropTypes.bool,
 
 	}
 
@@ -24,6 +25,8 @@ export default class TableHeader extends React.Component {
 
 		this.renderCheckbox = this.renderCheckbox.bind(this);
 		this.createTableHeaderColumn = this.createTableHeaderColumn.bind(this);
+
+
 	}
 
 
@@ -37,14 +40,14 @@ export default class TableHeader extends React.Component {
 
 	renderCheckbox(){
 
-		let {onSelectAll,displayCheckbox,onCellClick} = this.props;
+		let {onSelectAll,displayCheckbox,onCellClick,allRowsSelected} = this.props;
 
 		if(!displayCheckbox){
 			return null;
 		}
 
 		//return ( <TableHeaderColumn width={this.props.defaultValue.checkboxWidth}></TableHeaderColumn>);
-		return ( <TableHeaderColumn width={this.props.defaultValue.checkboxWidth}> <Checkbox onCheck={onSelectAll} /></TableHeaderColumn>);
+		return ( <TableHeaderColumn width={this.props.defaultValue.checkboxWidth}> <Checkbox onCheck={onSelectAll} checked={allRowsSelected} /></TableHeaderColumn>);
 
 	}
 

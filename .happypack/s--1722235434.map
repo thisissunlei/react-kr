@@ -1,0 +1,1 @@
+{"version":3,"sources":["src/Components/Form/index.js"],"names":["module","exports","Form"],"mappings":";;AAAA;;;;;;AAEAA,OAAOC,OAAP,GAAiB;AAChBC;AADgB,CAAjB","file":"index.js","sourceRoot":"/Users/tmac_zc/Code/kr-admin","sourcesContent":["import Form from './Form';\n\nmodule.exports = {\n\tForm,\n}\n"]}

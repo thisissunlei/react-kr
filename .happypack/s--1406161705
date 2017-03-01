@@ -1,0 +1,32 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ClassNames = ClassNames;
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function ClassNames() {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+    }
+
+    return (0, _classnames2.default)(args);
+}
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(ClassNames, 'ClassNames', '/Users/tmac_zc/Code/kr-admin/src/Utils/ClassNames/index.js');
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9VdGlscy9DbGFzc05hbWVzL2luZGV4LmpzIl0sIm5hbWVzIjpbIkNsYXNzTmFtZXMiLCJhcmdzIl0sIm1hcHBpbmdzIjoiOzs7OztRQUVnQkEsVSxHQUFBQSxVOztBQUZoQjs7Ozs7O0FBRU8sU0FBU0EsVUFBVCxHQUE0QjtBQUFBLHNDQUFMQyxJQUFLO0FBQUxBLFlBQUs7QUFBQTs7QUFDL0IsV0FBTywwQkFBV0EsSUFBWCxDQUFQO0FBQ0g7Ozs7Ozs7O2tDQUZlRCxVIiwiZmlsZSI6ImluZGV4LmpzIiwic291cmNlUm9vdCI6Ii9Vc2Vycy90bWFjX3pjL0NvZGUva3ItYWRtaW4iLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgY2xhc3NOYW1lcyBmcm9tICdjbGFzc25hbWVzJztcblxuZXhwb3J0IGZ1bmN0aW9uIENsYXNzTmFtZXMoLi4uYXJncyl7XG4gICAgcmV0dXJuIGNsYXNzTmFtZXMoYXJncyk7XG59XG4iXX0=

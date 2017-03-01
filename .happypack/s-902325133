@@ -1,0 +1,191 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _YearButton = require('./YearButton');
+
+var _YearButton2 = _interopRequireDefault(_YearButton);
+
+var _dateUtils = require('./dateUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CalendarYear = function (_Component) {
+  _inherits(CalendarYear, _Component);
+
+  function CalendarYear() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, CalendarYear);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = CalendarYear.__proto__ || Object.getPrototypeOf(CalendarYear)).call.apply(_ref, [this].concat(args))), _this), _this.handleTouchTapYear = function (event, year) {
+      if (_this.props.onTouchTapYear) {
+        _this.props.onTouchTapYear(event, year);
+      }
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(CalendarYear, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.scrollToSelectedYear();
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      this.scrollToSelectedYear();
+    }
+  }, {
+    key: 'getYears',
+    value: function getYears() {
+      var _props = this.props,
+          DateTimeFormat = _props.DateTimeFormat,
+          locale = _props.locale,
+          minDate = _props.minDate,
+          maxDate = _props.maxDate,
+          selectedDate = _props.selectedDate;
+
+
+      var minYear = minDate.getFullYear();
+      var maxYear = maxDate.getFullYear();
+      var years = [];
+      var dateCheck = (0, _dateUtils.cloneDate)(selectedDate);
+
+      for (var year = minYear; year <= maxYear; year++) {
+        dateCheck.setFullYear(year);
+        var selected = selectedDate.getFullYear() === year;
+        var selectedProps = {};
+        if (selected) {
+          selectedProps.ref = 'selectedYearButton';
+        }
+
+        var yearFormated = new DateTimeFormat(locale, {
+          year: 'numeric'
+        }).format(dateCheck);
+
+        var yearButton = _react2.default.createElement(
+          _YearButton2.default,
+          _extends({
+            key: 'yb' + year,
+            onTouchTap: this.handleTouchTapYear,
+            selected: selected,
+            year: year
+          }, selectedProps),
+          yearFormated
+        );
+
+        years.push(yearButton);
+      }
+
+      return years;
+    }
+  }, {
+    key: 'scrollToSelectedYear',
+    value: function scrollToSelectedYear() {
+      if (this.refs.selectedYearButton === undefined) {
+        return;
+      }
+
+      var container = _reactDom2.default.findDOMNode(this);
+      var yearButtonNode = _reactDom2.default.findDOMNode(this.refs.selectedYearButton);
+
+      var containerHeight = container.clientHeight;
+      var yearButtonNodeHeight = yearButtonNode.clientHeight || 32;
+
+      var scrollYOffset = yearButtonNode.offsetTop + yearButtonNodeHeight / 2 - containerHeight / 2;
+      container.scrollTop = scrollYOffset;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _context$muiTheme = this.context.muiTheme,
+          prepareStyles = _context$muiTheme.prepareStyles,
+          calendarYearBackgroundColor = _context$muiTheme.datePicker.calendarYearBackgroundColor;
+
+
+      var styles = {
+        root: {
+          backgroundColor: calendarYearBackgroundColor,
+          height: 'inherit',
+          lineHeight: '35px',
+          overflowX: 'hidden',
+          overflowY: 'scroll',
+          position: 'relative'
+        },
+        child: {
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          minHeight: '100%'
+        }
+      };
+
+      return _react2.default.createElement(
+        'div',
+        { style: prepareStyles(styles.root) },
+        _react2.default.createElement(
+          'div',
+          { style: prepareStyles(styles.child) },
+          this.getYears()
+        )
+      );
+    }
+  }]);
+
+  return CalendarYear;
+}(_react.Component);
+
+CalendarYear.propTypes = {
+  DateTimeFormat: _react.PropTypes.func.isRequired,
+  locale: _react.PropTypes.string.isRequired,
+  maxDate: _react.PropTypes.object.isRequired,
+  minDate: _react.PropTypes.object.isRequired,
+  onTouchTapYear: _react.PropTypes.func,
+  selectedDate: _react.PropTypes.object.isRequired,
+  wordings: _react.PropTypes.object
+};
+CalendarYear.contextTypes = {
+  muiTheme: _react.PropTypes.object.isRequired
+};
+var _default = CalendarYear;
+exports.default = _default;
+;
+
+var _temp2 = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(CalendarYear, 'CalendarYear', '/Users/tmac_zc/Code/kr-admin/src/Components/DatePicker/DatePicker/CalendarYear.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/tmac_zc/Code/kr-admin/src/Components/DatePicker/DatePicker/CalendarYear.js');
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9Db21wb25lbnRzL0RhdGVQaWNrZXIvRGF0ZVBpY2tlci9DYWxlbmRhclllYXIuanMiXSwibmFtZXMiOlsiQ2FsZW5kYXJZZWFyIiwiaGFuZGxlVG91Y2hUYXBZZWFyIiwiZXZlbnQiLCJ5ZWFyIiwicHJvcHMiLCJvblRvdWNoVGFwWWVhciIsInNjcm9sbFRvU2VsZWN0ZWRZZWFyIiwiRGF0ZVRpbWVGb3JtYXQiLCJsb2NhbGUiLCJtaW5EYXRlIiwibWF4RGF0ZSIsInNlbGVjdGVkRGF0ZSIsIm1pblllYXIiLCJnZXRGdWxsWWVhciIsIm1heFllYXIiLCJ5ZWFycyIsImRhdGVDaGVjayIsInNldEZ1bGxZZWFyIiwic2VsZWN0ZWQiLCJzZWxlY3RlZFByb3BzIiwicmVmIiwieWVhckZvcm1hdGVkIiwiZm9ybWF0IiwieWVhckJ1dHRvbiIsInB1c2giLCJyZWZzIiwic2VsZWN0ZWRZZWFyQnV0dG9uIiwidW5kZWZpbmVkIiwiY29udGFpbmVyIiwiZmluZERPTU5vZGUiLCJ5ZWFyQnV0dG9uTm9kZSIsImNvbnRhaW5lckhlaWdodCIsImNsaWVudEhlaWdodCIsInllYXJCdXR0b25Ob2RlSGVpZ2h0Iiwic2Nyb2xsWU9mZnNldCIsIm9mZnNldFRvcCIsInNjcm9sbFRvcCIsImNvbnRleHQiLCJtdWlUaGVtZSIsInByZXBhcmVTdHlsZXMiLCJjYWxlbmRhclllYXJCYWNrZ3JvdW5kQ29sb3IiLCJkYXRlUGlja2VyIiwic3R5bGVzIiwicm9vdCIsImJhY2tncm91bmRDb2xvciIsImhlaWdodCIsImxpbmVIZWlnaHQiLCJvdmVyZmxvd1giLCJvdmVyZmxvd1kiLCJwb3NpdGlvbiIsImNoaWxkIiwiZGlzcGxheSIsImZsZXhEaXJlY3Rpb24iLCJqdXN0aWZ5Q29udGVudCIsIm1pbkhlaWdodCIsImdldFllYXJzIiwicHJvcFR5cGVzIiwiZnVuYyIsImlzUmVxdWlyZWQiLCJzdHJpbmciLCJvYmplY3QiLCJ3b3JkaW5ncyIsImNvbnRleHRUeXBlcyJdLCJtYXBw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Zjs7QUFpQkEsYUFDRTtBQUFBO0FBQUEsVUFBSyxPQUFPZixjQUFjRyxPQUFPQyxJQUFyQixDQUFaO0FBQ0U7QUFBQTtBQUFBLFlBQUssT0FBT0osY0FBY0csT0FBT1EsS0FBckIsQ0FBWjtBQUNHLGVBQUtLLFFBQUw7QUFESDtBQURGLE9BREY7QUFPRDs7Ozs7O0FBeEhHdkQsWSxDQUNHd0QsUyxHQUFZO0FBQ2pCakQsa0JBQWdCLGlCQUFVa0QsSUFBVixDQUFlQyxVQURkO0FBRWpCbEQsVUFBUSxpQkFBVW1ELE1BQVYsQ0FBaUJELFVBRlI7QUFHakJoRCxXQUFTLGlCQUFVa0QsTUFBVixDQUFpQkYsVUFIVDtBQUlqQmpELFdBQVMsaUJBQVVtRCxNQUFWLENBQWlCRixVQUpUO0FBS2pCckQsa0JBQWdCLGlCQUFVb0QsSUFMVDtBQU1qQjlDLGdCQUFjLGlCQUFVaUQsTUFBVixDQUFpQkYsVUFOZDtBQU9qQkcsWUFBVSxpQkFBVUQ7QUFQSCxDO0FBRGY1RCxZLENBV0c4RCxZLEdBQWU7QUFDcEJ4QixZQUFVLGlCQUFVc0IsTUFBVixDQUFpQkY7QUFEUCxDO2VBZ0hUMUQsWTs7Ozs7Ozs7O2dDQTNIVEEsWSIsImZpbGUiOiJDYWxlbmRhclllYXIuanMiLCJzb3VyY2VSb290IjoiL1VzZXJzL3RtYWNfemMvQ29kZS9rci1hZG1pbiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCwge0NvbXBvbmVudCwgUHJvcFR5cGVzfSBmcm9tICdyZWFjdCc7XG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJztcbmltcG9ydCBZZWFyQnV0dG9uIGZyb20gJy4vWWVhckJ1dHRvbic7XG5pbXBvcnQge2Nsb25lRGF0ZX0gZnJvbSAnLi9kYXRlVXRpbHMnO1xuXG5jbGFzcyBDYWxlbmRhclllYXIgZXh0ZW5kcyBDb21wb25lbnQge1xuICBzdGF0aWMgcHJvcFR5cGVzID0ge1xuICAgIERhdGVUaW1lRm9ybWF0OiBQcm9wVHlwZXMuZnVuYy5pc1JlcXVpcmVkLFxuICAgIGxvY2FsZTogUHJvcFR5cGVzLnN0cmluZy5pc1JlcXVpcmVkLFxuICAgIG1heERhdGU6IFByb3BUeXBlcy5vYmplY3QuaXNSZXF1aXJlZCxcbiAgICBtaW5EYXRlOiBQcm9wVHlwZXMub2JqZWN0LmlzUmVxdWlyZWQsXG4gICAgb25Ub3VjaFRhcFllYXI6IFByb3BUeXBlcy5mdW5jLFxuICAgIHNlbGVjdGVkRGF0ZTogUHJvcFR5cGVzLm9iamVjdC5pc1JlcXVpcmVkLFxuICAgIHdvcmRpbmdzOiBQcm9wVHlwZXMub2JqZWN0LFxuICB9O1xuXG4gIHN0YXRpYyBjb250ZXh0VHlwZXMgPSB7XG4gICAgbXVpVGhlbWU6IFByb3BUeXBlcy5vYmplY3QuaXNSZXF1aXJlZCxcbiAgfTtcblxuICBjb21wb25lbnREaWRNb3VudCgpIHtcbiAgICB0aGlzLnNjcm9sbFRvU2VsZWN0ZWRZZWFyKCk7XG4gIH1cblxuICBjb21wb25lbnREaWRVcGRhdGUoKSB7XG4gICAgdGhpcy5zY3JvbGxUb1NlbGVjdGVkWWVhcigpO1xuICB9XG5cbiAgZ2V0WWVhcnMoKSB7XG4gICAgY29uc3Qge1xuICAgICAgRGF0ZVRpbWVGb3JtYXQsXG4gICAgICBsb2NhbGUsXG4gICAgICBtaW5EYXRlLFxuICAgICAgbWF4RGF0ZSxcbiAgICAgIHNlbGVjdGVkRGF0ZSxcbiAgICB9ID0gdGhpcy5wcm9wcztcblxuICAgIGNvbnN0IG1pblllYXIgPSBtaW5EYXRlLmdldEZ1bGxZZWFyKCk7XG4gICAgY29uc3QgbWF4WWVhciA9IG1heERhdGUuZ2V0RnVsbFllYXIoKTtcbiAgICBjb25zdCB5ZWFycyA9IFtdO1xuICAgIGNvbnN0IGRhdGVDaGVjayA9IGNsb25lRGF0ZShzZWxlY3RlZERhdGUpO1xuXG4gICAgZm9yIChsZXQgeWVhciA9IG1pblllYXI7IHllYXIgPD0gbWF4WWVhcjsgeWVhcisrKSB7XG4gICAgICBkYXRlQ2hlY2suc2V0RnVsbFllYXIoeWVhcik7XG4gICAgICBjb25zdCBzZWxlY3RlZCA9IHNlbGVjdGVkRGF0ZS5nZXRGdWxsWWVhcigpID09PSB5ZWFyO1xuICAgICAgY29uc3Qgc2VsZWN0ZWRQcm9wcyA9IHt9O1xuICAgICAgaWYgKHNlbGVjdGVkKSB7XG4gICAgICAgIHNlbGVjdGVkUHJvcHMucmVmID0gJ3NlbGVjdGVkWWVhckJ1dHRvbic7XG4gICAgICB9XG5cbiAgICAgIGNvbnN0IHllYXJGb3JtYXRlZCA9IG5ldyBEYXRlVGltZUZvcm1hdChsb2NhbGUsIHtcbiAgICAgICAgeWVhcjogJ251bWVyaWMnLFxuICAgICAgfSkuZm9ybWF0KGRhdGVDaGVjayk7XG5cbiAgICAgIGNvbnN0IHllYXJCdXR0b24gPSAoXG4gICAgICAgIDxZZWFyQnV0dG9uXG4gICAgICAgICAga2V5PXtgeWIke3llYXJ9YH1cbiAgICAgICAgICBvblRvdWNoVGFwPXt0aGlzLmhhbmRsZVRvdWNoVGFwWWVhcn1cbiAgICAgICAgICBzZWxlY3RlZD17c2VsZWN0ZWR9XG4gICAgICAgICAgeWVhcj17eWVhcn1cbiAgICAgICAgICB7Li4uc2VsZWN0ZWRQcm9wc31cbiAgICAgICAgPlxuICAgICAgICAgIHt5ZWFyRm9ybWF0ZWR9XG4gICAgICAgIDwvWWVhckJ1dHRvbj5cbiAgICAgICk7XG5cbiAgICAgIHllYXJzLnB1c2goeWVhckJ1dHRvbik7XG4gICAgfVxuXG4gICAgcmV0dXJuIHllYXJzO1xuICB9XG5cbiAgc2Nyb2xsVG9TZWxlY3RlZFllYXIoKSB7XG4gICAgaWYgKHRoaXMucmVmcy5zZWxlY3RlZFllYXJCdXR0b24gPT09IHVuZGVmaW5lZCkge1xuICAgICAgcmV0dXJuO1xuICAgIH1cblxuICAgIGNvbnN0IGNvbnRhaW5lciA9IFJlYWN0RE9NLmZpbmRET01Ob2RlKHRoaXMpO1xuICAgIGNvbnN0IHllYXJCdXR0b25Ob2RlID0gUmVhY3RET00uZmluZERPTU5vZGUodGhpcy5yZWZzLnNlbGVjdGVkWWVhckJ1dHRvbik7XG5cbiAgICBjb25zdCBjb250YWluZXJIZWlnaHQgPSBjb250YWluZXIuY2xpZW50SGVpZ2h0O1xuICAgIGNvbnN0IHllYXJCdXR0b25Ob2RlSGVpZ2h0ID0geWVhckJ1dHRvbk5vZGUuY2xpZW50SGVpZ2h0IHx8IDMyO1xuXG4gICAgY29uc3Qgc2Nyb2xsWU9mZnNldCA9ICh5ZWFyQnV0dG9uTm9kZS5vZmZzZXRUb3AgKyB5ZWFyQnV0dG9uTm9kZUhlaWdodCAvIDIpIC0gY29udGFpbmVySGVpZ2h0IC8gMjtcbiAgICBjb250YWluZXIuc2Nyb2xsVG9wID0gc2Nyb2xsWU9mZnNldDtcbiAgfVxuXG4gIGhhbmRsZVRvdWNoVGFwWWVhciA9IChldmVudCwgeWVhcikgPT4ge1xuICAgIGlmICh0aGlzLnByb3BzLm9uVG91Y2hUYXBZZWFyKSB7XG4gICAgICB0aGlzLnByb3BzLm9uVG91Y2hUYXBZZWFyKGV2ZW50LCB5ZWFyKTtcbiAgICB9XG4gIH07XG5cbiAgcmVuZGVyKCkge1xuICAgIGNvbnN0IHtcbiAgICAgIHByZXBhcmVTdHlsZXMsXG4gICAgICBkYXRlUGlja2VyOiB7XG4gICAgICAgIGNhbGVuZGFyWWVhckJhY2tncm91bmRDb2xvcixcbiAgICAgIH0sXG4gICAgfSA9IHRoaXMuY29udGV4dC5tdWlUaGVtZTtcblxuICAgIGNvbnN0IHN0eWxlcyA9IHtcbiAgICAgIHJvb3Q6IHtcbiAgICAgICAgYmFja2dyb3VuZENvbG9yOiBjYWxlbmRhclllYXJCYWNrZ3JvdW5kQ29sb3IsXG4gICAgICAgIGhlaWdodDogJ2luaGVyaXQnLFxuICAgICAgICBsaW5lSGVpZ2h0OiAnMzVweCcsXG4gICAgICAgIG92ZXJmbG93WDogJ2hpZGRlbicsXG4gICAgICAgIG92ZXJmbG93WTogJ3Njcm9sbCcsXG4gICAgICAgIHBvc2l0aW9uOiAncmVsYXRpdmUnLFxuICAgICAgfSxcbiAgICAgIGNoaWxkOiB7XG4gICAgICAgIGRpc3BsYXk6ICdmbGV4JyxcbiAgICAgICAgZmxleERpcmVjdGlvbjogJ2NvbHVtbicsXG4gICAgICAgIGp1c3RpZnlDb250ZW50OiAnY2VudGVyJyxcbiAgICAgICAgbWluSGVpZ2h0OiAnMTAwJScsXG4gICAgICB9LFxuICAgIH07XG5cbiAgICByZXR1cm4gKFxuICAgICAgPGRpdiBzdHlsZT17cHJlcGFyZVN0eWxlcyhzdHlsZXMucm9vdCl9PlxuICAgICAgICA8ZGl2IHN0eWxlPXtwcmVwYXJlU3R5bGVzKHN0eWxlcy5jaGlsZCl9PlxuICAgICAgICAgIHt0aGlzLmdldFllYXJzKCl9XG4gICAgICAgIDwvZGl2PlxuICAgICAgPC9kaXY+XG4gICAgKTtcbiAgfVxufVxuXG5leHBvcnQgZGVmYXVsdCBDYWxlbmRhclllYXI7XG4iXX0=
