@@ -3,6 +3,8 @@ const path = require('path');
 const buildPath = path.join(process.cwd(), '/dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const node_modules_dir = path.join(process.cwd(),'node_modules');
+const HappyPack = require('happypack');
 
 var env = process.env.NODE_ENV || 'production';
 
@@ -34,11 +36,19 @@ const config = {
 				NODE_ENV: JSON.stringify('production'),
 			}
 		}),
+		new HappyPack({
+			 id: 'jsx',
+			 threadPool: HappyPack.ThreadPool({ size: 6 }),
+   			 loaders: [ 'babel-loader?cacheDirectory=true' ],
+   			 verbose: false,
+   			 cache:true
+  		}),
 		new webpack.DllReferencePlugin({
 						 context:__dirname,
 						 manifest:require(path.resolve(buildPath,'manifest.json')),
 						 name:'lib'
 		}),
+	
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
 				warnings: true,
@@ -82,7 +92,7 @@ const config = {
 			{
 				test: /\.jsx?$/,
 				loaders: [
-					'babel-loader',
+					'happypack/loader?id=jsx'
 				],
 				exclude: /(node_modules|bower_components)/
 			},

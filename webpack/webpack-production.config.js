@@ -7,6 +7,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HappyPack = require('happypack');
 
+const node_modules_dir = path.join(process.cwd(),'node_modules');
+
 
 const config = {
 	entry:{
@@ -44,7 +46,8 @@ const config = {
 			 id: 'jsx',
 			 threadPool: HappyPack.ThreadPool({ size: 6 }),
    			 loaders: [ 'babel-loader?cacheDirectory=true' ],
-   			 verbose: false
+   			 verbose: false,
+   			 cache:true
   		}),
   		
 
