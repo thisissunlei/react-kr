@@ -13,17 +13,19 @@ const config = {
 		app:path.join(process.cwd(), '/src/app.js'),
 	},
 	resolve: {
-		extensions: ['', '.js', '.md','.css'],
+		extensions: ['', '.js', '.md','.css','.png','.svg'],
 		alias: {
 			'kr-ui': path.join(process.cwd(), '/src/Components'),
 			'kr': path.join(process.cwd(), '/src'),
+			'redux':path.join(node_modules_dir,'redux'),
+			'react-redux':path.join(node_modules_dir,'react-redux'),
+			'mobx':path.join(node_modules_dir,'mobx'),
+			'mobx-react':path.join(node_modules_dir,'mobx-react'),
+			'react-router':path.join(node_modules_dir,'react-router'),
+			'material-ui':path.join(node_modules_dir,'material-ui'),
+			'lodash':path.join(node_modules_dir,'lodash'),
 		},
 	},
-	/*
-	externals: {
-		'react':'React',
-	},
-	*/
 	output: {
 		path: buildPath,
 		filename: 'scripts/[name].[chunkhash].js',
