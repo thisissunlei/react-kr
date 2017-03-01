@@ -38,3 +38,4 @@ webpack/dist/*
 .happypack/*
 
 material-demo
+.happypack
