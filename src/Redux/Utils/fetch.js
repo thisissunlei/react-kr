@@ -24,15 +24,22 @@ function getUrl(path, params = {},mode = false) {
   }
 
 
+
+
 	/*
     if (path.match(/^http/) != 'null') {
         return path;
     }
     */
 
+    var url = APIS[path].url;
+
+    if(url.indexOf('http') !== -1){
+         server = '';
+    }
 
     try {
-        server += APIS[path].url;
+        server += url;
     } catch(err) {
         console.error(`${path} not defined in apis.js`);
         return false;

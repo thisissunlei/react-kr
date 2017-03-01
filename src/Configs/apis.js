@@ -309,15 +309,56 @@ const APIS = {
   method:'post'
 },
 //权限--登录
-'personalLogin':{
-  url:'/mockjsdata/6/login/loginsubmit',
+'loginSubmit':{
+  url:'http://sso.krspace.cn/api/krspace-sso-web/sso/login/loginSubmit',
   method:'post'
 },
-//权限--发送验证码
-'loginGetVerifyCode':{
-  url:'/mockjsdata/6/login/findPassword/checkVerifyCode',
+//权限--手机获取验证码
+'getVcodeByPhone':{
+  url:'http://sso.krspace.cn/api/krspace-sso-web/sso/login/getVcodeByPhone?mobile={mobile}',
+  method:'get'
+},
+//权限--邮箱获取验证码
+'getVcodeByMail':{
+  url:'http://sso.krspace.cn/api/krspace-sso-web/sso/login/getVcodeByMail?email={email}',
+  method:'get'
+},
+//权限--提交手机验证码
+'validPhoneCode':{
+  url:'http://sso.krspace.cn/api/krspace-sso-web/sso/login/validPhoneCode',
   method:'post'
 },
+//权限--提交邮箱验证码
+'validEmailCode':{
+  url:'http://sso.krspace.cn/api/krspace-sso-web/sso/login/validEmailCode',
+  method:'post'
+},
+//权限--提交新密码
+'setNewPwd':{
+  url:'http://sso.krspace.cn/api/krspace-sso-web/sso/login/setNewPwd',
+  method:'post'
+},
+//权限--账户列表--获取账户列表
+'getSsoUserList':{
+  url:'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/getSsoUserList?accountName={accountName}&email={email}&mobilePhone={mobilePhone}&realName={realName}&page={page}&pageSize={pageSize}&accountStatus={accountStatus}',
+  method:'get'
+},
+//权限--账户列表--获取数据权限
+'findRoleData':{
+  url:'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/findRoleData?id={id}',
+  method:'get'
+},
+//权限--账户列表--删除
+'delSsoUser':{
+  url:'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/delSsoUser?id={id}',
+  method:'delete'
+},
+//权限--账户列表--加锁
+'lockAccount':{
+  url:'http://sso.krspace.cn/api/krspace-sso-web/sso/ssoUser/lockAccount',
+  method:'post'
+},
+
 //新建编辑会员的准备数据
   'getMemberBasicData':{
   	url:'/api/krspace-finance-web/member/member-add-edit?companyId={companyId}&memberId={memberId}&communityId={communityId}',

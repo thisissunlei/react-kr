@@ -527,7 +527,6 @@ export default class PersonalCenter extends Component{
 					Message.error(err.message)
 				}
 			});
-
 	}
 	closePwdRevise=()=>{
 		this.setState({

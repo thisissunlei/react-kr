@@ -7,11 +7,12 @@ import React, {
 import {
 	connect,
 	Actions,
-	Store
+	Store,
 } from 'kr/Redux';
 
 import CreateAccount from './CreateAccount';
 import DataPermission from './DataPermission';
+import SearchForm from './SearchForm';
 
 import {
 	reduxForm,
@@ -32,8 +33,10 @@ import {
 	Grid,
 	Row,
 	Col,
+	Message,
 	ListGroupItem,
 	ListGroup,
+	SearchForms,
 	Dialog,
 } from 'kr-ui';
 import './index.less';
@@ -41,93 +44,219 @@ class AccountList  extends Component{
 
 	constructor(props,context){
 		super(props, context);
-
+		this.onSearchSubmit = this.onSearchSubmit.bind(this);
+		this.openDataPermission = this.openDataPermission.bind(this);
+		this.onOperation = this.onOperation.bind(this);
 		this.state={
-			searchParams:'',
+			searchParams: {
+				accountName:'',
+				page: 1,
+				pageSize: 15,
+				timer:1,
+			},
 			openNewCreate:false,
 			openDataPermission:false,
+			item:{},
+			itemDetail:{},
 		}
+
 	}
+	// componentDidMount() {
+	// 	var _this = this;
+	// 	Store.dispatch(Actions.callAPI('getSsoUserList')).then(function(response) {
+	// 		_this.setState({
+	// 			item: response,
+	// 		},function(){
+	// 			console.log(this.state.item.items);
+	// 		});
+	// 	}).catch(function(err) {
+	// 		Notify.show([{
+	// 			message: err.message,
+	// 			type: 'danger',
+	// 		}]);
+	// 	});
+	//
+	// }
 	openNewCreate=()=>{
 		this.setState({
 			openNewCreate:!this.state.openNewCreate,
+			searchParams: {
+				page: 1,
+				pageSize: '15'
+			}
 		})
+	}
+
+	//操作相关
+	onOperation=(type, itemDetail)=>{
+		let {searchParams} = this.state;
+		var _this = this;
+		var timer = +new Date();
+		this.setState({
+			itemDetail
+		});
+		if (type == 'data') {
+			let orderId = itemDetail.id
+			console.log(itemDetail);
+		} else if (type == 'dele') {
+			Store.dispatch(Actions.callAPI('delSsoUser',{id:itemDetail.id})).then(function(response) {
+				_this.setState({
+					searchParams: {
+						page: 1,
+						pageSize: '15',
+						timer:timer
+					}
+				},function(){
+					Message.success("删除成功");
+					console.log(this.state.searchParams);
+				})
+			}).catch(function(err) {
+				Message.error(err.message);
+			});
+		}
+	}
+	onNewCreateSubmit(searchParams) {
+		searchParams = Object.assign({}, this.state.searchParams, searchParams);
+		this.setState({
+			searchParams,
+			openNewCreate: !this.state.openNewCreate
+		});
+
+	}
+
+	onNewCreateCancel() {
+		this.openNewCreateDialog();
 	}
 	openDataPermission=()=>{
 		this.setState({
 			openDataPermission:!this.state.openDataPermission,
-		})
+		});
+	}
+	//搜索
+	onSearchSubmit=(value)=>{
+		let {searchParams}=this.state;
+		 if(value.filter=='company'){
+			 this.setState({
+				searchParams:{
+					page:1,
+					pageSize:15,
+					accountName:value.content
+				}
+			 })
+		}
+		 if(value.filter=='city'){
+			 this.setState({
+				searchParams:{
+					page:1,
+					pageSize:15,
+					realName:value.content
+				}
+			 })
+		}
+		 if(value.filter=='community'){
+			 this.setState({
+				searchParams:{
+					page:1,
+					pageSize:15,
+					mobilePhone:value.content
+				}
+			 })
+		}
+		 if(value.filter=='people'){
+			 this.setState({
+				searchParams:{
+					page:1,
+					pageSize:15,
+					email:value.content
+				}
+			 })
+		}
 	}
 	render(){
+
+		let options=[
+		 {label:'登录名',value:'company'},
+		 {label:'姓名',value:'city'},
+		 {label:'手机号',value:'community'},
+		 {label:'电子邮箱',value:'people'},
+		]
 		return(
 			<div>
 
 				<Section title="账户列表" >
-					<Row>
+					{/*
+						<Row>
+							<Col md={4}>
+								<KrField
+										label="登录名："
+										style={{marginLeft:10}}
+										heightStyle={{height:26,marginLeft:'17px'}}
+										name="loginName"
+										component="input"
+										inline={true}
+										placeholder=" "
+										type="text"
+								/>
+							</Col>
+							<Col md={4}>
+								<KrField
+										label="姓名："
+										heightStyle={{height:26,marginLeft:'27px'}}
+										name="idName"
+										component="input"
+										inline={true}
+										placeholder=" "
+										type="text"
+								/>
+							</Col>
+							<Col md={4}>
+								<KrField label="手机号："
+										heightStyle={{height:26,marginLeft:'17px'}}
+										name="mobileNum"
+										component="input"
+										inline={true}
+										placeholder=" "
+										type="text"
+								/>
+							</Col>
+					</Row>
+					*/}
+
+				<Row style={{position:'relative',zIndex:5}}>
+					{/*
 						<Col md={4}>
-							<KrField
-									label="登录名："
+							<KrField label="邮箱："
 									style={{marginLeft:10}}
-									heightStyle={{height:26,marginLeft:'17px'}}
-									name="loginName"
-									component="input"
-									inline={true}
-									placeholder=" "
-									type="text"
-							/>
-						</Col>
-						<Col md={4}>
-							<KrField
-									label="姓名："
-									heightStyle={{height:26,marginLeft:'27px'}}
-									name="idName"
-									component="input"
-									inline={true}
-									placeholder=" "
-									type="text"
-							/>
-						</Col>
-						<Col md={4}>
-							<KrField label="手机号："
-									heightStyle={{height:26,marginLeft:'17px'}}
+									heightStyle={{height:26,marginLeft:'30px',width: '94.5%'}}
 									name="mobileNum"
 									component="input"
 									inline={true}
-									placeholder=" "
 									type="text"
+									placeholder=" "
 							/>
 						</Col>
-				</Row>
-				<Row>
-					<Col md={4}>
-						<KrField label="邮箱："
-								style={{marginLeft:10}}
-								heightStyle={{height:26,marginLeft:'30px',width: '94.5%'}}
-								name="mobileNum"
-								component="input"
-								inline={true}
-								type="text"
-								placeholder=" "
-						/>
-					</Col>
-					<Col md={4}>
-							<KrField label="锁定状态："
-									name="mobileNum"
-									type="select"
-									heightStyle={{height:26,background:'#fff',width:'195%'}}
-									inline={true}
-							/>
-					</Col>
-					<Col md={4}>
+						<Col md={4}>
+								<KrField label="锁定状态："
+										name="mobileNum"
+										type="select"
+										heightStyle={{height:26,background:'#fff',width:'195%'}}
+										inline={true}
+								/>
+						</Col>
+					*/}
+					<Col md={8}>
 						<ListGroup>
 								<ListGroupItem style={{padding:'7px 50px 6px 17px'}}>
-										<Button
-												label="查询"
-												type="submit"
-												width={70}
-												height={26}
-												fontSize={14}
-										 />
+							{/*
+								<Button
+										label="查询"
+										type="submit"
+										width={70}
+										height={26}
+										fontSize={14}
+								 />
+							*/}
+								<SearchForms onSubmit={this.onSearchSubmit}  placeholder='请输入关键字' searchFilter={options} />
 								</ListGroupItem>
 								<ListGroupItem style={{paddingTop:7,paddingBottom:6}}>
 										<Button
@@ -147,8 +276,7 @@ class AccountList  extends Component{
 							displayCheckbox={false}
 							onLoaded={this.onLoaded}
 							ajax={true}
-							ajaxFieldListName="finaContractMainbillVOList"
-							ajaxUrlName='getFinaDataByList'
+							ajaxUrlName='getSsoUserList'
 							ajaxParams={this.state.searchParams}
 							onOperation={this.onOperation}
 							onExport={this.onExport}
@@ -165,19 +293,19 @@ class AccountList  extends Component{
 
 					<TableBody>
 						<TableRow>
-							<TableRowColumn style={{overflow:'hidden'}} name="mainbillname"></TableRowColumn>
-							<TableRowColumn name="mainBillTypeName" options={[{label:'工位入驻订单',value:'STATION'}]}></TableRowColumn>
-							<TableRowColumn name="stationnum"></TableRowColumn>
-							<TableRowColumn name="come"></TableRowColumn>
-							<TableRowColumn name="backMount"></TableRowColumn>
-							<TableRowColumn name="mount"></TableRowColumn>
+							<TableRowColumn style={{overflow:'hidden'}} name="id"></TableRowColumn>
+							<TableRowColumn name="accountName" options={[{label:'工位入驻订单',value:'STATION'}]}></TableRowColumn>
+							<TableRowColumn name="realName"></TableRowColumn>
+							<TableRowColumn name="mobilePhone"></TableRowColumn>
+							<TableRowColumn name="email"></TableRowColumn>
+							<TableRowColumn name="accountStatus" options={[{label:'未锁定',value:'NOTLOCK'},{label:'锁定',value:'LOCK'}]}></TableRowColumn>
 
 							<TableRowColumn>
 									<Button label="修改" onTouchTap={this.openNewCreate}  type="operation" operation="view"/>
 								  <Button label="重置密码"  type="operation" operation="view"/>
 									<Button label="加锁"  type="operation" operation="view"/>
-									<Button label="删除"  type="operation" operation="view"/>
-									<Button label="数据" onTouchTap={this.openDataPermission} type="operation" operation="view"/>
+									<Button label="删除"  type="operation" operation="dele"/>
+									<Button label="数据" onTouchTap={this.openDataPermission} type="operation" operation="data"/>
 								  {/*<Button label="生成对账单"  type="operation" operation="edit"/>*/}
 							 </TableRowColumn>
 						 </TableRow>
@@ -194,7 +322,7 @@ class AccountList  extends Component{
 						onClose={this.openNewCreate}
 						contentStyle={{width:500}}
 				>
-					<CreateAccount />
+					<CreateAccount onSubmit={this.onNewCreateSubmit} />
 				</Dialog>
 				<Dialog
 						title="编辑登录账号"
@@ -203,7 +331,7 @@ class AccountList  extends Component{
 						onClose={this.openNewCreate}
 						contentStyle={{width:500}}
 				>
-					<CreateAccount onCancel={this.openNewCreate}/>
+					<CreateAccount detail={this.state.itemDetail} onCancel={this.openNewCreate}/>
 				</Dialog>
 				<Dialog
 						title="编辑数据权限"
@@ -212,7 +340,7 @@ class AccountList  extends Component{
 						onClose={this.openDataPermission}
 						contentStyle={{width:500,height:500}}
 				>
-					<DataPermission onCancel={this.openDataPermission}/>
+					<DataPermission detail={this.state.itemDetail} onCancel={this.openDataPermission}/>
 				</Dialog>
 			</div>
 		);
