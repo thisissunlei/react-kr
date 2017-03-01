@@ -1,0 +1,184 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reduxForm = require('redux-form');
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+require('./index.less');
+
+var _jquery = require('jquery');
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+var _ProjectType = require('./ProjectType');
+
+var _ProjectType2 = _interopRequireDefault(_ProjectType);
+
+var _mobxReact = require('mobx-react');
+
+var _State = require('./State');
+
+var _State2 = _interopRequireDefault(_State);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ItemSingle = (0, _mobxReact.observer)(_class = function (_React$Component) {
+	_inherits(ItemSingle, _React$Component);
+
+	function ItemSingle(props) {
+		_classCallCheck(this, ItemSingle);
+
+		var _this = _possibleConstructorReturn(this, (ItemSingle.__proto__ || Object.getPrototypeOf(ItemSingle)).call(this, props));
+
+		_this.itemClick = function (event) {
+			var treeClose = _this.props.treeClose;
+
+			event.stopPropagation();
+			var _this$props = _this.props,
+			    value = _this$props.value,
+			    listId = _this$props.listId;
+
+
+			if (typeof value == "string") {
+				_this.setState({
+					value: value,
+					listId: listId
+				}, function () {
+					treeClose(this.state.value, this.state.listId);
+				});
+			}
+		};
+
+		_this.state = {
+			value: "请选择所属地区",
+			listId: "",
+			isProjectType: false
+		};
+
+		return _this;
+	}
+
+	_createClass(ItemSingle, [{
+		key: 'componentWillReceiveProps',
+		value: function componentWillReceiveProps(nextProps) {}
+	}, {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			var treeAll = this.props.treeAll;
+
+			(0, _jquery2.default)(".ui-list1 .ui-treeItem span").hover(function () {
+
+				var every = (0, _jquery2.default)(this).html();
+				treeAll.map(function (item, index) {
+					if (every == item.codeName) {
+						_State2.default.uiList2 = item.children;
+					}
+				});
+
+				// $(".ui-list2").show();  
+				_State2.default.uiList3 = [];
+				_State2.default.uiList4 = [];
+				_State2.default.isUiList2 = true;
+			}, function () {
+				// $(".ui-list2").hide();  
+				_State2.default.isUiList3 = false;
+				_State2.default.isUiList4 = false;
+			});
+			(0, _jquery2.default)(".ui-list2 .ui-treeItem span").hover(function () {
+				var every = (0, _jquery2.default)(this).html();
+				for (var i = 0; i < _State2.default.uiList2.length; i++) {
+					if (every == _State2.default.uiList2[i].codeName) {
+						_State2.default.uiList3 = _State2.default.uiList2[i].children;
+						break;
+					}
+				}
+
+				// $(".ui-list3").show();  
+				_State2.default.uiList4 = [];
+				_State2.default.isUiList3 = true;
+			}, function () {
+				_State2.default.isUiList4 = false;
+
+				// $(".ui-list3").hide(); 
+			});
+			(0, _jquery2.default)(".ui-list3 .ui-treeItem span").hover(function () {
+				var every = (0, _jquery2.default)(this).html();
+				for (var i = 0; i < _State2.default.uiList3.length; i++) {
+					if (every == _State2.default.uiList3[i].codeName) {
+						_State2.default.uiList4 = _State2.default.uiList3[i].children;
+						break;
+					}
+				}
+				// $(".ui-list2").show(); 
+				_State2.default.isUiList4 = true;
+			}, function () {
+				//State.uiList4=[];
+				// $(".ui-list2").hide();  
+				// State.uiList4=[]; State.uiList2=[];
+
+			});
+		}
+	}, {
+		key: 'render',
+
+
+		// onMouseOut={this.itemonMouseOut}
+		value: function render() {
+			var _props = this.props,
+			    value = _props.value,
+			    data = _props.data,
+			    treeClose = _props.treeClose;
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'ui-treeItem', onClick: this.itemClick },
+				_react2.default.createElement(
+					'span',
+					{ 'data-tree': data },
+					value
+				)
+			);
+		}
+	}]);
+
+	return ItemSingle;
+}(_react2.default.Component)) || _class;
+
+ItemSingle.displayName = 'DateComponent';
+ItemSingle.defaultProps = {
+	inline: false
+};
+ItemSingle.PropTypes = {};
+exports.default = ItemSingle;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(ItemSingle, 'ItemSingle', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/KrField/TreeComponent/ItemSingle.js');
+}();
+
+;

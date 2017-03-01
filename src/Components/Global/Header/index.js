@@ -1,67 +1,21 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
-import {
-	bindActionCreators
-} from 'redux';
-import {
-	connect
-} from 'react-redux';
-import {
-	Link
-} from 'react-router';
-
+import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
+import { Actions, Store } from 'kr/Redux';
 import * as actionCreators from '../../../Redux/Actions';
 
-import {
-	AppBar,
-	Menu,
-	MenuItem,
-	DropDownMenu,
-	IconMenu,
-	IconButton,
-	RaisedButton,
-	Drawer,
-	Divider,
-	FontIcon,
-	FlatButton,
-	List,
-	ListItem,
-	FileFolder,
-	Avatar,
-	FloatingActionButton
-} from 'material-ui';
+import { AppBar, Menu, MenuItem,IconMenu, IconButton, Drawer, Divider, FontIcon, FlatButton, List, ListItem, FileFolder, Avatar, FloatingActionButton } from 'material-ui';
 
-
-import ActionHome from 'material-ui/svg-icons/action/home';
-
-import {
-	Popover,
-	PopoverAnimationVertical
-} from 'material-ui/Popover';
-
-import ContentAdd from 'material-ui/svg-icons/content/add';
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
-
-import {
-	Toolbar,
-	ToolbarGroup,
-	ToolbarSeparator,
-	ToolbarTitle
-} from 'material-ui/Toolbar';
 
 
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
-import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 
-import ActionPermIdentity from 'material-ui/svg-icons/action/perm-identity';
 import './index.less';
 
 
 import SidebarNav from '../SidebarNav';
+import InfoList from '../InfoList';
 
 
 class Header extends Component {
@@ -78,12 +32,72 @@ class Header extends Component {
 		this.showBottomNav = this.showBottomNav.bind(this);
 		this.handleRequestClose = this.handleRequestClose.bind(this);
 		this.touchTitle = this.touchTitle.bind(this);
-
+		this.inforShowList = this.inforShowList.bind(this);
 		this.state = {
 			bottomNav: false,
 			toggle: true,
+			right_bar:{switch_value:false},
+			inforLogoShow:false,
+			url:window.location.hash,
+			infoTab:'',
+			hasUnRead:0
 		}
+		this.hasInfoListTab = [
+			{url:'community',code:'111'}
+		]
+		// this.inforShowList();
 
+	}
+	componentWillMount() {
+		this.inforShowList();
+  	}
+  	componentWillReceiveProps(next,state){
+  		this.inforShowList();
+  	}
+
+	inforShowList(){
+		let url = window.location.hash;
+		url = url.split('/')[1];
+		let _this = this;
+		let currentTab = false;
+		this.hasInfoListTab.map((item)=>{
+			if(item.url == url){
+				currentTab = true;
+			}
+		})
+		if(currentTab){
+			_this.getUnReadInfo();
+			_this.setState({
+				inforLogoShow:true,
+				infoTab:url,
+				right_bar:{switch_value:false}
+			})
+		}else{
+			_this.setState({
+				inforLogoShow:false,
+				right_bar:{switch_value:false},
+				infoTab:'local',
+			})
+		}
+	}
+	//获取未读消息数
+	getUnReadInfo=()=>{
+		let _this = this;
+		Store.dispatch(Actions.callAPI('getUnReadInfo', {
+            startTime: '',endTime:''
+        })).then(function(response) {
+            if(response.msgCount){
+            	_this.setState({
+            		hasUnRead:response.msgCount
+            	})
+            }else{
+            	_this.setState({
+            		hasUnRead:0
+            	})
+            }
+        }).catch(function(err) {
+            console.log(err);
+        });
 	}
 
 
@@ -127,14 +141,17 @@ class Header extends Component {
 	};
 
 	touchTitle() {
-		//this.context.router.push('/');
 		window.location.href = 'http://krspace.cn';
 	}
 
 	renderHeaderNav(item, index) {
 
+		if(!item.permission){
+			return null;
+		}
+		
 		let styles = {
-			color: '#fff',
+			color: '#666666',
 			width: 'auto',
 			height: 60,
 		}
@@ -144,9 +161,8 @@ class Header extends Component {
 		}
 
 		if (item.active) {
-			styles.borderBottom = '2px solid #fff';
-			styles.borderLeft = '1px solid #3F93CA';
-			styles.borderRight = '1px solid #3F93CA';
+			styles.color = '#394457';
+			styles.fontWeight='600';
 		}
 
 
@@ -160,9 +176,30 @@ class Header extends Component {
 
 
 		return (
-			<FlatButton label={item.primaryText} key={index} style={styles} href={jumpUrl} labelStyle={{lineHeight:'60px',fontSize:"16px"}} />
+			<FlatButton label={item.primaryText} key={index} style={styles} href={jumpUrl} labelStyle={{lineHeight:'60px',fontSize:"16px",fontWeight:0}} />
 		);
 
+	}
+
+	showInfo=()=>{
+		var {
+			actions,
+			sidebar_nav,
+			flag,
+			right_bar
+		} = this.props;
+		actions.switchRightBar(!!!right_bar.switch_value);
+	}
+	onClose=()=>{
+		this.setState({
+			right_bar:!this.state.right_bar.switch_value
+		})
+	}
+	changeCount=()=>{
+		let hasUnRead = --this.state.hasUnRead;
+		this.setState({
+			hasUnRead:hasUnRead
+		})
 	}
 
 	render() {
@@ -173,24 +210,22 @@ class Header extends Component {
 			top: 0,
 			left: 0,
 			right: 0,
-			backgroundColor: '#328ECC',
+			backgroundColor: '#FFFFFF',
 			height: "60px",
 			zIndex: 10
 		};
+
+		let width = 570;
 
 		var {
 			switch_value
 		} = this.props.sidebar_nav;
 
-		if (switch_value) {
-			//styles.paddingLeft = 50;
-		}
-
-
+		let {inforLogoShow,infoTab,hasUnRead} = this.state;
+		let showInfoLogo = inforLogoShow?'inline-block':'none';
 		const HeaderBar = (props) => {
 
 			var iconClassName = '';
-
 			let sidebarNavSwitch = this.props.sidebar_nav.switch_value;
 			if (sidebarNavSwitch) {
 				iconClassName = "hide-heng";
@@ -220,10 +255,15 @@ class Header extends Component {
 				}
 
 				iconElementRight = {
-
+					<div style={{minWidth:70,textAlign:'right'}}>
+					<div style={{display:showInfoLogo,position:'relative',marginRight:10,cursor: 'pointer'}} onClick={this.showInfo}>
+						<span className="icon-info information-logo"  ></span>
+						<span className="ui-un-read-count" style={{visibility:hasUnRead>0?'visible':'hidden'}}>{hasUnRead}</span>
+					</div>
 					< IconMenu
+					iconStyle={{fill:'#394457'}}
 					iconButtonElement = {
-						<IconButton><MoreVertIcon /></IconButton>
+						<IconButton ><MoreVertIcon color="#fff"/></IconButton>
 					}
 					targetOrigin = {
 						{
@@ -248,7 +288,7 @@ class Header extends Component {
 						}
 					}
 					/>
-					< /IconMenu >
+					< /IconMenu ></div>
 				}
 				/>
 			);
@@ -256,19 +296,15 @@ class Header extends Component {
 
 		return (
 
-			<div >
-
+			<div className="no-print">
 				{this.props.header_nav.switch_value && <HeaderBar/>}
-
-			<Drawer open={this.props.sidebar_nav.switch_value} width={180} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
-
-				<SidebarNav items={this.props.navs_current_items} current_router={this.props.current_router} current_parent={this.props.current_parent} current_child={this.props.current_child}/>
-
+				<Drawer open={this.props.sidebar_nav.switch_value} width={180} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10,background:'#394457'}}>
+					<SidebarNav items={this.props.navs_current_items} current_router={this.props.current_router} current_parent={this.props.current_parent} current_child={this.props.current_child}/>
 				</Drawer>
-
-
-
-				</div>
+				<Drawer open={this.props.right_bar.switch_value} width={width} openSecondary={true} containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:10}}>
+					<InfoList onClose={this.onClose} infoTab={infoTab} changeCount={this.changeCount}/>
+				</Drawer>
+			</div>
 		);
 	}
 
@@ -281,6 +317,7 @@ function mapStateToProps(state) {
 	return {
 		header_nav: state.header_nav,
 		sidebar_nav: state.sidebar_nav,
+		right_bar:state.right_bar,
 		navs_items: state.navs.items,
 		navs_current_items: state.navs.current_items,
 		bottom_nav: state.bottom_nav,
@@ -298,26 +335,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
-
-/*
-			<FloatingActionButton onTouchTap={this.showBottomNav} style={{position:'fixed',bottom:20,right:10,zIndex:888}} secondary={true} >
-			<ContentAdd />
-			</FloatingActionButton>
-
-			<Popover
-			open={this.props.bottom_nav.switch_value}
-			anchorEl={this.props.bottom_nav.anchor_el}
-			anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-			targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
-			onRequestClose={this.handleRequestClose}
-			animation={PopoverAnimationVertical}
-			>
-			<Menu>
-			<MenuItem primaryText="Refresh" />
-			<MenuItem primaryText="Help &amp; feedback" />
-			<MenuItem primaryText="Settings" />
-			<MenuItem primaryText="Sign out" />
-			</Menu>
-			</Popover>
-
-*/

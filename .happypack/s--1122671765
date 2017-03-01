@@ -1,0 +1,330 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _simpleAssign = require('simple-assign');
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _TableRow = require('../TableRow');
+
+var _TableRow2 = _interopRequireDefault(_TableRow);
+
+var _TableRowColumn = require('../TableRowColumn');
+
+var _TableRowColumn2 = _interopRequireDefault(_TableRowColumn);
+
+var _Checkbox = require('../../Checkbox');
+
+var _Checkbox2 = _interopRequireDefault(_Checkbox);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TableBody = function (_React$Component) {
+	_inherits(TableBody, _React$Component);
+
+	function TableBody(props, context) {
+		_classCallCheck(this, TableBody);
+
+		var _this = _possibleConstructorReturn(this, (TableBody.__proto__ || Object.getPrototypeOf(TableBody)).call(this, props, context));
+
+		_this.toggleInsertElement = _this.toggleInsertElement.bind(_this);
+		_this.createRowElement = _this.createRowElement.bind(_this);
+
+		_this.renderRows = _this.renderRows.bind(_this);
+		_this.onCellClick = _this.onCellClick.bind(_this);
+		_this.onCellHover = _this.onCellHover.bind(_this);
+		_this.onCellHoverExit = _this.onCellHoverExit.bind(_this);
+		_this.onRowHover = _this.onRowHover.bind(_this);
+		_this.onRowHoverExit = _this.onRowHoverExit.bind(_this);
+		_this.onRowClick = _this.onRowClick.bind(_this);
+		_this.onOperation = _this.onOperation.bind(_this);
+
+		_this.createRowCheckboxColumn = _this.createRowCheckboxColumn.bind(_this);
+
+		_this.createAjaxRow = _this.createAjaxRow.bind(_this);
+		_this.createNormalRow = _this.createNormalRow.bind(_this);
+
+		_this.state = {
+			showInsertElement: false
+		};
+		return _this;
+	}
+
+	_createClass(TableBody, [{
+		key: 'toggleInsertElement',
+		value: function toggleInsertElement(event) {
+
+			if (event && !event.hasOwnProperty('target')) {
+				return;
+			}
+
+			var target = event && event.target;
+			var nodeName = target && target.nodeName.toLowerCase();
+
+			if (nodeName === 'input') {
+				return false;
+			}
+			this.setState({
+				showInsertElement: !this.state.showInsertElement
+			});
+		}
+	}, {
+		key: 'renderInsertElement',
+		value: function renderInsertElement() {
+			var _props = this.props,
+			    insertElement = _props.insertElement,
+			    colSpan = _props.colSpan;
+
+
+			if (!insertElement || !this.state.showInsertElement) {
+				return null;
+			}
+			return _react2.default.createElement(
+				_TableRow2.default,
+				null,
+				_react2.default.createElement(
+					_TableRowColumn2.default,
+					{ colSpan: colSpan },
+					' ',
+					insertElement,
+					' '
+				)
+			);
+		}
+	}, {
+		key: 'onOperation',
+		value: function onOperation(type, itemData) {
+			var onOperation = this.props.onOperation;
+
+			onOperation && onOperation(type, itemData);
+		}
+	}, {
+		key: 'onCellClick',
+		value: function onCellClick() {}
+	}, {
+		key: 'onCellHover',
+		value: function onCellHover() {}
+	}, {
+		key: 'onCellHoverExit',
+		value: function onCellHoverExit() {}
+	}, {
+		key: 'onRowHover',
+		value: function onRowHover() {}
+	}, {
+		key: 'onRowHoverExit',
+		value: function onRowHoverExit() {}
+	}, {
+		key: 'onRowClick',
+		value: function onRowClick(event, rowNumber) {
+			var onRowClick = this.props.onRowClick;
+
+
+			onRowClick && onRowClick(event, rowNumber);
+			this.toggleInsertElement(event);
+		}
+	}, {
+		key: 'createRowCheckboxColumn',
+		value: function createRowCheckboxColumn(rowProps) {
+
+			if (!this.props.displayCheckbox) {
+				return null;
+			}
+
+			if (!rowProps.displayCheckbox && this.props.displayCheckbox) {
+				return null;
+			}
+			return _react2.default.createElement(
+				_TableRowColumn2.default,
+				_extends({
+					columnNumber: 0,
+					width: this.props.defaultValue.checkboxWidth
+				}, rowProps),
+				_react2.default.createElement(_Checkbox2.default, { checked: rowProps.selected, onCheck: function onCheck(event) {
+						rowProps.onRowClick(event, rowProps.key);
+					} })
+			);
+		}
+	}, {
+		key: 'createRowElement',
+		value: function createRowElement(child, rowNumber) {
+			var _props2 = this.props,
+			    listData = _props2.listData,
+			    displayCheckbox = _props2.displayCheckbox;
+
+
+			var handlers = {
+				onCellClick: this.onCellClick,
+				onCellHover: this.onCellHover,
+				onCellHoverExit: this.onCellHoverExit,
+				onRowHover: this.onRowHover,
+				onRowHoverExit: this.onRowHoverExit,
+				onRowClick: this.onRowClick,
+				onOperation: this.onOperation
+			};
+
+			/*
+   let displayCheckbox = true;
+   if(child.props && child.props.hasOwnProperty('displayCheckbox')){
+   	displayCheckbox = child.props.displayCheckbox;
+   }
+   */
+
+			var itemData = listData[rowNumber] || {};
+
+			var props = {
+				displayCheckbox: displayCheckbox,
+				key: rowNumber,
+				rowNumber: rowNumber,
+				selected: this.isRowSelected(rowNumber),
+				visibility: this.isRowVisibility(rowNumber),
+				itemData: itemData
+			};
+
+			var children = [this.createRowCheckboxColumn((0, _simpleAssign2.default)({}, props, handlers))];
+
+			if (_react2.default.isValidElement(child)) {
+				_react2.default.Children.forEach(child.props.children, function (child) {
+					children.push(child);
+				});
+				return _react2.default.cloneElement(child, _extends({}, child.props, props, handlers), children);
+			}
+
+			return null;
+		}
+	}, {
+		key: 'createAjaxRow',
+		value: function createAjaxRow() {
+			var _props3 = this.props,
+			    listData = _props3.listData,
+			    ajax = _props3.ajax;
+
+
+			var cloneElement = void 0;
+			_react2.default.Children.map(this.props.children, function (child) {
+				cloneElement = child;
+			});
+
+			var rows = [];
+
+			for (var i = 0; i < listData.length; i++) {
+				var element = _react2.default.cloneElement(cloneElement, {
+					key: i
+				});
+
+				if (_react2.default.isValidElement(element)) {
+					rows.push(this.createRowElement(element, i));
+				}
+			}
+
+			return rows;
+		}
+	}, {
+		key: 'createNormalRow',
+		value: function createNormalRow() {
+			var _this2 = this;
+
+			var rows = [];
+			var numChildren = _react2.default.Children.count(this.props.children);
+			var _props4 = this.props,
+			    displayCheckbox = _props4.displayCheckbox,
+			    setRowTotalCount = _props4.setRowTotalCount;
+
+			var rowNumber = 0;
+			_react2.default.Children.map(this.props.children, function (child) {
+				rows.push(_this2.createRowElement(child, rowNumber++));
+			});
+			return rows;
+		}
+	}, {
+		key: 'renderRows',
+		value: function renderRows() {
+			var ajax = this.props.ajax;
+
+
+			return ajax ? this.createAjaxRow() : this.createNormalRow();
+		}
+	}, {
+		key: 'isRowVisibility',
+		value: function isRowVisibility(rowNumber) {
+
+			if (parseInt(this.props.visibilityRows[rowNumber])) {
+				return true;
+			}
+
+			return false;
+		}
+	}, {
+		key: 'isRowSelected',
+		value: function isRowSelected(rowNumber) {
+			if (parseInt(this.props.selectedRows[rowNumber])) {
+				return true;
+			}
+			return false;
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var className = this.props.className;
+
+
+			return _react2.default.createElement(
+				'tbody',
+				{ className: className, style: { borderBottom: "solid 1px #eee" } },
+				this.renderRows()
+			);
+		}
+	}]);
+
+	return TableBody;
+}(_react2.default.Component);
+
+/*
+   <tbody className={className} onTouchTap={this.toggleInsertElement}>
+
+*/
+
+
+TableBody.displayName = 'TableBody';
+TableBody.PropTypes = {
+	className: _react2.default.PropTypes.string,
+	children: _react2.default.PropTypes.node,
+	insertElement: _react2.default.PropTypes.node,
+	allRowsSelected: _react2.default.PropTypes.bool,
+	displayCheckbox: _react2.default.PropTypes.bool,
+	selectedRows: _react2.default.PropTypes.array,
+	visibilityRows: _react2.default.PropTypes.array,
+	setRowTotalCount: _react2.default.PropTypes.func,
+	defaultValue: _react2.default.PropTypes.object,
+	listData: _react2.default.PropTypes.listData,
+	onOperation: _react2.default.PropTypes.func
+};
+exports.default = TableBody;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(TableBody, 'TableBody', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Table/TableBody/index.js');
+}();
+
+;

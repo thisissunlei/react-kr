@@ -1,0 +1,239 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Loading = require('../Loading');
+
+var _Loading2 = _interopRequireDefault(_Loading);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var IframeContent = function (_React$Component) {
+	_inherits(IframeContent, _React$Component);
+
+	function IframeContent(props) {
+		_classCallCheck(this, IframeContent);
+
+		var _this2 = _possibleConstructorReturn(this, (IframeContent.__proto__ || Object.getPrototypeOf(IframeContent)).call(this, props));
+
+		_this2.onClose = _this2.onClose.bind(_this2);
+		_this2.onLoad = _this2.onLoad.bind(_this2);
+
+		_this2.iframeElement = '';
+		_this2.iframeWindow = '';
+
+		_this2.state = {
+			isLoading: false,
+			src: _this2.props.src
+		};
+		_this2.isInit = false;
+
+		_this2.createIframe = _this2.createIframe.bind(_this2);
+
+		var _this = _this2;
+		//	global.window = new Object();
+		window.top.setReturnValue = function (data) {
+			_this.onClose(data);
+		};
+		return _this2;
+	}
+
+	_createClass(IframeContent, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			this.createIframe();
+		}
+	}, {
+		key: 'componentWillReceiveProps',
+		value: function componentWillReceiveProps(nextProps) {
+			if (nextProps.src) {
+				var src = nextProps.src;
+				this.setState({
+					src: src
+				}, function () {
+					this.createIframe();
+				});
+			}
+		}
+	}, {
+		key: 'onClose',
+		value: function onClose(data) {
+			var onClose = this.props.onClose;
+
+			onClose && onClose(data.data, data);
+		}
+	}, {
+		key: 'onLoad',
+		value: function onLoad() {
+
+			var _this = this;
+			var _props = this.props,
+			    width = _props.width,
+			    height = _props.height,
+			    onLoad = _props.onLoad;
+
+			var iframeElement = this.iframeElement;
+
+			iframeElement.width = width;
+			iframeElement.height = height;
+			_this.iframeWindow = iframeElement.contentWindow;
+			window.ele = _this.iframeWindow;
+
+			onLoad && onLoad(iframeElement.contentWindow);
+		}
+	}, {
+		key: 'createIframe',
+		value: function createIframe() {
+			var _this = this;
+			var src = this.state.src;
+
+
+			var iframe = document.createElement("iframe");
+			iframe.src = src;
+
+			window.ifr = iframe;
+
+			//	默认样式
+			iframe.frameBorder = 0;
+			iframe.width = 0;
+			iframe.height = 0;
+
+			this.iframeElement = iframe;
+
+			if (iframe.attachEvent) {
+				iframe.attachEvent("onload", function () {
+					this.document.domain = "krspace.cn";
+					_this.onLoad();
+				});
+			} else {
+				iframe.onload = function () {
+					_this.onLoad();
+				};
+			}
+
+			this.iframeWrap.innerHTML = '';
+			this.iframeWrap.appendChild(iframe);
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _this3 = this;
+
+			var _props2 = this.props,
+			    className = _props2.className,
+			    children = _props2.children,
+			    src = _props2.src,
+			    width = _props2.width,
+			    height = _props2.height;
+			var isLoading = this.state.isLoading;
+
+
+			var styles = {
+				height: height
+			};
+
+			return _react2.default.createElement(
+				'div',
+				{ style: styles },
+				isLoading && _react2.default.createElement(_Loading2.default, null),
+				_react2.default.createElement('div', { ref: function ref(c) {
+						return _this3.iframeWrap = c;
+					} })
+			);
+		}
+	}]);
+
+	return IframeContent;
+}(_react2.default.Component);
+
+// <iframe src={src} className="ui-iframe-content" ref={(c)=>this.iframeElement=c} width={width} height={height} frameBorder="0" />
+
+
+/*
+
+
+	renderIframWidth(iframe){
+
+		function autoFitIframe(iframe) {
+			var doc = iframe.contentDocument || iframe.contentWindow.document;
+			// 设置iframe宽度
+			iframe.style.width = '100%';
+
+			function update() {
+				var containerWidth = iframe.parentNode.offsetWidth;
+				// 在iphone、ipad等移动浏览器中，为iframe设置width和height样式起不了作用
+				// iframe的高宽由其内容决定，故设置iframe中body的宽度来限制iframe高宽
+				doc.body.style.width =  + 'px';
+				doc.body.style.padding = '0';
+				doc.body.style.margin = '0';
+				doc.body.style.border = 'none';
+
+				// 自适应iframe高度，确保没有纵向滚动条
+				// iphone、ipad等移动浏览会器忽略width/height自适应高度
+				// NOTE: 没有支持Quirks mode
+
+				// 确保scrollHeight是iframe所需的最小高度
+				iframe.style.height = '0';
+				iframe.style.height = Math.max(
+					// 其他浏览器
+					doc.body.scrollHeight,
+					// IE7
+					doc.documentElement.scrollHeight
+				) + 'px';
+			}
+			if (doc.readyState === 'complete') {
+				update();
+			}
+
+			if (iframe.addEventListener) {
+				iframe.addEventListener('load', update, false);
+			}
+			else if (iframe.attachEvent) {
+				iframe.attachEvent('onload', update);
+			}
+		};
+	}
+
+*/
+
+
+IframeContent.displayName = 'IframeContent';
+IframeContent.defaultProps = {
+	width: window.innerWidth,
+	height: 800
+};
+IframeContent.propTypes = {
+	className: _react2.default.PropTypes.string,
+	src: _react2.default.PropTypes.string,
+	width: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number]),
+	height: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number]),
+	onClose: _react2.default.PropTypes.func,
+	onLoad: _react2.default.PropTypes.func
+};
+exports.default = IframeContent;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(IframeContent, 'IframeContent', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/IframeContent/index.js');
+}();
+
+;

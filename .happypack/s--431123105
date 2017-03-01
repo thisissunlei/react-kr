@@ -1,0 +1,546 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _krUi = require('kr-ui');
+
+var _Redux = require('kr/Redux');
+
+var _NewCreateForm = require('./NewCreateForm');
+
+var _NewCreateForm2 = _interopRequireDefault(_NewCreateForm);
+
+var _MemeberEditMemberForm = require('./MemeberEditMemberForm');
+
+var _MemeberEditMemberForm2 = _interopRequireDefault(_MemeberEditMemberForm);
+
+var _AdvancedQueryForm = require('./AdvancedQueryForm');
+
+var _AdvancedQueryForm2 = _interopRequireDefault(_AdvancedQueryForm);
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var List = function (_Component) {
+	_inherits(List, _Component);
+
+	function List(props, context) {
+		_classCallCheck(this, List);
+
+		// this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
+		var _this2 = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, props, context));
+
+		_this2.openNewCreateDialog = function () {
+			_this2.setState({
+				openNewCreate: !_this2.state.openNewCreate
+			});
+		};
+
+		_this2.onExport = function (values) {
+			var ids = [];
+			if (values.length != 0) {
+				values.map(function (item, value) {
+					ids.push(item.id);
+				});
+			}
+			ids = String(ids);
+			var url = '/api/krspace-finance-web/member/member-list-excel?ids=' + ids;
+			window.location.href = url;
+		};
+
+		_this2.onEditSubmit = function (values) {
+			var _this = _this2;
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('membersChange', {}, values)).then(function (response) {
+				_this.openEditDetailDialog();
+				_krUi.Message.success("操作成功");
+				_this.setState({
+					status: !_this.state.status,
+					searchParams: {
+						page: "1",
+						pageSize: "15",
+						value: '',
+						type: 'COMP_NAME',
+						status: !_this.state.status,
+						companyId: "0"
+					}
+				});
+			}).catch(function (err) {
+				// Notify.show([{
+				// 	message: err.message,
+				// 	type: 'danger',
+				// }]);
+			});
+		};
+
+		_this2.onNewCreateSubmit = function (values) {
+			// console.log("value",values);
+			var params = {
+				email: values.email
+			};
+			var cardSearchParams = {
+				foreignCode: values.cardId
+			};
+			var _this = _this2;
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('membersChange', {}, values)).then(function (response) {
+				_this.openNewCreateDialog();
+				_krUi.Message.success("操作成功");
+				_this.setState({
+					status: !_this.state.status,
+					searchParams: {
+						page: "1",
+						pageSize: "15",
+						type: 'COMP_NAME',
+						value: "",
+						status: !_this.state.status,
+						companyId: 0
+					}
+				});
+			}).catch(function (err) {
+				_krUi.Notify.show([{
+					message: err.message,
+					type: 'danger'
+				}]);
+			});
+		};
+
+		_this2.onSearchSubmit = function (value) {
+			var _this = _this2;
+			var searchParam = {
+				value: value.content,
+				type: value.filter
+			};
+			_this.setState({
+				content: value.content,
+				filter: value.filter,
+				submit: true,
+				searchParams: {
+					type: value.filter,
+					value: value.content,
+					page: 1,
+					pageSize: 15,
+					companyId: 0
+				}
+			});
+		};
+
+		_this2.onAdvanceSearchSubmit = function (values) {
+			// console.log('onAdvanceSearchSubmit是否传到列表页',values);
+			var _this = _this2;
+			_this.setState({
+				openAdvancedQuery: !_this2.state.openAdvancedQuery,
+				searchParams: {
+					registerSourceId: values.registerSourceId || '',
+					value: values.value,
+					type: values.type,
+					cityId: values.city || '',
+					endTime: values.endTime || '',
+					startTime: values.startTime || '',
+					jobId: values.jobId || '',
+					page: 1,
+					pageSize: 15,
+					companyId: 0
+				}
+			});
+		};
+
+		_this2.openEditDetailDialog = _this2.openEditDetailDialog.bind(_this2);
+		_this2.openAdvancedQueryDialog = _this2.openAdvancedQueryDialog.bind(_this2);
+		_this2.onLoaded = _this2.onLoaded.bind(_this2);
+		_this2.onOperation = _this2.onOperation.bind(_this2);
+		// this.onExport = this.onExport.bind(this);
+		_this2.onSearchSubmit = _this2.onSearchSubmit.bind(_this2);
+		_this2.params = _this2.context.router.params;
+		_this2.state = {
+			openNewCreate: false,
+			openView: false,
+			openEditDetail: false,
+			openAdvancedQuery: false,
+			status: false,
+			submit: false,
+			itemDetail: {},
+			item: {},
+			list: {},
+			content: '',
+			filter: 'COMP_NAME',
+			searchParams: {
+				page: 1,
+				pageSize: 15,
+				startTime: '',
+				endTime: '',
+				registerSourceId: '',
+				jobId: '',
+				companyId: 0,
+				cityId: '',
+				type: 'COMP_NAME',
+				value: '',
+				status: false
+			}
+		};
+		return _this2;
+	}
+
+	_createClass(List, [{
+		key: 'openEditDetailDialog',
+
+		// 编辑详情的Dialog
+		value: function openEditDetailDialog() {
+			this.setState({
+				openEditDetail: !this.state.openEditDetail
+			});
+		}
+		// 社区模糊查询
+
+	}, {
+		key: 'onChangeSearchCommunity',
+		value: function onChangeSearchCommunity(community) {
+			_Redux.Store.dispatch(change('joinCreateForm', 'communityName', community.communityName));
+		}
+		// 公司模糊查询
+
+	}, {
+		key: 'onChangeSearchCompany',
+		value: function onChangeSearchCompany(company) {
+			_Redux.Store.dispatch(change('joinCreateForm', 'companyName', company.companyName));
+		}
+	}, {
+		key: 'onNewCreateCancel',
+		value: function onNewCreateCancel() {
+			this.openNewCreateDialog();
+		}
+	}, {
+		key: 'onLoaded',
+		value: function onLoaded(response) {
+			var list = response;
+			this.setState({
+				list: list
+			});
+		}
+		//操作相关
+
+	}, {
+		key: 'onOperation',
+		value: function onOperation(type, itemDetail) {
+			this.setState({
+				itemDetail: itemDetail
+			});
+			// console.log("itemDetail",itemDetail);
+			if (type == 'view') {
+				window.open('./#/member/MemberManage/' + itemDetail.id + '/detail/' + itemDetail.companyId, itemDetail.id);
+			} else if (type == 'edit') {
+				this.openEditDetailDialog();
+			}
+		}
+		// 导出Excle表格
+
+		//提交编辑
+
+		// 提交新建
+
+		// 查询
+
+	}, {
+		key: 'openAdvancedQueryDialog',
+
+		// 打开高级查询
+		value: function openAdvancedQueryDialog() {
+			this.setState({
+				openAdvancedQuery: !this.state.openAdvancedQuery
+			});
+		}
+		// 高级查询
+
+	}, {
+		key: 'render',
+		value: function render() {
+			var _state = this.state,
+			    list = _state.list,
+			    itemDetail = _state.itemDetail,
+			    seleced = _state.seleced;
+			// console.log("list",list);
+
+			if (!list.totalCount) {
+				list.totalCount = 0;
+			}
+			var options = [{
+				label: '公司名称',
+				value: 'COMP_NAME'
+			}, {
+				label: '手机号',
+				value: 'PHONE'
+			}, {
+				label: '微信',
+				value: 'WECHAT'
+			}, {
+				label: '姓名',
+				value: 'NAME'
+			}];
+			return _react2.default.createElement(
+				'div',
+				{ style: { minHeight: '910', backgroundColor: "#fff" } },
+				_react2.default.createElement(_krUi.Title, { value: '\u5168\u90E8\u4F1A\u5458 ' }),
+				_react2.default.createElement(
+					_krUi.Section,
+					{ title: '\u5168\u90E8\u4F1A\u5458 (' + list.totalCount + ')', description: '' },
+					_react2.default.createElement(
+						'form',
+						{ name: 'searchForm', className: 'searchForm searchList', style: { marginBottom: 10, height: 45 } },
+						_react2.default.createElement(_krUi.Button, { label: '\u65B0\u5EFA\u4F1A\u5458', onTouchTap: this.openNewCreateDialog }),
+						_react2.default.createElement(_krUi.Button, { type: 'search', searchClick: this.openAdvancedQueryDialog, searchStyle: { marginLeft: '30', marginTop: '10', display: 'inline-block', float: 'right' } }),
+						_react2.default.createElement(_krUi.SearchForms, { onSubmit: this.onSearchSubmit, searchFilter: options, style: { marginTop: 5, zIndex: 10000 }, content: this.state.content, filter: this.state.filter })
+					),
+					_react2.default.createElement(
+						_krUi.Table,
+						{
+							className: 'member-list-table',
+							style: { marginTop: 10, position: 'inherit' },
+							onLoaded: this.onLoaded,
+							ajax: true,
+							onProcessData: function onProcessData(state) {
+								return state;
+							},
+							onOperation: this.onOperation,
+							exportSwitch: true,
+							onExport: this.onExport,
+							ajaxFieldListName: 'items',
+							ajaxUrlName: 'membersList',
+							ajaxParams: this.state.searchParams
+						},
+						_react2.default.createElement(
+							_krUi.TableHeader,
+							null,
+							_react2.default.createElement(
+								_krUi.TableHeaderColumn,
+								null,
+								'\u8054\u7CFB\u7535\u8BDD'
+							),
+							_react2.default.createElement(
+								_krUi.TableHeaderColumn,
+								null,
+								'\u59D3\u540D'
+							),
+							_react2.default.createElement(
+								_krUi.TableHeaderColumn,
+								null,
+								'\u5FAE\u4FE1'
+							),
+							_react2.default.createElement(
+								_krUi.TableHeaderColumn,
+								null,
+								'\u90AE\u7BB1'
+							),
+							_react2.default.createElement(
+								_krUi.TableHeaderColumn,
+								null,
+								'\u804C\u4F4D'
+							),
+							_react2.default.createElement(
+								_krUi.TableHeaderColumn,
+								null,
+								'\u5DE5\u4F5C\u5730\u70B9'
+							),
+							_react2.default.createElement(
+								_krUi.TableHeaderColumn,
+								null,
+								'\u516C\u53F8'
+							),
+							'// \u7531\u4E8E\u9875\u9762\u6548\u679C\u4E0D\u597D\u6682\u65F6\u4E0D\u6DFB\u52A0\u4F1A\u5458\u7B49\u7EA7\u8FD9\u4E00\u9879',
+							_react2.default.createElement(
+								_krUi.TableHeaderColumn,
+								null,
+								'\u6CE8\u518C\u6765\u6E90'
+							),
+							_react2.default.createElement(
+								_krUi.TableHeaderColumn,
+								null,
+								'\u6CE8\u518C\u65E5\u671F'
+							),
+							_react2.default.createElement(
+								_krUi.TableHeaderColumn,
+								null,
+								'\u64CD\u4F5C'
+							)
+						),
+						_react2.default.createElement(
+							_krUi.TableBody,
+							{ style: { position: 'inherit' } },
+							_react2.default.createElement(
+								_krUi.TableRow,
+								{ displayCheckbox: true },
+								_react2.default.createElement(_krUi.TableRowColumn, { name: 'phone',
+									component: function component(value, oldValue) {
+										if (value == "") {
+											value = "-";
+										}
+										return _react2.default.createElement(
+											'span',
+											null,
+											value
+										);
+									}
+								}),
+								_react2.default.createElement(_krUi.TableRowColumn, { name: 'name',
+									component: function component(value, oldValue) {
+										if (value == "") {
+											value = "-";
+										}
+										return _react2.default.createElement(
+											'span',
+											null,
+											value
+										);
+									}
+								}),
+								_react2.default.createElement(_krUi.TableRowColumn, { name: 'wechatNick',
+									component: function component(value, oldValue) {
+										if (value == "") {
+											value = "-";
+										}
+										return _react2.default.createElement(
+											'span',
+											null,
+											value
+										);
+									}
+								}),
+								_react2.default.createElement(_krUi.TableRowColumn, { name: 'email',
+									component: function component(value, oldValue) {
+										if (value == "") {
+											value = "-";
+										}
+										return _react2.default.createElement(
+											'span',
+											null,
+											value
+										);
+									}
+								}),
+								_react2.default.createElement(_krUi.TableRowColumn, { name: 'jobName',
+									component: function component(value, oldValue) {
+										if (value == "") {
+											value = "-";
+										}
+										return _react2.default.createElement(
+											'span',
+											null,
+											value
+										);
+									}
+								}),
+								_react2.default.createElement(_krUi.TableRowColumn, { name: 'cityName',
+									component: function component(value, oldValue) {
+										if (value == "") {
+											value = "-";
+										}
+										return _react2.default.createElement(
+											'span',
+											null,
+											value
+										);
+									}
+								}),
+								_react2.default.createElement(_krUi.TableRowColumn, { name: 'companyName',
+									component: function component(value, oldValue) {
+										if (value == "") {
+											value = "-";
+										}
+										return _react2.default.createElement(
+											'span',
+											null,
+											value
+										);
+									}
+								}),
+								_react2.default.createElement(_krUi.TableRowColumn, { name: 'registerName',
+									component: function component(value, oldValue) {
+										if (value == "") {
+											value = "-";
+										}
+										return _react2.default.createElement(
+											'span',
+											null,
+											value
+										);
+									} }),
+								_react2.default.createElement(_krUi.TableRowColumn, { name: 'registerTime', type: 'date', format: 'yyyy-mm-dd' }),
+								_react2.default.createElement(
+									_krUi.TableRowColumn,
+									{ type: 'operation' },
+									_react2.default.createElement(_krUi.Button, { label: '\u8BE6\u60C5', type: 'operation', operation: 'view' }),
+									_react2.default.createElement(_krUi.Button, { label: '\u7F16\u8F91', type: 'operation', operation: 'edit' })
+								)
+							)
+						),
+						_react2.default.createElement(_krUi.TableFooter, null)
+					)
+				),
+				_react2.default.createElement(
+					_krUi.Dialog,
+					{
+						title: '\u65B0\u5EFA\u4F1A\u5458',
+						modal: true,
+						open: this.state.openNewCreate,
+						onClose: this.openNewCreateDialog,
+						contentStyle: { width: 687 }
+					},
+					_react2.default.createElement(_NewCreateForm2.default, { onSubmit: this.onNewCreateSubmit, onCancel: this.openNewCreateDialog })
+				),
+				_react2.default.createElement(
+					_krUi.Dialog,
+					{
+						title: '\u7F16\u8F91\u4F1A\u5458',
+						modal: true,
+						open: this.state.openEditDetail,
+						onClose: this.openEditDetailDialog,
+						contentStyle: { width: 687 }
+					},
+					_react2.default.createElement(_MemeberEditMemberForm2.default, { onSubmit: this.onEditSubmit, params: this.params, onCancel: this.openEditDetailDialog, detail: itemDetail })
+				),
+				_react2.default.createElement(
+					_krUi.Dialog,
+					{
+						title: '\u9AD8\u7EA7\u67E5\u8BE2',
+						modal: true,
+						open: this.state.openAdvancedQuery,
+						onClose: this.openAdvancedQueryDialog,
+						contentStyle: { width: 687 }
+					},
+					_react2.default.createElement(_AdvancedQueryForm2.default, { onSubmit: this.onAdvanceSearchSubmit, params: this.params, onCancel: this.openAdvancedQueryDialog, detail: itemDetail, style: { marginTop: 37 }, content: this.state.content, filter: this.state.filter })
+				)
+			);
+		}
+	}]);
+
+	return List;
+}(_react.Component);
+
+List.contextTypes = {
+	router: _react2.default.PropTypes.object.isRequired
+};
+exports.default = List;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(List, 'List', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Member/MemberManage/List/index.js');
+}();
+
+;

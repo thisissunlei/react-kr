@@ -1,0 +1,19 @@
+/Users/joneyphair/Code/kr-admin-new/src/Containers/Operation/CustomerManage/Agreement/Exit/Create/NewCreateForm.js: Missing class properties transform.
+SyntaxError: /Users/joneyphair/Code/kr-admin-new/src/Containers/Operation/CustomerManage/Agreement/Exit/Create/NewCreateForm.js: Missing class properties transform.
+[0m [90m 68 | [39m[36mclass[39m [33mNewCreateForm[39m [36mextends[39m [33mComponent[39m {
+ [90m 69 | [39m
+[31m[1m>[22m[39m[90m 70 | [39m	static defaultPropTypes [33m=[39m {
+ [90m    | [39m	[31m[1m^[22m[39m
+ [90m 71 | [39m		initialValues[33m:[39m {
+ [90m 72 | [39m			customerName[33m:[39m [32m''[39m[33m,[39m
+ [90m 73 | [39m			communityName[33m:[39m [32m''[39m[33m,[39m[0m
+    at File.buildCodeFrameError (/Users/joneyphair/Code/kr-admin-new/node_modules/.6.7.7@babel-core/lib/transformation/file/index.js:407:15)
+    at NodePath.buildCodeFrameError (/Users/joneyphair/Code/kr-admin-new/node_modules/.6.23.1@babel-traverse/lib/path/index.js:140:26)
+    at ClassTransformer.pushBody (/Users/joneyphair/Code/kr-admin-new/node_modules/.6.23.0@babel-plugin-transform-es2015-classes/lib/vanilla.js:262:20)
+    at ClassTransformer.buildBody (/Users/joneyphair/Code/kr-admin-new/node_modules/.6.23.0@babel-plugin-transform-es2015-classes/lib/vanilla.js:229:10)
+    at ClassTransformer.run (/Users/joneyphair/Code/kr-admin-new/node_modules/.6.23.0@babel-plugin-transform-es2015-classes/lib/vanilla.js:143:10)
+    at PluginPass.ClassExpression (/Users/joneyphair/Code/kr-admin-new/node_modules/.6.23.0@babel-plugin-transform-es2015-classes/lib/index.js:48:60)
+    at newFn (/Users/joneyphair/Code/kr-admin-new/node_modules/.6.23.1@babel-traverse/lib/visitors.js:276:21)
+    at NodePath._call (/Users/joneyphair/Code/kr-admin-new/node_modules/.6.23.1@babel-traverse/lib/path/context.js:76:18)
+    at NodePath.call (/Users/joneyphair/Code/kr-admin-new/node_modules/.6.23.1@babel-traverse/lib/path/context.js:48:17)
+    at NodePath.visit (/Users/joneyphair/Code/kr-admin-new/node_modules/.6.23.1@babel-traverse/lib/path/context.js:105:12)

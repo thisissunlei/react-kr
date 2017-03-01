@@ -48,42 +48,6 @@ class NewActivation extends Component {
 		}
 
 	}
-	componentDidMount() {
-
-		var _this = this;
-		Store.dispatch(Actions.callAPI('getFinaDataCommunityAndMainBillType')).then(function(response) {
-
-			const communityList = response.communityList
-			const mainbilltypeList = response.mainbilltypeList
-
-
-
-			communityList.map(function(item, index) {
-				item.label = item.communityname;
-				item.value = item.id
-				return item;
-			});
-
-			mainbilltypeList.map(function(item, index) {
-				item.label = item.mainBillTypeDesc;
-				item.value = item.mainbilltype;
-				return item;
-			});
-
-			_this.setState({
-				communityList,
-				mainbilltypeList
-			});
-
-		}).catch(function(err) {
-			Notify.show([{
-				message: '报错了',
-				type: 'danger',
-			}]);
-		});
-
-
-	}
 	onSubmit(values) {
 		if (navigator.onLine) 
 		{ //正常工作

@@ -1,0 +1,121 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _krUi = require('kr-ui');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var OrganizationChart = function (_Component) {
+	_inherits(OrganizationChart, _Component);
+
+	function OrganizationChart(props, context) {
+		_classCallCheck(this, OrganizationChart);
+
+		var _this = _possibleConstructorReturn(this, (OrganizationChart.__proto__ || Object.getPrototypeOf(OrganizationChart)).call(this, props, context));
+
+		_this.onLoaded = function (response) {
+			// console.log("this.props.params",this.props.params);
+			var list = response;
+			// console.log(list,"组织架构list");
+			_this.setState({
+				list: list
+			});
+		};
+
+		_this.params = _this.context.router.params;
+		_this.state = {
+			item: {},
+			list: {},
+			organizationChart: {
+				page: 1,
+				pageSize: 15,
+				companyId: _this.params.companyId
+			}
+		};
+		return _this;
+	}
+
+	_createClass(OrganizationChart, [{
+		key: 'render',
+		value: function render() {
+			var list = this.state.list;
+
+
+			if (!list.totalCount) {
+				list.totalCount = 0;
+			}
+			return _react2.default.createElement(
+				'div',
+				{ style: { height: 860 } },
+				_react2.default.createElement(
+					_krUi.Table,
+					{
+						className: 'member-list-table',
+						style: { marginTop: 10 },
+						displayCheckbox: false,
+						onLoaded: this.onLoaded,
+						ajax: true,
+						onProcessData: function onProcessData(state) {
+							return state;
+						},
+						ajaxFieldListName: 'items',
+						ajaxUrlName: 'getOrganizationChart',
+						ajaxParams: this.state.organizationChart
+					},
+					_react2.default.createElement(
+						_krUi.TableHeader,
+						null,
+						_react2.default.createElement(
+							_krUi.TableHeaderColumn,
+							null,
+							'\u804C\u4F4D'
+						),
+						_react2.default.createElement(
+							_krUi.TableHeaderColumn,
+							null,
+							'\u59D3\u540D'
+						)
+					),
+					_react2.default.createElement(
+						_krUi.TableBody,
+						{ style: { position: 'inherit' } },
+						_react2.default.createElement(
+							_krUi.TableRow,
+							{ displayCheckbox: true },
+							_react2.default.createElement(_krUi.TableRowColumn, { name: 'jobName' }),
+							_react2.default.createElement(_krUi.TableRowColumn, { name: 'name' })
+						)
+					),
+					_react2.default.createElement(_krUi.TableFooter, null)
+				)
+			);
+		}
+	}]);
+
+	return OrganizationChart;
+}(_react.Component);
+
+OrganizationChart.contextTypes = {
+	router: _react2.default.PropTypes.object.isRequired
+};
+OrganizationChart.defaultProps = {};
+OrganizationChart.PropTypes = {
+	displayCheckbox: false
+};
+exports.default = OrganizationChart;

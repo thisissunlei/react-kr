@@ -2,7 +2,7 @@
  import fetch from 'isomorphic-fetch';
  import URLSearchParams from 'url-search-params';
  import {
- 	browserHistory
+     browserHistory
  } from 'react-router';
  import APIS from '../../Configs/apis';
 
@@ -13,306 +13,323 @@
 
  function getUrl(path, params = {}, mode = false) {
 
- 	let server = '';
-
- 	if (env === 'development') {
- 		server = 'http://optest.krspace.cn';
- 	} else if (env === 'test01') {
- 		server = 'http://sso.krspace.cn';
- 	} else if (env === 'test02') {
- 		server = 'http://optest02.krspace.cn';
- 	} else {
- 		server = '';
- 	}
+     let server = '';
 
 
- 	/*
-    if (path.match(/^http/) != 'null') {
-        return path;
-    }
-    */
+     if (env === 'test') {
+         server = 'http://optest.krspace.cn';
+     }
+     if (env === 'development') {
+         server = 'http://optest.krspace.cn';
+     } else if (env === 'test01') {
+         //server = 'http://sso.krspace.cn';
+         server = 'http://optest01.krspace.cn';
+     } else if (env === 'test02') {
+         server = 'http://optest02.krspace.cn';
+     } else {
+         server = '';
+     }
 
 
- 	try {
- 		server += APIS[path].url;
- 	} catch (err) {
- 		console.error(`${path} not defined in apis.js`);
- 		return false;
- 	}
 
- 	if (Object.keys(params).length) {
- 		for (let item in params) {
- 			if (params.hasOwnProperty(item)) {
- 				server = server.replace('{' + item + '}', encodeURI(params[item]));
- 				delete params[item];
- 			}
- 		}
- 	}
+     /*
+     if (path.match(/^http/) != 'null') {
+         return path;
+     }
+     */
+     //本地联调接口
+     // let url = APIS[path].url;
+     // if(url.indexOf('apixr')){
+     //  server = ''
+     // }
 
 
- 	if (!mode) {
+     var url = APIS[path].url;
 
- 		var searchParams = new URLSearchParams();
+     if (url.indexOf('mockjsdata') !== -1) {
+         server = '';
+     }
+     try {
+         server += APIS[path].url;
+     } catch (err) {
+         console.error(`${path} not defined in apis.js`);
+         return false;
+     }
 
- 		for (let item in params) {
- 			if (params.hasOwnProperty(item)) {
- 				searchParams.set(item, params[item]);
- 			}
- 		}
 
- 		if (server.indexOf('?') !== -1) {
- 			server += '&' + searchParams.toString();
- 		} else {
- 			server += '?' + searchParams.toString();
- 		}
- 	}
+     if (Object.keys(params).length) {
+         for (let item in params) {
+             if (params.hasOwnProperty(item)) {
+                 server = server.replace('{' + item + '}', encodeURI(params[item]));
+                 delete params[item];
+             }
+         }
+     }
 
- 	//去除多余参数
- 	server = server.replace(/={.*?}/gi, '=');
 
- 	return server;
+     if (!mode) {
+
+         var searchParams = new URLSearchParams();
+
+         for (let item in params) {
+             if (params.hasOwnProperty(item)) {
+                 searchParams.set(item, params[item]);
+             }
+         }
+
+         if (server.indexOf('?') !== -1) {
+             server += '&' + searchParams.toString();
+         } else {
+             server += '?' + searchParams.toString();
+         }
+     }
+
+     //去除多余参数
+     server = server.replace(/={.*?}/gi, '=');
+
+     return server;
  }
 
 
 
  function getMethod(path) {
 
- 	const apiConfig = APIS[path];
- 	return apiConfig.method;
+     const apiConfig = APIS[path];
+     return apiConfig.method;
  }
 
  function check401(res) {
- 	if (res.code === -4011) {
- 		window.location.href = '/';
- 	}
- 	return res;
+     if (res.code === -4011) {
+         window.location.href = '/';
+     }
+     return res;
  }
 
  function jsonParse(res) {
- 	return res.json();
+     return res.json();
  }
 
  const http = {
 
- 	request: (path = 'demo', params, payload, method) => {
+     request: (path = 'demo', params, payload, method) => {
 
 
 
- 		const url = getUrl(path, params);
+         const url = getUrl(path, params);
 
- 		method = method || getMethod(path);
- 		var promise = '';
+         method = method || getMethod(path);
+         var promise = '';
 
- 		if (!url) {
- 			return;
- 		}
+         if (!url) {
+             return;
+         }
 
- 		switch (method) {
- 			case 'get':
- 				{
+         switch (method) {
+             case 'get':
+                 {
 
- 					promise = http.get(url, params);
- 					break;
- 				}
- 			case 'post':
- 				{
- 					promise = http.post(url, params, payload);
- 					break;
- 				}
+                     promise = http.get(url, params);
+                     break;
+                 }
+             case 'post':
+                 {
+                     promise = http.post(url, params, payload);
+                     break;
+                 }
 
- 			case 'put':
- 				{
- 					promise = http.update(url, params, payload);
- 					break;
- 				}
- 			case 'delete':
- 				{
- 					promise = http.remove(url, params, payload);
- 					break;
- 				}
- 			default:
- 				{
- 					promise = http.get(url, params, payload);
- 					break;
- 				}
- 		}
+             case 'put':
+                 {
+                     promise = http.update(url, params, payload);
+                     break;
+                 }
+             case 'delete':
+                 {
+                     promise = http.remove(url, params, payload);
+                     break;
+                 }
+             default:
+                 {
+                     promise = http.get(url, params, payload);
+                     break;
+                 }
+         }
 
- 		return promise;
- 	},
- 	transformPreResponse(response) {
- 		var data = response;
- 		//处理mock 数据
- 		if (Object.prototype.toString.call(response) === '[object Array]') {
- 			data = response.pop();
- 		}
- 		return data;
- 	},
- 	transformResponse: function(response) {
- 		return response.data;
- 	},
- 	get: (url, params) => new Promise((resolve, reject) => {
+         return promise;
+     },
+     transformPreResponse(response) {
+         var data = response;
+         //处理mock 数据
+         if (Object.prototype.toString.call(response) === '[object Array]') {
+             data = response.pop();
+         }
+         return data;
+     },
+     transformResponse: function(response) {
+         return response.data;
+     },
+     get: (url, params) => new Promise((resolve, reject) => {
 
- 		if (!url) {
- 			return;
- 		}
+         if (!url) {
+             return;
+         }
 
- 		fetch(url, {
- 				method: 'GET',
- 				headers: {
- 					'Accept': '*',
- 					'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
- 				},
- 				mode: 'cors',
- 				credentials: 'include',
- 			})
- 			.then(jsonParse)
- 			.then(check401)
- 			.then(http.transformPreResponse)
- 			.then(json => {
- 				if (parseInt(json.code) > 0) {
- 					//处理数据格式
- 					resolve(http.transformResponse(json));
- 				} else {
- 					reject(json);
- 				}
- 			})
- 			.catch(err => reject(err));
- 	}),
+         fetch(url, {
+                 method: 'GET',
+                 headers: {
+                     'Accept': '*',
+                     'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                 },
+                 mode: 'cors',
+                 credentials: 'include',
+             })
+             .then(jsonParse)
+             .then(check401)
+             .then(http.transformPreResponse)
+             .then(json => {
+                 if (parseInt(json.code) > 0) {
+                     //处理数据格式
+                     resolve(http.transformResponse(json));
+                 } else {
+                     reject(json);
+                 }
+             })
+             .catch(err => reject(err));
+     }),
 
- 	getdemo: (url, params) => new Promise((resolve, reject) => {
+     getdemo: (url, params) => new Promise((resolve, reject) => {
 
- 		if (!url) {
- 			return;
- 		}
+         if (!url) {
+             return;
+         }
 
- 		var xhr = new XMLHttpRequest();
+         var xhr = new XMLHttpRequest();
 
- 		xhr.withCredentials = true;
- 		xhr.open('GET', url, true);
- 		xhr.responseType = 'json';
- 		xhr.onload = function(e) {
- 			if (this.status >= 200 || this.status < 300) {
- 				var json = http.transformPreResponse(xhr.response);
- 				if (json && json.code && parseInt(json.code) > 0) {
- 					//处理数据格式
- 					resolve(http.transformResponse(json))
- 				} else {
- 					reject(json)
- 				}
- 			} else {
- 				reject(xhr.response);
- 			}
- 		};
- 		xhr.send();
- 	}),
+         xhr.withCredentials = true;
+         xhr.open('GET', url, true);
+         xhr.responseType = 'json';
+         xhr.onload = function(e) {
+             if (this.status >= 200 || this.status < 300) {
+                 var json = http.transformPreResponse(xhr.response);
+                 if (json && json.code && parseInt(json.code) > 0) {
+                     //处理数据格式
+                     resolve(http.transformResponse(json))
+                 } else {
+                     reject(json)
+                 }
+             } else {
+                 reject(xhr.response);
+             }
+         };
+         xhr.send();
+     }),
 
- 	post: (url, params, payload) => new Promise((resolve, reject) => {
+     post: (url, params, payload) => new Promise((resolve, reject) => {
 
- 		if (!url) {
- 			return
- 		}
+         if (!url) {
+             return
+         }
 
- 		var bodyParams = [];
- 		for (var p in payload) {
- 			bodyParams.push(encodeURIComponent(p) + "=" + encodeURIComponent(payload[p]));
- 		}
+         var bodyParams = [];
+         for (var p in payload) {
+             bodyParams.push(encodeURIComponent(p) + "=" + encodeURIComponent(payload[p]));
+         }
 
- 		fetch(url, {
- 			method: 'POST',
- 			credentials: 'include',
- 			mode: 'cors',
- 			headers: {
- 				'Accept': '*',
- 				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
- 				"Cookie": document.cookie
- 			},
- 			body: bodyParams.join('&')
- 		})
+         fetch(url, {
+             method: 'POST',
+             credentials: 'include',
+             mode: 'cors',
+             headers: {
+                 'Accept': '*',
+                 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                 "Cookie": document.cookie
+             },
+             body: bodyParams.join('&')
+         })
 
- 		.then(jsonParse)
- 			.then(check401)
- 			.then(http.transformPreResponse)
- 			.then(json => {
+         .then(jsonParse)
+             .then(check401)
+             .then(http.transformPreResponse)
+             .then(json => {
 
- 				if (parseInt(json.code) > 0) {
- 					//处理数据格式
- 					resolve(http.transformResponse(json));
- 				} else {
- 					reject(json);
- 				}
- 			})
- 			.catch(err => reject(err));
- 	}),
+                 if (parseInt(json.code) > 0) {
+                     //处理数据格式
+                     resolve(http.transformResponse(json));
+                 } else {
+                     reject(json);
+                 }
+             })
+             .catch(err => reject(err));
+     }),
 
- 	update: (url, params, payload) => new Promise((resolve, reject) => {
- 		const searchParams = new URLSearchParams();
+     update: (url, params, payload) => new Promise((resolve, reject) => {
+         const searchParams = new URLSearchParams();
 
- 		if (!url) {
- 			return
- 		}
+         if (!url) {
+             return
+         }
 
- 		for (const prop in payload) {
- 			searchParams.set(prop, payload[prop])
- 		}
+         for (const prop in payload) {
+             searchParams.set(prop, payload[prop])
+         }
 
- 		fetch(url, {
- 				method: 'PUT',
- 				credentials: 'include',
- 				mode: 'cors',
- 				headers: {
- 					'Accept': '*',
- 					'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
- 				},
- 				body: searchParams
- 			})
- 			.then(jsonParse)
- 			.then(check401)
- 			.then(http.transformPreResponse)
- 			.then(json => {
- 				if (parseInt(json.code) > 0) {
- 					//处理数据格式
- 					resolve(http.transformResponse(json));
- 				} else {
- 					reject(json);
- 				}
- 			})
- 			.catch(err => reject(err));
- 	}),
+         fetch(url, {
+                 method: 'PUT',
+                 credentials: 'include',
+                 mode: 'cors',
+                 headers: {
+                     'Accept': '*',
+                     'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                 },
+                 body: searchParams
+             })
+             .then(jsonParse)
+             .then(check401)
+             .then(http.transformPreResponse)
+             .then(json => {
+                 if (parseInt(json.code) > 0) {
+                     //处理数据格式
+                     resolve(http.transformResponse(json));
+                 } else {
+                     reject(json);
+                 }
+             })
+             .catch(err => reject(err));
+     }),
 
- 	remove: (url, params, payload) => new Promise((resolve, reject) => {
- 		const searchParams = new URLSearchParams();
+     remove: (url, params, payload) => new Promise((resolve, reject) => {
+         const searchParams = new URLSearchParams();
 
- 		if (!url) {
- 			return
- 		}
+         if (!url) {
+             return
+         }
 
- 		for (const prop in payload) {
- 			searchParams.set(prop, payload[prop])
- 		}
+         for (const prop in payload) {
+             searchParams.set(prop, payload[prop])
+         }
 
- 		return fetch(url, {
- 				method: 'DELETE',
- 				credentials: 'include',
- 				mode: 'cors',
- 				headers: {
- 					'Accept': '*',
- 					'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
- 				},
- 				body: searchParams
- 			})
- 			.then(jsonParse)
- 			.then(check401)
- 			.then(http.transformPreResponse)
- 			.then(json => {
- 				if (parseInt(json.code) > 0) {
- 					//处理数据格式
- 					resolve(http.transformResponse(json))
- 				} else {
- 					reject(json)
- 				}
- 			})
- 			.catch(err => reject(err));
- 	}),
+         return fetch(url, {
+                 method: 'DELETE',
+                 credentials: 'include',
+                 mode: 'cors',
+                 headers: {
+                     'Accept': '*',
+                     'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                 },
+                 body: searchParams
+             })
+             .then(jsonParse)
+             .then(check401)
+             .then(http.transformPreResponse)
+             .then(json => {
+                 if (parseInt(json.code) > 0) {
+                     //处理数据格式
+                     resolve(http.transformResponse(json))
+                 } else {
+                     reject(json)
+                 }
+             })
+             .catch(err => reject(err));
+     }),
  }
 
 

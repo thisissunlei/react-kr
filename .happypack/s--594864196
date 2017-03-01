@@ -1,0 +1,239 @@
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+require('./index.less');
+
+var _Dialog = require('../Dialog');
+
+var _Dialog2 = _interopRequireDefault(_Dialog);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var containerDOM = '';
+var shadowDOM = '';
+var containerWarnDOM = '';
+
+var Message = function (_Component) {
+	_inherits(Message, _Component);
+
+	function Message(props) {
+		_classCallCheck(this, Message);
+
+		var _this = _possibleConstructorReturn(this, (Message.__proto__ || Object.getPrototypeOf(Message)).call(this, props));
+
+		_this.onClose = function () {
+			_this.setState({
+				isClassName: !_this.state.isClassName
+			});
+			window.setTimeout(function () {
+				_reactDom2.default.render(_react2.default.createElement('div', { className: 'hide' }), shadowDOM);
+			}, 500);
+		};
+
+		_this.state = {
+			isClassName: false
+		};
+		return _this;
+	}
+
+	_createClass(Message, [{
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    messages = _props.messages,
+			    className = _props.className;
+			var isClassName = this.state.isClassName;
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'shadow' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'ui-message message_box ' + (isClassName ? 'exit' : '') },
+					_react2.default.createElement('span', { onTouchTap: this.onClose }),
+					_react2.default.createElement(
+						'p',
+						{ className: className },
+						_react2.default.createElement(
+							'span',
+							null,
+							messages
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return Message;
+}(_react.Component);
+
+Message.displayName = 'Message';
+
+var Warn = function (_Component2) {
+	_inherits(Warn, _Component2);
+
+	function Warn(props) {
+		_classCallCheck(this, Warn);
+
+		var _this2 = _possibleConstructorReturn(this, (Warn.__proto__ || Object.getPrototypeOf(Warn)).call(this, props));
+
+		_this2.onClose = function () {
+			_this2.setState({
+				isClassName: !_this2.state.isClassName
+			});
+			window.setTimeout(function () {
+				_reactDom2.default.render(_react2.default.createElement('div', { className: 'hide' }), shadowDOM);
+			}, 500);
+		};
+
+		_this2.state = {
+			isClassName: false
+		};
+		return _this2;
+	}
+
+	_createClass(Warn, [{
+		key: 'render',
+		value: function render() {
+			var _props2 = this.props,
+			    messages = _props2.messages,
+			    className = _props2.className;
+			var isClassName = this.state.isClassName;
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'shadows ' + className },
+				_react2.default.createElement(
+					'div',
+					{ className: 'container-warn' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'ui-messages message_box_warn ' + className + ' ' + (isClassName ? 'exit' : '') },
+						_react2.default.createElement('span', { className: className, onTouchTap: this.onClose }),
+						_react2.default.createElement(
+							'span',
+							null,
+							messages
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return Warn;
+}(_react.Component);
+
+Warn.displayName = 'Message';
+
+
+function commonTimeout() {
+	setTimeout(function () {
+		_reactDom2.default.render(_react2.default.createElement('div', { className: 'hide' }), shadowDOM);
+	}, 1000);
+}
+
+/**
+* type success error normal
+*/
+
+function commonRender(messages, type, fn) {
+	var className = 'normal';
+	if (type == 'success') {
+		className = 'success';
+	} else if (type == 'error') {
+		className = 'error';
+	}
+	if (!containerDOM) {
+		shadowDOM = document.createElement('div');
+		shadowDOM.className = "outer";
+		containerDOM = document.createElement('div');
+		shadowDOM.appendChild(containerDOM);
+		document.body.appendChild(shadowDOM);
+	}
+	_reactDom2.default.render(_react2.default.createElement(Message, { messages: messages, className: className }), shadowDOM);
+	if (fn) {
+		fn();
+	}
+}
+function warnRender(messages, type, fn) {
+
+	var className = 'normal';
+	if (type == 'success') {
+		className = 'succes-warn';
+	} else if (type == 'error') {
+		className = 'error-warn';
+	} else if (type == 'warn') {
+		className = 'warn';
+	}
+	if (!containerWarnDOM) {
+
+		shadowDOM = document.createElement('div');
+		shadowDOM.className = 'outer';
+		containerWarnDOM = document.createElement('div');
+		shadowDOM.appendChild(containerWarnDOM);
+		document.body.appendChild(shadowDOM);
+	}
+	_reactDom2.default.render(_react2.default.createElement(Warn, { messages: messages, className: className }), shadowDOM);
+	if (fn) {
+		fn();
+	}
+}
+
+Message.show = function (messages) {
+	commonRender(messages, 'error');
+};
+
+Message.success = function (messages) {
+	commonRender(messages, 'success', commonTimeout);
+};
+
+Message.error = function (messages) {
+	commonRender(messages, 'error');
+};
+Message.warn = function (messages, type, fn) {
+	warnRender(messages, type, fn);
+};
+
+module.exports = Message;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(containerDOM, 'containerDOM', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Message/index.js');
+
+	__REACT_HOT_LOADER__.register(shadowDOM, 'shadowDOM', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Message/index.js');
+
+	__REACT_HOT_LOADER__.register(containerWarnDOM, 'containerWarnDOM', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Message/index.js');
+
+	__REACT_HOT_LOADER__.register(Message, 'Message', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Message/index.js');
+
+	__REACT_HOT_LOADER__.register(Warn, 'Warn', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Message/index.js');
+
+	__REACT_HOT_LOADER__.register(commonTimeout, 'commonTimeout', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Message/index.js');
+
+	__REACT_HOT_LOADER__.register(commonRender, 'commonRender', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Message/index.js');
+
+	__REACT_HOT_LOADER__.register(warnRender, 'warnRender', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Message/index.js');
+}();
+
+;

@@ -96,7 +96,7 @@ export default class CancleLeader extends Component {
 		xhr.onerror = function(e) {
 			console.error(xhr.statusText);
 		};
-		xhr.open('POST', 'http://optest02.krspace.cn/api/krspace-finance-web/member/member-excel', true);
+		xhr.open('POST', 'http://op.krspace.cn/api/krspace-finance-web/member/member-excel', true);
 		xhr.responseType = 'json';
 		xhr.send(form);
 

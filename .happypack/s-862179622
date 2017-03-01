@@ -1,0 +1,998 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _redux = require('redux');
+
+var _reduxForm = require('redux-form');
+
+var _Actions = require('kr-ui/../Redux/Actions');
+
+var actionCreators = _interopRequireWildcard(_Actions);
+
+var _dateformat = require('dateformat');
+
+var _dateformat2 = _interopRequireDefault(_dateformat);
+
+var _krUi = require('kr-ui');
+
+require('./index.less');
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SettingCreateForm = function SettingCreateForm(props) {
+  var error = props.error,
+      handleSubmit = props.handleSubmit,
+      pristine = props.pristine,
+      reset = props.reset,
+      submitting = props.submitting,
+      communitys = props.communitys,
+      onSubmit = props.onSubmit,
+      cityName = props.cityName,
+      onCancel = props.onCancel;
+
+
+  return _react2.default.createElement(
+    'form',
+    { className: 'listPorp', onSubmit: handleSubmit(onSubmit) },
+    _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, name: 'dicName', type: 'text', right: 22, component: 'input', label: '\u5B57\u6BB5\u540D\u79F0', requireLabel: true }),
+    _react2.default.createElement(
+      _krUi.KrField,
+      { grid: 1 / 2, name: 'enableFlag', component: 'group', label: '\u662F\u5426\u6709\u6548' },
+      _react2.default.createElement(
+        'div',
+        { className: 'listRadio' },
+        _react2.default.createElement(_krUi.KrField, { name: 'enableFlag', label: '\u662F', component: 'radio', type: 'radio', value: 'ENABLE' }),
+        _react2.default.createElement(_krUi.KrField, { name: 'enableFlag', label: '\u5426', component: 'radio', type: 'radio', value: 'DISENABLE' })
+      )
+    ),
+    _react2.default.createElement(_krUi.KrField, { name: 'remark', type: 'textarea', component: 'textarea', label: '\u5907\u6CE8', placeholder: '\u5907\u6CE8\u4FE1\u606F' }),
+    _react2.default.createElement(
+      _krUi.Grid,
+      { style: { marginTop: 0, marginBottom: 5 } },
+      _react2.default.createElement(
+        _krUi.Row,
+        null,
+        _react2.default.createElement(
+          _krUi.Col,
+          { md: 12, align: 'center' },
+          _react2.default.createElement(
+            _krUi.ButtonGroup,
+            null,
+            _react2.default.createElement(
+              'span',
+              { className: 'lyh-marginRight-15' },
+              _react2.default.createElement(_krUi.Button, { label: '\u786E\u5B9A', type: 'submit', joinEditForm: true })
+            ),
+            _react2.default.createElement(
+              'span',
+              { className: 'lyh-marginLeft-15' },
+              _react2.default.createElement(_krUi.Button, { className: 'lyh-cancel', label: '\u53D6\u6D88', type: 'button', onTouchTap: onCancel, cancle: true })
+            )
+          )
+        )
+      )
+    )
+  );
+};
+
+var settingCreateFormValidate = function settingCreateFormValidate(values) {
+  var errors = {};
+  if (!values.dicName) {
+    errors.dicName = '请输入字段名称';
+  }
+  return errors;
+};
+
+SettingCreateForm = (0, _reduxForm.reduxForm)({
+  form: 'settingCreateForm',
+  initialValues: {
+    enableFlag: 'ENABLE'
+  },
+  validate: settingCreateFormValidate
+})(SettingCreateForm);
+
+var SettingViewForm = function SettingViewForm(props) {
+  var items = props.items;
+
+  return _react2.default.createElement(
+    'div',
+    { className: 'listPorp' },
+    _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, inline: false, name: 'corporationName', component: 'labelText', label: '\u5B57\u6BB5\u540D\u79F0', value: items.sp.dicName }),
+    _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, inline: false, name: 'enableFlag', component: 'labelText', label: '\u662F\u5426\u6709\u6548', value: items.sp.enableFlag == "ENABLE" ? '是' : '否' }),
+    _react2.default.createElement(_krUi.KrField, { inline: false, name: 'corporationDesc', component: 'labelText', label: '\u5907\u6CE8', value: items.sp.remark })
+  );
+};
+
+var SettingChildViewForm = function SettingChildViewForm(props) {
+  var items = props.items;
+
+  return _react2.default.createElement(
+    'div',
+    { className: 'listPorp' },
+    _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, inline: false, name: 'corporationName', right: 22, component: 'labelText', label: '\u5B57\u6BB5\u540D\u79F0', value: items.dicName, requireLabel: true }),
+    _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, inline: false, name: 'enableFlag', component: 'labelText', label: '\u662F\u5426\u6709\u6548', value: items.enableFlag == "ENABLE" ? '是' : '否', requireLabel: true }),
+    _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, inline: false, name: 'corporationDesc', component: 'labelText', label: '\u5907\u6CE8', value: items.remark, requireLabel: true })
+  );
+};
+
+var SettingUpdateForm = function SettingUpdateForm(props) {
+  var items = props.items,
+      error = props.error,
+      handleSubmit = props.handleSubmit,
+      pristine = props.pristine,
+      reset = props.reset,
+      submitting = props.submitting,
+      communitys = props.communitys,
+      onSubmit = props.onSubmit,
+      onCancel = props.onCancel;
+
+
+  return _react2.default.createElement(
+    'form',
+    { className: 'listPorp', onSubmit: handleSubmit(onSubmit) },
+    _react2.default.createElement(_krUi.KrField, { name: 'id', type: 'hidden', label: 'id' }),
+    _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, name: 'dicName', right: 22, type: 'text', component: 'input', label: '\u5B57\u6BB5\u540D\u79F0', requireLabel: true }),
+    _react2.default.createElement(
+      _krUi.KrField,
+      { grid: 1 / 2, right: 22, name: 'enableFlag', component: 'group', label: '\u662F\u5426\u6709\u6548' },
+      _react2.default.createElement(
+        'div',
+        { className: 'listRadio' },
+        _react2.default.createElement(_krUi.KrField, { name: 'enableFlag', label: '\u662F', component: 'radio', type: 'radio', value: 'ENABLE' }),
+        _react2.default.createElement(_krUi.KrField, { name: 'enableFlag', label: '\u5426', component: 'radio', type: 'radio', value: 'DISENABLE' })
+      )
+    ),
+    _react2.default.createElement(_krUi.KrField, { name: 'remark', component: 'textarea', label: '\u5907\u6CE8', placeholder: '\u5907\u6CE8\u4FE1\u606F' }),
+    _react2.default.createElement(
+      _krUi.Grid,
+      { style: { marginTop: 0, marginBottom: 5 } },
+      _react2.default.createElement(
+        _krUi.Row,
+        null,
+        _react2.default.createElement(
+          _krUi.Col,
+          { md: 12, align: 'center' },
+          _react2.default.createElement(
+            _krUi.ButtonGroup,
+            null,
+            _react2.default.createElement(
+              'span',
+              { className: 'lyh-marginRight-15' },
+              _react2.default.createElement(_krUi.Button, { label: '\u786E\u5B9A', type: 'submit', joinEditForm: true })
+            ),
+            _react2.default.createElement(
+              'span',
+              { className: 'lyh-marginLeft-15' },
+              _react2.default.createElement(_krUi.Button, { label: '\u53D6\u6D88', type: 'button', onTouchTap: onCancel, cancle: true })
+            )
+          )
+        )
+      )
+    )
+  );
+};
+var settingUpdateForm = function settingUpdateForm(values) {
+  var errors = {};
+  if (!values.dicName) {
+    errors.dicName = '请输入字段名称';
+  }
+  return errors;
+};
+
+SettingUpdateForm = (0, _reduxForm.reduxForm)({
+  form: 'settingUpdateForm',
+
+  validate: settingUpdateForm
+})(SettingUpdateForm);
+
+var SettingChildUpdateForm = function SettingChildUpdateForm(props) {
+  var items = props.items,
+      error = props.error,
+      handleSubmit = props.handleSubmit,
+      pristine = props.pristine,
+      reset = props.reset,
+      submitting = props.submitting,
+      communitys = props.communitys,
+      onSubmit = props.onSubmit,
+      onCancel = props.onCancel;
+
+
+  return _react2.default.createElement(
+    'form',
+    { className: 'listPorp', onSubmit: handleSubmit(onSubmit) },
+    _react2.default.createElement(_krUi.KrField, { name: 'id', type: 'hidden', label: 'id' }),
+    _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, right: 22, name: 'dicName', type: 'text', component: 'input', label: '\u5B57\u6BB5\u540D\u79F0', requireLabel: true }),
+    _react2.default.createElement(
+      _krUi.KrField,
+      { className: 'radioAll', grid: 1 / 2, right: 22, name: 'enableFlag', component: 'group', label: '\u662F\u5426\u6709\u6548', requireLabel: true },
+      _react2.default.createElement(
+        'div',
+        { className: 'listRadio' },
+        _react2.default.createElement(_krUi.KrField, { name: 'enableFlag', label: '\u662F', component: 'radio', type: 'radio', value: 'ENABLE', requireLabel: true }),
+        _react2.default.createElement(_krUi.KrField, { name: 'enableFlag', label: '\u5426', component: 'radio', type: 'radio', value: 'DISENABLE', requireLabel: true })
+      )
+    ),
+    _react2.default.createElement(_krUi.KrField, { name: 'remark', component: 'textarea', label: '\u5907\u6CE8', placeholder: '\u5907\u6CE8\u4FE1\u606F', requireLabel: true }),
+    _react2.default.createElement(
+      _krUi.Grid,
+      { style: { marginTop: 0, marginBottom: 5 } },
+      _react2.default.createElement(
+        _krUi.Row,
+        null,
+        _react2.default.createElement(
+          _krUi.Col,
+          { md: 12, align: 'center' },
+          _react2.default.createElement(
+            _krUi.ButtonGroup,
+            null,
+            _react2.default.createElement(
+              'span',
+              { className: 'lyh-marginRight-15' },
+              _react2.default.createElement(_krUi.Button, { label: '\u786E\u5B9A', type: 'submit', joinEditForm: true })
+            ),
+            _react2.default.createElement(
+              'span',
+              { className: 'lyh-marginLeft-15' },
+              _react2.default.createElement(_krUi.Button, { label: '\u53D6\u6D88', type: 'button', onTouchTap: onCancel, cancle: true })
+            )
+          )
+        )
+      )
+    )
+  );
+};
+
+SettingChildUpdateForm = (0, _reduxForm.reduxForm)({
+  form: 'settingChildUpdateForm'
+})(SettingChildUpdateForm);
+
+var SettingAddForm = function SettingAddForm(props) {
+  var error = props.error,
+      handleSubmit = props.handleSubmit,
+      pristine = props.pristine,
+      reset = props.reset,
+      submitting = props.submitting,
+      communitys = props.communitys,
+      onSubmit = props.onSubmit,
+      onCancel = props.onCancel,
+      dicName = props.dicName;
+
+  if (props.dicName == '付款方式') {
+    return _react2.default.createElement(
+      'form',
+      { className: 'listPorp', onSubmit: handleSubmit(onSubmit) },
+      _react2.default.createElement(_krUi.KrField, { name: 'id', type: 'hidden', component: 'input', label: 'id' }),
+      _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, right: 22, name: 'dicName', type: 'text', label: '\u5B50\u9879\u540D\u79F0', requireLabel: true }),
+      _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, right: 22, inline: false, type: 'labelText', label: '\u5B57\u6BB5\u540D\u79F0', value: props.dicName }),
+      _react2.default.createElement(
+        _krUi.KrField,
+        { grid: 1 / 2, right: 22, name: 'enableFlag', component: 'group', label: '\u662F\u5426\u6709\u6548', requireLabel: true },
+        _react2.default.createElement(_krUi.KrField, { name: 'enableFlag', label: '\u662F', type: 'radio', value: 'ENABLE' }),
+        _react2.default.createElement(_krUi.KrField, { name: 'enableFlag', label: '\u5426', type: 'radio', value: 'DISENABLE' })
+      ),
+      _react2.default.createElement(_krUi.KrField, { name: 'remark', component: 'textarea', label: '\u5907\u6CE8', placeholder: '\u5907\u6CE8\u4FE1\u606F', requireLabel: true }),
+      _react2.default.createElement(
+        _krUi.Grid,
+        { style: { marginTop: 0, marginBottom: 5 } },
+        _react2.default.createElement(
+          _krUi.Row,
+          null,
+          _react2.default.createElement(
+            _krUi.Col,
+            { md: 12, align: 'center' },
+            _react2.default.createElement(
+              _krUi.ButtonGroup,
+              null,
+              _react2.default.createElement(
+                'span',
+                { className: 'lyh-marginRight-15' },
+                _react2.default.createElement(_krUi.Button, { label: '\u786E\u5B9A', type: 'submit', joinEditForm: true })
+              ),
+              _react2.default.createElement(
+                'span',
+                { className: 'lyh-marginLeft-15' },
+                _react2.default.createElement(_krUi.Button, { label: '\u53D6\u6D88', type: 'button', onTouchTap: onCancel, cancle: true })
+              )
+            )
+          )
+        )
+      )
+    );
+  }
+  return _react2.default.createElement(
+    'form',
+    { className: 'listPorp', onSubmit: handleSubmit(onSubmit) },
+    _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, right: 22, name: 'id', type: 'hidden', component: 'input', label: 'id' }),
+    _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, right: 22, name: 'dicName', type: 'text', label: '\u5B50\u9879\u540D\u79F0', requireLabel: true }),
+    _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, right: 22, inline: false, type: 'labelText', label: '\u5B57\u6BB5\u540D\u79F0', value: props.dicName }),
+    _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, right: 22, name: 'round', type: 'text', label: '\u62C6\u5206\u5468\u671F', requireLabel: true }),
+    _react2.default.createElement(
+      _krUi.KrField,
+      { grid: 1 / 2, right: 22, inline: false, name: 'enableFlag', component: 'group', label: '\u662F\u5426\u6709\u6548', requireLabel: true },
+      _react2.default.createElement(
+        'div',
+        { className: 'listRadio' },
+        _react2.default.createElement(_krUi.KrField, { name: 'enableFlag', label: '\u662F', type: 'radio', value: 'ENABLE' }),
+        _react2.default.createElement(_krUi.KrField, { name: 'enableFlag', label: '\u5426', type: 'radio', value: 'DISENABLE' })
+      )
+    ),
+    _react2.default.createElement(_krUi.KrField, { name: 'remark', component: 'textarea', label: '\u5907\u6CE8', placeholder: '\u5907\u6CE8\u4FE1\u606F', requireLabel: true }),
+    _react2.default.createElement(
+      _krUi.Grid,
+      { style: { marginTop: 0, marginBottom: 5 } },
+      _react2.default.createElement(
+        _krUi.Row,
+        null,
+        _react2.default.createElement(
+          _krUi.Col,
+          { md: 12, align: 'center' },
+          _react2.default.createElement(
+            _krUi.ButtonGroup,
+            null,
+            _react2.default.createElement(
+              'span',
+              { className: 'lyh-marginRight-15' },
+              _react2.default.createElement(_krUi.Button, { label: '\u786E\u5B9A', type: 'submit', joinEditForm: true })
+            ),
+            _react2.default.createElement(
+              'span',
+              { className: 'lyh-marginLeft-15' },
+              _react2.default.createElement(_krUi.Button, { label: '\u53D6\u6D88', type: 'button', onTouchTap: onCancel, cancle: true })
+            )
+          )
+        )
+      )
+    )
+  );
+};
+var SettingAddFormvalidate = function SettingAddFormvalidate(values) {
+  var errors = {};
+  if (!values.dicName) {
+    errors.dicName = '请输入子项名称';
+  }
+  if (!values.enableFlag) {
+    errors.enableFlag = '请选择是否有效';
+  }
+  if (!values.remark) {
+    errors.remark = '请输入备注信息';
+  }
+
+  if (values.round && !values.round) {
+    errors.round = '请输入拆分周期';
+  }
+
+  return errors;
+};
+SettingAddForm = (0, _reduxForm.reduxForm)({
+  form: 'settingAddForm',
+  validate: SettingAddFormvalidate
+})(SettingAddForm);
+
+var SettingList = function (_Component) {
+  _inherits(SettingList, _Component);
+
+  function SettingList(props, context) {
+    _classCallCheck(this, SettingList);
+
+    var _this2 = _possibleConstructorReturn(this, (SettingList.__proto__ || Object.getPrototypeOf(SettingList)).call(this, props, context));
+
+    _this2.confirmSubmit = _this2.confirmSubmit.bind(_this2);
+
+    _this2.confirmUpdateSubmit = _this2.confirmUpdateSubmit.bind(_this2);
+    _this2.openCreateDialog = _this2.openCreateDialog.bind(_this2);
+    _this2.renderCustomerItem = _this2.renderCustomerItem.bind(_this2);
+    _this2.confirmUpdateChildSubmit = _this2.confirmUpdateChildSubmit.bind(_this2);
+
+    _this2.openUpdateDialog = _this2.openUpdateDialog.bind(_this2);
+    _this2.getListData = _this2.getListData.bind(_this2);
+    _this2.openAddDialog = _this2.openAddDialog.bind(_this2);
+    _this2.openViewDialog = _this2.openViewDialog.bind(_this2);
+    _this2.openAdd = _this2.openAdd.bind(_this2);
+    _this2.renderItemChild = _this2.renderItemChild.bind(_this2);
+    _this2.renderItem = _this2.renderItem.bind(_this2);
+
+    _this2.openUpdateChildDialog = _this2.openUpdateChildDialog.bind(_this2);
+    _this2.openViewChildDialog = _this2.openViewChildDialog.bind(_this2);
+
+    _this2.state = {
+      open: false,
+      openCreate: false,
+      openView: false,
+      openUpdate: false,
+      openChildView: false,
+      openChildUpdate: false,
+      openAdddate: false,
+      dicName: 'sss',
+      pageSize: 15,
+      page: 1,
+      totalCount: 1
+
+    };
+
+    _this2.getListData();
+
+    return _this2;
+  }
+
+  _createClass(SettingList, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+
+      var _this = this;
+
+      _Redux.Store.dispatch(_Redux.Actions.callAPI('sysDicPaymentList', {
+        page: _this.state.page,
+        pageSize: _this.state.pageSize,
+        totalCount: _this.state.totalCount
+      })).then(function (response) {
+        _this.setState({
+          items: response
+        });
+      }).catch(function (err) {
+        _krUi.Notify.show([{
+          message: '报错了',
+          type: 'danger'
+        }]);
+      });
+    }
+  }, {
+    key: 'getListData',
+    value: function getListData() {
+      var actions = this.props.actions;
+
+      var _this = this;
+    }
+  }, {
+    key: 'confirmSubmit',
+    value: function confirmSubmit(values) {
+      console.log('添加子项', values);
+      _Redux.Store.dispatch(_Redux.Actions.callAPI('addSysDicPayment', {}, values)).then(function (response) {
+        _krUi.Notify.show([{
+          message: '创建成功!',
+          type: 'success'
+        }]);
+      }).catch(function (err) {
+        _krUi.Notify.show([{
+          message: err.message,
+          type: 'danger'
+        }]);
+        console.log(err.message);
+      });
+      this.openCreateDialog();
+
+      window.setTimeout(function () {
+        window.location.reload();
+      }, 0);
+    }
+  }, {
+    key: 'confirmUpdateSubmit',
+    value: function confirmUpdateSubmit(values) {
+
+      _Redux.Store.dispatch(_Redux.Actions.callAPI('editSysDicPayment', {}, values)).then(function (response) {
+        _krUi.Notify.show([{
+          message: '编辑成功!',
+          type: 'success'
+        }]);
+        setTimeout(function () {
+          window.location.reload();
+        }, 0);
+      }).catch(function (err) {
+        _krUi.Notify.show([{
+          message: err.message,
+          type: 'danger'
+        }]);
+      });
+
+      this.openUpdateDialog();
+    }
+  }, {
+    key: 'confirmUpdateChildSubmit',
+    value: function confirmUpdateChildSubmit(values) {
+
+      _Redux.Store.dispatch(_Redux.Actions.callAPI('editSysDicPayment', {}, values)).then(function (response) {
+        _krUi.Notify.show([{
+          message: '编辑成功!',
+          type: 'success'
+        }]);
+      }).catch(function (err) {
+        _krUi.Notify.show([{
+          message: err.message,
+          type: 'danger'
+        }]);
+      });
+      window.setTimeout(function () {
+        window.location.reload();
+      }, 0);
+      this.openUpdateChildDialog();
+    }
+  }, {
+    key: 'openViewChildDialog',
+    value: function openViewChildDialog(item) {
+
+      this.setState({
+        item: item,
+        openChildView: !this.state.openChildView
+      });
+    }
+  }, {
+    key: 'openUpdateChildDialog',
+    value: function openUpdateChildDialog(item) {
+      this.setState({
+        openChildUpdate: !this.state.openChildUpdate
+      });
+
+      _Redux.Store.dispatch((0, _reduxForm.change)('settingChildUpdateForm', 'id', item.id));
+      _Redux.Store.dispatch((0, _reduxForm.change)('settingChildUpdateForm', 'dicName', item.dicName));
+      _Redux.Store.dispatch((0, _reduxForm.change)('settingChildUpdateForm', 'enableFlag', item.enableFlag));
+      _Redux.Store.dispatch((0, _reduxForm.change)('settingChildUpdateForm', 'remark', item.remark));
+    }
+  }, {
+    key: 'openAddDialog',
+    value: function openAddDialog(item) {
+      this.setState({
+        openAdddate: !this.state.openAdddate,
+        dicName: item.sp.dicName
+      });
+
+      _Redux.Store.dispatch((0, _reduxForm.change)('settingAddForm', 'id', item.id));
+    }
+  }, {
+    key: 'openAdd',
+    value: function openAdd() {
+      this.setState({
+        openAdddate: !this.state.openAdddate
+
+      });
+    }
+  }, {
+    key: 'openCreateDialog',
+    value: function openCreateDialog() {
+
+      this.setState({
+        openCreate: !this.state.openCreate
+      });
+    }
+  }, {
+    key: 'openViewDialog',
+    value: function openViewDialog(index) {
+      var list = this.state.items;
+      this.setState({
+        item: list[index],
+        openView: !this.state.openView
+      });
+    }
+  }, {
+    key: 'openUpdateDialog',
+    value: function openUpdateDialog(index) {
+      var list = this.state.items;
+
+      this.setState({
+        openUpdate: !this.state.openUpdate
+      });
+
+      _Redux.Store.dispatch((0, _reduxForm.change)('settingUpdateForm', 'id', list[index].sp.id));
+      _Redux.Store.dispatch((0, _reduxForm.change)('settingUpdateForm', 'dicName', list[index].sp.dicName));
+      _Redux.Store.dispatch((0, _reduxForm.change)('settingUpdateForm', 'enableFlag', list[index].sp.enableFlag));
+      _Redux.Store.dispatch((0, _reduxForm.change)('settingUpdateForm', 'remark', list[index].sp.remark));
+    }
+  }, {
+    key: 'renderItem',
+    value: function renderItem(item, index) {
+      if (index % 2 == 0) {
+        return _react2.default.createElement(
+          _krUi.TableRow,
+          { key: index, className: 'odd' },
+          _react2.default.createElement(
+            _krUi.TableRowColumn,
+            null,
+            item.sp.dicName
+          ),
+          _react2.default.createElement(
+            _krUi.TableRowColumn,
+            null,
+            item.sp.enableFlag == "ENABLE" ? '是' : '否'
+          ),
+          _react2.default.createElement(
+            _krUi.TableRowColumn,
+            null,
+            item.sp.createName
+          ),
+          _react2.default.createElement(
+            _krUi.TableRowColumn,
+            { type: 'date' },
+            _react2.default.createElement(_krUi.KrDate, { value: item.sp.createTime })
+          ),
+          _react2.default.createElement(
+            _krUi.TableRowColumn,
+            null,
+            item.sp.remark
+          ),
+          _react2.default.createElement(
+            _krUi.TableRowColumn,
+            null,
+            _react2.default.createElement(_krUi.Button, { label: '\u67E5\u770B', type: 'link', onClick: this.openViewDialog.bind(this, index) }),
+            _react2.default.createElement(_krUi.Button, { label: '\u7F16\u8F91', type: 'link', onClick: this.openUpdateDialog.bind(this, index) }),
+            _react2.default.createElement(_krUi.Button, { label: '\u6DFB\u52A0\u5B50\u9879', type: 'link', id: this.state.id, onClick: this.openAddDialog.bind(this, item) }),
+            _react2.default.createElement('span', { className: 'bottomBtn' })
+          )
+        );
+      } else {
+        return _react2.default.createElement(
+          _krUi.TableRow,
+          { key: index, className: 'even' },
+          _react2.default.createElement(
+            _krUi.TableRowColumn,
+            null,
+            item.sp.dicName
+          ),
+          _react2.default.createElement(
+            _krUi.TableRowColumn,
+            null,
+            item.sp.enableFlag == "ENABLE" ? '是' : '否'
+          ),
+          _react2.default.createElement(
+            _krUi.TableRowColumn,
+            null,
+            item.sp.createName
+          ),
+          _react2.default.createElement(
+            _krUi.TableRowColumn,
+            { type: 'date' },
+            _react2.default.createElement(_krUi.KrDate, { value: item.sp.createTime })
+          ),
+          _react2.default.createElement(
+            _krUi.TableRowColumn,
+            null,
+            item.sp.remark
+          ),
+          _react2.default.createElement(
+            _krUi.TableRowColumn,
+            null,
+            _react2.default.createElement(_krUi.Button, { label: '\u67E5\u770B', type: 'link', onClick: this.openViewDialog.bind(this, index) }),
+            _react2.default.createElement(_krUi.Button, { label: '\u7F16\u8F91', type: 'link', onClick: this.openUpdateDialog.bind(this, index) }),
+            _react2.default.createElement(_krUi.Button, { label: '\u6DFB\u52A0\u5B50\u9879', type: 'link', id: this.state.id, onClick: this.openAddDialog.bind(this, item) }),
+            _react2.default.createElement('span', { className: 'bottomBtn' })
+          )
+        );
+      }
+    }
+  }, {
+    key: 'renderItemChild',
+    value: function renderItemChild(item, index) {
+      var _this3 = this;
+
+      if (item.length > 0) {
+        return _react2.default.createElement(
+          _krUi.TableRow,
+          { key: index },
+          _react2.default.createElement(
+            _krUi.TableRowColumn,
+            { colSpan: 9 },
+            _react2.default.createElement('div', { className: 'bottom' }),
+            _react2.default.createElement(
+              _krUi.Table,
+              { displayCheckbox: false, className: 'childTable' },
+              _react2.default.createElement(
+                _krUi.TableHeader,
+                null,
+                _react2.default.createElement(
+                  _krUi.TableHeaderColumn,
+                  null,
+                  '\u5B50\u9879\u540D\u79F0'
+                ),
+                _react2.default.createElement(
+                  _krUi.TableHeaderColumn,
+                  null,
+                  '\u662F\u5426\u6709\u6548'
+                ),
+                _react2.default.createElement(
+                  _krUi.TableHeaderColumn,
+                  null,
+                  '\u521B\u5EFA\u4EBA'
+                ),
+                _react2.default.createElement(
+                  _krUi.TableHeaderColumn,
+                  null,
+                  '\u521B\u5EFA\u65F6\u95F4'
+                ),
+                _react2.default.createElement(
+                  _krUi.TableHeaderColumn,
+                  null,
+                  '\u5907\u6CE8'
+                ),
+                _react2.default.createElement(
+                  _krUi.TableHeaderColumn,
+                  null,
+                  '\u64CD\u4F5C'
+                )
+              ),
+              _react2.default.createElement(
+                _krUi.TableBody,
+                null,
+                item.map(function (item, index) {
+                  return _react2.default.createElement(
+                    _krUi.TableRow,
+                    { key: index },
+                    _react2.default.createElement(
+                      _krUi.TableRowColumn,
+                      null,
+                      item.dicName
+                    ),
+                    _react2.default.createElement(
+                      _krUi.TableRowColumn,
+                      null,
+                      item.enableFlag == "ENABLE" ? '是' : '否'
+                    ),
+                    _react2.default.createElement(
+                      _krUi.TableRowColumn,
+                      null,
+                      item.createName
+                    ),
+                    _react2.default.createElement(
+                      _krUi.TableRowColumn,
+                      null,
+                      _react2.default.createElement(_krUi.KrDate, { value: item.createTime })
+                    ),
+                    _react2.default.createElement(
+                      _krUi.TableRowColumn,
+                      null,
+                      item.remark
+                    ),
+                    _react2.default.createElement(
+                      _krUi.TableRowColumn,
+                      null,
+                      _react2.default.createElement(_krUi.Button, { label: '\u67E5\u770B', type: 'link', onClick: _this3.openViewChildDialog.bind(_this3, item) }),
+                      _react2.default.createElement(_krUi.Button, { label: '\u7F16\u8F91', type: 'link', onClick: _this3.openUpdateChildDialog.bind(_this3, item) })
+                    )
+                  );
+                })
+              )
+            )
+          )
+        );
+      }
+    }
+  }, {
+    key: 'renderCustomerItem',
+    value: function renderCustomerItem() {
+
+      var items = this.state.items || [];
+
+      if (!items.length) {
+        return _react2.default.createElement(
+          _krUi.TableBody,
+          { style: { paddingTop: 10 } },
+          _react2.default.createElement(
+            _krUi.TableRow,
+            { displayCheckbox: false },
+            _react2.default.createElement(
+              _krUi.TableRowColumn,
+              { colSpan: 8 },
+              _react2.default.createElement(
+                'div',
+                { style: { textAlign: 'center', paddingTop: 50, paddingBottom: 50 } },
+                '\u6682\u65E0\u6570\u636E'
+              )
+            )
+          )
+        );
+      }
+
+      var allChildren = [];
+
+      var _this = this;
+
+      items.map(function (item, index) {
+        allChildren.push(_this.renderItem(item, index));
+        allChildren.push(_this.renderItemChild(item.spList, index));
+      });
+
+      return _react2.default.createElement(
+        _krUi.TableBody,
+        { colSpan: 10 },
+        allChildren
+      );
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var communitys = this.state.communitys;
+
+
+      var actions = [_react2.default.createElement(_krUi.Button, {
+        label: '\u5173\u95ED',
+        joinEditForm: true,
+        style: { marginLeft: 10 },
+        onTouchTap: this.openViewDialog.bind(this)
+      })];
+      var close = [_react2.default.createElement(_krUi.Button, {
+        label: '\u5173\u95ED',
+        joinEditForm: true,
+        style: { marginLeft: 10 },
+        onTouchTap: this.openViewChildDialog.bind(this)
+      })];
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(_krUi.Title, { value: '\u57FA\u7840\u914D\u7F6E_\u793E\u533A\u7ECF\u8425' }),
+        _react2.default.createElement(_krUi.BreadCrumbs, { children: ['系统运营', '合同信息', '基础配置'] }),
+        _react2.default.createElement(
+          'div',
+          { className: 'wrap' },
+          _react2.default.createElement(
+            _krUi.Section,
+            { title: '\u57FA\u7840\u914D\u7F6E', description: '' },
+            _react2.default.createElement(_krUi.Button, { label: '\u65B0\u5EFA', joinEditForm: true, onTouchTap: this.openCreateDialog }),
+            _react2.default.createElement(
+              _krUi.Table,
+              { style: { marginTop: 20 }, className: 'parentTable', toggleVisibility: 'odd', displayCheckbox: false, page: this.state.page, pageSize: this.state.pageSize, totalCount: this.state.totalCount },
+              _react2.default.createElement(
+                _krUi.TableHeader,
+                null,
+                _react2.default.createElement(
+                  _krUi.TableHeaderColumn,
+                  null,
+                  '\u5B57\u6BB5\u540D\u79F0'
+                ),
+                _react2.default.createElement(
+                  _krUi.TableHeaderColumn,
+                  null,
+                  '\u662F\u5426\u6709\u6548'
+                ),
+                _react2.default.createElement(
+                  _krUi.TableHeaderColumn,
+                  null,
+                  '\u521B\u5EFA\u4EBA'
+                ),
+                _react2.default.createElement(
+                  _krUi.TableHeaderColumn,
+                  null,
+                  '\u521B\u5EFA\u65F6\u95F4'
+                ),
+                _react2.default.createElement(
+                  _krUi.TableHeaderColumn,
+                  null,
+                  '\u5907\u6CE8'
+                ),
+                _react2.default.createElement(
+                  _krUi.TableHeaderColumn,
+                  null,
+                  '\u64CD\u4F5C'
+                )
+              ),
+              this.renderCustomerItem()
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _krUi.Dialog,
+          {
+            title: '\u65B0\u5EFA',
+            modal: true,
+            open: this.state.openCreate,
+            onClose: this.openCreateDialog,
+            contentStyle: { width: '687' }
+          },
+          _react2.default.createElement(SettingCreateForm, { onSubmit: this.confirmSubmit, onCancel: this.openCreateDialog })
+        ),
+        _react2.default.createElement(
+          _krUi.Dialog,
+          {
+            title: '\u67E5\u770B',
+
+            modal: true,
+            open: this.state.openView,
+            onClose: this.openViewDialog,
+            contentStyle: { width: '687' }
+
+          },
+          _react2.default.createElement(SettingViewForm, { items: this.state.item })
+        ),
+        _react2.default.createElement(
+          _krUi.Dialog,
+          {
+            title: '\u67E5\u770B\u5B50\u9879',
+
+            modal: true,
+            open: this.state.openChildView,
+            onClose: this.openViewChildDialog,
+            contentStyle: { width: '687' }
+
+          },
+          _react2.default.createElement(SettingChildViewForm, { items: this.state.item })
+        ),
+        _react2.default.createElement(
+          _krUi.Dialog,
+          {
+            title: '\u7F16\u8F91',
+
+            modal: true,
+            open: this.state.openUpdate,
+            onClose: this.openUpdateDialog,
+            contentStyle: { width: '687' }
+
+          },
+          _react2.default.createElement(SettingUpdateForm, { items: this.state.item, onSubmit: this.confirmUpdateSubmit, onCancel: this.openUpdateDialog })
+        ),
+        _react2.default.createElement(
+          _krUi.Dialog,
+          {
+            title: '\u7F16\u8F91\u5B50\u9879',
+
+            modal: true,
+            open: this.state.openChildUpdate,
+            onClose: this.openUpdateChildDialog,
+            contentStyle: { width: '687' }
+
+          },
+          _react2.default.createElement(SettingChildUpdateForm, { items: this.state.item, onSubmit: this.confirmUpdateChildSubmit, onCancel: this.openUpdateChildDialog })
+        ),
+        _react2.default.createElement(
+          _krUi.Dialog,
+          {
+            title: '\u6DFB\u52A0\u5B50\u9879',
+            modal: true,
+            open: this.state.openAdddate,
+            onClose: this.openAdd,
+            contentStyle: { width: '687' }
+
+          },
+          _react2.default.createElement(SettingAddForm, { id: this.state.id, dicName: this.state.dicName, onSubmit: this.confirmSubmit, onCancel: this.openAdd })
+        )
+      );
+    }
+  }]);
+
+  return SettingList;
+}(_react.Component);
+
+exports.default = SettingList;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(SettingCreateForm, 'SettingCreateForm', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Operation/CustomerManage/Agreement/Setting/List/index.js');
+
+  __REACT_HOT_LOADER__.register(settingCreateFormValidate, 'settingCreateFormValidate', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Operation/CustomerManage/Agreement/Setting/List/index.js');
+
+  __REACT_HOT_LOADER__.register(SettingViewForm, 'SettingViewForm', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Operation/CustomerManage/Agreement/Setting/List/index.js');
+
+  __REACT_HOT_LOADER__.register(SettingChildViewForm, 'SettingChildViewForm', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Operation/CustomerManage/Agreement/Setting/List/index.js');
+
+  __REACT_HOT_LOADER__.register(SettingUpdateForm, 'SettingUpdateForm', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Operation/CustomerManage/Agreement/Setting/List/index.js');
+
+  __REACT_HOT_LOADER__.register(settingUpdateForm, 'settingUpdateForm', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Operation/CustomerManage/Agreement/Setting/List/index.js');
+
+  __REACT_HOT_LOADER__.register(SettingChildUpdateForm, 'SettingChildUpdateForm', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Operation/CustomerManage/Agreement/Setting/List/index.js');
+
+  __REACT_HOT_LOADER__.register(SettingAddForm, 'SettingAddForm', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Operation/CustomerManage/Agreement/Setting/List/index.js');
+
+  __REACT_HOT_LOADER__.register(SettingAddFormvalidate, 'SettingAddFormvalidate', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Operation/CustomerManage/Agreement/Setting/List/index.js');
+
+  __REACT_HOT_LOADER__.register(SettingList, 'SettingList', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Operation/CustomerManage/Agreement/Setting/List/index.js');
+}();
+
+;

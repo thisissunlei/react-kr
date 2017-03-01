@@ -1,5 +1,4 @@
 const APIS = {
-
   'delete-enter-contract': {
     url: '/api/krspace-finance-web/checkinagreement/delete-enter-contract?contractId={contractId}',
     method: 'delete'
@@ -29,8 +28,6 @@ const APIS = {
     url: '/api/krspace-finance-web/checkinagreement/checkin-agreement/actions/show?id={id}',
     method: 'get'
   },
-
-
   //获取文件token
   'getSourceServiceToken': {
     url: '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken',
@@ -41,7 +38,6 @@ const APIS = {
     url: '/krspace_knowledge_wap/doc/docFile/findFileList?sourceservicetoken={sourceservicetoken}&fileIds={fileIds}&jsoncallback={jsoncallback}&operater={operater}',
     method: 'get'
   },
-
   //文件预览
   'viewFile': {
     url: '/krspace_knowledge_wap/doc/docFile/viewFile?operater={operater}&sourceservicetoken={sourceservicetoken}&fileId={fileId}',
@@ -169,7 +165,6 @@ const APIS = {
     url: '/api/krspace-finance-web/sysDicPaymentList',
     method: 'get'
   },
-
   //合同－属性配置－搜索（list）
   'findFinaFinaflowPropertyList': {
     url: '/api/krspace-finance-web/finaccount/property/findFinaFinaflowPropertyList?page={currentPage}&pageSize={pageSize}&searchParam={searchParam}',
@@ -185,12 +180,12 @@ const APIS = {
     url: '/api/krspace-finance-web/action/community-city-selected',
     method: 'get'
   },
-
+  //下拉菜单
   'community-city-selected': {
     url: '/api/krspace-finance-web/action/community-city-selected',
     method: 'get'
   },
-  //订单基本信息
+  //订单基本信息名字
   'get-customName-orderName': {
     url: '/api/krspace-finance-web/action/get-customName-orderName?customerId={customerId}',
     method: 'get'
@@ -204,7 +199,7 @@ const APIS = {
     url: '/api/krspace-finance-web/action/edit-order',
     method: 'put'
   },
-  //订单基本信息
+  //订单基本信息编辑信息获取
   'get-simple-order': {
     url: '/api/krspace-finance-web/action/get-simple-order?mainBillId={mainBillId}',
     method: 'get'
@@ -215,19 +210,11 @@ const APIS = {
     method: 'get'
   },
 
-  //财务管理－属性配置－列表
-  'viewFinaFinaflowProperty': {
-    url: '/krspace-finance-web/finaccount/property/viewFinaFinaflowProperty',
-    method: 'get'
-  },
-
   //财务管理－属性配置-查看
   'viewFinaFinaflowProperty': {
     url: '/krspace-finance-web/finaccount/property/viewFinaFinaflowProperty',
     method: 'get'
   },
-
-
   //财务管理－订单账单列表-分页获取订单
   'getFinaDataByList': {
     url: '/api/krspace-finance-web/finaccount/data/getFinaDataByAjax?page={page}&pageSize={pageSize}&mainbillname={mainbillname}&startDate={startDate}&endDate={endDate}&mainbilltype={mainbilltype}&communityid={communityid}',
@@ -266,6 +253,36 @@ const APIS = {
   //财务管理－科目配置－导出
   'getfinancExportExcel': {
     url: '/api/krspace-finance-web/finaccount/finaFinaflowAccountModel/exportExcel?idList={idList}',
+    method: 'get'
+  },
+  //获取附件列表
+  'getFileList': {
+    url: '/api/krspace-finance-web/finacontractdetail/fileList-show?detailId={detailId}',
+    method: 'get'
+  },
+  //附件列表保存附件
+  'saveFileList': {
+    url: '/api/krspace-finance-web/finacontractdetail/fileList-save?detailId={detailId}&fileId={fileId}',
+    method: 'post'
+  },
+  //附件列表删除附件
+  'deleteFileList': {
+    url: '/api/krspace-finance-web/finacontractdetail/fileList-delete?detailId={detailId}&fileId={fileId}',
+    method: 'delete'
+  },
+  //电子合同-入驻协议(入驻，增租，续租)
+  'checkinagreement-print-info': {
+    url: '/api/krspace-finance-web/checkinagreement/print-info?contractId={contractId}',
+    method: 'get'
+  },
+  //电子合同-承租意向
+  'intentletter-print-info': {
+    url: '/api/krspace-finance-web/intentletter/print-info?contractId={contractId}',
+    method: 'get'
+  },
+  //电子合同-减租
+  'fnaContractRentController': {
+    url: '/api/krspace-finance-web/fnaContractRentController/print-info?contractId={contractId}',
     method: 'get'
   },
   //个人中心-获取个人信息
@@ -308,32 +325,6 @@ const APIS = {
     url: '/api-old/sys/sysOwn/editPassword',
     method: 'post'
   },
-  //权限--登录
-  'personalLogin': {
-    url: '/mockjsdata/6/login/loginsubmit',
-    method: 'post'
-  },
-  //权限--发送验证码
-  'loginGetVerifyCode': {
-    url: '/mockjsdata/6/login/findPassword/checkVerifyCode',
-    method: 'post'
-  },
-  //新建编辑会员的准备数据
-  'getMemberBasicData': {
-    url: '/api/krspace-finance-web/member/member-add-edit?companyId={companyId}&memberId={memberId}&communityId={communityId}',
-    method: 'get'
-  },
-  //根据邮箱判断手否存在
-  'membersByEmail': {
-    url: '/api/krspace-finance-web/member/member-mail?email={email}',
-    method: 'get'
-  },
-  //根据会员卡号判断手否存在
-  'membersByForeignCode': {
-    url: '/api/krspace-finance-web/member/member-foreigncode?code={code}&codeType=foreign',
-    method: 'get'
-  },
-
   // 计划表获取合同数据
   'getRedPoint': {
     url: '/api/krspace-finance-web/finacontractdetail/plan-table/redPoint?billId={billId}&remindDate={remindDate}',
@@ -361,12 +352,7 @@ const APIS = {
   },
   // 计划表获取合同数据
   'getBillContract': {
-    url: '/api/krspace-finance-web/finacontractdetail/plan-table/billContract?billId={billId}',
-    method: 'get'
-  },
-  //获取出租率
-  'getRate': {
-    url: '/api/krspace-finance-web/finacontractdetail/plan-table/rate?year={year}&communityids={communityids}',
+    url: '/api/krspace-finance-web/finacontractdetail/plan-table/bill-contract?billId={billId}',
     method: 'get'
   },
   //会员中心-新增会员-根据邮箱查询会员是否存在
@@ -423,7 +409,6 @@ const APIS = {
     url: '/api/krspace-finance-web/member/member-list?value={value}&type={type}&startTime={startTime}&endTime={endTime}&registerSourceId={registerSourceId}&jobId={jobId}&pageSize={pageSize}&page={page}&companyId={companyId}&cityId={cityId}',
     method: 'get'
   },
-
   //获取指定公司会员列表
   'getCompanyMemberList': {
     url: '/api/krspace-finance-web/member/company-team?companyId={companyId}&page={page}&pageSize={pageSize}',
@@ -489,11 +474,11 @@ const APIS = {
     method: 'get'
   },
   //订单明细账－补充完成之后
+
   'removeRunningTag': {
     url: '/api/krspace-finance-web/finaccount/opt/removeRunningTag',
     method: 'post'
   },
-
   //财务管理－订单明细账-分页获得财务流水
   'getPageAccountFlow': {
     url: '/api/krspace-finance-web/finaccount/data/getAccountFlow?accountId={accountId}&accountType={accountType}&orderId={orderId}&endTime={endTime}&page={page}&pageSize={pageSize}&propertyId={propertyId}&startTime={startTime}',
@@ -526,7 +511,7 @@ const APIS = {
   },
   //财务管理－订单明细账-转押金按钮查询合同编号
   'findContractListById': {
-    url: '/api/krspace-finance-web/finaccount/data/findContractListById?id={id}',
+    url: '/api/krspace-finance-web/finaccount/data/findContractListById?mainbillId={mainbillId}',
     method: 'get'
   },
   //财务管理－订单明细账-转营收
@@ -642,7 +627,6 @@ const APIS = {
     url: '/api/krspace-finance-web/stat/group/sort/actions/check?sort={sort}&id={id}',
     method: 'get'
   },
-
   //合同详情-修改订单名字
   'edit-order-name': {
     url: ' /api/krspace-finance-web/edit-order-name',
@@ -653,13 +637,13 @@ const APIS = {
     url: ' /api/krspace-finance-web/action/get-order-station?mainBillId={mainBillId}',
     method: 'get'
   },
+
   //运营平台-会员管理-会员配置-会员卡激活-会卡列表
   'CardActivationList': {
     url: '/api/krspace-finance-web/member/card/mbr-card?foreignCode={foreignCode}&page={page}&pageSize={pageSize}',
     method: 'get'
   },
-  //运营平台-会员管理-会员配置-会员卡激活-会卡批量激活
-  //&&运营平台-会员管理-会员配置-会员卡激活-会卡新建激活
+  //运营平台-会员管理-会员配置-会员卡激活-会卡批量激活&&运营平台-会员管理-会员配置-会员卡激活-会卡新建激活
   'CardActivation': {
     url: '/api/krspace-finance-web/member/card/mbr-card',
     method: 'post'
@@ -669,11 +653,187 @@ const APIS = {
     url: '/api/krspace-finance-web/member/card/mbr-card',
     method: 'put'
   },
+  //客户管理－招商线索列表
+  'shareCustomers': {
+    url: '/api/krspace-finance-web/customer/share-customers?page={page}&pageSize={pageSize}&company={company}&createEndDate={createEndDate}&createStartDate={createStartDate}&intentionCityId={intentionCityId}&intentionCommunityId={intentionCommunityId}&levelId={levelId}&sourceId={sourceId}',
+    method: 'get'
+  },
+  //客户管理－个人客户列表
+  'personalCustomers': {
+    url: '/api/krspace-finance-web/customer/personal-customers?page={page}&pageSize={pageSize}&company={company}&createEndDate={createEndDate}&createStartDate={createStartDate}&intentionCityId={intentionCityId}&intentionCommunityId={intentionCommunityId}&levelId={levelId}&sourceId={sourceId}',
+    method: 'get'
+  },
+  //客户管理－个人客户列表－导出
+  'personalCustomersExport': {
+    url: '/api/krspace-finance-web/customer/personal-customers-export',
+    method: 'get'
+  },
+  //客户管理－取消客户跟进
+  'customerGiveBack': {
+    url: '/api/krspace-finance-web/customer/actions/give-back',
+    method: 'post'
+  },
+  //客户管理－客户转移
+  'customerTransfer': {
+    url: '/api/krspace-finance-web/customer/actions/transfer',
+    method: 'post'
+  },
+  //客户管理－新增与编辑数据准备
+  'customerDataAddList': {
+    url: '/api/krspace-finance-web/customer/actions/data-list',
+    method: 'get'
+  },
+  //客户管理－新增或编辑客户
+  'customerDataEdit': {
+    url: '/api/krspace-finance-web/customer/actions/edit',
+    method: 'post'
+  },
+  //客户管理-公司名称实时校验
+  'corpNameCheck': {
+    url: '/api/krspace-finance-web/customer/check/company?id={id}&companyName={companyName}',
+    method: 'get'
+  },
+  //客户管理－新增拜访记录
+  'customerVisitRecord': {
+    url: '/api/krspace-finance-web/customer/visit-log/actions/add',
+    method: 'post'
+  },
+  //客户管理－根据客户获取订单列表
+  'customerOrdersList': {
+    url: '/api/krspace-finance-web/customer/orders?customerId={customerId}',
+    method: 'get'
+  },
+  //客户管理－签约客户列表
+  'signCustomers': {
+    url: '/api/krspace-finance-web/customer/sign-customers?page={page}&pageSize={pageSize}&cityId={cityId}&communityId={communityId}&company={company}&signEndDate={signEndDate}&signStartDate={signStartDate}',
+    method: 'get'
+  },
+  //客户管理－签约客户列表－导出
+  'signCustomersExport': {
+    url: '/api/krspace-finance-web/customer/sign-customers-export',
+    method: 'get'
+  },
+  //客户管理－获取客户编辑信息
+  'get-edit-info': {
+    url: '/api/krspace-finance-web/customer/actions/get-edit-info?id={id}',
+    method: 'get'
+  },
+  //客户管理－获取客户详情
+  'get-detail-info': {
+    url: '/api/krspace-finance-web/customer/actions/get-detail-info?id={id}&operType={operType}',
+    method: 'get'
+  },
+  //客户管理－获取项目类型树
+  'get-project-types': {
+    url: '/api-old/krspace_operate_web/codecategory/actions/get-project-types',
+    method: 'get'
+  },
+  //客户管理－订单删除
+  'order-delete': {
+    url: '/api/krspace-finance-web/fina-contract-mainbill/actions/delete?id={id}',
+    method: 'delete'
+  },
+  //客户管理－领取客户
+  'receive-customer': {
+    url: '/api/krspace-finance-web/customer/actions/receive',
+    method: 'post'
+  },
+  //客户管理－招商和个人高级查询准备
+  'search-conditions': {
+    url: '/api/krspace-finance-web/customer/personal-customers/search-conditions',
+    method: 'get'
+  },
+  //客户管理－签约高级查询准备
+  'sign-search-conditions': {
+    url: '/api/krspace-finance-web/customer/sign-customers/search-conditions',
+    method: 'get'
+  },
+  //订单明细账－二期－添加挂帐
+  'onNewAccountg': {
+    url: '/api/krspace-finance-web/finaccount/opt/onAccount',
+    method: 'post'
+  },
+  //订单明细账－二期－点击挂帐所需数据
+  'getOnNewAccountData': {
+    url: '/api/krspace-finance-web/finaccount/data/getOnAccountData?mainbillId={mainbillId}',
+    method: 'get'
+  },
+  //订单明细账－二期－根据选中id来获取金额
+  'getFlowRemainMoney': {
+    url: '/api/krspace-finance-web/finaccount/data/getFlowRemainMoney?flowId={flowId}',
+    method: 'get'
+  },
+  //订单明细账－二期－点击转移加载数据
+  'getTransferData': {
+    url: '/api/krspace-finance-web/finaccount/data/getTransferData?flowId={flowId}&mainbillId={mainbillId}',
+    method: 'get'
+  },
+  //订单明细账－二期－转移确定
+  'transferPayment': {
+    url: '/api/krspace-finance-web/finaccount/opt/transferPayment',
+    method: 'post'
+  },
+  //订单明细账－二期－分页加载流水数据
+  'getAccountNewFlow': {
+    url: '/api/krspace-finance-web/finaccount/data/getAccountFlow?accountId={accountId}&accountType={accountType}&orderId={orderId}&endTime={endTime}&page={page}&pageSize={pageSize}&propertyId={propertyId}&startTime={startTime}&tradingCode={tradingCode}',
+    method: 'get'
+  },
+  //订单明细账－二期－支付方式
+  'findAccountListTwo': {
+    url: '/api/krspace-finance-web/finaccount/data/findAccountList',
+    method: 'get'
+  },
+  //订单明细账－二期－点击回款加载数据
+  'getPaymentActData': {
+    url: '/api/krspace-finance-web/finaccount/data/getPaymentActData?mainbillId={mainbillId}',
+    method: 'get'
+  },
+  //订单明细账－二期－点击确定进行回款操作
+  'returnMoneyNew': {
+    url: '/api/krspace-finance-web/finaccount/opt/returnMoney',
+    method: 'post'
+  },
+
+  'planMap': {
+    url: '/api-old/krspace_operate_web/commnuity/communityFloorPlan/getCommunityFloorPlanSelData?communityId={communityId}&wherefloor={wherefloor}&mainBillId={mainBillId}&startDate={startDate}&endDate={endDate}&contractId={contractId}',
+    method: 'get'
+  },
+  //获取消息列表
+  'getInfoList': {
+    url: '/api/krspace-finance-web/msg/msg-info?page={page}&pageSize={pageSize}&endTime={endTime}&startTime={startTime}',
+    method: 'get'
+  },
+  //消息设为已读
+  'setInfoReaded': {
+    url: '/api/krspace-finance-web/msg/msg-read?id={id}',
+    method: 'put'
+  },
+  //获取未读消息数
+  'getUnReadInfo': {
+    url: '/api/krspace-finance-web/msg/msg-count?&endTime={endTime}&startTime={startTime}',
+    method: 'get'
+  },
+  //客户管理－获取招商人员列表
+  'get-receive-list': {
+    url: '/api/krspace-finance-web/customer/actions/get-receive-list?searchKey={searchKey}',
+    method: 'get'
+  },
+  //计算工位总价
+  'getAllRent': {
+    url: '/api/krspace-finance-web/finacontractdetail/fina-contract-all/line-total',
+    method: 'post'
+  },
+  //减租计算工位总价
+  'reduceGetAllRent': {
+    url: '/api/krspace-finance-web/finacontractdetail/fina-contract-all/reduc-line-total',
+    method: 'post'
+  },
   //权限系统-权限项-获取列表数据
   'findPage': {
     url: '/api/krspace-sso-web/sso/resource/findPage?page={page}&pageSize={pageSize}',
     method: 'get'
   }
+
 }
 
 module.exports = APIS;

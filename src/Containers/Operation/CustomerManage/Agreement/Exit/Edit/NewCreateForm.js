@@ -204,6 +204,7 @@ class NewCreateForm extends Component {
 				<KrField   name="mainbillid" type="hidden" component="input" />
 				<KrField   name="contractstate" type="hidden" component="input" />
 				<KrField   name="contracttype" type="hidden" component="input" />
+				<KrField grid={1}  name="contractVersionType" type="hidden" component="input" label="会议室"/>
 
 				<KrField name="leaseId" style={{width:370,marginLeft:70}} component="select" label="出租方" options={optionValues.fnaCorporationList}  requireLabel={true}/>
 				<KrField style={{width:370,marginLeft:90}} name="lessorAddress" type="text" component="labelText" label="地址" inline={false}  value={changeValues.lessorAddress}  defaultValue="无"/>
@@ -235,7 +236,7 @@ class NewCreateForm extends Component {
 				<KrField style={{width:370,marginLeft:70}} name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
 				<KrField style={{width:830,marginLeft:70}} name="contractmark" component="textarea" label="备注" maxSize={200}/>
 				</CircleStyle>
-				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList} requireLabel={true}/>
+				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList}/>
 
 						<Grid style={{paddingBottom:50}}>
 						<Row >
@@ -304,11 +305,6 @@ const validate = values => {
 	if (!values.signdate) {
 		errors.signdate = '请填写签署时间';
 	}
-
-	if (!values.fileIdList) {
-		errors.fileIdList = '请填写合同附件';
-	}
-
 
 
 	return errors

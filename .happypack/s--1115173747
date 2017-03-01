@@ -1,0 +1,805 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _mobxReact = require('mobx-react');
+
+var _reduxForm = require('redux-form');
+
+var _Redux = require('kr/Redux');
+
+var _krUi = require('kr-ui');
+
+var _State = require('./State');
+
+var _State2 = _interopRequireDefault(_State);
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Login = (0, _mobxReact.observer)(_class = function (_Component) {
+	_inherits(Login, _Component);
+
+	function Login(props, context) {
+		_classCallCheck(this, Login);
+
+		var _this2 = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props, context));
+
+		_this2.getCanvas = function () {
+			var canvas = document.getElementById('canvas'),
+			    ctx = canvas.getContext('2d'),
+			    w = canvas.width = window.innerWidth,
+			    h = canvas.height = window.innerHeight,
+			    hue = 217,
+			    stars = [],
+			    count = 0,
+			    maxStars = 1200;
+
+			var canvas2 = document.createElement('canvas'),
+			    ctx2 = canvas2.getContext('2d');
+			canvas2.width = 100;
+			canvas2.height = 100;
+			var half = canvas2.width / 2,
+			    gradient2 = ctx2.createRadialGradient(half, half, 0, half, half, half);
+			gradient2.addColorStop(0.025, '#fff');
+			gradient2.addColorStop(0.1, 'hsl(' + hue + ', 61%, 33%)');
+			gradient2.addColorStop(0.25, 'hsl(' + hue + ', 64%, 6%)');
+			gradient2.addColorStop(1, 'transparent');
+
+			ctx2.fillStyle = gradient2;
+			ctx2.beginPath();
+			ctx2.arc(half, half, half, 0, Math.PI * 2);
+			ctx2.fill();
+
+			// End cache
+
+			function random(min, max) {
+				if (arguments.length < 2) {
+					max = min;
+					min = 0;
+				}
+
+				if (min > max) {
+					var hold = max;
+					max = min;
+					min = hold;
+				}
+
+				return Math.floor(Math.random() * (max - min + 1)) + min;
+			}
+
+			function maxOrbit(x, y) {
+				var max = Math.max(x, y),
+				    diameter = Math.round(Math.sqrt(max * max + max * max));
+				return diameter / 2;
+			}
+
+			var Star = function Star() {
+
+				this.orbitRadius = random(maxOrbit(w, h));
+				this.radius = random(60, this.orbitRadius) / 12;
+				this.orbitX = w / 2;
+				this.orbitY = h / 2;
+				this.timePassed = random(0, maxStars);
+				this.speed = random(this.orbitRadius) / 900000;
+				this.alpha = random(2, 10) / 10;
+
+				count++;
+				stars[count] = this;
+			};
+
+			Star.prototype.draw = function () {
+				var x = Math.sin(this.timePassed) * this.orbitRadius + this.orbitX,
+				    y = Math.cos(this.timePassed) * this.orbitRadius + this.orbitY,
+				    twinkle = random(10);
+
+				if (twinkle === 1 && this.alpha > 0) {
+					this.alpha -= 0.05;
+				} else if (twinkle === 2 && this.alpha < 1) {
+					this.alpha += 0.05;
+				}
+
+				ctx.globalAlpha = this.alpha;
+				ctx.drawImage(canvas2, x - this.radius / 2, y - this.radius / 2, this.radius, this.radius);
+				this.timePassed += this.speed;
+			};
+
+			for (var i = 0; i < maxStars; i++) {
+				new Star();
+			}
+
+			function animation() {
+				ctx.globalCompositeOperation = 'source-over';
+				ctx.globalAlpha = 0.8;
+				ctx.fillStyle = 'hsla(' + hue + ', 64%, 6%, 1)';
+				ctx.fillRect(0, 0, w, h);
+
+				ctx.globalCompositeOperation = 'lighter';
+				for (var i = 1, l = stars.length; i < l; i++) {
+					stars[i].draw();
+				};
+
+				window.requestAnimationFrame(animation);
+			}
+
+			animation();
+		};
+
+		_this2.submitLogin = function () {
+			if (!_this2.refs.loginName.value) {
+				_this2.setState({
+					noneName: true
+				});
+			}
+			if (!_this2.refs.loginPwds.value) {
+				_this2.setState({
+					nonePwd: true
+				});
+			}
+			if (_this2.refs.loginName.value && _this2.refs.loginPwds.value) {
+				_this2.setState({
+					forgetPwd: false,
+					canLogin: true,
+					verifyByMail: true,
+					nonePwd: false,
+					noneName: false
+				});
+			}
+			var _this = _this2;
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('personalLogin', {}, {
+				loginName: _this.refs.loginName,
+				loginPwds: _this.refs.loginPwds
+			})).then(function (response) {}).catch(function (err) {
+				// if(err.code<0){
+				// 	Message.error(err.message)
+				// }
+			});
+		};
+
+		_this2.goToVerify = function () {
+			_this2.setState({
+				forgetPwd: true,
+				editPwd: false,
+				verifyByMail: true
+			});
+		};
+
+		_this2.forgetPwd = function () {
+			_this2.setState({
+				forgetPwd: true,
+				canLogin: false
+			});
+		};
+
+		_this2.mailTitleClick = function () {
+			_this2.setState({
+				verifyByMail: true
+			});
+		};
+
+		_this2.mobileTitleClick = function () {
+			_this2.setState({
+				verifyByMail: false
+			});
+		};
+
+		_this2.goToLogin = function () {
+			_this2.setState({
+				forgetPwd: false,
+				canLogin: true,
+				verifyByMail: true,
+				nonePwd: false,
+				noneName: false
+			});
+		};
+
+		_this2.togetMailtestCode = function () {
+			_this2.refs.verifyCode.value = '';
+			_this2.setState({
+				gettingMail: true,
+				regettestMailState: false,
+				togetMailtest: false
+			}, function () {
+				var _this = this;
+				_Redux.Store.dispatch(_Redux.Actions.callAPI('loginGetVerifyCode', {}, {
+					codeType: 'MAIL',
+					email: _this.refs.loginMail.value
+				})).then(function (response) {
+					_this.togetMailtest();
+				}).catch(function (err) {
+					if (err.code < 0) {
+						_krUi.Message.error(err.message);
+					}
+					_this.setState({
+						gettingMail: false,
+						togetMailtest: true
+					});
+				});
+			});
+		};
+
+		_this2.togetMailtest = function () {
+			window.clearTimeout(_this2.timerMail);
+			var _this = _this2;
+			_this2.setState({
+				MailTimeDisabledState: true,
+				regettestMailState: false,
+				timeminMail: 60,
+				gettingMail: false
+			}, function () {
+				time();
+			});
+			function time() {
+				if (_this.state.timeminMail == 0) {
+					_this.setState({
+						regettestMailState: true,
+						MailTimeDisabledState: false,
+						togetMailtest: false
+					});
+				} else {
+					_this.setState({
+						timeminMail: --_this.state.timeminMail
+					});
+					_this.timerMail = window.setTimeout(function () {
+						time();
+					}, 1000);
+				}
+			}
+		};
+
+		_this2.togetMobiletestCode = function () {
+			_this2.refs.verifyCode.value = '';
+			_this2.setState({
+				regettestMobileState: false,
+				gettingMobile: true,
+				togetMobiletest: false
+			}, function () {
+				var _this = this;
+				_Redux.Store.dispatch(_Redux.Actions.callAPI('loginGetVerifyCode', {}, {
+					codeType: 'SMS',
+					mobile: _this.refs.loginMobile.value
+				})).then(function (response) {
+					_this.togetMobiletest();
+				}).catch(function (err) {
+					if (err.code < 0) {
+						_krUi.Message.error(err.message);
+					}
+					_this.setState({
+						gettingMobile: false,
+						togetMobiletest: true
+					});
+				});
+			});
+		};
+
+		_this2.togetMobiletest = function () {
+			window.clearTimeout(_this2.timer);
+			var _this = _this2;
+			_this2.setState({
+				togettest: true,
+				gettingMobile: false,
+				MobileTimeDisabledState: true,
+				regettestMobileState: false,
+				timeminMobile: 60
+			}, function () {
+				time();
+			});
+			function time() {
+				if (_this.state.timeminMobile == 0) {
+					_this.setState({
+						regettestMobileState: true,
+						MobileTimeDisabledState: false,
+						togetMobiletest: false
+					});
+				} else {
+					_this.setState({
+						timeminMobile: --_this.state.timeminMobile
+					});
+					_this.timer = window.setTimeout(function () {
+						time();
+					}, 1000);
+				}
+			}
+		};
+
+		_this2.toEditPwd = function () {
+			_this2.setState({
+				editPwd: true,
+				forgetPwd: false,
+				canLogin: false
+			});
+		};
+
+		_this2.showPwdOne = function () {
+			_this2.setState({
+				pwdOneHide: !_this2.state.pwdOneHide
+			});
+		};
+
+		_this2.showPwdTwo = function () {
+			_this2.setState({
+				pwdTwoHide: !_this2.state.pwdTwoHide
+			});
+		};
+
+		_this2.goToEdited = function () {
+			_this2.setState({
+				notSame: fasle
+			});
+			var _this = _this2;
+			if (_this.refs.onePwd !== _this.refs.twoPwd) {
+				_this.setState({
+					notSame: true
+				});
+				return;
+			}
+			if (_this.refs.onePwd.value == _this.refs.twoPwd) {
+
+				return;
+			}
+			window.clearTimeout(_this2.timerLogin);
+
+			_this2.setState({
+				edited: true,
+				editPwd: false,
+				timeToLogin: 3
+			}, function () {
+				time();
+			});
+			function time() {
+				if (_this.state.timeToLogin == 0) {
+					window.location.reload();
+				} else {
+					_this.setState({
+						timeToLogin: --_this.state.timeToLogin
+					});
+					_this.timerLogin = window.setTimeout(function () {
+						time();
+					}, 1000);
+				}
+			}
+		};
+
+		_this2.state = {
+			noneName: false,
+			nonePwd: false,
+			errThree: false,
+			//验证
+			forgetPwd: false,
+			timedisabled: 'S后重新获取',
+			//邮箱
+			verifyByMail: true,
+			togetMailtest: true,
+			gettingMail: false,
+			MailTimeDisabledState: false,
+			timeminMail: 60,
+			regettestMailState: false,
+			//手机
+			verifyByMobile: false,
+			togetMobiletest: true,
+			gettingMobile: false,
+			MobileTimeDisabledState: false,
+			regettestMobileState: false,
+			timeminMobile: 60,
+			//重置
+			editPwd: false,
+			canLogin: true,
+			pwdOneHide: true,
+			pwdTwoHide: true,
+			notSame: false,
+			//重置成功
+			edited: false,
+			timeToLogin: 3
+		};
+		return _this2;
+	}
+
+	_createClass(Login, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			_Redux.Store.dispatch(_Redux.Actions.switchSidebarNav(false));
+			this.getCanvas();
+		}
+		//登录部分
+
+		//验证部分
+
+		//邮箱验证
+
+		//邮箱验证点击获取验证码函数
+
+		//手机验证
+
+		//手机验证点击获取验证码函数old
+
+		//重置密码
+
+		//重置密码完成
+
+	}, {
+		key: 'render',
+		value: function render() {
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'g-permission-login' },
+				_react2.default.createElement('canvas', { id: 'canvas' }),
+				_react2.default.createElement(
+					'div',
+					{ className: 'content' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'content-wrap' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'login-title' },
+							'\u6C2A\u7A7A\u95F4\u7BA1\u7406\u5E73\u53F0'
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'login-box' },
+							_react2.default.createElement('div', { className: 'logos' }),
+							this.state.canLogin && _react2.default.createElement(
+								'div',
+								null,
+								_react2.default.createElement(
+									'div',
+									{ className: 'login-tip' },
+									'\u767B\u5F55'
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'login-content' },
+									_react2.default.createElement(
+										'ul',
+										{ className: 'login-content-ul' },
+										_react2.default.createElement(
+											'li',
+											{ className: 'hideInput' },
+											_react2.default.createElement('input', { type: 'text' })
+										),
+										_react2.default.createElement(
+											'li',
+											{ className: 'loginName' },
+											_react2.default.createElement(_krUi.KrField, {
+												type: 'text',
+												component: 'input',
+												name: 'loginNamesdaf',
+												autoComplete: 'off',
+												ref: 'loginName',
+												placeholder: '\u8BF7\u8F93\u5165\u624B\u673A\u53F7\u6216\u8005\u90AE\u7BB1'
+											}),
+											this.state.noneName && _react2.default.createElement(
+												'span',
+												{ className: 'redErr' },
+												'\u8BF7\u8F93\u5165\u60A8\u7684\u624B\u673A\u53F7/\u90AE\u7BB1'
+											)
+										),
+										_react2.default.createElement(
+											'li',
+											{ className: 'hideInput' },
+											_react2.default.createElement('input', { type: 'text' })
+										),
+										_react2.default.createElement(
+											'li',
+											{ className: 'loginPwd' },
+											_react2.default.createElement(_krUi.KrField, {
+												type: 'password',
+												component: 'input',
+												name: 'loginPwdsadsfds',
+												autoComplete: 'off',
+												ref: 'loginPwds',
+												placeholder: '\u8BF7\u8F93\u5165\u5BC6\u7801'
+											}),
+											this.state.nonePwd && _react2.default.createElement(
+												'span',
+												{ className: 'redErr' },
+												'\u8BF7\u8F93\u5165\u5BC6\u7801'
+											)
+										),
+										this.state.errThree && _react2.default.createElement(
+											'li',
+											{ className: 'clearfix' },
+											_react2.default.createElement(
+												'div',
+												{ className: 'input-verifycode' },
+												_react2.default.createElement(_krUi.Input, { type: 'text', placeholder: '\u8BF7\u8F93\u5165\u9A8C\u8BC1\u7801' })
+											),
+											_react2.default.createElement('div', { className: 'input-verifycode-img' })
+										),
+										_react2.default.createElement(
+											'li',
+											null,
+											_react2.default.createElement(
+												'p',
+												{ className: 'login-btn', onClick: this.submitLogin },
+												'\u767B\xA0\xA0\xA0\u5F55'
+											)
+										),
+										_react2.default.createElement(
+											'li',
+											{ onClick: this.forgetPwd, className: 'login-pwdinfo' },
+											'\u5FD8\u8BB0\u5BC6\u7801?'
+										)
+									)
+								)
+							),
+							this.state.forgetPwd && _react2.default.createElement(
+								'div',
+								{ className: 'verifyTotal' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'tabList' },
+									_react2.default.createElement(
+										'p',
+										{ className: this.state.verifyByMail ? 'activeTitle' : 'normalTitle', onClick: this.mailTitleClick },
+										'\u9A8C\u8BC1\u90AE\u7BB1'
+									),
+									_react2.default.createElement(
+										'p',
+										{ className: !this.state.verifyByMail ? 'activeTitle' : 'normalTitle', onClick: this.mobileTitleClick },
+										'\u9A8C\u8BC1\u624B\u673A'
+									)
+								),
+								this.state.verifyByMail && _react2.default.createElement(
+									'div',
+									{ className: 'login-content' },
+									_react2.default.createElement(
+										'ul',
+										{ className: 'login-content-ul' },
+										_react2.default.createElement(
+											'li',
+											{ className: 'input-txt loginpwds' },
+											_react2.default.createElement(_krUi.Input, { type: 'text', ref: 'loginMail', placeholder: '\u8BF7\u8F93\u5165\u90AE\u7BB1' })
+										),
+										_react2.default.createElement(
+											'li',
+											{ className: 'clearfix' },
+											_react2.default.createElement(
+												'div',
+												{ className: 'input-verifycode fl' },
+												_react2.default.createElement(_krUi.Input, { type: 'text', className: 'codes', ref: 'verifyCode', placeholder: '\u8BF7\u8F93\u5165\u9A8C\u8BC1\u7801' })
+											),
+											this.state.togetMailtest && _react2.default.createElement(
+												'span',
+												{ className: 'sendCode', onClick: this.togetMailtestCode },
+												'\u53D1\u9001\u9A8C\u8BC1\u7801'
+											),
+											this.state.gettingMail && _react2.default.createElement(
+												'span',
+												{ className: 'timeout' },
+												'\u6B63\u5728\u53D1\u9001...'
+											),
+											this.state.MailTimeDisabledState && _react2.default.createElement(
+												'span',
+												{ className: 'timeout' },
+												this.state.timeminMail + this.state.timedisabled
+											),
+											this.state.regettestMailState && _react2.default.createElement(
+												'span',
+												{ className: 'sendCode', onClick: this.togetMailtestCode },
+												'\u91CD\u65B0\u83B7\u53D6'
+											)
+										),
+										_react2.default.createElement(
+											'li',
+											null,
+											_react2.default.createElement(_krUi.Input, { onClick: this.toEditPwd, type: 'button', value: '\u4E0B\u4E00\u6B65', className: 'login-btn next' })
+										),
+										_react2.default.createElement(
+											'li',
+											{ onClick: this.goToLogin, className: 'login-pwdinfo' },
+											'\u8FD4\u56DE\u767B\u5F55'
+										)
+									)
+								),
+								!this.state.verifyByMail && _react2.default.createElement(
+									'div',
+									{ className: 'login-content' },
+									_react2.default.createElement(
+										'ul',
+										{ className: 'login-content-ul' },
+										_react2.default.createElement(
+											'li',
+											{ className: 'input-txt loginpwds' },
+											_react2.default.createElement(_krUi.Input, { type: 'text', ref: 'loginMobile', placeholder: '\u8BF7\u8F93\u5165\u624B\u673A' })
+										),
+										_react2.default.createElement(
+											'li',
+											{ className: 'clearfix' },
+											_react2.default.createElement(
+												'div',
+												{ className: 'input-verifycode fl' },
+												_react2.default.createElement(_krUi.Input, { type: 'text', className: 'codes', ref: 'verifyCode', placeholder: '\u8BF7\u8F93\u5165\u9A8C\u8BC1\u7801' })
+											),
+											this.state.togetMobiletest && _react2.default.createElement(
+												'span',
+												{ className: 'sendCode', onClick: this.togetMobiletestCode },
+												'\u53D1\u9001\u9A8C\u8BC1\u7801'
+											),
+											this.state.gettingMobile && _react2.default.createElement(
+												'span',
+												{ className: 'timeout' },
+												'\u6B63\u5728\u53D1\u9001...'
+											),
+											this.state.MobileTimeDisabledState && _react2.default.createElement(
+												'span',
+												{ className: 'timeout' },
+												this.state.timeminMobile + this.state.timedisabled
+											),
+											this.state.regettestMobileState && _react2.default.createElement(
+												'span',
+												{ onClick: this.togetMobiletestCode, className: 'sendCode' },
+												'\u91CD\u65B0\u83B7\u53D6'
+											)
+										),
+										_react2.default.createElement(
+											'li',
+											null,
+											_react2.default.createElement(_krUi.Input, { type: 'button', value: '\u4E0B\u4E00\u6B65', onClick: this.toEditPwd, className: 'login-btn next' })
+										),
+										_react2.default.createElement(
+											'li',
+											{ onClick: this.goToLogin, className: 'login-pwdinfo' },
+											'\u8FD4\u56DE\u767B\u5F55'
+										)
+									)
+								)
+							),
+							this.state.editPwd && _react2.default.createElement(
+								'div',
+								{ className: 'editPwd' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'login-tip' },
+									'\u91CD\u7F6E\u5BC6\u7801'
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'login-content' },
+									_react2.default.createElement(
+										'ul',
+										{ className: 'login-content-ul' },
+										_react2.default.createElement(
+											'form',
+											null,
+											_react2.default.createElement(
+												'li',
+												{ className: 'hideInput' },
+												_react2.default.createElement('input', { type: 'text' })
+											),
+											_react2.default.createElement(
+												'li',
+												{ className: 'inputtest' },
+												_react2.default.createElement(_krUi.KrField, {
+													type: this.state.pwdOneHide ? 'password' : 'text',
+													component: 'input',
+													name: 'onePwdadsfasdf',
+													autoComplete: 'off',
+													ref: 'onePwd',
+													placeholder: '\u8BF7\u8F93\u5165\u5BC6\u7801',
+													notifys: ['6-20位字符', '只能包含大小写字母、数字以及标点符号（除空格）', '大写字母、小写字母、数字和标点符号至少包含两种']
+												}),
+												_react2.default.createElement('p', {
+													className: this.state.pwdOneHide ? 'hidePwd' : ' ',
+													onClick: this.showPwdOne })
+											),
+											_react2.default.createElement(
+												'li',
+												{ className: 'inputtesttwo' },
+												_react2.default.createElement(_krUi.KrField, {
+													component: 'input',
+													autoComplete: 'off',
+													type: this.state.pwdTwoHide ? 'password' : 'text',
+													name: 'twoPwd',
+													ref: 'twoPwd',
+													placeholder: '\u8BF7\u518D\u6B21\u8F93\u5165\u5BC6\u7801'
+												}),
+												_react2.default.createElement('p', {
+													className: this.state.pwdTwoHide ? 'hidePwd' : ' ',
+													onClick: this.showPwdTwo })
+											),
+											this.state.notSame && _react2.default.createElement(
+												'li',
+												{ className: 'notSame' },
+												'\u4E24\u6B21\u8F93\u5165\u7684\u5BC6\u7801\u4E0D\u4E00\u81F4 \u8BF7\u91CD\u65B0\u8F93\u5165'
+											),
+											_react2.default.createElement(
+												'li',
+												null,
+												_react2.default.createElement('input', { type: 'button', onClick: this.goToEdited, value: '\u5B8C\u6210\u5E76\u767B\u5F55', className: 'login-btn J_login' })
+											),
+											_react2.default.createElement(
+												'li',
+												{ onClick: this.goToVerify, className: 'login-pwdinfo' },
+												'\u8FD4\u56DE\u4E0A\u4E00\u6B65'
+											)
+										)
+									)
+								)
+							),
+							this.state.edited && _react2.default.createElement(
+								'div',
+								{ className: 'edited' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'login-tip' },
+									'\u91CD\u7F6E\u5B8C\u6210'
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'login-content' },
+									_react2.default.createElement(
+										'ul',
+										{ className: 'login-content-ul' },
+										_react2.default.createElement(
+											'li',
+											{ className: 'editOk' },
+											_react2.default.createElement(
+												'span',
+												null,
+												'\u91CD\u7F6E\u6210\u529F\uFF0C\u8BF7\u7262\u8BB0\u65B0\u7684\u767B\u5F55\u5BC6\u7801'
+											)
+										),
+										_react2.default.createElement(
+											'li',
+											{ className: 'timeToLogin' },
+											_react2.default.createElement(
+												'span',
+												null,
+												'\u8BE5\u9875\u9762\u5728',
+												this.state.timeToLogin,
+												'\u79D2\u540E\u81EA\u52A8\u8DF3\u8F6C\u5230\u767B\u9646\u9875'
+											)
+										)
+									)
+								)
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return Login;
+}(_react.Component)) || _class;
+
+Login.contextTypes = {
+	router: _react2.default.PropTypes.object.isRequired
+
+};
+
+var _default = (0, _reduxForm.reduxForm)({ form: 'Login', enableReinitialize: true, keepDirtyOnReinitialize: true })(Login);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(Login, 'Login', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Permission/Login/index.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Permission/Login/index.js');
+}();
+
+;

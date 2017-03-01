@@ -1,0 +1,388 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reduxForm = require('redux-form');
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+require('./index.less');
+
+var _jquery = require('jquery');
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+var _WrapComponent = require('../WrapComponent');
+
+var _WrapComponent2 = _interopRequireDefault(_WrapComponent);
+
+var _CityData = require('./CityData.json');
+
+var _CityData2 = _interopRequireDefault(_CityData);
+
+var _mobxReact = require('mobx-react');
+
+var _State = require('./State');
+
+var _State2 = _interopRequireDefault(_State);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CityComponent = (0, _mobxReact.observer)(_class = function (_React$Component) {
+	_inherits(CityComponent, _React$Component);
+
+	function CityComponent(props) {
+		_classCallCheck(this, CityComponent);
+
+		var _this2 = _possibleConstructorReturn(this, (CityComponent.__proto__ || Object.getPrototypeOf(CityComponent)).call(this, props));
+
+		_this2.firstCityList = function () {
+			var firstCity = [];
+			firstCity = _CityData2.default.map(function (item) {
+				var obj = {};
+				obj.id = item.id;
+				obj.name = item.name;
+				return obj;
+			});
+			return firstCity;
+		};
+
+		_this2.secondCityList = function (id) {
+			var secondCity = [];
+			_CityData2.default.map(function (item) {
+				if (item.id == id) {
+					secondCity = item.children;
+				}
+			});
+			return secondCity;
+		};
+
+		_this2.thirdCityList = function (secondCity, id) {
+			var thirdCity = [];
+			secondCity.map(function (item) {
+				if (item.id == id) {
+					thirdCity = item.children;
+				}
+			});
+			return thirdCity;
+		};
+
+		_this2.selected = function (event) {
+			event.target.style.background = '#f5f5f5';
+			var thirdId = event.target.getAttribute('data-for');
+			var target = event.target.getElementsByTagName('span')[0];
+			_this2.setState({
+				thirdId: thirdId
+			});
+		};
+
+		_this2.leave = function (event) {
+			event.target.style.background = '#fff';
+		};
+
+		_this2.selectFirstCity = function (event) {
+			var firstCityId = event.target.getAttribute('data-for');
+			event.target.style.background = '#f5f5f5';
+			var second = _reactDom2.default.findDOMNode(_this2.cityList);
+			var SecondCity = second.getElementsByClassName('secondCity')[0];
+			var target = event.target.getElementsByTagName('span')[0];
+			SecondCity.style.display = 'inline-block';
+			var ThirdCity = second.getElementsByClassName('thirdCity')[0];
+			ThirdCity.style.display = 'none';
+			var secondCity = _this2.secondCityList(firstCityId);
+
+			_this2.setState({
+				secondCity: secondCity,
+				firstId: firstCityId,
+				firstName: target.innerHTML
+			});
+		};
+
+		_this2.selectSecondCity = function (event) {
+			var secondCity = _this2.state.secondCity;
+
+			event.target.style.background = '#f5f5f5';
+			var secondCityId = event.target.getAttribute('data-for');
+			var third = _reactDom2.default.findDOMNode(_this2.cityList);
+			var ThirdCity = third.getElementsByClassName('thirdCity')[0];
+			ThirdCity.style.display = 'inline-block';
+			var thirdCity = _this2.thirdCityList(secondCity, secondCityId);
+			var target = event.target.getElementsByTagName('span')[0];
+			if (!thirdCity.length) {}
+
+			_this2.setState({
+				thirdCity: thirdCity,
+				secondId: secondCityId,
+				secondName: target.innerHTML
+			});
+		};
+
+		_this2.showCity = function () {
+			var showCity = _this2.state.showCity;
+
+			if (showCity) {
+				return;
+			}
+			_this2.bodyEvent();
+			_this2.setState({
+				showCity: true
+			});
+		};
+
+		_this2.onSubmit = function (event) {
+			var thirdId = _this2.state.thirdId;
+
+			var target = event.target.getElementsByTagName('span')[0];
+			var _this2$state = _this2.state,
+			    thirdName = _this2$state.thirdName,
+			    firstName = _this2$state.firstName,
+			    secondName = _this2$state.secondName;
+
+			var city = firstName + '/' + secondName + '/' + target.innerHTML;
+			_State2.default.city = city;
+			_this2.setState({
+				showCity: false
+			});
+			var onSubmit = _this2.props.onSubmit;
+
+			onSubmit && onSubmit(thirdId);
+		};
+
+		_this2.bodyEvent = function () {
+			var _this = _this2;
+			(0, _jquery2.default)('body').click(function (event) {
+				if (event.target.className != 'city-name') {
+					_this.setState({
+						showCity: false
+					});
+				}
+			});
+		};
+
+		_this2.isInit = false;
+		_this2.state = {
+			value: '',
+			showCity: false,
+			secondCity: [],
+			first: true,
+			thirdCity: [],
+			firstId: 0,
+			secondId: 0,
+			thirdId: 0,
+			firstName: '',
+			secondName: '',
+			thirdName: '',
+			city: '请选择'
+		};
+
+		return _this2;
+	}
+
+	_createClass(CityComponent, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			// this.setDefaultDate(this.props.input.value);
+		}
+	}, {
+		key: 'componentWillReceiveProps',
+		value: function componentWillReceiveProps(nextProps) {
+			// if (!this.isInit && nextProps.input.value) {
+			// 	this.setDefaultDate(nextProps.input.value);
+			// }
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _this3 = this;
+
+			var _props = this.props,
+			    style = _props.style,
+			    left = _props.left,
+			    right = _props.right,
+			    _props$grid = _props.grid,
+			    grid = _props$grid === undefined ? 1 : _props$grid,
+			    className = _props.className,
+			    children = _props.children,
+			    inline = _props.inline,
+			    component = _props.component,
+			    type = _props.type,
+			    requireLabel = _props.requireLabel,
+			    label = _props.label,
+			    value = _props.value,
+			    _props$meta = _props.meta,
+			    touched = _props$meta.touched,
+			    error = _props$meta.error,
+			    search = _props.search,
+			    colorStyle = _props.colorStyle,
+			    heightStyle = _props.heightStyle,
+			    lengthClass = _props.lengthClass,
+			    cityName = _props.cityName,
+			    other = _objectWithoutProperties(_props, ['style', 'left', 'right', 'grid', 'className', 'children', 'inline', 'component', 'type', 'requireLabel', 'label', 'value', 'meta', 'search', 'colorStyle', 'heightStyle', 'lengthClass', 'cityName']);
+
+			var showCity = this.state.showCity;
+
+			var cityDiv = {};
+			cityDiv.display = showCity ? 'block' : 'none';
+			var firstCity = this.firstCityList();
+			var _state = this.state,
+			    secondCity = _state.secondCity,
+			    thirdCity = _state.thirdCity,
+			    firstId = _state.firstId,
+			    secondId = _state.secondId,
+			    thirdId = _state.thirdId;
+
+			var city = _State2.default.city;
+			var cityStyle = {
+				background: '#fff'
+			};
+			var selectedCity = {
+				background: '#f5f5f5'
+			};
+			var hoverColor = {};
+			var color = "#666";
+			if (city == "请选择") {
+				color = "#ccc";
+				if (!cityName) {} else if (cityName.length != 0) {
+					city = cityName;
+				}
+			}
+
+			if (city != "请选择") {
+				color = "#666";
+			}
+
+			return _react2.default.createElement(
+				_WrapComponent2.default,
+				{ label: label, wrapStyle: style, requireLabel: requireLabel, inline: inline, search: search },
+				_react2.default.createElement(
+					'div',
+					{ className: 'city-component', ref: function ref(div) {
+							_this3.cityContainer = div;
+						}, onClick: this.showCity },
+					_react2.default.createElement('input', { readOnly: 'true', value: city, style: { color: color }, ref: function ref(input) {
+							_this3.input = input;
+						} }),
+					_react2.default.createElement('span', { className: 'arrow' }),
+					_react2.default.createElement(
+						'div',
+						{ className: 'city-cantainer', style: cityDiv },
+						_react2.default.createElement(
+							'ul',
+							{ ref: function ref(ul) {
+									_this3.cityList = ul;
+								} },
+							_react2.default.createElement(
+								'li',
+								{ className: 'firstCity' },
+								firstCity.map(function (item, index) {
+									hoverColor = item.id == firstId ? selectedCity : cityStyle;
+									return _react2.default.createElement(
+										'div',
+										{ key: index, className: 'city-name', style: hoverColor, 'data-for': item.id, onMouseOver: _this3.selectFirstCity },
+										_react2.default.createElement(
+											'span',
+											null,
+											item.name
+										),
+										_react2.default.createElement('span', { className: 'scroll-div' })
+									);
+								})
+							),
+							_react2.default.createElement(
+								'li',
+								{ className: 'secondCity' },
+								secondCity.map(function (item, index) {
+									hoverColor = item.id == secondId ? selectedCity : cityStyle;
+									return _react2.default.createElement(
+										'div',
+										{ key: index, className: 'city-name', style: hoverColor, 'data-for': item.id, onMouseOver: _this3.selectSecondCity },
+										_react2.default.createElement(
+											'span',
+											null,
+											item.name
+										),
+										_react2.default.createElement('span', { className: 'scroll-div' })
+									);
+								})
+							),
+							_react2.default.createElement(
+								'li',
+								{ className: 'thirdCity' },
+								thirdCity.map(function (item, index) {
+									hoverColor = item.id == thirdId ? selectedCity : cityStyle;
+									return _react2.default.createElement(
+										'div',
+										{ key: index, className: 'city-name', style: hoverColor, 'data-for': item.id, onMouseOver: _this3.selected, onClick: _this3.onSubmit },
+										_react2.default.createElement(
+											'span',
+											null,
+											item.name
+										),
+										_react2.default.createElement('span', { className: 'scroll-div' })
+									);
+								})
+							)
+						)
+					)
+				),
+				touched && error && _react2.default.createElement(
+					'div',
+					{ className: 'error-wrap' },
+					' ',
+					_react2.default.createElement(
+						'span',
+						null,
+						error
+					),
+					' '
+				)
+			);
+		}
+	}]);
+
+	return CityComponent;
+}(_react2.default.Component)) || _class;
+
+CityComponent.displayName = 'DateComponent';
+CityComponent.defaultProps = {
+	inline: false
+};
+CityComponent.PropTypes = {
+	defaultValue: _react2.default.PropTypes.string,
+	onSubmit: _react2.default.PropTypes.func,
+	inline: _react2.default.PropTypes.bool,
+	search: _react2.default.PropTypes.bool
+};
+exports.default = CityComponent;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(CityComponent, 'CityComponent', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/KrField/CityComponent/index.js');
+}();
+
+;

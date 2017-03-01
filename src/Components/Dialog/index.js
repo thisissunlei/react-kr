@@ -6,6 +6,7 @@ import './index.less';
 import ReactDOM from 'react-dom';
 
 import DialogBody from './DialogBody';
+import DialogFooter from './DialogFooter';
 
 export default class DialogComponent extends Component {
 
@@ -41,15 +42,13 @@ export default class DialogComponent extends Component {
 		* 内容出现滚动条
 		*/
 		autoScrollBodyContent: React.PropTypes.bool,
+		actions: React.PropTypes.node,
 	}
 
 	componentDidMount(){
 			this.initializeStyles();
-			//this.initializeDialogBodyStyles();
-
 			window.addEventListener('resize',function(){
 				this.initializeStyles();
-				//this.initializeDialogBodyStyles();
 			}.bind(this));
 	}
 
@@ -57,30 +56,6 @@ export default class DialogComponent extends Component {
 	componentWillReceiveProps() {
 	}
 
-	initializeDialogBodyStyles = ()=>{
-
-		var ele = this.refs.dialogBody;
-		const {autoScrollBodyContent} = this.props;
-
-		var page = this.getPageWidthOrHeight();
-		var eleBoxStyle = ele.getBoundingClientRect();
-
-/*
-		if(autoScrollBodyContent){
-			ele.style.overflowY = 'scroll';
-		}
-		*/
-
-
-		ele.style.maxHeight = page.height-200+'px';
-		ele.style.minHeight = 100 +'px';
-
-		if(eleBoxStyle.height > page.height-200){
-			ele.style.overflowY = 'scroll';
-		}
-
-
-	}
 
 	getPageWidthOrHeight = ()=>{
 
@@ -99,7 +74,16 @@ export default class DialogComponent extends Component {
 
 	initializeStyles = ()=>{
 
-			var ele = ReactDOM.findDOMNode(this);
+			// var ele = ReactDOM.findDOMNode(this);
+			var ele;
+			try{
+				ele = this.refs.dialog;
+			}catch(err){
+				ele = null;
+			}
+			if(!ele){
+				return;
+			}
 
 			var position = {};
 
@@ -139,6 +123,8 @@ export default class DialogComponent extends Component {
 			children,
 			bodyStyle,
 			contentStyle,
+			footerStyle,
+			actions,
 			...other
 		} = this.props;
 
@@ -160,7 +146,7 @@ export default class DialogComponent extends Component {
 								<span className="close" onClick={this.onClose}></span>
 						</div>
 						{open && <DialogBody bodyStyle={bodyStyle}> {children} </DialogBody>}
-
+						{open && actions &&  <DialogFooter footerStyle={footerStyle}> {actions} </DialogFooter>}
 				</div>
 			</div>
 		);

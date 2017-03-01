@@ -1,0 +1,78 @@
+'use strict';
+
+var _mobx = require('mobx');
+
+var _mobx2 = _interopRequireDefault(_mobx);
+
+var _Redux = require('kr/Redux');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var State = (0, _mobx.observable)({
+	matureTime: "",
+	detail: {},
+	selectData: {
+		communityBaselist: [],
+		customerSourceList: [],
+		giveupList: [],
+		levelList: [],
+		roundList: [],
+		stationTypeList: [],
+		visitTypeList: []
+	},
+	isCorpName: false,
+	sourceCustomer: false,
+	treeAll: ''
+
+});
+//
+State.isMatureTime = (0, _mobx.action)(function (hasOffice) {
+	if (hasOffice == "HAS") {
+		this.matureTime = true;
+	} else if (hasOffice == "NOHAS") {
+		this.matureTime = true;
+	}
+});
+//显示到期时间
+State.showMatureTime = (0, _mobx.action)(function () {
+	this.matureTime = true;
+});
+
+//不显示到期时间
+State.noShowMatureTime = (0, _mobx.action)(function () {
+	this.matureTime = false;
+});
+State.editListId = (0, _mobx.action)(function (params) {
+
+	var _this = this;
+	_Redux.Store.dispatch(_Redux.Actions.callAPI('get-edit-info', { id: params })).then(function (response) {
+		_this.detail = response;
+	}).catch(function (err) {});
+});
+
+//公司名称检验
+State.corpNameCheck = (0, _mobx.action)(function (params) {
+	var _this = this;
+	var data = {};
+	data.id = "";
+	data.companyName = params;
+	_Redux.Store.dispatch(_Redux.Actions.callAPI('corpNameCheck', data)).then(function (response) {
+		_this.isCorpName = false;
+	}).catch(function (err) {
+		if (err.message.indexOf("该名称已存在") != -1) {
+			_this.isCorpName = true;
+		} else {
+			_this.isCorpName = false;
+		}
+	});
+});
+
+//获取树状图的数据
+State.treeAllData = (0, _mobx.action)(function () {
+	var _this = this;
+	_Redux.Store.dispatch(_Redux.Actions.callAPI('get-project-types')).then(function (response) {
+		_this.treeAll = response.items;
+	}).catch(function (err) {});
+});
+
+module.exports = State;

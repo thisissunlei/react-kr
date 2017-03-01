@@ -215,14 +215,6 @@ import './index.less';
 
 			return;
 		}
-
-		if(value.length==8&&reg.test(value)){
-			var params={};
-			params.foreignCode=this.state.detail.startNum;
-			params.interCode=value;
-			
-			this.onSubmit(params);
-		}
 		if(cReg.test(value)){
 			Message.error('卡内码内含有中文请切换英文输入法！');
 			return;

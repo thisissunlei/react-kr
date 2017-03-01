@@ -1,0 +1,468 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactMixin = require('react-mixin');
+
+var _reactMixin2 = _interopRequireDefault(_reactMixin);
+
+var _reactAddonsLinkedStateMixin = require('react-addons-linked-state-mixin');
+
+var _reactAddonsLinkedStateMixin2 = _interopRequireDefault(_reactAddonsLinkedStateMixin);
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Pagination = (_dec = _reactMixin2.default.decorate(_reactAddonsLinkedStateMixin2.default), _dec(_class = function (_Component) {
+	_inherits(Pagination, _Component);
+
+	function Pagination(props) {
+		_classCallCheck(this, Pagination);
+
+		var _this = _possibleConstructorReturn(this, (Pagination.__proto__ || Object.getPrototypeOf(Pagination)).call(this, props));
+
+		_this.renderPrevMore = function () {
+			var _this$props = _this.props,
+			    page = _this$props.page,
+			    pageJump = _this$props.pageJump;
+
+			var props = {
+				className: 'item'
+			};
+			if (page < pageJump) {
+				return null;
+			}
+			var handlers = {
+				onClick: _this.onJumpPage
+			};
+
+			var element = _this.createOther(parseInt(page / pageJump) * pageJump - 1);
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'item-body' },
+				element
+			);
+		};
+
+		_this.renderNextMore = function () {
+			var _this$props2 = _this.props,
+			    page = _this$props2.page,
+			    pageJump = _this$props2.pageJump,
+			    totalCount = _this$props2.totalCount,
+			    pageSize = _this$props2.pageSize;
+
+
+			var props = {
+				className: 'item'
+			};
+
+			var pageMax = Math.ceil(totalCount / pageSize);
+
+			if (Math.ceil(totalCount / pageSize) < pageJump || page >= pageMax - pageJump) {
+				return null;
+			}
+			var handlers = {
+				onClick: _this.onJumpPage
+			};
+			var element = _this.createOther((parseInt(page / pageJump) + 1) * pageJump + 1);
+			return _react2.default.createElement(
+				'div',
+				{ className: 'item-body' },
+				element
+			);
+		};
+
+		_this.onPrev = _this.onPrev.bind(_this);
+		_this.onNext = _this.onNext.bind(_this);
+		_this.onFirst = _this.onFirst.bind(_this);
+		_this.onLast = _this.onLast.bind(_this);
+		_this.onPageChange = _this.onPageChange.bind(_this);
+		_this.onJumpPage = _this.onJumpPage.bind(_this);
+		_this.onFirst = _this.onFirst.bind(_this);
+
+		_this.renderPrev = _this.renderPrev.bind(_this);
+		_this.renderFirst = _this.renderFirst.bind(_this);
+		_this.renderLast = _this.renderLast.bind(_this);
+		_this.renderBody = _this.renderBody.bind(_this);
+		_this.createOther = _this.createOther.bind(_this);
+		_this.renderJump = _this.renderJump.bind(_this);
+		_this.onJump = _this.onJump.bind(_this);
+		_this.renderTotalCount = _this.renderTotalCount.bind(_this);
+		_this.renderNext = _this.renderNext.bind(_this);
+
+		_this.state = {
+			jumpPageValue: ''
+		};
+
+		return _this;
+	}
+
+	_createClass(Pagination, [{
+		key: 'onJump',
+		value: function onJump() {
+			var jumpPageValue = this.state.jumpPageValue;
+			var _props = this.props,
+			    pageSize = _props.pageSize,
+			    totalCount = _props.totalCount;
+
+			var pageMax = Math.ceil(totalCount / pageSize);
+
+			if (jumpPageValue > pageMax) {
+				jumpPageValue = pageMax;
+			}
+
+			if (jumpPageValue < 1) {
+				jumpPageValue = 1;
+			}
+
+			this.onPageChange(jumpPageValue);
+		}
+	}, {
+		key: 'onPrev',
+		value: function onPrev() {
+			var page = this.props.page;
+
+
+			if (page == 1) {
+				return;
+			}
+
+			if (page > 0) {
+				page--;
+			}
+			this.onPageChange(page);
+		}
+	}, {
+		key: 'onFirst',
+		value: function onFirst() {
+			this.onPageChange(1);
+		}
+	}, {
+		key: 'onLast',
+		value: function onLast() {
+			var _props2 = this.props,
+			    pageSize = _props2.pageSize,
+			    totalCount = _props2.totalCount;
+
+			var page = Math.ceil(totalCount / pageSize);
+			this.onPageChange(page);
+		}
+	}, {
+		key: 'onNext',
+		value: function onNext() {
+			var _props3 = this.props,
+			    page = _props3.page,
+			    pageSize = _props3.pageSize,
+			    totalCount = _props3.totalCount;
+
+
+			if (page == Math.ceil(totalCount / pageSize)) {
+				return;
+			}
+
+			if (page > 0 && page < Math.ceil(totalCount / pageSize)) {
+				page++;
+			}
+
+			this.onPageChange(page);
+		}
+	}, {
+		key: 'onJumpPage',
+		value: function onJumpPage(event) {
+			this.onPageChange(event.target.getAttribute('data-page'));
+		}
+	}, {
+		key: 'onPageChange',
+		value: function onPageChange(page) {
+			var onPageChange = this.props.onPageChange;
+
+			onPageChange && onPageChange(page);
+		}
+	}, {
+		key: 'onFirst',
+		value: function onFirst() {
+			this.onPageChange(1);
+		}
+	}, {
+		key: 'renderFirst',
+		value: function renderFirst() {
+			var _props4 = this.props,
+			    page = _props4.page,
+			    pageSize = _props4.pageSize,
+			    totalCount = _props4.totalCount;
+
+
+			var props = {};
+			props.className = 'item';
+
+			if (page == 1) {
+				props.className += ' active';
+			}
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'item-first' },
+				_react2.default.createElement(
+					'a',
+					_extends({ className: 'item' }, props, { onClick: this.onFirst }),
+					'1'
+				)
+			);
+		}
+	}, {
+		key: 'renderPrev',
+		value: function renderPrev() {
+			var _props5 = this.props,
+			    page = _props5.page,
+			    pageSize = _props5.pageSize,
+			    totalCount = _props5.totalCount;
+
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'item-prev' },
+				_react2.default.createElement('a', { className: 'item', onClick: this.onPrev })
+			);
+		}
+	}, {
+		key: 'createOther',
+		value: function createOther(i) {
+
+			var props = {
+				className: 'item',
+				key: i
+			};
+
+			var handlers = {
+				onClick: this.onJumpPage
+			};
+
+			return _react2.default.createElement('a', _extends({}, props, handlers, {
+				'data-page': i
+			}), '...');
+		}
+	}, {
+		key: 'renderBody',
+		value: function renderBody() {
+			var _props6 = this.props,
+			    page = _props6.page,
+			    pageSize = _props6.pageSize,
+			    totalCount = _props6.totalCount,
+			    pageNumber = _props6.pageNumber,
+			    pageJump = _props6.pageJump;
+
+
+			var pageBody = [];
+
+			var props = {};
+
+			var handlers = {
+				onClick: this.onJumpPage
+			};
+
+			var pageStart = parseInt(page / pageJump) * pageJump;
+			if (pageStart === 0) {
+				pageStart = 1;
+			}
+			var pageMax = Math.ceil(totalCount / pageSize);
+			var pageEnd = pageStart + pageJump;
+
+			if (pageEnd > pageMax) {
+				pageEnd = pageMax;
+			}
+			if (pageStart == 1) {
+				++pageStart;
+			}
+
+			var element = null;
+
+			var i = pageStart;
+			while (i < pageEnd) {
+				props.key = i;
+				props.className = 'item';
+
+				if (page == i) {
+					props.className += ' active';
+				}
+
+				element = _react2.default.createElement('a', _extends({}, props, handlers, {
+					'data-page': i
+				}), i);
+				pageBody.push(element);
+				i++;
+			}
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'item-body' },
+				pageBody
+			);
+		}
+	}, {
+		key: 'renderLast',
+		value: function renderLast() {
+			var _props7 = this.props,
+			    page = _props7.page,
+			    pageSize = _props7.pageSize,
+			    totalCount = _props7.totalCount;
+
+
+			var pageMax = Math.ceil(totalCount / pageSize);
+
+			if (page == 1 && pageMax == 1) {
+				return;
+			}
+
+			var props = {};
+			props.className = 'item';
+
+			if (pageMax == page) {
+				props.className += ' active';
+			}
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'item-last' },
+				_react2.default.createElement(
+					'a',
+					_extends({ className: 'item' }, props, { onClick: this.onLast, page: pageMax }),
+					pageMax
+				)
+			);
+		}
+	}, {
+		key: 'renderNext',
+		value: function renderNext() {
+			var _props8 = this.props,
+			    page = _props8.page,
+			    pageSize = _props8.pageSize,
+			    totalCount = _props8.totalCount;
+
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'item-next' },
+				_react2.default.createElement('a', { className: 'item', onClick: this.onNext, page: page + 1 })
+			);
+		}
+	}, {
+		key: 'renderJump',
+		value: function renderJump() {
+			var _props9 = this.props,
+			    page = _props9.page,
+			    pageSize = _props9.pageSize,
+			    totalCount = _props9.totalCount;
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'item-jump' },
+				_react2.default.createElement(
+					'span',
+					null,
+					'\u5230'
+				),
+				_react2.default.createElement('input', { type: 'text', name: 'age', valueLink: this.linkState('jumpPageValue') }),
+				_react2.default.createElement(
+					'a',
+					{ style: { boxShadow: ' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)' }, onClick: this.onJump },
+					'\u8DF3\xA0\xA0\u8F6C'
+				)
+			);
+		}
+	}, {
+		key: 'renderTotalCount',
+		value: function renderTotalCount() {
+			var totalCount = this.props.totalCount;
+
+
+			totalCount = totalCount || 0;
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'item-total-count' },
+				_react2.default.createElement(
+					'span',
+					null,
+					'\u5171'
+				),
+				_react2.default.createElement(
+					'span',
+					{ className: 'num' },
+					totalCount
+				),
+				_react2.default.createElement(
+					'span',
+					null,
+					'\u6761\u8BB0\u5F55'
+				)
+			);
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'ui-pagination' },
+				this.renderTotalCount(),
+				this.renderPrev(),
+				this.renderFirst(),
+				this.renderPrevMore(),
+				this.renderBody(),
+				this.renderNextMore(),
+				this.renderLast(),
+				this.renderNext(),
+				this.renderJump()
+			);
+		}
+	}]);
+
+	return Pagination;
+}(_react.Component)) || _class);
+Pagination.displayName = 'Pagination';
+Pagination.defaultProps = {
+	pageNumber: 10,
+	pageJump: 6
+};
+Pagination.propTypes = {
+	children: _react2.default.PropTypes.node,
+	page: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number]),
+	pageSize: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number]),
+	totalCount: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number]),
+	onPageChange: _react2.default.PropTypes.func,
+	pageNumber: _react2.default.PropTypes.number,
+	pageJump: _react2.default.PropTypes.number
+};
+exports.default = Pagination;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(Pagination, 'Pagination', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/Pagination/index.js');
+}();
+
+;

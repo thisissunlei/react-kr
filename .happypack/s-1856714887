@@ -1,0 +1,293 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Station = function (_Component) {
+	_inherits(Station, _Component);
+
+	function Station(props, context) {
+		_classCallCheck(this, Station);
+
+		var _this = _possibleConstructorReturn(this, (Station.__proto__ || Object.getPrototypeOf(Station)).call(this, props, context));
+
+		_this.method = function () {
+			var _this$props$baseInfo = _this.props.baseInfo,
+			    payModelList = _this$props$baseInfo.payModelList,
+			    payModel = _this$props$baseInfo.payModel;
+
+			var reg = /转账/g,
+			    methodObj;
+			payModelList && payModelList.map(function (item, index) {
+				if (payModel == item.id) {
+					if (!reg.test(item.dicName)) {
+						payModelList.id = item.id;
+						payModelList.dicName = item.dicName;
+						payModelList.flag = true;
+					} else {
+						payModelList.flag = false;
+						payModelList.id = item.id;
+					}
+				}
+				return payModelList;
+			});
+		};
+
+		_this.basicType = function (stationTypeName) {
+			if (stationTypeName == 1) {
+				return "工位";
+			}
+			if (stationTypeName == 2) {
+				return "会议室";
+			}
+		};
+
+		_this.getLocalTime = function (beginDate) {
+			var now = new Date(beginDate);
+			var yy = now.getFullYear(); //年
+			var mm = now.getMonth() + 1; //月
+			var dd = now.getDate(); //日
+			return yy + "年" + mm + "月" + dd + "日";
+		};
+
+		return _this;
+	}
+
+	_createClass(Station, [{
+		key: 'render',
+		value: function render() {
+			var _this2 = this;
+
+			var _props = this.props,
+			    stationVOs = _props.stationVOs,
+			    baseInfo = _props.baseInfo,
+			    installmentPlans = _props.installmentPlans,
+			    baseType = _props.baseType,
+			    baseTimeBegin = _props.baseTimeBegin,
+			    info = _props.info,
+			    reduceTh = _props.reduceTh,
+			    method = _props.method;
+			var _props$baseInfo = this.props.baseInfo,
+			    payType = _props$baseInfo.payType,
+			    payTypeList = _props$baseInfo.payTypeList,
+			    payModel = _props$baseInfo.payModel,
+			    payModelList = _props$baseInfo.payModelList;
+
+
+			this.method();
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'ui-print-Station' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'normal-station-head' },
+					_react2.default.createElement(
+						'span',
+						{ className: 'enter-info' },
+						baseType,
+						baseTimeBegin && _react2.default.createElement(
+							'span',
+							{ className: 'right-date' },
+							'\u65E5\u671F\uFF1A\u81EA',
+							this.getLocalTime(baseInfo.leaseBegindate),
+							'\u8D77'
+						)
+					),
+					method && _react2.default.createElement(
+						'div',
+						{ className: 'pay-method clear' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'method-list' },
+							_react2.default.createElement('span', { className: payModelList && payModelList.flag && payModel == payModelList.id ? "checked" : "discheck" }),
+							_react2.default.createElement(
+								'span',
+								null,
+								'\u5176\u4ED6',
+								payModelList && payModelList.flag && payModel == payModelList.id ? '-' + payModelList.dicName : " "
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'method-list' },
+							_react2.default.createElement('span', { className: payModelList && !payModelList.flag && payModel == payModelList.id ? "checked" : "discheck" }),
+							_react2.default.createElement(
+								'span',
+								null,
+								'\u8F6C\u8D26'
+							)
+						)
+					)
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'auto-height' },
+					_react2.default.createElement(
+						'table',
+						null,
+						_react2.default.createElement(
+							'tbody',
+							null,
+							_react2.default.createElement(
+								'tr',
+								null,
+								_react2.default.createElement(
+									'th',
+									null,
+									'\u7C7B\u522B'
+								),
+								_react2.default.createElement(
+									'th',
+									null,
+									'\u7F16\u53F7/\u540D\u79F0'
+								),
+								_react2.default.createElement(
+									'th',
+									null,
+									'\u5355\u4EF7(\u5143/\u6708)'
+								),
+								_react2.default.createElement(
+									'th',
+									null,
+									'\u6570\u91CF'
+								),
+								_react2.default.createElement(
+									'th',
+									null,
+									reduceTh
+								),
+								_react2.default.createElement(
+									'th',
+									null,
+									'\u5C0F\u8BA1'
+								),
+								_react2.default.createElement(
+									'th',
+									null,
+									'\u5907\u6CE8'
+								)
+							),
+							stationVOs && stationVOs.map(function (item, index) {
+								return _react2.default.createElement(
+									'tr',
+									{ key: index },
+									_react2.default.createElement(
+										'td',
+										null,
+										_this2.basicType(item.stationTypeName)
+									),
+									_react2.default.createElement(
+										'td',
+										null,
+										item.stationName
+									),
+									_react2.default.createElement(
+										'td',
+										null,
+										item.unitPrice
+									),
+									_react2.default.createElement(
+										'td',
+										null,
+										item.num
+									),
+									_react2.default.createElement(
+										'td',
+										null,
+										item.leaseDate
+									),
+									_react2.default.createElement(
+										'td',
+										null,
+										item.lineTotal
+									),
+									_react2.default.createElement('td', null)
+								);
+							})
+						)
+					),
+					_react2.default.createElement(
+						'p',
+						{ className: 'station-bottom' },
+						_react2.default.createElement(
+							'span',
+							null,
+							info
+						),
+						_react2.default.createElement(
+							'span',
+							null,
+							baseInfo.rentTotal
+						),
+						_react2.default.createElement(
+							'span',
+							null,
+							baseInfo.rentTotalCN
+						),
+						this.props.orderTime && _react2.default.createElement(
+							'span',
+							null,
+							'(\u7B7E\u7F72\u610F\u5411\u4E66\u540E5\u4E2A\u5DE5\u4F5C\u65E5\u5185\u652F\u4ED8)'
+						)
+					)
+				),
+				_react2.default.createElement(
+					'p',
+					null,
+					'\u6CE8\uFF1A\u4E0D\u8DB3\u4E00\u6708\u7684\uFF0C\u6309\u7167\u6708\u670D\u52A1\u8D39*12\u6708/365\u5929\u8BA1\u7B97'
+				)
+			);
+		}
+	}]);
+
+	return Station;
+}(_react.Component);
+
+Station.defaultProps = {
+	data: [],
+	baseTimeBegin: false,
+	info: '服务费总计',
+	reduceTh: '服务期限',
+	method: false
+};
+Station.propTypes = {
+	data: _react2.default.PropTypes.array,
+	orderTime: _react2.default.PropTypes.bool,
+	stationVOs: _react2.default.PropTypes.object,
+	baseInfo: _react2.default.PropTypes.object,
+	baseType: _react2.default.PropTypes.string,
+	baseTimeBegin: _react2.default.PropTypes.bool,
+	info: _react2.default.PropTypes.string,
+	reduceTh: _react2.default.PropTypes.string
+};
+exports.default = Station;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(Station, 'Station', '/Users/dongfanai/Desktop/project/kr-admin/src/PureComponents/Agreement/Print/Station/index.js');
+}();
+
+;

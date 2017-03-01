@@ -1,0 +1,312 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _reactAddonsPureRenderMixin = require('react-addons-pure-render-mixin');
+
+var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _CreateAccount = require('./CreateAccount');
+
+var _CreateAccount2 = _interopRequireDefault(_CreateAccount);
+
+var _DataPermission = require('./DataPermission');
+
+var _DataPermission2 = _interopRequireDefault(_DataPermission);
+
+var _reduxForm = require('redux-form');
+
+var _krUi = require('kr-ui');
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AccountList = function (_Component) {
+	_inherits(AccountList, _Component);
+
+	function AccountList(props, context) {
+		_classCallCheck(this, AccountList);
+
+		var _this = _possibleConstructorReturn(this, (AccountList.__proto__ || Object.getPrototypeOf(AccountList)).call(this, props, context));
+
+		_this.openNewCreate = function () {
+			_this.setState({
+				openNewCreate: !_this.state.openNewCreate
+			});
+		};
+
+		_this.openDataPermission = function () {
+			_this.setState({
+				openDataPermission: !_this.state.openDataPermission
+			});
+		};
+
+		_this.state = {
+			searchParams: '',
+			openNewCreate: false,
+			openDataPermission: false
+		};
+		return _this;
+	}
+
+	_createClass(AccountList, [{
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					_krUi.Section,
+					{ title: '\u8D26\u6237\u5217\u8868' },
+					_react2.default.createElement(
+						_krUi.Row,
+						null,
+						_react2.default.createElement(
+							_krUi.Col,
+							{ md: 4 },
+							_react2.default.createElement(_krUi.KrField, {
+								label: '\u767B\u5F55\u540D\uFF1A',
+								style: { marginLeft: 10 },
+								heightStyle: { height: 26, marginLeft: '17px' },
+								name: 'loginName',
+								component: 'input',
+								inline: true,
+								placeholder: ' ',
+								type: 'text'
+							})
+						),
+						_react2.default.createElement(
+							_krUi.Col,
+							{ md: 4 },
+							_react2.default.createElement(_krUi.KrField, {
+								label: '\u59D3\u540D\uFF1A',
+								heightStyle: { height: 26, marginLeft: '27px' },
+								name: 'idName',
+								component: 'input',
+								inline: true,
+								placeholder: ' ',
+								type: 'text'
+							})
+						),
+						_react2.default.createElement(
+							_krUi.Col,
+							{ md: 4 },
+							_react2.default.createElement(_krUi.KrField, { label: '\u624B\u673A\u53F7\uFF1A',
+								heightStyle: { height: 26, marginLeft: '17px' },
+								name: 'mobileNum',
+								component: 'input',
+								inline: true,
+								placeholder: ' ',
+								type: 'text'
+							})
+						)
+					),
+					_react2.default.createElement(
+						_krUi.Row,
+						null,
+						_react2.default.createElement(
+							_krUi.Col,
+							{ md: 4 },
+							_react2.default.createElement(_krUi.KrField, { label: '\u90AE\u7BB1\uFF1A',
+								style: { marginLeft: 10 },
+								heightStyle: { height: 26, marginLeft: '30px', width: '94.5%' },
+								name: 'mobileNum',
+								component: 'input',
+								inline: true,
+								type: 'text',
+								placeholder: ' '
+							})
+						),
+						_react2.default.createElement(
+							_krUi.Col,
+							{ md: 4 },
+							_react2.default.createElement(_krUi.KrField, { label: '\u9501\u5B9A\u72B6\u6001\uFF1A',
+								name: 'mobileNum',
+								type: 'select',
+								heightStyle: { height: 26, background: '#fff', width: '195%' },
+								inline: true
+							})
+						),
+						_react2.default.createElement(
+							_krUi.Col,
+							{ md: 4 },
+							_react2.default.createElement(
+								_krUi.ListGroup,
+								null,
+								_react2.default.createElement(
+									_krUi.ListGroupItem,
+									{ style: { padding: '7px 50px 6px 17px' } },
+									_react2.default.createElement(_krUi.Button, {
+										label: '\u67E5\u8BE2',
+										type: 'submit',
+										width: 70,
+										height: 26,
+										fontSize: 14
+									})
+								),
+								_react2.default.createElement(
+									_krUi.ListGroupItem,
+									{ style: { paddingTop: 7, paddingBottom: 6 } },
+									_react2.default.createElement(_krUi.Button, {
+										label: '\u65B0\u5EFA',
+										type: 'button',
+										onClick: this.openNewCreate,
+										width: 70,
+										height: 26,
+										fontSize: 14
+									})
+								)
+							)
+						)
+					),
+					_react2.default.createElement(
+						_krUi.Table,
+						{
+							style: { marginTop: 10 },
+							displayCheckbox: false,
+							onLoaded: this.onLoaded,
+							ajax: true,
+							ajaxFieldListName: 'finaContractMainbillVOList',
+							ajaxUrlName: 'getFinaDataByList',
+							ajaxParams: this.state.searchParams,
+							onOperation: this.onOperation,
+							onExport: this.onExport
+						},
+						_react2.default.createElement(
+							_krUi.TableHeader,
+							null,
+							_react2.default.createElement(
+								_krUi.TableHeaderColumn,
+								null,
+								'ID'
+							),
+							_react2.default.createElement(
+								_krUi.TableHeaderColumn,
+								null,
+								'\u767B\u5F55\u540D'
+							),
+							_react2.default.createElement(
+								_krUi.TableHeaderColumn,
+								null,
+								'\u59D3\u540D'
+							),
+							_react2.default.createElement(
+								_krUi.TableHeaderColumn,
+								null,
+								'\u624B\u673A\u53F7'
+							),
+							_react2.default.createElement(
+								_krUi.TableHeaderColumn,
+								null,
+								'\u7535\u5B50\u90AE\u7BB1'
+							),
+							_react2.default.createElement(
+								_krUi.TableHeaderColumn,
+								null,
+								'\u9501\u5B9A\u6807\u8BC6'
+							),
+							_react2.default.createElement(
+								_krUi.TableHeaderColumn,
+								null,
+								'\u64CD\u4F5C'
+							)
+						),
+						_react2.default.createElement(
+							_krUi.TableBody,
+							null,
+							_react2.default.createElement(
+								_krUi.TableRow,
+								null,
+								_react2.default.createElement(_krUi.TableRowColumn, { style: { overflow: 'hidden' }, name: 'mainbillname' }),
+								_react2.default.createElement(_krUi.TableRowColumn, { name: 'mainBillTypeName', options: [{ label: '工位入驻订单', value: 'STATION' }] }),
+								_react2.default.createElement(_krUi.TableRowColumn, { name: 'stationnum' }),
+								_react2.default.createElement(_krUi.TableRowColumn, { name: 'come' }),
+								_react2.default.createElement(_krUi.TableRowColumn, { name: 'backMount' }),
+								_react2.default.createElement(_krUi.TableRowColumn, { name: 'mount' }),
+								_react2.default.createElement(
+									_krUi.TableRowColumn,
+									null,
+									_react2.default.createElement(_krUi.Button, { label: '\u4FEE\u6539', onTouchTap: this.openNewCreate, type: 'operation', operation: 'view' }),
+									_react2.default.createElement(_krUi.Button, { label: '\u91CD\u7F6E\u5BC6\u7801', type: 'operation', operation: 'view' }),
+									_react2.default.createElement(_krUi.Button, { label: '\u52A0\u9501', type: 'operation', operation: 'view' }),
+									_react2.default.createElement(_krUi.Button, { label: '\u5220\u9664', type: 'operation', operation: 'view' }),
+									_react2.default.createElement(_krUi.Button, { label: '\u6570\u636E', onTouchTap: this.openDataPermission, type: 'operation', operation: 'view' })
+								)
+							)
+						),
+						_react2.default.createElement(_krUi.TableFooter, null)
+					)
+				),
+				_react2.default.createElement(
+					_krUi.Dialog,
+					{
+						title: '\u65B0\u5EFA\u767B\u5F55\u8D26\u53F7',
+						modal: true,
+						open: this.state.openNewCreate,
+						onClose: this.openNewCreate,
+						contentStyle: { width: 500 }
+					},
+					_react2.default.createElement(_CreateAccount2.default, null)
+				),
+				_react2.default.createElement(
+					_krUi.Dialog,
+					{
+						title: '\u7F16\u8F91\u767B\u5F55\u8D26\u53F7',
+						modal: true,
+						open: this.state.openNewCreate,
+						onClose: this.openNewCreate,
+						contentStyle: { width: 500 }
+					},
+					_react2.default.createElement(_CreateAccount2.default, { onCancel: this.openNewCreate })
+				),
+				_react2.default.createElement(
+					_krUi.Dialog,
+					{
+						title: '\u7F16\u8F91\u6570\u636E\u6743\u9650',
+						modal: true,
+						open: this.state.openDataPermission,
+						onClose: this.openDataPermission,
+						contentStyle: { width: 500, height: 500 }
+					},
+					_react2.default.createElement(_DataPermission2.default, { onCancel: this.openDataPermission })
+				)
+			);
+		}
+	}]);
+
+	return AccountList;
+}(_react.Component);
+
+var _default = (0, _reduxForm.reduxForm)({ form: 'AccountList', enableReinitialize: true, keepDirtyOnReinitialize: true })(AccountList);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(AccountList, 'AccountList', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Permission/AccountList/index.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/dongfanai/Desktop/project/kr-admin/src/Containers/Permission/AccountList/index.js');
+}();
+
+;

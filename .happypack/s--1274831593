@@ -1,0 +1,215 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _simpleAssign = require('simple-assign');
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _krUi = require('kr-ui');
+
+var _dateformat = require('dateformat');
+
+var _dateformat2 = _interopRequireDefault(_dateformat);
+
+var _SearchUpdateLog = require('./SearchUpdateLog');
+
+var _SearchUpdateLog2 = _interopRequireDefault(_SearchUpdateLog);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UpdateLog = function (_Component) {
+  _inherits(UpdateLog, _Component);
+
+  function UpdateLog(props, context) {
+    _classCallCheck(this, UpdateLog);
+
+    var _this = _possibleConstructorReturn(this, (UpdateLog.__proto__ || Object.getPrototypeOf(UpdateLog)).call(this, props, context));
+
+    _this.onStartChange = function (startTime) {
+      var searchParams = _this.state.searchParams;
+
+      var start = Date.parse((0, _dateformat2.default)(startTime, "yyyy-mm-dd hh:MM:ss"));
+      var end = Date.parse((0, _dateformat2.default)(searchParams.endTime, "yyyy-mm-dd hh:MM:ss"));
+      if (searchParams.endTime && start > end) {
+        _krUi.Message.error("结束时间要小于开始时间");
+        return;
+      }
+      searchParams = (0, _simpleAssign2.default)({}, searchParams, { startTime: startTime });
+      _this.setState({
+        searchParams: searchParams
+      });
+    };
+
+    _this.onEndChange = function (endTime) {
+      var searchParams = _this.state.searchParams;
+
+      var start = Date.parse((0, _dateformat2.default)(searchParams.startTime, "yyyy-mm-dd hh:MM:ss"));
+      var end = Date.parse((0, _dateformat2.default)(endTime, "yyyy-mm-dd hh:MM:ss"));
+      if (searchParams.startTime && start > end) {
+        _krUi.Message.error("结束时间要小于开始时间");
+        return;
+      }
+      searchParams = (0, _simpleAssign2.default)({}, searchParams, { endTime: endTime });
+      _this.setState({
+        searchParams: searchParams
+      });
+    };
+
+    _this.onLoaded = _this.onLoaded.bind(_this);
+    _this.state = {
+      item: {},
+      list: {},
+      searchParams: {
+        page: 1,
+        pageSize: 15,
+        memberId: _this.context.router.params.memberId,
+        endTime: '',
+        startTime: ''
+      }
+    };
+    return _this;
+  }
+
+  _createClass(UpdateLog, [{
+    key: 'onLoaded',
+    value: function onLoaded(response) {
+      var list = response;
+      this.setState({
+        list: list
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _state = this.state,
+          list = _state.list,
+          searchParams = _state.searchParams;
+
+      if (!list.totalCount) {
+        list.totalCount = 0;
+      }
+
+      return _react2.default.createElement(
+        'div',
+        { style: { height: '860' } },
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'span',
+            { style: { float: 'left', color: '#499df1', marginTop: '30' } },
+            'Krspace\u8F68\u8FF9'
+          ),
+          _react2.default.createElement(_SearchUpdateLog2.default, { onStartChange: this.onStartChange, onEndChange: this.onEndChange })
+        ),
+        _react2.default.createElement(
+          _krUi.Table,
+          {
+            style: {},
+            displayCheckbox: false,
+            onLoaded: this.onLoaded,
+            ajax: true,
+            ajaxFieldListName: 'items',
+            ajaxUrlName: 'getUpdateLog',
+            ajaxParams: this.state.searchParams
+          },
+          _react2.default.createElement(
+            _krUi.TableHeader,
+            null,
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u4F1A\u5458ID'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u64CD\u4F5C\u7C7B\u578B'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u64CD\u4F5C\u7ED3\u679C'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u64CD\u4F5C\u8BB0\u5F55'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u64CD\u4F5C\u4EBA'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u64CD\u4F5C\u65F6\u95F4'
+            ),
+            _react2.default.createElement(
+              _krUi.TableHeaderColumn,
+              null,
+              '\u64CD\u4F5C\u4EBAIP'
+            )
+          ),
+          _react2.default.createElement(
+            _krUi.TableBody,
+            { style: { position: 'inherit' } },
+            _react2.default.createElement(
+              _krUi.TableRow,
+              { displayCheckbox: true },
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'memberId' }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'businessObj', options: [{ label: '更新', value: 'UPDATE' }, { label: '新增', value: 'ADD' }],
+                component: function component(value, oldValue) {
+                  return _react2.default.createElement(
+                    'span',
+                    null,
+                    value
+                  );
+                } }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'operationResult', options: [{ label: '成功', value: '' }, { label: '成功', value: '' }],
+                component: function component(value, oldValue) {
+                  return _react2.default.createElement(
+                    'span',
+                    null,
+                    value
+                  );
+                } }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'operateRecord' }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'operaterName' }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'operateDate', type: 'date', format: 'yyyy-mm-dd HH:MM:ss' }),
+              _react2.default.createElement(_krUi.TableRowColumn, { name: 'operateIp' })
+            )
+          ),
+          _react2.default.createElement(_krUi.TableFooter, null)
+        )
+      );
+    }
+  }]);
+
+  return UpdateLog;
+}(_react.Component);
+
+UpdateLog.contextTypes = {
+  router: _react2.default.PropTypes.object.isRequired
+};
+UpdateLog.propTypes = {
+  memberId: _react2.default.PropTypes.number
+};
+exports.default = UpdateLog;

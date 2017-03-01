@@ -1,0 +1,10 @@
+"use strict";
+
+var Log = {
+  debug: function debug(message) {
+    //console.log('debug:',arguments);
+    //console.log('debug:',message);
+  }
+};
+
+module.exports = Log;

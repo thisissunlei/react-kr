@@ -34,12 +34,13 @@ import {
 	Title,
 	Tooltip
 } from 'kr-ui';
-import './index.less'
 
-import NewCreateForm from './NewCreateForm';
+
+import './index.less'
+//高级查询
+import SearchUpperForm from './SearchUpperForm';
+//搜索
 import SearchForm from './SearchForm';
-import ItemDetail from './ItemDetail';
-import CompareBillForm from './CompareBillForm';
 
 
 
@@ -47,29 +48,9 @@ export default class AttributeSetting extends Component {
 
 	constructor(props, context) {
 		super(props, context);
-
-		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
-
-		this.onNewCreateSubmit = this.onNewCreateSubmit.bind(this);
-		this.onSearchSubmit = this.onSearchSubmit.bind(this);
-		this.onEditSubmit = this.onEditSubmit.bind(this);
-		this.onLoaded = this.onLoaded.bind(this);
-
-		this.openNewCreateDialog = this.openNewCreateDialog.bind(this);
-		this.openViewDialog = this.openViewDialog.bind(this);
-		this.openEditDetailDialog = this.openEditDetailDialog.bind(this);
-		this.onOperation = this.onOperation.bind(this);
-
-		this.onExport = this.onExport.bind(this);
-
-
-
 		this.state = {
-			openNewCreate: false,
-			openView: false,
-			openEditDetail: false,
+			openSearch: false,
 			itemDetail: {},
-			item: {},
 			list: {},
 			searchParams: {
 				page: 1,
@@ -79,22 +60,10 @@ export default class AttributeSetting extends Component {
 		}
 	}
 
-	componentDidMount() {
-		var _this = this;
-		Store.dispatch(Actions.callAPI('getFinaDataByList')).then(function(response) {
-			_this.setState({
-				item: response,
-				loading: false
-			});
-		}).catch(function(err) {
-			Notify.show([{
-				message: err.message,
-				type: 'danger',
-			}]);
-		});
-	}
 
-	onExport(values) {
+
+   //导出
+	onExport=(values)=> {
 		var searchParams = this.state.searchParams;
 		let idList = [];
 		if (values.length != 0) {
@@ -106,8 +75,8 @@ export default class AttributeSetting extends Component {
 		window.location.href = url;
 	}
 
-	//操作相关
-	onOperation(type, itemDetail) {
+	//操作相关(查看)
+	onOperation=(type, itemDetail)=>{
 
 		this.setState({
 			itemDetail
@@ -115,70 +84,45 @@ export default class AttributeSetting extends Component {
 
 		if (type == 'view') {
 			let orderId = itemDetail.id
-				//window.location.href = `./#/finance/Manage/orderbill/${orderId}/detail`;
-			window.open(`./#/finance/Manage/orderbill/${orderId}/detail`, orderId);
-		} else if (type == 'edit') {
-			this.openEditDetailDialog();
+			window.open(`./#/finance/Manage/orderbill/${orderId}/detail`,orderId);
 		}
-	}
-
-	//编辑
-	openEditDetailDialog() {
-		this.setState({
-			openEditDetail: !this.state.openEditDetail
-		});
-	}
-
-	//对账单的确定操作
-	onEditSubmit() {
-		this.openEditDetailDialog();
-		this.openConfirmBillDetailDialog();
-	}
-
-	//查看
-	openViewDialog() {
-		this.setState({
-			openView: !this.state.openView
-		});
 	}
 
 
 	//搜索
-	onSearchSubmit(searchParams) {
+	onSearchSubmit=(searchParams)=>{
 		let obj = {
 			mainbillname: searchParams.content,
-			pageSize: 15
+			pageSize:15
 		}
 		this.setState({
 			searchParams: obj
 		});
 	}
-	onSearchCancel() {}
-		//新建
-	openNewCreateDialog() {
+
+	//高级查询
+	openSearchUpperDialog=()=>{
 		this.setState({
-			openNewCreate: !this.state.openNewCreate,
-			searchParams: {
-				pageSize: '15'
+			openSearch: !this.state.openSearch,
+			searchParams:{
+				pageSize:'15'
 			}
 		});
 	}
 
-	onNewCreateSubmit(searchParams) {
+   //高级搜索提交
+	onSearchUpperSubmit=(searchParams)=>{
 		searchParams = Object.assign({}, this.state.searchParams, searchParams);
 		this.setState({
 			searchParams,
-			openNewCreate: !this.state.openNewCreate
+			openSearch: !this.state.openSearch
 		});
 
 	}
 
-	onNewCreateCancel() {
-		this.openNewCreateDialog();
-	}
 
-	onLoaded(response) {
-
+    //加载完将所有的table数据都获取过来了
+	onLoaded=(response)=>{
 		let list = response;
 		this.setState({
 			list
@@ -204,7 +148,7 @@ export default class AttributeSetting extends Component {
 
 		return (
 
-			<div>
+			<div className='m-order-list'>
 					<Title value="订单账单列表_财务管理"/>
 					<Section title="订单账单列表" description="" style={{marginBottom:-5,minHeight:910}}>
 
@@ -237,7 +181,7 @@ export default class AttributeSetting extends Component {
 							<Col md={5} align="right" style={{marginTop:7}}>
 								<ListGroup>
 									<ListGroupItem> <SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
-									<ListGroupItem> <Button searchClick={this.openNewCreateDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'5'}}/></ListGroupItem>
+									<ListGroupItem> <Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'5'}}/></ListGroupItem>
 								</ListGroup>
 							</Col>
 						</Row>
@@ -281,7 +225,7 @@ export default class AttributeSetting extends Component {
 														}else{
 															TooltipStyle="block";
 														}
-														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 													 }} ></TableRowColumn>
 						<TableRowColumn name="mainBillTypeName" options={[{label:'工位入驻订单',value:'STATION'}]}></TableRowColumn>
@@ -293,7 +237,7 @@ export default class AttributeSetting extends Component {
 														}else{
 															TooltipStyle="block";
 														}
-														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 											}} ></TableRowColumn>
 						<TableRowColumn name="stationnum"></TableRowColumn>
@@ -305,7 +249,6 @@ export default class AttributeSetting extends Component {
 						<TableRowColumn name="rentOrDeposit"></TableRowColumn>
 						<TableRowColumn>
 							  <Button label="查看"  type="operation" operation="view"/>
-							  {/*<Button label="生成对账单"  type="operation" operation="edit"/>*/}
 						 </TableRowColumn>
 					 </TableRow>
 				</TableBody>
@@ -317,35 +260,16 @@ export default class AttributeSetting extends Component {
 					</Section>
 
 					<Dialog
-						title="高询"
+						title="高级查询"
 						modal={true}
-						open={this.state.openNewCreate}
-						onClose={this.openNewCreateDialog}
+						open={this.state.openSearch}
+						onClose={this.openSearchUpperDialog}
 						bodyStyle={{paddingTop:34}}
 						contentStyle={{width:687}}
 					>
-						<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
+						<SearchUpperForm onSubmit={this.onSearchUpperSubmit} onCancel={this.openSearchUpperDialog} />
 
-				  </Dialog>
-
-
-					<Dialog
-						title="生成对账单"
-						modal={true}
-						open={this.state.openEditDetail}
-					>
-						<CompareBillForm  detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog} />
-				  </Dialog>
-
-					<Dialog
-						title="查看"
-						modal={true}
-						open={this.state.openView}
-					>
-						<ItemDetail  detail={this.state.itemDetail} onCancel={this.openViewDialog} />
-				  </Dialog>
-
-
+				   </Dialog>
 			</div>
 
 		);

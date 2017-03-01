@@ -9,10 +9,16 @@ import './index.less';
 import $ from 'jquery';
 import WrapComponent from '../WrapComponent';
 import { default as CityData } from './CityData.json';
+import {
+	observer
+} from 'mobx-react';
+import State from './State';
+@observer
 
 export default class CityComponent extends React.Component {
 
 	static displayName = 'DateComponent';
+
 
 	static defaultProps = {
 		inline: false
@@ -44,6 +50,7 @@ export default class CityComponent extends React.Component {
 			thirdName:'',
 			city:'请选择',
 		}
+
 
 	}
 
@@ -89,7 +96,7 @@ export default class CityComponent extends React.Component {
 		})
 		return thirdCity;
 	}
-	
+
 
 	selected=(event)=>{
 		event.target.style.background = '#f5f5f5';
@@ -130,7 +137,6 @@ export default class CityComponent extends React.Component {
 		let thirdCity = this.thirdCityList(secondCity,secondCityId);
 		const target = event.target.getElementsByTagName('span')[0];
 		if(!thirdCity.length){
-			console.log('none');
 		}
 
 		this.setState({
@@ -150,19 +156,19 @@ export default class CityComponent extends React.Component {
 		this.bodyEvent();
 		this.setState({
 			showCity:true
-		})	
+		})
 	}
 
 	onSubmit=(event)=>{
+
 		let {thirdId} = this.state;
 		const target = event.target.getElementsByTagName('span')[0];
 		let {thirdName,firstName,secondName} = this.state;
 		let city = `${firstName}/${secondName}/${target.innerHTML}`;
+		State.city=city;
 		this.setState({
-			city,
 			showCity:false
 		});
-
 		let {onSubmit} = this.props;
 		onSubmit && onSubmit(thirdId);
 
@@ -196,17 +202,23 @@ export default class CityComponent extends React.Component {
 			requireLabel,
 			label,
 			value,
+			meta: {
+				touched,
+				error
+			},
 			search,
 			colorStyle,
 			heightStyle,
 			lengthClass,
+			cityName,
 			...other
 		} = this.props;
 		let {showCity} = this.state;
 		let cityDiv = {};
 		cityDiv.display = showCity?'block':'none';
 		let firstCity = this.firstCityList();
-		let {secondCity,thirdCity,firstId,secondId,city,thirdId} = this.state;
+		let {secondCity,thirdCity,firstId,secondId,thirdId} = this.state;
+		let city=State.city;
 		let cityStyle= {
 			background:'#fff'
 		};
@@ -214,16 +226,24 @@ export default class CityComponent extends React.Component {
 			background:'#f5f5f5'
 		}
 		let hoverColor = {};
-		
-
-
-		
+		let color="#666";
+		if(city=="请选择"){
+			color="#ccc"
+			if(!cityName){
+			}else if(cityName.length!=0){
+				city=cityName;
+			}
+		}
+        
+        if(city!="请选择"){
+          color="#666";	
+        }
 
 		return (
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 					<div className="city-component" ref={div=>{this.cityContainer = div}} onClick={this.showCity}>
-						<input readOnly="true" value={city} ref={input=>{this.input = input}}/>
+						<input readOnly="true" value={city} style={{color:color}} ref={input=>{this.input = input}}/>
 						<span className="arrow"></span>
 						<div className="city-cantainer" style={cityDiv}>
 							<ul ref={ul=>{this.cityList = ul}}>
@@ -248,6 +268,7 @@ export default class CityComponent extends React.Component {
 							</ul>
 						</div>
 					</div>
+					{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				</WrapComponent>
 		);
 	}

@@ -1,0 +1,160 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _simpleAssign = require('simple-assign');
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _krUi = require('kr-ui');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NewCreateForm = function (_Component) {
+	_inherits(NewCreateForm, _Component);
+
+	function NewCreateForm(props) {
+		_classCallCheck(this, NewCreateForm);
+
+		var _this2 = _possibleConstructorReturn(this, (NewCreateForm.__proto__ || Object.getPrototypeOf(NewCreateForm)).call(this, props));
+
+		_this2.onSubmit = _this2.onSubmit.bind(_this2);
+		_this2.onCancel = _this2.onCancel.bind(_this2);
+
+		return _this2;
+	}
+
+	_createClass(NewCreateForm, [{
+		key: 'onSubmit',
+		value: function onSubmit(values) {
+
+			values = (0, _simpleAssign2.default)({}, values);
+
+			var _this = this;
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('addFnaCorporation', {}, values)).then(function (response) {
+				_krUi.Notify.show([{
+					message: '新建成功！',
+					type: 'success'
+				}]);
+				var onSubmit = _this.props.onSubmit;
+
+				onSubmit && onSubmit();
+			}).catch(function (err) {
+				_krUi.Notify.show([{
+					message: err.message,
+					type: 'danger'
+				}]);
+			});
+		}
+	}, {
+		key: 'onCancel',
+		value: function onCancel() {
+			var onCancel = this.props.onCancel;
+
+
+			onCancel && onCancel();
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    error = _props.error,
+			    handleSubmit = _props.handleSubmit,
+			    pristine = _props.pristine,
+			    reset = _props.reset;
+
+
+			return _react2.default.createElement(
+				'form',
+				{ onSubmit: handleSubmit(this.onSubmit), style: { marginTop: 40 } },
+				_react2.default.createElement(_krUi.KrField, { name: 'corporationName', grid: 1 / 2, right: 10, type: 'text', label: '\u51FA\u79DF\u65B9\u540D\u79F0', requireLabel: true }),
+				_react2.default.createElement(
+					_krUi.KrField,
+					{ name: 'enableflag', component: 'group', grid: 1 / 2, left: 20, label: '\u662F\u5426\u542F\u7528', requireLabel: true },
+					_react2.default.createElement(
+						'div',
+						{ className: 'listRadio' },
+						_react2.default.createElement(_krUi.KrField, { name: 'enableflag', label: '\u662F', component: 'radio', type: 'radio', value: 'ENABLE' }),
+						_react2.default.createElement(_krUi.KrField, { name: 'enableflag', label: '\u5426', component: 'radio', type: 'radio', value: '\tDISENABLE' })
+					)
+				),
+				_react2.default.createElement(_krUi.KrField, { name: 'corporationAddress', grid: 1 / 2, right: 10, component: 'text', type: 'text', label: '\u8BE6\u7EC6\u5730\u5740', requireLabel: true }),
+				_react2.default.createElement(_krUi.KrField, { name: 'corporationDesc', component: 'textarea', label: '\u5907\u6CE8', placeholder: '\u5907\u6CE8\u4FE1\u606F' }),
+				_react2.default.createElement(
+					_krUi.Grid,
+					{ style: { marginBottom: 10 } },
+					_react2.default.createElement(
+						_krUi.Row,
+						null,
+						_react2.default.createElement(
+							_krUi.Col,
+							{ md: 12 },
+							_react2.default.createElement(
+								_krUi.ListGroup,
+								null,
+								_react2.default.createElement(
+									_krUi.ListGroupItem,
+									{ style: { width: '45%', textAlign: 'right', paddingRight: 15 } },
+									_react2.default.createElement(_krUi.Button, { label: '\u786E\u5B9A', type: 'submit', joinEditForm: true, height: 34 })
+								),
+								_react2.default.createElement(
+									_krUi.ListGroupItem,
+									{ style: { width: '45%', textAlign: 'left', paddingLeft: 15 } },
+									_react2.default.createElement(_krUi.Button, { label: '\u53D6\u6D88', type: 'button', cancle: true, onTouchTap: this.onCancel, height: 34 })
+								)
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return NewCreateForm;
+}(_react.Component);
+
+NewCreateForm.PropTypes = {
+	onSubmit: _react2.default.PropTypes.func,
+	onCancel: _react2.default.PropTypes.func
+};
+
+
+var validate = function validate(values) {
+
+	var errors = {};
+
+	if (!values.corporationName) {
+		errors.corporationName = '请填写出租方名称';
+	}
+	if (!values.corporationAddress) {
+		errors.corporationAddress = '请填写详细地址';
+	}
+
+	return errors;
+};
+
+exports.default = (0, _reduxForm.reduxForm)({
+	form: 'newCreateForm',
+	initialValues: {
+		enableflag: 'ENABLE'
+	},
+	validate: validate
+})(NewCreateForm);

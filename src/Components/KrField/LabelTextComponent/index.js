@@ -44,7 +44,7 @@ export default class LabelTextComponent extends React.Component {
 			colorStyle,
 			tooltip
 		} = this.props;
-
+		// console.log(value,"LLLLLLL")
 		if (tooltip && type != 'date' && type != 'link') {
 			return (
 				<WrapComponent label={label} wrapStyle={style} inline={inline} requireBlue={requireBlue} alignRight={alignRight} requireLabel={requireLabel}>

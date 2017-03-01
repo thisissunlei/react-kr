@@ -1,0 +1,89 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _simpleAssign = require('simple-assign');
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FontIcon = function (_React$Component) {
+	_inherits(FontIcon, _React$Component);
+
+	function FontIcon(props) {
+		_classCallCheck(this, FontIcon);
+
+		return _possibleConstructorReturn(this, (FontIcon.__proto__ || Object.getPrototypeOf(FontIcon)).call(this, props));
+	}
+
+	_createClass(FontIcon, [{
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    className = _props.className,
+			    style = _props.style,
+			    color = _props.color;
+
+
+			style = (0, _simpleAssign2.default)({}, style);
+
+			if (color) {
+				style.color = color;
+			}
+
+			return _react2.default.createElement('span', { className: className, style: style });
+		}
+	}]);
+
+	return FontIcon;
+}(_react2.default.Component);
+
+FontIcon.displayName = 'FontIcon';
+FontIcon.PropTypes = {
+	/**
+ *样式class类名
+ */
+	className: _react2.default.PropTypes.string,
+	/**
+ * 样式
+ */
+	style: _react2.default.PropTypes.object,
+	/**
+ *颜色
+ */
+	color: _react2.default.PropTypes.string,
+	/**
+ *hover 颜色
+ */
+	hoverColor: _react2.default.PropTypes.string
+};
+exports.default = FontIcon;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(FontIcon, 'FontIcon', '/Users/dongfanai/Desktop/project/kr-admin/src/Components/FontIcon/index.js');
+}();
+
+;

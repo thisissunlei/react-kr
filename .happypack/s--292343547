@@ -1,0 +1,16 @@
+'use strict';
+
+var _Tabs = require('./Tabs');
+
+var _Tabs2 = _interopRequireDefault(_Tabs);
+
+var _TabItem = require('./TabItem');
+
+var _TabItem2 = _interopRequireDefault(_TabItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = {
+	Tabs: _Tabs2.default,
+	TabItem: _TabItem2.default
+};

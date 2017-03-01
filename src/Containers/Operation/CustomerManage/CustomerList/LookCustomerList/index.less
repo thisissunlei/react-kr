@@ -1,0 +1,275 @@
+.m-lookCustomerList{
+
+    .watchGo{
+        position:absolute;
+        left:0;
+        display:inline-block;
+        z-index:5;
+        width:100%;
+        height:100%;
+    }
+    
+    .d-editBtn{
+        button{
+            line-height: 29px;
+        }
+    }
+    .look-close{
+      position: absolute;
+      display: block;
+      width: 20px;
+      height: 20px;
+      right: 0px;
+      top:0px;
+      cursor: pointer;
+      background: url(../images/closeIcon.svg) no-repeat;
+      background-position: center center;    
+    }
+    .look-new-icon{
+      display: inline-block;
+      width: 42px;
+      height: 42px;
+      vertical-align:middle;
+      background: url(../images/company.svg) no-repeat;
+      background-position: center center;
+    }
+    .ui-tabs .tabs-lines{
+    	border-right:0px;
+    }
+    span{
+    	font-size: 16px;
+    }
+    .everyText{
+    	display: inline-block;
+        width: 300px;
+        .ui-form-item{
+            min-height: 34px;
+            line-height: 34px;
+            .ui-form-controller.inline{
+                padding-top:8px;
+            }
+            .ui-form-controller.inline .ui-label-text{
+                width:226px;
+                position:static;
+                white-space: normal;
+                word-wrap: break-word;
+                line-height: 18px;
+            }
+        }
+        .ui-form-label.inline{
+            line-height: 34px;
+
+        }
+    }
+    .m-LookDetailed{
+       .everyText:nth-of-type(even){
+            box-sizing:border-box;
+            padding-left:30px;
+            width:310px;
+            .ui-form-item{
+            min-height: 34px;
+            line-height: 34px;
+          } 
+        } 
+    }
+    
+    .spetial{
+       display: inline-block;
+       padding-left:63px;
+    }
+    .blueDrop{
+    	display: inline-block;
+    	width: 10px;
+    	height: 34px;
+    	vertical-align:middle;
+      	background: url(images/more.svg) no-repeat;
+      	background-position: center center;
+
+    }
+    .new-icon{
+      display: inline-block;
+      width: 42px;
+      height: 42px;
+      vertical-align:middle;
+      background: url(../images/company.svg) no-repeat;
+      background-position: center center;
+    }
+    .bottomWire{
+    	height: 2px;
+    	margin-top: 15px;
+    	margin-bottom: 20px;
+    	width: 720px;
+    	margin-left: -30px;
+    	border-bottom: 1px dashed #dfdfdf;
+    }
+    .visitRecord{
+        position: relative;
+    	border: 1px dashed #dfdfdf;
+    	position: relative;
+    	padding: 50px 20px 0px;
+        .ui-nothing .icon{
+            display:none;
+        }
+
+        
+        .top-arrow:after{
+            border:0px;
+        }
+        // .ui-tooltip .top-arrows {
+        //     position: absolute;
+        //     left: 75%;
+        //     transform: translateX(-50%);
+        //     bottom: -4px;
+        //     width: 0;
+        //     height: 0;
+        //     border-left: 6px solid transparent;
+        //     border-right: 6px solid transparent;
+        //     border-top: 4px solid rgba(0, 0, 0, 0.7);
+        // }
+        .ui-tooltip.center {
+            left: 50%;
+            padding:0 10px;
+        }
+
+    }
+    .visitRecordTitle{
+    	position: relative;
+        display: block;
+        width: 160px;
+        height: 40px;
+        border-radius: 20px;
+        background: #499df1;
+        text-align: center;
+        color: #fff;
+        font-size: 18px;
+        line-height: 40px;
+        left: 50%;
+        margin-left: -80px;
+        top: 20px;
+        z-index: 2;
+
+    }
+    .isDevelop{
+        // position: absolute;
+        padding: 20px 0 20px;
+        width: 100%;
+        height: 20px;
+        /* left: 50%; */
+        text-align: center;
+        /* margin-left: -33px; */
+        cursor: pointer;
+        background: #fff;
+
+   	}
+    .recordDevelop,.recordClose{
+       width: 65px;
+        display: inline-block;
+        color:#499df1;
+        text-align: left;
+    }
+    .recordDevelop{
+    	background: url(images/close.svg) no-repeat;
+      	background-position: 80% center;
+    }
+    .recordClose{
+    	background: url(images/develop.svg) no-repeat;
+      	background-position: 80% center;
+		
+    }
+    .ui-tabs-contents{
+		padding: 0 0px;
+	}
+    .tableDiv{
+        width: 100%;
+        height: auto;
+        // background: red;
+    }
+    .tr-title{
+
+        width: 100%;
+        border-top:1px solid #eee;
+        height: 50px;
+        line-height: 50px;
+
+    }
+    .tr-content{
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+    }
+    .tr-title span{
+        height: 50px;
+        line-height: 50px;
+        display: inline-block;
+        text-align: center;
+        width: 12.5%;
+    }
+    .tr-content .div-td{
+        height: 50px;
+        // line-height: 50px;
+        display: block;
+        float: left;
+        text-overflow:ellipsis;
+        white-space:nowrap; 
+        text-align: center;
+        // overflow: hidden;
+        width: 12.5%;
+    }
+    .m-tooltipBox{
+        position: absolute;
+        display: inline-block;
+        height: 50px;
+    }
+    
+    .m-tooltipBox:hover{
+        display: none;
+    }
+    .tr-content:nth-of-type(2n){
+        background: #f2f2f2;
+    }
+
+    .tableOver{
+            display: inline-block;
+            width: 100%;
+            position: relative;
+            text-overflow:ellipsis;
+            white-space:nowrap; 
+            text-align: center;
+            overflow: hidden;
+            line-height: 22px
+        }
+        .tooltipTextStyle{
+            min-height:50px;
+            white-space:normal;
+        }
+}
+.m-CustomerIndent{
+    padding: 40px 40px auto 45px;
+     
+	
+	.indentList{
+		background: #f2f2f2;
+		padding: 0px 15px 20px;
+	}
+	.orderNumber{
+		width: 20px;
+		height: 23px;
+		border-radius:0 0 10px 10px;
+		line-height: 23px;
+		background: #499df1;
+		color: #fff;
+		font-size: 14px;
+		text-align: center;
+		margin-bottom: 20px;
+
+	}
+	.interval{
+		display: inline-block;
+		width: 10px;
+	}
+	.bottomWire{
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+}
+

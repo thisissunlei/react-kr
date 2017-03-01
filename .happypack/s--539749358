@@ -1,0 +1,457 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _krUi = require('kr-ui');
+
+var _CreateMemberForm = require('./CreateMemberForm');
+
+var _CreateMemberForm2 = _interopRequireDefault(_CreateMemberForm);
+
+var _ChangeStation = require('./ChangeStation');
+
+var _ChangeStation2 = _interopRequireDefault(_ChangeStation);
+
+var _Distribution = require('./Distribution');
+
+var _Distribution2 = _interopRequireDefault(_Distribution);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var EmployessTable = function (_Component) {
+	_inherits(EmployessTable, _Component);
+
+	function EmployessTable(props, context) {
+		_classCallCheck(this, EmployessTable);
+
+		var _this2 = _possibleConstructorReturn(this, (EmployessTable.__proto__ || Object.getPrototypeOf(EmployessTable)).call(this, props, context));
+
+		_this2.onNewCreateSubmit = function (values) {
+			var _this = _this2;
+			var form = {};
+			form.stationId = _this2.state.stationId;
+			form.customerId = _this2.state.customerId;
+			form.communityId = _this2.state.communityId;
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('membersChange', {}, values)).then(function (response) {
+				_krUi.Message.success('成功');
+
+				form.memberId = response;
+				console.log('onDistributionSubmit', response);
+				_this.onDistributionSubmit(form);
+
+				_this.onClose();
+				_this.onDistributionCancel();
+				// window.location.reload();
+				// window.location.href = "/#/community/companyMembers/" + _this.params.companyId + "/list/" + _this.params.communityId ;
+			}).catch(function (err) {
+				_krUi.Message.error(err.message);
+				_this.onClose();
+			});
+		};
+
+		_this2.openChangeStation = _this2.openChangeStation.bind(_this2);
+		_this2.openDistributionStation = _this2.openDistributionStation.bind(_this2);
+		_this2.onChangeCancel = _this2.onChangeCancel.bind(_this2);
+		_this2.onDistributionCancel = _this2.onDistributionCancel.bind(_this2);
+		_this2.onDistributionSubmit = _this2.onDistributionSubmit.bind(_this2);
+		_this2.onChangeSubmit = _this2.onChangeSubmit.bind(_this2);
+		_this2.onOperation = _this2.onOperation.bind(_this2);
+		_this2.onIframeClose = _this2.onIframeClose.bind(_this2);
+		_this2.onClose = _this2.onClose.bind(_this2);
+		_this2.state = {
+			openChangeStation: false,
+			openDistribution: false,
+			optionValues: {},
+			itemDetail: {},
+			stationId: 1,
+			openNewmeber: false,
+			customerId: 1,
+			communityId: 1,
+			isLoading: false,
+			state: {}
+
+		};
+
+		return _this2;
+	}
+
+	_createClass(EmployessTable, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {}
+	}, {
+		key: 'openChangeStation',
+		value: function openChangeStation(itemDetail) {
+			var _this = this;
+
+			this.setState({
+				openChangeStation: !this.state.openChangeStation,
+				stationId: itemDetail.id,
+				customerId: itemDetail.customerId,
+				communityId: itemDetail.communityId
+			});
+			var optionValues = {};
+
+			var formValues = {
+				customerId: itemDetail.customerId
+			};
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('getmembers', formValues)).then(function (response) {
+
+				optionValues.members = response.map(function (item, index) {
+					item.value = item.id;
+					item.label = item.memberName;
+					return item;
+				});
+				_this.setState({
+					optionValues: optionValues
+				});
+			}).catch(function (err) {
+				_krUi.Notify.show([{
+					message: err.message,
+					type: 'danger'
+				}]);
+			});
+		}
+	}, {
+		key: 'openDistributionStation',
+		value: function openDistributionStation(itemDetail) {
+
+			var _this = this;
+			this.setState({
+				openDistribution: !this.state.openDistribution,
+				stationId: itemDetail.id,
+				customerId: itemDetail.customerId,
+				communityId: itemDetail.communityId
+			});
+			var optionValues = {};
+			var formValue = {
+				customerId: itemDetail.customerId
+			};
+
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('getmembers', formValue)).then(function (response) {
+
+				optionValues.member = response.map(function (item, index) {
+					item.value = item.id;
+					item.label = item.memberName;
+					return item;
+				});
+				_this.setState({
+					optionValues: optionValues
+				});
+			}).catch(function (err) {
+				_krUi.Notify.show([{
+					message: err.message,
+					type: 'danger'
+				}]);
+			});
+		}
+	}, {
+		key: 'onChangeCancel',
+		value: function onChangeCancel() {
+			this.setState({
+				openChangeStation: !this.state.openChangeStation
+			});
+		}
+	}, {
+		key: 'onDistributionCancel',
+		value: function onDistributionCancel() {
+			this.setState({
+				openDistribution: !this.state.openDistribution
+			});
+		}
+	}, {
+		key: 'onClose',
+		value: function onClose() {
+			this.setState({
+				openNewmeber: !this.state.openNewmeber
+			});
+		}
+	}, {
+		key: 'onChangeSubmit',
+		value: function onChangeSubmit(form) {
+			var _this = this;
+			if (form.memberId == -1) {
+				this.setState({
+					openNewmeber: !this.state.openNewmeber
+				});
+				this.onChangeCancel();
+			} else {
+
+				_Redux.Store.dispatch(_Redux.Actions.callAPI('changeStation', {}, form)).then(function (response) {
+					_this.onChangeCancel();
+					_krUi.Notify.show([{
+						message: '操作成功！',
+						type: 'success'
+					}]);
+					_this.setState({
+						isLoading: !_this.state.isLoading
+					});
+				}).catch(function (err) {
+
+					_krUi.Notify.show([{
+						message: err.message,
+						type: 'danger'
+					}]);
+				});
+			}
+		}
+	}, {
+		key: 'onIframeClose',
+		value: function onIframeClose(response) {
+			if (response.operator == 'ok') {
+				_krUi.Notify.show([{
+					message: '新增成功！',
+					type: 'success'
+				}]);
+			}
+
+			this.setState({
+				openNewmeber: !this.state.openNewmeber
+			});
+		}
+	}, {
+		key: 'getStationUrl',
+		value: function getStationUrl() {
+			var _state = this.state,
+			    customerId = _state.customerId,
+			    communityId = _state.communityId;
+
+
+			var url = '/krspace_member_web/member/toAddMember?companyId=' + customerId + '&communityId=' + communityId + '&flag=op';
+			return url;
+		}
+	}, {
+		key: 'onDistributionSubmit',
+		value: function onDistributionSubmit(form) {
+			var _this = this;
+			if (form.memberId == -1) {
+				this.setState({
+					openNewmeber: !this.state.openNewmeber
+
+				});
+				this.onDistributionCancel();
+			} else {
+				_Redux.Store.dispatch(_Redux.Actions.callAPI('changeStation', {}, form)).then(function (response) {
+					_this.onDistributionCancel();
+					_krUi.Notify.show([{
+						message: '操作成功！',
+						type: 'success'
+					}]);
+					_this.setState({
+						isLoading: !_this.state.isLoading
+					});
+				}).catch(function (err) {
+
+					_krUi.Notify.show([{
+						message: err.message,
+						type: 'danger'
+					}]);
+				});
+			}
+		}
+
+		//操作相关
+
+	}, {
+		key: 'onOperation',
+		value: function onOperation(type, itemDetail) {
+			this.setState({
+				itemDetail: itemDetail
+			});
+
+			if (type == 'Distribution') {
+				this.setState({
+					stationId: itemDetail.stationId
+				}, function () {
+					this.openDistributionStation(itemDetail);
+				});
+			} else if (type == 'ChangeStation') {
+				this.setState({
+					stationId: itemDetail.stationId
+				}, function () {
+
+					this.openChangeStation(itemDetail);
+				});
+			}
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    activity = _props.activity,
+			    detail = _props.detail,
+			    id = _props.id;
+
+
+			if (!activity) {
+				return null;
+			}
+			var optionValues = this.state.optionValues;
+			var _state2 = this.state,
+			    customerId = _state2.customerId,
+			    communityId = _state2.communityId;
+
+			var params = {
+				communityId: communityId,
+				companyId: customerId
+			};
+			var ParamValues = {
+				communityIds: detail.communityId,
+				mainBillId: detail.billId
+			};
+			var _this = this;
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'employees-content' },
+				_react2.default.createElement(
+					_krUi.Table,
+					{ className: 'childTable', style: { marginTop: 10, width: '100%' }, displayCheckbox: false, ajax: true, ajaxUrlName: 'getStation', ajaxParams: ParamValues, pagination: false, onOperation: this.onOperation, loading: this.state.isLoading,
+						onProcessData: function onProcessData(state) {
+							var listData = state.listData;
+							listData.forEach(function (item) {
+
+								if (item.status == "LEFTED") {
+									item.distributionHidden = true;
+									item.changeHidden = true;
+								} else {
+									if (item.memberName) {
+										item.distributionHidden = true;
+										item.noneHidden = true;
+									} else {
+										item.changeHidden = true;
+										item.noneHidden = true;
+									}
+								}
+							});
+							return state;
+						} },
+					_react2.default.createElement(
+						_krUi.TableHeader,
+						null,
+						_react2.default.createElement(
+							_krUi.TableHeaderColumn,
+							null,
+							'\u5DE5\u4F4D\u7F16\u53F7'
+						),
+						_react2.default.createElement(
+							_krUi.TableHeaderColumn,
+							null,
+							'\u79DF\u8D41\u8D77\u59CB\u65F6\u95F4'
+						),
+						_react2.default.createElement(
+							_krUi.TableHeaderColumn,
+							null,
+							'\u79DF\u8D41\u7ED3\u675F\u65F6\u95F4'
+						),
+						_react2.default.createElement(
+							_krUi.TableHeaderColumn,
+							null,
+							'\u5458\u5DE5'
+						),
+						_react2.default.createElement(
+							_krUi.TableHeaderColumn,
+							null,
+							'\u7535\u8BDD'
+						),
+						_react2.default.createElement(
+							_krUi.TableHeaderColumn,
+							null,
+							'\u72B6\u6001'
+						),
+						_react2.default.createElement(
+							_krUi.TableHeaderColumn,
+							null,
+							'\u64CD\u4F5C'
+						)
+					),
+					_react2.default.createElement(
+						_krUi.TableBody,
+						null,
+						_react2.default.createElement(
+							_krUi.TableRow,
+							{ displayCheckbox: true },
+							_react2.default.createElement(_krUi.TableRowColumn, { name: 'stationCode' }),
+							_react2.default.createElement(_krUi.TableRowColumn, { name: 'leaseBeginDate', type: 'date', format: 'yyyy-mm-dd' }),
+							_react2.default.createElement(_krUi.TableRowColumn, { name: 'leaseEndDate', type: 'date', format: 'yyyy-mm-dd' }),
+							_react2.default.createElement(_krUi.TableRowColumn, { name: 'memberName' }),
+							_react2.default.createElement(_krUi.TableRowColumn, { name: 'memberPhone' }),
+							_react2.default.createElement(_krUi.TableRowColumn, { name: 'status', options: [{ label: '未入住', value: 'UNLIVE' }, { label: '已入住', value: 'LIVED' }, { label: '已离场', value: 'LEFTED' }] }),
+							_react2.default.createElement(
+								_krUi.TableRowColumn,
+								{ type: 'operation' },
+								_react2.default.createElement(_krUi.Button, { label: '\u53D8\u66F4', className: 'changeBtn', type: 'operation', operation: 'ChangeStation', hidden: 'changeHidden' }),
+								_react2.default.createElement(_krUi.Button, { label: '\u5206\u914D', className: 'Distribtn', type: 'operation', operation: 'Distribution', hidden: 'distributionHidden' }),
+								_react2.default.createElement(_krUi.Button, { label: '\u65E0', className: 'Distribtn bgcolor', type: 'operation', operation: 'none', hidden: 'noneHidden' })
+							)
+						)
+					),
+					_react2.default.createElement(_krUi.TableFooter, null)
+				),
+				_react2.default.createElement(
+					_krUi.Dialog,
+					{
+						title: '\u5206\u914D\u5DE5\u4F4D',
+						modal: true,
+						open: this.state.openDistribution,
+						onClose: this.onDistributionCancel,
+						contentStyle: { width: 445 }
+					},
+					_react2.default.createElement(_Distribution2.default, { detail: this.state.itemDetail, onCancel: this.onDistributionCancel, onSubmit: this.onDistributionSubmit, optionValues: optionValues, stationId: this.state.stationId, customerId: this.state.customerId, communityId: this.state.communityId })
+				),
+				_react2.default.createElement(
+					_krUi.Dialog,
+					{
+						title: '\u53D8\u66F4\u5DE5\u4F4D',
+						modal: true,
+						open: this.state.openChangeStation,
+						onClose: this.onChangeCancel,
+						contentStyle: { width: 445 }
+					},
+					_react2.default.createElement(_ChangeStation2.default, { detail: this.state.itemDetail, onCancel: this.onChangeCancel, onSubmit: this.onChangeSubmit, optionValues: optionValues, stationId: this.state.stationId, customerId: this.state.customerId, communityId: this.state.communityId })
+				),
+				_react2.default.createElement(
+					_krUi.Dialog,
+					{
+						title: '\u65B0\u589E\u5458\u5DE5',
+						modal: true,
+						open: this.state.openNewmeber,
+						onClose: this.onClose,
+						contentStyle: { width: 620 }
+					},
+					_react2.default.createElement(_CreateMemberForm2.default, { onSubmit: this.onNewCreateSubmit, params: params, onCancel: this.onClose, detail: this.state.itemDetail })
+				)
+			);
+		}
+	}]);
+
+	return EmployessTable;
+}(_react.Component);
+
+EmployessTable.defaultProps = {
+	activity: false
+
+};
+EmployessTable.PropTypes = {
+	params: _react2.default.PropTypes.object,
+	activity: _react2.default.PropTypes.bool
+};
+exports.default = EmployessTable;
