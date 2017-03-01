@@ -1,0 +1,167 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _simpleAssign = require('simple-assign');
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _redux = require('redux');
+
+var _Actions = require('kr-ui/../Redux/Actions');
+
+var actionCreators = _interopRequireWildcard(_Actions);
+
+var _Section = require('kr-ui/Section');
+
+var _Section2 = _interopRequireDefault(_Section);
+
+var _Calendar = require('kr-ui/Calendar');
+
+var _Calendar2 = _interopRequireDefault(_Calendar);
+
+var _inbox = require('material-ui/svg-icons/content/inbox');
+
+var _inbox2 = _interopRequireDefault(_inbox);
+
+var _invertColors = require('material-ui/svg-icons/action/invert-colors');
+
+var _invertColors2 = _interopRequireDefault(_invertColors);
+
+var _assistantPhoto = require('material-ui/svg-icons/image/assistant-photo');
+
+var _assistantPhoto2 = _interopRequireDefault(_assistantPhoto);
+
+var _assignment = require('material-ui/svg-icons/action/assignment');
+
+var _assignment2 = _interopRequireDefault(_assignment);
+
+var _speakerNotes = require('material-ui/svg-icons/action/speaker-notes');
+
+var _speakerNotes2 = _interopRequireDefault(_speakerNotes);
+
+var _dateRange = require('material-ui/svg-icons/action/date-range');
+
+var _dateRange2 = _interopRequireDefault(_dateRange);
+
+var _colors = require('material-ui/styles/colors');
+
+var _materialUi = require('material-ui');
+
+var _List = require('material-ui/List');
+
+require('./index.less');
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PlanManage = function (_Component) {
+	_inherits(PlanManage, _Component);
+
+	function PlanManage(props, context) {
+		_classCallCheck(this, PlanManage);
+
+		return _possibleConstructorReturn(this, (PlanManage.__proto__ || Object.getPrototypeOf(PlanManage)).call(this, props, context));
+	}
+
+	_createClass(PlanManage, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			var actions = this.props.actions;
+
+			actions.createPlan().then(function (response) {});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+
+			var style = {
+				height: 90,
+				width: 90,
+				margin: 10,
+				textAlign: 'center'
+			};
+
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					_Section2.default,
+					{ title: '\u6211\u7684\u5E38\u7528', description: '',
+
+						leftIcon: _react2.default.createElement(_materialUi.Avatar, { icon: _react2.default.createElement(_invertColors2.default, null), backgroundColor: _colors.pink500, size: 25 }),
+						rightMenu: _react2.default.createElement(
+							_materialUi.Menu,
+							null,
+							_react2.default.createElement(_materialUi.MenuItem, { primaryText: '\u65B0\u589E' }),
+							_react2.default.createElement(_materialUi.MenuItem, { primaryText: '\u5176\u4ED6' })
+						) },
+					_react2.default.createElement(
+						'div',
+						{ className: 'list' },
+						_react2.default.createElement(
+							_materialUi.Paper,
+							{ style: style, zDepth: 1, circle: true },
+							_react2.default.createElement(_materialUi.Avatar, { icon: _react2.default.createElement(_invertColors2.default, null), backgroundColor: _colors.red500, className: 'item' })
+						),
+						_react2.default.createElement(
+							_materialUi.Paper,
+							{ style: style, zDepth: 1, circle: true },
+							_react2.default.createElement(_materialUi.Avatar, { icon: _react2.default.createElement(_dateRange2.default, null), backgroundColor: _colors.pink500, className: 'item' })
+						),
+						_react2.default.createElement(
+							_materialUi.Paper,
+							{ style: style, zDepth: 1, circle: true },
+							_react2.default.createElement(_materialUi.Avatar, { icon: _react2.default.createElement(_speakerNotes2.default, null), backgroundColor: _colors.purple500, className: 'item' })
+						),
+						_react2.default.createElement(
+							_materialUi.Paper,
+							{ style: style, zDepth: 1, circle: true },
+							_react2.default.createElement(_materialUi.Avatar, { icon: _react2.default.createElement(_assignment2.default, null), backgroundColor: _colors.blue500, className: 'item' })
+						),
+						_react2.default.createElement(
+							_materialUi.Paper,
+							{ style: style, zDepth: 1, circle: true },
+							_react2.default.createElement(_materialUi.Avatar, { icon: _react2.default.createElement(_assistantPhoto2.default, null), backgroundColor: _colors.yellow600, className: 'item' })
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return PlanManage;
+}(_react.Component);
+
+function mapStateToProps(state) {
+
+	return {
+		calendar: state.plan,
+		now_date: state.plan.now_date
+	};
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		actions: (0, _redux.bindActionCreators)((0, _simpleAssign2.default)({}, actionCreators), dispatch)
+	};
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PlanManage);

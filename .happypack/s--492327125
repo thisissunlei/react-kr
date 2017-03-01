@@ -1,0 +1,484 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Redux = require('kr/Redux');
+
+var _reduxForm = require('redux-form');
+
+var _mobxReact = require('mobx-react');
+
+var _krUi = require('kr-ui');
+
+var _State = require('./State');
+
+var _State2 = _interopRequireDefault(_State);
+
+var _dateformat = require('dateformat');
+
+var _dateformat2 = _interopRequireDefault(_dateformat);
+
+require('./index.less');
+
+var _State3 = require('../Merchants/State');
+
+var _State4 = _interopRequireDefault(_State3);
+
+var _State5 = require('../Personal/State');
+
+var _State6 = _interopRequireDefault(_State5);
+
+var _State7 = require('../SignedClient/State');
+
+var _State8 = _interopRequireDefault(_State7);
+
+var _State9 = require('../LookCustomerList/State');
+
+var _State10 = _interopRequireDefault(_State9);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var EditCustomerList = (0, _mobxReact.observer)(_class = function (_Component) {
+	_inherits(EditCustomerList, _Component);
+
+	function EditCustomerList(props) {
+		_classCallCheck(this, EditCustomerList);
+
+		var _this2 = _possibleConstructorReturn(this, (EditCustomerList.__proto__ || Object.getPrototypeOf(EditCustomerList)).call(this, props));
+
+		_this2.onSubmit = function (values) {
+			var operType = _this2.props.operType;
+
+			var _this = _this2;
+			if (!values.company) {
+				return;
+			}
+			values.operType = operType;
+			if (!isNaN(values.inTime)) {
+				values.inTime = _this2.formatDate(values.inTime);
+			}
+			if (!isNaN(values.deadline)) {
+				values.deadline = _this2.formatDate(values.deadline);
+			}
+			_Redux.Store.dispatch(_Redux.Actions.callAPI('customerDataEdit', {}, values)).then(function (response) {
+				if (operType == "SHARE") {
+					_State4.default.searchParams = {
+						page: 1,
+						pageSize: 15,
+						time: +new Date()
+					};
+				}
+				if (operType == "PERSON") {
+					_State6.default.searchParams = {
+						page: 1,
+						pageSize: 15,
+						time: +new Date()
+					};
+				}
+				if (operType == "SIGN") {
+					_State8.default.searchParams = {
+						page: 1,
+						pageSize: 15,
+						time: +new Date()
+					};
+				}
+				_State10.default.lookListId(_this.props.listId, operType);
+				_State4.default.openDialog = false;
+				_State6.default.openPersonDialog = false;
+				_State8.default.openPersonDialog = false;
+				_this.onCancel();
+			}).catch(function (err) {
+				_krUi.Message.error(err.message);
+			});
+		};
+
+		_this2.sourceCustomer = function (value) {
+			if (!value) {
+				return;
+			}
+
+			var param = value.label;
+			if (param.indexOf('介绍') != -1) {
+				_State2.default.sourceCustomer = true;
+			} else {
+				_State2.default.sourceCustomer = false;
+			}
+		};
+
+		_this2.onCancel = function () {
+			var onCancel = _this2.props.onCancel;
+
+
+			onCancel && onCancel();
+		};
+
+		_this2.cityValue = function (value) {
+			_Redux.Store.dispatch((0, _reduxForm.change)('EditCustomerList', 'distinctId', value));
+		};
+
+		_this2.hasOfficeClick = function (params) {
+			if (params.value == "YES") {
+				if (_this2.props.operType == "SHARE") {
+					_State4.default.hasOfficeChange(true);
+				}
+				if (_this2.props.operType == "PERSON") {
+					_State6.default.hasOfficeChange(true);
+				}
+				if (_this2.props.operType == "SIGN") {
+					_State8.default.hasOfficeChange(true);
+				}
+			} else if (params.value == "NO") {
+				if (_this2.props.operType == "SHARE") {
+					_State4.default.hasOfficeChange(false);
+				}
+				if (_this2.props.operType == "PERSON") {
+					_State6.default.hasOfficeChange(false);
+				}
+				if (_this2.props.operType == "SIGN") {
+					_State8.default.hasOfficeChange(false);
+				}
+			}
+		};
+
+		_this2.corpNameChange = function (value) {
+			_State2.default.corpNameCheck(value);
+		};
+
+		var listId = props.listId;
+
+		_State2.default.treeAllData();
+
+		return _this2;
+	}
+
+	_createClass(EditCustomerList, [{
+		key: 'supplementZero',
+		value: function supplementZero(value) {
+			if (value < 10) {
+				value = '0' + value;
+			}
+			return value;
+		}
+	}, {
+		key: 'formatDate',
+		value: function formatDate(value) {
+
+			var dt = new Date(value);
+			var year = dt.getFullYear();
+			var month = this.supplementZero(1 + dt.getMonth());
+			var date = this.supplementZero(dt.getDate());
+			var hours = this.supplementZero(dt.getHours());
+			var minutes = this.supplementZero(dt.getMinutes());
+			var seconds = this.supplementZero(dt.getSeconds());
+
+			var result = year + '-' + month + '-' + date + ' 00:00:00';
+
+			if (this.props.dateNoSecond == 'true') {
+				var result = year + '-' + month + '-' + date;
+			}
+
+			return result;
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    error = _props.error,
+			    handleSubmit = _props.handleSubmit,
+			    pristine = _props.pristine,
+			    reset = _props.reset,
+			    dataReady = _props.dataReady,
+			    hasOffice = _props.hasOffice,
+			    cityName = _props.cityName,
+			    listValue = _props.listValue;
+
+
+			return _react2.default.createElement(
+				'form',
+				{ className: 'm-newMerchants', style: { paddingLeft: 9 }, onSubmit: handleSubmit(this.onSubmit) },
+				_react2.default.createElement(
+					'div',
+					{ className: 'title' },
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement('span', { className: 'new-icon' }),
+						_react2.default.createElement(
+							'label',
+							{ className: 'title-text' },
+							'\u7F16\u8F91\u5BA2\u6237'
+						)
+					),
+					_react2.default.createElement('div', { className: 'customer-close', onClick: this.onCancel })
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'cheek' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'titleBar' },
+						_react2.default.createElement(
+							'span',
+							{ className: 'order-number' },
+							'1'
+						),
+						_react2.default.createElement('span', { className: 'wire' }),
+						_react2.default.createElement(
+							'label',
+							{ className: 'small-title' },
+							'\u57FA\u672C\u4FE1\u606F'
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'small-cheek' },
+						_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u5BA2\u6237\u6765\u6E90', name: 'sourceId', style: { width: 262, marginLeft: 15 }, component: 'select',
+							options: dataReady.customerSourceList,
+							requireLabel: true,
+							onChange: this.sourceCustomer
+						}),
+						_State2.default.sourceCustomer && _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u4ECB\u7ECD\u4EBA\u59D3\u540D', name: 'recommendName', style: { width: 262, marginLeft: 28 }, component: 'input', requireLabel: true }),
+						_State2.default.sourceCustomer && _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u4ECB\u7ECD\u4EBA\u7535\u8BDD', name: 'recommendTel', style: { width: 262, marginLeft: 15 }, component: 'input', requireLabel: true }),
+						_react2.default.createElement(
+							'div',
+							{ className: 'krFlied-box' },
+							_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u610F\u5411\u5DE5\u4F4D\u4E2A\u6570', name: 'stationNum', style: { width: 239, marginLeft: 28 }, component: 'input', requireLabel: true }),
+							_react2.default.createElement(
+								'span',
+								{ className: 'unit' },
+								'\u4E2A'
+							)
+						),
+						_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u8054\u7CFB\u4EBA\u59D3\u540D', name: 'name', style: { width: 262, marginLeft: 15 }, component: 'input', requireLabel: true }),
+						_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u610F\u5411\u5DE5\u4F4D\u7C7B\u578B', name: 'staionTypeId', component: 'select', style: { width: 262, marginLeft: 28 },
+							options: dataReady.stationTypeList,
+							requireLabel: true
+						}),
+						_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u8054\u7CFB\u4EBA\u7535\u8BDD', name: 'tel', style: { width: 262, marginLeft: 15 }, component: 'input', requireLabel: true }),
+						_react2.default.createElement(
+							'div',
+							{ className: 'krFlied-box' },
+							_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u610F\u5411\u5DE5\u4F4D\u4EF7\u683C', name: 'staionPrice', style: { width: 202, marginLeft: 28 }, component: 'input', requireLabel: true }),
+							_react2.default.createElement(
+								'span',
+								{ className: 'unit' },
+								'\u5143/\u4E2A/\u6708'
+							)
+						),
+						_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u8054\u7CFB\u4EBA\u90AE\u7BB1', name: 'mail', style: { width: 262, marginLeft: 15 }, component: 'input', requireLabel: false }),
+						_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, name: 'intentionCommunityId', style: { width: 262, marginLeft: 28 }, component: 'searchIntend', label: '\u610F\u5411\u5165\u9A7B\u793E\u533A', inline: false, onChange: this.onChangeIntend, placeholder: '\u8BF7\u8F93\u5165\u793E\u533A\u540D\u79F0', requireLabel: true }),
+						_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u8054\u7CFB\u4EBA\u5FAE\u4FE1', name: 'wechat', style: { width: 262, marginLeft: 15 }, component: 'input', requireLabel: false }),
+						_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u9884\u8BA1\u5165\u9A7B\u65F6\u95F4', name: 'inTime', style: { width: 260, marginLeft: 28 }, component: 'date' }),
+						_react2.default.createElement('div', { className: 'middle-round' })
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'titleBar' },
+						_react2.default.createElement(
+							'span',
+							{ className: 'order-number' },
+							'2'
+						),
+						_react2.default.createElement('span', { className: 'wire' }),
+						_react2.default.createElement(
+							'label',
+							{ className: 'small-title' },
+							'\u516C\u53F8\u4FE1\u606F'
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'small-cheek', style: { paddingBottom: 0 } },
+						_react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u516C\u53F8\u540D\u79F0', name: 'company', component: 'input', style: { width: 262, marginLeft: 15 }, requireLabel: true, onChange: this.corpNameChange }),
+							_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u878D\u8D44\u8F6E\u6B21', name: 'roundId', component: 'select', style: { width: 262, marginLeft: 28 },
+								options: dataReady.roundList,
+								requireLabel: false
+							}),
+							_State2.default.isCorpName && _react2.default.createElement(
+								'div',
+								{ style: { fontSize: 14, color: "red", paddingLeft: 26, paddingBottom: 7 } },
+								'\u8BE5\u516C\u53F8\u540D\u79F0\u5DF2\u5B58\u5728'
+							)
+						),
+						_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u516C\u53F8\u89C4\u6A21', name: 'teamNum', style: { width: 262, marginLeft: 15 }, component: 'input', requireLabel: true }),
+						_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u878D\u8D44\u91D1\u989D', name: 'amount', style: { width: 262, marginLeft: 28 }, component: 'input', requireLabel: false }),
+						_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u6240\u5C5E\u5730\u533A', name: 'distinctId', style: { width: 262, marginLeft: 15, zIndex: 2 }, component: 'city', onSubmit: this.cityValue, requireLabel: true, cityName: cityName }),
+						_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u9879\u76EE\u540D\u79F0', name: 'projectName', style: { width: 262, marginLeft: 28 }, component: 'input' }),
+						_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u9879\u76EE\u7C7B\u578B', name: 'projectCategoryId', style: { width: 262, marginLeft: 15, zIndex: 1 }, component: 'tree', placeholder: '\u8BF7\u9009\u62E9\u9879\u76EE\u7C7B\u578B', listValueName: listValue, treeAll: _State2.default.treeAll }),
+						_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u8BE6\u7EC6\u5730\u5740', name: 'detailAddress', style: { width: 262, marginLeft: 28 }, component: 'input' }),
+						_react2.default.createElement(
+							_krUi.KrField,
+							{ grid: 1 / 2, label: '\u662F\u5426\u5DF2\u6709\u529E\u516C\u5BA4', name: 'hasOffice', style: { width: 262, marginLeft: 15, marginRight: 13 }, component: 'group' },
+							_react2.default.createElement(_krUi.KrField, { name: 'hasOffice', label: '\u662F', type: 'radio', value: 'YES', onClick: this.hasOfficeClick, style: { marginTop: 5, display: 'inline-block', width: 84 } }),
+							_react2.default.createElement(_krUi.KrField, { name: 'hasOffice', label: '\u5426', type: 'radio', value: 'NO', onClick: this.hasOfficeClick, style: { marginTop: 5, display: 'inline-block', width: 53 } })
+						),
+						hasOffice && _react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u5230\u671F\u65F6\u95F4', name: 'deadline', style: { width: 262, marginLeft: 15 }, component: 'date' }),
+						_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u516C\u53F8\u7F51\u5740', name: 'website', style: { width: 262, marginLeft: 15 }, component: 'input' }),
+						_react2.default.createElement(
+							'div',
+							{ className: 'speakInfo' },
+							_react2.default.createElement(_krUi.KrField, { grid: 1, label: '\u516C\u53F8\u7B80\u4ECB', name: 'companyIntroduce', style: { marginLeft: 15 }, heightStyle: { height: "70px", width: '543px' }, component: 'textarea', maxSize: 100, placeholder: '\u8BF7\u8F93\u5165\u516C\u53F8\u7B80\u4ECB', lengthClass: 'cus-length-textarea' })
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'remaskInfo' },
+							_react2.default.createElement(_krUi.KrField, { grid: 1, label: '\u5907\u6CE8', name: 'remark', style: { marginLeft: 15, marginTop: -15 }, heightStyle: { height: "70px", width: '543px' }, component: 'textarea', maxSize: 100, requireLabel: false, placeholder: '\u8BF7\u8F93\u5165\u5907\u6CE8', lengthClass: 'cus-textarea' })
+						)
+					),
+					_react2.default.createElement('div', { className: 'end-round' })
+				),
+				_react2.default.createElement(
+					_krUi.Grid,
+					{ style: { marginTop: 30 } },
+					_react2.default.createElement(
+						_krUi.Row,
+						null,
+						_react2.default.createElement(
+							_krUi.Col,
+							{ md: 12, align: 'center' },
+							_react2.default.createElement(
+								_krUi.ButtonGroup,
+								null,
+								_react2.default.createElement(
+									'div',
+									{ className: 'ui-btn-center' },
+									_react2.default.createElement(_krUi.Button, { label: '\u786E\u5B9A', type: 'submit' })
+								),
+								_react2.default.createElement(_krUi.Button, { label: '\u53D6\u6D88', type: 'button', cancle: true, onTouchTap: this.onCancel })
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return EditCustomerList;
+}(_react.Component)) || _class;
+
+EditCustomerList.PropTypes = {
+	onSubmit: _react2.default.PropTypes.func,
+	onCancel: _react2.default.PropTypes.func
+};
+
+var validate = function validate(values) {
+
+	var errors = {};
+	var phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
+	var checkTel = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
+	var email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
+	var RMB = /^(([1-9]\d*)|0)(\.\d{2})?$/;
+	if (!values.sourceId) {
+		errors.sourceId = '请填写客户来源';
+	}
+
+	if (!values.stationNum) {
+		errors.stationNum = '请填写意向工位个数';
+	} else if (isNaN(+values.stationNum)) {
+		errors.stationNum = '意向工位个数为数字格式';
+	} else if (values.stationNum.length > 8) {
+		errors.stationNum = '最多输入8个字符';
+	}
+
+	if (!values.customerName) {
+		errors.customerName = '请填写联系人姓名';
+	} else if (values.customerName.length > 20) {
+		errors.customerName = '最多输入20个字符';
+	}
+
+	if (!values.staiontypeId) {
+		errors.staiontypeId = '请填写意向工位类型';
+	}
+
+	if (!values.tel) {
+		errors.tel = "请填写联系人电话";
+	}
+	if (!values.name) {
+		errors.name = "请填写联系人姓名";
+	}
+	if (!values.customerTel) {
+		errors.customerTel = '请填写联系人电话';
+	} else if (!phone.test(values.customerTel) || !checkTel.test(values.customerTel)) {
+		errors.customerTel = '联系人电话格式错误';
+	}
+
+	if (!values.staionPrice) {
+		errors.staionPrice = '请填写意向工位价格';
+	} else if (!RMB.test(values.staionPrice)) {
+		errors.staionPrice = '工位价格不得超过1亿';
+	}
+
+	if (!email.test(values.customerMail)) {
+		errors.customerMail = '联系人邮箱格式错误';
+	}
+
+	if (!values.intentionCommunityId) {
+		errors.intentionCommunityId = "意向工位类型不能为空";
+	}
+
+	if (values.customerWechat && values.customerWechat.length > 50) {
+		errors.customerWechat = "最多输入50个字符";
+	}
+
+	if (!values.company) {
+		errors.company = '请填写公司名称';
+	} else if (values.company.length > 80) {
+		errors.company = '最多输入80个字符';
+	}
+
+	if (!values.teamNum) {
+		errors.teamNum = '请填写公司规模';
+	} else if (isNaN(values.teamNum)) {
+		errors.teamNum = '请输入数字';
+	} else if (values.teamNum.length > 8) {
+		errors.teamNum = '最多输入8个字符';
+	}
+
+	if (values.amount && values.amount.length > 12) {
+		errors.amount = '最多输入20个字符';
+	} else if (values.amount && isNaN(values.amount)) {
+		errors.amount = '请输入数字';
+	}
+
+	if (!values.intentionCommunityId) {
+		errors.intentionCommunityId = '请填写意向入驻社区';
+	}
+
+	if (values.projectName && values.projectName.length > 20) {
+		errors.projectName = '最多输入20个字符';
+	}
+
+	if (!values.districtId) {
+		errors.districtId = '请填写所属地区';
+	}
+
+	if (values.detailAddress && values.detailAddress.length > 60) {
+		errors.detailAddress = '最多输入60个字符';
+	}
+
+	if (values.website && values.website.length > 50) {
+		errors.website = '最多输入50个字符';
+	}
+
+	return errors;
+};
+exports.default = (0, _reduxForm.reduxForm)({ form: 'EditCustomerList', validate: validate, enableReinitialize: true, keepDirtyOnReinitialize: true })(EditCustomerList);

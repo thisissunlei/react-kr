@@ -1,0 +1,364 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Payment = function (_Component) {
+	_inherits(Payment, _Component);
+
+	function Payment(props, context) {
+		_classCallCheck(this, Payment);
+
+		var _this = _possibleConstructorReturn(this, (Payment.__proto__ || Object.getPrototypeOf(Payment)).call(this, props, context));
+
+		_this.getLocalTime = function (time) {
+			var now = new Date(time);
+			var yy = now.getFullYear(); //年
+			var mm = now.getMonth() + 1; //月
+			var dd = now.getDate(); //日
+			return yy + "/" + mm + "/" + dd;
+		};
+
+		_this.Onetable = function (installmentPlans) {
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'table-one-content' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'table-list' },
+					_react2.default.createElement(
+						'table',
+						{ className: 'one-line' },
+						_react2.default.createElement(
+							'thead',
+							null,
+							_react2.default.createElement(
+								'tr',
+								null,
+								_react2.default.createElement(
+									'th',
+									null,
+									'\u6B3E\u9879'
+								),
+								_react2.default.createElement(
+									'th',
+									null,
+									'\u670D\u52A1\u671F\u9650'
+								),
+								_react2.default.createElement(
+									'th',
+									null,
+									'\u4ED8\u6B3E\u65E5\u671F'
+								),
+								_react2.default.createElement(
+									'th',
+									null,
+									'\u4ED8\u6B3E\u91D1\u989D'
+								)
+							)
+						),
+						_react2.default.createElement(
+							'tbody',
+							null,
+							installmentPlans.map(function (item, index) {
+								return _react2.default.createElement(
+									'tr',
+									{ key: index },
+									_react2.default.createElement(
+										'td',
+										null,
+										item.installmentName
+									),
+									_react2.default.createElement(
+										'td',
+										null,
+										item.leaseDate
+									),
+									_react2.default.createElement(
+										'td',
+										null,
+										_this.getLocalTime(item.installmentReminddate)
+									),
+									_react2.default.createElement(
+										'td',
+										null,
+										item.installmentAmount
+									)
+								);
+							})
+						)
+					)
+				)
+			);
+		};
+
+		_this.Twotable = function (installmentPlans) {
+			var plansOne, plansTwo;
+			if (installmentPlans.length > 15) {
+				plansOne = installmentPlans.slice(0, 15);
+				plansTwo = installmentPlans.slice(15, installmentPlans.length);
+			}
+			return _react2.default.createElement(
+				'div',
+				{ className: 'table-two-list' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'two-line' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'table-td-content clear' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'table-left', style: { marginRight: 8 } },
+							_react2.default.createElement(
+								'div',
+								{ className: 'th clear' },
+								_react2.default.createElement(
+									'div',
+									null,
+									'\u6B3E\u9879'
+								),
+								_react2.default.createElement(
+									'div',
+									null,
+									'\u670D\u52A1\u671F\u9650'
+								),
+								_react2.default.createElement(
+									'div',
+									null,
+									'\u4ED8\u6B3E\u65E5\u671F'
+								),
+								_react2.default.createElement(
+									'div',
+									null,
+									'\u4ED8\u6B3E\u91D1\u989D'
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'left-td' },
+								plansOne.map(function (item, index) {
+									return _react2.default.createElement(
+										'div',
+										{ className: 'td clear', key: index },
+										_react2.default.createElement(
+											'div',
+											null,
+											item.installmentName
+										),
+										_react2.default.createElement(
+											'div',
+											null,
+											item.leaseDate
+										),
+										_react2.default.createElement(
+											'div',
+											null,
+											_this.getLocalTime(item.installmentReminddate)
+										),
+										_react2.default.createElement(
+											'div',
+											null,
+											item.installmentAmount
+										)
+									);
+								})
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'table-right' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'th clear' },
+								_react2.default.createElement(
+									'div',
+									null,
+									'\u6B3E\u9879'
+								),
+								_react2.default.createElement(
+									'div',
+									null,
+									'\u670D\u52A1\u671F\u9650'
+								),
+								_react2.default.createElement(
+									'div',
+									null,
+									'\u4ED8\u6B3E\u65E5\u671F'
+								),
+								_react2.default.createElement(
+									'div',
+									null,
+									'\u4ED8\u6B3E\u91D1\u989D'
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'right-td' },
+								plansTwo.map(function (item, index) {
+									return _react2.default.createElement(
+										'div',
+										{ className: 'td clear', key: index },
+										_react2.default.createElement(
+											'div',
+											null,
+											item.installmentName
+										),
+										_react2.default.createElement(
+											'div',
+											null,
+											item.leaseDate
+										),
+										_react2.default.createElement(
+											'div',
+											null,
+											_this.getLocalTime(item.installmentReminddate)
+										),
+										_react2.default.createElement(
+											'div',
+											null,
+											item.installmentAmount
+										)
+									);
+								})
+							)
+						)
+					)
+				)
+			);
+		};
+
+		_this.method = function () {
+			var _this$props$baseInfo = _this.props.baseInfo,
+			    payModelList = _this$props$baseInfo.payModelList,
+			    payModel = _this$props$baseInfo.payModel;
+
+			var reg = /转账/g,
+			    methodObj;
+			payModelList && payModelList.map(function (item, index) {
+				if (payModel == item.id) {
+					if (!reg.test(item.dicName)) {
+						payModelList.id = item.id;
+						payModelList.dicName = item.dicName;
+						payModelList.flag = true;
+					} else {
+						payModelList.flag = false;
+						payModelList.id = item.id;
+					}
+				}
+				return payModelList;
+			});
+		};
+
+		return _this;
+	}
+
+	_createClass(Payment, [{
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    baseInfo = _props.baseInfo,
+			    installmentPlans = _props.installmentPlans;
+			var _props$baseInfo = this.props.baseInfo,
+			    payType = _props$baseInfo.payType,
+			    payTypeList = _props$baseInfo.payTypeList,
+			    payModel = _props$baseInfo.payModel,
+			    payModelList = _props$baseInfo.payModelList;
+
+
+			this.method();
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'ui-print-payment' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'payment-title clear' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'payment-info' },
+						'\u4ED8\u6B3E\u4FE1\u606F'
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'method clear' },
+						payTypeList && payTypeList.map(function (item, index) {
+							return _react2.default.createElement(
+								'div',
+								{ className: 'method-list', key: index },
+								_react2.default.createElement('span', { className: payType == item.id ? "checked" : "discheck" }),
+								_react2.default.createElement(
+									'span',
+									null,
+									item.dicName
+								)
+							);
+						})
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'pay-method clear' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'method-list' },
+							_react2.default.createElement('span', { className: payModelList && payModelList.flag && payModel == payModelList.id ? "checked" : "discheck" }),
+							_react2.default.createElement(
+								'span',
+								null,
+								'\u5176\u4ED6',
+								payModelList && payModelList.flag && payModel == payModelList.id ? '-' + payModelList.dicName : " "
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'method-list' },
+							_react2.default.createElement('span', { className: payModelList && !payModelList.flag && payModel == payModelList.id ? "checked" : "discheck" }),
+							_react2.default.createElement(
+								'span',
+								null,
+								'\u8F6C\u8D26'
+							)
+						)
+					)
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'payment-content' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'table-content' },
+						installmentPlans && installmentPlans.length > 15 ? this.Twotable(installmentPlans) : this.Onetable(installmentPlans)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'reminders' },
+						'\u6CE8\uFF1A\u6BCF\u671F\u670D\u52A1\u671F\u5230\u671F\u4E4B\u65E5\u524D15\u65E5\u652F\u4ED8\u4E0B\u671F\u670D\u52A1\u8D39'
+					)
+				)
+			);
+		}
+	}]);
+
+	return Payment;
+}(_react.Component);
+
+exports.default = Payment;

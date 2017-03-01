@@ -1,0 +1,269 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _krUi = require('kr-ui');
+
+var _dateformat = require('dateformat');
+
+var _dateformat2 = _interopRequireDefault(_dateformat);
+
+var _RaisedButton = require('material-ui/RaisedButton');
+
+var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+var _Redux = require('kr/Redux');
+
+var _Grid = require('kr-ui/Grid');
+
+var _Table = require('kr-ui/Table');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *减租协议(查看）
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+var ReduceDetail = function (_Component) {
+	_inherits(ReduceDetail, _Component);
+
+	function ReduceDetail(props, context) {
+		_classCallCheck(this, ReduceDetail);
+
+		var _this2 = _possibleConstructorReturn(this, (ReduceDetail.__proto__ || Object.getPrototypeOf(ReduceDetail)).call(this, props, context));
+
+		_this2.print = function () {
+			var params = _this2.props.params;
+			var url = './#/operation/customerManage/' + params.customerId + '/order/' + params.orderId + '/agreement/reduce/' + params.id + '/print';
+			var newWindow = window.open(url);
+		};
+
+		_this2.state = {
+			loading: true,
+			basic: {
+				payment: {},
+				stationVos: []
+			}
+		};
+
+		var _this = _this2;
+		console.log(_this2.props.params);
+		_Redux.Store.dispatch(_Redux.Actions.callAPI('showFnaContractRentController', {
+			id: _this2.props.params.id,
+			communityId: _this2.props.params.orderId,
+			customerId: _this2.props.params.customerId
+		})).then(function (response) {
+			_this.setState({
+				basic: response
+			});
+		});
+
+		setTimeout(function () {
+			_this.setState({
+				loading: false
+			});
+		}, 0);
+
+		return _this2;
+	}
+
+	_createClass(ReduceDetail, [{
+		key: 'componentWillMount',
+		value: function componentWillMount() {}
+	}, {
+		key: 'render',
+		value: function render() {
+
+			if (this.state.loading) {
+				return _react2.default.createElement(_krUi.Loading, null);
+			}
+
+			var orderBaseInfo = {};
+			var contractList = [];
+
+			var basic = this.state.basic;
+
+			var params = this.props.params;
+
+			function onCancel() {
+				// window.history.back();
+				location.href = "/#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/detail";
+			}
+
+			function getOrderUrl() {
+				return './#/operation/customerManage/' + params.customerId + '/order/' + params.orderId + '/detail';
+			}
+
+			var BasicRender = function BasicRender(props) {
+				var content = {
+					position: 'relative',
+					width: '900px',
+					margin: '0 auto',
+					fontSize: 14
+				};
+				var info = {
+					padding: '30px 70px',
+					paddingBottom: 10
+				};
+
+				console.log('basic', basic);
+				return _react2.default.createElement(
+					'div',
+					{ className: 'content', style: content },
+					_react2.default.createElement(_krUi.PaperBack, { label: '\u51CF\u79DF\u534F\u8BAE\u4E66\u8BE6\u60C5\u9875' }),
+					_react2.default.createElement(
+						'div',
+						{ className: 'content-info', style: info },
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u51FA\u79DF\u65B9\uFF1A', value: basic.lessorName, defaultValue: '\u65E0', requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u5730\u5740\uFF1A', value: basic.lessorAddress, defaultValue: '\u65E0', requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u8054\u7CFB\u4EBA\uFF1A', value: basic.lessorContactName, defaultValue: '\u65E0', requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u7535\u8BDD\uFF1A', value: basic.lessorContacttel, defaultValue: '\u65E0', requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u627F\u79DF\u65B9\uFF1A', value: basic.customerName, defaultValue: '\u65E0', requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u5730\u5740\uFF1A', value: basic.leaseAddress, defaultValue: '\u65E0', requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u8054\u7CFB\u4EBA\uFF1A', value: basic.leaseContact, defaultValue: '\u65E0', requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u7535\u8BDD\uFF1A', value: basic.leaseContacttel, defaultValue: '\u65E0', requireBlue: true }),
+						_react2.default.createElement(_krUi.SplitLine, null),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u6240\u5C5E\u793E\u533A\uFF1A', value: basic.communityName, defaultValue: '\u65E0', requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u5730\u5740\uFF1A', value: basic.communityAddress, defaultValue: '\u65E0', requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u5408\u540C\u7F16\u53F7\uFF1A', value: basic.contractcode, defaultValue: '\u65E0', requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u51CF\u79DF\u91D1\u989D\uFF1A', value: basic.rentamount, defaultValue: '0', requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 1, label: '\u7B7E\u7F72\u65E5\u671F\uFF1A', value: basic.signdate, type: 'date', defaultValue: '\u65E0', requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', label: '\u5907\u6CE8\uFF1A', value: basic.contractmark, defaultValue: '\u65E0', requireBlue: true, inline: false }),
+						_react2.default.createElement(
+							_krUi.KrField,
+							{ component: 'group', label: '\u4E0A\u4F20\u9644\u4EF6\uFF1A', requireBlue: true },
+							basic.contractFileList && basic.contractFileList.map(function (item, index) {
+								return _react2.default.createElement(_krUi.Button, { label: item.fileName, type: 'link', href: item.fileUrl, key: index });
+							})
+						),
+						_react2.default.createElement(
+							_krUi.DotTitle,
+							{ title: '\u79DF\u8D41\u660E\u7EC6' },
+							_react2.default.createElement(
+								_Table.Table,
+								{ displayCheckbox: false },
+								_react2.default.createElement(
+									_Table.TableHeader,
+									null,
+									_react2.default.createElement(
+										_Table.TableHeaderColumn,
+										null,
+										'\u7C7B\u522B'
+									),
+									_react2.default.createElement(
+										_Table.TableHeaderColumn,
+										null,
+										'\u7F16\u53F7\uFF0F\u540D\u79F0'
+									),
+									_react2.default.createElement(
+										_Table.TableHeaderColumn,
+										null,
+										'\u5355\u4EF7\uFF08\u5143\uFF0F\u6708\uFF09'
+									),
+									_react2.default.createElement(
+										_Table.TableHeaderColumn,
+										null,
+										'\u51CF\u79DF\u8D77\u59CB\u65E5\u671F'
+									),
+									_react2.default.createElement(
+										_Table.TableHeaderColumn,
+										null,
+										'\u51CF\u79DF\u7ED3\u675F\u65E5\u671F'
+									)
+								),
+								_react2.default.createElement(
+									_Table.TableBody,
+									null,
+									basic.stationVos && basic.stationVos.map(function (item, index) {
+										return _react2.default.createElement(
+											_Table.TableRow,
+											{ key: index },
+											_react2.default.createElement(
+												_Table.TableRowColumn,
+												null,
+												item.stationType == 1 ? '工位' : '会议室'
+											),
+											_react2.default.createElement(
+												_Table.TableRowColumn,
+												null,
+												item.stationName
+											),
+											_react2.default.createElement(
+												_Table.TableRowColumn,
+												null,
+												item.unitprice
+											),
+											_react2.default.createElement(
+												_Table.TableRowColumn,
+												null,
+												_react2.default.createElement(_krUi.KrDate, { value: basic.leaseBegindate })
+											),
+											_react2.default.createElement(
+												_Table.TableRowColumn,
+												null,
+												_react2.default.createElement(_krUi.KrDate, { value: basic.leaseEnddate })
+											)
+										);
+									})
+								)
+							)
+						)
+					)
+				);
+			};
+
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(_krUi.Title, { value: '\u51CF\u79DF\u534F\u8BAE\u4E66\u8BE6\u60C5_\u8D22\u52A1\u7BA1\u7406' }),
+				_react2.default.createElement(_krUi.BreadCrumbs, { children: ['社区运营',, '合同详情', '减租合同查看'] }),
+				_react2.default.createElement(
+					_krUi.Section,
+					{ title: '\u51CF\u79DF\u534F\u8BAE\u4E66', description: '', bodyPadding: "20px 20px 150px 20px" },
+					_react2.default.createElement(BasicRender, null),
+					_react2.default.createElement(
+						_Grid.Grid,
+						{ style: { margin: "0 auto", width: 230 } },
+						_react2.default.createElement(
+							_Grid.Row,
+							{ style: { width: 230 } },
+							_react2.default.createElement(
+								_Grid.Col,
+								{ style: { marginRight: 30, float: "left" }, align: 'center' },
+								' ',
+								_react2.default.createElement(_krUi.Button, { label: '\u8FD4\u56DE', type: 'href', href: getOrderUrl(), width: 100, height: 40, fontSize: 16 }),
+								' '
+							),
+							_react2.default.createElement(
+								_Grid.Col,
+								{ style: { float: "left" }, align: 'center' },
+								' ',
+								_react2.default.createElement(_krUi.Button, { label: '\u6253\u5370', backgroundColor: '#499df1', width: 100, height: 40, fontSize: 16, onClick: this.print }),
+								'  '
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return ReduceDetail;
+}(_react.Component);
+
+exports.default = ReduceDetail;

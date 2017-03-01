@@ -1,0 +1,399 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _simpleAssign = require('simple-assign');
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Notify = require('../../Notify');
+
+var _Notify2 = _interopRequireDefault(_Notify);
+
+var _promisePolyfill = require('promise-polyfill');
+
+var _promisePolyfill2 = _interopRequireDefault(_promisePolyfill);
+
+var _Redux = require('kr/Redux');
+
+var _WrapComponent = require('../WrapComponent');
+
+var _WrapComponent2 = _interopRequireDefault(_WrapComponent);
+
+require('./index.less');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FileUploadComponent = function (_React$Component) {
+	_inherits(FileUploadComponent, _React$Component);
+
+	function FileUploadComponent(props) {
+		_classCallCheck(this, FileUploadComponent);
+
+		var _this2 = _possibleConstructorReturn(this, (FileUploadComponent.__proto__ || Object.getPrototypeOf(FileUploadComponent)).call(this, props));
+
+		_this2.onChange = _this2.onChange.bind(_this2);
+		_this2.onSuccess = _this2.onSuccess.bind(_this2);
+		_this2.onError = _this2.onError.bind(_this2);
+		_this2.onTokenSuccess = _this2.onTokenSuccess.bind(_this2);
+		_this2.onTokenError = _this2.onTokenError.bind(_this2);
+
+		_this2.onSetInputValue = _this2.onSetInputValue.bind(_this2);
+		_this2.setInitValue = _this2.setInitValue.bind(_this2);
+
+		var defaultValue = _this2.props.defaultValue;
+
+
+		_this2.state = {
+			isInit: true,
+			form: {},
+			files: defaultValue,
+			isUploading: false,
+			progress: 10
+		};
+
+		return _this2;
+	}
+
+	_createClass(FileUploadComponent, [{
+		key: 'componentWillUnmount',
+		value: function componentWillUnmount() {
+			this.setState({
+				files: []
+			});
+		}
+	}, {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			var defaultValue = this.props.defaultValue;
+		}
+	}, {
+		key: 'componentWillReceiveProps',
+		value: function componentWillReceiveProps(nextProps) {
+			this.setInitValue(nextProps.defaultValue);
+		}
+	}, {
+		key: 'setInitValue',
+		value: function setInitValue(defaultValue) {
+			var _state = this.state,
+			    files = _state.files,
+			    isInit = _state.isInit;
+
+			if (!isInit) {
+				return;
+			}
+			if (!defaultValue.length) {
+				return;
+			}
+			files = defaultValue;
+			this.setState({
+				files: files,
+				isInit: false
+			});
+
+			var _this = this;
+			window.setTimeout(function () {
+				_this.onSetInputValue();
+			}, 0);
+		}
+	}, {
+		key: 'onSetInputValue',
+		value: function onSetInputValue() {
+			var files = this.state.files;
+			var input = this.props.input;
+
+
+			var fileIds = [];
+			files.forEach(function (item, index) {
+				fileIds.push(item.id);
+			});
+			input.onChange(fileIds.toString());
+		}
+	}, {
+		key: 'onFileDelete',
+		value: function onFileDelete(index) {
+			var files = this.state.files;
+			var input = this.props.input;
+
+
+			files.splice(index, 1);
+
+			this.setState({
+				files: files
+			});
+
+			this.onSetInputValue();
+		}
+	}, {
+		key: 'onError',
+		value: function onError(message) {
+			message = message || '上传文件失败';
+			_Notify2.default.show([{
+				message: message,
+				type: 'danger'
+			}]);
+
+			this.setState({
+				progress: 0,
+				isUploading: false
+			});
+		}
+	}, {
+		key: 'onSuccess',
+		value: function onSuccess(response) {
+			response = (0, _simpleAssign2.default)({}, response);
+
+			var form = this.state.form;
+
+
+			var fileUrl = '/krspace_oa_web/doc/docFile/downFile?sourceservicetoken=' + form.sourceservicetoken + '&operater=' + form.operater + '&fileId=' + response.id;
+
+			response.fileUrl = fileUrl;
+			response.fileName = response.filename;
+
+			var _props = this.props,
+			    input = _props.input,
+			    onChange = _props.onChange;
+			var files = this.state.files;
+
+
+			files.unshift(response);
+
+			this.setState({
+				files: files,
+				progress: 0,
+				isUploading: false
+			});
+
+			this.onSetInputValue();
+
+			_Notify2.default.show([{
+				message: '上传文件成功',
+				type: 'success'
+			}]);
+			onChange && onChange(files);
+		}
+	}, {
+		key: 'onTokenSuccess',
+		value: function onTokenSuccess(form) {
+			this.setState({
+				form: form
+			});
+		}
+	}, {
+		key: 'onTokenError',
+		value: function onTokenError() {
+			_Notify2.default.show([{
+				message: '初始化上传文件失败',
+				type: 'danger'
+			}]);
+		}
+	}, {
+		key: 'onChange',
+		value: function onChange(event) {
+
+			var _this = this;
+
+			var file = event.target.files[0];
+			if (!file) {
+				return;
+			}
+
+			this.setState({
+				isUploading: true
+			});
+
+			if (file) {
+				var progress = 10;
+				var timer = window.setInterval(function () {
+					if (progress >= 90) {
+						window.clearInterval(timer);
+						_this.setState({
+							progress: 10,
+							isUploading: false
+						});
+					}
+					progress += 10;
+					_this.setState({
+						progress: progress
+					});
+				}, 300);
+			}
+
+			var form = new FormData();
+			form.append('file', file);
+
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === 4) {
+					if (xhr.status === 200) {
+
+						var response = xhr.response.data;
+						form.append('sourceservicetoken', response.token);
+						form.append('docTypeCode', response.docTypeCode);
+						form.append('operater', response.operater);
+
+						_this.onTokenSuccess({
+							sourceservicetoken: response.token,
+							docTypeCode: response.docTypeCode,
+							operater: response.operater
+						});
+
+						var xhrfile = new XMLHttpRequest();
+						xhrfile.onreadystatechange = function () {
+							if (xhrfile.readyState === 4) {
+								var fileResponse = xhrfile.response;
+								if (xhrfile.status === 200) {
+									if (fileResponse && fileResponse.code > 0) {
+										_this.onSuccess(fileResponse.data);
+									} else {
+										_this.onError(fileResponse.msg);
+									}
+								} else if (xhrfile.status == 413) {
+
+									_this.onError('您上传的文件过大！');
+								} else {
+									_this.onError('后台报错请联系管理员！');
+								}
+							}
+						};
+						xhrfile.onerror = function (e) {
+							console.error(xhr.statusText);
+						};
+
+						xhrfile.open('POST', '/api-old/krspace_oa_web/doc/docFile/uploadSingleFile', true);
+						xhrfile.responseType = 'json';
+						xhrfile.send(form);
+					} else {
+						_this.onTokenError();
+					}
+				}
+			};
+
+			xhr.onerror = function (e) {
+				console.error(xhr.statusText);
+			};
+			xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
+			xhr.responseType = 'json';
+			xhr.send(null);
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _this3 = this;
+
+			var _props2 = this.props,
+			    input = _props2.input,
+			    label = _props2.label,
+			    type = _props2.type,
+			    _props2$meta = _props2.meta,
+			    touched = _props2$meta.touched,
+			    error = _props2$meta.error,
+			    style = _props2.style,
+			    requireLabel = _props2.requireLabel,
+			    multiple = _props2.multiple,
+			    accept = _props2.accept,
+			    inline = _props2.inline;
+			var _state2 = this.state,
+			    files = _state2.files,
+			    progress = _state2.progress,
+			    isUploading = _state2.isUploading;
+
+			console.log('upload', progress, isUploading);
+
+			var fileBgStyles = {};
+			// let showList = (files.length>=6)?'hidden':'visible';
+			var showList = files.length >= 6 ? 'none' : 'block';
+
+			return _react2.default.createElement(
+				_WrapComponent2.default,
+				{ label: label, wrapStyle: style, requireLabel: requireLabel, inline: inline },
+				_react2.default.createElement(
+					'div',
+					{ className: 'ui-file', style: { visibility: 'visible', display: showList } },
+					_react2.default.createElement(
+						'div',
+						{ className: 'file-button' },
+						_react2.default.createElement(
+							'span',
+							{ className: 'file-icon' },
+							'+'
+						),
+						_react2.default.createElement('input', { type: 'file', name: 'file', onChange: this.onChange, multiple: multiple ? 'multiple' : null, accept: accept }),
+						'\u6DFB\u52A0\u6587\u4EF6',
+						isUploading && _react2.default.createElement(
+							'span',
+							{ className: 'progress', style: { width: progress } },
+							progress,
+							'%'
+						)
+					)
+				),
+				_react2.default.createElement(
+					'ul',
+					{ className: 'file-list' },
+					files && files.map(function (item, index) {
+						return _react2.default.createElement(
+							'li',
+							{ key: index },
+							_react2.default.createElement(
+								'a',
+								{ href: item.fileUrl, target: '_blank' },
+								item.fileName
+							),
+							_react2.default.createElement(
+								'span',
+								{ className: 'del', onTouchTap: _this3.onFileDelete.bind(_this3, index) },
+								'\u5220\u9664'
+							)
+						);
+					})
+				),
+				touched && error && _react2.default.createElement(
+					'div',
+					{ className: 'error-wrap' },
+					' ',
+					_react2.default.createElement(
+						'span',
+						null,
+						error
+					),
+					' '
+				)
+			);
+		}
+	}]);
+
+	return FileUploadComponent;
+}(_react2.default.Component);
+
+// <input type="file" onChange={this.onChange} name={input.name}/>
+
+
+FileUploadComponent.defaultProps = {
+	multiple: true,
+	defaultValue: []
+};
+FileUploadComponent.PropTypes = {
+	multiple: _react2.default.PropTypes.bool,
+	accept: _react2.default.PropTypes.string,
+	defaultValue: _react2.default.PropTypes.array,
+	onChange: _react2.default.PropTypes.func,
+	inline: _react2.default.PropTypes.bool
+};
+exports.default = FileUploadComponent;

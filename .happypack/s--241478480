@@ -1,0 +1,183 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _krUi = require('kr-ui');
+
+var _Date = require('kr-ui/Date');
+
+var _Date2 = _interopRequireDefault(_Date);
+
+var _RaisedButton = require('material-ui/RaisedButton');
+
+var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+var _Redux = require('kr/Redux');
+
+var _Grid = require('kr-ui/Grid');
+
+var _dateformat = require('dateformat');
+
+var _dateformat2 = _interopRequireDefault(_dateformat);
+
+var _Table = require('kr-ui/Table');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ExitDetail = function (_Component) {
+	_inherits(ExitDetail, _Component);
+
+	function ExitDetail(props, context) {
+		_classCallCheck(this, ExitDetail);
+
+		var _this2 = _possibleConstructorReturn(this, (ExitDetail.__proto__ || Object.getPrototypeOf(ExitDetail)).call(this, props, context));
+
+		_this2.state = {
+			loading: true,
+			basic: {
+				payment: {},
+				stationVos: []
+			}
+		};
+
+		var _this = _this2;
+
+		_Redux.Store.dispatch(_Redux.Actions.callAPI('getFnaContractWithdrawalById', {
+			id: _this2.props.params.id
+		})).then(function (response) {
+			_this.setState({
+				basic: response
+			});
+		});
+
+		setTimeout(function () {
+			_this.setState({
+				loading: false
+			});
+		}, 0);
+		return _this2;
+	}
+
+	_createClass(ExitDetail, [{
+		key: 'componentWillMount',
+		value: function componentWillMount() {}
+	}, {
+		key: 'render',
+		value: function render() {
+
+			if (this.state.loading) {
+				return _react2.default.createElement(_krUi.Loading, null);
+			}
+
+			var orderBaseInfo = {};
+			var contractList = [];
+			var params = this.props.params;
+
+			function onCancel() {
+				location.href = "/#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/detail";
+			}
+
+			function getOrderUrl() {
+				return './#/operation/customerManage/' + params.customerId + '/order/' + params.orderId + '/detail';
+			}
+
+			var basic = this.state.basic;
+
+
+			var BasicRender = function BasicRender(props) {
+				var content = {
+					position: 'relative',
+					width: '900px',
+					margin: '0 auto',
+					fontSize: 14
+				};
+				var info = {
+					padding: '30px 70px',
+					paddingBottom: 10
+				};
+
+				return _react2.default.createElement(
+					'div',
+					{ className: 'content', style: content },
+					_react2.default.createElement(_krUi.Title, { value: '\u9000\u79DF\u534F\u8BAE\u4E66\u8BE6\u60C5\u9875_\u8D22\u52A1\u7BA1\u7406' }),
+					_react2.default.createElement(_krUi.PaperBack, { label: '\u9000\u79DF\u534F\u8BAE\u4E66\u8BE6\u60C5\u9875' }),
+					_react2.default.createElement(
+						'div',
+						{ className: 'content-info', style: info },
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u51FA\u79DF\u65B9\uFF1A', value: basic.lessorName, requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u5730\u5740\uFF1A', value: basic.lessorAddress, requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u8054\u7CFB\u4EBA\uFF1A', value: basic.lessorContactName, requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u7535\u8BDD\uFF1A', value: basic.lessorContacttel, requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u627F\u79DF\u65B9\uFF1A', value: basic.customerName, requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u5730\u5740\uFF1A', value: basic.leaseAddress, requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u8054\u7CFB\u4EBA\uFF1A', value: basic.leaseContact, requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u7535\u8BDD\uFF1A', value: basic.leaseContacttel, requireBlue: true }),
+						_react2.default.createElement(_krUi.SplitLine, null),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u6240\u5C5E\u793E\u533A\uFF1A', value: basic.communityName, requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u5730\u5740\uFF1A', value: basic.communityAddress, requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1, label: '\u5408\u540C\u7F16\u53F7\uFF1A', value: basic.contractcode, requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u9000\u79DF\u91D1\u603B\u989D\uFF1A', value: basic.totalreturn, defaultValue: '0', requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u9000\u79DF\u62BC\u91D1\u603B\u989D\uFF1A', value: basic.depositamount, defaultValue: '0', requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u64A4\u573A\u65E5\u671F\uFF1A', type: 'date', value: basic.withdrawdate, defaultValue: '\u65E0', requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', grid: 1 / 2, label: '\u7B7E\u7F72\u65E5\u671F\uFF1A', type: 'date', value: basic.signdate, defaultValue: '\u65E0', requireBlue: true }),
+						_react2.default.createElement(_krUi.KrField, { component: 'labelText', label: '\u5907\u6CE8\uFF1A', value: basic.contractmark, inline: false, requireBlue: true, defaultValue: '\u65E0' }),
+						_react2.default.createElement(
+							_krUi.KrField,
+							{ component: 'group', label: '\u4E0A\u4F20\u9644\u4EF6\uFF1A', requireBlue: true },
+							basic.contractFileList && basic.contractFileList.map(function (item, index) {
+								return _react2.default.createElement(_krUi.Button, { label: item.fileName, type: 'link', href: item.fileUrl, key: index });
+							})
+						)
+					)
+				);
+			};
+
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(_krUi.BreadCrumbs, { children: ['社区运营',, '合同详情', '退租合同查看'] }),
+				_react2.default.createElement(
+					_krUi.Section,
+					{ title: '\u9000\u79DF\u534F\u8BAE\u4E66', description: '', bodyPadding: "20px 20px 150px 20px" },
+					_react2.default.createElement(BasicRender, null),
+					_react2.default.createElement(
+						_Grid.Grid,
+						null,
+						_react2.default.createElement(
+							_Grid.Row,
+							null,
+							_react2.default.createElement(_Grid.Col, { md: 5, align: 'center' }),
+							_react2.default.createElement(
+								_Grid.Col,
+								{ md: 2, align: 'center' },
+								' ',
+								_react2.default.createElement(_krUi.Button, { label: '\u8FD4\u56DE', type: 'href', href: getOrderUrl(), width: 100, height: 40, fontSize: 16 }),
+								' '
+							),
+							_react2.default.createElement(_Grid.Col, { md: 5, align: 'center' })
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return ExitDetail;
+}(_react.Component);
+
+exports.default = ExitDetail;

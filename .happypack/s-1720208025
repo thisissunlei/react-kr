@@ -1,0 +1,39 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isTransform = isTransform;
+exports.noop = noop;
+var transitions = {
+  'WebkitTransition': 'webkitTransitionEnd',
+  'MozTransition': 'transitionend',
+  'OTransition': 'oTransitionEnd',
+  'transition': 'transitionend'
+};
+
+var canUseDOM = exports.canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+
+var canUseWorkers = exports.canUseWorkers = typeof Worker !== 'undefined';
+var canUseEventListeners = exports.canUseEventListeners = canUseDOM && !!(window.addEventListener || window.attachEvent);
+
+var canUseViewport = exports.canUseViewport = canUseDOM && !!window.screen;
+var isTouchDevice = exports.isTouchDevice = canUseDOM && 'ontouchstart' in window;
+function isTransform(name) {
+  return name === 'transform' || name === '-webkit-transform' || name === '-moz-transform' || name === '-o-transform' || name === '-ms-transform';
+}
+
+function noop() {}
+var slice = exports.slice = Array.prototype.slice;
+var svgSupport = exports.svgSupport = !!window.SVGElement;
+
+var transitionEnd = null;
+if (canUseDOM) {
+  var div = document.createElement('div');
+  for (var t in transitions) {
+    if (div.style[t]) {
+      exports.transitionEnd = transitionEnd = transitions[t];
+    }
+  }
+}
+exports.transitionEnd = transitionEnd;

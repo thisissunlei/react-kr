@@ -5,6 +5,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TransferWebpackPlugin = require('transfer-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HappyPack = require('happypack');
+
 
 const config = {
 	entry:{
@@ -37,6 +39,14 @@ const config = {
 						 manifest:require(path.resolve(buildPath,'manifest.json')),
            	 name:'lib'
     }),
+		
+		new HappyPack({
+			 id: 'jsx',
+			 threadPool: HappyPack.ThreadPool({ size: 6 }),
+   			 loaders: [ 'babel-loader?cacheDirectory=true' ],
+   			 verbose: false
+  		}),
+  		
 
     new webpack.optimize.UglifyJsPlugin({
 			compress: {
@@ -85,7 +95,7 @@ const config = {
 			{
 				test: /\.jsx?$/,
 				loaders: [
-					'babel-loader',
+					'happypack/loader?id=jsx'
 				],
 				exclude: /(node_modules|bower_components)/
 			},

@@ -1,0 +1,9 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+//加载基础数据
+
+var SET_USER_BASIC_INFO = exports.SET_USER_BASIC_INFO = 'SET_USER_BASIC_INFO';

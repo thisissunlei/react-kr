@@ -1,0 +1,243 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _reactAddonsPureRenderMixin = require('react-addons-pure-render-mixin');
+
+var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+
+var _Redux = require('kr/Redux');
+
+var _mobxReact = require('mobx-react');
+
+var _krUi = require('kr-ui');
+
+require('./index.less');
+
+var _State = require('./State');
+
+var _State2 = _interopRequireDefault(_State);
+
+var _State3 = require('../Personal/State');
+
+var _State4 = _interopRequireDefault(_State3);
+
+var _State5 = require('../SignedClient/State');
+
+var _State6 = _interopRequireDefault(_State5);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CustomerIndent = (0, _mobxReact.observer)(_class = function (_Component) {
+	_inherits(CustomerIndent, _Component);
+
+	function CustomerIndent(props, context) {
+		_classCallCheck(this, CustomerIndent);
+
+		var _this2 = _possibleConstructorReturn(this, (CustomerIndent.__proto__ || Object.getPrototypeOf(CustomerIndent)).call(this, props, context));
+
+		_this2.onSubmit = function (values) {
+			var onSubmit = _this2.props.onSubmit;
+
+			onSubmit && onSubmit(values);
+		};
+
+		_this2.onCancel = function () {
+			var onCancel = _this2.props.onCancel;
+
+			onCancel && onCancel();
+		};
+
+		_this2.isDevelopClick = function () {
+			_State2.default.switchDevelop();
+		};
+
+		_this2.editIndentClick = function (id) {
+			_this2.props.editIndentSwitch(id);
+		};
+
+		_this2.orderInnerList = function () {
+			var unifyStyle = { width: 300, marginLeft: -10 };
+			var detail = _State2.default.orderDetail;
+			var _this2$props = _this2.props,
+			    editIndentSwitch = _this2$props.editIndentSwitch,
+			    DeleteSwitch = _this2$props.DeleteSwitch,
+			    operType = _this2$props.operType;
+
+			if (!detail.items) {
+				return;
+			}
+			var _this = _this2;
+			var isEdit = true;
+			var listArray = detail.items.map(function (item, index) {
+				if (item.contractSize > 0) {
+					isEdit = false;
+				} else {
+					isEdit = true;
+				}
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'div',
+						{ className: 'indentList' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'orderNumber' },
+							index + 1
+						),
+						_react2.default.createElement(
+							'li',
+							{ className: 'everyText' },
+							_react2.default.createElement('span', { className: 'blueDrop' }),
+							_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u8BA2\u5355\u540D\u79F0:', style: unifyStyle, component: 'labelText', value: item.mainbillname, inline: true })
+						),
+						_react2.default.createElement(
+							'li',
+							{ className: 'everyText' },
+							_react2.default.createElement('span', { className: 'blueDrop' }),
+							_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u5408\u540C\u603B\u6570:', style: unifyStyle, component: 'labelText', value: item.contractSize, defaultValue: '0', inline: true })
+						),
+						_react2.default.createElement(
+							'li',
+							{ className: 'everyText' },
+							_react2.default.createElement('span', { className: 'blueDrop' }),
+							_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u57CE\u5E02:', style: unifyStyle, component: 'labelText', value: item.cityStr, defaultValue: '0', inline: true })
+						),
+						_react2.default.createElement(
+							'li',
+							{ className: 'everyText' },
+							_react2.default.createElement('span', { className: 'blueDrop' }),
+							_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u5DE5\u4F4D\u603B\u6570:', style: unifyStyle, component: 'labelText', value: item.stationnum, defaultValue: '0', inline: true })
+						),
+						_react2.default.createElement(
+							'li',
+							{ className: 'everyText' },
+							_react2.default.createElement('span', { className: 'blueDrop' }),
+							_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u793E\u533A:', style: unifyStyle, component: 'labelText', value: item.communityName, inline: true })
+						),
+						_react2.default.createElement(
+							'li',
+							{ className: 'everyText' },
+							_react2.default.createElement('span', { className: 'blueDrop' }),
+							_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u8BA2\u5355\u603B\u989D:', style: unifyStyle, component: 'labelText', value: item.contractTotalamount, defaultValue: '0', inline: true })
+						),
+						_react2.default.createElement(
+							'li',
+							{ className: 'everyText' },
+							_react2.default.createElement('span', { className: 'blueDrop' }),
+							_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u5165\u9A7B\u65E5\u671F:', style: unifyStyle, component: 'labelText', value: item.ucontractEntrydate, inline: true })
+						),
+						_react2.default.createElement(
+							'li',
+							{ className: 'everyText' },
+							_react2.default.createElement('span', { className: 'blueDrop' }),
+							_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u5DF2\u56DE\u6B3E\u989D:', style: unifyStyle, component: 'labelText', value: item.contractBackamount, defaultValue: '0', inline: true })
+						),
+						_react2.default.createElement(
+							'li',
+							{ className: 'everyText' },
+							_react2.default.createElement('span', { className: 'blueDrop' }),
+							_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u79BB\u5F00\u65E5\u671F:', style: unifyStyle, component: 'labelText', value: item.ucontractLeavedate, inline: true })
+						),
+						_react2.default.createElement(
+							'li',
+							{ className: 'everyText' },
+							_react2.default.createElement('span', { className: 'blueDrop' }),
+							_react2.default.createElement(_krUi.KrField, { grid: 1 / 2, label: '\u672A\u56DE\u6B3E\u989D:', style: unifyStyle, component: 'labelText', value: item.unBackamount, defaultValue: '0', inline: true })
+						),
+						_react2.default.createElement(
+							'div',
+							{ style: { marginTop: 20, textAlign: "center" }, className: 'btnBoxShadow' },
+							isEdit && _react2.default.createElement(
+								'span',
+								null,
+								_react2.default.createElement(_krUi.Button, { label: '\u7F16\u8F91', type: 'button', cancle: true, onTouchTap: _this.editIndentClick.bind(this, item.id) }),
+								_react2.default.createElement('span', { className: 'interval' })
+							),
+							_react2.default.createElement(
+								_krUi.Button,
+								{ label: '\u67E5\u770B', type: 'button', cancle: true },
+								_react2.default.createElement('a', { className: 'watchGo', href: './#/operation/customerManage/' + _this.props.listId + '/order/' + item.id + '/detail', target: '_blank' })
+							),
+							_react2.default.createElement('span', { className: 'interval' }),
+							item.deleteBtn && _react2.default.createElement(_krUi.Button, { label: '\u5220\u9664', type: 'button', cancle: true, onTouchTap: function onTouchTap() {
+									if (operType == "PERSON") {
+										_State4.default.deleteId = item.id;
+									}
+									if (operType == "SIGN") {
+										_State6.default.deleteId = item.id;
+									}
+
+									DeleteSwitch();
+								} })
+						)
+					),
+					_react2.default.createElement('div', { className: 'bottomWire' })
+				);
+			});
+			if (listArray.length == 0) {
+				listArray.push(_react2.default.createElement(
+					'div',
+					{ style: { textAlign: 'center', marginTop: -30 } },
+					_react2.default.createElement(
+						'div',
+						{ className: 'ui-nothing' },
+						_react2.default.createElement('div', { className: 'icon', style: { width: 88, height: 123, margin: '0 auto' } }),
+						_react2.default.createElement(
+							'p',
+							{ className: 'tip', style: { fontSize: '14px', fontFamily: 'MicrosoftYaHei', paddingLeft: 20 } },
+							'\u6682\u65F6\u8FD8\u6CA1\u6709\u8BA2\u5355\u5466~'
+						)
+					)
+				));
+			}
+			return listArray;
+		};
+
+		var comeFrom = _this2.props.comeFrom;
+		return _this2;
+	}
+
+	_createClass(CustomerIndent, [{
+		key: 'render',
+		value: function render() {
+			var newIndentSwitch = this.props.newIndentSwitch;
+
+			var detail = _State2.default.orderDetail;
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'm-CustomerIndent' },
+				detail.hasOrderRight && _react2.default.createElement(
+					'div',
+					{ style: { marginTop: 20, marginBottom: 20 } },
+					_react2.default.createElement(_krUi.Button, { label: '\u65B0\u5EFA\u8BA2\u5355', type: 'button', onTouchTap: newIndentSwitch })
+				),
+				this.orderInnerList()
+			);
+		}
+	}]);
+
+	return CustomerIndent;
+}(_react.Component)) || _class;
+
+exports.default = CustomerIndent;

@@ -1,0 +1,11 @@
+'use strict';
+
+var _Format = require('./Format');
+
+var _Format2 = _interopRequireDefault(_Format);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = {
+	Format: _Format2.default
+};

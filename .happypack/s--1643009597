@@ -1,0 +1,110 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _simpleAssign = require('simple-assign');
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Styles = require('../Styles');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CircleShadowStyles = {
+  normalStyle: {
+    WebkitTapHighlightColor: 'rgba(0,0,0,0)',
+    backgroundColor: _Styles.Colors.grey.P700,
+    opacity: '0',
+    borderRadius: '50%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    transform: 'scale(1) translateZ(0)',
+    transition: 'opacity .48s ease .1s , transform .001s ease .6s',
+    willChange: 'opacity, transform'
+  },
+
+  pressedStyle: {
+    opacity: '.3',
+    transform: 'scale(3) translateZ(0)',
+    transition: 'opacity ease 0s, transform ease 0s'
+  }
+};
+
+var _default = function (_React$Component) {
+  _inherits(_default, _React$Component);
+
+  function _default(props) {
+    _classCallCheck(this, _default);
+
+    var _this = _possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).call(this, props));
+
+    _this.onMouseUp = function () {
+      _this.setState({ pressed: false });
+    };
+
+    _this.onMouseDown = function () {
+      _this.setState({ pressed: true });
+    };
+
+    _this.state = {
+      pressed: false
+    };
+    return _this;
+  }
+
+  _createClass(_default, [{
+    key: 'render',
+    value: function render() {
+      var active = this.props.active;
+      var pressed = this.state.pressed;
+
+
+      var styles = [CircleShadowStyles.normalStyle];
+      if (pressed) {
+        styles.push(CircleShadowStyles.pressedStyle);
+      }
+
+      if (active && this.props.styles) {
+        styles = styles.concat(this.props.styles);
+      }
+
+      var endStyle = {};
+
+      styles.map(function (item, index) {
+        endStyle = (0, _simpleAssign2.default)({}, endStyle, item);
+      });
+
+      return _react2.default.createElement('div', {
+        onMouseDown: this.onMouseDown,
+        onMouseUp: this.onMouseUp,
+        style: endStyle });
+    }
+  }]);
+
+  return _default;
+}(_react2.default.Component);
+
+_default.displayName = 'CircleShadow';
+_default.propTypes = {
+  active: _react2.default.PropTypes.bool,
+  styles: _react2.default.PropTypes.object
+};
+exports.default = _default;
