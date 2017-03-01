@@ -65,6 +65,7 @@ import allState from '../State';
 		// allState.reduce=true;
 		//续租合同是否可创建
 		allState.relet=response.relet;
+		//allState.relet=true;
 		//退组合同是否可创建
 		allState.returnRent=response.returnRent;
         if(!allState.enter&&!allState.increase&&!allState.reduce&&!allState.relet&&!allState.returnRent){

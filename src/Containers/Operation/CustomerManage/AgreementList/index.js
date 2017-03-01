@@ -436,7 +436,7 @@ class Merchants extends Component{
 		}else{
 			show=true;
 		}
-		return (<Tooltip className="tooltipTextStyle" style={{padding:10, maxWidth:224,}} offsetTop={5} place='top'><div style={{width:160,minHeight:20,wordWrap:"break-word",padding:"10px",whiteSpace:"normal",lineHeight:"22px"}}>{value}</div></Tooltip>)
+		return (<Tooltip offsetTop={5} place='top'>{value}</Tooltip>)
 	}
 
     onPageChange=(page)=>{
