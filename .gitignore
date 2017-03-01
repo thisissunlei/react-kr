@@ -37,3 +37,4 @@ webpack/dist
 webpack/dist/*
 
 material-demo
+.happypack
