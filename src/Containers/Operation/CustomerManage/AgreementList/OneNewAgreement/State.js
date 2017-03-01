@@ -27,7 +27,7 @@ State.orderNameInit= action(function(value) {
 	Store.dispatch(Actions.callAPI('get-customName-orderName',data)).then(function(response) {
 		_this.customerName=response.customerName;
 		_this.orderCount=response.orderCount;
-	
+
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});		
@@ -51,7 +51,7 @@ State.ordersListData=action(function(customerId){
 				'value': '-1',
 				'label': '新建订单'
 			}
-			orderList.push(noContract);
+			orderList.unshift(noContract);
 			extendObservable(_this,{orderList});
 		}).catch(function(err) {
 

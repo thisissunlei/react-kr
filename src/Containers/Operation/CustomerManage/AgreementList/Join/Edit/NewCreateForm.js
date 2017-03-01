@@ -299,7 +299,6 @@ class NewCreateForm extends Component {
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let allMoney = 0;
-		console.log('stationVos',stationVos);
 		stationVos.map((item)=>{
 			if(item.unitprice){
 				allMoney += this.getSingleRent(item);

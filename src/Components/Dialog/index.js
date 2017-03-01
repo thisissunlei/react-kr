@@ -97,7 +97,7 @@ export default class DialogComponent extends Component {
 
 			ele.style.width = page.width+'px';
 			ele.style.height = page.height+'px';
-			ele.style.zIndex = 99;
+			ele.style.zIndex = 1001;
 			ele.style.top = -position.top +'px';
 			ele.style.left = -position.left+'px';
 			ele.style.bottom = -position.bottom+'px';

@@ -64,7 +64,7 @@ import './index.less';
 			oneState.ordersListData({customerId:allState.listId})
 			setTimeout(function(){
 				Store.dispatch(change('OneNewAgreement','customerId',response.mainBillId));
-			},50)
+			},500)
 			
 			_this.onCancel();
 		}).catch(function(err) {
