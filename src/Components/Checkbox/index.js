@@ -60,7 +60,6 @@ export default class KrCheckbox extends Component {
 
 
 	render() {
-
 		let {
 			checked,
 			label,

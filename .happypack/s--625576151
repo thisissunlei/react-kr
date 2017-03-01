@@ -1,113 +1,31 @@
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.default = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-require('./index.less');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var KrCheckbox = function (_Component) {
-	_inherits(KrCheckbox, _Component);
-
-	function KrCheckbox(props) {
-		_classCallCheck(this, KrCheckbox);
-
-		var _this = _possibleConstructorReturn(this, (KrCheckbox.__proto__ || Object.getPrototypeOf(KrCheckbox)).call(this, props));
-
-		_this.onCheck = function () {
-			var readOnly = _this.props.readOnly;
-
-
-			if (readOnly) {
-				return;
-			}
-			var _this$props = _this.props,
-			    onCheck = _this$props.onCheck,
-			    checked = _this$props.checked;
-
-			onCheck && onCheck(!checked);
-		};
-
-		return _this;
-	}
-
-	_createClass(KrCheckbox, [{
-		key: 'render',
-		value: function render() {
-			var _props = this.props,
-			    checked = _props.checked,
-			    label = _props.label,
-			    style = _props.style,
-			    heightStyle = _props.heightStyle;
-
-
-			return _react2.default.createElement(
-				'span',
-				{ style: style, className: 'ui-checkbox' },
-				_react2.default.createElement('input', { type: 'checkbox', onChange: this.onCheck, checked: checked }),
-				label && _react2.default.createElement(
-					'span',
-					{ style: heightStyle, className: 'label' },
-					label
-				)
-			);
-		}
-	}]);
-
-	return KrCheckbox;
-}(_react.Component);
-
-KrCheckbox.displayName = 'KrCheckbox';
-KrCheckbox.defaultProps = {
-	checked: false,
-	label: '',
-	readOnly: false
-};
-KrCheckbox.propTypes = {
-	/**
-  * Checkbox 选中时值为true
-  */
-	checked: _react2.default.PropTypes.bool,
-	/**
-  * 点选时回调该方法
-  */
-	onCheck: _react2.default.PropTypes.func,
-	/**
-  * label
-  */
-	label: _react2.default.PropTypes.string,
-	/**
-  *是否只读
-  */
-	readOnly: _react2.default.PropTypes.bool,
-	style: _react2.default.PropTypes.object,
-	heightStyle: _react2.default.PropTypes.object
-};
-exports.default = KrCheckbox;
-;
-
-var _temp = function () {
-	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-		return;
-	}
-
-	__REACT_HOT_LOADER__.register(KrCheckbox, 'KrCheckbox', '/Users/tmac_zc/Code/kr-admin/src/Components/Checkbox/index.js');
-}();
-
-;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9Db21wb25lbnRzL0NoZWNrYm94L2luZGV4LmpzIl0sIm5hbWVzIjpbIktyQ2hlY2tib3giLCJwcm9wcyIsIm9uQ2hlY2siLCJyZWFkT25seSIsImNoZWNrZWQiLCJsYWJlbCIsInN0eWxlIiwiaGVpZ2h0U3R5bGUiLCJkaXNwbGF5TmFtZSIsImRlZmF1bHRQcm9wcyIsInByb3BUeXBlcyIsIlByb3BUeXBlcyIsImJvb2wiLCJmdW5jIiwic3RyaW5nIiwib2JqZWN0Il0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7QUFBQTs7OztBQUlBOzs7Ozs7Ozs7O0lBR3FCQSxVOzs7QUErQnBCLHFCQUFZQyxLQUFaLEVBQW1CO0FBQUE7O0FBQUEsc0hBQ1pBLEtBRFk7O0FBQUEsUUFLbkJDLE9BTG1CLEdBS1QsWUFBTTtBQUFBLE9BR2RDLFFBSGMsR0FJWCxNQUFLRixLQUpNLENBR2RFLFFBSGM7OztBQU1mLE9BQUlBLFFBQUosRUFBYztBQUNiO0FBQ0E7QUFSYyxxQkFZWCxNQUFLRixLQVpNO0FBQUEsT0FVZEMsT0FWYyxlQVVkQSxPQVZjO0FBQUEsT0FXZEUsT0FYYyxlQVdkQSxPQVhjOztBQWFmRixjQUFXQSxRQUFRLENBQUNFLE9BQVQsQ0FBWDtBQUVBLEdBcEJrQjs7QUFBQTtBQUdsQjs7OzsyQkFvQlE7QUFBQSxnQkFPSixLQUFLSCxLQVBEO0FBQUEsT0FHUEcsT0FITyxVQUdQQSxPQUhPO0FBQUEsT0FJUEMsS0FKTyxVQUlQQSxLQUpPO0FBQUEsT0FLUEMsS0FMTyxVQUtQQSxLQUxPO0FBQUEsT0FNUEMsV0FOTyxVQU1QQSxXQU5POzs7QUFVUixVQUNDO0FBQUE7QUFBQSxNQUFNLE9BQU9ELEtBQWIsRUFBb0IsV0FBVSxhQUE5QjtBQUNFLDZDQUFPLE1BQUssVUFBWixFQUF1QixVQUFVLEtBQUtKLE9BQXRDLEVBQStDLFNBQVNFLE9BQXhELEdBREY7QUFFR0MsYUFBUztBQUFBO0FBQUEsT0FBTSxPQUFPRSxXQUFiLEVBQTBCLFdBQVUsT0FBcEM7QUFBNkNGO0FBQTdDO0FBRlosSUFERDtBQVFBOzs7Ozs7QUF4RW1CTCxVLENBRWJRLFcsR0FBYyxZO0FBRkRSLFUsQ0FJYlMsWSxHQUFlO0FBQ3JCTCxVQUFTLEtBRFk7QUFFckJDLFFBQU8sRUFGYztBQUdyQkYsV0FBVTtBQUhXLEM7QUFKRkgsVSxDQVViVSxTLEdBQVk7QUFDbEI7OztBQUdBTixVQUFTLGdCQUFNTyxTQUFOLENBQWdCQyxJQUpQO0FBS2xCOzs7QUFHQVYsVUFBUyxnQkFBTVMsU0FBTixDQUFnQkUsSUFSUDtBQVNsQjs7O0FBR0FSLFFBQU8sZ0JBQU1NLFNBQU4sQ0FBZ0JHLE1BWkw7QUFhbEI7OztBQUdBWCxXQUFVLGdCQUFNUSxTQUFOLENBQWdCQyxJQWhCUjtBQWlCbEJOLFFBQU8sZ0JBQU1LLFNBQU4sQ0FBZ0JJLE1BakJMO0FBa0JsQlIsY0FBYSxnQkFBTUksU0FBTixDQUFnQkk7QUFsQlgsQztrQkFWQ2YsVTs7Ozs7Ozs7K0JBQUFBLFUiLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiL1VzZXJzL3RtYWNfemMvQ29kZS9rci1hZG1pbiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCwge1xuXHRDb21wb25lbnRcbn0gZnJvbSAncmVhY3QnO1xuXG5pbXBvcnQgJy4vaW5kZXgubGVzcyc7XG5cblxuZXhwb3J0IGRlZmF1bHQgY2xhc3MgS3JDaGVja2JveCBleHRlbmRzIENvbXBvbmVudCB7XG5cblx0c3RhdGljIGRpc3BsYXlOYW1lID0gJ0tyQ2hlY2tib3gnO1xuXG5cdHN0YXRpYyBkZWZhdWx0UHJvcHMgPSB7XG5cdFx0Y2hlY2tlZDogZmFsc2UsXG5cdFx0bGFiZWw6ICcnLFxuXHRcdHJlYWRPbmx5OiBmYWxzZSxcblx0fVxuXG5cdHN0YXRpYyBwcm9wVHlwZXMgPSB7XG5cdFx0LyoqXG5cdFx0ICogQ2hlY2tib3gg6YCJ5Lit5pe25YC85Li6dHJ1ZVxuXHRcdCAqL1xuXHRcdGNoZWNrZWQ6IFJlYWN0LlByb3BUeXBlcy5ib29sLFxuXHRcdC8qKlxuXHRcdCAqIOeCuemAieaXtuWbnuiwg+ivpeaWueazlVxuXHRcdCAqL1xuXHRcdG9uQ2hlY2s6IFJlYWN0LlByb3BUeXBlcy5mdW5jLFxuXHRcdC8qKlxuXHRcdCAqIGxhYmVsXG5cdFx0ICovXG5cdFx0bGFiZWw6IFJlYWN0LlByb3BUeXBlcy5zdHJpbmcsXG5cdFx0LyoqXG5cdFx0ICrmmK/lkKblj6ror7tcblx0XHQgKi9cblx0XHRyZWFkT25seTogUmVhY3QuUHJvcFR5cGVzLmJvb2wsXG5cdFx0c3R5bGU6IFJlYWN0LlByb3BUeXBlcy5vYmplY3QsXG5cdFx0aGVpZ2h0U3R5bGU6IFJlYWN0LlByb3BUeXBlcy5vYmplY3QsXG5cdH07XG5cblx0Y29uc3RydWN0b3IocHJvcHMpIHtcblx0XHRzdXBlcihwcm9wcyk7XG5cblx0fVxuXG5cdG9uQ2hlY2sgPSAoKSA9PiB7XG5cblx0XHRsZXQge1xuXHRcdFx0cmVhZE9ubHlcblx0XHR9ID0gdGhpcy5wcm9wcztcblxuXHRcdGlmIChyZWFkT25seSkge1xuXHRcdFx0cmV0dXJuO1xuXHRcdH1cblx0XHRjb25zdCB7XG5cdFx0XHRvbkNoZWNrLFxuXHRcdFx0Y2hlY2tlZFxuXHRcdH0gPSB0aGlzLnByb3BzO1xuXHRcdG9uQ2hlY2sgJiYgb25DaGVjayghY2hlY2tlZCk7XG5cblx0fVxuXG5cblx0cmVuZGVyKCkge1xuXG5cdFx0bGV0IHtcblx0XHRcdGNoZWNrZWQsXG5cdFx0XHRsYWJlbCxcblx0XHRcdHN0eWxlLFxuXHRcdFx0aGVpZ2h0U3R5bGVcblx0XHR9ID0gdGhpcy5wcm9wcztcblxuXG5cdFx0cmV0dXJuIChcblx0XHRcdDxzcGFuIHN0eWxlPXtzdHlsZX0gY2xhc3NOYW1lPVwidWktY2hlY2tib3hcIj5cblx0XHRcdFx0XHQ8aW5wdXQgdHlwZT1cImNoZWNrYm94XCIgb25DaGFuZ2U9e3RoaXMub25DaGVja30gY2hlY2tlZD17Y2hlY2tlZH0vPlxuXHRcdFx0XHRcdHtsYWJlbCAmJiA8c3BhbiBzdHlsZT17aGVpZ2h0U3R5bGV9IGNsYXNzTmFtZT1cImxhYmVsXCI+e2xhYmVsfTwvc3Bhbj59XG5cdFx0XHQ8L3NwYW4+XG5cblx0XHQpO1xuXG5cdH1cbn1cbiJdfQ==
+/Users/tmac_zc/Code/kr-admin/src/Components/Checkbox/index.js: Unexpected token (64:1)
+SyntaxError: /Users/tmac_zc/Code/kr-admin/src/Components/Checkbox/index.js: Unexpected token (64:1)
+[0m [90m 62 | [39m	render() {
+ [90m 63 | [39m
+[31m[1m>[22m[39m[90m 64 | [39m[33m<<[39m[33m<<[39m[33m<<[39m[33m<[39m [33mHEAD[39m
+ [90m    | [39m [31m[1m^[22m[39m
+ [90m 65 | [39m[33m===[39m[33m===[39m[33m=[39m
+ [90m 66 | [39m
+ [90m 67 | [39m		let {[0m
+    at Parser.pp$5.raise (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:4246:13)
+    at Parser.pp.unexpected (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1627:8)
+    at Parser.pp$8.jsxParseIdentifier (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6193:10)
+    at Parser.pp$8.jsxParseNamespacedName (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6204:19)
+    at Parser.pp$8.jsxParseElementName (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6219:19)
+    at Parser.pp$8.jsxParseOpeningElementAt (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6309:20)
+    at Parser.pp$8.jsxParseElementAt (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6333:29)
+    at Parser.pp$8.jsxParseElement (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6388:15)
+    at Parser.parseExprAtom (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:6400:21)
+    at Parser.pp$3.parseExprSubscripts (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3331:19)
+    at Parser.pp$3.parseMaybeUnary (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3311:19)
+    at Parser.pp$3.parseExprOps (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3241:19)
+    at Parser.pp$3.parseMaybeConditional (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3218:19)
+    at Parser.pp$3.parseMaybeAssign (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3181:19)
+    at Parser.parseMaybeAssign (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5655:24)
+    at Parser.pp$3.parseExpression (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3143:19)
+    at Parser.pp$1.parseStatement (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:1774:19)
+    at Parser.parseStatement (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5218:22)
+    at Parser.pp$1.parseBlockBody (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2133:21)
+    at Parser.pp$1.parseBlock (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:2114:8)
+    at Parser.pp$3.parseFunctionBody (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:3998:22)
+    at Parser.parseFunctionBody (/Users/tmac_zc/Code/kr-admin/node_modules/.6.14.1@babylon/lib/index.js:5205:20)
