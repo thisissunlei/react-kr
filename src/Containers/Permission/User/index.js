@@ -35,10 +35,9 @@ import {
 	ListGroup,
 	Dialog,
 	SearchForms,
-	KrDate,
+	KrDate
 } from 'kr-ui';
 import './index.less';
-import Deletedialog from './Deletedialog';
 class SearchForm extends Component {
 	constructor(props) {
 		super(props);
@@ -161,50 +160,39 @@ class Operations extends Component {
 		} = this.state;
 		return (
 			<div className="g-operation">
-				<Section title="操作项" >
+				<Section title="角色列表" >
 					<SearchForm  /> {/*onSubmit={this.onSubmit} Ids={communityids} onChange={this.onChange} onFilter={this.onFilter}*/}
 	        		<Table
 							style={{marginTop:10}}
 							displayCheckbox={false}
 							onLoaded={this.onLoaded}
 							ajax={true}
-							ajaxUrlName='findPage'
+							ajaxUrlName='UserfindPage'
 							ajaxParams={this.state.searchParams}
 							onOperation={this.onOperation}
 							  >
 						<TableHeader>
-						<TableHeaderColumn>ID</TableHeaderColumn>
-						<TableHeaderColumn>名称</TableHeaderColumn>
-						<TableHeaderColumn>类型</TableHeaderColumn>
 						<TableHeaderColumn>编码</TableHeaderColumn>
+						<TableHeaderColumn>名称</TableHeaderColumn>
 						<TableHeaderColumn>创建人</TableHeaderColumn>
-						<TableHeaderColumn>所属模块</TableHeaderColumn>
 						<TableHeaderColumn>创建时间</TableHeaderColumn>
 						<TableHeaderColumn>操作</TableHeaderColumn>
 					</TableHeader>
 
 					<TableBody>
 						<TableRow>
-							<TableRowColumn style={{overflow:'hidden'}} name="id"></TableRowColumn>
-							<TableRowColumn name="name" ></TableRowColumn>
-							<TableRowColumn 
-									name="type" 
-									options={[
-										{label:'菜单',value:'MENU'},
-										{label:'操作',value:'OPERATION'}
-									]}
-							></TableRowColumn>
 							<TableRowColumn name="code"></TableRowColumn>
+							<TableRowColumn name="name" ></TableRowColumn>
 							<TableRowColumn name="creater"></TableRowColumn>
-							<TableRowColumn name="moduleName"></TableRowColumn>
-							<TableRowColumn type="date" name="createTime" component={(value)=>{
+							<TableRowColumn name="createTime" type="date" component={(value)=>{
 								return (
 									<KrDate value={value} />
 								)
-							}}> </TableRowColumn>
+							}}></TableRowColumn>
 							<TableRowColumn>
 									<Button label="编辑" onTouchTap=''  type="operation" operation="edit"/>
 									<Button label="删除"  type="operation" operation="delete"/>
+									<Button label="查看人员"  type="operation" operation="view"/>
 							 </TableRowColumn>
 						 </TableRow>
 					</TableBody>

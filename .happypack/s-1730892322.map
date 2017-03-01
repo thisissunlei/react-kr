@@ -1,1 +1,0 @@
-{"version":3,"sources":["src/Redux/Modules/User/types.js"],"names":["SET_USER_BASIC_INFO"],"mappings":";;;;;;AACA;;AAEO,IAAMA,oDAAsB,qBAA5B;;;;;;;;gCAAMA,mB","file":"types.js","sourceRoot":"/Users/tmac_zc/Code/kr-admin","sourcesContent":["\n//加载基础数据\n\nexport const SET_USER_BASIC_INFO = 'SET_USER_BASIC_INFO';\n\n\n\n"]}
