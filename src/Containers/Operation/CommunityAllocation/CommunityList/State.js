@@ -43,7 +43,7 @@ State.searchUpperCustomer = action(function() {
 State.searchDataHere = action(function() {
 	 var _this=this;
 	 Store.dispatch(Actions.callAPI('list-param-data')).then(function(response) {
-		_this.searchData=response
+		_this.searchData=response.businessAreas
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});	

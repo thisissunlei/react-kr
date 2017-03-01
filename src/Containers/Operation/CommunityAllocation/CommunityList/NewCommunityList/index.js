@@ -16,7 +16,8 @@ import {
 	ButtonGroup,
 	Message
 } from 'kr-ui';
-import './index.less'
+import './index.less';
+import State from '../State';
 @observer
  class NewCommunityList extends Component{
 
@@ -43,8 +44,7 @@ import './index.less'
 
 	
 	componentDidMount(){
-		 Store.dispatch(change('NewCustomerList','hasOffice','NO'));
-
+      State.searchDataHere();
 	}
    
 
@@ -62,61 +62,65 @@ import './index.less'
 							<div className="titleBar"><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
 							<div className="small-cheek">
 
-									 <KrField grid={1/2} label="社区名称" name="company" component="input" style={{width:262,marginLeft:15}}  requireLabel={true} onChange={this.corpNameChange} />
+									 <KrField grid={1/2} label="社区名称" name="name" component="input" style={{width:262,marginLeft:15}}  requireLabel={true} onChange={this.corpNameChange} />
 
-                                     <KrField grid={1/2} label="社区编码" name="amount" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
+                                     <KrField grid={1/2} label="社区编码" name="code" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
 
-                                    <div className="krFlied-box"><KrField grid={1/2} label="社区面积" name="teamNum" style={{width:239,marginLeft:16}} component="input" requireLabel={true}></KrField><span className="unit">m</span></div>
-                                    <KrField  grid={1/2}  name="intentionCommunityId" style={{width:262,marginLeft:32}} component='searchIntend'  label="所属商圈" inline={false} onChange={this.onChangeIntend} placeholder='请输入社区名称'/>
+                                    <div className="krFlied-box"><KrField grid={1/2} label="社区面积" name="area" style={{width:239,marginLeft:16}} component="input" requireLabel={true}></KrField><span className="unit">m</span></div>
+                                    <KrField  grid={1/2}  name="businessAreaId" style={{width:262,marginLeft:32}} component='select'  label="所属商圈" inline={false} onChange={this.onChangeIntend} options={State.searchData}/>
 
-                                    <KrField grid={1/2} label="所属区县" name="distinctId"  style={{width:262,marginLeft:16,zIndex:2}} component="city" onSubmit={this.cityValue} requireLabel={true} />
+                                    <KrField grid={1/2} label="所属区县" name="countyId"  style={{width:262,marginLeft:16,zIndex:2}} component="city" onSubmit={this.cityValue} requireLabel={true} />
 									
-									<KrField grid={1/2} label="详细地址" name="amount" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
+									<KrField grid={1/2} label="详细地址" name="address" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
 									<KrField grid={1/2} label="社区坐标" name="company" component="input" style={{width:262,marginLeft:16}}  requireLabel={true} onChange={this.corpNameChange} />
-									<KrField grid={1/2} label="大厦名称" name="amount" style={{width:262,marginLeft:28}} component="input" requireLabel={false}/>
-									<KrField grid={1/2} label="装修情况" name="distinctId"  style={{width:262,marginLeft:16,zIndex:2}} component="city" onSubmit={this.cityValue}/>
-									<KrField  grid={1/2}  name="intentionCommunityId" style={{width:262,marginLeft:28}} component='searchIntend'  label="社区朝向" inline={false} onChange={this.onChangeIntend} placeholder='请输入社区名称'/>
+									<KrField grid={1/2} label="大厦名称" name="buildName" style={{width:262,marginLeft:28}} component="input" requireLabel={false}/>
+									<KrField grid={1/2} label="装修情况" name="decoration"  style={{width:262,marginLeft:16,zIndex:2}} component="select" 
+									  options={[{label:'毛坯',value:'ROUGHCAST'},{label:'简装',value:'PAPERBACK'},{label:'精装',value:'HARDCOVER'},{label:'豪装',value:'LUXURIOUS'}]}
+									/>
+									<KrField  grid={1/2}  name="orientation" style={{width:262,marginLeft:28}} component='select'  label="社区朝向" inline={false} 
+                                      options={[{label:'东',value:'EAST'},{label:'南',value:'SOUTH'},{label:'西',value:'WEST'},{label:'北',value:'NORTH'},{label:'东南',value:'SOUTHEAST'},{label:'东北',value:'NORTHEAST'},{label:'西南',value:'SOUTHWEST'},{label:'西北',value:'NORTHWEST'}]}
+									/>
 
-									<div className="krFlied-box"><KrField grid={1/2} label="标准层高" name="teamNum" style={{width:239,marginLeft:16}} component="input" ></KrField><span className="unit">m</span></div>
-									<div className="krFlied-box"><KrField grid={1/2} label="社区入口" name="stationNum" style={{width:239,marginLeft:33}} component="input" ></KrField><span className="unit">个</span></div>
+									<div className="krFlied-box"><KrField grid={1/2} label="标准层高" name="floorHeight" style={{width:239,marginLeft:16}} component="input" ></KrField><span className="unit">m</span></div>
+									<div className="krFlied-box"><KrField grid={1/2} label="社区入口" name="entryNum" style={{width:239,marginLeft:33}} component="input" ></KrField><span className="unit">个</span></div>
 
-									<div className="krFlied-box"><KrField grid={1/2} label="客梯数量" name="teamNum" style={{width:239,marginLeft:16}} component="input" ></KrField><span className="unit">部</span></div>
-									<div className="krFlied-box"><KrField grid={1/2} label="货梯数量" name="stationNum" style={{width:239,marginLeft:33}} component="input" ></KrField><span className="unit">部</span></div>
+									<div className="krFlied-box"><KrField grid={1/2} label="客梯数量" name="elevatorNum" style={{width:239,marginLeft:16}} component="input" ></KrField><span className="unit">部</span></div>
+									<div className="krFlied-box"><KrField grid={1/2} label="货梯数量" name="cargoNum" style={{width:239,marginLeft:33}} component="input" ></KrField><span className="unit">部</span></div>
 
-									<div className="krFlied-box"><KrField grid={1/2} label="得房率" name="teamNum" style={{width:239,marginLeft:16}} component="input" ></KrField><span className="unit">%</span></div>
-									<div className="krFlied-box"><KrField grid={1/2} label="绿化率" name="stationNum" style={{width:239,marginLeft:36}} component="input" ></KrField><span className="unit">%</span></div>	
+									<div className="krFlied-box"><KrField grid={1/2} label="得房率" name="efficientRate" style={{width:239,marginLeft:16}} component="input" ></KrField><span className="unit">%</span></div>
+									<div className="krFlied-box"><KrField grid={1/2} label="绿化率" name="greenRate" style={{width:239,marginLeft:36}} component="input" ></KrField><span className="unit">%</span></div>	
                                     <div className="middle-round"></div>
 						</div>
 
 						<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">运营信息</label></div>
 						<div className="small-cheek">
 	
-								<KrField grid={1/2} label="社区状态" name="sourceId" style={{width:262,marginLeft:15}} component="select" requireLabel={true}/>
-								<KrField grid={1/2} label="开业时间" name="inTime" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>
-								<KrField grid={1/2} label="签约开始时间" name="inTime" style={{width:260,marginLeft:15}} component="date" requireLabel={true}/>
-								<KrField grid={1/2} label="签约结束时间" name="inTime" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>
-                                <div className="krFlied-box"><KrField grid={1/2} label="工位总数" name="teamNum" style={{width:239,marginLeft:16}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>
-								<div className="krFlied-box"><KrField grid={1/2} label="会议室总数" name="stationNum" style={{width:239,marginLeft:32}} component="input" requireLabel={true}></KrField><span className="unit">间</span></div>	
-								<div className="krFlied-box"><KrField grid={1/2} label="所在楼层" name="teamNum" style={{width:239,marginLeft:16}} component="input" requireLabel={true}></KrField><span className="unit">层</span></div>
+								<KrField grid={1/2} label="社区状态" name="opened" style={{width:262,marginLeft:15}} component="select" requireLabel={true} options={[{label:'已开业',value:true},{label:'未开业',value:false}]}/>
+								<KrField grid={1/2} label="开业时间" name="openDate" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>
+								<KrField grid={1/2} label="签约开始时间" name="signStartDate" style={{width:260,marginLeft:15}} component="date" requireLabel={true}/>
+								<KrField grid={1/2} label="签约结束时间" name="signEndDate" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>
+                                <div className="krFlied-box"><KrField grid={1/2} label="工位总数" name="stationNum" style={{width:239,marginLeft:16}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>
+								<div className="krFlied-box"><KrField grid={1/2} label="会议室总数" name="meetNum" style={{width:239,marginLeft:32}} component="input" requireLabel={true}></KrField><span className="unit">间</span></div>	
+								<div className="krFlied-box"><KrField grid={1/2} label="所在楼层" name="floor" style={{width:239,marginLeft:16}} component="input" requireLabel={true}></KrField><span className="unit">层</span></div>
 
-								<div className="krFlied-box"><KrField grid={1/2} label="可出租工位数" name="teamNum" style={{width:201,marginLeft:33}} component="input" requireLabel={true}></KrField><span className="unit">个</span><span className="m-add">+</span></div>	
+								<div className="krFlied-box"><KrField grid={1/2} label="可出租工位数" name="stationCount" style={{width:201,marginLeft:33}} component="input" requireLabel={true}></KrField><span className="unit">个</span><span className="m-add">+</span></div>	
 								<KrField grid={1/2} label="营业时间" name="amount" style={{width:262,marginLeft:16}} component="input" requireLabel={true}/>					
 
-								<KrField grid={1/2} label="联系方式" name="amount" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
-								<div className="krFlied-box"><KrField grid={1/2} label="社区亮点" name="teamNum" style={{width:227,marginLeft:16}} component="input" requireLabel={true}></KrField><span className="unit">+</span></div>	
+								<KrField grid={1/2} label="联系方式" name="contract" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
+								<div className="krFlied-box"><KrField grid={1/2} label="社区亮点" name="brightPoints" style={{width:227,marginLeft:16}} component="input" requireLabel={true}></KrField><span className="unit">+</span></div>	
 						        <div className="middle-round"></div>		
 						        
 						</div>
 
 						<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">官网信息</label></div>
 						<div className="small-cheek" style={{paddingBottom:0}}>
-							 <KrField grid={1/2} label="排序" name="company" component="input" style={{width:262,marginLeft:15}} onChange={this.corpNameChange} />	
-							 <KrField grid={1/2} label="官网显示状态" name="hasOffice" style={{width:262,marginLeft:28,marginRight:13}} component="group" requireLabel={true}>
-					              	<KrField name="hasOffice" label="显示" type="radio" value="true" onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
-					             	<KrField name="hasOffice" label="不显示" type="radio" value="false" onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
+							 <KrField grid={1/2} label="排序" name="orderNum" component="input" style={{width:262,marginLeft:15}} onChange={this.corpNameChange} />	
+							 <KrField grid={1/2} label="官网显示状态" name="portalShow" style={{width:262,marginLeft:28,marginRight:13}} component="group" requireLabel={true}>
+					              	<KrField name="portalShow" label="显示" type="radio" value=true onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
+					             	<KrField name="portalShow" label="不显示" type="radio" value=false onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
 					         </KrField>	
-					         <KrField grid={1/2} label="工位类型" name="company" component="input" style={{width:262,marginLeft:15}} onChange={this.corpNameChange} />
-					         <div className="krFlied-box"><KrField grid={1/2} label="工位价格" name="teamNum" style={{width:153,marginLeft:30}} component="input" ></KrField><span className="unit">元/工位/月</span><span className="m-add">+</span></div>
+					         <KrField grid={1/2} label="工位类型" name="type" component="input" style={{width:262,marginLeft:15}} onChange={this.corpNameChange} />
+					         <div className="krFlied-box"><KrField grid={1/2} label="工位价格" name="price" style={{width:153,marginLeft:30}} component="input" ></KrField><span className="unit">元/工位/月</span><span className="m-add">+</span></div>
 					         <div className='speakInfo'><KrField grid={1} label="社区简介" name="companyIntroduce" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='cus-length-textarea'/></div>		
 						     <div className="krFlied-box"><KrField grid={1} label="基础设施" name="teamNum" style={{width:519,marginLeft:16}} component="input"></KrField><span className="unit">+</span></div>
 						     <div className="krFlied-box"><KrField grid={1} label="基础服务" name="teamNum" style={{width:519,marginLeft:16}} component="input"></KrField><span className="unit">+</span></div>

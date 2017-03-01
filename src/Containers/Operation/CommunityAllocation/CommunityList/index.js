@@ -130,7 +130,7 @@ class CommunityList  extends Component{
 			<div className='community-list'>
 				<Title value="社区列表"/>
 				<Section title="社区排序" description="" style={{marginBottom:-5,minHeight:910}}>
-				<Row style={{marginBottom:21}}>
+				<Row style={{marginBottom:21,position:'relative',zIndex:5}}>
 
 			          <Col
 					     style={{float:'left'}}
