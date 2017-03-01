@@ -325,7 +325,13 @@ class NewCreateForm extends Component {
 		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
 		form.lessorContactid = form.lessorContactid;
 		form.totalrent = (this.state.allRent!='-1')?this.state.allRent:initialValues.totalrent;
-
+		if(form.totalrent == 0){
+			Notify.show([{
+				message: '服务费不能为零',
+				type: 'danger',
+			}]);
+			return;
+		}
 		form.stationVos = JSON.stringify(stationVos);
 		form.delStationVos = JSON.stringify(delStationVos);
 		console.log('contractmark',form);
