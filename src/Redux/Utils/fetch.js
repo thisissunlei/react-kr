@@ -22,8 +22,8 @@
      if (env === 'development') {
          server = 'http://optest.krspace.cn';
      } else if (env === 'test01') {
-         //server = 'http://sso.krspace.cn';
-         server = 'http://optest01.krspace.cn';
+         server = 'http://sso.krspace.cn';
+         //server = 'http://optest01.krspace.cn';
      } else if (env === 'test02') {
          server = 'http://optest02.krspace.cn';
      } else {

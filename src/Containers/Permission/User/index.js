@@ -37,7 +37,6 @@ import {
 	SearchForms
 } from 'kr-ui';
 import './index.less';
-import Deletedialog from './Deletedialog';
 class SearchForm extends Component {
 	constructor(props) {
 		super(props);
@@ -172,34 +171,23 @@ class Operations extends Component {
 							onOperation={this.onOperation}
 							  >
 						<TableHeader>
-						<TableHeaderColumn>ID</TableHeaderColumn>
-						<TableHeaderColumn>名称</TableHeaderColumn>
-						<TableHeaderColumn>类型</TableHeaderColumn>
 						<TableHeaderColumn>编码</TableHeaderColumn>
+						<TableHeaderColumn>名称</TableHeaderColumn>
 						<TableHeaderColumn>创建人</TableHeaderColumn>
-						<TableHeaderColumn>所属模块</TableHeaderColumn>
 						<TableHeaderColumn>创建时间</TableHeaderColumn>
 						<TableHeaderColumn>操作</TableHeaderColumn>
 					</TableHeader>
 
 					<TableBody>
 						<TableRow>
-							<TableRowColumn style={{overflow:'hidden'}} name="id"></TableRowColumn>
-							<TableRowColumn name="name" ></TableRowColumn>
-							<TableRowColumn 
-									name="type" 
-									options={[
-										{label:'菜单',value:'MENU'},
-										{label:'操作',value:'OPERATION'}
-									]}
-							></TableRowColumn>
 							<TableRowColumn name="code"></TableRowColumn>
+							<TableRowColumn name="name" ></TableRowColumn>
 							<TableRowColumn name="creater"></TableRowColumn>
-							<TableRowColumn name="moduleName"></TableRowColumn>
 							<TableRowColumn name="createTime"></TableRowColumn>
 							<TableRowColumn>
 									<Button label="编辑" onTouchTap=''  type="operation" operation="edit"/>
 									<Button label="删除"  type="operation" operation="delete"/>
+									<Button label="查看人员"  type="operation" operation="view"/>
 							 </TableRowColumn>
 						 </TableRow>
 					</TableBody>

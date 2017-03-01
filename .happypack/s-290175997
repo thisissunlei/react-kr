@@ -240,6 +240,11 @@ var _default = _react2.default.createElement(
 			_reactRouter.Route,
 			{ path: 'operations', component: _Containers.Permission.Operations },
 			_react2.default.createElement(_reactRouter.Redirect, { from: 'permission', to: 'permission/operations' })
+		),
+		_react2.default.createElement(
+			_reactRouter.Route,
+			{ path: 'user', component: _Containers.Permission.User },
+			_react2.default.createElement(_reactRouter.Redirect, { from: 'permission', to: 'permission/user' })
 		)
 	),
 	_react2.default.createElement(

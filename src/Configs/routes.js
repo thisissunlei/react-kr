@@ -257,6 +257,7 @@ export default (
 			
 		
 		<Route path="operation" component={Permission.Operations}/>
+
 		<Route path="personalCenter" component={Permission.PersonalCenter}/>
 				<Redirect from="permission" to="permission/personalCenter" />
 		<Route path="login" component={Permission.Login}/>
@@ -267,6 +268,10 @@ export default (
 		<Route path="operations" component={Permission.Operations}>
 			<Redirect from="permission" to="permission/operations"/>
 		</Route>
+		<Route path="user" component={Permission.User}>
+			<Redirect from="permission" to="permission/user"/>
+		</Route>
+		
 	</Route>
 
 	{ /*文档管理*/ }
