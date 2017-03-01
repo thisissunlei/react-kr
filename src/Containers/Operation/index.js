@@ -14,11 +14,14 @@ import {
 import { 
 	default as GroupSetting
  } from './GroupSetting';
-
+import{
+	default as BasicConfig
+}from './BasicConfig';
 module.exports = {
 	Home,
 	JoinOrder,
 	CustomerManage,
 	CommunityManage,
 	GroupSetting,
+	BasicConfig,
 }
