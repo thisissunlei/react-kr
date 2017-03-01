@@ -40,7 +40,9 @@ import State from '../State';
 	}
 
 	
-
+    cityValue=(value)=>{
+      Store.dispatch(change('NewCommunityList','countyId',value));
+    }
 
 	
 	componentDidMount(){
@@ -69,7 +71,7 @@ import State from '../State';
                                     <div className="krFlied-box"><KrField grid={1/2} label="社区面积" name="area" style={{width:239,marginLeft:16}} component="input" requireLabel={true}></KrField><span className="unit">m</span></div>
                                     <KrField  grid={1/2}  name="businessAreaId" style={{width:262,marginLeft:32}} component='select'  label="所属商圈" inline={false} onChange={this.onChangeIntend} options={State.searchData}/>
 
-                                    <KrField grid={1/2} label="所属区县" name="countyId"  style={{width:262,marginLeft:16,zIndex:2}} component="city" onSubmit={this.cityValue} requireLabel={true} />
+                                    <KrField grid={1/2} label="所属区县" name="countyId"  style={{width:262,marginLeft:16,position:'relative',zIndex:5}} component="city" onSubmit={this.cityValue} requireLabel={true} />
 									
 									<KrField grid={1/2} label="详细地址" name="address" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
 									<KrField grid={1/2} label="社区坐标" name="company" component="input" style={{width:262,marginLeft:16}}  requireLabel={true} onChange={this.corpNameChange} />
@@ -107,7 +109,10 @@ import State from '../State';
 								<KrField grid={1/2} label="营业时间" name="amount" style={{width:262,marginLeft:16}} component="input" requireLabel={true}/>					
 
 								<KrField grid={1/2} label="联系方式" name="contract" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
+								
 								<div className="krFlied-box"><KrField grid={1/2} label="社区亮点" name="brightPoints" style={{width:227,marginLeft:16}} component="input" requireLabel={true}></KrField><span className="unit">+</span></div>	
+						        
+
 						        <div className="middle-round"></div>		
 						        
 						</div>
@@ -116,13 +121,14 @@ import State from '../State';
 						<div className="small-cheek" style={{paddingBottom:0}}>
 							 <KrField grid={1/2} label="排序" name="orderNum" component="input" style={{width:262,marginLeft:15}} onChange={this.corpNameChange} />	
 							 <KrField grid={1/2} label="官网显示状态" name="portalShow" style={{width:262,marginLeft:28,marginRight:13}} component="group" requireLabel={true}>
-					              	<KrField name="portalShow" label="显示" type="radio" value=true onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
-					             	<KrField name="portalShow" label="不显示" type="radio" value=false onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
+					              	<KrField name="portalShow" label="显示" type="radio" value={true} onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
+					             	<KrField name="portalShow" label="不显示" type="radio" value={false} onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
 					         </KrField>	
 					         <KrField grid={1/2} label="工位类型" name="type" component="input" style={{width:262,marginLeft:15}} onChange={this.corpNameChange} />
 					         <div className="krFlied-box"><KrField grid={1/2} label="工位价格" name="price" style={{width:153,marginLeft:30}} component="input" ></KrField><span className="unit">元/工位/月</span><span className="m-add">+</span></div>
-					         <div className='speakInfo'><KrField grid={1} label="社区简介" name="companyIntroduce" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='cus-length-textarea'/></div>		
-						     <div className="krFlied-box"><KrField grid={1} label="基础设施" name="teamNum" style={{width:519,marginLeft:16}} component="input"></KrField><span className="unit">+</span></div>
+					         <div className='speakInfo'><KrField grid={1} label="社区简介" name="desc" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='cus-length-textarea'/></div>		
+						    
+						     <div className="krFlied-box"><KrField grid={1} label="基础设施" name="brights" style={{width:519,marginLeft:16}} component="input"></KrField><span className="unit">+</span></div>
 						     <div className="krFlied-box"><KrField grid={1} label="基础服务" name="teamNum" style={{width:519,marginLeft:16}} component="input"></KrField><span className="unit">+</span></div>
 						     <div className="krFlied-box"><KrField grid={1} label="特色服务" name="teamNum" style={{width:519,marginLeft:16}} component="input"></KrField><span className="unit">+</span></div>
 						     <KrField grid={1/2} label="交通" name="company" component="input" style={{width:556,marginLeft:15}} onChange={this.corpNameChange} />
