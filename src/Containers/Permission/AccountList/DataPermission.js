@@ -87,9 +87,8 @@ allSelect=()=>{
             <Checkbox label="全选" style={{color:'#333'}} onCheck={this.allSelect}/>
 							<CheckboxGroup
 									style={{display:'block',textAlign:'left',lineHeight:'32px',color:'#333'}}
-									name={roleList.name}
+									label={roleList.name}
 									options={roleList}
-									checked={item.ownFlag==1?true:false}
 							/>
 			      {/*roleList.map((item,index)=>{return this.renderData(item,index)})*/}
           </div>

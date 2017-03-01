@@ -113,6 +113,18 @@ class AccountList  extends Component{
 			}).catch(function(err) {
 				Message.error(err.message);
 			});
+		} else if (type=='reset') {
+			Store.dispatch(Actions.callAPI('resetPassword',{},{id:itemDetail.id})).then(function(response) {
+				Message.success('重置成功')
+			}).catch(function(err) {
+				Message.error(err.message);
+			});
+		} else if (type=='lock') {
+			Store.dispatch(Actions.callAPI('lockAccount',{},{id:itemDetail.id})).then(function(response) {
+				Message.success('已加锁')
+			}).catch(function(err) {
+				Message.error(err.message);
+			});
 		}
 	}
 	onNewCreateSubmit(searchParams) {
@@ -135,6 +147,7 @@ class AccountList  extends Component{
 	//搜索
 	onSearchSubmit=(value)=>{
 		let {searchParams}=this.state;
+		console.log(searchParams);
 		 if(value.filter=='company'){
 			 this.setState({
 				searchParams:{
@@ -173,7 +186,7 @@ class AccountList  extends Component{
 		}
 	}
 	render(){
-
+		let {searchParams}=this.state;
 		let options=[
 		 {label:'登录名',value:'company'},
 		 {label:'姓名',value:'city'},
@@ -182,95 +195,8 @@ class AccountList  extends Component{
 		]
 		return(
 			<div>
-
 				<Section title="账户列表" >
-					{/*
-						<Row>
-							<Col md={4}>
-								<KrField
-										label="登录名："
-										style={{marginLeft:10}}
-										heightStyle={{height:26,marginLeft:'17px'}}
-										name="loginName"
-										component="input"
-										inline={true}
-										placeholder=" "
-										type="text"
-								/>
-							</Col>
-							<Col md={4}>
-								<KrField
-										label="姓名："
-										heightStyle={{height:26,marginLeft:'27px'}}
-										name="idName"
-										component="input"
-										inline={true}
-										placeholder=" "
-										type="text"
-								/>
-							</Col>
-							<Col md={4}>
-								<KrField label="手机号："
-										heightStyle={{height:26,marginLeft:'17px'}}
-										name="mobileNum"
-										component="input"
-										inline={true}
-										placeholder=" "
-										type="text"
-								/>
-							</Col>
-					</Row>
-					*/}
 
-				<Row style={{position:'relative',zIndex:5}}>
-					{/*
-						<Col md={4}>
-							<KrField label="邮箱："
-									style={{marginLeft:10}}
-									heightStyle={{height:26,marginLeft:'30px',width: '94.5%'}}
-									name="mobileNum"
-									component="input"
-									inline={true}
-									type="text"
-									placeholder=" "
-							/>
-						</Col>
-						<Col md={4}>
-								<KrField label="锁定状态："
-										name="mobileNum"
-										type="select"
-										heightStyle={{height:26,background:'#fff',width:'195%'}}
-										inline={true}
-								/>
-						</Col>
-					*/}
-					<Col md={8}>
-						<ListGroup>
-								<ListGroupItem style={{padding:'7px 50px 6px 17px'}}>
-							{/*
-								<Button
-										label="查询"
-										type="submit"
-										width={70}
-										height={26}
-										fontSize={14}
-								 />
-							*/}
-								<SearchForms onSubmit={this.onSearchSubmit}  placeholder='请输入关键字' searchFilter={options} />
-								</ListGroupItem>
-								<ListGroupItem style={{paddingTop:7,paddingBottom:6}}>
-										<Button
-												label="新建"
-												type="button"
-												onClick={this.openNewCreate}
-												width={70}
-												height={26}
-												fontSize={14}
-										/>
-								</ListGroupItem>
-						</ListGroup>
-					</Col>
-				</Row>
 	        <Table
 							style={{marginTop:10}}
 							displayCheckbox={false}
@@ -294,7 +220,7 @@ class AccountList  extends Component{
 					<TableBody>
 						<TableRow>
 							<TableRowColumn style={{overflow:'hidden'}} name="id"></TableRowColumn>
-							<TableRowColumn name="accountName" options={[{label:'工位入驻订单',value:'STATION'}]}></TableRowColumn>
+							<TableRowColumn name="accountName"></TableRowColumn>
 							<TableRowColumn name="realName"></TableRowColumn>
 							<TableRowColumn name="mobilePhone"></TableRowColumn>
 							<TableRowColumn name="email"></TableRowColumn>
@@ -302,11 +228,10 @@ class AccountList  extends Component{
 
 							<TableRowColumn>
 									<Button label="修改" onTouchTap={this.openNewCreate}  type="operation" operation="view"/>
-								  <Button label="重置密码"  type="operation" operation="view"/>
-									<Button label="加锁"  type="operation" operation="view"/>
-									<Button label="删除"  type="operation" operation="dele"/>
+								  <Button label="重置密码"  type="operation" operation="reset"/>
+
+									<Button label="删除" type="operation" operation="dele"/>
 									<Button label="数据" onTouchTap={this.openDataPermission} type="operation" operation="data"/>
-								  {/*<Button label="生成对账单"  type="operation" operation="edit"/>*/}
 							 </TableRowColumn>
 						 </TableRow>
 					</TableBody>
