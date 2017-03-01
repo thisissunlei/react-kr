@@ -28,6 +28,10 @@ import State from '../State';
 
 	constructor(props){
 		super(props);
+	    this.state={
+	    	openFloor:[],
+	    	num:1
+	    }
 	}
 	onSubmit = (values) => {
 		const {onSubmit} = this.props;
@@ -38,11 +42,40 @@ import State from '../State';
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
+   
+   //楼层增加
+	whereFloor=()=>{
+	  let {openFloor,num}=this.state;
+	  console.log('0000000',num);
+       openFloor.push(<div className='list-kids'>
+				<div className="krFlied-box"><KrField grid={1/2} label="所在楼层" name={`wherefloors${num}.floor`} style={{width:239,marginLeft:16}} component="input" requireLabel={true}></KrField><span className="unit">层</span></div>
+				<div className="krFlied-box"><KrField grid={1/2} label="可出租工位数" name={`wherefloors${num}.stationCount`} style={{width:201,marginLeft:33}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>	
+				<span className="m-add" onClick={this.whereFloor}>+</span>
+				<span className="m-minus" onClick={this.whereFloorMinus.bind(this,num)}>-</span>
+            </div>);
+      this.setState({
+      	 openFloor,
+      	 num:num+1
+      })
+	}
+	//楼层减少
+	whereFloorMinus=(num)=>{
+	  let {openFloor}=this.state;
+       openFloor.splice(num,1);
+       this.setState({
+      	 openFloor,
+       })
+	}
 
 	
+    
+
+	//所属区县
     cityValue=(value)=>{
       Store.dispatch(change('NewCommunityList','countyId',value));
     }
+
+
 
 	
 	componentDidMount(){
@@ -51,6 +84,7 @@ import State from '../State';
    
 
 	render(){
+		let {openFloor}=this.state;
 		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
 
 		return (
@@ -103,9 +137,15 @@ import State from '../State';
 								<KrField grid={1/2} label="签约结束时间" name="signEndDate" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>
                                 <div className="krFlied-box"><KrField grid={1/2} label="工位总数" name="stationNum" style={{width:239,marginLeft:16}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>
 								<div className="krFlied-box"><KrField grid={1/2} label="会议室总数" name="meetNum" style={{width:239,marginLeft:32}} component="input" requireLabel={true}></KrField><span className="unit">间</span></div>	
-								<div className="krFlied-box"><KrField grid={1/2} label="所在楼层" name="floor" style={{width:239,marginLeft:16}} component="input" requireLabel={true}></KrField><span className="unit">层</span></div>
-
-								<div className="krFlied-box"><KrField grid={1/2} label="可出租工位数" name="stationCount" style={{width:201,marginLeft:33}} component="input" requireLabel={true}></KrField><span className="unit">个</span><span className="m-add">+</span></div>	
+							   
+                                <div>
+								  <div className="krFlied-box"><KrField grid={1/2} label="所在楼层" name="wherefloors[0].floor" style={{width:239,marginLeft:16}} component="input" requireLabel={true}></KrField><span className="unit">层</span></div>
+								  <div className="krFlied-box"><KrField grid={1/2} label="可出租工位数" name="wherefloors[0].stationCount" style={{width:201,marginLeft:33}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>	
+								  <span className="m-add" onClick={this.whereFloor}>+</span>
+                                </div>
+                                 
+                                 {openFloor}
+								
 								<KrField grid={1/2} label="营业时间" name="amount" style={{width:262,marginLeft:16}} component="input" requireLabel={true}/>					
 
 								<KrField grid={1/2} label="联系方式" name="contract" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
