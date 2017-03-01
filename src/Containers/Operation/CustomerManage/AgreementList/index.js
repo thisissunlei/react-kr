@@ -334,13 +334,13 @@ class Merchants extends Component{
    
      //日期开始
 	 onStartChange=(startD)=>{
-    	let {searchParams}=this.state;
-        let start=Date.parse(dateFormat(startD,"yyyy-mm-dd hh:MM:ss"));
-        let end=Date.parse(dateFormat(searchParams.createDateEnd,"yyyy-mm-dd hh:MM:ss"));
+    	let {searchParams}=this.state;   	
+        let start=startD;
+        let end=searchParams.createDateEnd;
         this.setState({
         	startValue:startD
         },function () {
-        	if(start>end){
+        	if(start>end&&end){
 	         Message.error('开始时间不能大于结束时间');
 	          return ;
 	        }
@@ -358,12 +358,12 @@ class Merchants extends Component{
     //日期结束
     onEndChange=(endD)=>{
     	let {searchParams}=this.state;
-        let start=Date.parse(dateFormat(searchParams.createDateBegin,"yyyy-mm-dd hh:MM:ss"));
-        let end=Date.parse(dateFormat(endD,"yyyy-mm-dd hh:MM:ss"));
+        let start=searchParams.createDateBegin;
+        let end=endD;
         this.setState({
         	endValue:endD
         },function () {
-        	if(start>end){
+        	if(start>end&&start){
 	         Message.error('开始时间不能大于结束时间');
 	          return ;
 	        }
