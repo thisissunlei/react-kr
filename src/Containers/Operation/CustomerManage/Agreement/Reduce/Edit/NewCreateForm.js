@@ -163,7 +163,7 @@ class NewCreateForm extends Component {
 			}
 			return item;
 		})
-		Store.dispatch(Actions.callAPI('reduceGetAllRent',{stationList:JSON.stringify(list),billId:_this.props.params.orderId})).then(function(response) {
+		Store.dispatch(Actions.callAPI('reduceGetAllRent',{},{stationList:JSON.stringify(list),billId:_this.props.params.orderId})).then(function(response) {
 			_this.setState({
 				allRent:response
 			})
@@ -343,6 +343,13 @@ class NewCreateForm extends Component {
 		form.lessorAddress = changeValues.lessorAddress;
 		form.rentamount = (this.state.allRent!='-1')?this.state.allRent:initialValues.rentamount;
 		var _this = this;
+		if(form.rentamount == 0){
+			Notify.show([{
+				message: '服务费不能为零',
+				type: 'danger',
+			}]);
+			return;
+		}
 
 		form.stationVos = stationVos;
 

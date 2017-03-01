@@ -320,6 +320,14 @@ class NewCreateForm extends Component {
 		// form.stationVos = JSON.stringify(form.stationVos);
 		form.contractVersionType = 'NEW';
 		form.totalrent = allRent;
+		// form.totalrent = 0;
+		// if(form.totalrent == 0){
+		// 	Notify.show([{
+		// 		message: '服务费不能为零',
+		// 		type: 'danger',
+		// 	}]);
+		// 	return;
+		// }
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
@@ -499,7 +507,7 @@ class NewCreateForm extends Component {
 	}
 	setAllRent=(list)=>{
 		let _this = this;
-		Store.dispatch(Actions.callAPI('getAllRent',{stationList:JSON.stringify(list)})).then(function(response) {
+		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
 			_this.setState({
 				allRent:response
 			})

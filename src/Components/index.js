@@ -35,7 +35,6 @@ import KrDate from './KrDate';
 import PaperBack from './PaperBack';
 import Title from './Title';
 import Input from './Input';
-import Alert from './Alert';
 import CheckboxGroup from './CheckboxGroup';
 import RadioGroup from './RadioGroup';
 import Message from './Message';
@@ -50,7 +49,6 @@ import 	KrForm from './KrForm';
 import 	InputDate from './InputDate';
 import  SnackTip from './SnackTip';
 import Dictionary from './Dictionary';
-
 
 
 import {
@@ -112,7 +110,6 @@ module.exports = {
 	KrDate,
 	Title,
 	Input,
-	Alert,
 	CheckboxGroup,
 	RadioGroup,
 	Message,
@@ -141,6 +138,5 @@ module.exports = {
 	CircleStyle,
 	SearchForm,
 	Tooltips,
-	Tooltip
+	Tooltip,
 }
-

@@ -55,6 +55,8 @@ export function setUserNavs(navcodes){
 			var itemPermissionKeys = navcodes[item.menuCode];
 			var childNavs = [];
 
+			item.permission = true;
+
 			if(item.hasOwnProperty('menuItems') && item.menuItems.length){
 				item.menuItems.forEach(function(child,key){
 					if(child.hasOwnProperty('menuCode') && itemPermissionKeys.indexOf(child.menuCode) !== -1){
@@ -63,9 +65,12 @@ export function setUserNavs(navcodes){
 							var childrenNavs = [];
 							child.menuItems.forEach(function(children,i){
 								if(children.hasOwnProperty('menuCode') && itemPermissionKeys.indexOf(children.menuCode) !== -1){
+									children.permission = true;
 									childrenNavs.push(children);
 								}
 							});
+
+							child.permission = true;
 							child.menuItems = childrenNavs;
 						}
 
