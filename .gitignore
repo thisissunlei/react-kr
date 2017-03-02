@@ -35,6 +35,8 @@ static/components
 
 webpack/dist
 webpack/dist/*
+dist
 .happypack/*
 
 material-demo
+.happypack
