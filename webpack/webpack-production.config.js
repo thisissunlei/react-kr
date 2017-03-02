@@ -74,7 +74,14 @@ const config = {
 			hash:true,
 			cache:true,
 			showErrors:true,
-			chunksSortMode:'none'
+			chunksSortMode:'none',
+			minify: {
+		removeComments: true,
+		collapseWhitespace: true,
+		removeAttributeQuotes: true,
+		minifyJS:true,
+		minifyCSS:true
+	}
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop')
 	],
