@@ -16,7 +16,7 @@ export default class Intention extends Component {
 		let {
 			stationVOs,
 			baseInfo
-		} = this.props
+		} = this.props;
 		return (
 
 			<div className="ui-print-Intention">
@@ -28,7 +28,7 @@ export default class Intention extends Component {
 						</p>
 						<div className={`print-text ${stationVOs.length==7?'fixed-height':'auto-height'}`}>
 							<span>四、双方其他约定内容：</span>
-							<span>{baseInfo.agreement?baseInfo.agreement:(<span style={{paddingLeft:20}}>无</span>)}</span>
+							<span style={{lineHeight:'24px',paddingLeft:10}}>{baseInfo.agreement?baseInfo.agreement:(<span style={{paddingLeft:20}}>无</span>)}</span>
 							<p className="text-content"></p>
 							<span className="border-b one-text"></span>
 							<span className="border-b two-text"></span>

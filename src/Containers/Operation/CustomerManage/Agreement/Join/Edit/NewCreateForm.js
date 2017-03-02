@@ -427,7 +427,7 @@ class NewCreateForm extends Component {
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.totalrent = (this.state.allRent!='-1')?this.state.allRent:initialValues.totalrent;
 		form.totalrent = (form.totalrent).toFixed(2);
-		if(!form.hasOwnProperty('agreement')){
+		if(!!form.agreement){
 			form.agreement = '无';
 		}
 		if(form.totalrent == 0){
