@@ -53,9 +53,7 @@ State.ordersListData=action(function(customerId,id){
 			}
 			orderList.unshift(noContract);
 			extendObservable(_this,{orderList});
-			if(id){
-				// Store.dispatch(change('OneNewAgreement','customerId',id));
-			}
+			
 
 		}).catch(function(err) {
 

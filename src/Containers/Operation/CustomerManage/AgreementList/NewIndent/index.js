@@ -61,10 +61,9 @@ import './index.less';
          	setTimeout(function(){
          		State.ChangeCanSubmitState();
          	},1000)
+         	allState.mainBillId=response.mainBillId;
 			oneState.ordersListData({customerId:allState.listId},response.mainBillId);
-			setTimeout(function(){
-				Store.dispatch(change('OneNewAgreement','staionTypeId',response.mainBillId));
-			},0)
+			Store.dispatch(change('OneNewAgreement','staionTypeId',response.mainBillId));
 			
 			_this.onCancel();
 		}).catch(function(err) {
