@@ -33,7 +33,6 @@ import GroupCheckboxComponent from './GroupCheckboxComponent';
 import DoorCardComponent from './DoorCardComponent';
 import UploadImageComponent from './UploadImageComponent';
 
-
 export default class KrField extends React.Component {
 
 	static defaultProps = {
