@@ -495,6 +495,7 @@ class NewCreateForm extends Component {
             data.deleteData && data.deleteData.map((item)=>{
                     var obj = {};
                     obj.stationId = item.id;
+                	obj.stationType = item.type;
                     obj.whereFloor = item.whereFloor;
                     delStationVos.push(obj);
             })
