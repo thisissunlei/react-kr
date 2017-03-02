@@ -34,8 +34,8 @@ State.orderNameInit= action(function(value) {
 });
 
 //客户名称下拉
-State.ordersListData=action(function(customerId){
-	console.log(customerId,"//")
+State.ordersListData=action(function(customerId,id){
+	
 	    var _this = this;
 	    // _this.orderList.clear();
 		Store.dispatch(Actions.callAPI('orders-names', customerId)).then(function(response) {
@@ -53,6 +53,10 @@ State.ordersListData=action(function(customerId){
 			}
 			orderList.unshift(noContract);
 			extendObservable(_this,{orderList});
+			if(id){
+				// Store.dispatch(change('OneNewAgreement','customerId',id));
+			}
+
 		}).catch(function(err) {
 
 			Notify.show([{

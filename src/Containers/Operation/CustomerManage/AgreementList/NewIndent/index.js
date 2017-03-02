@@ -61,10 +61,10 @@ import './index.less';
          	setTimeout(function(){
          		State.ChangeCanSubmitState();
          	},1000)
-			oneState.ordersListData({customerId:allState.listId})
+			oneState.ordersListData({customerId:allState.listId},response.mainBillId);
 			setTimeout(function(){
-				Store.dispatch(change('OneNewAgreement','customerId',response.mainBillId));
-			},500)
+				Store.dispatch(change('OneNewAgreement','staionTypeId',response.mainBillId));
+			},0)
 			
 			_this.onCancel();
 		}).catch(function(err) {
