@@ -10,8 +10,6 @@ import {
 	Store
 } from 'kr/Redux';
 
-
-
 import {
 	reduxForm,
 	formValueSelector,
@@ -36,6 +34,7 @@ import {
 	Dialog,
 	SearchForms,
 	KrDate,
+	Message
 } from 'kr-ui';
 import './index.less';
 import Deletedialog from './Deletedialog';
@@ -153,6 +152,23 @@ class Operations extends Component {
 			openDeleteDialog: !this.state.openDeleteDialog
 		})
 	}
+	onDeleteSubmit = () => {
+		let {
+			itemDetail
+		} = this.state;
+		var _this = this;
+		Store.dispatch(Actions.callAPI('delResources', {
+			id: itemDetail.id
+		})).then(function(response) {
+			_this.openDeleteDialog();
+			Message.success('删除成功')
+		}).catch(function(err) {
+			_this.openDeleteDialog();
+			Message.error(err.message)
+		});
+
+
+	}
 
 
 	render() {
@@ -210,7 +226,17 @@ class Operations extends Component {
 					</TableBody>
 					<TableFooter></TableFooter>
 					</Table>
-					{openDeleteDialog?<Deletedialog />:''}
+					<Dialog
+						title="提示"
+						modal={true}
+						onClose={this.openDeleteDialog}
+						open={this.state.openDeleteDialog}
+						contentStyle={{width:460}}
+						>
+						<Deletedialog  onCancel={this.openDeleteDialog} onSubmit={this.onDeleteSubmit} />
+						
+					 </Dialog>
+					
 				</Section>
 					
 			</div>

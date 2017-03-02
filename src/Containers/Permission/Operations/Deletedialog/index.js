@@ -31,7 +31,8 @@ import {
 	ListGroupItem,
 	ListGroup,
 	Dialog,
-	SearchForms
+	SearchForms,
+	ButtonGroup
 } from 'kr-ui';
 import './index.less';
 
@@ -42,17 +43,36 @@ export default class Deletedialog extends Component {
 
 
 	}
-
+	onCancel = () => {
+		let {
+			onCancel
+		} = this.props;
+		onCancel && onCancel();
+	}
+	onSubmit = () => {
+		let {
+			onSubmit
+		} = this.props;
+		onSubmit && onSubmit();
+	}
 
 
 	render() {
-		let {
-			openDeleteDialog
-		} = this.state;
+
 		return (
 			<div className="g-delete">
-				
+				<div className="u-delete-title">
+					确定要删除该数据吗？
+				</div>	
+				<Row style={{marginTop:50,marginBottom:15}}>
+				<Col md={12} align="center"> 
+					<ButtonGroup>
+						<div  className='ui-btn-center'><Button  label="确定" type="button"   onTouchTap={this.onSubmit} height={34} width={90}/></div>
+						<Button  label="取消" type="button"  onTouchTap={this.onCancel} cancle={true} height={33} width={90}/>
+					</ButtonGroup>
 					
+				 </Col>
+				 </Row>
 			</div>
 		);
 	}

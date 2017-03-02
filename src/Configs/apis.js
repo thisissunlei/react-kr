@@ -903,6 +903,11 @@ const APIS = {
     url: '/api/krspace-sso-web/sso/role/findPage?page={page}&pageSize={pageSize}',
     method: 'get'
   },
+  //权限--操作项--删除
+  'delResources': {
+    url: '/api/krspace-sso-web/sso/resource/delResources?id={id}',
+    method: 'delete'
+  },
 }
 
 module.exports = APIS;
