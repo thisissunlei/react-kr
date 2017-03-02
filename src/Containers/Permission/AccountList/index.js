@@ -187,6 +187,8 @@ class AccountList  extends Component{
 	}
 	render(){
 		let {searchParams}=this.state;
+		let {itemDetail}=this.state;
+		console.log("124124124",this.state.itemDetail);
 		let options=[
 		 {label:'登录名',value:'company'},
 		 {label:'姓名',value:'city'},
