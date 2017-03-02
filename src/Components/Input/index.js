@@ -46,8 +46,10 @@ export default  class Input extends React.Component {
 
 		this.onChange = this.onChange.bind(this);
 
+
+		var value = this.props.value || this.props.defaultValue;
 		this.state = {
-			value:this.props.defaultValue
+			value
 		}
 
 	}
@@ -68,6 +70,9 @@ export default  class Input extends React.Component {
 
 	onChange(event){
 
+
+
+			// console.log('----<MMMM',this.state.value)
 			var value = event.target.value;
 			const {onChange,maxLength} = this.props;
 			if (maxLength) {
@@ -116,6 +121,7 @@ export default  class Input extends React.Component {
 		let {value} = this.state;
 		let message = this.onValidate();
 		let {onError,onBlur} = this.props;
+		// console.log("^^^^",value)
 		if(typeof message !== 'undefined'){
 			onError && onError(message);
 		}

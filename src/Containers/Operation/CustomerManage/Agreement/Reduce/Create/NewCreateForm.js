@@ -294,6 +294,13 @@ class NewCreateForm extends Component {
 		form.rentamount = (this.state.allRent).toFixed(2);
 		form.stationVos = JSON.stringify(form.stationVos);
 		form.contractVersionType = 'NEW';
+		if(form.rentamount == 0){
+			Notify.show([{
+				message: '服务费不能为零',
+				type: 'danger',
+			}]);
+			return;
+		}
 
 		const {
 			onSubmit

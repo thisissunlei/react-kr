@@ -51,7 +51,6 @@ import  SnackTip from './SnackTip';
 import Dictionary from './Dictionary';
 
 
-
 import {
 	Grid,
 	Row,
@@ -139,5 +138,5 @@ module.exports = {
 	CircleStyle,
 	SearchForm,
 	Tooltips,
-	Tooltip
+	Tooltip,
 }

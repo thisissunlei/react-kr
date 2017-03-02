@@ -16,9 +16,11 @@ import SelectComponent from './SelectComponent';
 import TextareaComponent from './TextareaComponent';
 import FileUploadComponent from './FileUploadComponent';
 import SearchPersonelComponent from './SearchPersonelComponent';
+import SearchListComponent from './SearchListComponent';
 import SearchLeaderComponent from './SearchLeaderComponent';
 import SearchIntendCommunity from './SearchIntendCommunity';
 import SearchSignCommunity from './SearchSignCommunity';
+
 import SearchBelongCommunity from './SearchBelongCommunity';
 import SearchCompanyName from "./SearchCompanyName";
 import LabelTextComponent from './LabelTextComponent';
@@ -28,7 +30,8 @@ import TreeComponent from './TreeComponent';
 import SearchCompanyComponent from './SearchCompanyComponent';
 import EditLabelTextComponent from './EditLabelTextComponent';
 import GroupCheckboxComponent from './GroupCheckboxComponent';
-
+import DoorCardComponent from './DoorCardComponent';
+import UploadImageComponent from './UploadImageComponent';
 
 
 export default class KrField extends React.Component {
@@ -114,16 +117,27 @@ export default class KrField extends React.Component {
 			);
 		}
 
+		if (component === 'doorCard') {
+			return (
+				<Field {...this.props} component={DoorCardComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+		if (component === 'uploadImage') {
+			return (
+				<Field {...this.props} component={UploadImageComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+
 		if (component === 'searchPersonel') {
 			return (
 				<Field {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
 			);
 		}
-		// if (component === 'searchCommunities') {
-		// 	return (
-		// 		<Field {...this.props} component={SearchCommunityComponent}  style={WrapStyles} {...other}/>
-		// 	);
-		// }
+		if (component === 'SearchList') {
+			return (
+				<Field {...this.props} component={SearchListComponent}  style={WrapStyles} {...other}/>
+			);
+		}
 
 		if (component === 'searchCommunity') {
 			return (

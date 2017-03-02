@@ -66,4 +66,5 @@ module.exports = {
 		"desc": "执行中",
 		"value": "EXECUTE"
 	}]
+
 }

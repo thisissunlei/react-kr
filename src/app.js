@@ -5,13 +5,6 @@ import {createHashHistory} from 'history';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-
-
-import typography from 'material-ui/styles/typography';
-import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import {cyan500, grey200, darkWhite} from 'material-ui/styles/colors';
 
 import { Provider,connect } from 'react-redux';
 
@@ -45,10 +38,6 @@ ReactDOM.render((
 					store.dispatch(actionCreators.setCurrentNav(window.location.hash));
 				}}
 				/>
-			{/*
-			//<Router history={browserHistory} routes={routes} />
-			<Router routes={routes} history={hashHistory} />
-				*/}
 		</Provider>
 	</MuiThemeProvider>
 ), document.getElementById('app'))

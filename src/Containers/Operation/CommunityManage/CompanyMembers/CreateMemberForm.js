@@ -218,10 +218,10 @@ import imgLine from './images/line.png'
 		 if(params.code !== undefined){
 			 Store.dispatch(Actions.callAPI('membersByForeignCode',params)).then(function(response){
 					//会员卡号已注册
-					if(response.phone != '-1'){
+					if(response.phone !='-1' && response.id){
 						Message.warn('此会员卡号已被绑定','error');
 					}else{
-						Message.warn('此会员卡号未录入','error');
+						Message.warn(response.name,'error');
 
 					}
 					_this.setState({
