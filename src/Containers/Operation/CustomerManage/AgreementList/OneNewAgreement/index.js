@@ -87,7 +87,7 @@ import newIndentState from "../NewIndent/State";
 		onCancel && onCancel();
 	}
 	 onChangeSign=(person)=>{
-	 	if(person.length==0){
+	 	if(!person || person.length == 0) {
 	 		return;
 	 	}
 	
