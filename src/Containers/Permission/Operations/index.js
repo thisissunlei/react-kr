@@ -38,6 +38,8 @@ import {
 } from 'kr-ui';
 import './index.less';
 import Deletedialog from './Deletedialog';
+import Createdialog from './Createdialog';
+
 class SearchForm extends Component {
 	constructor(props) {
 		super(props);
@@ -81,7 +83,12 @@ class SearchForm extends Component {
 		} = this.props;
 		onFilter && onFilter(value);
 	}
-
+	openCreateDialog = () => {
+		let {
+			onCreate
+		} = this.props;
+		onCreate && onCreate();
+	}
 
 
 	render() {
@@ -103,6 +110,7 @@ class SearchForm extends Component {
 
 		return (
 			<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45,zIndex:100}}>
+				<Button label="新建"  onTouchTap={this.openCreateDialog} />
 				<SearchForms 
 						onSubmit={this.onSubmit} 
 						searchFilter={options} 
@@ -130,7 +138,8 @@ class Operations extends Component {
 				pageSize: 15
 			},
 			itemDetail: '',
-			openDeleteDialog: false
+			openDeleteDialog: false,
+			openCreateDialog: false,
 		}
 	}
 
@@ -167,6 +176,14 @@ class Operations extends Component {
 			Message.error(err.message)
 		});
 	}
+	openCreateDialog = () => {
+		this.setState({
+			openCreateDialog: !this.state.openCreateDialog
+		})
+	}
+	onCreatSubmit = () => {
+		this.openCreateDialog();
+	}
 
 
 	render() {
@@ -176,7 +193,7 @@ class Operations extends Component {
 		return (
 			<div className="g-operation">
 				<Section title="操作项" >
-					<SearchForm  /> {/*onSubmit={this.onSubmit} Ids={communityids} onChange={this.onChange} onFilter={this.onFilter}*/}
+					<SearchForm onCreate={this.openCreateDialog} /> {/*onSubmit={this.onSubmit} Ids={communityids} onChange={this.onChange} onFilter={this.onFilter}*/}
 	        		<Table
 							style={{marginTop:10}}
 							displayCheckbox={false}
@@ -232,6 +249,16 @@ class Operations extends Component {
 						contentStyle={{width:460}}
 						>
 						<Deletedialog  onCancel={this.openDeleteDialog} onSubmit={this.onDeleteSubmit} />
+						
+					 </Dialog>
+					 <Dialog
+						title="新建"
+						modal={true}
+						onClose={this.openCreateDialog}
+						open={this.state.openCreateDialog}
+						contentStyle={{width:460}}
+						>
+						<Createdialog  onCancel={this.openCreateDialog} onSubmit={this.onCreatSubmit} />
 						
 					 </Dialog>
 					

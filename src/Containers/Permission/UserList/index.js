@@ -94,7 +94,7 @@ export default class UserList extends Component {
 		return (
 			<div className="g-operation">
 				<Section title="人员列表" >
-					
+					<div><KrField /></div>
 	        		<Table
 							style={{marginTop:10}}
 							displayCheckbox={false}
