@@ -245,14 +245,14 @@ export default class JoinCreate extends Component {
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos}/>
 			</div>
 
-			<Dialog
+			{/*<Dialog
 				title="确定新建"
 				modal={true}
 				autoScrollBodyContent={true}
 				autoDetectWindowHeight={true}
 				open={this.state.openConfirmCreate} >
 						<ConfirmFormDetail detail={this.state.formValues} onSubmit={this.onConfrimSubmit} onCancel={this.openConfirmCreateDialog} />
-			  </Dialog>
+			  </Dialog>*/}
 		</div>
 		);
 	}
