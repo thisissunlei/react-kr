@@ -385,6 +385,9 @@ class NewCreateForm extends Component {
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.totalrent = this.state.allRent?this.state.allRent:initialValues.totalrent;
+		if(!form.hasOwnProperty('agreement')){
+			form.agreement = '无';
+		}
 		const {
 			onSubmit
 		} = this.props;

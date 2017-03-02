@@ -403,6 +403,9 @@ class NewCreateForm extends Component {
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		console.log('form',form);
+		if(!form.hasOwnProperty('agreement')){
+			form.agreement = '无';
+		}
 		form.totalrent = (form.totalrent).toFixed(2);
 		if(form.totalrent == 0){
 			Notify.show([{

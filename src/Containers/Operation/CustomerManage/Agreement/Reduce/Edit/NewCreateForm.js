@@ -343,6 +343,9 @@ class NewCreateForm extends Component {
 		form.lessorAddress = changeValues.lessorAddress;
 		form.rentamount = (this.state.allRent!='-1')?this.state.allRent:initialValues.rentamount;
 		var _this = this;
+		if(!form.hasOwnProperty('agreement')){
+			form.agreement = '无';
+		}
 		if(form.rentamount == 0){
 			Notify.show([{
 				message: '服务费不能为零',

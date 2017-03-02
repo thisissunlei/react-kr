@@ -332,6 +332,9 @@ class NewCreateForm extends Component {
 			}]);
 			return;
 		}
+		if(!form.hasOwnProperty('agreement')){
+			form.agreement = '无';
+		}
 		form.stationVos = JSON.stringify(stationVos);
 		form.delStationVos = JSON.stringify(delStationVos);
 		console.log('contractmark',form);
