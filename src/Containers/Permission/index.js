@@ -43,6 +43,9 @@ import {
 import {
 	default as User
 } from './User';
+import {
+	default as UserList
+} from './UserList';
 
 module.exports = {
 	Home,
@@ -59,5 +62,6 @@ module.exports = {
 	PersonalCenter,
 	AccountList,
 	Operations,
-	User
+	User,
+	UserList
 }

@@ -40,86 +40,8 @@ import {
 } from 'kr-ui';
 import './index.less';
 import Deletedialog from './Deletedialog';
-class SearchForm extends Component {
-	constructor(props) {
-		super(props);
 
-	}
-	onSubmit(form) {
-		console.log('form', form)
-			/*let {
-				page,
-				pageSize,
-				communityids,
-				ids,
-				formValues,
-				istip
-			} = this.state
-
-			formValues = {
-				type: form.filter || 'BILL',
-				value: form.content,
-				communityids: communityids || 0,
-				page: page,
-				pageSize: pageSize
-
-			}
-
-			const {
-				onSubmit
-			} = this.props;
-			onSubmit && onSubmit(formValues, istip);*/
-
-
-
-	}
-
-
-	onFilter = (value) => {
-		let {
-			onFilter
-		} = this.props;
-		onFilter && onFilter(value);
-	}
-
-
-
-	render() {
-
-
-
-		let options = [{
-				label: '名称',
-				value: 'name'
-			}, {
-				label: '类型',
-				value: 'MEMBER'
-			}, {
-				label: '编码',
-				value: 'PHONE'
-			},
-
-		];
-
-		return (
-			<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45,zIndex:100}}>
-				<SearchForms 
-						onSubmit={this.onSubmit} 
-						searchFilter={options} 
-						style={{marginTop:5}} 
-						onFilter={this.onFilter}
-				/>
-			</form>
-
-		);
-	}
-}
-
-SearchForm = reduxForm({
-	form: 'searchForm'
-})(SearchForm);
-
-class Operations extends Component {
+export default class UserList extends Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -143,14 +65,7 @@ class Operations extends Component {
 
 		if (type == 'delete') {
 			this.openDeleteDialog();
-		} else if (type == 'edit') {
-			this.openEditDetailDialog();
-		} else if (type == 'view') {
-			this.openView();
 		}
-	}
-	openView = () => {
-
 	}
 	openDeleteDialog = () => {
 		this.setState({
@@ -162,7 +77,7 @@ class Operations extends Component {
 			itemDetail
 		} = this.state;
 		var _this = this;
-		Store.dispatch(Actions.callAPI('delRole', {
+		/*Store.dispatch(Actions.callAPI('delRole', {
 			id: itemDetail.id
 		})).then(function(response) {
 			_this.openDeleteDialog();
@@ -170,18 +85,16 @@ class Operations extends Component {
 		}).catch(function(err) {
 			_this.openDeleteDialog();
 			Message.error(err.message)
-		});
+		});*/
 	}
 
 
 	render() {
-		let {
-			openDeleteDialog
-		} = this.state;
+
 		return (
 			<div className="g-operation">
-				<Section title="角色列表" >
-					<SearchForm  /> {/*onSubmit={this.onSubmit} Ids={communityids} onChange={this.onChange} onFilter={this.onFilter}*/}
+				<Section title="人员列表" >
+					
 	        		<Table
 							style={{marginTop:10}}
 							displayCheckbox={false}
@@ -192,27 +105,23 @@ class Operations extends Component {
 							onOperation={this.onOperation}
 							  >
 						<TableHeader>
-						<TableHeaderColumn>编码</TableHeaderColumn>
-						<TableHeaderColumn>名称</TableHeaderColumn>
-						<TableHeaderColumn>创建人</TableHeaderColumn>
+						<TableHeaderColumn>Id</TableHeaderColumn>
+						<TableHeaderColumn>姓名</TableHeaderColumn>
 						<TableHeaderColumn>创建时间</TableHeaderColumn>
 						<TableHeaderColumn>操作</TableHeaderColumn>
 					</TableHeader>
 
 					<TableBody>
 						<TableRow>
-							<TableRowColumn name="code"></TableRowColumn>
+							<TableRowColumn name="id"></TableRowColumn>
 							<TableRowColumn name="name" ></TableRowColumn>
-							<TableRowColumn name="creater"></TableRowColumn>
 							<TableRowColumn name="createTime" type="date" component={(value)=>{
 								return (
 									<KrDate value={value} />
 								)
 							}}></TableRowColumn>
 							<TableRowColumn>
-									<Button label="编辑" onTouchTap=''  type="operation" operation="edit"/>
-									<Button label="删除"  type="operation" operation="delete"/>
-									<Button label="查看人员"  type="operation" operation="view"/>
+									<Button label="移除"  type="operation" operation="delete"/>
 							 </TableRowColumn>
 						 </TableRow>
 					</TableBody>
@@ -227,7 +136,7 @@ class Operations extends Component {
 						>
 						<Deletedialog  onCancel={this.openDeleteDialog} onSubmit={this.onDeleteSubmit} />
 						
- 					< /Dialog>
+					 </Dialog>
 				</Section>
 					
 			</div>
@@ -235,8 +144,3 @@ class Operations extends Component {
 	}
 
 }
-export default reduxForm({
-	form: 'operations',
-	enableReinitialize: true,
-	keepDirtyOnReinitialize: true
-})(Operations);
