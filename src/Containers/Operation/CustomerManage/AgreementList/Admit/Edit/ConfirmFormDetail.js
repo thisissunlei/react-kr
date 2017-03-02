@@ -53,7 +53,7 @@ export default class ConfirmFormDetail  extends Component{
 	render(){
 
 		let {detail} = this.props;
-
+		
 
 	  return (
 

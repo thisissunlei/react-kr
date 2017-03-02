@@ -73,7 +73,11 @@ class EditAgreementList extends Component{
 		}
 		if(allState.argumentType=="RENEW"){
 			content=(<div><span className="content-title">续租协议书详情页</span><Renew params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
-		}	                       
+		}
+		if(allState.argumentType=="INTENTION"){
+			content=(<div><span className="content-title">承租意向书详情页</span><Admit params={{customerId:allState.listId,orderId:allState.mainBillId,id:allState.agreementId}} /></div>)
+
+		}                       
 		
 		return(
 		      <div className="m-lookCustomerList m-newMerchants" style={{paddingLeft:0,marginLeft:10}}>
