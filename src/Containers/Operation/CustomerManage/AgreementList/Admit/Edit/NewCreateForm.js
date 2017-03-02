@@ -524,6 +524,11 @@ class NewCreateForm extends Component {
 	}
 	setAllRent=(list)=>{
 		let _this = this;
+		for(let i=0;i<list.length;i++){
+			if(!list[i].unitprice){
+				return;
+			}
+		}
 		Store.dispatch(Actions.callAPI('getAllRent',{},{stationList:JSON.stringify(list)})).then(function(response) {
 			_this.setState({
 				allRent:response
