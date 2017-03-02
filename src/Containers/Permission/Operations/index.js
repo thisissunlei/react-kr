@@ -166,8 +166,6 @@ class Operations extends Component {
 			_this.openDeleteDialog();
 			Message.error(err.message)
 		});
-
-
 	}
 
 
