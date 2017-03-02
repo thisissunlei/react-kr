@@ -491,6 +491,8 @@ class NewCreateForm extends Component {
 	}
 
 	onIframeClose(billList,data) {
+		console.log(billList,"=============",data)
+
 		this.openStationDialog();
 		if (!billList) {
 			return;
@@ -508,6 +510,7 @@ class NewCreateForm extends Component {
 			var obj = {};
 			obj.stationId = item.id;
 			obj.whereFloor = item.whereFloor;
+			obj.stationType = item.type;
 			delStationVos.push(obj);
 		})
 		try {
