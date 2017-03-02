@@ -49,6 +49,32 @@ export default class JoinPrint extends Component {
 
 
 	}
+	renderContent=()=>{
+
+		if(State.baseInfo.hasOwnProperty('agreement')){
+			return (
+				<div className="print-text">
+					<span>双方其他约定内容：</span>
+					<span style={{paddingLeft:20}}>{State.baseInfo.agreement}</span>
+					<span className="border-b one-text"></span>
+					<span className="border-b two-text"></span>
+					<span className="border-b three-text"></span>
+					<span className="border-b four-text"></span>
+				</div>
+			)
+		}else{
+			return(
+				<div className="print-text text-none">
+					<span>双方其他约定内容：</span>
+					<span style={{paddingLeft:30}}>无</span>
+					<span className="border-b one-text"></span>
+					<span className="border-b two-text"></span>
+					<span className="border-b three-text"></span>
+					<span className="border-b four-text"></span>
+				</div>
+			)
+		}
+	}
 	render() {
 
 		return (
@@ -71,13 +97,7 @@ export default class JoinPrint extends Component {
 						info="减少费用总计"
 					/>
 
-					<div className="print-text">
-						<span>双方其他约定内容：</span>
-						<span className="border-b one-text"></span>
-						<span className="border-b two-text"></span>
-						<span className="border-b three-text"></span>
-						<span className="border-b four-text"></span>
-					</div>
+					{this.renderContent()}
 					<Agreement.Print.Footer/>
 
 	    </div>

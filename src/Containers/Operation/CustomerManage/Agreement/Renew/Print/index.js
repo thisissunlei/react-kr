@@ -36,10 +36,41 @@ export default class RenewPrint extends Component {
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(false));
 		setTimeout(function() {
-			window.print();
-			window.close();
+			// window.print();
+			// window.close();
 		}, 1000)
 
+	}
+	renderContent=()=>{
+		if(State.baseInfo.hasOwnProperty('agreement')){
+			var str = State.baseInfo.agreement;
+			if(str.length>45){
+				return (
+					<div className="print-text">
+						<span>双方其他约定内容：</span>
+						<span className="content">{str}</span>
+					</div>
+				)
+			}else{
+				return (
+					<div className="print-text text-none">
+						<span>双方其他约定内容：</span>
+						<span style={{paddingLeft:20}}>{str}</span>
+						<span className="border-b one-text"></span>
+						<span className="border-b two-text"></span>
+					</div>
+				)
+			}
+		}else{
+			return(
+				<div className="print-text text-none">
+					<span>双方其他约定内容：</span>
+					<span style={{paddingLeft:20}}>无</span>
+					<span className="border-b one-text"></span>
+					<span className="border-b two-text"></span>
+				</div>
+			)
+		}
 	}
 
 	render() {
@@ -68,11 +99,7 @@ export default class RenewPrint extends Component {
 						installmentPlansList={State.installmentPlansList}
 				/>
 
-				<div className="print-text">
-					<span>双方其他约定内容：</span>
-					<span className="border-b one-text"></span>
-					<span className="border-b two-text"></span>
-				</div>
+				{this.renderContent()}
 
 				<Agreement.Print.Footer/>
 
