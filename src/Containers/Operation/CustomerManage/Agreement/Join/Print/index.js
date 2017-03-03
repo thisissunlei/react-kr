@@ -54,6 +54,9 @@ export default class JoinPrint extends Component {
 					</div>
 				)
 			}else{
+				if(!!!State.baseInfo.agreement){
+					str = '无';
+				}
 				return (
 					<div className="print-text text-none">
 						<span>双方其他约定内容：</span>
