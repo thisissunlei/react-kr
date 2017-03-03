@@ -160,6 +160,7 @@ class Operations extends Component {
 			openDeleteDialog: !this.state.openDeleteDialog
 		})
 	}
+
 	onDeleteSubmit = () => {
 		let {
 			itemDetail
@@ -170,9 +171,12 @@ class Operations extends Component {
 		})).then(function(response) {
 			_this.openDeleteDialog();
 			Message.success('删除成功')
+			window.location.reload();
 		}).catch(function(err) {
 			_this.openDeleteDialog();
-			Message.error(err.message)
+			Message.error(err.message);
+			window.location.reload();
+
 		});
 	}
 
@@ -184,7 +188,7 @@ class Operations extends Component {
 		return (
 			<div className="g-operation">
 				<Section title="角色列表" >
-					<SearchForm  /> {/*onSubmit={this.onSubmit} Ids={communityids} onChange={this.onChange} onFilter={this.onFilter}*/}
+					<SearchForm onSubmit={this.onSearch} Ids={communityids} onChange={this.onChange} onFilter={this.onFilter}/> 
 	        		<Table
 							style={{marginTop:10}}
 							displayCheckbox={false}

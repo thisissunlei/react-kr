@@ -86,10 +86,12 @@ export default class UserList extends Component {
 			userId: itemDetail.id
 		})).then(function(response) {
 			_this.openDeleteDialog();
-			Message.success('删除成功')
+			Message.success('删除成功');
+			window.location.reload();
 		}).catch(function(err) {
 			_this.openDeleteDialog();
-			Message.error(err.message)
+			Message.error(err.message);
+			window.location.reload();
 		});
 	}
 	onSearchSubmit = (name) => {
