@@ -271,7 +271,7 @@ export default (
 		<Route path="user" component={Permission.User}>
 			<Redirect from="permission" to="permission/user"/>
 		</Route>
-		<Route path="userlist" component={Permission.UserList}>
+		<Route path="userlist/:userId" component={Permission.UserList}>
 			<Redirect from="permission" to="permission/userlist"/>
 		</Route>
 		

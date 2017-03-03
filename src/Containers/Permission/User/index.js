@@ -40,6 +40,7 @@ import {
 } from 'kr-ui';
 import './index.less';
 import Deletedialog from './Deletedialog';
+import Createdialog from './Createdialog';
 class SearchForm extends Component {
 	constructor(props) {
 		super(props);
@@ -103,6 +104,7 @@ class SearchForm extends Component {
 
 		return (
 			<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45,zIndex:100}}>
+				<Button label="新建"  onTouchTap={this.openCreateDialog} />
 				<SearchForms 
 						onSubmit={this.onSubmit} 
 						searchFilter={options} 
@@ -146,11 +148,12 @@ class Operations extends Component {
 		} else if (type == 'edit') {
 			this.openEditDetailDialog();
 		} else if (type == 'view') {
-			this.openView();
+			this.openView(itemDetail.id);
 		}
 	}
-	openView = () => {
-
+	openView = (id) => {
+		var url = `./#/permission/userlist/${id}`;
+		window.open(url)
 	}
 	openDeleteDialog = () => {
 		this.setState({

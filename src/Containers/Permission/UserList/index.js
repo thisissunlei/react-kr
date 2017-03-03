@@ -47,10 +47,6 @@ export default class UserList extends Component {
 		super(props, context);
 
 		this.state = {
-			searchParams: {
-				page: 1,
-				pageSize: 15
-			},
 			itemDetail: '',
 			openDeleteDialog: false
 		}
@@ -77,31 +73,40 @@ export default class UserList extends Component {
 			itemDetail
 		} = this.state;
 		var _this = this;
-		/*Store.dispatch(Actions.callAPI('delRole', {
-			id: itemDetail.id
+		var roleId = this.props.params.userId
+		console.log('itemDetail----', itemDetail)
+		Store.dispatch(Actions.callAPI('deleteUser', {
+			roleId: roleId,
+			userId: itemDetail.id
 		})).then(function(response) {
 			_this.openDeleteDialog();
 			Message.success('删除成功')
 		}).catch(function(err) {
 			_this.openDeleteDialog();
 			Message.error(err.message)
-		});*/
+		});
 	}
 
 
 	render() {
+		var roleId = this.props.params.userId;
+		var searchParams = {
+			page: 1,
+			pageSize: 15,
+			roleId: roleId
+		}
 
 		return (
 			<div className="g-operation">
 				<Section title="人员列表" >
-					<div><KrField /></div>
+					<div></div>
 	        		<Table
 							style={{marginTop:10}}
 							displayCheckbox={false}
 							onLoaded={this.onLoaded}
 							ajax={true}
-							ajaxUrlName='UserfindPage'
-							ajaxParams={this.state.searchParams}
+							ajaxUrlName='findUserByRoleId'
+							ajaxParams={searchParams}
 							onOperation={this.onOperation}
 							  >
 						<TableHeader>
@@ -114,7 +119,7 @@ export default class UserList extends Component {
 					<TableBody>
 						<TableRow>
 							<TableRowColumn name="id"></TableRowColumn>
-							<TableRowColumn name="name" ></TableRowColumn>
+							<TableRowColumn name="realName" ></TableRowColumn>
 							<TableRowColumn name="createTime" type="date" component={(value)=>{
 								return (
 									<KrDate value={value} />

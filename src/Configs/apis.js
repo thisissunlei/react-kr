@@ -913,6 +913,17 @@ const APIS = {
     url: '/api/krspace-sso-web/sso/role/delRole?id={id}',
     method: 'delete'
   },
+  //权限--角色--查看人员
+  'findUserByRoleId': {
+    url: '/api/krspace-sso-web/sso/role/findUserByRoleId?page={page}&pageSize={pageSize}&roleId={roleId}&userName={userName}',
+    method: 'get'
+  },
+  //权限--角色--查看人员--移除
+  'deleteUser': {
+    url: '/api/krspace-sso-web/sso/role/deleteUser?roleId={roleId}&userId={userId}',
+    method: 'get'
+  },
+
 }
 
 module.exports = APIS;
