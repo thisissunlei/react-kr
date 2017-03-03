@@ -40,13 +40,19 @@ import {
 } from 'kr-ui';
 import './index.less';
 import Deletedialog from './Deletedialog';
+import SearchForm from './SearchForm';
 
 export default class UserList extends Component {
 
 	constructor(props, context) {
 		super(props, context);
-
+		var roleId = this.props.params.userId;
 		this.state = {
+			searchParams: {
+				page: 1,
+				pageSize: 15,
+				roleId: roleId
+			},
 			itemDetail: '',
 			openDeleteDialog: false
 		}
@@ -86,27 +92,40 @@ export default class UserList extends Component {
 			Message.error(err.message)
 		});
 	}
+	onSearchSubmit = (name) => {
+		var roleId = this.props.params.userId
+		this.setState({
+			searchParams: {
+				userName: name.searchParam,
+				roleId: roleId
+			}
+		})
 
+	}
 
 	render() {
-		var roleId = this.props.params.userId;
-		var searchParams = {
-			page: 1,
-			pageSize: 15,
-			roleId: roleId
-		}
+
 
 		return (
 			<div className="g-operation">
 				<Section title="人员列表" >
-					<div></div>
+					<Grid style={{marginBottom:22,marginTop:2}}>
+						<Row>
+						<Col md={4} align="left" > </Col>
+						<Col md={8} align="right">
+						   <ListGroup>
+							 <ListGroupItem><SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
+						   </ListGroup>
+						</Col>
+					  </Row>
+					</Grid>
 	        		<Table
 							style={{marginTop:10}}
 							displayCheckbox={false}
 							onLoaded={this.onLoaded}
 							ajax={true}
 							ajaxUrlName='findUserByRoleId'
-							ajaxParams={searchParams}
+							ajaxParams={this.state.searchParams}
 							onOperation={this.onOperation}
 							  >
 						<TableHeader>
