@@ -142,7 +142,7 @@ export default class EditCreate extends Component {
           initialValues.paymodel = response.payment.id;
 
         }
-        if(!response.hasOwnProperty('agreement')){
+        if(!response.hasOwnProperty('agreement')  || !!!response.agreement){
           initialValues.agreement = '无';
         }else{
           initialValues.agreement = response.agreement;
