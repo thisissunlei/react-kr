@@ -9,6 +9,7 @@ import {
 	reduxForm,
 	submitForm,
 	change,
+	initialize,
 	reset
 } from 'redux-form';
 import {
@@ -58,6 +59,9 @@ class CommunityList  extends Component{
 
 	constructor(props,context){
 		super(props, context);
+		this.state={
+			
+		}
 	}
 
    //新建社区开关
@@ -87,7 +91,15 @@ class CommunityList  extends Component{
       State.searchParams.portalShow='';
       State.searchParams.cityId='';
       State.searchParams.countyId='';
+      State.searchParams.searchKey='';
+      State.searchParams.searchType='';
       State.searchUpperCustomer();
+      
+	}
+
+
+	componentDidMount(){
+		
 	}
 
    //高级查询提交
@@ -109,6 +121,8 @@ class CommunityList  extends Component{
       	State.searchUpperCustomer();
      }
 
+
+
 	render(){
 
 		let searchFilter=[
@@ -123,7 +137,7 @@ class CommunityList  extends Component{
 
 		]
 
-
+        let {cityNull}=this.state;
 
 		return(
 
@@ -197,13 +211,12 @@ class CommunityList  extends Component{
 				        open={State.openNewCommunity}
 				        width={750}
 				        openSecondary={true}
-				        //className='m-finance-drawer'
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 			        >
 						<NewCommunityList
 								onSubmit={this.onNewCommunitySubmit}
 								onCancel={this.openAddCommunity}
-								
+								open={State.openNewCommunity}
 						/>
 
 		            </Drawer>

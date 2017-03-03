@@ -4,6 +4,7 @@ import React, {
 import {
 	connect
 } from 'react-redux';
+import {reduxForm,formValueSelector,initialize,change,FieldArray} from 'redux-form';
 import {
 	bindActionCreators
 } from 'redux';
@@ -13,9 +14,10 @@ import {
 	PlanMap,
 	Dialog,
 	Button,
+	KrField
 } from 'kr-ui';
 
-export default class ZhangQu extends Component {
+class ZhangQu extends Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -47,9 +49,46 @@ export default class ZhangQu extends Component {
 	componentDidMount() {}
 
 	render() {
+       
+
+        var skipMinut=10;
+        var arrMinuts=[];
+        var arrHour=[];
+        var arrMinuts_new=[];
+        var arrHour_new=[];
+        var optionsTime=[];
+        for(var i=0;i<25;i++){
+          arrHour.push(i);	
+        }
+
+        for(var i=0;i<6;i++){
+          arrMinuts.push(i*skipMinut);
+        }
+        arrHour.map(function(item,index){
+           if(item<10){
+           	 item='0'+item;
+           }
+         arrHour_new.push(item);
+        })
+        arrMinuts.map(function(item,index){
+           if(item==0){
+           	 item='0'+item;
+           }
+          arrMinuts_new.push(item); 
+        })
+
+
+        for(var i=0;i<arrMinuts_new.length;i++){
+        	 for(var j=0;j<arrHour_new.length;j++){
+        	 	console.log('lllll',arrHour_new[j]+':'+arrMinuts_new[i]);
+        	 }
+        }
+        
+         
+
 		return (
 			<div>
-					<Dialog
+					{/*<Dialog
 						title="平面图"
 						contentStyle={{width:1000}}
 						actions={<Button label="确定" onTouchTap={this.confirm}/>}
@@ -57,9 +96,25 @@ export default class ZhangQu extends Component {
 						bodyStyle={{paddingLeft:0,paddingRight:0}}
 						open={this.state.open} >
 								<PlanMap onCheckedStation={this.onCheckedStation} />
-				</Dialog>
+				</Dialog>*/}
+              <form>
+			       <KrField name="uploadImageList" 
+								component="uploadImageList" 
+								style={{marginTop:10}} 
+								photoSize={'212*136'} 
+								pictureFormat={'JPG'} 
+								pictureMemory={'32K'}
+								//requestURI = {this.state.requestURI}
+					/>
+
+			  </form>
+
+             
+
 			</div>
 
 		);
 	}
 }
+
+export default reduxForm({ form: 'ZhangQu'})(ZhangQu);

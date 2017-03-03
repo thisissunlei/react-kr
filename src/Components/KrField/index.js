@@ -31,6 +31,7 @@ import EditLabelTextComponent from './EditLabelTextComponent';
 import GroupCheckboxComponent from './GroupCheckboxComponent';
 import DoorCardComponent from './DoorCardComponent';
 import UploadImageComponent from './UploadImageComponent';
+import UploadImageListComponent from './UploadImageListComponent';
 
 export default class KrField extends React.Component {
 
@@ -125,6 +126,13 @@ export default class KrField extends React.Component {
 				<Field {...this.props} component={UploadImageComponent}  style={WrapStyles} {...other}/>
 			);
 		}
+
+		if (component === 'uploadImageList') {
+			return (
+				<Field {...this.props} component={UploadImageListComponent}  style={WrapStyles} {...other}/>
+			);
+		}
+		
 
 		if (component === 'searchPersonel') {
 			return (

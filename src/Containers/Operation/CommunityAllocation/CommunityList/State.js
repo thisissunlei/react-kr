@@ -52,6 +52,28 @@ State.searchDataHere = action(function() {
 State.switchEditCustomerList = action(function() {
 	this.openEditCustomerList=!this.openEditCustomerList;
 })
+//校验社区名称
+State.communityName = action(function(params) {
+	 var _this=this;
+	 let data={};
+	 data.id="";
+	 data.name=params;
+	 Store.dispatch(Actions.callAPI('check-name',data)).then(function(response) {
+	}).catch(function(err) {
+		 Message.error(err.message);
+	});	
+});
+//校验社区编码
+State.communityCode = action(function(params) {
+	 var _this=this;
+	 let data={};
+	 data.id="";
+	 data.code=params;
+	 Store.dispatch(Actions.callAPI('check-code',data)).then(function(response) {
+	}).catch(function(err) {
+		 Message.error(err.message);
+	});	
+});
 
 
 State.closeAllMerchants = action(function() {

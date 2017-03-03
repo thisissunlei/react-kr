@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'kr/Redux';
 
-import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
+import {reduxForm,formValueSelector,initialize,change,FieldArray} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
 	observer
@@ -14,24 +14,112 @@ import {
 	Button,
 	Notify,
 	ButtonGroup,
-	Message
+	Message,
+	ListGroup,
+	ListGroupItem
 } from 'kr-ui';
 import './index.less';
 import State from '../State';
+
+//楼层增加与减少
+const renderField = ({ input, label, type, meta: { touched, error } }) => (
+  <div>
+    <label>{label}</label>
+    <div>
+      <input {...input} type={type} placeholder={label}/>
+      {touched && error && <span>{error}</span>}
+    </div>
+  </div>
+)
+const renderMembers = ({ fields, meta: { touched, error } }) => {
+	if(!fields.length){
+	   fields.push({})
+	 }
+  return (
+      <ul style={{padding:0,margin:0}}>
+    {fields.map((wherefloors, index) =>
+      
+      <li key={index}>
+        <div className="krFlied-box"><KrField 
+          style={{width:239,marginLeft:16,marginRight:3}}
+          requireLabel={true}
+          grid={1/2}
+          name={`${wherefloors}.floor`}
+          type="text"
+          component={renderField}
+          label="所在楼层"/>
+          <span className="unit">层</span>
+        </div>
+        <div className="krFlied-box"><KrField
+          style={{width:201,marginLeft:33,marginRight:3}}
+          requireLabel={true}
+          grid={1/2}
+          name={`${wherefloors}.stationCount`}
+          type="text"
+          component={renderField}
+          label="可出租工位数"/>
+           <span className="unit">个</span>
+        </div>
+        <span onClick={() => fields.insert(index+1,{})} className='addBtn'></span>       
+        <span
+          className='minusBtn'
+          onClick={() => fields.remove(index)}/>
+      </li>
+    )}
+  </ul>
+
+ )
+}
+
+//社区亮点
+
+const renderLight = ({ input, label, type, meta: { touched, error } }) => (
+  <div>
+    <label>{label}</label>
+    <div>
+      <input {...input} type={type} placeholder={label}/>
+      {touched && error && <span>{error}</span>}
+    </div>
+  </div>
+)
+const renderBrights = ({ fields, meta: { touched, error } }) => {
+	if(!fields.length){
+	   fields.push({})
+	 }
+  return (
+      <ul style={{padding:0,margin:0}}>
+      {fields.map((brights, index) =>
+      
+      <li key={index}>
+        <KrField
+          style={{width:201,marginLeft:33,marginRight:3}}
+          requireLabel={true}
+          grid={1/2}
+          name={`${brights}.type`}
+          type="text"
+          component={renderLight}
+          label="可出租工位数"/>
+        <span onClick={() => fields.insert(index+1,{})} className='addBtn'></span>       
+        <span
+          className='minusBtn'
+          onClick={() => fields.remove(index)}/>
+      </li>
+    )}
+  </ul>
+
+ )
+}
+
+
 @observer
  class NewCommunityList extends Component{
 
 	static PropTypes = {
-		onSubmit:React.PropTypes.func,
-		onCancel:React.PropTypes.func,
+		
 	}
 
 	constructor(props){
 		super(props);
-	    this.state={
-	    	openFloor:[],
-	    	num:1
-	    }
 	}
 	onSubmit = (values) => {
 		const {onSubmit} = this.props;
@@ -43,30 +131,14 @@ import State from '../State';
 		onCancel && onCancel();
 	}
    
-   //楼层增加
-	whereFloor=()=>{
-	  let {openFloor,num}=this.state;
-	  console.log('0000000',num);
-       openFloor.push(<div className='list-kids'>
-				<div className="krFlied-box"><KrField grid={1/2} label="所在楼层" name={`wherefloors${num}.floor`} style={{width:239,marginLeft:16}} component="input" requireLabel={true}></KrField><span className="unit">层</span></div>
-				<div className="krFlied-box"><KrField grid={1/2} label="可出租工位数" name={`wherefloors${num}.stationCount`} style={{width:201,marginLeft:33}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>	
-				<span className="m-add" onClick={this.whereFloor}>+</span>
-				<span className="m-minus" onClick={this.whereFloorMinus.bind(this,num)}>-</span>
-            </div>);
-      this.setState({
-      	 openFloor,
-      	 num:num+1
-      })
-	}
-	//楼层减少
-	whereFloorMinus=(num)=>{
-	  let {openFloor}=this.state;
-       openFloor.splice(num,1);
-       this.setState({
-      	 openFloor,
-       })
-	}
-
+   //社区名称
+   communityNameChange=(value)=>{
+     State.communityName(value);
+   }
+   //社区编码
+   communityCodeChange=(value)=>{
+   	 State.communityCode(value);
+   }
 	
     
 
@@ -81,15 +153,66 @@ import State from '../State';
 	componentDidMount(){
       State.searchDataHere();
 	}
+
+	componentWillReceiveProps(nextProps) {
+
+		if (nextProps.open) {		
+			Store.dispatch(change('NewCommunityList','portalShow',false))		
+		}
+
+
+	}
+
+
    
 
 	render(){
-		let {openFloor}=this.state;
+
+
+       //时间下拉开始
+		var skipMinut=10;
+        var arrMinuts=[];
+        var arrHour=[];
+        var arrMinuts_new=[];
+        var arrHour_new=[];
+        var optionsTime=[];
+        var optionTimeList=[];
+        for(var i=0;i<25;i++){
+          arrHour.push(i);	
+        }
+        for(var i=0;i<6;i++){
+          arrMinuts.push(i*skipMinut);
+        }
+        arrHour.map(function(item,index){
+           if(item<10){
+           	 item='0'+item;
+           }
+         arrHour_new.push(item);
+        })
+        arrMinuts.map(function(item,index){
+           if(item==0){
+           	 item='0'+item;
+           }
+          arrMinuts_new.push(item); 
+        })
+        for(var i=0;i<arrMinuts_new.length;i++){
+        	 for(var j=0;j<arrHour_new.length;j++){
+        	 	optionsTime.push(arrHour_new[j]+':'+arrMinuts_new[i]);
+        	 }
+        }        
+        optionsTime.map((item,index)=>{
+           optionTimeList.push({label:item,value:item});
+        })
+       //时间下拉结束
+
+         
+
+
 		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
 
 		return (
            <div>
-			<form className="m-newMerchants" style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}  onClick={this.closemm}>
+			<form className="m-newMerchants communityList-m" style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}  onClick={this.closemm}>
 				<div className="title">
 						<div><span className="new-icon"></span><label className="title-text">新建社区</label></div>
 						<div className="customer-close" onClick={this.onCancel}></div>
@@ -98,17 +221,19 @@ import State from '../State';
 							<div className="titleBar"><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
 							<div className="small-cheek">
 
-									 <KrField grid={1/2} label="社区名称" name="name" component="input" style={{width:262,marginLeft:15}}  requireLabel={true} onChange={this.corpNameChange} />
+									<KrField grid={1/2} label="社区名称" name="name" component="input" style={{width:262,marginLeft:15}}  requireLabel={true} onChange={this.communityNameChange} />
 
-                                     <KrField grid={1/2} label="社区编码" name="code" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
+                                    <KrField grid={1/2} label="社区编码" name="code" style={{width:262,marginLeft:28}} component="input" requireLabel={true} onChange={this.communityCodeChange}/>
 
-                                    <div className="krFlied-box"><KrField grid={1/2} label="社区面积" name="area" style={{width:239,marginLeft:16}} component="input" requireLabel={true}></KrField><span className="unit">m</span></div>
-                                    <KrField  grid={1/2}  name="businessAreaId" style={{width:262,marginLeft:32}} component='select'  label="所属商圈" inline={false} onChange={this.onChangeIntend} options={State.searchData}/>
+                                    <div className="krFlied-box"><KrField grid={1/2} label="社区面积" name="area" style={{width:239,marginLeft:16,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">m<sup>2</sup></span></div>
+                                    <KrField  grid={1/2}  name="businessAreaId" style={{width:262,marginLeft:22}} component='select'  label="所属商圈" inline={false} onChange={this.onChangeIntend} options={State.searchData}/>
 
-                                    <KrField grid={1/2} label="所属区县" name="countyId"  style={{width:262,marginLeft:16,position:'relative',zIndex:5}} component="city" onSubmit={this.cityValue} requireLabel={true} />
+                                    <KrField grid={1/2} label="所属区县" name="countyId"  style={{width:262,marginLeft:16,position:'relative',zIndex:5}} component="city" onSubmit={this.cityValue} requireLabel={true}/>
 									
 									<KrField grid={1/2} label="详细地址" name="address" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
-									<KrField grid={1/2} label="社区坐标" name="company" component="input" style={{width:262,marginLeft:16}}  requireLabel={true} onChange={this.corpNameChange} />
+									<KrField grid={1/2} label="社区坐标" name="company" component="input" style={{width:262,marginLeft:16}}  requireLabel={true} onChange={this.corpNameChange}>
+									</KrField>
+
 									<KrField grid={1/2} label="大厦名称" name="buildName" style={{width:262,marginLeft:28}} component="input" requireLabel={false}/>
 									<KrField grid={1/2} label="装修情况" name="decoration"  style={{width:262,marginLeft:16,zIndex:2}} component="select" 
 									  options={[{label:'毛坯',value:'ROUGHCAST'},{label:'简装',value:'PAPERBACK'},{label:'精装',value:'HARDCOVER'},{label:'豪装',value:'LUXURIOUS'}]}
@@ -117,14 +242,14 @@ import State from '../State';
                                       options={[{label:'东',value:'EAST'},{label:'南',value:'SOUTH'},{label:'西',value:'WEST'},{label:'北',value:'NORTH'},{label:'东南',value:'SOUTHEAST'},{label:'东北',value:'NORTHEAST'},{label:'西南',value:'SOUTHWEST'},{label:'西北',value:'NORTHWEST'}]}
 									/>
 
-									<div className="krFlied-box"><KrField grid={1/2} label="标准层高" name="floorHeight" style={{width:239,marginLeft:16}} component="input" ></KrField><span className="unit">m</span></div>
-									<div className="krFlied-box"><KrField grid={1/2} label="社区入口" name="entryNum" style={{width:239,marginLeft:33}} component="input" ></KrField><span className="unit">个</span></div>
+									<div className="krFlied-box"><KrField grid={1/2} label="标准层高" name="floorHeight" style={{width:239,marginLeft:16,marginRight:3}} component="input" ></KrField><span className="unit">m</span></div>
+									<div className="krFlied-box"><KrField grid={1/2} label="社区入口" name="entryNum" style={{width:239,marginLeft:33,marginRight:3}} component="input" ></KrField><span className="unit">个</span></div>
 
-									<div className="krFlied-box"><KrField grid={1/2} label="客梯数量" name="elevatorNum" style={{width:239,marginLeft:16}} component="input" ></KrField><span className="unit">部</span></div>
-									<div className="krFlied-box"><KrField grid={1/2} label="货梯数量" name="cargoNum" style={{width:239,marginLeft:33}} component="input" ></KrField><span className="unit">部</span></div>
+									<div className="krFlied-box"><KrField grid={1/2} label="客梯数量" name="elevatorNum" style={{width:239,marginLeft:16,marginRight:3}} component="input" ></KrField><span className="unit">部</span></div>
+									<div className="krFlied-box"><KrField grid={1/2} label="货梯数量" name="cargoNum" style={{width:239,marginLeft:33,marginRight:3}} component="input" ></KrField><span className="unit">部</span></div>
 
-									<div className="krFlied-box"><KrField grid={1/2} label="得房率" name="efficientRate" style={{width:239,marginLeft:16}} component="input" ></KrField><span className="unit">%</span></div>
-									<div className="krFlied-box"><KrField grid={1/2} label="绿化率" name="greenRate" style={{width:239,marginLeft:36}} component="input" ></KrField><span className="unit">%</span></div>	
+									<div className="krFlied-box"><KrField grid={1/2} label="得房率" name="efficientRate" style={{width:239,marginLeft:16,marginRight:3}} component="input" ></KrField><span className="unit">%</span></div>
+									<div className="krFlied-box"><KrField grid={1/2} label="绿化率" name="greenRate" style={{width:239,marginLeft:36,marginRight:3}} component="input" ></KrField><span className="unit">%</span></div>	
                                     <div className="middle-round"></div>
 						</div>
 
@@ -135,23 +260,36 @@ import State from '../State';
 								<KrField grid={1/2} label="开业时间" name="openDate" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>
 								<KrField grid={1/2} label="签约开始时间" name="signStartDate" style={{width:260,marginLeft:15}} component="date" requireLabel={true}/>
 								<KrField grid={1/2} label="签约结束时间" name="signEndDate" style={{width:260,marginLeft:29}} component="date" requireLabel={true}/>
-                                <div className="krFlied-box"><KrField grid={1/2} label="工位总数" name="stationNum" style={{width:239,marginLeft:16}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>
-								<div className="krFlied-box"><KrField grid={1/2} label="会议室总数" name="meetNum" style={{width:239,marginLeft:32}} component="input" requireLabel={true}></KrField><span className="unit">间</span></div>	
+                                <div className="krFlied-box"><KrField grid={1/2} label="工位总数" name="stationNum" style={{width:239,marginLeft:16,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>
+								<div className="krFlied-box"><KrField grid={1/2} label="会议室总数" name="meetNum" style={{width:239,marginLeft:32,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">间</span></div>	
 							   
-                                <div>
-								  <div className="krFlied-box"><KrField grid={1/2} label="所在楼层" name="wherefloors[0].floor" style={{width:239,marginLeft:16}} component="input" requireLabel={true}></KrField><span className="unit">层</span></div>
-								  <div className="krFlied-box"><KrField grid={1/2} label="可出租工位数" name="wherefloors[0].stationCount" style={{width:201,marginLeft:33}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>	
-								  <span className="m-add" onClick={this.whereFloor}>+</span>
-                                </div>
+                               
                                  
-                                 {openFloor}
+                                
+
+                                <FieldArray name="wherefloors" component={renderMembers}/>
 								
-								<KrField grid={1/2} label="营业时间" name="amount" style={{width:262,marginLeft:16}} component="input" requireLabel={true}/>					
+                                <KrField grid={1/2}  component="group" label="营业时间" style={{marginTop:3}}>
+								<div className='ui-listDate'>
+									<ListGroup>
+										<ListGroupItem><div className='community-date-start' ><KrField  style={{width:120,marginLeft:-10,marginTop:2}} name="businessBegin" component="select" 
+                                           options={optionTimeList}
+										/></div></ListGroupItem>
+											<div className='ui-line-down'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
+										<ListGroupItem><div className='community-date-end'><KrField name="businessEnd" style={{width:120,marginTop:2}} component="select" 
+                                            options={optionTimeList}
+										/></div></ListGroupItem>
+									</ListGroup>
+				                </div>
+								</KrField>
+								
+
 
 								<KrField grid={1/2} label="联系方式" name="contract" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
 								
 								<div className="krFlied-box"><KrField grid={1/2} label="社区亮点" name="brightPoints" style={{width:227,marginLeft:16}} component="input" requireLabel={true}></KrField><span className="unit">+</span></div>	
 						        
+						        <FieldArray name="brights" component={renderBrights}/>      
 
 						        <div className="middle-round"></div>		
 						        
@@ -165,7 +303,7 @@ import State from '../State';
 					             	<KrField name="portalShow" label="不显示" type="radio" value={false} onClick={this.hasOfficeClick} style={{marginTop:5,display:'inline-block',width:84}}/>
 					         </KrField>	
 					         <KrField grid={1/2} label="工位类型" name="type" component="input" style={{width:262,marginLeft:15}} onChange={this.corpNameChange} />
-					         <div className="krFlied-box"><KrField grid={1/2} label="工位价格" name="price" style={{width:153,marginLeft:30}} component="input" ></KrField><span className="unit">元/工位/月</span><span className="m-add">+</span></div>
+					         <div className="krFlied-box"><KrField grid={1/2} label="工位价格" name="price" style={{width:153,marginLeft:30,marginRight:3}} component="input" ></KrField><span className="unit">元/工位/月</span><span className="m-add">+</span></div>
 					         <div className='speakInfo'><KrField grid={1} label="社区简介" name="desc" style={{marginLeft:15}} heightStyle={{height:"140px",width:'543px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='cus-length-textarea'/></div>		
 						    
 						     <div className="krFlied-box"><KrField grid={1} label="基础设施" name="brights" style={{width:519,marginLeft:16}} component="input"></KrField><span className="unit">+</span></div>
@@ -173,6 +311,14 @@ import State from '../State';
 						     <div className="krFlied-box"><KrField grid={1} label="特色服务" name="teamNum" style={{width:519,marginLeft:16}} component="input"></KrField><span className="unit">+</span></div>
 						     <KrField grid={1/2} label="交通" name="company" component="input" style={{width:556,marginLeft:15}} onChange={this.corpNameChange} />
 						     <KrField grid={1/2} label="周边" name="company" component="input" style={{width:556,marginLeft:15}} onChange={this.corpNameChange} />
+						     <KrField name="uploadImage" 
+								component="uploadImage" 
+								style={{marginTop:10}} 
+								photoSize={'212*136'} 
+								pictureFormat={'JPG'} 
+								pictureMemory={'32K'}
+								//requestURI = {this.state.requestURI}
+					/>
 						</div>
 						<div className="end-round"></div>
 
@@ -203,116 +349,67 @@ const validate = values =>{
 		let RMB=/^(([1-9]\d*)|0)(\.\d{2})?$/;
 		let stationN = /^([1-9][0-9]{0,7})$/;
 		let staionPriceReg = /^([1-9][0-9]{0,7})$|^\d{1,8}(\.\d{1,2})?$/;
-		if(!values.sourceId){
-			errors.sourceId = '请填写客户来源';
-		}
-		if(!values.recommendName){
-			errors.recommendName='请填写介绍人姓名'
-		}
-
-		if(!values.recommendTel){
-			errors.recommendTel='请填写介绍人电话'
-		}else if(!phone.test(values.recommendTel)||!checkTel.test(values.recommendTel)){
-			errors.recommendTel='介绍人电话错误'
-		}
-		if(!stationN.test(values.stationNum)){
-			errors.stationNum = '请输入8位以内正整数,不能以0开头';
-		}
-		if (!values.stationNum) {
-			errors.stationNum = '请填写意向工位个数';
-		}else if(isNaN(+values.stationNum)){
-			errors.stationNum = '意向工位个数为数字格式';
-		}else if(values.stationNum.length>8){
-			errors.stationNum = '最多输入8个字符';
-		}
-		if (!values.name) {
-			errors.name = '请填写联系人姓名';
-		}else if(values.name.length>20){
-			errors.name = '最多输入20个字符';
-		}
-
-
-		if (!values.staionTypeId) {
-			errors.staionTypeId = '请填写意向工位类型';
-		}
-
-        if (!values.distinctId) {
-			errors.distinctId= '请填写所属地区';
-		}
-
-		
-
-
-		if (!values.tel) {
-			errors.tel = '请填写联系人电话';
-		}else if(!phone.test(values.tel)||!checkTel.test(values.tel)){
-			errors.tel = '联系人电话格式错误';
-		}
-
-		if (!values.staionPrice) {
-			errors.staionPrice = '请填写意向工位价格';
-		}
-		// else if(!RMB.test(values.staionPrice)){
-		// 	errors.staionPrice = '工位价格不得超过1亿';
-		// }
-
-		if(!staionPriceReg.test(values.staionPrice)){
-			errors.staionPrice = '小数点前8位，小数点后2位';
-		}
-
-		if(values.mail&&!email.test(values.mail)){
-			errors.mail = '联系人邮箱格式错误';
-		}
-
-		if(!values.intentionCommunityId){
-			errors.intentionCommunityId="意向社区类型不能为空";
-		}
-
-		if(values.wechat&&values.wechat.length>50){
-			errors.wechat="最多输入50个字符";
-		}
-
-		
-		if (!values.company) {
-			errors.company = '请填写公司名称';
-		}else if(values.company.length>20){
-			errors.company = '最多输入20个字符';
-		}
-
-		if (!values.teamNum) {
-			errors.teamNum = '请填写公司规模';
-		}else if(isNaN(values.teamNum)){
-			errors.teamNum = '请输入数字';
-		}else if(values.teamNum.length>8){
-			errors.teamNum = '最多输入8个字符';
-		}
-		if(!stationN.test(values.teamNum)){
-			errors.teamNum = '请输入8位以内正整数,不能以0开头';
-		}
-
-
-		if(values.amount&&values.amount.length>12){
-			errors.amount = '最多输入20个字符';
-		}else if(values.amount&&isNaN(values.amount)){
-			errors.amount = '请输入数字';
-		}
         
-
+        //正整数
+		let numberNotZero=/^[0-9]*[1-9][0-9]*$/;
 		
-		if(values.projectName&&values.projectName.length>20){
-			errors.projectName = '最多输入20个字符';
+		if(!values.name){
+			errors.name = '请填写社区名称';
+		}
+		if(!values.code){
+			errors.code='请填写社区编码';
+		}
+
+		if(!values.area){
+			errors.area='请输入社区面积';
+		}
+		if(values.area&&!numberNotZero.test(values.area)){
+			 errors.area='请输入正整数';
+		}
+
+		if (!values.countyId) {
+			errors.countyId= '请填写所属区县';
+		}
+
+		if (!values.address) {
+			errors.address= '请输入详细地址';
+		}
+
+		if (!values.opened) {
+			errors.opened= '请输入社区状态';
+		}
+
+		if (!values.openDate) {
+			errors.openDate= '请输入开业时间';
+		}
+
+		if (!values.signStartDate) {
+			errors.signStartDate= '请输入签约开始时间';
+		}
+
+		if (!values.signEndDate) {
+			errors.signEndDate= '请输入签约结束时间';
+		}
+
+		if (!values.stationNum) {
+			errors.stationNum= '请输入工位总数';
+		}
+
+		if (!values.meetNum) {
+			errors.meetNum= '请输入会议室总数';
+		}
+
+		if (!values.contract) {
+			errors.contract= '请输入联系方式';
 		}
 
 
-		if(values.detailAddress&&values.detailAddress.length>60){
-			errors.detailAddress = '最多输入60个字符';
+		if(!values.contract){
+			errors.contract='请输入联系方式'
+		}else if(!phone.test(values.contract)||!checkTel.test(values.contract)){
+			errors.contract='联系方式错误'
 		}
 
-		if(values.website&&values.website.length>100){
-			errors.website = '最多输入50个字符';
-		}
-
-		
 		return errors
 	}
 export default reduxForm({ form: 'NewCommunityList',validate,enableReinitialize:true,keepDirtyOnReinitialize:true})(NewCommunityList);

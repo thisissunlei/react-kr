@@ -32,6 +32,7 @@ import {
 	Button,
 	ButtonGroup,
 	ListGroup,
+	SearchForm,
 	ListGroupItem
 } from 'kr-ui';
 import State from '../State';
@@ -51,7 +52,8 @@ class SearchUpperForm extends Component {
         this.state={
 			dateBoxDevelop:false,
 			dateBoxStyle:{marginTop:35,marginLeft:26 ,height:"auto"},
-			operType:props.operType
+			operType:props.operType,
+			selectCity:false
 		}
 	}
 	
@@ -60,7 +62,7 @@ class SearchUpperForm extends Component {
 	  const {
 		   onSubmit
 		} = this.props;
-		onSubmit && onSubmit(values);
+	  onSubmit && onSubmit(values);
 	}
 
 	onCancel() {
@@ -70,12 +72,6 @@ class SearchUpperForm extends Component {
 		onCancel && onCancel();		
 	}
 
-	onChangeIntend=(person)=>{
-		Store.dispatch(change('SearchUpperForm','intentionCommunityId',person.value));
-    }
-    onChangeSign=(person)=>{
-		Store.dispatch(change('SearchUpperForm','communityId',person.value));
-    }
 
 	
 	componentDidUpdate(prevProps, prevState){
@@ -95,38 +91,73 @@ class SearchUpperForm extends Component {
 		})
 	}
 
+	//查询
+   onSearchSubmit=(params)=>{
+   	  let obj = {
+			searchKey: params.content,
+			searchType:params.value
+		}	
+		State.searchParams=obj	
+   }
+
+
+	cityValue=(value,city)=>{
+	  var arr=city.split('/');
+      if(arr.length==2){
+      	Store.dispatch(change('searchUpperForm','cityId',value));
+      	this.setState({
+      		selectCity:false
+      	})
+      }
+      if(arr.length==3){
+      	Store.dispatch(change('searchUpperForm','countyId',value));
+      	this.setState({
+      		selectCity:true
+      	})
+      }
+    }
+
 	
 
 	render() {
 
 	   let {handleSubmit}=this.props;
-	   let {dateBoxStyle,dateBoxDevelop}=this.state;
+	   let {dateBoxStyle,dateBoxDevelop,selectCity}=this.state;
        
-       if(State.searchData.businessAreas){
-       	  let businessData=State.searchData.businessAreas;
-       	  var dataBusi=[];
-          businessData.map((item,index)=>{
-             var list = {}
-				list.value = item.id;
-				list.label = item.name;
-				dataBusi.push(list); 
-           }) 
+       let searchFilter=[
+            {
+            	label:'社区名称',
+            	value:'NAME'
+            },
+            {
+            	label:'社区编码',
+            	value:'CODE'
+            },
 
+		]
+
+        
+       let cityCountId='';
+       if(selectCity){
+         cityCountId='countyId'
+       }else{
+       	 cityCountId='cityId'
        }
+       
+      
 
 
 		return(
 			<div style={dateBoxStyle} className='customer-searchUpper' onclick={this.customerClick}>
 			    <form onSubmit={handleSubmit(this.onSubmit)}>
-				<KrField grid={1/2} right={34}  name="searchType" type="text" label="社区名称" value={'NAME'}/>
-                <KrField right={34} grid={1/2} style={{marginLeft:-5}} name="cityId" type="select" label="所属城市" 
+                <SearchForm placeholder='请输入关键字' searchFilter={searchFilter} style={{width:262,marginTop:57,marginLeft:-1,marginBottom:15}} onSubmit={this.onSearchSubmit} defaultFilter='NAME'/>
+                <KrField right={34} grid={1/2} style={{marginTop:1}} name={cityCountId} component="city" onSubmit={this.cityValue} label="所属地区" openCity  
                 />
-				<KrField  grid={1/2} right={34} name="countyId" style={{marginTop:4}} component='searchIntend'  label="所属区县" inline={false} onChange={this.onChangeIntend} placeholder='请输入社区名称'/>
-				<KrField  grid={1/2} right={34} style={{marginLeft:-5,marginTop:4}}  name="opened" type="select"  label="社区状态" 
+				<KrField  grid={1/2} right={34} style={{marginLeft:-4}}  name="opened" type="select"  label="社区状态" 
 				 options={[{label:'已开业',value:'true'},{label:'未开业',value:'false'}]} 
 				/>
 				<KrField  grid={1/2} right={34} name="businessAreaId" type="select"  style={{marginTop:4}} label="所属商圈" 
-				  options={dataBusi}
+				  options={State.searchData}
 				></KrField>
 				<KrField  grid={1/2} right={34} name="portalShow" type="select"  style={{marginTop:4,marginLeft:-4}} label="官网显示状态" 
 				  options={[{label:'显示',value:'true'},{label:'不显示',value:'false'}]}
@@ -145,7 +176,7 @@ class SearchUpperForm extends Component {
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<div  className='ui-btn-center'><Button  label="确定" type="submit" joinEditForm /></div>
+								<div  className='ui-btn-center'><Button  label="确定" type="submit"/></div>
 								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 							</ButtonGroup>
 						</Col>

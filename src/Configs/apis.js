@@ -961,6 +961,27 @@ const APIS = {
    'transferMemberCard':{
       url: '/api/krspace-finance-web/member/card/actions/transfer?fromId={fromId}&toId={toId}',
       method: 'put'
+   },
+
+    //社区管理－校验社区名称
+   'check-name':{
+      url: '/mockjsdata/31/krspace-finance-web/cmt/community/check/name?id={id}&name={name}',
+      method: 'get'
+   },
+    //社区管理－校验社区名称
+   'check-code':{
+      url: '/mockjsdata/31/krspace-finance-web/cmt/community/check/code?id={id}&code={code}',
+      method: 'get'
+   },
+    //社区管理－社区新增或编辑
+   'actions-edit':{
+      url: '/mockjsdata/31/krspace-finance-web/cmt/community/actions/edit',
+      method: 'post'
+   },
+    //社区管理－获取社区编辑信息
+   'communityGetEdit':{
+      url: '/mockjsdata/31/krspace-finance-web/cmt/community/info/type/edit?id={id}',
+      method: 'get'
    }
 
  }

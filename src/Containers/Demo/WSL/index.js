@@ -40,11 +40,16 @@ export default class Initialize  extends Component{
 	render(){
         let {open}=this.state;
 		return(
-
-			<div style={{marginTop:'100px'}}>
-               <div onClick={this.slideClick}>123</div>
-               {open&&<div className='slideGo'>策划</div>}
-			</div>
+             <div>
+			       <KrField name="uploadImageList" 
+								component="uploadImageList" 
+								style={{marginTop:10}} 
+								photoSize={'212*136'} 
+								pictureFormat={'JPG'} 
+								pictureMemory={'32K'}
+								//requestURI = {this.state.requestURI}
+					/>
+			  </div>
 		);
 	}
 
