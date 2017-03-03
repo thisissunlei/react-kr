@@ -1,0 +1,26 @@
+'use strict';
+
+var _Home = require('./Home');
+
+var _Home2 = _interopRequireDefault(_Home);
+
+var _MemberManage = require('./MemberManage');
+
+var _MemberManage2 = _interopRequireDefault(_MemberManage);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = {
+	Home: _Home2.default,
+	MemberManage: _MemberManage2.default
+};
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9Db250YWluZXJzL01lbWJlci9pbmRleC5qcyJdLCJuYW1lcyI6WyJtb2R1bGUiLCJleHBvcnRzIiwiSG9tZSIsIk1lbWJlck1hbmFnZSJdLCJtYXBwaW5ncyI6Ijs7QUFBQTs7OztBQUNBOzs7Ozs7QUFFQUEsT0FBT0MsT0FBUCxHQUFpQjtBQUNoQkMscUJBRGdCO0FBRWhCQztBQUZnQixDQUFqQiIsImZpbGUiOiJpbmRleC5qcyIsInNvdXJjZVJvb3QiOiIvVXNlcnMvbGl1eWloYW8vQ29kZS9rci1hZG1pbiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IGRlZmF1bHQgYXMgSG9tZX0gZnJvbSAnLi9Ib21lJztcbmltcG9ydCB7IGRlZmF1bHQgYXMgTWVtYmVyTWFuYWdlfSBmcm9tICcuL01lbWJlck1hbmFnZSc7XG5cbm1vZHVsZS5leHBvcnRzID0ge1xuXHRIb21lLFxuXHRNZW1iZXJNYW5hZ2UsXG59XG4iXX0=

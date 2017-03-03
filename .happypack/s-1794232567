@@ -1,0 +1,22 @@
+
+// import isPhoneNumber from 'is-phone-number';
+
+
+// function IsPhoneNumber (value){
+// 	return isPhoneNumber(value);
+// }
+
+
+// module.exports = IsPhoneNumber;
+"use strict";
+
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9VdGlscy9Jc1Bob25lTnVtYmVyL2luZGV4LmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFDQTs7O0FBR0E7QUFDQTtBQUNBOzs7QUFHQSIsImZpbGUiOiJpbmRleC5qcyIsInNvdXJjZVJvb3QiOiIvVXNlcnMvbGl1eWloYW8vQ29kZS9rci1hZG1pbiIsInNvdXJjZXNDb250ZW50IjpbIlxuLy8gaW1wb3J0IGlzUGhvbmVOdW1iZXIgZnJvbSAnaXMtcGhvbmUtbnVtYmVyJztcblxuXG4vLyBmdW5jdGlvbiBJc1Bob25lTnVtYmVyICh2YWx1ZSl7XG4vLyBcdHJldHVybiBpc1Bob25lTnVtYmVyKHZhbHVlKTtcbi8vIH1cblxuXG4vLyBtb2R1bGUuZXhwb3J0cyA9IElzUGhvbmVOdW1iZXI7XG5cblxuXG4iXX0=
