@@ -332,7 +332,7 @@ class NewCreateForm extends Component {
 			}]);
 			return;
 		}
-		if(!!form.agreement){
+		if(!!!form.agreement){
 			form.agreement = '无';
 		}
 		form.stationVos = JSON.stringify(stationVos);

@@ -343,7 +343,7 @@ class NewCreateForm extends Component {
 		form.lessorAddress = changeValues.lessorAddress;
 		form.rentamount = (this.state.allRent!='-1')?this.state.allRent:initialValues.rentamount;
 		var _this = this;
-		if(!!form.agreement){
+		if(!!!form.agreement){
 			form.agreement = '无';
 		}
 		if(form.rentamount == 0){

@@ -36,13 +36,14 @@ export default class JoinPrint extends Component {
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(false));
 		 setTimeout(function() {
-		 	window.print();
-		 	window.close();
+		 	// window.print();
+		 	// window.close();
 		 }, 1000)
 
 
 	}
 	renderContent=()=>{
+		console.log(State.baseInfo.agreement);
 		if(State.baseInfo.hasOwnProperty('agreement')){
 			var str = State.baseInfo.agreement;
 			if(str.length>45){

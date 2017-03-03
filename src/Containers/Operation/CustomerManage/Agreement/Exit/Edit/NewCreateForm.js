@@ -119,6 +119,9 @@ class NewCreateForm extends Component {
 		if(!form.hasOwnProperty('agreement')){
 			form.agreement = '无';
 		}
+		if(!!!form.agreement){
+			form.agreement = '无';
+		}
 
 		const {
 			onSubmit
