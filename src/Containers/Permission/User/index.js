@@ -175,8 +175,6 @@ class Operations extends Component {
 		}).catch(function(err) {
 			_this.openDeleteDialog();
 			Message.error(err.message);
-			window.location.reload();
-
 		});
 	}
 
@@ -188,7 +186,7 @@ class Operations extends Component {
 		return (
 			<div className="g-operation">
 				<Section title="角色列表" >
-					<SearchForm onSubmit={this.onSearch} Ids={communityids} onChange={this.onChange} onFilter={this.onFilter}/> 
+					<SearchForm onSubmit={this.onSearch} /> 
 	        		<Table
 							style={{marginTop:10}}
 							displayCheckbox={false}
