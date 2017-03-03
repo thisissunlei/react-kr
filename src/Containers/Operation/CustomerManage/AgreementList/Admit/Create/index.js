@@ -30,7 +30,20 @@ import allState from "../../State";
 
 
 export default class JoinCreate extends Component {
+	 
+      static childContextTypes = {
+        par: React.PropTypes.object.isRequired
+     }
 
+
+
+		getChildContext() {
+			console.log(this.props.params,)
+	    return {
+	        par: this.props.params
+	      }
+
+	    }
 	constructor(props, context) {
 		super(props, context);
 

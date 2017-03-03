@@ -34,6 +34,17 @@ export default class JoinCreate extends Component {
 	static contextTypes = {
 		params: React.PropTypes.object.isRequired
 	}
+	 static childContextTypes = {
+        params: React.PropTypes.object.isRequired
+     }
+
+
+
+		getChildContext() {
+	    return {
+	        params: this.props.params
+	      }
+	    }
 
 	constructor(props, context) {
 		super(props, context);

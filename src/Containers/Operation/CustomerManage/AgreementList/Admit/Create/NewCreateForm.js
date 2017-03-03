@@ -65,10 +65,10 @@ class NewCreateForm extends Component {
 
 
 	static contextTypes = {
-		params: React.PropTypes.object.isRequired
+		par: React.PropTypes.object.isRequired
 	}
 
-	static DefaultPropTypes = {
+	static defaultPropTypes = {
 		initialValues: {
 			customerName: '',
 			communityName: '',
@@ -80,7 +80,7 @@ class NewCreateForm extends Component {
 		}
 	}
 
-	static PropTypes = {
+	static propTypes = {
 		initialValues: React.PropTypes.object,
 		onSubmit: React.PropTypes.func,
 		onCancel: React.PropTypes.func,
@@ -395,7 +395,7 @@ class NewCreateForm extends Component {
 	getStationUrl() {
 
 		let url = "/krspace_operate_web/commnuity/communityFloorPlan/toCommunityFloorPlanSel?mainBillId={mainBillId}&communityId={communityId}&floors={floors}&goalStationNum={goalStationNum}&goalBoardroomNum={goalBoardroomNum}&selectedObjs={selectedObjs}&startDate={startDate}&endDate={endDate}";
-
+		console.log(this.context.par.orderId,"???????????")
 		let {
 			changeValues,
 			initialValues,
@@ -411,9 +411,9 @@ class NewCreateForm extends Component {
 			obj.type = item.stationType;
 			return obj;
 		});
-
+		
 		let params = {
-			mainBillId: this.context.params.orderId,
+			mainBillId: this.context.par.orderId,
 			communityId: optionValues.mainbillCommunityId,
 			floors: changeValues.wherefloor,
 			//工位
