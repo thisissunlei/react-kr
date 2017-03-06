@@ -923,6 +923,16 @@ const APIS = {
     url: '/api/krspace-sso-web/sso/role/deleteUser?roleId={roleId}&userId={userId}',
     method: 'get'
   },
+  //权限--角色--新建--保存
+  'createRole': {
+    url: '/api/krspace-sso-web/sso/role/createRole',
+    method: 'post'
+  },
+  //权限--角色--新建--获取操作项列表
+  'getModuleData': {
+    url: '/api/krspace-sso-web/sso/role/getModuleData',
+    method: 'get'
+  },
 
 }
 

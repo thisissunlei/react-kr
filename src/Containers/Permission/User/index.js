@@ -55,7 +55,8 @@ class Operations extends Component {
 				pageSize: 15
 			},
 			itemDetail: '',
-			openDeleteDialog: false
+			openDeleteDialog: false,
+			openCreateDialog: false,
 		}
 	}
 
@@ -115,6 +116,23 @@ class Operations extends Component {
 			searchParams: searchParams
 		});
 	}
+	openCreateDialog = () => {
+		this.setState({
+			openCreateDialog: !this.state.openCreateDialog
+		})
+	}
+	onCreatSubmit = (form) => {
+		var _this = this;
+		Store.dispatch(Actions.callAPI('createRole', {}, form)).then(function(response) {
+			_this.openCreateDialog();
+			Message.success('新建成功');
+			window.location.reload();
+		}).catch(function(err) {
+			_this.openCreateDialog();
+			Message.error(err.message);
+		});
+
+	}
 
 	render() {
 		let {
@@ -123,7 +141,7 @@ class Operations extends Component {
 		return (
 			<div className="g-operation">
 				<Section title="角色列表" >
-					<SearchForm onSubmit={this.onSearch} /> 
+					<SearchForm onSubmit={this.onSearch} onCreate={this.openCreateDialog}/> 
 	        		<Table
 							style={{marginTop:10}}
 							displayCheckbox={false}
@@ -168,8 +186,17 @@ class Operations extends Component {
 						contentStyle={{width:460}}
 						>
 						<Deletedialog  onCancel={this.openDeleteDialog} onSubmit={this.onDeleteSubmit} />
+					< /Dialog>
+					 <Dialog
+						title="新建"
+						modal={true}
+						onClose={this.openCreateDialog}
+						open={this.state.openCreateDialog}
+						contentStyle={{width:460,height:500}}
+						>
+						<Createdialog  onCancel={this.openCreateDialog} onSubmit={this.onCreatSubmit} />
 						
- 					< /Dialog>
+					 </Dialog>
 				</Section>
 					
 			</div>

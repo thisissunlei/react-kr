@@ -37,9 +37,12 @@ class SearchForm extends Component {
 			onSubmit
 		} = this.props;
 		onSubmit && onSubmit(form);
-
-
-
+	}
+	openCreateDialog = () => {
+		let {
+			onCreate
+		} = this.props;
+		onCreate && onCreate();
 	}
 
 
