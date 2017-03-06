@@ -459,7 +459,7 @@ class NewCreateForm extends Component {
 						<Row >
 						<ListGroup>
 							<ListGroupItem style={{width:'465px',textAlign:'right',paddingRight:15}}><Button  label="确定" type="submit" disabled={pristine || submitting} width={100} height={40} fontSize={16} /></ListGroupItem>
-							<ListGroupItem style={{width:'465px',textAlign:'left',paddingLeft:15,paddingRight:0}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel} width={100} height={40} fontSize={16}/></ListGroupItem>
+							<ListGroupItem style={{width:'465px',textAlign:'left',paddingLeft:15,paddingRight:0}}><Button  label="取消" cancle={true} type="button" onTouchTap={this.onCancel} width={100} height={40} fontSize={16}/></ListGroupItem>
 						</ListGroup>
 						</Row>
 						</Grid>
