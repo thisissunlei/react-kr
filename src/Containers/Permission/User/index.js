@@ -41,85 +41,8 @@ import {
 import './index.less';
 import Deletedialog from './Deletedialog';
 import Createdialog from './Createdialog';
-class SearchForm extends Component {
-	constructor(props) {
-		super(props);
+import SearchForm from './SearchForm';
 
-	}
-	onSubmit(form) {
-		console.log('form', form)
-			/*let {
-				page,
-				pageSize,
-				communityids,
-				ids,
-				formValues,
-				istip
-			} = this.state
-
-			formValues = {
-				type: form.filter || 'BILL',
-				value: form.content,
-				communityids: communityids || 0,
-				page: page,
-				pageSize: pageSize
-
-			}
-
-			const {
-				onSubmit
-			} = this.props;
-			onSubmit && onSubmit(formValues, istip);*/
-
-
-
-	}
-
-
-	onFilter = (value) => {
-		let {
-			onFilter
-		} = this.props;
-		onFilter && onFilter(value);
-	}
-
-
-
-	render() {
-
-
-
-		let options = [{
-				label: '名称',
-				value: 'name'
-			}, {
-				label: '类型',
-				value: 'MEMBER'
-			}, {
-				label: '编码',
-				value: 'PHONE'
-			},
-
-		];
-
-		return (
-			<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45,zIndex:100}}>
-				<Button label="新建"  onTouchTap={this.openCreateDialog} />
-				<SearchForms 
-						onSubmit={this.onSubmit} 
-						searchFilter={options} 
-						style={{marginTop:5}} 
-						onFilter={this.onFilter}
-				/>
-			</form>
-
-		);
-	}
-}
-
-SearchForm = reduxForm({
-	form: 'searchForm'
-})(SearchForm);
 
 class Operations extends Component {
 
@@ -177,7 +100,21 @@ class Operations extends Component {
 			Message.error(err.message);
 		});
 	}
-
+	onSearch = (form) => {
+		var searchParams = {}
+		if (form.filter == "name") {
+			searchParams = {
+				name: form.content
+			}
+		} else if (form.filter == "code") {
+			searchParams = {
+				code: form.content
+			}
+		}
+		this.setState({
+			searchParams: searchParams
+		});
+	}
 
 	render() {
 		let {
