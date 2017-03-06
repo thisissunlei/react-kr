@@ -48,7 +48,7 @@ export default class RenewPrint extends Component {
 				return (
 					<div className="print-text">
 						<span>双方其他约定内容：</span>
-						<span className="content">{str}</span>
+						<span className="content" style={{paddingLeft:20}}>{str}</span>
 					</div>
 				)
 			}else{
@@ -58,7 +58,7 @@ export default class RenewPrint extends Component {
 				return (
 					<div className="print-text text-none">
 						<span>双方其他约定内容：</span>
-						<span style={{paddingLeft:20}}>{str}</span>
+						<span style={{paddingLeft:20}} className="content">{str}</span>
 						<span className="border-b one-text"></span>
 						<span className="border-b two-text"></span>
 					</div>
