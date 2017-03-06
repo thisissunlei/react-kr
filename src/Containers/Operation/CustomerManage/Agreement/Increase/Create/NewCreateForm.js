@@ -754,6 +754,7 @@ class NewCreateForm extends Component {
 
 					<KrField  style={{width:830,marginLeft:70}}   name="contractmark" component="textarea"  label="备注" maxSize={200}/>
 
+							 <KrField style={{width:830,marginLeft:70}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
 
 					</CircleStyle>
 					<KrField  grid={1}  name="contractFileList" component="input"  type="hidden" label="合同附件"/>

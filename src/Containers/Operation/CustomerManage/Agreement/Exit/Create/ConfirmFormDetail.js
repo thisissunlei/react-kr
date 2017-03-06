@@ -104,6 +104,7 @@ export default class ConfirmFormDetail extends Component {
 							 <KrField grid={1/2}  name="withdrawdate" component="labelText" label="撤场日期"  value={detail.withdrawdate}/>
 							 <KrField grid={1/2}  name="signdate"  component="labelText" grid={1/2} label="签署时间" value={detail.signdate}/>
 							 <KrField grid={1/2}  name="contractmark" component="labelText" label="备注" value={detail.contractmark}/>
+							 <KrField  name="agreement"  component="labelText" label="双方其他约定内容" maxSize={200} value={detail.agreement}/>
 
 							<KrField component="group" label="上传附件">
 									{detail.contractFileList && detail.contractFileList.map((item,index)=>{

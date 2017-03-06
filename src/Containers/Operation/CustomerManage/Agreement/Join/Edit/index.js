@@ -171,7 +171,11 @@ export default class JoinCreate extends Component {
 				initialValues.contractmark = response.contractmark || '';
 				initialValues.totalrent = response.totalrent;
 				initialValues.totaldeposit = response.totaldeposit;
-
+				if(!response.hasOwnProperty('agreement') || !!!response.agreement){
+					initialValues.agreement = '无';
+				}else{
+					initialValues.agreement = response.agreement;
+				}
 				//时间
 				initialValues.firstpaydate = response.firstpaydate;
 				initialValues.signdate = response.signdate;

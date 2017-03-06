@@ -385,13 +385,9 @@ class NewCreateForm extends Component {
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.totalrent = this.state.allRent?this.state.allRent:initialValues.totalrent;
-		// if(form.totalrent == 0){
-		// 	Notify.show([{
-		// 		message: '服务费不能为零',
-		// 		type: 'danger',
-		// 	}]);
-		// 	return;
-		// }
+		if(!!!form.agreement){
+			form.agreement = '无';
+		}
 		const {
 			onSubmit
 		} = this.props;
@@ -607,9 +603,6 @@ class NewCreateForm extends Component {
 		allRent = (allRent!='-1')?allRent:initialValues.totalrent;
 		var nzhcn = nzh.cn;
 		let  allRentName = nzhcn.encodeB(parseFloat(allRent));
-
-
-		console.log('3wwwwww', optionValues);
 		return (
 
 
@@ -718,8 +711,8 @@ class NewCreateForm extends Component {
 				</KrField>
 				<KrField  name="templockday"  style={{width:370,marginLeft:70}} component="input" type="text" label="保留天数" requireLabel={true}
 				requiredValue={true} pattern={/^\d{0,3}$/} errors={{requiredValue:'保留天数为必填项',pattern:'请输入三位以内正整数'}} />
-				<KrField style={{width:830,marginLeft:70}}  name="contractmark" component="textarea" label="备注"
-				 maxSize={200} />
+				<KrField style={{width:830,marginLeft:70}}  name="contractmark" component="textarea" label="备注" maxSize={200} />
+							 <KrField style={{width:830,marginLeft:70}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200} defaultValue="无"/>
 				 </CircleStyle>
 				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}   name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList}/>
 

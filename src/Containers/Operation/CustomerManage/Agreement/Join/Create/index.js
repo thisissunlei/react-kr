@@ -130,6 +130,7 @@ export default class JoinCreate extends Component {
 			initialValues.contractstate = 'UNSTART';
 			initialValues.mainbillid = params.orderId;
 
+			initialValues.agreement = '无';
 
 			initialValues.leaseContact = response.customer.customerMember;
 			initialValues.leaseContacttel = response.customer.customerPhone;

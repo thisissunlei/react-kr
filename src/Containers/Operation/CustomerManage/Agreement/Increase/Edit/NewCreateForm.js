@@ -403,6 +403,9 @@ class NewCreateForm extends Component {
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		console.log('form',form);
+		if(!!!form.agreement){
+			form.agreement = '无';
+		}
 		form.totalrent = (form.totalrent).toFixed(2);
 		if(form.totalrent == 0){
 			Notify.show([{
@@ -492,6 +495,7 @@ class NewCreateForm extends Component {
             data.deleteData && data.deleteData.map((item)=>{
                     var obj = {};
                     obj.stationId = item.id;
+                	obj.stationType = item.type;
                     obj.whereFloor = item.whereFloor;
                     delStationVos.push(obj);
             })
@@ -751,7 +755,7 @@ class NewCreateForm extends Component {
 				<KrField style={{width:370,marginLeft:90}}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} inline={false} defaultValue="0"/>
 					<KrField style={{width:370,marginLeft:70}}  name="boardroomnum" type="text" component="labelText"  label="会议室" value={changeValues.boardroomnum} inline={false} defaultValue="0"/>
 				<KrField style={{width:830,marginLeft:70}}  name="contractmark" component="textarea" label="备注" maxSize={200}/>
-
+				<KrField style={{width:830,marginLeft:70}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
 					
 				 </CircleStyle>
 				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}}  name="fileIdList" component="file" label="合同附件" defaultValue={optionValues.contractFileList}/>

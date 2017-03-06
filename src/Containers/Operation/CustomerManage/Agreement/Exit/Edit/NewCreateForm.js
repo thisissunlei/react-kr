@@ -116,6 +116,12 @@ class NewCreateForm extends Component {
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.withdrawdate = dateFormat(form.withdrawdate, "yyyy-mm-dd hh:MM:ss");
+		if(!form.hasOwnProperty('agreement')){
+			form.agreement = '无';
+		}
+		if(!!!form.agreement){
+			form.agreement = '无';
+		}
 
 		const {
 			onSubmit
@@ -235,6 +241,7 @@ class NewCreateForm extends Component {
 				<KrField style={{width:370,marginLeft:90}} name="withdrawdate" component="date" label="撤场日期" requireLabel={true}/>
 				<KrField style={{width:370,marginLeft:70}} name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
 				<KrField style={{width:830,marginLeft:70}} name="contractmark" component="textarea" label="备注" maxSize={200}/>
+							 <KrField style={{width:830,marginLeft:70}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
 				</CircleStyle>
 				<KrField style={{width:830,marginLeft:90,marginTop:'-20px'}} name="fileIdList" component="file" label="上传附件" defaultValue={optionValues.contractFileList}/>
 
