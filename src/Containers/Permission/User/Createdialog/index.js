@@ -42,7 +42,8 @@ class Createdialog extends Component {
 		super(props, context);
 		this.state = {
 			ModuleList: [],
-			resourceIds: []
+			resourceIds: [],
+			errorTip: false
 		}
 		this.getOperation();
 	}
@@ -56,12 +57,17 @@ class Createdialog extends Component {
 		let {
 			resourceIds
 		} = this.state;
-		form.resourceIds = resourceIds;
+
 		if (resourceIds.length > 0) {
+			form.resourceIds = resourceIds;
 			let {
 				onSubmit
 			} = this.props;
 			onSubmit && onSubmit(form);
+		} else {
+			this.setState({
+				errorTip: true
+			})
 		}
 
 	}
@@ -156,8 +162,10 @@ class Createdialog extends Component {
 		} = this.props;
 		let {
 			ModuleList,
-			resourceIds
+			resourceIds,
+			errorTip
 		} = this.state;
+
 		return (
 			<div className="g-create">
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}  >
@@ -185,8 +193,15 @@ class Createdialog extends Component {
 						</div>
 						<div className="u-operation-content">
 							{this.renderOperation(ModuleList)}
+							{errorTip?<div className="u-error-tip">请选择操作项</div>:''}
 						</div>
-						<KrField type="hidden" name="resourceIds" values={resourceIds} />
+						
+						<KrField 
+								 type="hidden"
+								 name="resourceIds"
+								 values={resourceIds}
+						/>
+
 					</div>
 					<div style={{marginLeft:140,marginTop:30}}><Button  label="确定" type="submit"   height={34} width={90}/></div>
 				</form>
@@ -206,6 +221,7 @@ const validate = values => {
 	if (!values.code) {
 		errors.code = '请输入编号';
 	}
+
 
 	return errors
 }
