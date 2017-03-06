@@ -1,0 +1,25 @@
+'use strict';
+
+var _isPhoneNumber = require('is-phone-number');
+
+var _isPhoneNumber2 = _interopRequireDefault(_isPhoneNumber);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function IsPhoneNumber(value) {
+	return (0, _isPhoneNumber2.default)(value);
+}
+
+module.exports = IsPhoneNumber;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(IsPhoneNumber, 'IsPhoneNumber', '/Users/liuyihao/Code/kr-admin/src/Utils/IsPhoneNumber/index.js');
+}();
+
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9VdGlscy9Jc1Bob25lTnVtYmVyL2luZGV4LmpzIl0sIm5hbWVzIjpbIklzUGhvbmVOdW1iZXIiLCJ2YWx1ZSIsIm1vZHVsZSIsImV4cG9ydHMiXSwibWFwcGluZ3MiOiI7O0FBQ0E7Ozs7OztBQUdBLFNBQVNBLGFBQVQsQ0FBd0JDLEtBQXhCLEVBQThCO0FBQzdCLFFBQU8sNkJBQWNBLEtBQWQsQ0FBUDtBQUNBOztBQUdEQyxPQUFPQyxPQUFQLEdBQWlCSCxhQUFqQjs7Ozs7Ozs7K0JBTFNBLGEiLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiL1VzZXJzL2xpdXlpaGFvL0NvZGUva3ItYWRtaW4iLCJzb3VyY2VzQ29udGVudCI6WyJcbmltcG9ydCBpc1Bob25lTnVtYmVyIGZyb20gJ2lzLXBob25lLW51bWJlcic7XG5cblxuZnVuY3Rpb24gSXNQaG9uZU51bWJlciAodmFsdWUpe1xuXHRyZXR1cm4gaXNQaG9uZU51bWJlcih2YWx1ZSk7XG59XG5cblxubW9kdWxlLmV4cG9ydHMgPSBJc1Bob25lTnVtYmVyO1xuXG5cblxuIl19
