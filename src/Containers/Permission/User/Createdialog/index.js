@@ -60,10 +60,12 @@ class Createdialog extends Component {
 
 		if (resourceIds.length > 0) {
 			form.resourceIds = resourceIds;
+
 			let {
 				onSubmit
 			} = this.props;
 			onSubmit && onSubmit(form);
+
 		} else {
 			this.setState({
 				errorTip: true
@@ -90,6 +92,7 @@ class Createdialog extends Component {
 			this.setState({
 				resourceIds: idList
 			})
+
 		} else {
 			var index = idList.indexOf(id);
 			if (index > -1) {
@@ -97,6 +100,11 @@ class Createdialog extends Component {
 			}
 			this.setState({
 				resourceIds: idList
+			})
+		}
+		if (this.state.resourceIds.length > 0) {
+			this.setState({
+				errorTip: false
 			})
 		}
 	}
