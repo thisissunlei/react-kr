@@ -426,6 +426,9 @@ class NewCreateForm extends Component {
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.totalrent = (this.state.allRent!='-1')?this.state.allRent:initialValues.totalrent;
 		form.totalrent = (form.totalrent).toFixed(2);
+		if(!!!form.agreement){
+			form.agreement = '无';
+		}
 		const {
 			onSubmit
 		} = this.props;
@@ -762,6 +765,7 @@ class NewCreateForm extends Component {
 				<KrField style={{width:252,marginLeft:25}}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true}
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 				<KrField style={{width:545,marginLeft:25}}  name="contractmark" component="textarea" label="备注" maxSize={200}/>
+				<KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
 				
 				</div>
 

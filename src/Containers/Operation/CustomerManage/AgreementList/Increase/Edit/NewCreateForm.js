@@ -402,7 +402,9 @@ class NewCreateForm extends Component {
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
-		console.log('form',form);
+		if(!!!form.agreement){
+			form.agreement = '无';
+		}
 		form.totalrent = (form.totalrent).toFixed(2);
 		const {
 			onSubmit
@@ -748,8 +750,10 @@ class NewCreateForm extends Component {
 				<KrField style={{width:262,marginLeft:25}}  name="totaldeposit" type="text" component="input" label="押金总额" requireLabel={true}
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 				<KrField style={{width:262,marginLeft:25}}  name="stationnum" type="text" component="labelText" label="工位" value={changeValues.stationnum} inline={false} defaultValue="0"/>
-					<KrField style={{width:262,marginLeft:25}}  name="boardroomnum" type="text" component="labelText"  label="会议室" value={changeValues.boardroomnum} inline={false} defaultValue="0"/>
+				<KrField style={{width:262,marginLeft:25}}  name="boardroomnum" type="text" component="labelText"  label="会议室" value={changeValues.boardroomnum} inline={false} defaultValue="0"/>
 				<KrField style={{width:545,marginLeft:25}}  name="contractmark" component="textarea" label="备注" maxSize={200}/>
+				<KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
+				
 				</div>
 
 							<div className="end-round"></div>

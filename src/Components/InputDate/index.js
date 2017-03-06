@@ -200,7 +200,6 @@ export default class InputDate extends React.Component {
 		let {
 			openCalendar
 		} = this.state;
-
 		return (
 			<div className="ui-calendar" ref="calendar">
 					<div className="calendar-content"  onClick={this.openCalendarDialog} >

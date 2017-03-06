@@ -289,6 +289,9 @@ class NewCreateForm extends Component {
 		form.stationVos = JSON.stringify(stationVos);
 		form.contractVersionType = 'NEW';
 		form.totalrent = (this.state.allRent).toFixed(2);
+		if(!!!form.agreement){
+			form.agreement = '无';
+		}
 		if(form.totalrent == 0){
 			Notify.show([{
 				message: '服务费不能为零',

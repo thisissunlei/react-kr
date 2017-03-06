@@ -261,36 +261,46 @@ class NewCreateForm extends Component {
 
 	onSubmit(form) {
 		console.log("4444444");
-		// form = Object.assign({}, form);
+		form = Object.assign({}, form);
 
-		// let {
-		// 	changeValues
-		// } = this.props;
+		let {
+			changeValues
+		} = this.props;
 
-		// let {
-		// 	stationVos
-		// } = this.state;
+		let {
+			stationVos
+		} = this.state;
 
-		// if (!stationVos.length) {
-		// 	Notify.show([{
-		// 		message: '请选择工位',
-		// 		type: 'danger',
-		// 	}]);
-		// 	return;
-		// }
+		if (!stationVos.length) {
+			Notify.show([{
+				message: '请选择工位',
+				type: 'danger',
+			}]);
+			return;
+		}
 
-		// form.list = stationVos;
-		// form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
-		// form.lessorAddress = changeValues.lessorAddress;
+		form.list = stationVos;
+		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
+		form.lessorAddress = changeValues.lessorAddress;
 
-		// form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
-		// form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
 
 
-		// form.stationVos = stationVos;
-		// form.rentamount = (this.state.allRent).toFixed(2);
-		// form.stationVos = JSON.stringify(form.stationVos);
-		// form.contractVersionType = 'NEW';
+		form.stationVos = stationVos;
+		form.rentamount = (this.state.allRent).toFixed(2);
+		form.stationVos = JSON.stringify(form.stationVos);
+		form.contractVersionType = 'NEW';
+		if(!!!form.agreement){
+			form.agreement = '无';
+		}
+		if(form.rentamount == 0){
+			Notify.show([{
+				message: '服务费不能为零',
+				type: 'danger',
+			}]);
+			return;
+		}
 
 		const {
 			onSubmit
@@ -323,9 +333,8 @@ class NewCreateForm extends Component {
 		}
 		return name;
 	}
-
+	
 	render() {
-
 				let {
 					error,
 					handleSubmit,
@@ -368,7 +377,7 @@ class NewCreateForm extends Component {
 														<ButtonGroup>
 															<Button label="减租"  onTouchTap={this.openStationDialog} />
 															<Button label="删除" height={27} cancle={true} type="button"  onTouchTap={this.onStationDelete} />
-													  </ButtonGroup>
+													  	</ButtonGroup>
 													</Col>
 												</Row>
 											</Grid>
@@ -400,7 +409,7 @@ class NewCreateForm extends Component {
 												</Table>
 											</div>
 
-				                       		{stationVos.length >5 ? <div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}
+				                       		{stationVos.length > 5 ? <div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}
 					                     
 							            </DotTitle>
 							            <div style={{marginTop:'0px',marginBottom:25}}>减少费用总计：<span style={{marginRight:50,color:'red'}}>￥{allRent}</span><span>{allRentName}</span></div>
@@ -408,7 +417,7 @@ class NewCreateForm extends Component {
 					                </div>
 
 									<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">2</span><span className="wire"></span><label className="small-title">合同基本信息</label></div>
-										<div className="small-cheek" style={{paddingBottom:0}}>
+									<div className="small-cheek" style={{paddingBottom:0}}>
 										<KrField grid={1/2}  name="mainbillid" type="hidden" component="input" />
 										<KrField grid={1/2}  name="contractstate" type="hidden" component="input" />
 										<KrField grid={1/2}  name="contracttype" type="hidden" component="input" />
@@ -443,6 +452,8 @@ class NewCreateForm extends Component {
 										requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} />
 
 										<KrField  style={{width:545,marginLeft:25}} name="contractmark" component="textarea" label="备注" maxSize={200}/>
+										<KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
+
 									</div>
 
 									<div className="end-round"></div>

@@ -388,7 +388,9 @@ class NewCreateForm extends Component {
 		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
 		form.totalrent = this.state.allRent?this.state.allRent:initialValues.totalrent;
-
+		if(!!!form.agreement){
+			form.agreement = '无';
+		}
 		const {
 			onSubmit
 		} = this.props;
@@ -725,8 +727,9 @@ class NewCreateForm extends Component {
 				</KrField>
 				<KrField  name="templockday"  style={{width:262,marginLeft:25}} component="input" type="text" label="保留天数" requireLabel={true}
 				requiredValue={true} pattern={/^\d{0,3}$/} errors={{requiredValue:'保留天数为必填项',pattern:'请输入三位以内正整数'}} />
-				<KrField style={{width:545,marginLeft:25}}  name="contractmark" component="textarea" label="备注"
-				 maxSize={200} />
+				<KrField style={{width:545,marginLeft:25}}  name="contractmark" component="textarea" label="备注" maxSize={200} />
+				<KrField style={{width:545,marginLeft:25}}  name="agreement" type="textarea" component="textarea" label="双方其他约定内容" maxSize={200}/>
+				
 				</div>
 
 				<div className="end-round"></div>
