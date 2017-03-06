@@ -41,38 +41,17 @@ import Deletedialog from './Deletedialog';
 import Createdialog from './Createdialog';
 
 class SearchForm extends Component {
-	constructor(props) {
-		super(props);
+	constructor(props, context) {
+		super(props, context);
 
 	}
 
 
-	onSubmit(form) {
-		console.log('form', form)
-			/*let {
-				page,
-				pageSize,
-				communityids,
-				ids,
-				formValues,
-				istip
-			} = this.state
-
-			formValues = {
-				type: form.filter || 'BILL',
-				value: form.content,
-				communityids: communityids || 0,
-				page: page,
-				pageSize: pageSize
-
-			}
-
-			const {
-				onSubmit
-			} = this.props;
-			onSubmit && onSubmit(formValues, istip);*/
-
-
+	onSubmit = (form) => {
+		let {
+			onSubmit
+		} = this.props;
+		onSubmit && onSubmit(form);
 
 	}
 
@@ -100,10 +79,10 @@ class SearchForm extends Component {
 				value: 'name'
 			}, {
 				label: '类型',
-				value: 'MEMBER'
+				value: 'type'
 			}, {
 				label: '编码',
-				value: 'PHONE'
+				value: 'code'
 			},
 
 		];
@@ -184,6 +163,31 @@ class Operations extends Component {
 	onCreatSubmit = () => {
 		this.openCreateDialog();
 	}
+	onSearch = (form) => {
+		var searchParams = {}
+		if (form.filter == "name") {
+			searchParams = {
+				name: form.content
+			}
+		} else if (form.filter == "code") {
+			searchParams = {
+				code: form.content
+			}
+		} else if (form.filter == 'type') {
+			var content;
+			if (form.content == '菜单') {
+				content = 'MENU'
+			} else if (form.content == '操作') {
+				content = 'OPERATION'
+			}
+			searchParams = {
+				type: content
+			}
+		}
+		this.setState({
+			searchParams: searchParams
+		});
+	}
 
 
 	render() {
@@ -193,7 +197,7 @@ class Operations extends Component {
 		return (
 			<div className="g-operation">
 				<Section title="操作项" >
-					<SearchForm onCreate={this.openCreateDialog} /> {/*onSubmit={this.onSubmit} Ids={communityids} onChange={this.onChange} onFilter={this.onFilter}*/}
+					<SearchForm onCreate={this.openCreateDialog} onSubmit={this.onSearch} /> 
 	        		<Table
 							style={{marginTop:10}}
 							displayCheckbox={false}

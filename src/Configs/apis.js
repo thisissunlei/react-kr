@@ -830,7 +830,7 @@ const APIS = {
   },
   //权限系统-权限项-获取列表数据
   'findPage': {
-    url: '/api/krspace-sso-web/sso/resource/findPage?page={page}&pageSize={pageSize}',
+    url: '/api/krspace-sso-web/sso/resource/findPage?page={page}&pageSize={pageSize}&code={code}&name={name}&type={type}',
     method: 'get'
   },
   //权限--登录
