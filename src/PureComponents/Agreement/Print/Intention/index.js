@@ -34,6 +34,7 @@ export default class Intention extends Component {
 							<span className="border-b two-text"></span>
 							<span className="border-b three-text"></span>
 							<span className="border-b four-text"></span>
+							<span className="border-b five-text"></span>
 						</div>
 
 			</div>
