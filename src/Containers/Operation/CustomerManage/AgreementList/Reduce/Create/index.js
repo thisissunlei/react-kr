@@ -34,10 +34,10 @@ export default class JoinCreate extends Component {
      }
 
 	getChildContext() {
-		    return {
-		        params: this.props.params
-		      }
-		    }
+    	return {
+        	params: this.props.params
+      	}
+    }
 
 	constructor(props, context) {
 		super(props, context);
