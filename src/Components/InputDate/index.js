@@ -57,11 +57,11 @@ export default class InputDate extends React.Component {
 
 	setDefaultValue = (value) => {
 
-		if (typeof value === 'undefined' || !value) {
+		if (!value) {
 			this.setState({
 				value: ''
 			});
-			return '';
+			return ;
 		}
 
 		if (!isNaN(value)) {

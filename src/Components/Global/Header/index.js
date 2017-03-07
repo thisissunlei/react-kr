@@ -13,7 +13,6 @@ import {
 } from 'kr-ui';
 
 
-
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 import './index.less';
